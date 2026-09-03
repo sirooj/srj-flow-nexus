@@ -1,0 +1,121 @@
+SRJ CENSUS REPORT
+ITEM: G10   Census and call sites for OnInit
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (17)
+  line 30   ## FILE SRJ_FlowNexus_EA.mq5
+  line 40   ## FILE SRJ_FlowLogic.mq5
+  line 46   ## FILE SRJ_Alerts.mqh
+  line 51   ## FILE SRJ_BiasEngine.mqh
+  line 56   ## FILE SRJ_Draw.mqh
+  line 61   ## FILE SRJ_Fractals.mqh
+  line 66   ## FILE SRJ_HTFEngine.mqh
+  line 71   ## FILE SRJ_ImbalanceMgr.mqh
+  line 76   ## FILE SRJ_OrderblockMgr.mqh
+  line 81   ## FILE SRJ_Panels.mqh
+  line 86   ## FILE SRJ_SeedFormat.mqh
+  line 91   ## FILE SRJ_Sessions.mqh
+  line 96   ## FILE SRJ_State.mqh
+  line 101   ## FILE SRJ_Text.mqh
+  line 106   ## FILE SRJ_TickCore.mqh
+  line 114   ## FILE SRJ_Types.mqh
+  line 119   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC OnInit: 3
+N_LINES, single per-file count of distinct matching lines: 3
+SRJ_FlowNexus_EA.mq5 3058: //====================== OnInit =========================================
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 3059: int OnInit()
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 3119:      { Print("[SRJ-EA] OnInit FAILED: one or more iCustom handles are invalid."); return INIT_FAILED; }
+  CLASSIFICATION: OTHER
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC OnInit: 1
+N_LINES, single per-file count of distinct matching lines: 1
+SRJ_FlowLogic.mq5 563: int OnInit()
+  CLASSIFICATION: DEFINITION HEADER
+
+## FILE SRJ_Alerts.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC OnInit: 2
+N_LINES, single per-file count of distinct matching lines: 2
+SRJ_TickCore.mqh 101: //  Shared configuration. The host writes these once in OnInit.
+  CLASSIFICATION: OTHER
+SRJ_TickCore.mqh 121: ENUM_USABLE_MODE  gtc_usableMode     = USABLE_FLAGS;   // hosts set this in OnInit
+  CLASSIFICATION: OTHER
+
+## FILE SRJ_Types.mqh
+N_OCC OnInit: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## TOTALS
+DEFINITION HEADER LINES: 0
+CALL SITES: 0

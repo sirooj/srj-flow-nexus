@@ -1,0 +1,579 @@
+SRJ CENSUS REPORT
+ITEM: G8   Census and call sites for GoAbort
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (30)
+  line 43   ## FILE SRJ_FlowNexus_EA.mq5
+  line 89   ## FILE SRJ_FlowLogic.mq5
+  line 94   ## FILE SRJ_Alerts.mqh
+  line 99   ## FILE SRJ_BiasEngine.mqh
+  line 104   ## FILE SRJ_Draw.mqh
+  line 109   ## FILE SRJ_Fractals.mqh
+  line 114   ## FILE SRJ_HTFEngine.mqh
+  line 119   ## FILE SRJ_ImbalanceMgr.mqh
+  line 124   ## FILE SRJ_OrderblockMgr.mqh
+  line 129   ## FILE SRJ_Panels.mqh
+  line 134   ## FILE SRJ_SeedFormat.mqh
+  line 139   ## FILE SRJ_Sessions.mqh
+  line 144   ## FILE SRJ_State.mqh
+  line 149   ## FILE SRJ_Text.mqh
+  line 154   ## FILE SRJ_TickCore.mqh
+  line 159   ## FILE SRJ_Types.mqh
+  line 164   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1426
+  line 193   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1741
+  line 222   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1792
+  line 251   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1840
+  line 286   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1934
+  line 315   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1946
+  line 350   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2243
+  line 379   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2256
+  line 408   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2894
+  line 443   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2904
+  line 478   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2917
+  line 513   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2976
+  line 542   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2993
+  line 577   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC GoAbort: 21
+N_LINES, single per-file count of distinct matching lines: 21
+SRJ_FlowNexus_EA.mq5 1109: void GoAbort(const string reason, ENUM_SRJ_STATE atState)
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 1426:       if(g_state != ST_IDLE) GoAbort(ABORT_UPSTREAM_UNREADY, g_state);
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 1731:        //--- S5.10 carve-out. Print only. The GoAbort below is UNCHANGED.
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1741:        GoAbort(ABORT_SESSION_CLOSED, g_state); return;
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 1792:         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 1840:          GoAbort(ABORT_LTF_MISALIGN, g_state);
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 1934:       if(fail != "") { GoAbort(fail, g_state); return; }
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 1946:          GoAbort(ABORT_NO_TP_TARGET, g_state); return;
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2000:             /* [Task 31 / Ruling 7a] ADVISORY. Was GoAbort(ABORT_TP_RR_FAIL). iClose is not an entry price before S5: measured 0.17 to 213.27 on one 7-bar sequence as slDist collapses, and every zone-derived alternative overstates by up to 20x. The hard 1R gate now lives only at S5, where the close IS the entry. S2POLL_RR_SHORTFALL above still logs every failure. */ ;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2104:    //--- the MOST AUTHORITATIVE matching line. So once GoAbort has cleared the
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2108:    //--- Ã¢Ëœâ€¦ THIS SITE DELIBERATELY DOES NOT RETURN AFTER GoAbort. Ã¢Ëœâ€¦ Every other
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2109:    //--- GoAbort call site returns; this one must fall through so the IDLE block
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2110:    //--- seeds the replacement on the SAME bar. GoAbort sets ST_ABORT and then
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2144:             /* [Task 91 / EA-105 / operator ruling Q3] REMOVED. Was GoAbort(ABORT_POI_REPLACED, g_state). Operator: "i will always execute the first one, the later higher POI does not get executed... if i have executed the first trade, i would not execute other trade even it's from higher hierarchy." Arrival order governs ACROSS TIME; anchor tier governs ONLY a same-bar tie between two completed candidates (EA-96), which MarkSessionUsed on the SIGNAL path already enforces. The across-time replacement reading of Part A Step 8 / D-3 / G-2 was a planner inference and is overturned. The POIREPLACE line above is RETAINED as a counterfactual census: it still prints on every bar this removal now lets pass, so the 16 firings measured on the Task 88 run stay countable. Threshold-free - nothing is added, one call is removed. */ ;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2243:         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2256:         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2894:          GoAbort(ABORT_NO_TP_TARGET, g_state); return;
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2904:          GoAbort(ABORT_NO_SL_REF, g_state); return;
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2917:          GoAbort(ABORT_TP_RR_FAIL, g_state);
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2976:         { GoAbort(ABORT_CONCURRENCY, g_state); return; }
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2993:            { GoAbort(ABORT_LOT_TOO_SMALL, g_state); return; }
+  CLASSIFICATION: CALL SITE
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC GoAbort: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1426
+SRJ_FlowNexus_EA.mq5 1426:       if(g_state != ST_IDLE) GoAbort(ABORT_UPSTREAM_UNREADY, g_state);
+ARGUMENT LIST TEXT: ABORT_UPSTREAM_UNREADY, g_state
+POSITIONAL ARGUMENT 1 | ABORT_UPSTREAM_UNREADY
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 8 | OPEN 1425 | CLOSE 1428 | DEPTH 2
+  BRACE LINE 1425:      {
+  HEADER 1424:    if(!UpstreamReady())
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1741
+SRJ_FlowNexus_EA.mq5 1741:        GoAbort(ABORT_SESSION_CLOSED, g_state); return;
+ARGUMENT LIST TEXT: ABORT_SESSION_CLOSED, g_state
+POSITIONAL ARGUMENT 1 | ABORT_SESSION_CLOSED
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 27 | OPEN 1728 | CLOSE 1742 | DEPTH 2
+  BRACE LINE 1728:       {
+  HEADER 1727:    if(g_state > ST_IDLE && g_state != ST_ABORT && !inWindow)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1792
+SRJ_FlowNexus_EA.mq5 1792:         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
+ARGUMENT LIST TEXT: ABORT_UPSTREAM_UNREADY, g_state
+POSITIONAL ARGUMENT 1 | ABORT_UPSTREAM_UNREADY
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 28 | OPEN 1789 | CLOSE 1843 | DEPTH 2
+  BRACE LINE 1789:      {
+  HEADER 1788:    if(g_state >= ST_S3_ZONE_WAIT && g_state <= ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1840
+SRJ_FlowNexus_EA.mq5 1840:          GoAbort(ABORT_LTF_MISALIGN, g_state);
+ARGUMENT LIST TEXT: ABORT_LTF_MISALIGN, g_state
+POSITIONAL ARGUMENT 1 | ABORT_LTF_MISALIGN
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 28 | OPEN 1789 | CLOSE 1843 | DEPTH 2
+  BRACE LINE 1789:      {
+  HEADER 1788:    if(g_state >= ST_S3_ZONE_WAIT && g_state <= ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 30 | OPEN 1794 | CLOSE 1842 | DEPTH 3
+  BRACE LINE 1794:         {
+  HEADER 1793:       if(!t79_aligned)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1934
+SRJ_FlowNexus_EA.mq5 1934:       if(fail != "") { GoAbort(fail, g_state); return; }
+ARGUMENT LIST TEXT: fail, g_state
+POSITIONAL ARGUMENT 1 | fail
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 32 | OPEN 1932 | CLOSE 1935 | DEPTH 2
+  BRACE LINE 1932:      {
+  HEADER 1931:    if(g_state >= ST_S4_ARMED && g_state <= ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1946
+SRJ_FlowNexus_EA.mq5 1946:          GoAbort(ABORT_NO_TP_TARGET, g_state); return;
+ARGUMENT LIST TEXT: ABORT_NO_TP_TARGET, g_state
+POSITIONAL ARGUMENT 1 | ABORT_NO_TP_TARGET
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 34 | OPEN 1938 | CLOSE 2003 | DEPTH 2
+  BRACE LINE 1938:      {
+  HEADER 1937:    if(g_state >= ST_S2_LTF_ALIGN && g_state <= ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 35 | OPEN 1942 | CLOSE 1947 | DEPTH 3
+  BRACE LINE 1942:         {
+  HEADER 1941:       if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2243
+SRJ_FlowNexus_EA.mq5 2243:         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
+ARGUMENT LIST TEXT: ABORT_UPSTREAM_UNREADY, g_state
+POSITIONAL ARGUMENT 1 | ABORT_UPSTREAM_UNREADY
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 51 | OPEN 2240 | CLOSE 2250 | DEPTH 2
+  BRACE LINE 2240:      {
+  HEADER 2239:    if(g_state == ST_S1_REGIME)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2256
+SRJ_FlowNexus_EA.mq5 2256:         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
+ARGUMENT LIST TEXT: ABORT_UPSTREAM_UNREADY, g_state
+POSITIONAL ARGUMENT 1 | ABORT_UPSTREAM_UNREADY
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 54 | OPEN 2253 | CLOSE 2262 | DEPTH 2
+  BRACE LINE 2253:      {
+  HEADER 2252:    if(g_state == ST_S2_LTF_ALIGN)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2894
+SRJ_FlowNexus_EA.mq5 2894:          GoAbort(ABORT_NO_TP_TARGET, g_state); return;
+ARGUMENT LIST TEXT: ABORT_NO_TP_TARGET, g_state
+POSITIONAL ARGUMENT 1 | ABORT_NO_TP_TARGET
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 98 | OPEN 2890 | CLOSE 2895 | DEPTH 3
+  BRACE LINE 2890:         {
+  HEADER 2889:       if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2904
+SRJ_FlowNexus_EA.mq5 2904:          GoAbort(ABORT_NO_SL_REF, g_state); return;
+ARGUMENT LIST TEXT: ABORT_NO_SL_REF, g_state
+POSITIONAL ARGUMENT 1 | ABORT_NO_SL_REF
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 99 | OPEN 2900 | CLOSE 2905 | DEPTH 3
+  BRACE LINE 2900:         {
+  HEADER 2899:       if(!ComputeSlReference(barShift, g_dir, slRef, slMode, "S5"))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2917
+SRJ_FlowNexus_EA.mq5 2917:          GoAbort(ABORT_TP_RR_FAIL, g_state);
+ARGUMENT LIST TEXT: ABORT_TP_RR_FAIL, g_state
+POSITIONAL ARGUMENT 1 | ABORT_TP_RR_FAIL
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 100 | OPEN 2912 | CLOSE 2919 | DEPTH 3
+  BRACE LINE 2912:         {
+  HEADER 2911:       if(!tpOk)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2976
+SRJ_FlowNexus_EA.mq5 2976:         { GoAbort(ABORT_CONCURRENCY, g_state); return; }
+ARGUMENT LIST TEXT: ABORT_CONCURRENCY, g_state
+POSITIONAL ARGUMENT 1 | ABORT_CONCURRENCY
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2993
+SRJ_FlowNexus_EA.mq5 2993:            { GoAbort(ABORT_LOT_TOO_SMALL, g_state); return; }
+ARGUMENT LIST TEXT: ABORT_LOT_TOO_SMALL, g_state
+POSITIONAL ARGUMENT 1 | ABORT_LOT_TOO_SMALL
+POSITIONAL ARGUMENT 2 | g_state
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 108 | OPEN 2985 | CLOSE 3040 | DEPTH 3
+  BRACE LINE 2985:         {
+  HEADER 2984:       if(slDistanceReal > 0 && tickSize > 0)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+DEFINITION HEADER LINES: 0
+CALL SITES: 13

@@ -1,0 +1,33 @@
+SRJ CENSUS REPORT
+ITEM: P6   Definition-header classification for ReadQualifyingZone
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (3)
+  line 16   ## CANDIDATES
+  line 23   ## FALLBACK
+  line 25   ## DEFINITION
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CANDIDATES
+PATTERN SUPPLIED AS A FULL IDENTIFIER: ReadQualifyingZone
+CANDIDATE SRJ_FlowNexus_EA.mq5 1156: bool ReadQualifyingZone(int barShift, double &zHiOut, double &zLoOut, bool &fromFvgOut)
+  PARAMETER-LIST CLOSING LINE: 1156
+  CLASSIFICATION: DEFINITION
+CANDIDATE COUNT: 1
+STATUS: DEFINITION AT COLUMN 0
+## FALLBACK
+FALLBACK REACHED: NO
+## DEFINITION
+DEFINITION: ReadQualifyingZone   FILE SRJ_FlowNexus_EA.mq5
+DEFINITION HEADER LINE:        1156
+PARAMETER-LIST CLOSING LINE:   1156
+OPENING BRACE LINE:            1157
+BRACE-COUNTED CLOSING LINE:    1184
+LINE COUNT (header..close):    29   SPAN: header line through closing brace line
+LINE COUNT (open..close):      28   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES

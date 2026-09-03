@@ -1,0 +1,28 @@
+SRJ CENSUS REPORT
+ITEM: F5   Positional correspondence, computed by position only
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2841
+  line 24   ## ZONE-RECEIVING PARAMETERS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2841
+ARGUMENT COUNT: 5
+PARAMETER COUNT: 5
+SRJ_FlowNexus_EA.mq5 2841 | ARG 1 | barShift | PARAMETER 1 | int barShift | barShift | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+SRJ_FlowNexus_EA.mq5 2841 | ARG 2 | g_zoneHi | PARAMETER 2 | double zHi | zHi | ARGUMENT TEXT IS EXACTLY "g_zoneHi": yes | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+SRJ_FlowNexus_EA.mq5 2841 | ARG 3 | g_zoneLo | PARAMETER 3 | double zLo | zLo | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": yes
+SRJ_FlowNexus_EA.mq5 2841 | ARG 4 | s52_shift | PARAMETER 4 | int &foundShiftOut | foundShiftOut | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+SRJ_FlowNexus_EA.mq5 2841 | ARG 5 | s52_legT | PARAMETER 5 | double &legTimeOut | legTimeOut | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+
+## ZONE-RECEIVING PARAMETERS
+2 | double zHi | BY VALUE
+3 | double zLo | BY VALUE
+ZONE-RECEIVING PARAMETER COUNT: 2
+POSITION COUNT MISMATCH RESULTS: 0

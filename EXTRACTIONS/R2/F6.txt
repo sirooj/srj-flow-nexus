@@ -1,0 +1,62 @@
+SRJ CENSUS REPORT
+ITEM: F6   Per-parameter use trace inside the region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## PARAMETER 2 zHi
+  line 39   ## PARAMETER 3 zLo
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PARAMETER 2 zHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 1288 through 1318
+PARAMETER: 2 | zHi | BY VALUE
+1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+1313:       bool touchesZone = (sh >= zLo && sl <= zHi);
+OCCURRENCE COUNT: 3
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+COMPARISON LINES: ABSENT
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1290 | CLOSE 1318 | DEPTH 1
+  BRACE LINE 1290:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+for/while/switch/do HEADERS CONTAINING THE NAME: ABSENT
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: false
+
+## PARAMETER 3 zLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 1288 through 1318
+PARAMETER: 3 | zLo | BY VALUE
+1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+1313:       bool touchesZone = (sh >= zLo && sl <= zHi);
+OCCURRENCE COUNT: 3
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+COMPARISON LINES: ABSENT
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1290 | CLOSE 1318 | DEPTH 1
+  BRACE LINE 1290:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+for/while/switch/do HEADERS CONTAINING THE NAME: ABSENT
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: false
+

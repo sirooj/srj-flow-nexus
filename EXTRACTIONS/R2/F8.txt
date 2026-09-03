@@ -1,0 +1,43 @@
+SRJ CENSUS REPORT
+ITEM: F8   Brace map
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## BRACE MAP
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## BRACE MAP
+DEFINITION HEADER LINE:        1288
+PARAMETER-LIST CLOSING LINE:   1289
+OPENING BRACE LINE:            1290
+BRACE-COUNTED CLOSING LINE:    1318
+LINE COUNT (header..close):    31   SPAN: header line through closing brace line
+LINE COUNT (open..close):      29   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+BRACE MAP, every "{" from the region's opening brace through its closing brace:
+  ENTRY 1 | OPEN 1290 | CLOSE 1318 | DEPTH 1
+  BRACE LINE 1290:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 2 | OPEN 1302 | CLOSE 1316 | DEPTH 2
+  BRACE LINE 1302:      {
+  HEADER 1301:    for(int s = barShift; s <= barShift + 500; s++)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: YES - for
+  CONTAINS-g_state: NO
+  ENTRY 3 | OPEN 1315 | CLOSE 1315 | DEPTH 3
+  BRACE LINE 1315:         { foundShiftOut = s; return true; }
+  HEADER 1314:       if(oppositeDir && touchesZone)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+BRACE MAP ENTRY COUNT: 3
+MAXIMUM DEPTH: 3
+EXCLUDED BRACE COUNT: 0
+EVERY CLOSE DERIVED BY BRACE COUNTING FROM ITS OWN "{": YES

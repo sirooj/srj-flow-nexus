@@ -1,0 +1,33 @@
+SRJ CENSUS REPORT
+ITEM: P8   Definition-header classification for ZoneAdoptable
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (3)
+  line 16   ## CANDIDATES
+  line 23   ## FALLBACK
+  line 25   ## DEFINITION
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CANDIDATES
+PATTERN SUPPLIED AS A FULL IDENTIFIER: ZoneAdoptable
+CANDIDATE SRJ_FlowNexus_EA.mq5 1211: bool ZoneAdoptable(int barShift, double zHi, double zLo)
+  PARAMETER-LIST CLOSING LINE: 1211
+  CLASSIFICATION: DEFINITION
+CANDIDATE COUNT: 1
+STATUS: DEFINITION AT COLUMN 0
+## FALLBACK
+FALLBACK REACHED: NO
+## DEFINITION
+DEFINITION: ZoneAdoptable   FILE SRJ_FlowNexus_EA.mq5
+DEFINITION HEADER LINE:        1211
+PARAMETER-LIST CLOSING LINE:   1211
+OPENING BRACE LINE:            1212
+BRACE-COUNTED CLOSING LINE:    1261
+LINE COUNT (header..close):    51   SPAN: header line through closing brace line
+LINE COUNT (open..close):      50   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES

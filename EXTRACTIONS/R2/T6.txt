@@ -1,0 +1,65 @@
+SRJ CENSUS REPORT
+ITEM: T6   Conditional lines with full stacks
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (4)
+  line 17   ## CONDITIONAL LINE 617
+  line 29   ## CONDITIONAL LINE 619
+  line 41   ## CONDITIONAL LINE 631
+  line 53   ## CONDITIONAL LINE 633
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CONDITIONAL LINE 617
+617:    if(v == EMPTY_VALUE || v <= 0.0) return;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+CONTAINS "g_zoneHi" not INCIDENTAL: no
+CONTAINS "g_zoneLo" not INCIDENTAL: no
+
+## CONDITIONAL LINE 619
+619:    if(!inDir) return;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+CONTAINS "g_zoneHi" not INCIDENTAL: no
+CONTAINS "g_zoneLo" not INCIDENTAL: no
+
+## CONDITIONAL LINE 631
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+CONTAINS "g_zoneHi" not INCIDENTAL: yes
+CONTAINS "g_zoneLo" not INCIDENTAL: yes
+
+## CONDITIONAL LINE 633
+633:    if(!haveBest || dist < MathAbs(best - currentPrice))
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+CONTAINS "g_zoneHi" not INCIDENTAL: no
+CONTAINS "g_zoneLo" not INCIDENTAL: no
+
+CONDITIONAL LINE COUNT: 4

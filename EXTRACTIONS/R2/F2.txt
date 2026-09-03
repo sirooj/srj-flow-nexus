@@ -1,0 +1,58 @@
+SRJ CENSUS REPORT
+ITEM: F2   Region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## LINE COUNT FIRST
+  line 25   ## PASTE
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## LINE COUNT FIRST
+DEFINITION HEADER LINE:        1288
+PARAMETER-LIST CLOSING LINE:   1289
+OPENING BRACE LINE:            1290
+BRACE-COUNTED CLOSING LINE:    1318
+LINE COUNT (header..close):    31   SPAN: header line through closing brace line
+LINE COUNT (open..close):      29   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+WHOLE - line count 31 is at most 140
+PASTE RANGE: 1288 through 1318 inclusive, header through closing brace
+## PASTE
+1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+1289:                   int &foundShiftOut, double &legTimeOut)
+1290:   {
+1291:    foundShiftOut = -1;
+1292:    legTimeOut    = 0.0;
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+1294: 
+1295:    double legT;
+1296:    if(ReadFlow(FL_BUF_STRUCT_LEG_TIME, legT, barShift) &&
+1297:       legT > 0.0 && legT != EMPTY_VALUE)
+1298:       legTimeOut = legT;
+1299:    datetime legBoundary = (legTimeOut > 0.0) ? (datetime)legTimeOut : 0;
+1300: 
+1301:    for(int s = barShift; s <= barShift + 500; s++)
+1302:      {
+1303:       datetime bt = iTime(_Symbol, PERIOD_CURRENT, s);
+1304:       if(bt <= 0)                              break;
+1305:       if(legBoundary > 0 && bt < legBoundary)   break;
+1306: 
+1307:       double so = iOpen (_Symbol, PERIOD_CURRENT, s);
+1308:       double sh = iHigh (_Symbol, PERIOD_CURRENT, s);
+1309:       double sl = iLow  (_Symbol, PERIOD_CURRENT, s);
+1310:       double sc = iClose(_Symbol, PERIOD_CURRENT, s);
+1311: 
+1312:       bool oppositeDir = (g_dir == DIR_LONG) ? (sc < so) : (sc > so);
+1313:       bool touchesZone = (sh >= zLo && sl <= zHi);
+1314:       if(oppositeDir && touchesZone)
+1315:         { foundShiftOut = s; return true; }
+1316:      }
+1317:    return false;
+1318:   }
+PASTED LINE COUNT: 31
+REPORTED RANGE LINE COUNT: 31

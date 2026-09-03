@@ -1,0 +1,591 @@
+===== BEGIN G1.txt =====
+SRJ CENSUS REPORT
+ITEM: G1   Definition-header classification for ResetSequence
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (3)
+  line 16   ## CANDIDATES
+  line 23   ## FALLBACK
+  line 25   ## DEFINITION
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CANDIDATES
+PATTERN SUPPLIED AS A FULL IDENTIFIER: ResetSequence
+CANDIDATE SRJ_FlowNexus_EA.mq5 1090: void ResetSequence()
+  PARAMETER-LIST CLOSING LINE: 1090
+  CLASSIFICATION: DEFINITION
+CANDIDATE COUNT: 1
+STATUS: DEFINITION AT COLUMN 0
+## FALLBACK
+FALLBACK REACHED: NO
+## DEFINITION
+DEFINITION: ResetSequence   FILE SRJ_FlowNexus_EA.mq5
+DEFINITION HEADER LINE:        1090
+PARAMETER-LIST CLOSING LINE:   1090
+OPENING BRACE LINE:            1091
+BRACE-COUNTED CLOSING LINE:    1107
+LINE COUNT (header..close):    18   SPAN: header line through closing brace line
+LINE COUNT (open..close):      17   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+===== END G1.txt =====
+
+===== BEGIN G2.txt =====
+SRJ CENSUS REPORT
+ITEM: G2   Census and call sites for ResetSequence
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (21)
+  line 34   ## FILE SRJ_FlowNexus_EA.mq5
+  line 56   ## FILE SRJ_FlowLogic.mq5
+  line 61   ## FILE SRJ_Alerts.mqh
+  line 66   ## FILE SRJ_BiasEngine.mqh
+  line 71   ## FILE SRJ_Draw.mqh
+  line 76   ## FILE SRJ_Fractals.mqh
+  line 81   ## FILE SRJ_HTFEngine.mqh
+  line 86   ## FILE SRJ_ImbalanceMgr.mqh
+  line 91   ## FILE SRJ_OrderblockMgr.mqh
+  line 96   ## FILE SRJ_Panels.mqh
+  line 101   ## FILE SRJ_SeedFormat.mqh
+  line 106   ## FILE SRJ_Sessions.mqh
+  line 111   ## FILE SRJ_State.mqh
+  line 116   ## FILE SRJ_Text.mqh
+  line 121   ## FILE SRJ_TickCore.mqh
+  line 126   ## FILE SRJ_Types.mqh
+  line 131   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1135
+  line 153   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2968
+  line 186   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3054
+  line 213   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3120
+  line 235   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC ResetSequence: 9
+N_LINES, single per-file count of distinct matching lines: 9
+SRJ_FlowNexus_EA.mq5 178: //--- 0.0 means no touch recorded. Cleared in ResetSequence().
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 188: //--- TASK 14b: per-sequence alert latches. Cleared in ResetSequence().
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1090: void ResetSequence()
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 1118:    //--- TASK 15: shadow record. Must fire BEFORE ResetSequence()
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1135:    ResetSequence();
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2111:    //--- calls ResetSequence, leaving g_state == ST_IDLE, which is exactly the
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2968:          ResetSequence();
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 3054:       ResetSequence();
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 3120:    ResetSequence();
+  CLASSIFICATION: CALL SITE
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1135
+SRJ_FlowNexus_EA.mq5 1135:    ResetSequence();
+ARGUMENT LIST TEXT: 
+ARGUMENT COUNT 0
+ENCLOSING FUNCTION: GoAbort
+DEFINITION HEADER LINE:        1109
+PARAMETER-LIST CLOSING LINE:   1109
+OPENING BRACE LINE:            1110
+BRACE-COUNTED CLOSING LINE:    1136
+LINE COUNT (header..close):    28   SPAN: header line through closing brace line
+LINE COUNT (open..close):      27   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1110 | CLOSE 1136 | DEPTH 1
+  BRACE LINE 1110:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2968
+SRJ_FlowNexus_EA.mq5 2968:          ResetSequence();
+ARGUMENT LIST TEXT: 
+ARGUMENT COUNT 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 106 | OPEN 2961 | CLOSE 2970 | DEPTH 3
+  BRACE LINE 2961:         {
+  HEADER 2960:       if(InpMode == MODE_ALERT_ONLY)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3054
+SRJ_FlowNexus_EA.mq5 3054:       ResetSequence();
+ARGUMENT LIST TEXT: 
+ARGUMENT COUNT 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3120
+SRJ_FlowNexus_EA.mq5 3120:    ResetSequence();
+ARGUMENT LIST TEXT: 
+ARGUMENT COUNT 0
+ENCLOSING FUNCTION: OnInit
+DEFINITION HEADER LINE:        3059
+PARAMETER-LIST CLOSING LINE:   3059
+OPENING BRACE LINE:            3060
+BRACE-COUNTED CLOSING LINE:    3123
+LINE COUNT (header..close):    65   SPAN: header line through closing brace line
+LINE COUNT (open..close):      64   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 3060 | CLOSE 3123 | DEPTH 1
+  BRACE LINE 3060:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+DEFINITION HEADER LINES: 1
+CALL SITES: 4
+===== END G2.txt =====
+
+===== BEGIN P1.txt =====
+SRJ CENSUS REPORT
+ITEM: P1   Definition-header classification for EvaluateClosedBar
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (3)
+  line 16   ## CANDIDATES
+  line 23   ## FALLBACK
+  line 25   ## DEFINITION
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CANDIDATES
+PATTERN SUPPLIED AS A FULL IDENTIFIER: EvaluateClosedBar
+CANDIDATE SRJ_FlowNexus_EA.mq5 1363: void EvaluateClosedBar(int barShift, datetime barTime)
+  PARAMETER-LIST CLOSING LINE: 1363
+  CLASSIFICATION: DEFINITION
+CANDIDATE COUNT: 1
+STATUS: DEFINITION AT COLUMN 0
+## FALLBACK
+FALLBACK REACHED: NO
+## DEFINITION
+DEFINITION: EvaluateClosedBar   FILE SRJ_FlowNexus_EA.mq5
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+===== END P1.txt =====
+
+===== BEGIN STASIS.txt =====
+SRJ CENSUS - FILE-LEVEL STASIS METADATA
+TOOL: srjcensus 1.0.0
+This section is stasis metadata. It is not an item answer.
+NO ITEM ANSWER WAS ADJUSTED FROM ANY VALUE IN THIS SECTION.
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Experts\SRJ_FlowNexus_EA.mq5
+  LINES: 3202
+  BYTES: 162293
+  MTIME: 2026-08-29 04:50:00
+  ENCODING DETECTED: utf-8-sig
+  SHA256: 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Indicators\SRJ_FlowLogic.mq5
+  LINES: 1180
+  BYTES: 54078
+  MTIME: 2026-08-28 13:04:20
+  ENCODING DETECTED: utf-8
+  SHA256: D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Alerts.mqh
+  LINES: 50
+  BYTES: 1500
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: A9C9C2EF9E53253D4A1B31DE73FB23028D326922D6A655123128F19061EBCDEC
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_BiasEngine.mqh
+  LINES: 386
+  BYTES: 15397
+  MTIME: 2026-08-22 14:00:21
+  ENCODING DETECTED: utf-8
+  SHA256: 384A25BAD6F92CDADD62F6D297B71B7A0AFC809C7A50BBD4FAC532C85B7AD89E
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Draw.mqh
+  LINES: 333
+  BYTES: 12180
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: FD2B3716D319E34FE904FD593EE8E4AD80479349667150FB5D08F24CF496183E
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Fractals.mqh
+  LINES: 205
+  BYTES: 6587
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: E4B99DA55AB278853C6D8FA9BC8FAC599306D01E6E5B14AB64682E3F04473597
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_HTFEngine.mqh
+  LINES: 579
+  BYTES: 21142
+  MTIME: 2026-08-08 22:16:12
+  ENCODING DETECTED: utf-8
+  SHA256: D0B0641278B5885B726B6FDF2797F4A7F4737BCB48C82BF83350CE04DF76CE26
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_ImbalanceMgr.mqh
+  LINES: 532
+  BYTES: 22461
+  MTIME: 2026-08-22 14:00:55
+  ENCODING DETECTED: utf-8
+  SHA256: 87886CD42E38ED6592DC798CA17A1EBB889B5F4521F389D5FD837FCAA2D482B6
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_OrderblockMgr.mqh
+  LINES: 1104
+  BYTES: 45974
+  MTIME: 2026-08-26 21:25:17
+  ENCODING DETECTED: utf-8
+  SHA256: 9DCD8D8DB57089E525A5ED1CCFE4BA6B4C4B1D63E72D6868CD101E1B4DA5F27D
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Panels.mqh
+  LINES: 439
+  BYTES: 16074
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: 199AD6B104CCE28A30AA610A632C1FFFA42F1D529280E24C33519B81C700C736
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_SeedFormat.mqh
+  LINES: 694
+  BYTES: 28756
+  MTIME: 2026-08-18 16:38:10
+  ENCODING DETECTED: utf-8
+  SHA256: D94B49225F3110C31D5CD66F4FC679721FA5E9A04B8EAFCC6C7DBA6F2DB4EED4
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Sessions.mqh
+  LINES: 582
+  BYTES: 23431
+  MTIME: 2026-08-21 22:37:49
+  ENCODING DETECTED: utf-8
+  SHA256: A0C8542A4F25DAB78D2A7FBBC8CB4EDDEF87643164CB5038FFBBEC27040B0886
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_State.mqh
+  LINES: 501
+  BYTES: 17139
+  MTIME: 2026-08-26 13:07:16
+  ENCODING DETECTED: utf-8
+  SHA256: 85B2635627B0E217D233AFCEA191F9CAB766F309EEA464080248BE13422D02D8
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Text.mqh
+  LINES: 174
+  BYTES: 5601
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: 2825D071778E624E4B5837B05954582C215D439441D44CD57B6F4D11AC0E3455
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_TickCore.mqh
+  LINES: 984
+  BYTES: 36057
+  MTIME: 2026-08-10 14:18:28
+  ENCODING DETECTED: utf-8
+  SHA256: 89730C6CADFA86F4DA7E09877D282BDB1741BD623678CCFB73E7A77D49FEA27C
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Types.mqh
+  LINES: 355
+  BYTES: 13612
+  MTIME: 2026-08-26 21:20:21
+  ENCODING DETECTED: utf-8
+  SHA256: 773D99444B958B98CE3AECA87690F40B743A5F6A71E47BA9E644D751808E78DC
+
+HASH GATE
+  EA .mq5 SUPPLIED: 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322
+  EA .mq5 PRE-RUN : 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+  EA .mq5 POST-RUN: 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+  FlowLogic .mq5 SUPPLIED: D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5
+  FlowLogic .mq5 PRE-RUN : D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+  FlowLogic .mq5 POST-RUN: D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+
+DISAGREEMENTS: none
+===== END STASIS.txt =====
+
+===== BEGIN RECEIPT.txt =====
+TASK 160-PreJ-R3 RECEIPT
+  STATUS: PARTIAL
+  LIBRARY: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py SHA256 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 vs PINNED 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 -> MATCH
+  SELFTEST: not run in this invocation
+  JOB SPEC: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\jobs\R3.json SHA256 BBE54C9D970C4A000C933EED81D4FA2240343B9ACFC9C762F8063E5BAC2530D4
+  SPEC VERSION: R2.1
+  EXIT CODE: 1
+  STDERR: see FAILURES below
+
+  HASH GATE
+    EA .mq5 PRE  0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    EA .mq5 POST 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    FL .mq5 PRE  D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+    FL .mq5 POST D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+
+  WRITE AUDIT
+    files written under output directory : 4
+    files written anywhere else          : 0
+    source files read                    : 16
+
+  OUTPUT FILES
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R3\G1.txt | 33 lines | 1223 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R3\G2.txt | 237 lines | 8362 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R3\P1.txt | 33 lines | 1273 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R3\STASIS.txt | 126 lines | 5324 bytes
+
+  ITEM COMPLETION
+    legend: COMPLETE = item emitted at least one pasted source line;
+            EMPTY-RESULT = item ran and pasted nothing, which is a result;
+            NOT-RUN = item raised, see FAILURES
+    G1 | COMPLETE
+    G2 | COMPLETE
+    G3 | NOT-RUN
+    G4 | NOT-RUN
+    P1 | COMPLETE
+    P2 | NOT-RUN
+    P3 | NOT-RUN
+    P4 | NOT-RUN
+    P5 | NOT-RUN
+    S1 | NOT-RUN
+    S2 | NOT-RUN
+    S3 | NOT-RUN
+    S4 | NOT-RUN
+    X1 | NOT-RUN
+
+  INVARIANTS
+    brace_balance_zero_at_every_region_close | PASS
+    paste_line_count_equals_reported_count | PASS
+    n_lines_equals_distinct_paste_count | PASS
+    every_brace_map_close_derived_by_counting | PASS
+    every_stack_entry_has_open_and_close | PASS
+    no_argument_list_unterminated | PASS
+    no_closing_brace_reported_as_declaration | PASS
+    span_labelled_for_every_region_line_count | PASS
+
+  CONFIRMATION FIELDS, aggregates and item names only
+    brace counting used: YES | bounds carried by G1, P1
+    brace-map rule used: YES | maps: 0
+    enclosing-construct rule used: YES | full stacks delivered: 4
+    no-abbreviation on derived output: YES | stacks repeated in full that were identical to another stack: 0
+    argument-split rule used: YES | call sites split: 4 | POSITION COUNT MISMATCH results: 0
+    multi-line call rule used: YES | argument lists continuing onto a following line: 0 | no answer reported as UNTERMINATED: confirmed
+    paste sizing
+    census-pattern provenance: YES | INCIDENTAL-ONLY results: 0
+    previous-output independence: every line number, bound, declaration line, count and classification in every output file was computed in this run from file text only; no prior figure was read, quoted or reconciled against
+
+  COUNTS ONLY - no line numbers, no text, no verdicts
+    W: zone assignment-target lines 0, in-function 0, file-scope 0,
+       stacks emitted 0, stacks with a g_state header entry 0,
+       stacks with a loop/switch entry 0, RHS identifiers 0
+    F: FindLegTouch definitions 0, call sites 0,
+       position-count mismatches 0, zone-receiving parameters 0,
+       assignment targets on those parameters 0
+    T: TpTargetUpdateBest definitions 0, call sites 0,
+       conditionals 0, zone-occurrence lines 0,
+       of those classified COMPARISON 0, COMMENT 0, STRING-LITERAL 0,
+       CONTAINS-EQUALS-NOT-TARGET 0, OTHER 0, ASSIGNMENT-TARGET 0
+       classes are not mutually exclusive; a line may be counted in more than one class
+
+  UNEXPECTED: none
+
+  FAILURES
+    G3: UNKNOWN OP guard_probe
+    G4: UNKNOWN OP one_level_up
+    P2
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1559, in item_statement_inventory
+        pst = ctx.results[it["paste_item"]]
+                          ~~^^^^^^^^^^^^^^
+    KeyError: 'paste_item'
+    
+    P3
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1314, in item_parameters
+        reg = ctx.results[it["source_item"]]
+                          ~~^^^^^^^^^^^^^^^
+    KeyError: 'source_item'
+    
+    P4
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1343, in item_census_name_calls
+        name = it["name"]
+               ~~^^^^^^^^
+    KeyError: 'name'
+    
+    P5: UNKNOWN OP call_names
+    S1: UNKNOWN OP census_occ
+    S2
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1057, in item_classify_scope
+        src_recs = ctx.results[it["source_item"]]
+                   ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    KeyError: 'S1'
+    
+    S3
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1106, in item_stacks_per_line
+        recs = [r for r in ctx.results[it["source_item"]] if r["kind"] == "IN-FUNCTION"]
+                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    KeyError: 'S2'
+    
+    S4: UNKNOWN OP aggregate
+    X1
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1657, in item_conditional_stacks
+        inv0 = ctx.results[it["paste_item"]]
+                           ~~^^^^^^^^^^^^^^
+    KeyError: 'paste_item'
+    
+END RECEIPT
+===== END RECEIPT.txt =====

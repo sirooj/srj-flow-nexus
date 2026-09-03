@@ -1,0 +1,90 @@
+SRJ CENSUS REPORT
+ITEM: F7   Statement inventory inside the region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (12)
+  line 25   ## PASTE SEARCHED
+  line 27   ## RETURN STATEMENTS
+  line 39   ## LOOP AND SWITCH HEADERS
+  line 47   ## ASSIGNMENT-TARGET LINES
+  line 75   ## PATTERN g_zoneHi
+  line 77   ## PATTERN g_zoneLo
+  line 79   ## PATTERN g_touchSeen
+  line 81   ## PATTERN _Point
+  line 83   ## PATTERN g_orderblocks
+  line 85   ## PATTERN g_imbalances
+  line 87   ## PATTERN objId
+  line 89   ## PATTERN Print
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PASTE SEARCHED
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 1288 through 1318, produced by item F2
+## RETURN STATEMENTS
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: false
+1315:         { foundShiftOut = s; return true; }
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: true
+1317:    return false;
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: false
+RETURN STATEMENT COUNT: 3
+RAW SUBSTRING-HIT COUNT, DIAGNOSTIC ONLY: 3
+## LOOP AND SWITCH HEADERS
+1301:    for(int s = barShift; s <= barShift + 500; s++)
+  HEADER KEYWORD: for
+WHOLE-TOKEN RESULT COUNT: 1
+RAW SUBSTRING COUNT FOR for, DIAGNOSTIC ONLY: 1
+RAW SUBSTRING COUNT FOR while, DIAGNOSTIC ONLY: 0
+RAW SUBSTRING COUNT FOR switch, DIAGNOSTIC ONLY: 0
+RAW SUBSTRING COUNT FOR do, DIAGNOSTIC ONLY: 8
+## ASSIGNMENT-TARGET LINES
+1291:    foundShiftOut = -1;
+  ASSIGNS-TO foundShiftOut | RHS  -1
+1292:    legTimeOut    = 0.0;
+  ASSIGNS-TO legTimeOut | RHS  0.0
+1298:       legTimeOut = legT;
+  ASSIGNS-TO legTimeOut | RHS  legT
+1299:    datetime legBoundary = (legTimeOut > 0.0) ? (datetime)legTimeOut : 0;
+  ASSIGNS-TO legBoundary | RHS  (legTimeOut > 0.0) ? (datetime)legTimeOut : 0
+1301:    for(int s = barShift; s <= barShift + 500; s++)
+  ASSIGNS-TO s | RHS  barShift
+1303:       datetime bt = iTime(_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO bt | RHS  iTime(_Symbol, PERIOD_CURRENT, s)
+1307:       double so = iOpen (_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO so | RHS  iOpen (_Symbol, PERIOD_CURRENT, s)
+1308:       double sh = iHigh (_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO sh | RHS  iHigh (_Symbol, PERIOD_CURRENT, s)
+1309:       double sl = iLow  (_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO sl | RHS  iLow  (_Symbol, PERIOD_CURRENT, s)
+1310:       double sc = iClose(_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO sc | RHS  iClose(_Symbol, PERIOD_CURRENT, s)
+1312:       bool oppositeDir = (g_dir == DIR_LONG) ? (sc < so) : (sc > so);
+  ASSIGNS-TO oppositeDir | RHS  (g_dir == DIR_LONG) ? (sc < so) : (sc > so)
+1313:       bool touchesZone = (sh >= zLo && sl <= zHi);
+  ASSIGNS-TO touchesZone | RHS  (sh >= zLo && sl <= zHi)
+1315:         { foundShiftOut = s; return true; }
+  ASSIGNS-TO foundShiftOut | RHS  s
+ASSIGNMENT-TARGET RECORD COUNT: 13
+## PATTERN g_zoneHi
+ABSENT
+## PATTERN g_zoneLo
+ABSENT
+## PATTERN g_touchSeen
+ABSENT
+## PATTERN _Point
+ABSENT
+## PATTERN g_orderblocks
+ABSENT
+## PATTERN g_imbalances
+ABSENT
+## PATTERN objId
+ABSENT
+## PATTERN Print
+ABSENT

@@ -1,0 +1,23 @@
+SRJ CENSUS REPORT
+ITEM: F3   Parameter table
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## PARAMETERS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PARAMETERS
+PARAMETER LIST SPANS MORE THAN ONE LINE. Every line pasted below.
+1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+1289:                   int &foundShiftOut, double &legTimeOut)
+1 | int barShift | BY VALUE | CONTAINS-ASTERISK: no | barShift
+2 | double zHi | BY VALUE | CONTAINS-ASTERISK: no | zHi
+3 | double zLo | BY VALUE | CONTAINS-ASTERISK: no | zLo
+4 | int &foundShiftOut | BY REFERENCE | CONTAINS-ASTERISK: no | foundShiftOut
+5 | double &legTimeOut | BY REFERENCE | CONTAINS-ASTERISK: no | legTimeOut
+PARAMETER COUNT: 5

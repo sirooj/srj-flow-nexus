@@ -1,0 +1,108 @@
+TASK 160-PreJ-R2 RECEIPT
+  STATUS: COMPLETED
+  LIBRARY: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py SHA256 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 vs PINNED 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 -> MATCH
+  SELFTEST: not run in this invocation
+  JOB SPEC: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\jobs\R2.json SHA256 46E0CEC32F3E1AE6A73572F72353AC0F8618BED1482A469030AAF3AAE0F74BA0
+  SPEC VERSION: R2.1
+  EXIT CODE: 0
+  STDERR: none
+
+  HASH GATE
+    EA .mq5 PRE  0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    EA .mq5 POST 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    FL .mq5 PRE  D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+    FL .mq5 POST D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+
+  WRITE AUDIT
+    files written under output directory : 21
+    files written anywhere else          : 0
+    source files read                    : 16
+
+  OUTPUT FILES
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\W1.txt | 193 lines | 6982 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\W2.txt | 122 lines | 5281 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\W3.txt | 155 lines | 6444 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\W4.txt | 141 lines | 4968 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F1.txt | 33 lines | 1255 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F2.txt | 58 lines | 2293 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F3.txt | 23 lines | 1002 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F4.txt | 151 lines | 4995 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F5.txt | 28 lines | 1642 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F6.txt | 62 lines | 2371 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F7.txt | 90 lines | 3340 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F8.txt | 43 lines | 1677 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T1.txt | 33 lines | 1284 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T2.txt | 49 lines | 2331 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T3.txt | 37 lines | 1441 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T4.txt | 23 lines | 1006 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T5.txt | 78 lines | 2626 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T6.txt | 65 lines | 2346 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T7.txt | 55 lines | 1998 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T8.txt | 185 lines | 6430 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\STASIS.txt | 126 lines | 5324 bytes
+
+  ITEM COMPLETION
+    legend: COMPLETE = item emitted at least one pasted source line;
+            EMPTY-RESULT = item ran and pasted nothing, which is a result;
+            NOT-RUN = item raised, see FAILURES
+    W1 | COMPLETE
+    W2 | COMPLETE
+    W3 | COMPLETE
+    W4 | COMPLETE
+    F1 | COMPLETE
+    F2 | COMPLETE
+    F3 | COMPLETE
+    F4 | COMPLETE
+    F5 | EMPTY-RESULT
+    F6 | COMPLETE
+    F7 | COMPLETE
+    F8 | COMPLETE
+    T1 | COMPLETE
+    T2 | COMPLETE
+    T3 | COMPLETE
+    T4 | COMPLETE
+    T5 | COMPLETE
+    T6 | COMPLETE
+    T7 | COMPLETE
+    T8 | COMPLETE
+
+  INVARIANTS
+    brace_balance_zero_at_every_region_close | PASS
+    paste_line_count_equals_reported_count | PASS
+    n_lines_equals_distinct_paste_count | PASS
+    every_brace_map_close_derived_by_counting | PASS
+    every_stack_entry_has_open_and_close | PASS
+    no_argument_list_unterminated | PASS
+    no_closing_brace_reported_as_declaration | PASS
+    span_labelled_for_every_region_line_count | PASS
+
+  CONFIRMATION FIELDS, aggregates and item names only
+    brace counting used: YES | bounds carried by F1, F2, F8, T1, T2, T3
+    brace-map rule used: YES | maps: 2
+      F8 | entries 3 | max depth 3 | excluded 0
+      T3 | entries 2 | max depth 2 | excluded 0
+    enclosing-construct rule used: YES | full stacks delivered: 17
+    no-abbreviation on derived output: YES | stacks repeated in full that were identical to another stack: 9
+    argument-split rule used: YES | call sites split: 3 | POSITION COUNT MISMATCH results: 0
+    multi-line call rule used: YES | argument lists continuing onto a following line: 1 | no answer reported as UNTERMINATED: confirmed
+    paste sizing
+      F2 | FindLegTouch | WHOLE | line count 31
+      T2 | TpTargetUpdateBest | WHOLE | line count 22
+    census-pattern provenance: YES | INCIDENTAL-ONLY results: 0
+    previous-output independence: every line number, bound, declaration line, count and classification in every output file was computed in this run from file text only; no prior figure was read, quoted or reconciled against
+
+  COUNTS ONLY - no line numbers, no text, no verdicts
+    W: zone assignment-target lines 8, in-function 6, file-scope 2,
+       stacks emitted 6, stacks with a g_state header entry 4,
+       stacks with a loop/switch entry 0, RHS identifiers 6
+    F: FindLegTouch definitions 1, call sites 1,
+       position-count mismatches 0, zone-receiving parameters 2,
+       assignment targets on those parameters 0
+    T: TpTargetUpdateBest definitions 1, call sites 2,
+       conditionals 4, zone-occurrence lines 2,
+       of those classified COMPARISON 0, COMMENT 1, STRING-LITERAL 0,
+       CONTAINS-EQUALS-NOT-TARGET 1, OTHER 0, ASSIGNMENT-TARGET 0
+       classes are not mutually exclusive; a line may be counted in more than one class
+
+  UNEXPECTED: none
+END RECEIPT

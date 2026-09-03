@@ -1,0 +1,55 @@
+SRJ CENSUS REPORT
+ITEM: T7   Zone-occurrence lines, classified, with full stacks
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (4)
+  line 17   ## PASTE SEARCHED
+  line 21   ## ZONE LINE 629
+  line 34   ## ZONE LINE 631
+  line 48   ## CLASS TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PASTE SEARCHED
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 614 through 635, produced by item T5
+CLASSES ARE NOT MUTUALLY EXCLUSIVE. A line is reported once per
+applicable class and counted once per applicable class.
+## ZONE LINE 629
+629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+CLASS: COMMENT
+NO VERDICT MAY BE BUILT ON THIS LINE.
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+NEAREST ENCLOSING "if" BY BRACE SCOPE: NOT ENCLOSED
+
+## ZONE LINE 631
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+CLASS: CONTAINS-EQUALS-NOT-TARGET   pattern g_zoneHi
+CLASS: CONTAINS-EQUALS-NOT-TARGET   pattern g_zoneLo
+NO VERDICT MAY BE BUILT ON THIS LINE.
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+NEAREST ENCLOSING "if" BY BRACE SCOPE: NOT ENCLOSED
+
+## CLASS TOTALS
+ASSIGNMENT-TARGET: 0
+CONTAINS-EQUALS-NOT-TARGET: 1
+COMPARISON: 0
+STRING-LITERAL: 0
+COMMENT: 1
+OTHER: 0
+ZONE-OCCURRENCE LINE COUNT: 2

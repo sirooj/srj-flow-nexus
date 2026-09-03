@@ -1,0 +1,193 @@
+SRJ CENSUS REPORT
+ITEM: W1   Assignment-target census: g_zoneHi, g_zoneLo
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (17)
+  line 30   ## FILE SRJ_FlowNexus_EA.mq5
+  line 55   ## FILE SRJ_FlowLogic.mq5
+  line 64   ## FILE SRJ_Alerts.mqh
+  line 73   ## FILE SRJ_BiasEngine.mqh
+  line 82   ## FILE SRJ_Draw.mqh
+  line 91   ## FILE SRJ_Fractals.mqh
+  line 100   ## FILE SRJ_HTFEngine.mqh
+  line 109   ## FILE SRJ_ImbalanceMgr.mqh
+  line 118   ## FILE SRJ_OrderblockMgr.mqh
+  line 127   ## FILE SRJ_Panels.mqh
+  line 136   ## FILE SRJ_SeedFormat.mqh
+  line 145   ## FILE SRJ_Sessions.mqh
+  line 154   ## FILE SRJ_State.mqh
+  line 163   ## FILE SRJ_Text.mqh
+  line 172   ## FILE SRJ_TickCore.mqh
+  line 181   ## FILE SRJ_Types.mqh
+  line 190   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC g_zoneHi: 40
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 40
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 8
+SRJ_FlowNexus_EA.mq5 181: double           g_zoneHi         = 0.0;
+  ASSIGNS-TO g_zoneHi | RHS  0.0
+SRJ_FlowNexus_EA.mq5 182: double           g_zoneLo         = 0.0;
+  ASSIGNS-TO g_zoneLo | RHS  0.0
+SRJ_FlowNexus_EA.mq5 1103:    g_zoneHi         = 0.0;
+  ASSIGNS-TO g_zoneHi | RHS  0.0
+SRJ_FlowNexus_EA.mq5 1104:    g_zoneLo         = 0.0;
+  ASSIGNS-TO g_zoneLo | RHS  0.0
+SRJ_FlowNexus_EA.mq5 2734:          if(haveFvg) { g_zoneHi = MathMax(fvgHi, fvgLo); g_zoneLo = MathMin(fvgHi, fvgLo); }
+  ASSIGNS-TO g_zoneHi | RHS  MathMax(fvgHi, fvgLo)
+  ASSIGNS-TO g_zoneLo | RHS  MathMin(fvgHi, fvgLo)
+SRJ_FlowNexus_EA.mq5 2735:          else        { g_zoneHi = MathMax(xobHi, xobLo); g_zoneLo = MathMin(xobHi, xobLo); }
+  ASSIGNS-TO g_zoneHi | RHS  MathMax(xobHi, xobLo)
+  ASSIGNS-TO g_zoneLo | RHS  MathMin(xobHi, xobLo)
+SRJ_FlowNexus_EA.mq5 2803:             g_zoneHi = s35_zHi;
+  ASSIGNS-TO g_zoneHi | RHS  s35_zHi
+SRJ_FlowNexus_EA.mq5 2804:             g_zoneLo = s35_zLo;
+  ASSIGNS-TO g_zoneLo | RHS  s35_zLo
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Alerts.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Draw.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Fractals.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Panels.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Sessions.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_State.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Text.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_TickCore.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Types.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## TOTALS
+DISTINCT ASSIGNMENT-TARGET LINES PASTED: 8
+SUM OF PER-FILE N_LINES: 8
+N_LINES WAS NEVER SUMMED ACROSS PATTERNS: confirmed by construction

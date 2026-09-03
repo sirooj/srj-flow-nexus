@@ -1,0 +1,144 @@
+SRJ CENSUS REPORT
+ITEM: G9   Census and call sites for EvaluateClosedBar
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (18)
+  line 31   ## FILE SRJ_FlowNexus_EA.mq5
+  line 43   ## FILE SRJ_FlowLogic.mq5
+  line 48   ## FILE SRJ_Alerts.mqh
+  line 53   ## FILE SRJ_BiasEngine.mqh
+  line 58   ## FILE SRJ_Draw.mqh
+  line 63   ## FILE SRJ_Fractals.mqh
+  line 68   ## FILE SRJ_HTFEngine.mqh
+  line 73   ## FILE SRJ_ImbalanceMgr.mqh
+  line 78   ## FILE SRJ_OrderblockMgr.mqh
+  line 83   ## FILE SRJ_Panels.mqh
+  line 88   ## FILE SRJ_SeedFormat.mqh
+  line 93   ## FILE SRJ_Sessions.mqh
+  line 98   ## FILE SRJ_State.mqh
+  line 103   ## FILE SRJ_Text.mqh
+  line 108   ## FILE SRJ_TickCore.mqh
+  line 113   ## FILE SRJ_Types.mqh
+  line 118   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3200
+  line 142   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC EvaluateClosedBar: 4
+N_LINES, single per-file count of distinct matching lines: 4
+SRJ_FlowNexus_EA.mq5 206: //--- print the final tally; EvaluateClosedBar statics are not visible there.
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1363: void EvaluateClosedBar(int barShift, datetime barTime)
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 1610:    //--- EvaluateClosedBar exactly once per closed bar, so g_zc_bars is a true
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 3200:    EvaluateClosedBar(1, currentBarTime);
+  CLASSIFICATION: CALL SITE
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC EvaluateClosedBar: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3200
+SRJ_FlowNexus_EA.mq5 3200:    EvaluateClosedBar(1, currentBarTime);
+ARGUMENT LIST TEXT: 1, currentBarTime
+POSITIONAL ARGUMENT 1 | 1
+POSITIONAL ARGUMENT 2 | currentBarTime
+ARGUMENT COUNT: 2
+ENCLOSING FUNCTION: OnTick
+DEFINITION HEADER LINE:        3194
+PARAMETER-LIST CLOSING LINE:   3194
+OPENING BRACE LINE:            3195
+BRACE-COUNTED CLOSING LINE:    3201
+LINE COUNT (header..close):    8   SPAN: header line through closing brace line
+LINE COUNT (open..close):      7   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 3195 | CLOSE 3201 | DEPTH 1
+  BRACE LINE 3195:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+DEFINITION HEADER LINES: 0
+CALL SITES: 1

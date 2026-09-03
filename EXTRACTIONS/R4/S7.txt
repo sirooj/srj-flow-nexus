@@ -1,0 +1,21 @@
+SRJ CENSUS REPORT
+ITEM: S7   Full open-brace stack per in-function zone write
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## AGGREGATES
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## AGGREGATES
+IN-FUNCTION LINE COUNT: 0
+LINES WHOSE STACK CONTAINS AT LEAST ONE ENTRY WITH CONTAINS-g_state YES: 0
+  LINE NUMBERS: NONE
+LINES WHOSE STACK CONTAINS NO ENTRY WITH CONTAINS-g_state YES: 0
+  LINE NUMBERS: NONE
+LINES WHOSE STACK CONTAINS AN ENTRY WHOSE HEADER IS for/while/switch/do: 0
+  LINE NUMBERS: NONE

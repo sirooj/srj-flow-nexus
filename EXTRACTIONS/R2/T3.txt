@@ -1,0 +1,37 @@
+SRJ CENSUS REPORT
+ITEM: T3   Brace map
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## BRACE MAP
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## BRACE MAP
+DEFINITION HEADER LINE:        614
+PARAMETER-LIST CLOSING LINE:   615
+OPENING BRACE LINE:            616
+BRACE-COUNTED CLOSING LINE:    635
+LINE COUNT (header..close):    22   SPAN: header line through closing brace line
+LINE COUNT (open..close):      20   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+BRACE MAP, every "{" from the region's opening brace through its closing brace:
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 2 | OPEN 634 | CLOSE 634 | DEPTH 2
+  BRACE LINE 634:      { best = v; haveBest = true; }
+  HEADER 633:    if(!haveBest || dist < MathAbs(best - currentPrice))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+BRACE MAP ENTRY COUNT: 2
+MAXIMUM DEPTH: 2
+EXCLUDED BRACE COUNT: 0
+EVERY CLOSE DERIVED BY BRACE COUNTING FROM ITS OWN "{": YES

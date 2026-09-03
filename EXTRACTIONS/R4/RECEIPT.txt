@@ -1,0 +1,136 @@
+TASK 160-PreJ-R4 RECEIPT
+  STATUS: PARTIAL
+  LIBRARY: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py SHA256 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 vs PINNED 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 -> MATCH
+  SELFTEST: not run in this invocation
+  JOB SPEC: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\jobs\R4.json SHA256 D26E52DFCCDC7477CBFDE962099E696DE91C79A152E6F894A96FEAF0A2B013F1
+  SPEC VERSION: R2.1
+  EXIT CODE: 1
+  STDERR: see FAILURES below
+
+  HASH GATE
+    EA .mq5 PRE  0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    EA .mq5 POST 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    FL .mq5 PRE  D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+    FL .mq5 POST D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+
+  WRITE AUDIT
+    files written under output directory : 25
+    files written anywhere else          : 0
+    source files read                    : 16
+
+  OUTPUT FILES
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\G5.txt | 237 lines | 8362 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\G8.txt | 579 lines | 24315 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\G9.txt | 144 lines | 4765 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\G10.txt | 121 lines | 3701 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P6.txt | 33 lines | 1305 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P7.txt | 20 lines | 846 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P8.txt | 33 lines | 1259 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P9.txt | 19 lines | 720 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P10.txt | 149 lines | 5306 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P11.txt | 25 lines | 1421 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P12.txt | 152 lines | 5398 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P13.txt | 24 lines | 1229 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P14.txt | 131 lines | 4468 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P15.txt | 136 lines | 4706 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P16.txt | 135 lines | 4672 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P17.txt | 135 lines | 4668 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P18.txt | 121 lines | 3760 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\P19.txt | 121 lines | 3758 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\S5.txt | 189 lines | 7783 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\S6.txt | 16 lines | 537 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\S7.txt | 21 lines | 800 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\S8.txt | 189 lines | 7771 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\S9.txt | 16 lines | 537 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\S10.txt | 21 lines | 801 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R4\STASIS.txt | 126 lines | 5324 bytes
+
+  ITEM COMPLETION
+    legend: COMPLETE = item emitted at least one pasted source line;
+            EMPTY-RESULT = item ran and pasted nothing, which is a result;
+            NOT-RUN = item raised, see FAILURES
+    G5 | COMPLETE
+    G6 | NOT-RUN
+    G7 | NOT-RUN
+    G8 | COMPLETE
+    G9 | COMPLETE
+    G10 | COMPLETE
+    P6 | COMPLETE
+    P7 | COMPLETE
+    P8 | COMPLETE
+    P9 | COMPLETE
+    P10 | COMPLETE
+    P11 | EMPTY-RESULT
+    P12 | COMPLETE
+    P13 | EMPTY-RESULT
+    P14 | COMPLETE
+    P15 | COMPLETE
+    P16 | COMPLETE
+    P17 | COMPLETE
+    P18 | COMPLETE
+    P19 | COMPLETE
+    S5 | COMPLETE
+    S6 | EMPTY-RESULT
+    S7 | EMPTY-RESULT
+    S8 | COMPLETE
+    S9 | EMPTY-RESULT
+    S10 | EMPTY-RESULT
+
+  INVARIANTS
+    brace_balance_zero_at_every_region_close | PASS
+    paste_line_count_equals_reported_count | PASS
+    n_lines_equals_distinct_paste_count | PASS
+    every_brace_map_close_derived_by_counting | PASS
+    every_stack_entry_has_open_and_close | PASS
+    no_argument_list_unterminated | PASS
+    no_closing_brace_reported_as_declaration | PASS
+    span_labelled_for_every_region_line_count | PASS
+
+  CONFIRMATION FIELDS, aggregates and item names only
+    brace counting used: YES | bounds carried by P6, P8
+    brace-map rule used: YES | maps: 0
+    enclosing-construct rule used: YES | full stacks delivered: 20
+    no-abbreviation on derived output: YES | stacks repeated in full that were identical to another stack: 2
+    argument-split rule used: YES | call sites split: 20 | POSITION COUNT MISMATCH results: 0
+    multi-line call rule used: YES | argument lists continuing onto a following line: 0 | no answer reported as UNTERMINATED: confirmed
+    paste sizing
+    census-pattern provenance: YES | INCIDENTAL-ONLY results: 0
+    previous-output independence: every line number, bound, declaration line, count and classification in every output file was computed in this run from file text only; no prior figure was read, quoted or reconciled against
+
+  COUNTS ONLY - no line numbers, no text, no verdicts
+    W: zone assignment-target lines 0, in-function 0, file-scope 0,
+       stacks emitted 0, stacks with a g_state header entry 0,
+       stacks with a loop/switch entry 0, RHS identifiers 0
+    F: FindLegTouch definitions 0, call sites 0,
+       position-count mismatches 0, zone-receiving parameters 0,
+       assignment targets on those parameters 0
+    T: TpTargetUpdateBest definitions 0, call sites 0,
+       conditionals 0, zone-occurrence lines 0,
+       of those classified COMPARISON 0, COMMENT 0, STRING-LITERAL 0,
+       CONTAINS-EQUALS-NOT-TARGET 0, OTHER 0, ASSIGNMENT-TARGET 0
+       classes are not mutually exclusive; a line may be counted in more than one class
+
+  UNEXPECTED: none
+
+  FAILURES
+    G6
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1065, in item_classify_scope
+        names = [p for p, _, _ in r["assigns"]]
+                                  ~^^^^^^^^^^^
+    KeyError: 'assigns'
+    
+    G7
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1106, in item_stacks_per_line
+        recs = [r for r in ctx.results[it["source_item"]] if r["kind"] == "IN-FUNCTION"]
+                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    KeyError: 'G6'
+    
+END RECEIPT

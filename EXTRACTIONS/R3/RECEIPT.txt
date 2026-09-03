@@ -1,0 +1,148 @@
+TASK 160-PreJ-R3 RECEIPT
+  STATUS: PARTIAL
+  LIBRARY: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py SHA256 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 vs PINNED 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 -> MATCH
+  SELFTEST: not run in this invocation
+  JOB SPEC: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\jobs\R3.json SHA256 BBE54C9D970C4A000C933EED81D4FA2240343B9ACFC9C762F8063E5BAC2530D4
+  SPEC VERSION: R2.1
+  EXIT CODE: 1
+  STDERR: see FAILURES below
+
+  HASH GATE
+    EA .mq5 PRE  0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    EA .mq5 POST 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    FL .mq5 PRE  D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+    FL .mq5 POST D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+
+  WRITE AUDIT
+    files written under output directory : 4
+    files written anywhere else          : 0
+    source files read                    : 16
+
+  OUTPUT FILES
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R3\G1.txt | 33 lines | 1223 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R3\G2.txt | 237 lines | 8362 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R3\P1.txt | 33 lines | 1273 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R3\STASIS.txt | 126 lines | 5324 bytes
+
+  ITEM COMPLETION
+    legend: COMPLETE = item emitted at least one pasted source line;
+            EMPTY-RESULT = item ran and pasted nothing, which is a result;
+            NOT-RUN = item raised, see FAILURES
+    G1 | COMPLETE
+    G2 | COMPLETE
+    G3 | NOT-RUN
+    G4 | NOT-RUN
+    P1 | COMPLETE
+    P2 | NOT-RUN
+    P3 | NOT-RUN
+    P4 | NOT-RUN
+    P5 | NOT-RUN
+    S1 | NOT-RUN
+    S2 | NOT-RUN
+    S3 | NOT-RUN
+    S4 | NOT-RUN
+    X1 | NOT-RUN
+
+  INVARIANTS
+    brace_balance_zero_at_every_region_close | PASS
+    paste_line_count_equals_reported_count | PASS
+    n_lines_equals_distinct_paste_count | PASS
+    every_brace_map_close_derived_by_counting | PASS
+    every_stack_entry_has_open_and_close | PASS
+    no_argument_list_unterminated | PASS
+    no_closing_brace_reported_as_declaration | PASS
+    span_labelled_for_every_region_line_count | PASS
+
+  CONFIRMATION FIELDS, aggregates and item names only
+    brace counting used: YES | bounds carried by G1, P1
+    brace-map rule used: YES | maps: 0
+    enclosing-construct rule used: YES | full stacks delivered: 4
+    no-abbreviation on derived output: YES | stacks repeated in full that were identical to another stack: 0
+    argument-split rule used: YES | call sites split: 4 | POSITION COUNT MISMATCH results: 0
+    multi-line call rule used: YES | argument lists continuing onto a following line: 0 | no answer reported as UNTERMINATED: confirmed
+    paste sizing
+    census-pattern provenance: YES | INCIDENTAL-ONLY results: 0
+    previous-output independence: every line number, bound, declaration line, count and classification in every output file was computed in this run from file text only; no prior figure was read, quoted or reconciled against
+
+  COUNTS ONLY - no line numbers, no text, no verdicts
+    W: zone assignment-target lines 0, in-function 0, file-scope 0,
+       stacks emitted 0, stacks with a g_state header entry 0,
+       stacks with a loop/switch entry 0, RHS identifiers 0
+    F: FindLegTouch definitions 0, call sites 0,
+       position-count mismatches 0, zone-receiving parameters 0,
+       assignment targets on those parameters 0
+    T: TpTargetUpdateBest definitions 0, call sites 0,
+       conditionals 0, zone-occurrence lines 0,
+       of those classified COMPARISON 0, COMMENT 0, STRING-LITERAL 0,
+       CONTAINS-EQUALS-NOT-TARGET 0, OTHER 0, ASSIGNMENT-TARGET 0
+       classes are not mutually exclusive; a line may be counted in more than one class
+
+  UNEXPECTED: none
+
+  FAILURES
+    G3: UNKNOWN OP guard_probe
+    G4: UNKNOWN OP one_level_up
+    P2
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1559, in item_statement_inventory
+        pst = ctx.results[it["paste_item"]]
+                          ~~^^^^^^^^^^^^^^
+    KeyError: 'paste_item'
+    
+    P3
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1314, in item_parameters
+        reg = ctx.results[it["source_item"]]
+                          ~~^^^^^^^^^^^^^^^
+    KeyError: 'source_item'
+    
+    P4
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1343, in item_census_name_calls
+        name = it["name"]
+               ~~^^^^^^^^
+    KeyError: 'name'
+    
+    P5: UNKNOWN OP call_names
+    S1: UNKNOWN OP census_occ
+    S2
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1057, in item_classify_scope
+        src_recs = ctx.results[it["source_item"]]
+                   ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    KeyError: 'S1'
+    
+    S3
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1106, in item_stacks_per_line
+        recs = [r for r in ctx.results[it["source_item"]] if r["kind"] == "IN-FUNCTION"]
+                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    KeyError: 'S2'
+    
+    S4: UNKNOWN OP aggregate
+    X1
+    Traceback (most recent call last):
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1944, in run_job
+        rep = fn(ctx, it)
+              ^^^^^^^^^^^
+      File "C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py", line 1657, in item_conditional_stacks
+        inv0 = ctx.results[it["paste_item"]]
+                           ~~^^^^^^^^^^^^^^
+    KeyError: 'paste_item'
+    
+END RECEIPT

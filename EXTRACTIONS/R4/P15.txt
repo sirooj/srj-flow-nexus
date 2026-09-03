@@ -1,0 +1,136 @@
+SRJ CENSUS REPORT
+ITEM: P15   Census and call sites for fvgLo
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (17)
+  line 30   ## FILE SRJ_FlowNexus_EA.mq5
+  line 54   ## FILE SRJ_FlowLogic.mq5
+  line 59   ## FILE SRJ_Alerts.mqh
+  line 64   ## FILE SRJ_BiasEngine.mqh
+  line 69   ## FILE SRJ_Draw.mqh
+  line 74   ## FILE SRJ_Fractals.mqh
+  line 79   ## FILE SRJ_HTFEngine.mqh
+  line 84   ## FILE SRJ_ImbalanceMgr.mqh
+  line 89   ## FILE SRJ_OrderblockMgr.mqh
+  line 94   ## FILE SRJ_Panels.mqh
+  line 99   ## FILE SRJ_SeedFormat.mqh
+  line 104   ## FILE SRJ_Sessions.mqh
+  line 109   ## FILE SRJ_State.mqh
+  line 114   ## FILE SRJ_Text.mqh
+  line 124   ## FILE SRJ_TickCore.mqh
+  line 129   ## FILE SRJ_Types.mqh
+  line 134   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC fvgLo: 16
+N_LINES, single per-file count of distinct matching lines: 10
+SRJ_FlowNexus_EA.mq5 1158:    double xobHi = 0.0, xobLo = 0.0, fvgHi = 0.0, fvgLo = 0.0;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1177:                   ReadFlow(FL_BUF_FVG_LEG_ZONE_LOW,  fvgLo, barShift) && fvgLo != EMPTY_VALUE;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1180:      { zHiOut = MathMax(fvgHi, fvgLo); zLoOut = MathMin(fvgHi, fvgLo); fromFvgOut = true;  return true; }
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2266:       double xobHi, xobLo, fvgHi, fvgLo;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2301:                      ReadFlow(FL_BUF_FVG_LEG_ZONE_LOW,  fvgLo, barShift) && fvgLo != EMPTY_VALUE;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2365:          s55_fvgInPlay = ZoneInPlay(barShift, MathMax(fvgHi, fvgLo), MathMin(fvgHi, fvgLo));
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2378:                      (haveFvg || s55_downgraded) ? DoubleToString(MathMin(fvgHi, fvgLo), _Digits) : "-",
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2379:                      (haveFvg || s55_downgraded) ? DoubleToString(MathMax(fvgHi, fvgLo), _Digits) : "-",
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2384:       if(haveFvg)      { s31_zHi = MathMax(fvgHi, fvgLo); s31_zLo = MathMin(fvgHi, fvgLo); }
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2734:          if(haveFvg) { g_zoneHi = MathMax(fvgHi, fvgLo); g_zoneLo = MathMin(fvgHi, fvgLo); }
+  CLASSIFICATION: OTHER
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC fvgLo: 2
+N_LINES, single per-file count of distinct matching lines: 2
+SRJ_Text.mqh 100:                              string statusLine,string fvgLoop,string twoOB)
+  INCIDENTAL
+  CONTAINING IDENTIFIER: fvgLoop
+SRJ_Text.mqh 106:    string line4 = (fvgLoop == SRJ_REV()) ? SRJ_REV() : "";
+  INCIDENTAL
+  CONTAINING IDENTIFIER: fvgLoop
+
+## FILE SRJ_TickCore.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC fvgLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## TOTALS
+DEFINITION HEADER LINES: 0
+CALL SITES: 0

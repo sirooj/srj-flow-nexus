@@ -1,0 +1,33 @@
+SRJ CENSUS REPORT
+ITEM: F1   Definition-header classification for FindLegTouch
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (3)
+  line 16   ## CANDIDATES
+  line 23   ## FALLBACK
+  line 25   ## DEFINITION
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CANDIDATES
+PATTERN SUPPLIED AS A FULL IDENTIFIER: FindLegTouch
+CANDIDATE SRJ_FlowNexus_EA.mq5 1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+  PARAMETER-LIST CLOSING LINE: 1289
+  CLASSIFICATION: DEFINITION
+CANDIDATE COUNT: 1
+STATUS: DEFINITION AT COLUMN 0
+## FALLBACK
+FALLBACK REACHED: NO
+## DEFINITION
+DEFINITION: FindLegTouch   FILE SRJ_FlowNexus_EA.mq5
+DEFINITION HEADER LINE:        1288
+PARAMETER-LIST CLOSING LINE:   1289
+OPENING BRACE LINE:            1290
+BRACE-COUNTED CLOSING LINE:    1318
+LINE COUNT (header..close):    31   SPAN: header line through closing brace line
+LINE COUNT (open..close):      29   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES

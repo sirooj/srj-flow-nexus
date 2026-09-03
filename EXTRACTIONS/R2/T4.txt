@@ -1,0 +1,23 @@
+SRJ CENSUS REPORT
+ITEM: T4   Parameter table
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## PARAMETERS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PARAMETERS
+PARAMETER LIST SPANS MORE THAN ONE LINE. Every line pasted below.
+614: void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
+615:                          double &best, bool &haveBest)
+1 | double v | BY VALUE | CONTAINS-ASTERISK: no | v
+2 | ENUM_SRJ_DIR dir | BY VALUE | CONTAINS-ASTERISK: no | dir
+3 | double currentPrice | BY VALUE | CONTAINS-ASTERISK: no | currentPrice
+4 | double &best | BY REFERENCE | CONTAINS-ASTERISK: no | best
+5 | bool &haveBest | BY REFERENCE | CONTAINS-ASTERISK: no | haveBest
+PARAMETER COUNT: 5

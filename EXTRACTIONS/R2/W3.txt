@@ -1,0 +1,155 @@
+SRJ CENSUS REPORT
+ITEM: W3   Full open-brace stack per in-function zone write
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (7)
+  line 20   ## SRJ_FlowNexus_EA.mq5 LINE 1103
+  line 32   ## SRJ_FlowNexus_EA.mq5 LINE 1104
+  line 44   ## SRJ_FlowNexus_EA.mq5 LINE 2734
+  line 67   ## SRJ_FlowNexus_EA.mq5 LINE 2735
+  line 90   ## SRJ_FlowNexus_EA.mq5 LINE 2803
+  line 119   ## SRJ_FlowNexus_EA.mq5 LINE 2804
+  line 148   ## AGGREGATES
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## SRJ_FlowNexus_EA.mq5 LINE 1103
+LINE 1103:    g_zoneHi         = 0.0;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1091 | CLOSE 1107 | DEPTH 1
+  BRACE LINE 1091:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NEAREST ENCLOSING "if" BY BRACE SCOPE: NOT ENCLOSED
+
+## SRJ_FlowNexus_EA.mq5 LINE 1104
+LINE 1104:    g_zoneLo         = 0.0;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1091 | CLOSE 1107 | DEPTH 1
+  BRACE LINE 1091:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NEAREST ENCLOSING "if" BY BRACE SCOPE: NOT ENCLOSED
+
+## SRJ_FlowNexus_EA.mq5 LINE 2734
+LINE 2734:          if(haveFvg) { g_zoneHi = MathMax(fvgHi, fvgLo); g_zoneLo = MathMin(fvgHi, fvgLo); }
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 57 | OPEN 2265 | CLOSE 2768 | DEPTH 2
+  BRACE LINE 2265:      {
+  HEADER 2264:    if(g_state == ST_S3_ZONE_WAIT)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 83 | OPEN 2733 | CLOSE 2760 | DEPTH 3
+  BRACE LINE 2733:         {
+  HEADER 2732:       if((haveFvg || haveXob) && s31_inPlay)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NEAREST ENCLOSING "if" BY BRACE SCOPE 2732:       if((haveFvg || haveXob) && s31_inPlay)
+
+## SRJ_FlowNexus_EA.mq5 LINE 2735
+LINE 2735:          else        { g_zoneHi = MathMax(xobHi, xobLo); g_zoneLo = MathMin(xobHi, xobLo); }
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 57 | OPEN 2265 | CLOSE 2768 | DEPTH 2
+  BRACE LINE 2265:      {
+  HEADER 2264:    if(g_state == ST_S3_ZONE_WAIT)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 83 | OPEN 2733 | CLOSE 2760 | DEPTH 3
+  BRACE LINE 2733:         {
+  HEADER 2732:       if((haveFvg || haveXob) && s31_inPlay)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NEAREST ENCLOSING "if" BY BRACE SCOPE 2732:       if((haveFvg || haveXob) && s31_inPlay)
+
+## SRJ_FlowNexus_EA.mq5 LINE 2803
+LINE 2803:             g_zoneHi = s35_zHi;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 88 | OPEN 2771 | CLOSE 2881 | DEPTH 2
+  BRACE LINE 2771:      {
+  HEADER 2770:    if(g_state == ST_S4_ARMED)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 89 | OPEN 2787 | CLOSE 2822 | DEPTH 3
+  BRACE LINE 2787:         {
+  HEADER 2786:       if(ReadQualifyingZone(barShift, s35_zHi, s35_zLo, s35_fromFvg) && ZoneAdoptable(barShift, s35_zHi, s35_zLo) && ((g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point * 0.5) : (s35_zHi >= g_zoneHi - _Point * 0.5)))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+  ENTRY 90 | OPEN 2790 | CLOSE 2821 | DEPTH 4
+  BRACE LINE 2790:            {
+  HEADER 2788:          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
+  HEADER-TO-BRACE GAP: 2 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 4
+NEAREST ENCLOSING "if" BY BRACE SCOPE 2788:          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
+
+## SRJ_FlowNexus_EA.mq5 LINE 2804
+LINE 2804:             g_zoneLo = s35_zLo;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 88 | OPEN 2771 | CLOSE 2881 | DEPTH 2
+  BRACE LINE 2771:      {
+  HEADER 2770:    if(g_state == ST_S4_ARMED)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 89 | OPEN 2787 | CLOSE 2822 | DEPTH 3
+  BRACE LINE 2787:         {
+  HEADER 2786:       if(ReadQualifyingZone(barShift, s35_zHi, s35_zLo, s35_fromFvg) && ZoneAdoptable(barShift, s35_zHi, s35_zLo) && ((g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point * 0.5) : (s35_zHi >= g_zoneHi - _Point * 0.5)))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+  ENTRY 90 | OPEN 2790 | CLOSE 2821 | DEPTH 4
+  BRACE LINE 2790:            {
+  HEADER 2788:          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
+  HEADER-TO-BRACE GAP: 2 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 4
+NEAREST ENCLOSING "if" BY BRACE SCOPE 2788:          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
+
+## AGGREGATES
+IN-FUNCTION LINE COUNT: 6
+LINES WHOSE STACK CONTAINS AT LEAST ONE ENTRY WITH CONTAINS-g_state YES: 4
+  LINE NUMBERS: 2734, 2735, 2803, 2804
+LINES WHOSE STACK CONTAINS NO ENTRY WITH CONTAINS-g_state YES: 2
+  LINE NUMBERS: 1103, 1104
+LINES WHOSE STACK CONTAINS AN ENTRY WHOSE HEADER IS for/while/switch/do: 0
+  LINE NUMBERS: NONE

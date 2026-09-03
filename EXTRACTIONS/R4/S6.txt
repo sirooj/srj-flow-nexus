@@ -1,0 +1,16 @@
+SRJ CENSUS REPORT
+ITEM: S6   Scope classification and enclosing functions
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## TOTALS
+FILE-SCOPE DECLARATION LINES: 0
+IN-FUNCTION LINES: 0

@@ -1,0 +1,135 @@
+SRJ CENSUS REPORT
+ITEM: P16   Census and call sites for xobHi
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (17)
+  line 30   ## FILE SRJ_FlowNexus_EA.mq5
+  line 58   ## FILE SRJ_FlowLogic.mq5
+  line 63   ## FILE SRJ_Alerts.mqh
+  line 68   ## FILE SRJ_BiasEngine.mqh
+  line 73   ## FILE SRJ_Draw.mqh
+  line 78   ## FILE SRJ_Fractals.mqh
+  line 83   ## FILE SRJ_HTFEngine.mqh
+  line 88   ## FILE SRJ_ImbalanceMgr.mqh
+  line 93   ## FILE SRJ_OrderblockMgr.mqh
+  line 98   ## FILE SRJ_Panels.mqh
+  line 103   ## FILE SRJ_SeedFormat.mqh
+  line 108   ## FILE SRJ_Sessions.mqh
+  line 113   ## FILE SRJ_State.mqh
+  line 118   ## FILE SRJ_Text.mqh
+  line 123   ## FILE SRJ_TickCore.mqh
+  line 128   ## FILE SRJ_Types.mqh
+  line 133   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC xobHi: 18
+N_LINES, single per-file count of distinct matching lines: 12
+SRJ_FlowNexus_EA.mq5 1158:    double xobHi = 0.0, xobLo = 0.0, fvgHi = 0.0, fvgLo = 0.0;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1174:    bool haveXob = ReadFlow(FL_BUF_XOB_ZONE_HIGH, xobHi, barShift) && xobHi != EMPTY_VALUE &&
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1182:      { zHiOut = MathMax(xobHi, xobLo); zLoOut = MathMin(xobHi, xobLo); fromFvgOut = false; return true; }
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1676:                      "xobId=%d->%d fvgId=%d->%d xobLo=%s xobHi=%s "
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2266:       double xobHi, xobLo, fvgHi, fvgLo;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2298:       bool haveXob = ReadFlow(FL_BUF_XOB_ZONE_HIGH, xobHi, barShift) && xobHi != EMPTY_VALUE &&
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2339:       //--- at all - while a qualifying in-play XOB sits unused in xobHi/xobLo,
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2367:          s55_xobInPlay = ZoneInPlay(barShift, MathMax(xobHi, xobLo), MathMin(xobHi, xobLo));
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2380:                      haveXob ? DoubleToString(MathMin(xobHi, xobLo), _Digits) : "-",
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2381:                      haveXob ? DoubleToString(MathMax(xobHi, xobLo), _Digits) : "-");
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2385:       else if(haveXob) { s31_zHi = MathMax(xobHi, xobLo); s31_zLo = MathMin(xobHi, xobLo); }
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2735:          else        { g_zoneHi = MathMax(xobHi, xobLo); g_zoneLo = MathMin(xobHi, xobLo); }
+  CLASSIFICATION: OTHER
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC xobHi: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## TOTALS
+DEFINITION HEADER LINES: 0
+CALL SITES: 0

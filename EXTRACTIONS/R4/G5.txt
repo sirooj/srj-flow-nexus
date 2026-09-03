@@ -1,0 +1,237 @@
+SRJ CENSUS REPORT
+ITEM: G5   Census and call sites for ResetSequence
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (21)
+  line 34   ## FILE SRJ_FlowNexus_EA.mq5
+  line 56   ## FILE SRJ_FlowLogic.mq5
+  line 61   ## FILE SRJ_Alerts.mqh
+  line 66   ## FILE SRJ_BiasEngine.mqh
+  line 71   ## FILE SRJ_Draw.mqh
+  line 76   ## FILE SRJ_Fractals.mqh
+  line 81   ## FILE SRJ_HTFEngine.mqh
+  line 86   ## FILE SRJ_ImbalanceMgr.mqh
+  line 91   ## FILE SRJ_OrderblockMgr.mqh
+  line 96   ## FILE SRJ_Panels.mqh
+  line 101   ## FILE SRJ_SeedFormat.mqh
+  line 106   ## FILE SRJ_Sessions.mqh
+  line 111   ## FILE SRJ_State.mqh
+  line 116   ## FILE SRJ_Text.mqh
+  line 121   ## FILE SRJ_TickCore.mqh
+  line 126   ## FILE SRJ_Types.mqh
+  line 131   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1135
+  line 153   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2968
+  line 186   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3054
+  line 213   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3120
+  line 235   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC ResetSequence: 9
+N_LINES, single per-file count of distinct matching lines: 9
+SRJ_FlowNexus_EA.mq5 178: //--- 0.0 means no touch recorded. Cleared in ResetSequence().
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 188: //--- TASK 14b: per-sequence alert latches. Cleared in ResetSequence().
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1090: void ResetSequence()
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 1118:    //--- TASK 15: shadow record. Must fire BEFORE ResetSequence()
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1135:    ResetSequence();
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 2111:    //--- calls ResetSequence, leaving g_state == ST_IDLE, which is exactly the
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2968:          ResetSequence();
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 3054:       ResetSequence();
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 3120:    ResetSequence();
+  CLASSIFICATION: CALL SITE
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC ResetSequence: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 1135
+SRJ_FlowNexus_EA.mq5 1135:    ResetSequence();
+ARGUMENT LIST TEXT: 
+ARGUMENT COUNT 0
+ENCLOSING FUNCTION: GoAbort
+DEFINITION HEADER LINE:        1109
+PARAMETER-LIST CLOSING LINE:   1109
+OPENING BRACE LINE:            1110
+BRACE-COUNTED CLOSING LINE:    1136
+LINE COUNT (header..close):    28   SPAN: header line through closing brace line
+LINE COUNT (open..close):      27   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1110 | CLOSE 1136 | DEPTH 1
+  BRACE LINE 1110:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2968
+SRJ_FlowNexus_EA.mq5 2968:          ResetSequence();
+ARGUMENT LIST TEXT: 
+ARGUMENT COUNT 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 106 | OPEN 2961 | CLOSE 2970 | DEPTH 3
+  BRACE LINE 2961:         {
+  HEADER 2960:       if(InpMode == MODE_ALERT_ONLY)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3054
+SRJ_FlowNexus_EA.mq5 3054:       ResetSequence();
+ARGUMENT LIST TEXT: 
+ARGUMENT COUNT 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 97 | OPEN 2884 | CLOSE 3055 | DEPTH 2
+  BRACE LINE 2884:      {
+  HEADER 2883:    if(g_state == ST_S5_GATE_CHECK)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 3120
+SRJ_FlowNexus_EA.mq5 3120:    ResetSequence();
+ARGUMENT LIST TEXT: 
+ARGUMENT COUNT 0
+ENCLOSING FUNCTION: OnInit
+DEFINITION HEADER LINE:        3059
+PARAMETER-LIST CLOSING LINE:   3059
+OPENING BRACE LINE:            3060
+BRACE-COUNTED CLOSING LINE:    3123
+LINE COUNT (header..close):    65   SPAN: header line through closing brace line
+LINE COUNT (open..close):      64   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 3060 | CLOSE 3123 | DEPTH 1
+  BRACE LINE 3060:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+DEFINITION HEADER LINES: 0
+CALL SITES: 4

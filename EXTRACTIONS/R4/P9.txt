@@ -1,0 +1,19 @@
+SRJ CENSUS REPORT
+ITEM: P9   Parameter table
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## PARAMETERS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PARAMETERS
+1211: bool ZoneAdoptable(int barShift, double zHi, double zLo)
+1 | int barShift | BY VALUE | CONTAINS-ASTERISK: no | barShift
+2 | double zHi | BY VALUE | CONTAINS-ASTERISK: no | zHi
+3 | double zLo | BY VALUE | CONTAINS-ASTERISK: no | zLo
+PARAMETER COUNT: 3

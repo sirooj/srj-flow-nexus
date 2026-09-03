@@ -1,0 +1,122 @@
+SRJ CENSUS REPORT
+ITEM: W2   Scope classification and enclosing functions
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (9)
+  line 22   ## SRJ_FlowNexus_EA.mq5 LINE 181
+  line 29   ## SRJ_FlowNexus_EA.mq5 LINE 182
+  line 36   ## SRJ_FlowNexus_EA.mq5 LINE 1103
+  line 50   ## SRJ_FlowNexus_EA.mq5 LINE 1104
+  line 64   ## SRJ_FlowNexus_EA.mq5 LINE 2734
+  line 78   ## SRJ_FlowNexus_EA.mq5 LINE 2735
+  line 92   ## SRJ_FlowNexus_EA.mq5 LINE 2803
+  line 106   ## SRJ_FlowNexus_EA.mq5 LINE 2804
+  line 120   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## SRJ_FlowNexus_EA.mq5 LINE 181
+SRJ_FlowNexus_EA.mq5 181: double           g_zoneHi         = 0.0;
+CLASSIFICATION: FILE-SCOPE DECLARATION
+DECLARED TYPE VERBATIM, first token of the line: double
+ENCLOSING FUNCTION: NO ENCLOSING FUNCTION - FILE SCOPE
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 182
+SRJ_FlowNexus_EA.mq5 182: double           g_zoneLo         = 0.0;
+CLASSIFICATION: FILE-SCOPE DECLARATION
+DECLARED TYPE VERBATIM, first token of the line: double
+ENCLOSING FUNCTION: NO ENCLOSING FUNCTION - FILE SCOPE
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 1103
+SRJ_FlowNexus_EA.mq5 1103:    g_zoneHi         = 0.0;
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: ResetSequence
+DEFINITION HEADER LINE:        1090
+PARAMETER-LIST CLOSING LINE:   1090
+OPENING BRACE LINE:            1091
+BRACE-COUNTED CLOSING LINE:    1107
+LINE COUNT (header..close):    18   SPAN: header line through closing brace line
+LINE COUNT (open..close):      17   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 1104
+SRJ_FlowNexus_EA.mq5 1104:    g_zoneLo         = 0.0;
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: ResetSequence
+DEFINITION HEADER LINE:        1090
+PARAMETER-LIST CLOSING LINE:   1090
+OPENING BRACE LINE:            1091
+BRACE-COUNTED CLOSING LINE:    1107
+LINE COUNT (header..close):    18   SPAN: header line through closing brace line
+LINE COUNT (open..close):      17   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 2734
+SRJ_FlowNexus_EA.mq5 2734:          if(haveFvg) { g_zoneHi = MathMax(fvgHi, fvgLo); g_zoneLo = MathMin(fvgHi, fvgLo); }
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 2735
+SRJ_FlowNexus_EA.mq5 2735:          else        { g_zoneHi = MathMax(xobHi, xobLo); g_zoneLo = MathMin(xobHi, xobLo); }
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 2803
+SRJ_FlowNexus_EA.mq5 2803:             g_zoneHi = s35_zHi;
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 2804
+SRJ_FlowNexus_EA.mq5 2804:             g_zoneLo = s35_zLo;
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+FILE-SCOPE DECLARATION LINES: 2
+IN-FUNCTION LINES: 6

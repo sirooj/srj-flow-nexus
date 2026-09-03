@@ -1,0 +1,121 @@
+SRJ CENSUS REPORT
+ITEM: P19   Census and call sites for s35_zLo
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (17)
+  line 30   ## FILE SRJ_FlowNexus_EA.mq5
+  line 44   ## FILE SRJ_FlowLogic.mq5
+  line 49   ## FILE SRJ_Alerts.mqh
+  line 54   ## FILE SRJ_BiasEngine.mqh
+  line 59   ## FILE SRJ_Draw.mqh
+  line 64   ## FILE SRJ_Fractals.mqh
+  line 69   ## FILE SRJ_HTFEngine.mqh
+  line 74   ## FILE SRJ_ImbalanceMgr.mqh
+  line 79   ## FILE SRJ_OrderblockMgr.mqh
+  line 84   ## FILE SRJ_Panels.mqh
+  line 89   ## FILE SRJ_SeedFormat.mqh
+  line 94   ## FILE SRJ_Sessions.mqh
+  line 99   ## FILE SRJ_State.mqh
+  line 104   ## FILE SRJ_Text.mqh
+  line 109   ## FILE SRJ_TickCore.mqh
+  line 114   ## FILE SRJ_Types.mqh
+  line 119   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC s35_zLo: 7
+N_LINES, single per-file count of distinct matching lines: 5
+SRJ_FlowNexus_EA.mq5 2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2786:       if(ReadQualifyingZone(barShift, s35_zHi, s35_zLo, s35_fromFvg) && ZoneAdoptable(barShift, s35_zHi, s35_zLo) && ((g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point * 0.5) : (s35_zHi >= g_zoneHi - _Point * 0.5)))
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2789:             MathAbs(s35_zLo - g_zoneLo) > _Point * 0.5)
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2798:                            DoubleToString(s35_zLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2804:             g_zoneLo = s35_zLo;
+  CLASSIFICATION: OTHER
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC s35_zLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## TOTALS
+DEFINITION HEADER LINES: 0
+CALL SITES: 0

@@ -1,0 +1,185 @@
+SRJ CENSUS REPORT
+ITEM: T8   Census and call sites for TpTargetUpdateBest
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (19)
+  line 32   ## FILE SRJ_FlowNexus_EA.mq5
+  line 44   ## FILE SRJ_FlowLogic.mq5
+  line 49   ## FILE SRJ_Alerts.mqh
+  line 54   ## FILE SRJ_BiasEngine.mqh
+  line 59   ## FILE SRJ_Draw.mqh
+  line 64   ## FILE SRJ_Fractals.mqh
+  line 69   ## FILE SRJ_HTFEngine.mqh
+  line 74   ## FILE SRJ_ImbalanceMgr.mqh
+  line 79   ## FILE SRJ_OrderblockMgr.mqh
+  line 84   ## FILE SRJ_Panels.mqh
+  line 89   ## FILE SRJ_SeedFormat.mqh
+  line 94   ## FILE SRJ_Sessions.mqh
+  line 99   ## FILE SRJ_State.mqh
+  line 104   ## FILE SRJ_Text.mqh
+  line 109   ## FILE SRJ_TickCore.mqh
+  line 114   ## FILE SRJ_Types.mqh
+  line 119   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 703
+  line 151   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 711
+  line 183   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC TpTargetUpdateBest: 4
+N_LINES, single per-file count of distinct matching lines: 4
+SRJ_FlowNexus_EA.mq5 614: void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 703:          TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 711:       TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 975:    // exclusion relies on in TpTargetUpdateBest.
+  CLASSIFICATION: OTHER
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 703
+SRJ_FlowNexus_EA.mq5 703:          TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+ARGUMENT LIST TEXT: v, dir, currentPrice, best, haveBest
+POSITIONAL ARGUMENT 1 | v
+POSITIONAL ARGUMENT 2 | dir
+POSITIONAL ARGUMENT 3 | currentPrice
+POSITIONAL ARGUMENT 4 | best
+POSITIONAL ARGUMENT 5 | haveBest
+ARGUMENT COUNT: 5
+ENCLOSING FUNCTION: ComputeNearestTpTarget
+DEFINITION HEADER LINE:        659
+PARAMETER-LIST CLOSING LINE:   660
+OPENING BRACE LINE:            661
+BRACE-COUNTED CLOSING LINE:    775
+LINE COUNT (header..close):    117   SPAN: header line through closing brace line
+LINE COUNT (open..close):      115   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 661 | CLOSE 775 | DEPTH 1
+  BRACE LINE 661:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 4 | OPEN 700 | CLOSE 704 | DEPTH 2
+  BRACE LINE 700:      {
+  HEADER 699:    for(int i = 0; i < ArraySize(sessbufs); i++)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: YES - for
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 711
+SRJ_FlowNexus_EA.mq5 711:       TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+ARGUMENT LIST TEXT: v, dir, currentPrice, best, haveBest
+POSITIONAL ARGUMENT 1 | v
+POSITIONAL ARGUMENT 2 | dir
+POSITIONAL ARGUMENT 3 | currentPrice
+POSITIONAL ARGUMENT 4 | best
+POSITIONAL ARGUMENT 5 | haveBest
+ARGUMENT COUNT: 5
+ENCLOSING FUNCTION: ComputeNearestTpTarget
+DEFINITION HEADER LINE:        659
+PARAMETER-LIST CLOSING LINE:   660
+OPENING BRACE LINE:            661
+BRACE-COUNTED CLOSING LINE:    775
+LINE COUNT (header..close):    117   SPAN: header line through closing brace line
+LINE COUNT (open..close):      115   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 661 | CLOSE 775 | DEPTH 1
+  BRACE LINE 661:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 5 | OPEN 707 | CLOSE 712 | DEPTH 2
+  BRACE LINE 707:      {
+  HEADER 706:    for(int k = 0; k < POI_NLINES; k++)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: YES - for
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+DEFINITION HEADER LINES: 1
+CALL SITES: 2

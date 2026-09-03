@@ -1,0 +1,141 @@
+SRJ CENSUS REPORT
+ITEM: W4   RHS identifier set and declaration records
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (11)
+  line 24   ## IDENTIFIER SET
+  line 34   ## IDENTIFIER fvgHi IN EvaluateClosedBar
+  line 43   ## IDENTIFIER fvgHi IN EvaluateClosedBar
+  line 52   ## IDENTIFIER fvgLo IN EvaluateClosedBar
+  line 65   ## IDENTIFIER fvgLo IN EvaluateClosedBar
+  line 78   ## IDENTIFIER xobHi IN EvaluateClosedBar
+  line 87   ## IDENTIFIER xobHi IN EvaluateClosedBar
+  line 96   ## IDENTIFIER xobLo IN EvaluateClosedBar
+  line 105   ## IDENTIFIER xobLo IN EvaluateClosedBar
+  line 114   ## IDENTIFIER s35_zHi IN EvaluateClosedBar
+  line 128   ## IDENTIFIER s35_zLo IN EvaluateClosedBar
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## IDENTIFIER SET
+SOURCE: right-hand-side text of every in-function assignment-target line
+IDENTIFIER: fvgHi
+IDENTIFIER: fvgLo
+IDENTIFIER: xobHi
+IDENTIFIER: xobLo
+IDENTIFIER: s35_zHi
+IDENTIFIER: s35_zLo
+DISTINCT IDENTIFIER COUNT: 6
+
+## IDENTIFIER fvgHi IN EvaluateClosedBar
+IDENTIFIER: fvgHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER fvgHi IN EvaluateClosedBar
+IDENTIFIER: fvgHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER fvgLo IN EvaluateClosedBar
+IDENTIFIER: fvgLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+RECORD fvgLo@2266
+  2266:       double xobHi, xobLo, fvgHi, fvgLo;
+  D 2266
+  PRECEDING TOKEN: ,
+  RHS ABSENT - DECLARATION CARRIES NO "="
+DECLARATION RECORD COUNT: 1
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER fvgLo IN EvaluateClosedBar
+IDENTIFIER: fvgLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+RECORD fvgLo@2266
+  2266:       double xobHi, xobLo, fvgHi, fvgLo;
+  D 2266
+  PRECEDING TOKEN: ,
+  RHS ABSENT - DECLARATION CARRIES NO "="
+DECLARATION RECORD COUNT: 1
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER xobHi IN EvaluateClosedBar
+IDENTIFIER: xobHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER xobHi IN EvaluateClosedBar
+IDENTIFIER: xobHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER xobLo IN EvaluateClosedBar
+IDENTIFIER: xobLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER xobLo IN EvaluateClosedBar
+IDENTIFIER: xobLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER s35_zHi IN EvaluateClosedBar
+IDENTIFIER: s35_zHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+RECORD s35_zHi@2784
+  2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  D 2784
+  PRECEDING TOKEN: double
+  RHS  0.0, s35_zLo = 0.0
+DECLARATION RECORD COUNT: 1
+2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  RHS  0.0, s35_zLo = 0.0
+ASSIGNMENT-TARGET COUNT: 1
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER s35_zLo IN EvaluateClosedBar
+IDENTIFIER: s35_zLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+RECORD s35_zLo@2784
+  2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  D 2784
+  PRECEDING TOKEN: ,
+  RHS  0.0
+DECLARATION RECORD COUNT: 1
+2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  RHS  0.0
+ASSIGNMENT-TARGET COUNT: 1
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+

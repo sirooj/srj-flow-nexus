@@ -1,0 +1,185 @@
+SRJ FLOW NEXUS — CENSUS RULES VERBATIM
+Extracted from: .srj/tools/srjcensus.py  TOOL_VERSION = "1.0.0"
+Source type: executable rule set (Amendments 1–23 as code)
+This file is a read-only record. Do not edit.
+
+==============================================================================
+RULE 1 — DEFINITION-HEADER DETECTION (def_candidates)
+==============================================================================
+A line is a definition-header candidate for identifier NAME if ALL of:
+  1. The line is not empty.
+  2. The line does not begin with whitespace (first character is not space or tab).
+  3. The line does not begin with "//".
+  4. NAME appears on the line in a non-incidental code position (outside strings
+     and block comments, and not a substring of a longer identifier).
+  5. Immediately after NAME (skipping spaces and tabs) there is an opening
+     parenthesis "(".
+
+==============================================================================
+RULE 2 — INCIDENTAL OCCURRENCE (pat_hits)
+==============================================================================
+An occurrence of pattern PAT at column K is incidental if:
+  - The left edge: PAT[0] is an identifier character AND the character before K
+    is also an identifier character.
+  OR
+  - The right edge: PAT[-1] is an identifier character AND the character after
+    the end of PAT is also an identifier character.
+An occurrence is non-incidental only when BOTH edges are clear.
+
+==============================================================================
+RULE 3 — CANDIDATE CLASSIFICATION (classify_candidate)
+==============================================================================
+Given a candidate header line LN and paren open column PAREN_COL:
+
+Step 1. Match the closing parenthesis of the parameter list using brace
+        counting (match_paren). If the paren list is unterminated, classify
+        as DECLARATION with reason "PARAM LIST UNTERMINATED".
+
+Step 2. Scan every line from LN through the closing paren line. If any line
+        ends in ";", classify as DECLARATION with reason "line N ends in ;".
+
+Step 3. Search for the opening brace "{" starting immediately after the
+        closing paren, within the next 12 lines. Skip blank lines. Stop if a
+        line that is non-empty and ends in ";" is found before a brace.
+
+Step 4. If no opening brace is found, classify as DECLARATION with reason
+        "no opening brace found".
+
+Step 5. Match the closing brace using brace counting (match_brace). If the
+        brace never balances, classify as DECLARATION with reason
+        "brace never balanced".
+
+Step 6. If opening and closing brace are found, classify as DEFINITION with:
+        - pclose: closing paren position
+        - open:   opening brace position
+        - close:  closing brace position
+
+==============================================================================
+RULE 4 — LOCATE WITH FALLBACK (locate)
+==============================================================================
+Phase 1 — Column-0 scan:
+  Collect all definition-header candidates from Rule 1. For each candidate,
+  apply Rule 3. If any candidate is a DEFINITION, use the first one found.
+  Status: "DEFINITION AT COLUMN 0".
+
+Phase 2 — Fallback (if Phase 1 yields no definition):
+  Status set to "NO CANDIDATES AT COLUMN 0" or "NO DEFINITION AT COLUMN 0".
+  Scan all lines in all allowed files. For each line where NAME appears in a
+  non-incidental code position followed by "(", and the line does not end in
+  ";", record it as a fallback line regardless of indentation.
+  Apply Rule 3 to each fallback line. If any yields a DEFINITION, use the
+  first one found.
+  Status appended: "/ DEFINITION FOUND BY FALLBACK".
+  If no fallback definition is found:
+  Status appended: "/ NO DEFINITION FOUND".
+
+==============================================================================
+RULE 5 — REGION LINE COUNTS
+==============================================================================
+For every DEFINITION region, report:
+  HEADER LINE:              first line of the function header (LN)
+  PARAMETER-LIST CLOSING:   line of the closing parenthesis
+  OPENING BRACE LINE:       line of the opening brace "{"
+  BRACE-COUNTED CLOSING:    line of the matched closing brace "}"
+  LINE COUNT (header..close):  closing_brace_line - header_line + 1
+  LINE COUNT (open..close):    closing_brace_line - opening_brace_line + 1
+  BRACE COUNTING USED: YES
+
+==============================================================================
+RULE 6 — BRACE MAP (brace_map, Amendment 19)
+==============================================================================
+Within a region bounded by (open_ln, open_col) to (close_ln, close_col):
+  - Scan every character in order.
+  - Skip characters that are inside strings or block comments (masked out).
+  - For each "{" found: push onto stack, record open position, call match_brace
+    to find the closing "}". Record depth (stack depth at time of open),
+    header (resolved by resolve_header), and gap (brace_ln - header_ln).
+  - For each "}" found: pop the stack.
+  - Entries are sorted ascending by open position.
+  - Each entry is indexed starting from 1.
+
+==============================================================================
+RULE 7 — HEADER RESOLUTION (resolve_header, Amendment 6)
+==============================================================================
+Given a brace open on line BRACE_LN:
+  - If the first token of BRACE_LN is not "{", check if it is a control
+    keyword (if/else/for/while/switch/do). If so, return BRACE_LN as header
+    with gap=0.
+  - Otherwise, scan backward from BRACE_LN-1 to floor_ln. The first line
+    whose first token is a control keyword and which does not end in ";" is
+    the header. Gap = BRACE_LN - header_ln.
+  - If no such line is found, header = None (UNRESOLVED).
+
+==============================================================================
+RULE 8 — BRACE STACK (brace_stack)
+==============================================================================
+The brace stack for a line LN is the ordered list (outermost first) of all
+brace-map entries E such that:
+  E.open < stmt_pos(LN) <= E.close
+where stmt_pos(LN) is the position of the first non-whitespace character on
+line LN.
+All entries in the stack must have both open and close defined.
+
+==============================================================================
+RULE 9 — PARAMETER TABLE (parameters, Amendment 22)
+==============================================================================
+Parameters are extracted from the text between the opening and closing
+parentheses of the definition header. The text is split at commas at depth 0
+of nested parentheses, brackets, and braces (split_depth0). For each
+parameter slot:
+  - The parameter text is trimmed.
+  - Default value (text after "=") is removed before parsing the name.
+  - The name is taken as the last identifier-character token in the type-name
+    declaration after stripping "*", "&", "[", "]" characters.
+  - byref: True if "&" appears anywhere in the parameter text.
+  - star:  True if "*" appears anywhere in the parameter text.
+  - pos:   1-indexed position in the parameter list.
+
+==============================================================================
+RULE 10 — LEGAL RESULT VALUES FOR ABSENT OR UNKNOWN ITEMS
+==============================================================================
+The following strings are legal answers for missing or uncomputable items:
+  ABSENT            — the identifier does not appear in the allowed files
+  UNKNOWN           — the identifier appears but cannot be classified
+  NO DEFINITION FOUND — all candidates classified as DECLARATION or none found
+  NOT ENCLOSED      — the line does not fall within any known function region
+  INSTRUMENT LIMITATION — NON-ASSIGNING OCCURRENCE STACK NOT COMPUTABLE
+                          UNDER CURRENT PIN
+
+==============================================================================
+RULE 11 — NON-ASSIGNING OCCURRENCE INSTRUMENT LIMITATION
+==============================================================================
+If a line contains an occurrence of a variable that is not an assignment
+target (e.g. it appears in a conditional or as a function argument), and the
+brace stack for that line cannot be computed from the current census harness
+configuration, the result must be reported as:
+  INSTRUMENT LIMITATION — NON-ASSIGNING OCCURRENCE STACK NOT COMPUTABLE
+  UNDER CURRENT PIN
+This is not the same as ABSENT. The source line exists. The tool cannot
+compute the stack for it under the current pin.
+
+==============================================================================
+RULE 12 — HASH GATE
+==============================================================================
+For every Form D task, the builder must:
+  1. Run SHA256 on each named .mq5 file.
+  2. Report the raw hash output exactly as produced.
+  3. Compare against the supplied stasis value.
+  4. Report MATCH or MISMATCH.
+  A MISMATCH stops the task. The builder must report BLOCKED and not proceed.
+
+==============================================================================
+RULE 13 — NO ELLIPSIS IN SOURCE PASTES
+==============================================================================
+Source pastes must include every line of the region without abbreviation.
+The use of "..." or "[...] lines omitted" is prohibited. If a region is too
+large to paste in one response, the builder must declare SPLIT REQUIRED and
+deliver each part completely.
+
+==============================================================================
+RULE 14 — PARAMETER DIRECTION FROM DEFINITION ONLY
+==============================================================================
+Parameter direction (by-value vs by-reference) must be determined from the
+definition header, not from a call site. A parameter is by-reference if "&"
+appears in its declaration text. A parameter is a pointer if "*" appears.
+Otherwise it is by-value.

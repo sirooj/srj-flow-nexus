@@ -1,0 +1,49 @@
+SRJ CENSUS REPORT
+ITEM: T2   Region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## LINE COUNT FIRST
+  line 25   ## PASTE
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## LINE COUNT FIRST
+DEFINITION HEADER LINE:        614
+PARAMETER-LIST CLOSING LINE:   615
+OPENING BRACE LINE:            616
+BRACE-COUNTED CLOSING LINE:    635
+LINE COUNT (header..close):    22   SPAN: header line through closing brace line
+LINE COUNT (open..close):      20   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+WHOLE - line count 22 is at most 60
+PASTE RANGE: 614 through 635 inclusive, header through closing brace
+## PASTE
+614: void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
+615:                          double &best, bool &haveBest)
+616:   {
+617:    if(v == EMPTY_VALUE || v <= 0.0) return;
+618:    bool inDir = (dir == DIR_LONG) ? (v > currentPrice) : (v < currentPrice);
+619:    if(!inDir) return;
+620: 
+621:    //--- [Task 31 / Ruling 7c] A target lying INSIDE the entry zone is not a
+622:    //--- target. Measured instance: tp=1.15090 inside zone 1.15064-1.15096
+623:    //--- inverted the geometry entirely (the "profit" side sat behind the
+624:    //--- entry). Excluding it promoted the next candidate at 1.15144, giving
+625:    //--- R 1.50 with both legs coherent. None of the operator's three logged
+626:    //--- August targets was inside its zone, so no wider exclusion is warranted.
+627:    //--- Threshold-free: the test is containment, not distance. Part A section 7
+628:    //--- is not engaged.
+629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+630:    //--- guard is inert before arming and pre-arm behaviour is unchanged.
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+632:    double dist = MathAbs(v - currentPrice);
+633:    if(!haveBest || dist < MathAbs(best - currentPrice))
+634:      { best = v; haveBest = true; }
+635:   }
+PASTED LINE COUNT: 22
+REPORTED RANGE LINE COUNT: 22

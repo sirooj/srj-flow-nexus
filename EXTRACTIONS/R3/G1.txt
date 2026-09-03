@@ -1,0 +1,33 @@
+SRJ CENSUS REPORT
+ITEM: G1   Definition-header classification for ResetSequence
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (3)
+  line 16   ## CANDIDATES
+  line 23   ## FALLBACK
+  line 25   ## DEFINITION
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CANDIDATES
+PATTERN SUPPLIED AS A FULL IDENTIFIER: ResetSequence
+CANDIDATE SRJ_FlowNexus_EA.mq5 1090: void ResetSequence()
+  PARAMETER-LIST CLOSING LINE: 1090
+  CLASSIFICATION: DEFINITION
+CANDIDATE COUNT: 1
+STATUS: DEFINITION AT COLUMN 0
+## FALLBACK
+FALLBACK REACHED: NO
+## DEFINITION
+DEFINITION: ResetSequence   FILE SRJ_FlowNexus_EA.mq5
+DEFINITION HEADER LINE:        1090
+PARAMETER-LIST CLOSING LINE:   1090
+OPENING BRACE LINE:            1091
+BRACE-COUNTED CLOSING LINE:    1107
+LINE COUNT (header..close):    18   SPAN: header line through closing brace line
+LINE COUNT (open..close):      17   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES

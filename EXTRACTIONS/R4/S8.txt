@@ -1,0 +1,189 @@
+SRJ CENSUS REPORT
+ITEM: S8   Census and call sites for g_zoneLo
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (17)
+  line 30   ## FILE SRJ_FlowNexus_EA.mq5
+  line 112   ## FILE SRJ_FlowLogic.mq5
+  line 117   ## FILE SRJ_Alerts.mqh
+  line 122   ## FILE SRJ_BiasEngine.mqh
+  line 127   ## FILE SRJ_Draw.mqh
+  line 132   ## FILE SRJ_Fractals.mqh
+  line 137   ## FILE SRJ_HTFEngine.mqh
+  line 142   ## FILE SRJ_ImbalanceMgr.mqh
+  line 147   ## FILE SRJ_OrderblockMgr.mqh
+  line 152   ## FILE SRJ_Panels.mqh
+  line 157   ## FILE SRJ_SeedFormat.mqh
+  line 162   ## FILE SRJ_Sessions.mqh
+  line 167   ## FILE SRJ_State.mqh
+  line 172   ## FILE SRJ_Text.mqh
+  line 177   ## FILE SRJ_TickCore.mqh
+  line 182   ## FILE SRJ_Types.mqh
+  line 187   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC g_zoneLo: 40
+N_LINES, single per-file count of distinct matching lines: 39
+SRJ_FlowNexus_EA.mq5 182: double           g_zoneLo         = 0.0;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 913:    // g_zoneHi/g_zoneLo inertness before arming both match Task 67 exactly.
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 921:       bool   t75_zone = (g_zoneHi > 0.0 && g_zoneLo > 0.0);
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 928:          if(t75_zone && t75_v >= g_zoneLo && t75_v <= g_zoneHi)          continue;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 940:                         DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 954:                         DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 973:    // g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this guard
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 976:    if(!obSwingSideOk && g_zoneHi > 0.0 && g_zoneLo > 0.0 &&
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 977:       slRefOut >= g_zoneLo && slRefOut <= g_zoneHi)
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 988:          if(t67_v >= g_zoneLo && t67_v <= g_zoneHi) continue;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 998:                         DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1011:                         DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1037:                      DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1062:                            DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1104:    g_zoneLo         = 0.0;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1216:       MathAbs(zLo - g_zoneLo) <= _Point * 0.5)
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1848:    //--- S3->S4 arming transition IS the binding point: g_zoneHi and g_zoneLo are
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1958:          //--- Skipped before S4 because g_zoneHi/g_zoneLo are still 0.0 until the
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1960:          if(InpDebugLog && g_zoneHi > 0.0 && g_zoneLo > 0.0)
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1962:             double zNear = (g_dir == DIR_LONG) ? g_zoneHi : g_zoneLo;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1963:             double zFar  = (g_dir == DIR_LONG) ? g_zoneLo : g_zoneHi;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1964:             double zMid  = (g_zoneHi + g_zoneLo) * 0.5;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 1986:                         DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2354:       //--- by the single g_zoneHi/g_zoneLo slot, exactly as the Task 33a depth
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2734:          if(haveFvg) { g_zoneHi = MathMax(fvgHi, fvgLo); g_zoneLo = MathMin(fvgHi, fvgLo); }
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2735:          else        { g_zoneHi = MathMax(xobHi, xobLo); g_zoneLo = MathMin(xobHi, xobLo); }
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2746:                         DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2756:                                    DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2786:       if(ReadQualifyingZone(barShift, s35_zHi, s35_zLo, s35_fromFvg) && ZoneAdoptable(barShift, s35_zHi, s35_zLo) && ((g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point * 0.5) : (s35_zHi >= g_zoneHi - _Point * 0.5)))
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2789:             MathAbs(s35_zLo - g_zoneLo) > _Point * 0.5)
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2796:                            DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2804:             g_zoneLo = s35_zLo;
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2809:                !(g_touchBarHi >= g_zoneLo && g_touchBarLo <= g_zoneHi))
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2818:                               DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2841:       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2860:                      DoubleToString(g_zoneLo, _Digits),
+  CLASSIFICATION: OTHER
+SRJ_FlowNexus_EA.mq5 2866:          bool touchesZone = (h >= g_zoneLo && l <= g_zoneHi);
+  CLASSIFICATION: OTHER
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC g_zoneLo: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## TOTALS
+DEFINITION HEADER LINES: 0
+CALL SITES: 0

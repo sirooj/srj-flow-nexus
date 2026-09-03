@@ -1,0 +1,32 @@
+{
+  "spec_version": "R2.1",
+  "task": "160-PreJ-R3",
+  "tree": {
+    "ea": "C:\\Users\\winar\\AppData\\Roaming\\MetaQuotes\\Terminal\\3CA1B4AB7DFED5C81B1C7F1007926D06\\MQL5\\Experts\\SRJ_FlowNexus_EA.mq5",
+    "indicator": "C:\\Users\\winar\\AppData\\Roaming\\MetaQuotes\\Terminal\\3CA1B4AB7DFED5C81B1C7F1007926D06\\MQL5\\Indicators\\SRJ_FlowLogic.mq5",
+    "include_dir": "C:\\Users\\winar\\AppData\\Roaming\\MetaQuotes\\Terminal\\3CA1B4AB7DFED5C81B1C7F1007926D06\\MQL5\\Include\\SRJ"
+  },
+  "stasis": {
+    "ea_sha256": "0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322",
+    "indicator_sha256": "d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5"
+  },
+  "expect_file_count": 16,
+  "provenance_patterns": ["g_zoneHi", "g_zoneLo", "ResetSequence", "EvaluateClosedBar", "g_state"],
+  "items": [
+    { "id": "G1", "op": "locate_region", "name": "ResetSequence" },
+    { "id": "G2", "op": "census_name_calls", "name": "ResetSequence", "region_item": "G1" },
+    { "id": "G3", "op": "guard_probe", "calls_item": "G2" },
+    { "id": "G4", "op": "one_level_up", "source_item": "G2" },
+    { "id": "P1", "op": "locate_region", "name": "EvaluateClosedBar" },
+    { "id": "P2", "op": "statement_inventory", "region_item": "P1",
+      "patterns": ["fvgHi", "fvgLo", "xobHi", "xobLo", "s35_zHi", "s35_zLo"] },
+    { "id": "P3", "op": "parameters", "names": ["ReadQualifyingZone", "ZoneAdoptable"] },
+    { "id": "P4", "op": "census_name_calls", "names": ["ReadQualifyingZone", "ZoneAdoptable"], "params_item": "P3" },
+    { "id": "P5", "op": "call_names", "source_item": "P2" },
+    { "id": "S1", "op": "census_occ", "patterns": ["g_zoneHi", "g_zoneLo"] },
+    { "id": "S2", "op": "classify_scope", "source_item": "S1" },
+    { "id": "S3", "op": "stacks_per_line", "source_item": "S2" },
+    { "id": "S4", "op": "aggregate", "source_item": "S3" },
+    { "id": "X1", "op": "conditional_stacks", "region_item": "P1", "zone_patterns": ["g_zoneHi", "g_zoneLo"] }
+  ]
+}

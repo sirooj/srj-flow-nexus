@@ -1,0 +1,151 @@
+SRJ CENSUS REPORT
+ITEM: F4   Census and call sites for FindLegTouch
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (18)
+  line 31   ## FILE SRJ_FlowNexus_EA.mq5
+  line 39   ## FILE SRJ_FlowLogic.mq5
+  line 44   ## FILE SRJ_Alerts.mqh
+  line 49   ## FILE SRJ_BiasEngine.mqh
+  line 54   ## FILE SRJ_Draw.mqh
+  line 59   ## FILE SRJ_Fractals.mqh
+  line 64   ## FILE SRJ_HTFEngine.mqh
+  line 69   ## FILE SRJ_ImbalanceMgr.mqh
+  line 74   ## FILE SRJ_OrderblockMgr.mqh
+  line 79   ## FILE SRJ_Panels.mqh
+  line 84   ## FILE SRJ_SeedFormat.mqh
+  line 89   ## FILE SRJ_Sessions.mqh
+  line 94   ## FILE SRJ_State.mqh
+  line 99   ## FILE SRJ_Text.mqh
+  line 104   ## FILE SRJ_TickCore.mqh
+  line 109   ## FILE SRJ_Types.mqh
+  line 114   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2841
+  line 149   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC FindLegTouch: 2
+N_LINES, single per-file count of distinct matching lines: 2
+SRJ_FlowNexus_EA.mq5 1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 2841:       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
+  CLASSIFICATION: CALL SITE
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2841
+SRJ_FlowNexus_EA.mq5 2841:       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
+ARGUMENT LIST CONTINUES ON NEXT LINE
+2841:       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
+2842:                                       s52_shift, s52_legT);
+JOINED ARGUMENT TEXT: barShift, g_zoneHi, g_zoneLo,                                       s52_shift, s52_legT
+POSITIONAL ARGUMENT 1 | barShift
+POSITIONAL ARGUMENT 2 | g_zoneHi
+POSITIONAL ARGUMENT 3 | g_zoneLo
+POSITIONAL ARGUMENT 4 | s52_shift
+POSITIONAL ARGUMENT 5 | s52_legT
+ARGUMENT COUNT: 5
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 88 | OPEN 2771 | CLOSE 2881 | DEPTH 2
+  BRACE LINE 2771:      {
+  HEADER 2770:    if(g_state == ST_S4_ARMED)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+DEFINITION HEADER LINES: 1
+CALL SITES: 1

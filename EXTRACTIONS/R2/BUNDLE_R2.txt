@@ -1,0 +1,1921 @@
+===== BEGIN W1.txt =====
+SRJ CENSUS REPORT
+ITEM: W1   Assignment-target census: g_zoneHi, g_zoneLo
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (17)
+  line 30   ## FILE SRJ_FlowNexus_EA.mq5
+  line 55   ## FILE SRJ_FlowLogic.mq5
+  line 64   ## FILE SRJ_Alerts.mqh
+  line 73   ## FILE SRJ_BiasEngine.mqh
+  line 82   ## FILE SRJ_Draw.mqh
+  line 91   ## FILE SRJ_Fractals.mqh
+  line 100   ## FILE SRJ_HTFEngine.mqh
+  line 109   ## FILE SRJ_ImbalanceMgr.mqh
+  line 118   ## FILE SRJ_OrderblockMgr.mqh
+  line 127   ## FILE SRJ_Panels.mqh
+  line 136   ## FILE SRJ_SeedFormat.mqh
+  line 145   ## FILE SRJ_Sessions.mqh
+  line 154   ## FILE SRJ_State.mqh
+  line 163   ## FILE SRJ_Text.mqh
+  line 172   ## FILE SRJ_TickCore.mqh
+  line 181   ## FILE SRJ_Types.mqh
+  line 190   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC g_zoneHi: 40
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 40
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 8
+SRJ_FlowNexus_EA.mq5 181: double           g_zoneHi         = 0.0;
+  ASSIGNS-TO g_zoneHi | RHS  0.0
+SRJ_FlowNexus_EA.mq5 182: double           g_zoneLo         = 0.0;
+  ASSIGNS-TO g_zoneLo | RHS  0.0
+SRJ_FlowNexus_EA.mq5 1103:    g_zoneHi         = 0.0;
+  ASSIGNS-TO g_zoneHi | RHS  0.0
+SRJ_FlowNexus_EA.mq5 1104:    g_zoneLo         = 0.0;
+  ASSIGNS-TO g_zoneLo | RHS  0.0
+SRJ_FlowNexus_EA.mq5 2734:          if(haveFvg) { g_zoneHi = MathMax(fvgHi, fvgLo); g_zoneLo = MathMin(fvgHi, fvgLo); }
+  ASSIGNS-TO g_zoneHi | RHS  MathMax(fvgHi, fvgLo)
+  ASSIGNS-TO g_zoneLo | RHS  MathMin(fvgHi, fvgLo)
+SRJ_FlowNexus_EA.mq5 2735:          else        { g_zoneHi = MathMax(xobHi, xobLo); g_zoneLo = MathMin(xobHi, xobLo); }
+  ASSIGNS-TO g_zoneHi | RHS  MathMax(xobHi, xobLo)
+  ASSIGNS-TO g_zoneLo | RHS  MathMin(xobHi, xobLo)
+SRJ_FlowNexus_EA.mq5 2803:             g_zoneHi = s35_zHi;
+  ASSIGNS-TO g_zoneHi | RHS  s35_zHi
+SRJ_FlowNexus_EA.mq5 2804:             g_zoneLo = s35_zLo;
+  ASSIGNS-TO g_zoneLo | RHS  s35_zLo
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Alerts.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Draw.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Fractals.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Panels.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Sessions.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_State.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Text.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_TickCore.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## FILE SRJ_Types.mqh
+N_OCC g_zoneHi: 0
+  INCIDENTAL OCCURRENCES OF g_zoneHi: 0
+N_OCC g_zoneLo: 0
+  INCIDENTAL OCCURRENCES OF g_zoneLo: 0
+N_LINES, single per-file count of distinct assignment-target lines: 0
+ASSIGNMENT-TARGET LINES FOR g_zoneHi: ABSENT
+ASSIGNMENT-TARGET LINES FOR g_zoneLo: ABSENT
+
+## TOTALS
+DISTINCT ASSIGNMENT-TARGET LINES PASTED: 8
+SUM OF PER-FILE N_LINES: 8
+N_LINES WAS NEVER SUMMED ACROSS PATTERNS: confirmed by construction
+===== END W1.txt =====
+
+===== BEGIN W2.txt =====
+SRJ CENSUS REPORT
+ITEM: W2   Scope classification and enclosing functions
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (9)
+  line 22   ## SRJ_FlowNexus_EA.mq5 LINE 181
+  line 29   ## SRJ_FlowNexus_EA.mq5 LINE 182
+  line 36   ## SRJ_FlowNexus_EA.mq5 LINE 1103
+  line 50   ## SRJ_FlowNexus_EA.mq5 LINE 1104
+  line 64   ## SRJ_FlowNexus_EA.mq5 LINE 2734
+  line 78   ## SRJ_FlowNexus_EA.mq5 LINE 2735
+  line 92   ## SRJ_FlowNexus_EA.mq5 LINE 2803
+  line 106   ## SRJ_FlowNexus_EA.mq5 LINE 2804
+  line 120   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## SRJ_FlowNexus_EA.mq5 LINE 181
+SRJ_FlowNexus_EA.mq5 181: double           g_zoneHi         = 0.0;
+CLASSIFICATION: FILE-SCOPE DECLARATION
+DECLARED TYPE VERBATIM, first token of the line: double
+ENCLOSING FUNCTION: NO ENCLOSING FUNCTION - FILE SCOPE
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 182
+SRJ_FlowNexus_EA.mq5 182: double           g_zoneLo         = 0.0;
+CLASSIFICATION: FILE-SCOPE DECLARATION
+DECLARED TYPE VERBATIM, first token of the line: double
+ENCLOSING FUNCTION: NO ENCLOSING FUNCTION - FILE SCOPE
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 1103
+SRJ_FlowNexus_EA.mq5 1103:    g_zoneHi         = 0.0;
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: ResetSequence
+DEFINITION HEADER LINE:        1090
+PARAMETER-LIST CLOSING LINE:   1090
+OPENING BRACE LINE:            1091
+BRACE-COUNTED CLOSING LINE:    1107
+LINE COUNT (header..close):    18   SPAN: header line through closing brace line
+LINE COUNT (open..close):      17   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 1104
+SRJ_FlowNexus_EA.mq5 1104:    g_zoneLo         = 0.0;
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: ResetSequence
+DEFINITION HEADER LINE:        1090
+PARAMETER-LIST CLOSING LINE:   1090
+OPENING BRACE LINE:            1091
+BRACE-COUNTED CLOSING LINE:    1107
+LINE COUNT (header..close):    18   SPAN: header line through closing brace line
+LINE COUNT (open..close):      17   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 2734
+SRJ_FlowNexus_EA.mq5 2734:          if(haveFvg) { g_zoneHi = MathMax(fvgHi, fvgLo); g_zoneLo = MathMin(fvgHi, fvgLo); }
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 2735
+SRJ_FlowNexus_EA.mq5 2735:          else        { g_zoneHi = MathMax(xobHi, xobLo); g_zoneLo = MathMin(xobHi, xobLo); }
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 2803
+SRJ_FlowNexus_EA.mq5 2803:             g_zoneHi = s35_zHi;
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## SRJ_FlowNexus_EA.mq5 LINE 2804
+SRJ_FlowNexus_EA.mq5 2804:             g_zoneLo = s35_zLo;
+CLASSIFICATION: IN-FUNCTION
+FILE-SCOPE DECLARATION TEST FAILED ON: NOT AT COLUMN 0
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+FILE-SCOPE DECLARATION LINES: 2
+IN-FUNCTION LINES: 6
+===== END W2.txt =====
+
+===== BEGIN W3.txt =====
+SRJ CENSUS REPORT
+ITEM: W3   Full open-brace stack per in-function zone write
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (7)
+  line 20   ## SRJ_FlowNexus_EA.mq5 LINE 1103
+  line 32   ## SRJ_FlowNexus_EA.mq5 LINE 1104
+  line 44   ## SRJ_FlowNexus_EA.mq5 LINE 2734
+  line 67   ## SRJ_FlowNexus_EA.mq5 LINE 2735
+  line 90   ## SRJ_FlowNexus_EA.mq5 LINE 2803
+  line 119   ## SRJ_FlowNexus_EA.mq5 LINE 2804
+  line 148   ## AGGREGATES
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## SRJ_FlowNexus_EA.mq5 LINE 1103
+LINE 1103:    g_zoneHi         = 0.0;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1091 | CLOSE 1107 | DEPTH 1
+  BRACE LINE 1091:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NEAREST ENCLOSING "if" BY BRACE SCOPE: NOT ENCLOSED
+
+## SRJ_FlowNexus_EA.mq5 LINE 1104
+LINE 1104:    g_zoneLo         = 0.0;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1091 | CLOSE 1107 | DEPTH 1
+  BRACE LINE 1091:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+NEAREST ENCLOSING "if" BY BRACE SCOPE: NOT ENCLOSED
+
+## SRJ_FlowNexus_EA.mq5 LINE 2734
+LINE 2734:          if(haveFvg) { g_zoneHi = MathMax(fvgHi, fvgLo); g_zoneLo = MathMin(fvgHi, fvgLo); }
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 57 | OPEN 2265 | CLOSE 2768 | DEPTH 2
+  BRACE LINE 2265:      {
+  HEADER 2264:    if(g_state == ST_S3_ZONE_WAIT)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 83 | OPEN 2733 | CLOSE 2760 | DEPTH 3
+  BRACE LINE 2733:         {
+  HEADER 2732:       if((haveFvg || haveXob) && s31_inPlay)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NEAREST ENCLOSING "if" BY BRACE SCOPE 2732:       if((haveFvg || haveXob) && s31_inPlay)
+
+## SRJ_FlowNexus_EA.mq5 LINE 2735
+LINE 2735:          else        { g_zoneHi = MathMax(xobHi, xobLo); g_zoneLo = MathMin(xobHi, xobLo); }
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 57 | OPEN 2265 | CLOSE 2768 | DEPTH 2
+  BRACE LINE 2265:      {
+  HEADER 2264:    if(g_state == ST_S3_ZONE_WAIT)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 83 | OPEN 2733 | CLOSE 2760 | DEPTH 3
+  BRACE LINE 2733:         {
+  HEADER 2732:       if((haveFvg || haveXob) && s31_inPlay)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 3
+NEAREST ENCLOSING "if" BY BRACE SCOPE 2732:       if((haveFvg || haveXob) && s31_inPlay)
+
+## SRJ_FlowNexus_EA.mq5 LINE 2803
+LINE 2803:             g_zoneHi = s35_zHi;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 88 | OPEN 2771 | CLOSE 2881 | DEPTH 2
+  BRACE LINE 2771:      {
+  HEADER 2770:    if(g_state == ST_S4_ARMED)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 89 | OPEN 2787 | CLOSE 2822 | DEPTH 3
+  BRACE LINE 2787:         {
+  HEADER 2786:       if(ReadQualifyingZone(barShift, s35_zHi, s35_zLo, s35_fromFvg) && ZoneAdoptable(barShift, s35_zHi, s35_zLo) && ((g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point * 0.5) : (s35_zHi >= g_zoneHi - _Point * 0.5)))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+  ENTRY 90 | OPEN 2790 | CLOSE 2821 | DEPTH 4
+  BRACE LINE 2790:            {
+  HEADER 2788:          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
+  HEADER-TO-BRACE GAP: 2 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 4
+NEAREST ENCLOSING "if" BY BRACE SCOPE 2788:          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
+
+## SRJ_FlowNexus_EA.mq5 LINE 2804
+LINE 2804:             g_zoneLo = s35_zLo;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 88 | OPEN 2771 | CLOSE 2881 | DEPTH 2
+  BRACE LINE 2771:      {
+  HEADER 2770:    if(g_state == ST_S4_ARMED)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+  ENTRY 89 | OPEN 2787 | CLOSE 2822 | DEPTH 3
+  BRACE LINE 2787:         {
+  HEADER 2786:       if(ReadQualifyingZone(barShift, s35_zHi, s35_zLo, s35_fromFvg) && ZoneAdoptable(barShift, s35_zHi, s35_zLo) && ((g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point * 0.5) : (s35_zHi >= g_zoneHi - _Point * 0.5)))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+  ENTRY 90 | OPEN 2790 | CLOSE 2821 | DEPTH 4
+  BRACE LINE 2790:            {
+  HEADER 2788:          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
+  HEADER-TO-BRACE GAP: 2 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 4
+NEAREST ENCLOSING "if" BY BRACE SCOPE 2788:          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
+
+## AGGREGATES
+IN-FUNCTION LINE COUNT: 6
+LINES WHOSE STACK CONTAINS AT LEAST ONE ENTRY WITH CONTAINS-g_state YES: 4
+  LINE NUMBERS: 2734, 2735, 2803, 2804
+LINES WHOSE STACK CONTAINS NO ENTRY WITH CONTAINS-g_state YES: 2
+  LINE NUMBERS: 1103, 1104
+LINES WHOSE STACK CONTAINS AN ENTRY WHOSE HEADER IS for/while/switch/do: 0
+  LINE NUMBERS: NONE
+===== END W3.txt =====
+
+===== BEGIN W4.txt =====
+SRJ CENSUS REPORT
+ITEM: W4   RHS identifier set and declaration records
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (11)
+  line 24   ## IDENTIFIER SET
+  line 34   ## IDENTIFIER fvgHi IN EvaluateClosedBar
+  line 43   ## IDENTIFIER fvgHi IN EvaluateClosedBar
+  line 52   ## IDENTIFIER fvgLo IN EvaluateClosedBar
+  line 65   ## IDENTIFIER fvgLo IN EvaluateClosedBar
+  line 78   ## IDENTIFIER xobHi IN EvaluateClosedBar
+  line 87   ## IDENTIFIER xobHi IN EvaluateClosedBar
+  line 96   ## IDENTIFIER xobLo IN EvaluateClosedBar
+  line 105   ## IDENTIFIER xobLo IN EvaluateClosedBar
+  line 114   ## IDENTIFIER s35_zHi IN EvaluateClosedBar
+  line 128   ## IDENTIFIER s35_zLo IN EvaluateClosedBar
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## IDENTIFIER SET
+SOURCE: right-hand-side text of every in-function assignment-target line
+IDENTIFIER: fvgHi
+IDENTIFIER: fvgLo
+IDENTIFIER: xobHi
+IDENTIFIER: xobLo
+IDENTIFIER: s35_zHi
+IDENTIFIER: s35_zLo
+DISTINCT IDENTIFIER COUNT: 6
+
+## IDENTIFIER fvgHi IN EvaluateClosedBar
+IDENTIFIER: fvgHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER fvgHi IN EvaluateClosedBar
+IDENTIFIER: fvgHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER fvgLo IN EvaluateClosedBar
+IDENTIFIER: fvgLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+RECORD fvgLo@2266
+  2266:       double xobHi, xobLo, fvgHi, fvgLo;
+  D 2266
+  PRECEDING TOKEN: ,
+  RHS ABSENT - DECLARATION CARRIES NO "="
+DECLARATION RECORD COUNT: 1
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER fvgLo IN EvaluateClosedBar
+IDENTIFIER: fvgLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+RECORD fvgLo@2266
+  2266:       double xobHi, xobLo, fvgHi, fvgLo;
+  D 2266
+  PRECEDING TOKEN: ,
+  RHS ABSENT - DECLARATION CARRIES NO "="
+DECLARATION RECORD COUNT: 1
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER xobHi IN EvaluateClosedBar
+IDENTIFIER: xobHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER xobHi IN EvaluateClosedBar
+IDENTIFIER: xobHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER xobLo IN EvaluateClosedBar
+IDENTIFIER: xobLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER xobLo IN EvaluateClosedBar
+IDENTIFIER: xobLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+NO DECLARATION RECORD IN THIS RANGE
+DECLARATION RECORD COUNT: 0
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER s35_zHi IN EvaluateClosedBar
+IDENTIFIER: s35_zHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+RECORD s35_zHi@2784
+  2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  D 2784
+  PRECEDING TOKEN: double
+  RHS  0.0, s35_zLo = 0.0
+DECLARATION RECORD COUNT: 1
+2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  RHS  0.0, s35_zLo = 0.0
+ASSIGNMENT-TARGET COUNT: 1
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+
+## IDENTIFIER s35_zLo IN EvaluateClosedBar
+IDENTIFIER: s35_zLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 brace-counted range of EvaluateClosedBar, lines 1363 through 3056
+RECORD s35_zLo@2784
+  2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  D 2784
+  PRECEDING TOKEN: ,
+  RHS  0.0
+DECLARATION RECORD COUNT: 1
+2784:       double s35_zHi = 0.0, s35_zLo = 0.0;
+  RHS  0.0
+ASSIGNMENT-TARGET COUNT: 1
+NO SCOPE TEST IS REPORTED IN THIS ITEM.
+===== END W4.txt =====
+
+===== BEGIN F1.txt =====
+SRJ CENSUS REPORT
+ITEM: F1   Definition-header classification for FindLegTouch
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (3)
+  line 16   ## CANDIDATES
+  line 23   ## FALLBACK
+  line 25   ## DEFINITION
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CANDIDATES
+PATTERN SUPPLIED AS A FULL IDENTIFIER: FindLegTouch
+CANDIDATE SRJ_FlowNexus_EA.mq5 1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+  PARAMETER-LIST CLOSING LINE: 1289
+  CLASSIFICATION: DEFINITION
+CANDIDATE COUNT: 1
+STATUS: DEFINITION AT COLUMN 0
+## FALLBACK
+FALLBACK REACHED: NO
+## DEFINITION
+DEFINITION: FindLegTouch   FILE SRJ_FlowNexus_EA.mq5
+DEFINITION HEADER LINE:        1288
+PARAMETER-LIST CLOSING LINE:   1289
+OPENING BRACE LINE:            1290
+BRACE-COUNTED CLOSING LINE:    1318
+LINE COUNT (header..close):    31   SPAN: header line through closing brace line
+LINE COUNT (open..close):      29   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+===== END F1.txt =====
+
+===== BEGIN F2.txt =====
+SRJ CENSUS REPORT
+ITEM: F2   Region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## LINE COUNT FIRST
+  line 25   ## PASTE
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## LINE COUNT FIRST
+DEFINITION HEADER LINE:        1288
+PARAMETER-LIST CLOSING LINE:   1289
+OPENING BRACE LINE:            1290
+BRACE-COUNTED CLOSING LINE:    1318
+LINE COUNT (header..close):    31   SPAN: header line through closing brace line
+LINE COUNT (open..close):      29   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+WHOLE - line count 31 is at most 140
+PASTE RANGE: 1288 through 1318 inclusive, header through closing brace
+## PASTE
+1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+1289:                   int &foundShiftOut, double &legTimeOut)
+1290:   {
+1291:    foundShiftOut = -1;
+1292:    legTimeOut    = 0.0;
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+1294: 
+1295:    double legT;
+1296:    if(ReadFlow(FL_BUF_STRUCT_LEG_TIME, legT, barShift) &&
+1297:       legT > 0.0 && legT != EMPTY_VALUE)
+1298:       legTimeOut = legT;
+1299:    datetime legBoundary = (legTimeOut > 0.0) ? (datetime)legTimeOut : 0;
+1300: 
+1301:    for(int s = barShift; s <= barShift + 500; s++)
+1302:      {
+1303:       datetime bt = iTime(_Symbol, PERIOD_CURRENT, s);
+1304:       if(bt <= 0)                              break;
+1305:       if(legBoundary > 0 && bt < legBoundary)   break;
+1306: 
+1307:       double so = iOpen (_Symbol, PERIOD_CURRENT, s);
+1308:       double sh = iHigh (_Symbol, PERIOD_CURRENT, s);
+1309:       double sl = iLow  (_Symbol, PERIOD_CURRENT, s);
+1310:       double sc = iClose(_Symbol, PERIOD_CURRENT, s);
+1311: 
+1312:       bool oppositeDir = (g_dir == DIR_LONG) ? (sc < so) : (sc > so);
+1313:       bool touchesZone = (sh >= zLo && sl <= zHi);
+1314:       if(oppositeDir && touchesZone)
+1315:         { foundShiftOut = s; return true; }
+1316:      }
+1317:    return false;
+1318:   }
+PASTED LINE COUNT: 31
+REPORTED RANGE LINE COUNT: 31
+===== END F2.txt =====
+
+===== BEGIN F3.txt =====
+SRJ CENSUS REPORT
+ITEM: F3   Parameter table
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## PARAMETERS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PARAMETERS
+PARAMETER LIST SPANS MORE THAN ONE LINE. Every line pasted below.
+1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+1289:                   int &foundShiftOut, double &legTimeOut)
+1 | int barShift | BY VALUE | CONTAINS-ASTERISK: no | barShift
+2 | double zHi | BY VALUE | CONTAINS-ASTERISK: no | zHi
+3 | double zLo | BY VALUE | CONTAINS-ASTERISK: no | zLo
+4 | int &foundShiftOut | BY REFERENCE | CONTAINS-ASTERISK: no | foundShiftOut
+5 | double &legTimeOut | BY REFERENCE | CONTAINS-ASTERISK: no | legTimeOut
+PARAMETER COUNT: 5
+===== END F3.txt =====
+
+===== BEGIN F4.txt =====
+SRJ CENSUS REPORT
+ITEM: F4   Census and call sites for FindLegTouch
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (18)
+  line 31   ## FILE SRJ_FlowNexus_EA.mq5
+  line 39   ## FILE SRJ_FlowLogic.mq5
+  line 44   ## FILE SRJ_Alerts.mqh
+  line 49   ## FILE SRJ_BiasEngine.mqh
+  line 54   ## FILE SRJ_Draw.mqh
+  line 59   ## FILE SRJ_Fractals.mqh
+  line 64   ## FILE SRJ_HTFEngine.mqh
+  line 69   ## FILE SRJ_ImbalanceMgr.mqh
+  line 74   ## FILE SRJ_OrderblockMgr.mqh
+  line 79   ## FILE SRJ_Panels.mqh
+  line 84   ## FILE SRJ_SeedFormat.mqh
+  line 89   ## FILE SRJ_Sessions.mqh
+  line 94   ## FILE SRJ_State.mqh
+  line 99   ## FILE SRJ_Text.mqh
+  line 104   ## FILE SRJ_TickCore.mqh
+  line 109   ## FILE SRJ_Types.mqh
+  line 114   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2841
+  line 149   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC FindLegTouch: 2
+N_LINES, single per-file count of distinct matching lines: 2
+SRJ_FlowNexus_EA.mq5 1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 2841:       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
+  CLASSIFICATION: CALL SITE
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC FindLegTouch: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2841
+SRJ_FlowNexus_EA.mq5 2841:       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
+ARGUMENT LIST CONTINUES ON NEXT LINE
+2841:       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
+2842:                                       s52_shift, s52_legT);
+JOINED ARGUMENT TEXT: barShift, g_zoneHi, g_zoneLo,                                       s52_shift, s52_legT
+POSITIONAL ARGUMENT 1 | barShift
+POSITIONAL ARGUMENT 2 | g_zoneHi
+POSITIONAL ARGUMENT 3 | g_zoneLo
+POSITIONAL ARGUMENT 4 | s52_shift
+POSITIONAL ARGUMENT 5 | s52_legT
+ARGUMENT COUNT: 5
+ENCLOSING FUNCTION: EvaluateClosedBar
+DEFINITION HEADER LINE:        1363
+PARAMETER-LIST CLOSING LINE:   1363
+OPENING BRACE LINE:            1364
+BRACE-COUNTED CLOSING LINE:    3056
+LINE COUNT (header..close):    1694   SPAN: header line through closing brace line
+LINE COUNT (open..close):      1693   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 1364 | CLOSE 3056 | DEPTH 1
+  BRACE LINE 1364:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 88 | OPEN 2771 | CLOSE 2881 | DEPTH 2
+  BRACE LINE 2771:      {
+  HEADER 2770:    if(g_state == ST_S4_ARMED)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: YES
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+DEFINITION HEADER LINES: 1
+CALL SITES: 1
+===== END F4.txt =====
+
+===== BEGIN F5.txt =====
+SRJ CENSUS REPORT
+ITEM: F5   Positional correspondence, computed by position only
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2841
+  line 24   ## ZONE-RECEIVING PARAMETERS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2841
+ARGUMENT COUNT: 5
+PARAMETER COUNT: 5
+SRJ_FlowNexus_EA.mq5 2841 | ARG 1 | barShift | PARAMETER 1 | int barShift | barShift | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+SRJ_FlowNexus_EA.mq5 2841 | ARG 2 | g_zoneHi | PARAMETER 2 | double zHi | zHi | ARGUMENT TEXT IS EXACTLY "g_zoneHi": yes | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+SRJ_FlowNexus_EA.mq5 2841 | ARG 3 | g_zoneLo | PARAMETER 3 | double zLo | zLo | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": yes
+SRJ_FlowNexus_EA.mq5 2841 | ARG 4 | s52_shift | PARAMETER 4 | int &foundShiftOut | foundShiftOut | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+SRJ_FlowNexus_EA.mq5 2841 | ARG 5 | s52_legT | PARAMETER 5 | double &legTimeOut | legTimeOut | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+
+## ZONE-RECEIVING PARAMETERS
+2 | double zHi | BY VALUE
+3 | double zLo | BY VALUE
+ZONE-RECEIVING PARAMETER COUNT: 2
+POSITION COUNT MISMATCH RESULTS: 0
+===== END F5.txt =====
+
+===== BEGIN F6.txt =====
+SRJ CENSUS REPORT
+ITEM: F6   Per-parameter use trace inside the region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## PARAMETER 2 zHi
+  line 39   ## PARAMETER 3 zLo
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PARAMETER 2 zHi
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 1288 through 1318
+PARAMETER: 2 | zHi | BY VALUE
+1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+1313:       bool touchesZone = (sh >= zLo && sl <= zHi);
+OCCURRENCE COUNT: 3
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+COMPARISON LINES: ABSENT
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1290 | CLOSE 1318 | DEPTH 1
+  BRACE LINE 1290:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+for/while/switch/do HEADERS CONTAINING THE NAME: ABSENT
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: false
+
+## PARAMETER 3 zLo
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 1288 through 1318
+PARAMETER: 3 | zLo | BY VALUE
+1288: bool FindLegTouch(int barShift, double zHi, double zLo,
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+1313:       bool touchesZone = (sh >= zLo && sl <= zHi);
+OCCURRENCE COUNT: 3
+ASSIGNMENT-TARGET LINES: ABSENT
+ASSIGNMENT-TARGET COUNT: 0
+COMPARISON LINES: ABSENT
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 1290 | CLOSE 1318 | DEPTH 1
+  BRACE LINE 1290:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+STACK ENTRY COUNT: 1
+for/while/switch/do HEADERS CONTAINING THE NAME: ABSENT
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: false
+===== END F6.txt =====
+
+===== BEGIN F7.txt =====
+SRJ CENSUS REPORT
+ITEM: F7   Statement inventory inside the region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (12)
+  line 25   ## PASTE SEARCHED
+  line 27   ## RETURN STATEMENTS
+  line 39   ## LOOP AND SWITCH HEADERS
+  line 47   ## ASSIGNMENT-TARGET LINES
+  line 75   ## PATTERN g_zoneHi
+  line 77   ## PATTERN g_zoneLo
+  line 79   ## PATTERN g_touchSeen
+  line 81   ## PATTERN _Point
+  line 83   ## PATTERN g_orderblocks
+  line 85   ## PATTERN g_imbalances
+  line 87   ## PATTERN objId
+  line 89   ## PATTERN Print
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PASTE SEARCHED
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 1288 through 1318, produced by item F2
+## RETURN STATEMENTS
+1293:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: false
+1315:         { foundShiftOut = s; return true; }
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: true
+1317:    return false;
+  CARRIES-AN-EXPRESSION
+  RETURNED EXPRESSION TEXT: false
+RETURN STATEMENT COUNT: 3
+RAW SUBSTRING-HIT COUNT, DIAGNOSTIC ONLY: 3
+## LOOP AND SWITCH HEADERS
+1301:    for(int s = barShift; s <= barShift + 500; s++)
+  HEADER KEYWORD: for
+WHOLE-TOKEN RESULT COUNT: 1
+RAW SUBSTRING COUNT FOR for, DIAGNOSTIC ONLY: 1
+RAW SUBSTRING COUNT FOR while, DIAGNOSTIC ONLY: 0
+RAW SUBSTRING COUNT FOR switch, DIAGNOSTIC ONLY: 0
+RAW SUBSTRING COUNT FOR do, DIAGNOSTIC ONLY: 8
+## ASSIGNMENT-TARGET LINES
+1291:    foundShiftOut = -1;
+  ASSIGNS-TO foundShiftOut | RHS  -1
+1292:    legTimeOut    = 0.0;
+  ASSIGNS-TO legTimeOut | RHS  0.0
+1298:       legTimeOut = legT;
+  ASSIGNS-TO legTimeOut | RHS  legT
+1299:    datetime legBoundary = (legTimeOut > 0.0) ? (datetime)legTimeOut : 0;
+  ASSIGNS-TO legBoundary | RHS  (legTimeOut > 0.0) ? (datetime)legTimeOut : 0
+1301:    for(int s = barShift; s <= barShift + 500; s++)
+  ASSIGNS-TO s | RHS  barShift
+1303:       datetime bt = iTime(_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO bt | RHS  iTime(_Symbol, PERIOD_CURRENT, s)
+1307:       double so = iOpen (_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO so | RHS  iOpen (_Symbol, PERIOD_CURRENT, s)
+1308:       double sh = iHigh (_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO sh | RHS  iHigh (_Symbol, PERIOD_CURRENT, s)
+1309:       double sl = iLow  (_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO sl | RHS  iLow  (_Symbol, PERIOD_CURRENT, s)
+1310:       double sc = iClose(_Symbol, PERIOD_CURRENT, s);
+  ASSIGNS-TO sc | RHS  iClose(_Symbol, PERIOD_CURRENT, s)
+1312:       bool oppositeDir = (g_dir == DIR_LONG) ? (sc < so) : (sc > so);
+  ASSIGNS-TO oppositeDir | RHS  (g_dir == DIR_LONG) ? (sc < so) : (sc > so)
+1313:       bool touchesZone = (sh >= zLo && sl <= zHi);
+  ASSIGNS-TO touchesZone | RHS  (sh >= zLo && sl <= zHi)
+1315:         { foundShiftOut = s; return true; }
+  ASSIGNS-TO foundShiftOut | RHS  s
+ASSIGNMENT-TARGET RECORD COUNT: 13
+## PATTERN g_zoneHi
+ABSENT
+## PATTERN g_zoneLo
+ABSENT
+## PATTERN g_touchSeen
+ABSENT
+## PATTERN _Point
+ABSENT
+## PATTERN g_orderblocks
+ABSENT
+## PATTERN g_imbalances
+ABSENT
+## PATTERN objId
+ABSENT
+## PATTERN Print
+ABSENT
+===== END F7.txt =====
+
+===== BEGIN F8.txt =====
+SRJ CENSUS REPORT
+ITEM: F8   Brace map
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## BRACE MAP
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## BRACE MAP
+DEFINITION HEADER LINE:        1288
+PARAMETER-LIST CLOSING LINE:   1289
+OPENING BRACE LINE:            1290
+BRACE-COUNTED CLOSING LINE:    1318
+LINE COUNT (header..close):    31   SPAN: header line through closing brace line
+LINE COUNT (open..close):      29   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+BRACE MAP, every "{" from the region's opening brace through its closing brace:
+  ENTRY 1 | OPEN 1290 | CLOSE 1318 | DEPTH 1
+  BRACE LINE 1290:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 2 | OPEN 1302 | CLOSE 1316 | DEPTH 2
+  BRACE LINE 1302:      {
+  HEADER 1301:    for(int s = barShift; s <= barShift + 500; s++)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: YES - for
+  CONTAINS-g_state: NO
+  ENTRY 3 | OPEN 1315 | CLOSE 1315 | DEPTH 3
+  BRACE LINE 1315:         { foundShiftOut = s; return true; }
+  HEADER 1314:       if(oppositeDir && touchesZone)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+BRACE MAP ENTRY COUNT: 3
+MAXIMUM DEPTH: 3
+EXCLUDED BRACE COUNT: 0
+EVERY CLOSE DERIVED BY BRACE COUNTING FROM ITS OWN "{": YES
+===== END F8.txt =====
+
+===== BEGIN T1.txt =====
+SRJ CENSUS REPORT
+ITEM: T1   Definition-header classification for TpTargetUpdateBest
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (3)
+  line 16   ## CANDIDATES
+  line 23   ## FALLBACK
+  line 25   ## DEFINITION
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CANDIDATES
+PATTERN SUPPLIED AS A FULL IDENTIFIER: TpTargetUpdateBest
+CANDIDATE SRJ_FlowNexus_EA.mq5 614: void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
+  PARAMETER-LIST CLOSING LINE: 615
+  CLASSIFICATION: DEFINITION
+CANDIDATE COUNT: 1
+STATUS: DEFINITION AT COLUMN 0
+## FALLBACK
+FALLBACK REACHED: NO
+## DEFINITION
+DEFINITION: TpTargetUpdateBest   FILE SRJ_FlowNexus_EA.mq5
+DEFINITION HEADER LINE:        614
+PARAMETER-LIST CLOSING LINE:   615
+OPENING BRACE LINE:            616
+BRACE-COUNTED CLOSING LINE:    635
+LINE COUNT (header..close):    22   SPAN: header line through closing brace line
+LINE COUNT (open..close):      20   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+===== END T1.txt =====
+
+===== BEGIN T2.txt =====
+SRJ CENSUS REPORT
+ITEM: T2   Region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## LINE COUNT FIRST
+  line 25   ## PASTE
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## LINE COUNT FIRST
+DEFINITION HEADER LINE:        614
+PARAMETER-LIST CLOSING LINE:   615
+OPENING BRACE LINE:            616
+BRACE-COUNTED CLOSING LINE:    635
+LINE COUNT (header..close):    22   SPAN: header line through closing brace line
+LINE COUNT (open..close):      20   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+WHOLE - line count 22 is at most 60
+PASTE RANGE: 614 through 635 inclusive, header through closing brace
+## PASTE
+614: void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
+615:                          double &best, bool &haveBest)
+616:   {
+617:    if(v == EMPTY_VALUE || v <= 0.0) return;
+618:    bool inDir = (dir == DIR_LONG) ? (v > currentPrice) : (v < currentPrice);
+619:    if(!inDir) return;
+620: 
+621:    //--- [Task 31 / Ruling 7c] A target lying INSIDE the entry zone is not a
+622:    //--- target. Measured instance: tp=1.15090 inside zone 1.15064-1.15096
+623:    //--- inverted the geometry entirely (the "profit" side sat behind the
+624:    //--- entry). Excluding it promoted the next candidate at 1.15144, giving
+625:    //--- R 1.50 with both legs coherent. None of the operator's three logged
+626:    //--- August targets was inside its zone, so no wider exclusion is warranted.
+627:    //--- Threshold-free: the test is containment, not distance. Part A section 7
+628:    //--- is not engaged.
+629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+630:    //--- guard is inert before arming and pre-arm behaviour is unchanged.
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+632:    double dist = MathAbs(v - currentPrice);
+633:    if(!haveBest || dist < MathAbs(best - currentPrice))
+634:      { best = v; haveBest = true; }
+635:   }
+PASTED LINE COUNT: 22
+REPORTED RANGE LINE COUNT: 22
+===== END T2.txt =====
+
+===== BEGIN T3.txt =====
+SRJ CENSUS REPORT
+ITEM: T3   Brace map
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## BRACE MAP
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## BRACE MAP
+DEFINITION HEADER LINE:        614
+PARAMETER-LIST CLOSING LINE:   615
+OPENING BRACE LINE:            616
+BRACE-COUNTED CLOSING LINE:    635
+LINE COUNT (header..close):    22   SPAN: header line through closing brace line
+LINE COUNT (open..close):      20   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+BRACE MAP, every "{" from the region's opening brace through its closing brace:
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 2 | OPEN 634 | CLOSE 634 | DEPTH 2
+  BRACE LINE 634:      { best = v; haveBest = true; }
+  HEADER 633:    if(!haveBest || dist < MathAbs(best - currentPrice))
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: NO
+  CONTAINS-g_state: NO
+BRACE MAP ENTRY COUNT: 2
+MAXIMUM DEPTH: 2
+EXCLUDED BRACE COUNT: 0
+EVERY CLOSE DERIVED BY BRACE COUNTING FROM ITS OWN "{": YES
+===== END T3.txt =====
+
+===== BEGIN T4.txt =====
+SRJ CENSUS REPORT
+ITEM: T4   Parameter table
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (1)
+  line 14   ## PARAMETERS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PARAMETERS
+PARAMETER LIST SPANS MORE THAN ONE LINE. Every line pasted below.
+614: void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
+615:                          double &best, bool &haveBest)
+1 | double v | BY VALUE | CONTAINS-ASTERISK: no | v
+2 | ENUM_SRJ_DIR dir | BY VALUE | CONTAINS-ASTERISK: no | dir
+3 | double currentPrice | BY VALUE | CONTAINS-ASTERISK: no | currentPrice
+4 | double &best | BY REFERENCE | CONTAINS-ASTERISK: no | best
+5 | bool &haveBest | BY REFERENCE | CONTAINS-ASTERISK: no | haveBest
+PARAMETER COUNT: 5
+===== END T4.txt =====
+
+===== BEGIN T5.txt =====
+SRJ CENSUS REPORT
+ITEM: T5   Statement inventory inside the region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (15)
+  line 28   ## PASTE SEARCHED
+  line 30   ## RETURN STATEMENTS
+  line 39   ## LOOP AND SWITCH HEADERS
+  line 46   ## ASSIGNMENT-TARGET LINES
+  line 55   ## PATTERN g_zoneHi
+  line 58   ## PATTERN g_zoneLo
+  line 61   ## PATTERN g_touchSeen
+  line 63   ## PATTERN _Point
+  line 65   ## PATTERN g_orderblocks
+  line 67   ## PATTERN g_imbalances
+  line 69   ## PATTERN Total(
+  line 71   ## PATTERN GetOB
+  line 73   ## PATTERN GetFVG
+  line 75   ## PATTERN objId
+  line 77   ## PATTERN Print
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PASTE SEARCHED
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 614 through 635, produced by item T2
+## RETURN STATEMENTS
+617:    if(v == EMPTY_VALUE || v <= 0.0) return;
+  BARE
+619:    if(!inDir) return;
+  BARE
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+  BARE
+RETURN STATEMENT COUNT: 3
+RAW SUBSTRING-HIT COUNT, DIAGNOSTIC ONLY: 3
+## LOOP AND SWITCH HEADERS
+ABSENT
+WHOLE-TOKEN RESULT COUNT: 0
+RAW SUBSTRING COUNT FOR for, DIAGNOSTIC ONLY: 1
+RAW SUBSTRING COUNT FOR while, DIAGNOSTIC ONLY: 0
+RAW SUBSTRING COUNT FOR switch, DIAGNOSTIC ONLY: 0
+RAW SUBSTRING COUNT FOR do, DIAGNOSTIC ONLY: 4
+## ASSIGNMENT-TARGET LINES
+618:    bool inDir = (dir == DIR_LONG) ? (v > currentPrice) : (v < currentPrice);
+  ASSIGNS-TO inDir | RHS  (dir == DIR_LONG) ? (v > currentPrice) : (v < currentPrice)
+632:    double dist = MathAbs(v - currentPrice);
+  ASSIGNS-TO dist | RHS  MathAbs(v - currentPrice)
+634:      { best = v; haveBest = true; }
+  ASSIGNS-TO best | RHS  v
+  ASSIGNS-TO haveBest | RHS  true
+ASSIGNMENT-TARGET RECORD COUNT: 4
+## PATTERN g_zoneHi
+629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+## PATTERN g_zoneLo
+629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+## PATTERN g_touchSeen
+ABSENT
+## PATTERN _Point
+ABSENT
+## PATTERN g_orderblocks
+ABSENT
+## PATTERN g_imbalances
+ABSENT
+## PATTERN Total(
+ABSENT
+## PATTERN GetOB
+ABSENT
+## PATTERN GetFVG
+ABSENT
+## PATTERN objId
+ABSENT
+## PATTERN Print
+ABSENT
+===== END T5.txt =====
+
+===== BEGIN T6.txt =====
+SRJ CENSUS REPORT
+ITEM: T6   Conditional lines with full stacks
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (4)
+  line 17   ## CONDITIONAL LINE 617
+  line 29   ## CONDITIONAL LINE 619
+  line 41   ## CONDITIONAL LINE 631
+  line 53   ## CONDITIONAL LINE 633
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CONDITIONAL LINE 617
+617:    if(v == EMPTY_VALUE || v <= 0.0) return;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+CONTAINS "g_zoneHi" not INCIDENTAL: no
+CONTAINS "g_zoneLo" not INCIDENTAL: no
+
+## CONDITIONAL LINE 619
+619:    if(!inDir) return;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+CONTAINS "g_zoneHi" not INCIDENTAL: no
+CONTAINS "g_zoneLo" not INCIDENTAL: no
+
+## CONDITIONAL LINE 631
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+CONTAINS "g_zoneHi" not INCIDENTAL: yes
+CONTAINS "g_zoneLo" not INCIDENTAL: yes
+
+## CONDITIONAL LINE 633
+633:    if(!haveBest || dist < MathAbs(best - currentPrice))
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+CONTAINS "g_zoneHi" not INCIDENTAL: no
+CONTAINS "g_zoneLo" not INCIDENTAL: no
+
+CONDITIONAL LINE COUNT: 4
+===== END T6.txt =====
+
+===== BEGIN T7.txt =====
+SRJ CENSUS REPORT
+ITEM: T7   Zone-occurrence lines, classified, with full stacks
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (4)
+  line 17   ## PASTE SEARCHED
+  line 21   ## ZONE LINE 629
+  line 34   ## ZONE LINE 631
+  line 48   ## CLASS TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PASTE SEARCHED
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 614 through 635, produced by item T5
+CLASSES ARE NOT MUTUALLY EXCLUSIVE. A line is reported once per
+applicable class and counted once per applicable class.
+## ZONE LINE 629
+629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+CLASS: COMMENT
+NO VERDICT MAY BE BUILT ON THIS LINE.
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+NEAREST ENCLOSING "if" BY BRACE SCOPE: NOT ENCLOSED
+
+## ZONE LINE 631
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+CLASS: CONTAINS-EQUALS-NOT-TARGET   pattern g_zoneHi
+CLASS: CONTAINS-EQUALS-NOT-TARGET   pattern g_zoneLo
+NO VERDICT MAY BE BUILT ON THIS LINE.
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+THIS STACK HAS EXACTLY ONE ENTRY, reported in full below.
+  ENTRY 1 | OPEN 616 | CLOSE 635 | DEPTH 1
+  BRACE LINE 616:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+STACK ENTRY COUNT: 1
+NEAREST ENCLOSING "if" BY BRACE SCOPE: NOT ENCLOSED
+
+## CLASS TOTALS
+ASSIGNMENT-TARGET: 0
+CONTAINS-EQUALS-NOT-TARGET: 1
+COMPARISON: 0
+STRING-LITERAL: 0
+COMMENT: 1
+OTHER: 0
+ZONE-OCCURRENCE LINE COUNT: 2
+===== END T7.txt =====
+
+===== BEGIN T8.txt =====
+SRJ CENSUS REPORT
+ITEM: T8   Census and call sites for TpTargetUpdateBest
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (19)
+  line 32   ## FILE SRJ_FlowNexus_EA.mq5
+  line 44   ## FILE SRJ_FlowLogic.mq5
+  line 49   ## FILE SRJ_Alerts.mqh
+  line 54   ## FILE SRJ_BiasEngine.mqh
+  line 59   ## FILE SRJ_Draw.mqh
+  line 64   ## FILE SRJ_Fractals.mqh
+  line 69   ## FILE SRJ_HTFEngine.mqh
+  line 74   ## FILE SRJ_ImbalanceMgr.mqh
+  line 79   ## FILE SRJ_OrderblockMgr.mqh
+  line 84   ## FILE SRJ_Panels.mqh
+  line 89   ## FILE SRJ_SeedFormat.mqh
+  line 94   ## FILE SRJ_Sessions.mqh
+  line 99   ## FILE SRJ_State.mqh
+  line 104   ## FILE SRJ_Text.mqh
+  line 109   ## FILE SRJ_TickCore.mqh
+  line 114   ## FILE SRJ_Types.mqh
+  line 119   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 703
+  line 151   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 711
+  line 183   ## TOTALS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## FILE SRJ_FlowNexus_EA.mq5
+N_OCC TpTargetUpdateBest: 4
+N_LINES, single per-file count of distinct matching lines: 4
+SRJ_FlowNexus_EA.mq5 614: void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
+  CLASSIFICATION: DEFINITION HEADER
+SRJ_FlowNexus_EA.mq5 703:          TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 711:       TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+  CLASSIFICATION: CALL SITE
+SRJ_FlowNexus_EA.mq5 975:    // exclusion relies on in TpTargetUpdateBest.
+  CLASSIFICATION: OTHER
+
+## FILE SRJ_FlowLogic.mq5
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Alerts.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_BiasEngine.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Draw.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Fractals.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_HTFEngine.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_ImbalanceMgr.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_OrderblockMgr.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Panels.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_SeedFormat.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Sessions.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_State.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Text.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_TickCore.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## FILE SRJ_Types.mqh
+N_OCC TpTargetUpdateBest: 0
+N_LINES, single per-file count of distinct matching lines: 0
+NO CALL IN THIS FILE
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 703
+SRJ_FlowNexus_EA.mq5 703:          TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+ARGUMENT LIST TEXT: v, dir, currentPrice, best, haveBest
+POSITIONAL ARGUMENT 1 | v
+POSITIONAL ARGUMENT 2 | dir
+POSITIONAL ARGUMENT 3 | currentPrice
+POSITIONAL ARGUMENT 4 | best
+POSITIONAL ARGUMENT 5 | haveBest
+ARGUMENT COUNT: 5
+ENCLOSING FUNCTION: ComputeNearestTpTarget
+DEFINITION HEADER LINE:        659
+PARAMETER-LIST CLOSING LINE:   660
+OPENING BRACE LINE:            661
+BRACE-COUNTED CLOSING LINE:    775
+LINE COUNT (header..close):    117   SPAN: header line through closing brace line
+LINE COUNT (open..close):      115   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 661 | CLOSE 775 | DEPTH 1
+  BRACE LINE 661:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 4 | OPEN 700 | CLOSE 704 | DEPTH 2
+  BRACE LINE 700:      {
+  HEADER 699:    for(int i = 0; i < ArraySize(sessbufs); i++)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: YES - for
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 711
+SRJ_FlowNexus_EA.mq5 711:       TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+ARGUMENT LIST TEXT: v, dir, currentPrice, best, haveBest
+POSITIONAL ARGUMENT 1 | v
+POSITIONAL ARGUMENT 2 | dir
+POSITIONAL ARGUMENT 3 | currentPrice
+POSITIONAL ARGUMENT 4 | best
+POSITIONAL ARGUMENT 5 | haveBest
+ARGUMENT COUNT: 5
+ENCLOSING FUNCTION: ComputeNearestTpTarget
+DEFINITION HEADER LINE:        659
+PARAMETER-LIST CLOSING LINE:   660
+OPENING BRACE LINE:            661
+BRACE-COUNTED CLOSING LINE:    775
+LINE COUNT (header..close):    117   SPAN: header line through closing brace line
+LINE COUNT (open..close):      115   SPAN: opening brace line through closing brace line
+BRACE COUNTING USED:           YES
+FULL OPEN-BRACE STACK, outermost first, every entry in full:
+  ENTRY 1 | OPEN 661 | CLOSE 775 | DEPTH 1
+  BRACE LINE 661:   {
+  HEADER UNRESOLVED
+  HEADER IS for/while/switch/do: NO (UNRESOLVED)
+  CONTAINS-g_state: NO (HEADER UNRESOLVED)
+  ENTRY 5 | OPEN 707 | CLOSE 712 | DEPTH 2
+  BRACE LINE 707:      {
+  HEADER 706:    for(int k = 0; k < POI_NLINES; k++)
+  HEADER-TO-BRACE GAP: 1 line(s)
+  HEADER IS for/while/switch/do: YES - for
+  CONTAINS-g_state: NO
+STACK ENTRY COUNT: 2
+NO ENCLOSING FUNCTION WAS PASTED IN THIS ITEM.
+
+## TOTALS
+DEFINITION HEADER LINES: 1
+CALL SITES: 2
+===== END T8.txt =====
+
+===== BEGIN STASIS.txt =====
+SRJ CENSUS - FILE-LEVEL STASIS METADATA
+TOOL: srjcensus 1.0.0
+This section is stasis metadata. It is not an item answer.
+NO ITEM ANSWER WAS ADJUSTED FROM ANY VALUE IN THIS SECTION.
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Experts\SRJ_FlowNexus_EA.mq5
+  LINES: 3202
+  BYTES: 162293
+  MTIME: 2026-08-29 04:50:00
+  ENCODING DETECTED: utf-8-sig
+  SHA256: 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Indicators\SRJ_FlowLogic.mq5
+  LINES: 1180
+  BYTES: 54078
+  MTIME: 2026-08-28 13:04:20
+  ENCODING DETECTED: utf-8
+  SHA256: D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Alerts.mqh
+  LINES: 50
+  BYTES: 1500
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: A9C9C2EF9E53253D4A1B31DE73FB23028D326922D6A655123128F19061EBCDEC
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_BiasEngine.mqh
+  LINES: 386
+  BYTES: 15397
+  MTIME: 2026-08-22 14:00:21
+  ENCODING DETECTED: utf-8
+  SHA256: 384A25BAD6F92CDADD62F6D297B71B7A0AFC809C7A50BBD4FAC532C85B7AD89E
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Draw.mqh
+  LINES: 333
+  BYTES: 12180
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: FD2B3716D319E34FE904FD593EE8E4AD80479349667150FB5D08F24CF496183E
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Fractals.mqh
+  LINES: 205
+  BYTES: 6587
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: E4B99DA55AB278853C6D8FA9BC8FAC599306D01E6E5B14AB64682E3F04473597
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_HTFEngine.mqh
+  LINES: 579
+  BYTES: 21142
+  MTIME: 2026-08-08 22:16:12
+  ENCODING DETECTED: utf-8
+  SHA256: D0B0641278B5885B726B6FDF2797F4A7F4737BCB48C82BF83350CE04DF76CE26
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_ImbalanceMgr.mqh
+  LINES: 532
+  BYTES: 22461
+  MTIME: 2026-08-22 14:00:55
+  ENCODING DETECTED: utf-8
+  SHA256: 87886CD42E38ED6592DC798CA17A1EBB889B5F4521F389D5FD837FCAA2D482B6
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_OrderblockMgr.mqh
+  LINES: 1104
+  BYTES: 45974
+  MTIME: 2026-08-26 21:25:17
+  ENCODING DETECTED: utf-8
+  SHA256: 9DCD8D8DB57089E525A5ED1CCFE4BA6B4C4B1D63E72D6868CD101E1B4DA5F27D
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Panels.mqh
+  LINES: 439
+  BYTES: 16074
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: 199AD6B104CCE28A30AA610A632C1FFFA42F1D529280E24C33519B81C700C736
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_SeedFormat.mqh
+  LINES: 694
+  BYTES: 28756
+  MTIME: 2026-08-18 16:38:10
+  ENCODING DETECTED: utf-8
+  SHA256: D94B49225F3110C31D5CD66F4FC679721FA5E9A04B8EAFCC6C7DBA6F2DB4EED4
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Sessions.mqh
+  LINES: 582
+  BYTES: 23431
+  MTIME: 2026-08-21 22:37:49
+  ENCODING DETECTED: utf-8
+  SHA256: A0C8542A4F25DAB78D2A7FBBC8CB4EDDEF87643164CB5038FFBBEC27040B0886
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_State.mqh
+  LINES: 501
+  BYTES: 17139
+  MTIME: 2026-08-26 13:07:16
+  ENCODING DETECTED: utf-8
+  SHA256: 85B2635627B0E217D233AFCEA191F9CAB766F309EEA464080248BE13422D02D8
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Text.mqh
+  LINES: 174
+  BYTES: 5601
+  MTIME: 2026-07-31 05:07:54
+  ENCODING DETECTED: utf-8
+  SHA256: 2825D071778E624E4B5837B05954582C215D439441D44CD57B6F4D11AC0E3455
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_TickCore.mqh
+  LINES: 984
+  BYTES: 36057
+  MTIME: 2026-08-10 14:18:28
+  ENCODING DETECTED: utf-8
+  SHA256: 89730C6CADFA86F4DA7E09877D282BDB1741BD623678CCFB73E7A77D49FEA27C
+
+PATH: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\Include\SRJ\SRJ_Types.mqh
+  LINES: 355
+  BYTES: 13612
+  MTIME: 2026-08-26 21:20:21
+  ENCODING DETECTED: utf-8
+  SHA256: 773D99444B958B98CE3AECA87690F40B743A5F6A71E47BA9E644D751808E78DC
+
+HASH GATE
+  EA .mq5 SUPPLIED: 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322
+  EA .mq5 PRE-RUN : 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+  EA .mq5 POST-RUN: 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+  FlowLogic .mq5 SUPPLIED: D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5
+  FlowLogic .mq5 PRE-RUN : D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+  FlowLogic .mq5 POST-RUN: D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+
+DISAGREEMENTS: none
+===== END STASIS.txt =====
+
+===== BEGIN RECEIPT.txt =====
+TASK 160-PreJ-R2 RECEIPT
+  STATUS: COMPLETED
+  LIBRARY: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\tools\srjcensus.py SHA256 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 vs PINNED 30C1A929F7B7D1EBBE8C2E6B34D27964656E0293BE6506A11D6F1DA6FD6E3864 -> MATCH
+  SELFTEST: not run in this invocation
+  JOB SPEC: C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\.srj\jobs\R2.json SHA256 46E0CEC32F3E1AE6A73572F72353AC0F8618BED1482A469030AAF3AAE0F74BA0
+  SPEC VERSION: R2.1
+  EXIT CODE: 0
+  STDERR: none
+
+  HASH GATE
+    EA .mq5 PRE  0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    EA .mq5 POST 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 vs SUPPLIED 0F1F44CB3F7D9AA183A2ECE9D3029FD2CC006D46A49F33B35AFF41EA52331322 -> MATCH
+    FL .mq5 PRE  D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+    FL .mq5 POST D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 vs SUPPLIED D5525014A101318A83049DE7F3AC357056ECC5B6EDD3FEDDAF41E0FAFB5664D5 -> MATCH
+
+  WRITE AUDIT
+    files written under output directory : 21
+    files written anywhere else          : 0
+    source files read                    : 16
+
+  OUTPUT FILES
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\W1.txt | 193 lines | 6982 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\W2.txt | 122 lines | 5281 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\W3.txt | 155 lines | 6444 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\W4.txt | 141 lines | 4968 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F1.txt | 33 lines | 1255 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F2.txt | 58 lines | 2293 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F3.txt | 23 lines | 1002 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F4.txt | 151 lines | 4995 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F5.txt | 28 lines | 1642 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F6.txt | 62 lines | 2371 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F7.txt | 90 lines | 3340 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\F8.txt | 43 lines | 1677 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T1.txt | 33 lines | 1284 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T2.txt | 49 lines | 2331 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T3.txt | 37 lines | 1441 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T4.txt | 23 lines | 1006 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T5.txt | 78 lines | 2626 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T6.txt | 65 lines | 2346 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T7.txt | 55 lines | 1998 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\T8.txt | 185 lines | 6430 bytes
+    C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\EXTRACTIONS\R2\STASIS.txt | 126 lines | 5324 bytes
+
+  ITEM COMPLETION
+    legend: COMPLETE = item emitted at least one pasted source line;
+            EMPTY-RESULT = item ran and pasted nothing, which is a result;
+            NOT-RUN = item raised, see FAILURES
+    W1 | COMPLETE
+    W2 | COMPLETE
+    W3 | COMPLETE
+    W4 | COMPLETE
+    F1 | COMPLETE
+    F2 | COMPLETE
+    F3 | COMPLETE
+    F4 | COMPLETE
+    F5 | EMPTY-RESULT
+    F6 | COMPLETE
+    F7 | COMPLETE
+    F8 | COMPLETE
+    T1 | COMPLETE
+    T2 | COMPLETE
+    T3 | COMPLETE
+    T4 | COMPLETE
+    T5 | COMPLETE
+    T6 | COMPLETE
+    T7 | COMPLETE
+    T8 | COMPLETE
+
+  INVARIANTS
+    brace_balance_zero_at_every_region_close | PASS
+    paste_line_count_equals_reported_count | PASS
+    n_lines_equals_distinct_paste_count | PASS
+    every_brace_map_close_derived_by_counting | PASS
+    every_stack_entry_has_open_and_close | PASS
+    no_argument_list_unterminated | PASS
+    no_closing_brace_reported_as_declaration | PASS
+    span_labelled_for_every_region_line_count | PASS
+
+  CONFIRMATION FIELDS, aggregates and item names only
+    brace counting used: YES | bounds carried by F1, F2, F8, T1, T2, T3
+    brace-map rule used: YES | maps: 2
+      F8 | entries 3 | max depth 3 | excluded 0
+      T3 | entries 2 | max depth 2 | excluded 0
+    enclosing-construct rule used: YES | full stacks delivered: 17
+    no-abbreviation on derived output: YES | stacks repeated in full that were identical to another stack: 9
+    argument-split rule used: YES | call sites split: 3 | POSITION COUNT MISMATCH results: 0
+    multi-line call rule used: YES | argument lists continuing onto a following line: 1 | no answer reported as UNTERMINATED: confirmed
+    paste sizing
+      F2 | FindLegTouch | WHOLE | line count 31
+      T2 | TpTargetUpdateBest | WHOLE | line count 22
+    census-pattern provenance: YES | INCIDENTAL-ONLY results: 0
+    previous-output independence: every line number, bound, declaration line, count and classification in every output file was computed in this run from file text only; no prior figure was read, quoted or reconciled against
+
+  COUNTS ONLY - no line numbers, no text, no verdicts
+    W: zone assignment-target lines 8, in-function 6, file-scope 2,
+       stacks emitted 6, stacks with a g_state header entry 4,
+       stacks with a loop/switch entry 0, RHS identifiers 6
+    F: FindLegTouch definitions 1, call sites 1,
+       position-count mismatches 0, zone-receiving parameters 2,
+       assignment targets on those parameters 0
+    T: TpTargetUpdateBest definitions 1, call sites 2,
+       conditionals 4, zone-occurrence lines 2,
+       of those classified COMPARISON 0, COMMENT 1, STRING-LITERAL 0,
+       CONTAINS-EQUALS-NOT-TARGET 1, OTHER 0, ASSIGNMENT-TARGET 0
+       classes are not mutually exclusive; a line may be counted in more than one class
+
+  UNEXPECTED: none
+END RECEIPT
+===== END RECEIPT.txt =====

@@ -1,0 +1,78 @@
+SRJ CENSUS REPORT
+ITEM: T5   Statement inventory inside the region paste
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (15)
+  line 28   ## PASTE SEARCHED
+  line 30   ## RETURN STATEMENTS
+  line 39   ## LOOP AND SWITCH HEADERS
+  line 46   ## ASSIGNMENT-TARGET LINES
+  line 55   ## PATTERN g_zoneHi
+  line 58   ## PATTERN g_zoneLo
+  line 61   ## PATTERN g_touchSeen
+  line 63   ## PATTERN _Point
+  line 65   ## PATTERN g_orderblocks
+  line 67   ## PATTERN g_imbalances
+  line 69   ## PATTERN Total(
+  line 71   ## PATTERN GetOB
+  line 73   ## PATTERN GetFVG
+  line 75   ## PATTERN objId
+  line 77   ## PATTERN Print
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## PASTE SEARCHED
+PASTE SEARCHED: SRJ_FlowNexus_EA.mq5 lines 614 through 635, produced by item T2
+## RETURN STATEMENTS
+617:    if(v == EMPTY_VALUE || v <= 0.0) return;
+  BARE
+619:    if(!inDir) return;
+  BARE
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+  BARE
+RETURN STATEMENT COUNT: 3
+RAW SUBSTRING-HIT COUNT, DIAGNOSTIC ONLY: 3
+## LOOP AND SWITCH HEADERS
+ABSENT
+WHOLE-TOKEN RESULT COUNT: 0
+RAW SUBSTRING COUNT FOR for, DIAGNOSTIC ONLY: 1
+RAW SUBSTRING COUNT FOR while, DIAGNOSTIC ONLY: 0
+RAW SUBSTRING COUNT FOR switch, DIAGNOSTIC ONLY: 0
+RAW SUBSTRING COUNT FOR do, DIAGNOSTIC ONLY: 4
+## ASSIGNMENT-TARGET LINES
+618:    bool inDir = (dir == DIR_LONG) ? (v > currentPrice) : (v < currentPrice);
+  ASSIGNS-TO inDir | RHS  (dir == DIR_LONG) ? (v > currentPrice) : (v < currentPrice)
+632:    double dist = MathAbs(v - currentPrice);
+  ASSIGNS-TO dist | RHS  MathAbs(v - currentPrice)
+634:      { best = v; haveBest = true; }
+  ASSIGNS-TO best | RHS  v
+  ASSIGNS-TO haveBest | RHS  true
+ASSIGNMENT-TARGET RECORD COUNT: 4
+## PATTERN g_zoneHi
+629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+## PATTERN g_zoneLo
+629:    //--- g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this
+631:    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
+## PATTERN g_touchSeen
+ABSENT
+## PATTERN _Point
+ABSENT
+## PATTERN g_orderblocks
+ABSENT
+## PATTERN g_imbalances
+ABSENT
+## PATTERN Total(
+ABSENT
+## PATTERN GetOB
+ABSENT
+## PATTERN GetFVG
+ABSENT
+## PATTERN objId
+ABSENT
+## PATTERN Print
+ABSENT

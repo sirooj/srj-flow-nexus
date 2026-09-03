@@ -1,0 +1,24 @@
+SRJ CENSUS REPORT
+ITEM: P13   Positional correspondence, computed by position only
+TOOL: srjcensus 1.0.0
+RULE: no abbreviation, no cross-reference, one source line per output line
+
+ANCHOR INDEX (2)
+  line 15   ## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2786
+  line 22   ## ZONE-RECEIVING PARAMETERS
+
+RENDERING CONVENTION: each stack entry and each brace-map entry is
+emitted as several output lines, because the rule of one pasted source
+line per output line outranks the single-line entry shape. No entry is
+abbreviated, cross-referenced or rendered as prose.
+
+## CALL SITE SRJ_FlowNexus_EA.mq5 LINE 2786
+ARGUMENT COUNT: 3
+PARAMETER COUNT: 3
+SRJ_FlowNexus_EA.mq5 2786 | ARG 1 | barShift | PARAMETER 1 | int barShift | barShift | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+SRJ_FlowNexus_EA.mq5 2786 | ARG 2 | s35_zHi | PARAMETER 2 | double zHi | zHi | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+SRJ_FlowNexus_EA.mq5 2786 | ARG 3 | s35_zLo | PARAMETER 3 | double zLo | zLo | ARGUMENT TEXT IS EXACTLY "g_zoneHi": no | ARGUMENT TEXT IS EXACTLY "g_zoneLo": no
+
+## ZONE-RECEIVING PARAMETERS
+ZONE-RECEIVING PARAMETER COUNT: 0
+POSITION COUNT MISMATCH RESULTS: 0
