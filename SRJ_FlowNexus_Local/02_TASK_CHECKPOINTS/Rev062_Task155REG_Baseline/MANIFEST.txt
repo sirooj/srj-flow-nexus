@@ -1,0 +1,24 @@
+MANIFEST - Rev062_Task155REG_Baseline
+Created: 2026-09-06, Revision 62 section 18 action 6. UTF-8 without BOM.
+
+Holds the accepted current-generation Tier 1 baseline (R-55, BYTE-IDENTICAL) and its
+six extracts. SOURCE AND TEXT ONLY (P18): no .ex5 in this folder, ever. This folder is
+an archive of the measurement record. It is never a comparison target for a live file,
+never a source, and never an edit target (P14).
+
+  BUILDER_RESULT_155-REG.md   9393 bytes, 126 lines
+    Copied from 06_HANDOFFS\ (original retained in place). SOLE SOURCE of the sixteen
+    full digests (STAGE 7). Gate rows 11 of 11 PASS; 49 diagnostic tags count-identical
+    across generations; 16 of 16 hashes EQUAL; signal line IDENTICAL from [SRJ-EA]
+    onward; P8/P8a/P9 clean.
+
+  Task 155REG Signals.txt      148 bytes / 1 line      STAGE 5 extract
+  Task 155REG Aborts.txt       3218 bytes / 22 lines    STAGE 5 extract
+  Task 155REG Armings.txt      1740 bytes / 12 lines    STAGE 5 extract
+  Task 155REG FreshCount.txt   3990 bytes / 22 lines    STAGE 5 extract
+  Task 155REG FreshSkip.txt    21352 bytes / 141 lines  STAGE 5 extract
+  Task 155REG Suppressed.txt   9565 bytes / 43 lines    STAGE 5 extract
+    Copied from D:\Videos\. Byte and line counts match 155-REG STAGE 5 exactly.
+
+D:\Videos\Task 135 Full Logs.txt is RETIRED as a gate target (Rev62 section 17).
+The baseline for all future comparisons is this measurement: Task 155REG.

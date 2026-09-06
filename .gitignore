@@ -1,0 +1,26 @@
+# SRJ Flow Nexus - repository hygiene. Governed by Revision 63 P18, P19, R-157, R-161.
+# THE REPOSITORY IS A SNAPSHOT STORE. Never a source, never an edit target. P14.
+
+# Compiled binaries never enter the index. A restored .ex5 carries a checkout timestamp
+# that is not its compile time, which is the defect class this project has hit four times.
+*.ex5
+*.dll
+*.exe
+*.zip
+
+# Terminal and tester logs. Not source. ~24.5 MB across eight files at Rev063.
+logs/
+
+# Terminal UI and account-adjacent state. Not source. Its churn is the entire reason the
+# pending count was unreadable.
+Profiles/
+experts.dat
+*.chr
+*.wnd
+*.set
+*.opt
+
+# Editor and agent working state.
+.vscode/
+.kilo/
+.srj/jobs/

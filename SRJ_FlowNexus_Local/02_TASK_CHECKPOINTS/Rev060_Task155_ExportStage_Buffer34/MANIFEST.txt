@@ -1,0 +1,88 @@
+﻿TASK 155 MANIFEST - Rev060_Task155_ExportStage_Buffer34
+MANIFEST CREATED: stage 0.2/0.3
+BASELINE BRANCH: BRANCH SNAP (SNAP dir contained all seven source files plus two ex5 artifacts)
+
+BEFORE  SRJ_BiasEngine.mqh  384a25bad6f92cdadd62f6d297b71b7a0afc809c7a50bbd4fac532c85b7ad89e
+CANON   SRJ_BiasEngine.mqh  384a25bad6f92cdadd62f6d297b71b7a0afc809c7a50bbd4fac532c85b7ad89e
+MATCH   SRJ_BiasEngine.mqh  True
+BEFORE  SRJ_Types.mqh  773d99444b958b98ce3aeca87690f40b743a5f6a71e47ba9e644d751808e78dc
+CANON   SRJ_Types.mqh  773d99444b958b98ce3aeca87690f40b743a5f6a71e47ba9e644d751808e78dc
+MATCH   SRJ_Types.mqh  True
+BEFORE  SRJ_FlowNexus_EA.mq5  0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+CANON   SRJ_FlowNexus_EA.mq5  0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+MATCH   SRJ_FlowNexus_EA.mq5  True
+BEFORE  SRJ_FlowLogic.mq5  d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5
+CANON   SRJ_FlowLogic.mq5  d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5
+MATCH   SRJ_FlowLogic.mq5  True
+BEFORE  SRJ_OrderblockMgr.mqh  9dcd8d8db57089e525a5ed1ccfe4ba6b4c4b1d63e72d6868cd101e1b4da5f27d
+CANON   SRJ_OrderblockMgr.mqh  9dcd8d8db57089e525a5ed1ccfe4ba6b4c4b1d63e72d6868cd101e1b4da5f27d
+MATCH   SRJ_OrderblockMgr.mqh  True
+BEFORE  SRJ_State.mqh  85b2635627b0e217d233afcea191f9cab766f309eea464080248be13422d02d8
+CANON   SRJ_State.mqh  85b2635627b0e217d233afcea191f9cab766f309eea464080248be13422d02d8
+MATCH   SRJ_State.mqh  True
+BEFORE  SRJ_ImbalanceMgr.mqh  87886cd42e38ed6592dc798ca17a1ebb889b5f4521f389d5fd837fcaa2d482b6
+CANON   SRJ_ImbalanceMgr.mqh  87886cd42e38ed6592dc798ca17a1ebb889b5f4521f389d5fd837fcaa2d482b6
+MATCH   SRJ_ImbalanceMgr.mqh  True
+
+SUPPLIED DIGESTS (from TASK_155.md)
+SUPPLIED EA 0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+SUPPLIED FLOWLOGIC d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5
+SUPPLIED LINE COUNTS: EA 3202, FlowLogic 1180, SRJ_State.mqh 501
+EA MATCH SUPPLIED: True (verified 0.3)
+FLOWLOGIC MATCH SUPPLIED: True (verified 0.3)
+
+
+--------------------------- SECTION: AUTHORIZED RUN 155-A2 (Revision 60.3) ---------------------------
+AUTHORIZED RUN - STAGE 0 RE-VERIFICATION
+DATED: 09/04/2026
+INVOCATION: AUTHORIZED RUN
+SNAPSHOT BRANCH: BRANCH EXISTING (CP\BEFORE existed with all seven files; nothing copied)
+
+BEFORE  SRJ_FlowNexus_EA.mq5  0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+CANON   SRJ_FlowNexus_EA.mq5  0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+BEFORE  SRJ_FlowLogic.mq5    d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5
+CANON   SRJ_FlowLogic.mq5    d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5
+BEFORE  SRJ_State.mqh        85b2635627b0e217d233afcea191f9cab766f309eea464080248be13422d02d8
+CANON   SRJ_State.mqh        85b2635627b0e217d233afcea191f9cab766f309eea464080248be13422d02d8
+BEFORE  SRJ_OrderblockMgr.mqh 9dcd8d8db57089e525a5ed1ccfe4ba6b4c4b1d63e72d6868cd101e1b4da5f27d
+CANON   SRJ_OrderblockMgr.mqh 9dcd8d8db57089e525a5ed1ccfe4ba6b4c4b1d63e72d6868cd101e1b4da5f27d
+BEFORE  SRJ_ImbalanceMgr.mqh  87886cd42e38ed6592dc798ca17a1ebb889b5f4521f389d5fd837fcaa2d482b6
+CANON   SRJ_ImbalanceMgr.mqh  87886cd42e38ed6592dc798ca17a1ebb889b5f4521f389d5fd837fcaa2d482b6
+BEFORE  SRJ_BiasEngine.mqh    384a25bad6f92cdadd62f6d297b71b7a0afc809c7a50bbd4fac532c85b7ad89e
+CANON   SRJ_BiasEngine.mqh    384a25bad6f92cdadd62f6d297b71b7a0afc809c7a50bbd4fac532c85b7ad89e
+BEFORE  SRJ_Types.mqh         773d99444b958b98ce3aeca87690f40b743a5f6a71e47ba9e644d751808e78dc
+CANON   SRJ_Types.mqh         773d99444b958b98ce3aeca87690f40b743a5f6a71e47ba9e644d751808e78dc
+ALL SEVEN BEFORE MATCH CANON (0.2 PASS - no SNAPSHOT DIVERGENT)
+
+SUPPLIED DIGESTS (this run):
+SUPPLIED EA        0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322  CANON MATCH: True (0.3)
+SUPPLIED FLOWLOGIC d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5  CANON MATCH: True (0.3)
+
+SUPPLIED LINE COUNTS (0.4):
+SUPPLIED EA 3202 -> measured 3202  MATCH: True
+SUPPLIED FlowLogic 1180 -> measured 1180  MATCH: True
+SUPPLIED SRJ_State.mqh 501 -> measured 501  MATCH: True
+Other measured: SRJ_OrderblockMgr.mqh 1104, SRJ_ImbalanceMgr.mqh 532, SRJ_BiasEngine.mqh 386, SRJ_Types.mqh 355
+
+--------------------------- SECTION: REVISION 62 UPDATE (2026-09-06) ---------------------------
+Current source digests after Task 155 v4 PART 2 R7, ACCEPTED (R-53). Whole-tree stasis
+is assertable on all sixteen files (R-60). Sole source of the sixteen full digests:
+06_HANDOFFS\BUILDER_RESULT_155-REG.md STAGE 7. Comparison is case-insensitive hex (R-57).
+Values below as recorded at 155-REG STAGE 1:
+
+SRJ_FlowNexus_EA.mq5     0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+SRJ_FlowLogic.mq5        1EA7858F9B1A8F4F42D90D58A0BB8873063D874E40E32A6A4E69DD8099F73B08
+SRJ_State.mqh            C6D56BC197AF8585517CDA2038780F281329BCE32B1A9978AA5EA71ECC2EFD2E
+SRJ_OrderblockMgr.mqh    524D5D40AC1F0C2F6909F01742DFE13FC9A4954118A55B3008FE1CD80D18E60F
+SRJ_ImbalanceMgr.mqh     64CF32756A6A1EB417F2A4A33793F43A27FDDD11D243F5D84F5CB8F0880502AE
+SRJ_BiasEngine.mqh       FC1E3871F07439D418D628C3FCDD9A77A1604CBD3A3920296E3F278051E4092B
+SRJ_Types.mqh            773d99444b958b98ce3aeca87690f40b743a5f6a71e47ba9e644d751808e78dc
+
+COMPILE-RUN EVIDENCE, NOT SOURCE PROVENANCE (R-58):
+SRJ_FlowLogic.ex5      226444 bytes  file 2026-09-05 05:39 PM  SRJ BUILD 2026.09.05 17:39:20
+SRJ_FlowNexus_EA.ex5   115438 bytes  file 2026-08-30 10:31 AM
+Banner "bytes loaded" is not file size (R-86). P8b: the SRJ BUILD line is the run-binary
+provenance instrument (R-85). The two .ex5 files this checkpoint folder held were
+NON-CANONICAL (2026-09-04 in-place builds, matching no canonical size) and were moved
+to 07_ARCHIVE\VoidBinaries\ by 160-QUAR on 2026-09-06 (Rev62 section 20.3). Never a
+delete (R-78).

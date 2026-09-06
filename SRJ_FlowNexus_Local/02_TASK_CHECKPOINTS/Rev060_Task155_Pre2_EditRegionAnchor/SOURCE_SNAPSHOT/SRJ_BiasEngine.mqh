@@ -224,13 +224,6 @@ void SRJ_Bias_DecisionBlock(int i,bool withinLookbackWindow,bool barClosed)
       g_s.fvgDetectionBoundary = i;
       // [EA-30] doRenewal is a checklist event, NOT a structural leg boundary; currentLegHasXOB retained (XOB projects until invalidated)
       g_s.tickOBIsValid = true;
-      // [Task 155] Buffer 34 provenance capture. Site code 7. No orderblock
-      // object is in scope at this write, so no identity is recorded and the
-      // export emits the site sentinel -21.0.
-      Print("[SRJ][T155][OBPROV] code=7 id=0 bar=", i, " flag=true");
-      g_s.tickOBSetterId   = 0;
-      g_s.tickOBSetterCode = 7;
-      g_s.tickOBSetterBar  = i;
       g_s.tickFVGIsValid = true;
       g_s.hasPersistedOpposingFVG = false;
       
@@ -285,12 +278,6 @@ void SRJ_Bias_DecisionBlock(int i,bool withinLookbackWindow,bool barClosed)
       g_s.currentLegHasXOB = false;   // [Section 8] a flip (strong or weak) starts a new leg
       g_s.structLegBoundary = i;   // [EA-30] a flip opens a new structural leg
       g_s.tickOBIsValid = true;
-      // [Task 155] Buffer 34 provenance capture. Site code 8. No object is
-      // in scope; the export emits the site sentinel -22.0.
-      Print("[SRJ][T155][OBPROV] code=8 id=0 bar=", i, " flag=true");
-      g_s.tickOBSetterId   = 0;
-      g_s.tickOBSetterCode = 8;
-      g_s.tickOBSetterBar  = i;
       g_s.tickFVGIsValid = true;
       g_s.hasPersistedOpposingFVG = false;
       g_s.bullishOBInvalidationCount = 0;

@@ -5,7 +5,7 @@
 #property copyright "SRJ Flow Logic Auto — Pine v6 port"
 #property version   "1.00"
 #property indicator_chart_window
-#property indicator_buffers 34  // [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId).
+#property indicator_buffers 37  // [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId). [Task 155] Was 34. Added 34 (tickOBIsValid provenance), 35 (tickFVGIsValid provenance, population deferred), 36 (hasPersistedOpposingFVG provenance, population deferred).
 #property indicator_plots   2
 
 #property indicator_label1  "Fractal High"
@@ -115,6 +115,9 @@ double g_bufFvgObjId[];
 // this is the lower bound of that object's in-play lifetime.
 // Read-only query. Nothing in this indicator consumes this buffer.
 double g_bufXobPromoTime[];
+double g_bufOBValidProv[];    // [Task 155] Buffer 34. Provenance of the tickOBIsValid value exported at the flag export block. Initialised to EMPTY_VALUE, not 0.0: 0.0 is spoken for by this file's two objId buffers as "no object selected", and EMPTY_VALUE keeps this buffer uncomputed in exactly the bars where g_bufOBValid is uncomputed.
+double g_bufFVGValidProv[];   // [Task 155] Buffer 35. Registered now, population deferred to Task 156. Same EMPTY_VALUE rationale as buffer 34.
+double g_bufOppFVGProv[];     // [Task 155] Buffer 36. Registered now, population deferred to Task 163. Same EMPTY_VALUE rationale as buffer 34.
 
 SState g_sSnapshot;
 bool g_snapValid = false;
@@ -615,6 +618,9 @@ int OnInit()
 
    // [Task 113] P3a append-only. Index 33 = previous buffer count (was 33 buffers, 0..32).
    SetIndexBuffer(33, g_bufXobPromoTime, INDICATOR_CALCULATIONS);
+   SetIndexBuffer(34, g_bufOBValidProv,  INDICATOR_CALCULATIONS);
+   SetIndexBuffer(35, g_bufFVGValidProv, INDICATOR_CALCULATIONS);
+   SetIndexBuffer(36, g_bufOppFVGProv,   INDICATOR_CALCULATIONS);
 
    ArraySetAsSeries(g_bufBias,         false);
    ArraySetAsSeries(g_bufOBValid,      false);
@@ -662,6 +668,9 @@ int OnInit()
 
    // [Task 113]
    ArraySetAsSeries(g_bufXobPromoTime, false);
+   ArraySetAsSeries(g_bufOBValidProv,  false);
+   ArraySetAsSeries(g_bufFVGValidProv, false);
+   ArraySetAsSeries(g_bufOppFVGProv,   false);
 
    SRJ_BindInputs(); 
    SRJ_Glyph_Init(); 
@@ -795,6 +804,10 @@ int OnCalculate(const int rates_total,
 
       // [Task 113] 0.0, not EMPTY_VALUE — see the declaration comment.
       ArrayInitialize(g_bufXobPromoTime, 0.0);
+      // [Task 155] EMPTY_VALUE, not 0.0 - see the declaration comment.
+      ArrayInitialize(g_bufOBValidProv,  EMPTY_VALUE);
+      ArrayInitialize(g_bufFVGValidProv, EMPTY_VALUE);
+      ArrayInitialize(g_bufOppFVGProv,   EMPTY_VALUE);
 
       SRJ_DeleteAllObjects();      
       SRJ_StateInit();             
@@ -902,6 +915,55 @@ int OnCalculate(const int rates_total,
          g_bufOBValid[target] = g_s.tickOBIsValid ? 1.0 : 0.0;
          g_bufFVGValid[target] = g_s.tickFVGIsValid ? 1.0 : 0.0;
          g_bufOppFVG[target] = g_s.hasPersistedOpposingFVG ? 1.0 : 0.0;
+         {
+         // [Task 155] BUFFER 34 CONTRACT.
+         // This buffer names the PROVENANCE of the g_s.tickOBIsValid value
+         // present at this export block on the exported bar, and nothing else.
+         // The indicator reads that flag elsewhere in the same bar with other
+         // values, so no claim about the weak-flip latch, the checklist, the
+         // decision block or the bias pane colour may be built on this buffer.
+         // CARRIED is derived by comparing the recorded setter bar against i,
+         // the processing bar of the enclosing loop. It is NEVER compared
+         // against target.
+         // VALUES
+         //   EMPTY_VALUE  outside the calculated window
+         //   greater than 0.0  objId of the LAST qualifying orderblock
+         //                invalidation on this bar, written this bar by site
+         //                code 1, 2, 3 or 4
+         //   -3.0         carried: the recorded setter bar is not i
+         //   -11.0        site 5, bullish FVG creation or renewal reset. An
+         //                object is in scope; the source names none
+         //   -12.0        site 6, bearish FVG creation or renewal reset
+         //   -21.0        site 7, decision block doRenewal. No object in scope
+         //   -22.0        site 8, decision block flip. No object in scope
+         //   -31.0        site 9, SRJ_StateInit default, no write since
+         //   -9.0         invariant violated: setter bar greater than i, objId
+         //                not positive at a named site, objId outside the exact
+         //                long-to-double range 9007199254740992, or a site code
+         //                outside this set
+         // Buffers 35 and 36 are REGISTERED here and receive the single
+         // explicit sentinel -99.0 meaning POPULATION DEFERRED: buffer 36 to
+         // Task 163, buffer 35 to Task 156. No consumer may read -99.0 as a
+         // provenance.
+         long   t155ProvId   = g_s.tickOBSetterId;
+         int    t155ProvCode = g_s.tickOBSetterCode;
+         int    t155ProvBar  = g_s.tickOBSetterBar;
+         double t155ProvOut  = -9.0;
+         if(t155ProvBar > i)                           t155ProvOut = -9.0;
+         else if(t155ProvCode == 9)                    t155ProvOut = -31.0;
+         else if(t155ProvBar != i)                     t155ProvOut = -3.0;
+         else if(t155ProvCode == 5)                    t155ProvOut = -11.0;
+         else if(t155ProvCode == 6)                    t155ProvOut = -12.0;
+         else if(t155ProvCode == 7)                    t155ProvOut = -21.0;
+         else if(t155ProvCode == 8)                    t155ProvOut = -22.0;
+         else if(t155ProvCode < 1 || t155ProvCode > 4) t155ProvOut = -9.0;
+         else if(t155ProvId <= 0)                      t155ProvOut = -9.0;
+         else if(t155ProvId > 9007199254740992)        t155ProvOut = -9.0;
+         else                                          t155ProvOut = (double)t155ProvId;
+         g_bufOBValidProv[target]  = t155ProvOut;
+         g_bufFVGValidProv[target] = -99.0;
+         g_bufOppFVGProv[target]   = -99.0;
+         }
          
          g_bufSwingHigh[target] = EMPTY_VALUE;
          g_bufSwingLow[target]  = EMPTY_VALUE;

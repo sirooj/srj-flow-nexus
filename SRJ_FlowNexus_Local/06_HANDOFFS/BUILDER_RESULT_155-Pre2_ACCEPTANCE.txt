@@ -1,0 +1,27 @@
+BUILDER_RESULT_155-Pre2.md — ACCEPTED by council, Revision 60.2.
+
+All twenty-one items ALL REQUIRED OUTPUTS DELIVERED. Reference documents loaded:
+
+none. Both hashes MATCH. No edit, no compile, no run.
+
+Qualifications recorded against this result:
+
+  LIMITATION 17.55 — C4's 30-117 paste and D3's 747-808 paste are
+
+    byte-substituted on comment lines (defect 127). No insertion text may be
+
+    taken from either paste. Every anchor line is ASCII CLEAN (EA-221).
+
+  DEFECT 128 — the byte scan covered two files; the Form B edits five.
+
+    NON-GATING: verification is by DIFF against BEFORE\.
+
+  DEFECT 129 — E3/E4 cite a command whose raw summary lines were not pasted;
+
+    BOM state and byte-scan line counts are ABSENT. Open item 47.
+
+  Blocks B2 and B3 are CONFORMANT BUT VOID for planner-side defect 123. Not
+
+    re-run. Non-gating per EA-211.
+
+Stasis: this return raises the confirmed floor to 26 consecutive rounds MATCH.

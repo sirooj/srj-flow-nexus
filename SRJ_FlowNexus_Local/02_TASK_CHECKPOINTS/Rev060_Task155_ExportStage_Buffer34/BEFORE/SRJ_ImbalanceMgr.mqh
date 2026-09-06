@@ -207,14 +207,6 @@ void SRJ_FVG_CreationRenewalPass(const double &high[],const double &low[],
                g_s.fvgDetectionBoundary = i;
 
                g_s.tickOBIsValid                 = true;
-               // [Task 155] Buffer 34 provenance capture. Site code 5. An
-               // orderblock object is in scope in this pass, but the source names
-               // none at this write, so no identity is recorded and the export
-               // emits the site sentinel -11.0.
-               Print("[SRJ][T155][OBPROV] code=5 id=0 bar=", i, " flag=true");
-               g_s.tickOBSetterId   = 0;
-               g_s.tickOBSetterCode = 5;
-               g_s.tickOBSetterBar  = i;
                g_s.tickFVGIsValid                = true;
                // Selective reset: bullish bias renewal zeros bearish (opposing) counter only
                g_s.bearishOBInvalidationCount    = 0;
@@ -332,12 +324,6 @@ void SRJ_FVG_CreationRenewalPass(const double &high[],const double &low[],
                g_s.fvgDetectionBoundary = i;
 
                g_s.tickOBIsValid                 = true;
-               // [Task 155] Buffer 34 provenance capture. Site code 6. No identity
-               // is recorded; the export emits the site sentinel -12.0.
-               Print("[SRJ][T155][OBPROV] code=6 id=0 bar=", i, " flag=true");
-               g_s.tickOBSetterId   = 0;
-               g_s.tickOBSetterCode = 6;
-               g_s.tickOBSetterBar  = i;
                g_s.tickFVGIsValid                = true;
                // Selective reset: bearish bias renewal zeros bullish (opposing) counter only
                g_s.bullishOBInvalidationCount    = 0;

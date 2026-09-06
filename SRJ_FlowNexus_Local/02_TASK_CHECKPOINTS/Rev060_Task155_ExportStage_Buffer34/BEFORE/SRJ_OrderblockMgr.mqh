@@ -168,26 +168,9 @@ bool SRJ_OB_ReplayActivationInvalidation(COrderblock *ob,
             bool isInBias = (g_s.currentBias=="bullish" && ob.isBullish) ||
                             (g_s.currentBias=="bearish" && !ob.isBullish);
             if(isInBias)
-            {
                g_s.tickOBIsValid = false;
-               // [Task 155] Buffer 34 provenance capture. Site code 1. The bar
-               // recorded is discoveryBar, the PROCESSING bar of this call, and not
-               // replayBar, which is the event bar.
-               Print("[SRJ][T155][OBPROV] code=1 id=", ob.objId, " bar=", discoveryBar, " flag=false");
-               g_s.tickOBSetterId   = ob.objId;
-               g_s.tickOBSetterCode = 1;
-               g_s.tickOBSetterBar  = discoveryBar;
-            }
             else
-            {
                g_s.tickOBIsValid = true;
-               // [Task 155] Buffer 34 provenance capture. Site code 2. The bar
-               // recorded is discoveryBar, the processing bar of this call.
-               Print("[SRJ][T155][OBPROV] code=2 id=", ob.objId, " bar=", discoveryBar, " flag=true");
-               g_s.tickOBSetterId   = ob.objId;
-               g_s.tickOBSetterCode = 2;
-               g_s.tickOBSetterBar  = discoveryBar;
-            }
 
             // Counter updates attributed to discovery bar for SRJ_OB_CounterAggregationPass to see
             if(ob.isBullish)
@@ -549,27 +532,9 @@ void SRJ_OB_ActivationInvalidationPass(const double &open[],const double &high[]
                   bool isInBias = (g_s.currentBias=="bullish" && ob.isBullish) ||
                                   (g_s.currentBias=="bearish" && !ob.isBullish);
                   if(isInBias)
-                  {
                      g_s.tickOBIsValid = false;
-                     // [Task 155] Buffer 34 provenance capture. Site code 3. This pass
-                     // invalidates orderblocks inside a descending loop, so several may
-                     // write the flag in one bar. The LAST write survives to the export;
-                     // the unconditional Print below carries every event.
-                     Print("[SRJ][T155][OBPROV] code=3 id=", ob.objId, " bar=", i, " flag=false");
-                     g_s.tickOBSetterId   = ob.objId;
-                     g_s.tickOBSetterCode = 3;
-                     g_s.tickOBSetterBar  = i;
-                  }
                   else
-                  {
                      g_s.tickOBIsValid = true;
-                     // [Task 155] Buffer 34 provenance capture. Site code 4. The LAST
-                     // write in this descending loop survives to the export.
-                     Print("[SRJ][T155][OBPROV] code=4 id=", ob.objId, " bar=", i, " flag=true");
-                     g_s.tickOBSetterId   = ob.objId;
-                     g_s.tickOBSetterCode = 4;
-                     g_s.tickOBSetterBar  = i;
-                  }
 
                   if(ob.isBullish)
                     {

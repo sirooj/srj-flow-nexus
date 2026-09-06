@@ -1,0 +1,17 @@
+REJECTED_BUILDER_RESULT_155-Pre2_v1.md
+
+Disposition: REJECTED. Inputs survive. EVERY verdict, count, classification and
+
+region bound in this file is VOID and may not be quoted, compared against, or
+
+re-derived. Precedent: 160-PreH.
+
+Grounds: fifteen of twenty-one items answered questions of the report's own
+
+devising under a COMPLETED status line; two items overrode correct command output
+
+with an invented convention; one brace stack was reported NESTING VERIFIED with an
+
+outer header line lying outside its own entry.
+
+Defects 115, 116, 117. Council ruling, Revision 60.2.

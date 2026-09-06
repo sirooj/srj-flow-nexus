@@ -1,0 +1,65 @@
+STATUS: COMPLETED / ACCEPTED BY COUNCIL. Read-only. No edit, no compile, no run.
+
+EA .mq5 SHA256:
+  0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+
+FlowLogic .mq5 SHA256:
+  d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5
+
+EA .mq5 line count: 3202
+
+FlowLogic .mq5 line count: 1180
+
+SRJ_FlowNexus_EA.mq5
+SHA256 hash of C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS\Rev060_Task155_Pre2_EditRegionAnchor\SOURCE_SNAPSHOT\SRJ_FlowNexus_EA.mq5:
+0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+CertUtil: -hashfile command completed successfully.
+SRJ_FlowLogic.mq5
+SHA256 hash of C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS\Rev060_Task155_Pre2_EditRegionAnchor\SOURCE_SNAPSHOT\SRJ_FlowLogic.mq5:
+d5525014a101318a83049de7f3ac357056ecc5b6edd3feddaf41e0fafb5664d5
+CertUtil: -hashfile command completed successfully.
+SRJ_State.mqh
+SHA256 hash of C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS\Rev060_Task155_Pre2_EditRegionAnchor\SOURCE_SNAPSHOT\SRJ_State.mqh:
+85b2635627b0e217d233afcea191f9cab766f309eea464080248be13422d02d8
+CertUtil: -hashfile command completed successfully.
+SRJ_OrderblockMgr.mqh
+SHA256 hash of C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS\Rev060_Task155_Pre2_EditRegionAnchor\SOURCE_SNAPSHOT\SRJ_OrderblockMgr.mqh:
+9dcd8d8db57089e525a5ed1ccfe4ba6b4c4b1d63e72d6868cd101e1b4da5f27d
+CertUtil: -hashfile command completed successfully.
+SRJ_ImbalanceMgr.mqh
+SHA256 hash of C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS\Rev060_Task155_Pre2_EditRegionAnchor\SOURCE_SNAPSHOT\SRJ_ImbalanceMgr.mqh:
+87886cd42e38ed6592dc798ca17a1ebb889b5f4521f389d5fd837fcaa2d482b6
+CertUtil: -hashfile command completed successfully.
+SRJ_BiasEngine.mqh
+SHA256 hash of C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS\Rev060_Task155_Pre2_EditRegionAnchor\SOURCE_SNAPSHOT\SRJ_BiasEngine.mqh:
+384a25bad6f92cdadd62f6d297b71b7a0afc809c7a50bbd4fac532c85b7ad89e
+CertUtil: -hashfile command completed successfully.
+SRJ_Types.mqh
+SHA256 hash of C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS\Rev060_Task155_Pre2_EditRegionAnchor\SOURCE_SNAPSHOT\SRJ_Types.mqh:
+773d99444b958b98ce3aeca87690f40b743a5f6a71e47ba9e644d751808e78dc
+CertUtil: -hashfile command completed successfully.
+
+Per R-7 as amended, this SOURCE_SNAPSHOT is Task 155's pre-edit rollback copy and becomes Rev060_Task155_ExportStage_Buffer34\BEFORE\ at the start of Task 155.
+
+--------------------------- SECTION: REVISION 62 UPDATE (2026-09-06) ---------------------------
+Current source digests after Task 155 v4 PART 2 R7, ACCEPTED (R-53). Whole-tree stasis
+is assertable on all sixteen files (R-60). Sole source of the sixteen full digests:
+06_HANDOFFS\BUILDER_RESULT_155-REG.md STAGE 7. Comparison is case-insensitive hex (R-57).
+Values below as recorded at 155-REG STAGE 1:
+
+SRJ_FlowNexus_EA.mq5     0f1f44cb3f7d9aa183a2ece9d3029fd2cc006d46a49f33b35aff41ea52331322
+SRJ_FlowLogic.mq5        1EA7858F9B1A8F4F42D90D58A0BB8873063D874E40E32A6A4E69DD8099F73B08
+SRJ_State.mqh            C6D56BC197AF8585517CDA2038780F281329BCE32B1A9978AA5EA71ECC2EFD2E
+SRJ_OrderblockMgr.mqh    524D5D40AC1F0C2F6909F01742DFE13FC9A4954118A55B3008FE1CD80D18E60F
+SRJ_ImbalanceMgr.mqh     64CF32756A6A1EB417F2A4A33793F43A27FDDD11D243F5D84F5CB8F0880502AE
+SRJ_BiasEngine.mqh       FC1E3871F07439D418D628C3FCDD9A77A1604CBD3A3920296E3F278051E4092B
+SRJ_Types.mqh            773d99444b958b98ce3aeca87690f40b743a5f6a71e47ba9e644d751808e78dc
+
+COMPILE-RUN EVIDENCE, NOT SOURCE PROVENANCE (R-58):
+SRJ_FlowLogic.ex5      226444 bytes  file 2026-09-05 05:39 PM  SRJ BUILD 2026.09.05 17:39:20
+SRJ_FlowNexus_EA.ex5   115438 bytes  file 2026-08-30 10:31 AM
+Banner "bytes loaded" is not file size (R-86). P8b: the SRJ BUILD line is the run-binary
+provenance instrument (R-85). The two .ex5 files this checkpoint folder held were
+NON-CANONICAL (2026-09-04 in-place builds, matching no canonical size) and were moved
+to 07_ARCHIVE\VoidBinaries\ by 160-QUAR on 2026-09-06 (Rev62 section 20.3). Never a
+delete (R-78).

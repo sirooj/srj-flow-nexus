@@ -1,0 +1,13 @@
+Task 155 Form B v1 was BLOCKED by its own pre-flight (R-19, R-21) on question Q1
+
+and is SUPERSEDED BEFORE ISSUE. It was never saved, never authorized, and no file
+
+was modified. Grounds: five of sixteen edits were specified by derivation from a
+
+sibling edit, and three of those required the implementer to compose comment text,
+
+which is not mechanically checkable. Under R-20 the implementing coder is the
+
+mechanical builder, so every edit must be literal insertion text. Form B v2
+
+supersedes.

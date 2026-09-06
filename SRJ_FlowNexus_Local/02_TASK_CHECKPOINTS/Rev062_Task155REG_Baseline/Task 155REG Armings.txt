@@ -1,0 +1,12 @@
+QS	0	21:00:50.018	Core 04	2026.08.14 09:20:00   [SRJ-EA] 2026.08.14 09:20:00 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.15393 zoneHi=1.15403
+CN	0	21:06:44.019	Core 04	2026.08.17 16:15:04   [SRJ-EA] 2026.08.17 16:15:04 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.15870 zoneHi=1.15959
+DF	0	21:09:59.327	Core 04	2026.08.18 09:20:00   [SRJ-EA] 2026.08.18 09:20:00 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.15794 zoneHi=1.15813
+QN	0	21:10:54.259	Core 04	2026.08.18 14:15:01   [SRJ-EA] 2026.08.18 14:15:01 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.15794 zoneHi=1.15813
+FR	0	21:11:00.362	Core 04	2026.08.18 15:10:01   [SRJ-EA] 2026.08.18 15:10:01 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.15749 zoneHi=1.15767
+IG	0	21:11:06.466	Core 04	2026.08.18 15:30:00   [SRJ-EA] 2026.08.18 15:30:00 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.15794 zoneHi=1.15813
+RL	0	21:11:24.777	Core 04	2026.08.18 17:35:02   [SRJ-EA] 2026.08.18 17:35:02 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.15879 zoneHi=1.15895
+IM	0	21:19:57.472	Core 04	2026.08.20 15:55:00   [SRJ-EA] 2026.08.20 15:55:00 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.16737 zoneHi=1.16778
+KK	0	21:20:09.679	Core 04	2026.08.20 16:40:00   [SRJ-EA] 2026.08.20 16:40:00 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.16861 zoneHi=1.16901
+OP	0	21:20:15.782	Core 04	2026.08.20 17:25:00   [SRJ-EA] 2026.08.20 17:25:00 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.16547 zoneHi=1.16595
+PI	0	21:20:27.989	Core 04	2026.08.20 18:15:00   [SRJ-EA] 2026.08.20 18:15:00 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.16899 zoneHi=1.16952
+LE	0	21:23:12.787	Core 04	2026.08.21 09:10:00   [SRJ-EA] 2026.08.21 09:10:00 S3 zone: src=XOB haveFvg=0 haveXob=1 zoneLo=1.16892 zoneHi=1.16914

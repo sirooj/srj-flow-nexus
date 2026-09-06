@@ -244,16 +244,6 @@ struct SState
 
    string   mtfBoxName;
    string   dataWarningName;
-   // [Task 155] Buffer 34 transport. These three fields carry the
-   // provenance of the tickOBIsValid value to the export block. long is
-   // required here, not matched: COrderblock declares objId as long in
-   // SRJ_Types.mqh, and truncating it would make the exported identity
-   // unverifiable. Exact long-to-double conversion holds only inside the
-   // safe integer range 9007199254740992. The value contract for the
-   // exported buffer is stated beside the export write, not here.
-   long     tickOBSetterId;
-   int      tickOBSetterCode;
-   int      tickOBSetterBar;
   };
 
 SState g_s;
@@ -335,11 +325,6 @@ void SRJ_StateInit()
    g_s.currentLegHasXOB                = false;   // [Section 8]
    g_s.structLegBoundary               = SRJ_NA_INT;   // [EA-30]
    g_s.tickOBIsValid                  = true;
-   // [Task 155] Site code 9 means SRJ_StateInit default, no write since.
-   // Bar -1 means no bar context exists in this function.
-   g_s.tickOBSetterId                 = 0;
-   g_s.tickOBSetterCode               = 9;
-   g_s.tickOBSetterBar                = -1;
    g_s.tickFVGIsValid                 = true;
    g_s.hasPersistedOpposingFVG        = false;
    g_s.inBiasOBInvalidationCount      = 0;

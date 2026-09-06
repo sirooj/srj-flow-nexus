@@ -1,0 +1,203 @@
+Working revision: Rev063
+Operating mode: alert-only
+
+DF   = C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06
+ROOT = C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local
+  ROOT IS NESTED INSIDE DF\MQL5. EVERY RELATIVE PATH IN EVERY PASTE RESOLVES UNDER ROOT.
+  Same-named copies of canonical files exist beneath it: 4 .mq5 and 10 .mqh.
+  P17: every source path is literal. Never a filename search, glob, -Recurse, wildcard or
+  Navigator selection. A glob whose result agrees is still a deviation and is declared.
+
+CURRENT EA DIGEST, edited by Task 160:
+  SRJ_FlowNexus_EA.mq5
+    93d3639c778416d899750b81a1ce8395f96acb66ddbd6be1455dbf583744eced
+    191970 bytes, 3850 lines, UTF-8 WITH BOM, 3850 CRLF, 0 lone LF, 0 lone CR
+THE OTHER FIFTEEN DIGESTS ARE UNCHANGED and are read from BUILDER_RESULT_160-PreL.md
+  STAGE 1 SECTION ONLY. Scope the parse to that section; the whole file over-matches.
+  Never from a handoff. Never truncated. Comparison is CASE-INSENSITIVE hex.
+WHOLE TREE: 12,087 lines across sixteen files.
+
+Last applied production task: TASK 160, ACCEPTED
+  648 lines of type-only contract declarations inserted into SRJ_FlowNexus_EA.mq5 at
+  lines 166-813. ZERO existing lines modified, ZERO deleted. Compile 0 errors 0 warnings,
+  one file, no Compile All. Collision census 136 of 136 ZERO HITS. Code-emission proof:
+  ZERO PARENTHESES and seventeen ZERO tokens in comment-stripped text.
+Last measurement: 155-REG, BYTE-IDENTICAL. Task 160's own regression is NOT YET RUN.
+
+Compile artifacts - COMPILE-RUN EVIDENCE, NEVER PROVENANCE:
+  SRJ_FlowNexus_EA.ex5   118130   file 2026-09-06 18:42   compiled by Task 160
+  SRJ_FlowLogic.ex5      226444   file 2026-09-05 17:39:34   UNCHANGED
+  The EA binary grew 2692 bytes on a types-only insertion. That is the TYPE TABLE, not
+  code. METADATA IS NOT CODE. No gate reads .ex5 size or timestamp.
+  P8b, the SRJ BUILD line, is the run-binary provenance instrument and is ABSENT from the
+  155-REG report. It enters the record with the next run.
+
+SUPERSEDED, do not quote as current:
+  EA .mq5   0f1f44cb..52331322 / 162293 bytes / 3202 lines - remains the digest of the
+            REVERT PATH and is correct for that purpose only
+  EA .ex5   115438 / 08-30 10:31    and    115062 / 08-29 04:50
+  FlowLogic .mq5  d5525014..fb5664d5      FlowLogic .ex5  08/28/2026 01:04 PM
+VOID, never quote:  c307496079e3..dc3879511  and  08/29/2026 12:54 PM
+VOID DELIVERABLE:   Task 160-PreH Block B, every attribution verdict. Inputs survive.
+NON-CANONICAL, QUARANTINED to 07_ARCHIVE\VoidBinaries\ by 160-QUAR, never deleted: four
+  .ex5 formerly under 02_TASK_CHECKPOINTS.
+
+THE REVERT PATH IS FROZEN AND IS SOURCE ONLY:
+  02_TASK_CHECKPOINTS\Rev062_Task160_Contracts\BEFORE\SRJ_FlowNexus_EA.mq5
+  digest 0f1f44cb..52331322, VERIFIED EQUAL to the pre-edit file. MAY NOT BE MOVED,
+  EDITED OR DELETED. It is what makes a 160-CAL revert exact rather than a judgement call.
+06_HANDOFFS\COUNCIL_RULING_TASK160_CONTRACTS.md is CONSUMED as an extraction source. Its
+  block digest bcabf265..41153 is a historical fact. Nothing reads it.
+
+THE EA'S ANCHORS ARE RE-BASED BY A KNOWN DELTA, ADMISSIBLE FOR LOCATION ONLY:
+  old line N, N <= 165  ->  unchanged.  block -> 166 through 813.  N >= 166 -> N + 648.
+  Every byte a later packet WRITES is still located by census in that packet and verified
+  by paste at its own STAGE 2. P12 IS UNWEAKENED.
+  RE-BASED: nine g_state writes 1740 1781 2883 2896 2908 3386 3525 3614 3700; g_state
+    declaration 815; ST_S5_GATE_CHECK set 3525 test 3531; wouldHold 2388;
+    ABORT_NO_TP_TARGET 3542; ABORT_TP_RR_FAIL 3565; divergence check 3569;
+    MarkSessionUsed 3612 and 3698; PoiRetestResult 1166; ZoneAdoptable 1859 region
+    1860-1909 call 3434; ZoneInPlay 1986.
+  UNCHANGED, above the insertion: ENUM_SRJ_MODE 19; ENUM_SRJ_STATE 137-139;
+    ENUM_SRJ_DIR 141; ENUM_SRJ_REGIME 142; ENUM_SRJ_SESSION 143; ENUM_SRJ_SLMODE 144;
+    abort defines through 164; line 159, damaged comment text, STILL NOT AN ANCHOR.
+  SRJ_State.mqh line 188 carries the same damage and the same treatment.
+
+TIER 1 BASELINE:
+  RAW LOG  D:\Videos\Task 155REG Full Logs.txt | 1005333 bytes | 6577 lines | NOT relayed
+    THIS FILE IS THE COUNT INSTRUMENT OF RECORD. Tag tables are DERIVED FROM RAW LOGS by
+    one command applied identically to both generations. Council does not need to know the
+    tag vocabulary; an empty difference set is the gate.
+  CONFIG, verbatim: EURUSD | M5 | 2026.08.14 - 2026.08.22 | every tick based on real
+    ticks | 10000 JPY | 1:100 | SRJ_FlowNexus_EA | InpDebugLog=true | InpMode=0
+    MODE_ALERT_ONLY | optimisation OFF | visual mode OFF. Eleven items, two input values.
+  ELEVEN GATE ROWS, all PASS: Signals 1/1, Aborts 22/22, Candidates seeded 23/23,
+    Armings 12/12, S3 evaluation bars 54/54, FRESHSKIP 141/141, FRESHCOUNT 22/22,
+    SUPPRESSED 43/43, TPCENSUS 174/174, ZONEPICK=INPLAYCOMMIT=XOBPROMO 54=54=54,
+    ZONECENSUS_FVG 0/0.
+  SIGNAL LINE: [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-VWAP | NYAM | R=1.42
+    SL 1.15870 TP 1.16141 spr=2
+  P8 present. P8a = 372 (607 VOIDS A RUN). P9 = bars=1728. P8b ABSENT.
+  BUILDER_RESULT_155-REG.md CARRIES NO TAG INVENTORY - measured, zero hits. The inventory
+    R-75 cited lives in the six extracts and is no longer needed.
+  D:\Videos\Task 135 Full Logs.txt is RETIRED as a gate.
+Run budget: ~1.7% per REGISTERED buffer. Tier 1 ~27 min, Tier 2 ~84 min, Tier 3 ~252 min.
+  Registration is what costs, not population.
+
+Authorization:
+  NO TOKEN IS OUTSTANDING. Nothing is authorized and nothing needs to be.
+  CONSUMED: 155-A3, 155REG-A1, 160QUAR-A1, 160-A1, 160REG-A1, 160REG-A2.
+    160REG-A2 consumed BY A COMPLETED RUN. 160REG-A1 was consumed without one.
+    160REG-A1 consumed WITHOUT A RUN - the packet stopped at STAGE 2 on a council defect.
+    A token consumes on invocation, so it is re-issued as A2, never re-used.
+  160CAL-A1 DOES NOT EXIST.
+  Production edit / compile / chart attach: NOT AUTHORIZED. THE EA BINARY COMPILED BY
+    TASK 160 IS THE BINARY UNDER TEST AND MAY NOT BE REBUILT.
+  Delete: NEVER AUTHORIZED ANYWHERE.
+
+Read-only IDE workflow:        VALIDATED END TO END
+Production-edit IDE workflow:  VALIDATED END TO END, twice
+Harness-run link:              VALIDATED
+Chart-attach link:             NOT VALIDATED, and MAY NEVER BE NEEDED
+
+Rulings: R-161   Defects: 181   Findings: EA-218 or higher
+Council mints no new EA or defect number.
+
+Census rule set of record:
+  03_SPECIFICATIONS\CensusRules\CENSUS_RULE_BLOCK_THROUGH_A26.md
+  764 lines, 27808 bytes, UTF-8 no BOM, LF-only, 26 numbered entries
+  SHA-256 f401d685a9761dd0d0c50bba3050b0753b710d5accee9d83f6d7511ee9447e8c
+  Amendment 8 is satisfied by MECHANICAL BYTE-PRESERVING PREPEND. THE GATE IS ARITHMETIC:
+    source hash re-read EQUAL, lines = 764 + body, bytes = 27808 + body, and the
+    assembled prefix hashes EQUAL to the source. The two greps are SCOPED TO LINES 1-764
+    and are corroborative only - a gate may not match its own instruction text.
+  CENSUS_RULES_VERBATIM.txt is DERIVED - never pasted, never a completeness check.
+
+WORKFLOW: ALL execution and ALL mechanical file work goes to the IDE.
+  IDE AGENT, single: Cline Act + GLM 5.3 Flash. Fallback: Cline Act + DeepSeek V4 Flash.
+  RETIRED: Claude Sonnet 4.5 as workflow planner; Opus 5 via Cline Act as coder.
+    CONSEQUENCE: NO CAPABLE CODER IN THE IDE. Every Form B carries COMPLETE LITERAL TEXT
+    for every operation, and NO FORM B MAY REQUIRE JUDGEMENT.
+  Whole-document transcription -> OPERATOR pastes into a new file.
+  Any read-modify-write -> IDE.
+  Builder reports are DELTA AND EXCEPTION ONLY. Handoffs stay full.
+  A relay paste is issued COMPLETE or not at all.
+  Council: Opus 5, web only, reads no file. External reviewer: GPT 6 Astra.
+  Packets go to 01_TASKS. PACKET_160-PreK.md stays in 06_HANDOFFS.
+
+WORKING RECORD: 06_HANDOFFS\REVISION_63_CONSOLIDATED_HANDOFF.md.
+  REVISION_62 is SUPERSEDED EXCEPT SECTION 20.2, which remains the packet body of record
+  for 155-RT-A.
+UNRECOVERABLE FROM DISK, and none of it blocks anything: REVISION_56 in full - EA-1
+  through EA-146, the log formats, answers R-Q13/14/15; REVISION_60 sections 6.1-6.11;
+  REVISION_61, which never existed; Part A v4.2, DEMOTED to the oldest layer; document
+  A-4.
+
+NO OPERATOR QUESTION IS OUTSTANDING. R-Q11 (A1, strictly-after on both paths) and R-Q12
+  (a live session extreme is not admissible at admission; a closed one is, and a post-fill
+  revision is Task 166's) are both ANSWERED AND CLOSED. Two small Task 166 questions are
+  recorded and neither blocks anything: may a post-fill revision fire on more than one
+  session close, and may it reduce R.
+
+Current objective: THE MIGRATION.
+  1  DONE. TASK 160-REG-R2 COMPLETED AND ACCEPTED. 43 of 43 tag keys count-identical,
+     matched lines 5992 = 5992, bars=1728, signal line IDENTICAL including SL 1.15870.
+     The one DIFFERENT row was total FILE lines, a two-channel instrument now DEMOTED to
+     record-only by R-153. Behavioural divergence ZERO. Open item 50 CLOSED. 160-CAL
+     WITHDRAWN. R-87's lineage hole CLOSED. Pre-155 stasis caveat CLOSED.
+     P8b IS THE INDICATOR'S BUILD LINE, NOT THE EA'S - R-154. The EA has NO in-journal
+     build-provenance instrument; identity rests on the .ex5 file line measured before
+     and after inside a packet authorizing no compile.
+  1b TASK 161-PreA. Source-only Form D, NO AUTHORIZATION REQUIRED. Establishes Task 161's
+     adapter surface AT CURRENT LINE NUMBERS - section 3.6's re-based locators are
+     admissible for LOCATION ONLY and are NOT anchors. THE ONLY THING QUEUED.
+  2  TASK 161 predecessor Form D, then TASK 161. Cascade adapter, MILESTONE 1. Surface is
+     the nine re-based g_state writes plus 65 reading lines. FIRST TASK THAT APPENDS AN
+     ENUM MEMBER - the offering-observation candidate state at value 9, unnamed by
+     Deliverable 3 and NOT invented by council.
+  3  TASK 162 predecessor Form D, four items: the containment test's <= versus <,
+     obValid's distribution across the 161 SL_REF lines, Scenario H's PRE-RULE fixture
+     capture before the strictly-after rule removes it, and whether the three promotion
+     sites enforce valid-and-activated before promoting. Then TASK 162, MILESTONES 2/3/4,
+     carrying the SL 1.15870 single-value gate.
+  4  TASK 163, then 164 (MILESTONES 5, 6), then 165, then 141/142/129/130/131, then 166.
+  -  155-RT-A, body at REVISION_62 section 20.2, unchanged and cheaper - item 3g is half
+     answered from source. Deadline before Task 163, NOT before Task 161.
+  -  160-CAL: DEFERRED AND CONDITIONAL. Issued only if 160-REG-R2 diverges.
+
+PARKED: Task 154, Task 156, buffers 35 and 36, open item 23. Nothing queued depends on
+  them and their specification is now DECLARED IN SOURCE.
+GIT SNAPSHOT, R-155 / R-157 / R-161 / P19:
+  Repository root is DF\MQL5, ABOVE ROOT, and is NOT re-rooted. DF\config is NOT in the
+  repository - measured, nineteen first-level directories enumerated. Branch main, remote
+  origin at forge.mql5.io. The sixteen canonical sources are TRACKED at root-relative
+  paths: Experts\, Indicators\, Include\SRJ\. THE LITERAL MQL5\... PREFIX RESOLVES TO
+  NOTHING.
+  REPO\.gitignore excludes *.ex5, *.dll, *.exe, *.zip, logs\, Profiles\, experts.dat,
+  *.chr, *.wnd, *.set, *.opt, .vscode\, .kilo\, .srj\jobs\. THIS MAKES P18 MECHANICAL:
+  the five .ex5 under 02_TASK_CHECKPOINTS and 07_ARCHIVE cannot enter a commit.
+  EVERY ACCEPTED TASK ENDS WITH A SNAPSHOT:
+    .srj\tools\srj_snapshot.ps1 -TaskId <id> -Verdict <verdict> -MessageFile <path>
+  Explicit allow-list, never git add . and never -A. Refuses an excluded addition.
+  NEVER PUSHES - a push is an operator decision, R-159. NOT A GATE: git show --stat HEAD
+  verifies it independently.
+  HISTORY IS NEVER REWRITTEN. Two .ex5 sit in five pre-Rev063 commits: a RECORDED
+  CONTAMINATION, never cited as lineage, never scrubbed.
+BLOCKED ON NOTHING: no document blocks any queued task.
+NO OPEN ITEM BLOCKS ANYTHING. Open item 50 CLOSED by R-153: Task 160's insertion is
+BEHAVIOUR-NEUTRAL BY MEASUREMENT, not by construction.
+
+Task 162 carries a SINGLE-VALUE REGRESSION GATE: the zone retirement must reproduce
+  SL 1.15870 on 2026.08.17 16:20:01. It is the only stop in the record. Five EA functions
+  read the zone globals, two in control flow on the admission path.
+
+Structural agreement: 0 of 12. Unchanged across ELEVEN revisions - and the first
+  representation capable of expressing the strategy is now IN THE SOURCE rather than
+  drafted. Twelve structs, two state enums, identity-resolved object references, absence
+  represented structurally. Inert, unreferenced, and Task 161 is what starts reading it.
+
+Do not edit archived copies. Do not read ROOT as source (P14). No .ex5 under
+  02_TASK_CHECKPOINTS (P18). Never Compile All (P10). Never open a non-allow-listed file
+  in MetaEditor (P11). Never delete where a move will do. Never rename an enum member.
+  Never build an ordinal comparison on a contract enum. Never revert a field to represent
+  waiting. Never represent absence with a sentinel value.

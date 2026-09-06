@@ -1,0 +1,7 @@
+Task 154's POPULATION is DEFERRED to Task 163 per R-15. Task 154 is NOT cancelled
+
+and NOT archived as superseded. Its number and lineage survive. R-5 restated is
+
+the specification Task 163 inherits. No Form B is written for Task 154. Task 155
+
+registers buffer 36 and writes a single explicit deferred-population sentinel.

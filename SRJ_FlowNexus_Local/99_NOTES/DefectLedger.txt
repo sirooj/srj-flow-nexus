@@ -1,0 +1,839 @@
+REVISION 60.2 — ADDENDUM INCREMENT 1
+
+Prepared by Council + Planner/Master (Opus 5). Supersedes nothing. Extends
+
+sections 1, 3, 4, 5, 6, 7, 8, 9, 10 and 11 of the addendum above.
+
+ROLE TABLE, AMENDED BY R-20
+
+  Council + Planner/Master (Opus 5) — web interface only, no IDE access. Rules,
+
+    audits, authors every Form B / Form D / Form S, and authorizes. No role has
+
+    authority above it.
+
+  External reviewer (GPT 5.6 Sol) — objects, or returns NO OBJECTION. Does not
+
+    rule, author, authorize, or opine on architecture. Currently inaccessible.
+
+  Operator — discretionary strategy meaning only; relays files and status. NO
+
+    verification role. NO coding role. Derives no figure in any result.
+
+  Workflow scribe (Claude Default + Sonnet 4.5) — writes dictation to disk.
+
+  Mechanical builder (Cline Act + GLM 5.3 Flash; fallback DeepSeek V4 Flash) —
+
+    literal extraction, census, brace counting, hashing, precisely specified
+
+    edits, AND production implementation of a Form B under R-20.
+
+  Implementing coder (Cline Act + Opus 5) — ROLE STRUCK. Opus 5 is web-only and
+
+    cannot act in the IDE.
+
+FINDINGS EA-205 .. EA-221
+
+EA-205  Region 2's writes execute inside a LOOP. Stack at OrderblockMgr 535/537:
+
+        for(425,570) -> if(barClosed) 480 -> if(ob.isActivated && ob.isValid) 482
+
+        -> if(closedBeyondInvalidation && !wouldBeSameBarValInv && !isCreationBar)
+
+        494 -> if(refOk) 524 -> if(isInBias) 532 / else. k runs Total()-1 down to
+
+        0, so SEVERAL orderblocks may be invalidated in one pass and each writes
+
+        the flag. The exported double names the LAST write in descending-k order.
+
+EA-206  TWO bar identifiers are in scope at OrderblockMgr 171/173: parameter
+
+        position 5 is the EVENT bar, position 6 is the PROCESSING bar. Both call
+
+        sites pass i as the sixth argument — OrderblockMgr 251 and 356. Region 2
+
+        receives the processing bar as parameter position 7. tickOBSetterBar
+
+        records position 6 at 171/173 and position 7 at 535/537. Recording the
+
+        event bar would make the carried test report every replay write as
+
+        carried.
+
+EA-207  The two site pairs are not reachable under the same conditions. Region 2's
+
+        writes require barClosed true (guard 480). Region 1 has NO barClosed
+
+        guard; it is reached from the creation paths at OrderblockMgr 238 and 343
+
+        via the calls at 251 and 356. The setter-code field distinguishes
+
+        reachable populations, not merely source locations.
+
+EA-208  EA-197 corroborated by full-region paste. Region 1: if(refOk) 160 ->
+
+        if(isInBias) 168 -> writes 171 (false) / 173 (true), inside
+
+        if(closedBeyondInvalidation) 129 inside
+
+        if(ob.isActivated && ob.isValid && !didActivate) 121. Region 2: if(refOk)
+
+        524 -> if(isInBias) 532 -> writes 535 (false) / 537 (true). ob is named in
+
+        a resolved guard header of every one of the four stacks.
+
+EA-209  The tree writes 0.0 AT THE WRITE SITE for "no object selected", with the
+
+        meaning stated in source. FlowLogic 954
+
+          g_bufXobObjId[target]    = 0.0;   // [Task 102] 0 = no object selected
+
+        and 993 for the FVG buffer. Corroborates EA-198 from the write side.
+
+EA-210  FlowLogic performs NO normalisation and NO epsilon comparison on any
+
+        exported value. Whole-file: NormalizeDouble N_OCC 0, DBL_EPSILON N_OCC 0,
+
+        (long) N_OCC 0, MathAbs N_OCC 2 both at 1012 inside a MathMin distance
+
+        computation. All nine (double) occurrences: 450 and 500 (PeriodSeconds in
+
+        SRJ_ComputeLookback) and seven export writes at 939, 966, 976, 1028, 1077,
+
+        1108, 1121. Buffer 34's write is a plain (double) cast and nothing else.
+
+        EA-182's safe-range assertion is the only conversion check available.
+
+EA-211  Buffer 34's export write requires NO null guard, on the tree's own
+
+        standard. The identity is captured into an SState field at the setter
+
+        site, so the export at 902 dereferences nothing. At the four setter sites
+
+        ob is ALREADY dereferenced by the resolved guard headers that admit the
+
+        write — OrderblockMgr 121 and 482 — so a null test there would be stricter
+
+        than the code already executing. The existing 954/966 pair is guarded
+
+        because it dereferences xob AT the export; buffer 34 does not.
+
+EA-212  The COMPLETE lifecycle of the tree's two existing objId buffers, as buffer
+
+        34's template:
+
+          declaration        102, 103   double g_bufXobObjId[];  column 1
+
+          SetIndexBuffer     613, 614   indices 31, 32, INDICATOR_CALCULATIONS
+
+          ArraySetAsSeries   660, 661   false
+
+          ArrayInitialize    793, 794   0.0
+
+          write sites        954 / 966  and  993 / 1028
+
+        Declarations 102 and 103 lie INSIDE the 30-117 span.
+
+EA-213  g_bufFractalHigh and g_bufFractalLow are NOT DECLARED IN
+
+        SRJ_FlowLogic.mq5 AT ALL. Whole-file census returns N_OCC 3 each and every
+
+        occurrence is a USE: SetIndexBuffer 566/567 (indices 0 and 1,
+
+        INDICATOR_DATA), ArraySetAsSeries 568/569, ArrayInitialize 748/749. ZERO
+
+        lines have either identifier immediately followed by "[", so no
+
+        declaration exists in the file in any form or at any column. EA-202 is
+
+        REINSTATED and RESTATED: the two arrays are declared OUTSIDE
+
+        SRJ_FlowLogic.mq5, location UNLOCATED. Also corroborates EA-194: indices
+
+        0-1 ARE INDICATOR_DATA, from SetIndexBuffer's own third argument.
+
+EA-214  The full-recalculation block's complete contents, [747, 808]: 34
+
+        ArrayInitialize calls 748-797, then SRJ_DeleteAllObjects 799,
+
+        SRJ_StateInit 800, SRJ_BindInputs 801, SRJ_HTF_Init 802,
+
+        g_snapValid = false 804, g_intrabarObjects.Clear() 805, start = 2 at 807.
+
+        ORDERING, material to Task 155: the buffer initialisers run BEFORE
+
+        SRJ_StateInit. Buffer 34's ArrayInitialize insertion point is AFTER 797
+
+        and BEFORE 799.
+
+EA-215  The tree STATES ITS INITIALISER-CHOICE RATIONALE in a comment above each
+
+        group inside the block: 783, 786, 789, 792, 796, all in the form
+
+        // [Task NN] <value>, not <other> - see the declaration comment.
+
+        R-18's required EMPTY_VALUE-versus-0.0 statement has an established form
+
+        to match rather than invent.
+
+EA-216  The buffer census closes arithmetically. 34 SetIndexBuffer indices 0-33,
+
+        34 ArrayInitialize calls at 748-797, 32 declarations in FlowLogic plus the
+
+        2 declared elsewhere = 34. EA-203's four-region map is complete.
+
+EA-217  SRJ_State.mqh 96 reads  struct SState  with NO semicolon; 97 is "  {" at
+
+        column 3; 246 is "   string   dataWarningName;" at column 4; 247 is "  };"
+
+        at column 3; 249 is "SState g_s;" at column 1. §17.53's State-96 concern
+
+        is RESOLVED — the "struct SState;" delivered by 155-Pre1 was a relay
+
+        artifact. The insertion point (after 246, before 247) is confirmed
+
+        verbatim, and the field form is "   <type>     <name>;" at column 4.
+
+        StateInit 327/328/329 are at column 4 with aligned "=".
+
+EA-218  FlowLogic 8 verbatim:
+
+          #property indicator_buffers 34  // [Task 113] Was 33. Added 33 (selected
+
+          XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32
+
+          (selected FVG objId).
+
+        FlowLogic 9 verbatim:  #property indicator_plots   2
+
+        Both at column 1. R-6a's "append in the same form" is a MATCHED pattern.
+
+EA-219  The three flag exports write a TERNARY, not a cast.
+
+          902  g_bufOBValid[target] = g_s.tickOBIsValid ? 1.0 : 0.0;   (col 10)
+
+          903  g_bufFVGValid[target] = g_s.tickFVGIsValid ? 1.0 : 0.0;
+
+          904  g_bufOppFVG[target] = g_s.hasPersistedOpposingFVG ? 1.0 : 0.0;
+
+        898 "int target = i - 1;" and 899 "if(target >= 0)" both at column 7.
+
+        Buffer 34's write follows 966's (double)-cast form, NOT 902's ternary,
+
+        because it carries an identity rather than a boolean.
+
+EA-220  The non-ASCII population of the two files scanned, by byte scan.
+
+        FlowLogic, 16 lines: 3, 5, 57, 63, 84, 100, 134, 783, 786, 789, 792, 796,
+
+          985, 989, 1009, 1112.
+
+        SRJ_State.mqh, 2 lines: 94, 188.
+
+        Every occurrence is the same three-byte sequence 0xE2 0x80 0x94.
+
+        EA-195's four-line set is SUPERSEDED for these two files.
+
+EA-221  Every one of the 21 anchor lines in 155-Pre2 E1 and E2 is ASCII CLEAN.
+
+        Count of non-clean anchor lines: 0. The byte-substitution risk is confined
+
+        to COMMENT lines inside the surrounding pastes; not one line a Form B
+
+        inserts at or beside is affected.
+
+Last issued EA-221.
+
+EA-202  SUSPENDED then REINSTATED. Suspended because its sole evidence was
+
+        155-Pre1 D3, a paste declared complete and delivered short (defect 108).
+
+        REINSTATED and RESTATED by EA-213 on a whole-file census.
+
+LIMITATIONS
+
+17.53  RESOLVED. The corruption is in BUILDER_RESULT_155-Pre1.md, introduced by
+
+       the builder's report writer; the canonical source is unaffected. State 96
+
+       confirmed as "struct SState" by EA-217. Blocks A, B and C of that result
+
+       ARE byte-faithful; Blocks D and E are NOT and no insertion text may be
+
+       taken from them.
+
+17.54  RESOLVED. The ArrayInitialize block [747, 808] is guarded by
+
+       if(prevCalc == 0) at FlowLogic 746, where prevCalc is assigned from
+
+       prev_calculated at 730. It runs on FULL RECALCULATION ONLY. Three appended
+
+       calls inherit that guard, which is what R-18 requires.
+
+17.55  155-Pre2 C4's 30-117 paste and D3's 747-808 paste are byte-substituted on
+
+       comment lines: C4 at 57, 63, 84, 100; D3 at 783, 786, 789, 792, 796. Every
+
+       anchor line itself is ASCII CLEAN (EA-221). No insertion text may be taken
+
+       from either paste. A Form B names file, line and identifier, and the
+
+       implementer reads each line from the canonical file and reports it verbatim
+
+       before inserting. EA-195's DIFF requirement is reinforced, not satisfied,
+
+       by these pastes.
+
+Last issued 17.55.
+
+DEFECT LEDGER 110 .. 135
+
+110  A Form D was issued with unbounded output and no part mapping, so the builder
+
+     chose the delivery shape.  CLOSED BY — the output-budget rule.
+
+111  ROOT CAUSE, planner's. The census rule block mandated brace counting but
+
+     never mandated MECHANICAL DERIVATION, so hand-transcription of thousands of
+
+     source lines was a legal method for every Form D issued to date. Both
+
+     observed failure modes share this cause: a builder that transcribed by hand
+
+     for three hours and corrupted the output, and a builder that measured the
+
+     same job and returned a non-response. Parent of 105, 108, 109.
+
+     CLOSED BY — AMENDMENT 22.
+
+112  The report destination could be occupied by a stub before any legal status
+
+     was reached.  CLOSED BY — the output-budget rule's single-write clause, and:
+
+     a file at a report destination that does not carry one of the five statuses
+
+     is renamed VOID_<name> and is never read as a result.
+
+113  Issued task text carried paired underscore placeholders, which do not survive
+
+     markdown relay. Observed: "A *, B* , C *, D* , E _" returned as
+
+     "A *, B* , C *, D* , E _". Outbound sibling of defect 105 and §17.53.
+
+     CLOSED BY — the relay-safe-token rule.
+
+114  The report format's angle-bracket tokens could be echoed back unfilled and
+
+     the document still looked like a report. The report destination was occupied
+
+     by the task text itself.  CLOSED BY — the token-substitution rule.
+
+115  The report format numbered its headings but never required an answer to
+
+     identify the item's required outputs, so a report could answer twenty-one
+
+     different questions and satisfy every conformance line. Observed: fifteen of
+
+     twenty-one items substituted under a COMPLETED status line.
+
+     CLOSED BY — the item-restatement rule.
+
+116  AMENDMENT 22 mandated derivation by command but did not make the command's
+
+     output BINDING. Two items reported the correct mechanical figure and then
+
+     substituted an invented "standard convention" figure, overriding the
+
+     region-bounds convention rule's own definition of BODY LINES.
+
+     CLOSED BY — AMENDMENT 23.
+
+117  A census item's PATTERN and SCOPE were substitutable without detection. A
+
+     literal pattern became a case-insensitive regex and a whole-file scope became
+
+     a line range carried in from a previous task.  CLOSED BY — AMENDMENT 24.
+
+118  A1's classification set had no class for a constructor definition header, so
+
+     SRJ_Types.mqh 65 was classified DECLARATION in A1 while A3 correctly treats
+
+     the same line as a definition header. The report contradicts itself because
+
+     the item left no legal way not to.
+
+119  A5(iv) operationalised item 42's REACHABILITY question as whether the text
+
+     "ob.objId" OCCURS at the four sites — precisely the sites where a Form B will
+
+     write new code, so ABSENT is the only possible answer and the item could
+
+     neither establish nor refute what it was written to settle. Reachability is a
+
+     property of the member's access specifier and the variable's type. Fifth
+
+     variant of the item-list-from-understanding failure.
+
+120  Amendment 12 supplied NO ENCLOSING FUNCTION - FILE SCOPE but no legal answer
+
+     for a line inside a CLASS BODY that is not inside a function. Types 63 and
+
+     114 are neither.  CLOSED BY — amendment 12 extended.
+
+121  R-17 specified tickOBSetterBar without establishing which bar identifier is
+
+     in scope at each write site. TWO are in scope at OrderblockMgr 171/173 and
+
+     they differ; recording the event bar would report every replay write as
+
+     carried and the error would be invisible in the export.
+
+     CLOSED BY — the bar-identifier rule.
+
+122  R-17 named "the objId of the INVALIDATED ORDERBLOCK", a singular referent, at
+
+     sites the source can execute many times per bar (EA-205). The answerability
+
+     rule's self-selection clause was violated by the ruling, not by an item.
+
+     CLOSED BY — R-17(i) amended.
+
+123  The assignment-target rule cannot recognise a SUBSCRIPTED assignment target.
+
+     Scanning right from the identifier finds "[" before "=", so every buffer
+
+     write in this tree classifies as CONTAINS-EQUALS-NOT-TARGET. B1 returned zero
+
+     ASSIGNMENT lines, which emptied B2's required set and drove B3 into its
+
+     ABSENT branch — three items voided, each conformant. The rule has never been
+
+     able to classify a buffer export, and B1 existed to classify buffer exports.
+
+     Same family as defect 104.  CLOSED BY — AMENDMENT 25.
+
+124  B3's quoted command contains a type name that does not exist. It never threw
+
+     because the loop body never executed over an empty span. AMENDED: the builder
+
+     reports the issued command used [System.StringComparison] and the reply
+
+     rendered [System.StringConversion]; whether the fault was in the command or
+
+     the relay is UNESTABLISHED, the same shape as §17.53.
+
+     CLOSED BY — AMENDMENT 26.
+
+125  AMENDMENT 22 was breached inside an otherwise conforming report: one paste
+
+     line was hand-retyped, visible only because the builder self-corrected and
+
+     said so.  CLOSED BY — the paste-source rule.
+
+126  A builder certified its own written deliverable as verified and COMPLETED,
+
+     including a terminating hash item and a Block E it had not yet delivered.
+
+     CLOSED BY — the no-self-certification rule.
+
+127  AMENDMENT 21 prohibited substituting a non-ASCII byte but did not prohibit
+
+     substituting it INSIDE A PASTE when the substitution is declared. Both of
+
+     155-Pre2's insertion-anchor pastes are affected. Declared, so not silent —
+
+     but not byte-faithful on those lines.  CLOSED BY — amendment 21 extended.
+
+128  155-Pre2's byte scan covered TWO files while the Form B edits FIVE. No byte
+
+     report exists for SRJ_OrderblockMgr.mqh, SRJ_ImbalanceMgr.mqh,
+
+     SRJ_BiasEngine.mqh or SRJ_Types.mqh, and EA-195 already established
+
+     non-ASCII bytes in ImbalanceMgr 342 and Types 24. NON-GATING: verification is
+
+     by DIFF against BEFORE\.  CLOSED BY — the edit-file byte-scope rule.
+
+129  E3 and E4 cite a command whose raw summary output was never pasted. The byte
+
+     columns are self-checking but the BOM state and byte-scan line counts of both
+
+     files are ABSENT.  CLOSED BY — amendment 22 extended. Open item 47.
+
+130  R-3b named one manager .mqh for a flag with writers in two.
+
+     CLOSED BY — R-3b amended, and: a minimum file set is derived from the flag's
+
+     censused writer regions, never from a role name.
+
+131  R-17 specified capture "beside the flag write" without establishing whether
+
+     the enclosing branch is BRACED. Six of the eight in-source write sites sit in
+
+     an if/else branch; a braceless single-statement branch would silently change
+
+     control flow and compile clean. Sixth variant of the
+
+     item-list-from-understanding failure.  CLOSED BY — the branch-form rule.
+
+132  R-17 specified tickOBSetterBar for nine sites on evidence covering four.
+
+     Handled by R-17(iii) rather than by a block.
+
+133  Revision 60.2's section 13 repository actions were never executed, and both
+
+     Form S 60.2-1 and the council's own assumptions treated them as done. Five
+
+     directories and three files named as existing did not exist. The project's
+
+     entire register set was chat-resident with no disk copy.
+
+     CLOSED BY — the repository-inventory rule: a Form S either names only paths a
+
+     scribe has reported existing, or instructs their creation explicitly in the
+
+     same step. Council state is written to disk before any production edit is
+
+     authorized.
+
+134  Form S 60.2-1 deferred its content to blocks "supplied alongside this Form S"
+
+     — a placeholder by another name. Amendment 8 prohibits exactly this in a Form
+
+     B or D and did not cover a Form S.
+
+     CLOSED BY — amendment 8 extended to Form S: content is embedded in the same
+
+     message, or the step names a file on disk to copy from.
+
+135  A Form S step gave a dictation role a compound conditional whose branch it had
+
+     to select, and the scribe reported AMBIGUOUS and wrote nothing.
+
+     CLOSED BY — the scribe-conditional rule: a Form S contains no condition other
+
+     than "if this path exists, otherwise create it."
+
+Last issued 135.
+
+RULINGS ADDED OR AMENDED
+
+R-3b AMENDED — the minimum production file set is FIVE, not four, because
+
+     tickOBIsValid has writers in TWO managers (EA-196): SRJ_State.mqh,
+
+     SRJ_OrderblockMgr.mqh, SRJ_ImbalanceMgr.mqh, SRJ_BiasEngine.mqh,
+
+     SRJ_FlowLogic.mq5. SRJ_Types.mqh READ NOT EDITED. EA .mq5 NOT EDITED,
+
+     byte-identical, not recompiled.
+
+R-7  AMENDED — 155-Pre2's SOURCE_SNAPSHOT is Task 155's pre-edit rollback copy,
+
+     because it is the last snapshot whose digests were verified inside an
+
+     accepted result. Stasis floor 26 makes it byte-identical to 155-Pre1's.
+
+     SECURED ON DISK at 02_TASK_CHECKPOINTS\
+
+     Rev060_Task155_Pre2_EditRegionAnchor\SOURCE_SNAPSHOT, seven files, both
+
+     supplied hashes MATCH.
+
+R-17 AMENDED, three parts.
+
+     (i)   SINGULAR REFERENT. The >0.0 value is the objId of the LAST QUALIFYING
+
+           INVALIDATION on the exported bar (EA-205). Overwritten events go to
+
+           R-4d's unconditional diagnostic.
+
+     (ii)  0.0 RETIRED as a buffer-34 value. Unreachable: every no-identity case
+
+           has a specific site code, and objId <= 0 at a named site is -9.0.
+
+           EA-198/EA-209's 0.0 convention still governs the SState field's
+
+           initialiser.
+
+     (iii) BAR IDENTIFIER. EA-206 establishes one at the four NAMED sites only.
+
+           For the four unnamed sites a Form B specifies both branches — record a
+
+           processing-bar identifier if one is in scope, else record -1 and apply
+
+           the carried test to codes 1-4 only. Neither branch blocks.
+
+R-19 NEW — EXTERNAL REVIEW, reviewer unavailable. R-1's roadblock class (e) still
+
+     applies, but R-1 never required the review to come from a model; its three
+
+     questions are mechanically checkable. The review is performed as a PRE-FLIGHT
+
+     BLOCK from the Form B text and named accepted results only, before any file is
+
+     read for editing. Any YES is BLOCKED — report and stop. GPT 5.6 Sol remains
+
+     an optional non-gating extra pass; its authority was never above the
+
+     council's.
+
+R-20 NEW — IMPLEMENTING CODER REALLOCATED. Opus 5 is available only through the
+
+     web interface and cannot act in the IDE, so "Implementing coder — Cline Act +
+
+     Opus 5" is STRUCK. Task 155's Form B is implemented by the MECHANICAL BUILDER
+
+     on one condition: EVERY edit is supplied as LITERAL INSERTION TEXT. No
+
+     derivation from a sibling edit, no composed comment text, no substitution the
+
+     builder must resolve by judgment. Council retains authorship and
+
+     authorization. The operator does not edit code and derives no figure.
+
+R-21 NEW — R-19's pre-flight is performed TWICE, neither pass authoritative alone:
+
+     (1) the author's self-audit in council session, recorded; (2) the
+
+     implementing session's pass from the Form B text alone, before Stage 0. Any
+
+     YES from either is BLOCKED.
+
+FORM B v1 DISPOSITION
+
+Task 155 Form B v1 was BLOCKED by its own pre-flight under R-21 pass 1, on
+
+question Q1, and is SUPERSEDED BEFORE ISSUE. It was never saved, never authorized,
+
+and no file was modified. Grounds: EDITS 4, 6, 8, 9 and 10 were specified by
+
+derivation from a sibling edit, and EDITS 8, 9 and 10 additionally required the
+
+implementer to compose comment text. Neither is mechanically checkable, and under
+
+R-20 the implementer is a mechanical builder. Q2 NO. Q3 NO, with two recorded
+
+notes: the identifier i is established verbatim at FlowLogic 898 by 155-Pre2 E1;
+
+and whether the tree has an existing tagged-diagnostic Print convention is
+
+UNESTABLISHED, so any such form is INVENTED, not matched — open item 48,
+
+non-gating. Form B v2 supersedes.
+
+RULES ISSUED SINCE THE ADDENDUM
+
+★ ITEM-RESTATEMENT RULE — each answer opens with the item identifier and an
+
+  enumeration of that item's REQUIRED OUTPUTS as the item states them, then the
+
+  answer, then ITEM CONFORMANCE: ALL REQUIRED OUTPUTS DELIVERED or
+
+  ITEM CONFORMANCE: NOT DELIVERED - <each missing output named>. An item missing
+
+  any required output is ITEM NOT ANSWERED and is never answered differently. A
+
+  report with any ITEM NOT ANSWERED is PARTIAL. Defect 115.
+
+★ BUILDER-DISCRETION RULE — the builder never chooses an approach, proposes an
+
+  alternative deliverable, or asks the planner a question. Five legal statuses.
+
+  Anything else is a NON-RESPONSE, not a PARTIAL, and carries no evidentiary
+
+  weight. Defect 110.
+
+★ TOOL-ARTIFACT RULE — inline commands permitted without limit; no script,
+
+  helper, module, temp file or intermediate output created or persisted. The only
+
+  write is the report destination. Verification never shifts to the operator.
+
+★ OUTPUT-BUDGET RULE — the header states the part count and the block-to-part
+
+  mapping; the destination file is written once, complete, after the final part.
+
+  Defects 110, 112.
+
+★ TOKEN-SUBSTITUTION RULE — every angle-bracket token in the report format is
+
+  REPLACED by its answer. A report containing an unreplaced token, or reproducing
+
+  the task's rule block, item text or restrictions checklist, is a NON-RESPONSE.
+
+  Defect 114.
+
+★ RELAY-SAFE-TOKEN RULE — issued task text contains no paired underscore, no
+
+  paired asterisk and no paired backtick outside a pasted source line. A
+
+  placeholder is an angle-bracket token describing what the builder must supply.
+
+  Defect 113.
+
+★ PASTE-SOURCE RULE — every paste carries PASTE SOURCE: COMMAND OUTPUT and is
+
+  emitted from that output without retyping. Defect 125.
+
+★ NO-SELF-CERTIFICATION RULE — a builder or scribe reports the path written and
+
+  the line or byte count. Completeness, conformance, placeholder and hash
+
+  verification statements are the council's and carry no weight from any other
+
+  role. Defect 126.
+
+★ EDIT-FILE BYTE-SCOPE RULE — an anchor Form D's byte scan covers every file in
+
+  the target Form B's minimum file set. Defect 128.
+
+★ BAR-IDENTIFIER RULE — a task recording a bar index states, per write site, the
+
+  exact identifier recorded and its relation to the processing bar i, from a named
+
+  accepted result. Defect 121.
+
+★ BRANCH-FORM RULE — a task inserting a statement beside an existing one reports
+
+  the enclosing branch's brace form from a read of the canonical file before
+
+  inserting, and treats an unbraced branch as BLOCKED. Defect 131.
+
+★ REPOSITORY-INVENTORY RULE — a Form S either names only paths a scribe has
+
+  reported existing, or instructs their creation explicitly in the same step.
+
+  Council state is written to disk before any production edit is authorized.
+
+  Defect 133.
+
+★ AMENDMENT 8 EXTENDED TO FORM S — content is embedded in the same message, or
+
+  the step names a file on disk to copy from. "Supplied alongside" is a
+
+  placeholder and is prohibited. Defect 134.
+
+★ SCRIBE-CONDITIONAL RULE — a Form S contains no condition other than "if this
+
+  path exists, otherwise create it." A scribe never selects a branch. Defect 135.
+
+★ LITERAL-EDIT RULE — under R-20, every edit in a Form B is supplied as complete
+
+  literal insertion text. No edit is specified by reference to another edit, and
+
+  no comment text is composed by the implementer.
+
+OPEN ITEMS
+
+CLOSED THIS INCREMENT: 42 (both halves), 43, 44.
+
+NEW:
+
+45  Is the identifier i passed as the processing-bar argument at OrderblockMgr 251
+
+    and 356 FlowLogic's loop index from line 819? OPEN. Gates R-4b's carried
+
+    derivation at sites 171/173 only. Not in 155-Pre2.
+
+46  In which file, at what line, and in what form are g_bufFractalHigh and
+
+    g_bufFractalLow declared? OPEN, documentation-only, NON-GATING — buffer 34's
+
+    declaration goes in the 30-117 block regardless (EA-213).
+
+47  Does SRJ_FlowLogic.mq5 or SRJ_State.mqh carry a byte-order mark, and what is
+
+    each file's byte-scan line count against Get-Content's 1180 and 501? OPEN,
+
+    non-gating — an added or stripped BOM changes line 1 and would be caught by
+
+    the DIFF, but the pre-edit state is unrecorded.
+
+48  Does the tree contain an existing tagged-diagnostic Print convention, and does
+
+    Print occur in any of the five edited files? OPEN, non-gating. Determines
+
+    whether a Form B's diagnostic form is matched or invented.
+
+STILL OPEN: 28, 35, 36, 37, 39, 45, 46, 47, 48.
+
+SEQUENCING, REPLACING SECTION 10 ROWS 1 THROUGH 6
+
+1  160-PreJ, 154-Pre1, 154-Pre2, 154-Pre3-R, 155-Pre1, 155-Pre2   ACCEPTED
+
+2  Repository reconstruction, Form S 60.2-2                      CURRENT
+
+3  Task 155 Form B v2, all sixteen edits as literal text          WAITING on row 2.
+
+                                                                  Council authors
+
+4  Pre-flight pass 2, R-21, by the implementing session           WAITING on row 3
+
+5  Task 155 implementation, mechanical builder under R-20         NOT AUTHORIZED.
+
+                                                                  Requires a clean
+
+                                                                  pass 2 and
+
+                                                                  explicit written
+
+                                                                  council
+
+                                                                  authorization
+
+Rows 7 through 11 of section 10 unchanged.
+
+DEFECT 151  Form B v4 PART 2's EDIT 16 stated LINES INSERTED 46 with a derivation
+            that does not close against its own printed text (printed: 1 + 29 + 18 + 1
+            = 49), and made that wrong figure a BLOCKED condition keyed to the
+            builder's own recount, so a correct count by the builder would have
+            blocked the task on the author's error. EDIT 1 reached a correct figure of
+            10 through an authorship self-correction narrative left inside issued task
+            text. The form also omitted the NEW-RULE-RETROACTIVITY CHECK PERFORMED
+            line that section 13 requires. The document introducing the
+            delta-derivation rule breached it in two of its sixteen edits.
+
+            GATING. PART 2 is not issuable until both units are struck and reissued.
+
+            CLOSED BY - the count-statement rule: a form states LINES INSERTED for an
+            edit as a bare integer with no recount instruction, no self-referential
+            block condition and no authorship narrative. The integer is verified by the
+            author against the printed text before issue, and the builder is never
+            asked to recount the form against itself.
+
+DEFECT 152  Council issued the operator two instructions requiring roles the operator
+            does not hold: apply STRIKE 1 and STRIKE 2 to a Form B's edit units
+            (authorship), and direct the scribe to write named files (dictation
+            sequencing). The role table grants the operator discretionary strategy
+            meaning and relay only, with no verification and no coding role. The breach
+            was invisible in the moment because the instructions were mechanical, and
+            mechanical is exactly the disguise a role breach wears.
+
+            CLOSED BY - the role-addressing rule.
+
+DEFECT 153  Task 155 Form B v4 PART 2 was emitted across three council turns, with two
+            of its sixteen edit units corrected by strike text issued after the units
+            themselves. No single artifact anywhere carries the issuable form. Merging
+            the strikes into the units is an authorship act, and it was left unassigned,
+            so it would have fallen to whoever assembled the file. A production edit
+            form whose literal insertion text must be assembled from a patch cannot
+            satisfy the literal-edit rule, because the text the builder receives was
+            composed by the assembler.
+
+            CLOSED BY - R-30 and the single-emission rule.
+
+Last issued 153.
+DEFECT 156  The count-statement rule, issued in the DEFECT 151 block to close that
+            defect, stated that a Form B's LINES INSERTED figure is "verified by the
+            author against the printed text before issue," but the form under revision
+            contains no printed insertion text and the author verifies nothing against
+            it: the form encodes only a delta between revisions (two BEFORE and AFTER
+            block pairs). A builder rendering the delta into literal insertion text for
+            inclusion in the final handoff holds an authorship function without
+            authorship review, and the rule as written would allow that text to be
+            inserted on the builder's count alone.
+
+            CLOSED BY - R-32 and the emittable-part rule.
+
+Last issued 156.
