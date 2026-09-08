@@ -43,21 +43,11 @@ SLSIDEGUARD_noProtectiveSideSwing=9
 SLZONEGUARD_COUNT=0
 SLZONEGUARD_noSwingOutsideZone=0
 SIGNAL_COUNT=2 (record-only)
-SIGNAL: JI	0	17:53:06.417	Core 04	2026.08.17 16:20:01   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-VWAP | NYAM | R=1.42 SL 1.15870 TP 1.16141 spr=2
-SIGNAL: JO	0	17:57:47.178	Core 04	2026.08.18 14:50:01   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Daily-POC | NYAM | R=1.06 SL 1.15813 TP 1.15665 spr=4
+SIGNAL: ED	0	20:15:16.176	Core 04	2026.08.17 16:20:01   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-VWAP | NYAM | R=1.42 SL 1.15870 TP 1.16141 spr=2
+SIGNAL: JR	0	20:19:26.421	Core 04	2026.08.18 14:50:01   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Daily-POC | NYAM | R=1.06 SL 1.15813 TP 1.15665 spr=4
 WS161_LOAD_COUNT=1
 WS161_MISMATCH_COUNT=0
 WS161_CENSUS_LINES=1
 BIASCENSUS_FINAL=1
-BF: JJ	0	18:18:10.017	Core 04	2026.08.21 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=1728 | sh1 neg=699 zero=0 pos=1029 empty=0 other=0 fail=0 | sh2 neg=700 zero=0 pos=1028 empty=0 other=0 fail=0
+BF: EE	0	20:37:27.155	Core 04	2026.08.21 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=1728 | sh1 neg=699 zero=0 pos=1029 empty=0 other=0 fail=0 | sh2 neg=700 zero=0 pos=1028 empty=0 other=0 fail=0
 XOB_PROMOCENSUS_COUNT=372
-=== STEP 1 RUN CORRECTED ROWS (builder re-parse, 2026-09-08) ===
-SLSRC_TOTAL=131 src_OB_SWING=54 src_FALLBACK_SIDE=76 src_FALLBACK_EMPTY=1 deltaPts_0=52
-SL_REF_TOTAL=137 branch_1swing=131 branch_2swing=6
-RQZPICK_COUNT=0 RQZPICK_downgraded_1=0 (S4 re-read displacement never fired on this range)
-ABORT_CHECK: working-set mismatch=0; 08:17 detector present; no packet aborts
-=== STEP 1 RUN CORRECTED ROWS (builder re-parse, 2026-09-08) ===
-SLSRC_TOTAL=131 src_OB_SWING=54 src_FALLBACK_SIDE=76 src_FALLBACK_EMPTY=1 deltaPts_0=52
-SL_REF_TOTAL=137 branch_1swing=131 branch_2swing=6
-RQZPICK_COUNT=0 RQZPICK_downgraded_1=0 (S4 re-read displacement never fired on this range)
-ABORT_CHECK: working-set mismatch=0; 08:17 detector present; no packet aborts

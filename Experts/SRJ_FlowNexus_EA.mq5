@@ -1944,17 +1944,26 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
 //====================== Step 7: Divergence latch =====================
 bool UpdateDivergenceLatch(int barShift, ENUM_SRJ_DIR dir, string &kindOut)
   {
-   for(int s = barShift; s <= barShift + 1; s++)
+   //--- [STEP 2 / operator ruling 2026-09-09] The divergence that governs is the
+   //--- LATEST one present during the confirmation entry candle - an opposing
+   //--- divergence after a matched one invalidates the requirement (this refines
+   //--- spec 3.8's "counts permanently"). Walk from the evaluation bar back to
+   //--- the candidate's anchor; the FIRST nonzero verdict encountered is the
+   //--- latest; its direction-match decides the latch THIS BAR. The latch now
+   //--- reflects the latest verdict per bar - it clears when the latest is
+   //--- opposing, and re-arms when a matched one appears.
+   for(int s = barShift; s <= barShift + Bars(_Symbol, PERIOD_CURRENT); s++)
      {
-      if(iTime(_Symbol, PERIOD_CURRENT, s) < g_anchorBarTime) continue;
+      if(iTime(_Symbol, PERIOD_CURRENT, s) < g_anchorBarTime) break;
       double verdict;
       if(!ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, verdict, s)) continue;
       if(verdict == EMPTY_VALUE) continue;
       int v = (int)MathRound(verdict);
+      if(v == 0) continue;
       bool matches = (dir == DIR_LONG  && (v ==  1 || v ==  2)) ||
                      (dir == DIR_SHORT && (v == -1 || v == -2));
-      if(matches)
-        { kindOut = (MathAbs(v) == 1) ? "regular" : "hidden"; return true; }
+      kindOut = (MathAbs(v) == 1) ? "regular" : "hidden";
+      return matches;
      }
    return false;
   }
@@ -2946,8 +2955,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
    if(!g_divLatch && g_state >= ST_S1_REGIME && g_dir != DIR_NONE)
      {
       string kind;
-      if(UpdateDivergenceLatch(barShift, g_dir, kind))
-         g_divLatch = true;
+      g_divLatch = UpdateDivergenceLatch(barShift, g_dir, kind);
      }
 
    //--- [Task 72 / EA-74] Post-latch CQD re-read. DIAGNOSTIC ONLY.

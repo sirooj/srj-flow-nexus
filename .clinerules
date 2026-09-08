@@ -126,8 +126,29 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
   sample for the operator to judge). Digest after run: c9281ae7 (byte-identical).
 - Snapshot: af5a9bf (Task161-baseline tag) = Task 161 + STEP 0; STEP 1 committed separately
   (see git log). Compile logs/journals gitignored; tabulation committed.
-- STEP 2 (stop selector + latched R) NOT STARTED. STEP 3 (§3.4 scoping) NOT STARTED.
-  Operator rulings recorded in CHARTER.md §7. Glossary in CHARTER.md §7 tail.
+- STEP 2 EXECUTED AND VERIFIED (2026-09-08 late): the divergence gate changed to
+  LATEST-AT-CONFIRMATION per operator ruling (charter section 9) - UpdateDivergenceLatch
+  now walks from the evaluation bar back to the candidate's anchor; the FIRST nonzero
+  CQD verdict is the latest; its direction-match decides the latch THIS BAR; the caller
+  assigns g_divLatch = the result (the latch clears when the latest is opposing, and
+  re-arms when a matched one appears - the spec 3.8 permanent latch is superseded).
+  Compile 0/0 (T161F). Source
+  27569701581f4d6a94e6994ff40b5d59dd1cfc62758ce758279f913c961bd59c, 4,179 lines.
+  Verification run (headless, full Tier-1 range): WS161 mismatch=0 loads=stores=1728
+  (changes=59 - the latch values changed as designed); BOTH signals fired (08.17 16:20
+  LONG R=1.42 + 08.18 14:50 SHORT R=1.06 - the 08.18 divergence was direction-matched
+  at its confirmation per the operator's latest rule); BIASCENSUS/PROMOCENSUS identical
+  to Tier-1; digest after run: 27569701 (byte-identical). NOTE: the 08.18 false-positive
+  disagreement is NOT fixed by this change - its cause is the CQD indicator's divergence
+  DETECTION (code-4 verdicts the operator rejects), which requires the operator's
+  divergence-validity rule (semantic, pending). The FlowLogic midline audit: the
+  XOB-PROMOCENSUS data shows obInval=INT_MIN on EVERY XOB (never invalidated) with
+  isValid=1 - FlowLogic's invalidation criterion does not implement the operator's
+  midline body-close rule; the audit of SRJ_OrderblockMgr's criterion (where
+  invalidationLevel is assigned - not found in OrderblockMgr/FlowLogic/HTFEngine; the
+  Types constructor takes it as a parameter, caller not yet located) is the next task.
+- STEP 3 (section-3.4 scoping fix) NOT STARTED. The arming-gates-on-in-play question
+  (the 08.18 candidate armed with inPlay=0) is OPERATOR-RESERVED (semantic).
 - 161-REG: NOT DRAFTED; blocked on harness authorization the council does not hold.
   When run: WS161_CENSUS once at OnDeinit, WS161_LOAD once NOSTORE first bar,
   WS161_MISMATCH zero, WS161_FIELD zero, loads==stores==1728, 43/43 tag keys
