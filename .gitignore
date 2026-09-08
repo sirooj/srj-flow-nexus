@@ -24,3 +24,9 @@ experts.dat
 .vscode/
 .kilo/
 .srj/jobs/
+
+# R-220 / P19: compile logs are UTF-16LE and carry NUL bytes. They never enter the
+# index. These rules do NOT untrack T155_COMPILE.log, which stays tracked and stays
+# committed: history is never rewritten and the contamination stays recorded.
+/SRJ_FlowNexus_Local/06_HANDOFFS/T*_COMPILE.log
+/SRJ_FlowNexus_Local/**/*.log

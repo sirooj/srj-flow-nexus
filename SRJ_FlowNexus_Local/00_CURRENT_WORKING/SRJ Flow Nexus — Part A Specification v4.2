@@ -1,0 +1,396 @@
+# SRJ Flow Nexus — Part A Specification v4.2
+
+**Draft for external review. Supersedes v3 entirely; revises v4 and v4.1.**
+
+## 0. Status
+
+v3 is superseded, not amended. It contains five classes of error a patch cannot fix:
+
+1. It treats "POI interaction" as one concept. It is three, and conflating them made the 8/17 exit unreadable from the record.
+2. It uses one word — *bias* — for two unrelated objects.
+3. It specifies no exit model, while every journalled outcome is entry plus exit.
+4. Several rules have been overturned by operator ruling since it was written.
+5. It reasoned about zone selection from the orchestrator's chosen zones rather than the operator's, and treated coincidence of session and direction as evidence of agreement. §9.7 records the consequence.
+
+This document is **specification only.** §8 marks what the current build implements. §9 states what is not known.
+
+**Standing prohibition, governing everything below.** No minimum distance, size, width, depth, or bar count for any structure, ever. Validity is structural or geometric, never dimensional. The only permitted numbers are safety limits matching existing precedent: the 500-slot walk bound and the one-point distinctness test. **If a proposed rule needs a number, the rule is wrong.**
+
+### 0.1 Revision history
+
+**v4 → v4.1**
+
+| Section | Change |
+|---|---|
+| §3.5 | In-play carries **no recency and no bar-count limit**. v3's "current, freshest structure" withdrawn for XOB in-play. Freshness applies elsewhere |
+| §3.6 | The **opposing candle need not touch an XOB**; it must touch an FVG. Entry need not be inside the zone |
+| §3.7 | Stop **may lie inside** the entry zone. Branch selector defect confirmed with a named instance |
+| §3.5.1 | Honesty limit rewritten — the in-play window, not the selector, is the binding constraint |
+| §9.7 | The only reproduced trade is **not a structural match**. Structural agreement 0/12 |
+| §9.9–9.11 | New: age is not a disqualifier; the two-swing in-play window; control gates are provisional |
+
+**v4.1 → v4.2**
+
+| Section | Change |
+|---|---|
+| §3.6 | The XOB opposing-candle rule is stated as a **relaxation, not a reversal**. A touch is permitted and never disqualifying. The prior wording invited an implementation that treats a touch as an exclusion, which no ruling supports |
+| §3.6 | Recorded that the one verified case **is** a touching instance — the permitted non-touching case has no observed instance |
+| §8 | The §3.6 fix is a **removal of a condition**, not an addition |
+| §10 | Added: a short glossary of permission strength, because three of this document's rules turn on the difference between *required*, *permitted*, and *prohibited* |
+
+## 1. Vocabulary
+
+### 1.1 Two terms that must never touch
+
+| Term | Meaning | Where it applies |
+|---|---|---|
+| **structural bias** | the bias engine's output — the HTF 4H/1H/15m aggregate, and the 5-minute LTF bias, driven by order-block invalidation counts | gates entry at Step 2; LTF ignored post-entry; HTF flip exits (§5.6) |
+| **POI side** | which side of a POI line price sits on, evaluated per bar | §5 entirely |
+
+Every exit rule in §5 is POI side. None of it is structural bias.
+
+### 1.2 Relevance
+
+**An order block is *relevant* when it has been promoted to XOB.** Not on validation, not on activation. An unpromoted order block is not a candidate zone.
+
+XOBs project rightward indefinitely until invalidated. **FVGs do not project.**
+
+### 1.3 Retired concepts
+
+**"Gap" / "jump."** Descriptive language for the nature of POC and VWAP movement, never a mechanism. There is no gap test, no relocation threshold, no discontinuity flag anywhere in this specification. Targets follow the nearest valid POI as values move; that is all.
+
+**"Break and retest" as a sequence.** Not the operator's model. **"Break" is not an event; it is a state** — which side of the line price is on. Nothing to detect, no retest leg to wait for.
+
+**"Current, freshest structure" as a qualifier on XOB in-play.** Withdrawn — see §3.5. It survives on the POI retest and the mean-reversion sweep.
+
+## 2. Three tests on one object
+
+The twelve POI lines carry three distinct roles. They share only their price values.
+
+| Role | Test | Evaluated | Scope |
+|---|---|---|---|
+| **Entry anchor retest** | wick penetrates the level by ≥1 point, body stays on the correct side | per bar | seeding a candidate, **entry only** |
+| **Take-profit target** | level reached — a touch, no geometry | per bar, continuously | admission gate pre-entry; target selection post-entry |
+| **POI-side exit** | body closes through the level | per bar | pre-confirmation invalidation; post-entry exit |
+
+**2.1 The wick test is entry-only.** No role in exits, none in target evaluation. v3's silence here is what let "retest" leak into the exit vocabulary.
+
+**2.2 A take-profit POI exits on touch.** Identical treatment to session liquidity. No wick-in/body-out, no confirmation candle, no retest sequence.
+
+**2.3 The anchor asymmetry is deliberate.** The anchor line is excluded from take-profit candidates (§3.7's "opposite side"). But under §5 the anchor sitting behind the trade is precisely the supporting POI whose body-break exits you. **In scope for the exit test, out of scope for targets.**
+
+**2.4 All twelve lines carry all three roles.** No tier restriction, no VWAP/POC distinction. Only the Yearly pair has never been observed to produce a retest, which is a data-coverage fact and not a rule.
+
+## 3. Entry workflow
+
+### 3.0 Trading hours
+
+Two windows only, Eastern Time: **London 02:00–05:00** and **New York AM 07:00–12:00**. Empirically confirmed in the broker frame as server **09:00–12:00** and **14:00–19:00** EET — eight hours a day, 33.3% of bars. Outside them, no evaluation of any kind.
+
+### 3.1 Trigger
+
+A POI retest fires (§2, row 1) on one of the twelve lines, inside a window. **The freshness nuance applies here** — this is one of the two places it survives.
+
+### 3.2 Step 1 — regime classification
+
+- **Trend-following:** retest direction agrees with the HTF aggregate (4H/1H/15m, simple majority, no timeframe weighted).
+- **Mean-reversion:** justified by a **fresh** sweep of the immediately prior session's liquidity. Freshness's second surviving site.
+
+Both may hold; no precedence, no differential treatment. Neither → the candidate does not advance.
+
+**Measured, and it changes how the whole funnel should be read:** the HTF majority is the highest-volume filter in the system. On 1212 evaluations `trendOk` was false on **963 — 79%.** Mean-reversion classified on 134 and behaves exactly as written.
+
+### 3.3 Step 2 — LTF structure alignment
+
+The 5-minute bias-panel state must agree with the classified direction. Only the LTF's object-level state matters; the HTF contributes direction only.
+
+**Live, never latched.** There is no neutral 5-minute bias. Re-checked every bar from zone-wait through gate-check; a flip against the locked direction kills the candidate. Post-entry it is ignored (§5.6).
+
+### 3.4 Step 3 — continuous structural invalidation, pre-confirmation
+
+Three flags: the in-bias order block's validity, the in-bias FVG's validity, and the validation of an opposing FVG. **Two or more adverse invalidates the setup.**
+
+This replaces v3's "any single failure, at any point, invalidates the whole setup instantly," which was wrong. Operator, verbatim: *"The combinations to invalidate a setup before the actual bias flip is either OB+FVG invalidation or in bias FVG invalidation + opp FVG validation… if two out of three conditions have been met then the setup is also invalidated."*
+
+Two load-bearing boundaries:
+
+- **The rule is explicitly pre-confirmation.** *"This criteria is before the trade confirmed, if later the structure is flipped after the confirmation entry, i still hold the trade."* It must not run after the confirming close.
+- **Post-confirmation cancellation requires all three flags**, which is the same set as a weak bias flip. So the post-confirmation cancellation condition collapses to "the bias flipped."
+
+**Staleness and structural renewal never invalidate.** A new same-direction OB or FVG elsewhere is normal continuation. A same-direction higher-tier POI touch mid-sequence upgrades the anchor tier silently.
+
+**Open, and the largest single miss cause.** The three flags are *global* in-bias flags; the entry zone comes from a different selector. This section's own wording is "the order block behind the current entry zone." Whether the operator watches the specific order block behind his zone, or any in-bias order block anywhere, is unresolved. Three journalled trades were killed by these flags on bars where the operator was in the trade.
+
+### 3.5 Step 4 — the qualifying retracement zone
+
+One of:
+
+- an XOB that is **relevant and in play**; or
+- an **FVG** that formed within the current, still-open expansion leg of a valid XOB, including a promoted one. A leg begins with an XOB followed by FVG(s) and ends on either a new same-direction OB+FVG or a bias flip. A standalone FVG outside any open leg never qualifies.
+
+**In play, for an XOB.** Its zone, projected rightward from formation, has been penetrated by a bar's range or by a confirmed protective-side swing **at any point within the current structural leg**, and the XOB has not been invalidated.
+
+> **There is no recency requirement and no bar-count limit.** v3's *"being retested by the current, freshest structure"* is withdrawn for XOB in-play. The one verified operator zone was in play via a swing low approximately **eighty bars** before entry, on an XOB **ten hours** old. Any implementation restricting in-play to the most recent one or two swings contradicts this rule and **cannot accept the only verified operator zone** — see §9.10.
+
+**In play, for an FVG.** The FVG has not been filled or invalidated, and it lies within the current open leg. An FVG has no projection, so its price range is fixed at formation.
+
+**No precedence between XOB and FVG.** Validity is the only gate. Any leg FVG qualifies, not only the most extreme. **Size is never a criterion** — a one-point three-candle gap is a valid imbalance.
+
+**No protective-side filter on the zone.** A structurally valid zone above price for a LONG is still a candidate zone. The *stop reference* carries a side test (§3.7); different object.
+
+**Depth is not an admission criterion**, and the leg-opening FVG is included.
+
+#### 3.5.1 Relevance must precede retracement
+
+**A zone that becomes relevant only after price has already retraced into it is not tradeable.** Operator: *"that means the OB has not in play or influence the movement yet."*
+
+Required order: **relevance → retracement or opposing candle → confirmation candle.**
+
+- **If the order block is not yet promoted at the confirmation candle, that entry is invalid.** Not deferred — invalid, at that candle.
+- **If promoted later, a fresh retracement and a fresh confirmation are required.** *"then i need another retracement candle or the opposite candle and then another confirmation candle."*
+
+This **overturns v3 Step 5's "no re-arm mechanic."** A promotion event clears any accumulated touch.
+
+> **Honesty limit.** No export records when an order block was promoted, so this bound cannot be implemented **or verified**. Two observed instances of adopt-and-inherit — a zone replaced on the arming bar, inheriting an earlier touch — produced one signal on a session the operator explicitly rejected, and one signal on a zone the operator **did not trade**. **The pattern has no validated instance and one refuted instance.**
+>
+> It is **not** primarily a selector defect. Even handed the operator's exact zone, the orchestrator's in-play test would have rejected it on every bar, because that test consults only the two most recent protective-side swings (§9.10). The selector's late switch is downstream of a test that could not accept the correct zone. Widening the in-play window may remove the pattern's cause without any relevance bound at all.
+
+### 3.6 Step 5 — the retracement and the confirmation candle
+
+A **retracement candle** (equivalently, an **opposing candle**) closes against the trade direction. Entry fires on the close of the **next candle that closes in the trade direction**. Any nonzero body counts. No requirement to close beyond the retracement candle's extreme or the zone boundary. Long wicks are fine. Only a true doji is rejected.
+
+**The opposing candle's zone interaction differs by zone type, and this is the rule, not an implementation detail:**
+
+| Zone source | Opposing candle must touch the zone? |
+|---|---|
+| **XOB** | **Not required.** A touch is **permitted** and is **never disqualifying**. The XOB's in-play status is established separately per §3.5, and that is what ties the opposing candle to the zone |
+| **FVG** | **Required.** An FVG cannot be projected, so the retracement must touch or retrace to the FVG level, and the touch must be attributed to **that specific opposing candle** |
+
+> **★ This is a relaxation, not a reversal. ★** An implementation must accept an XOB-sourced candidate whose opposing candle touches the zone **and** one whose opposing candle does not. Any test that rejects either case is stricter than this rule. See §10 for the permission vocabulary this turns on.
+>
+> **The one verified case is a touching instance** — the 09:10 opposing candle penetrated the XOB at 1.15835 inside 1.15805–1.15843. So 08.17 demonstrates the optional touch occurring, not its absence. **The non-touching case is permitted by ruling and has no observed instance.**
+
+For an FVG the touch must be attributed to that opposing candle, not to some other bar. Operator: *"fresh can't be done with the other candle except the specific retracement candle or the opposing candle before confirmation pre entry."*
+
+> Marked as inference: I read "the opposing candle before confirmation" as the candle constituting the retracement wherever it sits within the current structural leg, **not** the bar immediately adjacent to the confirmation candle. Under the carried wide reading that candle may be older than the bar on which a candidate first becomes eligible. If adjacency is in fact required, that is a tightening and must be stated.
+
+**This is a condition set, not a sequence.** The same bar may be simultaneously the POI retest and the confirmation candle.
+
+**The entry is not required to be inside the zone.** The zone must be in play; the confirming close may be arbitrarily far from it. The one measured case entered **101 points above its zone's high**, in play via a swing that also carried the stop. Any implementation requiring the confirming or retracing bar to overlap an XOB is stricter than this rule.
+
+No bar-count limit. Subject to §3.5.1's re-arm on promotion, additional touches are irrelevant.
+
+### 3.7 Step 6 — the 1R admission gate
+
+**Pre-entry:** the nearest valid take-profit target in the trade direction must imply at least 1R, or the setup is not taken. Targets are the nearest of: nearest relevant session-liquidity level, the same-tier VWAP/POC on the opposite side, or a higher-tier VWAP/POC. **VWAP and POC on one anchor are the same tier.** Evaluated continuously — targets move.
+
+A target is **valid** unless (a) already swept as session liquidity, or (b) closed over. A target lying inside the entry zone is not a target.
+
+**1R is an admission criterion only. It has no role in management.** Post-entry the target follows the nearest valid POI wherever it goes, **with no floor**, and the trade is held. Operator: *"I still hold the trade that is why there are less than 1R gain even though upon entry I actually target more than 1R."*
+
+**The reward/risk reference is the confirming close, latched.** Price moving away afterwards moves nothing and cancels nothing. Where a later condition validates at a better level, R is recomputed and **the reference producing the higher valid R is selected** — better R, not better price. The two diverge: one measured case improved 71 points in the trade's favour while R fell from 1.01 to 0.06.
+
+**Ordering is part of the rule.** R is computed once **every** condition has validated. A candidate must not fail the gate before a pending divergence has had the opportunity to supply the permitted better reference. Measured: **29 of 33 hard RR failures fired while divergence was still unlatched — 88%.**
+
+**Stop-loss reference distance, two branches:**
+
+| Branch | Condition | Reference |
+|---|---|---|
+| One swing | a valid order block **with** an imbalance marks the structural extreme | one swing from that order block's swing high/low |
+| Two swings | **strong-signal scenario with no imbalance** — the opposite-side order block invalidated, no FVG present | two swings, plain candle swings, no order block required |
+
+A *swing* is the three-candle pattern where the middle candle is the extreme. **The stop is a swing high or low, not an order-block extreme.** Operator: *"even though it is only a valid swing pattern… and NOT tied to an order block, and even though it is not the most structurally extreme, I still consider or place my stop loss on that swing."*
+
+The reference must lie on the **protective side** of the entry. An unusable candidate is skipped and the walk continues to the next valid swing further back; it never aborts where a valid swing exists.
+
+**No minimum stop distance.** *"I am okay with the 12-point stop or however small it is as long as it is valid."*
+
+**The stop may lie inside the entry zone.** Measured: a stop at 1.15835 inside a zone spanning 1.15805–1.15843, with 109 points of risk from an entry at 1.15944. A guard excluding in-zone stop references is premised on the entry sitting *at* the zone and is invalid when it does not. **The correct test is the stop's side relative to the entry, never its containment.**
+
+**Branch selection is the two-OB state plus imbalance presence** — the operator-facing `2xOB` on his bias panel — **not** the order-block validity flag.
+
+> **Confirmed defect with a named instance.** On the one trade checkable against ground truth, the operator's setup was strong-signal / no-imbalance and his stop was the two-swing reference at 1.15835. The orchestrator emitted `sl_mode=1-swing` with `sl_ref=1.15870`, selected on `obValid=1` alone with the imbalance term never consulted — 35 points away, and diagnostics show `obStruct == obSwing == zoneLo`, meaning the emitted reference was the **adopted zone's lower boundary rather than a swing at all**. The nearest actual swing found was 1.15907. Neither figure is the operator's.
+>
+> Qualification: the risk denominators were nearly identical (109 vs 114 points), so on this instance the branch error cost five points of risk while a three-bar entry delay cost forty. And whether a two-swing walk would reach 1.15835 at all is unverified — the swing series may not contain it.
+
+### 3.8 Step 7 — order-flow divergence
+
+A qualifying, direction-matched divergence must occur **at least once**, at any point in the sequence — before, at, or after the confirming candle. No bar-count limit. Once observed it counts permanently and is never re-invalidated by a later piercing or an opposing divergence. Plain directional agreement without a qualifying pattern is never a substitute. No partial-credit setups anywhere.
+
+The verdict carries four states: regular and hidden, bullish and bearish. The operator's 1/2/3/4 numbering is a presentation layer over the same four.
+
+## 4. Evaluation timing
+
+**Default: evaluate at the next candle's open**, at three sites — the POI retest that seeds a candidate, the confirmation candle, and the exit.
+
+Rationale: a retest valid at the breaking candle's close can be invalid at the next open, and in that case the setup is invalid. The 8/17 exit was already this compound test — a body close through the POC, measured against the POI value as it stood at the **next** open.
+
+**Toggle, for future comparison.** Must be a compile-time constant, not a user input: indicator handle bindings are positional and one fails outright at a fourth parameter.
+
+**Measurement cost, stated because it is real.** Defaulting this on changes admission at three sites at once. The resulting baseline is comparable to no prior baseline, and the three sites cannot be separated from one another. Recommended mitigation: build the reads as diagnostics first, logging verdicts and changing no control flow, so the population is known before the rule governs anything.
+
+## 5. Exit and invalidation
+
+### 5.1 The rule
+
+One rule, one side test, evaluated **per bar**:
+
+- **POI ahead** of the trade — above price for a LONG, below for a SHORT → take-profit target. **Exit on touch.**
+- **POI behind** the trade → it supports the trade. **Exit only on a body close through it.** A wick through does nothing.
+
+The body-close break is an **unconditional immediate exit**. Operator: *"i exit early or right there, disregarding if TP or SL."* Not weighed against a competing target.
+
+### 5.2 Side is dynamic
+
+Classification is per bar, not fixed at entry. A POI whose value moves may change side, and its role changes with it.
+
+The case that produced the rule: a POC below a LONG relocates upward to sit just beneath the current candle. It has **not** become a target — still below price, still behind, still supporting — so it remains under the body-close rule. Price retraces, a body closes below it, side flips, exit. That is 8/17.
+
+Contrast: a POC relocating to sit *above* a LONG is ahead from that bar forward and is a touch-exit target.
+
+### 5.3 What this section does not contain
+
+No gap concept (§1.3). **No favour/adverse asymmetry** — a POI moving toward the trade and away from it are treated identically; the rule is blind to direction of movement. No distance, size, or width. The tests are *which side* and *body versus wick*.
+
+### 5.4 Pre-confirmation invalidation
+
+A candidate armed and waiting for its confirming close is **dead** if the POI behind it is body-broken before that close. Operator's reasoning: it conflicts with the 1R admission requirement.
+
+Two distinct pre-entry deaths, no overlap:
+
+| Situation | Mechanism |
+|---|---|
+| POI relocates **ahead** and nearer than 1R | the 1R admission gate |
+| POI **behind** is body-broken | the POI-side test |
+
+Below or touching without a body close through → still valid, with the recorded caution that after the confirming entry a higher-tier POI may overtake the candle and force an early exit.
+
+### 5.5 Pending entry lifecycle
+
+Entry is a **limit at the confirming candle's close**. Price running away moves nothing and cancels nothing. It **fills on a wick**, not a close. While pending it cancels on a bias flip, or on the three-flag conjunction — which is the same event. **Staleness and structural renewal do not cancel.** If the filling candle's own close invalidates the setup, exit immediately rather than waiting for a subsequent close.
+
+### 5.6 Structural bias, post-entry
+
+| Timeframe | Post-entry structural flip |
+|---|---|
+| LTF (5-minute) | **ignored** — the trade is held |
+| HTF (4H/1H/15m aggregate) | **exit** at the flipping HTF candle's confirmation close |
+
+The HTF rule is default, scoped to trend-following setups, and flagged as a toggle for future comparison — a mean-reversion setup was never justified by HTF agreement, so an HTF flip is not an argument against it. **No supporting data; recorded as ruled, not measured.**
+
+## 6. Concurrency, throttling, deduplication
+
+**Multiple candidates may be alive concurrently.** The single-candidate model is removed by ruling: *"Multiple setups could be considered at a time but only one valid setup could be executed per session."* Exception explicitly blessed: a London setup still running plus a valid NY setup → both are taken, **even if they contradict**.
+
+**Arrival order governs across time.** The first candidate to complete executes. A later higher-tier candidate does **not** displace it, and once a setup is executed the window is closed even to a higher tier. Operator: *"i will always execute the first one, the later higher POI does not get executed… if i have executed the first trade, i would not execute other trade even it's from higher hierarchy."*
+
+This **overturns** v3's across-time tier-replacement reading of Step 8 / D-3 / G-2, which was an inference and not a ruling.
+
+**Anchor tier governs a same-bar tie only.** Where two candidates complete on the same bar, the highest anchor tier wins. Below tier, tie-breaks are engineering determinism only, never strategy.
+
+**One *valid* setup per pair per session.** *"i only take one setup per pair per session."* Maximum six trades a day across three pairs and two windows. One instance per symbol, so "per pair" is automatic; a cross-symbol throttle is not expressible in this architecture and must not be attempted.
+
+**A rejected setup consumes nothing.** *"one valid setup, not invalid setup that got rejected."* The same POI may be re-approached in the same direction later in the same window after a rejection. Measured: **58% of candidates** (195 of 337) belong to a key with more than one attempt, so this is structural rather than exceptional.
+
+**Deduplication is while-alive only.** A retest matching a live candidate's **(window, direction, anchor line)** key **updates** that candidate; it does not create a second one. Structural key — no bar count, no time window. Measured requirement: **145 of 446** suppressed retests share a live candidate's exact key, so without the merge a concurrent model inflates with logical duplicates.
+
+**A candidate abandoned on the RR gate does not consume the window.** The operator anticipates exactly this: *"i would probably first, not execute the first trade cause there is a near (less than 1R TP)."*
+
+## 7. Non-goals
+
+- No curve-fittable or optimizable parameters. Every threshold here is structural or geometric.
+- Exit rules are **specified** here (§5) but must not be built inside the entry pipeline.
+- Position sizing, partials, and trade management beyond §5 are out of scope.
+
+## 8. Implementation status
+
+| Rule | Alert-only visible | Needs new upstream export |
+|---|---|---|
+| §3.0–3.4, §3.6–3.8 entry pipeline | built | no |
+| §3.4's 2-of-3 rule | built | no |
+| §3.4 pre-confirmation-only scoping | **not built** — runs through gate-check | no |
+| §3.4 per-candidate flag scope | **not built** | likely yes — provenance token |
+| §3.5 in-play with no recency limit | **not built** — restricted to two swings | no |
+| §3.5.1 relevance precedes retracement | **not built** | **yes — promotion bar** |
+| §3.5.1 re-arm on promotion | **not built** | yes, same export |
+| §3.6 XOB opposing-candle touch **optional** | **not built** — overlap is required uniformly, so the permitted non-touching case is rejected. **Fix is the removal of a condition, not the addition of one** | no |
+| §3.6 FVG opposing candle must touch | built | no |
+| §3.7 latched reference + ordering | **not built** | no |
+| §3.7 two-branch stop selector | **wrong selector, named instance** | yes, one flag |
+| §3.7 in-zone stop permitted | **not built** — a guard excludes it | no |
+| §4 next-candle-open | **not built** | no |
+| §5.4 pre-confirmation body-close | **not built** | no |
+| §5.1–5.3, §5.5, §5.6 | not built — exit phase | no |
+| §6 concurrency, dedup | **not built** — single candidate | no |
+| §6 arrival order across time | built | no |
+| §6 per-window throttle | built, verified airtight | no |
+
+**One export serves three rules.** The selected order block's promotion bar gives §3.5.1 its bound, gives an unbounded zone selector a threshold-free bound consistent with §9.9, and is the same value §3.4's provenance token needs. Scope it as one piece of work.
+
+**Three removals serve four rules.** Widening the in-play window (§3.5), dropping the XOB opposing-candle overlap requirement (§3.6), and retiring the in-zone stop guard (§3.7) are all loosenings of tests the current build applies more strictly than this specification requires. **None needs a new export.** The stop-branch selector is the only §3.7 item that does.
+
+## 9. What is not known
+
+**9.1 Feed divergence bounds every external comparison.** The operator reads structure on TradingView/OANDA; the system runs a Dukascopy demo feed. His own screenshot shows Dukascopy at `4H Bear, 1H Bear, 15m Bear` on a day his OANDA read said the trend-following setup was long. **No edit can close this.** Any bias-shaped or divergence-shaped disagreement must exclude feed divergence before it is attributed to logic.
+
+**9.2 Realised gains are not attributable to this entry pipeline.** Every journalled gain is entry plus exit discipline, and only the entry is built. Recall and precision — matched trades over journalled trades, matched trades over emitted signals — remain valid. **Gain magnitudes do not.**
+
+**9.3 The relevance rule is currently unobservable.** §3.5.1's two known instances, one on a rejected session and one on an untraded zone, are indistinguishable from the orchestrator's position. Until the promotion bar is exported the rule cannot be implemented **or verified**.
+
+**9.4 Miss attribution is by proximate death, not by cause.** A candidate can carry several pending deaths; removing the one that fires first reveals the next rather than saving the setup. Demonstrated: retiring the across-time tier replacement freed one named miss's candidate, which then died on structural invalidation fifteen minutes later, and that session's four attempts split across two entirely different open items. **Every recall claim attached to a miss table is an upper bound.**
+
+**9.5 Sample size.** Twelve journalled trades against ten emitted signals. Recall 1/12, precision 1/10, **structural agreement 0/12** (§9.7). The operator's own acceptance rate is roughly 12 in 240 candidates. **No gate may be tuned on this sample.**
+
+**9.6 One replay-order defect is confirmed in the port and unmeasured.** Two different order blocks replayed onto a single discovery bar can each increment a per-bar invalidation counter and trip a bias flip in one step. Bounded to one bar, but one bar is sufficient. Attaches an unquantified doubt to every bias-misalignment death. Absent from the original Pine implementation, which has no replay mechanism.
+
+**9.7 The only reproduced trade is not a structural match.** The single journalled trade the system has reproduced was entered on an XOB spanning **1.15805–1.15843**, formed at 05:30 and projected rightward, with the stop at a swing low of **1.15835 lying inside that zone**, and the entry at **1.15944 — 101 points above the zone's high.** The zone was in play by swing penetration, not by price retracing into it.
+
+The orchestrator held **1.15784–1.15796** for four bars, judged it correctly out of play, then adopted **1.15870–1.15959** on its arming bar and signalled on that. **Neither orchestrator zone overlaps the traded one.** The stop references differ by 35 points and are not the same kind of object (§3.7). The entry *prices* coincide because the operator's entry falls inside the zone the orchestrator adopted — coincidence, not agreement.
+
+The match is on session, direction, anchor POI and approximate timing. **The entry pipeline has never been shown to match an operator entry on the same retracement structure. Recall of 1/12 overstates agreement; structural agreement is 0/12.**
+
+**9.8 Protocol gates protecting the control are provisional.** Several measurement protocols treat "the 08.17 signal must survive" as project-stopping. Per §9.7 that signal is not a structural match, so the gate protects a coincidence. Retain it as a **change detector** — its disappearance still indicates that an edit altered admission — but it is not a correctness requirement.
+
+**9.9 Age is not a disqualifier.** XOBs project rightward indefinitely until invalidated. The one verified operator zone was **ten hours old** at entry. Any recency bound on zone selection contradicts §3.5 directly and would have removed the only reproduced trade's structure. A promotion-bar bound (§8) is compatible with this; an age bound is not.
+
+**9.10 The in-play window, not the selector, is the binding constraint.** The current in-play test consults the evaluation bar's range, then the most recent confirmed protective-side swing, then the next distinct one — **two swings, nothing further back.** The one verified operator zone was in play via a swing roughly eighty bars earlier. **Even handed the correct zone, the orchestrator would have reported it out of play on every bar.** Diagnosis of adopt-and-inherit as a selector defect (§3.5.1) is therefore secondary; the primary defect is upstream of it and needs no new export to fix. The test exists in three copies, which must be reconciled together or not at all.
+
+**9.11 The two-swing depth has no ruling behind it.** It was chosen to mirror §3.7's two-swing stop branch, on the reasoning that two fixes the system's structural depth. §3.5 now states there is no bar-count limit, so the correct bound is the structural leg, not a swing count. Whether *every* confirmed swing in the leg should be tested, or some other structural bound applies, is not ruled.
+
+**9.12 The non-touching XOB opposing candle has no observed instance.** §3.6 permits it by ruling and the current build rejects it, so no data exists on how often it would arise. Its population is unknown until the overlap requirement is dropped.
+
+## 10. Permission vocabulary
+
+Three of this document's rules turn on the difference between a requirement, a permission, and a prohibition, and one earlier revision conflated the second with the third. The distinction is stated once here and applies throughout.
+
+| Phrasing | Implementation | Rejects when |
+|---|---|---|
+| **Required** / must | test the condition, reject on failure | the condition is absent |
+| **Permitted** / not required / need not | **accept either way**; the condition is informational at most | never — a permission cannot cause a rejection |
+| **Prohibited** / must not | test the condition, reject on presence | the condition is present |
+
+**A permission is not a prohibition.** "The opposing candle need not touch the XOB" means a touching candle and a non-touching candle are both admissible. It does **not** mean a touch disqualifies, and no ruling in this document creates such a prohibition.
+
+Where this matters:
+
+| Rule | Strength | Common misreading |
+|---|---|---|
+| §3.6 XOB opposing-candle touch | **permitted** | that a touch is disqualifying, or that only non-touching candles qualify |
+| §3.6 entry inside the zone | **permitted** | that entry must be inside the zone (v3's reading) |
+| §3.7 stop inside the entry zone | **permitted** | that an in-zone stop is invalid (the current guard's reading) |
+| §3.6 FVG opposing-candle touch | **required** | — |
+| §3.5.1 relevance before retracement | **required** | — |
+
+---
+
+## Handover notes
+
+Three items are open on the operator, none blocking review:
+
+1. **§3.4's flag scope** — the specific order block behind the entry zone, or any in-bias order block. Decides whether per-candidate freshness is built or the section closes.
+2. **§3.6's inference** — whether the FVG-touching opposing candle may be older than the arming bar, per the carried wide reading, or must be adjacent to the confirmation.
+3. **§9.11** — the correct in-play depth, now that no bar-count limit applies.
+
+Two rules are ruled but data-free and marked as such: §5.6's HTF exit and §4's next-candle-open default.
+
+Everything else is either ruled, measured, or explicitly listed in §9 as unknown.

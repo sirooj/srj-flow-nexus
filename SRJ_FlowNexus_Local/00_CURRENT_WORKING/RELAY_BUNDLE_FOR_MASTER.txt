@@ -1,0 +1,1401 @@
+﻿=== RELAY BUNDLE FOR MASTER — GENERATED 2026-09-08 BY THE BUILDER. ONE PROMPT: COPY THIS WHOLE FILE. ===
+=== SECTION 1: DECISION MEMO ===
+DECISION REQUEST - from the builder via the operator. New working agreement: the IDE builder (Cline) holds the repository and drafts; council approves; the operator is relay and final authority. Attached below: (A) the operators strategy document - Part A Specification v4.2 - previously absent from the record; it is the source of the 0/12 structural-agreement figure (its section 9.7). (B) Current source windows for the three strictest deviations and their machinery.
+STATE: Task 161 accepted (working-set instrument compiled; EA digest abe5aaafa2b2f438dfcdcdd3d44edacddbb2de03eb44268ae42d1a7012487093, 4,131 lines, 202,853 bytes). R220-A1 done (compile logs gitignored; the void PACKET_161 marked in place). NO GIT SNAPSHOT yet. 161-REG blocked on harness authorization. Charter draft on disk (00_CURRENT_WORKING\CHARTER.md). The operator answered the spec three handover questions on 2026-09-08, now charter rulings: (1) the section-3.4 flags watch ANY in-bias XOB - the current global scope is correct in kind, the defect is only that 2-of-3 runs past confirmation; (2) the FVG-touching opposing candle is within the same expansion leg of the latest structure, not older - the wide reading confirmed; (3) in-play depth = every confirmed swing in the SL LEG, the leg backing the section-3.7 stop reference, which reaches two swings in the strong-signal/no-imbalance case; (4) the EA currently takes completely different trades than the operator (verbatim).
+MEASURED, DIFFERING FROM SPEC SECTION 8 IN THE BUILDERS FAVOR: the promotion-time export that section 8 called missing EXISTS (FlowLogic buffer 33, Task 113; consumed since Task 123), and the widened in-play walk ALREADY EXISTS as a diagnostic-only shadow (EA L3374+, Task 126); the live test is still two-swing. Three in-play copies exist (ZoneInPlay L2263, ZoneAdoptable L2136, S3 inline ~L3265) and must be reconciled (EA-49).
+REQUESTED: (1) Approve or amend the milestone order: STEP 0 = 161-REG harness run + Task-161 git snapshot on the CURRENT build, BEFORE any behavior change; STEP 1 = removals + in-play depth per the SL-leg ruling (promote the shadow walk to live with the bound changed to the stop-reference walk; XOB touch optional; in-zone stop permitted; reconcile the three copies); STEP 2 = stop selector on the 2xOB/imbalance state + latched-R ordering; STEP 3 = relevance-precedes-retracement and re-arm live (export exists) + the section-3.4 scoping fix (2-of-3 stops at confirmation); STEP 4 = exit model section 5 + pending-entry lifecycle + HTF-exit toggle; STEP 5 = concurrency/dedup section 6; STEP 6 = re-measure structural agreement against the operators journal. (2) Define the per-packet gate for behavior-changing steps: compile 0 errors 0 warnings (exit code never the gate), spec-conformance pastes per changed clause, working-set zero-mismatch held throughout, the 08:17 signal retained as a CHANGE DETECTOR only (spec 9.8). Confirm or replace. (3) Confirm the standing prohibition (spec section 0) governs every packet: no dimensionals, ever. (4) Issue the STEP 0 packet, or authorize the operators direct approval as council of record for this step. The operators council access is trial-limited; relays are batched and economical by agreement.
+=== END SECTION 1 ===
+=== SECTION 2: PART A SPECIFICATION v4.2 — FULL, WITH LINE NUMBERS (SPEC Ln) ===
+SPEC L1: # SRJ Flow Nexus — Part A Specification v4.2
+SPEC L2: 
+SPEC L3: **Draft for external review. Supersedes v3 entirely; revises v4 and v4.1.**
+SPEC L4: 
+SPEC L5: ## 0. Status
+SPEC L6: 
+SPEC L7: v3 is superseded, not amended. It contains five classes of error a patch cannot fix:
+SPEC L8: 
+SPEC L9: 1. It treats "POI interaction" as one concept. It is three, and conflating them made the 8/17 exit unreadable from the record.
+SPEC L10: 2. It uses one word — *bias* — for two unrelated objects.
+SPEC L11: 3. It specifies no exit model, while every journalled outcome is entry plus exit.
+SPEC L12: 4. Several rules have been overturned by operator ruling since it was written.
+SPEC L13: 5. It reasoned about zone selection from the orchestrator's chosen zones rather than the operator's, and treated coincidence of session and direction as evidence of agreement. §9.7 records the consequence.
+SPEC L14: 
+SPEC L15: This document is **specification only.** §8 marks what the current build implements. §9 states what is not known.
+SPEC L16: 
+SPEC L17: **Standing prohibition, governing everything below.** No minimum distance, size, width, depth, or bar count for any structure, ever. Validity is structural or geometric, never dimensional. The only permitted numbers are safety limits matching existing precedent: the 500-slot walk bound and the one-point distinctness test. **If a proposed rule needs a number, the rule is wrong.**
+SPEC L18: 
+SPEC L19: ### 0.1 Revision history
+SPEC L20: 
+SPEC L21: **v4 → v4.1**
+SPEC L22: 
+SPEC L23: | Section | Change |
+SPEC L24: |---|---|
+SPEC L25: | §3.5 | In-play carries **no recency and no bar-count limit**. v3's "current, freshest structure" withdrawn for XOB in-play. Freshness applies elsewhere |
+SPEC L26: | §3.6 | The **opposing candle need not touch an XOB**; it must touch an FVG. Entry need not be inside the zone |
+SPEC L27: | §3.7 | Stop **may lie inside** the entry zone. Branch selector defect confirmed with a named instance |
+SPEC L28: | §3.5.1 | Honesty limit rewritten — the in-play window, not the selector, is the binding constraint |
+SPEC L29: | §9.7 | The only reproduced trade is **not a structural match**. Structural agreement 0/12 |
+SPEC L30: | §9.9–9.11 | New: age is not a disqualifier; the two-swing in-play window; control gates are provisional |
+SPEC L31: 
+SPEC L32: **v4.1 → v4.2**
+SPEC L33: 
+SPEC L34: | Section | Change |
+SPEC L35: |---|---|
+SPEC L36: | §3.6 | The XOB opposing-candle rule is stated as a **relaxation, not a reversal**. A touch is permitted and never disqualifying. The prior wording invited an implementation that treats a touch as an exclusion, which no ruling supports |
+SPEC L37: | §3.6 | Recorded that the one verified case **is** a touching instance — the permitted non-touching case has no observed instance |
+SPEC L38: | §8 | The §3.6 fix is a **removal of a condition**, not an addition |
+SPEC L39: | §10 | Added: a short glossary of permission strength, because three of this document's rules turn on the difference between *required*, *permitted*, and *prohibited* |
+SPEC L40: 
+SPEC L41: ## 1. Vocabulary
+SPEC L42: 
+SPEC L43: ### 1.1 Two terms that must never touch
+SPEC L44: 
+SPEC L45: | Term | Meaning | Where it applies |
+SPEC L46: |---|---|---|
+SPEC L47: | **structural bias** | the bias engine's output — the HTF 4H/1H/15m aggregate, and the 5-minute LTF bias, driven by order-block invalidation counts | gates entry at Step 2; LTF ignored post-entry; HTF flip exits (§5.6) |
+SPEC L48: | **POI side** | which side of a POI line price sits on, evaluated per bar | §5 entirely |
+SPEC L49: 
+SPEC L50: Every exit rule in §5 is POI side. None of it is structural bias.
+SPEC L51: 
+SPEC L52: ### 1.2 Relevance
+SPEC L53: 
+SPEC L54: **An order block is *relevant* when it has been promoted to XOB.** Not on validation, not on activation. An unpromoted order block is not a candidate zone.
+SPEC L55: 
+SPEC L56: XOBs project rightward indefinitely until invalidated. **FVGs do not project.**
+SPEC L57: 
+SPEC L58: ### 1.3 Retired concepts
+SPEC L59: 
+SPEC L60: **"Gap" / "jump."** Descriptive language for the nature of POC and VWAP movement, never a mechanism. There is no gap test, no relocation threshold, no discontinuity flag anywhere in this specification. Targets follow the nearest valid POI as values move; that is all.
+SPEC L61: 
+SPEC L62: **"Break and retest" as a sequence.** Not the operator's model. **"Break" is not an event; it is a state** — which side of the line price is on. Nothing to detect, no retest leg to wait for.
+SPEC L63: 
+SPEC L64: **"Current, freshest structure" as a qualifier on XOB in-play.** Withdrawn — see §3.5. It survives on the POI retest and the mean-reversion sweep.
+SPEC L65: 
+SPEC L66: ## 2. Three tests on one object
+SPEC L67: 
+SPEC L68: The twelve POI lines carry three distinct roles. They share only their price values.
+SPEC L69: 
+SPEC L70: | Role | Test | Evaluated | Scope |
+SPEC L71: |---|---|---|---|
+SPEC L72: | **Entry anchor retest** | wick penetrates the level by ≥1 point, body stays on the correct side | per bar | seeding a candidate, **entry only** |
+SPEC L73: | **Take-profit target** | level reached — a touch, no geometry | per bar, continuously | admission gate pre-entry; target selection post-entry |
+SPEC L74: | **POI-side exit** | body closes through the level | per bar | pre-confirmation invalidation; post-entry exit |
+SPEC L75: 
+SPEC L76: **2.1 The wick test is entry-only.** No role in exits, none in target evaluation. v3's silence here is what let "retest" leak into the exit vocabulary.
+SPEC L77: 
+SPEC L78: **2.2 A take-profit POI exits on touch.** Identical treatment to session liquidity. No wick-in/body-out, no confirmation candle, no retest sequence.
+SPEC L79: 
+SPEC L80: **2.3 The anchor asymmetry is deliberate.** The anchor line is excluded from take-profit candidates (§3.7's "opposite side"). But under §5 the anchor sitting behind the trade is precisely the supporting POI whose body-break exits you. **In scope for the exit test, out of scope for targets.**
+SPEC L81: 
+SPEC L82: **2.4 All twelve lines carry all three roles.** No tier restriction, no VWAP/POC distinction. Only the Yearly pair has never been observed to produce a retest, which is a data-coverage fact and not a rule.
+SPEC L83: 
+SPEC L84: ## 3. Entry workflow
+SPEC L85: 
+SPEC L86: ### 3.0 Trading hours
+SPEC L87: 
+SPEC L88: Two windows only, Eastern Time: **London 02:00–05:00** and **New York AM 07:00–12:00**. Empirically confirmed in the broker frame as server **09:00–12:00** and **14:00–19:00** EET — eight hours a day, 33.3% of bars. Outside them, no evaluation of any kind.
+SPEC L89: 
+SPEC L90: ### 3.1 Trigger
+SPEC L91: 
+SPEC L92: A POI retest fires (§2, row 1) on one of the twelve lines, inside a window. **The freshness nuance applies here** — this is one of the two places it survives.
+SPEC L93: 
+SPEC L94: ### 3.2 Step 1 — regime classification
+SPEC L95: 
+SPEC L96: - **Trend-following:** retest direction agrees with the HTF aggregate (4H/1H/15m, simple majority, no timeframe weighted).
+SPEC L97: - **Mean-reversion:** justified by a **fresh** sweep of the immediately prior session's liquidity. Freshness's second surviving site.
+SPEC L98: 
+SPEC L99: Both may hold; no precedence, no differential treatment. Neither → the candidate does not advance.
+SPEC L100: 
+SPEC L101: **Measured, and it changes how the whole funnel should be read:** the HTF majority is the highest-volume filter in the system. On 1212 evaluations `trendOk` was false on **963 — 79%.** Mean-reversion classified on 134 and behaves exactly as written.
+SPEC L102: 
+SPEC L103: ### 3.3 Step 2 — LTF structure alignment
+SPEC L104: 
+SPEC L105: The 5-minute bias-panel state must agree with the classified direction. Only the LTF's object-level state matters; the HTF contributes direction only.
+SPEC L106: 
+SPEC L107: **Live, never latched.** There is no neutral 5-minute bias. Re-checked every bar from zone-wait through gate-check; a flip against the locked direction kills the candidate. Post-entry it is ignored (§5.6).
+SPEC L108: 
+SPEC L109: ### 3.4 Step 3 — continuous structural invalidation, pre-confirmation
+SPEC L110: 
+SPEC L111: Three flags: the in-bias order block's validity, the in-bias FVG's validity, and the validation of an opposing FVG. **Two or more adverse invalidates the setup.**
+SPEC L112: 
+SPEC L113: This replaces v3's "any single failure, at any point, invalidates the whole setup instantly," which was wrong. Operator, verbatim: *"The combinations to invalidate a setup before the actual bias flip is either OB+FVG invalidation or in bias FVG invalidation + opp FVG validation… if two out of three conditions have been met then the setup is also invalidated."*
+SPEC L114: 
+SPEC L115: Two load-bearing boundaries:
+SPEC L116: 
+SPEC L117: - **The rule is explicitly pre-confirmation.** *"This criteria is before the trade confirmed, if later the structure is flipped after the confirmation entry, i still hold the trade."* It must not run after the confirming close.
+SPEC L118: - **Post-confirmation cancellation requires all three flags**, which is the same set as a weak bias flip. So the post-confirmation cancellation condition collapses to "the bias flipped."
+SPEC L119: 
+SPEC L120: **Staleness and structural renewal never invalidate.** A new same-direction OB or FVG elsewhere is normal continuation. A same-direction higher-tier POI touch mid-sequence upgrades the anchor tier silently.
+SPEC L121: 
+SPEC L122: **Open, and the largest single miss cause.** The three flags are *global* in-bias flags; the entry zone comes from a different selector. This section's own wording is "the order block behind the current entry zone." Whether the operator watches the specific order block behind his zone, or any in-bias order block anywhere, is unresolved. Three journalled trades were killed by these flags on bars where the operator was in the trade.
+SPEC L123: 
+SPEC L124: ### 3.5 Step 4 — the qualifying retracement zone
+SPEC L125: 
+SPEC L126: One of:
+SPEC L127: 
+SPEC L128: - an XOB that is **relevant and in play**; or
+SPEC L129: - an **FVG** that formed within the current, still-open expansion leg of a valid XOB, including a promoted one. A leg begins with an XOB followed by FVG(s) and ends on either a new same-direction OB+FVG or a bias flip. A standalone FVG outside any open leg never qualifies.
+SPEC L130: 
+SPEC L131: **In play, for an XOB.** Its zone, projected rightward from formation, has been penetrated by a bar's range or by a confirmed protective-side swing **at any point within the current structural leg**, and the XOB has not been invalidated.
+SPEC L132: 
+SPEC L133: > **There is no recency requirement and no bar-count limit.** v3's *"being retested by the current, freshest structure"* is withdrawn for XOB in-play. The one verified operator zone was in play via a swing low approximately **eighty bars** before entry, on an XOB **ten hours** old. Any implementation restricting in-play to the most recent one or two swings contradicts this rule and **cannot accept the only verified operator zone** — see §9.10.
+SPEC L134: 
+SPEC L135: **In play, for an FVG.** The FVG has not been filled or invalidated, and it lies within the current open leg. An FVG has no projection, so its price range is fixed at formation.
+SPEC L136: 
+SPEC L137: **No precedence between XOB and FVG.** Validity is the only gate. Any leg FVG qualifies, not only the most extreme. **Size is never a criterion** — a one-point three-candle gap is a valid imbalance.
+SPEC L138: 
+SPEC L139: **No protective-side filter on the zone.** A structurally valid zone above price for a LONG is still a candidate zone. The *stop reference* carries a side test (§3.7); different object.
+SPEC L140: 
+SPEC L141: **Depth is not an admission criterion**, and the leg-opening FVG is included.
+SPEC L142: 
+SPEC L143: #### 3.5.1 Relevance must precede retracement
+SPEC L144: 
+SPEC L145: **A zone that becomes relevant only after price has already retraced into it is not tradeable.** Operator: *"that means the OB has not in play or influence the movement yet."*
+SPEC L146: 
+SPEC L147: Required order: **relevance → retracement or opposing candle → confirmation candle.**
+SPEC L148: 
+SPEC L149: - **If the order block is not yet promoted at the confirmation candle, that entry is invalid.** Not deferred — invalid, at that candle.
+SPEC L150: - **If promoted later, a fresh retracement and a fresh confirmation are required.** *"then i need another retracement candle or the opposite candle and then another confirmation candle."*
+SPEC L151: 
+SPEC L152: This **overturns v3 Step 5's "no re-arm mechanic."** A promotion event clears any accumulated touch.
+SPEC L153: 
+SPEC L154: > **Honesty limit.** No export records when an order block was promoted, so this bound cannot be implemented **or verified**. Two observed instances of adopt-and-inherit — a zone replaced on the arming bar, inheriting an earlier touch — produced one signal on a session the operator explicitly rejected, and one signal on a zone the operator **did not trade**. **The pattern has no validated instance and one refuted instance.**
+SPEC L155: >
+SPEC L156: > It is **not** primarily a selector defect. Even handed the operator's exact zone, the orchestrator's in-play test would have rejected it on every bar, because that test consults only the two most recent protective-side swings (§9.10). The selector's late switch is downstream of a test that could not accept the correct zone. Widening the in-play window may remove the pattern's cause without any relevance bound at all.
+SPEC L157: 
+SPEC L158: ### 3.6 Step 5 — the retracement and the confirmation candle
+SPEC L159: 
+SPEC L160: A **retracement candle** (equivalently, an **opposing candle**) closes against the trade direction. Entry fires on the close of the **next candle that closes in the trade direction**. Any nonzero body counts. No requirement to close beyond the retracement candle's extreme or the zone boundary. Long wicks are fine. Only a true doji is rejected.
+SPEC L161: 
+SPEC L162: **The opposing candle's zone interaction differs by zone type, and this is the rule, not an implementation detail:**
+SPEC L163: 
+SPEC L164: | Zone source | Opposing candle must touch the zone? |
+SPEC L165: |---|---|
+SPEC L166: | **XOB** | **Not required.** A touch is **permitted** and is **never disqualifying**. The XOB's in-play status is established separately per §3.5, and that is what ties the opposing candle to the zone |
+SPEC L167: | **FVG** | **Required.** An FVG cannot be projected, so the retracement must touch or retrace to the FVG level, and the touch must be attributed to **that specific opposing candle** |
+SPEC L168: 
+SPEC L169: > **★ This is a relaxation, not a reversal. ★** An implementation must accept an XOB-sourced candidate whose opposing candle touches the zone **and** one whose opposing candle does not. Any test that rejects either case is stricter than this rule. See §10 for the permission vocabulary this turns on.
+SPEC L170: >
+SPEC L171: > **The one verified case is a touching instance** — the 09:10 opposing candle penetrated the XOB at 1.15835 inside 1.15805–1.15843. So 08.17 demonstrates the optional touch occurring, not its absence. **The non-touching case is permitted by ruling and has no observed instance.**
+SPEC L172: 
+SPEC L173: For an FVG the touch must be attributed to that opposing candle, not to some other bar. Operator: *"fresh can't be done with the other candle except the specific retracement candle or the opposing candle before confirmation pre entry."*
+SPEC L174: 
+SPEC L175: > Marked as inference: I read "the opposing candle before confirmation" as the candle constituting the retracement wherever it sits within the current structural leg, **not** the bar immediately adjacent to the confirmation candle. Under the carried wide reading that candle may be older than the bar on which a candidate first becomes eligible. If adjacency is in fact required, that is a tightening and must be stated.
+SPEC L176: 
+SPEC L177: **This is a condition set, not a sequence.** The same bar may be simultaneously the POI retest and the confirmation candle.
+SPEC L178: 
+SPEC L179: **The entry is not required to be inside the zone.** The zone must be in play; the confirming close may be arbitrarily far from it. The one measured case entered **101 points above its zone's high**, in play via a swing that also carried the stop. Any implementation requiring the confirming or retracing bar to overlap an XOB is stricter than this rule.
+SPEC L180: 
+SPEC L181: No bar-count limit. Subject to §3.5.1's re-arm on promotion, additional touches are irrelevant.
+SPEC L182: 
+SPEC L183: ### 3.7 Step 6 — the 1R admission gate
+SPEC L184: 
+SPEC L185: **Pre-entry:** the nearest valid take-profit target in the trade direction must imply at least 1R, or the setup is not taken. Targets are the nearest of: nearest relevant session-liquidity level, the same-tier VWAP/POC on the opposite side, or a higher-tier VWAP/POC. **VWAP and POC on one anchor are the same tier.** Evaluated continuously — targets move.
+SPEC L186: 
+SPEC L187: A target is **valid** unless (a) already swept as session liquidity, or (b) closed over. A target lying inside the entry zone is not a target.
+SPEC L188: 
+SPEC L189: **1R is an admission criterion only. It has no role in management.** Post-entry the target follows the nearest valid POI wherever it goes, **with no floor**, and the trade is held. Operator: *"I still hold the trade that is why there are less than 1R gain even though upon entry I actually target more than 1R."*
+SPEC L190: 
+SPEC L191: **The reward/risk reference is the confirming close, latched.** Price moving away afterwards moves nothing and cancels nothing. Where a later condition validates at a better level, R is recomputed and **the reference producing the higher valid R is selected** — better R, not better price. The two diverge: one measured case improved 71 points in the trade's favour while R fell from 1.01 to 0.06.
+SPEC L192: 
+SPEC L193: **Ordering is part of the rule.** R is computed once **every** condition has validated. A candidate must not fail the gate before a pending divergence has had the opportunity to supply the permitted better reference. Measured: **29 of 33 hard RR failures fired while divergence was still unlatched — 88%.**
+SPEC L194: 
+SPEC L195: **Stop-loss reference distance, two branches:**
+SPEC L196: 
+SPEC L197: | Branch | Condition | Reference |
+SPEC L198: |---|---|---|
+SPEC L199: | One swing | a valid order block **with** an imbalance marks the structural extreme | one swing from that order block's swing high/low |
+SPEC L200: | Two swings | **strong-signal scenario with no imbalance** — the opposite-side order block invalidated, no FVG present | two swings, plain candle swings, no order block required |
+SPEC L201: 
+SPEC L202: A *swing* is the three-candle pattern where the middle candle is the extreme. **The stop is a swing high or low, not an order-block extreme.** Operator: *"even though it is only a valid swing pattern… and NOT tied to an order block, and even though it is not the most structurally extreme, I still consider or place my stop loss on that swing."*
+SPEC L203: 
+SPEC L204: The reference must lie on the **protective side** of the entry. An unusable candidate is skipped and the walk continues to the next valid swing further back; it never aborts where a valid swing exists.
+SPEC L205: 
+SPEC L206: **No minimum stop distance.** *"I am okay with the 12-point stop or however small it is as long as it is valid."*
+SPEC L207: 
+SPEC L208: **The stop may lie inside the entry zone.** Measured: a stop at 1.15835 inside a zone spanning 1.15805–1.15843, with 109 points of risk from an entry at 1.15944. A guard excluding in-zone stop references is premised on the entry sitting *at* the zone and is invalid when it does not. **The correct test is the stop's side relative to the entry, never its containment.**
+SPEC L209: 
+SPEC L210: **Branch selection is the two-OB state plus imbalance presence** — the operator-facing `2xOB` on his bias panel — **not** the order-block validity flag.
+SPEC L211: 
+SPEC L212: > **Confirmed defect with a named instance.** On the one trade checkable against ground truth, the operator's setup was strong-signal / no-imbalance and his stop was the two-swing reference at 1.15835. The orchestrator emitted `sl_mode=1-swing` with `sl_ref=1.15870`, selected on `obValid=1` alone with the imbalance term never consulted — 35 points away, and diagnostics show `obStruct == obSwing == zoneLo`, meaning the emitted reference was the **adopted zone's lower boundary rather than a swing at all**. The nearest actual swing found was 1.15907. Neither figure is the operator's.
+SPEC L213: >
+SPEC L214: > Qualification: the risk denominators were nearly identical (109 vs 114 points), so on this instance the branch error cost five points of risk while a three-bar entry delay cost forty. And whether a two-swing walk would reach 1.15835 at all is unverified — the swing series may not contain it.
+SPEC L215: 
+SPEC L216: ### 3.8 Step 7 — order-flow divergence
+SPEC L217: 
+SPEC L218: A qualifying, direction-matched divergence must occur **at least once**, at any point in the sequence — before, at, or after the confirming candle. No bar-count limit. Once observed it counts permanently and is never re-invalidated by a later piercing or an opposing divergence. Plain directional agreement without a qualifying pattern is never a substitute. No partial-credit setups anywhere.
+SPEC L219: 
+SPEC L220: The verdict carries four states: regular and hidden, bullish and bearish. The operator's 1/2/3/4 numbering is a presentation layer over the same four.
+SPEC L221: 
+SPEC L222: ## 4. Evaluation timing
+SPEC L223: 
+SPEC L224: **Default: evaluate at the next candle's open**, at three sites — the POI retest that seeds a candidate, the confirmation candle, and the exit.
+SPEC L225: 
+SPEC L226: Rationale: a retest valid at the breaking candle's close can be invalid at the next open, and in that case the setup is invalid. The 8/17 exit was already this compound test — a body close through the POC, measured against the POI value as it stood at the **next** open.
+SPEC L227: 
+SPEC L228: **Toggle, for future comparison.** Must be a compile-time constant, not a user input: indicator handle bindings are positional and one fails outright at a fourth parameter.
+SPEC L229: 
+SPEC L230: **Measurement cost, stated because it is real.** Defaulting this on changes admission at three sites at once. The resulting baseline is comparable to no prior baseline, and the three sites cannot be separated from one another. Recommended mitigation: build the reads as diagnostics first, logging verdicts and changing no control flow, so the population is known before the rule governs anything.
+SPEC L231: 
+SPEC L232: ## 5. Exit and invalidation
+SPEC L233: 
+SPEC L234: ### 5.1 The rule
+SPEC L235: 
+SPEC L236: One rule, one side test, evaluated **per bar**:
+SPEC L237: 
+SPEC L238: - **POI ahead** of the trade — above price for a LONG, below for a SHORT → take-profit target. **Exit on touch.**
+SPEC L239: - **POI behind** the trade → it supports the trade. **Exit only on a body close through it.** A wick through does nothing.
+SPEC L240: 
+SPEC L241: The body-close break is an **unconditional immediate exit**. Operator: *"i exit early or right there, disregarding if TP or SL."* Not weighed against a competing target.
+SPEC L242: 
+SPEC L243: ### 5.2 Side is dynamic
+SPEC L244: 
+SPEC L245: Classification is per bar, not fixed at entry. A POI whose value moves may change side, and its role changes with it.
+SPEC L246: 
+SPEC L247: The case that produced the rule: a POC below a LONG relocates upward to sit just beneath the current candle. It has **not** become a target — still below price, still behind, still supporting — so it remains under the body-close rule. Price retraces, a body closes below it, side flips, exit. That is 8/17.
+SPEC L248: 
+SPEC L249: Contrast: a POC relocating to sit *above* a LONG is ahead from that bar forward and is a touch-exit target.
+SPEC L250: 
+SPEC L251: ### 5.3 What this section does not contain
+SPEC L252: 
+SPEC L253: No gap concept (§1.3). **No favour/adverse asymmetry** — a POI moving toward the trade and away from it are treated identically; the rule is blind to direction of movement. No distance, size, or width. The tests are *which side* and *body versus wick*.
+SPEC L254: 
+SPEC L255: ### 5.4 Pre-confirmation invalidation
+SPEC L256: 
+SPEC L257: A candidate armed and waiting for its confirming close is **dead** if the POI behind it is body-broken before that close. Operator's reasoning: it conflicts with the 1R admission requirement.
+SPEC L258: 
+SPEC L259: Two distinct pre-entry deaths, no overlap:
+SPEC L260: 
+SPEC L261: | Situation | Mechanism |
+SPEC L262: |---|---|
+SPEC L263: | POI relocates **ahead** and nearer than 1R | the 1R admission gate |
+SPEC L264: | POI **behind** is body-broken | the POI-side test |
+SPEC L265: 
+SPEC L266: Below or touching without a body close through → still valid, with the recorded caution that after the confirming entry a higher-tier POI may overtake the candle and force an early exit.
+SPEC L267: 
+SPEC L268: ### 5.5 Pending entry lifecycle
+SPEC L269: 
+SPEC L270: Entry is a **limit at the confirming candle's close**. Price running away moves nothing and cancels nothing. It **fills on a wick**, not a close. While pending it cancels on a bias flip, or on the three-flag conjunction — which is the same event. **Staleness and structural renewal do not cancel.** If the filling candle's own close invalidates the setup, exit immediately rather than waiting for a subsequent close.
+SPEC L271: 
+SPEC L272: ### 5.6 Structural bias, post-entry
+SPEC L273: 
+SPEC L274: | Timeframe | Post-entry structural flip |
+SPEC L275: |---|---|
+SPEC L276: | LTF (5-minute) | **ignored** — the trade is held |
+SPEC L277: | HTF (4H/1H/15m aggregate) | **exit** at the flipping HTF candle's confirmation close |
+SPEC L278: 
+SPEC L279: The HTF rule is default, scoped to trend-following setups, and flagged as a toggle for future comparison — a mean-reversion setup was never justified by HTF agreement, so an HTF flip is not an argument against it. **No supporting data; recorded as ruled, not measured.**
+SPEC L280: 
+SPEC L281: ## 6. Concurrency, throttling, deduplication
+SPEC L282: 
+SPEC L283: **Multiple candidates may be alive concurrently.** The single-candidate model is removed by ruling: *"Multiple setups could be considered at a time but only one valid setup could be executed per session."* Exception explicitly blessed: a London setup still running plus a valid NY setup → both are taken, **even if they contradict**.
+SPEC L284: 
+SPEC L285: **Arrival order governs across time.** The first candidate to complete executes. A later higher-tier candidate does **not** displace it, and once a setup is executed the window is closed even to a higher tier. Operator: *"i will always execute the first one, the later higher POI does not get executed… if i have executed the first trade, i would not execute other trade even it's from higher hierarchy."*
+SPEC L286: 
+SPEC L287: This **overturns** v3's across-time tier-replacement reading of Step 8 / D-3 / G-2, which was an inference and not a ruling.
+SPEC L288: 
+SPEC L289: **Anchor tier governs a same-bar tie only.** Where two candidates complete on the same bar, the highest anchor tier wins. Below tier, tie-breaks are engineering determinism only, never strategy.
+SPEC L290: 
+SPEC L291: **One *valid* setup per pair per session.** *"i only take one setup per pair per session."* Maximum six trades a day across three pairs and two windows. One instance per symbol, so "per pair" is automatic; a cross-symbol throttle is not expressible in this architecture and must not be attempted.
+SPEC L292: 
+SPEC L293: **A rejected setup consumes nothing.** *"one valid setup, not invalid setup that got rejected."* The same POI may be re-approached in the same direction later in the same window after a rejection. Measured: **58% of candidates** (195 of 337) belong to a key with more than one attempt, so this is structural rather than exceptional.
+SPEC L294: 
+SPEC L295: **Deduplication is while-alive only.** A retest matching a live candidate's **(window, direction, anchor line)** key **updates** that candidate; it does not create a second one. Structural key — no bar count, no time window. Measured requirement: **145 of 446** suppressed retests share a live candidate's exact key, so without the merge a concurrent model inflates with logical duplicates.
+SPEC L296: 
+SPEC L297: **A candidate abandoned on the RR gate does not consume the window.** The operator anticipates exactly this: *"i would probably first, not execute the first trade cause there is a near (less than 1R TP)."*
+SPEC L298: 
+SPEC L299: ## 7. Non-goals
+SPEC L300: 
+SPEC L301: - No curve-fittable or optimizable parameters. Every threshold here is structural or geometric.
+SPEC L302: - Exit rules are **specified** here (§5) but must not be built inside the entry pipeline.
+SPEC L303: - Position sizing, partials, and trade management beyond §5 are out of scope.
+SPEC L304: 
+SPEC L305: ## 8. Implementation status
+SPEC L306: 
+SPEC L307: | Rule | Alert-only visible | Needs new upstream export |
+SPEC L308: |---|---|---|
+SPEC L309: | §3.0–3.4, §3.6–3.8 entry pipeline | built | no |
+SPEC L310: | §3.4's 2-of-3 rule | built | no |
+SPEC L311: | §3.4 pre-confirmation-only scoping | **not built** — runs through gate-check | no |
+SPEC L312: | §3.4 per-candidate flag scope | **not built** | likely yes — provenance token |
+SPEC L313: | §3.5 in-play with no recency limit | **not built** — restricted to two swings | no |
+SPEC L314: | §3.5.1 relevance precedes retracement | **not built** | **yes — promotion bar** |
+SPEC L315: | §3.5.1 re-arm on promotion | **not built** | yes, same export |
+SPEC L316: | §3.6 XOB opposing-candle touch **optional** | **not built** — overlap is required uniformly, so the permitted non-touching case is rejected. **Fix is the removal of a condition, not the addition of one** | no |
+SPEC L317: | §3.6 FVG opposing candle must touch | built | no |
+SPEC L318: | §3.7 latched reference + ordering | **not built** | no |
+SPEC L319: | §3.7 two-branch stop selector | **wrong selector, named instance** | yes, one flag |
+SPEC L320: | §3.7 in-zone stop permitted | **not built** — a guard excludes it | no |
+SPEC L321: | §4 next-candle-open | **not built** | no |
+SPEC L322: | §5.4 pre-confirmation body-close | **not built** | no |
+SPEC L323: | §5.1–5.3, §5.5, §5.6 | not built — exit phase | no |
+SPEC L324: | §6 concurrency, dedup | **not built** — single candidate | no |
+SPEC L325: | §6 arrival order across time | built | no |
+SPEC L326: | §6 per-window throttle | built, verified airtight | no |
+SPEC L327: 
+SPEC L328: **One export serves three rules.** The selected order block's promotion bar gives §3.5.1 its bound, gives an unbounded zone selector a threshold-free bound consistent with §9.9, and is the same value §3.4's provenance token needs. Scope it as one piece of work.
+SPEC L329: 
+SPEC L330: **Three removals serve four rules.** Widening the in-play window (§3.5), dropping the XOB opposing-candle overlap requirement (§3.6), and retiring the in-zone stop guard (§3.7) are all loosenings of tests the current build applies more strictly than this specification requires. **None needs a new export.** The stop-branch selector is the only §3.7 item that does.
+SPEC L331: 
+SPEC L332: ## 9. What is not known
+SPEC L333: 
+SPEC L334: **9.1 Feed divergence bounds every external comparison.** The operator reads structure on TradingView/OANDA; the system runs a Dukascopy demo feed. His own screenshot shows Dukascopy at `4H Bear, 1H Bear, 15m Bear` on a day his OANDA read said the trend-following setup was long. **No edit can close this.** Any bias-shaped or divergence-shaped disagreement must exclude feed divergence before it is attributed to logic.
+SPEC L335: 
+SPEC L336: **9.2 Realised gains are not attributable to this entry pipeline.** Every journalled gain is entry plus exit discipline, and only the entry is built. Recall and precision — matched trades over journalled trades, matched trades over emitted signals — remain valid. **Gain magnitudes do not.**
+SPEC L337: 
+SPEC L338: **9.3 The relevance rule is currently unobservable.** §3.5.1's two known instances, one on a rejected session and one on an untraded zone, are indistinguishable from the orchestrator's position. Until the promotion bar is exported the rule cannot be implemented **or verified**.
+SPEC L339: 
+SPEC L340: **9.4 Miss attribution is by proximate death, not by cause.** A candidate can carry several pending deaths; removing the one that fires first reveals the next rather than saving the setup. Demonstrated: retiring the across-time tier replacement freed one named miss's candidate, which then died on structural invalidation fifteen minutes later, and that session's four attempts split across two entirely different open items. **Every recall claim attached to a miss table is an upper bound.**
+SPEC L341: 
+SPEC L342: **9.5 Sample size.** Twelve journalled trades against ten emitted signals. Recall 1/12, precision 1/10, **structural agreement 0/12** (§9.7). The operator's own acceptance rate is roughly 12 in 240 candidates. **No gate may be tuned on this sample.**
+SPEC L343: 
+SPEC L344: **9.6 One replay-order defect is confirmed in the port and unmeasured.** Two different order blocks replayed onto a single discovery bar can each increment a per-bar invalidation counter and trip a bias flip in one step. Bounded to one bar, but one bar is sufficient. Attaches an unquantified doubt to every bias-misalignment death. Absent from the original Pine implementation, which has no replay mechanism.
+SPEC L345: 
+SPEC L346: **9.7 The only reproduced trade is not a structural match.** The single journalled trade the system has reproduced was entered on an XOB spanning **1.15805–1.15843**, formed at 05:30 and projected rightward, with the stop at a swing low of **1.15835 lying inside that zone**, and the entry at **1.15944 — 101 points above the zone's high.** The zone was in play by swing penetration, not by price retracing into it.
+SPEC L347: 
+SPEC L348: The orchestrator held **1.15784–1.15796** for four bars, judged it correctly out of play, then adopted **1.15870–1.15959** on its arming bar and signalled on that. **Neither orchestrator zone overlaps the traded one.** The stop references differ by 35 points and are not the same kind of object (§3.7). The entry *prices* coincide because the operator's entry falls inside the zone the orchestrator adopted — coincidence, not agreement.
+SPEC L349: 
+SPEC L350: The match is on session, direction, anchor POI and approximate timing. **The entry pipeline has never been shown to match an operator entry on the same retracement structure. Recall of 1/12 overstates agreement; structural agreement is 0/12.**
+SPEC L351: 
+SPEC L352: **9.8 Protocol gates protecting the control are provisional.** Several measurement protocols treat "the 08.17 signal must survive" as project-stopping. Per §9.7 that signal is not a structural match, so the gate protects a coincidence. Retain it as a **change detector** — its disappearance still indicates that an edit altered admission — but it is not a correctness requirement.
+SPEC L353: 
+SPEC L354: **9.9 Age is not a disqualifier.** XOBs project rightward indefinitely until invalidated. The one verified operator zone was **ten hours old** at entry. Any recency bound on zone selection contradicts §3.5 directly and would have removed the only reproduced trade's structure. A promotion-bar bound (§8) is compatible with this; an age bound is not.
+SPEC L355: 
+SPEC L356: **9.10 The in-play window, not the selector, is the binding constraint.** The current in-play test consults the evaluation bar's range, then the most recent confirmed protective-side swing, then the next distinct one — **two swings, nothing further back.** The one verified operator zone was in play via a swing roughly eighty bars earlier. **Even handed the correct zone, the orchestrator would have reported it out of play on every bar.** Diagnosis of adopt-and-inherit as a selector defect (§3.5.1) is therefore secondary; the primary defect is upstream of it and needs no new export to fix. The test exists in three copies, which must be reconciled together or not at all.
+SPEC L357: 
+SPEC L358: **9.11 The two-swing depth has no ruling behind it.** It was chosen to mirror §3.7's two-swing stop branch, on the reasoning that two fixes the system's structural depth. §3.5 now states there is no bar-count limit, so the correct bound is the structural leg, not a swing count. Whether *every* confirmed swing in the leg should be tested, or some other structural bound applies, is not ruled.
+SPEC L359: 
+SPEC L360: **9.12 The non-touching XOB opposing candle has no observed instance.** §3.6 permits it by ruling and the current build rejects it, so no data exists on how often it would arise. Its population is unknown until the overlap requirement is dropped.
+SPEC L361: 
+SPEC L362: ## 10. Permission vocabulary
+SPEC L363: 
+SPEC L364: Three of this document's rules turn on the difference between a requirement, a permission, and a prohibition, and one earlier revision conflated the second with the third. The distinction is stated once here and applies throughout.
+SPEC L365: 
+SPEC L366: | Phrasing | Implementation | Rejects when |
+SPEC L367: |---|---|---|
+SPEC L368: | **Required** / must | test the condition, reject on failure | the condition is absent |
+SPEC L369: | **Permitted** / not required / need not | **accept either way**; the condition is informational at most | never — a permission cannot cause a rejection |
+SPEC L370: | **Prohibited** / must not | test the condition, reject on presence | the condition is present |
+SPEC L371: 
+SPEC L372: **A permission is not a prohibition.** "The opposing candle need not touch the XOB" means a touching candle and a non-touching candle are both admissible. It does **not** mean a touch disqualifies, and no ruling in this document creates such a prohibition.
+SPEC L373: 
+SPEC L374: Where this matters:
+SPEC L375: 
+SPEC L376: | Rule | Strength | Common misreading |
+SPEC L377: |---|---|---|
+SPEC L378: | §3.6 XOB opposing-candle touch | **permitted** | that a touch is disqualifying, or that only non-touching candles qualify |
+SPEC L379: | §3.6 entry inside the zone | **permitted** | that entry must be inside the zone (v3's reading) |
+SPEC L380: | §3.7 stop inside the entry zone | **permitted** | that an in-zone stop is invalid (the current guard's reading) |
+SPEC L381: | §3.6 FVG opposing-candle touch | **required** | — |
+SPEC L382: | §3.5.1 relevance before retracement | **required** | — |
+SPEC L383: 
+SPEC L384: ---
+SPEC L385: 
+SPEC L386: ## Handover notes
+SPEC L387: 
+SPEC L388: Three items are open on the operator, none blocking review:
+SPEC L389: 
+SPEC L390: 1. **§3.4's flag scope** — the specific order block behind the entry zone, or any in-bias order block. Decides whether per-candidate freshness is built or the section closes.
+SPEC L391: 2. **§3.6's inference** — whether the FVG-touching opposing candle may be older than the arming bar, per the carried wide reading, or must be adjacent to the confirmation.
+SPEC L392: 3. **§9.11** — the correct in-play depth, now that no bar-count limit applies.
+SPEC L393: 
+SPEC L394: Two rules are ruled but data-free and marked as such: §5.6's HTF exit and §4's next-candle-open default.
+SPEC L395: 
+SPEC L396: Everything else is either ruled, measured, or explicitly listed in §9 as unknown.
+=== END SECTION 2 ===
+=== SECTION 3: EA ComputeSlReference COMPLETE (L1726-1996) — stop selector, branch logic, guards (EA Ln) ===
+EA L1726: bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
+EA L1727:                          double &slRefOut, ENUM_SRJ_SLMODE &slModeOut,
+EA L1728:                          const string site)
+EA L1729:   {
+EA L1730:    static int s_swingDumps = 0;
+EA L1731:    if(InpDebugLog && (s_swingDumps < 20 || site == "S5"))
+EA L1732:      {
+EA L1733:       s_swingDumps++;
+EA L1734:       string sh = "", sl = "";
+EA L1735:       for(int d = barShift; d <= barShift + 9; d++)
+EA L1736:         {
+EA L1737:          double vh, vl;
+EA L1738:          sh += (ReadBuf1(g_hFlow, FL_BUF_SWING_HIGH, vh, d) && vh != EMPTY_VALUE && vh > 0.0)
+EA L1739:                ? DoubleToString(vh, _Digits) + " " : "- ";
+EA L1740:          sl += (ReadBuf1(g_hFlow, FL_BUF_SWING_LOW,  vl, d) && vl != EMPTY_VALUE && vl > 0.0)
+EA L1741:                ? DoubleToString(vl, _Digits) + " " : "- ";
+EA L1742:         }
+EA L1743:       PrintFormat("[SRJ-EA] SWINGDUMP #%d site=%s dir=%s barShift=%d bar=%s "
+EA L1744:                   "close=%s high=%s low=%s SH[%d..%d]= %s| SL[%d..%d]= %s",
+EA L1745:                   s_swingDumps, site, DirName(dir), barShift,
+EA L1746:                   TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+EA L1747:                   DoubleToString(iClose(_Symbol, PERIOD_CURRENT, barShift), _Digits),
+EA L1748:                   DoubleToString(iHigh (_Symbol, PERIOD_CURRENT, barShift), _Digits),
+EA L1749:                   DoubleToString(iLow  (_Symbol, PERIOD_CURRENT, barShift), _Digits),
+EA L1750:                   barShift, barShift + 9, sh,
+EA L1751:                   barShift, barShift + 9, sl);
+EA L1752:      }
+EA L1753: 
+EA L1754:    double obValid;
+EA L1755:    if(!ReadFlow(FL_BUF_LTF_OB_VALID, obValid, barShift)) return false;
+EA L1756: 
+EA L1757:    double swingHigh, swingLow;
+EA L1758:    bool haveHigh = ReadFlow(FL_BUF_SWING_HIGH, swingHigh, barShift)
+EA L1759:                    && swingHigh != EMPTY_VALUE && swingHigh > 0.0;
+EA L1760:    bool haveLow  = ReadFlow(FL_BUF_SWING_LOW,  swingLow,  barShift)
+EA L1761:                    && swingLow  != EMPTY_VALUE && swingLow  > 0.0;
+EA L1762: 
+EA L1763:    //--- TASK 21: the 1-swing branch previously required a confirmed fractal to
+EA L1764:    //--- sit in the exact slot being read, which is true on roughly 18% of
+EA L1765:    //--- bars. Admission therefore depended on slot occupancy rather than on
+EA L1766:    //--- structure, and that is why the sole 2026.08.04 signal died as
+EA L1767:    //--- S5_NO_SL_REF once Task 20 moved the read to the settled slot. The
+EA L1768:    //--- point reads above are retained so the SWINGDUMP diagnostic and the
+EA L1769:    //--- surrounding code are untouched; these two lines override their result
+EA L1770:    //--- with the nearest confirmed swing at or before the evaluation bar.
+EA L1771:    //--- This is a deliberate admission change. See Task 21's R8 exemption.
+EA L1772:    int shHigh = -1, shLow = -1;
+EA L1773:    haveHigh = FindNearestSwing(FL_BUF_SWING_HIGH, barShift, swingHigh, shHigh);
+EA L1774:    haveLow  = FindNearestSwing(FL_BUF_SWING_LOW,  barShift, swingLow,  shLow);
+EA L1775:    if(InpDebugLog)
+EA L1776:       PrintFormat("[SRJ-EA] SWINGPICK site=%s dir=%s barShift=%d close=%s "
+EA L1777:                   "haveHigh=%d SH=%s atShift=%d haveLow=%d SL=%s atShift=%d",
+EA L1778:                   site, DirName(dir), barShift,
+EA L1779:                   DoubleToString(iClose(_Symbol, PERIOD_CURRENT, barShift), _Digits),
+EA L1780:                   (int)haveHigh, DoubleToString(swingHigh, _Digits), shHigh,
+EA L1781:                   (int)haveLow,  DoubleToString(swingLow,  _Digits), shLow);
+EA L1782: 
+EA L1783:    // [Task 26a] EA-8b. Part A Step 6: "one swing away from that order block's
+EA L1784:    // swing high/low" Ã¢â‚¬â€ buffer 27 is that swing bar's protective extreme, so the
+EA L1785:    // stop reference now derives from the structure that defines the entry zone
+EA L1786:    // instead of the nearest swing anywhere. Buffer 26 is read for comparison only.
+EA L1787:    //
+EA L1788:    // The side check below is a sanity guard, not a Part A rule: FlowLogic selects
+EA L1789:    // the order block from g_s.currentBias, and the RR poll spans S2 through S5, so
+EA L1790:    // bias can move under the candidate and hand back a swing high while dir is
+EA L1791:    // LONG. It compares against iClose(barShift), which is EA-23b's known-wrong
+EA L1792:    // reference Ã¢â‚¬â€ the least-bad option available until Ruling 7a lands, and it will
+EA L1793:    // be revisited there. Failing the check falls back, it does not abort.
+EA L1794:    double slCurPx     = iClose(_Symbol, PERIOD_CURRENT, barShift);
+EA L1795:    double obStructRef = 0.0;
+EA L1796:    double obSwingRef  = 0.0;
+EA L1797:    bool haveObStruct = ReadFlow(FL_BUF_OB_STRUCT_EXTREME, obStructRef, barShift)
+EA L1798:                        && obStructRef != EMPTY_VALUE && obStructRef > 0.0;
+EA L1799:    bool haveObSwing  = ReadFlow(FL_BUF_OB_SWING_EXTREME, obSwingRef, barShift)
+EA L1800:                        && obSwingRef != EMPTY_VALUE && obSwingRef > 0.0;
+EA L1801:    bool obSwingSideOk = haveObSwing &&
+EA L1802:                         ((dir == DIR_LONG) ? (obSwingRef < slCurPx)
+EA L1803:                                            : (obSwingRef > slCurPx));
+EA L1804:    if((int)MathRound(obValid) == 1)
+EA L1805:      {
+EA L1806:       if(dir == DIR_LONG)
+EA L1807:         { if(obSwingSideOk) slRefOut = obSwingRef; else { if(!haveLow) return false; slRefOut = swingLow; } }
+EA L1808:       else
+EA L1809:         { if(obSwingSideOk) slRefOut = obSwingRef; else { if(!haveHigh) return false; slRefOut = swingHigh; } }
+EA L1810:       slModeOut = SL_MODE_1SWING;
+EA L1811:    // [Task 75 / EA-79 / Ruling 1 Option C] A fallback swing on the WRONG SIDE
+EA L1812:    // of the entry reference is not a stop reference. Measured: 2026.08.13 16:40
+EA L1813:    // emitted SIGNAL dir=LONG with slRef=1.15378 against close=1.15339 - the stop
+EA L1814:    // sat 39 points ABOVE entry and the target 80 points above, both on the profit
+EA L1815:    // side, and the RR gate passed at R=2.05 because slDist is a MathAbs. One of
+EA L1816:    // six signals was not a tradeable setup.
+EA L1817:    //
+EA L1818:    // Mechanism: obSwingSideOk is the side test for buffer 27, and when it fails
+EA L1819:    // the fallback takes the nearest confirmed swing with NO side test at all.
+EA L1820:    // Price had closed below the last confirmed swing low without a new one
+EA L1821:    // forming, so FindNearestSwing returned a low above the close. One instance
+EA L1822:    // in 20 S5 evaluations; the other five fallbacks were side-correct.
+EA L1823:    //
+EA L1824:    // Threshold-free: the test is WHICH SIDE of slCurPx the reference lies on,
+EA L1825:    // never how far. Part A section 7 is not engaged. The reference is slCurPx,
+EA L1826:    // the same iClose(barShift) that obSwingSideOk already compares against - one
+EA L1827:    // reference for both branches - and at S5 that close IS the entry (Ruling 7a).
+EA L1828:    //
+EA L1829:    // The walk requires BOTH the protective side AND, once a zone is adopted,
+EA L1830:    // exclusion from it. Requiring both is what prevents interaction with the
+EA L1831:    // Task 67 guard below: after this block slRefOut is outside the zone, so Task
+EA L1832:    // 67's condition is false and it is inert. When this guard does not fire,
+EA L1833:    // Task 67 behaves exactly as it does today.
+EA L1834:    //
+EA L1835:    // Scoped to the fallback path only (!obSwingSideOk), as Task 67 is. Aborts
+EA L1836:    // only on exhaustion, per Ruling 1 Option C - a valid swing further back is
+EA L1837:    // always preferred to abandoning the setup. The 500-slot bound and the
+EA L1838:    // g_zoneHi/g_zoneLo inertness before arming both match Task 67 exactly.
+EA L1839:    bool t75_sideOk = (dir == DIR_LONG) ? (slRefOut < slCurPx) : (slRefOut > slCurPx);
+EA L1840:    if(!obSwingSideOk && !t75_sideOk)
+EA L1841:      {
+EA L1842:       int    t75_buf  = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+EA L1843:       int    t75_from = (dir == DIR_LONG) ? shLow : shHigh;
+EA L1844:       double t75_was  = slRefOut;
+EA L1845:       bool   t75_ok   = false;
+EA L1846:       bool   t75_zone = (g_zoneHi > 0.0 && g_zoneLo > 0.0);
+EA L1847:       for(int t75_s = t75_from + 1; t75_s <= t75_from + 500; t75_s++)
+EA L1848:         {
+EA L1849:          double t75_v;
+EA L1850:          if(!ReadFlow(t75_buf, t75_v, t75_s))     break;
+EA L1851:          if(t75_v == EMPTY_VALUE || t75_v <= 0.0) continue;
+EA L1852:          if((dir == DIR_LONG) ? (t75_v >= slCurPx) : (t75_v <= slCurPx)) continue;
+EA L1853:          if(t75_zone && t75_v >= g_zoneLo && t75_v <= g_zoneHi)          continue;
+EA L1854:          slRefOut = t75_v;
+EA L1855:          t75_ok   = true;
+EA L1856:          if(InpDebugLog)
+EA L1857:             PrintFormat("[SRJ-EA] SLSIDEGUARD site=%s dir=%s rejected=%s "
+EA L1858:                         "chosen=%s atShift=%d fromShift=%d close=%s "
+EA L1859:                         "zoneLo=%s zoneHi=%s",
+EA L1860:                         site, DirName(dir),
+EA L1861:                         DoubleToString(t75_was, _Digits),
+EA L1862:                         DoubleToString(slRefOut, _Digits),
+EA L1863:                         t75_s, t75_from,
+EA L1864:                         DoubleToString(slCurPx, _Digits),
+EA L1865:                         DoubleToString(g_zoneLo, _Digits),
+EA L1866:                         DoubleToString(g_zoneHi, _Digits));
+EA L1867:          break;
+EA L1868:         }
+EA L1869:       if(!t75_ok)
+EA L1870:         {
+EA L1871:          if(InpDebugLog)
+EA L1872:             PrintFormat("[SRJ-EA] SLSIDEGUARD site=%s dir=%s rejected=%s "
+EA L1873:                         "chosen=NONE fromShift=%d close=%s zoneLo=%s zoneHi=%s "
+EA L1874:                         "result=noProtectiveSideSwing",
+EA L1875:                         site, DirName(dir),
+EA L1876:                         DoubleToString(t75_was, _Digits),
+EA L1877:                         t75_from,
+EA L1878:                         DoubleToString(slCurPx, _Digits),
+EA L1879:                         DoubleToString(g_zoneLo, _Digits),
+EA L1880:                         DoubleToString(g_zoneHi, _Digits));
+EA L1881:          return false;
+EA L1882:         }
+EA L1883:      }
+EA L1884: 
+EA L1885:    // [Task 67 / Ruling 1 Option C / EA-71] A fallback swing lying INSIDE the
+EA L1886:    // adopted entry zone is not a stop reference. Measured: bar 2026.08.20 17:35
+EA L1887:    // gave slRef=1.16807 against zone 1.16804-1.16814 Ã¢â‚¬â€ a ONE POINT risk
+EA L1888:    // denominator, R=110, which cleared the hard RR gate on geometry alone. Only
+EA L1889:    // divLatch=0 prevented a signal on it.
+EA L1890:    //
+EA L1891:    // Threshold-free: the test is containment in the adopted zone, not a distance,
+EA L1892:    // so Part A section 7 is not engaged. Scoped to the fallback path only
+EA L1893:    // (!obSwingSideOk) Ã¢â‚¬â€ every OB_SWING reference measured to date sat well
+EA L1894:    // outside its zone. The operator's ruling accepts a plain three-candle swing
+EA L1895:    // as a valid stop even when it is not the structurally extreme one, so the
+EA L1896:    // walk continues to the next swing OUTSIDE the zone rather than aborting.
+EA L1897:    //
+EA L1898:    // g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this guard
+EA L1899:    // is inert before arming Ã¢â‚¬â€ the same inertness Ruling 7c's in-zone target
+EA L1900:    // exclusion relies on in TpTargetUpdateBest.
+EA L1901:    if(!obSwingSideOk && g_zoneHi > 0.0 && g_zoneLo > 0.0 &&
+EA L1902:       slRefOut >= g_zoneLo && slRefOut <= g_zoneHi)
+EA L1903:      {
+EA L1904:       int    t67_buf  = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+EA L1905:       int    t67_from = (dir == DIR_LONG) ? shLow : shHigh;
+EA L1906:       double t67_was  = slRefOut;
+EA L1907:       bool   t67_ok   = false;
+EA L1908:       for(int t67_s = t67_from + 1; t67_s <= t67_from + 500; t67_s++)
+EA L1909:         {
+EA L1910:          double t67_v;
+EA L1911:          if(!ReadFlow(t67_buf, t67_v, t67_s))       break;
+EA L1912:          if(t67_v == EMPTY_VALUE || t67_v <= 0.0)   continue;
+EA L1913:          if(t67_v >= g_zoneLo && t67_v <= g_zoneHi) continue;
+EA L1914:          slRefOut = t67_v;
+EA L1915:          t67_ok   = true;
+EA L1916:          if(InpDebugLog)
+EA L1917:             PrintFormat("[SRJ-EA] SLZONEGUARD site=%s dir=%s rejected=%s "
+EA L1918:                         "chosen=%s atShift=%d fromShift=%d zoneLo=%s zoneHi=%s",
+EA L1919:                         site, DirName(dir),
+EA L1920:                         DoubleToString(t67_was, _Digits),
+EA L1921:                         DoubleToString(slRefOut, _Digits),
+EA L1922:                         t67_s, t67_from,
+EA L1923:                         DoubleToString(g_zoneLo, _Digits),
+EA L1924:                         DoubleToString(g_zoneHi, _Digits));
+EA L1925:          break;
+EA L1926:         }
+EA L1927:       if(!t67_ok)
+EA L1928:         {
+EA L1929:          if(InpDebugLog)
+EA L1930:             PrintFormat("[SRJ-EA] SLZONEGUARD site=%s dir=%s rejected=%s "
+EA L1931:                         "chosen=NONE fromShift=%d zoneLo=%s zoneHi=%s "
+EA L1932:                         "result=noSwingOutsideZone",
+EA L1933:                         site, DirName(dir),
+EA L1934:                         DoubleToString(t67_was, _Digits),
+EA L1935:                         t67_from,
+EA L1936:                         DoubleToString(g_zoneLo, _Digits),
+EA L1937:                         DoubleToString(g_zoneHi, _Digits));
+EA L1938:          return false;
+EA L1939:         }
+EA L1940:      }
+EA L1941:       if(InpDebugLog)
+EA L1942:          PrintFormat("[SRJ-EA] SLSRC site=%s dir=%s src=%s obStruct=%s obSwing=%s "
+EA L1943:                      "nearest=%s chosen=%s deltaPts=%s",
+EA L1944:                      site, DirName(dir),
+EA L1945:                      obSwingSideOk ? "OB_SWING"
+EA L1946:                                    : (haveObSwing ? "FALLBACK_SIDE" : "FALLBACK_EMPTY"),
+EA L1947:                      haveObStruct ? DoubleToString(obStructRef, _Digits) : "-",
+EA L1948:                      haveObSwing  ? DoubleToString(obSwingRef,  _Digits) : "-",
+EA L1949:                      (dir == DIR_LONG)
+EA L1950:                         ? (haveLow  ? DoubleToString(swingLow,  _Digits) : "-")
+EA L1951:                         : (haveHigh ? DoubleToString(swingHigh, _Digits) : "-"),
+EA L1952:                      DoubleToString(slRefOut, _Digits),
+EA L1953:                      (haveObSwing && haveObStruct)
+EA L1954:                         ? DoubleToString(MathAbs(obSwingRef - obStructRef) / _Point, 0)
+EA L1955:                         : "-");
+EA L1956:       if(InpDebugLog)
+EA L1957:          PrintFormat("[SRJ-EA] SL_REF branch=1-swing obValid=1 slRef=%s distPts=%.0f site=%s "
+EA L1958:                      "zoneLo=%s zoneHi=%s",
+EA L1959:                      DoubleToString(slRefOut, _Digits),
+EA L1960:                      MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
+EA L1961:                      site,
+EA L1962:                      DoubleToString(g_zoneLo, _Digits),
+EA L1963:                      DoubleToString(g_zoneHi, _Digits));
+EA L1964:       return true;
+EA L1965:      }
+EA L1966:    else
+EA L1967:      {
+EA L1968:       int bufIdx = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+EA L1969:       double firstVal = 0.0;
+EA L1970:       bool   haveFirst = false;
+EA L1971:       for(int s = barShift; s <= barShift + 500; s++)
+EA L1972:         {
+EA L1973:          double v;
+EA L1974:          if(!ReadFlow(bufIdx, v, s)) break;
+EA L1975:          if(v == EMPTY_VALUE || v <= 0.0) continue;
+EA L1976:          if(!haveFirst) { firstVal = v; haveFirst = true; continue; }
+EA L1977:          if(MathAbs(v - firstVal) > _Point)
+EA L1978:            {
+EA L1979:             slRefOut = v; slModeOut = SL_MODE_2SWING;
+EA L1980:             if(InpDebugLog)
+EA L1981:                PrintFormat("[SRJ-EA] SL_REF branch=2-swing obValid=0 slRef=%s distPts=%.0f "
+EA L1982:                            "firstSwing=%s foundAtShift=%d site=%s "
+EA L1983:                            "zoneLo=%s zoneHi=%s",
+EA L1984:                            DoubleToString(slRefOut, _Digits),
+EA L1985:                            MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
+EA L1986:                            DoubleToString(firstVal, _Digits), s, site,
+EA L1987:                            DoubleToString(g_zoneLo, _Digits),
+EA L1988:                            DoubleToString(g_zoneHi, _Digits));
+EA L1989:             return true;
+EA L1990:            }
+EA L1991:         }
+EA L1992:       return false;
+EA L1993:      }
+EA L1994:   }
+EA L1995: 
+EA L1996: //====================== Step 7: Divergence latch =====================
+=== END SECTION 3 ===
+=== SECTION 4: EA ZONE SELECTION + IN-PLAY (L2081-2287) — ReadQualifyingZone, ZoneAdoptable, FindLegTouch, ZoneInPlay ===
+EA L2081: bool ReadQualifyingZone(int barShift, double &zHiOut, double &zLoOut, bool &fromFvgOut)
+EA L2082:   {
+EA L2083:    double xobHi = 0.0, xobLo = 0.0, fvgHi = 0.0, fvgLo = 0.0;
+EA L2084: 
+EA L2085:    // [Task 105] Identity census at the S4 re-read site. Placed immediately
+EA L2086:    // after the zone locals are declared and before any read or return, so it
+EA L2087:    // cannot alter the function's result on any path. Prints ids only; the
+EA L2088:    // bounds for this bar are already printed by ZONEMOVE and ZONEADOPT, so
+EA L2089:    // cross-referencing by bar= is sufficient and no duplicated read is needed.
+EA L2090:    // -1 means the buffer read failed. 0 means FlowLogic selected no object.
+EA L2091:    double t105a_xobId = -1.0, t105a_fvgId = -1.0;
+EA L2092:    if(!ReadFlow(FL_BUF_XOB_OBJ_ID, t105a_xobId, barShift)) t105a_xobId = -1.0;
+EA L2093:    if(!ReadFlow(FL_BUF_FVG_OBJ_ID, t105a_fvgId, barShift)) t105a_fvgId = -1.0;
+EA L2094:    if(InpDebugLog)
+EA L2095:       PrintFormat("[SRJ-EA] ZONEID bar=%s site=S4RQZ xobId=%d fvgId=%d",
+EA L2096:                   TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+EA L2097:                   (int)t105a_xobId, (int)t105a_fvgId);
+EA L2098:                   
+EA L2099:    bool haveXob = ReadFlow(FL_BUF_XOB_ZONE_HIGH, xobHi, barShift) && xobHi != EMPTY_VALUE &&
+EA L2100:                   ReadFlow(FL_BUF_XOB_ZONE_LOW,  xobLo, barShift) && xobLo != EMPTY_VALUE;
+EA L2101:    bool haveFvg = ReadFlow(FL_BUF_FVG_LEG_ZONE_HIGH, fvgHi, barShift) && fvgHi != EMPTY_VALUE &&
+EA L2102:                   ReadFlow(FL_BUF_FVG_LEG_ZONE_LOW,  fvgLo, barShift) && fvgLo != EMPTY_VALUE;
+EA L2103: 
+EA L2104:    if(haveFvg)
+EA L2105:      { zHiOut = MathMax(fvgHi, fvgLo); zLoOut = MathMin(fvgHi, fvgLo); fromFvgOut = true;  return true; }
+EA L2106:    if(haveXob)
+EA L2107:      { zHiOut = MathMax(xobHi, xobLo); zLoOut = MathMin(xobHi, xobLo); fromFvgOut = false; return true; }
+EA L2108:    return false;
+EA L2109:   }
+EA L2110: 
+EA L2111: //====================== [Task 36 / EA-47] Zone adoption guard =========
+EA L2112: //--- Measured cause: on 2026.08.20 three of six ZONEMOVEs adopted
+EA L2113: //--- 1.16547-1.16595 with obSwing=1.16536 - byte-identical to 08.19's values.
+EA L2114: //--- SRJ_NearestPromotedOBIndex selects the largest startBar among promoted,
+EA L2115: //--- valid, activated in-bias order blocks; when nothing from the current day
+EA L2116: //--- qualifies it returns the previous day's. One of those adoptions cleared a
+EA L2117: //--- legitimate touch (TOUCHCLEAR 18:55). Part A Step 4 requires "the current,
+EA L2118: //--- freshest structure", so a zone ~200 points from price with no structure
+EA L2119: //--- touching it is not adoptable mid-sequence.
+EA L2120: //---
+EA L2121: //--- The test is Ruling 8's in-play test, unchanged and threshold-free: BAR,
+EA L2122: //--- SWING1, or SWING2 penetration of the candidate zone. Verified against the
+EA L2123: //--- Task 35 journal - the 09:20 adoption of the operator's own XOB passes on
+EA L2124: //--- BAR (close 1.16775 inside 1.16737-1.16778) and all three stale adoptions
+EA L2125: //--- fail on all three conditions.
+EA L2126: //---
+EA L2127: //--- This does NOT re-adjudicate the existing zone. The `same` short-circuit
+EA L2128: //--- returns true when the zone has not moved, so Task 35's boundary - in-play
+EA L2129: //--- gates arming and is not re-checked afterwards - is preserved. What is
+EA L2130: //--- gated here is a REPLACEMENT, which would otherwise bypass Ruling 7b's
+EA L2131: //--- arming gate entirely.
+EA L2132: //---
+EA L2133: //--- The logic duplicates the S3 block's inline in-play test rather than
+EA L2134: //--- sharing it, because extracting that block is a restructure and belongs to
+EA L2135: //--- the state-machine rewrite. Logged as EA-49.
+EA L2136: bool ZoneAdoptable(int barShift, double zHi, double zLo)
+EA L2137:   {
+EA L2138:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+EA L2139: 
+EA L2140:    if(MathAbs(zHi - g_zoneHi) <= _Point * 0.5 &&
+EA L2141:       MathAbs(zLo - g_zoneLo) <= _Point * 0.5)
+EA L2142:       return true;
+EA L2143: 
+EA L2144:    bool   ok  = false;
+EA L2145:    string via = "none";
+EA L2146:    double bHi = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+EA L2147:    double bLo = iLow (_Symbol, PERIOD_CURRENT, barShift);
+EA L2148: 
+EA L2149:    if(bHi >= zLo && bLo <= zHi) { ok = true; via = "BAR"; }
+EA L2150: 
+EA L2151:    int    buf = (g_dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+EA L2152:    double sw1 = 0.0, sw2 = 0.0;
+EA L2153:    int    sh1 = -1,  sh2 = -1;
+EA L2154: 
+EA L2155:    if(FindNearestSwing(buf, barShift, sw1, sh1))
+EA L2156:      {
+EA L2157:       if(sw1 >= zLo && sw1 <= zHi)
+EA L2158:         { ok = true; if(via == "none") via = "SWING1"; }
+EA L2159: 
+EA L2160:       for(int s = sh1 + 1; s <= sh1 + 500; s++)
+EA L2161:         {
+EA L2162:          double v2;
+EA L2163:          if(!ReadFlow(buf, v2, s))          break;
+EA L2164:          if(v2 == EMPTY_VALUE || v2 <= 0.0) continue;
+EA L2165:          if(MathAbs(v2 - sw1) <= _Point)    continue;
+EA L2166:          sw2 = v2; sh2 = s;
+EA L2167:          break;
+EA L2168:         }
+EA L2169: 
+EA L2170:       if(sw2 > 0.0 && sw2 >= zLo && sw2 <= zHi)
+EA L2171:         { ok = true; if(via == "none") via = "SWING2"; }
+EA L2172:      }
+EA L2173: 
+EA L2174:    if(InpDebugLog)
+EA L2175:       PrintFormat("[SRJ-EA] ZONEADOPT bar=%s dir=%s adopt=%d via=%s newLo=%s newHi=%s "
+EA L2176:                   "barLo=%s barHi=%s sw1=%s@%d sw2=%s@%d",
+EA L2177:                   TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+EA L2178:                   DirName(g_dir), (int)ok, via,
+EA L2179:                   DoubleToString(zLo, _Digits),
+EA L2180:                   DoubleToString(zHi, _Digits),
+EA L2181:                   DoubleToString(bLo, _Digits),
+EA L2182:                   DoubleToString(bHi, _Digits),
+EA L2183:                   (sw1 > 0.0 ? DoubleToString(sw1, _Digits) : "-"), sh1,
+EA L2184:                   (sw2 > 0.0 ? DoubleToString(sw2, _Digits) : "-"), sh2);
+EA L2185:    return ok;
+EA L2186:   }
+EA L2187: 
+EA L2188: //====================== [Task 52 / EA-59b] Leg-scoped touch scan ======
+EA L2189: //--- Operator ruling EA-59b (Option B, wide): the opposite-direction touch may be
+EA L2190: //--- ANY older bar within the current structural leg, not only a bar evaluated
+EA L2191: //--- after the candidate armed. Admission is judged on the confirming bar with
+EA L2192: //--- every condition simultaneously true; the touch is a leg-scoped fact, not a
+EA L2193: //--- recency test, and retracement depth is not an admission criterion.
+EA L2194: //---
+EA L2195: //--- Measured cause: on 2026.08.20 the 09:35 candidate armed while evaluating the
+EA L2196: //--- operator's own 09:30 entry bar - arming timing was correct - but the
+EA L2197: //--- retracement into the zone had already completed before arming. The old S4
+EA L2198: //--- test only ever examined the single bar it was evaluating, so no touch was
+EA L2199: //--- ever seen and the sequence died at state=S4_ARMED. The EA was structurally
+EA L2200: //--- one full touch-and-confirm cycle behind the operator, every time.
+EA L2201: //---
+EA L2202: //--- Bound is the STRUCTURAL leg boundary (buffer 30), read through ReadFlow so it
+EA L2203: //--- lands in the settled slot. When the export reads 0.0 - unset, which is
+EA L2204: //--- warmup only since UpstreamReady gates evaluation - the 500-slot cap is the
+EA L2205: //--- sole bound. That cap matches FindNearestSwing and the 2-swing stop branch
+EA L2206: //--- exactly; it is a safety limit, not a tunable threshold, so Part A section 7
+EA L2207: //--- is not engaged.
+EA L2208: //---
+EA L2209: //--- The opposite-direction and zone-penetration tests below are
+EA L2210: //--- character-for-character the tests the existing single-bar S4 block already
+EA L2211: //--- applies. Nothing new is admitted per bar. The only change is how many bars
+EA L2212: //--- are examined.
+EA L2213: bool FindLegTouch(int barShift, double zHi, double zLo,
+EA L2214:                   int &foundShiftOut, double &legTimeOut)
+EA L2215:   {
+EA L2216:    foundShiftOut = -1;
+EA L2217:    legTimeOut    = 0.0;
+EA L2218:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+EA L2219: 
+EA L2220:    double legT;
+EA L2221:    if(ReadFlow(FL_BUF_STRUCT_LEG_TIME, legT, barShift) &&
+EA L2222:       legT > 0.0 && legT != EMPTY_VALUE)
+EA L2223:       legTimeOut = legT;
+EA L2224:    datetime legBoundary = (legTimeOut > 0.0) ? (datetime)legTimeOut : 0;
+EA L2225: 
+EA L2226:    for(int s = barShift; s <= barShift + 500; s++)
+EA L2227:      {
+EA L2228:       datetime bt = iTime(_Symbol, PERIOD_CURRENT, s);
+EA L2229:       if(bt <= 0)                              break;
+EA L2230:       if(legBoundary > 0 && bt < legBoundary)   break;
+EA L2231: 
+EA L2232:       double so = iOpen (_Symbol, PERIOD_CURRENT, s);
+EA L2233:       double sh = iHigh (_Symbol, PERIOD_CURRENT, s);
+EA L2234:       double sl = iLow  (_Symbol, PERIOD_CURRENT, s);
+EA L2235:       double sc = iClose(_Symbol, PERIOD_CURRENT, s);
+EA L2236: 
+EA L2237:       bool oppositeDir = (g_dir == DIR_LONG) ? (sc < so) : (sc > so);
+EA L2238:       bool touchesZone = (sh >= zLo && sl <= zHi);
+EA L2239:       if(oppositeDir && touchesZone)
+EA L2240:         { foundShiftOut = s; return true; }
+EA L2241:      }
+EA L2242:    return false;
+EA L2243:   }
+EA L2244: 
+EA L2245: //====================== [Task 55 / EA-56 + EA-58] Zone in-play test ===
+EA L2246: //--- Ruling 8's in-play test, extracted so it can be applied to MORE THAN ONE
+EA L2247: //--- candidate zone on the same bar. Logic is character-equivalent to the test
+EA L2248: //--- the S3 block already runs inline: BAR penetration of the zone by the
+EA L2249: //--- evaluation bar's own range, else SWING1 containment (freshest confirmed
+EA L2250: //--- swing on the protective side), else SWING2 containment (next DISTINCT
+EA L2251: //--- confirmed swing on that same side).
+EA L2252: //---
+EA L2253: //--- No distance parameter, no bar-count parameter, no tolerance. The _Point
+EA L2254: //--- separation test and the 500-slot bound match FindNearestSwing, the 2-swing
+EA L2255: //--- stop branch and the S3 inline test exactly; they are safety limits, not
+EA L2256: //--- tunable thresholds, so Part A section 7 is not engaged.
+EA L2257: //---
+EA L2258: //--- Silent by design. The caller reports the verdicts (see ZONEPICK), so this
+EA L2259: //--- adds no per-bar journal output of its own.
+EA L2260: //---
+EA L2261: //--- The S3 block's inline copy and ZoneAdoptable's copy are NOT removed. That
+EA L2262: //--- consolidation is EA-49 and belongs to the state-machine rewrite.
+EA L2263: bool ZoneInPlay(int barShift, double zHi, double zLo)
+EA L2264:   {
+EA L2265:    if(!(zHi > 0.0 && zLo > 0.0)) return false;
+EA L2266: 
+EA L2267:    double bHi = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+EA L2268:    double bLo = iLow (_Symbol, PERIOD_CURRENT, barShift);
+EA L2269:    if(bHi >= zLo && bLo <= zHi) return true;
+EA L2270: 
+EA L2271:    int    buf = (g_dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+EA L2272:    double sw1 = 0.0;
+EA L2273:    int    sh1 = -1;
+EA L2274:    if(!FindNearestSwing(buf, barShift, sw1, sh1)) return false;
+EA L2275:    if(sw1 >= zLo && sw1 <= zHi) return true;
+EA L2276: 
+EA L2277:    for(int s = sh1 + 1; s <= sh1 + 500; s++)
+EA L2278:      {
+EA L2279:       double v2;
+EA L2280:       if(!ReadFlow(buf, v2, s))          break;
+EA L2281:       if(v2 == EMPTY_VALUE || v2 <= 0.0) continue;
+EA L2282:       if(MathAbs(v2 - sw1) <= _Point)    continue;
+EA L2283:       return (v2 >= zLo && v2 <= zHi);
+EA L2284:      }
+EA L2285:    return false;
+EA L2286:   }
+EA L2287: 
+=== END SECTION 4 ===
+=== SECTION 5: EA S3 ARMING + INLINE IN-PLAY + SHADOW CENSUS (L3193-3480) ===
+EA L3193:       // [Task 105] Identity census at the S3 arming site. Same rationale as the
+EA L3194:       // S4RQZ block: ids only, placed before any read, branches on nothing.
+EA L3195:       // A distinct variable prefix is used because this is a different scope.
+EA L3196:       // -1 means the buffer read failed. 0 means FlowLogic selected no object.
+EA L3197:       double t105b_xobId = -1.0, t105b_fvgId = -1.0;
+EA L3198:       if(!ReadFlow(FL_BUF_XOB_OBJ_ID, t105b_xobId, barShift)) t105b_xobId = -1.0;
+EA L3199:       if(!ReadFlow(FL_BUF_FVG_OBJ_ID, t105b_fvgId, barShift)) t105b_fvgId = -1.0;
+EA L3200:       if(InpDebugLog)
+EA L3201:          PrintFormat("[SRJ-EA] ZONEID bar=%s site=S3PICK xobId=%d fvgId=%d",
+EA L3202:                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+EA L3203:                      (int)t105b_xobId, (int)t105b_fvgId);
+EA L3204: 
+EA L3205:       //--- [Task 123] Buffer 33 census at the S3 arming site, printed beside the
+EA L3206:       //--- objId above so the two pair by bar=. DIAGNOSTIC ONLY: t123_promoT is
+EA L3207:       //--- read, printed, and never used again. No gate, no branch, no abort, no
+EA L3208:       //--- assignment to any sequence variable. This edit cannot change any
+EA L3209:       //--- signal, any abort, or any state transition.
+EA L3210:       //--- raw= prints the unconverted double so an EMPTY_VALUE (2147483647) is
+EA L3211:       //--- distinguishable from a real datetime. -1 means the buffer read failed.
+EA L3212:       double t123_promoT = 0.0;
+EA L3213:       if(!ReadFlow(FL_BUF_XOB_PROMO_TIME, t123_promoT, barShift)) t123_promoT = -1.0;
+EA L3214:       if(InpDebugLog)
+EA L3215:          PrintFormat("[SRJ-EA] XOBPROMO bar=%s site=S3PICK xobId=%d raw=%s promoT=%s",
+EA L3216:                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+EA L3217:                      (int)t105b_xobId,
+EA L3218:                      DoubleToString(t123_promoT, 1),
+EA L3219:                      (t123_promoT > 0.0 && t123_promoT != EMPTY_VALUE)
+EA L3220:                        ? TimeToString((datetime)t123_promoT, TIME_DATE|TIME_MINUTES)
+EA L3221:                        : "unset");
+EA L3222: 
+EA L3223:       bool haveXob = ReadFlow(FL_BUF_XOB_ZONE_HIGH, xobHi, barShift) && xobHi != EMPTY_VALUE &&
+EA L3224:                      ReadFlow(FL_BUF_XOB_ZONE_LOW,  xobLo, barShift) && xobLo != EMPTY_VALUE;
+EA L3225:       bool haveFvg = ReadFlow(FL_BUF_FVG_LEG_ZONE_HIGH, fvgHi, barShift) && fvgHi != EMPTY_VALUE &&
+EA L3226:                      ReadFlow(FL_BUF_FVG_LEG_ZONE_LOW,  fvgLo, barShift) && fvgLo != EMPTY_VALUE;
+EA L3227: 
+EA L3228:       //--- [Task 31 / Rulings 7b + 8] "In play" test. Part A Step 4 requires a
+EA L3229:       //--- zone "being retested by the current, freshest structure"; until now
+EA L3230:       //--- the EA armed on zone EXISTENCE alone, and measured candidates armed
+EA L3231:       //--- 108, 315 and 362 points from zones price had never reached. Under
+EA L3232:       //--- Ruling 7a that is no longer merely a wasted alert - such a candidate
+EA L3233:       //--- holds the one-setup-per-session slot until the window closes and
+EA L3234:       //--- suppresses every genuine setup behind it.
+EA L3235:       //---
+EA L3236:       //--- Ruling 8 defines "in play" as ANY of three penetrations of the
+EA L3237:       //--- projected zone:
+EA L3238:       //---   BAR    - the evaluation bar's own high/low range (the retracement
+EA L3239:       //---            case; operator setups 1 and 3 satisfy this)
+EA L3240:       //---   SWING1 - the freshest confirmed swing on the protective side
+EA L3241:       //---   SWING2 - the next DISTINCT confirmed swing on that same side
+EA L3242:       //--- Operator setup 2 entered 101 points above its XOB and was valid
+EA L3243:       //--- because the projection was still touched by structure, specifically
+EA L3244:       //--- by the second swing - the one the stop was placed at.
+EA L3245:       //---
+EA L3246:       //--- No distance parameter, no bar-count parameter, no tolerance. Every
+EA L3247:       //--- input is a structure FlowLogic already exports. Two swings, not N,
+EA L3248:       //--- because Part A Step 6's own two-swing stop branch already fixes two
+EA L3249:       //--- as this system's structural depth. Part A section 7 not engaged.
+EA L3250:       //---
+EA L3251:       //--- FVG-over-XOB precedence mirrors the existing block below (EA-1,
+EA L3252:       //--- zero live instances across two ranges). Reads only; assigns nothing
+EA L3253:       //--- the existing block relies on.
+EA L3254:       //--- [Task 55 / EA-56 + EA-58] An exported FVG must not veto an in-play XOB.
+EA L3255:       //--- Operator ruling: there is NO precedence between a valid XOB and a valid
+EA L3256:       //--- FVG - validity is the only gate. But the selection immediately below,
+EA L3257:       //--- and ReadQualifyingZone's identical copy, return the FVG unconditionally
+EA L3258:       //--- whenever one is exported, with no test applied to it. The XOB is
+EA L3259:       //--- discarded before anything examines it.
+EA L3260:       //---
+EA L3261:       //--- Consequence at THIS site, which is the arming site: when the exported
+EA L3262:       //--- FVG is not in play but the XOB is, s31_zHi/s31_zLo take the FVG, the
+EA L3263:       //--- inline in-play test below returns false, and the candidate does not arm
+EA L3264:       //--- at all - while a qualifying in-play XOB sits unused in xobHi/xobLo,
+EA L3265:       //--- already read on this bar. The Task 33a depth guard cannot see this: it
+EA L3266:       //--- compares the RETURNED zone against the adopted one, and the vetoed XOB
+EA L3267:       //--- never reaches it.
+EA L3268:       //---
+EA L3269:       //--- Fix: test both zones, and downgrade haveFvg to false ONLY in that one
+EA L3270:       //--- case. Downgrading haveFvg rather than rewriting the selection means the
+EA L3271:       //--- selection below, the arming condition, the adoption block and the src=
+EA L3272:       //--- label all follow correctly with no further edits and no restructure.
+EA L3273:       //---
+EA L3274:       //--- STRICTLY MONOTONE. haveFvg is downgraded only when
+EA L3275:       //---   haveFvg && !fvgInPlay && haveXob && xobInPlay
+EA L3276:       //--- which is precisely the set of bars that cannot arm today. Every other
+EA L3277:       //--- bar is byte-identical, including the both-in-play case, where the FVG
+EA L3278:       //--- still wins. That surviving preference is an ENGINEERING TIEBREAK forced
+EA L3279:       //--- by the single g_zoneHi/g_zoneLo slot, exactly as the Task 33a depth
+EA L3280:       //--- guard is - it is NOT a strategy rule and must not be documented as one.
+EA L3281:       //--- It dissolves only when the EA can hold several zones concurrently.
+EA L3282:       //---
+EA L3283:       //--- The ZONEPICK line below is also a census: on the 2026.08.19-20 window
+EA L3284:       //--- every arming bar reported haveFvg=0, so it is not yet known whether the
+EA L3285:       //--- FVG-leg export ever populates in the tester. downgraded=1 never
+EA L3286:       //--- appearing would mean this defect has no live instance on that window,
+EA L3287:       //--- not that the guard is absent.
+EA L3288:       bool s55_fvgInPlay = false, s55_xobInPlay = false, s55_downgraded = false;
+EA L3289:       if(haveFvg)
+EA L3290:          s55_fvgInPlay = ZoneInPlay(barShift, MathMax(fvgHi, fvgLo), MathMin(fvgHi, fvgLo));
+EA L3291:       if(haveXob)
+EA L3292:          s55_xobInPlay = ZoneInPlay(barShift, MathMax(xobHi, xobLo), MathMin(xobHi, xobLo));
+EA L3293:       if(haveFvg && !s55_fvgInPlay && haveXob && s55_xobInPlay)
+EA L3294:         { haveFvg = false; s55_downgraded = true; }
+EA L3295:       if(InpDebugLog)
+EA L3296:          PrintFormat("[SRJ-EA] ZONEPICK bar=%s dir=%s haveFvg=%d fvgInPlay=%d "
+EA L3297:                      "haveXob=%d xobInPlay=%d downgraded=%d fvg=%s-%s xob=%s-%s",
+EA L3298:                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+EA L3299:                      DirName(g_dir),
+EA L3300:                      (int)haveFvg, (int)s55_fvgInPlay,
+EA L3301:                      (int)haveXob, (int)s55_xobInPlay,
+EA L3302:                      (int)s55_downgraded,
+EA L3303:                      (haveFvg || s55_downgraded) ? DoubleToString(MathMin(fvgHi, fvgLo), _Digits) : "-",
+EA L3304:                      (haveFvg || s55_downgraded) ? DoubleToString(MathMax(fvgHi, fvgLo), _Digits) : "-",
+EA L3305:                      haveXob ? DoubleToString(MathMin(xobHi, xobLo), _Digits) : "-",
+EA L3306:                      haveXob ? DoubleToString(MathMax(xobHi, xobLo), _Digits) : "-");
+EA L3307: 
+EA L3308:       double s31_zHi = 0.0, s31_zLo = 0.0;
+EA L3309:       if(haveFvg)      { s31_zHi = MathMax(fvgHi, fvgLo); s31_zLo = MathMin(fvgHi, fvgLo); }
+EA L3310:       else if(haveXob) { s31_zHi = MathMax(xobHi, xobLo); s31_zLo = MathMin(xobHi, xobLo); }
+EA L3311: 
+EA L3312:       bool   s31_inPlay   = false;
+EA L3313:       string s31_via      = "none";
+EA L3314:       double s31_sw1      = 0.0,  s31_sw2      = 0.0;
+EA L3315:       int    s31_sw1Shift = -1,   s31_sw2Shift = -1;
+EA L3316:       double s31_barHi    = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+EA L3317:       double s31_barLo    = iLow (_Symbol, PERIOD_CURRENT, barShift);
+EA L3318: 
+EA L3319:       if(s31_zHi > 0.0 && s31_zLo > 0.0)
+EA L3320:         {
+EA L3321:          if(s31_barHi >= s31_zLo && s31_barLo <= s31_zHi)
+EA L3322:            { s31_inPlay = true; s31_via = "BAR"; }
+EA L3323: 
+EA L3324:          int s31_buf = (g_dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+EA L3325: 
+EA L3326:          if(FindNearestSwing(s31_buf, barShift, s31_sw1, s31_sw1Shift))
+EA L3327:            {
+EA L3328:             if(s31_sw1 >= s31_zLo && s31_sw1 <= s31_zHi)
+EA L3329:               {
+EA L3330:                s31_inPlay = true;
+EA L3331:                if(s31_via == "none") s31_via = "SWING1";
+EA L3332:               }
+EA L3333: 
+EA L3334:             //--- Next DISTINCT swing on the same side. The _Point separation
+EA L3335:             //--- test mirrors the existing 2-swing stop branch exactly, and the
+EA L3336:             //--- 500-slot bound matches both it and FindNearestSwing. Safety
+EA L3337:             //--- limits, not tunable thresholds.
+EA L3338:             for(int s = s31_sw1Shift + 1; s <= s31_sw1Shift + 500; s++)
+EA L3339:               {
+EA L3340:                double s31_v2;
+EA L3341:                if(!ReadFlow(s31_buf, s31_v2, s))                 break;
+EA L3342:                if(s31_v2 == EMPTY_VALUE || s31_v2 <= 0.0)        continue;
+EA L3343:                if(MathAbs(s31_v2 - s31_sw1) <= _Point)           continue;
+EA L3344:                s31_sw2 = s31_v2; s31_sw2Shift = s;
+EA L3345:                break;
+EA L3346:               }
+EA L3347: 
+EA L3348:             if(s31_sw2 > 0.0 && s31_sw2 >= s31_zLo && s31_sw2 <= s31_zHi)
+EA L3349:               {
+EA L3350:                s31_inPlay = true;
+EA L3351:                if(s31_via == "none") s31_via = "SWING2";
+EA L3352:               }
+EA L3353:            }
+EA L3354:         }
+EA L3355: 
+EA L3356:       //--- Arming-bar high/low are printed for EA-42: the EA cannot reach S5
+EA L3357:       //--- until a later bar closes in direction, so its entry price is
+EA L3358:       //--- structurally later than the operator's. This line measures the gap
+EA L3359:       //--- for free. Diagnostic only - nothing reads it.
+EA L3360:       if(InpDebugLog)
+EA L3361:          PrintFormat("[SRJ-EA] S3INPLAY bar=%s dir=%s inPlay=%d via=%s "
+EA L3362:                      "zoneLo=%s zoneHi=%s barLo=%s barHi=%s close=%s "
+EA L3363:                      "sw1=%s@%d sw2=%s@%d",
+EA L3364:                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+EA L3365:                      DirName(g_dir), (int)s31_inPlay, s31_via,
+EA L3366:                      DoubleToString(s31_zLo, _Digits),
+EA L3367:                      DoubleToString(s31_zHi, _Digits),
+EA L3368:                      DoubleToString(s31_barLo, _Digits),
+EA L3369:                      DoubleToString(s31_barHi, _Digits),
+EA L3370:                      DoubleToString(iClose(_Symbol, PERIOD_CURRENT, barShift), _Digits),
+EA L3371:                      (s31_sw1 > 0.0 ? DoubleToString(s31_sw1, _Digits) : "-"), s31_sw1Shift,
+EA L3372:                      (s31_sw2 > 0.0 ? DoubleToString(s31_sw2, _Digits) : "-"), s31_sw2Shift);
+EA L3373: 
+EA L3374:       //--- [Task 126 / EA-49 / A-3 section 5.7] SHADOW in-play census.
+EA L3375:       //--- DIAGNOSTIC ONLY. The live test above stops after TWO swings
+EA L3376:       //--- (s31_sw1, s31_sw2), so a zone put in play by an older swing reads
+EA L3377:       //--- inPlay=0 today. The operator's own 08/17 zone was in play via a swing
+EA L3378:       //--- roughly eighty bars before entry, which two swings cannot reach.
+EA L3379:       //--- Ruling 5.7 bounds the walk by the backing XOB's OWN LIFETIME instead:
+EA L3380:       //--- every confirmed protective-side swing between its promotion time and
+EA L3381:       //--- now. This block runs that walk and PRINTS its verdict beside the live
+EA L3382:       //--- one. It assigns nothing the cascade reads, touches s31_inPlay not at
+EA L3383:       //--- all, and cannot change any signal, abort or state transition.
+EA L3384:       //---
+EA L3385:       //--- Bound source is buffer 33, which FlowLogic writes from the SAME object
+EA L3386:       //--- pointer as buffers 22/23/31 inside the SAME branch, so it describes
+EA L3387:       //--- the XOB zone and only the XOB zone. zoneSrc is printed so an
+EA L3388:       //--- FVG-sourced zone is separable: an FVG has no promotion time of its own
+EA L3389:       //--- and must never be bounded by an unrelated object's lifetime. haveFvg
+EA L3390:       //--- is false on every bar today (EA-120 limb 2), so that case has no live
+EA L3391:       //--- instance yet.
+EA L3392:       //---
+EA L3393:       //--- capHit=1 means the walk stopped on the 500-slot safety bound rather
+EA L3394:       //--- than on the promotion time. Measured, not accepted: if capHit is
+EA L3395:       //--- common then the bound is de facto a bar count and section 5.7 needs a
+EA L3396:       //--- different implementation. bounded=0 means buffer 33 read unset, in
+EA L3397:       //--- which case the walk has no structural bound at all and the live
+EA L3398:       //--- version must fail closed.
+EA L3399:       //---
+EA L3400:       //--- BAR penetration is carried into the widened verdict unchanged. Ruling
+EA L3401:       //--- 5.7 alters the swing depth only.
+EA L3402:       if(InpDebugLog)
+EA L3403:         {
+EA L3404:          bool     t124_bounded = (t123_promoT > 0.0 && t123_promoT != EMPTY_VALUE);
+EA L3405:          datetime t124_bound   = t124_bounded ? (datetime)t123_promoT : 0;
+EA L3406:          int      t124_buf     = (g_dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+EA L3407:          int      t124_scanned = 0;
+EA L3408:          int      t124_swings  = 0;
+EA L3409:          int      t124_hits    = 0;
+EA L3410:          int      t124_first   = -1;
+EA L3411:          double   t124_firstV  = 0.0;
+EA L3412:          bool     t124_capHit  = false;
+EA L3413:          bool     t124_wide    = false;
+EA L3414:          int      t124_s       = barShift;
+EA L3415: 
+EA L3416:          if(s31_zHi > 0.0 && s31_zLo > 0.0)
+EA L3417:            {
+EA L3418:             for(t124_s = barShift; t124_s <= barShift + 500; t124_s++)
+EA L3419:               {
+EA L3420:                datetime t124_bt = iTime(_Symbol, PERIOD_CURRENT, t124_s);
+EA L3421:                if(t124_bt <= 0)                                    break;
+EA L3422:                if(t124_bounded && t124_bt < t124_bound)            break;
+EA L3423:                t124_scanned++;
+EA L3424:                double t124_v;
+EA L3425:                if(!ReadFlow(t124_buf, t124_v, t124_s))             break;
+EA L3426:                if(t124_v == EMPTY_VALUE || t124_v <= 0.0)          continue;
+EA L3427:                t124_swings++;
+EA L3428:                if(t124_v >= s31_zLo && t124_v <= s31_zHi)
+EA L3429:                  {
+EA L3430:                   t124_hits++;
+EA L3431:                   if(t124_first < 0) { t124_first = t124_s; t124_firstV = t124_v; }
+EA L3432:                  }
+EA L3433:               }
+EA L3434:             if(t124_s > barShift + 500) t124_capHit = true;
+EA L3435:             t124_wide = (t124_hits > 0) ||
+EA L3436:                         (s31_barHi >= s31_zLo && s31_barLo <= s31_zHi);
+EA L3437:            }
+EA L3438: 
+EA L3439:          PrintFormat("[SRJ-EA] XOBINPLAY bar=%s dir=%s zoneSrc=%s zoneLo=%s zoneHi=%s "
+EA L3440:                      "promoT=%s bounded=%d scanned=%d swings=%d hits=%d "
+EA L3441:                      "firstShift=%d firstVal=%s capHit=%d legacy=%d legacyVia=%s "
+EA L3442:                      "widened=%d flip=%d",
+EA L3443:                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+EA L3444:                      DirName(g_dir),
+EA L3445:                      haveFvg ? "FVG" : (haveXob ? "XOB" : "none"),
+EA L3446:                      DoubleToString(s31_zLo, _Digits),
+EA L3447:                      DoubleToString(s31_zHi, _Digits),
+EA L3448:                      t124_bounded ? TimeToString(t124_bound, TIME_DATE|TIME_MINUTES) : "unset",
+EA L3449:                      (int)t124_bounded, t124_scanned, t124_swings, t124_hits,
+EA L3450:                      t124_first,
+EA L3451:                      (t124_first >= 0 ? DoubleToString(t124_firstV, _Digits) : "-"),
+EA L3452:                      (int)t124_capHit, (int)s31_inPlay, s31_via,
+EA L3453:                      (int)t124_wide, (int)(t124_wide && !s31_inPlay));
+EA L3454: 
+EA L3455:          //--- [Task 127 / EA-49 / A-3 section 5.7] SECOND shadow verdict, with the
+EA L3456:          //--- 500-slot cap removed. DIAGNOSTIC ONLY. Task 126 measured capHit=1 on
+EA L3457:          //--- 8 of 56 S3 bars â€” the Task 126 walk terminated on the 500-slot safety
+EA L3458:          //--- bound rather than on the promotion time, so its hits=0 on those bars
+EA L3459:          //--- is a TRUNCATED zero and not a measured one. A bound that resolves to
+EA L3460:          //--- "500 bars" is a bar-count threshold, which the standing prohibition
+EA L3461:          //--- forbids. This walk removes the cap without introducing a number: the
+EA L3462:          //--- loop limit is Bars(), a structural quantity, and the ONLY substantive
+EA L3463:          //--- terminator is the promotion-time comparison. reached2=1 means the walk
+EA L3464:          //--- ended on that boundary and the ruled bound was honoured; reached2=0
+EA L3465:          //--- means it ended on history exhaustion or a read failure and the result
+EA L3466:          //--- is still truncated.
+EA L3467:          //---
+EA L3468:          //--- cls1 and cls2 are printed as SINGLE TOKENS so the legacy-versus-shadow
+EA L3469:          //--- cross-tabulation needs no arithmetic downstream. Task 126 reported the
+EA L3470:          //--- LEGACYONLY cell as zero when its own data showed otherwise; a token
+EA L3471:          //--- makes that class of error impossible.
+EA L3472:          //---   BOTH        legacy in play AND shadow in play
+EA L3473:          //---   LEGACYONLY  legacy in play, shadow NOT â€” a witness predating the
+EA L3474:          //---               XOB's own promotion, which section 5.7 excludes
+EA L3475:          //---   WIDEONLY    shadow in play, legacy NOT â€” the admission gain
+EA L3476:          //---   NEITHER     both out of play
+EA L3477:          //---
+EA L3478:          //--- Reuses t124_bound, t124_bounded and t124_buf, all in scope. Assigns
+EA L3479:          //--- nothing the cascade reads, touches s31_inPlay not at all, and cannot
+EA L3480:          //--- change any signal, abort or state transition.
+=== END SECTION 5 ===
+=== SECTION 6: FLOWLOGIC HEADER + BUFFER MAP + PROMOTION EXPORT (L1-130) and PROMOTION WRITE + PROTECTIVE EXTREMES (L1020-1110) (FL Ln) ===
+FL L1: //+------------------------------------------------------------------+
+FL L2: //|                                                SRJ_FlowLogic.mq5 |
+FL L3: //|      SRJ Flow Logic Auto — Pine v6 -> MQL5 port (Main)          |
+FL L4: //+------------------------------------------------------------------+
+FL L5: #property copyright "SRJ Flow Logic Auto — Pine v6 port"
+FL L6: #property version   "1.00"
+FL L7: #property indicator_chart_window
+FL L8: #property indicator_buffers 37  // [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId). [Task 155] Was 34. Added 34 (tickOBIsValid provenance), 35 (tickFVGIsValid provenance, population deferred), 36 (hasPersistedOpposingFVG provenance, population deferred).
+FL L9: #property indicator_plots   2
+FL L10: 
+FL L11: #property indicator_label1  "Fractal High"
+FL L12: #property indicator_type1   DRAW_ARROW
+FL L13: #property indicator_label2  "Fractal Low"
+FL L14: #property indicator_type2   DRAW_ARROW
+FL L15: 
+FL L16: #include <SRJ/SRJ_Types.mqh>
+FL L17: #include <SRJ/SRJ_State.mqh>
+FL L18: #include <SRJ/SRJ_Text.mqh>
+FL L19: #include <SRJ/SRJ_Fractals.mqh>
+FL L20: #include <SRJ/SRJ_Draw.mqh>
+FL L21: #include <SRJ/SRJ_Alerts.mqh>
+FL L22: #include <SRJ/SRJ_OrderblockMgr.mqh>
+FL L23: #include <SRJ/SRJ_ImbalanceMgr.mqh>
+FL L24: #include <SRJ/SRJ_BiasEngine.mqh>
+FL L25: #include <SRJ/SRJ_Sessions.mqh>
+FL L26: #include <SRJ/SRJ_HTFEngine.mqh>
+FL L27: #include <SRJ/SRJ_Panels.mqh>
+FL L28: 
+FL L29: // [NEW] Export buffer array declarations
+FL L30: double g_bufBias[];
+FL L31: double g_bufOBValid[];
+FL L32: double g_bufFVGValid[];
+FL L33: double g_bufOppFVG[];
+FL L34: double g_bufSwingHigh[];
+FL L35: double g_bufSwingLow[];
+FL L36: double g_bufPrevDayHigh[];
+FL L37: double g_bufPrevDayLow[];
+FL L38: double g_bufAsiaHigh[];
+FL L39: double g_bufAsiaLow[];
+FL L40: double g_bufLondonHigh[];
+FL L41: double g_bufLondonLow[];
+FL L42: double g_bufNyHigh[];
+FL L43: double g_bufNyLow[];
+FL L44: double g_bufPmHigh[];
+FL L45: double g_bufPmLow[];
+FL L46: double g_bufSweepTag[];
+FL L47: double g_bufHtfHi[];
+FL L48: double g_bufHtfMid[];
+FL L49: double g_bufHtfLo[];
+FL L50: 
+FL L51: // [Section 8] XOB "in play" (regardless of age) + FVG-to-XOB leg lineage.
+FL L52: double g_bufXobZoneHigh[];
+FL L53: double g_bufXobZoneLow[];
+FL L54: double g_bufFvgLegZoneHigh[];
+FL L55: double g_bufFvgLegZoneLow[];
+FL L56: 
+FL L57: // [Task 25] Stop-loss structural reference — see the export block in OnCalculate.
+FL L58: double g_bufObStructExtreme[];
+FL L59: double g_bufObSwingExtreme[];
+FL L60: 
+FL L61: // [Task 27] Structural-renewal boundary (Part A ruling 4: all five boundary
+FL L62: // events count). Exported as the SERVER-TIME datetime of the boundary bar cast
+FL L63: // to double, not as a raw bar index — a bar index is meaningless to any reader
+FL L64: // that does not share FlowLogic's rates_total frame, and a double holds a Unix
+FL L65: // timestamp exactly. 0.0 means no boundary set yet, or the index is out of range.
+FL L66: // EMPTY_VALUE is deliberately NOT the sentinel here: 2147483647 is a plausible
+FL L67: // datetime and would be indistinguishable from real data.
+FL L68: double g_bufRenewalBoundaryTime[];
+FL L69: 
+FL L70: // [Task 39 / EA-26 + EA-51] Packed swept-state + session-live mask for the EA's
+FL L71: // take-profit filter. Integer packed into a double (14 bits, held exactly).
+FL L72: //   bits 0..9  swept flags, in the EA's sessbufs[] order:
+FL L73: //     0 PD.H  1 PD.L  2 AS.H  3 AS.L  4 LD.H  5 LD.L  6 NY.H  7 NY.L  8 PM.H  9 PM.L
+FL L74: //   bits 10..13 session currently live: 10 Asia  11 London  12 NY  13 PM
+FL L75: //     (previous-day levels are never live, so PD has no live bit.)
+FL L76: // EMPTY_VALUE = not ready; a real mask of 0 (nothing swept, no live session) is
+FL L77: // a valid, distinct value, which is why 0.0 is NOT the sentinel here.
+FL L78: double g_bufSweptMask[];
+FL L79: 
+FL L80: // [Task 50 / EA-59b] Structural-leg boundary time. Exported so the EA can bound
+FL L81: // its Option-B backward touch scan to the current structural leg. Same encoding
+FL L82: // as buffer 28: the SERVER-TIME datetime of the boundary bar cast to double.
+FL L83: // 0.0 means unset or out of range. EMPTY_VALUE is deliberately NOT the sentinel
+FL L84: // here — 2147483647 is a plausible datetime.
+FL L85: // This carries structLegBoundary (the STRUCTURAL boundary), deliberately NOT
+FL L86: // obInvalidationBoundary (the CHECKLIST boundary that buffer 28 already carries).
+FL L87: // The two are different by operator ruling and must not be conflated.
+FL L88: double g_bufStructLegTime[];
+FL L89: 
+FL L90: // [Task 102] Structural identity of the two zones exported on buffers 22/23 and
+FL L91: // 24/25. Carries COrderblock.objId and CImbalance.objId (assigned in Task 98a)
+FL L92: // cast to double, so the EA can tell whether the zone it is bound to is still
+FL L93: // the SAME object or has been silently replaced by a different one at the same
+FL L94: // or a different price. Written from the same object pointer that writes the
+FL L95: // bounds, in the same branch, so the id and the bounds can never describe
+FL L96: // different objects.
+FL L97: // 0.0 = no object selected. SRJ_NextObjId() starts at 1, so 0 is never a real
+FL L98: // id. EMPTY_VALUE is deliberately NOT the sentinel: it is a plausible integer.
+FL L99: // Ids are unique for the life of a run but NOT stable across a full recalc
+FL L100: // (SRJ_StateInit destroys every object and restarts the counter) — see EA-109.
+FL L101: // Read-only query. Nothing in this indicator consumes either buffer.
+FL L102: double g_bufXobObjId[];
+FL L103: double g_bufFvgObjId[];
+FL L104: 
+FL L105: // [Task 113] Promotion time of the order block exported on buffers 22/23/31.
+FL L106: // Carries COrderblock.promotionBar (Task 110) converted to a SERVER-TIME
+FL L107: // datetime and cast to double, the same encoding buffers 28 and 30 use.
+FL L108: // 0.0 = unset, meaning either no object selected or that object has never been
+FL L109: // promoted. EMPTY_VALUE is deliberately NOT the sentinel: 2147483647 is a
+FL L110: // plausible datetime and would be indistinguishable from real data.
+FL L111: // Written from the SAME object pointer that writes the bounds on 22/23 and the
+FL L112: // id on 31, inside the SAME branch, so the promotion time can never describe a
+FL L113: // different object than the bounds or the id of the same slot.
+FL L114: // Under Part A section 1.2 an order block becomes relevant on promotion, so
+FL L115: // this is the lower bound of that object's in-play lifetime.
+FL L116: // Read-only query. Nothing in this indicator consumes this buffer.
+FL L117: double g_bufXobPromoTime[];
+FL L118: double g_bufOBValidProv[];    // [Task 155] Buffer 34. Provenance of the tickOBIsValid value exported at the flag export block. Initialised to EMPTY_VALUE, not 0.0: 0.0 is spoken for by this file's two objId buffers as "no object selected", and EMPTY_VALUE keeps this buffer uncomputed in exactly the bars where g_bufOBValid is uncomputed.
+FL L119: double g_bufFVGValidProv[];   // [Task 155] Buffer 35. Registered now, population deferred to Task 156. Same EMPTY_VALUE rationale as buffer 34.
+FL L120: double g_bufOppFVGProv[];     // [Task 155] Buffer 36. Registered now, population deferred to Task 163. Same EMPTY_VALUE rationale as buffer 34.
+FL L121: 
+FL L122: SState g_sSnapshot;
+FL L123: bool g_snapValid = false;
+FL L124: enum ENUM_DAILYANCHOR { DAILY_BROKER_MIDNIGHT, DAILY_NEWYORK_MIDNIGHT, DAILY_CUSTOM_HOUR };
+FL L125: enum ENUM_ROBUSTNESS { ROBUST_LIGHT, ROBUST_MEDIUM, ROBUST_LARGE, ROBUST_CUSTOM };
+FL L126: enum ENUM_AUTOTF { AUTOTF_AGGRESSIVE, AUTOTF_BALANCED, AUTOTF_CONSERVATIVE };
+FL L127: enum ENUM_TBLPOS { TBLPOS_TL, TBLPOS_TR, TBLPOS_BL, TBLPOS_BR };
+FL L128: enum ENUM_TBLSIZE { TBLSIZE_TINY, TBLSIZE_SMALL, TBLSIZE_NORMAL, TBLSIZE_LARGE };
+FL L129: enum ENUM_CHARTTF { CTF_1MIN, CTF_5MIN };
+FL L130: enum ENUM_ERL_FROM { ERLF_NA, ERLF_ASH, ERLF_ASL, ERLF_LDH, ERLF_LDL, ERLF_NYH, ERLF_NYL, ERLF_PMH, ERLF_PML, ERLF_PDH, ERLF_PDL };
+FL L1020:             int xobIdx = SRJ_NearestPromotedOBIndex(g_s.currentBias);
+FL L1021:             if(xobIdx >= 0)
+FL L1022:               {
+FL L1023:                COrderblock *xob = GetOB(g_orderblocks, xobIdx);
+FL L1024:                if(xob != NULL)
+FL L1025:                  {
+FL L1026:                   g_bufXobZoneHigh[target] = xob.high;
+FL L1027:                   g_bufXobZoneLow[target]  = xob.low;
+FL L1028:                   g_bufXobObjId[target]    = (double)xob.objId;   // [Task 102]
+FL L1029:                   // [Task 113] Same branch, same pointer as the bounds and the
+FL L1030:                   // id above, so all four values describe one order block.
+FL L1031:                   // promotionBar is long and SRJ_BarTime takes int, so the cast
+FL L1032:                   // is explicit. SrjIsNa is tested on the cast value.
+FL L1033:                   int t113_pb = (int)xob.promotionBar;
+FL L1034:                   if(!SrjIsNa(t113_pb) && t113_pb >= 0 && t113_pb < rates_total)
+FL L1035:                     {
+FL L1036:                      datetime t113_pt = SRJ_BarTime(t113_pb);
+FL L1037:                      if(t113_pt > 0)
+FL L1038:                         g_bufXobPromoTime[target] = (double)t113_pt;
+FL L1039:                     }
+FL L1040:                  }
+FL L1041:               }
+FL L1042:            }
+FL L1043: 
+FL L1044:          // FVG-to-XOB expansion-leg membership: freshest in-bias, unfilled FVG
+FL L1045:          // within the current still-open leg (startBar >= obInvalidationBoundary),
+FL L1046:          // gated on the leg actually having a promoted XOB backing it
+FL L1047:          // (g_s.currentLegHasXOB — see SRJ_State.mqh / SRJ_BiasEngine.mqh /
+FL L1048:          // SRJ_OrderblockMgr.mqh). This is an engineering approximation of
+FL L1049:          // "the XOB that started the current leg": it doesn't track the one
+FL L1050:          // specific OB, just whether ANY promotion has resolved since the leg
+FL L1051:          // began — see the Pass 21 handoff note for why, and for the residual
+FL L1052:          // edge-case risk this leaves open.
+FL L1053:          g_bufFvgLegZoneHigh[target] = EMPTY_VALUE;
+FL L1054:          g_bufFvgLegZoneLow[target]  = EMPTY_VALUE;
+FL L1055:          g_bufFvgObjId[target]       = 0.0;   // [Task 102] 0 = no object selected
+FL L1056:          if(!SrjIsNa(g_s.currentBias) && g_s.currentLegHasXOB &&
+FL L1057:             !SrjIsNa(g_s.structLegBoundary))
+FL L1058:            {
+FL L1059:             int freshFvgIdx = -1;
+FL L1060:             int freshFvgBar = SRJ_NA_INT;
+FL L1061:             double freshFvgDist = 0.0;   // [EA-30] selected FVG's nearest-to-price distance
+FL L1062:             int nFvg = g_imbalances.Total();
+FL L1063:             for(int fk = 0; fk < nFvg; fk++)
+FL L1064:               {
+FL L1065:                CImbalance *fvg = GetFVG(g_imbalances, fk);
+FL L1066:                if(fvg == NULL)                                   continue;
+FL L1067:                bool fvgMatches = (g_s.currentBias == "bullish" && fvg.isBullish) ||
+FL L1068:                                  (g_s.currentBias == "bearish" && !fvg.isBullish);
+FL L1069:                if(!fvgMatches)                                   continue;
+FL L1070:                if(fvg.isFilled)                                  continue;
+FL L1071:                // [Task 61 / EA-62] Option A BAR-penetration pre-filter REMOVED. Was: if(!(high[i] >= fvg.bottom && low[i] <= fvg.top)) continue; — it exported an FVG only on a bar physically overlapping it, making buffers 24/25 a single-bar flag rather than a projected zone. In-play adjudication belongs to the EA's ZoneInPlay (Ruling 8), not upstream. Measured: 118/576 bars populated, none of them an S3 bar.
+FL L1072:                double srj_pxRef  = close[i];   // [EA-30] nearest-to-price tie reference
+FL L1073:                double srj_curDist = (srj_pxRef >= fvg.bottom && srj_pxRef <= fvg.top) ? 0.0
+FL L1074:                                     : MathMin(MathAbs(srj_pxRef - fvg.top), MathAbs(srj_pxRef - fvg.bottom));
+FL L1075:                if(fvg.startBar < g_s.structLegBoundary)      continue;  // [EA-30] current structural leg
+FL L1076:                if(freshFvgIdx < 0 || srj_curDist < freshFvgDist || (srj_curDist == freshFvgDist && fvg.startBar > freshFvgBar))
+FL L1077:                  {
+FL L1078:                   freshFvgIdx = fk;
+FL L1079:                   freshFvgBar = fvg.startBar;
+FL L1080:                   freshFvgDist = srj_curDist;   // [EA-30]
+FL L1081:                  }
+FL L1082:               }
+FL L1083:             if(freshFvgIdx >= 0)
+FL L1084:               {
+FL L1085:                CImbalance *freshFvg = GetFVG(g_imbalances, freshFvgIdx);
+FL L1086:                if(freshFvg != NULL)
+FL L1087:                  {
+FL L1088:                   g_bufFvgLegZoneHigh[target] = freshFvg.top;
+FL L1089:                   g_bufFvgLegZoneLow[target]  = freshFvg.bottom;
+FL L1090:                   g_bufFvgObjId[target]       = (double)freshFvg.objId;   // [Task 102]
+FL L1091:                  }
+FL L1092:               }
+FL L1093:            }
+FL L1094: 
+FL L1095:          // [Task 25] Stop-loss structural reference (closes EA-8b for the XOB case).
+FL L1096:          // Protective extreme of the in-bias order block that backs the entry zone,
+FL L1097:          // selected with the SAME selector the XOB zone export above uses, so the
+FL L1098:          // stop reference and the XOB zone always describe one order block.
+FL L1099:          //   buffer 26 = that order block's own protective extreme
+FL L1100:          //   buffer 27 = the protective extreme of that order block's swing bar
+FL L1101:          // These two differ: SRJ_OB_CreationPass picks the deeper of two candidate
+FL L1102:          // candles for the OB, while swingBar is always the fractal bar.
+FL L1103:          // Both EMPTY_VALUE when there is no bias or no qualifying promoted OB.
+FL L1104:          // Read-only query. Nothing in this indicator consumes either buffer.
+FL L1105:          g_bufObStructExtreme[target] = EMPTY_VALUE;
+FL L1106:          g_bufObSwingExtreme[target]  = EMPTY_VALUE;
+FL L1107:          if(!SrjIsNa(g_s.currentBias))
+FL L1108:            {
+FL L1109:             int slObIdx = SRJ_NearestPromotedOBIndex(g_s.currentBias);
+FL L1110:             if(slObIdx >= 0)
+=== END SECTION 6 ===
+=== END OF RELAY BUNDLE ===

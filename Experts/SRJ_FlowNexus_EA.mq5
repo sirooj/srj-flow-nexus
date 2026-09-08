@@ -284,7 +284,8 @@ enum ENUM_SRJ_CANDIDATE_STATE
     CANDIDATE_COMPLETED      = 5,
     CANDIDATE_COMMITTED      = 6,
     CANDIDATE_REJECTED       = 7,
-    CANDIDATE_EXPIRED        = 8 };
+    CANDIDATE_EXPIRED        = 8,
+    CANDIDATE_ZONE_WAIT      = 9 };
 
 //--- Hypothesis lifecycle. TWELVE STATES, one per hypothesis edge in
 //--- REVISION_60 section 10.3, with section 10.4 supplying the prefixed
@@ -905,6 +906,282 @@ int g_hPoi  = INVALID_HANDLE;
 int g_hCqd  = INVALID_HANDLE;
 int g_hFlow = INVALID_HANDLE;
 
+//====================== TASK 161: working-set adapter =================
+//--- MILESTONE 1 INSTRUMENT. NOTHING READS THIS RECORD.
+//---
+//--- MEMBERSHIP RULE: the fifteen fields ResetSequence clears. A field
+//--- added to ResetSequence joins the working set and belongs here too.
+//--- Council does not decide membership; the build states it.
+//---
+//--- NO SHypothesis AND NO SCandidate IS INSTANTIATED. Contract 9
+//--- declares bundle MANDATORY, and the fifteen globals cannot construct
+//--- one, so none is fabricated. A zero standing for absence is exactly
+//--- what the contracts were declared to eliminate.
+//---
+//--- LoadWorkingSet COMPARES AND DOES NOT ASSIGN. At capacity 1 the
+//--- globals are the medium and nothing clears them between bars, so an
+//--- assignment would be a no-op when the values agree and would MASK the
+//--- divergence this instrument exists to find when they do not.
+//---
+//--- THE GATE: store at the end of bar N, compare at the start of bar
+//--- N+1. Zero mismatches over 1728 bars means the working set is CLOSED -
+//--- nothing outside these fifteen fields carries sequence state across
+//--- bars. That is the closure proof, and it is not the isolation proof:
+//--- at capacity 1 there is no OTHER hypothesis, so Milestone 1's pass
+//--- condition needs capacity 2 and arrives with Task 162.
+//---
+//--- DOUBLES ARE COMPARED WITH EXACT INEQUALITY ON PURPOSE. The store
+//--- copied the same bits, so any difference means something wrote the
+//--- field. A tolerance here would hide the finding.
+//---
+//--- CONTRACT DESTINATIONS, so Task 162 migrates from a stated mapping:
+//---   state          -> SCandidate.state AND SHypothesis.state. ONE
+//---                     global carries both levels. THAT IS THE DEFECT.
+//---   dir            -> SCandidate.dir
+//---   regime         -> SCandidate.regimeAtAdmission
+//---   sessionAtEntry -> SCandidate.tradingWindowAtAdmission
+//---   anchorLine     -> SCandidate.poiAnchorLine
+//---   anchorPrice    -> SCandidate.poiAnchorPrice + hasPoiAnchorPrice
+//---   anchorBarTime  -> SCandidate.poiAnchorBarTime
+//---   divLatch       -> SCandidate.divergenceVerdict. bool to TRI is a
+//---                     WIDENING THE BUILD CANNOT FILL: false conflates
+//---                     not-yet-evaluated with evaluated-and-negative,
+//---                     so the reverse map is lossy by construction.
+//---   touchSeen      -> SHypothesis.touchLatched
+//---   touchBarHi     -> SHypothesis.touchBarHigh
+//---   touchBarLo     -> SHypothesis.touchBarLow
+//---   zoneHi         -> SHypothesis.zoneHi + hasZone
+//---   zoneLo         -> SHypothesis.zoneLo
+//---   alertedArmed   -> SHypothesis.alertedArmed
+//---   alertedSignal  -> SHypothesis.alertedSignal
+//---
+//--- DELIBERATELY NOT CARRIED: the four session-used latches, which are
+//--- session-level and cross-candidate; the seven shadow fields, which are
+//--- a record that outlives its sequence by design; the run-lifetime
+//--- accumulators and handles.
+//---
+//--- AFTER THIS INSERT NOTHING CALLS ANY OF IT. The wiring is Task 161-B.
+//======================================================================
+
+struct SSrjWorkingSet
+  {
+   ENUM_SRJ_STATE   state;
+   ENUM_SRJ_DIR     dir;
+   ENUM_SRJ_REGIME  regime;
+   ENUM_SRJ_SESSION sessionAtEntry;
+   int              anchorLine;
+   double           anchorPrice;
+   datetime         anchorBarTime;
+   bool             divLatch;
+   bool             touchSeen;
+   double           touchBarHi;
+   double           touchBarLo;
+   double           zoneHi;
+   double           zoneLo;
+   bool             alertedArmed;
+   bool             alertedSignal;
+   bool             stored;
+  };
+
+SSrjWorkingSet g_ws161;
+int  g_ws161_stores   = 0;
+int  g_ws161_loads    = 0;
+int  g_ws161_changes  = 0;
+int  g_ws161_mismatch = 0;
+int  g_ws161_fieldMiss[15];
+
+//--- Field ordinal to name. The order below IS the field order used by
+//--- SrjWsCompare and by g_ws161_fieldMiss, and the three must agree.
+string SrjWsName(int i)
+  {
+   switch(i)
+     {
+      case  0: return "state";
+      case  1: return "dir";
+      case  2: return "regime";
+      case  3: return "sessionAtEntry";
+      case  4: return "anchorLine";
+      case  5: return "anchorPrice";
+      case  6: return "anchorBarTime";
+      case  7: return "divLatch";
+      case  8: return "touchSeen";
+      case  9: return "touchBarHi";
+      case 10: return "touchBarLo";
+      case 11: return "zoneHi";
+      case 12: return "zoneLo";
+      case 13: return "alertedArmed";
+      case 14: return "alertedSignal";
+     }
+   return "UNKNOWN_FIELD";
+  }
+
+//--- Per-field difference between the stored record and the live globals.
+//--- Writes fifteen booleans and touches nothing else.
+void SrjWsCompare(bool &d[])
+  {
+   d[0]  = (g_ws161.state          != g_state);
+   d[1]  = (g_ws161.dir            != g_dir);
+   d[2]  = (g_ws161.regime         != g_regime);
+   d[3]  = (g_ws161.sessionAtEntry != g_sessionAtEntry);
+   d[4]  = (g_ws161.anchorLine     != g_anchorLine);
+   d[5]  = (g_ws161.anchorPrice    != g_anchorPrice);
+   d[6]  = (g_ws161.anchorBarTime  != g_anchorBarTime);
+   d[7]  = (g_ws161.divLatch       != g_divLatch);
+   d[8]  = (g_ws161.touchSeen      != g_touchSeen);
+   d[9]  = (g_ws161.touchBarHi     != g_touchBarHi);
+   d[10] = (g_ws161.touchBarLo     != g_touchBarLo);
+   d[11] = (g_ws161.zoneHi         != g_zoneHi);
+   d[12] = (g_ws161.zoneLo         != g_zoneLo);
+   d[13] = (g_ws161.alertedArmed   != g_alertedArmed);
+   d[14] = (g_ws161.alertedSignal  != g_alertedSignal);
+  }
+
+//--- One line naming the live value of a field, for a mismatch report.
+string SrjWsLiveValue(int i)
+  {
+   switch(i)
+     {
+      case  0: return IntegerToString((int)g_state);
+      case  1: return IntegerToString((int)g_dir);
+      case  2: return IntegerToString((int)g_regime);
+      case  3: return IntegerToString((int)g_sessionAtEntry);
+      case  4: return IntegerToString(g_anchorLine);
+      case  5: return DoubleToString(g_anchorPrice, 8);
+      case  6: return IntegerToString((long)g_anchorBarTime);
+      case  7: return (g_divLatch      ? "1" : "0");
+      case  8: return (g_touchSeen     ? "1" : "0");
+      case  9: return DoubleToString(g_touchBarHi, 8);
+      case 10: return DoubleToString(g_touchBarLo, 8);
+      case 11: return DoubleToString(g_zoneHi, 8);
+      case 12: return DoubleToString(g_zoneLo, 8);
+      case 13: return (g_alertedArmed  ? "1" : "0");
+      case 14: return (g_alertedSignal ? "1" : "0");
+     }
+   return "NA";
+  }
+
+//--- The same field's value as it was stored.
+string SrjWsStoredValue(int i)
+  {
+   switch(i)
+     {
+      case  0: return IntegerToString((int)g_ws161.state);
+      case  1: return IntegerToString((int)g_ws161.dir);
+      case  2: return IntegerToString((int)g_ws161.regime);
+      case  3: return IntegerToString((int)g_ws161.sessionAtEntry);
+      case  4: return IntegerToString(g_ws161.anchorLine);
+      case  5: return DoubleToString(g_ws161.anchorPrice, 8);
+      case  6: return IntegerToString((long)g_ws161.anchorBarTime);
+      case  7: return (g_ws161.divLatch      ? "1" : "0");
+      case  8: return (g_ws161.touchSeen     ? "1" : "0");
+      case  9: return DoubleToString(g_ws161.touchBarHi, 8);
+      case 10: return DoubleToString(g_ws161.touchBarLo, 8);
+      case 11: return DoubleToString(g_ws161.zoneHi, 8);
+      case 12: return DoubleToString(g_ws161.zoneLo, 8);
+      case 13: return (g_ws161.alertedArmed  ? "1" : "0");
+      case 14: return (g_ws161.alertedSignal ? "1" : "0");
+     }
+   return "NA";
+  }
+
+//--- Called before EvaluateClosedBar. READS ONLY. Never assigns a global.
+//--- A difference here means something outside the wrapper wrote a
+//--- working-set field between the previous store and this bar.
+void LoadWorkingSet(int barShift, datetime barTime)
+  {
+   g_ws161_loads++;
+
+   if(!g_ws161.stored)
+     {
+      Print("[SRJ-EA] WS161_LOAD NOSTORE bar=", TimeToString(barTime, TIME_DATE|TIME_MINUTES),
+            " shift=", barShift, " loads=", g_ws161_loads);
+      return;
+     }
+
+   bool d[15];
+   SrjWsCompare(d);
+
+   int n = 0;
+   for(int i = 0; i < 15; i++)
+      if(d[i]) n++;
+
+   if(n == 0)
+      return;
+
+   g_ws161_mismatch++;
+
+   for(int i = 0; i < 15; i++)
+     {
+      if(!d[i])
+         continue;
+      g_ws161_fieldMiss[i] = g_ws161_fieldMiss[i] + 1;
+      Print("[SRJ-EA] WS161_MISMATCH bar=", TimeToString(barTime, TIME_DATE|TIME_MINUTES),
+            " shift=", barShift,
+            " field=", SrjWsName(i),
+            " stored=", SrjWsStoredValue(i),
+            " live=", SrjWsLiveValue(i),
+            " event=", g_ws161_mismatch);
+     }
+  }
+
+//--- Called after EvaluateClosedBar. Copies the fifteen globals into the
+//--- record and counts a change when this bar's set differs from the last
+//--- stored one. Writes NO global except this instrument's own counters.
+void StoreWorkingSet(int barShift, datetime barTime)
+  {
+   g_ws161_stores++;
+
+   if(g_ws161.stored)
+     {
+      bool d[15];
+      SrjWsCompare(d);
+      for(int i = 0; i < 15; i++)
+        {
+         if(d[i])
+           {
+            g_ws161_changes++;
+            break;
+           }
+        }
+     }
+
+   g_ws161.state          = g_state;
+   g_ws161.dir            = g_dir;
+   g_ws161.regime         = g_regime;
+   g_ws161.sessionAtEntry = g_sessionAtEntry;
+   g_ws161.anchorLine     = g_anchorLine;
+   g_ws161.anchorPrice    = g_anchorPrice;
+   g_ws161.anchorBarTime  = g_anchorBarTime;
+   g_ws161.divLatch       = g_divLatch;
+   g_ws161.touchSeen      = g_touchSeen;
+   g_ws161.touchBarHi     = g_touchBarHi;
+   g_ws161.touchBarLo     = g_touchBarLo;
+   g_ws161.zoneHi         = g_zoneHi;
+   g_ws161.zoneLo         = g_zoneLo;
+   g_ws161.alertedArmed   = g_alertedArmed;
+   g_ws161.alertedSignal  = g_alertedSignal;
+   g_ws161.stored         = true;
+  }
+
+//--- End-of-run census. One summary line, then one row per field that
+//--- recorded at least one mismatch. Zero rows is the pass shape.
+void SrjWs161Census()
+  {
+   Print("[SRJ-EA] WS161_CENSUS fields=15",
+         " loads=",     g_ws161_loads,
+         " stores=",    g_ws161_stores,
+         " changes=",   g_ws161_changes,
+         " mismatch=",  g_ws161_mismatch);
+
+   for(int i = 0; i < 15; i++)
+     {
+      if(g_ws161_fieldMiss[i] == 0)
+         continue;
+      Print("[SRJ-EA] WS161_FIELD name=", SrjWsName(i),
+            " mismatches=", g_ws161_fieldMiss[i]);
+     }
+  }
+//====================== end TASK 161 adapter ===========================
 //====================== Trade Helper Functions =======================
 ENUM_ORDER_TYPE_FILLING GetCorrectFillingMode(string sym)
   {
@@ -3832,6 +4109,8 @@ void OnDeinit(const int reason)
                   g_zc_neither, g_zc_inWin, g_zc_xobInWin, g_zc_fvgInWin,
                   g_zc_samples);
 
+   SrjWs161Census();
+
    if(g_hPoi  != INVALID_HANDLE) IndicatorRelease(g_hPoi);
    if(g_hCqd  != INVALID_HANDLE) IndicatorRelease(g_hCqd);
    if(g_hFlow != INVALID_HANDLE) IndicatorRelease(g_hFlow);
@@ -3845,6 +4124,8 @@ void OnTick()
    datetime currentBarTime = iTime(_Symbol, PERIOD_CURRENT, 1);
    if(currentBarTime == s_lastBarTime) return;
    s_lastBarTime = currentBarTime;
+   LoadWorkingSet(1, currentBarTime);
    EvaluateClosedBar(1, currentBarTime);
+   StoreWorkingSet(1, currentBarTime);
   }
 //+------------------------------------------------------------------+
