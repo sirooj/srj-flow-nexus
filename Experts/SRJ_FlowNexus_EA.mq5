@@ -1843,14 +1843,12 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
       int    t75_from = (dir == DIR_LONG) ? shLow : shHigh;
       double t75_was  = slRefOut;
       bool   t75_ok   = false;
-      bool   t75_zone = (g_zoneHi > 0.0 && g_zoneLo > 0.0);
       for(int t75_s = t75_from + 1; t75_s <= t75_from + 500; t75_s++)
         {
          double t75_v;
          if(!ReadFlow(t75_buf, t75_v, t75_s))     break;
          if(t75_v == EMPTY_VALUE || t75_v <= 0.0) continue;
          if((dir == DIR_LONG) ? (t75_v >= slCurPx) : (t75_v <= slCurPx)) continue;
-         if(t75_zone && t75_v >= g_zoneLo && t75_v <= g_zoneHi)          continue;
          slRefOut = t75_v;
          t75_ok   = true;
          if(InpDebugLog)
@@ -1882,62 +1880,12 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
         }
      }
 
-   // [Task 67 / Ruling 1 Option C / EA-71] A fallback swing lying INSIDE the
-   // adopted entry zone is not a stop reference. Measured: bar 2026.08.20 17:35
-   // gave slRef=1.16807 against zone 1.16804-1.16814 Ã¢â‚¬â€ a ONE POINT risk
-   // denominator, R=110, which cleared the hard RR gate on geometry alone. Only
-   // divLatch=0 prevented a signal on it.
-   //
-   // Threshold-free: the test is containment in the adopted zone, not a distance,
-   // so Part A section 7 is not engaged. Scoped to the fallback path only
-   // (!obSwingSideOk) Ã¢â‚¬â€ every OB_SWING reference measured to date sat well
-   // outside its zone. The operator's ruling accepts a plain three-candle swing
-   // as a valid stop even when it is not the structurally extreme one, so the
-   // walk continues to the next swing OUTSIDE the zone rather than aborting.
-   //
-   // g_zoneHi/g_zoneLo read 0.0 until the S3 transition sets them, so this guard
-   // is inert before arming Ã¢â‚¬â€ the same inertness Ruling 7c's in-zone target
-   // exclusion relies on in TpTargetUpdateBest.
-   if(!obSwingSideOk && g_zoneHi > 0.0 && g_zoneLo > 0.0 &&
-      slRefOut >= g_zoneLo && slRefOut <= g_zoneHi)
-     {
-      int    t67_buf  = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
-      int    t67_from = (dir == DIR_LONG) ? shLow : shHigh;
-      double t67_was  = slRefOut;
-      bool   t67_ok   = false;
-      for(int t67_s = t67_from + 1; t67_s <= t67_from + 500; t67_s++)
-        {
-         double t67_v;
-         if(!ReadFlow(t67_buf, t67_v, t67_s))       break;
-         if(t67_v == EMPTY_VALUE || t67_v <= 0.0)   continue;
-         if(t67_v >= g_zoneLo && t67_v <= g_zoneHi) continue;
-         slRefOut = t67_v;
-         t67_ok   = true;
-         if(InpDebugLog)
-            PrintFormat("[SRJ-EA] SLZONEGUARD site=%s dir=%s rejected=%s "
-                        "chosen=%s atShift=%d fromShift=%d zoneLo=%s zoneHi=%s",
-                        site, DirName(dir),
-                        DoubleToString(t67_was, _Digits),
-                        DoubleToString(slRefOut, _Digits),
-                        t67_s, t67_from,
-                        DoubleToString(g_zoneLo, _Digits),
-                        DoubleToString(g_zoneHi, _Digits));
-         break;
-        }
-      if(!t67_ok)
-        {
-         if(InpDebugLog)
-            PrintFormat("[SRJ-EA] SLZONEGUARD site=%s dir=%s rejected=%s "
-                        "chosen=NONE fromShift=%d zoneLo=%s zoneHi=%s "
-                        "result=noSwingOutsideZone",
-                        site, DirName(dir),
-                        DoubleToString(t67_was, _Digits),
-                        t67_from,
-                        DoubleToString(g_zoneLo, _Digits),
-                        DoubleToString(g_zoneHi, _Digits));
-         return false;
-        }
-     }
+   // [STEP 1 RETIRED] The Task 67 in-zone stop exclusion is removed per operator
+   // ruling and spec 3.7: the stop may sit inside the entry zone (measured 1.15835
+   // inside 1.15805-1.15843), and the correct test is the side relative to the
+   // entry, never containment. Retired in the same edit as the Task 75 walk
+   // zone-continue above, per council Part 2.1: the two guards were coupled -
+   // retiring one alone changed nothing on bars where the other fired.
       if(InpDebugLog)
          PrintFormat("[SRJ-EA] SLSRC site=%s dir=%s src=%s obStruct=%s obSwing=%s "
                      "nearest=%s chosen=%s deltaPts=%s",
@@ -2078,7 +2026,8 @@ void GoAbort(const string reason, ENUM_SRJ_STATE atState)
 //--- Returns false when no zone is exported on this bar. That is NOT an
 //--- invalidation - FRESH_OB_DEAD is the mechanism that kills a dead order
 //--- block - so the caller retains the last known zone.
-bool ReadQualifyingZone(int barShift, double &zHiOut, double &zLoOut, bool &fromFvgOut)
+bool ReadQualifyingZone(int barShift, double &zHiOut, double &zLoOut, bool &fromFvgOut,
+                        double stopRef, bool haveStop)
   {
    double xobHi = 0.0, xobLo = 0.0, fvgHi = 0.0, fvgLo = 0.0;
 
@@ -2101,6 +2050,25 @@ bool ReadQualifyingZone(int barShift, double &zHiOut, double &zLoOut, bool &from
    bool haveFvg = ReadFlow(FL_BUF_FVG_LEG_ZONE_HIGH, fvgHi, barShift) && fvgHi != EMPTY_VALUE &&
                   ReadFlow(FL_BUF_FVG_LEG_ZONE_LOW,  fvgLo, barShift) && fvgLo != EMPTY_VALUE;
 
+   //--- [STEP 1 / council Part 2.2] This site previously returned the FVG
+   //--- unconditionally, with no in-play test applied here. With the widened walk
+   //--- live at S3, a not-in-play FVG could displace an in-play XOB on this
+   //--- re-read, making the widened admission reversible one bar later. Fix:
+   //--- when BOTH zones are exported, the FVG yields to an in-play XOB exactly
+   //--- when the FVG itself is not in play. Strictly monotone: every bar that
+   //--- returned the XOB before still does; a lone FVG still returns as before.
+   if(haveFvg && haveXob)
+     {
+      bool fvgInPlay = ZoneInPlay(barShift, MathMax(fvgHi, fvgLo), MathMin(fvgHi, fvgLo), stopRef, haveStop);
+      bool xobInPlay = ZoneInPlay(barShift, MathMax(xobHi, xobLo), MathMin(xobHi, xobLo), stopRef, haveStop);
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] RQZPICK bar=%s site=S4RQZ fvgInPlay=%d xobInPlay=%d downgraded=%d",
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                     (int)fvgInPlay, (int)xobInPlay,
+                     (int)((!fvgInPlay && xobInPlay) ? 1 : 0));
+      if(!fvgInPlay && xobInPlay)
+        { zHiOut = MathMax(xobHi, xobLo); zLoOut = MathMin(xobHi, xobLo); fromFvgOut = false; return true; }
+     }
    if(haveFvg)
      { zHiOut = MathMax(fvgHi, fvgLo); zLoOut = MathMin(fvgHi, fvgLo); fromFvgOut = true;  return true; }
    if(haveXob)
@@ -2133,7 +2101,8 @@ bool ReadQualifyingZone(int barShift, double &zHiOut, double &zLoOut, bool &from
 //--- The logic duplicates the S3 block's inline in-play test rather than
 //--- sharing it, because extracting that block is a restructure and belongs to
 //--- the state-machine rewrite. Logged as EA-49.
-bool ZoneAdoptable(int barShift, double zHi, double zLo)
+bool ZoneAdoptable(int barShift, double zHi, double zLo,
+                   double stopRef, bool haveStop)
   {
    if(!(zHi > 0.0 && zLo > 0.0)) return false;
 
@@ -2157,18 +2126,38 @@ bool ZoneAdoptable(int barShift, double zHi, double zLo)
       if(sw1 >= zLo && sw1 <= zHi)
         { ok = true; if(via == "none") via = "SWING1"; }
 
-      for(int s = sh1 + 1; s <= sh1 + 500; s++)
+      if(!haveStop)
         {
-         double v2;
-         if(!ReadFlow(buf, v2, s))          break;
-         if(v2 == EMPTY_VALUE || v2 <= 0.0) continue;
-         if(MathAbs(v2 - sw1) <= _Point)    continue;
-         sw2 = v2; sh2 = s;
-         break;
-        }
+         for(int s = sh1 + 1; s <= sh1 + 500; s++)
+           {
+            double v2;
+            if(!ReadFlow(buf, v2, s))          break;
+            if(v2 == EMPTY_VALUE || v2 <= 0.0) continue;
+            if(MathAbs(v2 - sw1) <= _Point)    continue;
+            sw2 = v2; sh2 = s;
+            break;
+           }
 
-      if(sw2 > 0.0 && sw2 >= zLo && sw2 <= zHi)
-        { ok = true; if(via == "none") via = "SWING2"; }
+         if(sw2 > 0.0 && sw2 >= zLo && sw2 <= zHi)
+           { ok = true; if(via == "none") via = "SWING2"; }
+        }
+      else
+        {
+         //--- [STEP 1] same SL-leg depth as ZoneInPlay: every confirmed
+         //--- protective-side swing back to the stop reference, which ends the leg.
+         double prev = sw1;
+         for(int s = sh1 + 1; s <= barShift + Bars(_Symbol, PERIOD_CURRENT); s++)
+           {
+            double v2;
+            if(!ReadFlow(buf, v2, s))          break;
+            if(v2 == EMPTY_VALUE || v2 <= 0.0) continue;
+            if(MathAbs(v2 - prev) <= _Point)   continue;
+            prev = v2;
+            if(v2 >= zLo && v2 <= zHi)
+              { ok = true; if(via == "none") via = "SWINGLEG"; }
+            if((g_dir == DIR_LONG) ? (v2 <= stopRef) : (v2 >= stopRef)) break;
+           }
+        }
      }
 
    if(InpDebugLog)
@@ -2211,7 +2200,7 @@ bool ZoneAdoptable(int barShift, double zHi, double zLo)
 //--- applies. Nothing new is admitted per bar. The only change is how many bars
 //--- are examined.
 bool FindLegTouch(int barShift, double zHi, double zLo,
-                  int &foundShiftOut, double &legTimeOut)
+                  int &foundShiftOut, double &legTimeOut, bool fromFvg)
   {
    foundShiftOut = -1;
    legTimeOut    = 0.0;
@@ -2236,7 +2225,7 @@ bool FindLegTouch(int barShift, double zHi, double zLo,
 
       bool oppositeDir = (g_dir == DIR_LONG) ? (sc < so) : (sc > so);
       bool touchesZone = (sh >= zLo && sl <= zHi);
-      if(oppositeDir && touchesZone)
+      if(oppositeDir && (!fromFvg || touchesZone))
         { foundShiftOut = s; return true; }
      }
    return false;
@@ -2260,7 +2249,8 @@ bool FindLegTouch(int barShift, double zHi, double zLo,
 //---
 //--- The S3 block's inline copy and ZoneAdoptable's copy are NOT removed. That
 //--- consolidation is EA-49 and belongs to the state-machine rewrite.
-bool ZoneInPlay(int barShift, double zHi, double zLo)
+bool ZoneInPlay(int barShift, double zHi, double zLo,
+                double stopRef, bool haveStop)
   {
    if(!(zHi > 0.0 && zLo > 0.0)) return false;
 
@@ -2274,13 +2264,37 @@ bool ZoneInPlay(int barShift, double zHi, double zLo)
    if(!FindNearestSwing(buf, barShift, sw1, sh1)) return false;
    if(sw1 >= zLo && sw1 <= zHi) return true;
 
-   for(int s = sh1 + 1; s <= sh1 + 500; s++)
+   //--- [STEP 1 / charter ruling 3] In-play depth is the SL LEG: every confirmed
+   //--- protective-side swing from the evaluation bar back to the stop reference
+   //--- chosen by ComputeSlReference. The stop swing itself is tested and then
+   //--- terminates the walk - the one verified operator zone was put in play by
+   //--- the second swing, the one the stop was placed at. Without a stop
+   //--- reference this bar, the measured two-swing depth (SWING2) remains the
+   //--- bound, per council Part 1.1. No distance parameter; the bounds are the
+   //--- stop reference (structural), history exhaustion (bt<=0), and the _Point
+   //--- distinctness test - safety limits and structure, never thresholds.
+   if(!haveStop)
+     {
+      for(int s = sh1 + 1; s <= sh1 + 500; s++)
+        {
+         double v2;
+         if(!ReadFlow(buf, v2, s))          break;
+         if(v2 == EMPTY_VALUE || v2 <= 0.0) continue;
+         if(MathAbs(v2 - sw1) <= _Point)    continue;
+         return (v2 >= zLo && v2 <= zHi);
+        }
+      return false;
+     }
+   double prev = sw1;
+   for(int s = sh1 + 1; s <= barShift + Bars(_Symbol, PERIOD_CURRENT); s++)
      {
       double v2;
       if(!ReadFlow(buf, v2, s))          break;
       if(v2 == EMPTY_VALUE || v2 <= 0.0) continue;
-      if(MathAbs(v2 - sw1) <= _Point)    continue;
-      return (v2 >= zLo && v2 <= zHi);
+      if(MathAbs(v2 - prev) <= _Point)   continue;
+      prev = v2;
+      if(v2 >= zLo && v2 <= zHi)         return true;
+      if((g_dir == DIR_LONG) ? (v2 <= stopRef) : (v2 >= stopRef)) break;
      }
    return false;
   }
@@ -2859,6 +2873,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       if(fail != "") { GoAbort(fail, g_state); return; }
      }
 
+   double s1_stopRef = 0.0; bool s1_haveStop = false;
    if(g_state >= ST_S2_LTF_ALIGN && g_state <= ST_S5_GATE_CHECK)
      {
       double currentPrice = iClose(_Symbol, PERIOD_CURRENT, barShift);
@@ -2872,6 +2887,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         }
       double slRef; ENUM_SRJ_SLMODE slMode;
       if(ComputeSlReference(barShift, g_dir, slRef, slMode, "S2POLL"))
+         s1_stopRef = slRef; s1_haveStop = true;
         {
          double slDist = MathAbs(currentPrice - slRef);
          double tpDist = MathAbs(tpTarget - currentPrice);
@@ -3287,9 +3303,9 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- not that the guard is absent.
       bool s55_fvgInPlay = false, s55_xobInPlay = false, s55_downgraded = false;
       if(haveFvg)
-         s55_fvgInPlay = ZoneInPlay(barShift, MathMax(fvgHi, fvgLo), MathMin(fvgHi, fvgLo));
+         s55_fvgInPlay = ZoneInPlay(barShift, MathMax(fvgHi, fvgLo), MathMin(fvgHi, fvgLo), s1_stopRef, s1_haveStop);
       if(haveXob)
-         s55_xobInPlay = ZoneInPlay(barShift, MathMax(xobHi, xobLo), MathMin(xobHi, xobLo));
+         s55_xobInPlay = ZoneInPlay(barShift, MathMax(xobHi, xobLo), MathMin(xobHi, xobLo), s1_stopRef, s1_haveStop);
       if(haveFvg && !s55_fvgInPlay && haveXob && s55_xobInPlay)
         { haveFvg = false; s55_downgraded = true; }
       if(InpDebugLog)
@@ -3331,24 +3347,48 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                if(s31_via == "none") s31_via = "SWING1";
               }
 
-            //--- Next DISTINCT swing on the same side. The _Point separation
-            //--- test mirrors the existing 2-swing stop branch exactly, and the
-            //--- 500-slot bound matches both it and FindNearestSwing. Safety
-            //--- limits, not tunable thresholds.
-            for(int s = s31_sw1Shift + 1; s <= s31_sw1Shift + 500; s++)
+            //--- [STEP 1 / charter ruling 3] In-play depth is the SL LEG (operator
+            //--- ruling 2026-09-08): every confirmed protective-side swing back to
+            //--- the stop reference chosen at S2POLL this bar. The stop swing is
+            //--- tested and ends the walk. Without a stop reference this bar, the
+            //--- measured two-swing depth remains the bound, per council Part 1.1.
+            //--- No bar-count limit; bounds are structural. This reconciles the
+            //--- arming gate with ZoneInPlay, ZoneAdoptable and the S4 re-read.
+            if(!s1_haveStop)
               {
-               double s31_v2;
-               if(!ReadFlow(s31_buf, s31_v2, s))                 break;
-               if(s31_v2 == EMPTY_VALUE || s31_v2 <= 0.0)        continue;
-               if(MathAbs(s31_v2 - s31_sw1) <= _Point)           continue;
-               s31_sw2 = s31_v2; s31_sw2Shift = s;
-               break;
-              }
+               for(int s = s31_sw1Shift + 1; s <= s31_sw1Shift + 500; s++)
+                 {
+                  double s31_v2;
+                  if(!ReadFlow(s31_buf, s31_v2, s))                 break;
+                  if(s31_v2 == EMPTY_VALUE || s31_v2 <= 0.0)        continue;
+                  if(MathAbs(s31_v2 - s31_sw1) <= _Point)           continue;
+                  s31_sw2 = s31_v2; s31_sw2Shift = s;
+                  break;
+                 }
 
-            if(s31_sw2 > 0.0 && s31_sw2 >= s31_zLo && s31_sw2 <= s31_zHi)
+               if(s31_sw2 > 0.0 && s31_sw2 >= s31_zLo && s31_sw2 <= s31_zHi)
+                 {
+                  s31_inPlay = true;
+                  if(s31_via == "none") s31_via = "SWING2";
+                 }
+              }
+            else
               {
-               s31_inPlay = true;
-               if(s31_via == "none") s31_via = "SWING2";
+               double s31_prev = s31_sw1;
+               for(int s = s31_sw1Shift + 1; s <= barShift + Bars(_Symbol, PERIOD_CURRENT); s++)
+                 {
+                  double s31_v2;
+                  if(!ReadFlow(s31_buf, s31_v2, s))                 break;
+                  if(s31_v2 == EMPTY_VALUE || s31_v2 <= 0.0)        continue;
+                  if(MathAbs(s31_v2 - s31_prev) <= _Point)          continue;
+                  s31_prev = s31_v2;
+                  if(s31_v2 >= s31_zLo && s31_v2 <= s31_zHi)
+                    {
+                     s31_inPlay = true;
+                     if(s31_via == "none") s31_via = "SWINGLEG";
+                    }
+                  if((g_dir == DIR_LONG) ? (s31_v2 <= s1_stopRef) : (s31_v2 >= s1_stopRef)) break;
+                 }
               }
            }
         }
@@ -3708,7 +3748,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- would reject every valid Part A Step 5 confirmation.
       double s35_zHi = 0.0, s35_zLo = 0.0;
       bool   s35_fromFvg = false;
-      if(ReadQualifyingZone(barShift, s35_zHi, s35_zLo, s35_fromFvg) && ZoneAdoptable(barShift, s35_zHi, s35_zLo) && ((g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point * 0.5) : (s35_zHi >= g_zoneHi - _Point * 0.5)))
+      if(ReadQualifyingZone(barShift, s35_zHi, s35_zLo, s35_fromFvg, s1_stopRef, s1_haveStop) && ZoneAdoptable(barShift, s35_zHi, s35_zLo, s1_stopRef, s1_haveStop) && ((g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point * 0.5) : (s35_zHi >= g_zoneHi - _Point * 0.5)))
         {
          if(MathAbs(s35_zHi - g_zoneHi) > _Point * 0.5 ||
             MathAbs(s35_zLo - g_zoneLo) > _Point * 0.5)
@@ -3764,7 +3804,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       int    s52_shift = -1;
       double s52_legT  = 0.0;
       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
-                                      s52_shift, s52_legT);
+                                      s52_shift, s52_legT, s35_fromFvg);
       if(s52_found && !g_touchSeen)
         {
          g_touchSeen  = true;
@@ -3789,7 +3829,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         {
          bool oppositeDir = (g_dir == DIR_LONG) ? (c < o) : (c > o);
          bool touchesZone = (h >= g_zoneLo && l <= g_zoneHi);
-         if(oppositeDir && touchesZone)
+         if(oppositeDir && (!s35_fromFvg || touchesZone))
            { g_touchSeen = true; g_touchBarHi = h; g_touchBarLo = l; }
         }
       else

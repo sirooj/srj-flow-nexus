@@ -112,13 +112,22 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
 - SNAPSHOT: commit af5a9bf on main, TAG Task161-baseline (Task 161 + R220-A1 + STEP 0
   baseline; 16 files, 4,844 insertions); tabulation correction commit 673d261. Compile
   logs excluded; tick-audit CSVs outside the add list. HEAD moved b225847 -> af5a9bf.
-- STEP 1 UNBLOCKED: the packet's gate ("STEP 1 blocked until LEGACYONLY is known") is
-  satisfied — LEGACYONLY=3 (cls2 and cls1), capHit=18 of 54, WIDEONLY=4. Awaiting the
-  council STEP 1 packet (or operator direct approval per the working agreement) to draft:
-  in-play bound changed to the SL-leg/stop-reference walk (NOT the promotion-time bound),
-  XOB touch as a fromFvgOut BRANCH in FindLegTouch (L2237-2239), BOTH in-zone stop guards
-  (Task 75 L1853 + Task 67 L1901-1940) retired in one edit, ReadQualifyingZone FVG
-  precedence fix (L2104-2106) as the same piece of work.
+- STEP 1 EXECUTED AND VERIFIED (2026-09-08 evening): all four in-play copies reconciled
+  to the SL-leg depth (ZoneInPlay, ZoneAdoptable, S3 arming gate, S4 re-read displacement
+  via RQZPICK); XOB touch optional via fromFvg BRANCH in FindLegTouch AND the S4
+  confirmation fallback (second site found at EA L3854-3860, not in the relayed windows —
+  declared to council in the STEP 1 report); both in-zone stop guards retired in one edit
+  (Task 75 zone-continue + Task 67 block; side tests kept). Compile 0/0 (T161D+E logs).
+  Source c9281ae7283ecfb9fd94ee7e9738329be1017c3d42eabb598c0b2ae9e33c1116, 4,171 lines.
+  Verification run (headless, full Tier-1 range superset): WS161 mismatch=0 loads=stores
+  =1728 INVARIANT HELD; 08:17 change detector PRESENT identical; BIASCENSUS/PROMOCENSUS
+  identical to Tier-1; in-play 38/49 S3 bars (was 11) incl. via=SWINGLEG deep hits;
+  NEW SIGNAL admitted 2026.08.18 14:50 SHORT Daily-POC R=1.06 (first concrete agreement
+  sample for the operator to judge). Digest after run: c9281ae7 (byte-identical).
+- Snapshot: af5a9bf (Task161-baseline tag) = Task 161 + STEP 0; STEP 1 committed separately
+  (see git log). Compile logs/journals gitignored; tabulation committed.
+- STEP 2 (stop selector + latched R) NOT STARTED. STEP 3 (§3.4 scoping) NOT STARTED.
+  Operator rulings recorded in CHARTER.md §7. Glossary in CHARTER.md §7 tail.
 - 161-REG: NOT DRAFTED; blocked on harness authorization the council does not hold.
   When run: WS161_CENSUS once at OnDeinit, WS161_LOAD once NOSTORE first bar,
   WS161_MISMATCH zero, WS161_FIELD zero, loads==stores==1728, 43/43 tag keys
