@@ -16,6 +16,64 @@ trades that I would take."
   transit. Relay cost is real: masters are consulted sparingly, and the operator is the
   council of record for anything they choose to approve directly.
 
+## AGREEMENT SAMPLE 2 — 2026.08.18 (operator ruling 2026-09-09, verbatim)
+"I have a potential NY short from the mean reversal setup on the NY session from W POC
+BUT it is invalid CQD divergence." — the operator did NOT take it.
+
+EA behavior (from T161D_JOURNAL.log, the EA's own trace): the EA SIGNALed a SHORT at
+2026.08.18 14:50:01 (R=1.06 SL 1.15813 TP 1.15665 Daily-POC NYAM). Trace:
+- Seeded 14:15 on a DAILY-POC retest (the operator's setup referenced W POC — a
+  DIFFERENT, higher-tier anchor line).
+- Zone: XOB 1.15794-1.15813, xobId=2159, promoted 2026.08.18 05:05 (same day).
+- The zone was NOT in play per the live test (inPlay=0 — the walk fell back to the
+  two-swing depth because the stop reference did not exist for a candidate seeded
+  that same bar; the S2POLL stop capture only runs for states S2-S5) — AND THE
+  CANDIDATE ARMED ANYWAY: the S3 arming condition does not gate on in-play. This is
+  a FINDING against Task 31/Ruling 8's intent (the in-play test is currently
+  diagnostic-only at the arming site).
+- Divergence: divLatch=0 at 14:15/14:20/14:25; CQD verdict=-2 at 14:30 (bar 14:20)
+  -> latched; the sequence then ended without signaling (state=IDLE by 14:40); a
+  second sequence re-armed by 14:45 (divLatch=0), CQD verdict=-2 again at 14:50
+  (bar 14:40) -> latched -> SIGNAL fired.
+- Operator verdict: the CQD divergence was INVALID. The EA latched and fired on it.
+DISAGREEMENT LAYERS: (1) anchor tier Daily-POC vs operator's W POC; (2) divergence
+validity - the CQD export disagrees with the operator's manual divergence read;
+(3) arming without in-play (the in-play gate is not enforced at arming).
+The divergence-validity question is OPERATOR-RESERVED (semantic): what makes a CQD
+divergence valid or invalid in their manual read is not encoded anywhere in the record.
+
+## AGREEMENT SAMPLE 3 — OPERATOR_TRADE_JOURNAL.csv (received 2026-09-09, 142,627 bytes)
+The operator's manual journal: four rows per day (LDN/NY x TF/MR), each with 4H/1H/15m
+structure, bias, LQ sweep, POI tier, CVD divergence code, TP, and the acceptance/rejection
+reason. Manual input — the operator warns invalid trades may be missing. The CVD taxonomy
+(operator's own): codes 1/3 bullish (normal/hidden), 2/4 bearish (normal/hidden).
+TIER-1 WINDOW (08.14-08.22), 24 rows:
+- 08.14: #217 LDN TF, W VWAP, CVD=x, 0.18R TAKEN (small winner). EA: NO SIGNAL — a MISS.
+- 08.17: #223 NY TF, POI=W VWAP, CVD=3 (bullish hidden), TP=AVP, "or full L" — VALID
+  SETUP. EA: SIGNAL LONG 16:20 Weekly-VWAP R=1.42 — CANDIDATE AGREEMENT (direction,
+  session and POI family match; structural comparison pending the TradingView shots).
+- 08.18: #228 NY MR, LQ=LD.H, POI=W AVP, CVD=x (NO valid divergence), TP=S LQ — NOT
+  TAKEN. EA: SIGNAL SHORT 14:50 R=1.06 — FALSE POSITIVE: the EA latched CQD code-4
+  (bearish hidden) verdicts at 14:30 and 14:50 where the operator's CVD is x. The
+  14:10 potential short (valid CQD short, NO VALID XOB) is not journaled as a row
+  (operator caveat: invalid trades may be missing) and was not taken; the EA armed on
+  XOB 2159 (promoted 05:05) which the operator does not consider valid for this setup.
+- 08.19: all four rows empty; EA: no signals. AGREEMENT (absence matches).
+- 08.20: #235 NY TF, D VWAP, CVD=x, "short invalid CQD and less than 1R" — NOT TAKEN;
+  EA: no signal on 08.20. AGREEMENT (absence matches).
+- 08.21: #237 LDN TF, D AVP, CVD=x, "less than 1R and invalid CQD" — NOT TAKEN; EA: no
+  signal on 08.21. AGREEMENT (absence matches).
+TALLY: EA 2 signals; operator 1 taken trade + 1 valid-setup row (#223) + 2 rejected
+(#228, #235/#237). AGREEMENTS: 08.17 candidate match; 08.19/20/21 absence matches.
+DISAGREEMENTS: 08.18 false positive (divergence encoding — EA latched code-4 where the
+operator records none); 08.14 miss (the 0.18R trade).
+CRITICAL PATH: the divergence encoding. The CQD exported code-4 verdicts the operator
+validates as none. The CQD indicator's divergence detection (SRJ_CQD_TickBased_MT5) does
+not match the operator's classification. The operator also distinguishes "ordinary
+imbalance" from "FVG" — the spec/code do not carry that distinction.
+The screenshots (08.18 14:10 and 11:17) show the bias panel at 15m=Bear with OB=x, FVG=x
+and the 2xOB label - the bias-engine OB state is distinct from XOB promotion validity.
+
 ## Status
 - Builder knowledge inventory taken 2026-09-08 (see builder reply of the same date).
 - **Part A Specification v4.2 — RECEIVED and FULLY READ, 2026-09-08.** Location: this
