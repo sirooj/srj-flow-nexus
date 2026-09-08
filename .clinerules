@@ -149,6 +149,57 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
   Types constructor takes it as a parameter, caller not yet located) is the next task.
 - STEP 3 (section-3.4 scoping fix) NOT STARTED. The arming-gates-on-in-play question
   (the 08.18 candidate armed with inPlay=0) is OPERATOR-RESERVED (semantic).
+
+### 7.1 CURRENT STATE — CONSOLIDATED (2026-09-09 ~01:30 — THIS BLOCK GOVERNS; the entries above are history)
+- SOURCE: Experts\SRJ_FlowNexus_EA.mq5 digest
+  27569701581f4d6a94e6994ff40b5d59dd1cfc62758ce758279f913c961bd59c, 4,179 lines.
+  .ex5 127,762 B @ 2026-09-08 20:00:07 (the T161F compile 0/0) - BUILT FROM THIS SOURCE.
+- GIT: HEAD 7080c06. LINEAGE (oldest to newest): b225847 (Rev063 baseline) -> af5a9bf
+  (tag Task161-baseline: Task 161 A2+B1+C) -> 673d261 (the enum append) -> 6da1214
+  (the standing state) -> 685a41a (the operator journal) -> 2ec0402 (the operator
+  rulings section 9) -> b4300f7 (STEP 1) -> abe7fd5 (the tabulation corrections) ->
+  71c50ab (the STEP 1 verification snapshot) -> 7080c06 (STEP 2) -> 2ec0402? NO:
+  2ec0402 precedes b4300f7. THE LINEAR ORDER: b225847, af5a9bf, 673d261, 6da1214,
+  685a41a, 2ec0402, b4300f7, abe7fd5, 71c50ab, 7080c06 (HEAD).
+- THE TASK-161 ARC: STEPS 0-2 ALL EXECUTED, COMPILED 0/0, RUN-VERIFIED.
+  STEP 0: 161-REG baseline (WS161 mismatch=0 loads=stores=1728) + the snapshot
+  (af5a9bf, tag Task161-baseline). STEP 1: the SL-leg in-play depth reconciled across
+  all four copies + XOB touch optional (fromFvg branch, both sites) + the in-zone stop
+  guards retired + the enum append. STEP 2: the divergence gate = latest-at-confirmation.
+  THE VERIFICATION RUNS: T161 (A2), T161B (B1), T161C (C), T161D (STEP 1), T161E (the
+  S3 edit), T161F (STEP 2) — ALL 0 errors 0 warnings. The journals archived in 06_HANDOFFS.
+- THE WORK LIST (in order):
+  1. THE CQD DIVERGENCE-DETECTION AUDIT (code-technical, builder): the CQD exported
+     code-4 verdicts at 08.18 14:20/14:40 that the operator rejects; audit
+     SRJ_CQD_TickBased_MT5's detection against the spec 3.8 + the operator's taxonomy.
+  2. THE FLOWLOGIC MIDLINE AUDIT (code-technical, builder): locate the
+     invalidationLevel assignment (the Types constructor's caller - NOT YET FOUND);
+     compare the criterion against the operator's midline body-close rule.
+  3. THE ARMING-GATES-ON-IN-PLAY IMPLEMENTATION (operator-approved Q2=spec): DONE via
+     the Task 133 -> SL-leg reconciliation - the S3 arming's in-play now uses the
+     SL-leg depth. VERIFIED: the 08.18 candidate's zone WAS in play per the SL-leg
+     walk (the 1.15798 swing), so the arming passed - the 08.18 false positive's cause
+     is NOT the in-play gate; it is the ANCHOR TIER (Daily-POC vs the operator's W POC)
+     and the CQD detection. The anchor-tier/POI-selection rule is OPERATOR-RESERVED.
+  4. 155-RT-A: the body read done (REVISION_62 20.2 extracted to the record); awaiting
+     the council directive.
+  5. 161-REG ACCEPTANCE: the STEP 0 run done (mismatch=0); awaiting council acceptance.
+- THE OPEN SEMANTIC ITEMS (operator-reserved):
+  a. THE ANCHOR-TIER/POI-SELECTION RULE: which POI retests seed candidates (the 08.18
+     EA candidate anchored Daily-POC; the operator's setup was W POC) - the EA missed
+     the operator's 18:20 W-POC setup entirely (idle at that bar).
+  b. THE DIVERGENCE-VALIDITY RULE: the operator's classification standard (the CQD's
+     code-4 at 08.18 14:20/14:40 rejected; the code-1 at 18:10 accepted as the latest).
+  c. The TradingView screenshots for journal #223 (the structural comparison).
+  d. The Telegram live-session dump (optional reconstruction of the unjournaled trades).
+- THE XOB-SUITABILITY FINDING: the 14:10 setup had a valid CQD short but NO VALID XOB
+  (operator verbatim), while the EA's XOB 2159 (promoted 05:05) was never invalidated
+  and in-play per the SL-leg walk - the operator's XOB-suitability standard differs
+  from FlowLogic's promotion+invalidation lifecycle. OPERATOR-RESERVED.
+- THE WORKFLOW: .clinerules (this file) auto-loads every session. GOAL_STATEMENT.md
+  (the goal + AGREEMENT SAMPLES 2/3). CHARTER.md (the strategy + the rulings 7/9).
+  OPERATOR_TRADE_JOURNAL.csv (the agreement sample). The builder works autonomously
+  through mechanical items; relays to council via the operator for rulings/tokens.
 - 161-REG: NOT DRAFTED; blocked on harness authorization the council does not hold.
   When run: WS161_CENSUS once at OnDeinit, WS161_LOAD once NOSTORE first bar,
   WS161_MISMATCH zero, WS161_FIELD zero, loads==stores==1728, 43/43 tag keys
