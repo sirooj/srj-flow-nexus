@@ -1,0 +1,138 @@
+# SRJ FLOW NEXUS — OPERATOR WORKFLOW v2
+# Auto-loaded by the IDE agent (Cline) at session start. Accepted by the operator 2026-09-08.
+# If this file and the master's directives conflict, THE MASTER'S DIRECTIVE WINS — relay it verbatim.
+
+## 1. WHAT THIS PROJECT IS (plain language)
+The operator is rebuilding a personal EURUSD M5 trading strategy as an MQL5 system:
+SRJ_FlowLogic.mq5 (indicator: order-block / FVG / regime export buffers) plus
+SRJ_FlowNexus_EA.mq5 (expert: candidate/hypothesis lifecycle that consumes those buffers).
+The strategy's intent lives in Revision 60 §§7,9,11,13,15,16 and the Part A Specification.
+The build's real KPI is STRUCTURAL AGREEMENT between the documented strategy and the code:
+currently 0 of 12, unchanged across eleven revisions. The migration arc:
+Task 160 (data contracts, types-only) -> Task 161 (working-set instrument, Milestone 1
+closure proof) -> Task 162 (candidate-edge wiring, capacity 2) -> Task 163 (measurement).
+Operating mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says so.
+
+## 2. WHO IS WHO — working agreement (operator-accepted)
+- OPERATOR (human): holds intent and goals. Relays between builder and masters.
+  Context to the web UI is limited — batch questions, keep memos self-contained.
+- IDE AGENT (you, reading this): BUILDER and the operator's PRIMARY INTERFACE.
+  You hold the repository and execution. You do NOT invent strategy, issue executive
+  directions, or edit canonical files without a master-issued packet/token.
+- MASTER PLANNER / COUNCIL: Opus 5 (web, via operator relay). Issues rulings, tokens,
+  packets. Canonical-source edits happen ONLY from its issued packets.
+- EXTERNAL REVIEWER: GPT 6 Astra (web, via operator relay).
+- Final authority on goals and money: the operator. When builder and council disagree
+  on intent, escalate to the operator.
+
+## 3. ESCALATION RULE (what the builder decides vs relays)
+DECIDE LOCALLY (mechanical, verifiable on disk): anchors, line numbers, digests, gate
+arithmetic, verification runs, file placement of reports, read-only git queries.
+ESCALATE (semantic): trading behavior, instrument design, scope, naming that implies
+meaning, rule changes, anything touching the frozen Tier-1 baseline, anything where a
+master may know a better implementation. If unsure which side: escalate WITH a
+recommendation attached, so one relay is enough.
+BATCH: one decision memo per stage containing all open questions — never drip-feed.
+
+## 4. RELAY PROTOCOL
+INBOUND (master -> builder): the operator pastes the WHOLE master response verbatim.
+Gates, STOP conditions, expected values, rulings and "nothing is authorized" lines
+often live outside command blocks — never accept a commands-only summary.
+OUTBOUND (builder -> master): decision memos + the on-disk BUILDER_RESULT files.
+Masters judge measurements on disk, never the builder's prose about them.
+COUNTERS of record (relay-borne): rulings at R-238, defects at 181, findings EA-218+.
+Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brief §1).
+## 5. HARD INVARIANTS (violating any of these repeats the project's known defect classes)
+1. NO canonical-file edit without a master-issued packet/token. Canonical = the EA, the
+   indicator, the fourteen Include\SRJ\*.mqh, and any file the master names.
+2. Every read/edit path LITERAL and ABSOLUTE (P17). No globs, no -Recurse, no paths
+   built from variables (R-173).
+3. DIGESTS ARE THE INSTRUMENT. Modification times and .ex5 sizes are INADMISSIBLE as
+   freshness/identity/provenance evidence (R-236, R-233). Something on this machine
+   bumps mtimes without content change (observed 2026-09-08 00:37:05, cause unknown).
+4. Record digests AFTER the write that produced them; never assert one pre-execution.
+   Pre-stated figures must be arithmetic derived from measured lengths (R-141, R-235).
+5. NO git add / commit / push without an explicit master token (R-220 context). Read-only
+   git queries (status, ls-files, check-ignore, diff) are always fine.
+6. NEVER write anything under SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS (P18). It holds
+   the frozen revert path.
+7. Paste raw terminal output verbatim; COUNT=0 and HITS=0 are results, not failures
+   (R-163/R-221). On transport truncation: SAY SO and STOP — never re-read to patch.
+8. On any gate failure: report BLOCKED, name the gate and its measured value, write
+   nothing further, REVERT NOTHING.
+9. Shell-harness capture failures happen (R-180): report verbatim, assume nothing,
+   probe with a trivial command, re-issue.
+10. STAGE 1 of any packet re-hashes the EA before any write. A digest miss is DIAGNOSED
+    (possibly the metadata-touch cause, R-236), never assumed to be drift, never
+    reverted on assumption.
+
+## 6. FILE MAP (verified 2026-09-08)
+- Canonical EA: Experts\SRJ_FlowNexus_EA.mq5 — digest
+  abe5aaafa2b2f438dfcdcdd3d44edacddbb2de03eb44268ae42d1a7012487093,
+  202,853 bytes, 4,131 lines, UTF-8 BOM, all CRLF, NONASCII=423 (pre-existing
+  comment mojibake; see L879, double-encoded em-dash, comment-only).
+- Indicator: Indicators\SRJ_FlowLogic.mq5; its .ex5 226,444 B untouched since 09/05 17:39.
+- Fourteen includes Include\SRJ\*.mqh: all EQUAL to Task-160 reference digests.
+- Task 161 return (ACCEPTED): SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RESULT_161-A2B1C.md
+- STRATEGY DOCUMENT OF RECORD (received 2026-09-08, fully read): 00_CURRENT_WORKING\
+  SRJ Flow Nexus — Part A Specification v4.2. Its §8 is the implementation-gap table;
+  §0 carries the no-dimensionals prohibition; GOAL_STATEMENT.md anchors the goal.
+- Compile logs (gitignored per R-220): T161_COMPILE.log / T161B / T161C under 06_HANDOFFS.
+- Authority layering: REVISION_63_CONSOLIDATED_HANDOFF.md (rulings R-96..R-161 at §6.3/§21,
+  twelve contracts at §10, milestones §13), REVISION_64_SESSION_BRIEF.md (control brief;
+  its §0 VOID list), REVISION_62 §20.2 (155-RT-A body), REVISION_64_RULINGS_R153_R215.md.
+- Old working-state file: SRJ_FlowNexus_Local\00_CURRENT_WORKING\CURRENT_STATE.txt
+  (predates Task 161 — do not treat as current).
+- .gitignore carries the R-220 compile-log rules (lines 31-32); PACKET_161.md is marked
+  SUPERSEDED-VOID in place: never executed, repaired, quoted, or deleted.
+
+## 7. STANDING STATE (update after EVERY stage; this is the session-recovery anchor)
+- Task 161 A2+B1+C: DONE and ACCEPTED by council. Adapter L909-1184; OnTick wrap
+  L4127-4129; OnDeinit census call L4112; CANDIDATE_ZONE_WAIT = 9 at L288, declared,
+  unreferenced.
+- R220-A1: DONE. Compile logs can never enter the index; packet marked void.
+- 155-RT-A: body read STOPPED on transport elision (REVISION_62 §20.2 lines ~1545-1548).
+  Awaiting council reissue of the read. Decision point: does anything consume indicator
+  buffer index 34? Open item 24 may close as PREMATURE.
+- STEP 0 EXECUTED AND ACCEPTED (2026-09-08): amendment granted by operator (InpDebugLog=true
+  as run-time tester input, journal-only; source untouched); pass run headless via
+  /config (date keys were not honored by the tester — it used the saved Tier-1 range
+  08.14-08.22, a SUPERSET containing both packet windows; deviation declared, pass 2
+  skipped as redundant duplicate). RESULTS: WS161_CENSUS fields=15 loads=1728 stores=1728
+  changes=68 MISMATCH=0 (closure proof DELIVERED); 08:17 signal PRESENT and identical to
+  Tier-1 (change detector); BIASCENSUS_FINAL bars=1728 fail=0 byte-identical to Tier-1;
+  XOB-PROMOCENSUS 372 = Tier-1's 372; EA digest byte-identical abe5aaaf after the run.
+  Nine tabulations in 06_HANDOFFS\T161REG_TABULATION.txt (abs counts): XOBINPLAY capped
+  54 S3 bars, capHit=1 on 18; uncapped cls2 BOTH=8 LEGACYONLY=3 WIDEONLY=4 NEITHER=39;
+  REACHED2_1=52 REACHED2_0=2 (both unbounded FVG zones; BOUNDED_1_REACHED2_0=0 -> no
+  abort); SLSRC src split OB_SWING=66/FALLBACK_SIDE=86/FALLBACK_EMPTY=1, deltaPts=0 on 63;
+  SL_REF 161 (branch 1-swing=153, 2-swing=8), zoneLo==obStruct same-bar on 11;
+  SLSIDEGUARD 34 (9 noProtectiveSideSwing), SLZONEGUARD 0. Journals: T161REG_JOURNAL.log
+  (6,581 lines, gitignored). Artifacts: STEP0_P1/P2.ini, tabulate_161reg.ps1.
+- SNAPSHOT: commit af5a9bf on main, TAG Task161-baseline (Task 161 + R220-A1 + STEP 0
+  baseline; 16 files, 4,844 insertions); tabulation correction commit 673d261. Compile
+  logs excluded; tick-audit CSVs outside the add list. HEAD moved b225847 -> af5a9bf.
+- STEP 1 UNBLOCKED: the packet's gate ("STEP 1 blocked until LEGACYONLY is known") is
+  satisfied — LEGACYONLY=3 (cls2 and cls1), capHit=18 of 54, WIDEONLY=4. Awaiting the
+  council STEP 1 packet (or operator direct approval per the working agreement) to draft:
+  in-play bound changed to the SL-leg/stop-reference walk (NOT the promotion-time bound),
+  XOB touch as a fromFvgOut BRANCH in FindLegTouch (L2237-2239), BOTH in-zone stop guards
+  (Task 75 L1853 + Task 67 L1901-1940) retired in one edit, ReadQualifyingZone FVG
+  precedence fix (L2104-2106) as the same piece of work.
+- 161-REG: NOT DRAFTED; blocked on harness authorization the council does not hold.
+  When run: WS161_CENSUS once at OnDeinit, WS161_LOAD once NOSTORE first bar,
+  WS161_MISMATCH zero, WS161_FIELD zero, loads==stores==1728, 43/43 tag keys
+  count-identical, signal line IDENTICAL incl SL 1.15870, sixteen digests EQUAL.
+  Also closes R-234 (re-hash fifteen files against BUILDER_RESULT_160-REG-R2.md STAGE 1).
+- Task-161 snapshot: BLOCKED until 161-REG accepted. NO GIT SNAPSHOT of the Task-161
+  work exists yet — the working tree is the only copy. Treat it as fragile.
+- PENDING: (a) charter draft from Part A v4.2 (goal statement + spec now on disk — see
+  GOAL_STATEMENT.md); (b) council decision on charter + ruling-corpus freeze; (c) 155-RT-A
+  reissue (transport elision, REVISION_62 §20.2).
+- Milestone 1 is NOT claimed. Instrument delivered; closure proof = 161-REG; isolation
+  proof needs capacity 2 (Task 162). Structural agreement 0 of 12.
+
+## 8. FIRST ACTION IN A NEW SESSION
+1. Read this file fully (it is auto-loaded). 2. Re-hash the EA and compare to §6.
+3. Read the latest BUILDER_RESULT and any master response the operator relays.
+4. Do nothing else until a directive or an accepted decision memo is on the table.
