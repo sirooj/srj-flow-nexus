@@ -3646,9 +3646,18 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          t133_applied = true;
          t133_bounded = (t123_promoT > 0.0 && t123_promoT != EMPTY_VALUE);
 
-         if(t133_bounded)
+         //--- [STEP 1 / charter ruling 3] The in-play walk's bound is the SL LEG
+         //--- (operator ruling 2026-09-09): every confirmed protective-side swing
+         //--- back to the stop-reference swing chosen by ComputeSlReference this
+         //--- bar. The stop swing is tested and ends the walk. Without a stop
+         //--- reference, the promotion-time bound remains as the fail-safe (the
+         //--- measured Task 126 bound) per council Part 1.1.
+         double s3_slRef = 0.0; ENUM_SRJ_SLMODE s3_slMode = SL_MODE_NONE;
+         bool  s3_haveStop = ComputeSlReference(barShift, g_dir, s3_slRef, s3_slMode, "S3ARM");
+
+         if(t133_bounded || !s3_haveStop)
            {
-            t133_bound = (datetime)t123_promoT;
+            if(t133_bounded) t133_bound = (datetime)t123_promoT;
 
             if(s31_barHi >= s31_zLo && s31_barLo <= s31_zHi)
               { t133_inPlay = true; t133_via = "BAR"; }
@@ -3660,11 +3669,13 @@ void EvaluateClosedBar(int barShift, datetime barTime)
               {
                datetime t133_bt = iTime(_Symbol, PERIOD_CURRENT, t133_s);
                if(t133_bt <= 0)                            break;
-               if(t133_bt < t133_bound)                    break;
+               if(!s3_haveStop && t133_bt < t133_bound)    break;
                t133_scanned++;
                double t133_v;
                if(!ReadFlow(t133_buf, t133_v, t133_s))     break;
                if(t133_v == EMPTY_VALUE || t133_v <= 0.0)  continue;
+               //--- [STEP 1] the SL-leg terminator: the walk ends at the stop swing
+               if(s3_haveStop && ((g_dir == DIR_LONG) ? (t133_v <= s3_slRef) : (t133_v >= s3_slRef))) break;
                t133_swings++;
                if(t133_v >= s31_zLo && t133_v <= s31_zHi)
                  {
