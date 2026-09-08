@@ -69,3 +69,17 @@ run-verified on the full Tier-1 range (08.14-08.22, EURUSD M5, real ticks):
 5. 161-REG ACCEPTANCE: the STEP 0 run done (mismatch=0, loads=stores=1728); council's
    acceptance closes the Task-161 arc.
 === END RELAY ===
+
+=== CORRECTION APPENDED BY THE BUILDER 2026-09-08/09 (after packaging; supersedes the digest line above) ===
+The "current source digest" in Section 1 is STALE. The on-disk, HEAD-committed, clean-tree EA is
+4CD717289EDD1AB3F49FD16AC1930B60BA131CBB3B04FAA6F06DF19E413B48A1, 4,190 lines, 206,852 bytes —
+the complete declared STEP 1+2 scope (STEP 2 divergence gate + all FOUR SL-leg in-play copies,
+including the S3ARM copy that 7080c06's tree lacked; diff 7080c06->HEAD = +14/-3, S3ARM hunk only).
+It was never compile/run-certified in the record until now: T161H compile 0/0 and a fresh full-range
+headless run PASSED all gates (WS161 mismatch=0 loads=stores=1728 changes=59; BIASCENSUS_FINAL
+identical; PROMOCENSUS 372=372; signals 08.18 14:50 SHORT R=1.06 identical + 08.17 16:10 LONG R=1.38
+= the STEP 1 early admission restored; source byte-identical after the run). Return:
+06_HANDOFFS\BUILDER_RESULT_161-CERT.md. Provenance noise declared: commits 71c50ab/b4300f7 cite
+"EA 2f996de9" which matches no recorded state; real ancestry has 71c50ab ABOVE 7080c06 (contradicting
+§7.1's stated order); T161G_JOURNAL.log is a byte-copy of T161REG_JOURNAL.log (60E37711...), not a run.
+=== END CORRECTION ===

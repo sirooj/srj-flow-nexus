@@ -152,15 +152,41 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
 
 ### 7.1 CURRENT STATE — CONSOLIDATED (2026-09-09 ~01:30 — THIS BLOCK GOVERNS; the entries above are history)
 - SOURCE: Experts\SRJ_FlowNexus_EA.mq5 digest
-  27569701581f4d6a94e6994ff40b5d59dd1cfc62758ce758279f913c961bd59c, 4,179 lines.
-  .ex5 127,762 B @ 2026-09-08 20:00:07 (the T161F compile 0/0) - BUILT FROM THIS SOURCE.
-- GIT: HEAD 7080c06. LINEAGE (oldest to newest): b225847 (Rev063 baseline) -> af5a9bf
-  (tag Task161-baseline: Task 161 A2+B1+C) -> 673d261 (the enum append) -> 6da1214
-  (the standing state) -> 685a41a (the operator journal) -> 2ec0402 (the operator
-  rulings section 9) -> b4300f7 (STEP 1) -> abe7fd5 (the tabulation corrections) ->
-  71c50ab (the STEP 1 verification snapshot) -> 7080c06 (STEP 2) -> 2ec0402? NO:
-  2ec0402 precedes b4300f7. THE LINEAR ORDER: b225847, af5a9bf, 673d261, 6da1214,
-  685a41a, 2ec0402, b4300f7, abe7fd5, 71c50ab, 7080c06 (HEAD).
+  4CD717289EDD1AB3F49FD16AC1930B60BA131CBB3B04FAA6F06DF19E413B48A1, 4,190 lines,
+  206,852 bytes (CRLF=4190 LONELF=0, UTF-8 BOM, NONASCII=369).
+  CERTIFIED 2026-09-08/09 as T161H (operator-authorized): compile 0/0 (6011 ms) + full-range
+  headless run ALL GATES PASSED — WS161 mismatch=0 loads=stores=1728 changes=59 (identical to
+  T161F); BIASCENSUS_FINAL bars=1728 fail=0 shard-identical; XOB-PROMOCENSUS 372=372; signals
+  08.18 14:50 SHORT R=1.06 IDENTICAL + 08.17 16:10 LONG R=1.38 SL 1.15870 (= the STEP 1
+  early admission, restored by the S3ARM copy); source byte-identical after the run. Return:
+  06_HANDOFFS\BUILDER_RESULT_161-CERT.md; artifacts T161H_COMPILE.log / T161H_JOURNAL.log /
+  T161H_TABULATION.txt / T161H_P1.ini / tabulate_161h.ps1. .ex5 127,354 B @ 23:12 (record-only;
+  built from 4cd71728 by T161H). The T161F-era tabulations are superseded (they were measured
+  on a source lacking the S3ARM hunk).
+- GIT: HEAD 2049ae8 (new-session prompt + relay packaging; did NOT touch the EA). MEASURED
+  ANCESTRY FRAGMENTS (git log; §7.1's earlier stated linear order was WRONG): newest-first
+  2049ae8, 71c50ab, 7080c06, abe7fd5, 2ec0402, 685a41a, ...; EA-pathspec (last commits touching
+  the EA): 71c50ab, 7080c06, b4300f7, af5a9bf (tag Task161-baseline), b225847. So 71c50ab (the
+  STEP 1 verification snapshot) sits ABOVE STEP 2's 7080c06 and carries the S3ARM hunk
+  (diff 7080c06->71c50ab = +14/-3, EA only; plus 2 tick-audit CSVs + the tabulation).
+  PROVENANCE NOISE (declared, not blocking): commit messages 71c50ab/b4300f7 cite "EA 2f996de9"
+  which matches no recorded state; 673d261/6da1214 do not appear in HEAD's EA-touching ancestry
+  (their enum-append/standing-state content is contained in af5a9bf's tree per its own message);
+  T161G_JOURNAL.log is a byte-copy of T161REG_JOURNAL.log (both 60E37711...), not a run;
+  T161G_COMPILE.log exists (0/0, 1898 ms) with unrecorded provenance.
+- SESSION 2026-09-08/09 LATE (post-certification): operator rulings recorded — the CQD
+  is CORRECT BY DESIGN (all CQD-DA findings are measurements of deliberate behavior);
+  the disagreement resolution is EA-SIDE; the council relay is DEFERRED (the web
+  council has no repo access; the operator rules directly as council of record
+  in-session). EA-side verdict-stream evidence from T161H_JOURNAL.log, 08.18
+  afternoon: -2@14:20 (read 14:30:01, latched S5 dir=SHORT), +1@14:30 (14:40:00,
+  IDLE), -2@14:40 (read 14:50:01, latched -> the known FALSE-POSITIVE signal),
+  +2@14:50, -2@15:00, -1@15:20, +2@15:25/30/35 — the stream alternates rapidly and
+  the EA reads shift=2 only (EA-78). The CQD-debug run authorized but blocked on a
+  one-line canonical pass-through (packet item). The COMMIT TOKEN was granted and
+  EXECUTED for this session's record edits (see git log; the two T161H .log
+  artifacts stay gitignored per R-220). NEW_SESSION_PROMPT.md rewritten: the
+  EA-side divergence-consumption audit is the next session's first work item.
 - THE TASK-161 ARC: STEPS 0-2 ALL EXECUTED, COMPILED 0/0, RUN-VERIFIED.
   STEP 0: 161-REG baseline (WS161 mismatch=0 loads=stores=1728) + the snapshot
   (af5a9bf, tag Task161-baseline). STEP 1: the SL-leg in-play depth reconciled across
@@ -169,9 +195,22 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
   THE VERIFICATION RUNS: T161 (A2), T161B (B1), T161C (C), T161D (STEP 1), T161E (the
   S3 edit), T161F (STEP 2) — ALL 0 errors 0 warnings. The journals archived in 06_HANDOFFS.
 - THE WORK LIST (in order):
-  1. THE CQD DIVERGENCE-DETECTION AUDIT (code-technical, builder): the CQD exported
-     code-4 verdicts at 08.18 14:20/14:40 that the operator rejects; audit
-     SRJ_CQD_TickBased_MT5's detection against the spec 3.8 + the operator's taxonomy.
+  1. THE CQD DIVERGENCE-DETECTION AUDIT (code-technical, builder): DONE 2026-09-08/09 —
+     findings CQD-DA-1..7 in 06_HANDOFFS\BUILDER_FINDING_CQD-DA.md. PRIME SUSPECT
+     (CQD-DA-1): the 2-of-4 flag gate lets x2 be a non-swing (both x1 flags satisfy the
+     gate), so micro-pullback tops in a down-leg continuously qualify as bearish-hidden —
+     the probable cause of the rejected 08.18 14:20/14:40 code-4s. Also measured: two
+     pivot notions in one indicator (micro-fractals vs the ATR-offset triangles the
+     operator reads), oldest-anchor verdict collisions, preview-vs-export timing gap,
+     strict two-series piercing, and the §0 number tension (lookback 100 / gap 3 / max
+     3 anchors). OPERATOR RULING 2026-09-08/09: the CQD is CORRECT BY DESIGN — every
+     rule incl. the 2-of-4 gate is deliberate; CQD-DA-1..7 stand as MEASUREMENTS of
+     deliberate behavior, NOT defects (the prime-suspect framing is VOID). Successor
+     work: the EA-side CONSUMPTION audit of the CQD verdict stream. The CQD-debug
+     run was authorized but is NOT achievable without a canonical edit: the EA's
+     iCustom binding passes only InpCqd_NoReset/MaxCarryBars/MaxBackfillDays (EA
+     L45-48) and the CQD's InpDebugLog cannot be set from the tester ini — a
+     one-line pass-through is a packet item.
   2. THE FLOWLOGIC MIDLINE AUDIT (code-technical, builder): locate the
      invalidationLevel assignment (the Types constructor's caller - NOT YET FOUND);
      compare the criterion against the operator's midline body-close rule.
