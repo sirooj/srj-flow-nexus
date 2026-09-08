@@ -129,3 +129,28 @@ Documents: Part A Specification v4.2 (strategy, this folder); GOAL_STATEMENT.md 
 BUILDER_RESULT_161-A2B1C.md (Task 161 return, accepted); REVISION_63 (rulings R-96..161,
 contracts §10, milestones §13); REVISION_64_SESSION_BRIEF (control brief, VOID list);
 .clinerules (workflow + standing state, auto-loaded every session).
+
+## 9. OPERATOR RULINGS — DIVERGENCE VALIDITY + XOB VALIDITY (2026-09-09)
+DIVERGENCE-AT-CONFIRMATION RULE: "When I consider a divergence is valid or not, it is
+the latest of what divergence exists last during the confirmation entry candle. For
+example, on my trade example at 18:20: the reason why the CQD divergence is not valid
+or not present is because the latest divergence is a bullish normal divergence, type
+number one." THE LATEST DIVERGENCE PRESENT AT THE CONFIRMATION ENTRY CANDLE GOVERNS.
+For the 18:20 W-POC short: the latest was code 1 (bullish normal) - direction-mismatched
+for a short -> invalid. The EA's journal CONFIRMS the same +1 at 18:10 (bar 18:00).
+This refines spec 3.8: an opposing divergence AFTER the matched one, before the
+confirming close, invalidates the divergence requirement at the confirmation candle.
+WAITING RULE: the setup keeps waiting for a valid CQD divergence while it is still
+valid - the bias has not flipped, and the structure has not invalidated in-bias OB+FVG
+or invalidated in-bias FVG plus validated opposing-bias FVG (the 2-of-3 rule).
+XOB VALIDATION RULE: "What qualifies an XOB is the invalidation of it. When there is a
+candle body closure that closes beyond the XOB midline level." The XOB rolls within the
+same session. The operator CHALLENGES the evidence for XOB 2159's validity at 05:05:
+the EA's only data is FlowLogic's isValid flag - the EA has NO independent midline
+body-close invalidation check. VERIFICATION TASK: audit SRJ_FlowLogic's OB invalidation
+logic against the midline body-close rule, and check whether a midline-crossing body
+close occurred between 05:05 (promotion) and 14:10 (the rejected setup).
+DIVERGENCE TAXONOMY (operator): CVD/CQD codes - 1 and 3 bullish, 2 and 4 bearish;
+1 and 2 normal divergence, 3 and 4 hidden divergence. The EA's verdict values map:
++1=code1 (bull normal), -1=code2 (bear normal), +2=code3 (bull hidden), -2=code4
+(bear hidden) - MAPPING TO BE VERIFIED FROM SRJ_CQD_TickBased_MT5 source.
