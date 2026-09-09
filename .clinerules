@@ -564,6 +564,441 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
   records + the final prompt.
 
 
+- SESSION 2026-09-09 (P-XOBMID ISSUED + EXECUTED + VERIFIED; the harness hardened v2.3;
+  operator present for all rulings): SESSION-OPEN VERIFICATION PASS (EA E5B0E2E4...AFEECA
+  207,854 B CRLF=4204 LONELF=0; CQD 92F3A62B...2969F 51,701 B CRLF=1471 LONELF=0;
+  FlowLogic + fourteen includes 15/15 MATCH vs BUILDER_RESULT_160-PreL.md STAGE 1 —
+  pre-measures R-234; git HEAD 9861414, tree clean except untracked T161L4_STATUS.txt).
+  THE XOB-VALIDITY DECISION (the session's work item 1): decision memo filed
+  (BUILDER_DECISION_MEMO_XOB-VALIDITY.md §§1-9); MIDLINE-1's activation-gate framing was
+  CORRECTED by measurement — XOB 2159 (BEARISH, mode=all, activated 04:55 obVal=121381)
+  survived because the code kills a bearish OB on a body close ABOVE its mid (reclaim)
+  while its level already equaled the pure mid; the operator ruled TWICE, verbatim:
+  (1) "Shape 1 — FlowLogic adopts the midline body-close rule, activation-independent
+  (recommended)"; (2) "A — Break-direction kill: bearish OB dies on body close BELOW the
+  pure midline, bullish ABOVE; same-bar guards relaxed (recommended — fixes XOB 2159 as
+  measured)". PACKET P-XOBMID drafted (01_TASKS\PACKET_P-XOBMID.md) and ISSUED ("P-XOBMID
+  issued — execute now (Stages 1-7)"). EXECUTED: Stage 1 pre-hash PASS (OrderblockMgr
+  524D5D40...E60F, 48,009 B CRLF=1138); E1-E5 first-attempt (E1 level:=pure mid; E2 replay
+  guard->if(ob.isValid); E3/E4 directions flipped both sites; E5 wouldBeSameBarValInv
+  removed, creation-bar guard kept); Stage 3 post-hash
+  16AA5A0AC7DF00AB99C9EAFD66F0CB398CB537977AC6544639007A3537FF31BE (47,934 B CRLF=1139
+  LONELF=0); Stage 4 compile T161M 0/0 (4841 ms); Stage 5 run T161M via harness v2
+  (T161M_P1.ini = the T161K shape): "Test passed in 0:28:55.776", 321,404 ticks, 1,728
+  bars, RESULT=PASSED. ALL FIVE PACKET GATES PASS: G2 WS161 loads=stores=1728 changes=73
+  mismatch=0, LOAD NOSTORE present, no FIELD/mismatch rows; G3 CQD stream IDENTICAL (254;
+  43/84/88/39); G4 PROVEN at the line "2026.08.18 05:05:00 [SRJ][T155][OBPROV] code=4
+  id=2159 bar=121382 flag=true" — XOB 2159 invalidated AT its promotion bar, never
+  promoted (objId=2159 zero occurrences elsewhere); at 08.18 14:10-15:00 the SHORT
+  candidate evaluates inPlay=0 via=none — the operator's "NO VALID XOB" verdict is now
+  EA-reproduced; G5 re-hashes byte-identical (OrderblockMgr 16AA5A0A...; EA/CQD/
+  FlowLogic unchanged); hygiene: own leftover terminal PID 28968 closed gracefully.
+  DESIGNED OBSERVABLES (operator-judged): XOB-PROMOCENSUS 372->41; SIGNALS 2->0 (BOTH
+  T161K signals gone — 08.17 candidate + 08.20 AGREEMENT SAMPLE 4; the Tier-1 agreement
+  picture is EMPTY-BY-RULE); FRESHCOUNT 22->1; S5_WAIT 0; FRESHSKIP 197; SUPPRESSED 47;
+  ZONECENSUS xobOnly 1616->927, xobInWin 548->350; WS161 changes 79->73. DECLARED
+  FINDING (pre-registered in the packet; mechanism MEASURED): BIASCENSUS_FINAL shards
+  moved (sh1 891/837, sh2 892/836 vs the 699/1029+700/1028 identity) — the bias engine
+  consumes the M5 OB-invalidation counters directly (SRJ_BiasEngine.mqh L158-164 reads
+  bullish/bearishOBInvalidationCount; obInvalidationBoundary L132/223/283), Direction A
+  multiplied invalidations, the per-bar bias panel changed, and on 08.20 the Daily-VWAP
+  LONG read votes=1 trendOk=0 at 09:15 (vs T161K's votes=3 path to SIGNAL). The operator
+  judges: accept as the rule's true consequence, or rule on the bias engine's consumption
+  scope (further packet). HARNESS V2.3 (the operator's THIRD reliability warning: "your
+  command to run the strategy is still not reliable, improve it" — diagnosis: the BUILDER'S
+  POLL COMMANDS carried 55-second sleep loops that the IDE shell aborts, one poll died
+  "Command execution aborted", R-180; the wrapper itself was sound): run_tester_v2.ps1 now
+  writes a dedicated <RunName>_DONE.txt at EVERY terminal state (poll = ONE Test-Path per
+  tool call, ZERO sleeps — sleep loops in poll commands FORBIDDEN by the header POLL LAW),
+  cleans stale DONE at launch, and scans GATE lines ONLY in the new journal segment (the
+  day-log's earlier runs polluted T161M's STATUS GATE list — declared; gates re-derived
+  from the segment in T161M_TABULATION.txt). v2.3 validation pending on its next use.
+  ARTIFACTS: BUILDER_RESULT_161-M.md + T161M_TABULATION.txt + T161M_JOURNAL.log (segment;
+  gitignored) + T161M_FLOWCOMPILE.log (gitignored) in 06_HANDOFFS; T161M_P1.ini +
+  tabulate_161m.ps1 + T161M_STATUS.txt in 00_CURRENT_WORKING; PACKET_P-XOBMID.md (ISSUED —
+  EXECUTED) in 01_TASKS. NEW BASELINE: SRJ_OrderblockMgr.mqh
+  16AA5A0AC7DF00AB99C9EAFD66F0CB398CB537977AC6544639007A3537FF31BE (47,934 B, 1,139
+  CRLFs) T161M-verified; EA E5B0E2E4...AFEECA / CQD 92F3A62B...2969F / FlowLogic
+  1EA7858F...73B08 unchanged. The memo's §6 secondary questions (EXIT-POCVWAP a/b/c; the
+  2-of-3 general standard) remain OPEN; the STEP-4 exit model and the bias-engine-scope
+  question are the next decision points. NO git token used; nothing under
+  02_TASK_CHECKPOINTS; no canonical file beyond the ONE packet-named file.
+
+- SESSION 2026-09-09 (P-XOBMID AMENDMENT 2 EXECUTED — the direction correction; the
+  zero-signal regression REVERSED; harness v2.3 VALIDATED): THE OPERATOR'S DIRECTION
+  CLARIFICATION, verbatim: "please clarify your understanding of OB. bullish OB is a
+  bearish closing candlestick so it dies if body close below the mid level, and vice
+  versa." + "the zero signal outcome is a major regression." + "the bias counter or
+  engine is perfect as currently is." MEANING (recorded in BUILDER_DECISION_MEMO_
+  XOB-VALIDITY.md §10): the ORIGINAL kill directions were correct (bullish OB dies on a
+  body close BELOW the pure mid; bearish OB ABOVE it); the Direction-A flip (T161M) was
+  the regression's cause; the activation gate is structurally required (an
+  activation-independent test would kill every OB at creation); MIDLINE-1 (b)'s
+  "invalid from its first bar" conclusion is VOID; XOB 2159's survival through 14:10 was
+  CORRECT and the "no valid XOB" suitability question returns to operator-reserved
+  status as a separate standard. AMENDMENT 2 ISSUED AND EXECUTED: R0-R4 reverted
+  E2/E3/E4/E5, KEPT E1 (the pure-midline level), truthed the comment; pre-hash
+  16AA5A0A...31BE -> post-hash D286621CD8E2AB92B67FBA2BE0FD60BC861FF277C7516A2CFF6F79564
+  E220B7B (48,050 B, CRLF=1139) = the Task-160 original plus exactly the level hunk;
+  compile T161N 0/0 (4336 ms); run T161N via harness v2.3 (its FIRST validated use):
+  "Test passed in 0:29:51.573", 321,404 ticks, 1,728 bars, RESULT=PASSED. ALL GATES PASS:
+  the T161K SIGNAL PAIR BACK VERBATIM (08.17 16:35:02 LONG R=1.42; 08.20 09:35:04 LONG
+  R=1.60 — Agreement Sample 4 restored); CQD stream identical (254; 43/84/88/39);
+  WS161 changes=79 mismatch=0 LOAD present no FIELD rows; the XOB-2159 lifecycle
+  reproduces verbatim (05:05 promotion census identical; ONE kill at 08.18 16:40
+  code=4 id=2159 bar=121521, present in T161K identically); ZONECENSUS_FINAL back at
+  the EXACT identity; BIASCENSUS sh1 701/1027 sh2 702/1026 (the +2 neg per-shard
+  residual = the level fix's selective effect; the engine untouched per the operator);
+  OBPROV totals vs T161K: code=3 760->769, code=4 894->887; XOB-PROMOCENSUS 372->369.
+  HARNESS: the DONE marker + segment-only gates VALIDATED; declared R-180: several
+  sub-second shell poll probes were aborted by the IDE shell even under the poll law —
+  completion then confirmed by READING the DONE marker with the IDE file-read tool
+  (shell-independent) = THE POLL FALLBACK, now recorded; leftover terminal PID 21644
+  closed and verified gone. ARTIFACTS: BUILDER_RESULT_161-N.md + T161N_TABULATION.txt +
+  T161N_JOURNAL.log (gitignored) + T161N_FLOWCOMPILE.log (gitignored) in 06_HANDOFFS;
+  T161N_P1.ini + tabulate_161n.ps1 + T161N_STATUS.txt + T161N_DONE.txt in
+  00_CURRENT_WORKING. NEW BASELINE: SRJ_OrderblockMgr.mqh
+  D286621CD8E2AB92B67FBA2BE0FD60BC861FF277C7516A2CFF6F79564E220B7B (48,050 B, 1,139
+  CRLFs) T161N-verified; EA E5B0E2E4...AFEECA / CQD 92F3A62B...2969F / FlowLogic
+  1EA7858F...73B08 unchanged. OPEN: the XOB-suitability standard (operator-reserved);
+  the memo §6 secondary questions (EXIT-POCVWAP a/b/c; the 2-of-3 general standard);
+  the STEP-4 exit model; a git snapshot on token; recertification on request. NO git
+  token; nothing under 02_TASK_CHECKPOINTS; no canonical file beyond the ONE packet-
+  named file.
+- SESSION 2026-09-09 (XOBSUIT-1: the XOB-suitability standard CLOSED; the operator's
+  answers verbatim): the session's first work item was measured mechanically
+  (BUILDER_FINDING_XOBSUIT-1.md: XOB 2159's origin/activation/promotion, the EA's
+  per-bar IDCHANGE re-pick = no session constraint, the 14:10 in-play facts hits=2
+  via=SWING) and the batched questions put to the operator. THE OPERATOR'S RULING
+  (verbatim, correcting the builder against the spec of record): "1. no, only
+  invalidation just like ordinary OB that got invalidated with a candle body closure
+  beyond the midline. 2. no, the XOB creation does not matter. 3. no, as long as the
+  SL swing leg is touched or in play from the XOB projection price level that is still
+  valid." (Q4 withdrawn - the builder's framing, not a rule probe; the operator: READ
+  THE SPECIFICATION.) CONSEQUENCE: the EA's T161N XOB-suitability behavior IS the
+  operator's standard (touch never consumes - spec §3.6; no session/age bound - §9.9;
+  in-play = the SL-leg walk - §3.5); the "NO VALID XOB" framing at 08.18 14:10
+  DISSOLVES (the setup's disqualifier was the invalid CQD; the EA agreed by not
+  signaling). OPEN ITEM CLOSED - no source change. Builder correction of record: the
+  spec (Part A v4.2) already carried these answers; the builder must read the spec
+  before framing operator questions. NEW_SESSION_PROMPT.md updated accordingly.
+- SESSION 2026-09-09 (EXITMODEL-1 prepared; the operator's "proceed" honored; ZERO
+  source changes): the STEP-4 exit-model work item taken to the input boundary. READ IN
+  FULL: spec Part A v4.2 (verbatim §4/§5/§7/§8 anchors now in the record). MEASURED
+  (BUILDER_FINDING_EXITMODEL-1.md): the signal path ends ST_SIGNAL + ResetSequence
+  (EA L3944-3968) - NO post-signal tracking exists; slRef/tpTarget are caller locals,
+  NOT STORED; the R-201 GoAbort snapshot is the surviving-record precedent; §5.4 has no
+  POI-side test anywhere; the TP machinery (ComputeNearestTpTarget L659-775 = the ten
+  session/PD levels + the 12 POI lines, family-pair-filtered) is reusable per bar.
+  DESIGN + PACKET DRAFTED: 01_TASKS\PACKET_P-EXITMODEL.md (DRAFT - NOT ISSUED) - the
+  SManagedTrade record + EvaluateManagedTrade at §4 site 3 (the next open), E1-E6,
+  E3 has TWO VARIANTS pending Q1 (V1 anchor-only per charter 9.1 literal vs V2 all
+  twelve lines behind the trade per spec §5.1 wording; the 08.17 W-POC exit implies V2
+  is the operator's actual rule - RECOMMENDATION V2). SIX BATCHED QUESTIONS put to the
+  operator (EXITMODEL-1 §5 Q1-Q6): Q1 the body-close scope (build-determining);
+  Q2 short mirror; Q3 TP-vs-exit asymmetry; Q4 2-of-3 stays + §5.4 added; Q5 SL =
+  trade-through; Q6 TP re-computed per bar. THE BUILDER IS STOPPED AT THIS INPUT POINT
+  per the operator's standing rule. On answers + issuance: execute stages S1-S7
+  (compile T161O + headless run + the G1-G5 gates; entry-side identities MUST NOT
+  move).
+
+- ANSWERS RECEIVED + PACKET FINALIZED (2026-09-09, same session): the operator's six
+  rulings verbatim in BUILDER_FINDING_EXITMODEL-1.md §6. RESOLVED: Q5+9.1(2) govern -
+  PRICE's BODY close through the (possibly gap-jumped) POC line IS the early exit;
+  the LINE's gap/move alone NEVER exits (Q3, spec §1.3 - declared interpretation,
+  correctable, census-measurable); Q1 = the body-close exit carries to the lines
+  behind the trade CLASSIFIED THROUGH THE HIERARCHY (AVP-POC over VWAP per family per
+  9.1(1): a VWAP close does NOT exit; the family's POC line does; the anchor line
+  always does); session levels behind = TP-touch only. IMPLEMENTATION-SAFETY:
+  EXIT_SCOPE compile-time constant (ANCHOR / FAMILY_POC default / ALL), the census
+  logs ALL twelve lines' verdicts per bar - every scope measurable from one run, a
+  scope change = one-constant flip. Q2 mirror exact; Q4 = 2-of-3 + §5.4
+  PRE-CONFIRMATION ONLY, post-entry structure flips never kill (the §3.4 scoping fix
+  RULED - separate packet P-SCOPE34 DRAFTED, NOT ISSUED, runs AFTER P-EXITMODEL);
+  Q6 = TP re-computed per bar, nearest valid, even if <1R post-entry; Q5's SL =
+  trade-through (unobjected). PACKET_P-EXITMODEL.md = READY - AWAITING THE OPERATOR'S
+  EXPLICIT ISSUANCE (the invariant-1 gate; answers are NOT issuance per the
+  P-DIVCON-B precedent). On issuance: S1-S7 (T161O compile + run + the G1-G5 gates;
+  entry-side identities MUST reproduce T161N verbatim).
+- P-EXITMODEL EXECUTED AND VERIFIED (2026-09-09 ~15:05) - see
+  06_HANDOFFS\BUILDER_RESULT_161-O.md. ISSUANCE: "P-EXITMODEL issued - execute
+  P-SCOPE34" (both packets issued; P-SCOPE34 runs after). STAGES: S1 pre-hash PASS
+  (E5B0E2E4...); S2 E1-E6 applied (one compile rework: the struct initially sat
+  ahead of the EA's own ENUM_SRJ_* block - relocated behind it, declared in a NOTE
+  comment); S3 post-hash EA
+  09A16FB2105035D609845DD62499D31AF477BC06940E49A7A8602EF3323F0581 (227,030 B,
+  CRLF=4592 LONELF=0); S4 T161O compile 0/0 (2027 ms); S5 run T161O via harness v2.3
+  (T161O_P1.ini = the T161N shape): the operator's live terminal (PID 27908) closed
+  WITH THEIR EXPLICIT ASK_QUESTION AUTHORIZATION ("close PID 27908 yourself, run
+  T161O + then P-SCOPE34, leave it closed"); "Test passed in 0:38:44.451", 321,404
+  ticks, 1,728 bars, RESULT=PASSED, DONE=15:04:29; archive 6,995-line segment.
+  ALL GATES PASS: THE ENTRY-SIDE IDENTITIES REPRODUCE T161N VERBATIM (WS161
+  changes=79 mismatch=0 LOAD present; BIASCENSUS 701/1027 + 702/1026; ZONECENSUS
+  exact; XOB-PROMOCENSUS 369; CQD 254=43/84/88/39; OBPROV 769/887; FRESHCOUNT=19
+  S5_WAIT=0 FRESHSKIP=110 SUPPRESSED=40 ABORT=23; the SIGNAL pair verbatim) + the
+  exit phase live: MTSNAP_COUNT=2, MTCOLLISION=0, EXITVERDICT_ROWS=57,
+  EXITCENSUS_ROWS=684 (=57 bars x 12 lines). DESIGNED OBSERVABLES FOR THE OPERATOR:
+  BOTH trades exited via HTF_FLIP (section 5.6, trend trades, MT_HTF_EXIT=true
+  compile-time): the 08.17 trade at 16:45 (2 bars after entry, exit 1.15921 - the
+  operator's own trade held to 17:10/the W-POC break) and the 08.20 trade at 14:05
+  (exit 1.16955, +18.2 pts in profit); ZERO body-close BREAK verdicts (the managed
+  windows were too short under the HTF exit). THE KEY JUDGMENT ITEM: whether the
+  section 5.6 HTF exit stands (a one-constant flip to MT_HTF_EXIT=false if ruled
+  off) or the trades should run to the POI-body-break/SL/TP tests. DECLARED
+  LIMITATION: the EXIT alert's dir/session fields render NONE/- (EmitAlert reads
+  the wiped working-set globals; fixing it = an entry-pipeline edit, not
+  authorized); the MTEXIT/census lines carry the full facts. DECLARED (R-180): the
+  shell aborted poll commands twice mid-run; completion confirmed by the IDE
+  file-read of the DONE marker (the recorded poll fallback); the IDE loop-guard
+  halted five identical fallback reads (operator declared the run complete).
+  Post-run re-hashes byte-identical (EA/CQD/OBMGR/FlowLogic). The run's own
+  leftover terminal closed and verified gone.
+- P-SCOPE34 EXECUTED AND VERIFIED (2026-09-09 ~16:10) - see
+  06_HANDOFFS\BUILDER_RESULT_161-P.md. THE FIX: the 2-of-3 adverse kill is
+  PRE-CONFIRMATION ONLY (CheckFreshness gained twoOfThreeKills; the single poll
+  site passes g_state != ST_S5_GATE_CHECK; the FRESHCOUNT census gained
+  scope=pre/post). STAGES: S1 pre-hash PASS (09A16FB2... = the T161O post-state);
+  S3 post-hash EA
+  82DDAB3324E1C0A1D299D7243E3FF1DBE91FD9047D26FA2BE055B25F7BD3E709 (228,294 B,
+  CRLF=4606 LONELF=0); S4 T161P compile 0/0 (1868 ms); S5 run T161P "Test passed
+  in 0:33:26.999", 321,404 ticks, 1,728 bars. GATES ALL PASS: the identity base =
+  T161O verbatim (WS161 79/0; BIASCENSUS 701/1027+702/1026; ZONECENSUS exact;
+  PROMOCENSUS 369; CQD 254; FRESHSKIP/SUPPRESSED/ABORT 110/40/23; the SIGNAL pair
+  verbatim; the exit phase reproduced verbatim incl. both HTF_FLIP exits); G4 THE
+  FIX PROVEN: FRESHCOUNT pre=14 post=5, post_ABORT=0, post_CONJUNCTION=0, and THE
+  NAMED INSTANCE FRESHCOUNT #7 (08.14 18:55, S5_GATE_CHECK, adverse=2) now
+  verdict=HOLD scope=post where the pre-fix build ABORTED - with the SIGNAL pair
+  unmoved. DECLARED: the first launch was REFUSED_TERMINAL_BUSY (the operator
+  REOPENED their terminal, PID 28548, 15:25); the builder closed it under their
+  standing authorization ("run T161O + then P-SCOPE34, leave it closed") - a
+  correction slot if they wanted it open. DECLARED: the wrapper died before its
+  DONE marker (consistent with the operator closing VS Code); the run itself
+  completed ("connection closed" 16:06:33); the builder completed the archive
+  step manually (7,014-line segment) and tabulated.
+- OPERATOR FEEDBACK ON THE HARNESS/WORKFLOW (2026-09-09, verbatim): "i do not
+  like this system because it drains my API credit, ill tell you when the run has
+  completed. also i can close this VS code to save the RAM to improve my laptop
+  performence so that the test can run quicker." NEW POLLING RULE: the builder
+  does NOT poll during a run - it stages everything, launches, and STOPS; the
+  OPERATOR signals run completion; the builder then completes the archive/gates
+  step (manually if the wrapper died with VS Code closed). The IDE loop-guard
+  also halts repeated identical read_files polls - vary the calls or wait for the
+  operator's signal. The builder must also expect the wrapper to be killable by
+  VS Code closure (the detached PowerShell does not always survive) and know the
+  manual completion: PRE_JOURNAL_LINES -> segment archive -> gates.
+
+
+
+- SESSION END (2026-09-09): the older open items remain queued (155-RT-A reissue;
+  161-REG acceptance - the fifteen-file re-hash pre-measured 15/15 MATCH 2026-09-09;
+  the EXIT-POCVWAP a/b/c + 2-of-3 general-standard questions are folded into
+  EXITMODEL-1 §5 Q1-Q4). The T161M/N canonical change (OrderblockMgr
+  D286621C...20B7B) + records remain UNCOMMITTED (a git snapshot awaits a token) - the
+  working tree is their only copy; treat as fragile. NO push; no add/commit without an
+  explicit token.
+- SESSION 2026-09-09 (HTFAUDIT-1: the §5.6 HTF-exit mechanism measured end-to-end; the
+  operator's ruling recorded; ZERO source changes): SESSION-OPEN VERIFICATION PASS (EA
+  82DDAB33...D3E709 228,294 B CRLF=4606; CQD 92F3A62B...2969F; OrderblockMgr
+  D286621C...20B7B; FlowLogic 1EA7858F...73B08 — all MATCH; HEAD 9861414; the
+  T161M/N/O/P canonical changes UNCOMMITTED as declared). THE §5.6 JUDGMENT (pending
+  work item 1) PUT TO THE OPERATOR; THE OPERATOR'S RULING (verbatim): "the experiment
+  to consider the HTF change to invalidate or early exit for the trend following setup
+  is open item to backtest in the future" — PARKED; MT_HTF_EXIT stays true, no packet
+  issued, no canonical change. THE OPERATOR'S DATUMS: the HTF auto-detection is "not
+  correct and not robust" sometimes; their 15m chart shows NO bias change at 16:45 on
+  08.17 (the bearish flip only at 17:30); their 08.17 entry = the 15:50 confirmation
+  candle (consistent with EXIT-0817); their 08.20 exit = the S LQ target; "what HTF
+  bias can change at the 14:05, and how your RR gain was 2.8?". THE AUDIT (read-only;
+  BUILDER_FINDING_HTFAUDIT-1.md): the EA's §5.6 (L4534-4552) is a per-bar STATE test —
+  buffers 19/20/21 at the just-closed M5 bar, vHTF = (anti>=2) legs against, NO flip
+  memory, NO per-leg logging; the binding (EA L4280-4282) passes FlowLogic's inputs
+  POSITIONALLY and EXPLICITLY sets inUseConfirmedHTFOnly=false — so buffers 19/20/21
+  (H4/H1/M15) carry the LIVE outBias; SRJ_HTFEngine: each leg recomputes by FULL REPLAY
+  once per HTF bar at its OPEN instant (the RunOne gate skips unless the HTF series grew
+  AND g_newBar), the forming bar enters the replay with first-tick data, and structure
+  judgment (rh[j-1] > rh[j] && rh[j-1] > rh[j-2]) REPAINTS AT OPEN — the exported legs
+  are open-instant snapshots, frozen for the HTF bar's duration. RECONSTRUCTION:
+  08.17 — REGIMECENSUS #13 bar=15:45 votes=2 at admission (the operator's 15:50 bar);
+  vHTF 0,0,1 at bars 16:35/16:40/16:45; the change can come ONLY from the M15 leg's
+  16:45 open-instant replay (H1/H4 frozen since 16:00) — the operator's confirmed 15m
+  flip is at 17:30 = the measured divergence. 08.20 — votes=3 at 09:15 admission; vHTF
+  1 at bar=14:00 where BOTH M15 and H1 re-ran (H4 frozen since 12:00); which two legs
+  voted against is UNLOGGED. R CORRECTION OF RECORD: the "+18.2 pts = 2.8R" chat figure
+  was the builder's arithmetic slip; CORRECT = +18.2 pts / 4.0 pts risk = ~4.55R (the
+  08.17 exit ~-0.54R). PACKET-SHAPED OPTIONS (NOT ISSUED): P-HTFLOG (the EXITVERDICT
+  print gains the three leg values + anti — diagnostic-only, identity-safe, recommended
+  first); P-HTFCONF (the binding word false->true — confirmed-only legs, aligns with
+  the chart read, NOT identity-safe: ClassifyRegime reads the same buffers, full gates
+  needed); leave-as-is (the §5.6 backtest item covers it). DECLARED: four R-180
+  shell-capture failures (file-redirect + IDE reads used); no canonical file touched;
+  nothing under 02_TASK_CHECKPOINTS; no git token.
+  OPERATOR SELECTION (in-session, answering the HTFAUDIT-1 §8 batch): "P-HTFLOG first —
+  the EXITVERDICT print gains the three leg values + anti (diagnostic-only, identity-
+  safe; recommended first)". PACKET P-HTFLOG DRAFTED
+  (SRJ_FlowNexus_Local\01_TASKS\PACKET_P-HTFLOG.md): E1 the leg hoist (mtlH/M/L/Want/Anti,
+  sentinels 0.0/-1) + E2 the five-field print append; stages S1-S7; gates G1-G5 = the
+  T161P identities + the EXITVERDICT count-gate exception (the line format gains six
+  fields — declared); MT_HTF_EXIT stays TRUE. STATUS: DRAFT — NOT ISSUED — NOT EXECUTED;
+  execution awaits the operator's explicit issuance (the P-DIVCON-B precedent).
+  P-HTFLOG ISSUED + THE WORKFLOW CORRECTION (2026-09-09, operator verbatim): "P-HTFLOG
+  issued" + "No do not use this dicipline, i do not authorize this. what i want you to do
+  is keep working on until you need my input regarding the descrationary trading strategy
+  rules or relay to the flagship model!" — THE STOP-AT-INPUT-BOUNDARY DISCIPLINE IS
+  WITHDRAWN: the builder executes packets continuously through the mechanical stages
+  (edits/compile/run/gates/report) with NO per-stage pauses; operator input is required
+  ONLY for (a) discretionary-strategy-rule decisions and (b) flagship-model relays; the
+  run-completion signal stays theirs (the polling rule stands). EXECUTED: S1 PASS
+  (pre-hash 82DDAB33... 228,294 B CRLF=4606 LONELF=0 = the baseline); S2 applied E1+E2
+  first-attempt (anchors probed raw); S3 post-hash EA
+  A0701893299B82370BC62AA19CA280E7064A1C46D6830D82EB7C3E65DC3FD57E (228,604 B, CRLF=4610
+  LONELF=0, +310 B = exactly the two edit hunks); S4 T161Q compile "Result: 0 errors, 0
+  warnings, 2613 ms elapsed" (T161Q_COMPILE.log; the first Result-line extraction failed
+  on a regex escape — declared R-180, re-issued clean); the compiler located at
+  C:\Program Files\Dukascopy MetaTrader 5\metaeditor64.exe (via origin.txt); the
+  operator's live terminal (PID 26876) closed gracefully WITH THEIR EXPLICIT AUTHORIZATION
+  (ask_question: "Close it yourself now, launch T161Q, and leave it closed") — left
+  closed; T161Q_P1.ini staged (the T161P shape); T161Q LAUNCHED 18:20:51 via harness v2.3
+  detached — STATUS at launch clean (INI_EXISTS=True TERM_EXISTS=True TERMINAL_BUSY=False,
+  no REFUSED gates). NEXT: the operator signals run completion -> the builder archives
+  the segment (manually if the wrapper died), tabulates, runs the G1-G5 gates (the
+  entry-side identities + the EXITVERDICT count exception + the new
+  htfH/htfM/htfL/want/anti fields on the two exit rows), writes BUILDER_RESULT_161-Q.md.
+- SESSION 2026-09-09 (P-CQDRESTORE: the CQD UNIFY regression reverted; T161Q VOID; T161R
+  launched): THE OPERATOR TERMINATED T161Q mid-run (DONE: RESULT=UNDETERMINED 18:27:18;
+  the run's own leftover terminal PID 26956 closed as documented hygiene) and ruled
+  verbatim: "the run is not complete, in fact i terminate it. the reason is, although the
+  CQD indicator now shows valid divergenced, it block or does not detect other valid
+  divergence. this is a regression and i want you to refer the git version previously
+  before change but only change the swing detection validity. now it is not realiable
+  because it does not mark all valid divergences." — THE UNIFY CHANGE (P-CQD-FLAGGATE
+  E1-E8) IS RULED A REGRESSION. RECOVERY: the pre-change CQD was found IN GIT — commit
+  f6f7e53 (origin/main, the initial add) blob = 50,557 B =
+  4B2D688C6A29B1A8CA0E2F894526A63C82DAACE6846B5A339A473D03140D96C2 = EXACTLY the
+  P-CQD-FLAGGATE Stage-1 pre-edit digest (the manual commits hold only the post-UNIFY CQD
+  — declared). R1 applied: the working CQD restored from the f6f7e53 blob (Copy-Item;
+  post-copy digest = 4B2D688C...96C2 measured). R2 applied:
+  IsCqdFractalHigh/Low LEFT-side strictified ONLY (>= -> > and <= -> <; the classic
+  strict-3 fractal = the CQD-FRAC-1 fix = the T161J packet's E5/E6 hunks exactly). The
+  flag pairs (IsPriceSwing/IsCqdSwing) and BOTH divergence gates return BYTE-EXACT to the
+  pre-change behavior. Post-R2 CQD =
+  BE6FD84FB970B255F7809EF81CDDE829644DCC8B859166E8B2CEB9BF1D8A421F (50,555 B = -2 bytes
+  exactly, CRLF=1454 LONELF=0); T161R CQD compile "Result: 0 errors, 0 warnings, 1177 ms
+  elapsed" (T161R_CQDCOMPILE.log); source unchanged post-compile. Packet:
+  01_TASKS\PACKET_P-CQDRESTORE.md (directive-issued; executed under the withdrawn-stop
+  discipline). T161R LAUNCHED 18:38:46 via harness v2.3 (T161R_P1.ini = the T161P shape;
+  STATUS clean, TERMINAL_BUSY=False). THE EA CARRIES THE P-HTFLOG PRINT (A0701893...3FD57E)
+  — the T161Q diagnostic rides along identity-safe. GATES PENDING THE COMPLETION SIGNAL:
+  G3 the CQD verdict stream restored (the 08.18 14:20/14:40 code-4s present again); G4
+  the FlowLogic censuses = T161P verbatim; G5 the signals (08.17 + 08.20 expected
+  verbatim; the 08.18 14:50 SHORT expected RESTORED = SIGNAL_COUNT=3 — the DECLARED
+  CONSEQUENCE: the EA follows the indicator, the Agreement Sample 2 EA-side match
+  regresses by this directive, the operator's divergence-validity classification remains
+  reserved); G6 the HTFLOG fields; G7 re-hashes. THEN BUILDER_RESULT_161-R.md. NEW CQD
+  BASELINE (pending the run): BE6FD84F...A421F; the 92F3A62B UNIFY state is SUPERSEDED.
+- P-CQDRESTORE EXECUTED AND VERIFIED (2026-09-09 ~19:15) — see
+  06_HANDOFFS\BUILDER_RESULT_161-R.md. Run T161R: "Test passed in 0:31:07.688", 321,404
+  ticks, 1,728 bars. ALL GATES PASS (G5 with a REPORTED DEVIATION, mechanism named):
+  the CQD verdict stream restored to the EXACT pre-change identity (493 = 68/195/146/84;
+  the 08.18 -2@14:20/14:40 verdicts present again); every FlowLogic-driven census =
+  T161P verbatim (BIASCENSUS 701/1027+702/1026; ZONECENSUS exact; PROMOCENSUS 369;
+  OBPROV 769/887; WS161 1728/1728 mismatch=0 changes=90 measured; FRESHCOUNT 19
+  post_ABORT=0; ABORT=23; FRESHSKIP=110; SUPPRESSED=40); the XOB 2159 lifecycle
+  verbatim. SIGNALS=2 (08.17 16:35 LONG R=1.42 + 08.20 09:35 LONG R=1.60, both
+  verbatim). THE 08.18 14:50 SHORT DID NOT RETURN — MEASURED, NOT SUPPRESSED: the
+  restored -2 verdicts latched but the candidate died at the gate-check with
+  TP_RR_FAIL (the 1R admission gate; T161P carried the IDENTICAL aborts —
+  latch-independent); mechanism = P-NEXTOPEN's next-open entry reference recomputes R
+  below 1.00 where T161I's confirming-close reference gave 1.06. THE P-HTFLOG PAYOFF
+  (the leg answers): 08.17 — H4 against on EVERY managed bar (htfH=-1, frozen since its
+  16:00 open-instant replay); at 16:45 the M15 leg flipped (htfL 1->-1) -> anti=2 ->
+  the exit; the H1 leg stayed FOR throughout. 08.20 — M15 against from 13:40 (htfL=-1,
+  anti=1); at the 14:00 boundary the H1 leg flipped (htfM 1->-1) -> anti=2 -> the exit;
+  H4 FOR throughout. The HTFAUDIT-1 open-instant-replay mechanism CONFIRMED with
+  per-leg numbers. DECLARED: the first tabulation script stdout hit an R-180 capture
+  failure — the tabulation file itself (the instrument) verified complete via the IDE
+  read; the wrapper died before DONE (manual completion protocol executed). NEW
+  BASELINES: CQD = BE6FD84FB970B255F7809EF81CDDE829644DCC8B859166E8B2CEB9BF1D8A421F
+  (50,555 B, 1,454 CRLFs) T161R-verified — the 92F3A62B UNIFY state SUPERSEDED; EA
+  A0701893...3FD57E / OrderblockMgr D286621C... / FlowLogic 1EA7858F... unchanged.
+  OPEN FOR THE OPERATOR (strategy rules): (a) the 08.18 SHORT is killed by the 1R
+  gate under the next-open entry reference — if they consider that setup valid, the
+  1R-gate behavior is a discretionary-rule question (the spec's 1R admission gate is
+  working as specified); (b) the divergence-validity classification of the restored
+  stream (their reserved standard). NO git token; nothing under 02_TASK_CHECKPOINTS;
+  no canonical file beyond the ONE packet-named file.
+- SESSION 2026-09-09 (HTFSTACK-1: the operator's visual-mode discovery — the HTF-stack
+  question OPENED; session end): THE OPERATOR, in visual mode, photographed the FlowLogic
+  panel showing legs "1H: Bear / 15m: Bull / 5m: Bull" and asked why the default HTF
+  setting is 1H/15m/5m ("i guess this explains a lot about the discrepancy"). MEASURED
+  (all source-verified): (a) the FlowLogic code defaults are H4/H1/M15 (FL L146-148);
+  (b) the EA binds FlowLogic POSITIONALLY and EXPLICITLY passes H4/H1/M15 (EA L4280-4282;
+  7 args = the first 7 inputs; inUseConfirmedHTFOnly=false; the Performance-group args
+  unreachable); (c) inEnableAutoTimeframeLimit=true + inAutoTFMode=BALANCED (FL L238-239,
+  defaults the EA's instance also takes) is a LOOKBACK LIMITER ONLY — FL L494
+  effectiveLookback=min(robustness, autoLimit) (=3000 on M5) — it does NOT touch the HTF
+  TFs (L405-407 assign the manual inputs directly); (d) the panel labels are DYNAMIC —
+  Panels L326-328 render SRJ_TFToPineString(g_htfHighTF/MidTF/LowTF) — so a panel labeled
+  1H/15m/5m is an instance GENUINELY running those TFs; (e) CONSEQUENCE: the photographed
+  panel + CQD subwindow on the visual chart are NOT the EA's headless iCustom instances
+  (those never appear in a chart's indicator list) — they are the operator's own manually
+  added/template instances, and MT5 remembers their last-used inputs: THE OPERATOR'S
+  MANUAL FLOWLOGIC STACK = 1H/15m/5m. THE STRATEGY-RULE DISCOVERY: the operator's
+  discretionary HTF stack appears to be 1H/15m/5m while the EA implements the spec's
+  4H/1H/15m (charter §2; spec §3.2) — in the regime filter AND the §5.6 exit. THE DECISION
+  IS OPERATOR-RESERVED: keep 4H/1H/15m (as-built) or re-base the EA binding to the ruled
+  stack (P-HTFSTACK: change the three binding args; NOT identity-safe — admissions +
+  §5.6 re-measure; full gates). The HTFAUDIT-1 leg attributions (H4-frozen/H1-flip) stand
+  under the EA's verified binding; a stack change re-measures them. ALSO DECLARED: the
+  "not correct and not robust" HTF experience now has two measured layers — the
+  open-instant replay mechanism (HTFAUDIT-1) + the possible stack mismatch (this
+  discovery). Session-end hygiene: the _tmp extracts deleted; NEW_SESSION_PROMPT.md
+  REWRITTEN for the next session (its first work item = the HTF-stack ruling). NO
+  canonical file touched; no git token.
+
+- SESSION 2026-09-09 (HTFSTACK-2: the batched ruling PUT; memo filed; zero source
+  changes): SESSION-OPEN VERIFICATION PASS (EA A0701893...3FD57E 228,604 B; CQD
+  BE6FD84F...A421F 50,555 B; OrderblockMgr D286621C...20B7B 48,050 B; FlowLogic
+  1EA7858F...73B08 58,657 B — ALL MATCH; HEAD 9861414; the T161M-R canonical changes +
+  records UNCOMMITTED as declared; status shows M .clinerules/EA/OBMGR/CQD/prompt/harness
+  + the untracked M-R-era records). The operator chain READ (GOAL_STATEMENT + Amendments
+  1-2; CHARTER §9/§9.1; BUILDER_RESULT_161-R/-P; HTFAUDIT-1; P-CQDRESTORE; P-HTFLOG;
+  XOB-VALIDITY memo §10; XOBSUIT-1 §6 CLOSED; ANCHORTIER-1 §10 CLOSED; EXITMODEL-1 §6)
+  AND THE SPEC OF RECORD READ IN FULL (Part A v4.2 §0-§10 + handover notes — the
+  XOBSUIT-1 discipline: read the spec before framing operator questions). MEASURED THIS
+  SESSION: the EA's FlowLogic binding EA L4280-4282 is the ONLY HTF-stack site — three
+  hard-coded literals (PERIOD_H4/H1/M15), NO EA input exposes the TFs (the only FL input
+  is InpFL_HtfLookbackBars=3000, EA L51), positional `1` = CTF_5MIN (ENUM_CHARTTF,
+  FL L129); FlowLogic defaults H4/H1/M15 (L146-148); the auto-TF limit is a lookback
+  limiter only (L494). MEMO FILED:
+  06_HANDOFFS\BUILDER_DECISION_MEMO_HTFSTACK-1.md — the batched questions per §3:
+  Q1 THE HTF STACK (a keep 4H/1H/15m as-built = the spec's stack / b re-base the EA to
+  1H/15m/5m = P-HTFSTACK, one canonical file, three tokens, NOT identity-safe —
+  ClassifyRegime EA L1597-1627 admission votes + the parked §5.6 exit read buffers
+  19/20/21, every HTF-keyed identity re-measures / c a split = a second FlowLogic
+  instance, larger packet / d another stack); Q2 THE 1R GATE'S REFERENCE (the 08.18
+  TP_RR_FAIL mechanism: the restored -2 verdicts latched, R<1.00 under the next-open
+  entry killed it = today's no-signal AGREES with the operator's manual rejection; the
+  spec tension §3.9 "the reward/risk reference is the confirming close, latched" vs the
+  P-NEXTOPEN directive §4; options: a keep as-built next-open reference RECOMMENDED /
+  b R entry leg = confirming close — the 08.18 SHORT returns R=1.06, re-creating the
+  false positive / c drop the gate); Q3 THE DIVERGENCE-VALIDITY CLASSIFICATION
+  (recommend CLOSE under the standing rulings — the EA follows the indicator + strict
+  latest-at-confirmation; no additional standard to encode). AWAITING THE OPERATOR'S
+  ANSWERS. Zero source changes; nothing under 02_TASK_CHECKPOINTS; no git token.
+  RULINGS RECEIVED (same session, one relay — the operator's three answers verbatim):
+  Q1 "Keep 4H/1H/15m as-built — the spec of record's stack; no change" — THE HTF STACK IS
+  SETTLED: the EA binding L4281-4282 IS the ruled stack; the photographed 1H/15m/5m panel
+  = the manual instance's remembered inputs, NOT the standard; P-HTFSTACK never drafted.
+  Q2 "Keep as-built — R uses the next-open entry" — THE 1R GATE STANDS AS IMPLEMENTED:
+  the R entry leg = the next candle's open (P-NEXTOPEN applied consistently); the 08.18
+  TP_RR_FAIL death is ruled behavior and its no-signal agrees with the operator's manual
+  rejection. Q3 "Confirm — close it: the EA consumes the indicator's verdict stream;
+  nothing more to encode" — THE DIVERGENCE-VALIDITY CLASSIFICATION ITEM IS CLOSED. ALL
+  THREE session-opening strategy-rule items CLOSED with ZERO source changes. QUEUED WORK
+  NOW: the §5.6 backtest item (parked; MT_HTF_EXIT=true); the 155-RT-A reissue; the
+  161-REG acceptance; a git snapshot + push ONLY on explicit tokens; recertification on
+  request. Ruling record: BUILDER_DECISION_MEMO_HTFSTACK-1.md §8.
+
 ## 8. FIRST ACTION IN A NEW SESSION
 1. Read this file fully (it is auto-loaded). 2. Re-hash the EA and compare to §6.
 3. Read the latest BUILDER_RESULT and any master response the operator relays.

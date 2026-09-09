@@ -1,0 +1,47 @@
+﻿RUN=T161L4
+WRAPPER=V2
+WRAPPER_STARTED=2026-09-09 07:49:31
+INI=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\00_CURRENT_WORKING\T161L_P1.ini
+INI_EXISTS=True
+TERM_EXISTS=True
+TERMINAL_BUSY=False
+JOURNAL=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\Tester\logs\20260909.log
+PRE_JOURNAL_LINES=19350
+PID=4576
+LAUNCHED_AT=2026-09-09 07:49:39
+STAGE=RUNNING (completion = the journal marker, NOT process exit)
+HEARTBEAT=07:49:58 terminal_alive=True journal_lines=19408
+JOURNAL_LAST=MH	0	07:49:45.702	Core 04	connection closed
+TERMINAL_ALIVE=True
+ARCHIVED_LINES=58
+GATE: ED	0	01:58:15.152	Core 04	2026.08.17 16:35:02   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-VWAP | NYAM | R=1.46 SL 1.15870 TP 1.16141 spr=4
+GATE: NJ	0	02:02:25.396	Core 04	2026.08.18 14:50:01   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Daily-POC | NYAM | R=1.06 SL 1.15813 TP 1.15665 spr=4
+GATE: QP	0	02:17:52.311	Core 04	final balance 10000 JPY
+GATE: EH	0	02:17:52.311	Core 04	2026.08.21 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=1728 | sh1 neg=699 zero=0 pos=1029 empty=0 other=0 fail=0 | sh2 neg=700 zero=0 pos=1028 empty=0 other=0 fail=0
+GATE: RG	0	02:17:52.311	Core 04	2026.08.21 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=1728 both=0 xobOnly=1616 fvgOnly=0 neither=112 | inWindow=576 xobInWin=548 fvgInWin=0 | samples=0
+GATE: IP	0	02:17:52.311	Core 04	2026.08.21 23:59:58   [SRJ-EA] WS161_CENSUS fields=15 loads=1728 stores=1728 changes=78 mismatch=0
+GATE: LN	0	02:17:52.311	Core 04	EURUSD,M5: 321404 ticks, 1728 bars generated. Environment synchronized in 0:00:00.018. Test passed in 0:27:51.849 (including ticks preprocessing 0:00:00.046).
+GATE: GL	0	02:52:13.920	Core 04	2026.08.17 16:35:02   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-VWAP | NYAM | R=1.46 SL 1.15870 TP 1.16141 spr=4
+GATE: MD	0	03:10:56.975	Core 04	final balance 10000 JPY
+GATE: MK	0	03:10:56.975	Core 04	2026.08.21 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=1728 | sh1 neg=699 zero=0 pos=1029 empty=0 other=0 fail=0 | sh2 neg=700 zero=0 pos=1028 empty=0 other=0 fail=0
+GATE: JH	0	03:10:56.975	Core 04	2026.08.21 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=1728 both=0 xobOnly=1616 fvgOnly=0 neither=112 | inWindow=576 xobInWin=548 fvgInWin=0 | samples=0
+GATE: OS	0	03:10:56.975	Core 04	2026.08.21 23:59:58   [SRJ-EA] WS161_CENSUS fields=15 loads=1728 stores=1728 changes=85 mismatch=0
+GATE: MM	0	03:10:56.975	Core 04	EURUSD,M5: 321404 ticks, 1728 bars generated. Environment synchronized in 0:00:00.030. Test passed in 0:27:40.455 (including ticks preprocessing 0:00:00.031).
+GATE: NO	0	06:11:33.739	Core 04	2026.08.17 16:35:02   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-VWAP | NYAM | R=1.42 SL 1.15870 TP 1.16141 spr=4
+GATE: GP	0	06:24:16.707	Core 04	2026.08.20 09:35:04   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Daily-VWAP | LONDON | R=1.60 SL 1.16733 TP 1.16837 spr=3
+GATE: LG	0	06:31:26.476	Core 04	final balance 10000 JPY
+GATE: DM	0	06:31:26.476	Core 04	2026.08.21 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=1728 | sh1 neg=699 zero=0 pos=1029 empty=0 other=0 fail=0 | sh2 neg=700 zero=0 pos=1028 empty=0 other=0 fail=0
+GATE: OJ	0	06:31:26.476	Core 04	2026.08.21 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=1728 both=0 xobOnly=1616 fvgOnly=0 neither=112 | inWindow=576 xobInWin=548 fvgInWin=0 | samples=0
+GATE: OM	0	06:31:26.476	Core 04	2026.08.21 23:59:58   [SRJ-EA] WS161_CENSUS fields=15 loads=1728 stores=1728 changes=79 mismatch=0
+GATE: LS	0	06:31:26.476	Core 04	EURUSD,M5: 321404 ticks, 1728 bars generated. Environment synchronized in 0:00:00.020. Test passed in 0:27:42.944 (including ticks preprocessing 0:00:00.015).
+GATE: PS	0	07:34:38.576	Core 04	final balance 10000 JPY
+GATE: OE	0	07:34:38.576	Core 04	EURUSD,M5: 321404 ticks, 1728 bars generated. Environment synchronized in 0:00:00.018. Test passed in 0:00:00.118 (including ticks preprocessing 0:00:00.015).
+GATE: PL	0	07:44:07.034	Core 04	final balance 10000 JPY
+GATE: GM	0	07:44:07.034	Core 04	EURUSD,M5: 321404 ticks, 1728 bars generated. Test passed in 0:00:00.107 (including ticks preprocessing 0:00:00.016).
+GATE: PR	0	07:46:22.682	Core 04	final balance 10000 JPY
+GATE: RJ	0	07:46:22.682	Core 04	EURUSD,M5: 321404 ticks, 1728 bars generated. Environment synchronized in 0:00:00.017. Test passed in 0:00:00.113 (including ticks preprocessing 0:00:00.016).
+GATE: QF	0	07:49:45.698	Core 04	final balance 10000 JPY
+GATE: RN	0	07:49:45.698	Core 04	EURUSD,M5: 321404 ticks, 1728 bars generated. Environment synchronized in 0:00:00.018. Test passed in 0:00:00.109 (including ticks preprocessing 0:00:00.015).
+XOB_PROMOCENSUS_COUNT=1116
+RESULT=PASSED
+DONE=2026-09-09 07:50:11

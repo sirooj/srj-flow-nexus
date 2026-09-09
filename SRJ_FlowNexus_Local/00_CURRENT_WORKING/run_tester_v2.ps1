@@ -19,8 +19,15 @@
 #   4. Early-fail capture: if the terminal exits BEFORE the completion marker, the journal
 #      tail goes into STATUS for diagnosis.
 #   5. Midnight split handled: the polled journal file flips at midnight.
-# Builder protocol: launch DETACHED, poll Test-Path <RunName>_STATUS.txt with cheap
-# sub-second commands (sleeps <=60 s per tool call), STOP at first hit, read STATUS.
+# Builder protocol (V2.3 POLL LAW, hardened 2026-09-09 after the operator's THIRD
+# reliability warning — the poll COMMANDS were being aborted by the IDE shell whenever
+# they carried sleep loops): launch DETACHED, then poll with ONE SUB-SECOND COMMAND PER
+# TOOL CALL — Test-Path <RunName>_DONE.txt — and NOTHING ELSE. Sleep loops inside poll
+# commands are FORBIDDEN. This wrapper writes the DONE marker at EVERY terminal state
+# (PASSED / TERMINAL_EXITED_EARLY / TIMEOUT_60MIN / UNDETERMINED / REFUSED_*). If DONE is
+# absent the run is still going — issue another single Test-Path later; never wait inside
+# a command. STATUS carries the full pre-flight + heartbeat + GATE block (GATE lines scan
+# ONLY the new journal segment — the day-log's earlier runs must never pollute them).
 param(
   [Parameter(Mandatory=$true)][string]$RunName,
   [Parameter(Mandatory=$true)][string]$IniPath
@@ -33,6 +40,12 @@ $Term = 'C:\Program Files\Dukascopy MetaTrader 5\terminal64.exe'
 $StatusPath = Join-Path $Work ($RunName + '_STATUS.txt')
 $O = New-Object System.Collections.Generic.List[string]
 function Flush-Status { [System.IO.File]::WriteAllLines($StatusPath, $O, (New-Object System.Text.UTF8Encoding($true))) }
+$DonePath = Join-Path $Work ($RunName + '_DONE.txt')
+function Write-DoneMarker {
+  param([string]$Result)
+  $lines = @(('RUN=' + $RunName), ('RESULT=' + $Result), ('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
+  [System.IO.File]::WriteAllLines($DonePath, $lines, (New-Object System.Text.UTF8Encoding($true)))
+}
 function Read-Journal {
   param([string]$Path)   # lock-tolerant full read; returns $null if unreadable
   try {
@@ -47,14 +60,15 @@ $O.Add(('WRAPPER=V2'))
 $O.Add(('WRAPPER_STARTED=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
 $O.Add(('INI=' + $IniPath))
 if(Test-Path -LiteralPath $StatusPath){ Remove-Item -LiteralPath $StatusPath -Force }
+if(Test-Path -LiteralPath $DonePath){ Remove-Item -LiteralPath $DonePath -Force }
 $O.Add(('INI_EXISTS=' + (Test-Path -LiteralPath $IniPath).ToString()))
 $O.Add(('TERM_EXISTS=' + (Test-Path -LiteralPath $Term).ToString()))
 $busy = $null -ne (Get-Process -Name terminal64 -ErrorAction SilentlyContinue)
 $O.Add(('TERMINAL_BUSY=' + $busy.ToString()))
 Flush-Status
-if($busy){ $O.Add('RESULT=REFUSED_TERMINAL_BUSY'); $O.Add(('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))); Flush-Status; exit 2 }
-if(-not (Test-Path -LiteralPath $IniPath)){ $O.Add('RESULT=REFUSED_INI_MISSING'); $O.Add(('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))); Flush-Status; exit 3 }
-if(-not (Test-Path -LiteralPath $Term)){ $O.Add('RESULT=REFUSED_TERMINAL_MISSING'); $O.Add(('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))); Flush-Status; exit 4 }
+if($busy){ $O.Add('RESULT=REFUSED_TERMINAL_BUSY'); $O.Add(('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))); Write-DoneMarker 'REFUSED_TERMINAL_BUSY'; Flush-Status; exit 2 }
+if(-not (Test-Path -LiteralPath $IniPath)){ $O.Add('RESULT=REFUSED_INI_MISSING'); $O.Add(('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))); Write-DoneMarker 'REFUSED_INI_MISSING'; Flush-Status; exit 3 }
+if(-not (Test-Path -LiteralPath $Term)){ $O.Add('RESULT=REFUSED_TERMINAL_MISSING'); $O.Add(('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))); Write-DoneMarker 'REFUSED_TERMINAL_MISSING'; Flush-Status; exit 4 }
 $day   = Get-Date -Format 'yyyyMMdd'
 $Tlog  = Join-Path $Root ('Tester\logs\' + $day + '.log')
 $pre   = 0
@@ -114,12 +128,16 @@ if($null -ne $all -and $all.Count -gt $pre){
 }
 $O.Add(('ARCHIVED_LINES=' + $archived))
 $passed = $false
+$result = 'UNDETERMINED'
 if($archived -gt 0){
-  $g = @($all | Where-Object { $_ -match 'Test passed|final balance|WS161_CENSUS|WS161_LOAD_COUNT|WS161_MISMATCH_COUNT|BIASCENSUS_FINAL|ZONECENSUS_FINAL|ALERT SRJ SIGNAL' })
+  # V2.3: gates scan ONLY the new segment - the day-log's earlier runs must never pollute.
+  $g = @($seg | Where-Object { $_ -match 'Test passed|final balance|WS161_CENSUS|WS161_LOAD_COUNT|WS161_MISMATCH_COUNT|BIASCENSUS_FINAL|ZONECENSUS_FINAL|ALERT SRJ SIGNAL' })
   foreach($m in $g){ $O.Add(('GATE: ' + $m)) }
   $passed = @($g | Where-Object { $_ -match 'Test passed' }).Count -gt 0
-  $O.Add(('XOB_PROMOCENSUS_COUNT=' + @($all | Where-Object { $_ -match 'XOB-PROMOCENSUS' }).Count))
+  $O.Add(('XOB_PROMOCENSUS_COUNT=' + @($seg | Where-Object { $_ -match 'XOB-PROMOCENSUS' }).Count))
 }
-$O.Add(('RESULT=' + $(if($passed){'PASSED'}elseif($earlyExit){'TERMINAL_EXITED_EARLY'}elseif($timeout){'TIMEOUT_60MIN'}else{'UNDETERMINED'})))
+$result = $(if($passed){'PASSED'}elseif($earlyExit){'TERMINAL_EXITED_EARLY'}elseif($timeout){'TIMEOUT_60MIN'}else{'UNDETERMINED'})
+$O.Add(('RESULT=' + $result))
 $O.Add(('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
+Write-DoneMarker $result
 Flush-Status

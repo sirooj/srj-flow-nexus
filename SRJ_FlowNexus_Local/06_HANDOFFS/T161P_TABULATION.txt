@@ -1,0 +1,52 @@
+T161P TABULATION - P-SCOPE34 verification (source: T161P_JOURNAL.log segment)
+rule: the 2-of-3 adverse kill runs PRE-CONFIRMATION ONLY; at the gate-check (post-confirming close) only the three-flag conjunction (= the bias flip) cancels
+
+--- GATE LINES (verbatim) ---
+LP	0	15:31:57.434	Core 04	2026.08.14 00:00:00   [SRJ-EA] WS161_LOAD NOSTORE bar=2026.08.13 23:55 shift=1 loads=1
+LI	0	16:05:18.190	Core 04	final balance 10000 JPY
+JO	0	16:05:18.190	Core 04	2026.08.21 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=1728 | sh1 neg=701 zero=0 pos=1027 empty=0 other=0 fail=0 | sh2 neg=702 zero=0 pos=1026 empty=0 other=0 fail=0
+KL	0	16:05:18.190	Core 04	2026.08.21 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=1728 both=0 xobOnly=1616 fvgOnly=0 neither=112 | inWindow=576 xobInWin=548 fvgInWin=0 | samples=0
+KO	0	16:05:18.190	Core 04	2026.08.21 23:59:58   [SRJ-EA] WS161_CENSUS fields=15 loads=1728 stores=1728 changes=79 mismatch=0
+JQ	0	16:05:18.190	Core 04	EURUSD,M5: 321404 ticks, 1728 bars generated. Environment synchronized in 0:00:00.018. Test passed in 0:33:26.999 (including ticks preprocessing 0:00:00.031).
+
+--- SIGNALS (verbatim; the identity base = T161O) ---
+SIGNAL_COUNT=2
+NE	0	15:42:26.355	Core 04	2026.08.17 16:35:02   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-VWAP | NYAM | R=1.42 SL 1.15870 TP 1.16141 spr=4
+HL	0	15:57:17.628	Core 04	2026.08.20 09:35:04   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Daily-VWAP | LONDON | R=1.60 SL 1.16733 TP 1.16837 spr=3
+
+--- EXIT PHASE (must reproduce T161O verbatim) ---
+MTSNAP_COUNT=2
+OG	0	15:42:26.355	Core 04	2026.08.17 16:35:02   [SRJ-EA] MTSNAP bar=2026.08.17 16:30 dir=LONG anchor=Weekly-VWAP entry=1.15982 sl=1.15870 tp=1.16141 regime=1
+LD	0	15:57:17.628	Core 04	2026.08.20 09:35:04   [SRJ-EA] MTSNAP bar=2026.08.20 09:30 dir=LONG anchor=Daily-VWAP entry=1.16773 sl=1.16733 tp=1.16837 regime=1
+MTEXIT_COUNT=2
+FH	0	15:42:26.355	Core 04	2026.08.17 16:50:00   [SRJ-EA] MTEXIT bar=2026.08.17 16:45 reason=HTF_FLIP line=- lineVal=- entry=1.15982 exit=1.15921
+DE	0	15:58:12.560	Core 04	2026.08.20 14:05:00   [SRJ-EA] MTEXIT bar=2026.08.20 14:00 reason=HTF_FLIP line=- lineVal=- entry=1.16773 exit=1.16955
+EXIT_ALERT_COUNT=0
+EXITCENSUS_ROWS=684
+EXITCENSUS_BREAK_ON_TRIGGER=0
+
+--- THE SCOPING FIX EVIDENCE ---
+FRESHCOUNT_TOTAL=19
+FRESHCOUNT_pre=14
+FRESHCOUNT_post=5
+FRESHCOUNT_post_ABORT=0
+FRESHCOUNT_post_CONJUNCTION=0
+IN	0	15:37:15.055	Core 04	2026.08.14 18:55:01   [SRJ-EA] FRESHCOUNT #6 bar=2026.08.14 18:50 state=S5_GATE_CHECK obDead=0 fvgDead=1 oppFvg=0 adverse=1 verdict=HOLD scope=post cum1=2 cum2=1 cum3=0
+ND	0	15:37:15.055	Core 04	2026.08.14 19:00:00   [SRJ-EA] FRESHCOUNT #7 bar=2026.08.14 18:55 state=S5_GATE_CHECK obDead=1 fvgDead=1 oppFvg=0 adverse=2 verdict=HOLD scope=post cum1=2 cum2=2 cum3=0
+QL	0	15:47:07.149	Core 04	2026.08.18 14:20:13   [SRJ-EA] FRESHCOUNT #16 bar=2026.08.18 14:15 state=S5_GATE_CHECK obDead=0 fvgDead=1 oppFvg=0 adverse=1 verdict=HOLD scope=post cum1=5 cum2=3 cum3=0
+RG	0	15:47:07.149	Core 04	2026.08.18 14:25:00   [SRJ-EA] FRESHCOUNT #17 bar=2026.08.18 14:20 state=S5_GATE_CHECK obDead=0 fvgDead=1 oppFvg=0 adverse=1 verdict=HOLD scope=post cum1=6 cum2=3 cum3=0
+GO	0	15:47:13.253	Core 04	2026.08.18 14:30:01   [SRJ-EA] FRESHCOUNT #18 bar=2026.08.18 14:25 state=S5_GATE_CHECK obDead=0 fvgDead=1 oppFvg=0 adverse=1 verdict=HOLD scope=post cum1=7 cum2=3 cum3=0
+
+--- IDENTITY COUNTERS (base = T161O) ---
+WS161_LOAD_COUNT=1
+WS161_MISMATCH_ROWS=0
+WS161_FIELD_ROWS=0
+XOB_PROMOCENSUS_COUNT=369
+CQD_DIV_VERDICT_TOTAL=254
+CQD_p1=43
+CQD_p2=84
+CQD_m1=88
+CQD_m2=39
+FRESHSKIP=110
+SUPPRESSED=40
+ABORT=23

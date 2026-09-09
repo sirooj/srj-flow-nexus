@@ -133,3 +133,11 @@ signal); 08.17 candidate agreement (entry/exit layers = STEP 4); 08.18 agreement
 false positive; the 18:20 suppression ruled correct); 08.19/21 absence agreements;
 08.20 AGREEMENT SAMPLE 4 (complete). NO VALIDITY DISAGREEMENT REMAINS IN THE TIER-1
 WINDOW.
+
+## AMENDMENT 3, 2026-09-09 — THE 08.20 TP LABEL CORRECTION (builder correction of record)
+Amendment 1's phrase "the EA's nearest-POI 1.16837" is WRONG and is corrected in place:
+1.16837 is ASH — the Asia Session High, a SESSION-LIQUIDITY level — the EA's session
+group target, i.e. the operator's own "S LQ" family, not a POI line. The mechanism and
+the residue (R-Q12; which session level "S LQ" denoted) are measured in
+BUILDER_FINDING_0820-TP.md. The agreement verdict of Amendment 1 (08.20 = AGREEMENT
+SAMPLE 4, complete) is unchanged.
