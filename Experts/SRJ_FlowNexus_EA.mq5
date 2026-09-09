@@ -1451,8 +1451,15 @@ bool DetectPoiRetest(int barShift, PoiRetestResult &r)
    double l = iLow  (_Symbol, PERIOD_CURRENT, barShift);
    double c = iClose(_Symbol, PERIOD_CURRENT, barShift);
    if(h <= 0.0 || l <= 0.0) return false;
-   double bodyHi = MathMax(o, c);
-   double bodyLo = MathMin(o, c);
+   //--- [P-NEXTOPEN 2026-09-09, operator directive] The retest's body-side
+   //--- test is evaluated at the NEXT candle's OPEN, not the retest candle's
+   //--- close (Part A spec section 4: evaluate at the next candle's open).
+   //--- Fail-soft: the retest candle's close is the fallback if the next
+   //--- bar's open cannot be read.
+   double cNext = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+   if(cNext <= 0.0) cNext = c;
+   double bodyHi = MathMax(o, cNext);
+   double bodyLo = MathMin(o, cNext);
    double P   = _Point;
    double EPS = P * 0.001;
    double lineVal[POI_NLINES];
@@ -2947,12 +2954,12 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                PrintFormat("[SRJ-EA] %s S2POLL_RR_SHORTFALL tpDist=%.5f slDist=%.5f R=%.2f",
                            TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS),
                            tpDist, slDist, (slDist > 0.0 ? tpDist / slDist : 0.0));
-            /* [Task 31 / Ruling 7a] ADVISORY. Was GoAbort(ABORT_TP_RR_FAIL). iClose is not an entry price before S5: measured 0.17 to 213.27 on one 7-bar sequence as slDist collapses, and every zone-derived alternative overstates by up to 20x. The hard 1R gate now lives only at S5, where the close IS the entry. S2POLL_RR_SHORTFALL above still logs every failure. */ ;
+            /* [Task 31 / Ruling 7a] ADVISORY. Was GoAbort(ABORT_TP_RR_FAIL). iClose is not an entry price before S5: measured 0.17 to 213.27 on one 7-bar sequence as slDist collapses, and every zone-derived alternative overstates by up to 20x. The hard 1R gate now lives only at S5, where the entry IS the next candle's open (P-NEXTOPEN 2026-09-09). S2POLL_RR_SHORTFALL above still logs every failure. */ ;
            }
         }
      }
 
-   if(!g_divLatch && g_state >= ST_S1_REGIME && g_dir != DIR_NONE)
+   if(g_state >= ST_S1_REGIME && g_dir != DIR_NONE)
      {
       string kind;
       g_divLatch = UpdateDivergenceLatch(barShift, g_dir, kind);
@@ -3868,7 +3875,14 @@ void EvaluateClosedBar(int barShift, datetime barTime)
      {
       bool divOk = g_divLatch;
 
-      double currentPrice = iClose(_Symbol, PERIOD_CURRENT, barShift);
+      //--- [P-NEXTOPEN 2026-09-09, operator directive] The entry reference is
+      //--- the NEXT candle's OPEN (the forming bar's open at this evaluation
+      //--- instant), not the evaluated bar's close (Part A spec section 4).
+      //--- Fail-soft: the evaluated bar's close is the fallback if the next
+      //--- bar's open cannot be read.
+      double nextOpenPx = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+      if(nextOpenPx <= 0.0) nextOpenPx = iClose(_Symbol, PERIOD_CURRENT, barShift);
+      double currentPrice = nextOpenPx;
       double tpTarget = 0.0;
       if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget))
         {
