@@ -93,6 +93,52 @@ void InitAuthorityTable()
    g_authorityRank[POI_BUF_D_VWAP] = 11;  g_lineCode[POI_BUF_D_VWAP] = "Daily-VWAP";
   }
 
+//====================== [P-EXITMODEL] the managed trade (spec section 5) =============
+// The post-signal record: spec section 4 site 3 (the exit, evaluated at the NEXT
+// candle's open) + sections 5.1-5.6. It SURVIVES ResetSequence (the R-201 pattern) -
+// it is NOT a working-set field and ResetSequence does not clear it. ALERT-ONLY is
+// preserved: every verdict is an EXITCENSUS line; an actual exit also emits the EXIT
+// alert. No order is ever sent from this phase.
+#define MT_SCOPE_ANCHOR      0
+#define MT_SCOPE_FAMILY_POC  1
+#define MT_SCOPE_ALL         2
+//--- EXIT_SCOPE (a compile-time constant, the section 4 toggle precedent - NOT a user
+//--- input): which lines carry the section 5.1 body-close early exit, classified
+//--- through the ruled hierarchy (AVP-POC over VWAP inside each family; charter 9.1:
+//--- a VWAP close does NOT exit a POC-anchored trade; the origin/anchor line's own
+//--- break DOES exit). A line's own GAP/MOVE alone never exits (section 1.3); the
+//--- exit is PRICE's BODY close through a BEHIND trigger line (body = open -> next
+//--- open, the T161K convention; operator ruling: "it must be body"). Session levels
+//--- behind the trade are TP-touch only, never body-close triggers (section 5.1).
+#define MT_EXIT_SCOPE        MT_SCOPE_FAMILY_POC
+//--- section 5.6 toggle (compile-time, NOT a user input): the HTF aggregate flip
+//--- exits trend-following trades at the flipping HTF candle's confirmation close.
+//--- Default ON per spec ("default, scoped to trend-following").
+#define MT_HTF_EXIT          true
+
+enum ENUM_MT_STATE
+  {
+   MT_INACTIVE     = 0,
+   MT_PENDING_FILL = 1,
+   MT_MANAGING     = 2,
+   MT_CLOSED       = 3
+  };
+enum ENUM_MT_EXIT
+  {
+   MT_EXIT_NONE          = 0,
+   MT_EXIT_TP_TOUCH      = 1,
+   MT_EXIT_POI_BODY_BREAK= 2,
+   MT_EXIT_SL            = 3,
+   MT_EXIT_HTF_FLIP      = 4,
+   MT_EXIT_FILL_INVALID  = 5,
+   MT_EXIT_CANCEL_BIAS   = 6,
+   MT_EXIT_REPLACED      = 7
+  };
+
+// NOTE (P-EXITMODEL): the SManagedTrade struct, g_mtrade, MtExitName() and MtReset()
+// are declared FURTHER DOWN, after the EA's own ENUM_SRJ_* enum block (they need
+// ENUM_SRJ_DIR/ENUM_SRJ_REGIME, declared at ~L239-242 of this file).
+
 //====================== CQD buffer index ==============================
 #define CQD_BUF_DIVVERDICT  6
 
@@ -142,6 +188,66 @@ enum ENUM_SRJ_DIR     { DIR_NONE=0, DIR_LONG=1, DIR_SHORT=-1 };
 enum ENUM_SRJ_REGIME  { REGIME_NONE=0, REGIME_TREND=1, REGIME_MEANREV=2, REGIME_BOTH=3 };
 enum ENUM_SRJ_SESSION { SESSION_NONE=0, SESSION_LONDON=1, SESSION_NYAM=2 };
 enum ENUM_SRJ_SLMODE  { SL_MODE_NONE=0, SL_MODE_1SWING=1, SL_MODE_2SWING=2 };
+
+//====================== [P-EXITMODEL] the managed trade (spec section 5) =============
+// Declared HERE (after the EA's own ENUM_SRJ_* block) because SManagedTrade carries
+// ENUM_SRJ_DIR and the regime int. The #defines/ENUM_MT_* live at the top of the file.
+struct SManagedTrade
+  {
+   bool         active;
+   int          state;             // ENUM_MT_STATE
+   ENUM_SRJ_DIR dir;
+   int          anchorLine;        // POI_BUF_*
+   double       anchorPrice0;      // provenance only (tests use current values, 5.2)
+   datetime     anchorBarTime;
+   int          sessionAtEntry;    // ENUM_SRJ_SESSION as int
+   double       entryPrice;        // the S5 next-open reference = the fill level
+   double       slRef;             // the latched two-branch stop
+   double       tpRef;             // the admission TP figure (provenance)
+   int          regimeAtAdmission; // ENUM_SRJ_REGIME as int (drives the 5.6 scope)
+   datetime     fillBarTime;       // the fill candle's OPEN time (the next candle)
+   datetime     signalBarTime;     // the confirming candle's open time
+   int          exitReason;        // ENUM_MT_EXIT
+   datetime     exitBarTime;
+   double       exitPrice;
+  };
+SManagedTrade g_mtrade;
+
+string MtExitName(const int r)
+  {
+   switch(r)
+     {
+      case MT_EXIT_TP_TOUCH:        return "TP_TOUCH";
+      case MT_EXIT_POI_BODY_BREAK:  return "POI_BODY_BREAK";
+      case MT_EXIT_SL:              return "SL";
+      case MT_EXIT_HTF_FLIP:        return "HTF_FLIP";
+      case MT_EXIT_FILL_INVALID:    return "FILL_INVALID";
+      case MT_EXIT_CANCEL_BIAS:     return "CANCEL_BIAS";
+      case MT_EXIT_REPLACED:        return "REPLACED";
+     }
+   return "NONE";
+  }
+
+void MtReset()
+  {
+   g_mtrade.active            = false;
+   g_mtrade.state             = MT_INACTIVE;
+   g_mtrade.dir               = DIR_NONE;
+   g_mtrade.anchorLine        = -1;
+   g_mtrade.anchorPrice0      = 0.0;
+   g_mtrade.anchorBarTime     = 0;
+   g_mtrade.sessionAtEntry    = -1;
+   g_mtrade.entryPrice        = 0.0;
+   g_mtrade.slRef             = 0.0;
+   g_mtrade.tpRef             = 0.0;
+   g_mtrade.regimeAtAdmission = 0;
+   g_mtrade.fillBarTime       = 0;
+   g_mtrade.signalBarTime     = 0;
+   g_mtrade.exitReason        = MT_EXIT_NONE;
+   g_mtrade.exitBarTime       = 0;
+   g_mtrade.exitPrice         = 0.0;
+  }
+
 
 //====================== Abort reason codes ============================
 #define ABORT_FRESH_OB_DEAD    "FRESH_OB_DEAD"
@@ -1530,15 +1636,24 @@ bool CheckLtfAlign(int barShift, ENUM_SRJ_DIR dir, bool &alignedOut)
   }
 
 //====================== Step 3: Continuous freshness poll ============
-string CheckFreshness(int barShift)
+//--- [P-SCOPE34 2026-09-09, operator-issued packet] The 2-of-3 adverse kill is
+//--- PRE-CONFIRMATION ONLY (the operator's Q4 ruling verbatim: "yes, that is only
+//--- pre confirmation entry. even if after entry, the structure flip then i still
+//--- hold the trade"; spec section 3.4 verbatim: "if later the structure is flipped
+//--- after the confirmation entry, i still hold the trade"). twoOfThreeKills=true at
+//--- the pre-confirmation states (S4_ARMED); false at the gate-check (S5) where the
+//--- poll is diagnostic-only and the only cancellation is the live bias flip (the
+//--- three-flag conjunction is the same event - sections 3.4/5.5). The FRESHCOUNT
+//--- census carries scope=pre/post so the tabulation separates the populations.
+string CheckFreshness(int barShift, bool twoOfThreeKills)
   {
    double obValid, oppFvg;
    if(!ReadFlow(FL_BUF_LTF_OB_VALID, obValid, barShift))
       return ABORT_UPSTREAM_UNREADY;
    if(!ReadFlow(FL_BUF_LTF_OPP_FVG,  oppFvg,  barShift))
       return ABORT_UPSTREAM_UNREADY;
-   double t88_fvg = 0.0; if(!ReadFlow(FL_BUF_LTF_FVG_VALID, t88_fvg, barShift)) return ABORT_UPSTREAM_UNREADY; bool t88_a1 = ((int)MathRound(obValid) == 0); bool t88_a2 = ((int)MathRound(t88_fvg) == 0); bool t88_a3 = ((int)MathRound(oppFvg) == 1); int t88_n = (t88_a1 ? 1 : 0) + (t88_a2 ? 1 : 0) + (t88_a3 ? 1 : 0); static int s_t88_ev = 0; static int s_t88_c1 = 0; static int s_t88_c2 = 0; static int s_t88_c3 = 0; s_t88_ev++; if(t88_n == 1) s_t88_c1++; if(t88_n == 2) s_t88_c2++; if(t88_n == 3) s_t88_c3++; if(InpDebugLog && t88_n > 0) PrintFormat("[SRJ-EA] FRESHCOUNT #%d bar=%s state=%s obDead=%d fvgDead=%d oppFvg=%d adverse=%d verdict=%s cum1=%d cum2=%d cum3=%d", s_t88_ev, TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), StateName(g_state), (int)t88_a1, (int)t88_a2, (int)t88_a3, t88_n, (t88_n >= 2 ? "ABORT" : "HOLD"), s_t88_c1, s_t88_c2, s_t88_c3);
-   if(t88_n >= 2) return (t88_a3 ? ABORT_FRESH_OPP_FVG : ABORT_FRESH_OB_DEAD);
+   double t88_fvg = 0.0; if(!ReadFlow(FL_BUF_LTF_FVG_VALID, t88_fvg, barShift)) return ABORT_UPSTREAM_UNREADY; bool t88_a1 = ((int)MathRound(obValid) == 0); bool t88_a2 = ((int)MathRound(t88_fvg) == 0); bool t88_a3 = ((int)MathRound(oppFvg) == 1); int t88_n = (t88_a1 ? 1 : 0) + (t88_a2 ? 1 : 0) + (t88_a3 ? 1 : 0); static int s_t88_ev = 0; static int s_t88_c1 = 0; static int s_t88_c2 = 0; static int s_t88_c3 = 0; s_t88_ev++; if(t88_n == 1) s_t88_c1++; if(t88_n == 2) s_t88_c2++; if(t88_n == 3) s_t88_c3++; if(InpDebugLog && t88_n > 0) PrintFormat("[SRJ-EA] FRESHCOUNT #%d bar=%s state=%s obDead=%d fvgDead=%d oppFvg=%d adverse=%d verdict=%s scope=%s cum1=%d cum2=%d cum3=%d", s_t88_ev, TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), StateName(g_state), (int)t88_a1, (int)t88_a2, (int)t88_a3, t88_n, (twoOfThreeKills && t88_n >= 2 ? "ABORT" : "HOLD"), (twoOfThreeKills ? "pre" : "post"), s_t88_c1, s_t88_c2, s_t88_c3);
+   if(t88_n >= 2 && twoOfThreeKills) return (t88_a3 ? ABORT_FRESH_OPP_FVG : ABORT_FRESH_OB_DEAD);
    return "";
   }
 
@@ -2885,7 +3000,12 @@ void EvaluateClosedBar(int barShift, datetime barTime)
 
    if(g_state >= ST_S4_ARMED && g_state <= ST_S5_GATE_CHECK)
      {
-      string fail = CheckFreshness(barShift);
+      //--- [P-SCOPE34] the 2-of-3 kill is PRE-CONFIRMATION ONLY: at S4_ARMED the
+      //--- poll kills as built; at S5_GATE_CHECK (post-confirming-close) it is
+      //--- diagnostic-only (scope=post, verdict=HOLD) - the only cancellation
+      //--- there is the live bias flip (the three-flag conjunction is the same
+      //--- event per spec sections 3.4/5.5).
+      string fail = CheckFreshness(barShift, g_state != ST_S5_GATE_CHECK);
       if(fail != "") { GoAbort(fail, g_state); return; }
      }
 
@@ -3955,6 +4075,54 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                    true);
         }
 
+      //--- [P-EXITMODEL 2026-09-09, operator-issued packet] The section 5 exit phase
+      //--- now exists: snapshot the trade into the managed record BEFORE
+      //--- ResetSequence (the R-201 ordering discipline). The entry reference IS the
+      //--- next candle's open (currentPrice above), so the fill is immediate at that
+      //--- open (section 5.5's limit "fills on a wick" - the forming bar's own open
+      //--- is the fill tick); the fill candle's own close is then tested like every
+      //--- bar ("exit immediately rather than waiting for a subsequent close").
+      //--- DECLARED BOUNDARY: one managed record (the R-201 precedent). A second
+      //--- signal while one trade is managing logs MTCOLLISION and REPLACES the
+      //--- record (spec section 6's blessed London+NY exception would need a
+      //--- registry - a separate packet item if it ever fires).
+      if(g_mtrade.active && g_mtrade.state == MT_MANAGING)
+        {
+         if(InpDebugLog)
+            PrintFormat("[SRJ-EA] MTCOLLISION old bar=%s reason=REPLACED by bar=%s",
+                        TimeToString(g_mtrade.fillBarTime, TIME_DATE|TIME_MINUTES),
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                     TIME_DATE|TIME_MINUTES));
+         g_mtrade.state      = MT_CLOSED;
+         g_mtrade.exitReason = MT_EXIT_REPLACED;
+         g_mtrade.exitBarTime = iTime(_Symbol, PERIOD_CURRENT, barShift);
+        }
+      MtReset();
+      g_mtrade.active            = true;
+      g_mtrade.state             = MT_MANAGING;
+      g_mtrade.dir               = g_dir;
+      g_mtrade.anchorLine        = g_anchorLine;
+      g_mtrade.anchorPrice0      = g_anchorPrice;
+      g_mtrade.anchorBarTime     = g_anchorBarTime;
+      g_mtrade.sessionAtEntry    = (int)g_sessionAtEntry;
+      g_mtrade.entryPrice        = currentPrice;
+      g_mtrade.slRef             = slRef;
+      g_mtrade.tpRef             = tpTarget;
+      g_mtrade.regimeAtAdmission = (int)g_regime;
+      g_mtrade.fillBarTime       = iTime(_Symbol, PERIOD_CURRENT, 0);
+      g_mtrade.signalBarTime     = iTime(_Symbol, PERIOD_CURRENT, barShift);
+      g_mtrade.exitReason        = MT_EXIT_NONE;
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] MTSNAP bar=%s dir=%s anchor=%s entry=%s sl=%s tp=%s regime=%d",
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                  TIME_DATE|TIME_MINUTES),
+                     DirName(g_dir),
+                     (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none"),
+                     DoubleToString(currentPrice, _Digits),
+                     DoubleToString(slRef, _Digits),
+                     DoubleToString(tpTarget, _Digits),
+                     (int)g_regime);
+
       if(InpMode == MODE_ALERT_ONLY)
         {
          PrintFormat("[SRJ-EA] ALERT_ONLY mode - no order sent. Session %s marked used.",
@@ -4190,6 +4358,240 @@ void OnDeinit(const int reason)
    g_hPoi = g_hCqd = g_hFlow = INVALID_HANDLE;
   }
 
+//====================== [P-EXITMODEL] exit-phase helpers =============================
+//--- The section 5.1 body-close trigger set, from the compile-time MT_EXIT_SCOPE,
+//--- classified through the ruled hierarchy (charter 9.1: AVP-POC over VWAP inside
+//--- each family; the origin/anchor line's own break always exits - 9.1(2)).
+bool MtIsBreakTrigger(const int k)
+  {
+   if(k == g_mtrade.anchorLine) return true;   // 9.1(2): the origin entry POI
+   if(MT_EXIT_SCOPE == MT_SCOPE_ALL) return true;
+   if(MT_EXIT_SCOPE == MT_SCOPE_ANCHOR) return false;
+   return ((k % 2) == 0);   // FAMILY_POC: the POC buffers are the even indices
+  }
+
+//--- The TP scan replicates ComputeNearestTpTarget's admission EXACTLY but takes the
+//--- anchor tier from the TRADE's record: the shared function reads the working-set
+//--- g_anchorLine, which ResetSequence wipes at the signal, and the exit phase runs
+//--- post-reset. DECLARED DUPLICATION: the entry pipeline is byte-untouched (spec
+//--- section 7). TpTargetUpdateBest's zone guard (Task 31/Ruling 7c) reads the
+//--- working-set zone globals, which are 0.0 post-reset, so the guard is inert here -
+//--- consistent with section 2.2 ("a touch, no geometry") and section 5.3 (no
+//--- distance/size/width in the exit rules). Q6 ruling honored: re-computed per bar,
+//--- the nearest valid target, even if less than 1R post-entry.
+bool MtNearestTpTarget(const int barShift, const ENUM_SRJ_DIR dir,
+                       const double currentPrice, double &tpTargetOut)
+  {
+   double best = 0.0;
+   bool   haveBest = false;
+   const int sessbufs[10] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
+                              FL_BUF_ASIA_HIGH, FL_BUF_ASIA_LOW,
+                              FL_BUF_LONDON_HIGH, FL_BUF_LONDON_LOW,
+                              FL_BUF_NY_HIGH, FL_BUF_NY_LOW,
+                              FL_BUF_PM_HIGH, FL_BUF_PM_LOW };
+   double s39_mask;
+   if(!ReadFlow(FL_BUF_SWEPT_MASK, s39_mask, barShift)) s39_mask = EMPTY_VALUE;
+   for(int i = 0; i < ArraySize(sessbufs); i++)
+     {
+      double v;
+      if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask))
+         TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+     }
+   int anchorRank = (g_mtrade.anchorLine >= 0)
+                    ? g_authorityRank[g_mtrade.anchorLine] : INT_MAX;
+   for(int k = 0; k < POI_NLINES; k++)
+     {
+      if(k == g_mtrade.anchorLine || (g_authorityRank[k] / 2) > (anchorRank / 2))
+         continue;
+      double v;
+      if(!ReadBuf1(g_hPoi, k, v, barShift)) continue;
+      TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+     }
+   if(!haveBest) return false;
+   tpTargetOut = best;
+   return true;
+  }
+
+//====================== [P-EXITMODEL] EvaluateManagedTrade ===========================
+// Spec section 4 site 3: the exit, evaluated at the NEXT candle's open. Called once
+// per closed bar from OnTick AFTER the entry pipeline (section 7's separation: this
+// function never touches the entry pipeline or any working-set field). Every verdict
+// is logged (instrumentation-first, section 4's mitigation); an actual exit also
+// emits the EXIT alert (ALERT-ONLY preserved - never an order). Same-bar priority
+// when several tests fire together: SL, then TP_TOUCH, then POI_BODY_BREAK, then
+// HTF_FLIP (the conservative stop-first standard; the census logs ALL verdicts so
+// the operator can re-judge any instance).
+void EvaluateManagedTrade(const int barShift)
+  {
+   if(!g_mtrade.active) return;
+   if(g_mtrade.state != MT_MANAGING && g_mtrade.state != MT_PENDING_FILL) return;
+
+   datetime barTime = iTime(_Symbol, PERIOD_CURRENT, barShift);
+   if(barTime < g_mtrade.fillBarTime) return;   // bars predating the fill are not ours
+
+   double o = iOpen(_Symbol, PERIOD_CURRENT, barShift);
+   double h = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+   double l = iLow(_Symbol, PERIOD_CURRENT, barShift);
+   double c = iClose(_Symbol, PERIOD_CURRENT, barShift);
+   //--- the NEXT candle's open = the evaluation instant's price (section 4);
+   //--- fail-soft to the evaluated bar's close if the next open cannot be read.
+   double nextOpenPx = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+   if(nextOpenPx <= 0.0) nextOpenPx = c;
+   double bodyLo = MathMin(o, nextOpenPx);
+   double bodyHi = MathMax(o, nextOpenPx);
+   double EPS = 0.001 * _Point;   // the T161K float guard, threshold-free semantics
+
+   //--- PENDING_FILL (section 5.5): fill on the first touch of the entry level.
+   //--- Under the next-open entry the fill bar's own open IS the entry, so this
+   //--- fills at the first evaluation; the branch keeps the lifecycle complete.
+   if(g_mtrade.state == MT_PENDING_FILL)
+     {
+      bool touched = (g_mtrade.dir == DIR_LONG) ? (l <= g_mtrade.entryPrice + EPS)
+                                                : (h >= g_mtrade.entryPrice - EPS);
+      if(!touched)
+        {
+         //--- not filled yet: cancel on a bias flip (the three-flag conjunction is
+         //--- the same event per sections 3.4/5.5)
+         double ltfBias;
+         if(ReadFlow(FL_BUF_LTF_BIAS, ltfBias, barShift))
+           {
+            int want = (g_mtrade.dir == DIR_LONG) ? 1 : -1;
+            if((int)MathRound(ltfBias) != want)
+              {
+               g_mtrade.state      = MT_CLOSED;
+               g_mtrade.exitReason = MT_EXIT_CANCEL_BIAS;
+               g_mtrade.exitBarTime = barTime;
+               g_mtrade.exitPrice   = nextOpenPx;
+               if(InpDebugLog)
+                  PrintFormat("[SRJ-EA] MTEXIT bar=%s reason=CANCEL_BIAS (pending, unfilled)",
+                              TimeToString(barTime, TIME_DATE|TIME_MINUTES));
+              }
+         }
+         return;
+        }
+      g_mtrade.state = MT_MANAGING;   // filled (the fill bar's open = the entry)
+     }
+
+   //--- ALL verdicts computed first (instrumentation-first)
+   bool   vSL = false, vTP = false, vBREAK = false, vHTF = false;
+   double curTp = 0.0;
+   bool   haveTp = MtNearestTpTarget(barShift, g_mtrade.dir, nextOpenPx, curTp);
+   double breakLineVal = 0.0;
+   string breakLineName = "";
+
+   //--- (d) SL: price trades through the latched stop (wick or body; the standard
+   //--- stop semantics; the EXITMODEL-1 Q5 recommendation, unobjected)
+   if(g_mtrade.dir == DIR_LONG  && l <= g_mtrade.slRef) vSL = true;
+   if(g_mtrade.dir == DIR_SHORT && h >= g_mtrade.slRef) vSL = true;
+
+   //--- (b) TP: the CURRENT nearest valid target (Q6), exit on TOUCH (5.1/2.2)
+   if(haveTp)
+     {
+      if(g_mtrade.dir == DIR_LONG  && h >= curTp) vTP = true;
+      if(g_mtrade.dir == DIR_SHORT && l <= curTp) vTP = true;
+     }
+
+   //--- (c) the body-close exit: PRICE's BODY close through a BEHIND trigger line
+   //--- (body = open -> next open, the T161K convention; "it must be body" - Q5).
+   //--- A line's own gap/move alone never exits (Q3; section 1.3). Side is per bar
+   //--- (section 5.2): a trigger line whose CURRENT value sits ahead of the trade
+   //--- is a touch-target, not a body-close trigger. The census logs ALL twelve
+   //--- lines per bar so every MT_EXIT_SCOPE variant is measurable from one run.
+   for(int k = 0; k < POI_NLINES; k++)
+     {
+      double L;
+      if(!ReadBuf1(g_hPoi, k, L, barShift)) continue;
+      if(L == EMPTY_VALUE || L <= 0.0) continue;
+      bool behind = (g_mtrade.dir == DIR_LONG)  ? (L < nextOpenPx)
+                                                : (L > nextOpenPx);
+      bool through = false;
+      if(behind)
+        {
+         if(g_mtrade.dir == DIR_LONG)  through = (bodyLo < L - EPS);
+         else                          through = (bodyHi > L + EPS);
+        }
+      bool isTrigger = MtIsBreakTrigger(k);
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] EXITCENSUS bar=%s dir=%s line=%s val=%s side=%s "
+                     "trigger=%d bodyLo=%s bodyHi=%s verdict=%s",
+                     TimeToString(barTime, TIME_DATE|TIME_MINUTES),
+                     DirName(g_mtrade.dir),
+                     g_lineCode[k], DoubleToString(L, _Digits),
+                     (behind ? "behind" : "ahead"),
+                     (int)isTrigger,
+                     DoubleToString(bodyLo, _Digits),
+                     DoubleToString(bodyHi, _Digits),
+                     (isTrigger && behind && through) ? "BREAK" : "ok");
+      if(isTrigger && behind && through && !vBREAK)
+        {
+         vBREAK = true;
+         breakLineVal  = L;
+         breakLineName = g_lineCode[k];
+        }
+     }
+
+   //--- (e) section 5.6: the HTF aggregate flip exits TREND-following trades
+   double mtlH = 0.0, mtlM = 0.0, mtlL = 0.0; // [P-HTFLOG] the HTF leg values (diagnostic)
+   int    mtlWant = 0, mtlAnti = -1;          // [P-HTFLOG] anti=-1 => the leg block did not run
+   if(MT_HTF_EXIT && !vSL && !vTP && !vBREAK)
+     {
+      if(g_mtrade.regimeAtAdmission == REGIME_TREND ||
+         g_mtrade.regimeAtAdmission == REGIME_BOTH)
+        {
+         if(ReadFlow(FL_BUF_HTF_HIGH, mtlH, barShift) &&
+            ReadFlow(FL_BUF_HTF_MID,  mtlM, barShift) &&
+            ReadFlow(FL_BUF_HTF_LOW,  mtlL, barShift))
+           {
+            mtlWant = (g_mtrade.dir == DIR_LONG) ? 1 : -1;
+            int anti = 0;
+            if((int)MathRound(mtlH) == -mtlWant) anti++;
+            if((int)MathRound(mtlM) == -mtlWant) anti++;
+            if((int)MathRound(mtlL) == -mtlWant) anti++;
+            mtlAnti = anti;
+            vHTF = (anti >= 2);   // the majority flipped AGAINST the trade
+           }
+        }
+     }
+
+   if(InpDebugLog)
+      PrintFormat("[SRJ-EA] EXITVERDICT bar=%s dir=%s entry=%s curTp=%s vSL=%d "
+                  "vTP=%d vBREAK=%s vHTF=%d scope=%d "
+                  "htfH=%g htfM=%g htfL=%g want=%d anti=%d",
+                  TimeToString(barTime, TIME_DATE|TIME_MINUTES),
+                  DirName(g_mtrade.dir),
+                  DoubleToString(g_mtrade.entryPrice, _Digits),
+                  (haveTp ? DoubleToString(curTp, _Digits) : "none"),
+                  (int)vSL, (int)vTP,
+                  (vBREAK ? breakLineName : "none"),
+                  (int)vHTF, (int)MT_EXIT_SCOPE,
+                  mtlH, mtlM, mtlL, mtlWant, mtlAnti);
+
+   if(!(vSL || vTP || vBREAK || vHTF)) return;
+
+   //--- close the trade (the priority order stated in the header)
+   g_mtrade.state       = MT_CLOSED;
+   g_mtrade.exitBarTime = barTime;
+   if(vSL)         { g_mtrade.exitReason = MT_EXIT_SL;             g_mtrade.exitPrice = g_mtrade.slRef; }
+   else if(vTP)    { g_mtrade.exitReason = MT_EXIT_TP_TOUCH;       g_mtrade.exitPrice = curTp; }
+   else if(vBREAK) { g_mtrade.exitReason = MT_EXIT_POI_BODY_BREAK; g_mtrade.exitPrice = nextOpenPx; }
+   else            { g_mtrade.exitReason = MT_EXIT_HTF_FLIP;       g_mtrade.exitPrice = nextOpenPx; }
+
+   PrintFormat("[SRJ-EA] MTEXIT bar=%s reason=%s line=%s lineVal=%s entry=%s exit=%s",
+               TimeToString(barTime, TIME_DATE|TIME_MINUTES),
+               MtExitName(g_mtrade.exitReason),
+               (vBREAK ? breakLineName : "-"),
+               (vBREAK ? DoubleToString(breakLineVal, _Digits) : "-"),
+               DoubleToString(g_mtrade.entryPrice, _Digits),
+               DoubleToString(g_mtrade.exitPrice, _Digits));
+   EmitAlert("EXIT",
+             StringFormat("%s%s at %s (entry %s)",
+                          MtExitName(g_mtrade.exitReason),
+                          (vBREAK ? " [" + breakLineName + "]" : ""),
+                          DoubleToString(g_mtrade.exitPrice, _Digits),
+                          DoubleToString(g_mtrade.entryPrice, _Digits)),
+             true);
+  }
+
 //====================== OnTick =========================================
 void OnTick()
   {
@@ -4200,5 +4602,9 @@ void OnTick()
    LoadWorkingSet(1, currentBarTime);
    EvaluateClosedBar(1, currentBarTime);
    StoreWorkingSet(1, currentBarTime);
+   //--- [P-EXITMODEL] the section 4 site-3 exit phase: runs AFTER the entry pipeline
+   //--- and AFTER the working-set store (it touches NO working-set field - section 7
+   //--- separation). Evaluates the managed trade at the NEXT candle's open.
+   EvaluateManagedTrade(1);
   }
 //+------------------------------------------------------------------+

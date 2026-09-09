@@ -35,8 +35,9 @@ COrderblock *SRJ_createOrderblock(const datetime &time[],int rates_total,int i,
                                   double obOpen,int swing,bool isExt)
   {
    double mid = (obHigh + obLow) / 2.0;
-   // Original design intentionally kept: MathMin for bullish, MathMax for bearish
-   double invLevel = isBull ? MathMin(mid,obOpen) : MathMax(mid,obOpen);
+   // Operator rule (charter 9): the invalidation level IS the pure midline; the kill
+   // is a body close beyond it (bullish OB: close below; bearish OB: close above).
+   double invLevel = mid;
    int endBar = obBar + g_lineExtension;
    int safeObBar  = (int)MathMax(obBar, i - 4500);
    int safeEndBar = (int)MathMax(endBar, safeObBar + 1);

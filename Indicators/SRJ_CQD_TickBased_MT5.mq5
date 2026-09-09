@@ -507,17 +507,14 @@ bool IsPriceSwingHigh(const double &h[], const int i)
   {
    if(i < 1 || i + 1 >= ArraySize(h))
       return false;
-   //--- [P-CQD-UNIFY / operator ruling 2026-09-09] strict both sides - the swing
-   //--- candle must be THE most extreme of its immediate neighbors (no ties).
-   return (h[i] > h[i-1] && h[i] > h[i+1]);
+   return (h[i] >= h[i-1] && h[i] >= h[i+1] && (h[i] > h[i-1] || h[i] > h[i+1]));
   }
 
 bool IsPriceSwingLow(const double &l[], const int i)
   {
    if(i < 1 || i + 1 >= ArraySize(l))
       return false;
-   //--- [P-CQD-UNIFY / operator ruling 2026-09-09] strict both sides (mirrored).
-   return (l[i] < l[i-1] && l[i] < l[i+1]);
+   return (l[i] <= l[i-1] && l[i] <= l[i+1] && (l[i] < l[i-1] || l[i] < l[i+1]));
   }
 
 bool IsCqdSwingHigh(const int i)
@@ -526,9 +523,8 @@ bool IsCqdSwingHigh(const int i)
       return false;
    if(!SameEpoch(i-1, i) || !SameEpoch(i, i+1))
       return false;
-   //--- [P-CQD-UNIFY / operator ruling 2026-09-09] strict both sides - unified
-   //--- with the triangle predicate (IsCqdFractalHigh).
-   return (CQD_High[i] > CQD_High[i-1] && CQD_High[i] > CQD_High[i+1]);
+   return (CQD_High[i] >= CQD_High[i-1] && CQD_High[i] >= CQD_High[i+1] &&
+           (CQD_High[i] > CQD_High[i-1] || CQD_High[i] > CQD_High[i+1]));
   }
 
 bool IsCqdSwingLow(const int i)
@@ -537,8 +533,8 @@ bool IsCqdSwingLow(const int i)
       return false;
    if(!SameEpoch(i-1, i) || !SameEpoch(i, i+1))
       return false;
-   //--- [P-CQD-UNIFY / operator ruling 2026-09-09] strict both sides (mirrored).
-   return (CQD_Low[i] < CQD_Low[i-1] && CQD_Low[i] < CQD_Low[i+1]);
+   return (CQD_Low[i] <= CQD_Low[i-1] && CQD_Low[i] <= CQD_Low[i+1] &&
+           (CQD_Low[i] < CQD_Low[i-1] || CQD_Low[i] < CQD_Low[i+1]));
   }
 
 //+------------------------------------------------------------------+
@@ -548,8 +544,6 @@ bool IsCqdFractalHigh(const int i)
       return false;
    if(!SameEpoch(i-1, i) || !SameEpoch(i, i+1))
       return false;
-   //--- [P-CQD-UNIFY / operator ruling 2026-09-09] strict both sides - the marked
-   //--- candle must be THE most extreme of its neighbors (fixes the tie marking).
    return (CQD_High[i] > CQD_High[i-1] && CQD_High[i] > CQD_High[i+1]);
   }
 
@@ -559,7 +553,6 @@ bool IsCqdFractalLow(const int i)
       return false;
    if(!SameEpoch(i-1, i) || !SameEpoch(i, i+1))
       return false;
-   //--- [P-CQD-UNIFY / operator ruling 2026-09-09] strict both sides (mirrored).
    return (CQD_Low[i] < CQD_Low[i-1] && CQD_Low[i] < CQD_Low[i+1]);
   }
 
@@ -739,12 +732,6 @@ void TryDivergence(const int x2, const bool isBearish,
       int flagSum = (x1PriceFlag ? 1 : 0) + (x1CqdFlag ? 1 : 0)
                   + (x2PriceFlag ? 1 : 0) + (x2CqdFlag ? 1 : 0);
       if(flagSum < 2)
-         continue;
-      //--- [P-CQD-FLAGGATE / operator ruling 2026-09-09] The 2-of-4 gate must not
-      //--- be satisfiable by same-side flags: both swing flags sitting on ONE
-      //--- anchor (e.g. x1 price + x1 CQD with a non-swing x2) no longer
-      //--- qualifies. At least one swing flag from EACH anchor.
-      if((!x1PriceFlag && !x1CqdFlag) || (!x2PriceFlag && !x2CqdFlag))
          continue;
 
       if(!PiercingClean(x1, x2, isBearish, price_high, price_low))
@@ -997,10 +984,6 @@ void ScanUnconfirmedDivergence(const int rates_total, const datetime &time[],
          int  flagSum = (x1PriceFlag?1:0) + (x1CqdFlag?1:0)
                       + (x2PriceFlag?1:0) + (x2CqdFlag?1:0);
          if(flagSum < 2)
-            continue;
-         //--- [P-CQD-FLAGGATE / operator ruling 2026-09-09] Per-anchor minimum:
-         //--- at least one swing flag from EACH anchor (see TryDivergence).
-         if((!x1PriceFlag && !x1CqdFlag) || (!x2PriceFlag && !x2CqdFlag))
             continue;
 
          if(flagSum > bestFlagSum)
