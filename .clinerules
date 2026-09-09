@@ -251,6 +251,262 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
   reissue (transport elision, REVISION_62 §20.2).
 - Milestone 1 is NOT claimed. Instrument delivered; closure proof = 161-REG; isolation
   proof needs capacity 2 (Task 162). Structural agreement 0 of 12.
+- SESSION 2026-09-09 (DIVCON-1 + midline audit; operator present, ruling received):
+  OPERATOR RULING (verbatim): "The EA follows the indicators. so i have said the ruling of a valid
+  CQD divergence which is the latest, hence the EA must follow the same signal from the indicator.
+  The latest is the latest on the indicator." — the divergence-validity criteria are the
+  indicator's own verdict stream; the EA consumes, never overrides.
+  DELIVERED: 06_HANDOFFS\BUILDER_FINDING_DIVCON-1.md (mechanism map, 08.18 timeline, deltas).
+  MEASURED: OnTick evaluates the just-closed bar (EA L4187); buffer 6 newest-confirmable = shift 2
+  (CQD maxX2=rates_total-3); the EA's evaluation instant coincides with each verdict's first
+  availability; the walk (EA L1945-1969) = anchor-bounded newest-first; S5 waits while divLatch=0.
+  DISCREPANCY FOUND (code vs record): the STEP 2 "latch clears when the latest is opposing" claim
+  is NOT implemented — the caller guard `if(!g_divLatch ...)` (EA L2955) predates STEP 2 (git diff
+  af5a9bf 7080c06: guard is unchanged context), so the latch is PERMANENT-ONCE-SEEN. Strict
+  clearing = one-line packet item P-DIVCON-B. Preview consumption = packet item P-DIVCON-A (CQD
+  additive export). CQD-debug enablement corrected: the EA pass-through is 11 positional args, NOT
+  one line; the one-liner is the CQD InpDebugLog default flip (CQD L98) — P-CQDDEBUG.
+  MIDLINE AUDIT BREAKTHROUGH (work item 2): the Types-constructor caller is FOUND —
+  SRJ_OrderblockMgr.mqh L37-39 (invLevel = isBull ? MathMin(mid,obOpen) : MathMax(mid,obOpen)),
+  positional call L61-69; invalidation = BODY CLOSE beyond that level (L121-133, L497-515); the
+  level is NOT the operator's pure midline (deeper-or-equal; zone edge when open is the extreme) —
+  consistent with XOB 2159 never invalidating. HTF path SRJ_HTFEngine.mqh L134/L153 (invLvl, not
+  yet read). Open mechanical steps: the obInval=NA export question; the 05:05-14:10 midline-cross
+  check for XOB 2159 (needs M5 OHLC).
+  OPERATOR RULING RECEIVED 2026-09-09 (answers to DIVCON-1 §6, verbatim): "option 1 with the
+  addition of when there is a conflicting CQD divergence being simultaneously validated, i consider
+  that as an invalid or i wait for a new valid in direction of the bias to occur."
+  RESOLVED: Q1 = CONFIRMED LINES ONLY (the dotted preview is excluded; P-DIVCON-A NOT needed);
+  Q2 = STRICT LATEST-AT-CONFIRMATION — the latch re-evaluates every bar, an opposing latest CLEARS
+  it, and the setup KEEPS WAITING (no abort) until a NEW direction-matched divergence re-latches;
+  Q3 = the confirmed-space lag RATIFIED. Interpretation note (correctable): "direction of the
+  bias" = the candidate's trade direction g_dir (what the walk matches).
+  PACKET P-DIVCON-B DRAFTED: SRJ_FlowNexus_Local\01_TASKS\PACKET_P-DIVCON-B.md — the one-line EA
+  edit (remove the `!g_divLatch` guard at L2955) + Stage-1 re-hash + compile + full verification
+  run. STATUS: DRAFT — NOT ISSUED — NOT EXECUTED; awaiting the operator's explicit issuance.
+  No canonical file touched this session.
+- P-DIVCON-B ISSUED AND EXECUTING (2026-09-09 ~01:45): operator issued in-session. STAGE 1 PASS
+  (pre-edit digest 4CD71728...B48A1 = 4,190 lines CRLF=4190 LONELF=0, 206,852 B). STAGE 2 APPLIED
+  (L2955 guard `!g_divLatch && ` removed; first editor attempt failed on whitespace, re-issued
+  against measured raw line — 3-space indent). STAGE 3: post-edit digest
+  AB102C0A2966B1BF9C62A8B79276A19563E936E9675980C95A0B8453E3A24EAC, 206,837 B (-15 = exactly the
+  removed token), CRLF=4190 LONELF=0 verified post-write. STAGE 4 PASS: T161I compile
+  "Result: 0 errors, 0 warnings, 3994 ms elapsed" (T161I_COMPILE.log). STAGE 5: headless
+  /config T161I_P1.ini (full Tier-1 superset, InpDebugLog=true), terminal64 PID 25816 launched
+  01:49:49, "Test passed in 0:27:51.849", 321,404 ticks, 1,728 bars. One shell-capture failure
+  during the CRLF probe (garbled token, R-180) — re-issued clean.
+- P-DIVCON-B EXECUTED AND VERIFIED (2026-09-09 02:25) — see 06_HANDOFFS\BUILDER_RESULT_161-I.md.
+  ALL GATES PASSED: WS161 mismatch=0 loads=stores=1728 changes=78 (59->78 = the declared
+  observable clears/re-latches); WS161_LOAD_COUNT=1; BIASCENSUS_FINAL shard-identical;
+  XOB-PROMOCENSUS 372=372 (the apparent 373 was a combined-pattern counting error, resolved
+  like-for-like); ZONECENSUS_FINAL line-identical; CQD verdict stream identical (CQD untouched).
+  SIGNALS: 08.17 CHANGED 16:10:01 LONG R=1.38 -> 16:35:02 LONG R=1.46 (Weekly-VWAP, SL 1.15870
+  TP 1.16141 preserved — the strict rule held the latch open through 16:10-16:30 while the newest
+  confirmed divergence was opposing, then a matched latest re-latched; entry 25 min later, R
+  improved); 08.18 14:50:01 SHORT R=1.06 IDENTICAL (the packet's a-priori prediction confirmed;
+  the known false positive REMAINS — its remaining causes are the ANCHOR TIER (operator-reserved)
+  and, if ordered, the CQD flag-gate defect fix). Post-run digests: EA AB102C0A...3A24EAC
+  byte-identical; CQD 4B2D688C...96C2 untouched. Journal archived whole (6,504 lines; NO
+  MetaTester marker in this capture — declared). NEW EA BASELINE:
+  AB102C0A2966B1BF9C62A8B79276A19563E936E9675980C95A0B8453E3A24EAC (206,837 B, 4,190 CRLFs) —
+  T161I-verified; the T161H CERTIFICATION title remains with 4cd71728 until recertification.
+  The EA divergence consumption now implements the operator's ruled rule: CONFIRMED lines only,
+  strict latest-at-confirmation with clearing, waiting-without-abort until a new
+  direction-matched divergence re-latches. P-CQD-FLAGGATE awaits issuance (T161I is its CONTROL
+  run). Compile log T161I_COMPILE.log + journal gitignored per R-220; tabulation + result +
+  packet + finding + T161I_P1.ini + tabulate_161i.ps1 on disk uncommitted (NO git token used
+  this session).
+- SESSION 2026-09-09 (CQD-FRAC-1, third operator report — the triangle markings): OPERATOR
+  reports the CQD panel's swing-fractal TRIANGLE markings can land on a candle that is "not the
+  most extreme point out of the candle left and right of it"; the fractal pattern should be the
+  classic one applied to the CQD candles. AUDITED (06_HANDOFFS\BUILDER_FINDING_CQD-FRAC-1.md):
+  the triangles = IsCqdFractalHigh/Low (CQD L541-557) — 3-bar window with an ASYMMETRIC tie rule
+  (left >=, right strict); tick-carry bars copy the prior close EXACTLY (L486-490) so tie
+  plateaus are structural. A marked candle strictly below an immediate neighbor is impossible at
+  mark time; no stale marks exist (full recalcs reset cursors L1221-1222 and wipe buffers
+  L1231-1237). EA impact NONE — the EA reads buffer 6 only (verified at every g_hCqd site).
+  THREE swing definitions live in one indicator (price micro-swing flags, CQD micro-swing flags,
+  CQD fractal triangles); the operator's standard is closest to the triangle series made strict.
+  FIX SHAPES drafted (a strict-3, b strict-5 classic window, c unify with the flag gate —
+  detection-side, larger blast radius, d measure only); packet NOT yet drafted pending the
+  operator's shape ruling. P-CQD-FLAGGATE still DRAFT-NOT-ISSUED; if the operator's "swing" for
+  the 2-of-4 gate is the triangle series, the flag gate must be re-based (unify) — their call.
+- P-CQD-FLAGGATE ISSUED WITH THE UNIFY RULING AND EXECUTING (2026-09-09 ~02:35): the operator's
+  answer selected UNIFY (one strict swing predicate for triangles AND flag gate; supersedes/
+  absorbs the flag-gate packet) + "P-CQD-FLAGGATE issued". Packet amended in place
+  (01_TASKS\PACKET_P-CQD-FLAGGATE.md, AMENDMENT 1: the 8-site edit set E1-E8; window stays
+  3-bar; EA untouched). STAGE 1 PASS: pre-edit CQD 4B2D688C...96C2 = expected. STAGE 2 APPLIED:
+  E1-E6 the three predicate pairs strictified (IsPriceSwing, IsCqdSwing, IsCqdFractal — all now
+  strict both sides; IsCqdSwing == IsCqdFractal by body); E7/E8 the per-anchor minimum inserted
+  at both divergence gates (confirmed + preview). STAGE 3: post-edit CQD
+  92F3A62BE11E7343D2E9E05AD5B6FE7FCF565B69737E53A48628E6990792969F, 51,701 B (+1,144), CRLF=1471
+  LONELF=0. STAGE 4 PASS: T161J CQD compile "Result: 0 errors, 0 warnings, 1037 ms elapsed"
+  (T161J_CQDCOMPILE.log); source re-hash unchanged. STAGE 5 IN FLIGHT: T161J_P1.ini headless run,
+  terminal64 PID 24516 launched 02:43:09 (this session's own T161I leftover PID 25816 closed first
+  — stage hygiene, documented). Consumers verified before edit: the predicates are used ONLY at
+  TryDivergence/ScanUnconfirmedDivergence/MarkFractals. T161I is the CONTROL for this run.
+- P-CQD-FLAGGATE + UNIFY EXECUTED AND VERIFIED (2026-09-09 ~05:15) — see
+  06_HANDOFFS\BUILDER_RESULT_161-J.md. Run T161J: "Test passed in 0:27:40.455", 321,404 ticks,
+  1,728 bars. ALL GATES PASSED: WS161 mismatch=0 loads=stores=1728 changes=85; BIASCENSUS
+  shard-identical; XOB-PROMOCENSUS 372=372=372 (H/I/J); ZONECENSUS_FINAL line-identical.
+  R-180 incident declared: first journal archive failed on a file lock held by the live T161J
+  instance; the invalid 23-line tabulation was regenerated after closing the leftover (documented).
+  VERDICT-STREAM DELTA: census reads 493->254 (-48.5%); +1 68->43, +2 195->84, -1 146->88,
+  -2 84->39; the 08.18 phantom code-4s (bars 14:20/14:40) GONE; +1@14:30 and -2@15:00 survive.
+  SIGNALS: T161J = ONE signal, 08.17 16:35:02 LONG R=1.46 (identical to T161I); 08.18 14:50:01
+  SHORT ELIMINATED (S5 waits through 14:50/14:55 with divLatch=0). AGREEMENT SAMPLE 2 is now
+  MATCHED — the operator-rejected 08.18 NY short is no longer signaled. Remaining layers: the
+  08.14 0.18R miss; the anchor-tier rule (operator-reserved). NEW CQD BASELINE:
+  92F3A62BE11E7343D2E9E05AD5B6FE7FCF565B69737E53A48628E6990792969F (51,701 B, 1,471 CRLFs);
+  EA baseline unchanged AB102C0A...3A24EAC (T161I-verified). Post-run hashes byte-identical.
+  Candidate-gated EA censuses shifted (47->51 across XOBINPLAY/S3INPLAY/XOBPROMO; S5_WAIT 10->14)
+  with the declared mechanism (longer candidate lifetimes); the identity gates did not move.
+  T161J state is run-verified; recertification available on request. Compile log + journal
+  gitignored per R-220; all session records on disk uncommitted (NO git token this session).
+- SESSION END (2026-09-09 ~05:30): NEW_SESSION_PROMPT.md REWRITTEN for the next session — its
+  first work item is the ANCHOR-TIER/POI-SELECTION map (the operator's reserved ruling), then
+  the 08.14 miss audit and the midline mechanical steps. The trade-identity status for the
+  Tier-1 window under T161J: 08.18/19/20/21 AGREE (the false positive gone); 08.17 = candidate
+  agreement with entry-timing + TP layers open; 08.14 = MISS (the operator's 0.18R trade).
+- SESSION 2026-09-09 (EXIT-0817 + the 16:20 erratum; operator present): OPERATOR CORRECTION
+  (verbatim in 06_HANDOFFS\BUILDER_FINDING_EXIT-0817.md): their 08.17 NY long entry was the
+  15:50 confirmation-candle close / 15:55 open (from W VWAP) — NOT 16:20; the exit was the
+  17:10 candle OPEN below the W POC ("break the bias"), triggered by the W-POC jump/gap
+  (hence the revised exit/TP target); an intricate EARLY-EXIT example — held to the original
+  plan it would have hit SL. SEARCH ANSWER DELIVERED: the break-POI-bias rule was NEVER lost —
+  Part A v4.2 §5.1/§5.2 carries it verbatim with 8/17 as the spec's OWN worked example
+  (spec L247 "That is 8/17."; L226 the body close measured against the POI value at the NEXT
+  open; §1.3 L60 gap/jump = descriptive, never a mechanism). The real gap is IMPLEMENTATION:
+  the exit model §5 is charter STEP 4, unbuilt. ERRATUM: 16:20:01 is the EA's own Tier-1
+  baseline signal time (R-89); NEW_SESSION_PROMPT's "their 16:20" was a builder conflation —
+  fixed in place; journal row #223 carries NO entry time. MEASURED (T161J journal): the EA
+  candidate seeds 15:50:03 (S1->S2->S3 LONG Weekly-VWAP) — the seed time EQUALS the operator's
+  entry; it then waits (S3 no-zone, FRESHSKIP PRE_BINDING, SUPPRESSED cum_opp=2) and signals
+  16:35:02; the confirmed CQD stream -1@15:15/-2@15:35/-1@16:05 vs the operator's CVD=3 row
+  is a NEW operator-reserved classification datum at 15:25-15:55. No canonical file touched;
+  digests verified at session start (EA AB102C0A..., CQD 92F3A62B...). The queued work list
+  stands; the 08.17 comparison now has three open layers (entry timing ~40 min, CVD
+  classification, the unbuilt exit model).
+- SESSION 2026-09-09 (P-NEXTOPEN issued + executing; operator present): OPERATOR DIRECTIVE
+  (verbatim, recorded in SRJ_FlowNexus_Local\01_TASKS\PACKET_P-NEXTOPEN.md): "also for the
+  record, i want you or make the EA consider the next candle open not the current candle close.
+  so for entry, consider the next candle open price not the confirmation candle close. for the
+  POI retest, consider the next candle open not the retest candle close price. because these
+  matter a lot such as this trade example, the 17:05 was a valid retest as it marked with the
+  circles by the POI indicator, but for the EA, consider the next candle open because at 17:10
+  candle open it actually close lower then the POI level making it break and flip the W POC
+  bias. Proceed." = spec section 4's next-open default at the two live sites (the exit site
+  arrives with the unbuilt section 5). EDIT SET: E1 the retest body-side test uses the next
+  candle's OPEN in place of the retest candle's CLOSE (DetectPoiRetest L1446ff, fail-soft
+  fallback to the close); E2 the S5 entry reference = the next open (L3871); E3 the L2950
+  comment truthed. DECLARED BOUNDARY: the S2POLL advisory block, the S4 confirm-VALIDITY test
+  (extendable by one word), the historical walks, and the POI snapshot timing stay unchanged.
+  Execution: Stage 1 pre-hash gate -> edits -> compile T161K 0/0 -> headless run T161K
+  (T161J-shaped harness) -> gates vs T161J -> BUILDER_RESULT_161-K.md.
+- P-NEXTOPEN EXECUTED AND VERIFIED (2026-09-09 ~06:45) — see
+  06_HANDOFFS\BUILDER_RESULT_161-K.md. Stages: pre-hash PASS (AB102C0A...); E1/E2/E3 applied
+  (E2 needed three attempts — whitespace, declared); post-edit EA
+  E5B0E2E4830BEFD24F18EC712A7806C17305F8BDDF30EEC8AF291412F5AFEECA, 207,854 B, CRLF=4204
+  LONELF=0; T161K compile 0/0 (1487 ms); run "Test passed in 0:27:42.944", 321,404 ticks,
+  1,728 bars. THE OPERATOR'S LIVE TERMINAL (PID 16500) WAS CLOSED WITH THEIR EXPLICIT
+  AUTHORIZATION before the run; nothing reopened. R-180 incident declared (first archive
+  attempt hit the live-instance file lock; re-archived after closing this session's own
+  leftover PID 29020; segment = 6,260 lines). ALL IDENTITY GATES PASSED: WS161 mismatch=0
+  loads=stores=1728 changes=79; WS161_LOAD_COUNT=1; BIASCENSUS shard-identical; XOB-PROMOCENSUS
+  372=372=372=372 (H/I/J/K); ZONECENSUS_FINAL line-identical; CQD verdict stream IDENTICAL
+  (254 reads; +1=43 +2=84 -1=88 -2=39). Candidate-gated censuses shifted (55-family;
+  S5_WAIT 14->12) with the declared mechanism. SIGNALS: 08.17 16:35:02 LONG Weekly-VWAP
+  SAME bar/SL/TP with R 1.46->1.42 (E2: entry = the 16:35 OPEN; derived entries ~1.15996 ->
+  ~1.15982); 08.20 09:35:04 LONG Daily-VWAP LONDON R=1.60 NEW — E1's direct product, traced
+  bar-by-bar: the old rule seeded an opposite SHORT on bar 09:05 (its close passed the old
+  body test) that sat at S2 and SUPPRESSED the bar-09:10 LONG retest; under the next-open
+  rule the SHORT fails and the LONG (judged at the 09:15 open) runs the full ladder.
+  SEMANTIC ITEM FOR THE OPERATOR: their journal has NO 08.20 LDN row (the old tally counted
+  "EA no signal on 08.20" as an AGREEMENT) — the new signal exists BECAUSE of their
+  directive; its validity is their call. NEW EA BASELINE: E5B0E2E4...F5AFEECA (T161K-verified;
+  post-run hash byte-identical). The spec §4 EXIT site stays unbuilt with the §5 exit model
+  (charter STEP 4). The queued work list stands (anchor-tier map, 08.14 miss audit, midline
+  mechanical steps).
+- TESTER HARNESS UPGRADE (2026-09-09, operator-directed; their words: "whenever you start a
+  strategy tester, when it finished, you'll find it hard to know when the run has finished.
+  so i have to manually nudge you or you would still be running the command to make my
+  computer don't sleep"): NEW INVARIANT - a headless run is NEVER polled with long sleep
+  loops again. Use 00_CURRENT_WORKING\run_tester.ps1: detached launch, waits on the real
+  process handle, archives the journal segment, writes <RunName>_STATUS.txt (with the gate
+  lines verbatim) = THE COMPLETION INSTRUMENT. Builder protocol: (1) close any live terminal
+  first WITH THE OPERATOR'S AUTHORIZATION (the wrapper NEVER kills a terminal - with one
+  running it exits immediately, TERMINAL_BUSY=true); (2) delete stale STATUS; (3) launch
+  detached per the script header; (4) poll Test-Path STATUS with cheap sub-second commands,
+  sleeps <=240s per call, STOP on first hit; (5) STATUS carries the gates - then tabulate.
+- SESSION 2026-09-09 (ANCHORTIER-1 + 0814-MISS + MIDLINE-1; operator present; corrections
+  received): OPERATOR CORRECTION 1 (verbatim): "You read the journal wrong, but the good news
+  is i actually took the same trade on 8 20 london long from D VWAP" — row #233 EXISTS
+  (8/20/26 LDN TF Bull/Bull/Bull 🐂 D VWAP 3 S LQ ... 1.61 TAKEN); the GOAL_STATEMENT tally
+  and BUILDER_RESULT_161-K's "no 08.20 LDN row" were WRONG (builder mis-read); amendment
+  appended to GOAL_STATEMENT.md — 08.20 = AGREEMENT SAMPLE 4, the first COMPLETE
+  taken-vs-signaled match (EA 09:35:04 LONG Daily-VWAP LONDON R=1.60; CVD code 3 = the EA's
+  +2 latch; session/dir/POI/R all agree). OPERATOR CORRECTION 2: "i have actually addressed
+  the 8 17" — settled on their side; charts received WITH DECLARED CAVEATS (verbatim):
+  "the tradingview CQD chart is not realiable due to the way tradingciew aggregate or
+  approximate the CVD or CQD. Also tradingview do not have dukascopy broker data so the
+  difference could be because of the nature of CFD contract between brokers" — the MT5
+  dukascopy chart is the authoritative visual (charts described in this record; not saved
+  as files). DELIVERED (06_HANDOFFS, zero source changes): BUILDER_FINDING_ANCHORTIER-1.md
+  (work item 1 — the POI-selection map: 12 lines = SRJ_POI_Marker (EA L23/L4103); rank
+  table EA L82-93 FOMC-POC=0 ... Daily-VWAP=11 lower=authoritative; family-pair /2 collapse;
+  DetectPoiRetest EA L1446-1488 (wick + next-open body); same-bar tie EA L1471-1486; IDLE
+  seed EA L3163-3193; while-alive singleton + the operator's own no-replacement ruling
+  verbatim EA L3100; TP admission EA L1631-1644; the AVP vocabulary RESOLVED — the marker's
+  "AVP-POC" lines ARE the *-POC buffers (Files\SRJ_POI_Retests_EURUSD.csv line_name column),
+  no missing family; section 9 = the batched questions Q1-Q5); BUILDER_FINDING_0814-MISS.md
+  (work item 2 — the 08.14 Weekly-VWAP LONG ARMED S4 at 09:15:00 on the operator's entry
+  bar; killed 09:25:02 by the 2-of-3 poll (adverse=2: obDead + fvgDead; XOB 1811->1795
+  IDCHANGE) -> ABORT FRESH_OB_DEAD, with the divergence latch CLEAR (-1 opposing confirmed
+  at 09:00) as a second independent gate; identical abort in the frozen T155REG baseline —
+  not a T161K regression; the operator TAKEN it with CVD=❌ 0.18R — two operator questions);
+  BUILDER_FINDING_MIDLINE-1.md (work item 3a ANSWERED: NO FlowLogic export buffer carries
+  invalidationLevel or the invalidation bar (the export set is FlowLogic L30-120); obInval
+  in the PROMOCENSUS = COrderblock.invalidationBar printed inside SRJ_OrderblockMgr
+  L909-917/L955-963, assigned ONLY at invalidation (L132 replay / L514 live) under
+  invLevel = min/max(mid, obOpen) (L39) — obInval=INT_MIN with isValid=1 everywhere is a
+  faithful NA, not a plumbing defect; the EA has NO access to either figure — any
+  midline-keyed rule needs a NEW export (packet item); 3b BLOCKED ON DATA: no 08.18 M5
+  OHLC on disk (tick-audit CSVs = 08.03/0804/0907 only, git ls-files measured) — a
+  throwaway dump-EA tester run OR operator-supplied OHLC, AUTHORIZATION PENDING). RECORD
+  CORRECTION (measured, T161K journal): the EA was NOT idle at the operator's 08.18 18:20
+  W-POC setup — a Weekly-POC LONG seeded 17:35:02 sat at S2 LTF-unaligned (FRESHSKIP
+  PRE_BINDING) through 18:35 and SUPPRESSED the operator's W-POC SHORT retests on bars
+  18:20/18:25 ("SUPPRESSED poi=Weekly-POC dir=SHORT opp=1 higher=0", cum_opp 11->12); the
+  bar-18:35 short shows no census line (did not qualify under the next-open body test —
+  measured absence); the operator rejected that short themselves (invalid CQD, the +1 at
+  18:10) — the earlier "idle at that bar" claims in GOAL_STATEMENT/.clinerules/
+  NEW_SESSION_PROMPT are VOID. BATCHED QUESTIONS AWAITING THE OPERATOR (ANCHORTIER-1
+  section 9): Q1 the rank order + the AVP mapping; Q2 the same-bar tie; Q3 whether a STUCK
+  alive candidate releases the singleton; Q4 the OHLC-dump authorization; Q5 the 08.14
+  items (2-of-3 kill; CVD=❌ taken). Session hygiene: baselines re-verified at start (EA
+  E5B0E2E4... 207,854 B CRLF=4204 LONELF=0; CQD 92F3A62B... 51,701 B CRLF=1471 LONELF=0);
+  NO canonical file touched; no git token used; three shell-capture/parse failures (R-180
+  class) — two include/journal greps and one PowerShell nested-array parse error — all
+  re-issued clean; two editor exact-match misses (root cause measured: miscounted leading
+  spaces vs the raw file) — both resolved by probing raw lines and re-issuing (the
+  P-DIVCON-B discipline).
+  OPERATOR RULING RECEIVED 2026-09-09 (in-session, answering ANCHORTIER-1 section 9 Q1-Q3):
+  "Keep as mapped: the rank order AND the while-alive suppression both stand - close open
+  item (a) as 'the EA matches my rule' (the 08.18 18:20 short stays suppressed)." OPEN ITEM
+  (a) THE ANCHOR-TIER/POI-SELECTION RULE IS CLOSED — the EA's mechanism as mapped (the rank
+  table EA L82-93, the same-bar tie, the while-alive singleton with no replacement) IS the
+  operator's rule; the AVP = AVP-POC = *-POC-buffers mapping stands with it. STILL OPEN FROM
+  THE BATCHED MEMO: Q4 (the 08.18 M5 OHLC-dump authorization for MIDLINE-1 (b)) and Q5 (the
+  08.14 items: the 2-of-3 pre-confirmation kill; CVD=❌ on a taken trade).
+
+
+
+
+
+
+
+
+
 
 ## 8. FIRST ACTION IN A NEW SESSION
 1. Read this file fully (it is auto-loaded). 2. Re-hash the EA and compare to §6.

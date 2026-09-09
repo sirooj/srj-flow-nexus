@@ -90,3 +90,30 @@ and the 2xOB label - the bias-engine OB state is distinct from XOB promotion val
   (widen in-play window, make XOB touch optional, permit in-zone stops — no new export).
 - Operator explanation of the discretionary method: the Part A Spec IS that explanation.
   Charter drafting proceeds from this file + the spec.
+
+## AMENDMENT 2026-09-09 — THE 08.20 TALLY CORRECTION (operator correction; AGREEMENT SAMPLE 4)
+The operator's correction, verbatim: "You read the journal wrong, but the good news is i
+actually took the same trade on 8 20 london long from D VWAP."
+Row #233 EXISTS (OPERATOR_TRADE_JOURNAL.csv line 234, verbatim fields): 8/20/26, LDN, TF,
+Bull/Bull/Bull, 🐂, LQ Sweep (empty), POI = D VWAP, CVD = 3, TP LQ = S LQ, <4 chart links>,
+1.61, <2 more links> — TAKEN at R=1.61.
+The tally above ("08.20: #235 NY TF ... NOT TAKEN; EA: no signal on 08.20. AGREEMENT
+(absence matches)") and BUILDER_RESULT_161-K's "the operator's journal has NO 08.20 LDN
+row" were WRONG — the builder mis-read the journal. Corrected by this amendment in place;
+the originals above are preserved as the record of the error.
+THE AGREEMENT (T161K, run-verified): EA SIGNAL 2026.08.20 09:35:04 LONG Daily-VWAP
+LONDON R=1.60 SL 1.16733 TP 1.16837. Agreement on: session (LDN), direction (LONG),
+setup (TF), POI tier (D VWAP = Daily-VWAP), CVD code (3 = bullish hidden = the EA's +2
+latch that fired the signal at 09:35:04), R (1.60 vs 1.61). THIS IS AGREEMENT SAMPLE 4 —
+the first COMPLETE taken-vs-signaled trade match in the Tier-1 window.
+Remaining deltas (layers, not disagreements yet): the TP reference (their S LQ vs the
+EA's nearest-POI 1.16837) and the entry/exit layers that await the §5 exit model
+(charter STEP 4).
+TIER-1 TALLY AFTER CORRECTION: 08.17 candidate agreement (the operator addressed the
+trade; entry-timing/CVD layers settled on their side; the exit = STEP 4, unbuilt);
+08.18 AGREE (the false positive eliminated in T161J; the 18:20 W-POC short absent on
+BOTH sides — and the record corrected: the EA was not idle that bar, see
+BUILDER_FINDING_ANCHORTIER-1.md §8b); 08.19/08.21 AGREE (absence); 08.20 AGREE
+(this sample); 08.14 MISS (BUILDER_FINDING_0814-MISS.md — the EA armed the same-bar
+setup and killed it with the 2-of-3 rule plus the divergence latch; two operator
+questions pending).
