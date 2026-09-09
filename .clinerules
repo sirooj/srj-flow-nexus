@@ -498,6 +498,31 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
   operator's rule; the AVP = AVP-POC = *-POC-buffers mapping stands with it. STILL OPEN FROM
   THE BATCHED MEMO: Q4 (the 08.18 M5 OHLC-dump authorization for MIDLINE-1 (b)) and Q5 (the
   08.14 items: the 2-of-3 pre-confirmation kill; CVD=❌ on a taken trade).
+- SESSION STAGE 2 (2026-09-09, same session — Q4/Q5 answers + the git token + the POC/VWAP
+  rule): Q4 AUTHORIZED and EXECUTED/EXECUTING: the T161L throwaway OHLC-dump run
+  (Experts\SRJ_Temp_OhlcDump.mq5 — compiled 0 errors 0 warnings, 415 ms (T161L_COMPILE.log,
+  gitignored); T161L_P1.ini (T161K shape); launched via run_tester.ps1 with NO terminal open;
+  the temp .mq5 and .ex5 are DELETED after the run per the authorization scope — never
+  committed). Q5 ANSWERED WITH A CORRECTION (verbatim): "you read it wrong... what i meant
+  with the 0.18R is i document the invalid trade that was less than 1R and invalid CQD, but
+  i write the 0.18R not with the same column with the Gain % but in the comments section" —
+  the 08.14 row's Gain % is EMPTY; the row documents an INVALID trade by the operator's own
+  standard; the 08.14 "MISS" DISSOLVES as a validity disagreement (the EA's no-signal
+  AGREES — latch clear on the invalid CQD); GOAL_STATEMENT Amendment 2 + 0814-MISS §6.
+  NO VALIDITY DISAGREEMENT REMAINS IN THE TIER-1 WINDOW. NEW OPERATOR RULE recorded
+  verbatim (BUILDER_FINDING_EXIT-POCVWAP.md; CHARTER §9.1): AVP/POC sits SLIGHTLY higher
+  than VWAP (matters only for early exits); for a POC-anchored LONG a candle-close VWAP
+  flip is NOT an exit ("my entry was based from POC"); the POC's own early exit applies
+  when it gap-jumps and price body-closes below it (the 8/17 shape) — the §5 exit test
+  binds to the ENTRY-ANCHOR POI; build slot STEP 4, three confirmations pending
+  (generalization / short side / TP-vs-exit asymmetry). GIT SNAPSHOT EXECUTED on the
+  operator's token ("please proceed with your recomendation of the best git structure"):
+  linear main, structured commits; commit 52a41d9 = the canonical sources (EA
+  E5B0E2E4830BEFD24F18EC712A7806C17305F8BDDF30EEC8AF291412F5AFEECA + CQD
+  92F3A62BE11E7343D2E9E05AD5B6FE7FCF565B69737E53A48628E6990792969F, digests in the message)
+  + annotated tag Task161-T161K; commit d1a5eae = the T161I/J/K records + harness (25
+  files, 1,968 insertions); a third commit follows with this stage's records + the final
+  prompt. Compile logs/journals stay gitignored (R-220). NO PUSH (a separate token).
 
 
 
@@ -506,6 +531,37 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
 
 
 
+
+- SESSION STAGE 3 (2026-09-09 — the harness defect caught by the operator + T161L executed
+  + MIDLINE-1 (b) ANSWERED): THE OPERATOR'S RELIABILITY WARNING ("the strategy tester has
+  not run yet... your command to conduct the automatic strategy tester is not reliable.
+  improve it!") — DIAGNOSED: v1 run_tester.ps1 waited for TERMINAL PROCESS EXIT, but a
+  /config tester terminal does NOT self-exit (T161L: test passed 07:34:38, terminal still
+  alive), so v1 sat silent with no STATUS for up to 45 min. T161L itself had PASSED (the
+  dump wrote 288 rows). DELIVERED run_tester_v2.ps1: STATUS WRITTEN AT LAUNCH (pre-flight
+  INI/TERM/BUSY facts + REFUSED_* gates) + 10s HEARTBEATS (alive + journal growth + last
+  line) + JOURNAL-BASED COMPLETION (scans the NEW-lines block for Test passed / test
+  stopped / log-file-written / connection-closed — v2.1 fixed the last-line-only check;
+  the terminal's final line is "connection closed") + LOCK-TOLERANT ARCHIVE (FileShare
+  ReadWrite — v2.2 fixed the ReadAllLines lock failure while the leftover terminal lives)
+  + 60-min ceiling + early-fail journal-tail capture. The wrapper NEVER kills a terminal;
+  the builder closes OWN leftovers as documented hygiene (PIDs 27728/17860/28396/4576 +
+  the T161L/T161L2 wrappers — all this session's own instances). VALIDATED END-TO-END BY
+  T161L4: launch 07:46:16 -> DONE 07:50:11, RESULT=PASSED, gates + archive captured
+  (T161L/T161L2/T161L3 were the intermediate validation steps of the harness itself;
+  T161L4_STATUS.txt kept as the artifact). THE TEMP EA DELETED after the runs per the
+  authorization scope (SRJ_Temp_OhlcDump.mq5/.ex5; never committed); canonical digests
+  re-verified unchanged (EA E5B0E2E4..., CQD 92F3A62B...). MIDLINE-1 (b) ANSWERED (see
+  the finding): 109/109 bars in [05:05,14:10) on 08.18 closed BELOW XOB 2159's midline
+  1.158035 (first = the 05:05 promotion bar, close 1.15777; window min close 1.15682;
+  NEVER a close above the line) — under the operator's rule XOB 2159 was invalid from
+  its first bar; FlowLogic never invalidated it because its invalidation test is
+  ACTIVATION-GATED (OrderblockMgr L497-505) and the OB was never activated (window max
+  high 1.15804 < zone high 1.15813). THE XOB-VALIDITY DIVERGENCE IS NOW FULLY MEASURED —
+  the fix shape (FlowLogic adopts the midline body-close rule, or new exports + EA-side
+  rule) is the operator's/packet's call; no source change made. Artifact:
+  T161L_OHLC_EURUSD_M5_0818.csv (06_HANDOFFS). Commit 3 follows with this stage's
+  records + the final prompt.
 
 
 ## 8. FIRST ACTION IN A NEW SESSION

@@ -1,23 +1,24 @@
-﻿# NEW SESSION PROMPT - paste this whole file's contents into a fresh Cline session
+# NEW SESSION PROMPT - paste this whole file's contents into a fresh Cline session
 Continue the SRJ Flow Nexus project in this workspace.
 
 FIRST ACTION: read the MQL5\.clinerules file FULLY - it is the project's workflow, invariants,
-file map, and standing state. Its section 7.1 (CURRENT STATE - CONSOLIDATED) governs.
+file map, and standing state. Its section 7.1 (CURRENT STATE - CONSOLIDATED) governs; its
+final session-stage blocks are the newest truth.
 
 THEN READ, IN ORDER:
-1. SRJ_FlowNexus_Local\00_CURRENT_WORKING\GOAL_STATEMENT.md (the goal + AGREEMENT SAMPLES 2/3)
-2. SRJ_FlowNexus_Local\00_CURRENT_WORKING\CHARTER.md (the strategy + operator rulings)
-3. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RESULT_161-K.md (the LATEST - T161K: P-NEXTOPEN,
-   the next-candle-open evaluation at the retest + entry sites, run-verified)
-4. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RESULT_161-J.md (T161J: the CQD strict-swing unify)
-5. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RESULT_161-I.md (T161I: P-DIVCON-B, the strict latch)
-6. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_FINDING_EXIT-0817.md (the 08.17 trade correction,
-   the break-POI-bias search answer, the 16:20 erratum)
-7. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_FINDING_ANCHORTIER-1.md (the POI-selection map +
-   the BATCHED operator questions - THE OPEN RULING)
-8. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_FINDING_0814-MISS.md (the 08.14 miss audit)
-9. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_FINDING_MIDLINE-1.md (midline (a) answered,
-   (b) blocked on OHLC)
+1. SRJ_FlowNexus_Local\00_CURRENT_WORKING\GOAL_STATEMENT.md (the goal + AGREEMENT SAMPLES
+   2/3/4 + Amendments 1-2: NO validity disagreement remains in the Tier-1 window)
+2. SRJ_FlowNexus_Local\00_CURRENT_WORKING\CHARTER.md (the strategy + §9 rulings + §9.1 the
+   POC/VWAP early-exit rule)
+3. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RESULT_161-K.md (the LATEST certified run: T161K)
+4. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_FINDING_ANCHORTIER-1.md (the POI-selection map;
+   section 10 = the operator ruling that CLOSED open item (a))
+5. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_FINDING_MIDLINE-1.md ((a) answered; (b) ANSWERED:
+   the activation-gated invalidation measurement)
+6. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_FINDING_0814-MISS.md (08.14 = the operator-
+   documented INVALID setup -> agreement; section 6 = the operator's correction)
+7. SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_FINDING_EXIT-POCVWAP.md (the POC/VWAP rule for STEP 4)
+8. Context: BUILDER_RESULT_161-J.md, _I.md, BUILDER_FINDING_EXIT-0817.md
 
 BASELINES (re-hash at session start per .clinerules section 8; digests are the instrument):
 - EA:   Experts\SRJ_FlowNexus_EA.mq5 =
@@ -25,98 +26,77 @@ BASELINES (re-hash at session start per .clinerules section 8; digests are the i
         (207,854 bytes, 4,204 CRLFs; T161K-verified 2026-09-09)
 - CQD:  Indicators\SRJ_CQD_TickBased_MT5.mq5 =
         92F3A62BE11E7343D2E9E05AD5B6FE7FCF565B69737E53A48628E6990792969F
-        (51,701 bytes; T161J-verified; untouched by T161K)
+        (51,701 bytes, 1,471 CRLFs; T161J-verified)
 - FlowLogic + the fourteen Include\SRJ\*.mqh: untouched (Task-160 reference digests).
-- T161K = TWO signals in the Tier-1 window: 08.17 16:35:02 LONG R=1.42 Weekly-VWAP NYAM
-  SL 1.15870 TP 1.16141 (same bar/SL/TP as T161J; R 1.46->1.42 because the entry is now the
-  next open) + 08.20 09:35:04 LONG R=1.60 Daily-VWAP LONDON SL 1.16733 TP 1.16837 (NEW -
-  E1's direct product). RESOLVED 2026-09-09 by operator correction: row #233 EXISTS
-  (8/20/26 LDN TF Bull, D VWAP, CVD=3, S LQ, 1.61 TAKEN) - the "no 08.20 LDN row" claim
-  was a builder mis-read; 08.20 = AGREEMENT SAMPLE 4 (GOAL_STATEMENT.md amendment).
+- GIT: the Task-161 work IS COMMITTED (no longer fragile-only): commit 52a41d9 = the two
+  canonical sources (digests in the message) + annotated tag Task161-T161K; commit d1a5eae
+  = the T161I/J/K records + harness; the following commit = this stage's records. NO PUSH
+  (a separate explicit token if ever wanted).
 
-THE GOVERNING RULINGS (verbatim in .clinerules 7.1 / the named handoffs):
+T161K SIGNALS (the Tier-1 window): 08.17 16:35:02 LONG R=1.42 Weekly-VWAP NYAM SL 1.15870
+TP 1.16141 + 08.20 09:35:04 LONG R=1.60 Daily-VWAP LONDON SL 1.16733 TP 1.16837.
+TIER-1 VALIDITY PICTURE: FULL AGREEMENT - 08.14 (invalid setup, no EA signal), 08.17
+(candidate agreement; entry/exit layers = the unbuilt section 5), 08.18 (no false positive;
+the 18:20 suppression ruled correct), 08.19/21 (absence), 08.20 (AGREEMENT SAMPLE 4).
+
+THE GOVERNING RULINGS (verbatim in the records - do not re-propose):
 - THE EA FOLLOWS THE INDICATOR: the divergence-validity criteria are the indicator's own
   verdict stream; the EA consumes, never overrides. Confirmed lines ONLY.
-- STRICT LATEST-AT-CONFIRMATION: the latch re-evaluates every bar; an opposing latest CLEARS
-  it; the setup keeps waiting (no abort) until a new direction-matched divergence re-latches.
-- THE CQD SWING IS UNIFIED AND STRICT (one predicate, strict both sides, 3-bar window; the
-  2-of-4 requires at least one swing flag from EACH anchor). Do not re-propose it.
-- NEXT-CANDLE-OPEN EVALUATION (operator directive 2026-09-09, Proceed): the EA considers the
-  NEXT candle's open, not the current candle's close - for ENTRY and for the POI RETEST.
-  Implemented in T161K (E1 the retest predicate, E2 the S5 entry reference). The EXIT site
-  arrives with the unbuilt section 5 exit model (charter STEP 4). Declared boundary: the S4
-  confirm-VALIDITY test, the S2POLL advisory, the historical walks, the POI snapshot timing.
+- STRICT LATEST-AT-CONFIRMATION: the latch re-evaluates every bar; an opposing latest
+  CLEARS it; the setup keeps waiting (no abort) until a matched divergence re-latches.
+- THE CQD SWING IS UNIFIED AND STRICT (T161J).
+- NEXT-CANDLE-OPEN EVALUATION at the retest + entry sites (T161K); the EXIT site arrives
+  with the section-5 exit model (charter STEP 4).
+- ANCHOR-TIER/POI-SELECTION: KEEP AS MAPPED (open item (a) CLOSED 2026-09-09): rank order
+  FOMC > Yearly > Quarterly > Monthly > Weekly > Daily with AVP-POC over VWAP inside each
+  family; the most-authoritative line wins a same-bar tie; the while-alive singleton holds
+  with NO replacement and NO release for stuck candidates (the 08.18 18:20 suppression is
+  correct behavior). "AVP" in the operator's journal = the *-POC lines (AVP-POC).
+- POC/VWAP EARLY-EXIT RULE (charter 9.1): AVP/POC sits SLIGHTLY higher than VWAP (matters
+  only for early exits); the section-5 body-close exit binds to the ENTRY-ANCHOR POI - a
+  candle-close VWAP flip does NOT exit a POC-anchored trade; the POC's own break (including
+  after a gap-jump relocation) DOES exit (the 8/17 shape).
 
-THE TESTER HARNESS (operator-directed 2026-09-09 - USE THIS; never long sleep loops again):
-- SRJ_FlowNexus_Local\00_CURRENT_WORKING\run_tester.ps1 launches the headless run DETACHED,
-  waits on the real process handle, archives the journal segment to 06_HANDOFFS, and writes
-  00_CURRENT_WORKING\<RunName>_STATUS.txt when the run ENDS (exit state, archived line count,
-  and the gate lines verbatim). The STATUS file is THE completion instrument.
-- Protocol: (1) closing a live terminal64 needs the operator's explicit authorization (the
-  wrapper NEVER kills a terminal - with one running it exits at once, TERMINAL_BUSY=true);
-  (2) delete any stale <RunName>_STATUS.txt; (3) launch detached:
-  Start-Process powershell -WindowStyle Hidden -ArgumentList '-NoProfile','-ExecutionPolicy',
-  'Bypass','-File','<path to run_tester.ps1>','-RunName','T161X','-IniPath','<abs ini path>';
-  (4) poll ONLY with cheap sub-second commands (Test-Path the STATUS file; sleeps <=240 s
-  per tool call; STOP the moment it exists); (5) read STATUS for the gates, then run the
-  <RunName> tabulation script (copy tabulate_161k.ps1 with the new names).
-- Rationale: the builder could not previously tell when a run finished (the operator had to
-  nudge, and continuous polling kept the machine busy). If a run crosses midnight the journal
-  file name changes - STATUS records what was archived; handle the split explicitly.
+THE TESTER HARNESS v2 (USE THIS; v1 is superseded — never long sleep loops, never wait on
+process exit):
+- SRJ_FlowNexus_Local\00_CURRENT_WORKING\run_tester_v2.ps1: STATUS WRITTEN AT LAUNCH
+  (pre-flight facts + REFUSED_* gates), 10-second HEARTBEATS (terminal alive + journal
+  growth + last line), JOURNAL-BASED COMPLETION (Test passed / test stopped /
+  log-file-written / connection-closed — scanned in the NEW lines), LOCK-TOLERANT archive
+  of the journal segment to 06_HANDOFFS, gates + RESULT (PASSED / TERMINAL_EXITED_EARLY /
+  TIMEOUT_60MIN / UNDETERMINED) in STATUS at DONE. Validated end-to-end by T161L4
+  (T161L4_STATUS.txt kept as the artifact; T161L/L2/L3 were the fix iterations).
+- Protocol: (1) the wrapper NEVER kills a terminal; with one running it exits
+  TERMINAL_BUSY=true — closing a live terminal64 needs the operator's explicit
+  authorization; closing the builder's OWN leftover instance is documented stage hygiene;
+  (2) launch detached: Start-Process powershell -WindowStyle Hidden -ArgumentList
+  '-NoProfile','-ExecutionPolicy','Bypass','-File','<v2 path>','-RunName','T161X',
+  '-IniPath','<abs ini path>'; (3) poll Test-Path <RunName>_STATUS.txt with cheap
+  sub-second commands, sleeps <=60s per tool call, STOP at first hit; (4) read RESULT and
+  the GATE lines from STATUS.
 
-THE NEXT WORK, IN ORDER (statuses 2026-09-09 ~08:00):
-1. THE ANCHOR-TIER/POI-SELECTION MAP (builder, mechanical): map exactly how the EA seeds
-   candidates from POI retests - DetectPoiRetest, the 12 POI buffers, g_authorityRank tiering,
-   the same-bar tie rule - and lay the mechanism out for the operator's ruling. THE OPERATOR
-   RESERVED THIS RULE (open item a): the 08.18 EA candidate anchored Daily-POC while the
-   operator's setup referenced W POC. DELIVERED: BUILDER_FINDING_ANCHORTIER-1.md. RECORD
-   CORRECTION (measured, T161K journal): the EA was NOT idle at 18:20 - a Weekly-POC LONG
-   seeded 17:35:02 sat at S2 LTF-unaligned through 18:35 and SUPPRESSED the operator's
-   W-POC SHORT retests (bars 18:20/18:25, opp=1 higher=0); the operator rejected that
-   short themselves (invalid CQD). Section 9 holds the batched ruling questions - ASK;
-   do not invent the rule.
-2. THE 08.14 MISS AUDIT (builder, mechanical): the operator TOOK a 0.18R LDN TF trade (journal
-   #217, W VWAP, CVD=x) and the EA signaled nothing. Re-trace on T161K_JOURNAL.log (the seed
-   predicate changed in T161K): T161J's journal showed the EA seeding 08.14 09:15 LONG
-   Weekly-VWAP (S1->S2) - find where that sequence died and why. DELIVERED:
-   BUILDER_FINDING_0814-MISS.md - the sequence ARMED S4 at 09:15:00 (the operator's entry
-   bar) and died 09:25:02: the 2-of-3 poll hit adverse=2 (obDead - XOB 1811->1795,
-   fvgDead) -> ABORT FRESH_OB_DEAD; independently the divergence latch was CLEAR (-1
-   opposing confirmed at 09:00). The operator TAKEN it with CVD=❌ 0.18R - two operator
-   questions pending (the finding's section 5).
-3. THE MIDLINE-AUDIT MECHANICAL STEPS (builder, mechanical): (a) which export buffer, if any,
-   carries the XOB invalidationLevel (the journals show obInval=-2147483648 on every promoted
-   XOB with isValid=1); (b) whether a body close crossed XOB 2159's midline (1.158035) between
-   05:05 (promotion) and 14:10 on 08.18 - needs M5 OHLC (tester instrument run or OHLC export).
-   Context: SRJ_OrderblockMgr.mqh L37-39 computes invLevel = min/max(mid, obOpen) - NOT the
-   operator's pure midline (charter section 9 XOB VALIDATION RULE). DELIVERED:
-   BUILDER_FINDING_MIDLINE-1.md - (a) ANSWERED: NO export buffer carries invalidationLevel
-   or the invalidation bar; obInval in the PROMOCENSUS = COrderblock.invalidationBar
-   (SRJ_OrderblockMgr L909-917/L955-963; assigned only at invalidation L132/L514); INT_MIN
-   with isValid=1 is a faithful NA; the EA has NO access to either figure. (b) BLOCKED ON
-   DATA: no 08.18 M5 OHLC on disk - a throwaway dump-EA tester run OR operator-supplied
-   OHLC; AUTHORIZATION PENDING (batched question Q4).
-4. ON REQUEST ONLY: a T161K recertification run (a CERT-style pass); the git snapshot of the
-   Task-161 work (needs an explicit token - the working tree is the only copy; treat as fragile).
+THE NEXT WORK, IN ORDER:
+1. THE XOB-VALIDITY DECISION (operator choice -> packet; the biggest open semantic item):
+   MIDLINE-1 measured that FlowLogic's OB invalidation is ACTIVATION-GATED
+   (SRJ_OrderblockMgr.mqh L497-505) with a deeper-or-equal level (L39), so an OB that price
+   never revisits NEVER dies — measured on XOB 2159: ALL 109 bars in [05:05,14:10) on 08.18
+   closed below its midline 1.158035 (first = the promotion bar itself), never invalidated.
+   THE OPERATOR MUST CHOOSE THE FIX SHAPE: (1) FlowLogic adopts the midline body-close rule
+   (activation-independent); or (2) FlowLogic exports the missing state (activation flag /
+   invalidationLevel / invalidationBar) and the EA applies the operator's rule.
+   NO canonical edit without a packet.
+2. THE EXIT MODEL (section 5, charter STEP 4): the next-open EXIT site (spec section 4) +
+   three pending confirmations from EXIT-POCVWAP section 4 (generalize the anchor-line
+   binding? the short side? the TP-vs-exit asymmetry).
+3. THE OLDER OPEN ITEMS (standing state): 155-RT-A reissue; 161-REG acceptance; the
+   structural-agreement tally continuation; a T161K recertification run on request.
+4. ON REQUEST ONLY: git push (a separate token).
 
-THE OPERATOR'S PENDING INPUTS:
-- THE ANCHORTIER-1 RULING: RESOLVED 2026-09-09 (in-session) - "Keep as mapped: the rank
-  order AND the while-alive suppression both stand - close open item (a) as 'the EA matches
-  my rule' (the 08.18 18:20 short stays suppressed)." Q1/Q2/Q3 CONFIRMED AS THE OPERATOR'S
-  RULE (ANCHORTIER-1 section 10). STILL OPEN from the memo: Q4 the OHLC-dump authorization
-  (MIDLINE-1 (b)) and Q5 the 08.14 items (the 2-of-3 kill; CVD=❌ taken).
-- RESOLVED 2026-09-09: the 08.20 LDN long = TAKEN by the operator (row #233, 1.61) -
-  agreement sample 4; the EA's T161K signal matches on session/direction/POI/CVD-code/R.
-- RESOLVED 2026-09-09: the 08.17 comparison - the operator addressed it; charts received
-  with the declared caveat that the TradingView CQD chart is unreliable (TV aggregates/
-  approximates CVD/CQD; no dukascopy broker data; CFD contract differences between
-  brokers). The MT5 dukascopy chart is the authoritative visual.
-
-THE ROLES: the operator (present) holds intent and is the final authority - the council relay
-is DEFERRED, the operator rules directly as council of record in-session. YOU are the builder
-and the operator's primary interface: no invented strategy, no executive directions, no
-canonical-file edits without a packet the operator issues in-session.
-FOLLOW .clinerules SECTION 5 - digests are the instrument (never mtimes or .ex5 sizes), literal
-absolute paths only, nothing under 02_TASK_CHECKPOINTS, no git add/commit/push without an
-explicit token, raw-output-verbatim reporting, and on any gate failure: report BLOCKED, name
-the gate, write nothing further, revert nothing.
+THE ROLES: the operator (final authority) rules directly as council of record in-session;
+the council relay is DEFERRED. YOU are the builder and the operator's primary interface:
+no invented strategy, no executive directions, no canonical-file edits without a packet
+the operator issues in-session.
+FOLLOW .clinerules SECTION 5 - digests are the instrument (never mtimes or .ex5 sizes),
+literal absolute paths only, nothing under 02_TASK_CHECKPOINTS, no git add/commit/push
+without an explicit token, raw-output-verbatim reporting, and on any gate failure: report
+BLOCKED, name the gate, write nothing further, revert nothing.

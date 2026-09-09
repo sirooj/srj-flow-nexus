@@ -53,3 +53,32 @@ Experts\SRJ_Temp_OhlcDump.mq5, deleted with its .ex5 after the run; run_tester.p
 harness, no canonical file touched) to write the 08.18 M5 OHLC to a CSV — OR the
 operator supplies/exports the OHLC themselves. No terminal will be closed without
 their explicit authorization per the harness protocol.
+
+## (b) ANSWERED (2026-09-09 — the T161L throwaway dump run, operator-authorized)
+DATA: T161L_OHLC_EURUSD_M5_0818.csv (06_HANDOFFS; 288 M5 rows for 2026.08.18, dumped by
+the throwaway EA from the tester's own generated series; run T161L "Test passed",
+321,404 ticks, 1,728 bars — the same tick/bar counts as the identity runs).
+MEASUREMENT (window [05:05, 14:10) on 2026.08.18; XOB 2159 midline 1.158035):
+- ALL 109 bars in the window closed BELOW the midline (109 of 109).
+- The FIRST bar of the window — the 05:05 promotion bar itself — already closed below:
+  close 1.15777 (2.6 points below the line; its high 1.15794 only touched the zone low).
+- Window minimum close 1.15682 (09:00); window maximum close 1.15801 (05:55) — still
+  below the line. Price NEVER closed above the midline anywhere in the window.
+ANSWER: YES. Body closes crossed XOB 2159's midline immediately and continuously. Under
+the operator's rule, XOB 2159 was INVALID FROM ITS FIRST BAR and could never be the
+valid zone for the 14:10 setup.
+WHY FLOWLOGIC NEVER INVALIDATED IT (measured from source): the manager's invalidation
+test is ACTIVATION-GATED — SRJ_OrderblockMgr.mqh L497-505 runs only inside
+if(ob.isActivated && ob.isValid), and bullish activation requires a bar HIGH above the
+zone high (1.15813). The window's maximum high is 1.15804 (05:55): the OB was NEVER
+activated, so the invalidation check never ran; obInval stayed INT_MIN, isValid stayed
+1. (The replay path carries the same gate, L119-121.) This also explains the
+census-wide obInval=INT_MIN + isValid=1 pattern: an OB that price never revisits from
+above NEVER dies under FlowLogic's lifecycle.
+CONSEQUENCE (operator/packet item — NO source change made): the operator's XOB-validity
+standard (pure midline, activation-independent) and FlowLogic's lifecycle (deeper-or-
+equal level AND activation-gated) are now FULLY measured. Fix shapes for the operator
+to choose: (1) FlowLogic adopts the midline body-close invalidation
+(activation-independent); or (2) FlowLogic exports the missing state (activation flag /
+invalidationLevel / invalidationBar) and the EA applies the operator's rule. Both are
+canonical edits = packet items.

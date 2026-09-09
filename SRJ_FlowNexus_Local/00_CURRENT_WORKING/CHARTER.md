@@ -154,3 +154,12 @@ DIVERGENCE TAXONOMY (operator): CVD/CQD codes - 1 and 3 bullish, 2 and 4 bearish
 1 and 2 normal divergence, 3 and 4 hidden divergence. The EA's verdict values map:
 +1=code1 (bull normal), -1=code2 (bear normal), +2=code3 (bull hidden), -2=code4
 (bear hidden) - MAPPING TO BE VERIFIED FROM SRJ_CQD_TickBased_MT5 source.
+
+## 9.1 (addendum 2026-09-09) THE POC/VWAP EARLY-EXIT RULE (operator; verbatim in
+BUILDER_FINDING_EXIT-POCVWAP.md): AVP/POC sits SLIGHTLY higher than VWAP (the operator's
+emphasis; the offset matters only for early exits). For a POC-anchored LONG, a candle
+close that flips below the VWAP does NOT exit the trade ("my entry was based from POC");
+the POC's own early exit DOES apply when it gap-jumps and price body-closes below it,
+flipping the bias (the 8/17 shape). Net: the §5 body-close exit test binds to the
+ENTRY-ANCHOR POI, not to every POI behind the trade. Build slot: charter STEP 4 (§5 is
+unbuilt; three confirmations pending, see the finding's section 4).

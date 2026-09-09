@@ -117,3 +117,19 @@ BUILDER_FINDING_ANCHORTIER-1.md §8b); 08.19/08.21 AGREE (absence); 08.20 AGREE
 (this sample); 08.14 MISS (BUILDER_FINDING_0814-MISS.md — the EA armed the same-bar
 setup and killed it with the 2-of-3 rule plus the divergence latch; two operator
 questions pending).
+
+## AMENDMENT 2, 2026-09-09 — THE 08.14 RECLASSIFICATION (operator correction, Q5 answer)
+The operator corrected the #217 reading, verbatim: "...what i meant with the 0.18R is i
+document the invalid trade that was less than 1R and invalid CQD, but i write the 0.18R
+not with the same column with the Gain % but in the comments section."
+The row's Gain % is EMPTY; "0.18R <link>" is the COMMENT column. The row documents an
+INVALID trade by the operator's own standard: invalid CQD (CVD=❌) AND less than 1R.
+TALLY CORRECTION: "08.14: #217 LDN TF, W VWAP, CVD=x, 0.18R TAKEN (small winner). EA: NO
+SIGNAL — a MISS." is SUPERSEDED. 08.14 = the operator-documented INVALID setup; the EA's
+no-signal (divergence latch CLEAR on the invalid CQD; the 2-of-3 kill besides — see
+BUILDER_FINDING_0814-MISS.md §6) AGREES with the validity standard.
+TIER-1 VALIDITY PICTURE AFTER BOTH AMENDMENTS: 08.14 agreement (invalid setup -> no EA
+signal); 08.17 candidate agreement (entry/exit layers = STEP 4); 08.18 agreement (no
+false positive; the 18:20 suppression ruled correct); 08.19/21 absence agreements;
+08.20 AGREEMENT SAMPLE 4 (complete). NO VALIDITY DISAGREEMENT REMAINS IN THE TIER-1
+WINDOW.

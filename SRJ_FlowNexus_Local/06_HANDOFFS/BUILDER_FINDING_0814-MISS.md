@@ -57,3 +57,24 @@ Q-A. Is the pre-confirmation 2-of-3 kill correct as your standard — would YOU 
 Q-B. Is a direction-matched CQD divergence REQUIRED for every TF entry (spec §3.8),
      or only decisive WHEN ONE EXISTS? (Your 08.14 row: CVD=❌, taken; your 08.20
      row: CVD=3, taken.)
+
+## 6. OPERATOR ANSWER (Q5, 2026-09-09 in-session) — THE ROW READS DIFFERENTLY
+The operator, verbatim: "you read it wrong, [row #217 fields] ... i guess due to the .csv
+format what i meant with the 0.18R is i document the invalid trade that was less than 1R
+and invalid CQD, but i write the 0.18R not with the same column with the Gain % but in the
+comments section."
+RESOLVED READING: "0.18R" sits in the COMMENT column; Gain % is EMPTY on the row. The row
+documents an INVALID trade by the operator's own standard — invalid CQD (CVD=❌) AND less
+than 1R; 0.18R is the outcome recorded in the comment.
+CONSEQUENCE: the "08.14 MISS" dissolves as a VALIDITY disagreement. The operator's own
+classification marks the setup invalid (invalid CQD), and the EA's no-signal AGREES: the
+divergence latch was CLEAR (newest confirmed verdict -1, direction-mismatched) and the
+2-of-3 poll killed the armed sequence besides. The EA refusing to signal an invalid-CQD
+setup is agreement with the operator's validity standard, not a miss.
+REMAINING OPEN (narrowed): whether the 2-of-3 pre-confirmation kill (obDead+fvgDead)
+matches the operator's standard in general — moot for 08.14's classification (the CQD
+invalidity alone governs), still unverified as a general rule.
+TIER-1 VALIDITY PICTURE AFTER THIS CORRECTION: 08.14 agreement (invalid setup -> no EA
+signal); 08.17 candidate agreement; 08.18 agreement (no false positive; the 18:20
+suppression ruled correct); 08.19/21 absence agreements; 08.20 AGREEMENT SAMPLE 4.
+NO VALIDITY DISAGREEMENT REMAINS IN THE TIER-1 WINDOW.
