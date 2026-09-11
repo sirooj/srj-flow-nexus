@@ -141,3 +141,49 @@ group target, i.e. the operator's own "S LQ" family, not a POI line. The mechani
 the residue (R-Q12; which session level "S LQ" denoted) are measured in
 BUILDER_FINDING_0820-TP.md. The agreement verdict of Amendment 1 (08.20 = AGREEMENT
 SAMPLE 4, complete) is unchanged.
+
+## AMENDMENT 4, 2026-09-09 — THE DEPLOYMENT BAR (the operator's goal restatement) + the acceptances
+- (a) 161-REG ACCEPTED by the operator (per the builder's recommendation): the closure
+  proof stands; the fresh fifteen-file measure (14/15 Task-160 byte-exact; OrderblockMgr
+  = the Task-160 original + exactly the ruled T161N level hunk) is on the record.
+- (b) 155-RT-A ACCEPTED: open item 24 closed as PREMATURE (buffer-34 NO CONSUMER
+  measured); no 155-RT-B; the declared S1/S6 lineage deviation accepted. The flagship
+  relay therefore carries ONLY the R-Q12 strategy question.
+- THE S-LQ RULING: recorded at BUILDER_FINDING_0820-TP.md §5 (the TP layer dissolves);
+  the operator APPROVED the flagship relay for it.
+- THE DEPLOYMENT BAR (operator, verbatim): "what about the other trades that are on my
+  journal? what about the valid trades that i actually took? i absolutely do not
+  tolerate if the EA has not execute and think my strategy as is. until then, i would
+  never deploy this EA to replace me or take trades for me. THIS IS AN IMPORTANT GOAL"
+- MEANING (the governing bar from today): EVERY valid (TAKEN) trade in
+  OPERATOR_TRADE_JOURNAL.csv must be reproduced by the EA — and no invalid/rejected
+  setup may be signaled — before any deployment is even considered. The Tier-1 window
+  (08.14-08.22) is a SAMPLE, not the goal. THE WORK: the FULL-JOURNAL RECONCILIATION —
+  census every journal row (date, session, TF/MR, taken/invalid, POI tier, CVD code),
+  run the EA across the journal's FULL date span, compare row-by-row, root-cause every
+  MISS (mechanical gap = packet fix; semantic gap = operator ruling), iterate until
+  zero missed valid trades + zero false positives across the WHOLE journal. Deployment
+  stays OFF THE TABLE until that bar is met. ALERT-ONLY stands regardless.
+
+## AMENDMENT 5, 2026-09-09 — THE RELAY VOID; R-Q12 WAS ALREADY ANSWERED AND CLOSED (builder error of record)
+The builder drafted a flagship-council relay carrying "R-Q12" (may a still-forming
+session's extreme be a TP target). THE OPERATOR CORRECTED, verbatim: "You absolutely
+have diffrent understanding of what the flagship model council is, that is where you
+ask for the code questions (Opus 5) and another GPT 6 Astra for an external overal
+review with non code heavy questions. those questions are supposed to be asked to me
+as the operator." + "those questions have been documented and in the specification
+file. ask questions which are not explained in it."
+MEASURED ON DISK: REVISION_63 §6.3 R-100 — "R-Q12 ANSWERED. EA 655's session-live
+target exclusion RULED CORRECT AS INTENT. ... a session extreme is admissible at
+admission when it is CLOSED, UNSWEPT and NOT CLOSED OVER. Three exclusions, all
+attributed." Corroborated by R-107; §11.1: "R-Q11 and R-Q12 are both ANSWERED and
+CLOSED." CONSEQUENCE: THE RELAY IS VOID — nothing is sent; the 08.20 ASH pick is
+ruled-correct behavior; Amendment 4's "the flagship relay therefore carries ONLY the
+R-Q12 strategy question" is SUPERSEDED by this amendment.
+THE ROLE MAPPING (operator, 2026-09-09, now governing): (1) the SPECIFICATION first —
+ask nothing it already answers; (2) strategy-rule questions not in the spec → THE
+OPERATOR; (3) code questions → the flagship council (Opus 5); (4) non-code-heavy
+external review → GPT 6 Astra.
+JOURNAL GLOSS (operator, 2026-09-09): F AVP = FOMC-POC, Y AVP = YEARLY-POC, Q AVP =
+QUARTERLY-POC (EA L82-93 carries all twelve families) — the full-journal POI mapping
+is complete; no operator question remains for the reconciliation.

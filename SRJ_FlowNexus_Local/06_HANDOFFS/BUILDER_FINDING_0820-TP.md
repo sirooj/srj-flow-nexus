@@ -61,3 +61,34 @@ than the selection consumed.
 NO source change is made or proposed by this finding. R-Q12 is already on the record;
 the only NEW datum for the operator is which session level "S LQ" denoted on 08.20
 (a one-line answer, non-blocking, foldable into any future relay).
+
+## 5. THE OPERATOR'S S-LQ ANSWER (2026-09-09, verbatim) — THE LAYER DISSOLVES
+The operator, verbatim: "yes S LQ is just my simplification on my TP target which ever
+session liquidity is the nearest, same with VWAP and AVP (POC) cause i don't state the
+origin such as W VWAP."
+RULING OF RECORD: the operator's journal labels (S LQ / VWAP / AVP-POC) are FAMILY
+simplifications — the nearest member of the family, with the origin session unstated.
+Under that standard, the EA's 08.20 pick (ASH 1.16837 = the nearest valid session
+liquidity above price) IS the operator's own rule. The 08.20 TP-reference layer
+DISSOLVES ENTIRELY — no disagreement remains on the TP object.
+WHAT SURVIVES: only the EA-51 question (does "nearest" include a STILL-FORMING
+session's extreme — on 08.20 the live London High at 32 pts was excluded and ASH at
+67 pts won) — this is exactly the already-open R-Q12, forwarded to the flagship
+council relay at the operator's order. The builder records no new open item.
+
+## 6. CORRECTION (2026-09-09, builder error of record): §5's "WHAT SURVIVES" is VOID
+R-Q12 was ALREADY ANSWERED AND CLOSED before this finding was written. MEASURED ON DISK:
+REVISION_63_CONSOLIDATED_HANDOFF.md §6.3 R-100, verbatim: "R-Q12 ANSWERED. EA 655's
+session-live target exclusion RULED CORRECT AS INTENT. Item 16's residual is the POI
+anchor-tier filter alone. SCENARIO G IS SCORABLE. ADMISSION-TARGET ADMISSIBILITY: a
+session extreme is admissible at admission when it is CLOSED, UNSWEPT and NOT CLOSED
+OVER. Three exclusions, all attributed." Corroborated by R-107 ("R-Q12's original text
+CORROBORATES R-100/101/102 without amendment... 17 August's seven bars choosing
+London's closed high over New York's forming high") and §11.1 ("R-Q11 and R-Q12 are
+both ANSWERED and CLOSED"). CONSEQUENCE: no relay exists, none is needed; EA-51 (the
+live-session exclusion) is RULED-CORRECT behavior; the 08.20 ASH pick is the ruled
+rule's own output; the TP-reference layer is fully closed by §5 plus the standing
+ruling. The operator ALSO corrected the roles (2026-09-09, verbatim in GOAL_STATEMENT
+Amendment 5): strategy-rule questions go to THE OPERATOR (spec first — ask nothing the
+spec already answers); the flagship council (Opus 5) takes CODE questions; GPT 6 Astra
+takes the non-code external review.

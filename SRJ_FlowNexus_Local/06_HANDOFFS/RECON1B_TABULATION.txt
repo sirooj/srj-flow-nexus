@@ -1,0 +1,287 @@
+﻿RECON1B TABULATION - the RECON-PILOT Phase-1 baseline run (source: RECON1B_JOURNAL.log segment; PRE_JOURNAL_LINES=0)
+Window: 2026.08.26 00:00 -> 2026.09.10 00.00 requested; ticks synced 2026.06.01 -> 2026.09.08; bars generated 2880 (through 09.08 23:59:59)
+
+--- TEST COMPLETION ---
+CP	0	00:01:34.882	Tester	EURUSD,M5 (Dukascopy-demo-mt5-1): testing of Experts\SRJ_FlowNexus_EA.ex5 from 2026.08.26 00:00 to 2026.09.10 00:00
+II	0	00:01:41.401	Core 04	EURUSD,M5: testing of Experts\SRJ_FlowNexus_EA.ex5 from 2026.08.26 00:00 to 2026.09.10 00:00 started with inputs:
+KD	0	00:47:24.340	Core 04	EURUSD,M5: 506748 ticks, 2880 bars generated. Environment synchronized in 0:00:00.205. Test passed in 0:45:49.262 (including ticks preprocessing 0:00:00.047).
+
+--- SIGNAL LINES (verbatim) ---
+FN	0	00:03:43.516	Core 04	2026.08.26 09:15:01   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Weekly-POC | LONDON | reason=TP_RR_FAIL
+IO	0	00:04:14.033	Core 04	2026.08.26 12:05:01   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Weekly-POC | LONDON | reason=SESSION_CLOSED
+KM	0	00:04:44.551	Core 04	2026.08.26 14:45:01   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Weekly-POC | NYAM | reason=TP_RR_FAIL
+PE	0	00:04:50.654	Core 04	2026.08.26 15:05:00   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Weekly-VWAP | NYAM | reason=TP_RR_FAIL
+EL	0	00:04:56.758	Core 04	2026.08.26 15:40:03   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Weekly-POC | NYAM | reason=FRESH_OPP_FVG
+HG	0	00:08:36.483	Core 04	2026.08.27 10:45:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-POC | LONDON | reason=FRESH_OB_DEAD
+PE	0	00:09:49.725	Core 04	2026.08.27 17:40:01   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Weekly-VWAP | NYAM | reason=LTF_MISALIGN
+QI	0	00:12:58.933	Core 04	2026.08.28 10:30:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-VWAP | LONDON | reason=TP_RR_FAIL
+JD	0	00:13:59.967	Core 04	2026.08.28 15:35:00   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Daily-VWAP | NYAM | reason=LTF_MISALIGN
+DK	0	00:14:06.071	Core 04	2026.08.28 16:15:00   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Daily-VWAP | NYAM | reason=LTF_MISALIGN
+PO	0	00:14:06.071	Core 04	2026.08.28 16:25:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-POC | NYAM | reason=TP_RR_FAIL
+IQ	0	00:14:12.174	Core 04	2026.08.28 17:00:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-POC | NYAM | reason=TP_RR_FAIL
+DD	0	00:14:18.278	Core 04	2026.08.28 17:15:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Weekly-POC | NYAM | reason=TP_RR_FAIL
+CH	0	00:14:36.588	Core 04	2026.08.28 19:05:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Yearly-POC | NYAM | reason=SESSION_CLOSED
+OP	0	00:17:45.797	Core 04	2026.08.31 11:40:07   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Monthly-VWAP | LONDON | R=2.24 SL 1.16116 TP 1.15698 spr=2
+DO	0	00:18:40.728	Core 04	2026.08.31 16:20:00   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Weekly-POC | NYAM | reason=TP_RR_FAIL
+GG	0	00:18:40.728	Core 04	2026.08.31 16:25:02   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Weekly-POC | NYAM | reason=TP_RR_FAIL
+HR	0	00:18:40.728	Core 04	2026.08.31 16:40:01   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Yearly-POC | NYAM | reason=TP_RR_FAIL
+MJ	0	00:18:46.832	Core 04	2026.08.31 17:10:00   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Yearly-POC | NYAM | reason=TP_RR_FAIL
+MS	0	00:22:02.143	Core 04	2026.09.01 10:00:01   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Monthly-POC | LONDON | reason=LTF_MISALIGN
+RS	0	00:22:02.143	Core 04	2026.09.01 10:20:00   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Weekly-VWAP | LONDON | reason=LTF_MISALIGN
+RE	0	00:23:03.179	Core 04	2026.09.01 15:50:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Monthly-POC | NYAM | R=1.36 SL 1.15854 TP 1.16012 spr=2
+FQ	0	00:26:24.593	Core 04	2026.09.02 09:30:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-VWAP | LONDON | reason=TP_RR_FAIL
+FE	0	00:26:55.112	Core 04	2026.09.02 11:55:00   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | FOMC-VWAP | LONDON | reason=LTF_MISALIGN
+QI	0	00:27:25.628	Core 04	2026.09.02 14:25:03   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | FOMC-VWAP | NYAM | reason=TP_RR_FAIL
+FL	0	00:27:25.628	Core 04	2026.09.02 14:55:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-VWAP | NYAM | reason=FRESH_OB_DEAD
+LP	0	00:27:37.836	Core 04	2026.09.02 15:55:00   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Daily-VWAP | NYAM | R=1.05 SL 1.15856 TP 1.15719 spr=4
+FM	0	00:31:17.563	Core 04	2026.09.03 11:10:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-POC | LONDON | reason=LTF_MISALIGN
+LM	0	00:35:40.014	Core 04	2026.09.04 09:35:01   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Daily-POC | LONDON | reason=TP_RR_FAIL
+GM	0	00:35:46.117	Core 04	2026.09.04 10:15:04   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-POC | LONDON | reason=TP_RR_FAIL
+MR	0	00:35:46.117	Core 04	2026.09.04 10:25:01   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-VWAP | LONDON | reason=TP_RR_FAIL
+EH	0	00:35:52.220	Core 04	2026.09.04 10:35:06   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-POC | LONDON | reason=FRESH_OPP_FVG
+GR	0	00:35:52.220	Core 04	2026.09.04 10:40:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-POC | LONDON | reason=TP_RR_FAIL
+HO	0	00:36:04.428	Core 04	2026.09.04 12:00:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-POC | LONDON | reason=LTF_MISALIGN
+HF	0	00:36:53.255	Core 04	2026.09.04 16:00:00   [SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Monthly-POC | NYAM | reason=TP_RR_FAIL
+QG	0	00:40:14.669	Core 04	2026.09.07 09:20:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | LONDON | R=1.76 SL 1.16098 TP 1.16200 spr=3
+PP	0	00:41:34.013	Core 04	2026.09.07 16:40:15   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | NYAM | R=2.12 SL 1.16218 TP 1.16315 spr=5
+IK	0	00:45:56.465	Core 04	2026.09.08 15:55:07   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Yearly-POC | NYAM | R=1.12 SL 1.16079 TP 1.16314 spr=2
+SIGNAL_COUNT=6
+
+--- MANAGED TRADE (entries/exits, verbatim) ---
+HI	0	00:17:45.797	Core 04	2026.08.31 11:40:07   [SRJ-EA] MTSNAP bar=2026.08.31 11:35 dir=SHORT anchor=Monthly-VWAP entry=1.15987 sl=1.16116 tp=1.15698 regime=2
+ND	0	00:18:22.418	Core 04	2026.08.31 15:00:00   [SRJ-EA] MTEXIT bar=2026.08.31 14:55 reason=POI_BODY_BREAK line=Daily-POC lineVal=1.15976 entry=1.15987 exit=1.15962
+CD	0	00:23:03.179	Core 04	2026.09.01 15:50:00   [SRJ-EA] MTSNAP bar=2026.09.01 15:45 dir=LONG anchor=Monthly-POC entry=1.15921 sl=1.15854 tp=1.16012 regime=2
+NF	0	00:23:09.283	Core 04	2026.09.01 16:20:00   [SRJ-EA] MTEXIT bar=2026.09.01 16:15 reason=POI_BODY_BREAK line=Weekly-POC lineVal=1.15917 entry=1.15921 exit=1.15923
+MI	0	00:27:37.836	Core 04	2026.09.02 15:55:00   [SRJ-EA] MTSNAP bar=2026.09.02 15:50 dir=SHORT anchor=Daily-VWAP entry=1.15789 sl=1.15856 tp=1.15719 regime=3
+DG	0	00:27:43.940	Core 04	2026.09.02 16:00:00   [SRJ-EA] MTEXIT bar=2026.09.02 15:55 reason=POI_BODY_BREAK line=Daily-VWAP lineVal=1.15786 entry=1.15789 exit=1.15782
+EN	0	00:40:14.669	Core 04	2026.09.07 09:20:00   [SRJ-EA] MTSNAP bar=2026.09.07 09:15 dir=LONG anchor=Weekly-POC entry=1.16135 sl=1.16098 tp=1.16200 regime=1
+QJ	0	00:40:26.876	Core 04	2026.09.07 10:10:00   [SRJ-EA] MTEXIT bar=2026.09.07 10:05 reason=TP_TOUCH line=- lineVal=- entry=1.16135 exit=1.16133
+HM	0	00:41:34.013	Core 04	2026.09.07 16:40:15   [SRJ-EA] MTSNAP bar=2026.09.07 16:35 dir=LONG anchor=Weekly-POC entry=1.16249 sl=1.16218 tp=1.16315 regime=1
+KH	0	00:41:46.219	Core 04	2026.09.07 17:15:01   [SRJ-EA] MTEXIT bar=2026.09.07 17:10 reason=TP_TOUCH line=- lineVal=- entry=1.16249 exit=1.16315
+PJ	0	00:45:56.465	Core 04	2026.09.08 15:55:07   [SRJ-EA] MTSNAP bar=2026.09.08 15:50 dir=LONG anchor=Yearly-POC entry=1.16190 sl=1.16079 tp=1.16314 regime=2
+NS	0	00:45:56.465	Core 04	2026.09.08 16:10:00   [SRJ-EA] MTEXIT bar=2026.09.08 16:05 reason=POI_BODY_BREAK line=Monthly-POC lineVal=1.16229 entry=1.16190 exit=1.16243
+
+--- WS161 ---
+JS	0	00:01:41.401	Core 04	2026.08.26 00:00:00   [SRJ-EA] WS161_LOAD NOSTORE bar=2026.08.25 23:55 shift=1 loads=1
+RI	0	00:47:24.340	Core 04	2026.09.08 23:59:59   [SRJ-EA] WS161_CENSUS fields=15 loads=2880 stores=2880 changes=173 mismatch=0
+WS161_LOAD_COUNT=1
+WS161_MISMATCH_COUNT=0
+WS161_FIELD_COUNT=0
+
+--- FLOWLOGIC-DRIVEN CENSUSES ---
+FQ	0	00:47:24.340	Core 04	2026.09.08 23:59:59   [SRJ-EA] BIASCENSUS_FINAL bars=2880 | sh1 neg=1441 zero=0 pos=1439 empty=0 other=0 fail=0 | sh2 neg=1441 zero=0 pos=1439 empty=0 other=0 fail=0
+EI	0	00:47:24.340	Core 04	2026.09.08 23:59:59   [SRJ-EA] HTFCENSUS_19 bars=2880 | s1 fail=0 empty=0 neg=1380 zero=0 pos=1500 other=0 | s2 fail=0 empty=0 neg=1380 zero=0 pos=1500 other=0
+IP	0	00:47:24.340	Core 04	2026.09.08 23:59:59   [SRJ-EA] HTFCENSUS_20 bars=2880 | s1 fail=0 empty=0 neg=1421 zero=0 pos=1459 other=0 | s2 fail=0 empty=0 neg=1421 zero=0 pos=1459 other=0
+PH	0	00:47:24.340	Core 04	2026.09.08 23:59:59   [SRJ-EA] HTFCENSUS_21 bars=2880 | s1 fail=0 empty=0 neg=1448 zero=0 pos=1432 other=0 | s2 fail=0 empty=0 neg=1448 zero=0 pos=1432 other=0
+IR	0	00:47:24.340	Core 04	2026.09.08 23:59:59   [SRJ-EA] HTFCENSUS_SUMMARY inWindowBars=960 allZeroS1=0 allZeroS2=0 noRegimeAborts=0
+FQ	0	00:47:24.340	Core 04	2026.09.08 23:59:59   [SRJ-EA] ZONECENSUS_FINAL bars=2880 both=0 xobOnly=2880 fvgOnly=0 neither=0 | inWindow=960 xobInWin=960 fvgInWin=0 | samples=0
+XOB-PROMOCENSUS_COUNT=436
+OBPROV_code3=908
+OBPROV_code4=1134
+
+--- CQD VERDICT STREAM ---
+CQD_DIV_TOTAL=796
+CQD_p1=160
+CQD_p2=257
+CQD_m1=229
+CQD_m2=150
+
+--- PER-DAY LIFECYCLE SKELETONS (seeds / aborts / signals / exits) ---
+===== DAY 2026\.08\.28 =====
+2026.08.28 10:00:00   [SRJ-EA] 2026.08.28 10:00:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-VWAP
+2026.08.28 10:30:00   [SRJ-EA] 2026.08.28 10:30:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-VWAP dir=SHORT
+2026.08.28 11:05:01   [SRJ-EA] 2026.08.28 11:05:01 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-VWAP
+2026.08.28 11:40:09   [SRJ-EA] SUPPRESSED bar=2026.08.28 11:35 poi=Daily-POC dir=LONG opp=1 higher=1 heldPoi=Daily-VWAP heldDir=SHORT heldState=S2_LTF_ALIGN cum_n=30 cum_opp=13 cum_hi=4 cum_both=1
+2026.08.28 12:05:00   [SRJ-EA] 2026.08.28 12:05:00 ABORT reason=SESSION_CLOSED state=S2_LTF_ALIGN poi=Daily-VWAP dir=SHORT
+2026.08.28 14:15:06   [SRJ-EA] 2026.08.28 14:15:06 STATE IDLE->S1_REGIME dir=LONG poi=Daily-VWAP
+2026.08.28 14:35:09   [SRJ-EA] SUPPRESSED bar=2026.08.28 14:30 poi=Daily-POC dir=SHORT opp=1 higher=1 heldPoi=Daily-VWAP heldDir=LONG heldState=S3_ZONE_WAIT cum_n=31 cum_opp=14 cum_hi=5 cum_both=2
+2026.08.28 14:40:02   [SRJ-EA] SUPPRESSED bar=2026.08.28 14:35 poi=Daily-POC dir=SHORT opp=1 higher=1 heldPoi=Daily-VWAP heldDir=LONG heldState=S3_ZONE_WAIT cum_n=32 cum_opp=15 cum_hi=6 cum_both=3
+2026.08.28 15:05:02   [SRJ-EA] SUPPRESSED bar=2026.08.28 15:00 poi=Daily-POC dir=SHORT opp=1 higher=1 heldPoi=Daily-VWAP heldDir=LONG heldState=S3_ZONE_WAIT cum_n=33 cum_opp=16 cum_hi=7 cum_both=4
+2026.08.28 15:10:00   [SRJ-EA] SUPPRESSED bar=2026.08.28 15:05 poi=Daily-POC dir=SHORT opp=1 higher=1 heldPoi=Daily-VWAP heldDir=LONG heldState=S3_ZONE_WAIT cum_n=34 cum_opp=17 cum_hi=8 cum_both=5
+2026.08.28 15:35:00   [SRJ-EA] 2026.08.28 15:35:00 ABORT reason=LTF_MISALIGN state=S4_ARMED poi=Daily-VWAP dir=LONG
+2026.08.28 16:10:00   [SRJ-EA] 2026.08.28 16:10:00 STATE IDLE->S1_REGIME dir=LONG poi=Daily-VWAP
+2026.08.28 16:15:00   [SRJ-EA] 2026.08.28 16:15:00 ABORT reason=LTF_MISALIGN state=S4_ARMED poi=Daily-VWAP dir=LONG
+2026.08.28 16:20:00   [SRJ-EA] 2026.08.28 16:20:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-POC
+2026.08.28 16:25:00   [SRJ-EA] SUPPRESSED bar=2026.08.28 16:20 poi=Daily-POC dir=SHORT opp=0 higher=0 heldPoi=Daily-POC heldDir=SHORT heldState=S4_ARMED cum_n=35 cum_opp=17 cum_hi=8 cum_both=5
+2026.08.28 16:25:00   [SRJ-EA] 2026.08.28 16:25:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-POC dir=SHORT
+2026.08.28 17:00:00   [SRJ-EA] 2026.08.28 17:00:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-POC
+2026.08.28 17:00:00   [SRJ-EA] 2026.08.28 17:00:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-POC dir=SHORT
+2026.08.28 17:05:00   [SRJ-EA] 2026.08.28 17:05:00 STATE IDLE->S1_REGIME dir=SHORT poi=Weekly-POC
+2026.08.28 17:15:00   [SRJ-EA] 2026.08.28 17:15:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Weekly-POC dir=SHORT
+2026.08.28 17:25:00   [SRJ-EA] 2026.08.28 17:25:00 STATE IDLE->S1_REGIME dir=SHORT poi=Yearly-POC
+2026.08.28 17:35:00   [SRJ-EA] 2026.08.28 17:35:00 ABORT reason=LTF_MISALIGN state=S3_ZONE_WAIT poi=Yearly-POC dir=SHORT
+2026.08.28 17:45:00   [SRJ-EA] 2026.08.28 17:45:00 STATE IDLE->S1_REGIME dir=SHORT poi=Yearly-POC
+2026.08.28 17:50:00   [SRJ-EA] SUPPRESSED bar=2026.08.28 17:45 poi=Yearly-POC dir=SHORT opp=0 higher=0 heldPoi=Yearly-POC heldDir=SHORT heldState=S2_LTF_ALIGN cum_n=36 cum_opp=17 cum_hi=8 cum_both=5
+2026.08.28 18:10:00   [SRJ-EA] SUPPRESSED bar=2026.08.28 18:05 poi=Yearly-POC dir=LONG opp=1 higher=0 heldPoi=Yearly-POC heldDir=SHORT heldState=S2_LTF_ALIGN cum_n=37 cum_opp=18 cum_hi=8 cum_both=5
+2026.08.28 18:15:01   [SRJ-EA] SUPPRESSED bar=2026.08.28 18:10 poi=Yearly-POC dir=LONG opp=1 higher=0 heldPoi=Yearly-POC heldDir=SHORT heldState=S3_ZONE_WAIT cum_n=38 cum_opp=19 cum_hi=8 cum_both=5
+2026.08.28 18:20:01   [SRJ-EA] SUPPRESSED bar=2026.08.28 18:15 poi=Yearly-POC dir=SHORT opp=0 higher=0 heldPoi=Yearly-POC heldDir=SHORT heldState=S3_ZONE_WAIT cum_n=39 cum_opp=19 cum_hi=8 cum_both=5
+2026.08.28 18:30:00   [SRJ-EA] SUPPRESSED bar=2026.08.28 18:25 poi=Yearly-POC dir=SHORT opp=0 higher=0 heldPoi=Yearly-POC heldDir=SHORT heldState=S3_ZONE_WAIT cum_n=40 cum_opp=19 cum_hi=8 cum_both=5
+2026.08.28 19:05:00   [SRJ-EA] 2026.08.28 19:05:00 ABORT reason=SESSION_CLOSED state=S5_GATE_CHECK poi=Yearly-POC dir=SHORT
+===== DAY 2026\.08\.31 =====
+2026.08.31 09:35:02   [SRJ-EA] 2026.08.31 09:35:02 STATE IDLE->S1_REGIME dir=SHORT poi=Monthly-VWAP
+2026.08.31 10:00:00   [SRJ-EA] SUPPRESSED bar=2026.08.31 09:55 poi=Weekly-VWAP dir=SHORT opp=0 higher=0 heldPoi=Monthly-VWAP heldDir=SHORT heldState=S1_REGIME cum_n=41 cum_opp=19 cum_hi=8 cum_both=5
+2026.08.31 10:05:09   [SRJ-EA] SUPPRESSED bar=2026.08.31 10:00 poi=Monthly-VWAP dir=LONG opp=1 higher=0 heldPoi=Monthly-VWAP heldDir=SHORT heldState=S1_REGIME cum_n=42 cum_opp=20 cum_hi=8 cum_both=5
+2026.08.31 10:15:03   [SRJ-EA] SUPPRESSED bar=2026.08.31 10:10 poi=Weekly-VWAP dir=SHORT opp=0 higher=0 heldPoi=Monthly-VWAP heldDir=SHORT heldState=S1_REGIME cum_n=43 cum_opp=20 cum_hi=8 cum_both=5
+2026.08.31 10:20:05   [SRJ-EA] SUPPRESSED bar=2026.08.31 10:15 poi=Monthly-VWAP dir=LONG opp=1 higher=0 heldPoi=Monthly-VWAP heldDir=SHORT heldState=S1_REGIME cum_n=44 cum_opp=21 cum_hi=8 cum_both=5
+2026.08.31 11:40:07   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Monthly-VWAP | LONDON | R=2.24 SL 1.16116 TP 1.15698 spr=2
+2026.08.31 11:40:07   [SRJ-EA] MTSNAP bar=2026.08.31 11:35 dir=SHORT anchor=Monthly-VWAP entry=1.15987 sl=1.16116 tp=1.15698 regime=2
+2026.08.31 11:45:04   [SRJ-EA] 2026.08.31 11:45:04 SESSION_LIMIT: LONDON window already used today - all further candidates suppressed until the next window
+2026.08.31 14:50:07   [SRJ-EA] 2026.08.31 14:50:07 STATE IDLE->S1_REGIME dir=LONG poi=Weekly-POC
+2026.08.31 14:55:00   [SRJ-EA] SUPPRESSED bar=2026.08.31 14:50 poi=Weekly-POC dir=LONG opp=0 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=45 cum_opp=21 cum_hi=8 cum_both=5
+2026.08.31 15:00:00   [SRJ-EA] MTEXIT bar=2026.08.31 14:55 reason=POI_BODY_BREAK line=Daily-POC lineVal=1.15976 entry=1.15987 exit=1.15962
+2026.08.31 15:10:00   [SRJ-EA] SUPPRESSED bar=2026.08.31 15:05 poi=Weekly-POC dir=SHORT opp=1 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=46 cum_opp=22 cum_hi=8 cum_both=5
+2026.08.31 15:20:00   [SRJ-EA] SUPPRESSED bar=2026.08.31 15:15 poi=Yearly-POC dir=LONG opp=0 higher=1 heldPoi=Weekly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=47 cum_opp=22 cum_hi=9 cum_both=5
+2026.08.31 15:30:01   [SRJ-EA] SUPPRESSED bar=2026.08.31 15:25 poi=Yearly-POC dir=SHORT opp=1 higher=1 heldPoi=Weekly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=48 cum_opp=23 cum_hi=10 cum_both=6
+2026.08.31 16:10:01   [SRJ-EA] SUPPRESSED bar=2026.08.31 16:05 poi=Weekly-POC dir=SHORT opp=1 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=49 cum_opp=24 cum_hi=10 cum_both=6
+2026.08.31 16:15:00   [SRJ-EA] SUPPRESSED bar=2026.08.31 16:10 poi=Weekly-POC dir=SHORT opp=1 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S4_ARMED cum_n=50 cum_opp=25 cum_hi=10 cum_both=6
+2026.08.31 16:20:00   [SRJ-EA] SUPPRESSED bar=2026.08.31 16:15 poi=Yearly-POC dir=SHORT opp=1 higher=1 heldPoi=Weekly-POC heldDir=LONG heldState=S4_ARMED cum_n=51 cum_opp=26 cum_hi=11 cum_both=7
+2026.08.31 16:20:00   [SRJ-EA] 2026.08.31 16:20:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Weekly-POC dir=LONG
+2026.08.31 16:25:02   [SRJ-EA] 2026.08.31 16:25:02 STATE IDLE->S1_REGIME dir=LONG poi=Weekly-POC
+2026.08.31 16:25:02   [SRJ-EA] 2026.08.31 16:25:02 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Weekly-POC dir=LONG
+2026.08.31 16:35:00   [SRJ-EA] 2026.08.31 16:35:00 STATE IDLE->S1_REGIME dir=LONG poi=Yearly-POC
+2026.08.31 16:40:01   [SRJ-EA] SUPPRESSED bar=2026.08.31 16:35 poi=Yearly-POC dir=LONG opp=0 higher=0 heldPoi=Yearly-POC heldDir=LONG heldState=S4_ARMED cum_n=52 cum_opp=26 cum_hi=11 cum_both=7
+2026.08.31 16:40:01   [SRJ-EA] 2026.08.31 16:40:01 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Yearly-POC dir=LONG
+2026.08.31 17:05:00   [SRJ-EA] 2026.08.31 17:05:00 STATE IDLE->S1_REGIME dir=LONG poi=Yearly-POC
+2026.08.31 17:10:00   [SRJ-EA] SUPPRESSED bar=2026.08.31 17:05 poi=Yearly-POC dir=LONG opp=0 higher=0 heldPoi=Yearly-POC heldDir=LONG heldState=S4_ARMED cum_n=53 cum_opp=26 cum_hi=11 cum_both=7
+2026.08.31 17:10:00   [SRJ-EA] 2026.08.31 17:10:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Yearly-POC dir=LONG
+===== DAY 2026\.09\.01 =====
+2026.09.01 09:10:05   [SRJ-EA] 2026.09.01 09:10:05 STATE IDLE->S1_REGIME dir=SHORT poi=Monthly-POC
+2026.09.01 09:20:00   [SRJ-EA] SUPPRESSED bar=2026.09.01 09:15 poi=Yearly-POC dir=SHORT opp=0 higher=1 heldPoi=Monthly-POC heldDir=SHORT heldState=S1_REGIME cum_n=54 cum_opp=26 cum_hi=12 cum_both=7
+2026.09.01 09:30:00   [SRJ-EA] SUPPRESSED bar=2026.09.01 09:25 poi=Weekly-VWAP dir=LONG opp=1 higher=0 heldPoi=Monthly-POC heldDir=SHORT heldState=S5_GATE_CHECK cum_n=55 cum_opp=27 cum_hi=12 cum_both=7
+2026.09.01 09:50:03   [SRJ-EA] SUPPRESSED bar=2026.09.01 09:45 poi=Weekly-VWAP dir=LONG opp=1 higher=0 heldPoi=Monthly-POC heldDir=SHORT heldState=S5_GATE_CHECK cum_n=56 cum_opp=28 cum_hi=12 cum_both=7
+2026.09.01 09:55:00   [SRJ-EA] SUPPRESSED bar=2026.09.01 09:50 poi=Weekly-VWAP dir=LONG opp=1 higher=0 heldPoi=Monthly-POC heldDir=SHORT heldState=S5_GATE_CHECK cum_n=57 cum_opp=29 cum_hi=12 cum_both=7
+2026.09.01 10:00:01   [SRJ-EA] 2026.09.01 10:00:01 ABORT reason=LTF_MISALIGN state=S5_GATE_CHECK poi=Monthly-POC dir=SHORT
+2026.09.01 10:15:00   [SRJ-EA] 2026.09.01 10:15:00 STATE IDLE->S1_REGIME dir=LONG poi=Weekly-VWAP
+2026.09.01 10:20:00   [SRJ-EA] 2026.09.01 10:20:00 ABORT reason=LTF_MISALIGN state=S5_GATE_CHECK poi=Weekly-VWAP dir=LONG
+2026.09.01 14:25:00   [SRJ-EA] 2026.09.01 14:25:00 STATE IDLE->S1_REGIME dir=LONG poi=Monthly-POC
+2026.09.01 14:30:00   [SRJ-EA] SUPPRESSED bar=2026.09.01 14:25 poi=Monthly-POC dir=LONG opp=0 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=58 cum_opp=29 cum_hi=12 cum_both=7
+2026.09.01 14:45:02   [SRJ-EA] SUPPRESSED bar=2026.09.01 14:40 poi=Monthly-POC dir=LONG opp=0 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=59 cum_opp=29 cum_hi=12 cum_both=7
+2026.09.01 15:05:05   [SRJ-EA] SUPPRESSED bar=2026.09.01 15:00 poi=Monthly-POC dir=SHORT opp=1 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=60 cum_opp=30 cum_hi=12 cum_both=7
+2026.09.01 15:30:00   [SRJ-EA] SUPPRESSED bar=2026.09.01 15:25 poi=Monthly-POC dir=SHORT opp=1 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=61 cum_opp=31 cum_hi=12 cum_both=7
+2026.09.01 15:35:05   [SRJ-EA] SUPPRESSED bar=2026.09.01 15:30 poi=Monthly-POC dir=SHORT opp=1 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=62 cum_opp=32 cum_hi=12 cum_both=7
+2026.09.01 15:40:00   [SRJ-EA] SUPPRESSED bar=2026.09.01 15:35 poi=Monthly-POC dir=SHORT opp=1 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=63 cum_opp=33 cum_hi=12 cum_both=7
+2026.09.01 15:50:00   [SRJ-EA] SUPPRESSED bar=2026.09.01 15:45 poi=Monthly-POC dir=SHORT opp=1 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S5_GATE_CHECK cum_n=64 cum_opp=34 cum_hi=12 cum_both=7
+2026.09.01 15:50:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Monthly-POC | NYAM | R=1.36 SL 1.15854 TP 1.16012 spr=2
+2026.09.01 15:50:00   [SRJ-EA] MTSNAP bar=2026.09.01 15:45 dir=LONG anchor=Monthly-POC entry=1.15921 sl=1.15854 tp=1.16012 regime=2
+2026.09.01 15:55:02   [SRJ-EA] 2026.09.01 15:55:02 SESSION_LIMIT: NYAM window already used today - all further candidates suppressed until the next window
+2026.09.01 16:20:00   [SRJ-EA] MTEXIT bar=2026.09.01 16:15 reason=POI_BODY_BREAK line=Weekly-POC lineVal=1.15917 entry=1.15921 exit=1.15923
+===== DAY 2026\.09\.02 =====
+2026.09.02 09:15:00   [SRJ-EA] 2026.09.02 09:15:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-VWAP
+2026.09.02 09:30:00   [SRJ-EA] 2026.09.02 09:30:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-VWAP dir=SHORT
+2026.09.02 10:25:01   [SRJ-EA] 2026.09.02 10:25:01 STATE IDLE->S1_REGIME dir=LONG poi=FOMC-VWAP
+2026.09.02 10:30:02   [SRJ-EA] SUPPRESSED bar=2026.09.02 10:25 poi=FOMC-VWAP dir=LONG opp=0 higher=0 heldPoi=FOMC-VWAP heldDir=LONG heldState=S2_LTF_ALIGN cum_n=65 cum_opp=34 cum_hi=12 cum_both=7
+2026.09.02 11:05:00   [SRJ-EA] SUPPRESSED bar=2026.09.02 11:00 poi=Daily-VWAP dir=SHORT opp=1 higher=0 heldPoi=FOMC-VWAP heldDir=LONG heldState=S5_GATE_CHECK cum_n=66 cum_opp=35 cum_hi=12 cum_both=7
+2026.09.02 11:25:00   [SRJ-EA] SUPPRESSED bar=2026.09.02 11:20 poi=Daily-VWAP dir=SHORT opp=1 higher=0 heldPoi=FOMC-VWAP heldDir=LONG heldState=S5_GATE_CHECK cum_n=67 cum_opp=36 cum_hi=12 cum_both=7
+2026.09.02 11:50:00   [SRJ-EA] SUPPRESSED bar=2026.09.02 11:45 poi=Daily-VWAP dir=SHORT opp=1 higher=0 heldPoi=FOMC-VWAP heldDir=LONG heldState=S5_GATE_CHECK cum_n=68 cum_opp=37 cum_hi=12 cum_both=7
+2026.09.02 11:55:00   [SRJ-EA] 2026.09.02 11:55:00 ABORT reason=LTF_MISALIGN state=S5_GATE_CHECK poi=FOMC-VWAP dir=LONG
+2026.09.02 14:05:02   [SRJ-EA] 2026.09.02 14:05:02 STATE IDLE->S1_REGIME dir=LONG poi=FOMC-VWAP
+2026.09.02 14:10:00   [SRJ-EA] SUPPRESSED bar=2026.09.02 14:05 poi=FOMC-VWAP dir=LONG opp=0 higher=0 heldPoi=FOMC-VWAP heldDir=LONG heldState=S1_REGIME cum_n=69 cum_opp=37 cum_hi=12 cum_both=7
+2026.09.02 14:15:00   [SRJ-EA] SUPPRESSED bar=2026.09.02 14:10 poi=FOMC-VWAP dir=LONG opp=0 higher=0 heldPoi=FOMC-VWAP heldDir=LONG heldState=S1_REGIME cum_n=70 cum_opp=37 cum_hi=12 cum_both=7
+2026.09.02 14:25:03   [SRJ-EA] 2026.09.02 14:25:03 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=FOMC-VWAP dir=LONG
+2026.09.02 14:40:00   [SRJ-EA] 2026.09.02 14:40:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-VWAP
+2026.09.02 14:55:00   [SRJ-EA] 2026.09.02 14:55:00 ABORT reason=FRESH_OB_DEAD state=S4_ARMED poi=Daily-VWAP dir=SHORT
+2026.09.02 15:45:01   [SRJ-EA] 2026.09.02 15:45:01 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-VWAP
+2026.09.02 15:55:00   [SRJ-EA] SUPPRESSED bar=2026.09.02 15:50 poi=Daily-VWAP dir=LONG opp=1 higher=0 heldPoi=Daily-VWAP heldDir=SHORT heldState=S4_ARMED cum_n=71 cum_opp=38 cum_hi=12 cum_both=7
+2026.09.02 15:55:00   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Daily-VWAP | NYAM | R=1.05 SL 1.15856 TP 1.15719 spr=4
+2026.09.02 15:55:00   [SRJ-EA] MTSNAP bar=2026.09.02 15:50 dir=SHORT anchor=Daily-VWAP entry=1.15789 sl=1.15856 tp=1.15719 regime=3
+2026.09.02 16:00:00   [SRJ-EA] 2026.09.02 16:00:00 SESSION_LIMIT: NYAM window already used today - all further candidates suppressed until the next window
+2026.09.02 16:00:00   [SRJ-EA] MTEXIT bar=2026.09.02 15:55 reason=POI_BODY_BREAK line=Daily-VWAP lineVal=1.15786 entry=1.15789 exit=1.15782
+===== DAY 2026\.09\.04 =====
+2026.09.04 09:20:00   [SRJ-EA] 2026.09.04 09:20:00 STATE IDLE->S1_REGIME dir=LONG poi=Daily-POC
+2026.09.04 09:30:01   [SRJ-EA] SUPPRESSED bar=2026.09.04 09:25 poi=Daily-POC dir=LONG opp=0 higher=0 heldPoi=Daily-POC heldDir=LONG heldState=S3_ZONE_WAIT cum_n=78 cum_opp=42 cum_hi=12 cum_both=7
+2026.09.04 09:35:01   [SRJ-EA] SUPPRESSED bar=2026.09.04 09:30 poi=Daily-POC dir=LONG opp=0 higher=0 heldPoi=Daily-POC heldDir=LONG heldState=S3_ZONE_WAIT cum_n=79 cum_opp=42 cum_hi=12 cum_both=7
+2026.09.04 09:35:01   [SRJ-EA] 2026.09.04 09:35:01 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-POC dir=LONG
+2026.09.04 09:40:01   [SRJ-EA] 2026.09.04 09:40:01 STATE IDLE->S1_REGIME dir=LONG poi=Daily-POC
+2026.09.04 09:45:02   [SRJ-EA] SUPPRESSED bar=2026.09.04 09:40 poi=Daily-POC dir=LONG opp=0 higher=0 heldPoi=Daily-POC heldDir=LONG heldState=S3_ZONE_WAIT cum_n=80 cum_opp=42 cum_hi=12 cum_both=7
+2026.09.04 09:50:03   [SRJ-EA] 2026.09.04 09:50:03 ABORT reason=LTF_MISALIGN state=S3_ZONE_WAIT poi=Daily-POC dir=LONG
+2026.09.04 10:15:04   [SRJ-EA] 2026.09.04 10:15:04 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-POC
+2026.09.04 10:15:04   [SRJ-EA] 2026.09.04 10:15:04 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-POC dir=SHORT
+2026.09.04 10:25:01   [SRJ-EA] 2026.09.04 10:25:01 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-VWAP
+2026.09.04 10:25:01   [SRJ-EA] 2026.09.04 10:25:01 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-VWAP dir=SHORT
+2026.09.04 10:30:00   [SRJ-EA] 2026.09.04 10:30:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-POC
+2026.09.04 10:35:06   [SRJ-EA] 2026.09.04 10:35:06 ABORT reason=FRESH_OPP_FVG state=S4_ARMED poi=Daily-POC dir=SHORT
+2026.09.04 10:40:00   [SRJ-EA] 2026.09.04 10:40:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-POC
+2026.09.04 10:40:00   [SRJ-EA] 2026.09.04 10:40:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-POC dir=SHORT
+2026.09.04 10:45:00   [SRJ-EA] 2026.09.04 10:45:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-POC
+2026.09.04 10:50:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 10:45 poi=Daily-POC dir=SHORT opp=0 higher=0 heldPoi=Daily-POC heldDir=SHORT heldState=S2_LTF_ALIGN cum_n=81 cum_opp=42 cum_hi=12 cum_both=7
+2026.09.04 12:00:00   [SRJ-EA] 2026.09.04 12:00:00 ABORT reason=LTF_MISALIGN state=S5_GATE_CHECK poi=Daily-POC dir=SHORT
+2026.09.04 15:35:00   [SRJ-EA] 2026.09.04 15:35:00 STATE IDLE->S1_REGIME dir=LONG poi=Monthly-POC
+2026.09.04 15:40:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:35 poi=Yearly-POC dir=SHORT opp=1 higher=1 heldPoi=Monthly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=82 cum_opp=43 cum_hi=13 cum_both=8
+2026.09.04 15:45:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:40 poi=Monthly-POC dir=LONG opp=0 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=83 cum_opp=43 cum_hi=13 cum_both=8
+2026.09.04 15:50:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:45 poi=Yearly-POC dir=LONG opp=0 higher=1 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=84 cum_opp=43 cum_hi=14 cum_both=8
+2026.09.04 15:55:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:50 poi=Yearly-POC dir=LONG opp=0 higher=1 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=85 cum_opp=43 cum_hi=15 cum_both=8
+2026.09.04 16:00:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:55 poi=Yearly-POC dir=LONG opp=0 higher=1 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=86 cum_opp=43 cum_hi=16 cum_both=8
+2026.09.04 16:00:00   [SRJ-EA] 2026.09.04 16:00:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Monthly-POC dir=LONG
+2026.09.04 16:05:01   [SRJ-EA] 2026.09.04 16:05:01 STATE IDLE->S1_REGIME dir=SHORT poi=Monthly-VWAP
+2026.09.04 16:35:03   [SRJ-EA] SUPPRESSED bar=2026.09.04 16:30 poi=Daily-VWAP dir=SHORT opp=0 higher=0 heldPoi=Monthly-VWAP heldDir=SHORT heldState=S2_LTF_ALIGN cum_n=87 cum_opp=43 cum_hi=16 cum_both=8
+2026.09.04 17:30:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 17:25 poi=Daily-VWAP dir=SHORT opp=0 higher=0 heldPoi=Monthly-VWAP heldDir=SHORT heldState=S3_ZONE_WAIT cum_n=88 cum_opp=43 cum_hi=16 cum_both=8
+2026.09.04 17:35:00   [SRJ-EA] 2026.09.04 17:35:00 ABORT reason=LTF_MISALIGN state=S3_ZONE_WAIT poi=Monthly-VWAP dir=SHORT
+2026.09.04 18:00:00   [SRJ-EA] 2026.09.04 18:00:00 STATE IDLE->S1_REGIME dir=SHORT poi=Daily-VWAP
+2026.09.04 19:05:00   [SRJ-EA] 2026.09.04 19:05:00 ABORT reason=SESSION_CLOSED state=S1_REGIME poi=Daily-VWAP dir=SHORT
+===== DAY 2026\.09\.07 =====
+2026.09.07 09:05:00   [SRJ-EA] 2026.09.07 09:05:00 STATE IDLE->S1_REGIME dir=LONG poi=Weekly-POC
+2026.09.07 09:15:00   [SRJ-EA] SUPPRESSED bar=2026.09.07 09:10 poi=Weekly-POC dir=LONG opp=0 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S4_ARMED cum_n=89 cum_opp=43 cum_hi=16 cum_both=8
+2026.09.07 09:20:00   [SRJ-EA] SUPPRESSED bar=2026.09.07 09:15 poi=Weekly-POC dir=LONG opp=0 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S4_ARMED cum_n=90 cum_opp=43 cum_hi=16 cum_both=8
+2026.09.07 09:20:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | LONDON | R=1.76 SL 1.16098 TP 1.16200 spr=3
+2026.09.07 09:20:00   [SRJ-EA] MTSNAP bar=2026.09.07 09:15 dir=LONG anchor=Weekly-POC entry=1.16135 sl=1.16098 tp=1.16200 regime=1
+2026.09.07 09:25:00   [SRJ-EA] 2026.09.07 09:25:00 SESSION_LIMIT: LONDON window already used today - all further candidates suppressed until the next window
+2026.09.07 10:10:00   [SRJ-EA] MTEXIT bar=2026.09.07 10:05 reason=TP_TOUCH line=- lineVal=- entry=1.16135 exit=1.16133
+2026.09.07 15:00:00   [SRJ-EA] 2026.09.07 15:00:00 STATE IDLE->S1_REGIME dir=LONG poi=Weekly-POC
+2026.09.07 15:10:00   [SRJ-EA] SUPPRESSED bar=2026.09.07 15:05 poi=Weekly-POC dir=SHORT opp=1 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S1_REGIME cum_n=91 cum_opp=44 cum_hi=16 cum_both=8
+2026.09.07 15:15:02   [SRJ-EA] SUPPRESSED bar=2026.09.07 15:10 poi=Weekly-POC dir=SHORT opp=1 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S1_REGIME cum_n=92 cum_opp=45 cum_hi=16 cum_both=8
+2026.09.07 15:20:00   [SRJ-EA] SUPPRESSED bar=2026.09.07 15:15 poi=Weekly-POC dir=SHORT opp=1 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S1_REGIME cum_n=93 cum_opp=46 cum_hi=16 cum_both=8
+2026.09.07 16:10:00   [SRJ-EA] SUPPRESSED bar=2026.09.07 16:05 poi=Weekly-POC dir=SHORT opp=1 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S4_ARMED cum_n=94 cum_opp=47 cum_hi=16 cum_both=8
+2026.09.07 16:20:03   [SRJ-EA] SUPPRESSED bar=2026.09.07 16:15 poi=Weekly-POC dir=LONG opp=0 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S5_GATE_CHECK cum_n=95 cum_opp=47 cum_hi=16 cum_both=8
+2026.09.07 16:25:02   [SRJ-EA] SUPPRESSED bar=2026.09.07 16:20 poi=Weekly-POC dir=LONG opp=0 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S5_GATE_CHECK cum_n=96 cum_opp=47 cum_hi=16 cum_both=8
+2026.09.07 16:40:15   [SRJ-EA] SUPPRESSED bar=2026.09.07 16:35 poi=Weekly-POC dir=LONG opp=0 higher=0 heldPoi=Weekly-POC heldDir=LONG heldState=S5_GATE_CHECK cum_n=97 cum_opp=47 cum_hi=16 cum_both=8
+2026.09.07 16:40:15   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | NYAM | R=2.12 SL 1.16218 TP 1.16315 spr=5
+2026.09.07 16:40:15   [SRJ-EA] MTSNAP bar=2026.09.07 16:35 dir=LONG anchor=Weekly-POC entry=1.16249 sl=1.16218 tp=1.16315 regime=1
+2026.09.07 16:45:00   [SRJ-EA] 2026.09.07 16:45:00 SESSION_LIMIT: NYAM window already used today - all further candidates suppressed until the next window
+2026.09.07 17:15:01   [SRJ-EA] MTEXIT bar=2026.09.07 17:10 reason=TP_TOUCH line=- lineVal=- entry=1.16249 exit=1.16315
+===== DAY 2026\.09\.08 =====
+2026.09.08 09:20:00   [SRJ-EA] 2026.09.08 09:20:00 STATE IDLE->S1_REGIME dir=LONG poi=Daily-POC
+2026.09.08 09:25:00   [SRJ-EA] SUPPRESSED bar=2026.09.08 09:20 poi=Monthly-POC dir=LONG opp=0 higher=1 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=98 cum_opp=47 cum_hi=17 cum_both=8
+2026.09.08 09:35:00   [SRJ-EA] SUPPRESSED bar=2026.09.08 09:30 poi=Weekly-POC dir=SHORT opp=1 higher=1 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=99 cum_opp=48 cum_hi=18 cum_both=9
+2026.09.08 09:40:00   [SRJ-EA] SUPPRESSED bar=2026.09.08 09:35 poi=Monthly-POC dir=LONG opp=0 higher=1 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=100 cum_opp=48 cum_hi=19 cum_both=9
+2026.09.08 09:45:00   [SRJ-EA] SUPPRESSED bar=2026.09.08 09:40 poi=Weekly-POC dir=SHORT opp=1 higher=1 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=101 cum_opp=49 cum_hi=20 cum_both=10
+2026.09.08 09:50:00   [SRJ-EA] SUPPRESSED bar=2026.09.08 09:45 poi=Monthly-POC dir=LONG opp=0 higher=1 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=102 cum_opp=49 cum_hi=21 cum_both=10
+2026.09.08 09:55:01   [SRJ-EA] SUPPRESSED bar=2026.09.08 09:50 poi=Weekly-POC dir=SHORT opp=1 higher=1 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=103 cum_opp=50 cum_hi=22 cum_both=11
+2026.09.08 10:10:00   [SRJ-EA] SUPPRESSED bar=2026.09.08 10:05 poi=Monthly-POC dir=SHORT opp=1 higher=1 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=104 cum_opp=51 cum_hi=23 cum_both=12
+2026.09.08 12:05:03   [SRJ-EA] 2026.09.08 12:05:03 ABORT reason=SESSION_CLOSED state=S3_ZONE_WAIT poi=Daily-POC dir=LONG
+2026.09.08 14:05:03   [SRJ-EA] 2026.09.08 14:05:03 STATE IDLE->S1_REGIME dir=LONG poi=Daily-POC
+2026.09.08 14:50:00   [SRJ-EA] SUPPRESSED bar=2026.09.08 14:45 poi=Yearly-POC dir=LONG opp=0 higher=1 heldPoi=Daily-POC heldDir=LONG heldState=S3_ZONE_WAIT cum_n=105 cum_opp=51 cum_hi=24 cum_both=12
+2026.09.08 14:55:00   [SRJ-EA] 2026.09.08 14:55:00 ABORT reason=LTF_MISALIGN state=S3_ZONE_WAIT poi=Daily-POC dir=LONG
+2026.09.08 15:20:00   [SRJ-EA] 2026.09.08 15:20:00 STATE IDLE->S1_REGIME dir=LONG poi=Yearly-POC
+2026.09.08 15:55:07   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Yearly-POC | NYAM | R=1.12 SL 1.16079 TP 1.16314 spr=2
+2026.09.08 15:55:07   [SRJ-EA] MTSNAP bar=2026.09.08 15:50 dir=LONG anchor=Yearly-POC entry=1.16190 sl=1.16079 tp=1.16314 regime=2
+2026.09.08 16:00:01   [SRJ-EA] 2026.09.08 16:00:01 SESSION_LIMIT: NYAM window already used today - all further candidates suppressed until the next window
+2026.09.08 16:10:00   [SRJ-EA] MTEXIT bar=2026.09.08 16:05 reason=POI_BODY_BREAK line=Monthly-POC lineVal=1.16229 entry=1.16190 exit=1.16243
+
+--- ABORT REASON TALLY (whole segment) ---
+ABORT_TOTAL=47
+LTF_MISALIGN=18
+TP_RR_FAIL=18
+SESSION_CLOSED=7
+FRESH_OB_DEAD=2
+FRESH_OPP_FVG=2
+FRESHSKIP=296
+SUPPRESSED=111
+
+--- MISS EVIDENCE #257 (08.28 London Daily-VWAP SHORT, verbatim) ---
+2026.08.28 10:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 10:05 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=208 mism=0
+2026.08.28 10:20:00   [SRJ-EA] ALERT SRJ HEADS-UP SHORT EURUSD M5 | Daily-VWAP | LONDON | zone 1.16443-1.16478 awaiting confirm
+2026.08.28 10:25:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 10:15 state=S5_GATE_CHECK dir=SHORT divLatch=0 hit1=0 hit2=209 mism=0
+2026.08.28 10:30:00   [SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Daily-VWAP | LONDON | reason=TP_RR_FAIL
+
+--- MISS EVIDENCE #280 (09.04 Yearly-POC suppressions + the 1R kills, verbatim) ---
+2026.09.04 09:35:01   [SRJ-EA] 2026.09.04 09:35:01 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Daily-POC dir=LONG
+2026.09.04 15:35:00   [SRJ-EA] 2026.09.04 15:35:00 STATE IDLE->S1_REGIME dir=LONG poi=Monthly-POC
+2026.09.04 15:35:00   [SRJ-EA] 2026.09.04 15:35:00 STATE S1_REGIME->S2_LTF_ALIGN dir=LONG poi=Monthly-POC
+2026.09.04 15:40:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:35 poi=Yearly-POC dir=SHORT opp=1 higher=1 heldPoi=Monthly-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=82 cum_opp=43 cum_hi=13 cum_both=8
+2026.09.04 15:45:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:40 poi=Monthly-POC dir=LONG opp=0 higher=0 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=83 cum_opp=43 cum_hi=13 cum_both=8
+2026.09.04 15:50:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:45 poi=Yearly-POC dir=LONG opp=0 higher=1 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=84 cum_opp=43 cum_hi=14 cum_both=8
+2026.09.04 15:55:00   [SRJ-EA] SUPPRESSED bar=2026.09.04 15:50 poi=Yearly-POC dir=LONG opp=0 higher=1 heldPoi=Monthly-POC heldDir=LONG heldState=S4_ARMED cum_n=85 cum_opp=43 cum_hi=15 cum_both=8
+2026.09.04 16:00:00   [SRJ-EA] 2026.09.04 16:00:00 ABORT reason=TP_RR_FAIL state=S5_GATE_CHECK poi=Monthly-POC dir=LONG
+
+--- REGIMECENSUS ---
+REGIMECENSUS_COUNT=102

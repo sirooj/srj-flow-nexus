@@ -1,0 +1,61 @@
+# RECON2-ANYSTATE TABULATION (T162_ANYSTATE build; run RECON2-ANYSTATE 2026-09-11 05:50:16 -> 06:37:56)
+# Journal segment: 06_HANDOFFS\RECON2-ANYSTATE_JOURNAL.log = 16,095 lines / 2,577,383 B
+# (the wrapper's own ARCHIVED_LINES=16095 matches). DONE marker: RESULT=PASSED 06:37:56.
+# All counts measured with Select-String on the archived segment this session.
+
+G1  "Test passed in 0:47:12.150"; 563,338 ticks, 3,168 bars. RESULT=PASSED.
+
+G2  WS161_CENSUS fields=21 loads=3168 stores=3168 changes=206 mismatch=0
+    (fields 20->21 as declared; changes 206->206 — did NOT move, declared observable).
+    WS161_LOAD NOSTORE x1 (loads=1). WS161_MISMATCH lines = 0. WS161_FIELD lines = 0.
+
+G3  SIGNALS = 3 (verbatim):
+    2026.08.28 10:05:00 ALERT SRJ SIGNAL SHORT EURUSD M5 | Daily-VWAP | LONDON |
+        R=6.80 SL 1.16481 TP 1.16364 spr=4   <-- THE OPERATOR'S 8/28 TRADE RETURNED.
+        ENTRY = 1.16466 EXACTLY (the operator's journal entry, derived: tpDist 102 pts /
+        slDist 15 pts = 6.80). The trade's own trace: seeded 10:00 (IDLE->S1->S2->S3 in
+        one pass), zone NOT in play (S3INPLAY inPlay=0 via=none), the PRE-BIND
+        confirmation evaluated (CONFIRM_PREBIND bar=10:00), promoted S3->S5, div walk
+        matched, R latched 6.80 >= 1 -> SIGNAL at the 10:05 open. The ruled model worked
+        end to end. DECLARED OBSERVABLE (not a gate failure): the EA's SL = 1.16481 (a
+        15-pt nearest swing) vs the operator's journal SL ~1.16568 ("6:30 high") — the
+        SL-REF reference layer differs from the operator's discretionary stop choice;
+        R=6.80 vs the operator's ~0.84-1.02 by their own SL/TP. A strategy-rule item if
+        the operator wants the stop reference changed (the built SL_REF rules were
+        verified at T161-REG; this is the ruled SL machinery working as built).
+    2026.09.07 09:20:00 LONG Weekly-POC LONDON R=1.76 SL 1.16098 TP 1.16200 — VERBATIM.
+    2026.09.07 16:45:00 LONG Weekly-POC NYAM R=1.25 SL 1.16218 TP 1.16315 — VERBATIM.
+    NO NEW SIGNALS from the pre-bind cascade (declared risk did not materialize).
+
+G3/PREBIND  THE FIVE PRE-BIND PASSES (CONFIRM_PREBIND=5, CONFIRM_PREBIND_FAIL=166):
+    8/27 17:15:02 Weekly-VWAP SHORT  -> CONFIRM_DIV_WAIT verdict=+2 (opposing latest)
+        -> consumed, rollback to S3 (E3). Not fired.
+    8/28 10:05:00 Daily-VWAP SHORT   -> FIRED (the target, above).
+    9/1 16:55:00 Yearly-POC LONG     -> CONFIRM_DIV_WAIT verdict=-1 -> consumed. Not
+        fired (the potential new fake died by the operator's "the latest is the latest"
+        rule).
+    9/4 09:30:01 Daily-POC LONG      -> R latched 0.63 < 1 -> TP_RR_FAIL (killed, "not
+        worth 1R"). A re-seed 09:35 armed and died FRESH_OB_DEAD (2-of-3); a new seed
+        09:45 prebind-passed and CONFIRM_DIV_WAIT verdict=-1 consumed it. Not fired.
+    (The 8/28 14:2x and 9/2 18:3x and 9/3 18:25 declared pre-bind instants never
+    reached a pass — the cascade consumed or re-seeded those candidates first.)
+
+G5  INSTRUMENTS: CONFIRMPOLL=611 (was 626 in build 2), CONFIRM_STRUCT_FAIL=191 (the S4 edge only;
+    was 194 in build 2 — declared re-attribution, the prebind failures now carry their
+    own name), CONFIRM_PREBIND=5, CONFIRM_PREBIND_FAIL=166, CONFIRM_DIV_WAIT=5 (was 2),
+    TP_RR_FAIL_LATCH=5 (was 4; new = the 9/4 09:30 R=0.63), MTSNAP=3 (was 2 — the 8/28
+    trade now manages), MTEXIT=3 (was 2), CQD DIV verdict=906 (=906, identity),
+    FRESHCOUNT=92 (=92), SUPPRESSED=157 (was 159), FRESHSKIP=292 (was 307),
+    STAND-DOWN=37 (was 38), XOB-PROMOCENSUS=469 (=469, identity).
+ABORTS (54 lines; was 55): LTF_MISALIGN=25 (was 26), SESSION_CLOSED=10 (was 11),
+    FRESH_OB_DEAD=8 (=8), FRESH_OPP_FVG=5 (=5), TP_RR_FAIL=5 (was 4), NO_TP_TARGET=1.
+CENSUSES (identity, verbatim): BIASCENSUS_FINAL bars=3168 sh1 neg=1554 pos=1614 fail=0 |
+    sh2 neg=1554 pos=1614 fail=0. ZONECENSUS_FINAL bars=3168 xobOnly=3168 inWindow=1056.
+G4  Post-run digests byte-identical (all four):
+    EA 2B11CB1295B2905AC3317A483BD6DB7042A81BDA6F68826EC694580E4FB95DC0 (247,301 B);
+    CQD BE6FD84F...A421F (50,555 B); OrderblockMgr D286621C...20B7B (48,050 B);
+    FlowLogic 1EA7858F...73B08 (58,657 B).
+DECLARED: terminal.ini carried a SECOND DateFrom/DateTo pair — measured to belong to
+    the [TickLoad] section, NOT [Tester]; the tester window unchanged (8/26->9/10);
+    no ini edit made. The wrapper completed its own archive + DONE (no manual
+    completion needed); no leftover terminal after the run.

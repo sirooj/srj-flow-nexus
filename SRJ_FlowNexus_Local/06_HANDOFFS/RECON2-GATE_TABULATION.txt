@@ -1,0 +1,57 @@
+# RECON2-GATE TABULATION (T162_GATE build; run RECON2-GATE 2026-09-10 22:16:47 -> 23:18:24)
+# Journal segment: 06_HANDOFFS\RECON2-GATE_JOURNAL.log = 15,925 lines (day-log 38488..54412;
+# the wrapper's own ARCHIVED_LINES=15925 matches byte-for-byte). DONE marker: RESULT=PASSED.
+# All counts measured with Select-String on the archived segment this session.
+
+G1  "Test passed in 0:57:33.543"; 563,338 ticks, 3,168 bars. RESULT=PASSED.
+G2  WS161_CENSUS fields=20 loads=3168 stores=3168 changes=206 mismatch=0
+    (fields 15->20 as declared; changes 180->206 = the latch fields, declared observable).
+    WS161_LOAD NOSTORE x1 (loads=1). WS161_MISMATCH lines = 0. WS161_FIELD lines = 0.
+G3  SIGNALS = 2 (verbatim):
+    2026.09.07 09:20:00 ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | LONDON | R=1.76 SL 1.16098 TP 1.16200 spr=3
+    2026.09.07 16:45:00 ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | NYAM | R=1.25 SL 1.16218 TP 1.16315 spr=3
+    (9/7 NYAM R=1.25 vs the shadow's 1.76-companion 2.12: R is now LATCHED at the
+    confirmation close per the ruled model - the entry reference moved, declared.)
+    THE FOUR EA-ONLY FAKES: 8/31, 9/1, 9/2, 9/8 ALL SILENT (no SIGNAL lines).
+    9/1 deaths carry the new instrument: CONFIRM_DIV_WAIT bar=10:10 verdict=-2 and
+    bar=16:10 verdict=+2 (the unbounded latest-verdict rule consumed both confirmations;
+    rollback to S4, no abort - as ruled).
+    9/4 silent (packet-declared: build 3 recovers the Yearly retest).
+    8/18: OUT OF WINDOW (the window is 8/26->9/09; the packet's G3 item predates it -
+    declared a packet-authoring note, not a run failure; RECON2-GATE_0818_TRACE.txt = 0 B).
+    8/28 ~10:05 SHORT Daily-VWAP: **DID NOT RETURN - G3 ITEM FAILED.** Measured mechanism:
+    the ruled candle presented (CONFIRMPOLL bar=10:00 anchor=Daily-VWAP dir=SHORT
+    oppCandle=1 bodyDir=1 body=15pts touchAttr=1 confirm=1) while the candidate sat at
+    S3_ZONE_WAIT (FRESHSKIP bar=10:00/10:05/10:10/10:15 state=S3_ZONE_WAIT
+    reason=PRE_BINDING) - one-bar validity consumed the confirmation by design (E2 lives
+    only at the S4 edge); the candidate armed later and was killed by the ruled
+    PRE-confirmation freshness poll: "2026.08.28 10:35:01 ABORT reason=LTF_MISALIGN
+    state=S4_ARMED poi=Daily-VWAP dir=SHORT" + STAND-DOWN. The R latch never ran.
+    Later same-day: CONFIRM_STRUCT_FAIL bar=10:25 term=A_OPP; an 11:05 re-seed at
+    S2_LTF_ALIGN lingered (PRE_BINDING) with no second confirm until the window passed.
+G5  THE NEW INSTRUMENTS (all live):
+    CONFIRMPOLL lines = 626; CONFIRM_STRUCT_FAIL = 194 (each names its failed term);
+    CONFIRM_DIV_WAIT = 2; TP_RR_FAIL_LATCH = 4 with latch values verbatim:
+      2026.08.26 14:45:01 bar=14:40 dir=LONG  entry=1.16654 sl=1.16580 tp=1.16684 R=0.41
+      2026.08.28 16:25:00 bar=16:20 dir=SHORT entry=1.16430 sl=1.16508 tp=1.16364 R=0.85
+      2026.09.04 10:40:00 bar=10:35 dir=SHORT entry=1.16265 sl=1.16379 tp=1.16224 R=0.36
+      2026.09.08 16:45:01 bar=16:40 dir=SHORT entry=1.16213 sl=1.16379 tp=1.16114 R=0.60
+    (no SIGNAL on any - the ruled 1R gate as a hard kill with values).
+ABORTS (reason= tabulation, 55 lines): LTF_MISALIGN=26, SESSION_CLOSED=11,
+    FRESH_OB_DEAD=8, FRESH_OPP_FVG=5, TP_RR_FAIL=4, NO_TP_TARGET=1.
+COUNTS: FRESHCOUNT=92, SUPPRESSED=159, FRESHSKIP=307, XOB-PROMOCENSUS=469,
+    CQD DIV verdict=906, S5_GATE_CHECK state prints=20, MTSNAP=2, MTEXIT=2, STAND-DOWN=38.
+BIASCENSUS_FINAL bars=3168 | sh1 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0 |
+    sh2 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0
+ZONECENSUS_FINAL bars=3168 both=0 xobOnly=3168 fvgOnly=0 neither=0 | inWindow=1056
+    xobInWin=1056 fvgInWin=0 | samples=0
+G4  Post-run digests byte-identical:
+    EA = CA79B064ABE645D2F52B7F45F9FE1260AAD5B83A07D0A3988C4707A481AF59C9 (244,174 B);
+    CQD = BE6FD84FB970B255F7809EF81CDDE829644DCC8B859166E8B2CEB9BF1D8A421F (50,555 B);
+    OrderblockMgr = D286621CD8E2AB92B67FBA2BE0FD60BC861FF277C7516A2CFF6F79564E220B7B (48,050 B);
+    FlowLogic = 1EA7858F9B1A8F4F42D90D58A0BB8873063D874E40E32A6A4E69DD8099F73B08 (58,657 B).
+DISCLOSED TRANSIENT: this file briefly held a mistaken "correction record" (a false
+    self-accusation mid-session); the measured tabulation above REPLACES it - the
+    correction text is preserved in BUILDER_RESULT_RECON2-GATE.md section 6.
+
+
