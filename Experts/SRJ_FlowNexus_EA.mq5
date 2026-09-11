@@ -2218,18 +2218,75 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
      }
    else
      {
+      //--- [P-SLREFSIDE / operator ruling 2026-09-11] The 2-swing stop is the
+      //--- PREVIOUS STRUCTURE TOP on the protective side, never a shift-recency
+      //--- pick: "the stop swing is higher or lower from the entry price, not
+      //--- the most recent swing high or low. it might be from an older
+      //--- structure" (BUILDER_FINDING_0828-SLREF.md section 1) and "one swing
+      //--- = one turn of the bigger move" (the operator's Option-A ruling,
+      //--- BUILDER_FINDING_SLREF-1.md section 9). Walk the swing buffer from
+      //--- the evaluation bar. ITERATION 2 (measured correction, same run
+      //--- window): the CURRENT TURN anchors the walk - the first swing
+      //--- initializes the running structure extreme REGARDLESS of side,
+      //--- because the close can sit inside the current turn (measured
+      //--- 2026.08.28 10:00: close 1.16482 sat on the 09:25-09:45 cluster;
+      //--- side-skipping the cluster mis-anchored the walk at 06:30 and
+      //--- overshot to the 06:00 top 1.16513, deepening the SL leg, arming
+      //--- the candidate and killing the trade at the pre-confirmation
+      //--- freshness poll). Same-turn swings are absorbed; a swing EXCEEDING
+      //--- the extreme by more than the codebase's 1-point separation idiom
+      //--- (a safety limit, not a tunable threshold - Part A section 7) is
+      //--- the previous turn's top = THE STOP CANDIDATE, and the SIDE TEST
+      //--- (spec 3.7: "the reference must lie on the protective side", the
+      //--- entry-price reference per the operator's side ruling) applies to
+      //--- the CANDIDATE, never to the anchor; a wrong-side candidate is
+      //--- absorbed and the walk continues - never abort where a valid
+      //--- swing exists. On exhaustion the running extreme itself is the
+      //--- stop ("one swing") if it lies on the protective side; if it does
+      //--- not, no valid stop swing exists in the window and the spec's
+      //--- abort case applies. Measured reproduction: the 2026.08.28 10:00
+      //--- entry bar's newest-first swing highs 1.16491/1.16481/1.16482/
+      //--- 1.16479 form ONE structure top; the first older swing exceeding
+      //--- it is 06:30 = 1.16508 - the operator's journaled stop exactly
+      //--- (BUILDER_FINDING_SLREF-1 section 5).
       int bufIdx = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
       double firstVal = 0.0;
-      bool   haveFirst = false;
+      double runExt   = 0.0;
+      int    firstShift = -1;
+      bool   haveFirst  = false;
       for(int s = barShift; s <= barShift + 500; s++)
         {
          double v;
          if(!ReadFlow(bufIdx, v, s)) break;
          if(v == EMPTY_VALUE || v <= 0.0) continue;
-         if(!haveFirst) { firstVal = v; haveFirst = true; continue; }
-         if(MathAbs(v - firstVal) > _Point)
+         if(!haveFirst)
            {
+            firstVal = v; runExt = v; haveFirst = true; firstShift = s;
+            continue;
+           }
+         //--- One swing = one turn of the bigger move: same-turn swings are
+         //--- absorbed into the running extreme; an EXCEEDING swing is the
+         //--- previous turn's top = the stop CANDIDATE. The side test (the
+         //--- operator's entry-price rule + spec 3.7) applies to the
+         //--- CANDIDATE, not to the turn anchor.
+         bool exceeds = (dir == DIR_LONG) ? (v < runExt - _Point)
+                                          : (v > runExt + _Point);
+         if(exceeds)
+           {
+            runExt = v;
+            bool stopSideOk = (dir == DIR_LONG) ? (v < slCurPx) : (v > slCurPx);
+            if(!stopSideOk) continue;
             slRefOut = v; slModeOut = SL_MODE_2SWING;
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] SL_STRUCT site=%s dir=%s entryRef=%s runExt=%s "
+                           "prevTop=%s atShift=%d distPts=%.0f exhausted=%d",
+                           site, DirName(dir),
+                           DoubleToString(slCurPx, _Digits),
+                           DoubleToString(runExt, _Digits),
+                           DoubleToString(v, _Digits),
+                           s,
+                           MathAbs(slCurPx - slRefOut) / _Point,
+                           0);
             if(InpDebugLog)
                PrintFormat("[SRJ-EA] SL_REF branch=2-swing obValid=0 slRef=%s distPts=%.0f "
                            "firstSwing=%s foundAtShift=%d site=%s "
@@ -2242,7 +2299,36 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
             return true;
            }
         }
-      return false;
+      if(!haveFirst) return false;
+      //--- Exhaustion fallback: the running structure extreme IS the stop
+      //--- ("one swing" of the bigger move) - never abort while a valid swing
+      //--- exists (spec 3.7). The side test applies here too: the extreme is
+      //--- the HIGHEST (SHORT) / LOWEST (LONG) swing in the window, so if it
+      //--- is not on the protective side of slCurPx, no swing in the window
+      //--- is, and the spec's abort-where-no-valid-swing-exists case applies.
+      if((dir == DIR_LONG) ? (runExt >= slCurPx) : (runExt <= slCurPx))
+         return false;
+      slRefOut  = runExt;
+      slModeOut = SL_MODE_2SWING;
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] SL_STRUCT site=%s dir=%s entryRef=%s runExt=%s "
+                     "prevTop=%s atShift=%d distPts=%.0f exhausted=%d",
+                     site, DirName(dir),
+                     DoubleToString(slCurPx, _Digits),
+                     DoubleToString(runExt, _Digits),
+                     "-", firstShift,
+                     MathAbs(slCurPx - slRefOut) / _Point,
+                     1);
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] SL_REF branch=2-swing obValid=0 slRef=%s distPts=%.0f "
+                     "firstSwing=%s foundAtShift=%d site=%s "
+                     "zoneLo=%s zoneHi=%s",
+                     DoubleToString(slRefOut, _Digits),
+                     MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
+                     DoubleToString(firstVal, _Digits), firstShift, site,
+                     DoubleToString(g_zoneLo, _Digits),
+                     DoubleToString(g_zoneHi, _Digits));
+      return true;
      }
   }
 
