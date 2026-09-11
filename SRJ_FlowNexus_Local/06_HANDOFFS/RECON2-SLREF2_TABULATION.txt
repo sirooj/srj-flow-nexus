@@ -1,0 +1,58 @@
+RECON2-SLREF2_TABULATION.txt — P-SLREFSIDE iteration 2 (the structure-top stop), run of 2026-09-11 10:38:33->11:41:02
+All figures verbatim tool measurements from RECON2-SLREF2_JOURNAL.log (16,248 lines) and RECON2-SLREF2_STATUS.txt.
+Iteration 1 (E2A60E6C...) FAILED gate G3 and is documented in BUILDER_RESULT_T162-SLREF.md.
+
+=== RUN FACTS ===
+Test passed in 0:59:54.699 | 563,338 ticks | 3,168 bars | RESULT=PASSED (DONE 11:41:02)
+Window 2026.08.26 00:00 -> 2026.09.10 00:00 (terminal.ini [Tester]; RECON1_P1.ini unchanged)
+Leftover terminal PID 8968 closed post-run (verified gone).
+
+=== G2 / WS161 ===
+WS161_CENSUS fields=21 loads=3168 stores=3168 changes=206 mismatch=0   (changes=206 IDENTICAL to ANYSTATE - did not move)
+WS161_LOAD NOSTORE bar=2026.08.25 23:55 shift=1 loads=1   (x1)
+WS161_FIELD rows = 0 | WS161_MISMATCH rows = 0
+
+=== G3 / SIGNALS (3 = the ruled set) ===
+1. 2026.08.28 10:05:00 SIGNAL SHORT Daily-VWAP LONDON R=2.43 SL 1.16508 TP 1.16364 spr=4
+   (a-priori EXACT: SL 1.16481->1.16508, R 6.80->2.43, same bar/entry/TP; bid=1.16466 = the operator's journal entry)
+   Chain measured: 10:00 seed IDLE->S1->S2->S3_ZONE_WAIT; S3ARM SL_STRUCT runExt=1.16508 prevTop=1.16508@41
+   -> slRef=1.16508; INPLAYCOMMIT scanned=41 swings=10 hits=0 commitVia=none committed=0 (the walk ENDED at
+   the stop swing: the 06:25 zone-touch at shift 44 was never reached -> NO arming -> S3 wait held);
+   10:05 FRESHSKIP PRE_BINDING (S3) -> CONFIRM_PREBIND bar=10:00 -> S3->S5 -> S5 SL_REF 2-swing slRef=1.16508
+   (firstSwing=1.16491 anchor) -> SIGNAL.
+2. 2026.09.07 09:20:00 SIGNAL LONG Weekly-POC LONDON R=1.76 SL 1.16098 TP 1.16200 spr=3   (verbatim)
+3. 2026.09.07 16:45:00 SIGNAL LONG Weekly-POC NYAM R=1.25 SL 1.16218 TP 1.16315 spr=3     (verbatim)
+The four EA-only fakes (8/31, 9/1, 9/2, 9/8): SILENT. 9/4: silent (build 3 recovers the Yearly-POC retest).
+
+=== SL machinery ===
+SL_REF branch=2-swing lines = 60 (count unchanged from the a-priori; ALL values moved to structure tops)
+SL_STRUCT prints = 60; exhausted=1 fallbacks = 0 (every pick found an exceeding structure top)
+1-swing branch untouched: the five TP_RR_FAIL_LATCH kills reproduce with IDENTICAL values:
+  8/26 14:40 R=0.41 sl=1.16580 | 8/28 16:20 R=0.85 sl=1.16508 | 9/4 09:30 R=0.63 sl=1.16249
+  9/4 10:35 R=0.36 sl=1.16379 | 9/8 16:40 R=0.60 sl=1.16379
+The 8/28 10:05 S5 latch: sl_mode=2-swing sl_ref=1.16508 tp_R=2.43 spreadPts=4 bid=1.16466 ask=1.16470.
+
+=== G5 / IDENTITY CENSUSES (all verbatim) ===
+BIASCENSUS_FINAL bars=3168 sh1 neg=1554 pos=1614 fail=0 | sh2 neg=1554 pos=1614 fail=0
+ZONECENSUS_FINAL bars=3168 xobOnly=3168 | inWindow=1056 xobInWin=1056
+XOB-PROMOCENSUS = 469
+CQD verdict stream: unchanged (no CQD source change)
+
+=== ABORT / LADDER CENSUS (identical to ANYSTATE) ===
+ABORT = 54 (LTF_MISALIGN 25 | SESSION_CLOSED 10 | FRESH_OB_DEAD 8 | FRESH_OPP_FVG 5 | TP_RR_FAIL 5 | NO_TP_TARGET 1)
+FRESHSKIP = 292 | SUPPRESSED = 157 | CONFIRMPOLL = 611 | FRESHCOUNT = 92 | CONFIRM_DIV_WAIT = 5
+WS161 changes did NOT move (206 = 206).
+
+=== DECLARED OBSERVABLE MOVES (mechanism named) ===
+CONFIRM_PREBIND passes 5 -> 4. The lost pass = 9/4 09:45 (Daily-POC LONG, div-consumed in ANYSTATE).
+Cascade measured: the 09:35 replacement candidate ARMED at 09:35:02 in SLREF2 (its S3ARM 2-swing stop
+now finds a real structure top -> deeper in-play leg -> zone in play -> S3->S4_ARMED) and was killed at
+09:40 by the pre-confirmation freshness poll (FRESHCOUNT #128 obDead=1 fvgDead=1 adverse=2); the 09:45
+re-seed armed again but no pre-bind pass line printed for it in this build's evaluation order. NO signal
+impact (9/4 was silent in both builds; build 3 recovers the operator's Yearly-POC retest).
+
+=== G4 / POST-RUN DIGESTS (byte-identical) ===
+EA   693B37290717871D152C46E73AEB15B719D57964738E0162D623BFC0BC4D946E 252,632 B
+CQD  BE6FD84FB970B255F7809EF81CDDE829644DCC8B859166E8B2CEB9BF1D8A421F 50,555 B (unchanged)
+OBMGR D286621CD8E2AB92B67FBA2BE0FD60BC861FF277C7516A2CFF6F79564E220B7B 48,050 B (unchanged)
+FL   1EA7858F9B1A8F4F42D90D58A0BB8873063D874E40E32A6A4E69DD8099F73B08 58,657 B (unchanged)

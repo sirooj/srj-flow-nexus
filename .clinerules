@@ -1525,3 +1525,145 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
   FRAGILE SET NOW INCLUDES: the T162_ANYSTATE EA state + every record since f3c83f0 (a
   snapshot awaits an explicit token).
 
+
+- SESSION 2026-09-11 (THE GIT SNAPSHOT + PUSH EXECUTED on the operator's delegation;
+  session end): THE OPERATOR'S TOKEN, verbatim: "i don't know how git works. give me the
+  best" — the best-structure snapshot executed per the recorded precedent (a canonical
+  commit + a records commit + an annotated tag + both remotes). COMMITS: e5ffdf9 = the
+  canonical source (EA 2B11CB12...95DC0 ONLY; CQD/OBMGR/FlowLogic unchanged since
+  d96fd5f) with the digest in the message; 8371669 = the records (39 files, 4,082
+  insertions / 151 deletions: the T162-era results + tabulations, the three P-CONFIRM
+  packets, PLAN_RECON-PILOT + PLAN_SLREF-SIDE, the findings FVG/SLREF/FULLJOURNAL, the
+  0820-TP amendments, the RECON1-BATCH memo, the council relay + response, the run
+  inis/markers, GOAL_STATEMENT amendments, the standing state, the new session prompt).
+  TAG: Task162-T162ANYSTATE (annotated, 3b0125b, peeled e5ffdf9). PUSHES: origin
+  (forge.mql5.io) main f3c83f0..8371669 + the tag, AND backup (github) main + the tag —
+  ls-remote verified BOTH remotes: refs/heads/main = 8371669 + the tag on each. ONE
+  declared incident: the first commit attempt FAILED on a PowerShell quoting trap (the
+  message's inner double quotes became pathspecs; HEAD unchanged, the add stayed staged;
+  nothing partial) — fixed with the -F message-file pattern (now the recorded method);
+  ONE declared quirk: the forge push's exit code 1 was PowerShell treating git's stderr
+  progress as an error — the push itself succeeded (verified by ls-remote, never
+  re-issued blindly). THE WORKING TREE IS NOW CLEAN except the two debris files
+  (EA_STATE_REG.md, recovery_compile.ps1 — UNTRACKED, awaiting the operator's deletion
+  word). THE FRAGILITY NOTE IS RESOLVED: the T162_ANYSTATE canonical state + every
+  record exist on two remotes. Post-push uncommitted: this standing-state block only.
+
+- SESSION 2026-09-11 (SLREF-SIDE PHASE 1 EXECUTED; the swing-definition ruling
+  received; PACKET_P-SLREFSIDE DRAFTED — DRAFT, NOT ISSUED): session opened per
+  section 8; the four baselines RE-HASHED BYTE-EXACT (EA
+  2B11CB1295B2905AC3317A483BD6DB7042A81BDA6F68826EC694580E4FB95DC0 / CQD
+  BE6FD84F...A421F / OrderblockMgr D286621C...20B7B / FlowLogic 1EA7858F...73B08;
+  HEAD 8371669; tree = M .clinerules + the 2 untracked debris files). PHASE 1 of
+  PLAN_SLREF-SIDE EXECUTED (read-only) and DELIVERED:
+  06_HANDOFFS\BUILDER_FINDING_SLREF-1.md. THE MEASUREMENTS: (1) the spec of record
+  Part A v4.2 §3.7 read — L204 ALREADY carries the side rule ("the reference must
+  lie on the protective side ... the walk continues to the next valid swing further
+  back; it never aborts"), L202 defines a swing as the three-candle pattern, L210
+  rules branch selection = two-OB state + imbalance presence (the EA selects on
+  obValid alone — a standing deviation); (2) the EA machinery mapped with live line
+  numbers: FindNearestSwing L2014-2028 (nearest-by-shift, 500-slot, NO side test),
+  ComputeSlReference L2031-2247 — the 1-swing branch (buffer 27 OB swing + side
+  guard, fallback nearest + the Task-75 rescue walk L2144-2186) and the 2-swing
+  branch L2219-2246 (recency walk: first swing + next DISTINCT swing, NO side test
+  — THE 8/28 DEFECT SITE); the three call sites S2POLL L3214 / S3ARM L3991 /
+  S5 L4322 all consume the same function; (3) THE TRUE 6:30 HIGH MEASURED from
+  T162DUMP_JOURNAL.log: the 06:30 candle O=1.16506 H=1.16508 L=1.16491 C=1.16494 —
+  the stop was 1.16508, NOT the earlier-assumed ~1.16568 (that figure was never
+  measured); KEY JUDGMENT ITEM RESOLVED FAVORABLY: with entry 1.16466 and TP
+  1.16364, R = 102/42 = 2.43 — ABOVE the 1R gate; the 8/28 trade SURVIVES (the
+  "R = 1.00 exactly" arithmetic in the prior records is VOID, corrected in
+  BUILDER_FINDING_SLREF-1 section 4); (4) the FlowLogic swing buffers VERIFIED =
+  strict 3-candle fractals (SRJ_FlowLogic.mq5 L968-976, SRJ_isStrictFractalHigh/Low
+  with wing 1; INDICATOR_CALCULATIONS, invisible on the chart) and the SWINGDUMP #22
+  values match the hand-derived fractals; the 6:30 high IS in the export ~42 bars
+  back — NO FlowLogic change needed; (5) THE AMBIGUITY: no counting over the strict
+  fractal series (two 3-candle back = 09:45 = the rejected as-built pick; zigzag =
+  08:15; 5-bar = 08:30) lands on 6:30 as the second swing — for it, the whole
+  09:25-09:55 cluster (1.16479-1.16491) must be ONE swing; corroborating datum: the
+  setup's own XOB 2149 zone TOP = 1.16507 (promoT 06:40) = the 6:30 region.
+  (6) THE BLAST RADIUS MEASURED: in the RECON2 window there are EXACTLY 60 two-swing
+  SL_REF lines — 1 at S5 (the 8/28 10:05 latch) + 59 at S2POLL/S3ARM advisory/
+  arming; all seven OTHER S5 evaluations are 1-swing, so the fix touches ONE latch
+  bar. THE FIVE TP_RR_FAIL kills are ALL 1-swing picks (8/26 14:40 R=0.41; 8/28
+  16:20 R=0.85; 9/4 09:25 R=0.63; 9/4 10:35 R=0.36; 9/8 16:40 R=0.60) — UNCHANGED
+  by a 2-swing-only edit; the 9/7 pair (buffer 27 picks) PROTECTED.
+  THE OPERATOR'S RULING (in-session, the ask_question answer): "A — one swing = one
+  turn of the bigger move (recommended: it reproduces your 6:30 stop exactly)" —
+  recorded verbatim in BUILDER_FINDING_SLREF-1 section 9. THE MECHANICAL RULE
+  DERIVED FROM IT (threshold-free): walking the protective-side buffer from the
+  entry bar, a new swing counts only when it EXCEEDS every more-recent protective-
+  side swing (by more than the codebase's 1-point separation idiom); the first such
+  swing = the previous structure top = THE STOP; exhaustion fallback = the current
+  structure extreme (never abort while a valid swing exists); non-protective-side
+  candidates skipped, never abort (spec §3.7 L204). PACKET_P-SLREFSIDE.md DRAFTED
+  (01_TASKS; E1 the 2-swing walk replacement + E2 the additive SL_STRUCT census
+  print; the 1-swing branch and the Task-75 fallback UNTOUCHED; stages S1-S7; the
+  a-priori table stated BEFORE the run: 8/28 10:05 SL 1.16481->1.16508, R
+  6.80->2.43, same bar/entry/TP; the 60 two-swing values move, counts unchanged;
+  everything else verbatim) — STATUS: DRAFT — NOT ISSUED — awaiting the operator's
+  explicit issuance. No canonical file touched this session; nothing under
+  02_TASK_CHECKPOINTS; no git token.
+- SESSION 2026-09-11 (P-SLREFSIDE ISSUED + EXECUTED + VERIFIED in TWO iterations; the operator's
+  IMBALANCE datum recorded; the countdown-timer experiment ratified; the AI MODEL SWITCH journaled in
+  the NEXT block): ISSUANCE: "issue P-SLREFSIDE" + "please adhere to the rule of continuing until you
+  need my input or relay to the council". ITERATION 1: S1 pre-hash PASS (EA 2B11CB12...95DC0 verbatim);
+  S2 E1+E2 applied (one exact-match miss — the closing brace lead=2 vs 3 — probed, re-issued clean); S3
+  post-hash E2A60E6C...BAF602 (251,333 B, 5,006 lines, CRLF=5006 LONELF=0); S4 compile T162_SLREF 0/0
+  (4564 ms); S5 run RECON2-SLREF PASSED (3,168 bars; "Test passed in 0:51:07.944"). GATE G3 FAILED: the
+  8/28 10:05 SHORT ABSENT and the 10:00 S3ARM stop = 1.16513 (NOT the a-priori 1.16508). ROOT CAUSE
+  MEASURED end-to-end: at the 10:00 evaluation the close 1.16482 sat exactly ON the 09:25-09:45 cluster;
+  the side-skip-before-anchor design skipped the cluster, anchored at 06:30 (1.16508@43), and overshot
+  to the 06:00 top (1.16513@48 — measured from T162DUMP: the 06:00 candle H=1.16513, 5 pts above the
+  6:30 high; Phase-1's enumeration had stopped at 06:30); the deeper leg let the in-play commit walk
+  reach the 06:25 zone-touch (1.16507@44) -> armed 10:00 -> killed at 10:05 by the ruled
+  pre-confirmation freshness poll (FRESHCOUNT #18 obDead=1 fvgDead=1) BEFORE the confirmation could be
+  consumed; in ANYSTATE the candidate stayed S3_ZONE_WAIT (old slRef=1.16479@6, scanned=2) and the
+  pre-bind rule saved it. Nothing reverted; the failure + mechanism documented in
+  BUILDER_RESULT_T162-SLREF.md §2.
+  ITERATION 2 (the amendment, builder-declared local: it implements the operator's OWN ruled rule — the
+  turn anchors the walk REGARDLESS of the close's position inside it; the side test applies to the STOP
+  candidate; wrong-side candidates absorbed, walk continues; exhaustion fallback = the running extreme
+  if side-valid else false): post-hash 693B37290717871D152C46E73AEB15B719D57964738E0162D623BFC0BC4D946E
+  (252,632 B, 5,025 lines, CRLF=5025 LONELF=0); compile T162_SLREF2 0/0 (2482 ms); run RECON2-SLREF2
+  "Test passed in 0:59:54.699" 3,168 bars 563,338 ticks PASSED (launched 10:38:33; leftover terminals
+  PID 28116 + 8968 closed, verified gone). ALL GATES PASS: G2 WS161 fields=21 loads=stores=3168
+  changes=206 mismatch=0 (changes did NOT move), LOAD NOSTORE x1, zero FIELD/mismatch rows; G3 THE
+  A-PRIORI EXACT — 8/28 10:05:00 SIGNAL SHORT Daily-VWAP LONDON R=2.43 SL 1.16508 TP 1.16364 (entry
+  bid 1.16466 = the operator's journal entry EXACT; the 10:00 chain verbatim: S3ARM stop@41 ->
+  INPLAYCOMMIT scanned=41 hits=0 committed=0 -> NO arm -> CONFIRM_PREBIND 10:05 -> S5 latch 1.16508);
+  the 9/7 pair verbatim (09:20 R=1.76; 16:45 R=1.25); the four fakes silent; 9/4 silent; the five
+  TP_RR_FAIL kills IDENTICAL (0.41/0.85/0.63/0.36/0.60 — all 1-swing, untouched); G4 post-run digests
+  byte-identical (EA 693B3729...; CQD BE6FD84F...; OBMGR D286621C...; FlowLogic 1EA7858F...); G5
+  SL_REF 2-swing = 60 (counts unchanged, values moved), SL_STRUCT = 60, exhausted=1 = 0, BIASCENSUS
+  1554/1614 x2 fail=0, ZONECENSUS 3168/1056, XOB-PROMO 469, ABORT census 54 identical (25/10/8/5/5/1),
+  FRESHSKIP 292, SUPPRESSED 157, CONFIRMPOLL 611. DECLARED OBSERVABLE: CONFIRM_PREBIND passes 5->4
+  (the 9/4 09:45 pass lost: the 09:35 replacement candidate ARMED at 09:35 in this build -> killed
+  09:40 by the pre-confirmation poll -> the re-seed's pass line never printed; NO signal impact; build
+  3 recovers 9/4). THE OPERATOR'S IMBALANCE DATUM (verbatim): "if entered at 10:05 entry candle price,
+  you're right that it would be the second swing away. even so, the SL still would be 6:30 high because
+  the 9:55 high that was confirmed at 10:05 candle close has no imbalance so the SL would be two swings
+  away." — the imbalance criterion (a swing without an imbalance behind it cannot be the one-swing
+  stop) is the operator's mechanism; this build lands the SAME pick (1.16508) by turn-absorption; the
+  explicit imbalance test is NOT implemented — operator-reserved future refinement. THE
+  COUNTDOWN-TIMER EXPERIMENT (operator directive, verbatim: "i want you to experiment to use a countdown
+  timer to check the estimation to when the run will be completed... after the timer is up, you check
+  the progress and continue your research. be more automated and agentic"): 240s sleep chunks + one
+  DONE probe per chunk, parallel research during the wait — SUPERSEDES the strict no-polling rule WHEN
+  THE OPERATOR IS AWAY; the completion-signal rule otherwise stands. THE HALLUCINATION INCIDENT OF
+  THIS SESSION (recorded): the prior agent turn emitted fabricated "analysis" presented as verified
+  reads without any measurement (the operator: "you've been giving a lot of hallucination recently");
+  the 2026-09-10 recovery rules STAND: never accept verbal status; demand the literal hash/byte/line
+  output; measure before you believe AND before you doubt. THE AI MODEL SWITCH (operator ruling,
+  verbatim: "i would choose muse spark 1.3 contributor, i do not mind for it" — answering the builder's
+  verified comparison): the NEXT session runs on Muse Spark 1.3 Contributor (Meta, released 2026-09-02;
+  1M-class context; agentic coding; MRCR long-context recall 98.5/98.1; ~20% fewer tool calls vs its
+  1.2, Meta-internal figures). THE CONTRIBUTOR TIER TRAINS ON PROMPTS/COMPLETIONS — the operator
+  EXPLICITLY ACCEPTS this for their strategy data after the trade-off was presented (standard tier
+  $1.25/$4.25 = no training; DeepSeek-V4-Flash $0.14/$0.28 = the open-weight privacy-safe alternative;
+  the builder's recommendation was Muse Spark standard or DeepSeek for the privacy concern; the
+  operator ruled Contributor: "i do not mind for it"). JOURNALED like the prior switch. NEW SESSION
+  PROMPT REWRITTEN for the Muse Spark session (baselines: EA 693B3729...946E / CQD BE6FD84F... / OBMGR
+  D286621C... / FlowLogic 1EA7858F...; the next task = BUILD 3, the line supersession, council C1).
+  NO git token; nothing under 02_TASK_CHECKPOINTS; the T162_SLREF2 canonical state + records
+  UNCOMMITTED (the working tree is the only copy — fragile).
