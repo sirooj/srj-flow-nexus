@@ -116,6 +116,14 @@ void InitAuthorityTable()
 //--- Default ON per spec ("default, scoped to trend-following").
 #define MT_HTF_EXIT          true
 
+//--- [P-CONFIRM-SHADOW 2026-09-10] build 1 of the council design (COUNCIL_RESPONSE_POI-R.md
+//--- sequencing step 1): LOG-ONLY instruments. Zero behavior change - every print below is
+//--- additive and guarded by InpDebugLog && the shadow constant. Flip a constant to false
+//--- for a byte-identical silence.
+#define SHADOW_RETESTBOOK    true
+#define SHADOW_CONFIRMPOLL   true
+#define SHADOW_TP_ELECT      true
+
 enum ENUM_MT_STATE
   {
    MT_INACTIVE     = 0,
@@ -944,6 +952,22 @@ datetime         g_sessionUsedDay_NYAM   = 0;
 bool             g_alertedArmed   = false;
 bool             g_alertedSignal  = false;
 
+//--- [P-CONFIRM-GATE E4 2026-09-10] the R-latch fields, latched ONCE at the
+//--- confirmation close (entry = the next open, SL = the swing, TP = the closest
+//--- line - the selector unchanged) and tested ONCE. Cleared in ResetSequence()
+//--- and therefore working-set members (the membership rule: a field added to
+//--- ResetSequence joins the working set).
+double           g_latchedEntry   = 0.0;
+double           g_latchedSl      = 0.0;
+double           g_latchedTp      = 0.0;
+double           g_latchedR       = 0.0;
+datetime         g_latchBarTime   = 0;
+//--- [P-CONFIRM-ANYSTATE E4 2026-09-11] the promotion-origin state: set at every
+//--- confirmation promotion (the S4 edge and the new pre-bind site), read by the
+//--- CONFIRM_DIV_WAIT rollback. Cleared in ResetSequence() and therefore a
+//--- working-set member (field 20, the membership rule).
+ENUM_SRJ_STATE   g_confirmFromState = ST_IDLE;
+
 //--- TASK 15: read-only shadow of a candidate that died at regime or LTF
 //--- alignment. Measures how many of those 42 aborts would have converted
 //--- under an order-independent (latched) model. Influences NOTHING - it
@@ -1015,12 +1039,12 @@ int g_hFlow = INVALID_HANDLE;
 //====================== TASK 161: working-set adapter =================
 //--- MILESTONE 1 INSTRUMENT. NOTHING READS THIS RECORD.
 //---
-//--- MEMBERSHIP RULE: the fifteen fields ResetSequence clears. A field
+//--- MEMBERSHIP RULE: the twenty fields ResetSequence clears. A field
 //--- added to ResetSequence joins the working set and belongs here too.
 //--- Council does not decide membership; the build states it.
 //---
 //--- NO SHypothesis AND NO SCandidate IS INSTANTIATED. Contract 9
-//--- declares bundle MANDATORY, and the fifteen globals cannot construct
+//--- declares bundle MANDATORY, and the twenty globals cannot construct
 //--- one, so none is fabricated. A zero standing for absence is exactly
 //--- what the contracts were declared to eliminate.
 //---
@@ -1031,7 +1055,7 @@ int g_hFlow = INVALID_HANDLE;
 //---
 //--- THE GATE: store at the end of bar N, compare at the start of bar
 //--- N+1. Zero mismatches over 1728 bars means the working set is CLOSED -
-//--- nothing outside these fifteen fields carries sequence state across
+//--- nothing outside these twenty fields carries sequence state across
 //--- bars. That is the closure proof, and it is not the isolation proof:
 //--- at capacity 1 there is no OTHER hypothesis, so Milestone 1's pass
 //--- condition needs capacity 2 and arrives with Task 162.
@@ -1086,6 +1110,12 @@ struct SSrjWorkingSet
    double           zoneLo;
    bool             alertedArmed;
    bool             alertedSignal;
+   double           latchedEntry;
+   double           latchedSl;
+   double           latchedTp;
+   double           latchedR;
+   datetime         latchBarTime;
+   ENUM_SRJ_STATE   confirmFromState;
    bool             stored;
   };
 
@@ -1094,7 +1124,7 @@ int  g_ws161_stores   = 0;
 int  g_ws161_loads    = 0;
 int  g_ws161_changes  = 0;
 int  g_ws161_mismatch = 0;
-int  g_ws161_fieldMiss[15];
+int  g_ws161_fieldMiss[21];
 
 //--- Field ordinal to name. The order below IS the field order used by
 //--- SrjWsCompare and by g_ws161_fieldMiss, and the three must agree.
@@ -1117,12 +1147,18 @@ string SrjWsName(int i)
       case 12: return "zoneLo";
       case 13: return "alertedArmed";
       case 14: return "alertedSignal";
+      case 15: return "latchedEntry";
+      case 16: return "latchedSl";
+      case 17: return "latchedTp";
+      case 18: return "latchedR";
+      case 19: return "latchBarTime";
+      case 20: return "confirmFromState";
      }
    return "UNKNOWN_FIELD";
   }
 
 //--- Per-field difference between the stored record and the live globals.
-//--- Writes fifteen booleans and touches nothing else.
+//--- Writes twenty-one booleans and touches nothing else.
 void SrjWsCompare(bool &d[])
   {
    d[0]  = (g_ws161.state          != g_state);
@@ -1140,6 +1176,12 @@ void SrjWsCompare(bool &d[])
    d[12] = (g_ws161.zoneLo         != g_zoneLo);
    d[13] = (g_ws161.alertedArmed   != g_alertedArmed);
    d[14] = (g_ws161.alertedSignal  != g_alertedSignal);
+   d[15] = (g_ws161.latchedEntry   != g_latchedEntry);
+   d[16] = (g_ws161.latchedSl      != g_latchedSl);
+   d[17] = (g_ws161.latchedTp      != g_latchedTp);
+   d[18] = (g_ws161.latchedR       != g_latchedR);
+   d[19] = (g_ws161.latchBarTime   != g_latchBarTime);
+   d[20] = (g_ws161.confirmFromState != g_confirmFromState);
   }
 
 //--- One line naming the live value of a field, for a mismatch report.
@@ -1162,6 +1204,12 @@ string SrjWsLiveValue(int i)
       case 12: return DoubleToString(g_zoneLo, 8);
       case 13: return (g_alertedArmed  ? "1" : "0");
       case 14: return (g_alertedSignal ? "1" : "0");
+      case 15: return DoubleToString(g_latchedEntry, 8);
+      case 16: return DoubleToString(g_latchedSl, 8);
+      case 17: return DoubleToString(g_latchedTp, 8);
+      case 18: return DoubleToString(g_latchedR, 8);
+      case 19: return IntegerToString((long)g_latchBarTime);
+      case 20: return IntegerToString((int)g_confirmFromState);
      }
    return "NA";
   }
@@ -1186,6 +1234,12 @@ string SrjWsStoredValue(int i)
       case 12: return DoubleToString(g_ws161.zoneLo, 8);
       case 13: return (g_ws161.alertedArmed  ? "1" : "0");
       case 14: return (g_ws161.alertedSignal ? "1" : "0");
+      case 15: return DoubleToString(g_ws161.latchedEntry, 8);
+      case 16: return DoubleToString(g_ws161.latchedSl, 8);
+      case 17: return DoubleToString(g_ws161.latchedTp, 8);
+      case 18: return DoubleToString(g_ws161.latchedR, 8);
+      case 19: return IntegerToString((long)g_ws161.latchBarTime);
+      case 20: return IntegerToString((int)g_ws161.confirmFromState);
      }
    return "NA";
   }
@@ -1204,11 +1258,11 @@ void LoadWorkingSet(int barShift, datetime barTime)
       return;
      }
 
-   bool d[15];
+   bool d[21];
    SrjWsCompare(d);
 
    int n = 0;
-   for(int i = 0; i < 15; i++)
+   for(int i = 0; i < 21; i++)
       if(d[i]) n++;
 
    if(n == 0)
@@ -1216,7 +1270,7 @@ void LoadWorkingSet(int barShift, datetime barTime)
 
    g_ws161_mismatch++;
 
-   for(int i = 0; i < 15; i++)
+   for(int i = 0; i < 21; i++)
      {
       if(!d[i])
          continue;
@@ -1230,7 +1284,7 @@ void LoadWorkingSet(int barShift, datetime barTime)
      }
   }
 
-//--- Called after EvaluateClosedBar. Copies the fifteen globals into the
+//--- Called after EvaluateClosedBar. Copies the twenty-one globals into the
 //--- record and counts a change when this bar's set differs from the last
 //--- stored one. Writes NO global except this instrument's own counters.
 void StoreWorkingSet(int barShift, datetime barTime)
@@ -1239,9 +1293,9 @@ void StoreWorkingSet(int barShift, datetime barTime)
 
    if(g_ws161.stored)
      {
-      bool d[15];
+      bool d[21];
       SrjWsCompare(d);
-      for(int i = 0; i < 15; i++)
+      for(int i = 0; i < 21; i++)
         {
          if(d[i])
            {
@@ -1266,6 +1320,12 @@ void StoreWorkingSet(int barShift, datetime barTime)
    g_ws161.zoneLo         = g_zoneLo;
    g_ws161.alertedArmed   = g_alertedArmed;
    g_ws161.alertedSignal  = g_alertedSignal;
+   g_ws161.latchedEntry   = g_latchedEntry;
+   g_ws161.latchedSl      = g_latchedSl;
+   g_ws161.latchedTp      = g_latchedTp;
+   g_ws161.latchedR       = g_latchedR;
+   g_ws161.latchBarTime   = g_latchBarTime;
+   g_ws161.confirmFromState = g_confirmFromState;
    g_ws161.stored         = true;
   }
 
@@ -1273,13 +1333,13 @@ void StoreWorkingSet(int barShift, datetime barTime)
 //--- recorded at least one mismatch. Zero rows is the pass shape.
 void SrjWs161Census()
   {
-   Print("[SRJ-EA] WS161_CENSUS fields=15",
+   Print("[SRJ-EA] WS161_CENSUS fields=21",
          " loads=",     g_ws161_loads,
          " stores=",    g_ws161_stores,
          " changes=",   g_ws161_changes,
          " mismatch=",  g_ws161_mismatch);
 
-   for(int i = 0; i < 15; i++)
+   for(int i = 0; i < 21; i++)
      {
       if(g_ws161_fieldMiss[i] == 0)
          continue;
@@ -1590,6 +1650,129 @@ bool DetectPoiRetest(int barShift, PoiRetestResult &r)
      { r.found = true; r.isLong = true;  r.topLine = bestLongLine; }
    else
      { r.found = true; r.isLong = false; r.topLine = bestShortLine; }
+   return true;
+  }
+
+//====================== [P-CONFIRM-SHADOW] log-only instruments ======================
+//--- Council build 1 (COUNCIL_RESPONSE_POI-R.md). These functions READ only and print
+//--- only. They are never consulted by any state transition, abort, or signal path.
+//--- RETESTBOOK: the per-line retest census - DetectPoiRetest returns only the
+//--- top-ranked line; this replicates its per-line test (the identical inequalities)
+//--- for ALL 12 lines so the supersession build's inputs become countable.
+void ShadowRetestBook(const int barShift)
+  {
+   if(!InpDebugLog || !SHADOW_RETESTBOOK) return;
+   double o = iOpen (_Symbol, PERIOD_CURRENT, barShift);
+   double h = iHigh (_Symbol, PERIOD_CURRENT, barShift);
+   double l = iLow  (_Symbol, PERIOD_CURRENT, barShift);
+   double c = iClose(_Symbol, PERIOD_CURRENT, barShift);
+   if(h <= 0.0 || l <= 0.0) return;
+   double cNext = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+   if(cNext <= 0.0) cNext = c;
+   double bodyHi = MathMax(o, cNext);
+   double bodyLo = MathMin(o, cNext);
+   double P   = _Point;
+   double EPS = P * 0.001;
+   string hits = "";
+   int    nHits = 0;
+   for(int k = 0; k < POI_NLINES; k++)
+     {
+      double L;
+      if(!ReadBuf1(g_hPoi, k, L, barShift)) continue;
+      if(L == EMPTY_VALUE || L <= 0.0)      continue;
+      bool longHit  = (l <= L - P + EPS && bodyLo >= L - EPS);
+      bool shortHit = (h >= L + P - EPS && bodyHi <= L + EPS);
+      if(!longHit && !shortHit) continue;
+      if(nHits > 0) hits += " ";
+      hits += g_lineCode[k] + ":r" + IntegerToString(g_authorityRank[k]) +
+              ":d" + (longHit ? "L" : "S");
+      nHits++;
+     }
+   PrintFormat("[SRJ-EA] RETESTBOOK bar=%s hits=%d %s",
+               TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                            TIME_DATE|TIME_MINUTES),
+               nHits, hits);
+  }
+//--- CONFIRMPOLL: the spec section 3.6 confirmation-candle terms, per bar, as data.
+//--- term A oppCandle: the PRIOR candle closed AGAINST the direction (the retracement/
+//---   opposing candle). term B bodyDir: the CURRENT candle closes IN the direction with
+//---   any nonzero body (only a true doji rejected - the section 3.6 rule). term C
+//---   touchAttr: the PRIOR candle touched the anchor line (wick through the line value).
+//--- confirm = A && B && C. This is the calibration surface for build 2's
+//--- IsConfirmationCandle; nothing here gates anything.
+void ShadowConfirmPoll(const int barShift, const int anchorLine, const ENUM_SRJ_DIR dir)
+  {
+   if(!InpDebugLog || !SHADOW_CONFIRMPOLL) return;
+   if(anchorLine < 0 || dir == DIR_NONE)   return;
+   double o1 = iOpen (_Symbol, PERIOD_CURRENT, barShift + 1);
+   double c1 = iClose(_Symbol, PERIOD_CURRENT, barShift + 1);
+   double h1 = iHigh (_Symbol, PERIOD_CURRENT, barShift + 1);
+   double l1 = iLow  (_Symbol, PERIOD_CURRENT, barShift + 1);
+   double o0 = iOpen (_Symbol, PERIOD_CURRENT, barShift);
+   double c0 = iClose(_Symbol, PERIOD_CURRENT, barShift);
+   if(o1 <= 0.0 || c1 <= 0.0 || o0 <= 0.0 || c0 <= 0.0) return;
+   double L;
+   if(!ReadBuf1(g_hPoi, anchorLine, L, barShift)) return;
+   if(L == EMPTY_VALUE || L <= 0.0)               return;
+   bool oppCandle = (dir == DIR_LONG)  ? (c1 < o1) : (c1 > o1);
+   double body    = MathAbs(c0 - o0);
+   bool   isDoji  = (body < _Point * 0.0001);
+   bool   bodyDir = (dir == DIR_LONG)  ? (c0 > o0) : (c0 < o0);
+   bool   touch   = (h1 >= L - _Point && l1 <= L + _Point);
+   bool   confirm = (oppCandle && bodyDir && !isDoji && touch);
+   PrintFormat("[SRJ-EA] CONFIRMPOLL bar=%s anchor=%s dir=%s oppCandle=%d bodyDir=%d "
+               "body=%dpts doji=%d touchAttr=%d confirm=%d shadow=true",
+               TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                            TIME_DATE|TIME_MINUTES),
+               g_lineCode[anchorLine], DirName(dir),
+               (int)oppCandle, (int)bodyDir, (int)MathRound(body / _Point),
+               (int)isDoji, (int)touch, (int)confirm);
+  }
+
+//--- [P-CONFIRM-GATE E1 2026-09-10] build 2: the confirmation predicate is now a
+//--- real function and the LIVE GATE (it replaces the poll-only role of
+//--- ShadowConfirmPoll above, which keeps printing the same terms as the gate's
+//--- trace - shadow=true naming for continuity). Terms (packet section 1; the
+//--- operator's ruled retracement term A2 included):
+//---   A  the prior candle (barShift+1) closed AGAINST dir (the retracement/
+//---      opposing candle);
+//---   A2 RULED: the prior candle's CLOSE stays on the SETUP SIDE of the anchor
+//---      line (a wick through is the retracement; a CLOSE through is a line
+//---      break - no confirmation after a break; LONG: close >= line;
+//---      SHORT: close <= line; applies to VWAP and POC alike);
+//---   B  the current candle (barShift) closes IN dir with any nonzero body
+//---      (only a true doji rejected - spec section 3.6);
+//---   C  the prior candle's range touched the anchor line (the CONFIRMPOLL
+//---      touchAttr test with its +/- 1 point guard).
+//--- failTerm names the FIRST failed term ("" = all terms passed).
+bool IsConfirmationCandle(const int barShift, const int anchorLine,
+                          const ENUM_SRJ_DIR dir, string &failTerm)
+  {
+   failTerm = "";
+   if(anchorLine < 0 || dir == DIR_NONE) { failTerm = "NO_ANCHOR"; return false; }
+   double o1 = iOpen (_Symbol, PERIOD_CURRENT, barShift + 1);
+   double c1 = iClose(_Symbol, PERIOD_CURRENT, barShift + 1);
+   double h1 = iHigh (_Symbol, PERIOD_CURRENT, barShift + 1);
+   double l1 = iLow  (_Symbol, PERIOD_CURRENT, barShift + 1);
+   double o0 = iOpen (_Symbol, PERIOD_CURRENT, barShift);
+   double c0 = iClose(_Symbol, PERIOD_CURRENT, barShift);
+   if(o1 <= 0.0 || c1 <= 0.0 || o0 <= 0.0 || c0 <= 0.0)
+      { failTerm = "NO_DATA"; return false; }
+   double L;
+   if(!ReadBuf1(g_hPoi, anchorLine, L, barShift))
+      { failTerm = "NO_LINE"; return false; }
+   if(L == EMPTY_VALUE || L <= 0.0)
+      { failTerm = "NO_LINE"; return false; }
+   bool oppCandle = (dir == DIR_LONG)  ? (c1 < o1) : (c1 > o1);
+   if(!oppCandle)  { failTerm = "A_OPP";          return false; }
+   bool closeSideOk = (dir == DIR_LONG) ? (c1 >= L) : (c1 <= L);
+   if(!closeSideOk) { failTerm = "A2_CLOSE_BREAK"; return false; }
+   double body    = MathAbs(c0 - o0);
+   bool   isDoji  = (body < _Point * 0.0001);
+   bool   bodyDir = (dir == DIR_LONG)  ? (c0 > o0) : (c0 < o0);
+   if(isDoji || !bodyDir) { failTerm = "B_BODY";  return false; }
+   bool touch = (h1 >= L - _Point && l1 <= L + _Point);
+   if(!touch)      { failTerm = "C_TOUCH";        return false; }
    return true;
   }
 
@@ -2108,6 +2291,12 @@ void ResetSequence()
    g_zoneLo         = 0.0;
    g_alertedArmed   = false;
    g_alertedSignal  = false;
+   g_latchedEntry   = 0.0;
+   g_latchedSl      = 0.0;
+   g_latchedTp      = 0.0;
+   g_latchedR       = 0.0;
+   g_latchBarTime   = 0;
+   g_confirmFromState = ST_IDLE;
   }
 
 void GoAbort(const string reason, ENUM_SRJ_STATE atState)
@@ -3280,6 +3469,25 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      s_t73_bars, s_t73_n, s_t73_opp, s_t73_higher, s_t73_both);
      }
 
+   //--- [P-CONFIRM-SHADOW] per-bar retest book + confirmation-candle terms. LOG ONLY -
+   //--- reads buffers and prints; assigns no state. With a candidate held, CONFIRMPOLL
+   //--- runs against the held anchor; in IDLE it polls the top-ranked same-direction
+   //--- retest of the bar (the seed's own input) so the calibration covers the pre-seed
+   //--- bars too.
+   if(InpDebugLog && (SHADOW_RETESTBOOK || SHADOW_CONFIRMPOLL) && inWindow)
+     {
+      ShadowRetestBook(barShift);
+      if(g_state > ST_IDLE && g_state != ST_ABORT && g_anchorLine >= 0)
+         ShadowConfirmPoll(barShift, g_anchorLine, g_dir);
+      else if(g_state == ST_IDLE)
+        {
+         PoiRetestResult sh_pr;
+         if(DetectPoiRetest(barShift, sh_pr) && sh_pr.found)
+            ShadowConfirmPoll(barShift, sh_pr.topLine,
+                              sh_pr.isLong ? DIR_LONG : DIR_SHORT);
+        }
+     }
+
    if(g_state == ST_IDLE)
      {
       if(!inWindow) return;
@@ -3874,7 +4082,41 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          if(InpDebugLog)
             PrintFormat("[SRJ-EA] %s S3 waiting: no qualifying zone",
                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-         return;
+         //--- [P-CONFIRM-ANYSTATE E1 2026-09-11, operator ruling verbatim: "if
+         //--- all my conditions are met, the trade is ON. The EA must take the
+         //--- confirmation candle whenever it appears (even while its own prep
+         //--- is unfinished), keeping the one-bar rule."] A PRE-BINDING
+         //--- candidate (S3_ZONE_WAIT: zone unbound or not in play) now ALSO
+         //--- evaluates the confirmation predicate at this bar's close. PASS ->
+         //--- promote DIRECTLY to ST_S5_GATE_CHECK (the S5 block below runs in
+         //--- this same pass: divergence walk -> R latch -> fire); FAIL -> the
+         //--- confirmation is consumed (no carry-forward; the candidate stays
+         //--- at S3). DECLARED: the pre-confirmation freshness poll cannot run
+         //--- pre-binding (it tests the BOUND zone), so a pre-bind firing
+         //--- proceeds without it; S2 candidates are OUTSIDE the ruled scope.
+         string cfTermPB = "";
+         if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermPB))
+           {
+            ENUM_SRJ_STATE prevPB = g_state;
+            g_confirmFromState = prevPB;
+            g_state = ST_S5_GATE_CHECK;
+            LogState(prevPB, g_state);
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] CONFIRM_PREBIND bar=%s dir=%s poi=%s",
+                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                        TIME_DATE|TIME_MINUTES),
+                           DirName(g_dir), AnchorStr());
+            //--- no return: fall through to the ST_S5_GATE_CHECK block below
+           }
+         else
+           {
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] CONFIRM_PREBIND_FAIL bar=%s dir=%s term=%s",
+                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                        TIME_DATE|TIME_MINUTES),
+                           DirName(g_dir), cfTermPB);
+            return;
+           }
         }
      }
 
@@ -3980,20 +4222,83 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         }
       else
         {
-         bool isDoji      = (MathAbs(c - o) < _Point * 0.0001);
-         bool closesInDir = (g_dir == DIR_LONG) ? (c > o) : (c < o);
-         if(!isDoji && closesInDir)
+         //--- [P-CONFIRM-GATE E2] the S4->S5 edge IS the confirmation predicate
+         //--- now (terms A/A2/B/C; the ruled retracement term A2: the prior
+         //--- candle's CLOSE stays on the setup side of the anchor line - a wick
+         //--- through is the retracement, a CLOSE through is a line break).
+         //--- One-bar validity: promotion happens ONLY on a true test bar; a
+         //--- failed term consumes the confirmation (no carry-forward) and a
+         //--- later bar can present a fresh confirmation while the candidate is
+         //--- alive and in-window. The touch fallback above STAYS (it sets
+         //--- g_touchSeen - the retracement detection; unchanged).
+         string cfTerm = "";
+         if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTerm))
            {
             ENUM_SRJ_STATE prev = g_state;
+            g_confirmFromState = prev;
             g_state = ST_S5_GATE_CHECK;
             LogState(prev, g_state);
            }
+         else if(InpDebugLog)
+            PrintFormat("[SRJ-EA] CONFIRM_STRUCT_FAIL bar=%s dir=%s term=%s",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                     TIME_DATE|TIME_MINUTES),
+                        DirName(g_dir), cfTerm);
         }
      }
 
    if(g_state == ST_S5_GATE_CHECK)
      {
-      bool divOk = g_divLatch;
+      //--- [P-CONFIRM-GATE E3 / operator robustness ruling 2026-09-10, verbatim:
+      //--- "please make the divergence detection more robust. i consider the
+      //--- latest CQD divergence, although that was from an older structure.
+      //--- WHICH EVER LAST."] The divergence term is a newest-first CQD verdict
+      //--- walk with NO BOUND - no seed-bar bound, no age limit. The FIRST
+      //--- nonzero verdict walking left IS the latest on the indicator, however
+      //--- old. This replaces the anchor-bounded g_divLatch in the firing path
+      //--- entirely (the per-bar g_divLatch machinery above stays - it is
+      //--- working-set state and a census field; the firing path no longer
+      //--- reads it).
+      bool   divOk    = false;
+      int    divVal   = 0;
+      string divKind  = "";
+      {
+       int maxWalk = Bars(_Symbol, PERIOD_CURRENT) - 1;
+       for(int s = barShift; s <= maxWalk; s++)
+         {
+          double verdict;
+          if(!ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, verdict, s)) continue;
+          if(verdict == EMPTY_VALUE) continue;
+          int v = (int)MathRound(verdict);
+          if(v == 0) continue;
+          divVal   = v;
+          divKind  = (MathAbs(v) == 1) ? "regular" : "hidden";
+          divOk    = (g_dir == DIR_LONG  && (v ==  1 || v ==  2)) ||
+                     (g_dir == DIR_SHORT && (v == -1 || v == -2));
+          break;
+         }
+      }
+      //--- [P-CONFIRM-GATE E3] one-bar validity, the divergence miss: the
+      //--- confirmation is CONSUMED and the candidate RETURNS TO S4_ARMED
+      //--- (CONFIRM_DIV_WAIT, no abort) - a fresh confirmation may present on
+      //--- a later bar. The old async wait ("S5 waiting: divLatch=0 tpOk=1")
+      //--- RETIRES.
+      if(!divOk)
+        {
+         if(InpDebugLog)
+            PrintFormat("[SRJ-EA] CONFIRM_DIV_WAIT bar=%s dir=%s verdict=%d",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                     TIME_DATE|TIME_MINUTES),
+                        DirName(g_dir), divVal);
+         ENUM_SRJ_STATE prevDiv = g_state;
+         //--- [P-CONFIRM-ANYSTATE E3] the rollback returns to the promotion
+         //--- origin: S3 for a pre-bind confirmation, S4 for the armed edge
+         //--- (identical to the build-2 behavior for the armed path).
+         g_state = (g_confirmFromState == ST_S3_ZONE_WAIT) ? ST_S3_ZONE_WAIT
+                                                           : ST_S4_ARMED;
+         LogState(prevDiv, g_state);
+         return;
+        }
 
       //--- [P-NEXTOPEN 2026-09-09, operator directive] The entry reference is
       //--- the NEXT candle's OPEN (the forming bar's open at this evaluation
@@ -4026,40 +4331,64 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       double tpDist = MathAbs(tpTarget - currentPrice);
       bool tpOk = (slDist > 0.0 && (tpDist / slDist) >= InpMinRewardRisk);
 
+      //--- [P-CONFIRM-GATE E3/E4] the R latch: measured ONCE at the confirmation
+      //--- close (entry = the next open, SL = the swing, TP = the closest line -
+      //--- the selector unchanged per the operator's ruling, "whichever is the
+      //--- closest"). Tested ONCE below: >= 1.0 fires; < 1.0 aborts TP_RR_FAIL
+      //--- with the latch values. NEVER recomputed - single-shot, so latch
+      //--- monotonicity holds by construction.
+      g_latchedEntry = currentPrice;
+      g_latchedSl    = slRef;
+      g_latchedTp    = tpTarget;
+      g_latchedR     = (slDist > 0.0) ? (tpDist / slDist) : 0.0;
+      g_latchBarTime = iTime(_Symbol, PERIOD_CURRENT, barShift);
+
+      //--- [P-CONFIRM-SHADOW] TP_ELECT: what WOULD be latched under the ruled rule
+      //--- (entry = the next open, SL = the swing, TP = the closest line - the selector
+      //--- unchanged per the operator's ruling, "whichever is the closest"). LOG ONLY -
+      //--- the latch itself is build 2+; this prints the would-be values each time the
+      //--- gate evaluates, so the calibration shows R at every bar the gate saw.
+      if(InpDebugLog && SHADOW_TP_ELECT)
+         PrintFormat("[SRJ-EA] TP_ELECT shadow=true entry=%s sl=%s tp=%s R=%.2f "
+                     "bar=%s latchBar=%s",
+                     DoubleToString(currentPrice, _Digits),
+                     DoubleToString(slRef, _Digits),
+                     DoubleToString(tpTarget, _Digits),
+                     (slDist > 0.0 ? tpDist / slDist : 0.0),
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                  TIME_DATE|TIME_MINUTES),
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT,
+                                   (barShift >= 1 ? barShift - 1 : 0)),
+                                  TIME_DATE|TIME_MINUTES));
+
       if(!tpOk)
         {
          if(InpDebugLog)
             PrintFormat("[SRJ-EA] %s S5_RR_SHORTFALL tpDist=%.5f slDist=%.5f R=%.2f",
                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS),
                         tpDist, slDist, (slDist > 0.0 ? tpDist / slDist : 0.0));
+         //--- [P-CONFIRM-GATE E5] TP_RR_FAIL keeps its name; the latch values
+         //--- are printed with it (the ruled 1R gate is a hard kill here - the
+         //--- latch is never recomputed on a later, more favourable bar).
+         if(InpDebugLog)
+            PrintFormat("[SRJ-EA] TP_RR_FAIL_LATCH bar=%s dir=%s entry=%s sl=%s tp=%s R=%.2f",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                     TIME_DATE|TIME_MINUTES),
+                        DirName(g_dir),
+                        DoubleToString(g_latchedEntry, _Digits),
+                        DoubleToString(g_latchedSl, _Digits),
+                        DoubleToString(g_latchedTp, _Digits),
+                        g_latchedR);
          GoAbort(ABORT_TP_RR_FAIL, g_state);
          return;
         }
 
-      if(!divOk)
-        {
-         if(InpDebugLog)
-            PrintFormat("[SRJ-EA] %s S5 waiting: divLatch=0 tpOk=1",
-                        TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-         return;
-        }
-
+      //--- [P-CONFIRM-GATE E3] the async wait RETIRES (one-bar validity): the
+      //--- divergence verdict was decided above at the confirmation close.
+      //--- divKind is the LATEST verdict's kind from the unbounded walk - if we
+      //--- are here, it is matched by construction (an opposing/absent verdict
+      //--- already rolled the candidate back to S4).
       double tpR = (slDist > 0.0) ? (tpDist / slDist) : 0.0;
-
-      string divKind = "regular";
-      {
-       double verdict;
-       for(int s = 1; s <= 50; s++)
-         {
-          if(iTime(_Symbol, PERIOD_CURRENT, s) < g_anchorBarTime) continue;
-          if(!ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, verdict, s)) continue;
-          if(verdict == EMPTY_VALUE) continue;
-          int v = (int)MathRound(verdict);
-          bool match = (g_dir == DIR_LONG  && (v == 1 || v == 2)) ||
-                       (g_dir == DIR_SHORT && (v == -1 || v == -2));
-          if(match) { divKind = (MathAbs(v) == 2) ? "hidden" : "regular"; break; }
-         }
-      }
 
       LogSignal(tpTarget, tpR, slRef, slMode, divKind);
 
