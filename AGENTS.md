@@ -122,14 +122,14 @@ Masters judge measurements on disk, never prose about them.
 ## 9. File map (current baselines 2026-09-11)
 
 - EA: `Experts\SRJ_FlowNexus_EA.mq5` =
-  `34BD7D82147CEABD365271790365AC87BBF7297BAC74DFF93A37017BEBAA4FF0`
-  (283725 B, RECON9-SWINGIMB2 FROZEN baseline, council-ACCEPTED;
-  supersedes 786CBDFF state).
+  `4B2FA10EA263420ED12C83D58B128AA53278A0E78611841B71AA55C4E9E97C8F`
+  (290162 B, RECON10-SWINGIMB3 FROZEN baseline, council-ACCEPTED
+  correct-under-conservative; supersedes 34BD7D82 state).
 - CQD: `Indicators\SRJ_CQD_TickBased_MT5.mq5` = `BE6FD84F...A421F` (50555 B).
 - OrderblockMgr: `Include\SRJ\SRJ_OrderblockMgr.mqh` = `D286621C...20B7B` (48050 B).
 - FlowLogic: `Indicators\SRJ_FlowLogic.mq5` = `3606BFB4...25911` (67515 B,
-  RECON9-SWINGIMB2 FROZEN baseline, council-ACCEPTED; buffer 39 OB swing
-  time + SWINGIMB_PROGRESS, naAlive=0).
+  RECON10-SWINGIMB3 FROZEN baseline, council-ACCEPTED, UNCHANGED since
+  RECON9; buffer 39 OB swing time + SWINGIMB_PROGRESS, naAlive=0).
 - ImbalanceMgr: `Include\SRJ\SRJ_ImbalanceMgr.mqh` = `F830AE5A...1196`
   (25478 B, T162_FVG run-verified; wick-shrink, shrink-only).
 - Types: `Include\SRJ\SRJ_Types.mqh` = `D542B458...F03` (13835 B;
@@ -180,11 +180,34 @@ Masters judge measurements on disk, never prose about them.
    TIMEOUT_60MIN, manual archive 16634 lines; gates 1-9 PASS: partition
    51/0/71/200/0/159/0/0/0, 168 accounted 91+77+0, SLIMBR 10/10 fresh,
    firing-set R cost stated 2.43->2.17 / 2.56->1.53 / 1.76->1.07 /
-   1.25->0.36; verdict + operator R decision pending). News table PINNED
+   1.25->0.36; VERDICT 2026-09-12: ACCEPTED correct-under-conservative,
+   RECON10 frozen (committed f07e4b1/8da1ad2 + tag Task162-T162SWINGIMB3,
+   backup verified; origin still pending). P-SLDEF-1 ISSUED (E11 fractal
+   limb + E12 four-column SLIMBR + E13 frame reconcile + E14 N1 counters;
+   no FlowLogic edit). Off-log reports owed with relay-back: sign counts
+   + live min-R + crossings. Governance ruling filed: hand journal may
+   motivate, never adjudicate (two-source standard). N1 CONFIRMED as
+   code-read (counters in E14). News table PINNED
    (11 rows, SHA256 5FFF5C76...EF1F134; span through 2026-12-31;
-   VWAP anchor = 21:00 broker bar confirmed). RECON9 committed
-   3b41355/897b6fb + tag Task162-T162SWINGIMB2, backup verified; origin
-   pending credential word.
+   VWAP anchor = 21:00 broker bar confirmed) — now critical-path per
+   council (frame convention must cover table timestamps).
+5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
+   journal correction): journal "swings" = FRACTAL swings (triangle
+   markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used
+   conservative OB+Swing (1SWING branch, buffer 27 + obValid). Operator
+   confirms: his manual Sep-7 NYAM journal (R 1.25, SL 15:15 low) was a
+   MIS-INPUT — the leg truly has no imbalance, so the code's conservative
+   answer (SL 1.16112, R 0.36, signal dies) is CORRECT under that
+   definition. Under fractal-only two-away, SL ~= 16:15 low (~1.16239,
+   R~2.45, signal lives). Price agreed (1.16218); bar label 15:15 vs
+   slot 14:55 is a non-blocking footnote. The decision is now binary and
+   the operator's: conservative (code stands as-is) vs fractal-only
+   (new definition packet needed; walk machinery is definition-agnostic,
+   R table recomputed on a fresh run). NO canonical edit until a council
+   definition packet issues. P-SWINGIMB-3 verdict UNPAUSED (measurements
+   stand as correct-under-conservative) + definition ruling requested.
+   N1 candidate: candle equal to VWAP/POI does not invalidate (code
+   inequalities confirm; Sep-7 fired and won).
 4. RECON Phase-2 re-run on the fixed build.
 5. Debris deletion word + git snapshot on explicit token only.
 
