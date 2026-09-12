@@ -2422,6 +2422,14 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
                    const string branch, const bool haveToday, const double todayV,
                    const int startShift, const double chosenV, const int fracShift = -1)
   {
+   //--- [P-NEWS-1 E22] decision-surface intersection census (read-only tally:
+   //--- SLIMB-walk invocations whose eval bar sits inside a blackout window).
+   if(g_news_init && InpDebugLog)
+     {
+      string nwk; int npos, nrow;
+      if(SrjInNewsBlackout(iTime(_Symbol, PERIOD_CURRENT, barShift), nwk, npos, nrow))
+        { g_news_slimbInWin++; if(site == "S5") g_news_s5InWin++; }
+     }
    string tToday = haveToday ? DoubleToString(todayV, _Digits) : "-";
    string tBase = "-", tNuance = "-", tDB = "-", tDN = "-";
    int tSteps = 0, tCode2 = 0, tExh = -1;
@@ -5712,6 +5720,257 @@ void EvaluateClosedBar(int barShift, datetime barTime)
      }
   }
 
+//====================== [P-NEWS-1 E20/E21/E22] news-blackout census =================
+//--- Print-only. No verdict moves, no selection changes, MTEXIT untouched.
+//--- E20 pinned table: 11 {eventTimeET, kind} rows transcribed from
+//--- DRAFT_NEWS-EVENTS-2026.csv @ SHA256 5FFF5C76...EF1F134. No broker-time
+//--- field, no stored offset: ET wall -> server at read time through
+//--- TC_ZoneToServer(..., TZ_NEWYORK), the same converter the session
+//--- windows use (US + server DST rules inside TickCore, evaluated on the
+//--- naive wall timestamp; event hours 08:30/14:00 ET never touch the
+//--- 02:00 transition hours, so the documented boundary-hour bound cannot
+//--- engage these rows). Accessors are switch-based: no init order, no
+//--- global-constructor dependence.
+//--- E21: SrjInNewsBlackout is THE predicate body. The census calls it now;
+//--- the exit side and the entry side will call the same body later. There
+//--- is no second implementation (E21 halt-1 satisfied by construction).
+//--- Window [newsBarOpen - 1*PS, newsBarOpen + 2*PS); newsBar containment
+//--- [barOpen, barOpen + PS). No literal minutes: the shape is PS multiples;
+//--- the /60 in offsetMinutes is a seconds-to-minutes unit, not a window term.
+#define SRJ_NEWS_ROWS 11
+#define SHADOW_NEWS true
+//--- Pilot range (server frame) for inWindow membership. From RECON1_P1 per
+//--- the packet's "full window" term — NOT derived from Bars()/iTime: those
+//--- return the full broker history depth (years), and iTime(0) at lazy-init
+//--- is the first bar, so data-derived bounds exclude every later window
+//--- (RECON12 measured rowsInWindow=0 on exactly this defect). If the packet
+//--- ever moves window, these two lines move with it.
+#define SRJ_PILOT_FROM D'2026.08.26 00:00'
+#define SRJ_PILOT_TO   D'2026.09.10 00:00'
+string SrjNewsET(const int i)
+   {
+    switch(i)
+      {
+       case  0: return "2026-09-04 08:30";
+       case  1: return "2026-09-11 08:30";
+       case  2: return "2026-09-16 14:00";
+       case  3: return "2026-10-02 08:30";
+       case  4: return "2026-10-14 08:30";
+       case  5: return "2026-10-28 14:00";
+       case  6: return "2026-11-06 08:30";
+       case  7: return "2026-11-10 08:30";
+       case  8: return "2026-12-04 08:30";
+       case  9: return "2026-12-09 14:00";
+       case 10: return "2026-12-10 08:30";
+      }
+    return "";
+   }
+string SrjNewsKind(const int i)
+   {
+    switch(i)
+      {
+       case  0: return "NFP";
+       case  1: return "CPI";
+       case  2: return "FOMC";
+       case  3: return "NFP";
+       case  4: return "CPI";
+       case  5: return "FOMC";
+       case  6: return "NFP";
+       case  7: return "CPI";
+       case  8: return "NFP";
+       case  9: return "FOMC";
+       case 10: return "CPI";
+      }
+    return "";
+   }
+//--- "YYYY-MM-DD HH:MM" -> naive wall datetime. StringToTime is server-frame
+//--- so the pinned format is parsed manually; the result is NEVER passed to
+//--- iTime/CopyBuffer without TC_ZoneToServer first.
+datetime SrjNewsEtWall(const int i)
+   {
+    string s = SrjNewsET(i);
+    int y  = (int)StringSubstr(s, 0, 4);
+    int mo = (int)StringSubstr(s, 5, 2);
+    int d  = (int)StringSubstr(s, 8, 2);
+    int h  = (int)StringSubstr(s, 11, 2);
+    int mi = (int)StringSubstr(s, 14, 2);
+    return TC_MakeTime(y, mo, d, h, mi);
+   }
+datetime g_news_newsBar[SRJ_NEWS_ROWS];
+datetime g_news_winS[SRJ_NEWS_ROWS];
+datetime g_news_winE[SRJ_NEWS_ROWS];
+int      g_news_offMin[SRJ_NEWS_ROWS];
+int      g_news_inWin[SRJ_NEWS_ROWS];
+int      g_news_halted[SRJ_NEWS_ROWS];
+int      g_news_rowSnap[SRJ_NEWS_ROWS];
+int      g_news_nWin = 0;
+int      g_news_overlaps = 0;
+string   g_news_overlapList = "";
+bool     g_news_init = false;
+int      g_news_memberBars = 0;
+int      g_news_slimbInWin = 0;
+int      g_news_s5InWin = 0;
+int      g_news_flatNews = 0;
+int      g_news_flatDay = 0;
+int      g_news_flatWeek = 0;
+datetime g_news_dayMarks[32];
+int      g_news_dayDone[32];
+int      g_news_dayN = 0;
+string   g_news_friET = "";
+datetime g_news_friMarks[8];
+int      g_news_friDone[8];
+int      g_news_friN = 0;
+bool SrjInNewsBlackout(const datetime barOpen, string &kindOut, int &posOut, int &rowOut)
+   {
+    kindOut = "-"; posOut = -1; rowOut = -1;
+    if(!g_news_init) return false;
+    long ps = (long)PeriodSeconds(PERIOD_CURRENT);
+    for(int i = 0; i < SRJ_NEWS_ROWS; i++)
+      {
+       if(g_news_inWin[i] == 0 || g_news_halted[i] == 1) continue;
+       if(barOpen < g_news_winS[i] || barOpen >= g_news_winE[i]) continue;
+       kindOut = SrjNewsKind(i); rowOut = i;
+       if(barOpen < g_news_newsBar[i]) posOut = 0;
+       else if(barOpen < g_news_newsBar[i] + ps) posOut = 1;
+       else posOut = 2;
+       return true;
+      }
+    return false;
+   }
+//--- Lazy init on the first closed bar. Conversions need no history; the E21
+//--- gap check does NOT run here (tester series only extend to the current
+//--- bar — September bars don't exist yet on the first August bar, and a
+//--- check now would false-halt; RECON12b measured exactly that). Pilot
+//--- range is SRJ_PILOT_FROM/TO.
+void SrjNewsInit()
+   {
+    if(g_news_init) return;
+    g_news_init = true;
+    long ps = (long)PeriodSeconds(PERIOD_CURRENT);
+    for(int i = 0; i < SRJ_NEWS_ROWS; i++)
+      {
+       datetime wall = SrjNewsEtWall(i);
+       datetime srv  = TC_ZoneToServer(wall, TZ_NEWYORK);
+       g_news_offMin[i] = (int)(((long)srv - (long)wall) / 60);
+       datetime nb = (datetime)(((long)srv / ps) * ps);
+       g_news_newsBar[i] = nb;
+       g_news_winS[i] = (datetime)((long)nb - ps);
+       g_news_winE[i] = (datetime)((long)nb + 2 * ps);
+       g_news_inWin[i] = (g_news_winE[i] > SRJ_PILOT_FROM && g_news_winS[i] < SRJ_PILOT_TO) ? 1 : 0;
+       g_news_halted[i] = 0;
+       g_news_rowSnap[i] = 0;
+      }
+    //--- Day marks: 16:55 ET (= 17:00 daily close minus 5 min, the dayFlat
+    //--- census definition, quoted in BLACKOUT_CENSUS) per calendar date in
+    //--- range; Friday marks: 17:00 ET (the weekFlat census definition). Both
+    //--- resolved through the same converter. Noon-dow is zone-safe: at
+    //--- midday the ET and server dates always agree.
+    g_news_dayN = 0;
+    g_news_friN = 0;
+    g_news_friET = "";
+    datetime cur = TC_DayStart(SRJ_PILOT_FROM);
+    while(cur < SRJ_PILOT_TO && g_news_dayN < 32)
+      {
+       MqlDateTime dd; TimeToStruct(cur, dd);
+       g_news_dayMarks[g_news_dayN] = TC_ZoneToServer(TC_MakeTime(dd.year, dd.mon, dd.day, 16, 55), TZ_NEWYORK);
+       g_news_dayDone[g_news_dayN] = 0;
+       g_news_dayN++;
+       MqlDateTime noon; TimeToStruct(TC_MakeTime(dd.year, dd.mon, dd.day, 12, 0), noon);
+       if(noon.day_of_week == 5 && g_news_friN < 8)
+         {
+          g_news_friMarks[g_news_friN] = TC_ZoneToServer(TC_MakeTime(dd.year, dd.mon, dd.day, 17, 0), TZ_NEWYORK);
+          g_news_friDone[g_news_friN] = 0;
+          g_news_friN++;
+          string one = StringFormat("%04d-%02d-%02d 17:00", dd.year, dd.mon, dd.day);
+          g_news_friET += ((g_news_friET == "") ? "" : "|") + one;
+         }
+       cur = TC_ShiftDayStart(cur, 1);
+      }
+   }
+//--- "Open" for the flat census. g_mtrade.active is STICKY: it is set at
+//--- fill and cleared only by the next fill's MtReset, so a closed trade
+//--- still reads active. state goes MT_CLOSED at close (normal path). Both
+//--- conditions together are the true open interval (RECON12b overcounted
+//--- dayFlat 12 and weekFlat 2 on the sticky flag alone).
+bool SrjNewsIsOpen()
+   {
+    return (g_mtrade.active && g_mtrade.state != MT_CLOSED);
+   }
+//--- End-of-run row finalization. Full history exists now, so the E21 gap
+//--- check is sound: the event instant must sit inside a real bar (exact
+//--- containment, never snapped). Halted rows print HALT plus their ROW
+//--- with inWindow=0 and are excluded from every expectation.
+void SrjNewsFinalize()
+   {
+    long ps = (long)PeriodSeconds(PERIOD_CURRENT);
+    g_news_nWin = 0;
+    for(int i = 0; i < SRJ_NEWS_ROWS; i++)
+      {
+       if(g_news_inWin[i] == 1)
+         {
+          datetime srv = TC_ZoneToServer(SrjNewsEtWall(i), TZ_NEWYORK);
+          if(iBarShift(_Symbol, PERIOD_CURRENT, srv, true) < 0)
+            {
+             g_news_halted[i] = 1; g_news_inWin[i] = 0;
+             string haltLine = StringFormat("[SRJ-EA] BLACKOUT_HALT_ROW kind=%s eventTimeET=%s reason=GAP_NO_BAR",
+                                            SrjNewsKind(i), SrjNewsET(i));
+             LwAudit("BLACKOUT_HALT", haltLine);
+             Print(haltLine);
+            }
+          else
+             g_news_nWin++;
+         }
+       int spanned = (int)(((long)g_news_winE[i] - (long)g_news_winS[i]) / ps);
+       string rl = StringFormat("[SRJ-EA] BLACKOUT_ROW kind=%s eventTimeET=%s newsBarOpen=%s windowStart=%s windowEnd=%s offsetMinutes=%d inWindow=%d barsSpanned=%d",
+                                SrjNewsKind(i), SrjNewsET(i),
+                                TimeToString(g_news_newsBar[i], TIME_DATE|TIME_MINUTES),
+                                TimeToString(g_news_winS[i], TIME_DATE|TIME_MINUTES),
+                                TimeToString(g_news_winE[i], TIME_DATE|TIME_MINUTES),
+                                g_news_offMin[i], g_news_inWin[i], spanned);
+       LwAudit("BLACKOUT_ROW", rl);
+       Print(rl);
+      }
+    for(int a = 0; a < SRJ_NEWS_ROWS; a++)
+        for(int b = a + 1; b < SRJ_NEWS_ROWS; b++)
+           if(g_news_inWin[a] == 1 && g_news_inWin[b] == 1 &&
+              g_news_winS[a] < g_news_winE[b] && g_news_winS[b] < g_news_winE[a])
+             { g_news_overlaps++; g_news_overlapList += ((g_news_overlaps > 1) ? "|" : "") + SrjNewsKind(a) + "@" + SrjNewsET(a) + "x" + SrjNewsKind(b) + "@" + SrjNewsET(b); }
+   }
+//--- Per-closed-bar census hook. Read-only: counts and prints only. Called at
+//--- the END of OnTick so g_mtrade reflects the settled post-eval state.
+void SrjNewsOnBar(const datetime barTime)
+   {
+    string k; int pos, row;
+    if(SrjInNewsBlackout(barTime, k, pos, row))
+      {
+       g_news_memberBars++;
+       string bl = StringFormat("[SRJ-EA] BLACKOUT_BAR barTime=%s kind=%s pos=%s",
+                                TimeToString(barTime, TIME_DATE|TIME_MINUTES), k,
+                                (pos == 0) ? "PRE" : ((pos == 1) ? "NEWS" : "POST"));
+       LwAudit("BLACKOUT_BAR", bl);
+       Print(bl);
+      }
+    //--- Flat populations, edge-triggered, once each. "Open" = SrjNewsIsOpen().
+    for(int i = 0; i < SRJ_NEWS_ROWS; i++)
+      {
+       if(g_news_inWin[i] == 0 || g_news_rowSnap[i] == 1) continue;
+       if(barTime >= g_news_winS[i])
+         { g_news_rowSnap[i] = 1; if(SrjNewsIsOpen()) g_news_flatNews++; }
+      }
+    for(int d = 0; d < g_news_dayN; d++)
+      {
+       if(g_news_dayDone[d] == 1) continue;
+       if(barTime >= g_news_dayMarks[d])
+         { g_news_dayDone[d] = 1; if(SrjNewsIsOpen()) g_news_flatDay++; }
+      }
+    for(int f = 0; f < g_news_friN; f++)
+      {
+       if(g_news_friDone[f] == 1) continue;
+       if(barTime >= g_news_friMarks[f])
+         { g_news_friDone[f] = 1; if(SrjNewsIsOpen()) g_news_flatWeek++; }
+      }
+   }
+
 //====================== OnInit =========================================
 int OnInit()
   {
@@ -5775,7 +6034,7 @@ int OnInit()
    if(g_hPoi == INVALID_HANDLE || g_hCqd == INVALID_HANDLE || g_hFlow == INVALID_HANDLE)
      { Print("[SRJ-EA] OnInit FAILED: one or more iCustom handles are invalid."); return INIT_FAILED; }
    ResetSequence();
-   //--- [P-SLDEF-1 E13 + amendment] FRAME_NOTE, once per run: the three
+   //--- [P-SLDEF-1 E13 + amendment] FRAME_NOTE, once per run: the four
    //--- conventions a later session could silently invert. (1) Slot frame:
    //--- every printed shift is ReadFlow frame, CopyBuffer position =
    //--- eval shift + FLOW_SHIFT_OFFSET (the settled slot). (2) Apex frame: a
@@ -5784,17 +6043,30 @@ int OnInit()
    //--- (3) Protective sign: raw deltaPts is (ref - today) in points, so
    //--- LONG-protective prints negative and SHORT-protective positive;
    //--- outwardPts = LONG ? -delta : +delta normalizes to outward-positive.
+   //--- (4) Population identity [P-NEWS-1 verdict rule]: every gate count
+   //--- names its population in the same sentence - input-side (guard
+   //--- applications, raw encounters) vs result-side (post-walk values).
    //--- Labels (bar=, barTime) are server time via iTime/TimeToString.
    //--- THRESHOLD: the live minimum-R is an artifact of the run. Source is
    //--- "ini" when the value differs from the compiled default (an ini-set
    //--- 1.0 is indistinguishable - recorded as compiled_default).
    string frame_note = StringFormat("[SRJ-EA] FRAME_NOTE offset=%d apex=s+%d labels=server-time "
                "protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) "
+               "populations=inputVsResultNamed "
                "THRESHOLD minRewardRisk=%.2f source=%s",
                FLOW_SHIFT_OFFSET, FLOW_SHIFT_OFFSET, InpMinRewardRisk,
                ((InpMinRewardRisk == 1.0) ? "compiled_default" : "ini"));
    LwAudit("FRAME_NOTE", frame_note);
    Print(frame_note);
+   //--- [P-NEWS-1 E20] pinned-table note, once per run. Digest is a source
+   //--- string constant (the human check); the BLACKOUT_ROW emissions at the
+   //--- first bar are the audit artifact. No history needed here.
+   string table_note = StringFormat("[SRJ-EA] TABLE_NOTE rows=%d digest=%s anchor=%s",
+                                    SRJ_NEWS_ROWS,
+                                    "5FFF5C762DABCAB7811C598D8B16942BBCBD5F9D94C91D0BB54CF8C36EF1F134",
+                                    "21:00_broker");
+   LwAudit("TABLE_NOTE", table_note);
+   Print(table_note);
    Print("[SRJ-EA] Initialised.");
    return INIT_SUCCEEDED;
   }
@@ -5891,12 +6163,30 @@ void OnDeinit(const int reason)
       //--- [P-SLDEF-1b E15] width audit, once per run per class. truncated
       //--- nonzero halts (gate 7). DECISION excluded by design (one multi-line
       //--- emission of individually short physical lines).
+      //--- [P-NEWS-1 verdict rule] the class value is QUOTED: a bare
+      //--- class=SLIMB token self-matches the data pattern `SLIMB ` that the
+      //--- audit exists to check (RECON11b BADFMT=1x3 artifact). Tabulation
+      //--- scopes data patterns to the `[SRJ-EA] <CLASS>` line head instead.
       for(int lw_i = 0; lw_i < g_lw_n; lw_i++)
-         PrintFormat("[SRJ-EA] LINEWIDTH class=%s max=%d cap=%d truncated=%d",
+         PrintFormat("[SRJ-EA] LINEWIDTH class=\"%s\" max=%d cap=%d truncated=%d",
                      g_lw_class[lw_i], g_lw_max[lw_i], LW_CAP, g_lw_trunc[lw_i]);
       //--- [P-SLDEF-1b E18] S5 carve-out counts per limb (gate 11).
       PrintFormat("[SRJ-EA] SLIMBCARVE_FINAL ob=%d fr=%d",
                   g_slimbr_carveOB, g_slimbr_carveFR);
+      //--- [P-NEWS-1 E22] blackout census, end of run. Flat definitions:
+      //--- news = managed record open at a windowStart; day = open at
+      //--- 16:55 ET (17:00 daily close minus 5 min); week = open at the
+      //--- quoted Friday 17:00 ET. "Open" = SrjNewsIsOpen().
+      SrjNewsFinalize();
+      int news_expected = 3 * g_news_nWin;
+      string bcen = StringFormat("[SRJ-EA] BLACKOUT_CENSUS rows=%d rowsInWindow=%d memberBars=%d expected=%d mismatch=%d overlaps=%d slimbInWindow=%d s5InWindow=%d newsFlatCandidates=%d dayFlatCandidates=%d weekFlatCandidates=%d dailyCloseET=%s fridayET=%s",
+                  SRJ_NEWS_ROWS, g_news_nWin, g_news_memberBars, news_expected,
+                  g_news_memberBars - news_expected, g_news_overlaps,
+                  g_news_slimbInWin, g_news_s5InWin,
+                  g_news_flatNews, g_news_flatDay, g_news_flatWeek,
+                  "17:00", g_news_friET);
+      LwAudit("BLACKOUT_CENSUS", bcen);
+      Print(bcen);
       //--- [P-SLDEF-1 E12] the decision artifact: same S5 numbers, formatted
       //--- for a decision (today | base | nuance | fractal | fractalNuance).
       PrintFormat("[SRJ-EA] SLIMBR_DECISION rows=%d\n%s",
@@ -6166,5 +6456,9 @@ void OnTick()
    //--- and AFTER the working-set store (it touches NO working-set field - section 7
    //--- separation). Evaluates the managed trade at the NEXT candle's open.
    EvaluateManagedTrade(1);
+   //--- [P-NEWS-1 E22] blackout census hook, last: observes the settled state.
+   SrjNewsInit();
+   if(InpDebugLog && SHADOW_NEWS)
+      SrjNewsOnBar(currentBarTime);
   }
 //+------------------------------------------------------------------+
