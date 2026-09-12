@@ -987,6 +987,65 @@ string           g_slimbr_site    = "";
 double           g_slimbr_base    = 0.0;
 double           g_slimbr_nuance  = 0.0;
 string           g_slimbr_class   = "";
+//--- [P-SLDEF-1 E11/E12] fractal-limb shadows + decision accumulator. Same
+//--- hard boundary as above: never in ResetSequence, never working set.
+double           g_slimbr_fracBase    = 0.0;
+double           g_slimbr_fracNuance  = 0.0;
+string           g_slimbr_fracClass   = "";
+string           g_slimbr_decision    = "";
+int              g_slimbr_decisionN   = 0;
+//--- [P-SLDEF-1 E14] N1 equality counters (code-read grounding, no branching).
+int              g_n1_poiEqBody = 0;
+int              g_n1_poiEqWick = 0;
+int              g_n1_vwapEq    = 0;
+int              g_n1_pocEq     = 0;
+//--- [P-SLDEF-1b E19] N1 verdict pairing: each equality family paired with the
+//--- site's resulting verdict. No comparison changes; every increment below
+//--- sits beside (never inside) a branch. Verdict definitions: entry site =
+//--- DetectPoiRetest's return (true = setup lived despite equality); A2 site =
+//--- function return (true = confirmation lived); exit site = the EXITCENSUS
+//--- line verdict (ok = equality did not break, BREAK = coincided with break).
+//--- surv+inv per family reproduces the unpaired counter exactly.
+int              g_n1_entryWickSurv = 0;
+int              g_n1_entryWickInv  = 0;
+int              g_n1_entryBodySurv = 0;
+int              g_n1_entryBodyInv  = 0;
+int              g_n1_vwapSurv = 0;
+int              g_n1_vwapInv  = 0;
+int              g_n1_pocSurv  = 0;
+int              g_n1_pocInv   = 0;
+int              g_n1_exitBodySurv = 0;
+int              g_n1_exitBodyInv  = 0;
+//--- [P-SLDEF-1b E18] carve-out operand shadows: stamped by SlimbWalkEmit per
+//--- limb whenever that limb's walk fires the carve-out (class CARVEOUT_FIRED),
+//--- read once per S5 invocation for the SLIMBRCARVE companion print. Same hard
+//--- boundary as the SLIMBR shadows above. retV = retained reference (anchor);
+//--- skip = the newer walked-past swing (wick-only more-extreme); bodyS = its
+//--- body extreme through ApexShift; bodyThru = core's body comparison (1/0).
+double           g_slimbr_obRetV     = 0.0;
+int              g_slimbr_obSkipS    = -1;
+double           g_slimbr_obSkipV    = 0.0;
+int              g_slimbr_obSkipF    = -1;
+string           g_slimbr_obBodyS    = "-";
+int              g_slimbr_obBodyThru = -1;
+double           g_slimbr_frRetV     = 0.0;
+int              g_slimbr_frSkipS    = -1;
+double           g_slimbr_frSkipV    = 0.0;
+int              g_slimbr_frSkipF    = -1;
+string           g_slimbr_frBodyS    = "-";
+int              g_slimbr_frBodyThru = -1;
+int              g_slimbr_carveOB = 0;
+int              g_slimbr_carveFR = 0;
+//--- [P-SLDEF-1b E15] LINEWIDTH audit: the Tester journal truncates past ~537
+//--- chars, measured on RECON11. Every shadow-line emission below is measured
+//--- pre-write; any emission longer than the cap increments truncated (gate 7
+//--- halts on nonzero). DECISION is excluded: one multi-line emission whose
+//--- physical lines are individually short (auditing the whole would false-halt).
+#define LW_CAP 537
+string           g_lw_class[16];
+int              g_lw_max[16];
+int              g_lw_trunc[16];
+int              g_lw_n = 0;
 
 //--- TASK 15: read-only shadow of a candidate that died at regime or LTF
 //--- alignment. Measures how many of those 42 aborts would have converted
@@ -1654,23 +1713,35 @@ bool DetectPoiRetest(int barShift, PoiRetestResult &r)
       if(!ReadBuf1(g_hPoi, k, lineVal[k], barShift))
          lineVal[k] = EMPTY_VALUE;
      }
-   int bestLongRank = INT_MAX, bestLongLine = -1;
-   int bestShortRank = INT_MAX, bestShortLine = -1;
-   for(int k = 0; k < POI_NLINES; k++)
-     {
-      double L = lineVal[k];
-      if(L == EMPTY_VALUE || L <= 0.0) continue;
-      if(l <= L - P + EPS && bodyLo >= L - EPS)
+    int bestLongRank = INT_MAX, bestLongLine = -1;
+    int bestShortRank = INT_MAX, bestShortLine = -1;
+    //--- [P-SLDEF-1b E19] per-call equality instances for verdict pairing.
+    int n1e_nW = 0, n1e_nB = 0;
+    for(int k = 0; k < POI_NLINES; k++)
+      {
+       double L = lineVal[k];
+       if(L == EMPTY_VALUE || L <= 0.0) continue;
+       //--- [P-SLDEF-1 E14] N1 counters: exact-equality encounters, counted
+       //--- without branching (outcome untouched). Grounding: LONG survives
+       //--- iff the wick pierces (l <= L-P+EPS) AND the body holds
+       //--- (bodyLo >= L-EPS); equality on either term passes. SHORT mirror.
+        if(l == L || h == L) { g_n1_poiEqWick++; n1e_nW++; }
+        if(bodyLo == L || bodyHi == L) { g_n1_poiEqBody++; n1e_nB++; }
+       if(l <= L - P + EPS && bodyLo >= L - EPS)
         { int rk = g_authorityRank[k]; if(rk < bestLongRank) { bestLongRank = rk; bestLongLine = k; } }
       if(h >= L + P - EPS && bodyHi <= L + EPS)
         { int rk = g_authorityRank[k]; if(rk < bestShortRank) { bestShortRank = rk; bestShortLine = k; } }
      }
-   if(bestLongLine < 0 && bestShortLine < 0) return false;
-   if(bestLongLine >= 0 && (bestShortLine < 0 || bestLongRank <= bestShortRank))
-     { r.found = true; r.isLong = true;  r.topLine = bestLongLine; }
-   else
-     { r.found = true; r.isLong = false; r.topLine = bestShortLine; }
-   return true;
+    if(bestLongLine < 0 && bestShortLine < 0)
+      { g_n1_entryWickInv += n1e_nW; g_n1_entryBodyInv += n1e_nB; return false; }
+    if(bestLongLine >= 0 && (bestShortLine < 0 || bestLongRank <= bestShortRank))
+      { r.found = true; r.isLong = true;  r.topLine = bestLongLine; }
+    else
+      { r.found = true; r.isLong = false; r.topLine = bestShortLine; }
+    //--- [P-SLDEF-1b E19] the retest lived: every equality instance in this
+    //--- call survived (the setup proceeded despite it).
+    g_n1_entryWickSurv += n1e_nW; g_n1_entryBodySurv += n1e_nB;
+    return true;
   }
 
 //====================== [P-BUILD3 E1 2026-09-11] the line supersession helpers ==
@@ -1819,19 +1890,31 @@ bool IsConfirmationCandle(const int barShift, const int anchorLine,
    double L;
    if(!ReadBuf1(g_hPoi, anchorLine, L, barShift))
       { failTerm = "NO_LINE"; return false; }
-   if(L == EMPTY_VALUE || L <= 0.0)
-      { failTerm = "NO_LINE"; return false; }
-   bool oppCandle = (dir == DIR_LONG)  ? (c1 < o1) : (c1 > o1);
-   if(!oppCandle)  { failTerm = "A_OPP";          return false; }
-   bool closeSideOk = (dir == DIR_LONG) ? (c1 >= L) : (c1 <= L);
-   if(!closeSideOk) { failTerm = "A2_CLOSE_BREAK"; return false; }
-   double body    = MathAbs(c0 - o0);
-   bool   isDoji  = (body < _Point * 0.0001);
-   bool   bodyDir = (dir == DIR_LONG)  ? (c0 > o0) : (c0 < o0);
-   if(isDoji || !bodyDir) { failTerm = "B_BODY";  return false; }
-   bool touch = (h1 >= L - _Point && l1 <= L + _Point);
-   if(!touch)      { failTerm = "C_TOUCH";        return false; }
-   return true;
+    if(L == EMPTY_VALUE || L <= 0.0)
+       { failTerm = "NO_LINE"; return false; }
+    //--- [P-SLDEF-1 E14] N1 counters at the VWAP/POC site. Grounding: A2
+    //--- needs c1 >= L (LONG) / c1 <= L (SHORT) - "applies to VWAP and POC
+    //--- alike": exact equality passes. Family by line code.
+    //--- [P-SLDEF-1b E19] A2 verdict flags: set where equality is encountered,
+    //--- paired at each terminal return below (no branch touched).
+    bool n1_vw = false, n1_poc = false;
+    if(c1 == L)
+      {
+       if(StringFind(g_lineCode[anchorLine], "VWAP") >= 0) { g_n1_vwapEq++; n1_vw = true; }
+       if(StringFind(g_lineCode[anchorLine], "POC") >= 0) { g_n1_pocEq++; n1_poc = true; }
+      }
+    bool oppCandle = (dir == DIR_LONG)  ? (c1 < o1) : (c1 > o1);
+    if(!oppCandle)  { failTerm = "A_OPP"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
+    bool closeSideOk = (dir == DIR_LONG) ? (c1 >= L) : (c1 <= L);
+    if(!closeSideOk) { failTerm = "A2_CLOSE_BREAK"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
+    double body    = MathAbs(c0 - o0);
+    bool   isDoji  = (body < _Point * 0.0001);
+    bool   bodyDir = (dir == DIR_LONG)  ? (c0 > o0) : (c0 < o0);
+    if(isDoji || !bodyDir) { failTerm = "B_BODY"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
+    bool touch = (h1 >= L - _Point && l1 <= L + _Point);
+    if(!touch)      { failTerm = "C_TOUCH"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
+    if(n1_vw) g_n1_vwapSurv++; if(n1_poc) g_n1_pocSurv++;
+    return true;
   }
 
 //====================== Step 1: Regime classification ================
@@ -2099,6 +2182,8 @@ bool FindNearestSwing(int bufIdx, int evalShift, double &outVal, int &foundShift
 //--- [P-SWINGIMB-2 E6] one named helper; every price read of a swing's own
 //--- bar goes through it.
 int ApexShift(const int evalShift) { return evalShift + FLOW_SHIFT_OFFSET; }
+//--- [P-SLDEF-1 E13] forward declaration: defined beside the walk core below.
+string SlimbShiftT(const int s);
 
 string SlimbTuple(const int s, const double v, const string flagS,
                   const ENUM_SRJ_DIR dir, const double refV)
@@ -2121,11 +2206,13 @@ void SlimbEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
       (latFlagV == 0 || latFlagV == 1 || latFlagV == 2))
       nuanceCls = ((obValidI == 1) ? "OB_VALID_" : "OB_DEAD_")
                   + ((latFlagV == 0) ? "LATEST_NOIMB" : "LATEST_IMB");
-   PrintFormat("[SRJ-EA] SLIMB fields=16 bar=%s site=%s dir=%s branch=%s obValid=%d slRef=%s slShift=%d latestFlag=%d latestShift=%d latestAvail=%d latestApexMatch=%d chosenFlag=%d chosenShift=%d chosenAvail=%d nuanceClass=%s cands=%s",
+   string slimb_line = StringFormat("[SRJ-EA] SLIMB fields=19 bar=%s site=%s dir=%s branch=%s obValid=%d slRef=%s slShift=%d slShiftT=%s latestFlag=%d latestShift=%d latestShiftT=%s latestAvail=%d latestApexMatch=%d chosenFlag=%d chosenShift=%d chosenShiftT=%s chosenAvail=%d nuanceClass=%s cands=%s",
                TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
-               site, DirName(dir), branch, obValidI, slRefS, slShiftV,
-               latFlagV, latShiftV, latAvailI, apexMatchI,
-               chFlagV, chShiftV, chAvailI, nuanceCls, candsS);
+               site, DirName(dir), branch, obValidI, slRefS, slShiftV, SlimbShiftT(slShiftV),
+               latFlagV, latShiftV, SlimbShiftT(latShiftV), latAvailI, apexMatchI,
+               chFlagV, chShiftV, SlimbShiftT(chShiftV), chAvailI, nuanceCls, candsS);
+   LwAudit("SLIMB", slimb_line);
+   Print(slimb_line);
   }
 
 //====================== [P-SWINGIMB-3 E8/E9] SLIMBWALK shadow =================
@@ -2155,126 +2242,289 @@ void SlimbEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
 //--- Council Q2 assertion (no per-candidate side test): sideViolations counts
 //--- any of slToday/slBase/slNuance on the non-protective side of slCurPx
 //--- (the eval-bar close, same value as ComputeSlReference's slCurPx).
+//====================== [P-SLDEF-1 E11] parameterized walk core =================
+//--- E11.1: ONE walk implementation taking the anchor as arguments. The OB limb
+//--- calls it with (chosenShift, chosenV); the fractal limb with (latestShift,
+//--- latestVal). todayV stays the deltas/class origin on both limbs so the two
+//--- columns are comparable. Zero-step (anchor flag 1) returns the ANCHOR price
+//--- (ruling b: a qualifying anchor is not walked past); on the OB limb
+//--- anchorV==todayV, so RECON10 behavior is reproduced exactly.
+struct SlimbWalkOut
+  {
+   double baseV;
+   double nuanceV;
+   int    steps;
+   int    code2;
+   int    exh;
+   int    skipS;
+   double skipV;
+   int    skipF;
+   string bodyS;
+   int    extNQ;
+   int    c3;
+   int    anchorF;
+   int    eqB;
+   int    eqN;
+   int    eqBN;
+    string cls;
+    bool   haveVals;
+    //--- [P-SLDEF-1b E18] carve-out operands for the SLIMBRCARVE print. Walk
+    //--- logic untouched: retV is the anchor the walk started from, carve and
+    //--- bodyThru are the skip-block's own verdicts, exported, never re-decided.
+    double retV;
+    int    carve;
+    int    bodyThru;
+   };
+
+//--- Total class mapping (E9, shared by both limbs per E11.7): all eight cells
+//--- named; believed-unreachable cells are UNCLASSIFIED, never a neighbour.
+//--- [P-SLDEF-1b E16] ONE protective-side expression for the whole file. This
+//--- is the Task-75 side-guard expression verbatim (threshold-free: WHICH SIDE
+//--- of the eval-bar close the reference lies on, never how far). Both the
+//--- Task-75 selection site and the fractal-anchor shadow guard call it, so no
+//--- second side test exists anywhere. E16.1 compliance route: extraction, not
+//--- duplication; the Task-75 call site below passes identical operands, so
+//--- its boolean is provably unchanged (and gate 4's OB join re-proves it).
+bool SlimbProtectiveSideOk(const ENUM_SRJ_DIR dir, const double refV, const double curPx)
+   {
+    return ((dir == DIR_LONG) ? (refV < curPx) : (refV > curPx));
+   }
+
+//--- [P-SLDEF-1b E15] pre-write width audit. Returns the line unchanged; call
+//--- pattern is: string s = StringFormat(...); LwAudit("CLASS", s); Print(s);
+//--- which emits byte-identical journal text to the PrintFormat it replaces.
+void LwAudit(const string cls, const string line)
+   {
+    int L = StringLen(line);
+    int i = -1;
+    for(int k = 0; k < g_lw_n; k++)
+       if(g_lw_class[k] == cls) { i = k; break; }
+    if(i < 0 && g_lw_n < 16)
+      { i = g_lw_n; g_lw_n++; g_lw_class[i] = cls; g_lw_max[i] = 0; g_lw_trunc[i] = 0; }
+    if(i >= 0)
+      {
+       if(L > g_lw_max[i]) g_lw_max[i] = L;
+       if(L > LW_CAP) g_lw_trunc[i]++;
+      }
+   }
+
+string SlimbWalkClass(const bool carve, const bool eqB, const bool eqN, const bool eqBN)
+  {
+   if(carve && !eqN) return "CARVEOUT_FIRED";
+   if(eqB && eqN && eqBN) return "ALL3_EQ";
+   if(eqB && !eqN && !eqBN) return "TODAY_EQ_BASE";
+   if(!eqB && eqN && !eqBN) return "TODAY_EQ_NUANCE";
+   if(!eqB && !eqN && eqBN) return "BASE_MOVED";
+   return "UNCLASSIFIED";
+  }
+
+void SlimbWalkCore(const ENUM_SRJ_DIR dir, const int swingBuf, const int imbBuf,
+                   const int barShift, const int startShift,
+                   const double anchorV, const double todayV, SlimbWalkOut &o)
+  {
+    o.haveVals = false; o.cls = "UNRESOLVED";
+    o.retV = anchorV; o.carve = 0; o.bodyThru = -1;
+   o.baseV = todayV; o.nuanceV = todayV;
+   o.steps = 0; o.code2 = 0; o.exh = -1;
+   o.skipS = -1; o.skipV = 0.0; o.skipF = -1; o.bodyS = "-";
+   o.extNQ = 0; o.c3 = 0; o.anchorF = -1;
+   o.eqB = -1; o.eqN = -1; o.eqBN = -1;
+   int anchorF = -1;
+   double ar = 0.0;
+   if(ReadFlow(imbBuf, ar, startShift) && ar != EMPTY_VALUE) anchorF = (int)ar;
+   o.anchorF = anchorF;
+   bool foundBase = false;
+   bool terminated3 = false;
+   double baseV = anchorV;
+   double runExt = anchorV;
+   bool skipSeen = false;
+   int skipS = -1; double skipV = 0.0; int skipF = -1;
+   if(anchorF == 1)
+      { baseV = anchorV; foundBase = true; }
+   else
+     {
+      for(int s = startShift + 1; s <= startShift + 500; s++)
+        {
+         double v = 0.0;
+         if(!ReadFlow(swingBuf, v, s)) break;
+         if(v == EMPTY_VALUE || v <= 0.0) continue;
+         o.steps++;
+         double f = 0.0;
+         int fi = -1;
+         if(ReadFlow(imbBuf, f, s) && f != EMPTY_VALUE) fi = (int)f;
+         if(fi == 3) { o.c3 = 1; terminated3 = true; break; }
+         bool exceeds = (dir == DIR_LONG) ? (v < runExt - _Point)
+                                          : (v > runExt + _Point);
+         if(exceeds)
+           {
+            runExt = v;
+            if(fi != 1) o.extNQ++;
+            else { baseV = v; foundBase = true; break; }
+           }
+         if(fi == 2) o.code2++;
+         bool moreExtreme = (dir == DIR_LONG) ? (v < anchorV - _Point) : (v > anchorV + _Point);
+         if(moreExtreme && !skipSeen)
+           { skipSeen = true; skipS = s; skipV = v; skipF = fi; }
+        }
+     }
+   if(terminated3)
+     {
+      o.exh = 0;
+      o.eqB = 1; o.eqN = 1; o.eqBN = 1;
+      o.haveVals = true;
+      o.cls = "WALK_UNEVALUABLE";
+      return;
+     }
+   if(!foundBase)
+     {
+      o.exh = 1;
+      o.eqB = 1; o.eqN = 1; o.eqBN = 1;
+      o.haveVals = true;
+      o.cls = "WALK_EXHAUSTED";
+      return;
+     }
+   o.exh = 0;
+   bool carve = false;
+   double nuanceV = baseV;
+   if(skipSeen)
+     {
+      o.skipS = skipS;
+      o.skipV = skipV;
+      o.skipF = skipF;
+      double so = iOpen(_Symbol, PERIOD_CURRENT, ApexShift(skipS));
+      double sc = iClose(_Symbol, PERIOD_CURRENT, ApexShift(skipS));
+      double sb = (dir == DIR_LONG) ? MathMin(so, sc) : MathMax(so, sc);
+      o.bodyS = DoubleToString(sb, _Digits);
+       bool bodyThrough = (dir == DIR_LONG) ? (sb < anchorV - _Point) : (sb > anchorV + _Point);
+       o.bodyThru = bodyThrough ? 1 : 0;
+       if(!bodyThrough) { carve = true; nuanceV = anchorV; }
+      }
+    o.carve = carve ? 1 : 0;
+   o.baseV = baseV; o.nuanceV = nuanceV;
+   bool eqB = (baseV == todayV);
+   bool eqN = (nuanceV == todayV);
+   bool eqBN = (baseV == nuanceV);
+   o.eqB = eqB ? 1 : 0; o.eqN = eqN ? 1 : 0; o.eqBN = eqBN ? 1 : 0;
+   o.haveVals = true;
+   o.cls = SlimbWalkClass(carve, eqB, eqN, eqBN);
+  }
+
+//--- [P-SLDEF-1 E13] shift-to-barTime helper: the code's own price-bar belief
+//--- for a ReadFlow-frame shift (prices are read via ApexShift). Shifts keep
+//--- their names and frame; barTime rides beside them, never replacing them.
+string SlimbShiftT(const int s)
+  {
+   if(s < 0) return "-";
+   return TimeToString(iTime(_Symbol, PERIOD_CURRENT, ApexShift(s)), TIME_DATE|TIME_MINUTES);
+  }
+
 void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
                    const string branch, const bool haveToday, const double todayV,
-                   const int startShift, const double chosenV)
+                   const int startShift, const double chosenV, const int fracShift = -1)
   {
    string tToday = haveToday ? DoubleToString(todayV, _Digits) : "-";
    string tBase = "-", tNuance = "-", tDB = "-", tDN = "-";
    int tSteps = 0, tCode2 = 0, tExh = -1;
    int tSkipS = -1; string tSkipV = "-", tSkipF = "-", tBody = "-";
-   int tExtNQ = 0, tC3 = 0, tSideV = 0;
+    int tExtNQ = 0, tC3 = 0, tSideV = 0;
+    int tBodyThru = -1;
    int tEqB = -1, tEqN = -1, tEqBN = -1;
    string cls = "UNRESOLVED";
    double wBaseV = 0.0, wNuanceV = 0.0;
    bool wHaveVals = false;
+   int tOutB = 0, tOutN = 0;
+   string fBase = "-", fNuance = "-", fDB = "-", fDN = "-";
+   int fSteps = 0, fCode2 = 0, fExh = -1, fAnchorF = -1, fC3 = 0, fExtNQ = 0;
+   int fEqB = -1, fEqN = -1, fEqBN = -1;
+   string fCls = "UNRESOLVED";
+   double fBaseV = 0.0, fNuanceV = 0.0;
+   bool fHaveVals = false;
+    int fOutB = 0, fOutN = 0;
+    int fRawS = fracShift, fGuardS = fracShift, fGuardApplied = 0, fSideV = 0;
+    string fRawSide = "-";
+    int fSkipS = -1;
+    double fRetV = 0.0, fSkipVd = 0.0;
+    int fSkipF = -1, fBodyThru = -1;
+    string fBody = "-";
    if(haveToday && startShift >= 0)
      {
       int swingBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
       int imbBuf   = (dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB;
       double curPx = iClose(_Symbol, PERIOD_CURRENT, barShift);
-      int anchorF = -1;
-      double anchorR = 0.0;
-      if(ReadFlow(imbBuf, anchorR, startShift) && anchorR != EMPTY_VALUE) anchorF = (int)anchorR;
-      bool foundBase = false;
-      bool terminated3 = false;
-      double baseV = todayV;
-      double runExt = chosenV;
-      bool skipSeen = false;
-      int skipS = -1; double skipV = 0.0; int skipF = -1;
-      if(anchorF == 1)
-         { baseV = todayV; foundBase = true; }
+      SlimbWalkOut ob;
+      SlimbWalkCore(dir, swingBuf, imbBuf, barShift, startShift, chosenV, todayV, ob);
+      tBase = DoubleToString(ob.baseV, _Digits);
+      tNuance = DoubleToString(ob.nuanceV, _Digits);
+      tDB = IntegerToString((int)MathRound((ob.baseV - todayV) / _Point));
+      tDN = IntegerToString((int)MathRound((ob.nuanceV - todayV) / _Point));
+      tSteps = ob.steps; tCode2 = ob.code2; tExh = ob.exh;
+      if(ob.skipS >= 0)
+        {
+         tSkipS = ob.skipS; tSkipV = DoubleToString(ob.skipV, _Digits);
+         tSkipF = (ob.skipF < 0) ? "x" : IntegerToString(ob.skipF);
+         tBody = ob.bodyS;
+        }
+      tExtNQ = ob.extNQ; tC3 = ob.c3; tBodyThru = ob.bodyThru;
+      tEqB = ob.eqB; tEqN = ob.eqN; tEqBN = ob.eqBN; cls = ob.cls;
+      wBaseV = ob.baseV; wNuanceV = ob.nuanceV; wHaveVals = ob.haveVals;
+      if(dir == DIR_LONG)
+        {
+         if(todayV > curPx) tSideV++;
+         if(wBaseV > curPx) tSideV++;
+         if(wNuanceV > curPx) tSideV++;
+        }
       else
         {
-         for(int s = startShift + 1; s <= startShift + 500; s++)
+         if(todayV < curPx) tSideV++;
+         if(wBaseV < curPx) tSideV++;
+         if(wNuanceV < curPx) tSideV++;
+        }
+      tOutB = (int)MathRound(((dir == DIR_LONG) ? -(wBaseV - todayV) : (wBaseV - todayV)) / _Point);
+      tOutN = (int)MathRound(((dir == DIR_LONG) ? -(wNuanceV - todayV) : (wNuanceV - todayV)) / _Point);
+      if(fracShift >= 0)
+        {
+         double fav = 0.0;
+         if(ReadFlow(swingBuf, fav, fracShift) && fav != EMPTY_VALUE && fav > 0.0)
            {
-            double v = 0.0;
-            if(!ReadFlow(swingBuf, v, s)) break;
-            if(v == EMPTY_VALUE || v <= 0.0) continue;
-            tSteps++;
-            double f = 0.0;
-            int fi = -1;
-            if(ReadFlow(imbBuf, f, s) && f != EMPTY_VALUE) fi = (int)f;
-            if(fi == 3) { tC3 = 1; terminated3 = true; break; }
-            bool exceeds = (dir == DIR_LONG) ? (v < runExt - _Point)
-                                             : (v > runExt + _Point);
-            if(exceeds)
+            bool fRawOk = SlimbProtectiveSideOk(dir, fav, curPx);
+            fRawSide = fRawOk ? "PROTECTIVE" : "WRONG";
+            double gav = fav;
+            if(!fRawOk)
               {
-               runExt = v;
-               if(fi != 1) tExtNQ++;
-               else { baseV = v; foundBase = true; break; }
+               for(int gs = fracShift + 1; gs <= fracShift + 500; gs++)
+                 {
+                  double gv = 0.0;
+                  if(!ReadFlow(swingBuf, gv, gs)) break;
+                  if(gv == EMPTY_VALUE || gv <= 0.0) continue;
+                  if(!SlimbProtectiveSideOk(dir, gv, curPx)) continue;
+                  fGuardS = gs; gav = gv; fGuardApplied = 1;
+                  break;
+                 }
               }
-            if(fi == 2) tCode2++;
-            bool moreExtreme = (dir == DIR_LONG) ? (v < chosenV - _Point) : (v > chosenV + _Point);
-            if(moreExtreme && !skipSeen)
-              { skipSeen = true; skipS = s; skipV = v; skipF = fi; }
-           }
-        }
-      if(terminated3)
-        {
-         tExh = 0;
-         tBase = DoubleToString(todayV, _Digits);
-         tNuance = DoubleToString(todayV, _Digits);
-         tDB = "0"; tDN = "0";
-         tEqB = 1; tEqN = 1; tEqBN = 1;
-         wBaseV = todayV; wNuanceV = todayV; wHaveVals = true;
-         cls = "WALK_UNEVALUABLE";
-        }
-      else if(!foundBase)
-        {
-         tExh = 1;
-         tBase = DoubleToString(todayV, _Digits);
-         tNuance = DoubleToString(todayV, _Digits);
-         tDB = "0"; tDN = "0";
-         tEqB = 1; tEqN = 1; tEqBN = 1;
-         wBaseV = todayV; wNuanceV = todayV; wHaveVals = true;
-         cls = "WALK_EXHAUSTED";
-        }
-      else
-        {
-         tExh = 0;
-         tBase = DoubleToString(baseV, _Digits);
-         tDB = IntegerToString((int)MathRound((baseV - todayV) / _Point));
-         bool carve = false;
-         double nuanceV = baseV;
-         if(skipSeen)
-           {
-            tSkipS = skipS; tSkipV = DoubleToString(skipV, _Digits);
-            tSkipF = (skipF < 0) ? "x" : IntegerToString(skipF);
-            double so = iOpen(_Symbol, PERIOD_CURRENT, ApexShift(skipS));
-            double sc = iClose(_Symbol, PERIOD_CURRENT, ApexShift(skipS));
-            double sb = (dir == DIR_LONG) ? MathMin(so, sc) : MathMax(so, sc);
-            tBody = DoubleToString(sb, _Digits);
-            bool bodyThrough = (dir == DIR_LONG) ? (sb < chosenV - _Point) : (sb > chosenV + _Point);
-            if(!bodyThrough) { carve = true; nuanceV = chosenV; }
-           }
-         tNuance = DoubleToString(nuanceV, _Digits);
-         tDN = IntegerToString((int)MathRound((nuanceV - todayV) / _Point));
-         bool eqB = (baseV == todayV);
-         bool eqN = (nuanceV == todayV);
-         bool eqBN = (baseV == nuanceV);
-         tEqB = eqB ? 1 : 0; tEqN = eqN ? 1 : 0; tEqBN = eqBN ? 1 : 0;
-         wBaseV = baseV; wNuanceV = nuanceV; wHaveVals = true;
-         if(carve && !eqN) cls = "CARVEOUT_FIRED";
-         else if(eqB && eqN && eqBN) cls = "ALL3_EQ";
-         else if(eqB && !eqN && !eqBN) cls = "TODAY_EQ_BASE";
-         else if(!eqB && eqN && !eqBN) cls = "TODAY_EQ_NUANCE";
-         else if(!eqB && !eqN && eqBN) cls = "BASE_MOVED";
-         else cls = "UNCLASSIFIED";
-        }
-      if(wHaveVals)
-        {
-         if(dir == DIR_LONG)
-           {
-            if(todayV > curPx) tSideV++;
-            if(wBaseV > curPx) tSideV++;
-            if(wNuanceV > curPx) tSideV++;
-           }
-         else
-           {
-            if(todayV < curPx) tSideV++;
-            if(wBaseV < curPx) tSideV++;
-            if(wNuanceV < curPx) tSideV++;
+            SlimbWalkOut fr;
+            SlimbWalkCore(dir, swingBuf, imbBuf, barShift, fGuardS, gav, todayV, fr);
+            fBase = DoubleToString(fr.baseV, _Digits);
+            fNuance = DoubleToString(fr.nuanceV, _Digits);
+            fDB = IntegerToString((int)MathRound((fr.baseV - todayV) / _Point));
+            fDN = IntegerToString((int)MathRound((fr.nuanceV - todayV) / _Point));
+            fSteps = fr.steps; fCode2 = fr.code2; fExh = fr.exh;
+            fAnchorF = fr.anchorF; fC3 = fr.c3; fExtNQ = fr.extNQ;
+            fEqB = fr.eqB; fEqN = fr.eqN; fEqBN = fr.eqBN; fCls = fr.cls;
+            fBaseV = fr.baseV; fNuanceV = fr.nuanceV; fHaveVals = fr.haveVals;
+            fRetV = fr.retV; fSkipVd = fr.skipV; fSkipF = fr.skipF;
+            fBody = fr.bodyS; fBodyThru = fr.bodyThru; fSkipS = fr.skipS;
+            fOutB = (int)MathRound(((dir == DIR_LONG) ? -(fr.baseV - todayV) : (fr.baseV - todayV)) / _Point);
+            fOutN = (int)MathRound(((dir == DIR_LONG) ? -(fr.nuanceV - todayV) : (fr.nuanceV - todayV)) / _Point);
+            if(dir == DIR_LONG)
+              {
+               if(fr.baseV > curPx) fSideV++;
+               if(fr.nuanceV > curPx) fSideV++;
+              }
+            else
+              {
+               if(fr.baseV < curPx) fSideV++;
+               if(fr.nuanceV < curPx) fSideV++;
+              }
            }
         }
       g_slimbr_barTime = iTime(_Symbol, PERIOD_CURRENT, barShift);
@@ -2282,12 +2532,47 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
       g_slimbr_base = wHaveVals ? wBaseV : 0.0;
       g_slimbr_nuance = wHaveVals ? wNuanceV : 0.0;
       g_slimbr_class = cls;
+      g_slimbr_fracBase = fHaveVals ? fBaseV : 0.0;
+      g_slimbr_fracNuance = fHaveVals ? fNuanceV : 0.0;
+      g_slimbr_fracClass = fHaveVals ? fCls : "UNRESOLVED";
+      //--- [P-SLDEF-1b E18] carve-operand stamps, both limbs. Values only;
+      //--- the SLIMBR site decides (by class) whether a companion prints.
+      g_slimbr_obRetV = wHaveVals ? chosenV : 0.0;
+      g_slimbr_obSkipS = tSkipS;
+      g_slimbr_obSkipV = (tSkipS >= 0) ? ob.skipV : 0.0;
+      g_slimbr_obSkipF = (tSkipS >= 0) ? ob.skipF : -1;
+      g_slimbr_obBodyS = tBody;
+      g_slimbr_obBodyThru = tBodyThru;
+      g_slimbr_frRetV = fHaveVals ? fRetV : 0.0;
+      g_slimbr_frSkipS = fSkipS;
+      g_slimbr_frSkipV = (fSkipS >= 0) ? fSkipVd : 0.0;
+      g_slimbr_frSkipF = (fSkipS >= 0) ? fSkipF : -1;
+      g_slimbr_frBodyS = fBody;
+      g_slimbr_frBodyThru = fBodyThru;
      }
-   PrintFormat("[SRJ-EA] SLIMBWALK fields=23 bar=%s site=%s dir=%s branch=%s slToday=%s slBase=%s slNuance=%s deltaBasePts=%s deltaNuancePts=%s walkSteps=%d code2Seen=%d exhausted=%d skipShift=%d skipVal=%s skipFlag=%s bodyExt=%s extUpdatedByNonQual=%d code3Seen=%d sideViolations=%d todayEqBase=%d todayEqNuance=%d baseEqNuance=%d class=%s",
+   //--- [P-SLDEF-1b E15] the split: SLIMBWALK carries the OB limb only
+   //--- (class= retained as the join key; sideViolations OB-scoped by
+   //--- construction), SLIMBWALKF the fractal limb (fracClass= + guard
+   //--- tokens). Both assembled first, measured pre-write, then printed.
+   string slw_ob = StringFormat("[SRJ-EA] SLIMBWALK fields=27 bar=%s site=%s dir=%s branch=%s slToday=%s slBase=%s slNuance=%s deltaBasePts=%s deltaNuancePts=%s walkSteps=%d code2Seen=%d exhausted=%d skipShift=%d skipVal=%s skipFlag=%s bodyExt=%s extUpdatedByNonQual=%d code3Seen=%d sideViolations=%d todayEqBase=%d todayEqNuance=%d baseEqNuance=%d class=%s outwardBasePts=%d outwardNuancePts=%d skipShiftT=%s startShiftT=%s",
                TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
                site, DirName(dir), branch, tToday, tBase, tNuance, tDB, tDN,
                tSteps, tCode2, tExh, tSkipS, tSkipV, tSkipF, tBody,
-               tExtNQ, tC3, tSideV, tEqB, tEqN, tEqBN, cls);
+               tExtNQ, tC3, tSideV, tEqB, tEqN, tEqBN, cls,
+               tOutB, tOutN,
+               SlimbShiftT(tSkipS), SlimbShiftT(startShift));
+   LwAudit("SLIMBWALK", slw_ob);
+   Print(slw_ob);
+   string slw_fr = StringFormat("[SRJ-EA] SLIMBWALKF fields=25 bar=%s site=%s dir=%s branch=%s fracAnchorShift=%d fracAnchorFlag=%d slFractal=%s slFractalNuance=%s deltaFracPts=%s deltaFracNuancePts=%s fracSteps=%d fracCode2=%d fracExh=%d fracC3=%d fracExtNQ=%d fracClass=%s sideFracViolations=%d outwardFracPts=%d outwardFracNuancePts=%d fracAnchorRawShift=%d fracAnchorRawSide=%s fracAnchorGuardApplied=%d fracAnchorShiftT=%s fracSkip=%d fracSkipT=%s",
+               TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+               site, DirName(dir), branch,
+               fGuardS, fAnchorF, fBase, fNuance, fDB, fDN,
+               fSteps, fCode2, fExh, fC3, fExtNQ, fCls,
+               fSideV, fOutB, fOutN,
+               fRawS, fRawSide, fGuardApplied,
+               SlimbShiftT(fGuardS), fSkipS, SlimbShiftT(fSkipS));
+   LwAudit("SLIMBWALKF", slw_fr);
+   Print(slw_fr);
   }
 
 //====================== Step 6: 1R stop-loss reference ================
@@ -2492,7 +2777,7 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
    // only on exhaustion, per Ruling 1 Option C - a valid swing further back is
    // always preferred to abandoning the setup. The 500-slot bound and the
    // g_zoneHi/g_zoneLo inertness before arming both match Task 67 exactly.
-   bool t75_sideOk = (dir == DIR_LONG) ? (slRefOut < slCurPx) : (slRefOut > slCurPx);
+   bool t75_sideOk = SlimbProtectiveSideOk(dir, slRefOut, slCurPx);
    if(!obSwingSideOk && !t75_sideOk)
      {
       int    t75_buf  = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
@@ -2619,9 +2904,9 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                 slimb_chShift = slimb_cs;
                }
             }
-          SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_chShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_chFlag, slimb_chShift, slimb_chAvail, slimb_cands);
-          if(InpDebugLog && SHADOW_SLIMBWALK)
-             SlimbWalkEmit(barShift, site, dir, "1SWING", true, slRefOut, slimb_chShift, slRefOut);
+           SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_chShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_chFlag, slimb_chShift, slimb_chAvail, slimb_cands);
+           if(InpDebugLog && SHADOW_SLIMBWALK)
+              SlimbWalkEmit(barShift, site, dir, "1SWING", true, slRefOut, slimb_chShift, slRefOut, slimb_latShift);
          }
        return true;
      }
@@ -2725,9 +3010,9 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                 int slimb_cfv9 = -1, slimb_cav9 = 0;
                 if(ReadFlow(slimb_imbBuf, slimb_cf9, s) && slimb_cf9 != EMPTY_VALUE)
                   { slimb_cfv9 = (int)slimb_cf9; slimb_cav9 = 1; }
-                SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), s, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfv9, s, slimb_cav9, slimb_cands);
-                if(InpDebugLog && SHADOW_SLIMBWALK)
-                   SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, s, slRefOut);
+                 SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), s, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfv9, s, slimb_cav9, slimb_cands);
+                 if(InpDebugLog && SHADOW_SLIMBWALK)
+                    SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, s, slRefOut, slimb_latShift);
                }
              return true;
            }
@@ -2781,9 +3066,9 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
           int slimb_cfvx = -1, slimb_cavx = 0;
           if(slimb_runExtShift >= 0 && ReadFlow(slimb_imbBuf, slimb_cfx, slimb_runExtShift) && slimb_cfx != EMPTY_VALUE)
             { slimb_cfvx = (int)slimb_cfx; slimb_cavx = 1; }
-          SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_runExtShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfvx, slimb_runExtShift, slimb_cavx, slimb_cands);
-          if(InpDebugLog && SHADOW_SLIMBWALK)
-             SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, slimb_runExtShift, slRefOut);
+           SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_runExtShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfvx, slimb_runExtShift, slimb_cavx, slimb_cands);
+           if(InpDebugLog && SHADOW_SLIMBWALK)
+              SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, slimb_runExtShift, slRefOut, slimb_latShift);
          }
        return true;
      }
@@ -5092,6 +5377,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- synchronously inside this invocation's walk). R uses the latch's own
       //--- formula (tpDist over each stop's risk); deltaPts is the stop's
       //--- displacement from today's stop in points (today = 0 by definition).
+      //--- [P-SLDEF-1 E12] four references + two nuance variants. Fractal limb
+      //--- from its own shadows under the same stamp. Firing rows are ALSO
+      //--- appended to the decision accumulator (bounded, S5 only) for the
+      //--- end-of-run SLIMBR_DECISION block; the row whose closest surviving
+      //--- R sits within 0.10 above the live threshold carries MARGIN_ROW.
       if(InpDebugLog && SHADOW_SLIMBWALK)
         {
          datetime slimbr_bt = iTime(_Symbol, PERIOD_CURRENT, barShift);
@@ -5099,24 +5389,104 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          double slimbr_b = slimbr_fresh ? g_slimbr_base : 0.0;
          double slimbr_n = slimbr_fresh ? g_slimbr_nuance : 0.0;
          string slimbr_c = slimbr_fresh ? g_slimbr_class : "STALE";
+         double slimbr_fb = slimbr_fresh ? g_slimbr_fracBase : 0.0;
+         double slimbr_fn = slimbr_fresh ? g_slimbr_fracNuance : 0.0;
+         string slimbr_fc = slimbr_fresh ? g_slimbr_fracClass : "STALE";
          double slimbr_tpD = MathAbs(tpTarget - currentPrice);
          double slimbr_riskT = MathAbs(currentPrice - slRef);
          double slimbr_riskB = MathAbs(currentPrice - slimbr_b);
          double slimbr_riskN = MathAbs(currentPrice - slimbr_n);
-         PrintFormat("[SRJ-EA] SLIMBR bar=%s dir=%s entry=%s tp=%s slToday=%s rToday=%.2f dTodayPts=0 slBase=%s rBase=%.2f dBasePts=%d slNuance=%s rNuance=%.2f dNuancePts=%d class=%s",
+         double slimbr_riskFB = MathAbs(currentPrice - slimbr_fb);
+         double slimbr_riskFN = MathAbs(currentPrice - slimbr_fn);
+         double slimbr_rT = (slimbr_riskT > 0.0 ? slimbr_tpD / slimbr_riskT : 0.0);
+         double slimbr_rB = (slimbr_riskB > 0.0 ? slimbr_tpD / slimbr_riskB : 0.0);
+         double slimbr_rN = (slimbr_riskN > 0.0 ? slimbr_tpD / slimbr_riskN : 0.0);
+         double slimbr_rFB = (slimbr_riskFB > 0.0 ? slimbr_tpD / slimbr_riskFB : 0.0);
+         double slimbr_rFN = (slimbr_riskFN > 0.0 ? slimbr_tpD / slimbr_riskFN : 0.0);
+         int slimbr_dB = (slimbr_fresh ? (int)MathRound((slimbr_b - slRef) / _Point) : 0);
+         int slimbr_dN = (slimbr_fresh ? (int)MathRound((slimbr_n - slRef) / _Point) : 0);
+         int slimbr_dFB = (slimbr_fresh ? (int)MathRound((slimbr_fb - slRef) / _Point) : 0);
+         int slimbr_dFN = (slimbr_fresh ? (int)MathRound((slimbr_fn - slRef) / _Point) : 0);
+         string slimbr_line = StringFormat("[SRJ-EA] SLIMBR bar=%s dir=%s entry=%s tp=%s slToday=%s rToday=%.2f dTodayPts=0 slBase=%s rBase=%.2f dBasePts=%d slNuance=%s rNuance=%.2f dNuancePts=%d slFractal=%s rFractal=%.2f dFracPts=%d slFractalNuance=%s rFractalNuance=%.2f dFracNuancePts=%d class=%s fracClass=%s",
                      TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES),
                      DirName(g_dir),
                      DoubleToString(currentPrice, _Digits),
                      DoubleToString(tpTarget, _Digits),
                      DoubleToString(slRef, _Digits),
-                     (slimbr_riskT > 0.0 ? slimbr_tpD / slimbr_riskT : 0.0),
+                     slimbr_rT,
                      DoubleToString(slimbr_b, _Digits),
-                     (slimbr_riskB > 0.0 ? slimbr_tpD / slimbr_riskB : 0.0),
-                     (slimbr_fresh ? (int)MathRound((slimbr_b - slRef) / _Point) : 0),
+                     slimbr_rB,
+                     slimbr_dB,
                      DoubleToString(slimbr_n, _Digits),
-                     (slimbr_riskN > 0.0 ? slimbr_tpD / slimbr_riskN : 0.0),
-                     (slimbr_fresh ? (int)MathRound((slimbr_n - slRef) / _Point) : 0),
-                     slimbr_c);
+                     slimbr_rN,
+                     slimbr_dN,
+                     DoubleToString(slimbr_fb, _Digits),
+                     slimbr_rFB,
+                     slimbr_dFB,
+                     DoubleToString(slimbr_fn, _Digits),
+                     slimbr_rFN,
+                     slimbr_dFN,
+                     slimbr_c, slimbr_fc);
+         LwAudit("SLIMBR", slimbr_line);
+         Print(slimbr_line);
+         //--- [P-SLDEF-1b E18] carve-out operand companions: one short line per
+         //--- limb whose walk fired the carve-out (class CARVEOUT_FIRED). NOT
+         //--- folded into SLIMBR: 14 operand tokens would breach the 537 cap
+         //--- whenever both limbs fire, and gate 7 forbids silent truncation.
+         //--- wickCmp is recomputed here from the stamped operands (the same
+         //--- more-extreme comparison the core's skip block applies to anchorV
+         //--- == retV); bodyCmp is the core's own body verdict, exported.
+         if(slimbr_fresh && slimbr_c == "CARVEOUT_FIRED")
+           {
+            int carveWickOB = (g_dir == DIR_LONG)
+                              ? ((g_slimbr_obSkipV < g_slimbr_obRetV - _Point) ? 1 : 0)
+                              : ((g_slimbr_obSkipV > g_slimbr_obRetV + _Point) ? 1 : 0);
+            string slbr_cv_ob = StringFormat("[SRJ-EA] SLIMBRCARVE bar=%s site=S5 limb=OB ret=%s newerShift=%d newerT=%s newerWick=%s newerFlag=%d newerBody=%s wickMoreExt=%d bodyThru=%d",
+                      TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES),
+                      DoubleToString(g_slimbr_obRetV, _Digits),
+                      g_slimbr_obSkipS, SlimbShiftT(g_slimbr_obSkipS),
+                      DoubleToString(g_slimbr_obSkipV, _Digits),
+                      g_slimbr_obSkipF, g_slimbr_obBodyS,
+                      carveWickOB, g_slimbr_obBodyThru);
+            LwAudit("SLIMBRCARVE", slbr_cv_ob);
+            Print(slbr_cv_ob);
+            g_slimbr_carveOB++;
+           }
+         if(slimbr_fresh && slimbr_fc == "CARVEOUT_FIRED")
+           {
+            int carveWickFR = (g_dir == DIR_LONG)
+                              ? ((g_slimbr_frSkipV < g_slimbr_frRetV - _Point) ? 1 : 0)
+                              : ((g_slimbr_frSkipV > g_slimbr_frRetV + _Point) ? 1 : 0);
+            string slbr_cv_fr = StringFormat("[SRJ-EA] SLIMBRCARVE bar=%s site=S5 limb=FR ret=%s newerShift=%d newerT=%s newerWick=%s newerFlag=%d newerBody=%s wickMoreExt=%d bodyThru=%d",
+                      TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES),
+                      DoubleToString(g_slimbr_frRetV, _Digits),
+                      g_slimbr_frSkipS, SlimbShiftT(g_slimbr_frSkipS),
+                      DoubleToString(g_slimbr_frSkipV, _Digits),
+                      g_slimbr_frSkipF, g_slimbr_frBodyS,
+                      carveWickFR, g_slimbr_frBodyThru);
+            LwAudit("SLIMBRCARVE", slbr_cv_fr);
+            Print(slbr_cv_fr);
+            g_slimbr_carveFR++;
+           }
+         if(g_slimbr_decisionN < 64)
+           {
+            double slimbr_minSurv = 1e9;
+            double slimbr_rs[5];
+            slimbr_rs[0] = slimbr_rT; slimbr_rs[1] = slimbr_rB; slimbr_rs[2] = slimbr_rN;
+            slimbr_rs[3] = slimbr_rFB; slimbr_rs[4] = slimbr_rFN;
+            for(int slimbr_ri = 0; slimbr_ri < 5; slimbr_ri++)
+               if(slimbr_rs[slimbr_ri] >= InpMinRewardRisk && slimbr_rs[slimbr_ri] < slimbr_minSurv)
+                  slimbr_minSurv = slimbr_rs[slimbr_ri];
+            string slimbr_margin = "";
+            if(slimbr_minSurv <= InpMinRewardRisk + 0.10)
+               slimbr_margin = " NOTE=MARGIN_ROW";
+            g_slimbr_decision += StringFormat("bar=%s dir=%s entry=%s tp=%s today=%.2f base=%.2f nuance=%.2f fractal=%.2f fractalNuance=%.2f class=%s fracClass=%s%s",
+                     TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES), DirName(g_dir),
+                     DoubleToString(currentPrice, _Digits), DoubleToString(tpTarget, _Digits),
+                     slimbr_rT, slimbr_rB, slimbr_rN, slimbr_rFB, slimbr_rFN,
+                     slimbr_c, slimbr_fc, slimbr_margin) + "\n";
+            g_slimbr_decisionN++;
+           }
         }
 
       double slDist = MathAbs(currentPrice - slRef);
@@ -5405,6 +5775,26 @@ int OnInit()
    if(g_hPoi == INVALID_HANDLE || g_hCqd == INVALID_HANDLE || g_hFlow == INVALID_HANDLE)
      { Print("[SRJ-EA] OnInit FAILED: one or more iCustom handles are invalid."); return INIT_FAILED; }
    ResetSequence();
+   //--- [P-SLDEF-1 E13 + amendment] FRAME_NOTE, once per run: the three
+   //--- conventions a later session could silently invert. (1) Slot frame:
+   //--- every printed shift is ReadFlow frame, CopyBuffer position =
+   //--- eval shift + FLOW_SHIFT_OFFSET (the settled slot). (2) Apex frame: a
+   //--- swing value at eval shift s is priced at ApexShift(s) = s + offset;
+   //--- barTime(s) prints iTime at that price shift - the code's own belief.
+   //--- (3) Protective sign: raw deltaPts is (ref - today) in points, so
+   //--- LONG-protective prints negative and SHORT-protective positive;
+   //--- outwardPts = LONG ? -delta : +delta normalizes to outward-positive.
+   //--- Labels (bar=, barTime) are server time via iTime/TimeToString.
+   //--- THRESHOLD: the live minimum-R is an artifact of the run. Source is
+   //--- "ini" when the value differs from the compiled default (an ini-set
+   //--- 1.0 is indistinguishable - recorded as compiled_default).
+   string frame_note = StringFormat("[SRJ-EA] FRAME_NOTE offset=%d apex=s+%d labels=server-time "
+               "protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) "
+               "THRESHOLD minRewardRisk=%.2f source=%s",
+               FLOW_SHIFT_OFFSET, FLOW_SHIFT_OFFSET, InpMinRewardRisk,
+               ((InpMinRewardRisk == 1.0) ? "compiled_default" : "ini"));
+   LwAudit("FRAME_NOTE", frame_note);
+   Print(frame_note);
    Print("[SRJ-EA] Initialised.");
    return INIT_SUCCEEDED;
   }
@@ -5476,7 +5866,42 @@ void OnDeinit(const int reason)
                   g_slMemo_computes, g_slMemo_hits,
                   g_slMemo_computes + g_slMemo_hits);
 
-    SrjWs161Census();
+     SrjWs161Census();
+
+   if(InpDebugLog)
+     {
+      //--- [P-SLDEF-1 E14] N1 equality tally. Counters only; no branch reads
+      //--- them. Operators grounding "equality survives": retest wick/body in
+      //--- DetectPoiRetest (`l <= L-P+EPS && bodyLo >= L-EPS`, SHORT mirror),
+      //--- POI body-break in the exit census (`bodyLo < L-EPS` /
+      //--- `bodyHi > L+EPS`), confirmation A2 (`c1 >= L` / `c1 <= L`, VWAP and
+      //--- POC alike). All strict: exact equality never breaks. VWAP is a
+      //--- computed double, so vwapEq is expected 0 (unexercised, not verified).
+      PrintFormat("[SRJ-EA] N1EQUALS poiEqBody=%d poiEqWick=%d vwapEq=%d pocEq=%d",
+                  g_n1_poiEqBody, g_n1_poiEqWick, g_n1_vwapEq, g_n1_pocEq);
+      //--- [P-SLDEF-1b E19] verdict pairing. surv+inv per family reproduces
+      //--- the unpaired counter exactly (gated off-log).
+      string n1pair = StringFormat("[SRJ-EA] N1PAIR entryWickSurv=%d entryWickInv=%d entryBodySurv=%d entryBodyInv=%d vwapSurv=%d vwapInv=%d pocSurv=%d pocInv=%d exitBodySurv=%d exitBodyInv=%d",
+                  g_n1_entryWickSurv, g_n1_entryWickInv,
+                  g_n1_entryBodySurv, g_n1_entryBodyInv,
+                  g_n1_vwapSurv, g_n1_vwapInv, g_n1_pocSurv, g_n1_pocInv,
+                  g_n1_exitBodySurv, g_n1_exitBodyInv);
+      LwAudit("N1PAIR", n1pair);
+      Print(n1pair);
+      //--- [P-SLDEF-1b E15] width audit, once per run per class. truncated
+      //--- nonzero halts (gate 7). DECISION excluded by design (one multi-line
+      //--- emission of individually short physical lines).
+      for(int lw_i = 0; lw_i < g_lw_n; lw_i++)
+         PrintFormat("[SRJ-EA] LINEWIDTH class=%s max=%d cap=%d truncated=%d",
+                     g_lw_class[lw_i], g_lw_max[lw_i], LW_CAP, g_lw_trunc[lw_i]);
+      //--- [P-SLDEF-1b E18] S5 carve-out counts per limb (gate 11).
+      PrintFormat("[SRJ-EA] SLIMBCARVE_FINAL ob=%d fr=%d",
+                  g_slimbr_carveOB, g_slimbr_carveFR);
+      //--- [P-SLDEF-1 E12] the decision artifact: same S5 numbers, formatted
+      //--- for a decision (today | base | nuance | fractal | fractalNuance).
+      PrintFormat("[SRJ-EA] SLIMBR_DECISION rows=%d\n%s",
+                  g_slimbr_decisionN, g_slimbr_decision);
+     }
 
    if(g_hPoi  != INVALID_HANDLE) IndicatorRelease(g_hPoi);
    if(g_hCqd  != INVALID_HANDLE) IndicatorRelease(g_hCqd);
@@ -5625,19 +6050,28 @@ void EvaluateManagedTrade(const int barShift)
    //--- lines per bar so every MT_EXIT_SCOPE variant is measurable from one run.
    for(int k = 0; k < POI_NLINES; k++)
      {
-      double L;
-      if(!ReadBuf1(g_hPoi, k, L, barShift)) continue;
-      if(L == EMPTY_VALUE || L <= 0.0) continue;
-      bool behind = (g_mtrade.dir == DIR_LONG)  ? (L < nextOpenPx)
-                                                : (L > nextOpenPx);
+       double L;
+       if(!ReadBuf1(g_hPoi, k, L, barShift)) continue;
+       if(L == EMPTY_VALUE || L <= 0.0) continue;
+       //--- [P-SLDEF-1 E14] same N1 body counter at the exit site. Grounding:
+       //--- break needs bodyLo < L-EPS (LONG) / bodyHi > L+EPS (SHORT), both
+       //--- strict: exact equality never breaks.
+       if(bodyLo == L || bodyHi == L) g_n1_poiEqBody++;
+       bool behind = (g_mtrade.dir == DIR_LONG)  ? (L < nextOpenPx)
+                                                 : (L > nextOpenPx);
       bool through = false;
       if(behind)
         {
          if(g_mtrade.dir == DIR_LONG)  through = (bodyLo < L - EPS);
          else                          through = (bodyHi > L + EPS);
         }
-      bool isTrigger = MtIsBreakTrigger(k);
-      if(InpDebugLog)
+       bool isTrigger = MtIsBreakTrigger(k);
+       //--- [P-SLDEF-1b E19] exit-site pairing: the line verdict is known here.
+       //--- Strictness says equality never sets `through`, so every paired
+       //--- instance is expected ok (survived); a BREAK coincidence reports inv.
+       if(bodyLo == L || bodyHi == L)
+         { if(isTrigger && behind && through) g_n1_exitBodyInv++; else g_n1_exitBodySurv++; }
+       if(InpDebugLog)
          PrintFormat("[SRJ-EA] EXITCENSUS bar=%s dir=%s line=%s val=%s side=%s "
                      "trigger=%d bodyLo=%s bodyHi=%s verdict=%s",
                      TimeToString(barTime, TIME_DATE|TIME_MINUTES),
