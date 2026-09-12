@@ -122,9 +122,10 @@ Masters judge measurements on disk, never prose about them.
 ## 9. File map (current baselines 2026-09-11)
 
 - EA: `Experts\SRJ_FlowNexus_EA.mq5` =
-  `4B2FA10EA263420ED12C83D58B128AA53278A0E78611841B71AA55C4E9E97C8F`
-  (290162 B, RECON10-SWINGIMB3 FROZEN baseline, council-ACCEPTED
-  correct-under-conservative; supersedes 34BD7D82 state).
+  `75FEBFDEBBDA023A96FFB968C09D82F3FB6444B58DBEC1F609455DA4B58CBE1A`
+  (314461 B, RECON11b-SLDEF FROZEN baseline, council-ACCEPTED;
+  supersedes 4B2FA10E state, which stays frozen for the OB limb only
+  as a carried-token reference, not as a fractal record).
 - CQD: `Indicators\SRJ_CQD_TickBased_MT5.mq5` = `BE6FD84F...A421F` (50555 B).
 - OrderblockMgr: `Include\SRJ\SRJ_OrderblockMgr.mqh` = `D286621C...20B7B` (48050 B).
 - FlowLogic: `Indicators\SRJ_FlowLogic.mq5` = `3606BFB4...25911` (67515 B,
@@ -184,13 +185,58 @@ Masters judge measurements on disk, never prose about them.
    RECON10 frozen (committed f07e4b1/8da1ad2 + tag Task162-T162SWINGIMB3,
    backup verified; origin still pending). P-SLDEF-1 ISSUED (E11 fractal
    limb + E12 four-column SLIMBR + E13 frame reconcile + E14 N1 counters;
-   no FlowLogic edit). Off-log reports owed with relay-back: sign counts
+   no FlowLogic edit) + AMENDMENT (gate-6 outwardPts restated, THRESHOLD
+   in FRAME_NOTE, S5 carve gate, margin flag, news conversion-at-read).
+   P-SLDEF-1 EXECUTING 2026-09-12 (E11 parameterized core, no fork;
+   fracClass token added per E11.7; EA A58BCB4B...7283AB 301971 B
+   UNCOMMITTED, FlowLogic 3606BFB4 unchanged; both compile 0/0).
+   RECON11-SLDEF RUNNING (launched 14:33:03, PID 13128,
+   PRE_JOURNAL_LINES=70440). RECON11 DONE 15:43:45 (Test passed 1:07:02;
+   wrapper TIMEOUT_60MIN, manual archive 16633 lines) — BLOCKED:
+   gate-4 sideViolations=26 (all fractal-side, OB limb proven 0 via
+   481/481 OB-identity) + walk-line truncation (~537 chars lost
+   fracClass/outward/walk-barTime). OB partition identical (no-fork
+   proven); SLIMBR 4-col + N1EQUALS + DECISION intact; Sep-7 fractal
+   nuance = 1.16240 / R 2.56 = operator's arithmetic (ruling-c live).
+   NO commit (BLOCKED). Council verdict 2026-09-12: BLOCKED STANDS,
+   RECON10 stays frozen; no-fork proven by the join; Q2 overturned on
+   fractal limb only; gate-6 carried untested; R gap is 1.16239 vs
+   1.16240 stop (operator's call, no code moves); E13.3 zone language
+   rejected; N1 = encountered-57 (pairing owed). P-SLDEF-1b ISSUED
+   (E15 split+LINEWIDTH, E16 Task-75 guard, E17 outward restore,
+   E18 carve operands, E19 N1 pairing rider — off-log pairing
+   impossible, counters are tallies). EA A58BCB4B verified unchanged
+   post-verdict; FlowLogic 3606BFB4. P-SLDEF-1b EXECUTED 2026-09-12
+   (EA 75FEBFDE... 314461 B UNCOMMITTED; both compile 0/0; E16 via
+   single-expression extraction, E18 as SLIMBRCARVE companions).
+   RECON11b DONE (Test passed 1:07:31, archive 17137 lines) — BLOCKED
+   gate-5 only: guardApplied=60 vs expected 26 (input-side 60 ⊋
+   result-side 26; the 26 exactly contained; 34 extra all non-S5;
+   S5 surface bit-identical 10/10). Result filed; NO commit; RECON10
+   frozen. Council ruling owed: accept-60 vs post-walk-26. R handoff:
+   whole gap = 1.16239 vs 1.16240 stop (54/22 vs 54/21), operator's call.
+   Build 11c (if any) on verdict word. Off-log reports owed with relay-back: sign counts
    + live min-R + crossings. Governance ruling filed: hand journal may
    motivate, never adjudicate (two-source standard). N1 CONFIRMED as
    code-read (counters in E14). News table PINNED
    (11 rows, SHA256 5FFF5C76...EF1F134; span through 2026-12-31;
    VWAP anchor = 21:00 broker bar confirmed) — now critical-path per
    council (frame convention must cover table timestamps).
+   VERDICT 2026-09-12: P-SLDEF-1b ACCEPTED (RECON11b frozen; local commit
+   cleared, NO push — origin operator-latency, backup not authorized). Code-1 quoting
+   restriction LIFTED (naAlive=0). Q1 exceeds idiom YES, Q2 side test NO +
+   sideViolations falsifier, Q3 BASE_MOVED approved + boolean-totality
+   mapping + UNCLASSIFIED. Code-3 terminates walk (WALK_UNEVALUABLE).
+   Gate-5 ACCEPT-60 (input-side population + containment POS_NOT_GUARDED=0);
+   ff1xBASE_MOVED definitional (restated falsifier ff1xsteps!=0 = 0 off-log
+   over 56 rows; fracAnchorPx owed). Gate-8 CLOSED on operands (single
+   0.1-pip gap). N1: CONFIRMED body+POC, CONTRADICTED wick (10/16),
+   UNEXERCISED vwap+exit — operator ruling owed. Labels: three pairs
+   (+20/-15/-10), resolve by content. P-NEWS-1 ISSUED (E20-E22 blackout
+   census; print-only; MTEXIT stays 4). Standing rules: gates name their
+   population; repaired inputs stay distinguishable; collision scoping
+   (class/fracClass/nuanceClass); audit lines non-self-matching (owed);
+   wrapper = standing archive method.
 5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
    journal correction): journal "swings" = FRACTAL swings (triangle
    markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used

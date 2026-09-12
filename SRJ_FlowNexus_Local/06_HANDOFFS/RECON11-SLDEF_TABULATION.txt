@@ -1,0 +1,54 @@
+G1 bars/ticks: KN	0	15:43:45.618	Core 04	EURUSD,M5: 563338 ticks, 3168 bars generated. Environment synchronized in 0:01:05.541. Test passed in 1:07:01.937 (including ticks preprocessing 0:00:00.078).
+SIGNAL_COUNT=4
+SIGNALS=PJ	0	14:52:00.340	Core 04	2026.08.28 10:05:00   [SRJ-EA] 2026.08.28 10:05:00 SIGNAL dir=SHORT poi=Daily-VWAP regime=TREND div=regular sess=LONDON tp_target=1.16364 tp_R=2.43 sl_ref=1.16508 sl_mode=2-swing spreadPts=4 bid=1.16466 ask=1.16470|LN	0	15:25:10.098	Core 04	2026.09.04 16:00:00   [SRJ-EA] 2026.09.04 16:00:00 SIGNAL dir=LONG poi=Yearly-POC regime=BOTH div=hidden sess=NYAM tp_target=1.16302 tp_R=2.56 sl_ref=1.15907 sl_mode=1-swing spreadPts=1 bid=1.16018 ask=1.16019|CR	0	15:29:14.235	Core 04	2026.09.07 09:20:00   [SRJ-EA] 2026.09.07 09:20:00 SIGNAL dir=LONG poi=Weekly-POC regime=TREND div=hidden sess=LONDON tp_target=1.16200 tp_R=1.76 sl_ref=1.16098 sl_mode=1-swing spreadPts=3 bid=1.16135 ask=1.16138|GI	0	15:30:45.789	Core 04	2026.09.07 16:45:00   [SRJ-EA] 2026.09.07 16:45:00 SIGNAL dir=LONG poi=Weekly-POC regime=TREND div=hidden sess=NYAM tp_target=1.16315 tp_R=1.25 sl_ref=1.16218 sl_mode=1-swing spreadPts=3 bid=1.16261 ask=1.16264
+WS161=HJ	0	15:43:45.618	Core 04	2026.09.09 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=3168 stores=3168 changes=205 mismatch=0
+WS161_MISMATCH_ROWS=0
+WS161_FIELD_ROWS=0
+WS161_LOAD=FD	0	14:37:03.047	Core 04	2026.08.26 00:00:00   [SRJ-EA] WS161_LOAD NOSTORE bar=2026.08.25 23:55 shift=1 loads=1
+ABORTS: FRESH_OB_DEAD=18 LTF_MISALIGN=37 SESSION_CLOSED=13 TP_RR_FAIL=11 NO_TP_TARGET=2 NO_SL_REF=0 FRESH_OPP_FVG=12
+BIASCENSUS_FINAL=IR	0	15:43:45.618	Core 04	2026.09.09 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=3168 | sh1 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0 | sh2 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0
+ZONECENSUS_FINAL=GP	0	15:43:45.618	Core 04	2026.09.09 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=3168 both=0 xobOnly=3168 fvgOnly=0 neither=0 | inWindow=1056 xobInWin=1056 fvgInWin=0 | samples=0
+CQD_DIV_FIRST: total=906 +1=170 +2=308 -1=263 -2=165
+CONFIRMPOLL=555
+SUPPRESSED total=156
+SLMEMO_CENSUS=LG	0	15:43:45.618	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLMEMO_CENSUS computes=471 hits=118 demands=589
+SLMEMO_HIT=118 SLMEMO_COMPUTE=471
+SL_REF_S2POLL=432 SL_REF_S3ARM=39 SL_REF_S5=10
+INPLAYCOMMIT_APPLIED1=157 COMMITTED1=46
+MTEXIT=QS	0	14:52:24.754	Core 04	2026.08.28 11:35:00   [SRJ-EA] MTEXIT bar=2026.08.28 11:30 reason=TP_TOUCH line=- lineVal=- entry=1.16466 exit=1.16451|KJ	0	15:25:10.098	Core 04	2026.09.04 16:05:01   [SRJ-EA] MTEXIT bar=2026.09.04 16:00 reason=HTF_FLIP line=- lineVal=- entry=1.16018 exit=1.15990|FS	0	15:29:20.339	Core 04	2026.09.07 10:10:00   [SRJ-EA] MTEXIT bar=2026.09.07 10:05 reason=TP_TOUCH line=- lineVal=- entry=1.16135 exit=1.16133|NJ	0	15:30:51.892	Core 04	2026.09.07 17:15:01   [SRJ-EA] MTEXIT bar=2026.09.07 17:10 reason=TP_TOUCH line=- lineVal=- entry=1.16261 exit=1.16315
+MTSNAP_COUNT=4
+SLIMB_TOTAL=481
+SLIMB_BADFMT=0
+SLIMB_S2POLL=432 SLIMB_S3ARM=39 SLIMB_S5=10 SLIMB_PRE=0
+SLIMB_AVAIL0=0 SLIMB_CHAVAIL0_EXPOSED=0
+SLIMB_APEX0_WITH_AVAIL=0
+SLIMB_CHOSEN_NEG=0 SLIMB_NOOB=0
+SLIMB_LATESTFLAG: f0=318f1=67f2=96f3=0fm1=0
+SLIMB_BRANCH: 1SWING=441 2SWING=40
+S5_NO_SL_REF=0
+SWINGIMB_PROGRESS_COUNT=102
+SWINGIMB_PROGRESS_LAST=PH	0	14:36:56.941	Core 04	2026.08.26 00:00:00   SWINGIMB_PROGRESS writes=51000 highs=25551 lows=25449 code0=583 code1=292 code2=178 code3=49947 naAlive=0
+SLIMBWALK_TOTAL=481
+SLIMBWALK_BADFMT=0
+SLIMBWALK_CLASS: ALL3=51 TEQB=0 TEQN=71 BASEMOVED=200 CARVE=0 EXH=159 UNEVAL=0 UNRES=0 UNCLASS=0
+SLIMBWALK_FRACCLASS: ALL3=0 TEQB=0 TEQN=0 BASEMOVED=0 CARVE=0 EXH=0 UNEVAL=0 UNRES=0 UNCLASS=0
+SLIMBWALK_S5=10
+SLIMBWALK_SIDEV_GT0=26
+SLIMBWALK_CODE3=0 FRAC_CODE3=0
+DIR_HIST: LONG=262 SHORT=219
+G6_OUTWARD_NEG: BASE=0 NUANCE=0
+FRAC_OUTWARD_NEG=0 FRACNU_OUTWARD_NEG=0
+FRAC_RESIDUAL=0
+FRAC_ANCHORFLAG: f0=318f1=67f2=96f3=0fm1=0
+S5_CARVE_OB=0 S5_CARVE_FRAC=0
+SLIMBR_TOTAL=10
+SLIMBR_STALE=0
+SLIMBR_ROWS=QP	0	14:40:36.751	Core 04	2026.08.26 14:45:01   [SRJ-EA] SLIMBR bar=2026.08.26 14:40 dir=LONG entry=1.16654 tp=1.16684 slToday=1.16580 rToday=0.41 dTodayPts=0 slBase=1.16558 rBase=0.32 dBasePts=-22 slNuance=1.16580 rNuance=0.41 dNuancePts=0 slFractal=1.16558 rFractal=0.32 dFracPts=-22 slFractalNuance=1.16602 rFractalNuance=0.58 dFracNuancePts=22 class=TODAY_EQ_NUANCE fracClass=CARVEOUT_FIRED|EL	0	14:47:31.789	Core 04	2026.08.27 17:05:00   [SRJ-EA] SLIMBR bar=2026.08.27 17:00 dir=SHORT entry=1.16524 tp=1.16498 slToday=1.16652 rToday=0.20 dTodayPts=0 slBase=1.16652 rBase=0.20 dBasePts=0 slNuance=1.16652 rNuance=0.20 dNuancePts=0 slFractal=1.16598 rFractal=0.35 dFracPts=-54 slFractalNuance=1.16598 rFractalNuance=0.35 dFracNuancePts=-54 class=WALK_EXHAUSTED fracClass=BASE_MOVED|DQ	0	14:52:00.340	Core 04	2026.08.28 10:05:00   [SRJ-EA] SLIMBR bar=2026.08.28 10:00 dir=SHORT entry=1.16466 tp=1.16364 slToday=1.16508 rToday=2.43 dTodayPts=0 slBase=1.16513 rBase=2.17 dBasePts=5 slNuance=1.16513 rNuance=2.17 dNuancePts=5 slFractal=1.16513 rFractal=2.17 dFracPts=5 slFractalNuance=1.16513 rFractalNuance=2.17 dFracNuancePts=5 class=BASE_MOVED fracClass=BASE_MOVED|OE	0	14:53:44.099	Core 04	2026.08.28 16:25:00   [SRJ-EA] SLIMBR bar=2026.08.28 16:20 dir=SHORT entry=1.16430 tp=1.16364 slToday=1.16508 rToday=0.85 dTodayPts=0 slBase=1.16513 rBase=0.80 dBasePts=5 slNuance=1.16513 rNuance=0.80 dNuancePts=5 slFractal=1.16503 rFractal=0.90 dFracPts=-5 slFractalNuance=1.16503 rFractalNuance=0.90 dFracNuancePts=-5 class=BASE_MOVED fracClass=BASE_MOVED|QS	0	15:23:26.338	Core 04	2026.09.04 09:30:01   [SRJ-EA] SLIMBR bar=2026.09.04 09:25 dir=LONG entry=1.16290 tp=1.16316 slToday=1.16249 rToday=0.63 dTodayPts=0 slBase=1.16199 rBase=0.28 dBasePts=-50 slNuance=1.16249 rNuance=0.63 dNuancePts=0 slFractal=1.16199 rFractal=0.28 dFracPts=-50 slFractalNuance=1.16199 rFractalNuance=0.28 dFracNuancePts=-50 class=TODAY_EQ_NUANCE fracClass=BASE_MOVED|ED	0	15:23:44.648	Core 04	2026.09.04 10:40:00   [SRJ-EA] SLIMBR bar=2026.09.04 10:35 dir=SHORT entry=1.16265 tp=1.16224 slToday=1.16379 rToday=0.36 dTodayPts=0 slBase=1.16379 rBase=0.36 dBasePts=0 slNuance=1.16379 rNuance=0.36 dNuancePts=0 slFractal=1.16331 rFractal=0.62 dFracPts=-48 slFractalNuance=1.16331 rFractalNuance=0.62 dFracNuancePts=-48 class=ALL3_EQ fracClass=BASE_MOVED|KJ	0	15:25:10.098	Core 04	2026.09.04 16:00:00   [SRJ-EA] SLIMBR bar=2026.09.04 15:55 dir=LONG entry=1.16018 tp=1.16302 slToday=1.15907 rToday=2.56 dTodayPts=0 slBase=1.15832 rBase=1.53 dBasePts=-75 slNuance=1.15907 rNuance=2.56 dNuancePts=0 slFractal=1.15907 rFractal=2.56 dFracPts=0 slFractalNuance=1.15907 rFractalNuance=2.56 dFracNuancePts=0 class=TODAY_EQ_NUANCE fracClass=WALK_EXHAUSTED|CJ	0	15:29:14.235	Core 04	2026.09.07 09:20:00   [SRJ-EA] SLIMBR bar=2026.09.07 09:15 dir=LONG entry=1.16135 tp=1.16200 slToday=1.16098 rToday=1.76 dTodayPts=0 slBase=1.16074 rBase=1.07 dBasePts=-24 slNuance=1.16098 rNuance=1.76 dNuancePts=0 slFractal=1.16074 rFractal=1.07 dFracPts=-24 slFractalNuance=1.16102 rFractalNuance=1.97 dFracNuancePts=4 class=TODAY_EQ_NUANCE fracClass=CARVEOUT_FIRED|DS	0	15:30:45.789	Core 04	2026.09.07 16:45:00   [SRJ-EA] SLIMBR bar=2026.09.07 16:40 dir=LONG entry=1.16261 tp=1.16315 slToday=1.16218 rToday=1.25 dTodayPts=0 slBase=1.16112 rBase=0.36 dBasePts=-106 slNuance=1.16112 rNuance=0.36 dNuancePts=-106 slFractal=1.16112 rFractal=0.36 dFracPts=-106 slFractalNuance=1.16240 rFractalNuance=2.56 dFracNuancePts=22 class=BASE_MOVED fracClass=CARVEOUT_FIRED|HH	0	15:36:45.903	Core 04	2026.09.08 16:45:01   [SRJ-EA] SLIMBR bar=2026.09.08 16:40 dir=SHORT entry=1.16213 tp=1.16114 slToday=1.16379 rToday=0.60 dTodayPts=0 slBase=1.16379 rBase=0.60 dBasePts=0 slNuance=1.16379 rNuance=0.60 dNuancePts=0 slFractal=1.16274 rFractal=1.62 dFracPts=-105 slFractalNuance=1.16274 rFractalNuance=1.62 dFracNuancePts=-105 class=ALL3_EQ fracClass=BASE_MOVED
+FRAME_NOTE=JI	0	14:36:56.941	Core 04	2026.08.26 00:00:00   [SRJ-EA] FRAME_NOTE offset=1 apex=s+1 labels=server-time protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) THRESHOLD minRewardRisk=1.00 source=compiled_default
+N1EQUALS=CE	0	15:43:45.618	Core 04	2026.09.09 23:59:58   [SRJ-EA] N1EQUALS poiEqBody=28 poiEqWick=26 vwapEq=0 pocEq=3
+DECISION_BLOCK=MN	0	15:43:45.618	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLIMBR_DECISION rows=10
+XTAB_CHOSENFLAG_X_CLASS=cf=0 x BASE_MOVED=189 cf=0 x TODAY_EQ_NUANCE=55 cf=0 x WALK_EXHAUSTED=139 cf=1 x ALL3_EQ=51 cf=2 x BASE_MOVED=11 cf=2 x TODAY_EQ_NUANCE=16 cf=2 x WALK_EXHAUSTED=20
+XTAB_FALSIFIER_cf1_BASEMOVED=0
+XTAB_UNMATCHED_WALK_ROWS=0
+XTAB_FRACFLAG_X_FRACCLASS=
+XTAB_FALSIFIER_ff1_BASEMOVED=0

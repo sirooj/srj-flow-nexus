@@ -278,3 +278,57 @@ STATUS: ISSUED (council verdict session 2026-09-12: P-SWINGIMB-3 ACCEPTED
 correct-under-conservative, RECON10 frozen baseline, local commit cleared;
 P-SLDEF-1 four edits E11-E14, print-only, no FlowLogic edit).
 Filed by builder to `SRJ_FlowNexus_Local\01_TASKS\PACKET_P-SLDEF-1.md`.
+
+---
+
+# AMENDMENT (council session 2026-09-12: gate-6 restatement + reports)
+
+## Gate 6 — council's error, restated (builder's flag accepted)
+
+Gate 6 as issued assumed a normalized sign the SLIMBWALK line does not
+print. Raw `deltaBasePts < 0` on LONG is a wider protective stop — the
+intended outcome. RECON10's gate 6 is discharged as measured (direction-
+aware leak 0 both sides). Replacement for P-SLDEF-1: print the normalized
+quantity as its own token, `outwardPts = (dir == LONG) ? -deltaPts :
++deltaPts`, emitted as `outwardBasePts`, `outwardNuancePts`,
+`outwardFracPts`, `outwardFracNuancePts` alongside the existing raw
+`delta*Pts` tokens (raw keep names and signs — no renumber, no re-sign).
+Gate: `count(outwardBasePts < 0) = 0` and `count(outwardNuancePts < 0) =
+0`, halts on nonzero with operands. `outwardFrac*` unconstrained in sign,
+distributions reported. `dir` histogram reported, summing to 481.
+FRAME_NOTE states all three conventions (slot frame, apex frame,
+protective sign) next to FLOW_SHIFT_OFFSET and ApexShift.
+
+## Minimum-R — quoted 1.0 + THRESHOLD line + margin flag
+
+`InpMinRewardRisk = 1.0` compiled default, no ini override; crossings at
+1.0 (base 2.17/1.53/1.07 survive, 0.36 dies) accepted as quoted. Hazard:
+unpinned compiled default governs the decision — do NOT touch the pilot
+ini; print the effective value at runtime once per run in FRAME_NOTE as
+`THRESHOLD minRewardRisk=<value> source=<ini|compiled_default>`. Flag the
+1.07 row in the decision block (closest survivor, most sensitive to
+reference/rounding change).
+
+## Nuance unexercised at the decision surface — added gate
+
+`nuance == base` on all four firing rows; carve-out fires in-population
+(106/481) but changes no fired signal. Choice is today vs base vs
+fractal. Added report: `CARVEOUT_FIRED` count restricted to the 10
+`site=S5` rows on BOTH limbs (fractal carve-out may fire where OB does
+not — first evidence ruling (c) has live content, or record unexercised).
+
+## News table — accepted as pinned + conversion ruling
+
+11 rows / 5FFF5C76…EF1F134 / 21:00 anchor accepted. Rows stay
+`{eventTimeET, kind}`; conversion at read; blackout census emits per-row
+ET timestamp + resolved server-time `newsBar` open + window bounds (DST
+boundary rows individually auditable). Table digest changes are revisions
+with new SHA256, never in-place fixes. FRAME_NOTE covering table
+timestamps is a stated requirement.
+
+## PROCEED
+
+P-SLDEF-1 cleared to build with gate 6 restated + three added reports
+(`dir` histogram, THRESHOLD line, S5 CARVEOUT_FIRED both limbs). All else
+stands, halts on E11.1, E13.3, gate 4, gate 8. One run left; output is a
+table; next packet is a decision.
