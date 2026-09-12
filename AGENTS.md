@@ -122,10 +122,10 @@ Masters judge measurements on disk, never prose about them.
 ## 9. File map (current baselines 2026-09-11)
 
 - EA: `Experts\SRJ_FlowNexus_EA.mq5` =
-  `75FEBFDEBBDA023A96FFB968C09D82F3FB6444B58DBEC1F609455DA4B58CBE1A`
-  (314461 B, RECON11b-SLDEF FROZEN baseline, council-ACCEPTED;
-  supersedes 4B2FA10E state, which stays frozen for the OB limb only
-  as a carried-token reference, not as a fractal record).
+  `EDAA089A7A7A98A3B9FAFCBAE0C76694CA253B92109CDAC252ECC4BEF3CBE7D1`
+  (328520 B, RECON12c-NEWS FROZEN baseline, council-ACCEPTED;
+  supersedes 75FEBFDE state, which stays frozen for the imbalance
+  instrument only as a carried-token reference).
 - CQD: `Indicators\SRJ_CQD_TickBased_MT5.mq5` = `BE6FD84F...A421F` (50555 B).
 - OrderblockMgr: `Include\SRJ\SRJ_OrderblockMgr.mqh` = `D286621C...20B7B` (48050 B).
 - FlowLogic: `Indicators\SRJ_FlowLogic.mq5` = `3606BFB4...25911` (67515 B,
@@ -232,11 +232,37 @@ Masters judge measurements on disk, never prose about them.
    over 56 rows; fracAnchorPx owed). Gate-8 CLOSED on operands (single
    0.1-pip gap). N1: CONFIRMED body+POC, CONTRADICTED wick (10/16),
    UNEXERCISED vwap+exit — operator ruling owed. Labels: three pairs
-   (+20/-15/-10), resolve by content. P-NEWS-1 ISSUED (E20-E22 blackout
-   census; print-only; MTEXIT stays 4). Standing rules: gates name their
+   (+20/-15/-10), resolve by content (16:15=1.16239 resolved by his
+   status bar; TP drift closed: code picked Yearly-VWAP 1.16315, his
+   1.16318 = same line later). Journal numbers all four filed
+   (Sep-7AM exact; Aug-28 exit 1.16464 vs 1.16451 same bar; Sep-4 SL
+   1.15847 vs 1.15907 + flat 1.16129@23:55; day close = 00:00 broker =
+   17:00 ET, 23:05 was a typo). SL rule generalized by operator: EXACTLY
+   two swings away, both cases; 1.16112 a "ghost". P-NEWS-1 ISSUED
+   (E20-E22 blackout census; print-only; MTEXIT stays 4).
+   RECON12 DONE (passed, rowsInWindow=0 — range-from-history defect, owned).
+   RECON12b DONE (passed; false gap-halt + sticky-flag flats 12/2, owned).
+   RECON12c DONE 22:53:41 (Test passed 1:06:41; manual archive 17155 lines;
+   journal E73A5E8C; EA EDAA089A 328520 B UNCOMMITTED) — gates 1-8 PASS
+   (gate-6 note: ROW/CENSUS audit lines unemitted, off-log maxes 236/294;
+   1-line move owed): census rows=11, in-window=1 (NFP 9/04 15:25-15:40),
+   memberBars=3/3, overlaps=0, flats 0/0/0 TRUE-open, Oct-28 offset 360
+   correct, DST unexercised; imbalance side 481x3+10/10 zero-mismatch.
+   NO commit (no verdict). Standing rules: gates name their
    population; repaired inputs stay distinguishable; collision scoping
-   (class/fracClass/nuanceClass); audit lines non-self-matching (owed);
-   wrapper = standing archive method.
+   (class/fracClass/nuanceClass); audit lines non-self-matching (DONE via
+   quoting + head-anchored patterns); wrapper = standing archive method
+   (stalled pre-DONE on 12c — manual protocol used, defect noted).
+5. VERDICT 2026-09-12: RECON12c ACCEPTED (new frozen baseline EDAA089A;
+   local commit cleared, NO push). Gate-3 across 3 builds = custody
+   proven. G6: 236/294 labelled arithmetic, move in P-SLDEF-2.
+   Archive = purity triple (1/4/481), stall logged. Artifact +1:
+   sticky-flag (state-defined counts). DST demonstrated (Oct-28 360);
+   Sep/Dec 21:00 = operator anchor from table. Probe requirement for
+   future sides (off-canonical, reverted, never committed). Sep-4 flat
+   via MTLIFE; "two-away" NOT packetized (blast 441, chain, granularity);
+   next = ladder + his mark-up (both levels must be rungs). P-SLDEF-2
+   ISSUED (E23 ladder, E24 match, E25 MTLIFE, E26 audit move; print-only).
 5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
    journal correction): journal "swings" = FRACTAL swings (triangle
    markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used
