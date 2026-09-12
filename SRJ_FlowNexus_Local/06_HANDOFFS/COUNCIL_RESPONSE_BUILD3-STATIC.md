@@ -1,0 +1,63 @@
+# COUNCIL_RESPONSE_BUILD3-STATIC.md — Opus 5 static review, verbatim relay 2026-09-11
+Filed by builder from the operator's paste. No edit packet issued. No source change.
+
+## Headline: there is a real defect in the S2POLL block, and it is the best static explanation for 33 min -> 60 min
+Anchor: EvaluateClosedBar, the block opening double s1_stopRef = 0.0; bool s1_haveStop = false;
+The if governs one statement. s1_haveStop = true; is unconditional, and the { ... } that follows is a bare scope block, not the if body, so it runs unconditionally and reads slRef on a path where ComputeSlReference returned false. #property strict does not catch this shape, which is why 0 errors / 0 warnings passed over it.
+Two consequences, and the second is the expensive one.
+s1_haveStop is true on every bar in S2 through S5, whether or not a stop was found. When the call failed, s1_stopRef is still 0.0. Every consumer of that pair then takes the has-a-stop branch with a stop of zero: ZoneInPlay (SWINGLEG walk); ZoneAdoptable (SWINGLEG walk, reached on every S4 bar); ReadQualifyingZone (two ZoneInPlay calls); the S3 inline ladder (branch selection between the SWING2 bound and the SWINGLEG walk).
+The zero stop breaks the walk terminator asymmetrically by direction. The terminator is (g_dir == DIR_LONG) ? (v2 <= stopRef) : (v2 >= stopRef): LONG: v2 <= 0.0 never true, walk never terminates on stop, runs until ReadFlow fails past end of FlowLogic history (one CopyBuffer per iteration, whole loaded history, not the 3168-bar window). SHORT: v2 >= 0.0 always true, walk breaks on first distinct swing, depth collapses to one swing.
+On an S4 bar with a LONG candidate the cost is ZoneAdoptable plus two ZoneInPlay calls inside ReadQualifyingZone, each walking the full history. Three full-history CopyBuffer walks on a single bar, repeated for every S4 bar the candidate survives.
+
+### What this does not let council claim
+Cannot claim it changed the four measured signals. Largely masked at the arming gate: the Task 133 block overwrites s31_inPlay with its own s3_haveStop-derived verdict on exactly the haveXob && !haveFvg bars, and haveFvg is false throughout. Where the corrupted pair reaches live behaviour is ZoneAdoptable at S4, which gates zone replacement, ZONEMOVE, and TOUCHCLEAR. S3 census lines and INPLAYCOMMIT can rest on different bounds on the same bar (ladder using stopRef 0.0, committed test using its own s3_haveStop).
+### Identity conflict, stated plainly
+Fixing this cannot reproduce RECON3-BUILD3 verbatim. It changes walk bounds on the ruled path. Not a trim under the identity constraint - a defect needing the operator's decision on whether the identity baseline moves. Council proposes NO patch.
+### Zero-run verification, from the journal already on disk
+No new run needed. ComputeSlReference emits SL_REF site=S2POLL on every success and nothing on failure; SWINGPICK site=S2POLL on every call under debug. Against RECON3-BUILD3_JOURNAL.log: (1) count SWINGPICK site=S2POLL = total calls; (2) count SL_REF site=S2POLL = successes; (3) difference = bars that ran with s1_haveStop=true, s1_stopRef=0.0; (4) on those bars check dir= on paired S3INPLAY/ZONEADOPT for LONG/SHORT split. Difference zero = defect never fired on this window, perf explanation collapses. Non-zero and LONG-weighted confirms it.
+
+## Redundant re-evaluation (C1 item 1), ranked by static count
+### 1. Twelve POI buffers re-read 100+ times per bar at one shift
+Every consumer reads g_hPoi buffers 0-11 at barShift=1: DetectPoiRetest Task-78 POIREPLACE (12); Task-73 SUPPRESSED census (12); IDLE shadow CONFIRMPOLL (12); IDLE seed (12); B3_ElectAnchor (<=12); ShadowRetestBook (<=12); ComputeNearestTpTarget POI loop x2 sites (<=24); TPCENSUS re-walk x2 (<=24); MtNearestTpTarget (<=12); EvaluateManagedTrade body-close loop (12); IsConfirmationCandle/ShadowConfirmPoll/seed-B3 anchor price (<=4). Union ~100-140 CopyBuffer calls per bar for twelve values. Fix: one double g_poiVal[12] filled once per bar + validity flags. Identity-preserving by construction (same handle/buffer/shift/values).
+### 2. ComputeSlReference called twice per S3 bar with identical inputs
+site=S2POLL then site=S3ARM inside Task 133; barShift/g_dir unchanged between; B3 clears g_zoneHi/Lo which the function reads only for prints. Each invocation: 3 ReadFlow + two 501-bounded FindNearestSwing walks + 2 ReadFlow + optional 500-slot Task-75 or 500-slot 2-swing walk. Reusing s1_stopRef/s1_haveStop removes the duplicate - but ONLY once the dangling if is repaired, because today that pair cannot be trusted. Coupled findings.
+### 3. One of the two FindNearestSwing calls always dead
+haveHigh/high + haveLow/low both walked; 1-swing branch consumes only the direction-matching side (and only when obSwingSideOk false); 2-swing consumes neither. Minimum one 501-bounded walk discarded per invocation; both in 2-swing. Low iteration when swings dense (~18% occupancy per Task 21 note) but runs to exhaustion when none exists.
+### 4. Two provably dead ReadFlow calls per ComputeSlReference
+The haveHigh/haveLow pair from direct ReadFlow(FL_BUF_SWING_HIGH/LOW, barShift) is overwritten by the FindNearestSwing results before any read. Retention comment cites SWINGDUMP, but SWINGDUMP does its own reads and runs earlier. Removable with certainty, zero behaviour change, small win.
+### 5. Bars() re-evaluated every loop iteration
+Loop condition s <= barShift + Bars() in ZoneInPlay, ZoneAdoptable, S3 inline SWINGLEG walk, UpdateDivergenceLatch. Hoisted correctly in t127/t133 walks and S5 divergence walk. Pure loop-invariant hoist, identity-preserving.
+### 6. Read failure -> continue in the two CQD walks
+## Gating-site audit (C1 item 2): largely clean
+Council checked every Print/PrintFormat/StringFormat site. Pattern in this file is call-site if(InpDebugLog){...}, not an internally-gated helper, so argument evaluation and StringFormat are correctly skipped when flag off. Prior suspect #1 does not hold. Removed from trim list.
+Ungated printers, all low-frequency: LogAbort, LogSignal, EmitAlert, MTEXIT line, ALERT_ONLY and PRE-SEND/EXECUTED lines, LoadWorkingSet WS161_LOAD NOSTORE / WS161_MISMATCH (measured mismatch=0, silent). SrjWsCompare runs ungated twice per bar - 42 comparisons, negligible.
+Real debug cost is not formatting. It is buffer reads inside debug-gated blocks, two of them unbounded walks (next section).
+## Dead and retired paths (C1 item 3)
+MT_PENDING_FILL unreachable. No site assigns it. MtReset writes MT_INACTIVE; signal path writes MT_MANAGING; exits write MT_CLOSED. Entire if(g_mtrade.state == MT_PENDING_FILL) branch in EvaluateManagedTrade including CANCEL_BIAS path and ReadFlow(FL_BUF_LTF_BIAS) inside is dead. MT_EXIT_CANCEL_BIAS and MT_EXIT_FILL_INVALID consequently unreachable. Under next-open entry the fill is immediate - lifecycle stub, not a gap.
+t124/t127 shadow in-play walks are the largest debug-only cost. Both run on every S3 bar. t124 capped 500 slots; t127 uncapped (limit barShift+Bars(), only substantive terminator is promotion-time comparison, measured unset on some bars). Finding already delivered: Task 133 built from it, INPLAYCOMMIT carries committed verdict independently. Retiring them is the single biggest debug-path trim. Changes the journal - operator's call, not a trim under verbatim constraint.
+g_divLatch computed every bar and read by no gate. UpdateDivergenceLatch runs every S1-S5 bar; firing path reads the unbounded E3 walk instead. Remaining readers: SrjWsCompare, StoreWorkingSet, SESSIONHOLD print, CQDRECHECK. WS161 field 7 - cannot remove without breaking fields=21. Debug-gating the computation would make a working-set field debug-dependent - violates the flip-a-constant discipline. Instrumentation-only, no change proposed.
+t133_bound assigned and never used when s3_haveStop true - terminator reading it is guarded by !s3_haveStop. Harmless dead assignment.
+
+UpdateDivergenceLatch and S5 firing walk both continue on failed ReadBuf1 rather than break. Past end of CQD buffer iterates to limit with failing CopyBuffer each step. S5 limit is Bars()-1, so a bar with no matching verdict pays full-history scan of failed reads. Break is obvious but NOT proposed: interleaved read failures not disprovable statically, and this walk is ruled behaviour (WHICHEVER LAST). Flagging only.
+## Logic findings not about speed (C3)
+### Committed in-play walk excludes the stop swing; the other three include it
+ZoneInPlay, ZoneAdoptable and S3 inline ladder all order: test containment, then break on terminator. Task 133 committed walk breaks first: if(s3_haveStop && stop test) break; swings++; if(hit){...}. Its own comment says "The stop swing is tested and ends the walk." It ends the walk without testing. Load-bearing case on record is precisely the stop swing as witness (handover: "the one verified operator zone was put in play by the second swing, the one the stop was placed at"). Committed test cannot see that witness; the three shadows can. Adjudicate before any performance work. Related: t133 carries no MathAbs distinctness filter, so swings= not comparable to theirs.
+### Task 133 fail-closed claim does not hold in one combination
+Block comment states fail-closed on unreadable promotion time. Gate if(t133_bounded || !s3_haveStop): !bounded && haveStop -> not entered -> false -> fails closed, as documented. !bounded && !haveStop -> ENTERED, t133_bound stays 0, time terminator disabled by !s3_haveStop && bt<0, stop terminator disabled by s3_haveStop false. Walk runs full history with no substantive bound, and any swing hit anywhere admits the zone. Opposite of fail-closed, and a full-history walk on the live path under debug-off.
+### Attribution gaps in censuses
+- vHTF computed only when !vSL && !vTP && !vBREAK, so EXITVERDICT reports vHTF=0 on every bar another verdict fired. Census cannot answer "would HTF have flipped here" on those bars.
+- mtlAnti=-1 conflates four causes: scope off, non-trend regime, HTF read failure, short-circuited by earlier verdict.
+- TPCENSUS capped at s_tpDumps<2000, ~2 call sites over 3168 bars. Cap is reached, so counts from TPCENSUS lines are truncated. Same shape: ZONECENSUS_FVG at 130, BIASCENSUS_HIT at 40, SWINGDUMP at 20.
+- ReadBuf1 return discarded at both anchor-price writes (seed and B3 re-bind). Safe today (electing function already proved line readable that bar), but g_anchorPrice is WS161 field 5 and MTSNAP provenance - latent hazard, not live.
+
+## C2 day-close flat: shaping, with a correction to council's last reply
+Council was WRONG about WS161. Flagged fields=21 as a constraint on the flat check. It is not. SManagedTrade is deliberately not a working-set member (ResetSequence does not clear it, per R-201 pattern), so a flat check inside EvaluateManagedTrade cannot touch WS161 at all. fields=21 is safe. Blocker removed; stated, not quietly dropped.
+Placement. Function already computes all four verdicts before acting, then short-circuits if(!(vSL||vTP||vBREAK||vHTF)) return. Flat belongs as a fifth verdict evaluated at that line - after the four are known, before the priority chain. Preserves ruled priority by construction: time predicate can only fire where no price/structure predicate fired - exactly the overnight-carry population the spread-plus-swap rationale targets. No reordering, no change to the four verdicts.
+Census. Ride existing EXITVERDICT with an added field, not a new print. EXITVERDICT not in pinned identity set. New ENUM_MT_EXIT member appended at value 8 plus one MtExitName case matches append-only enum discipline.
+Build order. Ship as shadow first (POIREPLACE precedent): emit verdict on EXITVERDICT, take no exit. Measures in-window blast radius; identity-safe apart from added field.
+Close reference: daily bar rollover with offset as separate input (derives from series EA already reads; reproducible in tester). SymbolInfoSessionTrade risks live/backtest divergence; fixed hour:minute deterministic but silently wrong under DST/server-time shift.
+Strategy questions back through relay, unchanged: every day or Friday only; TP-touch vs flat on final bar; Wednesday triple swap; floating only or also unfilled prep S1-S4; ALERT-ONLY confirmed for flat notice.
+## Caveats on this review
+Paste arrived without line numbers, so every finding anchored on unique source string, not line. Nothing re-hashed (no file access) - 7BB1E9B6 taken on trust. No compile, no backtest, per operator ruling. Every claim from reading pasted source; the one quantitative claim about defect frequency explicitly deferred to the journal query, which needs no run.
+No edit packet. No git action. Awaiting operator token.
+

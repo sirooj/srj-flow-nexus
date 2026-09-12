@@ -1,0 +1,7 @@
+﻿RUN=RECON6-TRIM-S2POLL
+RESULT=PASSED-BY-MARKER (builder manual completion — wrapper DONE=TIMEOUT_60MIN SUPERSEDED)
+MARKER=EL 0 00:24:58.582 Core 04 EURUSD,M5: 563338 ticks, 3168 bars generated. Test passed in 1:03:23.693
+SEG=15555 (20260911.log 110544..120999 = 10455 + 20260912.log 0..5100 = 5100)
+JOURNAL=06_HANDOFFS\RECON6-TRIM-S2POLL_JOURNAL.log (2465149 B)
+ATTEMPT1 SUPERSEDED: 95228..110394 partial (no marker, terminal 12480 closed); S5 record = attempt 2 only.
+DONE=builder-written per manual completion protocol

@@ -1666,4 +1666,105 @@ Rulings R-162..R-215 exist only in conversation history, not on disk (Rev64 brie
   PROMPT REWRITTEN for the Muse Spark session (baselines: EA 693B3729...946E / CQD BE6FD84F... / OBMGR
   D286621C... / FlowLogic 1EA7858F...; the next task = BUILD 3, the line supersession, council C1).
   NO git token; nothing under 02_TASK_CHECKPOINTS; the T162_SLREF2 canonical state + records
+- SESSION 2026-09-11 (P-BUILD3 EXECUTED AND VERIFIED; the 9/4 Yearly-POC retest
+  RECOVERED as a 16:00 LONG signal; operator present for the completion nudge):
+  RUN RECON3-BUILD3 (RECON1_P1.ini unchanged; window 8/26->9/10): launched 13:18:07
+  (PID 12160) via harness v2.3 detached; "Test passed in 1:03:47.543", 563,338 ticks,
+  3,168 bars, RESULT=PASSED, DONE 14:24:32. S1 pre-hash PASS (693B3729); S2 E1-E5
+  applied; S3 post-hash EA 7BB1E9B6...C3CB3C (certutil verbatim, twice); S4
+  T162_BUILD3 compile 0/0 (1996 ms; first attempt failed 2 errors on the forward
+  declaration - MQL5 rejects it - fixed by defining B3 helpers after DetectPoiRetest).
+  S6 GATES: G1 PASS; G2 PASS WITH DECLARED MOVE (WS161 fields=21 loads=stores=3168
+  changes=208 mismatch=0, LOAD NOSTORE x1, zero FIELD/MISMATCH rows; 206->208 from the
+  superseded-candidate path); G3 THE A-PRIORI CORE VERBATIM (8/28 10:05 SHORT
+  Daily-VWAP R=2.43 SL 1.16508 TP 1.16364; 9/7 09:20 R=1.76 + 16:45 R=1.25; four fakes
+  silent) + THE RULED DELIVERABLE (ANCHOR_SUPERSEDE 9/4 15:45 Monthly-POC rank6 tier3
+  -> Yearly-POC rank2 tier1 LONG S4_ARMED = the a-priori EXACT line; 16:00 SIGNAL LONG
+  Yearly-POC NYAM R=2.56 SL 1.15907 TP 1.16302 spr=1; MTSNAP anchor=Yearly-POC
+  entry=1.16018 regime=3; MTEXIT 16:05 HTF_FLIP exit=1.15990 - the parked 5.6 exit;
+  SIGNAL_COUNT=4); SUPPRESSED opp=0 higher=1 18->2 (declared blast radius, now
+  re-binds), opp=1 85->83 (untouched by design, 2-count drift); G4 post-run digests
+  byte-identical (EA 7BB1E9B6 / CQD BE6FD84F / OBMGR D286621C / FL 1EA7858F);
+  G5 FlowLogic identities VERBATIM (BIAS 1554/1614 x2; ZONE 3168/1056; PROMO 469;
+  CQD 906 identical 170/308/263/165); EA moves mechanism-named (ABORT 54->51;
+  CONFIRMPOLL 611->590; STRUCTFAIL 191->176; PREBIND 4->4; DIV_WAIT 5->6;
+  TP_RR_FAIL_LATCH 5->5 identical values; SL 2-swing 60->60; FRESHCOUNT 92->85 all
+  pre). OBPROV code3/code4 NOT re-gated (tabulation 951/1205 include T155
+  replay+live double-print sites; SLREF2 tabulation 769/887 different scope -
+  declared). S7: BUILDER_RESULT_RECON3-BUILD3.md + RECON3-BUILD3_TABULATION.txt
+  (181 lines); packet marked EXECUTED AND VERIFIED; prompt updated. All 8
+  ANCHOR_SUPERSEDE lines same-direction strictly-better-tier (zero inversions).
+  NEW BASELINE: EA 7BB1E9B6...C3CB3C T162_BUILD3 run-verified; 693B3729 SUPERSEDED.
+  QUEUE: FVG packet; imbalance criterion (reserved); Phase-2 re-run; debris word;
+  snapshot on token. NO git token; nothing under 02_TASK_CHECKPOINTS; the T162_BUILD3
+  canonical state + records UNCOMMITTED (working tree only copy - fragile).
   UNCOMMITTED (the working tree is the only copy — fragile).
+- SESSION 2026-09-11 (9/4 exit adjudicated; day-close-flat rule QUEUED; council
+  handover formatted; all measured, no source change):
+  OPERATOR CONFIRMATIONS (verbatim rulings, recorded in the handover §4): (a) the 9/4
+  exit chain - "for your setting, you are correct that the exit would be due the HTF
+  trend following setup bias. the original TP was the London high and revised to NY
+  high and then NY PM High. the ny pm session high is 1.16158 at 22:40. The current
+  EA behaviour is correct as what i officially ruled." MEASURED BASIS: TPCENSUS #379
+  winner=LOH best=1.16302 (latched R=2.56); PMH admitted at 361 pts but NOT picked
+  (closest-line rule as-built); EXITVERDICT bar=16:00 vHTF=1 anti=2, vTP=0 vSL=0
+  vBREAK=none -> MTEXIT 16:05:01 HTF_FLIP exit=1.15990 (the parked §5.6 exit). The
+  operator's +0.84R question RESOLVED: no EA number matches it (at entry 1.16018,
+  +0.84R ~= 1.16111 - no EA line there). (b) NEW RULE QUEUED (verbatim): "due to the
+  widening spread and swap fee, i want to experiment in the future to close any
+  running or floating setup 5 minutes before the day closes" - recorded as handover
+  §4 + C2 SHAPE-ONLY ask; NOT built, NO packet; needs operator confirmations (close
+  reference; priority vs TP/SL/HTF; ALERT-ONLY flat notice). (c) NEXT STEP (verbatim):
+  "my next step that i would like to hand the working codes to the council for review
+  and code improvements. the original code is faster than the current one when i
+  backtest." DELIVERED: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_BUILD3-HANDOVER.md (108
+  lines, self-contained: §1 digests + compile + run + git state; §2 ruled model;
+  §3 agreement; §4 exit confirmations; §5 measured wall-times
+  SHADOW 0:58:22 / GATE 0:57:33 / ANYSTATE 0:47:12 / SLREF 0:51:07 / SLREF2 0:59:54
+  / BUILD3 1:03:47 + "original" UNPINNED + profile-then-trim ask C1; §6 code-only
+  asks C1-C3; §7 literal source paths). "Original" = no digest named - best reading
+  pre-T162 lineage vs T162_BUILD3. Baselines re-verified byte-identical at handover
+  (EA 7BB1E9B6 / CQD BE6FD84F / OBMGR D286621C / FL 1EA7858F, certutil verbatim).
+  Relay + prompt edits are the only writes. NO canonical file touched; no git token;
+  nothing under 02_TASK_CHECKPOINTS. QUEUE: council response -> packet -> day-close
+  confirmations (operator) -> FVG packet; imbalance reserved; Phase-2 re-run;
+  debris word; snapshot on token. UNCOMMITTED: T162_BUILD3 state + RECON3 records
+  + handover + prompt + standing state (working tree only copy - fragile).
+- SESSION 2026-09-11 (C1 CLARIFIED: logic review, not pure speed; no new runs):
+  OPERATOR RULINGS (verbatim, recorded in 06_HANDOFFS\BUILDER_RELAY_COUNCIL_BUILD3-
+  C1CLARIFY.md): "the original backtest speed was 33 mins and although it heavily
+  incorrect spec wise, now it runs for 1 hour." + "i do not want another run, i want
+  the council to review the overall code to make it better, logic wise. not pure
+  speed". CONSEQUENCE: the "original" endpoint is now PINNED by wall-time (33 min,
+  spec-incorrect build, no digest on record - the builder invents none); the felt
+  delta is ~33 min -> ~60+ min (~2x), not the 9% T162-internal spread; the council's
+  log on/off run pair is DECLINED - no new runs for C1; the review is STATIC:
+  redundant re-evaluation, gating-site waste, logic clarity/dead paths, with line
+  numbers + static counts, shape-only, no edit packet. DELIVERED the C1CLARIFY relay
+  (paste whole to Opus 5 after the handover + response; the operator attaches the EA
+  file itself). Relay file is the only write. NO canonical file touched; no git token;
+  nothing under 02_TASK_CHECKPOINTS. QUEUE: council static review -> packet; day-close
+  C2 questions still with the operator (Q1-Q5); FVG packet; imbalance reserved;
+  Phase-2 re-run; debris word; snapshot on token. UNCOMMITTED: all of the above
+  (working tree only copy - fragile).
+- SESSION 2026-09-11 (S2POLL defect rulings; fix packet requested; no source change):
+  OPERATOR RULINGS (verbatim, in 06_HANDOFFS\BUILDER_RELAY_COUNCIL_FIX-S2POLL.md §1):
+  Q1 "of course i want it fix. that is a fatal mistake if not properly applied. or the
+  explanation is this EA is alert phase so it would not fire. but after getting it
+  correct such as now, i want it be able to take trades." = FIX EVEN IF BASELINE MOVES.
+  Q2 "i do not know what count proof that the zone is live. if what you meant is the XOB
+  or LTF confirmation, then yes. count the SL leg not the latest structure leg." =
+  the SL-leg walk incl. the stop swing as witness IS the in-play proof. Q3 "YES. SL
+  should be present at all times. it is simply wether it's one swing away+imbalance or
+  two swings away." = FAIL-CLOSED: no stop = no arm, every gate. BUILDER CONFIRMED the
+  defect on disk (EA L3344-3347: the if governs one statement, s1_haveStop=true
+  unconditional, brace block is bare scope) and ran the council's zero-run check:
+  SWINGPICK site=S2POLL 468 = SL_REF site=S2POLL 468, DIFF=0 - never fired in-window,
+  the 4-signal set unthreatened historically; the fix moves the baseline BY RULING Q1.
+  DELIVERED the fix-packet request relay (BUILDER_RELAY_COUNCIL_FIX-S2POLL.md: E1 brace
+  + fail-closed abort; E2 stop-swing test order + distinctness filter; E3 close the
+  !bounded && !haveStop combo; E4 council-sequenced trims; full gates). Relay file is
+  the only write. NO canonical file touched; no git token; nothing under
+  02_TASK_CHECKPOINTS. QUEUE: council P-FIX-S2POLL packet -> execute S1-S7 on issuance;
+  day-close C2 Q1-Q5 still with operator; FVG packet; Phase-2 re-run; debris word;
+  snapshot on token. UNCOMMITTED: all of the above (working tree only copy - fragile).

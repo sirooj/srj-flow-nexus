@@ -1,0 +1,48 @@
+﻿RUN=RECON5-FVGVALIDITY
+WRAPPER=V2
+WRAPPER_STARTED=2026-09-11 20:20:23
+INI=c:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\00_CURRENT_WORKING\RECON1_P1.ini
+INI_EXISTS=True
+TERM_EXISTS=True
+TERMINAL_BUSY=False
+JOURNAL=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\Tester\logs\20260911.log
+PRE_JOURNAL_LINES=79911
+PID=10204
+LAUNCHED_AT=2026-09-11 20:27:15
+STAGE=RUNNING (completion = the journal marker, NOT process exit)
+HEARTBEAT=20:32:16 terminal_alive=True journal_lines=81987
+JOURNAL_LAST=EP	0	20:28:18.434	Core 04	2026.08.26 01:10:29   [SRJ-EA] IDCHANGE bar=2026.08.26 01:05 inWin=0 state=IDLE dir=NONE xobId=1784->1756 fvgId=0->0 xobLo=1.16680 xobHi=1.16702 cumX=3 cumF=0 bars=15
+HEARTBEAT=20:38:46 terminal_alive=True journal_lines=83413
+JOURNAL_LAST=MK	0	20:37:22.379	Core 04	2026.08.26 19:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 19:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=70 mism=0
+HEARTBEAT=20:44:28 terminal_alive=True journal_lines=84520
+JOURNAL_LAST=IK	0	20:43:53.219	Core 04	2026.08.27 18:45:00   [SRJ-EA] TPCENSUS #105 bar=2026.08.27 18:40 dir=SHORT close=1.16504 winner=Yearly-VWAP best=1.16322 distPts=182 empties=0 admitted= PDL:85 LOL:29 NYL:140 PML:4 Monthly-POC:1080 Monthly-VWAP:652 Quarterly-POC:2170 Quarterly-VWAP:1638 Yearly-POC:1105 Yearly-VWAP:182 FOMC-POC:1136 FOMC-VWAP:844 
+HEARTBEAT=20:49:48 terminal_alive=True journal_lines=86170
+JOURNAL_LAST=GJ	0	20:49:04.500	Core 04	2026.08.28 19:15:00   SRJ XOB-PROMOCENSUS t=2026.08.28 19:10 bar=123856 mode=nearest bias=bearish objId=2233 isValid=1 isActivated=1 obStart=123850 obStartT=2026.08.28 18:40 obVal=123854 obInval=-2147483648 boundary=123854 boundaryOk=0 oppInvalCount=3 promoBar=123856 promoT=2026.08.28 19:10
+HEARTBEAT=20:55:28 terminal_alive=True journal_lines=87414
+JOURNAL_LAST=GD	0	20:55:10.710	Core 04	2026.09.01 01:45:09   [SRJ][T155][OBPROV] code=4 id=2440 bar=124222 flag=true
+HEARTBEAT=21:01:15 terminal_alive=True journal_lines=88419
+JOURNAL_LAST=JG	0	21:00:03.991	Core 04	2026.09.01 18:45:02   [SRJ-EA] CONFIRMPOLL bar=2026.09.01 18:40 anchor=Yearly-POC dir=SHORT oppCandle=0 bodyDir=1 body=3pts doji=0 touchAttr=0 confirm=0 shadow=true
+HEARTBEAT=21:07:10 terminal_alive=True journal_lines=89917
+JOURNAL_LAST=GP	0	21:07:05.782	Core 04	2026.09.02 18:40:05   [SRJ-EA] SLSRC site=S3ARM dir=LONG src=OB_SWING obStruct=1.15781 obSwing=1.15777 nearest=1.15891 chosen=1.15777 deltaPts=4
+HEARTBEAT=21:13:01 terminal_alive=True journal_lines=90854
+JOURNAL_LAST=QO	0	21:12:23.244	Core 04	2026.09.03 19:35:00   [SRJ-EA] 2026.09.03 19:35:00 CQD DIV verdict=-1 shift=2 bar=2026.09.03 19:25
+HEARTBEAT=21:19:00 terminal_alive=True journal_lines=91897
+JOURNAL_LAST=IH	0	21:17:46.733	Core 04	2026.09.04 22:15:06   [SRJ-EA] 2026.09.04 22:15:06 CQD DIV verdict=-1 shift=2 bar=2026.09.04 22:05
+HEARTBEAT=21:25:10 terminal_alive=True journal_lines=93133
+JOURNAL_LAST=NG	0	21:25:00.078	Core 04	2026.09.08 09:25:00   [SRJ-EA] SLSRC site=S2POLL dir=LONG src=FALLBACK_SIDE obStruct=1.16377 obSwing=1.16379 nearest=1.16232 chosen=1.16232 deltaPts=2
+HEARTBEAT=21:31:51 terminal_alive=True journal_lines=94846
+JOURNAL_LAST=RK	0	21:30:47.978	Core 04	2026.09.09 14:25:01   SRJ XOB-PROMOCENSUS t=2026.09.09 14:20 bar=126102 mode=all bias=bullish objId=3478 isValid=1 isActivated=1 obStart=126088 obStartT=2026.09.09 13:10 obVal=126092 obInval=-2147483648 boundary=-2147483648 promoBar=126102 promoT=2026.09.09 14:20
+TERMINAL_ALIVE=True
+ARCHIVED_LINES=15317
+GATE: OS	0	20:47:02.429	Core 04	2026.08.28 10:05:00   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Daily-VWAP | LONDON | R=2.43 SL 1.16508 TP 1.16364 spr=4
+GATE: HG	0	21:16:33.491	Core 04	2026.09.04 16:00:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Yearly-POC | NYAM | R=2.56 SL 1.15907 TP 1.16302 spr=1
+GATE: NN	0	21:20:01.012	Core 04	2026.09.07 09:20:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | LONDON | R=1.76 SL 1.16098 TP 1.16200 spr=3
+GATE: DH	0	21:21:32.562	Core 04	2026.09.07 16:45:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | NYAM | R=1.25 SL 1.16218 TP 1.16315 spr=3
+GATE: QG	0	21:33:04.500	Core 04	final balance 10000 JPY
+GATE: PM	0	21:33:04.500	Core 04	2026.09.09 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=3168 | sh1 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0 | sh2 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0
+GATE: JM	0	21:33:04.500	Core 04	2026.09.09 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=3168 both=0 xobOnly=3168 fvgOnly=0 neither=0 | inWindow=1056 xobInWin=1056 fvgInWin=0 | samples=0
+GATE: EM	0	21:33:04.500	Core 04	2026.09.09 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=3168 stores=3168 changes=205 mismatch=0
+GATE: KP	0	21:33:04.500	Core 04	EURUSD,M5: 563338 ticks, 3168 bars generated. Environment synchronized in 0:00:00.456. Test passed in 1:05:28.971 (including ticks preprocessing 0:00:00.079).
+XOB_PROMOCENSUS_COUNT=469
+RESULT=PASSED
+DONE=2026-09-11 21:39:48

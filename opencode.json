@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md"],
+  "formatter": false,
+  "lsp": false,
+  "compaction": {
+    "auto": false
+  },
+  "tool_output": {
+    "max_lines": 200,
+    "max_bytes": 8192
+  },
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "git add *": "ask",
+      "git commit *": "ask",
+      "git push *": "ask"
+    }
+  }
+}
