@@ -362,6 +362,7 @@ void SRJ_FVG_CreationRenewalPass(const double &high[],const double &low[],
   }
 
 void SRJ_FVG_FillDetectionPass(const double &open[],const double &close[],
+                               const double &high[],const double &low[],
                                int i,bool withinLookbackWindow,bool barClosed)
   {
    if(!(withinLookbackWindow && barClosed && g_imbalances.Total() > 0))
@@ -375,6 +376,51 @@ void SRJ_FVG_FillDetectionPass(const double &open[],const double &close[],
      {
       CImbalance *fvg = GetFVG(g_imbalances,k);
       if(fvg==NULL) continue;
+      //--- [P-FVGVALIDITY E1 / operator 2026-09-11] remainder backfill: live
+      //--- instances predating this build carry SRJ_NA_DBL remainders.
+      if(SrjIsNa(fvg.remTop) || SrjIsNa(fvg.remBottom))
+        {
+         fvg.remTop    = fvg.top;
+         fvg.remBottom = fvg.bottom;
+        }
+      //--- Wick coverage shrinks the offered remainder but NEVER kills the FVG
+      //--- (§0A: death is body-close-over-midline only). Edge-anchored: only
+      //--- coverage connected to an edge eats in; middle-only wicks leave the
+      //--- remainder whole (declared limitation, auditable via FVGSHRINK).
+      if(i > fvg.detectionBar && fvg.remTop > fvg.remBottom)
+        {
+         double rTop = fvg.remTop;
+         double rBot = fvg.remBottom;
+         bool shrinking = false;
+         if(low[i] <= rBot && high[i] > rBot)
+           {
+            rBot = MathMin(rTop, high[i]);
+            shrinking = true;
+           }
+         if(high[i] >= rTop && low[i] < rTop)
+           {
+            rTop = MathMax(rBot, low[i]);
+            shrinking = true;
+           }
+         if(shrinking)
+           {
+            fvg.remTop    = rTop;
+            fvg.remBottom = rBot;
+            if(SRJ_InDebugWindow(i))
+               Print("SRJ FVGSHRINK t=", SRJ_BarTimeStr(i), " bar=", i,
+                     " objId=", fvg.objId,
+                     " remTop=", DoubleToString(rTop, 5),
+                     " remBot=", DoubleToString(rBot, 5));
+            if(fvg.remTop <= fvg.remBottom && !fvg.isWickFilled)
+              {
+               fvg.isWickFilled = true;
+               fvg.wickFillBar  = i;
+               if(SRJ_InDebugWindow(i))
+                  Print("SRJ FVGWICKCOVER t=", SRJ_BarTimeStr(i), " bar=", i,
+                        " objId=", fvg.objId);
+              }
+           }
+        }
       if(!fvg.isFilled)
         {
          bool bodyFilledMidpoint = false;
@@ -386,6 +432,10 @@ void SRJ_FVG_FillDetectionPass(const double &open[],const double &close[],
            {
             fvg.isFilled = true;
             fvg.fillBar = i;
+            if(SRJ_InDebugWindow(i))
+               Print("SRJ FVGBODYKILL t=", SRJ_BarTimeStr(i), " bar=", i,
+                     " objId=", fvg.objId,
+                     " dir=", (fvg.isBullish ? "bull" : "bear"));
            }
         }
      }

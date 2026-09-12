@@ -110,6 +110,8 @@ public:
    string   midLineName;     
    bool     isWickFilled;
    int      wickFillBar;
+   double   remTop;      // [P-FVGVALIDITY] untested remainder top (edge-anchored)
+   double   remBottom;   // [P-FVGVALIDITY] untested remainder bottom
    bool     isVisible;
    long     objId;               // [Task 98a] immutable identity, set at construction
 
@@ -128,6 +130,8 @@ public:
       midLineName  = "";
       isWickFilled = false;
       wickFillBar  = SRJ_NA_INT;
+      remTop       = SRJ_NA_DBL;
+      remBottom    = SRJ_NA_DBL;
       isVisible    = true;
       objId        = 0;         // [Task 98a] 0 = unassigned
      }

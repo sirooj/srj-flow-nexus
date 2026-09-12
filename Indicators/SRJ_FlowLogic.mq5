@@ -5,7 +5,7 @@
 #property copyright "SRJ Flow Logic Auto — Pine v6 port"
 #property version   "1.00"
 #property indicator_chart_window
-#property indicator_buffers 37  // [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId). [Task 155] Was 34. Added 34 (tickOBIsValid provenance), 35 (tickFVGIsValid provenance, population deferred), 36 (hasPersistedOpposingFVG provenance, population deferred).
+#property indicator_buffers 39  // [P-SWINGIMB] Was 37. Added 37 (swing-high imbalance code), 38 (swing-low imbalance code). [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId). [Task 155] Was 34. Added 34 (tickOBIsValid provenance), 35 (tickFVGIsValid provenance, population deferred), 36 (hasPersistedOpposingFVG provenance, population deferred).
 #property indicator_plots   2
 
 #property indicator_label1  "Fractal High"
@@ -118,6 +118,70 @@ double g_bufXobPromoTime[];
 double g_bufOBValidProv[];    // [Task 155] Buffer 34. Provenance of the tickOBIsValid value exported at the flag export block. Initialised to EMPTY_VALUE, not 0.0: 0.0 is spoken for by this file's two objId buffers as "no object selected", and EMPTY_VALUE keeps this buffer uncomputed in exactly the bars where g_bufOBValid is uncomputed.
 double g_bufFVGValidProv[];   // [Task 155] Buffer 35. Registered now, population deferred to Task 156. Same EMPTY_VALUE rationale as buffer 34.
 double g_bufOppFVGProv[];     // [Task 155] Buffer 36. Registered now, population deferred to Task 163. Same EMPTY_VALUE rationale as buffer 34.
+
+// [P-SWINGIMB] Creation-side imbalance code per confirmed swing, buffers 37/38.
+// Paired with buffers 6/7 (swing high/low). Graded, never boolean (Ruling 1):
+//   EMPTY_VALUE = no swing in this slot (mirrors the paired swing slot)
+//   0 = swing present, no qualifying creation-side imbalance found
+//   1 = qualifying imbalance, remainder alive AT THE APEX
+//   2 = qualifying imbalance present at the apex, remainder already dead
+//   3 = leg boundary unset, predicate not evaluable (never collapsed with 0)
+// Semantics are "alive at apex", NEVER "alive now": this write-once export
+// cannot track later mitigation. Consumers needing current mitigation state
+// read it elsewhere; the OB-validity term lives in FL_BUF_LTF_OB_VALID.
+// Multi-record: 1 if ANY matching record is alive at the apex, else 2.
+// Read-only query. Nothing in this indicator consumes either buffer.
+double g_bufSwingHighImb[];
+double g_bufSwingLowImb[];
+int    g_swingImb_writes = 0;   // full-pass slot writes (tally only)
+int    g_swingImb_highs  = 0;
+int    g_swingImb_lows   = 0;
+int    g_swingImb_code0  = 0;
+int    g_swingImb_code1  = 0;
+int    g_swingImb_code2  = 0;
+int    g_swingImb_code3  = 0;
+bool   g_swingImb_countThisPass = false;  // true only during a full (prevCalc==0) pass
+
+// [P-SWINGIMB] Returns 0/1/2/3 only. apexBar is the confirmed fractal bar
+// (target=i-1 at the call site); bullish selects the HIGH (up-push) side.
+int SrjSwingImbCode(const int apexBar, const bool bullish)
+  {
+   if(SrjIsNa(g_s.structLegBoundary))
+      return 3;
+   int legStart = g_s.structLegBoundary;
+   bool anyMatch = false;
+   bool anyAlive = false;
+   int n = g_imbalances.Total();
+   for(int k = 0; k < n; k++)
+     {
+      CImbalance *fvg = GetFVG(g_imbalances, k);
+      if(fvg == NULL)                 continue;
+      if(fvg.isBullish != bullish)    continue;
+      if(fvg.startBar < legStart)     continue;
+      if(fvg.startBar > apexBar)      continue;
+      anyMatch = true;
+      bool alive;
+      if(SrjIsNa(fvg.remTop) || SrjIsNa(fvg.remBottom))
+         alive = true;   // unfilled as-of apex; the fill-pass backfill would set full range
+      else
+         alive = (fvg.remTop > fvg.remBottom);
+      if(alive) { anyAlive = true; break; }
+     }
+   if(!anyMatch) return 0;
+   return (anyAlive ? 1 : 2);
+  }
+
+// [P-SWINGIMB] Full-pass tally helper. Call-gated by the writer.
+void SrjSwingImbCount(const bool isHigh, const int code)
+  {
+   if(!g_swingImb_countThisPass) return;
+   g_swingImb_writes++;
+   if(isHigh) g_swingImb_highs++; else g_swingImb_lows++;
+   if(code == 0) g_swingImb_code0++;
+   else if(code == 1) g_swingImb_code1++;
+   else if(code == 2) g_swingImb_code2++;
+   else if(code == 3) g_swingImb_code3++;
+  }
 
 SState g_sSnapshot;
 bool g_snapValid = false;
@@ -622,6 +686,10 @@ int OnInit()
    SetIndexBuffer(35, g_bufFVGValidProv, INDICATOR_CALCULATIONS);
    SetIndexBuffer(36, g_bufOppFVGProv,   INDICATOR_CALCULATIONS);
 
+   // [P-SWINGIMB] Append-only. Index 37 = previous buffer count (was 37 buffers, 0..36).
+   SetIndexBuffer(37, g_bufSwingHighImb, INDICATOR_CALCULATIONS);
+   SetIndexBuffer(38, g_bufSwingLowImb,  INDICATOR_CALCULATIONS);
+
    ArraySetAsSeries(g_bufBias,         false);
    ArraySetAsSeries(g_bufOBValid,      false);
    ArraySetAsSeries(g_bufFVGValid,     false);
@@ -672,6 +740,10 @@ int OnInit()
    ArraySetAsSeries(g_bufFVGValidProv, false);
    ArraySetAsSeries(g_bufOppFVGProv,   false);
 
+   // [P-SWINGIMB]
+   ArraySetAsSeries(g_bufSwingHighImb, false);
+   ArraySetAsSeries(g_bufSwingLowImb,  false);
+
    SRJ_BindInputs(); 
    SRJ_Glyph_Init(); 
    SRJ_StateInit();
@@ -707,6 +779,9 @@ int OnInit()
 
 void OnDeinit(const int reason)
   {
+   PrintFormat("SWINGIMB_CENSUS writes=%d highs=%d lows=%d code0=%d code1=%d code2=%d code3=%d",
+               g_swingImb_writes, g_swingImb_highs, g_swingImb_lows,
+               g_swingImb_code0, g_swingImb_code1, g_swingImb_code2, g_swingImb_code3);
    SRJ_DeleteAllObjects();
    SRJ_Panels_Destroy();
   }
@@ -809,6 +884,18 @@ int OnCalculate(const int rates_total,
       ArrayInitialize(g_bufFVGValidProv, EMPTY_VALUE);
       ArrayInitialize(g_bufOppFVGProv,   EMPTY_VALUE);
 
+      // [P-SWINGIMB] EMPTY_VALUE, not 0.0 — 0 means "swing without imbalance".
+      ArrayInitialize(g_bufSwingHighImb, EMPTY_VALUE);
+      ArrayInitialize(g_bufSwingLowImb,  EMPTY_VALUE);
+      g_swingImb_writes = 0;
+      g_swingImb_highs  = 0;
+      g_swingImb_lows   = 0;
+      g_swingImb_code0  = 0;
+      g_swingImb_code1  = 0;
+      g_swingImb_code2  = 0;
+      g_swingImb_code3  = 0;
+      g_swingImb_countThisPass = true;
+
       SRJ_DeleteAllObjects();      
       SRJ_StateInit();             
       SRJ_BindInputs();            
@@ -821,8 +908,9 @@ int OnCalculate(const int rates_total,
      }
    else
      {
-      start = prevCalc - 1; 
-      if(start < 2) start = 2;
+       start = prevCalc - 1;
+       g_swingImb_countThisPass = false;
+       if(start < 2) start = 2;
      }
 
    int last_bar_index = rates_total - 1;
@@ -881,7 +969,7 @@ int OnCalculate(const int rates_total,
       SRJ_FVG_CreationRenewalPass(high,low,time,rates_total,i,
                                   withinLookbackWindow,barClosed);
 
-      SRJ_FVG_FillDetectionPass(open,close,i,withinLookbackWindow,barClosed);
+      SRJ_FVG_FillDetectionPass(open,close,high,low,i,withinLookbackWindow,barClosed);
 
       SRJ_FVG_TickValidRecomputePass(withinLookbackWindow);
 
@@ -965,15 +1053,36 @@ int OnCalculate(const int rates_total,
          g_bufOppFVGProv[target]   = -99.0;
          }
          
-         g_bufSwingHigh[target] = EMPTY_VALUE;
-         g_bufSwingLow[target]  = EMPTY_VALUE;
-         if(i >= 2)
-           {
-            if(SRJ_isStrictFractalHigh(high, i, 1))
-               g_bufSwingHigh[target] = high[target];
-            if(SRJ_isStrictFractalLow(low, i, 1))
-               g_bufSwingLow[target]  = low[target];
-           }
+          g_bufSwingHigh[target] = EMPTY_VALUE;
+          g_bufSwingLow[target]  = EMPTY_VALUE;
+          g_bufSwingHighImb[target] = EMPTY_VALUE;
+          g_bufSwingLowImb[target]  = EMPTY_VALUE;
+          if(i >= 2)
+            {
+             if(SRJ_isStrictFractalHigh(high, i, 1))
+               {
+                g_bufSwingHigh[target] = high[target];
+                // [P-SWINGIMB] Same branch, identical index: the flag describes
+                // this swing only. g_imbalances + structLegBoundary are in scope
+                // in this pass (halt condition checked, not relocated).
+                int tsw_codeH = SrjSwingImbCode(target, true);
+                g_bufSwingHighImb[target] = (double)tsw_codeH;
+                SrjSwingImbCount(true, tsw_codeH);
+                if(g_htfDebugLog)
+                   Print("SWINGIMB t=", SRJ_BarTimeStr(target),
+                         " side=HIGH code=", tsw_codeH);
+               }
+             if(SRJ_isStrictFractalLow(low, i, 1))
+               {
+                g_bufSwingLow[target]  = low[target];
+                int tsw_codeL = SrjSwingImbCode(target, false);
+                g_bufSwingLowImb[target] = (double)tsw_codeL;
+                SrjSwingImbCount(false, tsw_codeL);
+                if(g_htfDebugLog)
+                   Print("SWINGIMB t=", SRJ_BarTimeStr(target),
+                         " side=LOW code=", tsw_codeL);
+               }
+            }
          
          g_bufPrevDayHigh[target] = g_s.prevDayHigh;
          g_bufPrevDayLow[target]  = g_s.prevDayLow;
@@ -1068,10 +1177,22 @@ int OnCalculate(const int rates_total,
                                  (g_s.currentBias == "bearish" && !fvg.isBullish);
                if(!fvgMatches)                                   continue;
                if(fvg.isFilled)                                  continue;
+               //--- [P-FVGVALIDITY E2 / operator 2026-09-11] offer the untested
+               //--- remainder, never the covered part. Covered (empty remainder)
+               //--- offers nothing but is NOT dead (§0A). No minimum-size gate:
+               //--- a one-point remainder still exports.
+               double fvgExpTop = fvg.top;
+               double fvgExpBot = fvg.bottom;
+               if(!SrjIsNa(fvg.remTop) && !SrjIsNa(fvg.remBottom))
+                 {
+                  fvgExpTop = fvg.remTop;
+                  fvgExpBot = fvg.remBottom;
+                 }
+               if(fvgExpTop <= fvgExpBot)                         continue;
                // [Task 61 / EA-62] Option A BAR-penetration pre-filter REMOVED. Was: if(!(high[i] >= fvg.bottom && low[i] <= fvg.top)) continue; — it exported an FVG only on a bar physically overlapping it, making buffers 24/25 a single-bar flag rather than a projected zone. In-play adjudication belongs to the EA's ZoneInPlay (Ruling 8), not upstream. Measured: 118/576 bars populated, none of them an S3 bar.
                double srj_pxRef  = close[i];   // [EA-30] nearest-to-price tie reference
-               double srj_curDist = (srj_pxRef >= fvg.bottom && srj_pxRef <= fvg.top) ? 0.0
-                                    : MathMin(MathAbs(srj_pxRef - fvg.top), MathAbs(srj_pxRef - fvg.bottom));
+               double srj_curDist = (srj_pxRef >= fvgExpBot && srj_pxRef <= fvgExpTop) ? 0.0
+                                    : MathMin(MathAbs(srj_pxRef - fvgExpTop), MathAbs(srj_pxRef - fvgExpBot));
                if(fvg.startBar < g_s.structLegBoundary)      continue;  // [EA-30] current structural leg
                if(freshFvgIdx < 0 || srj_curDist < freshFvgDist || (srj_curDist == freshFvgDist && fvg.startBar > freshFvgBar))
                  {
@@ -1085,8 +1206,16 @@ int OnCalculate(const int rates_total,
                CImbalance *freshFvg = GetFVG(g_imbalances, freshFvgIdx);
                if(freshFvg != NULL)
                  {
-                  g_bufFvgLegZoneHigh[target] = freshFvg.top;
-                  g_bufFvgLegZoneLow[target]  = freshFvg.bottom;
+                  double expTop = freshFvg.top;
+                  double expBot = freshFvg.bottom;
+                  if(!SrjIsNa(freshFvg.remTop) && !SrjIsNa(freshFvg.remBottom) &&
+                     freshFvg.remTop > freshFvg.remBottom)
+                    {
+                     expTop = freshFvg.remTop;
+                     expBot = freshFvg.remBottom;
+                    }
+                  g_bufFvgLegZoneHigh[target] = expTop;
+                  g_bufFvgLegZoneLow[target]  = expBot;
                   g_bufFvgObjId[target]       = (double)freshFvg.objId;   // [Task 102]
                  }
               }

@@ -1,4 +1,4 @@
-﻿//+------------------------------------------------------------------+
+//+------------------------------------------------------------------+
 //|                                        SRJ_FlowNexus_EA.mq5      |
 //|   SRJ Flow Nexus - Phase 1 signal-generator EA (Part A/B spec)   |
 //+------------------------------------------------------------------+
@@ -93,6 +93,10 @@ void InitAuthorityTable()
    g_authorityRank[POI_BUF_D_VWAP] = 11;  g_lineCode[POI_BUF_D_VWAP] = "Daily-VWAP";
   }
 
+//====================== [P-BUILD3 E1 2026-09-11] the line supersession helpers ==
+//--- DEFINED after DetectPoiRetest: they need g_hPoi, ReadBuf1, ENUM_SRJ_DIR
+//--- and POI_NLINES (all declared below the rank table).
+
 //====================== [P-EXITMODEL] the managed trade (spec section 5) =============
 // The post-signal record: spec section 4 site 3 (the exit, evaluated at the NEXT
 // candle's open) + sections 5.1-5.6. It SURVIVES ResetSequence (the R-201 pattern) -
@@ -123,6 +127,7 @@ void InitAuthorityTable()
 #define SHADOW_RETESTBOOK    true
 #define SHADOW_CONFIRMPOLL   true
 #define SHADOW_TP_ELECT      true
+#define SHADOW_SLIMB         true
 
 enum ENUM_MT_STATE
   {
@@ -157,6 +162,8 @@ enum ENUM_MT_EXIT
 #define FL_BUF_LTF_OPP_FVG   5
 #define FL_BUF_SWING_HIGH    6
 #define FL_BUF_SWING_LOW     7
+#define FL_BUF_SWING_HIGH_IMB 37
+#define FL_BUF_SWING_LOW_IMB  38
 #define FL_BUF_PDAY_HIGH     8
 #define FL_BUF_PDAY_LOW     9
 #define FL_BUF_ASIA_HIGH     10
@@ -1653,6 +1660,44 @@ bool DetectPoiRetest(int barShift, PoiRetestResult &r)
    return true;
   }
 
+//====================== [P-BUILD3 E1 2026-09-11] the line supersession helpers ==
+int B3_AnchorTier(int line) { return (g_authorityRank[line] / 2); }
+int B3_ElectAnchor(int barShift, ENUM_SRJ_DIR dir)
+  {
+   double o = iOpen (_Symbol, PERIOD_CURRENT, barShift);
+   double h = iHigh (_Symbol, PERIOD_CURRENT, barShift);
+   double l = iLow  (_Symbol, PERIOD_CURRENT, barShift);
+   double c = iClose(_Symbol, PERIOD_CURRENT, barShift);
+   if(h <= 0.0 || l <= 0.0) return -1;
+   double cNext = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+   if(cNext <= 0.0) cNext = c;
+   double bodyHi = MathMax(o, cNext);
+   double bodyLo = MathMin(o, cNext);
+   double P   = _Point;
+   double EPS = P * 0.001;
+   int bestLine = -1;
+   int bestTier = INT_MAX;
+   int bestRank = INT_MAX;
+   for(int k = 0; k < POI_NLINES; k++)
+     {
+      double L;
+      if(!ReadBuf1(g_hPoi, k, L, barShift)) continue;
+      if(L == EMPTY_VALUE || L <= 0.0) continue;
+      bool hit = false;
+      if(dir == DIR_LONG)
+         hit = (l <= L - P + EPS && bodyLo >= L - EPS);
+      else if(dir == DIR_SHORT)
+         hit = (h >= L + P - EPS && bodyHi <= L + EPS);
+      else continue;
+      if(!hit) continue;
+      int rk = g_authorityRank[k];
+      int tr = (rk / 2);
+      if(tr < bestTier || (tr == bestTier && rk < bestRank))
+        { bestTier = tr; bestRank = rk; bestLine = k; }
+     }
+   return bestLine;
+  }
+
 //====================== [P-CONFIRM-SHADOW] log-only instruments ======================
 //--- Council build 1 (COUNCIL_RESPONSE_POI-R.md). These functions READ only and print
 //--- only. They are never consulted by any state transition, abort, or signal path.
@@ -2027,12 +2072,63 @@ bool FindNearestSwing(int bufIdx, int evalShift, double &outVal, int &foundShift
    return false;
   }
 
+//====================== [P-SWINGIMB] SLIMB shadow census =================
+//--- Print-only helpers. No working-set write, no selection branch. The
+//--- nuanceClass token is derived here from the passed values (that IS the
+//--- OB-validity hypothesis test the packet orders); slShift mirrors the
+//--- chosen slot shift (-1 where the branch exposes no slot).
+string SlimbTuple(const int s, const double v, const string flagS,
+                  const ENUM_SRJ_DIR dir, const double refV)
+  {
+   double t_o = iOpen(_Symbol, PERIOD_CURRENT, s);
+   double t_c = iClose(_Symbol, PERIOD_CURRENT, s);
+   double t_b = (dir == DIR_LONG) ? MathMin(t_o, t_c) : MathMax(t_o, t_c);
+   string m = ((dir == DIR_LONG) ? (t_b < refV - _Point) : (t_b > refV + _Point)) ? "B" : "W";
+   return IntegerToString(s) + ":" + DoubleToString(v, _Digits) + ":" + flagS + ":" + m;
+  }
+
+void SlimbEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
+               const string branch, const int obValidI, const string slRefS,
+               const int slShiftV, const int latFlagV, const int latShiftV,
+               const int latAvailI, const int apexMatchI, const int chFlagV,
+               const int chShiftV, const int chAvailI, const string candsS)
+  {
+   string nuanceCls = "UNEVAL";
+   if(latAvailI == 1 && (obValidI == 0 || obValidI == 1) &&
+      (latFlagV == 0 || latFlagV == 1 || latFlagV == 2))
+      nuanceCls = ((obValidI == 1) ? "OB_VALID_" : "OB_DEAD_")
+                  + ((latFlagV == 0) ? "LATEST_NOIMB" : "LATEST_IMB");
+   PrintFormat("[SRJ-EA] SLIMB fields=16 bar=%s site=%s dir=%s branch=%s obValid=%d slRef=%s slShift=%d latestFlag=%d latestShift=%d latestAvail=%d latestApexMatch=%d chosenFlag=%d chosenShift=%d chosenAvail=%d nuanceClass=%s cands=%s",
+               TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+               site, DirName(dir), branch, obValidI, slRefS, slShiftV,
+               latFlagV, latShiftV, latAvailI, apexMatchI,
+               chFlagV, chShiftV, chAvailI, nuanceCls, candsS);
+  }
+
 //====================== Step 6: 1R stop-loss reference ================
 bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                          double &slRefOut, ENUM_SRJ_SLMODE &slModeOut,
-                         const string site)
-  {
-   static int s_swingDumps = 0;
+                          const string site)
+   {
+    static int s_swingDumps = 0;
+    //--- [P-SWINGIMB] shadow-census locals. Plain locals, no working-set
+    //--- write, no selection branch. Supporting reads are debug-gated so
+    //--- debug-off cost is untouched; the two shift trackers are bare int
+    //--- assignments.
+    int    slimb_imbBuf  = (dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB;
+    double slimb_latVal   = 0.0;
+    int    slimb_latShift= -1;
+    bool   slimb_haveLat = false;
+    int    slimb_latFlag = -1;
+    int    slimb_latAvail= 0;
+    int    slimb_apexMatch = 0;
+    string slimb_cands    = "-";
+    int    slimb_ncands  = 0;
+    int    slimb_t75shift = -1;
+    int    slimb_runExtShift = -1;
+    int    slimb_chFlag   = -1;
+    int    slimb_chShift  = -1;
+    int    slimb_chAvail  = 0;
    if(InpDebugLog && (s_swingDumps < 20 || site == "S5"))
      {
       s_swingDumps++;
@@ -2056,14 +2152,27 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                   barShift, barShift + 9, sl);
      }
 
-   double obValid;
-   if(!ReadFlow(FL_BUF_LTF_OB_VALID, obValid, barShift)) return false;
+    double obValid;
+    if(!ReadFlow(FL_BUF_LTF_OB_VALID, obValid, barShift))
+      {
+       if(InpDebugLog && SHADOW_SLIMB)
+          SlimbEmit(barShift, site, dir, "PRE", -1, "-", -1, -1, -1, 0, 0, -1, -1, 0, "-");
+       return false;
+      }
 
-   double swingHigh, swingLow;
-   bool haveHigh = ReadFlow(FL_BUF_SWING_HIGH, swingHigh, barShift)
-                   && swingHigh != EMPTY_VALUE && swingHigh > 0.0;
-   bool haveLow  = ReadFlow(FL_BUF_SWING_LOW,  swingLow,  barShift)
-                   && swingLow  != EMPTY_VALUE && swingLow  > 0.0;
+   //--- [P-TRIM-S2POLL E2] The direct point reads are DEAD. Task 21's
+   //--- FindNearestSwing pair below overwrites haveHigh, haveLow, swingHigh and
+   //--- swingLow on EVERY path, including its false path, which writes 0.0 and
+   //--- -1. Nothing reads any of the four between the two assignments. The
+   //--- retention comment credits SWINGDUMP, but SWINGDUMP performs its own reads
+   //--- and runs earlier in the function.
+   //--- SUPERSEDED, retained per P4:
+   //---   bool haveHigh = ReadFlow(FL_BUF_SWING_HIGH, swingHigh, barShift)
+   //---                   && swingHigh != EMPTY_VALUE && swingHigh > 0.0;
+   //---   bool haveLow  = ReadFlow(FL_BUF_SWING_LOW,  swingLow,  barShift)
+   //---                   && swingLow  != EMPTY_VALUE && swingLow  > 0.0;
+   double swingHigh = 0.0, swingLow = 0.0;
+   bool   haveHigh  = false, haveLow = false;
 
    //--- TASK 21: the 1-swing branch previously required a confirmed fractal to
    //--- sit in the exact slot being read, which is true on roughly 18% of
@@ -2082,8 +2191,35 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                   "haveHigh=%d SH=%s atShift=%d haveLow=%d SL=%s atShift=%d",
                   site, DirName(dir), barShift,
                   DoubleToString(iClose(_Symbol, PERIOD_CURRENT, barShift), _Digits),
-                  (int)haveHigh, DoubleToString(swingHigh, _Digits), shHigh,
-                  (int)haveLow,  DoubleToString(swingLow,  _Digits), shLow);
+                   (int)haveHigh, DoubleToString(swingHigh, _Digits), shHigh,
+                   (int)haveLow,  DoubleToString(swingLow,  _Digits), shLow);
+
+    //--- [P-SWINGIMB] shadow latest-swing snapshot (print-only, debug-gated).
+    if(InpDebugLog && SHADOW_SLIMB)
+      {
+       slimb_haveLat = (dir == DIR_LONG) ? haveLow : haveHigh;
+       slimb_latVal   = (dir == DIR_LONG) ? swingLow : swingHigh;
+       slimb_latShift = (dir == DIR_LONG) ? shLow : shHigh;
+       if(slimb_haveLat && slimb_latShift >= 0)
+         {
+          double slimb_lf = 0.0;
+          if(ReadFlow(slimb_imbBuf, slimb_lf, slimb_latShift) && slimb_lf != EMPTY_VALUE)
+            {
+             slimb_latAvail = 1;
+             slimb_latFlag  = (int)slimb_lf;
+            }
+          //--- Slot-to-bar audit: the value was read at eval shift s, i.e.
+          //--- CopyBuffer position s+FLOW_SHIFT_OFFSET (Task-20 settled slot),
+          //--- so the apex bar is series bar s+OFFSET, not s. Comparing
+          //--- against iHigh/iLow(s) fails on every line (measured 481/481
+          //--- on RECON7); the +OFFSET form is the frame-correct audit.
+          int slimb_apexShift = slimb_latShift + FLOW_SHIFT_OFFSET;
+          double slimb_ref = (dir == DIR_LONG)
+             ? iLow (_Symbol, PERIOD_CURRENT, slimb_apexShift)
+             : iHigh(_Symbol, PERIOD_CURRENT, slimb_apexShift);
+          slimb_apexMatch = (slimb_ref == slimb_latVal) ? 1 : 0;
+         }
+      }
 
    // [Task 26a] EA-8b. Part A Step 6: "one swing away from that order block's
    // swing high/low" Ã¢â‚¬â€ buffer 27 is that swing bar's protective extreme, so the
@@ -2108,10 +2244,34 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                                            : (obSwingRef > slCurPx));
    if((int)MathRound(obValid) == 1)
      {
-      if(dir == DIR_LONG)
-        { if(obSwingSideOk) slRefOut = obSwingRef; else { if(!haveLow) return false; slRefOut = swingLow; } }
-      else
-        { if(obSwingSideOk) slRefOut = obSwingRef; else { if(!haveHigh) return false; slRefOut = swingHigh; } }
+       if(dir == DIR_LONG)
+         {
+          if(obSwingSideOk) slRefOut = obSwingRef;
+          else
+            {
+             if(!haveLow)
+               {
+                if(InpDebugLog && SHADOW_SLIMB)
+                   SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+                return false;
+               }
+             slRefOut = swingLow;
+            }
+         }
+       else
+         {
+          if(obSwingSideOk) slRefOut = obSwingRef;
+          else
+            {
+             if(!haveHigh)
+               {
+                if(InpDebugLog && SHADOW_SLIMB)
+                   SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+                return false;
+               }
+             slRefOut = swingHigh;
+            }
+         }
       slModeOut = SL_MODE_1SWING;
    // [Task 75 / EA-79 / Ruling 1 Option C] A fallback swing on the WRONG SIDE
    // of the entry reference is not a stop reference. Measured: 2026.08.13 16:40
@@ -2148,14 +2308,26 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
       int    t75_from = (dir == DIR_LONG) ? shLow : shHigh;
       double t75_was  = slRefOut;
       bool   t75_ok   = false;
-      for(int t75_s = t75_from + 1; t75_s <= t75_from + 500; t75_s++)
-        {
-         double t75_v;
-         if(!ReadFlow(t75_buf, t75_v, t75_s))     break;
-         if(t75_v == EMPTY_VALUE || t75_v <= 0.0) continue;
-         if((dir == DIR_LONG) ? (t75_v >= slCurPx) : (t75_v <= slCurPx)) continue;
-         slRefOut = t75_v;
-         t75_ok   = true;
+       for(int t75_s = t75_from + 1; t75_s <= t75_from + 500; t75_s++)
+         {
+          double t75_v;
+          if(!ReadFlow(t75_buf, t75_v, t75_s))     break;
+          if(t75_v == EMPTY_VALUE || t75_v <= 0.0) continue;
+          //--- [P-SWINGIMB] record examined swing (print-only; walk unchanged).
+          if(InpDebugLog && SHADOW_SLIMB && slimb_ncands < 6)
+            {
+             double slimb_tvf = 0.0;
+             string slimb_tvs = "x";
+             if(ReadFlow(slimb_imbBuf, slimb_tvf, t75_s) && slimb_tvf != EMPTY_VALUE)
+                slimb_tvs = IntegerToString((int)slimb_tvf);
+             slimb_cands = ((slimb_ncands == 0) ? "" : slimb_cands + " ")
+                           + SlimbTuple(t75_s, t75_v, slimb_tvs, dir, slCurPx);
+             slimb_ncands++;
+            }
+          if((dir == DIR_LONG) ? (t75_v >= slCurPx) : (t75_v <= slCurPx)) continue;
+          slRefOut = t75_v;
+          slimb_t75shift = t75_s;
+          t75_ok   = true;
          if(InpDebugLog)
             PrintFormat("[SRJ-EA] SLSIDEGUARD site=%s dir=%s rejected=%s "
                         "chosen=%s atShift=%d fromShift=%d close=%s "
@@ -2169,20 +2341,22 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                         DoubleToString(g_zoneHi, _Digits));
          break;
         }
-      if(!t75_ok)
-        {
-         if(InpDebugLog)
-            PrintFormat("[SRJ-EA] SLSIDEGUARD site=%s dir=%s rejected=%s "
-                        "chosen=NONE fromShift=%d close=%s zoneLo=%s zoneHi=%s "
-                        "result=noProtectiveSideSwing",
-                        site, DirName(dir),
-                        DoubleToString(t75_was, _Digits),
-                        t75_from,
-                        DoubleToString(slCurPx, _Digits),
-                        DoubleToString(g_zoneLo, _Digits),
-                        DoubleToString(g_zoneHi, _Digits));
-         return false;
-        }
+       if(!t75_ok)
+         {
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] SLSIDEGUARD site=%s dir=%s rejected=%s "
+                         "chosen=NONE fromShift=%d close=%s zoneLo=%s zoneHi=%s "
+                         "result=noProtectiveSideSwing",
+                         site, DirName(dir),
+                         DoubleToString(t75_was, _Digits),
+                         t75_from,
+                         DoubleToString(slCurPx, _Digits),
+                         DoubleToString(g_zoneLo, _Digits),
+                         DoubleToString(g_zoneHi, _Digits));
+          if(InpDebugLog && SHADOW_SLIMB)
+             SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+          return false;
+         }
      }
 
    // [STEP 1 RETIRED] The Task 67 in-zone stop exclusion is removed per operator
@@ -2206,15 +2380,31 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                      (haveObSwing && haveObStruct)
                         ? DoubleToString(MathAbs(obSwingRef - obStructRef) / _Point, 0)
                         : "-");
-      if(InpDebugLog)
-         PrintFormat("[SRJ-EA] SL_REF branch=1-swing obValid=1 slRef=%s distPts=%.0f site=%s "
-                     "zoneLo=%s zoneHi=%s",
-                     DoubleToString(slRefOut, _Digits),
-                     MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
-                     site,
-                     DoubleToString(g_zoneLo, _Digits),
-                     DoubleToString(g_zoneHi, _Digits));
-      return true;
+       if(InpDebugLog)
+          PrintFormat("[SRJ-EA] SL_REF branch=1-swing obValid=1 slRef=%s distPts=%.0f site=%s "
+                      "zoneLo=%s zoneHi=%s",
+                      DoubleToString(slRefOut, _Digits),
+                      MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
+                      site,
+                      DoubleToString(g_zoneLo, _Digits),
+                      DoubleToString(g_zoneHi, _Digits));
+       //--- [P-SWINGIMB] chosen = the traced swing slot, or -1 for the OB source.
+       if(InpDebugLog && SHADOW_SLIMB)
+         {
+          if(!obSwingSideOk)
+            {
+             int slimb_cs = (slimb_t75shift >= 0) ? slimb_t75shift : slimb_latShift;
+             if(slimb_cs >= 0)
+               {
+                double slimb_cf = 0.0;
+                if(ReadFlow(slimb_imbBuf, slimb_cf, slimb_cs) && slimb_cf != EMPTY_VALUE)
+                  { slimb_chAvail = 1; slimb_chFlag = (int)slimb_cf; }
+                slimb_chShift = slimb_cs;
+               }
+            }
+          SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_chShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_chFlag, slimb_chShift, slimb_chAvail, slimb_cands);
+         }
+       return true;
      }
    else
      {
@@ -2259,11 +2449,23 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
          double v;
          if(!ReadFlow(bufIdx, v, s)) break;
          if(v == EMPTY_VALUE || v <= 0.0) continue;
-         if(!haveFirst)
-           {
-            firstVal = v; runExt = v; haveFirst = true; firstShift = s;
-            continue;
-           }
+          if(!haveFirst)
+            {
+             firstVal = v; runExt = v; haveFirst = true; firstShift = s;
+             slimb_runExtShift = s;
+             continue;
+            }
+          //--- [P-SWINGIMB] record examined swing (print-only; walk unchanged).
+          if(InpDebugLog && SHADOW_SLIMB && slimb_ncands < 6)
+            {
+             double slimb_svf = 0.0;
+             string slimb_svs = "x";
+             if(ReadFlow(slimb_imbBuf, slimb_svf, s) && slimb_svf != EMPTY_VALUE)
+                slimb_svs = IntegerToString((int)slimb_svf);
+             slimb_cands = ((slimb_ncands == 0) ? "" : slimb_cands + " ")
+                           + SlimbTuple(s, v, slimb_svs, dir, runExt);
+             slimb_ncands++;
+            }
          //--- One swing = one turn of the bigger move: same-turn swings are
          //--- absorbed into the running extreme; an EXCEEDING swing is the
          //--- previous turn's top = the stop CANDIDATE. The side test (the
@@ -2271,9 +2473,10 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
          //--- CANDIDATE, not to the turn anchor.
          bool exceeds = (dir == DIR_LONG) ? (v < runExt - _Point)
                                           : (v > runExt + _Point);
-         if(exceeds)
-           {
-            runExt = v;
+          if(exceeds)
+            {
+             runExt = v;
+             slimb_runExtShift = s;
             bool stopSideOk = (dir == DIR_LONG) ? (v < slCurPx) : (v > slCurPx);
             if(!stopSideOk) continue;
             slRefOut = v; slModeOut = SL_MODE_2SWING;
@@ -2287,27 +2490,45 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                            s,
                            MathAbs(slCurPx - slRefOut) / _Point,
                            0);
-            if(InpDebugLog)
-               PrintFormat("[SRJ-EA] SL_REF branch=2-swing obValid=0 slRef=%s distPts=%.0f "
-                           "firstSwing=%s foundAtShift=%d site=%s "
-                           "zoneLo=%s zoneHi=%s",
-                           DoubleToString(slRefOut, _Digits),
-                           MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
-                           DoubleToString(firstVal, _Digits), s, site,
-                           DoubleToString(g_zoneLo, _Digits),
-                           DoubleToString(g_zoneHi, _Digits));
-            return true;
+             if(InpDebugLog)
+                PrintFormat("[SRJ-EA] SL_REF branch=2-swing obValid=0 slRef=%s distPts=%.0f "
+                            "firstSwing=%s foundAtShift=%d site=%s "
+                            "zoneLo=%s zoneHi=%s",
+                            DoubleToString(slRefOut, _Digits),
+                            MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
+                            DoubleToString(firstVal, _Digits), s, site,
+                            DoubleToString(g_zoneLo, _Digits),
+                            DoubleToString(g_zoneHi, _Digits));
+             //--- [P-SWINGIMB] chosen = the adopted candidate slot s.
+             if(InpDebugLog && SHADOW_SLIMB)
+               {
+                double slimb_cf9 = 0.0;
+                int slimb_cfv9 = -1, slimb_cav9 = 0;
+                if(ReadFlow(slimb_imbBuf, slimb_cf9, s) && slimb_cf9 != EMPTY_VALUE)
+                  { slimb_cfv9 = (int)slimb_cf9; slimb_cav9 = 1; }
+                SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), s, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfv9, s, slimb_cav9, slimb_cands);
+               }
+             return true;
            }
         }
-      if(!haveFirst) return false;
+       if(!haveFirst)
+         {
+          if(InpDebugLog && SHADOW_SLIMB)
+             SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+          return false;
+         }
       //--- Exhaustion fallback: the running structure extreme IS the stop
       //--- ("one swing" of the bigger move) - never abort while a valid swing
       //--- exists (spec 3.7). The side test applies here too: the extreme is
       //--- the HIGHEST (SHORT) / LOWEST (LONG) swing in the window, so if it
       //--- is not on the protective side of slCurPx, no swing in the window
       //--- is, and the spec's abort-where-no-valid-swing-exists case applies.
-      if((dir == DIR_LONG) ? (runExt >= slCurPx) : (runExt <= slCurPx))
-         return false;
+       if((dir == DIR_LONG) ? (runExt >= slCurPx) : (runExt <= slCurPx))
+         {
+          if(InpDebugLog && SHADOW_SLIMB)
+             SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+          return false;
+         }
       slRefOut  = runExt;
       slModeOut = SL_MODE_2SWING;
       if(InpDebugLog)
@@ -2319,17 +2540,111 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                      "-", firstShift,
                      MathAbs(slCurPx - slRefOut) / _Point,
                      1);
-      if(InpDebugLog)
-         PrintFormat("[SRJ-EA] SL_REF branch=2-swing obValid=0 slRef=%s distPts=%.0f "
-                     "firstSwing=%s foundAtShift=%d site=%s "
-                     "zoneLo=%s zoneHi=%s",
-                     DoubleToString(slRefOut, _Digits),
-                     MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
-                     DoubleToString(firstVal, _Digits), firstShift, site,
-                     DoubleToString(g_zoneLo, _Digits),
-                     DoubleToString(g_zoneHi, _Digits));
-      return true;
+       if(InpDebugLog)
+          PrintFormat("[SRJ-EA] SL_REF branch=2-swing obValid=0 slRef=%s distPts=%.0f "
+                      "firstSwing=%s foundAtShift=%d site=%s "
+                      "zoneLo=%s zoneHi=%s",
+                      DoubleToString(slRefOut, _Digits),
+                      MathAbs(iClose(_Symbol, PERIOD_CURRENT, barShift) - slRefOut) / _Point,
+                      DoubleToString(firstVal, _Digits), firstShift, site,
+                      DoubleToString(g_zoneLo, _Digits),
+                      DoubleToString(g_zoneHi, _Digits));
+       //--- [P-SWINGIMB] chosen = the running-extreme slot (tracked, print-only).
+       if(InpDebugLog && SHADOW_SLIMB)
+         {
+          double slimb_cfx = 0.0;
+          int slimb_cfvx = -1, slimb_cavx = 0;
+          if(slimb_runExtShift >= 0 && ReadFlow(slimb_imbBuf, slimb_cfx, slimb_runExtShift) && slimb_cfx != EMPTY_VALUE)
+            { slimb_cfvx = (int)slimb_cfx; slimb_cavx = 1; }
+          SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_runExtShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfvx, slimb_runExtShift, slimb_cavx, slimb_cands);
+         }
+       return true;
      }
+   }
+
+//====================== [P-TRIM-S2POLL E1] the per-bar stop memo =================
+//--- ComputeSlReference is called twice on most S3 bars with identical inputs -
+//--- once at site=S2POLL, again at site=S3ARM inside the Task 133 committed walk.
+//--- Between them nothing moves: barShift is always 1 from OnTick, g_dir is
+//--- assigned once per pass at the IDLE seed and never reassigned (the B3
+//--- supersession re-binds the anchor line, not the direction), and every other
+//--- input is a FlowLogic buffer or a price at barShift.
+//---
+//--- MEMOISATION, NOT SUBSTITUTION. A naive reuse of s1_stopRef/s1_haveStop would
+//--- change behaviour on a SAME-BAR SEED CASCADE: on a bar entering at ST_IDLE or
+//--- ST_S1_REGIME the S2POLL block is skipped (state below ST_S2_LTF_ALIGN), so
+//--- the pair is absent when the cascade reaches S3 in the same pass. Under
+//--- P-FIX-S2POLL E3 an absent stop now REFUSES TO ARM, so substitution would
+//--- silently lose those armings. Computing on FIRST DEMAND cannot: S3ARM is the
+//--- first demand on a cascade bar and gets exactly today's value.
+//---
+//--- SCOPE: site=S2POLL and site=S3ARM ONLY. site=S5 is DELIBERATELY EXCLUDED and
+//--- keeps computing fresh - it is the firing path, its SL_REF / SWINGDUMP /
+//--- SL_STRUCT lines are the four-signal set's evidence, and the S5 population is
+//--- small enough that the saving is nil. The S5 call does not consult the memo
+//--- and therefore cannot pollute it.
+//---
+//--- Failure is normalised to (0.0, SL_MODE_NONE), matching P-FIX-S2POLL E1's
+//--- atomic-pair discipline. Nothing reads a caller local after a false return.
+struct SSlMemo
+  {
+   datetime        barTime;
+   ENUM_SRJ_DIR    dir;
+   bool            valid;
+   bool            ok;
+   double          slRef;
+   ENUM_SRJ_SLMODE slMode;
+  };
+//--- File-scope, so zero-initialised: barTime 0, dir DIR_NONE(0), valid false,
+//--- ok false, slRef 0.0, slMode SL_MODE_NONE(0). No explicit initialiser and no
+//--- OnInit reset, so the edit surface stays inside this block and OnInit is
+//--- byte-untouched. A stale barTime cannot produce a false hit: server time is
+//--- monotonic within a run.
+SSlMemo g_slMemo;
+
+int g_slMemo_computes = 0;
+int g_slMemo_hits     = 0;
+
+bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR dir,
+               double &slRefOut, ENUM_SRJ_SLMODE &slModeOut, const string site)
+  {
+   if(g_slMemo.valid && g_slMemo.barTime == barTime && g_slMemo.dir == dir)
+     {
+      g_slMemo_hits++;
+      slRefOut  = g_slMemo.slRef;
+      slModeOut = g_slMemo.slMode;
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] SLMEMO bar=%s site=%s result=HIT ok=%d slRef=%s "
+                     "mode=%d computes=%d hits=%d",
+                     TimeToString(barTime, TIME_DATE|TIME_MINUTES), site,
+                     (int)g_slMemo.ok,
+                     DoubleToString(g_slMemo.slRef, _Digits),
+                     (int)g_slMemo.slMode, g_slMemo_computes, g_slMemo_hits);
+      return g_slMemo.ok;
+     }
+
+   double          memoV  = 0.0;
+   ENUM_SRJ_SLMODE memoM  = SL_MODE_NONE;
+   bool            memoOk = ComputeSlReference(barShift, dir, memoV, memoM, site);
+   g_slMemo_computes++;
+
+   g_slMemo.barTime = barTime;
+   g_slMemo.dir     = dir;
+   g_slMemo.valid   = true;
+   g_slMemo.ok      = memoOk;
+   g_slMemo.slRef   = memoOk ? memoV : 0.0;
+   g_slMemo.slMode  = memoOk ? memoM : SL_MODE_NONE;
+
+   slRefOut  = g_slMemo.slRef;
+   slModeOut = g_slMemo.slMode;
+
+   if(InpDebugLog)
+      PrintFormat("[SRJ-EA] SLMEMO bar=%s site=%s result=COMPUTE ok=%d slRef=%s "
+                  "mode=%d computes=%d hits=%d",
+                  TimeToString(barTime, TIME_DATE|TIME_MINUTES), site,
+                  (int)memoOk, DoubleToString(g_slMemo.slRef, _Digits),
+                  (int)g_slMemo.slMode, g_slMemo_computes, g_slMemo_hits);
+   return memoOk;
   }
 
 //====================== Step 7: Divergence latch =====================
@@ -2341,9 +2656,12 @@ bool UpdateDivergenceLatch(int barShift, ENUM_SRJ_DIR dir, string &kindOut)
    //--- spec 3.8's "counts permanently"). Walk from the evaluation bar back to
    //--- the candidate's anchor; the FIRST nonzero verdict encountered is the
    //--- latest; its direction-match decides the latch THIS BAR. The latch now
-   //--- reflects the latest verdict per bar - it clears when the latest is
-   //--- opposing, and re-arms when a matched one appears.
-   for(int s = barShift; s <= barShift + Bars(_Symbol, PERIOD_CURRENT); s++)
+    //--- reflects the latest verdict per bar - it clears when the latest is
+    //--- opposing, and re-arms when a matched one appears.
+    //--- [P-TRIM-S2POLL E3] loop-invariant hoist. Bars() cannot change within one
+    //--- EvaluateClosedBar pass. Matches the existing t127_limit2 / t133_limit idiom.
+    const int udl_limit = barShift + Bars(_Symbol, PERIOD_CURRENT);
+    for(int s = barShift; s <= udl_limit; s++)
      {
       if(iTime(_Symbol, PERIOD_CURRENT, s) < g_anchorBarTime) break;
       double verdict;
@@ -2383,6 +2701,9 @@ void ResetSequence()
    g_latchedR       = 0.0;
    g_latchBarTime   = 0;
    g_confirmFromState = ST_IDLE;
+   //--- [P-BUILD3 E5] no new working-set field: the re-bind assigns anchor,
+   //--- price, time, zone, touch, state, latch + confirmFrom only — all are
+   //--- existing members (fields 4/5/6, 11/12, 8/9/10, 0, 15-19, 20).
   }
 
 void GoAbort(const string reason, ENUM_SRJ_STATE atState)
@@ -2529,10 +2850,13 @@ bool ZoneAdoptable(int barShift, double zHi, double zLo,
 
    if(FindNearestSwing(buf, barShift, sw1, sh1))
      {
-      if(sw1 >= zLo && sw1 <= zHi)
-        { ok = true; if(via == "none") via = "SWING1"; }
+       if(sw1 >= zLo && sw1 <= zHi)
+         { ok = true; if(via == "none") via = "SWING1"; }
 
-      if(!haveStop)
+       //--- [P-TRIM-S2POLL E3] loop-invariant hoist. Bars() cannot change within one
+       //--- EvaluateClosedBar pass. Matches the existing t127_limit2 / t133_limit idiom.
+       const int za_limit = barShift + Bars(_Symbol, PERIOD_CURRENT);
+       if(!haveStop)
         {
          for(int s = sh1 + 1; s <= sh1 + 500; s++)
            {
@@ -2551,8 +2875,8 @@ bool ZoneAdoptable(int barShift, double zHi, double zLo,
         {
          //--- [STEP 1] same SL-leg depth as ZoneInPlay: every confirmed
          //--- protective-side swing back to the stop reference, which ends the leg.
-         double prev = sw1;
-         for(int s = sh1 + 1; s <= barShift + Bars(_Symbol, PERIOD_CURRENT); s++)
+          double prev = sw1;
+          for(int s = sh1 + 1; s <= za_limit; s++)
            {
             double v2;
             if(!ReadFlow(buf, v2, s))          break;
@@ -2678,8 +3002,11 @@ bool ZoneInPlay(int barShift, double zHi, double zLo,
    //--- reference this bar, the measured two-swing depth (SWING2) remains the
    //--- bound, per council Part 1.1. No distance parameter; the bounds are the
    //--- stop reference (structural), history exhaustion (bt<=0), and the _Point
-   //--- distinctness test - safety limits and structure, never thresholds.
-   if(!haveStop)
+    //--- distinctness test - safety limits and structure, never thresholds.
+    //--- [P-TRIM-S2POLL E3] loop-invariant hoist. Bars() cannot change within one
+    //--- EvaluateClosedBar pass. Matches the existing t127_limit2 / t133_limit idiom.
+    const int zip_limit = barShift + Bars(_Symbol, PERIOD_CURRENT);
+    if(!haveStop)
      {
       for(int s = sh1 + 1; s <= sh1 + 500; s++)
         {
@@ -2691,8 +3018,8 @@ bool ZoneInPlay(int barShift, double zHi, double zLo,
         }
       return false;
      }
-   double prev = sw1;
-   for(int s = sh1 + 1; s <= barShift + Bars(_Symbol, PERIOD_CURRENT); s++)
+    double prev = sw1;
+    for(int s = sh1 + 1; s <= zip_limit; s++)
      {
       double v2;
       if(!ReadFlow(buf, v2, s))          break;
@@ -3296,9 +3623,28 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
          GoAbort(ABORT_NO_TP_TARGET, g_state); return;
         }
-      double slRef; ENUM_SRJ_SLMODE slMode;
-      if(ComputeSlReference(barShift, g_dir, slRef, slMode, "S2POLL"))
-         s1_stopRef = slRef; s1_haveStop = true;
+      double slRef = 0.0; ENUM_SRJ_SLMODE slMode = SL_MODE_NONE;
+      //--- [P-FIX-S2POLL E1 / operator Q1+Q3 2026-09-11] The stop pair is ATOMIC:
+      //--- both set on success, both absent on failure. The superseded form had the
+      //--- if governing ONE statement, so s1_haveStop=true was unconditional and the
+      //--- scope block below read slRef on the failure path. #property strict does
+      //--- not diagnose that shape. Fail-closed per Q3 ("SL should be present at all
+      //--- times"), following the sibling gate in this same block: ABORT_NO_TP_TARGET
+      //--- already kills across S2..S5 from here, and this is its stop-side twin.
+      //--- SUPERSEDED, retained per P4:
+      //---   if(ComputeSlReference(barShift, g_dir, slRef, slMode, "S2POLL"))
+      //---      s1_stopRef = slRef; s1_haveStop = true;
+      if(!SlRefMemo(barShift, barTime, g_dir, slRef, slMode, "S2POLL"))
+        {
+         if(InpDebugLog)
+            PrintFormat("[SRJ-EA] %s S2POLL_NO_SL_REF state=%s dir=%s",
+                        TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS),
+                        StateName(g_state), DirName(g_dir));
+         GoAbort(ABORT_NO_SL_REF, g_state);
+         return;
+        }
+      s1_stopRef  = slRef;
+      s1_haveStop = true;
         {
          double slDist = MathAbs(currentPrice - slRef);
          double tpDist = MathAbs(tpTarget - currentPrice);
@@ -3497,6 +3843,63 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         }
      }
 
+   //--- [P-BUILD3 E3 2026-09-11] the live supersession poll (spec 3.4 L120:
+   //--- a same-direction higher-tier POI touch mid-sequence upgrades the anchor
+   //--- tier silently; spec 6: arrival order still governs across time, so this
+   //--- re-binds WITHIN the alive candidate only). Pre-fire states S1-S4;
+   //--- IDLE (seed owns it), S5+ (guard 4) never reach here. Regime/LTF kept
+   //--- (line-agnostic progress); the anchor-relative legs re-derive (zone and
+   //--- touch unbind; S3/S4 fall back to S3_ZONE_WAIT so arming re-runs).
+   //--- Runs BEFORE the t73 census so a promoted line is not ALSO counted as
+   //--- suppressed (the Task-78 placement discipline). Sets b3_superseded for E4.
+   bool b3_superseded = false;
+   if(inWindow &&
+      (g_state == ST_S1_REGIME || g_state == ST_S2_LTF_ALIGN ||
+       g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED) &&
+      g_anchorLine >= 0 && g_dir != DIR_NONE)
+     {
+      int b3_cand = B3_ElectAnchor(barShift, g_dir);
+      if(b3_cand >= 0 &&
+         B3_AnchorTier(b3_cand) < B3_AnchorTier(g_anchorLine) &&
+         sess == g_sessionAtEntry)
+        {
+         int b3_from      = g_anchorLine;
+         int b3_fromRank  = g_authorityRank[b3_from];
+         int b3_fromTier  = B3_AnchorTier(b3_from);
+         int b3_toRank    = g_authorityRank[b3_cand];
+         int b3_toTier    = B3_AnchorTier(b3_cand);
+         ENUM_SRJ_STATE b3_prevState = g_state;
+         g_anchorLine    = b3_cand;
+         ReadBuf1(g_hPoi, b3_cand, g_anchorPrice, barShift);
+         g_anchorBarTime = barTime;
+         g_zoneHi        = 0.0;
+         g_zoneLo        = 0.0;
+         g_touchSeen     = false;
+         g_touchBarHi    = 0.0;
+         g_touchBarLo    = 0.0;
+         g_latchedEntry  = 0.0;
+         g_latchedSl     = 0.0;
+         g_latchedTp     = 0.0;
+         g_latchedR      = 0.0;
+         g_latchBarTime  = 0;
+         g_confirmFromState = ST_IDLE;
+         if(g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED)
+           {
+            ENUM_SRJ_STATE b3_prev = g_state;
+            g_state = ST_S3_ZONE_WAIT;
+            LogState(b3_prev, g_state);
+           }
+         b3_superseded = true;
+         if(InpDebugLog)
+            PrintFormat("[SRJ-EA] ANCHOR_SUPERSEDE bar=%s from=%s rank=%d tier=%d to=%s rank=%d tier=%d dir=%s state=%s",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                     TIME_DATE|TIME_MINUTES),
+                        g_lineCode[b3_from], b3_fromRank, b3_fromTier,
+                        g_lineCode[b3_cand], b3_toRank, b3_toTier,
+                        DirName(g_dir), StateName(b3_prevState));
+        }
+     }
+
    //--- [Task 73 / Stage 3 cost side] Suppression census. DIAGNOSTIC ONLY.
    //--- Two unmeasured quantities, both needed before Stage 3 is sized:
    //---   1. The singleton discards every POI retest that arrives while a
@@ -3541,13 +3944,14 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          if(t73_isOpp && t73_isHigh)  s_t73_both++;
          PrintFormat("[SRJ-EA] SUPPRESSED bar=%s poi=%s dir=%s opp=%d higher=%d "
                      "heldPoi=%s heldDir=%s heldState=%s "
-                     "cum_n=%d cum_opp=%d cum_hi=%d cum_both=%d",
+                     "cum_n=%d cum_opp=%d cum_hi=%d cum_both=%d action=%s",
                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
                                   TIME_DATE|TIME_MINUTES),
                      g_lineCode[t73_pr.topLine], DirName(t73_dir),
                      (int)t73_isOpp, (int)t73_isHigh,
                      g_lineCode[g_anchorLine], DirName(g_dir), StateName(g_state),
-                     s_t73_n, s_t73_opp, s_t73_higher, s_t73_both);
+                     s_t73_n, s_t73_opp, s_t73_higher, s_t73_both,
+                     b3_superseded ? "SUPERSEDED" : "HELD");
         }
       if((s_t73_bars % 500) == 0)
          PrintFormat("[SRJ-EA] SUPPRESSED_PROGRESS heldBars=%d n=%d opp=%d "
@@ -3604,6 +4008,15 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       ENUM_SRJ_STATE prev = g_state;
       g_state = ST_S1_REGIME;
       LogState(prev, g_state);
+      //--- [P-BUILD3 E2] seed census: the detector already returns argmin(rank);
+      //--- tier-best == rank-best at seed (no held line), so ElectAnchor parity
+      //--- holds by construction. Additive print only; assigns nothing.
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] ANCHOR_ELECT bar=%s action=SEED poi=%s rank=%d tier=%d dir=%s",
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                  TIME_DATE|TIME_MINUTES),
+                     AnchorStr(), g_authorityRank[g_anchorLine],
+                     B3_AnchorTier(g_anchorLine), DirName(g_dir));
      }
 
    if(g_state == ST_S1_REGIME)
@@ -3782,8 +4195,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
             //--- tested and ends the walk. Without a stop reference this bar, the
             //--- measured two-swing depth remains the bound, per council Part 1.1.
             //--- No bar-count limit; bounds are structural. This reconciles the
-            //--- arming gate with ZoneInPlay, ZoneAdoptable and the S4 re-read.
-            if(!s1_haveStop)
+             //--- arming gate with ZoneInPlay, ZoneAdoptable and the S4 re-read.
+             //--- [P-TRIM-S2POLL E3] loop-invariant hoist. Bars() cannot change within one
+             //--- EvaluateClosedBar pass. Matches the existing t127_limit2 / t133_limit idiom.
+             const int s31_legLimit = barShift + Bars(_Symbol, PERIOD_CURRENT);
+             if(!s1_haveStop)
               {
                for(int s = s31_sw1Shift + 1; s <= s31_sw1Shift + 500; s++)
                  {
@@ -3803,8 +4219,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
               }
             else
               {
-               double s31_prev = s31_sw1;
-               for(int s = s31_sw1Shift + 1; s <= barShift + Bars(_Symbol, PERIOD_CURRENT); s++)
+                double s31_prev = s31_sw1;
+                for(int s = s31_sw1Shift + 1; s <= s31_legLimit; s++)
                  {
                   double s31_v2;
                   if(!ReadFlow(s31_buf, s31_v2, s))                 break;
@@ -4061,6 +4477,9 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       double   t133_firstV  = 0.0;
       string   t133_via     = "none";
       datetime t133_bound   = 0;
+      double   t133_prev     = 0.0;
+      bool     t133_havePrev = false;
+      bool     t133_haveStop = false;   // hoisted mirror of s3_haveStop for the print
 
       if(haveXob && !haveFvg && s31_zHi > 0.0 && s31_zLo > 0.0)
         {
@@ -4074,9 +4493,19 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          //--- reference, the promotion-time bound remains as the fail-safe (the
          //--- measured Task 126 bound) per council Part 1.1.
          double s3_slRef = 0.0; ENUM_SRJ_SLMODE s3_slMode = SL_MODE_NONE;
-         bool  s3_haveStop = ComputeSlReference(barShift, g_dir, s3_slRef, s3_slMode, "S3ARM");
+         bool  s3_haveStop = SlRefMemo(barShift, barTime, g_dir, s3_slRef, s3_slMode, "S3ARM");
+         t133_haveStop = s3_haveStop;
 
-         if(t133_bounded || !s3_haveStop)
+         //--- [P-FIX-S2POLL E3 / operator Q3 2026-09-11: "SL should be present at
+         //--- all times"] The SL LEG IS THE BOUND. Superseded gate admitted the
+         //--- (!bounded && !haveStop) cell, where the time terminator is disabled by
+         //--- !s3_haveStop AND the stop terminator is disabled by s3_haveStop, so the
+         //--- walk ran the full history and admitted on any swing anywhere - the
+         //--- opposite of the fail-closed claim in the Task 133 comment.
+         //--- SUPERSEDED, retained per P4:
+         //---   if(t133_bounded || !s3_haveStop)
+         if(s3_haveStop)
+
            {
             if(t133_bounded) t133_bound = (datetime)t123_promoT;
 
@@ -4095,15 +4524,30 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                double t133_v;
                if(!ReadFlow(t133_buf, t133_v, t133_s))     break;
                if(t133_v == EMPTY_VALUE || t133_v <= 0.0)  continue;
-               //--- [STEP 1] the SL-leg terminator: the walk ends at the stop swing
-               if(s3_haveStop && ((g_dir == DIR_LONG) ? (t133_v <= s3_slRef) : (t133_v >= s3_slRef))) break;
+               //--- [P-FIX-S2POLL E2] distinctness: one turn of the bigger move is
+               //--- one swing. This is the ZoneInPlay / ZoneAdoptable / S3-ladder
+               //--- idiom verbatim, so t133_swings becomes comparable to theirs.
+               //--- The walk starts at barShift with no seed swing, so the first
+               //--- swing is distinct by construction (havePrev false).
+               if(t133_havePrev && MathAbs(t133_v - t133_prev) <= _Point) continue;
+               t133_prev     = t133_v;
+               t133_havePrev = true;
                t133_swings++;
+               //--- [P-FIX-S2POLL E2 / operator Q2 2026-09-11: "count the SL leg not
+               //--- the latest structure leg"] The STOP SWING ITSELF IS A WITNESS.
+               //--- Order is test-containment-then-break, matching all three other
+               //--- implementations. The superseded order broke first, so the walk
+               //--- could not see the one witness class on record - the swing the
+               //--- stop was placed at.
+               //--- SUPERSEDED, retained per P4: the terminator stood HERE, above
+               //--- t133_swings++ and above the containment test.
                if(t133_v >= s31_zLo && t133_v <= s31_zHi)
                  {
                   t133_hits++;
                   if(t133_first < 0) { t133_first = t133_s; t133_firstV = t133_v; }
                   if(t133_via == "none") t133_via = "SWING";
                  }
+               if(s3_haveStop && ((g_dir == DIR_LONG) ? (t133_v <= s3_slRef) : (t133_v >= s3_slRef))) break;
               }
 
             if(t133_hits > 0) t133_inPlay = true;
@@ -4116,7 +4560,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          PrintFormat("[SRJ-EA] INPLAYCOMMIT bar=%s dir=%s zoneSrc=%s zoneLo=%s zoneHi=%s "
                      "promoT=%s applied=%d bounded=%d scanned=%d swings=%d hits=%d "
                      "firstShift=%d firstVal=%s commitVia=%s legacy=%d legacyVia=%s "
-                     "committed=%d changed=%d",
+                     "committed=%d changed=%d haveStop=%d",
                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
                      DirName(g_dir),
                      haveFvg ? "FVG" : (haveXob ? "XOB" : "none"),
@@ -4132,7 +4576,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      t133_via,
                      (int)t133_legacy, s31_via,
                      (int)s31_inPlay,
-                     (int)(s31_inPlay != t133_legacy));
+                     (int)(s31_inPlay != t133_legacy),
+                     (int)t133_haveStop);
 
       if((haveFvg || haveXob) && s31_inPlay)
         {
@@ -4763,9 +5208,14 @@ void OnDeinit(const int reason)
                   "neither=%d | inWindow=%d xobInWin=%d fvgInWin=%d | samples=%d",
                   g_zc_bars, g_zc_both, g_zc_xobOnly, g_zc_fvgOnly,
                   g_zc_neither, g_zc_inWin, g_zc_xobInWin, g_zc_fvgInWin,
-                  g_zc_samples);
+                   g_zc_samples);
 
-   SrjWs161Census();
+   if(InpDebugLog)
+      PrintFormat("[SRJ-EA] SLMEMO_CENSUS computes=%d hits=%d demands=%d",
+                  g_slMemo_computes, g_slMemo_hits,
+                  g_slMemo_computes + g_slMemo_hits);
+
+    SrjWs161Census();
 
    if(g_hPoi  != INVALID_HANDLE) IndicatorRelease(g_hPoi);
    if(g_hCqd  != INVALID_HANDLE) IndicatorRelease(g_hCqd);
