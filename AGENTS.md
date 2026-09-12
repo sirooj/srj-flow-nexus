@@ -122,12 +122,14 @@ Masters judge measurements on disk, never prose about them.
 ## 9. File map (current baselines 2026-09-11)
 
 - EA: `Experts\SRJ_FlowNexus_EA.mq5` =
-  `786CBDFF34CB312A5FE6B0123E7E53084A9B61E`
-  (276074 B, RECON8-SWINGIMB run-verified; supersedes 57B2F9D3 state).
+  `34BD7D82147CEABD365271790365AC87BBF7297BAC74DFF93A37017BEBAA4FF0`
+  (283725 B, RECON9-SWINGIMB2 FROZEN baseline, council-ACCEPTED;
+  supersedes 786CBDFF state).
 - CQD: `Indicators\SRJ_CQD_TickBased_MT5.mq5` = `BE6FD84F...A421F` (50555 B).
 - OrderblockMgr: `Include\SRJ\SRJ_OrderblockMgr.mqh` = `D286621C...20B7B` (48050 B).
-- FlowLogic: `Indicators\SRJ_FlowLogic.mq5` = `4B1B024E...87B22` (64782 B,
-  RECON8-SWINGIMB run-verified; buffers 37/38 swing-imbalance codes).
+- FlowLogic: `Indicators\SRJ_FlowLogic.mq5` = `3606BFB4...25911` (67515 B,
+  RECON9-SWINGIMB2 FROZEN baseline, council-ACCEPTED; buffer 39 OB swing
+  time + SWINGIMB_PROGRESS, naAlive=0).
 - ImbalanceMgr: `Include\SRJ\SRJ_ImbalanceMgr.mqh` = `F830AE5A...1196`
   (25478 B, T162_FVG run-verified; wick-shrink, shrink-only).
 - Types: `Include\SRJ\SRJ_Types.mqh` = `D542B458...F03` (13835 B;
@@ -163,9 +165,20 @@ Masters judge measurements on disk, never prose about them.
    157/157 in-play verdicts identical; CQD artifact settled 170/308/263/165).
 4. P-SWINGIMB EXECUTED (RECON8 PASSED 0:53:07; SLIMB 432+39=471, S5 10=10+0;
    avail 481/481, apex 481/481; all identities verbatim). Gate-7 waiver +
-   cross-tab (branch⟺obValid; VALID_NOIMB=296 all 1-swing) relayed for
-   council verdict. News rulings recorded (`BUILDER_DECISION_MEMO_NEWS-
-   RULINGS.md`); news packets sequenced after imbalance.
+   cross-tab (branch⟺obValid; VALID_NOIMB=296 all 1-swing) ACCEPTED by
+   council (RECON8 frozen, committed 7df49d1/0520417 + tag, backup only —
+   origin auth failed, operator refresh pending). P-SWINGIMB-2 EXECUTED
+   (RECON9 PASSED 1:01:41; chosen 481/481 zero residuals; walk 481/UNRES 0;
+   progress 102, naAlive=0; TRUE carve-held 106 / BASEMOVED 375).
+   Relayed: mislabel fix, exceeds/side-filter questions, naAlive discharge.
+   VERDICT 2026-09-12: P-SWINGIMB-2 ACCEPTED (RECON9 frozen; local commit
+   cleared, origin push NOT held — backup custody suffices). Code-1 quoting
+   restriction LIFTED (naAlive=0). Q1 exceeds idiom YES, Q2 side test NO +
+   sideViolations falsifier, Q3 BASE_MOVED approved + boolean-totality
+   mapping + UNCLASSIFIED. Code-3 terminates walk (WALK_UNEVALUABLE).
+   P-SWINGIMB-3 ISSUED (E8 walk repair + E9 class totality + E10 R-cost
+   table SLIMBR). Local commit of RECON9 due before compact.
+   News rulings recorded; table draft due before RECON10 finishes.
 4. RECON Phase-2 re-run on the fixed build.
 5. Debris deletion word + git snapshot on explicit token only.
 

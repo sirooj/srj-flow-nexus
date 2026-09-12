@@ -133,3 +133,16 @@ The one thing that is not code and should not wait: draft the pinned static even
 
 STATUS: ISSUED (council verdict session 2026-09-12: P-SWINGIMB ACCEPTED, RECON8 frozen baseline, commit cleared).
 Filed by builder to `SRJ_FlowNexus_Local\01_TASKS\PACKET_P-SWINGIMB-2.md`.
+BUILDER STATE 2026-09-12: EXECUTED. RECON9-SWINGIMB2 PASSED
+("Test passed in 1:01:41.477", 563338/3168): gates 1-7 PASS — identities
+verbatim, SLIMB 432+39=471 + S5 10, avail 481/481, apex 481/481, chosen
+exposure 481/481 zero residuals, SLIMBWALK 481/UNRES 0, progress 102 lines
+(writes=51000, naAlive=0 — fail-open discharged), inequality 481≤51000,
+acceptance d=0 except +481/+102. TRUE walk partition (read-only recount):
+carve-held 106, BASEMOVED 375 (16 same-turn, 207 wider, 152 tighter).
+Two owned defects relayed: missing BASE_MOVED class (printed TEQN=481
+overstated) + no extremity/side filter on walk (168 non-more-extreme
+slBase). QUESTIONS: exceeds idiom? side test? class name? NO walk change
+until ruled. Candidate baselines EA 34BD7D82 (283725 B), FlowLogic
+3606BFB4 (67515 B), post-run identical, UNCOMMITTED. Full gates + data in
+`06_HANDOFFS\BUILDER_RESULT_RECON9-SWINGIMB2.md`. AWAITING verdict.

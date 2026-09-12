@@ -1,0 +1,12 @@
+$Work='c:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\00_CURRENT_WORKING'
+$Run='RECON9-SWINGIMB2'
+$Ini=Join-Path $Work 'RECON1_P1.ini'
+foreach($suf in @('_STATUS.txt','_DONE.txt')){ $p=Join-Path $Work ($Run + $suf); if(Test-Path -LiteralPath $p){ Remove-Item -LiteralPath $p -Force } }
+$psi=New-Object System.Diagnostics.ProcessStartInfo
+$psi.FileName='powershell'
+$psi.Arguments='-NoProfile -ExecutionPolicy Bypass -File "' + (Join-Path $Work 'run_tester_v2.ps1') + '" -RunName ' + $Run + ' -IniPath "' + $Ini + '"'
+$psi.WindowStyle='Hidden'
+$psi.CreateNoWindow=$true
+$psi.UseShellExecute=$false
+$p=[System.Diagnostics.Process]::Start($psi)
+'LAUNCHED wrapper PID=' + $p.Id
