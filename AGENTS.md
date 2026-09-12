@@ -176,9 +176,15 @@ Masters judge measurements on disk, never prose about them.
    restriction LIFTED (naAlive=0). Q1 exceeds idiom YES, Q2 side test NO +
    sideViolations falsifier, Q3 BASE_MOVED approved + boolean-totality
    mapping + UNCLASSIFIED. Code-3 terminates walk (WALK_UNEVALUABLE).
-   P-SWINGIMB-3 ISSUED (E8 walk repair + E9 class totality + E10 R-cost
-   table SLIMBR). Local commit of RECON9 due before compact.
-   News rulings recorded; table draft due before RECON10 finishes.
+   P-SWINGIMB-3 EXECUTED 2026-09-12 (RECON10 PASSED 1:08:58; wrapper
+   TIMEOUT_60MIN, manual archive 16634 lines; gates 1-9 PASS: partition
+   51/0/71/200/0/159/0/0/0, 168 accounted 91+77+0, SLIMBR 10/10 fresh,
+   firing-set R cost stated 2.43->2.17 / 2.56->1.53 / 1.76->1.07 /
+   1.25->0.36; verdict + operator R decision pending). News table PINNED
+   (11 rows, SHA256 5FFF5C76...EF1F134; span through 2026-12-31;
+   VWAP anchor = 21:00 broker bar confirmed). RECON9 committed
+   3b41355/897b6fb + tag Task162-T162SWINGIMB2, backup verified; origin
+   pending credential word.
 4. RECON Phase-2 re-run on the fixed build.
 5. Debris deletion word + git snapshot on explicit token only.
 

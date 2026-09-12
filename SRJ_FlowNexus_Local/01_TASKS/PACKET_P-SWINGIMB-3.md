@@ -94,5 +94,8 @@ Sequencing unchanged. The static event table draft remains the one parallel item
 
 ---
 
-STATUS: ISSUED (council verdict session 2026-09-12: P-SWINGIMB-2 ACCEPTED, RECON9 frozen baseline, local commit cleared).
+STATUS: EXECUTED 2026-09-12 (RECON10-SWINGIMB3: Test passed in 1:08:58.374,
+563338 ticks / 3168 bars; wrapper TIMEOUT_60MIN at 13:27:37, manual archive
+16634 lines; gates 1-9 PASS per BUILDER_RESULT_RECON10-SWINGIMB3.md;
+firing-set R cost stated, operator decision pending). Verdict requested.
 Filed by builder to `SRJ_FlowNexus_Local\01_TASKS\PACKET_P-SWINGIMB-3.md`.
