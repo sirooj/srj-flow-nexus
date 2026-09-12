@@ -977,6 +977,17 @@ datetime         g_latchBarTime   = 0;
 //--- working-set member (field 20, the membership rule).
 ENUM_SRJ_STATE   g_confirmFromState = ST_IDLE;
 
+//--- [P-SWINGIMB-3 E10] instrument-owned file-scope SLIMBR shadows: stamped by
+//--- SlimbWalkEmit on every evaluated call (barTime + site + base + nuance +
+//--- class) and read once per S5 invocation for the R-cost print. HARD
+//--- BOUNDARY: never cleared in ResetSequence(), never working-set members,
+//--- no gate reads them. WS161 fields stays 21 by construction.
+datetime         g_slimbr_barTime = 0;
+string           g_slimbr_site    = "";
+double           g_slimbr_base    = 0.0;
+double           g_slimbr_nuance  = 0.0;
+string           g_slimbr_class   = "";
+
 //--- TASK 15: read-only shadow of a candidate that died at regime or LTF
 //--- alignment. Measures how many of those 42 aborts would have converted
 //--- under an order-independent (latched) model. Influences NOTHING - it
@@ -2117,19 +2128,33 @@ void SlimbEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
                chFlagV, chShiftV, chAvailI, nuanceCls, candsS);
   }
 
-//====================== [P-SWINGIMB-2 E7] SLIMBWALK shadow =================
-//--- Print-only outward-walk shadow. 17 named tokens + fields=17. Frame note:
+//====================== [P-SWINGIMB-3 E8/E9] SLIMBWALK shadow =================
+//--- Print-only outward-walk shadow. 23 named tokens + fields=23. Frame note:
 //--- `startShift` and all printed shifts are ReadFlow frame; price reads of a
 //--- swing's own bar go through ApexShift. No working-set write, no selection
-//--- branch, no memo contact. slBase = first code-1 strictly outward of the
-//--- chosen swing (code 0/2 walked past, code-2s counted); slNuance = slBase
-//--- unless the wick-only carve-out fires (newest walked-past more-extreme
-//--- swing exceeds the CHOSEN reference by wick only), then the chosen
-//--- (inward) reference. Exhaustion falls back to slToday (declared). Deltas
-//--- are raw price differences in points with slToday as origin (sign as-is;
-//--- protective direction depends on side). No per-candidate side test: the
-//--- packet's "first code-1 outward" is literal; side violations would show
-//--- as negative protective deltas in the data.
+//--- branch, no memo contact. E8 walk repair (council Q1 YES): the running
+//--- extreme is seeded from the CHOSEN reference and a candidate qualifies iff
+//--- it reuses the SL_STRUCT exceeds idiom character-for-character (beyond the
+//--- running extreme by more than _Point) AND carries code 1. Extremity is
+//--- structural: a more-extreme swing updates the running extreme whether or
+//--- not it carries code 1 (counted in extUpdatedByNonQual); code 0 and code 2
+//--- are walked past (code-2s counted); code 3 TERMINATES the walk (reported
+//--- as WALK_UNEVALUABLE, never read as "no imbalance"). Zero-step: anchor
+//--- flag 1 means slBase = slToday with walkSteps = 0 (ruling (b) walks
+//--- further back only when the swing lacks an imbalance). Exhaustion and
+//--- code-3 termination both fall back to slToday (declared). slNuance =
+//--- slBase unless the wick-only carve-out fires (newest walked-past swing
+//--- more-extreme than the CHOSEN reference by wick only - predicate UNCHANGED
+//--- from RECON9, operands still printed, body extreme still through
+//--- ApexShift), then the chosen (inward) reference. Deltas are raw price
+//--- differences in points with slToday as origin (sign as-is; protective
+//--- direction depends on side). E9 class totality: the class is derived from
+//--- a total mapping over todayEqBase/todayEqNuance/baseEqNuance, printed
+//--- beside the class so any mislabel is recomputable without a rerun; every
+//--- believed-unreachable cell is UNCLASSIFIED, never a neighbour's name.
+//--- Council Q2 assertion (no per-candidate side test): sideViolations counts
+//--- any of slToday/slBase/slNuance on the non-protective side of slCurPx
+//--- (the eval-bar close, same value as ComputeSlReference's slCurPx).
 void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
                    const string branch, const bool haveToday, const double todayV,
                    const int startShift, const double chosenV)
@@ -2138,36 +2163,71 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
    string tBase = "-", tNuance = "-", tDB = "-", tDN = "-";
    int tSteps = 0, tCode2 = 0, tExh = -1;
    int tSkipS = -1; string tSkipV = "-", tSkipF = "-", tBody = "-";
+   int tExtNQ = 0, tC3 = 0, tSideV = 0;
+   int tEqB = -1, tEqN = -1, tEqBN = -1;
    string cls = "UNRESOLVED";
+   double wBaseV = 0.0, wNuanceV = 0.0;
+   bool wHaveVals = false;
    if(haveToday && startShift >= 0)
      {
       int swingBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
       int imbBuf   = (dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB;
+      double curPx = iClose(_Symbol, PERIOD_CURRENT, barShift);
+      int anchorF = -1;
+      double anchorR = 0.0;
+      if(ReadFlow(imbBuf, anchorR, startShift) && anchorR != EMPTY_VALUE) anchorF = (int)anchorR;
       bool foundBase = false;
+      bool terminated3 = false;
       double baseV = todayV;
+      double runExt = chosenV;
       bool skipSeen = false;
       int skipS = -1; double skipV = 0.0; int skipF = -1;
-      for(int s = startShift + 1; s <= startShift + 500; s++)
+      if(anchorF == 1)
+         { baseV = todayV; foundBase = true; }
+      else
         {
-         double v = 0.0;
-         if(!ReadFlow(swingBuf, v, s)) break;
-         if(v == EMPTY_VALUE || v <= 0.0) continue;
-         tSteps++;
-         double f = 0.0;
-         int fi = -1;
-         if(ReadFlow(imbBuf, f, s) && f != EMPTY_VALUE) fi = (int)f;
-         if(fi == 1) { baseV = v; foundBase = true; break; }
-         if(fi == 2) tCode2++;
-         bool moreExtreme = (dir == DIR_LONG) ? (v < chosenV - _Point) : (v > chosenV + _Point);
-         if(moreExtreme && !skipSeen)
-           { skipSeen = true; skipS = s; skipV = v; skipF = fi; }
+         for(int s = startShift + 1; s <= startShift + 500; s++)
+           {
+            double v = 0.0;
+            if(!ReadFlow(swingBuf, v, s)) break;
+            if(v == EMPTY_VALUE || v <= 0.0) continue;
+            tSteps++;
+            double f = 0.0;
+            int fi = -1;
+            if(ReadFlow(imbBuf, f, s) && f != EMPTY_VALUE) fi = (int)f;
+            if(fi == 3) { tC3 = 1; terminated3 = true; break; }
+            bool exceeds = (dir == DIR_LONG) ? (v < runExt - _Point)
+                                             : (v > runExt + _Point);
+            if(exceeds)
+              {
+               runExt = v;
+               if(fi != 1) tExtNQ++;
+               else { baseV = v; foundBase = true; break; }
+              }
+            if(fi == 2) tCode2++;
+            bool moreExtreme = (dir == DIR_LONG) ? (v < chosenV - _Point) : (v > chosenV + _Point);
+            if(moreExtreme && !skipSeen)
+              { skipSeen = true; skipS = s; skipV = v; skipF = fi; }
+           }
         }
-      if(!foundBase)
+      if(terminated3)
+        {
+         tExh = 0;
+         tBase = DoubleToString(todayV, _Digits);
+         tNuance = DoubleToString(todayV, _Digits);
+         tDB = "0"; tDN = "0";
+         tEqB = 1; tEqN = 1; tEqBN = 1;
+         wBaseV = todayV; wNuanceV = todayV; wHaveVals = true;
+         cls = "WALK_UNEVALUABLE";
+        }
+      else if(!foundBase)
         {
          tExh = 1;
          tBase = DoubleToString(todayV, _Digits);
          tNuance = DoubleToString(todayV, _Digits);
          tDB = "0"; tDN = "0";
+         tEqB = 1; tEqN = 1; tEqBN = 1;
+         wBaseV = todayV; wNuanceV = todayV; wHaveVals = true;
          cls = "WALK_EXHAUSTED";
         }
       else
@@ -2192,16 +2252,42 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
          tDN = IntegerToString((int)MathRound((nuanceV - todayV) / _Point));
          bool eqB = (baseV == todayV);
          bool eqN = (nuanceV == todayV);
+         bool eqBN = (baseV == nuanceV);
+         tEqB = eqB ? 1 : 0; tEqN = eqN ? 1 : 0; tEqBN = eqBN ? 1 : 0;
+         wBaseV = baseV; wNuanceV = nuanceV; wHaveVals = true;
          if(carve && !eqN) cls = "CARVEOUT_FIRED";
-         else if(eqB && eqN) cls = "ALL_THREE_EQ";
-         else if(eqB) cls = "TODAY_EQ_BASE";
-         else cls = "TODAY_EQ_NUANCE";
+         else if(eqB && eqN && eqBN) cls = "ALL3_EQ";
+         else if(eqB && !eqN && !eqBN) cls = "TODAY_EQ_BASE";
+         else if(!eqB && eqN && !eqBN) cls = "TODAY_EQ_NUANCE";
+         else if(!eqB && !eqN && eqBN) cls = "BASE_MOVED";
+         else cls = "UNCLASSIFIED";
         }
+      if(wHaveVals)
+        {
+         if(dir == DIR_LONG)
+           {
+            if(todayV > curPx) tSideV++;
+            if(wBaseV > curPx) tSideV++;
+            if(wNuanceV > curPx) tSideV++;
+           }
+         else
+           {
+            if(todayV < curPx) tSideV++;
+            if(wBaseV < curPx) tSideV++;
+            if(wNuanceV < curPx) tSideV++;
+           }
+        }
+      g_slimbr_barTime = iTime(_Symbol, PERIOD_CURRENT, barShift);
+      g_slimbr_site = site;
+      g_slimbr_base = wHaveVals ? wBaseV : 0.0;
+      g_slimbr_nuance = wHaveVals ? wNuanceV : 0.0;
+      g_slimbr_class = cls;
      }
-   PrintFormat("[SRJ-EA] SLIMBWALK fields=17 bar=%s site=%s dir=%s branch=%s slToday=%s slBase=%s slNuance=%s deltaBasePts=%s deltaNuancePts=%s walkSteps=%d code2Seen=%d exhausted=%d skipShift=%d skipVal=%s skipFlag=%s bodyExt=%s class=%s",
+   PrintFormat("[SRJ-EA] SLIMBWALK fields=23 bar=%s site=%s dir=%s branch=%s slToday=%s slBase=%s slNuance=%s deltaBasePts=%s deltaNuancePts=%s walkSteps=%d code2Seen=%d exhausted=%d skipShift=%d skipVal=%s skipFlag=%s bodyExt=%s extUpdatedByNonQual=%d code3Seen=%d sideViolations=%d todayEqBase=%d todayEqNuance=%d baseEqNuance=%d class=%s",
                TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
                site, DirName(dir), branch, tToday, tBase, tNuance, tDB, tDN,
-               tSteps, tCode2, tExh, tSkipS, tSkipV, tSkipF, tBody, cls);
+               tSteps, tCode2, tExh, tSkipS, tSkipV, tSkipF, tBody,
+               tExtNQ, tC3, tSideV, tEqB, tEqN, tEqBN, cls);
   }
 
 //====================== Step 6: 1R stop-loss reference ================
@@ -4997,6 +5083,40 @@ void EvaluateClosedBar(int barShift, datetime barTime)
             PrintFormat("[SRJ-EA] %s S5_NO_SL_REF",
                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
          GoAbort(ABORT_NO_SL_REF, g_state); return;
+        }
+
+      //--- [P-SWINGIMB-3 E10] R-cost table: one SLIMBR line per S5 invocation
+      //--- (print-only, before the RR gate so TP_RR_FAIL rows are included).
+      //--- Reads the walk's file-scope shadow; a barTime/site mismatch refuses
+      //--- the read (stale guard - never expected to fire: the stamp is written
+      //--- synchronously inside this invocation's walk). R uses the latch's own
+      //--- formula (tpDist over each stop's risk); deltaPts is the stop's
+      //--- displacement from today's stop in points (today = 0 by definition).
+      if(InpDebugLog && SHADOW_SLIMBWALK)
+        {
+         datetime slimbr_bt = iTime(_Symbol, PERIOD_CURRENT, barShift);
+         bool slimbr_fresh = (g_slimbr_barTime == slimbr_bt && g_slimbr_site == "S5");
+         double slimbr_b = slimbr_fresh ? g_slimbr_base : 0.0;
+         double slimbr_n = slimbr_fresh ? g_slimbr_nuance : 0.0;
+         string slimbr_c = slimbr_fresh ? g_slimbr_class : "STALE";
+         double slimbr_tpD = MathAbs(tpTarget - currentPrice);
+         double slimbr_riskT = MathAbs(currentPrice - slRef);
+         double slimbr_riskB = MathAbs(currentPrice - slimbr_b);
+         double slimbr_riskN = MathAbs(currentPrice - slimbr_n);
+         PrintFormat("[SRJ-EA] SLIMBR bar=%s dir=%s entry=%s tp=%s slToday=%s rToday=%.2f dTodayPts=0 slBase=%s rBase=%.2f dBasePts=%d slNuance=%s rNuance=%.2f dNuancePts=%d class=%s",
+                     TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES),
+                     DirName(g_dir),
+                     DoubleToString(currentPrice, _Digits),
+                     DoubleToString(tpTarget, _Digits),
+                     DoubleToString(slRef, _Digits),
+                     (slimbr_riskT > 0.0 ? slimbr_tpD / slimbr_riskT : 0.0),
+                     DoubleToString(slimbr_b, _Digits),
+                     (slimbr_riskB > 0.0 ? slimbr_tpD / slimbr_riskB : 0.0),
+                     (slimbr_fresh ? (int)MathRound((slimbr_b - slRef) / _Point) : 0),
+                     DoubleToString(slimbr_n, _Digits),
+                     (slimbr_riskN > 0.0 ? slimbr_tpD / slimbr_riskN : 0.0),
+                     (slimbr_fresh ? (int)MathRound((slimbr_n - slRef) / _Point) : 0),
+                     slimbr_c);
         }
 
       double slDist = MathAbs(currentPrice - slRef);
