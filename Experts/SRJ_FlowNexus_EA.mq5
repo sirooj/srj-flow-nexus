@@ -128,6 +128,7 @@ void InitAuthorityTable()
 #define SHADOW_CONFIRMPOLL   true
 #define SHADOW_TP_ELECT      true
 #define SHADOW_SLIMB         true
+#define SHADOW_SLIMBWALK     true
 
 enum ENUM_MT_STATE
   {
@@ -164,6 +165,7 @@ enum ENUM_MT_EXIT
 #define FL_BUF_SWING_LOW     7
 #define FL_BUF_SWING_HIGH_IMB 37
 #define FL_BUF_SWING_LOW_IMB  38
+#define FL_BUF_OB_SWING_TIME  39
 #define FL_BUF_PDAY_HIGH     8
 #define FL_BUF_PDAY_LOW     9
 #define FL_BUF_ASIA_HIGH     10
@@ -2077,11 +2079,21 @@ bool FindNearestSwing(int bufIdx, int evalShift, double &outVal, int &foundShift
 //--- nuanceClass token is derived here from the passed values (that IS the
 //--- OB-validity hypothesis test the packet orders); slShift mirrors the
 //--- chosen slot shift (-1 where the branch exposes no slot).
+//--- FRAME NOTE (P-SWINGIMB-2 Finding 3a): every `shift` token printed by
+//--- SLIMB is in ReadFlow frame (CopyBuffer position = eval shift +
+//--- FLOW_SHIFT_OFFSET, the settled slot). A swing value found at eval shift
+//--- s sits at price shift s+FLOW_SHIFT_OFFSET = ApexShift(s). Do NOT
+//--- "correct" printed shifts by the offset; route price reads through
+//--- ApexShift instead.
+//--- [P-SWINGIMB-2 E6] one named helper; every price read of a swing's own
+//--- bar goes through it.
+int ApexShift(const int evalShift) { return evalShift + FLOW_SHIFT_OFFSET; }
+
 string SlimbTuple(const int s, const double v, const string flagS,
                   const ENUM_SRJ_DIR dir, const double refV)
   {
-   double t_o = iOpen(_Symbol, PERIOD_CURRENT, s);
-   double t_c = iClose(_Symbol, PERIOD_CURRENT, s);
+   double t_o = iOpen(_Symbol, PERIOD_CURRENT, ApexShift(s));
+   double t_c = iClose(_Symbol, PERIOD_CURRENT, ApexShift(s));
    double t_b = (dir == DIR_LONG) ? MathMin(t_o, t_c) : MathMax(t_o, t_c);
    string m = ((dir == DIR_LONG) ? (t_b < refV - _Point) : (t_b > refV + _Point)) ? "B" : "W";
    return IntegerToString(s) + ":" + DoubleToString(v, _Digits) + ":" + flagS + ":" + m;
@@ -2103,6 +2115,93 @@ void SlimbEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
                site, DirName(dir), branch, obValidI, slRefS, slShiftV,
                latFlagV, latShiftV, latAvailI, apexMatchI,
                chFlagV, chShiftV, chAvailI, nuanceCls, candsS);
+  }
+
+//====================== [P-SWINGIMB-2 E7] SLIMBWALK shadow =================
+//--- Print-only outward-walk shadow. 17 named tokens + fields=17. Frame note:
+//--- `startShift` and all printed shifts are ReadFlow frame; price reads of a
+//--- swing's own bar go through ApexShift. No working-set write, no selection
+//--- branch, no memo contact. slBase = first code-1 strictly outward of the
+//--- chosen swing (code 0/2 walked past, code-2s counted); slNuance = slBase
+//--- unless the wick-only carve-out fires (newest walked-past more-extreme
+//--- swing exceeds the CHOSEN reference by wick only), then the chosen
+//--- (inward) reference. Exhaustion falls back to slToday (declared). Deltas
+//--- are raw price differences in points with slToday as origin (sign as-is;
+//--- protective direction depends on side). No per-candidate side test: the
+//--- packet's "first code-1 outward" is literal; side violations would show
+//--- as negative protective deltas in the data.
+void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
+                   const string branch, const bool haveToday, const double todayV,
+                   const int startShift, const double chosenV)
+  {
+   string tToday = haveToday ? DoubleToString(todayV, _Digits) : "-";
+   string tBase = "-", tNuance = "-", tDB = "-", tDN = "-";
+   int tSteps = 0, tCode2 = 0, tExh = -1;
+   int tSkipS = -1; string tSkipV = "-", tSkipF = "-", tBody = "-";
+   string cls = "UNRESOLVED";
+   if(haveToday && startShift >= 0)
+     {
+      int swingBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+      int imbBuf   = (dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB;
+      bool foundBase = false;
+      double baseV = todayV;
+      bool skipSeen = false;
+      int skipS = -1; double skipV = 0.0; int skipF = -1;
+      for(int s = startShift + 1; s <= startShift + 500; s++)
+        {
+         double v = 0.0;
+         if(!ReadFlow(swingBuf, v, s)) break;
+         if(v == EMPTY_VALUE || v <= 0.0) continue;
+         tSteps++;
+         double f = 0.0;
+         int fi = -1;
+         if(ReadFlow(imbBuf, f, s) && f != EMPTY_VALUE) fi = (int)f;
+         if(fi == 1) { baseV = v; foundBase = true; break; }
+         if(fi == 2) tCode2++;
+         bool moreExtreme = (dir == DIR_LONG) ? (v < chosenV - _Point) : (v > chosenV + _Point);
+         if(moreExtreme && !skipSeen)
+           { skipSeen = true; skipS = s; skipV = v; skipF = fi; }
+        }
+      if(!foundBase)
+        {
+         tExh = 1;
+         tBase = DoubleToString(todayV, _Digits);
+         tNuance = DoubleToString(todayV, _Digits);
+         tDB = "0"; tDN = "0";
+         cls = "WALK_EXHAUSTED";
+        }
+      else
+        {
+         tExh = 0;
+         tBase = DoubleToString(baseV, _Digits);
+         tDB = IntegerToString((int)MathRound((baseV - todayV) / _Point));
+         bool carve = false;
+         double nuanceV = baseV;
+         if(skipSeen)
+           {
+            tSkipS = skipS; tSkipV = DoubleToString(skipV, _Digits);
+            tSkipF = (skipF < 0) ? "x" : IntegerToString(skipF);
+            double so = iOpen(_Symbol, PERIOD_CURRENT, ApexShift(skipS));
+            double sc = iClose(_Symbol, PERIOD_CURRENT, ApexShift(skipS));
+            double sb = (dir == DIR_LONG) ? MathMin(so, sc) : MathMax(so, sc);
+            tBody = DoubleToString(sb, _Digits);
+            bool bodyThrough = (dir == DIR_LONG) ? (sb < chosenV - _Point) : (sb > chosenV + _Point);
+            if(!bodyThrough) { carve = true; nuanceV = chosenV; }
+           }
+         tNuance = DoubleToString(nuanceV, _Digits);
+         tDN = IntegerToString((int)MathRound((nuanceV - todayV) / _Point));
+         bool eqB = (baseV == todayV);
+         bool eqN = (nuanceV == todayV);
+         if(carve && !eqN) cls = "CARVEOUT_FIRED";
+         else if(eqB && eqN) cls = "ALL_THREE_EQ";
+         else if(eqB) cls = "TODAY_EQ_BASE";
+         else cls = "TODAY_EQ_NUANCE";
+        }
+     }
+   PrintFormat("[SRJ-EA] SLIMBWALK fields=17 bar=%s site=%s dir=%s branch=%s slToday=%s slBase=%s slNuance=%s deltaBasePts=%s deltaNuancePts=%s walkSteps=%d code2Seen=%d exhausted=%d skipShift=%d skipVal=%s skipFlag=%s bodyExt=%s class=%s",
+               TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+               site, DirName(dir), branch, tToday, tBase, tNuance, tDB, tDN,
+               tSteps, tCode2, tExh, tSkipS, tSkipV, tSkipF, tBody, cls);
   }
 
 //====================== Step 6: 1R stop-loss reference ================
@@ -2157,6 +2256,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
       {
        if(InpDebugLog && SHADOW_SLIMB)
           SlimbEmit(barShift, site, dir, "PRE", -1, "-", -1, -1, -1, 0, 0, -1, -1, 0, "-");
+       if(InpDebugLog && SHADOW_SLIMBWALK)
+          SlimbWalkEmit(barShift, site, dir, "PRE", false, 0.0, -1, 0.0);
        return false;
       }
 
@@ -2210,10 +2311,10 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
             }
           //--- Slot-to-bar audit: the value was read at eval shift s, i.e.
           //--- CopyBuffer position s+FLOW_SHIFT_OFFSET (Task-20 settled slot),
-          //--- so the apex bar is series bar s+OFFSET, not s. Comparing
+          //--- so the apex bar is series bar ApexShift(s), not s. Comparing
           //--- against iHigh/iLow(s) fails on every line (measured 481/481
-          //--- on RECON7); the +OFFSET form is the frame-correct audit.
-          int slimb_apexShift = slimb_latShift + FLOW_SHIFT_OFFSET;
+          //--- on RECON7); the ApexShift form is the frame-correct audit.
+          int slimb_apexShift = ApexShift(slimb_latShift);
           double slimb_ref = (dir == DIR_LONG)
              ? iLow (_Symbol, PERIOD_CURRENT, slimb_apexShift)
              : iHigh(_Symbol, PERIOD_CURRENT, slimb_apexShift);
@@ -2253,6 +2354,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                {
                 if(InpDebugLog && SHADOW_SLIMB)
                    SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+                if(InpDebugLog && SHADOW_SLIMBWALK)
+                   SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
                 return false;
                }
              slRefOut = swingLow;
@@ -2267,6 +2370,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                {
                 if(InpDebugLog && SHADOW_SLIMB)
                    SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+                if(InpDebugLog && SHADOW_SLIMBWALK)
+                   SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
                 return false;
                }
              slRefOut = swingHigh;
@@ -2355,6 +2460,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                          DoubleToString(g_zoneHi, _Digits));
           if(InpDebugLog && SHADOW_SLIMB)
              SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+          if(InpDebugLog && SHADOW_SLIMBWALK)
+             SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
           return false;
          }
      }
@@ -2388,10 +2495,34 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                       site,
                       DoubleToString(g_zoneLo, _Digits),
                       DoubleToString(g_zoneHi, _Digits));
-       //--- [P-SWINGIMB] chosen = the traced swing slot, or -1 for the OB source.
+       //--- [P-SWINGIMB-2 E6] chosen = the traced swing slot. The OB-source
+       //--- path resolves via buffer 39 (bar time -> eval shift); any residual
+       //--- keeps -1 with its cause in cands, never absorbed.
        if(InpDebugLog && SHADOW_SLIMB)
          {
-          if(!obSwingSideOk)
+          if(obSwingSideOk)
+            {
+             double slimb_obt = 0.0;
+             if(ReadFlow(FL_BUF_OB_SWING_TIME, slimb_obt, barShift) && slimb_obt > 0.0)
+               {
+                int slimb_ser = iBarShift(_Symbol, PERIOD_CURRENT, (datetime)slimb_obt, false);
+                int slimb_ev = slimb_ser - FLOW_SHIFT_OFFSET;
+                int slimb_swingBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+                double slimb_sv = 0.0;
+                if(slimb_ev >= 0 && ReadFlow(slimb_swingBuf, slimb_sv, slimb_ev) && slimb_sv == slRefOut)
+                  {
+                   double slimb_cfv = 0.0;
+                   if(ReadFlow(slimb_imbBuf, slimb_cfv, slimb_ev) && slimb_cfv != EMPTY_VALUE)
+                     { slimb_chAvail = 1; slimb_chFlag = (int)slimb_cfv; }
+                   slimb_chShift = slimb_ev;
+                  }
+                else
+                   slimb_cands = "NOOBSLOT:" + IntegerToString(slimb_ev);
+               }
+             else
+                slimb_cands = "NOOBTIME";
+            }
+          else
             {
              int slimb_cs = (slimb_t75shift >= 0) ? slimb_t75shift : slimb_latShift;
              if(slimb_cs >= 0)
@@ -2403,6 +2534,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                }
             }
           SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_chShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_chFlag, slimb_chShift, slimb_chAvail, slimb_cands);
+          if(InpDebugLog && SHADOW_SLIMBWALK)
+             SlimbWalkEmit(barShift, site, dir, "1SWING", true, slRefOut, slimb_chShift, slRefOut);
          }
        return true;
      }
@@ -2507,6 +2640,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                 if(ReadFlow(slimb_imbBuf, slimb_cf9, s) && slimb_cf9 != EMPTY_VALUE)
                   { slimb_cfv9 = (int)slimb_cf9; slimb_cav9 = 1; }
                 SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), s, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfv9, s, slimb_cav9, slimb_cands);
+                if(InpDebugLog && SHADOW_SLIMBWALK)
+                   SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, s, slRefOut);
                }
              return true;
            }
@@ -2515,6 +2650,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
          {
           if(InpDebugLog && SHADOW_SLIMB)
              SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+          if(InpDebugLog && SHADOW_SLIMBWALK)
+             SlimbWalkEmit(barShift, site, dir, "2SWING", false, 0.0, -1, 0.0);
           return false;
          }
       //--- Exhaustion fallback: the running structure extreme IS the stop
@@ -2527,6 +2664,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
          {
           if(InpDebugLog && SHADOW_SLIMB)
              SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+          if(InpDebugLog && SHADOW_SLIMBWALK)
+             SlimbWalkEmit(barShift, site, dir, "2SWING", false, 0.0, -1, 0.0);
           return false;
          }
       slRefOut  = runExt;
@@ -2557,6 +2696,8 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
           if(slimb_runExtShift >= 0 && ReadFlow(slimb_imbBuf, slimb_cfx, slimb_runExtShift) && slimb_cfx != EMPTY_VALUE)
             { slimb_cfvx = (int)slimb_cfx; slimb_cavx = 1; }
           SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_runExtShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfvx, slimb_runExtShift, slimb_cavx, slimb_cands);
+          if(InpDebugLog && SHADOW_SLIMBWALK)
+             SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, slimb_runExtShift, slRefOut);
          }
        return true;
      }

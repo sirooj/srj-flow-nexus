@@ -5,7 +5,7 @@
 #property copyright "SRJ Flow Logic Auto — Pine v6 port"
 #property version   "1.00"
 #property indicator_chart_window
-#property indicator_buffers 39  // [P-SWINGIMB] Was 37. Added 37 (swing-high imbalance code), 38 (swing-low imbalance code). [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId). [Task 155] Was 34. Added 34 (tickOBIsValid provenance), 35 (tickFVGIsValid provenance, population deferred), 36 (hasPersistedOpposingFVG provenance, population deferred).
+#property indicator_buffers 40  // [P-SWINGIMB-2 E5] Was 39. Added 39 (OB swing-bar time). [P-SWINGIMB] Was 37. Added 37 (swing-high imbalance code), 38 (swing-low imbalance code). [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId). [Task 155] Was 34. Added 34 (tickOBIsValid provenance), 35 (tickFVGIsValid provenance, population deferred), 36 (hasPersistedOpposingFVG provenance, population deferred).
 #property indicator_plots   2
 
 #property indicator_label1  "Fractal High"
@@ -140,7 +140,17 @@ int    g_swingImb_code0  = 0;
 int    g_swingImb_code1  = 0;
 int    g_swingImb_code2  = 0;
 int    g_swingImb_code3  = 0;
+int    g_swingImb_naAlive = 0;  // [P-SWINGIMB-2 E5] code-1s decided by NA remainder
 bool   g_swingImb_countThisPass = false;  // true only during a full (prevCalc==0) pass
+
+// [P-SWINGIMB-2 E5] OB swing-bar time, buffer 39. Same encoding as buffers
+// 28/30/33: SERVER-TIME datetime of the bar cast to double. 0.0 = unset
+// (no bias, no qualifying OB, or swing bar out of range). EMPTY_VALUE is
+// forbidden here for the buffer-33 reason: it is a plausible integer.
+// Written from the same object pointer that writes 26/27, in the same
+// branch — the pointer exposes swingBar (used for buffer 27), so no halt.
+// Read-only query. Nothing in this indicator consumes this buffer.
+double g_bufObSwingTime[];
 
 // [P-SWINGIMB] Returns 0/1/2/3 only. apexBar is the confirmed fractal bar
 // (target=i-1 at the call site); bullish selects the HIGH (up-push) side.
@@ -162,7 +172,11 @@ int SrjSwingImbCode(const int apexBar, const bool bullish)
       anyMatch = true;
       bool alive;
       if(SrjIsNa(fvg.remTop) || SrjIsNa(fvg.remBottom))
+        {
          alive = true;   // unfilled as-of apex; the fill-pass backfill would set full range
+         // [P-SWINGIMB-2 E5] size the fail-open: a 1 decided here is NA-decided.
+         if(g_swingImb_countThisPass) g_swingImb_naAlive++;
+        }
       else
          alive = (fvg.remTop > fvg.remBottom);
       if(alive) { anyAlive = true; break; }
@@ -181,6 +195,20 @@ void SrjSwingImbCount(const bool isHigh, const int code)
    else if(code == 1) g_swingImb_code1++;
    else if(code == 2) g_swingImb_code2++;
    else if(code == 3) g_swingImb_code3++;
+  }
+
+// [P-SWINGIMB-2 E5] Progress tally: the tree's own progress idiom
+// (IDCHANGE_PROGRESS / BIASCENSUS_PROGRESS / CQDRECHECK_PROGRESS). Emitted
+// from the write branch every 500 full-pass writes so the final line bounds
+// the tally within 499 and lands before unload. Call-gated by the writer.
+void SrjSwingImbProgress(void)
+  {
+   if(!g_swingImb_countThisPass) return;
+   if(g_swingImb_writes % 500 != 0) return;
+   PrintFormat("SWINGIMB_PROGRESS writes=%d highs=%d lows=%d code0=%d code1=%d code2=%d code3=%d naAlive=%d",
+               g_swingImb_writes, g_swingImb_highs, g_swingImb_lows,
+               g_swingImb_code0, g_swingImb_code1, g_swingImb_code2, g_swingImb_code3,
+               g_swingImb_naAlive);
   }
 
 SState g_sSnapshot;
@@ -690,6 +718,9 @@ int OnInit()
    SetIndexBuffer(37, g_bufSwingHighImb, INDICATOR_CALCULATIONS);
    SetIndexBuffer(38, g_bufSwingLowImb,  INDICATOR_CALCULATIONS);
 
+   // [P-SWINGIMB-2 E5] Append-only. Index 39 = previous buffer count (was 39 buffers, 0..38).
+   SetIndexBuffer(39, g_bufObSwingTime, INDICATOR_CALCULATIONS);
+
    ArraySetAsSeries(g_bufBias,         false);
    ArraySetAsSeries(g_bufOBValid,      false);
    ArraySetAsSeries(g_bufFVGValid,     false);
@@ -744,6 +775,9 @@ int OnInit()
    ArraySetAsSeries(g_bufSwingHighImb, false);
    ArraySetAsSeries(g_bufSwingLowImb,  false);
 
+   // [P-SWINGIMB-2 E5]
+   ArraySetAsSeries(g_bufObSwingTime, false);
+
    SRJ_BindInputs(); 
    SRJ_Glyph_Init(); 
    SRJ_StateInit();
@@ -779,9 +813,10 @@ int OnInit()
 
 void OnDeinit(const int reason)
   {
-   PrintFormat("SWINGIMB_CENSUS writes=%d highs=%d lows=%d code0=%d code1=%d code2=%d code3=%d",
+   PrintFormat("SWINGIMB_CENSUS writes=%d highs=%d lows=%d code0=%d code1=%d code2=%d code3=%d naAlive=%d",
                g_swingImb_writes, g_swingImb_highs, g_swingImb_lows,
-               g_swingImb_code0, g_swingImb_code1, g_swingImb_code2, g_swingImb_code3);
+               g_swingImb_code0, g_swingImb_code1, g_swingImb_code2, g_swingImb_code3,
+               g_swingImb_naAlive);
    SRJ_DeleteAllObjects();
    SRJ_Panels_Destroy();
   }
@@ -887,6 +922,8 @@ int OnCalculate(const int rates_total,
       // [P-SWINGIMB] EMPTY_VALUE, not 0.0 — 0 means "swing without imbalance".
       ArrayInitialize(g_bufSwingHighImb, EMPTY_VALUE);
       ArrayInitialize(g_bufSwingLowImb,  EMPTY_VALUE);
+      // [P-SWINGIMB-2 E5] 0.0, not EMPTY_VALUE — buffer-33 encoding.
+      ArrayInitialize(g_bufObSwingTime, 0.0);
       g_swingImb_writes = 0;
       g_swingImb_highs  = 0;
       g_swingImb_lows   = 0;
@@ -894,6 +931,7 @@ int OnCalculate(const int rates_total,
       g_swingImb_code1  = 0;
       g_swingImb_code2  = 0;
       g_swingImb_code3  = 0;
+      g_swingImb_naAlive = 0;
       g_swingImb_countThisPass = true;
 
       SRJ_DeleteAllObjects();      
@@ -1068,6 +1106,7 @@ int OnCalculate(const int rates_total,
                 int tsw_codeH = SrjSwingImbCode(target, true);
                 g_bufSwingHighImb[target] = (double)tsw_codeH;
                 SrjSwingImbCount(true, tsw_codeH);
+                SrjSwingImbProgress();
                 if(g_htfDebugLog)
                    Print("SWINGIMB t=", SRJ_BarTimeStr(target),
                          " side=HIGH code=", tsw_codeH);
@@ -1078,6 +1117,7 @@ int OnCalculate(const int rates_total,
                 int tsw_codeL = SrjSwingImbCode(target, false);
                 g_bufSwingLowImb[target] = (double)tsw_codeL;
                 SrjSwingImbCount(false, tsw_codeL);
+                SrjSwingImbProgress();
                 if(g_htfDebugLog)
                    Print("SWINGIMB t=", SRJ_BarTimeStr(target),
                          " side=LOW code=", tsw_codeL);
@@ -1231,23 +1271,33 @@ int OnCalculate(const int rates_total,
          // candles for the OB, while swingBar is always the fractal bar.
          // Both EMPTY_VALUE when there is no bias or no qualifying promoted OB.
          // Read-only query. Nothing in this indicator consumes either buffer.
-         g_bufObStructExtreme[target] = EMPTY_VALUE;
-         g_bufObSwingExtreme[target]  = EMPTY_VALUE;
-         if(!SrjIsNa(g_s.currentBias))
-           {
-            int slObIdx = SRJ_NearestPromotedOBIndex(g_s.currentBias);
-            if(slObIdx >= 0)
-              {
-               COrderblock *slOb = GetOB(g_orderblocks, slObIdx);
-               if(slOb != NULL)
-                 {
-                  bool slBiasIsBull = (g_s.currentBias == "bullish");
-                  g_bufObStructExtreme[target] = slBiasIsBull ? slOb.low : slOb.high;
-                  if(!SrjIsNa(slOb.swingBar) && slOb.swingBar >= 0 && slOb.swingBar <= i)
-                     g_bufObSwingExtreme[target] = slBiasIsBull ? low[slOb.swingBar]
-                                                               : high[slOb.swingBar];
-                 }
-              }
+          g_bufObStructExtreme[target] = EMPTY_VALUE;
+          g_bufObSwingExtreme[target]  = EMPTY_VALUE;
+          g_bufObSwingTime[target]     = 0.0;
+          if(!SrjIsNa(g_s.currentBias))
+            {
+             int slObIdx = SRJ_NearestPromotedOBIndex(g_s.currentBias);
+             if(slObIdx >= 0)
+               {
+                COrderblock *slOb = GetOB(g_orderblocks, slObIdx);
+                if(slOb != NULL)
+                  {
+                   bool slBiasIsBull = (g_s.currentBias == "bullish");
+                   g_bufObStructExtreme[target] = slBiasIsBull ? slOb.low : slOb.high;
+                   if(!SrjIsNa(slOb.swingBar) && slOb.swingBar >= 0 && slOb.swingBar <= i)
+                      g_bufObSwingExtreme[target] = slBiasIsBull ? low[slOb.swingBar]
+                                                                : high[slOb.swingBar];
+                   // [P-SWINGIMB-2 E5] Same branch, same object pointer as 26
+                   // and 27 above: the OB's swing-bar time. Buffer-33 encoding.
+                   // The pointer exposes swingBar (used for 27), so no halt.
+                   if(!SrjIsNa(slOb.swingBar) && slOb.swingBar >= 0 && slOb.swingBar <= i)
+                     {
+                      datetime tsw_obst = SRJ_BarTime(slOb.swingBar);
+                      if(tsw_obst > 0)
+                         g_bufObSwingTime[target] = (double)tsw_obst;
+                     }
+                  }
+               }
             if(g_htfDebugLog && SRJ_InDebugWindow(i))
                Print("SRJ SLREF t=", SRJ_BarTimeStr(target),
                      " bias=", g_s.currentBias,
