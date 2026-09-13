@@ -1052,6 +1052,22 @@ int              g_slimbr_obBaseS = -1;
 int              g_slimbr_obNuanceS = -1;
 int              g_slimbr_frBaseS = -1;
 int              g_slimbr_frNuanceS = -1;
+//--- [P-SLDEF-4 E31] walk-step shadows: stamped by SlimbWalkEmit beside the
+//--- slot shadows whenever the haveToday walk runs (OB limb steps, fractal
+//--- limb steps). Read once per S5 invocation for refWalkSteps beside
+//--- refIsRung. Same hard boundary as the slot shadows; slimbr_fresh gates
+//--- every read (stale values are never attributed).
+int              g_slimbr_obSteps = -1;
+int              g_slimbr_frSteps = -1;
+//--- [P-SLDEF-4 E31] derived-window constants, stated once. The ladder reads
+//--- from the entry bar to the deepest rung-obligated slot plus the margin
+//--- (the beyond-rung search needs room past the deepest obligation), floored
+//--- at the legacy 500 so non-extended rows enumerate byte-identical ladders.
+//--- The absolute cap exceeds every pilot shift (3168 bars); hitting it (or
+//--- the 512 rung store) sets ladLimitHit and the row goes
+//--- UNCOVERED_READ_LIMIT, never silently short.
+#define SRJ_LAD_MARGIN_SLOTS 50
+#define SRJ_LAD_ABS_SLOT_CAP 4000
 //--- [P-SLDEF-3 E28] correspondence accumulators: residual histogram over
 //--- slot-matched pairs (buckets -50..+50, lo/hi overflow), run tallies,
 //--- nonzero-pair details bounded at 32 with drop count. File scope so
@@ -1067,6 +1083,58 @@ datetime         g_sigmap_sigT[8];
 int              g_sigmap_sigN = 0;
 datetime         g_sigmap_s5T[16];
 int              g_sigmap_s5N = 0;
+//--- [P-SLDEF-4 E33] intra-bar order census: one monotonic counter stamped at
+//--- the pipeline's per-bar bias read (the live LTF-align invariant below is
+//--- the only per-bar bias site in the entry pipeline; the value itself is
+//--- never latched per the carried ruling) and at each S5 gate evaluation.
+//--- Print-only; no branch reads these. g_order_seq is never reset (run
+//--- monotonic); per-bar stamps are matched by barTime at the S5 site.
+int              g_order_seq = 0;
+int              g_order_seqBias = -1;
+datetime         g_order_biasBarT = 0;
+datetime         g_order_lastBarT = 0;
+int              g_order_flipPassN = 0;
+//--- [P-SLDEF-4 E32] decision-row store: per S5 row (cap 32; pilot 10) the
+//--- slot-order rungs 0..2, the ext-order rungs 0..2, and the matched level.
+//--- Labels only: every tabulation joins on slot+barTime, never on these
+//--- indices. File scope so OnDeinit prints the SLADDER_DECISION block (the
+//--- artifact the operator marks up). No branch reads these.
+#define SRJ_DEC_MAXROWS 32
+int              g_dec_n = 0;
+datetime         g_dec_barT[SRJ_DEC_MAXROWS];
+int              g_dec_dir[SRJ_DEC_MAXROWS];
+int              g_dec_covers[SRJ_DEC_MAXROWS];
+int              g_dec_rungs[SRJ_DEC_MAXROWS];
+int              g_dec_fired[SRJ_DEC_MAXROWS];
+string           g_dec_mStatus[SRJ_DEC_MAXROWS];
+double           g_dec_mLevel[SRJ_DEC_MAXROWS];
+int              g_dec_mRung[SRJ_DEC_MAXROWS];
+int              g_dec_mSlot[SRJ_DEC_MAXROWS];
+int              g_dec_mExt[SRJ_DEC_MAXROWS];
+int              g_dec_mResid[SRJ_DEC_MAXROWS];
+string           g_dec_mT[SRJ_DEC_MAXROWS];
+double           g_dec_mPx[SRJ_DEC_MAXROWS];
+double           g_dec_mR[SRJ_DEC_MAXROWS];
+int              g_dec_sHave[SRJ_DEC_MAXROWS];
+int              g_dec_sSlot[SRJ_DEC_MAXROWS][3];
+int              g_dec_sExt[SRJ_DEC_MAXROWS][3];
+datetime         g_dec_sBT[SRJ_DEC_MAXROWS][3];
+double           g_dec_sPx[SRJ_DEC_MAXROWS][3];
+double           g_dec_sWick[SRJ_DEC_MAXROWS][3];
+double           g_dec_sBody[SRJ_DEC_MAXROWS][3];
+int              g_dec_sImb[SRJ_DEC_MAXROWS][3];
+int              g_dec_sDist[SRJ_DEC_MAXROWS][3];
+double           g_dec_sR[SRJ_DEC_MAXROWS][3];
+int              g_dec_eHave[SRJ_DEC_MAXROWS];
+int              g_dec_eSlot[SRJ_DEC_MAXROWS][3];
+int              g_dec_eExt[SRJ_DEC_MAXROWS][3];
+datetime         g_dec_eBT[SRJ_DEC_MAXROWS][3];
+double           g_dec_ePx[SRJ_DEC_MAXROWS][3];
+double           g_dec_eWick[SRJ_DEC_MAXROWS][3];
+double           g_dec_eBody[SRJ_DEC_MAXROWS][3];
+int              g_dec_eImb[SRJ_DEC_MAXROWS][3];
+int              g_dec_eDist[SRJ_DEC_MAXROWS][3];
+double           g_dec_eR[SRJ_DEC_MAXROWS][3];
 //--- [P-SLDEF-1b E15] LINEWIDTH audit: the Tester journal truncates past ~537
 //--- chars, measured on RECON11. Every shadow-line emission below is measured
 //--- pre-write; any emission longer than the cap increments truncated (gate 7
@@ -2491,9 +2559,84 @@ void SlimbCorrHist(const string barT, const string ref, const bool found, const 
     if(resid == 0) { g_corr_zero++; return; }
     if(resid >= -50 && resid <= 50) g_corr_hist[resid + 50]++;
     else if(resid < -50) g_corr_lo++; else g_corr_hi++;
-    if(g_corr_nzN < 32)
-      { g_corr_nz += barT + "|" + ref + "|" + IntegerToString(rungSlot) + ":" + IntegerToString(refSlot) + ":" + IntegerToString(resid) + ";"; g_corr_nzN++; }
-    else g_corr_nzDrop++;
+     if(g_corr_nzN < 32)
+       { g_corr_nz += barT + "|" + ref + "|" + IntegerToString(rungSlot) + ":" + IntegerToString(refSlot) + ":" + IntegerToString(resid) + ";"; g_corr_nzN++; }
+     else g_corr_nzDrop++;
+    }
+
+//--- [P-SLDEF-4 E31] slot-occupancy witness: the reference's own slot holds
+//--- a swing-buffer value (1), exposes no slot (-1: slotless echo, steps
+//--- unattributable), else 0. Read-only; an unreadable slot reads
+//--- unoccupied (fail-soft: the walk read these same slots moments earlier
+//--- in this same evaluation, so a failure here is itself a finding).
+int SrjRefIsRung(const int refSlot, const int swingBuf)
+   {
+    if(refSlot < 0) return -1;
+    double rv = 0.0;
+    if(!ReadFlow(swingBuf, rv, refSlot)) return 0;
+    if(rv == EMPTY_VALUE || rv <= 0.0) return 0;
+    return 1;
+   }
+
+//--- [P-SLDEF-4 E33] ORDER census: one line per bar on which the S5 gate is
+//--- evaluated. seqBias = the bias-site stamp for this bar (-1 when the site
+//--- did not run for it); seqS5 = this evaluation's stamp (bias textually
+//--- precedes S5 in the same per-bar pass, so seqBias < seqS5 whenever both
+//--- stamp). biasAtGate = HTF anti-leg count against the locked direction at
+//--- the gate (-1 unreadable; same want convention as MtFlipEmit).
+//--- flipDetectedThisBar = the flip is first detectable on this bar (anti>=2
+//--- now, <2 on the previous bar). gateOutcome is passed in decided — every
+//--- call site below passes its already-decided outcome; no branch reads
+//--- anything here. The last-bar guard enforces one line per bar.
+void SrjOrderEmit(const int barShift, const string outcome)
+   {
+    if(!InpDebugLog) return;
+    datetime obt = iTime(_Symbol, PERIOD_CURRENT, barShift);
+    if(obt == g_order_lastBarT) return;
+    g_order_lastBarT = obt;
+    g_order_seq++;
+    int oSeqS5 = g_order_seq;
+    int oSeqB = (g_order_biasBarT == obt) ? g_order_seqBias : -1;
+    int oWant = (g_dir == DIR_LONG) ? 1 : -1;
+    double oH = 0.0, oM = 0.0, oL = 0.0;
+    int oAntiNow = -1, oAntiPrev = -1;
+    if(ReadFlow(FL_BUF_HTF_HIGH, oH, barShift) && ReadFlow(FL_BUF_HTF_MID, oM, barShift) && ReadFlow(FL_BUF_HTF_LOW, oL, barShift))
+      {
+       oAntiNow = 0;
+       if((int)MathRound(oH) == -oWant) oAntiNow++;
+       if((int)MathRound(oM) == -oWant) oAntiNow++;
+       if((int)MathRound(oL) == -oWant) oAntiNow++;
+      }
+    double oH1 = 0.0, oM1 = 0.0, oL1 = 0.0;
+    if(ReadFlow(FL_BUF_HTF_HIGH, oH1, barShift + 1) && ReadFlow(FL_BUF_HTF_MID, oM1, barShift + 1) && ReadFlow(FL_BUF_HTF_LOW, oL1, barShift + 1))
+      {
+       oAntiPrev = 0;
+       if((int)MathRound(oH1) == -oWant) oAntiPrev++;
+       if((int)MathRound(oM1) == -oWant) oAntiPrev++;
+       if((int)MathRound(oL1) == -oWant) oAntiPrev++;
+      }
+    int oFlip = (oAntiNow >= 2 && oAntiPrev >= 0 && oAntiPrev < 2) ? 1 : 0;
+    if(oFlip == 1 && outcome == "PASS") g_order_flipPassN++;
+    string oLine = StringFormat("[SRJ-EA] ORDER fields=7 bar=%d barTime=%s seqBias=%d seqS5=%d biasAtGate=%d flipDetectedThisBar=%d gateOutcome=%s",
+              barShift, TimeToString(obt, TIME_DATE|TIME_MINUTES),
+              oSeqB, oSeqS5, oAntiNow, oFlip, outcome);
+    LwAudit("ORDER", oLine);
+    Print(oLine);
+   }
+
+//--- [P-SLDEF-4 E31] zero-step OB-extreme emission: REF_OB_DEEP with slot
+//--- and distances (slots from the entry bar + price points from today's
+//--- stop, SLIMBR sign convention). Fractal refs never take this token.
+void SrjDeepEmit(const string barT, const ENUM_SRJ_DIR dir, const string ref,
+                 const int slot, const int entryShift,
+                 const double refPx, const double slRef)
+   {
+    string dLine = StringFormat("[SRJ-EA] REF_OB_DEEP fields=10 bar=%s site=S5 dir=%s ref=%s slot=%d slotT=%s slotDist=%d distPts=%d refPx=%s slRef=%s",
+              barT, DirName(dir), ref, slot, SlimbShiftT(slot), slot - entryShift,
+              (int)MathRound((refPx - slRef) / _Point),
+              DoubleToString(refPx, _Digits), DoubleToString(slRef, _Digits));
+    LwAudit("REF_OB_DEEP", dLine);
+    Print(dLine);
    }
 
 void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir,
@@ -2648,6 +2791,9 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
        g_slimbr_obNuanceS = ob.nuanceS;
        g_slimbr_frBaseS = fBaseS;
        g_slimbr_frNuanceS = fNuanceS;
+       //--- [P-SLDEF-4 E31] walk-step shadows for refWalkSteps.
+       g_slimbr_obSteps = tSteps;
+       g_slimbr_frSteps = fSteps;
       }
    //--- [P-SLDEF-1b E15] the split: SLIMBWALK carries the OB limb only
    //--- (class= retained as the join key; sideViolations OB-scoped by
@@ -4070,6 +4216,12 @@ void EvaluateClosedBar(int barShift, datetime barTime)
    //--- instance is individually visible on the LTFFLIP line below.
    if(g_state >= ST_S3_ZONE_WAIT && g_state <= ST_S5_GATE_CHECK)
      {
+      //--- [P-SLDEF-4 E33] bias-site stamp: the pipeline's per-bar bias read
+      //--- runs in this block (live LTF-align invariant). Print-only; every
+      //--- branch below is untouched.
+      g_order_seq++;
+      g_order_seqBias = g_order_seq;
+      g_order_biasBarT = iTime(_Symbol, PERIOD_CURRENT, barShift);
       bool t79_aligned = false;
       if(!CheckLtfAlign(barShift, g_dir, t79_aligned))
         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
@@ -5431,8 +5583,10 @@ void EvaluateClosedBar(int barShift, datetime barTime)
             PrintFormat("[SRJ-EA] CONFIRM_DIV_WAIT bar=%s dir=%s verdict=%d",
                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
                                      TIME_DATE|TIME_MINUTES),
-                        DirName(g_dir), divVal);
-         ENUM_SRJ_STATE prevDiv = g_state;
+                         DirName(g_dir), divVal);
+          //--- [P-SLDEF-4 E33] the decided outcome rides the census.
+          SrjOrderEmit(barShift, "DIV_WAIT");
+          ENUM_SRJ_STATE prevDiv = g_state;
          //--- [P-CONFIRM-ANYSTATE E3] the rollback returns to the promotion
          //--- origin: S3 for a pre-bind confirmation, S4 for the armed edge
          //--- (identical to the build-2 behavior for the armed path).
@@ -5454,9 +5608,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget))
         {
          if(InpDebugLog)
-            PrintFormat("[SRJ-EA] %s S5_NO_TP_TARGET",
-                        TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-         GoAbort(ABORT_NO_TP_TARGET, g_state); return;
+             PrintFormat("[SRJ-EA] %s S5_NO_TP_TARGET",
+                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
+          //--- [P-SLDEF-4 E33] the decided outcome rides the census.
+          SrjOrderEmit(barShift, "NO_TP");
+          GoAbort(ABORT_NO_TP_TARGET, g_state); return;
         }
 
       double slRef = 0.0;
@@ -5464,9 +5620,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       if(!ComputeSlReference(barShift, g_dir, slRef, slMode, "S5"))
         {
          if(InpDebugLog)
-            PrintFormat("[SRJ-EA] %s S5_NO_SL_REF",
-                        TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-         GoAbort(ABORT_NO_SL_REF, g_state); return;
+             PrintFormat("[SRJ-EA] %s S5_NO_SL_REF",
+                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
+          //--- [P-SLDEF-4 E33] the decided outcome rides the census.
+          SrjOrderEmit(barShift, "NO_SL");
+          GoAbort(ABORT_NO_SL_REF, g_state); return;
         }
 
       //--- [P-SWINGIMB-3 E10] R-cost table: one SLIMBR line per S5 invocation
@@ -5614,35 +5772,142 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           int ladImbBuf = (g_dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB;
           int ladFresh = slimbr_fresh ? 1 : 0;
           int ladGuardS = slimbr_fresh ? g_slimbr_fracGuardS : -1;
-          double ladTpD = MathAbs(tpTarget - currentPrice);
-          //--- [P-SLDEF-3 E27] coverage bound replaces the rung count: the
+           double ladTpD = MathAbs(tpTarget - currentPrice);
+           //--- [P-SLDEF-4 E31] rescope + derived window. refIsRung witnesses
+           //--- the reference's own slot in the swing buffer (1 = occupied,
+           //--- 0 = empty, -1 = slotless echo); refWalkSteps is the limb's
+           //--- walked steps beside it (-1 = unattributable: stale or
+           //--- slotless). Obligated = slot>=0 && isRung=1 && steps>0.
+           //--- Zero-step OB extremes take REF_OB_DEEP below, never a
+           //--- coverage failure; slotless echoes take nothing. A walk that
+           //--- reached a non-swing (slot>=0 && isRung=0 && steps>0) halts
+           //--- the ROW with operands (print-only refusal: the ladder, MATCH
+           //--- and correspondence lines for that row are withheld; selection
+           //--- and verdict are untouched).
+           int wFHave = (slimbr_fresh && g_slimbr_fracClass != "UNRESOLVED") ? 1 : 0;
+           int wTodaySlot = slimbr_fresh ? g_slimbr_startShift : -1;
+           int wBaseSlot = slimbr_fresh ? g_slimbr_obBaseS : -1;
+           int wNuanceSlot = slimbr_fresh ? g_slimbr_obNuanceS : -1;
+           int wFracSlot = wFHave ? g_slimbr_frBaseS : -1;
+           int wFracNuSlot = wFHave ? g_slimbr_frNuanceS : -1;
+           int wAnchorSlot = wFHave ? g_slimbr_fracGuardS : -1;
+           int wTodaySteps = (wTodaySlot >= 0) ? g_slimbr_obSteps : -1;
+           int wBaseSteps = (wBaseSlot >= 0) ? g_slimbr_obSteps : -1;
+           int wNuanceSteps = (wNuanceSlot >= 0) ? g_slimbr_obSteps : -1;
+           int wFracSteps = (wFracSlot >= 0) ? g_slimbr_frSteps : -1;
+           int wFracNuSteps = (wFracNuSlot >= 0) ? g_slimbr_frSteps : -1;
+           int wAnchorSteps = (wAnchorSlot >= 0) ? g_slimbr_frSteps : -1;
+           int wTodayIsRung = SrjRefIsRung(wTodaySlot, ladSwingBuf);
+           int wBaseIsRung = SrjRefIsRung(wBaseSlot, ladSwingBuf);
+           int wNuanceIsRung = SrjRefIsRung(wNuanceSlot, ladSwingBuf);
+           int wFracIsRung = SrjRefIsRung(wFracSlot, ladSwingBuf);
+           int wFracNuIsRung = SrjRefIsRung(wFracNuSlot, ladSwingBuf);
+           int wAnchorIsRung = SrjRefIsRung(wAnchorSlot, ladSwingBuf);
+           int wObT = (wTodaySlot >= 0 && wTodayIsRung == 1 && wTodaySteps > 0) ? 1 : 0;
+           int wObB = (wBaseSlot >= 0 && wBaseIsRung == 1 && wBaseSteps > 0) ? 1 : 0;
+           int wObN = (wNuanceSlot >= 0 && wNuanceIsRung == 1 && wNuanceSteps > 0) ? 1 : 0;
+           int wObF = (wFracSlot >= 0 && wFracIsRung == 1 && wFracSteps > 0) ? 1 : 0;
+           int wObFN = (wFracNuSlot >= 0 && wFracNuIsRung == 1 && wFracNuSteps > 0) ? 1 : 0;
+           int wObA = (wAnchorSlot >= 0 && wAnchorIsRung == 1 && wAnchorSteps > 0) ? 1 : 0;
+           int wRowOk = 1;
+           string wRowStatus = "OK";
+           string wHaltName = "-"; int wHaltSlot = -1;
+           if(wTodaySlot >= 0 && wTodayIsRung == 0 && wTodaySteps > 0) { wHaltName = "today"; wHaltSlot = wTodaySlot; }
+           else if(wBaseSlot >= 0 && wBaseIsRung == 0 && wBaseSteps > 0) { wHaltName = "base"; wHaltSlot = wBaseSlot; }
+           else if(wNuanceSlot >= 0 && wNuanceIsRung == 0 && wNuanceSteps > 0) { wHaltName = "nuance"; wHaltSlot = wNuanceSlot; }
+           else if(wFracSlot >= 0 && wFracIsRung == 0 && wFracSteps > 0) { wHaltName = "frac"; wHaltSlot = wFracSlot; }
+           else if(wFracNuSlot >= 0 && wFracNuIsRung == 0 && wFracNuSteps > 0) { wHaltName = "fracNu"; wHaltSlot = wFracNuSlot; }
+           else if(wAnchorSlot >= 0 && wAnchorIsRung == 0 && wAnchorSteps > 0) { wHaltName = "anchor"; wHaltSlot = wAnchorSlot; }
+           if(wHaltName != "-") { wRowOk = 0; wRowStatus = "HALT_E31_1"; }
+           //--- derived window (E31.3): origin at the entry bar, span to the
+           //--- deepest obligated slot plus the stated margin, floored at the
+           //--- legacy 500 so non-extended rows enumerate byte-identical
+           //--- ladders. Rung arrays hold rungs (never slots), so a wider
+           //--- window costs iterations only.
+           int wDeepest = -1;
+           if(wObT == 1 && wTodaySlot > wDeepest) wDeepest = wTodaySlot;
+           if(wObB == 1 && wBaseSlot > wDeepest) wDeepest = wBaseSlot;
+           if(wObN == 1 && wNuanceSlot > wDeepest) wDeepest = wNuanceSlot;
+           if(wObF == 1 && wFracSlot > wDeepest) wDeepest = wFracSlot;
+           if(wObFN == 1 && wFracNuSlot > wDeepest) wDeepest = wFracNuSlot;
+           if(wObA == 1 && wAnchorSlot > wDeepest) wDeepest = wAnchorSlot;
+           int wNeed = wDeepest + SRJ_LAD_MARGIN_SLOTS;
+           int wLimit = wNeed;
+           if(wLimit < 500) wLimit = 500;
+           int wLimitHit = 0;
+           if(wNeed > SRJ_LAD_ABS_SLOT_CAP) { wLimit = SRJ_LAD_ABS_SLOT_CAP; wLimitHit = 1; }
+           int wWalkOB0 = slimbr_fresh ? g_slimbr_startShift : -1;
+           int wWalkFR0 = wFHave ? g_slimbr_fracGuardS : -1;
+           //--- E31.5: an obligated slot past the effective window halts the
+           //--- row with both windows (reachable only when truncated: the
+           //--- derived span covers every obligated slot by construction).
+           //--- "The walk read" = the walk's produced reference slots, not
+           //--- every scanned slot (the walk's 500-span legitimately exceeds
+           //--- any ladder window on unobligated ground).
+           if(wRowOk == 1)
+             {
+              int wStranded = -1;
+              if(wObT == 1 && wTodaySlot > barShift + wLimit) wStranded = wTodaySlot;
+              else if(wObB == 1 && wBaseSlot > barShift + wLimit) wStranded = wBaseSlot;
+              else if(wObN == 1 && wNuanceSlot > barShift + wLimit) wStranded = wNuanceSlot;
+              else if(wObF == 1 && wFracSlot > barShift + wLimit) wStranded = wFracSlot;
+              else if(wObFN == 1 && wFracNuSlot > barShift + wLimit) wStranded = wFracNuSlot;
+              else if(wObA == 1 && wAnchorSlot > barShift + wLimit) wStranded = wAnchorSlot;
+              if(wStranded >= 0) { wRowOk = 0; wRowStatus = "HALT_E31_5"; wHaltSlot = wStranded; }
+             }
+           //--- [P-SLDEF-4 E32] decision-row claim for this S5 row (labels
+           //--- only; the firing flag is set at the PASS site below).
+           int ladDecIdx = -1;
+           int ladETaken[3]; ladETaken[0] = 0; ladETaken[1] = 0; ladETaken[2] = 0;
+           if(wRowOk == 1 && g_dec_n < SRJ_DEC_MAXROWS)
+             {
+              ladDecIdx = g_dec_n; g_dec_n++;
+              g_dec_barT[ladDecIdx] = ladBarT;
+              g_dec_dir[ladDecIdx] = (g_dir == DIR_LONG) ? 1 : -1;
+              g_dec_covers[ladDecIdx] = 0;
+              g_dec_rungs[ladDecIdx] = 0;
+              g_dec_fired[ladDecIdx] = 0;
+              g_dec_sHave[ladDecIdx] = 0; g_dec_eHave[ladDecIdx] = 0;
+              g_dec_mStatus[ladDecIdx] = "NOLEVEL_FILED";
+              g_dec_mLevel[ladDecIdx] = 0.0; g_dec_mRung[ladDecIdx] = -1;
+              g_dec_mSlot[ladDecIdx] = -1; g_dec_mExt[ladDecIdx] = -1;
+              g_dec_mResid[ladDecIdx] = 0; g_dec_mT[ladDecIdx] = "-";
+              g_dec_mPx[ladDecIdx] = 0.0; g_dec_mR[ladDecIdx] = 0.0;
+             }
+           //--- [P-SLDEF-3 E27] coverage bound replaces the rung count: the
           //--- ladder runs until its deepest rung sits strictly beyond every
           //--- genuine reference printed for the row (values, protective
           //--- side), or the hard slot bound stops it. Rung count is an
           //--- output. Arrays sized past the slot bound (500 slots max).
-          int ladFHave = (slimbr_fresh && g_slimbr_fracClass != "UNRESOLVED") ? 1 : 0;
-          double ladCoverT = slRef;
-          if(g_dir == DIR_LONG)
-            {
-             if(slimbr_fresh)
-               { if(g_slimbr_base < ladCoverT) ladCoverT = g_slimbr_base; if(g_slimbr_nuance < ladCoverT) ladCoverT = g_slimbr_nuance; }
-             if(ladFHave == 1)
-               { if(g_slimbr_fracBase < ladCoverT) ladCoverT = g_slimbr_fracBase; if(g_slimbr_fracNuance < ladCoverT) ladCoverT = g_slimbr_fracNuance; if(g_slimbr_frRetV < ladCoverT) ladCoverT = g_slimbr_frRetV; }
-            }
-          else
-            {
-             if(slimbr_fresh)
-               { if(g_slimbr_base > ladCoverT) ladCoverT = g_slimbr_base; if(g_slimbr_nuance > ladCoverT) ladCoverT = g_slimbr_nuance; }
-             if(ladFHave == 1)
-               { if(g_slimbr_fracBase > ladCoverT) ladCoverT = g_slimbr_fracBase; if(g_slimbr_fracNuance > ladCoverT) ladCoverT = g_slimbr_fracNuance; if(g_slimbr_frRetV > ladCoverT) ladCoverT = g_slimbr_frRetV; }
-            }
+           int ladFHave = (slimbr_fresh && g_slimbr_fracClass != "UNRESOLVED") ? 1 : 0;
+           //--- [P-SLDEF-4 E31] cover target over the rung-obligated subset
+           //--- only (rescope): the most protective obligated value. An empty
+           //--- obligated set (zero-step rows such as 9/08) covers vacuously
+           //--- (ladCovered seeds 1 with no target below).
+           double wCoverV[6]; int wCoverN = 0;
+           if(wObT == 1) { wCoverV[wCoverN] = slRef; wCoverN++; }
+           if(wObB == 1) { wCoverV[wCoverN] = g_slimbr_base; wCoverN++; }
+           if(wObN == 1) { wCoverV[wCoverN] = g_slimbr_nuance; wCoverN++; }
+           if(wObF == 1) { wCoverV[wCoverN] = g_slimbr_fracBase; wCoverN++; }
+           if(wObFN == 1) { wCoverV[wCoverN] = g_slimbr_fracNuance; wCoverN++; }
+           if(wObA == 1) { wCoverV[wCoverN] = g_slimbr_frRetV; wCoverN++; }
+           double ladCoverT = 0.0;
+           if(wCoverN > 0)
+             {
+              ladCoverT = wCoverV[0];
+              for(int wci = 1; wci < wCoverN; wci++)
+                 {
+                  if(g_dir == DIR_LONG) { if(wCoverV[wci] < ladCoverT) ladCoverT = wCoverV[wci]; }
+                  else { if(wCoverV[wci] > ladCoverT) ladCoverT = wCoverV[wci]; }
+                 }
+             }
           double ladRungPx[512]; int ladRungSlot[512]; int ladRungExt[512]; datetime ladRungBT[512]; int ladRungShift[512];
           int ladRungN = 0;
-          int ladCovered = 0, ladCapHit = 0;
+           int ladCovered = (wCoverN == 0) ? 1 : 0, ladCapHit = 0;
           int ladS = barShift;
           double ladBest = 0.0; int ladExtN = 0;
           double ladPrevWick = 0.0, ladPrevBody = 0.0;
-          for(; ladS <= barShift + 500 && ladRungN < 512; ladS++)
+           for(; ladS <= barShift + wLimit && ladRungN < 512 && wRowOk == 1; ladS++)
             {
              double ladV = 0.0;
              if(!ReadFlow(ladSwingBuf, ladV, ladS)) break;
@@ -5688,26 +5953,70 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                        DoubleToString(ladV, _Digits), DoubleToString(ladWick, _Digits),
                        DoubleToString(ladBody, _Digits),
                        ladImb, ladExc, ladDist, ladR, ladIsOB, ladIsAnchor, ladIsToday, ladFresh);
-             LwAudit("SLADDER", ladLine);
-             Print(ladLine);
-             ladRungPx[ladRungN] = ladV; ladRungSlot[ladRungN] = ladS - barShift;
+              LwAudit("SLADDER", ladLine);
+              Print(ladLine);
+              //--- [P-SLDEF-4 E32] decision capture (labels only): slot-order
+              //--- rungs 0..2 plus the first rung at each ext 0..2.
+              if(ladDecIdx >= 0)
+                {
+                 if(ladRungN < 3)
+                   {
+                    g_dec_sSlot[ladDecIdx][ladRungN] = ladS - barShift;
+                    g_dec_sExt[ladDecIdx][ladRungN] = ladExt;
+                    g_dec_sBT[ladDecIdx][ladRungN] = ladBt;
+                    g_dec_sPx[ladDecIdx][ladRungN] = ladV;
+                    g_dec_sWick[ladDecIdx][ladRungN] = ladWick;
+                    g_dec_sBody[ladDecIdx][ladRungN] = ladBody;
+                    g_dec_sImb[ladDecIdx][ladRungN] = ladImb;
+                    g_dec_sDist[ladDecIdx][ladRungN] = ladDist;
+                    g_dec_sR[ladDecIdx][ladRungN] = ladR;
+                   }
+                 if(ladExt >= 0 && ladExt < 3 && ladETaken[ladExt] == 0)
+                   {
+                    ladETaken[ladExt] = 1;
+                    g_dec_eSlot[ladDecIdx][ladExt] = ladS - barShift;
+                    g_dec_eExt[ladDecIdx][ladExt] = ladExt;
+                    g_dec_eBT[ladDecIdx][ladExt] = ladBt;
+                    g_dec_ePx[ladDecIdx][ladExt] = ladV;
+                    g_dec_eWick[ladDecIdx][ladExt] = ladWick;
+                    g_dec_eBody[ladDecIdx][ladExt] = ladBody;
+                    g_dec_eImb[ladDecIdx][ladExt] = ladImb;
+                    g_dec_eDist[ladDecIdx][ladExt] = ladDist;
+                    g_dec_eR[ladDecIdx][ladExt] = ladR;
+                   }
+                }
+              ladRungPx[ladRungN] = ladV; ladRungSlot[ladRungN] = ladS - barShift;
              ladRungExt[ladRungN] = ladExt; ladRungBT[ladRungN] = ladBt;
              ladRungShift[ladRungN] = ladS;
              ladRungN++;
              ladPrevWick = ladWick; ladPrevBody = ladBody;
-             //--- coverage: stop at the first rung strictly beyond every
-             //--- genuine reference (1-point separation idiom, walk
-             //--- convention). Stale shadows cannot prove coverage.
-             if(slimbr_fresh)
+              //--- coverage: stop at the first rung strictly beyond every
+              //--- OBLIGATED reference (1-point separation idiom, walk
+              //--- convention). Empty obligated sets enumerate the whole
+              //--- window (no target, no break). Stale shadows cannot prove
+              //--- coverage. [P-SLDEF-4 E31 defect fix 2026-09-13: the guard
+              //--- overlooked RECON15-9/08 broke on ladCoverT=0.0.]
+              if(slimbr_fresh && wCoverN > 0 && wRowOk == 1)
                {
                 bool ladBeyond = (g_dir == DIR_LONG) ? (ladV < ladCoverT - _Point)
                                                      : (ladV > ladCoverT + _Point);
                 if(ladBeyond) { ladCovered = 1; break; }
                }
             }
-          if(ladS > barShift + 500 || ladRungN >= 512) ladCapHit = 1;
-          int ladCovers = (slimbr_fresh && ladCovered == 1) ? 1 : 0;
-          int ladDeepest = (ladRungN > 0) ? ladRungSlot[ladRungN - 1] : -1;
+           if(ladS > barShift + wLimit || ladRungN >= 512) ladCapHit = 1;
+           if(ladRungN >= 512) wLimitHit = 1;
+           //--- halted rows print covers 0 (the withheld row proves nothing).
+           int ladCovers = (slimbr_fresh && ladCovered == 1 && wRowOk == 1) ? 1 : 0;
+           int ladDeepest = (ladRungN > 0) ? ladRungSlot[ladRungN - 1] : -1;
+           if(wLimitHit == 1 && wRowStatus == "OK") wRowStatus = "UNCOVERED_READ_LIMIT";
+           //--- [P-SLDEF-4 E32] decision-row levels known post-loop.
+           if(ladDecIdx >= 0)
+             {
+              g_dec_covers[ladDecIdx] = ladCovers;
+              g_dec_rungs[ladDecIdx] = ladRungN;
+              g_dec_sHave[ladDecIdx] = (ladRungN < 3) ? ladRungN : 3;
+              g_dec_eHave[ladDecIdx] = ladETaken[0] + ladETaken[1] + ladETaken[2];
+             }
           //--- [P-SLDEF-2 E24] SLADDER_MATCH: operator levels resolved to
           //--- rungs, one line per S5 row. Filed before the run: 2026.09.07
           //--- -> 1.16240, 2026.09.04 -> 1.15907. MATCH = residual exactly 0
@@ -5734,9 +6043,9 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                              : ((ladTodayResid == 0) ? "ON_LADDER" : "TODAY_OFF_LADDER");
           string ladStatus = "NOLEVEL_FILED"; string ladLvlTok = "-";
           int ladMRung = -1, ladMSlot = 0, ladMExt = -1, ladMResid = 0; string ladMT = "-";
-          if(ladHaveLevel)
-            {
-             ladLvlTok = DoubleToString(ladLevel, _Digits);
+           if(wRowOk == 1 && ladHaveLevel)
+             {
+              ladLvlTok = DoubleToString(ladLevel, _Digits);
              if(ladRungN <= 0) ladStatus = "NOMATCH_NO_RUNGS";
              else
                {
@@ -5752,12 +6061,33 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                 ladStatus = (ladMResid == 0) ? "MATCH" : "NOMATCH";
                }
             }
-          string ladMatch = StringFormat("[SRJ-EA] SLADDER_MATCH fields=14 bar=%s site=S5 dir=%s rungs=%d todayRung=%d todayRef=%s todayResidPts=%d level=%s status=%s rung=%d rungSlot=%d rungExt=%d rungT=%s residPts=%d",
-                    TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
-                    ladRungN, ladTodayRung, ladTodayTok, ladTodayResid,
-                    ladLvlTok, ladStatus, ladMRung, ladMSlot, ladMExt, ladMT, ladMResid);
-          LwAudit("SLADDER_MATCH", ladMatch);
-          Print(ladMatch);
+           //--- [P-SLDEF-4 E32] matched-rung price + R for the decision row.
+           if(ladDecIdx >= 0 && ladHaveLevel)
+             {
+              g_dec_mStatus[ladDecIdx] = ladStatus;
+              g_dec_mLevel[ladDecIdx] = ladLevel;
+              g_dec_mRung[ladDecIdx] = ladMRung;
+              g_dec_mSlot[ladDecIdx] = ladMSlot;
+              g_dec_mExt[ladDecIdx] = ladMExt;
+              g_dec_mResid[ladDecIdx] = ladMResid;
+              g_dec_mT[ladDecIdx] = ladMT;
+              if(ladMRung >= 0)
+                {
+                 double decMPx = ladRungPx[ladMRung];
+                 g_dec_mPx[ladDecIdx] = decMPx;
+                 double decMRisk = MathAbs(currentPrice - decMPx);
+                 g_dec_mR[ladDecIdx] = (decMRisk > 0.0 ? ladTpD / decMRisk : 0.0);
+                }
+             }
+           if(wRowOk == 1)
+             {
+              string ladMatch = StringFormat("[SRJ-EA] SLADDER_MATCH fields=14 bar=%s site=S5 dir=%s rungs=%d todayRung=%d todayRef=%s todayResidPts=%d level=%s status=%s rung=%d rungSlot=%d rungExt=%d rungT=%s residPts=%d",
+                     TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
+                     ladRungN, ladTodayRung, ladTodayTok, ladTodayResid,
+                     ladLvlTok, ladStatus, ladMRung, ladMSlot, ladMExt, ladMT, ladMResid);
+              LwAudit("SLADDER_MATCH", ladMatch);
+              Print(ladMatch);
+             }
           //--- [P-SLDEF-3 E28] slot-identity correspondence, one line per S5
           //--- row. Correspondence is by SLOT, never by price proximity: a
           //--- rung at the reference's own originating slot, price residual
@@ -5798,23 +6128,55 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           if(cFracNuSlot >= 0 && !cFracNuFound) cFracOff++;
           if(cAnchorSlot >= 0 && !cAnchorFound) cFracOff++;
           int cTodayOff = (ladTodayTok == "ON_LADDER") ? 0 : 1;
-          SlimbCorrHist(corrBarT, "today", cTodayFound, cTodayRS, cTodayRungS, cTodaySlot);
-          SlimbCorrHist(corrBarT, "base", cBaseFound, cBaseRS, cBaseRungS, cBaseSlot);
-          SlimbCorrHist(corrBarT, "nuance", cNuanceFound, cNuanceRS, cNuanceRungS, cNuanceSlot);
-          SlimbCorrHist(corrBarT, "frac", cFracFound, cFracRS, cFracRungS, cFracSlot);
-          SlimbCorrHist(corrBarT, "fracNu", cFracNuFound, cFracNuRS, cFracNuRungS, cFracNuSlot);
-          SlimbCorrHist(corrBarT, "anchor", cAnchorFound, cAnchorRS, cAnchorRungS, cAnchorSlot);
-          g_corr_rows++; g_corr_fracOff += cFracOff; g_corr_todayOff += cTodayOff;
+           //--- halted rows withhold their pairs AND their tallies (E31.1/5).
+           if(wRowOk == 1)
+             {
+              SlimbCorrHist(corrBarT, "today", cTodayFound, cTodayRS, cTodayRungS, cTodaySlot);
+              SlimbCorrHist(corrBarT, "base", cBaseFound, cBaseRS, cBaseRungS, cBaseSlot);
+              SlimbCorrHist(corrBarT, "nuance", cNuanceFound, cNuanceRS, cNuanceRungS, cNuanceSlot);
+              SlimbCorrHist(corrBarT, "frac", cFracFound, cFracRS, cFracRungS, cFracSlot);
+              SlimbCorrHist(corrBarT, "fracNu", cFracNuFound, cFracNuRS, cFracNuRungS, cFracNuSlot);
+              SlimbCorrHist(corrBarT, "anchor", cAnchorFound, cAnchorRS, cAnchorRungS, cAnchorSlot);
+              g_corr_rows++; g_corr_fracOff += cFracOff; g_corr_todayOff += cTodayOff;
+             }
           string corrLine = StringFormat("[SRJ-EA] SLADCORR fields=23 bar=%s site=S5 dir=%s ladRungs=%d ladDeepestSlot=%d ladCap=%d ladCapHit=%d ladCovers=%d todayRefSlot=%d baseRefSlot=%d nuanceRefSlot=%d fracRefSlot=%d fracNuanceRefSlot=%d fracAnchorSlot=%d fracAnchorPx=%s todayRS=%d baseRS=%d nuanceRS=%d fracRS=%d fracNuanceRS=%d anchorRS=%d fracOffN=%d todayOffN=%d",
                     corrBarT, DirName(g_dir),
-                    ladRungN, ladDeepest, 500, ladCapHit, ladCovers,
+                     ladRungN, ladDeepest, wLimit, ladCapHit, ladCovers,
                     cTodaySlot, cBaseSlot, cNuanceSlot, cFracSlot, cFracNuSlot, cAnchorSlot,
                     ladFHave ? DoubleToString(cAnchorV, _Digits) : "-",
                     cTodayRS, cBaseRS, cNuanceRS, cFracRS, cFracNuRS, cAnchorRS,
                     cFracOff, cTodayOff);
-          LwAudit("SLADCORR", corrLine);
-          Print(corrLine);
-         }
+           if(wRowOk == 1)
+             {
+              LwAudit("SLADCORR", corrLine);
+              Print(corrLine);
+             }
+           //--- [P-SLDEF-4 E31] window + rescope census, one line per S5 row
+           //--- (the row's guaranteed line: HALT rows print only this, with
+           //--- the offending witness values + haltRef/haltSlot naming the
+           //--- halt). Measured pre-write like every shadow line.
+           string winLine = StringFormat("[SRJ-EA] SLADWIN fields=27 bar=%s site=S5 dir=%s status=%s todayIsRung=%d baseIsRung=%d nuanceIsRung=%d fracIsRung=%d fracNuIsRung=%d anchorIsRung=%d todaySteps=%d baseSteps=%d nuanceSteps=%d fracSteps=%d fracNuSteps=%d anchorSteps=%d ladWindowStart=%d ladWindowSpan=%d ladReadLimit=%d ladLimitHit=%d ladCovers=%d ladRungs=%d ladDeepestSlot=%d walkWinOB=%d+%d walkWinFR=%d+%d haltRef=%s haltSlot=%d",
+                     corrBarT, DirName(g_dir), wRowStatus,
+                     wTodayIsRung, wBaseIsRung, wNuanceIsRung, wFracIsRung, wFracNuIsRung, wAnchorIsRung,
+                     wTodaySteps, wBaseSteps, wNuanceSteps, wFracSteps, wFracNuSteps, wAnchorSteps,
+                     barShift, wNeed, wLimit, wLimitHit, ladCovers, ladRungN, ladDeepest,
+                     wWalkOB0, 500, wWalkFR0, 500, wHaltName, wHaltSlot);
+           LwAudit("SLADWIN", winLine);
+           Print(winLine);
+           //--- [P-SLDEF-4 E31] zero-step OB extremes take REF_OB_DEEP, never
+           //--- a coverage failure. Fractal refs never take this token
+           //--- (slotless echoes take nothing; matched frac refs are
+           //--- witnessed by the correspondence).
+           if(wRowOk == 1 && slimbr_fresh)
+             {
+              if(wTodaySlot >= 0 && wTodaySteps == 0)
+                 SrjDeepEmit(corrBarT, g_dir, "today", wTodaySlot, barShift, slRef, slRef);
+              if(wBaseSlot >= 0 && wBaseSteps == 0)
+                 SrjDeepEmit(corrBarT, g_dir, "base", wBaseSlot, barShift, g_slimbr_base, slRef);
+              if(wNuanceSlot >= 0 && wNuanceSteps == 0)
+                 SrjDeepEmit(corrBarT, g_dir, "nuance", wNuanceSlot, barShift, g_slimbr_nuance, slRef);
+             }
+          }
 
       double slDist = MathAbs(currentPrice - slRef);
       double tpDist = MathAbs(tpTarget - currentPrice);
@@ -5867,9 +6229,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                         DoubleToString(g_latchedEntry, _Digits),
                         DoubleToString(g_latchedSl, _Digits),
                         DoubleToString(g_latchedTp, _Digits),
-                        g_latchedR);
-         GoAbort(ABORT_TP_RR_FAIL, g_state);
-         return;
+                         g_latchedR);
+          //--- [P-SLDEF-4 E33] the decided outcome rides the census.
+          SrjOrderEmit(barShift, "RR_FAIL");
+          GoAbort(ABORT_TP_RR_FAIL, g_state);
+          return;
         }
 
       //--- [P-CONFIRM-GATE E3] the async wait RETIRES (one-bar validity): the
@@ -5879,7 +6243,14 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- already rolled the candidate back to S4).
       double tpR = (slDist > 0.0) ? (tpDist / slDist) : 0.0;
 
-      LogSignal(tpTarget, tpR, slRef, slMode, divKind);
+       //--- [P-SLDEF-4 E33+E32] PASS census, then the firing-row flag: the
+       //--- decision row whose barTime matches this passing evaluation fired.
+       //--- Print-only; the latch and LogSignal below are untouched.
+       SrjOrderEmit(barShift, "PASS");
+       datetime ordFireT = iTime(_Symbol, PERIOD_CURRENT, barShift);
+       for(int ordF = 0; ordF < g_dec_n; ordF++)
+          if(g_dec_barT[ordF] == ordFireT) g_dec_fired[ordF] = 1;
+       LogSignal(tpTarget, tpR, slRef, slMode, divKind);
 
       if(!g_alertedSignal)
         {
@@ -6353,8 +6724,9 @@ int OnInit()
    if(g_hPoi == INVALID_HANDLE || g_hCqd == INVALID_HANDLE || g_hFlow == INVALID_HANDLE)
      { Print("[SRJ-EA] OnInit FAILED: one or more iCustom handles are invalid."); return INIT_FAILED; }
    ResetSequence();
-   //--- [P-SLDEF-1 E13 + amendment] FRAME_NOTE, once per run: the four
-   //--- conventions a later session could silently invert. (1) Slot frame:
+    //--- [P-SLDEF-1 E13 + amendment, P-SLDEF-4 E34] FRAME_NOTE, once per run:
+    //--- the six conventions a later session could silently invert. (1) Slot
+    //--- frame: every printed shift is ReadFlow frame, CopyBuffer position =
    //--- every printed shift is ReadFlow frame, CopyBuffer position =
    //--- eval shift + FLOW_SHIFT_OFFSET (the settled slot). (2) Apex frame: a
    //--- swing value at eval shift s is priced at ApexShift(s) = s + offset;
@@ -6365,15 +6737,23 @@ int OnInit()
    //--- (4) Population identity [P-NEWS-1 verdict rule]: every gate count
    //--- names its population in the same sentence - input-side (guard
    //--- applications, raw encounters) vs result-side (post-walk values).
-   //--- Labels (bar=, barTime) are server time via iTime/TimeToString.
-   //--- THRESHOLD: the live minimum-R is an artifact of the run. Source is
+    //--- Labels (bar=, barTime) are server time via iTime/TimeToString.
+    //--- (6) Read windows per reader [P-SLDEF-4 E31]: the ladder reads from
+    //--- the entry bar to the deepest rung-obligated slot plus margin
+    //--- (SLADWIN ladWindowStart/ladWindowSpan/ladReadLimit); the OB walk
+    //--- reads walkStart..walkStart+500, the fractal walk guardStart..
+    //--- guardStart+500 (SLADWIN walkWinOB/walkWinFR). A ladder window and a
+    //--- walk window are DIFFERENT windows: coverage is by slot reach, and
+    //--- ladLimitHit rows are UNCOVERED_READ_LIMIT, never silent.
+    //--- THRESHOLD: the live minimum-R is an artifact of the run. Source is
    //--- "ini" when the value differs from the compiled default (an ini-set
    //--- 1.0 is indistinguishable - recorded as compiled_default).
-    string frame_note = StringFormat("[SRJ-EA] FRAME_NOTE offset=%d apex=s+%d labels=server-time "
-                "protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) "
-                "populations=inputVsResultNamed "
-                "sigmap=signalTime-s5BarTime-PeriodSeconds "
-                "THRESHOLD minRewardRisk=%.2f source=%s",
+     string frame_note = StringFormat("[SRJ-EA] FRAME_NOTE offset=%d apex=s+%d labels=server-time "
+                 "protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) "
+                 "populations=inputVsResultNamed "
+                 "sigmap=signalTime-s5BarTime-PeriodSeconds "
+                 "readwin=ladder:entryBar+span|walkOB:walkStart+500|walkFR:guardStart+500 "
+                 "THRESHOLD minRewardRisk=%.2f source=%s",
                FLOW_SHIFT_OFFSET, FLOW_SHIFT_OFFSET, InpMinRewardRisk,
                ((InpMinRewardRisk == 1.0) ? "compiled_default" : "ini"));
    LwAudit("FRAME_NOTE", frame_note);
@@ -6558,9 +6938,58 @@ void OnDeinit(const int reason)
                       g_lw_class[lw_i], g_lw_max[lw_i], LW_CAP, g_lw_trunc[lw_i]);
       //--- [P-SLDEF-1 E12] the decision artifact: same S5 numbers, formatted
       //--- for a decision (today | base | nuance | fractal | fractalNuance).
-      PrintFormat("[SRJ-EA] SLIMBR_DECISION rows=%d\n%s",
-                  g_slimbr_decisionN, g_slimbr_decision);
-     }
+       PrintFormat("[SRJ-EA] SLIMBR_DECISION rows=%d\n%s",
+                   g_slimbr_decisionN, g_slimbr_decision);
+       //--- [P-SLDEF-4 E32] the operator mark-up artifact: one ROW line per
+       //--- S5 row (10 on pilot) + RUNG companions on the firing rows only.
+       //--- Rungs by slot-order (0/1/2) and ext-order (0/1/2); every
+       //--- companion carries slot+barTime+price, so no rung index is
+       //--- load-bearing. THRESHOLD quoted from the live input (same source
+       //--- rule as FRAME_NOTE); the flip-and-pass count rides along.
+       //--- Excluded from LwAudit by the DECISION design (physical lines are
+       //--- individually short; the gate-13 width census covers only the
+       //--- audited classes).
+       int decFiredN = 0;
+       for(int decC = 0; decC < g_dec_n; decC++)
+          if(g_dec_fired[decC] == 1) decFiredN++;
+       PrintFormat("[SRJ-EA] SLADDER_DECISION rows=%d fired=%d threshold=%.2f thresholdSource=%s orderFlipPass=%d",
+                   g_dec_n, decFiredN, InpMinRewardRisk,
+                   ((InpMinRewardRisk == 1.0) ? "compiled_default" : "ini"),
+                   g_order_flipPassN);
+       for(int decR = 0; decR < g_dec_n; decR++)
+         {
+          PrintFormat("[SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=%s site=S5 dir=%s fired=%d ladCovers=%d ladRungs=%d level=%s levelStatus=%s levelRung=%d levelSlot=%d levelT=%s levelResidPts=%d levelPx=%s levelR=%.2f",
+                      TimeToString(g_dec_barT[decR], TIME_DATE|TIME_MINUTES),
+                      (g_dec_dir[decR] == 1) ? "LONG" : "SHORT",
+                      g_dec_fired[decR], g_dec_covers[decR], g_dec_rungs[decR],
+                      (g_dec_mStatus[decR] == "NOLEVEL_FILED") ? "-" : DoubleToString(g_dec_mLevel[decR], _Digits),
+                      g_dec_mStatus[decR], g_dec_mRung[decR], g_dec_mSlot[decR], g_dec_mT[decR],
+                      g_dec_mResid[decR],
+                      (g_dec_mRung[decR] >= 0) ? DoubleToString(g_dec_mPx[decR], _Digits) : "-",
+                      g_dec_mR[decR]);
+          if(g_dec_fired[decR] == 1)
+            {
+             for(int decK = 0; decK < g_dec_sHave[decR]; decK++)
+                PrintFormat("[SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=%s site=S5 kind=SLOT rung=%d slot=%d rungExt=%d barTime=%s px=%s wick=%s body=%s imbCode=%d distPts=%d rungR=%.2f",
+                            TimeToString(g_dec_barT[decR], TIME_DATE|TIME_MINUTES),
+                            decK, g_dec_sSlot[decR][decK], g_dec_sExt[decR][decK],
+                            TimeToString(g_dec_sBT[decR][decK], TIME_DATE|TIME_MINUTES),
+                            DoubleToString(g_dec_sPx[decR][decK], _Digits),
+                            DoubleToString(g_dec_sWick[decR][decK], _Digits),
+                            DoubleToString(g_dec_sBody[decR][decK], _Digits),
+                            g_dec_sImb[decR][decK], g_dec_sDist[decR][decK], g_dec_sR[decR][decK]);
+             for(int decK = 0; decK < g_dec_eHave[decR]; decK++)
+                PrintFormat("[SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=%s site=S5 kind=EXT rung=%d slot=%d rungExt=%d barTime=%s px=%s wick=%s body=%s imbCode=%d distPts=%d rungR=%.2f",
+                            TimeToString(g_dec_barT[decR], TIME_DATE|TIME_MINUTES),
+                            decK, g_dec_eSlot[decR][decK], g_dec_eExt[decR][decK],
+                            TimeToString(g_dec_eBT[decR][decK], TIME_DATE|TIME_MINUTES),
+                            DoubleToString(g_dec_ePx[decR][decK], _Digits),
+                            DoubleToString(g_dec_eWick[decR][decK], _Digits),
+                            DoubleToString(g_dec_eBody[decR][decK], _Digits),
+                            g_dec_eImb[decR][decK], g_dec_eDist[decR][decK], g_dec_eR[decR][decK]);
+            }
+         }
+      }
 
    if(g_hPoi  != INVALID_HANDLE) IndicatorRelease(g_hPoi);
    if(g_hCqd  != INVALID_HANDLE) IndicatorRelease(g_hCqd);
