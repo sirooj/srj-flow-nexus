@@ -138,10 +138,10 @@ Masters judge measurements on disk, never prose about them.
 ## 9. File map (current baselines 2026-09-11)
 
 - EA: `Experts\SRJ_FlowNexus_EA.mq5` =
-  `EDAA089A7A7A98A3B9FAFCBAE0C76694CA253B92109CDAC252ECC4BEF3CBE7D1`
-  (328520 B, RECON12c-NEWS FROZEN baseline, council-ACCEPTED;
-  supersedes 75FEBFDE state, which stays frozen for the imbalance
-  instrument only as a carried-token reference).
+  `893B26DF496507638E6269B1A7DFAD7EE608BB862EC2D3283F983F35EF79298E`
+  (399946 B, RECON16b-SLDEF5 FROZEN baseline, council-ACCEPTED;
+  supersedes 1EE6FC62 state, which is retained; 75FEBFDE stays frozen
+  for the imbalance instrument only as a carried-token reference).
 - CQD: `Indicators\SRJ_CQD_TickBased_MT5.mq5` = `BE6FD84F...A421F` (50555 B).
 - OrderblockMgr: `Include\SRJ\SRJ_OrderblockMgr.mqh` = `D286621C...20B7B` (48050 B).
 - FlowLogic: `Indicators\SRJ_FlowLogic.mq5` = `3606BFB4...25911` (67515 B,
@@ -510,6 +510,65 @@ Masters judge measurements on disk, never prose about them.
     stub FILLED, ready to paste whole. Council ruling owed: ACCEPT +
     adoption packet, Sep-8 scope. RECON15b stays frozen. UNCOMMITTED
     (no token).
+23. VERDICT 2026-09-13: RECON16b ACCEPTED (new frozen baseline 893B26DF;
+    snapshot Rev073 LANDED local-only: canonical 89d5523 + records
+    ede4509 + tag Task162-T162SLDEF5; NO push; working set clean except
+    debris). E35 deviation ACCEPTED for run, BLOCKS adoption (S5-only
+    ext1; 471 pre-S5 + 118 memo unmeasured) → P-SLDEF-6 ISSUED (E41
+    481-site + E42 falsifier + E43 memo + E44 Sep-8 probe + E45 splits;
+    gate 5 = tenth join, load-bearing). Scorecard n=5 (Aug-28 MATCH
+    off-log; filedT 06:30 rides next run). "Two swings away" ==
+    rungExt==1 (his "second swing" words). Q2 split: fifth =
+    definition-YES; recovery = ONE operator yes/no (10:35
+    taken-on-correct-data?). Corrections: OB carve 4 (firing-vs-effect =
+    6th taxonomy entry); NONE=4 → OFF_LADDER/EXT_NONE (816 bars = 68h =
+    116−48 weekend). Gate 9 = naming debt (VACUOUS+EXT1_UNCOVERED).
+    ORDER cross-tab: opposed-PASS = 15:55 only (concentration unique).
+    16b archive: purity 1/4/481, SHA 4740FA3B, 17954 lines, bounds
+    [80330..98283]. Relay v7 pasted + answered. COMPACT RECOMMENDED NOW
+    (post-snapshot, pre-P-SLDEF-6-build). Next: build P-SLDEF-6
+    post-compact.
+24. OPERATOR ANSWERS 2026-09-13 (post-compact): recovery YES — on correct
+    Dukascopy data he WOULD have taken Sep-4 10:35 SHORT (F now
+    definition-YES + recovery-YES; fifth TAKEN setup, all HAND).
+    Standing feed rule: Dukascopy ALWAYS (OANDA 0.92R was his measurement
+    error). Min-1R rule: takes flat 1.0R, not 0.99R (take iff R >= 1.0;
+    all five ext-1 R clear it). Adoption inputs from him COMPLETE.
+    P-SLDEF-6 BUILDING (E41 origin: S5 = nextOpen strict-halt; S2POLL /
+    S3ARM = eval-close shared memo-path convention, disclosed; E43 =
+    S5-probe mechanism, 118-vs-probed asked; E45.4 = filedT-only, prov
+    flip held for adoption). UNCOMMITTED (no token).
+25. P-SLDEF-6 EXECUTED 2026-09-13 (EA 6ACDF3B8… 413224 B UNCOMMITTED,
+    both compile 0/0, FlowLogic 3606BFB4 unchanged). RECON17
+    DONE=PASSED 17:31:53 (Test passed 0:55:03.585; wrapper archived
+    itself 18459 lines journal 2B9ADBDE…, bounds [98283..116742];
+    purity 1/4/481): 14/15 PASS + gate-8 report (probe 10/10 agree,
+    memo-wide 471/118/589; E42 10/10 bit-identical, line delta only
+    Aug-28 filedT/barDiff; Sep-8 both covered REDUNDANT with LONG-side
+    disclosure, resids −146/−87; tenth join 481/481×3+10/10;
+    SLEXT45 6/4 split, 9/08 VACUOUS+EXT1_UNCOVERED; proxy pred 4/3
+    cons 0/3; all identities reproduce incl. aborts 18/37/13/11/2/0/12,
+    guard 60, CQD 906/906, spot 157/157/443). Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON17-SLDEF6.md`); relay v8 filed
+    ready to paste whole. Council ruling owed: ACCEPT + baseline
+    advance + adoption packet (E43 denominator, S3ARM origin, HAND-flip
+    timing). RECON16b stays frozen. UNCOMMITTED (no token).
+26. VERDICT 2026-09-13: RECON17 ACCEPTED, baseline advance CONDITIONAL
+    on SUPPRESSED series (Ask-1); gate 11 re-graded FINDING (split was
+    rename → OFF_LADDER 2 / EXT_NONE 2, noneAge → refSlotAge, run A);
+    gate 9 re-graded UNTESTED (forced-side Sep-8 probe E46 halts run B;
+    opposed-side debt upstream, unscoped); E43 probe-10 accepted (10 of
+    118); S3ARM origin CONFIRMED + origin-insensitivity measured;
+    HAND flip rides adoption; +20 DISCHARGED conditional; feed tags
+    beside HAND tags (governance). P-ADOPT-1 ISSUED (run A E46–E50
+    print-only + run B ADOPT_EXT1 flip, prediction-graded delta table).
+    Off-log LANDED pre-commit: SUPPRESSED flat 152 back to RECON10
+    (prose-156 annotated, no build moved it); 16b record restated
+    (purity 1/4/481, SHA 4740FA3B, 17954 lines, [80330..98283]); ORDER
+    cross-tab (opp0 5/3/5, opp1 1/1/1, opposed-PASS = 15:55 only).
+    Verdict #7 filed verbatim; P-ADOPT-1 transcribed ISSUED-unbuilt.
+    Snapshot Rev074 on verdict token next, then COMPACT, then build
+    P-ADOPT-1 run A post-compact.
 5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
    journal correction): journal "swings" = FRACTAL swings (triangle
    markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used

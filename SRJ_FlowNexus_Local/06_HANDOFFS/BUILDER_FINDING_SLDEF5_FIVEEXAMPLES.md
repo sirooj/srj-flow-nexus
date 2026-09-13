@@ -81,4 +81,15 @@ B. NYAM SHORT (4H+1H Bear, 15m Bull, trend-following). Entry 17:00 open
 Council scope decision owed: whether ext-1 gets instrumented at non-S5
 bars (this packet cannot say — S5-only instrument). No build moves.
 
-Count: 7 in-window as he counts (4 code signals + 1 considered + 2 Sep-8).
+Count: 7 in-window as he counts (4 code signals + 1 recovered + 2 Sep-8).
+
+## Addendum 3 2026-09-13 — recovery YES + feed authority + MinR rule (his words)
+
+RECOVERY CONFIRMED: on correct (Dukascopy) data he WOULD have taken the
+Sep-4 10:35 SHORT. Standing feed rule: Dukascopy ALWAYS; his OANDA-chart
+0.92R was his measurement error. Min-1R rule, verbatim sense: takes flat
+1.0R, does not take 0.99R (take iff R >= 1.0). Ext-1 R 1.21 clears it —
+F is now definition-YES + recovery-YES, the fifth TAKEN setup (4 fired +
+1 recovered, all HAND). All five ext-1 R values (2.43 / 1.66 / 1.76 /
+2.34 / 1.21) clear 1.0. Adoption inputs from him COMPLETE; last term
+closed post-compact.

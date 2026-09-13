@@ -1143,3 +1143,119 @@ Nothing else is asked. The mark-up stays vacated. Your open judgments remain unh
 Exit side after the imbalance decision, after `MTFLIP`, after `ORDER` — which reconciles — and after the opposed-bias date, now bounded but not dated. Three flats by value, append-only, priority `SL`, `TP_TOUCH`, flats, `POI_BODY_BREAK`, `HTF_FLIP`, every verdict printing, MTEXIT re-frozen after. Entry side last, inside `ST_S5_GATE_CHECK` after the divergence walk and before `g_latchedEntry`, rollback to `g_confirmFromState`, latch unspent. Flats stay **provisional**. Probe requirement stands on both edits: exercised once off-canonical, own digest, reported, reverted in-session, never committed.
 
 Table pinned at `5FFF5C76…EF1F134`, rows `{eventTimeET, kind}`, conversion at read, resolved bar printed per row. Oct-28 at `offsetMinutes 360` is the table's regression test and is quoted in every future news result.
+
+---
+
+## VERDICT 7 — RECON17-SLDEF6 ACCEPTED, baseline advance CONDITIONAL, P-ADOPT-1 ISSUED
+
+# RECON17-SLDEF6 — ACCEPTED. Baseline advance is CONDITIONAL on one identity. Two gates re-graded. Adoption packet issued as two runs, one packet.
+
+Fourteen gates measured, zero halts, and the tenth consecutive inert join across a packet that edited **inside** `ComputeSlReference` for the first time. That was the load-bearing gate and it held: `SLIMB` 481/481, `SLIMBWALK` 481/481, `SLIMBWALKF` 481/481, `SLIMBR` 10/10 with deltas and classes. Additive-only is proven, not asserted.
+
+E42 is the result worth naming: ten S5 `slExt1` values bit-identical after relocation, with line deltas confined to the intended `filedT` / `barDiff` tokens. The relocation changed nothing, and it was checkable because the falsifier was written before the move.
+
+## Ask 1 — ACCEPT, with commit and baseline advance held on one number
+
+`SUPPRESSED 152`. Every gate-2 list from P-SWINGIMB-2 through P-SLDEF-6 quoted **156**, verbatim, and 16b's relay did not quote it at all. So a frozen identity has moved by −4 and arrives asserted equal to a run that never stated it.
+
+Two possibilities and they need different responses: a real behavioural drift, or a scope artifact of the kind `PROMO=1097` already produced. Neither may be assumed.
+
+**Off-log, no rerun:** quote `SUPPRESSED` as a series across 11b / 12c / 13 / 14 / 15b / 16 / 16b / 17 under one head-anchored pattern, and name the build at which it moved. If it moved at a build, name the edit. If the series is flat at 152 and 156 was a looser pattern, that is the fifth parser artifact and it gets annotated, not accepted.
+
+Baseline advances to **EA `6ACDF3B8…` (413224 B)** and local commit is cleared **on that series landing**. Everything else in the archive record is complete this run — SHA `2B9ADBDE…`, 18459 lines, bounds `[98283..116742]` contiguous from 16b, purity 1/4/481. Still outstanding from the prior verdict: 16b's purity triple and boundary indices, and the `biasOpposedAtGate × gateOutcome` cross-tab over the 16 ORDER rows.
+
+## Gate 11 — FINDING, not a pass. The split was implemented as a rename.
+
+`EXT_NONE` unexercised while `OFF_LADDER = 4` is the tell. A status defined and never reached, whose population demonstrably exists, means the classifier put those rows in the wrong bucket.
+
+Two of the four are rungs. `9/04 15:55` at `rungSlot 408` is the rung the operator's 1.15907 matched at residual 0. `9/07 16:40` at `rungSlot 21` holds 1.16218, today's own reference. Both are on the ladder with `ext −1`. Only `9/04 10:35` (168) and `9/08 16:40` (817) are off the ladder entirely. Correct split is **`OFF_LADDER 2 / EXT_NONE 2`**, and RECON16b's collapsed `NONE=4` remains the comparison record for both.
+
+`noneAge 167 / 407 / 20 / 816` inherits the collapse and carries a second problem: against slots 168 / 408 / 21 / 817 it is `slot − 1` on every row. It is the reference slot restated in the shift frame, not an independent age measurement. Rename it `refSlotAge`, state in the token block that it is the slot restated, and emit it on both statuses.
+
+The stale-extreme finding survives and must be re-grounded. It rests on `barTime` identity — one persisting Sep-3 20:35 extreme referenced from two rows — not on this token. My arithmetic checks out as corroboration (Sep-3 20:35 to Sep-8 16:40 is 116 calendar hours, less a 48-hour weekend, is 68 hours, is 816 M5 bars), and it is corroboration of a `barTime` identity rather than evidence in its own right. So the anchor cost stands: on two of ten rows the OB anchor pins the stop to an extreme 167 and 816 bars old, at R 0.36 and R 0.60.
+
+No dependent selection on any of this. It rides run A.
+
+## Gate 9 — UNTESTED, not passed. The out-of-sample test has not run.
+
+The disclosure is the correct call and it is also the whole verdict: the shadow rows are LONG-side, his levels are SHORT-side, so the residuals `−146` and `−87` and the `barDiff −288` compare a protective ladder against the wrong side of the market. Same shape as RECON13's cap-adjacent absence — it fails to test, which is a different verdict from failing, and it gets the remedy rather than the finding.
+
+This matters more than the other two items. **The candidate's entire evidence base is in-sample.** `rungExt == 1` was selected by reading his levels off the ladder; the five agreements are the fitting set, not five falsification attempts. Sep-8 is the only out-of-sample test available — two bars where the code produces no S5 row, so no machinery of ours could have manufactured agreement — and it is still unrun.
+
+It is cheap to run: a forced-side ladder at two hardcoded bar times. It goes in run A and it halts run B.
+
+**Second finding inside the first.** The EA's evaluated side at 10:10 and 17:00 was LONG while he traded SHORT. So the Sep-8 pair is not merely an S5 coverage gap — the code was looking the wrong way on both bars. That sharpens the standing debt from "no S5 row" to "opposed evaluated side," which points upstream at bias or S1–S4 rather than at the divergence walk. Logged, unscoped, and it is not a stop-definition problem.
+
+## Ask 2 — E43 denominator: probe-10 accepted as the decision surface, and it is 10 of 118
+
+Populations named, per the standing rule. The probe measured the **S5 subset**: 10 evaluations taking a memo hit, 9 memoised at S2POLL and 1 at S3ARM, all 10 agreeing with a fresh S5 computation. That is the propagation path that reaches a selection, and it is the one that mattered. It is not the 118 and may not be quoted as such. The remaining 108 are non-S5 re-polls; they extend in run A, ungated.
+
+## Ask 3 — S3ARM origin CONFIRMED, and the probe already falsified the hazard it created
+
+Eval-bar close at S2POLL and S3ARM is accepted as the prospective entry, not as a substitution. E41.2's halt clause was aimed at a site with no origin at all, and that is not this.
+
+It does leave two origin conventions on one reference: next-open at S5, eval-close pre-entry. That would normally be an unruled term inherited by adoption — except the E43 probe accidentally tests it. Nine of the ten agreeing values were computed at S2POLL under eval-close and compared against a fresh S5 computation under next-open. **Rung selection is origin-insensitive on those 10 rows, measured.** That is a genuine result and it is worth more than the ruling it discharges.
+
+Bounded honestly: 10 of 481. Run A computes both origins at every invocation and reports a disagreement count, and the two conventions go into `FRAME_NOTE` as the seventh named convention, per site.
+
+## Ask 4 — the HAND flip rides adoption, as built
+
+Confirmed. The log says `PROVISIONAL_MATCH` because `INFERRED` was true at build time, and the log is not retroactively re-read. The promotion is an off-log provenance update with his YES quoted as its source, `filedT 06:30` now shipped so `barDiff` no longer rests on inspection, and the row grades `MATCH` with provenance `HAND` on the adoption run.
+
+## The `+20` label pair — DISCHARGED as non-blocking for this adoption
+
+It was blocking before adoption as selection, so it gets ruled rather than carried. His `1.16218` pins the 14:55 rung, which is `rungSlot 20` and is **today's** reference on the Sep-7 PM row. Under ext-1 that row's reference becomes 16:05 / 1.16238. The disputed bar is not the adopted reference on any of the ten rows, so the ambiguity does not reach selection.
+
+Discharged with a condition: it re-arms immediately if any future definition reads that rung. It is not resolved, it is out of scope.
+
+## Operator inputs — complete, and one governance addition
+
+Recovery-YES on Sep-4 10:35 closes the last open term: F=1 is a recovery, not an unwanted addition. Take-iff-R≥1.0 matches the runtime `THRESHOLD` already printed. All five ext-1 references clear it.
+
+The Dukascopy-always rule is a data-provenance rule for his journal, not a code input — pilot ini and tester data stay unchanged, ini-unchanged remains a baseline term. It does carry retroactively: **any `HAND` figure sourced from OANDA is now suspect and gets a feed tag beside its provenance tag.** The 0.92R that made him pass on a 1.21R setup is the reason that rule exists, and it is the third hand-figure correction in this line.
+
+---
+
+# BUILD PACKET P-ADOPT-1 — one packet, two runs, selection behind a compile-time flip
+
+Run A is print-only with the adoption code present and dormant. Run B flips it. Refutation and selection change stay in separate runs, so a candidate that dies out of sample cannot die in the same run that shipped it.
+
+## RUN A — `ADOPT_EXT1 false`. Inert by construction.
+
+- **E46 — Sep-8 forced-side probe.** SHORT-side protective ladder at 10:10 and 17:00, hardcoded bar times, graded against `1.16258` (his "9:40 second swing") and `1.16274` (16:20), provenance `HAND`, feed `Dukascopy`. Print residual, `barDiff`, `imbCode`, `rungExt`, and the EA's own evaluated side at each bar beside it. **Halt condition:** a residual beyond the 1-point absorption limit on either row halts the packet and run B does not launch.
+- **E47 — memo agreement over all 118 hits**, ungated, disagreers named, populations printed separately as 10 at S5 and 108 non-S5.
+- **E48 — origin insensitivity.** Both origins computed at every invocation, disagreement count reported, seventh convention named per site in `FRAME_NOTE`.
+- **E49 — classifier fix.** `OFF_LADDER` / `EXT_NONE` by rung occupancy at the reference slot, expected 2/2. `noneAge` → `refSlotAge` with its derivation stated.
+- **E50 — adoption code, dormant.** `slExt1` wired as the returned reference behind `ADOPT_EXT1`, default false. The memo HIT path becomes load-bearing under adoption and is currently unexercised for ext-1 — write it, do not enable it.
+
+**Run A gates:** all RECON17 identities verbatim including the accounted `SUPPRESSED`; **eleventh inert join** 481/481 ×3 plus 10/10; four-signal set verbatim; `slToday` byte-identical; E46 graded per row; E47 reported; E48 disagreement count reported; split 2/2; `LINEWIDTH truncated = 0`; `BADFMT = 0`. Halt on E46, the join, and any `slToday` movement.
+
+## RUN B — `ADOPT_EXT1 true`. The first selection change in the line.
+
+**Predicted delta declared in writing before the run, and the run grades the prediction.** Any measured change absent from the declaration halts. Any declared change that does not appear halts. This is the discipline that replaces the four-signal identity for one run.
+
+Expected to change, with values on paper:
+
+| signal | today | adopted | R today → adopted |
+|---|---|---|---|
+| Aug-28 10:05 SHORT | 1.16508 | 1.16508 | 2.43 → 2.43 |
+| Sep-4 16:00 LONG | 1.15907 | 1.15847 | 2.56 → 1.66 |
+| Sep-7 09:20 LONG | 1.16135 | 1.16135 | 1.76 → 1.76 |
+| Sep-7 16:45 LONG | 1.16218 | 1.16238 | 1.25 → 2.34 |
+| **Sep-4 10:40 SHORT (new)** | — | 1.16299 | — → 1.21 |
+
+Plus: `MTEXIT` changes and is re-frozen after, every verdict printing; the `RR_FAIL` abort bucket loses one.
+
+Expected **unchanged**, and a move in any of them halts: CQD 906; `WS161` fields 21; SLMEMO 471/118/589; SL_REF 432/39/10; INPLAYCOMMIT 157/46; PROMO 469 scoped; CONFIRMPOLL 555; `SUPPRESSED` at its accounted value; sampled-day spot signatures 157/157/443; FlowLogic digest `3606BFB4…`.
+
+Also: `rewardPts` at full precision on every firing row, `THRESHOLD` printed with its source, provenance and feed tags per filed level, and the ten-row decision block re-emitted against the adopted reference.
+
+## What adoption is, stated once
+
+`rungExt == 1` — the second extremity swing outward, no imbalance term, no carve-out. This is the operator's "exactly two swings away, both cases," zero-based, and his own "9:40 second swing" phrasing counts the same index. Ruling (b)'s imbalance-qualified walk and ruling (c)'s wick carve-out both retire as **measured candidates**, authorised by his generalisation and priced on paper. Buffers 37/38 stay as exports, `carveFired` stays as a census, and the 481-row walk record stays on disk — so re-instating either is arithmetic off an existing artifact rather than a rebuild. That is shadow-first completing.
+
+# STANDING DEBTS
+
+`SUPPRESSED` series and 16b's archive record, both before commit. ORDER `biasOpposedAtGate × gateOutcome` cross-tab. Sep-8 opposed evaluated side — upstream, unscoped. Coverage: seven enumerated setups, five with S5 rows, four firing, five under adoption, two invisible either way, his enumeration possibly not exhaustive. N1: POI body 28/0 and POC 3/0 confirmed, **POI wick 10 survived / 16 invalidated contradicted**, VWAP and exit-body unexercised — his ruling, unhurried. Opposed-bias date bounded outside the 16 S5 bars, still undated, still owed for the exit side. Flats **provisional** and now provisional against a `MTEXIT` that run B will move. Artifact taxonomy, six entries, and a candidate seventh pending the `SUPPRESSED` account.
+
+News sequencing unchanged in every particular: exit side after adoption and after the opposed-bias date, three flats by value append-only, priority `SL` / `TP_TOUCH` / flats / `POI_BODY_BREAK` / `HTF_FLIP`; entry side last, inside `ST_S5_GATE_CHECK` after the divergence walk and before `g_latchedEntry`, rollback to `g_confirmFromState`, latch unspent; probe requirement on both edits, off-canonical, own digest, reverted in-session. Table pinned at `5FFF5C76…EF1F134`, rows `{eventTimeET, kind}`, conversion at read, resolved bar printed per row, Oct-28 at `offsetMinutes 360` as the table's regression test.
