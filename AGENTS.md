@@ -39,6 +39,14 @@ POC/VWAP). NEVER bare journal row numbers (one cite in parentheses for record
 only). Short sentences. Gloss every EA journal code
 (e.g. TP_RR_FAIL = "not worth 1R"). TP_RR_FAIL never unglossed.
 
+Lesson 2026-09-13 (operator correction, standing): the operator cannot
+see the builder's file tree and does not know file names. Every memo
+that references a deliverable MUST name its exact file
+(`06_HANDOFFS\NAME.md` form at minimum) and say what to do with it
+(read vs paste-whole-to-council). Never write "beside it", "the relay",
+"the brief" or any other bare pointer. A memo with an unnamed file is
+a defective memo — reissue it named.
+
 ## 4. Escalation rule
 
 DECIDE LOCALLY (mechanical, verifiable on disk): anchors, line numbers, digests,
@@ -362,6 +370,146 @@ Masters judge measurements on disk, never prose about them.
     items + scope note); operator asks: file 1.15847, mark-up by
     barTime+price, wick ruling, flats read. No build packet issued.
     Next: operator mark-up; snapshot below.
+11. VERDICT 2026-09-13: HANDOFF BRIEF v1 BLOCKED, do not send (C1 factual
+    error on 16:40 today + C2–C7 evaluability gaps + structural purpose
+    collision on steps 0/1/2). RECON15b stays frozen; no packet; no rerun.
+    Corrected brief v2 filed (five-ref 16:40 table; both indices on all
+    four levels; REF slots 168/817 = one persisting Sep-3 20:35 extreme;
+    1.15847 resid 0 reshapes pair question to rung 16 vs rung 1; both
+    times per row; carve scoped 0/3×rows + 09:15 second row; survival
+    table + 1.07 margin flag; N1 site names fixed) + MARK-UP TABLE
+    companion (113 rungs, all fields, 4 firing rows) + relay v2 quoting
+    R1 (16/16/12/4, 13 miscounted) / R2 (same buffers, predicate+bar
+    differ, relocation not owed) / R3 (walkSteps 0) / R5 (covers=1 on 1
+    rung exhibit). Nothing else moves until mark-up lands; no counting
+    definition packetised. UNCOMMITTED (no token).
+12. VERDICT 2026-09-13: BRIEF v2 BLOCKED (ext-1 candidate: his stops read
+    1/1/1/0-1 on rungExt — position-counting dead; both filed levels were
+    CODE-derived → HAND/CODE provenance ruling; S5_CARVE_OB=0 retracted
+    with exact cross-tabs; labels restated; brief corrections 1-8 +
+    structural split ordered). Brief v3 + MARK-UP TABLE (113 rungs,
+    rungSlot/rungExt/shift restored, 0-mismatch verified) + relay v3
+    filed (A confirmed incl. imb-0; B tags with quotes; C cross-tabs
+    71/92; D precision 53.8; E ext-1 10/10 + todayRef ext per row).
+    P-SLDEF-5 CONDITIONAL (E35 slExt1, E36 carveFired, E37 provenance,
+    E38 rider; gate-6 falsifier) — NOT built: needs A–E (landed, no
+    contradiction) + his four confirmations (owed). Nothing moves until
+    mark-up lands. UNCOMMITTED (no token).
+13. VERDICT 2026-09-13: BRIEF v3 BLOCKED (ext-1 candidate CONFIRMED with
+    absorption residual: his stops 1/1/1/0-1, three exact + one 1pt/16:05
+    vs 16:15; count ruled over rungExt; both filed levels were CODE →
+    HAND/CODE tags; S5_CARVE_OB=0 retracted with 71/92 cross-tabs; labels
+    restated; corrections 1-8 + E39/E40/gate-6/gate-11 amendments ordered;
+    P-SLDEF-5 stays conditional-unbuilt). Addendum filed (absorbed row
+    named; cost both directions with F=1: Sep-4 10:35 SHORT RR_FAIL-only
+    ext1 R 1.21; carve OB 3 + fractal 3; flip-pass NARROW; state/event
+    conflation = 5th taxonomy entry) + relay v4 (F table; bias-opposed
+    bar not on-log → E40). Table lesson: scratch transcription outvoted
+    2:1 by raw+Tok (filed table verified 0-mismatch). File-visibility
+    lesson recorded in §3 (name every deliverable). Nothing moves until
+    mark-up + his four confirmations. UNCOMMITTED (no token).
+14. VERDICT 2026-09-13: BRIEF v3 BLOCKED (ext-1 candidate CONFIRMED with
+    absorption residual: his stops 1/1/1/0-1, three exact + one 1pt/16:05
+    vs 16:15; count ruled over rungExt; both filed levels were CODE →
+    HAND/CODE tags; S5_CARVE_OB=0 retracted with 71/92 cross-tabs; labels
+    restated; corrections 1-8 + E39/E40/gate-6/gate-11 amendments ordered;
+    P-SLDEF-5 stays conditional-unbuilt). Addendum filed (absorbed row
+    named; cost both directions with F=1: Sep-4 10:35 SHORT RR_FAIL-only
+    ext1 R 1.21; carve OB 3 + fractal 3; flip-pass NARROW; state/event
+    conflation = 5th taxonomy entry) + relay v4 (F table; bias-opposed
+    bar not on-log → E40). VERBATIM verdicts ×3 filed
+    (BUILDER_VERDICTS_SLDEF4-5.md); P-SLDEF-5 packet filed
+    conditional-unbuilt (01_TASKS\PACKET_P-SLDEF-5.md). Correctness
+    assessed claim-by-claim off frozen run: VERDICT CORRECT (all operands
+    verify; absorption + framing are council judgment). One relay owed
+    (relay v4). NOTHING COMMITTED (no token). Compact-safe once filed.
+15. VERDICT 2026-09-13: RELAY DUPLICATE (v3 received twice; ruling stands
+    unchanged). Cause confirmed: stale operator-side re-paste AFTER v4
+    already filed — the verdict WAS received and fully worked (no lost
+    verdict). Standing relay discipline adopted (version + ruling-ID ack
+    on every relay; §13). Ledger restated: A–E accepted, candidate 3+1
+    absorbed, retractions (instruments, carve), INFERRED kept, F owed →
+    LANDED (=1: 10:35 SHORT) in relay v4, bias date → E40. Relay v5 sent
+    (ack + v4 verbatim; paste FRESH from disk). Checkpoint declared
+    best-compact (§13). UNCOMMITTED (no token).
+16. OPERATOR REFUSAL 2026-09-13: hand mark-up REFUSED (resume-memo point
+    2) — rung-table verification by hand is beyond human capability; his
+    five traded examples (filed in
+    06_HANDOFFS\BUILDER_FINDING_SEP7_CHARTREAD.md) stand as his evidence.
+    Measured: the quoted "v3 first paragraph" exists nowhere in the current
+    59-line relay file (opens v5 line 1, v4 title line 11; v3 paragraph
+    superseded at v4 filing) — stale copy; FRESH-from-disk rule re-stated.
+    Rescoped path filed as relay v6: council asked to VACATE the mark-up
+    gate (hand motivates, never adjudicates — standing rule) and let
+    P-SLDEF-5 BUILD as specified with ADOPTION (not build) gated on
+    council ruling; his judgments reduce to yes/no only if council still
+    wants them. Only operator job left: paste v6. UNCOMMITTED (no token).
+17. VERDICT 2026-09-13: RESCOPE APPROVED (mark-up VACATED on three grounds:
+    governance violation, fallback unneeded — rungExt==1 reproduces levels,
+    hand would redo code's 0/113-verified work). Granularity ANSWERED:
+    extremity filter IS the coarsening (Aug-28 ext1 skips 09:45/09:35/09:25
+    → 06:30 = ruling (a)). Confirmations 4→1: Sep-4 1.15847 + Sep-7 PM
+    1.16239 already HAND-confirmed, Sep-7 AM 1.16098 corroborated→HAND;
+    only Aug-28 1.16508 INFERRED stays owed (yes/no, adoption-gating).
+    Ruling 3: fifth example must be identified (Sep-4 10:35 SHORT → recovery,
+    fifth confirmation). F=1 thin (R 1.21, +0.21, reward sub-pip → E40
+    rewardPts). Stale-extreme: 1.16379 pins two rows (10:35 R0.36, 9/08
+    R0.60). Gate-2 correction: shadow → verbatim four-signal, slToday move
+    halts. P-SLDEF-5 CLEARED print-only (E37 3-value provenance +
+    PROVISIONAL_MATCH; E39 rewardPts/riskPts; E40 NONE-row OB slot/barTime/
+    age; gate 6 four tokens; gate 11 1/0 named). Adoption gated: Aug-28
+    yes/no + fifth-example map + 20 pair + N1 wick. Exit side unblocked
+    after imbalance decision. Stale-paste closed + standing rule (never ask
+    confirmation of prose — measured value + digest only). P-SLDEF-5
+    EXECUTING (EA pre-hash 1EE6FC62 verified post-compact). UNCOMMITTED
+    (no token).
+18. P-SLDEF-5 build 1 EXECUTED 2026-09-13 (EA 5B4F7E06… 399165 B, both
+    compile 0/0). RECON16 DONE=PASSED 14:24:05 (Test passed 0:54:19; wrapper
+    archived itself 17955 lines journal A32F0E85…; purity 1/4/481) —
+    SUPERSEDED, defect owned: cover target missed ext1 + ladObligN/
+    VACUOUS_COVER unbuilt + noneAgeBars sign inverted (all gate-9 letter;
+    all other gates gradeable: gate-6 three+provisional with operands,
+    gate-7 4/10 reproduced, ninth join 481×3+10/10 zero-mismatch, gate-11
+    1/0, gate-10 25 classes trunc 0). Build 2 (EA 893B26DF… 399946 B,
+    0/0) adds ext1-in-cover + ladObligN + VACUOUS_COVER + age-sign fix.
+    RECON16b RUNNING (launched 14:28:47, PID 15956, PRE=80329; first
+    launch REFUSED_TERMINAL_BUSY, leftover 14992 closed graceful).
+    UNCOMMITTED (no token).
+19. OPERATOR ANSWERS 2026-09-13 (mid-16b-run): Q1 YES — Aug-28 stop
+    1.16508 CONFIRMED + bar 06:30 high (INFERRED→HAND; filedT now 06:30;
+    code's ext-1 rung barTime is also 06:30 at resid 0, so barDiff is 0 by
+    inspection — carried into the adoption packet, NO rebuild: 16b grades
+    PROVISIONAL_MATCH as specified at build). Q2 REFRAMED by him: "5
+    trades" may be miscounted — window + four code trades listed in memo;
+    rejected Sep-4 10:35 SHORT offered as candidate fifth; his correction
+    owed. UNCOMMITTED (no token).
+20. OPERATOR EVIDENCE 2026-09-13 (mid-16b-run): FIFTH CONFIRMED as Sep-4
+    10:35 SHORT (considered, NOT taken — journal defect: 0.92R on OANDA
+    feed vs true 1.21; his SL = ext1 1.16299 — written "1.16224" read as
+    typo with reason (below entry, impossible SHORT stop; "same as your
+    SL" disambiguates); his "one swing away + imbalance" matches measured
+    imbCode=2; digit confirmation owed). F converts cost→recovery (fifth
+    independent confirmation). PLUS two Sep-8 SHORTs (London 10:10
+    @1.16205 SL 1.16258 TP 1.16102; NYAM 17:00 @1.16220 SL 1.16274 TP
+    Y-POC, LOSS) — both HAND, both UNMAPPED (no S5 rows at those bars).
+    Count now 7 (4 code + 1 considered + 2 Sep-8). 16b unaffected;
+    adoption packet carries all. UNCOMMITTED (no token).
+21. OPERATOR CONFIRM 2026-09-13 (mid-16b-run): Sep-4 10:35 SL digit YES —
+    1.16299 HAND (typo closed). Fifth-example record COMPLETE: 4 fired
+    HAND + 1 considered HAND (feed-error rejection, F=recovery) + 2 Sep-8
+    HAND unmapped. Adoption inputs from him COMPLETE (Aug-28 HAND 06:30,
+    fifth mapped, SL digit). Still owed (council/operator): Sep-8
+    instrumentation scope, +20 pair, N1 wick, flats read. UNCOMMITTED
+    (no token).
+22. RECON16b DONE=PASSED 15:25:32 (Test passed 0:56:30; EA 893B26DF…
+    399946 B; archive 17954 lines 4740FA3B…; ninth join 481×3+10/10).
+    P-SLDEF-5 EXECUTED: 10/11 PASS + gate-8 FINDING (OB predicate 4 vs
+    C-3, all TODAY_EQ_NUANCE), zero halts; gate-9 letter closed
+    (covers 1=9/0=1, 0 is VACUOUS 9/08; ladObligN; noneAge +). Result
+    filed (`06_HANDOFFS\BUILDER_RESULT_RECON16b-SLDEF5.md`); relay v7
+    stub FILLED, ready to paste whole. Council ruling owed: ACCEPT +
+    adoption packet, Sep-8 scope. RECON15b stays frozen. UNCOMMITTED
+    (no token).
 5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
    journal correction): journal "swings" = FRACTAL swings (triangle
    markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used
@@ -392,3 +540,27 @@ Masters judge measurements on disk, never prose about them.
   after a snapshot+push lands. Never mid-packet, mid-run, or mid-gate.
 - `.clinerules` is the long archive; `AGENTS.md` §11 + the latest result file
   are the resume anchors after a compact.
+
+## 13. Best-compact checkpoint 2026-09-13 (operator-declared rule)
+
+This checkpoint is the best compact point of the session. Declared so the
+next session resumes with zero reconstruction. Quiescent: no run active,
+no open gates, harness idle, both tester terminals closed gracefully,
+frozen baseline RECON15b (EA 1EE6FC62) committed + tagged (Rev072, NO
+push — origin operator-latency). Uncommitted working state (no token):
+brief v2/v3/addendum evolution, mark-up table + fixes, relay v2→v5,
+VERDICTS file (×4 verbatim), PACKET_P-SLDEF-5 conditional-unbuilt,
+AGENTS items 11–15 + §3 file-visibility lesson, packet verdict appends —
+all ON DISK and indexed in §11. Resume anchors: this §11 (items 13–15)
++ `06_HANDOFFS\BUILDER_RELAY_COUNCIL_RECON15b-SLDEF4.md` (v5 current)
++ `06_HANDOFFS\BUILDER_HANDOFF_BRIEF_SLDEF.md` (v3 + addendum).
+Owed after resume (in order): ONE operator relay (paste the v5 file
+FRESH from disk — a stale copy caused the 2026-09-13 duplicate
+incident); operator mark-up + four confirmations; P-SLDEF-5 build only
+on his confirmations (council go already conditionally cleared);
+snapshot on explicit token only; debris deletion word.
+Relay discipline (council standing note 2026-09-13): every relay opens
+with version + the ruling ID it answers; every operator memo names the
+relay file + version. Two identical relays with no acknowledgement
+between = indistinguishable from a lost verdict — never resend a relay
+without bumping its ack header.

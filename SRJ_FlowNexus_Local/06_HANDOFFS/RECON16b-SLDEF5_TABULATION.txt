@@ -1,0 +1,53 @@
+G1 bars/ticks: NQ	0	15:25:23.766	Core 04	EURUSD,M5: 563338 ticks, 3168 bars generated. Environment synchronized in 0:00:00.018. Test passed in 0:56:30.538 (including ticks preprocessing 0:00:00.047).
+SIGNAL_COUNT=4
+SIGNALS=FJ	0	14:41:24.102	Core 04	2026.08.28 10:05:00   [SRJ-EA] 2026.08.28 10:05:00 SIGNAL dir=SHORT poi=Daily-VWAP regime=TREND div=regular sess=LONDON tp_target=1.16364 tp_R=2.43 sl_ref=1.16508 sl_mode=2-swing spreadPts=4 bid=1.16466 ask=1.16470|II	0	15:08:21.531	Core 04	2026.09.04 16:00:00   [SRJ-EA] 2026.09.04 16:00:00 SIGNAL dir=LONG poi=Yearly-POC regime=BOTH div=hidden sess=NYAM tp_target=1.16302 tp_R=2.56 sl_ref=1.15907 sl_mode=1-swing spreadPts=1 bid=1.16018 ask=1.16019|FI	0	15:12:01.256	Core 04	2026.09.07 09:20:00   [SRJ-EA] 2026.09.07 09:20:00 SIGNAL dir=LONG poi=Weekly-POC regime=TREND div=hidden sess=LONDON tp_target=1.16200 tp_R=1.76 sl_ref=1.16098 sl_mode=1-swing spreadPts=3 bid=1.16135 ask=1.16138|CI	0	15:13:32.809	Core 04	2026.09.07 16:45:00   [SRJ-EA] 2026.09.07 16:45:00 SIGNAL dir=LONG poi=Weekly-POC regime=TREND div=hidden sess=NYAM tp_target=1.16315 tp_R=1.25 sl_ref=1.16218 sl_mode=1-swing spreadPts=3 bid=1.16261 ask=1.16264
+WS161=HI	0	15:25:23.766	Core 04	2026.09.09 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=3168 stores=3168 changes=205 mismatch=0
+WS161_MISMATCH_ROWS=0
+SLIMB_TOTAL=481
+WALK_OB_TOTAL=481
+WALKF_TOTAL=481
+WALK_OB_SIDEV_GT0=0
+WALKF_SIDEV_GT0=0
+SLIMBR_TOTAL=10
+SLIMBR_STALE=0
+SLADDER_TOTAL=336
+SLADDER_BADFMT=0
+SLADDER_BARS=2026.08.26 14:40:30 2026.08.27 17:00:52 2026.08.28 10:00:11 2026.08.28 16:20:35 2026.09.04 09:25:25 2026.09.04 10:35:29 2026.09.04 15:55:49 2026.09.07 09:15:32 2026.09.07 16:40:21 2026.09.08 16:40:52
+SLADCORR_TOTAL=10
+SLADCORR_COVERS=1=9 0=1
+SLADCORR_FINAL=IL	0	15:25:23.766	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADCORR_FINAL fields=4 rows=10 fracOff=0 todayOff=2 nz=-
+SIGMAP=JL	0	15:25:23.766	Core 04	2026.09.09 23:59:58   [SRJ-EA] SIGMAP fields=3 signals=4 mapped=4 map=2026.08.28 10:05->2026.08.28 10:00|2026.09.04 16:00->2026.09.04 15:55|2026.09.07 09:20->2026.09.07 09:15|2026.09.07 16:45->2026.09.07 16:40
+SLADDERMATCH_STATUS=NOLEVEL_FILED=5 NOMATCH=3 MATCH=2
+SLADDERMATCH_TODAYREF=ON_LADDER=8 TODAY_OFF_LADDER=2
+SLADWIN_TOTAL=10
+SLADWIN_BADFMT=0
+SLADWIN_STATUS=OK=9 VACUOUS_COVER=1
+SLADWIN_COVERS=1=9 0=1
+SLADWIN_OBLIGN=6=5 4=2 3=2 0=1
+SLADWIN_ROWS=HF	0	14:32:08.683	Core 04	2026.08.26 14:45:01   [SRJ-EA] SLADWIN fields=28 bar=2026.08.26 14:40 site=S5 dir=LONG status=OK todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=3 baseSteps=3 nuanceSteps=3 fracSteps=72 fracNuSteps=72 anchorSteps=72 ladWindowStart=1 ladWindowSpan=385 ladReadLimit=500 ladLimitHit=0 ladCovers=1 ladObligN=6 ladRungs=30 ladDeepestSlot=344 walkWinOB=328+500 walkWinFR=3+500 haltRef=- haltSlot=-1|KM	0	14:37:44.376	Core 04	2026.08.27 17:05:00   [SRJ-EA] SLADWIN fields=28 bar=2026.08.27 17:00 site=S5 dir=SHORT status=OK todayIsRung=1 baseIsRung=-1 nuanceIsRung=-1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=108 baseSteps=-1 nuanceSteps=-1 fracSteps=2 fracNuSteps=2 anchorSteps=2 ladWindowStart=1 ladWindowSpan=352 ladReadLimit=500 ladLimitHit=0 ladCovers=1 ladObligN=4 ladRungs=52 ladDeepestSlot=305 walkWinOB=302+500 walkWinFR=1+500 haltRef=- haltSlot=-1|LL	0	14:41:24.102	Core 04	2026.08.28 10:05:00   [SRJ-EA] SLADWIN fields=28 bar=2026.08.28 10:00 site=S5 dir=SHORT status=OK todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=2 baseSteps=2 nuanceSteps=2 fracSteps=13 fracNuSteps=13 anchorSteps=13 ladWindowStart=1 ladWindowSpan=98 ladReadLimit=500 ladLimitHit=0 ladCovers=1 ladObligN=6 ladRungs=11 ladDeepestSlot=63 walkWinOB=42+500 walkWinFR=1+500 haltRef=- haltSlot=-1|KF	0	14:42:43.448	Core 04	2026.08.28 16:25:00   [SRJ-EA] SLADWIN fields=28 bar=2026.08.28 16:20 site=S5 dir=SHORT status=OK todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=2 baseSteps=2 nuanceSteps=2 fracSteps=0 fracNuSteps=0 anchorSteps=0 ladWindowStart=1 ladWindowSpan=174 ladReadLimit=500 ladLimitHit=0 ladCovers=1 ladObligN=3 ladRungs=35 ladDeepestSlot=139 walkWinOB=118+500 walkWinFR=5+500 haltRef=- haltSlot=-1|QL	0	15:06:56.083	Core 04	2026.09.04 09:30:01   [SRJ-EA] SLADWIN fields=28 bar=2026.09.04 09:25 site=S5 dir=LONG status=OK todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=20 baseSteps=20 nuanceSteps=20 fracSteps=21 fracNuSteps=21 anchorSteps=21 ladWindowStart=1 ladWindowSpan=163 ladReadLimit=500 ladLimitHit=0 ladCovers=1 ladObligN=6 ladRungs=25 ladDeepestSlot=174 walkWinOB=7+500 walkWinFR=2+500 haltRef=- haltSlot=-1|IP	0	15:07:08.290	Core 04	2026.09.04 10:40:00   [SRJ-EA] SLADWIN fields=28 bar=2026.09.04 10:35 site=S5 dir=SHORT status=OK todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=0 baseSteps=0 nuanceSteps=0 fracSteps=12 fracNuSteps=12 anchorSteps=12 ladWindowStart=1 ladWindowSpan=117 ladReadLimit=500 ladLimitHit=0 ladCovers=1 ladObligN=3 ladRungs=29 ladDeepestSlot=150 walkWinOB=168+500 walkWinFR=1+500 haltRef=- haltSlot=-1|GQ	0	15:08:21.531	Core 04	2026.09.04 16:00:00   [SRJ-EA] SLADWIN fields=28 bar=2026.09.04 15:55 site=S5 dir=LONG status=OK todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=-1 fracNuIsRung=-1 anchorIsRung=1 todaySteps=22 baseSteps=22 nuanceSteps=22 fracSteps=-1 fracNuSteps=-1 anchorSteps=95 ladWindowStart=1 ladWindowSpan=574 ladReadLimit=574 ladLimitHit=0 ladCovers=1 ladObligN=4 ladRungs=49 ladDeepestSlot=571 walkWinOB=408+500 walkWinFR=2+500 haltRef=- haltSlot=-1|IG	0	15:12:01.256	Core 04	2026.09.07 09:20:00   [SRJ-EA] SLADWIN fields=28 bar=2026.09.07 09:15 site=S5 dir=LONG status=OK todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=8 baseSteps=8 nuanceSteps=8 fracSteps=10 fracNuSteps=10 anchorSteps=10 ladWindowStart=1 ladWindowSpan=90 ladReadLimit=500 ladLimitHit=0 ladCovers=1 ladObligN=6 ladRungs=32 ladDeepestSlot=204 walkWinOB=7+500 walkWinFR=1+500 haltRef=- haltSlot=-1|FE	0	15:13:32.809	Core 04	2026.09.07 16:45:00   [SRJ-EA] SLADWIN fields=28 bar=2026.09.07 16:40 site=S5 dir=LONG status=OK todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=15 baseSteps=15 nuanceSteps=15 fracSteps=20 fracNuSteps=20 anchorSteps=20 ladWindowStart=1 ladWindowSpan=128 ladReadLimit=500 ladLimitHit=0 ladCovers=1 ladObligN=6 ladRungs=21 ladDeepestSlot=89 walkWinOB=21+500 walkWinFR=2+500 haltRef=- haltSlot=-1|CP	0	15:18:37.984	Core 04	2026.09.08 16:45:01   [SRJ-EA] SLADWIN fields=28 bar=2026.09.08 16:40 site=S5 dir=SHORT status=VACUOUS_COVER todayIsRung=1 baseIsRung=1 nuanceIsRung=1 fracIsRung=1 fracNuIsRung=1 anchorIsRung=1 todaySteps=0 baseSteps=0 nuanceSteps=0 fracSteps=0 fracNuSteps=0 anchorSteps=0 ladWindowStart=1 ladWindowSpan=49 ladReadLimit=500 ladLimitHit=0 ladCovers=0 ladObligN=0 ladRungs=52 ladDeepestSlot=351 walkWinOB=817+500 walkWinFR=4+500 haltRef=- haltSlot=-1
+REF_OB_DEEP_TOTAL=6
+ORDER_OUTCOMES=RR_FAIL=6 DIV_WAIT=6 PASS=4
+ORDER_STAMP=STAMPED=12 SEQ_UNSTAMPED=4
+SLEXT1_TOTAL=10
+SLEXT1_VERDICTS=NOLEVEL=6 PROVISIONAL_MATCH=1 MATCH=2 ABSORBED=1
+SLEXT1_TODAYXI=4=1 2=1 1=4 NONE=4
+SLEXT6HALT_TOTAL=0
+SLNONFIRE_WOULDFIRE=0=5 1=1
+SLEXTLOST_TOTAL=0
+SLEXT_FINAL=IO	0	15:25:23.766	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT_FINAL newSignalCount=1 lostSignalCount=0 newRows=2026.09.04 10:35; lostRows=- outPos=1 outNeg=5 outZero=4
+SLADMARK_TOTAL=336
+SLADMARK_BARS=2026.08.26 14:40:30 2026.08.27 17:00:52 2026.08.28 10:00:11 2026.08.28 16:20:35 2026.09.04 09:25:25 2026.09.04 10:35:29 2026.09.04 15:55:49 2026.09.07 09:15:32 2026.09.07 16:40:21 2026.09.08 16:40:52
+DECISION_HDR=MF	0	15:25:23.766	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION rows=10 fired=4 threshold=1.00 thresholdSource=compiled_default orderFlipPass=0 orderFlipScope=NARROW
+DECISION_ROW_N=10
+DECISION_FIRED=0=6 1=4
+MTEXIT_N=4
+MTLIFE_N=4
+MTFLIP_N=1
+N1EQUALS=CF	0	15:25:23.766	Core 04	2026.09.09 23:59:58   [SRJ-EA] N1EQUALS poiEqBody=28 poiEqWick=26 vwapEq=0 pocEq=3
+FRAME_NOTE=CD	0	14:28:59.460	Core 04	2026.08.26 00:00:00   [SRJ-EA] FRAME_NOTE offset=1 apex=s+1 labels=server-time protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) populations=inputVsResultNamed sigmap=signalTime-s5BarTime-PeriodSeconds readwin=ladder:entryBar+span|walkOB:walkStart+500|walkFR:guardStart+500 THRESHOLD minRewardRisk=1.00 source=compiled_default
+TABLE_NOTE=KD	0	14:28:59.460	Core 04	2026.08.26 00:00:00   [SRJ-EA] TABLE_NOTE rows=11 digest=5FFF5C762DABCAB7811C598D8B16942BBCBD5F9D94C91D0BB54CF8C36EF1F134 anchor=21:00_broker
+BLACKOUT_CENSUS=ES	0	15:25:23.766	Core 04	2026.09.09 23:59:58   [SRJ-EA] BLACKOUT_CENSUS rows=11 rowsInWindow=1 memberBars=3 expected=3 mismatch=0 overlaps=0 slimbInWindow=1 s5InWindow=0 newsFlatCandidates=0 dayFlatCandidates=0 weekFlatCandidates=0 dailyCloseET=17:00 fridayET=2026-08-28 17:00|2026-09-04 17:00
+LINEWIDTH_TRUNC_NZ=0
+LINEWIDTH_SLADWIN28=CK	0	15:25:23.766	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="SLADWIN" max=426 cap=537 truncated=0
+DECISION_ROWS=1
+SPOT_INPLAY_N=157

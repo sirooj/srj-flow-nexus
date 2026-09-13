@@ -95,6 +95,71 @@ file 1.15847 as E24 level.
 
 ---
 
+VERDICT 2026-09-13 (relayed verbatim): HANDOFF BRIEF v1 BLOCKED, do not
+send — C1 factual error (16:40 today is 1.16218/R 1.25, not 1.16112) +
+C2–C7 evaluability gaps (both indices; REF slots; 1.15847 residual;
+both times; carve scope; survival verdicts + 1.07 margin) + structural
+purpose collision (0/1/2 tests two-away but cannot collect mark-up; his
+level is rung 16). RECON15b stays frozen; no packet; no rerun. Corrected
+brief v2 + MARK-UP TABLE companion (113 rungs) filed; relay v2 quotes R1
+(16/16/12/4) / R2 (code-read, relocation not owed) / R3 (steps 0) / R5
+(VACUOUS exhibit). Nothing moves until mark-up lands.
+
+---
+
+VERDICT 2026-09-13 (relayed verbatim): BRIEF v2 BLOCKED — ext-1 finding
+(his stops 1/1/1/0-1 on rungExt; count is over rungExt, position dead) +
+governance (both filed levels CODE-derived → HAND/CODE provenance ruling,
+E37) + S5_CARVE_OB=0 retracted (exact cross-tabs ordered) + labels
+restated + corrections 1-8 (headline, naming rungSlot/rungExt/shift,
+schema, degenerate R, C3 slots, duplicates, reward precision, mark-up
+scope). Brief v3 + MARK-UP TABLE (113 rungs, verified 0-mismatch) +
+relay v3 (A–E + carried R1/R3/R5/code-read) filed. P-SLDEF-5 CONDITIONAL
+ISSUED (E35 slExt1 + E36 carveFired + E37 provenance + E38 rider; gate-6
+falsifier; halt if A/B contradict — they don't) — NOT BUILT: needs his
+four confirmations. Nothing moves until mark-up lands.
+
+---
+
+VERDICT 2026-09-13 (relayed verbatim, filed in full in
+06_HANDOFFS\BUILDER_VERDICTS_SLDEF4-5.md): BRIEF v3 BLOCKED — ext-1
+finding (his stops 1/1/1/0-1; count over rungExt; three exact + one
+absorbed 16:05 vs 16:15; finding E: 10:35 ext1 R 1.21 = adoption cost) +
+state/event ruling (flip disagreement RETRACTED; flipNewThisBar +
+biasOpposedAtGate; 5th taxonomy entry) + carve correction accepted
+(71/92 exact) + reward requirement (rewardPts per row, E40) + ADDENDUM
+(4 items, appended not resent) + P-SLDEF-5 amendments (E39/E40/gate-6
+ABSORBED/gate-11; still conditional-unbuilt). Report F landed (=1:
+10:35 SHORT). Addendum + relay v4 filed. Correctness assessed
+claim-by-claim: VERDICT CORRECT. Nothing moves until mark-up + his four
+confirmations.
+
+---
+
+VERDICT 2026-09-13 (relayed verbatim, filed in full in
+06_HANDOFFS\BUILDER_VERDICTS_SLDEF4-5.md): RELAY DUPLICATE — v3 received
+twice; ruling stands unchanged. Cause confirmed: stale re-paste after v4
+filed; the ruled-on verdict WAS received and worked (no lost verdict).
+Standing note adopted (version + ruling-ID ack; AGENTS §13). Ledger
+accepted as restated (A–E, 3+1 absorbed, retractions, INFERRED, F
+landed, bias date → E40). Relay v5 sent (ack + v4 verbatim; paste FRESH
+from disk). Nothing moves until mark-up + his four confirmations.
+
+---
+
+VERDICT 2026-09-13 (relayed verbatim): BRIEF v3 BLOCKED — ext-1 finding
+(his stops 1/1/1/0-1; count over rungExt; three exact + one absorbed
+16:05 vs 16:15; finding E: 10:35 ext1 R 1.21 = adoption cost) + state/
+event ruling (flip disagreement RETRACTED; flipNewThisBar +
+biasOpposedAtGate; 5th taxonomy entry) + carve correction accepted
+(71/92 exact) + reward requirement (rewardPts per row, E40) + ADDENDUM
+(4 items, appended not resent) + P-SLDEF-5 amendments (E39/E40/gate-6
+ABSORBED/gate-11; still conditional-unbuilt). Report F landed (=1:
+10:35 SHORT). Addendum + relay v4 filed. Nothing moves until mark-up +
+his four confirmations.
+
+---
+
 # Council rulings recorded with this packet (verdict session 2026-09-13)
 
 - RECON14 ACCEPTED; new frozen baseline (EA 2702B7F2 357192 B; journal
