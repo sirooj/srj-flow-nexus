@@ -118,6 +118,14 @@ Masters judge measurements on disk, never prose about them.
   ini FromDate/ToDate keys are IGNORED by this build. Window changes target
   terminal.ini `[Tester]` (guard BOM, one occurrence, backup, digest pair).
 - NEVER read the day log whole (25 MB). Tail 5 lines only.
+- LAUNCHER DETACH LAW (lesson 2026-09-12): the launch script must start the
+  wrapper via Start-Process with stdout/stderr redirected to files. The old
+  ProcessStartInfo form let the wrapper inherit the builder shell's pipe and
+  hung the launch call until the run ended (~1h). Launch prints one line and
+  returns in <1s; completion is detected later via the DONE file only.
+- Wrapper journal reads must stay O(n) (List.Add, never `+=`): the 54 MB day
+  log cost 15 silent pre-flight minutes on RECON13 (a full CPU core, no STATUS
+  update). Fixed in-script 2026-09-12; affects launches after RECON13 only.
 
 ## 9. File map (current baselines 2026-09-11)
 
@@ -261,8 +269,61 @@ Masters judge measurements on disk, never prose about them.
    Sep/Dec 21:00 = operator anchor from table. Probe requirement for
    future sides (off-canonical, reverted, never committed). Sep-4 flat
    via MTLIFE; "two-away" NOT packetized (blast 441, chain, granularity);
-   next = ladder + his mark-up (both levels must be rungs). P-SLDEF-2
-   ISSUED (E23 ladder, E24 match, E25 MTLIFE, E26 audit move; print-only).
+    next = ladder + his mark-up (both levels must be rungs). P-SLDEF-2
+    ISSUED (E23 ladder, E24 match, E25 MTLIFE, E26 audit move; print-only).
+    P-SLDEF-2 EXECUTED 2026-09-13 (EA 13560ABF… 341466 B UNCOMMITTED, both
+    compile 0/0, FlowLogic 3606BFB4 unchanged). RECON13 DONE 00:32:17
+    (Test passed 0:49:19; midnight split → wrapper UNDETERMINED, manual
+    archive 17256 lines journal B79C5971…; purity 1/4/481) — BLOCKED on
+    gate 8 (packet's own halt): 16:40 row's 8 rungs span slots 1–29
+    (px ≥1.16209), no 1.16112 rung, while the walk runs 20 steps to
+    1.16112 — absence is cap-adjacent, not ghost evidence. All other
+    gates PASS (gate-3 fifth build 481x3+10/10 zero-mismatch; decisive
+    gate met: his 1.16240 MATCH rung 0 slot 1 ext 0; his 1.15907 NOMATCH
+    ×3, nearest +5 on the 15:55 row whose slToday EQUALS 1.15907;
+    MTLIFE 4/4 all-zero → dayFlat=0 with operands vs his 23:55 flat;
+    width 14/14 incl. ROW/CENSUS). 16:45 = SIGNAL bar, 16:40 = S5 eval
+    row (mapping disclosed). NO commit; RECON12c stays frozen.     Council
+    ruling owed: Q1 extend-ladder vs rule-absence, Q2 label mapping,
+    Q3 E26 loop-relocation approval. Harness repaired (launcher detach
+    + O(n) journal read; future runs only).
+6. VERDICT 2026-09-13: RECON13 11/12 ACCEPTED (gate-8 halt CORRECT +
+   INCONCLUSIVE; EA 13560ABF uncommitted; RECON12c frozen). Q2 mapping
+   CONFIRMED (signal=S5+Period; 5th FRAME_NOTE convention; SIGMAP 4/4).
+   Q3 E26 APPROVED. Q1: EXTEND by COVERAGE (ladCovers/ladCapHit; count
+   becomes output). Findings: Sep-4 +5 = probable frame #4 (slot
+   identity; FRAC_OFF halts / TODAY_OFF stays finding); Sep-4 zero-length
+   record = evaluation-order question (MTFLIP); flats PROVISIONAL; −15
+   pair resolved by content; archive = purity segment+SHA+count+bounds
+   (no more wrapper repairs in canonical packets). Zero-step falsifier
+   off-log 0/0/0 (11b/12c/13). E29 count corrected: vHTF=1 fires ONCE
+   (Sep-4 16:00 anti=2). P-SLDEF-3 ISSUED (E27 coverage, E28 slots,
+   E29 flip, E30 conventions; print-only).
+7. P-SLDEF-3 EXECUTED 2026-09-13 (EA 2702B7F2… 357192 B UNCOMMITTED, both
+   compile 0/0, FlowLogic 3606BFB4 unchanged). RECON14 DONE=PASSED
+   06:51:02 (Test passed 0:57:54; wrapper archived itself 17516 lines
+   journal F0D7AC70…, boundaries [9705..27220]; purity 1/4/481) —
+   BLOCKED on gate 5 (halt-gated): 8/10 cover; 15:55 target = OB base
+   slot 524 (walk window vs ladder window differ), 9/08 refs at slot
+   817. All else PASS: gate-8 GHOST RETIRED (1.16112 = rung 19, slot
+   77, ext 6, imbCode 1, 10:10 bar); 52/52 slot residuals zero (+5 was
+   frame defect); 15:55 MATCH (predicted); MTFLIP ×1 pre-flipped
+   (barsHeld 0, biasBefore 2); SIGMAP 4/4; 19/19 width; sixth inert
+   join zero-mismatch. Zero-step falsifier 0 on-run (56 anchors).
+   NO commit; RECON12c frozen. Council ruling owed: cap raise vs
+   walk-window anchoring vs accept-uncovered. Launch call still hangs
+   builder-side despite redirection (launch itself proven reliable;
+   try `cmd /c start` next).
+8. VERDICT 2026-09-13: RECON14 ACCEPTED (new frozen baseline 2702B7F2;
+   local commit cleared, NO push). Gate-5 = packet over-specification;
+   coverage RESCOPED to rung-obligated (walkSteps>0); REF_OB_DEEP for
+   zero-step OB extremes; rung index derived, never key (slot,barTime,
+   px,imbCode); 6th FRAME_NOTE convention. 9/08 discharged off-log
+   (walkSteps=0); 15:55 = named 31-slot shortfall (E31). "Two-away"
+   REFUTED (rung 0 vs 16); mark-up by barTime+price only. Same-bar race
+   = entry-side (E33 for exit/news-guard design). 1.15847 open.
+   P-SLDEF-4 ISSUED (E31 rescope+window, E32 decision, E33 order,
+   E34 conventions; print-only).
 5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
    journal correction): journal "swings" = FRACTAL swings (triangle
    markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used

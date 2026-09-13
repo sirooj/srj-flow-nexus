@@ -49,10 +49,13 @@ function Write-DoneMarker {
 function Read-Journal {
   param([string]$Path)   # lock-tolerant full read; returns $null if unreadable
   try {
+    # O(n): List.Add, NEVER $lines += $L (array-append is O(n^2) and cost
+    # 15 silent pre-flight minutes on the 54 MB day log, RECON13 2026-09-12).
     $fs = [System.IO.File]::Open($Path,'Open','Read','ReadWrite')
     $sr = New-Object System.IO.StreamReader($fs)
-    $lines = @(); while($null -ne ($L = $sr.ReadLine())){ $lines += $L }
-    $sr.Close(); return $lines
+    $list = New-Object System.Collections.Generic.List[string]
+    while($null -ne ($L = $sr.ReadLine())){ $list.Add($L) }
+    $sr.Close(); return $list.ToArray()
   } catch { return $null }
 }
 $O.Add(('RUN=' + $RunName))
