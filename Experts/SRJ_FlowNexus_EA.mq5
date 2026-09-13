@@ -1056,6 +1056,31 @@ int              g_slext_lostN = 0;
 string           g_slext_newRows = "";
 string           g_slext_lostRows = "";
 int              g_slext_outP = 0, g_slext_outN = 0, g_slext_outZ = 0;
+//--- [P-SLDEF-6 E41] 481-site origin handoff + shadow stash. The S5 caller
+//--- stamps the strict next-open origin synchronously before its direct
+//--- call; S2POLL/S3ARM read the eval-bar close inside the function (the
+//--- shared memo-path convention both sites' live R already uses). The
+//--- stash carries this invocation's shadow to the memo COMPUTE capture.
+//--- Print-only; never a selection input.
+double           g_sl41_oPx = 0.0;
+datetime         g_sl41_oBT = 0;
+string           g_sl41_oSite = "-";
+datetime         g_sl41_oStamp = 0;
+int              g_sl41_def = 0;
+double           g_sl41_px = 0.0;
+int              g_sl41_slot = -1;
+datetime         g_sl41_bt = 0;
+int              g_sl41_imb = -1;
+int              g_sl41_deep = -1;
+//--- [P-SLDEF-6 E43] S5 memo-probe tallies (print-only).
+int              g_sl43_probed = 0;
+int              g_sl43_hits = 0;
+int              g_sl43_agree = 0;
+//--- [P-SLDEF-6 E45.3] predicate carve totals at fresh S5 rows (print-only;
+//--- the consequence companions stay g_slimbr_carveOB/FR; the proxy rides
+//--- beside them, labelled).
+int              g_sl45_predOB = 0;
+int              g_sl45_predFR = 0;
 //--- [P-SLDEF-2 E23] ladder-anchor shadows: stamped by SlimbWalkEmit beside
 //--- the carve operands whenever the haveToday walk runs (raw + post-guard
 //--- fractal anchor + guard flag), read once per S5 invocation for the
@@ -2583,15 +2608,30 @@ int SrjExtIndexOf(const int refSlot, const int &shifts[], const int &exts[], con
    }
 
 //--- [P-SLDEF-5 E37] filed operator levels with provenance (RESCOPE Ruling
-//--- 2: three HAND-confirmed/corroborated, one INFERRED). Keyed by S5 eval
-//--- barTime — the only key unique across the two 09.07 rows. No CODE row
-//--- exists here: CODE is refused as an operator level by construction.
+//--- 2 as amended: all four now HAND — Aug-28 promoted by his Q1 YES; the
+//--- prov-token flip rides the adoption packet, so the code token stays
+//--- INFERRED until then and the row still grades PROVISIONAL_MATCH).
+//--- Keyed by S5 eval barTime — the only key unique across the two 09.07
+//--- rows. No CODE row exists here: CODE is refused as an operator level
+//--- by construction. [P-SLDEF-6 E45.4] filedT carried per filed level:
+//--- Aug-28 now 06:30 (HAND-sourced); barDiff stops resting on inspection.
 bool SrjFiledLevel(const string barT, double &px, string &prov, string &filedT)
    {
-    if(barT == "2026.08.28 10:00") { px = 1.16508; prov = "INFERRED"; filedT = "-"; return true; }
+    if(barT == "2026.08.28 10:00") { px = 1.16508; prov = "INFERRED"; filedT = "2026.08.28 06:30"; return true; }
     if(barT == "2026.09.04 15:55") { px = 1.15847; prov = "HAND"; filedT = "-"; return true; }
     if(barT == "2026.09.07 09:15") { px = 1.16098; prov = "HAND"; filedT = "-"; return true; }
     if(barT == "2026.09.07 16:40") { px = 1.16239; prov = "HAND"; filedT = "2026.09.07 16:15"; return true; }
+    return false;
+   }
+
+//--- [P-SLDEF-6 E44] Sep-8 targeted probe levels, hardcoded, provenance
+//--- HAND (his words, BUILDER_FINDING_SLDEF5_FIVEEXAMPLES Addendum 2).
+//--- Keyed by eval barTime; the 481-site shadow covers these bars when
+//--- they are evaluated, and then this only labels the shadow row.
+bool SrjSep8Filed(const string barT, double &px)
+   {
+    if(barT == "2026.09.08 10:10") { px = 1.16258; return true; }
+    if(barT == "2026.09.08 17:00") { px = 1.16274; return true; }
     return false;
    }
 
@@ -2923,9 +2963,75 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
 //====================== Step 6: 1R stop-loss reference ================
 bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                          double &slRefOut, ENUM_SRJ_SLMODE &slModeOut,
-                          const string site)
+                           const string site)
    {
     static int s_swingDumps = 0;
+    //--- [P-SLDEF-6 E41] ext-1 shadow at EVERY invocation, both reference
+    //--- branches (entry placement executes regardless of branch or return
+    //--- path). Strictly additive: one pure-function call + new-class lines;
+    //--- no existing local, return path, or memo interaction touched.
+    //--- Origin: S5 = the caller-stamped strict next-open (entry bar); a
+    //--- stale stamp or non-positive price halts the ROW (never substitutes
+    //--- the evaluated bar). S2POLL/S3ARM = the eval-bar close, the same
+    //--- prospective-entry price both sites' live R already uses (shared
+    //--- memo-path convention, disclosed in BUILDER_RESULT_RECON17-SLDEF6).
+    if(InpDebugLog)
+      {
+       datetime sl41_evalT = iTime(_Symbol, PERIOD_CURRENT, barShift);
+       string sl41_barT = TimeToString(sl41_evalT, TIME_DATE|TIME_MINUTES);
+       double sl41_oPx = 0.0; datetime sl41_oBT = 0; string sl41_halt = "-";
+       if(site == "S5")
+         {
+          if(g_sl41_oSite == "S5" && g_sl41_oStamp == sl41_evalT && g_sl41_oPx > 0.0)
+            { sl41_oPx = g_sl41_oPx; sl41_oBT = g_sl41_oBT; }
+          else sl41_halt = "NO_ORIGIN_S5";
+         }
+       else if(site == "S2POLL" || site == "S3ARM")
+         {
+          double sl41_close = iClose(_Symbol, PERIOD_CURRENT, barShift);
+          if(sl41_close > 0.0) { sl41_oPx = sl41_close; sl41_oBT = sl41_evalT; }
+          else sl41_halt = "NO_ORIGIN_CLOSE";
+         }
+       else sl41_halt = "UNKNOWN_SITE";
+       int sl41_def = 0; double sl41_px = 0.0; int sl41_slot = -1;
+       datetime sl41_bt = 0; int sl41_imb = -1; int sl41_deep = -1;
+       if(sl41_halt == "-")
+          SrjResolveExt1(barShift, dir, sl41_oPx, sl41_def, sl41_px, sl41_slot, sl41_bt, sl41_imb, sl41_deep);
+       else
+         {
+          string sl41_haltLine = StringFormat("[SRJ-EA] SLEXT41HALT bar=%s site=%s dir=%s cause=%s",
+                    sl41_barT, site, DirName(dir), sl41_halt);
+          LwAudit("SLEXT41HALT", sl41_haltLine);
+          Print(sl41_haltLine);
+         }
+       //--- [P-SLDEF-6 E44] the hardcoded Sep-8 filed pair labels the shadow
+       //--- row when the shadow covers those bars (redundant-by-design: no
+       //--- second emission). Uncovered bars surface off-log as NO_LADDER.
+       double sl41_sep8Px = 0.0; string sl41_sep8Filed = "-"; int sl41_sep8Resid = -999;
+       int sl41_sep8Diff = -999; string sl41_sep8Prov = "-"; int sl41_sep8Cov = 0;
+       if(SrjSep8Filed(sl41_barT, sl41_sep8Px))
+         {
+          sl41_sep8Filed = DoubleToString(sl41_sep8Px, _Digits); sl41_sep8Prov = "HAND"; sl41_sep8Cov = 1;
+          if(sl41_def == 1)
+            {
+             sl41_sep8Resid = (int)MathRound((sl41_px - sl41_sep8Px) / _Point);
+             sl41_sep8Diff = (int)((sl41_bt - StringToTime(sl41_barT)) / 300);
+            }
+         }
+       string sl41_line = StringFormat("[SRJ-EA] SLEXT481 fields=17 bar=%s site=%s dir=%s ladOriginPx=%s ladOriginBarTime=%s ladOriginSite=%s ext1Defined=%d slExt1=%s ext1Slot=%d ext1BarTime=%s ext1Imb=%d deepestExt=%d sep8FiledPx=%s sep8ResidPts=%d sep8BarDiffBars=%d sep8Prov=%s sep8Covered=%d",
+                 sl41_barT, site, DirName(dir),
+                 (sl41_halt == "-") ? DoubleToString(sl41_oPx, _Digits) : "-",
+                 (sl41_halt == "-") ? TimeToString(sl41_oBT, TIME_DATE|TIME_MINUTES) : "-",
+                 site,
+                 sl41_def, (sl41_def == 1) ? DoubleToString(sl41_px, _Digits) : "-",
+                 sl41_slot, (sl41_def == 1) ? TimeToString(sl41_bt, TIME_DATE|TIME_MINUTES) : "-",
+                 sl41_imb, sl41_deep,
+                 sl41_sep8Filed, sl41_sep8Resid, sl41_sep8Diff, sl41_sep8Prov, sl41_sep8Cov);
+       LwAudit("SLEXT481", sl41_line);
+       Print(sl41_line);
+       g_sl41_def = sl41_def; g_sl41_px = sl41_px; g_sl41_slot = sl41_slot;
+       g_sl41_bt = sl41_bt; g_sl41_imb = sl41_imb; g_sl41_deep = sl41_deep;
+      }
     //--- [P-SWINGIMB] shadow-census locals. Plain locals, no working-set
     //--- write, no selection branch. Supporting reads are debug-gated so
     //--- debug-off cost is untouched; the two shift trackers are bare int
@@ -3451,6 +3557,15 @@ struct SSlMemo
    bool            ok;
    double          slRef;
    ENUM_SRJ_SLMODE slMode;
+   //--- [P-SLDEF-6 E41/E43] memoised ext-1 shadow, stamped on COMPUTE from
+   //--- the in-function stash. The HIT path is untouched.
+   int             ex1def;
+   double          ex1px;
+   int             ex1slot;
+   datetime        ex1bt;
+   int             ex1imb;
+   int             ex1deep;
+   string          ex1site;
   };
 //--- File-scope, so zero-initialised: barTime 0, dir DIR_NONE(0), valid false,
 //--- ok false, slRef 0.0, slMode SL_MODE_NONE(0). No explicit initialiser and no
@@ -3491,6 +3606,12 @@ bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR di
    g_slMemo.ok      = memoOk;
    g_slMemo.slRef   = memoOk ? memoV : 0.0;
    g_slMemo.slMode  = memoOk ? memoM : SL_MODE_NONE;
+   //--- [P-SLDEF-6 E41] stamp the memoised shadow (synchronous: the stash
+   //--- holds this COMPUTE's invocation; the HIT path is untouched).
+   g_slMemo.ex1def = g_sl41_def; g_slMemo.ex1px = g_sl41_px;
+   g_slMemo.ex1slot = g_sl41_slot; g_slMemo.ex1bt = g_sl41_bt;
+   g_slMemo.ex1imb = g_sl41_imb; g_slMemo.ex1deep = g_sl41_deep;
+   g_slMemo.ex1site = site;
 
    slRefOut  = g_slMemo.slRef;
    slModeOut = g_slMemo.slMode;
@@ -3503,6 +3624,23 @@ bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR di
                   (int)g_slMemo.slMode, g_slMemo_computes, g_slMemo_hits);
    return memoOk;
   }
+
+//--- [P-SLDEF-6 E43] read-only memo probe for the S5 comparison: HIT iff a
+//--- memoised COMPUTE covers this barTime+dir. Touches no memo state and no
+//--- memo counter; the S5 firing path keeps computing fresh.
+bool SrjMemoProbe(const datetime barT, const ENUM_SRJ_DIR dir,
+                  int &mDef, double &mPx, int &mSlot, datetime &mBt, int &mImb, int &mDeep, string &mSite)
+   {
+    mDef = 0; mPx = 0.0; mSlot = -1; mBt = 0; mImb = -1; mDeep = -1; mSite = "-";
+    if(g_slMemo.valid && g_slMemo.barTime == barT && g_slMemo.dir == dir)
+      {
+       mDef = g_slMemo.ex1def; mPx = g_slMemo.ex1px; mSlot = g_slMemo.ex1slot;
+       mBt = g_slMemo.ex1bt; mImb = g_slMemo.ex1imb; mDeep = g_slMemo.ex1deep;
+       mSite = g_slMemo.ex1site;
+       return true;
+      }
+    return false;
+   }
 
 //====================== Step 7: Divergence latch =====================
 bool UpdateDivergenceLatch(int barShift, ENUM_SRJ_DIR dir, string &kindOut)
@@ -5717,6 +5855,17 @@ void EvaluateClosedBar(int barShift, datetime barTime)
 
       double slRef = 0.0;
       ENUM_SRJ_SLMODE slMode = SL_MODE_NONE;
+      //--- [P-SLDEF-6 E41.2] strict next-open origin handoff for the S5
+      //--- shadow: the RAW open (no close fallback — an unavailable origin
+      //--- halts the row inside the function, never substitutes).
+      if(InpDebugLog)
+        {
+         double sl41_rawOpen = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+         g_sl41_oPx = sl41_rawOpen;
+         g_sl41_oBT = (barShift >= 1) ? iTime(_Symbol, PERIOD_CURRENT, barShift - 1) : 0;
+         g_sl41_oSite = "S5";
+         g_sl41_oStamp = iTime(_Symbol, PERIOD_CURRENT, barShift);
+        }
       if(!ComputeSlReference(barShift, g_dir, slRef, slMode, "S5"))
         {
          if(InpDebugLog)
@@ -5770,6 +5919,43 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          int e35_surv = (e35_def == 1) ? ((e35_r >= InpMinRewardRisk) ? 1 : 0) : -1;
          int e35_obF = slimbr_fresh ? g_slimbr_obCarveF : -1;
          int e35_frF = slimbr_fresh ? g_slimbr_frCarveF : -1;
+         //--- [P-SLDEF-6 E45.3] predicate carve totals at fresh S5 rows
+         //--- (print-only; consequence companions stay g_slimbr_carveOB/FR).
+         if(slimbr_fresh && e35_obF == 1) g_sl45_predOB++;
+         if(slimbr_fresh && e35_frF == 1) g_sl45_predFR++;
+         //--- [P-SLDEF-6 E43] memo-probe comparison at S5: memoised shadow
+         //--- vs this row's fresh ext-1. UNGATED by design — disagreement
+         //--- sizes adoption's blast radius; disagreers named with fields.
+         int sl43_mDef = 0; double sl43_mPx = 0.0; int sl43_mSlot = -1;
+         datetime sl43_mBt = 0; int sl43_mImb = -1; int sl43_mDeep = -1; string sl43_mSite = "-";
+         int sl43_hit = SrjMemoProbe(slimbr_bt, g_dir, sl43_mDef, sl43_mPx, sl43_mSlot, sl43_mBt, sl43_mImb, sl43_mDeep, sl43_mSite) ? 1 : 0;
+         g_sl43_probed++;
+         if(sl43_hit == 1)
+           {
+            g_sl43_hits++;
+            string sl43_mPxS = (sl43_mDef == 1) ? DoubleToString(sl43_mPx, _Digits) : "-";
+            string sl43_ePxS = (e35_def == 1) ? DoubleToString(e35_px, _Digits) : "-";
+            string sl43_mBtS = (sl43_mDef == 1) ? TimeToString(sl43_mBt, TIME_DATE|TIME_MINUTES) : "-";
+            string sl43_eBtS = (e35_def == 1) ? TimeToString(e35_bt, TIME_DATE|TIME_MINUTES) : "-";
+            int sl43_agree = -1; string sl43_diff = "-";
+            if(sl43_mDef == e35_def && sl43_mPxS == sl43_ePxS && sl43_mSlot == e35_slot
+               && sl43_mBtS == sl43_eBtS && sl43_mImb == e35_imb) { sl43_agree = 1; g_sl43_agree++; }
+            else
+              {
+               sl43_agree = 0;
+               sl43_diff = "";
+               if(sl43_mDef != e35_def) sl43_diff += "def ";
+               if(sl43_mPxS != sl43_ePxS) sl43_diff += "px ";
+               if(sl43_mSlot != e35_slot) sl43_diff += "slot ";
+               if(sl43_mBtS != sl43_eBtS) sl43_diff += "bt ";
+               if(sl43_mImb != e35_imb) sl43_diff += "imb ";
+              }
+            string sl43_line = StringFormat("[SRJ-EA] SLEXT43 fields=10 bar=%s dir=%s memoHit=%d memoSite=%s memoExt1=%s freshExt1=%s memoSlot=%d freshSlot=%d agree=%d diffFields=%s",
+                      TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES), DirName(g_dir),
+                      sl43_hit, sl43_mSite, sl43_mPxS, sl43_ePxS, sl43_mSlot, e35_slot, sl43_agree, sl43_diff);
+            LwAudit("SLEXT43", sl43_line);
+            Print(sl43_line);
+           }
          g_slext_barT = slimbr_bt; g_slext_defined = e35_def; g_slext_px = e35_px;
          g_slext_r = e35_r;
          g_slext_rewardPts = slimbr_tpD / _Point;
@@ -6283,6 +6469,27 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                  LwAudit("SLEXT6HALT", eHalt);
                  Print(eHalt);
                 }
+               //--- [P-SLDEF-6 E45.1/E45.2] token-split status row: OFF_LADDER
+               //--- vs EXT_NONE distinct; noneAge only on OFF_LADDER with slot
+               //--- and barTime; VACUOUS_COVER + EXT1_UNCOVERED name the 9/08
+               //--- shape. Print-only; SLEXT1 verdict tokens untouched.
+               string sl45_extS = (e35_def == 1) ? "EXT_DEFINED" : "EXT_NONE";
+               string sl45_todayS = "ON_LADDER";
+               if(ladRungN <= 0) sl45_todayS = "NO_RUNGS";
+               else if(xT == "NONE") sl45_todayS = "OFF_LADDER";
+               int sl45_noneSlot = -1; string sl45_noneT = "-"; int sl45_noneAge = -1;
+               if(sl45_todayS == "OFF_LADDER" && wTodaySlot >= 0)
+                 { sl45_noneSlot = wTodaySlot; sl45_noneT = SlimbShiftT(wTodaySlot); sl45_noneAge = wTodaySlot - barShift; }
+               else if(e35_def == 0 && wTodaySlot >= 0)
+                 { sl45_noneSlot = wTodaySlot; sl45_noneT = SlimbShiftT(wTodaySlot); }
+               string sl45_vacS = (wRowStatus == "VACUOUS_COVER") ? "VACUOUS_COVER" : "-";
+               string sl45_covS = (ladCovers == 1) ? "COVERED" : "EXT1_UNCOVERED";
+               string sl45_line = StringFormat("[SRJ-EA] SLEXT45 fields=10 bar=%s site=S5 dir=%s extStatus=%s todayStatus=%s noneSlot=%d noneT=%s noneAgeBars=%d vacStatus=%s coverStatus=%s ladObligN=%d",
+                         TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
+                         sl45_extS, sl45_todayS, sl45_noneSlot, sl45_noneT, sl45_noneAge,
+                         sl45_vacS, sl45_covS, wCoverN);
+               LwAudit("SLEXT45", sl45_line);
+               Print(sl45_line);
              }
           //--- [P-SLDEF-3 E28] slot-identity correspondence, one line per S5
           //--- row. Correspondence is by SLOT, never by price proximity: a
@@ -6980,7 +7187,7 @@ int OnInit()
    //--- 1.0 is indistinguishable - recorded as compiled_default).
      string frame_note = StringFormat("[SRJ-EA] FRAME_NOTE offset=%d apex=s+%d labels=server-time "
                  "protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) "
-                 "populations=inputVsResultNamed "
+                 "populations=inputVsResultNamed ladObligN=6refs ladCovers=oblig+ext1 "
                  "sigmap=signalTime-s5BarTime-PeriodSeconds "
                  "readwin=ladder:entryBar+span|walkOB:walkStart+500|walkFR:guardStart+500 "
                  "THRESHOLD minRewardRisk=%.2f source=%s",
@@ -7235,6 +7442,20 @@ void OnDeinit(const int reason)
                }
             }
           }
+          //--- [P-SLDEF-6 E43] memo-probe FINAL (ungated): S5 evaluations,
+          //--- probe hits, agreements. The end-of-run SLMEMO_CENSUS carries
+          //--- the memo-wide computes/hits the packet's 118 names.
+          string sl43_fin = StringFormat("[SRJ-EA] SLEXT43_FINAL probed=%d hits=%d agree=%d",
+                      g_sl43_probed, g_sl43_hits, g_sl43_agree);
+          LwAudit("SLEXT43_FINAL", sl43_fin);
+          Print(sl43_fin);
+          //--- [P-SLDEF-6 E45.3] predicate-vs-consequence carve FINAL: the
+          //--- predicate totals beside the consequence companions, the latter
+          //--- labelled PROXY (firing-vs-effect, 6th taxonomy entry).
+          string sl45_carve = StringFormat("[SRJ-EA] SLIMBCARVE_PROXY obPred=%d obConsProxy=%d frPred=%d frConsProxy=%d",
+                      g_sl45_predOB, g_slimbr_carveOB, g_sl45_predFR, g_slimbr_carveFR);
+          LwAudit("SLIMBCARVE_PROXY", sl45_carve);
+          Print(sl45_carve);
           //--- [P-SLDEF-5 E39/gate 11] adoption-cost FINAL: rows named, ungated.
           string eFin = StringFormat("[SRJ-EA] SLEXT_FINAL newSignalCount=%d lostSignalCount=%d newRows=%s lostRows=%s outPos=%d outNeg=%d outZero=%d",
                       g_slext_newN, g_slext_lostN,
