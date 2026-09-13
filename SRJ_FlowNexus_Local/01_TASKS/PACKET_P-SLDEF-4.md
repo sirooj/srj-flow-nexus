@@ -63,6 +63,38 @@ Filed by builder to `SRJ_FlowNexus_Local\01_TASKS\PACKET_P-SLDEF-4.md`.
 
 ---
 
+EXECUTED 2026-09-13 (builder): E31–E34 implemented print-only, MTEXIT 4.
+Build 1 (EE8DCC1F… 383578 B) ran RECON15 (PASSED 0:55:12, archive 17548
+SHA 9A9AE93B…) — SUPERSEDED: beyond-check missed the wCoverN>0 guard, 9/08
+broke after rung 0 on coverT=0.0 (SHORT-only wrong path, blast radius
+exactly 9/08; owned). Build 2 (1EE6FC62… 383844 B, one-line guard) ran
+RECON15b (PASSED 0:54:46, archive 17598 SHA 1BB162E5…, purity 1/4/481):
+all 15 gates gradeable, 15/15 PASS (15:55 covers=1, window 574, base 524
+matched — shortfall closed; ghost rung 19 slot 77; MATCH slots 1/407;
+ORDER 16/16, flip&&PASS=0; DECISION 10/4/24; 22 width classes clean).
+Result + relay filed; NO commit until verdict (RECON14 stays frozen).
+
+---
+
+VERDICT 2026-09-13 (relayed verbatim): RECON15b ACCEPTED. Baseline
+advances to EA 1EE6FC62 (383844 B); local commit cleared. RECON15
+(9A9AE93B) superseded, retained as journal, not a baseline for anything.
+Ask 2 CONFIRMED (10:35 frac-only shape is the rescope working;
+TODAY_OFF=2 = second refutation of pure-count). Ask 3 row-level HALT
+CONFIRMED with constraints (counted/named/UNTESTED; refusal still blocks;
+unexercised = status not pass; SLADWIN unconditional) + new RIDER status
+VACUOUS_COVER with ladObligN (P-SLDEF-5-RIDER, no own run). ORDER recount
+owed off-log (R1: 16 rows / 16 bars / 12 stamped / 4 unstamped — verdict's
+13 appears miscounted; guard held). Flip disagreement resolved by code-read
+(R2: same HTF buffers + want idiom; predicate newness-vs-level + eval bar
+differ; relocation not owed; orderFlipPass scope-annotated in brief, never
+quoted bare). Reports R1–R5 + HANDOFF BRIEF filed (BUILDER_FINDING_
+RECON15b-OFFLOG.md, BUILDER_HANDOFF_BRIEF_SLDEF.md). No build packet
+issued. Next: operator mark-up (barTime+price only); operator ask filed:
+file 1.15847 as E24 level.
+
+---
+
 # Council rulings recorded with this packet (verdict session 2026-09-13)
 
 - RECON14 ACCEPTED; new frozen baseline (EA 2702B7F2 357192 B; journal

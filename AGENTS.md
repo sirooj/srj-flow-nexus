@@ -322,8 +322,46 @@ Masters judge measurements on disk, never prose about them.
    (walkSteps=0); 15:55 = named 31-slot shortfall (E31). "Two-away"
    REFUTED (rung 0 vs 16); mark-up by barTime+price only. Same-bar race
    = entry-side (E33 for exit/news-guard design). 1.15847 open.
-   P-SLDEF-4 ISSUED (E31 rescope+window, E32 decision, E33 order,
-   E34 conventions; print-only).
+    P-SLDEF-4 ISSUED (E31 rescope+window, E32 decision, E33 order,
+    E34 conventions; print-only).
+ 9. P-SLDEF-4 EXECUTED 2026-09-13 (build 1 EE8DCC1F… 383578 B UNCOMMITTED,
+    both compile 0/0, FlowLogic 3606BFB4 unchanged). RECON15 DONE=PASSED
+    10:32:41 (Test passed 0:55:12; wrapper archived itself 17548 lines
+    journal 9A9AE93B…, boundaries [27221..44768]; purity 1/4/481) —
+    SUPERSEDED, defect owned: beyond-check missed the wCoverN>0 guard,
+    9/08 (only SHORT empty-obligation row) broke after rung 0 on
+    coverT=0.0. Build 2 (1EE6FC62… 383844 B, one-line guard) ran
+    RECON15b DONE=PASSED 11:34:09 (Test passed 0:54:46; wrapper archived
+    itself 17598 lines journal 1BB162E5…, boundaries [44769..62366];
+    purity 1/4/481): all 15 gates gradeable, 15/15 PASS — 15:55 covers=1
+    (window 574, deepest 571, base 524 matched resid 0; shortfall CLOSED);
+    10:35 change explained (frac-only obligation → covers at 29 rungs,
+    zero-step OB extreme at 168 take REF_OB_DEEP; pairs 52→50 = −3/+1);
+    ghost rung 19 slot 77 imb 1; MATCH slots 1/407 resid 0; ORDER 16/16
+    bars (6/6/4/0/0, flip&&PASS=0, 15:55 seqBias 279 seqS5 280 anti 2);
+    DECISION 10/4/24 threshold quoted; SIGMAP 4/4; FRAME_NOTE six
+    conventions; 22 width classes clean; eighth inert join zero-mismatch;
+    spot 157/157/443. NO commit; RECON14 stays frozen. Council verdict
+    owed: ACCEPT + baseline advance to 1EE6FC62, or BLOCK. If ACCEPTED,
+    next: HANDOFF BRIEF, then operator mark-up (barTime+price). Harness:
+    `cmd /c start` with splatted argv launches reliably (two quoting
+    traps logged in launch script); builder-side call still hangs after
+    printing (launches proven via STATUS); terminals closed gracefully
+    post-run (3576, 21200).
+10. VERDICT 2026-09-13: RECON15b ACCEPTED (new frozen baseline 1EE6FC62;
+    local commit cleared, NO push). Ask2 CONFIRMED (10:35 frac-only shape
+    = rescope working; TODAY_OFF=2 is the second pure-count refutation).
+    Ask3 row-HALT CONFIRMED with constraints + RIDER status VACUOUS_COVER
+    with ladObligN (P-SLDEF-5-RIDER, no own run). ORDER recount R1: 16
+    rows / 16 bars / 12 stamped / 4 unstamped (verdict's 13 miscounted;
+    guard held). Flip disagreement R2 by code-read: same HTF buffers +
+    want idiom; predicate (newness vs level) + eval bar differ;
+    relocation not owed; orderFlipPass scope-annotated in brief. R3 9/08
+    walkSteps=0 closed. R4 matched-R 2.56/2.56. R5 RECON15 9/08 exhibit
+    (covers=1 on 1 rung) sizes VACUOUS_COVER. HANDOFF BRIEF filed (6
+    items + scope note); operator asks: file 1.15847, mark-up by
+    barTime+price, wick ruling, flats read. No build packet issued.
+    Next: operator mark-up; snapshot below.
 5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
    journal correction): journal "swings" = FRACTAL swings (triangle
    markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used
