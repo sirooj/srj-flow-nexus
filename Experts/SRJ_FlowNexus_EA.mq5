@@ -1036,6 +1036,26 @@ string           g_slimbr_frBodyS    = "-";
 int              g_slimbr_frBodyThru = -1;
 int              g_slimbr_carveOB = 0;
 int              g_slimbr_carveFR = 0;
+//--- [P-SLDEF-5 E36] carve-fired booleans from the predicate itself, per
+//--- limb (-1 = walk did not run). Same hard boundary as the SLIMBR shadows.
+int              g_slimbr_obCarveF = -1;
+int              g_slimbr_frCarveF = -1;
+//--- [P-SLDEF-5 E35/E39] ext-1 shadow store: stamped at the S5 SLIMBR site
+//--- (the only site with a live entry price), read at the RR_FAIL/PASS sites
+//--- of the same invocation. Bar-time guarded; never a selection input.
+datetime         g_slext_barT = 0;
+int              g_slext_defined = 0;
+double           g_slext_px = 0.0;
+double           g_slext_r = 0.0;
+double           g_slext_rewardPts = 0.0;
+double           g_slext_riskPts = 0.0;
+string           g_slext_todayXi = "-";
+//--- [P-SLDEF-5 E39/gate 11] adoption-cost tallies (print-only).
+int              g_slext_newN = 0;
+int              g_slext_lostN = 0;
+string           g_slext_newRows = "";
+string           g_slext_lostRows = "";
+int              g_slext_outP = 0, g_slext_outN = 0, g_slext_outZ = 0;
 //--- [P-SLDEF-2 E23] ladder-anchor shadows: stamped by SlimbWalkEmit beside
 //--- the carve operands whenever the haveToday walk runs (raw + post-guard
 //--- fractal anchor + guard flag), read once per S5 invocation for the
@@ -2551,6 +2571,30 @@ int SlimbCorrResid(const int refSlot, const double refV, const int &shifts[], co
     return -999;
    }
 
+//--- [P-SLDEF-5 E35] extremity-index lookup: rungExt of the ladder rung at
+//--- the reference's own slot; -1 (printed NONE) when no rung sits at that
+//--- slot. Slot identity, never price proximity (E28 doctrine).
+int SrjExtIndexOf(const int refSlot, const int &shifts[], const int &exts[], const int n)
+   {
+    if(refSlot < 0) return -1;
+    for(int i = 0; i < n; i++)
+       if(shifts[i] == refSlot) return exts[i];
+    return -1;
+   }
+
+//--- [P-SLDEF-5 E37] filed operator levels with provenance (RESCOPE Ruling
+//--- 2: three HAND-confirmed/corroborated, one INFERRED). Keyed by S5 eval
+//--- barTime — the only key unique across the two 09.07 rows. No CODE row
+//--- exists here: CODE is refused as an operator level by construction.
+bool SrjFiledLevel(const string barT, double &px, string &prov, string &filedT)
+   {
+    if(barT == "2026.08.28 10:00") { px = 1.16508; prov = "INFERRED"; filedT = "-"; return true; }
+    if(barT == "2026.09.04 15:55") { px = 1.15847; prov = "HAND"; filedT = "-"; return true; }
+    if(barT == "2026.09.07 09:15") { px = 1.16098; prov = "HAND"; filedT = "-"; return true; }
+    if(barT == "2026.09.07 16:40") { px = 1.16239; prov = "HAND"; filedT = "2026.09.07 16:15"; return true; }
+    return false;
+   }
+
 //--- histogram feed for one slot-matched pair. No-op unless matched.
 void SlimbCorrHist(const string barT, const string ref, const bool found, const int resid, const int rungSlot, const int refSlot)
    {
@@ -2576,6 +2620,50 @@ int SrjRefIsRung(const int refSlot, const int swingBuf)
     if(!ReadFlow(swingBuf, rv, refSlot)) return 0;
     if(rv == EMPTY_VALUE || rv <= 0.0) return 0;
     return 1;
+   }
+
+//--- [P-SLDEF-5 E35] ext-1 shadow resolver. Walks the protective-side swing
+//--- buffer outward from the entry bar with the ladder's own idiom (same
+//--- buffer, same scan order, same 1-point extremity idiom, same protective
+//--- test vs the row's live entry) and returns the rung at rungExt == 1 —
+//--- anchor-free, no imbalance term, no carve-out. Print-only; selection,
+//--- reference and verdict never read the outs. A standalone walk (not the
+//--- ladder loop) because SLIMBR prints before the ladder enumerates;
+//--- determinism of buffer reads makes the two agree rung-for-rung. The
+//--- packet names ComputeSlReference as the site; the shadow sits here
+//--- instead because that function is selection-frozen — gate 5's intent
+//--- (resolved on every S5 invocation) is met at the S5 SLIMBR site.
+void SrjResolveExt1(const int entryShift, const ENUM_SRJ_DIR dir, const double entryPx,
+                    int &hasX1, double &px, int &slot, datetime &bt, int &imb, int &deepest)
+   {
+    hasX1 = 0; px = 0.0; slot = -1; bt = 0; imb = -1; deepest = -1;
+    int swBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+    int imBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB;
+    double best = 0.0; int extN = 0; int rungs = 0;
+    for(int s = entryShift; s <= entryShift + SRJ_LAD_ABS_SLOT_CAP; s++)
+      {
+       double v = 0.0;
+       if(!ReadFlow(swBuf, v, s)) break;
+       if(v == EMPTY_VALUE || v <= 0.0) continue;
+       if(!SlimbProtectiveSideOk(dir, v, entryPx)) continue;
+       int ext = -1;
+       if(rungs == 0) { ext = 0; best = v; extN = 1; }
+       else
+         {
+          bool more = (dir == DIR_LONG) ? (v < best - _Point) : (v > best + _Point);
+          if(more) { ext = extN; extN++; best = v; }
+         }
+       if(ext > deepest) deepest = ext;
+       if(ext == 1 && hasX1 == 0)
+         {
+          hasX1 = 1; px = v; slot = s;
+          bt = iTime(_Symbol, PERIOD_CURRENT, ApexShift(s));
+          double f = 0.0; imb = -1;
+          if(ReadFlow(imBuf, f, s) && f != EMPTY_VALUE) imb = (int)f;
+         }
+       rungs++;
+       if(rungs >= 512) break;
+      }
    }
 
 //--- [P-SLDEF-4 E33] ORDER census: one line per bar on which the S5 gate is
@@ -2617,9 +2705,16 @@ void SrjOrderEmit(const int barShift, const string outcome)
       }
     int oFlip = (oAntiNow >= 2 && oAntiPrev >= 0 && oAntiPrev < 2) ? 1 : 0;
     if(oFlip == 1 && outcome == "PASS") g_order_flipPassN++;
-    string oLine = StringFormat("[SRJ-EA] ORDER fields=7 bar=%d barTime=%s seqBias=%d seqS5=%d biasAtGate=%d flipDetectedThisBar=%d gateOutcome=%s",
+    //--- [P-SLDEF-5 E40] renames: flipNewThisBar (same newness predicate),
+    //--- biasOpposedAtGate (state boolean beside the anti count; -1 unreadable
+    //--- passes through). [P-SLDEF-5 E38] SEQ_UNSTAMPED naming: the bias site
+    //--- did not run for this bar (S4→S5 cause); R1's 4 unstamped rows.
+    int oOpp = (oAntiNow < 0) ? -1 : ((oAntiNow >= 2) ? 1 : 0);
+    string oStamp = (oSeqB < 0) ? "SEQ_UNSTAMPED" : "STAMPED";
+    string oCause = (oSeqB < 0) ? "S4S5_NOBIAS" : "-";
+    string oLine = StringFormat("[SRJ-EA] ORDER fields=10 bar=%d barTime=%s seqBias=%d seqS5=%d biasAtGate=%d biasOpposedAtGate=%d flipNewThisBar=%d gateOutcome=%s seqStamp=%s seqCause=%s",
               barShift, TimeToString(obt, TIME_DATE|TIME_MINUTES),
-              oSeqB, oSeqS5, oAntiNow, oFlip, outcome);
+              oSeqB, oSeqS5, oAntiNow, oOpp, oFlip, outcome, oStamp, oCause);
     LwAudit("ORDER", oLine);
     Print(oLine);
    }
@@ -2676,6 +2771,7 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
     double fRetV = 0.0, fSkipVd = 0.0;
     int fSkipF = -1, fBodyThru = -1;
     string fBody = "-";
+    int fCarveF = -1;
    if(haveToday && startShift >= 0)
      {
       int swingBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
@@ -2743,6 +2839,7 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
             fBaseV = fr.baseV; fNuanceV = fr.nuanceV; fHaveVals = fr.haveVals;
              fRetV = fr.retV; fSkipVd = fr.skipV; fSkipF = fr.skipF;
              fBody = fr.bodyS; fBodyThru = fr.bodyThru; fSkipS = fr.skipS;
+             fCarveF = fr.carve;
              fBaseS = fr.baseS; fNuanceS = fr.nuanceS;
             fOutB = (int)MathRound(((dir == DIR_LONG) ? -(fr.baseV - todayV) : (fr.baseV - todayV)) / _Point);
             fOutN = (int)MathRound(((dir == DIR_LONG) ? -(fr.nuanceV - todayV) : (fr.nuanceV - todayV)) / _Point);
@@ -2794,6 +2891,9 @@ void SlimbWalkEmit(const int barShift, const string site, const ENUM_SRJ_DIR dir
        //--- [P-SLDEF-4 E31] walk-step shadows for refWalkSteps.
        g_slimbr_obSteps = tSteps;
        g_slimbr_frSteps = fSteps;
+       //--- [P-SLDEF-5 E36] carve-fired booleans from the predicate itself.
+       g_slimbr_obCarveF = ob.carve;
+       g_slimbr_frCarveF = fCarveF;
       }
    //--- [P-SLDEF-1b E15] the split: SLIMBWALK carries the OB limb only
    //--- (class= retained as the join key; sideViolations OB-scoped by
@@ -5660,11 +5760,25 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          double slimbr_rN = (slimbr_riskN > 0.0 ? slimbr_tpD / slimbr_riskN : 0.0);
          double slimbr_rFB = (slimbr_riskFB > 0.0 ? slimbr_tpD / slimbr_riskFB : 0.0);
          double slimbr_rFN = (slimbr_riskFN > 0.0 ? slimbr_tpD / slimbr_riskFN : 0.0);
+         //--- [P-SLDEF-5 E35/E37] ext-1 shadow + carve booleans for the
+         //--- six-reference SLIMBR. Print-only; slRef/slMode untouched.
+         int e35_def = 0; double e35_px = 0.0; int e35_slot = -1;
+         datetime e35_bt = 0; int e35_imb = -1; int e35_deep = -1;
+         SrjResolveExt1(barShift, g_dir, currentPrice, e35_def, e35_px, e35_slot, e35_bt, e35_imb, e35_deep);
+         double e35_risk = (e35_def == 1) ? MathAbs(currentPrice - e35_px) : 0.0;
+         double e35_r = (e35_risk > 0.0 ? slimbr_tpD / e35_risk : 0.0);
+         int e35_surv = (e35_def == 1) ? ((e35_r >= InpMinRewardRisk) ? 1 : 0) : -1;
+         int e35_obF = slimbr_fresh ? g_slimbr_obCarveF : -1;
+         int e35_frF = slimbr_fresh ? g_slimbr_frCarveF : -1;
+         g_slext_barT = slimbr_bt; g_slext_defined = e35_def; g_slext_px = e35_px;
+         g_slext_r = e35_r;
+         g_slext_rewardPts = slimbr_tpD / _Point;
+         g_slext_riskPts = e35_risk / _Point;
          int slimbr_dB = (slimbr_fresh ? (int)MathRound((slimbr_b - slRef) / _Point) : 0);
          int slimbr_dN = (slimbr_fresh ? (int)MathRound((slimbr_n - slRef) / _Point) : 0);
          int slimbr_dFB = (slimbr_fresh ? (int)MathRound((slimbr_fb - slRef) / _Point) : 0);
          int slimbr_dFN = (slimbr_fresh ? (int)MathRound((slimbr_fn - slRef) / _Point) : 0);
-         string slimbr_line = StringFormat("[SRJ-EA] SLIMBR bar=%s dir=%s entry=%s tp=%s slToday=%s rToday=%.2f dTodayPts=0 slBase=%s rBase=%.2f dBasePts=%d slNuance=%s rNuance=%.2f dNuancePts=%d slFractal=%s rFractal=%.2f dFracPts=%d slFractalNuance=%s rFractalNuance=%.2f dFracNuancePts=%d class=%s fracClass=%s",
+         string slimbr_line = StringFormat("[SRJ-EA] SLIMBR bar=%s dir=%s entry=%s tp=%s slToday=%s rToday=%.2f dTodayPts=0 slBase=%s rBase=%.2f dBasePts=%d slNuance=%s rNuance=%.2f dNuancePts=%d slFractal=%s rFractal=%.2f dFracPts=%d slFractalNuance=%s rFractalNuance=%.2f dFracNuancePts=%d class=%s fracClass=%s slExt1=%s rExt1=%.2f survExt1=%d obCarveFired=%d frCarveFired=%d",
                      TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES),
                      DirName(g_dir),
                      DoubleToString(currentPrice, _Digits),
@@ -5683,7 +5797,9 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      DoubleToString(slimbr_fn, _Digits),
                      slimbr_rFN,
                      slimbr_dFN,
-                     slimbr_c, slimbr_fc);
+                     slimbr_c, slimbr_fc,
+                     (e35_def == 1) ? DoubleToString(e35_px, _Digits) : "-",
+                     e35_r, e35_surv, e35_obF, e35_frF);
           LwAudit("SLIMBR", slimbr_line);
           Print(slimbr_line);
           //--- [P-SLDEF-3 E30] S5 eval-bar stamp for the SIGMAP pairing.
@@ -5739,10 +5855,10 @@ void EvaluateClosedBar(int barShift, datetime barTime)
             string slimbr_margin = "";
             if(slimbr_minSurv <= InpMinRewardRisk + 0.10)
                slimbr_margin = " NOTE=MARGIN_ROW";
-             g_slimbr_decision += StringFormat("bar=%s dir=%s entry=%s tp=%s today=%.2f base=%.2f nuance=%.2f fractal=%.2f fractalNuance=%.2f class=%s fracClass=%s%s",
+             g_slimbr_decision += StringFormat("bar=%s dir=%s entry=%s tp=%s today=%.2f base=%.2f nuance=%.2f fractal=%.2f fractalNuance=%.2f ext1=%.2f survExt1=%d class=%s fracClass=%s%s",
                       TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES), DirName(g_dir),
                       DoubleToString(currentPrice, _Digits), DoubleToString(tpTarget, _Digits),
-                      slimbr_rT, slimbr_rB, slimbr_rN, slimbr_rFB, slimbr_rFN,
+                      slimbr_rT, slimbr_rB, slimbr_rN, slimbr_rFB, slimbr_rFN, e35_r, e35_surv,
                       slimbr_c, slimbr_fc, slimbr_margin) + "\n";
              g_slimbr_decisionN++;
             }
@@ -5891,11 +6007,16 @@ void EvaluateClosedBar(int barShift, datetime barTime)
            if(wObF == 1) { wCoverV[wCoverN] = g_slimbr_fracBase; wCoverN++; }
            if(wObFN == 1) { wCoverV[wCoverN] = g_slimbr_fracNuance; wCoverN++; }
            if(wObA == 1) { wCoverV[wCoverN] = g_slimbr_frRetV; wCoverN++; }
+           //--- [P-SLDEF-5 E35/gate 9] ext1 joins the cover target (obligated
+           //--- by construction when defined); ladObligN counts the six walk
+           //--- refs (rider sense), so an empty six-set still names VACUOUS.
+           int wCoverX1 = (e35_def == 1) ? 1 : 0;
+           int wCoverTot = wCoverN + wCoverX1;
            double ladCoverT = 0.0;
-           if(wCoverN > 0)
+           if(wCoverTot > 0)
              {
-              ladCoverT = wCoverV[0];
-              for(int wci = 1; wci < wCoverN; wci++)
+              ladCoverT = (wCoverX1 == 1) ? e35_px : wCoverV[0];
+              for(int wci = 0; wci < wCoverN; wci++)
                  {
                   if(g_dir == DIR_LONG) { if(wCoverV[wci] < ladCoverT) ladCoverT = wCoverV[wci]; }
                   else { if(wCoverV[wci] > ladCoverT) ladCoverT = wCoverV[wci]; }
@@ -5903,7 +6024,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
              }
           double ladRungPx[512]; int ladRungSlot[512]; int ladRungExt[512]; datetime ladRungBT[512]; int ladRungShift[512];
           int ladRungN = 0;
-           int ladCovered = (wCoverN == 0) ? 1 : 0, ladCapHit = 0;
+           int ladCovered = (wCoverTot == 0) ? 1 : 0, ladCapHit = 0;
           int ladS = barShift;
           double ladBest = 0.0; int ladExtN = 0;
           double ladPrevWick = 0.0, ladPrevBody = 0.0;
@@ -5955,6 +6076,15 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                        ladImb, ladExc, ladDist, ladR, ladIsOB, ladIsAnchor, ladIsToday, ladFresh);
               LwAudit("SLADDER", ladLine);
               Print(ladLine);
+              //--- [P-SLDEF-5 E38] mark-up table as its own audited class:
+              //--- every ladder rung in mark-up columns (evidence, not an ask).
+              string ladMark = StringFormat("[SRJ-EA] SLADMARK fields=11 bar=%s site=S5 dir=%s rung=%d slot=%d rungExt=%d barTime=%s px=%s imbCode=%d distPts=%d rungR=%.2f",
+                       TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
+                       ladRungN, ladS - barShift, ladExt,
+                       TimeToString(ladBt, TIME_DATE|TIME_MINUTES),
+                       DoubleToString(ladV, _Digits), ladImb, ladDist, ladR);
+              LwAudit("SLADMARK", ladMark);
+              Print(ladMark);
               //--- [P-SLDEF-4 E32] decision capture (labels only): slot-order
               //--- rungs 0..2 plus the first rung at each ext 0..2.
               if(ladDecIdx >= 0)
@@ -5996,7 +6126,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
               //--- window (no target, no break). Stale shadows cannot prove
               //--- coverage. [P-SLDEF-4 E31 defect fix 2026-09-13: the guard
               //--- overlooked RECON15-9/08 broke on ladCoverT=0.0.]
-              if(slimbr_fresh && wCoverN > 0 && wRowOk == 1)
+              if(slimbr_fresh && wCoverTot > 0 && wRowOk == 1)
                {
                 bool ladBeyond = (g_dir == DIR_LONG) ? (ladV < ladCoverT - _Point)
                                                      : (ladV > ladCoverT + _Point);
@@ -6009,6 +6139,9 @@ void EvaluateClosedBar(int barShift, datetime barTime)
            int ladCovers = (slimbr_fresh && ladCovered == 1 && wRowOk == 1) ? 1 : 0;
            int ladDeepest = (ladRungN > 0) ? ladRungSlot[ladRungN - 1] : -1;
            if(wLimitHit == 1 && wRowStatus == "OK") wRowStatus = "UNCOVERED_READ_LIMIT";
+           //--- [P-SLDEF-5 E38/gate 9] empty six-set names VACUOUS_COVER (the
+           //--- row still covers against ext1; the name scopes the claim).
+           if(slimbr_fresh && wCoverN == 0 && wRowStatus == "OK") wRowStatus = "VACUOUS_COVER";
            //--- [P-SLDEF-4 E32] decision-row levels known post-loop.
            if(ladDecIdx >= 0)
              {
@@ -6088,6 +6221,69 @@ void EvaluateClosedBar(int barShift, datetime barTime)
               LwAudit("SLADDER_MATCH", ladMatch);
               Print(ladMatch);
              }
+           //--- [P-SLDEF-5 E35/E37/E39/E40] ext-1 shadow line: six-reference
+           //--- extremity indices, filed level + provenance, residual AND bar
+           //--- difference, four-token verdict, full-precision operands, and
+           //--- the NONE-row OB-extreme witness. Print-only grading surface.
+           if(wRowOk == 1)
+             {
+              int xiT = SrjExtIndexOf(wTodaySlot, ladRungShift, ladRungExt, ladRungN);
+              int xiB = SrjExtIndexOf(wBaseSlot, ladRungShift, ladRungExt, ladRungN);
+              int xiN = SrjExtIndexOf(wNuanceSlot, ladRungShift, ladRungExt, ladRungN);
+              int xiF = SrjExtIndexOf(wFracSlot, ladRungShift, ladRungExt, ladRungN);
+              int xiFN = SrjExtIndexOf(wFracNuSlot, ladRungShift, ladRungExt, ladRungN);
+              int xiA = SrjExtIndexOf(wAnchorSlot, ladRungShift, ladRungExt, ladRungN);
+              string xT = (xiT < 0) ? "NONE" : IntegerToString(xiT);
+              string xB = (xiB < 0) ? "NONE" : IntegerToString(xiB);
+              string xN = (xiN < 0) ? "NONE" : IntegerToString(xiN);
+              string xF = (xiF < 0) ? "NONE" : IntegerToString(xiF);
+              string xFN = (xiFN < 0) ? "NONE" : IntegerToString(xiFN);
+              string xA = (xiA < 0) ? "NONE" : IntegerToString(xiA);
+              g_slext_todayXi = xT;
+              double fPx = 0.0; string fProv = "-"; string fT = "-";
+              bool fHave = SrjFiledLevel(TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), fPx, fProv, fT);
+              int eResid = 0; int eBarDiff = -999; string eVerd = "NOLEVEL";
+              if(e35_def == 0) eVerd = "UNDEFINED";
+              else if(fHave)
+                {
+                 eResid = (int)MathRound((e35_px - fPx) / _Point);
+                 if(fT != "-") eBarDiff = (int)((e35_bt - StringToTime(fT)) / 300);
+                 if(fProv == "INFERRED") eVerd = (MathAbs(eResid) <= 1) ? "PROVISIONAL_MATCH" : "MISS";
+                 else eVerd = (eResid == 0) ? "MATCH" : ((MathAbs(eResid) <= 1) ? "ABSORBED" : "MISS");
+                }
+              int eNoneSlot = -1; string eNoneT = "-"; int eNoneAge = -1;
+              //--- positive-aging: slots older than the entry bar are larger
+              //--- (REF_OB_DEEP slotDist convention).
+              if(xT == "NONE" && wTodaySlot >= 0)
+                { eNoneSlot = wTodaySlot; eNoneT = SlimbShiftT(wTodaySlot); eNoneAge = wTodaySlot - barShift; }
+              double eTodayRisk = MathAbs(currentPrice - slRef);
+              double eRewardPts = slimbr_tpD / _Point;
+              double eRiskPts = eTodayRisk / _Point;
+              int eOut = (int)MathRound(((g_dir == DIR_LONG) ? -(e35_px - slRef) : (e35_px - slRef)) / _Point);
+              if(e35_def == 1)
+                { if(eOut > 0) g_slext_outP++; else if(eOut < 0) g_slext_outN++; else g_slext_outZ++; }
+              string eLine = StringFormat("[SRJ-EA] SLEXT1 fields=29 bar=%s site=S5 dir=%s ext1Defined=%d slExt1=%s ext1Slot=%d ext1BarTime=%s ext1Imb=%d deltaExt1Pts=%d outwardExt1Pts=%d deepestExt=%d todayXi=%s baseXi=%s nuanceXi=%s fracXi=%s fracNuXi=%s anchorXi=%s filedPx=%s filedProv=%s filedT=%s residPts=%d barDiffBars=%d verdict=%s noneSlot=%d noneT=%s noneAgeBars=%d rewardPts=%.5f riskPts=%.5f ext1RewardPts=%.5f ext1RiskPts=%.5f",
+                       TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
+                       e35_def, (e35_def == 1) ? DoubleToString(e35_px, _Digits) : "-",
+                       e35_slot, (e35_def == 1) ? TimeToString(e35_bt, TIME_DATE|TIME_MINUTES) : "-",
+                       e35_imb, (e35_def == 1) ? (int)MathRound((e35_px - slRef) / _Point) : 0,
+                       (e35_def == 1) ? eOut : 0, e35_deep,
+                       xT, xB, xN, xF, xFN, xA,
+                       fHave ? DoubleToString(fPx, _Digits) : "-", fHave ? fProv : "-", fHave ? fT : "-",
+                       eResid, eBarDiff, eVerd,
+                       eNoneSlot, eNoneT, eNoneAge,
+                       eRewardPts, eRiskPts, g_slext_rewardPts, g_slext_riskPts);
+              LwAudit("SLEXT1", eLine);
+              Print(eLine);
+              if(eVerd == "MISS")
+                {
+                 string eHalt = StringFormat("[SRJ-EA] SLEXT6HALT bar=%s dir=%s filedPx=%s filedProv=%s slExt1=%s residPts=%d",
+                           TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
+                           DoubleToString(fPx, _Digits), fProv, DoubleToString(e35_px, _Digits), eResid);
+                 LwAudit("SLEXT6HALT", eHalt);
+                 Print(eHalt);
+                }
+             }
           //--- [P-SLDEF-3 E28] slot-identity correspondence, one line per S5
           //--- row. Correspondence is by SLOT, never by price proximity: a
           //--- rung at the reference's own originating slot, price residual
@@ -6155,11 +6351,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
            //--- (the row's guaranteed line: HALT rows print only this, with
            //--- the offending witness values + haltRef/haltSlot naming the
            //--- halt). Measured pre-write like every shadow line.
-           string winLine = StringFormat("[SRJ-EA] SLADWIN fields=27 bar=%s site=S5 dir=%s status=%s todayIsRung=%d baseIsRung=%d nuanceIsRung=%d fracIsRung=%d fracNuIsRung=%d anchorIsRung=%d todaySteps=%d baseSteps=%d nuanceSteps=%d fracSteps=%d fracNuSteps=%d anchorSteps=%d ladWindowStart=%d ladWindowSpan=%d ladReadLimit=%d ladLimitHit=%d ladCovers=%d ladRungs=%d ladDeepestSlot=%d walkWinOB=%d+%d walkWinFR=%d+%d haltRef=%s haltSlot=%d",
+           string winLine = StringFormat("[SRJ-EA] SLADWIN fields=28 bar=%s site=S5 dir=%s status=%s todayIsRung=%d baseIsRung=%d nuanceIsRung=%d fracIsRung=%d fracNuIsRung=%d anchorIsRung=%d todaySteps=%d baseSteps=%d nuanceSteps=%d fracSteps=%d fracNuSteps=%d anchorSteps=%d ladWindowStart=%d ladWindowSpan=%d ladReadLimit=%d ladLimitHit=%d ladCovers=%d ladObligN=%d ladRungs=%d ladDeepestSlot=%d walkWinOB=%d+%d walkWinFR=%d+%d haltRef=%s haltSlot=%d",
                      corrBarT, DirName(g_dir), wRowStatus,
                      wTodayIsRung, wBaseIsRung, wNuanceIsRung, wFracIsRung, wFracNuIsRung, wAnchorIsRung,
                      wTodaySteps, wBaseSteps, wNuanceSteps, wFracSteps, wFracNuSteps, wAnchorSteps,
-                     barShift, wNeed, wLimit, wLimitHit, ladCovers, ladRungN, ladDeepest,
+                     barShift, wNeed, wLimit, wLimitHit, ladCovers, wCoverN, ladRungN, ladDeepest,
                      wWalkOB0, 500, wWalkFR0, 500, wHaltName, wHaltSlot);
            LwAudit("SLADWIN", winLine);
            Print(winLine);
@@ -6232,6 +6428,22 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                          g_latchedR);
           //--- [P-SLDEF-4 E33] the decided outcome rides the census.
           SrjOrderEmit(barShift, "RR_FAIL");
+          //--- [P-SLDEF-5 E39] non-firing cost: today's R, today's ext
+          //--- index, ext-1 R, full-precision operands, would-fire verdict.
+          //--- Print-only; the abort below is untouched.
+          if(g_slext_barT == iTime(_Symbol, PERIOD_CURRENT, barShift) && g_slext_defined == 1)
+            {
+             int nfWould = (g_slext_r >= InpMinRewardRisk) ? 1 : 0;
+             if(nfWould == 1)
+               { g_slext_newN++; g_slext_newRows += TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES) + ";"; }
+             string nfLine = StringFormat("[SRJ-EA] SLNONFIRE fields=11 bar=%s dir=%s outcome=RR_FAIL todayR=%.2f todayXi=%s ext1R=%.2f rewardPts=%.5f riskPts=%.5f ext1RewardPts=%.5f ext1RiskPts=%.5f wouldFire=%d",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                       DirName(g_dir), (slDist > 0.0 ? tpDist / slDist : 0.0), g_slext_todayXi,
+                       g_slext_r, tpDist / _Point, slDist / _Point,
+                       g_slext_rewardPts, g_slext_riskPts, nfWould);
+             LwAudit("SLNONFIRE", nfLine);
+             Print(nfLine);
+            }
           GoAbort(ABORT_TP_RR_FAIL, g_state);
           return;
         }
@@ -6250,6 +6462,24 @@ void EvaluateClosedBar(int barShift, datetime barTime)
        datetime ordFireT = iTime(_Symbol, PERIOD_CURRENT, barShift);
        for(int ordF = 0; ordF < g_dec_n; ordF++)
           if(g_dec_barT[ordF] == ordFireT) g_dec_fired[ordF] = 1;
+       //--- [P-SLDEF-5 E39/gate 11] lost-signal check: a firing row whose
+       //--- ext-1 R misses the threshold would be lost under the candidate.
+       //--- Expected zero lines; any line is reported, not absorbed.
+       if(g_slext_barT == ordFireT && g_slext_defined == 1)
+         {
+          double psRisk = MathAbs(currentPrice - g_slext_px);
+          double psR = (psRisk > 0.0 ? MathAbs(tpTarget - currentPrice) / psRisk : 0.0);
+          if(psR < InpMinRewardRisk)
+            {
+             g_slext_lostN++;
+             g_slext_lostRows += TimeToString(ordFireT, TIME_DATE|TIME_MINUTES) + ";";
+             string psLine = StringFormat("[SRJ-EA] SLEXTLOST fields=6 bar=%s dir=%s ext1R=%.2f ext1RewardPts=%.5f ext1RiskPts=%.5f threshold=%.2f",
+                       TimeToString(ordFireT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
+                       psR, g_slext_rewardPts, g_slext_riskPts, InpMinRewardRisk);
+             LwAudit("SLEXTLOST", psLine);
+             Print(psLine);
+            }
+         }
        LogSignal(tpTarget, tpR, slRef, slMode, divKind);
 
       if(!g_alertedSignal)
@@ -6952,13 +7182,19 @@ void OnDeinit(const int reason)
        int decFiredN = 0;
        for(int decC = 0; decC < g_dec_n; decC++)
           if(g_dec_fired[decC] == 1) decFiredN++;
-       PrintFormat("[SRJ-EA] SLADDER_DECISION rows=%d fired=%d threshold=%.2f thresholdSource=%s orderFlipPass=%d",
+       //--- [P-SLDEF-5 E38] orderFlipPass scope-annotated at the emitter:
+       //--- the count is S5-gate narrow (R2 code-read; relocation not owed).
+       //--- [P-SLDEF-5 E38] the three DECISION classes registered in LwAudit
+       //--- (byte-identical strings; gate 10 covers them).
+       string decH = StringFormat("[SRJ-EA] SLADDER_DECISION rows=%d fired=%d threshold=%.2f thresholdSource=%s orderFlipPass=%d orderFlipScope=NARROW",
                    g_dec_n, decFiredN, InpMinRewardRisk,
                    ((InpMinRewardRisk == 1.0) ? "compiled_default" : "ini"),
                    g_order_flipPassN);
+       LwAudit("SLADDER_DECISION", decH);
+       Print(decH);
        for(int decR = 0; decR < g_dec_n; decR++)
          {
-          PrintFormat("[SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=%s site=S5 dir=%s fired=%d ladCovers=%d ladRungs=%d level=%s levelStatus=%s levelRung=%d levelSlot=%d levelT=%s levelResidPts=%d levelPx=%s levelR=%.2f",
+          string decRow = StringFormat("[SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=%s site=S5 dir=%s fired=%d ladCovers=%d ladRungs=%d level=%s levelStatus=%s levelRung=%d levelSlot=%d levelT=%s levelResidPts=%d levelPx=%s levelR=%.2f",
                       TimeToString(g_dec_barT[decR], TIME_DATE|TIME_MINUTES),
                       (g_dec_dir[decR] == 1) ? "LONG" : "SHORT",
                       g_dec_fired[decR], g_dec_covers[decR], g_dec_rungs[decR],
@@ -6967,10 +7203,13 @@ void OnDeinit(const int reason)
                       g_dec_mResid[decR],
                       (g_dec_mRung[decR] >= 0) ? DoubleToString(g_dec_mPx[decR], _Digits) : "-",
                       g_dec_mR[decR]);
+          LwAudit("SLADDER_DECISION_ROW", decRow);
+          Print(decRow);
           if(g_dec_fired[decR] == 1)
             {
              for(int decK = 0; decK < g_dec_sHave[decR]; decK++)
-                PrintFormat("[SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=%s site=S5 kind=SLOT rung=%d slot=%d rungExt=%d barTime=%s px=%s wick=%s body=%s imbCode=%d distPts=%d rungR=%.2f",
+               {
+                string decRS = StringFormat("[SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=%s site=S5 kind=SLOT rung=%d slot=%d rungExt=%d barTime=%s px=%s wick=%s body=%s imbCode=%d distPts=%d rungR=%.2f",
                             TimeToString(g_dec_barT[decR], TIME_DATE|TIME_MINUTES),
                             decK, g_dec_sSlot[decR][decK], g_dec_sExt[decR][decK],
                             TimeToString(g_dec_sBT[decR][decK], TIME_DATE|TIME_MINUTES),
@@ -6978,8 +7217,12 @@ void OnDeinit(const int reason)
                             DoubleToString(g_dec_sWick[decR][decK], _Digits),
                             DoubleToString(g_dec_sBody[decR][decK], _Digits),
                             g_dec_sImb[decR][decK], g_dec_sDist[decR][decK], g_dec_sR[decR][decK]);
+                LwAudit("SLADDER_DECISION_RUNG", decRS);
+                Print(decRS);
+               }
              for(int decK = 0; decK < g_dec_eHave[decR]; decK++)
-                PrintFormat("[SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=%s site=S5 kind=EXT rung=%d slot=%d rungExt=%d barTime=%s px=%s wick=%s body=%s imbCode=%d distPts=%d rungR=%.2f",
+               {
+                string decRE = StringFormat("[SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=%s site=S5 kind=EXT rung=%d slot=%d rungExt=%d barTime=%s px=%s wick=%s body=%s imbCode=%d distPts=%d rungR=%.2f",
                             TimeToString(g_dec_barT[decR], TIME_DATE|TIME_MINUTES),
                             decK, g_dec_eSlot[decR][decK], g_dec_eExt[decR][decK],
                             TimeToString(g_dec_eBT[decR][decK], TIME_DATE|TIME_MINUTES),
@@ -6987,9 +7230,20 @@ void OnDeinit(const int reason)
                             DoubleToString(g_dec_eWick[decR][decK], _Digits),
                             DoubleToString(g_dec_eBody[decR][decK], _Digits),
                             g_dec_eImb[decR][decK], g_dec_eDist[decR][decK], g_dec_eR[decR][decK]);
+                LwAudit("SLADDER_DECISION_RUNG", decRE);
+                Print(decRE);
+               }
             }
-         }
-      }
+          }
+          //--- [P-SLDEF-5 E39/gate 11] adoption-cost FINAL: rows named, ungated.
+          string eFin = StringFormat("[SRJ-EA] SLEXT_FINAL newSignalCount=%d lostSignalCount=%d newRows=%s lostRows=%s outPos=%d outNeg=%d outZero=%d",
+                      g_slext_newN, g_slext_lostN,
+                      (g_slext_newRows == "") ? "-" : g_slext_newRows,
+                      (g_slext_lostRows == "") ? "-" : g_slext_lostRows,
+                      g_slext_outP, g_slext_outN, g_slext_outZ);
+          LwAudit("SLEXT_FINAL", eFin);
+          Print(eFin);
+       }
 
    if(g_hPoi  != INVALID_HANDLE) IndicatorRelease(g_hPoi);
    if(g_hCqd  != INVALID_HANDLE) IndicatorRelease(g_hCqd);
