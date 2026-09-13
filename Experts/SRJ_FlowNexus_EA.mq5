@@ -59,6 +59,11 @@ input double InpMinRewardRisk   = 1.0;
 input group "Diagnostics"
 input bool   InpDebugLog        = false;
 
+//--- [P-ADOPT-1 E50] firmware ADOPT_EXT1, default false (run A: present
+//--- and dormant — not one new read executes; run B flips it true).
+//--- A Tester ini never sets it unless the run-B packet says so.
+input bool   InpAdoptExt1       = false;
+
 //====================== POI Marker buffer indices ===================
 #define POI_BUF_D_POC    0
 #define POI_BUF_D_VWAP   1
@@ -1076,6 +1081,25 @@ int              g_sl41_deep = -1;
 int              g_sl43_probed = 0;
 int              g_sl43_hits = 0;
 int              g_sl43_agree = 0;
+//--- [P-ADOPT-1 E46] forced-side Sep-8 probe tallies (print-only).
+int              g_sl46_rows = 0;
+int              g_sl46_halt = 0;
+//--- [P-ADOPT-1 E47] HIT-path agreement tallies (print-only; every
+//--- SlRefMemo HIT carries one comparison row).
+int              g_sl47_rows = 0;
+int              g_sl47_agree = 0;
+//--- [P-ADOPT-1 E48] origin-insensitivity tallies (print-only): both
+//--- origins resolved at every ComputeSlReference invocation; a
+//--- disagreement names its fields. Per-site counts beside the totals.
+int              g_sl48_n = 0;
+int              g_sl48_dis = 0;
+int              g_sl48_nS5 = 0;
+int              g_sl48_disS5 = 0;
+int              g_sl48_n2P = 0;
+int              g_sl48_dis2P = 0;
+int              g_sl48_n3A = 0;
+int              g_sl48_dis3A = 0;
+int              g_sl48_altNA = 0;
 //--- [P-SLDEF-6 E45.3] predicate carve totals at fresh S5 rows (print-only;
 //--- the consequence companions stay g_slimbr_carveOB/FR; the proxy rides
 //--- beside them, labelled).
@@ -3018,6 +3042,95 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
              sl41_sep8Diff = (int)((sl41_bt - StringToTime(sl41_barT)) / 300);
             }
          }
+       //--- [P-ADOPT-1 E46] forced-side Sep-8 probe: SHORT-side ext-1 at
+       //--- the two hardcoded bars with this invocation's own origin,
+       //--- graded against his HAND levels (feed Dukascopy beside the
+       //--- provenance tag, governance). Fires at whichever site evaluates
+       //--- the bar; the EA's own evaluated side rides along. A HALT row
+       //--- when |resid| > 1pt (packet halt: run B does not launch).
+       if(sl41_halt == "-" && SrjSep8Filed(sl41_barT, sl41_sep8Px))
+         {
+          int sl46_def = 0; double sl46_px = 0.0; int sl46_slot = -1;
+          datetime sl46_bt = 0; int sl46_imb = -1; int sl46_deep = -1;
+          SrjResolveExt1(barShift, DIR_SHORT, sl41_oPx, sl46_def, sl46_px, sl46_slot, sl46_bt, sl46_imb, sl46_deep);
+          int sl46_resid = -999; int sl46_diff = -999;
+          if(sl46_def == 1)
+            {
+             sl46_resid = (int)MathRound((sl46_px - sl41_sep8Px) / _Point);
+             sl46_diff = (int)((sl46_bt - StringToTime(sl41_barT)) / 300);
+            }
+          g_sl46_rows++;
+          string sl46_line = StringFormat("[SRJ-EA] SLSEP846 fields=14 bar=%s site=%s eaDir=%s forcedDef=%d forcedPx=%s forcedSlot=%d forcedBarTime=%s forcedImb=%d deepestExt=%d filedPx=%s filedProv=%s feed=%s residPts=%d barDiffBars=%d",
+                    sl41_barT, site, DirName(dir),
+                    sl46_def, (sl46_def == 1) ? DoubleToString(sl46_px, _Digits) : "-",
+                    sl46_slot, (sl46_def == 1) ? TimeToString(sl46_bt, TIME_DATE|TIME_MINUTES) : "-",
+                    sl46_imb, sl46_deep,
+                    DoubleToString(sl41_sep8Px, _Digits), "HAND", "Dukascopy",
+                    sl46_resid, sl46_diff);
+          LwAudit("SLSEP846", sl46_line);
+          Print(sl46_line);
+          if(sl46_def == 1 && MathAbs(sl46_resid) > 1)
+            {
+             g_sl46_halt++;
+             string sl46_haltLine = StringFormat("[SRJ-EA] SLSEP846HALT bar=%s site=%s residPts=%d",
+                       sl41_barT, site, sl46_resid);
+             LwAudit("SLSEP846HALT", sl46_haltLine);
+             Print(sl46_haltLine);
+            }
+         }
+       //--- [P-ADOPT-1 E48] origin insensitivity: the alternate origin's
+       //--- ext-1 beside this invocation's own. S5 primary = the stamped
+       //--- strict next-open, alternate = eval-bar close; S2POLL/S3ARM
+       //--- primary = eval-bar close, alternate = strict next-open (raw
+       //--- iOpen, no fallback — an unavailable alternate counts altNA,
+       //--- never substitutes). Disagreers print with fields; agreement is
+       //--- the silent majority, counted in the FINAL.
+       if(sl41_halt == "-")
+         {
+          double sl48_altPx = 0.0; datetime sl48_altBT = 0; string sl48_altName = "-";
+          if(site == "S5")
+            {
+             double sl48_close = iClose(_Symbol, PERIOD_CURRENT, barShift);
+             if(sl48_close > 0.0) { sl48_altPx = sl48_close; sl48_altBT = sl41_evalT; sl48_altName = "evalClose"; }
+            }
+          else
+            {
+             double sl48_open = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+             if(sl48_open > 0.0) { sl48_altPx = sl48_open; sl48_altBT = iTime(_Symbol, PERIOD_CURRENT, barShift - 1); sl48_altName = "nextOpen"; }
+            }
+          g_sl48_n++;
+          if(site == "S5") g_sl48_nS5++; else if(site == "S2POLL") g_sl48_n2P++; else g_sl48_n3A++;
+          if(sl48_altName == "-") g_sl48_altNA++;
+          else
+            {
+             int sl48_def = 0; double sl48_px = 0.0; int sl48_slot = -1;
+             datetime sl48_bt = 0; int sl48_imb = -1; int sl48_deep = -1;
+             SrjResolveExt1(barShift, dir, sl48_altPx, sl48_def, sl48_px, sl48_slot, sl48_bt, sl48_imb, sl48_deep);
+             string sl48_pPxS = (sl41_def == 1) ? DoubleToString(sl41_px, _Digits) : "-";
+             string sl48_aPxS = (sl48_def == 1) ? DoubleToString(sl48_px, _Digits) : "-";
+             string sl48_pBtS = (sl41_def == 1) ? TimeToString(sl41_bt, TIME_DATE|TIME_MINUTES) : "-";
+             string sl48_aBtS = (sl48_def == 1) ? TimeToString(sl48_bt, TIME_DATE|TIME_MINUTES) : "-";
+             int sl48_agree = (sl41_def == sl48_def && sl48_pPxS == sl48_aPxS && sl41_slot == sl48_slot
+                               && sl48_pBtS == sl48_aBtS && sl41_imb == sl48_imb) ? 1 : 0;
+             if(sl48_agree == 0)
+               {
+                g_sl48_dis++;
+                if(site == "S5") g_sl48_disS5++; else if(site == "S2POLL") g_sl48_dis2P++; else g_sl48_dis3A++;
+                string sl48_diff = "";
+                if(sl41_def != sl48_def) sl48_diff += "def ";
+                if(sl48_pPxS != sl48_aPxS) sl48_diff += "px ";
+                if(sl41_slot != sl48_slot) sl48_diff += "slot ";
+                if(sl48_pBtS != sl48_aBtS) sl48_diff += "bt ";
+                if(sl41_imb != sl48_imb) sl48_diff += "imb ";
+                string sl48_line = StringFormat("[SRJ-EA] SLORIG48 fields=11 bar=%s site=%s dir=%s primary=%s alternate=%s primExt1=%s altExt1=%s primSlot=%d altSlot=%d agree=%d diffFields=%s",
+                          sl41_barT, site, DirName(dir),
+                          (site == "S5") ? "nextOpen" : "evalClose", sl48_altName,
+                          sl48_pPxS, sl48_aPxS, sl41_slot, sl48_slot, sl48_agree, sl48_diff);
+                LwAudit("SLORIG48", sl48_line);
+                Print(sl48_line);
+               }
+            }
+         }
        string sl41_line = StringFormat("[SRJ-EA] SLEXT481 fields=17 bar=%s site=%s dir=%s ladOriginPx=%s ladOriginBarTime=%s ladOriginSite=%s ext1Defined=%d slExt1=%s ext1Slot=%d ext1BarTime=%s ext1Imb=%d deepestExt=%d sep8FiledPx=%s sep8ResidPts=%d sep8BarDiffBars=%d sep8Prov=%s sep8Covered=%d",
                  sl41_barT, site, DirName(dir),
                  (sl41_halt == "-") ? DoubleToString(sl41_oPx, _Digits) : "-",
@@ -3585,6 +3698,10 @@ bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR di
       g_slMemo_hits++;
       slRefOut  = g_slMemo.slRef;
       slModeOut = g_slMemo.slMode;
+      //--- [P-ADOPT-1 E50] dormant HIT-path adoption: the memoised ext-1
+      //--- is the returned reference behind ADOPT_EXT1 (default false —
+      //--- run A provably inert). Mode untouched (construction label).
+      if(InpAdoptExt1 && g_slMemo.ex1def == 1) slRefOut = g_slMemo.ex1px;
       if(InpDebugLog)
          PrintFormat("[SRJ-EA] SLMEMO bar=%s site=%s result=HIT ok=%d slRef=%s "
                      "mode=%d computes=%d hits=%d",
@@ -3592,6 +3709,44 @@ bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR di
                      (int)g_slMemo.ok,
                      DoubleToString(g_slMemo.slRef, _Digits),
                      (int)g_slMemo.slMode, g_slMemo_computes, g_slMemo_hits);
+      //--- [P-ADOPT-1 E47] memo agreement over every HIT (ungated): a
+      //--- fresh ext-1 at the HIT's own eval-close origin beside the
+      //--- memoised shadow. S5-membership is joined off-run by barTime
+      //--- (this bar's S5 evaluation comes later in the pass, so no
+      //--- in-row tag); the packet's 10-at-S5 + 108-non-S5 split is
+      //--- graded by that join. Disagreers name their fields.
+      if(InpDebugLog)
+        {
+         int sl47_fDef = 0; double sl47_fPx = 0.0; int sl47_fSlot = -1;
+         datetime sl47_fBt = 0; int sl47_fImb = -1; int sl47_fDeep = -1;
+         double sl47_close = iClose(_Symbol, PERIOD_CURRENT, barShift);
+         if(sl47_close > 0.0)
+            SrjResolveExt1(barShift, dir, sl47_close, sl47_fDef, sl47_fPx, sl47_fSlot, sl47_fBt, sl47_fImb, sl47_fDeep);
+         string sl47_mPxS = (g_slMemo.ex1def == 1) ? DoubleToString(g_slMemo.ex1px, _Digits) : "-";
+         string sl47_fPxS = (sl47_fDef == 1) ? DoubleToString(sl47_fPx, _Digits) : "-";
+         string sl47_mBtS = (g_slMemo.ex1def == 1) ? TimeToString(g_slMemo.ex1bt, TIME_DATE|TIME_MINUTES) : "-";
+         string sl47_fBtS = (sl47_fDef == 1) ? TimeToString(sl47_fBt, TIME_DATE|TIME_MINUTES) : "-";
+         int sl47_agree = (g_slMemo.ex1def == sl47_fDef && sl47_mPxS == sl47_fPxS && g_slMemo.ex1slot == sl47_fSlot
+                           && sl47_mBtS == sl47_fBtS && g_slMemo.ex1imb == sl47_fImb) ? 1 : 0;
+         string sl47_diff = "-";
+         if(sl47_agree == 0)
+           {
+            sl47_diff = "";
+            if(g_slMemo.ex1def != sl47_fDef) sl47_diff += "def ";
+            if(sl47_mPxS != sl47_fPxS) sl47_diff += "px ";
+            if(g_slMemo.ex1slot != sl47_fSlot) sl47_diff += "slot ";
+            if(sl47_mBtS != sl47_fBtS) sl47_diff += "bt ";
+            if(g_slMemo.ex1imb != sl47_fImb) sl47_diff += "imb ";
+           }
+         else g_sl47_agree++;
+         g_sl47_rows++;
+         string sl47_line = StringFormat("[SRJ-EA] SLEXT47 fields=12 bar=%s site=%s dir=%s memoSite=%s memoExt1=%s freshExt1=%s memoSlot=%d freshSlot=%d agree=%d diffFields=%s memoComputes=%d memoHits=%d",
+                   TimeToString(barTime, TIME_DATE|TIME_MINUTES), site, DirName(dir), g_slMemo.ex1site,
+                   sl47_mPxS, sl47_fPxS, g_slMemo.ex1slot, sl47_fSlot, sl47_agree, sl47_diff,
+                   g_slMemo_computes, g_slMemo_hits);
+         LwAudit("SLEXT47", sl47_line);
+         Print(sl47_line);
+        }
       return g_slMemo.ok;
      }
 
@@ -3612,6 +3767,10 @@ bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR di
    g_slMemo.ex1slot = g_sl41_slot; g_slMemo.ex1bt = g_sl41_bt;
    g_slMemo.ex1imb = g_sl41_imb; g_slMemo.ex1deep = g_sl41_deep;
    g_slMemo.ex1site = site;
+   //--- [P-ADOPT-1 E50] dormant COMPUTE-path adoption: the just-stamped
+   //--- shadow is this call's own ext-1 (same origin convention as the
+   //--- site). Behind ADOPT_EXT1; mode untouched.
+   if(InpAdoptExt1 && g_slMemo.ex1def == 1) g_slMemo.slRef = g_slMemo.ex1px;
 
    slRefOut  = g_slMemo.slRef;
    slModeOut = g_slMemo.slMode;
@@ -5875,6 +6034,20 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           SrjOrderEmit(barShift, "NO_SL");
           GoAbort(ABORT_NO_SL_REF, g_state); return;
         }
+      //--- [P-ADOPT-1 E50] dormant S5 adoption: slExt1 as the returned
+      //--- reference behind ADOPT_EXT1 (default false — run A provably
+      //--- inert: not one new read executes). The same value the SLIMBR
+      //--- shadow resolves below (entry bar, live entry, protective
+      //--- side), applied BEFORE the SLIMBR print so slToday is the
+      //--- adopted reference when enabled. Debug-on runs only (all
+      //--- recon runs are).
+      if(InpAdoptExt1 && InpDebugLog)
+        {
+         int ad_def = 0; double ad_px = 0.0; int ad_slot = -1;
+         datetime ad_bt = 0; int ad_imb = -1; int ad_deep = -1;
+         SrjResolveExt1(barShift, g_dir, currentPrice, ad_def, ad_px, ad_slot, ad_bt, ad_imb, ad_deep);
+         if(ad_def == 1) slRef = ad_px;
+        }
 
       //--- [P-SWINGIMB-3 E10] R-cost table: one SLIMBR line per S5 invocation
       //--- (print-only, before the RR gate so TP_RR_FAIL rows are included).
@@ -6437,18 +6610,19 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                  if(fProv == "INFERRED") eVerd = (MathAbs(eResid) <= 1) ? "PROVISIONAL_MATCH" : "MISS";
                  else eVerd = (eResid == 0) ? "MATCH" : ((MathAbs(eResid) <= 1) ? "ABSORBED" : "MISS");
                 }
-              int eNoneSlot = -1; string eNoneT = "-"; int eNoneAge = -1;
+              int eNoneSlot = -1; string eNoneT = "-"; int eRefAge = -1;
               //--- positive-aging: slots older than the entry bar are larger
               //--- (REF_OB_DEEP slotDist convention).
+              //--- [P-ADOPT-1 E49] same refSlotAge rename as SLEXT45.
               if(xT == "NONE" && wTodaySlot >= 0)
-                { eNoneSlot = wTodaySlot; eNoneT = SlimbShiftT(wTodaySlot); eNoneAge = wTodaySlot - barShift; }
+                { eNoneSlot = wTodaySlot; eNoneT = SlimbShiftT(wTodaySlot); eRefAge = wTodaySlot - barShift; }
               double eTodayRisk = MathAbs(currentPrice - slRef);
               double eRewardPts = slimbr_tpD / _Point;
               double eRiskPts = eTodayRisk / _Point;
               int eOut = (int)MathRound(((g_dir == DIR_LONG) ? -(e35_px - slRef) : (e35_px - slRef)) / _Point);
               if(e35_def == 1)
                 { if(eOut > 0) g_slext_outP++; else if(eOut < 0) g_slext_outN++; else g_slext_outZ++; }
-              string eLine = StringFormat("[SRJ-EA] SLEXT1 fields=29 bar=%s site=S5 dir=%s ext1Defined=%d slExt1=%s ext1Slot=%d ext1BarTime=%s ext1Imb=%d deltaExt1Pts=%d outwardExt1Pts=%d deepestExt=%d todayXi=%s baseXi=%s nuanceXi=%s fracXi=%s fracNuXi=%s anchorXi=%s filedPx=%s filedProv=%s filedT=%s residPts=%d barDiffBars=%d verdict=%s noneSlot=%d noneT=%s noneAgeBars=%d rewardPts=%.5f riskPts=%.5f ext1RewardPts=%.5f ext1RiskPts=%.5f",
+              string eLine = StringFormat("[SRJ-EA] SLEXT1 fields=29 bar=%s site=S5 dir=%s ext1Defined=%d slExt1=%s ext1Slot=%d ext1BarTime=%s ext1Imb=%d deltaExt1Pts=%d outwardExt1Pts=%d deepestExt=%d todayXi=%s baseXi=%s nuanceXi=%s fracXi=%s fracNuXi=%s anchorXi=%s filedPx=%s filedProv=%s filedT=%s residPts=%d barDiffBars=%d verdict=%s noneSlot=%d noneT=%s refSlotAgeBars=%d rewardPts=%.5f riskPts=%.5f ext1RewardPts=%.5f ext1RiskPts=%.5f",
                        TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
                        e35_def, (e35_def == 1) ? DoubleToString(e35_px, _Digits) : "-",
                        e35_slot, (e35_def == 1) ? TimeToString(e35_bt, TIME_DATE|TIME_MINUTES) : "-",
@@ -6457,7 +6631,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                        xT, xB, xN, xF, xFN, xA,
                        fHave ? DoubleToString(fPx, _Digits) : "-", fHave ? fProv : "-", fHave ? fT : "-",
                        eResid, eBarDiff, eVerd,
-                       eNoneSlot, eNoneT, eNoneAge,
+                       eNoneSlot, eNoneT, eRefAge,
                        eRewardPts, eRiskPts, g_slext_rewardPts, g_slext_riskPts);
               LwAudit("SLEXT1", eLine);
               Print(eLine);
@@ -6473,20 +6647,40 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                //--- vs EXT_NONE distinct; noneAge only on OFF_LADDER with slot
                //--- and barTime; VACUOUS_COVER + EXT1_UNCOVERED name the 9/08
                //--- shape. Print-only; SLEXT1 verdict tokens untouched.
+               //--- [Verdict #8 §3] occupancy predicate RETIRED (council-owned
+               //--- spec failure, verdict-owned: the population is genuinely
+               //--- 4/4 occupied, so occupancy discriminates nothing; the
+               //--- OCCUPIED_NOMATCH token retires with it). Discriminator is
+               //--- SLOT-REACH: the reference slot vs the ladder's deepest
+               //--- rung shift. OFF_LADDER = beyond reach (no rung can exist
+               //--- by construction — the 168/817 persisting Sep-3 20:35 OB
+               //--- extreme pair). EXT_NONE = within reach but no rung
+               //--- emitted (emission failure, frame-defect family).
+               //--- Ladder-shift membership rejected (0/4, status quo ante).
+               //--- Expected split OFF_LADDER=2 / EXT_NONE=2 /
+               //--- OCCUPIED_NOMATCH=0, graded as prediction. Slot/age
+               //--- binding restored on every classified row — the in-run
+               //--- gate is slots 168/408/21/817 exactly, else E49 returns
+               //--- unruled.
+               int sl45_deep = -1;
+               for(int sl45_k = 0; sl45_k < ladRungN; sl45_k++)
+                  if(ladRungShift[sl45_k] > sl45_deep) sl45_deep = ladRungShift[sl45_k];
                string sl45_extS = (e35_def == 1) ? "EXT_DEFINED" : "EXT_NONE";
                string sl45_todayS = "ON_LADDER";
                if(ladRungN <= 0) sl45_todayS = "NO_RUNGS";
-               else if(xT == "NONE") sl45_todayS = "OFF_LADDER";
-               int sl45_noneSlot = -1; string sl45_noneT = "-"; int sl45_noneAge = -1;
-               if(sl45_todayS == "OFF_LADDER" && wTodaySlot >= 0)
-                 { sl45_noneSlot = wTodaySlot; sl45_noneT = SlimbShiftT(wTodaySlot); sl45_noneAge = wTodaySlot - barShift; }
-               else if(e35_def == 0 && wTodaySlot >= 0)
-                 { sl45_noneSlot = wTodaySlot; sl45_noneT = SlimbShiftT(wTodaySlot); }
+               else if(xT == "NONE") sl45_todayS = (wTodaySlot >= 0 && wTodaySlot <= sl45_deep) ? "EXT_NONE" : "OFF_LADDER";
+               //--- refSlotAge (was noneAgeBars): reference slot minus entry
+               //--- shift, in slots, positive-older (the REF_OB_DEEP slotDist
+               //--- convention). Emitted on BOTH statuses — OFF_LADDER and
+               //--- EXT_NONE rows alike.
+               int sl45_noneSlot = -1; string sl45_noneT = "-"; int sl45_refAge = -1;
+               if(sl45_todayS != "ON_LADDER" && sl45_todayS != "NO_RUNGS" && wTodaySlot >= 0)
+                 { sl45_noneSlot = wTodaySlot; sl45_noneT = SlimbShiftT(wTodaySlot); sl45_refAge = wTodaySlot - barShift; }
                string sl45_vacS = (wRowStatus == "VACUOUS_COVER") ? "VACUOUS_COVER" : "-";
                string sl45_covS = (ladCovers == 1) ? "COVERED" : "EXT1_UNCOVERED";
-               string sl45_line = StringFormat("[SRJ-EA] SLEXT45 fields=10 bar=%s site=S5 dir=%s extStatus=%s todayStatus=%s noneSlot=%d noneT=%s noneAgeBars=%d vacStatus=%s coverStatus=%s ladObligN=%d",
+               string sl45_line = StringFormat("[SRJ-EA] SLEXT45 fields=10 bar=%s site=S5 dir=%s extStatus=%s todayStatus=%s noneSlot=%d noneT=%s refSlotAgeBars=%d vacStatus=%s coverStatus=%s ladObligN=%d",
                          TimeToString(ladBarT, TIME_DATE|TIME_MINUTES), DirName(g_dir),
-                         sl45_extS, sl45_todayS, sl45_noneSlot, sl45_noneT, sl45_noneAge,
+                         sl45_extS, sl45_todayS, sl45_noneSlot, sl45_noneT, sl45_refAge,
                          sl45_vacS, sl45_covS, wCoverN);
                LwAudit("SLEXT45", sl45_line);
                Print(sl45_line);
@@ -7182,6 +7376,10 @@ int OnInit()
     //--- guardStart+500 (SLADWIN walkWinOB/walkWinFR). A ladder window and a
     //--- walk window are DIFFERENT windows: coverage is by slot reach, and
     //--- ladLimitHit rows are UNCOVERED_READ_LIMIT, never silent.
+    //--- (7) Origin per site [P-ADOPT-1 E48]: S5 = strict next-open
+    //--- (caller-stamped entry bar; a stale stamp halts the row, never
+    //--- substitutes); S2POLL/S3ARM = eval-bar close (the shared
+    //--- memo-path convention both sites' live R already uses).
     //--- THRESHOLD: the live minimum-R is an artifact of the run. Source is
    //--- "ini" when the value differs from the compiled default (an ini-set
    //--- 1.0 is indistinguishable - recorded as compiled_default).
@@ -7190,6 +7388,7 @@ int OnInit()
                  "populations=inputVsResultNamed ladObligN=6refs ladCovers=oblig+ext1 "
                  "sigmap=signalTime-s5BarTime-PeriodSeconds "
                  "readwin=ladder:entryBar+span|walkOB:walkStart+500|walkFR:guardStart+500 "
+                 "origin=S5:nextOpen-strictHalt|S2POLL+S3ARM:evalClose "
                  "THRESHOLD minRewardRisk=%.2f source=%s",
                FLOW_SHIFT_OFFSET, FLOW_SHIFT_OFFSET, InpMinRewardRisk,
                ((InpMinRewardRisk == 1.0) ? "compiled_default" : "ini"));
@@ -7449,6 +7648,25 @@ void OnDeinit(const int reason)
                       g_sl43_probed, g_sl43_hits, g_sl43_agree);
           LwAudit("SLEXT43_FINAL", sl43_fin);
           Print(sl43_fin);
+          //--- [P-ADOPT-1 E46] forced-side Sep-8 FINAL: probe rows + halts.
+          string sl46_fin = StringFormat("[SRJ-EA] SLSEP846_FINAL rows=%d halts=%d",
+                      g_sl46_rows, g_sl46_halt);
+          LwAudit("SLSEP846_FINAL", sl46_fin);
+          Print(sl46_fin);
+          //--- [P-ADOPT-1 E47] HIT-path agreement FINAL: every SlRefMemo
+          //--- HIT carried one comparison row; S5-membership joined
+          //--- off-run by barTime (memo-wide computes/hits ride
+          //--- SLMEMO_CENSUS).
+          string sl47_fin = StringFormat("[SRJ-EA] SLEXT47_FINAL rows=%d agree=%d",
+                      g_sl47_rows, g_sl47_agree);
+          LwAudit("SLEXT47_FINAL", sl47_fin);
+          Print(sl47_fin);
+          //--- [P-ADOPT-1 E48] origin-insensitivity FINAL: invocations and
+          //--- disagreements, totals beside per-site counts.
+          string sl48_fin = StringFormat("[SRJ-EA] SLORIG48_FINAL n=%d disagree=%d nS5=%d disS5=%d nS2POLL=%d disS2POLL=%d nS3ARM=%d disS3ARM=%d altNA=%d",
+                      g_sl48_n, g_sl48_dis, g_sl48_nS5, g_sl48_disS5, g_sl48_n2P, g_sl48_dis2P, g_sl48_n3A, g_sl48_dis3A, g_sl48_altNA);
+          LwAudit("SLORIG48_FINAL", sl48_fin);
+          Print(sl48_fin);
           //--- [P-SLDEF-6 E45.3] predicate-vs-consequence carve FINAL: the
           //--- predicate totals beside the consequence companions, the latter
           //--- labelled PROXY (firing-vs-effect, 6th taxonomy entry).
