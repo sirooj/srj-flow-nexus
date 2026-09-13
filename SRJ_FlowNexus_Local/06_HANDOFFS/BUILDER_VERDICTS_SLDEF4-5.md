@@ -1259,3 +1259,99 @@ Also: `rewardPts` at full precision on every firing row, `THRESHOLD` printed wit
 `SUPPRESSED` series and 16b's archive record, both before commit. ORDER `biasOpposedAtGate × gateOutcome` cross-tab. Sep-8 opposed evaluated side — upstream, unscoped. Coverage: seven enumerated setups, five with S5 rows, four firing, five under adoption, two invisible either way, his enumeration possibly not exhaustive. N1: POI body 28/0 and POC 3/0 confirmed, **POI wick 10 survived / 16 invalidated contradicted**, VWAP and exit-body unexercised — his ruling, unhurried. Opposed-bias date bounded outside the 16 S5 bars, still undated, still owed for the exit side. Flats **provisional** and now provisional against a `MTEXIT` that run B will move. Artifact taxonomy, six entries, and a candidate seventh pending the `SUPPRESSED` account.
 
 News sequencing unchanged in every particular: exit side after adoption and after the opposed-bias date, three flats by value append-only, priority `SL` / `TP_TOUCH` / flats / `POI_BODY_BREAK` / `HTF_FLIP`; entry side last, inside `ST_S5_GATE_CHECK` after the divergence walk and before `g_latchedEntry`, rollback to `g_confirmFromState`, latch unspent; probe requirement on both edits, off-canonical, own digest, reverted in-session. Table pinned at `5FFF5C76…EF1F134`, rows `{eventTimeET, kind}`, conversion at read, resolved bar printed per row, Oct-28 at `offsetMinutes 360` as the table's regression test.
+
+# COUNCIL VERDICT #8 — P-ADOPT-1 run A
+
+**Disposition: HALT AFFIRMED. Run B does not launch. Packet P-ADOPT-1 closes at run A. RECON17 remains the frozen baseline. Run-A build stays uncommitted.**
+
+---
+
+## 0. Leading finding (supersedes the relay's E46 mechanism)
+
+The E46 mechanism as written does not survive its own numbers, and this changes the shape of asks 1 and 2.
+
+The relay states the origin is "eval-close 1.16190 / 1.16241, **above** his entries 1.16205 / 1.16220." That holds at 17:00 only. At 10:10 the eval-close 1.16190 sits **15 points below** the entry 1.16205. The proposed mechanism — protective swings dropping out against a *higher* close, shifting the count downward — is directionally unavailable at 10:10. On a SHORT with the stop above entry, an origin *below* the entry widens rather than narrows the protective candidate set. So the mechanism explains at most the 17:00 row.
+
+Consequence: E46 delivered two failures with two different signatures, not one family.
+
+| bar | resid | barDiff | signature |
+|---|---|---|---|
+| 09.08 10:10 | −7 (0.7 pip) | −4 | near-neighbour swing, origin *below* entry, mechanism unexplained |
+| 09.08 17:00 | +85 (8.5 pip) | −95 | distant swing (slot 95, 09:05, imb 2), origin above entry, mechanism plausible |
+
+The real discovery in run A is not "origin dependence shifts the count." It is that **`rungExt == 1` carries an undeclared free parameter — the origin — and different sites bind it differently** (S5↔eval-close, S2POLL/S3ARM↔strict next-open). The standing claim that the definition is "anchor-free" is false as implemented: origin *is* an anchor, it was never declared, and the five HAND examples reproduced at resid 0 only at bars where the binding did not bite. E48's 8 S2POLL rows are the same discovery from the other side. Sep-8 is the first case where it bites, and at 17:00 it bites by 95 bars.
+
+---
+
+## 1. Ask 1 — run B is dead; no re-scope, no absorption
+
+**Gate fired on declared terms.** Both residuals exceed 1 point. The verdict-#7 halt condition was pre-declared and unconditional. It binds now, including its own mis-specification (grading a forced opposed-side computation at unmapped bars). Re-scoping the probe after seeing the failure is precisely the move that voids a pre-declared gate; we will not authorise it inside this packet.
+
+**Sub-pip absorption for 10:10 is refused on mechanical grounds, not tolerance grounds.** `barDiff = −4`. Standing rule: identity is `slot+barTime+px+imbCode`, never price alone. The barTime component already mismatches, so the 0.7 pip price proximity is a coincidence between two *different* swings, not a rounding residual on the same swing. Absorbing it would launder a structural disagreement as arithmetic. The residual magnitude is irrelevant while `barDiff != 0`.
+
+**Before any origin work is funded, verify the killing evidence.** Two items:
+
+- The relay carries no feed tag on either Sep-8 HAND figure. Standing rule requires one. There is live precedent for contamination — Sep-4 10:35 recovered only on correction to Dukascopy.
+- The two stop distances are 53 and 54 points (1.16205→1.16258, 1.16220→1.16274). Near-identical distances at unrelated times of day is as consistent with a fixed-distance stop as with swing structure. Confirm the operator applied the swing rule at those bars.
+
+If the Sep-8 pair is contaminated or rule-inconsistent, the halt remains procedurally correct — the gate fired — but the origin mechanism loses its primary evidence and would rest on E48's 8 rows alone. That is a materially different investigation, so settle it first. It costs no build.
+
+**Successor packet: P-ORIGIN-1, print-only.** Entry condition, in order:
+
+1. Feed tag + rule-consistency confirmation on the Sep-8 pair.
+2. Declare origin as an explicit parameter with an enumerated binding per site. No implicit inheritance.
+3. **Regression gate first:** re-grade the five already-reproducing HAND examples under the candidate his-entry origin. All five must hold at resid 0 with full identity match. If any moves, the candidate origin dies there and Sep-8 is never reached.
+4. Only on a clean sweep of (3) does Sep-8 become a forward prediction, with a new pre-declared gate.
+
+Grading Sep-8 before the regression sweep would fit the origin rule to the two examples it is meant to predict. That ordering is not negotiable.
+
+## 2. Ask 2 — immaterial at the site; undetermined on the memo path
+
+Split the question.
+
+**At the S5 site: not material.** `disS5 = 0` of 10, `disS3ARM = 0` of 39. All 8 disagreements sit at S2POLL, which run B did not touch. As scoped, adoption resolves where origin choice is measurably inert.
+
+**On the memo return paths: undetermined, and E47 does not cover it.** E47 graded fresh vs memoised *at a single origin* — 118/118 agreement there says nothing about cross-origin exposure. The open question is provenance: can a value computed under the S2POLL binding be returned at a demand serving an S5 decision? No probe in run A answers this. Ask 4's corrected split makes the concern worse, not better — 116 of 118 HITs are non-S5 barTimes, so the cache is dominated by entries whose computing site is unidentified. Census `471/118/589` against 481 invocations leaves 10 unreconciled; that gap is itself unexplained.
+
+Ruling: the 8 rows do not block adoption *at the S5 site*. They block adoption *on the memo paths* until provenance is instrumented. Required print-only probe for P-ORIGIN-1: tag every memo entry with its computing site and origin binding at write, report both at every HIT, and reconcile 481 against 471+10.
+
+**Reclassification.** E48's 8 rows move from "reported, no halt" to primary corroborating evidence in the origin investigation. That origin dependence concentrates at S2POLL (8/432) and vanishes at S5 (0/10) and S3ARM (0/39) is diagnostic, not incidental: it tracks candidate-set width. Carry the three imb-bearing rows and the 2–27 point spread forward as the measured population.
+
+## 3. Ask 3 — slot-reach, 2/2, but the predicate failed, not the witness
+
+**First correction: `OCCUPIED_NOMATCH=4` is not a builder miss.** The off-run construction states a swing value sits at all four slots. Occupancy is genuinely 4/4. The E49 predicate — classify by occupancy — cannot discriminate a population that is uniformly occupied. What failed is the specification we issued, not the implementation. We own that.
+
+**Second: the slot regression is a real defect and it is load-bearing.** RECON17 carried 168/408/21/817; run A reads −1/− with age −1 throughout. The slot-reach predicate is computed *from* those values. Until the slot binding is restored and reproduces 168/408/21/817 exactly, the 2/2 construction is unverifiable off-run arithmetic.
+
+**Ruling, sequenced:**
+
+1. Restore the slot/age binding. Non-negotiable gate: in-run slots must read 168/408/21/817. If they do not, the construction below is void and E49 returns to council unruled.
+2. Retire the occupancy predicate. Adopt **slot-reach** as the discriminator.
+3. Labels assigned on failure kind:
+
+| label | pair | slot vs reach | failure kind |
+|---|---|---|---|
+| `OFF_LADDER` | 09.04 10:35, 09.08 16:40 | 168>150, 817>351 | reach failure — no rung can exist by construction |
+| `EXT_NONE` | 09.04 15:55, 09.07 16:40 | 408<571, 21<89 | emission failure — reachable, occupied, no rung emitted |
+
+Rationale for the assignment: `OFF_LADDER` denotes the reference slot lying outside ladder reach, which is exactly the beyond pair, and both members carry the known persisting Sep-3 20:35 OB extreme identity — one mechanism, two rows. `EXT_NONE` denotes the ladder covering the slot with a swing value present and still emitting no rung, which is the within pair the relay itself places in the frame-defect family. Ladder-shift membership (0/4) is rejected: it reproduces status quo ante and discriminates nothing.
+
+4. Expected split is declared now as `OFF_LADDER=2 / EXT_NONE=2 / OCCUPIED_NOMATCH=0`, graded as a prediction on the next run.
+
+`refSlotAgeBars` rename retained — 10/10 on SLEXT1, 10/10 on SLEXT45, old token 0. Seventh FRAME_NOTE convention retained.
+
+## 4. Ask 4 — accepted, with one amendment
+
+No action on the prediction ledger. Amendment: log 10/108 → 2/116 as a **prediction miss**, not a bookkeeping note. The declared model of memo population was wrong by two orders on the S5-membership axis. That is direct evidence the memo path was less understood than P-ADOPT-1 assumed when it scoped adoption onto both memo return paths. Carry the corrected split into ask 2 as the standing reason provenance tagging is mandatory rather than optional.
+
+---
+
+## 5. Standing orders
+
+- **Do not commit the run-A build.** E50's dormancy is cleanly proven — SLIMBR slToday 10/10 byte-identical, eleventh inert join at 481/481×3 + 10/10 with zero mismatch and zero misses — and the adoption code may remain in the tree at `InpAdoptExt1=false` through the origin investigation. But the same build carries the E49 slot regression. Fix the regression, re-verify the inert join, then commit dormant.
+- RECON17 (`6ACDF3B8…`, 413224 B) stays the frozen baseline. FlowLogic `3606BFB4…` unchanged.
+- All RECON18 identities logged verbatim and carried: four-signal set R 2.43/2.56/1.76/1.25 with SIGMAP 4/4, WS161 3168/3168/205/0, SLIMB/WALK 481s, SLEXT1 6/1/2/1, DECISION 10/4 @1.00, SUPPRESSED 152, SLEXT481 432/39/10, Sep-8 REDUNDANT resids −146/−87.
+- The run-B delta table (2.43→2.43 / 2.56→1.66 / 1.76→1.76 / 1.25→2.34 plus NEW Sep-4 10:40 SHORT R 1.21, CQD 906) is **not** withdrawn — it is suspended. It remains the prediction of record for whichever adoption packet follows a settled origin rule. Do not re-derive it under a new origin without declaring the change.
+- Opposed-side debt at the two Sep-8 bars (EA LONG at both) remains disclosed and unpaid.
+
+**Next packet: P-ORIGIN-1, print-only, no selection change.** Scope: Sep-8 feed-tag and rule-consistency verification; origin declared per site; five-example regression sweep; memo provenance tagging with the 481/471+10 reconciliation; E49 slot restoration with the 2/2 prediction graded. Adoption does not return to council until origin is a declared parameter with a passing regression sweep behind it.

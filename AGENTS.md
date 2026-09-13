@@ -569,6 +569,79 @@ Masters judge measurements on disk, never prose about them.
     Verdict #7 filed verbatim; P-ADOPT-1 transcribed ISSUED-unbuilt.
     Snapshot Rev074 on verdict token next, then COMPACT, then build
     P-ADOPT-1 run A post-compact.
+27. P-ADOPT-1 RUN A EXECUTED 2026-09-13 (EA 3FDBC228… 426291 B
+    UNCOMMITTED, both compile 0/0, FlowLogic 3606BFB4 unchanged).
+    RECON18-ADOPT1A DONE=PASSED 19:21:07 (Test passed 0:54:03.105;
+    wrapper archived itself 18597 lines journal 5BDCA919… bounds
+    [116743..116742+18597]=[116743..135339] contiguous from 17; purity
+    1/4/481) — BLOCKED on E46 (packet's own halt): forced SHORT ext-1
+    resids −7 (10:10, 1.16251 vs 1.16258) / +85 (17:00, 1.16359 vs
+    1.16274), halts=2, EA side LONG both bars (opposed, disclosed; no S5
+    rows at either bar). Run B does NOT launch. Other gates gradeable:
+    E47 PASS 118/118 agree + FINDING split 2/116 (not predicted 10/108);
+    E48 REPORTED n=481 dis=8 all S2POLL (S5 10/10, S3ARM 39/39 agree;
+    no halt ordered); E49 NOT REPRODUCED (owned miss: swing-buffer
+    witness → OCCUPIED 4/4 + slot evidence dropped to −1; off-run
+    shift-membership 0/4, slot-reach 2/2 with OB-extreme pair identity;
+    rename half LANDED refSlotAgeBars both classes, old token 0);
+    E50 dormant proven (slToday 10/10 identical vs 17; eleventh join
+    481×3+10/10 zero-mismatch). All RECON17 identities verbatim incl.
+    SUPPRESSED 152, SLMEMO 471/118/589, four-signal set, ORDER 6/6/4.
+    Result filed (`06_HANDOFFS\BUILDER_RESULT_RECON18-ADOPT1A.md`);
+    relay v9-fresh filed ready to paste whole (self-contained rewrite for
+    a new council session: adoption arc + baselines + E46–E50 + four asks;
+    same measurements, no new run). Council ruling owed: E46 halt
+    stands vs re-scope; E48 materiality for run B; E49 predicate+labels;
+    E47 split correction noted. RECON17 stays frozen. UNCOMMITTED
+    (BLOCKED, no token).
+28. VERDICT 2026-09-13 (#8): HALT AFFIRMED — run B dead, P-ADOPT-1 closes
+    at run A, RECON17 frozen, run-A build stays uncommitted. Leading
+    finding SUPERSEDES relay E46 mechanism: at 10:10 eval-close 1.16190
+    sits 15pts BELOW entry 1.16205 (mechanism directionally unavailable);
+    two failures, two signatures (−7/barDiff −4 vs +85/−95). Discovery:
+    origin is an undeclared free parameter ("anchor-free" false as
+    implemented); five HAND examples reproduced only where the binding
+    did not bite. Ask1: no re-scope, no absorption (barDiff −4 ≠ 0 —
+    different swings, not rounding); OPERATOR owes Sep-8 feed-tag +
+    swing-rule confirmation (53/54pt stops) BEFORE any origin work;
+    P-ORIGIN-1 (print-only) entry: feed/rule confirm → declared origin
+    per site → five-example regression sweep FIRST → Sep-8 as forward
+    prediction. Ask2: 8 S2POLL rows immaterial at S5 site, BLOCK memo
+    paths until provenance tagged (E47 single-origin; 471/118/589 vs 481
+    leaves 10 unreconciled; 2/116 makes it worse). E48 reclassified as
+    primary corroboration (8/432 S2POLL, 0/10 S5, 0/39 S3ARM — tracks
+    candidate-set width; carry 3 imb rows + 2–27pt spread). Ask3:
+    OCCUPIED_NOMATCH=4 NOT a builder miss (4/4 genuinely occupied —
+    council spec failure, owned by council); slot regression REAL +
+    load-bearing (gate: in-run slots MUST read 168/408/21/817 or E49
+    returns unruled); slot-reach ADOPTED with labels (OFF_LADDER =
+    beyond pair 10:35+09.08, EXT_NONE = within-skipped pair
+    15:55+16:40; membership 0/4 rejected); expected split
+    OFF_LADDER=2/EXT_NONE=2/OCCUPIED_NOMATCH=0 graded next run;
+    refSlotAgeBars + 7th convention retained. Ask4: 10/108→2/116 logged
+    as PREDICTION MISS. Standing orders: fix regression + re-verify
+    inert join → commit DORMANT (local); run-B delta table SUSPENDED not
+    withdrawn (do not re-derive under new origin undeclared);
+    opposed-side debt unpaid.     Next: P-ORIGIN-1 (scope known, packet NOT
+    yet issued). Operator owes (blocking P-ORIGIN-1): Sep-8 Dukascopy
+    feed-tag + swing-rule yes/no at both bars. UNCOMMITTED (no token).
+29. VERDICT-#8 STANDING ORDER EXECUTED 2026-09-13 (EA 4FCAF215…
+    426922 B, both compile 0/0, FlowLogic 3606BFB4 unchanged):
+    RECON18b-SLOTRESTORE DONE=PASSED 20:42:15 (Test passed 0:59:20.496;
+    archive 18596 lines journal 9671013C…, bounds [135340..153935],
+    purity 1/4/481) — slot gate PASS (168/408/21/817 + ages exact),
+    split prediction PASS (OFF_LADDER 2 = 10:35+09.08, EXT_NONE 2 =
+    15:55+16:40, OCCUPIED 0 retired), inert join re-verified
+    (481/481×3+10/10 vs 11b; slToday 10/10 vs 17), all identities
+    verbatim, E46 still halts (−7/+85 untouched). Committed DORMANT as
+    Rev075 (canonical + records + tag Task162-T162SLOTRESTORE, local
+    only, NO push); RECON17 stays frozen baseline of record. Operator
+    answers LANDED (Sep-8 Dukascopy YES + swing-rule YES, 9:40/16:20
+    second swings pre-documented in Addendum 2; Addendum 4 filed with
+    16:40-ladder corroboration: rung 0 = 16:20/1.16274 ext 0, rung 4 =
+    09:40/1.16258) — P-ORIGIN-1 entry condition 1 MET, packet text owed
+    from council. Run-B delta stays suspended (never re-derived
+    undeclared).
 5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
    journal correction): journal "swings" = FRACTAL swings (triangle
    markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used

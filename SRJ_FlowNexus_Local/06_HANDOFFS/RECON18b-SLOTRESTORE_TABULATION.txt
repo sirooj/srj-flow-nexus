@@ -1,0 +1,38 @@
+G1 bars/ticks: KQ	0	20:42:05.990	Core 04	EURUSD,M5: 563338 ticks, 3168 bars generated. Environment synchronized in 0:00:00.020. Test passed in 0:59:20.496 (including ticks preprocessing 0:00:00.062).
+SIGNAL_COUNT=4
+WS161=LQ	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=3168 stores=3168 changes=205 mismatch=0
+SLIMB_TOTAL=481
+WALK_OB_TOTAL=481
+WALKF_TOTAL=481
+WALK_OB_SIDEV_GT0=0
+WALKF_SIDEV_GT0=0
+SLIMBR_TOTAL=10
+SLIMBR_STALE=0
+SIGMAP=ND	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SIGMAP fields=3 signals=4 mapped=4 map=2026.08.28 10:05->2026.08.28 10:00|2026.09.04 16:00->2026.09.04 15:55|2026.09.07 09:20->2026.09.07 09:15|2026.09.07 16:45->2026.09.07 16:40
+SLADDERMATCH_STATUS=NOLEVEL_FILED=5 NOMATCH=3 MATCH=2
+ORDER_OUTCOMES=RR_FAIL=6 DIV_WAIT=6 PASS=4
+SLEXT1_VERDICTS=NOLEVEL=6 PROVISIONAL_MATCH=1 MATCH=2 ABSORBED=1
+SLEXT6HALT_TOTAL=0
+SLEXT_FINAL=EO	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT_FINAL newSignalCount=1 lostSignalCount=0 newRows=2026.09.04 10:35; lostRows=- outPos=1 outNeg=5 outZero=4
+DECISION_HDR=CQ	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION rows=10 fired=4 threshold=1.00 thresholdSource=compiled_default orderFlipPass=0 orderFlipScope=NARROW
+MTEXIT_N=4
+MTLIFE_N=4
+MTFLIP_N=1
+N1EQUALS=ON	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] N1EQUALS poiEqBody=28 poiEqWick=26 vwapEq=0 pocEq=3
+FRAME_NOTE=JJ	0	19:42:50.273	Core 04	2026.08.26 00:00:00   [SRJ-EA] FRAME_NOTE offset=1 apex=s+1 labels=server-time protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) populations=inputVsResultNamed ladObligN=6refs ladCovers=oblig+ext1 sigmap=signalTime-s5BarTime-PeriodSeconds readwin=ladder:entryBar+span|walkOB:walkStart+500|walkFR:guardStart+500 origin=S5:nextOpen-strictHalt|S2POLL+S3ARM:evalClose THRESHOLD minRewardRisk=1.00 source=compiled_default
+LINEWIDTH_TRUNC_NZ=0
+SPOT_INPLAY_N=157
+SLEXT481_TOTAL=481
+SLEXT41HALT_TOTAL=0
+SLEXT43_FINAL=NJ	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT43_FINAL probed=10 hits=10 agree=10
+SLEXT45_TOTAL=10
+SLEXT45_TODAY=ON_LADDER=6 OFF_LADDER=2 EXT_NONE=2
+SLEXT45_EXT=EXT_DEFINED=10
+SLEXT45_ROWS=II	0	19:48:07.971	Core 04	2026.08.26 14:45:01   [SRJ-EA] SLEXT45 fields=10 bar=2026.08.26 14:40 site=S5 dir=LONG extStatus=EXT_DEFINED todayStatus=ON_LADDER noneSlot=-1 noneT=- refSlotAgeBars=-1 vacStatus=- coverStatus=COVERED ladObligN=6|IF	0	19:56:54.760	Core 04	2026.08.27 17:05:00   [SRJ-EA] SLEXT45 fields=10 bar=2026.08.27 17:00 site=S5 dir=SHORT extStatus=EXT_DEFINED todayStatus=ON_LADDER noneSlot=-1 noneT=- refSlotAgeBars=-1 vacStatus=- coverStatus=COVERED ladObligN=4|CQ	0	20:00:28.382	Core 04	2026.08.28 10:05:00   [SRJ-EA] SLEXT45 fields=10 bar=2026.08.28 10:00 site=S5 dir=SHORT extStatus=EXT_DEFINED todayStatus=ON_LADDER noneSlot=-1 noneT=- refSlotAgeBars=-1 vacStatus=- coverStatus=COVERED ladObligN=6|RM	0	20:01:41.625	Core 04	2026.08.28 16:25:00   [SRJ-EA] SLEXT45 fields=10 bar=2026.08.28 16:20 site=S5 dir=SHORT extStatus=EXT_DEFINED todayStatus=ON_LADDER noneSlot=-1 noneT=- refSlotAgeBars=-1 vacStatus=- coverStatus=COVERED ladObligN=3|JM	0	20:24:41.014	Core 04	2026.09.04 09:30:01   [SRJ-EA] SLEXT45 fields=10 bar=2026.09.04 09:25 site=S5 dir=LONG extStatus=EXT_DEFINED todayStatus=ON_LADDER noneSlot=-1 noneT=- refSlotAgeBars=-1 vacStatus=- coverStatus=COVERED ladObligN=6|MF	0	20:24:53.225	Core 04	2026.09.04 10:40:00   [SRJ-EA] SLEXT45 fields=10 bar=2026.09.04 10:35 site=S5 dir=SHORT extStatus=EXT_DEFINED todayStatus=OFF_LADDER noneSlot=168 noneT=2026.09.03 20:35 refSlotAgeBars=167 vacStatus=- coverStatus=COVERED ladObligN=3|JQ	0	20:25:54.258	Core 04	2026.09.04 16:00:00   [SRJ-EA] SLEXT45 fields=10 bar=2026.09.04 15:55 site=S5 dir=LONG extStatus=EXT_DEFINED todayStatus=EXT_NONE noneSlot=408 noneT=2026.09.03 05:55 refSlotAgeBars=407 vacStatus=- coverStatus=COVERED ladObligN=4|QP	0	20:29:27.880	Core 04	2026.09.07 09:20:00   [SRJ-EA] SLEXT45 fields=10 bar=2026.09.07 09:15 site=S5 dir=LONG extStatus=EXT_DEFINED todayStatus=ON_LADDER noneSlot=-1 noneT=- refSlotAgeBars=-1 vacStatus=- coverStatus=COVERED ladObligN=6|FD	0	20:30:59.435	Core 04	2026.09.07 16:45:00   [SRJ-EA] SLEXT45 fields=10 bar=2026.09.07 16:40 site=S5 dir=LONG extStatus=EXT_DEFINED todayStatus=EXT_NONE noneSlot=21 noneT=2026.09.07 14:55 refSlotAgeBars=20 vacStatus=- coverStatus=COVERED ladObligN=6|PJ	0	20:35:52.403	Core 04	2026.09.08 16:45:01   [SRJ-EA] SLEXT45 fields=10 bar=2026.09.08 16:40 site=S5 dir=SHORT extStatus=EXT_DEFINED todayStatus=OFF_LADDER noneSlot=817 noneT=2026.09.03 20:35 refSlotAgeBars=816 vacStatus=VACUOUS_COVER coverStatus=EXT1_UNCOVERED ladObligN=0
+SLIMBCARVE_PROXY=ON	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLIMBCARVE_PROXY obPred=4 obConsProxy=0 frPred=3 frConsProxy=3
+SLMEMO_CENSUS=HP	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLMEMO_CENSUS computes=471 hits=118 demands=589
+SLSEP846_FINAL=KD	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLSEP846_FINAL rows=2 halts=2
+SLSEP846HALT_TOTAL=2
+SLEXT47_FINAL=KM	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT47_FINAL rows=118 agree=118
+SLORIG48_FINAL=MI	0	20:42:05.990	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLORIG48_FINAL n=481 disagree=8 nS5=10 disS5=0 nS2POLL=432 disS2POLL=8 nS3ARM=39 disS3ARM=0 altNA=0
+SUPPRESSED_TOTAL=152

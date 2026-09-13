@@ -90,6 +90,30 @@ Sep-4 10:35 SHORT. Standing feed rule: Dukascopy ALWAYS; his OANDA-chart
 0.92R was his measurement error. Min-1R rule, verbatim sense: takes flat
 1.0R, does not take 0.99R (take iff R >= 1.0). Ext-1 R 1.21 clears it —
 F is now definition-YES + recovery-YES, the fifth TAKEN setup (4 fired +
-1 recovered, all HAND). All five ext-1 R values (2.43 / 1.66 / 1.76 /
-2.34 / 1.21) clear 1.0. Adoption inputs from him COMPLETE; last term
-closed post-compact.
+ 1 recovered, all HAND). All five ext-1 R values (2.43 / 1.66 / 1.76 /
+ 2.34 / 1.21) clear 1.0. Adoption inputs from him COMPLETE; last term
+ closed post-compact.
+
+ ## Addendum 4 2026-09-13 — Sep-8 feed-tag + swing-rule confirm (his words; verdict #8 entry condition 1)
+
+ FEED CONFIRMED: the Sep-8 pair is Dukascopy-sourced. No contamination;
+ the verdict's cheaper branch (feed error like Sep-4 10:35) is closed.
+ RULE CONFIRMED: both stops swing-based, second-swing stops, times as
+ filed in Addendum 2 (London second 9:40 at 1.16258 after first 9:50; NY
+ second 16:20 at 1.16274 after first 16:50). His memory is correct — the
+ candle times were already on disk here before he was asked. The 53/54pt
+ near-identical distances are two independent second-swing placements,
+ not a fixed-distance stop. Verdict #8 entry condition 1 is fully met;
+ P-ORIGIN-1 issuance is council's (packet text not yet issued — no build
+ moves on this addendum).
+
+ LADDER CORROBORATION (measured 2026-09-13 off the RECON18 archive, no
+ build): the code's only Sep-8 S5 row (16:40 SHORT, non-firing) carries
+ BOTH his levels as rungs at exact price+barTime — rung 0 slot 3 ext 0
+ barTime 16:20 px 1.16274 imb 1, and rung 4 slot 83 ext −1 barTime 09:40
+ px 1.16258 imb 0. His stops exist in the ladder; the E46 forced ext-1
+ walk (10:10 → 09:50/1.16251; 17:00 → 09:05/1.16359) did not land on
+ them. Note the index offset, stated without interpretation: his "second
+ swing" sits at code ext-index 0 (16:20) and unindexed −1 (09:40),
+ never at rungExt 1 — consistent with the verdict's origin-binding
+ discovery, and material for the declared-per-site origin design.

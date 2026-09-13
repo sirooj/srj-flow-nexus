@@ -1,0 +1,77 @@
+G1 bars/ticks: MP	0	19:20:52.923	Core 04	EURUSD,M5: 563338 ticks, 3168 bars generated. Environment synchronized in 0:00:00.019. Test passed in 0:54:03.105 (including ticks preprocessing 0:00:00.063).
+SIGNAL_COUNT=4
+SIGNALS=OM	0	18:39:26.908	Core 04	2026.08.28 10:05:00   [SRJ-EA] 2026.08.28 10:05:00 SIGNAL dir=SHORT poi=Daily-VWAP regime=TREND div=regular sess=LONDON tp_target=1.16364 tp_R=2.43 sl_ref=1.16508 sl_mode=2-swing spreadPts=4 bid=1.16466 ask=1.16470|CS	0	19:05:23.303	Core 04	2026.09.04 16:00:00   [SRJ-EA] 2026.09.04 16:00:00 SIGNAL dir=LONG poi=Yearly-POC regime=BOTH div=hidden sess=NYAM tp_target=1.16302 tp_R=2.56 sl_ref=1.15907 sl_mode=1-swing spreadPts=1 bid=1.16018 ask=1.16019|CF	0	19:08:50.823	Core 04	2026.09.07 09:20:00   [SRJ-EA] 2026.09.07 09:20:00 SIGNAL dir=LONG poi=Weekly-POC regime=TREND div=hidden sess=LONDON tp_target=1.16200 tp_R=1.76 sl_ref=1.16098 sl_mode=1-swing spreadPts=3 bid=1.16135 ask=1.16138|OL	0	19:10:16.273	Core 04	2026.09.07 16:45:00   [SRJ-EA] 2026.09.07 16:45:00 SIGNAL dir=LONG poi=Weekly-POC regime=TREND div=hidden sess=NYAM tp_target=1.16315 tp_R=1.25 sl_ref=1.16218 sl_mode=1-swing spreadPts=3 bid=1.16261 ask=1.16264
+WS161=RQ	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=3168 stores=3168 changes=205 mismatch=0
+WS161_MISMATCH_ROWS=0
+SLIMB_TOTAL=481
+WALK_OB_TOTAL=481
+WALKF_TOTAL=481
+WALK_OB_SIDEV_GT0=0
+WALKF_SIDEV_GT0=0
+SLIMBR_TOTAL=10
+SLIMBR_STALE=0
+SLADDER_TOTAL=336
+SLADDER_BADFMT=0
+SLADCORR_TOTAL=10
+SLADCORR_FINAL=OG	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADCORR_FINAL fields=4 rows=10 fracOff=0 todayOff=2 nz=-
+SIGMAP=PD	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SIGMAP fields=3 signals=4 mapped=4 map=2026.08.28 10:05->2026.08.28 10:00|2026.09.04 16:00->2026.09.04 15:55|2026.09.07 09:20->2026.09.07 09:15|2026.09.07 16:45->2026.09.07 16:40
+SLADDERMATCH_STATUS=NOLEVEL_FILED=5 NOMATCH=3 MATCH=2
+SLADDERMATCH_TODAYREF=ON_LADDER=8 TODAY_OFF_LADDER=2
+SLADWIN_STATUS=OK=9 VACUOUS_COVER=1
+SLADWIN_COVERS=1=9 0=1
+REF_OB_DEEP_TOTAL=6
+ORDER_OUTCOMES=RR_FAIL=6 DIV_WAIT=6 PASS=4
+SLEXT1_TOTAL=10
+SLEXT1_VERDICTS=NOLEVEL=6 PROVISIONAL_MATCH=1 MATCH=2 ABSORBED=1
+SLEXT1_OLD_NONEAGE=0
+SLEXT1_REFAGE=10
+SLEXT6HALT_TOTAL=0
+SLEXT_FINAL=CO	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT_FINAL newSignalCount=1 lostSignalCount=0 newRows=2026.09.04 10:35; lostRows=- outPos=1 outNeg=5 outZero=4
+SLADMARK_TOTAL=336
+DECISION_HDR=IQ	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION rows=10 fired=4 threshold=1.00 thresholdSource=compiled_default orderFlipPass=0 orderFlipScope=NARROW
+DECISION_ROW_N=10
+MTEXIT_N=4
+MTLIFE_N=4
+MTFLIP_N=1
+N1EQUALS=IM	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] N1EQUALS poiEqBody=28 poiEqWick=26 vwapEq=0 pocEq=3
+FRAME_NOTE=HF	0	18:26:56.083	Core 04	2026.08.26 00:00:00   [SRJ-EA] FRAME_NOTE offset=1 apex=s+1 labels=server-time protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) populations=inputVsResultNamed ladObligN=6refs ladCovers=oblig+ext1 sigmap=signalTime-s5BarTime-PeriodSeconds readwin=ladder:entryBar+span|walkOB:walkStart+500|walkFR:guardStart+500 origin=S5:nextOpen-strictHalt|S2POLL+S3ARM:evalClose THRESHOLD minRewardRisk=1.00 source=compiled_default
+FRAME_ORIGIN=1
+TABLE_NOTE=MM	0	18:26:56.083	Core 04	2026.08.26 00:00:00   [SRJ-EA] TABLE_NOTE rows=11 digest=5FFF5C762DABCAB7811C598D8B16942BBCBD5F9D94C91D0BB54CF8C36EF1F134 anchor=21:00_broker
+BLACKOUT_CENSUS=GH	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] BLACKOUT_CENSUS rows=11 rowsInWindow=1 memberBars=3 expected=3 mismatch=0 overlaps=0 slimbInWindow=1 s5InWindow=0 newsFlatCandidates=0 dayFlatCandidates=0 weekFlatCandidates=0 dailyCloseET=17:00 fridayET=2026-08-28 17:00|2026-09-04 17:00
+LINEWIDTH_TRUNC_NZ=0
+LINEWIDTH_SLSEP846=CH	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="SLSEP846" max=245 cap=537 truncated=0
+LINEWIDTH_SLEXT47=MK	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="SLEXT47" max=197 cap=537 truncated=0
+LINEWIDTH_SLORIG48=LD	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="SLORIG48" max=197 cap=537 truncated=0
+LINEWIDTH_SLEXT481=ES	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="SLEXT481" max=326 cap=537 truncated=0
+LINEWIDTH_SLEXT43=CE	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="SLEXT43" max=166 cap=537 truncated=0
+LINEWIDTH_SLEXT45=DH	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="SLEXT45" max=217 cap=537 truncated=0
+SPOT_INPLAY_N=157
+SLEXT481_TOTAL=481
+SLEXT481_SITE=S3ARM=39 S2POLL=432 S5=10
+SLEXT481_NOORIGIN=0
+SLEXT481_UNDEF=1=481
+SLEXT41HALT_TOTAL=0
+SLEXT481_SEP8=OM	0	19:13:37.693	Core 04	2026.09.08 10:15:00   [SRJ-EA] SLEXT481 fields=17 bar=2026.09.08 10:10 site=S2POLL dir=LONG ladOriginPx=1.16190 ladOriginBarTime=2026.09.08 10:10 ladOriginSite=S2POLL ext1Defined=1 slExt1=1.16112 ext1Slot=288 ext1BarTime=2026.09.07 10:10 ext1Imb=1 deepestExt=18 sep8FiledPx=1.16258 sep8ResidPts=-146 sep8BarDiffBars=-288 sep8Prov=HAND sep8Covered=1|KM	0	19:14:57.039	Core 04	2026.09.08 17:05:00   [SRJ-EA] SLEXT481 fields=17 bar=2026.09.08 17:00 site=S2POLL dir=LONG ladOriginPx=1.16241 ladOriginBarTime=2026.09.08 17:00 ladOriginSite=S2POLL ext1Defined=1 slExt1=1.16187 ext1Slot=5 ext1BarTime=2026.09.08 16:35 ext1Imb=0 deepestExt=17 sep8FiledPx=1.16274 sep8ResidPts=-87 sep8BarDiffBars=-5 sep8Prov=HAND sep8Covered=1
+SLEXT43_TOTAL=10
+SLEXT43_FINAL=PJ	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT43_FINAL probed=10 hits=10 agree=10
+SLEXT45_TOTAL=10
+SLEXT45_TODAY=ON_LADDER=6 OCCUPIED_NOMATCH=4
+SLEXT45_EXT=EXT_DEFINED=10
+SLEXT45_COVER=COVERED=9 EXT1_UNCOVERED=1
+SLEXT45_REFAGE_NEG=10
+SLEXT45_OLD_NONEAGE=0
+SLIMBCARVE_PROXY=MN	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLIMBCARVE_PROXY obPred=4 obConsProxy=0 frPred=3 frConsProxy=3
+SLMEMO_CENSUS=FP	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLMEMO_CENSUS computes=471 hits=118 demands=589
+SLSEP846_TOTAL=2
+SLSEP846_ROWS=DM	0	19:13:37.693	Core 04	2026.09.08 10:15:00   [SRJ-EA] SLSEP846 fields=14 bar=2026.09.08 10:10 site=S2POLL eaDir=LONG forcedDef=1 forcedPx=1.16251 forcedSlot=4 forcedBarTime=2026.09.08 09:50 forcedImb=0 deepestExt=32 filedPx=1.16258 filedProv=HAND feed=Dukascopy residPts=-7 barDiffBars=-4|QQ	0	19:14:57.039	Core 04	2026.09.08 17:05:00   [SRJ-EA] SLSEP846 fields=14 bar=2026.09.08 17:00 site=S2POLL eaDir=LONG forcedDef=1 forcedPx=1.16359 forcedSlot=95 forcedBarTime=2026.09.08 09:05 forcedImb=2 deepestExt=29 filedPx=1.16274 filedProv=HAND feed=Dukascopy residPts=85 barDiffBars=-95
+SLSEP846HALT_TOTAL=2
+SLSEP846_FINAL=ED	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLSEP846_FINAL rows=2 halts=2
+SLEXT47_TOTAL=118
+SLEXT47_AGREE=1=118
+SLEXT47_FINAL=EM	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT47_FINAL rows=118 agree=118
+SLORIG48_TOTAL=8
+SLORIG48_ROWS=IH	0	18:29:40.967	Core 04	2026.08.26 10:35:00   [SRJ-EA] SLORIG48 fields=11 bar=2026.08.26 10:30 site=S2POLL dir=SHORT primary=evalClose alternate=nextOpen primExt1=1.16729 altExt1=1.16727 primSlot=66 altSlot=64 agree=0 diffFields=px slot bt |QO	0	18:34:33.936	Core 04	2026.08.27 10:05:01   [SRJ-EA] SLORIG48 fields=11 bar=2026.08.27 10:00 site=S2POLL dir=SHORT primary=evalClose alternate=nextOpen primExt1=1.16565 altExt1=1.16556 primSlot=15 altSlot=7 agree=0 diffFields=px slot bt imb |IQ	0	18:40:27.944	Core 04	2026.08.28 15:00:00   [SRJ-EA] SLORIG48 fields=11 bar=2026.08.28 14:55 site=S2POLL dir=LONG primary=evalClose alternate=nextOpen primExt1=1.16400 altExt1=1.16392 primSlot=20 altSlot=23 agree=0 diffFields=px slot bt imb |LP	0	18:50:26.088	Core 04	2026.09.01 15:15:00   [SRJ-EA] SLORIG48 fields=11 bar=2026.09.01 15:10 site=S2POLL dir=LONG primary=evalClose alternate=nextOpen primExt1=1.15887 altExt1=1.15898 primSlot=43 altSlot=13 agree=0 diffFields=px slot bt |NN	0	18:58:58.783	Core 04	2026.09.03 09:15:00   [SRJ-EA] SLORIG48 fields=11 bar=2026.09.03 09:10 site=S2POLL dir=LONG primary=evalClose alternate=nextOpen primExt1=1.15907 altExt1=1.15934 primSlot=39 altSlot=13 agree=0 diffFields=px slot bt imb |MI	0	19:10:10.170	Core 04	2026.09.07 16:05:00   [SRJ-EA] SLORIG48 fields=11 bar=2026.09.07 16:00 site=S2POLL dir=LONG primary=evalClose alternate=nextOpen primExt1=1.16209 altExt1=1.16197 primSlot=9 altSlot=36 agree=0 diffFields=px slot bt |KG	0	19:14:26.522	Core 04	2026.09.08 14:15:01   [SRJ-EA] SLORIG48 fields=11 bar=2026.09.08 14:10 site=S2POLL dir=LONG primary=evalClose alternate=nextOpen primExt1=1.16083 altExt1=1.16091 primSlot=35 altSlot=26 agree=0 diffFields=px slot bt |ND	0	19:15:03.142	Core 04	2026.09.08 17:15:00   [SRJ-EA] SLORIG48 fields=11 bar=2026.09.08 17:10 site=S2POLL dir=LONG primary=evalClose alternate=nextOpen primExt1=1.16187 altExt1=1.16147 primSlot=7 altSlot=17 agree=0 diffFields=px slot bt 
+SLORIG48_FINAL=OI	0	19:20:52.923	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLORIG48_FINAL n=481 disagree=8 nS5=10 disS5=0 nS2POLL=432 disS2POLL=8 nS3ARM=39 disS3ARM=0 altNA=0
+SLEXT47_ATS5=2
+SLEXT47_NONS5=116
+SUPPRESSED_TOTAL=152
