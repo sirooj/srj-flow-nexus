@@ -1,0 +1,453 @@
+﻿RUN=RECON19-ORIGIN1
+WRAPPER=V2
+WRAPPER_STARTED=2026-09-13 21:19:03
+INI=c:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\00_CURRENT_WORKING\RECON1_P1.ini
+INI_EXISTS=True
+TERM_EXISTS=True
+TERMINAL_BUSY=False
+JOURNAL=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\Tester\logs\20260913.log
+PRE_JOURNAL_LINES=153935
+PID=11600
+LAUNCHED_AT=2026-09-13 21:19:03
+STAGE=RUNNING (completion = the journal marker, NOT process exit)
+HEARTBEAT=21:19:14 terminal_alive=True journal_lines=153935
+HEARTBEAT=21:19:25 terminal_alive=True journal_lines=155987
+JOURNAL_LAST=CF	0	21:19:22.452	Core 04	2026.08.26 00:00:00   [SRJ][T155][OBPROV] code=5 id=0 bar=122908 flag=true
+HEARTBEAT=21:19:35 terminal_alive=True journal_lines=155987
+HEARTBEAT=21:19:46 terminal_alive=True journal_lines=155987
+HEARTBEAT=21:19:56 terminal_alive=True journal_lines=156117
+JOURNAL_LAST=ML	0	21:19:53.007	Core 04	2026.08.26 01:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 00:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=1 mism=0
+HEARTBEAT=21:20:07 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:20:18 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:20:28 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:20:39 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:20:49 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:20:59 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:21:10 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:21:20 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:21:31 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:21:41 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:21:52 terminal_alive=True journal_lines=156117
+HEARTBEAT=21:22:02 terminal_alive=True journal_lines=156304
+JOURNAL_LAST=IS	0	21:22:01.205	Core 04	2026.08.26 09:30:00   [SRJ-EA] TPCENSUS #3 bar=2026.08.26 09:25 dir=SHORT close=1.16617 winner=NYL best=1.16583 distPts=34 empties=0 admitted= PDL:107 NYL:34 Monthly-POC:1193 Monthly-VWAP:827 Quarterly-POC:2283 Quarterly-VWAP:1804 Yearly-POC:1218 Yearly-VWAP:296 FOMC-POC:1249 FOMC-VWAP:1019 
+HEARTBEAT=21:22:13 terminal_alive=True journal_lines=156450
+JOURNAL_LAST=GN	0	21:22:07.310	Core 04	2026.08.26 10:10:00   [SRJ-EA] CONFIRMPOLL bar=2026.08.26 10:05 anchor=Weekly-POC dir=SHORT oppCandle=1 bodyDir=0 body=1pts doji=0 touchAttr=0 confirm=0 shadow=true
+HEARTBEAT=21:22:23 terminal_alive=True journal_lines=156661
+JOURNAL_LAST=PM	0	21:22:19.516	Core 04	2026.08.26 11:10:01   [SRJ-EA] SLSRC site=S2POLL dir=SHORT src=FALLBACK_SIDE obStruct=1.16582 obSwing=1.16580 nearest=1.16730 chosen=1.16751 deltaPts=2
+HEARTBEAT=21:22:34 terminal_alive=True journal_lines=156792
+JOURNAL_LAST=DR	0	21:22:25.619	Core 04	2026.08.26 11:50:07   [SRJ-EA] SLSIDEGUARD site=S2POLL dir=SHORT rejected=1.16730 chosen=1.16751 atShift=96 fromShift=14 close=1.16735 zoneLo=0.00000 zoneHi=0.00000
+HEARTBEAT=21:22:44 terminal_alive=True journal_lines=156868
+JOURNAL_LAST=RR	0	21:22:37.826	Core 04	2026.08.26 12:25:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 12:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=43 mism=0
+HEARTBEAT=21:22:55 terminal_alive=True journal_lines=156868
+HEARTBEAT=21:23:05 terminal_alive=True journal_lines=157019
+JOURNAL_LAST=IQ	0	21:23:02.239	Core 04	2026.08.26 14:45:01   [SRJ-EA] SLADDER fields=19 bar=2026.08.26 14:40 site=S5 dir=LONG rung=23 rungSlot=325 rungExt=-1 shift=326 shiftT=2026.08.25 11:30 barTime=2026.08.25 11:30 px=1.16611 wick=1.16611 body=1.16620 imbCode=0 exceedsPrev=B distPts=31 rungR=0.70 isOBSwing=0 isFracAnchor=0 isTodayRef=0 ladFresh=1
+HEARTBEAT=21:23:15 terminal_alive=True journal_lines=157164
+JOURNAL_LAST=KI	0	21:23:14.446	Core 04	2026.08.26 15:30:00   [SRJ-EA] SLIMBWALKF fields=25 bar=2026.08.26 15:25 site=S2POLL dir=LONG branch=1SWING fracAnchorShift=12 fracAnchorFlag=0 slFractal=1.16558 slFractalNuance=1.16602 deltaFracPts=-22 deltaFracNuancePts=22 fracSteps=72 fracCode2=14 fracExh=0 fracC3=0 fracExtNQ=6 fracClass=CARVEOUT_FIRED sideFracViolations=0 outwardFracPts=22 outwardFracNuancePts=-22 fracAnchorRawShift=12 fracAnchorRawSide=PROTECTIVE fracAnchorGuardApplied=0 fracAnchorShiftT=2026.08.26 14:25 fracSkip=70 fracSkipT=2026.08.
+HEARTBEAT=21:23:26 terminal_alive=True journal_lines=157251
+JOURNAL_LAST=PJ	0	21:23:20.549	Core 04	2026.08.26 16:10:01   [SRJ-EA] 2026.08.26 16:10:01 CQD DIV verdict=+1 shift=2 bar=2026.08.26 16:00
+HEARTBEAT=21:23:37 terminal_alive=True journal_lines=157535
+JOURNAL_LAST=MK	0	21:23:32.756	Core 04	2026.08.26 17:00:00   [SRJ-EA] XOBINPLAY bar=2026.08.26 16:55 dir=SHORT zoneSrc=XOB zoneLo=1.16612 zoneHi=1.16640 promoT=2026.08.26 16:00 bounded=1 scanned=12 swings=3 hits=0 firstShift=-1 firstVal=- capHit=0 legacy=0 legacyVia=none widened=0 flip=0
+HEARTBEAT=21:23:47 terminal_alive=True journal_lines=157890
+JOURNAL_LAST=RG	0	21:23:44.963	Core 04	2026.08.26 18:05:00   [SRJ-EA] 2026.08.26 18:05:00 S3 waiting: no qualifying zone
+HEARTBEAT=21:23:58 terminal_alive=True journal_lines=157890
+HEARTBEAT=21:24:08 terminal_alive=True journal_lines=157890
+HEARTBEAT=21:24:19 terminal_alive=True journal_lines=157890
+HEARTBEAT=21:24:29 terminal_alive=True journal_lines=157890
+HEARTBEAT=21:24:40 terminal_alive=True journal_lines=157988
+JOURNAL_LAST=DF	0	21:24:33.792	Core 04	2026.08.26 21:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 21:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=76 mism=0
+HEARTBEAT=21:24:50 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:25:01 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:25:11 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:25:22 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:25:32 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:25:43 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:25:53 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:26:04 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:26:14 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:26:25 terminal_alive=True journal_lines=157988
+HEARTBEAT=21:26:36 terminal_alive=True journal_lines=158106
+JOURNAL_LAST=RQ	0	21:26:29.761	Core 04	2026.08.27 07:05:06   [SRJ-EA] IDCHANGE bar=2026.08.27 07:00 inWin=0 state=IDLE dir=NONE xobId=1891->1906 fvgId=0->0 xobLo=1.16450 xobHi=1.16473 cumX=39 cumF=0 bars=374
+HEARTBEAT=21:26:46 terminal_alive=True journal_lines=158106
+HEARTBEAT=21:26:57 terminal_alive=True journal_lines=158106
+HEARTBEAT=21:27:07 terminal_alive=True journal_lines=158343
+JOURNAL_LAST=DN	0	21:27:06.382	Core 04	2026.08.27 10:10:04   [SRJ-EA] SLIMBWALK fields=27 bar=2026.08.27 10:05 site=S2POLL dir=SHORT branch=1SWING slToday=1.16562 slBase=1.16562 slNuance=1.16562 deltaBasePts=0 deltaNuancePts=0 walkSteps=0 code2Seen=0 exhausted=0 skipShift=-1 skipVal=- skipFlag=- bodyExt=- extUpdatedByNonQual=0 code3Seen=0 sideViolations=0 todayEqBase=1 todayEqNuance=1 baseEqNuance=1 class=ALL3_EQ outwardBasePts=0 outwardNuancePts=0 skipShiftT=- startShiftT=2026.08.27 10:00
+HEARTBEAT=21:27:18 terminal_alive=True journal_lines=158414
+JOURNAL_LAST=JG	0	21:27:12.486	Core 04	2026.08.27 10:25:01   [SRJ-EA] LEGTOUCH bar=2026.08.27 10:20 dir=SHORT found=0 atShift=-1 atBar=- legBound=2026.08.27 10:20 zoneLo=1.16553 zoneHi=1.16564 touchSeen=0
+HEARTBEAT=21:27:28 terminal_alive=True journal_lines=158579
+JOURNAL_LAST=ED	0	21:27:24.693	Core 04	2026.08.27 11:40:01   [SRJ-EA] S3INPLAY bar=2026.08.27 11:35 dir=SHORT inPlay=0 via=none zoneLo=1.16612 zoneHi=1.16640 barLo=1.16475 barHi=1.16509 close=1.16499 sw1=1.16580@6 sw2=-@-1
+HEARTBEAT=21:27:39 terminal_alive=True journal_lines=158649
+JOURNAL_LAST=RS	0	21:27:30.797	Core 04	2026.08.27 11:55:06   [SRJ-EA] SLIMBWALK fields=27 bar=2026.08.27 11:50 site=S2POLL dir=SHORT branch=1SWING slToday=1.16652 slBase=1.16652 slNuance=1.16652 deltaBasePts=0 deltaNuancePts=0 walkSteps=108 code2Seen=12 exhausted=1 skipShift=-1 skipVal=- skipFlag=- bodyExt=- extUpdatedByNonQual=6 code3Seen=0 sideViolations=0 todayEqBase=1 todayEqNuance=1 baseEqNuance=1 class=WALK_EXHAUSTED outwardBasePts=0 outwardNuancePts=0 skipShiftT=- startShiftT=2026.08.26 15:50
+HEARTBEAT=21:27:49 terminal_alive=True journal_lines=158649
+HEARTBEAT=21:27:59 terminal_alive=True journal_lines=158649
+HEARTBEAT=21:28:10 terminal_alive=True journal_lines=158649
+HEARTBEAT=21:28:20 terminal_alive=True journal_lines=158746
+JOURNAL_LAST=RK	0	21:28:13.522	Core 04	2026.08.27 15:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 15:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=133 mism=0
+HEARTBEAT=21:28:31 terminal_alive=True journal_lines=158844
+JOURNAL_LAST=GJ	0	21:28:25.728	Core 04	2026.08.27 16:40:00   [SRJ-EA] SWEPTMASK bar=2026.08.27 16:35 raw=4926.0 m=4926 swept=0111110011 live=0010
+HEARTBEAT=21:28:42 terminal_alive=True journal_lines=159185
+JOURNAL_LAST=CJ	0	21:28:37.937	Core 04	2026.08.27 17:35:02   [SRJ-EA] SLSRC site=S2POLL dir=SHORT src=OB_SWING obStruct=1.16578 obSwing=1.16578 nearest=1.16578 chosen=1.16578 deltaPts=0
+HEARTBEAT=21:28:52 terminal_alive=True journal_lines=159331
+JOURNAL_LAST=OL	0	21:28:50.142	Core 04	2026.08.27 18:25:00   [SRJ-EA] SWINGPICK site=S2POLL dir=SHORT barShift=1 close=1.16495 haveHigh=1 SH=1.16525 atShift=2 haveLow=1 SL=1.16443 atShift=4
+HEARTBEAT=21:29:03 terminal_alive=True journal_lines=159471
+JOURNAL_LAST=OR	0	21:29:02.349	Core 04	2026.08.27 19:20:02   [SRJ][T155][OBPROV] code=8 id=0 bar=123569 flag=true
+HEARTBEAT=21:29:13 terminal_alive=True journal_lines=159471
+HEARTBEAT=21:29:23 terminal_alive=True journal_lines=159471
+HEARTBEAT=21:29:34 terminal_alive=True journal_lines=159471
+HEARTBEAT=21:29:45 terminal_alive=True journal_lines=159471
+HEARTBEAT=21:29:55 terminal_alive=True journal_lines=159471
+HEARTBEAT=21:30:06 terminal_alive=True journal_lines=159471
+HEARTBEAT=21:30:16 terminal_alive=True journal_lines=159471
+HEARTBEAT=21:30:27 terminal_alive=True journal_lines=159471
+HEARTBEAT=21:30:37 terminal_alive=True journal_lines=159586
+JOURNAL_LAST=HR	0	21:30:33.902	Core 04	2026.08.28 02:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 02:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=180 mism=0
+HEARTBEAT=21:30:48 terminal_alive=True journal_lines=159586
+HEARTBEAT=21:30:58 terminal_alive=True journal_lines=159586
+HEARTBEAT=21:31:09 terminal_alive=True journal_lines=159586
+HEARTBEAT=21:31:19 terminal_alive=True journal_lines=159586
+HEARTBEAT=21:31:30 terminal_alive=True journal_lines=159586
+HEARTBEAT=21:31:40 terminal_alive=True journal_lines=159586
+HEARTBEAT=21:31:51 terminal_alive=True journal_lines=159586
+HEARTBEAT=21:32:02 terminal_alive=True journal_lines=159696
+JOURNAL_LAST=HH	0	21:31:53.247	Core 04	2026.08.28 09:00:00   [SRJ][T155][OBPROV] code=3 id=2163 bar=123733 flag=false
+HEARTBEAT=21:32:12 terminal_alive=True journal_lines=159941
+JOURNAL_LAST=MN	0	21:32:11.558	Core 04	2026.08.28 10:40:00   [SRJ-EA] EXITCENSUS bar=2026.08.28 10:35 dir=SHORT line=FOMC-POC val=1.15368 side=ahead trigger=1 bodyLo=1.16439 bodyHi=1.16447 verdict=ok
+HEARTBEAT=21:32:23 terminal_alive=True journal_lines=160031
+JOURNAL_LAST=HG	0	21:32:17.661	Core 04	2026.08.28 11:10:00   [SRJ-EA] EXITCENSUS bar=2026.08.28 11:05 dir=SHORT line=FOMC-VWAP val=1.15675 side=ahead trigger=0 bodyLo=1.16467 bodyHi=1.16468 verdict=ok
+HEARTBEAT=21:32:33 terminal_alive=True journal_lines=160031
+HEARTBEAT=21:32:44 terminal_alive=True journal_lines=160124
+JOURNAL_LAST=PG	0	21:32:35.972	Core 04	2026.08.28 12:20:02   SRJ XOB-PROMOCENSUS t=2026.08.28 12:15 bar=123773 mode=all bias=bearish objId=2187 isValid=1 isActivated=1 obStart=123768 obStartT=2026.08.28 11:50 obVal=123770 obInval=-2147483648 boundary=-2147483648 promoBar=123773 promoT=2026.08.28 12:15
+HEARTBEAT=21:32:54 terminal_alive=True journal_lines=160124
+HEARTBEAT=21:33:05 terminal_alive=True journal_lines=160283
+JOURNAL_LAST=QO	0	21:33:00.386	Core 04	2026.08.28 14:35:09   [SRJ-EA] XOBPROMO bar=2026.08.28 14:30 site=S3PICK xobId=2196 raw=1787923500.0 promoT=2026.08.28 13:25
+HEARTBEAT=21:33:15 terminal_alive=True journal_lines=160570
+JOURNAL_LAST=HP	0	21:33:12.593	Core 04	2026.08.28 15:30:00   [SRJ-EA] SLIMBWALK fields=27 bar=2026.08.28 15:25 site=S2POLL dir=LONG branch=1SWING slToday=1.16400 slBase=1.16400 slNuance=1.16400 deltaBasePts=0 deltaNuancePts=0 walkSteps=86 code2Seen=20 exhausted=1 skipShift=-1 skipVal=- skipFlag=- bodyExt=- extUpdatedByNonQual=2 code3Seen=0 sideViolations=0 todayEqBase=1 todayEqNuance=1 baseEqNuance=1 class=WALK_EXHAUSTED outwardBasePts=0 outwardNuancePts=0 skipShiftT=- startShiftT=2026.08.28 13:15
+HEARTBEAT=21:33:25 terminal_alive=True journal_lines=160790
+JOURNAL_LAST=MG	0	21:33:24.800	Core 04	2026.08.28 16:25:00   [SRJ-EA] SLADMARK fields=11 bar=2026.08.28 16:20 site=S5 dir=SHORT rung=34 slot=139 rungExt=3 barTime=2026.08.28 04:40 px=1.16553 imbCode=0 distPts=45 rungR=0.54
+HEARTBEAT=21:33:36 terminal_alive=True journal_lines=160871
+JOURNAL_LAST=CG	0	21:33:30.903	Core 04	2026.08.28 17:05:00   [SRJ-EA] XOBINPLAY bar=2026.08.28 17:00 dir=SHORT zoneSrc=XOB zoneLo=1.16415 zoneHi=1.16436 promoT=2026.08.28 17:00 bounded=1 scanned=1 swings=0 hits=0 firstShift=-1 firstVal=- capHit=0 legacy=1 legacyVia=BAR widened=1 flip=0
+HEARTBEAT=21:33:46 terminal_alive=True journal_lines=161028
+JOURNAL_LAST=HS	0	21:33:43.110	Core 04	2026.08.28 17:50:00   [SRJ-EA] SLIMB fields=19 bar=2026.08.28 17:45 site=S2POLL dir=SHORT branch=1SWING obValid=1 slRef=1.16116 slShift=2 slShiftT=2026.08.28 17:35 latestFlag=0 latestShift=2 latestShiftT=2026.08.28 17:35 latestAvail=1 latestApexMatch=1 chosenFlag=0 chosenShift=2 chosenShiftT=2026.08.28 17:35 chosenAvail=1 nuanceClass=OB_VALID_LATEST_NOIMB cands=-
+HEARTBEAT=21:33:57 terminal_alive=True journal_lines=161322
+JOURNAL_LAST=LJ	0	21:33:55.317	Core 04	2026.08.28 18:50:00   SRJ XOB-PROMOCENSUS t=2026.08.28 18:45 bar=123851 mode=nearest bias=bearish objId=2224 isValid=1 isActivated=1 obStart=123836 obStartT=2026.08.28 17:30 obVal=123849 obInval=-2147483648 boundary=123849 boundaryOk=0 oppInvalCount=2 promoBar=123851 promoT=2026.08.28 18:45
+HEARTBEAT=21:34:07 terminal_alive=True journal_lines=161399
+JOURNAL_LAST=ER	0	21:34:01.420	Core 04	2026.08.28 19:15:00   [SRJ-EA] IDCHANGE bar=2026.08.28 19:10 inWin=0 state=IDLE dir=NONE xobId=2224->2233 fvgId=0->0 xobLo=1.15962 xobHi=1.16003 cumX=96 cumF=0 bars=808
+HEARTBEAT=21:34:18 terminal_alive=True journal_lines=161399
+HEARTBEAT=21:34:29 terminal_alive=True journal_lines=161399
+HEARTBEAT=21:34:39 terminal_alive=True journal_lines=161399
+HEARTBEAT=21:34:50 terminal_alive=True journal_lines=161399
+HEARTBEAT=21:35:00 terminal_alive=True journal_lines=161399
+HEARTBEAT=21:35:10 terminal_alive=True journal_lines=161399
+HEARTBEAT=21:35:21 terminal_alive=True journal_lines=161399
+HEARTBEAT=21:35:32 terminal_alive=True journal_lines=161399
+HEARTBEAT=21:35:42 terminal_alive=True journal_lines=161513
+JOURNAL_LAST=GH	0	21:35:39.077	Core 04	2026.08.31 03:30:01   [SRJ][T155][OBPROV] code=8 id=0 bar=123955 flag=true
+HEARTBEAT=21:35:53 terminal_alive=True journal_lines=161513
+HEARTBEAT=21:36:03 terminal_alive=True journal_lines=161513
+HEARTBEAT=21:36:14 terminal_alive=True journal_lines=161513
+HEARTBEAT=21:36:24 terminal_alive=True journal_lines=161513
+HEARTBEAT=21:36:35 terminal_alive=True journal_lines=161513
+HEARTBEAT=21:36:45 terminal_alive=True journal_lines=161513
+HEARTBEAT=21:36:56 terminal_alive=True journal_lines=161513
+HEARTBEAT=21:37:06 terminal_alive=True journal_lines=161631
+JOURNAL_LAST=HM	0	21:36:58.421	Core 04	2026.08.31 09:50:05   [SRJ][T155][OBPROV] code=3 id=2341 bar=124031 flag=false
+HEARTBEAT=21:37:17 terminal_alive=True journal_lines=161850
+JOURNAL_LAST=RK	0	21:37:16.733	Core 04	2026.08.31 11:15:00   [SRJ-EA] SLMEMO bar=2026.08.31 11:10 site=S2POLL result=COMPUTE ok=1 slRef=1.16116 mode=1 computes=166 hits=66 genID=166 wrSite=S2POLL wrOrigin=evalClose
+HEARTBEAT=21:37:27 terminal_alive=True journal_lines=161990
+JOURNAL_LAST=FK	0	21:37:22.836	Core 04	2026.08.31 11:50:00   [SRJ-EA] CONFIRM_STRUCT_FAIL bar=2026.08.31 11:45 dir=SHORT term=A_OPP
+HEARTBEAT=21:37:38 terminal_alive=True journal_lines=161990
+HEARTBEAT=21:37:48 terminal_alive=True journal_lines=161990
+HEARTBEAT=21:37:59 terminal_alive=True journal_lines=161990
+HEARTBEAT=21:38:09 terminal_alive=True journal_lines=162155
+JOURNAL_LAST=MP	0	21:38:05.560	Core 04	2026.08.31 15:10:00   [SRJ-EA] RETESTBOOK bar=2026.08.31 15:05 hits=2 Daily-POC:r10:dS Weekly-POC:r8:dS
+HEARTBEAT=21:38:20 terminal_alive=True journal_lines=162367
+JOURNAL_LAST=GI	0	21:38:17.768	Core 04	2026.08.31 16:15:00   [SRJ-EA] SLIMB fields=19 bar=2026.08.31 16:10 site=S2POLL dir=LONG branch=1SWING obValid=1 slRef=1.15854 slShift=164 slShiftT=2026.08.31 02:30 latestFlag=0 latestShift=2 latestShiftT=2026.08.31 16:00 latestAvail=1 latestApexMatch=1 chosenFlag=0 chosenShift=164 chosenShiftT=2026.08.31 02:30 chosenAvail=1 nuanceClass=OB_VALID_LATEST_NOIMB cands=-
+HEARTBEAT=21:38:31 terminal_alive=True journal_lines=162592
+JOURNAL_LAST=OK	0	21:38:29.975	Core 04	2026.08.31 17:20:04   [SRJ-EA] SLIMBWALKF fields=25 bar=2026.08.31 17:15 site=S2POLL dir=LONG branch=1SWING fracAnchorShift=15 fracAnchorFlag=0 slFractal=1.15924 slFractalNuance=1.15924 deltaFracPts=0 deltaFracNuancePts=0 fracSteps=98 fracCode2=26 fracExh=1 fracC3=0 fracExtNQ=10 fracClass=WALK_EXHAUSTED sideFracViolations=0 outwardFracPts=0 outwardFracNuancePts=0 fracAnchorRawShift=15 fracAnchorRawSide=PROTECTIVE fracAnchorGuardApplied=0 fracAnchorShiftT=2026.08.31 16:00 fracSkip=-1 fracSkipT=-
+HEARTBEAT=21:38:41 terminal_alive=True journal_lines=162670
+JOURNAL_LAST=LH	0	21:38:36.079	Core 04	2026.08.31 17:40:02   [SRJ-EA] SLIMB fields=19 bar=2026.08.31 17:35 site=S2POLL dir=LONG branch=1SWING obValid=1 slRef=1.15924 slShift=22 slShiftT=2026.08.31 15:45 latestFlag=2 latestShift=1 latestShiftT=2026.08.31 17:30 latestAvail=1 latestApexMatch=1 chosenFlag=0 chosenShift=22 chosenShiftT=2026.08.31 15:45 chosenAvail=1 nuanceClass=OB_VALID_LATEST_IMB cands=-
+HEARTBEAT=21:38:52 terminal_alive=True journal_lines=162815
+JOURNAL_LAST=EE	0	21:38:42.182	Core 04	2026.08.31 18:20:00   [SRJ-EA] 2026.08.31 18:20:00 STATE S4_ARMED->ABORT dir=LONG poi=Yearly-POC
+HEARTBEAT=21:39:02 terminal_alive=True journal_lines=162815
+HEARTBEAT=21:39:12 terminal_alive=True journal_lines=162815
+HEARTBEAT=21:39:23 terminal_alive=True journal_lines=162815
+HEARTBEAT=21:39:34 terminal_alive=True journal_lines=162815
+HEARTBEAT=21:39:44 terminal_alive=True journal_lines=162815
+HEARTBEAT=21:39:55 terminal_alive=True journal_lines=162815
+HEARTBEAT=21:40:05 terminal_alive=True journal_lines=162815
+HEARTBEAT=21:40:16 terminal_alive=True journal_lines=162815
+HEARTBEAT=21:40:26 terminal_alive=True journal_lines=162935
+JOURNAL_LAST=OO	0	21:40:19.839	Core 04	2026.09.01 02:15:00   SRJ XOB-PROMOCENSUS t=2026.09.01 02:10 bar=124228 mode=nearest bias=bearish objId=2451 isValid=1 isActivated=1 obStart=124225 obStartT=2026.09.01 01:55 obVal=124226 obInval=-2147483648 boundary=124224 boundaryOk=1 oppInvalCount=0 promoBar=124228 promoT=2026.09.01 02:10
+HEARTBEAT=21:40:37 terminal_alive=True journal_lines=162935
+HEARTBEAT=21:40:47 terminal_alive=True journal_lines=162935
+HEARTBEAT=21:40:58 terminal_alive=True journal_lines=162935
+HEARTBEAT=21:41:08 terminal_alive=True journal_lines=162935
+HEARTBEAT=21:41:19 terminal_alive=True journal_lines=162935
+HEARTBEAT=21:41:29 terminal_alive=True journal_lines=162935
+HEARTBEAT=21:41:40 terminal_alive=True journal_lines=162935
+HEARTBEAT=21:41:50 terminal_alive=True journal_lines=162935
+HEARTBEAT=21:42:01 terminal_alive=True journal_lines=163187
+JOURNAL_LAST=HL	0	21:41:57.496	Core 04	2026.09.01 09:55:00   [SRJ-EA] SLIMBWALK fields=27 bar=2026.09.01 09:50 site=S2POLL dir=SHORT branch=1SWING slToday=1.16100 slBase=1.16105 slNuance=1.16105 deltaBasePts=5 deltaNuancePts=5 walkSteps=8 code2Seen=0 exhausted=0 skipShift=-1 skipVal=- skipFlag=- bodyExt=- extUpdatedByNonQual=0 code3Seen=0 sideViolations=0 todayEqBase=0 todayEqNuance=0 baseEqNuance=1 class=BASE_MOVED outwardBasePts=5 outwardNuancePts=5 skipShiftT=- startShiftT=2026.09.01 08:45
+HEARTBEAT=21:42:11 terminal_alive=True journal_lines=163187
+HEARTBEAT=21:42:22 terminal_alive=True journal_lines=163285
+JOURNAL_LAST=NM	0	21:42:15.806	Core 04	2026.09.01 11:45:00   [SRJ-EA] RETESTBOOK bar=2026.09.01 11:40 hits=0 
+HEARTBEAT=21:42:32 terminal_alive=True journal_lines=163285
+HEARTBEAT=21:42:43 terminal_alive=True journal_lines=163285
+HEARTBEAT=21:42:54 terminal_alive=True journal_lines=163379
+JOURNAL_LAST=RL	0	21:42:52.426	Core 04	2026.09.01 14:40:03   [SRJ-EA] SWEPTMASK bar=2026.09.01 14:35 raw=4873.0 m=4873 swept=1001000011 live=0010
+HEARTBEAT=21:43:04 terminal_alive=True journal_lines=163587
+JOURNAL_LAST=FH	0	21:43:04.634	Core 04	2026.09.01 15:35:05   [SRJ-EA] SLMEMO bar=2026.09.01 15:30 site=S2POLL result=COMPUTE ok=1 slRef=1.15854 mode=1 computes=236 hits=69 genID=236 wrSite=S2POLL wrOrigin=evalClose
+HEARTBEAT=21:43:15 terminal_alive=True journal_lines=163661
+JOURNAL_LAST=ON	0	21:43:10.737	Core 04	2026.09.01 15:55:02   [SRJ-EA] SL_REF branch=1-swing obValid=1 slRef=1.15854 distPts=71 site=S2POLL zoneLo=1.15855 zoneHi=1.15862
+HEARTBEAT=21:43:25 terminal_alive=True journal_lines=163893
+JOURNAL_LAST=RS	0	21:43:22.944	Core 04	2026.09.01 17:00:00   [SRJ-EA] SLIMBWALKF fields=25 bar=2026.09.01 16:55 site=S2POLL dir=LONG branch=1SWING fracAnchorShift=2 fracAnchorFlag=0 slFractal=1.15902 slFractalNuance=1.15902 deltaFracPts=0 deltaFracNuancePts=0 fracSteps=101 fracCode2=23 fracExh=1 fracC3=0 fracExtNQ=12 fracClass=WALK_EXHAUSTED sideFracViolations=0 outwardFracPts=0 outwardFracNuancePts=0 fracAnchorRawShift=2 fracAnchorRawSide=PROTECTIVE fracAnchorGuardApplied=0 fracAnchorShiftT=2026.09.01 16:45 fracSkip=-1 fracSkipT=-
+HEARTBEAT=21:43:36 terminal_alive=True journal_lines=164042
+JOURNAL_LAST=HF	0	21:43:29.048	Core 04	2026.09.01 17:40:01   [SRJ-EA] 2026.09.01 17:40:01 CQD DIV verdict=+2 shift=2 bar=2026.09.01 17:30
+HEARTBEAT=21:43:47 terminal_alive=True journal_lines=164128
+JOURNAL_LAST=NO	0	21:43:41.254	Core 04	2026.09.01 18:25:00   SRJ XOB-PROMOCENSUS t=2026.09.01 18:20 bar=124422 mode=nearest bias=bearish objId=2554 isValid=1 isActivated=1 obStart=124419 obStartT=2026.09.01 18:05 obVal=124420 obInval=-2147483648 boundary=124417 boundaryOk=1 oppInvalCount=0 promoBar=124422 promoT=2026.09.01 18:20
+HEARTBEAT=21:43:57 terminal_alive=True journal_lines=164128
+HEARTBEAT=21:44:07 terminal_alive=True journal_lines=164128
+HEARTBEAT=21:44:18 terminal_alive=True journal_lines=164235
+JOURNAL_LAST=LP	0	21:44:17.875	Core 04	2026.09.01 21:30:00   [SRJ-EA] IDCHANGE bar=2026.09.01 21:25 inWin=0 state=IDLE dir=NONE xobId=2569->2554 fvgId=0->0 xobLo=1.15956 xobHi=1.15986 cumX=185 cumF=0 bars=1411
+HEARTBEAT=21:44:29 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:44:39 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:44:50 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:45:00 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:45:11 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:45:21 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:45:32 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:45:43 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:45:53 terminal_alive=True journal_lines=164235
+HEARTBEAT=21:46:04 terminal_alive=True journal_lines=164345
+JOURNAL_LAST=NP	0	21:46:01.635	Core 04	2026.09.02 05:50:14   [SRJ-EA] IDCHANGE bar=2026.09.02 05:45 inWin=0 state=IDLE dir=NONE xobId=2629->2632 fvgId=0->0 xobLo=1.15775 xobHi=1.15814 cumX=196 cumF=0 bars=1511
+HEARTBEAT=21:46:14 terminal_alive=True journal_lines=164345
+HEARTBEAT=21:46:24 terminal_alive=True journal_lines=164345
+HEARTBEAT=21:46:35 terminal_alive=True journal_lines=164345
+HEARTBEAT=21:46:46 terminal_alive=True journal_lines=164447
+JOURNAL_LAST=ID	0	21:46:44.359	Core 04	2026.09.02 09:20:00   [SRJ-EA] S3INPLAY bar=2026.09.02 09:15 dir=SHORT inPlay=1 via=SWING1 zoneLo=1.15844 zoneHi=1.15857 barLo=1.15770 barHi=1.15824 close=1.15780 sw1=1.15849@1 sw2=-@-1
+HEARTBEAT=21:46:56 terminal_alive=True journal_lines=164590
+JOURNAL_LAST=IL	0	21:46:50.462	Core 04	2026.09.02 09:55:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 09:45 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=413 mism=0
+HEARTBEAT=21:47:07 terminal_alive=True journal_lines=164815
+JOURNAL_LAST=ID	0	21:47:02.669	Core 04	2026.09.02 10:55:00   [SRJ-EA] LEGTOUCH bar=2026.09.02 10:50 dir=LONG found=1 atShift=3 atBar=2026.09.02 10:40 legBound=2026.09.02 10:25 zoneLo=1.15530 zoneHi=1.15548 touchSeen=1
+HEARTBEAT=21:47:17 terminal_alive=True journal_lines=165035
+JOURNAL_LAST=ON	0	21:47:14.876	Core 04	2026.09.02 11:55:00   [SRJ-EA] 2026.09.02 11:55:00 STATE S4_ARMED->ABORT dir=LONG poi=FOMC-VWAP
+HEARTBEAT=21:47:27 terminal_alive=True journal_lines=165035
+HEARTBEAT=21:47:38 terminal_alive=True journal_lines=165035
+HEARTBEAT=21:47:49 terminal_alive=True journal_lines=165129
+JOURNAL_LAST=HF	0	21:47:45.394	Core 04	2026.09.02 14:25:03   [SRJ-EA] SLIMB fields=19 bar=2026.09.02 14:20 site=S2POLL dir=LONG branch=1SWING obValid=1 slRef=1.15527 slShift=3754 slShiftT=2026.08.14 13:30 latestFlag=1 latestShift=6 latestShiftT=2026.09.02 13:50 latestAvail=1 latestApexMatch=1 chosenFlag=0 chosenShift=3754 chosenShiftT=2026.08.14 13:30 chosenAvail=1 nuanceClass=OB_VALID_LATEST_IMB cands=-
+HEARTBEAT=21:47:59 terminal_alive=True journal_lines=165203
+JOURNAL_LAST=DR	0	21:47:51.498	Core 04	2026.09.02 14:45:01   [SRJ-EA] IDCHANGE bar=2026.09.02 14:40 inWin=1 state=S4_ARMED dir=LONG xobId=499->2674 fvgId=0->0 xobLo=1.15788 xobHi=1.15818 cumX=214 cumF=0 bars=1618
+HEARTBEAT=21:48:10 terminal_alive=True journal_lines=165362
+JOURNAL_LAST=II	0	21:48:09.808	Core 04	2026.09.02 16:10:01   [SRJ-EA] SLIMBWALKF fields=25 bar=2026.09.02 16:05 site=S2POLL dir=SHORT branch=1SWING fracAnchorShift=4 fracAnchorFlag=0 slFractal=1.15856 slFractalNuance=1.15856 deltaFracPts=0 deltaFracNuancePts=0 fracSteps=1 fracCode2=0 fracExh=0 fracC3=0 fracExtNQ=0 fracClass=ALL3_EQ sideFracViolations=0 outwardFracPts=0 outwardFracNuancePts=0 fracAnchorRawShift=4 fracAnchorRawSide=PROTECTIVE fracAnchorGuardApplied=0 fracAnchorShiftT=2026.09.02 15:45 fracSkip=-1 fracSkipT=-
+HEARTBEAT=21:48:20 terminal_alive=True journal_lines=165454
+JOURNAL_LAST=QD	0	21:48:15.911	Core 04	2026.09.02 16:35:03   [SRJ-EA] ZONEID bar=2026.09.02 16:30 site=S3PICK xobId=2554 fvgId=0
+HEARTBEAT=21:48:31 terminal_alive=True journal_lines=165682
+JOURNAL_LAST=NH	0	21:48:28.119	Core 04	2026.09.02 17:45:00   [SRJ-EA] TPCENSUS #292 bar=2026.09.02 17:40 dir=SHORT close=1.15904 winner=FOMC-VWAP best=1.15721 distPts=183 empties=0 admitted= PDL:57 ASL:144 LOH:55 LOL:242 NYL:195 PML:52 Quarterly-POC:1570 Quarterly-VWAP:940 FOMC-POC:536 FOMC-VWAP:183 
+HEARTBEAT=21:48:41 terminal_alive=True journal_lines=166044
+JOURNAL_LAST=RD	0	21:48:40.326	Core 04	2026.09.02 18:55:00   [SRJ-EA] SLEXT47 fields=12 bar=2026.09.02 18:50 site=S3ARM dir=LONG memoSite=S2POLL memoExt1=1.15891 freshExt1=1.15891 memoSlot=6 freshSlot=6 agree=1 diffFields=- memoComputes=322 memoHits=85
+HEARTBEAT=21:48:52 terminal_alive=True journal_lines=166044
+HEARTBEAT=21:49:02 terminal_alive=True journal_lines=166044
+HEARTBEAT=21:49:13 terminal_alive=True journal_lines=166044
+HEARTBEAT=21:49:23 terminal_alive=True journal_lines=166044
+HEARTBEAT=21:49:34 terminal_alive=True journal_lines=166044
+HEARTBEAT=21:49:45 terminal_alive=True journal_lines=166138
+JOURNAL_LAST=QQ	0	21:49:35.258	Core 04	2026.09.02 23:25:07   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 23:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=459 mism=0
+HEARTBEAT=21:49:55 terminal_alive=True journal_lines=166138
+HEARTBEAT=21:50:06 terminal_alive=True journal_lines=166138
+HEARTBEAT=21:50:16 terminal_alive=True journal_lines=166138
+HEARTBEAT=21:50:27 terminal_alive=True journal_lines=166138
+HEARTBEAT=21:50:37 terminal_alive=True journal_lines=166138
+HEARTBEAT=21:50:48 terminal_alive=True journal_lines=166138
+HEARTBEAT=21:50:58 terminal_alive=True journal_lines=166138
+HEARTBEAT=21:51:09 terminal_alive=True journal_lines=166252
+JOURNAL_LAST=FO	0	21:51:00.708	Core 04	2026.09.03 06:15:05   SRJ XOB-PROMOCENSUS t=2026.09.03 06:10 bar=124852 mode=nearest bias=bullish objId=2793 isValid=1 isActivated=1 obStart=124849 obStartT=2026.09.03 05:55 obVal=124850 obInval=-2147483648 boundary=124850 boundaryOk=0 oppInvalCount=0 promoBar=124852 promoT=2026.09.03 06:10
+HEARTBEAT=21:51:19 terminal_alive=True journal_lines=166252
+HEARTBEAT=21:51:30 terminal_alive=True journal_lines=166252
+HEARTBEAT=21:51:40 terminal_alive=True journal_lines=166340
+JOURNAL_LAST=KQ	0	21:51:37.328	Core 04	2026.09.03 09:15:00   [SRJ-EA] SLORIG48 fields=11 bar=2026.09.03 09:10 site=S2POLL dir=LONG primary=evalClose alternate=nextOpen primExt1=1.15907 altExt1=1.15934 primSlot=39 altSlot=13 agree=0 diffFields=px slot bt imb 
+HEARTBEAT=21:51:51 terminal_alive=True journal_lines=166340
+HEARTBEAT=21:52:01 terminal_alive=True journal_lines=166436
+JOURNAL_LAST=CJ	0	21:52:01.742	Core 04	2026.09.03 10:55:00   [SRJ-EA] RETESTBOOK bar=2026.09.03 10:50 hits=0 
+HEARTBEAT=21:52:12 terminal_alive=True journal_lines=166436
+HEARTBEAT=21:52:23 terminal_alive=True journal_lines=166527
+JOURNAL_LAST=LN	0	21:52:20.052	Core 04	2026.09.03 12:30:00   [SRJ][T155][OBPROV] code=8 id=0 bar=124927 flag=true
+HEARTBEAT=21:52:33 terminal_alive=True journal_lines=166527
+HEARTBEAT=21:52:44 terminal_alive=True journal_lines=166613
+JOURNAL_LAST=HS	0	21:52:38.364	Core 04	2026.09.03 14:20:00   [SRJ-EA] SLIMB fields=19 bar=2026.09.03 14:15 site=S2POLL dir=LONG branch=1SWING obValid=1 slRef=1.16017 slShift=2 slShiftT=2026.09.03 14:05 latestFlag=0 latestShift=2 latestShiftT=2026.09.03 14:05 latestAvail=1 latestApexMatch=1 chosenFlag=0 chosenShift=2 chosenShiftT=2026.09.03 14:05 chosenAvail=1 nuanceClass=OB_VALID_LATEST_NOIMB cands=-
+HEARTBEAT=21:52:54 terminal_alive=True journal_lines=166685
+JOURNAL_LAST=DM	0	21:52:44.467	Core 04	2026.09.03 14:35:00   [SRJ-EA] LEGTOUCH bar=2026.09.03 14:30 dir=LONG found=1 atShift=1 atBar=2026.09.03 14:30 legBound=2026.09.03 14:05 zoneLo=1.15907 zoneHi=1.15933 touchSeen=1
+HEARTBEAT=21:53:05 terminal_alive=True journal_lines=166685
+HEARTBEAT=21:53:15 terminal_alive=True journal_lines=166685
+HEARTBEAT=21:53:26 terminal_alive=True journal_lines=166803
+JOURNAL_LAST=LO	0	21:53:21.087	Core 04	2026.09.03 17:25:00   [SRJ-EA] SLIMBWALK fields=27 bar=2026.09.03 17:20 site=S3ARM dir=LONG branch=1SWING slToday=1.16114 slBase=1.15934 slNuance=1.15934 deltaBasePts=-180 deltaNuancePts=-180 walkSteps=19 code2Seen=6 exhausted=0 skipShift=31 skipVal=1.16079 skipFlag=0 bodyExt=1.16089 extUpdatedByNonQual=6 code3Seen=0 sideViolations=0 todayEqBase=0 todayEqNuance=0 baseEqNuance=1 class=BASE_MOVED outwardBasePts=180 outwardNuancePts=180 skipShiftT=2026.09.03 14:45 startShiftT=2026.09.03 15:10
+HEARTBEAT=21:53:36 terminal_alive=True journal_lines=166954
+JOURNAL_LAST=GG	0	21:53:33.294	Core 04	2026.09.03 18:25:00   [SRJ-EA] ZONEPICK bar=2026.09.03 18:20 dir=SHORT haveFvg=0 fvgInPlay=0 haveXob=1 xobInPlay=0 downgraded=0 fvg=--- xob=1.16415-1.16436
+HEARTBEAT=21:53:47 terminal_alive=True journal_lines=166954
+HEARTBEAT=21:53:57 terminal_alive=True journal_lines=166954
+HEARTBEAT=21:54:08 terminal_alive=True journal_lines=166954
+HEARTBEAT=21:54:19 terminal_alive=True journal_lines=167045
+JOURNAL_LAST=MG	0	21:54:09.916	Core 04	2026.09.03 21:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 21:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=539 mism=0
+HEARTBEAT=21:54:29 terminal_alive=True journal_lines=167045
+HEARTBEAT=21:54:40 terminal_alive=True journal_lines=167045
+HEARTBEAT=21:54:50 terminal_alive=True journal_lines=167045
+HEARTBEAT=21:55:01 terminal_alive=True journal_lines=167045
+HEARTBEAT=21:55:11 terminal_alive=True journal_lines=167045
+HEARTBEAT=21:55:22 terminal_alive=True journal_lines=167045
+HEARTBEAT=21:55:33 terminal_alive=True journal_lines=167045
+HEARTBEAT=21:55:43 terminal_alive=True journal_lines=167156
+JOURNAL_LAST=DJ	0	21:55:41.468	Core 04	2026.09.04 04:35:02   [SRJ-EA] IDCHANGE bar=2026.09.04 04:30 inWin=0 state=IDLE dir=NONE xobId=2946->2898 fvgId=0->0 xobLo=1.16362 xobHi=1.16377 cumX=283 cumF=0 bars=2072
+HEARTBEAT=21:55:54 terminal_alive=True journal_lines=167156
+HEARTBEAT=21:56:04 terminal_alive=True journal_lines=167156
+HEARTBEAT=21:56:15 terminal_alive=True journal_lines=167156
+HEARTBEAT=21:56:25 terminal_alive=True journal_lines=167156
+HEARTBEAT=21:56:36 terminal_alive=True journal_lines=167156
+HEARTBEAT=21:56:46 terminal_alive=True journal_lines=167396
+JOURNAL_LAST=PO	0	21:56:42.503	Core 04	2026.09.04 09:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 09:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=583 mism=0
+HEARTBEAT=21:56:57 terminal_alive=True journal_lines=167688
+JOURNAL_LAST=II	0	21:56:54.709	Core 04	2026.09.04 10:40:00   [SRJ-EA] TP_RR_FAIL_LATCH bar=2026.09.04 10:35 dir=SHORT entry=1.16265 sl=1.16379 tp=1.16224 R=0.36
+HEARTBEAT=21:57:07 terminal_alive=True journal_lines=167904
+JOURNAL_LAST=JE	0	21:57:06.916	Core 04	2026.09.04 11:35:00   [SRJ-EA] CONFIRM_STRUCT_FAIL bar=2026.09.04 11:30 dir=SHORT term=C_TOUCH
+HEARTBEAT=21:57:18 terminal_alive=True journal_lines=167904
+HEARTBEAT=21:57:29 terminal_alive=True journal_lines=167904
+HEARTBEAT=21:57:39 terminal_alive=True journal_lines=167995
+JOURNAL_LAST=JS	0	21:57:37.435	Core 04	2026.09.04 14:25:00   SRJ XOB-PROMOCENSUS t=2026.09.04 14:20 bar=125238 mode=all bias=bearish objId=2998 isValid=1 isActivated=1 obStart=125209 obStartT=2026.09.04 11:55 obVal=125210 obInval=-2147483648 boundary=-2147483648 promoBar=125238 promoT=2026.09.04 14:20
+HEARTBEAT=21:57:50 terminal_alive=True journal_lines=167995
+HEARTBEAT=21:58:00 terminal_alive=True journal_lines=168172
+JOURNAL_LAST=PG	0	21:57:55.745	Core 04	2026.09.04 15:55:00   [SRJ-EA] RETESTBOOK bar=2026.09.04 15:50 hits=3 Weekly-VWAP:r9:dS Monthly-VWAP:r7:dS Yearly-POC:r2:dL
+HEARTBEAT=21:58:11 terminal_alive=True journal_lines=168296
+JOURNAL_LAST=QD	0	21:58:01.849	Core 04	2026.09.04 16:00:00   [SRJ-EA] SLADDER fields=19 bar=2026.09.04 15:55 site=S5 dir=LONG rung=43 rungSlot=546 rungExt=-1 shift=547 shiftT=2026.09.02 18:20 barTime=2026.09.02 18:20 px=1.15891 wick=1.15891 body=1.15916 imbCode=0 exceedsPrev=W distPts=-16 rungR=2.24 isOBSwing=0 isFracAnchor=0 isTodayRef=0 ladFresh=1
+HEARTBEAT=21:58:21 terminal_alive=True journal_lines=168392
+JOURNAL_LAST=FK	0	21:58:20.159	Core 04	2026.09.04 18:00:00   SRJ XOB-PROMOCENSUS t=2026.09.04 17:55 bar=125281 mode=nearest bias=bearish objId=3041 isValid=1 isActivated=1 obStart=125278 obStartT=2026.09.04 17:40 obVal=125279 obInval=-2147483648 boundary=-2147483648 boundaryOk=1 oppInvalCount=0 promoBar=125281 promoT=2026.09.04 17:55
+HEARTBEAT=21:58:32 terminal_alive=True journal_lines=168392
+HEARTBEAT=21:58:42 terminal_alive=True journal_lines=168392
+HEARTBEAT=21:58:53 terminal_alive=True journal_lines=168392
+HEARTBEAT=21:59:03 terminal_alive=True journal_lines=168392
+HEARTBEAT=21:59:14 terminal_alive=True journal_lines=168392
+HEARTBEAT=21:59:24 terminal_alive=True journal_lines=168392
+HEARTBEAT=21:59:35 terminal_alive=True journal_lines=168392
+HEARTBEAT=21:59:45 terminal_alive=True journal_lines=168392
+HEARTBEAT=21:59:56 terminal_alive=True journal_lines=168506
+JOURNAL_LAST=DD	0	21:59:51.712	Core 04	2026.09.07 01:15:00   [SRJ][T155][OBPROV] code=3 id=3079 bar=125368 flag=false
+HEARTBEAT=22:00:07 terminal_alive=True journal_lines=168506
+HEARTBEAT=22:00:17 terminal_alive=True journal_lines=168506
+HEARTBEAT=22:00:28 terminal_alive=True journal_lines=168506
+HEARTBEAT=22:00:38 terminal_alive=True journal_lines=168506
+HEARTBEAT=22:00:49 terminal_alive=True journal_lines=168506
+HEARTBEAT=22:00:59 terminal_alive=True journal_lines=168506
+HEARTBEAT=22:01:10 terminal_alive=True journal_lines=168506
+HEARTBEAT=22:01:20 terminal_alive=True journal_lines=168506
+HEARTBEAT=22:01:31 terminal_alive=True journal_lines=168749
+JOURNAL_LAST=EO	0	22:01:29.370	Core 04	2026.09.07 09:20:00   [SRJ-EA] SLADDER fields=19 bar=2026.09.07 09:15 site=S5 dir=LONG rung=19 rungSlot=120 rungExt=-1 shift=121 shiftT=2026.09.04 23:10 barTime=2026.09.04 23:10 px=1.16122 wick=1.16122 body=1.16125 imbCode=1 exceedsPrev=B distPts=24 rungR=5.00 isOBSwing=0 isFracAnchor=0 isTodayRef=0 ladFresh=1
+HEARTBEAT=22:01:42 terminal_alive=True journal_lines=168913
+JOURNAL_LAST=EF	0	22:01:41.577	Core 04	2026.09.07 10:05:01   [SRJ][T155][OBPROV] code=6 id=0 bar=125474 flag=true
+HEARTBEAT=22:01:52 terminal_alive=True journal_lines=168913
+HEARTBEAT=22:02:03 terminal_alive=True journal_lines=168913
+HEARTBEAT=22:02:13 terminal_alive=True journal_lines=169021
+JOURNAL_LAST=ER	0	22:02:12.095	Core 04	2026.09.07 12:40:00   [SRJ-EA] IDCHANGE bar=2026.09.07 12:35 inWin=0 state=IDLE dir=NONE xobId=3145->3158 fvgId=0->0 xobLo=1.16202 xobHi=1.16234 cumX=336 cumF=0 bars=2457
+HEARTBEAT=22:02:24 terminal_alive=True journal_lines=169021
+HEARTBEAT=22:02:35 terminal_alive=True journal_lines=169021
+HEARTBEAT=22:02:45 terminal_alive=True journal_lines=169021
+HEARTBEAT=22:02:56 terminal_alive=True journal_lines=169274
+JOURNAL_LAST=HD	0	22:02:54.820	Core 04	2026.09.07 15:55:00   [SRJ-EA] SLORIGPV fields=11 bar=2026.09.07 15:50 reqSite=S3ARM reqOrigin=evalClose supGenID=379 supSite=S2POLL supOrigin=evalClose supOPx=1.16252 memoKey=2026.09.07 15:50 memoDir=LONG retRef=1.16218 agree=1
+HEARTBEAT=22:03:06 terminal_alive=True journal_lines=169420
+JOURNAL_LAST=MJ	0	22:03:00.923	Core 04	2026.09.07 16:35:04   [SRJ-EA] SLSRC site=S2POLL dir=LONG src=OB_SWING obStruct=1.16229 obSwing=1.16218 nearest=1.16239 chosen=1.16218 deltaPts=11
+HEARTBEAT=22:03:17 terminal_alive=True journal_lines=169552
+JOURNAL_LAST=LN	0	22:03:07.027	Core 04	2026.09.07 16:50:00   [SRJ-EA] EXITCENSUS bar=2026.09.07 16:45 dir=LONG line=FOMC-VWAP val=1.15770 side=behind trigger=0 bodyLo=1.16261 bodyHi=1.16272 verdict=ok
+HEARTBEAT=22:03:27 terminal_alive=True journal_lines=169646
+JOURNAL_LAST=PI	0	22:03:19.234	Core 04	2026.09.07 17:50:00   [SRJ][T155][OBPROV] code=3 id=3196 bar=125567 flag=false
+HEARTBEAT=22:03:38 terminal_alive=True journal_lines=169646
+HEARTBEAT=22:03:48 terminal_alive=True journal_lines=169646
+HEARTBEAT=22:03:59 terminal_alive=True journal_lines=169646
+HEARTBEAT=22:04:09 terminal_alive=True journal_lines=169646
+HEARTBEAT=22:04:20 terminal_alive=True journal_lines=169646
+HEARTBEAT=22:04:31 terminal_alive=True journal_lines=169646
+HEARTBEAT=22:04:41 terminal_alive=True journal_lines=169761
+JOURNAL_LAST=GO	0	22:04:38.579	Core 04	2026.09.08 00:25:00   [SRJ-EA] IDCHANGE bar=2026.09.08 00:20 inWin=0 state=IDLE dir=NONE xobId=3226->3145 fvgId=0->0 xobLo=1.16153 xobHi=1.16185 cumX=358 cumF=0 bars=2598
+HEARTBEAT=22:04:51 terminal_alive=True journal_lines=169761
+HEARTBEAT=22:05:02 terminal_alive=True journal_lines=169761
+HEARTBEAT=22:05:13 terminal_alive=True journal_lines=169761
+HEARTBEAT=22:05:23 terminal_alive=True journal_lines=169761
+HEARTBEAT=22:05:34 terminal_alive=True journal_lines=169761
+HEARTBEAT=22:05:44 terminal_alive=True journal_lines=169761
+HEARTBEAT=22:05:55 terminal_alive=True journal_lines=169761
+HEARTBEAT=22:06:05 terminal_alive=True journal_lines=169879
+JOURNAL_LAST=EG	0	22:06:04.029	Core 04	2026.09.08 07:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 07:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=728 mism=0
+HEARTBEAT=22:06:16 terminal_alive=True journal_lines=169879
+HEARTBEAT=22:06:26 terminal_alive=True journal_lines=169879
+HEARTBEAT=22:06:37 terminal_alive=True journal_lines=170037
+JOURNAL_LAST=LL	0	22:06:34.545	Core 04	2026.09.08 09:55:01   [SRJ-EA] SLEXT481 fields=17 bar=2026.09.08 09:50 site=S2POLL dir=LONG ladOriginPx=1.16232 ladOriginBarTime=2026.09.08 09:50 ladOriginSite=S2POLL ext1Defined=1 slExt1=1.16209 ext1Slot=223 ext1BarTime=2026.09.07 15:15 ext1Imb=0 deepestExt=22 sep8FiledPx=- sep8ResidPts=-999 sep8BarDiffBars=-999 sep8Prov=- sep8Covered=0
+HEARTBEAT=22:06:47 terminal_alive=True journal_lines=170176
+JOURNAL_LAST=NQ	0	22:06:46.753	Core 04	2026.09.08 10:35:00   [SRJ-EA] SLIMB fields=19 bar=2026.09.08 10:30 site=S2POLL dir=LONG branch=1SWING obValid=1 slRef=1.16131 slShift=1 slShiftT=2026.09.08 10:25 latestFlag=1 latestShift=1 latestShiftT=2026.09.08 10:25 latestAvail=1 latestApexMatch=1 chosenFlag=1 chosenShift=1 chosenShiftT=2026.09.08 10:25 chosenAvail=1 nuanceClass=OB_VALID_LATEST_IMB cands=-
+HEARTBEAT=22:06:58 terminal_alive=True journal_lines=170313
+JOURNAL_LAST=FR	0	22:06:52.856	Core 04	2026.09.08 11:20:00   [SRJ-EA] SLSRC site=S2POLL dir=LONG src=FALLBACK_SIDE obStruct=1.16158 obSwing=1.16164 nearest=1.16098 chosen=1.16098 deltaPts=6
+HEARTBEAT=22:07:09 terminal_alive=True journal_lines=170528
+JOURNAL_LAST=KJ	0	22:07:05.064	Core 04	2026.09.08 12:00:00   [SRJ-EA] CONFIRMPOLL bar=2026.09.08 11:55 anchor=Monthly-POC dir=LONG oppCandle=1 bodyDir=0 body=20pts doji=0 touchAttr=0 confirm=0 shadow=true
+HEARTBEAT=22:07:19 terminal_alive=True journal_lines=170528
+HEARTBEAT=22:07:30 terminal_alive=True journal_lines=170614
+JOURNAL_LAST=FN	0	22:07:29.478	Core 04	2026.09.08 14:10:00   [SRJ-EA] XOBINPLAY bar=2026.09.08 14:05 dir=LONG zoneSrc=XOB zoneLo=1.15978 zoneHi=1.16044 promoT=2026.09.04 18:15 bounded=1 scanned=501 swings=101 hits=0 firstShift=-1 firstVal=- capHit=1 legacy=0 legacyVia=none widened=0 flip=0
+HEARTBEAT=22:07:40 terminal_alive=True journal_lines=170759
+JOURNAL_LAST=GR	0	22:07:35.582	Core 04	2026.09.08 14:35:01   [SRJ-EA] SLORIGPV fields=11 bar=2026.09.08 14:30 reqSite=S3ARM reqOrigin=evalClose supGenID=428 supSite=S2POLL supOrigin=evalClose supOPx=1.16152 memoKey=2026.09.08 14:30 memoDir=LONG retRef=1.15964 agree=1
+HEARTBEAT=22:07:51 terminal_alive=True journal_lines=170912
+JOURNAL_LAST=PS	0	22:07:47.789	Core 04	2026.09.08 15:35:00   [SRJ-EA] TPCENSUS #408 bar=2026.09.08 15:30 dir=LONG close=1.16185 winner=Yearly-VWAP best=1.16315 distPts=130 empties=0 admitted= PDH:173 ASH:160 ASL:43 LOH:174 NYH:5 PMH:72 PML:25 Yearly-VWAP:130 
+HEARTBEAT=22:08:01 terminal_alive=True journal_lines=171265
+JOURNAL_LAST=CJ	0	22:07:59.997	Core 04	2026.09.08 16:45:01   [SRJ-EA] SLADDER fields=19 bar=2026.09.08 16:40 site=S5 dir=SHORT rung=30 rungSlot=208 rungExt=-1 shift=209 shiftT=2026.09.07 23:15 barTime=2026.09.07 23:15 px=1.16226 wick=1.16226 body=1.16225 imbCode=1 exceedsPrev=N distPts=-153 rungR=7.62 isOBSwing=0 isFracAnchor=0 isTodayRef=0 ladFresh=1
+HEARTBEAT=22:08:12 terminal_alive=True journal_lines=171399
+JOURNAL_LAST=HM	0	22:08:06.100	Core 04	2026.09.08 17:10:00   [SRJ-EA] SLIMBWALKF fields=25 bar=2026.09.08 17:05 site=S2POLL dir=LONG branch=1SWING fracAnchorShift=4 fracAnchorFlag=0 slFractal=1.16074 slFractalNuance=1.16197 deltaFracPts=-123 deltaFracNuancePts=0 fracSteps=87 fracCode2=12 fracExh=0 fracC3=0 fracExtNQ=4 fracClass=TODAY_EQ_NUANCE sideFracViolations=0 outwardFracPts=123 outwardFracNuancePts=0 fracAnchorRawShift=4 fracAnchorRawSide=PROTECTIVE fracAnchorGuardApplied=0 fracAnchorShiftT=2026.09.08 16:45 fracSkip=6 fracSkipT=2026.09.08 
+HEARTBEAT=22:08:22 terminal_alive=True journal_lines=171617
+JOURNAL_LAST=KN	0	22:08:18.308	Core 04	2026.09.08 18:05:00   [SRJ-EA] ZONESHADOW bar=2026.09.08 18:00 dir=LONG close=1.16310 zoneLo=1.16079 zoneHi=1.16140 gapPts=170 slRef=1.16079 tp=1.16314 R_close=0.02 tpInGap=0 shadow= near=2.86/sl1/tp1 mid=6.72/sl1/tp1 far=inf/sl0/tp1 
+HEARTBEAT=22:08:33 terminal_alive=True journal_lines=171692
+JOURNAL_LAST=RS	0	22:08:24.410	Core 04	2026.09.08 18:25:01   [SRJ-EA] SLIMBWALK fields=27 bar=2026.09.08 18:20 site=S2POLL dir=LONG branch=1SWING slToday=1.16079 slBase=1.16074 slNuance=1.16074 deltaBasePts=-5 deltaNuancePts=-5 walkSteps=82 code2Seen=11 exhausted=0 skipShift=-1 skipVal=- skipFlag=- bodyExt=- extUpdatedByNonQual=0 code3Seen=0 sideViolations=0 todayEqBase=0 todayEqNuance=0 baseEqNuance=1 class=BASE_MOVED outwardBasePts=5 outwardNuancePts=5 skipShiftT=- startShiftT=2026.09.08 14:50
+HEARTBEAT=22:08:43 terminal_alive=True journal_lines=171692
+HEARTBEAT=22:08:54 terminal_alive=True journal_lines=171692
+HEARTBEAT=22:09:04 terminal_alive=True journal_lines=171692
+HEARTBEAT=22:09:15 terminal_alive=True journal_lines=171692
+HEARTBEAT=22:09:25 terminal_alive=True journal_lines=171796
+JOURNAL_LAST=KJ	0	22:09:25.446	Core 04	2026.09.08 23:30:05   [SRJ][T155][OBPROV] code=7 id=0 bar=125923 flag=true
+HEARTBEAT=22:09:36 terminal_alive=True journal_lines=171796
+HEARTBEAT=22:09:47 terminal_alive=True journal_lines=171796
+HEARTBEAT=22:09:57 terminal_alive=True journal_lines=171796
+HEARTBEAT=22:10:08 terminal_alive=True journal_lines=171796
+HEARTBEAT=22:10:18 terminal_alive=True journal_lines=171796
+HEARTBEAT=22:10:29 terminal_alive=True journal_lines=171796
+HEARTBEAT=22:10:40 terminal_alive=True journal_lines=171796
+HEARTBEAT=22:10:50 terminal_alive=True journal_lines=171796
+HEARTBEAT=22:11:01 terminal_alive=True journal_lines=171906
+JOURNAL_LAST=PO	0	22:10:50.895	Core 04	2026.09.09 05:55:02   SRJ XOB-PROMOCENSUS t=2026.09.09 05:50 bar=126000 mode=all bias=bullish objId=3419 isValid=1 isActivated=1 obStart=125984 obStartT=2026.09.09 04:30 obVal=125985 obInval=-2147483648 boundary=-2147483648 promoBar=126000 promoT=2026.09.09 05:50
+HEARTBEAT=22:11:12 terminal_alive=True journal_lines=171906
+HEARTBEAT=22:11:22 terminal_alive=True journal_lines=171906
+HEARTBEAT=22:11:33 terminal_alive=True journal_lines=171906
+HEARTBEAT=22:11:43 terminal_alive=True journal_lines=171906
+HEARTBEAT=22:11:54 terminal_alive=True journal_lines=172025
+JOURNAL_LAST=CQ	0	22:11:51.929	Core 04	2026.09.09 10:50:01   [SRJ-EA] IDCHANGE bar=2026.09.09 10:45 inWin=1 state=IDLE dir=NONE xobId=3447->3459 fvgId=0->0 xobLo=1.16372 xobHi=1.16406 cumX=406 cumF=0 bars=3011
+HEARTBEAT=22:12:05 terminal_alive=True journal_lines=172025
+HEARTBEAT=22:12:15 terminal_alive=True journal_lines=172025
+HEARTBEAT=22:12:26 terminal_alive=True journal_lines=172131
+JOURNAL_LAST=GF	0	22:12:22.447	Core 04	2026.09.09 13:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 13:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=839 mism=0
+HEARTBEAT=22:12:37 terminal_alive=True journal_lines=172131
+HEARTBEAT=22:12:47 terminal_alive=True journal_lines=172131
+HEARTBEAT=22:12:58 terminal_alive=True journal_lines=172131
+HEARTBEAT=22:13:08 terminal_alive=True journal_lines=172131
+HEARTBEAT=22:13:19 terminal_alive=True journal_lines=172255
+JOURNAL_LAST=HK	0	22:13:11.276	Core 04	2026.09.09 17:15:00   [SRJ-EA] RETESTBOOK bar=2026.09.09 17:10 hits=0 
+HEARTBEAT=22:13:30 terminal_alive=True journal_lines=172436
+JOURNAL_LAST=LD	0	22:13:29.587	Core 04	2026.09.09 18:55:01   [SRJ-EA] ZONESHADOW bar=2026.09.09 18:50 dir=LONG close=1.16286 zoneLo=1.16079 zoneHi=1.16140 gapPts=146 slRef=1.16079 tp=1.16315 R_close=0.14 tpInGap=0 shadow= near=2.86/sl1/tp1 mid=6.72/sl1/tp1 far=inf/sl0/tp1 
+HEARTBEAT=22:13:40 terminal_alive=True journal_lines=172436
+HEARTBEAT=22:13:51 terminal_alive=True journal_lines=172436
+HEARTBEAT=22:14:01 terminal_alive=True journal_lines=172436
+HEARTBEAT=22:14:12 terminal_alive=True journal_lines=172436
+HEARTBEAT=22:14:23 terminal_alive=True journal_lines=172436
+HEARTBEAT=22:14:33 terminal_alive=True journal_lines=172665
+JOURNAL_LAST=EP	0	22:14:28.669	Core 04	connection closed
+TERMINAL_ALIVE=True
+ARCHIVED_LINES=18730
+GATE: QN	0	21:32:05.454	Core 04	2026.08.28 10:05:00   [SRJ-EA] ALERT SRJ SIGNAL SHORT EURUSD M5 | Daily-VWAP | LONDON | R=2.43 SL 1.16508 TP 1.16364 spr=4
+GATE: NJ	0	21:58:01.849	Core 04	2026.09.04 16:00:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Yearly-POC | NYAM | R=2.56 SL 1.15907 TP 1.16302 spr=1
+GATE: CE	0	22:01:29.370	Core 04	2026.09.07 09:20:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | LONDON | R=1.76 SL 1.16098 TP 1.16200 spr=3
+GATE: OI	0	22:03:07.027	Core 04	2026.09.07 16:45:00   [SRJ-EA] ALERT SRJ SIGNAL LONG EURUSD M5 | Weekly-POC | NYAM | R=1.25 SL 1.16218 TP 1.16315 spr=3
+GATE: MJ	0	22:14:28.663	Core 04	final balance 10000 JPY
+GATE: PQ	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=3168 | sh1 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0 | sh2 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0
+GATE: RP	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=3168 both=0 xobOnly=3168 fvgOnly=0 neither=0 | inWindow=1056 xobInWin=1056 fvgInWin=0 | samples=0
+GATE: QK	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=3168 stores=3168 changes=205 mismatch=0
+GATE: PF	0	22:14:28.663	Core 04	EURUSD,M5: 563338 ticks, 3168 bars generated. Environment synchronized in 0:00:00.029. Test passed in 0:55:12.464 (including ticks preprocessing 0:00:00.063).
+XOB_PROMOCENSUS_COUNT=469
+RESULT=PASSED
+DONE=2026-09-13 22:14:40

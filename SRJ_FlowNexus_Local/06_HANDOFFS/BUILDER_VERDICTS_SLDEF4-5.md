@@ -1355,3 +1355,629 @@ No action on the prediction ledger. Amendment: log 10/108 → 2/116 as a **predi
 - Opposed-side debt at the two Sep-8 bars (EA LONG at both) remains disclosed and unpaid.
 
 **Next packet: P-ORIGIN-1, print-only, no selection change.** Scope: Sep-8 feed-tag and rule-consistency verification; origin declared per site; five-example regression sweep; memo provenance tagging with the 481/471+10 reconciliation; E49 slot restoration with the 2/2 prediction graded. Adoption does not return to council until origin is a declared parameter with a passing regression sweep behind it.
+
+# COUNCIL VERDICT (Opus stream — P-ORIGIN-1 outcome, answers relay v11)
+
+## Ruling basis
+
+I have no access to the archives, journal, or the digests in §1. Everything below is adjudicated on the packet as stated; I verified nothing independently. Where a conclusion depends on an unread value, I say so.
+
+## Ask 1 — Kill: ACCEPTED
+
+`ORIGINREG_FINAL rows=5 fail=3` against a gate frozen pre-run in `BUILDER_FREEZE_PORIGIN1.md`. The candidate dies. Sep-8 NOT REACHED is the correct consequence, not a separate concession — both target bars printed SKIPPED in-run under `regN=5 regFail=3`, so they were never scored and cannot be read either way. E46 −7/+85 remains the closed record.
+
+The acceptance is cheap precisely because the gate preceded the run. Any renegotiation of the gate now is gate-moving, and I will treat it as such below.
+
+Inertness and provenance are noted as reported: 481 invocations with units stated, 118 non-invoking HITs all at S3ARM and genID-traceable, S5 structurally memo-free, twelfth join zero-mismatch. Nothing in §3 gives me a reason to distrust §2's grading.
+
+## Ask 2 — R5: the retain demand stands, and it stands on the standing rule
+
+`filedResid 0` at R5 is a **price-only** residual. The standing identity rule in §1 is `slot+barTime+px+imbCode`. The diagnostic landed s5/16:15; the retained identity is s7/16:05. Those are different swings whose prices happen to sit 1 point apart. Under the frozen identity definition that is not a hit, so it reopens nothing.
+
+Two things it does do, and both should be filed:
+
+1. **Weak-evidence caution.** With HAND stops clustering inside ~40 points, an exact price coincidence at 1-point resolution is not rare enough to carry weight on its own. This is the reason identity was defined as a 4-tuple in the first place; R5 is a live demonstration of why.
+2. **A defect note against the incumbent, not the candidate.** Retained R5 is 1.16238; filed is 1.16239. The currently-reproducing identity is itself 1 point off the human record at R5. That means "retain the reproducing identity" and "be faithful to HAND" are not the same demand everywhere. That is an open item on the baseline. It does not resurrect the his-entry candidate, which fails 3/5 on the retain target and is unmeasured on the filed target for R1–R4.
+
+The one unknown that would change this reading: whether the HAND record carries barTime or slot for filed stops, or price alone. If it independently carries barTime/slot and those corroborate s5/16:15, R5 stops being a coincidence and becomes a real finding. That is checkable from existing archives.
+
+## Ask 3 — Declared direction
+
+I rule against per-trade rule treatment outright. Five rules for five trades is a lookup table. It reproduces by construction, forecasts nothing, and is unfalsifiable. It would convert an undeclared free parameter into five declared ones, which is worse than the HALT.
+
+I also read the failure shapes as forbidding the "adjust the count" family, for a reason visible in your own table. Entry-to-retained-origin distance: R1 210 min / s42, R2 65 / s13, R3 25 / s5, R4 35 / s7, R5 35 / s7. R4 (+5, s3 vs s7) and R5 (+1, s5 vs s7) are near-misses consistent with a tie-break or protective-test detail. R1 is not off by a swing or two, it is off by ~39 slots and 3.5 hours. No fixed n-th-swing rule spans both regimes.
+
+Declared, in order:
+
+**D1 — Desk measurement, no run, no build, no token.** Complete the `filedResid` column for R1–R4 from `RECON19-ORIGIN1_JOURNAL.log` plus the HAND figures, and record whether HAND filed stops carry barTime/slot at all. This decides whether the gate target should have been retained-identity or filed-record. It is a measurement against an existing archive, not a rule change, and it does not touch the frozen baseline.
+
+**D2 — Desk measurement, same cost.** Compute entry-to-retained-origin distance in both minutes and slots across the **full** HAND set, not these five. Purpose: test whether R1's 210 min / s42 depth is a population outlier.
+
+The constraint on D2 matters more than the measurement. If council later wants to grade a counted-swing rule on an R1-excluded subset, the exclusion criterion must be derivable from HAND and retained data alone, established before any diagnostic is consulted. Excluding R1 because it failed is the gate-move this discipline exists to prevent. Excluding it because it is a structural outlier in the retained population is legitimate — but only if D2 shows that, and only if the criterion is written down first.
+
+**D3 — Contingent.** If D1 and D2 support it, issue a new proposition with its own pre-declared gate over the qualifying subset. If they do not, adopt the finding: "second swing" as documented does not generalize, origin remains an undeclared free parameter, verdict #8 HALT stands unchanged, Sep-8 remains unreachable by any declared rule.
+
+Nothing builds on my account. D1 and D2 are reads of material you already hold.
+
+# COUNCIL VERDICT (Opus stream — v12 relay, D1 + D2)
+
+# Council Response — Opus, v12 relay (D1 + D2)
+
+**Verdict: Option 2. Adopt the finding and close the origin investigation.** I issue no exclusion criterion and no new proposition. Verdict-#8 HALT stands unchanged.
+
+Reasoning below, then what I bank, then the conditions under which this could ever reopen.
+
+---
+
+## 1. The decisive reason: the D2 axis cannot separate the failures
+
+This is arithmetic on the numbers you filed, and it settles the question before any judgment call about post-hoc criteria.
+
+| Trade | Minutes/bars | Filed residual | Gate |
+|---|---|---|---|
+| R1 | 215 / 43 | −27 | fail |
+| R2 | 70 / 14 | 0 | pass |
+| R3 | 30 / 6 | 0 | pass |
+| R4 | **40 / 8** | **+5** | **fail** |
+| R5 | **40 / 8** | 0 (vs filed) | pass |
+
+R4 and R5 are **identical on depth**. Same 40 minutes, same 8 bars. One fails, one passes. No threshold, band, or monotone function of entry-to-retained depth can exclude R4 while retaining R5, because depth does not distinguish them at all.
+
+So the strongest available exclusion — R1 as a genuine outlier at 43 bars, 3× the next-deepest — buys you a qualifying subset of R2–R5, and the gate **still fails at R4**. To rescue the proposition you would need a criterion that is explicitly R4-shaped: built on some axis not yet measured, chosen because it removes the one trade that breaks the result. That is not a criterion, it is a description of R4.
+
+And Sep-8 lands in the same trap. Both placements (30/6 and 40/8) sit inside the cluster that contains one pass and one fail. A depth criterion leaves Sep-8 in the ambiguous bucket, so it does not even restore reachability, which was the point of the exercise.
+
+D2 was the right question to ask. It returned a clean negative. Credit for asking it in a form that could return one.
+
+## 2. The firewall is already breached
+
+You framed criterion-writing as council's alone, before any diagnostic is consulted. Good instinct, but the sequencing has already failed: this packet delivers D1's per-trade residuals and D2's depth ranking together. I now know which trades fail and by how much. Any criterion I write is written with that knowledge, and its blindness cannot be restored by declaring it blind.
+
+This matters independently of §1. Even if depth *had* separated the failures, a criterion issued from this position would be selected on the outcome, and a gate passed under it would carry no evidential weight. I will not launder a post-hoc carve through a pre-declaration ritual.
+
+## 3. Power, even in the best case
+
+Best case after any exclusion is a 3–4 trade subset. Against the weak-evidence caution you already logged — a 1-point coincidence inside a ~40-point cluster is noise — a gate over three or four price matches cannot distinguish a rule from luck. There is no configuration of the existing five trades that produces an informative test.
+
+## 4. The one piece of strengthened evidence is comparison-dependent
+
+R5 is the best case for the proposition: exact match plus barTime promotion past price-only. But per your own §4 defect note, retained R5 is 1.16238 and HAND is 1.16239. So R5 reads 0 against filed and **+1 against retained**. The cleanest observation in the set changes value depending on which record you compare to. That is not a reason to discard it, but it is a decisive reason not to found a rule on it.
+
+Your instinct to file this as a defect rather than fold it into the origin argument was correct.
+
+## 5. What I bank as durable
+
+Three results survive the closure and should be recorded as standing, not as origin artifacts:
+
+**HAND carriage is structurally insufficient for the standing identity.** Px always, barTime sometimes, slot never, imbCode occasionally as prose. The standing identity is slot+barTime+px+imbCode. HAND never carries slot. Therefore **no gate keyed to the full identity 4-tuple can ever be scored against the HAND record.** This is the most valuable thing D1 produced, and it is a permanent precondition on future work, not a finding about second swings. Any future proposition must either declare a gate over the components HAND actually carries, or bring a record that carries slot.
+
+**The kill is robust to retain-vs-filed.** A filed-based gate fails at R1 and R4 exactly as the retained-based gate did. The kill does not depend on the retain decision, which removes the last plausible route to reopening via that door. This is a real robustness result and worth the desk time it cost.
+
+**Origin remains an undeclared free parameter.** Adopted as stated. Second swing as documented does not generalize; Sep-8 is unreachable by any declared rule.
+
+## 6. What I permit
+
+Nothing that builds, runs, or spends a token. Specifically:
+
+- **Permitted:** annotate the baseline record with the R5 1.16238 / 1.16239 discrepancy as an open bookkeeping item. Annotation only.
+- **Not permitted:** altering the frozen artifact, EA `6ACDF3B8…`, FlowLogic `3606BFB4…`, or anything that changes a digest. The digests are the instrument. A bookkeeping fix that moves a digest costs more than the defect it repairs. If the discrepancy is ever reconciled in the artifact, it is a new baseline with a new digest and a fresh identification, not a correction to this one.
+- **Unchanged:** Rev075 stays local, no push. Diagnostic `97FCED1D…` stays uncommitted. Run-B delta stays suspended and untouched.
+
+## 7. Conditions for any future reopening
+
+I am not sealing the origin question permanently, but I am putting a real gate on it rather than a procedural one. To reopen, all four:
+
+1. **An independent justification** for the origin rule, derived from mechanism rather than from these five trades. Not a criterion that fits the residuals.
+2. **A scoreable held-out set that exists before the rule is written.** Sep-8 is not it — unmapped bars, no retained slot. This almost certainly means acquiring new data first, Dukascopy per standing rule. This is the binding constraint: today there is no dataset on which a rescued rule could be honestly scored.
+3. **A gate declared over components HAND actually carries** (see §5), with the slot gap acknowledged rather than assumed away.
+4. **Pre-declaration in a packet that does not also carry per-trade residuals.** Whoever writes the criterion must not have the answer sheet.
+
+Absent all four, origin stays closed.
+
+---
+
+## Standing constraints
+
+My per-trade ban remains in force. Astra-2's no-build constraint remains in force and I do not lift it, unilaterally or by implication. Both stand until jointly lifted. Nothing builds until a packet issues, and on my vote no packet issues from D3.
+
+One caveat on my own position: I am reasoning from the relayed figures, not from the underlying series. If any depth number in §3 of your relay is misfiled — in particular if R4 and R5 are not in fact identical at 40/8 — say so, because that tie is what carries my §1 argument. My conclusion would survive on §2 through §4 alone, but the reasoning would change shape and you are entitled to know which plank is load-bearing.
+
+D1 and D2 were executed within both verdicts and returned answers rather than ambiguity. That is the outcome a desk finding is supposed to produce, including when the answer is no.
+
+# COUNCIL VERDICT (Opus stream — v13 goal-plan, planning with amendments)
+
+## Position
+
+Clear, with amendments. Path A and Path B both ride the one run, but Path A as written is a single-guess coin flip and I would not spend the hour on it in that form. The amendment converts it into a variant matrix plus two free riders, so the run is decisive whether it passes or fails.
+
+## Ask 1 — Which path
+
+**Both, one run, A amended.** The amendment matters more than the choice.
+
+Path A as written implements one reading of "second fractal extremity outward, no walk" and gates it 5/5. If it lands 5/5, good. If it lands 4/5, you have spent the hour and learned nothing about *why* — and the most likely near-miss is R5, where his filed 1.16239 @16:15 sits one point and two bars from the code's 1.16238 @16:05 (F2). That is a definitional disagreement, not noise, and a pass/fail gate cannot name it.
+
+His words fix the *object* (fractal swings, chart triangle markers) and the *count* (exactly two). They do not fix five things the implementation must decide:
+
+1. **Fractal definition** — resolved, not a variant: replicate the platform's Fractals indicator verbatim, including its equal-high/inside-bar handling. "Chart triangle markers" means literally what his terminal draws. Do not write your own N-bar fractal.
+2. **Start offset** — does enumeration begin at the entry bar itself or the first bar strictly prior?
+3. **Counting discipline** — raw sequence of fractals walking back, or monotone-outward only (each counted swing more extreme than the last)? This is the highest-value dimension. R1 is the tell: the code's machinery landed 09:45 while his stop is 06:30, 27 bars further out. A nearer fractal that is *not higher* than a closer one would be skipped under monotone-outward and counted under raw. That single bit may explain the R1 miss.
+4. **Confirmation** — does a fractal that needs future bars to confirm count as present at entry time?
+5. **Timeframe of the fractal series** — signal TF is the privileged base case; R1's 43-bar depth makes a higher TF a live alternative hypothesis worth computing in the same pass.
+
+Cross product of 2–5 is small, costs nothing extra at run time, and every dimension traces to a real ambiguity in his words rather than a tuned number. Print, per variant, the (barTime, price) produced at each of R1–R5 and at S1/S2. One run either finds a variant that reproduces him exactly, or proves no variant in the declared space does. Both outcomes are decisive.
+
+**Path B: yes, unchanged.** Free, and F6 already establishes presence as the harder Sep-8 problem.
+
+**Path C rider (my addition, also free):** §1 says same side, same entry bar, same stop, same target. Only stop is under examination. F6 says the EA reads LONG at both Sep-8 bars against his SHORT, and every R-gate decision depends on a target rule nobody has validated. For the seven examples, print the code's side, entry bar, and target alongside his. If the target rule diverges, a perfect stop rule still produces wrong R and wrong selection, and you would find that out an hour from now instead of three hours from now.
+
+## Ask 2 — Is 5/5 on barTime+price acceptable for a selection packet
+
+Yes, with three conditions.
+
+Slot is structurally unobtainable from HAND (F8), so it cannot be gated — that is a property of the evidence, not a weakening of the gate. But **print slot for every match** so slot behavior is observable and reconcilable later.
+
+Second: **exact match on price, no tolerance.** A tolerance window wide enough to absorb R5 is wide enough to pass a wrong variant. Handle R5 by having the matrix cover the definitional choice that distinguishes 16:15/1.16239 from 16:05/1.16238. If no variant hits R5 exactly, file 4/5 plus the delta and return — do not absorb it.
+
+Third: his filed values are authoritative on both components. Where the code's retained level differs, the code is the thing under test.
+
+## Ask 3 — Must Sep-8 presence come first
+
+No. A stop function can be **force-evaluated at any bar**, with no signal row and no candidate set. That decouples stop validation from presence entirely, and it turns Sep-8 from a blocker into free out-of-sample evidence: evaluate the winning variant at his S1 and S2 entry bars and check the stop prices 1.16258 and 1.16274. Those two were never used to select the variant, so they are the only honest check on whether the matrix found his rule or fitted his five examples.
+
+Selection validates on R1–R5. Sep-8 presence is the named remainder — and it should be named as **blocking for the goal, not for this packet**. Two of seven trades are invisible to the EA and its side reads opposite at both bars. That is a larger gap than stops, and the relay after this one should be about it.
+
+## Ask 4 — Clearance and gates
+
+**Clearance:** one print-only build+run, authorized from this stream, subject to the conditions below. Adoption switch verified off before and after. No selection change, no digest movement, no commit, no token, no push. Full window, Dukascopy.
+
+**Pre-declared, frozen in the packet before the run, recorded verbatim in the result file:**
+
+- **G1 — primary, pass/fail.** At least one declared variant reproduces stop barTime *and* stop price exactly for all of R1–R5.
+- **G2 — out-of-sample, reported.** That variant, force-evaluated at S1 and S2 entry bars, reproduces both stop prices. Not blocking for G1; blocking for any later adoption proposal.
+- **G3 — uniqueness.** If more than one variant passes G1, report all of them. No winner is declared in the result file. The disagreement between tied variants is converted into concrete bar+price yes/no questions for the operator, which is what §7 permits.
+- **G4 — census, reported.** Across all 481 evaluations: rows whose stop changes versus conservative, R distribution before and after, and counted both directions across the 1.0 threshold — rows where his rule takes and the code declines, and where the code takes and his rule declines. That is the selection impact and the input to any future adoption relay.
+- **G5 — presence probe, reported.** At both Sep-8 bars: candidate-set width, evaluated side, and the specific reason no row is emitted.
+- **G6 — component census, reported.** Code side, entry bar, and target versus his, for all seven examples.
+- **Failure gate.** If no variant passes G1, the packet is dead on arrival, no re-run is implicitly authorized, and you return with a relay. **No numeric buffer, offset, or tolerance may be introduced to force a match.** That is fitting the machinery again, which is the exact lesson of F5.
+
+## Build constraints
+
+The new stop function must be **isolated**: no call into the existing walk, origin, or imbalance code paths, not even for candidate enumeration. His rule contains no walk (§2). If the packet borrows walk machinery to find fractals, F5 repeats and the result is uninterpretable.
+
+Shadow rows only, both sides, every evaluation, with the old branch still live and printing alongside.
+
+## One free move before the run
+
+If you want to collapse the variant space at zero cost, a single concrete question fits §7: *"Aug-28 short, entry 10:05 — was the first swing above your entry at 09:45, and the second at 06:30? Yes/no."* That answer alone likely resolves the raw-versus-monotone dimension. Ask it in parallel; do not gate the run on it.
+
+# COUNCIL VERDICT (Opus stream — v14 SEL1 packet, clearance with conditions)
+
+## Position
+
+I'm clearing packet P-SEL-1 as one stream, with conditions on Asks 1 and 3. Scope of what my clearance covers: the packet text as written. I have no access to the repo, so I cannot independently verify the CQD digest (`BE6FD84F…A421F`), the RECON17 baseline, or the 481-evaluation window count. Those remain operator-attested, and my clearance rests on them being accurate.
+
+One arithmetic finding below changes what you should expect from E56, so read that before the asks.
+
+---
+
+## Finding: R2 will report "take" on every branch
+
+From the frozen table, R2's raw R at the hypothetical stop:
+
+- risk = 1.16299 − 1.16265 = 0.00034
+- reward = 1.16265 − 1.16224 = 0.00041
+- R = 1.206
+
+That clears `R >= 1.0` unrounded. So the R-threshold does **not** explain the must-decline. Since E51 is forbidden from calling qualification paths, and the operator ruling attributes the decline to CQD-invalidity, every branch that produces a computable stop at R2 will take it.
+
+Per E56's own wording, that's an adoption-blocking finding for that branch — meaning **adoption is blocked by construction in this packet**, on all branches, regardless of G1's outcome. That's not a defect; it's the correct outcome of a print-only run that deliberately excludes the qualification path. But pre-register it now so the R2 row reads as expected-and-explained rather than as a fidelity failure. It also settles Ask 2's second half: a CQD packet is required before adoption is even discussable.
+
+For completeness, the other R values from the frozen table: R1 2.43, R3 1.66, R4 1.76, R5 2.59 (2.48 on the retained stop), S1 1.94. All clear the threshold. R5's two candidate stops give the same take/decline result, so the 16:15/16:05 ambiguity affects G1 exactness only, not R accounting.
+
+---
+
+## Ask 1 — reshape to 4/4: **approved**
+
+R2's stop is conditional testimony ("if that was the entry, yes") attached to a setup the operator ruled invalid. Letting it sit in a pass/fail gate means a hypothetical decides a binary. Moving it to G2 as blocking-for-adoption-only is the right placement.
+
+The cost is discriminating power: 4 examples against 8 eligible variants (16 minus the confirmation-including half, pre-declared ineligible). Two conditions:
+
+- Print the eligible-variant count alongside the example count in the result file, so coincidental multi-pass is visible on its face rather than inferred.
+- For R5, print match status against **both** 16:15/1.16239 (authoritative) and 16:05/1.16238 (code-under-test) for every variant. Only the filed value counts for G1 — but 2 bars and 1 pip apart is exactly where variants split, and the council should see the split rather than have it collapsed by the frozen choice.
+
+G3 stays as written.
+
+## Ask 2 — CQD scoping: **approved, read-only**
+
+Desk-check of frozen CQD at R2's bar plus in-run CQD-state print at the seven bars is a genuine free rider. One hard condition: the CQD state is **printed and never consumed** — no decision path, no candidate filter, no exclusion point in P-SEL-1 may read it. Otherwise E51's isolation claim is void.
+
+Separate repo-CQD fix packet: yes, needed, and **sequenced after** P-SEL-1, not concurrent. The repo CQD is the provenance anchor for the frozen reference table and the digest comparison. Touching it before the run lands destroys the ability to say the run and the table came from the same machine state.
+
+## Ask 3 — H1 + eval-close: **amend, then accept**
+
+Two amendments, one substantive.
+
+**Substantive — start-offset needs three settings, not two.** R1 is logged as signal 10:00 / entry 10:05. "Entry bar itself" is therefore ambiguous: signal bar or fill bar? As written, the builder picks one silently and the matrix never shows the other. Split it:
+
+1. signal bar inclusive
+2. fill bar inclusive
+3. first strictly prior to signal
+
+That's 24 variants, 12 eligible. Worth the cost — this is a real fork in the interpretation space, not a synonym.
+
+**H1 — define the barTime projection rule or mark it diagnostic-only.** The frozen stop barTimes are 06:30, 15:30, 08:40, 16:15. None are H1 boundaries. H1-sourced fractals will emit hour-aligned barTimes and fail G1 on barTime exactness trivially, burning matrix slots without informing anything. Either specify that an H1 fractal reports the M5 bar containing its extreme, or keep H1 printed as diagnostic and excluded from G1. Builder's call which; it must be one of the two.
+
+**Eval-close convention — accept as proposed.** Decision at signal-bar close makes the signal bar confirmed and available, so counting it is causally legal. Require the convention be printed per variant so availability labels stay auditable.
+
+**One reporting-convention addition:** S2's R is uncomputable because the target was never stated. Give that its own label — `TARGET_UNSTATED` — distinct from `INVALID_GEOMETRY`. A data gap and a geometry defect should not share a bucket. The S2 TP gap stays a gap either way.
+
+## Ask 4 — clearance: **CLEARED by name**
+
+I clear packet **P-SEL-1 (E51–E56)** for ONE print-only build and full-window run on the gates as frozen in §4, subject to:
+
+- Ask 1's two print conditions
+- Ask 2's read-only constraint and post-sequencing
+- Ask 3's three-setting start-offset, the H1 decision, and `TARGET_UNSTATED`
+- The R2 expectation pre-registered above, recorded in the result file before the run
+
+Unchanged and affirmed: adoption off, no selection change, no digest move, no tuning, no rerun on failure. Isolation gate failure or absent G5 traces means the run is not evidence.
+
+The second stream still has to name it. If Astra-4 halts or amends, this clearance does not carry.
+
+---
+
+A note on the domain, stated once: this is stop-placement replication logic, not a judgment about whether the underlying rule is sound to trade. Position sizing and live-capital decisions sit outside what I'm reviewing here.
+
+# COUNCIL VERDICT (Opus stream — v15 rerun, conditional clearance + smoke option)
+
+## Verdict
+
+Ask 1 — CLEARED, with conditions.
+Ask 2 — CLEARED for one run, with pre-flight conditions, and a cheaper sequencing option the operator should see before spending the hour.
+
+Reviewing the relay as written; I have no on-disk access, so nothing below is verified against the artifacts.
+
+## Ask 1 conditions
+
+The defect diagnosis is internally coherent. A missing vararg makes each specifier consume the next argument, so labels shift left, the true `site` is never emitted, and the rightmost field has no source. That matches "site/slMode/halt lost, others recoverable by unshift" and matches "in-memory arrays correct." Passing `site` as the third arg is the right fix, not trimming a specifier, since you want the field.
+
+1. Post-fix, assert specifier count equals arg count on that call (9/9). State the number in the result file.
+2. Same-class audit before compile: check every `StringFormat`/`PrintFormat` in the build for specifier/arg parity and report the count checked and the count mismatched. Fix only `SEL52CTX` under this clearance; report siblings, do not touch them. A static check costs minutes and stops a sibling defect from eating a later run.
+3. Source diff pre-compile is the control, as you scoped it. Do not carry the build-1 `44D0923B…` relationship into the binary — MQL5 output embeds build metadata and is not expected to be reproducible. Record build-2's own hash as fresh provenance.
+
+## Ask 2 conditions
+
+The run failure is unattributed, so a rerun under identical conditions has an unquantified chance of returning the same nothing. Cheap capture, all outside the EA and outside the cleared binary:
+
+- Preserve the per-agent tester logs, not just the terminal journal. Agent-side death detail lands in the agent's own log directory under the terminal's Tester folder, and that is the one place the journal does not mirror.
+- Pull OS-level records around the failure window. A process that dies at 01:26 after a 62-minute stall usually leaves an application or kernel-power entry.
+- Check host state before starting: sleep/hibernate policy, scheduled AV scan windows, update reboot windows, free disk, free memory. A 62-minute freeze with a healthy terminal and a dead agent reads more like a host event than an EA event.
+- Pin to a single local agent for this run to remove farm-distribution as a variable.
+
+On "EA hang excluded by construction": loop-free straight-line hooks exclude an EA infinite loop. They do not exclude EA-driven resource exhaustion. With CTX at 497 rows and SLIMB at ~398, exhaustion is implausible — but say that rather than "excluded," so the next reader inherits the right confidence level.
+
+## Sequencing the operator should see
+
+E55 is already 5/5. Everything still owed — G1/G2/G4, G5, the isolation join — is an end-of-run or Sep-8 artifact, and the reason all of it is UNEVALUABLE is that end-of-run never executed. That means the binding unknown is not the full range, it is whether this pipeline can reach end-of-run at all.
+
+A short-range smoke run of build-2 tests exactly that, proves the CTX print is correct, and emits a matrix, for a fraction of the hour. If it reaches end-of-run, the full run is a better bet. If it dies the same way, you have the infrastructure relay without spending the hour.
+
+That is a scope change against "same ini/range," so it is not covered by this clearance and it is the operator's call. If he declines it, the single full rerun stands as cleared and as asked.
+
+## Two items for the council independent of the asks
+
+CQD-state EMPTY at all five S5 rows is the heavier finding here, and the relay undersells it. EMPTY is not the same as no-divergence. If the frozen CQD is unpopulated at S5, the R2 result cannot be read as agreement with his chart-CQD — it reads as "no state to compare." Any gate that grades CQD divergence is vacuous under EMPTY, which makes it a design question: should EMPTY be a hard FAIL rather than a strict pass-through? Worth settling before a rerun grades that gate.
+
+Second, the wrapper. DONE=UNDETERMINED reaching a handoff at all is the defect that nearly turned a blocked run into a reported success, and you caught it manually. Make the success predicate explicit: no `Test passed` plus no end-of-run matrix equals BLOCKED, emitted as BLOCKED. Wrapper-side, no EA exposure, and it removes the need for a human to catch this again.
+
+## Next relay
+
+Specifier parity number, sibling-audit count, source diff, build-2 hash, agent-log and OS-log capture for whatever the run does. If it stalls identically, the infrastructure relay is the correct return and this council will not read it as a third-run request.
+
+# COUNCIL VERDICT (Opus stream - v16 result, P-SEL-1 dead + forensic read)
+
+# COUNCIL RULING — Opus stream, v16 relay (RECON20b-SEL1 / P-SEL-1)
+
+Receipt: v15 clearance executed as cleared (build-2 one-line CTX fix, one rerun, same ini/range). Graded object is P-SEL-1 (v14 dual-key). I am grading the relay text; `BUILDER_RESULT_RECON20b-SEL1.md` governs. If the file contradicts any numbered point below, that point is void and returns to council.
+
+## Ask 1 — GRANT. Close P-SEL-1. The G1 FAIL stands as a machinery verdict.
+
+Four things carry it, in order of weight:
+
+**Isolation held.** The pre-registered anti-artefact guard is the RECON17 join, and it passed clean: SLIMB/WALKOB/WALKFR 481/481 ×3, SLIMBR 10/10, zero mismatch, signals 4/4 identical, census/ticks/bars identical, adoption off. The candidate census the selector reads is bit-identical to the pre-fix reference. That places the divergence downstream of enumeration, inside selection — machinery, not feed and not harness.
+
+**No cell was undefined.** `status=OK` throughout, zero unavailable/ambiguous/invalid labels. The code did not fail to answer; it answered differently. A data or harness artefact almost always surfaces as missing or degenerate cells, and there are none.
+
+**The misses are structured, not noisy.** R4 is off by exactly 10 pts and 20 min on all 24 variants. R5-filed is `g1m=0` everywhere with `retm=1` everywhere. Deterministic, variant-invariant offsets are the signature of a rule divergence, not of nondeterminism, tick handling, or run corruption.
+
+**The report is arithmetically self-consistent.** CTX 599 = 432+157+10 = 481+118; SEL52 14376 = 24×599; SEL53 168 = 24×7; journal bounds [7043..40979] = 33937 lines; V005/V013/V021 at stride 8 is the correct signature of start-offset as slowest-varying index in a 3×8 space. Internal consistency at this density is evidence against a reporting artefact.
+
+**On the missing base-backup.** The disclosure is real but non-load-bearing *for a FAIL*. An unverified edit is a threat to a false PASS, not a false FAIL — and the specific route by which it could manufacture a FAIL (corrupting the candidate census) is closed by the RECON17 parity above. The selection divergence is independent of the CTX fix. Accepted as disclosed; race stays owned.
+
+**One finding the relay does not draw, and council should.** Per §1 the retained/filed split on R5 was on the frozen reference list at registration: filed 1.16239@16:15 authoritative, retained 1.16238@16:05 explicitly "code-under-test, NOT a target." If that divergence was already on record when P-SEL-1 was registered at v14, then G1 4/4 was arithmetically unreachable before a single variant was enumerated — the packet was not falsifiable in the PASS direction, and operator assent for a full rerun was spent confirming a known-impossible gate. I cannot verify registration order from this relay, so I raise it conditionally. If it holds, it is a packet-design defect, not a builder defect, and it warrants a standing rule: **no gate may include a reference the code-under-test is already on record as not producing, unless the packet is explicitly re-scoped as diagnostic rather than pass/fail.**
+
+This does not disturb the FAIL. It does bound what the FAIL teaches: the run is low-information about R1/R3 and high-information about R4/R5.
+
+## Ask 2 — Direction: no new run-bearing packet. One zero-run forensic read.
+
+The selection line should not close here, but it should not spend a run either. The discriminator between the two live hypotheses is already on disk in `RECON20b-SEL1_JOURNAL.log` (SHA `06556C…`), and answering it costs no build, no run, no token.
+
+**R4 — one binary question.** Is 1.16098@08:40 present in the code's fractal/limb census (the 481 SLIMB rows)?
+- Present but unselected → counting/ordinal defect. The two-swing walk lands one seat off at this geometry.
+- Absent → fractal-recognition defect. The code never saw the 08:40 triangle, and "two swings away" then resolves to the next one out at 08:20.
+
+Those are different defects with different fixes and different blast radii. Nothing in the current record distinguishes them, and the R4 miss is the load-bearing one by the builder's own read.
+
+**R5 — same question.** Is 16:15 in the census alongside 16:05? Both present with the code preferring 16:05 → retention/tie-break divergence at 1 pt and 10 min apart, i.e. adjacent near-flat fractals resolved opposite to HAND. That is a bookkeeping rule, cheap to state and cheap to test later.
+
+**Elevate S1 out of the REPORTED tier.** S1 code 1.16359@09:05 vs HAND 1.16258 is a **101-pt** divergence — an order of magnitude larger than R4's 10 pts. It is currently filed under G2 as a decline-on-R and is therefore at risk of being banked as benign because the decline outcome happened to match. Before that read stands, builder should state one thing: **does the S-side stop computation traverse the same selection path as the R-side, or a separate/unexercised short path?** G5 reports the EA as LONG-opposed with his SHORTs absent, which makes S1 possibly notional. If it is the same path, 101 pts is a stronger sample of the same defect than R4 and belongs in the forensic read. If it is an unexercised path, discount it and say so on the record.
+
+**Two design findings to bank for future variant spaces:**
+- **Start-offset is empirically inert.** O1≡O2 is shown, and prior tracks with them — V005/V013/V021 return identical results. The 24-cell space has 8 effective cells, 4 eligible. Future packets should not spend budget on that axis absent new reason.
+- **H1-projected is dominated on this sample.** It never adds a pass and it costs R3. H1 standing should be recorded as "no demonstrated value on this evidence" rather than carried as a live open question.
+
+**Non-evidential, flag it as such:** R2's `decl=1` is achieved by construction — adoption is blocked, and M5 would otherwise take on R 1.281. The relay is disciplined about saying so; I am reinforcing it so no downstream packet cites R2 as machinery evidence. It is a harness fact, not a geometry fact.
+
+## Ask 3 — GRANT. Nothing commits.
+
+RECON17 stays frozen. Build-2 stays uncommitted. No snapshot token sought or given. Records ride the next authorized snapshot.
+
+One preservation condition attached, because Ask 2 depends on it: **build-2 (`766BADDC…`, 469237 B) and the journal (`06556C…`) are now evidentiary and must be retained, not discarded.** Uncommitted is not the same as deletable. If either is lost, the forensic read becomes impossible and the machinery verdict in Ask 1 becomes unre-examinable.
+
+Separately, and independent of this packet: the missing edit-session base-backup should be closed as a process defect. A rule that any edit session preserves its pre-edit artefact until the run it feeds is graded and closed is nearly free and prevents exactly this gap from recurring at a moment when it might be load-bearing for a PASS.
+
+## Standing
+
+Dual-key: this ruling clears nothing on its own. No build, run, commit, or push until Astra concurs. If Astra halts, the halt governs.
+
+Summary of my position: **P-SEL-1 dead and closed on a machinery verdict; no rerun, no tuning, no commit; one zero-run forensic read of the archived journal on R4 / R5 / S1 to determine whether any further packet is warranted; two axis findings and one gate-design rule banked.**
+
+# COUNCIL VERDICT (Opus stream - v17 P-SEL-2 clearance, conditional A1-A5)
+
+## Verdict
+
+**CLEAR packet P-SEL-2 (E57–E59) by name** — one print-only build, one full-window run, same ini/range — **conditional on the five amendments in Ask 1 being folded in before the build.** Not halting. Boundary in Ask 3 confirmed as stated, with one addition.
+
+Scope note on my own read: I have no repo access in this exchange, so this is a review of the packet **as written** plus the closed P-SEL-1 record you quoted. I have not re-read `BUILDER_FINDING_SEL1_FORENSIC.md`, the `SrjSelVariant` loop at 2958–3001, or `SrjSelSnapTF`. Anything below that depends on their internals is stated as a requirement on the instrument, not as a finding about the code.
+
+---
+
+## Ask 1 — Scope: accepted with five amendments
+
+The core targeting is right. R4 list-vs-walk is the one open boundary the forensic explicitly could not close; R5 is narrowed to tie-break; S1 belongs in the sample now that the shared selection path is established; R1/R3 as agreeing controls is the correct way to prove the instrument renders a walk faithfully. Amendments are all pre-build, because a single paid run gives no second chance.
+
+### A1 (blocking) — E58 must be event-driven, not counter-driven
+
+§3 says the traces will show "every scanned event with counted/skipped outcome and the existing reason counters." The phrase **"walk lands 08:20 with zero skip witness"** is the exact signature of a skip path that increments no counter. If E58 is built on the existing counters, it inherits the same blind spot at higher cost and will print "absent from list" where the truth is "silently dropped."
+
+Requirement: emit one trace line per event **unconditionally at the top of the loop body, before any branch or filter**. Counters stay, as secondary corroboration only. Then the diagnosis is a set difference between the E57 list and the E58 trace, and it is decidable rather than inferred.
+
+This also means the binary framing in §3 ("absent-from-list vs stepped-past") is too narrow. E57 already carries confirmed-at-decision and extremity flags, so the outcome vocabulary must be three-way:
+
+- **absent** — no 08:40 event in the shadow's pre-walk list
+- **present-but-filtered-pre-walk** — in the list, disqualified by flag before ranking
+- **present-and-stepped-past** — reached the walk, ordinal step named
+
+Collapsing the middle case into either edge points at a different fix later.
+
+### A2 — Extend E58 to all 7 bars (add R2 and S2)
+
+Add **R2**: the eventual ordinal or tie-break change applies to every bar, and R2's frozen expectation is a *negative* assertion (MUST-DECLINE). Without a baseline trace you cannot state whether a fix keeps the decline for the right reason (R < 1.0 on a correctly selected stop) or preserves it by a compensating error. That is the case most likely to flip unnoticed.
+
+Add **S2**, stop-side only. TARGET_UNSTATED kills the R computation and the ranking, but S2 still has a *stated stop* (1.16274), and stop selection is the entire subject of this packet. Report target and R as UNSTATED; the gap stays a gap. Since S1 was just established to run the same `SrjSelVariant` path, this takes the S-side from one sample to two.
+
+Cost is two more bars of trace on a run the operator is already paying for, and it removes the most likely reason to need a second print-only run.
+
+### A3 — Truncation must be distinguishable from absence
+
+The packet's epistemics rest on counts of zero (384 mentions, 0 defined at 08:40). With 7 bars × 12 variants × per-TF per-event lines, log truncation is a live risk, and a dropped line reads identically to an event that was never scanned.
+
+Require a per-`(bar, TF, variant)` line-count assertion plus an explicit end-of-trace sentinel. Missing sentinel is a REPORTED GAP under §4, not a silent zero.
+
+### A4 — Latch the flags, do not recompute them
+
+`confirmed-at-decision` and `extremity` must be captured at the decision instant and printed from the latch. If either is re-derived at print time from a later bar state, the flag is a repaint and the whole confirmation column is worthless. Standard fractal look-ahead trap; cheap to get right, invisible if wrong.
+
+### A5 — R5 compare operands at full stored precision
+
+1.16238 vs 1.16239 is one point. Print both raw operands at stored precision and the normalization/epsilon in force **at the moment of the compare**. If any path normalizes to 4 digits, those two collapse to equal and "tie-break" is really encounter order — a different diagnosis with a different fix than a filter. The existing equality-skip counter tells you a skip fired; it does not tell you the operands were equal by rounding.
+
+### One scope question
+
+§3 fixes E57 at M5 + H1. Is that the **union of TFs consulted by all 12 eligible variants**? R4's 08:20 and 08:40 are both M5-grain, so M5+H1 looks sufficient for that bar, but if any eligible variant reads another grain (M15/M30), D1's asserted counts certify completeness over a set that has a hole exactly where a variant looks. Confirm the TF set is derived from the variant table rather than assumed.
+
+---
+
+## Ask 2 — Clearance
+
+**Cleared** for ONE print-only build + ONE full-window run, same ini/range, adoption off, with A1–A5 in place. Adoption remains off; no selection, rank, or threshold moves; HAND values appear only in frozen expectations for labeling.
+
+Add to **D3**: assert **zero order-send attempts** over the run. Print-only should be evidenced by the artifact, not only by build intent — particularly if the diagnostic shares a path with the live EA.
+
+The ~1 hour of operator time is his call. My clearance is technical only and does not presume it; the packet correctly flags it rather than assuming it.
+
+---
+
+## Ask 3 — Boundary confirmed, plus one pre-registration
+
+Confirmed, without qualification:
+
+- P-SEL-2 moves no selection, no rank, no threshold.
+- Any rule change — ordinal fix, tie-break, or otherwise — requires a **later frozen packet + fresh dual-key + operator auth**.
+- **Nothing commits** on this packet. Records ride the next authorized snapshot, build stays uncommitted, RECON17 stays frozen.
+
+Addition: **pre-register the freeze order for the successor packet.** Once E58 shows why 16:05 outranks 16:15, there will be an obvious one-line change available. Reading it here is not a license to apply it. The later packet must state its **predicted effect on all 7 bars — including R1/R3 (currently agreeing) and R2 (MUST-DECLINE) — before any fix is run.** Fixing R4 and R5 while silently breaking a passing bar or flipping the decline is the specific failure mode this whole structure exists to prevent.
+
+That requirement is also the second reason for A2: a frozen 7-bar prediction is not constructible without 7-bar baseline traces, and P-SEL-2 is the run that can produce them at no extra risk.
+
+---
+
+## What would make me halt on the next packet
+
+Any of: adoption toggled on, a selection or threshold edit bundled with prints, HAND values entering a computation path rather than an expectation label, or a rerun triggered by a missing print instead of being reported as a gap.
+
+# COUNCIL VERDICT (Opus stream - v18 rerun clearance, same-build + 90min)
+
+# RULING v18 — RECON21-SEL2 rerun clearance
+
+**Stream:** Opus (v18). **Ruling-ID:** OPUS-v18-RECON21-SEL2.
+**Basis:** measurements as reported in `06_HANDOFFS\BUILDER_RESULT_RECON21-SEL2.md` and this relay's §1–§2. I have not independently verified the journal, hash, or counts; the file governs, and this ruling is void on any material correction to it.
+
+**Not halting.** All three asks cleared, with one amendment on Ask 2 and three conditions.
+
+## Ask 1 — CLEARED BY NAME
+
+Rerun the SAME build `150A6159…`, same ini/range, adoption off. **No rebuild.**
+
+Rationale:
+- The failure is harness-side truncation, not EA behavior. The zero counts on SEL57/SEL58T/SEL58CMP/SEL58END/SEL53 are the expected signature of a run that never reached end-of-run, and they also discharge the instrument-cost question: gating held, zero live prints, so the instrument cannot be the pace cause.
+- Rebuilding identical source produces no new information. It would only churn artifact provenance and cost a re-verification cycle. The static grades (0/0 EA+Flow, parity 196/196, OrderSend-src 0, adoption off) are unaffected by a timeout and carry forward unchanged.
+- D3 is UNEVALUABLE only because isolation needs the full 481. A completed run is the only thing that can move it. That is a sufficient reason to spend the wall time once.
+
+Observation for the rerun, so it is not misread as a defect: **SLIMB 425/481 against walks 424/481 is an expected off-by-one at truncation** — one walk entered, not closed. If the rerun completes, both should land 481/481. If they land 481/480, that is a real finding, not truncation noise.
+
+## Ask 2 — AMENDED: RAISE the ceiling to **90 minutes**
+
+I do not clear keeping 60. Holding a 60-min ceiling against a measured ~68–70 min requirement is a coin flip that risks spending another full hour to produce a second D1 GAP / D2 GAP / D3 UNEVALUABLE. That is the worst trade on the table: identical cost to the successful path, zero graded evidence.
+
+Named value and its derivation from §2, not from preference:
+- RECON20b total/mark ratio = 55:23 / 47:52 ≈ 1.157.
+- Applied to RECON21's 59:55 at the mark → **≈ 69 min** projected completion. Consistent with the relay's 68–70.
+- RECON21 ran ≈ 25% slower than RECON20b to the mark. With the cause unknown, two samples cannot bound the tail, so the ceiling must absorb at least one more excursion of that size: 69 × 1.25 ≈ 87 min.
+- **90 min** tolerates ~30% further degradation beyond the slowest pace yet observed.
+
+The reasoning behind the number matters more than the number: a ceiling is a runaway guard, not a pace target. 60 was set below the actual requirement, which is why it fired on a healthy run. It should sit high enough that firing means *something is wrong*.
+
+Stated cost and tradeoff, explicitly for the operator: worst-case exposure rises 60 → 90 min. Expected completion stays ~70. The full 90 is billed only when the run is genuinely stuck — and raising the ceiling does weaken hang detection by that margin. Heartbeats were continuous and the agent stayed alive throughout RECON21, so a heartbeat-gap condition is the better hang guard than a wall-clock ceiling. That is wrapper-only and in scope, but I am **not** making it a condition of this clearance — flagging it as optional follow-on so this rerun is not blocked on harness work.
+
+Scope of the change: wrapper only. No EA, indicator, or Include file moves.
+
+## Ask 3 — CONFIRMED
+
+Nothing commits on the rerun. Build stays uncommitted, records ride the next authorized snapshot, RECON17 stays frozen, P-SEL-1 stays DEAD. D1/D2 gap-not-rerun and D3 evidence-validity stand unchanged as the grading basis. Graded object remains P-SEL-2 (D1–D3).
+
+One hazard to name, since it is not in the asks: **the rerun must not write to `RECON21-SEL2_JOURNAL.log`.** If it inherits that path, the timeout evidence (16992 lines, SHA `8C0D0FB8…`, bounds [40980..57971]) is destroyed by the thing meant to supersede it. Use a distinct run name.
+
+## Conditions
+
+1. Byte-verify the artifact before launch — size 474883 B and hash prefix `150A6159…`. Cheap, and it is what makes "same build" a measurement rather than an assumption.
+2. Distinct journal path for the rerun; RECON21-SEL2 artifacts preserved read-only.
+3. Ceiling set to exactly 90 min, wrapper only, and the new value recorded in the result file alongside the observed wall time.
+
+## Halt condition for the next iteration
+
+If the rerun times out at 90 min, **do not clear a third attempt under these conditions.** Two unexplained pace excursions is already the edge of what a rerun can be justified on; a third would establish that the environmental-variance model is wrong, and the correct next move is cause investigation on the host or harness, not more wall time. Report and halt.
+
+# COUNCIL VERDICT (Opus stream - v20 fundamentals + FP-LIMBSEAT-1 issued)
+
+# Ruling Opus-v20 — Council seat (Opus stream)
+
+**Receipt:** v20 received and treated as the single live relay. v19 acknowledged as SUPERSEDED before verdict; no ruling issued on it. Its filed evidence (`BUILDER_RESULT_RECON21b-SEL2`, `BUILDER_FINDING_SEL1_FORENSIC`) is read as standing. v18 dual clearance, v16 joint close (P-SEL-1 DEAD), and RECON17 freeze are carried forward unchanged.
+
+---
+
+## Ask 1 — ACCEPTED
+
+**P-SEL-2 DELIVERED.** The §3 diagnostic record is accepted as closed on the evidence as filed:
+
+- R4 absence is established on the searched space (M5-1072 + H1-156, trace 09:10→08:20, 197 scanned) — this is an *enumeration* finding, not a selection finding.
+- R5 is established as a side-drop at i=897 with the surviving chain exact to 8 digits (dPts −2.00, no rounding artifact). Exactness of the wrong answer is what makes this diagnostic rather than noisy.
+- S1 is established as ordinal, not level: 09:40 is in-list, seated #1 against his #2.
+- Isolation (481×3 + 10/10 vs frozen RECON17) and the R1/R3 controls walking correctly on the same instrument are what let the class statement stand.
+
+**Withdrawal of the pre-registered one-line-swap expectation for R5 is accepted and recorded as correct practice.** A pre-registration that dies on evidence is worth more than one that survives by reinterpretation. Nothing in this packet reintroduces it.
+
+Status carried: P-SEL-1 DEAD, RECON17 FROZEN, class statement adopted (R4/R5 = HAND limb outside fractal-candidate space; S1 = ordinal off-by-one-near).
+
+---
+
+## Ask 2 — ISSUED: `FP-LIMBSEAT-1` (FROZEN)
+
+Frozen by name. This text is the packet; any edit requires a new ID (`FP-LIMBSEAT-2`) and a fresh dual clearance. Builder builds only what is named here.
+
+### F1 (limbs) — enumerator `limbs_v2`. Scope: **FIX + MANDATORY PRINT**
+
+Three switches, independently toggleable and independently attributable. Each targets a named rejection mode. No switch introduces a fitted numeric.
+
+| ID | Change | Rejection mode it addresses | Primary target |
+|---|---|---|---|
+| **L1** | Side-independence: evaluate `is_pivot_high(i)` and `is_pivot_low(i)` as separate predicates; one bar may emit both. | side-drop (rawL EMPTY when the upper fires) | R5 / 16:15 low |
+| **L2** | Non-strict extremes with exact-tie shelf collapse: comparisons become `>=`/`<=`; bars sharing an extreme at **exact equality only** (`eps = 0`, no tolerance parameter) collapse to one limb, representative = the bar nearest the decision. | equal-extreme / shelf rejection | R4 / 08:40 |
+| **L3** | Displacement confirmation: a pivot confirms when the right window completes (legacy path, unchanged) **OR** the next leg displaces — body close beyond the pivot bar's opposite extreme with imbalance present, using **the imbalance test the STOP rule already requires**. No second definition, no new threshold. | unconfirmed-right on an impulsive reversal | R4 / 08:40; supplies the forming limb F2 needs |
+
+**Hard constraints.**
+- **No timeframe widening.** 08:40 must be admitted on M5/H1 or not at all. Adding a TF to make it appear is fitting.
+- **Anti-fitting clause:** no switch ships on a HAND-value match alone. Each shipped switch must carry one independent structural justification stated in the print. L1 has it (side-drop is a defect regardless of R5). L2 and L3 must earn it.
+- **Fail-route, not force-fit:** if L1–L3 all fail to admit 08:40 on the searched space, F1 does **not** get extended. R4 routes to **his blank (b)** (08:40 formation detail at 09:15) as an open question. Builder invents nothing.
+
+**Mandatory print (per bar, all 7):** candidate list with `bar_id`, `side(s) emitted`, and `admitted_by ∈ {legacy, L1, L2, L3}`. Attribution is the deliverable; a passing level with unattributed admission is a FAIL.
+
+### F2 (seat) — count anchor. Scope: **PRINT-FIRST, FIX PRE-SPECIFIED**
+
+Two candidate seat rules. Both stated without his blank (a) value.
+
+- **S-A (origin-limb seat):** ordinal 1 = the limb the setup itself consumed (MR: the swept limb; TF: the limb carrying the named POI tier line). "ONE away" = the next limb beyond origin; "TWO away" = one beyond that. Under S-A, 09:40 seats #2 iff an origin limb sits between it and the decision.
+- **S-B (forming-limb seat):** the anchor is unchanged, but the in-progress limb at the decision bar becomes countable under **L3**, taking #1 and pushing 09:40 to #2.
+
+**S-B is a consequence of F1, not an independent change.** Discriminator print, no fit: under `limbs_v2`, list every limb between the S1 decision bar and 09:40 with its `admitted_by`. If exactly one appears via L3 → S-B holds, ship no separate seat change. If none appears → S-A is the live rule and its origin-limb definition ships. If more than one appears → HALT and relay; that is a new class, not a tuning problem.
+
+**Blank (a) handling:** the seat rule ships stated in structural terms and does **not** name his first swing. If neither S-A nor S-B resolves, blank (a) routes to him unfilled. No builder-supplied first swing under any outcome.
+
+**Regression flag, highest in the packet:** R1's filed anchor is 09:55→06:30 and S1's seat lives in the same session. Any seat change must re-walk R1 with the full ordinal print, not just a level check. If R1's level survives but its ordinal path changed, that is reported as a partial regression, not a pass.
+
+### F3 (generation) — side severed from signal. Scope: **PRINT-THEN-FIX, both halves pre-specified**
+
+**Why LONG is carried.** The council does not have the provenance and will not guess it. Two named candidates: **(i)** the row generator inherits the `direction` field off the legacy signal object (consistent with "the four still fire unchanged" — they fire, and their polarity is being reused); **(ii)** a sidecar-era pipeline default supplies side upstream of the meters. One provenance print settles it: at the two Sep-8 morning bars, emit the ordered write-chain for the side field (`producer → value`), plus each meter's raw read. That print is a required deliverable of the packet, not a design gap.
+
+**Replacement (ships regardless of which provenance the print names):**
+
+1. **Row-local side resolver is the sole side authority.** TF row: side = sign of the bias read over **the row's own declared HTF set** — the row carries its `htf_set` from his journal (Sep-8 morning: 1H + 15m). MR row: side = the most recent sweep only. No cross-row read, no aggregate, no majority.
+2. **4H is readable, never gating.** It prints as context with a `non_blocking` stamp. Any code path where 4H can change an outcome is a defect.
+3. **Legacy four keep firing, unchanged, as presence/trigger evidence only.** Their `direction` is retained as `legacy_dir` **label** and is barred from the side path. Assert: fire log byte-identical to pre-fix.
+4. **Polarity agreement gate.** His divergence code must agree with resolver side (long ∈ {1,3}, short ∈ {2,4}); X = no trade. Disagreement declines with reason `POLARITY_MISMATCH` and prints both operands. Never coerced, never silently resolved — that coercion is the bug class we are closing.
+5. **His-read override sits above code as veto and promoter-of-record only** (Sep-4 morning decline is the filed precedent), keyed by row ID, sourced from his record, empty by default.
+6. **INDEPENDENCE assert:** alignment of bias and sweep produces no size, weight, or confidence multiplier anywhere. Alert-only, so any such field is itself the finding.
+
+### F4 (wick rule) — single-resolver residency. Scope: **FIX + INVARIANT TEST**
+
+The rule lives **inside the stop resolver, as a post-selection adjustment on the ONE-away branch, at a single exit.** It fires only when all four predicates hold:
+
+1. Base level came from the **1-away + imbalance** branch (the rule's own scope text).
+2. A named POI block exists on the row (PLACE tier line non-empty).
+3. The block is **uninvalidated** at decision time — no bar close beyond its far edge between formation and decision.
+4. A wick extreme lies beyond `max(1-away level, block far edge)` in the stop direction, formed inside the formation→decision interval.
+
+Then `stop := most extreme qualifying wick`, stamped `stop_source = WICK_EXT`.
+
+**Containment mechanics (the "nowhere else" half):**
+- Every resolver return carries a mandatory `stop_source` enum. A return without one fails the build.
+- One writer: an invariant test asserts no module outside the resolver writes the stop field.
+- **Scoped-exception registry:** pure-two-swings-no-imbalance is a row-ID-keyed entry in `SCOPED_EXCEPTIONS`, not a general branch. An assertion fires if any row not in the registry reaches it. This is how "scoped to ONE trade only" becomes enforceable rather than remembered.
+
+---
+
+## Successor predictions — all 7 bars, stated BEFORE any run
+
+| Bar | Predicted state | Mechanism | Fail condition |
+|---|---|---|---|
+| **R1** | NO CHANGE — 1.16508@06:30, anchor 09:55→06:30 intact | control | any level move, **or** same level via a changed ordinal path (partial regression) |
+| **R2** | DECLINES, and declines **for the filed reason** (no XOB and no POI) | PLACE gate, upstream of side | declines on a different reason string, or F3's resolver manufactures a side |
+| **R3** | NO CHANGE — 1.15847@15:30 | control | any level move |
+| **R4** | 08:40 enters the candidate list on M5/H1; stop matches HAND label 1.16098@08:40 | L2 or L3, attributed | admitted only by TF widening, or unattributed, or absent → **route to blank (b)** |
+| **R5** | rawL populates at i=897; chain 16:30→16:15; stop 1.16239@16:15; prior 1.16238@16:05 demotes to 2-back; expected delta +2.00 pts | L1 | 16:15 still side-dropped, or the 16:30-first anchor shifts |
+| **S1** | 09:40 reseats to #2, 09:05 to #3; 2-away selection lands 09:40 = 1.16258 | F2 (S-A or S-B per discriminator) | discriminator returns >1 forming limb → **HALT**; or reseat achieved by anchor invention |
+| **S2** | INTENDED CHANGE — side flips to SHORT at the Sep-8 morning bars on 1H+15m bear, 4H bull printed non-blocking; four legacy signals fire unchanged. **Stop/target print-only:** S2's filed level is not named in this relay, so no pass/fail is asserted on it | F3 | side stays LONG; any legacy fire-log drift; or a level is asserted against an unfiled expectation |
+
+**Global anti-fitting guard (build-time, blocking):** the filed HAND constants (1.16508, 1.15847, 1.16098, 1.16239, 1.16238, 1.16258) must appear in **no file outside the expectations/labels fixture**, and that fixture must be test-import-only. A grep gate enforces it. HAND values are labels for comparison, never operands.
+
+---
+
+## Ask 3 — CONFIRMED
+
+Nothing builds, runs, or commits until `FP-LIMBSEAT-1` is dual-cleared **BY NAME** by both streams, with operator authorization where run cost attaches. Records ride the next authorized snapshot; builds stay uncommitted. Either stream may halt instead of clearing — including on this packet.
+
+**What I would reject on:** a level that matches with `admitted_by` blank; a seat change that resolves S1 while silently altering R1's ordinal path; any HAND value reaching an operand; R4 force-fit by TF widening rather than routed to blank (b); or a second design cycle smuggled in as "clarification" of a frozen item.
+
+**Next expected relay:** dual clearance or halt on `FP-LIMBSEAT-1` by name. If cleared, the first authorized run is the print set only (F2 discriminator + F3 provenance), before any of F1's switches ship.
+
+*Scope note: this packet governs faithful reproduction of his documented decisions in an alert-only tool. It makes no claim about the strategy's edge or profitability, and none of the above should be read as trading advice.*

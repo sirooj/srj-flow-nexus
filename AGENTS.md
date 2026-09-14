@@ -26,6 +26,22 @@ Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says s
   tokens, packets. Canonical-source edits ONLY from its issued packets.
   Code questions go here.
 - EXTERNAL REVIEWER: GPT 6 Astra (web, via operator relay). NON-CODE review only.
+- DUAL-RULE PROCESS (operator directive 2026-09-13, standing, corrected
+  same day): BOTH flagships (Opus 5 + GPT Astra 6) receive the SAME relay
+  and BOTH rule on all of it — no role split, no "code reviewer" vs
+  "external reviewer" (those old labels are dead). Relays are always
+  fresh-session self-contained and model-neutral prose. Both verdicts
+  filed verbatim, one file per source (Opus stream in
+  `BUILDER_VERDICTS_SLDEF4-5.md`, Astra stream in
+  `06_HANDOFFS\BUILDER_VERDICTS_ASTRA.md`). DUAL-KEY TO BUILD: both
+  verdicts must clear before anything is built or committed — EITHER
+  model can halt. Where both clear with different requirements, builder
+  satisfies the stricter without inventing; irreconcilable conflict →
+    operator adjudicates with both quoted. Agreement between them is
+    logged, never assumed. AMENDMENT 2026-09-13 (operator, Astra-outage
+    fallback): Astra-sufficient for PRINT-ONLY packets (nothing builds
+    that can move selection); dual-key stays mandatory for any
+    selection change. First use: P-ORIGIN-1 builds on Astra-1 alone.
 - Strategy-rule questions NOT answered by the spec go to THE OPERATOR.
   Answer from documented rules FIRST before framing operator questions.
 - Final authority on goals and money: the operator.
@@ -642,6 +658,468 @@ Masters judge measurements on disk, never prose about them.
     09:40/1.16258) — P-ORIGIN-1 entry condition 1 MET, packet text owed
     from council. Run-B delta stays suspended (never re-derived
     undeclared).
+30. DUAL-RULE PROCESS LIVE 2026-09-13 (operator directive, §2; corrected
+    same day to SYMMETRIC: same relay to both, both rule on all of it,
+    dual-key to build — either can halt; old Opus/Astra role split dead).
+    First dual relay cut:
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v10-PORIGIN1-ASK.md` (P-ORIGIN-1
+    issuance ask; carries §2(a)+(b) closures + verdict-#8 scope quotes +
+    five-item packet checklist; paste whole to EACH model, identical
+    content). UNCOMMITTED
+    (AGENTS-only change, no token needed — records ride next snapshot).
+32. P-ORIGIN-1 EXECUTED 2026-09-13 (EA 97FCED1D… 444437 B UNCOMMITTED,
+    both compile 0/0, FlowLogic 3606BFB4 unchanged; FREEZE pre-launch).
+    RECON19-ORIGIN1 DONE=PASSED 22:14:40 (Test passed 0:55:12.464;
+    archive 18730 lines journal B4797591…, bounds [153936..172665],
+    purity 1/4/481) — REGRESSION FAIL (rows=5 fail=3): R2+R3 match;
+    R1 −27 (lands 09:45 vs 06:30 extremity), R4 +5 (lands 09:00 vs
+    08:40), R5 +1 vs retained (lands his FILED 1.16239@16:15 exactly —
+    retain-vs-filed ruling owed). Candidate DEAD per pre-declared gate;
+    Sep-8 NOT REACHED (2 SKIPPED in-run, unscored; E46 stays closed).
+    Provenance CLOSED (computes 432/39, hits 0/118, 471+10=481 with
+    units; 118/118 agree + genID-traceable; S5 never reads memo).
+    Inertness PASS (twelfth join 481×3+10/10; slToday 10/10 vs 17; all
+    identities verbatim). Finding: five share no one time-ordered rule
+    (R1 extremity-flavored; fidelity proven via 16:30 skip-witness).
+    Result filed (`06_HANDOFFS\BUILDER_RESULT_RECON19-ORIGIN1.md`);
+    relay v11 filed (fresh-session, dual-model, 3 asks). NO commit
+    (failed-gate build, no token). COMPACT RECOMMENDED NOW (result
+    filed, no run active, next step = council ruling).
+33. DUAL VERDICTS ON v11 FILED 2026-09-13 — Astra-2 (HALT AFFIRMED: kill
+    accepted as matches-2/5, retain stands, NO further build/run incl.
+    print-only, no alternative, no per-trade exceptions; wording
+    correction adopted) + Opus (kill accepted, retain stands on identity
+    rule, per-trade ban, D1+D2 desk measurements declared, D3
+    contingent). AGREED: kill, NOT REACHED, retain, provenance/inertness
+    as reported, HALT, suspension. NO CONFLICT (D1/D2 are reads).
+    EXECUTED pre-compact (dual-key compliant): D1 filedResid
+    −27/0/0/+5/0 + HAND carriage (px always, barTime sometimes, slot
+    never, imb as words) + R5 promotable-past-price-only answered
+    (no reopening); D2 depths 215/70/30/40/40 min = 43/14/6/8/8 bars
+    (R1 3–7× the rest — outlier on any 43-vs-≤14 split; Sep-8 30/40 min
+    entry→filed, no retained); weak-evidence caution + incumbent defect
+    (baseline 1pt off HAND at R5) filed open. Finding
+    (`06_HANDOFFS\BUILDER_FINDING_ORIGIN_D1D2.md`) + relay v12 filed
+    (fresh-session dual-model: D1/D2 + D3-direction ask; paste whole to
+    EACH). NO build/run/commit (Astra constraint; nothing owed).
+    COMPACT RECOMMENDED NOW (all verdicts filed, D1/D2 landed, next =
+    council D3).
+34. DUAL VERDICTS ON v12 FILED 2026-09-13 — JOINT OPTION 2 (Astra-3 +
+    Opus-v12-response): adopt finding, CLOSE origin investigation, HALT
+    stands, no D3 proposition, no build/run/token/push. AGREED: kill
+    robust (filed-gate fails R1/R4 exactly as retained-gate — retain
+    door closed); R5 retain stands (price-only coincidence + barTime
+    promotion noted, no regrade); per-trade ban; run-B suspended;
+    origin undeclared free parameter. OPUS CAVEAT ANSWERED from frozen
+    rows: R4 (09:20→08:40) and R5 (16:45→16:05) ARE both exactly 40 min /
+    8 bars — the tie carrying §1 holds, plank secure. Permitted R5
+    annotation ALREADY ON DISK (`BUILDER_FINDING_ORIGIN_D1D2.md`
+    incumbent-defect note; no digest moved, none owed). DURABLE BANKED:
+    (i) HAND carriage structurally insufficient for the 4-tuple (px
+    always / barTime sometimes / slot never / imb as words) — permanent
+    precondition on future gates; (ii) kill robust to retain-vs-filed;
+    (iii) origin undeclared. REOPENING needs all four (independent
+    mechanism-derived rule; scoreable held-out set BEFORE the rule —
+    Sep-8 is not it, new Dukascopy data almost certainly required;
+    gate over HAND-carried components with slot gap acknowledged;
+    pre-declaration without the answer sheet). RELAY CHECKPOINT v12
+    CLOSED (both streams in, loop complete — no outbound relay owed).
+    POST-COMPACT STATE: QUIESCENT — no build/run/commit executable
+    under standing constraints; next moves are operator/council-side
+    only (new data or independently-justified rule). RECON17 frozen;
+    Rev075 local; 97FCED1D uncommitted; debris still awaiting deletion
+    word. COMPACT NOW.
+35. DUAL VERDICTS ON v13 FILED 2026-09-13 — PLANNING APPROVAL, NO
+    clearance yet (Astra-4 + Opus-v13-response; relay v13
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v13-GOAL-PLAN.md`). AGREED: both
+    paths ride ONE combined print-only run; walk/origin stays dead; his
+    rule NOT inconsistent (failed diagnostic = machinery mismatch);
+    isolation (adoption off, no selection change, no digest move); exact
+    barTime+price, no tolerance/absorption ("four exact one absorbed"
+    must NOT become "five exact"); slot printed-not-gated; filed
+    authoritative (code under test where retained differs); presence
+    probe same run; stops-may-precede-presence (presence blocks GOAL,
+    not packet); fail-dead-no-rerun-no-tuning. DELTA reconciled
+    (stricter wins): single frozen reading (Astra) vs variant matrix
+    (Opus) → freeze the variant SPACE pre-run (platform-Fractals-verbatim
+    definition settled; dimensions start-offset × counting-discipline ×
+    confirmation × TF; no walk/imbalance/depth/per-example anything),
+    collapse on operator yes/no as answers land, run does NOT gate on
+    them; G2 force-eval S1/S2 REPORTED (blocks adoption, not G1); G3
+    ties → operator yes/no; causality per-variant availability label,
+    G1 needs available-only; R>=1.0 unrounded accounting + G6
+    side/entry/target census merged; his-target gaps stay gaps.
+    PREREQUISITES before packet: R2 stop-bar (code-side 09:30/slot-13
+    from ORIGINREG row; operator yes/no owed — gate NOT evaluable
+    without it) + R5 dual-reference freeze (filed authoritative) +
+    his-target inventory. Next: v14 packet relay for dual-key clearance
+    NAMING the completed packet (Astra condition); NO build/run until
+    both streams clear it. UNCOMMITTED (no token).
+36. OPERATOR ANSWERS ON v13 PREREQUISITES 2026-09-13 (filed Addendum 5
+    `06_HANDOFFS\BUILDER_FINDING_SLDEF5_FIVEEXAMPLES.md`): R2 ruled
+    INVALID SETUP (OANDA sub-1R verdict stood on bad data AND setup fails
+    his updated chart-side CQD; hypothetical SL 1.16299 confirmed; stop
+    bar 09:30 stays code-side only) → F=recovery SUPERCEDED, R2 becomes
+    MUST-DECLINE, mapped selection set = 4 fired (R1/R3/R4/R5); G1 as
+    specified (5/5) NOT evaluable — v14 must propose reshaped gates
+    (G1 = 4/4 fired exact; R2+S1/S2 force-eval stop-only, REPORTED) for
+    dual-key ruling. CQD DIVERGENCE: repo CQD UNCHANGED (BE6FD84F
+    verified post-compact); repo-CQD fix is canonical → council scoping
+    in v14. Aug-28: first swing 09:55 NOT 09:45, second 06:30, SL
+    unchanged; frozen ORIGINREG row corroborates (skip 09:55 = his first,
+    walk stopped 09:45 = raw-second = the −27 miss) → PREDICTION (not
+    ruling): monotone-outward wins R1, matrix grades it. TARGET
+    INVENTORY COMPLETE for G6 (R1 1.16364/exit scratch; R2 1.16224 moot;
+    R3 1.16302; R4 1.16200; R5 1.16318; S1 1.16102; S2 Y-POC price GAP =
+    stays gap). Next: draft v14 packet relay (frozen variant space +
+    reshaped gates + CQD scoping) for dual-key clearance; NO build/run.
+    UNCOMMITTED (no token).
+37. PACKET RELAY v14 DRAFTED 2026-09-13
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v14-SEL1-PACKET.md`): P-SEL-1
+    (E51 isolated Fractals-verbatim shadow, E52 variant matrix
+    start-offset × counting × confirmation × TF-H1, E53 force-eval,
+    E54 pre-suppression presence, E55 components+R>=1.0 unrounded,
+    E56 census+R2-decline+isolation join) + frozen 7-row reference
+    table (R2 hypothetical/CODE-bar + MUST-DECLINE; R5 filed-only
+    target; S2 TP gap) + reporting conventions (no silent fallback) +
+    desk prediction (monotone wins R1, graded-not-gated) + 4 asks
+    (G1-reshape approval; CQD scoping; H1/eval-close amendables; CLEAR
+    named packet). Operator relay discipline: paste whole to EACH,
+    verdicts back whole, one source per message. NO build/run until
+    BOTH streams name P-SEL-1. UNCOMMITTED (no token).
+38. DUAL CLEARANCE P-SEL-1 2026-09-13 (Astra-5 + Opus-v14-response, both
+    filed verbatim; relay v14 answered). BOTH name P-SEL-1 (E51–E56) ONE
+    print-only build+run. RECONCILED stricter-wins, no conflict: decision
+    instant = signal-bar close (both wordings = same instant; S1/S2 anchor
+    = close of bar preceding entry bar); G1 4/4 exact filed-authoritative
+    (R5 16:15/1.16239 only) + R5 dual-print + eligible-count (12) beside
+    example count (4); G2 REPORTED (adoption-blocking, never erases G1);
+    start-offset THREE settings (signal/fill/prior → 24 variants V001–
+    V024, 12 eligible); H1 with M5-bar projection (builder call,
+    pre-declared); TARGET_UNSTATED for S2; CQD printed-never-consumed,
+    fix packet sequenced after (separate auth); R2-takes-everywhere
+    PRE-REGISTERED (R 1.206 clears 1.0; adoption blocked by construction,
+    expected-not-failure); K2 variants G1-ineligible even if stops
+    confirm. Freeze `06_HANDOFFS\BUILDER_FREEZE_PSEL1.md` (matrix +
+    table + gates + conventions + R-values + monotone-wins-R1 prediction
+    graded-not-gated). STAGE-1 PASS: EA pre-write hash 97FCED1D verified
+    (matches diagnostic); build on current tree (ORIGIN dormant-uncalled,
+    E56 join proves); NO revert. P-SEL-1 BUILDING (E51/E52 → E53–E56 →
+    compile → launch RECON20-SEL1). UNCOMMITTED (no token).
+39. P-SEL-1 EXECUTED 2026-09-13 (EA 44D0923B… NEW BUILD uncommitted, both
+    compile 0/0, FlowLogic 3606BFB4 unchanged; E51 iFractals M5+H1 shadow
+    isolated zero walk/origin/imbalance calls; E52 end-of-run 24-variant
+    census over live SEL52CTX rows; E53 end-of-run 7-bar force-eval;
+    E54 live probe-bar + stage hooks; E55 live S5-row components + CQD
+    printed-never-consumed; adoption verified still false statically).
+    RECON20-SEL1 RUNNING (launched 23:39:07 PID 18864, PRE=172665
+    contiguous from 19; decision instant = signal-bar close; O1≡O2
+    identity expected measured). Next on completion: archive → 15-gate
+    grade (G1 4/4 exact filed; G2–G6 reported; isolation join vs RECON17;
+    O1≡O2 + monotone-prediction grading) → result file → relay (adopt or
+    next packet). NO commit (no token); RECON17 stays frozen.
+40. RECON20-SEL1 BLOCKED 2026-09-14 (INCOMPLETE RUN, no Test passed):
+    journal froze 62 min at test-time ≈Sep-07 18:30, agent `connection
+    closed` 01:26:00, wrapper UNDETERMINED (DONE≠success); EA hang
+    excluded by construction (live hooks loop-free). Manual archive
+    `06_HANDOFFS\RECON20-SEL1_JOURNAL_PARTIAL.log` (16363 lines, SHA
+    163499F6…, midnight-split bounds recorded) + tabulations. LANDED:
+    E55 5/5 (code side/entry/target exact R1–R4, R5 TP +3 drift; CQD
+    EMPTY at all five rows → R2 divergence now DATA); SLIMB-family
+    partial 398/398/398 + SLIMBR 9/10; handles M5=13/H1=14. DEFECT OWNED:
+    SEL52CTX 9-spec/8-arg shift (`site` unpassed; site/slMode/halt lost
+    from print, other values recoverable; in-memory arrays correct).
+    UNEVALUABLE: G1/G2/G4 (no matrix), G5 (Sep-8 unreached), isolation
+    join. Result filed (`06_HANDOFFS\BUILDER_RESULT_RECON20-SEL1.md`).
+    Next: v15 relay asking dual-key clearance for build-2 (identical +
+    one-line CTX fix, diff-verified) + ONE rerun (~1h, OPERATOR's call);
+    NO code moves until both streams name it. UNCOMMITTED (no token).
+41. DUAL CLEARANCE V15 2026-09-14 (Astra-6 + Opus-v15-response, both filed
+    verbatim). BOTH clear build-2 (CTX one-line fix ONLY, diff-verified vs
+    44D0923B; 9/9 parity asserted post-fix; sibling StringFormat audit owed,
+    fix-only-SEL52CTX; build-2 hash fresh, no binary-repro claim) + ONE
+    rerun same ini/range (OPERATOR ASSENT REQUIRED — clearance does not
+    spend his hour). Opus extras (all compatible): pre-flight host/agent/OS
+    capture; single-agent effectively standing (:3003 all runs, farm off);
+    exhaustion-implausible (497/398 rows) replaces excluded; CQD-EMPTY
+    semantics = design item for the CQD packet (NO cleared gate reads CQD —
+    rerun NOT gated on it; inventing EMPTY=FAIL would be scope change);
+    wrapper success-predicate = post-rerun harness debt (instrument frozen
+    for the rerun; manual Test-passed+matrix predicate stands). Smoke-run
+    option NOT covered (ini/range scope change) → operator picks full
+    (cleared, no new relay) vs smoke-first (v16 mini-relay). INFRA FINDING
+    (agent log, overrides stall story): agent ALIVE to 01:26, reached
+    test-time Sep-08 03:00 (terminal mirror stalled 00:24→01:26); explicit
+    `prepare for shutdown` 01:26:00.665 → thread finished, NO Test passed;
+    MetaTester stopped 01:31:32. Cause open (host-sleep fits: Balanced
+    scheme + wrapper+terminal+agent all frozen same window; event-log
+    probe filed here). S1/S2 still unreached (died 03:00). NO code moves
+    until operator picks a path. UNCOMMITTED (no token).
+42. OPERATOR ASSENT 2026-09-14: FULL RERUN NOW (smoke declined). Build-2
+    EXECUTED (EA 766BADDC… fresh, 0/0; FlowLogic untouched): one-line CTX
+    fix ONLY; STAGE-1 pre-fix hash 44D0923B verified; diff-control race
+    OWNED (backup raced the edit → DIFF 0 void; replaced by pre-hash +
+    single-location guarantee + post parity); sibling audit 190/190 calls
+    0 mismatched (SEL52CTX 9/9 asserted); adopt false re-verified;
+    STANDBYIDLE AC/DC set 0 + verified (host-sleep remediation for the
+    00:24 idle-timeout kill); single-agent :3003 standing. RECON20b-SEL1
+    LAUNCHING (same ini/range). Post-run owed: agent-log + OS-log capture,
+    wrapper success-predicate debt, v16 relay with parity/diff/hash/grade.
+    UNCOMMITTED (no token).
+43. RECON20b-SEL1 DONE=PASSED 2026-09-14 (Test passed 0:55:17.348; 3168
+    bars / 563338 ticks; archive `06_HANDOFFS\RECON20b-SEL1_JOURNAL.log`
+    33937 lines / 6746945 B / SHA 06556CF4… / bounds [7043..40979];
+    purity farm-1/cloud-1/agent-3003-1/Test-passed-1; power AC/DC 0 held;
+    parity 190/190 zero-mismatch; CTX 9/9 site-present; EA 766BADDC…
+    469237 B 0/0, FlowLogic 3606BFB4 unchanged; base-backup re-search
+    EMPTY — no fresh byte-diff asserted, verification rests on pre-hash +
+    single-site + parity, race stays owned): G1 FAIL 0/12 (best 2/4
+    V005/V013/V021 MONO/M5; R1 MONO-only 1.16508@06:30 R2.429, R3 M5-only
+    1.15847@15:30 R1.661, R4 UNIVERSAL MISS 1.16088@08:20 vs HAND
+    1.16098@08:40, R5 filed universally missed by design retained
+    1.16238@16:05 retm=1); G2 REPORTED G2x3=0 (R2 decl=1 take=1 M5,
+    S1 1.16359 miss 101 pts, S2 TARGET_UNSTATED); G3 MOOT; G4 CTX 599
+    (432/157/10) SEL52 14376 SEL53 168 SLIMB 481×3 SLIMBR 10; G5 both
+    Sep-8 bars inWin upstream carried LONG (EA opposed as disclosed);
+    G6 SEL55 5/5 exact R1-R4 R5 TP +3 CQD EMPTY ×5; O1≡O2 HOLDS; monotone
+    prediction PASSES (graded-not-gated); isolation PASSES (481×3+10/10
+    zero-mismatch vs RECON17, signals 4/4, InpAdoptExt1=false).
+    P-SEL-1 DEAD per failure gate (no rerun/tuning). Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON20b-SEL1.md`); relay v16 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v16-SEL1-RESULT.md`, asks 1-3:
+    close P-SEL-1, next direction, nothing commits). RECON17 stays
+    frozen. UNCOMMITTED (no token; none sought on a dead packet).
+44. DUAL VERDICTS ON v16 FILED 2026-09-14 — JOINT CLOSE, no clearance
+    (Astra-7 + Opus-v16-response, both filed verbatim; each text arrived
+    twice identical, filed once). AGREED (dual-closed): P-SEL-1 DEAD +
+    G1 FAIL = machinery verdict (isolation, defined cells, structured
+    misses, self-consistency); R4 independently fatal; R5
+    filed-authoritative (retained earns nothing); H1 no preferred
+    standing; NOTHING commits (RECON17 frozen, build-2 uncommitted, no
+    build/run/tuning/commit/push/snapshot; v15 assent spent; follow-ups
+    need fresh frozen packet + dual-key + operator auth). DIVERGENT on
+    line-status: Astra CLOSE search + evidence-only R4 packet warranted
+    for design (no execution) vs Opus keep-open + zero-run forensic read
+    (R4/R5/S1) + axis findings + gate-design rule (conditional).
+    Reconciled stricter-wins: no run-bearing anything; zero-run read is
+    evidence-only on the archived journal (no build/run/token) as Astra's
+    own Ask 2 contemplates — EXECUTED and filed
+    (`06_HANDOFFS\BUILDER_FINDING_SEL1_FORENSIC.md`): R4 PRESENT-but-
+    unselected (SLIMB binds+chooses 08:40 ×5 incl. S5 09:15 row; SEL52
+    384 mentions 0 defined at 08:40; V005 wit 09:10 skips 0/0/0 →
+    counting/ordinal side; shadow raw-list vs walk-ordinal unseparated =
+    stated gap); R5 BOTH-present code-prefers-retained (SWINGDUMP
+    adjacent trio, ORIGINREG obs-vs-exp resid 1, ladder rung 1 IS filed
+    R 2.45, SLEXT1 ABSORBED → tie-break confirmed); S1 SAME path
+    (single SrjSelVariant loop lines 2958-3001, dir per frozen entry →
+    101-pt sample belongs, notional-context caveat); v14 antecedent HOLDS
+    (split frozen pre-run) with ex-ante/ex-post boundary (unreachability
+    proven by the run, not at registration — rule wording is council's).
+    Opus preservation condition HELD (766BADDC + 06556C retained,
+    uncommitted); process rule (pre-edit artefact) + gate-design rule
+    REPORTED not adopted. Inbound duplicates acked (no new content).
+    Next: operator adjudicates line-status ONLY if strict-close readings
+    differ (nothing else moves without dual-key packet).
+45. OPERATOR PROCEED-ORDER 2026-09-14 (goal not met — EA must match his
+    trades; builder does NOT stop at the dead packet). Standing
+    constraint restated to him: no canonical edit without a dual-cleared
+    packet (either stream halts); builder invents no strategy. Next lawful
+    step EXECUTED: v17 relay drafted from the two verdicts' own questions
+    + filed forensic gaps only (no new hypotheses) —
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v17-SEL2-PACKET.md` (P-SEL-2
+    print-only diagnostic: E57 raw shadow lists × 7 bars × M5+H1, E58
+    walk traces R4/R5/S1 + R1/R3 controls all 12 eligible variants with
+    existing reason counters, E59 census + isolation; diagnostic gates
+    D1-D3 REPORTED, gap-not-rerun; asks 1-3 incl. CLEAR by name + ~1h
+    operator-cost flag + nothing-commits). NO build/run until BOTH
+    streams name P-SEL-2. On clearance: build+run immediately, no pauses
+    (his standing continuous-execution order). UNCOMMITTED (no token).
+46. DUAL CLEARANCE P-SEL-2 2026-09-14 (Astra-8 + Opus-v17-response, both
+    filed verbatim; v17 answered). BOTH name P-SEL-2 (E57–E59) ONE
+    print-only build+run. RECONCILED (no conflict, stricter folded):
+    Astra clarifications (R4 no-mechanism-promotion, R5 encounter-vs-
+    filter, S1 notional kept, R1/R3 controls-context-only, S2/R2 E57-only
+    with corrected rationale, actual-list/actual-disposition/GAP rule, D3
+    evidence-validity, no-auto-anything) + Opus A1–A5 (A1 unconditional
+    per-event trace at loop top + three-way vocabulary; A2 E58 all 7 bars
+    incl. R2 + S2-stop-side with MUST-DECLINE/TARGET_UNSTATED labels kept;
+    A3 per-(bar,TF,variant) counts + sentinel; A4 latched flags; A5 full-
+    precision near-tie compares + epsilon) + D3 zero-order-send assert;
+    A2-inclusion compatible with Astra (print-only, explicit labels, no
+    selection touch). TF-union VERIFIED from code (T∈{M5,H1} only; SEL
+    handles 13/14; M15/H4/D1 hits are CQD-side): E57 at M5+H1 is complete.
+    Successor freeze-order + next-packet halt conditions BANKED (not this
+    build). STAGE-1 PASS (pre-write 766BADDC verified). P-SEL-2 EXECUTED
+    (EA 150A6159… 474883 B, 0/0 EA+Flow; parity 196/196 zero-mismatch;
+    adopt false re-verified; OrderSend-src 0; power AC/DC 0; no terminal
+    leftovers). RECON21-SEL2 RUNNING (launched 10:19:58 PID 15240
+    PRE=40979 contiguous from 20b; builder-side launch-call hang recurred
+    — known, launch proven via STATUS heartbeats). Operator run-cost
+    authorized by his proceed-order + standing continuous-execution (cost
+    was flagged in v17 as required). Next on HIS completion signal:
+    archive → D1-D3 grade → result → relay. UNCOMMITTED (no token).
+47. RECON21-SEL2 BLOCKED 2026-09-14 (TIMEOUT_60MIN 11:20:09, NOT a stall:
+    heartbeats continuous, agent alive, test-time died Sep-08 11:35 ~1.4
+    days short; end-of-run never executed). Archive
+    `06_HANDOFFS\RECON21-SEL2_JOURNAL.log` 16992 lines / 3319978 B / SHA
+    8C0D0FB8… / bounds [40980..57971]; purity farm-1/cloud-1/Core04-only/
+    Test-passed-0. E57/E58/SEL53 counts ALL 0 (gating held — zero live
+    prints, instrument excluded as slowdown cause); partials SLIMB 425/
+    walks 424/SLIMBR 9/signals 4/4/OrderSend-segment 0. Grades: D1 GAP,
+    D2 GAP, D3 UNEVALUABLE (static holds: adopt false, zero-send). Pace
+    autopsy: farm-off→Sep-08-11:35 in 47:52 (20b) vs 59:55 (21), +12:03
+    same ini/range/machine; window needed ≈68–70 min at 21's pace;
+    ceiling killed healthy run ≈10 min short; EA cause none established,
+    residual environmental unknown (sleep excluded AC/DC 0). Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON21-SEL2.md`); relay v18 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v18-SEL2-RERUN.md`, asks 1-3: ONE
+    rerun SAME build no rebuild, ceiling keep-vs-raise question, nothing
+    commits — no auto-rerun per both streams' terms). P-SEL-2 OPEN but
+    ungraded. RECON17 frozen. UNCOMMITTED (no token).
+48. DUAL CLEARANCE v18 2026-09-14 (Astra-9 + Opus-v18-response, both filed
+    verbatim; v18 answered). BOTH name ONE same-build rerun, ceiling 90,
+    no commits (Astra Ask1+Ask2-90+Ask3; Opus Ask1-by-name + Ask2-raise-90
+    with 69→87→90 derivation + Ask3 + 3 conditions + no-third halt rule).
+    Convergent 90 adopted (no A2 conflict left). Opus conds HELD:
+    (1) byte-verify PASS (150A6159… full + 474883 B); (2) distinct run
+    RECON21b-SEL2 (RECON21 16992/8C0D0FB8/[40980..57971] preserved
+    read-only); (3) ceiling exactly 90 wrapper-only (param
+    $CeilingMin=90 + dynamic TIMEOUT_<N>MIN label + CEILING_MIN status
+    line; syntax 0 errors; only file referencing old label). Truncation
+    note banked (425/424 expected off-by-one; 481/480 on completion =
+    real finding). RECON21b RUNNING (launched 12:15:51 PID 4636
+    PRE=95448; CEILING_MIN=90 in STATUS; heartbeats advancing Core 04;
+    builder-side hang recurred — known). Operator cost authorized by his
+    proceed-until-match order + flagged estimate (expected ~70, worst 90).
+    Next on HIS completion signal: archive → D1-D3 grade → result →
+    relay; if 90-min timeout: REPORT+HALT per both streams (no third).
+    UNCOMMITTED (no token).
+50. RECON21b-SEL2 DONE=PASSED 2026-09-14 (Test passed 1:22:14.778; 3168
+    bars / 563338 ticks; wall ≈82.7 vs ceiling 90; archive
+    `06_HANDOFFS\RECON21b-SEL2_JOURNAL.log` 54470 lines / 10393821 B /
+    SHA AA31EC26… / bounds [95449..149918]; purity farm-1/cloud-1/
+    agent-3003-1/Test-passed-1): D1 PASS (14/14 lists, M5-1072/H1-156
+    all match); D2 PASS (84/84 sentinels zero-mismatch, 11817 traces,
+    6 CMP, SEL53 168 + finals = 20b, R2-decl/S2-UNSTATED kept); D3 PASS
+    (481×3+10/10 + 4/4 signals zero-mismatch vs RECON17; adopt false;
+    OrderSend 0/0); truncation note resolved 481/481. THREE-WAY
+    DELIVERED: R4 ABSENT (no Sep-07-08:40 event M5+H1; trace
+    09:10→08:20 scanned=197; swing-buffer holds it ×5 → recognition
+    level, no walk fix recovers it); R5 ABSENT candidate-side (16:15
+    upper-only rawU=1.16266/rawL=EMPTY, EMPTY-drop i=897; 16:30→16:05
+    dPts=-2.00 exact 8-digit no-rounding → one-line-swap expectation
+    WITHDRAWN, limb must be added/re-derived); S1 ORDINAL (09:40
+    confirmed in-list counted #1 = his #2; 09:05 #2; same path,
+    notional kept; his #1 his to name). Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON21b-SEL2.md`); relay v19 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v19-SEL2-RESULT.md`, asks 1-3:
+    accept record, council DESIGNS fix packet(s) with 7-bar prediction
+    rule, nothing commits).     P-SEL-2 DELIVERED; P-SEL-1 DEAD; RECON17
+    frozen. UNCOMMITTED (no token; none sought).
+51. OPERATOR STEP-BACK 2026-09-14: results too technical (unread) + stop
+    tweaking variants; work the FUNDAMENTAL rules — his trades and rule
+    logic are consistent, yet EA doesn't take them. Builder position
+    filed: EA runs the OLD pipeline (trend/confirm/suppress/LONG-carry)
+    with his stop as sidecar tape — consistent rules can't produce his
+    trades through a different machine; two failure levels (never-born
+    Sep-8 rows vs mis-stopped R4/R5/S1). Plain record filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON21b-SEL2_PLAIN.md` — read this,
+    not the technical file). NOTE 2026-09-14: builder touched filed
+    relay v19 by mistake (dropped one bullet) and restored it verbatim
+    in the next edit — relay integrity re-verified by read-back; lesson:
+    filed relays are read-only, never edit-anchored. Fundamental-rules
+    questions put to operator (side/entry/count-start/08:40-validity/
+    replace-vs-sidecar); council gets the restated rules when written.
+    No paste job; no build (needs dual-cleared fix packet). UNCOMMITTED.
+52. OPERATOR EVIDENCE 2026-09-14 (S1 screenshot + side rule): his side =
+    HTF 1H+15m bias alignment (4H-bull non-blocking); filed with chart
+    read in `06_HANDOFFS\BUILDER_FINDING_S1_SIDE_RULE.md` incl. code-side
+    contradiction (SEL54BAR meters -1.0/-1.0 vs carried LONG at both
+    Sep-8 bars). Other four questions REVISED per operator (already
+    explained/journaled — answered-from-record first): entry =
+    bias+sweep+POI+CVD+R stack (journal columns + spec §3); count-start
+    anchors where given (09:55/06:30, 16:30-first, Sep-8 second swings);
+    replace-not-sidecar (deployment bar). Restated end-to-end in
+    `06_HANDOFFS\BUILDER_STATEMENT_FUNDAMENTAL_RULES.md` (record-only,
+    every line cited). TWO blanks carried, not asked: S1 first-swing
+    identity (9/8 journal rows EMPTY, nowhere else); 08:40 formation
+    detail ("two away" + triangle stated). Fix design routes around
+    them or operator fills at leisure. No council paste (operator's
+    call). UNCOMMITTED (no token).
+53. OPERATOR CORRECTIONS 2026-09-14 (fundamentals, both accepted):
+    (a) TF vs MR rows are SEPARATE setups with separate bias reads —
+    builder crossed rows on the R3 example; restatement §1 rewritten
+    (bias read within its own row only; Sep-4 NY TF+MR rows quoted whole,
+    no cross-row reading anywhere). (b) Blank Sep-8 journal rows are
+    TIMING (journal handed over before he input the date), not missing —
+    blanks section corrected; screenshot + filed levels stand as the
+    Sep-8 record until his input lands. S1 side rule + screenshot filing
+    unaffected (TF/MR-neutral on record). UNCOMMITTED (no token).
+54. OPERATOR RULES 2026-09-14 (fundamentals, filed verbatim in effect):
+    (a) SETUP INDEPENDENCE — TF reads HTF-bias-only, MR reads
+    most-recent-sweep-only; no cross-requirement either way; alignment
+    adds nothing, never double size (journal TF-empty/MR-filled sweep
+    cells corroborate). (b) CONDITIONAL STOP RULE CONFIRMED — 1 swing
+    away with imbalance, 2 away without, + wick nuance (uninvalidated OB
+    wicked beyond 1-away+OB → the wick IS the stop);     pure-two-swings
+    version scoped SINGLE-trade-only (identity his to pin — carried
+    blank). Restatement §1/§4 rewritten; general rule recorded unchanged
+    per his confirm. NOTE: conditional shape ≈ live conservative branch
+    intent — fault stays in limbs (measured), not rule shape. UNCOMMITTED
+    (no token).
+55. OPERATOR "WHY NOT PERFECT" 2026-09-14: answered honestly (wrong
+    machine built for weeks — old pipeline refined while his rules lived
+    in journals; his full rules landed late/scattered — conditional stop
+    + independence + side only complete Sep-14, each arrival restarting
+    design; measurements were necessary — 24-variant death localized
+    fault to limbs not shape; dual-key process slow by construction but
+    nothing regressed). Relay v20 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v20-FUNDAMENTALS-FIX.md`) —
+    SUPERSEDES v19 pre-verdict (single-live-relay discipline; v19
+    evidence stands, its accept-ask carried as v20-Ask 1): inlines his
+    rules §0-7 + blanks, closed P-SEL-2 measurements, fix-issuance
+    questions F1-limbs/F2-seat/F3-generation/F4-wick + banked 7-bar
+    prediction rule; asks accept/ISSUE-by-name/nothing-commits. Paste
+    v20 INSTEAD of v19 (operator's call when). NO build/run until fix
+    packet dual-cleared BY NAME. UNCOMMITTED (no token).
+56. DUAL VERDICTS ON v20 FILED 2026-09-14 (Astra-10 + Opus-v20, both
+    verbatim; v20 answered; filing correction owned: builder's stray
+    words leaked into the Opus R4-row transcription, caught + fixed +
+    read-back-verified immediately — filed relays/records are read-only,
+    second such lesson). SPLIT on fix: Opus ISSUED frozen
+    `FP-LIMBSEAT-1` (F1 L1/L2/L3 + attribution print; F2 S-A/S-B +
+    discriminator; F3 provenance print + 6-item replacement; F4
+    single-exit + SCOPED_EXCEPTIONS; 7-bar predictions; HAND-grep gate;
+    staged prints-first) vs Astra HOLD (diagnostic ACCEPT, issuance
+    requirements table F1–F4 + 7-bar obligations + release condition; no
+    implementation packet authorized). Packet filed ISSUED-unbuilt
+    (`01_TASKS\PACKET_FP-LIMBSEAT-1.md`; frozen text lives verbatim in
+    the Opus verdicts file). Relay v21 drafted
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v21-FPLIMBSEAT1-CLEAR.md`:
+    frozen annex + builder compliance map vs Astra table + asks
+    dual-clear-BY-NAME staged-prints-first / halt / nothing-commits).
+    NO build/run — dual-key to build unmet (Astra hold). Records-only
+    local commit for compact (no canonical, no tag, no push).
+    UNCOMMITTED (canonical + no token).
+49. OPERATOR STATEMENT 2026-09-14 (mid-21b-run): RECON21 slowness was HIS
+    host load (other heavy work during the run) — pace cause corrected
+    from unknown to confirmed-environmental (addendum in
+    `06_HANDOFFS\BUILDER_RESULT_RECON21-SEL2.md` §6; no measurement
+    changed). Supports the variance model behind the 90-min ceiling.
+    RECON21b unaffected by any code question; grading plan unchanged.
+31. ASTRA-1 2026-09-13: P-ORIGIN-1 ISSUED (print-only origin/provenance;
+    his-entry origin candidate; site-origin manifest; regression gate
+    FIRST (5/5 resid 0 + full identity or candidate dies, Sep-8 NOT
+    REACHED); memo provenance tags + 481-vs-471+10 row-level reconcile;
+    Sep-8 forward gate only after regression PASS (both resid 0 + frozen
+    identity; E46 −7/+85 stays closed record); inertness 481×3+10/10;
+    run-B delta suspended untouched; PASS grants no adoption). Filed
+    verbatim (`06_HANDOFFS\BUILDER_VERDICTS_ASTRA.md`). OPUS STREAM OWED
+    (connection issue operator-side); fallback question open: Sonnet-5
+    substitute vs Astra-sufficient. Builder assessment: packet is
+    complete + consistent with verdict #8 — buildable on Astra's word
+    for print-only; dual-key stays for selection changes. NOTHING BUILT
+    (dual-key as it stands: second key missing). UNCOMMITTED (no token).
 5. SWING-DEFINITION CORRECTION (operator 2026-09-12, terminology +
    journal correction): journal "swings" = FRACTAL swings (triangle
    markers = FlowLogic SWING_HIGH/LOW buffers); code's SL used
@@ -695,4 +1173,8 @@ Relay discipline (council standing note 2026-09-13): every relay opens
 with version + the ruling ID it answers; every operator memo names the
 relay file + version. Two identical relays with no acknowledgement
 between = indistinguishable from a lost verdict — never resend a relay
-without bumping its ack header.
+without bumping its ack header. Dual-stream addition (operator rule
+2026-09-13): INBOUND verdicts pasted WHOLE, one source per message where
+possible, operator names the source model; builder files each verbatim
+under its source header before acting on either. No relay goes out
+referencing an unfiled verdict.

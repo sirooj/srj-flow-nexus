@@ -1,0 +1,51 @@
+G1 bars/ticks: PF	0	22:14:28.663	Core 04	EURUSD,M5: 563338 ticks, 3168 bars generated. Environment synchronized in 0:00:00.029. Test passed in 0:55:12.464 (including ticks preprocessing 0:00:00.063).
+SIGNAL_COUNT=4
+WS161=QK	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=3168 stores=3168 changes=205 mismatch=0
+SLIMB_TOTAL=481
+WALK_OB_TOTAL=481
+WALKF_TOTAL=481
+WALK_OB_SIDEV_GT0=0
+WALKF_SIDEV_GT0=0
+SLIMBR_TOTAL=10
+SLIMBR_STALE=0
+SIGMAP=OR	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SIGMAP fields=3 signals=4 mapped=4 map=2026.08.28 10:05->2026.08.28 10:00|2026.09.04 16:00->2026.09.04 15:55|2026.09.07 09:20->2026.09.07 09:15|2026.09.07 16:45->2026.09.07 16:40
+SLADDERMATCH_STATUS=NOLEVEL_FILED=5 NOMATCH=3 MATCH=2
+ORDER_OUTCOMES=RR_FAIL=6 DIV_WAIT=6 PASS=4
+SLEXT1_VERDICTS=NOLEVEL=6 PROVISIONAL_MATCH=1 MATCH=2 ABSORBED=1
+SLEXT6HALT_TOTAL=0
+SLEXT_FINAL=RL	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT_FINAL newSignalCount=1 lostSignalCount=0 newRows=2026.09.04 10:35; lostRows=- outPos=1 outNeg=5 outZero=4
+DECISION_HDR=DG	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION rows=10 fired=4 threshold=1.00 thresholdSource=compiled_default orderFlipPass=0 orderFlipScope=NARROW
+MTEXIT_N=4
+MTLIFE_N=4
+MTFLIP_N=1
+N1EQUALS=JD	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] N1EQUALS poiEqBody=28 poiEqWick=26 vwapEq=0 pocEq=3
+FRAME_NOTE=CL	0	21:19:22.452	Core 04	2026.08.26 00:00:00   [SRJ-EA] FRAME_NOTE offset=1 apex=s+1 labels=server-time protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) populations=inputVsResultNamed ladObligN=6refs ladCovers=oblig+ext1 sigmap=signalTime-s5BarTime-PeriodSeconds readwin=ladder:entryBar+span|walkOB:walkStart+500|walkFR:guardStart+500 origin=S5:nextOpen-strictHalt|S2POLL+S3ARM:evalClose THRESHOLD minRewardRisk=1.00 source=compiled_default
+LINEWIDTH_TRUNC_NZ=0
+LINEWIDTH_ORIGINREG=RG	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="ORIGINREG" max=370 cap=537 truncated=0
+LINEWIDTH_ORIGINCAND=
+LINEWIDTH_SLORIGPV=QQ	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] LINEWIDTH class="SLORIGPV" max=207 cap=537 truncated=0
+SPOT_INPLAY_N=157
+SLEXT481_TOTAL=481
+SLEXT481_SITE=S3ARM=39 S2POLL=432 S5=10
+SLEXT41HALT_TOTAL=0
+SLEXT43_FINAL=ML	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT43_FINAL probed=10 hits=10 agree=10
+SLEXT45_TODAY=ON_LADDER=6 OFF_LADDER=2 EXT_NONE=2
+SLIMBCARVE_PROXY=DO	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLIMBCARVE_PROXY obPred=4 obConsProxy=0 frPred=3 frConsProxy=3
+SLMEMO_CENSUS=EG	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLMEMO_CENSUS computes=471 hits=118 demands=589
+SLSEP846_FINAL=LK	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLSEP846_FINAL rows=2 halts=2
+SLEXT47_FINAL=LD	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLEXT47_FINAL rows=118 agree=118
+SLORIG48_FINAL=FR	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLORIG48_FINAL n=481 disagree=8 nS5=10 disS5=0 nS2POLL=432 disS2POLL=8 nS3ARM=39 disS3ARM=0 altNA=0
+ORIGIN_MANIFEST_N=4
+ORIGIN_MANIFEST=HN	0	21:19:22.452	Core 04	2026.08.26 00:00:00   [SRJ-EA] ORIGIN_MANIFEST fields=6 site=S5-direct role=compute existingBinding=stamped-strict-next-open candidateRule=frozen-HAND-entry-at-R1-R5-else-UNBOUND memoRel=none freeze=BUILDER_FREEZE_PORIGIN1.md|HM	0	21:19:22.452	Core 04	2026.08.26 00:00:00   [SRJ-EA] ORIGIN_MANIFEST fields=6 site=S2POLL role=compute+memo-write existingBinding=eval-bar-close candidateRule=frozen-HAND-entry-at-T1-T2-else-UNBOUND memoRel=writes-gen-stamped freeze=BUILDER_FREEZE_PORIGIN1.md|RM	0	21:19:22.452	Core 04	2026.08.26 00:00:00   [SRJ-EA] ORIGIN_MANIFEST fields=6 site=S3ARM role=compute+memo-write+read existingBinding=eval-bar-close candidateRule=UNBOUND-no-example-bars memoRel=writes-on-COMPUTE-reads-on-HIT freeze=BUILDER_FREEZE_PORIGIN1.md|GO	0	21:19:22.452	Core 04	2026.08.26 00:00:00   [SRJ-EA] ORIGIN_MANIFEST fields=6 site=memo-read role=read existingBinding=HIT-returns-stored candidateRule=not-applicable memoRel=HIT-reports-req-vs-stored-plus-genID freeze=BUILDER_FREEZE_PORIGIN1.md
+ORIGINREG_TOTAL=5
+ORIGINREG_ROWS=NS	0	21:32:05.454	Core 04	2026.08.28 10:05:00   [SRJ-EA] ORIGINREG fields=23 bar=2026.08.28 10:00 site=S5 dir=SHORT exID=R1 entryPx=1.16466 entryBarT=2026.08.28 10:05 expPx=1.16508 expSlot=42 expBarT=2026.08.28 06:30 expImb=0 obsDef=1 obsPx=1.16481 obsSlot=3 obsBarT=2026.08.28 09:45 obsImb=0 residPts=-27 match=0 filedPx=1.16508 filedProv=HAND filedResidPts=0 feed=Dukascopy skip1Px=1.16491 skip1BarT=2026.08.28 09:55|KJ	0	21:56:54.709	Core 04	2026.09.04 10:40:00   [SRJ-EA] ORIGINREG fields=23 bar=2026.09.04 10:35 site=S5 dir=SHORT exID=R2 entryPx=1.16265 entryBarT=2026.09.04 10:40 expPx=1.16299 expSlot=13 expBarT=2026.09.04 09:30 expImb=2 obsDef=1 obsPx=1.16299 obsSlot=13 obsBarT=2026.09.04 09:30 obsImb=2 residPts=0 match=1 filedPx=1.16299 filedProv=HAND filedResidPts=0 feed=Dukascopy skip1Px=1.16289 skip1BarT=2026.09.04 10:30|RS	0	21:58:01.849	Core 04	2026.09.04 16:00:00   [SRJ-EA] ORIGINREG fields=23 bar=2026.09.04 15:55 site=S5 dir=LONG exID=R3 entryPx=1.16018 entryBarT=2026.09.04 16:00 expPx=1.15847 expSlot=5 expBarT=2026.09.04 15:30 expImb=0 obsDef=1 obsPx=1.15847 obsSlot=5 obsBarT=2026.09.04 15:30 obsImb=0 residPts=0 match=1 filedPx=1.15847 filedProv=HAND filedResidPts=0 feed=Dukascopy skip1Px=1.15902 skip1BarT=2026.09.04 15:45|QL	0	22:01:29.370	Core 04	2026.09.07 09:20:00   [SRJ-EA] ORIGINREG fields=23 bar=2026.09.07 09:15 site=S5 dir=LONG exID=R4 entryPx=1.16135 entryBarT=2026.09.07 09:20 expPx=1.16098 expSlot=7 expBarT=2026.09.07 08:40 expImb=0 obsDef=1 obsPx=1.16103 obsSlot=3 obsBarT=2026.09.07 09:00 obsImb=0 residPts=5 match=0 filedPx=1.16098 filedProv=HAND filedResidPts=0 feed=Dukascopy skip1Px=1.16102 skip1BarT=2026.09.07 09:10|OM	0	22:03:07.027	Core 04	2026.09.07 16:45:00   [SRJ-EA] ORIGINREG fields=23 bar=2026.09.07 16:40 site=S5 dir=LONG exID=R5 entryPx=1.16261 entryBarT=2026.09.07 16:45 expPx=1.16238 expSlot=7 expBarT=2026.09.07 16:05 expImb=0 obsDef=1 obsPx=1.16239 obsSlot=5 obsBarT=2026.09.07 16:15 obsImb=0 residPts=1 match=0 filedPx=1.16239 filedProv=HAND filedResidPts=-1 feed=Dukascopy skip1Px=1.16240 skip1BarT=2026.09.07 16:30
+ORIGINREGFAIL_TOTAL=3
+ORIGINREG_FINAL=MI	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] ORIGINREG_FINAL rows=5 fail=3
+ORIGINCAND_TOTAL=0
+ORIGINCAND_ROWS=
+ORIGINCAND_SKIPPED=CQ	0	22:06:40.649	Core 04	2026.09.08 10:15:00   [SRJ-EA] ORIGINCAND_SKIPPED bar=2026.09.08 10:10 site=S2POLL dir=LONG target=T1 regN=5 regFail=3|HM	0	22:08:06.100	Core 04	2026.09.08 17:05:00   [SRJ-EA] ORIGINCAND_SKIPPED bar=2026.09.08 17:00 site=S2POLL dir=LONG target=T2 regN=5 regFail=3
+ORIGINCAND_FINAL=IM	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] ORIGINCAND_FINAL rows=0 fullMatch=0
+SLORIGPV_TOTAL=118
+SLORIGPV_AGREE=1=118
+ORIGINPROV_FINAL=GP	0	22:14:28.663	Core 04	2026.09.09 23:59:58   [SRJ-EA] ORIGINPROV_FINAL computesS2POLL=432 computesS3ARM=39 hitsS2POLL=0 hitsS3ARM=118 computesTotal=471
+SUPPRESSED_TOTAL=152

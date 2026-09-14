@@ -115,5 +115,38 @@ F is now definition-YES + recovery-YES, the fifth TAKEN setup (4 fired +
  walk (10:10 → 09:50/1.16251; 17:00 → 09:05/1.16359) did not land on
  them. Note the index offset, stated without interpretation: his "second
  swing" sits at code ext-index 0 (16:20) and unindexed −1 (09:40),
- never at rungExt 1 — consistent with the verdict's origin-binding
- discovery, and material for the declared-per-site origin design.
+  never at rungExt 1 — consistent with the verdict's origin-binding
+  discovery, and material for the declared-per-site origin design.
+
+## Addendum 5 2026-09-13 — R2 ruled INVALID (CQD) + Aug-28 first-swing correction (his words; v13 prerequisites)
+
+A1 — R2 (Sep-4 10:35 SHORT): OPERATOR- RULED INVALID SETUP, his error
+owned: the sub-1R decline stood on OANDA feed error AND, on the reopened
+chart (not the journal screenshot), the setup is INVALID CQD under his
+recently updated, more accurate CQD indicator. Quote sense: "hypothetically
+if that was the entry, yes that SL would be correct" (1.16299). CONSEQUENCES:
+(i) Addendum-3 F=recovery is SUPERCEDED — R2 converts from would-take to
+MUST-DECLINE; the mapped selection set is the four fired trades (R1/R3/R4/
+R5); (ii) R2's stop PRICE stands hypothetically confirmed, its stop BAR
+(09:30/slot-13) remains code-side only — his records never state it, so the
+5/5 gate as specified is NOT evaluable and the packet must reshape G1
+(proposed: G1 = 4/4 fired exact; R2 joins S1/S2 as force-evaluated
+stop-only evidence + must-decline anchor — council rules in v14);
+(iii) CQD DIVERGENCE: on-disk CQD is UNCHANGED (`BE6FD84F…A421F`, verified
+post-compact) — his update is chart-side; whether the repo CQD needs the
+same fix is a canonical-file question for council scoping (v14), NOT a
+builder edit. Desk owed: what frozen CQD says at R2's bar.
+
+A2 — R1 (Aug-28 SHORT): first swing 09:55, NOT 09:45; second 06:30; SL
+outcome unchanged (06:30 high). His caveat kept: the difference matters
+because it could rule out different outcomes elsewhere. CORROBORATION
+(frozen ORIGINREG R1 row, no new run): skip-witness 09:55/1.16491 (= his
+first swing, skipped) then walk stops 09:45/1.16481 (= raw-second) for the
+−27 miss — the walk stepped PAST his first swing and stopped one fractal
+later. PREDICTION, not ruling: monotone-outward wins R1; the matrix grades
+it across all examples (dimension stays in, per his caveat).
+
+TARGET INVENTORY (for packet G6; HAND unless noted): R1 TP 1.16364
+HAND-qualified + exit 1.16464 (scratch); R2 TP 1.16224 (moot for selection,
+kept for accounting); R3 TP 1.16302; R4 TP 1.16200; R5 TP 1.16318;
+S1 TP 1.16102; S2 TP Y-POC price NOT STATED = the single gap (stays a gap).

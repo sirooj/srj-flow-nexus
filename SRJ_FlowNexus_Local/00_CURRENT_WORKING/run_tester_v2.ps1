@@ -30,7 +30,10 @@
 # ONLY the new journal segment — the day-log's earlier runs must never pollute them).
 param(
   [Parameter(Mandatory=$true)][string]$RunName,
-  [Parameter(Mandatory=$true)][string]$IniPath
+  [Parameter(Mandatory=$true)][string]$IniPath,
+  # V2.4: council dual-clearance v18 (Astra-9 + OPUS-v18-RECON21-SEL2) raised
+  # the ceiling 60 -> 90. A ceiling is a runaway guard, not a pace target.
+  [int]$CeilingMin = 90
 )
 $ErrorActionPreference = 'Continue'
 $Root = 'C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06'
@@ -60,6 +63,7 @@ function Read-Journal {
 }
 $O.Add(('RUN=' + $RunName))
 $O.Add(('WRAPPER=V2'))
+$O.Add(('CEILING_MIN=' + $CeilingMin))
 $O.Add(('WRAPPER_STARTED=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
 $O.Add(('INI=' + $IniPath))
 if(Test-Path -LiteralPath $StatusPath){ Remove-Item -LiteralPath $StatusPath -Force }
@@ -107,7 +111,7 @@ while(-not $done){
   Flush-Status
   if($done){ break }
   if(-not $alive){ $earlyExit = $true; break }
-  if(((Get-Date) - $startedAt).TotalMinutes -gt 60){ $timeout = $true; break }
+   if(((Get-Date) - $startedAt).TotalMinutes -gt $CeilingMin){ $timeout = $true; break }
 }
 Start-Sleep -Seconds 5
 $O.Add(('TERMINAL_ALIVE=' + (($null -ne (Get-Process -Id $p.Id -ErrorAction SilentlyContinue))).ToString()))
@@ -139,7 +143,7 @@ if($archived -gt 0){
   $passed = @($g | Where-Object { $_ -match 'Test passed' }).Count -gt 0
   $O.Add(('XOB_PROMOCENSUS_COUNT=' + @($seg | Where-Object { $_ -match 'XOB-PROMOCENSUS' }).Count))
 }
-$result = $(if($passed){'PASSED'}elseif($earlyExit){'TERMINAL_EXITED_EARLY'}elseif($timeout){'TIMEOUT_60MIN'}else{'UNDETERMINED'})
+$result = $(if($passed){'PASSED'}elseif($earlyExit){'TERMINAL_EXITED_EARLY'}elseif($timeout){'TIMEOUT_' + $CeilingMin + 'MIN'}else{'UNDETERMINED'})
 $O.Add(('RESULT=' + $result))
 $O.Add(('DONE=' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
 Write-DoneMarker $result
