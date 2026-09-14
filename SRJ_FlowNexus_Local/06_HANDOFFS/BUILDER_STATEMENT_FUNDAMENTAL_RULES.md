@@ -52,16 +52,20 @@ lost.
 ## 4. Stop: conditional on imbalance (his restated rule, Sep-14 — CONFIRMED)
 
 One swing away if the leg has imbalance. Two swings away if it has
-none. Wick nuance: if the stop order-block is NOT invalidated but only
+none. A swing is the three-candle pattern with the middle candle the
+extreme (spec §3.7; the 5-bar window in council probes is a
+builder/council rendering, never his number — record-first gate). Wick nuance: if the stop order-block is NOT invalidated but only
 wicked — a candle wick prints beyond the one-swing-away-plus-block
 level without invalidating the block — then that more extreme wick IS
 the stop. The pure two-swings-no-imbalance version is scoped to a SINGLE
 trade only, per his confirm; it does not change this rule. Filed stop
 levels stand as authoritative: Aug-28 1.16508 at 06:30; Sep-4 afternoon
 1.15847 at 15:30; Sep-7 morning 1.16098 at 08:40; Sep-7 afternoon filed
-1.16239 at 16:15; Sep-8 morning 1.16258 at 09:40. First-swing anchors
-where he gave them: 09:55 then 06:30 (Aug-28); 16:30 first (Sep-7
-afternoon); 16:20 and 09:40 second swings (Sep-8 pair).
+ 1.16239 at 16:15; Sep-8 morning 1.16258 at 09:40. First-swing anchors
+ where he gave them: 09:55 then 06:30 (Aug-28); 16:30 first (Sep-7
+ afternoon); Sep-8 firsts 9:50 (London) and 16:50 (NYAM), seconds 09:40
+ and 16:20 (Addendum 2, his words — blank (a) was never a blank;
+ builder record-first defect owned 2026-09-14).
 
 ## 5. Take filter: reward at least 1.0, Dukascopy feed (journal R + standing)
 
@@ -83,10 +87,7 @@ the old selections — is over by his order.
 
 ## Two blanks (operator-only; carried, not asked)
 
-- His first swing before Sep-8 09:40. The Sep-8 journal rows were blank
-  for timing (journal handed over before he input the date) — not
-  missing, not late. Until his input lands, the screenshot plus the
-  filed levels stand as the Sep-8 record. Code counts 09:40 first; his
-  stop sits on code's first seat.
 - What makes 08:40 a finished countable swing at 09:15. "Two swings
   away" and the triangle are stated; formation detail is not on record.
+  (S1 first swing STRUCK from this list 2026-09-14: HAND 9:50 since
+  Addendum 2 — it was never a blank.)

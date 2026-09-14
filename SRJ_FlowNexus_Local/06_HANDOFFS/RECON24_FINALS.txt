@@ -1,0 +1,1100 @@
+﻿LF	0	19:37:30.569	Core 04	2026.08.26 00:00:00   [SRJ-EA] FRAME_NOTE offset=1 apex=s+1 labels=server-time protectiveSign=LONG-lower/SHORT-higher outward=LONG(-d)/SHORT(+d) populations=inputVsResultNamed ladObligN=6refs ladCovers=oblig+ext1 sigmap=signalTime-s5BarTime-PeriodSeconds readwin=ladder:entryBar+span|walkOB:walkStart+500|walkFR:guardStart+500 origin=S5:nextOpen-strictHalt|S2POLL+S3ARM:evalClose THRESHOLD minRewardRisk=1.00 source=compiled_default
+DJ	0	19:37:48.889	Core 04	2026.08.26 01:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 00:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=1 mism=0
+FH	0	19:38:07.215	Core 04	2026.08.26 02:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 02:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=2 mism=0
+CP	0	19:38:13.331	Core 04	2026.08.26 02:20:23   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 02:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=3 mism=0
+EM	0	19:38:13.331	Core 04	2026.08.26 02:35:26   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 02:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=4 mism=0
+MP	0	19:38:19.435	Core 04	2026.08.26 03:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 02:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=5 mism=0
+QJ	0	19:38:25.539	Core 04	2026.08.26 03:15:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 03:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=6 mism=0
+MJ	0	19:38:25.539	Core 04	2026.08.26 03:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 03:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=7 mism=0
+QI	0	19:38:31.642	Core 04	2026.08.26 03:45:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 03:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=8 mism=0
+NJ	0	19:38:37.746	Core 04	2026.08.26 04:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 04:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=9 mism=0
+EO	0	19:38:37.746	Core 04	2026.08.26 04:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 04:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=10 mism=0
+LJ	0	19:38:43.850	Core 04	2026.08.26 05:00:16   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 04:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=11 mism=0
+CR	0	19:38:43.850	Core 04	2026.08.26 05:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 05:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=12 mism=0
+GH	0	19:38:43.850	Core 04	2026.08.26 05:25:03   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.26 05:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=13 mism=0
+JH	0	19:39:02.161	Core 04	2026.08.26 06:30:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 06:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=14 mism=0
+EG	0	19:39:02.161	Core 04	2026.08.26 06:35:06   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 06:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=15 mism=0
+LG	0	19:39:08.264	Core 04	2026.08.26 07:00:10   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 06:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=16 mism=0
+QG	0	19:39:08.264	Core 04	2026.08.26 07:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 07:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=17 mism=0
+PG	0	19:39:14.367	Core 04	2026.08.26 08:10:10   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 08:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=18 mism=0
+LG	0	19:39:20.471	Core 04	2026.08.26 08:25:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 08:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=19 mism=0
+MQ	0	19:39:26.575	Core 04	2026.08.26 08:45:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 08:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=20 mism=0
+MG	0	19:39:26.575	Core 04	2026.08.26 08:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 08:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=21 mism=0
+KQ	0	19:39:26.575	Core 04	2026.08.26 09:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 08:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=22 mism=0
+JQ	0	19:39:26.575	Core 04	2026.08.26 09:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 09:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=23 mism=0
+GQ	0	19:39:26.575	Core 04	2026.08.26 09:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 09:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=24 mism=0
+JM	0	19:39:32.678	Core 04	2026.08.26 09:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 09:10 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=25 mism=0
+EF	0	19:39:32.678	Core 04	2026.08.26 09:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 09:25 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=26 mism=0
+GG	0	19:39:32.678	Core 04	2026.08.26 09:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 09:30 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=27 mism=0
+PI	0	19:39:38.781	Core 04	2026.08.26 10:05:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 09:55 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=28 mism=0
+PH	0	19:39:38.781	Core 04	2026.08.26 10:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 10:00 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=29 mism=0
+RL	0	19:39:38.781	Core 04	2026.08.26 10:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 10:10 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=30 mism=0
+MR	0	19:39:38.781	Core 04	2026.08.26 10:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 10:15 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=31 mism=0
+DM	0	19:39:44.885	Core 04	2026.08.26 10:40:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 10:30 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=32 mism=0
+FG	0	19:39:44.885	Core 04	2026.08.26 10:45:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 10:35 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=33 mism=0
+KR	0	19:39:50.988	Core 04	2026.08.26 11:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 10:50 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=34 mism=0
+RJ	0	19:39:50.988	Core 04	2026.08.26 11:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 11:05 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=35 mism=0
+EP	0	19:39:50.988	Core 04	2026.08.26 11:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 11:10 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=36 mism=0
+HM	0	19:39:50.988	Core 04	2026.08.26 11:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 11:15 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=37 mism=0
+OI	0	19:39:50.988	Core 04	2026.08.26 11:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 11:20 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=38 mism=0
+CP	0	19:39:57.092	Core 04	2026.08.26 11:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 11:25 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=39 mism=0
+EQ	0	19:39:57.092	Core 04	2026.08.26 11:50:07   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 11:40 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=40 mism=0
+RF	0	19:40:03.195	Core 04	2026.08.26 12:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 12:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=41 mism=0
+QL	0	19:40:03.195	Core 04	2026.08.26 12:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 12:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=42 mism=0
+OR	0	19:40:03.195	Core 04	2026.08.26 12:25:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 12:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=43 mism=0
+MH	0	19:40:03.195	Core 04	2026.08.26 12:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 12:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=44 mism=0
+NN	0	19:40:03.195	Core 04	2026.08.26 12:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 12:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=45 mism=0
+OD	0	19:40:09.299	Core 04	2026.08.26 12:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 12:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=46 mism=0
+OJ	0	19:40:09.299	Core 04	2026.08.26 12:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 12:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=47 mism=0
+ON	0	19:40:09.299	Core 04	2026.08.26 13:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 12:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=48 mism=0
+KS	0	19:40:09.299	Core 04	2026.08.26 13:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 13:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=49 mism=0
+LN	0	19:40:15.402	Core 04	2026.08.26 13:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.26 13:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=50 mism=0
+CD	0	19:40:15.402	Core 04	2026.08.26 13:35:04   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 13:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=51 mism=0
+CD	0	19:40:21.506	Core 04	2026.08.26 14:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 13:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=52 mism=0
+CS	0	19:40:27.610	Core 04	2026.08.26 14:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 14:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=53 mism=0
+MD	0	19:40:33.714	Core 04	2026.08.26 15:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.26 14:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=54 mism=0
+RF	0	19:40:33.714	Core 04	2026.08.26 15:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.26 15:15 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=55 mism=0
+LR	0	19:40:39.817	Core 04	2026.08.26 15:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 15:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=56 mism=0
+ND	0	19:40:39.817	Core 04	2026.08.26 16:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 15:50 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=57 mism=0
+DG	0	19:40:45.920	Core 04	2026.08.26 16:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 16:00 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=58 mism=0
+FK	0	19:40:45.920	Core 04	2026.08.26 16:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 16:30 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=59 mism=0
+QM	0	19:40:52.024	Core 04	2026.08.26 16:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 16:35 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=60 mism=0
+NQ	0	19:40:58.128	Core 04	2026.08.26 17:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 17:15 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=61 mism=0
+RI	0	19:40:58.128	Core 04	2026.08.26 17:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 17:20 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=62 mism=0
+NE	0	19:40:58.128	Core 04	2026.08.26 17:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 17:40 state=S3_ZONE_WAIT dir=SHORT divLatch=1 hit1=0 hit2=63 mism=0
+QH	0	19:41:04.231	Core 04	2026.08.26 17:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 17:45 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=64 mism=0
+JH	0	19:41:04.231	Core 04	2026.08.26 18:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 18:00 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=65 mism=0
+OM	0	19:41:04.231	Core 04	2026.08.26 18:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 18:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=66 mism=0
+EN	0	19:41:10.334	Core 04	2026.08.26 18:45:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 18:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=67 mism=0
+DS	0	19:41:10.334	Core 04	2026.08.26 18:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 18:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=68 mism=0
+QJ	0	19:41:16.437	Core 04	2026.08.26 19:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 18:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=69 mism=0
+IE	0	19:41:22.541	Core 04	2026.08.26 19:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 19:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=70 mism=0
+MI	0	19:41:28.645	Core 04	2026.08.26 20:30:06   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.26 20:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=71 mism=0
+JN	0	19:41:28.645	Core 04	2026.08.26 20:40:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 20:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=72 mism=0
+OS	0	19:41:34.749	Core 04	2026.08.26 20:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 20:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=73 mism=0
+RI	0	19:41:34.749	Core 04	2026.08.26 21:05:10   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.26 20:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=74 mism=0
+CP	0	19:41:40.852	Core 04	2026.08.26 21:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 21:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=75 mism=0
+JF	0	19:41:46.956	Core 04	2026.08.26 21:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 21:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=76 mism=0
+ML	0	19:41:46.956	Core 04	2026.08.26 22:05:06   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.26 21:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=77 mism=0
+MR	0	19:41:46.956	Core 04	2026.08.26 22:20:11   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.26 22:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=78 mism=0
+GH	0	19:41:53.059	Core 04	2026.08.26 22:25:23   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.26 22:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=79 mism=0
+RH	0	19:41:59.163	Core 04	2026.08.26 23:05:07   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 22:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=80 mism=0
+LM	0	19:42:05.267	Core 04	2026.08.26 23:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 23:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=81 mism=0
+QS	0	19:42:05.267	Core 04	2026.08.26 23:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.26 23:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=82 mism=0
+EJ	0	19:42:17.474	Core 04	2026.08.27 00:45:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 00:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=83 mism=0
+JP	0	19:42:17.474	Core 04	2026.08.27 01:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 01:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=84 mism=0
+HF	0	19:42:23.577	Core 04	2026.08.27 01:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 01:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=85 mism=0
+IL	0	19:42:23.577	Core 04	2026.08.27 01:30:13   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 01:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=86 mism=0
+RR	0	19:42:29.680	Core 04	2026.08.27 01:55:38   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 01:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=87 mism=0
+DF	0	19:42:35.784	Core 04	2026.08.27 02:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 02:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=88 mism=0
+PL	0	19:42:35.784	Core 04	2026.08.27 02:35:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 02:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=89 mism=0
+RQ	0	19:42:41.887	Core 04	2026.08.27 03:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 03:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=90 mism=0
+IR	0	19:42:47.991	Core 04	2026.08.27 03:35:08   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 03:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=91 mism=0
+JK	0	19:42:47.991	Core 04	2026.08.27 03:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 03:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=92 mism=0
+JQ	0	19:42:47.991	Core 04	2026.08.27 03:50:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 03:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=93 mism=0
+FD	0	19:42:54.094	Core 04	2026.08.27 04:25:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 04:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=94 mism=0
+GJ	0	19:42:54.094	Core 04	2026.08.27 04:30:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 04:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=95 mism=0
+MM	0	19:42:54.094	Core 04	2026.08.27 04:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 04:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=96 mism=0
+FN	0	19:43:00.198	Core 04	2026.08.27 04:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 04:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=97 mism=0
+KS	0	19:43:06.301	Core 04	2026.08.27 05:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 05:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=98 mism=0
+OI	0	19:43:06.301	Core 04	2026.08.27 05:25:32   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 05:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=99 mism=0
+QL	0	19:43:06.301	Core 04	2026.08.27 05:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 05:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=100 mism=0
+NF	0	19:43:06.301	Core 04	2026.08.27 05:35:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 05:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=101 mism=0
+QH	0	19:43:06.301	Core 04	2026.08.27 05:40:11   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 05:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=102 mism=0
+GO	0	19:43:12.405	Core 04	2026.08.27 06:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 05:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=103 mism=0
+IQ	0	19:43:12.405	Core 04	2026.08.27 06:05:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 05:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=104 mism=0
+HK	0	19:43:12.405	Core 04	2026.08.27 06:10:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 06:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=105 mism=0
+LR	0	19:43:12.405	Core 04	2026.08.27 06:20:12   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 06:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=106 mism=0
+PQ	0	19:43:18.508	Core 04	2026.08.27 06:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 06:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=107 mism=0
+DK	0	19:43:24.612	Core 04	2026.08.27 07:25:31   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 07:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=108 mism=0
+KN	0	19:43:30.716	Core 04	2026.08.27 07:45:11   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 07:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=109 mism=0
+IP	0	19:43:30.716	Core 04	2026.08.27 07:50:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 07:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=110 mism=0
+NK	0	19:43:30.716	Core 04	2026.08.27 07:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 07:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=111 mism=0
+QH	0	19:43:36.819	Core 04	2026.08.27 08:15:15   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 08:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=112 mism=0
+NP	0	19:43:36.819	Core 04	2026.08.27 08:35:06   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 08:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=113 mism=0
+FJ	0	19:43:36.819	Core 04	2026.08.27 08:40:36   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 08:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=114 mism=0
+OL	0	19:43:42.923	Core 04	2026.08.27 08:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 08:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=115 mism=0
+FK	0	19:43:42.923	Core 04	2026.08.27 08:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 08:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=116 mism=0
+GN	0	19:43:49.027	Core 04	2026.08.27 09:25:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 09:15 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=117 mism=0
+JI	0	19:43:49.027	Core 04	2026.08.27 09:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 09:25 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=118 mism=0
+QP	0	19:43:55.130	Core 04	2026.08.27 10:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 09:50 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=119 mism=0
+LH	0	19:43:55.130	Core 04	2026.08.27 10:10:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 10:00 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=120 mism=0
+RP	0	19:44:01.234	Core 04	2026.08.27 10:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 10:25 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=121 mism=0
+LN	0	19:44:07.339	Core 04	2026.08.27 11:00:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 10:50 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=122 mism=0
+DG	0	19:44:07.339	Core 04	2026.08.27 11:10:08   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 11:00 state=S1_REGIME dir=SHORT divLatch=1 hit1=0 hit2=123 mism=0
+NS	0	19:44:07.339	Core 04	2026.08.27 11:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 11:05 state=S1_REGIME dir=SHORT divLatch=1 hit1=0 hit2=124 mism=0
+OM	0	19:44:07.339	Core 04	2026.08.27 11:20:11   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 11:10 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=125 mism=0
+HF	0	19:44:25.650	Core 04	2026.08.27 12:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 12:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=126 mism=0
+EF	0	19:44:25.650	Core 04	2026.08.27 13:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 13:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=127 mism=0
+GO	0	19:44:31.754	Core 04	2026.08.27 13:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 13:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=128 mism=0
+DD	0	19:44:31.754	Core 04	2026.08.27 13:45:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 13:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=129 mism=0
+LL	0	19:44:37.858	Core 04	2026.08.27 14:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 14:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=130 mism=0
+KP	0	19:44:43.961	Core 04	2026.08.27 14:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 14:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=131 mism=0
+LK	0	19:44:43.961	Core 04	2026.08.27 14:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 14:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=132 mism=0
+GF	0	19:44:50.064	Core 04	2026.08.27 15:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 15:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=133 mism=0
+LE	0	19:44:50.064	Core 04	2026.08.27 15:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 15:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=134 mism=0
+KD	0	19:44:50.064	Core 04	2026.08.27 15:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 15:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=135 mism=0
+EO	0	19:44:56.168	Core 04	2026.08.27 15:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.27 15:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=136 mism=0
+DJ	0	19:44:56.168	Core 04	2026.08.27 16:00:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 15:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=137 mism=0
+HO	0	19:45:02.272	Core 04	2026.08.27 16:20:07   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 16:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=138 mism=0
+RQ	0	19:45:02.272	Core 04	2026.08.27 16:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 16:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=139 mism=0
+JQ	0	19:45:02.272	Core 04	2026.08.27 16:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 16:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=140 mism=0
+JE	0	19:45:02.272	Core 04	2026.08.27 16:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 16:25 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=141 mism=0
+DP	0	19:45:08.375	Core 04	2026.08.27 16:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 16:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=142 mism=0
+II	0	19:45:08.375	Core 04	2026.08.27 17:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 17:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=143 mism=0
+LD	0	19:45:14.478	Core 04	2026.08.27 17:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 17:10 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=144 mism=0
+MD	0	19:45:14.478	Core 04	2026.08.27 17:35:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 17:25 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=145 mism=0
+CH	0	19:45:20.582	Core 04	2026.08.27 18:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 18:00 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=146 mism=0
+MM	0	19:45:20.582	Core 04	2026.08.27 18:15:00   [SRJ-EA] CQDRECHECK_PROGRESS bars=500 hit1=0 hit2=146 mismatch=0
+MF	0	19:45:20.582	Core 04	2026.08.27 18:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 18:10 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=147 mism=0
+FH	0	19:45:26.686	Core 04	2026.08.27 18:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 18:30 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=148 mism=0
+NQ	0	19:45:26.686	Core 04	2026.08.27 18:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 18:45 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=149 mism=0
+GJ	0	19:45:32.790	Core 04	2026.08.27 19:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 18:50 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=150 mism=0
+OJ	0	19:45:32.790	Core 04	2026.08.27 19:15:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 19:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=151 mism=0
+MQ	0	19:45:32.790	Core 04	2026.08.27 19:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 19:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=152 mism=0
+HJ	0	19:45:38.894	Core 04	2026.08.27 19:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 19:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=153 mism=0
+DJ	0	19:45:38.894	Core 04	2026.08.27 20:05:06   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 19:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=154 mism=0
+OS	0	19:45:44.997	Core 04	2026.08.27 20:25:05   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 20:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=155 mism=0
+KL	0	19:45:44.997	Core 04	2026.08.27 20:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 20:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=156 mism=0
+MJ	0	19:45:51.101	Core 04	2026.08.27 20:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 20:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=157 mism=0
+DL	0	19:45:51.101	Core 04	2026.08.27 20:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 20:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=158 mism=0
+NI	0	19:45:51.101	Core 04	2026.08.27 21:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 20:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=159 mism=0
+RL	0	19:45:57.204	Core 04	2026.08.27 21:35:09   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 21:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=160 mism=0
+GF	0	19:45:57.204	Core 04	2026.08.27 21:40:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 21:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=161 mism=0
+CO	0	19:46:03.308	Core 04	2026.08.27 22:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 21:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=162 mism=0
+JQ	0	19:46:03.308	Core 04	2026.08.27 22:20:09   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 22:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=163 mism=0
+HE	0	19:46:09.411	Core 04	2026.08.27 22:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 22:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=164 mism=0
+CP	0	19:46:15.515	Core 04	2026.08.27 23:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.27 22:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=165 mism=0
+PR	0	19:46:15.515	Core 04	2026.08.27 23:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 22:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=166 mism=0
+DQ	0	19:46:15.515	Core 04	2026.08.27 23:15:22   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 23:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=167 mism=0
+PK	0	19:46:15.515	Core 04	2026.08.27 23:20:07   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.27 23:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=168 mism=0
+GO	0	19:46:21.618	Core 04	2026.08.28 00:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.27 23:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=169 mism=0
+IG	0	19:46:33.825	Core 04	2026.08.28 00:55:34   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 00:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=170 mism=0
+JI	0	19:46:33.825	Core 04	2026.08.28 01:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 00:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=171 mism=0
+QL	0	19:46:33.825	Core 04	2026.08.28 01:10:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 01:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=172 mism=0
+PI	0	19:46:39.929	Core 04	2026.08.28 01:20:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 01:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=173 mism=0
+IP	0	19:46:39.929	Core 04	2026.08.28 01:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 01:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=174 mism=0
+PP	0	19:46:46.032	Core 04	2026.08.28 02:00:11   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 01:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=175 mism=0
+DJ	0	19:46:46.032	Core 04	2026.08.28 02:05:27   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 01:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=176 mism=0
+NM	0	19:46:46.032	Core 04	2026.08.28 02:20:05   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 02:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=177 mism=0
+LG	0	19:46:52.136	Core 04	2026.08.28 02:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 02:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=178 mism=0
+OP	0	19:46:52.136	Core 04	2026.08.28 02:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 02:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=179 mism=0
+JK	0	19:46:52.136	Core 04	2026.08.28 02:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 02:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=180 mism=0
+IN	0	19:46:58.239	Core 04	2026.08.28 03:25:05   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 03:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=181 mism=0
+DP	0	19:46:58.239	Core 04	2026.08.28 03:30:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 03:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=182 mism=0
+MG	0	19:47:04.343	Core 04	2026.08.28 03:45:12   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 03:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=183 mism=0
+KJ	0	19:47:10.446	Core 04	2026.08.28 04:10:07   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 04:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=184 mism=0
+KL	0	19:47:10.446	Core 04	2026.08.28 04:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 04:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=185 mism=0
+PP	0	19:47:10.446	Core 04	2026.08.28 04:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 04:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=186 mism=0
+CH	0	19:47:10.446	Core 04	2026.08.28 04:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 04:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=187 mism=0
+HO	0	19:47:16.549	Core 04	2026.08.28 04:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 04:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=188 mism=0
+IM	0	19:47:16.549	Core 04	2026.08.28 04:55:08   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 04:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=189 mism=0
+EN	0	19:47:16.549	Core 04	2026.08.28 05:05:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 04:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=190 mism=0
+PO	0	19:47:22.653	Core 04	2026.08.28 05:25:10   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 05:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=191 mism=0
+HR	0	19:47:28.756	Core 04	2026.08.28 05:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 05:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=192 mism=0
+DN	0	19:47:28.756	Core 04	2026.08.28 06:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 06:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=193 mism=0
+EP	0	19:47:28.756	Core 04	2026.08.28 06:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 06:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=194 mism=0
+NK	0	19:47:28.756	Core 04	2026.08.28 06:25:16   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 06:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=195 mism=0
+PM	0	19:47:34.860	Core 04	2026.08.28 06:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 06:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=196 mism=0
+CH	0	19:47:40.964	Core 04	2026.08.28 07:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 06:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=197 mism=0
+KR	0	19:47:40.964	Core 04	2026.08.28 07:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 07:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=198 mism=0
+OD	0	19:47:40.964	Core 04	2026.08.28 07:20:10   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 07:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=199 mism=0
+RS	0	19:47:53.170	Core 04	2026.08.28 08:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 08:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=200 mism=0
+PE	0	19:47:53.170	Core 04	2026.08.28 08:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 08:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=201 mism=0
+JO	0	19:47:53.170	Core 04	2026.08.28 08:20:48   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 08:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=202 mism=0
+NQ	0	19:47:53.170	Core 04	2026.08.28 08:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 08:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=203 mism=0
+JO	0	19:47:59.273	Core 04	2026.08.28 09:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 08:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=204 mism=0
+OM	0	19:47:59.273	Core 04	2026.08.28 09:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 09:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=205 mism=0
+JG	0	19:48:05.377	Core 04	2026.08.28 09:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 09:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=206 mism=0
+RH	0	19:48:05.377	Core 04	2026.08.28 09:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 09:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=207 mism=0
+JL	0	19:48:11.481	Core 04	2026.08.28 10:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 10:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=208 mism=0
+RH	0	19:48:11.481	Core 04	2026.08.28 10:25:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 10:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=209 mism=0
+JS	0	19:48:17.584	Core 04	2026.08.28 10:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 10:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=210 mism=0
+JJ	0	19:48:23.693	Core 04	2026.08.28 11:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 11:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=211 mism=0
+LN	0	19:48:29.799	Core 04	2026.08.28 11:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 11:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=212 mism=0
+ER	0	19:48:35.902	Core 04	2026.08.28 11:40:09   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 11:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=213 mism=0
+OL	0	19:48:54.213	Core 04	2026.08.28 13:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 13:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=214 mism=0
+MI	0	19:48:54.213	Core 04	2026.08.28 13:40:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 13:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=215 mism=0
+DP	0	19:48:54.213	Core 04	2026.08.28 13:45:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 13:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=216 mism=0
+DM	0	19:49:00.317	Core 04	2026.08.28 14:05:06   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 13:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=217 mism=0
+PP	0	19:49:00.317	Core 04	2026.08.28 14:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 14:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=218 mism=0
+QE	0	19:49:06.421	Core 04	2026.08.28 14:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 14:20 state=S3_ZONE_WAIT dir=LONG divLatch=1 hit1=0 hit2=219 mism=0
+QL	0	19:49:06.421	Core 04	2026.08.28 14:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 14:45 state=S3_ZONE_WAIT dir=LONG divLatch=1 hit1=0 hit2=220 mism=0
+RI	0	19:49:18.627	Core 04	2026.08.28 15:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 15:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=221 mism=0
+JO	0	19:49:18.627	Core 04	2026.08.28 15:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 15:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=222 mism=0
+PK	0	19:49:18.627	Core 04	2026.08.28 16:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 15:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=223 mism=0
+FG	0	19:49:30.834	Core 04	2026.08.28 16:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 16:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=224 mism=0
+NL	0	19:49:30.834	Core 04	2026.08.28 17:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 17:00 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=225 mism=0
+MD	0	19:49:36.938	Core 04	2026.08.28 17:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 17:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=226 mism=0
+FJ	0	19:49:43.042	Core 04	2026.08.28 18:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 17:50 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=227 mism=0
+KF	0	19:49:43.042	Core 04	2026.08.28 18:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 18:05 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=228 mism=0
+LO	0	19:49:43.042	Core 04	2026.08.28 18:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 18:10 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=229 mism=0
+EJ	0	19:49:49.145	Core 04	2026.08.28 18:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 18:20 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=230 mism=0
+PQ	0	19:49:49.145	Core 04	2026.08.28 18:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 18:30 state=S3_ZONE_WAIT dir=SHORT divLatch=0 hit1=0 hit2=231 mism=0
+KM	0	19:50:01.353	Core 04	2026.08.28 19:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.28 19:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=232 mism=0
+NP	0	19:50:01.353	Core 04	2026.08.28 20:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 19:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=233 mism=0
+EG	0	19:50:07.456	Core 04	2026.08.28 20:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 20:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=234 mism=0
+KO	0	19:50:07.456	Core 04	2026.08.28 20:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 20:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=235 mism=0
+GE	0	19:50:19.662	Core 04	2026.08.28 21:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 21:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=236 mism=0
+QF	0	19:50:19.662	Core 04	2026.08.28 21:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 21:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=237 mism=0
+JO	0	19:50:25.766	Core 04	2026.08.28 22:20:07   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 22:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=238 mism=0
+EO	0	19:50:31.869	Core 04	2026.08.28 22:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.28 22:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=239 mism=0
+IS	0	19:50:37.973	Core 04	2026.08.28 23:05:07   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 22:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=240 mism=0
+NF	0	19:50:37.973	Core 04	2026.08.28 23:15:04   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 23:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=241 mism=0
+LH	0	19:50:37.973	Core 04	2026.08.28 23:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 23:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=242 mism=0
+IF	0	19:50:44.076	Core 04	2026.08.28 23:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.28 23:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=243 mism=0
+MM	0	19:50:44.076	Core 04	2026.08.28 23:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.28 23:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=244 mism=0
+MI	0	19:50:56.284	Core 04	2026.08.31 01:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 00:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=245 mism=0
+CN	0	19:51:20.697	Core 04	2026.08.31 03:35:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 03:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=246 mism=0
+FM	0	19:51:32.904	Core 04	2026.08.31 04:30:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 04:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=247 mism=0
+NP	0	19:51:39.008	Core 04	2026.08.31 05:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 04:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=248 mism=0
+NG	0	19:51:45.111	Core 04	2026.08.31 05:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 05:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=249 mism=0
+RK	0	19:51:45.111	Core 04	2026.08.31 05:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 05:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=250 mism=0
+OK	0	19:51:45.111	Core 04	2026.08.31 05:50:17   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 05:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=251 mism=0
+FM	0	19:51:51.214	Core 04	2026.08.31 06:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 05:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=252 mism=0
+IG	0	19:51:51.214	Core 04	2026.08.31 06:05:13   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 05:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=253 mism=0
+MN	0	19:51:51.214	Core 04	2026.08.31 06:10:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 06:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=254 mism=0
+KP	0	19:51:51.214	Core 04	2026.08.31 06:25:05   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 06:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=255 mism=0
+LJ	0	19:51:57.318	Core 04	2026.08.31 06:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 06:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=256 mism=0
+EL	0	19:51:57.318	Core 04	2026.08.31 06:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 06:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=257 mism=0
+HF	0	19:52:03.421	Core 04	2026.08.31 07:20:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 07:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=258 mism=0
+GE	0	19:52:03.421	Core 04	2026.08.31 07:35:29   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 07:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=259 mism=0
+KO	0	19:52:09.525	Core 04	2026.08.31 07:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 07:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=260 mism=0
+ML	0	19:52:09.525	Core 04	2026.08.31 08:05:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 07:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=261 mism=0
+JS	0	19:52:09.525	Core 04	2026.08.31 08:10:05   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 08:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=262 mism=0
+DE	0	19:52:15.629	Core 04	2026.08.31 08:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 08:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=263 mism=0
+IO	0	19:52:15.629	Core 04	2026.08.31 08:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 08:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=264 mism=0
+QF	0	19:52:27.836	Core 04	2026.08.31 09:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 09:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=265 mism=0
+FO	0	19:52:27.836	Core 04	2026.08.31 09:50:05   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 09:40 state=S1_REGIME dir=SHORT divLatch=1 hit1=0 hit2=266 mism=0
+GP	0	19:52:40.043	Core 04	2026.08.31 10:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 10:20 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=267 mism=0
+HM	0	19:52:40.043	Core 04	2026.08.31 10:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 10:30 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=268 mism=0
+ME	0	19:52:40.043	Core 04	2026.08.31 10:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 10:35 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=269 mism=0
+NL	0	19:52:40.043	Core 04	2026.08.31 10:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 10:40 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=270 mism=0
+MJ	0	19:52:46.147	Core 04	2026.08.31 11:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 10:55 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=271 mism=0
+FN	0	19:52:46.147	Core 04	2026.08.31 11:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 11:00 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=272 mism=0
+JI	0	19:52:46.147	Core 04	2026.08.31 11:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 11:05 state=S2_LTF_ALIGN dir=SHORT divLatch=0 hit1=0 hit2=273 mism=0
+QI	0	19:52:46.147	Core 04	2026.08.31 11:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 11:10 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=274 mism=0
+NM	0	19:52:46.147	Core 04	2026.08.31 11:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 11:15 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=275 mism=0
+PP	0	19:52:46.147	Core 04	2026.08.31 11:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 11:20 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=276 mism=0
+CE	0	19:52:52.250	Core 04	2026.08.31 11:40:07   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 11:30 state=S4_ARMED dir=SHORT divLatch=1 hit1=0 hit2=277 mism=0
+GH	0	19:52:58.353	Core 04	2026.08.31 12:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 12:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=278 mism=0
+DR	0	19:52:58.353	Core 04	2026.08.31 12:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 12:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=279 mism=0
+PE	0	19:52:58.353	Core 04	2026.08.31 12:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 12:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=280 mism=0
+IR	0	19:52:58.353	Core 04	2026.08.31 12:25:00   [SRJ-EA] CQDRECHECK_PROGRESS bars=1000 hit1=0 hit2=280 mismatch=0
+JL	0	19:53:04.457	Core 04	2026.08.31 13:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 13:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=281 mism=0
+KF	0	19:53:10.560	Core 04	2026.08.31 13:20:04   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 13:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=282 mism=0
+EK	0	19:53:10.560	Core 04	2026.08.31 13:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 13:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=283 mism=0
+JM	0	19:53:16.664	Core 04	2026.08.31 13:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 13:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=284 mism=0
+OQ	0	19:53:16.664	Core 04	2026.08.31 14:20:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 14:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=285 mism=0
+MM	0	19:53:22.770	Core 04	2026.08.31 14:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 14:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=286 mism=0
+NI	0	19:53:53.315	Core 04	2026.08.31 16:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 16:05 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=287 mism=0
+II	0	19:53:59.431	Core 04	2026.08.31 16:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 16:20 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=288 mism=0
+IP	0	19:53:59.431	Core 04	2026.08.31 16:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 16:25 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=289 mism=0
+HR	0	19:54:11.651	Core 04	2026.08.31 17:20:04   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 17:10 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=290 mism=0
+QE	0	19:54:11.651	Core 04	2026.08.31 17:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 17:15 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=291 mism=0
+OF	0	19:54:17.756	Core 04	2026.08.31 17:30:05   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 17:20 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=292 mism=0
+OH	0	19:54:17.756	Core 04	2026.08.31 17:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 17:25 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=293 mism=0
+PG	0	19:54:17.756	Core 04	2026.08.31 17:40:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 17:30 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=294 mism=0
+QH	0	19:54:17.756	Core 04	2026.08.31 17:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 17:35 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=295 mism=0
+OL	0	19:54:23.862	Core 04	2026.08.31 17:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 17:45 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=296 mism=0
+IF	0	19:54:23.862	Core 04	2026.08.31 18:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 17:50 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=297 mism=0
+HG	0	19:54:36.071	Core 04	2026.08.31 18:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 18:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=298 mism=0
+RN	0	19:54:48.297	Core 04	2026.08.31 19:25:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 19:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=299 mism=0
+KM	0	19:54:54.400	Core 04	2026.08.31 19:45:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 19:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=300 mism=0
+KG	0	19:55:00.506	Core 04	2026.08.31 20:00:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 19:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=301 mism=0
+FL	0	19:55:06.613	Core 04	2026.08.31 20:20:06   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 20:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=302 mism=0
+OG	0	19:55:06.613	Core 04	2026.08.31 20:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 20:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=303 mism=0
+MI	0	19:55:06.613	Core 04	2026.08.31 20:40:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 20:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=304 mism=0
+OF	0	19:55:12.720	Core 04	2026.08.31 20:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 20:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=305 mism=0
+HE	0	19:55:18.825	Core 04	2026.08.31 21:25:11   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 21:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=306 mism=0
+NI	0	19:55:24.928	Core 04	2026.08.31 21:30:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 21:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=307 mism=0
+CD	0	19:55:24.928	Core 04	2026.08.31 21:35:28   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 21:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=308 mism=0
+CL	0	19:55:31.044	Core 04	2026.08.31 22:00:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 21:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=309 mism=0
+CS	0	19:55:43.267	Core 04	2026.08.31 22:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 22:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=310 mism=0
+FE	0	19:55:43.267	Core 04	2026.08.31 22:35:40   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.08.31 22:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=311 mism=0
+RJ	0	19:55:43.267	Core 04	2026.08.31 22:45:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 22:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=312 mism=0
+IL	0	19:55:49.374	Core 04	2026.08.31 22:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.08.31 22:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=313 mism=0
+IE	0	19:55:55.485	Core 04	2026.08.31 23:20:07   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.08.31 23:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=314 mism=0
+LM	0	19:56:07.708	Core 04	2026.09.01 00:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.08.31 23:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=315 mism=0
+DH	0	19:56:26.054	Core 04	2026.09.01 01:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 00:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=316 mism=0
+CR	0	19:56:32.163	Core 04	2026.09.01 01:25:30   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 01:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=317 mism=0
+KD	0	19:56:32.163	Core 04	2026.09.01 01:30:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 01:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=318 mism=0
+LN	0	19:56:50.493	Core 04	2026.09.01 02:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 02:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=319 mism=0
+MM	0	19:56:56.604	Core 04	2026.09.01 02:35:18   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 02:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=320 mism=0
+KD	0	19:56:56.604	Core 04	2026.09.01 02:40:06   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 02:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=321 mism=0
+FN	0	19:56:56.604	Core 04	2026.09.01 02:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 02:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=322 mism=0
+DM	0	19:56:56.604	Core 04	2026.09.01 02:50:03   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 02:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=323 mism=0
+NQ	0	19:57:02.708	Core 04	2026.09.01 03:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 03:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=324 mism=0
+IP	0	19:57:14.915	Core 04	2026.09.01 04:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 04:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=325 mism=0
+CR	0	19:57:27.123	Core 04	2026.09.01 05:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 05:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=326 mism=0
+KS	0	19:57:33.226	Core 04	2026.09.01 05:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 05:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=327 mism=0
+DE	0	19:57:33.226	Core 04	2026.09.01 06:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 05:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=328 mism=0
+RH	0	19:57:39.330	Core 04	2026.09.01 06:45:29   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 06:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=329 mism=0
+OG	0	19:57:57.640	Core 04	2026.09.01 08:10:28   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 08:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=330 mism=0
+EQ	0	19:57:57.640	Core 04	2026.09.01 08:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 08:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=331 mism=0
+MH	0	19:57:57.640	Core 04	2026.09.01 08:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 08:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=332 mism=0
+LO	0	19:58:03.743	Core 04	2026.09.01 08:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 08:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=333 mism=0
+NM	0	19:58:09.847	Core 04	2026.09.01 09:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 09:10 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=334 mism=0
+JP	0	19:58:09.847	Core 04	2026.09.01 09:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 09:20 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=335 mism=0
+PN	0	19:58:15.950	Core 04	2026.09.01 10:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 10:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=336 mism=0
+EO	0	19:58:28.157	Core 04	2026.09.01 11:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 10:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=337 mism=0
+GM	0	19:58:28.157	Core 04	2026.09.01 11:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 11:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=338 mism=0
+FQ	0	19:58:34.260	Core 04	2026.09.01 11:40:06   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 11:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=339 mism=0
+IR	0	19:58:34.260	Core 04	2026.09.01 11:50:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 11:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=340 mism=0
+IF	0	19:58:34.260	Core 04	2026.09.01 11:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 11:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=341 mism=0
+QD	0	19:58:40.364	Core 04	2026.09.01 12:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 11:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=342 mism=0
+JD	0	19:58:40.364	Core 04	2026.09.01 12:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 11:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=343 mism=0
+DR	0	19:58:40.364	Core 04	2026.09.01 12:15:04   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 12:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=344 mism=0
+GD	0	19:58:46.467	Core 04	2026.09.01 12:40:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 12:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=345 mism=0
+OK	0	19:58:46.467	Core 04	2026.09.01 12:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 12:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=346 mism=0
+OK	0	19:58:52.570	Core 04	2026.09.01 13:20:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 13:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=347 mism=0
+FH	0	19:58:58.674	Core 04	2026.09.01 14:10:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 14:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=348 mism=0
+KR	0	19:59:04.778	Core 04	2026.09.01 14:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 14:20 state=S2_LTF_ALIGN dir=LONG divLatch=0 hit1=0 hit2=349 mism=0
+OD	0	19:59:16.986	Core 04	2026.09.01 15:35:05   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 15:25 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=350 mism=0
+NM	0	19:59:16.986	Core 04	2026.09.01 15:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 15:40 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=351 mism=0
+DO	0	19:59:23.089	Core 04	2026.09.01 16:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 16:05 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=352 mism=0
+FM	0	19:59:29.193	Core 04	2026.09.01 16:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 16:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=353 mism=0
+QM	0	19:59:29.193	Core 04	2026.09.01 16:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 16:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=354 mism=0
+FM	0	19:59:29.193	Core 04	2026.09.01 16:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 16:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=355 mism=0
+GS	0	19:59:29.193	Core 04	2026.09.01 17:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 16:55 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=356 mism=0
+GI	0	19:59:29.193	Core 04	2026.09.01 17:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 17:00 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=357 mism=0
+KP	0	19:59:35.296	Core 04	2026.09.01 17:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 17:15 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=358 mism=0
+RK	0	19:59:35.296	Core 04	2026.09.01 17:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 17:30 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=359 mism=0
+HJ	0	19:59:41.401	Core 04	2026.09.01 18:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 17:55 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=360 mism=0
+GG	0	19:59:41.401	Core 04	2026.09.01 18:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 18:10 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=361 mism=0
+ER	0	19:59:47.503	Core 04	2026.09.01 18:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 18:15 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=362 mism=0
+PR	0	19:59:47.503	Core 04	2026.09.01 18:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 18:20 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=363 mism=0
+QR	0	19:59:47.503	Core 04	2026.09.01 18:35:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 18:25 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=364 mism=0
+EJ	0	19:59:47.503	Core 04	2026.09.01 18:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 18:45 state=S1_REGIME dir=SHORT divLatch=0 hit1=0 hit2=365 mism=0
+KF	0	19:59:53.607	Core 04	2026.09.01 19:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 19:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=366 mism=0
+OI	0	19:59:59.711	Core 04	2026.09.01 19:45:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 19:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=367 mism=0
+QI	0	20:00:05.814	Core 04	2026.09.01 20:10:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 20:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=368 mism=0
+RS	0	20:00:05.814	Core 04	2026.09.01 20:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 20:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=369 mism=0
+OE	0	20:00:11.918	Core 04	2026.09.01 20:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.01 20:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=370 mism=0
+GS	0	20:00:18.021	Core 04	2026.09.01 21:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 21:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=371 mism=0
+RO	0	20:00:18.021	Core 04	2026.09.01 21:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 21:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=372 mism=0
+ND	0	20:00:18.021	Core 04	2026.09.01 21:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 21:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=373 mism=0
+RO	0	20:00:18.021	Core 04	2026.09.01 21:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 21:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=374 mism=0
+CQ	0	20:00:18.021	Core 04	2026.09.01 21:45:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 21:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=375 mism=0
+JN	0	20:00:24.125	Core 04	2026.09.01 22:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 21:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=376 mism=0
+DM	0	20:00:30.229	Core 04	2026.09.01 22:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.01 22:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=377 mism=0
+ID	0	20:00:30.229	Core 04	2026.09.01 22:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 22:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=378 mism=0
+RM	0	20:00:36.332	Core 04	2026.09.01 23:20:32   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 23:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=379 mism=0
+FP	0	20:00:36.332	Core 04	2026.09.01 23:25:10   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.01 23:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=380 mism=0
+FJ	0	20:00:36.332	Core 04	2026.09.01 23:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 23:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=381 mism=0
+EF	0	20:00:42.436	Core 04	2026.09.01 23:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 23:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=382 mism=0
+HH	0	20:00:42.436	Core 04	2026.09.01 23:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.01 23:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=383 mism=0
+DS	0	20:00:48.540	Core 04	2026.09.02 00:40:07   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 00:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=384 mism=0
+MR	0	20:01:06.850	Core 04	2026.09.02 02:20:22   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 02:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=385 mism=0
+JP	0	20:01:25.162	Core 04	2026.09.02 04:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 03:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=386 mism=0
+LQ	0	20:01:31.266	Core 04	2026.09.02 04:15:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 04:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=387 mism=0
+KK	0	20:01:31.266	Core 04	2026.09.02 04:25:19   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 04:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=388 mism=0
+KG	0	20:01:37.369	Core 04	2026.09.02 05:10:10   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 05:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=389 mism=0
+OQ	0	20:01:43.473	Core 04	2026.09.02 05:40:13   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 05:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=390 mism=0
+RD	0	20:01:49.577	Core 04	2026.09.02 05:50:14   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 05:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=391 mism=0
+CO	0	20:01:49.577	Core 04	2026.09.02 06:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 05:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=392 mism=0
+CD	0	20:01:49.577	Core 04	2026.09.02 06:15:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 06:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=393 mism=0
+CK	0	20:01:55.681	Core 04	2026.09.02 06:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 06:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=394 mism=0
+FM	0	20:01:55.681	Core 04	2026.09.02 06:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 06:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=395 mism=0
+NG	0	20:01:55.681	Core 04	2026.09.02 06:40:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 06:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=396 mism=0
+QI	0	20:01:55.681	Core 04	2026.09.02 06:45:05   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 06:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=397 mism=0
+IM	0	20:01:55.681	Core 04	2026.09.02 06:45:05   [SRJ-EA] CQDRECHECK_PROGRESS bars=1500 hit1=0 hit2=397 mismatch=0
+MR	0	20:01:55.681	Core 04	2026.09.02 06:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 06:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=398 mism=0
+PE	0	20:02:01.784	Core 04	2026.09.02 07:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 07:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=399 mism=0
+EG	0	20:02:07.887	Core 04	2026.09.02 07:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 07:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=400 mism=0
+LI	0	20:02:07.887	Core 04	2026.09.02 07:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 07:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=401 mism=0
+GN	0	20:02:13.990	Core 04	2026.09.02 08:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 08:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=402 mism=0
+CN	0	20:02:13.990	Core 04	2026.09.02 08:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 08:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=403 mism=0
+IR	0	20:02:13.990	Core 04	2026.09.02 08:35:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 08:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=404 mism=0
+HD	0	20:02:13.990	Core 04	2026.09.02 08:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 08:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=405 mism=0
+ID	0	20:02:20.093	Core 04	2026.09.02 08:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 08:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=406 mism=0
+KO	0	20:02:20.093	Core 04	2026.09.02 09:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 08:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=407 mism=0
+DQ	0	20:02:20.093	Core 04	2026.09.02 09:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 08:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=408 mism=0
+ML	0	20:02:26.198	Core 04	2026.09.02 09:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 09:10 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=409 mism=0
+EQ	0	20:02:26.198	Core 04	2026.09.02 09:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 09:15 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=410 mism=0
+RR	0	20:02:26.198	Core 04	2026.09.02 09:40:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 09:30 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=411 mism=0
+MS	0	20:02:26.198	Core 04	2026.09.02 09:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 09:35 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=412 mism=0
+FG	0	20:02:32.301	Core 04	2026.09.02 09:55:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 09:45 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=413 mism=0
+HO	0	20:02:32.301	Core 04	2026.09.02 10:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 09:50 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=414 mism=0
+IP	0	20:02:32.301	Core 04	2026.09.02 10:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 09:55 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=415 mism=0
+DK	0	20:02:32.301	Core 04	2026.09.02 10:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 10:05 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=416 mism=0
+RM	0	20:02:38.405	Core 04	2026.09.02 10:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 10:30 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=417 mism=0
+OH	0	20:02:38.405	Core 04	2026.09.02 10:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 10:35 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=418 mism=0
+NO	0	20:02:44.508	Core 04	2026.09.02 11:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 10:55 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=419 mism=0
+OL	0	20:02:56.714	Core 04	2026.09.02 12:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 11:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=420 mism=0
+RS	0	20:02:56.714	Core 04	2026.09.02 12:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 12:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=421 mism=0
+RM	0	20:03:02.817	Core 04	2026.09.02 12:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 12:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=422 mism=0
+HS	0	20:03:02.817	Core 04	2026.09.02 13:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 12:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=423 mism=0
+GJ	0	20:03:02.817	Core 04	2026.09.02 13:05:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 12:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=424 mism=0
+GL	0	20:03:02.817	Core 04	2026.09.02 13:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 13:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=425 mism=0
+JP	0	20:03:08.921	Core 04	2026.09.02 13:30:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 13:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=426 mism=0
+HP	0	20:03:08.921	Core 04	2026.09.02 13:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 13:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=427 mism=0
+RJ	0	20:03:08.921	Core 04	2026.09.02 13:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 13:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=428 mism=0
+CJ	0	20:03:15.025	Core 04	2026.09.02 14:05:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 13:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=429 mism=0
+GS	0	20:03:21.128	Core 04	2026.09.02 14:30:09   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 14:20 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=430 mism=0
+DD	0	20:03:21.128	Core 04	2026.09.02 14:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 14:30 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=431 mism=0
+PS	0	20:03:27.232	Core 04	2026.09.02 15:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 14:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=432 mism=0
+RN	0	20:03:27.232	Core 04	2026.09.02 15:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 15:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=433 mism=0
+CK	0	20:03:27.232	Core 04	2026.09.02 15:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 15:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=434 mism=0
+HS	0	20:03:33.336	Core 04	2026.09.02 15:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 15:45 state=S4_ARMED dir=SHORT divLatch=1 hit1=0 hit2=435 mism=0
+FJ	0	20:03:39.440	Core 04	2026.09.02 16:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 16:00 state=S4_ARMED dir=SHORT divLatch=1 hit1=0 hit2=436 mism=0
+OE	0	20:03:39.440	Core 04	2026.09.02 16:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 16:05 state=S4_ARMED dir=SHORT divLatch=1 hit1=0 hit2=437 mism=0
+EG	0	20:03:39.440	Core 04	2026.09.02 16:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 16:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=438 mism=0
+DM	0	20:03:39.440	Core 04	2026.09.02 16:35:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 16:25 state=S2_LTF_ALIGN dir=SHORT divLatch=1 hit1=0 hit2=439 mism=0
+OO	0	20:03:51.648	Core 04	2026.09.02 17:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 17:05 state=S3_ZONE_WAIT dir=LONG divLatch=1 hit1=0 hit2=440 mism=0
+QD	0	20:03:51.648	Core 04	2026.09.02 17:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 17:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=441 mism=0
+JF	0	20:03:57.751	Core 04	2026.09.02 17:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 17:45 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=442 mism=0
+KF	0	20:03:57.751	Core 04	2026.09.02 18:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 18:00 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=443 mism=0
+GI	0	20:04:03.854	Core 04	2026.09.02 18:40:05   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 18:30 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=444 mism=0
+RG	0	20:04:03.854	Core 04	2026.09.02 18:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 18:45 state=S3_ZONE_WAIT dir=LONG divLatch=1 hit1=0 hit2=445 mism=0
+EK	0	20:04:09.958	Core 04	2026.09.02 19:30:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 19:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=446 mism=0
+CR	0	20:04:16.061	Core 04	2026.09.02 19:35:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 19:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=447 mism=0
+FQ	0	20:04:16.061	Core 04	2026.09.02 19:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 19:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=448 mism=0
+EI	0	20:04:22.165	Core 04	2026.09.02 20:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 20:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=449 mism=0
+LS	0	20:04:28.268	Core 04	2026.09.02 20:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 20:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=450 mism=0
+CG	0	20:04:34.371	Core 04	2026.09.02 21:25:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 21:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=451 mism=0
+DG	0	20:04:34.371	Core 04	2026.09.02 21:45:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 21:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=452 mism=0
+RN	0	20:04:34.371	Core 04	2026.09.02 21:50:05   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 21:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=453 mism=0
+RM	0	20:04:40.475	Core 04	2026.09.02 22:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 22:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=454 mism=0
+RG	0	20:04:40.475	Core 04	2026.09.02 22:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 22:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=455 mism=0
+FR	0	20:04:46.578	Core 04	2026.09.02 22:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.02 22:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=456 mism=0
+KI	0	20:04:52.681	Core 04	2026.09.02 23:05:07   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 22:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=457 mism=0
+DL	0	20:04:52.681	Core 04	2026.09.02 23:10:42   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.02 23:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=458 mism=0
+FG	0	20:04:52.681	Core 04	2026.09.02 23:25:07   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.02 23:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=459 mism=0
+OL	0	20:04:58.784	Core 04	2026.09.03 00:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 23:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=460 mism=0
+RI	0	20:04:58.784	Core 04	2026.09.03 00:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.02 23:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=461 mism=0
+HM	0	20:05:10.991	Core 04	2026.09.03 00:50:17   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 00:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=462 mism=0
+DP	0	20:05:10.991	Core 04	2026.09.03 01:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 00:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=463 mism=0
+NM	0	20:05:17.095	Core 04	2026.09.03 01:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 01:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=464 mism=0
+IG	0	20:05:17.095	Core 04	2026.09.03 01:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 01:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=465 mism=0
+HE	0	20:05:17.095	Core 04	2026.09.03 01:45:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 01:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=466 mism=0
+RL	0	20:05:17.095	Core 04	2026.09.03 01:50:05   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 01:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=467 mism=0
+RS	0	20:05:23.199	Core 04	2026.09.03 02:15:19   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 02:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=468 mism=0
+QE	0	20:05:23.199	Core 04	2026.09.03 02:20:08   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 02:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=469 mism=0
+OL	0	20:05:29.302	Core 04	2026.09.03 02:35:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 02:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=470 mism=0
+LF	0	20:05:29.302	Core 04	2026.09.03 02:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 02:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=471 mism=0
+PH	0	20:05:35.406	Core 04	2026.09.03 03:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 03:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=472 mism=0
+CK	0	20:05:35.406	Core 04	2026.09.03 03:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 03:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=473 mism=0
+RG	0	20:05:41.509	Core 04	2026.09.03 04:00:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 03:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=474 mism=0
+RI	0	20:05:47.612	Core 04	2026.09.03 04:20:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 04:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=475 mism=0
+EM	0	20:05:47.612	Core 04	2026.09.03 04:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 04:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=476 mism=0
+ON	0	20:05:53.716	Core 04	2026.09.03 05:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 04:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=477 mism=0
+IP	0	20:05:53.716	Core 04	2026.09.03 05:05:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 04:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=478 mism=0
+NJ	0	20:05:59.819	Core 04	2026.09.03 05:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 05:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=479 mism=0
+FN	0	20:05:59.819	Core 04	2026.09.03 05:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 05:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=480 mism=0
+OM	0	20:05:59.819	Core 04	2026.09.03 05:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 05:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=481 mism=0
+DD	0	20:06:05.923	Core 04	2026.09.03 05:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 05:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=482 mism=0
+MJ	0	20:06:12.026	Core 04	2026.09.03 06:40:06   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 06:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=483 mism=0
+FL	0	20:06:12.026	Core 04	2026.09.03 06:50:08   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 06:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=484 mism=0
+IM	0	20:06:18.131	Core 04	2026.09.03 07:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 06:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=485 mism=0
+LG	0	20:06:18.131	Core 04	2026.09.03 07:15:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 07:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=486 mism=0
+LI	0	20:06:18.131	Core 04	2026.09.03 07:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 07:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=487 mism=0
+FE	0	20:06:24.234	Core 04	2026.09.03 08:05:05   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 07:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=488 mism=0
+RO	0	20:06:24.234	Core 04	2026.09.03 08:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 08:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=489 mism=0
+IQ	0	20:06:30.337	Core 04	2026.09.03 08:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 08:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=490 mism=0
+MP	0	20:06:36.441	Core 04	2026.09.03 08:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 08:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=491 mism=0
+CJ	0	20:06:36.441	Core 04	2026.09.03 09:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 08:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=492 mism=0
+HO	0	20:06:42.544	Core 04	2026.09.03 09:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 09:10 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=493 mism=0
+QF	0	20:06:42.544	Core 04	2026.09.03 09:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 09:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=494 mism=0
+CN	0	20:06:48.648	Core 04	2026.09.03 10:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 09:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=495 mism=0
+HN	0	20:06:48.648	Core 04	2026.09.03 10:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 10:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=496 mism=0
+KH	0	20:06:48.648	Core 04	2026.09.03 10:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 10:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=497 mism=0
+HD	0	20:06:54.751	Core 04	2026.09.03 10:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 10:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=498 mism=0
+IS	0	20:06:54.751	Core 04	2026.09.03 10:45:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 10:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=499 mism=0
+FF	0	20:06:54.751	Core 04	2026.09.03 10:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 10:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=500 mism=0
+NI	0	20:07:00.855	Core 04	2026.09.03 11:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 11:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=501 mism=0
+ML	0	20:07:00.855	Core 04	2026.09.03 11:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 11:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=502 mism=0
+JP	0	20:07:06.959	Core 04	2026.09.03 12:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 11:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=503 mism=0
+JG	0	20:07:13.062	Core 04	2026.09.03 12:10:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 12:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=504 mism=0
+PI	0	20:07:19.165	Core 04	2026.09.03 12:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 12:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=505 mism=0
+CS	0	20:07:19.165	Core 04	2026.09.03 13:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 13:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=506 mism=0
+ME	0	20:07:31.372	Core 04	2026.09.03 14:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 13:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=507 mism=0
+JE	0	20:07:31.372	Core 04	2026.09.03 14:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 14:15 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=508 mism=0
+GS	0	20:07:43.579	Core 04	2026.09.03 15:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 14:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=509 mism=0
+RQ	0	20:07:43.579	Core 04	2026.09.03 15:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 15:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=510 mism=0
+IG	0	20:07:43.579	Core 04	2026.09.03 15:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 15:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=511 mism=0
+DF	0	20:07:43.579	Core 04	2026.09.03 15:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 15:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=512 mism=0
+HI	0	20:07:49.682	Core 04	2026.09.03 15:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 15:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=513 mism=0
+IH	0	20:07:49.682	Core 04	2026.09.03 15:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 15:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=514 mism=0
+QL	0	20:07:49.682	Core 04	2026.09.03 16:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 15:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=515 mism=0
+GK	0	20:07:55.786	Core 04	2026.09.03 16:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 16:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=516 mism=0
+LN	0	20:07:55.786	Core 04	2026.09.03 16:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 16:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=517 mism=0
+OL	0	20:07:55.786	Core 04	2026.09.03 16:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 16:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=518 mism=0
+JK	0	20:07:55.786	Core 04	2026.09.03 16:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 16:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=519 mism=0
+RG	0	20:08:01.889	Core 04	2026.09.03 16:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 16:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=520 mism=0
+HN	0	20:08:01.889	Core 04	2026.09.03 16:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 16:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=521 mism=0
+RI	0	20:08:01.889	Core 04	2026.09.03 16:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 16:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=522 mism=0
+HG	0	20:08:01.889	Core 04	2026.09.03 17:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 16:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=523 mism=0
+PO	0	20:08:07.993	Core 04	2026.09.03 17:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 17:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=524 mism=0
+MJ	0	20:08:07.993	Core 04	2026.09.03 17:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 17:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=525 mism=0
+PR	0	20:08:14.096	Core 04	2026.09.03 18:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 17:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=526 mism=0
+DI	0	20:08:26.302	Core 04	2026.09.03 19:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 19:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=527 mism=0
+GP	0	20:08:26.302	Core 04	2026.09.03 19:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 19:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=528 mism=0
+DJ	0	20:08:26.302	Core 04	2026.09.03 19:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 19:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=529 mism=0
+IL	0	20:08:32.405	Core 04	2026.09.03 19:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 19:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=530 mism=0
+RG	0	20:08:32.405	Core 04	2026.09.03 19:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 19:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=531 mism=0
+HP	0	20:08:32.405	Core 04	2026.09.03 19:55:05   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 19:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=532 mism=0
+LJ	0	20:08:32.405	Core 04	2026.09.03 20:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 19:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=533 mism=0
+GM	0	20:08:32.405	Core 04	2026.09.03 20:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 19:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=534 mism=0
+RG	0	20:08:38.508	Core 04	2026.09.03 20:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 20:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=535 mism=0
+FI	0	20:08:38.508	Core 04	2026.09.03 20:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 20:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=536 mism=0
+FS	0	20:08:38.508	Core 04	2026.09.03 20:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 20:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=537 mism=0
+KF	0	20:08:44.612	Core 04	2026.09.03 20:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 20:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=538 mism=0
+II	0	20:08:44.612	Core 04	2026.09.03 21:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 21:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=539 mism=0
+MS	0	20:08:50.715	Core 04	2026.09.03 21:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.03 21:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=540 mism=0
+IF	0	20:08:50.715	Core 04	2026.09.03 21:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 21:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=541 mism=0
+IS	0	20:08:50.715	Core 04	2026.09.03 21:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 21:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=542 mism=0
+MG	0	20:08:50.715	Core 04	2026.09.03 21:40:06   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 21:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=543 mism=0
+LI	0	20:08:50.715	Core 04	2026.09.03 21:45:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 21:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=544 mism=0
+PS	0	20:08:56.819	Core 04	2026.09.03 21:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 21:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=545 mism=0
+QS	0	20:08:56.819	Core 04	2026.09.03 22:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 22:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=546 mism=0
+DE	0	20:08:56.819	Core 04	2026.09.03 22:25:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 22:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=547 mism=0
+HO	0	20:09:02.922	Core 04	2026.09.03 22:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.03 22:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=548 mism=0
+CP	0	20:09:02.922	Core 04	2026.09.03 22:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 22:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=549 mism=0
+EK	0	20:09:09.025	Core 04	2026.09.03 23:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.03 22:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=550 mism=0
+JP	0	20:09:09.025	Core 04	2026.09.03 23:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.03 23:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=551 mism=0
+FI	0	20:09:27.336	Core 04	2026.09.04 00:55:07   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 00:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=552 mism=0
+IS	0	20:09:27.336	Core 04	2026.09.04 01:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 00:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=553 mism=0
+NJ	0	20:09:27.336	Core 04	2026.09.04 01:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 00:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=554 mism=0
+DL	0	20:09:27.336	Core 04	2026.09.04 01:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 01:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=555 mism=0
+LG	0	20:09:33.440	Core 04	2026.09.04 01:30:00   [SRJ-EA] CQDRECHECK_PROGRESS bars=2000 hit1=0 hit2=555 mismatch=0
+RJ	0	20:09:39.543	Core 04	2026.09.04 02:15:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 02:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=556 mism=0
+IM	0	20:09:39.543	Core 04	2026.09.04 02:20:31   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 02:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=557 mism=0
+HJ	0	20:09:45.646	Core 04	2026.09.04 02:35:03   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 02:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=558 mism=0
+KI	0	20:09:51.750	Core 04	2026.09.04 03:25:06   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 03:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=559 mism=0
+JM	0	20:09:57.854	Core 04	2026.09.04 03:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 03:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=560 mism=0
+LK	0	20:10:03.957	Core 04	2026.09.04 04:10:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 04:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=561 mism=0
+HN	0	20:10:03.957	Core 04	2026.09.04 04:25:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 04:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=562 mism=0
+JP	0	20:10:03.957	Core 04	2026.09.04 04:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 04:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=563 mism=0
+EK	0	20:10:10.061	Core 04	2026.09.04 04:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 04:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=564 mism=0
+NR	0	20:10:10.061	Core 04	2026.09.04 05:05:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 04:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=565 mism=0
+KD	0	20:10:10.061	Core 04	2026.09.04 05:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 05:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=566 mism=0
+JH	0	20:10:16.164	Core 04	2026.09.04 05:30:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 05:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=567 mism=0
+FO	0	20:10:22.268	Core 04	2026.09.04 06:05:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 05:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=568 mism=0
+IQ	0	20:10:22.268	Core 04	2026.09.04 06:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 06:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=569 mism=0
+CN	0	20:10:28.372	Core 04	2026.09.04 06:35:12   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 06:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=570 mism=0
+EH	0	20:10:28.372	Core 04	2026.09.04 06:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 06:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=571 mism=0
+HP	0	20:10:28.372	Core 04	2026.09.04 06:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 06:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=572 mism=0
+CQ	0	20:10:34.475	Core 04	2026.09.04 07:30:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 07:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=573 mism=0
+LQ	0	20:10:46.683	Core 04	2026.09.04 08:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 08:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=574 mism=0
+OK	0	20:10:46.683	Core 04	2026.09.04 08:25:05   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 08:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=575 mism=0
+IQ	0	20:10:46.683	Core 04	2026.09.04 08:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 08:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=576 mism=0
+QE	0	20:10:52.786	Core 04	2026.09.04 08:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 08:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=577 mism=0
+FO	0	20:10:52.786	Core 04	2026.09.04 08:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 08:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=578 mism=0
+DQ	0	20:10:52.786	Core 04	2026.09.04 09:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 08:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=579 mism=0
+OQ	0	20:10:52.786	Core 04	2026.09.04 09:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 09:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=580 mism=0
+HL	0	20:10:52.786	Core 04	2026.09.04 09:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 09:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=581 mism=0
+OE	0	20:10:58.890	Core 04	2026.09.04 09:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 09:15 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=582 mism=0
+GS	0	20:10:58.890	Core 04	2026.09.04 09:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 09:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=583 mism=0
+OR	0	20:11:04.993	Core 04	2026.09.04 10:10:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 10:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=584 mism=0
+FK	0	20:11:04.993	Core 04	2026.09.04 10:15:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 10:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=585 mism=0
+OK	0	20:11:04.993	Core 04	2026.09.04 10:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 10:15 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=586 mism=0
+GG	0	20:11:11.097	Core 04	2026.09.04 10:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 10:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=587 mism=0
+RD	0	20:11:17.200	Core 04	2026.09.04 11:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 10:55 state=S4_ARMED dir=SHORT divLatch=0 hit1=0 hit2=588 mism=0
+ED	0	20:11:29.407	Core 04	2026.09.04 12:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 12:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=589 mism=0
+QN	0	20:11:29.407	Core 04	2026.09.04 12:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 12:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=590 mism=0
+CQ	0	20:11:29.407	Core 04	2026.09.04 12:35:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 12:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=591 mism=0
+CK	0	20:11:29.407	Core 04	2026.09.04 12:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 12:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=592 mism=0
+LM	0	20:11:35.511	Core 04	2026.09.04 13:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 12:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=593 mism=0
+MJ	0	20:11:41.614	Core 04	2026.09.04 13:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 13:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=594 mism=0
+JI	0	20:11:41.614	Core 04	2026.09.04 13:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 13:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=595 mism=0
+LK	0	20:11:41.614	Core 04	2026.09.04 13:55:03   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 13:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=596 mism=0
+RI	0	20:11:47.718	Core 04	2026.09.04 14:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 14:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=597 mism=0
+EH	0	20:11:47.718	Core 04	2026.09.04 14:20:05   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 14:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=598 mism=0
+MN	0	20:11:53.825	Core 04	2026.09.04 14:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 14:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=599 mism=0
+MQ	0	20:11:53.825	Core 04	2026.09.04 15:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 14:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=600 mism=0
+RP	0	20:11:59.929	Core 04	2026.09.04 15:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 15:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=601 mism=0
+QL	0	20:11:59.929	Core 04	2026.09.04 15:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 15:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=602 mism=0
+DP	0	20:11:59.929	Core 04	2026.09.04 15:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 15:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=603 mism=0
+HO	0	20:12:06.032	Core 04	2026.09.04 15:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 15:30 state=S2_LTF_ALIGN dir=LONG divLatch=1 hit1=0 hit2=604 mism=0
+JR	0	20:12:06.032	Core 04	2026.09.04 15:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 15:45 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=605 mism=0
+OD	0	20:12:12.136	Core 04	2026.09.04 16:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 16:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=606 mism=0
+NJ	0	20:12:18.239	Core 04	2026.09.04 16:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 16:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=607 mism=0
+ED	0	20:12:18.239	Core 04	2026.09.04 17:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 17:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=608 mism=0
+OG	0	20:12:24.343	Core 04	2026.09.04 17:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 17:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=609 mism=0
+CS	0	20:12:24.343	Core 04	2026.09.04 17:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 17:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=610 mism=0
+HO	0	20:12:24.343	Core 04	2026.09.04 17:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 17:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=611 mism=0
+OL	0	20:12:42.654	Core 04	2026.09.04 19:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 18:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=612 mism=0
+OS	0	20:12:42.654	Core 04	2026.09.04 19:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 19:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=613 mism=0
+FO	0	20:12:48.757	Core 04	2026.09.04 20:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 19:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=614 mism=0
+LQ	0	20:12:54.861	Core 04	2026.09.04 20:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 20:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=615 mism=0
+GS	0	20:13:00.965	Core 04	2026.09.04 20:55:05   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 20:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=616 mism=0
+FH	0	20:13:00.965	Core 04	2026.09.04 21:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 20:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=617 mism=0
+JP	0	20:13:00.965	Core 04	2026.09.04 21:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 21:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=618 mism=0
+JJ	0	20:13:07.068	Core 04	2026.09.04 21:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 21:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=619 mism=0
+JI	0	20:13:07.068	Core 04	2026.09.04 21:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 21:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=620 mism=0
+FM	0	20:13:13.172	Core 04	2026.09.04 22:15:06   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 22:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=621 mism=0
+DD	0	20:13:19.276	Core 04	2026.09.04 22:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 22:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=622 mism=0
+MO	0	20:13:19.276	Core 04	2026.09.04 22:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 22:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=623 mism=0
+OQ	0	20:13:19.276	Core 04	2026.09.04 22:40:10   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 22:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=624 mism=0
+ER	0	20:13:19.276	Core 04	2026.09.04 22:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.04 22:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=625 mism=0
+NE	0	20:13:25.379	Core 04	2026.09.04 23:05:40   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.04 22:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=626 mism=0
+EG	0	20:13:25.379	Core 04	2026.09.04 23:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 23:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=627 mism=0
+NI	0	20:13:25.379	Core 04	2026.09.04 23:35:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 23:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=628 mism=0
+IN	0	20:13:31.483	Core 04	2026.09.04 23:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.04 23:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=629 mism=0
+FS	0	20:13:31.483	Core 04	2026.09.07 00:00:07   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 23:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=630 mism=0
+LG	0	20:13:31.483	Core 04	2026.09.07 00:05:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.04 23:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=631 mism=0
+OM	0	20:13:43.690	Core 04	2026.09.07 00:50:18   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 00:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=632 mism=0
+LD	0	20:13:43.690	Core 04	2026.09.07 00:55:47   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 00:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=633 mism=0
+FN	0	20:13:43.690	Core 04	2026.09.07 01:10:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 01:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=634 mism=0
+RG	0	20:13:49.793	Core 04	2026.09.07 01:20:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 01:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=635 mism=0
+JN	0	20:13:49.793	Core 04	2026.09.07 01:45:26   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 01:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=636 mism=0
+IK	0	20:13:49.793	Core 04	2026.09.07 01:55:11   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 01:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=637 mism=0
+HQ	0	20:14:02.000	Core 04	2026.09.07 02:40:12   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 02:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=638 mism=0
+IK	0	20:14:02.000	Core 04	2026.09.07 02:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 02:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=639 mism=0
+QR	0	20:14:08.104	Core 04	2026.09.07 03:10:04   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 03:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=640 mism=0
+LQ	0	20:14:20.311	Core 04	2026.09.07 04:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 04:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=641 mism=0
+RK	0	20:14:20.311	Core 04	2026.09.07 04:35:05   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 04:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=642 mism=0
+MQ	0	20:14:26.417	Core 04	2026.09.07 05:05:05   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 04:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=643 mism=0
+DE	0	20:14:26.417	Core 04	2026.09.07 05:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 05:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=644 mism=0
+QK	0	20:14:32.520	Core 04	2026.09.07 05:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 05:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=645 mism=0
+ER	0	20:14:32.520	Core 04	2026.09.07 05:45:03   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 05:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=646 mism=0
+ED	0	20:14:38.624	Core 04	2026.09.07 06:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 05:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=647 mism=0
+JP	0	20:14:44.728	Core 04	2026.09.07 06:30:07   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 06:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=648 mism=0
+KM	0	20:14:44.728	Core 04	2026.09.07 06:50:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 06:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=649 mism=0
+GG	0	20:14:50.831	Core 04	2026.09.07 07:05:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 06:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=650 mism=0
+PR	0	20:14:56.935	Core 04	2026.09.07 07:45:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 07:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=651 mism=0
+DQ	0	20:14:56.935	Core 04	2026.09.07 07:50:10   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 07:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=652 mism=0
+GM	0	20:14:56.935	Core 04	2026.09.07 08:05:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 07:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=653 mism=0
+EG	0	20:15:03.038	Core 04	2026.09.07 08:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 08:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=654 mism=0
+ON	0	20:15:09.142	Core 04	2026.09.07 08:45:22   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 08:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=655 mism=0
+QP	0	20:15:09.142	Core 04	2026.09.07 09:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 08:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=656 mism=0
+FG	0	20:15:09.142	Core 04	2026.09.07 09:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 08:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=657 mism=0
+GK	0	20:15:15.245	Core 04	2026.09.07 09:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 09:10 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=658 mism=0
+QI	0	20:15:15.245	Core 04	2026.09.07 09:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 09:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=659 mism=0
+EM	0	20:15:27.453	Core 04	2026.09.07 10:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 10:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=660 mism=0
+JL	0	20:15:27.453	Core 04	2026.09.07 10:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 10:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=661 mism=0
+FE	0	20:15:27.453	Core 04	2026.09.07 10:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 10:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=662 mism=0
+FQ	0	20:15:39.660	Core 04	2026.09.07 11:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 11:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=663 mism=0
+KQ	0	20:15:39.660	Core 04	2026.09.07 12:00:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 11:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=664 mism=0
+DG	0	20:15:39.660	Core 04	2026.09.07 12:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 11:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=665 mism=0
+GD	0	20:15:51.867	Core 04	2026.09.07 12:50:05   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 12:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=666 mism=0
+EM	0	20:15:51.867	Core 04	2026.09.07 13:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 13:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=667 mism=0
+NK	0	20:15:57.970	Core 04	2026.09.07 13:30:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 13:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=668 mism=0
+MH	0	20:16:04.073	Core 04	2026.09.07 14:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 13:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=669 mism=0
+ED	0	20:16:04.073	Core 04	2026.09.07 14:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 14:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=670 mism=0
+PN	0	20:16:04.073	Core 04	2026.09.07 14:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 14:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=671 mism=0
+FR	0	20:16:10.176	Core 04	2026.09.07 14:45:06   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 14:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=672 mism=0
+RG	0	20:16:16.280	Core 04	2026.09.07 15:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 14:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=673 mism=0
+DM	0	20:16:16.280	Core 04	2026.09.07 15:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 14:55 state=S1_REGIME dir=LONG divLatch=1 hit1=0 hit2=674 mism=0
+OS	0	20:16:16.280	Core 04	2026.09.07 15:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 15:15 state=S1_REGIME dir=LONG divLatch=1 hit1=0 hit2=675 mism=0
+FQ	0	20:16:22.384	Core 04	2026.09.07 15:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 15:20 state=S1_REGIME dir=LONG divLatch=0 hit1=0 hit2=676 mism=0
+FK	0	20:16:22.384	Core 04	2026.09.07 15:35:04   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 15:25 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=677 mism=0
+KH	0	20:16:22.384	Core 04	2026.09.07 15:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 15:30 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=678 mism=0
+LI	0	20:16:22.384	Core 04	2026.09.07 15:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 15:35 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=679 mism=0
+KL	0	20:16:28.487	Core 04	2026.09.07 16:20:03   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 16:10 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=680 mism=0
+FJ	0	20:16:28.487	Core 04	2026.09.07 16:40:15   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 16:30 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=681 mism=0
+EN	0	20:16:40.694	Core 04	2026.09.07 17:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 17:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=682 mism=0
+JE	0	20:16:40.694	Core 04	2026.09.07 17:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 17:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=683 mism=0
+CR	0	20:16:46.798	Core 04	2026.09.07 18:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 17:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=684 mism=0
+FF	0	20:16:46.798	Core 04	2026.09.07 18:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 17:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=685 mism=0
+GS	0	20:16:52.902	Core 04	2026.09.07 18:40:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 18:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=686 mism=0
+CF	0	20:16:52.902	Core 04	2026.09.07 18:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 18:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=687 mism=0
+PD	0	20:16:59.005	Core 04	2026.09.07 19:30:06   [SRJ-EA] CQDRECHECK_PROGRESS bars=2500 hit1=0 hit2=687 mismatch=0
+ED	0	20:17:05.108	Core 04	2026.09.07 19:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 19:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=688 mism=0
+HO	0	20:17:11.211	Core 04	2026.09.07 20:10:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 20:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=689 mism=0
+RR	0	20:17:11.211	Core 04	2026.09.07 20:30:04   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 20:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=690 mism=0
+MD	0	20:17:11.211	Core 04	2026.09.07 20:35:20   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 20:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=691 mism=0
+JN	0	20:17:11.211	Core 04	2026.09.07 20:40:04   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 20:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=692 mism=0
+EK	0	20:17:17.315	Core 04	2026.09.07 20:55:52   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.07 20:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=693 mism=0
+EF	0	20:17:29.522	Core 04	2026.09.07 22:10:43   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 22:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=694 mism=0
+FH	0	20:17:29.522	Core 04	2026.09.07 22:25:30   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 22:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=695 mism=0
+MR	0	20:17:35.626	Core 04	2026.09.07 22:30:12   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 22:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=696 mism=0
+ED	0	20:17:35.626	Core 04	2026.09.07 22:40:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 22:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=697 mism=0
+PN	0	20:17:35.626	Core 04	2026.09.07 22:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 22:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=698 mism=0
+MP	0	20:17:35.626	Core 04	2026.09.07 22:50:06   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 22:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=699 mism=0
+CJ	0	20:17:41.729	Core 04	2026.09.07 23:15:13   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.07 23:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=700 mism=0
+RM	0	20:17:41.729	Core 04	2026.09.07 23:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.07 23:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=701 mism=0
+OG	0	20:17:47.832	Core 04	2026.09.07 23:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.07 23:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=702 mism=0
+MN	0	20:18:00.039	Core 04	2026.09.08 01:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 00:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=703 mism=0
+EF	0	20:18:12.247	Core 04	2026.09.08 01:55:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 01:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=704 mism=0
+GE	0	20:18:12.247	Core 04	2026.09.08 02:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 01:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=705 mism=0
+QL	0	20:18:12.247	Core 04	2026.09.08 02:10:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 02:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=706 mism=0
+RS	0	20:18:12.247	Core 04	2026.09.08 02:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 02:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=707 mism=0
+GE	0	20:18:18.350	Core 04	2026.09.08 02:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 02:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=708 mism=0
+ME	0	20:18:24.453	Core 04	2026.09.08 03:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 02:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=709 mism=0
+FH	0	20:18:24.453	Core 04	2026.09.08 03:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 03:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=710 mism=0
+RP	0	20:18:24.453	Core 04	2026.09.08 03:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 03:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=711 mism=0
+LG	0	20:18:30.557	Core 04	2026.09.08 04:00:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 03:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=712 mism=0
+GL	0	20:18:30.557	Core 04	2026.09.08 04:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 04:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=713 mism=0
+EF	0	20:18:36.660	Core 04	2026.09.08 04:15:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 04:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=714 mism=0
+JL	0	20:18:36.660	Core 04	2026.09.08 04:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 04:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=715 mism=0
+OM	0	20:18:42.764	Core 04	2026.09.08 04:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 04:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=716 mism=0
+LM	0	20:18:42.764	Core 04	2026.09.08 05:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 04:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=717 mism=0
+FD	0	20:18:42.764	Core 04	2026.09.08 05:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 05:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=718 mism=0
+KP	0	20:18:42.764	Core 04	2026.09.08 05:20:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 05:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=719 mism=0
+GP	0	20:18:48.868	Core 04	2026.09.08 05:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 05:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=720 mism=0
+JQ	0	20:18:48.868	Core 04	2026.09.08 05:45:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 05:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=721 mism=0
+DR	0	20:18:54.971	Core 04	2026.09.08 06:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 05:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=722 mism=0
+KQ	0	20:18:54.971	Core 04	2026.09.08 06:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 06:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=723 mism=0
+IN	0	20:19:01.075	Core 04	2026.09.08 06:30:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 06:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=724 mism=0
+FM	0	20:19:01.075	Core 04	2026.09.08 06:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 06:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=725 mism=0
+QD	0	20:19:01.075	Core 04	2026.09.08 06:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 06:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=726 mism=0
+NN	0	20:19:07.178	Core 04	2026.09.08 07:10:15   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 07:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=727 mism=0
+CK	0	20:19:07.178	Core 04	2026.09.08 07:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 07:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=728 mism=0
+EN	0	20:19:13.282	Core 04	2026.09.08 07:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 07:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=729 mism=0
+FR	0	20:19:13.282	Core 04	2026.09.08 08:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 07:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=730 mism=0
+FD	0	20:19:13.282	Core 04	2026.09.08 08:05:07   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 07:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=731 mism=0
+FM	0	20:19:19.386	Core 04	2026.09.08 08:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 08:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=732 mism=0
+DJ	0	20:19:25.489	Core 04	2026.09.08 09:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 09:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=733 mism=0
+GM	0	20:19:25.489	Core 04	2026.09.08 09:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 09:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=734 mism=0
+FM	0	20:19:31.593	Core 04	2026.09.08 09:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 09:20 state=S2_LTF_ALIGN dir=LONG divLatch=1 hit1=0 hit2=735 mism=0
+RK	0	20:19:31.593	Core 04	2026.09.08 09:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 09:40 state=S2_LTF_ALIGN dir=LONG divLatch=0 hit1=0 hit2=736 mism=0
+IS	0	20:19:49.904	Core 04	2026.09.08 11:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 11:05 state=S2_LTF_ALIGN dir=LONG divLatch=0 hit1=0 hit2=737 mism=0
+DJ	0	20:19:49.904	Core 04	2026.09.08 11:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 11:25 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=738 mism=0
+GD	0	20:19:49.904	Core 04	2026.09.08 11:40:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 11:30 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=739 mism=0
+OO	0	20:19:56.008	Core 04	2026.09.08 11:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 11:45 state=S3_ZONE_WAIT dir=LONG divLatch=1 hit1=0 hit2=740 mism=0
+RQ	0	20:19:56.008	Core 04	2026.09.08 12:15:04   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 12:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=741 mism=0
+IH	0	20:20:02.111	Core 04	2026.09.08 12:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 12:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=742 mism=0
+QR	0	20:20:02.111	Core 04	2026.09.08 12:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 12:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=743 mism=0
+FF	0	20:20:08.215	Core 04	2026.09.08 13:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 13:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=744 mism=0
+OJ	0	20:20:08.215	Core 04	2026.09.08 13:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 13:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=745 mism=0
+QP	0	20:20:14.318	Core 04	2026.09.08 13:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 13:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=746 mism=0
+CJ	0	20:20:20.422	Core 04	2026.09.08 14:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 14:10 state=S3_ZONE_WAIT dir=LONG divLatch=1 hit1=0 hit2=747 mism=0
+CP	0	20:20:20.422	Core 04	2026.09.08 14:25:04   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 14:15 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=748 mism=0
+JR	0	20:20:26.525	Core 04	2026.09.08 14:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 14:35 state=S3_ZONE_WAIT dir=LONG divLatch=0 hit1=0 hit2=749 mism=0
+MK	0	20:20:26.525	Core 04	2026.09.08 14:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 14:40 state=S3_ZONE_WAIT dir=LONG divLatch=1 hit1=0 hit2=750 mism=0
+KD	0	20:20:26.525	Core 04	2026.09.08 15:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 14:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=751 mism=0
+DK	0	20:20:26.525	Core 04	2026.09.08 15:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 14:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=752 mism=0
+RI	0	20:20:26.525	Core 04	2026.09.08 15:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 15:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=753 mism=0
+QO	0	20:20:32.629	Core 04	2026.09.08 15:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 15:20 state=S2_LTF_ALIGN dir=LONG divLatch=0 hit1=0 hit2=754 mism=0
+QR	0	20:20:38.733	Core 04	2026.09.08 15:55:07   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 15:45 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=755 mism=0
+JP	0	20:20:38.733	Core 04	2026.09.08 16:00:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 15:50 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=756 mism=0
+IP	0	20:20:38.733	Core 04	2026.09.08 16:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 15:55 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=757 mism=0
+LF	0	20:20:38.733	Core 04	2026.09.08 16:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 16:00 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=758 mism=0
+OQ	0	20:20:38.733	Core 04	2026.09.08 16:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 16:05 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=759 mism=0
+QF	0	20:20:50.939	Core 04	2026.09.08 17:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 17:10 state=S2_LTF_ALIGN dir=LONG divLatch=1 hit1=0 hit2=760 mism=0
+NI	0	20:20:57.042	Core 04	2026.09.08 17:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 17:20 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=761 mism=0
+IG	0	20:20:57.042	Core 04	2026.09.08 17:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 17:25 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=762 mism=0
+NS	0	20:20:57.042	Core 04	2026.09.08 17:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 17:30 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=763 mism=0
+GH	0	20:20:57.042	Core 04	2026.09.08 17:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 17:35 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=764 mism=0
+DK	0	20:20:57.042	Core 04	2026.09.08 17:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 17:45 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=765 mism=0
+GO	0	20:21:03.146	Core 04	2026.09.08 18:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 18:00 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=766 mism=0
+MN	0	20:21:03.146	Core 04	2026.09.08 18:20:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 18:10 state=S4_ARMED dir=LONG divLatch=0 hit1=0 hit2=767 mism=0
+GS	0	20:21:03.146	Core 04	2026.09.08 18:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 18:20 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=768 mism=0
+PF	0	20:21:09.249	Core 04	2026.09.08 18:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 18:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=769 mism=0
+NN	0	20:21:09.249	Core 04	2026.09.08 18:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 18:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=770 mism=0
+RR	0	20:21:15.353	Core 04	2026.09.08 19:15:02   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 19:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=771 mism=0
+MD	0	20:21:15.353	Core 04	2026.09.08 19:30:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 19:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=772 mism=0
+PN	0	20:21:15.353	Core 04	2026.09.08 19:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 19:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=773 mism=0
+NK	0	20:21:33.663	Core 04	2026.09.08 21:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 20:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=774 mism=0
+GO	0	20:21:33.663	Core 04	2026.09.08 21:05:24   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 20:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=775 mism=0
+LQ	0	20:21:33.663	Core 04	2026.09.08 21:15:30   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 21:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=776 mism=0
+FL	0	20:21:33.663	Core 04	2026.09.08 21:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 21:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=777 mism=0
+FS	0	20:21:39.767	Core 04	2026.09.08 21:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.08 21:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=778 mism=0
+QH	0	20:21:51.974	Core 04	2026.09.08 22:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.08 22:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=779 mism=0
+FL	0	20:21:51.974	Core 04	2026.09.08 23:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 22:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=780 mism=0
+DF	0	20:21:51.974	Core 04	2026.09.08 23:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 22:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=781 mism=0
+GG	0	20:21:58.078	Core 04	2026.09.08 23:35:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.08 23:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=782 mism=0
+MI	0	20:22:04.181	Core 04	2026.09.09 00:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 23:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=783 mism=0
+FM	0	20:22:04.181	Core 04	2026.09.09 00:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.08 23:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=784 mism=0
+FD	0	20:22:16.388	Core 04	2026.09.09 01:25:05   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 01:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=785 mism=0
+PO	0	20:22:16.388	Core 04	2026.09.09 01:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 01:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=786 mism=0
+CQ	0	20:22:22.491	Core 04	2026.09.09 01:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 01:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=787 mism=0
+PK	0	20:22:22.491	Core 04	2026.09.09 01:55:39   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 01:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=788 mism=0
+HH	0	20:22:28.594	Core 04	2026.09.09 02:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 02:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=789 mism=0
+QR	0	20:22:28.594	Core 04	2026.09.09 02:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 02:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=790 mism=0
+CR	0	20:22:28.594	Core 04	2026.09.09 02:30:12   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 02:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=791 mism=0
+EQ	0	20:22:28.594	Core 04	2026.09.09 02:40:44   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 02:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=792 mism=0
+LE	0	20:22:34.698	Core 04	2026.09.09 02:45:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 02:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=793 mism=0
+GH	0	20:22:34.698	Core 04	2026.09.09 02:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 02:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=794 mism=0
+QP	0	20:22:34.698	Core 04	2026.09.09 03:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 02:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=795 mism=0
+OG	0	20:22:34.698	Core 04	2026.09.09 03:10:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 03:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=796 mism=0
+KL	0	20:22:40.801	Core 04	2026.09.09 03:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 03:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=797 mism=0
+ED	0	20:22:46.904	Core 04	2026.09.09 04:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 03:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=798 mism=0
+QH	0	20:22:46.904	Core 04	2026.09.09 04:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 04:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=799 mism=0
+FH	0	20:22:46.904	Core 04	2026.09.09 04:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 04:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=800 mism=0
+KR	0	20:22:53.008	Core 04	2026.09.09 04:30:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 04:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=801 mism=0
+MQ	0	20:22:59.112	Core 04	2026.09.09 05:05:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 04:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=802 mism=0
+FH	0	20:22:59.112	Core 04	2026.09.09 05:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 05:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=803 mism=0
+DR	0	20:22:59.112	Core 04	2026.09.09 05:30:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 05:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=804 mism=0
+LL	0	20:22:59.112	Core 04	2026.09.09 05:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 05:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=805 mism=0
+GG	0	20:23:05.215	Core 04	2026.09.09 05:55:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 05:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=806 mism=0
+JH	0	20:23:11.318	Core 04	2026.09.09 06:40:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 06:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=807 mism=0
+MG	0	20:23:17.421	Core 04	2026.09.09 07:05:10   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 06:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=808 mism=0
+LI	0	20:23:17.421	Core 04	2026.09.09 07:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 07:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=809 mism=0
+FS	0	20:23:17.421	Core 04	2026.09.09 07:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 07:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=810 mism=0
+LJ	0	20:23:23.524	Core 04	2026.09.09 07:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 07:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=811 mism=0
+PS	0	20:23:23.524	Core 04	2026.09.09 07:35:03   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 07:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=812 mism=0
+IE	0	20:23:23.524	Core 04	2026.09.09 07:55:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 07:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=813 mism=0
+EE	0	20:23:29.628	Core 04	2026.09.09 08:10:05   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 08:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=814 mism=0
+CH	0	20:23:29.628	Core 04	2026.09.09 08:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 08:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=815 mism=0
+JH	0	20:23:35.731	Core 04	2026.09.09 08:35:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 08:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=816 mism=0
+QL	0	20:23:35.731	Core 04	2026.09.09 08:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 08:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=817 mism=0
+FL	0	20:23:41.835	Core 04	2026.09.09 09:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 09:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=818 mism=0
+MP	0	20:23:41.835	Core 04	2026.09.09 09:25:04   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 09:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=819 mism=0
+CS	0	20:23:41.835	Core 04	2026.09.09 09:35:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 09:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=820 mism=0
+HQ	0	20:23:41.835	Core 04	2026.09.09 09:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 09:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=821 mism=0
+RP	0	20:23:47.938	Core 04	2026.09.09 09:50:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 09:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=822 mism=0
+JI	0	20:23:47.938	Core 04	2026.09.09 09:55:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 09:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=823 mism=0
+EL	0	20:23:47.938	Core 04	2026.09.09 10:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 09:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=824 mism=0
+MH	0	20:23:47.938	Core 04	2026.09.09 10:10:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 10:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=825 mism=0
+CI	0	20:23:54.042	Core 04	2026.09.09 10:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 10:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=826 mism=0
+PI	0	20:23:54.042	Core 04	2026.09.09 10:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 10:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=827 mism=0
+LQ	0	20:23:54.042	Core 04	2026.09.09 10:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 10:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=828 mism=0
+CD	0	20:24:00.146	Core 04	2026.09.09 10:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 10:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=829 mism=0
+KS	0	20:24:00.146	Core 04	2026.09.09 11:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 11:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=830 mism=0
+DF	0	20:24:06.250	Core 04	2026.09.09 11:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 11:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=831 mism=0
+ED	0	20:24:06.250	Core 04	2026.09.09 11:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 11:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=832 mism=0
+LK	0	20:24:06.250	Core 04	2026.09.09 11:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 11:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=833 mism=0
+JL	0	20:24:12.353	Core 04	2026.09.09 12:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 12:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=834 mism=0
+OM	0	20:24:12.353	Core 04	2026.09.09 12:35:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 12:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=835 mism=0
+PR	0	20:24:18.456	Core 04	2026.09.09 12:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 12:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=836 mism=0
+FF	0	20:24:24.560	Core 04	2026.09.09 13:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 13:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=837 mism=0
+HI	0	20:24:24.560	Core 04	2026.09.09 13:25:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 13:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=838 mism=0
+IQ	0	20:24:24.560	Core 04	2026.09.09 13:35:01   [SRJ-EA] CQDRECHECK_PROGRESS bars=3000 hit1=0 hit2=838 mismatch=0
+HK	0	20:24:24.560	Core 04	2026.09.09 13:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 13:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=839 mism=0
+NR	0	20:24:30.664	Core 04	2026.09.09 13:45:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 13:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=840 mism=0
+LS	0	20:24:30.664	Core 04	2026.09.09 14:00:17   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 13:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=841 mism=0
+HN	0	20:24:30.664	Core 04	2026.09.09 14:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 14:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=842 mism=0
+RL	0	20:24:36.767	Core 04	2026.09.09 14:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 14:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=843 mism=0
+HE	0	20:24:36.767	Core 04	2026.09.09 14:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 14:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=844 mism=0
+OH	0	20:24:36.767	Core 04	2026.09.09 14:35:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 14:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=845 mism=0
+PO	0	20:24:36.767	Core 04	2026.09.09 14:40:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 14:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=846 mism=0
+FJ	0	20:24:42.871	Core 04	2026.09.09 14:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 14:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=847 mism=0
+NE	0	20:24:42.871	Core 04	2026.09.09 15:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 14:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=848 mism=0
+NR	0	20:24:42.871	Core 04	2026.09.09 15:10:02   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 15:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=849 mism=0
+HO	0	20:24:42.871	Core 04	2026.09.09 15:20:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 15:10 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=850 mism=0
+II	0	20:24:48.974	Core 04	2026.09.09 15:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 15:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=851 mism=0
+NS	0	20:24:48.974	Core 04	2026.09.09 15:35:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 15:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=852 mism=0
+MP	0	20:24:48.974	Core 04	2026.09.09 15:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 15:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=853 mism=0
+JP	0	20:24:55.078	Core 04	2026.09.09 16:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 15:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=854 mism=0
+FR	0	20:24:55.078	Core 04	2026.09.09 16:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 16:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=855 mism=0
+ON	0	20:25:01.182	Core 04	2026.09.09 16:50:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 16:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=856 mism=0
+JM	0	20:25:01.182	Core 04	2026.09.09 16:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 16:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=857 mism=0
+NL	0	20:25:01.182	Core 04	2026.09.09 17:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 16:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=858 mism=0
+HR	0	20:25:01.182	Core 04	2026.09.09 17:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 17:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=859 mism=0
+JQ	0	20:25:07.285	Core 04	2026.09.09 17:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 17:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=860 mism=0
+IK	0	20:25:07.285	Core 04	2026.09.09 17:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 17:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=861 mism=0
+DJ	0	20:25:07.285	Core 04	2026.09.09 17:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 17:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=862 mism=0
+IQ	0	20:25:07.285	Core 04	2026.09.09 17:45:02   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 17:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=863 mism=0
+HG	0	20:25:13.388	Core 04	2026.09.09 17:50:03   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 17:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=864 mism=0
+QR	0	20:25:13.388	Core 04	2026.09.09 18:05:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 17:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=865 mism=0
+IH	0	20:25:13.388	Core 04	2026.09.09 18:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 18:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=866 mism=0
+OQ	0	20:25:13.388	Core 04	2026.09.09 18:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 18:05 state=S1_REGIME dir=LONG divLatch=1 hit1=0 hit2=867 mism=0
+IK	0	20:25:25.598	Core 04	2026.09.09 18:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 18:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=868 mism=0
+EM	0	20:25:31.713	Core 04	2026.09.09 18:55:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 18:45 state=S4_ARMED dir=LONG divLatch=1 hit1=0 hit2=869 mism=0
+KP	0	20:25:43.933	Core 04	2026.09.09 19:05:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 18:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=870 mism=0
+DK	0	20:25:50.038	Core 04	2026.09.09 19:25:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 19:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=871 mism=0
+CD	0	20:25:50.038	Core 04	2026.09.09 19:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 19:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=872 mism=0
+FK	0	20:25:56.142	Core 04	2026.09.09 20:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 20:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=873 mism=0
+IM	0	20:25:56.142	Core 04	2026.09.09 20:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 20:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=874 mism=0
+IM	0	20:26:02.246	Core 04	2026.09.09 20:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 20:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=875 mism=0
+QR	0	20:26:02.246	Core 04	2026.09.09 20:35:01   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 20:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=876 mism=0
+NQ	0	20:26:02.246	Core 04	2026.09.09 20:45:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.09.09 20:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=877 mism=0
+GK	0	20:26:08.350	Core 04	2026.09.09 21:00:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 20:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=878 mism=0
+FN	0	20:26:08.350	Core 04	2026.09.09 21:10:07   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 21:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=879 mism=0
+DP	0	20:26:08.350	Core 04	2026.09.09 21:15:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 21:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=880 mism=0
+CO	0	20:26:14.454	Core 04	2026.09.09 21:35:07   [SRJ-EA] CQDRECHECK shift=2 passA=-2.0 passB=-2.0 diff=0 bar=2026.09.09 21:25 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=881 mism=0
+FS	0	20:26:14.454	Core 04	2026.09.09 21:50:03   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 21:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=882 mism=0
+HE	0	20:26:14.454	Core 04	2026.09.09 21:55:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 21:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=883 mism=0
+GO	0	20:26:14.454	Core 04	2026.09.09 22:00:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 21:50 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=884 mism=0
+GE	0	20:26:20.557	Core 04	2026.09.09 22:10:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 22:00 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=885 mism=0
+JL	0	20:26:20.557	Core 04	2026.09.09 22:15:04   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 22:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=886 mism=0
+CF	0	20:26:20.557	Core 04	2026.09.09 22:30:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 22:20 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=887 mism=0
+GH	0	20:26:20.557	Core 04	2026.09.09 22:40:07   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 22:30 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=888 mism=0
+RI	0	20:26:32.764	Core 04	2026.09.09 23:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 23:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=889 mism=0
+IF	0	20:26:32.764	Core 04	2026.09.09 23:25:01   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.09.09 23:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=890 mism=0
+KP	0	20:26:32.764	Core 04	2026.09.09 23:45:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 23:35 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=891 mism=0
+PK	0	20:26:33.925	Core 04	2026.09.09 23:55:00   [SRJ-EA] CQDRECHECK shift=2 passA=-1.0 passB=-1.0 diff=0 bar=2026.09.09 23:45 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=892 mism=0
+HF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=3168 | sh1 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0 | sh2 neg=1554 zero=0 pos=1614 empty=0 other=0 fail=0
+RD	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=3168 both=0 xobOnly=3168 fvgOnly=0 neither=0 | inWindow=1056 xobInWin=1056 fvgInWin=0 | samples=0
+MK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLMEMO_CENSUS computes=471 hits=118 demands=589
+QG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=3168 stores=3168 changes=205 mismatch=0
+PM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] BLACKOUT_CENSUS rows=11 rowsInWindow=1 memberBars=3 expected=3 mismatch=0 overlaps=0 slimbInWindow=1 s5InWindow=0 newsFlatCandidates=0 dayFlatCandidates=0 weekFlatCandidates=0 dailyCloseET=17:00 fridayET=2026-08-28 17:00|2026-09-04 17:00
+GO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SIGMAP fields=3 signals=4 mapped=4 map=2026.08.28 10:05->2026.08.28 10:00|2026.09.04 16:00->2026.09.04 15:55|2026.09.07 09:20->2026.09.07 09:15|2026.09.07 16:45->2026.09.07 16:40
+DJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLIMBR_DECISION rows=10
+FJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION rows=10 fired=4 threshold=1.00 thresholdSource=compiled_default orderFlipPass=0 orderFlipScope=NARROW
+CS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.08.26 14:40 site=S5 dir=LONG fired=0 ladCovers=1 ladRungs=30 level=- levelStatus=NOLEVEL_FILED levelRung=-1 levelSlot=-1 levelT=- levelResidPts=0 levelPx=- levelR=0.00
+QO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.08.27 17:00 site=S5 dir=SHORT fired=0 ladCovers=1 ladRungs=52 level=- levelStatus=NOLEVEL_FILED levelRung=-1 levelSlot=-1 levelT=- levelResidPts=0 levelPx=- levelR=0.00
+MM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.08.28 10:00 site=S5 dir=SHORT fired=1 ladCovers=1 ladRungs=11 level=- levelStatus=NOLEVEL_FILED levelRung=-1 levelSlot=-1 levelT=- levelResidPts=0 levelPx=- levelR=0.00
+ID	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.08.28 10:00 site=S5 kind=SLOT rung=0 slot=0 rungExt=0 barTime=2026.08.28 09:55 px=1.16491 wick=1.16491 body=1.16482 imbCode=0 distPts=-17 rungR=4.08
+EQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.08.28 10:00 site=S5 kind=SLOT rung=1 slot=2 rungExt=-1 barTime=2026.08.28 09:45 px=1.16481 wick=1.16481 body=1.16476 imbCode=0 distPts=-27 rungR=6.80
+GP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.08.28 10:00 site=S5 kind=SLOT rung=2 slot=4 rungExt=-1 barTime=2026.08.28 09:35 px=1.16482 wick=1.16482 body=1.16467 imbCode=0 distPts=-26 rungR=6.38
+RM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.08.28 10:00 site=S5 kind=EXT rung=0 slot=0 rungExt=0 barTime=2026.08.28 09:55 px=1.16491 wick=1.16491 body=1.16482 imbCode=0 distPts=-17 rungR=4.08
+NN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.08.28 10:00 site=S5 kind=EXT rung=1 slot=41 rungExt=1 barTime=2026.08.28 06:30 px=1.16508 wick=1.16508 body=1.16506 imbCode=0 distPts=0 rungR=2.43
+DQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.08.28 10:00 site=S5 kind=EXT rung=2 slot=47 rungExt=2 barTime=2026.08.28 06:00 px=1.16513 wick=1.16513 body=1.16508 imbCode=1 distPts=5 rungR=2.17
+LP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.08.28 16:20 site=S5 dir=SHORT fired=0 ladCovers=1 ladRungs=35 level=- levelStatus=NOLEVEL_FILED levelRung=-1 levelSlot=-1 levelT=- levelResidPts=0 levelPx=- levelR=0.00
+IO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.09.04 09:25 site=S5 dir=LONG fired=0 ladCovers=1 ladRungs=25 level=1.15907 levelStatus=NOMATCH levelRung=24 levelSlot=174 levelT=2026.09.03 18:50 levelResidPts=-266 levelPx=1.16173 levelR=0.22
+LJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.09.04 10:35 site=S5 dir=SHORT fired=0 ladCovers=1 ladRungs=29 level=1.15907 levelStatus=NOMATCH levelRung=18 levelSlot=112 levelT=2026.09.04 01:10 levelResidPts=-361 levelPx=1.16268 levelR=13.67
+LJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.09.04 15:55 site=S5 dir=LONG fired=1 ladCovers=1 ladRungs=49 level=1.15907 levelStatus=MATCH levelRung=16 levelSlot=407 levelT=2026.09.03 05:55 levelResidPts=0 levelPx=1.15907 levelR=2.56
+FO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.04 15:55 site=S5 kind=SLOT rung=0 slot=1 rungExt=0 barTime=2026.09.04 15:45 px=1.15902 wick=1.15902 body=1.15990 imbCode=0 distPts=-5 rungR=2.45
+RK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.04 15:55 site=S5 kind=SLOT rung=1 slot=4 rungExt=1 barTime=2026.09.04 15:30 px=1.15847 wick=1.15847 body=1.15945 imbCode=0 distPts=-60 rungR=1.66
+DI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.04 15:55 site=S5 kind=SLOT rung=2 slot=309 rungExt=-1 barTime=2026.09.03 14:05 px=1.16017 wick=1.16017 body=1.16032 imbCode=0 distPts=110 rungR=284.00
+IF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.04 15:55 site=S5 kind=EXT rung=0 slot=1 rungExt=0 barTime=2026.09.04 15:45 px=1.15902 wick=1.15902 body=1.15990 imbCode=0 distPts=-5 rungR=2.45
+OD	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.04 15:55 site=S5 kind=EXT rung=1 slot=4 rungExt=1 barTime=2026.09.04 15:30 px=1.15847 wick=1.15847 body=1.15945 imbCode=0 distPts=-60 rungR=1.66
+HK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.04 15:55 site=S5 kind=EXT rung=2 slot=442 rungExt=2 barTime=2026.09.03 03:00 px=1.15835 wick=1.15835 body=1.15849 imbCode=0 distPts=-72 rungR=1.55
+QG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.09.07 09:15 site=S5 dir=LONG fired=1 ladCovers=1 ladRungs=32 level=1.16240 levelStatus=NOMATCH levelRung=20 levelSlot=128 levelT=2026.09.04 22:30 levelResidPts=109 levelPx=1.16131 levelR=16.25
+JJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 09:15 site=S5 kind=SLOT rung=0 slot=0 rungExt=0 barTime=2026.09.07 09:10 px=1.16102 wick=1.16102 body=1.16114 imbCode=0 distPts=4 rungR=1.97
+KJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 09:15 site=S5 kind=SLOT rung=1 slot=2 rungExt=-1 barTime=2026.09.07 09:00 px=1.16103 wick=1.16103 body=1.16116 imbCode=0 distPts=5 rungR=2.03
+II	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 09:15 site=S5 kind=SLOT rung=2 slot=6 rungExt=1 barTime=2026.09.07 08:40 px=1.16098 wick=1.16098 body=1.16104 imbCode=0 distPts=0 rungR=1.76
+OJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 09:15 site=S5 kind=EXT rung=0 slot=0 rungExt=0 barTime=2026.09.07 09:10 px=1.16102 wick=1.16102 body=1.16114 imbCode=0 distPts=4 rungR=1.97
+EK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 09:15 site=S5 kind=EXT rung=1 slot=6 rungExt=1 barTime=2026.09.07 08:40 px=1.16098 wick=1.16098 body=1.16104 imbCode=0 distPts=0 rungR=1.76
+NK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 09:15 site=S5 kind=EXT rung=2 slot=10 rungExt=2 barTime=2026.09.07 08:20 px=1.16088 wick=1.16088 body=1.16098 imbCode=0 distPts=-10 rungR=1.38
+FR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.09.07 16:40 site=S5 dir=LONG fired=1 ladCovers=1 ladRungs=21 level=1.16240 levelStatus=MATCH levelRung=0 levelSlot=1 levelT=2026.09.07 16:30 levelResidPts=0 levelPx=1.16240 levelR=2.56
+NE	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 16:40 site=S5 kind=SLOT rung=0 slot=1 rungExt=0 barTime=2026.09.07 16:30 px=1.16240 wick=1.16240 body=1.16247 imbCode=0 distPts=22 rungR=2.56
+PE	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 16:40 site=S5 kind=SLOT rung=1 slot=4 rungExt=-1 barTime=2026.09.07 16:15 px=1.16239 wick=1.16239 body=1.16250 imbCode=0 distPts=21 rungR=2.45
+FF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 16:40 site=S5 kind=SLOT rung=2 slot=6 rungExt=1 barTime=2026.09.07 16:05 px=1.16238 wick=1.16238 body=1.16245 imbCode=0 distPts=20 rungR=2.34
+MM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 16:40 site=S5 kind=EXT rung=0 slot=1 rungExt=0 barTime=2026.09.07 16:30 px=1.16240 wick=1.16240 body=1.16247 imbCode=0 distPts=22 rungR=2.56
+NL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 16:40 site=S5 kind=EXT rung=1 slot=6 rungExt=1 barTime=2026.09.07 16:05 px=1.16238 wick=1.16238 body=1.16245 imbCode=0 distPts=20 rungR=2.34
+IM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_RUNG fields=13 bar=2026.09.07 16:40 site=S5 kind=EXT rung=2 slot=16 rungExt=2 barTime=2026.09.07 15:15 px=1.16209 wick=1.16209 body=1.16220 imbCode=0 distPts=-9 rungR=1.03
+MN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SLADDER_DECISION_ROW fields=14 bar=2026.09.08 16:40 site=S5 dir=SHORT fired=0 ladCovers=0 ladRungs=52 level=- levelStatus=NOLEVEL_FILED levelRung=-1 levelSlot=-1 levelT=- levelResidPts=0 levelPx=- levelR=0.00
+RR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R1 tf=M5 listN=173
+NF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R1 tf=H1 listN=15
+EO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V001 tf=M5 scanned=3 def=1 px=1.16482 bt=2026.08.28 09:35
+EL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V002 tf=H1 scanned=5 def=1 px=1.16598 bt=2026.08.27 16:25
+NO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V005 tf=M5 scanned=14 def=1 px=1.16508 bt=2026.08.28 06:30
+OQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V006 tf=H1 scanned=5 def=1 px=1.16598 bt=2026.08.27 16:25
+QP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V009 tf=M5 scanned=3 def=1 px=1.16482 bt=2026.08.28 09:35
+PF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V010 tf=H1 scanned=5 def=1 px=1.16598 bt=2026.08.27 16:25
+KF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V013 tf=M5 scanned=14 def=1 px=1.16508 bt=2026.08.28 06:30
+FJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V014 tf=H1 scanned=5 def=1 px=1.16598 bt=2026.08.27 16:25
+PI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V017 tf=M5 scanned=3 def=1 px=1.16482 bt=2026.08.28 09:35
+DO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V018 tf=H1 scanned=5 def=1 px=1.16598 bt=2026.08.27 16:25
+HM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V021 tf=M5 scanned=14 def=1 px=1.16508 bt=2026.08.28 06:30
+ES	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R1 v=V022 tf=H1 scanned=5 def=1 px=1.16598 bt=2026.08.27 16:25
+JP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R2 tf=M5 listN=161
+QN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R2 tf=H1 listN=13
+JG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V001 tf=M5 scanned=3 def=1 px=1.16297 bt=2026.09.04 10:05
+GE	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V002 tf=H1 scanned=5 def=1 px=1.16412 bt=2026.09.03 19:50
+FD	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V005 tf=M5 scanned=3 def=1 px=1.16297 bt=2026.09.04 10:05
+CJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V006 tf=H1 scanned=5 def=1 px=1.16412 bt=2026.09.03 19:50
+RI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V009 tf=M5 scanned=3 def=1 px=1.16297 bt=2026.09.04 10:05
+JO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V010 tf=H1 scanned=5 def=1 px=1.16412 bt=2026.09.03 19:50
+GN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V013 tf=M5 scanned=3 def=1 px=1.16297 bt=2026.09.04 10:05
+FL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V014 tf=H1 scanned=5 def=1 px=1.16412 bt=2026.09.03 19:50
+CS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V017 tf=M5 scanned=3 def=1 px=1.16297 bt=2026.09.04 10:05
+RQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V018 tf=H1 scanned=5 def=1 px=1.16412 bt=2026.09.03 19:50
+HP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V021 tf=M5 scanned=3 def=1 px=1.16297 bt=2026.09.04 10:05
+IF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R2 v=V022 tf=H1 scanned=5 def=1 px=1.16412 bt=2026.09.03 19:50
+EI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R3 tf=M5 listN=165
+KL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R3 tf=H1 listN=14
+DQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V001 tf=M5 scanned=3 def=1 px=1.15847 bt=2026.09.04 15:30
+MO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V002 tf=H1 scanned=11 def=1 px=1.15835 bt=2026.09.03 03:00
+NS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V005 tf=M5 scanned=3 def=1 px=1.15847 bt=2026.09.04 15:30
+KL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V006 tf=H1 scanned=11 def=1 px=1.15835 bt=2026.09.03 03:00
+PN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V009 tf=M5 scanned=3 def=1 px=1.15847 bt=2026.09.04 15:30
+HI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V010 tf=H1 scanned=11 def=1 px=1.15835 bt=2026.09.03 03:00
+CI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V013 tf=M5 scanned=3 def=1 px=1.15847 bt=2026.09.04 15:30
+RG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V014 tf=H1 scanned=11 def=1 px=1.15835 bt=2026.09.03 03:00
+QK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V017 tf=M5 scanned=3 def=1 px=1.15847 bt=2026.09.04 15:30
+LD	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V018 tf=H1 scanned=11 def=1 px=1.15835 bt=2026.09.03 03:00
+HF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V021 tf=M5 scanned=3 def=1 px=1.15847 bt=2026.09.04 15:30
+IQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R3 v=V022 tf=H1 scanned=11 def=1 px=1.15835 bt=2026.09.03 03:00
+DS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R4 tf=M5 listN=28
+NK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R4 tf=H1 listN=3
+LN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V001 tf=M5 scanned=4 def=1 px=1.16088 bt=2026.09.07 08:20
+HR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V002 tf=H1 scanned=3 def=1 px=1.16050 bt=2026.09.07 00:40
+FK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V005 tf=M5 scanned=4 def=1 px=1.16088 bt=2026.09.07 08:20
+NO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V006 tf=H1 scanned=3 def=1 px=1.16050 bt=2026.09.07 00:40
+HG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V009 tf=M5 scanned=4 def=1 px=1.16088 bt=2026.09.07 08:20
+EK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V010 tf=H1 scanned=3 def=1 px=1.16050 bt=2026.09.07 00:40
+KS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V013 tf=M5 scanned=4 def=1 px=1.16088 bt=2026.09.07 08:20
+OP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V014 tf=H1 scanned=3 def=1 px=1.16050 bt=2026.09.07 00:40
+IH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V017 tf=M5 scanned=4 def=1 px=1.16088 bt=2026.09.07 08:20
+IL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V018 tf=H1 scanned=3 def=1 px=1.16050 bt=2026.09.07 00:40
+PD	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V021 tf=M5 scanned=4 def=1 px=1.16088 bt=2026.09.07 08:20
+HH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R4 v=V022 tf=H1 scanned=3 def=1 px=1.16050 bt=2026.09.07 00:40
+QJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R5 tf=M5 listN=48
+RL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=R5 tf=H1 listN=4
+KP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V001 tf=M5 scanned=3 def=1 px=1.16238 bt=2026.09.07 16:05
+PN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V002 tf=H1 scanned=4 def=1 px=1.16050 bt=2026.09.07 00:40
+EF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V005 tf=M5 scanned=3 def=1 px=1.16238 bt=2026.09.07 16:05
+FS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V006 tf=H1 scanned=4 def=1 px=1.16050 bt=2026.09.07 00:40
+MS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V009 tf=M5 scanned=3 def=1 px=1.16238 bt=2026.09.07 16:05
+KH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V010 tf=H1 scanned=4 def=1 px=1.16050 bt=2026.09.07 00:40
+NP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V013 tf=M5 scanned=3 def=1 px=1.16238 bt=2026.09.07 16:05
+MN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V014 tf=H1 scanned=4 def=1 px=1.16050 bt=2026.09.07 00:40
+FM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V017 tf=M5 scanned=3 def=1 px=1.16238 bt=2026.09.07 16:05
+MJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V018 tf=H1 scanned=4 def=1 px=1.16050 bt=2026.09.07 00:40
+CS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V021 tf=M5 scanned=3 def=1 px=1.16238 bt=2026.09.07 16:05
+LH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=R5 v=V022 tf=H1 scanned=4 def=1 px=1.16050 bt=2026.09.07 00:40
+CL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=S1 tf=M5 listN=104
+QN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=S1 tf=H1 listN=8
+OR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V001 tf=M5 scanned=3 def=1 px=1.16359 bt=2026.09.08 09:05
+RO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V002 tf=H1 scanned=4 def=1 px=1.16329 bt=2026.09.07 17:15
+KN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V005 tf=M5 scanned=3 def=1 px=1.16359 bt=2026.09.08 09:05
+ML	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V006 tf=H1 scanned=5 def=1 px=1.16358 bt=2026.09.07 11:20
+QL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V009 tf=M5 scanned=3 def=1 px=1.16359 bt=2026.09.08 09:05
+II	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V010 tf=H1 scanned=4 def=1 px=1.16329 bt=2026.09.07 17:15
+HH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V013 tf=M5 scanned=3 def=1 px=1.16359 bt=2026.09.08 09:05
+JN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V014 tf=H1 scanned=5 def=1 px=1.16358 bt=2026.09.07 11:20
+JN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V017 tf=M5 scanned=3 def=1 px=1.16359 bt=2026.09.08 09:05
+KK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V018 tf=H1 scanned=4 def=1 px=1.16329 bt=2026.09.07 17:15
+EJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V021 tf=M5 scanned=3 def=1 px=1.16359 bt=2026.09.08 09:05
+KO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S1 v=V022 tf=H1 scanned=5 def=1 px=1.16358 bt=2026.09.07 11:20
+FS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=S2 tf=M5 listN=126
+QI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL57END ex=S2 tf=H1 listN=10
+DF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V001 tf=M5 scanned=3 def=1 px=1.16250 bt=2026.09.08 16:05
+HR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V002 tf=H1 scanned=4 def=1 px=1.16345 bt=2026.09.08 05:05
+HF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V005 tf=M5 scanned=25 def=1 px=1.16359 bt=2026.09.08 09:05
+CP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V006 tf=H1 scanned=10 def=0 px=- bt=-
+HF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V009 tf=M5 scanned=3 def=1 px=1.16250 bt=2026.09.08 16:05
+ER	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V010 tf=H1 scanned=4 def=1 px=1.16345 bt=2026.09.08 05:05
+QF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V013 tf=M5 scanned=25 def=1 px=1.16359 bt=2026.09.08 09:05
+JP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V014 tf=H1 scanned=10 def=0 px=- bt=-
+QF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V017 tf=M5 scanned=3 def=1 px=1.16250 bt=2026.09.08 16:05
+IR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V018 tf=H1 scanned=4 def=1 px=1.16345 bt=2026.09.08 05:05
+NF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V021 tf=M5 scanned=25 def=1 px=1.16359 bt=2026.09.08 09:05
+QP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL58END ex=S2 v=V022 tf=H1 scanned=10 def=0 px=- bt=-
+RQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V001 elig=1 G1x4=1 G2x3=0
+LE	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V002 elig=1 G1x4=0 G2x3=0
+HI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V003 elig=0 G1x4=0 G2x3=0
+IM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V004 elig=0 G1x4=0 G2x3=0
+KN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V005 elig=1 G1x4=2 G2x3=0
+PR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V006 elig=1 G1x4=0 G2x3=0
+DF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V007 elig=0 G1x4=0 G2x3=0
+MJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V008 elig=0 G1x4=0 G2x3=0
+JO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V009 elig=1 G1x4=1 G2x3=0
+MS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V010 elig=1 G1x4=0 G2x3=0
+IG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V011 elig=0 G1x4=0 G2x3=0
+DK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V012 elig=0 G1x4=0 G2x3=0
+RL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V013 elig=1 G1x4=2 G2x3=0
+QP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V014 elig=1 G1x4=0 G2x3=0
+ED	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V015 elig=0 G1x4=0 G2x3=0
+HH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V016 elig=0 G1x4=0 G2x3=0
+KM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V017 elig=1 G1x4=1 G2x3=0
+EQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V018 elig=1 G1x4=0 G2x3=0
+QE	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V019 elig=0 G1x4=0 G2x3=0
+CI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V020 elig=0 G1x4=0 G2x3=0
+QJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V021 elig=1 G1x4=2 G2x3=0
+NN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V022 elig=1 G1x4=0 G2x3=0
+JR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V023 elig=0 G1x4=0 G2x3=0
+GF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL53_FINAL v=V024 elig=0 G1x4=0 G2x3=0
+PM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V001 elig=1 defRows=597 ctxRows=599
+LN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V002 elig=1 defRows=589 ctxRows=599
+CP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V003 elig=0 defRows=599 ctxRows=599
+DE	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V004 elig=0 defRows=597 ctxRows=599
+LG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V005 elig=1 defRows=597 ctxRows=599
+OH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V006 elig=1 defRows=555 ctxRows=599
+GJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V007 elig=0 defRows=599 ctxRows=599
+HO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V008 elig=0 defRows=560 ctxRows=599
+HQ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V009 elig=1 defRows=597 ctxRows=599
+MR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V010 elig=1 defRows=589 ctxRows=599
+FD	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V011 elig=0 defRows=599 ctxRows=599
+II	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V012 elig=0 defRows=597 ctxRows=599
+QK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V013 elig=1 defRows=597 ctxRows=599
+RL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V014 elig=1 defRows=555 ctxRows=599
+JN	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V015 elig=0 defRows=599 ctxRows=599
+MS	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V016 elig=0 defRows=560 ctxRows=599
+ME	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V017 elig=1 defRows=597 ctxRows=599
+EF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V018 elig=1 defRows=589 ctxRows=599
+HH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V019 elig=0 defRows=597 ctxRows=599
+JM	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V020 elig=0 defRows=597 ctxRows=599
+RO	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V021 elig=1 defRows=597 ctxRows=599
+MP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V022 elig=1 defRows=555 ctxRows=599
+OR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V023 elig=0 defRows=597 ctxRows=599
+NG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL52_FINAL v=V024 elig=0 defRows=560 ctxRows=599
+QH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL56_FINAL ctxRows=599 s1hook=1 s2hook=1 sel55rows=5
+ED	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL60DISCEND ex=S1 tf=M5 win=2026.09.08 09:40..2026.09.08 10:10 limbs=1 l3via=0 token=S-A-LIVE
+CG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL60DISCEND ex=S1 tf=H1 win=2026.09.08 09:40..2026.09.08 10:10 limbs=0 l3via=0 token=S-A-LIVE
+CR	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL61PROBEEND rows=14 expect=14
+PF	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL61INV declines=1 promoAtt=0 overturnBlocked=0 wiring=OK
+EG	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL61OVR overrides=0 table=EMPTY
+CI	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL61INDEP adopt=0 ordersend=0/0 sizefields=0 h4branches=0
+ER	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL61SCOPE rows=40 violations=4 table=EMPTY
+NL	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL61SRCEND stamps=599 dups=0
+RJ	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL61LIVE calls=56 agree=56 delta=0
+MK	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL61SUMMARY h4reads=7 drops=0 tiebreak=0 haltNC=0
+HH	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL54_FINAL s1hook=1 s2hook=1
+IP	0	20:26:33.925	Core 04	2026.09.09 23:59:58   [SRJ-EA] SEL55_FINAL rows=5

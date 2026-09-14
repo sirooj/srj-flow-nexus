@@ -44,6 +44,18 @@ Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says s
     selection change. First use: P-ORIGIN-1 builds on Astra-1 alone.
 - Strategy-rule questions NOT answered by the spec go to THE OPERATOR.
   Answer from documented rules FIRST before framing operator questions.
+  RECORD-FIRST QUESTION GATE (operator directive 2026-09-14, after the
+  v22 incident where Q1/Q2/Q3 were all answerable on record): before ANY
+  question goes to the operator, search IN ORDER — spec Part A v4.2
+  (cited section), restatement, findings, journal — and file the search
+  (sources checked + why each fails to answer) WITH the question. A
+  question the record already answers is a BUILDER DEFECT, not a relay.
+  Council "owed to him" redirects get the same check BEFORE relaying
+  (v22: R5-width answered by spec §3.7 three-candle; resolver ownership
+  answered by spec §3.2 + restatement §1; 16:15-vs-16:05 dissolves under
+  the rule once probed at the specified width). Renderings the builder
+  or council chose (5-bar window, tolerances, diagnostic windows) must
+  be labeled as renderings at creation, never presented as his numbers.
 - Final authority on goals and money: the operator.
 
 ## 3. Communication rule (operator directive, verbatim core)
@@ -147,6 +159,14 @@ Masters judge measurements on disk, never prose about them.
   ProcessStartInfo form let the wrapper inherit the builder shell's pipe and
   hung the launch call until the run ended (~1h). Launch prints one line and
   returns in <1s; completion is detected later via the DONE file only.
+  AMENDMENT 2026-09-14 (operator-caught): the builder-side hang is imposed
+  by the tool harness holding the builder call open until the spawned
+  process TREE quiets — neither `cmd /c start` nor Start-Process+redirect
+  escapes it (both probed: output prints instantly, return held to
+  timeout). Spawn via Win32_Process.Create (WMI, parent=wmiprvse) —
+  probed instant return with live payload (WMI-PID + RC=0), probe
+  cleaned. Future launchers use the WMI form; in-flight RECON22
+  (launched via proven `cmd /c start`, healthy) untouched.
 - Wrapper journal reads must stay O(n) (List.Add, never `+=`): the 54 MB day
   log cost 15 silent pre-flight minutes on RECON13 (a full CPU core, no STATUS
   update). Fixed in-script 2026-09-12; affects launches after RECON13 only.
@@ -1119,7 +1139,457 @@ Masters judge measurements on disk, never prose about them.
     stage 2). If 90-min timeout or >1-forming-limb or unattributed
     admission: REPORT+HALT. Commit 7b4ea50 = records checkpoint
     pre-compact (60 files; EA + debris excluded; no push/tag).
+    + 551a5b2 part 2 (v21 verdicts + DUAL-CLEARED-STAGE-1 + item 57).
     UNCOMMITTED (no token).
+58. P-LIMBSEAT-1 STAGE-1 BUILT + LAUNCHED 2026-09-14 (operator run word =
+    his "proceed to the next queue item" post-compact). Build EA
+    D23505D4… (488941 B, both compile 0/0 first attempt, FlowLogic
+    3606BFB4 unchanged): (a) HAND fixture
+    `Include\SRJ\SRJ_HandFixture.mqh` (4 functions moved byte-identical;
+    six literals now ONLY there — grep gate PASS); (b) limbs_v2 shadow
+    (verbatim L1 / non-strict L2 eps-0 shelf / displacement L3 with STOP
+    imb idiom; set-valued admitted_by R1; L3-necessary R2; shadow-only
+    R3; 48h diagnostic window; SEL60LIMB/END/FINAL); (c) F2
+    discriminator (SEL60DISC + S-B-HOLDS/S-A-LIVE/HALT-NEWCLASS token);
+    (d) F3 provenance (3-site write-chain INIT/ResetSequence/
+    DetectPoiRetest + SEL60PROV at the two Sep-8 bars reusing SEL54BAR
+    meter reads). DEFERRED to stage 2 (R4 "may"): stop_source +
+    one-writer invariant (zero graded benefit, nonzero touch risk).
+    Parity: pre-hash 150A6159 verified; single definitions; legacy
+    lines intact (rungs/SLEXT47 verified present); unexpected diff
+    hunks = pre-existing uncommitted SEL-2 delta (150A6159 ran 21b).
+    RECON22-LIMBSEAT1 LAUNCHED 14:50:53 PID 22308 PRE=149918
+    (contiguous from 21b), CEILING_MIN=90, Core 04, same ini/range;
+    leftover 4636 closed graceful; STANDBYIDLE AC/DC 0; SLOT verified
+    free. Next on HIS completion signal: archive → D-grade (prints vs
+    7 predictions + F3(5) statement) → result → grading relay
+    (dual-key for stage 2).     REPORT+HALT triggers: 90-min timeout,
+    >1-forming-limb, unattributed admission. UNCOMMITTED (no token).
+59. RECON22-LIMBSEAT1 DONE=PASSED 2026-09-14 (Test passed 0:54:56.778;
+    3168 bars / 563338 ticks; archive 55389 lines SHA 0B256BA7… bounds
+    [149918..205307] contiguous; purity farm-off/cloud-off/Core-04/
+    Test-passed; MAXLEN=537=cap zero exceedance; leftover 22308 closed
+    graceful). P-LIMBSEAT-1 STAGE-1 DELIVERED: D1 14/14, D2 unattributed
+    0 + dropped 0 (892 stored), D3 isolation PASS (481×3+10/10, 599,
+    14376, 11817 traces, 118 memo, 152 suppressed, 4/4 signals
+    byte-identical vs 21b, SEL53 matrix identical, R-values identical,
+    OrderSend 0). Predictions: R1/R2/R3 PASS (controls hold, no R1
+    ordinal regression); R4 08:40 ABSENT both TFs → blank-(b) route
+    (F1 not extended); R5 L1 REFUTED (no 16:15-lower limb any switch
+    either TF; walk retains 16:05; anchor unshifted; no force-fit);
+    S1 S-A-LIVE both TFs (1 limb M5 = 09:40 itself, 0 H1, l3via 0;
+    S-B not held, no halt); S2 provenance DELIVERED (chain names
+    DetectPoiRetest=LONG at both bars; meters -1/-1 + CQD EMPTY oppose;
+    F3(5) vacuous at stage 1 — no override code). No REPORT+HALT
+    trigger fired. Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON22-LIMBSEAT1.md`) + tab extracts
+    (RECON22_SEL60/FINALS.txt) + grading relay v22 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v22-LIMBSEAT1-GRADE.md`: accept
+    / rule-R5 + CLEAR-stage-2-BY-NAME / nothing-commits; ~1h flagged).
+    Stage 2 HELD (no dual key, no run word). RECON17 frozen.
+    UNCOMMITTED (no token; records ride next authorized snapshot).
+60. DUAL VERDICTS ON v22 FILED 2026-09-14 (Astra-12 + Opus-v22, both
+    verbatim; v22 answered; NEITHER states a Ruling-ID — v23 requests
+    IDs). AGREED: stage-1 ACCEPTED (D1-D3, controls, blank-b, S-A-LIVE,
+    provenance, no-halt); R5 L1-mechanism RETIRED (filed 1.16239 kept
+    authoritative, no substitution); RECON17 frozen; build D23505D4
+    uncommitted; run word needed. NOT dual-key for stage 2: Astra
+    WITHHOLDS naming (wants frozen stage-2 text + 7 predictions inside
+    the clearance record) vs Opus NAMES conditionally (F1 ✓ / F2 ✓ +
+    HALT-NEWCLASS pre-declare / F3 ✓ + loud POLARITY_MISMATCH invariant
+    / SCOPED ✓ / F4 NARROWED to byte-identity refactor, behavior shut
+    till R5(1); 7-bar delta-set prediction rule; S-A-LIVE-on-two-TFs =
+    one classification; no-memory rule → v23 inlines clearance text).
+    No conflict (Opus conditions satisfiable inside Astra's demands).
+    OWED FROM OPERATOR (blocks v23/stage-2-pack): Q1 5-bar his-width vs
+    builder-rendering (till answered R5 = REFUTED-PENDING-SCOPE, F4
+    behavior shut); Q2 1.16238-vs-1.16239 same-level vs different-swing;
+    Q3 resolver ownership (restore HTF-bias-only vs POI-retest owns
+    side — different code each way). Next: his 3 answers → draft v23
+    (frozen stage-2 + predictions + answers, dual-key ask) → keys →
+    build. NO build/run/commit (no stage-2 authority). UNCOMMITTED.
+61. OPERATOR CORRECTION 2026-09-14 (record-first failure, owned): v22's
+    three relayed questions were all answerable on record — builder
+    asked from the verdicts instead of the spec. WITHDRAWN as operator
+    questions: Q1 (5-bar width — spec §3.7 says three-candle; 5-bar was
+    the v14 council rendering, so the L1 refutation is scoped to the
+    rendering, NOT his mechanism); Q2 (16:15-vs-16:05 — dissolves under
+    the rule once probed at the specified three-candle width; his filed
+    1.16239 stays authoritative meanwhile); Q3 (resolver ownership —
+    spec §3.2 + restatement §1 already rule TF-bias-only, so F3 restores
+    it; the POI-retest ownership is a code defect, never a rule
+    question). Item-60 "OWED FROM OPERATOR" VACATED — nothing is owed
+    from him. Consequence: v23 needs NO operator answers first; it
+    carries the frozen stage-2 text + 7 predictions + an ASK for council
+    authorization of ONE three-candle print probe (new width = new
+    diagnostic, needs a key; asking, not searching). RECORD-FIRST
+    QUESTION GATE adopted (§2) + three-candle cite added to restatement
+    §4. Next: draft v23 → dual-key ask (stage-2 + probe auth) → keys →
+    build. NO build/run/commit. UNCOMMITTED.
+62. RELAY v23 DRAFTED 2026-09-14
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v23-STAGE2-PACKET.md`, verified
+    by read-back): frozen S2-1–S2-7 (F1-as-attributed + F2 S-A with
+    HALT-NEWCLASS pre-declare + F3 resolver with loud mismatch invariant
+    and empty override table + SCOPED intact + F4 byte-identity-only +
+    S2-6 three-candle print probe, both branches pre-registered, no
+    width ships) + 7+1 delta-partitioned prediction rule + §1 record
+    corrections (Q-withdrawals with cites) + inlined clearance text
+    (no-memory rule) + Ruling-ID request. Paste whole to EACH model,
+    verdicts back whole, one source per message. NO build/run until
+    BOTH streams name the packet + his run word (~1h flagged).
+    UNCOMMITTED (no token).
+63. DUAL VERDICTS ON v23 FILED 2026-09-14 (Astra-13 GPT-v23-S2-001 +
+    Opus-v23 OPUS-V23-CLR-01, both verbatim; v23 answered; BOTH state
+    Ruling-IDs this time). BOTH CLEAR the frozen stage-2 packet BY NAME
+    (Astra: scope-review clearance; Opus: conditional C1–C5, pre-run
+    declaration-only, no operator ruling needed). DUAL-KEY COMPLETE for
+    ONE stage-2 build+run EXCEPT his run word (~1h flagged, unspent).
+    SPEC-ALIGNMENT AUDIT (operator-ordered, anti-waste gate before the
+    hour is spent) — S2-1: aligned-with-note (branch selector untouched;
+    5-bar L1/L2/legacy are a CONSERVATIVE SUBSET of his three-candle:
+    5-bar-strict implies 3-bar-strict, so shipped limbs are all
+    spec-valid; misses route to blanks/HALT, never wrong stops; L3/
+    shelf/proj = council mechanics under prediction grading).
+    S2-2: AMBER-contained (origin-identification = council phrasing on
+    his anchors; never-born S1/S2 rows = no legacy consumer, so any
+    geometric surprise converts to HALT-NEWCLASS, never a wrong result;
+    P6 wording "origin-limb = 09:40 itself" adopted operationally as
+    SEAT-must-be-09:40-else-HALT, origin reported-not-graded).
+    S2-3: aligned (TF-bias/MR-sweep per §3.2+restatement §1; divergence
+    codes per §3.8; veto per restatement §3 precedent; INDEPENDENCE per
+    §1+§7) with ONE real tension flagged: F3.1 bans majority while spec
+    §3.2 says simple-majority — bites ONLY on split reads; the two
+    delta bars are unanimous (1H+15m bear), everything else must
+    reproduce legacy side byte-identically or HALT; NO tie-break
+    invented, council may tighten later. S2-4: verbatim aligned
+    (single-trade confirm). S2-5: no spec surface (refactor only).
+    S2-6: directly specified (three-candle §3.7, print-only).
+    P1-P8: aligned (controls/filed-authoritative/R≥1.0-Dukascopy;
+    C5 OPEN-SPEC-DIVERGENCE adopted). BUILDER C-DECLARATIONS (Opus-
+    invited, pre-run): C1=(b) single pass (F3 is a replacement, not a
+    toggle, so (a) is unavailable per Opus's own condition; no ceiling
+    change; F4 oracle = all-14 side-independent SEL60END + legacy
+    summaries minus Sep-8-stamped lines + stop_source/one-writer
+    modulo side); C2=accept HALT-NEWCLASS, no objection; C3/C4=build
+    requirements (heartbeat rows, gating-attempt assert); P6 reading
+    as above. COMPACT-SAFE: quiescent, verdicts filed, audit on record,
+    next = file C-note + his run word → build → run. NO build/run/
+    commit (run word owed). UNCOMMITTED.
+64. STAGE-2 BUILT + LAUNCHED 2026-09-14 (run word "please proceed" +
+    "proceed to the next step"). C-note filed pre-build
+    (`06_HANDOFFS\BUILDER_DECLARATION_S2-C1C5.md` + Amendment A:
+    C1=(b) single pass + 14-cell oracle (12 control + 2 Sep-8);
+    anchor = UPPER bound (lower refuted by P1/P5 on RECON20b wit
+    record: R1-#1=09:55, R5-#1=16:30); S1 SEL53 predicted identical +
+    lineage F2; P2/P3 defining-lines strict, def-0 corroboration
+    reported; S2 report-only; funnel = ComputeSlReference only).
+    Build EA e5a5cc24… (510873 B) from verified pre-hash d23505d4,
+    both compile 0/0 first attempt (flow-script first miss owned,
+    re-issued direct OK), FlowLogic 3606BFB4 unchanged: InpSelL1/L2/L3
+    (default ON) + S2 cells (walk source; census legacy) + S-A anchors
+    (R1/R5/S1/S2) + F3 resolver (5 classes pinned, R2/S2 abstain,
+    variant keeps pinned dir, live pure pass-through) + funnel 10
+    stamps (9 resolver exits + MEMO_HIT, scope operands) + S2-6 M5
+    probe + SEL61 families + summaries. Parity: single definitions
+    (S2StampStop 1+10), HAND six literals fixture-only, no new price
+    literal, OrderSend-src 0, h4 new-read heartbeat-only, legacy
+    regions read-back intact. RECON23-STAGE2 LAUNCHED 16:58:30 via WMI
+    (instant RC=0, PID 8816; amendment proven) PRE=205307 contiguous,
+    CEILING_MIN=90, STANDBYIDLE 0, slot free, same ini/range. Next on
+    HIS completion signal: archive → P1-P8 grade → result → grading
+    relay (dual-key for anything further). UNCOMMITTED (no token).
+65. RECON23-STAGE2 DONE=PASSED 2026-09-14 17:45:42 (Test passed
+    0:46:42.723; archive 50836 lines SHA 6d59f7d0 bounds
+    [205308..256143] contiguous; purity farm-off/Core-04/Test-passed;
+    MAXLEN=537; signals 4/4; no leftover) — GRADED BLOCKED, builder
+    instrument defect OWNED (two missing wirings, measured: g_s2_tO
+    never published (grep: init only); walk count n never routed to
+    cells (line 2962); cross-bar contamination signature R1→04:40 /
+    R5→00:40 / S1,S2→05:05). P1-P3/P5/P6-reseat UNGRADABLE (void, not
+    fail); P4 absence-holds + walk-void; P6-origin PASS (S1-M5 09:40,
+    lineage F2, haltNC=0); P7 S1-flip PASS + S2 FAIL-with-gap;
+    P8 PASS (probe 14/14: R5-L PRESENT@16:15 mechanism-alive, R4-L
+    PRESENT width-artifact evidence, S1-U/S2-U present, directionals
+    sane; C5 antecedent fails → no line). CLEAN: D1 14/14 + 892/0;
+    D3 isolation all diff=0 (SEL52 14376, 481×3+10/10, SEL55 5/5);
+    SEAT 14/14; SIDE 7/7 (R1 TF-split DECLINE = code-m15-bull vs
+    his-bear divergence evidence); funnel 599/0 + 4 candidate SCOPE
+    violations (all S2POLL off-example, chosen protective, first-leg
+    validity uncarried); summaries nominal; live 56/56/0. Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON23-STAGE2.md`) + extracts +
+    tabulate script; relay v24 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v24-STAGE2-BUILD2.md`: accept
+    / CLEAR-build-2-BY-NAME (7 insertions + 1 global, quoted) + ONE
+    rerun / nothing-commits; ~1h flagged, NOT spent). RECON17 frozen;
+    e5a5cc24 uncommitted. NO build/run (no dual key, no run word).
+    UNCOMMITTED (no token).
+66. DUAL VERDICTS ON v24 FILED 2026-09-14 (Astra-14 GPT-v24-S2-CLR-001 +
+    Opus OPUS-V24-CLR-01, both verbatim with Ruling-IDs; v24 answered).
+    BOTH: ACCEPT blocked/void/clean + CLEAR build-2 BY NAME (ONE build
+    + ONE rerun, ceiling 90) + nothing-commits + no-third-run +
+    timeout REPORT+HALT. Opus AMENDMENT accepted (stricter wins):
+    funnel adjudication-half → VOID with P1/P2 (it read the broken
+    walk); structural half (599/0) stands. Astra Ask2 + Opus Ask2
+    converge (dual-key for build-2′ + run word). CUSTODY INCIDENT owned
+    + remediated: Opus file already held a v24 transcription of unknown
+    provenance — byte-checked (em-dash U+2014 intact) = matches his
+    message → kept as verbatim; Astra-14 edit-tool append failed twice
+    (once spurious-success: U+2019-vs-U+0027 anchor mismatch) → filed
+    via UTF-8 placeholder method, verified present ×1. LESSON (standing,
+    extends §6.11): verify EVERY file write by read-back/grep, even on
+    success messages; non-ASCII anchors byte-checked before matching.
+    C-a–C-e ANSWERED on disk (e5a5cc24 verified unchanged post-run):
+    C-a receipts (tOByExi L3→L4; a_N write→L1+dump; tO L4/L5→variant;
+    s2_aux body→call); C-b needs code → M0–M3 (stamp global, sentinel
+    init, range+sentinel+stamp guard with STALE_CELL HALT, writers +
+    reset); C-c purity PROVEN (S2Anchor body: zero side effects) + M4
+    (recompute-vs-storage ANCHOR_MISMATCH assert); C-d hatch OPEN
+    (zero decision consumers, grep list) → L6′ tightened + UNKNOWN +
+    guard, aux-carriage; C-e RESOLVED (bufIdx = swing buffer EA:4856,
+    7v7 arity, slCurPx in scope). Opus param-threading preference
+    DECLINED for scope (own packet, documented in v25). V25 FILED
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v25-BUILD2P-CLEAR.md`, 126
+    lines, read-back verified: compliance + build-2′ L1–L7 + M0–M4 +
+    2 globals re-quoted whole + rerun grading rules acknowledged).
+    OUTSTANDING (compact-safe): v25 dual-key (both name build-2′) +
+    his run word (~1h unspent). QUIESCENT: no run, no half-built code,
+    EA e5a5cc24. NO build/run/commit. UNCOMMITTED (no token).
+67. DUAL VERDICTS ON v25 FILED 2026-09-14 (Astra-15 GPT-V25-S2-CLR-001 +
+    Opus OPUS-V25-CLR-02, both verbatim with Ruling-IDs; v25 answered).
+    SPLIT, no key spent: Astra Ask1 accept + Ask2 NO-CLEAR (3 gaps:
+    M2-generation, M2-too-late/L1, M4-conditional) + Ask3 gate; Opus
+    Ask1 accept + Ask2 CLEAR build-2″-WITH-A1–A7/P-a–P-e + Ask3;
+    Opus rule adopted: keys naming different artifacts = nothing runs.
+    FILING METHOD (extends 66): edit-tool fails on non-ASCII anchors
+    (U+2019/U+2013 byte-verified) → UTF-8 placeholder appends for both
+    verdicts, presence + read-back verified. CONVERGENCE (design filed,
+    unbuilt): Astra gaps ⊆ Opus amendments; per-cell generation markers
+    g_s2_cellD (stronger than either minimum); L1′ guard block
+    (dominance fails — M2 sits after the count use, stated); M4′
+    unconditional; A1 hoist; A2 fv<=0-UNKNOWN; A4 dump-writer dropped +
+    dump direct-read; A6 ArrayInitialize at EndOfRun; P-a proven (N=w
+    always) / P-b proven (ReadBuf1+ReadFlow pure, zero side effects) /
+    P-c mark-and-continue + VOID consequence pre-declared / P-d
+    cadence-independent via per-cell gen / P-e loops e<7 cited. V26
+    FILED (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v26-BUILD2U-CLEAR.md`,
+    113 lines, verified: full build-2″ re-quote L1′/L2/L3′/L4/L5′/L6′/
+    L7′+M0′/M1′/M2′/M3′/M4′/M5 + 3 globals + Opus grading rules
+    adopted). OUTSTANDING (compact-safe): v26 dual-key (both name
+    build-2″) + his run word (~1h unspent). QUIESCENT: no run, no
+    half-built code, EA e5a5cc24 verified unchanged. NO build/run/
+    commit. UNCOMMITTED (no token).
+68. DUAL VERDICTS ON v26 FILED 2026-09-14 (Astra-16 GPT-V26-S2-CLR-001 +
+    Opus-v26-NO-ID, both verbatim; v26 answered; IDs re-requested in
+    v27). NO KEY SPENT: Astra NO-KEY (4 literal defects, all valid:
+    F1 s2_cellIdx typo OWNED; F2 cursor-component validation; F3 M3
+    inventory; F4 dump-generation) + Opus REVIEW-ONLY (B1 same typo;
+    B2 answered-not-recoded: e is loop-index==exi, per-cell writes
+    distinct, triple evidence; B3 L2/M3 quoted; reachability
+    enumerated: variant 2 sites, S2RowRead 3-2 post-M5, ProjectH1
+    never calls walk; dump save/restore ADDED; M4 write-guarantee via
+    L3 loop shape; L6 comment fix; M2 S2A_CELLS-derived bounds).
+    FRAME ISSUE (operator-owned): Opus disclaims key-holder status +
+    denies OPUS-V25-CLR-02 record (fresh-session memory disclaimer vs
+    relay-corruption - record cannot answer; roster/provenance to
+    operator); dual-key intact, nothing builds on one key. V27 FILED
+    (06_HANDOFFS relay v27-BUILD2T-CLEAR.md, 151 lines, verified:
+    artifact build-2 TN ASCII-deliberate, full re-quote L1-L7+M0-M5 +
+    3 globals + process brief for both streams + grading adopted).
+    OUTSTANDING (compact-safe): v27 dual-key (both name build-2 TN) +
+    roster confirm (Opus stream key? v25-Opus provenance?) + run word
+    (1h unspent). QUIESCENT: no run, no half-built code, EA e5a5cc24.
+    NO build/run/commit. UNCOMMITTED (no token).
+69. DUAL VERDICTS ON v27 FILED 2026-09-14 (Astra-17 GPT-V27-S2-CLR-001 +
+    Opus OPUS-V27-RVW-002 review-only non-clearing, both verbatim; v27
+    answered). SPLIT: Astra KEYS build-2 TN (one build+rerun, gates
+    mandatory, identical-key + run word required; 2 non-blocking quals)
+    vs Opus NO-KEY (V1 M4-legacy-halt + V2 dump save/restore prose-code
+    mismatch blocking; S-a-S-f should-resolve; grading adopted; keys
+    on sight for fixed re-quote). TN key covers old text only - fresh
+    key owed for any new text (stated). FILING: placeholder appends +
+    byte-verification both; one self-doubled phrase caught + repaired
+    via coded replace (lesson: diff self-typed repeats against the
+    message). V28 FILED (06_HANDOFFS relay v28-BUILD2T2-CLEAR.md, 128
+    lines, verified: artifact build-2 TN2 ASCII; V1 cellD-gate (s2-wrap
+    rejected - would deaden assert); V2 real save/restore + empties;
+    S-a clamp EA:3578 + i-bounds; S-b GLOBS line; S-c once-map; S-d
+    comment-only; S-e token; S-f empties-direct; B2 answered (per-cell
+    table); callers enumerated (variant x2 EA:3110/3178); L6 logic
+    untouched; full re-quote L1-L7+M0-M5 + 3 globals + process brief +
+    grading adopted). OUTSTANDING (compact-safe): v28 dual-key (both
+    name build-2 TN2) + run word (1h unspent); roster stands (fresh-
+    session disclaimer explains v25-Opus; no corruption evidence; no
+    action). QUIESCENT: no run, no half-built code, EA e5a5cc24.
+    NO build/run/commit. UNCOMMITTED (no token).
+70. DUAL VERDICTS ON v28 FILED 2026-09-14 (Astra-18 GPT-V28-S2-RVW-001 +
+    Opus OPUS-V28-RVW-001 review-only, both verbatim; v28 answered).
+    NO KEY either stream: Astra review-only (ONE shared gap: cellD
+    lifetime - reset asymmetry) + Opus review-only (R1 same gap as
+    blocking + R2-R4 should-resolve + S-a one-liner; V1 prose itself
+    blocked; keys on sight for fixed re-quote). CONVERGENCE: single
+    shared blocker (cellD reset asymmetry) + quotable micros; B1/F1
+    typo CLOSED AS NON-ISSUE (byte audit v28 file: 8/8 s2_cellIdx,
+    0 bare - quoted drift lives outside the relay; paste-fidelity
+    question to operator in memo). V29 FILED (06_HANDOFFS relay
+    v29-BUILD2T3-CLEAR.md, 139 lines, verified: artifact build-2 TN3;
+    R1 fix = L5-R1 cellD reset (s2-wrap rejected, would deaden assert);
+    R2 asserts (T/isH1, certain params); R3 record (dump exit-free
+    EA:3054-3090); R4 declined w/ reasons (loop headers + loud-abort);
+    S-a EA:3578 + i-bounds carried; changed-first + FULL re-quote
+    (Astra identical-artifact rule); V1 prose re-derived as clearance
+    item; grading adopted). OUTSTANDING (compact-safe): v29 dual-key
+    (both name build-2 TN3) + run word (1h unspent). QUIESCENT: no run,
+    no half-built code, EA e5a5cc24. NO build/run/commit. UNCOMMITTED
+    (no token).
+71. DUAL VERDICTS ON v29 FILED 2026-09-14 (Astra-19 GPT-V29-S2-CLR-001
+    CLEAR build-2 TN3 + Opus OPUS-V29-CLR-001 CLEAR build-2 TN3 with C1
+    precedent, both verbatim; v29 answered). DUAL-KEY COMPLETE - both
+    name build-2 TN3 identically (one build+rerun, same ini/range/90,
+    no-third-run, timeout REPORT+HALT). C1 MEASURED SATISFIED
+    pre-compact (read-only): T is const int (variant signature); EA:2960
+    bool isH1 = (T == 1) directly above the EA:2962 site, same scope;
+    domain {0,1} from both call loops (ForceEval + Census T in 0..1);
+    timeframe-enum case positively excluded. Key applies as written.
+    N1 DECLARED (duplicate intended: both resets quoted, idempotent
+    no-ops, diff will match both lines - no text change). N2 recorded
+    no-action. N3 carried to grading (grep f1=-1 at report time).
+    PASTE FIDELITY CLOSED (operator confirmed sent bytes correct;
+    drift was model-side; ASCII artifact names stand). OUTSTANDING
+    (compact-safe): RUN WORD ONLY (1h unspent). Post-compact immediate:
+    pre-hash e5a5cc24 verify, build TN3, parity + compile 0/0 gates,
+    run word, run. QUIESCENT: no run, no half-built code. NO build/
+    run/commit (no run word yet). UNCOMMITTED (no token).
+72. BUILD-2 TN3 BUILT + LAUNCHED 2026-09-14 (run word = his "please
+    proceed to the next step" post-compact, same phrase as the stage-2
+    key). STAGE-1 PASS (pre-hash e5a5cc24 + 510873 B verified). 14
+    insertions exactly as quoted (GLOBS 3 + L1"-R2 + M2"-R2 + M5" 4 +
+    L4/M3' + M1' + L3' + M4" + L5'-R1/M3'-reset + L6" + L7'; N1
+    duplicate shipped as declared). EA 703c3b0a... (514584 B),
+    FlowLogic 3606BFB4 unchanged. Parity PASS (single definitions;
+    bare s2cellIdx 0; HAND six literals EA 0 / fixture 18; OrderSend(
+    0; InpAdoptExt1=false). Both compile 0/0 first attempt (EA log
+    T162_BUILD2TN3_EACOMPILE, Flow re-issued direct OK per standing
+    miss pattern). RECON24-BUILD2TN3 LAUNCHED 19:37:09 via WMI (PID
+    14324 RC=0; wrapper PID 3872; CEILING_MIN=90; PRE=256143
+    contiguous from 23; TERMINAL_BUSY=False). Leftover 8816 (RECON23
+    terminal) closed graceful; STANDBYIDLE AC/DC 0; slot free; same
+    ini/range. Next on HIS completion signal: archive → grade vs
+    enumerated oracles + landing table (void list restated) + fresh
+    scope + f1=-1 count → result → grading relay (dual-key for
+    anything further).     Timeout/no-third-run REPORT+HALT. RECON17
+    frozen. UNCOMMITTED (no token).
+73. RECON24-BUILD2TN3 DONE=PASSED 2026-09-14 20:26:46 (Test passed
+    0:49:09.570; 3168/563338; archive 36961 lines SHA 87226cb4 bounds
+    [256144..293104] contiguous; purity farm-off/1-agent-3003/Core-04/
+    Test-passed; MAXLEN=537; signals 4/4 identical; no timeout).
+    GRADED (no voids, P-c 0 halts): P1/P2/P3/P4(report-route)/P5/
+    P6-origin/P8 PASS (R1/R2/R3/R4/R5 cells diff 0 vs 22; R1 V005 R
+    2.429; R3 V005 R 1.661 filed MATCH; R5 retains 16:05 retm=1 R
+    2.478; SEAT/SIDE/PROBE identical; C5 divergence emitted); P6-reseat
+    FAIL (6 S1 ineligible H1 lines 0->1 @1.16412 09-03 take=0; eligible
+    12 identical; limb in-set since stage-1; C2 triggers unmet; A3
+    letter applied, consequence council's); P7 FAIL-with-gap
+    (pre-registered; S2 12 H1 lines REPORT-ONLY). Clean families all
+    diff 0 (oracles 14/892/14376/481/10/5/1/0); funnel 599/0; LIVE
+    56/56/0; scope fresh (same 4 violations + fval/sideOk=1;
+    f1=-1 count 0; UNGROUNDED 118 all MEMO_HIT). Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON24-BUILD2TN3.md`) + extracts
+    (SEL61/SEL53/FINALS) + tabulate script; relay v30 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v30-RECON24-GRADE.md`: accept
+    / rule-P6-reseat-finding-vs-fix / nothing-commits). RECON23 void
+    list CLOSED. RECON17 frozen; 703c3b0a uncommitted. NO build/run/
+    commit (no dual key, no run word). UNCOMMITTED (no token).
+74. DUAL VERDICTS ON v30 FILED 2026-09-14 (Astra-20 GPT-V30-S2-RUL-001
+    review/grading-only + Opus OPUS-V30-RULING-001 review-grade
+    non-clearing, both verbatim; v30 answered). AGREED on all three
+    asks: record ACCEPTED (Opus conditional on filed proof matching
+    summary); P6-reseat = FINDING (A3 FAIL stands, no code moves, no
+    packet); locks confirmed (RECON17 frozen, 703c3b0a uncommitted, no
+    third run, REPORT+HALT). NO CONFLICT (Astra fresh-ruling clause
+    subset of Opus tripwires). OPUS DOC-ONLY CONDITION EXECUTED HERE:
+    latent defect named H1-WALK-DEFINEDNESS-STAGE-DEPENDENT (pre-
+    admitted limbs can resolve def=0 at one stage and def=1 at another
+    over the same stored level; currently masked by the eligibility
+    gate, which is incidental, not a designed guard). AUTO-PROMOTION
+    TRIPWIRES (standing, no fresh ruling needed if any appear): same
+    signature on any elig=1 row; coincidence with seat/side/take/decl
+    delta; flip on non-H1 TF or non-1.16412@09-03 level; l3via nonzero
+    on a flipped row. OPUS PRIORITY FLAG CARRIED (not a packet): next
+    spec appetite belongs to P4/C5 (walk-vs-filed geometry), not the
+    P6 flip. NO NEW RELAY NEEDED (all asks answered identically; no
+    code/build/run authorized or owed). OUTSTANDING: NOTHING (compact-
+    safe). QUIESCENT: no run, no half-built code. NO build/run/commit.
+    UNCOMMITTED (records ride uncommitted; snapshot only on token).
+75. POST-RELAY CHECKPOINT PRACTICE EXECUTED 2026-09-14 (operator-ordered
+    addition: after every flagship relay lands, file a pristine
+    checkpoint BEFORE compaction): `06_HANDOFFS\BUILDER_CHECKPOINT_POST-V30.md`
+    (state one-liner, verdict IDs, digests, run facts, exact record
+    list, tripwires/flags, locks, outstanding-nothing, resume order).
+    Verdicts + AGENTS 74 + result + relay + extracts already on disk.
+    OUTSTANDING: NOTHING. QUIESCENT. NO build/run/commit. UNCOMMITTED
+    (no token).
+76. GOAL-STATUS RULING 2026-09-14 (operator-asked, answered on record):
+    current EA (703c3b0a, adoption OFF) does NOT take his trades — live
+    selection is legacy throughout (all legacy identities diff 0 on
+    RECON24). Proof: G1 0/12; Sep-8 never-born + LONG-carry; R4
+    universal miss; R5 tie-break prefers retained. Work remains: adoption
+    fix packet NOT YET DESIGNED (P4/C5 geometry first per Opus flag);
+    owed-from-him blanks (S1 first swing, 08:40 detail, N1 wick, flats
+    read). CHECKPOINT HARDENED (operator: prior doc not thorough):
+    `06_HANDOFFS\BUILDER_CHECKPOINT_POST-V30.md` now carries goal-status
+    + trades-vs-code table + remaining-work owners. QUIESCENT. NO
+    build/run/commit. UNCOMMITTED (no token).
+77. RECORD-FIRST DEFECT OWNED 2026-09-14 (second, after v22): the S1
+    first swing was HAND-on-record since Addendum 2 (2026-09-13, his
+    words: "first 9:50, second 9:40 at 1.16258"; S2 "first 16:50, second
+    16:20 at 1.16274") — builder carried it as blank (a) through v20→v30
+    + checkpoint + goal answer anyway. Operator correct; nothing owed,
+    no re-explanation needed, never ask again. Blank (a) CLOSED.
+    Consequence filed (not designed): S1 gap = limb-list absence at 9:50
+    (E58: code counts nothing 10:05→09:40), same family as R4; S-A
+    origin=09:40-itself vs HAND 9:50 = council reconciliation, no
+    invention. Restatement §4 + checkpoint corrected. HANDOFF EXPERIMENT
+    (operator-ordered, compaction degrades specs-while-keeping-labels):
+    `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V30.md` filed —
+    thorough self-contained new-session handoff; next session starts
+    there per its §8. QUIESCENT. NO build/run/commit. UNCOMMITTED
+    (no token).
+78. HANDOFF THOROUGH v2 2026-09-14 (operator: v1 not thorough; confirm
+    spec/journal reads): `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V30.md`
+    rewritten thorough (10 sections: §0 correction kept; §1 goal +
+    journal scope + row crosswalk #257/#280/#281/#283 + Sep-8 timing
+    note; §2 rules + exit record + conventions + filed-authoritative;
+    §3 seven-row trade table; §4 why-EA-won't-take-them (two failure
+    levels, old pipeline, origin dead, adoption never built, measured
+    fix-design inputs, CQD sequencing); §5 code state; §6 ledger +
+    RECON17/19; §7 council + packets + archive; §8 outstanding incl. N1
+    detail; §9 REQUIRED READS answered YES with MUST/SHOULD/AS-NEEDED
+    exact paths incl. spec Part A v4.2 + journal CSV; §10 resume).
+    Old Sep-11 NEW_SESSION_PROMPT*.md SUPERSEDED (stale digests,
+    verified). Next session starts at handoff §9-10 + AGENTS §10.
+    QUIESCENT. NO build/run/commit. UNCOMMITTED (no token).
+79. WORKFLOW TOOLS BUILT 2026-09-14 (operator-advised; both read-only,
+    records-class, beside the run scripts): `00_CURRENT_WORKING\
+    verify_baselines.ps1` (4-file SHA256+length vs pinned; strict all
+    four, EA pinned via params default TN3; exit 1 on mismatch —
+    verified ALL-MATCH post-build) + `00_CURRENT_WORKING\
+    search_record.ps1` (record-first gate helper: pattern over
+    06_HANDOFFS *.md + restatement/goal/charter/journal/spec with
+    sources-checked footer for question filing — verified on
+    known-answer "first 9:50": Addendum 2/4 + v10 relay hit; would have
+    caught the §0 defect). No canonical touch. QUIESCENT. NO build/run/
+    commit. UNCOMMITTED (no token).
+80. VERDICT FILER BUILT 2026-09-14 (operator-ordered): `00_CURRENT_WORKING\
+    file_verdict.ps1` (byte-exact UTF-8 append under source header +
+    Ruling-ID count arithmetic + tail byte-match verify + duplicate
+    REFUSE; no anchor matching — retires the placeholder method; first
+    strict-count defect caught in test and fixed: bodies quote their own
+    ID). Verified: temp-copy append of non-ASCII probe (U+2014/2019/2013)
+    FILED+VERIFIED deterministic SHA; rerun REFUSED; live existing-ID
+    REFUSED with hash 9B7EC173 unchanged; temp cleaned. Use: stage pasted
+    verdict to file, run with -Stream/-RulingId/-AnswersRelay. No
+    canonical touch. QUIESCENT. NO build/run/commit. UNCOMMITTED
+    (no token).
 49. OPERATOR STATEMENT 2026-09-14 (mid-21b-run): RECON21 slowness was HIS
     host load (other heavy work during the run) — pace cause corrected
     from unknown to confirmed-environmental (addendum in

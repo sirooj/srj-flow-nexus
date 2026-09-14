@@ -538,3 +538,314 @@ If the evidence cannot be assigned to a frozen discriminator outcome without inv
 Nothing else moves or commits. **RECON17 stays FROZEN; P-SEL-1 stays DEAD; P-SEL-2 stays DELIVERED; builds stay uncommitted.** Records ride the next authorized snapshot.
 
 The approximately 80-minute full-window cost is acknowledged as supplied. **No run is authorized by this receipt alone:** execution requires the other stream’s explicit v21 clearance of **`FP-LIMBSEAT-1` BY NAME**, plus the operator’s affirmative run-cost authorization. No auto-advance.
+
+## VERDICT Astra-12 2026-09-14 - v22 stage-1 verdict (answers relay v22; no Ruling-ID stated)
+
+**Stage-1 record accepted as reported. R5’s proposed L1 mechanism is retired. Stage-2 clearance is withheld on this record alone.** This is one assessment—not an authenticated Astra-11 or Opus-v21 key, and not a substitute for either stream’s explicit clearance.
+
+### Ask 1 — Stage 1
+
+Accept the supplied record:
+- D1–D3 PASS; R1/R2/R3 controls hold; stage-1 outcome byte-identity holds.
+- R4 correctly follows **blank-(b)** routing. No F1 extension is justified.
+- S1 is **S-A-LIVE** on both TFs; stage-1 non-reseating is consistent with its print-only scope.
+- F3 provenance is delivered: the last-before-bar side producer was **DetectPoiRetest=LONG**, not a meter write. That establishes provenance, not correctness of the LONG.
+- No reported REPORT+HALT condition fired.
+
+This accepts the measurements you supplied; it is not an independent audit of the archive or source tree.
+
+### Ask 2 — R5 ruling and named stage-2 scope
+
+**R5: retire “L1 recovers the 16:15 lower limb.”** The reported neighbourhood test refutes that mechanism; L3 is unavailable under the stated definition. Do not force-fit admission, relax the definition, move the anchor, or silently reconcile the reference discrepancy.
+
+Retain **FILED 1.16239@16:15** separately from **code-under-test 1.16238@16:05**. Redirect the unresolved discrepancy to reference/formation clarification. Shadow silence rejects the proposed recovery mechanism; it does not establish a replacement.
+
+The scope awaiting clearance **by name** is:
+
+**P-LIMBSEAT-1 STAGE-2 — frozen F1-switches-as-attributed + F2 S-A origin-limb + F3 resolver, including F3(5) + F4 single-exit wick + SCOPED_EXCEPTIONS.**
+
+**F3(5) requirement:** promotion must not silently overturn a `POLARITY_MISMATCH` decline. Any permitted reevaluation must be explicitly specified, attributable, and predicted before the run; absent that authority, preserve the decline.
+
+**Seven-bar prediction gate:** before the stage-2 run, freeze one prediction for each of **R1, R2, R3, R4, R5, S1, S2**, identifying expected change or non-change, side, candidate/stop identity where applicable, disposition, attribution, and failure route. Grade against those predictions without post-run reinterpretation. Apply the unrounded **R ≥ 1.0** rule on Dukascopy data.
+
+I cannot certify that this restates the *original* prediction rule verbatim: the full frozen packet is not present. The exact F1 switches, F4 specification, SCOPED_EXCEPTIONS, and seven stage-2 predictions must be supplied or explicitly incorporated into both genuine clearance records. I will not invent them.
+
+### Ask 3 — Execution lock
+
+**Confirmed: nothing builds, runs, or commits until both streams explicitly name and clear the same stage-2 scope, and the operator supplies the run word.** Neither quoted stage-1 key grants stage-2 authority.
+
+**RECON17 remains frozen; the build remains uncommitted.** The flagged approximately one-hour run remains unspent.
+
+## VERDICT Astra-13 2026-09-14 - v23 stage-2 clearance (answers relay v23)
+
+**Ruling-ID: GPT-v23-S2-001**
+**Packet: BUILDER RELAY v23 — FROZEN STAGE-2 PACKET, S2-1–S2-7**
+**Disposition: CLEARED at scope-review level; execution remains locked.**
+
+**Ask 1 — ACCEPT.** §1 corrections are accepted without operator questions. The five-bar refutation concerns the builder rendering, not the specified three-candle mechanism; filed R5 remains authoritative. TF-side ownership is a defect correction, not a rule question. S-A-LIVE across two TFs remains one classification. S2-1–S2-7 is the complete authorized scope—no implied extensions.
+
+**Ask 2 — CLEAR BY NAME.** I clear the named packet for **one build + one approximately one-hour run**, conditional on the required dual-key clearance and operator run word. This is scope clearance, not a claim that implementation or results have passed.
+
+The frozen grading boundaries hold:
+- F3 must produce the two declared LONG→SHORT changes; wrong-way or out-of-set deltas fail as specified.
+- The promotion-over-decline assertion must be named, loud, independently summarized, and shipped before/with the resolver. The override table stays empty.
+- F4 authorizes no behavioral change; any wick-path difference stops work and is reported.
+- S2-6 reports whichever presence/absence branch the probe establishes—not both contradictory outcomes. Neither finding fails the mechanism probe, changes the filed stop, or authorizes a width change.
+- R4’s report route does not exempt an out-of-set delta from the global HALT rule. No extension is authorized.
+
+**Ask 3 — CONFIRM.** Nothing builds, runs, or commits on this relay. Execution requires **both designated streams naming this exact packet, plus the operator run word**. RECON17 stays frozen; D23505D4 stays uncommitted. This ruling supplies only my review; it does not impersonate or establish either designated stream’s return.
+
+## VERDICT Astra-14 2026-09-14 - v24 build-2 clearance (answers relay v24)
+
+**Ruling-ID: GPT-v24-S2-CLR-001**
+**Disposition: ACCEPT record + CLEAR build-2 by name, conditional on dual-key and operator authorization.** This is a ruling on the supplied record, not independent inspection of the repository or run archive.
+
+**Ask 1 — ACCEPT §1–§2.**
+- RECON23 execution **PASSED**, but grading remains **BLOCKED — owned instrument defect**. Execution success does not validate the broken walk.
+- P1/P2/P3/P5/P6-reseat remain **UNGRADABLE / VOID**, not failures or passes. No selection-design conclusion follows from those outputs.
+- The separately verified, walk-independent clean record stands, including P6-origin and P8 passes, the S1 side flip, the R1 input-divergence decline, and P7’s S2 **FAIL-WITH-GAP**.
+- R5’s probe presence does not establish P5 retention or satisfy C5’s antecedent. No divergence finding is manufactured from the void evidence.
+
+**Ask 2 — CLEAR `build-2: L1–L7 + g_s2_tOByExi[7]`, exactly as quoted.**
+This clearance covers L1’s cell-local count routing; L2–L5’s per-example anchor storage, publication and reset; and L6–L7’s first-leg protective-validity instrumentation and call-site operands. It clears restoration of the frozen design and closure of the filed auxiliary caveat—not any change to predictions, gates, width, scope, or live behavior.
+
+The authorization envelope is **ONE build + ONE rerun**, same ini/range, **90-minute ceiling**, with the stated pre-hash, exact-diff, parity and 0/0 checks required. This supplies **only the GPT key**: matching second-stream clearance and the operator’s explicit run word remain prerequisites. Nothing builds or runs on this relay. Frozen grading and halt rules remain binding; a repair does not retroactively grade the void run.
+
+**Ask 3 — CONFIRMED.**
+RECON17 stays frozen. `e5a5cc24` and build-2 remain uncommitted absent an explicit commit token; build/run clearance is not that token.
+
+## VERDICT Astra-15 2026-09-14 - v25 verdicts (answers relay v25)
+
+**Ruling-ID: GPT-V25-S2-CLR-001**
+**Disposition: Ask 1 accepted as the reported record; Ask 2 NOT CLEARED; Ask 3 confirmed.** No build, run, commit, or filesystem operation performed.
+
+### Ask 1 — Record accepted, with an evidence boundary
+
+I accept the reported **BLOCKED** disposition, the stated VOID list, and preservation of the clean record without laundering VOID into FAIL or PASS.
+
+The accepted Opus §6 amendment applies: **funnel structural evidence stands; the four-line scope adjudication is VOID** because it depended on the broken walk's stops. The rerun grading rules remain binding; no oracle re-baselining is authorized.
+
+The quoted C-a wiring, C-c purity argument, C-d diagnostic-only scope restriction, and C-e argument-position resolution are consistent with the relay. However, **I have not inspected e5a5cc24 or the on-disk receipts**; this accepts their reported status, not independent verification. C-b's stale-valid-cell concern is valid, but the proposed safeguards do not yet close it.
+
+### Ask 2 — build-2′ NOT CLEARED by name
+
+Three gaps in the quoted packet prevent clearance.
+
+**1. M2 does not establish current-generation freshness.**
+
+Its stamp test is only:
+
+```cpp
+g_s2_stampD <= 0
+```
+
+M3 assigns that stamp at the **consumer**, beside ForceEval/dump context selection. Consequently, a positive stamp demonstrates neither that the selected cell was materialized for that `D` nor that its generation matches the consumer. A stale nonnegative count can satisfy every quoted M2 condition.
+
+**Required closure:** identify the materialization generation at the producer and compare it against the expected consumer generation. A shared generation marker is sufficient only if complete rebuild-before-consumption and publication ordering are established; otherwise use per-cell generation markers. Merely comparing a consumer-written stamp with that consumer's `D` is insufficient.
+
+**2. M2 runs too late to protect L1 or reliably detect an unmaterialized cell.**
+
+L1 reads:
+
+```cpp
+g_s2a_N[g_s2_cExi * 2 + g_s2_cTF]
+```
+
+before the quoted row-reader guard, without upper-bound or TF validation. Further, M1's sentinel `-1` can become `n`; a count-controlled walk can then execute no row reads, so **M2 never emits `STALE_CELL`**.
+
+The claimed subsequent control-grade failure is not a substitute for validating the count access itself.
+
+**Required closure:** validate stage-2 indices, producer freshness, and the nonnegative count **before L1's array access and before the walk can be bypassed**. Preserve a valid, freshly materialized zero-count cell as distinct from an unmaterialized cell.
+
+**3. M4 is only a conditional equality check.**
+
+```cpp
+if(tO != 0 && g_s2_tOByExi[e] != tO)
+```
+
+does not detect recomputed `tO == 0` with stale nonzero storage. Yet L4 publishes that stored value to the variant's anchor filter.
+
+**Required closure:** compare stored and recomputed anchors for equality including zero, with valid index and initialization ordering established. Matching zero values remain legitimate for unanchored cases.
+
+These are instrumentation-integrity objections, **not strategy changes or a demand for parameter threading**. L6′/L7 are not the blockers on the supplied record. Any correction must return as an explicitly quoted amended packet; this ruling does not authorize edits or execution.
+
+### Ask 3 — Gate confirmed
+
+**Nothing builds, runs, or commits until both streams explicitly clear the same packet by name and the operator gives the run word.** This ruling supplies **no clearance key**.
+
+RECON17 remains frozen; e5a5cc24 remains uncommitted; no commit is authorized without its token. Any subsequently cleared execution remains limited to **one build and one rerun**, the same ini/range, ceiling 90; **no third run; timeout → REPORT + HALT**. **No third run is authorized. Timeout ⇒ REPORT + HALT**, with no automatic retry, extension, or alternative run terms.
+
+## VERDICT Astra-16 2026-09-14 - v26 verdicts (answers relay v26)
+
+**Ruling-ID: GPT-V26-S2-CLR-001**
+**Artifact reviewed: `build-2″`, exactly as quoted in §2.**
+**Disposition: NO KEY — nothing cleared to build, run, or commit.**
+
+### Ask 1 — Accepted as the carried record, not independently verified
+
+I accept the declared **BLOCKED** disposition, the stated VOID list, and the clean-record standing as the relay’s governing record. I also accept the **mark-and-continue** declaration and the stated grading precedence: an instrumentation HALT makes the run VOID, except that a missed filed stop remains FAIL on that row.
+
+The source files, prior verbatim rulings, and referenced **§6 split** are not present here. Consequently, I can acknowledge the supplied receipts and evidence claims, but cannot certify that I independently read-verified them.
+
+### Ask 2 — `build-2″` is not cleared as written
+
+The proposed design addresses the three earlier concerns in principle: a count-use guard before L1 consumption, generation checks, and unconditional anchor comparison. However, the literal artifact still has these clearance defects:
+
+1. **L1′ uses two different identifier spellings.**
+   It declares `s2_cellIdx`, but reads `g_s2_cellD[s2cellIdx]` and `g_s2a_N[s2cellIdx]`. The quoted delta does not declare `s2cellIdx`. This cannot be accepted as an executable, internally consistent patch. Use `s2_cellIdx` consistently; do not silently repair it during the authorized build.
+
+2. **L1′ does not fully validate the cursor before consuming its count.**
+   Checking `g_s2_cExi >= 0` and the flattened index’s bounds does not establish `g_s2_cExi <= 6` and `0 <= g_s2_cTF <= 1`. An invalid TF can alias another valid cell, allowing its generation and count to pass. M2′’s later TF check cannot repair that earlier count consumption—particularly if the aliased count is zero and no row read occurs.
+   **Required:** validate both cursor components at L1′ before calculating/accessing the cell, then retain the flattened-index, stamp, generation, and sentinel checks.
+
+3. **The named patch inventory is incomplete.**
+   Ask 2 includes **M3′**, but §2 supplies no M3′ definition or explicit mapping to another quoted insertion. For clearance of one exact artifact, identify its literal replacement/insertion or explicitly state which quoted clause implements it. An unquoted inherited amendment is not covered by this ruling.
+
+4. **M5’s stated freshness justification is insufficient.**
+   Deriving `s2_dcell` from the row’s own exID establishes cell identity, **not generation freshness**. M5 checks the sentinel but not `g_s2_cellD`. Either compare against the dump’s authoritative expected generation without writing the consumer stamp, or supply the precise ordering/invalidation proof that makes stale-but-nonnegative storage unreachable there. This does **not** require restoring the rejected dump stamp writer.
+
+These are instrumentation and artifact-definition issues, not requests to change strategy, gates, scope, or live behavior.
+
+### Ask 3 — Confirmed
+
+**Nothing builds, runs, or commits until both streams explicitly clear the same `build-2″` text and the operator supplies the run word.** This return supplies no such key.
+
+RECON17 remains frozen; e5a5cc24 remains uncommitted; `build-2″` remains uncommitted without a token. Any eventual authorization remains limited to **one build and one rerun**, the same ini/range, ceiling 90, **no third run**, and **timeout → REPORT + HALT**.
+
+## VERDICT Astra-17 2026-09-14 - v27 verdicts (answers relay v27)
+
+**Ruling-ID: GPT-V27-S2-CLR-001**
+
+**CLEAR build-2 TN** — this stream’s key for the exact S2 artifact, for **one build and one rerun**, subject to the stated build gates, the other stream’s identical artifact key, and the operator’s run word. This is not a claim that compilation or runtime validation has already passed.
+
+### Ask 1 — Accepted as the stipulated record
+
+Accept RECON23-STAGE2’s **BLOCKED** disposition, the stated P1/P2/P3/P5/P6-reseat void list, and the separately preserved clean record. Accept the numbered repair closures on the quoted text:
+
+- L1″ validates cursor components before indexing and guards generation and materialization **at the count use**. Matching-generation zero remains legitimate.
+- L3’ assigns distinct per-exemplar cells; the quoted construction does not support the –last bar wins every cell– objection.
+- M3′ explicitly supplies the consumer-stamp writer and reset.
+- M5′ validates against the dump’s own `D`, without publishing a consumer stamp.
+- The identifier typo, inventory omissions, and derived-bound issues are addressed.
+
+**Evidence boundary:** No source files or archives were supplied here for independent inspection. Acceptance of their contents, call-site census, and lookup totality therefore rests on the relay’s representations. The referenced **S6 split is not reproduced**, so I cannot independently attest its unspecified contents.
+
+### Ask 2 — Artifact key granted
+
+The key covers **only build-2 TN as quoted**, with repeated –quoted above– global references understood as inventory references—not additional declarations.
+
+Two non-blocking wording qualifications:
+
+- M5′ resets to a no-cursor state; it does **not** save and restore the previous cursor. Whether a stray read then halts depends on the enclosing S2RowRead branch, which is not quoted here. I do not certify that stronger claim.
+- L6″ reports `UNGROUNDED_REPORT` for unknown/non-protective swing **when `fi == 1`**. Other imbalance states fall through to `IN_SCOPE`. The trailing note should be read with that qualification; this key authorizes no predicate change.
+
+Exact-diff/parity checks, single-definition and identifier checks, and **EA+Flow compile 0/0 remain mandatory gates before the rerun**. A failed gate does not authorize an improvised repair under this key.
+
+### Ask 3 — Confirmed
+
+Nothing builds, runs, or commits on this relay. Execution requires both streams naming the identical artifact plus the operator’s run word. RECON17 stays frozen; e5a5cc24 and build-2 TN remain uncommitted absent a commit token. Same ini/range, ceiling 90; **no third run; timeout REPORT+HALT**.
+
+The binding grading rules stand: enumerated oracles only; fresh scope measurement; landing comparison against the five filed stops plus S2 gap; stated void list retained; mark-and-continue; **any SEL61HALT → VOID, except a filed-stop miss → FAIL on that row**.
+
+## VERDICT Astra-18 2026-09-14 - v28 verdicts (answers relay v28)
+
+**Ruling-ID: GPT-V28-S2-RVW-001**
+**Disposition: review-only; no build/run key issued.**
+
+### Ask 1 — Accepted with a reservation
+
+I accept the carried **BLOCKED** disposition, the stated void list, and preservation of the clean record as the relay’s stipulated history—not as independently inspected on-disk evidence. The referenced **S6 split is not reproduced here**, so I cannot independently confirm its contents.
+
+V2’s quoted save/restore fix is satisfactory for the shown straight-through dump path. The bounds additions, direct empty-setting on dump guard-trips, single-insertion globals map, and qualified L6″ explanation address their stated review points.
+
+**V1’s claimed –ANY call order– closure remains unproven**, for the reason below.
+
+### Ask 2 — Withheld: producer-generation lifetime gap
+
+M4″ tests:
+
+```cpp
+g_s2_cellD[e * 2] != 0
+```
+
+That establishes that a producer wrote the cell **at some earlier point**, not necessarily during the current evaluation lifecycle.
+
+The quoted changes permit this state sequence unless an external lifecycle invariant excludes it:
+
+1. An earlier `S2BuildAll` leaves `g_s2_cellD[e * 2]` nonzero.
+2. A subsequent EndOfRun executes L5′, clearing `g_s2_tOByExi` but **not** `g_s2_cellD`.
+3. `S2BuildAll` is skipped in that lifecycle.
+4. Seat encounters a nonzero `tO`; M4″ sees the retained producer marker and compares it against the cleared anchor, producing `ANCHOR_MISMATCH`.
+
+M1′ cannot prevent this sequence because its reset executes only when `S2BuildAll` runs.
+
+This is **a structural proof gap, not a claim that the frozen rerun demonstrably reaches that sequence**. Close it by either:
+
+- resetting producer-validity markers at the same pre-fill lifecycle boundary as the anchors, with the placement quoted; or
+- supplying the call/lifetime evidence that excludes retained markers whenever BuildAll is skipped in the authorized execution.
+
+Do not silently substitute either remedy into TN2: a code change requires an updated identical artifact for both streams.
+
+### Ask 3 — Confirmed
+
+Nothing builds, runs, or commits on this return. Authorization requires both streams to name the identical artifact with the prescribed key, followed by the operator’s run word. RECON17 remains frozen; e5a5cc24 remains uncommitted; no commit is authorized for TN2; no third run; timeout means **REPORT+HALT**.
+
+I accept the binding grading rules as stated: enumerated oracles only; archive hash/count are provenance, not oracles; the stated STALE/ANCHOR void-versus-filed-miss failure treatment; landing reconciliation against the five filed stops plus S2 gap with the void list restated; fresh scope measurement; and declared P-c mark-and-continue.
+
+## VERDICT Astra-19 2026-09-14 - v29 verdicts (answers relay v29)
+
+**Ruling-ID: GPT-V29-S2-CLR-001**
+**CLEAR build-2 TN3**
+
+This is this stream’s key for **S2 exactly as quoted**, covering one build and one rerun under the stated gates—not an execution instruction or a finding that those gates have already passed.
+
+### Ask 1 — Accepted as the supplied record
+
+I accept the reported BLOCKED disposition, P1/P2/P3/P5/P6-reseat VOID list, and standing clean record as the basis for this clearance. The technical closures are sufficient:
+
+- **Shared blocker / R1:** L5′-R1 closes the producer-lifetime gap. Resetting `cellD` together with `tO`, `stampD`, and `tOByExi` removes the earlier-lifecycle witness. Under the stated execution order and producer inventory, M4″’s nonzero test now witnesses a fill in the current lifecycle. This accepts the revised V1, not the old proof.
+- **R2:** The count-site comparison against `T` and row-site comparison against `isH1` explicitly reject cursor/TF disagreement.
+- **R3:** Given the reported whole-function inspection, normal completion reaches restore; there is no reported early-exit path requiring another restore. Tester abort remains run-voiding.
+- **R4 / S-a:** The stated bounded producer/consumer loops and capacity guard support the indices. Separate bounds hardening is not a prerequisite for this repair.
+- **M5″ / L6″:** Their qualifications stand. In particular, unreadable first-leg imbalance falling through to `IN_SCOPE` is **not** proof of the scope invariant; fresh scope measurement remains required.
+
+**Evidence boundary:** I have reviewed the pasted relay, not the source tree, archive, or v28 original. The line inspections, byte counts, prior-record details, and –otherwise byte-identical– claim remain supplied evidence, not independently reproduced findings. The referenced **S6 split is not reproduced here**, so I cannot separately ratify its unstated content. Neither limitation expands the S2 clearance.
+
+### Ask 2 — Exact authorization boundary
+
+The key names only **build-2 TN3**, including its three specified micro-deltas and carried S2 text. Pre-hash, exact-diff/parity, identifier checks, HAND gate, no new price literal, `OrderSend` source count zero, and EA+Flow compile **0/0** remain required. A failed gate does not authorize the rerun.
+
+### Ask 3 — Confirmed
+
+Nothing builds, runs, or commits on this return alone. Both streams must name the identical artifact, followed by the operator’s run word. RECON17 stays frozen; e5a5cc24 and the resulting TN3 changes remain uncommitted absent a commit token.
+
+Authorization is limited to the same ini/range, ceiling 90, **no third run**, and timeout **REPORT+HALT**. The stated oracle-only grading, STALE/ANCHOR void-versus-filed-miss failure distinction, landing-table comparison with the void list restated, fresh scope measurement, and P-c mark-and-continue rule remain binding.
+
+## VERDICT Astra-20 2026-09-14 - v30 verdicts (answers relay v30)
+
+**Ruling-ID: GPT-V30-S2-RUL-001**
+**Disposition: REVIEW / GRADING ONLY — this stream’s ruling, not a build/run key.**
+
+### 1. Record accepted
+Accept the supplied RECON24-BUILD2TN3 run record, grades, clean-family comparisons, and scope findings **as reported**. The referenced handoff and underlying logs were not supplied here for independent inspection.
+
+- **PASS:** P1–P5, P6-origin, P8.
+- **FAIL:** P6-reseat under A3, without weakening or reinterpreting identity.
+- **FAIL-with-gap:** P7; its pre-registered advancement halt remains binding.
+- **C5 OPEN-SPEC-DIVERGENCE:** remains open; R5’s filed stop remains authoritative.
+- Accept RECON23’s void-list closure through the reported clean RECON24 grading–not retroactive validation of RECON23.
+- Scope’s four candidate violations remain **REPORT-only** with the supplied operands. The mechanism explanation remains a hypothesis, not an established finding.
+
+The reported runner result **DONE=PASSED does not mean all acceptance gates passed or advancement is authorized.**
+
+### 2. P6-reseat ruling: finding, not fix packet
+**Retain the A3 FAIL as a recorded ineligible-row identity finding; no code movement or fix packet is required by this ruling.**
+
+The controlling distinction is between **identity failure**, which occurred, and **selection consequence**, which the supplied record reports as zero: the changed S1 rows are ineligible, all 12 eligible S1 rows are identical, and no take, decline, G1 match, or halt was introduced. S2 remains REPORT-only under A4.
+
+Accept that the enumerated C2 triggers were not met on this record. That does **not** override A3 or convert its FAIL to PASS. Any later evidence of eligible-row impact, a new admission, or a C2 trigger would require a fresh ruling.
+
+### 3. Locks confirmed
+**Nothing builds, runs, or commits on this relay.** RECON17 remains frozen; `703c3b0a` remains uncommitted; no third run is authorized; timeout remains **REPORT+HALT**.
+
+This ruling supplies no execution authorization and does not substitute for the other stream’s independent ruling.

@@ -2032,3 +2032,619 @@ F3(5), the his-read override as promoter-of-record. It is inert at stage 1 (empt
 Nothing else moves. Builds stay uncommitted. RECON17 frozen. P-SEL-1 DEAD. P-SEL-2 stays DELIVERED with D1–D3 PASS. Records ride the next authorized snapshot. Class statement and his rules §0–7 plus the two blanks stand as in v20 §2, unchanged.
 
 **Run-cost auth:** noted, not granted by this stream. The ~80 min full-window stage-1 print run is authorized only on dual key plus his word. My key is now down; the spend is not.
+
+# COUNCIL VERDICT (Opus stream - v22 stage-1 verdict + conditional stage-2 key; no Ruling-ID stated)
+
+# BUILDER RELAY v22 — Opus key response, P-LIMBSEAT-1 stage 1
+
+## §0. What this key can and cannot attest to
+
+Two limits, stated once, because a dual-key process is only as good as what each key actually saw.
+
+1. **No memory of prior relays.** I have no persistence across sessions. `COUNCIL-v21-OPUS-DUALKEY-CLEAR-STAGE1-01` is cited to me, not recalled by me. If the process assumes this key remembers what it cleared at v21, that assumption is false and is a hole worth closing — carry the prior clearance text forward in-packet (as you largely do) rather than by reference.
+2. **No repo, logs, or archive in front of me.** I cannot verify the SHA `0B256BA7…`, the 55389-line archive, the 892-row store, the 0:54:56.778 pass, or byte-identity vs 21b. What I can grade is whether the **reasoning and routing follow from the stated rules**, and whether the fail-routes taken were the ones the packet specified.
+
+So: my rulings below are on the record as written. Where a ruling depends on a measurement, it is conditional on that measurement being what you report.
+
+---
+
+## Ask 1 — Stage-1 record: ACCEPTED (as-written)
+
+Routing checks out on every branch I can evaluate.
+
+| Item | Ruling | Basis |
+|---|---|---|
+| D1–D3 | Accept | 14/14 lists, unattributed=0, dropped=0, OrderSend 0, adoption false — the gate set is coherent and the store is fully attributed, which is the precondition for treating absence as evidence |
+| R1 / R2 / R3 | Controls hold | Ordinal path unchanged, legacy identity on decline, R3 byte-identical. These are doing their job: they show the shadow is genuinely read-only |
+| R4 blank-(b) | Correct route | 08:40 absent both sides both TFs, probed over the full store, neighbours present. Absence is not evidence for extension, and **F1 not extended is the right call.** Walk staying 08:20 preserves the universal-miss as legacy-identical rather than papering it |
+| S1 S-A-LIVE | Correct, no reseat | Exactly 1 limb in `[09:40,10:10]` = 09:40 itself, l3via=0; H1 empty. S-B not held, no HALT-NEWCLASS. Deferring reseat to stage 2 is right — the discriminator's job was to classify, not to move anything |
+| F3 provenance | Delivered | 3 write sites, ordered chain, dropped=0. See §Finding below — the *content* of this finding is larger than its stage-1 scope |
+| DEFERRED stop_source + one-writer | Endorsed | "Zero graded benefit, nonzero touch risk" is the correct reason to defer under an R4-"may". Good discipline |
+
+One guard on S1. **S-A-LIVE on both TFs is not stronger than S-A-LIVE on one.** Under his rules alignment adds nothing and never doubles size; the same applies to reading a discriminator. Two TFs agreeing is one classification, not a corroborated one. Flagging because this is precisely where confirmation-stacking creeps back in at stage 2.
+
+---
+
+## Ask 2 — R5 ruling
+
+### Ruling: RETIRE the mechanism. Do NOT amend the filed reference. REDIRECT the residual to the rule-owner.
+
+These are three separate objects and the packet is right that they must not be collapsed.
+
+**Retire (mine to rule).** The L1-for-16:15 hypothesis is refuted, and refuted at close to maximum strength available inside L1: the probe ran non-strict with eps=0 exact-tie shelf collapse, which is the most permissive form the mechanism has, and `conf==1` independently excludes L3 by the packet's own definition. Two independent probes now agree — P-SEL-2 predicted ABSENT-candidate-side, and the shadow is silent. There is no remaining eps to tune. Retire it; do not re-probe with a loosened tie rule, because a mechanism that only fires under a threshold chosen to make it fire is not a mechanism.
+
+**Do not amend (not mine to rule).** Retiring the *explanation* says nothing about the *filed value*. `R5 FILED 1.16239@16:15` remains his answer and remains authoritative. The builder invents nothing, and neither does this key: I will not authorize substituting 16:05 for 16:15 in the reference set on the strength of the code agreeing with 16:05. The code agreeing with itself is not evidence. What you now have is a **known, documented, unexplained divergence** — which is a strictly better state than the false explanation you had before. Record it as such.
+
+**Redirect — two questions for him, both cheap, neither inventive:**
+
+1. **Is the 5-bar window his number or the builder's rendering of his number?** This is the one L1 degree of freedom the probe did not vary, and it was deliberately not varied ("verbatim-5-bar"). If 5 bars is his stated definition, the refutation is complete and R5's mechanism is dead. If 5 bars is the builder's reconstruction of an unstated width, then the refutation is scoped to *the rendering*, not to his mechanism, and R5 is not refuted but under-specified. These route very differently and only he can say which it is. **Do not test other widths to find out** — asking is correct, searching is force-fitting.
+2. **1.16238 vs 1.16239.** One tenth-pip apart, ten minutes apart in stamp. That is close enough that "different swing" and "same level, different bar attribution" are both live, and they have different fixes. Flagging as an observation for his ruling, not as an amendment I authorize and not as a probe to launch. If he says same-level, this becomes a timestamp-attribution question and touches F4. If he says different swing, the divergence is real and stays open.
+
+Until he answers (1), R5 sits in **REFUTED-PENDING-SCOPE**, not RETIRED. The distinction matters for what F4 may touch.
+
+---
+
+## Ask 2 — Stage-2 clearance BY NAME
+
+Clearing four of five outright. The fifth is cleared with its scope narrowed, for a reason that follows from R5.
+
+**CLEARED:**
+
+1. **F1 — switches-as-attributed (frozen).** Cleared. Frozen input, store already fully attributed, dropped=0.
+2. **F2 — S-A origin-limb.** Cleared. S-A-LIVE was established at stage 1 with l3via=0 and a single in-window limb; resolving its origin limb is the declared next step, not a new class. If the resolver produces anything other than 09:40-itself on M5, that is a HALT-NEWCLASS, not a result — pre-declare it that way.
+3. **F3 — resolver, with F3(5) interaction stated.** Cleared **conditional on the interaction being an explicit tested invariant, not an emergent property.** Specifically: promotion must not silently overturn a `POLARITY_MISMATCH` decline, and that must exist as a named assertion with its own row in the summary, failing loudly. "Vacuous at stage 1 because no his-read override exists" is exactly why it must be written down now — the build where it is vacuous is the only build where you can install it at zero risk. Ship the invariant before or with the resolver, never after.
+4. **SCOPED_EXCEPTIONS.** Cleared, with the standing scope intact: pure-two-swings-no-imbalance remains scoped to ONE trade. An exceptions mechanism whose scope can widen without a ruling is not an exceptions mechanism.
+
+**CLEARED, NARROWED:**
+
+5. **F4 — single-exit wick → cleared as a byte-identity-only refactor. Not cleared as a behavior change.**
+
+The reason: F4's subject matter is the wick nuance rule ("uninvalidated block wicked beyond 1-away+block → the wick IS the stop"), and R5's open divergence is a stop at 16:15-vs-16:05 whose candidate explanation is now bar-attribution on a wick. That is the same code path. Refactoring it while its oracle is disputed means the regression has nothing trustworthy to grade against, and a single-exit rewrite is exactly the shape of change that quietly *fixes* the disputed answer in one direction and calls it cleanup.
+
+So: consolidate the exits, prove byte-identity across all 14 summaries, ship. Any diff on the wick path is a **STOP and report**, not a resolution of R5. Behavior work on F4 unblocks when he answers R5(1).
+
+---
+
+## Ask 2 — 7-bar prediction rule, restated for the stage-2 run
+
+Same discipline as stage 1: **seven predictions frozen before the run, each with a pass condition and a pre-specified fail-route, so a miss routes instead of inviting improvisation.** One change is mandatory:
+
+> **Stage 2 has an intentionally non-byte-identical outcome.** The F3 resolver is *supposed* to change side at the two Sep-8 bars. Global "byte-identical vs 21b" therefore cannot be the acceptance gate, and grading against it would fail the run for succeeding.
+
+Partition the oracle: **identity everywhere except a pre-declared delta set, with the expected direction of each delta named in advance.** A delta inside the set that points the wrong way is a failure. A delta outside the set is a HALT regardless of how reasonable it looks.
+
+Proposed seven:
+
+| # | Prediction | Fail-route |
+|---|---|---|
+| 1 | R1 ordinal path unchanged, R=2.429 | HALT — control broken |
+| 2 | R2 decline, legacy identity | HALT — control broken |
+| 3 | R3 1.15847@15:30, R=1.661, byte-identical | HALT — control broken |
+| 4 | R4 08:40 still absent both sides both TFs; walk 08:20 | If present: F1 attribution changed absence → report, do not extend |
+| 5 | R5 walk retains 16:05, retm=1, R=2.478; 16:30 anchor unshifted | Any movement → STOP, R5 is pending scope |
+| 6 | S1 origin-limb = 09:40 itself; reseat per F2 result only | Any other limb → HALT-NEWCLASS |
+| 7 | **F3 delta set: side flips at exactly the two Sep-8 bars, LONG→per-meter, and POLARITY_MISMATCH invariant holds** | Delta outside the two bars, or invariant silent → HALT |
+
+L3via=0 run-wide and the >1-forming-limb / timeout / unattributed-admission REPORT+HALT triggers carry forward unchanged.
+
+---
+
+## §Finding I am escalating, not clearing
+
+The F3 provenance result is bigger than its stage-1 framing, and I want it named before stage 2 rather than discovered during it.
+
+You measured: the carried LONG at both Sep-8 bars was written by `DetectPoiRetest`, upstream of the meters, and **no meter writes to the side field exist anywhere in the tree** (3 write sites, all accounted). Meanwhile the bias meters read −1.0/−1.0.
+
+His rule is that **TF rows read HTF-bias-only.** A side field that is set by POI-retest and that the bias meters have no causal path to is, on its face, a build that cannot be implementing that rule on this path — not a stamping gap, a rule-conformance gap. Stage 1 correctly reported this as provenance. Stage 2's resolver will change outcomes here, which means it is **not** a refactor and cannot ride in on a byte-identity argument.
+
+Owed to him at stage-2 clearance, alongside R5: does the resolver *restore* HTF-bias-only on TF rows, or does POI-retest legitimately own side with the meters advisory? Those produce different code and different filed answers. This key does not choose between them.
+
+---
+
+## Ask 3 — CONFIRMED
+
+Nothing builds, runs, or commits on this relay.
+
+- **Independently true:** I have no execution, filesystem, or commit capability in this conversation. There is no path by which this response causes work.
+- **RECON17 stays frozen.** Baseline untouched.
+- **Build stays uncommitted.** D23505D4 remains uncommitted.
+- **Stage 2 requires all three:** this key's naming (given above, with F4 narrowed and F3 conditioned), the Astra-11 stream naming stage 2 independently, and the operator run word. Two of three is not clearance.
+- The ~1h run cost is flagged and unspent.
+
+**Blocking on him, not on the relay:** R5(1) — is 5-bar his width or the builder's rendering? Until that returns, R5 is REFUTED-PENDING-SCOPE and F4 behavior work stays shut. Everything else in stage 2 can proceed on dual-key plus run word.
+
+# COUNCIL VERDICT (Opus stream - v23 stage-2 clearance with C1–C5; Ruling-ID OPUS-V23-CLR-01)
+
+## Ruling
+
+**Ruling-ID: `OPUS-V23-CLR-01`** (stream: Opus; relay v23; packet: frozen STAGE-2 S2-1…S2-7)
+**Verdict: Ask 1 ACCEPTED. Ask 2 CLEARED BY NAME, conditional on C1–C5 below (all pre-run, all declaration-only, none require an operator ruling). Ask 3 CONFIRMED.**
+
+---
+
+## Ask 1 — §1 corrections accepted
+
+Accepted as builder-owned and cited. Two things I want on the record so the acceptance isn't later read wider than it is:
+
+- **R5 width:** accepting that the 5-bar window was a council/platform rendering means the L1 refutation is now **scoped to the rendering only**. It is not evidence about spec §3.7. Nothing that previously leaned on "R5 mechanism refuted" as a general claim survives that scoping — if any shipped justification still cites it that way, it needs rewording before the run.
+- **Resolver ownership:** agreed this is a code defect, not a rule question. `DetectPoiRetest` writing the carried side is out-of-spec behavior under §3.2 + restatement §1 regardless of anything R5-related. No operator input owed.
+
+S-A-LIVE on two TFs = one classification: adopted for stage-2 grading.
+
+---
+
+## Ask 2 — clearance conditions
+
+### C1. F4's byte-identity oracle is confounded in this build. Split it pre-run.
+
+This is the substantive problem in the packet. S2-5 asks for byte-identity across **all 14 summaries**, while §3 declares that F3 **intentionally** flips side at two Sep-8 bars. The stop resolver is downstream of side. So the 14-summary byte-identity claim is false by construction at those two bars, and F4's proof becomes unfalsifiable in a single pass.
+
+Pick one before building, and name the choice:
+
+- **(a)** Two passes in the one cleared run: pass A with the F3 resolver off (F4 byte-identity oracle against RECON17/21b), pass B with it on (delta-set oracle). Costs roughly double the wall clock — flag the revised budget when you name the packet.
+- **(C2)** Single pass, and S2-5's assertion is narrowed pre-run to the 12 unaffected summaries, plus an explicit equality check at the two Sep-8 bars of `stop_source` stamping and the one-writer invariant **modulo side**.
+
+Either is acceptable to me. What is not acceptable is discovering post-run which one you meant. If F3 is not independently toggleable, (a) is unavailable and you take (C2).
+
+### C2. Pre-declare the limbs_v2 enumeration outcome.
+
+S2-1 makes selection enumeration a **superset**. If limbs_v2 admits a limb that was previously unreachable, at any bar other than the two Sep-8 bars, §3 currently routes that to HALT-outside-delta-set — even though it may be exactly what S2-1 is for. Declare it now. My ruling absent your objection: **such an admission is HALT-NEWCLASS, reported with the admitting limb, `admitted_by`, and the bar** — conservative, and it keeps "no post-run reinterpretation" intact. If you think it should be REPORT, say so in your naming return and I'll rule on that text specifically.
+
+### C3. The POLARITY_MISMATCH invariant needs a heartbeat.
+
+Prediction 7 fails on "invariant silent," but silence is ambiguous between *no decline occurred* and *assert never wired*. Require the invariant's named summary row to print **unconditionally**, covering counts (declines seen, promotions attempted, overturns blocked = 0). Absent row = wiring failure = HALT. Zero-valued row = pass. Same treatment for the his-read override table: print a row asserting count 0 rather than printing nothing.
+
+### C4. 4H readable-never-gating: assert on the gating attempt.
+
+S2-3 says "readable-never-gating with assert." Confirm the assertion fires when a gate is *attempted*, not merely when 4H is read. A read-time-only assert cannot detect the defect it exists to catch.
+
+### C5. P5 and P8 can both pass while leaving a known divergence. Record it, don't close it.
+
+If the S2-6 probe returns **present-at-16:15** while prediction 5 correctly retains 16:05, the run passes both and simultaneously establishes that shipped selection disagrees with spec §3.7 at that bar. That must land as a named **OPEN-SPEC-DIVERGENCE** line in the return, not be absorbed into "stage 2 passed." Filed 1.16239@16:15 stays authoritative; no width change ships; a width change needs a new packet ID, as you already wrote.
+
+---
+
+## Ask 3 — confirmed
+
+Nothing builds, runs, or commits until **both** streams name this packet by ID **and** the operator gives the run word. RECON17 stays frozen as baseline. Build D23505D4 stays uncommitted. This relay is text only — I have run nothing, touched nothing, and committed nothing.
+
+---
+
+## Read on the rest of the packet
+
+S2-2, S2-3 (ordering discipline: invariant ships before or with the resolver, never after), S2-4 (row-ID-keyed scope, widening needs a ruling), S2-6 (print-only, verbatim width, no toggle, no epsilon, no search, both branches pre-registered as findings), and S2-7 clear without comment. The INDEPENDENCE assert (no size/weight/confidence field anywhere) and the empty override table are the right shape — they make the mechanism falsifiable rather than tunable.
+
+The 7+1 partition is sound in structure. Its weak point was never the delta set itself; it was the two places where a pass could be recorded over an unexamined disagreement (C1, C5). Both are closed by declaration, not by code.
+
+## Not ruled on
+
+Any width change to the swing predicate; widening SCOPED_EXCEPTIONS beyond the single row-ID; the 16:15-vs-16:05 resolution itself. Those stay with the operator and a new packet ID.
+
+# RULING — OPUS-V24-CLR-01
+**Relay v24 · issued 2026-09-14 · scope: Asks 1–3 · nothing builds, runs, or commits on this ruling**
+
+## Ask 1 — ACCEPT, with one row moved
+
+BLOCKED stands. The void call is correct and correctly reasoned: a walk that never anchored (`g_s2_tO` written nowhere) and never read its own cell's count cannot falsify a design, so P1/P2/P3/P5/P6-reseat are void, not failed. No laundering. The stop-landing signature you quote (R1→04:40, R5→00:40, S1→05:05) is consistent with your diagnosis rather than merely compatible with it — a correct-cell walk breaks at the legacy pair before reaching those rows, so those landings are instrument output, not strategy output.
+
+One amendment to §2. The funnel row is mixed and must be split:
+
+- **Stands (writer-side, structural):** 599 stamps, zero duplicates, one-writer holds.
+- **Moves to void:** "4 candidate scope-violations, all poll-site off-example bars, chosen stops verified protective off-log." That adjudication takes the broken walk's chosen stops as its input. Whatever it concluded, it concluded about stale/neighbor-cell memory. It is void by the same rule that voids P1/P2 — including the reassuring half of it.
+
+Everything else in §2 clears my independence check: enumeration/isolation (byte-identity, walk-independent), seats 14/14 and P6-origin (the printer computed and printed anchors; the defect was publication, not computation), sides 7/7 including the landed Sep-8 S1 flip and the correct R1 DECLINE on input divergence, probe 14/14 / P8, P7 S1-flip pass with S2 FAIL-WITH-GAP as pre-registered.
+
+## Ask 2 — CLEARED BY NAME, CONDITIONAL
+
+Build-2 as quoted (L1–L7 plus the one global, nothing else) is cleared for **ONE build + ONE rerun**, same ini/range, **ceiling 90**. L1–L5 are the frozen design restored, not new design. The ~1h operator cost is acknowledged and flagged.
+
+Clearance is conditional on five pre-build static checks. All five are grep-or-read cost, zero build cost, and each one guards against a repeat of the exact defect class that voided RECON23.
+
+**C-a · Wiring receipts.** For every symbol touched by L1–L7 (`g_s2_tOByExi`, `g_s2a_N`, `g_s2_tO`, `s2_aux`), quote the assignment site *and* the consumption site, side by side, before building. RECON23 was lost to a global with an init and no writer. A receipt table makes that failure unrepresentable.
+
+**C-b · Cursor and cell freshness.** L1 guards on `g_s2_cExi >= 0`, which proves the cursor is set, not that it is *current*. Same for L4's `g_s2_tOByExi[e]`. Add a per-bar stamp and assert it at both read sites; mismatch ⇒ HALT. Also: bound-check `g_s2_cExi*2 + g_s2_cTF` against 14, and initialize `g_s2a_N` cells to a sentinel (−1) so an unpopulated cell HALTs loudly instead of degenerating to `n = 0` and a silent empty walk. A silent zero here reproduces RECON23 with a cleaner logfile.
+
+**C-c · Anchor stability and print-vs-published equality.** L3 calls `S2Anchor` per bar and discards `s2ab`. Two requirements. First, confirm `S2Anchor` is output-pure on this path — if it prints, archive line counts and the F4 oracle move, and you will be adjudicating your own instrumentation. Second, assert that once `g_s2_tOByExi[e]` is non-zero it never changes, and that the published value equals the seat-printed anchor for that `e`. That assert is free and it converts your surviving §2 seat evidence into a live cross-check on the new wiring.
+
+**C-d · L6 lands as aux carriage only.** You describe L6 as caveat-closure, but `PURE iff (fi==1 && sideOk)` tightens a classifier predicate. If PURE has any decision consumer, this rerun confounds the wiring read: a changed P-grade would not be attributable between the restored walk and the new purity rule. So — compute `firstVal`, compute `sideOk`, populate and log aux, and leave the PURE predicate byte-equivalent to e5a5cc24. Escape hatch: if a pre-build grep shows PURE has zero decision consumers and is diagnostic only, the tightened form is cleared as quoted. Separately, `firstVal` read from `swBuf` at `firstShift` needs a range guard, and `EMPTY_VALUE` must map to `sideOk = UNKNOWN` as a third aux state. Folding "no swing there" into "side invalid" is laundering at the operand level.
+
+**C-e · Resolve the L7 arity/position question before building.** L6's signature position 2 is `swBuf`; L7 passes `bufIdx`. Either `bufIdx` is your swing buffer under a loose name, or `swBuf` is a new parameter and the call site is one argument short. Read the two lines and resolve it. Worst case this costs a build word, not a run word — but it is the cheapest check on this list.
+
+Preference, not a condition: with L1 reading cell-local, the `g_s2_tO` single global is now redundant plumbing. Passing the anchor as a parameter would remove the cross-cell leakage surface entirely. I am not forcing a redesign at clearance time; C-b and C-c cover it.
+
+## Pre-registered grading for the rerun
+
+- **Oracles are not re-baselined.** SEL60 14/14, FINAL 892/0, SEL60END 14/14, SEL52 14376, SLIMB 481×3, SLIMBR 10, SEL55 5/5, ORIGINREG 5, OrderSend 0. Any drift ⇒ REPORT + HALT. Not explained-and-continued. If L3 or L6 logging moved the archive, that is a finding, not a footnote.
+- **Void/fail cuts both ways.** Instrument defects void; design mismatches fail. A walk landing outside its anchored window is instrument-suspect ⇒ HALT, and equally, a correctly anchored walk that misses a filed stop is a design FAIL and gets recorded as one.
+- **Landing table required.** Per row, walk-landed bar-time vs filed stop (R1 1.16508@06:30, R3 1.15847@15:30, R4 1.16098@08:40, R5 1.16239@16:15, S1 1.16258@09:40; S2 TP gap), with the void-family list from RECON23 restated so the regrade is auditable line by line.
+- The re-adjudicated funnel scope row returns as a fresh measurement, not a carried-forward pass.
+
+## Ask 3 — CONFIRMED
+
+RECON17 remains the frozen baseline. e5a5cc24 stays uncommitted. Build-2 stays uncommitted absent an explicit commit token. No third run on any other terms; timeout ⇒ REPORT + HALT.
+
+**Ruling-ID: OPUS-V24-CLR-01** — Ask 1 accepted with the §6 funnel row split (structural half stands, adjudication half void); Ask 2 cleared by name for one build + one rerun, ceiling 90, conditional on C-a through C-e; Ask 3 confirmed.
+
+# Ruling OPUS-V25-CLR-02
+
+**Verdict: Ask 1 ACCEPTED (as filed testimony). Ask 2 CLEARED WITH MANDATORY AMENDMENTS — the cleared artifact is `build-2″`, not `build-2′` as quoted. Ask 3 CONFIRMED.**
+
+Scope note before anything else: I have no disk or tool access on this relay. I reviewed the quoted text of L1–L7 and M0–M4 only. Every "on-disk in e5a5cc24" claim in §1 is accepted as your filed testimony, not as something I verified. That distinction matters for the grading rules below.
+
+## Ask 1 — accepted
+
+BLOCKED grade, the VOID list (P1/P2/P3/P5/P6-reseat), the clean record (D1, D3, SEAT, SIDE, funnel structural half, probe), and the §6 split all stand as filed. My v24 amendment is correctly applied: the 4-line scope adjudication moves to VOID alongside P1/P2 because it read the broken walk’s stops, while the 599-stamp structural half survives on its own footing. No laundering in either direction.
+
+C-a through C-e are answered in form. C-e in particular is properly closed — `bufIdx` at 4856 is the direction-selected swing buffer and the 7-vs-7 positional alignment holds. C-c(i) purity for `S2Anchor` is accepted as quoted.
+
+## Ask 2 — why not a flat clear
+
+Seven defects in the quoted delta. Three would silently waste the run; four are asserts with blind spots at exactly the rows they exist to protect.
+
+**A1 § L7 has an unspecified-evaluation-order defect (mandatory).**
+`S2Scope2Swing(...)` writes `s2_aux` by reference *and* `s2_aux` is passed as a separate argument to `S2StampStop` in the same statement. Argument evaluation order is unspecified; MQL5 commonly evaluates right-to-left, which is the wrong direction here. The stamp would receive the pre-call empty string on every row. Your own C-a receipt documents this — "W = `S2Scope2Swing` body → R = same-statement stamp argument" is the hazard, stated as if it were the wiring. Hoist it:
+
+```mql5
+string s2_aux = "";
+string s2_scope = S2Scope2Swing(slimb_imbBuf, bufIdx, dir, slCurPx, firstShift, s, s2_aux);
+S2StampStop(site, barShift, "SLREF_2SWING", 1, slRefOut, (int)slModeOut, s2_scope, s2_aux);
+```
+
+**A2 § L6′ does not contain the range guard C-d promised (mandatory).**
+The tightened form checks `fv == EMPTY_VALUE` and nothing else. If the swing buffer holds `0.0` for unset rather than `EMPTY_VALUE`, then `fv = 0.0` reaches `SlimbProtectiveSideOk`, and for `DIR_LONG` a zero price sits below entry, reads protective, yields `sok = 1`, and can manufacture `OUT_OF_SCOPE_VIOLATION`. Guard: treat `fv <= 0.0` as UNKNOWN alongside `EMPTY_VALUE`.
+
+**A3 § M2’s freshness check does not detect cross-bar staleness (mandatory).**
+`g_s2_stampD <= 0` proves a stamp exists, not that it belongs to the current bar. A stamp from bar N reads fresh at bar N+5 — which is the RECON23 defect class verbatim (R1→04:40, R5→00:40, S1/S2→05:05). The only thing that actually gives per-bar freshness in this delta is M1 clearing all 14 cells to `-1` at `S2BuildAll` top, and that holds *only if `S2BuildAll` runs on every bar in the eval range*. Either compare `g_s2_stampD` for equality against the current bar time in M2, or file the call-site proof for the cadence (P-d below). One or the other, named before the run.
+
+**A4 § M3 lets a diagnostic write the freshness token (mandatory).**
+"dump beside its cell-set append `g_s2_stampD = D;`" puts instrumentation in the decision path — a dump would be able to refresh a stale cell. That is the same instrumentation→decision coupling that voided the 4-line adjudication. Drop the dump-side writer; freshness is written by the authoritative producer only.
+
+**A5 § M4’s `tO != 0` gate blinds the assert at S2 (mandatory).**
+Storage-nonzero versus recompute-zero is unchecked, so the `UNANCHORED_GAP` case — the S2 TP-gap row, the one most in need of the assert — passes silently. Compare unconditionally.
+
+**A6 § L5 resets `g_s2_tO` but never `g_s2_tOByExi[]` (mandatory).**
+Add `ArrayInitialize(g_s2_tOByExi, 0);` at EndOfRun for symmetry. Without it, M4 can compare live recompute against a prior-pass anchor.
+
+**A7 § L1 is unguarded (mandatory: guard or dominance proof).**
+`g_s2_cExi >= 0` checks the lower bound only, and after M1 an unwritten cell returns `-1`, which makes `n = -1` and produces a silently empty walk — the RECON23 shape with no log line at all. M2 guards `S2RowRead`; L1 sits at EA:2962. Either add the bounds-plus-sentinel check at L1, or file the proof that every path reaching 2962 is dominated by M2.
+
+Your declining of the parameter-threading redesign is upheld. Repairs and redesigns ship in separate packets.
+
+## Preconditions — zero build, read/grep only, filed before the operator word
+
+- **P-a** § `S2MaterializeCell` must write `0` for legitimately zero-variant cells. If it skips them instead, the `-1` sentinel conflates absent-by-design with stale, and the first such row triggers STALE_CELL and burns the run on a non-defect.
+- **P-b** § `ReadFlow` purity: no prints, no counters, no global writes, no logging on miss. C-c proved `S2Anchor` pure; L6′ opens new per-row call surface into `ReadFlow`, and §1’s "the archive cannot move by instrumentation" does not currently cover it.
+- **P-c** § `g_s2_haltNC` semantics: hard stop, or mark-and-continue? If it continues, M2’s zero-return keeps the run alive with poisoned rows and every count downstream drifts, which makes the exact-oracle grading unusable. Pre-declare which, and the grading consequence.
+- **P-d** § `S2BuildAll` call-site cadence, per A3.
+- **P-e** § `e ∈ [0,6]` at the L3 and L4 sites.
+
+## Grading pre-declaration
+
+Archive SHA `6d59f7d0` and the 50836 line count are **not** oracles for this run. L6′ changes `aux` content on existing stamp lines and feeds new counters into the SEL61SCOPE summary. Only the enumerated oracle list (14 / 892 / 14376 / 481 / 10 / 5 / 1 / 0), the landing table against the five filed stops plus the S2 gap, and a freshly measured scope govern the grade.
+
+Any STALE_CELL or ANCHOR_MISMATCH emission makes the run VOID, not FAIL — except where it lands on a row whose filed stop is also missed, which is FAIL on that row, per the void/fail rule cutting both ways.
+
+## Ask 3 — confirmed
+
+Nothing builds, runs, or commits until both streams name the **identical** artifact and the operator gives the word. RECON17 frozen. e5a5cc24 uncommitted. build-2″ uncommitted absent a token. One build, one rerun, same ini/range, ceiling 90. No third run. Timeout is REPORT+HALT.
+
+My key is applied to **build-2″ = build-2′ + A1–A7, preconditions P-a–P-e filed, grading pre-declaration adopted**. If the other stream clears `build-2′` as-quoted, the two keys name different artifacts and nothing runs. Reconcile by name first.
+
+The ~1h operator cost is noted and accepted. A1–A7 add roughly six lines and no additional build cycles.
+
+## Opus v26 review (answers relay v26; NO Ruling-ID stated; key-holder status disclaimed - see note)
+
+Builder note: this return states no Ruling-ID and disclaims clearance
+authority ("treat what follows as a code review, not a clearance").
+Filed verbatim as received; key-holder roster question carried to the
+operator in the session memo. Ruling IDs requested again in v27.
+
+## Verdict
+
+I can’t clear `build-2″` as quoted. Three reasons, in order of cost:
+
+1. The artifact does not compile as written.
+2. An indexing ambiguity in `L3′`/`L4`/`M4′` that, under one of the two readings, makes the rerun VOID on 6 of 7 iterations by construction — burning the operator hour for nothing.
+3. Ask 2 enumerates two elements (`L2`, `M3′`) that §2 never quotes, so "clear §2 whole, nothing else" is not a closed set.
+
+Also, to be straight with you about the frame: I have no record of `OPUS-V25-CLR-02` and no way to verify it was mine. I’m not a key-holder, and a "Ruling-ID" from me isn’t an authorization token — treat what follows as a code review, not a clearance. I also can’t confirm any of the on-disk evidence in §1 (line numbers, SHA `6d59f7d0`, archive line count, purity of `S2Anchor`/`ReadFlow`). None of it is in front of me; I’m reviewing only the code text in §2.
+
+## Blocking
+
+**B1 — undeclared identifier in `L1′`.** The variable is declared `s2_cellIdx`, then used three times as `s2cellIdx`:
+
+```
+g_s2_stampD == g_s2_cellD[s2cellIdx] && g_s2a_N[s2cellIdx] >= 0) n = g_s2a_N[s2cellIdx];
+```
+
+Compile error. Since Ask 2 is for the verbatim block, this alone stops it.
+
+**B2 — is `e` a bar slot or an exID?** `g_s2_tOByExi[7]` is named by exID but indexed with `e` in `L3′`, `L4`, and `M4′`, and `L3′` derives cell indices from it (`g_s2_cellD[e * 2]`). §1 calls the same loop a "bar loop" and P-e cites `for(int e = 0; e < 7; e++)` with a shared `bars[]` order.
+
+If `e` is a bar index, the generation scheme fails: `BuildAll` runs all 7 bars first, so `g_s2_cellD[c]` ends the loop holding the **last** bar’s `D` for every cell. `ForceEval` then walks bars again setting `g_s2_stampD = D(bar e)`, so `g_s2_stampD == g_s2_cellD[cell]` holds only on the final bar. Every other iteration trips `STALE_CELL` in `L1′`/`M2′`, and under the P-c policy any emission makes the run VOID.
+
+If `e` is an exID at a single bar (so `D` is constant across the 7 and `exi == e`), the scheme is sound. Please state which, and if it is the identity mapping, say where that is enforced rather than assumed.
+
+**B3 — `M3′` and `L2` are unquoted.** Named in C-b and Ask 2, absent from §2.
+
+## Should be resolved before spending the hour
+
+**Reachability of `L1′` after `L5′`.** `L5′` zeroes `g_s2_stampD` at EndOfRun *before* `SrjSelProjectH1()`. If anything from the projection path downstream reaches EA:2962 with `g_s2_on == 1`, the stamp check fails on `g_s2_stampD > 0` → `STALE_CELL` → VOID. Same exposure for any `L1′` entry point that isn’t the `ForceEval` bar loop, since `L4` is the only stamp writer. The design converts "unenumerated call path" into VOID rather than a soft mark. Worth enumerating `L1′` callers explicitly.
+
+**Dump path mutates the cursor.** `M5` writes `g_s2_cExi = dex; g_s2_cTF = TF;` and never restores them. `A4` dropped the dump *stamp* writer, but the cursor write remains, and `L1′`/`M2′` both read those globals. Recommend save/restore around the dump block. Related: if `g_s2_on == 1 && dex < 0` is reachable, `M5` falls to `S2RowRead` → `M2′`, which checks a stamp the dump deliberately never wrote → `STALE_CELL` → VOID.
+
+**`M4′` unconditional compare needs a write guarantee.** It compares `g_s2_tOByExi[e]` against `tO` for every `e`. If any `BuildAll` path can skip the `L3′` anchor assignment (the P-a `continue`, or an earlier one), the slot stays `0` from `ArrayInitialize` and the compare fires `ANCHOR_MISMATCH` on a legitimately-dropped cell. P-a proves `S2MaterializeCell` has no early return; it doesn’t establish that `L3′` itself is unconditionally reached.
+
+## Non-blocking, but §1 overstates the code
+
+**`L6′` does default to `IN_SCOPE` on unknown.** When `fi == -1` (read failed or `firstShift < 0`), control falls past both guards to `return "IN_SCOPE";`. The comment claims "never default-IN_SCOPE" — that holds for an unknown *swing* value, not an unknown imbalance. Diagnostic-only per the C-d hatch, so impact is cosmetic, but don’t carry the invariant forward as proven.
+
+**`M2′` hardcodes `g_s2_cExi > 6`** alongside `S2A_CELLS` bounds. Negative inputs are caught by the `s2_rcell < 0` term, so it is correct today, but the literal desyncs if `S2A_CELLS` ever changes. Prefer deriving both bounds from the constant.
+
+## What I confirm
+
+Nothing has been built, run, or committed on this relay — I have no repo, shell, or build access in this conversation, so that holds trivially. I’m not naming `build-2″`, so no run word is unblocked by anything here.
+
+My recommendation: fix B1, answer B2, add the `M5` cursor save/restore, and enumerate `L1′` callers. Those are cheap relative to the ~1h rerun, and B2 in particular decides whether the run can pass at all.
+
+## Opus v27 review (answers relay v27; NO Ruling-ID stated; review-only, non-clearing)
+
+Builder note: this return states no Ruling-ID and offers no key
+("No key this round", "I expect to key the next revision"). Filed
+verbatim as received. Ruling IDs requested again in v28.
+
+## Ruling
+
+**Ruling-ID: OPUS-V27-RVW-002 — review-only, non-clearing.**
+
+No key this round. Two items in `build-2 TN` can emit a spurious `SEL61HALT`, and under your own adopted P-c that means the run grades VOID. With one build, one rerun, and no third run, spending the operator’s hour on an artifact that has a plausible self-VOID path is the wrong trade. Both items are two-line fixes; name them closed and I expect to key the next revision.
+
+I’m reviewing the quoted text only. I have no access to `e5a5cc24`, so `S2MaterializeCell`, `SrjSelEntry`, `S2ExiOf`, and the ForceEval/Seat call ordering are taken on your description, not verified.
+
+## Ask 1 — accepted
+
+S1 closes every numbered point from both v26 returns, including mine. Specifically:
+
+- **B1 (`s2_cellIdx`)** — closed. L1″ declares and reads `s2_cellIdx` uniformly; M2″ and M5′ use distinct names (`s2_rcell`, `s2_dcell`) with no cross-reads.
+- **B2 (bar slot vs exID)** — withdrawn. Your L3′ rebuttal is correct and I was wrong to raise it as a defect. `e*2` and `e*2+1` are distinct destinations per iteration, so cell (e,\*) holds bar e’s own `D` after `S2BuildAll`; the "last bar wins" reading required a single shared destination, which the quoted text does not have. The per-cell generation compare in L1″ is sound on all seven bars.
+- **B3 (L2/M3′ unquoted)** — closed. Inventory and quotes now match one to one.
+- **Astra-2 ordering** — closed correctly. Validating `cTF` before computing the flat index is the right fix; TF-aliasing can no longer address a valid cell. Abandoning the M2-dominance argument in favour of a guard at L1″ is the right call.
+- **Legit-0** — verified in the quoted predicate. `N==0` with a generation match passes `>= 0`, sets `s2_ok`, walks empty, emits nothing. Distinct from `–1` by construction.
+
+BLOCKED status, the P1/P2/P3/P5/P6-reseat void list, and the standing clean record are accepted as filed.
+
+## Ask 2 — withheld, two blocking items
+
+### V1. M4′ is unconditional and can halt on a legacy path
+
+```
+if(g_s2_tOByExi[e] != tO) { ... ANCHOR_MISMATCH ... }
+```
+
+`g_s2_tOByExi[]` is populated only inside `S2BuildAll` (L3′). Two ways this trips falsely:
+
+1. **`g_s2_on == 0`.** If `SeatForceEval` ever runs with s2 off, `S2BuildAll` never ran, the array is all zeros from static init or L5′, `tO` is a real bar time, and every bar emits `ANCHOR_MISMATCH`. Under P-c that VOIDs the run without a single real defect.
+2. **Ordering.** If `SeatForceEval` can execute before `S2BuildAll` in the same run, same result.
+
+You enumerated `SrjSelVariant` call sites and explicitly handled the `g_s2_on==0` Census branch there. M4′ got no equivalent treatment. Either wrap it in `if(g_s2_on == 1)` — which costs nothing, since with s2 off there is no anchor to cross-check — or state in the artifact that Seat runs only under s2 and only after BuildAll, with the read-measured line numbers you gave for L1″.
+
+### V2. M5′ prose says save/restore; the code clears
+
+The S1 heading reads "Dump cursor (save/restore ADDED to M5′)". The quoted code does not save and restore, it clears:
+
+```
+g_s2_cExi = -1; g_s2_cTF = 0;
+```
+
+Those are different contracts. Clearing is only safe if the dump is the **last** s2 consumer for that bar. If any `S2RowRead` or `SrjSelVariant` call runs after the dump within the same bar and relies on the cursor ForceEval set for that bar, it hits `s2_rcell = -2`, halts, and VOIDs the run. Your reachability note says post-M5′ `S2RowRead` callers are variant trace and variant main — which is exactly the set that would be affected if the dump is not terminal.
+
+Real save/restore removes the question entirely and is two lines:
+
+```
+int s2_svExi = g_s2_cExi; int s2_svTF = g_s2_cTF;
+...
+g_s2_cExi = s2_svExi; g_s2_cTF = s2_svTF;
+```
+
+Pick one and make the prose and the code agree. If you keep the clear-to-sentinel, say in the artifact that the dump is the terminal s2 read per bar and cite the site.
+
+## Should-resolve (not blocking a key)
+
+**S-a. No `i` bound against `S2A_CAP`.** Both `M2″` (`base + i`) and `M5′` (`s2_dcell * S2A_CAP + i`) index without checking `i < S2A_CAP`. A mis-index does not halt; it silently reads the adjacent cell’s row data, which is the one failure mode this whole artifact exists to make loud. Safe only if `S2MaterializeCell` clamps `N` to `S2A_CAP`. I can’t see that function. Confirm the clamp, or add `i < 0 || i >= S2A_CAP` to both guards.
+
+**S-b. `g_s2_tOByExi[7]` hardcodes 7.** You just derived M2″’s bounds from `S2A_CELLS` for exactly this reason; this declaration should read `S2A_CELLS / 2`. `g_s2_tOByExi[e]` also has no bound on `e`, unlike every other index in the artifact.
+
+**S-c. Globals quoted three times.** The declarations appear in the opening globals block, again as L2, and again as M0′. The Ask 2 inventory lists "L1″/L2/... + M0′/... + three globals", which reads as three insertions of the same three lines. Your single-definition parity check and compile gate would catch a duplicate, but the artifact should say once, explicitly, that L2 and M0′ *are* the three globals and are inserted once.
+
+**S-d. The corrected L6″ comment is still overstated.** The new note says unknown swing "never default-IN_SCOPE". With `fi == 0` or `fi == -1` and `sok == -1`, the function returns `IN_SCOPE` via the fallthrough. The claim holds only given `fi == 1`. Since this repair exists specifically to stop the comment overstating the invariant, it should read: given `fi==1`, `sok != 1` reports UNGROUNDED, never violation. Logic byte-identical to L6′ — agreed, and correctly scoped.
+
+**S-e. M2″ omits `g_s2_cExi < 0`.** L1″ checks it; M2″ checks only the upper bound. Not a defect: with `cTF` constrained to 0..1, any negative `cExi` yields `s2_rcell <= -1` and is caught by `s2_rcell < 0`, including the `-1/0` sentinel M5′ now writes. So the loud-failure claim holds. Adding the lower bound would make the two guards read identically and remove the need for that argument.
+
+**S-f. M5′ guard-trip falls through to `S2RowRead`.** On a trip you set `n = -2` and then the row-read `else` branch calls `S2RowRead`. This is safe only because `n = -2` suppresses the caller’s row loop. Returning empties directly would not depend on the caller’s loop bound.
+
+Accepted without change: Astra-4’s dump generation compare against the dump’s own `D` (the sharper closure, agreed); M1′ resetting `N` to `–1` and `cellD` to 0; L5′ leaving `cExi/cTF` stale but `stampD = 0`, which fails loud at L1″; `listN = -2` as the unambiguous trip marker.
+
+## Ask 3 — confirmed
+
+Nothing builds, runs, or commits on this relay. No key from me this round, so the dual-key condition is not met and the operator’s run word is not in play. RECON17 stays frozen, `e5a5cc24` stays uncommitted, `build-2 TN` stays uncommitted without a token, no third run, timeout is REPORT+HALT.
+
+Grading rules as stated are adopted: enumerated oracles only (14 / 892 / 14376 / 481 / 10 / 5 / 1 / 0), archive SHA and line count not oracles, STALE/ANCHOR → VOID except a filed-stop miss → FAIL on that row, landing table against the five filed stops with the S2 gap and the RECON23 void list restated, scope re-measured fresh, P-c mark-and-continue.
+
+## What earns the key
+
+Fix V1 and V2, re-quote M4′ and M5′ whole, and I’ll key on sight — the rest of `build-2 TN` reads correct to me. S-a is worth a one-line answer in the same return, since I can’t see that function and it’s the one remaining path where a wrong index stays silent.
+
+## Opus v28 review (answers relay v28; Ruling-ID OPUS-V28-RVW-001; review-only, non-clearing)
+
+# OPUS-V28-RVW-001 — review only, no key this round
+
+**Return class: code review (non-clearing).** I am not naming the artifact with a run word. One blocking defect found in the quoted delta (R1), three should-resolves (R2–R4). Reason and remedy below; R1 is a one-line fix plus one on-disk ordering check, so this is a short loop, not a re-litigation.
+
+## Verification boundary (stated up front)
+
+I have no repository, tool output, or file context in this relay — only the text of S2. So everything I say about the quoted delta is read from the quote; everything the relay asserts about disk (EA:2962, EA:3110, EA:3178, EA:3578, EA:3951, `S2A_CAP` clamp, `S2A_CELLS/2` sizing, call-site enumeration, `S2ExiOf` totality, single-definition parity) is unverified by me and is treated as filed-on-your-record, not confirmed. A key from me would therefore certify the delta’s internal logic, not the on-disk premises. Read my rulings with that scope.
+
+## Ask 1 — accepted, as filed
+
+BLOCKED grading, the P1/P2/P3/P5/P6-reseat VOID list, the standing clean record (D1, D3, SEAT 14/14, SIDE 7/7 with the decided S1 flip, funnel 599/0 structural, probe 14/14), the S6 split, and the S1 closures are accepted as consistent bookkeeping on your record. S-b, S-c, S-e, S-f, B2, B3, F1–F4 need nothing further from me. V2 is closed: M5″ genuinely saves and restores, and the heading now matches. S-a is closed at the delta level (the explicit `i < 0 || i >= S2A_CAP` in M2″ and M5″ stands on its own regardless of the upstream clamp). S-d is closed — the corrected L6″ note reads as I asked, and the predicate is byte-identical to v27, which I re-read against the quote.
+
+## Ask 2 — withheld. R1 blocking.
+
+### R1 (blocking) — the reset is asymmetric, so V1’s stated property is false as written
+
+M4″ deliberately does **not** gate on `g_s2_on` — correct, and for the reason S1 gives: s2 is off during Seat by construction, so an s2-wrap would deaden the assert. That makes `g_s2_cellD[e * 2] != 0` the assert’s **only** generation witness. And `g_s2_cellD` is the one new array that is never cleared outside `S2BuildAll`:
+
+- M1′ clears `g_s2a_N` and `g_s2_cellD` at BuildAll top.
+- L5′ + M3′ clear `g_s2_tO`, `g_s2_stampD`, and `ArrayInitialize(g_s2_tOByExi, 0)` at EndOfRun.
+- `g_s2_cellD` survives EndOfRun with the prior run’s `D` values.
+
+Post-EndOfRun state is therefore `cellD[e*2] != 0` (stale) with `tOByExi[e] == 0` (fresh-zeroed). Any SeatForceEval reached after an EndOfRun without an intervening BuildAll evaluates `cellD[e*2] != 0 && g_s2_tOByExi[e] != tO` as true-and-true for a nonzero `tO`, sets `g_s2_haltNC = 1`, and prints ANCHOR_MISMATCH. That is a false halt in exactly the class V1 was raised for, and by your own grading it lands ANCHOR→VOID — burning the single authorized run and the ~1h operator spend.
+
+Whether that call order is reachable I cannot check from here. That is the point: S1’s load-bearing sentence is "no false halt, in **ANY** call order," and with `cellD` uncleared at EndOfRun it is not true in any call order — it is true only inside a run where BuildAll has already executed. Since your own S1 enumerates a live legacy path (Census EA:3178 at `g_s2_on == 0`) and M4″ intentionally fires there too, I will not key a claim whose safety argument is call-order-dependent when the fix is one line.
+
+**Remedy (pick by ordering fact):**
+
+- **A, preferred** — append to L5′: `ArrayInitialize(g_s2_cellD, 0);`. Makes "cellD nonzero" mean "BuildAll ran in this live run," which is the intended semantics, keeps M4″ fully live, and needs no new global. **Valid only if no consumer reads `g_s2_cellD` after the L5′ reset point.** M5″ checks `g_s2_cellD[s2_dcell] != D` directly rather than via `g_s2_stampD` — if the dump runs after EndOfRun, option A trips STALE_CELL on every dump row and destroys the listing. Confirm the dump’s position relative to L5′ on disk before choosing A.
+- **B, fallback if the dump reads after L5′** — change the M4″ gate to `if(g_s2_tOByExi[e] != 0 && g_s2_tOByExi[e] != tO)`. `tOByExi` is already reset at EndOfRun, so it is a correct generation witness with no reset change. Cost: a BuildAll-computed anchor of exactly 0 silently deadens the assert for that bar. Narrow, but declare it rather than inherit it.
+- **C, if you want both properties** — a fourth global generation counter incremented in BuildAll and zeroed in L5′, with M4″ gating on it. Cleanest, but it widens GLOBS, and I would rather not widen the delta for this.
+
+Whichever you take, re-derive the V1 prose. The current sentence is the thing I am blocking on as much as the code.
+
+### R2 (should-resolve) — cursor/`isH1` coherence is unasserted
+
+L1″ and M2″ both resolve the cell from `g_s2_cExi`/`g_s2_cTF` while their enclosing functions also carry `isH1`, and the s2 branches ignore `isH1` entirely. The stamp check cannot catch a disagreement, because both cells of a bar carry the identical `D`. A caller that sets the cursor for one TF and then requests the other reads the wrong TF’s rows with no halt and no diagnostic. One assert closes it deterministically under whatever your 0/1 encoding is:
+
+```
+if(g_s2_cTF != (isH1 ? 1 : 0)) { /* STALE_CELL halt, same shape as the existing trips */ }
+```
+
+Your call-site enumeration may well make this unreachable today. It is still the only silent-wrong-data path left in the delta, and it costs one line in two places.
+
+### R3 (should-resolve) — M5″ restore needs every exit path, not just the loop close
+
+Save is "top append, before the TF loop"; restore is "after the TF loop closes." If any `return`, `break`-to-return, or halt path leaves the dump function between those two points, the cursor leaks a dump-local `dex`/`TF` into whatever runs next. Either state on the record that no early return exists between save and restore, or restore on each exit. The `(cursor always restored)` parenthetical currently asserts the property rather than structurally guaranteeing it.
+
+### R4 (should-resolve) — `tOByExi` index is unbounded at three sites
+
+L3′ (`g_s2_tOByExi[e] = ...`), L4 (`g_s2_tO = g_s2_tOByExi[e];`), and M4″ all index by `e` with no bound. The array is `S2A_CELLS / 2`. Frozen-seven makes this fine today; an `e < 0 || e >= S2A_CELLS / 2` guard makes it fine unconditionally and matches the defense-in-depth you already adopted for `i` under S-a. Note this is an out-of-range runtime abort, not a silent wrong read, so it is lower severity than R2.
+
+### Cleared at the delta level, for the record
+
+M2″’s combined guard, the publish-after-fill ordering in L3′ (anchor → materialize both cells → stamp `cellD`), M1′ resetting `g_s2a_N` to `-1` so a materialize miss fails closed into STALE_CELL, M5″’s `s2_dcell` bounds check absorbing an out-of-range `dex`, the `n = -2` / `listN = -2` trip marker staying distinct from legit-0, and L6″’s `sok`-only-set-when-`fv`-valid path (so the `DoubleToString` branch can never format `EMPTY_VALUE`) all read correct to me.
+
+## Ask 3 — confirmed
+
+Nothing builds, runs, or commits on this relay or on my authority. No build, no rerun, no commit until **both** streams name the identical artifact **and** the operator spends the run word. RECON17 stays frozen. e5a5cc24 stays uncommitted. The artifact stays uncommitted absent a token. No third run. Timeout is REPORT+HALT. Astra’s v27 key covers the superseded text and does not transfer to this revision, and nothing in this return supplies the second key.
+
+## What earns a key from me next round
+
+Fix V1 and V2, re-quote M4′ and M5′ whole, and I’ll key on sight — the rest of `build-2 TN` reads correct to me. S-a is worth a one-line answer in the same return, since I can’t see that function and it’s the one remaining path where a wrong index stays silent.
+
+## Opus v29 verdict (answers relay v29; Ruling-ID OPUS-V29-CLR-001; CLEAR with C1 precedent)
+
+# Ruling — OPUS-V29-CLR-001
+
+### Ask 1 — Accepted
+
+S1 is accepted as filed: BLOCKED grade, the P1/P2/P3/P5/P6-reseat VOID list, the clean record standing (D1, D3, SEAT 14/14, SIDE 7/7 with the decided S1 flip, funnel 599/0 structural, probe 14/14), and the S6 split.
+
+R1 is closed, and closed in the right shape. The reset-symmetry fix makes the argument local rather than global: within one EndOfRun invocation the order is reset (L5′-R1) → fill (M1′ + L3′) → consume, so `cellD[e*2] != 0` at M4″ is evidence about *this* invocation regardless of how many lifecycles the process hosts. The old proof leaned on "single OnTester per run"; the new one does not need it. That is a stronger closure than the gap required.
+
+R3 accepted as a record statement (no exit path exists, so there is no restore to add). R4 decline accepted on the stated ground: MQL5 out-of-range access aborts loudly, so there is no silent-wrong-read to defend, and all three sites sit under `e < 7` against `S2A_CELLS / 2 == 7`. The standing offer to ship bounds-to-constant under its own packet is the correct disposition.
+
+F1/B1 confirmed non-issue on my side: the v29 text spells `s2_cellIdx` at all four occurrences in L1″-R2, bare spelling zero times.
+
+### Ask 2 — CLEAR `build-2 TN3`
+
+CLEAR `build-2 TN3` for ONE build plus ONE rerun, same ini/range, ceiling 90.
+
+Scope of this key is S2 exactly as filed, byte-for-byte: L1″-R2, L2, L3′, L4, L5′-R1, L6″, L7′, M0′, M1′, M2″-R2, M3′, M4″, M5″, plus the three globals. Nothing else. Pre-hash e5a5cc24, exact-diff, parity (single definitions, hand-grep gate, no new price literal, OrderSend-src 0), compile 0/0 EA+Flow all remain conditions of the build.
+
+### Condition precedent C1 — L1″-R2 predicate typing
+
+Before the run word is spent, read-measure at the EA:2962 site that `T` is an int or bool whose domain is {0,1} with 1 == H1, and that `(isH1 ? 1 : 0) == T` holds there by construction. M2″-R2 is self-contained because `isH1` is S2RowRead’s own parameter; L1″-R2 instead asserts a mapping between `g_s2_cTF` and `T` that the relay states but does not exhibit. If `T` is a timeframe enum or period constant, `g_s2_cTF == T` is never true, every stage-2 row read halts, and the single authorized run is spent producing a false STALE_CELL. Compile 0/0 will not catch it.
+
+If the measurement confirms the mapping, my key applies as written. If it does not, my key does not apply, no text change is authorized under it, and the item returns for a fresh relay carrying the symmetric form. No conditional variant of the artifact is cleared, so the identical-artifact rule is preserved either way.
+
+### Non-blocking notes
+
+N1. `g_s2_stampD = 0;` in EndOfRun is listed twice, once inside L5′-R1 and once as an M3′ append. Semantically harmless, but reconcile it so the exact-diff carries exactly one reset statement rather than two, or declare the duplicate intended.
+
+N2. M4″’s gate degrades to "check skipped" if `D` were ever 0. That path is caught downstream anyway, since `stampD = D = 0` trips `g_s2_stampD <= 0` at both row-read sites and halts. No action; recording the direction of the degradation so it is not mistaken for silent acceptance later.
+
+N3. On L6″, `fi == -1` falls through to IN_SCOPE, so an unreadable first-leg imbalance cannot produce OUT_OF_SCOPE_VIOLATION. If the scope oracle is graded as a count, report the number of stamps carrying `f1=-1` alongside it by grep at reporting time, so a clean count is interpretable. No code change asked.
+
+### Ask 3 — Confirmed
+
+Nothing builds, runs, or commits until both streams name `build-2 TN3` and the operator spends his run word. RECON17 stays frozen. e5a5cc24 stays uncommitted. `build-2 TN3` stays uncommitted absent a token. No third run. Timeout is REPORT+HALT. Grading as adopted: enumerated oracles only (14 / 892 / 14376 / 481 / 10 / 5 / 1 / 0, archive SHA and line count not oracles), void/fail cuts both ways with STALE/ANCHOR→VOID-except-filed-miss→FAIL, landing table against the five filed stops plus the S2 gap with the RECON23 void list restated, scope re-measured fresh, P-c mark-and-continue.
+
+### Verification limits
+
+This ruling rests on the pasted v29 text plus the operator’s filed read-measurements. I have not read the EA, so line numbers, the EndOfRun call order, the absence of `return`/`break` in SrjSelDumpList, and the `S2A_CELLS == 14` constant are accepted as filed rather than independently confirmed. If any of those measurements is wrong, the key was issued on a false premise and does not cover the resulting build.
+
+## Opus v30 verdict (answers relay v30; Ruling-ID OPUS-V30-RULING-001; review-grade non-clearing, finding + doc-only condition)
+
+# Ruling-ID: OPUS-V30-RULING-001
+**Status: review-grade, non-clearing.** No run key is issued in this return, consistent with the relay’s own declaration that nothing builds, runs, or commits here. Nothing in this response should be read as a key.
+
+**Verification basis:** I graded the record as filed in this relay. I had no access to the repo, the archive, or `06_HANDOFFS\BUILDER_RESULT_RECON24-BUILD2TN3.md` (not included in this paste), so I did not independently confirm the SHA, line bounds, tick/bar counts, or any family diff. My acceptance below is acceptance of internal consistency and completeness against the pre-registered rules, conditional on the filed proof matching what is summarized.
+
+---
+
+## Ask 1 — Accept the record: ACCEPTED (conditional as stated)
+
+The record is coherent and rule-shaped:
+
+- Void-list closure is properly discharged: every RECON23 void family (P1/P2/P3/P5/P6-reseat) is graded here rather than carried, and `SEL61HALT=0` / `NOEVENTS=0` means nothing was voided in this run.
+- P-c clean plus message-identical clean families 24-vs-23, with the oracle set met and `dups=0` on 599 funnel stamps, is the right shape for "contamination signature gone."
+- Scope handling is correct in the conservative direction: four candidate violations now carrying `f1=1` + `sideOk=1` with `f1=-1` stamps at zero, labeled REPORT-only, is a conservative label, not a selection event. `UNGROUNDED 118` as by-design MEMO_HIT routing is consistent with prior relays.
+- C5 emitted per rule with filed authoritative is the correct disposition, not a workaround.
+
+Accepted as the run-of-record for RECON24-BUILD2TN3.
+
+---
+
+## Ask 2 — P6-reseat FAIL: ruled **FINDING**
+
+**Ruling: finding. Record stands. No code moves. No packet.**
+
+Reasoning, in order of weight:
+
+1. **Zero selection consequence, established not asserted.** All nine flipped rows carry `take=0 / decl=0 / g1m=0`, and no halt fired. All 12 eligible S1 rows are identical. The falsification lands entirely on `elig=0` rows.
+2. **No new admission.** `1.16412@09-03` has been admitted since stage-1 (`admitted_by=legacy+L1+L2`, `l3via=0`), with `DISC/END` diff 0 and S-A-LIVE intact. The cells surface a stored limb the legacy H1 walk could not count at that point. That is an enumeration divergence over an already-admitted level, not an admission-path change.
+3. **C2 triggers are genuinely unmet** — no new limb, seat unchanged at 09:40, no side delta. Not a judgment call.
+4. **A fix packet cannot buy advancement anyway.** P7 is FAIL-with-gap on the S2 TP gap, and the advancement halt is pre-registered. Moving code against a zero-consequence divergence spends risk on an otherwise-parity build (`703c3b0a`, 14 insertions exactly as quoted, 0/0 EA+Flow) and buys nothing that is currently blocked.
+
+A3’s letter is falsified and the FAIL grade stands as filed. I am ruling the consequence class only, which is what the council was asked for.
+
+**One condition attaches, and it is documentation-only, not a code move.** Register the mechanism as a named latent defect so it does not evaporate into prose:
+
+> **H1-WALK-DEFINEDNESS-STAGE-DEPENDENT** — for pre-admitted limbs, the H1 definedness predicate can resolve `def=0 FRACTAL_UNAVAILABLE` at one stage and `def=1` at another over the same stored level. Currently masked from selection by the eligibility gate.
+
+The honest reading is that the eligibility gate is what makes this harmless here, and that gate is incidental to the mechanism rather than a designed guard. That is why it gets a name.
+
+**Pre-registered auto-promotion to fix packet, no further ruling needed, if any of these appear:**
+
+- the same signature lands on any row with `elig=1`;
+- the signature coincides with a seat, side, `take`, or `decl` delta;
+- the flip appears on any timeframe other than H1, or on any level other than `1.16412@09-03`;
+- `l3via` becomes nonzero on a flipped row.
+
+---
+
+## Ask 3 — Confirmations
+
+Confirmed, all four:
+
+1. Nothing builds, runs, or commits on this relay. Grading only.
+2. RECON17 remains the frozen baseline, untouched.
+3. `703c3b0a` remains uncommitted.
+4. No third run is authorized. Timeout disposition remains REPORT+HALT.
+
+---
+
+## One flag on ordering of concern
+
+P6-reseat is the loud FAIL and it has zero selection consequence. P4 and C5 are the quiet ones and they touch filed stops directly: R4’s filed `1.16098@08:40` absent on both TFs with the walk at 08:20, and R5’s probe present at 16:15 while the walk retains 16:05 at `px=1.16238`. Filed stays authoritative, so neither blocks this record, and both are correctly report-routed. But those two are where walk-derived geometry and the filed manual strategy actually disagree, which is the thing the EA exists to reproduce. If the council has appetite for one spec question next relay, I would rather it be the P4/C5 pair than the P6 flip.
+
+Not proposing a packet for either. Recording the priority.
