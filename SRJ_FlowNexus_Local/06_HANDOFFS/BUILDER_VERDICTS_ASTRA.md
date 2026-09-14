@@ -507,3 +507,34 @@ HAND times and prices above are **comparison labels only**. None may enter candi
 **No build, run, or commit is authorized.** Work remains halted until an executable fix packet is frozen and dual-cleared **by the same exact name**, with operator authorization wherever run cost attaches. Records ride the next authorized snapshot; builds remain uncommitted.
 
 **Release condition:** resolve the general swing/seat rules, the actual LONG-carrying decision path, and the wick/target dependencies sufficiently to issue causal, pre-run predictions—not a seven-case patch.
+
+## VERDICT Astra-11 2026-09-14 - v21 stage-1 clearance (answers relay v21)
+
+**Ruling-ID: `COUNCIL-v21-STAGE1-CLEAR-FP-LIMBSEAT-1-01`**
+
+**Disposition: `FP-LIMBSEAT-1` CLEARED BY NAME by this responding stream for STAGE 1 ONLY.** This is one clearance receipt—not a representation that both streams have cleared v21. Prior receipts and standing state are taken as supplied, not independently verified.
+
+### Ask 1 — Stage-1 clearance GRANTED
+
+The frozen packet addresses the stated requirements **on paper sufficiently to authorize its diagnostic print set**:
+
+- **F1:** General enumeration predicates, independent attribution, no timeframe widening, structural-justification requirement, and fail-to-blank-(b) routing.
+- **F2:** A print-first discriminator with specified alternatives; blank (a) remains open. Neither S-A’s record basis nor S-B’s forming-limb premise is established merely by this clearance.
+- **F3:** Provenance before replacement, row-local side authority, non-blocking 4H, and explicit separation of legacy trigger evidence from direction authority.
+- **F4:** Single-resolver residency, bounded wick eligibility, mandatory source attribution, and scoped-exception containment.
+
+**Authorized scope:** the frozen stage-1 print set—F2 discriminator, F3 provenance, and per-bar candidate/admission attribution. Diagnostic evaluation of proposed logic is not permission to ship that logic.
+
+**Stage 2 remains HELD.** A further grading relay must evaluate the prints, structural justifications, and applicable preservation/regression obligations before any switch ships. Successor predictions are hypotheses to grade, not instructions to obtain those results. In particular, R1 requires the same ordinal path; the same level alone does not pass.
+
+### Ask 2 — No clearance-time HALT; execution HALTs retained
+
+No second design cycle or amendment is issued here. Unattributed admission, builder-filled blanks, HAND operands, timeframe widening, absent required records or fail-routes, and the specified **more-than-one-forming-limb** result remain blocking.
+
+If the evidence cannot be assigned to a frozen discriminator outcome without inventing an interpretation, **HALT and relay**; do not silently complete the specification. This clearance does not certify that those conditions are absent in code or data.
+
+### Ask 3 — CONFIRMED
+
+Nothing else moves or commits. **RECON17 stays FROZEN; P-SEL-1 stays DEAD; P-SEL-2 stays DELIVERED; builds stay uncommitted.** Records ride the next authorized snapshot.
+
+The approximately 80-minute full-window cost is acknowledged as supplied. **No run is authorized by this receipt alone:** execution requires the other stream’s explicit v21 clearance of **`FP-LIMBSEAT-1` BY NAME**, plus the operator’s affirmative run-cost authorization. No auto-advance.

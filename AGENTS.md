@@ -1101,6 +1101,25 @@ Masters judge measurements on disk, never prose about them.
     NO build/run — dual-key to build unmet (Astra hold). Records-only
     local commit for compact (no canonical, no tag, no push).
     UNCOMMITTED (canonical + no token).
+57. DUAL CLEARANCE v21 2026-09-14 (Astra-11 + Opus-v21, both filed
+    verbatim; v21 answered). BOTH clear `FP-LIMBSEAT-1` BY NAME for
+    STAGE 1 ONLY (prints: F2 discriminator + F3 provenance + per-bar
+    attribution; Astra print-set scope + execution-HALTs-retained; Opus
+    paper clearance + no-halt + R1-R4 binding readings + F3(5)-flag for
+    grading relay). Stage 2 HELD (grading relay first; no auto-advance).
+    Packet status → DUAL-CLEARED-STAGE-1 (build reqs R1-R4 recorded in
+    packet file). NOT BUILT/RUN: operator run-cost auth owed (both
+    streams demand his word; his standing proceed-orders predate this
+    clearance — one word post-compact launches). Next-session todos:
+    (1) his run word → (2) STAGE-1 pre-hash verify 150A6159 → (3) build
+    limbs_v2 shadow + discriminator + provenance + stop_source + HAND-
+    grep gate, parity audit, compile 0/0 → (4) launch print run (~80
+    min, ceiling 90, distinct run name) → (5) grade prints vs Opus
+    predictions + F3(5) statement → (6) grading relay (dual-key for
+    stage 2). If 90-min timeout or >1-forming-limb or unattributed
+    admission: REPORT+HALT. Commit 7b4ea50 = records checkpoint
+    pre-compact (60 files; EA + debris excluded; no push/tag).
+    UNCOMMITTED (no token).
 49. OPERATOR STATEMENT 2026-09-14 (mid-21b-run): RECON21 slowness was HIS
     host load (other heavy work during the run) — pace cause corrected
     from unknown to confirmed-environmental (addendum in

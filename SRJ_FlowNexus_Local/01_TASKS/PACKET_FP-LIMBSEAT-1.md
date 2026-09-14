@@ -1,11 +1,21 @@
 # PACKET FP-LIMBSEAT-1 — limbs + seat + generation + wick (Opus-issued, FROZEN)
 
-**ID:** `FP-LIMBSEAT-1`. **Status:** ISSUED (single-stream: Opus-v20
-Ask 2) — FROZEN by name; any edit requires `FP-LIMBSEAT-2` + fresh dual
-clearance. **NOT dual-cleared. NOT executed. NO build/run/commit
-authorized.** Astra-10 (COUNCIL-v20-DIAGNOSTIC-ACCEPT-FIX-HOLD-01) HOLDS
-fix issuance pending general-rule resolutions — its requirements table
-stands as the clearance bar.
+**ID:** `FP-LIMBSEAT-1`. **Status:** DUAL-CLEARED FOR STAGE 1 ONLY
+(Astra-11 `COUNCIL-v21-STAGE1-CLEAR-FP-LIMBSEAT-1-01` + Opus-v21
+`COUNCIL-v21-OPUS-DUALKEY-CLEAR-STAGE1-01`, both naming the packet for
+its print set). Stage 2 (switch shipping, F3 replacement, F4 stop
+assignment) HELD — needs a grading relay on the stage-1 prints. NO
+build/run executed yet. Operator run-cost auth for the ~80-min print
+run still owed (both streams require his word).
+
+**Opus binding readings R1–R4 (build requirements, pre-run):**
+R1 `admitted_by` set-valued (print ALL admitting switches per side);
+R2 L3-necessary = fails admission with L3 off (toggle test in shadow);
+R3 stage-1 evaluates L1–L3 in shadow with outcomes byte-identical to
+legacy (any divergence = defect); R4 F3/F4 ship at stage 2, but
+`stop_source` stamping + one-writer invariant may live at stage 1.
+**Flagged for the grading relay:** F3(5) veto vs POLARITY_MISMATCH
+interaction (promotion must not silently overturn a decline).
 
 **Frozen text location (verbatim, single source of truth):**
 `06_HANDOFFS\BUILDER_VERDICTS_SLDEF4-5.md`, section `# COUNCIL VERDICT

@@ -1981,3 +1981,54 @@ Nothing builds, runs, or commits until `FP-LIMBSEAT-1` is dual-cleared **BY NAME
 **Next expected relay:** dual clearance or halt on `FP-LIMBSEAT-1` by name. If cleared, the first authorized run is the print set only (F2 discriminator + F3 provenance), before any of F1's switches ship.
 
 *Scope note: this packet governs faithful reproduction of his documented decisions in an alert-only tool. It makes no claim about the strategy's edge or profitability, and none of the above should be read as trading advice.*
+
+# COUNCIL VERDICT (Opus stream - v21 stage-1 clearance, FP-LIMBSEAT-1)
+
+# COUNCIL v21 — Opus stream ruling
+
+**Ruling-ID:** `COUNCIL-v21-OPUS-DUALKEY-CLEAR-STAGE1-01`
+**Scope of this ruling:** the packet text `FP-LIMBSEAT-1` as annexed in §1. I have no repository or run access in this relay, so this is a paper clearance of the document. §2 is builder self-assessment; I am not confirming it against source, and Astra's F-requirement confirmations remain Astra's to give.
+
+---
+
+## Ask 1 — CLEARED BY NAME (one key of two)
+
+`FP-LIMBSEAT-1` is **CLEARED for STAGE 1 ONLY** from this stream: print set = F2 discriminator + F3 provenance write-chain and raw meter reads + per-bar `admitted_by` attribution across all 7 bars.
+
+Conditions carried by the clearance, all of them already inside the packet:
+
+- Stage 2 (switch shipping, F3 resolver replacement, F4 stop assignment) is **not** cleared. No auto-advance. It requires a grading relay on the stage-1 prints.
+- This is one key. Nothing runs until Astra's independent key lands and his word lands.
+- Successor predictions are pre-run and stay pre-run. Stage 1 grades prints, not levels. S2's stop/target stay print-only as filed.
+
+## Ask 2 — no halt triggered
+
+Checked against each named halt item:
+
+| Halt item | Finding |
+|---|---|
+| Unattributed admission logic | Not present. `admitted_by` mandatory, unattributed = FAIL. |
+| Blank-filling by builder | Not present. (a) open throughout, (b) is R4's fail-route, no builder-supplied first swing. |
+| HAND-as-operand | Not present in text. Grep gate is build-time blocking; it verifies at run, not here. |
+| TF widening | Not present. 08:40 on M5/H1 or not at all. |
+| Missing fail-route | Not present. F1 → blank (b); F2 → HALT on >1 forming limb; F3 → ships either way with provenance printed; F4 → build fail on missing `stop_source`. |
+| Second design cycle | Not initiated by this ruling. See readings below. |
+
+## Binding readings (entailments, not new design)
+
+Four places where the packet is ambiguous enough to change an outcome. Each resolves from text already in the packet, so none of them opens a design cycle. If the builder disagrees with any reading, that is a relay, not a build.
+
+1. **`admitted_by` is set-valued, not scalar.** "Independently attributable" forbids picking one switch when two admitted the same bar. A scalar field would force fabricated attribution. Print all switches that admitted, per side.
+2. **"via L3" in the F2 discriminator means L3-necessary.** A limb counts as L3-admitted only if it fails admission with L3 toggled off. This follows from "independently toggleable" and needs no new threshold. It is the difference between S-A, S-B, and HALT, so it has to be fixed before the run, not after.
+3. **Stage 1 evaluates L1–L3 in shadow.** The discriminator and attribution prints are impossible without evaluating the switches; "switches ship only after a grading relay" bars their *effect*, not their computation. Stage 1 therefore computes attribution and emits it while leaving every outcome byte-identical to legacy. Any stage-1 output divergence from legacy is a defect, not a result.
+4. **The staging clause governs F3 and F4.** F3's "ships regardless of provenance outcome" and F4's "FIX" read against "first authorized run = print set only." The staging line is the more specific and later constraint: both ship at stage 2. `stop_source` stamping and the one-writer invariant may be live at stage 1 since they are named and non-outcome-changing.
+
+## Flagged for the grading relay, not for stage 1
+
+F3(5), the his-read override as promoter-of-record. It is inert at stage 1 (empty by default, print-only run), so it does not block. At stage 2 it needs an explicit statement that promotion cannot silently overturn a `POLARITY_MISMATCH` decline from F3(4) — otherwise the polarity gate has a manual bypass. Raise it on the grading relay with the prints in hand.
+
+## Ask 3 — CONFIRMED
+
+Nothing else moves. Builds stay uncommitted. RECON17 frozen. P-SEL-1 DEAD. P-SEL-2 stays DELIVERED with D1–D3 PASS. Records ride the next authorized snapshot. Class statement and his rules §0–7 plus the two blanks stand as in v20 §2, unchanged.
+
+**Run-cost auth:** noted, not granted by this stream. The ~80 min full-window stage-1 print run is authorized only on dual key plus his word. My key is now down; the spend is not.
