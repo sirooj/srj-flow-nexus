@@ -1,0 +1,12 @@
+﻿[SRJ-EA] O1BARS tag=R4 tgt=2026.09.07 08:40 t=759 bars=OK
+[SRJ-EA] O1PAT tag=R4 e=1.16098 n=1.16103 o=1.16103 patOk=1 cond=-
+[SRJ-EA] O1ELIG tag=R4 entry=1.16135 filed=1.16098 eligOk=1 cond=-
+[SRJ-EA] O1BUF tag=R4 tsA=758 haveA=1 bvA=1.16098 tsB=759 haveB=0 bvB=-
+[SRJ-EA] O1WALK tag=R4 dec=2026.09.07 09:15 shift=1 maxS=-1 mode=1 px=1.16098 ok=1 n=2 inA=0 inB=0
+[SRJ-EA] O1DISC tag=R4 class=NOT_EVALUATED site=CONSUMPTION reason=NO_LOOP_CAPTURED
+[SRJ-EA] O1BARS tag=S1 tgt=2026.09.08 09:50 t=457 bars=OK
+[SRJ-EA] O1PAT tag=S1 e=1.16251 n=1.16233 o=1.16250 patOk=1 cond=-
+[SRJ-EA] O1ELIG tag=S1 entry=1.16205 filed=UNSTATED eligOk=1 cond=-
+[SRJ-EA] O1BUF tag=S1 tsA=456 haveA=1 bvA=1.16251 tsB=457 haveB=0 bvB=-
+[SRJ-EA] O1WALK tag=S1 dec=2026.09.08 16:40 shift=1 maxS=-1 mode=1 px=1.16379 ok=1 n=1 inA=0 inB=0
+[SRJ-EA] O1DISC tag=S1 class=NOT_EVALUATED site=CONSUMPTION reason=NO_LOOP_CAPTURED

@@ -219,6 +219,11 @@ Mode: ALERT-ONLY. No execution. Ever, until he says so.
   (four-signal evidence + exit appendix).
 - SHOULD (before designing any packet): `01_TASKS\PACKET_FP-LIMBSEAT-1.md`;
   relays v20-v30; both verdict files (latest verdicts first).
+- SHOULD (language second-source, per-task only): skill index
+  `03_SPECIFICATIONS\MQLReference\rules\SKILL.md` — load single
+  references via its table (mql5-reference for API/idioms, backtesting
+  for harness, architecture-patterns for design review); never whole;
+  subordinate to locks (AGENTS.md item 83).
 - AS NEEDED: run journals/archives (audit, never re-derive without
   cause); `AGENTS.md` full (process §§1-10, queue §§11/74-78);
   `.clinerules` archive. Never read the day log whole (tail 5 only).
@@ -230,3 +235,8 @@ Mode: ALERT-ONLY. No execution. Ever, until he says so.
 3. Then await directive (automation rule authorizes continuous packet
    execution once a cleared packet + run word exist — until then,
    NOTHING builds/runs/commits).
+4. Standing discipline from the first turn: run the PRE-SEND RITUAL
+   (`AGENTS.md` item 82) before anything leaves the desk, and keep the
+   RE-EXPLANATION COUNTER — log every operator question the record
+   already answers as RE-ASK n with the on-record file:line. Zero is
+   the pass mark for this handoff experiment.

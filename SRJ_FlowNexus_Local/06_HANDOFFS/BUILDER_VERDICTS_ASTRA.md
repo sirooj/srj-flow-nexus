@@ -849,3 +849,201 @@ Accept that the enumerated C2 triggers were not met on this record. That does **
 **Nothing builds, runs, or commits on this relay.** RECON17 remains frozen; `703c3b0a` remains uncommitted; no third run is authorized; timeout remains **REPORT+HALT**.
 
 This ruling supplies no execution authorization and does not substitute for the other stream’s independent ruling.
+
+## VERDICT GPT-V31-RUL-001 2026-09-14 (answers relay v31)
+
+**Ruling-ID: `GPT-V31-RUL-001`**
+**Disposition: Ask 1 ACCEPTED; Ask 2 CONFIRMED; Ask 3 ISSUED by this stream only.** v30 remains closed. This ruling uses the record reproduced in this relay; it does not claim independent inspection of the named proof files.
+
+### 1. S1 consequence — ACCEPTED
+
+HAND first swing **09:50**, second **09:40 at 1.16258**, is already on record; it is not an outstanding request to the operator.
+
+Against that authority, the reported walk counts nothing between the 10:05 decision close and 09:40. **The filed S1 consequence is accepted: a 09:50 limb-list absence, in the same diagnostic family as R4's missing 08:40 limb—not a pure off-by-one.** This does not establish that S1 and R4 share an implementation cause.
+
+S-A's "origin = 09:40 itself" does not reconcile HAND's 09:50 first swing. Any interpretation requiring 09:50 to be the S-A origin limb must establish that relationship explicitly. Reconciliation is council design territory; the builder is not authorized to invent a rule.
+
+### 2. Carried priority — CONFIRMED
+
+The P4/C5-geometry-first flag remains **Opus-only historical priority**, not an agreed v30 ruling and not an earlier packet issuance. This stream adopts that ordering **prospectively for the packet below**, without rewriting the carried record.
+
+### 3. Packet issuance
+
+**ISSUE `ADOPTION-FIX-P4C5-FIRST-001`**
+
+**Scope quoted back:**
+> "replace-not-sidecar at the deployment bar (his rules REPLACE the old pipeline where they disagree; the sidecar era is over by his order), P4/C5 walk-vs-filed geometry first per the carried flag."
+
+**Council-authored packet text**
+
+1. **Replacement contract.** The adoption fix must make the authoritative manual rules the production decision path wherever they disagree with the legacy pipeline. A comparison harness may support validation; a parallel sidecar, legacy fallback that overrides those rules, or diagnostic-only adoption does not satisfy this packet. This is the required destination, not permission to change live selection now.
+
+2. **First design gate: P4/C5 geometry.**
+   - **P4/R4:** Reconcile filed **1.16098@08:40**, absent from both TF limb lists, against the walk's **1.16088@08:20**.
+   - **C5/R5:** Reconcile the probe's **PRESENT@16:15** against the walk retaining **1.16238@16:05**, with filed **1.16239@16:15** authoritative.
+
+   The design must identify the responsible construction, eligibility, ordering, retention, or consumption condition from evidence—not presume which mechanism failed. It must specify a general rule-derived correction. Fixture-specific timestamps, prices, and forced selections are not a correction.
+
+3. **S1 reconciliation gate.** Account explicitly for HAND **09:50 → 09:40**, the missing 09:50 limb, and S-A's reported 09:40 origin. An index shift alone cannot close this gate while 09:50 remains absent. Preserve the authoritative stop **1.16258@09:40** without using that endpoint to conceal incorrect swing lineage.
+
+4. **Rule preservation.** The replacement specification must preserve HTF-bias-only TF rows, most-recent-sweep-only MR rows, three-candle middle-extreme swings, the filed stop-distance and wick rules, and **unrounded Dukascopy R ≥ 1.0** eligibility. Preserve all filed stop authorities. Do not invent S2's missing TP information; report any resulting validation limit.
+
+5. **Acceptance bar.** Closure requires journal coverage demonstrating matching side, entry bar, stop, target, and take/reject decisions: **every valid taken journal trade reproduced, no invalid setup signaled**. Legacy identity, seating success, or fixing P6 alone cannot establish adoption correctness.
+
+6. **Build-clearance prerequisite.** The later relay must present the concrete replacement design, evidence-to-rule mapping, affected pipeline boundaries, and validation criteria under this exact packet name. Any unresolved semantic choice returns to council; issuance is not discretionary permission for the builder to supply one.
+
+### Clearance and locks
+
+This is **one issuance key**, not dual-key clearance. The other stream must independently **ISSUE `ADOPTION-FIX-P4C5-FIRST-001`** with identical scope; a different name or substantive scope requires reconciliation.
+
+**NOTHING builds, runs, or commits on this relay.** A later relay must clear the named packet for build, and execution additionally requires the operator's run word. No hour is authorized here.
+
+**RECON17 frozen; 703c3b0a uncommitted; no third run; timeout = REPORT+HALT; snapshot, push, and tag only on explicit token.**
+
+
+## VERDICT GPT-V32-RUL-001 2026-09-14 (answers relay v32)
+
+**Ruling-ID: `GPT-V32-RUL-001`**
+**Disposition: naming-only issuance.**
+
+### Ask 1 — Naming convention adopted
+
+> 1. Fix packets take SCREAMING-KEBAB names with a three-digit suffix (`-001` first issuance, incrementing on re-issuance): e.g. `ADOPTION-FIX-P4C5-FIRST-001`.
+> 2. Run/result archives keep the existing `RECONxx-NAME` convention (e.g. `RECON21b-SEL2`, `RECON24-BUILD2TN3`). The two namespaces never collide: packets are designed, runs are measured.
+> 3. From here, issuance keys must quote the full decorated name exactly. Undecorated noun phrases are descriptions, not names, and do not match.
+
+### Ask 2 — Issuance
+
+**ISSUE `ADOPTION-FIX-P4C5-FIRST-001`**
+
+Scope, verbatim:
+
+> replace-not-sidecar at the deployment bar (his rules REPLACE the old pipeline where they disagree; the sidecar era is over by his order), P4/C5 walk-vs-filed geometry first per the carried flag
+
+The v31 contents identified in S2 carry forward unchanged as stipulated. This issuance reconciles naming only; it does not reopen v31, draft packet text, alter substantive rules, or clear a build or deployment.
+
+### Clearance and locks
+
+This return supplies **one stream's issuance only**. Dual issuance requires the other stream independently to ISSUE the identical full name and quote the identical frozen scope. Only that match permits subsequent packet-text drafting; build clearance requires a later relay.
+
+All stated locks remain: **NOTHING builds, runs, or commits on this relay.** RECON17 frozen; 703c3b0a uncommitted; no third run; timeout REPORT+HALT; snapshot, push, and tag only on explicit token. The operator's run word (~1h) is not spent here.
+
+
+## VERDICT GPT-V33-RUL-001 2026-09-14 (answers relay v33)
+
+**Ruling-ID: `GPT-V33-RUL-001`**
+
+**APPROVE `ADOPTION-FIX-P4C5-FIRST-001`**
+
+This approval covers the exact S1 text, A1–A6 followed by O1–O4, without corrections, substitutions, or merged wording.
+
+**Ask 1 — Carry:** No inconsistency identified within the supplied relay. The text preserves separate source attribution, diagnostic-before-mechanism ordering, the pre-flip differential, and distinct build and deployment clearings. P4/C5-first ordering remains attributed to Opus, not recast as council-agreed. Verbatim fidelity to the cited proof files is **not independently verified** because their contents were not supplied.
+
+**Ask 2 — Text approval only:** This return supplies one stream's approval, not dual approval. Filing on the later relay remains subject to both streams approving identical text; any correction returns to both streams.
+
+No build, run, deployment, commit, snapshot, push, or tag is authorized. RECON17 remains frozen; 703c3b0a remains recorded as uncommitted. No third run; timeout means REPORT+HALT. The operator's run word is not spent here.
+
+
+## VERDICT GPT-V34-RUL-001 2026-09-14 (answers relay v34)
+
+**Ruling-ID: `GPT-V34-RUL-001`**
+
+**CLEAR `ADOPTION-FIX-P4C5-FIRST-001` — SHA256 `ED72CCAFA58288B0C72316F029F5F3092A1FCCDE37CA16158960E374F41561B0`, 6032 B — for ONE build plus ONE run, subject to all v34 locks.**
+
+This ruling covers the full relay, on the supplied account of the closed v33 dual approval; I have not independently inspected the packet or proof files.
+
+- **Specification:** replace-not-sidecar at the deployment bar; P4/C5 geometry first; A1–A6 then O1–O4, fixed order, single-source attribution, pairings unmerged. Those ten approved contents are the build specification. No replacement design is invented at the bench; unresolved semantic choices return to council.
+- **Build gates:** before any write, STAGE-1 pre-hash verification of the current tree against the stated EA baseline (`703c3b0a`, 514584 B); single definitions; HAND six literals fixture-only; `OrderSend-src 0`, alert-only; both compiles **0 errors, 0 warnings**. Report parity and isolation join versus RECON17; neither is a gate for this behavior-changing build.
+- **Run envelope:** `RECON25-ADOPT`, same RECON ini/range, ceiling 90. ONE build, ONE run; no third run. Timeout **REPORT+HALT**.
+- **State locks confirmed:** RECON17 remains frozen. Nothing commits on the cleared run: no snapshot, push, or tag without an explicit token.
+
+**Clearance only—not execution authorization.** Both streams must clear this identical packet; either stream halts. The operator's run word remains **UNSPENT**: this relay authorizes no hour, and nothing builds, runs, or commits now. Build and run execute only on his word after dual clearance.
+
+
+## VERDICT GPT-V35-RUL-001 2026-09-14 (answers relay v35)
+
+**Ruling-ID: `GPT-V35-RUL-001` — NON-CLEARANCE; no key issued.**
+
+Reviewed the full relay, including the inline packet. The three stated v34 corrections are present: inline body, exploratory/observation framing with an expected A6 halt, and explicit observation acceptance. This ruling does not reopen v34.
+
+**One clearance-boundary conflict remains:** A6 expressly makes a concrete replacement design, evidence-to-rule mapping, affected pipeline boundaries, and validation criteria prerequisites for build clearance. S0 instead requests an O1-only diagnostic build before that design exists, with any A6 boundary encountered reported afterward. The exploratory framing and narrower acceptance do not expressly exempt that build from A6’s prerequisite. O3 permits build-and-measurement clearance distinct from deployment, but does not expressly waive A6.
+
+This is a sequencing ambiguity for council, not a semantic choice for the builder. **I therefore withhold clearance rather than infer an exception.**
+
+The narrow correction is an explicit council-approved clarification that **O1-only, print-only instrumentation and its observation run may precede A6’s replacement-design gate**, while A6 remains mandatory before any replacement implementation or selection-path change. That clarification must follow the packet’s approval and identity protocol; the builder must not supply it.
+
+**Ask 2 — confirmed as authorization limits, not independently verified repository facts:**
+- Nothing builds, runs, or commits on this relay; no snapshot, push, or tag without an explicit token.
+- RECON17 remains frozen; adoption stays OFF; selection remains untouched.
+- The requested ceiling remains one build and one observation run, with no additional or third run authorized.
+- Timeout means REPORT+HALT. The operator’s run word remains **UNSPENT**.
+- The listed pre-hash, source, compile, fixture-only, and reporting requirements remain intact.
+
+No files were inspected or changed, and no build or run was executed.
+
+
+## VERDICT GPT-V36-RUL-001 2026-09-14 (answers relay v36)
+
+**Ruling-ID: GPT-V36-RUL-001**
+
+**APPROVE**
+O1-only, print-only instrumentation and its observation run may precede A6's replacement-design gate, while A6 remains mandatory before any replacement implementation or selection-path change.
+
+**CLEAR ADOPTION-FIX-P4C5-FIRST-001** for **ONE exploratory print-only build plus ONE observation run**, RECON25-ADOPT, same ini/range, ceiling 90, within the scope stated in this relay.
+
+This return supplies this stream’s approval and key only—not the other stream’s approval. The clarification requires both streams’ approval of the identical sentence; execution additionally requires the operator’s run word under the stated print-only amendment. That word remains **UNSPENT**. Nothing builds, runs, or commits on this relay.
+
+Clearance binds **packet name + stated scope**, not independently verified file contents, digests, byte counts, or prior rulings. The stated mechanical checks remain mandatory.
+
+All locks stand: O1 print-only instrumentation, adoption OFF, no selection-path or emitted-decision change, RECON17 frozen, no third run, timeout REPORT+HALT, and no commit without an explicit token. A6 halt is an accepted observation outcome; Amendment-4 validation is deferred, not waived.
+
+The parity join must be read post-run, with placement evidence and parity output returned to both streams. A non-identical trade set invalidates the observation premise; identical trades alone do not establish that control flow was unchanged.
+
+
+## VERDICT GPT-V37-A6-001 2026-09-14 (answers relay v37)
+
+**Ruling-ID: GPT-V37-A6-001**
+**Disposition: record accepted as reported; replacement A6 design authored below. No build, run, commit, or release clearance.**
+
+### 1. Record grading
+
+Accept the reported RECON25-ADOPT result, O1 evidence, isolation read, and stated caveats as the v37 evidentiary record. This accepts the supplied account; it does not claim independent inspection of the archive or result file.
+
+- **Observation objective: satisfied as reported.** The completed run yielded the table without an A6 halt. That establishes that no halt-triggering semantic choice was encountered—not that replacement semantics were exercised or validated.
+- **Isolation: supported by the reported comparisons**, within their measured scope.
+- **R4:** live-1SWING is **PRESENT-and-chosen**, filed-exact. FRACTAL-candidate space is separately **ABSENT** at 08:40. Combining those into an undifferentiated “R4 absent” would be incorrect.
+- **S1:** the 09:50 limb is present and qualified in the reported series/buffer evidence; the relevant decision row is missing. Candidate absence is therefore not the supported diagnosis.
+- **Consumption bounds:** neither the loopless R4 path nor S1’s unrelated same-date row supplies a relevant captured consumption loop. `NO_LOOP_CAPTURED` is a measurement limitation, not proof of rejection or non-consumption.
+
+### 2. Authored replacement A6 design
+
+**A6’s governing rule is: establish decision identity, resolve the operative path, then evaluate candidates within that path. Cross-path absence cannot override positive evidence from the operative path. Candidate existence cannot manufacture a trading decision.**
+
+#### R4 — operative live path governs
+
+For the observed 09:15 decision, A6 walks the **live-1SWING path**, because the decision row explicitly selected that path—not because its price happens to match the filed target.
+
+The recorded `1SWING 1.16098 ok=1` establishes the observed selection. The buffer evidence supports availability. A loop capture is not required to recognize an explicit selection on a path that has no loop.
+
+The absent 08:40 FRACTAL event and walk to 08:20 remain a **separate fractal-path finding**. They do not trigger fallback, substitution, or correction of this live decision. Any proposal to change the operative path to FRACTAL would be a separate semantic change requiring fresh authorization.
+
+#### S1 — decision creation is independent of candidate discovery
+
+A6 requires a decision record **whenever an independently established strategy decision trigger occurs**, including when no candidate is selected. Record creation must not depend on candidate-loop entry or successful selection.
+
+That record must identify the decision’s instrument, side, time, trigger, and operative path. A same-date row is not a substitute.
+
+For S1:
+
+1. Establish whether the expected 10:05 decision had a valid trigger under the governing strategy. The supplied evidence does not establish that trigger.
+2. **If established:** the absent row is a decision-record creation failure. The replacement design requires that decision record and evaluation of candidates available and qualified **as of that decision**, through the applicable path and existing selection gates.
+3. **If not established:** retain **expected decision unresolved**. Do not invent a decision or trade from the buffered limb, the hand account, or the ordinal mismatch.
+
+The 09:50 limb is not automatically selected merely because it exists or offers 46-point risk versus the reported 53-point stop. Its as-of qualification and applicable ranking still govern. Preserve the observed ordinal shift, but correlate by timestamps and candidate identity—not by forcing code #1 to equal hand #1.
+
+### 3. Authority boundary
+
+This return authors the replacement semantics above; it does **not** declare them implemented or tested. S1’s trigger remains an explicit unresolved factual prerequisite, not a semantic choice delegated to Builder.
+
+The v36 loop remains closed; its allowance and run word remain spent. RECON17 stays frozen; `51DF542D…` stays uncommitted. No third run, snapshot, push, or tag is authorized. Further implementation or execution requires a fresh packet relay and the applicable explicit authorization.
+

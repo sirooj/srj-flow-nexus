@@ -91,6 +91,24 @@ Gates, STOP conditions, expected values, rulings and "nothing is authorized" lin
 often live outside command blocks — never accept a commands-only summary.
 OUTBOUND (builder → master): decision memos + on-disk BUILDER_RESULT files.
 Masters judge measurements on disk, never prose about them.
+SELF-CONTAINED RELAYS (operator rule 2026-09-14 — the v34 waste): the streams
+are file-blind, so every relay pastes INLINE the full operative text under
+review (packet bodies, verdict sections, digests with byte counts). Never
+cite-by-name-only anything a stream must attest, quote, or approve — a key
+whose digest is copied rather than computed attests nothing.
+WHY-NOT-LAST-TIME (operator rule 2026-09-14 — the stalled-project lesson):
+every relay that asks for a build/run carries a section stating the NEW
+evidence this run returns that NO prior run did, named against prior run
+IDs (absence-proof vs mechanism-class vs fix-validation). A run that cannot
+name its novel evidence is not requested. CLOSE THE LOOP (operator rule
+2026-09-15): after every run, the result file + operator report open with
+the REALIZED delta in the same vocabulary (what improved vs what was only
+confirmed vs what voided) — the promise is always settled on record.
+RESUME-PROMPT RULE (operator rule 2026-09-15 — he had to ask): every
+thorough handoff ends with the exact paste-ready new-session prompt
+verbatim, so initialization never depends on asking. This file IS the cross-session
+memory: every defect class, lesson, and standing rule lands here the turn
+it is learned, never carried in chat alone.
 
 ## 6. Hard invariants (violating these repeats known defect classes)
 
@@ -120,6 +138,12 @@ Masters judge measurements on disk, never prose about them.
     demand literal hash/byte/line output pasted verbatim. An accusation is itself a
     claim — MEASURE before accusing. If an agent cannot produce a real measurement
     on request, STOP and escalate to a fresh session.
+12. ZERO-COUNT RULE (operator lesson 2026-09-15 — the RECON25 false void):
+    a count of zero is itself a measurement, and the easiest one to get
+    wrong (wrong pattern, wrong flag, wrong file). Re-prove every zero with
+    a second differently-formed pattern before grading any void, absence,
+    or miss on it. Never diagnose infrastructure (stale binary, dead
+    instrument) from a single unconfirmed zero.
 
 ## 7. Automation rule (operator standing rules)
 
@@ -208,6 +232,14 @@ Masters judge measurements on disk, never prose about them.
 4. Full `.clinerules` history read NOT required — it is the archive; this file governs.
 5. Do nothing else until a directive or accepted decision memo is on the table,
    except the automation rule (§7) already authorizes continuous packet execution.
+6. ADHERENCE GATE (operator rule 2026-09-14 — digests prove IDENTITY, never
+   ADHERENCE): before any build/run is requested or executed, confirm a filed
+   adherence audit covers the CURRENT EA digest rule-by-rule against
+   `06_HANDOFFS\BUILDER_STATEMENT_FUNDAMENTAL_RULES.md` (side owner, stop
+   branch + wick, adoption state, filed-authoritative, R gate, independence,
+   divergence, alert-only). If none covers the current digest, draft the audit
+   READ-ONLY first — never spend a run hour to re-prove a filed mismatch.
+   First filed audit: `06_HANDOFFS\BUILDER_FINDING_ADOPT-READINESS.md`.
 
 ## 11. Current queue (pointer — details live in task/packet files)
 
@@ -1590,6 +1622,124 @@ Masters judge measurements on disk, never prose about them.
     verdict to file, run with -Stream/-RulingId/-AnswersRelay. No
     canonical touch. QUIESCENT. NO build/run/commit. UNCOMMITTED
     (no token).
+81. RECORDS COMMIT PRE-HANDOFF 2026-09-14 (operator-ordered git
+    structuring; local only): `fad5c2f` (46 files, +10996/-9, message
+    via -F file): queue 74-80 + verbatim verdicts + restatement fix +
+    RECON22/23/24 results/relays/extracts/markers/scripts + checkpoint
+    + handoff v2 + C-note + three workflow tools. HELD OUT (no token):
+    EA 703c3b0a + `Include\SRJ\SRJ_HandFixture.mqh` (canonical, needs
+    council token), debris ×2 (needs deletion word). NO tag, NO push
+    (origin operator-latency). Post-commit tree = exactly those four
+    paths; temp message file cleaned. Next session starts at handoff
+    §9-10. QUIESCENT. NO build/run/commit/push. UNCOMMITTED (canonical
+    + no token).
+82. PRE-SEND RITUAL + COUNTER + CHECKPOINT-JOURNAL ADOPTED 2026-09-14
+    (operator-ordered; closes the reactive-fix pattern — every lesson so
+    far arrived AFTER a defect). RITUAL (run before anything leaves the
+    desk — relay, result, verdict filing — initialed in the queue log):
+    (1) record-first search ran, sources-checked filed with the question;
+    (2) every number measured on disk or derived arithmetically, none
+    typed; (3) inbound verdicts filed verbatim under source headers;
+    (4) outbound relay re-read fresh from disk, version + ruling-ID ack
+    current; (5) every deliverable named by exact file with read-vs-paste
+    instruction. COUNTER (grades the handoff experiment): the new session
+    logs every operator question the record already answers as RE-ASK n
+    with the on-record file:line cited — zero is the pass mark. CHECKPOINT-
+    JOURNAL (replaces the compact point): after every relay lands, file
+    checkpoint state + journal that cycle's lessons before any session
+    break. First journal entry in checkpoint file §Lessons. Handoff §10 +
+    checkpoint resume repointed to the new-session path. QUIESCENT. NO
+    build/run/commit. UNCOMMITTED (no token).
+83. MQL5 SKILL ADOPTED 2026-09-14 (operator-installed, assessed
+    useful-SCOPED): `SRJ_FlowNexus_Local\03_SPECIFICATIONS\MQLReference\
+    rules\SKILL.md` + 8 references (verified present + topical:
+    CopyBuffer/handle lifecycle, prev_calculated, StringFormat,
+    NormalizeDouble, MQL4-vs-MQL5 table). USE as language second-source
+    for HOW to write legal MQL5 — comparison idioms (council Q1 ruling),
+    iFractals-handle shadow (E51 pattern), buffer/series semantics,
+    tester semantics. Load PER-TASK via its navigation table, never
+    whole (context discipline). NEVER what-to-build (packets decide),
+    strategy, architecture authority, or restyling to its conventions;
+    MQL4/UI/WebRequest/licensing/migration parts out of scope. Compiler
+   0/0 + measured runs still rule over any reference claim. QUIESCENT.
+   NO build/run/commit. UNCOMMITTED (no token).
+84. CONTINUOUS RECORDS-ONLY STANDING ORDER 2026-09-14 (operator, effective
+   immediately): run like the old desk — draft all records-only work
+   UNPROMPTED (relays, results, filings), present each for audit; stop ONLY
+   where he is transport/authority (council pastes, run word, commit
+   tokens, strategy questions). V31-V33 ARC: v31 answered (Astra
+   GPT-V31-RUL-001 one issuance key `ADOPTION-FIX-P4C5-FIRST-001` + Opus
+   OPUS-V31-RULING-001 undecorated issuance → non-match on name per both
+   streams' terms, nothing built); v32 fixed the naming convention +
+   re-put the name (DUAL ISSUANCE GPT-V32-RUL-001 + OPUS-V32-RULING-001,
+   matching name+scope); v33 approved the ten-content text (DUAL APPROVAL
+   GPT-V33-RUL-001 + OPUS-V33-RULING-001, zero corrections) → packet filed
+   `01_TASKS\PACKET_ADOPTION-FIX-P4C5-FIRST-001.md` (ED72CCAF…/6032 B).
+   Opus verbatim-diff offer DECLINED by operator. LESSON (standing):
+   optional offers that block nothing ride as one-line asides with
+   recommendation — never halt the main line. V34 build-clearance relay
+   drafted (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v34-ADOPT-BUILDCLEAR.md`):
+   packet + digest/bytes, ONE build + ONE run (RECON25-ADOPT, ceiling 90),
+   no third run, nothing commits, run word flagged UNSPENT. NO build/run/
+   commit. UNCOMMITTED (no token).
+85. V34 SPLIT + PRE-RUN AUDIT + V35 2026-09-14 (operator-ordered): v34
+   answered Astra CLEAR (GPT-V34-RUL-001) + Opus deliberate NON-CLEARANCE
+   (OPUS-V34-REVIEW-001, review-only: packet not inline, A6 live blocker,
+   no acceptance stated) → NO dual key, nothing built. Operator ordered a
+   pre-run adherence audit (his fear: wasted hour on a non-adherent tree):
+   filed `06_HANDOFFS\BUILDER_FINDING_ADOPT-READINESS.md` (EA 703c3b0a
+   code-read: 4 adherences incl. R gate/independence/divergence-latch/
+   alert-only; 4 violations incl. side owner EA:6666, stop branch EA:4695,
+   adoption OFF, filed-not-authoritative live) — current tree CANNOT take
+   his trades by construction + measurement. MEMORY FIX (his order): §10
+   item 6 ADHERENCE GATE (digests = identity, never adherence; filed audit
+   must cover current digest before any build/run) + §5 SELF-CONTAINED
+   RELAYS (file-blind streams get operative text inline — the v34 waste).
+   V35 corrected relay drafted
+   (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v35-ADOPT-EXPLORATORY.md`): packet
+   body inline + EXPLORATORY print-only bench scope (O1 recorders, adoption
+   OFF, halt-at-A6 reported-not-failed) + observation acceptance; ONE build
+   + ONE run, ceiling 90, nothing commits, run word UNSPENT. NO build/run/
+   commit. UNCOMMITTED (no token).
+86. V36 REVISED (protocol threshold) 2026-09-14: v36 as first drafted asked
+   BOTH streams for keys — Opus never signs keys, so the ask was unfillable;
+   operator corrected (no technical adjudication from him — his standing
+   print-only amendment already decides). Revised
+   `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v36-ADOPT-CLARIFY.md` (7AE9BB05…/
+   4572 B): Astra key + run word authorizes the print-only bench; Opus
+   graded as review. Operator Q: does the v36 run make the EA match his
+   trades — answered NO (print-only O1 recorders, parity-bound, adoption
+   OFF). New vs prior diagnostics: earlier runs proved ABSENCE (where walks
+   land);    O1 classifies MECHANISM per absence at three sites (the
+   prerequisite to authoring rule text). Matching-trades build comes only
+   after council authors the replacement design from this evidence. NO
+   build/run/commit. UNCOMMITTED (no token).
+87. V37 DUAL-DESIGN + POST-V37 HANDOFF 2026-09-15 (continuous-order
+   session): v37 answered Astra `GPT-V37-A6-001` (record accepted; A6
+   design: live-path governs R4, S1 decision-record independent + 3-step
+   trigger test, trigger-validity NOT builder's) + Opus `OPUS-V37-DSN-001`
+   (record accepted with S1 bound VOID-not-caveat; A6 design D1-D6 +
+   acceptance criteria 1-4) → NO CONFLICT (convergent, complementary;
+   assessed claim-by-claim). Handoff filed
+   (`06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V37.md`, thorough,
+   supersedes post-V30; resume = handoff §9-10 → §10 checklist incl. new
+   item-6 adherence gate → v38 implementation-packet issuance). LESSONS
+   (standing): §6.12 ZERO-COUNT RULE (RECON25 false void — escaped-bracket
+   SimpleMatch + retracted binary-strings theory); anchor hygiene — never
+   include another entry's line in an edit's aim (eaten twice, both
+   restored via read-back); missing expected artifacts fail the step
+   (flow-compile silent miss). Next session opens v38 (D1-D6 + Astra R4/S1
+   rules, print-only class; S1 trigger-validity owed council/operator).
+   QUIESCENT (allowance spent, no run active). NO build/run/commit/push.
+   UNCOMMITTED (canonical + records, no token).
+88. POST-V37 CLOSEOUT 2026-09-15 (operator-ordered): RESUME-PROMPT RULE +
+   CLOSE-THE-LOOP RULE filed (§5 — both owed to him asking, not offered).
+   Git records-commit this item (local only, no tag/push; canonical EA +
+   fixture HELD uncommitted, debris untouched). Operator's standing
+   questions answered: EA behavior unimproved by clearance design (every
+   build ever cleared was print-only/parity-bound; the one behavior-
+   changing build needs v38 + clearance + run word). Next session opens
+   v38 from the post-V37 handoff §10.
 49. OPERATOR STATEMENT 2026-09-14 (mid-21b-run): RECON21 slowness was HIS
     host load (other heavy work during the run) — pace cause corrected
     from unknown to confirmed-environmental (addendum in

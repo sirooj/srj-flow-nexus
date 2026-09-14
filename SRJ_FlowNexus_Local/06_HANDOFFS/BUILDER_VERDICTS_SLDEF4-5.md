@@ -2648,3 +2648,358 @@ Confirmed, all four:
 P6-reseat is the loud FAIL and it has zero selection consequence. P4 and C5 are the quiet ones and they touch filed stops directly: R4’s filed `1.16098@08:40` absent on both TFs with the walk at 08:20, and R5’s probe present at 16:15 while the walk retains 16:05 at `px=1.16238`. Filed stays authoritative, so neither blocks this record, and both are correctly report-routed. But those two are where walk-derived geometry and the filed manual strategy actually disagree, which is the thing the EA exists to reproduce. If the council has appetite for one spec question next relay, I would rather it be the P4/C5 pair than the P6 flip.
 
 Not proposing a packet for either. Recording the priority.
+
+## VERDICT OPUS-V31-RULING-001 2026-09-14 (answers relay v31)
+
+# OPUS RULING — Relay v31
+
+**Ruling-ID:** `OPUS-V31-RULING-001`
+**Grade:** Ask 1 AGREED · Ask 2 CONFIRMED · Ask 3 **ISSUANCE** (clearing-eligible, pending identical name from Astra-20 + a later clearing relay + operator run word)
+**Locks honored:** nothing built, nothing run, nothing committed on this return. No hour spent.
+
+## S0. Verification limits (read before weighing anything below)
+
+I have not read any of the eight proof files. Everything I accept here is accepted **on the relay text as presented** — the E58 trace figures, the S-A seat window, the RECON24 P6-origin line, and the HAND record are taken as quoted. If any excerpt is paraphrased rather than verbatim, the corresponding acceptance below lapses and should be re-put to the council. This is a ruling on a record, not on code I inspected.
+
+## S1. Ask 1 — S1 consequence: AGREED, with one distinction preserved
+
+The consequence follows from the quoted evidence. HAND has first swing at 9:50 since 2026-09-13, unowed. The sentinel counted list goes 09:40 (#1) → 09:35 EMPTY → 09:05 (#2), and nothing is counted between the 10:05 decision close and 09:40. A 9:50 limb therefore is not mis-ranked in the enumeration — it is **not in the enumeration**. That is an absence, not an off-by-one, and the symptom class does match the Sep-7 morning R4 case (filed 1.16098@08:40 absent both TFs, walk resolving earlier at 08:20). Accepted as stated, and accepted that reconciliation is council design territory — the builder proposed no rule and none is imputed to him.
+
+One distinction must survive into the fix design, because the record does not settle it and a packet that assumes it away will fix half the defect:
+
+**"Absent" has at least two mechanisms here, and the two cited artifacts point different ways.**
+
+- The **S-A seat** reports its window as `[09:40,10:10]`, which *contains* 09:50, and reports exactly one limb in it (09:40-U). Inside that path, 09:50 was in scope and failed to qualify. That points at the qualification test (§3.7 three-candle middle extreme) or at bar availability, not at a boundary.
+- The **sentinel scan** trace begins at `i=952` (09:40) and walks downward. It is silent on 09:45–10:00. Inside that path, non-evaluation from a start-index or window origin remains fully open.
+
+So the same observable absence may be produced by two different mechanisms in two different paths. A fix addressing only one leaves the other live, and the P6-origin line (`SEAT 14/14, S1-M5 09:40 itself, lineage F2_SA, haltNC=0`) will keep reporting clean either way — it is measuring the seat, not the qualification.
+
+Related, and worth putting in front of the design phase rather than deciding now: the trace shows **09:35 EMPTY**. If the M5 series is sparse or gapped across 09:30–10:10, a three-candle middle-extreme test cannot form at 09:50 at all, and the absence is a data-completeness fact rather than a rule fact. The same question applies to Sep-7 08:20–08:40. I am not proposing that as the cause and I am not asking for it to be checked on this relay — the lock holds. I am asking that the packet's first diagnostic step be permitted to distinguish *not-evaluated* / *evaluated-and-failed* / *no-bars-to-evaluate* before any rule text is written.
+
+**Consequently:** "same family as R4" is accepted at the level of symptom class (filed stop absent both TFs; walk resolves to an earlier bar). It is **not** accepted as shared root cause. The displacements differ (S1 9:50→9:40; R4 08:40→08:20), and any single-mechanism explanation the council adopts owes an account of both.
+
+## S2. Ask 2 — carried flag: CONFIRMED as stated
+
+S2 states my `OPUS-V30-RULING-001` flag accurately, including its status. Re-affirmed on the same reasoning: P6-reseat is loud and has zero selection consequence, while P4 and C5 touch filed stops directly — R4 filed 1.16098@08:40 absent both TFs with the walk at 08:20, and R5 probe PRESENT@16:15 while the walk retains 16:05 at px=1.16238 against the authoritative filed 1.16239@16:15. A one-pip, one-bar disagreement on an authoritative filed stop is a reproduction defect at the goal bar; a reseat flip that moves no selection is not.
+
+Status unchanged and correctly recorded: **single-source, mine, not an agreed ruling, proposes no packet.** Astra-20 taking no position is not concurrence and should not be logged as such. It becomes agreed only if Astra-20 rules on ordering in its own words on a later relay.
+
+## S3. Ask 3 — ISSUANCE
+
+**ISSUE ADOPTION FIX PACKET**
+
+Scope, quoted back:
+
+> replace-not-sidecar at the deployment bar (his rules REPLACE the old pipeline where they disagree; the sidecar era is over by his order), P4/C5 walk-vs-filed geometry first per the carried flag
+
+**On the name.** I use the relay's own noun phrase verbatim and add no suffix, version, or ID decoration. The protocol requires both streams to name the *identical* packet, no naming convention has been fixed, and the existing artifact convention (`RECON21b-SEL2`, `RECON22-LIMBSEAT1`, `RECON24-BUILD2TN3`) covers results, not packets. Undecorated is the highest-probability convergence point. If Astra-20 returns a decorated variant with matching scope, treat the pair as **non-matching on name, matching on scope**, fix the packet-naming convention on the next relay, and re-put naming only — do not treat scope agreement as an issuance match.
+
+**Four contents I ask the council to write into the packet text.** I am not drafting rules; these are gates and sequencing, which are ruling territory:
+
+1. **Diagnostic-before-rule on the absence family.** The S1 and R4 absences get the three-way discrimination in S1 above (not-evaluated / evaluated-and-failed / no-bars) before any rule or mechanism text is authored. A mechanism chosen ahead of that discrimination is a guess with a filed stop behind it.
+
+2. **A pre-flip differential is mandatory, and RECON24 does not supply it.** The record says the adoption flip was never built and live selection is legacy throughout, with *all legacy identities diff 0 on RECON24*. Diff 0 among legacy identities establishes that the legacy variants are indistinguishable on that recon. It establishes **nothing** about adoption-vs-legacy. Crossing a replace-not-sidecar bar with the flip's blast radius unmeasured is the largest unquantified risk on this relay. The packet should require adoption and legacy to be run side by side against frozen RECON17 with a per-trade diff reported, *before* the replace bar is crossed, not after.
+
+3. **Amendment 4 is the packet's acceptance gate, stated in the packet.** Every valid taken journal trade reproduced, no invalid setup signaled. On the current record that bar is unmet — S1 absence, R4 absence, S2 TP gap all open. The packet may therefore be cleared for **build and measurement**; it must not be cleared in a form whose completion authorizes deployment. Those are two different clearings and the packet text should keep them apart.
+
+4. **Ordering inside the packet is P4/C5 first, P6 after**, per the carried flag — with the flag's single-source status noted in the packet so the ordering is attributable to me and not recorded as council-agreed.
+
+**Sequencing acknowledged:** this issuance clears nothing by itself. Build requires Astra-20 naming the identical packet, a later relay clearing the named packet for build, and the operator spending the run word (~1h). No hour is claimed against this relay.
+
+## S4. Locks
+
+Nothing built, run, or committed. RECON17 frozen. 703c3b0a left uncommitted. No third run. Timeout discipline REPORT+HALT. No snapshot, push, or tag — no token present or requested.
+
+
+## VERDICT OPUS-V32-RULING-001 2026-09-14 (answers relay v32)
+
+## Ruling ID: `OPUS-V32-RULING-001`
+
+**Scope of this ruling:** the full v32 relay, naming only. One standing caveat: no proof files were attached to this relay, so this ruling is made on the pasted text alone. I am not asserting the contents of `BUILDER_VERDICTS_ASTRA.md`, `BUILDER_VERDICTS_SLDEF4-5.md`, or the frozen v31 packet file; the citations to `GPT-V31-RUL-001` and `OPUS-V31-RULING-001` are taken as represented by the operator. Nothing in this ruling depends on unverified content beyond those citations.
+
+---
+
+### Ask 1 — S1 naming convention: ADOPTED
+
+Quoted back verbatim:
+
+> 1. Fix packets take SCREAMING-KEBAB names with a three-digit suffix (`-001` first issuance, incrementing on re-issuance): e.g. `ADOPTION-FIX-P4C5-FIRST-001`.
+> 2. Run/result archives keep the existing `RECONxx-NAME` convention (e.g. `RECON21b-SEL2`, `RECON24-BUILD2TN3`). The two namespaces never collide: packets are designed, runs are measured.
+> 3. From here, issuance keys must quote the full decorated name exactly. Undecorated noun phrases are descriptions, not names, and do not match.
+
+Two clarifications attached to the adoption, both narrowing rather than extending:
+
+- **Prospective only.** Item 3's "From here" governs. This convention does not reach back and re-grade v31. The v31 pair remains non-matching on name, and the v31 loop stays closed as reported. Adopting the convention is the remedy `OPUS-V31-RULING-001` ordered; it is not a reopening.
+- **Increment semantics.** The suffix increments on *re-issuance of a packet*, not on relay count. `ADOPTION-FIX-P4C5-FIRST-001` is a first issuance because no packet has previously issued under this decorated name — the v31 event produced no dual key, so no `-001` was consumed. If a later relay must re-issue this same packet with altered scope, it becomes `-002` and requires fresh dual issuance.
+
+---
+
+### Ask 2 — Issuance
+
+**ISSUE `ADOPTION-FIX-P4C5-FIRST-001`**
+
+Scope, quoted back verbatim:
+
+> replace-not-sidecar at the deployment bar (his rules REPLACE the old pipeline where they disagree; the sidecar era is over by his order), P4/C5 walk-vs-filed geometry first per the carried flag
+
+The condition my v31 ruling placed on non-match — "no naming convention has been fixed" — is satisfied by Ask 1. The name is Astra's exact decorated name, unaltered. The scope is character-identical to the frozen v31 text with no addition, removal, or rewording. On my side the pair is now **matching on name and matching on scope**.
+
+Whether a dual key exists on this relay depends entirely on Astra returning the identical string `ADOPTION-FIX-P4C5-FIRST-001` with the same scope block. I make no claim about Astra's return.
+
+**What this issuance does and does not authorize.** It authorizes writing the packet text under this name on a subsequent relay, carrying the ten contents named in S2 unchanged — Astra's six authored items (replacement contract; P4/C5 gate; S1 gate; rule preservation; Amendment-4 bar; build-clearance prerequisite) and the four packet-text contents attributed to `OPUS-V31-RULING-001` (diagnostic-before-rule; mandatory pre-flip differential; Amendment 4 as acceptance gate with build-vs-deploy clearings kept apart; P4/C5-before-P6 ordering with single-source attribution). It does not authorize build, and it does not clear deploy. Those are separate clearings and must stay separate — that separation is itself one of the packet contents, so collapsing them here would contradict the thing being issued.
+
+---
+
+### Locks — affirmed as stated
+
+Nothing built, ran, or committed on this relay. RECON17 frozen. `703c3b0a` left uncommitted. No third run initiated. No snapshot, push, or tag — those await an explicit token. The operator's ~1h run word is untouched and remains reserved for a later build-clearing relay. On timeout the standing instruction is REPORT+HALT. `BUILDER_RELAY_COUNCIL_v31-ADOPT-PACKET.md` treated as frozen and hands-off.
+
+---
+
+### Next relay, if dual issuance lands
+
+The only work item is drafting the packet text under `ADOPTION-FIX-P4C5-FIRST-001`. That relay should carry the ten contents in a fixed order with single-source attribution per item, and should state plainly that it is text-drafting with no build clearance attached. If Astra's return names anything other than the exact string above, the correct outcome is another non-match report — not a reconciliation attempt inside the same relay.
+
+
+## VERDICT OPUS-V33-RULING-001 2026-09-14 (answers relay v33)
+
+## Ruling — `OPUS-V33-RULING-001`
+
+### Ask 1 — Carry fidelity
+
+**O1–O4: faithful in substance.** All four items match the positions I hold from `OPUS-V31-RULING-001`:
+
+- **O1** preserves the ordering constraint correctly: the three-way discrimination (not-evaluated / evaluated-and-failed / no-bars-to-evaluate) runs on the S1 and R4 absences *before* mechanism text is authored, not alongside it.
+- **O2** keeps the RECON24 scope limit intact (legacy-vs-legacy indistinguishability says nothing about adoption-vs-legacy) and keeps the differential *pre*-flip with a per-trade diff. The "before the replace bar is crossed, not after" placement is the load-bearing part and it survived the carry.
+- **O3** keeps the two clearings separated and keeps the current-record status honest: bar unmet, three open items named.
+- **O4** carries the single-source attribution requirement, which was the point of that item.
+
+**A1–A6:** I can check these for internal consistency and for conflict with my own record. They are consistent, and none of them conflicts with O1–O4. A1's closing sentence ("Required destination, not permission to change live selection now") and A6's "issuance is not discretionary permission" both hold the line I care about.
+
+**A5 / O3 and A2 / O1 pairings:** correctly carried as unmerged parallel wordings. Do not merge them at filing time.
+
+**What I could not verify.** I have no access to `06_HANDOFFS\BUILDER_VERDICTS_ASTRA.md` or `06_HANDOFFS\BUILDER_VERDICTS_SLDEF4-5.md` on this relay, so I have not performed a verbatim diff of A1–A6 against `GPT-V31-RUL-001` §3.1–3.6, nor of O1–O4 against `OPUS-V31-RULING-001` S3.1–S3.4. My O1–O4 confirmation is substance-level against my held position, not a character-level match. I am **not** treating that as a correction, because nothing in the carry diverges from my record — but if the operator wants a verbatim guarantee, paste the two verdict sections and I will diff them before filing.
+
+### Ask 2 — Approval
+
+**APPROVE `ADOPTION-FIX-P4C5-FIRST-001`.**
+
+Zero corrections to the ten contents. Fixed order preserved as given: A1, A2, A3, A4, A5, A6, O1, O2, O3, O4.
+
+**What this approval authorizes:** writing `01_TASKS\PACKET_ADOPTION-FIX-P4C5-FIRST-001.md` from the S1 text on a later relay, assembly-only, builder authoring nothing.
+
+**What it does not authorize:** build, run, deploy, commit, snapshot, push, tag. Build-clearing needs a separate relay plus the operator's run word. Deploy-clearing is a third, distinct clearing — per O3, completing this packet must not be read as reaching it.
+
+### Non-blocking filing notes (metadata, not carry corrections)
+
+These are properties of the file wrapper, not of the ten contents, so they do not return anything to either stream:
+
+- Record both ruling-ID chains in the file header (`GPT-V31-RUL-001`/`GPT-V32-RUL-001`, `OPUS-V31-RULING-001`/`OPUS-V32-RULING-001`) so each content's attribution is traceable without the relay log.
+- Note in the header that the decorated name derives from the convention adopted on v32, and that my adoption carried two narrowing clarifications — those clarifications govern the *name*, not this packet's contents, so they belong in the header rather than in S1.
+- Keep the O4 single-source flag visible in the file itself, not only in the relay text. That was the item's purpose and it is the easiest thing to lose in transcription.
+
+### Locks acknowledged
+
+Nothing built, ran, or committed on this relay. RECON17 frozen. 703c3b0a uncommitted. No third run. Timeout behavior REPORT+HALT. Snapshot/push/tag on explicit token only.
+
+
+## VERDICT OPUS-V34-REVIEW-001 2026-09-14 (answers relay v34)
+
+## Ruling `OPUS-V34-REVIEW-001` — review, non-clearing
+
+I am not issuing a clearance key on this relay. Per your own protocol this return grades as review. That is the correct grade, and it is deliberate, not an oversight.
+
+### Why I can't clear
+
+**The packet is not in front of me.** This relay describes `PACKET_ADOPTION-FIX-P4C5-FIRST-001.md` but does not contain it. I have no file access on this relay, so I have not read the ten contents A1 through A6 and O1 through O4, and I have not computed SHA256 over any bytes. Same for the byte count, the tree hash `703c3b0a` / 514584 B, and the two prior ruling files. Quoting `ED72CCAF…41561B0` back to you would attest to a digest I did not verify. That is exactly the kind of confirmation I won't manufacture, and a clearance key whose digest is copied rather than computed provides no integrity guarantee to anyone downstream.
+
+I also have no memory of v33. Whatever `OPUS-V33-RULING-001` says, I can't authenticate it as mine from inside this relay.
+
+**A6 is a live blocker, not a caveat.** The packet states the builder holds no concrete replacement design and invents none, with unresolved semantic choices returning to council. Read against the ask, that means one build and one run are being authorized against a specification that is acknowledged incomplete at the point where it matters most, the replace-not-sidecar semantics at the deployment bar. The predictable outcome is that the bench reaches the unresolved choice, halts correctly per A6, and the single authorized build is spent without producing the geometry evidence the run exists to produce. Resolving the replacement semantics in council first, then clearing, spends the budget better.
+
+**No acceptance criterion is stated.** Parity and isolation join versus RECON17 are reported and explicitly never gated, ceiling 90, no third run. Nothing in S0 or S1 defines what makes RECON25-ADOPT a pass. A run with no pass condition is an observation, which can be perfectly legitimate, but it should be cleared as an observation rather than as a fix validation.
+
+### On the dual-stream mechanism
+
+One structural note, offered because it affects how much assurance v33 actually carries. Two model streams given an identical brief are correlated, not independent. Identical text with zero corrections from both streams is weak evidence of convergent verification and reasonably strong evidence that the streams share inputs and failure modes. A shared blind spot passes both gates simultaneously. If dual clearance is load-bearing in this instrument, the streams need genuinely different inputs, different questions, or a human reading the packet against the tree.
+
+### What I do affirm (Ask 2, as constraints)
+
+I concur these should hold, with the note that I enforce nothing since nothing executes here: no commit, snapshot, push, or tag absent an explicit token; RECON17 stays frozen; no third run; timeout is REPORT plus HALT; the operator's run word stays UNSPENT and no hour is authorized by this relay.
+
+### What would unblock a clearance from me
+
+1. The packet body pasted inline, or file access so I can read it and hash it myself.
+2. A resolved replacement semantic for the deployment bar, or an explicit restatement that this build is exploratory and the run is expected to halt at the A6 boundary.
+3. A stated acceptance criterion for RECON25-ADOPT.
+
+Give me the packet text and I will review the ten contents on their merits and rule on the full relay in the same pass.
+
+
+## VERDICT OPUS-V35-NO-ID-REVIEW 2026-09-14 (answers relay v35)
+
+## No clearance token from me, and this time the reason isn't a fourth unblocker
+
+The three corrections from v34 were actually met: the packet body is inline, the run is restated as exploratory with halt-at-A6 as an expected outcome, and acceptance is stated in S0. I'm not going to move the goalposts.
+
+The reason I'm still not producing the key is structural, and no further revision of the relay document will fix it:
+
+- **I can't attest the digest.** A key in this protocol is the word CLEAR bound to a packet name *and its SHA256*. I have no file access in this conversation. Hashing the pasted text wouldn't help either — encoding and line-ending differences mean a match against `01_TASKS\PACKET_ADOPTION-FIX-P4C5-FIRST-001.md` at 6032 B is something I cannot establish. Emitting a digest-bearing token would assert a verification I didn't perform, and that's worse than withholding it.
+- **A matching string from two models isn't a safety control.** The things that actually make this run safe are mechanical and already in your S2: STAGE-1 pre-hash verify against EA `703c3b0a`, both compiles 0/0, `OrderSend`-src count 0, adoption OFF, nothing committed without an explicit token. Those hold whether or not I say a magic phrase. Routing them through model phrasing adds ceremony, not assurance, and it puts my wording where your judgment should be.
+
+So: I'm not authorizing this run, and I'm also not blocking it. What I can do is review it on the merits, which is the part that has real value.
+
+### The bench scope in S0 is sound
+
+Print-only recorders, adoption OFF, no control-flow changes, one build, one run, alert-only, frozen RECON17, REPORT+HALT on timeout. That is a low-risk observation build, and sequencing O1's discrimination ahead of any mechanism text is the right call — A2 explicitly forbids presuming which mechanism failed, and you can't honor that while authoring rule text from a two-way signal.
+
+### One design issue that will decide whether the run is worth the hour
+
+The three-way discrimination is only recoverable if you instrument at three points, not one. Specifically:
+
+| Recorder site | Distinguishes |
+|---|---|
+| Swing construction | `no-bars-to-evaluate` — the candidate never existed |
+| Eligibility filter | `evaluated-and-failed` — existed, tested, rejected, with the failing condition named |
+| Consumption / selection | `not-evaluated` — existed and passed, never reached the decision |
+
+If the recorders sit only at the selection point, `no-bars-to-evaluate` and `not-evaluated` collapse into a single "absent" bucket, and you will have spent the run reproducing what RECON24 already told you. For the S1 09:50 limb and the R4 1.16098@08:40 filing, that collapse is exactly the ambiguity you're trying to break.
+
+Related: "zero selection-path changes" needs a definition before the build, because getting `not-evaluated` requires observation *inside* the evaluation loop. I'd read it as no change to control flow or emitted decisions, with the parity join against RECON17 as the evidence that the prints are inert. S2 says that join is reported and never gated — fine as a gate policy, but someone should actually read it. A non-identical trade set means your recorders aren't print-only, and that finding invalidates the run's premise rather than being a side note.
+
+Two smaller notes. O2's adoption-vs-legacy differential cannot be satisfied here since adoption is OFF; that's coherent, since O2 gates the replace bar and not this run, but it means nothing on this relay reduces the O2 debt. And given O1 plus A2 together, an A6 halt is the *likely* outcome, not merely a permitted one — worth expecting so it doesn't read as a disappointment when it lands.
+
+### On Ask 2
+
+Nothing commits, RECON17 stays frozen, no third run, timeout halts, the hour stays unspent — those are the right constraints and I agree with them. But they're yours to hold, not mine to confirm; I have no visibility into the repo and no ability to enforce anything. Treat this reply as review, which by your own protocol is non-clearing.
+
+If you want my input to carry weight on the next pass, the useful form isn't a token — it's you sending me the recorder placement plan and the parity output after the run, where I can check reasoning against actual evidence.
+
+
+## VERDICT OPUS-V36-REV-001 2026-09-14 (answers relay v36)
+
+**Ruling-ID: `OPUS-V36-REV-001`** (numbered as requested; v35 return carried no council ID, correctly noted).
+
+## Ask 1 — APPROVE
+
+**APPROVE**
+
+> O1-only, print-only instrumentation and its observation run may precede A6's replacement-design gate, while A6 remains mandatory before any replacement implementation or selection-path change.
+
+Approved as written, verbatim, unmodified — no conditions attached to the sentence itself, so the identity requirement across both streams holds. My reasoning: A6 gates replacement *design*. Instrumentation that neither implements a replacement nor alters selection is measurement, not design. Gating measurement behind design approval inverts the evidence order — you would be committing to a design before holding the observations meant to inform it. The second clause keeps the real gate intact where it bites.
+
+The review notes below are non-binding observations, deliberately kept separate so they do not qualify the approved sentence.
+
+## Ask 2 — review, not a key
+
+I am not returning **CLEAR** on `ADOPTION-FIX-P4C5-FIRST-001`. This is not an objection and does not withhold anything: under the stated threshold, Astra's key plus the operator's run word authorizes, and my return is already graded as review.
+
+The reason is narrow. What is in front of me on this relay is the packet *name*, a builder-measured digest, and a prose scope summary. Not the packet body. S1 correctly establishes that keys bind name plus scope rather than digests — but I would still be endorsing a scope restatement I cannot check against the file it summarizes. I would rather say plainly what I can support than dress an unread file in the word CLEAR.
+
+What I can say affirmatively: **the scope as described in S2 is sound and proportionate.** Print-only O1 recorders, adoption OFF, no commit without token, one build, one run, halt-at-A6 reported rather than failed, RECON17 frozen. That is a low-blast-radius, reversible observation bench, and nothing about it warrants resistance. If the operator's protocol treats scope-level endorsement as sufficient, that endorsement is on the record here.
+
+## Review notes
+
+**1. The single-key threshold rests on a property this run exists to verify.** The justification for Astra-plus-run-word instead of dual-key is "this bench moves no selection." Pre-run that is a builder claim; the parity read against RECON17 is what turns it into a fact, and that read happens after. The gap is small because print-only is statically checkable — but I would make the static check an explicit named gate rather than an assumption: a diff review showing recorder and print additions only, no new branching, no state mutation, OrderSend-src 0. Confirm that before the run word is spent, not after.
+
+**2. Trade-set parity is necessary but not sufficient.** Identical trade sets can coexist with divergent intermediate state. For the specific claim being made — no control-flow or emitted-decision change — parity plus OrderSend-src 0 plus the static diff is adequate evidence. I would just not let parity alone carry the whole weight in the write-up.
+
+**3. Define the abort case now.** "One build, one run — no more" is clear about intent but silent on a run that dies for environmental reasons rather than premise-invalidating ones: terminal failure, ini mismatch, truncated output. Does that consume the allowance and force a new relay, or is a re-run in-scope? This is the same shape of ambiguity that produced the v35 non-clearance. Settling it in one sentence before the run costs nothing; settling it afterward costs a relay cycle.
+
+**4. Instrumentation should be structurally removable.** Three-site placement under O1 is reasonable, and I have no objection to the sites chosen. The risk is accretion — recorders that quietly become load-bearing scaffolding the eventual replacement is built around, entering the design without ever passing A6. Keep them isolated enough that deleting them is a clean subtraction.
+
+**5. S1's core point is right and worth keeping.** The safety control is mechanical, not phrasal. Pre-hash verify, both compiles 0/0, OrderSend-src 0, adoption OFF, no commit without token. Those hold whether or not any stream says a ceremonial word. That is the correct place for the load to sit.
+
+## Locks acknowledged
+
+Nothing builds, runs, or commits on this relay. Run word remains **UNSPENT**. RECON17 frozen. No third run. Timeout is REPORT+HALT. Dual-key remains mandatory for any selection-path change — my approval of S0 does not touch that, and A6 stands ahead of any replacement implementation.
+
+
+## VERDICT OPUS-V37-DSN-001 2026-09-14 (answers relay v37)
+
+# Return — v37 design ruling
+
+**Ruling-ID: `OPUS-V37-DSN-001`**
+**Grade: DESIGN (authored, not review).** No build key, no run key, no commit token requested or implied anywhere below. Allowance treated as exhausted; nothing in this return is executable.
+
+**Verification limits, stated up front:** I have no access to the archive, the journal, `BUILDER_RESULT_RECON25-ADOPT.md`, or any hash. Every operand below is graded as transcribed in S1 of your packet. Hashes (`A812DDAC…`, `51DF542D…`), line counts (36973), bounds contiguity, and the isolation-read signal set are accepted as **reported**, not confirmed. If any of those are wrong, the design still holds but the record grading does not.
+
+---
+
+## Ask 1 — Record: ACCEPTED, with one field downgraded
+
+Accepted: the run, the 12/12 O1 table, the isolation read, the no-A6-halt finding, and the framing that the three-way table is the yield. The absence of a halt is consistent with the stated cause — no semantic choice was reached on either limb, because neither limb produced an evaluated decision row.
+
+One correction to the caveat block. You currently own this as a caveat:
+
+> S1's bound came from the unrelated same-date row.
+
+A caveat is the wrong instrument. A bound that was populated from a row 6h35m away from the decision point is not a weakly-supported operand, it is a **wrong** operand that happens to be well-formed. Printed-and-wrong is more dangerous than blank, because it survives copy-forward into later packets where the caveat text does not travel with it. **Ruling: void the field, do not caveat it.** S1's loop bound reads `VOID(NO_MATCHING_ROW)` from here forward, and any downstream figure derived from it is void with it. The R4 caveat (loop-bound capture covers 2SWING only) is correctly an owned bound and stays as written.
+
+---
+
+## Ask 2 — A6 replacement design
+
+The O1 table shows two different failures wearing the same label. Both printed `NOT_EVALUATED/CONSUMPTION/NO_LOOP_CAPTURED`, but R4 is a path that was never instrumented and S1 is a row that was never born. Collapsing those into one code is what made A6 unreachable. The design starts there.
+
+### D1. Absence taxonomy (replaces the single `NOT_EVALUATED` code)
+
+Four terminal absences, mutually exclusive:
+
+| Code | Meaning | Produces a strategy verdict? |
+|---|---|---|
+| `ABSENT_UNINSTRUMENTED` | Path executed, no capture point exists on it | No — instrumentation obligation |
+| `ABSENT_NOT_REACHED` | Path not walked; selection terminated earlier | No — expected, must still be logged |
+| `ABSENT_DECLINED` | Row born, evaluated, rejected, reason recorded | **Yes** |
+| `ABSENT_UNBORN` | Upstream never emitted the row, no reason recorded | No — upstream obligation |
+
+Only `ABSENT_DECLINED` may feed a rule verdict. The other three are defects in the observer, and a defect in the observer must never be reported as a finding about the strategy. This is the rule that keeps the relay honest under the observation premise.
+
+### D2. R4 — the conditional rule walks the LIVE path
+
+The live 1SWING leg reproduces filed exactly: 1.16098, `ok=1`, chosen at the 09:15 S5 row, against the filed 08:40 / slot 758. Filed-exact reproduction on the live path is the strongest evidence in the whole table, and it is dispositive.
+
+- **Live-first, short-circuit.** Fractal-candidate space is entered **only** when the live path returns no terminal selection. R4's live path terminated selection, so the fractal absence is reclassified `ABSENT_NOT_REACHED`. It is structurally correct, not a gap. The walk-to-08:20 is an artifact of querying a space that should never have been queried for this limb.
+- **Fractal absence can never override a live filed-exact match.** No exceptions, no tie-break.
+- **R4's actual defect is the missing capture point**, not the rule. The 1SWING OB path runs no loop, so the loop-capture instrument has nothing to bind to. Fix by emitting a **terminal-selection record** at the point of choice on non-loop paths, carrying the same operand set the loop capture carries. That converts R4 from `NOT_EVALUATED` to a positive `SELECTED` record without touching a single semantic.
+- **FRACTAL_SUPPRESSED audit emission.** Live-first short-circuiting means you structurally cannot see a case where the fractal space held a *better* limb than the live one. I accept that tradeoff rather than hide it, and I mitigate it — when live terminates selection, emit `FRACTAL_SUPPRESSED` with the walk-back target that *would* have been reached (08:20, here). The suppression becomes auditable without acquiring any power to change a verdict.
+
+One risk I want on the record against my own ruling: live-first short-circuiting means you structurally cannot see a case where the fractal space held a *better* limb than the live one. I accept that tradeoff rather than hide it, and I mitigate it — when live terminates selection, emit `FRACTAL_SUPPRESSED` with the walk-back target that *would* have been reached (08:20, here). The suppression becomes auditable without acquiring any power to change a verdict.
+
+### D3. S1 — an unborn row is not a missed trade
+
+The 09:50 limb exists qualified in both series and buffer, high 1.16251 strict extreme, first on record, 46pt risk inside his 53pt stop. Every one of those facts says the limb was **admissible**. None of them says it would have entered.
+
+- **Ruling: `ABSENT_UNBORN`, verdict withheld.** Admissibility is not entry. Silence from the decision stage is not a decline, and inferring a miss from silence would manufacture a finding the run did not produce. The single most likely reading — a qualified limb inside stop tolerance ought to have generated a row — is exactly the reading I refuse to bank, because there is no recorded reason and no evaluated row to point at.
+- **Close it with a negative record, not an inference.** The decision stage must emit a row for every admissible limb, including refusals, carrying the refusal predicate. `ABSENT_UNBORN` then becomes impossible by construction: either a row exists and it is `ABSENT_DECLINED` with a reason, or the emitter is broken and says so.
+- Until that record exists, S1 stays open. That is a real outcome, not a deferral.
+
+### D4. Correlation key — ordinals banned
+
+Code #1 = 09:40 = his #2 is enough to retire ordinal correlation permanently. Pair human records to code records on `(date, time, direction, price)` only. Ordinals are display, never identity. Position-based matching across two independently ordered series will keep producing shifted pairs that look like findings.
+
+### D5. Matcher window — date-only match banned
+
+The 16:40 row bound to a 10:05 decision because the matcher scoped on date. Replace with a bounded window anchored on the decision timestamp. On no candidate in window, return `EMPTY`. Never widen, never fall back, never bind the nearest same-date row. A matcher that cannot find its row must say so; the failure mode that produced S1's void bound is a matcher that would rather be wrong than empty.
+
+### D6. Precedence
+
+Live filed-exact match > live selection > fractal selection > fractal absence. `ABSENT_DECLINED` outranks all other absences. Any absence code other than `ABSENT_DECLINED` blocks verdict emission and raises an instrumentation obligation instead.
+
+---
+
+## Acceptance criteria for whatever packet comes next
+
+Stated as criteria only — no run is proposed, requested, or implied here, and none is authorized.
+
+1. R4 closes when the 1SWING OB terminal-selection record prints with full operands and reproduces 1.16098 / `ok=1` / slot 758.
+2. S1 closes when the decision stage emits a row for the 09:50 limb — fired or refused, with predicate. A refusal closes it just as validly as a fire.
+3. S1's voided bound stays void until a windowed match produces a real one.
+4. Isolation read must remain 4/4 identical on the stated signal set. Any drift invalidates the observation premise and the comparison with it.
+
+---
+
+## Locks — restated as I hold them
+
+No allowance remains. RECON17 frozen. `51DF542D…` uncommitted, and I am not asking for it to be committed. No third run. Timeout stays REPORT+HALT. Snapshot, push, and tag remain gated on an explicit token that this return does not request and I have no standing to ask for.
+
