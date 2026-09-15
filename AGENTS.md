@@ -1740,6 +1740,184 @@ it is learned, never carried in chat alone.
    build ever cleared was print-only/parity-bound; the one behavior-
    changing build needs v38 + clearance + run word). Next session opens
    v38 from the post-V37 handoff §10.
+89. RESUME + V38 ISSUANCE RELAY 2026-09-14: session opened per post-V37
+    handoff §9-10 + §10 checklist (hashes match handoff §5: EA 51DF542D
+    521720 B; HEAD 16c849c post-V37 checkpoint; working set = 4 expected
+    paths; MUST reads done incl. spec v4.2 whole + both v37 verdicts).
+    Relay v38 filed (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v38-IMPL-ISSUE.md`,
+    46 lines, read-back verified): assembled v37 scope inline (D1-D6 +
+    Astra R4/S1 + criteria 1-4, print-only), S1 trigger Q1 with
+    record-first search filed (record holds side/regime/POI/zone/stop/TP,
+    not retest/LTF/confirmation/divergence), asks issue-by-name, run word
+    UNSPENT. SPEC-CURRENCY CHECK (operator challenge, answered on disk):
+    only spec on disk is v4.2 (396 lines), restatement current (Sep-14
+    firsts fix), no newer rules anywhere — relay NOT obsolete.
+90. V38 SPLIT 2026-09-14: Astra `GPT-V38-ISS-001` ISSUED
+    `A6-PRINT-ONLY-RECORDERS-001` + Opus `OPUS-V38-ISS-001` ISSUED
+    `DECISION-IDENTITY-RECORDERS-001` (both filed verbatim + tail-verified
+    via `00_CURRENT_WORKING\file_verdict.ps1`). Names differ = NO dual
+    issuance, nothing cleared. Agreed: branch-3, print-only, locks.
+    BANKED: Opus convergence rule (v39 re-asks closed set of two; builder
+    never reconciles/picks/aliases). DEFECT OWNED: v38 S2 misdated the
+    search 2026-09-15, session is 2026-09-14 (Opus flag, correct) —
+    struck in v39. Relay v39 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v39-IMPL-NAME.md`, 25 lines,
+    verified): closed set (A)/(B) + D7/D8 concurrence ask + date fix.
+91. V39 CROSSED 2026-09-14: Astra `GPT-V39-ISS-001` ISSUED (B) with D7/D8
+    YES/YES + Opus `OPUS-V39-ISS-001` ISSUED (A) with D7/D8 gated on Astra
+    concurrence (both filed verbatim + verified). Substance now identical
+    ((A)-scope + D7 + D8); split is ONE STRING wide. Opus pre-halts
+    (B)-naming returns; Astra's own v38 lock named (A). Only converging
+    move: Astra re-issues (A). Relay v40 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v40-IMPL-CONVERGE.md`, 21 lines,
+    verified): side-by-side identity for both streams to confirm/correct
+    (never asserted) + Astra re-issue ask + Opus gate-confirm/re-state.
+92. COUNCIL-COST LESSON 2026-09-14 (operator: "why the back-and-forth —
+    it costs money"; standing): rounds are STRUCTURAL, not conversational
+    — (a) two file-blind fresh-session streams negotiate identical strings
+    through him, one relay per round trip; (b) each stream's tripwires
+    (Astra identical-name+scope; Opus no-key/pre-halt/no-reconcile) are HIS
+    ordered protections (dual-key: either halts); (c) this arc spent 3
+    relays on the NAME with substance converging in one round — names cost
+    because every future key quotes them exactly. COST DISCIPLINE
+    (standing): relays stay dense (multi-ask, never single-string fixes);
+    every relay pre-declares its convergence/next-relay procedure (the
+    Opus-v38-rule pattern is the model); name-derivation precedes issuance
+    voting wherever council authors the name (ask for the derivation rule
+    in the design relay, before two names exist); Astra-sufficient fast
+    path wherever standing rules allow (print-only), dual-key reserved for
+    selection changes; substance-identity shown side-by-side for
+    confirm/correct, never asserted. Cheap-vs-safe tension stays HIS call.
+    CORRECTION 2026-09-14 (operator: the bottleneck is RELAY COUNT, not
+    run money — his pasting labor is the scarce resource): minimize the
+    NUMBER of relays first, prompt length second. Bigger single prompts
+    beat multiple trips. Every relay therefore carries FULL BRANCH
+    COVERAGE — if-X-then-Y ruled in advance for every foreseeable return
+    — so no relay is ever spent merely deciding what the next relay asks.
+    A relay that could have carried its own follow-up but didn't is the
+    defect class. Applies from v41 (v40 already filed complete).
+93. V40 DUAL ISSUANCE 2026-09-14: Astra `GPT-V40-ISS-001` + Opus
+    `OPUS-V40-ISS-001` BOTH ISSUE `A6-PRINT-ONLY-RECORDERS-001` with
+    identical substance ((A)-scope + D7/D8 addendum, criteria unamended,
+    no verdict power; Opus identity condition met on Astra's quoted
+    confirmations; clarifications non-blocking). Both filed verbatim +
+    verified. PACKET STATUS: DUAL-ISSUED. Relay v41 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v41-A6REC-BUILDCLEAR.md`, 22
+    lines, verified): full-branch-coverage build clearance (scope inline
+    + build gates + RECON26-A6REC envelope/ceiling-90 + grading vs
+    criteria/D7-reading + halts + downstream pre-ruled); threshold Astra
+    CLEAR + run word (print-only amendment), Opus as review. OUTSTANDING:
+    v41 dual return + his run word (~1h unspent). QUIESCENT: no build/run.
+    UNCOMMITTED (no token).
+94. V41 CLEAR + REVIEW 2026-09-14: Astra `GPT-V41-CLR-001` CLEARS
+    `A6-PRINT-ONLY-RECORDERS-001` (ONE build + ONE run RECON26-A6REC,
+    ceiling 90, gates mandatory, run word still unspent) + Opus
+    `REV-A6REC-001` review-only non-clearing (no-key discipline, nothing
+    blocked; 6 findings: 1-3 wanted pre-run, 4-6 ride grading). Both filed
+    verbatim + verified. BUILDER COMPLIANCE (no new relay — inside cleared
+    scope, enforced as build gates): (1) 1.16251 bar-read only, S2
+    no-literal gate mechanically enforced; (2) per-instant dedupe +
+    end-of-run emission counter (legible timeout); (3) comparator named =
+    RECON25 archive (A812DDAC/[293110..330082]) + RECON17-frozen signal
+    set, same ini/range; (4-6) carried into grade-line wording; STAGE-1
+    full-SHA256 all touched files; adoption-off + OrderSend-0 by
+    mechanical grep, never inspection. DEFECT OWNED: stray duplicated
+    fragment caught in Opus staging pre-filing, removed (verbatim gate
+    held). OUTSTANDING: his run word ONLY. QUIESCENT: no build/run.
+    UNCOMMITTED (no token).
+95. RECON26-A6REC BUILT + LAUNCHED 2026-09-15 (run word = his "proceed" post-
+    double-check). STAGE-1 PASS (pre-hash 51DF542D + 521720 B verified before
+    any write). Build EA 835C164F… (531326 B), both compile 0/0 first attempt
+    (EA log T162_A6_EACOMPILE, Flow direct OK), FlowLogic 3606BFB4 unchanged:
+    fixture SrjA6Decision (entry/limb TIMES only, zero prices) + A6 block
+    (A6Emit dedupe+counter; A6Term at 1SWING/2SWING choice points; A6REFUSED
+    in GoAbort dir-guarded; A6S5Log ok=0/1; A6Fired at LogSignal; A6EndOfRun
+    MATCH/DECISION/SUPP/CQD/COUNT; V005 suppressed-target store) + 8 hooks.
+    Parity PASS (defs 1 each; HAND six + 1.16251 = 0 in EA dual-pattern;
+    AdoptOff 1; OrderSend 0; A6-HOOK 15). Opus 1-6 compliance as build gates
+    (item 94). Fixture E9E6F710… 7704 B. RECON26-A6REC LAUNCHED 02:01:04 via
+    WMI (PID 18356 RC=0; wrapper 16364; CEILING_MIN=90; PRE=0 = fresh
+    20260915 day log, correct; TERMINAL_BUSY=False; power AC/DC 0; slot
+    free; same RECON1_P1.ini/range). Next on HIS completion signal: archive
+    → grade vs criteria/D7-reading → result → grading relay (dual-key for
+    anything further). Timeout/no-third-run REPORT+HALT. RECON17 frozen.
+    UNCOMMITTED (no token).
+96. RECON26-A6REC DONE=PASSED 2026-09-15 02:49:21 (Test passed 0:47:56.931;
+    3168/563338; archive 38002 lines / 7420420 B / SHA 87B74384… / bounds
+    [0..38001] fresh day log; purity Core-04/Test-passed; MAXLEN=537;
+    signals 4/4; SELHALT 0; no timeout; leftover 16364 closed forced,
+    declared). GRADED DELIVERED 3/4 + criterion-(2) FAIL-with-defect (void):
+    C1 R4 PASS (MATCH 09:15 ok=1; DECISION SELECTED 1.16098 ok=1 slot=7 =
+    swing slot = frozen expSlot; "slot-758" = eval shift, same row, no
+    force-fit; S5 term verified so LIVE_S5_ROW true; FIRED R 1.76); C2 S1
+    FAIL (MATCH 10:05 EMPTY, S5-absence 0 by two patterns; DECISION
+    mislabels same-bar S2POLL LONG 1.16198/slot-1 as the SHORT decision —
+    pairing by barTime alone, site+dir ignored, OWNED; D7 never fired;
+    S1 stays open); C3 PASS (void holds); C4+isolation PASS (FIRED 4/4
+    exact; 481/16/14376/168/5/2, SUPP legacy 156/156, adoption OFF,
+    OrderSend 0, no delta). D8 demonstrated two-branch; COUNT 1024/10/0;
+    REFUSED 52 well-formed. Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON26-A6REC.md`) + extract (RECON26_A6
+    .txt, 11 lines) + relay v42 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v42-RECON26-GRADE.md`: accept +
+    finding-vs-fix with repair packet `A6-DECISION-PAIRING-001` pre-
+    authorized on Astra CLEAR + run word, full branch coverage).
+    RECON17 frozen; 835C164F uncommitted. NO build/run/commit (no key,
+    no run word). UNCOMMITTED (no token).
+97. V42 FIX-CLEARANCE 2026-09-15: Astra `GPT-V42-A6REC-001` ACCEPTS record
+    + CLEARs `A6-DECISION-PAIRING-001` BY NAME (branch (b) FIX: DECISION
+    keys barTime+site+dir, S5-absent bars fall to D7 TRIGGER_UNRESOLVED,
+    nothing else; criteria unamended; run word still unspent) + Opus
+    `REV-A6REC-002` review ACCEPTS + prefers (b) with 4 pre-declared
+    checks (10:05→D7 target; 09:15 SELECTED regression as top check;
+    full invariant list with SUPPRESSED/REFUSED abort-not-explain;
+    pre-declared count/bounds delta). Both filed verbatim + verified.
+    OUTSTANDING: his run word ONLY (~1h, ceiling 90, same ini/range).
+    QUIESCENT: no build/run. UNCOMMITTED (no token).
+98. RECON27-A6FIX BUILT + LAUNCHED 2026-09-15 (run word = his "proceed" on
+    the fix-value question + "proceed" for the run). STAGE-1 PASS (pre-hash
+    835C164F + 531326 B verified before any write). Repair EA C24460B6…
+    (531778 B, +452 B: termSite store + site+dir pairing key + comment),
+    both compile 0/0 first attempt with freshness-verified logs (EA
+    04:58:39, Flow 04:58:59; identical-ms coincidence checked, not assumed),
+    FlowLogic 3606BFB4 unchanged. Parity PASS (defs 1 each; HAND six +
+    1.16251 = 0 in EA; AdoptOff 1; OrderSend 0; A6-HOOK 16 = 15+1 fix
+    comment). Opus 4 checks pre-declared as grade gates incl. count/bounds
+    delta (emitted ≈1024 flat, DECISION 2→2 content-swapped; bounds continue
+    day log at PRE=38004). RECON27-A6FIX LAUNCHED 04:59:15 via WMI (PID 3136
+    RC=0; wrapper 13840; CEILING_MIN=90; PRE=38004 contiguous past RECON26's
+    38002; TERMINAL_BUSY=False; power AC/DC 0; slot free; same
+    RECON1_P1.ini/range). Next on HIS completion signal: archive → grade vs
+    4 checks → result → grading relay (dual-key for anything further).
+    Timeout/no-third-run REPORT+HALT. RECON17 frozen. UNCOMMITTED (no token).
+99. RECON27-A6FIX DONE=PASSED 2026-09-15 05:46:54 (Test passed 0:47:01.620;
+    3168/563338; archive 38005 lines / 7420760 B / SHA 105099E1… / bounds
+    [38004..76008] contiguous past RECON26; purity Core-04/Test-passed;
+    MAXLEN=537; signals 4/4; SELHALT 0; no timeout; leftover 13840 closed
+    forced, declared). GRADED DELIVERED 4/4 pre-declared checks PASS:
+    target (S1 TRIGGER_UNRESOLVED with limb 1.16251/1.16233/1.16250 + missing
+    names; false 1.16198 SELECTED 0 by two patterns; D7 first fire), top
+    regression (R4 byte-identical, now by construction), invariants
+    (4/4 + 481/16/14376/168/5/2 + SUPP-legacy 156/156 + 4/4 + 0 + 52),
+    count/bounds (1024 flat as pre-declared). Result filed
+    (`06_HANDOFFS\BUILDER_RESULT_RECON27-A6FIX.md`) + extract (RECON27_A6
+    .txt, 11 lines) + relay v43 filed
+    (`06_HANDOFFS\BUILDER_RELAY_COUNCIL_v43-RECON27-GRADE.md`: accept +
+    next-direction (a) QUIESCENT vs (b) AUTHOR-by-name, full branch
+    coverage, nothing pre-authorized). RECON17 frozen; C24460B6
+    uncommitted. NO build/run/commit (no key, no run word).
+    UNCOMMITTED (no token).
+100. V43 DUAL ACCEPT-QUIESCENT 2026-09-15: Astra `GPT-V43-A6FIX-001` +
+    Opus `REV-A6FIX-003`/`A6FIX-ACCEPT-QUIESCENT-001` BOTH ACCEPT record +
+    BOTH pick (a) QUIESCENT (no next packet; Opus logs thin-D7-coverage as
+    observation, explicitly not scope). Both filed verbatim + verified
+    (Opus dual-ID carried in one block, count 0→2). AGREED on all asks;
+    NO CONFLICT. Locks hold: RECON17 frozen; C24460B6 uncommitted; no
+    third run; run word UNSPENT; S1 VOID; P4/C5-first; P6 untouched.
+    STATE: QUIESCENT — no build/run/commit executable; next moves are
+    operator/council-side only. Checkpoint filed
+    (`06_HANDOFFS\BUILDER_CHECKPOINT_POST-V43.md`). UNCOMMITTED
+    (records ride uncommitted; snapshot only on token).
 49. OPERATOR STATEMENT 2026-09-14 (mid-21b-run): RECON21 slowness was HIS
     host load (other heavy work during the run) — pace cause corrected
     from unknown to confirmed-environmental (addendum in

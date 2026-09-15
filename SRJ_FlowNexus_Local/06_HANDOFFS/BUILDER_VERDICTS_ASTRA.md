@@ -1047,3 +1047,208 @@ This return authors the replacement semantics above; it does **not** declare the
 
 The v36 loop remains closed; its allowance and run word remain spent. RECON17 stays frozen; `51DF542D…` stays uncommitted. No third run, snapshot, push, or tag is authorized. Further implementation or execution requires a fresh packet relay and the applicable explicit authorization.
 
+
+## VERDICT GPT-V38-ISS-001 2026-09-14 (answers v38)
+
+**Ruling-ID: `GPT-V38-ISS-001`**
+**ISSUE `A6-PRINT-ONLY-RECORDERS-001`**
+
+This is Astra’s issuance ruling on the full v38 relay, not a review-only return. It issues the design scope below; it grants **no build, run, or commit clearance**. Dual issuance remains incomplete until the other stream explicitly issues the **identical packet name and scope**. This return does not speak for that stream.
+
+## S1 — issued scope, quoted back
+
+> Status: ASSEMBLY-ONLY from the two v37 returns. Every line below is quoted or directly entailed from `GPT-V37-A6-001` and `OPUS-V37-DSN-001`; the builder supplies no mechanism, no threshold, no rule. Build class: PRINT-ONLY recorders beside the untouched selection path (adoption OFF throughout); any selection-path change needs a fresh dual-key packet.
+>
+> **A6 governing rule (Astra):** establish decision identity, resolve the operative path, then evaluate candidates within that path. Cross-path absence cannot override positive evidence from the operative path. Candidate existence cannot manufacture a trading decision.
+>
+> **R4 — the conditional rule walks the LIVE path (Astra, quoted):** "For the observed 09:15 decision, A6 walks the live-1SWING path, because the decision row explicitly selected that path — not because its price happens to match the filed target." "The absent 08:40 FRACTAL event and walk to 08:20 remain a separate fractal-path finding. They do not trigger fallback, substitution, or correction of this live decision. Any proposal to change the operative path to FRACTAL would be a separate semantic change requiring fresh authorization."
+>
+> **S1 — decision creation independent of candidate discovery (Astra, quoted):** "A6 requires a decision record whenever an independently established strategy decision trigger occurs, including when no candidate is selected. Record creation must not depend on candidate-loop entry or successful selection." "That record must identify the decision’s instrument, side, time, trigger, and operative path. A same-date row is not a substitute." Trigger test, in order: (1) establish whether the expected 10:05 decision had a valid trigger (S2 carries the evidence and the open question); (2) if established, the absent row is a decision-record creation failure — emit the record and evaluate candidates available and qualified as of that decision; (3) if not established, retain "expected decision unresolved" — invent no decision and no trade from the buffered limb, the hand account, or the ordinal shift. Correlate by timestamps and candidate identity, never by ordinal.
+>
+> **Absence taxonomy (Opus D1, quoted):** the single `NOT_EVALUATED` code is replaced by four mutually exclusive terminal absences — `ABSENT_UNINSTRUMENTED` (path executed, no capture point; instrumentation obligation), `ABSENT_NOT_REACHED` (path not walked, selection ended earlier; expected, still logged), `ABSENT_DECLINED` (row born, evaluated, rejected, reason recorded — the ONLY code that may feed a rule verdict), `ABSENT_UNBORN` (upstream never emitted the row — upstream obligation). Any other absence blocks verdict emission and raises an instrumentation obligation instead.
+>
+> **R4 construction (Opus D2, quoted in effect):** live-first short-circuit — fractal space is entered only when the live path returns no terminal selection (R4’s fractal absence reclassifies `ABSENT_NOT_REACHED`; the walk-to-08:20 is an artifact of querying a space that should never have been queried). Fractal absence can never override a live filed-exact match, no exceptions. Emit a terminal-selection record at the point of choice on non-loop paths (same operand set as loop capture) — converts R4 to a positive `SELECTED` record with zero semantic touch. Emit `FRACTAL_SUPPRESSED` with the would-have-reached target (08:20) whenever live terminates selection — auditable, verdict-powerless.
+>
+> **S1 construction (Opus D3, quoted in effect):** rule S1 `ABSENT_UNBORN`, verdict withheld — admissibility is not entry, silence is not decline. Close it with a negative record, not an inference: the decision stage emits a row for every admissible limb including refusals, carrying the refusal predicate. Until that record exists, S1 stays open.
+>
+> **Correlation + matcher (Opus D4/D5, quoted in effect):** ordinals banned — pair human to code records on (date, time, direction, price) only. Date-only matching banned — bounded window anchored on the decision timestamp; on no candidate in window return `EMPTY`; never widen, never fall back, never bind the nearest same-date row.
+>
+> **Precedence (Opus D6):** live filed-exact match > live selection > fractal selection > fractal absence. `ABSENT_DECLINED` outranks all other absences.
+>
+> **Acceptance criteria for the built packet (Opus, quoted):** (1) R4 closes when the 1SWING OB terminal-selection record prints with full operands reproducing 1.16098 / ok=1 / slot 758. (2) S1 closes when the decision stage emits a row for the 09:50 limb — fired or refused, with predicate; a refusal closes it as validly as a fire. (3) S1’s voided bound stays void until a windowed match produces a real one. (4) Isolation read remains 4/4 identical on the stated signal set (2.43 / 2.56 / 1.76 / 1.25); any drift invalidates the observation premise.
+>
+> **Standing conventions carried:** decision instant = signal-bar close; filed-authoritative; exact barTime+price, no tolerance; print-only parity bound (signals 4/4 identical + isolation join vs RECON17, READ post-run).
+
+## Q1 — unresolved branch governs
+
+**Rule that the packet accommodates “expected decision unresolved.”** The supplied record does not establish the Sep-8 10:05 SHORT trigger. The necessary bar-specific chart evidence is not supplied here, and the divergence contradiction remains open. This is **not** a finding that the trigger was invalid.
+
+The quoted obligations must be read together:
+
+- A fired-or-refused limb record captures the decision stage’s actual outcome and predicate; limb admissibility alone does not establish a strategy decision.
+- Missing trigger evidence cannot be recoded as a refusal or `ABSENT_DECLINED`. Without an actual evaluative record, S1 remains open and its rule verdict withheld.
+- A later refusal record may close the stated recording obligation without proving that the expected 10:05 trigger was valid.
+
+The PRINT-ONLY boundary governs all construction language. It does not authorize introducing or changing live-first control flow, fallback, candidate qualification, or trading decisions. If satisfying a construction clause requires a selection-path change, that change is outside this issuance and requires the fresh dual-key packet already stipulated.
+
+## Locks — confirmed
+
+- **Nothing builds, runs, or commits on v38.** Issuance is not execution clearance.
+- Both streams must issue `A6-PRINT-ONLY-RECORDERS-001` with this scope before dual issuance is satisfied. A different name or materially different scope does not match.
+- Any eventual build requires a later relay clearing the named packet for build; any eventual run additionally requires the operator’s run word. **Run word (~1h): UNSPENT.**
+- **RECON17 frozen; EA `51DF542D` uncommitted; v36 allowance spent; no third run authorized.**
+- **Timeout: REPORT+HALT.** Snapshot, push, and tag remain explicit-token-only.
+- S1’s loop bound is **`VOID(NO_MATCHING_ROW)`**, as is every figure derived from it. The filed result stays unedited and read-only; S0 carries the supersession. R4’s owned loop bound remains limited to 2SWING rows.
+- P4/C5-first remains an Opus single-source ordering flag, **not a newly dual-agreed priority**. P6 flip remains untouched.
+- v37 stays closed. The stated future-run novelty is an evidence objective, not evidence already obtained and not permission to run.
+
+
+## VERDICT GPT-V39-ISS-001 2026-09-14 (answers v39)
+
+**Ruling-ID: `GPT-V39-ISS-001` — Astra stream**
+
+## Ask 1 — issuance
+
+**ISSUE `DECISION-IDENTITY-RECORDERS-001`**
+
+Scope quoted verbatim from S1(B), incorporating S1(A) exactly as supplied:
+
+> S1 entire as (A), PLUS the two amendments: **D7** — criterion (2) amended: under branch (3) the 09:50 row prints terminal state **`TRIGGER_UNRESOLVED`** (operands held: SHORT, 09:50 high 1.16251 admissible, operative path, decision instant; missing operands named as reason); fifth terminal, verdict-powerless, closes the instrumentation obligation only, S1 stays open. **D8** — code CQD EMPTY at both Sep-8 bars classified `ABSENT_UNINSTRUMENTED`-or-defect under D1, verdict-powerless, contradiction printed-not-adjudicated. If Astra does not concur, D7/D8 are single-source and (B) collapses to (A)'s scope under its own name.
+
+This issuance selects **B with both amendments**, not its fallback scope. Print-only; adoption OFF. No aliasing, reconciliation, or reopening of v38.
+
+## Ask 2 — concurrence
+
+- **D7: YES — CONCUR.** `TRIGGER_UNRESOLVED` closes instrumentation only, not S1 or the missing-trigger question. It establishes neither trigger nor refusal.
+- **D8: YES — CONCUR.** The classification remains `ABSENT_UNINSTRUMENTED`-or-defect; the contradiction is printed, not adjudicated.
+
+Branch (3) governs Q1. Missing trigger evidence must never become refusal or `ABSENT_DECLINED`; refusal closes recording only and proves no trigger. Operator evidence remains outstanding for S1 substance, not for this print-only issuance.
+
+## Ask 3 — locks
+
+**CONFIRM:**
+- Nothing builds, runs, or commits on this relay.
+- RECON17 frozen; `51DF542D` uncommitted; no third run.
+- **REPORT+HALT; run word (~1h) UNSPENT.**
+- S1 bound `VOID(NO_MATCHING_ROW)`.
+- P4/C5-first stays single-source; P6 untouched.
+- All v38 locks remain in force.
+
+S0’s correction to **2026-09-14** is accepted for the supplied audit record; no re-search is performed or claimed. Proof-file references remain the two v38 verdict sections and this relay file; no filing or modification is claimed here.
+
+**This is Astra issuance and concurrence only. Dual issuance remains unestablished until Opus returns ISSUE with the identical name and identical scope. Either stream halts; nothing is execution-cleared.**
+
+
+## VERDICT GPT-V40-ISS-001 2026-09-14 (answers v40)
+
+**Ruling-ID: `GPT-V40-ISS-001`**
+**Disposition: ISSUE `A6-PRINT-ONLY-RECORDERS-001`**
+
+This ruling covers the full v40 relay **for this return only**. Historical confirmations below rely on the quoted record supplied in this relay, not independently inspected v38/v39 proof files.
+
+### S0 — CONFIRM
+
+The supplied identity reading is confirmed: (B) and (A)-with-the-concurred-addendum carry the same stated substance. D7/D8 enter under (A) as the S1 addendum, leaving criteria (1)–(4) unamended and granting no additional verdict power. The different issuance name prevented v39 convergence; this return issues the required (A) name. **The v39 loop remains closed.**
+
+The quoted Astra concurrence—**“D7: YES — CONCUR” + “D8: YES — CONCUR”**—satisfies the sole concurrence gate described in the supplied Opus record. This confirms the gate reading; it does not substitute for Opus’s own v40 return.
+
+### S1 — Issued substance, quoted back
+
+> (A)-scope: A6 governing rule (decision identity, operative path, no cross-path override, no manufactured decisions); R4 walks live-1SWING (09:15 row selected it; fractal absence separate, no fallback/substitution/correction; FRACTAL-path change needs fresh authorization); S1 decision record independent of candidate discovery (instrument, side, time, trigger, operative path; same-date row no substitute; trigger test (1) establish / (2) failure-record + as-of evaluation / (3) "expected decision unresolved", invent nothing; correlate by timestamp+identity, never ordinal); D1 four terminals (`ABSENT_UNINSTRUMENTED` / `ABSENT_NOT_REACHED` / `ABSENT_DECLINED` — only verdict-feeding code / `ABSENT_UNBORN`; all else blocks verdicts, raises instrumentation); D2 live-first short-circuit (fractal absence = `ABSENT_NOT_REACHED`; never overrides live filed-exact; terminal-selection record on non-loop paths; `FRACTAL_SUPPRESSED` with 08:20, auditable, verdict-powerless); D3 S1 `ABSENT_UNBORN`, verdict withheld, negative records close it; D4 ordinals banned ((date, time, direction, price) only); D5 date-match banned (bounded decision-anchored window, `EMPTY` on miss, never widen/fall back); D6 precedence (live-exact > live > fractal > fractal-absence; `ABSENT_DECLINED` outranks); criteria (1) R4 terminal record 1.16098/ok=1/slot-758, (2) S1 09:50 row fired-or-refused with predicate, (3) void bound stays void until windowed, (4) isolation 4/4 identical (2.43/2.56/1.76/1.25) or premise void; conventions (signal-bar close, filed-authoritative, exact barTime+price, parity READ post-run); print-only, adoption OFF; selection change needs fresh dual-key packet. ADDENDUM (on Astra YES/YES, already given): **D7** — under branch (3) the 09:50 row prints **`TRIGGER_UNRESOLVED`** (SHORT; 09:50 high 1.16251 admissible; operative path; decision instant; missing operands named); fifth terminal, verdict-powerless, closes instrumentation only, S1 stays open. **D8** — code CQD EMPTY at both Sep-8 bars = `ABSENT_UNINSTRUMENTED`-or-defect, verdict-powerless, printed-not-adjudicated.
+
+### S2 — Locks confirmed
+
+Confirmed as binding relay constraints, not as independently verified repository state:
+
+- **Nothing builds, runs, or commits.** No such action was taken in this return.
+- **RECON17 frozen; `51DF542D` uncommitted; no third run.**
+- **REPORT+HALT; run word (~1h) UNSPENT.**
+- **S1 bound `VOID(NO_MATCHING_ROW)`; S1 stays open.**
+- **P4/C5-first single-source; P6 untouched.**
+- **Q1 council-closed under branch (3); operator chart read open at leisure.**
+- **Print-only; adoption OFF; all locks retained.** Selection change requires a fresh dual-key packet.
+- Relay date reads **2026-09-14**.
+- Designated proof set: v38 and v39 verdict sections from both streams, plus this relay file; no claim of inspection or filing is made here.
+
+**Convergence status:** This return supplies **ISSUE `A6-PRINT-ONLY-RECORDERS-001`** with the S1 substance. Dual issuance on v40 requires the other stream’s matching v40 return; standing v39 issuance alone does not satisfy the explicit **THIS relay** condition. Until that matching return is present, nothing clears. Even upon convergence, this relay authorizes no build, run, or commit.
+
+**REPORT+HALT.**
+
+
+## VERDICT GPT-V41-CLR-001 2026-09-14 (answers v41)
+
+**Ruling-ID: `GPT-V41-CLR-001`**
+
+**CLEAR `A6-PRINT-ONLY-RECORDERS-001`** for **ONE print-only build plus ONE run**, named **RECON26-A6REC**, using the same RECON ini/range, with a **90-minute ceiling**, conditional on the operator’s separate run word and all stated build gates. This is clearance, **not execution authorization on this relay**.
+
+### S1 scope quoted back
+
+> A6 governing rule (decision identity, operative path, no cross-path override, no manufactured decisions); R4 walks live-1SWING (09:15 row selected it; fractal absence separate, no fallback/substitution/correction; FRACTAL-path change needs fresh authorization); S1 decision record independent of candidate discovery (instrument, side, time, trigger, operative path; same-date row no substitute; trigger test (1) establish / (2) failure-record + as-of evaluation / (3) "expected decision unresolved", invent nothing; correlate by timestamp+identity, never ordinal); D1 four terminals (`ABSENT_UNINSTRUMENTED` / `ABSENT_NOT_REACHED` / `ABSENT_DECLINED` — only verdict-feeding code / `ABSENT_UNBORN`; all else blocks verdicts, raises instrumentation); D2 live-first short-circuit (fractal absence = `ABSENT_NOT_REACHED`; never overrides live filed-exact; terminal-selection record on non-loop paths; `FRACTAL_SUPPRESSED` with 08:20, auditable, verdict-powerless); D3 S1 `ABSENT_UNBORN`, verdict withheld, negative records close it; D4 ordinals banned ((date, time, direction, price) only); D5 date-match banned (bounded decision-anchored window, `EMPTY` on miss, never widen/fall back); D6 precedence (live-exact > live > fractal > fractal-absence; `ABSENT_DECLINED` outranks); criteria (1) R4 terminal record 1.16098/ok=1/slot-758, (2) S1 09:50 row (D7 reading below), (3) void bound stays void until windowed, (4) isolation 4/4 identical (2.43/2.56/1.76/1.25) or premise void; conventions (signal-bar close, filed-authoritative, exact barTime+price, parity READ post-run); ADDENDUM: **D7** — under branch (3) the 09:50 row prints **`TRIGGER_UNRESOLVED`** (SHORT; 09:50 high 1.16251 admissible; operative path; decision instant; missing operands named); fifth terminal, verdict-powerless, closes instrumentation only, S1 stays open (consistent with D1: resolves instrumentation, feeds no verdict, joins no precedence). **D8** — code CQD EMPTY at both Sep-8 bars = `ABSENT_UNINSTRUMENTED`-or-defect, verdict-powerless, printed-not-adjudicated, disjunction never silently collapsed. Q1 council-closed under branch (3); operator chart read open at leisure, blocks nothing.
+
+### Binding construction and grading
+
+- **S2 gates remain mandatory and unamended.** Before any write, verify the current EA against `51DF542D`, **521720 B**. Only the five specified recorder additions are permitted. Re-verify `InpAdoptExt1=false`, `OrderSend(` source count **0**, single definitions, six HAND literals fixture-only, and both compiles at **0 errors / 0 warnings**. A gate miss fails the build, not the packet. **Any selection-path touch → REPORT+HALT and council return.**
+- **Criteria (1)–(4) remain unamended.** The R4 positive `SELECTED` terminal must reproduce the specified result with full operands. The S1 09:50 predicate-bearing fired/refused row or compliant `TRIGGER_UNRESOLVED` satisfies criterion (2)’s instrumentation requirement, **not S1 substance**. A bound alone cannot cure the void. Isolation requires the stated **4/4 identical** results **and the full isolation join against RECON17 READ post-run**, not an assertion of parity.
+- D7 adds **no verdict power or precedence membership**. D8 remains an explicitly printed **disjunction**, not an adjudicated diagnosis.
+- The run requires wrapper-archived journal and extracts. **Timeout, any signal drift, adoption statically ON, or any live-selection delta outside recorder lines → REPORT+HALT.** Signal drift voids the premise. No third run; no re-grade. A delivered grade goes to the grading relay; a halt report stands and returns the packet to council. Anything further requires dual-key clearance as specified.
+
+### Locks confirmed
+
+**Nothing builds, runs, or commits on this relay.** The operator’s run word is **UNSPENT**; no hour is authorized here. Nothing commits on the cleared run without an explicit commit token.
+
+**RECON17 frozen; S1 bound `VOID(NO_MATCHING_ROW)` until a qualifying windowed match; P4/C5-first single-source; P6 untouched; Q1 council-closed under branch (3), with the operator chart read open and non-blocking.** Adoption stays OFF. No selection change is cleared; dual-key remains mandatory for any such change. The v40 loop stays closed.
+
+This ruling uses the self-contained relay as supplied; it does **not** certify inspection of the referenced proof files, current tree, compiles, or run evidence. Those checks remain outstanding execution gates.
+
+
+## VERDICT GPT-V42-A6REC-001 2026-09-14 (answers v42)
+
+**Ruling-ID: GPT-V42-A6REC-001**
+**Ask 1: ACCEPT. Ask 2: (b) FIX — CLEAR `A6-DECISION-PAIRING-001`. Ask 3: CONFIRMED.**
+
+### 1. Record accepted
+Accepted **as reported in this self-contained relay**, not as an independent inspection of the proof files:
+
+- R4 / criterion (1): **PASS**. Frozen swing slot 7 and eval shift 758 are distinct operands; no force-fit.
+- S1 / criterion (2): **FAIL-with-named-defect, void as evidence on S1 substance**. BarTime-only pairing incorrectly attributes the same-bar S2POLL LONG row to the SHORT decision. S1 remains open under **VOID(NO_MATCHING_ROW)**.
+- Criterion (3), criterion (4), and isolation: **PASS as reported**, including byte-exact FIRED preservation, adoption OFF, OrderSend 0, and no selection delta.
+- D8, COUNT, REFUSED, and the stated new evidence are accepted as reported. **v41 remains closed.**
+
+### 2. FIX clearance — strictly bounded
+**CLEAR by name: `A6-DECISION-PAIRING-001`.** The repair is limited to:
+
+1. DECISION pairing by **barTime + site + dir**.
+2. S5-absent bars falling to **D7 TRIGGER_UNRESOLVED**.
+3. **Nothing else touched.**
+
+This is print-only recorder repair—not a selection change, an S1 substantive resolution, or a grant of verdict power. Criteria (1)–(4) remain unamended.
+
+Under the stated Astra-clearance protocol, this clearance requires the operator’s **separate run word** before ONE build + ONE run, ceiling 90, same ini/range. Opus’s return remains review. Selection changes remain dual-key and outside this clearance.
+
+### 3. Locks confirmed
+**Nothing builds, runs, or commits on this relay. Run word: UNSPENT.** No commit on any cleared run without an explicit commit token; no third run; timeout **REPORT+HALT**.
+
+RECON17 frozen; 835C164F uncommitted; P4/C5-first single-source; P6 untouched; Q1 council-closed under branch (3), with operator chart read open at leisure. The stated proof-file set remains the record basis.
+
+
+## VERDICT GPT-V43-A6FIX-001 2026-09-15 (answers v43)
+
+**Ruling-ID: `GPT-V43-A6FIX-001`**
+**Disposition: ACCEPT / (a) QUIESCENT**
+
+**Ask 1 — ACCEPT.** On the supplied inline record, RECON27-A6FIX passes all four pre-declared checks: target repair, byte-identical R4 regression protection, preserved invariants/isolation, and flat-count/contiguous-bounds proof. Acceptance is of the reported evidence; I have not independently inspected the referenced proof files. **v42 remains closed DELIVERED.**
+
+**Ask 2 — (a) QUIESCENT.** The accepted record stands. No next packet is authored or authorized. This ruling grants no verdict power and amends no criteria. Any future packet requires fresh applicable clearance: dual-key for selection changes; the standing Astra-sufficient amendment remains available for print-only.
+
+**Ask 3 — All locks CONFIRMED:**
+- Nothing builds, runs, or commits on this relay.
+- No cleared run permits a commit without an explicit commit token.
+- RECON17 frozen; `C24460B6` uncommitted.
+- No third run; timeout means **REPORT+HALT**.
+- Run word (~1h) remains **UNSPENT**.
+- S1 bound remains **`VOID(NO_MATCHING_ROW)`**.
+- P4/C5-first single-source; P6 untouched.
+- Q1 remains council-closed under branch (3); operator chart read remains open at leisure.
+
+**This return supplies only this stream’s ruling, not the other stream’s concurrence.**
+

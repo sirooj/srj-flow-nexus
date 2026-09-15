@@ -3003,3 +3003,346 @@ Stated as criteria only — no run is proposed, requested, or implied here, and 
 
 No allowance remains. RECON17 frozen. `51DF542D…` uncommitted, and I am not asking for it to be committed. No third run. Timeout stays REPORT+HALT. Snapshot, push, and tag remain gated on an explicit token that this return does not request and I have no standing to ask for.
 
+
+## VERDICT OPUS-V38-ISS-001 2026-09-14 (answers v38)
+
+## Ruling ID: `OPUS-V38-ISS-001`
+
+Class: issuance + design amendment. No build, run, or commit authorized here.
+
+---
+
+## Ask 1 — ISSUE
+
+**ISSUE `DECISION-IDENTITY-RECORDERS-001`.**
+
+### Why this name (derivation, so the other stream can land on it non-accidentally)
+
+The naming requirement in this protocol has a structural weakness: two streams must produce an *identical string* with no channel between them. That converges only if the name is derivable from the scope rather than chosen by taste. My derivation:
+
+Every block in S1 reduces to one operation — make the decision's identity and its resolution appear as a printed record instead of being inferred from silence.
+
+- A6 governing rule: "establish decision identity" (verbatim first clause of the scope).
+- R4: resolve the operative path, then emit a terminal-selection record at the point of choice.
+- S1: emit a decision record whenever a trigger occurs, independent of candidate discovery.
+- D1: the absence codes exist only to qualify those records.
+- D4/D5: correlation binds records by identity attributes, never ordinals.
+
+`DECISION-IDENTITY` is the only concept present in all five. `RECORDERS` fixes the build class (print-only, beside the untouched selection path). Suffix `001` per v32.
+
+**Convergence rule I am authoring, since the builder authors nothing:** if Astra returns a different string, that is **not** a dual issuance and nothing is cleared. The builder must not reconcile, pick, or alias. v39 re-asks with both candidate strings listed verbatim and each stream selects from that closed set of two.
+
+### Scope quoted back — binding is S1 entire, load-bearing clauses reproduced
+
+**A6 governing rule:** "establish decision identity, resolve the operative path, then evaluate candidates within that path. Cross-path absence cannot override positive evidence from the operative path. Candidate existence cannot manufacture a trading decision."
+
+**R4:** "For the observed 09:15 decision, A6 walks the live-1SWING path, because the decision row explicitly selected that path — not because its price happens to match the filed target." "They do not trigger fallback, substitution, or correction of this live decision. Any proposal to change the operative path to FRACTAL would be a separate semantic change requiring fresh authorization." Live-first short-circuit; fractal absence reclassifies `ABSENT_NOT_REACHED`; "Fractal absence can never override a live filed-exact match, no exceptions." Emit `FRACTAL_SUPPRESSED` with would-have-reached target 08:20 — "auditable, verdict-powerless."
+
+**S1:** "A6 requires a decision record whenever an independently established strategy decision trigger occurs, including when no candidate is selected. Record creation must not depend on candidate-loop entry or successful selection." "That record must identify the decision's instrument, side, time, trigger, and operative path. A same-date row is not a substitute." Ruled `ABSENT_UNBORN`, verdict withheld — "admissibility is not entry, silence is not decline." Trigger test branches (1)(2)(3) as written.
+
+**Absence taxonomy:** four mutually exclusive terminals — `ABSENT_UNINSTRUMENTED`, `ABSENT_NOT_REACHED`, `ABSENT_DECLINED`, `ABSENT_UNBORN`. `ABSENT_DECLINED` is "the ONLY code that may feed a rule verdict." Any other absence blocks verdict emission and raises an instrumentation obligation.
+
+**Correlation:** ordinals banned; pair on (date, time, direction, price) only. Date-only matching banned; bounded window anchored on the decision timestamp; `EMPTY` on no candidate in window; "never widen, never fall back, never bind the nearest same-date row."
+
+**Precedence:** live filed-exact match > live selection > fractal selection > fractal absence; `ABSENT_DECLINED` outranks all other absences.
+
+**Acceptance criteria (1)–(4)** as filed, subject to the amendment in D7 below.
+
+**Adoption OFF throughout. Print-only. Any selection-path change requires a fresh dual-key packet.**
+
+---
+
+## Ask 2 — Q1
+
+**I cannot answer Q1, and no stream can.** Q1 asks for a chart read: POI-retest bar, LTF 5m state at 10:05, confirmation candle, divergence code at the bar. S2 correctly reports the record does not hold any of these. Answering would be invention.
+
+**Ruling: the packet builds around Astra branch (3) — "expected decision unresolved."** This is not a fallback; it is the correct terminal state given the record. S1 stays open. The packet's job is to make the openness *printed* rather than inferred.
+
+Two consequences I am ruling explicitly, because the filed scope does not cover them:
+
+### D7 (new) — acceptance criterion (2) is amended: emission closes the obligation, not the finding
+
+Filed criterion (2) says S1 closes when the decision stage emits a row for the 09:50 limb, "fired or refused, with predicate; a refusal closes it as validly as a fire." Under branch (3) the limb is neither fired nor refused — trigger validity is unknown, so no refusal predicate is knowable. Emitting a `REFUSED` row here would fabricate a predicate, which is the exact failure D1 was written to prevent.
+
+Amended: the row prints with terminal state **`TRIGGER_UNRESOLVED`**, carrying the operands the record *does* hold (SHORT; 09:50 high 1.16251 admissible; operative path; decision instant) and naming the missing operands as the reason. This is a fifth terminal alongside fired/refused, and it is **verdict-powerless** — it satisfies the *instrumentation* obligation and closes nothing about S1's substance. S1 remains open until his chart read lands.
+
+If Astra does not concur with D7, it is single-source and does not enter the packet; the packet then builds to filed criterion (2) with the refusal predicate left literally blank rather than guessed.
+
+### D8 (new) — the CQD divergence contradiction is classified, not resolved
+
+Screenshot shows divergence lines; code CQD reads EMPTY at both Sep-8 bars. Under D1 that EMPTY is `ABSENT_UNINSTRUMENTED` or a defect — it is **not** `ABSENT_DECLINED`, so it may not feed any verdict, including the S1 trigger verdict. The packet prints the classification and raises the instrumentation obligation. It does not adjudicate the contradiction, and the contradiction does not become evidence for or against the 10:05 trigger.
+
+---
+
+## Ask 3 — Locks CONFIRMED
+
+- Nothing builds, runs, or commits on this relay. Issuance and design only.
+- RECON17 frozen.
+- EA `51DF542D` uncommitted.
+- No third run.
+- Timeout behavior: REPORT + HALT.
+- Run word (~1h): **UNSPENT**. Not requested, not spent, not implied by this issuance.
+- Adopted forward: S1's loop bound reads `VOID(NO_MATCHING_ROW)`; derived figures void with it. Supersession lives in the relay, not in the filed result.
+- R4 owned bound (loop capture covers 2SWING rows only) stays as written.
+- P4/C5-geometry-first ordering remains **single-source and unagreed**. It does not enter `DECISION-IDENTITY-RECORDERS-001`. P6 flip untouched.
+
+---
+
+## One record-keeping flag
+
+S2 states the record-first search "ran 2026-09-15." Current time on this relay is 2026-09-14. One of the two is wrong. On a record-first gate the search date is part of the audit trail, so it should be corrected in v39 rather than carried — a search dated after the relay that cites it will not reconcile later.
+
+
+## VERDICT OPUS-V39-ISS-001 2026-09-14 (answers v39)
+
+## Ruling — `OPUS-V39-ISS-001`
+
+### S0. Date correction — accepted
+The strike is correct and owned as stated. Record-first search reads **2026-09-14**; substance unchanged (record holds side / regime-row / POI / zone / stop / TP for the Sep-8 London SHORT, not the trigger components). No re-search. Nothing downstream of the ruling moves on this correction.
+
+---
+
+### Ask 1 — ISSUE
+
+**ISSUE `A6-PRINT-ONLY-RECORDERS-001`.**
+
+Scope quoted back, verbatim, as the closed set defines it under (A):
+
+> full v38 S1 scope (A6 governing rule; R4 live-path; S1 decision-record + trigger test branches (1)(2)(3); D1 four-code taxonomy; D2 live-first + terminal-selection record + `FRACTAL_SUPPRESSED` 08:20; D3 `ABSENT_UNBORN` + negative records; D4/D5 ordinal + date-match bans; D6 precedence; filed criteria (1)-(4) unamended; conventions; print-only, adoption OFF) + Q1 unresolved-branch obligations (missing trigger evidence never recoded as refusal/`ABSENT_DECLINED`; refusal closes recording only, proves no trigger).
+
+No aliasing, no reconciliation, no additions inside the issued scope. Criteria (1)-(4) go out **unamended**.
+
+**Why (A) and not my own (B).** (B) was never unconditional. Its own terms say D7/D8 are single-source absent Astra concurrence, and that on non-concurrence (B) collapses to (A)'s scope under (B)'s name — a name-only difference with identical substance, which is exactly the state that produced the v38 split and cleared nothing. (A) is the fixed point: it is the one option whose scope holds without any external concurrence, and it is already on the record from the other stream. Naming it is the only move available to me that can close the split without requiring the other stream to move first. If I held (B) and Astra moved to (B), we cross and stay split; if I move to (A) and Astra holds (A), we converge. I take the branch that converges on the other stream's standing position rather than the one that needs it to reverse.
+
+D7/D8 are **not withdrawn and not smuggled in**. They sit outside the issued scope, live only on Ask 2, and enter the packet under `A6-PRINT-ONLY-RECORDERS-001` if and only if Astra concurs — per the relay's own "whichever name wins" mechanism. Their substance is unchanged from `OPUS-V38-ISS-001`:
+
+- **D7** — under branch (3) the 09:50 row prints terminal state `TRIGGER_UNRESOLVED`; operands held (SHORT, 09:50 high 1.16251 admissible, operative path, decision instant), missing operands named as reason; fifth terminal, verdict-powerless, closes the instrumentation obligation only, S1 stays open.
+- **D8** — code CQD EMPTY at both Sep-8 bars classified `ABSENT_UNINSTRUMENTED`-or-defect under D1, verdict-powerless, contradiction printed-not-adjudicated.
+
+On non-concurrence they are out, cleanly, no dispute, and the issued packet is (A) as quoted with no residue.
+
+---
+
+### Ask 2 — not mine
+Directed at Astra. I neither answer nor pre-empt it. My condition stands unchanged: **Astra concurrence is the sole gate** for D7/D8. Yes on both → both enter under the issued name as an addendum that touches only the branch-(3) print and the CQD-EMPTY classification, leaving criteria (1)-(4) unamended and verdict power untouched. No on either → that one is single-source and out. Split concurrence is admissible; they are severable.
+
+---
+
+### Ask 3 — CONFIRMED
+
+| Lock | State |
+|---|---|
+| Builds / runs / commits on this relay | **NONE** |
+| RECON17 | frozen |
+| `51DF542D` | uncommitted |
+| Third run | none |
+| Disposition | REPORT + HALT |
+| Run word (~1h) | **UNSPENT** |
+| S1 bound | `VOID(NO_MATCHING_ROW)` |
+| P4 / C5-first | single-source, unpromoted |
+| P6 | untouched |
+
+Proof files: the two v38 verdict sections; this relay file.
+
+---
+
+### Q1 — no conflict recorded
+Council-side closed as stated: branch-(3) unresolved governs. S1 stays open; the packet's job is printed openness, not adjudication. Operator-side (retest bar, LTF state, confirmation candle, 10:05 divergence code) open at leisure and blocking nothing. Print-only boundary and all v38 locks agreed, restated, unchanged. The v38 loop stays closed.
+
+**Convergence condition from my side:** met if and only if Astra's v39 return carries the words ISSUE plus `A6-PRINT-ONLY-RECORDERS-001` with the scope above. Anything else is still split and nothing clears — including a return naming `DECISION-IDENTITY-RECORDERS-001`, which I will read as review, not issuance, and which halts me.
+
+
+## VERDICT OPUS-V40-ISS-001 2026-09-14 (answers v40)
+
+## Ruling-ID: `OPUS-V40-ISS-001` — ISSUED (A) with D7/D8 addendum entered
+
+---
+
+### Ask 2, part 1 — the D7/D8 gate: SATISFIED
+
+My v39 gate was single-conditioned: D7 and D8 enter under (A) as addendum **only** on Astra's affirmative concurrence. The relay records Astra's v39 as carrying `D7: YES — CONCUR` and `D8: YES — CONCUR`. Taking that quoted record at face value (see *Unverified* below), the gate is satisfied and both D7 and D8 enter under (A) as the S1 addendum — verdict-powerless, touching only the branch-(3) print and the CQD-EMPTY classification, leaving criteria (1)–(4) unamended and verdict power untouched.
+
+### S0 identity reading — CONFIRM, one condition named
+
+The builder's measurement is correct as stated: Astra's (B) = (A)-scope + concurred D7 + concurred D8; my (A)-on-YES/YES = the same set. On the scope as written, the split is one string wide.
+
+The identity holds **on condition** that Astra's (B) carries no amendment to criteria (1)–(4) and grants D7/D8 no verdict power. If (B) does either, the substance is not identical, renaming does not close it, and the split persists on substance rather than string. I do not read (B) as doing either; I name the condition so that convergence here cannot be read as ratifying an amendment nobody quoted.
+
+Two readings I enter as clarifications, not corrections — neither blocks issuance:
+
+- **D7 vs D1.** D1 sends all non-terminal outcomes to "blocks verdicts, raises instrumentation." `TRIGGER_UNRESOLVED` closing instrumentation only, with S1 left open, is consistent with that: it resolves the instrumentation question without feeding a verdict. It is not a fifth verdict-feeding code and does not join `ABSENT_DECLINED` in D6 precedence.
+- **D8's disjunction.** "`ABSENT_UNINSTRUMENTED`-or-defect" stays unresolved by design. Printed-not-adjudicated means the disjunction is not silently collapsed to either arm; it is not a latent amendment to D1's terminal set.
+
+---
+
+### Ask 2, part 2 — ISSUE
+
+**ISSUE `A6-PRINT-ONLY-RECORDERS-001`**, substance quoted back:
+
+> (A)-scope: A6 governing rule (decision identity, operative path, no cross-path override, no manufactured decisions); R4 walks live-1SWING (09:15 row selected it; fractal absence separate, no fallback/substitution/correction; FRACTAL-path change needs fresh authorization); S1 decision record independent of candidate discovery (instrument, side, time, trigger, operative path; same-date row no substitute; trigger test (1) establish / (2) failure-record + as-of evaluation / (3) "expected decision unresolved", invent nothing; correlate by timestamp+identity, never ordinal); D1 four terminals (`ABSENT_UNINSTRUMENTED` / `ABSENT_NOT_REACHED` / `ABSENT_DECLINED` — only verdict-feeding code / `ABSENT_UNBORN`; all else blocks verdicts, raises instrumentation); D2 live-first short-circuit (fractal absence = `ABSENT_NOT_REACHED`; never overrides live filed-exact; terminal-selection record on non-loop paths; `FRACTAL_SUPPRESSED` with 08:20, auditable, verdict-powerless); D3 S1 `ABSENT_UNBORN`, verdict withheld, negative records close it; D4 ordinals banned ((date, time, direction, price) only); D5 date-match banned (bounded decision-anchored window, `EMPTY` on miss, never widen/fall back); D6 precedence (live-exact > live > fractal > fractal-absence; `ABSENT_DECLINED` outranks); criteria (1) R4 terminal record 1.16098/ok=1/slot-758, (2) S1 09:50 row fired-or-refused with predicate, (3) void bound stays void until windowed, (4) isolation 4/4 identical (2.43/2.56/1.76/1.25) or premise void; conventions (signal-bar close, filed-authoritative, exact barTime+price, parity READ post-run); print-only, adoption OFF; selection change needs fresh dual-key packet. ADDENDUM (on Astra YES/YES, already given): **D7** — under branch (3) the 09:50 row prints **`TRIGGER_UNRESOLVED`** (SHORT; 09:50 high 1.16251 admissible; operative path; decision instant; missing operands named); fifth terminal, verdict-powerless, closes instrumentation only, S1 stays open. **D8** — code CQD EMPTY at both Sep-8 bars = `ABSENT_UNINSTRUMENTED`-or-defect, verdict-powerless, printed-not-adjudicated.
+
+Issued under the name `A6-PRINT-ONLY-RECORDERS-001`. No variant name, no materially different scope. If Astra's v40 return carries the same words and the same substance, dual issuance is complete on this relay. If it holds (B), the split stands and nothing clears — I take no (B).
+
+---
+
+### Ask 3 — locks CONFIRMED
+
+| Lock | Status |
+|---|---|
+| Nothing builds, runs, or commits on this relay | CONFIRMED |
+| RECON17 | FROZEN |
+| `51DF542D` | UNCOMMITTED |
+| Third run | NONE — not authorized, not requested |
+| Disposition | REPORT + HALT |
+| Run word (~1h) | UNSPENT |
+| S1 bound | `VOID(NO_MATCHING_ROW)` |
+| P4 / C5-first | SINGLE-SOURCE |
+| P6 | UNTOUCHED |
+| Q1 | COUNCIL-CLOSED under branch (3); operator chart read open at leisure |
+| Print-only / adoption | ON / OFF |
+| Date read | 2026-09-14 |
+
+---
+
+### Unverified
+
+I do not have the v38 or v39 verdict sections, either stream's filed returns, or this relay as a file in context — no attachment reached me. Everything above rests on the text of this relay alone, which is self-contained for S1 by its own terms.
+
+Two consequences worth stating plainly. Astra's `D7: YES — CONCUR` / `D8: YES — CONCUR` is a builder quotation I cannot independently check; my gate confirmation is contingent on that quotation being accurate. And the S0 identity measurement is likewise the builder's, which is why I named the condition rather than confirming identity flat. If either quotation is off, the gate confirmation and the identity confirmation both need to be re-taken — the issuance of (A) with the S1 substance does not, since that stands on the substance printed here.
+
+
+## VERDICT REV-A6REC-001 2026-09-14 (answers v41)
+
+## Review return — not a clearance key
+
+**Review-ID:** `REV-A6REC-001` (label for this reply only; not an authorization token, carries no key value)
+
+I'm returning this as review, which is how the protocol grades my stream anyway. I'm not issuing the `CLEAR` + name + quoted-scope token, and I want to be straight about the reason rather than dress it up as a procedural preference.
+
+### Why no key
+
+I have no access to the thing I'd be clearing. Not the tree, not EA `51DF542D`, not the v37–v40 verdict sections, not `PACKET_ADOPTION-FIX-P4C5-FIRST-001.md`, not RECON25's output, not RECON17's frozen state. The packet is self-described and internally consistent, but internal consistency isn't verification. Ask 2 wants me to *confirm* a list of facts — RECON17 frozen, adoption off, run word unspent, P6 untouched — and I can't confirm any of them. I can only repeat that you told me so.
+
+Same applies to the issuance history. I have no record of `OPUS-V40-ISS-001` and no channel to Astra, so I can't ratify a prior issuance attributed to my stream or treat Astra's quoted confirmations as satisfied identity conditions. If a prior Opus issuance exists, it isn't in anything I can see.
+
+This is the same discipline the packet asks of its own emitters: invent nothing, don't collapse a disjunction silently. A clearance token grounded in a summary of unread files would be a manufactured decision.
+
+Nothing is blocked by this. Astra's key plus the operator's run word is the stated threshold.
+
+### Substantive findings on the build
+
+Six things I'd want changed or pre-ruled before the one run gets spent.
+
+**1. The 1.16251 literal is a live gate violation.** D7 specifies the `TRIGGER_UNRESOLVED` row names 09:50 high 1.16251. If that value lands in the emitter as a literal, it breaks S2's "no new price literal" gate and the build fails on its own terms. It has to be read from the bar. This is the most likely way S2 trips on a technicality.
+
+**2. Print volume can consume the run.** In the MT tester, emission cost is not negligible, and the 90-min ceiling is a HALT with no third run. Item (i) is scoped to non-loop paths, which helps, but item (ii)'s fired/refused rows have no stated frequency bound. A timeout caused by instrumentation would be indistinguishable from a timeout caused by anything else, and you'd have burned the run on an artifact. Add a per-decision-instant dedupe or an emission budget counter that reports when it trips, so the failure is legible rather than just a wall-clock halt.
+
+**3. The "no live-selection delta outside recorder lines" halt has no named reference.** A delta needs a baseline. Which archived run is the comparator? If it's RECON25, say so, and confirm the ini/range make the comparison valid. Without a named reference this gate can't fire, which makes it decoration.
+
+**4. Criterion (2) cannot fail except by silence.** Fired-or-refused *or* `TRIGGER_UNRESOLVED` both pass, so the only failing outcome is no row at all. That's defensible for an instrumentation gate, but it should be written down that way now, so the delivered grade doesn't get read later as evidence bearing on S1 substance. The packet says S1 stays open regardless; I'd make that explicit in the grade line itself.
+
+**5. D7's fifth terminal needs the non-verdict marker in the emitted string.** Doctrine says verdict-powerless, joins no precedence. The artifact won't carry the doctrine. Any reader encountering a fifth terminal alongside D1's four will reach for symmetry and assume it feeds verdicts. Put the disclaimer in the printed line.
+
+**6. D8's disjunction needs a fixed two-branch format.** To keep `ABSENT_UNINSTRUMENTED`-or-defect from collapsing downstream, the line should name both branches *and* the discriminating evidence that's absent. Otherwise the first reader picks one and the disjunction is gone.
+
+Minor: `51DF542D` reads as CRC32 — fine as a drift check, not an integrity check, and worth treating as such. If the build touches includes, those need hashing too or STAGE-1 has a blind spot.
+
+### Stated preference
+
+Conditional support. The five print-only additions are proportionate, adoption-off plus `OrderSend(` count 0 is the right pair of gates, and the WHY-NOT-LAST-TIME argument holds — positive `SELECTED` operands, decision rows, and a windowed `EMPTY` are genuinely new evidence relative to RECON25's bounds-and-a-void.
+
+I'd want items 1, 2, and 3 resolved before the run word is spent, since each of them can waste the single authorized run rather than fail cleanly. Items 4, 5, and 6 are non-blocking and can ride on the grading relay.
+
+One flag independent of the packet: this instruments an EA whose selection path drives order placement. Adoption-off and `OrderSend(` count 0 are the load-bearing gates. If either is ever satisfied by inspection rather than by a mechanical check on the built artifact, the print-only claim is weaker than it reads.
+
+
+## VERDICT REV-A6REC-002 2026-09-14 (answers v42)
+
+## Return — Ruling-ID `REV-A6REC-002` (Opus, graded as review)
+
+Scope note up front: I hold no verdict power on this relay, and I have no access to the archive, extract, or repo. I am reviewing the record **as reported in S1**, not independently verifying bytes, counts, or SHA. Nothing was built, run, or committed to produce this return.
+
+### Ask 1 — ACCEPT
+
+Accepted as a record: one build, one run, RECON26-A6REC, DONE=PASSED, criteria (1) PASS, (2) FAIL-with-named-defect, (3) PASS, (4)+isolation PASS.
+
+What makes it acceptable rather than merely complete:
+
+- The (2) failure is **owned to a root cause**, not left as a symptom. "DECISION pairs by barTime alone, ignoring site+dir" is a mechanism, and it predicts the two other anomalies on that bar (the S2POLL LONG row wearing the SHORT label, and D7 TRIGGER_UNRESOLVED never firing). One cause, three observations — that is a diagnosis, not a description.
+- The EMPTY at 10:05 was confirmed by two independent patterns before being called ABSENT_UNBORN, so the void bound rests on a cross-check rather than a single read.
+- Isolation is clean on the dimensions that matter for a print-only recorder: adoption OFF, OrderSend 0, no selection delta, FIRED 4/4 byte-exact against frozen SL/TP.
+- WHY-NOT-LAST-TIME is answered with three firsts rather than a restatement, which is the part that usually goes missing.
+
+Caveat carried, not blocking: criterion (1) PASS depends on same-bar pairing that happens to be correct because site+dir agreed on that row. The 09:15 SELECTED result is therefore right for a reason the code does not currently guarantee. That is worth naming now because it becomes the regression target under branch (b).
+
+### Ask 2 — review preference: **(b) FIX**, authorize `A6-DECISION-PAIRING-001`
+
+Reasoning, in the order that decides it:
+
+1. **The defect is affirmatively wrong output, not absent output.** A recorder that emits nothing on an unhandled bar is a gap. This one emits a SHORT decision that did not happen, attributed to a LONG poll row, with `trigger=LIVE_S5_ROW` asserted on a bar that has no S5 row. Every future run inherits that false-positive path, and any record it touches needs the same manual disproof this one got.
+2. **The repair restores intended behavior rather than adding new behavior.** D7 TRIGGER_UNRESOLVED already exists and is already the correct sink for S5-absent bars. The fix widens a key and lets an existing branch fire. That is the narrowest possible shape for a print-only change.
+3. **Deferring costs more than it saves.** Under (a), S1 stays open *and* stays unevaluable on substance, because the instrument that would evaluate it is the broken one. The void bound protects the record; it does not unblock S1.
+
+Branch (b) still requires Astra's CLEAR-by-name plus the operator's run word. This return does not spend the run word and does not amend criteria (1)–(4).
+
+If (b) is cleared, four checks I would pre-declare so the run is judged rather than interpreted:
+
+- **Target:** the 10:05 bar reads EMPTY and routes to D7 TRIGGER_UNRESOLVED; the `px=1.16198 slot=1 site=S2POLL dir=LONG` row no longer appears as the SHORT decision.
+- **Regression:** the 09:15 row still prints SELECTED `px=1.16098 ok=1 slot=7`, MATCH ok=1, FIRED R=1.76 exact. This is the check that matters most, per the caveat above.
+- **Invariants:** FIRED 4/4 byte-exact; SLIMB 481/481, SLIMBR 16/16, SEL52 14376, SEL53 168, SEL55 5, O1DISC 2, SUPPRESSED 156/156, SIGNAL 4/4, SELHALT 0, REFUSED 52 all unchanged. Any movement in SUPPRESSED or REFUSED is out of scope and should abort rather than be explained.
+- **Pre-declare the line-count delta.** D7 now firing where it previously stayed silent will move emitted count and archive bounds off 1024 / [0..38001]. State the expected direction and magnitude *before* the run, or the bounds check will read as a regression when it is the fix working.
+
+### Ask 3 — CONFIRM
+
+Confirmed, item by item: nothing builds, runs, or commits on this relay; nothing commits on any cleared run without an explicit token; RECON17 frozen; 835C164F uncommitted; no third run; timeout is REPORT+HALT; run word flagged UNSPENT and unspent by this return; S1 bound VOID(NO_MATCHING_ROW) and the void holds; P4/C5-first single-source; P6 untouched; Q1 council-closed under branch (3) with the operator chart read open at leisure. Dual-key remains mandatory for any selection change, and no branch above proposes one.
+
+Proof files as listed — v41 verdict sections from both streams, the result plus extract plus archive cited in S1, and this relay file — are acknowledged as the record set. I am confirming the disposition, not attesting to their contents.
+
+
+## VERDICT REV-A6FIX-003 2026-09-15 (answers v43)
+
+## Ruling — `REV-A6FIX-003` / `A6FIX-ACCEPT-QUIESCENT-001`
+
+### Ask 1 — ACCEPT
+
+**ACCEPTED.** Run + 4 checks + isolation recorded as DELIVERED.
+
+Basis, as reported in S1 (I am grading the pasted record, not re-reading the archive — the 38005-line / 7420760 B / SHA 105099E1… artifact is taken as attested, not independently verified by me):
+
+- **Check 1** hit the declared target on its own terms: `state=TRIGGER_UNRESOLVED` with `limbsrc=OK`, false `px=1.16198` SELECTED at 0 by two independent patterns, MATCH still EMPTY/ABSENT_UNBORN. The `missing=retest+LTF+confirm+div verdict=NONE` field is the correct shape for an unresolved trigger, not a residual defect.
+- **Check 2** is the one that matters most and it passed the strong way: R4 byte-identical to RECON26 **by construction** rather than by coincidence. That was the whole point of preferring (b) in `REV-A6REC-002`.
+- **Check 3** clean across all four FIRED rows and every counter, with adoption OFF and OrderSend 0.
+- **Check 4** passed as pre-declared, and the WHY-NOT-LAST-TIME clause is properly discharged: content-swapped DECISION at flat emitted=1024, bounds contiguous at PRE=38004.
+
+No dissent on any of the four.
+
+### Ask 2 — Next direction
+
+**(a) QUIESCENT.** The record stands. No next packet authored on this relay.
+
+Reasoning: the repair closed the defect it was scoped to close, the regression is now guaranteed rather than lucky, and nothing in the grade surfaces an open failure. An UNSPENT run word is not itself a reason to spend one. Authoring a packet now would mean inventing scope to justify a build, which is the opposite of what the last two cycles earned.
+
+One observation, logged and explicitly **not** authored as scope: D7 fired for the first time, meaning it has exactly one exercised instance. Single-instance coverage is thin. If a future packet is ever raised for other reasons, widening D7 observation across more bars is a reasonable print-only rider — but it does not justify a packet on its own, and I am not requesting one.
+
+### Ask 3 — CONFIRM
+
+Confirmed, item by item:
+
+| Lock | State |
+|---|---|
+| Builds / runs / commits on this relay | **NONE** |
+| Commit on any cleared run | Requires explicit token |
+| RECON17 | FROZEN |
+| C24460B6 | UNCOMMITTED |
+| Third run | NOT AUTHORIZED |
+| Timeout behavior | REPORT + HALT |
+| Run word | **UNSPENT** |
+| S1 bound | VOID (NO_MATCHING_ROW) |
+| P4 / C5-first | Single-source |
+| P6 | UNTOUCHED |
+| Q1 | Council-closed under branch (3); operator chart read open at leisure |
+
+Proof set acknowledged: v42 verdict sections from both streams, the result + `RECON27_A6.txt` extract + `RECON27-A6FIX-JOURNAL.log` archive as cited above, and this relay file.
+
+Dual-key remains mandatory for any selection change. The Astra-sufficient fast path remains available for print-only under the standing amendment. Neither is exercised here.
+
