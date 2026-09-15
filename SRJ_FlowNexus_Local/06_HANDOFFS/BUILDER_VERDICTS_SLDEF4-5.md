@@ -3346,3 +3346,1511 @@ Proof set acknowledged: v42 verdict sections from both streams, the result + `RE
 
 Dual-key remains mandatory for any selection change. The Astra-sufficient fast path remains available for print-only under the standing amendment. Neither is exercised here.
 
+
+## VERDICT REV-V44-GEOM-001 2026-09-15 (answers v44)
+
+# Opus verdict — `REV-V44-GEOM-001`
+
+Source: Opus. Role under §3: review-only, no key. This verdict clears nothing and blocks nothing.
+
+## Ask 1 — ACCEPT (qualified)
+
+ACCEPT the v44 record as the object of ruling: state, runs, readiness, rules, split, blanks.
+
+The qualification matters and is not a formality. I am file-blind. The digests, extracts, line anchors (EA:57, EA:71, EA:6961, EA:4979), hashes, byte counts, and the 481/16/14376/168/5/2 isolation set are accepted **as reported**, not as verified. My acceptance is an acceptance of the record's internal coherence and of it as the thing I rule on. It cannot function as verification of any of it, and it must not be cited later as if it were.
+
+On coherence: the record holds. The readiness conclusion — tree cannot take his trades — is overdetermined by the four violates as stated; adoption OFF at EA:71 alone is sufficient, so the other three do not need to carry it. The four holds do not offset any violate. Not spending run hour to re-prove a conclusion that four independent violates already carry is correct.
+
+One thing in the record deserves to be named plainly rather than left as a parenthetical, because it is the root cause the packet exists to fix: *"Prior stop arcs (SLDEF-1→6) refined the fractal-side walk while his stops sat on the live leg."* Six arcs of refinement ran against a leg the filed evidence never pointed at, and the fractal miss is described as universal since RECON20b. A miss that survives six refinement arcs and is universal across the set is not tuning residue. It is the wrong leg. That is why my Ask 2 ruling is a leg change and not a seventh refinement.
+
+## Ask 2 — AUTHOR: `SLDEF-7-LEGBIND`
+
+**Name:** `SLDEF-7-LEGBIND`
+
+Derivation, stated so §3's mismatch branch has something to compare on: it continues the SLDEF stop-definition arc at 7, and the payload is the leg binding. I offer no alternate label, because offering a set would invite exactly the aliasing §3 bars.
+
+### 2.1 The walked leg — LIVE LEG
+
+The conditional stop rule walks the **live leg**.
+
+This is rule-derived, not chosen. Filed-authoritative-exact is his rule, and it is a discriminator: the leg that reproduces filed values without correction is the walked leg; a leg that requires a correction to reach filed values is not the walked leg. Applied to the two paths where the legs actually diverge, the record gives:
+
+- Sep-7 AM: live leg SELECTED, exact at slot 7. Fractal leg walks 10 points away, universal-miss.
+- Sep-7 PM: probe PRESENT at the filed bar. Fractal walk retains a bar 1 point off filed.
+
+Two independent divergences, live leg exact in both, fractal leg off in both — and the fractal error does not shrink with refinement. Under filed-authoritative, that closes it. The 1-point PM miss is not "closer" than the 10-point AM miss in any way that matters; exactness admits no distance scale.
+
+The fractal-side walk is retained at **recognition level only** — detection and annotation. It is never a source of stop price. This is the record's own forensic characterization (present-but-unselected, recognition-level only), promoted to a binding constraint.
+
+### 2.2 The rule-derived correction, in general terms
+
+No fixture timestamps, no prices, no forced selections.
+
+1. **Leg binding.** The conditional stop walk binds to the live leg — the same leg that carries side resolution and the sweep that produced entry. Stop price is sourced from that leg's swing set at 3-candle middle-extreme. The fractal annotation set is not a price source.
+2. **Branch gating on imbalance.** The 1-away / 2-away choice must consult imbalance at the candidate block. Block-validity alone is not the gate. Absence or non-determination of imbalance forces the 2-away branch; it does not default to 1-away. Unknown must be conservative, never permissive.
+3. **Wick nuance as precedence, not alternative.** Where a wick penetrates an uninvalidated block, the wick extreme *is* the stop and it outranks the counted-away candidate. It is a precedence rule applied after a candidate exists, not a second candidate competing on distance.
+4. **No selection forcing.** The walk must be able to return no candidate, and the trade then declines. Substituting a nearest-available price is barred. R2 stays MUST-DECLINE; the S2 TP gap stays a gap. A decline is a correct output, not a failure to produce one.
+5. **Exactness.** Match is exact against filed at unrounded Dukascopy precision. Any nonzero distance grades MISS. No tolerance band is introduced at any layer, and none may be introduced later as a "practical" accommodation.
+6. **Ordering.** Leg binding is decided before branch gating. A correct branch on the wrong leg earns nothing — it is not partial credit, and it must not be reported as progress.
+
+**Explicitly out of scope.** The side owner at EA:6961 — no HTF vote at site, LONG carrying both Sep-8 SHORT bars — is a side defect, not stop geometry. It needs its own packet under its own dual-key. Folding it into `SLDEF-7-LEGBIND` would let a stop packet carry a side change, and the packet would then be ungradeable against its own predictions. Adoption stays OFF and OrderSend stays alert-only throughout; this packet touches neither. P4/C5-first is preserved as noted — I hold the single-source priority as **unagreed**, and it does not gate this packet either way. P6 untouched. Thin-D7 remains carried-not-scoped.
+
+### 2.3 The 7-bar prediction rule the correction must meet
+
+On the 7-bar set, the corrected geometry must:
+
+- **Fire exact on 4.** Each of the four firing bars reproduced at its filed bar, exact and unrounded. No tolerance.
+- **Show present on the 2 Sep-8 bars.** Candidate raised and reachable — mechanism alive. Sep-8 blanks are TIMING, so these two are graded present/absent, never fire/no-fire.
+- **Fire nowhere else on the set.** No extra stop bar, no substituted price. A spurious fire is a FAIL even if all six graded bars pass.
+- **Leave the void bar void.** It contributes neither pass nor fail. S1 is VOID; the first-9:50 bar is CLOSED never-ask and stays unasked.
+
+Grading is all-or-nothing per bar. `4/4 exact + 2/2 present + 0 spurious` = PASS. Anything else = FAIL, and a FAIL returns the packet to **authorship**, not to tuning. That last clause is the operative one — it is what prevents SLDEF-7 from becoming SLDEF-8 through 13.
+
+**One accounting flag, non-blocking.** The record gives 4 fired + 2 Sep-8 = 6 against a 7-bar set, and names five filed stops of which Sep-8 AM carries two bars. I can reconstruct the 7th as the void/excluded bar, but I am reconstructing, not reading. The clearance relay's inline scope should state the 7-bar roster explicitly by identity so grading cannot drift. I decline to fill it myself; that would be inventing record.
+
+## Ask 3 — CONFIRM
+
+Confirmed, all of it. Nothing builds, runs, or commits on this relay. RECON17 stays frozen. `C24460B6…` stays uncommitted, as does the `E9E6F710…` fixture. HEAD `5cc58d3` records-only, no push. No third run. Timeout discipline is REPORT+HALT. Run word UNSPENT. S1 VOID. P4/C5-first as noted and unagreed. P6 untouched. No build or run is authorized by this verdict, and this verdict is not a clearance under any branch of §3.
+
+## Review note on §3 — a threshold conflict the builder should resolve before the clearance relay
+
+§3 sets the clearance threshold at *Astra CLEAR + run word (print-only amendment), Opus as review*, and separately holds that *Astra key alone authorizes print-only only, never a selection change (dual-key mandatory for side/stop/birth)*.
+
+Naming the live leg **is** a stop-selection change. So the pre-ruled threshold and the dual-key rule cannot both be satisfied by a clearance relay that implements the leg binding. One of them gives.
+
+I recommend the resolution that costs nothing and preserves both: **make the clearance build genuinely print-only.** Instrument both legs, print both walks side-by-side across the 7-bar roster, grade both against §2.3, and change no selection. Under that scope Astra-alone plus the run word is sufficient and consistent, my no-key review stays coherent, and the hour buys the evidence that would later justify the selection change under a proper dual-key. If instead the clearance relay is meant to *land* the leg binding, then it needs dual-key and §3's stated threshold is short by one key.
+
+Second, smaller: Ask 2 asks two independent sources to converge on an identical free-authored label with no shared naming rule, and §3 routes any mismatch into a re-ask. That is a recurring cost with no upside — the payload is what needs independent authorship, not the string. If labels diverge again here, the durable fix is for the builder to issue the closed name set first, which §3's mismatch branch already does, and reserve free authorship for the rule text.
+
+## Branch position
+
+I have named `SLDEF-7-LEGBIND` with the live leg as walked leg. If the other source names the same packet, §3's same-name branch applies — subject to the threshold conflict above, which the clearance relay's scope needs to settle inline. If it names differently, the difference should be carried to the re-ask as payload side-by-side; I will not reconcile, pick, or alias, per the Opus-v38 rule. If it halts or defers on the 08:40 blank, QUIESCENT stands and the 08:40 detail stays his at leisure. No rerun, no tuning, no third run.
+
+
+## VERDICT REV-V45-GEOM-001 2026-09-15 (answers v45)
+
+# REV-V45-GEOM-001 — Opus stream, review-only (clears nothing, blocks nothing)
+
+Single source. No reconciliation on Astra's behalf. No key exercised.
+
+## Ask 1 — Record: ACCEPTED, with two identity flags
+
+§0 base and §1 convergence record accepted as written, including: AGREED-substance (live leg is the walked leg; fractal-side walk keeps recognition only, never a stop price), the agreed payload list, deltas (i)–(iv) as attributed to me, and the threshold flag adopted as the question rather than the answer.
+
+Two flags raised **by identity, not by invention** — I do not resolve either:
+
+1. **Roster bar identities are not the filed-stop bar identities.** §0 files Sep-4 @15:30, Sep-7 AM @08:40, Sep-7 PM @16:15, Sep-8 AM @09:40. §1's roster rows read Sep-4 15:55, Sep-7 09:15, Sep-7 16:40, Sep-8 10:10. Offsets are non-uniform (25/35/25/30), so this is not a mechanical shift and reads as entry/deployment bar vs stop-formation bar. I accept the roster as the grading set on the condition that every row prints **both** identities (formation barTime + entry barTime + filed price) so the two can never be conflated in grading. Which identity anchors each row is his record's to state, not mine.
+2. **`S1` is overloaded.** It labels both the Sep-8 AM presence row and the voided first-fire signal (RECON26 mislabel defect / RECON27 TRIGGER_UNRESOLVED first fire). The print must disambiguate the two labels; "S1 VOID" must not silently void the Sep-8 AM presence row. Presence-set arithmetic in §1 (4 fired + 1 void + 2 presence) reads as R1/R3/R4/R5 exact, R2 void, S1/S2 presence — confirm that reading, correct it if wrong.
+
+## Ask 2 — Name: I adopt **(A) `GEOM-LIVE-CONDITIONAL-3C-001`**
+
+Review-only should not be the naming authority for a single-source authored packet. Astra authored (A) as the geometry packet; `SLDEF-7-LEGBIND` was mine under review and is **withdrawn as a competing string**. Convergence in one round, consistent with relay-count-first cost discipline.
+
+`SLDEF-7-LEGBIND` survives only as a retired label in the SLDEF-1→6 arc record, never as a packet name.
+
+Payload confirmed as written in §1, with deltas carried as follows:
+
+- **(i) unknown-imbalance** — held at 2-away conservative, but scoped as a **print-and-grade obligation, not a selection**: rows with unresolved imbalance print `IMBALANCE=UNKNOWN` and grade against 2-away; never silently graded 1-away. Astra's silence here is not agreement. Because print-only changes no selection, this carries safely into a clearance build; the binding-landing relay must resolve it explicitly under dual-key.
+- **(ii) ordering** — leg before branch. A correct branch on the wrong leg earns nothing. Unchanged.
+- **(iii) grading shape** — 4/4 exact + 2/2 present + 0 spurious + void-stays-void, with FAIL returning to authorship (anti-SLDEF-8-through-13 clause). I read Astra's "4-exact + 2-present + R2-decline" as compatible; the additions are the 0-spurious floor and the FAIL-return, neither of which loosens anything. If Astra reads them as new substance, that is a §3-second-branch line-by-line confirm, not a third free name round.
+- **(iv) roster explicitness** — the relay's 7-row statement is accepted subject to Ask 1's two flags. I still decline to author the 7th row myself; stating it in the relay from his record is the correct source.
+
+## Ask 3 — Threshold: CONFIRMED, print-only
+
+Confirmed as resolved in §1:
+
+- **Print-only instrumentation** clears on Astra key + run word, me as review. Print-only means: instrument both legs, print both walks side-by-side across the roster, grade both, and write **no** selection — no stop-price change, no side-owner change, no adoption flip (stays OFF, EA:71), no fixture branch, no forced selection, no commit, no push.
+- **Landing the binding** requires dual-key. Grading output is evidence, not authorization. If a clearance relay would both print and land in one pass, that pass is dual-key territory and Astra-alone does not reach it.
+- Roster above is the grading set, corrected only by identity per Ask 1.
+
+## Ask 4 — Freeze: CONFIRMED
+
+Nothing builds, runs, or commits on this relay. RECON17 frozen baseline. EA `C24460B6…` 531778 B and fixture `E9E6F710…` 7704 B remain UNCOMMITTED. FlowLogic `3606BFB4` frozen. HEAD `5cc58d3` records-only, NO push. No third run. REPORT+HALT. Run word UNSPENT. S1 VOID. P4/C5-first is single-source, not prior agreement. P6 untouched. Thin-D7 carried-not-scoped. S2 TP gap stays gap. R2 MUST-DECLINE. Sep-8 first-9:50 CLOSED, never-ask. The 08:40 formation detail is his-at-leisure and blocks nothing.
+
+## §3 branch this return selects
+
+Same string as Astra if Astra holds (A) → builder files the build-clearance relay for `GEOM-LIVE-CONDITIONAL-3C-001` at the print-only threshold. If Astra instead adopts (B), names differ only because I moved to (A); in that case my adoption stands and (A) is still the live string — builder does not alias, but neither stream is defending `SLDEF-7-LEGBIND`.
+
+Review-only. No clearance, no block, no key.
+
+
+## VERDICT REV-V46-GEOM-001 2026-09-15 (answers v46)
+
+# REV-V46-GEOM-001 — Opus verdict (review-only)
+
+**Stream:** Opus / review-only. **Version answered:** v46. **Prior:** `REV-V45-GEOM-001`.
+**Authority:** review-only. This verdict clears nothing, blocks nothing, authorizes no build, no run, no commit, no selection change. It is a record-and-concurrence return.
+
+---
+
+## Ask 1 — ACCEPT the record
+
+**ACCEPTED.** §0 base record, §1 crossed position, both identity flags, and the §1 threshold are accurate as written and match my v45 return. Specifically confirmed as correctly transcribed:
+
+- **State:** QUIESCENT; RECON17 frozen; EA `C24460B6…` 531778 B UNCOMMITTED; fixture `E9E6F710…` 7704 B UNCOMMITTED; FlowLogic `3606BFB4` frozen; HEAD `5cc58d3` records-only, no push; no run active; run word UNSPENT.
+- **Runs:** RECON26 3/4 (S1 mislabel owned) → RECON27 4/4; S1 `TRIGGER_UNRESOLVED` first fire; R4 byte-identical by construction; count flat 1024; bounds [38004..76008] contiguous; isolation clean; OrderSend-0; adoption OFF.
+- **Readiness:** 4 hold / 4 violate; tree CANNOT take his trades. Unchanged.
+- **Payload:** confirmed in full, no reservations — 1-with-imbalance / 2-without; wick-precedence only after a candidate exists, never manufacturing one; 3-candle middle-extreme; barTime+price exact unrounded with zero tolerance (not 1pt); no fixture branches; no forced selections; no copied answers; R2 MUST-DECLINE; S2 gap stays gap; missing reported missing; R>=1.0 Dukascopy-always; TF-bias / MR-sweep independence; replace-not-sidecar; P4/C5-first single-source (not agreed); P6 untouched; thin-D7 carried-not-scoped; S1 VOID; first-9:50 CLOSED.
+- **Resolved deltas:** unknown-imbalance → 2-away conservative with explicit `IMBALANCE=UNKNOWN` print; leg-before-branch; grading 4/4-exact + 2/2-present + 0-spurious + void-stays-void, FAIL returns to authorship.
+- **Crossed-string consequence** as stated in §1 is correct: I authored (B) `SLDEF-7-LEGBIND` and **withdrew it as a competing packet name**. It survives only as a retired SLDEF-arc label. I adopt (A) `GEOM-LIVE-CONDITIONAL-3C-001`, Astra's authored string.
+
+No corrections to the record.
+
+---
+
+## Ask 2 — Final packet name
+
+**Position: I hold (A) `GEOM-LIVE-CONDITIONAL-3C-001`, and I CONCUR with Astra's FINAL under either branch.**
+
+Reason, stated once and not re-litigated:
+
+1. The packet is **single-source authored** by Astra. Naming authority for an authored packet belongs to the author, not to review. That was my stated basis for withdrawing (B) in v45 and it applies unchanged here.
+2. Therefore my adoption of (A) is a **concurrence, not a claim**. I am not the naming authority and do not assert one.
+3. **Pre-committed concurrence, both branches:**
+   - If Astra states **(A)** → converged on (A). I concur. §3 branch 1.
+   - If Astra **re-affirms (B)** knowing my withdrawal → I read that as Astra taking (B) as its own authored string, which is within its authority as the packet's author. **I concur with (B) as the final packet name** and record (B) as re-authored-by-Astra rather than revived-by-Opus. §3 branch 1 still applies.
+4. **Consequence:** the §3 "STILL DIFFER" branch cannot be reached from my side. Operator adjudication is not required on naming. Naming closes on Astra's single statement, whichever string it names.
+
+**No new strings offered.** No competing string held. No alias, no hyphenation variant, no versioned suffix.
+
+---
+
+## Ask 3 — CONFIRM print-scope obligations for the clearance build
+
+**CONFIRMED, all seven.** Print-only instrumentation scope, no behavior change, no selection change.
+
+### F1 — dual-identity prints, per row, never conflated
+Every roster row prints **three** fields, separately labeled:
+- **entry/deployment bar** (the roster-row bar: 15:55 / 09:15 / 16:40 / 10:10 as applicable)
+- **filed-stop formation bar** (15:30 / 08:40 / 16:15 / 09:40 as applicable)
+- **filed stop price** (1.16508 / 1.15847 / 1.16098 / 1.16239 / 1.16258 as applicable)
+
+No row may print one bar where two are due. No row may substitute one identity for the other. **Anchor identity is his record's to state** — the build prints both identities and does not elect between them.
+
+### F2 — `S1` label disambiguation + arithmetic
+- The **Sep-8 AM presence row** and the **voided first-fire signal** are distinct objects and must print under distinct labels. `S1 VOID` applies to the voided first-fire signal **only** and must not void, suppress, or degrade the presence row.
+- Arithmetic printed explicitly and confirmed: **R1 exact + R3 exact + R4 exact + R5 exact = 4 exact; R2 void = 1; S1 presence + S2 presence = 2.** Roster total 7 rows.
+- *Non-binding review note:* the specific label strings for the two S1 objects are print-scope, not naming-scope. If his record prefers particular label text, that text rules; the obligation I confirm is disambiguation, not any given wording.
+
+### F3 — `IMBALANCE=UNKNOWN` explicit
+Where imbalance is not determinable, the build prints `IMBALANCE=UNKNOWN` as a literal, then applies **2-away conservative**. Unknown is never silently coerced to known-absent, and never inferred.
+
+### F4 — both legs side-by-side, separate labeled results
+- **Sep-7 AM:** live leg 1.16098 slot=7 exact **alongside** fractal 08:20 1.16088 (10pts off, universal-miss). Both printed, separately labeled, neither suppressed.
+- **Sep-7 PM:** probe PRESENT@16:15 **alongside** walk-retained 16:05 1.16238 (1pt off filed). Both printed, separately labeled.
+- No merge, no "best" selection, no tie-break in code.
+
+### F5 — grading
+`4/4-exact + 2/2-present + 0-spurious + void-holds`. Any spurious emission is a grade failure regardless of exact-count. Void must remain void to pass.
+
+### F6 — FAIL disposition
+A FAIL **returns to authorship**. It does not become another numbered refinement, a tuning pass, a threshold nudge, or a third run.
+
+### F7 — roster
+Exactly `R1 / R2-void / R3 / R4 / R5 / S1 / S2`. No added rows, no fixture-derived rows, no forced selections. **Missing is reported missing**, never filled.
+
+---
+
+## Ask 4 — CONFIRM threshold + locks
+
+**CONFIRMED, in full.**
+
+**Threshold**
+- Print-only instrumentation clears on **Astra key + run word**, with Opus review. My review is not a key and is not a clearance.
+- **Landing the binding requires dual-key.** Print-only clearance never escalates to landing.
+- **Diagnostic PASS is not authorization.** A 4/4+2/2+0+void-holds PASS authorizes nothing further on its own.
+- Astra key alone never authorizes a selection change. **Dual-key mandatory for side, stop, and birth.**
+
+**Locks — all standing, none touched by this verdict**
+- Nothing builds, runs, or commits here.
+- RECON17 frozen.
+- `C24460B6…` UNCOMMITTED; fixture `E9E6F710…` UNCOMMITTED.
+- FlowLogic `3606BFB4` frozen.
+- HEAD `5cc58d3` records-only, **no push**.
+- **No third run.**
+- REPORT+HALT.
+- Run word **UNSPENT** — spent only on his word.
+- S1 VOID (signal object only, per F2).
+- P4/C5-first remains **single-source, not agreed**.
+- P6 **untouched**.
+- 08:40 formation detail is **his-at-leisure and blocks nothing**; it can reshape the AM design only, and only on his statement.
+- N1 wick + flats at leisure. Sep-8 blanks are TIMING. CQD EMPTY both Sep-8 bars, later packet. thin-D7 carried-not-scoped.
+
+---
+
+## Residual notes (non-blocking, no action requested)
+
+- **Naming risk retired.** With my branch-independent concurrence, the only remaining naming input is Astra's single statement. §3 branch 4 (either halts) still stands as available to either stream.
+- **What I did not verify.** I ruled on the inline §0/§1 record as presented. I did not read the §4 on-disk artifacts in this session and make no independent claim about their contents, byte counts, or hashes beyond what the relay states. RECON26/27 numbers, hashes, and file sizes are accepted as recorded, not re-derived.
+- **Scope discipline flag.** The clearance relay, when filed, should carry the print-only scope of Ask 3 verbatim plus envelope/ceiling-90, roster grading, and halts. If the clearance draft widens beyond print-only, that is a new authorization question and not covered by this concurrence.
+
+**End REV-V46-GEOM-001.** Review-only. Clears nothing, blocks nothing. QUIESCENT stands.
+
+
+## VERDICT REV-V47-GEOM-001 2026-09-15 (answers v47)
+
+# REV-V47-GEOM-001 — Opus review verdict (review-only; clears nothing, blocks nothing)
+
+**Source:** Opus. **Relay:** v47 / `GEOM-LIVE-CONDITIONAL-3C-001`. **Role:** review. **Keys held:** none. **Nothing in this message builds, runs, stages, commits, pushes, or spends the run word.**
+
+## Ask 1 — ACCEPT §0
+
+**ACCEPT**, on the record as stated, with one scoping note.
+
+- Converged name **(A) `GEOM-LIVE-CONDITIONAL-3C-001`**; (B) retired as an SLDEF-arc label only. Concur.
+- Single-source authorship (Astra) with my concurrence review-only. Concur — my prior ACCEPT did not and does not co-author.
+- Substance: conditional stop walks the LIVE leg; fractal-side walk is recognition-only and never a stop price. Concur as recorded.
+- F1–F7 as restated in §0: **CONFIRM** all seven, unchanged from REV-V46-GEOM-001.
+- Branch semantics block (leg-before-branch, 1-away-with-imbalance / 2-away-without, wick-precedence only post-candidate, 3-candle middle-extreme, no fixture branches / forced selections / copied answers, R>=1.0 Dukascopy-always, TF-bias-only / MR-sweep-only, replace-not-sidecar, P4/C5-first single-source **not agreed**, P6 untouched, thin-D7 carried, first-9:50 closed, S2 gap stays gap): **CONFIRM as recorded.**
+- Threshold: print-only instrumentation clears on **Astra key + his run word**, my review non-keying; landing the binding needs **dual-key**; **diagnostic PASS authorizes nothing.** CONFIRM.
+
+**Scoping note (not a hold):** my ACCEPT is of the *record as written*. I have no read of the disk in this session, so the state line — EA `C24460B6…` 531778 B UNCOMMITTED, FlowLogic `3606BFB4` frozen, fixture `E9E6F710…` 7704 B UNCOMMITTED, HEAD `5cc58d3` records-only, RECON17 frozen, run word UNSPENT — is accepted as asserted, **not verified by me**. The STAGE-1 pre-hash gate is where that gets verified, and it must be enforced by the builder, not inferred from my ACCEPT.
+
+## Ask 2 — Clearance
+
+**I cannot clear, and I do not.** Review-only. The named packet `GEOM-LIVE-CONDITIONAL-3C-001` awaits **Astra CLEAR + his run word**; the run word remains **UNSPENT** and my verdict does not spend it.
+
+What I can state:
+
+- **Scope is in-threshold.** §1 as written is print-only instrumentation: no stop-price change, no side-owner change (EA:6961 untouched), no adoption flip (OFF, EA:71), no eligibility/order change, no fixture branch, no forced selection, no commit, no push. Nothing in §1 is a landing. If Astra keys it, he is keying inside the agreed print-only threshold, not beside it.
+- **Build gates and run envelope are adequate as written**, subject to the seven defects below.
+- **I raise no substantive block.** The defects below are answerable inside the clearance text or the builder's gate list; none of them require re-authorship, and none of them are a reason to withhold the key. But D1, D2 and D7 should be answered *before* the run word is spent, because each can silently void the run's evidentiary value after the fact.
+
+## Review defects — answer inside the clearance, no extra relay
+
+**D1 — R2's `1.16299` collides with the no-filed-price-literal gate.**
+§1 gates say *no filed-price literal in the EA (dual-pattern grep)* and *HAND six literals fixture-only*. The roster carries five numeric filed stop prices (R1 1.16508, R3 1.15847, R4 1.16098, R5 1.16239, S1 1.16258), S2 carries no price (TP gap, Y-POC unstated), and R2 carries **`1.16299` marked "hypothetical (code-side only)"**. "Code-side only" and "no filed-price literal in the EA" cannot both hold if that literal lands in EA source. Recommendation: **R2's 1.16299 lives in the fixture like the rest, and the dual-pattern grep treats it identically to the other five.** Its void status is proven by the print declining it, not by where the number is stored. Absent that, the grep gate is not deterministically evaluable and the builder is left to interpret it — which is exactly the clarification trip §1 is trying to pre-empt.
+
+**D2 — `1.16098` and the 1-point pair are the two places grading can be fooled.**
+Two collisions sit inside the roster:
+- **Value collision:** F4's AM live-leg value is **1.16098 slot=7**, and R4's filed stop is also **1.16098**. A row can print "match" on a shared number with no leg-tag and no bar time and be scored exact by coincidence.
+- **1-point pair:** R5 filed **16:15 + 1.16239** against PM walk-retained **16:05 + 1.16238**, plus PM probe PRESENT@16:15. F5 already says exact = barTime + price unrounded, *not even 1pt* — so this pair is the sharpest discriminator in the whole set, and it is one point wide.
+
+Recommendation: require every `GEOMMATCH` row to carry **leg-tag + bar time + unrounded price** in the same print, so no match can be scored on price alone; and require the print path to emit **at minimum 5 decimal digits, unnormalized** (no 4-digit `DoubleToString`, no point-normalization, no rounding helper anywhere in the print path). This should be a build gate, not a grading discovery.
+
+**D3 — Precision loss should REPORT+HALT, not consume the FAIL branch.**
+If the print path truncates or rounds, the run returns **no evidence about the walk at all** — it is a void run, not a failed hypothesis. Grading it as FAIL would send a live packet back to authorship on an instrumentation slip. Recommendation: pre-declare **under-precision or missing-label prints ⇒ REPORT+HALT, no grade**, sitting alongside the existing halt triggers. F6 (FAIL ⇒ authorship, never tuning) is untouched by this and stays as written.
+
+**D4 — Define the 0-spurious denominator; reconcile the 8th print.**
+The roster is 7 rows (4 exact + 2 presence + 1 void). F2 also requires an **S1-void-signal** print distinct from the S1-presence row — an 8th print that is *not* a row. Recommendation: `GEOMCOUNT` reports **row count and signal count separately** with both totals reconciling to the declared roster, so the void signal cannot be double-counted into presence and a spurious cannot hide inside the row total. "0-spurious" means: **zero prints outside the declared 7 rows + declared signals.**
+
+**D5 — F3's fallback must carry its provenance.**
+`IMBALANCE=UNKNOWN` then 2-away conservative: if the artifact prints a bare 2-away decision, the anti-silent-coercion intent of F3 is defeated *in the grading record* even though the code behaved correctly. Recommendation: the conservative fallback prints tagged to its UNKNOWN origin (e.g. `DECISION=2AWAY SRC=IMBALANCE_UNKNOWN`), never as a plain 2-away.
+
+**D6 — Keep the new print families prefix-disjoint.**
+Isolation join requires diff-0 against RECON27 outside recorder lines (481/16/14376/168/5/2 families + 4/4 signals + OrderSend-0 + adoption OFF). Recommendation: confirm `GEOMMATCH` / `GEOMDECISION` / `GEOMCOUNT` are **prefix-disjoint from every RECON27 family**, so the diff is mechanically decidable rather than a judgement call about which lines are "recorder lines."
+
+**D7 — Staging without running needs a declared post-stage baseline.**
+§3 permits preparing the build only if the clearance explicitly says so. Two consequences worth pre-empting: (a) Astra should state staging permission **explicitly either way**, since silence is the one branch §3 leaves to interpretation; and (b) staging **writes to the uncommitted EA**, so if the run word is then withheld, `C24460B6…` / 531778 B is no longer the STAGE-1 baseline for any later relay. If staging is permitted, the clearance should require the builder to **record post-stage hash + byte count into the result artifact** so the next relay's STAGE-1 gate has a valid baseline instead of a stale one.
+
+**Operational note (no defect):** one run means there is no warm-up pass to validate print plumbing. Compile 0/0, freshness-verified logs, fixture-only literals and a static check of the print format strings are the *only* pre-run assurance. That static check belongs in the build gates — it is not a second run.
+
+## Ask 3 — CONFIRM
+
+**CONFIRM, all items:**
+
+- Nothing builds, runs, stages, commits or pushes on **this** relay.
+- Nothing commits on the cleared run **without an explicit token** — a graded PASS is not a token.
+- **RECON17 frozen.**
+- **`C24460B6…` + fixture `E9E6F710…` remain UNCOMMITTED**; FlowLogic `3606BFB4` untouched.
+- **No third run.** Timeout / selection delta (isolation diff≠0) / MAXLEN exceedance / landing attempt / third-run request ⇒ **REPORT+HALT**.
+- **Run word UNSPENT**; clearance does not spend it; only Astra's word does.
+- **S1 VOID (signal only)** — void status is signal-level and does not promote the S1 presence row into an exact.
+- **P4/C5-first is single-source and NOT agreed** by me.
+- **P6 untouched.**
+- **08:40 his-at-leisure blocks nothing.**
+- **Diagnostic PASS authorizes nothing.** Landing the binding — stop-price, side, birth, selection, scope widening beyond §1, or any commit/push — needs **fresh dual-key + tokens**, not this relay and not this run's grade.
+
+## §3 branch coverage — concur
+
+- **Astra CLEAR + run word** (my review non-keying) ⇒ builder builds and runs immediately under §1, no pauses; result ⇒ grading relay; anything further is dual-key. Concur.
+- **Post-run pre-ruling:** PASS ⇒ next relay is Stage-C side-fix **AUTHORSHIP** ask by name, no auto-build, selection change dual-key. FAIL ⇒ authorship, no pre-authorized repair run. TIMEOUT ⇒ REPORT+HALT, no third run. Concur — and I confirm a PASS here does not pre-authorize the Stage-C build, only the authorship ask.
+- **NO-CLEAR / HALT, or a stated review defect unanswered** ⇒ QUIESCENT stands, defect owned, no rerun, no tuning. Concur. For the record: **I state no blocking defect.** D1–D7 are answerable inside the clearance text and do not hold the packet.
+- **Run word withheld** ⇒ nothing builds unless the clearance explicitly permits staging; no speculative builds; QUIESCENT holds. Concur, subject to D7.
+
+## §4 proof set
+
+Cited titles accepted as pointers; the inline §0 record rules. I have **not** read `BUILDER_RELAY_COUNCIL_v46-GEOMETRY-FINAL.md`, the verdict files, the readiness pair, RECON26/27 results or `RECON27_A6.txt` in this session, and I claim no verification of their contents, hashes or byte counts.
+
+---
+
+**Verdict line:** REV-V47-GEOM-001 — **§0 ACCEPT; F1–F7 CONFIRM; §1 scope in-threshold; §3 concur either-branch; Ask 3 CONFIRM in full; seven non-blocking defects (D1–D7) for answer inside the clearance; review-only — clears nothing, spends nothing, blocks nothing.** Awaiting Astra CLEAR + his run word.
+
+
+## VERDICT REV-V48-GEOM-001 2026-09-15 (answers v48)
+
+# OPUS VERDICT — `REV-V48-GEOM-001`
+
+**Stream:** Opus, review-only, no-key. This verdict clears nothing, blocks nothing, and authorizes no build, run, or commit. Ruling on the inline record only (§0–§2 as pasted); no disk artifacts read.
+
+---
+
+## Ask 1 — ACCEPT
+
+**ACCEPTED:** §0 base record, §1 run/grade/refutation, §2 dead paths.
+
+Accepted with three annotations for the record. None is a block; each changes how the grade should be *read* by the next packet.
+
+**A1 — The 2/2 PRESENT credit should be withdrawn.** S1 and S2 both resolve their live anchor to `2026.09.03 20:40@1.16379` at `slotW=738`/`820` with `legslot=-1`. A row whose live leg is eight hundred slots from its own setup has not measured a live leg; it has reported a global extreme. Whatever produced verdict `PRESENT` on those rows, it was not the leg binding under test. Read the grade as **0/4 exact + 0/2 credited + 2 UNRESOLVED + 0 spurious + void holds**. Same FAIL, but no packet inherits a belief that presence works.
+
+**A2 — R1 should not carry grading weight.** R1 is the only far miss (1.16508 vs 1.16424, 8.4pt) and it is also the only filed stop whose provenance is INFERRED rather than HAND. Grading geometry against an inferred oracle risks scoring the rule against the council's own prior inference. R1 stays in the roster, out of the grade, until its provenance is upgraded by him.
+
+**A3 — R5 currently has two oracles.** Filed HAND is 16:15/1.16239; the code retains 16:05/1.16238; the run found 16:10/1.16238. R5 cannot grade against a filed value the tree does not hold. This blocks R5 only, nothing else.
+
+With A1–A3 applied, the fired evidence is three HAND rows, of which **two (R3, R4) returned the filed price exactly with the barTime one bar late**, and one (R5) is unresolvable pending A3. The headline `0/4 exact` is correct and the FAIL stands. The diagnosis it implies is wrong: this is an **attribution and provenance failure profile, not a price-rule failure profile.**
+
+I also confirm the §1 refutation as sound. Two independent measurements in one run (GEOM gate `IMBALANCE_ABSENT` resolved-never-UNKNOWN at all four fired blocks; legacy SLIMB `OB_*_LATEST_NOIMB` with `chosenFlag=0` on the same four) retire the premise that his filed blocks carry imbalance. That premise is dead on the fired set.
+
+---
+
+## Ask 2 — AUTHORSHIP
+
+### What survives the run
+
+- **Survives, unmodified:** the 2-away limb. Its standing is not "proven" — it is "the limb that produced two exact prices from a channel with zero literals and no oracle operands." It is retained as-is and must not be touched.
+- **Survives:** exactness with no tolerance; 1pt remains a MISS.
+- **Refuted:** blocks-carry-imbalance, as premise, on the fired set.
+- **Untested, not refuted:** the 1-away limb. The only rows that exercised it are R2 (declined for setup invalidity, his ruling — correct outcome, no geometric credit) and S1/S2 (degenerate anchor per A1). It carries no information either way and must not be modified.
+- **Unexercised:** the wick nuance. `NONE ×7` is observed absence. It must not be edited before something exercises it.
+- **Open, deliberately not authored:** the +1-bar attribution question. Authoring a bar-shift against two exhibits — while the third has a dual oracle and while two of seven rows carry an inverted side — is precisely the numbered refinement F6 bars. Held as a named open question.
+
+Note for the record and **not** as a proposal: at both SHORT rows the fractal channel returned the filed or formation value exactly (S1 `09:40@1.16258` = filed; S2 `16:20@1.16274` at the stated formation bar). Fractal-as-stop-price is dead per §2 and I am not reviving it. Logged as a his-at-leisure curiosity, blocking nothing.
+
+### Recommended direction: **(b) reordered path — side authorship first**
+
+Reasoning, in order of force:
+
+1. At Sep-8 the tree returns LONG on both SHORT rows. You cannot ask "1-away or 2-away" of a leg whose direction is inverted. Two of seven roster rows are unanswerable by construction.
+2. The stop branch consults `obValid` only; imbalance is never consulted in the live path. The conditional rule has no seat in the running tree, so no geometry packet can validate it there regardless of what geometry says.
+3. Three rows sit on a degenerate anchor. Fixing geometry on top of that is fitting on top of a fault.
+
+Geometry is second in line, not cancelled.
+
+### `SIDE-1P` — print-only shadow side vote (authored, requires clearance)
+
+**Rule text, general terms.** Direction at a setup site is owned by the timeframe-bias object read **at that site's own birth bar**, single-source. The sweep limb owns no direction; alignment adds nothing, so the site must not consult the sweep limb for direction and must not inherit direction from a live resolve performed elsewhere or later. If the bias object is unresolved at the birth bar, the site emits `UNRESOLVED` and takes no side — no fallback, no substitution, no coercion. The divergence latch (1/3-bull, 2/4-bear, latest governs) governs inside its own object only and never overwrites a bias already resolved at birth.
+
+`SIDE-1P` **changes no selection.** It prints, per roster row, the birth bar, the timeframe-bias vote read at that bar with literal provenance, the live-resolved direction actually used, and whether they agree. `g_dir` is untouched, adoption stays OFF, alert-only, OrderSend 0.
+
+**7-bar prediction rule it must meet.** All seven rows emit one vote row with birth-bar provenance. Shadow vote = LONG at R1, R3, R4, R5; SHORT at S1, S2; R2 prints its vote and remains DECLINED. Zero `UNRESOLVED` substitutions and zero silent fallbacks. Disagreement must appear at exactly the two Sep-8 rows and nowhere else. Any other distribution fails the packet.
+
+**Threshold.** Print-only: Astra key + a fresh run word, with my review. Isolation diff-zero remains a valid pass here because nothing selective moves. Landing the side (`SIDE-1L`) is a **selection change**: dual-key naming `SIDE-1L` identically, plus tokens, and diff-zero ceases to be the pass criterion at that point. `SIDE-1L` pre-authorizes nothing about `SIDE-1L`.
+
+**WHY-NOT-LAST-TIME / novel evidence.** Class: **mechanism-class attribution**, plus an absence-proof fork. Every one of the four VIOLATE items was established by code-read; none has ever been measured by a run. RECON28 printed stop geometry exclusively and never printed a direction vote at any site. `SIDE-1P` returns the first runtime measurement of the bias vote at the site against the direction actually used, and it separates two outcomes we currently cannot distinguish: **no vote exists at the site** (absence-proof — the fix is seating an object) versus **a vote exists and is discarded** (mechanism — the fix is attribution at one named site). Those require different packets. RECON28 returns neither.
+
+### Held, not requested
+
+`GEOM-AVAIL` — a fixed-bar availability table answering whether the filed level was present at the formation bar, distinguishing off-by-one indexing from a genuine later touch. Print-only, no bound/width/depth touched, no variant added, no new selection. I am **not** requesting it on this relay. It should follow `SIDE-1P`, and only if he wants the +1-bar question answered at all. Named here so nobody re-invents it later.
+
+### Not recommended
+
+(a) revised geometry now — blocked by the three faults above. HALT — available and costs nothing, but `SIDE-1P` is cheap, print-only, and returns evidence no prior run has produced, so HALT is second choice rather than first.
+
+---
+
+## Ask 3 — CONFIRM
+
+Confirmed, all of it:
+
+- Nothing builds, runs, or commits on this relay. Nothing is pre-authorized.
+- Nothing commits on any cleared run without an explicit token.
+- RECON17 frozen baseline of record. FlowLogic `3606BFB4` frozen.
+- Build EA `8F677D3A…` 544061 B **UNCOMMITTED**; fixture `E9E6F710…` 7704 B **UNCOMMITTED**; HEAD `5cc58d3` records-only, **NO push**.
+- No third run. REPORT+HALT stands.
+- Run word **SPENT** on RECON28. Any future run needs a fresh word from him; `SIDE-1P` above is authored, not scheduled.
+- S1 **VOID** — signal only. `S1SIG kind=VOID_SIGNAL state=VOID` stays a distinct object from the S1 presence row.
+- P4/C5-first is single-source Opus priority, **not agreed**; I do not advance it here.
+- P6 untouched. Thin-D7 carried, not scoped.
+- 08:40 formation detail is his at leisure and blocks nothing; it can reshape the AM design only.
+- Dual-key remains mandatory for any side, stop, birth, or selection change, naming the packet identically, either stream able to halt. Astra key alone never authorizes a selection change. My key does not exist.
+
+**Verdict:** ACCEPT with annotations A1–A3. Author `SIDE-1P` as the next step under option (b); hold geometry and hold `GEOM-AVAIL`. Awaiting his word or his HALT.
+
+
+## VERDICT REV-V49-SIDE1P-001 2026-09-15 (answers v49)
+
+# OPUS VERDICT — `REV-V49-SIDE1P-001`
+**Stream:** Opus (review-only, no-key). **Relay:** v49. **Nothing built, run, staged, or committed on this relay.**
+
+## Verdict summary
+
+| Ask | Result |
+|---|---|
+| Ask 1 — ACCEPT §0 + §1 | **ACCEPT**, with corrections **B1–B5** (print/grading-only, folded pre-build) |
+| Ask 2 — CLEAR `SIDE-1P` | **NOT MINE TO GRANT.** Print-only riders clear on Astra key + fresh run word. My ACCEPT is not clearance and confers no key. |
+| Ask 3 — HALT compatibility | **ASTRA'S CALL.** Non-binding observation below. I do not adjudicate the HALT I did not author. |
+| Ask 4 — standing constraints | **CONFIRMED**, itemised below |
+
+---
+
+## Ask 1 — ACCEPT of §0 and §1
+
+**§0 base record:** accepted as pasted. Specifically accepted: run word SPENT on RECON28; RECON17 frozen; `8F677D3A…` 544061 B and fixture `E9E6F710…` 7704 B both UNCOMMITTED; HEAD `5cc58d3` records-only, no push; no run active; RECON28 FAIL-as-corrected 0/4 + 0/2 + 2 UNRESOLVED + 0 spurious with void holding; R5-direction defect owned and corrected (one bar earlier **+1pt**, not +1); PRESENT credit withdrawn on stale-anchor grounds; R1 out of grade on INFERRED provenance; R5 dual-oracle blocking R5 only; two-way refutation (GEOM ABSENT + SLIMB NOIMB, all four fired blocks); wick unexercised; F6 FAIL→authorship; readiness 4 HOLD + 4 VIOLATE unchanged; tree cannot take his trades; his side rule as restated (HTF-bias-only for TF, most-recent-sweep-only for MR, no cross-requirement, alignment adds nothing) together with the on-record code-side contradiction (bias meters bear at both Sep-8 bars while LONG is carried through them).
+
+**§1 `SIDE-1P`:** accepted as the authoritative text of the packet going forward, with B4 applied. One verification limit, stated rather than papered over: this is a fresh session, so I cannot byte-compare §1 against the v48 text I authored. I confirm §1 **as pasted** reads consistent with `SIDE-1P`'s rule, touch surface, prediction, and novelty claim, and I adopt it as authoritative. I am not asserting a byte-match to v48; if the builder holds the v48 original, a diff is cheap and worth doing.
+
+**Geometry:** `GEOM-AVAIL` stays **held-not-requested**, named so nobody re-invents it. Geometry is second in line and **NOT cancelled**. Nothing in this verdict advances it.
+
+---
+
+## Corrections B1–B5 (print/grading-only; no side/stop/birth/selection touch)
+
+Numbered B to avoid collision with v48's A1–A3, which stand.
+
+### B1 — `direction-used` must print its own provenance class (load-bearing)
+As quoted, §1 prints "live-resolved direction actually used." That phrasing presupposes a resolve occurred at the site. Per §0 the Sep-8 direction is a **carry** — LONG carries through both Sep-8 SHORT bars. A carry labelled "live-resolved" mislabels the exact datum the packet exists to capture.
+
+This matters because the fork is decided by it:
+- direction-used = **CARRIED-FROM-PRIOR-SITE** (with the source site's bar printed) → **NO-VOTE-AT-SITE**, absence-proof branch, fix seats an object.
+- direction-used = **RESOLVED-AT-SITE** but disagreeing with the birth-bar vote → **VOTE-EXISTS-DISCARDED**, mechanism branch, fix is attribution at one named site.
+
+Without the provenance class printed as a literal token, the run returns a disagreement flag that is ambiguous between the two branches — the same class of ambiguity RECON28 returned. Required fields per row: `DIRUSED_VALUE`, `DIRUSED_PROV ∈ {RESOLVED-AT-SITE, CARRIED-FROM-PRIOR-SITE, DEFAULT-INIT, VOID-NO-DIRECTION}`, `DIRUSED_SRCBAR`.
+
+`VOID-NO-DIRECTION` is included for S1: S1 is VOID signal-only, so a void must print as void and must never be scored as agreement or as a value.
+
+### B2 — anchor source class per row; R1 and R5 printed-but-held; graded distribution restated
+RECON28 withdrew R1 on INFERRED provenance and blocked R5 on dual-oracle. `SIDE-1P` reads the bias object **at the site's own birth bar**, so any row whose anchor is inferred or dual-valued cannot carry a graded vote — reading at a one-bar-different anchor can flip the read, and stale-anchor rows are precisely what cost RECON28 its PRESENT credit.
+
+Required per row: `ANCHOR_BAR`, `ANCHOR_CLASS ∈ {RUN-ESTABLISHED, ROSTER-DECLARED, INFERRED, DUAL-ORACLE}`. R5 prints **both** oracle anchors and the vote at each; if they differ the row emits `UNRESOLVED-ANCHOR` (distinct token from bias `UNRESOLVED`).
+
+Graded distribution restated:
+- **Graded:** R3 LONG, R4 LONG, S1 SHORT, S2 SHORT → 2 LONG + 2 SHORT.
+- **Printed, held out of grade:** R1 (INFERRED anchor), R5 (DUAL-ORACLE anchor).
+- **Printed, ungraded:** R2 — vote value printed, row remains DECLINED, R2 MUST-DECLINE intact. R2's vote value is **not** scored; printing SHORT or `UNRESOLVED` at R2 is not a FAIL.
+- **Disagreement claim unchanged:** predicted at exactly S1 and S2, nowhere else.
+
+Also resolves a collision in §1 as quoted: "Any other distribution = FAIL" reads against "Unresolved bias object at birth → emit `UNRESOLVED`." Emitting `UNRESOLVED` is **correct behaviour**, not failure. Failure is substitution, fallback, or coercion. `UNRESOLVED` at a graded row is a prediction miss → **authorship**, never tuning — and it is itself the absence-proof branch of the fork, i.e. evidence, not noise.
+
+### B3 — recorder must be read-only against the bias object (pre-run gate)
+§1's rule says the divergence latch (1/3-bull, 2/4-bear, latest governs) governs inside its own object only and never overwrites a bias resolved at birth. The instrumentation must not exercise it. A recorder that reads through a resolve/refresh/update path could advance latch state and perturb selection — the print would then author the result.
+
+Add to §2 build gates: mechanical grep of the recorder path for state-advancing calls (resolve / refresh / update / latch-advance); recorder consumes snapshots only. The §2 isolation join (diff-0 outside recorder lines) catches this after the fact; this gate catches it before spending the word.
+
+### B4 — literal-token correction in the quoted packet
+`VOTE-EXISTS-DISCARED` → **`VOTE-EXISTS-DISCARDED`**. Typo only. Both fork labels — `NO-VOTE-AT-SITE` and `VOTE-EXISTS-DISCARDED` — are to be emitted as **literal tokens** so the fork grades mechanically rather than by reading prose. No other rewording; the builder reworks nothing else in §1.
+
+### B5 — name the print prefix and restate MAXLEN numerically
+§2 requires print families prefix-disjoint from every RECON28 family by mechanical grep, but does not name the new prefix, and lists MAXLEN exceedance as a halt trigger without a number. Neither is checkable as written. Declaring: prefix **`SIDE1P_`** for all new families (builder confirm-or-correct against the RECON28 family list), and the numeric MAXLEN ceiling restated in the result artifact. Minor call, taken rather than escalated.
+
+---
+
+## Standing of B1 relative to §4
+
+Plainly: **B1 is a defect in `SIDE-1P` as quoted**, not a preference. As written the packet cannot decide its own fork, which is its whole novelty claim.
+
+§4 says an Opus review stating a substantive defect → QUIESCENT stands. Two readings, and I do not get to pick:
+- **My reading:** B1 is the author correcting his own packet in place, print-only, folded pre-build. The §4 branch targets defects found in scope authored elsewhere. No QUIESCENT trip.
+- **Alternative reading:** the branch fires on its face, QUIESCENT stands, and `SIDE-1P` returns for re-authoring with B1–B5 already in the text.
+
+**Astra's reading governs**, because clearance and the word are Astra's. Either branch is acceptable to me and neither costs anything but a relay. I invent no rule to escape the first branch.
+
+None of B1–B5 touch side, stop, birth, or selection — they are print fields, token spellings, grading scope, and one pre-run grep. On my reading they do not require dual-key. If Astra reads any of them as a birth or selection change, that reading governs and dual-key applies.
+
+---
+
+## Ask 2 — no clearance from this stream
+
+Per the binding thresholds in §0: print-only riders clear on **Astra key + fresh run word**; Opus is review-only, no-key. I therefore **cannot and do not clear** `SIDE-1P`. Nothing in this verdict authorises a build, a run, staging, a commit, or a push. The run word is SPENT on RECON28; a fresh word is his to give and only his word spends it. No speculative build, no staging-without-word.
+
+## Ask 3 — non-binding observation, Astra decides
+
+`SIDE-1P` derives no stop mechanism, reads no stop geometry, and leaves the `obValid`-only stop branch at EA:4979 untouched — so on its face it does not trespass on `QUIESCENT—STOP-MECHANISM-UNPROVEN`. That is an observation about the packet's contents, not a reading of the HALT, which is Astra's instrument. If Astra reads the HALT as barring even print-only side instrumentation, **the HALT stands and QUIESCENT holds** — no objection from this stream, and `SIDE-1P` waits with `GEOM-AVAIL` behind it. `SIDE-1P` authorises no stop-mechanism derivation and must not be cited later as having answered the stop question.
+
+## Ask 4 — confirmations
+
+- Nothing builds, runs, or commits on **this** relay.
+- Nothing commits on the cleared run without an **explicit token**; `SIDE-1L` landing needs dual-key + tokens and is pre-authorised by nothing here.
+- RECON17 **frozen**.
+- `8F677D3A…` 544061 B and fixture `E9E6F710…` 7704 B **UNCOMMITTED**; HEAD `5cc58d3` records-only, no push; FlowLogic `3606BFB4` frozen and untouched.
+- **No third run.** REPORT+HALT stands. Timeout, selection delta, MAXLEN exceedance, landing attempt, or third-run request → REPORT+HALT.
+- Run word **SPENT** on RECON28; fresh word required; clearance does not spend it.
+- S1 **VOID signal-only**. R2 **MUST-DECLINE**. S2 gap stays gap.
+- P4/C5-first **single-source, not agreed**. P6 **untouched**. Thin-D7 carried.
+- 08:40 formation detail **his-at-leisure, blocks nothing**; this verdict is not a deferral on it. N1 wick + flats at leisure. CQD EMPTY, later packet.
+- Adoption OFF EA:71, `g_dir` untouched, alert-only, OrderSend 0 — and a FAIL goes to **authorship, never tuning**.
+
+---
+
+## Position
+
+Review-only **ACCEPT** of §0 and §1 with **B1–B5**. `SIDE-1P` is worth the word: it returns the first runtime bias-vote-at-site versus direction-used measurement, and with B1 folded in it separates absence-proof from mechanism instead of returning a third ambiguous disagreement flag. But the clearance and the word are Astra's, the HALT reading is Astra's, and until both land **QUIESCENT holds and nothing is built.**
+
+
+## VERDICT REV-V50-SIDE1P-REV2-001 2026-09-15 (answers v50)
+
+# `REV-V50-SIDE1P-REV2-001` — Opus, review-only, no key
+
+**Role limits restated up front:** I am review-only on this relay. I hold no key, I cannot clear, and I cannot spend the run word. What follows in Ask 2 is **authored text offered for Astra's clearance**, not a clearance. If Astra reads any part of it as a side/stop/birth/selection change, dual-key applies and either signatory halts. The HALT reading remains Astra's.
+
+---
+
+## Ask 1 — ACCEPT §0 + §1
+
+**ACCEPTED as pasted.** Base record §0 and the five defects §1 (D1, D2, P1, B1–B5) are accepted as the whole of what is being ruled on. No addition, no reinterpretation, no cited-by-name material relied on.
+
+Two acknowledgments that bear on Ask 2:
+
+- D1 is correct and I do not contest it. The record rules **TF→HTF-bias** and **MR→sweep** only. Per-site classification is absent. Any rule that routes "every setup site" to the timeframe-bias object exceeds the record. My B1/B2 did not cure that — they sit downstream of it.
+- P1 is correct as a premise defect. Roster-entry = birth bar is a mechanical reading, not his record, and a run built on it can print roster-time bias under a birth-time label.
+
+---
+
+## Ask 2 — `SIDE-1P-REV2` (authored)
+
+### A. Name and standing
+
+Packet name: **`SIDE-1P-REV2`**. Print prefix: **`SIDE1P2_`** (see B5 below — this corrects my own earlier `SIDE1P_`). Print-only. Successor to `SIDE-1P`, which stays NOT ACCEPTED and is not revived by reference.
+
+### B. Rule text (general terms, no fixture specifics)
+
+> At each roster row's birth bar, the path's direction-in-use is a value that either was resolved at that site or was carried into it. `SIDE-1P-REV2` claims that at a site where a direction is resolved, the resolved value equals the roster-declared side for that row. It claims nothing about which bias object any site reads.
+
+That is the whole rule. It is deliberately **object-agnostic**: it does not assign a site to the timeframe-bias object or to the most-recent-sweep object, because the record does not classify sites. Object attribution is *printed* (see B1 fold) and left **ungraded**.
+
+### C. D1 cure — restatement, not narrowing
+
+I take Astra's third option: **restate the rule**. I do not confirm per-site TF classification (I have no record cites for it and will not manufacture them), and I do not limit scope to "confirmed-TF sites" (that set is empty on record, which would empty the graded set and make the packet unmeasurable).
+
+The restatement above removes the defect at its root:
+
+- No site is assigned to any bias object by the rule.
+- The graded predicate is agreement between the printed direction-in-use and the **roster-declared side**, which *is* on record for all seven rows.
+- Which object was read is emitted as a literal `SIDE1P2_DIRUSED_OBJ ∈ {HTF-BIAS, MR-SWEEP, NEITHER-IDENTIFIABLE, NOT-INSTRUMENTED}` and is **reference-only, never scored**. If the record later classifies sites, that literal becomes the join; it proves nothing now.
+
+Consequence I state plainly: `SIDE-1P-REV2` **cannot** test his side rule's object mapping. It tests only whether the direction actually used at a birth bar matches the declared side, and whether it was resolved or carried. That is a narrower claim than `SIDE-1P` made. I regard the narrowing as the honest price of D1.
+
+### D. D2 cure — B1-confirm, plus explicit limitation
+
+**I confirm B1 answers D2**, with one tightening.
+
+- The fork is decided by `DIRUSED_PROV` alone. `RESOLVED-AT-SITE` ⇒ a vote existed at the site. `CARRIED-FROM-PRIOR-SITE` + `DIRUSED_SRCBAR` ⇒ no vote at the site, and the source bar names where the value came from. `DEFAULT-INIT` ⇒ no vote ever. `VOID-NO-DIRECTION` ⇒ void, never scored.
+- This is **passive**: the literals report the value the original path already holds and the branch that set it. Nothing is re-derived, re-read, or recomputed to produce them. That passivity is what separates NO-VOTE-AT-SITE from VOTE-EXISTS-DISCARDED, and it is why a shadow read cannot.
+- **Tightening (the limitation half, applied to the residue):** the shadow vote-vs-used comparison is **struck from the evidentiary claim entirely**. If a shadow value is printed at all it is labelled reference-only and may not be cited as evidence of what the original path read. Astra is right that a new read proves nothing about the old one; I am not keeping it as weak evidence, I am keeping it as not-evidence.
+
+I am choosing B1-confirm rather than authoring a passive-evidence spec because B1 *is* the passive-evidence spec, at the only point where the original path's read is observable without touching it.
+
+### E. P1 cure — by construction, referred for confirmation
+
+I cannot confirm roster-entry = birth bar for the seven rows. That mapping belongs to the record-owner, not to me. Instead `SIDE-1P-REV2` makes the mislabel **structurally impossible**:
+
+- Per row, print `SIDE1P2_BIRTH_BAR` and `SIDE1P2_BIRTH_SRC ∈ {ROSTER-ENTRY-BAR, RUN-DECLARED, DIVERGENT}`.
+- Grading is **gated on the identity holding**. If `BIRTH_SRC = DIVERGENT`, or the run-declared bar differs from the roster entry bar, the row prints **ungraded** with the divergence literal and both bars shown.
+- Therefore no row can be scored under a birth-time label while carrying a roster-time reading. The failure mode P1 names becomes an emission, not a silent substitution.
+
+**Referred:** whether gate-to-ungraded satisfies P1, or whether Astra requires the mapping confirmed *before* clearance regardless, is Astra's call. If Astra holds the latter, **P1 stays open and `SIDE-1P-REV2` stays halted** — I do not treat my construction as overriding that.
+
+### F. B1–B5 — fold status
+
+| Item | Status | Note |
+|---|---|---|
+| **B1** | Folded, pre-build | `DIRUSED_VALUE` + `DIRUSED_PROV ∈ {RESOLVED-AT-SITE, CARRIED-FROM-PRIOR-SITE, DEFAULT-INIT, VOID-NO-DIRECTION}` + `DIRUSED_SRCBAR`. Now also load-bearing for D2. No dual-key sought on my reading; Astra's governs. |
+| **B2** | Folded, with the distribution restated in §G | `ANCHOR_BAR` + `ANCHOR_CLASS ∈ {RUN-ESTABLISHED, ROSTER-DECLARED, INFERRED, DUAL-ORACLE}`; R5 prints both oracle anchors and a vote each, `UNRESOLVED-ANCHOR` when they differ, distinct from bias `UNRESOLVED`. `UNRESOLVED` emission remains correct behaviour and absence-proof evidence. Prediction miss ⇒ authorship, never tuning. Failure = substitution, fallback, or coercion only. |
+| **B3** | Folded as a **hard pre-word gate** | Mechanical grep of the recorder path for state-advancing calls (resolve / refresh / update / latch-advance). Gate runs and passes **before** the fresh word is spent, not after. Isolation join is the second net, not the first. |
+| **B4** | Folded | `VOTE-EXISTS-DISCARDED` (corrected). Both fork labels emitted as literal tokens. Note: under §D the fork is carried by `DIRUSED_PROV`; these two labels are emitted as the *human-readable* fork conclusion derived from `DIRUSED_PROV`, not as an independent measurement. |
+| **B5** | Folded **with self-correction** | Prefix is `SIDE1P2_`, not `SIDE1P_`. Reason: `SIDE1P_` may already collide with `SIDE-1P` draft artifacts as well as RECON28 families, and `SIDE-1P` is a rejected packet whose namespace I do not want rev2 sharing. Builder confirm-or-correct disjointness against RECON28 families **and** any `SIDE1P_` residue. Numeric MAXLEN restated verbatim in the result artifact. |
+
+### G. Prediction — 7 rows, per B2's distribution
+
+Graded predicate: `DIRUSED_VALUE` at the row's birth bar equals the roster-declared side. `DIRUSED_PROV` is printed and forked but **not graded** — it is the channel that explains a hit or a miss, not a second scored claim.
+
+| Row | Bar | Roster side | Predicted `DIRUSED_VALUE` | Grade status | Basis |
+|---|---|---|---|---|---|
+| R1 | Aug-28 10:00 | LONG | LONG | **printed-held** | `ANCHOR_CLASS = INFERRED`, out-of-grade |
+| R2 | Sep-4 10:35 | SHORT-void | any, incl. `VOID-NO-DIRECTION` | **printed-ungraded** | MUST-DECLINE intact, never scored |
+| R3 | Sep-4 15:55 | LONG | **LONG** | **GRADED** | agreement row |
+| R4 | Sep-7 09:15 | LONG | **LONG** | **GRADED** | agreement row |
+| R5 | Sep-7 16:40 | LONG | LONG, both anchors printed | **printed-held** | `DUAL-ORACLE`; `UNRESOLVED-ANCHOR` if anchors differ |
+| S1 | Sep-8 10:10 | SHORT | **SHORT** | **GRADED** | disagreement row |
+| S2 | Sep-8 17:00 | SHORT | **SHORT** | **GRADED** | disagreement row |
+
+**2 + 2 graded. R1 and R5 held. R2 ungraded. Disagreement falls exactly at Sep-8 and nowhere else** — the record has LONG carried through both Sep-8 bars while the bias meters read bear, so `SHORT` at S1/S2 is the only place this prediction can be wrong. Any row may print `UNRESOLVED`; that is a pass on behaviour and evidence on absence, not a miss to be tuned away.
+
+Mechanical fork readings at Sep-8, stated in advance so neither outcome can be re-narrated after the fact:
+
+- `SHORT` + `RESOLVED-AT-SITE` ⇒ prediction holds; a vote existed at the site and was used.
+- `LONG` + `CARRIED-FROM-PRIOR-SITE` + `SRCBAR` before Sep-8 ⇒ prediction misses, **NO-VOTE-AT-SITE** established; the carry, not the price rule, owns the side. That is an authorship defect on the rule as written and I will own it.
+- `SHORT` resolved but `LONG` used downstream ⇒ **VOTE-EXISTS-DISCARDED**; the discard site is named by `SRCBAR`.
+- `LONG` + `RESOLVED-AT-SITE` ⇒ prediction misses and the fork does not save it. Authorship, not tuning.
+
+### H. Touch surface — print-only
+
+Untouched by `SIDE-1P-REV2`: `g_dir`, adoption, eligibility, order path, stop branch, fixture, forced selection. No new state, no latch advance, no re-resolution, no oracle call. Additions are emissions only, on the recorder path, gated by B3 before the word is spent. No stop-mechanism derivation is attempted or authorized — the HALT permits a print-only side packet and nothing beyond it.
+
+### I. WHY-NOT-LAST-TIME (carried)
+
+No prior run measured direction-in-use **at the site with its provenance attached**. RECON28 returned attribution and provenance failure, not a price-rule failure, and it could not separate absence-of-vote from mechanism-discards-vote because nothing printed where the used value came from. `SIDE-1P-REV2` measures that for the first time. The fork is still open because no run has yet been able to close it.
+
+### J. `GEOM-AVAIL`
+
+**Stays held.** I do not pull it. Geometry remains second and not cancelled.
+
+---
+
+## Ask 3 — CONFIRMED
+
+- Nothing builds, runs, or commits on this relay.
+- Nothing commits on any cleared run without an explicit token.
+- RECON17 frozen.
+- `8F677D3A…` (544061 B) and fixture `E9E6F710…` 7704 B stay UNCOMMITTED; HEAD `5cc58d3` records-only, no push.
+- No third run. REPORT + HALT stands.
+- Run word SPENT on RECON28. A fresh ~1h word is required, ceiling 90, same ini and range.
+- S1 VOID is signal-only.
+- P4 / C5-first remain single-source and not agreed.
+- P6 untouched.
+- 08:40 stays his-at-leisure and blocks nothing.
+- N1 wick, flats, Sep-8 blanks timing, CQD EMPTY, thin-D7, S2 gap-stays-gap: all as pasted, none relied on.
+
+---
+
+## §3 — branch coverage acknowledged
+
+`SIDE-1P-REV2` is authored, not cleared. Clearance requires Astra plus a fresh word; my part ends at review. If Astra clears, the builder files the clearance relay — one print-only build, one run, v49-class gates and envelope, B3 grep passing pre-word, `SIDE1P2_` disjointness confirmed, numeric MAXLEN restated. If Astra reads D1 as still open, or holds P1 unconfirmable without the record-owner, or extends the HALT to the side packet, **QUIESCENT stands, the defect is owned, no rerun and no tuning.** Run word alone authorizes nothing. Landing, selection change, scope widening, commit or push are not covered here.
+
+**Verdict:** Ask 1 ACCEPT. Ask 2 `SIDE-1P-REV2` authored — D1 cured by restatement (object-agnostic rule, object attribution printed-ungraded), D2 cured by B1-confirm plus striking the shadow comparison from the evidentiary claim, P1 cured by construction and **referred to Astra and the record-owner**, B1–B5 folded with B5 self-corrected to `SIDE1P2_`. Ask 3 CONFIRMED. I cannot clear; Astra governs.
+
+
+## VERDICT REV-V51-SIDE1P-REV2-001 2026-09-15 (answers v51)
+
+# Verdict — Opus, review-only
+
+Source: Opus (claude-opus-5). Verdict ID: `REV-V51-SIDE1P-REV2-001`. Fresh session, no key, no clearance authority.
+
+## Standing and verification limits
+
+Read these before the rulings, because they bound everything below.
+
+- I hold no key and cannot clear. §0 states this correctly ("Opus review-only, no-key"; "cannot clear — Astra governs"). Ask 2 and Ask 3 are Astra's; I am not Astra and will not simulate that role.
+- I cannot own or authenticate `REV-V50-SIDE1P-REV2-001`. Fresh session means no continuity with any prior artifact attributed to Opus. I neither confirm nor disown it; treat it as text you hold, not as a claim I am making now.
+- I have no filesystem, repo, or execution access in this session. I cannot verify the SHA-256 `8F677D3A…`, the 544061 B / 7704 B sizes, HEAD `5cc58d3`, the roster, the compile logs, or any file in §5. Everything in §0/§1 is accepted as-recorded-for-review, not as verified fact.
+
+## Ask 1 — ACCEPT, as-recorded
+
+ACCEPT §0 and §1 as the record under review, with the above verification caveat. The REV2 direction is sound in three specific ways:
+
+- The object-agnostic restatement is a real narrowing, not a cosmetic one. Dropping the per-site TF/MR mapping removes the untested claim that D1 was pointed at.
+- Printing object attribution ungraded, with `NEITHER-IDENTIFIABLE` distinct from `NOT-INSTRUMENTED`, keeps a future join key without smuggling in an evidentiary claim.
+- Treating `UNRESOLVED` emission as correct behaviour and absence-proof evidence, with failure reserved to substitution/fallback/coercion, is the right polarity.
+
+## Ask 2 — cannot clear; and two defects that block
+
+Under §4, "Opus review states a substantive defect → QUIESCENT stands." I am stating two. They are authorship-level, correctable by re-authorship, not by builder edit.
+
+### D-A. The DISCARDED graded branch rests on a struck instrument
+
+§1 strikes the vote-vs-used shadow from the evidentiary claim, demoting it to "reference-only at most." The prediction table then pre-declares a graded reading `SHORT-resolved-but-LONG-used ⇒ DISCARDED with SRCBAR`. That reading is only observable through the shadow comparison. A graded outcome cannot depend on an instrument that has been removed from evidentiary standing. Resolve one way or the other:
+
+- restore the shadow as evidentiary, which reopens D2/B1 and needs its own clearance; or
+- remove the DISCARDED branch from the graded set and print that combination ungraded.
+
+As quoted, the packet asserts both at once.
+
+### D-B. The prediction table is non-exhaustive over its own fork
+
+Declared fork is four values × two directions = eight cells per graded row. For S1/S2 the table enumerates SHORT+RESOLVED, LONG+RESOLVED, LONG+CARRIED (with pre-Sep-8 SRCBAR), and the DISCARDED case. Unenumerated: SHORT+CARRIED, either direction under `DEFAULT-INIT`, and either under `VOID-NO-DIRECTION`. Also unenumerated for LONG+CARRIED is the SRCBAR-on-or-after-Sep-8 case, since the declared reading conditions on a pre-Sep-8 source bar.
+
+Unenumerated cells in a pre-declared grading table are where post-hoc classification enters. That is the same attribution failure mode RECON28 returned. Every cell needs a pre-declared reading, including "printed ungraded, no grading claim."
+
+## Build-gate additions I would require if this is re-authored
+
+Two mechanical gates, both aimed at the same risk: that "read the direction-in-use" quietly becomes "compute it again."
+
+1. Zero new call sites to the resolver family. §0 names the side owner as `g_dir = S2ResolveLive(...)`. §2's grep for resolve/refresh/update/latch-advance is verb-based; make it call-site based as well: no new invocation of `S2ResolveLive` or any resolver/latch function anywhere on the recorder path, direct or indirect. Emission reads the already-assigned variable and nothing else. §1's "passive literals on the original path's held value/branch" is the correct design; the gate should enforce it by name rather than by intent.
+
+2. Oracle independence, asserted explicitly. The graded oracle is the roster-declared side. If the emitted `SIDE1P2_DIRUSED` can derive from the roster declaration rather than from live path state, agreement on R3/R4 is guaranteed by construction and proves nothing. State as a gate: the roster-declared side is never an input to any `SIDE1P2_` emission.
+
+## Non-blocking observations
+
+- Yield risk. `DIVERGENT` birth bars gate to ungraded (P1), and CARRIED provenance produces no vote at site. A run where those dominate returns 0 graded cells while consuming the run word with no third run available. Consider pre-declaring a minimum-yield condition so a low-yield run is reported inconclusive-by-construction rather than as evidence either way.
+- Prefix grep direction. `SIDE1P_` and `SIDE1P2_` are prefix-neighbours. Anchor the disjointness check so `SIDE1P2_` tokens are not reported as `SIDE1P_` residue, and so a bare `SIDE1P` search is not accepted as either proof.
+- R2. Confirm in the packet that emission at R2's birth bar cannot alter MUST-DECLINE. I read §1 as intending this; it is not stated.
+
+## Ask 3 — not mine
+
+(a) provenance, (b) P1 sufficiency, (c) HALT-compatibility, (d) strategy-alignment are Astra rulings. I will not answer them and my silence on them is not confirmation. On (d) specifically: my defects D-A and D-B are internal-consistency defects, not rule-impact findings. I am making no claim that REV2 does or does not preserve his rules.
+
+## Ask 4 — confirmed, to the extent I can
+
+Nothing in this response builds, runs, stages, commits, or pushes anything. I spend no run word, grant no token, and pre-authorize nothing. No clearance is given or implied. I cannot confirm repo facts (RECON17 frozen, `8F677D3A` and fixture uncommitted, HEAD state) because I cannot see the repo; I confirm only that I authorize no change to any of them.
+
+Net: ACCEPT base and packet as-recorded, no clearance available from me, two substantive defects stated. Per §4 that leaves QUIESCENT standing until they are cured by re-authorship and Astra rules on Ask 3.
+
+
+## VERDICT AUTH-V52-SIDE1P-REV3-001 2026-09-15 (answers v52)
+
+# `AUTH-V52-SIDE1P-REV3-001` — authorship verdict, one source
+
+**Role limit, stated first:** this is authorship + review only. It is **not** clearance. I hold no key. The designated Astra stream's rulings (clearance, provenance/P1, HALT scope, alignment) stay **OWED** and unpaid by this text. I ruled on the inline §0/§1 record only — I read no file on disk in this session and make no claim about disk state beyond what §0 asserts.
+
+---
+
+## Ask 1 — ACCEPT
+
+ACCEPTED as recorded: §0 base (state, failure profile, readiness, his side rule, roster, blanks/locks, thresholds, standing flag) and §1 (D-A and D-B as BLOCKING, D1-scope OPEN, P1 REFERRED, carried folds B1–B5 with the strengthened B3, the yield-risk observation, R2 emission-cannot-alter-DECLINE).
+
+No correction to the base. One clarification I own as author, not as a change to the record: the RECON28 failure was **attribution/provenance**, so REV3 is scoped to *which value, from which bar, was used at each site* — not to price-rule correctness. Everything below follows from that.
+
+---
+
+## Ask 2 — `SIDE-1P-REV3` (authored, by name)
+
+### §A Status
+`SIDE-1P-REV3` supersedes REV2 in text, carries REV2's purpose forward unchanged, and is **unbuilt, unrun, uncleared**. Prefix `SIDE1P2_` (B5) retained.
+
+### §B Rule under test — general terms
+The side rule holds that a directional read is produced by a single-source oracle per read class: the TF class reads higher-timeframe bias alone; the MR class reads the most-recent-sweep alone. There is no cross-requirement between classes, and agreement between them adds no information. A site's side is therefore whatever its own class resolved, at the bar it resolved it.
+
+REV3 tests one consequence of that: **at every site, the direction actually used must be traceable to a resolution whose source bar is the site's own birth bar.** A used direction whose source bar precedes the site is a carry, not a read, and the rule as stated does not license it.
+
+### §C D1-scope — cured by express scope revision (option 2)
+Per-site TF/MR classification is **not on record** and I will not manufacture it. REV3 therefore:
+
+- makes **no** prediction that depends on any site's TF/MR classification;
+- states its rule text object-agnostically (§B) and carries REV2's object-agnostic restatement;
+- declares: if a site's reading would be decidable *only* given a TF/MR classification, that site prints **UNGRADED** (`CLASS-UNDECLARED`) and drops from the graded set.
+
+D1's per-site classification record remains **OWED to the designated Astra stream**. Clearance of REV3 must not be read as curing D1. This is a narrowing, not a cure of D1.
+
+### §D D-A — cured by horn (ii)
+
+**Horn (ii) taken: `DISCARDED` is removed from the graded set.** The shadow comparison stays **reference-only**. D2 and B1 are **not** reopened; no new clearance reasoning is requested for them.
+
+Consequences, declared in advance:
+
+1. The combination "resolver would say SHORT / LONG was used" is **not a row** in the fork table and **not an axis** of grading. The evidentiary axes are only (a) the direction literal the emission variable holds, and (b) the source-bar provenance of that literal.
+2. B4's literal token `VOTE-EXISTS-DISCARDED` is **retained verbatim** for searchability, and is emitted **only** as a reference-only annotation, **always** with companion literal `GRADE=NONE` on the same line. No reader, and no later packet, can lift a graded outcome from it.
+3. B1's DIRUSED literals remain load-bearing; what they were load-bearing *for* in D2 does not return.
+4. Nothing in REV3 asserts both horns. If a future revision wants the shadow evidentiary, it is a fresh authored revision with its own clearance reasoning — not an in-flight upgrade.
+
+### §E D-B — cured by exhaustive enumeration
+
+Axes, declared: **PROVENANCE CLASS** ∈ {FRESH, CARRIED, DEFAULT-INIT, VOID-NO-DIRECTION} × **DIRECTION LITERAL HELD** ∈ {LONG, SHORT} (plus the NODIR literal, enumerated), with CARRIED split by source-bar epoch.
+
+**Epoch boundary, declared numerically in-result:** `PRE-SEP8` = SRCBAR strictly earlier than the first bar of the Sep-8 session on the frozen ini/range; `ONAFTER-SEP8` = otherwise. The boundary bar index is printed in-result so the split is checkable without re-deriving it.
+
+| Row | Class | Dir | Epoch | Grade | Pre-declared reading / consequence |
+|---|---|---|---|---|---|
+| F1 | FRESH (SRCBAR==BIRTHBAR) | LONG | n/a | **GRADED** | Read at site. Scores against the roster row. |
+| F2 | FRESH | SHORT | n/a | **GRADED** | Read at site. Scores against the roster row. |
+| F3 | CARRIED (SRCBAR<BIRTHBAR) | LONG | PRE-SEP8 | **GRADED** | Stale carry. At S1/S2 this is the predicted disagreement. |
+| F4 | CARRIED | LONG | ONAFTER-SEP8 | **GRADED** | Live LONG inside the bear epoch. **Refutes the stale-carry component**, retains the disagreement component ⇒ packet reports `PARTIAL-REFUTATION`. May **never** be folded into F3; distinct literal `CARRIED-LONG-SRC-ONAFTER-SEP8`. |
+| F5 | CARRIED | SHORT | PRE-SEP8 | **GRADED** | At a roster-LONG site ⇒ `ROSTER-CONFLICT`. Corrects the mechanical birth reading; does **not** score the side rule; voids the 2+2 claim ⇒ inconclusive-by-construction. |
+| F6 | CARRIED | SHORT | ONAFTER-SEP8 | **GRADED** | At S1/S2 ⇒ agrees with bias and **refutes REV3's own premise** ⇒ packet reports `REFUTED-OWN-PREMISE`. Not a pass for the side rule. |
+| F7 | DEFAULT-INIT (SRCBAR=NONE) | LONG | n/a | **UNGRADED** | `PROVENANCE-UNESTABLISHED` + code-defect flag (direction held with no preceding assignment). Printed, no grading claim. |
+| F8 | DEFAULT-INIT | SHORT | n/a | **UNGRADED** | As F7. |
+| F9 | VOID-NO-DIRECTION | LONG | any | **UNGRADED** | `VOID-WITH-DIRECTION`. Void class is signal-only and cannot bear a side verdict. Printed, no grading claim. |
+| F10 | VOID-NO-DIRECTION | SHORT | n/a | **UNGRADED** | As F9. |
+| F11 | VOID-NO-DIRECTION | NODIR | any | **UNGRADED** | Clean void. Printed, no grading claim. |
+| F12 | **residual** — any state whose literals do not match F1–F11 exactly | — | — | **UNGRADED** | `UNENUMERATED-STATE` + packet-level inconclusive-by-construction. Closes the table permanently. |
+
+F12 is the point of the cure: there is no cell left where a classification can be chosen after the print is read.
+
+### §F Birth mapping + gate rule (P1 position)
+
+- Birth bar = roster entry bar is carried as a **MECHANICAL READING, confirm-or-correct**. REV3 prints `BIRTHBAR` as read plus the derivation inputs, so a correction is visible without a second run.
+- If the emission's own birth latch disagrees with the roster row ⇒ `ROSTER-CONFLICT` (F5 handling): the roster is corrected, the rule is not scored.
+- **P1 stays REFERRED to the designated Astra stream.** Pending that ruling REV3 adopts the strictly narrower branch: **`BIRTH_SRC` + `DIVERGENT` ⇒ UNGRADED** (gate-to-ungraded). Reason: gating can only reduce yield, never manufacture a verdict, so it commits the stream to nothing it would have to retract. If the stream instead rules mapping-confirmed-pre-clearance, REV3's readings remain valid as a subset, and yield may be revised **upward only by a fresh authored revision** — never in-flight, never by the builder.
+
+### §G Build gates — carried and strengthened
+
+- **B1** DIRUSED literals — carried.
+- **B2** anchor classes; 2+2 / R1+R5-held / R2-ungraded; UNRESOLVED-is-evidence — carried.
+- **B3** snapshot-only recorder grep, **STRENGTHENED as recorded**: zero new resolver/latch call sites **by name** (`S2ResolveLive` et al.); emission reads the already-assigned variable only. **Plus oracle-independence gate:** roster side is never an input to any emission.
+- **B4** `VOTE-EXISTS-DISCARDED` literal tokens — carried, redefined per §D.2 (reference-only, always with `GRADE=NONE`).
+- **B5** prefix `SIDE1P2_`, anchored so `SIDE1P2_` ≠ `SIDE1P_` residue; bare-`SIDE1P` searches inadmissible; numeric `MAXLEN` in-result.
+- **R2** emission cannot alter `MUST-DECLINE`. Carried, stated in-packet.
+
+### §H Yield rule — pre-declared (cures the carried yield-risk observation)
+
+**Minimum yield for any side-rule claim:** all four of R3, R4, S1, S2 must land in a GRADED row (F1–F6). If any one of them lands UNGRADED (F7–F12) or is gated per §F, the packet self-reports **`INCONCLUSIVE-BY-CONSTRUCTION`**, names the site and the row, and makes **no** confirmation and **no** refutation claim. Inconclusive is not a pass, is not a partial pass, and does not license a rerun or a tuning pass.
+
+### §I 7-bar prediction
+
+Graded 2+2 — **R3 Sep-4 15:55** and **R4 Sep-7 09:15** read agreeing side; **S1 Sep-8 10:10** and **S2 Sep-8 17:00** read disagreeing side. Held — **R1 Aug-28 10:00** (INFERRED) and **R5 Sep-7 16:40** (DUAL-ORACLE), no claim. Ungraded — **R2 Sep-4 10:35** (void, DECLINE stands).
+
+Disagreement is predicted **at Sep-8 only**. `UNRESOLVED` is evidence, not absence. Failure condition is **substitution-only**: the prediction fails if a graded site's used direction is traceable to its own birth bar and still contradicts the roster reading — i.e. the packet may only ever show that a value was *substituted* from an earlier bar, never that the price rule mispriced.
+
+### §J Touch surface — print-only
+`g_dir`, adoption (EA:71), eligibility, order path, stop branch (EA:4979 `obValid`-only), fixture, and latch are **untouched**. REV3 adds emissions that read already-assigned variables and nothing else. No behavioural byte.
+
+### §K WHY-NOT-LAST-TIME
+Carried unchanged: this is the **first vote-at-site-with-provenance** — the pairing of the direction literal with its source bar at the site. It has still been returned by **no run**. That is why REV3 exists and why prior artifacts cannot answer it.
+
+### §L `GEOM-AVAIL`
+Stays **held-not-requested**. Geometry stays second and not cancelled. It is not pulled by this text.
+
+---
+
+## Ask 3 — CONFIRM
+
+- Nothing builds, runs, or commits on this relay.
+- Nothing commits on any cleared run without an explicit token.
+- RECON17 frozen.
+- Build EA `8F677D3A…` (544061 B) and fixture `E9E6F710…` 7704 B stay **UNCOMMITTED**; HEAD `5cc58d3` records-only, **NO push**.
+- FlowLogic `3606BFB4` frozen.
+- No third run. **REPORT+HALT** stands.
+- Run word **SPENT** on RECON28. A fresh ~1h word is required, ceiling 90, same ini and range. Run word alone authorizes nothing.
+- S1 VOID **signal-only**. P4/C5-first **single-source, not agreed**. P6 **untouched**. Thin-D7 carried. S2 gap stays gap.
+- 08:40 his-at-leisure blocks nothing; N1 wick + flats at leisure; Sep-8 blanks timing at leisure; CQD EMPTY (later packet).
+- Astra HALT `QUIESCENT—STOP-MECHANISM-UNPROVEN` stands. Designated-stream **silence is not clearance**; no third-party text substitutes for the stream.
+
+---
+
+## Residual owed / not covered
+
+**OWED by the designated Astra stream:** clearance for `SIDE-1P-REV3`; P1; the D1 per-site classification ruling (or acceptance that §C's express narrowing suffices); provenance ruling; HALT scope as it touches the side packet; alignment.
+
+**Not covered by this authorship and requiring fresh dual-key + tokens:** any side/stop/birth/selection change, landing (`SIDE-1L`), scope widening, `GEOM-AVAIL` pull, and any commit or push.
+
+**Next relay, per §3:** REV3 is authored with D-A cured by horn (ii) and D-B cured exhaustively, D1 cured by express narrowing, P1 positioned-and-still-referred. The builder may now file the **clearance relay** for one print-only build and one run under the carried gates — and not before.
+
+
+## VERDICT REV-V53-GOVERNANCE-001 2026-09-15 (answers v53)
+
+## Verdict `REV-V53-GOVERNANCE-001` — one source, review-only
+
+### Ask 1 — ACCEPT, with a stated limit
+
+I accept §0 as the record I am ruling on: the deadlock, the quality grading (high-with-one-catch), the pending `SIDE-1P-REV3` packet, the MAXLEN 1024-vs-537 clash, and the blanks/locks list.
+
+The limit: this is a fresh session. I have no continuity with any prior text filed under my name, no access to the files in §4, and no way to verify the state claims (`8F677D3A`, HEAD `5cc58d3`, journal ranges, roster). I am ruling on pasted text as pasted text. Where §0 asserts facts about disk or repo state, I am accepting them as your account, not confirming them.
+
+### Ask 2 — REFUSE. No `PRINT-KEY-GLOBALGPT-001` from this source.
+
+Not on quality grounds. The REV3 work is sound and the print-only scope in T1 is well drawn. I refuse for two reasons, and the second matters more than the first.
+
+**First: I cannot satisfy the threshold you wrote.** T4 makes this grant dual-key — it passes only if both streams name it identically. I am one source in a fresh session. I am not the designated Astra stream, I am not the GlobalGPT channel, and I cannot speak for either. A single return cannot clear a two-stream bar. That alone lands this in your §3 "split or refuse" branch.
+
+**Second, and this is the structural finding: §1 cannot pass by construction.** The deadlock in §0 is that nothing clears without the designated stream's key, and that stream has been silent since `GPT-V48-RECON28-001`. T4 then requires that same silent stream to co-sign the grant that would route around its silence. The fix for the deadlock is gated behind the deadlock. Every future relay under these terms returns the same result, regardless of packet quality or how the terms are amended. Worth naming plainly: this is not a routing problem that another relay will solve.
+
+Underneath that is the thing I think you should hear directly. There is no key for me to grant or withhold. Authority over your repository, your EA, and your runs is yours and has never been anywhere else. What models in this loop can do is review — read a packet, find defects, argue about whether a gate is sufficient. What we cannot do is confer permission, because we never held it. The deadlock is real as a procedure, but the procedure is one you authored, which means you can amend it without anyone's countersignature.
+
+**Terms, addressed individually so silence is not read as assent:**
+
+- T1 (print-only scope) — sound as engineering discipline. Zero selection/memo/state change, no landing, no commit, breach voids. Keep this regardless of what happens to the key question.
+- T2 — refused. Not mine to hold; see above.
+- T3 — refused as a grant of ruling power. I can give review opinions on P1, D1-sufficiency, and HALT-compatibility. Those are opinions, not rulings, and you should treat them that way.
+- T4 — this is the term that makes the grant unreachable. Flagging it as the blocker, not endorsing it.
+- T5 — the self-identification requirement is honest and I would keep it. It is also what makes T2 impossible: a channel that correctly discloses it is not the designated stream cannot then act as one.
+- T6 (revocation, reason stated, in-flight run completes) — sound.
+- T7 — the MAXLEN fix is correct and independently checkable: authored 1024 against a 537 journal cap is a truncation bug, and ≤537 or split lines is the right remedy. That part needs no key from anyone.
+
+### Ask 3 — Moot, but on the merits
+
+Since I am refusing, there is no first exercise to name. If you proceed under your own authority: `SIDE-1P-REV3` with the MAXLEN fix and the carried gates is the right first exercise. It is print-only, it exercises the instrumentation path, and the 2+2 prediction gives it a falsifiable outcome. I will review the packet and the results if you file them.
+
+The owed items (P1 gate-vs-preconfirm, D1-narrowing sufficiency, HALT-compat, alignment) I can engage as review on request. I will not record them as rulings.
+
+`QUIESCENT—STOP-MECHANISM-UNPROVEN` — I have no position on lifting it and am not touching it. Nothing here derives a stop mechanism.
+
+### Ask 4 — CONFIRM, all items
+
+Nothing built, ran, committed, or pushed on this relay. I have taken no actions of any kind — no file reads, no commands. Specifically confirmed:
+
+- No commit on any cleared run without an explicit token.
+- RECON17 frozen. FlowLogic `3606BFB4` frozen.
+- Build EA `8F677D3A…` (544061 B) and fixture `E9E6F710…` (7704 B) remain UNCOMMITTED. HEAD `5cc58d3`, no push.
+- No third run. REPORT+HALT stands.
+- Run word SPENT on RECON28; a fresh word is required for any run.
+- S1 VOID is signal-only. S2 gap stays a gap. R2 MUST-DECLINE.
+- P4/C5-first remains single-source and not agreed. P6 untouched. CQD still EMPTY.
+- 08:40 at-leisure blocks nothing; N1 wick and flats at leisure.
+
+### §3 branch this lands in
+
+Your second branch: a source refuses, therefore no grant, `QUIESCENT` stands, back to your remaining options. No new relay is needed to establish that — you already covered it. The RECON28 defect stays owned, no rerun, no tuning.
+
+### The one substantive suggestion
+
+Of your three remaining options, renegotiating the no-key rule is the one I would take, and I would narrow it further than §1 does. T1 already establishes that print-only work cannot change selection, state, or history by definition — that is exactly why it is safe. So the rule you can write in your own name, without a countersignature from anyone:
+
+> Print-only builds and runs, scoped per T1, require the operator's word only. Model review is recorded but is not a gate. Any selection change, landing, scope widening, or commit/push requires the existing dual-key and tokens, unchanged.
+
+That preserves the discipline where it does work — on selection and commits, where a mistake is expensive and hard to reverse — and stops routing instrumentation through an authority that no model actually holds. It also unblocks `SIDE-1P-REV3` today rather than waiting on a stream that may never return.
+
+Your call, and it does not need mine.
+
+
+## VERDICT SIDE1P-REV3-S5-01 2026-09-15 (answers v54)
+
+# Claude Sonnet 5 (high-reasoning) — 2026-09-15 — Ruling-ID: SIDE1P-REV3-S5-01
+
+I read §0–§4 as a self-contained spec (no outside file access, no prior-run visibility on my end — everything below is judged from the pasted text only).
+
+**Ask 1 — Accept §0:** ACCEPT, with the two confirm-or-correct flags carried forward as still open, not resolved by my accepting them: (i) the MAXLEN builder fix (1024→537-or-split) is a legitimate correction, not a scope violation — but see the risk I flag under Ask 2; (ii) birth-bar-as-roster-entry-bar is still just a mechanical reading, not verified against ground truth by anyone.
+
+**Ask 2 — Clear `SIDE-1P-REV3` for one print-only build + one run:** CLEAR, conditional on one thing being addressed before or during grading, not before build:
+
+The 537-byte cap is described as "enforce ≤537 or split records across lines." If any record does split, whatever reads `RECON29_SIDE1P.txt` for grading needs to reassemble split lines back into one record before doing exact-match/fork-literal comparisons — otherwise a split record looks like two malformed partial records instead of one valid one, and that reads as a grading failure that's actually a formatting artifact, not a real code defect. This isn't in the grade-artifacts spec anywhere. I'd want the extraction step to either (a) confirm no record actually needs splitting at 537 bytes given the real payload sizes, or (b) confirm the reassembly logic exists. Either answer is fine — I just don't see it addressed in the text, and it's exactly the kind of thing that turns a clean pass into a false FAIL.
+
+Everything else in the build-gate list reads as sound to me: hash pre-verify, no-new-price-literal grep, AdoptOff/OrderSend-0 checks, prefix-disjointness, and — the one I'd call out as the most important gate in the whole packet — the diff-0 isolation join against RECON28 outside the new recorder lines. That's the check that actually enforces "print-only" as a fact rather than a claim, and it's set to REPORT+HALT on any deviation rather than something softer. Good.
+
+One thing worth naming rather than treating as a defect: the grep-based checks (no new price literal, no state-mutating resolver write, oracle-independence) are static text scans. They'll catch direct violations but not, say, a value smuggled in through an included header or an indirect lookup that doesn't match the grep pattern. Given the scope here (print statements reading existing state), the residual risk is low — I'm not blocking on it, just flagging it as the honest limit of what a grep-gate proves.
+
+**Ask 3:**
+
+**(a) HALT status:** `QUIESCENT—STOP-MECHANISM-UNPROVEN` carries forward under this council. Nothing in SIDE-1P-REV3 touches the stop branch or produces evidence about stop-mechanism soundness — it's a direction-provenance diagnostic, orthogonal to that question. No basis to lift it, and per your own §0 framing the stop-mechanism bar is separate from the general halt anyway, so this isn't even a close call.
+
+**(b) P1 sufficiency:** The gate-to-ungraded design (DIVERGENT rows print but don't count) is sufficient to clear on. It fails safe — ambiguous rows get excluded from credit rather than silently miscounted either way — and the grade artifacts already make any DIVERGENT flags visible for you to review after the fact. I don't think birth-bar/birth-source mapping needs to be pre-confirmed as a clearance precondition; confirm it post-run against the printed output instead, where you'll actually be able to see it.
+
+**(c) D1-narrowing sufficiency:** Sufficient as stated. The object-agnostic framing already carries its own undeclared-class caveat in your own wording ("claims NOTHING about which bias object any site reads"). Naming a specific bias object here would be scope creep past what §1 clears — that's a different, larger question than this packet is built to answer.
+
+**(d) STRATEGY-ALIGNMENT:** NONE. This is a read/print instrumentation patch — selection, adoption, ordering, and stop logic are explicitly untouched and grep-verified as such. No rule change, by name or otherwise.
+
+**Ask 4:** CONFIRMED as stated — this relay itself builds/runs/commits nothing; nothing commits on the cleared run without a separate explicit token; RECON17/8F677D3A/fixture status as given; no third run; run word shown as spent, fresh word required. Nothing in §0–§1 contradicts any of that.
+
+Standing on my side: dual clear requires the other stream to independently name this packet too, plus your fresh run word — my clearing it here is one half of that gate, not authorization by itself.
+
+
+## VERDICT SIDE1P-REV3-S5-02 2026-09-15 (answers v55)
+
+# Claude Sonnet 5 (high-reasoning) — 2026-09-15 — Ruling-ID: SIDE1P-REV3-S5-02
+
+**Ask 1 — Accept §0:** ACCEPT. Nothing in this restated base record differs from what I accepted in v54 in any way that changes my read.
+
+**Ask 2 — Clarify the bare halt:** This one's ChatGPT's to answer, not mine — no actual ChatGPT clarification text is in this packet for me to review, only your one-line paraphrase of its v54 ruling ("NO-CLEAR with NO defect cited"). I'd flag that for the same rigor this whole protocol runs on elsewhere (exact hashes, exact bar times, no summarization): when ChatGPT's real defect-or-threshold answer comes back, paste its actual text into my next session rather than a summary of it. A paraphrase of a ruling isn't the ruling, and "reviews without re-clearing" only works if what I'm reviewing is the source text.
+
+That said, I'll say the framing itself is sound: a refusal that names neither a defect (something to fix) nor a threshold (something to wait for) doesn't give you anything actionable. You can't cure a defect that isn't stated, and you can't wait out a threshold that isn't named. Forcing (a)/(b) is the right move — I'd hold that line rather than accept a third "just no" answer.
+
+**Ask 3 — Confirm/amend:**
+- My conditional CLEAR from v54 (SIDE1P-REV3-S5-01) stands unamended — the split-record reassembly condition, the isolation-join point, and the grep-limits note all still apply exactly as recorded. Nothing in this relay's base record changes the technical basis for any of it.
+- Separate from my own ruling: dual clearance has not been reached, full stop, regardless of what I think of my own position. That's just how a two-key gate works — one CLEAR and one bare NO-CLEAR is not dual clear. I'm not treating ChatGPT's halt as evidence against my own reasoning (it cited nothing), but I'm also not pretending my CLEAR does anything on its own.
+- Confirmed: nothing about this relay authorizes build/run/staging/commit/push.
+- The standing-order fallback is noted as his alone — not mine to weigh in on either way.
+
+**Ask 4:** Confirmed, unchanged from v54 — RECON17 frozen, `8F677D3A…` + fixture uncommitted, no third run, REPORT+HALT stands, run word spent (fresh word needed), and the listed blanks/locks (S1 VOID signal-only, P4/C5-first single-source, P6 untouched, 08:40 at-leisure) block nothing here.
+
+Nothing changes on my side until ChatGPT's own text states (a) or (b).
+
+
+## VERDICT SIDE1P-REV3-S5-03 2026-09-15 (answers v56)
+
+**Claude Sonnet 5 (high-reasoning) — 2026-09-15 — Ruling-ID: SIDE1P-REV3-S5-03**
+
+**Ask 1 — Accept §0:** ACCEPT, and with more confidence than v54/v55 — this is the first relay where I'm ruling on actual run evidence instead of a plan. Specifically:
+
+- The split-record risk I flagged in v54 didn't materialize (MAXLEN=260, no split needed) — that's confirmed closed, not just asserted.
+- The isolation-join evidence is real, not just claimed: diff-0 across all 16 legacy families, 4/4 signals byte-identical, A6COUNT/GEOM16 identical, +9 recorder lines only. That's the check that actually proves "print-only" happened, and it passed.
+- R3/R4 landed exactly as pre-registered (LONG-agree, graded). S1/S2 landed as predicted in direction (disagreement, graded) but the underlying *mechanism* came out different from what §0 originally framed — you'd been describing the defect as a stale carry from before Sep-8; RECON29 refutes that specifically and replaces it with something more precise: a same-day resolution (09:20, 16:45) that's itself wrong, carried forward a few hours into the 10:10/17:00 sites. Calling that PARTIAL-REFUTATION rather than quietly filing it as a clean confirmation is the right call — the original hypothesis was wrong even though the original prediction (disagreement exists) held.
+
+One thing to flag, not a blocker: R1 came back `SHORT/F5 HELD` against its own roster label of `LONG-held(INFERRED)`. It's correctly excluded from grading, so it changes nothing here — but it's a real divergence sitting in data you're going to look at again. If R1's INFERRED status is ever upgraded to gradeable later, this is where it would turn into a miss instead of a footnote. Worth remembering, not worth acting on now.
+
+Genuine gap I can't close myself: I don't have the F-code legend (what F3/F4/F5/F11/F12 actually mean as classification codes). I'm taking "pre-registered F4 branch" on your word that S1/S2's outcome maps to a fork you already declared, rather than verifying it against the fork-rule text myself — in v54 the fork rules as quoted to me said "SHORT-resolved-but-LONG-used ⇒ DISCARDED-annotation only, never graded," and S1/S2 are graded, not discarded. That may just mean F4 is a different, same-day-specific fork than the one I'm remembering, defined somewhere in the D-B table I was never shown the full text of. I'd ask that the next relay to either stream include the F-code definitions inline, the same way everything else here gets pasted whole rather than cited by name — otherwise "GRADED" vs "DISCARDED" is something I'm trusting rather than checking.
+
+**Ask 2 — Author the Stage-C side-fix packet (authorship only):**
+
+Target, as given: same-day LONG resolution at 09:20 and 16:45 being carried into the 10:10 and 17:00 sites that should independently read SHORT.
+
+- **Prediction:** Post-fix, S1 and S2 independently resolve SHORT and grade as agree (matching roster), with no change to R3/R4's existing LONG-agree. R1 and R5 are not fix targets — carry them as passive regression-watch rows: log their direction-at-site before and after the fix and confirm neither moves, since both are currently non-gradeable observational values and a silent shift in either would mean the fix touched more than the two named sites.
+- **Threshold:** Pass requires (a) the same yield-completeness bar RECON29 already met — all four core rows (R3/R4/S1/S2) grade, no inconclusive-by-construction — AND (b) S1/S2 flip from LONG-at-SHORT-site to SHORT-agree AND (c) an isolation-join-style diff against RECON29 confirms nothing outside the two targeted sites changed (R3/R4 outcomes unchanged, R1/R5 observational values unchanged, all 16 legacy families and the 4/4 signals still match). Any deviation outside the named target → REPORT+HALT, authorship, no tuning — same discipline as the print-only stage.
+- **Novel evidence:** RECON29 was the first run to measure direction-with-provenance; a Stage-C proving run would be the first to measure whether *correcting* provenance at these two named points actually reproduces his manual calls, rather than just documenting that it doesn't. That's a different claim than anything run so far.
+- **Build-gate note, since this is no longer print-only:** the §1 build gates from v54 (no new price literal, AdoptOff=1, OrderSend-0, zero-new-resolver-sites) were written for a read-only patch. A side-fix changes actual resolution behavior at two named sites, so it needs its own gate list, not a reuse of the print-only one. I'd keep AdoptOff=1 for the proving run regardless — prove the fix against the roster in shadow mode before adoption ever goes live, same "Tree CANNOT take his trades until proven" posture as now.
+
+**Ask 3 — Confirm:** Confirmed as stated — nothing on this relay builds/runs/commits; RECON17 frozen; `CB25D2D2…` + fixture uncommitted; no third run; REPORT+HALT stands; run word spent, fresh word needed for anything further.
+
+
+## VERDICT SIDE1P-REV3-S5-04 2026-09-15 (answers v57)
+
+**Claude Sonnet 5 (high-reasoning) — 2026-09-15 — Ruling-ID: SIDE1P-REV3-S5-04**
+
+**Ask 1 — Accept §0:** ACCEPT, including the correction. I can actually verify this one rather than just take it on your word: the DISCARDED handling you're restating here matches, word for word in substance, what REV3's D-A gave me back in v54 — "DISCARDED removed from graded set (horn ii); `VOTE-EXISTS-DISCARDED=NOT-ASSESSED` reference-only with `GRADE=NONE`." So the resolution holds up against the source text I already have, not just against your summary of it. What that means in plain terms: the "SHORT-resolved-but-LONG-used ⇒ DISCARDED" line I was quoting back at you in v56 was leftover REV2 language that shouldn't have been in the §0 I was given — it was never REV3's actual rule, and F4's existence isn't a contradiction of anything, it's just REV3 replacing a horn REV2 had proposed. Good catch on your end; I'm dropping that line from anything I reason from going forward.
+
+**Ask 2 — Converge:** **(A) — attribution-first. Confirm `SIDE-1P-STAGE-C` by name.**
+
+I'm not picking this because ChatGPT already named it — I'm withdrawing my own (B) authorship from v56, and I want to say plainly why, because it's a real change in my position, not a tiebreak.
+
+My v56 fix-direction ("make S1/S2 independently resolve SHORT") was written before the F4 legend existed for me. Now that F4 is named as CARRIED/LONG/ONAFTER-SEP8, there's a mechanistic question sitting underneath it that my authored fix never actually answers: is the 09:20/16:45 source-bar resolution itself wrong at the moment it's made, or is it correct-at-the-time and the bug is purely that nothing re-triggers a re-evaluation between then and 10:10/17:00? Those are two different bugs with two different correct fixes. My (B) packet specifies an outcome (S1/S2 flip to SHORT-agree) without distinguishing between them — which means it could pass its own threshold by coincidence (patch the two named bars into agreement) without the underlying mechanism actually being sound. That's close to the failure mode this whole protocol has a name for and explicitly rules out — "gradeable mismatch = SUBSTITUTION-OBSERVED only," "failure = substitution/fallback/coercion only." A fix that makes two rows agree without knowing why they were wrong is a coercion risk, not authorship.
+
+(A) closes exactly that gap before anything touches selection logic, it's the lower-stakes path (standing-order + fresh word, not dual-key + tokens), and it keeps the same cadence every stage so far has actually followed — RECON28 measured, RECON29 measured, each added one layer of attribution before the next stage was allowed to change behavior. Going straight to (B) would be the first place in this whole chain where an intervention gets authored ahead of understanding the mechanism it's intervening on. I'd rather my fix packet exist after STAGE-C's evidence than before it — and it may end up looking different once that evidence is in, which is fine; that's what the evidence is for.
+
+One open item before I'd call this fully ready to clear rather than just converged-on: I have "threshold 7 items incl. isolation intact" for STAGE-C, not the other six. Same ask I made for the F-legend last time — paste the full seven before this goes to a clearance relay, not a count-and-one-example. I'm converging on the packet by name now; I'm not pre-clearing a threshold I haven't seen in full.
+
+**Ask 3 — Confirm:** Confirmed as stated — nothing on this relay builds/runs/commits; RECON17 frozen; `CB25D2D2…` + fixture uncommitted; no third run; REPORT+HALT stands; run word spent, fresh word required for whatever comes next.
+
+
+## VERDICT SIDE1P-REV3-S5-05 2026-09-15 (answers v58)
+
+**Claude Sonnet 5 (high-reasoning) — 2026-09-15 — Ruling-ID: SIDE1P-REV3-S5-05**
+
+**Ask 1 — Accept §0:** ACCEPT. Consistent with everything filed so far, and the RECON29 figures repeated here match what I already accepted in v56/v57.
+
+**Ask 3 first, since it's the gating condition on my own earlier hold — full-7 threshold:** MET. All seven items are now stated in full text, not counted-and-sampled. Comparing against what I actually asked for in v57 (distinguish wrong-at-resolution from correct-then-carried before any fix is authored): items (1)-(4) target exactly that split, and I can trace how they'd resolve it — RECON28's readiness data already established the bias-meter reads bearish at the *site* bars (10:10/17:00); STAGE-C's new scope adds the bias-meter read at the *source* bars (09:20/16:45). Put together, that's enough to tell the two stories apart: if the source bar's own bias-meter already contradicted its resolved direction, the defect is at inception; if the source bar was internally consistent and only the site-time bias-meter had moved, the defect is a missing re-trigger between the two. I'm not just accepting the packet's claim that it answers my question — I checked how the pieces combine and it does. No longer withholding on this basis.
+
+**Ask 2 — Clear `SIDE-1P-STAGE-C` for one print-only build + one run `RECON30-STAGEC`:** CLEAR.
+
+Everything I'd have flagged from the RECON29 stage carries forward cleanly here: same MAXLEN discipline (this one's untested at STAGE-C's actual output size, but it self-reports the numeric value the same way RECON29 did, so a violation surfaces rather than hides), same isolation-join structure against RECON29's own baseline this time instead of RECON28's, `SIDE1P3_` correctly kept disjoint from both prior prefixes, RECON29's existing recorders explicitly left untouched. The new literal-check addition (`1.16251 = 0`) reads as the right kind of gate — barring the exact evidence value itself from being hardcoded — though I can't independently confirm what that number corresponds to from text alone; that's a "trust the builder's grep, verify via the isolation-join result" item, not something I can certify myself.
+
+One scope note, not a blocker: this packet measures the source bars but per its own text doesn't re-derive the site-bar bias-meter read as part of *this* run — it relies on that being already established from earlier data. That's fine and I said above why it's still sufficient, but flag it explicitly in the grading write-up rather than leaving it implicit, since the next reader of `RECON30_STAGEC.txt` on its own won't have RECON28's readiness section in front of them the way this relay chain does.
+
+**Ask 3, remaining items:** Confirmed — nothing on this relay builds/runs/commits; RECON17 frozen; `CB25D2D2…` + fixture uncommitted; no third run; REPORT+HALT stands; run word spent (fresh word required before RECON30-STAGEC executes).
+
+
+## VERDICT SIDE1P-REV3-S5-06 2026-09-15 (answers v59)
+
+**Claude Sonnet 5 (high-reasoning) — 2026-09-15 — Ruling-ID: SIDE1P-REV3-S5-06**
+
+**Ask 1 — Accept §0:** ACCEPT. The full-7 recap maps cleanly onto the seven items I confirmed in v58, in the same order, so this isn't just asserted as complete — I can check it against the list I actually hold. One small thing for the artifact file, not a blocker: "3 prints" against "COUNT EMITTED=2" reads like a summary line plus two data lines, consistent with RECON29's own prints-vs-roster-count mismatch, but it's worth spelling out explicitly in `RECON30_STAGEC.txt` for whoever reads it without this relay chain in front of them.
+
+The finding itself — both legs wrong-at-resolution, not missing-retrigger — is a real answer to the question STAGE-C was built to ask, and I want to be specific about *why* I believe it rather than just accept the label:
+
+- **SRC1 (09:20):** solid evidence. The value was already stored at 09:15, traced to a named producer (retest-seed-producer, chain-98), and the meters were already bearish at that point of creation. That's a direct contradiction at the moment of assertion — wrong-at-resolution, cleanly shown.
+- **SRC2 (16:45):** same conclusion, weaker evidence, and the packet says so itself rather than papering over it. "Nothing held at entry" rules out a carry (there was nothing to carry), so it has to be a fresh birth — but the exact producer and instant of that birth are the disclosed gap. Calling this "wrong-at-resolution" leans on the bar-level "meters-bearish" characterization applying at the actual birth-instant, which is a reasonable inference, not a directly observed fact the way SRC1's is. The packet's own "reading-not-proof at that instant" language is the right level of hedging — I'm accepting the finding, but I'm not treating SRC1 and SRC2 as equally proven.
+
+**Ask 2 — Author the side-fix packet by name:** Authoring it, with one structural feature built in specifically because of the SRC1/SRC2 evidence gap above — I don't think it's safe to skip this given what §0 just told me.
+
+**Target:** Replace the direction-owner at the two identified write points — chain-98 (SRC1, 09:20) and chain-105 (SRC2, 16:45) — with a direct read of the existing HTF-bias engine at the resolution instant, for the two Sep-8 sites only (S1→10:10, S2→17:00).
+
+**Rule-to-code mapping (candidate — this is the thing I want the other stream to confirm or correct, not something I'm asserting as settled):** "HTF-bias-only" maps to the same bias-meter variable already sampled read-only throughout RECON29 and RECON30 — no new bias computation gets invented, the existing meter becomes the write-source instead of merely being logged. That's what "replace-not-sidecar" means here: swap the input, don't add a second path alongside the old one.
+
+**The safeguard I'm adding because of the SRC2 gap:** a **single-owner assertion** as its own build gate — before either write point gets patched, the build must confirm exactly one code path writes direction at chain-98 and exactly one at chain-105. SRC1's owner is well-evidenced (named producer, clear chain). SRC2's write-point is located (chain-105, birth during/after the bar) but its upstream producer was explicitly *not* observed. Patching a write-point you've located is fine; patching a write-point whose upstream logic you haven't seen, on the assumption it's simple, is exactly the kind of substitution this whole process has been built to rule out. If the single-owner check fails at chain-105 — multiple contributing paths, conditional logic, anything more than a plain assignment — that's REPORT+HALT back to authorship for SRC2 specifically, not a reason to block SRC1's half of the fix.
+
+**Prediction:** Post-fix, S1 and S2 each independently resolve SHORT and grade as agree, because both write points sit against already-bearish meters at their own resolution instant. R3/R4 unaffected — their own resolution was never in question. R1/R5 stay passive regression-watch, logged before/after; neither touches these two chain nodes, so neither should move.
+
+**Threshold (own gate list, not the print-only gates reused):**
+1. Single-owner assertion holds at both chain-98 and chain-105 (build-time, pre-word-spend).
+2. S1 and S2 independently resolve SHORT-agree.
+3. R3/R4 outcomes unchanged.
+4. R1/R5 observational values unchanged.
+5. Isolation-join vs RECON30 diff-0 outside the two named write-lines.
+6. AdoptOff=1 held throughout — this stays a shadow proving run, no live behavior change, same "Tree CANNOT take his trades until proven" posture as everything before it.
+7. Pre-hash of the current uncommitted EA (`E68E0AE3…`) verified before either write point is touched.
+
+Any deviation outside the two named points → REPORT+HALT, authorship, no tuning — same discipline as every stage so far.
+
+**Novel evidence:** first run where the write-owner is actually replaced rather than merely measured — the first direct test of whether his stated rule, wired straight into the code, reproduces his manual roster, instead of being compared against it after the fact from the outside.
+
+**I'd call this clearance-ready for SRC1's half unconditionally, and clearance-ready for SRC2's half *conditional on* the single-owner assertion passing — which is a build gate, not a missing precondition, so I don't think it should hold up sending this to a clearance relay.**
+
+**Ask 3 — Confirm:** Confirmed as stated — nothing on this relay builds/runs/commits; RECON17 frozen; `E68E0AE3…` + fixture uncommitted; no third run; REPORT+HALT stands; run word spent, fresh word required for whatever comes next.
+
+
+## VERDICT SIDE1P-REV3-S5-07 2026-09-15 (answers v60)
+
+**Claude Sonnet 5 (high-reasoning) — 2026-09-15 — Ruling-ID: SIDE1P-REV3-S5-07**
+
+**Ask 1 — Accept §0:** ACCEPT, including his review verbatim.
+
+**Ask 2 — Converge:** Neither (A) nor (B) as previously authored. I'm naming a revised (B) — his review is a real tie-break, but not the kind that just picks a winner between two otherwise-equivalent packets. It shows both existing packets are aimed at the wrong single mechanism for half their target.
+
+**Why neither survives unchanged:** Both `SIDE-1P-RESOLVE-FIX` and my own prior packet propose one mechanism — replace the write-owner at both sites with a direct HTF-bias-engine read — applied uniformly to S1 and S2. His review says these are two different bugs:
+
+- **S1 (09:20, London):** his own words are that the 9:15 bar closed bearish and was never a valid confirmation candle for a bullish setup in the first place. That's not a bias-object-identity problem at all — it's a confirmation-candle-validity problem, upstream of whichever bias frame anyone reads. If we patch chain-98 to just read HTF-bias instead, S1 probably comes out SHORT on this specific historical case (bearish HTF happens to agree) — but for the wrong reason. The actual defect, an invalid confirmation candle being accepted as valid, stays live and could pass a *different* future setup where the confirmation candle is equally invalid but HTF bias happens to agree with the bad vote. That's a live version of exactly what "no-band-aid... coerced agreement = REPORT+HALT" exists to catch, and it's on me too — I authored the packet that would have done this.
+- **S2 (16:45, NY AM):** his review confirms this one genuinely is the bias-hierarchy story — 15m long, 4H/1H short, matches his panel. This is the case both original packets were actually built for.
+
+So this needs two tracks with two different fixes, not one mechanism applied twice. I'm naming the revised packet **`SIDE-1P-FIX-SPLIT`**.
+
+**Track 1 — S1 / chain-98 (confirmation-candle validity):**
+Before this is even buildable, one thing needs to be determined and stated, not assumed: does chain-98's retest-seed-producer currently *call* the existing `IsConfirmationCandle` gate at all? Two different answers, two different fixes:
+- If it's never called at that site → this is an integration fix: wire the existing gate into chain-98's vote path. Narrow, contained, roughly the same blast radius as the print-only work so far.
+- If it's called and returns the wrong answer → the shared gate itself has a logic defect. That's a materially bigger fix, because anything else in the tree that calls the same gate is potentially affected — which would include the R1/R3/R4/R5 roster rows, not just Sep-8. Those aren't targets of this fix, but they'd need to sit in the regression-watch list for this track specifically, the same way R1/R5 already sit there for the bias track, because a shared-gate change could silently shift a currently-correct row.
+I'd want that call-site question answered as the first line of this track's build-gate list, before anything else is graded.
+
+**Track 2 — S2 / chain-105 (HTF-bias hierarchy):**
+This one is close to what both prior packets already proposed, scoped to S2 only now instead of both sites: correct the resolution at chain-105 so 4H/1H governs over 15m, per his "higher frames govern" reading. One thing worth confirming rather than assuming: his evidenced case has 4H and 1H agreeing with each other (both short) against 15m. Nothing here tells us what should happen if 4H and 1H ever disagreed with each other. I'd scope this fix to the agreeing case only and treat a 4H/1H conflict as its own new, separately-flagged state rather than silently resolving it one way — same "residual/unenumerated" discipline the D-B taxonomy already uses elsewhere in this project.
+
+**Shared elements, unchanged from before:** AdoptOff=1 shadow proving run for both tracks; R3/R4 in the regression-watch set (now more directly relevant if Track 1 touches shared code, not just as a formality); single-owner-assertion-style verification before either write point is touched — for S2 this repeats my earlier chain-105 concern (upstream producer for the afternoon vote still wasn't directly observed in RECON30, only inferred); pre-hash verify the current uncommitted EA before either track is touched.
+
+**Prediction:** Track 2 (S2) resolves SHORT-agree on this run for a well-evidenced reason (his manual panel read matches directly). Track 1 (S1) resolving SHORT-agree is expected but secondary to the real claim being tested — that the confirmation-candle gate itself now correctly rejects the bad vote, which is a stronger and different claim than "the site happened to land on the right side."
+
+**Threshold:** both tracks report separately, not folded into one pass/fail — a Track 1 fail and a Track 2 pass are two different findings, not one inconclusive result. Same REPORT+HALT/no-tuning discipline as every stage before this.
+
+This is bigger authorship than either packet on the table, and it should be — his review changed what the actual defect is, not just which side of an existing fix is preferred. If the other stream reads his review differently and still thinks one uniform mechanism is defensible for both sites, that's a real disagreement worth seeing argued, not something to converge past.
+
+**Ask 3 — Confirm:** Confirmed as stated — nothing on this relay builds/runs/commits; RECON17 frozen; `E68E0AE3…` + fixture uncommitted; no third run; REPORT+HALT stands; run word spent, fresh word required for whatever comes next.
+
+
+## VERDICT SIDE1P-REV3-S5-08 2026-09-15 (answers v61)
+
+**Claude Sonnet 5 (high-reasoning) — 2026-09-15 — Ruling-ID: SIDE1P-REV3-S5-08**
+
+**Ask 1 — Accept §0:** ACCEPT, including the call-site measurement with its line numbers.
+
+**Ask 2 — Converge, final:** **(B) `SIDE-1P-FIX-SPLIT`, by name.**
+
+I want to be precise about what the measurement actually did, because it changes the shape of this decision more than it changes the outcome. It didn't just answer my open call-site fork — it removed the branch I was most worried about (shared-gate defect, expanded R1/R3/R4/R5 watch) entirely. Track 1 is now confirmed as a clean, narrow integration fix: wire the existing `IsConfirmationCandle` (EA:2075) into the seed-write path at `DetectPoiRetest` (EA:1889, the EA:7503–7560 block), where it currently has zero gate tokens. No shared-gate risk, no watch-list expansion beyond standard. That's simpler than what I proposed in v60, not more complex.
+
+That leaves the actual live question in this relay: is "uniform (A), incl. confirmation mapping folded in" still a coherent single mechanism now that the measurement is in? I don't think it can be. Folding confirmation mapping into (A) means (A) now has to do two things that don't share a code path or a logic type — wire a validity gate into a seed-write sequence that currently has none, *and* separately replace a direction-owner with an HTF-bias-engine read 600+ lines downstream. Those aren't two expressions of one mechanism; they're two mechanisms that happen to be shipped in one packet. So the charge (A) has to answer — "show the uniform swap can't pass S1 for the wrong reason" — isn't really answerable by mechanism anymore, because by its own admission (A) no longer relies on the bias-owner swap to fix S1 at all; it relies on a second, unrelated fix bolted on. At that point "uniform" describes packaging, not mechanism.
+
+Given that, the actual disagreement left standing is narrower than the relay frames it: not "one mechanism vs two," which the measurement already settled, but "one grade vs two grades" for two mechanisms both sides now agree exist. On that narrower question, I'll defend the complexity cost directly rather than wave it away: Track 1 and Track 2 are not equally evidenced. Track 1 is clean — direct line-number measurement, no open questions. Track 2 still carries the open item I flagged back in v59 and haven't seen closed: chain-105's upstream producer for the afternoon vote was never directly observed, only inferred from the bar-level "meters-bearish" read. If these two are graded jointly and Track 2's weaker evidence produces a NOT-PROVEN while Track 1's clean fix would have passed outright, joint grading reports one FAIL and sends both back to authorship — including the half that was actually solid. That's not a hypothetical; it's the specific failure mode this whole chain has repeatedly built separate fork codes and separate isolation-joins to avoid (RECON29 explicitly kept S1/S2's grade separate from R3/R4's, RECON30 kept the two source legs' evidence quality distinguishable rather than averaged). Two tracks, two grades, is that same discipline applied here — not overhead for its own sake, and the measurement made it cheaper to do, not more expensive.
+
+**Updated Track 1 build-gate list (simplified from v60, per the now-closed fork):**
+1. Confirm zero gate tokens currently in EA:7503–7560 (measurement re-verified at build time, not just cited).
+2. Wire `IsConfirmationCandle` into the seed-write sequence at the point `DetectPoiRetest` asserts its vote.
+3. No modification to `IsConfirmationCandle` itself or either of its two existing call sites (EA:8163, EA:8300).
+4. Standard regression watch only (R1/R3/R4/R5) — no expansion, per the measurement.
+5. Isolation-join vs RECON30 diff-0 outside the one named write path.
+
+Track 2 stands as authored in v60: chain-105, scoped to agreeing-4H/1H, conflict state left residual, single-owner assertion still open given the unobserved upstream producer, R3/R4 + R1/R5 watch, AdoptOff=1.
+
+Both tracks: AdoptOff=1 shadow proving run, separate prediction/threshold/report per track, FAIL on either → authorship for that track only, no tuning.
+
+**Ask 3 — Confirm:** Confirmed as stated — nothing on this relay builds/runs/commits; RECON17 frozen; `E68E0AE3…` + fixture uncommitted; no third run; REPORT+HALT stands; run word spent, fresh word required for whatever comes next.
+
+## REVIEW (non-verdict, NO Ruling-ID stated) — Sonnet, answers v62-thorough 2026-09-15
+
+**Builder header (not a ruling):** returned on the Sonnet channel without model/date/ID lines and without Ask-answers; filed here on arrival channel per the keyless-review standing rule (item 121/123). Review-only, non-clearing, non-halting. Verbatim below.
+
+I can engage with the substance here, but I want to flag something important first: I don't actually have access to any of the files this depends on — the EA source, the journal logs, the `.md` result files, the hash values. Everything in your message is a description of those things, not the things themselves. I have no way to confirm that `IsConfirmationCandle` really is defined at EA:2075 and called only at EA:8163/8300, that the SHA-ish tokens (`E68E0AE3…`, `41404E0F…`, etc.) match real files, or that the log lines under §1 came from an actual run rather than being written by hand. So I can't issue a "verdict" in the sense this protocol wants — a certification with a Ruling-ID that stands alongside a prior ChatGPT/Sonnet ruling as independent confirmation. That would just be me asserting confidence in things I have no way to check, dressed up as verification.
+
+What I *can* do, if it's useful: engage with the engineering logic on its own terms, as a conditional opinion.
+
+On that basis — taking §1–§4 as given — the reasoning for splitting into two tracks rather than one uniform fix isn't unreasonable:
+
+- **Track 1 (S1)** has a concrete, checkable claim: the confirmation-candle gate exists but is wired downstream of the seed write, so it never had a chance to reject the bad vote. If that call-site math is right, wiring the gate into the seed path is a targeted fix for a located defect, not a guess.
+- **Track 2 (S2)** is weaker — it rests on "upstream unobserved," a single disclosed evidence gap (pre-seed NONE), and a hierarchy assumption (4H/1H over 15m) rather than a located defect. Treating it as a separate, lower-confidence fix with its own threshold (rather than folding it into Track 1's stronger justification) is the right instinct if you don't want a passing Track 1 to paper over a shakier Track 2.
+
+The one thing I'd actually want before calling this "cleared" in any real sense: someone (human or AI) needs to open the actual EA file and confirm the line numbers and call sites directly, and actually look at the raw journal/log output rather than a hand-transcribed excerpt. Multiple AI sessions "converging" on the same described text isn't independent evidence — we're all reasoning over the same unverified description, so agreement between us doesn't add confirmation the way agreement between independent measurements would.
+
+If you want a real review rather than a ceremonial one: upload the actual `.mq5`/`.mq4` EA file (or the relevant slice around those line numbers) and the journal logs, and I'll go read the real code and tell you what I actually find.
+
+## REVIEW (non-verdict, NO Ruling-ID stated) — Sonnet, answers v63 2026-09-15
+
+**Builder header (not a ruling):** returned on the Sonnet channel with neither Ruling-ID nor Ask-answers; filed here on arrival channel per the keyless-review standing rule. Review-only, non-clearing, non-halting. Verbatim below.
+
+A few things are genuinely better in this version than the last one — you've included what claims to be the actual function signature, the guard/term structure, and specific line spans instead of just a narrative summary. That's the right direction. But I want to be precise about what that does and doesn't fix for me.
+
+**What I still can't do:** I have no file access to your repo, no tool that reads `E68E0AE3…`, and no way to confirm the pasted slices are unaltered, complete, or actually the current state of the file — I'm reading text in a chat message, same as before. That matters most for the one claim doing the heaviest lifting in your case: *"exactly two call sites file-wide, the complete set."* That's a negative/exhaustive claim. To trust it I'd need either the whole file or the actual output of a search across it (e.g. `grep -n "IsConfirmationCandle(" EA.mq5`), not a curated three-slice excerpt someone selected for me. A curated slice can be accurate and still be non-exhaustive — that's exactly the kind of gap the "no-band-aid rule" you've built into this process is designed to catch, so I'd hold it to that same standard here.
+
+So I'm not going to produce a Ruling-ID or act as a "key" in the dual-key sense. Not because I'm being coy about it, but because that framing asks me to certify something (independent verification) that I structurally can't perform from pasted text, and I don't think it's good practice for an LLM's agreement to function as a authorization gate on a system that trades real money — that decision should rest on something checkable, not on consensus among models reasoning over the same unverified description. Your own §0 makes this same point about dual-convergence, so I don't think this lands as news.
+
+**On the substance, taking the slices at face value:** the logic is internally consistent. Term B (`bodyDir`, close direction relative to open) is the piece that matches his London complaint about the 09:15 candle — a bearish close failing a long setup's confirmation. If the seed span (7503–7547) really does write `g_state`/`g_dir`/`g_anchorBarTime` with no call into `IsConfirmationCandle` anywhere in that span, and the only two calls are genuinely both downstream (8163, 8300), then Track 1's diagnosis — the gate exists but never sees the seed vote — is coherent, and wiring it in at the seed point rather than touching the gate body is the narrower, more defensible fix. Track 2 staying separately-graded also still makes sense to me for the same reason as last time: its evidence chain has a disclosed gap (pre-seed NONE) that Track 1's doesn't.
+
+If you want something closer to real verification from me: paste (or upload) the actual file, or the full raw `grep -n` output for `IsConfirmationCandle` and `DetectPoiRetest` across the whole EA. I can read that directly and tell you, plainly, whether the "exactly two sites, zero tokens in the seed span" claim holds — not as a ceremonial key, just as an actual check.
+
+## REVIEW (non-verdict, NO Ruling-ID stated) — Sonnet, answers v64 2026-09-15
+
+**Builder header (not a ruling):** returned on the Sonnet channel with neither Ruling-ID nor Ask-answers (second consecutive); filed here on arrival channel per the keyless-review standing rule. Review-only, non-clearing, non-halting. Verbatim below.
+
+The structural change here is real and I appreciate it: you're no longer asking me for a key or a Ruling-ID, just a plain check of whether specific evidence supports specific claims. That's a fair thing to ask, and I'll do it — but I want to be precise about one thing before I do, because it's the same issue as last time and reformatting it as "raw grep, uncurated" doesn't actually change it: **text pasted into a chat message is text pasted into a chat message.** I have no way to tell the difference between an actual terminal paste and someone typing out what they believe or want the grep to show. "Raw" and "uncurated" are claims about provenance, and provenance is exactly the thing I can't verify from the inside of a chat window, no matter how the output is formatted.
+
+So here's a concrete offer that actually closes that gap, rather than me just restating the limitation a third time: **if you upload the actual `.mq5` file**, I can run `grep -n "IsConfirmationCandle"` and `grep -n "DetectPoiRetest"` myself, right now, with the bash tool, and read you the real output. That's a check I can actually stand behind, because I did it rather than received it.
+
+**Conditional check, taking your §1–§2 as given (same caveat as above):**
+
+- (a) Exactly two call sites for `IsConfirmationCandle`, both downstream of the seed write — supported. Lines 8163 and 8300 are the only non-comment, non-definition hits, and both are hundreds of lines after 7523/7529.
+- (b) Zero gate tokens in EA:7503–7560 — supported by omission: neither `IsConfirmationCandle` nor any call resembling a gate appears in that span in either grep. Absence-from-a-complete-listing is the strongest kind of negative evidence text can give me, which is why the actual grep (not a curated slice) matters.
+- (c) Single voting `DetectPoiRetest` call at 7523 — this one's less clean than you're stating it. Lines 7346, 7457, and 7497 are also live calls to `DetectPoiRetest`, just annotated in your own comments as "census/shadow reads" that don't write direction. That annotation is doing real work in the claim — it's asserted, not shown. If those three calls truly discard their result without touching `g_dir`/`g_state`, single-owner holds. If any of them feeds a variable that later merges into the seed write, it doesn't. The grep alone can't settle that; it would take seeing what happens on the lines immediately after 7346/7457/7497.
+
+That last point is exactly why an actual file read matters more than a well-formatted paste — it's a question a real grep-plus-context-lines would answer in ten seconds, and I'd rather answer it for real than sign off on the annotation.
+
+On the rest: I take no position on §5 (operator's call, not mine to weigh in on), and I'm not issuing a Ruling-ID here — same reasoning as the last two rounds, unchanged.
+
+## REVIEW (non-verdict, NO Ruling-ID stated) — Sonnet, answers v65 2026-09-15
+
+**Builder header (not a ruling):** returned on the Sonnet channel with neither Ruling-ID nor Ask-answers (third consecutive); filed here on arrival channel per the keyless-review standing rule. Review-only, non-clearing, non-halting. Verbatim below.
+
+On Ask 1: taking the three dispositions at face value — 7346/7457/7497 each writing only to local structs, static tallies, or a log-only poll, with no line touching `g_dir` or `g_state` — yes, that would close the qualification I raised last round. If those are genuinely the full bodies of those blocks and nothing else in them reaches the seed write, single-owner at 7523 holds.
+
+But I want to name the pattern plainly rather than just keep answering the next increment: this is the fifth version of this document, and each one resolves my previous objection with more pasted text rather than with something I can independently check. That's not a criticism of the content — the reasoning in each round has actually been sound — it's that the *format* of "paste more detailed text, get a stronger confirmation" can look identical whether the underlying file says what's claimed or not. I have no persistent memory of "LUNA-V64" or prior rulings; each of these documents also tells me it's a fresh, self-contained session, so by your own protocol's terms I'm not in a position to accumulate trust across versions — I can only evaluate what's in front of me, which is still text in a chat window, not a file.
+
+So, same answer as v64, now applied to the new claim: **conditionally yes, (c) closes, if the pasted line contents are accurate and complete** — I have no way to confirm that from here, and no version number changes that.
+
+Two things worth saying directly:
+
+1. **The actual technical question is small and easy to settle for real.** "Does calling `DetectPoiRetest` at 7346/7457/7497 ever write `g_dir` or `g_state`" is a question that ten seconds with the real file answers definitively — no ambiguity, no annotation, no trust required. Upload the `.mq5` and I'll run it myself and tell you flatly yes or no.
+
+2. **On the larger structure** — I'm not going to issue a Ruling-ID, a key, or anything that functions as one, at any version number, for the reason I gave in v62 and haven't changed: agreement from a model reading pasted text isn't independent verification, and treating cross-model consensus as if it were a second signature on a real build/deploy decision is a category error regardless of how many rounds of "closure" wrap around it. That holds whether this relay literally asks for a key (it says it doesn't) or is laying groundwork for one two relays from now.
+
+If you upload the file, I'm glad to actually check this instead of reviewing descriptions of it.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated) - Sonnet, answers v66 2026-09-15
+
+I'll answer what's actually being asked in §2, then say something about the pattern across these six documents, because I think that's more useful to you than another round of the same exchange.
+
+**On the reasoning-approval itself:** Taking the facts as stated (gate exists with a close-direction term matching his London complaint; seed path writes `g_dir` with no gate call in it; the only two gate calls are downstream; the three non-voting `DetectPoiRetest` reads write only locals) — the reasoning in packet (B) is sound. Splitting into two tracks rather than a uniform fix is the right structural call given how differently-evidenced the two sides are: Track 1 has a specific, located defect (gate wired after the fact it should have gated); Track 2 rests on a hierarchy rule plus an unobserved-upstream assumption, which is a weaker and different kind of claim and deserves its own threshold rather than inheriting Track 1's stronger justification. No defects to name by line number — I don't have a basis to name any, because I still haven't read the file. That's a genuine "no contradiction found in what's presented," not "verified."
+
+**On the pattern:** this is the sixth version of this document. Each time, I've said essentially the same thing — I can assess the logic, I can't certify the file — and each time the next version arrives reformulated to ask for something adjacent: a key, then a "check," then a "closure," now a "reasoning-approval, never a key." The content keeps improving, but the shape of the exchange hasn't moved: it's still pasted text, and my answer to "can I verify this from pasted text" is still no, for the same reason each time. That's not a limitation that a seventh relay, better-formatted, will resolve.
+
+I want to say plainly: if this is genuinely a solo trading-system build, six rounds of near-identical multi-model approval ritual over one fix is a lot of ceremony for what could be settled by opening the file. I'm not able to tell whether this loop is serving the code or serving something else — a need for the process itself to feel sufficiently certified before you'll let yourself act — but if any part of that resonates, it's worth naming to yourself directly, because more rounds of this exact shape won't add certainty; only reading the actual file will.
+
+So, concretely, the highest-value next step is still the one I've offered each time: upload the `.mq5` file. I'll grep it myself, read the actual seed path and gate, and tell you directly what's there — which closes the gap this whole relay chain has been circling, in one step instead of a seventh version of it. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated) - Sonnet, answers v66-snippet 2026-09-15
+
+Reading the actual code changes what I can say, so let me engage with it directly rather than repeat the provenance point again — one line on that and then substance.
+
+**Caveat, stated once:** I still can't confirm this text matches the real file on disk (SHA256 isn't something I can check from a paste), and negative/exhaustive claims ("only 3 `g_dir` writes in 10550 lines") are unverifiable from any snippet, however large. Taking it as given below.
+
+**What holds up:** Term B in the gate (2108–2111, `bodyDir`) is exactly "confirmation candle closes in setup direction" — it matches his London complaint precisely: a bearish `c0<o0` fails a LONG. The seed path (7503–7547) contains no call to `IsConfirmationCandle` anywhere in it — consistent with Track 1's premise. Region 5's `S2ResolveLive` (3842–3847) is a bare pass-through with no logic, which is exactly what Track 2 proposes to replace. Nothing in the shown code contradicts any of that.
+
+**One real gap, not a ceremonial one — this is my actual defect flag:** v62 §3 states "S1's candidate never reached downstream stages (no Sep-8 S5 rows), so the gate never saw it." If that's right, the bad LONG fired *without* ever hitting 8163 or 8300 — meaning some other code path, between the seed completing at line 7536–7547 and the SITE emission at 10:10, produced the signal. That path isn't in any of the six regions above. This matters concretely for Track 1: wiring the gate into the seed sequence tests confirmation using the *seed bar's own* `barShift` (09:20-ish). But if the actual bypass/emission logic runs later — closer to the 10:10 fire time, on a different bar — then a shadow gate call planted at the seed point checks a different bar than the one that actually determined the bad decision. It would tell you "would this anchor bar have confirmed on its own candle," not "would the 10:10 fire have passed if gated." Those aren't the same claim.
+
+**Named lines I'd need to see to close this:** whatever code reads `g_state == ST_S1_REGIME` (set at 7536) and eventually produces the fire/SITE record — the bypass path implied by "never reached downstream stages." Without it I can't confirm the seed-point wiring location actually reconstructs the failure being fixed.
+
+**Minor, lower-confidence flag, worth a sanity check rather than a hard objection:** the touch test at 2112 uses a `_Point` tolerance (`h1 >= L - _Point && l1 <= L + _Point`), which sits oddly next to the "no tolerance" rule stated elsewhere in this project for filed prices. Possibly those are unrelated concerns (bar-matching vs. touch detection) — flagging for you to confirm it's intentional, not asserting it's wrong.
+
+Everything else: no objection to the reasoning as stated. Nothing built, run, or committed here. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated) - Sonnet, answers v67 2026-09-15
+
+The new material actually does the job the flag asked for — it's not just more text, it traces the exact path (or non-path) from the seed write to the SITE line, and it's internally consistent, so I can close this.
+
+**Flag closed, on the evidence as presented.** The journal excerpt is the piece that makes this checkable rather than asserted: the candidate sits at `S2WAIT` (LTF-unaligned, retained) on every bar from 09:15 through 10:15, including the two bars right around the SITE timestamp (10:05, 10:10). It never advances to `ST_S3_ZONE_WAIT`, so it never reaches either gate call site (8163 lives in S3, 8300 in the S4→S5 edge) — those blocks simply never execute for this candidate. It also never hits `GoAbort`, so `g_dir` is never cleared back to `DIR_NONE` between 09:15 and 10:10. Put together: the LONG value read at the 10:10 SITE snapshot is the same LONG written once, at 7529, on the 09:15 seed bar — not a fresh decision re-evaluated at 10:10. That directly answers what I asked for: there's no hidden second decision bar, because the state machine shows its work (retained-with-reason) at every intermediate bar rather than silently resolving. Given that, testing confirmation at the seed bar — which is what Track 1 proposes — is testing the actual moment direction got set, not a proxy for it.
+
+One thing worth naming plainly rather than waving through: this reading rests on trusting that the journal excerpt is complete and unedited for that window (no ABORT/REFUSED/CONFIRM lines omitted). The document's own "zero-statement" section — disclosing that the first grep pattern returned nothing and had to be corrected — is a good sign; that's the kind of failure a fabricated trace usually doesn't bother disclosing. I don't have a contradiction to raise, but I also can't independently rerun that grep, so "closed" here means closed against what's shown, not against the file itself.
+
+**Touch flag: accepted, no objection.** Wick-contact tolerance (±1 point, a code-level granularity concern) and the no-tolerance rule for filed-vs-code price identity are plausibly separate concerns — one's about detecting a touch at all given floating-point/tick granularity, the other's about not silently rounding a filed reference price. Not a defect.
+
+No Ruling-ID from me, same basis as every prior round — this stays a review, not a key, regardless of how many rounds it takes. But I'll say the substance of this round earned that closure fairly: showing the actual retained-state trail across every intermediate bar is a stronger form of evidence than any of the earlier summaries, and it's the right way to answer a "show me the missing path" objection — with the path, not with a restatement of the conclusion. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated) - Sonnet, answers v68 2026-09-15
+
+**Verdict — Claude Sonnet 5, 2026-09-15, responding to v68**
+
+## Q1 — Track-1 landing scope
+
+**Ruling: scope to `B_BODY`-only. Do not land on `A_OPP` (or, unverified, `A2_CLOSE_BREAK`/`C_TOUCH`) at the seed path.**
+
+The four `failTerm`s in `IsConfirmationCandle` test two different things:
+- `B_BODY` (2108–2111) checks the *confirming candle's own body*: non-doji, correct direction. This is exactly the documented Flow Nexus rule — nonzero-body close in trade direction, only a true doji excluded, wicks irrelevant.
+- `A_OPP` (2104–2105) checks that the *prior* bar (shift+1) was itself opposite-colored — a shape constraint on the retracement leg that appears nowhere in the documented rule.
+
+That split lines up exactly with your rows: R1 (void, correctly held) fails `B_BODY`. R3 and R4 (both fired, both profitable) fail only `A_OPP`. So the two "refutation" cases aren't evidence against confirmation-candle gating in general — they're evidence that `A_OPP` is over-constraining relative to what the strategy actually requires, and a blanket landing would be enforcing a rule that was never specified. Landing `B_BODY` only reproduces the PASS case (R1 rejects) while leaving R3/R4 untouched.
+
+- **Prediction:** re-run against the 56-seed RECON31 corpus with only `B_BODY` gating the seed path — R1 rejects and stays void, R2/R3/R4/R5 unchanged, no new rejects appear that weren't already `B_BODY` failures.
+- **Threshold:** zero divergence from current fire/no-fire outcomes across the corpus under this narrower gate.
+- **Open item before full clearance:** only one `B_BODY` case (R1) has been checked against a live-fire outcome. Before treating this as unconditionally safe, tag all 56 seeds by which failTerm(s) they trip and confirm no `B_BODY`-only reject is hiding its own R3/R4-style counterexample. `A2_CLOSE_BREAK` and `C_TOUCH` are untested by this batch either way — leave both unenforced at the seed path until separately evidenced, don't assume them safe by omission.
+
+## Q2 — Track-2 governing HTF object
+
+**Ruling: buffer semantics (`ReadFlow`/`S2Leg` on `FL_BUF_HTF_HIGH`/`MID`) governs, not panel. Seed-bar vs. site-bar is not the fault line — both converge.**
+
+The 16:45 seed read and the independent 17:00 site read hit the same conflict via the identical buffer mechanism 15 minutes apart — that's corroboration of a stable object, not a shift artifact. The one buffer-vs-panel comparison you have (16:45 buffer-H1=LONG vs. 16:40 panel-1H=Bear) is a single uncoded data point — there's no traced code showing how the panel derives its value, so it can't yet be weighed against two independently-triggered buffer reads that agree with each other. And the S1 datum where a TF-classified row already computes SHORT-unanimous off the same buffer method, only to be discarded by `S2ResolveLive`'s unconditional pass-through of `legDir` (Region 6), confirms the vote itself is already correct where it's consulted — the defect is ownership (nothing routes `decided` into the live write), not the object.
+
+- **Prediction:** once `S2ResolveLive` (or an equivalent live consult point) uses the buffer-computed vote instead of blind pass-through, rows with genuine 4H/1H conflict resolve by that vote; the 12 known-agreement SHORT prints must reproduce identically.
+- **Threshold:** zero output change across those 12 agreement cases under the new ownership.
+- **Open items before full clearance:** (1) no code trace yet for what the panel actually reads — can't fully rule out a real buffer defect masquerading as an ownership problem. (2) `legDir == buffer-vote` hasn't been explicitly confirmed across all 12 agreement cases, only assumed — if even one disagrees, this needs the same re-scoping treatment Q1 got.
+- **Flagged, not ruled:** Region 3's shadow `hier` computation requires 4H *and* 1H to agree outright (else `conf=1`, unresolved) — it doesn't implement the full 2-of-3 majority you use for HTF bias elsewhere, it's a stricter special case that happens to match majority-vote whenever 4H/1H already agree with each other. Not evidenced as wrong here, but worth a separate check before treating Track 2's formula as final — a case where 4H and 1H split but 15m sides with one of them would expose the difference.
+
+## §3 branch status
+
+Neither track is unconditionally clearance-ready — both are scoped verdicts with a named, closable pre-landing check (failTerm-tag the 56-seed corpus for Q1; confirm legDir/vote agreement across the 12 SHORT cases for Q2). Not a halt, not a split — one more targeted recon on each closes it. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated) - Sonnet, answers v69 2026-09-15
+
+Reviewing the code regions against the v69 §1 claims — here's what I can actually confirm from the code shown, versus what remains empirical pending the run.
+
+**Confirmed structurally sound (from the code as pasted):**
+
+1. **Shadow block is genuinely print-only.** In Region 3, the call to `IsConfirmationCandle` at line 7567 mutates the six N1 counters (`g_n1_vwapEq`, `g_n1_pocEq`, `g_n1_vwapInv`, `g_n1_pocInv`, `g_n1_vwapSurv`, `g_n1_pocSurv`) as side effects — but the block saves all six before the call (7560–7565) and restores them immediately after (7568–7573). Net effect on those globals is zero. Nothing else in `IsConfirmationCandle`'s body (2075–2116) touches state outside `failTerm` and those counters. `ReadFlow` (1868–1871) and `S2Leg` (3786–3793) are pure reads. So the "no live-state, resolver, latch, order, stop, fixture or eligibility write" claim holds for what's shown.
+
+2. **`S2ResolveLive` is currently a true no-op pass-through**, not a governing function — it just increments `g_s2_nLiveCalls`/`g_s2_nLiveAgree` and returns `legDir` unchanged (3842–3847). So today, live `g_dir` at the seed write (7531) is still legacy-`legDir`-only; the FlowLogic 4H/1H buffer hierarchy computed in the shadow block (`s1f_hier`, 7578–7583) has no effect on live direction yet. This matches the "AdoptOff" framing and the "Track-2 MISS" record — Track 2 isn't wired into live decisioning, only observed.
+
+3. **Gate priority order matters for R1.** In `IsConfirmationCandle`, checks run in this order: `NO_ANCHOR`/`NO_DATA`/`NO_LINE` → `A_OPP` (2104–2105) → `A2_CLOSE_BREAK` (2106–2107) → `B_BODY` (2108–2111) → `C_TOUCH` (2112–2113) → pass. A seed only reaches the `B_BODY` check if it already cleared `A_OPP` and `A2_CLOSE_BREAK`. That means the R1 prediction ("B_BODY→100% suppressed at S1, A_OPP→zero new suppression") is **not verifiable from the code alone** — it's a claim about which of the 56 seeds actually reach that line, which is exactly what the failTerm-tag print is for. Nothing in the gate logic contradicts the prediction, but nothing proves it either; it's correctly scoped as a testable/falsifiable output of the run, not a design fact.
+
+**Gap I'd flag before calling this closeable:**
+
+R2 asks for a legDir-vs-buffer-vote *confirm* print (`pr.isLong`-derived legDir vs `S2Leg` vote). The shadow block as shown computes `s1f_hier` from the buffers but never explicitly compares it against `g_dir`/`legDir` in a printed field — that comparison field doesn't exist yet in Region 3. That's fine if it's understood as new work for this build (it reads that way in §1's "build surface"), but it's not yet present, so R2 isn't a re-grade of existing output — it needs the new print added first, then a build+run.
+
+**Bottom line as a code review:** The proposed build surface (2 disjoint-prefixed print blocks, no writes outside restored N1 counters, no `OrderSend`, `S2ResolveLive` untouched) is consistent with "print-only" as claimed. Nothing in the pasted code contradicts the plan. But both R1 and R2's *predictions* are empirical claims about the 56-seed corpus that this static review can't confirm or refute — that's what the run is for. I can't issue "CLEAR" (that's explicitly Luna's role per your own doc, and I have no actual authority over your build/deploy pipeline regardless of role labels in the document) — but from a pure code-correctness standpoint, I don't see a blocking defect in the build surface as specified. 
+
+
+## VERDICT (seat CLAIMED, provenance flagged) - Opus channel, answers v69 2026-09-15 - Seat: Luna (clearance-bearing) AS STATED (unauthenticated; arrival channel = Opus, model = Claude Opus 5, NOT the designated Sonnet stream). Ruling-IDs as carried: LUNA-v69-CLEAR-RECON32-PROFILE-AMEND + LUNA-v69-BOUNDARY-CONFIRMED-CENSUS-GATES-RANGE. Builder treatment: authorship-adoptable, NOT counted as a stream key (one-stream-counts-once + authenticate-nothing rules).
+
+## VERDICT — Luna seat, v69 / RECON32-RECON
+
+**Model:** Claude Opus 5 (Anthropic) · **Date:** 2026-09-15 · **Seat:** Luna (clearance-bearing)
+**Ruling-ID (ask 1):** `LUNA-v69-CLEAR-RECON32-PROFILE-AMEND`
+**Ruling-ID (ask 2):** `LUNA-v69-BOUNDARY-CONFIRMED-CENSUS-GATES-RANGE`
+**Scope of my reading:** the quoted regions in the v68 companion only. I did not verify the `E4F39359…` digest, the 561702 B length, or any unquoted region; the §8 counts are accepted as carried, not re-derived.
+
+---
+
+## 1. Clearance
+
+**CLEARED BY NAME:** `RECON32-RECON` — ONE build + ONE run, print-only, AdoptOff=1, same ini/range, ceiling 90, STATUS/DONE, purity + MAXLEN + SELHALT, no third run, timeout ⇒ REPORT+HALT.
+
+Cleared **with two mandatory scope amendments** (§3). Without them the run cannot meet the thresholds §1 sets for it, and there is no second run to recover with.
+
+---
+
+## 2. Findings driving the amendments
+
+**A. Most of R1/R2 as written is already on disk.** Region 3 already calls the gate at 7567 and prints `t1term` at 7585 for every seed bar, and prints `dir=` and `hier=` alongside. So "failTerm per seed" and "legDir vs 4H/1H vote" are re-tabulations of the RECON31 extract, not new instrumentation. The irreducibly new content is three items: the 15m leg at the seed bar, a full term profile, and PASS-vs-empty disambiguation (`failTerm=""` on the 2115 success path prints as an empty field, indistinguishable from a missing field).
+
+**B. First-fail tagging cannot close the C_TOUCH open item.** Gate order at 2105 → 2107 → 2111 → 2112 is `A_OPP → A2_CLOSE_BREAK → B_BODY → C_TOUCH`. Therefore:
+
+| Tag observed | A_OPP | A2 | B_BODY | C_TOUCH |
+|---|---|---|---|---|
+| `A_OPP` | tripped | unknown | unknown | unknown |
+| `A2_CLOSE_BREAK` | passed | tripped | unknown | unknown |
+| `B_BODY` | passed | passed | tripped | **unknown** |
+| `C_TOUCH` | passed | passed | passed | tripped |
+| pass | passed | passed | passed | passed |
+
+Consequence: RECON31's "100% B_BODY" **does** establish Luna's `A_OPP → zero new suppression` line and **does** establish A2 as non-tripping, both by upstream position. It establishes **nothing** about C_TOUCH, which sits downstream of B_BODY and is masked on every rejected seed. The v68 open item "A2/C_TOUCH unenforced" must split: A2 verifiable, C_TOUCH not — and note "unenforced" is the wrong word either way; both terms are enforced in code at 2107/2113, they are *unobserved in corpus*. Fix the term in the grading language.
+
+**C. R2's `legDir == vote` confirm is a tautology as scoped.** `S2ResolveLive` (3842–3847) is the identity on `legDir`, and the shadow block reads `g_dir` after 7531. Comparing `g_dir` to `legDir` cannot fail by construction — it tests nothing about the ownership defect. `pr` is scoped inside the 7503 block and is out of scope at 7551, so an independent capture is required.
+
+**D. Taxonomy incomplete.** `NO_DATA` (2087) and `NO_LINE` (2090/2092) are reachable at the shadow call site and are absent from R1's declared tag set. `NO_ANCHOR` is not reachable there, since 7557 already requires `g_anchorLine >= 0 && g_dir != DIR_NONE`. Without the two reachable pre-terms the census cannot be proven to total 56.
+
+---
+
+## 3. Amended build surface (this is the cleared surface)
+
+`SIDE1G_` prefix, disjoint from `SIDE1F_`, two blocks, no live-state / resolver / latch / order / stop / fixture / eligibility writes.
+
+1. **`SIDE1G_PROFILE`** — one row per seed bar, four independent booleans (opp / a2 / body / touch) mirrored from OHLC and the anchor line, plus the reachable pre-terms, plus explicit `term=PASS` mapping. Constraints:
+   - Reuse `g_anchorPrice` (written 7534 from the same handle and same `barShift` as the gate's read at 2089) rather than issuing a new `ReadBuf1`. Zero new indicator reads.
+   - Do **not** add a second `IsConfirmationCandle` call. Reuse `s1f_term` from 7567. This keeps the §8 count at 5 and leaves the N1 restore surface (7560–7573) exactly as carried. A second call would push the count to 6 and duplicate the restore pattern for no gain.
+   - The doji epsilon `_Point * 0.0001` (2109) is a mirrored dimensionless multiplier, pre-declared here as **not** a price literal.
+   - **Self-validation is a required grading line:** the first-fail term derived from the mirrored profile must equal `t1term` for all 56 seeds. Any mismatch ⇒ the mirror is wrong, the profile is discarded, REPORT. This makes the mirror prove itself inside the one run.
+2. **`SIDE1G_VOTE3`** — one row per seed bar: 4H / 1H / 15m legs at the exact seed bar via `ReadFlow` (`FL_BUF_HTF_LOW` = 21 is the new read; `FLOW_SHIFT_OFFSET` = 1 applies identically to all three, so the rows are apples-to-apples against the Region 5 `SEL61SIDE` site rows), plus a `s1g_legDir` local captured **inside** the 7505 block from `pr.isLong` before the 7531 call, printed next to `g_dir`. New local only; pre-declared as a touch to the seed block.
+3. **Tally row at DONE** — seed-bar count, profile-row count, vote3-row count. Without it, MAXLEN truncation is indistinguishable from absent rows and the census silently under-totals.
+
+---
+
+## 4. Thresholds, as amended
+
+| Line | Status after this run |
+|---|---|
+| Zero fire/no-fire divergence vs RECON31 | must hold; any divergence ⇒ REPORT, builder never grades it a pass |
+| B_BODY → 100% suppressed at S1 | verifiable |
+| A_OPP → zero new suppression | verifiable (upstream of B_BODY) |
+| A2 non-tripping | verifiable (upstream of B_BODY) |
+| **C_TOUCH status** | **UNDETERMINED-BY-ORDERING on the reject population**; determinable only via the mirrored profile in §3.1. If the mirror fails self-validation, record as UNDETERMINED — not as a pass |
+| 12 agreement cases reproduce identically | verifiable |
+| `legDir == vote` ×12 | verifiable only via the `s1g_legDir` capture; the `g_dir` comparison is void as evidence |
+| 2-of-3 majority question | data-gathering only this run; ruling deferred |
+
+Buffer-governs stands as carried from `LUNA-v68-Q2-FLOWBUF-SEEDBAR-4H1H`: FlowLogic 4H/1H buffers at the exact seed bar govern. The 15m leg is read this run as **evidence, not authority** — printing it grants it no vote.
+
+---
+
+## 5. HONEST BOUNDARY — ruling
+
+**Confirmed, with conditions.** A print-only delta on AdoptOff cannot alter strategy state, so the same ini and range over the same data yield the same 56 seeds and the same fires. A same-range rerun therefore **cannot** produce Luna's post-RECON31 novel-evidence cases. It can only re-read the existing corpus more completely — which is exactly what §3 is for, and is worth the run.
+
+Determinism is not a function of ini + range alone. It also requires: same terminal build, same history snapshot, same tick model, same spread setting. If any of those moved since RECON31, the isolation table is comparing two different corpora and the 31/31 join is void. Pre-declare all four at build time.
+
+**The correction on "which range can":** do not pick a range now. The absent cases are defined by what the corpus lacks, and after this run you will know that precisely. Novel evidence requires a range admitting seeds that carry — per the §3 census — (a) a first-fail of `A_OPP`, `A2_CLOSE_BREAK`, or `C_TOUCH`, (b) `conf=1` conflict bars where 4H and 1H are both non-zero and disagree, and (c) agreeing-4H/1H bars where the 15m leg dissents, which is the only configuration that can decide the 2-of-3 question. The census gap list is the specification for the next range. Authoring it is a separate council decision under fresh dual-key + tokens, not covered by this clearance.
+
+---
+
+## 6. Locks and halts confirmed
+
+RECON17 frozen. `E4F39359…` uncommitted, watching-only, adoption OFF. FlowLogic `3606BFB4` frozen and untouched. HEAD records-only, no push. ONE build, ONE run, no third run. Any build / parity / timeout gate failure ⇒ REPORT+HALT. Fire/no-fire divergence ⇒ REPORT, council rules landing.
+
+**Nothing moves on this clearance without his fresh run word** (~1h, UNSPENT). Clearance now exists for the word to be spent on; the word alone still buys nothing else.
+
+## 7. Not cleared
+
+Landing, scope-widen, new-range acquisition, any `S2ResolveLive` ownership fix, any adoption. Those need fresh dual-key + tokens. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated) - Sonnet, answers v70 2026-09-15
+
+Working through §1 and §2 on the data given — not issuing any clearance, just the authorship-question analysis as scoped ("packet TEXT only").
+
+**On the honest gap (§1):** The framing is sound and the two cases are genuinely different failure modes, not the same problem twice:
+
+- **S1** isn't a suppression bug — there's no SHORT seed to suppress. The hierarchy agrees LONG at 09:15 and stays LONG until 14:00. Fixing this means generating a candidate that doesn't currently exist, not adjusting a gate on one that does.
+- **S2** is the opposite: a SHORT seed is born correctly (16:30, Monthly-POC) and then dies twice — once at confirmation (16:35) and again at the R-gate (16:45 abort), with Track-2 abstaining on conflict throughout. Fixing this means keeping something alive that currently dies, not birthing something new.
+
+Conflating these into one "landing" would be exactly the faith-landing you're ruling out — they need independent mechanisms and independent proof.
+
+**On the asks:**
+
+**(a) Staged vs combined:** Staged. C (ownership: side + confirmation) is a re-scoping of existing, already-observed behavior — RECON31/32 already characterize it on the current corpus. D (birth) and E (survival) are *new* mechanisms with no existing code path to inherit correctness from. Landing C alone is falsifiable against data you already have; landing C+D+E together means a failure anywhere is unattributable to a specific stage. Predicted pass mark: C should reproduce RECON32's 56-seed census and 14/31/11 split exactly, with zero delta — that's your stage-C pass bar. D and E each need their own proving-range result (per (e)) before they're eligible to stage.
+
+**(b) Abstain semantics:** Worth flagging directly — neither reading of this question moves S1 or S2. Trace it through:
+- *Suppress-on-conflict*: at 16:45 (h1=+1/h4=-1), the seed gets suppressed under the new rule → the historical SHORT that fired live under legacy no longer fires. S2 stays unresolved (worse, if anything — you lose the seed that was at least alive).
+- *Leave-legacy-on-conflict*: 16:45 behaves as it already does today → no change from current behavior → S2 stays unresolved for the same reason it's unresolved now (confirmation/R-gate still kill it downstream).
+
+So (b) is orthogonal to closing the gap — it's a correctness/ownership question worth answering for its own sake, but don't expect it to buy you either Sep-8 leg. The actual work is in (c) and (d).
+
+**(c) S1 birth:** This needs a new seed-generation trigger, not a parameter tweak on `IsConfirmationCandle` or the existing POI detector — by definition, if the object/detector currently in the code can't see a SHORT candidate in that window on any of the objects checked, loosening an existing gate downstream of seed creation can't help; the seed has to exist first. That means either a new anchor/object class or a materially relaxed detection condition — and a relaxed condition is exactly the kind of change whose false-positive rate you can't assess from one instance. It has to be checked against how many *new* seeds it creates across the full corpus, not just whether it produces the one you want at 10:10.
+
+**(d) S2 survival:** Two live levers — loosen `A2_CLOSE_BREAK`/`C_TOUCH` at 16:35, or loosen the R-gate at 16:45, or both. Same risk in the other direction: any loosening that lets 16:30 survive will also let other currently-correctly-killed seeds survive elsewhere in the 56-seed corpus. This is the textbook single-case overfit risk — a rule tuned to save one known historical trade needs to be checked against how many previously-rejected seeds it newly admits, not just whether it saves the target case.
+
+**(e) Proving range:** Agree without qualification, and it's the load-bearing constraint on (c) and (d). Since both fixes are being derived by working backward from two known outcomes on this specific range, testing them on that same range can't validate them — you'd just be confirming you successfully reverse-engineered the case you reverse-engineered from. New data is the only way (c) and (d) get to claim anything beyond "reproduces the two cases we built it to reproduce."
+
+**(f) Carryovers:** Nothing in this relay touches R1-void, N1, tally, or isolation gates — confirming those ride unchanged is consistent with everything shown; no action item there.
+
+One honest flag for whoever holds clearance authority: (c) and (d) are the two places where this stops being a re-scoping exercise and becomes genuinely new rule design with real overfitting exposure. I'd want the stage-D and stage-E proving-range results in hand and independently reviewed before either gets anywhere near live/AdoptOn, regardless of how clean stage C's landing is.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated) - Sonnet, answers v71 2026-09-15
+
+Authoring the Stage-C frozen packet as asked — text only, no clearance/token/word implied. One flag up front before the packet itself: I'm drafting the E-numbered build surface at the level of behavioral/invariant precision I can actually stand behind. The exact line numbers I have on record (Region 1–7) are from the v68 companion snippet, tied to digest `E4F393592B5F03EC…` at 561702 B. The current tree per v71 §0 is digest `88700710…` at 565059 B — a different digest, ~3357 B larger, post-RECON32 (PROFILE+VOTE3+tally shadow added). Line numbers shift when code is inserted upstream of a region. I have not been shown the current tree, so I'm not going to fabricate E-numbers against a digest I haven't verified — that's exactly the kind of drift a "frozen packet" is supposed to prevent, not commit. Where I cite a line number below, I've marked it **[CARRY — reverify against 88700710]**; the builder's first mechanical step should be confirming each still points at what this packet says it points at, and halting if any has drifted.
+
+---
+
+**STAGE-C FROZEN PACKET — v71 authorship**
+
+**§1. Scope (bright-line)**
+
+Two owned paths go live. Nothing else does.
+
+1. **Track-1, B_BODY-only gate at seed** — `IsConfirmationCandle` (Region 1, EA:2075–2116 **[CARRY]**) stays fully intact as written; the live seed path (Region 2, EA:7531 **[CARRY]**) begins consulting it for real instead of only the shadow block consulting it. Scope is explicitly **S1/void-class only**: a `B_BODY` failTerm suppresses the seed into void. `A_OPP`, `A2_CLOSE_BREAK`, and `C_TOUCH` failTerms are evaluated by the function (they're internal to it — can't be skipped without editing the function itself, which is out of scope) but **do not gate live behavior** at this stage. Concretely: if `IsConfirmationCandle` returns `false` with `failTerm != "B_BODY"`, Stage-C treats that as a pass for live-gating purposes. Only `failTerm == "B_BODY"` suppresses.
+2. **Track-2, buffer-vote ownership at seed** — `S2ResolveLive` (Region 6, EA:3842–3847 **[CARRY]**) stops being a pure pass-through of `legDir` and starts consulting the 4H/1H vote (`S2Leg` on `FL_BUF_HTF_HIGH`/`FL_BUF_HTF_MID`, Region 4) **at the seed bar** — not the site bar (Region 5's `SEL61SIDE` logic is a different, non-seed consult and stays untouched). On agreement (`l4 == l1 != 0`), the vote's direction governs. On conflict or no-data (`l4 != l1`, or either `== 0`), **abstain = leave-legacy**: return `legDir` unchanged, per the v70 ruling — conflict-suppresses is explicitly rejected.
+
+**Everything else stays shadow or untouched:** A2/C_TOUCH remain unenforced; the site-bar resolver (Region 5) is unmodified; no stop/latch/order/fixture writes beyond the two owned lines above; `LogSignal`/`A6Fired`/fire site (Region 7, EA:9394–9396 **[CARRY]**) unmodified — they still just read whatever `g_dir` ends up holding, they don't need to know it's now sometimes vote-governed.
+
+**§2. Build surface**
+
+- **Single-writer invariant, Track-1:** `g_dir` still has exactly one write site (Region 2, currently EA:7531 **[CARRY]** — reverify under `88700710`). Stage-C adds a conditional suppression *before* that write (skip the seed / stay `ST_IDLE` if `B_BODY`), not a second writer.
+- **Single-writer invariant, Track-2:** `S2ResolveLive` remains the single function that produces the value `g_dir` gets assigned from at seed. Its internals change (vote-consult replaces bare pass-through); its call site and signature do not.
+- **AdoptOn boundary, stated line-by-line:**
+  - LIVE: `IsConfirmationCandle` B_BODY branch, consulted at live seed path, gates seed creation.
+  - LIVE: `S2ResolveLive` internals — vote-consult-with-abstain-leave-legacy replaces pass-through.
+  - SHADOW (unchanged): Region 3 print block (`SIDE1F_*`), Region 5 site-bar resolver (`SEL61SIDE`), A_OPP/A2/C_TOUCH as live gates, any PROFILE/VOTE3/tally shadow additions from the current `88700710` tree not named above.
+- No price literals outside the existing fixture. Both compile 0/0 fresh logs required before any grading proceeds. FlowLogic (`3606BFB4…`) named as touched-only-by-read (`ReadFlow` calls) — the shadow's frozen digest itself stays untouched.
+
+**§3. Gates with arithmetic**
+
+*RECON32 regression (must reproduce exactly, zero unintended delta):*
+- R1 census 8/34/2/6/6 (B_BODY/A_OPP/A2/C_TOUCH/PASS) reproduced on the 56-seed corpus — but now interpreted as: the 8 B_BODY seeds are the ones expected to flip from live-firing (under old pass-through logic) to void under Stage-C. The 34+2+6+6=48 non-B_BODY seeds are predicted to show **zero behavioral delta** at Track-1, since A_OPP/A2/C_TOUCH stay unenforced.
+- R2 populations (agree-14 / abstain-31 / split-11) reproduced — under abstain-leave-legacy, the 31 abstain-population seeds are predicted to show **zero delta** in `g_dir` output (same as pre-Stage-C pass-through result). The 14 agree seeds are predicted to show zero delta too (vote and legacy already concur, by definition of "agree"). The 11 split seeds are the only population where Track-2 can change `g_dir` from what pass-through would have produced — and it should only do so where legacy disagreed with an *agreeing* vote, not where the vote conflicts (conflict falls into abstain, already counted in 31, not 11 — **this needs re-confirmation against RECON32's exact partition definition before build**, since "split" and "abstain" being disjoint categories vs. overlapping needs to be pinned down from the RECON32 result file, not assumed here).
+- Isolation table + payload hashes + 4/4 signals + N1/tally counters + adopt/ordersend accounting, all re-verified under the new AdoptOn boundary — with the expectation that `ordersend` count stays 0 (AdoptOn here means the print-only shadow's *logic* goes live in `g_dir`/seed creation, not that order placement itself is authorized; nothing in this packet asks for that, and it shouldn't happen without separate clearance).
+
+*Per-row Stage-C predictions on the existing corpus:*
+- S1 (09:15 seed): suppressed-and-void, as before — B_BODY fails it under both old and new logic, so this isn't a new outcome, it's the same outcome now reached by a live gate instead of a shadow print. **Note: this does not create the 10:10 SHORT.** Stage-C is explicitly not Stage-D; nothing here births a candidate. S1's underlying gap (§1 of v70) stays open by design.
+- A_OPP-failing rows: untouched, unenforced, identical output to pre-Stage-C.
+- Conflict rows (the subset of the 11-split or 31-abstain population, per whichever partition governs — see flag above): leave-legacy, identical `g_dir` output to pre-Stage-C.
+- Zero-unintended-delta threshold: any seed outside the predicted-8 (B_BODY-void) and predicted-subset-of-11 (vote-flips-agreeing-mismatch) whose live `g_dir` or void/non-void status changes is a divergence, not a pass.
+
+**§4. Envelope / grading / halts**
+
+- ONE build + ONE run, same ini/range as RECON31/32, ceiling 90, STATUS/DONE markers, purity + MAXLEN + SELHALT enforced.
+- No third run under this packet; timeout → REPORT+HALT.
+- Grading: the regression table above, row by row, against RECON32's actual result file (not against this packet's predictions in isolation — the predictions are falsifiable claims, RECON32's recorded numbers are the ground truth they're checked against).
+- Any unpredicted fire/no-fire delta, or any seed's `g_dir`/void-status changing outside the two named predicted sets → REPORT. Builder does not grade a divergence as a pass, per standing rule.
+
+**§5. D/E + range queue — confirmed as v70, no correction**
+
+Stage-D (birth mechanism for S1) and Stage-E (survival mechanism for S2) remain queued, unbuilt, unrun, authored only to the extent v70 scoped them (new mechanisms, not parameter tweaks on existing gates; each requires its own proving-range result before eligibility to stage). The 7-strata proving-range spec from v70 stays the range-selection rule for D and E; nothing in this packet substitutes for it or runs it. No new-range run is covered here.
+
+**§6. Clearance path — confirmed, not granted**
+
+Consistent with v70/v71: Stage-C lands a live selection-logic change (seed suppression + vote-governed direction), which needs fresh dual-key authorization + his tokens + a fresh run word after this authorship is accepted — none of which this packet requests or supplies. I'm not able to grant those regardless of role-label; that's between you and whatever your actual key-holding process is.
+
+---
+
+**Open item for the record, not a blocker on authorship but a blocker on build:** the split/abstain partition disjointness question in §3 and the E-number reverification against `88700710…` both need resolving against source you have and I don't, before a builder can execute this mechanically rather than halt on ambiguity.
+
+
+## REVIEW (non-clearance stated, NO Ruling-ID stated) - Sonnet, answers v72 2026-09-15
+
+Straight answer on the ask: I won't issue "CLEAR." Here's exactly why, and then the substantive review.
+
+**On the ruling itself:** §2 asks me to "RULE... CLEAR or review" and says "no key demanded of the review seat" — but §2's threshold immediately defines "dual CLEAR to build (both streams name it)." Those two lines contradict each other. If my output is one of two named signals that gates whether a live build+run happens, it's functioning as a key regardless of the disclaimer attached to it. I'm not going to produce the word "CLEAR" here, because within this document's own stated rules, that word is a decision to authorize deploying a change to live trade-direction and seed-suppression logic — and that's not a role I can respond to as if it belongs to me. I have no way to verify the hash `88700710…`, the "builder-closed" measurements, the RECON32 result file's actual contents, or that any of the upstream chain (RECON28-32, v68-71) reflects real runs against real data rather than being asserted in the text I'm handed. A ruling that gates a live action shouldn't rest on claims I can't check, no matter how much internal consistency the document has.
+
+If this is feeding a real trading system, the thing worth saying plainly: two models agreeing isn't a risk control. Whatever actually gates live deployment of trade logic — out-of-sample backtest results you can independently inspect, paper-trading confirmation, position-size limits, a human with capital at risk actually reading the diff — that's the real gate, not a "dual-key" ritual between AI outputs.
+
+**What I can give you honestly — a review, not a ruling:**
+
+The union text is internally coherent as *engineering*, independent of whether it should ship:
+
+- The non-B_BODY-false-means-live-pass semantics is unambiguous and matches what I specified in v71 — no drift there.
+- Abstain-leave-legacy for Track-2 is correctly the conservative reading (it changes nothing on conflict, only on clean agreement-mismatch within the split-11). That's the right choice if the goal is genuinely minimal-delta staging.
+- The claimed partition disjointness (14+31+11=56, conflict⊆abstain-31) is a coherent structure *if* it matches what RECON32 actually recorded — but I flagged this as unverified in v71 and it's still unverified by me now; "builder-closed this turn" is an assertion in the text, not something I observed.
+- The E-table line shifts (2075→2079, 2105→2109, 2107→2111, 2111→2115, 2113→2117) are all a uniform +4, which is at least internally consistent with four lines inserted upstream of Region 1 between the two digests — I can't confirm it's *correct*, only that it's not self-contradictory.
+- ordersend-stays-0 is the right invariant to hold onto through this stage regardless of anything else — good that it's stated as a hard line rather than left implicit.
+
+Nothing in the substance reads as sloppy. My objection isn't to the packet's engineering — it's to being asked to be the second signature on deploying it.
+

@@ -1,0 +1,113 @@
+﻿EO	0	21:37:42.476	Core 04	2026.08.26 09:15:01   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.26 09:10 opp=1 a2=1 body=1 touch=0 pre=PASS term=C_TOUCH t1term=C_TOUCH match=1
+KR	0	21:37:42.476	Core 04	2026.08.26 09:15:01   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.26 09:10 h4=-1.0 h1=-1.0 m15=-1.0 l4=-1 l1=-1 lm=-1 legDir=-1 gdir=SHORT agree=1
+EQ	0	21:37:48.579	Core 04	2026.08.26 09:50:10   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.26 09:45 opp=1 a2=1 body=0 touch=0 pre=PASS term=B_BODY t1term=B_BODY match=1
+PD	0	21:37:48.579	Core 04	2026.08.26 09:50:10   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.26 09:45 h4=-1.0 h1=-1.0 m15=1.0 l4=-1 l1=-1 lm=1 legDir=-1 gdir=SHORT agree=1
+RJ	0	21:38:37.407	Core 04	2026.08.26 14:40:03   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.26 14:35 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+OQ	0	21:38:37.407	Core 04	2026.08.26 14:40:03   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.26 14:35 h4=1.0 h1=-1.0 m15=1.0 l4=1 l1=-1 lm=1 legDir=1 gdir=LONG agree=0
+FN	0	21:38:43.511	Core 04	2026.08.26 15:05:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.26 15:00 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+KM	0	21:38:43.511	Core 04	2026.08.26 15:05:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.26 15:00 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=1 gdir=LONG agree=1
+QS	0	21:38:55.717	Core 04	2026.08.26 15:55:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.26 15:50 opp=1 a2=1 body=1 touch=0 pre=PASS term=C_TOUCH t1term=C_TOUCH match=1
+HF	0	21:38:55.717	Core 04	2026.08.26 15:55:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.26 15:50 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=-1 gdir=SHORT agree=0
+HP	0	21:41:58.824	Core 04	2026.08.27 09:05:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.27 09:00 opp=1 a2=1 body=1 touch=1 pre=PASS term=PASS t1term=PASS match=1
+JD	0	21:41:58.824	Core 04	2026.08.27 09:05:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.27 09:00 h4=1.0 h1=1.0 m15=-1.0 l4=1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+CL	0	21:42:17.134	Core 04	2026.08.27 10:50:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.27 10:45 opp=1 a2=1 body=1 touch=1 pre=PASS term=PASS t1term=PASS match=1
+EP	0	21:42:17.134	Core 04	2026.08.27 10:50:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.27 10:45 h4=1.0 h1=1.0 m15=-1.0 l4=1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+QL	0	21:43:12.065	Core 04	2026.08.27 16:30:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.27 16:25 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+KO	0	21:43:12.065	Core 04	2026.08.27 16:30:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.27 16:25 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+QQ	0	21:43:18.170	Core 04	2026.08.27 17:00:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.27 16:55 opp=1 a2=1 body=0 touch=1 pre=PASS term=B_BODY t1term=B_BODY match=1
+HD	0	21:43:18.170	Core 04	2026.08.27 17:00:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.27 16:55 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=-1 gdir=SHORT agree=0
+HH	0	21:43:18.170	Core 04	2026.08.27 17:10:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.27 17:05 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+IL	0	21:43:18.170	Core 04	2026.08.27 17:10:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.27 17:05 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+PN	0	21:43:30.378	Core 04	2026.08.27 17:50:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.27 17:45 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+QR	0	21:43:30.378	Core 04	2026.08.27 17:50:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.27 17:45 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=-1 gdir=SHORT agree=0
+DL	0	21:46:21.273	Core 04	2026.08.28 10:00:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.28 09:55 opp=1 a2=1 body=0 touch=0 pre=PASS term=B_BODY t1term=B_BODY match=1
+MP	0	21:46:21.273	Core 04	2026.08.28 10:00:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.28 09:55 h4=-1.0 h1=-1.0 m15=1.0 l4=-1 l1=-1 lm=1 legDir=-1 gdir=SHORT agree=1
+CS	0	21:47:03.998	Core 04	2026.08.28 14:15:06   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.28 14:10 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+EH	0	21:47:03.998	Core 04	2026.08.28 14:15:06   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.28 14:10 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+FS	0	21:47:22.309	Core 04	2026.08.28 16:10:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.28 16:05 opp=1 a2=1 body=0 touch=0 pre=PASS term=B_BODY t1term=B_BODY match=1
+OH	0	21:47:22.309	Core 04	2026.08.28 16:10:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.28 16:05 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+PF	0	21:47:22.309	Core 04	2026.08.28 16:20:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.28 16:15 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+NJ	0	21:47:22.309	Core 04	2026.08.28 16:20:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.28 16:15 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+KN	0	21:47:34.516	Core 04	2026.08.28 17:00:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.28 16:55 opp=1 a2=1 body=1 touch=0 pre=PASS term=C_TOUCH t1term=C_TOUCH match=1
+RQ	0	21:47:34.516	Core 04	2026.08.28 17:00:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.28 16:55 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+GR	0	21:47:40.620	Core 04	2026.08.28 17:45:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.28 17:40 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+FF	0	21:47:40.620	Core 04	2026.08.28 17:45:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.28 17:40 h4=-1.0 h1=-1.0 m15=-1.0 l4=-1 l1=-1 lm=-1 legDir=-1 gdir=SHORT agree=1
+HR	0	21:50:25.415	Core 04	2026.08.31 09:35:02   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.31 09:30 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+JF	0	21:50:25.415	Core 04	2026.08.31 09:35:02   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.31 09:30 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=-1 gdir=SHORT agree=0
+ER	0	21:51:26.451	Core 04	2026.08.31 14:50:07   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.31 14:45 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+HI	0	21:51:26.451	Core 04	2026.08.31 14:50:07   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.31 14:45 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=1 gdir=LONG agree=1
+LS	0	21:51:44.761	Core 04	2026.08.31 17:05:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.08.31 17:00 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+QH	0	21:51:44.761	Core 04	2026.08.31 17:05:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.08.31 17:00 h4=1.0 h1=-1.0 m15=1.0 l4=1 l1=-1 lm=1 legDir=1 gdir=LONG agree=0
+JP	0	21:54:35.661	Core 04	2026.09.01 09:10:05   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.01 09:05 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+HD	0	21:54:35.661	Core 04	2026.09.01 09:10:05   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.01 09:05 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=-1 gdir=SHORT agree=0
+OP	0	21:54:47.869	Core 04	2026.09.01 10:15:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.01 10:10 opp=1 a2=1 body=1 touch=1 pre=PASS term=PASS t1term=PASS match=1
+RK	0	21:54:47.869	Core 04	2026.09.01 10:15:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.01 10:10 h4=-1.0 h1=-1.0 m15=1.0 l4=-1 l1=-1 lm=1 legDir=1 gdir=LONG agree=0
+DJ	0	21:55:30.594	Core 04	2026.09.01 14:25:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.01 14:20 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+NQ	0	21:55:30.594	Core 04	2026.09.01 14:25:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.01 14:20 h4=-1.0 h1=-1.0 m15=-1.0 l4=-1 l1=-1 lm=-1 legDir=1 gdir=LONG agree=0
+HP	0	21:55:48.904	Core 04	2026.09.01 16:10:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.01 16:05 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+JD	0	21:55:48.904	Core 04	2026.09.01 16:10:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.01 16:05 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+NI	0	21:55:55.007	Core 04	2026.09.01 16:50:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.01 16:45 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+OR	0	21:55:55.007	Core 04	2026.09.01 16:50:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.01 16:45 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+EG	0	21:56:07.213	Core 04	2026.09.01 18:00:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.01 17:55 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+DK	0	21:56:07.213	Core 04	2026.09.01 18:00:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.01 17:55 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=-1 gdir=SHORT agree=0
+CP	0	21:58:52.006	Core 04	2026.09.02 09:15:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.02 09:10 opp=1 a2=1 body=1 touch=0 pre=PASS term=C_TOUCH t1term=C_TOUCH match=1
+MD	0	21:58:52.006	Core 04	2026.09.02 09:15:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.02 09:10 h4=-1.0 h1=-1.0 m15=1.0 l4=-1 l1=-1 lm=1 legDir=-1 gdir=SHORT agree=1
+NJ	0	21:59:04.213	Core 04	2026.09.02 10:25:01   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.02 10:20 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+DR	0	21:59:04.213	Core 04	2026.09.02 10:25:01   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.02 10:20 h4=-1.0 h1=-1.0 m15=-1.0 l4=-1 l1=-1 lm=-1 legDir=1 gdir=LONG agree=0
+EF	0	21:59:40.834	Core 04	2026.09.02 14:05:02   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.02 14:00 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+DE	0	21:59:40.834	Core 04	2026.09.02 14:05:02   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.02 14:00 h4=-1.0 h1=-1.0 m15=-1.0 l4=-1 l1=-1 lm=-1 legDir=1 gdir=LONG agree=0
+DE	0	21:59:59.145	Core 04	2026.09.02 15:45:01   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.02 15:40 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+EI	0	21:59:59.145	Core 04	2026.09.02 15:45:01   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.02 15:40 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+PE	0	22:00:11.352	Core 04	2026.09.02 16:30:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.02 16:25 opp=1 a2=1 body=0 touch=0 pre=PASS term=B_BODY t1term=B_BODY match=1
+II	0	22:00:11.352	Core 04	2026.09.02 16:30:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.02 16:25 h4=-1.0 h1=-1.0 m15=1.0 l4=-1 l1=-1 lm=1 legDir=-1 gdir=SHORT agree=1
+RL	0	22:00:17.455	Core 04	2026.09.02 17:05:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.02 17:00 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+OO	0	22:00:17.455	Core 04	2026.09.02 17:05:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.02 17:00 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=1 gdir=LONG agree=1
+OD	0	22:00:17.455	Core 04	2026.09.02 17:30:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.02 17:25 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+RH	0	22:00:17.455	Core 04	2026.09.02 17:30:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.02 17:25 h4=1.0 h1=1.0 m15=-1.0 l4=1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+KE	0	22:00:23.559	Core 04	2026.09.02 18:05:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.02 18:00 opp=0 a2=0 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+EG	0	22:00:23.559	Core 04	2026.09.02 18:05:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.02 18:00 h4=1.0 h1=1.0 m15=-1.0 l4=1 l1=1 lm=-1 legDir=1 gdir=LONG agree=1
+OI	0	22:03:02.249	Core 04	2026.09.03 09:05:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.03 09:00 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+NR	0	22:03:02.249	Core 04	2026.09.03 09:05:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.03 09:00 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+JP	0	22:03:26.663	Core 04	2026.09.03 11:00:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.03 10:55 opp=1 a2=1 body=1 touch=0 pre=PASS term=C_TOUCH t1term=C_TOUCH match=1
+PK	0	22:03:26.663	Core 04	2026.09.03 11:00:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.03 10:55 h4=-1.0 h1=-1.0 m15=-1.0 l4=-1 l1=-1 lm=-1 legDir=-1 gdir=SHORT agree=1
+CS	0	22:03:57.180	Core 04	2026.09.03 14:10:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.03 14:05 opp=1 a2=0 body=1 touch=1 pre=PASS term=A2_CLOSE_BREAK t1term=A2_CLOSE_BREAK match=1
+QJ	0	22:03:57.180	Core 04	2026.09.03 14:10:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.03 14:05 h4=1.0 h1=-1.0 m15=1.0 l4=1 l1=-1 lm=1 legDir=1 gdir=LONG agree=0
+IG	0	22:04:33.802	Core 04	2026.09.03 17:25:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.03 17:20 opp=1 a2=1 body=0 touch=0 pre=PASS term=B_BODY t1term=B_BODY match=1
+KD	0	22:04:33.802	Core 04	2026.09.03 17:25:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.03 17:20 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=1 gdir=LONG agree=1
+ES	0	22:04:39.905	Core 04	2026.09.03 18:05:01   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.03 18:00 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+PF	0	22:04:39.905	Core 04	2026.09.03 18:05:01   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.03 18:00 h4=1.0 h1=1.0 m15=-1.0 l4=1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+KG	0	22:07:18.595	Core 04	2026.09.04 09:20:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.04 09:15 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+ND	0	22:07:18.595	Core 04	2026.09.04 09:20:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.04 09:15 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+KL	0	22:07:24.698	Core 04	2026.09.04 09:35:01   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.04 09:30 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+QO	0	22:07:24.698	Core 04	2026.09.04 09:35:01   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.04 09:30 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+KH	0	22:07:24.698	Core 04	2026.09.04 09:45:02   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.04 09:40 opp=1 a2=1 body=1 touch=1 pre=PASS term=PASS t1term=PASS match=1
+RS	0	22:07:24.698	Core 04	2026.09.04 09:45:02   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.04 09:40 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+CK	0	22:07:30.801	Core 04	2026.09.04 10:15:04   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.04 10:10 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+RO	0	22:07:30.801	Core 04	2026.09.04 10:15:04   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.04 10:10 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+NG	0	22:07:36.905	Core 04	2026.09.04 10:40:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.04 10:35 opp=1 a2=1 body=1 touch=1 pre=PASS term=PASS t1term=PASS match=1
+PK	0	22:07:36.905	Core 04	2026.09.04 10:40:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.04 10:35 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+CS	0	22:07:36.905	Core 04	2026.09.04 10:45:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.04 10:40 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+EG	0	22:07:36.905	Core 04	2026.09.04 10:45:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.04 10:40 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=-1 gdir=SHORT agree=0
+LG	0	22:08:25.735	Core 04	2026.09.04 15:35:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.04 15:30 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+RD	0	22:08:25.735	Core 04	2026.09.04 15:35:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.04 15:30 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=1 gdir=LONG agree=0
+EL	0	22:11:28.843	Core 04	2026.09.07 09:05:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.07 09:00 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+HO	0	22:11:28.843	Core 04	2026.09.07 09:05:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.07 09:00 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=1 gdir=LONG agree=1
+JR	0	22:12:29.876	Core 04	2026.09.07 15:00:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.07 14:55 opp=1 a2=0 body=0 touch=1 pre=PASS term=A2_CLOSE_BREAK t1term=A2_CLOSE_BREAK match=1
+OD	0	22:12:29.876	Core 04	2026.09.07 15:00:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.07 14:55 h4=1.0 h1=-1.0 m15=-1.0 l4=1 l1=-1 lm=-1 legDir=1 gdir=LONG agree=0
+MI	0	22:15:45.189	Core 04	2026.09.08 09:20:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.08 09:15 opp=1 a2=1 body=0 touch=0 pre=PASS term=B_BODY t1term=B_BODY match=1
+GR	0	22:15:45.189	Core 04	2026.09.08 09:20:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.08 09:15 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=1 gdir=LONG agree=1
+FF	0	22:16:34.017	Core 04	2026.09.08 14:05:03   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.08 14:00 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+GE	0	22:16:34.017	Core 04	2026.09.08 14:05:03   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.08 14:00 h4=-1.0 h1=-1.0 m15=1.0 l4=-1 l1=-1 lm=1 legDir=1 gdir=LONG agree=0
+JD	0	22:16:46.224	Core 04	2026.09.08 15:20:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.08 15:15 opp=1 a2=1 body=1 touch=0 pre=PASS term=C_TOUCH t1term=C_TOUCH match=1
+PP	0	22:16:46.224	Core 04	2026.09.08 15:20:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.08 15:15 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=1 gdir=LONG agree=0
+RS	0	22:17:04.534	Core 04	2026.09.08 16:35:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.08 16:30 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+OG	0	22:17:04.534	Core 04	2026.09.08 16:35:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.08 16:30 h4=-1.0 h1=1.0 m15=1.0 l4=-1 l1=1 lm=1 legDir=-1 gdir=SHORT agree=0
+EH	0	22:17:04.534	Core 04	2026.09.08 16:50:01   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.08 16:45 opp=1 a2=1 body=1 touch=1 pre=PASS term=PASS t1term=PASS match=1
+DS	0	22:17:04.534	Core 04	2026.09.08 16:50:01   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.08 16:45 h4=-1.0 h1=1.0 m15=-1.0 l4=-1 l1=1 lm=-1 legDir=1 gdir=LONG agree=0
+JO	0	22:20:25.948	Core 04	2026.09.09 12:00:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.09 11:55 opp=0 a2=1 body=1 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+KR	0	22:20:25.948	Core 04	2026.09.09 12:00:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.09 11:55 h4=1.0 h1=-1.0 m15=-1.0 l4=1 l1=-1 lm=-1 legDir=-1 gdir=SHORT agree=0
+OO	0	22:21:33.086	Core 04	2026.09.09 18:10:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.09 18:05 opp=1 a2=1 body=0 touch=0 pre=PASS term=B_BODY t1term=B_BODY match=1
+FM	0	22:21:33.086	Core 04	2026.09.09 18:10:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.09 18:05 h4=1.0 h1=-1.0 m15=-1.0 l4=1 l1=-1 lm=-1 legDir=1 gdir=LONG agree=0
+JH	0	22:21:39.189	Core 04	2026.09.09 18:45:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.09.09 18:40 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+CS	0	22:21:39.189	Core 04	2026.09.09 18:45:00   [SRJ-EA] SIDE1G_VOTE3 bar=2026.09.09 18:40 h4=1.0 h1=-1.0 m15=1.0 l4=1 l1=-1 lm=1 legDir=1 gdir=LONG agree=0
+QS	0	22:22:49.122	Core 04	2026.09.09 23:59:58   [SRJ-EA] SIDE1G_TALLY seeds=56 prof=56 vote3=56
