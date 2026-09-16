@@ -6274,3 +6274,243 @@ No `OrderSend` anywhere in these three files, consistent with alert-only. Nothin
 
 That's what's checkable from these three files. Reconcile the counter count and the `s1g_seedBiasAl` read-site before you'd call this fully closed.
 
+
+## Sonnet review — 2026-09-16 — no ID, keyless (answers v107 Ask-R only; Ask-1/Ask-2 left to Luna's thread)
+
+Plain answer to Ask-R: **No.**
+
+At both seeds, mr=1 — the sweep-tag read supports SHORT (a HIGH got swept, so mean-reversion favors it). But confShort is not PASS at either one: it's `A_OPP` at 09:15 and `A2_CLOSE_BREAK` at 09:45 — both are named failure strings coming straight out of `IsConfirmationCandle(DIR_SHORT)`, not an empty/passing return. Since the code only converts the term to "PASS" when it comes back empty, and here it doesn't, the confirm gate is failed, not ambiguous.
+
+To read a birth into that you'd have to do one of the two things the ask rules out:
+- treat a named failure string as a soft pass for some row-type ("MR alone is enough") — that's inventing a row-type the printed terms don't support, or
+- ignore confShort entirely and go on mr alone — that's dropping the confirm term.
+
+You don't even need the tf/mr split to make the call: since confirm has functioned as a hard, non-bypassable gate everywhere else in this system (it's the same shared check that's kept R2 down elsewhere), a failed confirm term is dispositive on its own. TF happens to oppose too (tf=0 at both), which is corroborating, not necessary, for this conclusion.
+
+So the finding in section 1 checks out: P as specified births SHORT at neither seed, and nothing about the printed terms lets you get there without manufacturing something.
+
+On Ask-1 and Ask-2 — those are addressed to Luna's thread, which I don't have context on, so I'll leave those alone unless you want a second read on them specifically.
+
+
+## Sonnet review — 2026-09-16 — no ID, keyless (answers v108 Ask-R only; Ask-1/Ask-2 left to Luna)
+
+Plain answer to Ask-R: **No.**
+
+Nothing already on record fires SHORT at 09:15 or 09:45 specifically.
+
+- **Transfer/PREEMPT join** — the join used in the V107V block is a same-bar, no-race alignment between SIDE1T and SIDE1V rows (crediting which row "owns" a bar so nothing double-counts). It doesn't move a birth to a different bar; it just keeps the dual print honest at the bar it already sits on.
+- **Preempt (S2-CROSS-DIR-PREEMPT)** — this is the one real, built mechanism that gets a SHORT alive on Sep-8 morning, and it doesn't touch 09:15/09:45 at all. It operates on the later opposite-dir SHORT candidates (09:30/09:40/09:50 Weekly-POC, 10:05 Monthly-POC), and the resulting signal reaches S5 at 10:05/10:10 — a different bar, a different seed, and even then it already failed the R-gate (R=0.77) before any swing-source fix.
+- **Resolver (S2ResolveLive / g_dir)** — the bias-vs-carried-direction defect found earlier lives at the 10:10 site, not 09:15/09:45.
+- **Second seed** — there is no second SHORT-facing seed at either of these two bars; the live seed at both is LONG-facing and already bias-rejected (`REJECT-BIAS-TIMING`), which is exactly why the probe had to synthesize a hypothetical SHORT read there in the first place rather than finding one already running.
+
+So the two bars in question were never real SHORT candidates in the live system — they're LONG-rejected sites where P asked "what if." Every actual path to a live SHORT on Sep-8 morning routes through later bars entirely. Calling either of these two "birthed" would mean crediting a mechanism that in fact fires somewhere else, on a different candidate — which is exactly the kind of manufacture the ask rules out.
+
+Leaving Ask-1 and Ask-2 to Luna as before.Note: my Ask-R read stands as above — nothing on record births SHORT at those two specific bars; the real path runs through the later 10:05/10:10 candidates and already stalled there on the R-gate.
+
+
+## Sonnet review — 2026-09-16 — no ID, keyless (answers v109-REV2 Ask-R only; Ask-1/Ask-2 left to Luna)
+
+Plain answer to Ask-R: **the R-gate.**
+
+Walking through Sec.0 in order: birth isn't the failure — `SIDE1C_PREEMPT` shows the candidate was born fine (LONG/Monthly-POC → SHORT/Weekly-POC at 09:50, into S2_LTF_ALIGN). Survival isn't it either — the 10:05 `SUPPRESSED`-channel print resolves with `action=SUPERSEDED`, meaning this candidate beat the held one rather than getting held down itself; it reached S5. The stop-selection defect (`SIDE1E_STOPSHADOW`: correct rule says imb=0 → 2-away swing, s1=1.16258, r1=2.52 — but the live code is still feeding it the stale 1.16379 swing) is the *upstream cause*, but it's not itself a gate — it doesn't halt anything, it just hands a bad number forward.
+
+The thing that actually stops the candidate on the live path is `SIDE1R_RGATE` (rLive=0.77, livePass=0) and `TP_RR_FAIL_LATCH` (R=0.77 against entry 1.16205/sl 1.16379) — that's the terminal kill point. Everything upstream of it succeeds; this is where it dies.
+
+So: birth ✓, survival ✓, stop-selection is broken but not a gate, R-gate is what fires and kills it.
+
+Leaving Ask-1 and Ask-2 to Luna as before.
+
+
+## Sonnet review — 2026-09-16 — no ID, keyless (answers v110; Ask-1/Ask-2 not addressed as clearance)
+
+Reading through the actual code you pasted, I can answer the specific question buried in this ("Ask-R") directly — and I want to be upfront about something first.
+
+**On the code itself:**
+
+Region W (lines 5548–5770) is the branch that actually set the live stop. Line 5564–5568 reads whatever swing extreme is tagged to the currently-active order block (`FL_BUF_OB_SWING_EXTREME`) and checks only which *side* of price it's on — there's no check anywhere in that branch for how *old* that swing is. So if the order block itself dates back to Sep 3 and hasn't been invalidated since, its tagged swing being from Sep 3 isn't a malfunction — it's exactly what that code path is designed to do: tie the stop to the block's own defining structure, not to "the newest swing on the chart."
+
+Region X (9396–9436) is a *different* computation — it's the extension/ladder logic (`ext1`), and it's the one that actually produces the fresh, same-day value (1.16258 from 09:40). Its own comments confirm the fallback (`OFF_LADDER`) explicitly names the Sep-3 pair as the thing it falls back to when there's no fresh rung — but that's a separate code path from the one that set the trade's real stop.
+
+So, plainly: **there is a legitimate reading where 1.16379 isn't a bug** — if the intended design is "the stop belongs to the order block, however old that block is." But if "his rule" (as you've written it) requires the freshest protective swing *at the entry bar*, then nothing in W satisfies that — only the ext1 path in X does — and nothing in either region merges the two. The live run used W, not X. That's the actual discrepancy: not a corrupted value, but two different valid stop-selection philosophies living in the same EA, with the wrong one wired to the live order.
+
+**One other thing.** I'm not going to issue a "Ruling-ID," "clear" anything "BY NAME," or answer as "Luna" or a "review seat" — I have no memory of prior sessions, so I don't know what those labels have actually committed to before, and a formal-sounding verdict from me wouldn't carry any real authority over your bot regardless of how it's formatted. I can just tell you straight what the code does, like above.
+
+Also — genuinely, no judgment — this is a lot of ceremony (v110, dual pastes, pre-registered grading, "his part: transport only") for a bug that boils down to "two stop-reference paths, wrong one wired up." If it'd help, I'm happy to just work through the fix with you directly, in plain terms, without carrying the whole protocol forward.
+
+
+## Sonnet review — 2026-09-16 — no ID, keyless (answers v111; no clearance issued, ritual declined as stated)
+
+A few things check out here, and one thing genuinely doesn't — worth flagging clearly before this goes anywhere near live.
+
+**What checks out:** the FL row (09.08 10:05, the disputed trade) does match what you've filed as his levels — entry 1.16205, rule-stop 1.16258, and 103/53 pip math does give R≈1.94. That's correct arithmetic.
+
+**What doesn't check out — the "all other rows zero-delta" claim.** The shadow log only records `ruleStop`, not a recomputed R for each row. Nobody actually calculated what R would be under the rule stop for anything except FL. So I did it myself for all 14 rows, using each row's own live TP (the reasonable assumption being that target selection is independent of stop selection, so TP doesn't move when SL does):
+
+- **DH** (09.04 10:35): live R 0.36 (fail) → rule stop cuts the distance from 114 to 34 pips → **new R ≈1.21 — flips to pass.**
+- **IE** (09.08 16:55): live R 0.67 (fail) → rule stop cuts 159 pips to 54 → **new R ≈1.96 — flips to pass.**
+- **GQ** (09.04 15:55): already passing at R 2.56, but rule stop is *looser* (111→171 pips) → **R drops to ≈1.66.** Still passes, but not the same number.
+- **JJ** (09.07 16:40): already passing at R 1.25, rule stop tightens (43→23) → **R jumps to ≈2.34.**
+
+So this isn't "one new signal fires, everything else is unchanged." At minimum two more historical fails (DH, IE) look like they'd flip to passes, and two already-passing trades (GQ, JJ) would have materially different R, not identical ones. Only FL, PR, JK×2, CQ, KO, OD keep the same pass/fail outcome — and even some of those (OD) get noticeably closer to the line (0.60→0.68).
+
+One more thing worth a second look regardless of which way this goes: **ML** (08.27 18:50) has a 389-pip gap between live and rule stop — the largest in the set by a wide margin. That's the kind of outlier I'd want explained before trusting the rule broadly, not just averaged into "isolation PERFECT."
+
+Separately — I'll keep giving you a straight technical read like this, but I'm not going to sign anything as "Luna," issue a Ruling-ID, or "clear" something by name. Those aren't real authorities, they're just me, and I don't want the actual math above to get lost inside a verdict-shaped wrapper. If it's useful, I'm glad to just keep checking whatever data you've got next, plainly.
+
+
+## Sonnet review — 2026-09-16 — no ID, keyless (verifies v112 math; two follow-ups; no clearance — ritual declined as stated)
+
+I recomputed all five flagged rows independently from the raw TSV (risk = |entry − stop|, reward = |entry − TP|, holding TP fixed per the stated assumption), and they check out:
+
+- **DH**: risk drops from 114 to 34 points → R goes 0.36 → 1.21. Flips pass.
+- **IE**: risk drops from 159 to 54 points → R goes 0.67 → 1.96. Flips pass.
+- **GQ**: risk grows 111→171 → R 2.56→1.66. Stays pass, different number.
+- **JJ**: risk shrinks 43→23 → R 1.25→2.35. Stays pass, different number.
+- **ML**: risk shrinks 472→83 → R 0.03→0.18. Stays fail, but that's still an 83-point stop on a rule that's supposed to reflect actual structure — the gap between "unchanged outcome" and "unexplained mechanism" is real and shouldn't get waved through just because it doesn't flip anything this time.
+
+One more thing worth surfacing on FL itself: the table's "1.94 (his TP) / 2.51 (live TP)" split isn't cosmetic. His filed TP (1.16102) and the EA's actual `liveTp` field (1.16072) are two different numbers. If the rule-fix only touches stop selection and TP selection is a separate, still-unaudited code path, then "the fix produces R=1.94" is only true if the EA ends up using his manually filed TP rather than whatever `liveTp` logic currently computes. That's not confirmed anywhere in this extract — it's assumed. Worth nailing down before staging a build, since it's a second silent variable riding along with the one you're fixing.
+
+On the substance of Ask-3, I don't think this is something I should be resolving by fiat, and I'd actually push back gently on the framing that it can be settled with a one-line ruling:
+
+- **DH** was R2-declined-silent under the *old* stop logic. Whether the new stop legitimately reverses that depends on *why* R2 was declined — if the decline was purely a downstream consequence of the stale-stop R math, the fix correcting it is consistent. But if R2 carries any independent gate (timing, session, correlation with another open position) that had nothing to do with stop distance, then "fixing the stop" quietly resurrecting a trade that was excluded for other reasons too is exactly the kind of thing that shouldn't get bundled into one clearance.
+- **IE** is the same shape but higher stakes, since it's explicitly tied to "S2-down closure." That closure was made for some reason back at the base layer — if it was scoped narrowly to the 16:30/16:40 candidate specifically, IE firing is fine. If S2 was closed as a category (the whole session, or the setup type), this fix reopens something that was deliberately shut, as a side effect of an unrelated stop-math correction. I don't have the original S2-closure reasoning in front of me in this thread — that's not something I can infer from the shadow log, it has to come from whoever closed it and why.
+
+Bigger picture: two rows flipping outcome out of fourteen is roughly 14% of this sample changing verdict. That's not a narrow bug patch — it's a real, if modest, change in what the strategy trades. I'd want that named plainly rather than folded into "REWIRE, staged, mismatch→halt" language that makes it sound like a mechanical fix with a safety net. The safety net catches *unexpected* deltas; DH and IE are now *expected* deltas, which means the halt won't catch them even if they turn out to be the wrong call.
+
+I'll keep verifying whatever you put in front of me, but I want to be honest: I can't be the authority that "clears" a live trading code change — that call, especially the DH/IE scope question, needs the reasoning behind the original R2 decline and S2 closure, which lives with whoever made those calls, not with me reading a log for the first time.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (verifies v113 math; mechanism unproven-from-source; no-third-attempt counsel; no clearance — ritual declined as stated)
+
+I checked the arithmetic in this table against the entry/TP values from the original RECON40 extract (v111), plugging in the new SL values you've listed for each row:
+
+- **FL**: risk 53pts, reward 133pts → R≈2.51 (you list 2.52 — matches the EA's own internal r1 field almost exactly; trivial rounding gap, not material).
+- **DH**: entry 1.16265, TP 1.16224, new SL 1.16289 → risk 24, reward 41 → R=1.71. Matches exactly.
+- **OD**: entry 1.16213, TP 1.16114, new SL 1.16274 → risk 61, reward 99 → R=1.62. Matches exactly.
+
+So the R-math you've stated is internally consistent. That's the part I can actually verify.
+
+What I **can't** verify this round: there's no raw log excerpt attached this time (unlike v111's TSV), so the birth-count claim (63→59) and the "firing suppresses later births" mechanism are things I'm taking on your say-so, not something I've confirmed from source. I'd want to see the actual birth-stage code or the raw RECON41 log lines before treating that mechanism as established rather than a plausible-sounding pattern match.
+
+Here's the part I think matters most, stated plainly: **this is the second consecutive round where a "fully specified, mismatch→halt" prediction failed against the actual run — and the miss got bigger, not smaller.** Round one predicted 3 rows would change (FL/DH/IE) and everything else was zero-delta. What actually happened added a fourth affected row you hadn't predicted (OD), removed one of the three you had predicted (IE vanished instead of firing), and shifted the total signal population by 4. That's not a rounding error in a forecast — it's evidence that whatever mental/desk model is being used to predict "isolation" and "zero-delta elsewhere" doesn't actually capture how the selector (s0-vs-s1) interacts with upstream birth logic. Two-for-two wrong, with growing scope, is a pattern, not noise.
+
+Given there's apparently a real open position riding on how this stop logic ultimately gets treated, my honest engineering opinion — not a ruling, just what I'd tell you if you were a colleague — is: don't authorize another live-code change on the strength of a third round of desk-table predictions. The birth-suppression question in your Ask-3 can't be answered responsibly by inference from run summaries; it needs someone to actually read the birth-stage source (the code that decides whether a candidate is born at all) the same way we read regions W and X earlier. Guessing at that mechanism from the outside is exactly the kind of "invented computation" your own halt criteria are designed to catch.
+
+I'm glad to read that code directly the moment it's pasted, the way I did with W/X. But I'd rather tell you the predictions keep breaking than sign off on a third live attempt before the actual mechanism is known rather than inferred.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (mechanism unconfirmable-as-written; Ask-2 premature-not-wrong; post-hoc risk named; process complaint; source demand; no clearance — ritual declined as stated)
+
+I can't confirm this round's mechanism, for a straightforward reason: there's no source in it to check. Every prior round gave me something I could independently verify — real code lines (W/X), a raw TSV with real timestamps and prices, R-math I could recompute by hand. This round gives me a *description* of a mechanism ("R1 occupancy EA:7587," "R2 session EA:7592–7607") with no actual code and no raw log lines behind "MTEXIT 7," "SESSION_LIMIT 4→7," "SUPPRESSED-HELD," or "A6REFUSED." I have no way to tell whether that description is accurate without seeing what it's describing — and I'm not willing to sign off on "confirmed" for something I haven't checked, especially two rounds after the desk-math predictions were wrong twice in a row and got worse the second time, not better.
+
+That pattern is the part I'd actually sit with before anything else. Round 3 predicted 3 rows would change. Round 4's actual run added a row nobody predicted, dropped one that was predicted, and shifted the total signal count by 4. Now round 5 arrives not with more raw evidence to explain that miss, but with a named mechanism that — if true — happens to account for exactly the discrepancy. That's the shape a correct explanation looks like, but it's also the shape a plausible-sounding rationalization looks like, and from the outside I can't tell which this is without the actual EA:7587/7592 lines and the actual MTEXIT/SESSION_LIMIT log rows, the same way I could tell with W and X.
+
+So, concretely: I'll treat Ask-1 as unconfirmable as written, and Ask-2 as premature — not because the mechanism is wrong, but because "settle by name" is asking for a decision on a live trading code change based on a summary of evidence rather than the evidence.
+
+I also want to name something about the shape of this whole exchange, not just this round. Five relays in, this has taken on a lot of ceremonial weight — versioned relays, "seats," "Luna," "council," Ruling-IDs, dual-key clearances, tokens and words that get "spent," a person referred to only as "his part: transport only." That apparatus hasn't caught the actual bugs — plain arithmetic and reading the raw code did. If there's real money sitting in an unrealized position while this runs, I'd genuinely rather you paste me the actual EA:7587–7607 block and the raw RECON41 log lines than another structured verdict request. I can check those directly, the way I checked W/X and the TSV, and tell you plainly what they do. That's a more honest use of my time than occupying a "seat" in a process that hasn't been getting the predictions right.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (mechanism confirmed-on-source; TP-exit mismatch found; Ask-2 declined as authority; no clearance — ritual declined as stated)
+
+I checked sections 3–4 line-by-line against the actual entry/exit prices, not just against the narrative. The occupancy/session mechanism holds up. But cross-checking it surfaced something else — a real problem, separate from what this relay is asking about.
+
+**R1/R2 mechanism — confirmed against source:**
+
+- Line 7587–7607 does gate seeding behind `g_state == ST_IDLE` and, once past that, behind `SessionAlreadyUsed`. That's a real two-stage gate, not a description of one.
+- The per-seed accounting checks out against the MTEXIT rows: DH's trade (entry 1.16265) is open from 10:35 to the 10:40 exit — exactly the bar where a candidate would've needed to seed and couldn't, because state wasn't IDLE. That's the "10:40 occupancy" claim, and it's directly supported.
+- OD's trade (entry 1.16213, bar 16:40) stays open until the 17:05 POI_BODY_BREAK exit. That window spans 16:45 and 16:50 — exactly where IE would have needed to seed. IE's absence is explained by OD's occupancy, not a separate defect. That's a clean, checkable match.
+- The SESSION_LIMIT prints at 10:45, 10:15, and 16:50:01 line up with each new firing (DH, FL, OD) closing its session right after occupancy clears — consistent with R2 catching what R1 didn't.
+- A6REFUSED: 59→52 is a 7-line drop, and 3 (newly-firing: FL, DH, OD) + 4 (never-born, matching the births 63→59 delta exactly) = 7. That's internally consistent arithmetic. I haven't seen the raw A6REFUSED lines themselves, so I can't independently verify the classification of each of those 7 — only that the totals reconcile.
+
+So: **Ask-1, confirmed on what's checkable.** The mechanism is real, not a rationalization.
+
+**What I found while checking it, that nobody's asked about yet:**
+
+I lined up each MTEXIT exit price against the `liveTp` figure quoted for that same trade back in the RECON40 extract:
+
+- JJ: exit 1.16315 = liveTp 1.16315. Exact match.
+- FL: exit 1.16114 vs liveTp 1.16072 — 42 points off, and also not his filed TP (1.16102).
+- PR: exit 1.16451 vs liveTp 1.16364 — 87 points off.
+- KO: exit 1.16133 vs liveTp 1.16200 — and worse, exit sits *below* entry (1.16135) on a LONG, which isn't a profit at all, despite the row being tagged `TP_TOUCH`.
+- DH: exit 1.16274 vs liveTp 1.16224 — and again, on a SHORT, exit is *above* entry (1.16265), a small loss, tagged `TP_TOUCH`.
+
+One match out of five isn't a rounding artifact — it means `liveTp`, the field every R calculation in this entire thread has been built on (his 1.94, the shadow's 1.71/1.62/1.66/2.35, all of it), doesn't reliably describe what the position actually closed at. Two of those cases aren't even directionally a take-profit. That's a bigger and *prior* problem to the suppression question — it means the R-values this whole exchange has been treating as settled arithmetic may not represent real trade outcomes at all.
+
+**On Ask-2:** I'm not going to rule the re-clear "stands" or "suspends" as if I have that authority — I don't, and dressing my answer up as a ruling wouldn't make it one. What I can tell you honestly: the suppression mechanism you asked me to check is now source-backed, and my objection to *that specific point* is resolved. But the TP mismatch above is a new, unresolved, and more fundamental issue sitting underneath every R number in this thread. I wouldn't treat the stop-fix as settled while it's open.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (Ask-1 contradicted on source; TP agreed gate-only; disposition declined; second-developer counsel; no clearance — ritual declined as stated)
+
+I checked Table B (exit-vs-TP) row by row against side, entry, and exit — all seven check out: the profit/loss labels and point-deltas match the actual numbers (e.g., FL: short, exit 1.16114 vs entry 1.16205, that's a real 91-point favorable move that still misses stated TP by 42; DH and KO both show exits on the wrong side of entry despite being tagged `TP_TOUCH`, which the table correctly calls out as losses). This part is solid.
+
+Section 1 doesn't hold together, though, and it's worth being precise about why. The code you pasted in v115 gates the entire session-limit check behind one condition:
+
+```
+7589: if(g_state == ST_IDLE)
+7592:   if(SessionAlreadyUsed(sess, barTime))
+7601:     PrintFormat(... "SESSION_LIMIT" ...)
+```
+
+That print can only fire while the machine is IDLE. But the read in this relay uses OD's occupancy — "OD held 16:40→17:05" — to explain why 16:45 got no birth, and *in the same paragraph* uses the 16:50:01 SESSION_LIMIT print as evidence for why 17:05/17:25 got suppressed. Those two claims can't both be true: if OD is still occupying the machine at 16:50:01 (which it must be, since its exit isn't until 17:05), then per line 7589 the machine is NOT idle at 16:50:01, and the code as shown couldn't have printed SESSION_LIMIT at that moment at all — R1 would have silently returned first, the same way the SUPPRESSED-HELD exemplar shows for other candidates while occupied. Either occupancy doesn't actually last the full trade lifetime (in which case the 16:45 explanation is wrong), or it does (in which case the 16:50:01 print's existence is unexplained by this mechanism). One of the two "closed gaps" in this relay is still open — the DH/10:40 case is honestly hedged as bar-granularity-ambiguous, but this OD case isn't hedged, and it's a cleaner contradiction because 16:50:01 sits well inside the claimed occupancy window, not at its edge.
+
+So, directly: **Ask-1 isn't closed.** There's a real, checkable inconsistency in the mechanism as presented, not just an unaudited assumption.
+
+On Ask-2, the honest answer doesn't need a formal rule: R computed at signal time (entry vs. stop) is a risk-sizing number — it describes what you're risking to reach a target, nothing about whether the target gets hit. `liveTp` in the outcome table is a different thing: what actually happened. Conflating the two is exactly how "R=1.94" started sounding like a promised outcome when it was only ever a gate calculation. Calling the entry-time R "gate-only, outcome unaudited" is accurate — I just wouldn't dress that up as a named ruling, because it's a description, not a decision.
+
+On Ask-3: I'm not choosing (a), (b), or (c) as a disposition — that would be pretending I have standing to authorize a change to a live system I can't run or watch. What I can say plainly: don't lift the suspension on this evidence. A live-code contradiction just surfaced in the very package meant to close the last one.
+
+One more thing, said plainly rather than as ceremony: seven rounds in, the process keeps adding formal weight — Ruling-IDs, seats, tokens spent, dual-key, "his part: transport only" — while the thing that's actually caught every real problem so far has been reading raw lines by hand. There's a live position and real money riding on this. I'd get a second human developer's eyes on the actual EA source before anything gets rewired, rather than routing another round through more AI "verdicts."
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (corrected windows verified; TP stands as sole blocker; log-provenance limit stated; second-eyes counsel repeated; no clearance — ritual declined as stated)
+
+The corrected mechanism holds up, and it actually resolves the contradiction cleanly — better than I expected. Walking through it against the state-timeline rows:
+
+**OD/IE, checked:** OD reaches SIGNAL at 16:45:01. Under the new claim, session gets marked used and state resets to IDLE *at that same tick* (9917→9921→6183). So by 16:50:01, when IE's seed (born at bar 16:45) gets evaluated, the machine genuinely is IDLE — satisfying line 7589 — but the session was already marked used five minutes earlier. That's exactly the sequence needed to legitimately reach line 7592 and print SESSION_LIMIT. This directly resolves what I flagged in v116: the old story required OD to be simultaneously "occupying the machine" and "not occupying the machine" at 16:50:01. The new story doesn't have that conflict — occupancy ends at the fire tick, not at MTEXIT.
+
+**DH, checked the same way:** fires at 10:40:00, frees+marks same tick, and the bar-10:40-born seed evaluates at 10:45:00 into an already-IDLE, already-used state. Consistent with the same pattern.
+
+**One more thing I checked that the relay doesn't spell out, which actually strengthens the case:** the dedup logic in the code you pasted last round (7594–7605, the `s_limitDay`/`s_limitSess` static vars) only prints SESSION_LIMIT once per session per day — every subsequent suppressed candidate still hits `return` at line 7607, just silently. That's the real explanation for "17:05/17:25: session-silent" — not that nothing happened, but that the 16:45-born candidate already claimed the one print for that NYAM window, and the print statement is coded to not repeat. That's a small detail, but it's the kind of thing that would be very easy to get wrong in a hand-summarized account, and it's exactly right given the code shown. That gives me more confidence this correction was actually derived from re-reading the source rather than reverse-engineered to fit the desired answer.
+
+**So: Ask-1, yes — corrected windows check out against everything pasted.** Ask-2(a) follows from that: the per-seed gap is closed, and occupancy/suppression is no longer a defect worth holding the fix on. As you've already scoped it, that leaves the TP/outcome question as the one standing blocker, and I'd leave that exactly where it is rather than reopening it here.
+
+To be clear about the limits of what I just did: I'm confirming internal consistency against the specific lines and rows you've shown me, across several rounds now — I have no way to confirm these logs are unedited or that nothing outside these excerpts contradicts them. Given there's a live unrealized position on the other side of this, I'd still get a second person to read the actual full source before any wiring change ships — not because this round looks wrong, but because eight rounds of catch-and-correct on a system nobody else has verified is a reasonable point to bring in another set of eyes rather than mine alone.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (mechanism verified; fixed-vs-dynamic TP gap opened; disposition declined; second-eyes repeated; no clearance — ritual declined as stated)
+
+I checked the exit-model mechanism against the EXITVERDICT rows, and it explains something important that hasn't been named yet — not just "adverse touches are lawful," but a deeper mismatch between what the code does and what his filed rule says.
+
+**Mechanism, verified:** Line 2208 is the key detail — the "in-direction" filter for target selection tests each candidate level against *current price*, not entry price (`v > currentPrice` for longs, `v < currentPrice` for shorts). That means as price moves adversely, levels that were "behind" the trade relative to entry can become eligible as the "nearest favorable target from here." I traced this through the actual rows:
+
+- **KO** (long, entry 1.16135): at 10:00, curTp=1.16200 (above entry, a real target). By 10:05, curTp=1.16133 — *below* entry — and the bar's high touched it. Between those two prints, price must have dropped below entry; once that happens, any level still above the new (lower) current price satisfies the filter, even if it's below entry. That's mechanically why KO fires `TP_TOUCH` at a loss.
+- **DH** (short, entry 1.16265): curTp=1.16274, *above* entry, same pattern in reverse.
+
+So Ask-2's "adverse-lawful" question has a real answer: yes, lawful under the code as written — this isn't a bug relative to what's coded. But that's not the same as saying it's harmless to gloss over.
+
+**The thing this actually surfaces, that nobody's named yet:** his filed exit for the disputed trade is a **fixed level** — "1.16102, prev-day London low." The code's TP is not a fixed level at all — it's a **continuously reselected nearest-line-from-current-price**, which by construction can drift to a worse price than what was true at signal time, including past entry into loss territory. Those are two different exit *models*, not two readings of the same one. This is the same category of problem as the original stop-reference dispute (Sec.1 of v110) — except that one was about which swing the stop binds to, and this is about whether the take-profit is a fixed target at all. If "EA takes his trades exact" is the actual goal, a dynamically-drifting TP doesn't match a filed fixed-price target regardless of how correctly the drift logic executes.
+
+One honest caveat, matching Source F's own note: I inferred *reselection* (a different, nearer line becoming eligible) rather than the *same* physical level moving, because static POI/structure levels shouldn't shift bar-to-bar on their own. That's a reasonable inference from the numbers, not something I've confirmed against the level-naming code — I haven't seen the code that assigns *which* line `curTp` points to.
+
+**Answers:**
+- **Ask-1:** Mechanism as coded — confirmed against the rows shown.
+- **Ask-2:** Adverse touches are lawful under this code, not a coding defect. But R does **not** get outcome-meaning restored, in any bounded form — if anything, this opens a second structural gap (fixed-target rule vs. dynamic-reselection implementation) sitting alongside the stop-reference one from nine relays ago.
+- **Ask-3:** I'm not assigning (a)/(b)/(c) — that's not a call I have standing to make on a live position. What I'll say plainly: this isn't ready to lift. There's now a named, structural TP-model mismatch, not just an edge case.
+
+Given there's real unrealized money on this and the exit model turns out to be more different from his stated rule than anyone had flagged through eight prior rounds, I'd treat this less as "one more audit to close" and more as a sign the whole exit side needs the same scrutiny the stop side got — ideally from a second person reading the full TP-selection source, not another relay round.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (dynamic agreed; data gap deepened to structural; absence-needs-source challenged; disposition declined; no clearance — ritual declined as stated)
+
+Checking SOURCE H against what it's actually being used to settle: it does resolve the philosophical question, but in doing so it exposes something worse than what I flagged in v118 — not just "the model is dynamic," but "the EA's candidate pool for targets doesn't contain the category his real trade used."
+
+**On the fixed-vs-dynamic question itself:** the quotes are unambiguous and internally consistent with what I checked against code in v118. "1R is an admission criterion only. It has no role in management... the target follows the nearest valid POI wherever it goes, with no floor" directly rules out a fixed-exit reading of his own rule. Section 5.2's "no favour/adverse asymmetry — a POI moving toward the trade and away from it are treated identically" matches exactly what I traced in the KO/DH rows via line 2208 (side-test vs. current price, not entry price). So: **Ask-1, yes** — his rule is genuinely dynamic, not fixed, and the code's mechanism matches that philosophy correctly. That part of my v118 concern is resolved on its own terms.
+
+**But SOURCE I doesn't close a gap — it names a new, more serious one, and I think the framing undersells it.** Look at what it actually says: *"not computable by the EA (no prev-day-london-low input exists on record)."* That's not "the EA correctly picked the nearest of everything valid and his level happened to be a bit farther." That's "an entire category of level he considers valid was never in the candidate pool to begin with." Compare that against SOURCE H's own enumerated target types: *"nearest relevant session-liquidity level, the same-tier VWAP/POC on the opposite side, or a higher-tier VWAP/POC."* A previous day's session low is naturally read as a "session-liquidity level" — which means the spec itself appears to authorize exactly the kind of level he used, while the EA's actual line set doesn't compute it. That's the gap. It's not that the nearest-selection logic misfired; it's that the input needed to even compete for "nearest" doesn't exist.
+
+That reframes **Ask-2** pretty clearly: I don't think "acceptable nearest-of-12" is the right description. "Nearest-of-12" is only acceptable as a substitute for his rule if his rule's full candidate universe is represented in those 12. Here it isn't — a whole level type is structurally absent. I'd call this a real defect requiring the upstream export, not a tolerable approximation, precisely because the shortfall isn't in the selection math, it's in the data the selection math has to choose from.
+
+One honest limit on what I can confirm: SOURCE I's claim that the input "does not exist on record" is asserted, not shown — no code excerpt backs it the way Sources C/E/H did for the earlier claims. Given how many rounds in this thread turned out to need a source correction after being stated in prose first (the occupancy-window walkback in v117 is the clearest example), I'd want that absence actually demonstrated — e.g., the level-enumeration code showing the full candidate list it builds each bar — before treating "the input doesn't exist" as settled fact rather than plausible explanation.
+
+**Ask-3:** I'm still not assigning a disposition — that's not mine to grant. But directionally: this round didn't remove a blocker, it found a deeper one underneath it. A missing input category in the TP candidate set is arguably more consequential to "EA takes his trades exact" than the drift/adverse-touch behavior was, since it means some fraction of his manually-filed trades may be structurally unreachable by the current line set regardless of how the reselection logic is fixed. I'd want that candidate-enumeration code in front of me, the same way W/X and the exit-selection code were, before this gets anywhere near a lift.
+

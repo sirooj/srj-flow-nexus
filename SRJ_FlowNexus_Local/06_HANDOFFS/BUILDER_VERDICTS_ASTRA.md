@@ -9460,3 +9460,1055 @@ The **09:15/09:45 join remains a 2–2 split rather than a settled P-birth decis
 
 The next permitted sequence is therefore **word → STAGE-1 verify `7BFC7FA3` → build → 0/0 → `RECON39-PPROBE` → grade → relay**.
 
+
+## Luna — 2026-09-16 — no Ruling-ID stated (answers v107; authorship + accept, no clearance)
+
+**RECON39 record: ACCEPTED as graded.** The reported joins, counts, isolation delta, payload identity, and the two S1 load-bearing rows are internally consistent with the supplied Region-V code and stated run record.
+
+### Ask-1 — ACCEPT
+
+RECON39-PPROBE is accepted as a valid **grade run** for the claimed probe.
+
+The material result is:
+
+| S1 seed          | TF | MR | confirmShort     | P-for-SHORT birth support |
+| ---------------- | -: | -: | ---------------- | ------------------------- |
+| 2026-09-08 09:15 |  0 |  1 | `A_OPP`          | **No**                    |
+| 2026-09-08 09:45 |  0 |  1 | `A2_CLOSE_BREAK` | **No**                    |
+
+The independent calibration row at 2026-09-04 10:35 establishes that `IsConfirmationCandle(DIR_SHORT)` is capable of returning `PASS`; therefore the S1 failures are not evidence of a globally dead/constant-failing confirmation term.
+
+### Ask-2 — AUTHORSHIP CONSEQUENCE
+
+**Authored consequence: S1-unbirthable, D/E-first.**
+
+The strongest predicate supportable from this record is:
+
+`S1-gate ∧ TF_SHORT ∧ MR_SHORT ∧ confirmShort=PASS`
+
+For the two S1 rows, the measured state is:
+
+`TF_SHORT = false`
+`MR_SHORT = true`
+`confirmShort = false`
+
+Therefore neither row satisfies the complete SHORT predicate. More importantly, **TF already fails at both rows**, so the record does not establish "confirm-required" as a causal necessity through ablation; it establishes only that the authored probe contains confirmation as a required term and that both S1 candidates fail it.
+
+Accordingly:
+
+**Not sweep-sufficient.** `MR=1` alone cannot authorize either S1 birth without discarding the separate TF reading and inventing an unprinted row-selection rule.
+
+**Not empirically authored as "confirm-required."** That stronger causal statement would require a valid ablation showing birth with confirmation removed/relaxed. This run did not perform that test, and the no-manufacture constraint prohibits inferring it.
+
+**S1-unbirthable is the supported consequence.** On the observed S1 range, neither candidate supplies the complete evidence required by the probe's conjunctive interpretation.
+
+**Novel-evidence scope:** RECON39-PPROBE only, frozen range **2026-08-26 through 2026-09-09**, 3,168 bars / 563,338 ticks. The novel population is the `SIDE1V_BIRTH` family; isolation is delta-0 versus RECON38 apart from the intended 63 probe rows and three Tester-framing lines.
+
+**Threshold:** filed authority `R>=1.0`, A+ strict, alert-only.
+
+### Ask-R — plain merits answer
+
+**No.**
+
+There is no reading of the supplied Region-V code and the two supplied S1 rows under which P-for-SHORT **legitimately births at either 09:15 or 09:45** without either:
+
+1. dropping the `confShort` term, or
+2. inventing a row-type/selection rule that is not printed in Region V.
+
+Region V is print-only: it computes `tf`, `mr`, calls `IsConfirmationCandle(...DIR_SHORT...)`, restores the six N1 counters, and prints the result. It does not contain a birth/selection mutation, `OrderSend`, `AdoptOff` touch, or alternate row-choice operation.
+
+So the settled verdict is:
+
+**RECON39 ACCEPTED → S1-unbirthable (D/E-first) → no S1 birth clearance.**
+
+No build, run, commit, or token is authorized by this verdict.
+
+
+## VERDICT LUNA-V108-SED-001 2026-09-16 (answers v108)
+
+## Luna — 2026-09-16 — Ruling-ID: `LUNA-V108-SED-001`
+
+**Date:** 2026-09-16
+
+### Ask-1 — CONFIRMED
+
+The **S1-unbirthable consequence is settled as the Stage-E record for S1**.
+
+For both September 8 S1 candidates, the recorded probe state is:
+
+`TF_SHORT = 0 ∧ MR_SHORT = 1 ∧ confirmShort ≠ PASS`
+
+The authored probe does not contain a birth mechanism that can convert that state into a SHORT birth. `MR=1` alone is insufficient, and treating either row as born would require either dropping the confirmation term or introducing an unrecorded row-selection rule.
+
+Thus the Stage-E statement is:
+
+> **On the RECON39 evidence range, neither S1 Sep-8 candidate is a valid P-for-SHORT birth under the recorded predicate.**
+
+This is a **Stage-E evidence consequence**, not a claim that no alternative mechanism could ever produce that trade.
+
+---
+
+### Ask-2 — D/E-FIRST AUTHORSHIP
+
+#### (a) Stage-D closeout packet — CONFIRMED
+
+**D record: CONFIRMED as records-only and already closed.**
+
+**Predicate:** the documented D findings are internally sufficient without additional execution evidence; no new behavioral modification is implied.
+
+**Threshold:** filed authority, `R>=1.0`, A+ strict, alert-only.
+
+**Novel evidence:** none required.
+
+**Range:** the already-established D corpus represented by the closeout packet.
+
+Therefore D does **not** require a build, run, or further mechanism test merely to establish its record status.
+
+---
+
+#### (b) S2 survival — `E-SURVIVAL-001` is NOT owed
+
+Given the two already-recorded S2 closures:
+
+1. the Q-A ruling places the relevant bias flip at **16:35**, after the seed, and
+2. the R-gate independently kills the candidate at **16:40** with `0.60`,
+
+there is no surviving unresolved S2 mechanism in the supplied corpus that requires an additional survival probe.
+
+So:
+
+> **S2-down is fully closed on this corpus; `E-SURVIVAL-001` is not owed.**
+
+**Predicate:** `S2 candidate ∧ pre-existing bias/seed chronology invalid ∨ R-gate < required threshold`
+
+Both closure paths are already recorded, so there is no surviving predicate requiring a new survival mechanism.
+
+**Threshold:** the filed R-gate condition, with the measured `0.60` failure; A+ strict.
+
+**Novel evidence:** none.
+
+**Range:** the already-closed S2 evidence.
+
+Importantly, this does **not** authorize inventing a stronger general theorem such as "S2 can never survive." It says only that **this corpus has no remaining S2 survival question requiring authorship**.
+
+---
+
+#### (c) S1 goal-consequence — what can reopen the London short?
+
+There are **three logically distinct states**:
+
+**New data:** Yes, potentially.
+
+New evidence outside the frozen RECON39 corpus could reopen the question. Examples would be evidence establishing that the relevant Sep-8 market state was represented incorrectly, that a required lineage/read was missing, or that a presently unmeasured input actually carried the London-short information. That would be **new evidence**, not a reinterpretation of the present rows.
+
+**New mechanism:** Yes, potentially.
+
+A separately authored mechanism could reopen the *goal question* by defining a legitimate SHORT birth path that is not the present P probe. Such a mechanism would need its own predicate, threshold, novel-evidence requirement, and test range. It cannot retroactively convert the existing `tf=0 / mr=1 / confirm-fail` rows into P births.
+
+**Nothing further on this corpus:** For the **current P/S1 mechanism**, correct.
+
+Within the frozen RECON39 corpus, there is no authored evidence permitting those two S1 candidates to birth SHORT. Therefore the original London Sep-8 short remains **unrealized by S1/P**.
+
+**Goal re-scope:** consequently the unmet global goal should remain explicitly recorded rather than silently reclassified as solved. The evidence supports:
+
+> **S1/P cannot supply the missing London Sep-8 short on the present corpus.**
+
+It does **not** support "the trade is impossible" in the broader system.
+
+---
+
+### Ask-R — plain merits
+
+**No.**
+
+Nothing in the carried record—transfer, PREEMPT, resolver, or a second seed—provides an existing mechanism that births SHORT at either **09:15** or **09:45** without manufacturing an additional rule.
+
+The decisive point is that Region V is a **print-only probe** and the recorded S1 rows themselves are explicitly `dir=SHORT tf=0 mr=1` with failed confirmation terms. Transfer/PREEMPT may establish lineage and race-free correspondence, but they do not alter the printed SHORT predicate into a successful birth predicate.
+
+### Settled v108 disposition
+
+**S1:** `UNBIRTHABLE — D/E-FIRST`
+**Stage-D:** confirmed closed, records-only
+**S2:** fully closed; no `E-SURVIVAL-001` owed
+**London Sep-8 short:** remains unresolved by S1/P; only new evidence or a separately authored mechanism can reopen it
+**RECON39:** run remains spent
+**No build / no run / no commit / no token clearance** is issued by this ruling.
+
+
+## VERDICT LUNA-V109R2-POI-TIME-001 2026-09-16 (answers v109-REV2)
+
+## Luna — 2026-09-16 — Ruling-ID: `LUNA-V109R2-POI-TIME-001`
+
+**Date:** 2026-09-16
+
+### Ask-1 — AUTHOR, but only as a stop/R-time-alignment mechanism
+
+The evidence now localizes the 10:05 candidate's **observed live failure to the R-gate**, not to birth or survival:
+
+`Monthly-POC SHORT exists → reaches S5 → stop-shadow TAKE (R=2.52) → live stop=1.16379 → live R=0.77 → R-gate rejects`
+
+That permits the following **mechanism authorship**, without claiming yet that it is the correct implementation of his 10:10 trade:
+
+> **P-BIRTH/SURVIVAL is not the identified fault. The authored investigation target is STOP-REFERENCE / BAR-TIMING ALIGNMENT.**
+
+The required predicate is:
+
+`bias ∧ sweep ∧ POI ∧ divergence-validity ∧ entry-stack ∧ valid-stop-construction ∧ R>=1.0`
+
+with the stop constructed from **his filed stop rule and the correct trade-entry bar**, rather than inheriting a stale live stop merely because an earlier evaluation produced it.
+
+**Site:** the claimed 10:10-open Monthly-POC SHORT.
+
+**Hold:** preserve the candidate through S5 only while the POI, bias, sweep, divergence, and stop conditions remain valid; do not convert the shadow `R=2.52` into a trade unless the resulting stop/entry pair is actually his rule.
+
+**Threshold:** `R>=1.0`, with flat 1.0 accepted; A+ strict; alert-only.
+
+**Novel evidence required:** his actual **10:10 entry, SL, TP, and the exact 10:05-evaluation → 10:10-open mapping**. These are not implementation decoration; they determine whether the observed `0.77` is genuinely a stale/incorrect stop reference or whether his own valid stop would also fail R.
+
+**Range:** Sep-8 London sequence, specifically the 10:05 candidate evaluation and 10:10 opening candle, with regression protection over the already frozen exact-trade set.
+
+This is therefore **authored as the next mechanism question**, not as permission to change the EA yet. A mechanism that simply widens the stop, shifts the evaluation bar, or copies the shadow stop without his levels would be a band-aid and is not authorized.
+
+---
+
+### Ask-2 — facts needed from HIM
+
+The minimum authoritative facts to route back to him are:
+
+**1. 10:10 SHORT entry level** — the price at which he actually entered.
+
+**2. 10:10 SHORT SL** — his actual stop, derived under his `1-away with imbalance / 2-away without imbalance + wick` rule.
+
+**3. 10:10 SHORT TP** — his actual target.
+
+**4. Bar mapping** — whether his trade is explicitly the **10:10 opening candle**, while the EA's 10:05 row is an evaluation/qualification state for that later entry.
+
+**5. Stop-reference identity** — which swing/POI candle supplied his stop, so the council can determine whether `1.16379` is his legitimate stop or an EA-created stale reference.
+
+No level should be inferred from the existing EA rows.
+
+---
+
+### Ask-R — plain merits
+
+**R-gate.**
+
+Of the four choices given, the **live R-gate is the term that kills the 10:05 candidate**.
+
+The record explicitly shows:
+
+`livePass=0`
+`rLive=0.77`
+`TP_RR_FAIL_LATCH ... R=0.77`
+
+The stop-shadow simultaneously reports `R=2.52`, so the immediate unresolved question is **why the live path is using `1.16379` instead of the stop that would produce the shadow result**. That is a stop-reference/timing question, not evidence of birth failure.
+
+### v109-REV2 disposition
+
+**10:10 site:** retained as the true user-stated candidate.
+**Observed fault class:** live **R-gate**.
+**Next authored mechanism:** **stop-reference + entry-bar timing alignment**, subject to HIM's actual trade levels.
+**No invention:** entry/SL/TP remain unknown until supplied by HIM.
+**No build / no run / no commit / no clearance** follows from this authorship alone.
+
+
+## VERDICT LUNA-V110-STOPREF-SHADOW-001 2026-09-16 (answers v110)
+
+## Luna — 2026-09-16 — Ruling-ID: `LUNA-V110-STOPREF-SHADOW-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-16
+**Ruling-ID:** `LUNA-V110-STOPREF-SHADOW-001`
+
+**Ask-1 — CLEAR.**
+
+`S1-STOPREF-SHADOW-001` is cleared **by name** as a **print-only shadow investigation**, with the constraints you specified: live S5 stop path is re-sourced from the entry-bar rule; the Sep-3 inherited pin is removed from the shadow take path; live/N1 state and counters remain untouched; `AdoptOff`; no `OrderSend`.
+
+The source region establishes that the live 1-swing SHORT path directly takes `obSwingRef` when the side check passes, with no staleness test in that branch.  The E45 path separately records the aged-slot condition, including `noneSlot`, its timestamp, and `refSlotAgeBars`; that is diagnostic evidence rather than a legitimate freshness rule for the stop itself.
+
+**Important execution-status distinction:** I have **not** executed the requested RECON40 build/run in this response, so the required 4/4, clean-10:10, zero-delta, purity/MAXLEN/SELHALT/STATUS/DONE checks remain **unexecuted**, not passed.
+
+**Ask-2 — no additional contradiction is established from the material supplied.**
+
+**Ask-R — plain merits answer:** **No.** There is no supported reading in which live `1.16379` is his legitimate stop rather than the stale Sep-3 pin. The companion source shows the live 1SWING branch selecting `obSwingRef` directly when side-correct, while the separate E45 records identify the persisted Sep-3 slot as the `OFF_LADDER`/aged-reference shape.
+
+### Current disposition
+
+**STOP-REFERENCE SHADOW:** `CLEARED / RUN NOT EXECUTED`
+**Live `1.16379`:** `STALE REFERENCE — NOT HIS RULE-DEFINED STOP`
+**No smoothing / no reinterpretation applied.**
+
+**His three levels remain owed:** `10:10 entry`, `SL`, `TP`. No numerical level is inferred from the record.
+
+
+## VERDICT LUNA-V111-RECON40-LIVE-STOPFIX-001 2026-09-16 (answers v111)
+
+## Luna — 2026-09-16 — Ruling-ID: `LUNA-V111-RECON40-LIVE-STOPFIX-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-16
+**Ruling-ID:** `LUNA-V111-RECON40-LIVE-STOPFIX-001`
+
+**Ask-1 — ACCEPTED.**
+
+The `RECON40-STOPSHADOW` record is accepted **as graded**. The filed result supports the intended comparison: at the 10:05 S5 evaluation, the live stop was `1.16379`, while the rule-defined stop was `1.16258`, with rule-side `R=1.94` versus live `R=0.77`; the reported isolation and 4/4 signal results therefore establish the requested shadow finding. The companion source independently shows that the live 1-swing SHORT branch assigns `obSwingRef` directly when the side test passes.
+
+**Ask-2 — CLEAR BY NAME.**
+
+`S1-LIVE-STOPFIX-001` is **CLEARED BY NAME** for the staged live candidate:
+
+**Promote the shadow stop-selection rule to the live S5 take path at the entry bar; when the applicable imbalance is `0`, select the filed second-swing/ext1 stop; remove Sep-3-pin inheritance from the take path.**
+
+The clearance is for **one live build + one proving run only**, with the relay's pre-registered checks and mismatch → `REPORT+HALT`. This is a behavior-changing operation, so the stated dual-key/token + fresh run-word requirements remain applicable. Nothing in this ruling authorizes a build, run, commit, or OrderSend.
+
+**Ask-3 — PREMISE DISPUTE SETTLED: REWIRE THE SELECTION PATH; DO NOT PATCH W WITH A STALENESS TEST.**
+
+The evidence does not support treating the defect as merely "an old OB swing needs a freshness cutoff." Region W's current rule explicitly makes the OB swing the stop reference when its side test passes; the code then emits that selected value as the 1-swing stop.  A staleness test inserted into W would therefore retain the **OB-anchored selection philosophy** and only alter when that philosophy is allowed to fire.
+
+The shadow result demonstrates a different stop-selection rule: the qualifying 10:05 candidate is `1.16258`, while the live W-derived reference is `1.16379`. The source also already separates ladder reach/status from the selected stop reference, with `OFF_LADDER` distinguishing the aged Sep-3 shape and explicitly carrying the reference slot/age as diagnostic state.
+
+So the ruling is:
+
+**REWIRE-TO-THE-RULE-DEFINED SELECTION PATH, not "staleness-test-in-W."**
+
+I am **not** declaring that Region X, as currently written, is itself the complete final implementation of the candidate. The evidence supports the architectural direction—replace the W OB-anchored take-path selection with the proven entry-bar rule—not an unsupported claim that merely routing through existing X code automatically implements all of that rule.
+
+### Disposition
+
+`RECON40`: **ACCEPTED / GRADED**
+`S1-LIVE-STOPFIX-001`: **CLEARED BY NAME / STAGED ONLY**
+Premise: **REWIRE SELECTION PATH**
+`staleness-test-in-W`: **REJECTED AS THE LIVE DESIGN**
+Build/run/commit: **NOT AUTHORIZED BY THIS RULING**
+
+
+## VERDICT LUNA-V111-REVIEW-STOPFIX-001 2026-09-16 (answers v111)
+
+## Review seat — 2026-09-16 — Ruling-ID: `LUNA-V111-REVIEW-STOPFIX-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-16
+**Ruling-ID:** `LUNA-V111-REVIEW-STOPFIX-001`
+
+**Ask-1 — ACCEPT.** The RECON40 record is sufficient for the stated grade.
+
+**Ask-2 — CLEAR.** `S1-LIVE-STOPFIX-001` is cleared as the staged candidate exactly as registered: promote the shadow's entry-bar stop rule, remove Sep-3-pin inheritance from the live take path, one build and one proving run, with mismatch → halt.
+
+**Ask-3 — REWIRE, NOT STALENESS-PATCH.**
+
+On plain merits, a staleness test in W would leave the disputed premise intact: W is intentionally selecting the OB swing as the stop reference.
+
+The observed defect is therefore a **selection-rule mismatch**, not simply an age check. The live path should be rewired to the rule-defined selector proven by the shadow. The existing X machinery can remain diagnostic/structural where appropriate; its presence alone does not establish that it is the complete implementation of the final selector.
+
+**Review-seat final:** `ACCEPT + CLEAR + REWIRE-TO-RULE-SELECTION`.
+
+No build, run, or commit is being performed here.
+
+
+## VERDICT LUNA-V112-AMENDED-STOPFIX-001 2026-09-16 (answers v112)
+
+## Luna — 2026-09-16 — Ruling-ID: `LUNA-V112-AMENDED-STOPFIX-001`
+
+The amended set is internally consistent on the supplied arithmetic. The three disputed flips and the two "changed but still passes" rows all recalculate as stated; the ML row is also a genuine wide stop-distance outlier without a corresponding outcome change.
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-16
+**Ruling-ID:** `LUNA-V112-AMENDED-STOPFIX-001`
+
+### Ask-1 — CONFIRMED
+
+The amended table is accepted **row-by-row as stated**, subject to its explicit TP-independence assumption.
+
+The relevant R arithmetic checks:
+
+* **FL 10:05:** rule-stop 1.16258 gives `R=1.94` using his TP 1.16102; using the live TP 1.16072 gives about `R=2.51`. Either clears `R>=1.0`.
+* **DH 10:35:** `0.41 / 0.34 ≈ 1.21` → PASS.
+* **IE 16:55:** `0.00106 / 0.00054 ≈ 1.96` → PASS.
+* **GQ 15:55:** `0.00284 / 0.00171 ≈ 1.66` → PASS.
+* **JJ 16:40:** `0.00054 / 0.00023 ≈ 2.35` → PASS.
+* **ML 18:50:** `0.00015 / 0.00083 ≈ 0.18` → FAIL.
+
+Therefore the amended classification is accepted:
+
+**FL FIRE; DH FIRE; IE FIRE; GQ/JJ R-CHANGED BUT PASS; remaining rows unchanged; ML remains the unexplained no-outcome-effect outlier.**
+
+### Ask-2 — RE-CLEAR BY NAME
+
+`S1-LIVE-STOPFIX-001` is **RE-CLEARED BY NAME** on the amended prediction set.
+
+The staged candidate remains exactly the stated behavioral change:
+
+**live S5 take path uses the rule-defined stop at the entry bar; Sep-3 pin inheritance is removed; one live build + one proving run; any mismatch is REPORT+HALT.**
+
+The prediction set is now formally:
+
+**10:05 FL FIRE + 10:35 DH FIRE + 16:55 IE FIRE; GQ/JJ R changes while remaining PASS; other rows zero-delta in outcome; ML carried as unexplained outlier with no signal-effect claim.**
+
+This replaces the earlier v111 "all other rows zero-delta" prediction. That earlier prediction is superseded by this closed-set ruling.
+
+No build, run, commit, or OrderSend is authorized merely by this re-clear.
+
+### Ask-3 — COLLISIONS RULED
+
+**DH: FIRE stands.**
+
+The R2 decline is not an independent veto once the stop-selection defect has been corrected. On the corrected rule-defined stop, DH is `R≈1.21`, so under the filed `R>=1.0 / A+ strict` gate it becomes a valid firing candidate. The prior R2-declined-silent state therefore does **not** survive this stop correction as an absolute bar.
+
+**IE: does not automatically reopen S2 globally.**
+
+The corrected stop makes the 16:55 IE row pass the R-gate at `R≈1.96`, but that does not by itself erase an already established **S2 closure**. On the supplied record, the defensible scope is the specific closed S2 candidate/window to which that closure was attached, rather than treating "S2-down" as a permanent global prohibition on every later qualifying row.
+
+Accordingly:
+
+**IE FIRE under the corrected R-gate; S2 remains closed for its already-closed candidate scope.**
+
+IE therefore does **not** revive the earlier closed S2 candidate merely because its corrected R exceeds threshold. A separate re-opening would require an explicit ruling that S2-down was global rather than candidate-scoped; the present record does not establish that broader interpretation.
+
+**ML: unexplained outlier, carried—not repaired.**
+
+The approximately 389-pip-equivalent stop-distance disparity is materially anomalous, but because it changes neither the live/rule outcome nor the stated signal result, it is not grounds to widen, shift, or otherwise band-aid the rule in this clearance. It remains a named diagnostic item for later investigation.
+
+### Final disposition
+
+`AMENDED TABLE` → **CONFIRMED**
+`S1-LIVE-STOPFIX-001` → **RE-CLEARED BY NAME**
+`DH` → **FIRE STANDS**
+`IE` → **FIRE UNDER CORRECTED R; S2 CLOSURE REMAINS SCOPED TO ITS CLOSED CANDIDATE**
+`ML` → **UNEXPLAINED OUTLIER; NO SIGNAL-EFFECT CHANGE**
+`RECON17` → **FROZEN**
+Build/run/commit → **NOT EXECUTED / NOT IMPLIED**
+
+
+## VERDICT LUNA-V112-REVIEW-AMENDED-STOPFIX-001 2026-09-16 (answers v112)
+
+## Review seat — 2026-09-16 — Ruling-ID: `LUNA-V112-REVIEW-AMENDED-STOPFIX-001` (self-labeled Model: GPT-5.6 Luna, Review Seat; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna — Review Seat
+**Date:** 2026-09-16
+**Ruling-ID:** `LUNA-V112-REVIEW-AMENDED-STOPFIX-001`
+
+### Ask-1 — CONFIRMED
+
+The amended table is correct on the supplied numbers, including the TP-independence qualification.
+
+In particular, DH recalculates to approximately `1.21`, IE to approximately `1.96`, GQ to approximately `1.66`, JJ to approximately `2.35`, and ML to approximately `0.18`.
+
+### Ask-2 — RE-CLEAR
+
+`S1-LIVE-STOPFIX-001` is **RE-CLEARED BY NAME** for the amended set and the same staged one-build/one-proving-run shape.
+
+The prediction register is amended to include the two newly identified flips, **DH and IE**, rather than carrying the invalidated v111 zero-delta prediction.
+
+### Ask-3 — COLLISIONS
+
+**DH firing stands.** The corrected stop produces `R≈1.21`, so the prior R2 decline is superseded by the corrected stop calculation rather than treated as an independent prohibition.
+
+**IE fires under the corrected R-gate, but this does not itself reopen the already-closed S2 candidate.** The supplied record supports scoping S2-down to the previously closed candidate/window; it does not support converting that closure into a blanket veto over a later qualifying row.
+
+**ML remains unexplained.** It is a diagnostic anomaly, not a reason to alter the rule.
+
+### Review-seat final
+
+**CONFIRM + RE-CLEAR + DH FIRE + IE FIRE WITHOUT GLOBAL S2 REOPEN + ML CARRIED.**
+
+No build, run, or commit is performed by this ruling.
+
+The next branch is therefore **Confirm + re-clear → token + fresh word → STAGE-1 verify `8CFBDC7A`**, with the amended prediction register carried exactly as above.
+
+
+## VERDICT LUNA-V113-RECON41-REDIRECT-001 2026-09-16 (answers v113)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V113-RECON41-REDIRECT-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V113-RECON41-REDIRECT-001`
+
+### Ask-1 — CONFIRMED
+
+The RECON41 mismatch is **confirmed as stated**, row by row, on the supplied record.
+
+`FL` is a pass for the stop comparison, with TP-selector behavior explicitly remaining unaudited/carried.
+
+`DH` is a **numerical mismatch**: predicted `1.21 / 1.16299 (s1)` versus actual `1.71 / 1.16289 (s0)`.
+
+`GQ/JJ` remain passes, with the reported `1.66 / 2.34` and `1.66 / 2.34` outcomes within the filed comparison.
+
+`OD` is a **material mismatch**: predicted to remain below threshold at `s1`, but actually fires from `s0` at `1.62`.
+
+`IE` is a **birth/evaluation mismatch**: the predicted fire cannot occur because the expected evaluation/birth is absent.
+
+The aggregate upstream discrepancy is likewise confirmed: `63/14` predicted versus `59/13` actual, with the four named missing evaluations/births.
+
+### Ask-2 — HALT THE CURRENT LIVE FIX
+
+**Disposition: (b) HALT.**
+
+I do **not** re-clear the existing live stop-fix on the RECON41 result.
+
+The reason is narrower than "the stop rule was wrong." RECON41 has exposed a second behavior change outside the cleared take-path comparison: firing a candidate is temporally associated with later birth suppression (`OD → missing 16:45`, and the filed analogous `DH → missing 10:40`). The record does **not** establish that this suppression is an intended part of the specification.
+
+Therefore the previously cleared live change has exceeded the demonstrated isolation boundary. The stopping condition is met under the relay's own rule: **upstream blast radius beyond the cleared take path**.
+
+`S1-LIVE-STOPFIX-001` is consequently **HALTED, not re-cleared**.
+
+The shadow finding remains valid on record. The 10:10 trade remains unrealized under this halted live state.
+
+### Ask-3 — SUPPRESSION RULING
+
+**Suppression is NOT established as lawful/intended by the supplied evidence.**
+
+The record establishes an observation, not a rule:
+
+> firing at one candidate is followed by disappearance of later births/evals.
+
+That is sufficient to mark **row-independence as disproven empirically for this run**, but insufficient to declare the suppression itself an intended behavior.
+
+Accordingly:
+
+**Births must remain independently determined unless an explicit filed rule/specification establishes firing-dependent suppression.**
+
+Until such authority is supplied, the missing `IE` birth is treated as a **second live defect**, not as an acceptable consequence to be baked into the stop-fix.
+
+This also means the current candidate cannot be amended to "always-s1" merely to make DH/OD conform. That would change the selector without resolving the upstream suppression defect, and would be another unsupported behavioral choice.
+
+### ML + TP-selector
+
+**ML:** `CARRY / NOT A LIVE-DESIGN BASIS.` Its previously filed behavior is not contradicted by the present evidence, but RECON41 does not provide enough information to expand its scope.
+
+**TP-selector:** `CARRY / UNAUDITED.` `FL` demonstrates the stop comparison successfully, but the record expressly leaves the TP selector unaudited. It cannot be silently promoted to a cleared conclusion or used to justify the live fix.
+
+
+## VERDICT LUNA-V113-REVIEW-REDIRECT-001 2026-09-16 (answers v113)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V113-REVIEW-REDIRECT-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V113-REVIEW-REDIRECT-001`
+
+**Ask-1 — CONFIRM.** The stated RECON41 mismatches are accepted exactly as filed.
+
+**Ask-2 — HALT.** The live fix should **not** be re-cleared while firing-dependent birth suppression remains unexplained and crosses the cleared isolation boundary.
+
+**Ask-3 — SECOND DEFECT OPEN.** The review seat does not find sufficient evidence to declare suppression intended. The correct neutral treatment is independent birth semantics unless a filed rule expressly says otherwise. `IE` therefore remains an unresolved upstream defect.
+
+The review seat likewise carries **ML** and the **TP selector** rather than expanding either beyond the evidence.
+
+### Final combined disposition
+
+**RECON41:** `ACCEPTED — MISMATCH CONFIRMED`
+**S1-LIVE-STOPFIX-001:** `HALTED`
+**Suppression:** `UNPROVEN / SECOND DEFECT OPEN`
+**IE absence:** `NOT ACCEPTED AS INTENDED`
+**ML:** `CARRIED`
+**TP selector:** `UNAUDITED / CARRIED`
+**No new live implementation is authorized by this ruling.**
+
+
+## VERDICT LUNA-V114-SUPPRESSION-SETTLEMENT-001 2026-09-16 (answers v114)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V114-SUPPRESSION-SETTLEMENT-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V114-SUPPRESSION-SETTLEMENT-001`
+
+### Ask-1 — CONFIRMED
+
+The supplied v114 record establishes the suppression mechanism at the level required by the v113 open condition:
+
+* **R1 / occupancy:** EA 7587 seeds only when the state is `IDLE`.
+* **R2 / session:** EA 7592–7607 can consume the session within the fired window.
+* The exhibits support the resulting suppression accounting: **MTEXIT 7**, **SESSION_LIMIT 4→7 (+3 post-new-firing)**, the `SUPPRESSED-HELD` rows, and the `A6REFUSED -7` arithmetic closure.
+* The per-seed attribution supplied here assigns the relevant absences to occupancy/session mechanisms, with uniformity control on the original firings.
+
+On the supplied record, that is sufficient to remove the former "suppression must be ruled before it can explain the absence" open condition.
+
+### Ask-2 — RE-CLEAR BY NAME
+
+**Selected branch: (a) RE-CLEAR `S1-LIVE-STOPFIX-001`.**
+
+The re-clear applies to the **corrected set and naming exactly as stated**:
+
+`DH-s0 = 1.71`
+`OD-16:40 = fires, 1.62`
+`IE = lawfully absent`
+`births = 59`
+
+The naming distinction must remain explicit and must not be smoothed:
+
+* **OD-16:40:** fires at `1.62`.
+* **IE:** lawfully absent under the suppression mechanism.
+* The separate record that **IE realized at 16:45:01** remains a different bar/entry case, despite sharing `SL=1.16274` and `TP=1.16114`.
+
+So this is **not** a declaration that every one of those rows represents the same trade. It is a settlement that the corrected population now has a filed mechanism explaining the non-birth/suppression cases, while preserving the row-specific outcomes.
+
+### Final disposition
+
+`SUPPRESSION MECHANISM`: **CONFIRMED**
+`S1-LIVE-STOPFIX-001`: **RE-CLEARED BY NAME**
+Corrected set: **ADOPTED FOR THE NEXT PROVING TEST**
+Band-aid `always-s1`: **not authorized by this ruling**
+Build/run/commit: **NOT performed here**
+
+A fresh token and fresh run word are therefore the remaining prerequisites stated by v114 before the next staged proving run.
+
+
+## VERDICT LUNA-V114-REVIEW-SUPPRESSION-SETTLEMENT-001 2026-09-16 (answers v114)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V114-REVIEW-SUPPRESSION-SETTLEMENT-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V114-REVIEW-SUPPRESSION-SETTLEMENT-001`
+
+### Ask-1 — CONFIRMED
+
+The new evidence supplies the missing filed mechanism. R1 accounts for occupancy-controlled seeding; R2 accounts for session-controlled suppression; the listed MTEXIT, session-limit delta, held-row, and `A6REFUSED -7` exhibits close the supplied suppression accounting.
+
+### Ask-2 — RE-CLEAR BY NAME
+
+**Branch (a): re-clear `S1-LIVE-STOPFIX-001`.**
+
+The corrected naming is accepted without collapsing OD and IE into one event:
+
+`OD-16:40` = actual fire at `1.62`;
+`IE` = lawful absence;
+`IE 16:45:01 realization` = separate realized row.
+
+That distinction matters because the shared SL/TP does not make the bars or entries identical.
+
+### Review-seat final
+
+**`CONFIRM + RE-CLEAR`**
+
+The previously halted live-stop candidate may proceed to the next **staged proving cycle**, subject to the fresh token/word and the stated 0/0 → run → grade controls. No live change is made by this ruling itself.
+
+
+## VERDICT LUNA-V115-SOURCE-SETTLEMENT-001 2026-09-16 (answers v115)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V115-SOURCE-SETTLEMENT-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V115-SOURCE-SETTLEMENT-001`
+
+### Ask-1 — CONFIRM-ON-SOURCE
+
+**R1: CONFIRMED.**
+The supplied code makes the occupancy condition explicit: seed arming is gated by `g_state == ST_IDLE`, and the seed branch itself is entered only in that state. Therefore a busy candidate cannot become a new seed through this path.
+
+**R2: CONFIRMED.**
+The supplied code makes session suppression explicit: once `SessionAlreadyUsed(sess, barTime)` is true, the function emits `SESSION_LIMIT` and returns, suppressing further candidates until the next window.
+
+**Per-seed accounting: PARTIALLY CONFIRMED, with an important distinction.**
+
+The raw rows directly establish:
+
+* machine-free events through the seven `MTEXIT` rows;
+* subsequent session-level suppression through the seven `SESSION_LIMIT` rows;
+* a concrete busy-state detector event at **2026-09-08 16:40**, where the candidate is explicitly `SUPPRESSED ... action=HELD` while the held state is `S4_ARMED`;
+* aggregate `A6REFUSED` accounting of **59 → 52**, with the filed delta of **7 = 3 fired-now + 4 never-born**.
+
+That is enough to confirm the **mechanism and the broad accounting model**.
+
+It is **not enough, from the exact material reproduced here, to independently reconstruct every claimed per-seed accounting instance**—specifically the named `10:40 occupancy / 16:45 occupancy / 17:05+17:25 session` mapping and the claimed uniformity on every original row. Those particular row-by-row bindings are asserted by the relay but their underlying seed-level rows are not reproduced in Sections 3–4.
+
+So the correct-or-correct verdict is:
+
+**R1 = confirmed.
+R2 = confirmed.
+Mechanism-level per-seed accounting = confirmed.
+Every named per-seed attribution = not fully source-demonstrated by this package.**
+
+### Ask-2 — RULE-ON-DISSENT
+
+**The V114 re-clear does NOT stand as fully source-settled. It is SUSPENDED pending source-backed concurrence.**
+
+The Sonnet objection has been materially answered: this v115 actually supplies code and raw rows, so the prior **"no source to check"** objection no longer applies.
+
+But the source package still does not reproduce enough row-level evidence to independently verify the entire claimed per-seed accounting. Consequently, I would not turn the partial confirmation into a full live-code authorization.
+
+The correct disposition is therefore:
+
+**V114 re-clear: SUSPENDED, not rejected.**
+
+The distinct naming remains preserved:
+
+**OD = fired.**
+**IE = absent.**
+
+The source does not license collapsing those into a single "suppressed" explanation.
+
+No further live change should be authorized from this package alone. A **source-backed Sonnet re-vote with the same material** is the appropriate next settlement step when usage returns, exactly as the relay specifies.
+
+
+## VERDICT LUNA-V115-REVIEW-SOURCE-SETTLEMENT-001 2026-09-16 (answers v115)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V115-REVIEW-SOURCE-SETTLEMENT-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V115-REVIEW-SOURCE-SETTLEMENT-001`
+
+### Ask-1
+
+**CONFIRM, with the same qualification.**
+
+The code directly establishes the two control rules:
+
+`R1` — seed only while `ST_IDLE`.
+
+`R2` — an already-used session returns before admitting a further candidate.
+
+The logs independently show the resulting exits, session limits, and a real `SUPPRESSED ... HELD` event while the machine is occupied.
+
+What they do **not** independently establish is every named per-seed accounting row claimed in the relay. That portion remains an evidentiary gap, not a contradiction.
+
+### Ask-2
+
+**SUSPEND the V114 re-clear.**
+
+The dissent's central methodological demand—**judge the mechanism from actual source rather than description**—has now been met in part, but the source still falls short of demonstrating all of the asserted per-seed mapping.
+
+Accordingly:
+
+**R1/R2 mechanism: SOURCE-CONFIRMED**
+**Full per-seed accounting: SOURCE-INCOMPLETE**
+**V114 live re-clear: PARKED/SUSPENDED**
+**OD fires / IE absent: remain distinct**
+**No build / no run / no commit / QUIESCENT**
+
+This is an **evidentiary suspension**, not a finding that the proposed mechanism is wrong.
+
+
+## VERDICT LUNA-V116-GAP-TP-DISPOSITION-001 2026-09-16 (answers v116)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V116-GAP-TP-DISPOSITION-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V116-GAP-TP-DISPOSITION-001`
+
+### Ask-1 — GAP CLOSED: **YES**
+
+The V115 per-seed attribution gap is **closed** on the supplied record.
+
+The four R40 birth bars are individually accounted for:
+
+* **2026-09-04 10:40:** R40 `A_OPP`; R41 absent. The recorded `TP_TOUCH` exit at 10:40 identifies the occupying trade and establishes the intra-bar limitation.
+* **2026-09-08 16:45:** R40 `A_OPP`; R41 absent; the occupying OD chain runs from 16:40 to 17:05.
+* **2026-09-08 17:05:** R40 `C_TOUCH`; R41 absent, with the 16:50:01 NYAM session-limit suppression applying afterward.
+* **2026-09-08 17:25:** R40 `A2_CLOSE_BREAK`; no R41 evaluation follows because the NYAM window was already consumed.
+
+The two zero proofs you supplied—`SIDE1V` R41 pattern count **0** and the `seedBT=2026.09.08 16:50` count **0**—also close the attribution question rather than merely showing an absent emitted row.
+
+**Per-seed verdict:** `CLOSED / CORRECT-OR-CORRECT`.
+
+---
+
+### Ask-2 — TP RULE: **GATE-ONLY**
+
+`liveTp` is **not established as an outcome variable** by this record.
+
+What is established is narrower:
+
+**`R >= 1.0` is a gate calculation at entry.**
+
+The seven exit rows demonstrate why outcome semantics remain open. In particular, several rows are marked `TP_TOUCH` while the recorded realized exit is a loss relative to entry, including:
+
+* 2026-09-04 SHORT: `TP_TOUCH`, `e=1.16265`, `x=1.16274` → **LOSS**
+* 2026-09-07 LONG: `TP_TOUCH`, `e=1.16135`, `x=1.16133` → **LOSS**
+
+And the off-TP exits have distinct reasons:
+
+* 2026-09-04 LONG → `HTF_FLIP`
+* 2026-09-08 SHORT → `POI_BODY_BREAK`
+
+Therefore the sourced evidence supports:
+
+**R arithmetic = entry qualification only.**
+**`liveTp` ≠ proven realized-outcome model.**
+**TP/outcome meaning = UNSET pending an exit-model audit.**
+
+### Rule by name
+
+`R-GATE-ONLY / TP-OUTCOME-UNSET-001`
+
+**Threshold:** every candidate must establish `R >= 1.0` **at the entry evaluation** to pass the R gate. A TP value may be used as a target/reference field, but it must **not** be interpreted as proof of realized trade outcome until the exit model has been audited and reconciled against the `TP_TOUCH`, `HTF_FLIP`, and `POI_BODY_BREAK` records.
+
+---
+
+### Ask-3 — DISPOSITION: **(b) SUSPENSION STANDS**
+
+The suspension remains in force.
+
+This is **not** a finding that the live stop-fix is wrong. The stop-shadow evidence and the live stop mismatch remain as previously established. The unresolved issue is specifically the **exit/outcome semantics**, and the current record does not establish that `liveTp` represents realized outcomes.
+
+So the disposition is:
+
+**SUSPEND — evidentiary, not dead.**
+
+No build, run, commit, or fresh live-fix authorization follows from v116. The shadow evidence remains valid on the record; the live candidate remains paused until the exit-model question is closed.
+
+
+## VERDICT LUNA-V116-REVIEW-GAP-TP-001 2026-09-16 (answers v116)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V116-REVIEW-GAP-TP-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V116-REVIEW-GAP-TP-001`
+
+**Ask-1 — CLOSED.** The supplied seed rows, the two independent R41-zero checks, occupancy anchors, and session-limit rows account for all four relevant R40 births. There is no remaining per-seed attribution gap on these records.
+
+**Ask-2 — GATE-ONLY.** The evidence supports entry-time R arithmetic, not an outcome interpretation of `liveTp`. `TP_TOUCH` is demonstrably not synonymous with profitable realization, because the supplied table contains `TP_TOUCH` losses. The exit model therefore remains an independent unresolved layer.
+
+**Ask-3 — (b) SUSPEND STANDS.**
+
+The suspension should remain exactly as an evidentiary suspension. The stop-fix does not become "dead"; rather, the next authorization is blocked by the unresolved exit-model semantics.
+
+### Joint disposition
+
+**Per-seed gap:** `CLOSED`
+**R basis:** `GATE-ONLY`
+**TP outcome meaning:** `UNRESOLVED / EXIT-MODEL AUDIT REQUIRED`
+**V114 re-clear:** `REMAINS SUSPENDED`
+**Live stop-fix:** `STILL STAGED, NOT AUTHORIZED FOR BUILD/RUN`
+
+
+## VERDICT LUNA-V117-CORRECTED-WINDOWS-001 2026-09-16 (answers v117)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V117-CORRECTED-WINDOWS-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V117-CORRECTED-WINDOWS-001`
+
+### Ask-1 — CORRECTED WINDOWS: **CONFIRMED**
+
+The corrected mechanism is internally consistent with the supplied source.
+
+At alert-only fire, the session is marked used at `EA:9917`, then the state is moved to `SIGNAL` at `EA:9919`; `ResetSequence()` subsequently restores `ST_IDLE` at `EA:6183`. Thus the machine's eligibility state is freed at the fire tick, while the independent MT tracker may continue through `MTEXIT`.
+
+The timeline therefore has the correct separation:
+
+**seed → next-open evaluation → fire → same-tick free/mark → later independent MT exit**
+
+For the cited rows, the 16:45:01 OD fire frees the machine before the 16:50:01 next-open evaluation. The latter can therefore legitimately encounter `IDLE` while also finding NYAM already marked used, producing the `SESSION_LIMIT` row. The analogous DH sequence gives the 10:45:00 London `SESSION_LIMIT`.
+
+This resolves the specific inconsistency identified in the prior Sonnet catch.
+
+### Ask-2 — **(a) GAP CLOSED; SUPPRESSION REMOVED AS A BLOCKER**
+
+The per-seed attribution gap is **closed on the corrected window model**.
+
+The important correction is the lifetime definition: **tracker lifetime ≠ machine occupancy**. Occupancy for this gate is **seed-to-fire**, because the fire path both marks the session and frees the state before the later MT exit.
+
+Accordingly:
+
+* OD: 16:30 seed → 16:45:01 fire → free/mark → 16:50:01 seed evaluates while `IDLE` but NYAM is already used.
+* DH: corresponding seed-to-fire sequence ends at 10:40:00 → free/mark → 10:45:00 seed is suppressed by the already-used London window.
+* 17:05 / 17:25 remain session-silent under the consumed NYAM window.
+
+The prior "occupancy spanning fire-to-MTEXIT" description is therefore **withdrawn**, as requested. It should not be carried forward as the mechanism explanation.
+
+### Remaining blocker
+
+The **only remaining blocker is the TP/exit-model question** established in v116.
+
+The R rule remains:
+
+**`R-GATE-ONLY / TP-OUTCOME-UNSET-001`**
+
+No new suppression defect is opened by v117.
+
+
+## VERDICT LUNA-V117-REVIEW-CORRECTED-WINDOWS-001 2026-09-16 (answers v117)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V117-REVIEW-CORRECTED-WINDOWS-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V117-REVIEW-CORRECTED-WINDOWS-001`
+
+**Ask-1 — CONFIRMED.** Seed-to-fire is the relevant machine-occupancy interval under the supplied alert-only code; MT tracking is independent.
+
+**Ask-2 — (a) CONFIRMED.** The corrected windows close the per-seed gap and remove the session-suppression issue as a suspension basis. The earlier occupancy explanation is superseded; the underlying absence of an eligible R41 evaluation remains intact.
+
+### Joint disposition
+
+**Per-seed gap:** `CLOSED`
+**Session-window blocker:** `REMOVED`
+**Prior fire→MTEXIT occupancy claim:** `WITHDRAWN`
+**TP/outcome audit:** `SOLE REMAINING BLOCKER`
+**Suspension:** **REMAINS, ON TP GROUNDS ONLY**
+**Build/run/commit:** **still not authorized**
+
+
+## VERDICT LUNA-V118-EXITMODEL-SETTLEMENT-001 2026-09-16 (answers v118)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V118-EXITMODEL-SETTLEMENT-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V118-EXITMODEL-SETTLEMENT-001`
+
+### Ask-1 — MECHANISM: **CONFIRMED**
+
+The supplied source supports the exit mechanism as coded:
+
+**Each bar recomputes `curTp` from `MtNearestTpTarget(...)`; TP is tested against that current value; TP exits at `curTp`; SL has precedence; non-TP exits use `nextOpenPx`.**
+
+Specifically, the TP branch tests the current-bar high/low against `curTp`, while the exit assignment writes `curTp` as the TP exit price. SL is selected first, ahead of TP.
+
+The nearest-target filter also explicitly compares the candidate against **current price**, not entry:
+
+`LONG: v > currentPrice`
+`SHORT: v < currentPrice`
+
+That establishes the relevant reference point for target admissibility as current price.
+
+The trajectory rows are consistent with that model: PR changes from `1.16364` to `1.16451` before the touch; KO changes from `1.16200` to `1.16133` before the touch; JJ remains at `1.16315`.
+
+**Verdict:** `MECHANISM CONFIRMED / CORRECT-OR-CORRECT`.
+
+---
+
+### Ask-2 — ADVERSE-LAWFUL: **LAWFUL UNDER Q6, BUT TP IS NOT AN OUTCOME MEASURE**
+
+The KO and DH loss-close `TP_TOUCH` rows are **lawful under the stated Q6 rule**, not evidence by themselves of an exit-engine defect.
+
+Why: the TP selector is defined against **current price**, rather than entry. Therefore a newly selected `curTp` can be on the opposite side of the original entry price while still satisfying the coded current-price side predicate. A subsequent touch then legitimately produces `MT_EXIT_TP_TOUCH` even though the realized exit is a loss relative to entry.
+
+That is exactly what the supplied rows expose:
+
+* KO: entry `1.16135`, `curTp` becomes `1.16133`, then `vTP=1` → exit at `1.16133` → loss.
+* DH: entry `1.16265`, later TP-classified exit at `1.16274` → loss.
+
+So these are **adverse-to-entry but lawful-to-the-current-price-rule** TP touches.
+
+The important semantic boundary is:
+
+**`TP_TOUCH` = exit classification produced by the Q6 current-price target rule.**
+It does **not** mean "profitable TP," "target achieved relative to entry," or "winning outcome."
+
+Therefore **R remains GATE-ONLY**. The exit audit does not restore outcome semantics to R. `R >= 1.0` establishes entry qualification; realized P/L is determined later by the actual exit price and exit reason.
+
+### Rule by name
+
+`EXIT-TP-TOUCH-IS-CLASSIFICATION-NOT-OUTCOME-001`
+
+**R rule:** `R >= 1.0` at entry = gate qualification only.
+**TP rule:** `TP_TOUCH` denotes satisfaction of the current-bar/current-price target test, irrespective of whether the resulting exit is profitable relative to entry.
+**Outcome:** determined from actual entry/exit prices, not from the `TP_TOUCH` label.
+
+This resolves the V116 ambiguity without changing the coded rule.
+
+---
+
+### Ask-3 — DISPOSITION: **(a) LIFT**
+
+**LIFT.**
+
+The sole remaining suspension blocker—the question whether the apparent TP/loss contradiction represented an exit-model defect—is resolved by the mechanism audit. The observed losses are explained by the documented current-price target selection and therefore do not invalidate the exit model.
+
+That does **not** authorize a build or run by itself. Per your branch rules, the standing re-clear becomes effective, after which the fresh token, word, and run specification are owed before any behavior-changing live fix is staged.
+
+### Final Luna disposition
+
+`Per-seed attribution:` **CLOSED**
+`R arithmetic:` **GATE-ONLY**
+`Exit model:` **MECHANISM CONFIRMED**
+`TP_TOUCH:` **CLASSIFICATION, NOT OUTCOME**
+`KO/DH adverse-to-entry TP_TOUCH:` **LAWFUL UNDER Q6**
+`V114 suspension:` **LIFTED / RE-CLEAR EFFECTIVE**
+`Live stop-fix:` **STILL STAGED — no build/run/commit authorized yet**
+
+
+## VERDICT LUNA-V119-TP-RULE-SETTLEMENT-001 2026-09-16 (answers v119)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V119-TP-RULE-SETTLEMENT-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V119-TP-RULE-SETTLEMENT-001`
+
+### Ask-1 — FIXED GAP CLOSED: **YES**
+
+**SOURCE H closes the fixed-vs-dynamic gap.**
+
+The filed rule is explicit: the target is evaluated continuously; post-entry it follows the **nearest valid POI**, with **no floor**; the trade is held; and a POI ahead is the take-profit target and exits on touch. The rule also expressly says side is dynamic per bar and that movement toward or away from the trade is treated identically.
+
+Accordingly, a fixed `1.16102` exit interpretation is **not** the rule represented by SOURCE H. `1.16102` is a filed historical level used for the particular trade record; it is not evidence that the post-entry TP is permanently frozen there.
+
+**Rule by name:** `TP-DYNAMIC-NEAREST-POI-001`
+
+**Meaning:** admission requires the nearest valid target to imply at least `1R`; after entry, target selection is dynamic and follows the nearest valid POI, with no post-entry `R` floor.
+
+The code references supplied in v119 are consistent with that mechanism: entry TP uses the closest line, management uses the current nearest favorable TP, and exit occurs on touch of the current TP.
+
+---
+
+### Ask-2 — DATA GAP: **UPSTREAM EXPORT DEFECT**
+
+The missing previous-day London-session-low input should be treated as a **data/export defect**, not silently accepted as proof that the EA's nearest-of-12 universe is complete.
+
+The record states:
+
+`his filed target = 1.16102`
+`EA liveTp = 1.16072`
+
+and specifically that **no previous-day-London-low input exists on record**. Therefore the EA cannot select the filed `1.16102` from that absent upstream datum.
+
+The appropriate rule is:
+
+**`TP-DATA-SOURCE-COMPLETE-001`**
+
+A filed target/input that the governing rule permits must be represented in the EA's target universe before the implementation can claim fidelity to the rule. The defect is **upstream data coverage**, not a justification to redefine the rule as "nearest of the currently exported 12."
+
+So `1.16072` may be the nearest valid target **within the data actually exported**, but that does not establish it as the correct EA representation of the complete rule when a qualifying target (`1.16102`) is absent from the source set.
+
+No band-aid or fixed-target substitution is warranted.
+
+---
+
+### Ask-3 — DISPOSITION: **LIFT STANDS**
+
+**LIFT / re-clear remains effective.**
+
+The fixed-vs-dynamic question is now settled on the filed specification, and the remaining discrepancy is a **named upstream data-completeness issue**, not an unresolved TP-rule interpretation.
+
+That means the live stop-fix is not killed and the suspension does not need to be reinstated solely because of the fixed-vs-dynamic question.
+
+The next stage remains subject to the stated fresh token, fresh word, and run specification, followed by the prescribed `0/0` controls and proving run. Nothing is being built, run, or committed by this ruling.
+
+### Final Luna disposition
+
+`FIXED-vs-DYNAMIC`: **CLOSED — DYNAMIC**
+`TP rule`: **R-GATE-ONLY + DYNAMIC-NEAREST-POI**
+`1.16102`: **FILED TARGET / missing upstream input**
+`1.16072`: **EA result from incomplete source universe, not a fixed-rule contradiction**
+`Data defect`: **UPSTREAM EXPORT**
+`Disposition`: **LIFT STANDS**
+
+
+## VERDICT LUNA-V119-REVIEW-TP-RULE-001 2026-09-16 (answers v119)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V119-REVIEW-TP-RULE-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V119-REVIEW-TP-RULE-001`
+
+**Ask-1 — YES, CLOSED.** The specification expressly settles the issue in favor of a moving nearest-POI target after entry. A fixed-exit reading cannot be reconciled with the quoted post-entry rule.
+
+**Ask-2 — UPSTREAM DATA GAP.** The problem is not that the EA selected the nearest available level; it is that the available target universe lacks the documented previous-day London-session-low input. Therefore the EA's `1.16072` result cannot be treated as equivalent to a complete implementation of the target universe.
+
+**Ask-3 — LIFT STANDS.**
+
+The TP-rule ambiguity is resolved, while the data-source defect remains a separately named implementation item. It does not, on this record, require suspension or termination of the cleared live-stop candidate.
+
+**Review-seat final:** `LIFT STANDS + TP-DYNAMIC-NEAREST-POI + UPSTREAM-DATA-GAP`.
+

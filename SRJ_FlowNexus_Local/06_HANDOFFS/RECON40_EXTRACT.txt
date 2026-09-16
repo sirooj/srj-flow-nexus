@@ -1,0 +1,17 @@
+RN	0	22:58:33.592	Core 04	2026.08.26 14:45:01   [SRJ-EA] SIDE1X_STOPREF bar=2026.08.26 14:40 dir=LONG entry=1.16654 liveStop=1.16580 ruleStop=1.16597 ruleSlot=61 ruleImb=0 liveTp=1.16684 liveR=0.41 livePass=0
+HM	0	23:05:29.089	Core 04	2026.08.27 17:05:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.08.27 17:00 dir=SHORT entry=1.16524 liveStop=1.16652 ruleStop=1.16598 ruleSlot=7 ruleImb=1 liveTp=1.16498 liveR=0.20 livePass=0
+ML	0	23:05:53.531	Core 04	2026.08.27 18:55:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.08.27 18:50 dir=LONG entry=1.16526 liveStop=1.16054 ruleStop=1.16443 ruleSlot=10 ruleImb=0 liveTp=1.16541 liveR=0.03 livePass=0
+PR	0	23:09:51.802	Core 04	2026.08.28 10:05:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.08.28 10:00 dir=SHORT entry=1.16466 liveStop=1.16508 ruleStop=1.16508 ruleSlot=42 ruleImb=0 liveTp=1.16364 liveR=2.43 livePass=1
+JK	0	23:11:41.820	Core 04	2026.08.28 16:25:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.08.28 16:20 dir=SHORT entry=1.16430 liveStop=1.16508 ruleStop=1.16508 ruleSlot=118 ruleImb=0 liveTp=1.16364 liveR=0.85 livePass=0
+CQ	0	23:16:47.144	Core 04	2026.08.31 15:10:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.08.31 15:05 dir=SHORT entry=1.15965 liveStop=1.16021 ruleStop=1.16058 ruleSlot=49 ruleImb=1 liveTp=1.15933 liveR=0.57 livePass=0
+JK	0	23:33:15.915	Core 04	2026.09.04 09:30:01   [SRJ-EA] SIDE1X_STOPREF bar=2026.09.04 09:25 dir=LONG entry=1.16290 liveStop=1.16249 ruleStop=1.16249 ruleSlot=7 ruleImb=2 liveTp=1.16316 liveR=0.63 livePass=0
+DH	0	23:33:28.123	Core 04	2026.09.04 10:40:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.09.04 10:35 dir=SHORT entry=1.16265 liveStop=1.16379 ruleStop=1.16299 ruleSlot=13 ruleImb=2 liveTp=1.16224 liveR=0.36 livePass=0
+GQ	0	23:34:29.159	Core 04	2026.09.04 16:00:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.09.04 15:55 dir=LONG entry=1.16018 liveStop=1.15907 ruleStop=1.15847 ruleSlot=5 ruleImb=0 liveTp=1.16302 liveR=2.56 livePass=1
+KO	0	23:37:38.370	Core 04	2026.09.07 09:20:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.09.07 09:15 dir=LONG entry=1.16135 liveStop=1.16098 ruleStop=1.16098 ruleSlot=7 ruleImb=0 liveTp=1.16200 liveR=1.76 livePass=1
+JJ	0	23:39:03.818	Core 04	2026.09.07 16:45:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.09.07 16:40 dir=LONG entry=1.16261 liveStop=1.16218 ruleStop=1.16238 ruleSlot=7 ruleImb=0 liveTp=1.16315 liveR=1.25 livePass=1
+FL	0	23:42:13.026	Core 04	2026.09.08 10:10:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.09.08 10:05 dir=SHORT entry=1.16205 liveStop=1.16379 ruleStop=1.16258 ruleSlot=5 ruleImb=0 liveTp=1.16072 liveR=0.77 livePass=0
+OD	0	23:43:26.269	Core 04	2026.09.08 16:45:01   [SRJ-EA] SIDE1X_STOPREF bar=2026.09.08 16:40 dir=SHORT entry=1.16213 liveStop=1.16379 ruleStop=1.16359 ruleSlot=91 ruleImb=2 liveTp=1.16114 liveR=0.60 livePass=0
+IE	0	23:43:26.269	Core 04	2026.09.08 17:00:00   [SRJ-EA] SIDE1X_STOPREF bar=2026.09.08 16:55 dir=SHORT entry=1.16220 liveStop=1.16379 ruleStop=1.16274 ruleSlot=7 ruleImb=1 liveTp=1.16114 liveR=0.67 livePass=0
+FD	0	23:42:13.026	Core 04	2026.09.08 10:10:00   [SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.08 10:05 dir=SHORT s0px=1.16251 s0slot=3 s0imb=0 s1px=1.16258 s1slot=5 s1imb=0 sel=1 r0=2.90 r1=2.52 liveSl=1.16379 livePass=0
+PE	0	23:42:13.026	Core 04	2026.09.08 10:10:00   [SRJ-EA] SIDE1R_RGATE evalBar=2026.09.08 10:05 seedBT=2026.09.08 10:05 dir=SHORT seedBiasAl=0 rLive=0.77 livePass=0 slRef=1.16379
+GO	0	23:42:13.026	Core 04	2026.09.08 10:10:00   [SRJ-EA] TP_RR_FAIL_LATCH bar=2026.09.08 10:05 dir=SHORT entry=1.16205 sl=1.16379 tp=1.16072 R=0.77

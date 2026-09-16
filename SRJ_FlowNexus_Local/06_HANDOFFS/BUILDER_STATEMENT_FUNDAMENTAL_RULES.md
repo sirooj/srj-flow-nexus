@@ -91,3 +91,11 @@ the old selections — is over by his order.
   away" and the triangle are stated; formation detail is not on record.
   (S1 first swing STRUCK from this list 2026-09-14: HAND 9:50 since
   Addendum 2 — it was never a blank.)
+
+## 8. Alert bar: A+ only (his words, 2026-09-16)
+
+"No, I want the EA alert to be as strict as it would execute it. so i do
+not want a false alert even though the setup is only violating or does not
+pass one single rule. In other words, i only consider A+ setup."
+
+One violated rule = no alert. An alert means would-execute.
