@@ -1,0 +1,33 @@
+﻿[SRJ-EA] SIDE1C_PREEMPT bar=2026.08.26 09:55 from=Weekly-POC fromDir=SHORT to=Weekly-POC toDir=LONG state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.08.27 09:30 from=Weekly-POC fromDir=SHORT to=Daily-POC toDir=LONG state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.08.27 18:45 from=Weekly-POC fromDir=SHORT to=Daily-VWAP toDir=LONG state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.08.28 18:05 from=Yearly-POC fromDir=SHORT to=Yearly-POC toDir=LONG state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.08.28 18:15 from=Yearly-POC fromDir=LONG to=Yearly-POC toDir=SHORT state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.08.31 15:05 from=Weekly-POC fromDir=LONG to=Weekly-POC toDir=SHORT state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.08.31 15:25 from=Yearly-POC fromDir=LONG to=Yearly-POC toDir=SHORT state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.09.01 15:00 from=Monthly-POC fromDir=LONG to=Monthly-POC toDir=SHORT state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.09.04 15:35 from=Monthly-POC fromDir=LONG to=Yearly-POC toDir=SHORT state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.09.04 15:40 from=Yearly-POC fromDir=SHORT to=Monthly-POC toDir=LONG state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.09.08 09:30 from=Monthly-POC fromDir=LONG to=Weekly-POC toDir=SHORT state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.09.08 09:50 from=Monthly-POC fromDir=LONG to=Weekly-POC toDir=SHORT state=S2_LTF_ALIGN
+[SRJ-EA] SIDE1C_PREEMPT bar=2026.09.08 16:50 from=Weekly-VWAP fromDir=LONG to=Monthly-POC toDir=SHORT state=S2_LTF_ALIGN
+[SRJ-EA] SLNONFIRE fields=11 bar=2026.09.08 10:05 dir=SHORT outcome=RR_FAIL todayR=0.77 todayXi=NONE ext1R=2.52 rewardPts=133.40534 riskPts=174.00000 ext1RewardPts=133.40534 ext1RiskPts=53.00000 wouldFire=1
+[SRJ-EA] SLNONFIRE fields=11 bar=2026.09.08 16:40 dir=SHORT outcome=RR_FAIL todayR=0.60 todayXi=NONE ext1R=0.68 rewardPts=99.00000 riskPts=166.00000 ext1RewardPts=99.00000 ext1RiskPts=146.00000 wouldFire=0
+[SRJ-EA] SLNONFIRE fields=11 bar=2026.09.08 16:55 dir=SHORT outcome=RR_FAIL todayR=0.67 todayXi=NONE ext1R=1.96 rewardPts=106.00000 riskPts=159.00000 ext1RewardPts=106.00000 ext1RiskPts=54.00000 wouldFire=1
+[SRJ-EA] SLEXT1 fields=29 bar=2026.09.08 10:05 site=S5 dir=SHORT ext1Defined=1 slExt1=1.16258 ext1Slot=5 ext1BarTime=2026.09.08 09:40 ext1Imb=0 deltaExt1Pts=-121 outwardExt1Pts=-121 deepestExt=31 todayXi=NONE baseXi=NONE nuanceXi=NONE fracXi=NONE fracNuXi=NONE anchorXi=0 filedPx=- filedProv=- filedT=- residPts=0 barDiffBars=-999 verdict=NOLEVEL noneSlot=738 noneT=2026.09.03 20:35 refSlotAgeBars=737 rewardPts=133.40534 riskPts=174.00000 ext1RewardPts=133.40534 ext1RiskPts=53.00000
+[SRJ-EA] SLEXT1 fields=29 bar=2026.09.08 16:40 site=S5 dir=SHORT ext1Defined=1 slExt1=1.16359 ext1Slot=91 ext1BarTime=2026.09.08 09:05 ext1Imb=2 deltaExt1Pts=-20 outwardExt1Pts=-20 deepestExt=29 todayXi=NONE baseXi=NONE nuanceXi=NONE fracXi=0 fracNuXi=0 anchorXi=0 filedPx=- filedProv=- filedT=- residPts=0 barDiffBars=-999 verdict=NOLEVEL noneSlot=817 noneT=2026.09.03 20:35 refSlotAgeBars=816 rewardPts=99.00000 riskPts=166.00000 ext1RewardPts=99.00000 ext1RiskPts=146.00000
+[SRJ-EA] SLEXT1 fields=29 bar=2026.09.08 16:55 site=S5 dir=SHORT ext1Defined=1 slExt1=1.16274 ext1Slot=7 ext1BarTime=2026.09.08 16:20 ext1Imb=1 deltaExt1Pts=-105 outwardExt1Pts=-105 deepestExt=30 todayXi=NONE baseXi=NONE nuanceXi=NONE fracXi=1 fracNuXi=1 anchorXi=0 filedPx=- filedProv=- filedT=- residPts=0 barDiffBars=-999 verdict=NOLEVEL noneSlot=820 noneT=2026.09.03 20:35 refSlotAgeBars=819 rewardPts=106.00000 riskPts=159.00000 ext1RewardPts=106.00000 ext1RiskPts=54.00000
+[SRJ-EA] ALERT SRJ HEADS-UP SHORT EURUSD M5 | Weekly-POC | LONDON | zone 1.16362-1.16377 awaiting confirm
+[SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Weekly-POC | LONDON | reason=FRESH_OB_DEAD
+[SRJ-EA] ALERT SRJ HEADS-UP SHORT EURUSD M5 | Weekly-POC | LONDON | zone 1.16362-1.16377 awaiting confirm
+[SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Monthly-POC | LONDON | reason=TP_RR_FAIL
+[SRJ-EA] ALERT SRJ HEADS-UP LONG EURUSD M5 | Yearly-POC | NYAM | zone 1.16079-1.16140 awaiting confirm
+[SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Yearly-POC | NYAM | reason=FRESH_OB_DEAD
+[SRJ-EA] ALERT SRJ HEADS-UP SHORT EURUSD M5 | Monthly-POC | NYAM | zone 1.16362-1.16377 awaiting confirm
+[SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Monthly-POC | NYAM | reason=TP_RR_FAIL
+[SRJ-EA] ALERT SRJ HEADS-UP SHORT EURUSD M5 | Monthly-POC | NYAM | zone 1.16362-1.16377 awaiting confirm
+[SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Monthly-POC | NYAM | reason=TP_RR_FAIL
+[SRJ-EA] ALERT SRJ HEADS-UP SHORT EURUSD M5 | Weekly-POC | NYAM | zone 1.16362-1.16377 awaiting confirm
+[SRJ-EA] ALERT SRJ STAND-DOWN SHORT EURUSD M5 | Weekly-POC | NYAM | reason=LTF_MISALIGN
+[SRJ-EA] ALERT SRJ HEADS-UP LONG EURUSD M5 | Weekly-POC | NYAM | zone 1.16079-1.16140 awaiting confirm
+[SRJ-EA] ALERT SRJ STAND-DOWN LONG EURUSD M5 | Weekly-POC | NYAM | reason=LTF_MISALIGN

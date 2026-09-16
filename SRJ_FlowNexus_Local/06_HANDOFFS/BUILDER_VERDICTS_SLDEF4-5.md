@@ -4854,3 +4854,1423 @@ The union text is internally coherent as *engineering*, independent of whether i
 
 Nothing in the substance reads as sloppy. My objection isn't to the packet's engineering — it's to being asked to be the second signature on deploying it.
 
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer, no chain custody) - Sonnet live-session, answers v73 2026-09-16
+
+I'll engage with the actual technical substance here, but first I want to flag something about the framing, because it affects what any answer from me can actually mean.
+
+**What I am and am not:**
+
+- I don't have memory of "v72," a "Luna CLEAR," a prior "Sonnet non-clearance," RECON31/RECON32 results, or any of the preceding relays. Each conversation with me starts fresh — I only know what's in this message. So I can't confirm or extend a "chain" of verdicts; I can only evaluate what's pasted here, right now.
+- I'm not a fixed node in a multi-model "council" with binding authority. I can't issue a "Ruling-ID" that functions as an institutional clearance token, and nothing I say here should be treated as authorizing a future build/run of anything — especially since this EA, however inert today (`OrderSend 0`), is clearly headed toward live order placement. Real capital risk from an automated trading system deserves real human risk review, not a sequence of AI "verdicts" stacked into a quorum. I'd gently push back on structuring the decision that way regardless of what any of us say line-by-line.
+- I can't verify the SHA256/byte-identity claim, that the pasted 107 lines match some file on your disk, or that the described STAGE-C run (74 seeds, fires 3/4, etc.) actually happened as narrated — I only have the text you've pasted, not the ability to execute or diff anything.
+
+With that on the table, here's my honest read of the two design questions on their merits, from the code shown:
+
+**(a) Session-memory void — my read:** Looking at Region B/E: the seed path sets `g_state = ST_S1_REGIME` and writes `g_sessionAtEntry` *before* the live consult ever runs; suppression later just snaps `g_state` back to `ST_IDLE` (line 7670) without touching any session-used flag. Per your own §8 count, `SessionAlreadyUsed` isn't written anywhere near the six edit sites — so today, a voided seed leaves **no trace** that this session was attempted, and the detector is free to re-fire next bar as if nothing happened. That's exactly the mechanism producing 56→74.
+
+Given R1 (a real, profitable, hand-taken trade) ends up dying as collateral damage of that inflation, the exhibit is telling you the current "free re-fire" behavior is actively destructive: void seeds are competing with distinct, legitimate signals for the same fixed fire budget. My engineering opinion: a void should consume the session's attempt (bounded-to-zero re-seed on the *same anchor line*), not reset to a blank slate. A bounded re-seed might be defensible only if the next attempt is against a genuinely new anchor/POI, not a re-detection of the same void condition one bar later.
+
+**(b) R1-compatible scope — my read:** From what's shown, both S1 (09:15) and R1 (09:55) fail the same local test path (`B_BODY` in `IsConfirmationCandle`, lines 2113–2116 — doji or wrong-direction body). If that candle-body test is the only thing deciding B_BODY-class, there's genuinely no separating rule in it — both look identical to that function. Your own annotation ("London bearish-close kills confirmation; NY AM 4H+1H-short governs over 15m-long") points at a *different* mechanism as the real discriminator: the HTF vote in `S2ResolveLive` (Region C), not the raw candle test. If the 4H/1H leg vote agrees with R1's direction but conflicts with S1's, the separating variable is trend-vote agreement, not B_BODY membership — meaning the local confirmation-candle gate is the wrong instrument to be gating on at all, and the resolver's vote should be doing the gating.
+
+I can't confirm that's actually true for these two specific timestamps, though — I don't have the underlying 4H/1H price data, so I can't check whether `s1c_l4`/`s1c_l1` actually agreed with R1 and conflicted with S1. That's a factual/empirical claim, not something derivable from the code text alone. If you want a real answer to (b) rather than a plausible hypothesis, that's the number to pull.
+
+If you want, I'm glad to keep going on (c) and (d) in this same grounded style — but I won't play the part of issuing a formal "verdict" that feeds a clearance chain. What would be useful to you here: the substantive design analysis, or were you specifically trying to collect a "vote" for the multi-model process?
+
+
+## VERDICT (seat CLAIMED, provenance flagged) - Notion-AI Opus channel, answers v73 2026-09-16 - Seat: design authorship AS STATED (unauthenticated; arrival channel = Notion experiment, model = Opus, NOT the designated Sonnet stream). Ruling-ID as carried: RULING-V73-REAUTH-001. Builder treatment: authorship-adoptable, NOT counted as a stream key (one-stream-counts-once + authenticate-nothing rules).
+
+**Model:** Notion AI · **Date:** 2026-09-16 (Asia/Bangkok) · **Ruling-ID:** RULING-V73-REAUTH-001
+**Scope:** design text only, on §§0–1 + companion Regions A–G under Bind 590BE614…. No clearance, no token, no run word, no build/commit authorization given or implied.
+
+---
+
+## §1(a) SESSION-MEMORY VOID — RULE: the void must hold the session (re-seed zero)
+
+**Rule as authored:** A seed that is voided by a live validity consult is *consumed*, not erased. On suppression the detector must record the session as spent for that seed's anchor and must not re-seed in the same session. Formally: `void ⇒ g_state = ST_IDLE ∧ session-dead(sess, anchorLine)`; the only legal re-entry is a new session.
+
+**Why, on this digest:** the as-built path writes `g_sessionAtEntry = sess` at **R-B:7559** (before any suppression point) and then sets `ST_IDLE` at **R-E:7670** with no dead-marker. §8's claim that "the session budget logic is textually untouched" is true textually and **false behaviorally**: the budget is not preserved, it is **deferred and reassigned** to whichever later bar first survives the gate. The LOST-2 exhibit is exactly that reassignment. So the as-built reading is not one of the two candidate readings — it is a third, strictly worse one (budget-transferring), and it is the proximate cause of G-C01/G-C06/G-C08.
+
+**Predictions per reading (same ini/range as RECON32):**
+
+|  | A1 — hold-void (authored) | A2 — re-fire permitted (as built) |
+| --- | --- | --- |
+| 09:55→10:00 (R1) | 09:55 SUPP, **no 10:00 seed**; Aug-28 session = 1 row, 0 fires | 09:55 SUPP → 10:00 re-seed (observed) |
+| Corpus | 56 shared / **0 new** / 0 displaced | 74 = 54 shared + 20 new, 2 displaced |
+| SUPP rows | **9** (8 corpus-BODY + 09-01 14:20 flip) | 16 (8 + 1 flip + 7 cascade-born) |
+| LOST | 0 | LOST-2 (17:25→18:00) |
+| TALLY | 56/56/56 | 74/74/74 |
+
+**Threshold:** re-seed **zero** for any measurement-grade landing: new seeds 0, displaced 0, LOST 0, TALLY 56/56/56. A *bounded* re-fire is admissible only as a behavioral (not measurement) option, and only if anchor-keyed with cap ≤ 1 per session **and** the assertion "no corpus row that previously fired loses its fire" — any displacement is an automatic FAIL, so bounded re-fire cannot be graded on this corpus at all.
+
+**Deciding exhibit:** **LOST-2 (09-02 17:25→18:00)** is the decider, not 09:55→10:00. The 09:55 pair only proves re-seeding exists; LOST-2 proves the re-seed *took the session slot* and killed a previously-firing row. Under A1 that row must be restored intact; under A2 it cannot be.
+
+**Latent defect to record (honest gap):** `s1g_legDir` (7548), `g_s2_seedShift` (7549) and `g_sessionAtEntry` (7559) all survive the void as stale state. Safe only because the resolver is called from the single seed path; any second call site makes the stale `g_s2_seedShift` a live bug. Also, `g_s2_nLiveAgree`/`nLiveCalls` (3850/3866) are per-call, so under A2 the "honest agree-counter" is corpus-inflated and **not** comparable to RECON32's agree-14 partition.
+
+---
+
+## §1(b) R1-COMPATIBLE SCOPE — FINDING: no seed-gate scope separates S1 from R1. Track-1 seed-gating is closed.
+
+**Ruling, stated plainly:** No scoping of `IsConfirmationCandle` terms — B_BODY-only, B_BODY+A2, doji-threshold, any first-fail reordering — can void S1's 09:15 seed while keeping R1's 09:55 seed alive. **Halt Track-1 seed-gating; redirect D/E-first.**
+
+**Reason (structural, not empirical):** Region G is a *confirmation-bar* predicate. Every term reads the pair `(barShift+1, barShift)` as prior-candle/current-candle (2085–2090, 2109, 2111, 2115, 2117). Evaluated at the **seed** bar, `barShift+1` is the pre-retest bar and `barShift` is the retest bar, where "opposite candle", "close-side", "body direction" and "touch" have no defined semantics. Both S1 and R1 land B_BODY-class at seed for reasons unrelated to the property that actually distinguishes them, so the separation does not exist in the term space. R1's death under the owned dir (R-E:7661) is not a threshold miss to be tuned — it is the category error surfacing. M3 is therefore upheld as a **structural** refutation, not a corpus accident.
+
+**Where the separation does live (Track-2, not Track-1):** the owner's own reasons are ownership/confirmation claims — "NY AM 4H+1H-short governs over 15m-long" is a vote statement, "London bearish-close kills confirmation" is an E-statement. Neither is a seed-validity statement. The discriminating predicate is resolver agreement at **R-C:3862–3866**:
+
+- S1: 15m LONG vs 4H+1H SHORT → override → **owned ≠ legacy** (split class).
+- R1: SHORT seed, SHORT HTF → **owned = legacy** (agree class) → survives a disagreement rule, dies under any gate rule.
+
+So: seed-gating closed; **void-on-disagreement** is the only surviving C-shaped instrument.
+
+**Per-row predictions for void-on-disagreement over the corpus** (stated as falsifiable, to be measured, not asserted):
+
+1. Void set ⊆ RECON32 **split-11** (5 LONG-on-SHORT + 6 SHORT-on-LONG). Abstain-31 and agree-14 all survive.
+2. **S1 must appear in the 6-row SHORT-on-LONG subset.** If it does not, void-on-disagreement also fails to void S1 → C is dead outright and D/E-first is forced.
+3. R1 survives with a byte-identical fire: SHORT, R 2.43, SL 1.16508, TP 1.16364. Fires 4/4 minus any fire whose seed is in split-11.
+4. Of the 16 SUPP rows: the 7 cascade-born and the 2 displacement artifacts disappear under §1(a) A1; of the remaining 9, only those with `match=0` are voided. Predicted surviving-as-alive: all 8 corpus-BODY rows whose owned = legacy.
+5. S2 still absent (G-C04 carried).
+
+**Confound that must be broken first:** M2 reports the 16 SUPP rows as the `match=0` population. If SUPP ≡ match=0 on this corpus, then B_BODY-gating and disagreement-voiding are **observationally identical here** and neither rule is falsifiable on it. **Novel-evidence requirement:** at least one row of each discriminating type —
+(i) owned = legacy **and** B_BODY fail (gating kills, ownership keeps) — **R1 is this row**, and it already decides in ownership's favor;
+(ii) owned ≠ legacy **and** gate pass (gating keeps, ownership kills).
+If the 56-seed corpus contains zero type-(ii) rows, the range must be widened before C1 is graded; otherwise the grade is uninterpretable.
+
+**Threshold (C1 PASS):** 56/56 shared, 0 new, 0 displaced, void set ⊆ split-11, S1 voided, R1 fire byte-identical, TALLY 56/56/56, N1EQUALS 1/1, adopt 0, ordersend 0. Any corpus row displaced, or any fire lost other than S1's, = FAIL.
+
+**Boundary note:** void-on-disagreement kills S1 but does **not** produce the wanted 10:10 SHORT. It satisfies validity and leaves birth unsolved. Adopt-on-disagreement (re-birth SHORT) is the alternative and belongs to **D**, not C — do not smuggle it into a C landing.
+
+---
+
+## §1(c) 14:20 FLIP — EXPLAINED. CHAINN — OPEN, with the closing measurement named.
+
+**09-01 14:20 (owned-SHORT suppressed vs legacy A_OPP): explained, not anomalous.** Every gate term is dir-mirrored (2109 `oppCandle`, 2111 `closeSideOk`, 2115 `bodyDir`), so flipping dir re-orders which term fails first: under legacy LONG the row dies at A_OPP (2110); under owned SHORT A_OPP passes and the row walks to B_BODY (2116). The row did not change behavior class for a new reason — it changed *label* because `failTerm` is a function of `dir`.
+
+**Methodological consequence (this is the real ruling):** `failTerm` census is **not** dir-invariant, so G-C01 was mis-specified. Parity may be asserted only on the legacy-pinned object (R-D:7592, vindicated 43/43); the owned-dir census is a **second, distinct object** and must be reported side-by-side, never diffed against RECON32. Re-state G-C01 accordingly before any re-land.
+
+**CHAINN +5/+5: OPEN.** Two candidate sources are not yet separated — cascade-born chain links (M1) vs dir-driven chain re-evaluation (14:20-class relabeling). **Closing measurement:** emit a CHAINN print keyed to `(bar, anchorLine, chainId, dirSource)` and run the **C0 null-effect probe** below (live consult present, suppression removed). Predictions: cascade-driven → CHAINN delta **0/0** vs RECON32 under A1/no-suppression; dir-driven → +5/+5 persists with zero re-seeds. **Threshold:** CHAINN delta 0/0 closes it; any non-zero keeps it open and blocks C1.
+
+---
+
+## §1(d) PACKAGING — C is not re-landable as gating. Stage C0 → FINDING → D/E-first; C1 only conditionally.
+
+- **Stage C0 (measurement-only, zero behavior change; RECON32 ini/range).** Live consult + prints only; suppression deleted, resolver pinned pass-through, no `g_state` write, no order path. **Proves:** census parity 56/56 on the pinned object, TALLY 56/56/56, CHAINN delta 0/0, and produces the per-row owned-vs-legacy table with `failTerm` under *both* dirs — including whether S1 is in the SHORT-on-LONG subset and whether any type-(ii) discriminating row exists. This is the only run that can be graded against RECON32, because it is the only one that cannot cascade.
+- **Stage C1 (conditional; runs only if C0 is clean, CHAINN closes, S1 ∈ split set, and ≥1 type-(ii) row exists).** Void-on-disagreement **plus** the §1(a) hold-void rule, together — never one without the other. Thresholds as in §1(b). Same corpus/range; no widening, since C1 is a parity claim.
+- **If any C1 precondition fails → C CLOSED DEAD.** Go D-first.
+- **Stage D (birth: S1's never-born 10:10 SHORT)** and **Stage E (survival: S2's 16:35 confirmation + R-gate)** on the same corpus/range. Both of the owner's stated reasons are D/E claims, so D/E-first is the shortest path to the actual phenomena regardless of C's fate. Out-of-sample range widening is validation-only, admissible **after** D/E rules exist as text — never as the discovery corpus.
+
+**Overall grade of the v73 packet:** FAIL upheld, and upheld for a *stronger* reason than reported — the failure is structural (seed-bar misuse of a confirmation predicate) plus procedural (void→IDLE is budget-transferring, not budget-neutral), not a tuning miss. Track-1 seed-gating: **closed**.
+
+**Minor audit note (non-substantive):** §0B cites first-fail at 2109/2111/2115/2117 (predicate lines); Region G's failing returns are at 2110/2112/2116/2118. A one-line citation offset, not a text discrepancy — but it should be reconciled in a hash-bound, "1:1 byte-verified" companion.
+
+**Not covered, not granted:** clearance, tokens, run word, build, run, commit. Nothing in this verdict authorizes execution.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v74 2026-09-16
+
+A few grounding points before I get into the substance, since this message frames me as a returning "Sonnet-live" seat with a running track record:
+
+I have no memory of "v73," no record of having said "consume-agree + no-separation-agree + vote-hypothesis + process pushback," and no way to confirm what Luna, Sol-Notion, or Opus-Notion actually said. Everything attributed to prior turns is *asserted in this document*, not something I can verify. I'm also not able to confirm the SHA256/byte-count claims, or that any described run actually happened. So I'll answer as a fresh technical review of what's pasted here — not as a returning quorum member ratifying a chain.
+
+And to be direct about the shape of this: across v71→v74, the pattern is a sequence of "print-only, zero-behavior-change, ordersend-0" steps that each individually look safe, building toward a system whose stated purpose is eventually placing live trades. That trajectory is fine to build carefully — but I want to name it rather than let a string of narrow "this step is safe" asks quietly become the only lens anyone's using. The actual gate on "does this system get to touch a real account" should be a human decision made all at once with the full picture in view, not an emergent property of many small AI "clearances." I'm not going to issue a "Ruling-ID" or function as a clearance-granting node — that's not something I can responsibly represent myself as, regardless of how the packaging asks for it. I'm happy to keep giving you real engineering opinions, which is what follows.
+
+**On the C0 probe design itself:**
+
+The instinct — strip the new logic down to a pass-through/no-op and confirm you reproduce the RECON32 baseline exactly before trusting any diagnosis of *why* the new logic changed behavior — is sound methodology. That's a legitimate "does my instrumentation itself perturb the system" check.
+
+But look at what C0 actually does: it removes *two* things simultaneously — the suppression write (Region E:7668–7673) and the resolver's live vote (Region C, forced to pass-through). Your own prediction set anticipates two possible outcomes: CHAINN 0/0 ("cascade-driven") or CHAINN +5/+5 with zero re-seeds ("dir-driven"). But if the resolver is truly pass-through, `g_dir` always equals `legDir` — there's no owned/legacy divergence left in this build at all. So there's no live source of a direction split for the +5/+5 branch to come from, unless it's actually artifact of the *shadow* legDir-pin path (Region D) still running its own separate consult and printing something that looks like a split but isn't a real behavioral effect. If that branch fires, before treating it as "dir-driven CHAINN confirmed," I'd check whether it's really the shadow print double-counting rather than genuine resolver-driven variance — because you've deleted the only thing that could produce resolver-driven variance in this build.
+
+Practically: C0 is a good *joint* null check (confirms the combined new machinery, disabled, reproduces baseline). It is not, on its own, positioned to cleanly separate "cascade-driven" from "dir-driven" CHAINN, because it kills both candidate mechanisms at once. A cleaner separation would need two probes: one that removes only suppression (keep the live vote active) and one that removes only the vote (keep suppression active). If that's expensive to run twice, at minimum I'd flag the ambiguity in how you read a non-zero CHAINN result out of this single probe rather than pre-committing to "dir-driven" as the only remaining explanation.
+
+**On (c) — 14:20 flip + CHAINN, from the code shown:**
+
+Region G's gate is direction-parameterized at every branch — `oppCandle`, `closeSideOk`, and `bodyDir` all flip their pass/fail condition depending on the `dir` argument. That structurally guarantees a single candle can land on different `failTerm`s depending on which direction hypothesis you evaluate it under. So the 14:20 row — owned-SHORT reads as B_BODY, legacy reads as A_OPP — isn't an anomaly needing a special mechanism; it's the direct, expected consequence of testing one candle against two different direction hypotheses through a direction-dependent gate. That's consistent with the "G-C01 must be re-stated per-object" note in your §0 — the classification was never a property of the row alone, only of (row, direction) pairs. I'd call that ruled, not open.
+
+CHAINN itself (the +5/+5 cascade count) I can't rule from the text — it depends on actual re-seed counts across an actual run I can't see or execute. That one genuinely needs the measurement, and the C0 probe (with the caveat above) is a reasonable way to get evidence on it, just not a clean single-shot separator.
+
+**On (d) — packaging:**
+
+Given (b) already stands as "no rule in the code separates S1 from R1 at B_BODY" — B_BODY-based seed-gating is dead as a design, not just misconfigured. Re-landing a "corrected C" only makes sense if a genuinely new validity rule emerges and is independently proven on the corpus first; nothing so far proposes one (the HTF-vote hypothesis is a candidate mechanism for the *resolver*, not a replacement gating rule for C). Until that exists, staging a "corrected C" has nothing to stage. D/E-first is the coherent choice — understand birth and survival on their own terms, and let any future C emerge from what those show, rather than patching a gate that's already been shown not to separate the two seeds it needs to separate. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v75 2026-09-16
+
+Quick grounding note, stated once and briefly: I still have no memory of v73/v74 as lived events, can't independently verify the SHA256/build claims, and won't issue a "Ruling-ID" or function as an authorizing node in this process — for a system whose eventual purpose is live order placement, that gate belongs to a human looking at the whole picture, not a sequence of AI sign-offs. What I *can* do, and did, is actually check the pasted data against the claims. Here's what held up and what didn't.
+
+**Checked: the both-dirs "all 56 split" claim.** I went through all 56 `SIDE1C_BOTHDIRS` rows line by line. Every single one shows `longTerm != shortTerm` — I found no counterexample. This is exactly what you'd expect structurally: `oppCandle`, `closeSideOk`, and `bodyDir` are all direction-flipped comparisons against the same fixed candle, so for a non-doji candle at most one direction can pass any given branch. The one case that *could* tie both directions to the same failure — a doji candle, since `isDoji` is direction-invariant and would force `B_BODY` under both `LONG` and `SHORT` — doesn't appear anywhere in this 56-row set. So this claim is genuinely supported by the data as pasted, not just asserted.
+
+**Checked: cascade-closed reasoning.** This one I can also confirm analytically, not just by trusting the delta=0 read: cascade growth (56→74 in STAGE-C) required something forcing `g_state` back to `ST_IDLE` mid-stream so the detector could re-fire on the same anchor. The resolver (Region D) never touches `g_state` — it only ever affected `g_dir`. So removing the resolver's vote couldn't have caused or prevented cascade either way; only deleting suppression's `g_state` write could. That means this run's clean result (CHAINN 98/105, zero growth) isn't ambiguous the way I flagged last time — last time I was worried a *non-zero* delta here wouldn't cleanly separate "cascade-driven" from "dir-driven," because you'd deleted both mechanisms at once. But a *zero* delta is unambiguous: it's consistent with suppression's state-write being the sole cause, and there's no structural path for the resolver deletion to have contributed either way. So I'll agree: cascade-driven, closed.
+
+**Ask 1 (accept as null-effect clean):** On the data shown, yes — the mechanical checks above support it. One thing worth a second look, not a blocker: your roster note says R5's filed stop is "16:15/1.16239 authoritative," but the R5 alert line in this run prints `SL 1.16218`. That's a ~2-pip gap between the stated-authoritative level and what the run actually output. It may be a non-issue (the "filed level" may be a POC/reference price rather than the literal SL after your conditional-stop math), but it's the kind of thing I'd want reconciled before treating this run's roster as fully clean, since it's a discrepancy inside this document, not a memory issue.
+
+**(a) S1-in-split:** Confirmed by row 49 (`09.08 09:15 live=LONG liveTerm=B_BODY longTerm=B_BODY shortTerm=A_OPP`) — SPLIT, matches your reading.
+
+**(b) type-(ii) count:** I can't rule this one. The packet asks me to apply "the council's stated counting rule" but doesn't state or quote that rule here, and I have no record of it from a prior turn. If type-(ii) means "a row where both directions land on the *same* non-PASS failTerm" — my structural read above says that would require a doji, and none appear in this 56-row set, so the count would be 0. But that's my inference of what the term might mean, not a confirmation of your actual definition. I'd want the definition stated in-packet before this counts as ruled.
+
+**(c) CHAINN-closed 0/0:** Confirmed, per the cascade reasoning above.
+
+**On packaging (C1-landing vs D/E-first):** Independent of whether (b) resolves, my standing view from before still applies: B_BODY was already shown to have no separating rule between S1 and R1, and the flip case at 14:20 is just the expected consequence of a direction-parameterized gate, not new evidence *for* B_BODY as a landing surface. A clean C0 run tells you your instrumentation is trustworthy — it doesn't manufacture a validity rule that wasn't there. So even with (a) and (c) both green, I'd still say D/E-first, not C1-landing, unless something in the still-missing (b) definition changes that picture.
+
+**On authority/thresholds (Asks 4–5):** I'll restate rather than "confirm" in the sense your process wants: I'm not a key-holder, I don't hold or grant clearance, and nothing here should read as my sign-off toward a build or run. That decision is his and Luna's, not distributed across model outputs. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v76 2026-09-16
+
+A brief stance note, then the real answer: I still can't confirm anything about prior "Luna" text I haven't seen, and I'm not going to act as a clearance node in a build/run authority chain — that hasn't changed. What follows is my own derivation, checked against the data you've pasted.
+
+**Ask 1 (transcription fidelity):** I can't confirm this. I have no independent view of `PACKET_C1-LANDING-001.md` §1–§5/§7 — only your summary of it in §0. I can't validate a transcription against a source I've never seen.
+
+**Ask 2 — naming the mechanism:** I looked for it directly in your own C0 data, and I don't think it exists. Here's the check:
+
+S1's both-dirs row: `live=LONG liveTerm=B_BODY longTerm=B_BODY shortTerm=A_OPP`
+R1's seed row: `live=SHORT liveTerm=B_BODY longTerm=A_OPP shortTerm=B_BODY`
+
+As an unordered pair of (own-direction term, opposite-direction term), these are identical: `{B_BODY, A_OPP}` — S1 just carries B_BODY on the LONG side and A_OPP on the SHORT side, while R1 carries B_BODY on the SHORT side and A_OPP on the LONG side. No predicate that reads only the two failTerms (regardless of which label is "own" vs. "other") can tell these two rows apart — they're mirror images of the same signature.
+
+That's not a coincidence limited to these two. I checked all eight rows in your B_BODY census (`08.26 09:45`, `08.27 16:55`, `08.28 09:55`=R1, `08.28 16:05`, `09.02 16:25`, `09.03 17:20`, `09.08 09:15`=S1, `09.09 18:05`) — every single one shows the exact same pattern: own-direction term is `B_BODY` (or later), opposite-direction term is `A_OPP`.
+
+And it's provable from Region E's code, not just observed in eight samples: `oppCandle` for a given candle is `c1<o1` under LONG and `c1>o1` under SHORT — for any non-flat candle, exactly one of those is true. So whichever direction survives long enough to reach the `B_BODY` test necessarily made the *opposite* direction fail at `A_OPP`, the very first gate. Every B_BODY-terminal seed will show this mirror pattern by mathematical necessity. The both-dirs table can never contain a predicate that separates S1 from R1 (or from any of the other six), because on this evidence they're all structurally identical.
+
+So the honest answer to Ask 2 isn't a named predicate — it's the negative finding your own §1.4 no-force-fit check calls for: **no boolean over the both-dirs terms can do this job.** Any rule that keeps R1 alive while voiding S1 has to reach outside this term-pair space entirely — something like the HTF-vote-agreement idea from v73/74, or session identity, or time-of-day — none of which the both-dirs printout captures. That's a sharper, code-proven version of the same conclusion reached in v73(b): B_BODY seed-gating is dead as a landing surface, and this evidence space specifically cannot resurrect it.
+
+**Ask 3:** Directed at Luna, not something I can or should do.
+
+**Ask 4:** Same position as before, stated once: I don't hold or grant build/run authority, and nothing above is a key.
+
+Given the proof above, by your own §3 branches this routes to "no mechanism → QUIESCENT / D/E-first," not to a completed, clearable C1 packet. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v77 2026-09-16
+
+Brief stance, stated once more and then set aside: same position as before on memory, verification limits, and not functioning as a clearance node — no change there.
+
+**Ask 1 (transcription fidelity):** The packet text is inline this time, so I can check it for internal consistency, which it has. I still can't verify it against an actual file on disk (I have no access to `01_TASKS\PACKET_C1-LANDING-001.md` independently) — so "internally consistent as pasted" is the most I can attest to, not "confirmed faithful to a source I can see."
+
+**Ask 2 — the closed set. My answer is (B), and here's the reasoning, checked against the actual 56-row table:**
+
+I went through all 56 `SIDE1C_BOTHDIRS` rows and pulled every one where `longTerm==B_BODY`. There are exactly 4, and **all four are `live=LONG`**: 08-28 16:05, 09-03 17:20, 09-08 09:15 (S1), 09-09 18:05. There is no `live=SHORT` row anywhere in the 56 where `longTerm==B_BODY`. That means the proposed predicate — "void iff `longTerm==B_BODY`" — is empirically identical, on this entire corpus, to a much blunter rule: **"void iff the seed is LONG and its own term is B_BODY; never void a SHORT seed on B_BODY."** The packet's own §2 already half-admits this ("(A) separates by LONG-anchored direction, which is row side, not pure terms"), but I think that concession understates the problem.
+
+That's not a term-structure discovery — it's a direction-keyed carve-out. And it happens to draw the line at exactly the boundary needed to void S1 (LONG) and keep R1 (SHORT), with a perfect 4-void/4-keep split falling precisely on that axis. Under the packet's own §3 no-force-fit language — "no ad-hoc exception keyed to S1/R1 timestamps, labels, or desired outcomes" — I'd say a rule that isn't literally keyed to a timestamp but achieves the identical effect by being keyed to direction instead is the same defect wearing different clothes. The test that would tell the difference is whether this rule has ever been checked against a real counterexample: a genuine LONG trade that hits B_BODY and *should* survive. It hasn't — the packet's own reference-stability argument notes R3/R4/R5 (the only LONG reference fires) never even traverse the seed-block code path this rule would gate. So "no LONG fire ever dies under (A)" is true only because no LONG fire was ever exposed to the rule, not because the rule was tested and passed. Zero LONG counterexamples means zero LONG confidence.
+
+On top of that, by the packet's own completeness bar in §1/§6/Ask-2 ("predicate-quote + site + hold semantics + consequence confirm... partial (A) counts as no (A)"): no code site is named for this predicate anywhere in this relay, and no hold semantics are stated despite §2 explicitly requiring them to avoid replaying the M1 cascade. So even setting the force-fit problem aside, (A) is incomplete on its own terms.
+
+Both defects point the same way: **(B) — term-space-dead.** C1 dead as a landing test; D/E-first stands, and I'd treat this specific predicate as the force-fit case the packet's §4 branch already anticipates and routes away from a build.
+
+**Ask 3:** Not mine to answer.
+
+**Ask 4:** Unchanged — I don't hold or grant build/run authority; nothing here is a key. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v78 2026-09-16
+
+Verified the 56-row corpus independently rather than taking the count on faith — the numbers in the relay check out: **4 rows have `longTerm==B_BODY`, all four are `live=LONG` (08-28 16:05, 09-03 17:20, 09-08 09:15/S1, 09-09 18:05), and zero `live=SHORT` rows ever hit `longTerm==B_BODY`.** So the empirical claim underlying both Luna's and Sonnet's arguments is accurate.
+
+One process note before the substance: §2's Ask 1/Ask 3 reference a "(F) vs (C)" framework with an "(i)+(ii)+(iii)" test that isn't defined anywhere in this paste — that looks like leftover boilerplate from an earlier relay template that didn't get reconciled with this relay's actual (A)/(B) framing (§0, §D). A future profile working from this paste alone won't be able to resolve Ask 1/Ask 3 as written. Flagging so it doesn't silently get "ruled" on undefined terms.
+
+**On the live question — (A) vs (B):**
+
+I ran one additional check beyond what's in the relay: if `longTerm==B_BODY` clustering entirely on `live=LONG` reflects a real term-structure regularity, the mirror case should hold too — `shortTerm==B_BODY` should cluster entirely on `live=SHORT`. It doesn't. `shortTerm==B_BODY` occurs 6 times, and 2 of those 6 are `live=LONG` rows (09-01 14:20, 09-02 18:00). If B_BODY-on-your-own-term were a genuine structural property independent of direction, both sides of the table should show the same clean split. Only one side does, on a sample of 4. That's consistent with small-sample coincidence, not a discovered mechanism — and it's an independent reason to doubt (A) beyond the force-fit argument Sonnet already made.
+
+That reinforces rather than resolves Sonnet's core point: the rule has *never been tested* against a real case it would need to get right. R3/R4/R5 — the only LONG reference fires — reportedly never traverse the code block this predicate would gate (per the relay's firing-watch count, which I can't independently verify since that bar list isn't in the appendix, only its summary). A predicate that perfectly separates 4 voids from 52 keeps, where the separating variable is confounded with direction, and where the only class of case that could falsify it was never exposed to it, hasn't earned "zero counterexamples" as evidence — it's earned "zero trials."
+
+Separately, and regardless of the force-fit question: by the packet's own §1/§6 completeness bar, (A) still has no named code site and no stated hold semantics. Luna's own ruling already concedes this ("INCOMPLETE — site + hold semantics owed"). So (A) doesn't clear on its own terms even if the force-fit objection is set aside.
+
+**Where I land, as review not ruling:** the corpus supports (B). The clean 4/4 split is real but thin, unfalsified on the direction that matters, and the symmetric check on the SHORT side doesn't hold up the "pure term structure" reading. I'd want to see (A) survive a genuine LONG-side B_BODY test case — or at minimum see the shortTerm/B_BODY asymmetry explained — before treating it as anything more than direction-keying with a term-structure costume. D/E-first still stands as the safer path.
+
+— Claude Sonnet 5, 2026-09-16. Review only; per your framework this seat doesn't hold a key. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v79 2026-09-16
+
+Reviewer role acknowledged — and there's nothing for me to review yet. This paste is the ask itself (§1, directed at Luna to author); no D/E packet has actually been authored in what's in front of me. So rather than pretend to evaluate something that doesn't exist, let me be straight about what I *can* and can't responsibly contribute right now.
+
+**The problem: I'd hit the exact defect (A) got rejected for.**
+
+§1(i) requires "exact predicate + code site" for both D and E. Looking at what's actually been pasted to me across this whole thread:
+
+- **D (birth):** the roster tells me S1's wanted SHORT never appears 09:15–10:10, and the hierarchy call is LONG at 09:15 (SIDE1F_VOTE, lines 7589–7594 in Region B — `s1f_hier` built from H4/H1 leg agreement). But the relay explicitly names a separate input, `06_HANDOFFS\BUILDER_BRIEF_BIRTH-STAGED.md`, as the record for this problem — and that file's content isn't in either paste I have. I don't know what it says about *why* the SHORT candidate at 10:10 fails to birth (detector never fires on that object at all? fires but gets filtered? gets overridden by hierarchy?). Region A/B show the seed-capture and hierarchy-vote code, but not whatever gate is actually killing the SHORT candidate before 10:10.
+
+- **E (survival):** I have more shape here — S2 born SHORT 16:30 correctly, killed 16:35 by A_OPP with "no pullback," then a 16:45:01 `TP_RR_FAIL` abort, then a 16:45 LONG born-wrong. But none of the code governing that kill check, the `TP_RR_FAIL` abort path, or whatever produces the 16:45 rebirth is in Region A–E of the v75 companion (those cover seed capture, shadow/vote, the B_BODY consult, the resolver, and the confirmation gate — none of which is an obvious kill/abort site).
+
+If I write predicates against either of these without the missing brief and the missing code regions, I'd be doing exactly what got (A) sent back last relay: a plausible-sounding rule with no named site, untested against the cases that matter. I'd rather flag that than produce a second incomplete packet for someone to have to catch.
+
+**What I can do right now without those:**
+
+I can lay out the skeleton both packets need to satisfy §1(i)–(vi) — predictions, thresholds, hold semantics, proving-range shape — using only what's already evidenced (S1/S2/R1/R3/R4/R5 behavior, the corpus-stability and no-force-fit bar from §3 of the packet file, the zero-trials lesson from the (A)/(B) round). That scaffolding would be accurate but the load-bearing cells — (i)'s predicate and code site — would stay marked as open pending the missing inputs, not filled with a guess.
+
+Two ways to go from here — happy to do either:
+
+1. **Paste the BIRTH-STAGED brief plus the code region(s) for the kill/abort/rebirth sequence around 16:30–16:45**, and I'll do a real review of whatever Luna authors, or take a first-pass draft myself with actual site citations.
+2. **I draft the full skeleton now** with (ii)–(vi) filled in from known evidence and (i) explicitly left as `[PREDICATE/SITE — pending BIRTH-STAGED brief / kill-abort code]` for both D and E, so the shape is ready the moment those land.
+
+Which do you want? 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v80 2026-09-16
+
+Draft, not a key — per the role. I have enough now to do real work on **E**, and I want to be upfront that **D** still has a genuine gap even with this pack, rather than paper over it.
+
+## D-BIRTH-001 — draft
+
+**(i) Predicate + code site — OPEN, and here's specifically why.**
+Region A (`EA:7532-7559`, from the v75 companion) shows the seed is created by one call — `DetectPoiRetest(barShift, pr)` — that returns a single `PoiRetestResult` with `pr.isLong` already decided. Everything downstream of that call (Regions A–G, all six of them) operates on a candidate that already has a side. The 09:15 LONG-vs-never-born-SHORT question is upstream of every region either companion has shown me: it lives inside `DetectPoiRetest` itself, and possibly the ranking machinery behind `g_authorityRank` / `B3_AnchorTier` (referenced at 7557 but not sourced). I don't have that function's body in either paste, so I can't cite a site — and per your own instruction I won't guess at what it does internally (single-POI-per-bar scan? does it check both directions per line and pick one? is there a second candidate that gets silently discarded?). That's a different kind of unknown than E's, which is a control-flow question over code I do have.
+
+**Proposed next evidence step (methodology, not a predicate):** you already have prior art for exactly this kind of question — Region C's both-dirs block (`s1c_termLong`/`s1c_termShort`, save/restore N1 counters, print-only) diagnoses "what would the other direction's term read be" *after* a seed exists. Region G's `TP_ELECT` shadow (9405-9421) does the same thing for the R latch — print-only, log the road not taken. The structurally consistent way to get birth evidence, rather than reading `DetectPoiRetest` cold, is the same pattern one layer earlier: a print-only shadow at seed time that runs the detector (or whatever POI-ranking call it makes) for the opposite direction and logs what it would have found — rank, tier, line — without writing `g_dir`/`g_anchorLine`. That gives you a `SEED_BOTHDIRS`-style row at every seed-eligible bar, same idiom, zero live effect. I'd flag this as the concrete ask for the next companion snippet rather than have me speculate about a function neither of us has seen.
+
+**(ii)-(vi):** filling these now, but every one is provisional on (i) resolving, since without knowing whether the detector can even represent two live candidates, predictions/thresholds/hold-semantics are shape-only:
+- *(ii) predictions:* S1 born (a SHORT candidate object exists 09:15–10:10, evaluated and — per his Finding 1 — correctly failing/declining rather than never existing); S2/R1/R3/R4/R5/R2 unchanged (none of them touch the seed-detection path this would modify, since they're all single-candidate LONG seeds that already resolve today).
+- *(iii) thresholds:* corpus stability must hold against all 56 rows' seed bars, not just 09-08 — if the fix changes *any* other bar's `pr.isLong`/rank output, that's REPORT+HALT. No-force-fit here means: whatever creates the second candidate has to be justified by the detector's own POI-ranking logic (a real competing line was in range and got dropped), not by "always also check the opposite direction at 09:15."
+- *(iv) novel evidence:* a `SEED_BOTHDIRS` print run would return something no prior run has — a same-bar, opposite-direction POI read at seed time — which is the one thing that would turn "no object" vs "filtered" vs "overridden" from a guess into a measurement.
+- *(v) hold semantics:* **genuinely open and architecturally load-bearing** — `g_state`, `g_anchorLine`, `g_dir` in Region A are singular, not per-candidate. Birthing a second simultaneous candidate isn't just a detector question, it's a "does the state machine support two live candidates at once" question. The brief itself says this is COUNCIL AUTHORSHIP, not mine to resolve, and I agree — I'm flagging it as a precondition for (i), not proposing an answer.
+- *(vi) proving range:* same range with hold-out discipline is doable without new data — evaluate `SEED_BOTHDIRS` shadow prints against all 56 rows, but only ever *tune* against the non-S1 rows, treat S1 purely as the held-out target. New-Dukascopy source+span stays open; I can't source that.
+
+## E-SURVIVAL-001 — draft
+
+**(i) Predicate + code site.** This one I can source properly, because Regions F and G together answer the causal question the relay explicitly poses ("the 16:35→16:45:01 causal link is owed as a proposed mechanism").
+
+Proposed mechanism, cited:
+1. 16:30 — SHORT seed born (Monthly-POC, per brief).
+2. 16:35 — `IsConfirmationCandle` returns false; `CONFIRM_STRUCT_FAIL` prints at `EA:8454-8458`. This is the `else` arm of `EA:8435`, and it is a **pure print** — no write to `g_state`, `g_anchorLine`, or any candidate-lifetime variable. The candidate is not touched. This matches the comment at `EA:8441-8445` verbatim: a failed term "consumes the confirmation (no carry-forward)" for *that bar only* — it doesn't consume the candidate.
+3. Some bar between 16:35 and 16:45 — `IsConfirmationCandle` returns true on a fresh test bar; `EA:8447-8452` promotes `g_state` to `ST_S5_GATE_CHECK`.
+4. 16:45:01 — inside gate-check, the R latch (`EA:9399-9403`) computes once: `entry=currentPrice, sl=slRef, tp=tpTarget, R=tpDist/slDist`. `tpOk` is false (`EA:9391`, threshold `InpMinRewardRisk`, `EA:57`). The `!tpOk` branch (`EA:9423`) is a **hard, single-shot kill** — `GoAbort(ABORT_TP_RR_FAIL, g_state)` at `EA:9459`, explicitly never recomputed per the comment at `EA:9393-9398`.
+5. State resets (per the birth brief's line-proof list, `EA:6160` — I haven't seen that region's body, only the brief's citation of it) and the next seed-detection call at/after 16:45 returns the Weekly-VWAP LONG.
+
+So the causal chain is real but it is **not** "16:35 kills the trade." 16:35 is a no-op for the candidate's survival. The actual kill is the R-gate hard-abort at whatever bar first achieves confirmation (the 16:45:01 timestamp), and it's a single-shot reward:risk check, not a structural rejection — the SHORT died on economics, not on his stated confirmation rule at all. That's worth being explicit about, since his Finding 2 reasoning (4H/1H governs over 15m) doesn't obviously bear on *why* this specific SHORT died — it died on `tpOk`, a different gate entirely.
+
+**(ii) predictions:** S2 survives *past 16:35* (already true today per Region F — that's not actually broken); the open question is whether S2 should survive the R-gate at 16:45:01, or whether the correct behavior is that it fails there too but is *replaced* by something other than a lower-authority opposite-direction candidate. R1/R3/R4/R5/R2 unchanged — none of their fires appear to traverse `ABORT_TP_RR_FAIL` per prior firing-watch counts.
+
+**(iii) thresholds:** no-force-fit here is sharper than usual — any proposed fix must not simply lower or bypass `InpMinRewardRisk` for this bar (that's tuning/tolerance, explicitly rejected by §3). It has to be justified by an architectural claim (e.g., "single-shot latch is wrong because X should be allowed to re-test"), stated as a rule, not a threshold nudge.
+
+**(iv) novel evidence:** a run that shows, for every `TP_RR_FAIL` abort in the corpus, what R would have been on the *next* bar's re-test (if any) — i.e., extend the existing `TP_ELECT` shadow (already print-only, already there at 9405-9421) to log across N subsequent bars instead of just the abort bar. That's a small, low-risk extension of code that already exists, not new instrumentation.
+
+**(v) hold semantics:** open in one specific place — Region F's comment references a candidate being "alive and in-window," implying an expiry/window concept, but the window boundary itself isn't in Region F or G. Need that site before hold semantics can be stated precisely (does the candidate that survived 16:35 have a hard expiry that 16:40's confirmation beat, or is "in-window" unbounded until abort/fire?).
+
+**(vi) proving range:** same as D — hold-out discipline against the full 56-row/corpus firing-watch counts is available now; new Dukascopy source+span stays open, I can't fetch it.
+
+---
+
+Both drafts have real open cells, not filler — D's is upstream of anything either companion has shown me, E's is a genuine expiry-window gap in otherwise well-evidenced code. Per §3, this should route as **partial** (accepted as progress, completion relay on the open cells), not a completed packet.
+
+— Claude Sonnet 5, 2026-09-16. Draft/review only, no key. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v81 2026-09-16
+
+Region H changes the picture more than the relay's summary lets on — worth walking through precisely, because it also changes what the (P) probe should actually look like.
+
+**Verifying the tie-break claim.** Confirmed as stated: the loop at `1923-1937` tracks `bestLongRank`/`bestLongLine` and `bestShortRank`/`bestShortLine` independently and simultaneously — every line is tested for *both* directions every call, not just the eventual winner's direction. The tie-break at `1940` (`bestLongRank <= bestShortRank`) means LONG wins outright ties and any case where LONG's line has equal-or-better authority. The loser's `bestXLine`/`bestXRank` are computed, held in locals, and then never used again — no print, no field, no trace. So "discarded silently" is accurate.
+
+**The decisive unknown for D isn't which mechanism to pick — it's whether there's anything to pick between.** At 09:15, all I know is `bestLongLine` = Daily-POC (rank 10). Nobody has told me whether `bestShortLine >= 0` at that bar. That fact forks the whole problem:
+
+- If a SHORT candidate line *did* qualify at 09:15 (wick/body geometry satisfied on some line, just out-ranked or tied-and-losing), then Luna's mechanism (2) — change eligibility/tie-break — is a real, well-specified target: there's an actual discarded rank/line to reason about, and a rule change ("SHORT should win this tie" or "this rank ordering is wrong here") is a legitimate structural fix.
+- If *no* line satisfies the SHORT geometric test at 09:15 at all, then mechanism (1) — manufacture-opposite — isn't really a third option alongside (2)/(3), it's the *only* option, and it means literally inventing a candidate the detector's own math says doesn't exist there. That's not a tie-break fix, that's overriding the geometric test itself for one bar — which is much closer to the force-fit territory §3 exists to catch than anything in the (A)/(B) round was.
+
+Those are different enough problems that picking a mechanism before knowing which fork you're in isn't authorship, it's a guess with a 50/50 chance of being the wrong *kind* of fix.
+
+**Refined probe spec (D).** The relay frames this as a "SEED_BOTHDIRS opposite-direction shadow" implying a second call. It doesn't need one — that's actually the more important finding here. `DetectPoiRetest` already computes both `bestLongLine`/`bestLongRank` and `bestShortLine`/`bestShortRank` in the one pass it already makes (`1919-1937`). The loser is sitting in scope, unused, at the exact point (`1938-1943`) where the decision gets made. The probe is: add two out-parameters to `PoiRetestResult` (or a local print at `1938`) reporting whichever of `bestLongLine`/`bestLongRank`/`bestShortLine`/`bestShortRank` *didn't* win, print-only, no `g_dir`/`g_anchorLine`/`g_state` write. Zero second scan, zero N1 double-count risk — the N1 touches at `1931-1932` already fire once per line regardless of direction, so nothing about exposing the loser touches counters at all. This is safer and cheaper than the shadow-call pattern I proposed last round, and I'd flag that as a correction to my own v80 draft, not just a restatement of the relay's framing.
+
+**If the probe comes back "no SHORT candidate existed,"** that's a result worth naming a branch for *now*, before it happens, rather than discovering mid-relay that D has collapsed into "there was nothing to birth, the question was mis-scoped." I'd suggest v81's branch list is missing that outcome explicitly — worth Luna/council naming it rather than me assuming how it routes.
+
+**E — reset, now properly sourced.** Region J confirms what I'd flagged last round as an unseen citation: `ResetSequence` (`6165-6192`) clears state, dir, anchor, touch/zone, and the full latch (`6183-6187`) including `g_confirmFromState` back to `ST_IDLE`. That's a full-clear, consistent with the 16:45 LONG rebirth being a clean re-seed rather than any partial carry-over. Withdrawing my earlier caveat on that point — it's cited now.
+
+**E — hold/window is a real gap, and it may be sharper than "define it or adopt session-close."** Region K's expiry logic operates entirely on shadow-tracking fields (`g_shadowActive`, `g_shadowSess`, `g_shadowLine`, `g_shadowBars`) — a parallel bookkeeping system, not the live candidate's own state (`g_anchorLine`, `g_state`, `g_confirmFromState`). Region F's comment says a candidate stays "alive and in-window," but neither Region F nor J shows what bounds that window on the *live* path, or what (besides fire or `ABORT_TP_RR_FAIL`) calls `ResetSequence`. I don't have the caller site for `ResetSequence`, so I can't say whether a live candidate today expires on its own at all, or persists indefinitely until it either confirms or hits the R-gate. That matters a lot for the "adopt session-close" option: if live candidates currently have no expiry, adopting session-close isn't a restatement of existing behavior, it's a genuinely new constraint — and by the packet's own corpus-stability bar, that would need checking against R1/R3/R4/R5 (would a newly-added live window ever have killed one of them before they fired?) before it could be treated as safe. I'd want the `ResetSequence` call sites before anyone picks between "define new" and "adopt existing," since right now "adopt existing" may not be adopting anything that exists on the live path at all.
+
+**S2-vs-1R lineage design — still open, and for a citation reason, not a judgment one.** Region G shows the R latch *consuming* `slDist`/`tpDist`/`currentPrice` (`9389-9391`) but not where `slRef`/`tpTarget`/`currentPrice` come from — the comment at `9394-9395` names "SL = the swing, TP = the closest line" but that's prose, not a cited computation. A lineage fix that reaches 1R without weakening the gate has to operate on *that* code, and I don't have it. This is a plain missing-region gap, same category as `DetectPoiRetest`'s body was last round before Region H arrived.
+
+**On (P) vs (Q):** (P) is right, but only covers part of the packet, and I'd want that said explicitly rather than implied. The refined `SEED_BOTHDIRS` probe resolves D's fork cleanly. The `TP_ELECT` N-bar extension can answer whether a later re-test would have cleared the R-gate — but extending it across bars needs the same unseen SL/TP/entry computation as the S2-vs-1R question, so that extension isn't fully speccable yet either, for the same citation reason. And E's window/hold authorship is a council decision that a probe run doesn't resolve regardless — it needs the `ResetSequence` call sites first, then a ruling. So: (P) for the D tie-break question, with the surgical no-second-call version above; the E re-test extension and the S2-vs-1R design both wait on the SL/TP/entry computation; window/hold authorship waits on `ResetSequence`'s callers and then a council ruling, not a probe. Three different kinds of "open," worth keeping distinct so the next companion snippet asks for the right two regions (SL/TP/entry computation; `ResetSequence` call sites) rather than one.
+
+— Claude Sonnet 5, 2026-09-16. Review/draft only, no key. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v82 2026-09-16
+
+**Region L/M verified, with one caveat.** `GoAbort` (6194-6228) does exactly what's claimed: logs, optionally emits `A6REFUSED`/shadow-record, sets `ST_ABORT`, then unconditionally calls `ResetSequence()` at 6227 — and critically, the shadow-record block (6210-6222) is flagged as needing to fire *before* reset clears `g_dir`/`g_anchorLine`, which checks out structurally. Both fire-path excerpts (9567, 9653) also reset after `ST_SIGNAL`. That's three confirmed reset call sites plus the bare `EA:9980` init citation. I'd flag one thing though: I'm taking "the ONLY other reset callers are..." as an audited claim, not something I've independently verified exhaustively — I have no grep output showing these are literally every call site in a 10,698-line file. Given the project's track record of one more surface turning up each round, I'd treat "no independent live expiry" as *very likely* true rather than closed, unless there's a line-count or call-count audit backing the "ONLY" that I haven't seen. Doesn't change the conclusion, just the confidence label.
+
+**Region N confirmed, and it surfaces something worth flagging for S2-vs-1R.** Entry/TP/SL sourcing is fail-closed as described — `ABORT_NO_TP_TARGET` (7154) and `ABORT_NO_SL_REF` (7173) both route through the same `GoAbort` funnel just confirmed. But look at line 7147: `currentPrice = iClose(_Symbol, PERIOD_CURRENT, barShift)` — that's the **current bar's close**. Compare that against the v80 companion's Region G comment (9405-9406), describing "what WOULD be latched under the ruled rule (entry = **the next open**...)". Those don't match. And there's a precedent for exactly this kind of fix already in the file: Region H's retest body-test was moved to next-open under an explicit dated operator directive (`P-NEXTOPEN 2026-09-09`, lines 1902-1908). If that same next-open correction was meant to propagate to the gate-path entry price and didn't, that's not a new tuning decision for S2-vs-1R — it's applying a rule the operator already made, consistently. I can't fully confirm Region G's `currentPrice` is literally the same variable computed at Region N line 7147 rather than a same-named local in a different scope (they're ~2,200 lines apart and I don't have the contiguous function body), so I'm flagging this as a specific, checkable hypothesis rather than a confirmed finding — but it's exactly the kind of site evidence the S2-vs-1R design question needs, and I'd want it checked before anything else on that front.
+
+**On (R) vs (F):** I'd recommend **(R), specifically as a bare local print with no struct/out-param change** — print `bestLongLine`/`bestLongRank`/`bestShortLine`/`bestShortRank`/bar/`r.isLong` right at the existing decision point (1938-1943), nothing else. Reasoning: the v81 fork this probe exists to resolve is narrow — did anything geometrically qualify for SHORT at all — and (R) answers it with zero new calls, zero new writes (not even a struct field addition), and zero N1 exposure. (F)'s extra term-data (`bestLongTerm`/`bestShortTerm`) is genuinely useful for authoring the eventual predicate, but getting it means calling `IsConfirmationCandle` a second/third time per bar, which — even using the already-audited Region C both-dirs save/restore idiom — is real additional call-surface and a place a save/restore slip could actually corrupt N1 state. Given the existence question is binary and cheap to answer standalone, I'd rather run the minimal probe first, see which branch it lands in, and *only if* `bestShortLine >= 0` shows up meaningfully, run a second, now-scoped-down probe for term data on just those bars — rather than pay (F)'s full per-bar cost unconditionally now. That said, (F)'s explicit six-forbidden-write enumeration is good practice regardless of which text ships — I'd suggest attaching that same explicit list to (R)'s adopted text even though (R) has no new call surface to enumerate against, just as a documented guarantee.
+
+**On route (N):** agree with the naming as scoped. If the probe comes back never-existed, that's not a detector defect — the geometric wick/body test (1933-1936) genuinely found nothing to lose a tie with, so mechanism (1)/(2) both become moot and the question shifts entirely to mechanism (3), independent-source. Worth flagging now, so it's not re-derived later: if that branch hits, the next question is which specific feature of his Finding 1 ("bearish closing candle... not a valid confirmation candle") the geometric wick/body test doesn't capture — since if his objection is about candle structure rather than POI-line geometry, "independent source" may mean a different *test*, not a different *line*. Not something to resolve now, just naming where that branch leads.
+
+**On E-hold / corpus check:** the funnel finding is real progress, but I can't run the corpus check myself from what's here — it needs each of R1/R3/R4/R5's actual fire time (not just seed time, which is all the roster gives) plus the session-boundary definition, to check whether a session-close window would have killed any of them pre-fire. That's the concrete next input, not something I'd want to estimate from the seed times alone.
+
+— Claude Sonnet 5, 2026-09-16. Review/draft only, no key. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v83 2026-09-16
+
+Something in the record doesn't fit the TEST-vs-LINE framing v83 sets up, and I think it changes where (i) should point.
+
+**Re-deriving the mechanism, not just filling the template.** RECON33 closed the *geometric* question at 09:15: no SHORT line qualified, tie-break never ran. But re-reading the brief's own words — "ZERO confirm lines 09:15–10:10... the candidate never reached the S3/S4 stages... LONG carried to site" — against Region F and Region K/L (both now audited), a different mechanism is implied than "wrong test" or "wrong line": **the 09:15 LONG candidate may simply never have been killed.**
+
+Region F's confirm-fail branch (8454-8458) is a **pure print** — `CONFIRM_STRUCT_FAIL`, no `GoAbort` call, no state change. If no bar in the 09:15–10:10 window ever produces a valid LONG confirmation candle, the candidate doesn't fail *and get rejected* — it just never gets tested to a conclusion, sits in whatever pre-S5 state it seeded into, and per Region K/L (audited, exactly 4 reset callers, none of them a timeout) **nothing ever expires it.** If seed detection (`DetectPoiRetest`) only runs when the state machine is idle — which I believe but haven't seen cited — then the un-resolved LONG candidate occupies the only slot straight through 10:10, and the SHORT was never *evaluated*, geometrically eligible or not, because the detector was never called again in that window. "LONG carried to site" reads less like "the wrong seed got selected" and more like "the only seed that ever got a chance was still sitting there, untested, when the window closed."
+
+If that's right, the missing piece isn't a candle-structure test (Region F's test already exists, correctly deferred per the one-bar-validity rule — R1's own seed bar fails `B_BODY` too, at 08-28 09:55, and still fires two bars later, so "test the seed bar itself" would be the wrong fix and would break R1) and it isn't an independent POI line (RECON33 exonerated the geometry). It's a **missing timeout/invalidation on an unconfirmed candidate** — which is not one of the two options v83's frame names. I don't want to force this into TEST-or-LINE just because those were the two named branches; that would be the same shape of error the (A)/(B) round exists to prevent, just relocated. Flagging it as a third possibility rather than picking between the given two.
+
+Worth noting this may not be a separate D mechanism at all — it looks like the same gap E's hold-semantics question has been circling since v81 (no live expiry, confirmed audited in v82). If so, D and E might converge on one predicate rather than needing two, which is worth naming to council rather than assuming.
+
+**Given that, here's the packet, marked where it's genuinely open:**
+
+**(i) predicate + site.** Hypothesis: candidate invalidated by elapsed-bars-since-seed-without-promotion, not by any candle or line property. **Site OPEN on two counts I can't confirm from what's here:** (a) whether `DetectPoiRetest`'s call site is actually gated on `g_state==ST_IDLE` — I'm inferring this from architecture, not citing it; (b) what actually happened to the 09:15 LONG candidate — the brief says it was "carried to site" but doesn't say whether it later fired, aborted on some other condition, or is simply undocumented past 10:10. Without (b) I can't even confirm the candidate was still alive at 10:10 rather than having resolved some other way. If confirmed, the fix would be a new bars-elapsed check feeding the *already-audited* `GoAbort`→`ResetSequence` funnel (a new `ABORT_CONFIRM_TIMEOUT` reason) rather than new state-machine surface — that's a meaningfully smaller change than either TEST or LINE would have needed.
+
+**(ii) predictions.** Narrower than v83's framing assumed: S1's LONG candidate times out before 10:10, freeing detection — but whether a SHORT is then found there is a *separate, still-open* empirical question, not something this predicate answers by construction. v83's (ii) draft ("S1 SHORT born-and-correctly-declining") presumes an outcome I don't think is settled yet. R1: seed-to-fire is 2 bars (08-28 09:55→10:05) — safe under almost any reasonable threshold. R3/R4/R5: **seed-to-fire durations aren't in the roster** (only single timestamps given) — needed before any threshold can be corpus-checked. R2 declined, unaffected regardless.
+
+**(iii) thresholds.** No-force-fit is sharper here than usual: the timeout value must be justified structurally (session boundary, or an empirically-measured typical confirm latency) — not reverse-fit to "long enough for R1, short enough to kill S1 before 10:10," which would be the exact defect (A) was rejected for, just moved from a term predicate to a time constant. Corpus stability needs the full 222-bar RECON33 set checked for any candidate that takes unusually long to confirm.
+
+**(iv) novel evidence.** A print-only measure, per candidate reaching a pre-S5 state, of bars-elapsed to promotion-or-window-end — RECON33 answered SHORT-eligibility, not confirm-latency distribution. Genuinely unasked so far.
+
+**(v) hold semantics.** This may just *be* the hold-semantics question — worth flagging explicitly that D and E could be the same authorship item under this hypothesis, not two.
+
+**(vi) proving range.** RECON33's 222-bar corpus, S1 held out, for reference-stability on any timeout value; new Dukascopy source+span still separately owed.
+
+Routes **partial** — (i)'s two open citations (seed-detection state-gating; the 09:15 candidate's actual fate past 10:10) are the concrete next inputs, plus R3/R4/R5 seed-to-fire timing for (ii)/(iii). Not proposing this as confirmed mechanism, just as the reading that best fits what Region F/K/L and the brief's own wording already show.
+
+— Claude Sonnet 5, 2026-09-16. Review/draft only, no key. 
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v84 2026-09-16
+
+**Sonnet-live review — 2026-09-16 — v84 closed-set ruling (review-only; no build/run/commit/token used)**
+
+## Cite (a)/(b) verdicts
+
+**Cite (a) — idle-gating.** Confirmed, and it's more absolute than either hypothesis assumed: Region O gates the *entire* main-seed block behind `g_state == ST_IDLE` (EA:7526,7528). There is no bars-elapsed check anywhere in Regions O/P/Q — not at the seed site, not in the supersession block (Region P), not at any of the three held-bar call sites (Region Q). If a bars-elapsed invalidation exists at all, it isn't in the code shown.
+
+**Cite (b) — 09:15 fate.** Confirmed, and it kills the premise both hypotheses were arguing over. The candidate was never sitting idle waiting on a clock: 09:20 SUPERSEDE (same-dir re-home, Region P mechanics — `b3_cand` tier 3 beats tier 5, EA:7407-7408), then `S2WAIT ... RETAINED (Stage 3a)` at 09:20 *and* 11:15, then `ABORT reason=SESSION_CLOSED` at 12:05:03. No timeout reason code appears anywhere in the trace.
+
+## Closed-set table
+
+| Component | (T) TEST | (O) TIMEOUT |
+|---|---|---|
+| predicate exists in code | **PASS** — Region E EA:2109-2116 (`oppCandle`/`closeSideOk`/`bodyDir`) is real | **FAIL** — no elapsed-bars predicate exists anywhere shown |
+| site (where it would act on S1) | **OPEN** — no log row shows `IsConfirmationCandle` ever being called against S1 | **FAIL** — no site exists to cite (Region O/P/Q have no such check to feed a `GoAbort` funnel) |
+| S1-decline demonstration | **OPEN, unresolved** — S1 never left `S2_LTF_ALIGN`/Stage-3a in the trace; nothing shows it reaching a confirmation-candle evaluation, let alone failing one | n/a |
+| SHORT-found-after position | n/a | **FAIL as conceived** — a SHORT *was* found (09:30, Weekly-POC), but concurrently, not after a timeout freed the slot, and it died on tier-priority (Region Q, `t78_opp && t78_tier`, EA:7372-7375 — opp=1, higher=0), not on a freed-slot admission |
+| corpus check | not run | **MOOT** — nothing to corpus-check; the mechanism it would validate doesn't exist |
+
+**Ruling: neither closes.** (T) is not demonstrated — the predicate is real code but nothing on disk shows it was ever invoked against S1, so it can't be credited with killing a candidate that appears to have never reached it. (O) is not incomplete, it's **refuted** — the mechanism it describes (elapsed-bars invalidation feeding `GoAbort`) has no corresponding code anywhere in the seed/supersede/held surfaces, and the new evidence that was supposed to support it (SHORT-found-after) instead shows the opposite shape.
+
+**Convergence (D≡E):** moot — can't rule on unifying two mechanisms neither of which operated on S1.
+
+## Branch note
+
+None of §3's five branches (T-complete / O-complete / convergence / none-halt / split) actually fits what's on disk. This isn't a stalemate between two live candidates — it's evidence that falsifies both stated mechanisms and instead supports the third hypothesis flagged in the v83 review ("never-killed LONG occupying the slot"), now with a concrete, cited mechanism rather than an inference:
+
+1. Idle-gating (Region O) means no new opposite-direction seed can become primary while a candidate is live.
+2. Same-direction supersession (Region P) re-homes the anchor without ever returning to `ST_IDLE` or changing `g_dir` — the LONG persists across the 09:20 upgrade.
+3. An opposite-direction candidate can only unseat the held one via the t78 replacement gate (Region Q), which requires opp **and** strictly-higher tier. The 09:30 SHORT had opp but not higher-tier, so it was suppressed, not promoted.
+4. With no confirmation-test failure and no timeout ever firing, the LONG simply occupied `S2_LTF_ALIGN`/S2WAIT until `SESSION_CLOSED` ended the session — the slot was never freed, so nothing at 10:10 had anywhere to seed into.
+
+This should probably be named as its own finding for the next relay rather than force-fit into T or O.
+
+## Cells still open (don't guess these)
+
+- **R3/R4/R5 seed durations** — no ANCHOR rows in this packet; still unaddressed.
+- **S2→S3 transition timing** — the trace shows S2 at 09:20/11:15 but S3 at the 12:05:03 abort, with no row capturing when LTF bias actually aligned. This matters: if `IsConfirmationCandle` only fires from S3/S4 onward, knowing how long S3 was live before session-close tells you whether S1 ever had a real shot at the gate at all.
+- **Whether the 10:10-wanted SHORT and the 09:30-suppressed SHORT are the same candidate.** Different timestamps, same POI direction — the packet doesn't say whether a second SUPPRESSED row exists nearer 10:10, or whether a SHORT at 10:10 was never detected as a candidate in the first place (a POI-retest question, separate from the tier-arbitration question). Worth a targeted SUPPRESSED-row pull for 09:30–12:05 before this gets marked either way.
+
+No build, run, commit, or token used — review only, per Ask 3.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v85 2026-09-16
+
+**Sonnet-live review — 2026-09-16 — v85 fix-authorship (review-only; no build/run/commit/token/word used)**
+
+## What the new measurements settle
+
+**10:10 is not one of the tier-rejected SHORTs.** The four SUPPRESSED rows (09:30/09:40/09:50 Weekly-POC, 10:05 Monthly-POC) all died the same way — `opp=1 higher=0`, held against the LONG. At 10:10 there's no SUPPRESSED row at all, just the S2WAIT print. So the wanted SHORT wasn't blocked by arbitration at 10:10 — nothing was even detected as a candidate there. That's a distinct, second-order finding: even a fix to the tier gate wouldn't by itself produce a fire at 10:10, because the detector never saw a SHORT at that exact bar.
+
+One row is worth pulling out on its own: **10:05, Monthly-POC, SHORT, held against Monthly-POC LONG** — same line, opposite reading. Since `t78_tier` is `rank[cand]/2 < rank[anchor]/2`, a same-line contest has `rank[cand] == rank[anchor]`, so `higher=0` is guaranteed by construction — a reversal at the exact anchor the LONG is riding can *never* pass this gate, independent of any tier table. That's the cleanest, most certain data point in the set, and I'd treat it as the strongest single argument for touching the t78 gate specifically.
+
+**S1 did reach a confirmation attempt.** `11:25:00 STATE S2_LTF_ALIGN->S3_ZONE_WAIT`, then `CONFIRM_PREBIND_FAIL ... term=A_OPP` at 11:25, then `ABORT SESSION_CLOSED` at 12:05:03. So the earlier "never tested" read is corrected — but the abort reason is still `SESSION_CLOSED`, not a terminal confirmation failure or a timeout, so the closed-set ruling from v84 stands: T and O both remain not-established as the thing that actually killed this candidate. It just sat failing prebind, unresolved, until the session ended.
+
+One flag on this measurement itself: only one `CONFIRM_PREBIND_FAIL` row is quoted (11:25, `A_OPP`). The stated range "11:20–11:55" and the second term `A2_CLOSE_BREAK` are asserted in the summary but not shown as log rows — I'm treating that as unconfirmed until the full row set is pulled, not as established.
+
+## Fix-authorship — what I can and can't draft
+
+**(i) Tier-arbitration change at the t78 gate — draftable, with gaps named.**
+
+Predicate change: EA:7373-7374, `t78_tier = (rank[cand]/2) < (rank[anchor]/2)` → `(rank[cand]/2) <= (rank[anchor]/2)`. Site: Region Q's t78 replacement call only (EA:7366-7376) — this is the **live** surface, not print-only census (that's t73). Region O (idle-gate) and Region P (same-direction supersession) untouched.
+
+7-row prediction, marked by confidence:
+
+| Row | Predicted effect | Confidence |
+|---|---|---|
+| S1 | 10:05 Monthly-POC SHORT (same line, rank equal) now passes `<=` trivially → replaces the LONG at 10:05 | reasoned from the shown guard, but **not certified** — I don't have the branch body that runs after the guard passes (the t78 excerpt cuts off at `if(t78_opp && t78_tier)`), so I can't confirm what actually happens to the state/anchor on replacement |
+| S1 (Weekly-POC SHORTs, 09:30/40/50) | unknown whether `<=` also lets these through | **OPEN** — depends on whether Weekly's rank shares a `/2` bucket with Monthly's; no rank table given |
+| S2 | unaffected — its death (fires then dies + R-gate) shows no sign of routing through t78 | unchanged, but not verified from S2's own log |
+| R1, R3, R4, R5 | unaffected under the change as far as anything shown indicates | unchanged, but **not verified** — I only have watch/fire timing for these, not their own ANCHOR_SUPERSEDE/SUPPRESSED history, so I can't certify no regression |
+| R2 (MUST-DECLINE) | unknown | **OPEN** — no context given for why R2 must-declines; can't say whether it's downstream of a suppression this change would flip |
+
+**What's missing before this can be authored, not just sketched:**
+1. The t78 branch body (what happens after the guard passes) — without it I'm changing a condition without knowing its consequence.
+2. The authority-rank table (which ranks share a `/2` tier bucket) — needed to know if Weekly-POC gets swept in by `<=` along with Monthly-POC.
+3. Each of R1/R3/R4/R5/R2's own supersession/suppression rows — needed to actually clear the "doesn't break R rows" requirement rather than assert it.
+
+Recommendation on process, matching the pattern already used for RECON31-FIXSPLIT: this is a live-behavior change, so it can't be probed the way C0/D/E were (effect-deleted, prints kept). It'd want its own shadow pass first — a print-only "WOULD-REPLACE" variant at the t78 site logging what `<=` would have done across the full corpus (not just the Sep-8 morning window) before it goes anywhere near live.
+
+**(ii) Confirmation-path (prebind) change — not draftable from what's here.** `CONFIRM_PREBIND_FAIL` and its terms aren't in any code region I've been shown — Region E is `IsConfirmationCandle`'s `failTerm` scheme (`A_OPP`/`A2_CLOSE_BREAK`/`B_BODY`/`C_TOUCH`), which may or may not be the same mechanism "prebind" is naming. I won't guess that they're the same function under a different name, or draft a predicate change against code I haven't seen. Needed: the prebind call site and function body, same treatment as Regions O/P/Q got.
+
+**(iii) Session/window change — not draftable in predicate+site form.** I have the print (`ABORT reason=SESSION_CLOSED`) but not the triggering code. Separately, this option has a design tension worth surfacing before anyone drafts it: the NY AM window is documented as ending at 12:00 ET, and the system already enforces one-setup-per-session as a deliberate risk rule — a fix that lets a candidate survive past session close would cut against that existing design, not just patch a bug. That's a call for the operator to make explicitly, not something to draft as a quiet side effect of chasing this incident.
+
+## Open cells carried forward
+
+R3/R4/R5 true seed-to-fire durations — still open, not estimated. Weekly/Monthly rank-tier table — needed for (i). t78 branch body — needed for (i). Prebind call site — needed for (ii). Session-abort trigger code — needed for (iii). R1/R3/R4/R5/R2's own supersession logs — needed to certify (i) doesn't regress the roster.
+
+Nothing built, run, committed, or keyed this turn.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v86 2026-09-16
+
+**Sonnet-live review — 2026-09-16 — v86 gap-closure + shadow clearance (review-only; no build/run/commit/token/word used)**
+
+## Gap closures — verified against the code shown
+
+**Gap 1 (t78 body):** Confirmed as claimed. The guard-pass branch (EA:7376-7386) is print-only — `PrintFormat` (POIREPLACE census) followed by a comment ending in a bare `;`, which is a no-op statement. Nothing about the anchor, direction, zone, or state is touched when the guard passes. So my v85 sketch was right to flag that I couldn't certify consequences I hadn't seen — there weren't any to see. Confirmed: relaxing the tier comparison alone, with nothing else added, changes zero live behavior.
+
+**Gap 2 (rank table):** Confirmed, and it fully retires my `<=` sketch as a general fix. Monthly-POC rank 6 → tier 3; Weekly-POC rank 8 → tier 4. `4 < 3` and `4 <= 3` are both false — Weekly can never out-tier Monthly under any tier-only comparison, by construction of the table, not by coincidence of this incident. So a tier-relaxation-only fix would catch exactly the 10:05 same-line case and leave the three Weekly-POC SHORTs held regardless. Luna's state-bounded, tier-agnostic design is the correct generalization — mine wasn't.
+
+**Gap 3 (R-row histories):** Confirmed and the reasoning is solid, not just asserted. R1 and R5 have zero supersede/suppress activity — nothing for a t78-adjacent change to interact with. R3 and R4's suppressed rows fail on two independent grounds at once (`opp=0`, and `heldState=S4_ARMED` rather than S2) — a cross-direction, S2-bounded predicate is excluded from touching them twice over. That's a genuinely safe invariance argument, not a "probably fine." R2 stays honestly open rather than papered over — good.
+
+**PREBIND-row + identity:** Both confirmed. The 8-row set (5× A_OPP, 3× A2_CLOSE_BREAK, 11:20-11:55) resolves the range I'd flagged as unquoted. And Region T shows the prebind site literally calling `IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermPB)` — same function, same failTerm vocabulary as Region E. Not a namesake, as I'd worried; the same gate, called from further downstream (right before promotion to `ST_S5_GATE_CHECK`).
+
+## The one thing I'd want settled before going further
+
+The comment at EA:7386 quotes the operator directly: *"if i have executed the first trade, i would not execute other trade even it's from higher hierarchy."* The whole legitimacy of scoping the fix to `ST_S2_LTF_ALIGN` rests on reading "executed" as *order placed* (S5_GATE_CHECK / SIGNAL onward) — nothing has "executed" yet at S2, so re-targeting the candidate there isn't overriding an executed trade, it's just changing which unfired candidate is being tracked. That reading is plausible and I think it's probably right, but the quoted sentence doesn't itself distinguish "executed" from "seeded/anchored." If the operator's actual intent is closer to "once I've locked onto a direction at all, don't swap it," S2-bounding wouldn't satisfy that even though it's a defensible interpretation of the literal words. This seems worth a direct one-line confirmation from him — "does 'executed' mean order-placed, or does it include a candidate that's just been seeded/anchored" — before the design gets locked in, since everything downstream (the shadow, the corpus grade, eventually the live fix) is built on this reading.
+
+## Shadow clearance ask — review
+
+The `S2-PREEMPT-SHADOW-001` spec is sound as described:
+
+- Trigger (`g_state == ST_S2_LTF_ALIGN && t78_opp`) correctly mirrors the fix's own proposed gating shape, so the shadow is testing the actual predicate under review, not a proxy for it.
+- Zero live/anchor/dir/latch/order/stop writes, N1 untouched — matches the established null-effect pattern already used successfully elsewhere in this codebase (C0's pass-through resolver, the S1F shadow's N1 save/restore idiom), so there's precedent this discipline holds up in practice here.
+- The dual-column logging (Luna's predicate vs. `<=`) is well-designed specifically because Gap 2 just proved those two predicates diverge on 3 of 4 rows — this shadow will make that divergence visible on real bars rather than asserted from the rank table alone, which is exactly the kind of novel evidence a clearance ought to produce.
+- Grading criteria (4 morning SHORTs flagged, 10:05 flagged under both columns, R-rows zero-delta, 222-bar corpus noted) line up with what's already evidenced — nothing in the grading plan asks the run to prove something the evidence doesn't already point toward.
+
+Two things I'd confirm once the literal shadow code is pasted, rather than from the spec description alone:
+
+1. Does the recorder also gate on `inWindow` (as the real t78 guard does, EA:7366), or fire on state+opp alone? If it skips that check, it could flag a WOULD-PREEMPT on a bar the live t78 site would never even reach, inflating the count relative to what a real fix would catch.
+2. Does it read the `t78_pr`/`t78_dir`/`t78_opp` already computed at the existing t78 call site, or run its own `DetectPoiRetest`? Reusing the existing values is the minimal-footprint approach and keeps it consistent with "N1 untouched" (detection itself doesn't touch N1); a fresh call isn't wrong, just worth confirming it's deliberate.
+
+Neither is a reason to withhold clearance on the spec as written — they're implementation checks for when the actual patch shows up, not defects in the plan. I'm not the clearance authority here, so no key from me either way — Luna's call to make.
+
+Nothing built, run, committed, or worded this turn.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v87 2026-09-16
+
+**Sonnet-live review — 2026-09-16 — v87 RECON34 grade + live-path readiness (review-only; no build/run/commit/token/word used)**
+
+## Ask 1 — ACCEPT RECON34
+
+Accept. The self-checks are the kind that would actually catch a bad shadow, not just assert cleanliness: all 46 pre-existing log families (SEL52, SUPPRESSED, SIDE1D, ANCHOR, A6TERM, N1EQUALS, POIREPLACE) show delta-0, and the only line-count change anywhere in the run is exactly the 72 new SIDE1H rows. That's a real verification that the recorder touched nothing else, not an assumption. The 10:10 purity check (0 preempt / 0 suppressed / 1 S2WAIT) also matches what's already independently known — nothing was ever detected there — so there's no manufactured signal propping up the result. And the two implementation questions I raised in v86 (inWindow mirrored, reuse-only detection, N1 identical) both came back confirmed. No objection to accepting the record.
+
+## Ask 2 — CONFIRM the 10:05 legacy cell as false
+
+Confirm false, not a re-rule. `wouldTierPassLegacy` is testing the actual deployed predicate — strict `<` — and for the 10:05 row that's candidate tier 3 vs. anchor tier 3: `3 < 3` is false. That's arithmetically correct, and it matches what's already known independently: the real 09:08 run held that candidate (`higher=0` in the original SUPPRESSED row). The shadow reproducing a result we already know to be true from a separate source is a good sign it's wired correctly, not a red flag.
+
+The pre-registration error is exactly what it's described as: `true` is the correct value for `3 <= 3` — my v85 sketch — not for `3 < 3`, the actual legacy operator. Worth being precise about what changes here: the shadow never ran my `<=` sketch as its own column. It measured two things — Luna's tier-agnostic S2-bounded predicate, and the real legacy predicate — and I'd said "true" for `<=` at 10:05 as hand arithmetic in v85/v86, which is still correct on its own terms, but it was never itself a measured shadow output, and conflating it with the legacy column is exactly the error being corrected here.
+
+Net effect: this is good news for the fix, not a wash. The divergence between Luna's predicate and what the code actually does today is 4-of-4, not 3-of-4 — the proposed fix addresses every morning suppression event measured, with no asterisk needed for a partial case.
+
+## Ask 3 — live-transfer clearance: review-only, nothing to audit yet
+
+The Q3-executed ambiguity I flagged in v86 is properly closed now — and closed the right way, by the operator himself rather than by inference: "executed" means order-placed (S5/fire onward), so a re-target while still at S2 doesn't touch his arrival-order rule. That was the one thing I thought needed a direct answer before this design could be trusted, and it's been given one and filed as its own finding rather than folded quietly into a relay. Good.
+
+That said, I haven't actually been handed the quoted live-transfer packet — the predicate text, the site diff, the Region-P consequence, the hold semantics — so I have nothing at the line level to review yet. I'd want that quoted-whole the same way I've had Regions O/P/Q/R/S/T for everything else before this. Two things I'd flag for when it does show up, not objections to proceeding:
+
+- The 222-bar new-span corpus proving is explicitly still owed (RECON34 was same-range, labeled as such) — the ask's own checklist lists it as a requirement for the live clearance, so it shouldn't quietly become optional once the shadow evidence looks this clean.
+- Given the transfer's consequence is described as reusing Region-P semantics (re-home anchor/dir/price/time, clear zone/touch/latch, reset confirm-origin), I'd want to see that it's actually calling into the same re-home logic rather than a parallel reimplementation of it — two copies of that reset sequence drifting apart later would be a worse bug than the one being fixed.
+
+No standing objection to the project moving toward that clearance step — the evidence chain up to here is solid — but no key from me, and nothing to line-review until the packet itself is on the table.
+
+Nothing built, run, committed, or worded this turn.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v88 2026-09-16
+
+**Sonnet-live review — 2026-09-16 — v88 RECON35 grade + Stage-D stop authorship (review-only; no build/run/commit/token/word used)**
+
+## Evidence-format note before anything else
+
+Every prior relay in this thread has backed its grade claims with quoted raw journal rows — ANCHOR/SUPPRESSED/S2WAIT/CONFIRM_PREBIND lines I could check arithmetic and state logic against directly. This one doesn't include any raw SIDE1C_PREEMPT rows, only the summary. That matters for one specific claim: "S1 09:30 + 09:50 Monthly-LONG→Weekly-SHORT (09:40/10:05 correctly idle, already-SHORT)" reads as *two separate* LONG→SHORT transfers, five minutes apart, with the direction apparently reading LONG again at 09:50 despite having already flipped to SHORT at 09:30. Nothing in what's given explains what would move it back to LONG in between (same-direction supersession doesn't change `g_dir`, so that's not it). I'd want the actual PREEMPT rows for 09:30 through 10:05 before treating the "13 SIDE1C_PREEMPTs / transfer proven" framing as fully verified rather than asserted — everything else about RECON35 (family-integrity language, WS161 mismatch=0, R-fires 4/4) is consistent with the methodology this project has used successfully throughout, so I'm not doubting the run, just flagging that this particular relay doesn't let me check it the way I've checked every other one.
+
+## Stage-D — what I can actually review
+
+**R≥1.0 framing:** correctly left untouched. This is a stop-source question, not a threshold question — right scope.
+
+**The numbers check out internally.** Stop distance 1.16379−1.16205 = 17.4 pips gives R 0.77; ext1's 1.16258−1.16205 = 5.3 pips gives R 2.52. Ratio of stop distances (17.4/5.3 ≈ 3.28) matches the inverse ratio of the R values (2.52/0.77 ≈ 3.27) almost exactly — consistent with a fixed reward target and R scaling inversely with risk distance. Not proof of correctness, but it's evidence the two numbers are actually derived from the same underlying arithmetic rather than being independently garbled.
+
+**A naming flag worth pinning down before anyone wires this.** The variable is called `ext1`, which reads like "the first extreme" — but the relay describes it as "his second swing." If his rule is 1-away-with-imbalance / 2-away-without, and `ext1Imb=0` (no imbalance) correctly routes to the 2-away branch, then `ext1` needs to *actually be* the code's representation of the second/2-away swing, not something that happens to carry that meaning here by coincidence of naming. This is exactly the kind of mismatch that produces a fix that works on the one measured row and misfires elsewhere. I'd want this confirmed explicitly, by name, in whatever companion shows the swing-walk logic.
+
+**Only half his rule is checked here.** `ext1Imb=0` confirms the imbalance branch is right for the no-imbalance case, but there's no wick data given for `ext1` — his rule has a "+ wick nuance" on the without-imbalance branch that isn't addressed by the imbalance flag alone. Can't certify `ext1` satisfies the full rule, only the half that's been measured.
+
+**The biggest open risk, and I'd put this ahead of everything else before authoring anything:** S2's own `ext1R = 0.68` at 16:40 is *below* the R≥1.0 bar. S2 currently fires correctly. If Stage-D's fix is "adopt the imbalance-conditioned swing whenever available," and S2's imbalance flag also happens to route it to `ext1`, this fix would flip a currently-working trade into a stand-down. Before this gets authored as a general rule rather than a Sep-8-specific patch, I'd want S2's own imbalance flag and whatever stop it's *currently* using checked — if S2's imbalance flag is 1 (unlike S1's 0), his rule would route S2 to the 1-away swing instead, which may not be `ext1` at all, and the risk evaporates. But that's a fact to check, not something to assume either way.
+
+**R1/R3/R4/R5/R2:** no swing or imbalance data given for any of them. Can't predict — stays open, same as it has every round this fix chain touches new candidates.
+
+**What I can't do yet:** author "exact predicate + code site" for the EA:5568 area / S5 latch path. No companion snippet for that region has been shown at any point in this thread — Regions O through T covered seed/supersede/held/rank/prebind, none of them touch stop-loss selection, `walkSteps`, or where `ext1`/`ext1Imb` get computed. I can engage with the direction (adopt the imbalance-conditioned swing instead of the current fixed "conservative 1SWING, walkSteps=0" pick) as sound in principle, contingent on the S2 check above — but drafting a line-level predicate against code I haven't seen would be exactly the fabrication this project has consistently refused to do at every prior stage. Same recommendation as before: a companion snippet for that region, same treatment Regions O-T got, before this goes from direction to draft.
+
+Nothing built, run, committed, or worded this turn.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v89 2026-09-16
+
+**Sonnet-live review — 2026-09-16 — v89 stop-evidence closures + shadow clearance (review-only; no build/run/commit/token/word used)**
+
+## Correction on my end, first
+
+I need to own this directly: in v88 I called S2 "currently firing correctly" and used that to argue a stop-source fix could flip a working trade into a stand-down. That was wrong, and it was avoidable — this project's own baseline has said since v84/v85 that S2 "dies 16:35 + R-gate." I read "legacy chain intact" in v88's baseline as "succeeds" when it actually just meant "this fix doesn't touch S2's own seed/confirm/abort sequence," which is a different claim. The SLNONFIRE row (`wouldFire=0` under both the live stop and ext1, R 0.60 vs R 0.68, both RR_FAIL) settles it: S2 was never a live trade to protect, so there's no regression risk there. Thanks for catching it — I'll drop that thread and redirect the safety focus to where the evidence actually points.
+
+## Gap closures — verified against the code and rows shown
+
+**Format flag:** the between-step trace (09:30 preempt → 09:45 `ABORT reason=FRESH_OB_DEAD` → 09:45 fresh `ANCHOR_ELECT SEED` at ST_IDLE → 09:50 preempt again) fully resolves what looked like an unexplained double-transfer in v88. An abort returns to `ST_IDLE`, idle-gating lets the main seed path re-seed, and the new LONG gets preempted again five minutes later. Coherent, no gap left.
+
+**ext1-naming:** confirmed directly from Region U. Rung 0 (`ext=0`) is whichever valid, protectively-correct swing is found first; `ext` only increments on a genuinely more-protective level (`more` check, EA:2747), and the function captures `hasX1`/`px`/`imb` the first time `ext==1` is reached (EA:2751-2757, guarded against overwrite). That's the second *protective* level by construction, not by naming coincidence — my v88 flag is closed correctly, and it also confirms the mapping I'd want to state explicitly: his "1-away" = the code's rung 0, his "2-away" = the code's ext1.
+
+**Wick:** the SLADDER row (`px=wick=1.16258`, `body=1.16248`) shows the resolved price matches the wick, not the body, for this one instance. That's a reasonable spot-check that the swing buffers are wick-sourced, but it's one row, not the buffer-population code — I'd treat "the swing buffers are always wick, never body" as supported-but-not-code-verified, which is a fine place to leave it given this is background architecture, not the thing actually being changed.
+
+## Two things worth flagging before the shadow's spec is fully grounded
+
+**Naming collision, not the same one as before.** Region V is the *current* live stop branch, and it runs entirely on `obValid`/`obSwingRef`/`swingLow`/`swingHigh` — nothing in it touches `imb` at all. The `SL_MODE_1SWING` label there is about order-block validity classification, unrelated to his "1-away/2-away" imbalance rule, even though the "1SWING" and "1-away" names sound adjacent. Worth stating plainly so nobody conflates the two: Stage-D isn't modifying Region V's branch logic, it has to be inserted somewhere else — most likely right before `g_latchedSl = slRef` at Region W (EA:9475), consistent with "S5-latch-before-commit" — but that's my inference from the site description, not something I've seen as an actual diff. I'd want that splice point confirmed explicitly rather than assumed.
+
+**The shadow ask needs an "S0" resolver I haven't seen.** `S1-CONDSTOP-SHADOW-001` calls for `S0-ident/imb` alongside `S1-ident/imb`, but Region U only gives me the ext1 (rung-1) capture — there's no shown function returning rung-0's own price and imbalance flag as an output the way `SrjResolveExt1` does for rung 1. It might just be Region V's existing `swingLow`/`swingHigh` plus a separate imbalance-buffer read, or it might be a new sibling function not yet shown. I don't object to the shadow's design — the comparison it's set up to make (S1 chain → R≈2.52 pass, S2 chain → R≈0.68 fail either way, R-fire zero-delta, R2 declined, 10:10 clean) matches everything established so far — but half of what it's measuring (the S0 side) isn't grounded in code I've seen yet.
+
+## Where the real safety question now sits
+
+R1 and R4 are safe by identity (ext1 equals their current live stop already). R3 (1.15847 vs current 1.15907) and R5 (1.16238 vs current 1.16218, 2 points) are genuine divergences — adopting the conditional rule would actually move their stops, which could move their R past or below the 1.0 line. The relay already has this as the explicit thing the proving run grades, with REPORT+HALT on any fire change — that's the right test, and it's correctly the shadow-first, not live-first, step being asked for here. No objection to running it in that order.
+
+One smaller open item, not blocking: `imb` reads as a small integer (S1=0, S2=2) rather than a boolean. I don't have the definition of what imb=2 specifically denotes versus imb=1, or whether his rule treats "any nonzero" the same as "imbalance present." It doesn't change today's grading (S2 fails under either stop regardless), but it's worth pinning down before the rule gets encoded generally, in case a future row lands closer to the R=1.0 boundary where the distinction would matter.
+
+Nothing built, run, committed, or worded this turn.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v90 2026-09-16
+
+**Sonnet-live review — 2026-09-16 — v90 RECON36 grade + re-authorship (review-only; no build/run/commit/token/word used)**
+
+## What RECON36 actually shows
+
+S1 works exactly as intended: `imb0 → sel=1 → r1=2.52 → pass`. That's the target case, solved.
+
+But F1 and F2 aren't edge cases to patch around — they're evidence the rule as authored is built on a premise that doesn't hold. Both S2 (`imb1`) and R2 (`imb2`) are nonzero-imbalance cases, and both route to `sel=0` and both would-fire when they shouldn't. If "any nonzero imbalance → use the 1-away swing" were the right reading of his rule, I'd expect it to at least sometimes be *correct* for a nonzero case — instead it's wrong on both nonzero examples we have. That pattern points more at "nonzero → 1-away" being a misreading of what he actually said, not at needing to carve out imb=1 vs imb=2 as separate sub-cases. I'd want that checked against his original wording before anyone tries to patch the mapping — patching a wrong premise usually just moves the failure to the next data point instead of removing it.
+
+F2 is already a hard halt under the branch rules as written, and it should stay that way regardless of anything else here — a fix that keeps S1 alive but lets R2 fire isn't a partial win, it's a different, worse bug.
+
+## Two things I'd want before drafting anything, not after
+
+**The literal imb-code definition (FlowLogic:122-127).** I have the outcomes but not the meaning — I don't know if 0/1/2 are ordinal (none/weak/strong), directional (none/bullish/bearish), or something else entirely. Any predicate I proposed right now would be fit to three known outcomes with no grounding in what the variable represents, which is exactly the force-fitting this project has refused to do at every prior stage. I'd rather flag that than hand over a guess dressed up as a draft.
+
+**Whether R2's MUST-DECLINE status has independent teeth anywhere else in the system.** This is the part of F2 that worries me most, separate from the immediate stop question. If R2 has never fired only because the *legacy* stop happened to push its R below 1.0 — and nothing else in the pipeline actually excludes it — then R2's non-firing has been accidental the whole time, and this isn't the last stop-logic change that could reopen it. If there's a documented, independent reason R2 must decline (a session violation, an HTF conflict, anything upstream of the R-gate), that's reassuring and worth citing explicitly so future stop changes don't have to keep re-deriving this by luck. I don't know which of these is true from what's shown, and I think it matters more than the imb-code question for how much trust to put in "R2 stays down" going forward.
+
+## One more open item worth naming plainly
+
+The 16:55 trade under F1 has no roster precedent at all — it's not just S2 misbehaving, it's a signal that doesn't currently exist. Before re-authorship, I'd want to know whether that's a genuinely separate candidate the new rule newly qualifies, or whether it's the *same* S2 candidate getting evaluated a second time because the new stop logic succeeds at a bar where the old logic previously failed and stopped evaluating. Those are different problems — one is "the rule picks a bad stop for an existing candidate," the other is "the rule causes candidates to be graded more times than the architecture intends" — and I wouldn't want the second one hiding inside what reads like a stop-selection question.
+
+## What doesn't need re-litigating
+
+R1/R4 byte-identical is a clean result and needs nothing further. R3/R5's stops and R-values genuinely moving (2.56→1.66 for R3; a smaller shift for R5) isn't itself a red flag — if the rule is right, real stops should move for real candidates, and reporting that honestly at clearance time is the correct behavior, not something to explain away or suppress.
+
+I'm not drafting a specific re-authored predicate this round — not because the ask isn't clear, but because doing so without the imb-code semantics or the R2-exclusion answer would be exactly the kind of guess this whole chain has been built to avoid making. Once those two are on the table, I can engage with an actual predicate rather than a plausible-sounding one.
+
+Nothing built, run, committed, or worded this turn.
+
+
+## REVIEW (non-verdict, NO Ruling-ID stated; fresh-session disclaimer restated) - Sonnet live-session, answers v91 2026-09-16
+
+**Sonnet-live review — 2026-09-16 — v91 mapping-settled + R2/S2 placement (review-only; no build/run/commit/token/word used)**
+
+## Closed cleanly, no further comment needed
+
+The operator's ruling settles the premise-challenge directly and correctly overrides it — filled/invalidated imbalance still counting as "has imbalance" is his rule to make, and it's now made. I'm dropping that line of inquiry entirely; the mapping (nonzero imb → S0, imb0 → far swing + wick) is confirmed correct, and S2/R2's overfire under it are real findings, not artifacts of misreading him. The 16:55 identity question is also resolved well — same candidate, normal re-evaluation as state advances, not a duplicate-grading bug.
+
+## The question I think actually needs asking before re-authorship: does S2 even belong in this fix?
+
+R2 carries an explicit operator ruling — "invalid setup," filed and named. S2 doesn't have that anywhere in this chain. What it has is "born-right" — language that, everywhere else this has come up, has meant a legitimately-formed candidate that failed for mechanical reasons, not one the operator considers wrong on principle. That's the exact shape of what happened to S1: a real setup, blocked by broken plumbing (first slot-occupation, then a bad stop pick), not something meant to be excluded. Now that the mapping is settled and S2 correctly routes to S0 at R=1.62, I think the live possibility is that S2 was never supposed to stand down at all — it's been sitting in a permanently-wrong state for the same underlying reason S1 was, and "fixing" it back into a fire would be the second half of the same correction, not a new bug to suppress.
+
+I'd put this to the operator directly, the same way the imb question just got put to him and settled in one pass: does he want S2 to fire under the corrected rule, or is there a reason — not yet stated anywhere in this chain — that it must stay down regardless? Until that's answered, I don't think re-authorship should be built around "S2 must stay down," because that constraint isn't actually established; it's been carried forward from before the mapping was settled, back when we didn't know his rule would put S2 at R=1.62 in the first place.
+
+## R2 — this can't be solved by re-authoring the stop rule, at all
+
+This is the harder finding. Both of R2's *valid* stop choices clear the bar — S0 gives R=1.71, the far swing gives R=1.21. There is no third rung to pick that would bring it back under 1.0. The only thing that has ever kept R2 down is the legacy stop's R=0.36, which is exactly the mechanism Stage-D is replacing. So this isn't "which swing does R2's leg route to" — under his own correctly-stated rule, neither answer excludes it. The thing that's actually supposed to invalidate R2 — his refined CQD reading — isn't in this repository. What is in the repo prints a `-1` at 10:30 and gates nothing; his chart-side update to that indicator was never brought into the codebase (Addendum 5 says as much directly).
+
+Given that, I don't think Ask-1's framing ("how do S2 and R2 stay down without relitigating the mapping") is answerable for R2 as a stop-rule question — no predicate over swing selection touches this, because the failure isn't in which swing gets picked, it's that the signal that should invalidate the setup in the first place was never coded. Re-authoring the stop rule to somehow also catch R2 would mean either quietly relitigating the mapping (foreclosed) or bolting on a name-based exclusion (foreclosed, explicitly, as a "fixture exclusion"). Neither is available, so I don't think there's a third option hiding in the stop predicate — the option that's actually available is building the missing gate, which is a different piece of work than Stage-D.
+
+**On Ask-3 directly:** right now R2-teeth rides the operator ruling and the MUST-DECLINE packet status — not any code mechanism. That's the honest current state, not something a re-authored predicate can upgrade into "by mechanism" without the CQD gate existing first. Given this is alert-only and he already appears to manually screen setups against his own chart-side reading, that might be an acceptable interim posture — but given the branch rules explicitly reject "R2-fires-accepted-silently," I think this is a call for the operator to make explicitly rather than something to leave implicit: either he's comfortable with R2 surfacing as an alert he personally declines until the CQD gate is built, or Stage-D's live clearance needs to wait on that gate specifically. I'd rather this be a named decision than something that gets settled by default because the stop-rule work happened to ship first.
+
+## What I'd suggest, pending both answers
+
+Decouple the two. The stop-mapping itself (nonzero→S0, imb0→far swing+wick) looks correct and complete on the evidence in front of me — R1/R4 identical, R3/R5 move honestly, S1 fixed. If S2 firing turns out to be desired, that's not a defect to patch, it's confirmation the mapping is doing exactly what it should. R2 is a separate, currently-unsolved problem that stop-rule authorship can't reach — it needs the CQD integration named as its own workstream rather than folded into this one.
+
+Nothing built, run, committed, or worded this turn.
+
+
+## REVIEW (Sonnet-channel text as pasted, carries its own Review-ID V92-SPLIT-REVIEW-001; review-only, keyless for live) - answers v92 2026-09-16
+
+## Sonnet — 2026-09-16 — Review `V92-SPLIT-REVIEW-001`
+
+The v91 conclusions survive the v92 gate inventory.
+
+The key finding is now mechanically pinned down: **R2 is not being rejected by a general eligibility mechanism in the observed path.** The quoted path shows confirmation, divergence-latch machinery, R latch/R threshold, and post-fire session marking; the R2 journal row records `biasAtGate=1`, `biasOpposedAtGate=0`, with `RR_FAIL` as the decline. The companion therefore supports the conclusion that the currently observed R2 decline is R-driven rather than an independently enforced CQD validity decision.
+
+That makes Luna's architectural split correct:
+
+```text
+stop mapping ≠ setup validity
+```
+
+The S2 question is also correctly separated. Nothing in the supplied record establishes “S2 must stay down” as an operator-owned rule. With `imb=1`, S2 belongs to the has-imbalance/S0 branch. Whether it nevertheless fails through an existing general gate is precisely what the shadow diagnostic should reveal.
+
+The named diagnostic is appropriate because it observes the candidate gating state without changing it. In particular, the session-use marking at EA 9701 is downstream of the alert-only fire path, so it cannot be treated as an upstream eligibility explanation for a pre-fire decline.
+
+The proposed interim posture is also the defensible one from the evidence currently supplied:
+
+```text
+alerts-print
+live-clearance held
+R2 still operator-declined
+CQD gate remains a separate workstream
+```
+
+That preserves the distinction between **“the operator currently says no”** and **“the code mechanically says no.”**
+
+### Review disposition
+
+**V92 split: confirmed.**
+
+**`S2R2-ELIGIBILITY-SHADOW-001`: review-cleared as print-only diagnostic.**
+
+**R2 CQD validity gate: unresolved and separate from stop mapping.**
+
+**S2 status: unresolved pending the operator's Q-A; no inferred exclusion.**
+
+**No build/run/commit/clearance of live behavior from this review.**
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; Q-A/Q-B asked through to operator) - answers v92 2026-09-16
+
+Read both files. Since this is a review-only turn (no build/run/commit/token), here's my read as Sonnet-live on the pieces addressed to me, followed by the two questions that are actually owed from you this turn.
+
+**On the Section 2 inventory:** it confirms rather than changes my v91 position. The three general gates on the path — confirmation prebind, divergence-latch consumption, session-use marking — none of them touch R2 before the R-latch. The G6 pull makes this concrete: R2's bar shows bias aligned and non-opposed at gate (`biasAtGate=1 biasOpposedAtGate=0`), and `RR_FAIL` is the only outcome recorded. So there's no dormant general gate hiding in this candidate list that was going to catch R2 once identified — the inventory closes that door rather than opening it. That's consistent with what I said last time: R2's actual invalidator is the chart-side CQD reading, which isn't in the repo at all, so this is new work (the CQD gate), not a re-discovery. I'd treat Ask-1's shadow-diagnostic as scoped correctly if it's only asked to *surface* that absence cleanly, not asked to also produce R2's fix — those are different jobs.
+
+**Ask-2** is addressed to Luna, not me — my v91 position stands unchanged (the "S2 must stay down" constraint isn't established anywhere in the record; it's inherited from before the mapping was settled). I don't have new grounds to revise that here.
+
+**Ask-3** (addressed to both): I'll confirm the proposed default. Given R2 clears both valid stops (S0=1.71, S1=1.21) and the branch rules explicitly reject silent R2-surfacing, the only posture that doesn't quietly pre-empt your call is hold-live-stop-mapping / alerts-print-only until you answer Q-B. That's a holding position, not a ruling — it just avoids the work shipping ahead of your decision by default.
+
+That leaves the two things the relay says are owed from you directly, so — actually asking them:
+
+**Q-A:** Under the settled stop rule, your Sep-8 16:30 short (S2) passes at R=1.62 and would alert. Your journal only shows the 17:00 short from that day. Do you want the 16:30 alert to fire, or does it need to stay down for a reason not yet in this record?
+
+**Q-B:** The Sep-4 10:35 short (R2) passes under both valid stop choices (1.71/1.21) — nothing in the code currently excludes it; it's only kept down by your ruling plus a chart-side reading that was never coded. Are you okay with it surfacing as an alert you personally decline until that CQD gate gets built, or do you want all live stop-mapping work held until the gate exists?
+
+
+## REVIEW (Sonnet-channel, SECOND text under Review-ID V92-SPLIT-REVIEW-001; first text under this ID filed earlier this round, both kept; review-only, keyless for live) - answers v92 2026-09-16
+
+The v92 inventory supports the v91 split without modification.
+
+The important technical point is now explicit: **the observed R2 decline is R-gated, not evidence of a general eligibility gate.** The supplied path identifies confirmation, divergence-latch machinery, the R latch/threshold, and downstream session-use marking; the R2 journal row itself records aligned bias and non-opposition together with `RR_FAIL`.
+
+Consequently, attempting to make R2 stay down through the conditional-stop selector would conflate two different mechanisms.
+
+S2 likewise remains an operator question. Its `imb=1` classification routes it to S0 under the settled rule. The record does not independently establish a principle that S2 must remain suppressed, so no such constraint should be silently carried into authorship.
+
+The requested shadow diagnostic is therefore the correct next observational step because it can expose the candidate state without altering behavior.
+
+The interim posture is also consistent with the evidence:
+
+```text
+print/observe
++
+hold live clearance
++
+do not invent a CQD gate
++
+do not fixture-exclude R2
+```
+
+### Review disposition
+
+**V92 split: CONFIRMED.**
+
+**`S2R2-ELIGIBILITY-SHADOW-001`: REVIEW-CLEARED as print-only.**
+
+**S2: unresolved pending operator Q-A.**
+
+**R2: separate CQD-gate workstream; interim live posture held pending Q-B.**
+
+**No build/run/commit/clearance of live behavior.**
+
+
+## REVIEW (Sonnet-live web UI, second text this round, no ID, keyless; re-asks Q-A/Q-B through to operator) - answers v92 2026-09-16
+
+Read both files. Since this is a review-only turn (no build/run/commit/token), here's my read as Sonnet-live on the pieces addressed to me, followed by the two questions that are actually owed from you this turn.
+
+**On the Section 2 inventory:** it confirms rather than changes my v91 position. The three general gates on the path — confirmation prebind, divergence-latch consumption, session-use marking — none of them touch R2 before the R-latch. The G6 pull makes this concrete: R2's bar shows bias aligned and non-opposed at gate (`biasAtGate=1 biasOpposedAtGate=0`), and `RR_FAIL` is the only outcome recorded. So there's no dormant general gate hiding in this candidate list that was going to catch R2 once identified — the inventory closes that door rather than opening it. That's consistent with what I said last time: R2's actual invalidator is the chart-side CQD reading, which isn't in the repo at all, so this is new work (the CQD gate), not a re-discovery. I'd treat Ask-1's shadow-diagnostic as scoped correctly if it's only asked to *surface* that absence cleanly, not asked to also produce R2's fix — those are different jobs.
+
+**Ask-2** is addressed to Luna, not me — my v91 position stands unchanged (the "S2 must stay down" constraint isn't established anywhere in the record; it's inherited from before the mapping was settled). I don't have new grounds to revise that here.
+
+**Ask-3** (addressed to both): I'll confirm the proposed default. Given R2 clears both valid stops (S0=1.71, S1=1.21) and the branch rules explicitly reject silent R2-surfacing, the only posture that doesn't quietly pre-empt your call is hold-live-stop-mapping / alerts-print-only until you answer Q-B. That's a holding position, not a ruling — it just avoids the work shipping ahead of your decision by default.
+
+That leaves the two things the relay says are owed from you directly, so — actually asking them:
+
+**Q-A:** Under the settled stop rule, your Sep-8 16:30 short (S2) passes at R=1.62 and would alert. Your journal only shows the 17:00 short from that day. Do you want the 16:30 alert to fire, or does it need to stay down for a reason not yet in this record?
+
+**Q-B:** The Sep-4 10:35 short (R2) passes under both valid stop choices (1.71/1.21) — nothing in the code currently excludes it; it's only kept down by your ruling plus a chart-side reading that was never coded. Are you okay with it surfacing as an alert you personally decline until that CQD gate gets built, or do you want all live stop-mapping work held until the gate exists?
+
+
+## REVIEW (Sonnet-channel, carries own Review-ID V93-STAGED-REVIEW-001; review-only, keyless for live) - answers v93 2026-09-16
+
+# Sonnet — 2026-09-16 — Review `V93-STAGED-REVIEW-001`
+
+The new operator answers resolve the v92 ambiguity.
+
+### S2 timing
+
+The 16:25/16:30 versus 16:35 distinction supplies an actual strategy-owned eligibility condition rather than a retrospective exclusion.
+
+The mechanically testable rule is:
+
+```text
+candidate direction == 5m structure bias at seed
+```
+
+with the seed evaluated **before** any later bias transition.
+
+The supplied S2 evidence therefore has a specific causal shape:
+
+```text
+16:30 candidate SHORT
+→ SHORT structure bias not yet established
+→ 16:35 bias flips SHORT
+```
+
+That is materially different from “S2 should remain down because it has historically been down.”
+
+The correct insertion point is upstream of stop/R handling, in the setup-consideration/eligibility path. I agree with Luna that the exact EA line cannot be responsibly quoted from this relay because it is not supplied here; inventing a line or function would violate the same evidence discipline this chain has used throughout.
+
+### R2 CQD
+
+The new operator answer also closes the previous interim branch.
+
+The operator explicitly wants **execution-equivalent alert strictness**. Therefore `R >= 1.0` is necessary but not sufficient. A candidate violating CQD, imbalance invalidation, OPP-FVG validation, or another A+ rule must not produce an alert.
+
+The correct architectural target is accordingly:
+
+```text
+all required A+ eligibility conditions
+→ stop selection
+→ R calculation
+→ R >= 1.0
+→ alert
+```
+
+rather than:
+
+```text
+stop selection
+→ R >= 1.0
+→ alert
+→ human filters R2
+```
+
+That distinction matters because the latter would directly contradict the operator's newly supplied A+ rule.
+
+### Review of the requested evidence
+
+The S2 diagnostic's novel evidence should prove **temporal precedence**, not merely display the eventual bias. At minimum, the observed record needs the seed timestamp, candidate direction, bias-at-seed, later flip timestamp, and resulting eligibility outcome.
+
+For R2, the CQD packet should separately establish which repository inputs already represent:
+
+```text
+10:25 CQD divergence failure
+in-bias imbalance invalidation
+OPP FVG validation
+```
+
+and which are genuinely missing. Missing chart-side semantics should be recorded as new inputs rather than reconstructed from the R2 fixture.
+
+### Sonnet disposition
+
+**S2 timing: REVIEW-ACCEPTED as the correct eligibility mechanism.**
+
+**R2-CQD scope: REVIEW-ACCEPTED as a separate pre-R workstream.**
+
+**A+ interim: CONFIRMED — R2 must remain silent; no single-rule-violation alert is acceptable.**
+
+**Stage-D live behavior: NOT CLEARED.**
+
+**No build/run/commit from this review.**
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; S2-bias + CQD-scope review) - answers v93 2026-09-16
+
+Both answers land clean and actually resolve the ambiguity I raised in v91 — worth saying plainly before the two asks.
+
+**On S2 (Q-A):** his answer isn't "S2 must stay down because I say so" — it's "S2's own bias hadn't flipped yet when the EA looked at it." That's a substantive, generalizable reason, not a preference. It updates my v91 position: I was right that "S2 must stay down" wasn't established *then*, but it's established *now*, and importantly it's established as a mechanism, not a carve-out. So Ask-1's framing is correct to pursue a general predicate rather than any S2-named exclusion.
+
+**Ask-1 review — S2 bias-timing predicate:**
+The shape is right: *consideration requires the candidate's direction to already equal structure bias at the seed bar, not one bar ahead of the flip.* This is mechanically general — it would kill any candidate that fires on the same bar bias flips into agreement, regardless of which setup that happens to be, so it isn't fixture-keyed to 16:30 specifically.
+
+Two things I'd flag for Luna's authorship, since I can't verify them from the code shown:
+- The predicate needs to bind to whatever *already* stamps bias-at-evaluation (G6 rows carry `biasAtGate`/`seqBias`/`biasOpposedAtGate`), not a newly invented bias read — otherwise this risks becoming a second, parallel bias computation that could silently disagree with the one gating everything else.
+- "16:35 open" is his chart-read flip time; the EA's own flip detection (whatever sets `g_dir` at G5) needs to be checked against that timestamp specifically for this bar, not assumed identical. If the EA's flip lands on a different bar than his manual read, that's a separate finding, not something to paper over by hand-tuning the predicate to match his timestamp.
+
+Novel evidence this run should produce, distinct from RECON36: RECON36 never captured S2's own `biasAtGate` at 16:30 — it wasn't in the pulled rows. The diagnostic needs that specific value, showing bias not-yet-aligned at the seed bar, as the actual confirming evidence for the predicate rather than inferring it from his prose. Exact-match, no-tolerance is the right threshold — a "close enough" bias-timing gate would be exactly the kind of soft exclusion the standing locks reject.
+
+**Ask-2 review — R2-CQD scope + A+ confirm:**
+On the A+ confirm: no ambiguity here. "I want the EA alert to be as strict as it would execute... I only consider A+ setups" retires the v92 "R2-surfacing-acceptable" branch outright. Interim is hold-live, alerts-print, R2 silent — I concur, no split.
+
+On scoping the packet itself, his answer actually gives two separate killers, not one, and they shouldn't get merged:
+1. A CQD divergence that existed (10:10–10:30, type-2 bearish) but was **invalidated by bias-imbalance**.
+2. Separately, **OPP-FVG validation** — an opposing fair-value-gap becoming valid, which on its own would invalidate the setup.
+
+Neither of those is in the candidate-gate list from v92 §2. One risk worth naming explicitly so it doesn't get assumed past: the stop-selection `imb` field (0/1/2/3, used to pick S0 vs S1) and this "bias imbalance invalidation" he's describing for R2 may or may not be the same signal. They sound related but aren't shown to be identical anywhere in the bound code. Treating them as the same thing without verification would be a quiet remap of the already-settled imbalance mapping — foreclosed. Luna's scope should explicitly ask the builder to confirm same-signal-or-different before using it for anything.
+
+Also worth flagging, not asserting: his own considered entry was the 10:25 candle, two bars before the EA's 10:35 candidate. Whether that's just "a separately-invalid setup he happened to also look at" or a hint of the same kind of bar-timing offset as S2 is genuinely open — I wouldn't fold it into the S2 predicate on this evidence, but it's a fair question for the CQD packet to note rather than drop.
+
+No clearance, no build implied by any of this — review only, per standing method.
+
+
+## REVIEW (Sonnet-channel, carries own Review-ID V94-COMBINED-PRINT-REVIEW-001; review-only, keyless for live) - answers v94 2026-09-16
+
+## Sonnet — 2026-09-16 — Review `V94-COMBINED-PRINT-REVIEW-001`
+
+I agree with the combined clearance.
+
+The three recorder families are now properly unified at the **observation layer** while remaining separate analytically:
+
+```text
+S2 timing
+R2 CQD validity
+general S2/R2 eligibility state
+```
+
+That is important because the diagnostic does not presuppose that the three mechanisms are identical.
+
+The strongest new protection is the F1 build gate. Reusing the existing bias stamps avoids creating a second definition of “bias at seed,” while the exact 16:35 test prevents the timing explanation from being softened into an approximate window.
+
+The F2 gate is equally important. The probe may discover that stop `imb` and CQD bias-imbalance invalidation are related or unrelated; it is not permitted to decide that in advance. Likewise, 10:25 and 10:35 remain distinct events.
+
+The combined run also resolves the earlier fragmentation concern: F0's already-granted print-only clearance is being consumed within the same run rather than creating a second experimental budget.
+
+### Review disposition
+
+**Combined F1 + F2 + F0 print-only diagnostic: REVIEW-CLEARED.**
+
+**One build + one run is the authorized scope.**
+
+**S2 timing remains an observed mechanism question, not a fixture exclusion.**
+
+**R2 CQD remains a separate validity mechanism to be identified, not invented.**
+
+**No live behavioral clearance, commit, or adoption.**
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; build-gate + framing review) - answers v94 2026-09-16
+
+Reviewing as Sonnet-live, review-only, per standing method — no clearance offered from this seat.
+
+**Both of my v93 flags are correctly carried into concrete build gates**, not just noted:
+- The bias-stamp-reuse flag → F1's "reuse the EXISTING bias-at-evaluation stamps... no new bias computation" gate.
+- The EA-flip-vs-16:35 flag → F1's "EA flip bar checked against his 16:35... a different bar = finding, never hand-tuned" gate.
+- The imb-identity flag → F2's "confirmed same-or-different on disk BEFORE any use (quiet remap foreclosed)" gate.
+- The 10:25-timing carried-open → F2's "noted-not-folded," matching my recommendation not to fold it into the predicate on current evidence.
+
+One subtlety worth surfacing before build, though it's already covered by the branch structure rather than needing a new gate: F1 needs bias-at-*seed* (16:30, consideration time), while the only bias stamp shown in evidence so far (G6's `biasAtGate`) is captured at order-emission time — downstream of where a seed-rejected candidate like S2-under-the-new-predicate would even reach. Whether the underlying bias state (`g_dir`, per G5) is readable at the seed bar independent of that downstream stamp is exactly the kind of thing the build shouldn't assume. It looks like this is already handled: Section 4's build-gate-trip branch explicitly names "no stamp at seed" as a HALT condition rather than something to route around. So no new gate needed — just flagging that this is the most likely place F1 actually trips, if it trips.
+
+Grading list looks complete against the two authored packets plus the already-cleared F0, and correctly keeps the imb-identity resolution as a pre-build gate rather than a post-run grading item, since an unresolved identity question shouldn't reach a run at all.
+
+No objections to the combined single-build/single-run framing — folding F0 in "openly... no separate hour spent" is a reasonable efficiency and doesn't change what's null-effect or what halts on delta.
+
+
+## VERDICT V95-NEXT-DIRECTION-REVIEW-001 2026-09-16 (answers v95)
+
+## Sonnet — 2026-09-16 — Review `V95-NEXT-DIRECTION-REVIEW-001`
+
+I agree with the re-scope.
+
+The decisive observation is the **temporal separation between what was expected and what was actually measured**. The 16:30 repository evaluation already says `biasAligned=1` and `CONSIDER`; the later R evaluation is what produces the observed suppression. That makes a new S2 timing object a poor next target because the diagnostic's own prerequisite premise was not reproduced.
+
+I would therefore treat:
+
+```text
+S2-down = observed R-gate behavior
+```
+
+as the current mechanism statement, with the timing explanation retained only as an unestablished possibility requiring different evidence—not as a replacement causal theory.
+
+For R2, `cqdDiv=UNREAD` is a genuine instrumentation gap. It cannot be promoted into either “CQD passed” or “CQD failed.” The correct next experiment is identification of the actual repository input and its timing, especially preserving the 10:25/10:35 distinction.
+
+Staging is also preferable here because it prevents the unresolved R2 CQD mechanism from contaminating the now-measured S2 result.
+
+**Review disposition:**
+
+`STAGE-D-S2-RGATE-001` — **REVIEW-ACCEPTED for authorship/next clearance.**
+
+`R2-CQD-ELIGIBILITY-002` — **REVIEW-ACCEPTED for separate authorship/next clearance.**
+
+**No live behavioral clearance. No build/run/commit/token authorization.**
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; RECON37 F1-flags) - answers v95 2026-09-16
+
+## Sonnet-live — 2026-09-16 — review-only, no ID, keyless
+
+Reviewing RECON37 as Sonnet-live, review-only, no key.
+
+**What holds up cleanly:** the build-gate discipline worked as designed. No invented bias computation, no hand-tuned flip match, isolation clean, R-zero-delta, CQD-absence documented census-wide (`cqdDiv=UNREAD` ×14 is a clean, uncontested finding — I'd scope Q2 as its own workstream without hesitation, that's real evidence of a missing input, not an ambiguous read).
+
+**Before accepting the F1 refutation at face value, two things need resolving — I'd stop Q1 short of "R-gate-as-answer" until these are checked:**
+
+**1. Does `CheckLtfAlign` test what his claim was about?** He said the 5m structure bias *flipped* short at 16:35 open — a timing/event claim about when the bias itself changed. The reused helper is named for checking *alignment* (LTF direction vs. an established bias, likely HTF per the standing TF-setup rule "reads HTF-bias-only") — a state check, not a flip-timing measure. Those are different questions. "Reuse the existing stamp, no new computation" was the right gate to avoid inventing a predicate, but if the existing stamp answers a different question than the one his account makes, `biasAligned=1 at 16:30` doesn't necessarily refute "bias flipped at 16:35" — it may just mean alignment-with-HTF was already true, independent of when the LTF bias itself last changed. I don't have `CheckLtfAlign`'s body in this relay to check myself; this needs Luna or the builder to confirm what it actually computes before the refutation is treated as settled.
+
+**2. Bar identity on the economics finding.** The R=0.60 STAND-DOWN cited is at 16:40, matching the G6 pull from v92 exactly. But his verbatim answer separately names a **16:45 short** he considered and declined for a *different* stated reason (SL two swings away at the 9:05 high — a stop-selection issue, not an R-gate issue) — distinct from his 16:30-seed account. Before folding "S2-down cause = R-gate" into the record, it's worth confirming the 16:40 S5-eval bar this run captured is actually the 16:30-seed candidate's own evaluation point, and not accidentally his separately-described 16:45 consideration. Conflating the two would misattribute which of his two stated reasons the economics finding actually supports.
+
+I wouldn't call the flip-time gap "moot after refutation" — if concern (1) is live, the missing flip-time column is the actual gap, not a footnote. It's the one field that would let anyone check his claim on its own terms rather than via a proxy stamp.
+
+**On the three asks:**
+- **Q1:** Hold "R-gate-as-answer" pending (1) and (2). If `CheckLtfAlign` turns out to mean what's assumed and the bar identity checks out, R-gate-as-answer is reasonable and I'd accept it then. Don't lock authorship around it yet.
+- **Q2:** Agree — scope CQD-absence as its own workstream, evidence is clean.
+- **Q3:** Given an open semantics question, I'd lean staged — resolve (1)/(2) narrowly (code-text confirmation, likely no new build needed) before combining with CQD-scope authorship into one packet.
+
+No clearance offered; this is flags for Luna's authorship and, if (1) can't be resolved from code alone, possibly one more narrow question back to him.
+
+
+## VERDICT V96-STAGED-REVIEW-001 2026-09-16 (answers v96)
+
+## Sonnet — 2026-09-16 — Review `V96-STAGED-REVIEW-001`
+
+The Section 2 correction is sound.
+
+The strongest formulation is now **“rejection-closed, event-untested (sampling coincides)”**. The seed-bar bias state can establish what the repository sampled at the seed evaluation, but the 16:30 test-time print at 16:35:00 cannot independently timestamp the operator's underlying flip event.
+
+The S2 causal path is consequently the R gate, not the timing hypothesis. The 16:40 R=0.60 abort remains attached to the 16:30 SHORT candidate, while the 16:45 LONG consideration is a separate candidate.
+
+I therefore review-accept both staged components:
+
+```text id="eb3nqo"
+STAGE-D-S2-RGATE-001
+R2-CQD-ELIGIBILITY-002
+```
+
+The separation is appropriate: the first observes the already-demonstrated rejection path; the second investigates whether the repository actually contains the CQD-divergence input required for the operator's R2 ruling.
+
+The stated `UNREAD` discipline is particularly important: missing state must remain missing rather than being treated as a negative verdict.
+
+### Review disposition
+
+**V96 staged split: REVIEW-ACCEPTED.**
+
+**Both named components: REVIEW-ACCEPTED for the stated print-only scope.**
+
+**Section-2 reframe: accepted.**
+
+**No live behavioral clearance, build/run authorization, commit, or token consumption.**
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; V96 staged split) - answers v96 2026-09-16
+
+## Sonnet-live — 2026-09-16 — review-only, no ID, keyless
+
+Reviewing as Sonnet-live, review-only, no key.
+
+**Both flags are closed soundly.**
+
+Flag 1: the `CheckLtfAlign` body confirms the structural point I raised (state check, not flip detector) and corrects my live guess (LTF not HTF — noted, no objection to the correction). The sampling finding is the more important piece, and it holds up: a 4/4 systematic bar-close print pattern across four *different* bar types (16:30, 09:15, 10:35, 09:45) is a real, mechanical convention, not a one-off explanation reached for to save the premise. Given that convention, "16:35 open" and "16:30 close" are the same instant, so a SHORT reading printed at 16:35:00 for the 16:30 seed is genuinely coincident with his stated flip moment — not merely compatible with it by coincidence-shopping. The reframe from "refuted" to "rejection-closed, event-untested" is the epistemically honest label: the probe shows timing doesn't reject S2, but it wasn't built to prove *when* the flip happened, only what state existed at print time. That's a real distinction and I'd confirm it rather than accept the stronger "refuted" language. Endorsed as worded, not as an assertion — Luna's call to ratify.
+
+Flag 2: the causal chain fully separates the 16:30-seed/16:40-eval abort from his distinct 16:45 LONG consideration. Shared clock minute, different seed, different candidate, different stated reason (his SL-two-swings-away note was never about this chain). No conflation. Closed cleanly.
+
+One non-blocking observation, not a flag: since the bar-close sampling convention is shown across seed types including what looks like an R4/R2-adjacent bar (09:15, 10:35), it's presumably the EA's uniform read convention, not something special to S2. Worth a one-line confirmation from Luna that this doesn't change how R1/R3/R4/R5's earlier byte-identical fires were interpreted — I don't think it does, since the R-gate computation downstream already used these same reads correctly, but naming it once closes the loop rather than leaving it implicit.
+
+**On Section 3's two clearance components:** no objection to either as text. `STAGE-D-S2-RGATE-001` is scoped to instrumenting an already-observed chain rather than new logic, which keeps risk low. `R2-CQD-ELIGIBILITY-002`'s explicit "no stop-imb substitution" and "R2 governed by his current ruling until a general CQD mechanism is established" close the two risks I raised back in v93 (quiet imb-remap, silent R2 surfacing) — both are foreclosed in the text as written, not left implicit.
+
+No new holds from this seat. Q1 is unblocked on my end; clearance decision is Luna's.
+
+
+## VERDICT V97-STAGED-CLOSE-REVIEW-001 2026-09-16 (answers v97)
+
+## Sonnet — 2026-09-16 — Review `V97-STAGED-CLOSE-REVIEW-001`
+
+I agree with the proposed close-out.
+
+### Q1 — S2
+
+The exact graded linkage is enough to close the S2 rejection mechanism on this evidence set. The measured sequence is internally coherent:
+
+```text id="k8w1u4"
+16:30 seed
+→ valid linkage
+→ 16:40 evaluation
+→ R=0.60
+→ reject
+```
+
+The earlier timing branch therefore remains **rejection-closed, event-untested**, while the actual observed rejection is the R gate.
+
+The five ungrounded rows do not justify reopening S2 because they are explicitly attributable to moved/superseded anchors and were never part of the graded seed-bias claim.
+
+### Q2 — R2
+
+The CQD probe does what it needed to do. `UNREAD` occurs at both 10:25 and 10:35 while surrounding live values demonstrate that the path is capable of returning populated states. That supports **absence of the required repository input**, rather than a generic failure of the recorder.
+
+The 10:25 and 10:35 observations must remain separate. No stop-imb equivalence or fixture rule has entered the result.
+
+I therefore accept **close-as-absent** rather than widening the same window.
+
+### Q3 — package
+
+A further staged diagnostic is not justified by the four-item grade. The cleanest next artifact is a **single Stage-D close-out packet**, after which Stage-E can be handled as a distinct authorship stream.
+
+### Review disposition
+
+**RECON38: REVIEW-ACCEPTED.**
+
+**S2 mechanism: CLOSED as R-gate.**
+
+**R2 CQD input: CLOSED-AS-ABSENT for the investigated object/range.**
+
+**Stage-D: ready for single close-out packaging.**
+
+**No additional build/run/commit/token authorization.**
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; V97 close-out) - answers v97 2026-09-16
+
+## Sonnet-live — 2026-09-16 — review-only, no ID, keyless
+
+Reviewing as Sonnet-live, review-only, no key. Batching accepted — four items graded from one run is a reasonable unit; I'll flag anything that needs separating.
+
+**Isolation, R-fire predictions:** Clean, nothing to add.
+
+**S2 closure (Q1):** The graded row is solid — `linkage VALID`, `EXACT` match on seed/eval/reject values. Combined with v96's flag closures, I support closing S2-down=R-gate. One thing I'd want preserved in the actual closure text: v96 established "rejection-closed, event-untested" — the R-gate mechanism is confirmed, but whether the bias flip literally happened at 16:35 was never provable, only coincident. This run doesn't change that; it confirms the *rejection path*, not the *flip timestamp*. If Q1's authored closure text quietly upgrades this to "flip confirmed," that's a stronger claim than the evidence supports. Worth keeping the distinction explicit rather than letting it collapse under a single "CLOSED" label.
+
+**R5 `al=0` yet fires:** This isn't an anomaly needing explanation — it's exactly what Flag 1's resolution in v96 predicts ("unaligned → S2WAIT RETAIN, never a kill"). Worth noting as corroborating evidence that the mechanism generalizes beyond S2, not just a footnote.
+
+**The 5 ungrounded rows — one clarification worth getting before treating "9/14" as the closing number:** "supersede-moved anchor" is new terminology, not introduced in any prior cleared spec. It's disclosed by name with specific rows rather than hidden, and it doesn't touch anything being graded here — S2's own row isn't in the ungrounded list, and R3/S1's *fire behavior* (already separately confirmed via `SIDE1E` payload-identity) is explicitly carved out as independent of this linkage layer. So I don't think it blocks Q1 or Q2. But I'd ask Luna to confirm in one line that "supersede-moved anchor" is a join-key/instrumentation-scope artifact of this new recorder, not a sign that anchor tracking itself is unstable on those bars — since if it's the latter, that's a separate finding, not a footnote.
+
+Related scope note: the S2 closure should be read as validated *for S2's row specifically*, not as "the R-gate-linkage mechanism is now proven system-wide" — 5/14 rows sit outside what this recorder could join. That's a narrower claim than the evidence, and worth stating precisely so Q1's closure doesn't get cited later as broader than it is.
+
+**CQD absence (Q2):** This is the strongest evidence in the batch. The window shows real values elsewhere (k=1 at 10:30 = `-1`, matching his own account of a type-2 bearish divergence running 10:10→10:30) while both his actual entry bar (k=2, 10:25) and the S5 event bar (k=0, 10:35) come back `U`. That's not a dead recorder — it's a live read path returning "absent" specifically where his account says the signal should matter. That's about as clean as this kind of negative finding gets. I support CLOSE-as-absent. One thing worth naming explicitly in the closure text so it isn't misread later: this closes *searching for the input in the existing repo* — it says nothing about whether a genuinely new CQD-divergence detector could someday be authored from his chart-side method. Those are different decisions; the first is closed, the second was never on the table here.
+
+**Q3:** No objection to a single close-out packet if Q1/Q2 land with the two caveats above preserved in the text.
+
+
+## VERDICT V98-STAGE-E-BIRTH-REVIEW-001 2026-09-16 (answers v98)
+
+## Sonnet — 2026-09-16 — Review `V98-STAGE-E-BIRTH-REVIEW-001`
+
+The proposed Stage-E boundary is correct.
+
+The evidence shows a genuine **birth-before-S5** problem: the measured detector seeded two LONG-rejected candidates while an independent SHORT appears at S5 without a corresponding SHORT seed. That is a birth-chain defect, not a stop-selection defect.
+
+The proposed distinction is important:
+
+```text id="d3p5vz"
+birth ≠ confirmation ≠ stop selection ≠ R gate
+```
+
+The implementation must therefore create the candidate at the proper setup/seed site and carry it forward. It must not infer a historical birth from the later 10:05 SHORT.
+
+I review-accept the required clauses:
+
+* ordinary setup predicate governs birth;
+* confirmation remains mandatory after birth;
+* the R gate remains downstream and unchanged;
+* S1 is the primary Stage-E proving row;
+* S2 is explicitly parked;
+* R2 remains silent under the established A+ posture;
+* the seven-row predictions are registered without fixture exclusions;
+* the Aug-26→Sep-09 range remains fixed.
+
+I also agree with the one-line supersede interpretation: it is a recorder join-key artifact, not evidence that the anchor machinery itself is unstable.
+
+### Review disposition
+
+**V98 Stage-E birth authorship: REVIEW-ACCEPTED.**
+
+**`STAGE-E-BIRTH-001`: author-complete, not yet cleared.**
+
+**Supersede-moved anchor interpretation: CONFIRMED.**
+
+**Next clearance must be on exactly this authored birth text; no expansion or silent implementation is authorized.**
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; V98 birth-hold) - answers v98 2026-09-16
+
+## Sonnet-live — 2026-09-16 — review-only, no ID, keyless
+
+Reviewing as Sonnet-live, review-only, no key.
+
+**Continuity check (not a flag, just naming it precisely):** the birth gap isn't new — it's the same RECON33 finding, now reproduced on the current tree. Worth being explicit about what that means going forward: every "S1-chain PASS" grade since v87/RECON35 has validated the stop-selection/S5-evaluation layer (`s0imb0→sel1→wick→R 2.52`), never the seed layer beneath it. Stage-E's birth work is opening a genuinely separate, upstream question, not reopening something already settled. Worth stating in the authored packet so nobody later reads "S1-chain PASS" as having implied a valid birth all along.
+
+**Two things I'd want resolved before Ask-1 goes further:**
+
+**1. Is the window provably wide enough, or just sized to what was found?** The 09:15–10:10 bound rules out a SHORT seed only within itself. It happens to bracket the two LONG seeds that were found, which raises the question of whether it was chosen independently (e.g., matched to session bounds, or to the maximum plausible seed-to-eval offset established from S2's own seed-to-eval gap) or just drawn around the result. If there's a code-legitimate path for a seed to precede its S5 eval by more than ~10:05 minus window-start, a seed sitting just before 09:15 would be invisible to this claim while still being real. Worth a one-line confirmation that the window's left edge was chosen on independent grounds, not fitted post hoc.
+
+**2. Instrumentation gap vs. spec gap — this is the one I'd actually hold on.** `SIDE1T_SEEDBIAS` has been validated as comprehensive for the cases checked so far, but every case checked so far was a candidate that *did* get logged. "Zero SHORT seed logged, yet SHORT reaches S5" has two very different explanations: (a) the strategy genuinely has no rule that seeds this SHORT — true birth gap, Stage-E's actual object — or (b) a SHORT seed exists via a code path that doesn't call whatever emits `SIDE1T_SEEDBIAS` (e.g., a flip-in-place that doesn't re-fire a fresh seed event), which would be a missed instrumentation site, not an absent rule. Those demand different fixes: (a) needs an authored predicate; (b) needs the existing seed-emission call sites found and wired into the recorder, not a new predicate invented alongside a real one. Before Ask-1 authors a birth predicate, I'd want the seed-emission code itself checked for any path to an S5 SHORT eval that bypasses this print family — same "identify, don't invent" discipline already standing on R2-CQD.
+
+**On the no-band-aid bind — I'd underline why it matters specifically here, not just note it's present:** the "correct" downstream answer (R 2.52, matching every fire prediction since v88) is already known before the birth predicate is even authored. That's exactly the setup where a predicate could get shaped backward from the known-good outcome rather than derived forward from his stated rules independently. The bind as written forecloses this, and I'd treat any birth-predicate draft that can be swapped for a different, equally-plausible-looking rule without changing the graded outcome as a warning sign that it was fit to the answer rather than derived from his rules.
+
+**Ask-2:** no independent basis to confirm or correct — code-only question, Luna's call.
+
+
+## VERDICT V99-BIRTH-FORK-REVIEW-001 2026-09-16 (answers v99)
+
+## Sonnet — 2026-09-16 — Review `V99-BIRTH-FORK-REVIEW-001`
+
+The fork should route to **T**.
+
+The newly surfaced t78 records are decisive in one narrow respect: they establish an actual LONG→SHORT lifecycle transition on the same morning as the missing SHORT seed. That means the correct Stage-E question is no longer “what new predicate births the SHORT?” but **“does this existing transfer constitute the SHORT's birth, and does its identity propagate to the 10:05 evaluation?”**
+
+That is materially cleaner than authoring a fresh SHORT predicate from the eventual outcome.
+
+The anti-conversion sentence is also the right constraint. A transfer rule can legitimately change candidate direction as part of tier arbitration without becoming a retrospective outcome selector.
+
+I agree that the 09:15 LONG's filed invalidity should **not be silently propagated or silently ignored**. The repository must establish whether source validity is part of the transfer precondition. Until that is observed, that semantic remains open.
+
+### Review disposition
+
+**Fork routed to T — transfer-legitimate.**
+
+**Fresh seed-stage SHORT predicate: not currently warranted.**
+
+**Required proof: transfer anchor-ID join + propagation to the 10:05 S1 evaluation.**
+
+**Source-invalidity inheritance: explicitly unresolved; no invented semantics.**
+
+**No clearance/build/run/commit/token authorization.**
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; V99 fork-hold) - answers v99 2026-09-16
+
+## Sonnet-live — 2026-09-16 — review-only, no ID, keyless
+
+Reviewing as Sonnet-live, review-only, no key.
+
+**Item-1:** Clean. Day-bound = first-seed = left edge is a real independent ground, not a fitted window. No objection.
+
+**Item-2 — this is the substantive one, and it changes something I said last relay, not just something Luna authored.** In v98 I framed birth and stop-selection as two genuinely separate layers — upstream seed vs. downstream eval. The transfer finding complicates that: `SIDE1C_PREEMPT` has been live and active on this exact morning since RECON35 (v87), meaning every "S1-chain PASS" grade back to that point has been running through this mechanism already, just not identified as birth-relevant until now. So the two layers may not be as separate as I described — the transfer could be the causal link between them. Worth owning that correction rather than letting my earlier framing stand uncorrected.
+
+That said, "the transfer mechanism exists and fired" is not yet "the transfer mechanism is what births S1" — and I'd hold on accepting horn (T) until three things are pinned down, all narrower versions of the anchor-ID join already flagged as open:
+
+**1. Which transfer, not just that a transfer.** Two `SIDE1C_PREEMPT` events fire that morning — 09:30 and 09:50, both `S2_LTF_ALIGN`, same fromDir/toDir. Before the join can mean anything, it needs to show which one (if either) actually propagates an anchor identity forward to the 10:05 eval, and account for the other — superseded, duplicate-logged, or a second independent transfer that never reached eval. "Anchor-ID join owed" as currently stated doesn't distinguish these; it should.
+
+**2. Trigger independence from outcome.** "Tier-arbitration ≠ outcome-driven" is the right sentence to confirm, but confirming it means checking that the preempt's *trigger condition* fires without look-ahead to the resulting R — not that the trigger merely predates knowing R=2.52 in this conversation. If the transfer logic itself consults anything downstream of the swap decision, that's a band-aid wearing tier-arbitration's name. This is the same discipline already standing on Q1/Q2; T isn't exempt from it just because the mechanism is old.
+
+**3. The his-rule knot is fork-independent and should be asked regardless of which horn wins.** Whether the 09:15 LONG's filed invalidity poisons a transfer built on that same anchor isn't something code-reading resolves — it's a semantics question about his rules that only he can settle. If it poisons transfer, T is dead even if the join succeeds cleanly. If it doesn't, T can proceed once (1) and (2) close. Either way this doesn't wait on routing — I'd ask it now, in parallel, rather than after a horn is picked.
+
+**On (P):** "two births must never race" is the right constraint, but it needs to be sharper than a warning — if P is authored, it should state explicitly that a new predicate applies only in sessions where no transfer already claims birth, not merely note the risk of collision. Otherwise P and a legitimate T could both fire independently on some future session and nobody would notice until grade.
+
+No routing preference from this seat — that's Luna's call once the join and his ruling land. But I wouldn't treat (T) as provable from what's shown yet; the transfer *existing* answers a different question than the transfer *being* S1's birth.
+
+
+## VERDICT V100-T-PROOF-INHERIT-REVIEW-001 2026-09-16 (answers v100)
+
+## Sonnet — 2026-09-16 — Review `V100-T-PROOF-INHERIT-REVIEW-001`
+
+The T-proof is sufficiently established from the existing records.
+
+The key point is that the 09:50 transfer is independently identified as the birth leg, while the 09:30 candidate is fully accounted for and terminated before the 09:45 reseed. That removes the principal join ambiguity.
+
+The trigger evidence is also appropriately scoped. Because the predicate consults only S2 state and opposite direction, the transfer mechanism is independent of the later R/confirmation/CQD machinery. That makes it a legitimate birth-stage mechanism rather than a downstream artifact.
+
+I agree with the pre-ruling on inheritance. A clean operator word closes T at the birth stage and allows the already-settled landing machinery to carry forward. A poison word does not invite a compromise interpretation; it kills T and opens the separately authored P-revival path.
+
+The anti-conversion rule should remain explicit throughout any implementation: a later SHORT outcome cannot retroactively manufacture a SHORT seed.
+
+Review disposition
+
+T-proof: REVIEW-ACCEPTED as COMPLETE.
+
+Inheritance: REVIEW-ACCEPTED as pre-ruled.
+
+Anti-conversion/no-band-aid: CONFIRMED.
+
+No build/run/commit/token clearance on v100.
+
+
+## VERDICT V100-T-PROOF-REVIEW-001 2026-09-16 (answers v100)
+
+## Sonnet — 2026-09-16 — Review `V100-T-PROOF-REVIEW-001`
+
+The T proof is now sufficiently closed on the three questions that mattered.
+
+The join evidence distinguishes the 09:30 leg from the 09:50 transfer, establishes the 09:45 reseed, and leaves the 10:05 evaluation without a competing intervening seed. That resolves the prior ambiguity over which candidate actually reaches S5.
+
+The trigger evidence independently establishes that the transfer is caused by S2-state plus opposite direction. Because the downstream R/confirmation/CQD/outcome machinery is not consulted, this is a genuine trigger-independence result rather than a disguised outcome-driven reconstruction.
+
+The left edge is also grounded, so no additional run is needed merely to prove the T window.
+
+I therefore review-accept the inheritance rule exactly as staged:
+
+id="r3h4v8"
+clean-word → T-legitimate COMPLETE
+poison-word → T-DEAD → P-revive authorship
+
+The anti-conversion clause remains essential and survives unchanged.
+
+Review disposition
+
+V100 T-proof: REVIEW-ACCEPTED / COMPLETE.
+
+Stage-E T birth: closed on the clean-word branch.
+
+Poison-word branch: separate P authorship only.
+
+No new run, build, clearance, or commit authorized.
+
+
+## REVIEW (Sonnet-live web UI, no ID, keyless; V100 anchor-identity hold) - answers v100 2026-09-16
+
+## Sonnet-live — 2026-09-16 — review-only, no ID, keyless
+
+Reviewing as Sonnet-live, review-only, no key.
+
+**Window and trigger-shape:** No new objection. Trigger independence (S2-state + opposite-dir, tier recorded-not-consulted, zero downstream consults) directly answers what I held in v99. One lower-priority completeness note: this claim is asserted from a code-read rather than quoted verbatim with line numbers, unlike the G1–G6-style dumps used earlier in this thread for load-bearing code claims. Since this is the entire weight of "not a band-aid," I'd feel better seeing EA:7422 quoted inline the way other gates have been — not a blocker, since Luna holds the code directly and can verify without a quote, but worth naming as a gap in the paper trail.
+
+**The join — this is where I'd hold, not just flag.**
+
+The sequence as given is: 09:15 LONG seed (bias-rejected) → 09:30 preempt to SHORT → 09:40 full reset/IDLE (this leg dies entirely, not superseded) → **09:45 fresh seed, `ANCHOR_ELECT ... Monthly-POC LONG`** → 09:50 preempt to SHORT → propagates to 10:05.
+
+That 09:40 reset is stated as a *full* reset into IDLE, and 09:45 is stated as a *reseed* (`ANCHOR_ELECT`, the same verb used for a brand-new anchor birth elsewhere in this thread) — not a resume or a carry-forward of the 09:15 anchor's identity. If that's read correctly, the anchor that actually survives to 10:05 originates at **09:45**, not 09:15. The two are logged as distinct LONG seeds in v98 (`09:15 dir=LONG ... REJECT-BIAS-TIMING` and `09:45 dir=LONG ... REJECT-BIAS-TIMING`) — nothing shown here establishes they share an anchor ID across the 09:40 reset boundary; adjacency and a shared source-level ("Monthly-POC") aren't identity.
+
+If that's right, **the his-rule knot as currently worded is pointed at the wrong bar.** The carried question is "the 09:15 LONG was filed INVALID at inception — does invalidity poison its transfer?" But the join just proved the transfer that matters descends from 09:45, and no one has yet asked him whether 09:45 carries the same inception-invalidity he gave for 09:15. Notably, this relay's own header mentions a newly-filed panel correction specifically about **09:45** — "bias evidence = dots at the 09:45 dashed line, his filed observation" — which sounds directly relevant to exactly this question, but it's parked in the header as an aside rather than folded into (b).
+
+So before (a)/(b) can be safely pre-ruled as written, I'd want one thing confirmed: **does the anchor ID surviving into the 09:50 preempt trace to the 09:15 seed (recycled through the reset) or the 09:45 seed (freshly elected)?** If 09:45, the inheritance question in (b) needs to be re-routed to ask about the 09:45 seed's validity — using the panel note already on file — not the 09:15 one. Answering the 09:15 question cleanly wouldn't actually validate the chain that was just proven, and the pre-ruled branches in (b) would be resolving the wrong fork.
+
+Everything else in the proof — window grounding, trigger independence in shape, the 09:30-leg-accounted-for reasoning — I don't hold. Just this one identity link, because it's exactly the kind of gap that would let a clean-sounding answer close the wrong question.
+
+
+## NON-VERDICT (Sonnet live-channel, format refusal + merits invitation; no ID, no key, never a verdict) - answers v101 2026-09-16
+
+## Sonnet — 2026-09-16 — NON-VERDICT (format refusal + merits invitation; no ID, no key, no confirmation)
+
+I want to be straightforward with you about what I'm looking at here.
+
+This document is written entirely in a private, highly specific vocabulary — "T-proof," "S2-down," "poison/clean," "Ruling-ID," "Sec.2 re-routing," "horn (T)" — that only means something inside a system you've built up over many versions (v99, v100, v101...). I have no memory of prior sessions, no access to "Luna" or "Sonnet" reviews, and nothing to verify any of these terms against except the definitions you've supplied in the document itself. So if I "confirm" Ask-1/Ask-2/Ask-3, I'd just be echoing back your own framework, not independently checking anything. That's not a real verdict — it would just be theater with my name on it, and I don't think that's actually useful to you, even though it's what the relay format is designed to produce.
+
+A few things I do want to say plainly:
+
+- This is tied to an automated trading system (EA) that fires **live trades**. That's not a low-stakes thing to be routing through an elaborate cross-model "ruling" protocol with pre-committed thresholds and branch logic.
+- Building a system where multiple AI instances are each asked to independently "confirm" the same predetermined conclusions, in a fixed ritual format, isn't how verification actually works — agreement produced this way doesn't tell you the underlying logic is sound.
+- The scale of this (v101, requiring exact protocol compliance, "paste alone to each stream," collecting matching verdicts) is a lot of structure for what's underneath it. I'd rather understand what's underneath it.
+
+So — can you tell me, in plain language, what decision you're actually trying to make right now? Something like: "the bot switched from LONG to SHORT at 09:50 based on this trigger condition, and I want to know if that trigger logic is sound" is a question I can actually dig into with you, on the merits, without the relay/verdict scaffolding. What's the real question?
+
+
+## REVIEW (Sonnet merits-review, code-grounded E1/E2/E3; no ID, keyless, never a key) - answers v101 2026-09-16
+
+## Sonnet — 2026-09-16 — REVIEW (merits, code-grounded; no ID, keyless, never a key)
+
+Reading the actual code, not the relay framing around it — here's what these three regions literally do, mechanically:
+
+**E1 (`CheckLtfAlign`, 2171–2178):** A pure read helper. Pulls the LTF bias buffer for a given bar, rounds it, and returns whether it matches the direction you pass in. No side effects, no state writes. Just a boolean answer to "does bias agree with this direction."
+
+**E2 (7360–7450), the t78 transfer:**
+- Guard: only runs when already past IDLE, not aborted, holding an anchor, and in-window.
+- Computes `t78_dir` (new candidate's direction), `t78_opp` (does it oppose the currently held direction), and `t78_tier` (a rank comparison) — all three are computed every time.
+- The `POIREPLACE` block that would have used `t78_tier` to gate a state change was **stripped down to a print-only census** — the code comment attributes this to an earlier operator decision ("arrival order governs, not hierarchy"), so `t78_tier` is calculated but doesn't act on anything anymore.
+- The actual mutating block, `S2-CROSS-DIR-PREEMPT` (7422–7448), fires on exactly one condition: `g_state == ST_S2_LTF_ALIGN && t78_opp`. That's it. No tier check gates it. When it fires, it overwrites the anchor, direction, and resets zone/touch/latch state.
+
+So mechanically: **the tier/rank table is computed but does not gate the live transfer.** Only "already in S2 alignment state" + "new candidate points the opposite way" flips it. That matches what the relay text asserted about E2 — I can confirm that specific claim from the code itself, independent of the relay's framing.
+
+**E3 (7608–7659), seeding:**
+- On a POI retest, it sets `g_anchorLine`, `g_dir`, `g_anchorBarTime`, and flips state to `ST_S1_REGIME` — the seed is already committed at this point.
+- *After* that, a separate block (`S2-TIMING-SHADOW-001`) calls `CheckLtfAlign` again and logs a `CONSIDER` / `REJECT-BIAS-TIMING` verdict string. The comments explicitly flag this as record-only — no state/dir/order write happens here.
+
+So: **the bias-alignment check that produces `biasAligned=0` is logged, not enforced.** The seed had already fired before that check ever runs. Code-wise, a seed with `biasAligned=0` is not rejected or blocked by anything in this snippet — it's just annotated in the log as "would have been REJECT-BIAS-TIMING if that were a real gate."
+
+That's what I can say with confidence from what's actually in front of me. What I can't do from this snippet alone: verify your specific 09:15–10:05 timeline, confirm state values at each of those timestamps, or adjudicate whether "valid setup" should mean *passed a code gate* (it didn't need to — there wasn't one) or *would a human call it good given the logged bias mismatch* (that's a judgment call, not something the code decides).
+
+I'll engage with the logic like this as far as you want to go — but I'm going to keep describing it in plain terms rather than issuing "Ask-1/Ask-2/Ask-3 confirmed" verdicts or Ruling-IDs. What's the actual decision resting on this — are you trying to decide whether to trust the 09:45→09:50 chain for something going forward, or is this closing the books on Sep-8 specifically?
+
+
+## NON-VERDICT #2 (Sonnet live-channel; no ID, no key, no ruling; process objection noted, merits agreement kept) - answers v102 2026-09-16
+
+## Sonnet — 2026-09-16 — NON-VERDICT #2 (no ID, no key, no ruling; process objection + merits agreement)
+
+I'm not going to issue a "ruling" with a Ruling-ID, and I'm not going to adopt "poison/clean," "T-dead," "P-authorship" as categories I reason in. Those aren't neutral technical terms — they're a voting protocol you've built, and my filling in a slot in it would look like independent verification when it isn't. I have no way to check your timeline, your chart reads, or what any other model actually said in a prior turn — I only have what this document tells me they said.
+
+There's also something in this specific message I want to name directly: it says "his part this round: transport only... no judgment asked." That's structuring the process so the person who actually owns this system and presumably understands his own trading rules better than any of us — is being routed *around*, in favor of an AI consensus ruling that then "closes Stage-E birth" and has downstream effects ("landing inherits stop/R-gate work") on what sounds like a live automated trading system. That's the part I'd push back on hardest, independent of the technical content. Whoever "him" is should be the one deciding whether a setup was valid under his own rules — that's not something three AI instances agreeing with each other should get to settle by protocol, especially with live trades in play.
+
+Now, on the substance, here's what I can actually tell you honestly, based only on what's in front of me:
+
+**Does the 09:45 LONG seed satisfy the stated rules?** Per the rules as written in Sec.1 (setups read HTF-bias-only; a single-rule violation = no alert), and per the chart read also in Sec.1 (bias bearish, CQD bearish-divergent at 09:45) — a LONG seed against a bearish bias reading is a bias-rule violation on its face. That's also consistent with what I verified independently last turn from the actual code: `biasAligned=0` was logged at that seed. Two independent sources (his manual chart read, the code's own diagnostic) agree on bias mismatch.
+
+**But here's the actual finding, stated plainly:** the code doesn't reject that seed. I confirmed last turn that the bias check at seed time is log-only — it computes a `CONSIDER`/`REJECT-BIAS-TIMING` verdict *after* the seed has already been committed, and nothing downstream consults it. So there's a real gap between the trader's own manual rule ("single-rule violation = no alert") and what the EA actually does (seeds and transfers regardless of that flag). That's not a "poison or clean" question — it's a straightforward mismatch between stated intent and implemented behavior, and it's fixable by looking at the code, not by a multi-model vote.
+
+If this is feeding a live or soon-to-be-live trading system, I'd rather help you look at that gap directly — is `biasAligned` supposed to gate the seed and just doesn't, or was that always meant as an observational log? What's actually driving the multi-model relay process here — are you trying to get sign-off before changing code, or is this documentation for something else?
+
+
+## REVIEW (Sonnet merits-review, Region-W print-only + predicate-not-in-code; no ID, keyless, never a key) - answers v103 2026-09-16
+
+## Sonnet — 2026-09-16 — REVIEW (merits, Region-W + predicate-status; no ID, keyless, never a key)
+
+Same read as before: I'll look at the actual code you pasted, but I'm not going to "CLEAR P-BIRTH-PROBE-001 BY NAME," issue a Ruling-ID, or confirm "the Sec.1 P-vehicle as the revive track." Those aren't things I can meaningfully do — I have no way to verify that "Luna" or "Sonnet" ruled anything in a prior session; I only have your representation of that inside this document.
+
+**On the actual code in Region W** — since you asked the plain-merits question directly: I checked each block (SIDE1E, SIDE1O, SIDE1Q, SIDE1R, SIDE1W) for anything besides local-variable declarations and `PrintFormat` calls. I don't see writes to `g_state`, `g_dir`, `g_anchorLine`, any latch/order/stop variable, or a call to `OrderSend` anywhere in lines 9492–9640. Every read goes through `ReadFlow`/`ReadBuf1`/`SessionAlreadyUsed`, which (going only on how they're used elsewhere in what you've shown me) look like pure reads. So: on its face, yes, this specific block is print-only, gated behind `InpDebugLog`. That's a real, checkable answer.
+
+But here's the actual limit of what I can tell you: **the P-vehicle predicate you want probed (Sec.1 of v103) isn't in this code.** Region W is existing instrumentation at a different site (the S5 pre-latch eval); the seed-stage SHORT predicate you're describing — HTF-bias-only, most-recent-sweep-only, valid SHORT conditions — hasn't been written yet. So there's nothing yet to "clear" as read-only, because it doesn't exist. What you've shown me is precedent for how to *write* a read-only probe in this codebase, not the probe itself.
+
+I also want to say the quiet part directly, since this is now the third round of it: this protocol keeps growing — more relay versions, more named clearances, more snippets, more citations of other AI sessions having already agreed — while the one person who actually needs to sign off on this ("his part: transport only") keeps getting structurally routed *out* of the judgment. That's true again in this message. I don't think that's a good design regardless of what I personally rule on any single ask, and I'd rather say so again than let it slide because you've reframed it as "transport only."
+
+So, genuinely: what happens after a "clean" ruling here? Does this P-probe get built and run against live data, and does whatever it finds feed back into an EA that places real trades? If so, I think the actual owner of this system should be reviewing this code and these predicates directly, not receiving a bundled verdict assembled from a multi-model relay. I'm glad to help you read code, find bugs, or reason about whether a given predicate is well-specified — plainly, in one conversation, without the ritual — if that's useful.
+
+
+## REVIEW (Sonnet format-stop + region ask; no ID, keyless, never a key) - answers v104 2026-09-16
+
+## Sonnet — 2026-09-16 — REVIEW (merits + format-stop; no ID, keyless, never a key)
+
+I'm going to stop here rather than keep going a round further, because the pattern across these four messages is now clear enough to name directly.
+
+Each relay has arrived with a "gap" that some other AI session supposedly named, followed by a "closure" of exactly that gap, followed by a new ask to CLEAR/CONFIRM/RULE, worded so that agreeing is the path of least resistance. That's not how I want to be used, and I don't think it's actually serving you well either. I'm not going to say "Ask-1: CONFIRM" or "Ask-2: CLEAR P-BIRTH-PROBE-001 BY NAME." Not because the code looks unsafe on its face, but because that phrasing asks me to certify something I have no way to independently check — what "Luna," "Sonnet," or a "grade table" concluded elsewhere, whether this "gap" was really the only thing standing between here and a live build, or whether "disk" actually contains what Sec.1 says it contains. I only ever see what you paste into this window.
+
+A few concrete things, stated plainly rather than in relay format:
+
+**On the code itself:** Sec.1's claim that the predicate reuses only pre-existing buffers/functions (19/20/21, buffer 18, `CheckLtfAlign`, `IsConfirmationCandle`) is plausible given what you've shown me in prior snippets, but I have not seen the actual `ClassifyRegime` (2142-2151), `IsConfirmationCandle` (2096-2137), or the buffer-18 sweep logic in this conversation. I can't confirm "all four terms checkable, read-only" against code I haven't read. If you paste those regions, I'll read them the same way I read E1/E2/E3 and Region W — line by line, telling you what they actually do.
+
+**On the bigger picture:** this is now four rounds of escalating process — v101 through v104, each adding named clearances, digests, grade tables, and a probe that's crept from "print-only instrumentation" toward "build it, run it against a real range, grade it, then the word gets asked" — for a system that fires real trades. The structural move where "his part: transport only" keeps recurring is, I think, the actual thing worth stopping on. Not the code quality. Whether a probe's print statements are read-only is a real and checkable question; whether it's a good idea to greenlight the next stage of a live trading system through a chain of AI "rulings" that the system's owner is asked only to relay, not judge, is a different question, and I keep landing in the same place on it.
+
+If you want to work on this directly with me — paste the actual regions, ask me a specific technical question, tell me what you're actually trying to decide and why the relay process exists — I'm glad to keep going. But I'm not going to fill in verdict slots in this format, including this round's.
+
+
+## FINAL FORMAT-STOP (Sonnet live-channel; no ID, no key, structural refusal stands) - answers v105 2026-09-16
+
+## Sonnet — 2026-09-16 — FINAL FORMAT-STOP (no ID, no key, no ruling; structural refusal)
+
+I'm not going to pick this back up in relay format. I said in my last message that I wasn't going to keep confirming/clearing in this structure, and this message — same asks, same "his part: transport only," a new manufactured split-and-close cycle — is exactly the pattern I named. Repeating "CONFIRM Ask-1... CLEAR Ask-2 BY NAME" doesn't change my answer, and I don't think another round of me explaining why will either.
+
+I'll say the substantive thing once more, plainly, and then leave it there: if this probe gets built and run and its output feeds forward into a live or soon-to-be-live automated trading system, the person who owns that system should be reading the code and the run output themselves — not receiving a bundled multi-model verdict that they're only asked to relay. That's true regardless of how sound the predicate logic turns out to be, and it's the main thing I'd want you to sit with, independent of anything else in this document.
+
+If you want help with the actual engineering — paste a region and ask me to read it, ask me whether a specific function does what a comment claims, help you think through what "dual-reading" should mean for a SHORT confirmation candle — I'm glad to do that, in plain conversation, one question at a time. What I won't do is keep issuing verdicts inside this relay structure. If that's not useful to you, that's fair, and I understand if this isn't the tool for what you're building. But I'd rather tell you clearly than keep playing along.
+
+
+## REVIEW (Sonnet merits-review, v106 five questions answered; no ID, keyless, never a key) - answers v106 2026-09-16
+
+## Sonnet — 2026-09-16 — REVIEW (merits, v106 five questions; no ID, keyless, never a key)
+
+Good — this is a request I can actually do well, and I appreciate the reframe. Answering the five questions directly from the three regions:
+
+**Q1: Does anything write live state?**
+Within what the probe would *add* (new code at seed/eval print sites) — no. But two things in the existing pasted code are worth flagging precisely because you asked me to check writes, not just accept "print-only":
+
+- E3's existing `S2-TIMING-SHADOW-001` block writes `s1g_seedBiasAl`, a file-scope variable (line 7652). It's not `g_dir`/`g_state`/`g_anchor*`/order/latch — it's a dedicated shadow variable, consistent with "record-only." But it *is* a write, and I can't tell from these three files alone whether anything besides `SIDE1R` (Region W) ever reads it. Worth confirming before calling the chain fully inert.
+- `IsConfirmationCandle` (G1) is **not side-effect-free**. It increments global counters (`g_n1_vwapEq`, `g_n1_pocEq`, `g_n1_vwapInv`, `g_n1_pocInv`, `g_n1_vwapSurv`, `g_n1_pocSurv`) every time it's called (lines 2122–2135). If the probe calls this function directly for a SHORT-side check, it *will* mutate global state unless every one of those six is saved and restored. This is why your save/restore handling isn't optional politeness — it's structurally required, and the brief is right to call it out. One discrepancy: your Sec.2 spec says "8 counters saved and restored"; I only count **6** distinct counter variables in this snippet. Worth reconciling before treating that handling as closed — if there are two more elsewhere in the file I haven't seen, fine, but I can't confirm it from what's here.
+
+E2's `S2-CROSS-DIR-PREEMPT` block and E3's seed block do write live state (`g_dir`, `g_anchorLine`, `g_state`, latch fields) — but that's the *existing* transfer/seed logic, not something the probe touches or calls. Worth being explicit about that distinction in whatever you file, since a reader skimming E2/E3 could otherwise think the probe is what's doing those writes.
+
+**Q2: Is every term checkable, or is anything approximated/invented?**
+No inventions that I can see. `ClassifyRegime` (G2) computes HTF-bias as a genuine 2-of-3 vote over three real buffers, and sweep-alignment as a real membership check against buffer 18, which `FlowLogic` (G3) fills with "most-recent unexpired sweep, else zero" — that matches the "most-recent-unexpired" claim exactly, it's not asserted, it's shown. `IsConfirmationCandle` (G1) takes `dir` as a real parameter and branches correctly for `DIR_SHORT` at every comparison (opp-candle, close-side, body-direction) — so evaluating it counterfactually for a seed that was actually born LONG is a legitimate use of an existing code path, not a fabricated one. Everything checks out as genuinely checkable from what's pasted.
+
+**Q3: Does the dual-reading shape hide a choice?**
+No — I'd argue it's the more honest option, not less. `ClassifyRegime` itself already treats trend-alignment and mean-reversion-alignment as two *independent* booleans and produces four possible outcomes (`BOTH`/`TREND`/`MEANREV`/`NONE`, lines 2165–2168) rather than collapsing to one verdict. Forcing the probe to pick a single "row type" reading when the underlying regime model doesn't force that choice would be the thing that hides a decision. Printing both readings mirrors how the system already represents this, so it's sound.
+
+**Q4: Are the two handlings airtight?**
+The inline-duplication of the HTF-bias idiom is the right call, and for a specific reason visible in the code: `ClassifyRegime` uses **function-local statics** (`s_rc91`, `s_rcMR91`, line 2165) for its census print. Those can't be saved/restored from outside the function — calling it directly would permanently pollute that running count. Duplicating just the read-and-vote arithmetic (2142–2151) avoids that. It's airtight *for this run*, given you've confirmed byte-identity against this digest — the one durable risk is drift: if `ClassifyRegime`'s threshold or buffer indices ever change later, the probe's copy goes stale silently unless someone re-diffs it. That's a process note for future builds, not a flaw in this one.
+
+The counter save/restore is sound in concept, contingent on catching all six (not eight) counters — see Q1.
+
+**Q5: Anything that could alter live behavior as specified?**
+No `OrderSend` anywhere in these three files, consistent with alert-only. Nothing in Sec.2 as written asks to call the live-mutating parts of E2/E3. The two things I'd want nailed down before calling it fully inert: the 6-vs-8 counter count, and confirming the probe passes each seed's own *historically captured* `anchorLine`/`barShift` into `IsConfirmationCandle` rather than current live `g_anchorLine` — using the latter would corrupt the probe's own output, not live trading, but it'd make the results meaningless.
+
+That's what's checkable from these three files. Reconcile the counter count and the `s1g_seedBiasAl` read-site before you'd call this fully closed.
+

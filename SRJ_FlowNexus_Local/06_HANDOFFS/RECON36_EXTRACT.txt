@@ -1,0 +1,14 @@
+﻿[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.08.26 14:40 dir=LONG s0px=1.16602 s0slot=3 s0imb=0 s1px=1.16597 s1slot=61 s1imb=0 sel=1 r0=0.58 r1=0.53 liveSl=1.16580 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.08.27 17:00 dir=SHORT s0px=1.16552 s0slot=1 s0imb=0 s1px=1.16598 s1slot=7 s1imb=1 sel=1 r0=0.91 r1=0.35 liveSl=1.16652 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.08.27 18:50 dir=LONG s0px=1.16480 s0slot=1 s0imb=0 s1px=1.16443 s1slot=10 s1imb=0 sel=1 r0=0.33 r1=0.18 liveSl=1.16054 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.08.28 10:00 dir=SHORT s0px=1.16491 s0slot=1 s0imb=0 s1px=1.16508 s1slot=42 s1imb=0 sel=1 r0=4.08 r1=2.43 liveSl=1.16508 livePass=1
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.08.28 16:20 dir=SHORT s0px=1.16503 s0slot=5 s0imb=1 s1px=1.16508 s1slot=118 s1imb=0 sel=0 r0=0.90 r1=0.85 liveSl=1.16508 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.08.31 15:05 dir=SHORT s0px=1.16021 s0slot=5 s0imb=0 s1px=1.16058 s1slot=49 s1imb=1 sel=1 r0=0.57 r1=0.34 liveSl=1.16021 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.04 09:25 dir=LONG s0px=1.16279 s0slot=2 s0imb=0 s1px=1.16249 s1slot=7 s1imb=2 sel=1 r0=2.34 r1=0.63 liveSl=1.16249 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.04 10:35 dir=SHORT s0px=1.16289 s0slot=1 s0imb=2 s1px=1.16299 s1slot=13 s1imb=2 sel=0 r0=1.71 r1=1.21 liveSl=1.16379 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.04 15:55 dir=LONG s0px=1.15902 s0slot=2 s0imb=0 s1px=1.15847 s1slot=5 s1imb=0 sel=1 r0=2.45 r1=1.66 liveSl=1.15907 livePass=1
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.07 09:15 dir=LONG s0px=1.16102 s0slot=1 s0imb=0 s1px=1.16098 s1slot=7 s1imb=0 sel=1 r0=1.97 r1=1.76 liveSl=1.16098 livePass=1
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.07 16:40 dir=LONG s0px=1.16240 s0slot=2 s0imb=0 s1px=1.16238 s1slot=7 s1imb=0 sel=1 r0=2.56 r1=2.34 liveSl=1.16218 livePass=1
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.08 10:05 dir=SHORT s0px=1.16251 s0slot=3 s0imb=0 s1px=1.16258 s1slot=5 s1imb=0 sel=1 r0=2.90 r1=2.52 liveSl=1.16379 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.08 16:40 dir=SHORT s0px=1.16274 s0slot=4 s0imb=1 s1px=1.16359 s1slot=91 s1imb=2 sel=0 r0=1.62 r1=0.68 liveSl=1.16379 livePass=0
+[SRJ-EA] SIDE1E_STOPSHADOW bar=2026.09.08 16:55 dir=SHORT s0px=1.16233 s0slot=1 s0imb=0 s1px=1.16274 s1slot=7 s1imb=1 sel=1 r0=8.15 r1=1.96 liveSl=1.16379 livePass=0
