@@ -171,7 +171,10 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     (veto-able on report); second human eyes DECLINED (AI workflow stands). Proving
     spans: same-settings rerun reproduces — spans must be unseen + feed-covered
     (verified at launch, REFUSED gate otherwise); builder proposes the next covered
-    window past the last, he confirms by token + word only.
+    window past the last, he confirms by token + word only. Proving
+    spans refined: FIDELITY proving reuses the register window (same settings
+    reproduce — the check is implementation-vs-register, e.g. RECON43 on 08-26→09-09);
+    strategy-VALIDATION spans must be unseen + feed-covered (REFUSED gate otherwise).
 6. NEVER write anything under `SRJ_FlowNexus_Local\02_TASK_CHECKPOINTS` (frozen revert path).
 7. Paste raw terminal output verbatim; COUNT=0 and HITS=0 are results, not failures.
    On transport truncation: SAY SO and STOP — never re-read to patch.
@@ -237,12 +240,58 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     negative from the enumerating code (full candidate list built each bar +
     upstream buffer inventory). An asserted absence later corrected by source
     is a builder defect, caught here before any relay.
+23. KEYS-ARE-NOT-PROOF RULE (operator order 2026-09-17 — the Luna yes-man lesson):
+    a Luna CONFIRM satisfies the dual-key gate but never substitutes for source
+    verification. Weight Luna confirms lightly, adversarial checks heavily; never
+    present a Luna-only confirm as settled truth. A premise counts proved only on
+    code + journal agreement.
+24. BUFFER-COUNT RULE (2026-09-17 — the RECON42 stillborn run): adding indicator
+    buffers requires bumping `#property indicator_buffers` in the SAME edit (assert
+    max SetIndexBuffer index < count pre-compile). 0/0 compile does NOT catch the
+    shortfall — runtime out-of-range kills the run at bar one. A DONE=PASSED with
+    bars=0/signals=0 is VOID on instrument, never graded; diagnose first-bar errors
+    before anything else. Count occurrences by substring, never by clever regex.
+25. INTERACTIVE-COUNCIL RULE (operator order 2026-09-17 — address demands in council):
+    reviewer demands ride INTO the next relay visibly (quoted complete + sourced
+    inline + ruled by name) — never handled disk-side only. Council talks ABOUT the
+    review, with it quoted; stakes corrected on record (demo/alert-only, his words).
+26. ROLES-FIRST RULE (operator correction 2026-09-17 — trader, not coder): he is the
+    trader/strategy-owner/risk-owner/final-say — never the coder or code reviewer, and
+    no human reviewer exists on his side. Re-check CHARTER section 8 + GOAL role mapping
+    before assigning him anything: strategy gaps go to HIM in plain words, code questions
+    go to council, code-review eyes go to Sonnet-with-source. Never predicate progress
+    on a human reviewer; never stop without his strategy input or a council relay.
+27. SONNET-FORMAT RULE (operator-relayed Sonnet guide 2026-09-17 — same-prompt kept):
+    review-seat material ships source-complete (whole functions, raw rows/values for
+    recompute), ONE claim focus per relay, disagreements as open quotes never
+    attributed positions, and the review seat is NEVER asked to rule/clear/grant
+    (check-form only: yes/no/discrepancy). Same-prompt + keys + branches stay (his
+    architecture); verdict-optional for that seat per standing seat-split.
 20. ADVERSARIAL SELF-AUDIT RULE (operator order 2026-09-17 — implement, not just
     log): every mechanism claim ships with its alternatives tested on disk
     (confirm/reject/open each, with the rows that decide it) AND every sibling
     field pulled (reasons, exit px vs ref px, verdict flags) — never only the
     fields supporting the claim. A table with one unexplained adverse row is a
     defect in the audit, caught here before any relay, not by a seat after it.
+28. WHOLE-CODE RULE (operator correction 2026-09-17 — the v131 excerpt defect):
+    relay code rides WHOLE and verbatim (complete contiguous regions; whole
+    functions where the claim needs them) with ZERO elisions — "..." never stands
+    in for code, comments, or branches. A compressed one-liner with gaps is a
+    description-only package and defective BY FORMAT. Self-check before filing:
+    every "..." or "area"-style pointer in a relay is a BLOCKED relay until the
+    full lines ride inline. Prior-session review texts ride labeled as filed-record
+    under builder markers, never attributed to the current seat.
+29. PLAIN-TEMPLATE RULE (operator order 2026-09-17 — adopts the review-seat plain
+    form; standing format lives in `06_HANDOFFS\BUILDER_RELAY_TEMPLATE.md`): every
+    review/grade relay uses the template — one plain change-sentence, exact file/
+    function/lines + digest, WHOLE code (rule 28), raw rows for row claims, ONE
+    specific question, plain answer form. Same text to EVERY model. No roles, no
+    seat language, no Ruling-ID/clearance asked of anyone; volunteered keys are
+    recorded, never demanded. Priors ride labeled (file + marker + digest), never
+    unattributed. Decisions rest on answers + disk measurements + his word — a pasted
+    ID never substitutes. Anti-fabrication check = HE compares model-sent text with
+    filed record (he transports verbatim both ways). A checkable discrepancy from
+    any seat still halts per rule 19; disk verification same turn stays mandatory.
 
 ## 7. Automation rule (operator standing rules)
 

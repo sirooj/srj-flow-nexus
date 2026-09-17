@@ -1,0 +1,18 @@
+[SRJ-EA] SIDE1X_STOPREF bar=2026.08.26 14:40 dir=LONG entry=1.16654 liveStop=1.16597 ruleStop=1.16597 ruleSlot=61 ruleImb=0 liveTp=1.16684 liveR=0.53 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.08.27 17:00 dir=SHORT entry=1.16524 liveStop=1.16598 ruleStop=1.16598 ruleSlot=7 ruleImb=1 liveTp=1.16500 liveR=0.32 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.08.27 18:50 dir=LONG entry=1.16526 liveStop=1.16443 ruleStop=1.16443 ruleSlot=10 ruleImb=0 liveTp=1.16532 liveR=0.07 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.08.28 10:00 dir=SHORT entry=1.16466 liveStop=1.16508 ruleStop=1.16508 ruleSlot=42 ruleImb=0 liveTp=1.16459 liveR=0.17 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.08.28 16:20 dir=SHORT entry=1.16430 liveStop=1.16503 ruleStop=1.16508 ruleSlot=118 ruleImb=0 liveTp=1.16416 liveR=0.19 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.08.31 15:05 dir=SHORT entry=1.15965 liveStop=1.16058 ruleStop=1.16058 ruleSlot=49 ruleImb=1 liveTp=1.15944 liveR=0.23 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.09.04 09:25 dir=LONG entry=1.16290 liveStop=1.16249 ruleStop=1.16249 ruleSlot=7 ruleImb=2 liveTp=1.16301 liveR=0.27 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.09.04 10:35 dir=SHORT entry=1.16265 liveStop=1.16289 ruleStop=1.16299 ruleSlot=13 ruleImb=2 liveTp=1.16252 liveR=0.54 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.09.04 15:55 dir=LONG entry=1.16018 liveStop=1.15847 ruleStop=1.15847 ruleSlot=5 ruleImb=0 liveTp=1.16188 liveR=0.99 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.09.07 09:15 dir=LONG entry=1.16135 liveStop=1.16098 ruleStop=1.16098 ruleSlot=7 ruleImb=0 liveTp=1.16158 liveR=0.62 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.09.07 16:40 dir=LONG entry=1.16261 liveStop=1.16238 ruleStop=1.16238 ruleSlot=7 ruleImb=0 liveTp=1.16270 liveR=0.39 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.09.08 10:05 dir=SHORT entry=1.16205 liveStop=1.16258 ruleStop=1.16258 ruleSlot=5 ruleImb=0 liveTp=1.16102 liveR=1.94 livePass=1
+[SRJ-EA] A6FIRED class=SELECTED state=FIRED bar=2026.09.08 10:05 dir=SHORT tp=1.16102 r=1.94 sl=1.16258 mode=1SWING div=hidden
+[SRJ-EA] DEMO_PASS mode=0 login=1500183638
+[SRJ-EA] PRE-SEND lots=0.01 entry=1.16205 slPts=53 tpPts=103 stopsLevel=0 freezeLevel=0 spreadPts=1
+[SRJ-EA] EXECUTED fill=1.16205 slPts=53 tpPts=103 R_executed=1.94 R_logged_at_signal=1.94 delta=0.00
+[SRJ-EA] SIDE1X_STOPREF bar=2026.09.08 16:40 dir=SHORT entry=1.16213 liveStop=1.16274 ruleStop=1.16359 ruleSlot=91 ruleImb=2 liveTp=1.16210 liveR=0.05 livePass=0
+[SRJ-EA] SIDE1X_STOPREF bar=2026.09.08 16:55 dir=SHORT entry=1.16220 liveStop=1.16274 ruleStop=1.16274 ruleSlot=7 ruleImb=1 liveTp=1.16210 liveR=0.19 livePass=0

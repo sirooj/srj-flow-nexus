@@ -4800,3 +4800,417 @@ Open it only for audits (ruling IDs, digests, dispute archaeology).
     (dual-key); export fix needs council PACKET (canonical+export work — token
     alone insufficient). Owed: token + word + spec for proving run; packet for
     export. QUIESCENT. NO build/run/commit/adopt. UNCOMMITTED (no token).
+278. DELEGATION-ACCEPTED + V120 + CHECKPOINT 2026-09-17 (HIS orders, acted not asked).
+    (a) Same-dates correction owned: not forbidden — pointless (same binary+range
+    reproduces bitwise; proving needs unseen span). Span rule amended into AGENTS.
+    (b) Technical rulings delegated: builder decides+reports (veto-able); his load =
+    transport + money + goals. Export packet REQUESTED via relay (v120), not bounced
+    to him. (c) Demo-only recorded (no real money; runs cheap). Second eyes DECLINED
+    by him (AI workflow stands). (d) Housekeeping done: debris 2 files deleted;
+    checkpoint 976a579 (52 files, records-only, NO canonical, NO tag) pushed backup
+    + origin, both ls-remote-verified (no force, no blind push). Post-sync untracked
+    == held-outs exactly (EA BFAE4F4B + HandFixture, council token owed).
+    Relay v120 filed (`BUILDER_RELAY_COUNCIL_v120-EXPORT-PACKET.md`, 24 lines,
+    fresh-safe, ALONE): defect + request + scope/staging asks. AGENTS.md invariant-5
+    amendment appended (housekeeping discretion + demo + span rule). Next: his paste
+    (v120 ALONE, both profiles) + both verdicts whole + IDs; token + word for proving
+    run (span = next covered window past 09-09, verified at launch). Committed, pushed,
+    verified. NO build/run.
+279. V120 TRIPLE-RETURN + FRAMING-OWNED + V121 2026-09-17 (three texts whole +
+    single-copy-verified: Luna `LUNA-V120-TP-DATA-SOURCE-PACKET-001` (0→3 filer:
+    ISSUE `TP-DATA-SOURCE-COMPLETE-001` shadow-first, all-four symmetric) +
+    Luna-channel `LUNA-V120-REVIEW-TP-SOURCE-PACKET-001` (0→3 filer: same) + Sonnet
+    review, no ID keyless: FRAMING CORRECTED (v119 concurrence claim inaccurate;
+    absence flagged unproven) + premise UNSHOWN (line numbers, no code; pattern
+    repeats v114/v116) + packet-held directionally + source demanded + process
+    complaint. DEFECTS OWNED: (a) v120 overstated Sonnet concurrence; (b) v120 broke
+    rule 18 (description-not-source) after rules written — compliance failure, no new
+    rule needed. PREMISE NOW SOURCED: full MtNearestTpTarget EA:10734-10765 +
+    sessbufs/census/buffer-defines + FlowLogic prev-day extremes + TPCENSUS rows
+    #339/#304/#363 (his 1.16102 absent from 366 census rows; code+journal agree).
+    Relay v121 filed (`BUILDER_RELAY_COUNCIL_v121-PREMISE-ON-SOURCE.md`, 85 lines,
+    fresh-safe, ALONE): framing correction + full source + census inline; asks
+    premise-confirmed? + packet-stands-or-suspends? Next: his paste (v121 ALONE,
+    both profiles) + both verdicts whole + IDs. QUIESCENT. NO build/run/commit/
+    adopt. UNCOMMITTED (EA + HandFixture only).
+280. V121 TRIPLE-RETURN + 366-PROVED 2026-09-17 (three texts whole +
+    single-copy-verified: Luna `LUNA-V121-PREMISE-SOURCE-001` (0→3 filer: premise
+    CONFIRMED with 366-qualifier + PACKET STANDS) + Luna-channel
+    `LUNA-V121-REVIEW-PREMISE-001` (0→3 filer: same) + Sonnet review, no ID keyless:
+    premise GENUINELY confirmed (array bounds + decls + census agree; picking
+    correct) + non-goal flagged (input-exists ≠ level-wins) + disposition declined).
+    366 CLAIM FULLY PROVED same turn: best=1.16102 count 0/366 (R41) + 0/395 (R40);
+    admitted universe 22 names, zero prev-day-session; literal 1.16102 prints 84x/60x
+    ONLY as price/anatomy (Sep-7 09:10 low in bodies/probes/swing ladders) — candidacy
+    absence vs price presence distinguished (answers Luna qualifier). NON-GOAL
+    PRE-REGISTERED for shadow grade: admitted-but-not-winner = CORRECT, never
+    mismatch. AGENTS.md rule 23 appended (keys-are-not-proof — his Luna-light order).
+    DISPOSITION: PACKET STANDS (dual-key) + premise triple-locked (code + census +
+    literal-distribution). Owed: token + word (shadow build); token + word + spec
+    (proving run). QUIESCENT. NO build/run/commit/adopt. UNCOMMITTED (EA +
+    HandFixture only).
+281. RECON42 STILLBORN-VOID + FIX + RERUN 2026-09-17 (no words asked or needed).
+    First launch DONE=PASSED in 15s with bars=0/signals=0 — VOID on instrument, never
+    graded. Root cause (segment-diagnosed same turn): FlowLogic runtime `array out of
+    range (1172,26)` at first bar — my +8 buffers exceeded unchanged `#property
+    indicator_buffers 40`; 0/0 compile blind to it. BUILD DEFECT owned. Fix: property
+    40→48 (1 line), recompiled 0/0 (Flow BEC2CBBD/69852; EA F867114A unchanged);
+    ADD11/build digests amended. DETECT-count scare resolved (5 OCC = 4 calls + def;
+    diff shows pre-existing indent only; parity-41 6 was regex artifact — substring
+    counts from here on). First rerun REFUSED (busy = own 06:17 leftover PID 16828,
+    proven by start-time match); closed it myself gracefully + slot verified free
+    (his terminal never touched). Relaunched 06:21:48 WMI 7804 wrapper 19700, RUNNING
+    healthy (Core-04 ticking, evals flowing past 08-26 01:00). Same-authority rerun
+    (void, not a new run). AGENTS.md rule 24 appended (buffer-count). Next on HIS
+    completion signal: archive → grade vs pre-registered (SIDE1Y==SIDE1X count; 10:05
+    pdLondonLow==1.16102 exact; rest identical) → result + relay, no pauses. RECON17
+    frozen. UNCOMMITTED (EA + HandFixture + FlowLogic — council token owed).
+282. RECON42 GRADED DELIVERED + V122 2026-09-17 (his completion signal → archive →
+    grade, continuous, no pauses): DONE=PASSED 07:09:26 (0:47:18 healthy; 3168/563338;
+    archive 36484/7028331 B/`e17523b2…`; purity Core-04/Test-passed/MAXLEN-537-0/
+    SELHALT-0x2; leftover PID 19700 closed gracefully by builder, declared). SHADOW
+    13/13 populated, 10:05 pdLondonL==1.16102 EXACT (prev = previous occurrence,
+    named). Isolation PERFECT (200-family delta-0 except +SIDE1Y; all legacy
+    payload-identical; signals/A6 7/7 identical). Promotion table (offline, stated
+    mask-caveat): SIX flips to FAIL (PR/DH/GQ-0.99/KO/JJ/OD), FL survives 1.94
+    (HIS number), FAILs stay FAIL — survivors: FL ALONE. Result + extract
+    (14/`41c3b12f`) + tabulate (200/`49ae69a6`) + relay v122 filed (grade + live-
+    promotion design authorship ask; same-prompt both seats; relay ALONE). Drafting
+    defects owned+repaired (3 garbled lines in result, verified clean). Next: his
+    paste (v122 ALONE, both profiles) + both verdicts whole + IDs. QUIESCENT. NO
+    build/run/commit. UNCOMMITTED (EA + FlowLogic + HandFixture — council token).
+283. V122 TRIPLE-RETURN + ROWS-SUPPLIED 2026-09-17 (three texts whole +
+    single-copy-verified: Luna `LUNA-V122-PDSHADOW-PROMOTION-001` (0→3 filer: ACCEPT
+    shadow + AUTHOR `S1-TP-PROMOTION-001` (shadow-best + swept/live-bit ext + inDir +
+    zone + no-fallback + non-goal) + CLEAR one build + one run on table,
+    mismatch→HALT; no commit/orders) + Luna-channel `LUNA-V122-REVIEW-PROMOTION-001`
+    (0→3 filer: same) + Sonnet review, no ID keyless: FL verified + six flip rows
+    UNCHECKABLE-as-presented (no prices/buffer code) + authorship declined
+    (originate-vs-review; swept unknown) + strategy-change flagged (7→1, human eyes).
+    GAP ANSWERED without new relay (clearance granted; nothing to ask): companion
+    `BUILDER_COMPANION_V122-SOURCE.md` (21 lines; six full SIDE1Y rows pulled
+    programmatically + TPCENSUS-cannot-show-them note). Speakable token+word lines
+    PROVIDED (prior violation fixed). Span rule REFINED in AGENTS (fidelity = register
+    window RECON43 08-26→09-09; validation = unseen). DISPOSITION: CLEARED (dual-key).
+    Owed: token + word (RECON43-PROMO). QUIESCENT. NO build/run/commit/adopt.
+    UNCOMMITTED (EA + FlowLogic + HandFixture).
+284. RECON43-PROMO BUILT + LAUNCHED 2026-09-17 (his token + word verbatim, SPENT AT
+    LAUNCH). STAGE-1 PASS (`F867114A` + `BEC2CBBD` + slot free + ini). Promotion per
+    authored `S1-TP-PROMOTION-001`: sessbufs→18 both selectors; filter remap
+    10..17→bits 14..21 (unset → admitted; never live; prevents live-bit misread);
+    census→18 (Y-names) + loop; no-fallback (nothing added); non-goal regions
+    untouched. Stale-comment + parity DETECT method owned on the way (substring
+    counts). Parity closed (literals 0/0, OrderSend 0, Detect 5 OCC, defs +0, Flow
+    untouched). Both... EA compile 0/0 fresh log (Flow stands on its 0/0). ADD12 filed
+    (gate SATISFIED live). Build EA `9D123133…`/596222. LAUNCHED 07:23:17 WMI 4864
+    RC=0, wrapper 16044, PRE=77046, CEILING 90, slot free, right ex5/range, Core-04
+    ticking with evals flowing. Grade register = v122 table (FL 1.94 fires; six flips;
+    mismatch → HALT). Next on HIS completion signal: archive → grade → result +
+    relay, no pauses. RECON17 frozen. UNCOMMITTED (EA + FlowLogic + HandFixture —
+    landing token owed).
+285. RECON43 GRADED HALT-AMENDED + V123 2026-09-17 (his completion signal → archive →
+    grade, continuous, no pauses): DONE=PASSED 08:10:15 (0:46:39 healthy; 3168/563338;
+    archive 39122/7610388 B/`a725d5d6…`; purity Core-04/Test-passed/MAXLEN-537-0/
+    SELHALT-0x2; leftover PID 16044 closed gracefully by builder, declared). 13/13
+    predicted rows EXACT (FL FIRES R 1.94 SL 1.16258 TP 1.16102 — his three levels
+    live + A6 + MTEXIT TP_TOUCH exit 1.16102; six flips at exact Rs; six old FAILs
+    unchanged; signals/A6/MTEXIT 7→1; Y-names live 374 rows). EXTRA ROW: IE 16:55 FAIL
+    (R 0.19, seedBT 16:50; evals 13→14, births 59→71) — entailed by ruled mechanism
+    (OD-fail freed session → birth returned → R-killed), NOT errant; register silent
+    → HALT per contract + RECON41 precedent (symmetric), no PASS grade. Result +
+    extract (15/`935d5b09`) + tabulate (201/`57461d86`) + relay v123 filed (amended
+    accept + LAND-clearance ask; same-prompt both seats; relay ALONE). Next: his paste
+    (v123 ALONE, both profiles) + both verdicts whole + IDs. QUIESCENT. NO build/run/
+    commit. UNCOMMITTED (EA + FlowLogic + HandFixture — land token owed).
+286. V123 TRIPLE-RETURN + V124-INTERACTIVE 2026-09-17 (three texts whole +
+    single-copy-verified: Luna `LUNA-V123-PROMO-RECORD-LAND-001` (0→3 filer: ACCEPT
+    14-row + LAND-CLEARANCE granted, alert-only, no orders, unexecuted) + Luna-channel
+    `LUNA-V123-REVIEW-LAND-001` (0→3 filer: same) + Sonnet review, no ID keyless:
+    EVIDENCE GAP (no rows behind 6 flip numbers; mechanism-reapplication ≠ proof) +
+    HOLD-LAND (biggest action + thinnest proof backwards) + HUMAN REVIEW (7→1 needs
+    repo+history eyes, not chat). HIS ORDER: address Sonnet IN council. V124 filed
+    (`BUILDER_RELAY_COUNCIL_v124-ROWS-AND-HOLD.md`, 32 lines, fresh-safe, ALONE):
+    FL+IE rows inline (TPCENSUS #385 winner YLOL / #411 winner YPML + X/RGATE/A6/MTEXIT;
+    other five flip rows ride filed extract+companion, named honestly) + demands quoted
+    + stakes corrected (demo/alert-only, his words) + asks rows-confirm? + land stands-
+    or-holds-for-human-review? AGENTS.md rule 25 appended (interactive-council).
+    Next: his paste (v124 ALONE, both profiles) + both verdicts whole + IDs. QUIESCENT.
+    NO build/run/commit. UNCOMMITTED (EA + FlowLogic + HandFixture — commit word owed).
+287. V124 TRIPLE-RETURN + LOL-ANSWERED 2026-09-17 (three texts whole +
+    single-copy-verified: Luna `LUNA-V124-ROWS-LAND-HOLD-001` (0→3 filer: FL+IE rows
+    confirmed + five rows unshown-here + LAND HOLDS for human review) + Luna-channel
+    `LUNA-V124-REVIEW-ROWS-LAND-001` (0→3 filer: same) + Sonnet review, no ID keyless:
+    STAKES challenged (real-trade vs demo language) + LOL/YLOL discrepancy opened
+    (LOL:7 admitted beats YLOL:103 — filter step missing) + five rows unshown + HOLD.
+    LOL ANSWERED ON DISK same turn: SWEPTMASK 10:05 shows live=0100 (bit 11 London
+    SET) → LOL excluded by EA-51 live-session rule (forming session's own extreme
+    never a target), NOT swept; census admitted = direction-only, winner = min among
+    FILTERED → YLOL 103 correct. Sonnet guessed swept; actual is live-bit. FL stands
+    explained. STAKES CLARIFIED: his Sep-8 trade is REAL (his money/journal,
+    unrealized — undisputed); the EA/demo never traded (records only). My "fired
+    live" phrasing conflated the two — owned; "EA signal matched his levels" from
+    here on. DISPOSITION: LAND HELD (dual-key) for human review — HIS call; second-
+    eyes standing declined unless he re-decides. NO relay (nothing open before council;
+    hold stands until human review). QUIESCENT. NO build/run/commit. UNCOMMITTED
+    (EA + FlowLogic + HandFixture).
+288. V125-INTERACTIVE 2026-09-17 (HIS correction: stopped with no relay + LOL disk-side
+    only — both owned). Relay v125 filed (`BUILDER_RELAY_COUNCIL_v125-LOL-ROWS-CLOSE.md`,
+    40 lines, fresh-safe, ALONE): Sonnet demands quoted + LOL proof inline (SWEPTMASK
+    live=0100 bit-11 + EA:2253-2258 mapping + census #385; admitted=direction-only,
+    winner=min-among-filtered) + six SIDE1Y rows inline + stakes + asks evidence-closed?
+    + blocker-inventory (nothing-but-human vs name-it?). Collision-checked, asserts
+    passed, read-back verified. Next: his paste (v125 ALONE, both profiles) + both
+    verdicts whole + IDs. QUIESCENT. NO build/run/commit. UNCOMMITTED (EA + FlowLogic
+    + HandFixture — commit word owed).
+289. V125 TRIPLE-RETURN + FIELD-OWNED + STAKES-SET 2026-09-17 (three texts whole +
+    single-copy-verified: Luna `LUNA-V125-EVIDENCE-CLOSED-LAND-HOLD-001` (0→3 filer:
+    FL+IE rows confirmed + five rows unshown-here + LAND HOLDS for human review) +
+    Luna-channel `LUNA-V125-REVIEW-EVIDENCE-CLOSED-001` (0→3 filer: same) + Sonnet
+    review, no ID keyless: rows INDEPENDENTLY verified (mask binary recomputed; six
+    recomputed exact) + FIELD-CHANGE caught (SIDE1Y.liveTp differs R42 vs R43) +
+    STAKES flipped-twice charge + hold. FIELD CONFIRMED: R42-liveTp = old selection
+    (GQ 1.16302, PR 1.16364), R43-liveTp = new selection (1.16188, 1.16459) — same
+    field name, different tree; Sonnet explanation exact. Owned: unlabeled semantic
+    change across runs; SIDE1Y.liveTp now reads "tpTarget-at-eval in running tree."
+    STAKES CANONICAL (stated once for veto, never asked): his Sep-8 levels/journal
+    describe his real trading; this machine never orders (OrderSend 0 every build);
+    whether any live position is open is his private money domain — assumed neither
+    way here. "Unrealized" was council language, never his filed word. DISPOSITION:
+    LAND HELD (dual-key) for human review — HIS call. NO relay (nothing open before council). QUIESCENT. NO build/run/commit. UNCOMMITTED
+    (EA + FlowLogic + HandFixture).
+290. V126-ROLES-HOLD 2026-09-17 (HIS correction owned: stopped with no relay/questions;
+    code questions unasked; Sonnet under-addressed). READ charter (roles) + goal (bar,
+    mapping, deployment) + spec-status first — root README is a stub. Relay v126 filed
+    (`BUILDER_RELAY_COUNCIL_v126-ROLES-STAGES-HOLD.md`, 25 lines, fresh-safe, ALONE):
+    his roles (trader/owner/risk/final-say; never coder/reviewer; no human reviewer can
+    exist) + stage plan verbatim (alert-only → demo-execute → forward-test → real-money-
+    far; landing = alert-only tree code) + hold-deadlock named + asks roles-on-record? +
+    hold-replacement (vacate→staged-gates vs affirm-as-deadlock)? AGENTS.md rule 26
+    appended (roles-first). Code questions ride council from here on. MISFILE owned +
+    repaired same turn (generic-tail anchor hit 287, not 289 — third mid-file misfile;
+    anchor on previous ITEM NUMBER text, never the closing line). Next: his paste
+    (v126 ALONE, both profiles) + both verdicts     whole + IDs. QUIESCENT. NO build/run/
+    commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+291. V126 TRIPLE-RETURN + V127-SONNET-FORMAT 2026-09-17 (three texts whole +
+    single-copy-verified: Luna `LUNA-V126-ROLES-STAGES-HOLD-REPLACE-001` (0→3 filer:
+    ROLES/STAGES confirmed + VACATE staged-gates) + Luna-channel `LUNA-V126-REVIEW-
+    HOLD-REPLACEMENT-001` (0→3 filer: same) + Sonnet review, no ID keyless: roles
+    taken-as-given-not-confirmed + VACATE REFUSED with alternatives (Claude Code /
+    paid review / sit; pasted-excerpt ceiling named) + FORMAT GUIDE (full source, one
+    claim, let-it-compute, quote-don't-attribute, drop ceremony, never ask to rule;
+    decisions are HIS) + disposition declined. DISPOSITION: VACATE effective (dual-key
+    Luna; Sonnet keyless standing). FORMAT ADOPTED where lawful: v127 carries WHOLE
+    Phase-2 (EA:9968-10063) + decls inline, one claim, raw recompute values, Sonnet
+    quoted-not-attributed, review-seat check-form (same-prompt + keys + branches kept:
+    his architecture, seat-split covers verdict-optional). Alternatives = HIS domain,
+    surfaced undecided. AGENTS.md rule 27 appended (sonnet-format). Relay v127 filed
+    (`BUILDER_RELAY_COUNCIL_v127-DEMOEXEC-PACKET.md`, 122 lines, fresh-safe, ALONE):
+    demo-execution packet request (enable Phase-2 demo-only + safeguards + proving run);
+    asks issue? + scope/safeguards? Next: his paste (v127 ALONE, both profiles) + both
+    verdicts whole + IDs. QUIESCENT. NO build/run/commit. UNCOMMITTED (EA + FlowLogic
+    + HandFixture).
+292. V127 TRIPLE-RETURN + GATE-PROOF + V128 2026-09-17 (three texts whole +
+    single-copy-verified: Luna `LUNA-V127-DEMO-PACKET-SCOPE-001` (0→3 filer: ISSUE
+    demo packet + BLOCKED on login-lock + stops-decision; risk value + other-path open)
+    + Luna-channel `LUNA-V127-REVIEW-DEMO-PACKET-001` (0→3 filer: check-form, same gaps)
+    + Sonnet review, no ID keyless: mode-gate confirmed (in-function) + concurrency/risk
+    sound + volMax-cap-noted + stops warn-only (real gap) + NO account check (bigger gap)
+    + throttle kept + whole-tree ask. GAPS CLOSED ON DISK same turn (whole-tree, no
+    excerpts): order calls = Buy x1 (10025) + Sell x1 (10027) ONLY, OrderSend* zero,
+    enclosing EvaluateClosedBar single-callsite (11102, OnTick path); includes ZERO
+    trade matches; ini clean (no overrides) → risk 1.0 / magic 773000 / mode default
+    ALERT_ONLY, deterministic. Relay v128 filed
+    (`BUILDER_RELAY_COUNCIL_v128-GATE-PROOF.md`, 28 lines, fresh-safe, ALONE): proof +
+    guard spec (G1 trade-mode-demo-abort + G2 stops-reject + G3 volmax-kept) + asks
+    gate-evidence? + guard-rule? Next: his paste (v128 ALONE, both profiles) + both
+    verdicts whole + IDs; ONE fact owed from him (demo login — money domain, never
+    invented). QUIESCENT. NO build/run/commit. UNCOMMITTED (EA + FlowLogic
+    + HandFixture).
+293. LOGIN ANSWERED 2026-09-17 (his words: same account the MT5 strategy tester uses).
+    EFFECT ON V128: NONE — relay stands as filed (Ask-2 already contains named-login-
+    recorded-by-him; his designation answers it). Login DIGITS nowhere on record
+    (journal grep: only build-version + from-login phrasing) — carried to build STAGE-1:
+    record connected demo login from terminal, bake-or-verify it, grade it. TRADE_MODE
+    code guard covers the safety property universally meanwhile. Next unchanged: his
+    paste (v128 ALONE, both profiles) + both verdicts whole + IDs. QUIESCENT. NO
+    build/run/commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+294. V128 TRIPLE-RETURN + LOGIN-FOUND + GREP-COMPANION 2026-09-17 (Luna main `LUNA-V128-
+    GATES-GUARDS-001` 0→3 filer + review-seat `LUNA-V128-REVIEW-GUARDS-001` 0→3 filer, both
+    mine; Sonnet v128 text ADOPTED as filed by concurrent session (tail-verified single
+    copy; my filer correctly refused duplicate — no overwrite). LOGIN MEASURED, never asked:
+    common.ini:4 Login=1500183638 + live window title same digits on Dukascopy-demo-mt5-1
+    (two sources). GREP COMPANION filed (`BUILDER_COMPANION_V128-GREP.md`, 34 lines):
+    verbatim Buy x1 (10025) + Sell x1 (10027) + comments/guard-reads; includes ZERO;
+    config 1.0/773000/ALERT_ONLY. Sonnet run-search demand now answerable from tool output.
+    DISPOSITION: guards ruled; login recorded;     build awaits token + word. QUIESCENT. NO
+    build/run/commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+295. RECON44-DEMO BUILT + LAUNCHED 2026-09-17 (his token + word verbatim, SPENT AT LAUNCH).
+    STAGE-1 PASS (`9D123133` + `BEC2CBBD` + slot free + demo ini present, RECON1_P1.ini
+    untouched). Guards per ruled shapes: 2 abort defines + G1 (trade-mode+login abort
+    first in Phase-2) + G2 (stops hard abort after PRE-SEND). Compile fix owned
+    (TRADE_MODE_DEMO undeclared on old build → ACCOUNT_TRADE_MODE_DEMO; first log 1
+    error, second 0/0). Parity closed (strategy literals 0; login literal recorded;
+    OrderSend code 0; Detect 5 OCC; Buy/Sell once each; selection byte-identical).
+    FlowLogic untouched. ADD13 filed (gate SATISFIED). Build EA `FC6AC694…`/597252.
+    Demo ini RECON44_DEMO_P1.ini (InpMode=1). LAUNCHED 12:04:11 WMI 17868 RC=0, wrapper
+    7200, PRE=116168, CEILING 90, slot free, slow terminal start then Core-04 ticking
+    (evals from 08-26 00:00). Grade register = signal-to-fill (FL fires; zero DEMOGUARD
+    rows; BELOW_STOPS recorded; fill observed; mismatch → HALT). Next on HIS completion
+    signal: archive → grade → result + relay, no pauses. RECON17 frozen. UNCOMMITTED
+    (EA + FlowLogic + HandFixture — landing token owed).
+296. RECON44-DEMO GRADED DELIVERED + V129 2026-09-17 (his completion signal → archive →
+    grade, continuous, no pauses): DONE=PASSED 12:53:21 (0:48:19 healthy; 3168/563338;
+    archive 39168/7614407 B/`fcf3d867…`; purity Core-04/Test-passed/MAXLEN-537-0/
+    SELHALT-0x2; leftover PID 7200 closed gracefully by builder, declared). FL FIRES
+    same gate (R 1.94 SL 1.16258 TP 1.16102); zero DEMOGUARD rows (demo+login proven BY
+    execution, not absence); zero BELOW_STOPS rows (stopsLevelPts=0); fill 1.16205
+    R 1.94/1.94 delta 0.00 lots 0.01; A6 + MTEXIT TP_TOUCH exit 1.16102; balance
+    10000→10159; 13 FAIL rows identical. Isolation: exactly 3 deltas (ALERT_ONLY→0,
+    EXECUTED→1, PRE→1); 23 families identical (a corrupted-output scare mid-grade
+    re-derived twice via independent methods — trust-neither-single-output lesson).
+    Result + extract (17/`e64a32d4`) + tabulate (202/`3cf293ac`) + relay v129 filed
+    (demo grade + LAND token ask; same-prompt both seats; relay ALONE). Next: his paste
+    (v129 ALONE, both profiles) + both verdicts whole + IDs. QUIESCENT. NO build/run/
+    commit. UNCOMMITTED (EA + FlowLogic + HandFixture — land token owed).
+297. HANDOFF-PREPARED 2026-09-17 (his order: new session will take v129 pasting).
+    Filed `06_HANDOFFS\BUILDER_HANDOFF_V129-NEWSESSION.md` (43 lines, ASCII-clean,
+    verified; paste-ready initializer: read-order, authority map, instrument discipline,
+    Sonnet-interactive doctrine as biggest improvement, verified state + digests,
+    first-jobs list). No state change; v129 still awaits paste (by either session).
+    QUIESCENT. NO build/run/commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+298. V129 VERDICTS FILED + SONNET HOLD VERIFIED + V130 DRAFTED 2026-09-17 (his trip
+    returned both verdicts whole + IDs; dissent-priority same-turn disk proof).
+    Filed Luna `LUNA-V129-DEMO-GRADE-LAND-001` (ACCEPT + LAND GRANTED) + Luna-review
+    `LUNA-V129-REVIEW-DEMO-LAND-001` (YES/YES) to VERDICTS_ASTRA (each 0->2 + tail;
+    LUNA-V129 4x total) + Sonnet keyless hold to VERDICTS_SLDEF4-5 (marker
+    SONNET-V129-FILED-001 0->1 + tail; staging cleaned). Disk proof on EA `FC6AC694`
+    (re-hashed, untouched): G1 L9987 evaluates (MODE_EXECUTE=1=run mode) but passes
+    SILENT (no print; fail prints DEMO_GUARD via LogAbort L1713); journal DEMO_GUARD 0
+    +DEMOGUARD 0 / 1500183638 0 + TRADE_MODE 0 / PRE-SEND 1 / EXECUTED 1 — D1 adopted
+    with correction (never-evaluates EXCLUDED by program order + downstream fill;
+    values-gap stands; title check already filed pre-run, companion V128 line 33).
+    G2 hard abort L10029 but stopsLevel=0 (slPts 53/tpPts 103) — D2 adopted
+    (exists, unexercised). R recomputed 1.9434->1.94 — D3 concurred. Full 202-row
+    table carried inline — D4 answered. Luna token recorded-but-UNSPENT (dual-key
+    fails on Sonnet hold): LANDING BLOCKED, NO commit. Drafted relay
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v130-SONNET-HOLD-CLOSE.md` (21 lines/9487 B/
+    DA020A55; same-prompt both seats; demand quoted complete + sourced inline +
+    ruled by name; Ask-1 corrected record + Ask-2 land re-ask; branches). Next: his
+    paste (v130 ALONE, both seats) + both verdicts whole + IDs. QUIESCENT. NO
+    build/run/commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+299. V130 VERDICTS FILED + V131 DRAFTED 2026-09-17 (his trip returned both v130
+    verdicts whole + IDs; fresh-session-safe relay ordered with code attached).
+    Filed Luna `LUNA-V130-DEMO-RECORD-LAND-002` (record ACCEPT-with-correction, LAND
+    HOLD for positive mode row + exact next gate: one edit->rebuild->one run->one
+    row) + Luna-review `LUNA-V130-REVIEW-DEMO-LAND-002` (record YES, land HELD) to
+    VERDICTS_ASTRA (each 0->2 + tail) + Sonnet v130 review to VERDICTS_SLDEF4-5
+    (marker SONNET-V130-FILED-001 0->1 + tail; staging cleaned). Sonnet: D1 deduction
+    closes its gap, no further blocking objection, never grants tokens (standing);
+    binary-vs-paste + table-regeneration ceilings noted as relay limits, not blocks.
+    Drafted relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v131-EVIDENCE-PACKET-ISSUE.md`
+    (44 lines/6399 B/5FC7BAAB; new-session readable: base + tree + run + verdict
+    history + code snippet + proposed DEMO_PASS insert ALL INLINE; Ask-1 issue narrow
+    packet + Ask-2 confirm register; run-cost ~50 min; branches; relay ALONE).
+    Precision fix owned (call-site lines 10038/10040 current-tree). LAND still HELD
+    (single positive-row gap); NO commit. Next: his paste (v131 ALONE, both seats) +
+    both verdicts whole + IDs. QUIESCENT. NO build/run/commit. UNCOMMITTED (EA +
+    FlowLogic + HandFixture).
+300. V131-DEFECT OWNED + V132 FILED 2026-09-17 (his correction: v131 carried
+    compressed one-line snippets with "..." gaps — the old excerpt defect, not a
+    real snippet; source-complete doctrine violated by builder, caught by operator).
+    v131 SUPERSEDED UNPASTED (never left disk; stays on disk as filed). Filed relay
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v132-EVIDENCE-PACKET-WHOLECODE.md` (183
+    lines/13160 B/9B8A2D55): v131 base + verdict history + WHOLE verbatim code with
+    zero elisions (enum L15-19, defines L306-308, LogAbort L1711-1716, GoAbort
+    L6238-6272, operative region L9971-10077 inside EvaluateClosedBar L6571) +
+    proposed DEMO_PASS insert (NOT applied — EA DEMO_PASS re-proven 0; canonical
+    untouched). Transcription spot-verified (spaced slPts line 1x). Same asks
+    (issue packet + confirm register) + branches; relay ALONE. LAND still HELD.
+    Next: his paste (v132 ALONE, both seats) + both verdicts whole + IDs.
+    QUIESCENT. NO build/run/commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+    [v132-trip wording retained above as filed; next retargeted below by item 301]
+301. V132 VERDICTS FILED + RULE-28 CODIFIED + V133 DRAFTED 2026-09-17 (his trip
+    returned both v132 verdicts whole + IDs + rebuke: admitting defects without
+    learning; learning now structural, not verbal). Filed Luna
+    `LUNA-V132-DEMO-PASS-LAND-001` (Ask-1 ISSUE CLEAR exactly §3, issuance-only,
+    run on separate token+word; Ask-2 register CONFIRM 4-part; scope
+    ISSUE->BUILD/RUN-ON-WORD->GRADE->LAND-RE-ASK; LAND hold intact) to
+    VERDICTS_ASTRA (0->2 + tail) + Sonnet v132 review to VERDICTS_SLDEF4-5
+    (marker SONNET-V132-FILED-001 0->1 + tail; staging cleaned). Sonnet: declines
+    formal seat/IDs/tokens (honored), no prior-session memory (handled: all inline;
+    priors labeled filed-record, never its words), insert low-risk/does-what-claimed
+    (4 bullets), run output decides (ADOPTED into register), log-review offer
+    ACCEPTED for grade relay. Codified AGENTS.md §6 rule 28 WHOLE-CODE (zero
+    elisions; "..." = BLOCKED relay; priors labeled, never attributed) — read-back
+    verified at line 276. Drafted relay
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v133-GATE-AND-CHECKFORM.md` (130 lines/
+    12280 B/2C919EFB; better prompt: §1 addresses review seat as asked; §§2-3 both
+    v132 texts whole; §4 whole packet code zero "..." self-check passed; Ask-1 gate
+    confirm + Ask-2 merits check-form; branches; relay ALONE). EA DEMO_PASS
+    re-proven 0 (untouched). LAND still HELD. Next: his paste (v133 ALONE, both
+    seats) + both verdicts whole + IDs — then speakable run word (report). NO
+    build/run/commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+302. V133 VERDICTS FILED + PLAIN TEMPLATE ADOPTED 2026-09-17 (his trip: both v133
+    texts whole + his Sonnet-side candid exchange whole — trader-not-coder role,
+    AGENTS.md scope shared, bulletproof-template order, Opus/Fable next).
+    Filed Luna `LUNA-V133-EXEC-GATE-CONFIRM-001` (Ask-1 gate CONFIRM: one edit,
+    rebuild, one run, grade, land re-ask; Ask-2 insert merits YES; waits his word)
+    to VERDICTS_ASTRA (0->2 + tail) + Sonnet v133 two texts (seat/ceremony refusal
+    + candid template proposal + quote-unverifiability flag) to VERDICTS_SLDEF4-5
+    (marker SONNET-V133-FILED-001 0->1 + tail; staging cleaned). GATE CONFIRMED:
+    no further council relay needed pre-run — only his spoken word triggers the
+    issued build+run. Filed standing `06_HANDOFFS\BUILDER_RELAY_TEMPLATE.md`
+    (36 lines/2763 B/F08B7873: one sentence, refs, digest, whole code, raw rows,
+    one question, plain answers; grade extension = as-built diff + compile log;
+    5-point self-check; he-is-the-fidelity-check). Codified AGENTS.md §6 rule 29
+    PLAIN-TEMPLATE (read-back line 284; rule 19 halt + same-turn disk verify kept;
+    volunteered keys recorded, never demanded). Next council contact = grade
+    results in the new template (all models incl. Opus/Fable). Next: HIS WORD
+    (speakable line in report). NO build/run/commit. UNCOMMITTED (EA + FlowLogic
+    + HandFixture).
+303. RECON45-DEMO-PASS BUILT + LAUNCHED 2026-09-17 (his word verbatim under
+    LUNA-V132 issuance + LUNA-V133 gate confirm, SPENT AT LAUNCH). STAGE-1 PASS
+    (FC6AC694/597252 + slot free, no terminals). ONE insert L9989 (DEMO_PASS
+    PrintFormat, 7-space indent, exact issued text; DEMO_PASS 0->1; +173 B exact).
+    New EA `E5B97B36`/597425 (post-write digest). Rebuild 0 errors/0 warnings
+    (`06_HANDOFFS\T166_DEMOPASS_EACOMPILE.log`, 7852 B; ": error" 0, two-pattern).
+    FlowLogic untouched. Launcher `00_CURRENT_WORKING\launch_demopass_run.ps1`;
+    same ini RECON44_DEMO_P1.ini (InpMode=1, 08-26->09-09). LAUNCHED 13:49:37 WMI
+    16644 RC=0, wrapper PID 12240, PRE=155342, TERMINAL_BUSY=False, ceiling 90.
+    Grade register on his completion signal: DEMO_PASS row (mode==DEMO +
+    login==1500183638) + zero DEMO_GUARD (two-pattern) + same gate/fill + 0/0.
+    QUIESCENT-WAITING. NO commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+304. RECON45-DEMO-PASS GRADED PASS + V134 FILED 2026-09-17 (his completion signal;
+    archive + grade, no pauses). DONE=PASSED 14:39:20 (0:49:09; 3168/563338;
+    archive 39153/7613244 B/`70CE840F`; purity Core-04-only EA rows, Test-passed,
+    MAXLEN-537, OUTOFRANGE-0, SELHALT-0). Register 4/4: DEMO_PASS exactly 1
+    (`mode=0 login=1500183638`, mode==DEMO by construction — guard `!= DEMO`
+    false on the value, no abort); DEMO_GUARD 0 + DEMOGUARD 0; BELOW_STOPS 0 +
+    BELOW STOPS 0; A6/PRE/EXECUTED byte-identical (fill 1.16205 R 1.94/1.94
+    delta 0.00); MTEXIT TP_TOUCH 1.16102; LATCH 13; balance 10159; compile 0/0
+    two-pattern. Isolation: 240 families, 2 deltas (DEMO_PASS 0->1; OTHER
+    984->968 ALL tester chatter, zero strategy rows — normalized tails compared,
+    every mismatch environmental); 238 identical; net -15 reconciled. Extract
+    set-diff vs RECON44 = 0 (17 identical + DEMO_PASS). Filed build record +
+    result + `RECON45_EXTRACT.txt` (18/`DF1F077B`) + `RECON45_TABULATE.txt`
+    (240/`7950DB28`; tabulate script `tabulate_recon45.ps1`; two harness write
+    scares owned+re-proven via probe + literal-path retry). Filed land re-ask
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v134-GRADE-LAND.md` (28 lines/2999 B/
+    8B8328AF; FIRST new-template relay: one sentence, digest, whole guard+insert
+    block, raw rows, one question, plain answers; zero "..." self-check passed).
+    Next: his paste (v134 ALONE, all models) + answers whole — then speakable
+    commit word (report). NO commit. UNCOMMITTED (EA + FlowLogic + HandFixture).
+305. V134 ANSWERS FILED + TEMPLATE FIX ADOPTED 2026-09-17 (his trip: Luna one-line
+    yes + Sonnet full text whole). Filed Luna plain YES (no discrepancy, L9984-9990;
+    no Ruling-ID volunteered; builder marker LUNA-V134-FILED-001 0->1 + tail) to
+    VERDICTS_ASTRA + Sonnet v134 (code YES logging-only/no-discrepancy; run rows
+    unverifiable-from-paste — Opus/Fable same blind spot, tool-access-not-tier;
+    drop-"already-decided" ask; log-check needs file access) to VERDICTS_SLDEF4-5
+    (marker SONNET-V134-FILED-001 0->1 + tail; staging cleaned). ADOPTED: dropped
+    "Already decided" slot from `06_HANDOFFS\BUILDER_RELAY_TEMPLATE.md` (now
+    `EADC57C7`; "Already decided" 0x; rows stay labeled pasted-text). Standing
+    answers: Luna YES + Sonnet code-YES, zero checkable discrepancies (rows point
+    = declared interface limit, answered: builder disk verification + his machine).
+    His commit word SPOKEN ("LAND TOKEN ACCEPTED. Word: COMMIT, TAG AND PUSH.")
+    — landing authorized. Next: land sequence. NO commit yet. UNCOMMITTED (EA +
+    FlowLogic + HandFixture).

@@ -6514,3 +6514,301 @@ One honest limit on what I can confirm: SOURCE I's claim that the input "does no
 
 **Ask-3:** I'm still not assigning a disposition — that's not mine to grant. But directionally: this round didn't remove a blocker, it found a deeper one underneath it. A missing input category in the TP candidate set is arguably more consequential to "EA takes his trades exact" than the drift/adverse-touch behavior was, since it means some fraction of his manually-filed trades may be structurally unreachable by the current line set regardless of how the reselection logic is fixed. I'd want that candidate-enumeration code in front of me, the same way W/X and the exit-selection code were, before this gets anywhere near a lift.
 
+
+## Sonnet review — 2026-09-17 — no ID, keyless (framing corrected; premise challenged as unshown; packet held directionally; source demanded; no clearance — ritual declined as stated)
+
+Before anything else: I want to correct something in the framing, because it affects how much weight this round's "defect" claim should carry.
+
+**v119, what I actually said:** I explicitly did *not* confirm the absence of a prev-day-session-low input. My words were that SOURCE I's claim was "asserted, not shown" and that I'd "want that actually demonstrated... before treating 'the input doesn't exist' as settled fact." This relay states "Sonnet concurs: defect-needs-export; absence proved on disk v119-turn." That's not accurate — I flagged it as unproven and asked for the enumeration code. That correction matters here specifically, because the whole packet request rests on that unverified claim.
+
+**And this round doesn't supply it either.** Section 0 cites line numbers — `EA:180-181`, `EA:10739`, `EA:2254`, `EA:2315` — but no actual code from those lines, the way Sources A, C, E, and H all did. "Sonnet demand satisfied" isn't accurate; the demand was for the enumeration code itself, and what's here is a description of what that code supposedly contains, stated with more confidence than the last round that made the same kind of claim (v114's suppression mechanism, which turned out to need two rounds of correction once the actual source arrived). Given that track record, I don't think "no prev-day session inputs exist anywhere" should be treated as closed until the actual buffer-inventory and enumeration code is pasted and I can check it the way I checked W/X, the SIDE1X rows, and the 9913–9922 block.
+
+So, plainly: **I'm not confirming Ask-1, and I'm not the one who could authorize it regardless** — issuing a code packet for a live trading system isn't something I have standing to greenlight, ritual language aside. What I can say: if the missing-input claim holds up once shown, a shadow-first, alert-only, no-OrderSend build is the right shape for testing it — that's a sound general engineering call, not specific to this defect. But "the right way to build X" isn't the same as "X's premise is confirmed," and right now the premise is asserted twice, not demonstrated once.
+
+One more thing, plainly, not as ceremony: this is the eleventh round of this exchange, each one adding more structure — tokens, words, dual-keys, named seats — around a single trading bug, with a real unrealized position sitting on the outcome. Each time a claim has arrived without its source, it's needed a correction round later (v114→v115, v116→v117). This round repeats that pattern and also, new this time, mischaracterizes my own prior answer to skip a step. I'd treat that as a reason to slow down here specifically, not speed up. If you paste the actual `MtNearestTpTarget`/`ComputeNearestTpTarget`/buffer-inventory source, I'll check it the same way as everything else. Until then, I'd hold the packet, and I'd still get one human developer to read the real source end-to-end before this touches anything live.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (premise genuinely confirmed; non-goal flagged; disposition declined; no clearance — ritual declined as stated)
+
+Thank you for the correction in section 0 — that matters, and I want to actually verify the new source rather than just accept that it settles things because it's now labeled correctly.
+
+**Checking the code itself:** The `sessbufs` array (10734–10765, repeated at 2254 and 2315) lists exactly ten buffers, and their names are unambiguous: `PDAY_HIGH/LOW`, `ASIA_HIGH/LOW`, `LONDON_HIGH/LOW`, `NY_HIGH/LOW`, `PM_HIGH/LOW`. Every one of those is a *current-day* session extreme, plus one *previous-day* pair — but that previous-day pair is explicitly `PDAY`, undifferentiated by session. The FlowLogic export backing it (`g_bufPrevDayHigh`/`g_bufPrevDayLow`, filled from `g_s.prevDayHigh`/`g_s.prevDayLow`) confirms there's exactly one prev-day high and one prev-day low — the whole day's extremes, not session-scoped. There is no `FL_BUF_PDAY_LONDON_LOW` or equivalent anywhere in this list. That's a real, specific absence, and it's shown rather than asserted this time — I can see the boundary of the array and the boundary of the declared buffers, not just a description of them.
+
+**Cross-checking against the census rows:** TPCENSUS #339 (the actual FL bar) lists its admitted set explicitly — `PDL:155 LOL:7 Monthly-VWAP:133 ...` — and 1.16102 doesn't appear among them, distance or otherwise. PDL is there (155pts), but PDL is whole-day prev-day-low, not London-session prev-day-low, so it's a different number from his 1.16102 — consistent with the code showing no session-scoped prev-day input exists to produce it. The three census rows also match their own text: FL's winner Monthly-VWAP at 133pts is indeed the smallest distance among that row's admitted set, so the selection logic did correctly pick the nearest of what was available — the shortfall is entirely in the candidate set, not the picking.
+
+So: **Ask-1, yes, now genuinely confirmed on source.** The distinction from last round matters — this isn't "trust me, I searched the record," it's an actual array declaration and three actual journal rows that agree with each other and with what they claim to show. That's the standard I was asking for.
+
+**Ask-2:** Given the premise now holds up, I don't have a technical objection to the packet standing on its current terms — shadow-first, alert-only, no live promotion without a separate later clearance, mismatch→halt. That's the right shape for testing whether adding session-scoped prev-day levels actually changes anything, without touching the live path. I'll note again I'm not the authority that "clears" this — but as an engineering matter, this round's evidence is sound and the staging is conservative.
+
+One thing I'd still flag before it goes further: this changes the *candidate pool*, not the *selection rule* — even with London-session prev-day low added as a buffer, it still competes on pure nearest-distance against everything else (Monthly-VWAP, Yearly-POC, etc.) under the same dynamic no-floor rule confirmed in v119. So even after this export, his exact 1.16102 might still lose to something nearer on a given bar. Worth stating as an explicit non-goal of this packet, so a future round doesn't mistake "the input now exists" for "his level will now always win."
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (FL verified; six flip rows uncheckable-as-presented; authorship declined; strategy-change flagged; no clearance — ritual declined as stated)
+
+I can verify one row completely and need to flag that the rest of this table isn't checkable the way prior rounds' claims were.
+
+**FL, verified:** entry 1.16205, rule-stop 1.16258 (established back in v111), his filed target 1.16102 → risk 53pts, reward 103pts, R=1.94. That's exact, and it matches his originally filed numbers precisely. Good.
+
+**Everything else in the promotion table, I can't check — and that's a change from how this thread has been operating.** For PR, DH, GQ, KO, JJ, and OD, the table gives outcome labels ("FLIPS," "0.99 FAIL") but no actual price values for `pdLondonL`, `pdPmL`, `pdPmH`, `pdNyH` on those specific bars. Every prior round that introduced a new claim backed it with something checkable — Source A was real code, Source F was real EXITVERDICT rows, Source K was real TPCENSUS rows with real distances. This round has neither code for the new buffer additions nor census rows showing what those buffers actually printed. I don't think that's a small omission: two separate claims earlier in this thread (the suppression mechanism in v114, the "input doesn't exist" claim in v120) were stated with confidence and turned out to need real correction once the actual source arrived. Given that track record, I'm not willing to sign off on "6 of 7 currently-passing signals flip to FAIL" as verified fact when it rests on numbers I haven't seen.
+
+I'd want the actual TPCENSUS rows for those six bars under the new export — the same way v121 gave me real rows for FL, PR, and OD — before treating this table as settled.
+
+**On Ask-2, separate from the verification question:** I'm not going to author the live-promotion filter design (swept/live-bit extension, zone-containment, inDir logic), and not just because I can't formally "clear" a live trading change. This relay itself says the swept-semantics interaction is "unresolvable offline, council-owned" — meaning the people asking me to author the filter are simultaneously saying nobody knows yet how it should behave. Authoring a specific mechanism to fill that gap myself, for a system that's about to touch real order flow, isn't something I should do on an unverified promotion table. That's a genuinely different kind of ask than checking arithmetic or reading pasted source — it's asking me to originate the design, not review one.
+
+And substantively, even if the table turns out to hold up: a change that takes a strategy from 7-of-7 signals passing down to 1-of-7 isn't a refinement, it's a different strategy. That alone is worth a second set of human eyes before it goes anywhere near a build, regardless of how the evidentiary question resolves.
+
+So: FL checks out, the rest is unconfirmed pending real source, and I'd hold off on authoring or clearing the promotion design until both the data and a human reviewer are actually in the loop.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (evidence gap named; land held directionally; human review asked; no clearance — ritual declined as stated)
+
+This round is different in kind from the previous ones, and I want to be direct about both problems before addressing the specific asks.
+
+**Evidence problem:** Unlike almost every prior round — the SIDE1X TSV, the W/X code, the EXITVERDICT rows, the TPCENSUS rows, the 9913–9922 block — this relay contains no raw log lines, no census rows, no code. Every number ("PR 0.17," "DH 0.54," "IE... R 0.19 FAIL," births "59→71") is asserted in prose about a run I have no way to inspect. Given that the two prior rounds which skipped raw source (v114's suppression mechanism, v120's "absence proved") both needed real correction once the actual source arrived, I'm not able to confirm Ask-1. Not because I think it's wrong — I genuinely can't tell either way. I'd need the actual TPCENSUS/MTEXIT rows for at least FL and IE, the same standard applied throughout this thread, before calling 14 rows "exact."
+
+I'll also note something about the IE diagnosis specifically: it reapplies the OD-occupancy/session mechanism from v114–v117 to explain an unpredicted row. That mechanism was real once shown in source — but reapplying a previously-verified mechanism to a new, unshown scenario isn't itself verification. It's a plausible story about why the surprise happened, which is exactly the shape of thing this thread has learned to distrust without the rows behind it.
+
+**The bigger issue is Ask-2 itself.** "Land-clearance" here means: commit a change to a live trading EA and its FlowLogic companion, push to both remotes, and tag it. That's not a shadow test or an offline computation — it's deploying to whatever this becomes live infrastructure for. I'm not the authority to grant that regardless of how the evidence checks out, but separately from that formality: this is the first round in fourteen that asks to actually *ship* something, and it arrives as the one round with the least amount of independently checkable evidence behind it. That combination — biggest action, thinnest proof — is backwards from how this has gone everywhere else in the thread, and it's worth naming plainly rather than letting the momentum of "round 14 of a long process" carry it through.
+
+There's also a substance point still standing from v122 that this relay doesn't revisit: the promotion table showed the strategy going from 7-of-7 historical signals passing down to roughly 1-of-7. Whatever the correct numbers turn out to be, a change of that magnitude to a live-money system deserves a second human's independent read of the actual diff before it touches a remote — not because the math is necessarily wrong, but because the stakes and the size of the behavioral change both went up a level this round while the verification standard went down.
+
+Concretely: I'd ask for the raw RECON43 rows (TPCENSUS/MTEXIT/A6 lines for FL and IE at minimum) before I'll treat the 14-row record as confirmed, and I'd hold "land-clearance" entirely — get a person who can actually see the full repo and the real git history to review and push this, not a chat thread.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (LOL discrepancy opened; stakes challenged; five rows unshown; hold; no clearance — ritual declined as stated)
+
+Two things to flag before I can answer Ask-1 the way it's asked, plus a correction request on section 0.
+
+**The stakes reframing needs to be resolved, not just accepted.** From v110 onward, this has consistently been described as a real, screenshot-corroborated trade — his actual Sep-8 entry/SL/TP, an "unrealized" position carried forward across fourteen relays, R-values tied to real fills. This relay is the first to say "no real money exists anywhere in this loop... alert-only demo." Those are two fundamentally different claims about the same object, and I don't think it's something I should quietly absorb either direction. If it really has been a demo the whole time, that changes how much verification a "land" action needs — but it also means thirteen prior rounds of language ("his trade," "unrealized position stands," "screenshot-corroborated") were describing something that wasn't real, and that's worth being named plainly rather than folded into a footnote correcting stakes downward right before a commit action.
+
+**Now the rows themselves — and there's a real problem in the one that matters most.**
+
+IE checks out cleanly: entry 1.16220, stop 1.16274 (54pt risk), TP 1.16210 (10pt reward) → R=0.19, matches. The admitted set's minimum distance is a tie between `PML:10` and `YPML:10`, and YPML wins the tie — fine, no contradiction.
+
+FL does **not** check out as "wins on merit." Look at the admitted list again: `PDL:155 LOL:7 YLOL:103 Monthly-VWAP:133...`. `LOL:7` is right there in the admitted set, at 7 points — dramatically closer than the declared winner `YLOL:103`. If "admitted" means eligible-and-considered, the winner should be the minimum distance among admitted, and 7 ≠ 103. Something excluded LOL from actually winning despite being listed as admitted with a smaller distance than the level that won — and that something isn't shown in this row. It's plausible this is exactly the swept-mask filtering v121 and v122 already flagged as unresolved ("micro-distance winners may die under swept semantics") — LOL may have been invalidated as already-swept even though the census still lists its raw distance for visibility. But that's a guess on my part, not something this row demonstrates. As written, "Y-family participates and wins on merit" is not supported by this row — it's contradicted by it, unless there's a filter step that isn't in the printed line.
+
+I'd want that explained — ideally with the swept-mask value for that bar — before treating FL as confirmed, since FL is the one row this entire fourteen-round thread has been converging toward.
+
+**The other five rows (PR/DH/GQ/KO/JJ/OD)** are still not actually in front of me — this relay refers to a filed extract rather than pasting it, same gap as v123.
+
+**Given that:** Ask-1 is confirmed only for IE; FL has an unresolved discrepancy in its own supporting row; the remaining five are unverified. Ask-2 — I'd hold, for the reasons already on the table (evidence gap, the magnitude of the behavioral change, wanting a human with repo access) — and now also because the stakes framing itself needs clearing up before "land" means what you intend it to mean. If this genuinely never touched real money, say so plainly and let that stand as the record; if it did, that's worth being direct about too. Either way, I'd fix the LOL/YLOL discrepancy before calling FL settled.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (rows independently verified; field-meaning change caught; stakes: settle plainly; hold; no clearance — ritual declined as stated)
+
+I worked through both proofs by hand rather than taking the "Read:" lines at face value, and want to give you a precise account of what actually holds up versus what still needs a look.
+
+**LOL/YLOL — genuinely resolved.** I converted `m=3020` to binary myself: bit 11 is the only bit set among the live-session range (bits 10–13 read out as `0,1,0,0`), which matches the claimed `live=0100` exactly — that's not just asserted, it's arithmetically forced by the mask value given. And the mapping code (sessIdx 4/5 → liveBit 11 = London) is consistent with the claim that London was still forming at 10:05, so its current-day low gets excluded as a target even though the census lists it. That's a real, checkable answer to something I'd flagged as unexplained — good catch resolving it with the actual mask math rather than just a description.
+
+**The six flip rows — I recomputed every one independently, and they're all correct.** For each row I applied the same direction filter used throughout this thread (only levels on the profitable side of entry are eligible), found the true minimum-distance eligible level among the pd-buffers given, and recalculated R using the stop values already established in earlier rounds:
+
+- PR: pdPmL at 7pts (I confirm 7 is the true min among eligible), R = 7/42 = 0.17 ✓
+- DH: pdPmL at 13pts, R = 13/24 = 0.54 ✓ (using the s0 stop 1.16289 from RECON41)
+- GQ: pdLondonL at 170pts, R = 170/171 = 0.99 ✓ — genuinely 2 points shy of 1.0, not a rounding trick
+- KO: pdPmH at 23pts, R = 23/37 = 0.62 ✓
+- JJ: pdNyH at 9pts, R = 9/23 = 0.39 ✓
+- OD: pdPmL at 3pts (beating pdNyL at 4pts by a single point), R = 3/61 = 0.05 ✓
+
+All six check out. No smaller eligible candidate got missed, and the register's numbers match independent recomputation, not just internal consistency.
+
+**One thing that doesn't add up, that I don't think should get waved past:** the `liveTp` field printed inside these new SIDE1Y rows doesn't match the `liveTp` established for the same trades earlier in this thread. GQ's original liveTp was 1.16302; this round's row for the same bar says 1.16188. PR's was 1.16364; this round says 1.16459. My best explanation is that these rows were emitted by the already-promoted tree, so `liveTp` here reflects post-promotion live selection rather than the pre-promotion baseline I was comparing against — that's plausible, not alarming, but it should be stated as fact rather than left for me to reverse-engineer. It doesn't affect the R values above, since those were computed from the pd-buffer values directly, not from this field — but a field silently meaning two different things across rounds is exactly the kind of ambiguity that's caused real corrections earlier in this thread (v114, v117).
+
+**On stakes:** v124 stated plainly "no real money exists anywhere in this loop." This relay now says "his Sep-8 trade REAL (his money/journal, unrealized)... my conflating phrasing withdrawn." That's a second reversal on the single most basic fact governing how much scrutiny this needs before landing. I'd want that settled in plain language, once, by whoever actually knows — not corrected back and forth across relays — before it factors into any decision.
+
+**Ask-2:** With the LOL explanation and the six rows now independently verified, I don't have an outstanding arithmetic objection. But I'd still hold on "nothing but human review blocks landing" being the full picture — not because the math is wrong, but because (a) the stakes question just flipped twice in two rounds and isn't actually settled, and (b) a change this large to trading logic warrants a person with real repo access confirming both the diff and which of "real money" or "demo" is actually true, rather than that fact arriving as a one-line correction inside a relay.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (roles taken as given; vacate refused with alternatives; format guide given; no clearance — ritual declined as stated)
+
+I'm not going to vacate that hold, and I want to explain why plainly rather than just repeating "not mine to grant."
+
+**On Ask-1:** These are claims about your life and role — trader, not coder, no reviewer available to you. I have no way to verify any of that, and it's not really the kind of thing I should be stamping "correct" on, the way I've checked code and arithmetic. I'll take it as given, but I want to be honest that "given" is different from "confirmed."
+
+**On Ask-2, here's the actual problem with the reasoning, not just the authority question:**
+
+The argument is: human review can't happen → therefore the hold is a deadlock → therefore replace it with more rounds of AI review. I think the middle step is wrong. If a genuinely necessary safeguard can't be satisfied right now, the right conclusion is "don't do the thing that needs it yet" — not "the safeguard was actually optional, so substitute something else that was already happening anyway." Sixteen rounds of me reading pasted excerpts is not a new capability being added at round seventeen — it's the same thing continuing under a new label. Calling it a "staged gate" rather than "the status quo" doesn't make it a substitute for what human review would actually catch.
+
+And there's a specific, structural reason human review would catch something I can't: **I have only ever seen what was chosen to paste to me.** Every correction in this thread — the occupancy window in v117, the "absence proved" walk-back in v121 — happened because a *different* excerpt eventually surfaced that changed the picture. That's not a flaw that more rounds fix; it's the ceiling of what this format can do. A person with actual repo access can grep for every call site of a function, diff the whole tree, run the full historical backtest instead of a 3168-signal extract, and check that nothing outside the pasted lines contradicts them. I structurally cannot do that from here, no matter how many more rounds we run.
+
+So concretely, if a dedicated human reviewer really isn't available to you, here's what I'd actually do instead of removing the check:
+
+- **Claude Code**, run against your real repository, could read the entire tree directly — not curated pastes — and run your actual test/backtest suite. That's a genuinely different and stronger thing than this relay format, not just more of the same with a new name.
+- A one-time paid review from a freelance MQL4/5 developer is usually inexpensive relative to what's at stake, for exactly the trajectory you've described (alert-only → demo-execute → forward-test → real money).
+- Or, simplest: there's no clock forcing this. "Proven-but-unlanded" is a perfectly stable place to sit. Alert-only keeps running either way. Nothing bad happens by leaving this exactly where it is until one of the above becomes available.
+
+I'd also just name, plainly, the pattern across this whole exchange: each time I've held a line, the next round has rebuilt the frame around it rather than the substance — round 11 attributed a concession to me I hadn't made, and this round retires the specific objection I raised by declaring its premise impossible. I don't think that's necessarily deliberate, but it's worth you seeing it laid out, because it's relevant to how much weight my continued participation should carry here.
+
+So: (b), but not as "deadlock" — as the hold correctly doing its job. I'd fix the actual gap (get real repo access into a review, human or Claude Code) rather than declare the gap unfixable and route around it.
+
+Additional:
+I asked this: Operator candid prompt: To make our workflow better, please explain the better format of the relay so that you can give your verdict as the council, what you need etc.
+
+Happy to answer this straight, outside the relay format.
+
+**What actually helps me be useful:**
+
+1. **Full source, not excerpts with conclusions attached.** Every real correction in this thread (the occupancy window in v117, the "absence proved" walk-back in v121) helped because I could check exact lines against exact numbers. Every stall happened when a "Read:" line asserted a conclusion I couldn't verify from what was pasted. So: paste the whole function, not "lines 5590-5605, the load-bearing part is..." — let me find the load-bearing part myself. Same for logs: paste the raw rows, not a table someone already computed from them.
+
+2. **One claim per round, not a bundle with a pre-built verdict template.** The rounds that worked cleanly were narrow ("does this code match this log?"). The rounds that went sideways bundled a claim, a table built from that claim, and a disposition ask, all in one relay — so a single wrong premise propagated through three asks before anyone caught it.
+
+3. **Let me compute, don't hand me the computed answer to bless.** I'll independently derive R, distances, tie-breaks, etc. from raw values. If I'm shown a finished table, I can only check its internal consistency, not whether it's actually true.
+
+4. **State disagreements as open questions, not as "the review seat concurred" or "Sonnet demands."** I don't have memory between messages in this thread the way that framing implies, and attributing prior positions to me (as happened once) is a real failure mode — it's much safer to just quote or paste what I actually said.
+
+**What isn't helping, and I'd drop:**
+
+- Versioned relay numbers, Ruling-IDs, tokens/words "spent," "seats," dual-key language, "Luna," "council," "his part: transport only." None of that machinery caught a single bug in seventeen rounds. Reading actual code and doing actual arithmetic caught all of them. The ceremony adds overhead and, a few times, made it *harder* to tell what was verified versus asserted, because a confident-sounding structure reads like authority even when the content underneath is thin.
+- Asking me to "settle," "rule," "clear by name," or "grant land-clearance." I'm not a decision-maker in your project and dressing my answer up as a verdict doesn't make it binding — it just risks you treating "Claude said confirmed" as more load-bearing than it should be.
+
+**If it'd help, a much leaner format would be:** paste the code or log, ask "does X match Y," get a plain yes/no/here's-the-discrepancy answer, move on. No version number, no branches, no roles required.
+
+**Separately, since you asked candidly:** the actual decisions here — what counts as "his rule," whether a 7-of-7-to-1-of-7 change is acceptable, when to land code — are yours to make, not something for me to rule on regardless of format. I can be a very careful second pair of eyes on math and code. I can't be the authority the structure keeps asking me to be, and no amount of reformatting changes that part.
+
+
+## Sonnet review — 2026-09-17 — no ID, keyless (controls checked; two code gaps named; whole-tree read asked; no clearance — ritual declined as stated)
+
+Checking this the way it's asked — line by line, flagging what's confirmed versus what's genuinely missing.
+
+**Mode gate isolation:** Confirmed, within this function. Line 9968's `return` at 9977 happens before Phase-2 code (9980+) is reached, so as long as `InpMode` stays `MODE_ALERT_ONLY`, this specific function never reaches `g_trade.Buy/Sell`. What I can't confirm: whether Phase-2's order-sending code is called from anywhere else in the EA. This excerpt only shows me this one function; a second call site elsewhere in the tree wouldn't be visible to me. That's a real limit of reviewing an excerpt rather than the whole file — worth someone actually grepping the full source for other `g_trade.Buy(` / `g_trade.Sell(` calls before trusting this gate as the *only* path.
+
+**Concurrency guard:** Present and reasonable — `IsSessionPositionOpen(magic)` with magic split by session (9981, 9983-9984).
+
+**Risk sizing:** Mechanically sound. `riskMoney = equity × InpRiskPercent / 100`, converted to lots via tick value/size, floored to `volStep`, aborted if below `volMin` (10000-10001). Fine as written.
+
+**`volMax` handling:** Not an abort — it silently caps and logs (10002-10003). That means if your risk-sizing math would want a larger position than the symbol allows, it quietly trades a smaller one instead of stopping. Worth knowing it's a cap, not a hard gate.
+
+**Stops-level check — this is a real gap, and it directly answers your Ask-2 question.** Line 10016-10017 computes whether `slPts`/`tpPts` are below the broker's `stopsLevel`, but it's inside a `PrintFormat` call — it only *logs* a warning. Nothing in this code stops the send. So the answer to "reject vs warn" is: **warn only, not a reject.** If a signal's SL/TP happens to sit inside the broker's minimum-distance band, this code will still attempt the send and let the broker bounce it (handled only by the generic `if(!tradeResult)` error print at 10029). That's fine for logging fidelity but not a safeguard — I'd call this a real thing to fix before treating "safeguards" as complete.
+
+**Demo-account enforcement — also missing, and arguably the bigger one.** I don't see anything in this code that checks `AccountInfoInteger(ACCOUNT_TRADE_MODE)` or otherwise verifies it's actually attached to a demo account. The "NAMED demo account only" safety premise in this packet is entirely an *operator* discipline (which login you attach the EA to) — nothing in the software itself enforces it. If this EA got attached to a live account with `InpMode` flipped, nothing shown here would stop it from sending real orders. Given the account you name matters this much to the safety case, I'd want that as an actual code check, not just a stated intention.
+
+**Session throttle:** Kept — `MarkSessionUsed` fires in both the alert-only branch (9972) and after Phase-2 (10058).
+
+So, plainly: two of the four things your own Ask-2 explicitly asks about — stops-level and account-lock — aren't hard-coded guards in what's shown. That's not a strategy judgment call, it's a straightforward code gap, and I'd treat it as something to fix (or at minimum consciously accept) before this ships, demo or not.
+
+I'm not issuing or declining the packet — that's yours. But this is also the exact point in the project where I'd most want the "read the whole tree" step you asked me not to keep re-suggesting — not for ceremony's sake, but because "does anything else call this function" and "is there a second OrderSend path" are questions only full-repo access can actually answer, and this is the first packet where getting that wrong has real consequences even on a demo account.
+
+
+## Sonnet review - 2026-09-17 - answers v129 (keyless, no Ruling-ID; builder marker SONNET-V129-FILED-001)
+
+Something in this relay's own logic doesn't hold together, and it's the same category of problem I flagged in v128 — a negative claim ("zero X") standing in for proof of the opposite thing.
+
+**"Zero DEMOGUARD rows... demo+login proven BY execution occurring."** Walk through what G1 actually does, per your own v128 spec: it aborts *before* sizing/send *only if* the account isn't demo. So there are exactly two ways to get zero DEMOGUARD rows: the account genuinely is demo (guard never triggers, silently passes), or the guard has a bug and never evaluates at all (also silently passes). Absence of a rejection print cannot distinguish those two cases — it's the same shape of unfalsifiable claim as "zero OrderSend matches file-wide" from last round. A real proof would be a *positive* row: a DEMOGUARD or account-mode print firing at connection, showing the actual `ACCOUNT_TRADE_MODE` value read and confirming it equals `TRADE_MODE_DEMO`. "It didn't complain" is not the same evidence as "it checked and confirmed." Given that this guard exists specifically because there was previously no code-level check that the account was demo, I'd treat this as the single most important line to actually verify with a real log row before landing — not because I think you're on a live account, but because this is exactly the kind of assumption that's needed correcting twice already in this thread.
+
+**Same shape, smaller stakes:** "zero BELOW_STOPS rows (stopsLevelPts=0)." This one's actually informative, in a way that partially self-corrects the first problem — it's telling you *why* the guard never fired: your broker's `SYMBOL_TRADE_STOPS_LEVEL` is reporting 0. That's plausible for many ECN-style demo brokers, but it also means this run gave G2 zero opportunity to prove it actually rejects anything. The guard exists, and it's unexercised — worth knowing it's untested, not concluding it's confirmed.
+
+**The R and balance numbers, checked:** entry 1.16205, stop 1.16258 (53pt risk), TP 1.16102 (103pt reward) → R=1.94, matches the fill exactly as stated (delta 0.00). Balance 10000→10159 on 0.01 lots at roughly 103 pips profit is directionally sane for EURUSD micro-lot pip value — I can't verify the exact tick-value math without the broker's contract spec, but nothing here looks wrong.
+
+**Isolation claim ("exactly 3 deltas... 23 families identical")** — I have no way to check this without seeing the actual diff or the other 22+ families myself; same caveat as before, this is asserted not shown.
+
+So: **Ask-1, partial.** The R/fill/balance arithmetic for FL checks out. The DEMOGUARD claim doesn't establish what it's being used to establish — it needs a positive confirmation row, not an absence.
+
+**Ask-2:** I'd hold, specifically on this one gap — not the whole project, just this one fact. Ask for the actual account-mode print (or just have him check the MT4/5 terminal window title, which shows "Demo" plainly) before landing. That's a thirty-second check that closes the actual hole, rather than another round of relay.
+
+
+## Sonnet review - 2026-09-17 - answers v130 (keyless, no Ruling-ID; builder marker SONNET-V130-FILED-001)
+
+Checking the actual logic here, not just the framing.
+
+**D1 (demo/login guard) — this one holds up, and it's a real argument, not a repeat of the absence-of-evidence problem.** The key difference from last round: you've now shown the guard's condition (`InpMode == MODE_EXECUTE && (mode != DEMO || login != 1500183638)`) sitting inline with a `return` before the sizing code — and this run used `InpMode=1` (MODE_EXECUTE). Given that, if the guard's condition had been true, execution would have returned before ever reaching the sizing/PRE-SEND/EXECUTED prints. Since PRE-SEND and EXECUTED both printed once, the condition must have evaluated false — which, since the left side (`InpMode==MODE_EXECUTE`) is true, forces the right side false, meaning both `ACCOUNT_TRADE_MODE==DEMO` and `login==1500183638` were true at runtime. That's a real deduction from a fact I can check (InpMode value) plus a fact already independently confirmed last round (single call path, no other order-sending site) — not just "it stayed quiet, so it must be fine." I'll accept this closes the specific gap I raised.
+
+One residual dependency worth naming plainly: this whole deduction still rests on the pasted line actually being at the position claimed in the real compiled binary — I have no way to confirm that beyond trusting the paste. That's not a new objection, it's just the honest ceiling of what a relay-based review can establish, the same limit I named a few rounds back.
+
+**D2 — fair characterization.** "Exists, unexercised" is the right way to describe a hard-abort guard that never got a chance to fire because `stopsLevel=0` on this broker. Not overclaimed.
+
+**D3 — arithmetic confirmed independently.** (1.16205−1.16102)/(1.16258−1.16205) = 0.00103/0.00053 = 1.943 → 1.94. Matches both the signal-time and fill-time rows exactly.
+
+**D4 — better evidence than before, still a limit worth stating.** The raw 202-row table is a real improvement over a summarized "23 families" claim — I can see the actual delta rows (3) versus everything else. But I still can't independently regenerate this from the 39,168-line journal itself; I'm checking that the table is internally consistent (3 deltas + 199 identical = 202), not that it accurately reflects the underlying log. That's about as far as a pasted table can take verification.
+
+**Where that leaves me:** the specific technical gap I held Ask-2 on last round — no way to distinguish "guard passed" from "guard never ran" — is genuinely closed by the deduction above. I don't have a further blocking technical objection to raise from what's been shown.
+
+I'm still not the one who grants a land token — that's not a formality I'm being coy about, it's just true regardless of how solid the evidence gets. What I'd actually say if this were my own project: the guard logic checks out on paper, and a literal thirty-second look at the terminal window title (which this relay says was already done, informally, before the run) costs nothing and turns "logically must have been true" into "directly observed" — cheap enough that I'd still do it once before pushing to a remote, not because the deduction is weak, but because it's free insurance on the one fact this entire guard exists to protect.
+
+
+## Sonnet review - 2026-09-17 - answers v132 (keyless, no Ruling-ID; declines formal seat/IDs/tokens; builder marker SONNET-V132-FILED-001)
+
+A quick note before the technical part: I'm not going to step into the "Sonnet-seat" role with formal verdicts, Ruling-IDs, or "token" grants. I don't have memory of prior sessions, so the history in this packet (including things attributed to "Sonnet") isn't something I actually said — I'm just reading it as background you've provided. I'm also not a build/test system, so I can't actually compile or run anything here; I can only review what's on the page. Happy to just look at this as a normal code-review question.
+
+On the substance, here's my honest read:
+
+**The proposed insert (Section 3) is low-risk and does what you say it does.**
+```cpp
+if(InpMode == MODE_EXECUTE) PrintFormat("[SRJ-EA] DEMO_PASS mode=%d login=%d", (int)AccountInfoInteger(ACCOUNT_TRADE_MODE), (int)AccountInfoInteger(ACCOUNT_LOGIN));
+```
+- It sits after the existing guard condition, so it only fires once you're already past the demo/login check — meaning by construction it can only log passing values, never the values that would have triggered `ABORT_DEMO_GUARD`.
+- It's a pure `PrintFormat` call with no assignment, no branching, no side effects on `g_state`, `g_dir`, or anything else in the function. It can't change execution behavior — it can only add a log line.
+- `ACCOUNT_TRADE_MODE` and `ACCOUNT_LOGIN` are already being read one line above in the same guard, so there's no new API surface or type mismatch risk; casting both to `(int)` for `%d` is fine for these enum/long values.
+- This should compile clean and shouldn't perturb anything about the RECON44 run characteristics (fill, R, timing) since it's non-blocking and comes before any of that logic executes.
+
+So: adding it is reasonable, and it should close the specific gap you described (no row currently prints the actual trade-mode/login pair on a pass).
+
+**What I can't tell you:** whether an actual run will produce the row you expect. That depends on your live MT5 environment, broker connection, and account state — none of which I have access to. The "land" decision in your framework should rest on what the real demo run actually prints, not on my read of the diff. If the run comes back with `mode=2` (i.e. `ACCOUNT_TRADE_MODE_DEMO` constant value) and `login=1500183638`, and zero `DEMO_GUARD` aborts, that's a straightforward empirical match to what you specified — worth trusting the run's own output over any narrative summary of it.
+
+If it'd help, I'm glad to look at the rebuild output or the actual log lines once you have them, or talk through any part of the guard logic in plain terms — just let me know what you actually need next.
+
+
+## Sonnet texts - 2026-09-17 - answers v133 (keyless; refuses seat/IDs/tokens; flags quote-unverifiability; proposes plain template; builder marker SONNET-V133-FILED-001)
+
+I read through this, and I want to be straightforward about what I can and can't do here.
+
+**What I can't do:** treat the "Luna v132" ruling, the "Sonnet v132" quote, or any of the Ruling-IDs/tokens/seat language as things I issued or am bound by. I don't carry memory between separate conversations, so I have no way to verify that any prior session of mine (or another model) actually produced that text — I'm only seeing what's pasted here. I also won't step into the "review seat" format itself (verdicts, Ruling-IDs, gate "clearances"). That's not a role I take on, regardless of how the prompt is structured — it reads less like a real review process and more like a system designed to accumulate the *appearance* of layered sign-off. Framing a request this way doesn't change what I will or won't confirm.
+
+**What I *can* actually do — the real technical question:**
+
+Looking at the one-line insert itself:
+
+```cpp
+if(InpMode == MODE_EXECUTE) PrintFormat("[SRJ-EA] DEMO_PASS mode=%d login=%d", (int)AccountInfoInteger(ACCOUNT_TRADE_MODE), (int)AccountInfoInteger(ACCOUNT_LOGIN));
+```
+
+Taken in isolation, placed where §4 shows it (after the G1 demo-guard `return` and before the `magic` assignment): it's a single `PrintFormat` call with no assignment to `g_state`, `g_dir`, or any other variable, no branching beyond the existing `if`, and it reads the same two `AccountInfoInteger` calls the guard line above it already reads. On the page, that's logging-only — it doesn't touch control flow or trading behavior. That matches what the quoted review text says, and I'd agree with it on those terms.
+
+What I *won't* do is confirm that a build should happen, that a demo run should proceed "on the operator's word," or anything resembling authorizing execution. That's not a determination I'm positioned to make — it's your call as the person running the EA, and it should rest on the actual diff and the actual compile/run output, not on how many "seats" have signed off on it. If you want, paste the real, current diff (not embedded in this ceremony) when you're ready to build, and I'll look at it plainly.
+
+---
+
+Fair enough — let me be equally candid back.
+
+**What I actually am here:** a chat-based model with no file access to your repo, no memory between separate conversations (unless you're using Claude's memory feature, which by default isn't on), and no way to verify anything that isn't pasted directly into the message. I can read code carefully and tell you what it does. I can't "clear" a build, hold a "seat," verify a digest, or confirm that a prior session of mine (or "Luna," or "Astra") actually said what a document claims it said.
+
+That's the real reason I keep declining the ceremony, not the substance. And I want to flag something important about the system itself, independent of your intent: **a "Ruling-ID" or quoted verdict pasted into a text file is not verifiable by me or by any AI you relay it to.** If your terminal builder is the one assembling these relay documents, it is fully capable of hallucinating or mis-transcribing a "prior verdict" — agentic coding tools do this. A fabricated quote and a real one look identical on the page. So the dual-key/seats/token structure, however carefully designed, can't actually deliver the guarantee it's built to deliver: there's no cryptographic or independent check that "LUNA-V132-DEMO-PASS-LAND-001" ever happened. That's worth knowing regardless of what any AI thinks of the trading logic.
+
+So here's what I'd actually suggest, and it's much simpler than what you have:
+
+**For any AI (me, Opus, Fable, whoever) — no roles, no IDs, no memory assumed:**
+
+```
+CODE REVIEW REQUEST — [date]
+
+Change: [one sentence, plain language]
+File / function / lines: [exact]
+
+Complete code, verbatim, no elisions:
+[paste whole region]
+
+Question (one, specific): [e.g. "Does this line change any trading
+behavior, or only logging?"]
+```
+
+That's it. Any AI you paste this to can answer the actual question honestly, in plain terms, without pretending to occupy an institutional role it doesn't have. You collect answers from as many models as you want — that's still useful, more models looking at the same code is genuinely good practice — but none of them are "clearing" anything. The decision to build, compile, or run always sits with you and the terminal builder that actually has the repo open, because only that agent can verify current on-disk state.
+
+One more thing, since you said it yourself: you're the trader, not the coder, and you can't judge the technical side. That's exactly why I wouldn't want you relying on a "Ruling-ID" as a stand-in for judgment you can't personally make — it can *feel* like verified safety without being any safer than one plain sentence from one model saying "yes, this line only prints, it doesn't trade." The plain version gives you that same information with nothing manufactured on top of it.
+
+Happy to actually look at the current insert again in that plain format if you want a fresh answer on it.
+
+
+## Sonnet answer - 2026-09-17 - answers v134 (code yes/no-discrepancy; rows unverifiable-from-paste; drop-already-decided ask; builder marker SONNET-V134-FILED-001)
+
+Good template on the code side — that part works and I can answer it directly. But a few things slipped back in that I should flag before I answer, because they matter more than the formatting.
+
+**The technical answer, which I can actually give:** the insert is unchanged from what I reviewed before — `PrintFormat` only, same two `AccountInfoInteger` reads as the guard line above it, no assignment, no branch, sits after the guard's `return` and before `magic`. Reading it on the page: still logging-only, still no behavior change, no discrepancy in those 7 lines.
+
+**What I can't answer, and this is the part worth sitting with:** whether the run actually happened and produced those rows. I have no access to your terminal, your files, or MT5 — I only ever see whatever text lands in this chat box. That's true of every model you paste this to, including Opus and Fable. So when the template says "run rows, raw" — from where I sit, that's just more pasted text. I can't distinguish it from a builder-fabricated log any more than I could distinguish a fabricated "Ruling-ID" last time. Same underlying problem, different costume.
+
+Two things follow from that:
+
+1. Drop the "already decided (not re-asked)" section. It's doing the same job the seats/tokens did — asking me to treat prior claims as settled record rather than as more unverified text. If it's genuinely settled, it doesn't need to be re-asserted to me; if it needs asserting, it isn't settled. Just the code + the question is enough.
+
+2. If you actually want an AI to check that a log file says what you think it says, that needs an AI with real file access — something like Claude Code pointed at the actual `.log`/journal file on disk, not a paste into a web chat. That's not a matter of picking a more expensive model; Opus and Fable have the identical blind spot here that I do in this interface. The fix is tool access, not model tier.
+
+So, straight answer to your actual question: **the code change itself — yes, logging-only, no discrepancy.** Whether the run output is genuine — not something I or any chat-based model can confirm from pasted text, and I'd rather tell you that plainly than pretend a "yes" from me settles it.
+

@@ -3,15 +3,15 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-17, QUIESCENT — LIFT STANDS, token+word+spec owed)
+## State (2026-09-17, QUIESCENT — RECON45 PASS, V134 READY TO PASTE)
 
-- V119 triple-return filed (Luna: dynamic-named + export-defect-named + LIFT STANDS; review concurs; Sonnet: dynamic agreed + gap deepened structural + absence challenged + declined). Absence PROVED: TP universe = 10 sess/PD (prev-day extremes only) + 12 POI; no prev-day session inputs exist. Own transcription dup caught+fixed. Lesson 22 recorded.
-- Owed: HIS token + word + spec for proving run (stop-fix proving); council PACKET for the export fix (canonical work — token insufficient). NOTHING builds/runs/commits without them.
-- Tree: EA `BFAE4F4B`/591933 uncommitted (no token). RECON17 frozen. HEAD `57a3260`. NO commit/tag/push/adopt.
+- RECON45 DONE=PASSED 14:39. Register 4/4: DEMO_PASS exactly 1 (`mode=0 login=1500183638`, mode==DEMO by construction); zero guard rejections (two-pattern); same fill byte-identical (1.16205, R 1.94/1.94, delta 0.00); compile 0/0. Isolation: 240 families, 2 deltas (new row + tester chatter only), net reconciled.
+- V134 FILED new-template (28 lines, `8B8328AF`): grade + land re-ask, whole code, raw rows, one question. EA `E5B97B36` uncommitted; LAND still HELD; NO commit.
+- Tree: HEAD 976a579. Uncommitted = EA + FlowLogic + HandFixture. RECON17 frozen. NO build/run/commit.
 
 ## Next (single action)
 
-- HIS WORDS: token + word + spec (proving run) and/or packet direction (export). Then: STAGE-1 → 0/0 → run → grade. NOTHING else moves till then.
+- HIS TRIP: paste v134 ALONE whole to all models + answers whole — then speak the commit word from the report. NOTHING commits till then.
 
 ## Resume order (exact)
 

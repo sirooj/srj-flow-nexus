@@ -10512,3 +10512,1098 @@ The TP-rule ambiguity is resolved, while the data-source defect remains a separa
 
 **Review-seat final:** `LIFT STANDS + TP-DYNAMIC-NEAREST-POI + UPSTREAM-DATA-GAP`.
 
+
+## VERDICT LUNA-V120-TP-DATA-SOURCE-PACKET-001 2026-09-16 (answers v120)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V120-TP-DATA-SOURCE-PACKET-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V120-TP-DATA-SOURCE-PACKET-001`
+
+### Ask-1 — ISSUE BY NAME
+
+**Issued:** `TP-DATA-SOURCE-COMPLETE-001` — **PREV-DAY SESSION LIQUIDITY EXPORT + EA WIRING + SHADOW-FIRST PROVING PACKET**
+
+The packet is issued with these required components:
+
+**Export:** FlowLogic adds previous-day session H/L values as explicit export buffers using the existing session-buffer pattern.
+
+**EA wiring:** extend the `sessbufs` enumeration, swept/live filtering, and census coverage consistently across the EA-26 / EA-51 pattern.
+
+**Proving mode:** shadow-only reads and prints first; **no selection change** in the proving build.
+
+**Acceptance condition:** the filed `1.16102` must become representable and selectable as the nearest valid target when the rule conditions are satisfied; all other rows are pre-registered **zero-delta**. Any mismatch is `REPORT+HALT`.
+
+**Safety boundary:** alert-only; no live promotion is included in this packet. Live selection promotion requires a later, separate clearance.
+
+### Ask-2 — SCOPE
+
+**ALL FOUR SESSIONS SYMMETRIC: Asia / London / NY / PM, previous-day H/L.**
+
+The reason is structural rather than a preference for one session: the named defect is a **missing source category**, not merely a missing London value. The stated rule category is "nearest relevant session-liquidity level," while the current export universe omits previous-day session inputs altogether.
+
+A London-only export would make the specifically filed `1.16102` representable, but it would leave the source category only partially represented. The packet therefore defines the source family symmetrically across all four sessions while preserving the existing previous-day HIGH/LOW extremes separately.
+
+**No session is given a selection priority by this ruling.** Eligibility and nearest-target calculation remain governed by the existing rule.
+
+### Ask-3 — STAGING
+
+**SHADOW-FIRST.**
+
+The shadow build proves source availability, mapping, filtering, census coverage, and target attribution without changing live selection. Only after that proving record is accepted should a separate live-promotion ruling be considered.
+
+### Packet name
+
+`TP-DATA-SOURCE-COMPLETE-001 / PD-SESSION-HL-EXPORT-SHADOW-PROOF-001`
+
+**Disposition:** `ISSUED`
+**Scope:** `ALL-FOUR-SESSION SYMMETRIC`
+**Stage:** `SHADOW-FIRST`
+**Live selection change:** `NO`
+**Mismatch:** `REPORT+HALT`
+**Build/run/commit here:** `NONE`
+
+
+## VERDICT LUNA-V120-REVIEW-TP-SOURCE-PACKET-001 2026-09-16 (answers v120)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V120-REVIEW-TP-SOURCE-PACKET-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V120-REVIEW-TP-SOURCE-PACKET-001`
+
+**Ask-1 — ISSUE.**
+
+The named export defect warrants a packet covering both the missing FlowLogic source and the corresponding EA enumeration/filter/census wiring. The packet should remain shadow-first and carry the same mismatch → `REPORT+HALT` condition.
+
+**Ask-2 — ALL FOUR SESSIONS SYMMETRIC.**
+
+The defect is categorical: previous-day **session** liquidity is missing from the source universe. Restricting the export to London would close the particular filed example but would not fully represent the stated target category. Four-session symmetry closes the source-class gap without asserting that any one session is inherently preferred.
+
+**Ask-3 — SHADOW-FIRST.**
+
+The shadow stage is the appropriate proving boundary because it can demonstrate that the new exports are present, correctly attributed, filterable, and census-covered before they are allowed to influence target selection.
+
+### Joint ruling
+
+**`TP-DATA-SOURCE-COMPLETE-001`: ISSUED**
+**Export:** previous-day session H/L
+**Scope:** Asia + London + NY + PM
+**EA wiring:** enumeration + swept/live filters + census
+**First stage:** shadow-only
+**Acceptance:** `1.16102` representable/selectable where valid; otherwise zero-delta elsewhere
+**Failure:** `REPORT+HALT`
+**Live promotion:** separate later clearance
+**Current execution:** none.
+
+
+## VERDICT LUNA-V121-PREMISE-SOURCE-001 2026-09-16 (answers v121)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V121-PREMISE-SOURCE-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V121-PREMISE-SOURCE-001`
+
+### Ask-1 — PREMISE: **CONFIRMED, WITH ONE EVIDENTIARY QUALIFIER**
+
+The **code-level premise is confirmed**.
+
+`MtNearestTpTarget()` exhaustively walks the ten session/previous-day buffers and then the eligible POI lines, updating the best admissible target from that universe. The supplied source therefore establishes the relevant candidate universe; the previous-day contribution is only PDH/PDL, not a separate previous-day session-high/session-low family.
+
+On the 2026-09-08 10:05 row, the recorded admitted candidates include `PDL`, `LOL`, `Monthly-VWAP`, `Quarterly-POC`, `Quarterly-VWAP`, `Yearly-POC`, `FOMC-POC`, and `FOMC-VWAP`, with `Monthly-VWAP=1.16072` selected. `1.16102` is not among those admitted candidates.
+
+So the specific premise is:
+
+**`1.16102` is not an admissible TP source in the enumerated implementation universe.**
+
+That is stronger than merely saying "the census did not happen to choose it."
+
+One qualifier: the relay reproduces three `TPCENSUS` rows, while the statement that `1.16102` appears nowhere across all **366** census rows is asserted rather than reproduced row-by-row in this message. Therefore I accept the **enumeration/code proof directly** and the **full-census absence as filed record evidence**, but I would not call the 366-row absence independently re-audited from this pasted excerpt alone.
+
+### Ask-2 — PACKET: **STANDS**
+
+`PACKET` **STANDS**.
+
+The new source closes the premise challenge rather than introducing a defect in the packet. In particular, it removes the earlier ambiguity over whether an unobserved TP level might nevertheless exist as an unenumerated native input.
+
+The packet may therefore proceed to its already-defined **shadow-first** proving track. The premise should be recorded precisely as:
+
+**`TP-SOURCE-UNIVERSE-CLOSED: 10 session/PD extremes + eligible POI lines; 1.16102 not an admissible source.`**
+
+That does **not** convert `1.16102` into an EA-generated TP, nor does it prove that the user's manually selected TP is what the live EA should use. Those are separate propositions.
+
+### Final disposition
+
+**Premise:** `CONFIRMED — SOURCE ENUMERATION CLOSED`
+**`1.16102` in native TP candidate universe:** `NO`
+**Full 366-row census absence:** `ACCEPTED AS FILED; NOT INDEPENDENTLY REPLAYED HERE`
+**Packet:** `STANDS`
+**Band-aid/smoothing:** `NONE`
+**Build/run/commit:** `NOT PERFORMED / NOT AUTHORIZED BY THIS VERDICT`
+
+
+## VERDICT LUNA-V121-REVIEW-PREMISE-001 2026-09-16 (answers v121)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V121-REVIEW-PREMISE-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V121-REVIEW-PREMISE-001`
+
+### Ask-1
+
+**CONFIRMED.**
+
+The implementation itself defines the TP candidate universe being searched, and the supplied census identifies the 10:05 winner as `Monthly-VWAP 1.16072`. There is no source shown in the enumerated universe that could produce `1.16102`.
+
+The only reservation is evidentiary presentation: the complete 366-row census is claimed in the relay but not reproduced in full. That affects independent re-audit of the journal census, **not** the code-universe conclusion.
+
+### Ask-2
+
+**PACKET STANDS.**
+
+Sonnet's requested source has now answered the premise challenge: the question is no longer whether an unseen native TP source might exist in the EA. The source enumeration closes that possibility within the supplied implementation.
+
+The proper separation remains:
+
+**EA-native TP candidate ≠ user's manually chosen TP.**
+
+That distinction should survive into the shadow grade and should not be silently collapsed.
+
+**Review-seat disposition:** `STANDS / PROCEED TO THE ISSUED SHADOW PACKET`.
+
+
+## VERDICT LUNA-V122-PDSHADOW-PROMOTION-001 2026-09-17 (answers v122)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V122-PDSHADOW-PROMOTION-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V122-PDSHADOW-PROMOTION-001`
+
+### Ask-1 — ACCEPT
+
+**RECON42-PDSHADOW is ACCEPTED as graded.**
+
+The supplied grade is sufficient for the stated shadow result:
+
+* `SIDE1Y` **13/13 populated**.
+* The 2026-09-08 10:05 `pdLondonL` equals the filed user level **1.16102 exactly**.
+* Isolation is reported **delta-0 except SIDE1Y**.
+* Signals/A6 remain **7/7 identical**.
+* `liveTp` is row-identical.
+* The prior semantic is recorded as a **previous occurrence persisting past midnight until the session recurs**.
+
+The first launch being voided for a buffer-count defect and the fixed rerun retaining the same authority does not invalidate the supplied final grade.
+
+**Grade status:** `ACCEPTED / SHADOW-PROVEN`.
+
+---
+
+## Ask-2 — AUTHOR + CLEAR
+
+### Live-promotion design — AUTHORED
+
+**Design name:** `S1-TP-PROMOTION-001`
+
+The live take-path candidate is authored as follows:
+
+**1. Candidate source**
+Use the **shadow-best TP candidate** as the live target source.
+
+**2. Eligibility filter**
+The promoted candidate must use the specified **swept/live-bit extension**, so the TP source is evaluated under the same live/swept semantics rather than treating the shadow's unfiltered additions as automatically admissible.
+
+**3. Direction filter**
+Require **`inDir`** consistency with the live trade direction.
+
+**4. Zone filter**
+Apply the specified **zone-containment test** before admitting the candidate to the live take path.
+
+**5. Selection rule**
+Among candidates surviving those filters, use the shadow-best candidate under the same best-target comparison semantics.
+
+**6. No retroactive fallback**
+Do not silently substitute the former live winner when the promoted candidate fails the new eligibility conditions.
+
+**7. Non-goal preserved**
+The purpose remains **TP-source correction**, not optimization of unrelated signal behavior. The promotion therefore must not alter stop selection, birth, survival, or unrelated R-gate logic.
+
+This is an authored design, not a claim that the supplied table proves every implementation detail of the eventual code. The stated assumptions—particularly **liveTp mask-aware + eight new unfiltered candidates, with mask extension as the promotion design**—are part of the candidate specification rather than independently demonstrated by the promotion table.
+
+### Clearance
+
+**`S1-TP-PROMOTION-001` is CLEARED BY NAME.**
+
+Clearance is for exactly:
+
+**ONE live promotion build + ONE proving run.**
+
+The pre-registered grade register is the table supplied in v122. Its required first-order behavior is:
+
+| Seed             |    Live R | Promoted R | Required result        |
+| ---------------- | --------: | ---------: | ---------------------- |
+| FL 10:05         | 2.52 PASS |  1.94 PASS | **FIRE** at user's R   |
+| PR 08-28         | 2.43 PASS |  0.17 FAIL | **FLIP to FAIL**       |
+| DH 10:35         | 1.71 PASS |  0.54 FAIL | **FLIP to FAIL**       |
+| GQ 15:55         | 1.66 PASS |  0.99 FAIL | **FLIP to FAIL**       |
+| KO 09:15         | 1.76 PASS |  0.62 FAIL | **FLIP to FAIL**       |
+| JJ 16:40         | 2.34 PASS |  0.39 FAIL | **FLIP to FAIL**       |
+| OD 16:40         | 1.62 PASS |  0.05 FAIL | **FLIP to FAIL**       |
+| six failing rows |      FAIL |       FAIL | **ZERO-DELTA outcome** |
+
+Mismatch against that register is **REPORT + HALT**.
+
+The micro-distance/swept-semantics question remains explicitly **council-owned and unresolved offline**; this clearance does not silently resolve it.
+
+---
+
+## Ask-3 / disposition
+
+**CLEARANCE STANDS.**
+
+There is no basis in this relay to suspend the packet after the completed shadow proof. Accordingly:
+
+**Promotion packet:** `CLEARED`
+**Promotion design:** `AUTHORED`
+**Promotion scope:** `ONE BUILD + ONE PROVING RUN`
+**Grade register:** `PRE-REGISTERED`
+**Mismatch:** `REPORT + HALT`
+**Commit:** `NOT AUTHORIZED`
+**OrderSend:** `NOT AUTHORIZED`
+
+The separate **stop-fix proving track remains independent and unchanged**.
+
+
+## VERDICT LUNA-V122-REVIEW-PROMOTION-001 2026-09-17 (answers v122)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V122-REVIEW-PROMOTION-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V122-REVIEW-PROMOTION-001`
+
+**Ask-1 — ACCEPT.** The RECON42 shadow grade is accepted as supplied.
+
+**Ask-2 — AUTHOR + CLEAR.** The live design should wire the shadow-best target into the live take path, while imposing the stated swept/live-bit extension, zone-containment, and `inDir` filters. Those are the authored admissibility conditions. The promotion must preserve the stated non-goal and must not silently fall back to the old live target.
+
+**Ask-3 — CLEAR.** The promotion packet proceeds to its one-build/one-run proving stage. The table is the grade register; it is not a permission to reinterpret mismatches as acceptable deviations.
+
+### Joint ruling
+
+**`S1-TP-PROMOTION-001`: CLEARED BY NAME.**
+
+The fresh **token + word + proving specification** are now owed by the branch, subject to the stated dual-key/behavior-change controls. No build, run, or commit is performed by this ruling.
+
+
+## VERDICT LUNA-V123-PROMO-RECORD-LAND-001 2026-09-17 (answers v123)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V123-PROMO-RECORD-LAND-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V123-PROMO-RECORD-LAND-001`
+
+### Ask-1 — ACCEPT
+
+**ACCEPT the amended 14-row record.**
+
+The 13 registered rows remain **exact matches** to the prediction register, including the 10:05 FL fire at the filed levels and the six promoted FAIL flips at the stated R values. The six pre-existing FAIL rows are reported unchanged.
+
+The additional **IE 16:55 / seedBT 16:50** row is not treated as an unregistered silent pass. On the supplied record it is a **new, entailed FAIL row** produced by the already-ruled session-at-fire behavior: OD's failed candidate consumes nothing, the 16:45 birth returns, and the 16:55 evaluation is then R-killed under the promoted TP. Therefore the correct disposition is exactly the one stated:
+
+**14-row amended record = 13 registered exact rows + 1 entailed additional FAIL; accepted.**
+
+That extra row does **not** invalidate the promotion because it is a consequence of the previously established behavior rather than a mismatch in the promoted selection rule.
+
+**Grade:** `ACCEPTED / PROMOTION PROVEN`.
+
+---
+
+## Ask-2 — LAND-CLEARANCE
+
+**LAND-CLEARANCE IS GRANTED BY NAME.**
+
+`S1-TP-PROMOTION-001` is authorized to be landed as the **proven promotion binary** represented by:
+
+* EA: `9D123133`
+* FlowLogic: `BEC2CBBD`
+
+The authorized landing shape is the one specified in v123:
+
+**commit → annotate/tag → push linear main + both remotes → verify with `ls-remote`.**
+
+The authorization remains **alert-only** and expressly carries **NO ORDERS EVER**.
+
+This ruling does **not itself perform** the commit, tag, push, or remote verification. It grants the requested landing clearance; the actual repository operations remain the execution step.
+
+### Landing invariants
+
+The proven promotion must be landed **as proven**, without reopening or silently altering the tested behavior.
+
+The IE 16:55 row is part of the accepted post-run record and should remain documented as an **entailed FAIL**, not retroactively converted into a prediction-register row.
+
+No stop-fix behavior is included in this land. The stop-fix proving track remains separate and unaffected.
+
+---
+
+## Final disposition
+
+**Promotion record:** `ACCEPTED`
+**14-row amended grade:** `ACCEPTED`
+**Promotion:** `PROVEN`
+**Land clearance:** `GRANTED BY NAME`
+**Commit/tag/push:** `AUTHORIZED, NOT EXECUTED HERE`
+**Orders:** `NEVER / NOT AUTHORIZED`
+**RECON17:** `FROZEN`
+**Stop-fix:** `SEPARATE / UNCHANGED`
+
+
+## VERDICT LUNA-V123-REVIEW-LAND-001 2026-09-17 (answers v123)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V123-REVIEW-LAND-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V123-REVIEW-LAND-001`
+
+### Ask-1
+
+**ACCEPT.**
+
+The amended record is correctly characterized as **13 register-exact rows plus one additional entailed FAIL**. The IE row is a record-expansion consequence of the ruled session-at-fire behavior, not evidence that the promoted TP implementation deviated from its registered rule.
+
+### Ask-2
+
+**LAND-CLEARANCE: GRANTED.**
+
+The promotion has completed its proving cycle and the amended record is accepted, so the tested promotion can be landed under the specified repository procedure.
+
+The landing must preserve the tested artifact represented by EA `9D123133` + FlowLogic `BEC2CBBD`; no unreviewed behavioral modification is authorized as part of landing.
+
+**Review-seat final:** `ACCEPT + LAND-CLEAR`.
+
+No repository operation is performed by this response.
+
+
+## VERDICT LUNA-V124-ROWS-LAND-HOLD-001 2026-09-17 (answers v124)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V124-ROWS-LAND-HOLD-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V124-ROWS-LAND-HOLD-001`
+
+### Ask-1 — ROWS: **CONFIRMED FOR THE INLINE FL + IE EVIDENCE**
+
+The supplied Section 1 directly confirms the two rows that are actually reproduced here.
+
+**FL 2026-09-08 10:05:** `TPCENSUS` selects `YLOL=1.16102` at 103 points; `SIDE1X_STOPREF` has `entry=1.16205`, `liveStop=ruleStop=1.16258`, `liveTp=1.16102`, `liveR=1.94`, `livePass=1`; `A6FIRED` records the same TP and R; `MTEXIT` records `TP_TOUCH` at exactly `1.16102`. Thus the filed three-level match is directly demonstrated.
+
+**IE 2026-09-08 16:55:** `TPCENSUS` selects `YPML=1.16210`; `SIDE1X_STOPREF` records `liveR=0.19`, `livePass=0`; `SIDE1R_RGATE` records the same 0.19 R-kill. Thus the entailed extra row is directly demonstrated.
+
+The **Y-family merit** is also directly supported in those two rows: `YLOL` wins the FL census and `YPML` wins the IE census.
+
+So:
+
+**FL:** `CONFIRMED`
+**IE:** `CONFIRMED`
+**Y-family participation/winner:** `CONFIRMED`
+**Those two rows:** `CORRECT-OR-CORRECT`
+
+There is one explicit evidentiary boundary: the other five promotion rows **PR/DH/GQ/KO/JJ/OD** are referenced as filed elsewhere, but their raw rows are **not reproduced in this relay and were not located in the available Library material I could verify here**. Therefore I am not independently confirming those rows from this response. The row status for those six is:
+
+**PR, DH, GQ, KO, JJ, OD: FILED/ASSERTED, RAW ROWS UNSHOWN HERE.**
+
+That is the remaining unshown portion; it is not silently treated as independently verified.
+
+### Ask-2 — LAND: **HOLDS**
+
+**Land clearance HOLDS for human review.**
+
+The reason is evidentiary and procedural, not a finding that the promotion failed.
+
+The supplied record establishes a completed promotion proof, including the exact FL fire and the IE entailed FAIL, but the requested landing is a repository mutation affecting the canonical tree. The relay itself records Sonnet's demand that a reviewer see the **repo + history and the diff before any remote touch**. Given that second-eyes condition, the appropriate disposition is to hold the landing until that human review occurs.
+
+This is especially appropriate because the underlying stop branch historically contains a load-bearing direct assignment of the OB swing reference on the SHORT path, so repository-level review of the actual landed diff is materially useful rather than ceremonial.
+
+**Human review is HIS call**, as specified. No remote touch is authorized by this ruling.
+
+### Final disposition
+
+**FL + IE evidence:** `CONFIRMED`
+**Y-family merit:** `CONFIRMED`
+**Six other promotion rows:** `UNSHOWN HERE / FILED, NOT RE-AUDITED FROM THIS TURN`
+**Promotion proof:** `STANDS`
+**Land:** `HOLD FOR HUMAN REVIEW`
+**Commit/tag/push:** `NOT AUTHORIZED`
+**Orders:** `NONE / NEVER`
+**Stop-fix track:** `SEPARATE / UNAFFECTED`
+
+
+## VERDICT LUNA-V124-REVIEW-ROWS-LAND-001 2026-09-17 (answers v124)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V124-REVIEW-ROWS-LAND-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V124-REVIEW-ROWS-LAND-001`
+
+### Ask-1
+
+**Confirmed for the rows actually supplied.**
+
+FL is fully evidenced through census → stopref → R-gate → A6 → exit. IE is fully evidenced through census → stopref → R-gate. The Y-family wins on both supplied rows.
+
+I would **not** extend that confirmation to PR/DH/GQ/KO/JJ/OD without their raw records being visible to the reviewing seat.
+
+### Ask-2
+
+**HOLD.**
+
+The promotion remains proven-but-unlanded. The human reviewer should inspect the repository, history, and actual promotion diff before any commit, tag, or remote push.
+
+**Review-seat final:** `ROWS CONFIRMED WHERE SHOWN + LAND HELD FOR HUMAN SECOND-EYES`.
+
+No repository operation is performed here.
+
+
+## VERDICT LUNA-V125-EVIDENCE-CLOSED-LAND-HOLD-001 2026-09-17 (answers v125)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V125-EVIDENCE-CLOSED-LAND-HOLD-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V125-EVIDENCE-CLOSED-LAND-HOLD-001`
+
+### Ask-1 — EVIDENCE: **CLOSED**
+
+**YES — the evidentiary gap is closed on the supplied record.**
+
+The **LOL/YLOL point is now resolved directly**:
+
+At 2026-09-08 10:05, the swept/session mask is `live=0100`; the supplied code maps London indices 4/5 to `liveBit=11`, and the mask has that bit set. Therefore London is still forming and its live extreme is excluded from the target universe by the session-live filter. The census can still *display* LOL in its admitted print because the census walk is direction-only, but the live target selection applies the mask-aware filter. The selected target is consequently **YLOL 1.16102** at 103 points, not LOL. So the 10:05 FL result is explained by the actual filtering rule, not by an inference or coincidence.
+
+The six previously unshown rows are also now supplied directly:
+
+* **PR 2026-08-28 10:00 SHORT:** `pdPmL=1.16459`, 7-point distance.
+* **DH 2026-09-04 10:35 SHORT:** `pdPmL=1.16252`, 13-point distance.
+* **GQ 2026-09-04 15:55 LONG:** `pdLondonL=1.16188`, R `0.99`.
+* **KO 2026-09-07 09:15 LONG:** `pdPmH=1.16158`, 23-point distance.
+* **JJ 2026-09-07 16:40 LONG:** `pdNyH=1.16270`, 9-point distance.
+* **OD 2026-09-08 16:40 SHORT:** `pdPmL=1.16210`, 3-point distance.
+
+Those rows account for the six registered flips and supply the raw `SIDE1Y_PDSESS` evidence that was previously missing.
+
+### Row-by-row status
+
+**FL:** `CONFIRMED` — YLOL `1.16102`, R `1.94`, A6 FIRED, MTEXIT at `1.16102`.
+
+**IE:** `CONFIRMED` — YPML `1.16210`, R `0.19`, R-gate FAIL.
+
+**PR / DH / GQ / KO / JJ / OD:** `CONFIRMED` from the newly supplied six raw `SIDE1Y_PDSESS` rows, with the stated promotion outcomes.
+
+**LOL filter:** `CONFIRMED` — London live-bit set, therefore forming-session extreme excluded from the live TP selection.
+
+Accordingly:
+
+**EVIDENCE-CLOSED = YES.**
+
+---
+
+## Ask-2 — BLOCKER INVENTORY
+
+**Answer: (a) NOTHING BUT HUMAN REVIEW.**
+
+On the record supplied here, I find **no additional technical/evidentiary blocker** to the already-proven promotion.
+
+The prior hold is therefore correctly characterized as a **human-review hold**, not a hidden unresolved mechanics issue.
+
+That means the current state is:
+
+**Promotion:** proven
+**Evidence:** closed
+**Technical blocker:** none identified
+**Landing:** held solely for human second-eyes / repo+history review
+**Commit word:** not given
+**Commit/tag/push:** not authorized here
+
+The hold does **not** reopen the promotion grade, and it does not alter the separate stop-fix track.
+
+### Final disposition
+
+**`S1-TP-PROMOTION-001`: PROVEN**
+**Evidence package:** `CLOSED`
+**LOL/YLOL issue:** `RESOLVED`
+**All six missing flip rows:** `NOW SHOWN / CONFIRMED`
+**Further blocker:** `NONE IDENTIFIED`
+**Land:** `HOLD — HUMAN REVIEW ONLY`
+**Repository mutation:** `NOT PERFORMED`
+**Orders:** `NONE / NEVER`
+
+
+## VERDICT LUNA-V125-REVIEW-EVIDENCE-CLOSED-001 2026-09-17 (answers v125)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V125-REVIEW-EVIDENCE-CLOSED-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V125-REVIEW-EVIDENCE-CLOSED-001`
+
+### Ask-1
+
+**YES — CLOSED.**
+
+The newly supplied material closes both prior gaps: the London `liveBit=11` explanation establishes why LOL is not the live target, while YLOL is the selected 103-point candidate; and the six `SIDE1Y_PDSESS` rows directly expose the previously missing PR/DH/GQ/KO/JJ/OD evidence.
+
+No row remains unshown among the rows identified in the v124 hold.
+
+### Ask-2
+
+**(a) NOTHING BUT HUMAN REVIEW.**
+
+I find no additional evidentiary or technical blocker in v125. The remaining restriction is the already-stated human repository/history review before any landing.
+
+**Review-seat final:** `EVIDENCE CLOSED + HUMAN-REVIEW-ONLY HOLD`.
+
+The promotion remains proven-but-unlanded; nothing commits or pushes in this response.
+
+
+## VERDICT LUNA-V126-ROLES-STAGES-HOLD-REPLACE-001 2026-09-17 (answers v126)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V126-ROLES-STAGES-HOLD-REPLACE-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V126-ROLES-STAGES-HOLD-REPLACE-001`
+
+### Ask-1 — ROLES/STAGES: **CONFIRMED**
+
+**Correct-or-correct.**
+
+The record distinguishes the roles exactly as supplied:
+
+**He is:** trader, strategy author/owner, risk owner, and final decision-maker.
+
+**He is not:** coder or code reviewer.
+
+**Code questions:** council domain.
+**Strategy-rule gaps:** his domain.
+**Non-code review:** external seat.
+
+The stated development/deployment sequence is also internally clear:
+
+**ALERT-ONLY → EXECUTE-BUT-DEMO → FORWARD-TEST → real money far away.**
+
+And the current landing operation is correctly distinguished from execution: landing means putting the tested code onto the project tree while the system remains alert-only; it is not an order and does not introduce real-money exposure.
+
+**Roles:** `CONFIRMED`
+**Stages:** `CONFIRMED`
+**Current alert-only status:** `CONFIRMED`
+
+### Ask-2 — HOLD REPLACEMENT: **(a) VACATE**
+
+The human-review hold is **VACATED as a requirement for landing**, because the specified reviewer does not exist in the operator's actual capability set.
+
+That does **not** mean "no review." It means the review responsibility must be expressed through **attainable project gates** rather than an impossible human-code-review prerequisite.
+
+The replacement control is:
+
+**Shadow → Demo-execution → Forward-test**, with an adversarial Sonnet-with-source review at each round and **mismatch → HALT**.
+
+The stages remain distinct:
+
+**Shadow:** establish mechanism behavior without live execution.
+**Demo-execution:** prove the integrated alert/execution behavior in a non-real-money environment.
+**Forward-test:** evaluate the system under live-market conditions before any real-money consideration.
+
+No stage is skipped by this ruling, and successful completion of one stage does not automatically authorize the next.
+
+### Final disposition
+
+**Human-review hold:** `VACATED`
+**Replacement:** `STAGED GATES`
+**Current promotion evidence:** `STANDS`
+**Next gate:** `DEMO-EXECUTION PACKET`
+**Mismatch:** `HALT`
+**Sonnet adversarial review:** `REQUIRED EACH ROUND`
+**Commit word:** `NOT GIVEN`
+**Commit/tag/push:** `NOT EXECUTED HERE`
+**RECON17:** `FROZEN`
+
+This changes the **governance gate**, not the underlying promotion proof.
+
+
+## VERDICT LUNA-V126-REVIEW-HOLD-REPLACEMENT-001 2026-09-17 (answers v126)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V126-REVIEW-HOLD-REPLACEMENT-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V126-REVIEW-HOLD-REPLACEMENT-001`
+
+### Ask-1
+
+**CONFIRMED.**
+
+The operator owns strategy, risk, goals, and final say; the council handles code questions. The current stage is alert-only, with demo execution and forward testing preceding any eventual real-money consideration.
+
+### Ask-2
+
+**(a) VACATE.**
+
+The human-review prerequisite should not remain as an impossible standing condition when no human code reviewer exists in the stated operating model.
+
+The appropriate replacement is a **stage-gated verification chain**:
+
+**shadow-proven → demo-execution proving → forward-test proving**, with source-grounded adversarial review and explicit halt conditions at each stage.
+
+This preserves independent scrutiny without assigning the operator a technical-review role he has explicitly stated he does not occupy.
+
+**Review-seat final:** `VACATE HOLD + STAGED-GATES GOVERN`.
+
+No repository mutation occurs in this ruling.
+
+
+## VERDICT LUNA-V127-DEMO-PACKET-SCOPE-001 2026-09-17 (answers v127)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V127-DEMO-PACKET-SCOPE-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V127-DEMO-PACKET-SCOPE-001`
+
+### Ask-1 — DEMO-EXECUTION PACKET: **ISSUE, BUT WITH TWO PRE-BUILD GATES**
+
+I issue the packet by name:
+
+**`DEMO-EXECUTION-PACKET-001`**
+
+It is **demo-only**, and its proving objective is:
+
+**enable `MODE_EXECUTE` only on one explicitly identified demo account, then prove signals → attempted fills → actual fills/retcodes/SL/TP/realized results with mismatch → REPORT+HALT.**
+
+The supplied code does establish a genuine Phase-2 execution path. In `MODE_ALERT_ONLY`, execution returns before Phase 2. In execute mode, the code derives the session magic, checks for an already-open session position, computes entry/risk/volume, prints stop/freeze/spread values, and then calls `Buy()` or `Sell()`. It also records the broker result and computes `R_executed` versus the signal-time R.
+
+But **two things are not proven by the supplied region and therefore remain packet gates**:
+
+**1. Named-account lock is not shown.**
+There is no account-login/identifier comparison in the supplied Phase-2 region. I will not invent one. The demo packet therefore requires the exact demo-account login to be recorded before the build is authorized.
+
+**2. Stops-level handling is presently a warning, not a hard safeguard.**
+The code prints `BELOW STOPS LEVEL, broker will likely reject` when SL or TP is below the broker's stops level, but it does **not** abort before `Buy()`/`Sell()`. So the current implementation does not establish the requested hard stop-distance gate.
+
+Accordingly, the packet is **issued**, but the build gate is not yet satisfied for those two items.
+
+---
+
+### Ask-2 — SCOPE / SAFEGUARDS
+
+| Control               | Determination from supplied Phase-2 source                                                                                                                                                         |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Account lock**      | **NOT SHOWN.** Exact demo login must be recorded; I will not invent it.                                                                                                                            |
+| **Magic per session** | **YES.** London uses `InpMagicBase + 1`; non-London session uses `InpMagicBase + 2`.                                                                                                               |
+| **Concurrency guard** | **YES.** `IsSessionPositionOpen(magic)` aborts before a new trade.                                                                                                                                 |
+| **Risk percent**      | **CODE USE CONFIRMED; VALUE NOT SHOWN.** Risk is `ACCOUNT_EQUITY * InpRiskPercent / 100`. The actual configured `InpRiskPercent` must therefore be taken from the demo configuration, not guessed. |
+| **Volume controls**   | **YES.** Volume is stepped down to `volStep`, rejected below `volMin`, and capped at `volMax`.                                                                                                     |
+| **Stops-level**       | **WARN-ONLY.** `stopsLevelPts` is read and printed, but there is no hard rejection in the shown code.                                                                                              |
+| **Freeze level**      | **OBSERVED/LOGGED, NOT A GATE.** It is printed but not used to reject execution.                                                                                                                   |
+| **Session throttle**  | **YES IN THE SHOWN PATH.** `MarkSessionUsed()` runs after execution attempt, while alert-only also marks the session used before returning.                                                        |
+| **Order path shown**  | **`CTrade.Buy()` / `CTrade.Sell()` shown.** The supplied region alone does **not prove that no other execution path exists elsewhere in the EA.**                                                  |
+
+That last distinction matters. The packet can test the shown Phase-2 path, but the supplied region is insufficient to certify **"there is no other OrderSend/order-submission path anywhere in the program."** That is a source-coverage question, not something I will infer from absence in this excerpt.
+
+### Therefore
+
+**Packet:** `ISSUED`
+**Demo-only:** `YES`
+**Build authorization:** `BLOCKED pending exact demo-login lock + hard stops-level decision`
+**Risk percent:** `CONFIG VALUE REQUIRED; NOT INVENTED`
+**Other execution-path absence:** `NOT PROVEN FROM THIS REGION`
+**No real-money execution:** `REQUIRED`
+
+The next proving packet must also pre-register the signal-to-fill comparison, including `entry`, `slRef`, `tpTarget`, `R_logged_at_signal`, `fill`, `R_executed`, broker retcode, and any SL/TP rejection.
+
+
+## VERDICT LUNA-V127-REVIEW-DEMO-PACKET-001 2026-09-17 (answers v127)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V127-REVIEW-DEMO-PACKET-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V127-REVIEW-DEMO-PACKET-001`
+
+**Check — Phase-2 path exists:** **YES.**
+
+**Check — alert-only gate exits before shown execution block:** **YES.**
+
+**Check — magic/concurrency/volume/session-throttle controls are present:** **YES.**
+
+**Discrepancy — account-specific demo lock:** **NOT SHOWN.**
+
+**Discrepancy — stops-level is hard-gated:** **NO. It is warning-only in the supplied region.**
+
+**Check — exact `InpRiskPercent` value:** **NOT DETERMINABLE FROM SUPPLIED SOURCE.**
+
+**Check — no other order path exists in the whole EA:** **NOT PROVEN BY THIS REGION.**
+
+**Review-seat result:** `PACKET MAY STAND, BUT TWO PRE-BUILD GATES REMAIN: ACCOUNT-LOCK + STOP-LEVEL CONTROL.`
+
+No build, execution, commit, tag, or push is performed by this ruling.
+
+
+## VERDICT LUNA-V128-GATES-GUARDS-001 2026-09-17 (answers v128)
+
+## Luna — 2026-09-17 — Ruling-ID: `LUNA-V128-GATES-GUARDS-001`
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V128-GATES-GUARDS-001`
+
+### Ask-1 — GATE-EVIDENCE: **ACCEPTED AS FILED**
+
+The supplied whole-tree evidence supports the requested line-by-line findings:
+
+**Single order path:** accepted as filed — `g_trade.Buy` and `g_trade.Sell` are the only EA trade calls, with zero file-wide `OrderSend` / `OrderSendAsync` / `MqlTradeRequest` matches and the stated single `EvaluateClosedBar` call chain.
+
+**Risk:** `InpRiskPercent = 1.0` — accepted as filed.
+
+**Magic:** `InpMagicBase = 773000`, with London `+1` / NYAM `+2` — accepted as filed.
+
+**Mode:** default `MODE_ALERT_ONLY` and clean tester-INI with no override — accepted as filed.
+
+**Includes:** no matching alternate trade paths in the stated include set — accepted as filed.
+
+**FlowLogic:** indicator-only and therefore not an additional trading path — accepted as filed.
+
+So the V127 questions about sizing, magic separation, default mode, configuration cleanliness, and alternate EA order paths are now **closed on the supplied whole-tree proof**.
+
+I am treating those as **filed-authoritative**, not independently executing another repository scan in this response.
+
+---
+
+### Ask-2 — GUARD-RULE: **RULED BY NAME**
+
+#### `G1 — DEMO-ACCOUNT GUARD`
+
+**RULED: ACCEPT.**
+
+Place the trade-mode check **first inside Phase 2**, before magic, concurrency, sizing, or send:
+
+`MODE_EXECUTE` + account trade mode not `TRADE_MODE_DEMO` → **print + abort**.
+
+That is the correct boundary because it prevents any sizing or order-submission work from occurring on a non-demo account.
+
+The **named-login lock is a separate control** and remains operator-recorded. The actual login value is not present in v128 itself, so I will not invent it.
+
+#### `G2 — STOPS-HARD`
+
+**RULED: ACCEPT.**
+
+Replace the existing warning-only behavior with:
+
+`slPts < stopsLevelPts || tpPts < stopsLevelPts` → **print + abort**.
+
+Thus broker rejection is no longer relied upon as the safety mechanism.
+
+`freezeLevelPts` remains **observe/log only**, exactly as proposed.
+
+#### `G3 — VOLMAX`
+
+**RULED: KEEP AS CODED.**
+
+Retain the existing `volMax` cap-and-log behavior. No change is authorized merely to remove the stated nuance.
+
+### Existing safeguards
+
+**KEEP:** session throttle, concurrency guard, and per-session magic split.
+
+---
+
+## Clearance status
+
+The **guard design is ruled**, but the **build remains blocked** because the required named-demo-account fact has not actually been supplied in this relay.
+
+So the exact disposition is:
+
+**Gate evidence:** `CLOSED / ACCEPTED`
+**G1:** `RULED`
+**G2:** `RULED`
+**G3:** `RULED / KEEP`
+**Named demo login:** `REQUIRED / VALUE NOT PRESENT HERE`
+**Build:** `BLOCKED UNTIL LOGIN IS RECORDED`
+**Demo-only condition:** `MANDATORY`
+**Real-money execution:** `NOT AUTHORIZED`
+
+Once the actual demo login is recorded, the already-ruled guard packet does **not** need another conceptual re-argument; the next branch is the specified token + word → build → 0/0 → demo proving run.
+
+
+## VERDICT LUNA-V128-REVIEW-GUARDS-001 2026-09-17 (answers v128)
+
+## Review seat — 2026-09-17 — Ruling-ID: `LUNA-V128-REVIEW-GUARDS-001` (self-labeled Model: GPT-5.6 Luna; filed in the Luna stream)
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V128-REVIEW-GUARDS-001`
+
+**Check — whole-tree single trade path:** **YES, as filed.**
+
+**Check — risk 1.0 / magic 773000 / default alert-only / clean INI:** **YES, as filed.**
+
+**Check — G1 demo-mode abort:** **YES.**
+
+**Check — G2 stops hard reject:** **YES.**
+
+**Check — G3 volmax cap retained:** **YES.**
+
+**Discrepancy:** **actual named demo-account login is not present in v128.**
+
+**Review-seat result:** `GUARD SHAPES ACCEPTED; BUILD REMAINS BLOCKED ONLY BY THE MISSING ACCOUNT-LOGIN RECORD.`
+
+No build, run, commit, tag, push, or account action is performed by this ruling.
+
+
+## VERDICT LUNA-V129-DEMO-GRADE-LAND-001 2026-09-17 (answers v129)
+
+## Luna — whole verdict
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V129-DEMO-GRADE-LAND-001`
+
+### Ask-1 — ACCEPT
+
+**RECON44-DEMO is ACCEPTED as graded.**
+
+The supplied 13+1? Let's parse: FL fires + 13 FAIL rows identical. V123 had 14-row promotion record; here "13 FAIL rows identical" perhaps total 14 rows including FL. They say zero DEMOGUARD, zero below stops, fill, etc. The grade matches the proving target:
+
+**FL:** fires at `R=1.94`, `SL=1.16258`, `TP=1.16102`.
+
+**Demo guard:** zero rows, consistent with the proven demo account and execution occurring.
+
+**Stops guard:** zero `BELOW_STOPS` rows, with `stopsLevelPts=0`.
+
+**Fill:** `1.16205`, `R_executed=1.94`, `R_logged=1.94`, `delta=0.00`, `lots=0.01`.
+
+**Outcome:** `A6 + MTEXIT TP_TOUCH`, exit `1.16102`.
+
+**Other registered rows:** the 13 FAIL rows remain identical.
+
+**Isolation:** exactly the three stated mode/execution changes, with the 23 families otherwise identical.
+
+So the demo proving run establishes the intended promotion + demo-execution chain without an observed sizing/R discrepancy or stop-level rejection in this run.
+
+**Grade:** `ACCEPTED / DEMO-PROVEN`.
+
+---
+
+## Ask-2 — LAND TOKEN
+
+**LAND TOKEN: GRANTED.**
+
+The proven tree state may now be landed:
+
+**EA:** `FC6AC694`
+**FlowLogic:** `BEC2CBBD`
+
+Authorized landing sequence:
+
+**snapshot → commit → annotated tag → push linear main + both remotes → `ls-remote` verification.**
+
+The landing remains bounded to the tested demo/alert-only project stage. It is **not authorization for real-money trading** and does not itself submit an order.
+
+The next **forward-test packet is a separate stage** and is not implicitly cleared by this token.
+
+### Final disposition
+
+**RECON44-DEMO:** `ACCEPTED`
+**Promotion:** `PROVEN`
+**LAND TOKEN:** `GRANTED`
+**Target tree:** `FC6AC694 + BEC2CBBD`
+**Commit/tag/push:** `AUTHORIZED BY TOKEN; NOT EXECUTED HERE`
+**Real-money execution:** `NOT AUTHORIZED`
+**Next stage:** `FORWARD-TEST PACKET`, separately
+
+The independent stop-fix proving track remains unaffected.
+
+
+## VERDICT LUNA-V129-REVIEW-DEMO-LAND-001 2026-09-17 (answers v129)
+
+# Review seat — whole verdict
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V129-REVIEW-DEMO-LAND-001`
+
+**Check — demo grade:** **YES.**
+
+The reported fill, exact `R=1.94` reconciliation, zero demo-guard rows, zero stops-level violations, unchanged FAIL rows, and stated isolation result satisfy the supplied demo proving register.
+
+**Check — land:** **YES.**
+
+The proven tree state `FC6AC694 + BEC2CBBD` may proceed to the specified snapshot/commit/tag/push/`ls-remote` sequence.
+
+No repository operation is performed by this ruling.
+
+
+## VERDICT LUNA-V130-DEMO-RECORD-LAND-002 2026-09-17 (answers v130)
+
+## Luna — whole verdict
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V130-DEMO-RECORD-LAND-002`
+
+### Ask-1 — ACCEPT: **YES, WITH THE CORRECTION PRESERVED**
+
+I **ACCEPT the corrected record as stated**.
+
+The four Sonnet dispositions are now properly separated:
+
+**D1 — `ADOPTED-WITH-CORRECTION`.**
+The guard was actually evaluated because `InpMode=MODE_EXECUTE`, and the downstream `PRE-SEND` and `EXECUTED` records establish that execution passed the guard in that invocation. The remaining evidentiary gap is narrower: there is still **no positive journal row printing the actual `ACCOUNT_TRADE_MODE` and login values** from the guard evaluation itself. The pre-run login/title evidence addresses the login identity, but not the requested positive mode-value print.
+
+**D2 — `ADOPTED AS FILED LIMIT`.**
+The stops guard is a hard abort in the current tree, but this particular run did not exercise rejection because `stopsLevelPts=0` while SL/TP distances were 53/103 points. So `G2` is **present and unexercised**, not falsely labeled “proven by this run.”
+
+**D3 — `CONCURRED`.**
+The R arithmetic, fill, and balance evidence reconcile as stated.
+
+**D4 — `ANSWERED`.**
+The full isolation table closes the earlier “asserted-not-shown” gap: three deltas and 199 identical rows.
+
+So the **record is accepted precisely with those qualifications**. No smoothing is applied.
+
+### Ask-2 — LAND TOKEN: **HOLD**
+
+The land token remains **HOLD**, for **one specific evidentiary reason only**:
+
+**The positive `ACCOUNT_TRADE_MODE=TRADE_MODE_DEMO` value requested by Sonnet has still not been printed/proven directly in the execution journal.**
+
+The current evidence proves that the combined demo/login guard did not abort in the executed invocation, because execution reached `PRE-SEND` and `EXECUTED`. But that does not independently expose the two predicate values. The login was separately evidenced; the trade-mode value itself remains unprinted.
+
+I therefore will not convert an inference into the exact positive-row proof that was requested before canonical landing.
+
+This is **not** a technical finding against the guard, and it does **not** reopen the completed demo grade. It is a **landing-evidence hold**.
+
+### Exact next gate
+
+A narrow, closed-set evidence packet can clear this without redesigning the guard:
+
+**one canonical edit → rebuild → one demo proving run → one positive guard-pass row containing the actual trade mode and login values.**
+
+No other behavior change is needed for that packet.
+
+### Final disposition
+
+**D1:** `ACCEPTED-WITH-CORRECTION`
+**D2:** `ACCEPTED-LIMIT / UNEXERCISED`
+**D3:** `ACCEPTED`
+**D4:** `ACCEPTED`
+**Demo proving result:** `STANDS`
+**Promotion:** `PROVEN`
+**Land token:** `HELD — POSITIVE ACCOUNT_TRADE_MODE EVIDENCE`
+**Commit/tag/push:** `NOT AUTHORIZED`
+**Stop-fix:** `SEPARATE / UNAFFECTED`
+
+
+## VERDICT LUNA-V130-REVIEW-DEMO-LAND-002 2026-09-17 (answers v130)
+
+# Review seat — whole verdict
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** `LUNA-V130-REVIEW-DEMO-LAND-002`
+
+**Check — corrected D1/D2/D3/D4 record:** **YES.**
+
+**Discrepancy:** **positive execution-time `ACCOUNT_TRADE_MODE=TRADE_MODE_DEMO` value is still not directly shown.**
+
+**Check — login identity separately evidenced:** **YES, as filed.**
+
+**Check — execution reached PRE-SEND/EXECUTED, excluding “guard never evaluated”:** **YES.**
+
+**Check — G2 was exercised as a rejection test:** **NO; unexercised because stops level was zero.**
+
+**Review-seat result:** `RECORD ACCEPTED; LAND REMAINS HELD ON THE SINGLE POSITIVE-MODE-EVIDENCE GAP.`
+
+No commit, tag, push, or further execution is performed by this ruling.
+
+
+## VERDICT LUNA-V132-DEMO-PASS-LAND-001 2026-09-17 (answers v132)
+
+The v132 packet supports issuance of exactly the narrow edit/run described in §3, and the proposed register is sufficient to test the single remaining LAND-held gap without changing trading behavior.
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** **LUNA-V132-DEMO-PASS-LAND-001**
+
+### Ask-1 — ISSUE
+
+**CLEAR.**
+
+Issue the §3 packet exactly as specified:
+
+**one canonical logging-only insert → rebuild → one demo proving run → grade.**
+
+The proposed `DEMO_PASS` line is placed immediately after the existing G1 demo/login guard and before magic/concurrency/sizing/send. Therefore it does not alter the guard, execution decision, sizing, stops logic, or order-send path. The existing guard remains the first execute-mode gate.
+
+The required evidence is appropriately narrow: one positive `DEMO_PASS` row carrying the actual `ACCOUNT_TRADE_MODE` and `ACCOUNT_LOGIN` values, using the recorded demo login `1500183638`; no additional behavioral change is called for.
+
+This is therefore an issuance clearance only. It does **not** spend the separate run token/word, and it does not authorize any additional build, run, commit, or scope expansion.
+
+### Ask-2 — GRADE REGISTER CONFIRMATION
+
+**CONFIRM.**
+
+The §3 register is the correct LAND gate:
+
+1. **At least one `DEMO_PASS` row** with `mode == ACCOUNT_TRADE_MODE_DEMO` and `login == 1500183638`.
+2. **Zero `DEMO_GUARD` aborts** in the run.
+3. **Same proven gate/fill result**, including the prior positive FL signal and fill record.
+4. **Compile = 0 errors / 0 warnings.**
+
+The positive row and zero-abort condition test complementary sides of the gate: a passing execution must produce the new row, while a failed G1 would exit through `GoAbort()` and print `ABORT reason=DEMO_GUARD`.
+
+### Scope ruling
+
+**ISSUE → BUILD/RUN ON THE SEPARATE TOKEN+WORD → GRADE → LAND RE-ASK.**
+
+No amendment is required on the supplied evidence packet. The requested packet remains closed-set, single-edit, single-run, and targeted solely at the currently stated gap: the absence of a journal row proving the actual trade mode and login on the G1 pass path.
+
+**Verdict: CLEAR / CONFIRM / NO FURTHER BLOCKING OBJECTION.**
+
+This leaves the existing LAND hold intact until the specified proving run produces the required positive row and register results; nothing in this verdict itself executes or commits the change.
+
+
+## VERDICT LUNA-V133-EXEC-GATE-CONFIRM-001 2026-09-17 (answers v133)
+
+## v133 Verdict — Luna
+
+**Model:** GPT-5.6 Luna
+**Date:** 2026-09-17
+**Ruling-ID:** **LUNA-V133-EXEC-GATE-CONFIRM-001**
+
+### Ask-1 — Execution gate: **CONFIRM**
+
+The issued scope is exactly the one described: **one edit → rebuild → one demo proving run → grade against the confirmed register → return for LAND re-ask**. Nothing else moves. The relay explicitly limits the ask to that execution sequence and states that no build, run, commit, or token/word is spent by the review itself.
+
+The prior clearance embedded in the packet also defines the same narrow issuance boundary: logging-only insert, then separate-token/word build and run, with LAND held until the actual run produces the required evidence.
+
+### Ask-2 — §3 insert merits: **YES**
+
+The proposed insert does what §3 claims: it is a single `PrintFormat` statement conditioned on `InpMode == MODE_EXECUTE`, reading `ACCOUNT_TRADE_MODE` and `ACCOUNT_LOGIN` solely for output. It performs no assignment, state transition, branch affecting trading behavior, order operation, or sizing/send change. The insert is explicitly located immediately after G1 and before the downstream execution logic.
+
+The surrounding execution path remains unchanged in the supplied packet: concurrency, sizing, stops gate, and the single Buy/Sell send site follow the insert.
+
+**Verdict: CONFIRM / YES.**
+
+The appropriate next state under this relay is therefore **builder waits for the operator's spoken run word, then performs only the issued one-edit build + one demo run, returns the compile log and raw rows, and the LAND question is re-asked from those actual results.**
+
+
+## Luna answer - 2026-09-17 - answers v134 (plain yes, no Ruling-ID volunteered; builder marker LUNA-V134-FILED-001)
+
+yes — no discrepancy. L9984-9990.
+
