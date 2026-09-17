@@ -59,6 +59,12 @@ input double InpMinRewardRisk   = 1.0;
 input group "Diagnostics"
 input bool   InpDebugLog        = false;
 
+//--- [FP-LIMBSEAT-1 S2-1] limb-class switches for the selection
+//--- enumeration (all ON per frozen packet; legacy always on).
+input bool   InpSelL1           = true;
+input bool   InpSelL2           = true;
+input bool   InpSelL3           = true;
+
 //--- [P-ADOPT-1 E50] firmware ADOPT_EXT1, default false (run A: present
 //--- and dormant — not one new read executes; run B flips it true).
 //--- A Tester ini never sets it unless the run-B packet says so.
@@ -181,6 +187,16 @@ enum ENUM_MT_EXIT
 #define FL_BUF_NY_LOW       15
 #define FL_BUF_PM_HIGH       16
 #define FL_BUF_PM_LOW       17
+// [TP-DATA-SOURCE-COMPLETE-001] prev-day session H/L (FlowLogic buffers 40-47).
+// SHADOW-ONLY reads in the shadow stage; promotion wires them live per packet.
+#define FL_BUF_PD_ASIA_HIGH    40
+#define FL_BUF_PD_ASIA_LOW     41
+#define FL_BUF_PD_LONDON_HIGH  42
+#define FL_BUF_PD_LONDON_LOW   43
+#define FL_BUF_PD_NY_HIGH      44
+#define FL_BUF_PD_NY_LOW       45
+#define FL_BUF_PD_PM_HIGH      46
+#define FL_BUF_PD_PM_LOW       47
 #define FL_BUF_SWEEP_TAG     18
 #define FL_BUF_HTF_HIGH      19
 #define FL_BUF_HTF_MID       20
@@ -210,6 +226,11 @@ enum ENUM_SRJ_DIR     { DIR_NONE=0, DIR_LONG=1, DIR_SHORT=-1 };
 enum ENUM_SRJ_REGIME  { REGIME_NONE=0, REGIME_TREND=1, REGIME_MEANREV=2, REGIME_BOTH=3 };
 enum ENUM_SRJ_SESSION { SESSION_NONE=0, SESSION_LONDON=1, SESSION_NYAM=2 };
 enum ENUM_SRJ_SLMODE  { SL_MODE_NONE=0, SL_MODE_1SWING=1, SL_MODE_2SWING=2 };
+//--- [FP-LIMBSEAT-1] HAND expectations/labels fixture. Included HERE (not
+//--- at top) because it needs ENUM_SRJ_DIR above. Test-import-only: its
+//--- only consumers are the EA's tester-diagnostic print/compare paths;
+//--- no selection, memo, working-set or state path may call it.
+#include <SRJ\SRJ_HandFixture.mqh>
 
 //====================== [P-EXITMODEL] the managed trade (spec section 5) =============
 // Declared HERE (after the EA's own ENUM_SRJ_* block) because SManagedTrade carries
@@ -282,6 +303,9 @@ void MtReset()
 #define ABORT_SESSION_CLOSED   "SESSION_CLOSED"
 #define ABORT_LOT_TOO_SMALL    "LOT_TOO_SMALL"
 #define ABORT_CONCURRENCY      "CONCURRENCY_LIMIT"
+//--- [S1-DEMO-GUARD-001] demo-guard abort reasons (Luna V128 clearance; run on token+word).
+#define ABORT_DEMO_GUARD       "DEMO_GUARD"
+#define ABORT_BELOW_STOPS      "BELOW_STOPS"
 //--- TASK 21 (EA-21): S5_NO_SL_REF and S5_NO_TP_TARGET previously aborted
 //--- with reason=TP_RR_FAIL, which misattributes the cause in the journal.
 //--- These two codes are diagnostic only Ã¢â‚¬â€ no gate reads a reason string.
@@ -1021,6 +1045,12 @@ int              g_n1_pocSurv  = 0;
 int              g_n1_pocInv   = 0;
 int              g_n1_exitBodySurv = 0;
 int              g_n1_exitBodyInv  = 0;
+int              s1g_nSeed      = 0;   //--- [SIDE1G] recon counters (print-only tally)
+int              s1g_nProf      = 0;
+int              s1g_nV3        = 0;
+int              s1g_legDir     = 0;   //--- seed-block capture (assigned at seed, read in shadow)
+int              s1g_seedBiasAl = -1;  //--- [STAGE-D-S2-RGATE-001] seed-bias capture (assigned at seed beside SIDE1T, read in RGATE link print only; -1 = never-seeded guard)
+int              g_s2_seedShift = -1;   //--- [STAGE-C E-C05] exact-seed bar carriage for the live vote (seed block writes, resolver reads)
 //--- [P-SLDEF-1b E18] carve-out operand shadows: stamped by SlimbWalkEmit per
 //--- limb whenever that limb's walk fires the carve-out (class CARVEOUT_FIRED),
 //--- read once per S5 invocation for the SLIMBRCARVE companion print. Same hard
@@ -1100,6 +1130,17 @@ int              g_sl48_dis2P = 0;
 int              g_sl48_n3A = 0;
 int              g_sl48_dis3A = 0;
 int              g_sl48_altNA = 0;
+//--- [P-ORIGIN-1] regression tally (in-run gate for the Sep-8 candidate:
+//--- all five regression bars precede Sep-8 chronologically) + forward
+//--- tally + memo-provenance tallies (print-only).
+int              g_origin_regN = 0;
+int              g_origin_regFail = 0;
+int              g_origin_candN = 0;
+int              g_origin_candOK = 0;
+int              g_prov_c2P = 0;
+int              g_prov_c3A = 0;
+int              g_prov_h2P = 0;
+int              g_prov_h3A = 0;
 //--- [P-SLDEF-6 E45.3] predicate carve totals at fresh S5 rows (print-only;
 //--- the consequence companions stay g_slimbr_carveOB/FR; the proxy rides
 //--- beside them, labelled).
@@ -1912,9 +1953,24 @@ bool DetectPoiRetest(int barShift, PoiRetestResult &r)
       { g_n1_entryWickInv += n1e_nW; g_n1_entryBodyInv += n1e_nB; return false; }
     if(bestLongLine >= 0 && (bestShortLine < 0 || bestLongRank <= bestShortRank))
       { r.found = true; r.isLong = true;  r.topLine = bestLongLine; }
-    else
-      { r.found = true; r.isLong = false; r.topLine = bestShortLine; }
-    //--- [P-SLDEF-1b E19] the retest lived: every equality instance in this
+     else
+       { r.found = true; r.isLong = false; r.topLine = bestShortLine; }
+     //--- [D-BIRTH-PROBE-001 R] loser-exposure print: bare locals only (no struct
+     //--- change, no second scan, no N1 touch — the N1 lines above already ran once).
+     //--- FORBIDDEN in this probe and ABSENT below: live-state / direction /
+     //--- anchor / latch / order / stop writes (documented guarantee, grade-verified).
+     if(InpDebugLog && (bestLongLine >= 0 || bestShortLine >= 0))
+       {
+        string s1d_selCode = (r.topLine >= 0) ? g_lineCode[r.topLine] : "-";
+        int s1d_loserLine = (r.isLong ? bestShortLine : bestLongLine);
+        string s1d_loserCode = (s1d_loserLine >= 0) ? g_lineCode[s1d_loserLine] : "-";
+        PrintFormat("[SRJ-EA] SIDE1D_BOTHDIRS bar=%s bl=%d br=%d sl=%d sr=%d sel=%s sline=%d scode=%s lcode=%s",
+                    TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                 TIME_DATE|TIME_MINUTES),
+                    bestLongLine, bestLongRank, bestShortLine, bestShortRank,
+                    (r.isLong ? "LONG" : "SHORT"), r.topLine, s1d_selCode, s1d_loserCode);
+       }
+     //--- [P-SLDEF-1b E19] the retest lived: every equality instance in this
     //--- call survived (the setup proceeded despite it).
     g_n1_entryWickSurv += n1e_nW; g_n1_entryBodySurv += n1e_nB;
     return true;
@@ -2187,13 +2243,16 @@ void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
 //---   EA-51  its owning session is currently live (bits 10..13) Ã¢â‚¬â€ a still-forming
 //---          session's own extreme is never a target. PD (idx 0,1) has no live bit.
 //--- Applies ONLY to the ten session/PD levels; POI VWAP/POC lines are never
+//--- [S1-TP-PROMOTION-001] indices 10..17 = prev-day session H/L (swept bits 14..21, unset; never live).
 //--- filtered here. Fail-open on EMPTY_VALUE (warmup only Ã¢â‚¬â€ UpstreamReady gates
 //--- evaluation, so a logic-path read is always populated).
 bool TpSessionLevelFiltered(int sessIdx, double mask)
   {
    if(mask == EMPTY_VALUE) return false;
    int m = (int)MathRound(mask);
-   if((m & (1 << sessIdx)) != 0) return true;              // EA-26: already swept
+   int sweptBit = sessIdx;
+   if(sessIdx >= 10 && sessIdx <= 17) sweptBit = sessIdx + 4;   // [S1-TP-PROMOTION-001] prev-day session swept bits 14..21 (no FlowLogic export sets them this stage -> admitted; future sweep detection wires here, never silently)
+   if((m & (1 << sweptBit)) != 0) return true;              // EA-26: already swept
    int liveBit = -1;
    if(sessIdx == 2 || sessIdx == 3)      liveBit = 10;     // Asia
    else if(sessIdx == 4 || sessIdx == 5) liveBit = 11;     // London
@@ -2208,11 +2267,17 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
   {
    double best = 0.0;
    bool   haveBest = false;
-   const int sessbufs[10] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
+   //--- [S1-TP-PROMOTION-001] live promotion: prev-day session H/L join the
+   //--- candidate walk (indices 10..17 -> swept bits 14..21, unset this stage).
+   const int sessbufs[18] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
                               FL_BUF_ASIA_HIGH, FL_BUF_ASIA_LOW,
                               FL_BUF_LONDON_HIGH, FL_BUF_LONDON_LOW,
                               FL_BUF_NY_HIGH, FL_BUF_NY_LOW,
-                              FL_BUF_PM_HIGH, FL_BUF_PM_LOW };
+                              FL_BUF_PM_HIGH, FL_BUF_PM_LOW,
+                              FL_BUF_PD_ASIA_HIGH, FL_BUF_PD_ASIA_LOW,
+                              FL_BUF_PD_LONDON_HIGH, FL_BUF_PD_LONDON_LOW,
+                              FL_BUF_PD_NY_HIGH, FL_BUF_PD_NY_LOW,
+                              FL_BUF_PD_PM_HIGH, FL_BUF_PD_PM_LOW };
    //--- TASK 39: swept + session-live mask, read once for the session/PD group.
    //--- The POI-line loop below is deliberately not filtered by it.
    double s39_mask;
@@ -2269,17 +2334,23 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
       if(s_tpDumps < 2000)
         {
          s_tpDumps++;
-         const int cbuf[10] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
+         const int cbuf[18] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
                                 FL_BUF_ASIA_HIGH, FL_BUF_ASIA_LOW,
                                 FL_BUF_LONDON_HIGH, FL_BUF_LONDON_LOW,
                                 FL_BUF_NY_HIGH, FL_BUF_NY_LOW,
-                                FL_BUF_PM_HIGH, FL_BUF_PM_LOW };
-         const string cname[10] = { "PDH", "PDL", "ASH", "ASL", "LOH", "LOL",
-                                    "NYH", "NYL", "PMH", "PML" };
+                                FL_BUF_PM_HIGH, FL_BUF_PM_LOW,
+                                FL_BUF_PD_ASIA_HIGH, FL_BUF_PD_ASIA_LOW,
+                                FL_BUF_PD_LONDON_HIGH, FL_BUF_PD_LONDON_LOW,
+                                FL_BUF_PD_NY_HIGH, FL_BUF_PD_NY_LOW,
+                                FL_BUF_PD_PM_HIGH, FL_BUF_PD_PM_LOW };
+         const string cname[18] = { "PDH", "PDL", "ASH", "ASL", "LOH", "LOL",
+                                    "NYH", "NYL", "PMH", "PML",
+                                    "YASH", "YASL", "YLOH", "YLOL",
+                                    "YNYH", "YNYL", "YPMH", "YPML" };
          string winner   = "NONE";
          string admitted = "";
          int    nEmpty   = 0;
-         for(int i = 0; i < 10; i++)
+         for(int i = 0; i < 18; i++)
            {
             double cv;
             if(!ReadFlow(cbuf[i], cv, barShift)) continue;
@@ -2639,25 +2710,13 @@ int SrjExtIndexOf(const int refSlot, const int &shifts[], const int &exts[], con
 //--- rows. No CODE row exists here: CODE is refused as an operator level
 //--- by construction. [P-SLDEF-6 E45.4] filedT carried per filed level:
 //--- Aug-28 now 06:30 (HAND-sourced); barDiff stops resting on inspection.
-bool SrjFiledLevel(const string barT, double &px, string &prov, string &filedT)
-   {
-    if(barT == "2026.08.28 10:00") { px = 1.16508; prov = "INFERRED"; filedT = "2026.08.28 06:30"; return true; }
-    if(barT == "2026.09.04 15:55") { px = 1.15847; prov = "HAND"; filedT = "-"; return true; }
-    if(barT == "2026.09.07 09:15") { px = 1.16098; prov = "HAND"; filedT = "-"; return true; }
-    if(barT == "2026.09.07 16:40") { px = 1.16239; prov = "HAND"; filedT = "2026.09.07 16:15"; return true; }
-    return false;
-   }
+//--- [FP-LIMBSEAT-1] SrjFiledLevel lives in Include\SRJ\SRJ_HandFixture.mqh (moved byte-identical; HAND-grep gate).
 
 //--- [P-SLDEF-6 E44] Sep-8 targeted probe levels, hardcoded, provenance
 //--- HAND (his words, BUILDER_FINDING_SLDEF5_FIVEEXAMPLES Addendum 2).
 //--- Keyed by eval barTime; the 481-site shadow covers these bars when
 //--- they are evaluated, and then this only labels the shadow row.
-bool SrjSep8Filed(const string barT, double &px)
-   {
-    if(barT == "2026.09.08 10:10") { px = 1.16258; return true; }
-    if(barT == "2026.09.08 17:00") { px = 1.16274; return true; }
-    return false;
-   }
+//--- [FP-LIMBSEAT-1] SrjSep8Filed lives in Include\SRJ\SRJ_HandFixture.mqh (moved byte-identical; HAND-grep gate).
 
 //--- histogram feed for one slot-matched pair. No-op unless matched.
 void SlimbCorrHist(const string barT, const string ref, const bool found, const int resid, const int rungSlot, const int refSlot)
@@ -2725,8 +2784,2216 @@ void SrjResolveExt1(const int entryShift, const ENUM_SRJ_DIR dir, const double e
           double f = 0.0; imb = -1;
           if(ReadFlow(imBuf, f, s) && f != EMPTY_VALUE) imb = (int)f;
          }
-       rungs++;
-       if(rungs >= 512) break;
+        rungs++;
+        if(rungs >= 512) break;
+       }
+    }
+
+//--- [P-ORIGIN-1 §2/FREEZE] frozen HAND-entry lookup. Seven bars only:
+//--- five regression (R1..R5) + two forward targets (T1/T2). Values from
+//--- BUILDER_FREEZE_PORIGIN1.md; code never invents an entry. Returns
+//--- false off those bars (UNBOUND — no fallback, diagnostic rows only
+//--- at example bars by construction).
+//====================== [P-SEL-1 E51-E56] ======================
+//--- print-only fractal-stop shadow + 24-variant matrix over the platform
+//--- iFractals buffers (the object drawing his triangle markers per the
+//--- cleared definition). ISOLATION (dual-cleared, both streams): NO calls
+//--- into walk / origin / imbalance / flow / CQD-decision paths anywhere
+//--- below; iFractals + rates + pure time arithmetic only. No selection,
+//--- memo, working-set or state write of any kind. All gates grade off log.
+//--- Decision instant D == entryBT for all seven (signal-bar close == fill
+//--- open). SEL slot frame: decision-relative M5 counts (D-stopT)/300 —
+//--- NOT ReadFlow slots (stated on every consumer line by field name).
+//--- Census origins reuse the settled E41 convention (S5 = stamped
+//--- next-open, memo sites = eval-bar close); force-eval uses frozen HAND
+//--- entries. O2 (fill-inclusive) provably coincides with O1 under the
+//--- cleared hard causality (centers need T<D; the fill bar opens at D) —
+//--- both print; the identity is a measured finding, not an assumption.
+int      g_selfracM5 = INVALID_HANDLE;
+int      g_selfracH1 = INVALID_HANDLE;
+int      g_sel_ctxN = 0;
+datetime g_sel_ctxT[640];  string g_sel_ctxSite[640]; int g_sel_ctxDir[640];
+double   g_sel_ctxOPx[640]; datetime g_sel_ctxOBT[640];
+double   g_sel_ctxRef[640]; int g_sel_ctxMode[640]; string g_sel_ctxHalt[640];
+datetime g_sel_m5T[]; double g_sel_m5U[]; double g_sel_m5L[]; int g_sel_m5N = 0;
+datetime g_sel_h1T[]; double g_sel_h1U[]; double g_sel_h1L[]; int g_sel_h1N = 0;
+datetime g_sel_h1P[]; int g_sel_h1Amb[]; MqlRates g_sel_rates[]; int g_sel_ratesN = 0;
+int      g_sel53_pg1[24]; int g_sel53_pg2[24];
+int      g_sel54_nS1 = 0; int g_sel54_nS2 = 0; int g_sel55_n = 0;
+int      g_sel52_defN[24];
+//--- P-SEL-2 E57/E58 diagnostic context (print-only; selection untouched).
+//--- Trace gate keeps SEL58T/SEL58CMP inside force-eval eligible calls only;
+//--- the SEL52 census sweep runs with g_sel_dbgOn == 0 (no trace volume).
+int      g_sel_dbgOn = 0;
+string   g_sel_dbgEx = "";
+string   g_sel_dbgV = "";
+int      g_sel_dbgN = 0;
+//--- [FP-LIMBSEAT-1 STAGE 1] F3 provenance: ordered write-chain for the
+//--- side field g_dir (producer -> value). Change-only latch: repeat
+//--- writes of the same value append nothing, so resets bracketing a
+//--- seed cost two entries, not hundreds. Read-only for selection;
+//--- printed at the two Sep-8 probe bars by SrjSideProvEmit. Print-only.
+string   g_side_prod[256]; int g_side_val[256]; int g_side_n = 0; int g_side_drop = 0;
+void SrjSideNote(const string prod, const ENUM_SRJ_DIR v)
+  {
+   int iv = (int)v;
+   if(g_side_n > 0 && g_side_val[g_side_n - 1] == iv) return;
+   if(g_side_n >= 256) { g_side_drop++; return; }
+   g_side_prod[g_side_n] = prod; g_side_val[g_side_n] = iv; g_side_n++;
+  }
+
+bool SrjSelIsProbeBar(const string barT)
+  { return (barT == "2026.09.08 10:10" || barT == "2026.09.08 17:00"); }
+
+//====================== [FP-LIMBSEAT-1 STAGE 2 core state] ======================
+//--- Declared before first use (variant read-sites below call S2RowRead;
+//--- writers live in the S2 section under the stage-1 block). g_s2_on=1
+//--- routes the walk + list dump to the materialized limb cells;
+//--- g_s2_tO bounds counting from above (rows newer than the origin
+//--- excluded — upper bound; lower-bound refuted by P1/P5 on record).
+#define S2A_CAP 1024
+#define S2A_CELLS 14
+#define S2A_N 14336
+int g_s2_on = 0;
+datetime g_s2_tO = 0;
+datetime g_s2_tOByExi[S2A_CELLS / 2];
+datetime g_s2_stampD = 0;
+datetime g_s2_cellD[S2A_CELLS];
+int g_s2_cExi = -1;
+int g_s2_cTF = 0;
+datetime g_s2a_T[S2A_N]; double g_s2a_U[S2A_N]; double g_s2a_L[S2A_N];
+datetime g_s2a_P[S2A_N]; int g_s2a_A[S2A_N]; int g_s2a_N[S2A_CELLS];
+int g_s2_drop = 0; int g_s2_tiebreak = 0;
+int g_s2_haltNC = 0;
+int g_s2_nDecline = 0; int g_s2_nPromoAtt = 0; int g_s2_nOverturn = 0;
+int g_s2_nScopeViol = 0; int g_s2_nScopeRows = 0;
+int g_s2_nStamps = 0; int g_s2_nStampDup = 0;
+string g_s2_lastStampKey = "";
+int g_s2_nLiveCalls = 0; int g_s2_nLiveAgree = 0; int g_s2_nLiveDelta = 0;
+int g_s2_h4reads = 0;
+int S2ExiOf(const string exID)
+  {
+   if(exID == "R1") return 0; if(exID == "R2") return 1;
+   if(exID == "R3") return 2; if(exID == "R4") return 3;
+   if(exID == "R5") return 4; if(exID == "S1") return 5;
+   if(exID == "S2") return 6; return -1;
+  }
+//--- single read accessor for the variant walk + traces + dump: limb
+//--- cell when the S2 source is on, legacy snapshots otherwise. Legacy
+//--- equivalence: M5 repT=cT; H1 unprojected repT=0 (walk skips, as now).
+void S2RowRead(const int i, const bool isH1, datetime &cT, double &rU, double &rL, datetime &repT, int &repA)
+  {
+    if(g_s2_on == 1 && g_s2_cExi >= 0)
+      {
+       int s2_rcell = g_s2_cExi * 2 + g_s2_cTF;
+       if(g_s2_cExi < 0 || g_s2_cExi > (S2A_CELLS / 2 - 1) || g_s2_cTF < 0 || g_s2_cTF > 1 || g_s2_cTF != (isH1 ? 1 : 0) || s2_rcell < 0 || s2_rcell >= S2A_CELLS || i < 0 || i >= S2A_CAP || g_s2_stampD <= 0 || g_s2_stampD != g_s2_cellD[s2_rcell] || g_s2a_N[s2_rcell] < 0)
+         {
+          g_s2_haltNC = 1;
+          string s2_haltLn2 = "[SRJ-EA] SEL61HALT kind=STALE_CELL";
+          LwAudit("SEL61HALT", s2_haltLn2); Print(s2_haltLn2);
+          cT = 0; rU = EMPTY_VALUE; rL = EMPTY_VALUE; repT = 0; repA = 0; return;
+         }
+       int base = s2_rcell * S2A_CAP;
+       cT = g_s2a_T[base + i]; rU = g_s2a_U[base + i]; rL = g_s2a_L[base + i];
+       repT = g_s2a_P[base + i]; repA = g_s2a_A[base + i];
+       return;
+      }
+   cT = isH1 ? g_sel_h1T[i] : g_sel_m5T[i];
+   rU = isH1 ? g_sel_h1U[i] : g_sel_m5U[i];
+   rL = isH1 ? g_sel_h1L[i] : g_sel_m5L[i];
+   repT = cT; repA = 0;
+   if(isH1) { repT = g_sel_h1P[i]; repA = g_sel_h1Amb[i]; }
+  }
+
+//--- frozen seven: eval-bar key -> HAND entry + decision instant D.
+bool SrjSelEntry(const string barT, double &entryPx, string &entryBT, string &exID,
+                 datetime &decT, ENUM_SRJ_DIR &dir)
+  {
+   entryPx = 0.0; entryBT = "-"; exID = ""; decT = 0; dir = DIR_LONG;
+   if(barT == "2026.08.28 10:00") { entryPx = 1.16466; entryBT = "2026.08.28 10:05"; exID = "R1"; decT = StringToTime("2026.08.28 10:05"); dir = DIR_SHORT; return true; }
+   if(barT == "2026.09.04 10:35") { entryPx = 1.16265; entryBT = "2026.09.04 10:40"; exID = "R2"; decT = StringToTime("2026.09.04 10:40"); dir = DIR_SHORT; return true; }
+   if(barT == "2026.09.04 15:55") { entryPx = 1.16018; entryBT = "2026.09.04 16:00"; exID = "R3"; decT = StringToTime("2026.09.04 16:00"); dir = DIR_LONG; return true; }
+   if(barT == "2026.09.07 09:15") { entryPx = 1.16135; entryBT = "2026.09.07 09:20"; exID = "R4"; decT = StringToTime("2026.09.07 09:20"); dir = DIR_LONG; return true; }
+   if(barT == "2026.09.07 16:40") { entryPx = 1.16261; entryBT = "2026.09.07 16:45"; exID = "R5"; decT = StringToTime("2026.09.07 16:45"); dir = DIR_LONG; return true; }
+   if(barT == "2026.09.08 10:10") { entryPx = 1.16205; entryBT = "2026.09.08 10:10"; exID = "S1"; decT = StringToTime("2026.09.08 10:10"); dir = DIR_SHORT; return true; }
+   if(barT == "2026.09.08 17:00") { entryPx = 1.16220; entryBT = "2026.09.08 17:00"; exID = "S2"; decT = StringToTime("2026.09.08 17:00"); dir = DIR_SHORT; return true; }
+   return false;
+  }
+
+//--- frozen expected: G1 target (filed-only for R5), retained code-under-test,
+//--- HAND target, decline/hypothetical flags, G2 stop price.
+//--- [FP-LIMBSEAT-1] SrjSelExpected lives in Include\SRJ\SRJ_HandFixture.mqh (moved byte-identical; HAND-grep gate).
+
+//--- per-invocation census context: read-only + one line. Origin by the
+//--- settled E41 convention (S5 stamped next-open, memo eval-bar close).
+void SrjSelCtxEmit(const int barShift, const datetime evalT, const string site,
+                   const ENUM_SRJ_DIR dir, const double slRef, const ENUM_SRJ_SLMODE slMode)
+  {
+   if(g_sel_ctxN >= 640)
+     {
+      if(g_sel_ctxN == 640)
+        { string of = "[SRJ-EA] SEL52CTX seq=OVERFLOW rows=640"; LwAudit("SEL52CTX", of); Print(of); g_sel_ctxN++; }
+      return;
+     }
+   double oPx = 0.0; datetime oBT = 0; string halt = "-";
+   if(site == "S5")
+     {
+      if(g_sl41_oSite == "S5" && g_sl41_oStamp == evalT && g_sl41_oPx > 0.0) { oPx = g_sl41_oPx; oBT = g_sl41_oBT; }
+      else halt = "STALE_ORIGIN_S5";
+     }
+   else { oPx = iClose(_Symbol, PERIOD_CURRENT, barShift); oBT = evalT; if(oPx <= 0.0) halt = "NO_ORIGIN_CLOSE"; }
+   int i = g_sel_ctxN; g_sel_ctxN++;
+   g_sel_ctxT[i] = evalT; g_sel_ctxSite[i] = site; g_sel_ctxDir[i] = (dir == DIR_LONG ? 1 : -1);
+   g_sel_ctxOPx[i] = oPx; g_sel_ctxOBT[i] = oBT; g_sel_ctxRef[i] = slRef;
+   g_sel_ctxMode[i] = (int)slMode; g_sel_ctxHalt[i] = halt;
+   string oPxS = "-"; if(oPx > 0.0) oPxS = DoubleToString(oPx, _Digits);
+   string oBtS = "-"; if(oBT > 0) oBtS = TimeToString(oBT, TIME_DATE|TIME_MINUTES);
+   string cl = StringFormat("[SRJ-EA] SEL52CTX seq=%d bar=%s site=%s dir=%s oPx=%s oBT=%s slRef=%s mode=%d halt=%s",
+     i, TimeToString(evalT, TIME_DATE|TIME_MINUTES), site, DirName(dir), oPxS, oBtS,
+     DoubleToString(slRef, _Digits), (int)slMode, halt);
+   LwAudit("SEL52CTX", cl); Print(cl);
+  }
+
+//--- snapshot one iFractals TF into compact event lists (ascending time).
+bool SrjSelSnapTF(const int handle, const ENUM_TIMEFRAMES tf, const int maxN)
+  {
+   bool isH1 = (tf == PERIOD_H1);
+   double bu[], bl[]; datetime bt[];
+   ArraySetAsSeries(bu, true); ArraySetAsSeries(bl, true); ArraySetAsSeries(bt, true);
+   ResetLastError();
+   int nU = CopyBuffer(handle, 0, 0, maxN, bu);
+   int nL = CopyBuffer(handle, 1, 0, maxN, bl);
+   int nT = CopyTime(_Symbol, tf, 0, maxN, bt);
+   if(nU <= 10 || nL <= 10 || nT <= 10) return false;
+   int m = nU; if(nL < m) m = nL; if(nT < m) m = nT;
+   int n = 0;
+   for(int i = m - 1; i >= 0; i--)
+     {
+      if(bu[i] == EMPTY_VALUE && bl[i] == EMPTY_VALUE) continue;
+      if(isH1)
+        { ArrayResize(g_sel_h1T, n + 1); ArrayResize(g_sel_h1U, n + 1); ArrayResize(g_sel_h1L, n + 1);
+          g_sel_h1T[n] = bt[i]; g_sel_h1U[n] = bu[i]; g_sel_h1L[n] = bl[i]; n++; }
+      else
+        { ArrayResize(g_sel_m5T, n + 1); ArrayResize(g_sel_m5U, n + 1); ArrayResize(g_sel_m5L, n + 1);
+          g_sel_m5T[n] = bt[i]; g_sel_m5U[n] = bu[i]; g_sel_m5L[n] = bl[i]; n++; }
+     }
+   if(isH1) g_sel_h1N = n; else g_sel_m5N = n;
+   return (n > 0);
+  }
+
+//--- H1 projection (pre-declared): the M5 bar containing the H1 extreme;
+//--- earliest wins, ambN counts ties. Pure history reads.
+void SrjSelProjectH1()
+  {
+   ArrayResize(g_sel_h1P, g_sel_h1N); ArrayResize(g_sel_h1Amb, g_sel_h1N);
+   for(int k = 0; k < g_sel_h1N; k++) { g_sel_h1P[k] = 0; g_sel_h1Amb[k] = 0; }
+   if(g_sel_ratesN <= 0) return;
+   for(int k = 0; k < g_sel_h1N; k++)
+     {
+      datetime H = g_sel_h1T[k];
+      bool up = (g_sel_h1U[k] != EMPTY_VALUE);
+      double epx = up ? g_sel_h1U[k] : g_sel_h1L[k];
+      if(!up && g_sel_h1L[k] == EMPTY_VALUE) continue;
+      int amb = 0; datetime first = 0;
+      for(int r = g_sel_ratesN - 1; r >= 0; r--)
+        {
+         datetime rt = g_sel_rates[r].time;
+         if(rt < H || rt >= H + 3600) continue;
+         double rv = up ? g_sel_rates[r].high : g_sel_rates[r].low;
+         if(MathAbs(rv - epx) < _Point * 0.5) { amb++; if(first == 0) first = rt; }
+        }
+      g_sel_h1P[k] = first; g_sel_h1Amb[k] = amb;
+     }
+  }
+
+//--- one variant, one evaluation. O:0 SIG 1 FILL 2 PRIOR; C:0 RAW 1 MONO;
+//--- K:0 AVAIL-eligible 1 UNCONF-ineligible; T:0 M5 1 H1-projected.
+//--- NO walk / imbalance / flow / CQD reads. Timestamps only.
+void SrjSelVariant(const datetime D, const datetime startT, const ENUM_SRJ_DIR dir,
+                   const double entryPx, const int O, const int C, const int K, const int T,
+                   int &def, double &px, datetime &bt, int &slot, int &avail,
+                   string &status, int &skipUnconf, int &skipNonp, int &skipEq,
+                   double &witPx, datetime &witT, int &ambN)
+  {
+   def = 0; px = 0.0; bt = 0; slot = -1; avail = 0; status = "FRACTAL_UNAVAILABLE";
+   skipUnconf = 0; skipNonp = 0; skipEq = 0; witPx = 0.0; witT = 0; ambN = 0;
+   bool isH1 = (T == 1);
+   int per = isH1 ? 7200 : 600;
+    int n = isH1 ? g_sel_h1N : g_sel_m5N;
+    if(g_s2_on == 1)
+      {
+       bool s2_ok = false;
+       if(g_s2_cExi >= 0 && g_s2_cExi <= (S2A_CELLS / 2 - 1) && g_s2_cTF >= 0 && g_s2_cTF <= 1 && g_s2_cTF == T)
+         {
+          int s2_cellIdx = g_s2_cExi * 2 + g_s2_cTF;
+          if(s2_cellIdx >= 0 && s2_cellIdx < S2A_CELLS && g_s2_stampD > 0 && g_s2_stampD == g_s2_cellD[s2_cellIdx] && g_s2a_N[s2_cellIdx] >= 0)
+            { n = g_s2a_N[s2_cellIdx]; s2_ok = true; }
+         }
+       if(!s2_ok)
+         {
+          n = -2; g_s2_haltNC = 1;
+          string s2_haltLn = "[SRJ-EA] SEL61HALT kind=STALE_CELL";
+          LwAudit("SEL61HALT", s2_haltLn); Print(s2_haltLn);
+         }
+      }
+   if(n <= 0) { status = "NOEVENTS"; return; }
+   bool isShort = (dir == DIR_SHORT);
+   double lastPx = 0.0; bool haveLast = false;
+   int counted = 0; bool allConf = true;
+    for(int i = n - 1; i >= 0; i--)
+      {
+       //--- P-SEL-2 E58/A1: unconditional per-event trace line, first statement
+       //--- in the body, before any branch or filter. Pure reads only; existing
+       //--- counters printed as corroboration (their deltas locate counter-less
+       //--- drops in analysis). Gated to force-eval eligible calls (A2 scope:
+       //--- all 7 bars x 12 eligible variants). Print-only.
+        if(g_sel_dbgOn == 1 && K == 0)
+          {
+           datetime dCT = 0; double dRU = 0.0; double dRL = 0.0; datetime dRepT = 0; int dRepA = 0;
+           S2RowRead(i, isH1, dCT, dRU, dRL, dRepT, dRepA);
+           double dEv = isShort ? dRU : dRL;
+          int dConf = ((dCT + per <= D) && (dRepT < D)) ? 1 : 0;
+          string dCTs = TimeToString(dCT, TIME_DATE|TIME_MINUTES);
+          string dEvS = (dEv == EMPTY_VALUE) ? "EMPTY" : DoubleToString(dEv, _Digits);
+          string dRpS = (dRepT == 0) ? "NOPROJ" : TimeToString(dRepT, TIME_DATE|TIME_MINUTES);
+          string dLn = StringFormat("[SRJ-EA] SEL58T ex=%s v=%s tf=%s i=%d cT=%s ev=%s repT=%s repAmb=%d conf=%d counted=%d skU=%d skN=%d skE=%d",
+            g_sel_dbgEx, g_sel_dbgV, (isH1 ? "H1" : "M5"), i, dCTs, dEvS, dRpS, dRepA, dConf,
+            counted, skipUnconf, skipNonp, skipEq);
+          LwAudit("SEL58T", dLn); Print(dLn);
+          g_sel_dbgN++;
+         }
+        datetime cT = 0; double rU = 0.0; double rL = 0.0; datetime repT = 0; int repAmb = 0;
+        S2RowRead(i, isH1, cT, rU, rL, repT, repAmb);
+       if(repT == 0) continue;
+       if(cT > startT || cT >= D) continue;
+       //--- [FP-LIMBSEAT-1 S2-2] S-A anchor, UPPER bound: rows newer than
+       //--- the origin excluded (lower-bound refuted by P1/P5 on record).
+       if(g_s2_on == 1 && g_s2_tO > 0 && cT > g_s2_tO) continue;
+       double ev = 0.0;
+       if(isShort)
+         { ev = rU; if(ev == EMPTY_VALUE) continue; }
+       else
+         { ev = rL; if(ev == EMPTY_VALUE) continue; }
+       if(isShort) { if(!(ev > entryPx)) { skipNonp++; continue; } }
+       else { if(!(ev < entryPx)) { skipNonp++; continue; } }
+      bool conf = ((cT + per <= D) && (repT < D));
+      if(!conf)
+        {
+         if(K == 0) { skipUnconf++; continue; }
+         allConf = false;
+        }
+       if(C == 1 && haveLast)
+         {
+          //--- P-SEL-2 A5: near-tie compare operands at stored precision plus
+          //--- the epsilon in force at this compare. Print-only; the real
+          //--- predicate below is untouched (separate local for the verdict).
+          if(g_sel_dbgOn == 1 && K == 0)
+            {
+             double cDd = ev - lastPx;
+             if(MathAbs(cDd) <= 5.0 * _Point)
+               {
+                bool cMore = isShort ? (ev > lastPx + _Point * 0.5) : (ev < lastPx - _Point * 0.5);
+                string cLn = StringFormat("[SRJ-EA] SEL58CMP ex=%s v=%s tf=%s cT=%s ev8=%s last8=%s eps=%s pt=%s more=%d dPts=%s",
+                  g_sel_dbgEx, g_sel_dbgV, (isH1 ? "H1" : "M5"),
+                  TimeToString(cT, TIME_DATE|TIME_MINUTES),
+                  DoubleToString(ev, 8), DoubleToString(lastPx, 8),
+                  DoubleToString(_Point * 0.5, 8), DoubleToString(_Point, 8),
+                  (cMore ? 1 : 0), DoubleToString(cDd / _Point, 2));
+                LwAudit("SEL58CMP", cLn); Print(cLn);
+               }
+            }
+          bool more = isShort ? (ev > lastPx + _Point * 0.5) : (ev < lastPx - _Point * 0.5);
+         if(!more) { skipEq++; continue; }
+        }
+      counted++;
+      lastPx = ev; haveLast = true;
+      if(counted == 1) { witPx = ev; witT = repT; }
+      if(counted == 2)
+        {
+         def = 1; px = ev; bt = repT; ambN = repAmb; avail = allConf ? 1 : 0;
+         long secs = (long)D - (long)repT;
+         slot = (secs % 300 == 0) ? (int)(secs / 300) : -99;
+         status = "OK";
+         break;
+        }
+     }
+  }
+
+string SrjSelVid(const int O, const int C, const int K, const int T)
+  { return StringFormat("V%03d", ((O * 2 + C) * 2 + K) * 2 + T + 1); }
+
+//--- P-SEL-2 E57: dump the actual bounded shadow list the walk consumes
+//--- (same arrays SrjSelVariant reads), per bar per TF, with decision-time
+//--- flags computed exactly as the walk computes them (latched, A4).
+//--- An explicitly printed empty list (listN=0 + sentinel) is data;
+//--- a missing print is a gap. Print-only.
+void SrjSelDumpList(const string exID, const datetime D)
+   {
+     int dex = S2ExiOf(exID);
+     int s2_svExi = g_s2_cExi; int s2_svTF = g_s2_cTF;
+    for(int TF = 0; TF < 2; TF++)
+      {
+       bool isH1 = (TF == 1);
+       int per = isH1 ? 7200 : 600;
+       //--- [FP-LIMBSEAT-1 S2-1] under the S2 source the dump shows the
+       //--- consumed limb cell (same arrays the walk reads); structure
+       //--- (14 lists + sentinels) unchanged, content re-baselined.
+       if(g_s2_on == 1 && dex >= 0) { g_s2_cExi = dex; g_s2_cTF = TF; }
+        int n = isH1 ? g_sel_h1N : g_sel_m5N;
+        int s2_dcell = -1;
+        if(g_s2_on == 1 && dex >= 0)
+          {
+           g_s2_cExi = dex; g_s2_cTF = TF; s2_dcell = dex * 2 + TF;
+           if(s2_dcell < 0 || s2_dcell >= S2A_CELLS || g_s2_cellD[s2_dcell] != D || g_s2a_N[s2_dcell] < 0)
+             {
+              g_s2_haltNC = 1;
+              string sd57 = "[SRJ-EA] SEL61HALT kind=STALE_CELL";
+              LwAudit("SEL61HALT", sd57); Print(sd57);
+              n = -2;
+             }
+           else n = g_s2a_N[s2_dcell];
+          }
+        else if(g_s2_on == 1)
+          {
+           g_s2_haltNC = 1;
+           string sd57b = "[SRJ-EA] SEL61HALT kind=STALE_CELL";
+           LwAudit("SEL61HALT", sd57b); Print(sd57b);
+           n = -2;
+          }
+       string tfS = isH1 ? "H1" : "M5";
+       string hd = StringFormat("[SRJ-EA] SEL57 ex=%s tf=%s D=%s listN=%d per=%d",
+         exID, tfS, TimeToString(D, TIME_DATE|TIME_MINUTES), n, per);
+       LwAudit("SEL57", hd); Print(hd);
+       for(int i = n - 1; i >= 0; i--)
+         {
+          datetime cT = 0; double rU = 0.0; double rL = 0.0; datetime repT = 0; int repA = 0;
+           if(g_s2_on == 1 && dex >= 0 && n >= 0 && i >= 0 && i < S2A_CAP)
+             {
+              int s2o = s2_dcell * S2A_CAP + i;
+              cT = g_s2a_T[s2o]; rU = g_s2a_U[s2o]; rL = g_s2a_L[s2o]; repT = g_s2a_P[s2o]; repA = g_s2a_A[s2o];
+             }
+           else if(g_s2_on == 1) { cT = 0; rU = EMPTY_VALUE; rL = EMPTY_VALUE; repT = 0; repA = 0; }
+           else S2RowRead(i, isH1, cT, rU, rL, repT, repA);
+          int cf = ((cT + per <= D) && (repT < D)) ? 1 : 0;
+          string uS = (rU == EMPTY_VALUE) ? "EMPTY" : DoubleToString(rU, _Digits);
+          string lS = (rL == EMPTY_VALUE) ? "EMPTY" : DoubleToString(rL, _Digits);
+          string rS = (repT == 0) ? "NOPROJ" : TimeToString(repT, TIME_DATE|TIME_MINUTES);
+          string ln = StringFormat("[SRJ-EA] SEL57ROW ex=%s tf=%s i=%d cT=%s rawU=%s rawL=%s repT=%s repAmb=%d conf=%d",
+            exID, tfS, i, TimeToString(cT, TIME_DATE|TIME_MINUTES), uS, lS, rS, repA, cf);
+          LwAudit("SEL57ROW", ln); Print(ln);
+         }
+        string ft = StringFormat("[SRJ-EA] SEL57END ex=%s tf=%s listN=%d", exID, tfS, n);
+        LwAudit("SEL57END", ft); Print(ft);
+       }
+     g_s2_cExi = s2_svExi; g_s2_cTF = s2_svTF;
+    }
+
+//--- force-eval the seven (end-of-run, frozen entries, causal prefixes).
+void SrjSelForceEval()
+  {
+   string bars[7] = {"2026.08.28 10:00", "2026.09.04 10:35", "2026.09.04 15:55",
+                     "2026.09.07 09:15", "2026.09.07 16:40", "2026.09.08 10:10", "2026.09.08 17:00"};
+   for(int a6i = 0; a6i < 7; a6i++) { g_a6_supDef[a6i] = -1; g_a6_supPx[a6i] = 0.0; g_a6_supBt[a6i] = "-"; g_a6_supBarT[a6i] = "-"; g_a6_supSlot[a6i] = -1; }   //--- [A6-HOOK] (v) suppressed-target store init
+   for(int e = 0; e < 7; e++)
+     {
+      double entryPx = 0.0; string entryBT = "-"; string exID = ""; datetime D = 0;
+      ENUM_SRJ_DIR dir = DIR_LONG;
+      if(!SrjSelEntry(bars[e], entryPx, entryBT, exID, D, dir)) continue;
+      int g1def = 0; double g1Px = 0.0; string g1BT = "-"; double retPx = 0.0; string retBT = "-";
+      double tpPx = 0.0; int tpUnst = 0; int decline = 0; int hypo = 0; double g2Px = 0.0; string g2BT = "-";
+       SrjSelExpected(exID, g1def, g1Px, g1BT, retPx, retBT, tpPx, tpUnst, decline, hypo, g2Px, g2BT);
+       SrjSelDumpList(exID, D);
+       datetime sT[3]; sT[0] = D - 300; sT[1] = D; sT[2] = D - 600;
+      for(int O = 0; O < 3; O++) for(int C = 0; C < 2; C++) for(int K = 0; K < 2; K++) for(int T = 0; T < 2; T++)
+        {
+         int def = 0; double px = 0.0; datetime bt = 0; int slot = -1; int av = 0; string st = "";
+         int skU = 0, skN = 0, skE = 0; double wPx = 0.0; datetime wT = 0; int amb = 0;
+           g_sel_dbgEx = exID; g_sel_dbgV = SrjSelVid(O, C, K, T); g_sel_dbgN = 0; g_sel_dbgOn = 1;
+           //--- [FP-LIMBSEAT-1 S2-1] point the walk at this bar's limb cell
+           //--- (cells prebuilt end-of-run; e indexes bars 0..6 = exi).
+            g_s2_cExi = e; g_s2_cTF = T;
+            g_s2_tO = g_s2_tOByExi[e];
+            g_s2_stampD = D;
+           SrjSelVariant(D, sT[O], dir, entryPx, O, C, K, T,
+                        def, px, bt, slot, av, st, skU, skN, skE, wPx, wT, amb);
+          g_sel_dbgOn = 0;
+          //--- P-SEL-2 A3: end-of-trace sentinel per (bar, TF, variant).
+          //--- Tabulation asserts scanned vs SEL58T lines counted; a missing
+          //--- sentinel is a REPORTED GAP, never a silent zero.
+          if(K == 0)
+            {
+             string sPxS = "-"; if(def == 1) sPxS = DoubleToString(px, _Digits);
+             string sBtS = "-"; if(def == 1) sBtS = TimeToString(bt, TIME_DATE|TIME_MINUTES);
+             string sLn = StringFormat("[SRJ-EA] SEL58END ex=%s v=%s tf=%s scanned=%d def=%d px=%s bt=%s",
+               exID, SrjSelVid(O, C, K, T), (T == 1 ? "H1" : "M5"), g_sel_dbgN, def, sPxS, sBtS);
+             LwAudit("SEL58END", sLn); Print(sLn);
+            }
+         string pxS = "-"; if(def == 1) pxS = DoubleToString(px, _Digits);
+         string btS = "-"; if(def == 1) btS = TimeToString(bt, TIME_DATE|TIME_MINUTES);
+         string wPxS = "-"; if(wT > 0) wPxS = DoubleToString(wPx, _Digits);
+         string wBtS = "-"; if(wT > 0) wBtS = TimeToString(wT, TIME_DATE|TIME_MINUTES);
+         int elig = (K == 0) ? 1 : 0;
+         int g1m = 0, retm = 0, g2m = 0;
+         if(def == 1 && g1def == 1 && pxS == DoubleToString(g1Px, _Digits) && btS == g1BT) g1m = 1;
+         if(def == 1 && retPx > 0.0 && pxS == DoubleToString(retPx, _Digits) && btS == retBT) retm = 1;
+         if(def == 1 && g2Px > 0.0 && pxS == DoubleToString(g2Px, _Digits)) g2m = 1;
+         string rS = "NA"; int take = -1;
+         if(tpUnst == 1) { rS = "TARGET_UNSTATED"; take = -2; }
+         else if(def == 1)
+           {
+            double risk = MathAbs(entryPx - px);
+            if(risk <= 0.0) { rS = "INVALID_GEOMETRY"; }
+            else { double Rv = MathAbs(entryPx - tpPx) / risk; rS = DoubleToString(Rv, 3); take = (Rv >= 1.0 ? 1 : 0); }
+           }
+         int vi = ((O * 2 + C) * 2 + K) * 2 + T;
+         if(elig == 1 && g1m == 1) g_sel53_pg1[vi]++;
+         if(g2m == 1) g_sel53_pg2[vi]++;
+         string ln = StringFormat("[SRJ-EA] SEL53 ex=%s v=%s elig=%d def=%d px=%s bt=%s slot=%d avail=%d status=%s g1m=%d retm=%d g2m=%d R=%s take=%d decl=%d wit=%s@%s skU=%d skN=%d skE=%d amb=%d",
+           exID, SrjSelVid(O, C, K, T), elig, def, pxS, btS, slot, av, st, g1m, retm, g2m,
+           rS, take, decline, wPxS, wBtS, skU, skN, skE, amb);
+         LwAudit("SEL53", ln); Print(ln);
+         if(SrjSelVid(O, C, K, T) == "V005" && e >= 0 && e < 7)
+           { g_a6_supDef[e] = def; g_a6_supPx[e] = px; g_a6_supBt[e] = btS; g_a6_supBarT[e] = bars[e]; g_a6_supSlot[e] = slot; }   //--- [A6-HOOK] (v)
+        }
+     }
+   for(int vi = 0; vi < 24; vi++)
+     {
+      int O = vi / 8, C = (vi % 8) / 4, K = (vi % 4) / 2, T = vi % 2;
+      string fl = StringFormat("[SRJ-EA] SEL53_FINAL v=%s elig=%d G1x4=%d G2x3=%d",
+        SrjSelVid(O, C, K, T), (K == 0 ? 1 : 0), g_sel53_pg1[vi], g_sel53_pg2[vi]);
+      LwAudit("SEL53_FINAL", fl); Print(fl);
+     }
+  }
+
+//--- census over live CTX rows (end-of-run). R-shifts join off-run with SLIMBR.
+void SrjSelCensus()
+  {
+   for(int r = 0; r < g_sel_ctxN && r < 640; r++)
+     {
+      datetime evalT = g_sel_ctxT[r];
+      datetime D = evalT + 300;
+      int dirI = g_sel_ctxDir[r];
+      ENUM_SRJ_DIR dir = (dirI == 1 ? DIR_LONG : DIR_SHORT);
+      double oPx = g_sel_ctxOPx[r]; datetime oBT = g_sel_ctxOBT[r];
+      for(int O = 0; O < 3; O++) for(int C = 0; C < 2; C++) for(int K = 0; K < 2; K++) for(int T = 0; T < 2; T++)
+        {
+         int def = 0; double px = 0.0; datetime bt = 0; int slot = -1; int av = 0; string st = "";
+         int skU = 0, skN = 0, skE = 0; double wPx = 0.0; datetime wT = 0; int amb = 0;
+         if(g_sel_ctxHalt[r] == "-" && oPx > 0.0)
+           {
+            //--- O-frame unified with force-eval (D = evalT+300): O1 = eval bar
+            //--- (== signal bar at S5 rows), O2 = fill/next-open, O3 = prior.
+            datetime sT = (O == 0) ? evalT : ((O == 1) ? (evalT + 300) : (evalT - 300));
+            SrjSelVariant(D, sT, dir, oPx, O, C, K, T,
+                          def, px, bt, slot, av, st, skU, skN, skE, wPx, wT, amb);
+           }
+         else st = g_sel_ctxHalt[r];
+         string pxS = "-"; if(def == 1) pxS = DoubleToString(px, _Digits);
+         string btS = "-"; if(def == 1) btS = TimeToString(bt, TIME_DATE|TIME_MINUTES);
+         int chg = -999999;
+         if(def == 1) chg = (int)MathRound((px - g_sel_ctxRef[r]) / _Point);
+         int vi = ((O * 2 + C) * 2 + K) * 2 + T;
+         if(def == 1) g_sel52_defN[vi]++;
+         string ln = StringFormat("[SRJ-EA] SEL52 seq=%d bar=%s site=%s dir=%s v=%s def=%d px=%s bt=%s slot=%d status=%s chgPts=%d consRef=%s",
+           r, TimeToString(evalT, TIME_DATE|TIME_MINUTES), g_sel_ctxSite[r], DirName(dir),
+           SrjSelVid(O, C, K, T), def, pxS, btS, slot, st, chg,
+           DoubleToString(g_sel_ctxRef[r], _Digits));
+         LwAudit("SEL52", ln); Print(ln);
+        }
+     }
+   for(int vi = 0; vi < 24; vi++)
+     {
+      int K = (vi % 4) / 2;
+      string fl = StringFormat("[SRJ-EA] SEL52_FINAL v=%s elig=%d defRows=%d ctxRows=%d",
+        SrjSelVid(vi / 8, (vi % 8) / 4, K, vi % 2), (K == 0 ? 1 : 0), g_sel52_defN[vi], g_sel_ctxN);
+      LwAudit("SEL52_FINAL", fl); Print(fl);
+     }
+   string i56 = StringFormat("[SRJ-EA] SEL56_FINAL ctxRows=%d s1hook=%d s2hook=%d sel55rows=%d",
+     g_sel_ctxN, g_sel54_nS1, g_sel54_nS2, g_sel55_n);
+   LwAudit("SEL56_FINAL", i56); Print(i56);
+  }
+
+//====================== [FP-LIMBSEAT-1 STAGE 1] ======================
+//--- limbs_v2 shadow (print-only). Verbatim-Fractals enumeration over
+//--- rates (L1), non-strict extremes with exact-tie shelf collapse
+//--- (L2), displacement confirmation with the STOP rule's own imbalance
+//--- test (L3). Legacy admission = presence in the iFractals snapshot
+//--- lists the walk consumes (H1 needs a projection, as the walk does).
+//--- NOTHING here writes selection/memo/state; all gates grade off log.
+//--- admitted_by is SET-VALUED (R1): every switch whose predicate holds
+//--- is listed. L3 lists only when L3-necessary (R2): admitted with L3
+//--- AND NOT admitted with L3 off (so L3 is evaluated only when
+//--- legacy/L1/L2 all fail, and only on unconfirmed pivots). Stage-1
+//--- outcomes are byte-identical to legacy by construction (R3): this
+//--- code only reads rates, snapshots, projections and flow buffers.
+//--- Diagnostic scope (print volume, not a rule): per decision D, bars
+//--- with D-172800 <= t < D (48h, covers every filed anchor).
+#define LIMB_LEGACY 1
+#define LIMB_L1     2
+#define LIMB_L2     4
+#define LIMB_L3     8
+#define LIMB_WIN_SECS 172800
+#define LIMB_STORE_CAP 16384
+#define LIMB_SCAN_CAP  8192
+datetime g_lim_t[LIMB_STORE_CAP]; int g_lim_exi[LIMB_STORE_CAP];
+int g_lim_tf[LIMB_STORE_CAP]; int g_lim_side[LIMB_STORE_CAP];
+int g_lim_bits[LIMB_STORE_CAP]; double g_lim_px[LIMB_STORE_CAP];
+int g_lim_n = 0; int g_lim_drop = 0;
+datetime g_lsc_t[LIMB_SCAN_CAP]; int g_lsc_side[LIMB_SCAN_CAP];
+double g_lsc_px[LIMB_SCAN_CAP]; int g_lsc_strict[LIMB_SCAN_CAP];
+int g_lsc_nonstr[LIMB_SCAN_CAP]; int g_lsc_n = 0; int g_lsc_drop = 0;
+
+//--- verbatim 5-bar pivot predicates on price reads (no indicator).
+bool SrjLimbStrict(const ENUM_TIMEFRAMES tf, const int s, const bool upper)
+  {
+   double c = upper ? iHigh(_Symbol, tf, s) : iLow(_Symbol, tf, s);
+   for(int k = 1; k <= 2; k++)
+     {
+      double a = upper ? iHigh(_Symbol, tf, s + k) : iLow(_Symbol, tf, s + k);
+      double b = upper ? iHigh(_Symbol, tf, s - k) : iLow(_Symbol, tf, s - k);
+      if(upper) { if(!(c > a && c > b)) return false; }
+      else { if(!(c < a && c < b)) return false; }
+     }
+   return true;
+  }
+bool SrjLimbNonstrict(const ENUM_TIMEFRAMES tf, const int s, const bool upper)
+  {
+   double c = upper ? iHigh(_Symbol, tf, s) : iLow(_Symbol, tf, s);
+   for(int k = 1; k <= 2; k++)
+     {
+      double a = upper ? iHigh(_Symbol, tf, s + k) : iLow(_Symbol, tf, s + k);
+      double b = upper ? iHigh(_Symbol, tf, s - k) : iLow(_Symbol, tf, s - k);
+      if(upper) { if(!(c >= a && c >= b)) return false; }
+      else { if(!(c <= a && c <= b)) return false; }
+     }
+   return true;
+  }
+void SrjLimbScanPush(const datetime t, const int side, const double px, const bool strict, const bool nonstr)
+  {
+   if(g_lsc_n >= LIMB_SCAN_CAP) { g_lsc_drop++; return; }
+   g_lsc_t[g_lsc_n] = t; g_lsc_side[g_lsc_n] = side; g_lsc_px[g_lsc_n] = px;
+   g_lsc_strict[g_lsc_n] = strict ? 1 : 0; g_lsc_nonstr[g_lsc_n] = nonstr ? 1 : 0;
+   g_lsc_n++;
+  }
+//--- one full verbatim scan per TF (once per run); per-bar filtering later.
+void SrjLimbsScanTF(const ENUM_TIMEFRAMES tf, const bool isH1, const datetime oldestD)
+  {
+   g_lsc_n = 0; g_lsc_drop = 0;
+   int nb = Bars(_Symbol, tf);
+   if(nb < 12) return;
+   int sMax = nb - 3;
+   int hardCap = isH1 ? 400 : 4100;
+   if(sMax > hardCap) sMax = hardCap;
+   datetime fromT = oldestD - LIMB_WIN_SECS - 7200;
+   int sFrom = iBarShift(_Symbol, tf, fromT);
+   if(sFrom > 2 && sFrom < sMax) sMax = sFrom;
+   for(int s = sMax; s >= 2; s--)
+     {
+      datetime t = iTime(_Symbol, tf, s);
+      if(t <= 0) continue;
+      bool sU = SrjLimbStrict(tf, s, true);
+      bool sL = SrjLimbStrict(tf, s, false);
+      bool nU = sU ? true : SrjLimbNonstrict(tf, s, true);
+      bool nL = sL ? true : SrjLimbNonstrict(tf, s, false);
+      if(!sU && !sL && !nU && !nL) continue;
+      if(sU || nU) SrjLimbScanPush(t, 1, iHigh(_Symbol, tf, s), sU, nU);
+      if(sL || nL) SrjLimbScanPush(t, -1, iLow(_Symbol, tf, s), sL, nL);
+     }
+  }
+//--- legacy admission: bar time present in the snapshot list the walk
+//--- consumes, on the queried side (EMPTY on that side = side-drop).
+//--- H1 needs a projection, exactly as the walk requires it.
+bool SrjLimbsLegacy(const bool isH1, const bool upper, const datetime t)
+  {
+   if(isH1)
+     {
+      for(int i = 0; i < g_sel_h1N; i++)
+         if(g_sel_h1T[i] == t)
+           {
+            double v = upper ? g_sel_h1U[i] : g_sel_h1L[i];
+            if(v == EMPTY_VALUE) return false;
+            return (g_sel_h1P[i] != 0);
+           }
+      return false;
+     }
+   for(int i = 0; i < g_sel_m5N; i++)
+      if(g_sel_m5T[i] == t)
+        { double v = upper ? g_sel_m5U[i] : g_sel_m5L[i]; return (v != EMPTY_VALUE); }
+   return false;
+  }
+datetime SrjLimbsH1Proj(const datetime t)
+  {
+   for(int i = 0; i < g_sel_h1N; i++) if(g_sel_h1T[i] == t) return g_sel_h1P[i];
+   return 0;
+  }
+//--- walk's own confirmation idiom (SrjSelVariant): (cT+per<=D)&&(repT<D).
+bool SrjLimbsConf(const bool isH1, const datetime cT, const datetime D)
+  {
+   int per = isH1 ? 7200 : 600;
+   datetime rT = isH1 ? SrjLimbsH1Proj(cT) : cT;
+   return ((cT + per <= D) && (rT < D));
+  }
+//--- L3: unconfirmed pivot + next-leg displacement (body close beyond the
+//--- pivot bar's opposite extreme by more than _Point, the walk idiom)
+//--- with the STOP rule's own imbalance test (walk idiom: protective
+//--- imb buffer reads 1 at the displacing shift; SHORT->HIGH_IMB,
+//--- LONG->LOW_IMB, mirroring the SlimbWalkCore callers). why is an out note.
+bool SrjLimbsDisplaced(const bool isH1, const bool upper, const datetime pT, const datetime D, string &why)
+  {
+   why = "-";
+   ENUM_TIMEFRAMES tf = isH1 ? PERIOD_H1 : PERIOD_CURRENT;
+   int imbBuf = upper ? FL_BUF_SWING_HIGH_IMB : FL_BUF_SWING_LOW_IMB;
+   int sP = iBarShift(_Symbol, tf, pT);
+   if(sP < 2) { why = "NOPIVSHIFT"; return false; }
+   double pOpp = upper ? iLow(_Symbol, tf, sP) : iHigh(_Symbol, tf, sP);
+   int per = isH1 ? 3600 : 300;
+   for(int s = sP - 1; s >= 0; s--)
+     {
+      datetime qT = iTime(_Symbol, tf, s);
+      if(qT <= 0) break;
+      if(qT + per > D) continue;
+      double qc = iClose(_Symbol, tf, s);
+      bool beyond = upper ? (qc < pOpp - _Point) : (qc > pOpp + _Point);
+      if(!beyond) continue;
+      int ms = iBarShift(_Symbol, PERIOD_CURRENT, qT);
+      double f = 0.0; int fi = -1;
+      if(ms >= 0 && ReadFlow(imbBuf, f, ms) && f != EMPTY_VALUE) fi = (int)f;
+      if(fi == 1)
+        { why = StringFormat("DISP@%s", TimeToString(qT, TIME_DATE|TIME_MINUTES)); return true; }
+     }
+   why = "NODISP"; return false;
+  }
+string SrjLimbsAdmStr(const int bits)
+  {
+   if(bits == 0) return "NONE";
+   string s = "";
+   if((bits & LIMB_LEGACY) != 0) s += "legacy";
+   if((bits & LIMB_L1) != 0) s += ((s == "") ? "" : "+") + "L1";
+   if((bits & LIMB_L2) != 0) s += ((s == "") ? "" : "+") + "L2";
+   if((bits & LIMB_L3) != 0) s += ((s == "") ? "" : "+") + "L3";
+   return s;
+  }
+int SrjLimbsFind(const int exi, const int TF, const datetime t, const int side)
+  {
+   for(int i = 0; i < g_lim_n; i++)
+      if(g_lim_exi[i] == exi && g_lim_tf[i] == TF && g_lim_t[i] == t && g_lim_side[i] == side) return i;
+   return -1;
+  }
+void SrjLimbsStore(const int exi, const int TF, const datetime t, const int side, const double px, const int bits)
+  {
+   if(bits == 0) return;
+   int at = SrjLimbsFind(exi, TF, t, side);
+   if(at >= 0) { g_lim_bits[at] |= bits; return; }
+   if(g_lim_n >= LIMB_STORE_CAP) { g_lim_drop++; return; }
+   g_lim_t[g_lim_n] = t; g_lim_exi[g_lim_n] = exi; g_lim_tf[g_lim_n] = TF;
+   g_lim_side[g_lim_n] = side; g_lim_px[g_lim_n] = px; g_lim_bits[g_lim_n] = bits;
+   g_lim_n++;
+  }
+//--- exact-tie shelf census for L2 collapse (eps = 0: exact equality only).
+//--- Returns shelf size; repT = latest bar in the shelf (nearest D).
+int SrjLimbsShelf(const bool isH1, const int side, const double px, const datetime winFrom, const datetime D, datetime &repT)
+  {
+   int n = 0; repT = 0;
+   for(int i = 0; i < g_lsc_n; i++)
+     {
+      if(g_lsc_side[i] != side || g_lsc_nonstr[i] == 0) continue;
+      if(g_lsc_t[i] < winFrom || g_lsc_t[i] >= D) continue;
+      if(g_lsc_px[i] != px) continue;
+      n++;
+      if(g_lsc_t[i] > repT) repT = g_lsc_t[i];
+     }
+   return n;
+  }
+//--- one example bar: merge scan candidates + snapshot-only legacy rows.
+void SrjLimbsBarTF(const int exi, const string exID, const datetime D, const int TF)
+  {
+   if(TF != 0 && TF != 1) return;
+   datetime winFrom = D - LIMB_WIN_SECS;
+   bool isH1 = (TF == 1);
+   string tfS = isH1 ? "H1" : "M5";
+      for(int i = 0; i < g_lsc_n; i++)
+        {
+         datetime t = g_lsc_t[i];
+         if(t < winFrom || t >= D) continue;
+         int side = g_lsc_side[i];
+         bool upper = (side == 1);
+         int strict = g_lsc_strict[i];
+         int nonstr = g_lsc_nonstr[i];
+         int leg = SrjLimbsLegacy(isH1, upper, t) ? 1 : 0;
+         if(strict == 0 && leg == 0 && nonstr == 0) continue;
+         int bits = 0;
+         if(leg == 1) bits |= LIMB_LEGACY;
+         if(strict == 1) bits |= LIMB_L1;
+         int shelfN = 0; datetime repT = 0;
+         if(nonstr == 1)
+           {
+            shelfN = SrjLimbsShelf(isH1, side, g_lsc_px[i], winFrom, D, repT);
+            if(shelfN <= 1) bits |= LIMB_L2;
+            else if(t == repT) bits |= LIMB_L2;
+            else continue;
+           }
+         if(bits == 0 && !SrjLimbsConf(isH1, t, D))
+           {
+            string why = "-";
+            if(SrjLimbsDisplaced(isH1, upper, t, D, why)) bits |= LIMB_L3;
+           }
+         SrjLimbsStore(exi, TF, t, side, g_lsc_px[i], bits);
+        }
+      //--- snapshot-only legacy rows: in the walk's list but verbatim-absent.
+      int sn = isH1 ? g_sel_h1N : g_sel_m5N;
+      for(int i = 0; i < sn; i++)
+        {
+         datetime t = isH1 ? g_sel_h1T[i] : g_sel_m5T[i];
+         if(t < winFrom || t >= D) continue;
+         for(int s2 = 0; s2 < 2; s2++)
+           {
+            bool upper = (s2 == 0);
+            int side = upper ? 1 : -1;
+            if(!SrjLimbsLegacy(isH1, upper, t)) continue;
+            if(SrjLimbsFind(exi, TF, t, side) >= 0) continue;
+            double px = upper ? (isH1 ? g_sel_h1U[i] : g_sel_m5U[i]) : (isH1 ? g_sel_h1L[i] : g_sel_m5L[i]);
+            SrjLimbsStore(exi, TF, t, side, px, LIMB_LEGACY);
+           }
+        }
+      int nL = 0, n1 = 0, n2 = 0, n3 = 0, nU = 0, nR = 0;
+      for(int i = 0; i < g_lim_n; i++)
+        {
+         if(g_lim_exi[i] != exi || g_lim_tf[i] != TF) continue;
+         int b = g_lim_bits[i];
+         if(b == 0) { nU++; continue; }
+         if((b & LIMB_LEGACY) != 0) nL++;
+         if((b & LIMB_L1) != 0) n1++;
+         if((b & LIMB_L2) != 0) n2++;
+         if((b & LIMB_L3) != 0) n3++;
+         nR++;
+         string ln = StringFormat("[SRJ-EA] SEL60LIMB ex=%s tf=%s bar=%s side=%s px=%s admitted_by=%s l3via=%d",
+           exID, tfS, TimeToString(g_lim_t[i], TIME_DATE|TIME_MINUTES),
+           (g_lim_side[i] == 1 ? "U" : "L"), DoubleToString(g_lim_px[i], _Digits),
+           SrjLimbsAdmStr(b), (((b & LIMB_L3) != 0) ? 1 : 0));
+         LwAudit("SEL60LIMB", ln); Print(ln);
+        }
+      string el = StringFormat("[SRJ-EA] SEL60END ex=%s tf=%s win=%s..%s limbs=%d legacy=%d L1=%d L2=%d L3via=%d unattributed=%d",
+        exID, tfS, TimeToString(winFrom, TIME_DATE|TIME_MINUTES),
+        TimeToString(D, TIME_DATE|TIME_MINUTES), nR, nL, n1, n2, n3, nU);
+      LwAudit("SEL60END", el); Print(el);
+  }
+//--- all seven bars: scan once per TF, attribute per bar.
+void SrjLimbsShadow()
+  {
+   string bars[7] = {"2026.08.28 10:00", "2026.09.04 10:35", "2026.09.04 15:55",
+                     "2026.09.07 09:15", "2026.09.07 16:40", "2026.09.08 10:10", "2026.09.08 17:00"};
+   datetime Ds[7]; string exs[7];
+   datetime oldest = 0;
+   for(int e = 0; e < 7; e++)
+     {
+      double ePx = 0.0; string eBT = "-"; string exID = ""; datetime D = 0; ENUM_SRJ_DIR dir = DIR_LONG;
+      Ds[e] = 0; exs[e] = "";
+      if(!SrjSelEntry(bars[e], ePx, eBT, exID, D, dir)) continue;
+      Ds[e] = D; exs[e] = exID;
+      if(oldest == 0 || D < oldest) oldest = D;
+     }
+   if(oldest == 0) return;
+   SrjLimbsScanTF(PERIOD_CURRENT, false, oldest);
+   int m5scan = g_lsc_n, m5drop = g_lsc_drop;
+   //--- H1 scan reuses the same arrays; M5 attribution must run FIRST.
+   for(int e = 0; e < 7; e++)
+     {
+      if(Ds[e] == 0) continue;
+      SrjLimbsBarTF(e, exs[e], Ds[e], 0);
+     }
+   SrjLimbsScanTF(PERIOD_H1, true, oldest);
+   for(int e = 0; e < 7; e++)
+     {
+      if(Ds[e] == 0) continue;
+      SrjLimbsBarTF(e, exs[e], Ds[e], 1);
+     }
+   string fl = StringFormat("[SRJ-EA] SEL60FINAL bars=7 stored=%d dropped=%d m5scan=%d m5drop=%d h1scan=%d h1drop=%d",
+     g_lim_n, g_lim_drop, m5scan, m5drop, g_lsc_n, g_lsc_drop);
+   LwAudit("SEL60FINAL", fl); Print(fl);
+  }
+//--- F2 discriminator: every limb between the S1 decision bar and 09:40.
+void SrjSeatDisc()
+  {
+   double ePx = 0.0; string eBT = "-"; string exID = ""; datetime D = 0; ENUM_SRJ_DIR dir = DIR_LONG;
+   if(!SrjSelEntry("2026.09.08 10:10", ePx, eBT, exID, D, dir)) return;
+   datetime w0 = StringToTime("2026.09.08 09:40");
+   for(int TF = 0; TF < 2; TF++)
+     {
+      string tfS = (TF == 1) ? "H1" : "M5";
+      int tot = 0, l3n = 0;
+      for(int i = 0; i < g_lim_n; i++)
+        {
+         if(g_lim_exi[i] != 5 || g_lim_tf[i] != TF) continue;
+         if(g_lim_t[i] < w0 || g_lim_t[i] > D) continue;
+         tot++;
+         int b = g_lim_bits[i];
+         int l3v = (((b & LIMB_L3) != 0) ? 1 : 0);
+         if(l3v == 1) l3n++;
+         string ln = StringFormat("[SRJ-EA] SEL60DISC ex=S1 tf=%s bar=%s side=%s px=%s admitted_by=%s l3via=%d",
+           tfS, TimeToString(g_lim_t[i], TIME_DATE|TIME_MINUTES),
+           (g_lim_side[i] == 1 ? "U" : "L"), DoubleToString(g_lim_px[i], _Digits),
+           SrjLimbsAdmStr(b), l3v);
+         LwAudit("SEL60DISC", ln); Print(ln);
+        }
+      string tok = (l3n > 1) ? "HALT-NEWCLASS" : ((l3n == 1) ? "S-B-HOLDS" : "S-A-LIVE");
+      string sl = StringFormat("[SRJ-EA] SEL60DISCEND ex=S1 tf=%s win=%s..%s limbs=%d l3via=%d token=%s",
+        tfS, TimeToString(w0, TIME_DATE|TIME_MINUTES),
+        TimeToString(D, TIME_DATE|TIME_MINUTES), tot, l3n, tok);
+      LwAudit("SEL60DISCEND", sl); Print(sl);
+     }
+  }
+//====================== [FP-LIMBSEAT-1 STAGE 2 functions] ======================
+//--- S2-1 enumeration source (cells prebuilt end-of-run from the frozen
+//--- attributed store; the shadow prints above are untouched). S2-2 seat
+//--- anchors (upper bound). S2-3 row-local resolver. S2-4/S2-5 stop funnel
+//--- (ComputeSlReference exits only — declared cut). S2-6 three-candle
+//--- probe (M5 only). Nothing here writes selection/memo/state; prints
+//--- and counters only. All gates grade off log.
+double g_s2_lastStampVal = 0.0;
+//--- on-demand H1 projection for added (non-snapshot) limb rows: earliest
+//--- M5 bar in [H, H+3600) matching the extreme within half a point — the
+//--- SrjSelProjectH1 idiom, same tolerance, same earliest-wins.
+datetime S2ProjectH1(const datetime H, const double epx, const bool upper, int &amb)
+  {
+   amb = 0; datetime first = 0;
+   if(g_sel_ratesN <= 0) return 0;
+   for(int r = g_sel_ratesN - 1; r >= 0; r--)
+     {
+      datetime rt = g_sel_rates[r].time;
+      if(rt < H || rt >= H + 3600) continue;
+      double rv = upper ? g_sel_rates[r].high : g_sel_rates[r].low;
+      if(MathAbs(rv - epx) < _Point * 0.5) { amb++; if(first == 0) first = rt; }
+     }
+   return first;
+  }
+//--- one (bar, TF) limb cell: store rows passing the toggle mask,
+//--- grouped by bar time (U+L merged, upper-first deterministic P/A),
+//--- ascending. Legacy snapshot rows regroup byte-identical by
+//--- construction (same doubles, same order); only added L-class rows
+//--- and the 48h window bound can move a walk (graded, never silent).
+void S2MaterializeCell(const int exi, const int TF)
+  {
+   int cell = exi * 2 + TF; int base = cell * S2A_CAP;
+   int mask = LIMB_LEGACY;
+   if(InpSelL1) mask |= LIMB_L1;
+   if(InpSelL2) mask |= LIMB_L2;
+   if(InpSelL3) mask |= LIMB_L3;
+   bool isH1 = (TF == 1);
+   int m = 0;
+   for(int i = 0; i < g_lim_n; i++)
+     {
+      if(g_lim_exi[i] != exi || g_lim_tf[i] != TF) continue;
+      if((g_lim_bits[i] & mask) == 0) continue;
+      if(m >= S2A_CAP) { g_s2_drop++; continue; }
+      bool upper = (g_lim_side[i] == 1);
+      datetime t = g_lim_t[i]; double px = g_lim_px[i];
+      datetime pT = t; int amb = 0;
+      if(isH1)
+        {
+         pT = 0;
+         for(int k = 0; k < g_sel_h1N; k++)
+            if(g_sel_h1T[k] == t) { pT = g_sel_h1P[k]; amb = g_sel_h1Amb[k]; break; }
+         if(pT == 0 && t > 0) pT = S2ProjectH1(t, px, upper, amb);
+        }
+      int o = base + m;
+      g_s2a_T[o] = t;
+      if(upper) { g_s2a_U[o] = px; g_s2a_L[o] = EMPTY_VALUE; }
+      else { g_s2a_U[o] = EMPTY_VALUE; g_s2a_L[o] = px; }
+      g_s2a_P[o] = pT; g_s2a_A[o] = amb;
+      m++;
+     }
+   //--- insertion sort by (time, upper-first), all five slices together.
+   for(int a = 1; a < m; a++)
+     {
+      datetime kt = g_s2a_T[base + a]; double kU = g_s2a_U[base + a]; double kL = g_s2a_L[base + a];
+      datetime kP = g_s2a_P[base + a]; int kA = g_s2a_A[base + a];
+      int kUp = (kU != EMPTY_VALUE) ? 0 : 1;
+      int b = a - 1;
+      while(b >= 0)
+        {
+         int oB = base + b;
+         int bUp = (g_s2a_U[oB] != EMPTY_VALUE) ? 0 : 1;
+         if(g_s2a_T[oB] < kt || (g_s2a_T[oB] == kt && bUp <= kUp)) break;
+         g_s2a_T[oB + 1] = g_s2a_T[oB]; g_s2a_U[oB + 1] = g_s2a_U[oB]; g_s2a_L[oB + 1] = g_s2a_L[oB];
+         g_s2a_P[oB + 1] = g_s2a_P[oB]; g_s2a_A[oB + 1] = g_s2a_A[oB];
+         b--;
+        }
+      int oW = base + b + 1;
+      g_s2a_T[oW] = kt; g_s2a_U[oW] = kU; g_s2a_L[oW] = kL; g_s2a_P[oW] = kP; g_s2a_A[oW] = kA;
+     }
+   //--- compact same-time pairs in place (write <= read, always safe).
+   int w = 0; int r = 0;
+   while(r < m)
+     {
+      datetime t = g_s2a_T[base + r];
+      double U = EMPTY_VALUE; double L = EMPTY_VALUE;
+      datetime uP = 0; int uA = 0; datetime lP = 0; int lA = 0;
+      bool haveU = false; bool haveL = false;
+      while(r < m && g_s2a_T[base + r] == t)
+        {
+         int o = base + r;
+         if(g_s2a_U[o] != EMPTY_VALUE) { U = g_s2a_U[o]; uP = g_s2a_P[o]; uA = g_s2a_A[o]; haveU = true; }
+         else { L = g_s2a_L[o]; lP = g_s2a_P[o]; lA = g_s2a_A[o]; haveL = true; }
+         r++;
+        }
+      if(haveU && haveL && (uP != lP || uA != lA)) g_s2_tiebreak++;
+      int oW = base + w;
+      g_s2a_T[oW] = t; g_s2a_U[oW] = U; g_s2a_L[oW] = L;
+      g_s2a_P[oW] = haveU ? uP : lP; g_s2a_A[oW] = haveU ? uA : lA;
+      w++;
+     }
+   g_s2a_N[cell] = w;
+  }
+void S2BuildAll()
+   {
+    for(int s2c = 0; s2c < S2A_CELLS; s2c++) { g_s2a_N[s2c] = -1; g_s2_cellD[s2c] = 0; }
+    string bars[7] = {"2026.08.28 10:00", "2026.09.04 10:35", "2026.09.04 15:55",
+                     "2026.09.07 09:15", "2026.09.07 16:40", "2026.09.08 10:10", "2026.09.08 17:00"};
+   for(int e = 0; e < 7; e++)
+     {
+      double ePx = 0.0; string eBT = "-"; string exID = ""; datetime D = 0; ENUM_SRJ_DIR dir = DIR_LONG;
+       if(!SrjSelEntry(bars[e], ePx, eBT, exID, D, dir)) continue;
+       { string s2ab = ""; g_s2_tOByExi[e] = S2Anchor(exID, s2ab); }
+       S2MaterializeCell(e, 0);
+       S2MaterializeCell(e, 1);
+       g_s2_cellD[e * 2] = D; g_s2_cellD[e * 2 + 1] = D;
+     }
+  }
+//--- S-A anchor table (restatement S4; structural barTime constants in the
+//--- SrjSelEntry pattern — never stop levels, never operands).
+datetime S2Anchor(const string exID, string &basis)
+  {
+   basis = "UNANCHORED_GAP";
+   if(exID == "R1") { basis = "HAND_FIRST_SWING"; return StringToTime("2026.08.28 09:55"); }
+   if(exID == "R5") { basis = "HAND_FIRST_ANCHOR"; return StringToTime("2026.09.07 16:30"); }
+   if(exID == "S1") { basis = "HAND_SECOND_SWING"; return StringToTime("2026.09.08 09:40"); }
+   if(exID == "S2") { basis = "HAND_SECOND_SWING"; return StringToTime("2026.09.08 16:20"); }
+   return 0;
+  }
+void S2SeatForceEval()
+  {
+   string bars[7] = {"2026.08.28 10:00", "2026.09.04 10:35", "2026.09.04 15:55",
+                     "2026.09.07 09:15", "2026.09.07 16:40", "2026.09.08 10:10", "2026.09.08 17:00"};
+   datetime s1tO = StringToTime("2026.09.08 09:40");
+   for(int e = 0; e < 7; e++)
+     {
+      double ePx = 0.0; string eBT = "-"; string exID = ""; datetime D = 0; ENUM_SRJ_DIR dir = DIR_LONG;
+      if(!SrjSelEntry(bars[e], ePx, eBT, exID, D, dir)) continue;
+       string basis = ""; datetime tO = S2Anchor(exID, basis);
+       if(g_s2_cellD[e * 2] != 0 && g_s2_tOByExi[e] != tO)
+         {
+          g_s2_haltNC = 1;
+          string s2_am = "[SRJ-EA] SEL61HALT kind=ANCHOR_MISMATCH";
+          LwAudit("SEL61HALT", s2_am); Print(s2_am);
+         }
+      string lin = (tO == 0) ? "LEGACY_UNANCHORED" : "F2_SA";
+      for(int TF = 0; TF < 2; TF++)
+        {
+         int member = 0;
+         if(tO > 0)
+           {
+            int cell = e * 2 + TF; int base = cell * S2A_CAP;
+            for(int i = 0; i < g_s2a_N[cell]; i++)
+               if(g_s2a_T[base + i] == tO) { member = 1; break; }
+           }
+         //--- pre-declared S1/M5 guard: anything but 09:40 is HALT-NEWCLASS.
+         if(exID == "S1" && TF == 0 && tO != s1tO)
+           {
+            g_s2_haltNC = 1;
+            string hl = "[SRJ-EA] SEL61HALT kind=HALT-NEWCLASS where=SEAT ex=S1 tf=M5";
+            LwAudit("SEL61HALT", hl); Print(hl);
+           }
+         string tOs = (tO > 0) ? TimeToString(tO, TIME_DATE|TIME_MINUTES) : "-";
+         string ln = StringFormat("[SRJ-EA] SEL61SEAT ex=%s tf=%s tO=%s basis=%s member=%d lineage=%s",
+           exID, (TF == 1 ? "H1" : "M5"), tOs, basis, member, lin);
+         LwAudit("SEL61SEAT", ln); Print(ln);
+        }
+     }
+  }
+//--- resolver row classes (record-pinned: journal gain-on-row + S1
+//--- screenshot; R2/S2 unknown — abstain, never invent).
+string S2RowClass(const string exID)
+  {
+   if(exID == "R1" || exID == "R4" || exID == "R5" || exID == "S1") return "TF";
+   if(exID == "R3") return "MR";
+   return "?";
+  }
+string S2RowSweep(const string exID)
+  {
+   if(exID == "R3") return "LD.L";
+   return "-";
+  }
+//--- sweep-name direction (journal-corroborated: L-swept=bull with his
+//--- Bias column journal-wide; printed with name + Bias, never deciding
+//--- beyond the pinned row). +1 LONG, -1 SHORT, 0 unmapped.
+int S2SweepSide(const string sw)
+  {
+   if(sw == "LD.L" || sw == "AS.L" || sw == "PD.L" || sw == "PM.L") return 1;
+   if(sw == "LD.H" || sw == "AS.H" || sw == "PD.H" || sw == "PM.H") return -1;
+   return 0;
+  }
+int S2Leg(const double v)
+  {
+   if(v == EMPTY_VALUE) return 0;
+   int r = (int)MathRound(v);
+   if(r >= 1) return 1;
+   if(r <= -1) return -1;
+   return 0;
+  }
+void S2SideForceEval()
+  {
+   string bars[7] = {"2026.08.28 10:00", "2026.09.04 10:35", "2026.09.04 15:55",
+                     "2026.09.07 09:15", "2026.09.07 16:40", "2026.09.08 10:10", "2026.09.08 17:00"};
+   for(int e = 0; e < 7; e++)
+     {
+      double ePx = 0.0; string eBT = "-"; string exID = ""; datetime D = 0; ENUM_SRJ_DIR dir = DIR_LONG;
+      if(!SrjSelEntry(bars[e], ePx, eBT, exID, D, dir)) continue;
+      int sh = iBarShift(_Symbol, PERIOD_CURRENT, D);
+      double h4 = EMPTY_VALUE; double h1 = EMPTY_VALUE; double m15 = EMPTY_VALUE;
+      if(sh >= 0)
+        {
+         ReadFlow(FL_BUF_HTF_HIGH, h4, sh);
+         ReadFlow(FL_BUF_HTF_MID, h1, sh);
+         ReadFlow(FL_BUF_HTF_LOW, m15, sh);
+         g_s2_h4reads++;
+        }
+      int l1 = S2Leg(h1); int l5 = S2Leg(m15);
+      string cls = S2RowClass(exID);
+      string sw = S2RowSweep(exID);
+      int swSide = S2SweepSide(sw);
+      int decided = 0; string basis = "ABSTAIN_UNKNOWN_CLASS";
+      int decline = 0;
+      if(cls == "TF")
+        {
+         if(l1 != 0 && l1 == l5) { decided = l1; basis = "TF_UNANIMOUS_1H_15M"; }
+         else { decline = 1; basis = "TF_SPLIT_POLARITY_MISMATCH"; g_s2_nDecline++; }
+        }
+      else if(cls == "MR")
+        {
+         if(swSide != 0) { decided = swSide; basis = "MR_SWEEP_" + sw; }
+         else basis = "MR_SWEEP_UNMAPPED";
+        }
+      int pinned = (dir == DIR_LONG) ? 1 : -1;
+      if(decided != 0 && decided != pinned)
+        { decline = 1; basis = basis + "_VS_PINNED_MISMATCH"; g_s2_nDecline++; }
+      string decS = (decided > 0) ? "LONG" : ((decided < 0) ? "SHORT" : "-");
+      string h1s = (h1 == EMPTY_VALUE) ? "EMPTY" : DoubleToString(h1, 1);
+      string m15s = (m15 == EMPTY_VALUE) ? "EMPTY" : DoubleToString(m15, 1);
+      string h4s = (h4 == EMPTY_VALUE) ? "EMPTY" : DoubleToString(h4, 1);
+      string ln = StringFormat("[SRJ-EA] SEL61SIDE ex=%s pinned=%s decided=%s decline=%d basis=%s h1=%s m15=%s h4=%s sweep=%s",
+        exID, DirName(dir), decS, decline, basis, h1s, m15s, h4s, sw);
+      LwAudit("SEL61SIDE", ln); Print(ln);
+     }
+  }
+//--- live side routing: single writer. Live rows carry no declared class
+//--- -> ABSTAIN pass-through of the legacy value (D3 holds by
+//--- construction; proof = SEL61LIVE summary + isolation join).
+ENUM_SRJ_DIR S2ResolveLive(const ENUM_SRJ_DIR legDir)
+  {
+   //--- [C0-PROBE] null-effect pass-through: live vote DELETED; counters kept
+   //--- (agree==calls by construction; SEL61LIVE agree==calls expected, print-only)
+   g_s2_nLiveCalls++;
+   g_s2_nLiveAgree++;
+   return legDir;
+  }
+//--- SCOPED_EXCEPTIONS table: EMPTY — the single-trade identity is blank
+//--- (his to pin). Any PURE selection violates scope (reported).
+bool S2ScopeTable() { return false; }
+//--- PURE iff the first (1-away) leg carries imbalance while the walk
+//--- takes the second: always-count-2 despite imbalance.
+string S2Scope2Swing(const int imbBuf, const int swBuf, const ENUM_SRJ_DIR dir, const double entryPx, const int firstShift, const int chosenShift, string &aux)
+   {
+    g_s2_nScopeRows++;
+    double f = 0.0; int fi = -1;
+    if(firstShift >= 0 && ReadFlow(imbBuf, f, firstShift) && f != EMPTY_VALUE) fi = (int)f;
+    double c = 0.0; int ci = -1;
+    if(chosenShift >= 0 && ReadFlow(imbBuf, c, chosenShift) && c != EMPTY_VALUE) ci = (int)c;
+    double fv = EMPTY_VALUE; int sok = -1;
+    if(firstShift >= 0) { double fr = 0.0; if(ReadFlow(swBuf, fr, firstShift) && fr != EMPTY_VALUE) fv = fr; }
+    if(fv != EMPTY_VALUE && fv > 0.0) sok = SlimbProtectiveSideOk(dir, fv, entryPx) ? 1 : 0;
+    aux = StringFormat("f1=%d chosen=%d fval=%s sideOk=%d", fi, ci, (sok == -1 ? "-" : DoubleToString(fv, _Digits)), sok);
+    if(fi == 1 && sok == 1 && !S2ScopeTable()) { g_s2_nScopeViol++; return "OUT_OF_SCOPE_VIOLATION"; }
+    if(fi == 1 && sok != 1) return "UNGROUNDED_REPORT";
+    return "IN_SCOPE";
+   }
+string S2ScopeExh(const int imbBuf, const int shift)
+  {
+   g_s2_nScopeRows++;
+   double f = 0.0; int fi = -1;
+   if(shift >= 0 && ReadFlow(imbBuf, f, shift) && f != EMPTY_VALUE) fi = (int)f;
+   if(fi == 1) return "IN_SCOPE";
+   return "UNGROUNDED_REPORT";
+  }
+//--- stop funnel: one stamp per (site, bar). Second stamp same key with
+//--- the same value = duplicate (counted, silent); with a different
+//--- value = REWRITE (printed — surprises are never suppressed).
+void S2StampStop(const string site, const int barShift, const string branch, const int def, const double value, const int mode, const string scope, const string aux)
+  {
+   datetime bt = iTime(_Symbol, PERIOD_CURRENT, barShift);
+   string bts = TimeToString(bt, TIME_DATE|TIME_MINUTES);
+   string key = site + "@" + bts;
+   if(key == g_s2_lastStampKey)
+     {
+      g_s2_nStampDup++;
+      if(!(def == 1 && value == g_s2_lastStampVal))
+        {
+         string rl = StringFormat("[SRJ-EA] SEL61SRC site=%s bar=%s branch=%sREWRITE def=%d value=%s mode=%d scope=%s aux=%s",
+           site, bts, branch, def, (def == 1 ? DoubleToString(value, _Digits) : "-"), mode, scope, aux);
+         if(InpDebugLog) { LwAudit("SEL61SRC", rl); Print(rl); }
+        }
+      return;
+     }
+   g_s2_lastStampKey = key;
+   g_s2_lastStampVal = value;
+   g_s2_nStamps++;
+   string vS = (def == 1) ? DoubleToString(value, _Digits) : "-";
+   string ln = StringFormat("[SRJ-EA] SEL61SRC site=%s bar=%s branch=%s def=%d value=%s mode=%d scope=%s aux=%s",
+     site, bts, branch, def, vS, mode, scope, aux);
+   if(InpDebugLog) { LwAudit("SEL61SRC", ln); Print(ln); }
+  }
+//--- reference barTimes for the probe (SrjSelExpected g1BT/g2BT, cited).
+string S2RefBT(const string exID)
+  {
+   if(exID == "R1") return "2026.08.28 06:30";
+   if(exID == "R2") return "2026.09.04 09:30";
+   if(exID == "R3") return "2026.09.04 15:30";
+   if(exID == "R4") return "2026.09.07 08:40";
+   if(exID == "R5") return "2026.09.07 16:15";
+   if(exID == "S1") return "2026.09.08 09:40";
+   if(exID == "S2") return "2026.09.08 16:20";
+   return "-";
+  }
+//--- S2-6 three-candle print probe, M5 only (his chart/entry TF; H1
+//--- explicitly out — no toggle). Strict three-candle, no epsilon.
+//--- Rows carry exactly bar, side, verdict, counted position (rank
+//--- time-ascending among same-side qualifiers in-window; 0 = absent).
+void S2ProbeForceEval()
+  {
+   string bars[7] = {"2026.08.28 10:00", "2026.09.04 10:35", "2026.09.04 15:55",
+                     "2026.09.07 09:15", "2026.09.07 16:40", "2026.09.08 10:10", "2026.09.08 17:00"};
+   int nRows = 0;
+   int nb = Bars(_Symbol, PERIOD_CURRENT);
+   for(int e = 0; e < 7; e++)
+     {
+      double ePx = 0.0; string eBT = "-"; string exID = ""; datetime D = 0; ENUM_SRJ_DIR dir = DIR_LONG;
+      if(!SrjSelEntry(bars[e], ePx, eBT, exID, D, dir)) continue;
+      datetime refT = StringToTime(S2RefBT(exID));
+      datetime winFrom = D - 172800;
+      for(int sd = 0; sd < 2; sd++)
+        {
+         bool upper = (sd == 0);
+         datetime qq[1024]; int nq = 0;
+         for(int m = 1; m < nb - 1; m++)
+           {
+            datetime t = iTime(_Symbol, PERIOD_CURRENT, m);
+            if(t <= 0) continue;
+            if(t < winFrom || t >= D) continue;
+            double c = upper ? iHigh(_Symbol, PERIOD_CURRENT, m) : iLow(_Symbol, PERIOD_CURRENT, m);
+            double a = upper ? iHigh(_Symbol, PERIOD_CURRENT, m + 1) : iLow(_Symbol, PERIOD_CURRENT, m + 1);
+            double b = upper ? iHigh(_Symbol, PERIOD_CURRENT, m - 1) : iLow(_Symbol, PERIOD_CURRENT, m - 1);
+            bool q = upper ? (c > a && c > b) : (c < a && c < b);
+            if(!q) continue;
+            if(nq >= 1024) continue;
+            qq[nq] = t; nq++;
+           }
+         //--- qualifiers collected newer->older; rank time-ascending.
+         int pos = 0;
+         for(int k = 0; k < nq; k++)
+           {
+            if(qq[k] == refT) { pos = nq - k; break; }
+            if(qq[k] < refT) break;
+           }
+         string verdict = (pos > 0) ? "PRESENT_AT_REF" : "ABSENT_AT_REF";
+         string ln = StringFormat("[SRJ-EA] SEL61PROBE ex=%s side=%s ref=%s verdict=%s pos=%d n=%d",
+           exID, (upper ? "U" : "L"), S2RefBT(exID), verdict, pos, nq);
+         LwAudit("SEL61PROBE", ln); Print(ln);
+         nRows++;
+        }
+     }
+   string el = StringFormat("[SRJ-EA] SEL61PROBEEND rows=%d expect=14", nRows);
+   LwAudit("SEL61PROBEEND", el); Print(el);
+  }
+void S2Summaries()
+  {
+   string iv = StringFormat("[SRJ-EA] SEL61INV declines=%d promoAtt=%d overturnBlocked=%d wiring=OK",
+     g_s2_nDecline, g_s2_nPromoAtt, g_s2_nOverturn);
+   LwAudit("SEL61INV", iv); Print(iv);
+   string ov = "[SRJ-EA] SEL61OVR overrides=0 table=EMPTY";
+   LwAudit("SEL61OVR", ov); Print(ov);
+   string idp = "[SRJ-EA] SEL61INDEP adopt=0 ordersend=0/0 sizefields=0 h4branches=0";
+   LwAudit("SEL61INDEP", idp); Print(idp);
+   string sc = StringFormat("[SRJ-EA] SEL61SCOPE rows=%d violations=%d table=EMPTY",
+     g_s2_nScopeRows, g_s2_nScopeViol);
+   LwAudit("SEL61SCOPE", sc); Print(sc);
+   string se = StringFormat("[SRJ-EA] SEL61SRCEND stamps=%d dups=%d",
+     g_s2_nStamps, g_s2_nStampDup);
+   LwAudit("SEL61SRCEND", se); Print(se);
+   string lv = StringFormat("[SRJ-EA] SEL61LIVE calls=%d agree=%d delta=%d",
+     g_s2_nLiveCalls, g_s2_nLiveAgree, g_s2_nLiveDelta);
+   LwAudit("SEL61LIVE", lv); Print(lv);
+   string su = StringFormat("[SRJ-EA] SEL61SUMMARY h4reads=%d drops=%d tiebreak=%d haltNC=%d",
+     g_s2_h4reads, g_s2_drop, g_s2_tiebreak, g_s2_haltNC);
+   LwAudit("SEL61SUMMARY", su); Print(su);
+  }
+//--- F3 provenance emit at a probe bar: chain-so-far + meter raw reads.
+void SrjSideProvEmit(const string barT, const string cqdS, const string b1S, const string b2S, const string carriedS)
+  {
+   string hd = StringFormat("[SRJ-EA] SEL60PROV bar=%s n=%d dropped=%d cqd=%s bias1=%s bias2=%s carried=%s",
+     barT, g_side_n, g_side_drop, cqdS, b1S, b2S, carriedS);
+   LwAudit("SEL60PROV", hd); Print(hd);
+   string ch = "";
+   int part = 0;
+   for(int i = 0; i < g_side_n; i++)
+     {
+      string seg = StringFormat("%d:%s=%s;", i, g_side_prod[i], DirName((ENUM_SRJ_DIR)g_side_val[i]));
+      if(StringLen(ch) + StringLen(seg) > 420)
+        {
+         string ln = StringFormat("[SRJ-EA] SEL60PROVC bar=%s part=%d text=%s", barT, part, ch);
+         LwAudit("SEL60PROVC", ln); Print(ln);
+         part++; ch = "";
+        }
+      ch += seg;
+     }
+   string last = StringFormat("[SRJ-EA] SEL60PROVC bar=%s part=%d text=%s", barT, part, (ch == "" ? "-" : ch));
+   LwAudit("SEL60PROVC", last); Print(last);
+  }
+
+//====================== [ADOPTION-FIX-P4C5-FIRST-001 O1] ======================
+//--- O1 three-way absence discrimination (print-only, diagnostic, removable).
+//--- Recorders + end-of-run classifier for the S1 09:50 and R4 08:40 filing
+//--- absences. NO selection, memo, working-set or state consumer may read
+//--- anything below (static-diff gate pre-run). Adoption untouched (OFF).
+//--- Targets (HAND times/entries) live in SRJ_HandFixture.mqh SrjO1Target —
+//--- the EA carries zero new price/time literals (HAND-grep gate).
+//--- Removal = delete this block + the hook lines tagged [O1-HOOK].
+struct SO1Walk
+  {
+   datetime        decBT;
+   int             decShift;
+   int             dir;
+   int             ok;
+   int             mode;
+   double          px;
+   int             maxS;
+   int             n;
+  };
+SO1Walk g_o1_byDate[2];
+int     g_o1_maxS = -1;
+//--- [O1-HOOK] S5 walk record, first-row-per-date (additive; writes only).
+void O1RecordWalk(const int barShift, const ENUM_SRJ_DIR dir, const double px,
+                  const ENUM_SRJ_SLMODE mode, const bool ok)
+  {
+   datetime bt = iTime(_Symbol, PERIOD_CURRENT, barShift);
+   string bd = StringSubstr(TimeToString(bt, TIME_DATE), 0, 10);
+   for(int i = 0; i < 2; i++)
+     {
+      string tag = ""; string tgtBT = ""; int di = 0;
+      double entryPx = 0.0; double filedPx = 0.0; int hasFiled = 0;
+      if(!SrjO1Target(i, tag, tgtBT, di, entryPx, filedPx, hasFiled)) continue;
+      if(bd != StringSubstr(tgtBT, 0, 10)) continue;
+      g_o1_byDate[i].n++;
+      if(g_o1_byDate[i].decBT != 0) return;
+      g_o1_byDate[i].decBT    = bt;
+      g_o1_byDate[i].decShift = barShift;
+      g_o1_byDate[i].dir      = (int)dir;
+      g_o1_byDate[i].ok       = ok ? 1 : 0;
+      g_o1_byDate[i].mode     = (int)mode;
+      g_o1_byDate[i].px       = px;
+      g_o1_byDate[i].maxS     = g_o1_maxS;
+      return;
+     }
+  }
+//--- [O1-HOOK] end-of-run classifier. History reads only (iTime/iHigh/iLow
+//--- M5 series + swing-buffer membership); no state touched, prints only.
+void O1EndOfRun()
+  {
+   for(int i = 0; i < 2; i++)
+     {
+      string tag = ""; string tgtBT = ""; int di = 0;
+      double entryPx = 0.0; double filedPx = 0.0; int hasFiled = 0;
+      if(!SrjO1Target(i, tag, tgtBT, di, entryPx, filedPx, hasFiled)) continue;
+      datetime tgt = StringToTime(tgtBT);
+      bool isLong = (di == 1);
+      int ps = PeriodSeconds(PERIOD_CURRENT);
+      int t = iBarShift(_Symbol, PERIOD_CURRENT, tgt, false);
+      string bars = "MISSING";
+      int tok = 0;
+      double e0 = 0.0, eN = 0.0, eO = 0.0;
+      if(t >= 1 && iTime(_Symbol, PERIOD_CURRENT, t) == tgt)
+        {
+         datetime tN = iTime(_Symbol, PERIOD_CURRENT, t - 1);
+         datetime tO = iTime(_Symbol, PERIOD_CURRENT, t + 1);
+         if(tN == tgt + ps && tO == tgt - ps)
+           {
+            tok = 1; bars = "OK";
+            if(isLong)
+              { e0 = iLow(_Symbol, PERIOD_CURRENT, t); eN = iLow(_Symbol, PERIOD_CURRENT, t - 1); eO = iLow(_Symbol, PERIOD_CURRENT, t + 1); }
+            else
+              { e0 = iHigh(_Symbol, PERIOD_CURRENT, t); eN = iHigh(_Symbol, PERIOD_CURRENT, t - 1); eO = iHigh(_Symbol, PERIOD_CURRENT, t + 1); }
+           }
+         else bars = "GAPPED";
+        }
+      PrintFormat("[SRJ-EA] O1BARS tag=%s tgt=%s t=%d bars=%s", tag, tgtBT, t, bars);
+      int patOk = 0; string patCond = "-";
+      if(tok == 1)
+        {
+         if(isLong) patOk = ((e0 < eN && e0 < eO) ? 1 : 0);
+         else       patOk = ((e0 > eN && e0 > eO) ? 1 : 0);
+         if(patOk == 0) patCond = "NOT_MIDDLE_EXTREME";
+        }
+      PrintFormat("[SRJ-EA] O1PAT tag=%s e=%s n=%s o=%s patOk=%d cond=%s", tag, DoubleToString(e0, _Digits), DoubleToString(eN, _Digits), DoubleToString(eO, _Digits), patOk, patCond);
+      int eligOk = 0; string eligCond = "-";
+      if(tok == 1 && patOk == 1)
+        {
+         bool sideOk = isLong ? (e0 < entryPx) : (e0 > entryPx);
+         if(!sideOk) eligCond = "WRONG_SIDE";
+         else if(hasFiled == 1 && e0 != filedPx) eligCond = "PX_MISMATCH";
+         else eligOk = 1;
+        }
+      PrintFormat("[SRJ-EA] O1ELIG tag=%s entry=%s filed=%s eligOk=%d cond=%s", tag, DoubleToString(entryPx, _Digits), (hasFiled == 1 ? DoubleToString(filedPx, _Digits) : "UNSTATED"), eligOk, eligCond);
+      int swBuf = isLong ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+      double bvA = EMPTY_VALUE, bvB = EMPTY_VALUE;
+      int haveA = 0, haveB = 0;
+      int tsA = t - FLOW_SHIFT_OFFSET;
+      if(tok == 1 && tsA >= 0 && ReadFlow(swBuf, bvA, tsA) && bvA != EMPTY_VALUE) haveA = 1;
+      if(tok == 1 && ReadFlow(swBuf, bvB, t) && bvB != EMPTY_VALUE) haveB = 1;
+      PrintFormat("[SRJ-EA] O1BUF tag=%s tsA=%d haveA=%d bvA=%s tsB=%d haveB=%d bvB=%s", tag, tsA, haveA, (haveA == 1 ? DoubleToString(bvA, _Digits) : "-"), t, haveB, (haveB == 1 ? DoubleToString(bvB, _Digits) : "-"));
+      int decShift = -1, maxS = -1, wmode = -1, wok = 0, wn = 0;
+      double wpx = 0.0;
+      string wdt = "-";
+      if(g_o1_byDate[i].decBT != 0)
+        {
+         decShift = g_o1_byDate[i].decShift; maxS = g_o1_byDate[i].maxS;
+         wmode = g_o1_byDate[i].mode; wok = g_o1_byDate[i].ok;
+         wpx = g_o1_byDate[i].px; wn = g_o1_byDate[i].n;
+         wdt = TimeToString(g_o1_byDate[i].decBT, TIME_DATE|TIME_MINUTES);
+        }
+      int inA = ((tok == 1 && decShift >= 0 && maxS >= 0 && t >= decShift && t <= maxS) ? 1 : 0);
+      int inB = ((tok == 1 && decShift >= 0 && maxS >= 0 && tsA >= decShift && tsA <= maxS) ? 1 : 0);
+      PrintFormat("[SRJ-EA] O1WALK tag=%s dec=%s shift=%d maxS=%d mode=%d px=%s ok=%d n=%d inA=%d inB=%d", tag, wdt, decShift, maxS, wmode, DoubleToString(wpx, _Digits), wok, wn, inA, inB);
+      string cls = "NO_BARS"; string site = "CONSTRUCT"; string why = bars;
+      if(tok == 1 && patOk == 0) { cls = "EVALUATED_AND_FAILED"; site = "CONSTRUCT"; why = patCond; }
+      else if(eligOk == 0 && patOk == 1) { cls = "EVALUATED_AND_FAILED"; site = "ELIGIBILITY"; why = eligCond; }
+      else if(g_o1_byDate[i].decBT == 0) { cls = "NOT_EVALUATED"; site = "CONSUMPTION"; why = "NO_S5_ROW"; }
+      else if(maxS < 0) { cls = "NOT_EVALUATED"; site = "CONSUMPTION"; why = "NO_LOOP_CAPTURED"; }
+      else if(inA == 0 && inB == 0) { cls = "NOT_EVALUATED"; site = "CONSUMPTION"; why = "OUT_OF_WALK_RANGE"; }
+      else { cls = "NOT_EVALUATED"; site = "CONSUMPTION"; why = "IN_RANGE_UNCHOSEN"; }
+      PrintFormat("[SRJ-EA] O1DISC tag=%s class=%s site=%s reason=%s", tag, cls, site, why);
+     }
+  }
+
+//====================== [A6-PRINT-ONLY-RECORDERS-001] ======================
+//--- Decision-identity recorders (print-only, diagnostic, removable).
+//--- Terminal-selection records at the point of choice (the 1SWING OB path
+//--- runs no loop, so this print IS its capture point) + fired/refused
+//--- decision rows + end-of-run decision/match/suppressed/CQD table.
+//--- NO selection, memo, working-set or state consumer may read anything
+//--- below. Adoption untouched (OFF). All prices bar-read or live-passed,
+//--- never literals (Opus#1). Per-instant dedupe + emission counter
+//--- (Opus#2). Removal = delete this block + the hook lines tagged [A6-HOOK].
+int     g_a6_n = 0;
+string  g_a6_lastKey = "";
+string  g_a6_termRows[];
+string  g_a6_termSite[];
+double  g_a6_termPx[];
+int     g_a6_termSlot[];
+int     g_a6_termMode[];
+int     g_a6_termDir[];
+int     g_a6_termN = 0;
+string  g_a6_s5Rows[];
+int     g_a6_s5Ok[];
+int     g_a6_s5N = 0;
+int     g_a6_s5Cap = 0;
+double  g_a6_supPx[7];
+string  g_a6_supBt[7];
+string  g_a6_supBarT[7];
+int     g_a6_supDef[7];
+int     g_a6_supSlot[7];
+//--- [A6-HOOK] emission helper: debug-gated, per-key dedupe, counted.
+bool A6Emit(const string key, const string line)
+  {
+   if(!InpDebugLog) return false;
+   if(key != "" && key == g_a6_lastKey) return false;
+   if(key != "") g_a6_lastKey = key;
+   g_a6_n++;
+   Print(line);
+   return true;
+  }
+//--- [A6-HOOK] (i) terminal-selection record at the point of choice.
+void A6Term(const int barShift, const string site, const ENUM_SRJ_DIR dir,
+            const ENUM_SRJ_SLMODE mode, const double px, const int slot)
+  {
+   string barT = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+   string ms = (mode == SL_MODE_1SWING) ? "1SWING" : ((mode == SL_MODE_2SWING) ? "2SWING" : "NONE");
+   string ln = StringFormat("[SRJ-EA] A6TERM class=SELECTED bar=%s shift=%d site=%s dir=%s mode=%s px=%s ok=1 slot=%d",
+                            barT, barShift, site, DirName(dir), ms, DoubleToString(px, _Digits), slot);
+   if(A6Emit("TERM" + barT + site, ln) && g_a6_termN < 4096)
+     {
+      ArrayResize(g_a6_termRows, g_a6_termN + 1); ArrayResize(g_a6_termPx, g_a6_termN + 1);
+      ArrayResize(g_a6_termSlot, g_a6_termN + 1); ArrayResize(g_a6_termMode, g_a6_termN + 1);
+      ArrayResize(g_a6_termDir, g_a6_termN + 1); ArrayResize(g_a6_termSite, g_a6_termN + 1);
+      g_a6_termRows[g_a6_termN] = barT; g_a6_termPx[g_a6_termN] = px;
+      g_a6_termSlot[g_a6_termN] = slot; g_a6_termMode[g_a6_termN] = (int)mode;
+      g_a6_termDir[g_a6_termN] = (int)dir; g_a6_termSite[g_a6_termN] = site; g_a6_termN++;
+     }
+  }
+//--- [A6-HOOK] S5-row log for the windowed matcher (barTime + outcome).
+void A6S5Log(const string barT, const int ok)
+  {
+   if(!InpDebugLog) return;
+   if(g_a6_s5N >= 4096) { g_a6_s5Cap = 1; return; }
+   ArrayResize(g_a6_s5Rows, g_a6_s5N + 1); ArrayResize(g_a6_s5Ok, g_a6_s5N + 1);
+   g_a6_s5Rows[g_a6_s5N] = barT; g_a6_s5Ok[g_a6_s5N] = ok; g_a6_s5N++;
+  }
+//--- [A6-HOOK] (ii) fired decision row (hook: LogSignal, the firing funnel).
+void A6Fired(const int barShift, const double tpTarget, const double tpR,
+             const double slRef, const ENUM_SRJ_SLMODE mode, const string divKind)
+  {
+   string barT = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+   string ms = (mode == SL_MODE_1SWING) ? "1SWING" : "2SWING";
+   string ln = StringFormat("[SRJ-EA] A6FIRED class=SELECTED state=FIRED bar=%s dir=%s tp=%s r=%.2f sl=%s mode=%s div=%s",
+                            barT, DirName(g_dir), DoubleToString(tpTarget, _Digits), tpR,
+                            DoubleToString(slRef, _Digits), ms, divKind);
+   A6Emit("FIRED" + barT, ln);
+  }
+//--- [A6-HOOK] end-of-run decision/match/suppressed/CQD table (prints only;
+//--- history + fixture + census-memory reads, no state touched).
+void A6EndOfRun()
+   {
+    if(!InpDebugLog) return;
+   PrintFormat("[SRJ-EA] SIDE1G_TALLY seeds=%d prof=%d vote3=%d", s1g_nSeed, s1g_nProf, s1g_nV3);   //--- [SIDE1G] recon census tally (print-only)
+   int ps = PeriodSeconds(PERIOD_CURRENT);
+   for(int i = 0; i < 2; i++)
+     {
+      string tag = ""; string entryBT = ""; int di = 0; string limbBT = "";
+      if(!SrjA6Decision(i, tag, entryBT, di, limbBT)) continue;
+      string side = (di == 1) ? "LONG" : "SHORT";
+      datetime decBT = StringToTime(entryBT) - ps;
+      string decBS = TimeToString(decBT, TIME_DATE|TIME_MINUTES);
+      string winF = (ps == 300) ? "DECISION_BAR" : "NON_M5_TF";
+      string mRow = "-"; int mOk = -1;
+      for(int r = 0; r < g_a6_s5N; r++)
+         if(g_a6_s5Rows[r] == decBS) { mRow = decBS; mOk = g_a6_s5Ok[r]; break; }
+      if(mRow == "-")
+         PrintFormat("[SRJ-EA] A6MATCH tag=%s dec=%s win=%s result=EMPTY class=ABSENT_UNBORN", tag, decBS, winF);
+      else
+         PrintFormat("[SRJ-EA] A6MATCH tag=%s dec=%s win=%s result=MATCH row=%s ok=%d", tag, decBS, winF, mRow, mOk);
+      g_a6_n++;
+      int ti = -1;
+      //--- [A6-HOOK] [A6-DECISION-PAIRING-001] pair by barTime+site+dir:
+      //--- only a live-S5 row on the decision side may feed SELECTED;
+      //--- anything else falls through to D7 TRIGGER_UNRESOLVED below.
+      //--- (di uses 1/-1 = DIR_LONG/DIR_SHORT, so it compares directly.)
+      for(int k = 0; k < g_a6_termN; k++)
+         if(g_a6_termRows[k] == decBS && g_a6_termSite[k] == "S5" && g_a6_termDir[k] == di) { ti = k; break; }
+      if(ti >= 0)
+        {
+         string tms = (g_a6_termMode[ti] == 1) ? "1SWING" : "2SWING";
+         PrintFormat("[SRJ-EA] A6DECISION tag=%s inst=EURUSD_M5 side=%s dec=%s trigger=LIVE_S5_ROW path=LIVE_%s state=SELECTED px=%s ok=1 slot=%d verdict=RECORDED",
+                     tag, side, decBS, tms, DoubleToString(g_a6_termPx[ti], _Digits), g_a6_termSlot[ti]);
+        }
+      else if(i == 1)
+        {
+         datetime ltgt = StringToTime(limbBT);
+         int lt = iBarShift(_Symbol, PERIOD_CURRENT, ltgt, false);
+         double e0 = 0.0, eN = 0.0, eO = 0.0; string lok = "MISSING";
+         if(lt >= 1 && iTime(_Symbol, PERIOD_CURRENT, lt) == ltgt)
+           { e0 = iHigh(_Symbol, PERIOD_CURRENT, lt); eN = iHigh(_Symbol, PERIOD_CURRENT, lt - 1); eO = iHigh(_Symbol, PERIOD_CURRENT, lt + 1); lok = "OK"; }
+         PrintFormat("[SRJ-EA] A6DECISION tag=%s inst=EURUSD_M5 side=%s dec=%s trigger=UNRESOLVED path=UNRESOLVED state=TRIGGER_UNRESOLVED limb=%s e09=%s eN=%s eO=%s limbsrc=%s missing=retest+LTF+confirm+div verdict=NONE",
+                     tag, side, decBS, limbBT, DoubleToString(e0, _Digits), DoubleToString(eN, _Digits), DoubleToString(eO, _Digits), lok);
+        }
+      else
+         PrintFormat("[SRJ-EA] A6DECISION tag=%s inst=EURUSD_M5 side=%s dec=%s trigger=UNRESOLVED path=UNRESOLVED state=TRIGGER_UNRESOLVED missing=retest+LTF+confirm+div verdict=NONE", tag, side, decBS);
+      g_a6_n++;
+     }
+   for(int q = 0; q < g_a6_termN; q++)
+     {
+      int e = -1;
+      for(int c = 0; c < 7; c++)
+         if(g_a6_supBarT[c] == g_a6_termRows[q]) { e = c; break; }
+      if(e >= 0 && g_a6_supDef[e] == 1)
+         PrintFormat("[SRJ-EA] A6SUPP bar=%s class=FRACTAL_SUPPRESSED targetPx=%s targetBT=%s verdict=NONE", g_a6_termRows[q], DoubleToString(g_a6_supPx[e], _Digits), g_a6_supBt[e]);
+      else
+         PrintFormat("[SRJ-EA] A6SUPP bar=%s class=FRACTAL_SUPPRESSED target=UNRESOLVED_WALK reason=%s verdict=NONE", g_a6_termRows[q], (e < 0 ? "NO_CENSUS_ROW" : "NODEF_V005"));
+      g_a6_n++;
+     }
+   for(int d = 1; d <= 2; d++)
+     {
+      string ctag = ""; string centBT = ""; int cdi = 0; string climb = "";
+      if(!SrjA6Decision(d, ctag, centBT, cdi, climb)) continue;
+      datetime ctgt = StringToTime(centBT);
+      int csh = iBarShift(_Symbol, PERIOD_CURRENT, ctgt, false);
+      string cread = "BARS_MISSING"; string cv = "-";
+      if(csh >= 0 && iTime(_Symbol, PERIOD_CURRENT, csh) == ctgt)
+        {
+         double cqdV = EMPTY_VALUE;
+         if(ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, cqdV, csh))
+           { if(cqdV == EMPTY_VALUE) cread = "EMPTY"; else { cread = "VALUE"; cv = IntegerToString((int)MathRound(cqdV)); } }
+         else cread = "UNREAD";
+        }
+      PrintFormat("[SRJ-EA] A6CQD bar=%s read=%s val=%s armA=ABSENT_UNINSTRUMENTED armB=DEFECT discriminatingEvidence=MISSING verdict=NONE basis=ON_RUN", centBT, cread, cv);
+      g_a6_n++;
+     }
+   PrintFormat("[SRJ-EA] A6COUNT emitted=%d s5rows=%d s5cap=%d termrows=%d", g_a6_n, g_a6_s5N, g_a6_s5Cap, g_a6_termN);
+   g_a6_n++;
+  }
+
+//====================== [GEOM-LIVE-CONDITIONAL-3C-001] ======================
+//--- Print-only live-leg conditional-walk instrumentation (diagnostic).
+//--- End-of-run only (one call from SrjSelEndOfRun tail): recomputes the
+//--- conditional stop walk per roster row from settled history reads
+//--- (iTime/iHigh/iLow/iClose/ReadFlow at absolute shifts — identical bars
+//--- run-time and end-of-run), prints both legs side-by-side, changes NO
+//--- selection, memo, working-set or state. Adoption untouched (OFF).
+//--- Branch rule (the packet): 1-away WITH imbalance / 2-away WITHOUT;
+//--- UNKNOWN imbalance prints IMBALANCE=UNKNOWN and walks 2-away
+//--- (conservative). Walk mechanics per branch mirror ComputeSlReference
+//--- (OB-swing read + nearest-swing fallback + T75 side-guard walk +
+//--- previous-structure-top walk) with GEOM-local vars only: no stamps,
+//--- no Slimb/O1/shared writes, no legacy calls. Wick: observe-only plus
+//--- precedence ONLY when a protective-side wick prints beyond the branch
+//--- candidate while the block reads intact (no body close beyond the OB
+//--- structural extreme in between); historical zone state is unavailable
+//--- end-of-run, so this mechanical proxy is printed, never silent.
+//--- Slots are walk-relative (candShift-decShift, stable); absolute barTime
+//--- is the identity. legSlot reprints the stored run-time A6Term slot on
+//--- a barTime+site+dir S5 match (corroboration, R4 reads 7).
+//--- All prices bar-read or fixture-read, never literals (D1). All prints
+//--- DoubleToString(x,_Digits), never 4-digit/normalized (D2). Families
+//--- GEOMMATCH/GEOMDECISION/GEOMCOUNT are prefix-disjoint (D6).
+//--- Removal = delete this block + the hook line tagged [GEOM-HOOK].
+int g_geom_n = 0;
+//--- roster: tag | entryBT | formBT | dir(1/-1) | role(0=exact 1=void 2=presence)
+bool GeomRoster(const int i, string &tag, string &entryBT, string &formBT,
+                int &dir, int &role)
+  {
+   tag="-"; entryBT="-"; formBT="-"; dir=0; role=-1;
+   if(i==0) { tag="R1"; entryBT="2026.08.28 10:00"; formBT="2026.08.28 06:30"; dir=1;  role=0; return true; }
+   if(i==1) { tag="R2"; entryBT="2026.09.04 10:35"; formBT="-";              dir=-1; role=1; return true; }
+   if(i==2) { tag="R3"; entryBT="2026.09.04 15:55"; formBT="2026.09.04 15:30"; dir=1;  role=0; return true; }
+   if(i==3) { tag="R4"; entryBT="2026.09.07 09:15"; formBT="2026.09.07 08:40"; dir=1;  role=0; return true; }
+   if(i==4) { tag="R5"; entryBT="2026.09.07 16:40"; formBT="2026.09.07 16:15"; dir=1;  role=0; return true; }
+   if(i==5) { tag="S1"; entryBT="2026.09.08 10:10"; formBT="2026.09.08 09:40"; dir=-1; role=2; return true; }
+   if(i==6) { tag="S2"; entryBT="2026.09.08 17:00"; formBT="2026.09.08 16:20"; dir=-1; role=2; return true; }
+   return false;
+  }
+//--- filed price per row from the fixture (D1: never a literal here)
+bool GeomFiled(const string tag, double &px, string &note)
+  {
+   px=0.0; note="-";
+   int g1def=0; double g1Px=0.0; string g1BT="-"; double retPx=0.0; string retBT="-";
+   double tpPx=0.0; int tpUnst=0; int decline=0; int hypo=0; double g2Px=0.0; string g2BT="-";
+   if(!SrjSelExpected(tag, g1def, g1Px, g1BT, retPx, retBT, tpPx, tpUnst, decline, hypo, g2Px, g2BT)) return false;
+   if(tag=="R2") { px=g2Px; note="HYPO"; return true; }
+   if(tag=="S1") { px=g2Px; note="FIXTURE"; return true; }
+   if(tag=="S2") { note="UNSTATED"; return true; }
+   px=g1Px; note="FIXTURE"; return true;
+  }
+//--- live-leg conditional walk (read-only mirror of the selection mechanics
+//--- + imbalance gate + wick proxy). True with a branch candidate.
+bool GeomLiveWalk(const int dirE, const int eshift,
+                  double &candPx, int &candShift, int &candMode,
+                  int &imbFlag, int &imbAvail, string &src,
+                  double &wickPx, string &wickBT, int &wickBeyond, int &wickApplied)
+  {
+   candPx=0.0; candShift=-1; candMode=0; imbFlag=-1; imbAvail=0; src="-";
+   wickPx=0.0; wickBT="-"; wickBeyond=0; wickApplied=0;
+   ENUM_SRJ_DIR dir=(dirE==1) ? DIR_LONG : DIR_SHORT;
+   double slCurPx=iClose(_Symbol, PERIOD_CURRENT, eshift);
+   if(slCurPx<=0.0) return false;
+   int swBuf=((dir==DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH);
+   int imbBuf=((dir==DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB);
+   double obStructRef=0.0, obSwingRef=0.0;
+   bool haveObStruct=ReadFlow(FL_BUF_OB_STRUCT_EXTREME, obStructRef, eshift)
+                     && obStructRef!=EMPTY_VALUE && obStructRef>0.0;
+   bool haveObSwing=ReadFlow(FL_BUF_OB_SWING_EXTREME, obSwingRef, eshift)
+                    && obSwingRef!=EMPTY_VALUE && obSwingRef>0.0;
+   bool obSwingSideOk=haveObSwing && SlimbProtectiveSideOk(dir, obSwingRef, slCurPx);
+   double swingHigh=0.0, swingLow=0.0; int shHigh=-1, shLow=-1;
+   bool haveHigh=FindNearestSwing(FL_BUF_SWING_HIGH, eshift, swingHigh, shHigh);
+   bool haveLow=FindNearestSwing(FL_BUF_SWING_LOW, eshift, swingLow, shLow);
+   //--- 1-away candidate (legacy 1SWING selection mechanics, GEOM-local)
+   double c1=0.0; int c1s=-1; bool c1ok=false;
+   if(obSwingSideOk)
+     {
+      c1=obSwingRef; c1ok=true;
+      double obt=0.0;
+      if(ReadFlow(FL_BUF_OB_SWING_TIME, obt, eshift) && obt>0.0)
+        {
+         int ser=iBarShift(_Symbol, PERIOD_CURRENT, (datetime)obt, false);
+         if(ser>=0) c1s=ser-FLOW_SHIFT_OFFSET;
+        }
+     }
+   else
+     {
+      bool haveN=((dir==DIR_LONG) ? haveLow : haveHigh);
+      double nV=((dir==DIR_LONG) ? swingLow : swingHigh);
+      int nS=((dir==DIR_LONG) ? shLow : shHigh);
+      if(haveN && nS>=0)
+        {
+         if(SlimbProtectiveSideOk(dir, nV, slCurPx)) { c1=nV; c1s=nS; c1ok=true; }
+         else
+           {
+            for(int s=nS+1; s<=nS+500; s++)
+              {
+               double v=0.0;
+               if(!ReadFlow(swBuf, v, s)) break;
+               if(v==EMPTY_VALUE || v<=0.0) continue;
+               if(((dir==DIR_LONG) ? (v>=slCurPx) : (v<=slCurPx))) continue;
+               c1=v; c1s=s; c1ok=true; break;
+              }
+           }
+        }
+     }
+   //--- imbalance at the 1-away block: the branch gate
+   if(c1ok && c1s>=0)
+     {
+      double f=0.0;
+      if(ReadFlow(imbBuf, f, c1s) && f!=EMPTY_VALUE) { imbAvail=1; imbFlag=(int)f; }
+     }
+   double bc=0.0; int bs=-1; int bm=0; bool bok=false;
+   if(imbAvail==1 && imbFlag==1 && c1ok)
+     { bc=c1; bs=c1s; bm=1; bok=true; src="IMBALANCE_KNOWN"; }
+   else
+     {
+      src=((imbAvail==1) ? "IMBALANCE_ABSENT" : "IMBALANCE_UNKNOWN");
+      bool haveFirst=false; double runExt=0.0; int rxs=-1;
+      for(int s=eshift; s<=eshift+500; s++)
+        {
+         double v=0.0;
+         if(!ReadFlow(swBuf, v, s)) break;
+         if(v==EMPTY_VALUE || v<=0.0) continue;
+         if(!haveFirst) { runExt=v; rxs=s; haveFirst=true; continue; }
+         bool exceeds=((dir==DIR_LONG) ? (v<runExt-_Point) : (v>runExt+_Point));
+         if(exceeds)
+           {
+            runExt=v; rxs=s;
+            if(!SlimbProtectiveSideOk(dir, v, slCurPx)) continue;
+            bc=v; bs=s; bm=2; bok=true; break;
+           }
+        }
+      if(!bok && haveFirst && rxs>=0 && SlimbProtectiveSideOk(dir, runExt, slCurPx))
+        { bc=runExt; bs=rxs; bm=2; bok=true; }
+     }
+   if(!bok) return false;
+   //--- wick observation + intact-block precedence proxy
+   double wpx=0.0; int ws=-1;
+   for(int s=eshift; s<=bs; s++)
+     {
+      double w=((dir==DIR_LONG) ? iLow(_Symbol, PERIOD_CURRENT, s) : iHigh(_Symbol, PERIOD_CURRENT, s));
+      if(w<=0.0) continue;
+      if(wpx==0.0 || ((dir==DIR_LONG) ? (w<wpx) : (w>wpx))) { wpx=w; ws=s; }
+     }
+   if(ws>=0) { wickPx=wpx; wickBT=TimeToString(iTime(_Symbol, PERIOD_CURRENT, ws), TIME_DATE|TIME_MINUTES); }
+   wickBeyond=((ws>=0 && ((dir==DIR_LONG) ? (wpx<bc-_Point) : (wpx>bc+_Point))) ? 1 : 0);
+   int intact=0;
+   if(haveObStruct && ws>=0)
+     {
+      intact=1;
+      for(int s=eshift; s<=bs; s++)
+        {
+         double c=iClose(_Symbol, PERIOD_CURRENT, s);
+         if(c<=0.0) continue;
+         if(((dir==DIR_LONG) ? (c<obStructRef-_Point) : (c>obStructRef+_Point))) { intact=0; break; }
+        }
+     }
+   if(wickBeyond==1 && intact==1) { candPx=wpx; candShift=ws; wickApplied=1; }
+   else { candPx=bc; candShift=bs; }
+   candMode=bm;
+   return true;
+  }
+//--- fractal leg: verbatim-L1 5-bar pivot scan (M5) before the decision bar,
+//--- protective side, nearest first. Recognition-only, never a stop price.
+bool GeomFracWalk(const int dirE, const int eshift, double &fpx, string &fbt)
+  {
+   fpx=0.0; fbt="-";
+   bool upper=(dirE==-1);
+   for(int s=eshift; s<=eshift+576; s++)
+     {
+      if(!SrjLimbStrict(PERIOD_CURRENT, s, upper)) continue;
+      double p=upper ? iHigh(_Symbol, PERIOD_CURRENT, s) : iLow(_Symbol, PERIOD_CURRENT, s);
+      if(p<=0.0) continue;
+      fpx=p; fbt=TimeToString(iTime(_Symbol, PERIOD_CURRENT, s), TIME_DATE|TIME_MINUTES);
+      return true;
+     }
+   return false;
+  }
+//--- one roster row: GEOMMATCH + GEOMDECISION (prints only)
+void GeomRow(const string tag, const string entryBT, const string formBT,
+             const int dirE, const int role, const double filedPx, const string filedNote)
+  {
+   datetime et=StringToTime(entryBT);
+   int es=iBarShift(_Symbol, PERIOD_CURRENT, et, false);
+   bool esOk=(es>=0 && iTime(_Symbol, PERIOD_CURRENT, es)==et);
+   double cPx=0.0; int cS=-1; int cM=0; int imbF=-1; int imbA=0; string src="-";
+   double wPx=0.0; string wBT="-"; int wB=0; int wA=0;
+   bool haveC=esOk && GeomLiveWalk(dirE, es, cPx, cS, cM, imbF, imbA, src, wPx, wBT, wB, wA);
+   double fPx=0.0; string fBT="-";
+   bool haveF=esOk && GeomFracWalk(dirE, es, fPx, fBT);
+   string cBTS=(haveC && cS>=0) ? TimeToString(iTime(_Symbol, PERIOD_CURRENT, cS), TIME_DATE|TIME_MINUTES) : "-";
+   int slotW=(haveC && cS>=0) ? (cS-es) : -1;
+   int legSlot=-1; int s5=0;
+   if(esOk)
+     {
+      for(int k=0; k<g_a6_termN; k++)
+         if(g_a6_termRows[k]==entryBT && g_a6_termSite[k]=="S5" && g_a6_termDir[k]==dirE)
+           { legSlot=g_a6_termSlot[k]; s5=1; break; }
+     }
+   string ms=(cM==1) ? "1AWAY" : ((cM==2) ? "2AWAY" : "NONE");
+   string verdict="-";
+   if(!esOk) verdict="MISSING";
+   else if(role==1) verdict="DECLINED";
+   else if(!haveC) verdict="ABSENT";
+   else if(role==2) verdict="PRESENT";
+   else verdict=((cPx==filedPx && cBTS==formBT) ? "EXACT" : "OFF");
+   PrintFormat("[SRJ-EA] GEOMMATCH tag=%s entry=%s form=%s filed=%s live=%s@%s/slotW=%d/%s/%s frac=%s@%s s5=%d legslot=%d verdict=%s",
+               tag, entryBT, formBT,
+               ((filedNote=="UNSTATED") ? "UNSTATED" : DoubleToString(filedPx, _Digits)),
+               haveC ? cBTS : "-", haveC ? DoubleToString(cPx, _Digits) : "-", slotW, ms, src,
+               haveF ? fBT : "-", haveF ? DoubleToString(fPx, _Digits) : "-", s5, legSlot, verdict);
+   g_geom_n++;
+   string dec2=(cM==2 && imbA==0) ? "2AWAY SRC=IMBALANCE_UNKNOWN" : ((cM==2) ? "2AWAY SRC=IMBALANCE_ABSENT" : ((cM==1) ? "1AWAY SRC=IMBALANCE_KNOWN" : "NONE"));
+   string wnote=(wB==1) ? ("BEYOND@"+wBT) : "NONE";
+   if(wA==1) wnote=wnote+"+APPLIED";
+   PrintFormat("[SRJ-EA] GEOMDECISION tag=%s leg=LIVE %s imb=%d wick=%s verdict=%s",
+               tag, dec2, imbF, wnote, ((role==1) ? "DECLINED" : "RECORDED"));
+   g_geom_n++;
+  }
+//--- [GEOM-HOOK] end-of-run roster table (prints only; history+fixture+
+//--- census-memory reads, no state touched)
+void GeomEndOfRun()
+  {
+   if(!InpDebugLog) return;
+   for(int i=0; i<7; i++)
+     {
+      string tag=""; string entryBT=""; string formBT=""; int dirE=0; int role=-1;
+      if(!GeomRoster(i, tag, entryBT, formBT, dirE, role)) continue;
+      double fpx=0.0; string fnote="-";
+      if(!GeomFiled(tag, fpx, fnote)) { fnote="MISSING"; }
+      GeomRow(tag, entryBT, formBT, dirE, role, fpx, fnote);
+     }
+   PrintFormat("[SRJ-EA] GEOMDECISION tag=S1SIG kind=VOID_SIGNAL ref=RECON26-MISLABEL state=VOID verdict=RECORDED");
+   g_geom_n++;
+   PrintFormat("[SRJ-EA] GEOMCOUNT emitted=%d rows=7 sigs=1 decPrints=8", g_geom_n);
+   g_geom_n++;
+  }
+
+//====================== [SIDE1P2 vote-at-site with provenance] ======================
+//--- Print-only direction-in-use diagnostic (authored REV3, print scope).
+//--- Live snapshot at bar entry + end-of-run table. Reads g_dir and the
+//--- stored bar only; writes own arrays only. No selection, memo,
+//--- working-set or state consumer may read anything below. Adoption
+//--- untouched (OFF). Roster carries TIMES only, zero prices (filed
+//--- numerics live in the fixture alone). Roster side appears nowhere
+//--- here (oracle-free by build: grading joins tag to roster off-run).
+//--- Horn ii: thrown-away votes stay out of the graded set; the shadow
+//--- token prints reference-only, always beside GRADE=NONE, never beside
+//--- a graded row. Table closes fully (F1-F12 plus residual row); thin
+//--- yield prints INCONCLUSIVE-BY-CONSTRUCTION with sites named.
+//--- Removal = delete this block + the two hook lines tagged below.
+int    g_side1p2_n = 0;
+string g_side1p2_lastKey = "";
+int    g_side1p2_maxlen = 0;
+int      g_side1p2_seen[7];
+int      g_side1p2_dir[7];
+datetime g_side1p2_srcT[7];
+string   g_side1p2_src[7];
+string   g_side1p2_bar[7];
+//--- roster: tag | entry barTime | role (0 exact, 1 void, 2 presence, 3 held).
+//--- TIMES only here, never prices; side never appears (see header).
+bool Side1p2Roster(const int i, string &tag, string &entry, int &role)
+  {
+   tag="-"; entry="-"; role=-1;
+   if(i==0) { tag="R1"; entry="2026.08.28 10:00"; role=3; return true; }
+   if(i==1) { tag="R2"; entry="2026.09.04 10:35"; role=1; return true; }
+   if(i==2) { tag="R3"; entry="2026.09.04 15:55"; role=0; return true; }
+   if(i==3) { tag="R4"; entry="2026.09.07 09:15"; role=0; return true; }
+   if(i==4) { tag="R5"; entry="2026.09.07 16:40"; role=3; return true; }
+   if(i==5) { tag="S1"; entry="2026.09.08 10:10"; role=2; return true; }
+   if(i==6) { tag="S2"; entry="2026.09.08 17:00"; role=2; return true; }
+   return false;
+  }
+//--- top-entry snapshot: first sighting per roster bar keeps the held
+//--- direction plus its stored bar. Reads only, stores only below.
+void Side1p2Snap(const datetime barTime)
+  {
+   if(!InpDebugLog) return;
+   string bt=TimeToString(barTime, TIME_DATE|TIME_MINUTES);
+   for(int i=0; i<7; i++)
+     {
+      if(g_side1p2_seen[i]!=0) continue;
+      string tag=""; string entry=""; int role=-1;
+      if(!Side1p2Roster(i, tag, entry, role)) continue;
+      if(bt!=entry) continue;
+      g_side1p2_seen[i]=1;
+      g_side1p2_bar[i]=bt;
+      g_side1p2_dir[i]=(int)g_dir;
+      g_side1p2_srcT[i]=g_anchorBarTime;
+      g_side1p2_src[i]=((g_anchorBarTime==0) ? "NONE" : TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES));
+     }
+  }
+//--- emission helper: debug-gated, per-key dedupe, counted, capped.
+bool Side1p2Emit(const string key, const string line)
+  {
+   if(!InpDebugLog) return false;
+   if(key!="" && key==g_side1p2_lastKey) return false;
+   if(key!="") g_side1p2_lastKey=key;
+   int L=StringLen(line);
+   if(L>g_side1p2_maxlen) g_side1p2_maxlen=L;
+   if(L>537)
+     {
+      PrintFormat("[SRJ-EA] SIDE1P2_HALT CAUSE=MAXLEN LEN=%d CAP=537", L);
+      return false;
+     }
+   g_side1p2_n++;
+   Print(line);
+   return true;
+  }
+//--- end-of-run table: fork rows F1-F12, packet reports, count trailer.
+//--- History plus snapshot-memory reads only; prints only.
+void Side1p2EndOfRun()
+  {
+   if(!InpDebugLog) return;
+   datetime bndD=StringToTime("2026.09.08 00:00");
+   int bndS=iBarShift(_Symbol, PERIOD_CURRENT, bndD, false);
+   string bndB=((bndS>=0) ? TimeToString(iTime(_Symbol, PERIOD_CURRENT, bndS), TIME_DATE|TIME_MINUTES) : "-");
+   int nGraded=0; int nUngraded=0; int nHeld=0;
+   int nF4=0; int nF5=0; int nF6=0;
+   string ungTags="";
+   string vsym="VOTE-EXISTS-DISCARDED=NOT-ASSESSED";
+   for(int i=0; i<7; i++)
+     {
+      string tag=""; string entry=""; int role=-1;
+      if(!Side1p2Roster(i, tag, entry, role)) continue;
+      datetime entryD=StringToTime(entry);
+      int dv=g_side1p2_dir[i];
+      string dirS="NODIR";
+      if(dv==1) dirS="LONG";
+      else if(dv==-1) dirS="SHORT";
+      bool seen=(g_side1p2_seen[i]!=0);
+      string site=((seen) ? g_side1p2_bar[i] : "-");
+      string src=g_side1p2_src[i];
+      if(src=="") src="NONE";
+      datetime srcD=g_side1p2_srcT[i];
+      string cls="UNRESOLVED"; string epoch="NA"; string fork="F12";
+      string grade="NONE"; string bsrc="DIVERGENT"; string sub="-"; string note="UNENUMERATED-STATE";
+      if(!seen)
+        {
+         cls="UNRESOLVED"; fork="F12"; grade="NONE"; bsrc="DIVERGENT"; epoch="NA"; sub="-"; note="UNENUMERATED-STATE";
+        }
+      else if(role==1)
+        {
+         bsrc="ROSTER"; epoch="NA"; sub="-"; grade="NONE";
+         if(dv==0) { cls="VOID-NO-DIRECTION"; fork="F11"; note="CLEAN-VOID"; }
+         else if(dv==1) { cls="VOID-NO-DIRECTION"; fork="F9"; note="VOID-WITH-DIRECTION"; }
+         else { cls="VOID-NO-DIRECTION"; fork="F10"; note="VOID-WITH-DIRECTION"; }
+        }
+      else if(src=="NONE" || srcD==0)
+        {
+         bsrc="ROSTER"; epoch="NA"; sub="-"; grade="NONE";
+         if(dv==1) { cls="DEFAULT-INIT"; fork="F7"; note="PROVENANCE-UNESTABLISHED+DEFECT"; }
+         else if(dv==-1) { cls="DEFAULT-INIT"; fork="F8"; note="PROVENANCE-UNESTABLISHED+DEFECT"; }
+         else { cls="UNRESOLVED"; fork="F12"; note="UNENUMERATED-STATE"; }
+        }
+      else if(srcD==entryD)
+        {
+         bsrc="ROSTER"; epoch="NA"; sub="-";
+         if(dv==1) { cls="FRESH"; fork="F1"; note="-"; grade=((role==3) ? "HELD" : "GRADED"); }
+         else if(dv==-1) { cls="FRESH"; fork="F2"; note="-"; grade=((role==3) ? "HELD" : "GRADED"); }
+         else { cls="UNRESOLVED"; fork="F12"; note="UNENUMERATED-STATE"; grade="NONE"; }
+        }
+      else if(srcD<entryD)
+        {
+         bsrc="ROSTER";
+         epoch=(((srcD<bndD)) ? "PRE-SEP8" : "ONAFTER-SEP8");
+         if(dv==1 && epoch=="PRE-SEP8") { cls="CARRIED"; fork="F3"; sub="-"; note="-"; grade=((role==3) ? "HELD" : "GRADED"); }
+         else if(dv==1) { cls="CARRIED"; fork="F4"; sub="CARRIED-LONG-SRC-ONAFTER-SEP8"; note="PARTIAL-REFUTATION-CANDIDATE"; grade=((role==3) ? "HELD" : "GRADED"); }
+         else if(dv==-1 && epoch=="PRE-SEP8") { cls="CARRIED"; fork="F5"; sub="-"; note="ROSTER-CONFLICT-CANDIDATE"; grade=((role==3) ? "HELD" : "GRADED"); }
+         else if(dv==-1) { cls="CARRIED"; fork="F6"; sub="-"; note="REFUTED-OWN-PREMISE-CANDIDATE"; grade=((role==3) ? "HELD" : "GRADED"); }
+         else { cls="UNRESOLVED"; fork="F12"; epoch="NA"; sub="-"; note="UNENUMERATED-STATE"; grade="NONE"; }
+        }
+      else
+        {
+         bsrc="ROSTER"; cls="UNRESOLVED"; fork="F12"; grade="NONE"; epoch="NA"; sub="-"; note="UNENUMERATED-STATE";
+        }
+      if(grade=="GRADED" && role==3) grade="HELD";
+      if(grade=="GRADED") nGraded++;
+      else if(grade=="HELD") nHeld++;
+      else nUngraded++;
+      if(tag=="R3" || tag=="R4" || tag=="S1" || tag=="S2")
+        {
+         if(fork=="F4") nF4++;
+         if(fork=="F5") nF5++;
+         if(fork=="F6") nF6++;
+         if(grade=="NONE")
+           {
+            if(ungTags=="") ungTags=tag;
+            else ungTags=ungTags+"+"+tag;
+           }
+        }
+      string line="-";
+      if(grade=="NONE")
+         line=StringFormat("[SRJ-EA] SIDE1P2_MATCH TAG=%s SITE=%s DIRUSED=%s SRCBAR=%s CLASS=%s EPOCH=%s FORK=%s GRADE=%s BIRTHBAR=%s BIRTH_SRC=%s SUB=%s NOTE=%s VOTE=%s",
+                           tag, site, dirS, src, cls, epoch, fork, grade, entry, bsrc, sub, note, vsym);
+      else
+         line=StringFormat("[SRJ-EA] SIDE1P2_MATCH TAG=%s SITE=%s DIRUSED=%s SRCBAR=%s CLASS=%s EPOCH=%s FORK=%s GRADE=%s BIRTHBAR=%s BIRTH_SRC=%s SUB=%s NOTE=%s VOTE=-",
+                           tag, site, dirS, src, cls, epoch, fork, grade, entry, bsrc, sub, note);
+      Side1p2Emit("M"+tag, line);
+     }
+   if(nF4>0)
+     {
+      string r=StringFormat("[SRJ-EA] SIDE1P2_REPORT KIND=PARTIAL-REFUTATION N=%d", nF4);
+      Side1p2Emit("R-PART", r);
+     }
+   if(nF5>0)
+     {
+      string r2=StringFormat("[SRJ-EA] SIDE1P2_REPORT KIND=ROSTER-CONFLICT N=%d", nF5);
+      Side1p2Emit("R-CONF", r2);
+     }
+   if(nF6>0)
+     {
+      string r3=StringFormat("[SRJ-EA] SIDE1P2_REPORT KIND=REFUTED-OWN-PREMISE N=%d", nF6);
+      Side1p2Emit("R-PREM", r3);
+     }
+   string ystat=((ungTags=="") ? "COMPLETE" : "INCONCLUSIVE-BY-CONSTRUCTION");
+   string yline=StringFormat("[SRJ-EA] SIDE1P2_COUNT EMITTED=%d ROWS=7 GRADED=%d HELD=%d UNGRADED=%d YIELD=%s UNGRADED_TAGS=%s MAXLEN=%d BND=%s BSHIFT=%d",
+                             g_side1p2_n, nGraded, nHeld, nUngraded, ystat, ((ungTags=="") ? "-" : ungTags), g_side1p2_maxlen, bndB, bndS);
+   Side1p2Emit("COUNT", yline);
+  }
+
+//====================== [SIDE1P3 source-bar attribution] ======================
+//--- Print-only source-bar diagnostic (packet SIDE-1P-STAGE-C, print scope).
+//--- Live snapshot at the two source bars + end-of-run source table. Reads
+//--- held direction, stored bar, write-chain tail and bias meters only;
+//--- writes own arrays only. No selection, memo, working-set or state
+//--- consumer may read anything below. Adoption untouched (OFF). Roster
+//--- carries TIMES only, zero prices (filed numerics live in the fixture
+//--- alone). Roster side appears nowhere here (oracle-free by build).
+//--- Site linkage reads the RECON29 snapshot arrays only; those blocks
+//--- stay byte-identical below. Table answers the mechanism fork:
+//--- wrong-at-source vs sound-then-carried, per row, on measured facts.
+//--- Removal = delete this block + the two hook lines tagged below.
+int    g_side1p3_n = 0;
+string g_side1p3_lastKey = "";
+int    g_side1p3_maxlen = 0;
+int      g_side1p3_seen[2];
+int      g_side1p3_dir[2];
+datetime g_side1p3_srcT[2];
+string   g_side1p3_src[2];
+string   g_side1p3_bar[2];
+string   g_side1p3_voteP[2];
+int      g_side1p3_voteV[2];
+int      g_side1p3_chainN[2];
+double   g_side1p3_biasA[2];
+double   g_side1p3_biasB[2];
+//--- roster: tag | source barTime | linked site barTime. TIMES only here,
+//--- never prices; side never appears (see header).
+bool Side1p3Roster(const int i, string &tag, string &entry, string &site)
+  {
+   tag="-"; entry="-"; site="-";
+   if(i==0) { tag="SRC1"; entry="2026.09.08 09:20"; site="2026.09.08 10:10"; return true; }
+   if(i==1) { tag="SRC2"; entry="2026.09.08 16:45"; site="2026.09.08 17:00"; return true; }
+   return false;
+  }
+//--- top-entry snapshot: first sighting per source bar keeps the held
+//--- direction, its stored bar, the chain tail and both bias reads.
+//--- Reads only, stores only below.
+void Side1p3Snap(const datetime barTime)
+  {
+   if(!InpDebugLog) return;
+   string bt=TimeToString(barTime, TIME_DATE|TIME_MINUTES);
+   for(int i=0; i<2; i++)
+     {
+      if(g_side1p3_seen[i]!=0) continue;
+      string tag=""; string entry=""; string site="";
+      if(!Side1p3Roster(i, tag, entry, site)) continue;
+      if(bt!=entry) continue;
+      g_side1p3_seen[i]=1;
+      g_side1p3_bar[i]=bt;
+      g_side1p3_dir[i]=(int)g_dir;
+      g_side1p3_srcT[i]=g_anchorBarTime;
+      g_side1p3_src[i]=((g_anchorBarTime==0) ? "NONE" : TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES));
+      int cn=g_side_n;
+      g_side1p3_chainN[i]=cn;
+      if(cn>0) { g_side1p3_voteP[i]=g_side_prod[cn-1]; g_side1p3_voteV[i]=g_side_val[cn-1]; }
+      else { g_side1p3_voteP[i]="NONE"; g_side1p3_voteV[i]=0; }
+      double bA=EMPTY_VALUE; double bB=EMPTY_VALUE;
+      ReadBuf1(g_hFlow, FL_BUF_LTF_BIAS, bA, 1);
+      ReadBuf1(g_hFlow, FL_BUF_LTF_BIAS, bB, 2);
+      g_side1p3_biasA[i]=bA;
+      g_side1p3_biasB[i]=bB;
+     }
+  }
+//--- emission helper: debug-gated, per-key dedupe, counted, capped.
+bool Side1p3Emit(const string key, const string line)
+  {
+   if(!InpDebugLog) return false;
+   if(key!="" && key==g_side1p3_lastKey) return false;
+   if(key!="") g_side1p3_lastKey=key;
+   int L=StringLen(line);
+   if(L>g_side1p3_maxlen) g_side1p3_maxlen=L;
+   if(L>537)
+     {
+      PrintFormat("[SRJ-EA] SIDE1P3_HALT CAUSE=MAXLEN LEN=%d CAP=537", L);
+      return false;
+     }
+   g_side1p3_n++;
+   Print(line);
+   return true;
+  }
+//--- end-of-run source table: per-source facts plus site linkage.
+//--- History plus snapshot-memory reads only; prints only.
+void Side1p3EndOfRun()
+  {
+   if(!InpDebugLog) return;
+   int nObs=0;
+   for(int i=0; i<2; i++)
+     {
+      string tag=""; string entry=""; string site="";
+      if(!Side1p3Roster(i, tag, entry, site)) continue;
+      datetime entryD=StringToTime(entry);
+      int dv=g_side1p3_dir[i];
+      string dirS="NODIR";
+      if(dv==1) dirS="LONG";
+      else if(dv==-1) dirS="SHORT";
+      bool seen=(g_side1p3_seen[i]!=0);
+      if(seen) nObs++;
+      string src=g_side1p3_src[i];
+      if(src=="") src="NONE";
+      datetime srcD=g_side1p3_srcT[i];
+      string atSrc="-";
+      if(!seen) atSrc="MISSING";
+      else if(src=="NONE" || srcD==0) atSrc="NOHISTORY";
+      else if(srcD==entryD) atSrc="FRESH";
+      else atSrc="CARRIED";
+      string vp=g_side1p3_voteP[i];
+      if(vp=="") vp="NONE";
+      int vv=g_side1p3_voteV[i];
+      string vvS="NODIR";
+      if(vv==1) vvS="LONG";
+      else if(vv==-1) vvS="SHORT";
+      string bA=((g_side1p3_biasA[i]==EMPTY_VALUE) ? "EMPTY" : DoubleToString(g_side1p3_biasA[i], 1));
+      string bB=((g_side1p3_biasB[i]==EMPTY_VALUE) ? "EMPTY" : DoubleToString(g_side1p3_biasB[i], 1));
+      string siteDir="-"; string siteSrc="-";
+      for(int k=0; k<7; k++)
+        {
+         if(g_side1p2_seen[k]==0) continue;
+         if(g_side1p2_bar[k]!=site) continue;
+         int sd=g_side1p2_dir[k];
+         if(sd==1) siteDir="LONG";
+         else if(sd==-1) siteDir="SHORT";
+         else siteDir="NODIR";
+         siteSrc=g_side1p2_src[k];
+         if(siteSrc=="") siteSrc="NONE";
+         break;
+        }
+      string cls="-";
+      if(!seen) cls="UNRESOLVED";
+      else if(src=="NONE" || srcD==0) cls="DEFAULT-INIT";
+      else if(srcD==entryD) cls="FRESH";
+      else cls="CARRIED";
+      string grade=((seen) ? "RECORDED" : "NONE");
+      string line=StringFormat("[SRJ-EA] SIDE1P3_SRC TAG=%s SRCBAR=%s DIRUSED=%s STOREDBAR=%s ATSRC=%s VOTEPROD=%s VOTEVAL=%s CHAINN=%d BIASA=%s BIASB=%s SITE=%s SITEDIR=%s SITESRC=%s CLASS=%s GRADE=%s",
+                               tag, entry, dirS, src, atSrc, vp, vvS, g_side1p3_chainN[i], bA, bB, site, siteDir, siteSrc, cls, grade);
+      Side1p3Emit("S"+tag, line);
+     }
+   string cline=StringFormat("[SRJ-EA] SIDE1P3_COUNT EMITTED=%d ROWS=2 OBSERVED=%d MAXLEN=%d", g_side1p3_n, nObs, g_side1p3_maxlen);
+   Side1p3Emit("COUNT", cline);
+  }
+
+void SrjSelEndOfRun()
+  {
+   if(g_selfracM5 == INVALID_HANDLE || g_selfracH1 == INVALID_HANDLE)
+     { string h = "[SRJ-EA] SELHALT cause=NOHANDLE"; LwAudit("SELHALT", h); Print(h); return; }
+   if(BarsCalculated(g_selfracM5) < 100 || BarsCalculated(g_selfracH1) < 10)
+     { string h2 = "[SRJ-EA] SELHALT cause=NOTREADY"; LwAudit("SELHALT", h2); Print(h2); return; }
+   g_sel_ratesN = CopyRates(_Symbol, PERIOD_CURRENT, 0, 4000, g_sel_rates);
+   if(g_sel_ratesN <= 100)
+     { string h3 = "[SRJ-EA] SELHALT cause=NORATES"; LwAudit("SELHALT", h3); Print(h3); return; }
+   if(!SrjSelSnapTF(g_selfracM5, PERIOD_CURRENT, 4000))
+     { string h4 = "[SRJ-EA] SELHALT cause=NOM5EVENTS"; LwAudit("SELHALT", h4); Print(h4); return; }
+    if(!SrjSelSnapTF(g_selfracH1, PERIOD_H1, 600))
+      { string h5 = "[SRJ-EA] SELHALT cause=NOH1EVENTS"; LwAudit("SELHALT", h5); Print(h5); return; }
+     g_s2_tO = 0; g_s2_stampD = 0;
+     ArrayInitialize(g_s2_tOByExi, 0);
+     ArrayInitialize(g_s2_cellD, 0);
+     g_s2_stampD = 0;
+     SrjSelProjectH1();
+    SrjLimbsShadow();
+    //--- [FP-LIMBSEAT-1 STAGE 2] cells before the walk consumes them;
+    //--- census stays on legacy snapshots (isolation control).
+    S2BuildAll();
+    S2SeatForceEval();
+    S2SideForceEval();
+    g_s2_on = 1;
+    SrjSelForceEval();
+    g_s2_on = 0;
+    SrjSelCensus();
+    SrjSeatDisc();
+    S2ProbeForceEval();
+    S2Summaries();
+   string f54 = StringFormat("[SRJ-EA] SEL54_FINAL s1hook=%d s2hook=%d", g_sel54_nS1, g_sel54_nS2);
+   LwAudit("SEL54_FINAL", f54); Print(f54);
+   string f55 = StringFormat("[SRJ-EA] SEL55_FINAL rows=%d", g_sel55_n);
+   LwAudit("SEL55_FINAL", f55); Print(f55);
+   O1EndOfRun();   //--- [O1-HOOK] absence-discrimination table (prints only)
+   A6EndOfRun();   //--- [A6-HOOK] decision/match/suppressed/CQD table (prints only)
+   GeomEndOfRun(); //--- [GEOM-HOOK] live-leg conditional-walk table (prints only)
+   Side1p2EndOfRun(); //--- [SIDE1P2-HOOK] vote-at-site table (prints only)
+   Side1p3EndOfRun(); //--- [SIDE1P3-HOOK] source-bar table (prints only)
+  }
+
+bool SrjOriginEntry(const string barT, double &entryPx, string &entryBT, string &exID)
+   {
+    entryPx = 0.0; entryBT = "-"; exID = "";
+    if(barT == "2026.08.28 10:00") { entryPx = 1.16466; entryBT = "2026.08.28 10:05"; exID = "R1"; return true; }
+    if(barT == "2026.09.04 10:35") { entryPx = 1.16265; entryBT = "2026.09.04 10:40"; exID = "R2"; return true; }
+    if(barT == "2026.09.04 15:55") { entryPx = 1.16018; entryBT = "2026.09.04 16:00"; exID = "R3"; return true; }
+    if(barT == "2026.09.07 09:15") { entryPx = 1.16135; entryBT = "2026.09.07 09:20"; exID = "R4"; return true; }
+    if(barT == "2026.09.07 16:40") { entryPx = 1.16261; entryBT = "2026.09.07 16:45"; exID = "R5"; return true; }
+    if(barT == "2026.09.08 10:10") { entryPx = 1.16205; entryBT = "2026.09.08 10:10"; exID = "T1"; return true; }
+    if(barT == "2026.09.08 17:00") { entryPx = 1.16220; entryBT = "2026.09.08 17:00"; exID = "T2"; return true; }
+    return false;
+   }
+
+//--- [P-ORIGIN-1 §3/§5/FREEZE] frozen expected identity per example: the
+//--- currently-reproducing stop (RECON18 SLEXT1) + filed level. R5's
+//--- standing −1 vs filed is RETAINED (gate = retain, not improve).
+//--- [FP-LIMBSEAT-1] SrjOriginExpected lives in Include\SRJ\SRJ_HandFixture.mqh (moved byte-identical; HAND-grep gate).
+
+//--- [P-ORIGIN-1 §5/FREEZE] declared executable second-swing rule: walk
+//--- BACK in time from the entry bar over the FRACTAL swing buffer only,
+//--- nearest first; skip swings failing the ladder's own protective test
+//--- (same idiom, no new predicate); count protective in time order —
+//--- 1st = skip-witness (printed, never the stop), 2nd = candidate stop
+//--- (+imb read at its slot). No imbalance term in the count. Isolated
+//--- diagnostic path: buffer reads + prints only, no memo/state writes,
+//--- no output consumed by selection. Deliberately NOT the extremity
+//--- walk (never equated to rungExt 1).
+void SrjSecondSwing(const int entryShift, const ENUM_SRJ_DIR dir, const double entryPx,
+                    int &d1, double &px1, int &slot1, datetime &bt1,
+                    int &d2, double &px2, int &slot2, datetime &bt2, int &imb2)
+   {
+    d1 = 0; px1 = 0.0; slot1 = -1; bt1 = 0;
+    d2 = 0; px2 = 0.0; slot2 = -1; bt2 = 0; imb2 = -1;
+    int swBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
+    int imBuf = (dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB;
+    int found = 0;
+    for(int s = entryShift; s <= entryShift + SRJ_LAD_ABS_SLOT_CAP; s++)
+      {
+       double v = 0.0;
+       if(!ReadFlow(swBuf, v, s)) break;
+       if(v == EMPTY_VALUE || v <= 0.0) continue;
+       if(!SlimbProtectiveSideOk(dir, v, entryPx)) continue;
+       found++;
+       if(found == 1) { d1 = 1; px1 = v; slot1 = s; bt1 = iTime(_Symbol, PERIOD_CURRENT, ApexShift(s)); }
+       if(found == 2)
+         {
+          d2 = 1; px2 = v; slot2 = s; bt2 = iTime(_Symbol, PERIOD_CURRENT, ApexShift(s));
+          double f = 0.0; imb2 = -1;
+          if(ReadFlow(imBuf, f, s) && f != EMPTY_VALUE) imb2 = (int)f;
+          break;
+         }
       }
    }
 
@@ -3131,7 +5398,55 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                }
             }
          }
-       string sl41_line = StringFormat("[SRJ-EA] SLEXT481 fields=17 bar=%s site=%s dir=%s ladOriginPx=%s ladOriginBarTime=%s ladOriginSite=%s ext1Defined=%d slExt1=%s ext1Slot=%d ext1BarTime=%s ext1Imb=%d deepestExt=%d sep8FiledPx=%s sep8ResidPts=%d sep8BarDiffBars=%d sep8Prov=%s sep8Covered=%d",
+       //--- [P-ORIGIN-1 §5/FREEZE] forward candidate at the two Sep-8 bars
+       //--- (whichever site evaluates them): gated IN-RUN on the
+       //--- regression tally — all five regression bars precede Sep-8
+       //--- chronologically, so regN<5 or regFail>0 here means the
+       //--- candidate already died (SKIPPED = not executed, not scored).
+       if(sl41_halt == "-")
+         {
+          string sl62_ex = ""; double sl62_entryPx = 0.0; string sl62_entryBT = "-";
+          if(SrjOriginEntry(sl41_barT, sl62_entryPx, sl62_entryBT, sl62_ex)
+             && StringSubstr(sl62_ex, 0, 1) == "T")
+            {
+             if(g_origin_regFail > 0 || g_origin_regN < 5)
+               {
+                string sl62_skip = StringFormat("[SRJ-EA] ORIGINCAND_SKIPPED bar=%s site=%s dir=%s target=%s regN=%d regFail=%d",
+                          sl41_barT, site, DirName(dir), sl62_ex, g_origin_regN, g_origin_regFail);
+                LwAudit("ORIGINCAND_SKIPPED", sl62_skip);
+                Print(sl62_skip);
+               }
+             else
+               {
+                int sl62_d1 = 0; double sl62_px1 = 0.0; int sl62_slot1 = -1; datetime sl62_bt1 = 0;
+                int sl62_d2 = 0; double sl62_px2 = 0.0; int sl62_slot2 = -1; datetime sl62_bt2 = 0; int sl62_imb2 = -1;
+                SrjSecondSwing(barShift, dir, sl62_entryPx,
+                               sl62_d1, sl62_px1, sl62_slot1, sl62_bt1,
+                               sl62_d2, sl62_px2, sl62_slot2, sl62_bt2, sl62_imb2);
+                double sl62_expPx = 0.0; int sl62_expSlot = -1; datetime sl62_expBT = 0; int sl62_expImb = -1;
+                double sl62_filedPx = 0.0; string sl62_filedProv = "-";
+                SrjOriginExpected(sl62_ex, sl62_expPx, sl62_expSlot, sl62_expBT, sl62_expImb, sl62_filedPx, sl62_filedProv);
+                string sl62_oPxS = (sl62_d2 == 1) ? DoubleToString(sl62_px2, _Digits) : "-";
+                string sl62_oBtS = (sl62_d2 == 1) ? TimeToString(sl62_bt2, TIME_DATE|TIME_MINUTES) : "-";
+                string sl62_ePxS = DoubleToString(sl62_expPx, _Digits);
+                string sl62_eBtS = TimeToString(sl62_expBT, TIME_DATE|TIME_MINUTES);
+                int sl62_resid = (sl62_d2 == 1) ? (int)MathRound((sl62_px2 - sl62_expPx) / _Point) : -999;
+                int sl62_match = (sl62_d2 == 1 && sl62_oPxS == sl62_ePxS && sl62_slot2 == sl62_expSlot
+                                  && sl62_oBtS == sl62_eBtS && sl62_imb2 == sl62_expImb) ? 1 : 0;
+                g_origin_candN++;
+                if(sl62_match == 1) g_origin_candOK++;
+                string sl62_line = StringFormat("[SRJ-EA] ORIGINCAND fields=19 bar=%s site=%s dir=%s target=%s entryPx=%s entryBarT=%s expPx=%s expSlot=%d expBarT=%s expImb=%d obsDef=%d obsPx=%s obsSlot=%d obsBarT=%s obsImb=%d residPts=%d match=%d filedProv=%s feed=%s",
+                          sl41_barT, site, DirName(dir), sl62_ex,
+                          DoubleToString(sl62_entryPx, _Digits), sl62_entryBT,
+                          sl62_ePxS, sl62_expSlot, sl62_eBtS, sl62_expImb,
+                          sl62_d2, sl62_oPxS, sl62_slot2, sl62_oBtS, sl62_imb2,
+                          sl62_resid, sl62_match, sl62_filedProv, "Dukascopy");
+                LwAudit("ORIGINCAND", sl62_line);
+                Print(sl62_line);
+               }
+            }
+         }
+        string sl41_line = StringFormat("[SRJ-EA] SLEXT481 fields=17 bar=%s site=%s dir=%s ladOriginPx=%s ladOriginBarTime=%s ladOriginSite=%s ext1Defined=%d slExt1=%s ext1Slot=%d ext1BarTime=%s ext1Imb=%d deepestExt=%d sep8FiledPx=%s sep8ResidPts=%d sep8BarDiffBars=%d sep8Prov=%s sep8Covered=%d",
                  sl41_barT, site, DirName(dir),
                  (sl41_halt == "-") ? DoubleToString(sl41_oPx, _Digits) : "-",
                  (sl41_halt == "-") ? TimeToString(sl41_oBT, TIME_DATE|TIME_MINUTES) : "-",
@@ -3191,9 +5506,10 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
       {
        if(InpDebugLog && SHADOW_SLIMB)
           SlimbEmit(barShift, site, dir, "PRE", -1, "-", -1, -1, -1, 0, 0, -1, -1, 0, "-");
-       if(InpDebugLog && SHADOW_SLIMBWALK)
-          SlimbWalkEmit(barShift, site, dir, "PRE", false, 0.0, -1, 0.0);
-       return false;
+        if(InpDebugLog && SHADOW_SLIMBWALK)
+           SlimbWalkEmit(barShift, site, dir, "PRE", false, 0.0, -1, 0.0);
+        S2StampStop(site, barShift, "SLREF_PRE", 0, 0.0, (int)slModeOut, "NO_SELECTION", "-");
+        return false;
       }
 
    //--- [P-TRIM-S2POLL E2] The direct point reads are DEAD. Task 21's
@@ -3285,14 +5601,15 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
           if(obSwingSideOk) slRefOut = obSwingRef;
           else
             {
-             if(!haveLow)
-               {
-                if(InpDebugLog && SHADOW_SLIMB)
-                   SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
-                if(InpDebugLog && SHADOW_SLIMBWALK)
-                   SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
-                return false;
-               }
+              if(!haveLow)
+                {
+                 if(InpDebugLog && SHADOW_SLIMB)
+                    SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+                 if(InpDebugLog && SHADOW_SLIMBWALK)
+                    SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
+                 S2StampStop(site, barShift, "SLREF_1SWING_NOLOW", 0, 0.0, (int)slModeOut, "NO_SELECTION", "-");
+                 return false;
+                }
              slRefOut = swingLow;
             }
          }
@@ -3301,14 +5618,15 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
           if(obSwingSideOk) slRefOut = obSwingRef;
           else
             {
-             if(!haveHigh)
-               {
-                if(InpDebugLog && SHADOW_SLIMB)
-                   SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
-                if(InpDebugLog && SHADOW_SLIMBWALK)
-                   SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
-                return false;
-               }
+              if(!haveHigh)
+                {
+                 if(InpDebugLog && SHADOW_SLIMB)
+                    SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+                 if(InpDebugLog && SHADOW_SLIMBWALK)
+                    SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
+                 S2StampStop(site, barShift, "SLREF_1SWING_NOHIGH", 0, 0.0, (int)slModeOut, "NO_SELECTION", "-");
+                 return false;
+                }
              slRefOut = swingHigh;
             }
          }
@@ -3348,10 +5666,11 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
       int    t75_from = (dir == DIR_LONG) ? shLow : shHigh;
       double t75_was  = slRefOut;
       bool   t75_ok   = false;
-       for(int t75_s = t75_from + 1; t75_s <= t75_from + 500; t75_s++)
-         {
-          double t75_v;
-          if(!ReadFlow(t75_buf, t75_v, t75_s))     break;
+        for(int t75_s = t75_from + 1; t75_s <= t75_from + 500; t75_s++)
+          {
+           double t75_v;
+           g_o1_maxS = t75_s;   //--- [O1-HOOK] walk-bound capture (writes only)
+           if(!ReadFlow(t75_buf, t75_v, t75_s))     break;
           if(t75_v == EMPTY_VALUE || t75_v <= 0.0) continue;
           //--- [P-SWINGIMB] record examined swing (print-only; walk unchanged).
           if(InpDebugLog && SHADOW_SLIMB && slimb_ncands < 6)
@@ -3395,11 +5714,12 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                          DoubleToString(g_zoneHi, _Digits));
           if(InpDebugLog && SHADOW_SLIMB)
              SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
-          if(InpDebugLog && SHADOW_SLIMBWALK)
-             SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
-          return false;
-         }
-     }
+           if(InpDebugLog && SHADOW_SLIMBWALK)
+              SlimbWalkEmit(barShift, site, dir, "1SWING", false, 0.0, -1, 0.0);
+           S2StampStop(site, barShift, "SLREF_1SWING_GUARD", 0, 0.0, (int)slModeOut, "NO_SELECTION", "-");
+           return false;
+          }
+      }
 
    // [STEP 1 RETIRED] The Task 67 in-zone stop exclusion is removed per operator
    // ruling and spec 3.7: the stop may sit inside the entry zone (measured 1.15835
@@ -3470,9 +5790,11 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
             }
            SlimbEmit(barShift, site, dir, "1SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_chShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_chFlag, slimb_chShift, slimb_chAvail, slimb_cands);
            if(InpDebugLog && SHADOW_SLIMBWALK)
-              SlimbWalkEmit(barShift, site, dir, "1SWING", true, slRefOut, slimb_chShift, slRefOut, slimb_latShift);
-         }
-       return true;
+            SlimbWalkEmit(barShift, site, dir, "1SWING", true, slRefOut, slimb_chShift, slRefOut, slimb_latShift);
+          }
+         S2StampStop(site, barShift, "SLREF_1SWING", 1, slRefOut, (int)slModeOut, "IN_SCOPE_RULE", "-");
+         if(InpDebugLog) A6Term(barShift, site, dir, slModeOut, slRefOut, slimb_chShift);   //--- [A6-HOOK] (i)
+         return true;
      }
    else
      {
@@ -3505,17 +5827,19 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
       //--- abort case applies. Measured reproduction: the 2026.08.28 10:00
       //--- entry bar's newest-first swing highs 1.16491/1.16481/1.16482/
       //--- 1.16479 form ONE structure top; the first older swing exceeding
-      //--- it is 06:30 = 1.16508 - the operator's journaled stop exactly
+      //--- it is 06:30 = the operator's journaled stop exactly (price lives in
+//--- the filed record only, never as an operand here).
       //--- (BUILDER_FINDING_SLREF-1 section 5).
       int bufIdx = (dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH;
       double firstVal = 0.0;
       double runExt   = 0.0;
       int    firstShift = -1;
       bool   haveFirst  = false;
-      for(int s = barShift; s <= barShift + 500; s++)
-        {
-         double v;
-         if(!ReadFlow(bufIdx, v, s)) break;
+       for(int s = barShift; s <= barShift + 500; s++)
+         {
+          double v;
+          g_o1_maxS = s;   //--- [O1-HOOK] walk-bound capture (writes only)
+          if(!ReadFlow(bufIdx, v, s)) break;
          if(v == EMPTY_VALUE || v <= 0.0) continue;
           if(!haveFirst)
             {
@@ -3574,35 +5898,41 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
                 int slimb_cfv9 = -1, slimb_cav9 = 0;
                 if(ReadFlow(slimb_imbBuf, slimb_cf9, s) && slimb_cf9 != EMPTY_VALUE)
                   { slimb_cfv9 = (int)slimb_cf9; slimb_cav9 = 1; }
-                 SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), s, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfv9, s, slimb_cav9, slimb_cands);
-                 if(InpDebugLog && SHADOW_SLIMBWALK)
-                    SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, s, slRefOut, slimb_latShift);
-               }
-             return true;
+                  SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), s, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfv9, s, slimb_cav9, slimb_cands);
+                  if(InpDebugLog && SHADOW_SLIMBWALK)
+                     SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, s, slRefOut, slimb_latShift);
+                }
+               string s2_aux = "";
+               string s2_scope = S2Scope2Swing(slimb_imbBuf, bufIdx, dir, slCurPx, firstShift, s, s2_aux);
+                S2StampStop(site, barShift, "SLREF_2SWING", 1, slRefOut, (int)slModeOut, s2_scope, s2_aux);
+               if(InpDebugLog) A6Term(barShift, site, dir, slModeOut, slRefOut, s);   //--- [A6-HOOK] (i)
+               return true;
            }
         }
-       if(!haveFirst)
-         {
-          if(InpDebugLog && SHADOW_SLIMB)
-             SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
-          if(InpDebugLog && SHADOW_SLIMBWALK)
-             SlimbWalkEmit(barShift, site, dir, "2SWING", false, 0.0, -1, 0.0);
-          return false;
-         }
+        if(!haveFirst)
+          {
+           if(InpDebugLog && SHADOW_SLIMB)
+              SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+           if(InpDebugLog && SHADOW_SLIMBWALK)
+              SlimbWalkEmit(barShift, site, dir, "2SWING", false, 0.0, -1, 0.0);
+           S2StampStop(site, barShift, "SLREF_2SWING_NOFIRST", 0, 0.0, (int)slModeOut, "NO_SELECTION", "-");
+           return false;
+          }
       //--- Exhaustion fallback: the running structure extreme IS the stop
       //--- ("one swing" of the bigger move) - never abort while a valid swing
       //--- exists (spec 3.7). The side test applies here too: the extreme is
       //--- the HIGHEST (SHORT) / LOWEST (LONG) swing in the window, so if it
       //--- is not on the protective side of slCurPx, no swing in the window
       //--- is, and the spec's abort-where-no-valid-swing-exists case applies.
-       if((dir == DIR_LONG) ? (runExt >= slCurPx) : (runExt <= slCurPx))
-         {
-          if(InpDebugLog && SHADOW_SLIMB)
-             SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
-          if(InpDebugLog && SHADOW_SLIMBWALK)
-             SlimbWalkEmit(barShift, site, dir, "2SWING", false, 0.0, -1, 0.0);
-          return false;
-         }
+        if((dir == DIR_LONG) ? (runExt >= slCurPx) : (runExt <= slCurPx))
+          {
+           if(InpDebugLog && SHADOW_SLIMB)
+              SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), "-", -1, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, -1, -1, 0, slimb_cands);
+           if(InpDebugLog && SHADOW_SLIMBWALK)
+              SlimbWalkEmit(barShift, site, dir, "2SWING", false, 0.0, -1, 0.0);
+           S2StampStop(site, barShift, "SLREF_2SWING_SIDEFAIL", 0, 0.0, (int)slModeOut, "NO_SELECTION", "-");
+           return false;
+          }
       slRefOut  = runExt;
       slModeOut = SL_MODE_2SWING;
       if(InpDebugLog)
@@ -3630,11 +5960,12 @@ bool ComputeSlReference(int barShift, ENUM_SRJ_DIR dir,
           int slimb_cfvx = -1, slimb_cavx = 0;
           if(slimb_runExtShift >= 0 && ReadFlow(slimb_imbBuf, slimb_cfx, slimb_runExtShift) && slimb_cfx != EMPTY_VALUE)
             { slimb_cfvx = (int)slimb_cfx; slimb_cavx = 1; }
-           SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_runExtShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfvx, slimb_runExtShift, slimb_cavx, slimb_cands);
-           if(InpDebugLog && SHADOW_SLIMBWALK)
-              SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, slimb_runExtShift, slRefOut, slimb_latShift);
-         }
-       return true;
+            SlimbEmit(barShift, site, dir, "2SWING", (int)MathRound(obValid), DoubleToString(slRefOut, _Digits), slimb_runExtShift, slimb_latFlag, slimb_latShift, slimb_latAvail, slimb_apexMatch, slimb_cfvx, slimb_runExtShift, slimb_cavx, slimb_cands);
+            if(InpDebugLog && SHADOW_SLIMBWALK)
+               SlimbWalkEmit(barShift, site, dir, "2SWING", true, slRefOut, slimb_runExtShift, slRefOut, slimb_latShift);
+          }
+        S2StampStop(site, barShift, "SLREF_2SWING_EXH", 1, slRefOut, (int)slModeOut, S2ScopeExh(slimb_imbBuf, slimb_runExtShift), "-");
+        return true;
      }
    }
 
@@ -3679,6 +6010,13 @@ struct SSlMemo
    int             ex1imb;
    int             ex1deep;
    string          ex1site;
+   //--- [P-ORIGIN-1 §4] provenance sidecar, stamped on COMPUTE. Keys,
+   //--- lookup and replacement policy untouched — new fields only.
+   int             genID;
+   string          wrSite;
+   string          wrOrigin;
+   double          wrOPx;
+   datetime        wrOBT;
   };
 //--- File-scope, so zero-initialised: barTime 0, dir DIR_NONE(0), valid false,
 //--- ok false, slRef 0.0, slMode SL_MODE_NONE(0). No explicit initialiser and no
@@ -3704,11 +6042,31 @@ bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR di
       if(InpAdoptExt1 && g_slMemo.ex1def == 1) slRefOut = g_slMemo.ex1px;
       if(InpDebugLog)
          PrintFormat("[SRJ-EA] SLMEMO bar=%s site=%s result=HIT ok=%d slRef=%s "
-                     "mode=%d computes=%d hits=%d",
+                     "mode=%d computes=%d hits=%d supGenID=%d supSite=%s supOrigin=%s",
                      TimeToString(barTime, TIME_DATE|TIME_MINUTES), site,
                      (int)g_slMemo.ok,
                      DoubleToString(g_slMemo.slRef, _Digits),
-                     (int)g_slMemo.slMode, g_slMemo_computes, g_slMemo_hits);
+                     (int)g_slMemo.slMode, g_slMemo_computes, g_slMemo_hits,
+                     g_slMemo.genID, g_slMemo.wrSite, g_slMemo.wrOrigin);
+      //--- [P-ORIGIN-1 §4] provenance HIT report: requesting site +
+      //--- requested origin beside the stored computing site + stored
+      //--- origin + supplying generation + key + returned identity +
+      //--- agreement classification. Read-only; never invalidates,
+      //--- recomputes, or alters selection.
+      if(site == "S2POLL") g_prov_h2P++; else g_prov_h3A++;
+      if(InpDebugLog)
+        {
+         string slpv_reqO = "evalClose";
+         int slpv_agree = (slpv_reqO == g_slMemo.wrOrigin) ? 1 : 0;
+         string slpv_line = StringFormat("[SRJ-EA] SLORIGPV fields=11 bar=%s reqSite=%s reqOrigin=%s supGenID=%d supSite=%s supOrigin=%s supOPx=%s memoKey=%s memoDir=%s retRef=%s agree=%d",
+                   TimeToString(barTime, TIME_DATE|TIME_MINUTES), site, slpv_reqO,
+                   g_slMemo.genID, g_slMemo.wrSite, g_slMemo.wrOrigin,
+                   DoubleToString(g_slMemo.wrOPx, _Digits),
+                   TimeToString(g_slMemo.barTime, TIME_DATE|TIME_MINUTES), DirName(g_slMemo.dir),
+                   DoubleToString(g_slMemo.slRef, _Digits), slpv_agree);
+         LwAudit("SLORIGPV", slpv_line);
+         Print(slpv_line);
+        }
       //--- [P-ADOPT-1 E47] memo agreement over every HIT (ungated): a
       //--- fresh ext-1 at the HIT's own eval-close origin beside the
       //--- memoised shadow. S5-membership is joined off-run by barTime
@@ -3744,10 +6102,13 @@ bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR di
                    TimeToString(barTime, TIME_DATE|TIME_MINUTES), site, DirName(dir), g_slMemo.ex1site,
                    sl47_mPxS, sl47_fPxS, g_slMemo.ex1slot, sl47_fSlot, sl47_agree, sl47_diff,
                    g_slMemo_computes, g_slMemo_hits);
-         LwAudit("SLEXT47", sl47_line);
-         Print(sl47_line);
-        }
-      return g_slMemo.ok;
+          LwAudit("SLEXT47", sl47_line);
+          Print(sl47_line);
+         }
+        //--- [P-SEL-1 E56] census context on the memo HIT path (read-only + line).
+        if(InpDebugLog) SrjSelCtxEmit(barShift, barTime, site, dir, g_slMemo.slRef, g_slMemo.slMode);
+        S2StampStop(site, barShift, "MEMO_HIT", (g_slMemo.ok ? 1 : 0), g_slMemo.slRef, (int)g_slMemo.slMode, "UNGROUNDED_REPORT", "-");
+        return g_slMemo.ok;
      }
 
    double          memoV  = 0.0;
@@ -3771,16 +6132,29 @@ bool SlRefMemo(const int barShift, const datetime barTime, const ENUM_SRJ_DIR di
    //--- shadow is this call's own ext-1 (same origin convention as the
    //--- site). Behind ADOPT_EXT1; mode untouched.
    if(InpAdoptExt1 && g_slMemo.ex1def == 1) g_slMemo.slRef = g_slMemo.ex1px;
+   //--- [P-ORIGIN-1 §4] provenance sidecar stamp: this write's generation
+   //--- ID (= post-increment computes, unique per COMPUTE), computing
+   //--- site and origin binding. Read-only iClose re-read (deterministic
+   //--- same value the function consumed); keys/lookup untouched.
+   g_slMemo.genID = g_slMemo_computes;
+   g_slMemo.wrSite = site;
+   g_slMemo.wrOrigin = "evalClose";
+   g_slMemo.wrOPx = iClose(_Symbol, PERIOD_CURRENT, barShift);
+   g_slMemo.wrOBT = barTime;
+   if(site == "S2POLL") g_prov_c2P++; else g_prov_c3A++;
 
-   slRefOut  = g_slMemo.slRef;
-   slModeOut = g_slMemo.slMode;
+    slRefOut  = g_slMemo.slRef;
+    slModeOut = g_slMemo.slMode;
+    //--- [P-SEL-1 E56] census context on the memo COMPUTE path (read-only + line).
+    if(InpDebugLog) SrjSelCtxEmit(barShift, barTime, site, dir, slRefOut, slModeOut);
 
-   if(InpDebugLog)
+    if(InpDebugLog)
       PrintFormat("[SRJ-EA] SLMEMO bar=%s site=%s result=COMPUTE ok=%d slRef=%s "
-                  "mode=%d computes=%d hits=%d",
+                  "mode=%d computes=%d hits=%d genID=%d wrSite=%s wrOrigin=%s",
                   TimeToString(barTime, TIME_DATE|TIME_MINUTES), site,
                   (int)memoOk, DoubleToString(g_slMemo.slRef, _Digits),
-                  (int)g_slMemo.slMode, g_slMemo_computes, g_slMemo_hits);
+                  (int)g_slMemo.slMode, g_slMemo_computes, g_slMemo_hits,
+                  g_slMemo.genID, g_slMemo.wrSite, g_slMemo.wrOrigin);
    return memoOk;
   }
 
@@ -3836,6 +6210,7 @@ void ResetSequence()
   {
    g_state          = ST_IDLE;
    g_dir            = DIR_NONE;
+   SrjSideNote("ResetSequence", g_dir);
    g_regime         = REGIME_NONE;
    g_sessionAtEntry = SESSION_NONE;
    g_anchorLine     = -1;
@@ -3863,6 +6238,13 @@ void ResetSequence()
 void GoAbort(const string reason, ENUM_SRJ_STATE atState)
   {
    LogAbort(reason, atState);
+   if(InpDebugLog && g_dir != DIR_NONE)
+     {
+      string a6rBT = TimeToString(TimeCurrent(), TIME_DATE|TIME_MINUTES);
+      string a6rLn = StringFormat("[SRJ-EA] A6REFUSED class=ABSENT_DECLINED bar=%s state=%s dir=%s predicate=%s",
+                                  a6rBT, StateName(atState), DirName(g_dir), reason);
+      A6Emit("REF" + a6rBT + reason + StateName(atState), a6rLn);
+     }   //--- [A6-HOOK] (ii) refused decision row (candidate alive => born+rejected)
    //--- TASK 19c: count NO_REGIME aborts so the census can be read against
    //--- them directly. Measurement only.
    if(InpDebugLog && reason == ABORT_NO_REGIME) g_ea19_noRegimeAborts++;
@@ -4188,8 +6570,33 @@ bool ZoneInPlay(int barShift, double zHi, double zLo,
 
 void EvaluateClosedBar(int barShift, datetime barTime)
   {
+   Side1p2Snap(barTime); //--- [SIDE1P2-HOOK] top-entry snapshot (reads only)
+   Side1p3Snap(barTime); //--- [SIDE1P3-HOOK] source-bar snapshot (reads only)
    ENUM_SRJ_SESSION sess = CurrentTradingWindow(barTime);
    bool inWindow = (sess != SESSION_NONE);
+   //--- [P-SEL-1 E54] presence-bar hook: processed/session/upstream/CQD/
+   //--- bias/carried-side at S1+S2 ONLY (read-only + line).
+   if(InpDebugLog)
+     {
+      string sl54_barT = TimeToString(barTime, TIME_DATE|TIME_MINUTES);
+      if(SrjSelIsProbeBar(sl54_barT))
+        {
+         if(sl54_barT == "2026.09.08 10:10") g_sel54_nS1++; else g_sel54_nS2++;
+         double sl54_cqd = EMPTY_VALUE; bool sl54_cqdOk = ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, sl54_cqd, barShift);
+         string sl54_cqdS = "UNREAD";
+         if(sl54_cqdOk && sl54_cqd != EMPTY_VALUE) sl54_cqdS = IntegerToString((int)MathRound(sl54_cqd));
+         if(sl54_cqdOk && sl54_cqd == EMPTY_VALUE) sl54_cqdS = "EMPTY";
+         double sl54_b1 = EMPTY_VALUE, sl54_b2 = EMPTY_VALUE;
+         ReadBuf1(g_hFlow, FL_BUF_LTF_BIAS, sl54_b1, 1);
+         ReadBuf1(g_hFlow, FL_BUF_LTF_BIAS, sl54_b2, 2);
+         string sl54_b1S = "EMPTY"; if(sl54_b1 != EMPTY_VALUE) sl54_b1S = DoubleToString(sl54_b1, 1);
+         string sl54_b2S = "EMPTY"; if(sl54_b2 != EMPTY_VALUE) sl54_b2S = DoubleToString(sl54_b2, 1);
+         string sl54_line = StringFormat("[SRJ-EA] SEL54BAR bar=%s sess=%d inWin=%d upstream=%d cqd=%s bias1=%s bias2=%s carried=%s",
+           sl54_barT, (int)sess, (int)inWindow, (int)UpstreamReady(), sl54_cqdS, sl54_b1S, sl54_b2S, DirName(g_dir));
+         LwAudit("SEL54BAR", sl54_line); Print(sl54_line);
+         SrjSideProvEmit(sl54_barT, sl54_cqdS, sl54_b1S, sl54_b2S, DirName(g_dir));
+        }
+     }
 
    if(InpDebugLog)
      {
@@ -4771,7 +7178,14 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       if(fail != "") { GoAbort(fail, g_state); return; }
      }
 
-   double s1_stopRef = 0.0; bool s1_haveStop = false;
+    //--- [P-SEL-1 E54] stage-reached marker at probe bars (read-only + line).
+    if(InpDebugLog)
+      {
+       string sl54_s2T = TimeToString(barTime, TIME_DATE|TIME_MINUTES);
+       if(SrjSelIsProbeBar(sl54_s2T))
+         { string sl54_s2L = StringFormat("[SRJ-EA] SEL54STAGE bar=%s stage=S2POLL dir=%s state=%s", sl54_s2T, DirName(g_dir), StateName(g_state)); LwAudit("SEL54STAGE", sl54_s2L); Print(sl54_s2L); }
+      }
+    double s1_stopRef = 0.0; bool s1_haveStop = false;
    if(g_state >= ST_S2_LTF_ALIGN && g_state <= ST_S5_GATE_CHECK)
      {
       double currentPrice = iClose(_Symbol, PERIOD_CURRENT, barShift);
@@ -4983,11 +7397,32 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       PoiRetestResult t78_pr;
       if(DetectPoiRetest(barShift, t78_pr) && t78_pr.found)
         {
-         ENUM_SRJ_DIR t78_dir = t78_pr.isLong ? DIR_LONG : DIR_SHORT;
-         bool t78_opp  = (t78_dir != g_dir);
-         bool t78_tier = ((g_authorityRank[t78_pr.topLine] / 2) <
-                          (g_authorityRank[g_anchorLine]   / 2));
-         if(t78_opp && t78_tier)
+          ENUM_SRJ_DIR t78_dir = t78_pr.isLong ? DIR_LONG : DIR_SHORT;
+          bool t78_opp  = (t78_dir != g_dir);
+          bool t78_tier = ((g_authorityRank[t78_pr.topLine] / 2) <
+                           (g_authorityRank[g_anchorLine]   / 2));
+          //--- [S2-PREEMPT-SHADOW-001] WOULD-PREEMPT recorder: reuses the computed
+          //--- t78_pr/t78_dir/t78_opp/t78_tier above (no fresh DetectPoiRetest call,
+          //--- no N1 touch — detection ran once). Record-only: locals + print only.
+          //--- FORBIDDEN in this shadow and ABSENT below: g_state / g_anchorLine /
+          //--- g_dir / anchor price-time / zone-touch-latch / GoAbort /
+          //--- ResetSequence / order-stop-eligibility-session writes
+          //--- (documented guarantee, grade-verified).
+          if(InpDebugLog && t78_opp)
+            {
+             int s1h_newTier  = g_authorityRank[t78_pr.topLine] / 2;
+             int s1h_heldTier = g_authorityRank[g_anchorLine]   / 2;
+             PrintFormat("[SRJ-EA] SIDE1H_WOULDPREEMPT bar=%s newPoi=%s newDir=%s heldPoi=%s heldDir=%s heldState=%s newTier=%d heldTier=%d wouldPreempt=%d wouldTierPassLegacy=%d",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                      TIME_DATE|TIME_MINUTES),
+                         g_lineCode[t78_pr.topLine], DirName(t78_dir),
+                         g_lineCode[g_anchorLine], DirName(g_dir),
+                         StateName(g_state),
+                         s1h_newTier, s1h_heldTier,
+                         ((g_state == ST_S2_LTF_ALIGN) ? 1 : 0),
+                         (t78_tier ? 1 : 0));
+            }
+          if(t78_opp && t78_tier)
            {
             PrintFormat("[SRJ-EA] POIREPLACE bar=%s newPoi=%s newDir=%s "
                         "heldPoi=%s heldDir=%s heldState=%s newTier=%d heldTier=%d",
@@ -4999,11 +7434,50 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                         g_authorityRank[t78_pr.topLine] / 2,
                         g_authorityRank[g_anchorLine]   / 2);
             /* [Task 91 / EA-105 / operator ruling Q3] REMOVED. Was GoAbort(ABORT_POI_REPLACED, g_state). Operator: "i will always execute the first one, the later higher POI does not get executed... if i have executed the first trade, i would not execute other trade even it's from higher hierarchy." Arrival order governs ACROSS TIME; anchor tier governs ONLY a same-bar tie between two completed candidates (EA-96), which MarkSessionUsed on the SIGNAL path already enforces. The across-time replacement reading of Part A Step 8 / D-3 / G-2 was a planner inference and is overturned. The POIREPLACE line above is RETAINED as a counterfactual census: it still prints on every bar this removal now lets pass, so the 16 firings measured on the Task 88 run stay countable. Threshold-free - nothing is added, one call is removed. */ ;
-           }
-        }
-     }
+            }
+          //--- [S2-CROSS-DIR-PREEMPT] live transfer (Luna V87-LIVE-PREEMPT-001
+          //--- §§3-6, cleared BY NAME; his selection token + fresh run word this
+          //--- turn). State-bounded: S2-held candidate yields to the observed
+          //--- opposite-direction candidate. Region-P-equivalent MIRROR (no callable
+          //--- helper exists — Region P EA:7421-7467 is inline; deltas declared:
+          //--- (a) g_dir takes t78_dir, Region P keeps dir; (b) NO state write and
+          //--- NO LogState — already ST_S2_LTF_ALIGN, stays it, never ST_IDLE;
+          //--- (c) one InpDebugLog-gated SIDE1C_PREEMPT print, new family,
+          //--- observation only). Reuses computed t78_pr/t78_dir/t78_opp above (no
+          //--- fresh DetectPoiRetest, N1 untouched). Tier recorded, never consulted
+          //--- (no <, no <=). Placed AFTER the POIREPLACE census above (D4) so the
+          //--- census labels stay pre-transfer and byte-comparable.
+          if(g_state == ST_S2_LTF_ALIGN && t78_opp)
+            {
+             int s1c_fromLine     = g_anchorLine;
+             ENUM_SRJ_DIR s1c_fromDir = g_dir;
+             g_anchorLine    = t78_pr.topLine;
+             ReadBuf1(g_hPoi, t78_pr.topLine, g_anchorPrice, barShift);
+             g_anchorBarTime = barTime;
+             g_dir           = t78_dir;
+             g_zoneHi        = 0.0;
+             g_zoneLo        = 0.0;
+             g_touchSeen     = false;
+             g_touchBarHi    = 0.0;
+             g_touchBarLo    = 0.0;
+             g_latchedEntry  = 0.0;
+             g_latchedSl     = 0.0;
+             g_latchedTp     = 0.0;
+             g_latchedR      = 0.0;
+             g_latchBarTime  = 0;
+             g_confirmFromState = ST_IDLE;
+             if(InpDebugLog)
+                PrintFormat("[SRJ-EA] SIDE1C_PREEMPT bar=%s from=%s fromDir=%s to=%s toDir=%s state=%s",
+                            TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                         TIME_DATE|TIME_MINUTES),
+                            g_lineCode[s1c_fromLine], DirName(s1c_fromDir),
+                            g_lineCode[t78_pr.topLine], DirName(t78_dir),
+                            StateName(g_state));
+            }
+         }
+      }
 
-   //--- [P-BUILD3 E3 2026-09-11] the live supersession poll (spec 3.4 L120:
+    //--- [P-BUILD3 E3 2026-09-11] the live supersession poll (spec 3.4 L120:
    //--- a same-direction higher-tier POI touch mid-sequence upgrades the anchor
    //--- tier silently; spec 6: arrival order still governs across time, so this
    //--- re-binds WITHIN the alive candidate only). Pre-fire states S1-S4;
@@ -5136,11 +7610,13 @@ void EvaluateClosedBar(int barShift, datetime barTime)
             ShadowConfirmPoll(barShift, sh_pr.topLine,
                               sh_pr.isLong ? DIR_LONG : DIR_SHORT);
         }
-     }
+      }
 
-   if(g_state == ST_IDLE)
-     {
-      if(!inWindow) return;
+    bool s1f_seedArmed = (g_state == ST_IDLE);   //--- [SIDE1F] (i) seed-bar exactness flag (new local only)
+
+    if(g_state == ST_IDLE)
+      {
+       if(!inWindow) return;
       if(SessionAlreadyUsed(sess, barTime))
         {
          static datetime s_limitDay  = 0;
@@ -5157,10 +7633,17 @@ void EvaluateClosedBar(int barShift, datetime barTime)
            }
          return;
         }
-      PoiRetestResult pr;
-      if(!DetectPoiRetest(barShift, pr) || !pr.found) return;
-      g_anchorLine    = pr.topLine;
-      g_dir           = pr.isLong ? DIR_LONG : DIR_SHORT;
+        PoiRetestResult pr;
+        if(!DetectPoiRetest(barShift, pr) || !pr.found) return;
+        s1g_legDir = pr.isLong ? 1 : -1;   //--- [SIDE1G] (0) independent legDir capture (new local only)
+        g_s2_seedShift = barShift;   //--- [STAGE-C E-C05] exact-seed bar carriage for the live vote
+         g_anchorLine    = pr.topLine;
+       //--- [FP-LIMBSEAT-1 S2-3] F3 owns the carried-side write (single
+       //--- writer). Live rows carry no declared class -> ABSTAIN
+       //--- pass-through of the legacy value (D3 holds by construction);
+       //--- legacy output stays the compared label, fire-log identical.
+       g_dir           = S2ResolveLive(pr.isLong ? DIR_LONG : DIR_SHORT);
+        SrjSideNote("DetectPoiRetest", g_dir);
       g_anchorBarTime = barTime;
       ReadBuf1(g_hPoi, pr.topLine, g_anchorPrice, barShift);
       g_sessionAtEntry = sess;
@@ -5176,10 +7659,208 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
                                   TIME_DATE|TIME_MINUTES),
                      AnchorStr(), g_authorityRank[g_anchorLine],
-                     B3_AnchorTier(g_anchorLine), DirName(g_dir));
-     }
+                      B3_AnchorTier(g_anchorLine), DirName(g_dir));
+         }
 
-   if(g_state == ST_S1_REGIME)
+         //--- [S2-TIMING-SHADOW-001] seed-bias recorder (Luna V94 F1, cleared BY NAME
+         //--- print-only). Record-only: locals + print. Reuses CheckLtfAlign — the SAME
+         //--- pure helper the S2 path calls (EA:7787), same buffer/semantics; NO new bias
+          //--- computation (Sonnet build flag). Candidate dir = detector dir via s1g_legDir (equals pr.isLong on a seed bar), matching
+         //--- the authored candidateDirection. Flip observed at grade via later rows
+         //--- (pre-declared derivation). FORBIDDEN/ABSENT: any state/dir/latch/order/
+          //--- stop/N1 write (documented guarantee, grade-verified).
+          //--- Seed-gated per the s1f_seedThisBar idiom (EA:7664): emits only on the bar the seed fires.
+          if(InpDebugLog && s1f_seedArmed && g_state == ST_S1_REGIME && g_dir != DIR_NONE && g_anchorLine >= 0)
+           {
+            bool s1t_aligned = false;
+            string s1t_alOk = "UNREAD";
+            ENUM_SRJ_DIR s1t_candDir = (s1g_legDir > 0 ? DIR_LONG : DIR_SHORT);   //--- seed-bar pr via file-scope capture (EA:1038 decl, assigned 7609 this pass)
+             if(CheckLtfAlign(barShift, s1t_candDir, s1t_aligned))
+                s1t_alOk = s1t_aligned ? "1" : "0";
+             s1g_seedBiasAl = ((s1t_alOk == "UNREAD") ? -1 : (s1t_aligned ? 1 : 0));   //--- [STAGE-D-S2-RGATE-001] seed-bias carriage (print-only file-scope; single-candidate machine + IDLE-gated reseed mean the eval reads its own seed; -1 guards never-seeded)
+            PrintFormat("[SRJ-EA] SIDE1T_SEEDBIAS bar=%s dir=%s biasAligned=%s verdict=%s",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                     TIME_DATE|TIME_MINUTES),
+                        DirName(s1t_candDir),
+                        s1t_alOk,
+                         (s1t_alOk == "1") ? "CONSIDER" : "REJECT-BIAS-TIMING");
+            }
+          //--- [P-BIRTH-PROBE-001] dual-reading birth probe (Luna V105-DUAL-READ-CLEAR-001, cleared BY NAME
+          //--- print-only). At EVERY seed (same gate as SIDE1T): TF-verdict for SHORT (HTF bufs 19/20/21
+          //--- 2-of-3, INLINE-DUPLICATE of the ClassifyRegime trend part — its function-statics are
+          //--- unrestorable, pure reads only, zero new semantics) AND MR-verdict for SHORT (sweep-tag
+          //--- dir-match: SHORT needs a swept HIGH) printed SEPARATELY (row-type to council grade) +
+          //--- confirm-for-SHORT via IsConfirmationCandle(DIR_SHORT) with N1 save/restore (6 counters:
+          //--- vwapEq/pocEq/vwapInv/pocInv/vwapSurv/pocSurv — the file-wide 14 conflated in an "8"
+          //--- miscount, owned; exactly these 6 written in 2096-2137). Seed-identity: everything here is
+          //--- seed-current at the seed tick (barShift/g_anchorLine/s1g_legDir), so D5 holds trivially —
+          //--- no staleness possible, no live-global re-read. No-race enforced AT GRADE (D6:
+          //--- transfer-claimed lineages labeled via the PREEMPT join). FORBIDDEN/ABSENT: any state/dir/
+          //--- latch/order/stop/N1 write (N1 restored), OrderSend, AdoptOff touch, fresh Detect calls,
+          //--- price literals. tf=-1 guards HTF-read failure (grade asserts 0 occurrences).
+          if(InpDebugLog && s1f_seedArmed && g_state == ST_S1_REGIME && g_dir != DIR_NONE && g_anchorLine >= 0)
+            {
+             double s1v_hH = 0.0, s1v_hM = 0.0, s1v_hL = 0.0;
+             int s1v_hOk = 0, s1v_votes = 0;
+             if(ReadFlow(FL_BUF_HTF_HIGH, s1v_hH, barShift) && ReadFlow(FL_BUF_HTF_MID, s1v_hM, barShift) && ReadFlow(FL_BUF_HTF_LOW, s1v_hL, barShift))
+               {
+                s1v_hOk = 1;
+                if((int)MathRound(s1v_hH) == -1) s1v_votes++;
+                if((int)MathRound(s1v_hM) == -1) s1v_votes++;
+                if((int)MathRound(s1v_hL) == -1) s1v_votes++;
+               }
+             int s1v_tf = ((s1v_hOk == 0) ? -1 : ((s1v_votes >= 2) ? 1 : 0));
+             double s1v_swD = 0.0;
+             int s1v_tag = 0;
+             if(ReadFlow(FL_BUF_SWEEP_TAG, s1v_swD, barShift)) s1v_tag = (int)MathRound(s1v_swD);
+             int s1v_mr = (((s1v_tag == SWEEP_ASIA_HIGH) || (s1v_tag == SWEEP_LONDON_HIGH) || (s1v_tag == SWEEP_NY_HIGH) || (s1v_tag == SWEEP_PM_HIGH)) ? 1 : 0);
+             int s1v_wEq = g_n1_vwapEq, s1v_poEq = g_n1_pocEq, s1v_wIv = g_n1_vwapInv, s1v_poIv = g_n1_pocInv, s1v_wSv = g_n1_vwapSurv, s1v_poSv = g_n1_pocSurv;
+             string s1v_term = "";
+             IsConfirmationCandle(barShift, g_anchorLine, DIR_SHORT, s1v_term);
+             g_n1_vwapEq = s1v_wEq; g_n1_pocEq = s1v_poEq; g_n1_vwapInv = s1v_wIv; g_n1_pocInv = s1v_poIv; g_n1_vwapSurv = s1v_wSv; g_n1_pocSurv = s1v_poSv;
+             if(s1v_term == "") s1v_term = "PASS";
+             PrintFormat("[SRJ-EA] SIDE1V_BIRTH bar=%s dir=SHORT tf=%d mr=%d confShort=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                      TIME_DATE|TIME_MINUTES),
+                         s1v_tf, s1v_mr, s1v_term);
+            }
+
+    //--- [SIDE-1P-FIX-SPLIT Track-1/Track-2 AdoptOff shadow] print-only recorders.
+   //--- Reads assigned state only. The gate consult's 6 N1 counter writes are
+   //--- restored like-for-like (values identical after); every other call is pure.
+   //--- No live-state, resolver, latch, order, stop, fixture or eligibility write.
+   //--- Fires only on the exact seed bar (armed==IDLE at block entry, S1 after).
+    {
+     bool s1f_seedThisBar = (s1f_seedArmed && g_state == ST_S1_REGIME && g_dir != DIR_NONE && g_anchorLine >= 0);
+     if(s1f_seedThisBar)
+       {
+        s1g_nSeed++;
+        int s1f_vwEq = g_n1_vwapEq;
+        int s1f_poEq = g_n1_pocEq;
+        int s1f_vwIv = g_n1_vwapInv;
+        int s1f_poIv = g_n1_pocInv;
+        int s1f_vwSv = g_n1_vwapSurv;
+        int s1f_poSv = g_n1_pocSurv;
+        string s1f_term = "";
+         bool s1f_ok = IsConfirmationCandle(barShift, g_anchorLine, (s1g_legDir > 0 ? DIR_LONG : DIR_SHORT), s1f_term);   //--- [STAGE-C] legacy-pin: shadow diagnoses the legacy path (G-C01/G-C06 parity; value-identical pre-Stage-C)
+        g_n1_vwapEq = s1f_vwEq;
+        g_n1_pocEq = s1f_poEq;
+        g_n1_vwapInv = s1f_vwIv;
+        g_n1_pocInv = s1f_poIv;
+        g_n1_vwapSurv = s1f_vwSv;
+        g_n1_pocSurv = s1f_poSv;
+        double s1f_h4 = EMPTY_VALUE;
+        double s1f_h1 = EMPTY_VALUE;
+        ReadFlow(FL_BUF_HTF_HIGH, s1f_h4, barShift);
+        ReadFlow(FL_BUF_HTF_MID, s1f_h1, barShift);
+        int s1f_l4 = S2Leg(s1f_h4);
+        int s1f_l1 = S2Leg(s1f_h1);
+        string s1f_hier = "-";
+        int s1f_conf = 0;
+        if(s1f_l4 != 0 && s1f_l4 == s1f_l1) s1f_hier = (s1f_l4 > 0) ? "LONG" : "SHORT";
+        else if(s1f_l4 != 0 && s1f_l1 != 0) s1f_conf = 1;
+        if(InpDebugLog)
+           PrintFormat("[SRJ-EA] SIDE1F_VOTE bar=%s dir=%s t1term=%s t1reject=%d hier=%s conf=%d",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                       DirName(g_dir), s1f_term, (s1f_ok ? 0 : 1), s1f_hier, s1f_conf);
+        if(s1f_hier == "SHORT" && InpDebugLog)
+           PrintFormat("[SRJ-EA] SIDE1F_SHORT bar=%s anchor=%s",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                       AnchorStr());
+        //--- [SIDE1G] R1 PROFILE mirror (independent term booleans + pre-terms; NO second gate call)
+        double s1g_o1 = iOpen (_Symbol, PERIOD_CURRENT, barShift + 1);
+        double s1g_c1 = iClose(_Symbol, PERIOD_CURRENT, barShift + 1);
+        double s1g_h1 = iHigh (_Symbol, PERIOD_CURRENT, barShift + 1);
+        double s1g_l1 = iLow  (_Symbol, PERIOD_CURRENT, barShift + 1);
+        double s1g_o0 = iOpen (_Symbol, PERIOD_CURRENT, barShift);
+        double s1g_c0 = iClose(_Symbol, PERIOD_CURRENT, barShift);
+        string s1g_pre = "PASS";
+        if(s1g_o1 <= 0.0 || s1g_c1 <= 0.0 || s1g_o0 <= 0.0 || s1g_c0 <= 0.0) s1g_pre = "NO_DATA";
+        double s1g_L = g_anchorPrice;
+        if(s1g_pre == "PASS" && (s1g_L == EMPTY_VALUE || s1g_L <= 0.0)) s1g_pre = "NO_LINE";
+        int s1g_opp = (((g_dir == DIR_LONG) ? (s1g_c1 < s1g_o1) : (s1g_c1 > s1g_o1))) ? 1 : 0;
+        int s1g_a2 = (((g_dir == DIR_LONG) ? (s1g_c1 >= s1g_L) : (s1g_c1 <= s1g_L))) ? 1 : 0;
+        int s1g_isDoji = ((MathAbs(s1g_c0 - s1g_o0) < _Point * 0.0001)) ? 1 : 0;
+        int s1g_bodyDir = (((g_dir == DIR_LONG) ? (s1g_c0 > s1g_o0) : (s1g_c0 < s1g_o0))) ? 1 : 0;
+        int s1g_body = ((s1g_isDoji == 0) && (s1g_bodyDir == 1)) ? 1 : 0;
+        int s1g_touch = (((s1g_h1 >= s1g_L - _Point) && (s1g_l1 <= s1g_L + _Point))) ? 1 : 0;
+        string s1g_derived = (s1g_pre != "PASS") ? s1g_pre : ((s1g_opp == 0) ? "A_OPP" : ((s1g_a2 == 0) ? "A2_CLOSE_BREAK" : ((s1g_body == 0) ? "B_BODY" : ((s1g_touch == 0) ? "C_TOUCH" : "PASS"))));
+        string s1g_t1 = (s1f_term == "") ? "PASS" : s1f_term;
+        int s1g_match = (s1g_derived == s1g_t1) ? 1 : 0;
+        s1g_nProf++;
+        if(InpDebugLog)
+           PrintFormat("[SRJ-EA] SIDE1G_PROFILE bar=%s opp=%d a2=%d body=%d touch=%d pre=%s term=%s t1term=%s match=%d",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                       s1g_opp, s1g_a2, s1g_body, s1g_touch, s1g_pre, s1g_derived, s1g_t1, s1g_match);
+        //--- [SIDE1G] R2 VOTE3 (legDir capture vs buffer vote + 15m read-only leg)
+        double s1g_m15 = EMPTY_VALUE;
+        ReadFlow(FL_BUF_HTF_LOW, s1g_m15, barShift);
+        int s1g_lm = S2Leg(s1g_m15);
+        int s1g_agree = ((s1f_l4 != 0) && (s1f_l4 == s1f_l1) && (s1g_legDir == s1f_l4)) ? 1 : 0;
+        s1g_nV3++;
+        if(InpDebugLog)
+           PrintFormat("[SRJ-EA] SIDE1G_VOTE3 bar=%s h4=%s h1=%s m15=%s l4=%d l1=%d lm=%d legDir=%d gdir=%s agree=%d",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                       DoubleToString(s1f_h4, 1), DoubleToString(s1f_h1, 1), DoubleToString(s1g_m15, 1),
+                       s1f_l4, s1f_l1, s1g_lm, s1g_legDir, DirName(g_dir), s1g_agree);
+         //--- [STAGE-C E-C01] Track-1 B_BODY-only live consult (owned g_dir; N1-neutral; Sonnet-v71 S1 live-gating semantics: non-B_BODY false = pass)
+         int s1c_vwEq = g_n1_vwapEq;
+         int s1c_poEq = g_n1_pocEq;
+         int s1c_vwIv = g_n1_vwapInv;
+         int s1c_poIv = g_n1_pocInv;
+         int s1c_vwSv = g_n1_vwapSurv;
+         int s1c_poSv = g_n1_pocSurv;
+         string s1c_term = "";
+         bool s1c_ok = IsConfirmationCandle(barShift, g_anchorLine, g_dir, s1c_term);
+         g_n1_vwapEq = s1c_vwEq;
+         g_n1_pocEq = s1c_poEq;
+         g_n1_vwapInv = s1c_vwIv;
+         g_n1_pocInv = s1c_poIv;
+         g_n1_vwapSurv = s1c_vwSv;
+         g_n1_pocSurv = s1c_poSv;
+         //--- [C0-PROBE] suppression effect DELETED: consult above kept, prints kept, NO g_state write
+         if(!s1c_ok && s1c_term == "B_BODY")
+           {
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] SIDE1C_SUPP bar=%s dir=%s term=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), s1c_term);
+           }
+         //--- [C0-PROBE] both-dirs failTerm row per seed (each leg N1-neutral, same save/restore idiom)
+         {
+          int s1c_bVwEq = g_n1_vwapEq;
+          int s1c_bPoEq = g_n1_pocEq;
+          int s1c_bVwIv = g_n1_vwapInv;
+          int s1c_bPoIv = g_n1_pocInv;
+          int s1c_bVwSv = g_n1_vwapSurv;
+          int s1c_bPoSv = g_n1_pocSurv;
+          string s1c_termLong = "";
+          string s1c_termShort = "";
+          IsConfirmationCandle(barShift, g_anchorLine, DIR_LONG, s1c_termLong);
+          g_n1_vwapEq = s1c_bVwEq;
+          g_n1_pocEq = s1c_bPoEq;
+          g_n1_vwapInv = s1c_bVwIv;
+          g_n1_pocInv = s1c_bPoIv;
+          g_n1_vwapSurv = s1c_bVwSv;
+          g_n1_pocSurv = s1c_bPoSv;
+          IsConfirmationCandle(barShift, g_anchorLine, DIR_SHORT, s1c_termShort);
+          g_n1_vwapEq = s1c_bVwEq;
+          g_n1_pocEq = s1c_bPoEq;
+          g_n1_vwapInv = s1c_bVwIv;
+          g_n1_pocInv = s1c_bPoIv;
+          g_n1_vwapSurv = s1c_bVwSv;
+          g_n1_pocSurv = s1c_bPoSv;
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] SIDE1C_BOTHDIRS bar=%s live=%s liveTerm=%s longTerm=%s shortTerm=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                         DirName(g_dir), s1c_term, s1c_termLong, s1c_termShort);
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] SIDE1C_CHAIN bar=%s chainN=%d",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                         g_side_n);
+         }
+        }
+    }
+
+     if(g_state == ST_S1_REGIME)
      {
       ENUM_SRJ_REGIME regime;
       if(!ClassifyRegime(barShift, g_dir, regime))
@@ -5652,8 +8333,15 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          //--- bar. The stop swing is tested and ends the walk. Without a stop
          //--- reference, the promotion-time bound remains as the fail-safe (the
          //--- measured Task 126 bound) per council Part 1.1.
-         double s3_slRef = 0.0; ENUM_SRJ_SLMODE s3_slMode = SL_MODE_NONE;
-         bool  s3_haveStop = SlRefMemo(barShift, barTime, g_dir, s3_slRef, s3_slMode, "S3ARM");
+          //--- [P-SEL-1 E54] stage-reached marker at probe bars (read-only + line).
+          if(InpDebugLog)
+            {
+             string sl54_s3T = TimeToString(barTime, TIME_DATE|TIME_MINUTES);
+             if(SrjSelIsProbeBar(sl54_s3T))
+               { string sl54_s3L = StringFormat("[SRJ-EA] SEL54STAGE bar=%s stage=S3ARM dir=%s state=%s", sl54_s3T, DirName(g_dir), StateName(g_state)); LwAudit("SEL54STAGE", sl54_s3L); Print(sl54_s3L); }
+            }
+          double s3_slRef = 0.0; ENUM_SRJ_SLMODE s3_slMode = SL_MODE_NONE;
+          bool  s3_haveStop = SlRefMemo(barShift, barTime, g_dir, s3_slRef, s3_slMode, "S3ARM");
          t133_haveStop = s3_haveStop;
 
          //--- [P-FIX-S2POLL E3 / operator Q3 2026-09-11: "SL should be present at
@@ -6025,14 +8713,27 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          g_sl41_oSite = "S5";
          g_sl41_oStamp = iTime(_Symbol, PERIOD_CURRENT, barShift);
         }
-      if(!ComputeSlReference(barShift, g_dir, slRef, slMode, "S5"))
-        {
-         if(InpDebugLog)
-             PrintFormat("[SRJ-EA] %s S5_NO_SL_REF",
-                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-          //--- [P-SLDEF-4 E33] the decided outcome rides the census.
-          SrjOrderEmit(barShift, "NO_SL");
-          GoAbort(ABORT_NO_SL_REF, g_state); return;
+       g_o1_maxS = -1;   //--- [O1-HOOK] reset walk-bound capture for this S5 row
+       if(!ComputeSlReference(barShift, g_dir, slRef, slMode, "S5"))
+         {
+          if(InpDebugLog)
+              PrintFormat("[SRJ-EA] %s S5_NO_SL_REF",
+                          TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
+           //--- [P-SLDEF-4 E33] the decided outcome rides the census.
+           SrjOrderEmit(barShift, "NO_SL");
+           if(InpDebugLog) O1RecordWalk(barShift, g_dir, 0.0, slMode, false);   //--- [O1-HOOK]
+           if(InpDebugLog) A6S5Log(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0);   //--- [A6-HOOK] (iii)
+           GoAbort(ABORT_NO_SL_REF, g_state); return;
+         }
+       //--- [P-SEL-1 E56] census context at S5 (read-only + line) + probe stage.
+       if(InpDebugLog)
+         {
+          SrjSelCtxEmit(barShift, iTime(_Symbol, PERIOD_CURRENT, barShift), "S5", g_dir, slRef, slMode);
+          O1RecordWalk(barShift, g_dir, slRef, slMode, true);   //--- [O1-HOOK]
+          A6S5Log(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 1);   //--- [A6-HOOK] (iii)
+          string sl54_s5T = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+         if(SrjSelIsProbeBar(sl54_s5T))
+           { string sl54_s5L = StringFormat("[SRJ-EA] SEL54STAGE bar=%s stage=S5 dir=%s", sl54_s5T, DirName(g_dir)); LwAudit("SEL54STAGE", sl54_s5L); Print(sl54_s5L); }
         }
       //--- [P-ADOPT-1 E50] dormant S5 adoption: slExt1 as the returned
       //--- reference behind ADOPT_EXT1 (default false — run A provably
@@ -6047,6 +8748,56 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          datetime ad_bt = 0; int ad_imb = -1; int ad_deep = -1;
          SrjResolveExt1(barShift, g_dir, currentPrice, ad_def, ad_px, ad_slot, ad_bt, ad_imb, ad_deep);
          if(ad_def == 1) slRef = ad_px;
+        }
+      //--- [P-ORIGIN-1 §3/FREEZE] regression row at the five frozen S5
+      //--- bars: declared second-swing diagnostic with the frozen HAND
+      //--- entry vs the frozen expected identity (retain, not improve).
+      //--- Print-only; selection, reference and memo untouched.
+      if(InpDebugLog)
+        {
+         datetime sl61_evalT = iTime(_Symbol, PERIOD_CURRENT, barShift);
+         string sl61_barT = TimeToString(sl61_evalT, TIME_DATE|TIME_MINUTES);
+         double sl61_entryPx = 0.0; string sl61_entryBT = "-"; string sl61_ex = "";
+         if(SrjOriginEntry(sl61_barT, sl61_entryPx, sl61_entryBT, sl61_ex)
+            && StringSubstr(sl61_ex, 0, 1) == "R")
+           {
+            int sl61_d1 = 0; double sl61_px1 = 0.0; int sl61_slot1 = -1; datetime sl61_bt1 = 0;
+            int sl61_d2 = 0; double sl61_px2 = 0.0; int sl61_slot2 = -1; datetime sl61_bt2 = 0; int sl61_imb2 = -1;
+            SrjSecondSwing(barShift, g_dir, sl61_entryPx,
+                           sl61_d1, sl61_px1, sl61_slot1, sl61_bt1,
+                           sl61_d2, sl61_px2, sl61_slot2, sl61_bt2, sl61_imb2);
+            double sl61_expPx = 0.0; int sl61_expSlot = -1; datetime sl61_expBT = 0; int sl61_expImb = -1;
+            double sl61_filedPx = 0.0; string sl61_filedProv = "-";
+            SrjOriginExpected(sl61_ex, sl61_expPx, sl61_expSlot, sl61_expBT, sl61_expImb, sl61_filedPx, sl61_filedProv);
+            string sl61_oPxS = (sl61_d2 == 1) ? DoubleToString(sl61_px2, _Digits) : "-";
+            string sl61_oBtS = (sl61_d2 == 1) ? TimeToString(sl61_bt2, TIME_DATE|TIME_MINUTES) : "-";
+            string sl61_ePxS = DoubleToString(sl61_expPx, _Digits);
+            string sl61_eBtS = TimeToString(sl61_expBT, TIME_DATE|TIME_MINUTES);
+            int sl61_resid = (sl61_d2 == 1) ? (int)MathRound((sl61_px2 - sl61_expPx) / _Point) : -999;
+            int sl61_match = (sl61_d2 == 1 && sl61_oPxS == sl61_ePxS && sl61_slot2 == sl61_expSlot
+                              && sl61_oBtS == sl61_eBtS && sl61_imb2 == sl61_expImb) ? 1 : 0;
+            int sl61_fResid = (int)MathRound((sl61_expPx - sl61_filedPx) / _Point);
+            g_origin_regN++;
+            if(sl61_match == 0) g_origin_regFail++;
+            string sl61_line = StringFormat("[SRJ-EA] ORIGINREG fields=23 bar=%s site=S5 dir=%s exID=%s entryPx=%s entryBarT=%s expPx=%s expSlot=%d expBarT=%s expImb=%d obsDef=%d obsPx=%s obsSlot=%d obsBarT=%s obsImb=%d residPts=%d match=%d filedPx=%s filedProv=%s filedResidPts=%d feed=%s skip1Px=%s skip1BarT=%s",
+                      sl61_barT, DirName(g_dir), sl61_ex,
+                      DoubleToString(sl61_entryPx, _Digits), sl61_entryBT,
+                      sl61_ePxS, sl61_expSlot, sl61_eBtS, sl61_expImb,
+                      sl61_d2, sl61_oPxS, sl61_slot2, sl61_oBtS, sl61_imb2,
+                      sl61_resid, sl61_match,
+                      DoubleToString(sl61_filedPx, _Digits), sl61_filedProv, sl61_fResid, "Dukascopy",
+                      (sl61_d1 == 1) ? DoubleToString(sl61_px1, _Digits) : "-",
+                      (sl61_d1 == 1) ? TimeToString(sl61_bt1, TIME_DATE|TIME_MINUTES) : "-");
+            LwAudit("ORIGINREG", sl61_line);
+            Print(sl61_line);
+            if(sl61_match == 0)
+              {
+               string sl61_fail = StringFormat("[SRJ-EA] ORIGINREGFAIL exID=%s bar=%s residPts=%d",
+                         sl61_ex, sl61_barT, sl61_resid);
+               LwAudit("ORIGINREGFAIL", sl61_fail);
+               Print(sl61_fail);
+              }
+           }
         }
 
       //--- [P-SWINGIMB-3 E10] R-cost table: one SLIMBR line per S5 invocation
@@ -6159,9 +8910,36 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      slimbr_c, slimbr_fc,
                      (e35_def == 1) ? DoubleToString(e35_px, _Digits) : "-",
                      e35_r, e35_surv, e35_obF, e35_frF);
-          LwAudit("SLIMBR", slimbr_line);
-          Print(slimbr_line);
-          //--- [P-SLDEF-3 E30] S5 eval-bar stamp for the SIGMAP pairing.
+           LwAudit("SLIMBR", slimbr_line);
+           Print(slimbr_line);
+           //--- [P-SEL-1 E55] component census at frozen-example S5 rows
+           //--- (read-only + line; CQD printed, never consumed).
+           if(InpDebugLog)
+             {
+              string sl55_barT = TimeToString(slimbr_bt, TIME_DATE|TIME_MINUTES);
+              double sl55_ePx = 0.0; string sl55_eBT = "-"; string sl55_ex = ""; datetime sl55_decT = 0;
+              ENUM_SRJ_DIR sl55_dir = DIR_LONG;
+              if(SrjSelEntry(sl55_barT, sl55_ePx, sl55_eBT, sl55_ex, sl55_decT, sl55_dir))
+                {
+                 int sl55_g1d = 0; double sl55_g1Px = 0.0; string sl55_g1BT = "-"; double sl55_retPx = 0.0; string sl55_retBT = "-";
+                 double sl55_tp = 0.0; int sl55_tpU = 0; int sl55_decl = 0; int sl55_hypo = 0; double sl55_g2 = 0.0; string sl55_g2BT = "-";
+                 SrjSelExpected(sl55_ex, sl55_g1d, sl55_g1Px, sl55_g1BT, sl55_retPx, sl55_retBT, sl55_tp, sl55_tpU, sl55_decl, sl55_hypo, sl55_g2, sl55_g2BT);
+                 int sl55_cqdSh = iBarShift(_Symbol, PERIOD_CURRENT, slimbr_bt, false);
+                 double sl55_cqdV = EMPTY_VALUE; bool sl55_cqdOk = false;
+                 if(sl55_cqdSh >= 0) sl55_cqdOk = ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, sl55_cqdV, sl55_cqdSh);
+                 string sl55_cqdS = "UNREAD";
+                 if(sl55_cqdOk && sl55_cqdV != EMPTY_VALUE) sl55_cqdS = IntegerToString((int)MathRound(sl55_cqdV));
+                 if(sl55_cqdOk && sl55_cqdV == EMPTY_VALUE) sl55_cqdS = "EMPTY";
+                 g_sel55_n++;
+                 string sl55_tpS = DoubleToString(sl55_tp, _Digits);
+                 if(sl55_tpU == 1) sl55_tpS = "UNSTATED";
+                 string sl55_line = StringFormat("[SRJ-EA] SEL55 ex=%s bar=%s codedir=%s codeentry=%s codetp=%s hisentry=%s histp=%s cqd=%s",
+                   sl55_ex, sl55_barT, DirName(g_dir), DoubleToString(currentPrice, _Digits),
+                   DoubleToString(tpTarget, _Digits), DoubleToString(sl55_ePx, _Digits), sl55_tpS, sl55_cqdS);
+                 LwAudit("SEL55", sl55_line); Print(sl55_line);
+                }
+             }
+           //--- [P-SLDEF-3 E30] S5 eval-bar stamp for the SIGMAP pairing.
           if(g_sigmap_s5N < 16) { g_sigmap_s5T[g_sigmap_s5N] = slimbr_bt; g_sigmap_s5N++; }
          //--- [P-SLDEF-1b E18] carve-out operand companions: one short line per
          //--- limb whose walk fired the carve-out (class CARVEOUT_FIRED). NOT
@@ -6772,14 +9550,259 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                  SrjDeepEmit(corrBarT, g_dir, "base", wBaseSlot, barShift, g_slimbr_base, slRef);
               if(wNuanceSlot >= 0 && wNuanceSteps == 0)
                  SrjDeepEmit(corrBarT, g_dir, "nuance", wNuanceSlot, barShift, g_slimbr_nuance, slRef);
+              }
+           }
+
+       //--- [S1-LIVE-STOPFIX-001] LIVE REWIRE (Luna V112-AMENDED-STOPFIX-001,
+       //--- RE-CLEARED BY NAME, staged). Rule-defined stop selection replaces the
+       //--- W OB-anchored take-path value at THIS S5 evaluation only (slRef is the
+       //--- function-local from EA:8675; upstream diagnostics keep resolver values).
+       //--- Walk mirrors the SIDE1E idiom verbatim (same buffers, side test, ext
+       //--- numbering); sel mirrors its rule (s0 iff imb nonzero, else s1). No staleness
+       //--- patch (REJECTED design, not built). Pure reads; no state/dir/latch/order/
+       //--- stop/N1 write beyond the local slRef take-path select; no Detect call.
+        {
+         int s1x_swBuf = ((g_dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH);
+         int s1x_imBuf = ((g_dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB);
+         double s1x_s0px = 0.0; int s1x_s0slot = -1; int s1x_s0imb = -1;
+         double s1x_s1px = 0.0; int s1x_s1slot = -1; int s1x_s1imb = -1;
+         double s1x_best = 0.0; int s1x_extN = 0; int s1x_rungs = 0;
+         for(int s1x_s = barShift; s1x_s <= barShift + SRJ_LAD_ABS_SLOT_CAP; s1x_s++)
+           {
+            double s1x_v = 0.0;
+            if(!ReadFlow(s1x_swBuf, s1x_v, s1x_s)) break;
+            if(s1x_v == EMPTY_VALUE || s1x_v <= 0.0) continue;
+            if(!SlimbProtectiveSideOk(g_dir, s1x_v, currentPrice)) continue;
+            int s1x_ext = -1;
+            if(s1x_rungs == 0) { s1x_ext = 0; s1x_best = s1x_v; s1x_extN = 1; }
+            else
+              {
+               bool s1x_more = (g_dir == DIR_LONG) ? (s1x_v < s1x_best - _Point) : (s1x_v > s1x_best + _Point);
+               if(s1x_more) { s1x_ext = s1x_extN; s1x_extN++; s1x_best = s1x_v; }
+              }
+            if(s1x_ext == 0 && s1x_s0slot < 0)
+              {
+               s1x_s0px = s1x_v; s1x_s0slot = s1x_s;
+               double s1x_f = 0.0;
+               if(ReadFlow(s1x_imBuf, s1x_f, s1x_s) && s1x_f != EMPTY_VALUE) s1x_s0imb = (int)s1x_f;
+              }
+            if(s1x_ext == 1 && s1x_s1slot < 0)
+              {
+               s1x_s1px = s1x_v; s1x_s1slot = s1x_s;
+               double s1x_f = 0.0;
+               if(ReadFlow(s1x_imBuf, s1x_f, s1x_s) && s1x_f != EMPTY_VALUE) s1x_s1imb = (int)s1x_f;
+              }
+            s1x_rungs++;
+            if(s1x_rungs >= 512) break;
+            if(s1x_s0slot >= 0 && s1x_s1slot >= 0) break;
+           }
+         int s1x_sel = -1;
+         if(s1x_s0slot >= 0 && s1x_s0imb > 0) s1x_sel = 0;
+         else if(s1x_s1slot >= 0) s1x_sel = 1;
+         if(s1x_sel == 0) slRef = s1x_s0px;
+         else if(s1x_sel == 1) slRef = s1x_s1px;
+        }
+
+       double slDist = MathAbs(currentPrice - slRef);
+       double tpDist = MathAbs(tpTarget - currentPrice);
+       bool tpOk = (slDist > 0.0 && (tpDist / slDist) >= InpMinRewardRisk);
+       //--- [S1-CONDSTOP-SHADOW-001] stop-source recorder (Luna V89-STOP-CLEAR-001,
+       //--- cleared BY NAME print-only; his fresh run word this turn). Shadow-local
+       //--- rung walk over the same swing/imb buffers, read-only: SrjResolveExt1
+       //--- untouched, ReadFlow writes nothing, no N1 touch. Record-only: locals
+       //--- + print only. FORBIDDEN in this shadow and ABSENT below: g_state /
+       //--- anchor / g_dir / latch / order / stop / N1 writes (documented
+       //--- guarantee, grade-verified). S0 = rung 0 (nearest protective), S1 =
+       //--- first ext==1 (same numbering as SrjResolveExt1); imb reported raw
+       //--- (0/1/2 per FlowLogic 122-127); sel shown under valid=nonzero
+       //--- (carried open for live). Spliced pre-latch (D4-successor): reuses
+       //--- currentPrice/tpTarget/slRef/tpOk of this S5 evaluation, prints, then
+       //--- live code proceeds untouched.
+       if(InpDebugLog)
+         {
+          int s1e_swBuf = ((g_dir == DIR_LONG) ? FL_BUF_SWING_LOW : FL_BUF_SWING_HIGH);
+          int s1e_imBuf = ((g_dir == DIR_LONG) ? FL_BUF_SWING_LOW_IMB : FL_BUF_SWING_HIGH_IMB);
+          double s1e_s0px = 0.0; int s1e_s0slot = -1; int s1e_s0imb = -1;
+          double s1e_s1px = 0.0; int s1e_s1slot = -1; int s1e_s1imb = -1;
+          double s1e_best = 0.0; int s1e_extN = 0; int s1e_rungs = 0;
+          for(int s1e_s = barShift; s1e_s <= barShift + SRJ_LAD_ABS_SLOT_CAP; s1e_s++)
+            {
+             double s1e_v = 0.0;
+             if(!ReadFlow(s1e_swBuf, s1e_v, s1e_s)) break;
+             if(s1e_v == EMPTY_VALUE || s1e_v <= 0.0) continue;
+             if(!SlimbProtectiveSideOk(g_dir, s1e_v, currentPrice)) continue;
+             int s1e_ext = -1;
+             if(s1e_rungs == 0) { s1e_ext = 0; s1e_best = s1e_v; s1e_extN = 1; }
+             else
+               {
+                bool s1e_more = (g_dir == DIR_LONG) ? (s1e_v < s1e_best - _Point) : (s1e_v > s1e_best + _Point);
+                if(s1e_more) { s1e_ext = s1e_extN; s1e_extN++; s1e_best = s1e_v; }
+               }
+             if(s1e_ext == 0 && s1e_s0slot < 0)
+               {
+                s1e_s0px = s1e_v; s1e_s0slot = s1e_s;
+                double s1e_f = 0.0;
+                if(ReadFlow(s1e_imBuf, s1e_f, s1e_s) && s1e_f != EMPTY_VALUE) s1e_s0imb = (int)s1e_f;
+               }
+             if(s1e_ext == 1 && s1e_s1slot < 0)
+               {
+                s1e_s1px = s1e_v; s1e_s1slot = s1e_s;
+                double s1e_f = 0.0;
+                if(ReadFlow(s1e_imBuf, s1e_f, s1e_s) && s1e_f != EMPTY_VALUE) s1e_s1imb = (int)s1e_f;
+               }
+             s1e_rungs++;
+             if(s1e_rungs >= 512) break;
+             if(s1e_s0slot >= 0 && s1e_s1slot >= 0) break;
+            }
+          double s1e_s0d = MathAbs(currentPrice - s1e_s0px);
+          double s1e_s1d = MathAbs(currentPrice - s1e_s1px);
+          double s1e_r0 = (s1e_s0slot >= 0 && s1e_s0d > 0.0) ? (tpDist / s1e_s0d) : 0.0;
+          double s1e_r1 = (s1e_s1slot >= 0 && s1e_s1d > 0.0) ? (tpDist / s1e_s1d) : 0.0;
+          int s1e_sel = -1;
+          if(s1e_s0slot >= 0 && s1e_s0imb > 0) s1e_sel = 0;
+          else if(s1e_s1slot >= 0) s1e_sel = 1;
+          PrintFormat("[SRJ-EA] SIDE1E_STOPSHADOW bar=%s dir=%s s0px=%s s0slot=%d s0imb=%d s1px=%s s1slot=%d s1imb=%d sel=%d r0=%.2f r1=%.2f liveSl=%s livePass=%d",
+                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                      DirName(g_dir),
+                      DoubleToString(s1e_s0px, _Digits), s1e_s0slot, s1e_s0imb,
+                      DoubleToString(s1e_s1px, _Digits), s1e_s1slot, s1e_s1imb,
+                      s1e_sel, s1e_r0, s1e_r1,
+                      DoubleToString(slRef, _Digits), (tpOk ? 1 : 0));
+           //--- [S1-STOPREF-SHADOW-001] stop-reference shadow (Luna V110-STOPREF-SHADOW-001,
+           //--- cleared BY NAME print-only). At EVERY S5 eval (same gate/scope as SIDE1E,
+           //--- placed INSIDE its block): live stop (slRef) vs rule stop (s1e_s1px, the
+           //--- ext1/second-swing read) plus entry (currentPrice) plus live TP/R/pass,
+           //--- printed for offline grade against his filed levels (which live ONLY in
+           //--- the grade file, NEVER as literals here). Pure reads plus one print; no
+           //--- state/dir/latch/order/stop/N1 write, no fresh Detect call, AdoptOff untouched.
+           PrintFormat("[SRJ-EA] SIDE1X_STOPREF bar=%s dir=%s entry=%s liveStop=%s ruleStop=%s ruleSlot=%d ruleImb=%d liveTp=%s liveR=%.2f livePass=%d",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                       DirName(g_dir),
+                       DoubleToString(currentPrice, _Digits),
+                       DoubleToString(slRef, _Digits),
+                       DoubleToString(s1e_s1px, _Digits), s1e_s1slot, s1e_s1imb,
+                       DoubleToString(tpTarget, _Digits),
+                       (slDist > 0.0 ? tpDist / slDist : 0.0),
+                       (tpOk ? 1 : 0));
+           //--- [S1-PDSESS-SHADOW-001] prev-day session TP-source shadow (Luna
+           //--- V120 packet `TP-DATA-SOURCE-COMPLETE-001`, shadow-first; run on his
+           //--- standing delegation, no per-action words). At EVERY S5 eval (same
+           //--- gate/scope as SIDE1X, inside its block): the 8 new prev-day session
+           //--- H/L reads + entry + liveTp, printed for offline grade (would-select
+           //--- computed offline; selection code untouched). Pure reads + one print;
+           //--- no state/dir/latch/order/stop/N1 write, no fresh Detect call, no
+           //--- sessbufs/filter/census touch, AdoptOff untouched, OrderSend 0.
+           double s1y_v[8]; int s1y_b[8];
+           s1y_b[0] = FL_BUF_PD_ASIA_HIGH;   s1y_b[1] = FL_BUF_PD_ASIA_LOW;
+           s1y_b[2] = FL_BUF_PD_LONDON_HIGH; s1y_b[3] = FL_BUF_PD_LONDON_LOW;
+           s1y_b[4] = FL_BUF_PD_NY_HIGH;     s1y_b[5] = FL_BUF_PD_NY_LOW;
+           s1y_b[6] = FL_BUF_PD_PM_HIGH;     s1y_b[7] = FL_BUF_PD_PM_LOW;
+           for(int s1y_i = 0; s1y_i < 8; s1y_i++)
+             {
+              s1y_v[s1y_i] = 0.0;
+              double s1y_f = 0.0;
+              if(ReadFlow(s1y_b[s1y_i], s1y_f, barShift) && s1y_f != EMPTY_VALUE && s1y_f > 0.0)
+                 s1y_v[s1y_i] = s1y_f;
              }
+           PrintFormat("[SRJ-EA] SIDE1Y_PDSESS bar=%s dir=%s entry=%s liveTp=%s pdAsiaH=%s pdAsiaL=%s pdLondonH=%s pdLondonL=%s pdNyH=%s pdNyL=%s pdPmH=%s pdPmL=%s",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                    TIME_DATE|TIME_MINUTES),
+                       DirName(g_dir),
+                       DoubleToString(currentPrice, _Digits),
+                       DoubleToString(tpTarget, _Digits),
+                       DoubleToString(s1y_v[0], _Digits), DoubleToString(s1y_v[1], _Digits),
+                       DoubleToString(s1y_v[2], _Digits), DoubleToString(s1y_v[3], _Digits),
+                       DoubleToString(s1y_v[4], _Digits), DoubleToString(s1y_v[5], _Digits),
+                       DoubleToString(s1y_v[6], _Digits), DoubleToString(s1y_v[7], _Digits));
           }
+          //--- [S2R2-ELIGIBILITY-SHADOW-001] inventory recorder (Luna V92/V94 F0,
+         //--- cleared BY NAME print-only). Record-only: locals + print. Every read
+         //--- reuses an established idiom (SessionAlreadyUsed query EA:1776, pure;
+         //--- CQD idiom EA:6577; latch/global reads). FORBIDDEN/ABSENT: any write.
+         if(InpDebugLog)
+           {
+            int s1o_sessUsed = SessionAlreadyUsed(sess, barTime) ? 1 : 0;
+            double s1o_cqd = EMPTY_VALUE;
+            string s1o_cqdS = "UNREAD";
+            if(ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, s1o_cqd, barShift) && s1o_cqd != EMPTY_VALUE)
+               s1o_cqdS = IntegerToString((int)MathRound(s1o_cqd));
+            PrintFormat("[SRJ-EA] SIDE1O_ELIGSTATE bar=%s dir=%s sessUsed=%d divLatch=%d cqd=%s confirm=%s slRef=%s rLive=%.2f livePass=%d",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                     TIME_DATE|TIME_MINUTES),
+                        DirName(g_dir),
+                        s1o_sessUsed, (int)g_divLatch, s1o_cqdS,
+                        StateName(g_confirmFromState),
+                        DoubleToString(slRef, _Digits),
+                        (slDist > 0.0 ? tpDist / slDist : 0.0),
+                        (tpOk ? 1 : 0));
+           }
+         //--- [R2-CQD-PROBE-001] killer census (Luna V94 F2, cleared BY NAME
+         //--- print-only). Record-only: locals + print. Reports which repo inputs
+         //--- represent each R2 killer; a killer with no repo input prints MISSING
+         //--- (finding, never fill). imb-identity CLOSED at build (build-record
+         //--- declared): stop-imb reads buffers 37/38 (swing creation-side), the
+         //--- OB-validity term reads buffer 3 (FL_BUF_LTF_OB_VALID) — DIFFERENT
+         //--- inputs, printed side-by-side, never aliased. 10:25-vs-10:35 kept
+         //--- distinct by barTime (no folding by construction).
+         if(InpDebugLog)
+           {
+            double s1q_ob = EMPTY_VALUE, s1q_fv = EMPTY_VALUE, s1q_cq = EMPTY_VALUE;
+            string s1q_obS = "UNREAD", s1q_fvS = "UNREAD", s1q_cqS = "UNREAD";
+            if(ReadFlow(FL_BUF_LTF_OB_VALID, s1q_ob, barShift) && s1q_ob != EMPTY_VALUE)
+               s1q_obS = DoubleToString(s1q_ob, 1);
+            if(ReadFlow(FL_BUF_LTF_FVG_VALID, s1q_fv, barShift) && s1q_fv != EMPTY_VALUE)
+               s1q_fvS = DoubleToString(s1q_fv, 1);
+            if(ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, s1q_cq, barShift) && s1q_cq != EMPTY_VALUE)
+               s1q_cqS = IntegerToString((int)MathRound(s1q_cq));
+             PrintFormat("[SRJ-EA] SIDE1Q_CQDKILL bar=%s dir=%s obValid=%s fvgValid=%s cqdDiv=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                      TIME_DATE|TIME_MINUTES),
+                         DirName(g_dir), s1q_obS, s1q_fvS, s1q_cqS);
+            }
+          //--- [STAGE-D-S2-RGATE-001] causal-link recorder (Luna V96 §2, cleared BY NAME
+          //--- print-only). Links seed to eval in ONE row: seed barTime (g_anchorBarTime,
+          //--- set at seed) + seed bias (s1g_seedBiasAl, carried at seed) + eval-bar R
+          //--- (same rLive/livePass exprs as SIDE1O) + live stop. Reuses stamps only;
+          //--- no new computation, no state/dir/latch/order/stop/N1 write. Seed-close
+          //--- sampling note: both seed fields are close-sampled (ADD1); the link row
+          //--- carries seedBT + evalBar so grade verifies linkage without assuming.
+          if(InpDebugLog)
+            {
+             PrintFormat("[SRJ-EA] SIDE1R_RGATE evalBar=%s seedBT=%s dir=%s seedBiasAl=%d rLive=%.2f livePass=%d slRef=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                      TIME_DATE|TIME_MINUTES),
+                         TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES),
+                         DirName(g_dir), s1g_seedBiasAl,
+                         (slDist > 0.0 ? tpDist / slDist : 0.0),
+                         (tpOk ? 1 : 0),
+                         DoubleToString(slRef, _Digits));
+            }
+          //--- [R2-CQD-ELIGIBILITY-002] trailing-window CQD census (Luna V96 §3, cleared
+          //--- BY NAME print-only). Uniform trailing window at EVERY S5 eval (no date/
+          //--- bar fixture — fixtures forbidden): CQD DIV verdict at barShift+k for
+          //--- k=0..12 (~1h), same ReadBuf1 idiom as SIDE1O. CQD handle ONLY (imb-
+          //--- identity: stop-imb buffers never touched here). Per-bar k offsets keep
+          //--- 10:25-vs-10:35 distinct (10:25-note: no folding by construction). "U" =
+          //--- UNREAD/EMPTY (missing stays missing). N1-neutral (pure reads only).
+          if(InpDebugLog)
+            {
+             string s1w_s = "";
+             for(int s1w_k = 0; s1w_k <= 12; s1w_k++)
+               {
+                double s1w_v = EMPTY_VALUE;
+                string s1w_t = "U";
+                if(ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, s1w_v, barShift + s1w_k) && s1w_v != EMPTY_VALUE)
+                   s1w_t = IntegerToString((int)MathRound(s1w_v));
+                if(s1w_k > 0) s1w_s += ",";
+                s1w_s += s1w_t;
+               }
+             PrintFormat("[SRJ-EA] SIDE1W_CQDWINDOW evalBar=%s dir=%s w=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                      TIME_DATE|TIME_MINUTES),
+                         DirName(g_dir), s1w_s);
+            }
 
-      double slDist = MathAbs(currentPrice - slRef);
-      double tpDist = MathAbs(tpTarget - currentPrice);
-      bool tpOk = (slDist > 0.0 && (tpDist / slDist) >= InpMinRewardRisk);
-
-      //--- [P-CONFIRM-GATE E3/E4] the R latch: measured ONCE at the confirmation
+       //--- [P-CONFIRM-GATE E3/E4] the R latch: measured ONCE at the confirmation
       //--- close (entry = the next open, SL = the swing, TP = the closest line -
       //--- the selector unchanged per the operator's ruling, "whichever is the
       //--- closest"). Tested ONCE below: >= 1.0 fires; < 1.0 aborts TP_RR_FAIL
@@ -6881,7 +9904,9 @@ void EvaluateClosedBar(int barShift, datetime barTime)
              Print(psLine);
             }
          }
-       LogSignal(tpTarget, tpR, slRef, slMode, divKind);
+        LogSignal(tpTarget, tpR, slRef, slMode, divKind);
+        if(InpDebugLog) A6Fired(barShift, tpTarget, tpR, slRef, slMode, divKind);   //--- [A6-HOOK] (ii)
+        if(InpDebugLog) PrintFormat("[SRJ-EA] SIDE1F_WATCH bar=%s dir=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir));   //--- [SIDE1F] (iii) fire watch (read-only)
 
       if(!g_alertedSignal)
         {
@@ -6955,8 +9980,14 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          return;
         }
 
-      // ------ Phase 2 Execution Logic ------
-      long magic = (g_sessionAtEntry == SESSION_LONDON) ? InpMagicBase + 1 : InpMagicBase + 2;
+       // ------ Phase 2 Execution Logic ------
+       //--- [S1-DEMO-GUARD-001] G1 demo gate FIRST (Luna V128 clearance; run on
+       //--- token+word): execute-mode on non-demo or non-recorded login aborts before
+       //--- magic/concurrency/sizing/send. Recorded demo login 1500183638 (measured).
+       if(InpMode == MODE_EXECUTE && (AccountInfoInteger(ACCOUNT_TRADE_MODE) != ACCOUNT_TRADE_MODE_DEMO || AccountInfoInteger(ACCOUNT_LOGIN) != 1500183638))
+         { GoAbort(ABORT_DEMO_GUARD, g_state); return; }
+       if(InpMode == MODE_EXECUTE) PrintFormat("[SRJ-EA] DEMO_PASS mode=%d login=%d", (int)AccountInfoInteger(ACCOUNT_TRADE_MODE), (int)AccountInfoInteger(ACCOUNT_LOGIN));
+       long magic = (g_sessionAtEntry == SESSION_LONDON) ? InpMagicBase + 1 : InpMagicBase + 2;
 
       if(IsSessionPositionOpen(magic))
         { GoAbort(ABORT_CONCURRENCY, g_state); return; }
@@ -6993,6 +10024,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      (int)SymbolInfoInteger(_Symbol, SYMBOL_SPREAD),
                      (slPts < (double)stopsLevelPts || tpPts < (double)stopsLevelPts)
                        ? "  <- BELOW STOPS LEVEL, broker will likely reject" : "");
+         //--- [S1-DEMO-GUARD-001] G2 stops hard gate (Luna V128 clearance; run on
+         //--- token+word): below-broker-minimum stops reject here, never rely on broker bounce.
+         bool s1d_belowStops = (slPts < (double)stopsLevelPts || tpPts < (double)stopsLevelPts);
+         if(s1d_belowStops)
+           { GoAbort(ABORT_BELOW_STOPS, g_state); return; }
 
          g_trade.SetExpertMagicNumber(magic);
          g_trade.SetTypeFilling(GetCorrectFillingMode(_Symbol));
@@ -7352,9 +10388,19 @@ int OnInit()
                      1, InpFL_HtfLookbackBars,
                      PERIOD_H4, PERIOD_H1, PERIOD_M15, false, 60);
    PrintFormat("[SRJ-EA] Flow handle=%d err=%d", g_hFlow, GetLastError());
-   if(g_hPoi == INVALID_HANDLE || g_hCqd == INVALID_HANDLE || g_hFlow == INVALID_HANDLE)
-     { Print("[SRJ-EA] OnInit FAILED: one or more iCustom handles are invalid."); return INIT_FAILED; }
-   ResetSequence();
+    if(g_hPoi == INVALID_HANDLE || g_hCqd == INVALID_HANDLE || g_hFlow == INVALID_HANDLE)
+      { Print("[SRJ-EA] OnInit FAILED: one or more iCustom handles are invalid."); return INIT_FAILED; }
+    //--- [P-SEL-1 E51] platform-Fractals handles (own pair; NEVER in the
+    //--- run-blocking conjunction above - a SEL handle failure reports
+    //--- SELHALT end-of-run, it never stops the baseline run).
+    ResetLastError();
+    g_selfracM5 = iFractals(_Symbol, PERIOD_CURRENT);
+    PrintFormat("[SRJ-EA] SEL fractal handle M5=%d err=%d", g_selfracM5, GetLastError());
+    ResetLastError();
+    g_selfracH1 = iFractals(_Symbol, PERIOD_H1);
+    PrintFormat("[SRJ-EA] SEL fractal handle H1=%d err=%d", g_selfracH1, GetLastError());
+    SrjSideNote("INIT", g_dir);
+    ResetSequence();
     //--- [P-SLDEF-1 E13 + amendment, P-SLDEF-4 E34] FRAME_NOTE, once per run:
     //--- the six conventions a later session could silently invert. (1) Slot
     //--- frame: every printed shift is ReadFlow frame, CopyBuffer position =
@@ -7401,9 +10447,23 @@ int OnInit()
                                     SRJ_NEWS_ROWS,
                                     "5FFF5C762DABCAB7811C598D8B16942BBCBD5F9D94C91D0BB54CF8C36EF1F134",
                                     "21:00_broker");
-   LwAudit("TABLE_NOTE", table_note);
-   Print(table_note);
-   Print("[SRJ-EA] Initialised.");
+    LwAudit("TABLE_NOTE", table_note);
+    Print(table_note);
+    //--- [P-ORIGIN-1 §2/FREEZE] site-origin manifest, once per run.
+    //--- Candidate bindings resolve ONLY at the seven frozen example
+    //--- bars (SrjOriginEntry); UNBOUND elsewhere — no fallback, and
+    //--- diagnostic rows exist only at example bars by construction.
+    //--- Per-example bindings + rule declaration live in
+    //--- BUILDER_FREEZE_PORIGIN1.md (frozen pre-execution).
+    string sl60_m1 = "[SRJ-EA] ORIGIN_MANIFEST fields=6 site=S5-direct role=compute existingBinding=stamped-strict-next-open candidateRule=frozen-HAND-entry-at-R1-R5-else-UNBOUND memoRel=none freeze=BUILDER_FREEZE_PORIGIN1.md";
+    string sl60_m2 = "[SRJ-EA] ORIGIN_MANIFEST fields=6 site=S2POLL role=compute+memo-write existingBinding=eval-bar-close candidateRule=frozen-HAND-entry-at-T1-T2-else-UNBOUND memoRel=writes-gen-stamped freeze=BUILDER_FREEZE_PORIGIN1.md";
+    string sl60_m3 = "[SRJ-EA] ORIGIN_MANIFEST fields=6 site=S3ARM role=compute+memo-write+read existingBinding=eval-bar-close candidateRule=UNBOUND-no-example-bars memoRel=writes-on-COMPUTE-reads-on-HIT freeze=BUILDER_FREEZE_PORIGIN1.md";
+    string sl60_m4 = "[SRJ-EA] ORIGIN_MANIFEST fields=6 site=memo-read role=read existingBinding=HIT-returns-stored candidateRule=not-applicable memoRel=HIT-reports-req-vs-stored-plus-genID freeze=BUILDER_FREEZE_PORIGIN1.md";
+    LwAudit("ORIGIN_MANIFEST", sl60_m1); Print(sl60_m1);
+    LwAudit("ORIGIN_MANIFEST", sl60_m2); Print(sl60_m2);
+    LwAudit("ORIGIN_MANIFEST", sl60_m3); Print(sl60_m3);
+    LwAudit("ORIGIN_MANIFEST", sl60_m4); Print(sl60_m4);
+    Print("[SRJ-EA] Initialised.");
    return INIT_SUCCEEDED;
   }
 
@@ -7667,6 +10727,28 @@ void OnDeinit(const int reason)
                       g_sl48_n, g_sl48_dis, g_sl48_nS5, g_sl48_disS5, g_sl48_n2P, g_sl48_dis2P, g_sl48_n3A, g_sl48_dis3A, g_sl48_altNA);
           LwAudit("SLORIG48_FINAL", sl48_fin);
           Print(sl48_fin);
+          //--- [P-ORIGIN-1 §3] regression FINAL: rows seen + failures.
+          //--- Gate (off-run): regN=5 and regFail=0, else candidate dead.
+          string sl61_fin = StringFormat("[SRJ-EA] ORIGINREG_FINAL rows=%d fail=%d",
+                      g_origin_regN, g_origin_regFail);
+          LwAudit("ORIGINREG_FINAL", sl61_fin);
+          Print(sl61_fin);
+          //--- [P-ORIGIN-1 §5] forward tally FINAL (graded only on
+          //--- regression PASS; SKIPPED rows carry the reason).
+          string sl62_fin = StringFormat("[SRJ-EA] ORIGINCAND_FINAL rows=%d fullMatch=%d",
+                      g_origin_candN, g_origin_candOK);
+          LwAudit("ORIGINCAND_FINAL", sl62_fin);
+          Print(sl62_fin);
+          //--- [P-ORIGIN-1 §4] provenance reconciliation FINAL: memo
+          //--- COMPUTEs by site + HITs by site, with the counting-unit
+          //--- statement — 471 computes + 10 S5-directs = 481 function
+          //--- invocations; 118 HITs are non-invoking cache returns.
+          //--- Row-level trace off-run via supplying genID on every HIT.
+          string sl63_fin = StringFormat("[SRJ-EA] ORIGINPROV_FINAL computesS2POLL=%d computesS3ARM=%d hitsS2POLL=%d hitsS3ARM=%d computesTotal=%d",
+                      g_prov_c2P, g_prov_c3A, g_prov_h2P, g_prov_h3A,
+                      g_prov_c2P + g_prov_c3A);
+          LwAudit("ORIGINPROV_FINAL", sl63_fin);
+          Print(sl63_fin);
           //--- [P-SLDEF-6 E45.3] predicate-vs-consequence carve FINAL: the
           //--- predicate totals beside the consequence companions, the latter
           //--- labelled PROXY (firing-vs-effect, 6th taxonomy entry).
@@ -7680,14 +10762,21 @@ void OnDeinit(const int reason)
                       (g_slext_newRows == "") ? "-" : g_slext_newRows,
                       (g_slext_lostRows == "") ? "-" : g_slext_lostRows,
                       g_slext_outP, g_slext_outN, g_slext_outZ);
-          LwAudit("SLEXT_FINAL", eFin);
-          Print(eFin);
-       }
+           LwAudit("SLEXT_FINAL", eFin);
+           Print(eFin);
+        }
 
-   if(g_hPoi  != INVALID_HANDLE) IndicatorRelease(g_hPoi);
-   if(g_hCqd  != INVALID_HANDLE) IndicatorRelease(g_hCqd);
-   if(g_hFlow != INVALID_HANDLE) IndicatorRelease(g_hFlow);
-   g_hPoi = g_hCqd = g_hFlow = INVALID_HANDLE;
+    //--- [P-SEL-1 E52/E53/E56] end-of-run shadow evaluation (history reads
+    //--- only; handles still valid here). Print-only.
+    if(InpDebugLog) SrjSelEndOfRun();
+
+    if(g_hPoi  != INVALID_HANDLE) IndicatorRelease(g_hPoi);
+    if(g_hCqd  != INVALID_HANDLE) IndicatorRelease(g_hCqd);
+    if(g_hFlow != INVALID_HANDLE) IndicatorRelease(g_hFlow);
+    if(g_selfracM5 != INVALID_HANDLE) IndicatorRelease(g_selfracM5);
+    if(g_selfracH1 != INVALID_HANDLE) IndicatorRelease(g_selfracH1);
+    g_hPoi = g_hCqd = g_hFlow = INVALID_HANDLE;
+    g_selfracM5 = g_selfracH1 = INVALID_HANDLE;
   }
 
 //====================== [P-EXITMODEL] exit-phase helpers =============================
@@ -7716,11 +10805,17 @@ bool MtNearestTpTarget(const int barShift, const ENUM_SRJ_DIR dir,
   {
    double best = 0.0;
    bool   haveBest = false;
-   const int sessbufs[10] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
+   //--- [S1-TP-PROMOTION-001] live promotion: prev-day session H/L join the
+   //--- candidate walk (indices 10..17 -> swept bits 14..21, unset this stage).
+   const int sessbufs[18] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
                               FL_BUF_ASIA_HIGH, FL_BUF_ASIA_LOW,
                               FL_BUF_LONDON_HIGH, FL_BUF_LONDON_LOW,
                               FL_BUF_NY_HIGH, FL_BUF_NY_LOW,
-                              FL_BUF_PM_HIGH, FL_BUF_PM_LOW };
+                              FL_BUF_PM_HIGH, FL_BUF_PM_LOW,
+                              FL_BUF_PD_ASIA_HIGH, FL_BUF_PD_ASIA_LOW,
+                              FL_BUF_PD_LONDON_HIGH, FL_BUF_PD_LONDON_LOW,
+                              FL_BUF_PD_NY_HIGH, FL_BUF_PD_NY_LOW,
+                              FL_BUF_PD_PM_HIGH, FL_BUF_PD_PM_LOW };
    double s39_mask;
    if(!ReadFlow(FL_BUF_SWEPT_MASK, s39_mask, barShift)) s39_mask = EMPTY_VALUE;
    for(int i = 0; i < ArraySize(sessbufs); i++)

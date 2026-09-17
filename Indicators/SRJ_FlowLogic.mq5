@@ -5,7 +5,7 @@
 #property copyright "SRJ Flow Logic Auto — Pine v6 port"
 #property version   "1.00"
 #property indicator_chart_window
-#property indicator_buffers 40  // [P-SWINGIMB-2 E5] Was 39. Added 39 (OB swing-bar time). [P-SWINGIMB] Was 37. Added 37 (swing-high imbalance code), 38 (swing-low imbalance code). [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId). [Task 155] Was 34. Added 34 (tickOBIsValid provenance), 35 (tickFVGIsValid provenance, population deferred), 36 (hasPersistedOpposingFVG provenance, population deferred).
+#property indicator_buffers 48  // [P-SWINGIMB-2 E5] Was 39. Added 39 (OB swing-bar time). [P-SWINGIMB] Was 37. Added 37 (swing-high imbalance code), 38 (swing-low imbalance code). [Task 113] Was 33. Added 33 (selected XOB promotionTime). [Task 102] Was 31. Added 31 (selected XOB objId), 32 (selected FVG objId). [Task 155] Was 34. Added 34 (tickOBIsValid provenance), 35 (tickFVGIsValid provenance, population deferred), 36 (hasPersistedOpposingFVG provenance, population deferred). [TP-DATA-SOURCE-COMPLETE-001] Was 40. Added 40-47 (prev-day session H/L shadow).
 #property indicator_plots   2
 
 #property indicator_label1  "Fractal High"
@@ -43,6 +43,17 @@ double g_bufNyHigh[];
 double g_bufNyLow[];
 double g_bufPmHigh[];
 double g_bufPmLow[];
+// [TP-DATA-SOURCE-COMPLETE-001] previous-day session H/L exports (shadow-first:
+// reads + prints only downstream). Values ride g_s.prev{Asia,London,Ny,Pm}{High,Low},
+// cached at session rollover (SRJ_Sessions.mqh); day-rollover does not reset them.
+double g_bufPdAsiaHigh[];
+double g_bufPdAsiaLow[];
+double g_bufPdLondonHigh[];
+double g_bufPdLondonLow[];
+double g_bufPdNyHigh[];
+double g_bufPdNyLow[];
+double g_bufPdPmHigh[];
+double g_bufPdPmLow[];
 double g_bufSweepTag[];
 double g_bufHtfHi[];
 double g_bufHtfMid[];
@@ -680,6 +691,14 @@ int OnInit()
    SetIndexBuffer(15, g_bufNyLow,        INDICATOR_CALCULATIONS);
    SetIndexBuffer(16, g_bufPmHigh,       INDICATOR_CALCULATIONS);
    SetIndexBuffer(17, g_bufPmLow,        INDICATOR_CALCULATIONS);
+   SetIndexBuffer(40, g_bufPdAsiaHigh,  INDICATOR_CALCULATIONS);
+   SetIndexBuffer(41, g_bufPdAsiaLow,   INDICATOR_CALCULATIONS);
+   SetIndexBuffer(42, g_bufPdLondonHigh,INDICATOR_CALCULATIONS);
+   SetIndexBuffer(43, g_bufPdLondonLow, INDICATOR_CALCULATIONS);
+   SetIndexBuffer(44, g_bufPdNyHigh,    INDICATOR_CALCULATIONS);
+   SetIndexBuffer(45, g_bufPdNyLow,     INDICATOR_CALCULATIONS);
+   SetIndexBuffer(46, g_bufPdPmHigh,    INDICATOR_CALCULATIONS);
+   SetIndexBuffer(47, g_bufPdPmLow,     INDICATOR_CALCULATIONS);
    SetIndexBuffer(18, g_bufSweepTag,     INDICATOR_CALCULATIONS);
    SetIndexBuffer(19, g_bufHtfHi,        INDICATOR_CALCULATIONS);
    SetIndexBuffer(20, g_bufHtfMid,       INDICATOR_CALCULATIONS);
@@ -737,6 +756,14 @@ int OnInit()
    ArraySetAsSeries(g_bufNyLow,        false);
    ArraySetAsSeries(g_bufPmHigh,       false);
    ArraySetAsSeries(g_bufPmLow,       false);
+   ArraySetAsSeries(g_bufPdAsiaHigh,  false);
+   ArraySetAsSeries(g_bufPdAsiaLow,   false);
+   ArraySetAsSeries(g_bufPdLondonHigh,false);
+   ArraySetAsSeries(g_bufPdLondonLow, false);
+   ArraySetAsSeries(g_bufPdNyHigh,    false);
+   ArraySetAsSeries(g_bufPdNyLow,     false);
+   ArraySetAsSeries(g_bufPdPmHigh,    false);
+   ArraySetAsSeries(g_bufPdPmLow,     false);
    ArraySetAsSeries(g_bufSweepTag,     false);
    ArraySetAsSeries(g_bufHtfHi,        false);
    ArraySetAsSeries(g_bufHtfMid,       false);
@@ -882,8 +909,16 @@ int OnCalculate(const int rates_total,
       ArrayInitialize(g_bufLondonLow,    EMPTY_VALUE);
       ArrayInitialize(g_bufNyHigh,       EMPTY_VALUE);
       ArrayInitialize(g_bufNyLow,        EMPTY_VALUE);
-      ArrayInitialize(g_bufPmHigh,       EMPTY_VALUE);
-      ArrayInitialize(g_bufPmLow,        EMPTY_VALUE);
+       ArrayInitialize(g_bufPmHigh,       EMPTY_VALUE);
+       ArrayInitialize(g_bufPmLow,        EMPTY_VALUE);
+       ArrayInitialize(g_bufPdAsiaHigh,   EMPTY_VALUE);
+       ArrayInitialize(g_bufPdAsiaLow,    EMPTY_VALUE);
+       ArrayInitialize(g_bufPdLondonHigh, EMPTY_VALUE);
+       ArrayInitialize(g_bufPdLondonLow,  EMPTY_VALUE);
+       ArrayInitialize(g_bufPdNyHigh,     EMPTY_VALUE);
+       ArrayInitialize(g_bufPdNyLow,      EMPTY_VALUE);
+       ArrayInitialize(g_bufPdPmHigh,     EMPTY_VALUE);
+       ArrayInitialize(g_bufPdPmLow,      EMPTY_VALUE);
       ArrayInitialize(g_bufSweepTag,     EMPTY_VALUE);
       ArrayInitialize(g_bufHtfHi,        EMPTY_VALUE);
       ArrayInitialize(g_bufHtfMid,       EMPTY_VALUE);
@@ -1134,6 +1169,14 @@ int OnCalculate(const int rates_total,
          g_bufNyLow[target]       = g_s.nyLow;
          g_bufPmHigh[target]      = g_s.pmHigh;
          g_bufPmLow[target]       = g_s.pmLow;
+         g_bufPdAsiaHigh[target]  = g_s.prevAsiaHigh;
+         g_bufPdAsiaLow[target]   = g_s.prevAsiaLow;
+         g_bufPdLondonHigh[target]= g_s.prevLondonHigh;
+         g_bufPdLondonLow[target] = g_s.prevLondonLow;
+         g_bufPdNyHigh[target]    = g_s.prevNYHigh;
+         g_bufPdNyLow[target]     = g_s.prevNYLow;
+         g_bufPdPmHigh[target]    = g_s.prevPMHigh;
+         g_bufPdPmLow[target]     = g_s.prevPMLow;
          
          int sweepVal = 0;
          if(!g_s.freshSweepExpired && !SrjIsNa(g_s.freshSweepTag))
