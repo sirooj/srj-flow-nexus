@@ -5214,3 +5214,985 @@ Open it only for audits (ruling IDs, digests, dispute archaeology).
     His commit word SPOKEN ("LAND TOKEN ACCEPTED. Word: COMMIT, TAG AND PUSH.")
     — landing authorized. Next: land sequence. NO commit yet. UNCOMMITTED (EA +
     FlowLogic + HandFixture).
+306. LANDED 2026-09-17 (his "LAND TOKEN ACCEPTED. Word: COMMIT, TAG AND PUSH."
+    SPENT). Pre-land verify: EA `E5B97B36` + FlowLogic `BEC2CBBD` as graded;
+    journals/logs/ex5 ignored (check-ignore quoted); add -A + reset-out exactly
+    the held-out (HandFixture ?? untouched). Canonical commit `5904e3a` (EA+Flow
+    only). Records commit `ca66fcd` (56 files; message duplication owned+amended
+    pre-push, nothing pushed). Tag `RECON45-DEMO-PASS` annotated on tip (object
+    `a44e100e`). Push: backup main 976a579->ca66fcd OK + tag OK; ls-remote
+    verified (main ca66fcd==HEAD; tag commit ca66fcd). ORIGIN PUSH FAILED:
+    "Authentication failed for https://forge.mql5.io/BaitahsiroojW/mql5.git/"
+    (credentials incorrect/expired) — NOT retried blindly; origin still behind.
+    Post-status: only ?? HandFixture. Next: HIS credential fix -> origin push +
+    verify; then forward-test packet. QUIESCENT. DEMO/ALERT-ONLY, no orders.
+307. ORIGIN PUSHED ON RETRY 2026-09-17 (his word + still-logged-in screenshot;
+    re-issue lawful, not blind). Origin main 976a579->ca66fcd OK + tag
+    RECON45-DEMO-PASS OK; ls-remote verified (main ca66fcd==HEAD; tag object
+    a44e100e, same both remotes). BOTH REMOTES IN SYNC. Post-status: only ??
+    HandFixture (held out). Next: forward-test packet (council). QUIESCENT.
+    DEMO/ALERT-ONLY, no orders.
+308. V135 DRAFTED 2026-09-17 (his "where is the prompt" — no relay was awaiting
+    paste; every relay to date consumed+filed). Filed
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v135-FORWARDTEST-PACKET.md` (10 lines/
+    1952 B/991AD420; plain template: one sentence, landed digests, no code claim
+    so no code block, no rows yet, ONE question issue-or-set-bar + plain answer
+    form; zero "..." self-check passed). Proposes: next unseen feed-covered span
+    past 09-09 (REFUSED gate at launch), same demo ini, report-only grade
+    (purity + signal/fill + isolation, no profit target); run word owed
+    separately; stop-fix independent. Next: his paste (v135 ALONE, all models)
+    + answers whole. QUIESCENT. NO build/run/commit.
+309. V135 ANSWERS FILED + WINDOW PINNED 2026-09-17 (his trip: Luna one-line + Sonnet
+    full text whole). Filed Luna packet-YES (no amend; window past 09-09, same demo
+    settings, report-only; no Ruling-ID; marker LUNA-V135-FILED-001 0->1 + tail) +
+    Sonnet methodology-YES (sequential out-of-sample contiguous sound; REFUSED gate
+    reasonable; NOT a no) with two pushes to VERDICTS_SLDEF4-5 (marker
+    SONNET-V135-FILED-001 0->1 + tail; staging cleaned). ADOPTED (credit Sonnet):
+    (1) window length pinned — contiguous 09-10 forward, same-length intent as
+    RECON45 (08-26->09-09), end date = latest feed-covered at launch (REFUSED
+    otherwise; today 09-17 caps it — shorter window reported plainly as the known
+    limit); (2) signal-quality-vs-mechanical-cleanliness recorded as a SEPARATE
+    future question, not this run. Authorization: methodology cleared by both;
+    RUN needs HIS token+word (proving-spans rule). Next: HIS WORD (speakable line
+    in report) -> RECON46-FORWARD. NO build/run/commit.
+310. VERIFICATION-SPLIT CLARIFIED 2026-09-17 (his order: say it so file demands
+    stop; code review itself NOT ignored — whole code still rides, that is how
+    both technical yeses happened). Template `06_HANDOFFS\BUILDER_RELAY_TEMPLATE.md`
+    now `923FB804` (54 lines, read back whole): new split paragraph (judge the
+    page only; genuineness = builder disk + his eyes; tier-neutral; never by
+    paste) + footer in the copy-paste body. Rule 29 extended (AGENTS.md:295).
+    Standing lines: code judgment = theirs on the page; genuineness proof = disk
+    + his eyes; bigger name buys nothing. Next: HIS WORD -> RECON46-FORWARD.
+    NO build/run/commit.
+311. RECON46-FORWARD LAUNCHED 2026-09-17 (his word "V135 packet accepted. Word:
+    RUN RECON46 FORWARD." SPENT AT LAUNCH; standing instruction recorded: if a
+    seat still demands files despite the split footer, the FORMAT is defective
+    and gets improved again — his call governs). STAGE checks PASS (EA
+    `E5B97B36` + FlowLogic `BEC2CBBD` as landed; slot verified). Window file
+    `00_CURRENT_WORKING\RECON46_FORWARD_P1.ini` (InpMode=1, 09-10->09-17 + unix
+    pair 1788998400->1789689599; terminal.ini ABSENT on disk — both key styles
+    carried, actual window PROVEN by run gates, mismatch REPORT+HALT). First
+    attempt REFUSED_TERMINAL_BUSY (RECON45 wrapper leftover, PID 12240); leftover
+    exited on its own — verified zero terminal64 via CIM, relaunched clean, his
+    terminal NEVER touched. LAUNCHED 15:25:44 WMI 10804 RC=0, wrapper PID 21404,
+    PRE=194497, busy=False, ceiling 90. Grade on his completion signal: purity +
+    signal/fill + isolation vs RECON45, no profit target. QUIESCENT-WAITING.
+    NO commit.
+312. RECON46-FORWARD BLOCKED (window-control gate) 2026-09-17 (his completion
+    signal; gates read, no grade filed). DONE=PASSED 16:13:35 (0:47:09) BUT the
+    run covered 08-26->09-09 AGAIN (signal 09-08 10:10; finals 09-09 23:59:58;
+    3168 bars / 563338 ticks / balance 10159 — all identical to RECON45).
+    MEASURED: ini FromDate/ToDate AND [Tester] DateFrom/DateTo (1788998400->
+    1789689599) BOTH IGNORED; terminal.ini ABSENT on disk (both literal probes);
+    sticky-window source UNDIAGNOSED (never assumed). Archive
+    `06_HANDOFFS\RECON46-FORWARD_JOURNAL.log` 39153 lines / 7613266 B / SHA
+    `0D60B61D`. Fidelity note (diagnosis, NOT a grade): DEMO_PASS 1 + EXECUTED
+    1.16205 x1 + bars-3168 x1 — same binary reproduces the register window
+    exactly. Per gate law: NO result/extract/tabulate/relay filed, NOTHING
+    reverted. Hypothesis for re-run (untested): create terminal.ini [Tester]
+    dates per §8, verify window from run gates. Next: HIS fresh word for the
+    corrected re-run. BLOCKED. NO commit.
+313. FORWARD TRACK VACATED 2026-09-17 (his rebuke: other-date testing was never
+    his direction — perfect current first; the 47-min RECON46 run + v135 rounds
+    are builder-caused waste, owned). Record search (reject*/perfect-first/
+    other-date/forward-origin terms): NO surviving line shows his order FOR
+    forward testing either — "forward-test follows landing" was BUILDER
+    boilerplate first written in v129, laundered through council answers; his
+    run word authorized mechanics, never direction. WITHDRAWN: the re-run
+    speakable line (dead — do not speak it) + the terminal.ini hypothesis
+    (no window work without his scope order). Codified AGENTS.md §6 rule 30
+    SCOPE-ORIGIN (new dates/windows/direction ONLY on his explicit direction;
+    word-spent-on-builder-scope = defect, track vacated same turn). V135 packet
+    + answers stand as record, cited never again unless HE reopens. Open
+    current-window tracks (his call): stop-fix proving (token+word+spec owed),
+    signal-quality question, G2-unexercised limit. Next: HIS direction. NO
+    build/run/commit.
+314. STOPFIX TRACED + V136 FILED 2026-09-17 (his "proceed with recommendation").
+    Traced: V112 CONFIRM amended table + RE-CLEAR BY NAME -> V113 HALT dual-key
+    -> V114/V119 LIFTED + RE-CLEAR EFFECTIVE, staged, adopted for next proving
+    test; owed per Luna = fresh token + word + run spec. Rewire IN landed EA
+    (L9556-9604, read whole) + ADD10 gate satisfied; always-s1 0x (never built).
+    V112 set: FL/DH/IE fire, GQ/JJ changed-R-pass, ML fail-carried, rest same;
+    caveats open (V115 partial bindings, TP-selector unaudited). RECON45 baseline:
+    A6FIRED=1 FL-only, no DH fire. Filed relay
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v136-STOPFIX-PROVE.md` (67 lines/
+    B11F53F9; spec = ONE proving run register window, NO build, DH+IE fire
+    + GQ/JJ pass + ML fail + rest identical + purity, mismatch HALT; asks token
+    + spec confirm; his word after). SELF-CAUGHT transcription defect owned:
+    hand-typed fence had +1-space shift + one wrong ident (s1x_f for s1x_s);
+    machine diff-scan caught it; fence REBUILT by byte-exact disk pull, re-scan
+    49/49 zero diffs, false Caution note deleted. Lesson: code fences are
+    pulled, never typed. Next: his paste (v136 ALONE, all models) + answers
+    whole — then speakable run word. NO build/run/commit.
+315. V136 ANSWERS FILED + SPEC RECOMPUTED + V137 FILED 2026-09-17 (his "proceed").
+    Filed Luna code-YES (no Ruling-ID; marker LUNA-V136-FILED-001 0->1 + tail) +
+    Sonnet code-YES + scope warning (prediction table needs detection source;
+    no grant by standing) to VERDICTS_SLDEF4-5 (marker SONNET-V136-FILED-001
+    0->1 + tail; staging cleaned). Scope gap VERIFIED on disk same turn (credit
+    Sonnet — saved a void run): DH ABSENT two ways (LATCH 0 + SIDE1X 0 at 09-08
+    10:35); IE present but R=0.19 FAIL under BOTH stops vs V112's 1.96 PASS
+    (TP-regime change: current tp=1.16210 vs then 1.16114). Recompute from
+    RECON45 rows (method shown, sanity: recom-live == filedR 14/14): rule stops
+    flip NOTHING (3 rows change value, none cross 1.0) — V112 set STALE, cannot
+    grade current tree; rewire outcome-latent on this window (not a defect).
+    Filed relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v137-STOPFIX-REFRESH.md`
+    (30 lines/660AE282; refreshed 14-row table inline; asks: neutrality-proof
+    vs flip-window + token for the run; tree verified clean/unlanded-unchanged).
+    V136 token ask MOOT on stale predictions (answers stand filed; NO run word
+    was ever given, nothing spent). Next: his paste (v137 ALONE, all models) +
+    answers whole. NO build/run/commit.
+316. V137 ANSWERS FILED + TRACE PROVES SELECTION + V138 FILED 2026-09-17 (his trip:
+    Luna one-line + Sonnet full text whole). Filed Luna no-with-basis (neutrality
+    is not proof; flip-window OR row-level evidence; token NOT granted; no
+    Ruling-ID; marker LUNA-V137-FILED-001 0->1 + tail) + Sonnet (neutrality =
+    safe-not-correct; trace-first-then-flip-window; no grant by standing) to
+    VERDICTS_SLDEF4-5 (marker SONNET-V137-FILED-001 0->1 + tail; staging cleaned).
+    CONVERGENCE: both seats accept trace evidence as the alternative basis.
+    TRACE VERIFIED on disk same turn (credit both seats): shadow SIDE1E rows carry
+    s0/s1 px/slot/imb + sel + r0/r1; emission source L9671-9686 read whole proves
+    liveStop==slRef (rewired) and ruleStop==s1-read BY DEFINITION. 3/3 divergent
+    bars: s0imb>0, sel=0, liveStop==s0px, liveR==r0 — hand-trace lands same.
+    Early "inverted?" scare DISSOLVED by source (rule* was never the live choice).
+    Filed relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v138-STOPFIX-TRACE.md` (49
+    lines/8ACC2498; emission block L9657-9686 + 3 paired rows inline; asks: trace
+    closes proving with NO run, or flip-window still required). Second hand-typed
+    fence defect (tail +1-space x8) caught by machine scan, rebuilt by disk pull,
+    re-scan 30/30 zero diffs — pull-only discipline CONFIRMED twice in a row.
+    Next: his paste (v138 ALONE, all models) + answers whole. NO build/run/commit.
+317. V138 ANSWERS FILED + ROW-3 CONTRADICTION CONFIRMED 2026-09-17 (his trip:
+    Luna one-liner + Sonnet full text whole; BOTH seats independently flagged
+    09-08 16:40: liveStop==s0px yet liveR(0.02)==r1, not r0(0.05); Luna adds
+    ruleStop is ALWAYS s1px by construction). Filed Luna (marker
+    LUNA-V138-FILED-001 0->1 + tail) + Sonnet 2/3-vs-1/3 (marker
+    SONNET-V138-FILED-001 0->1 + tail; staging cleaned). Credit BOTH seats —
+    real catch, same row, independent arithmetic. VERIFIED on disk same turn:
+    pairing EXONERATED (exactly 1 shadow + 1 SIDE1X row at the bar); extract
+    rows byte-verbatim from journal (transcription exonerated); page arithmetic
+    irreconcilable under single-evaluation assumption (recomputed from printed
+    px: r0 should be 0.07, r1 0.03 — matches NEITHER printed 0.05/0.02).
+    WITHDRAWN: v138 "correctness 3/3" -> 2/3 stand + 1 contradiction. Luna's
+    structural point ACCEPTED (ruleStop never shows the selection — relay
+    framing was wrong in principle). Mechanism OPEN (enclosing-loop /
+    tpTarget-provenance read is the bounded next step, read-only, mine).
+    Flip-window question stays open per both seats. NO new relay until the
+    mechanism reads out (no premature asks). NO build/run/commit.
+318. ROW-3 EXONERATED AS CODE/JOURNAL — TYPO WAS MINE 2026-09-17 (mechanism read
+    complete; the "contradiction" never existed outside my relay text). Full-row
+    pull proves: row-3 journal reads liveR=0.05 (I typed 0.02) + livePass=0 (I
+    typed invented token "rulePass" — exists NOWHERE in code/log); rows 1-2 +
+    all shadow fields verified byte-exact. Recompute with the TRUE entry
+    (1.16213, not FL's 1.16205): 3/61pts=0.05==r0 — reconciles perfectly. Code
+    and journal fully EXONERATED. Both seats verified CORRECTLY against the page
+    given (process vindicated; page was mine). Ledger 317's CONFIRMED finding
+    WITHDRAWN as built on my typo; v138's 3/3 claim RESTORED on corrected rows.
+    Luna's structural point (ruleStop always s1) stands untouched. Codified rule
+    28 rows-extension (pulled+diffed, never typed). Filed relay
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v139-STOPFIX-TRACE-FIX.md` (26 lines/
+    14A0A8A2; typo owned inline; 6 rows spliced by script + full-line re-verified
+    0 mismatches; extract pointer corrected 5/8/17). Next: his paste (v139 ALONE,
+    all models) + answers whole. NO build/run/commit.
+319. V139 ANSWERS FILED + MECHANISM CLOSED + FLIP NEEDS DATES 2026-09-17 (his trip:
+    Luna one-line + Sonnet full text whole). Filed Luna YES both regions (no
+    Ruling-ID; marker LUNA-V139-FILED-001 0->1 + tail) + Sonnet 3/3 recomputed
+    match + split ruling (mechanism CLOSED exhaustive, outcome OPEN, flip-window
+    next) to VERDICTS_SLDEF4-5 (marker SONNET-V139-FILED-001 0->1 + tail; staging
+    cleaned). MECHANISM PROVEN without a run (both seats concur; first proving
+    half DONE, nothing spent). Outcome half OPEN by agreement. Flip run needs:
+    (a) HIS dates direction (rule 30 — forward-wait vs backward); (b) window-
+    control fix FIRST (terminal still steers every run to 08-26->09-09);
+    (c) token+word. FEED RECON (read-only, for his dates call): EURUSD M1
+    history 2022/23/24/25/26.hcc on disk local, 2026.hcc fresh TODAY 16:39 —
+    backward data PRESENT; forward capped at today. Next: HIS dates decision
+    (one question, report). NO build/run/commit.
+320. NO NEW DATES FROM BUILDER 2026-09-17 (his challenge: "are you saying you
+    want to test different date" — answer NO, corrected on record). The flip-
+    window is the SEATS' named option (Luna v137/v138, Sonnet v139), relayed as
+    their words, never builder-proposed; my last report framed it as the path
+    with him supplying dates — that framing wrongly steered toward new dates
+    and is WITHDRAWN. Standing direction governs: perfect current first, rule 30.
+    DEFAULT: outcome half PARKED as a recorded open limit (mechanism proven on
+    the register window; outcome-consequence unobserved anywhere; same shelf as
+    G2-unexercised). Pursuit needs HIS explicit dates order, never implied.
+    Overturn: one word from him names dates. NO council trip owed. NO build/run/
+    commit.
+321. WINDOW-AGREEMENT TABLED 2026-09-17 (his order: perfect the CURRENT window;
+    match his manual setups). Read his journal rows 8/26->9/9 + stated FL numbers
+    + Comment validity rules against RECON45 rows. Filed finding
+    `06_HANDOFFS\BUILDER_FINDING_AGREEMENT-01.md` (22 lines/DBD8FC50). Result:
+    EA is a STRICT SUBSET — declines everything he declines (13 reward-fails +
+    silent days match his invalid/empty days) incl. his stated FL fire (9/8 R
+    1.94 = his number, TP 1.16102 = his level; booking unconfirmed, journal 9/8
+    blank, noted-not-filled). MISSES all four booked: 8/28 (+0.10, "1.21R" note
+    == DH 1.21 figure — DH candidate match, his to confirm), 9/4 (+0.84), 9/7
+    (+2.03, +1.06 — EA saw direction, killed on reward). Next: diagnose the
+    three miss mechanisms read-only (DH-absence, 9/4 + 9/7 reward-kills vs his
+    readings), relay ONLY what needs council. NO build/run/commit.
+322. MISSES MECHANIZED + V140 FILED 2026-09-17 (his perfect-current order).
+    Filed finding `06_HANDOFFS\BUILDER_FINDING_AGREEMENT-02.md` (22 lines/
+    1B40C845). Decisive rows: DH = 09-04 10:35 (NOT 08-28 — 1.21-R candidacy
+    WITHDRAWN date-mismatched; his 8/28 stays unmatched, EA max 0.19 that day).
+    RECON40-vs-45 same seeds: DH liveStop 1.16379->1.16289 (rule-side), IE
+    1.16379->1.16274 (= rule stop) — rewire MOVES live selections as designed;
+    liveTp moved against both SHORTs (41->13, 106->10) under promotion, so rule-R
+    1.21->0.38 / 1.96->0.19: flips undone by TP, not stops. Net 14/14 identical.
+    Misses: 8/28 OPEN level mismatch; 9/4 ONE-POINT R kill (170/171 = 0.99);
+    9/7 direction-seen R far under (his POI reads differ 3-5x). Filed relay
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v140-STOPFIX-XRUN.md` (22 lines/27E3AE0E;
+    4 rows machine-spliced + re-verified 0 mismatches; asks selection-proof
+    closure + interaction/calibration ruling). Next: his paste (v140 ALONE, all
+    models) + answers whole. NO build/run/commit.
+323. V140 ANSWERS FILED + STOPFIX CLOSED + 8/28 QUESTION OWED 2026-09-17 (his trip:
+    Luna one-line + Sonnet full text whole). Filed Luna YES selection-based (misses
+    stay separate findings; no Ruling-ID; marker LUNA-V140-FILED-001 0->1 + tail) +
+    Sonnet numbers-verify + cross-run-stronger + flipless-window diagnosis + misses
+    need own relay (marker SONNET-V140-FILED-001 0->1 + tail; staging cleaned).
+    STOPFIX PROVING CLOSED on selection evidence (both seats concur; trace 3/3 +
+    cross-run moves; no token/word/run spent or owed — V114 run prerequisites
+    satisfied without a run per Luna's selection-based ruling; reopenable by HIS
+    word only). Mark-up table checked for 8/28 detail: ladder steps only, HIS
+    swings unmarked, no marking answer on record (grep 0x). Record-first field
+    exhausted (journal: setup sans time/levels; mark-up: unmarked). Calibration
+    relay (9/4 one-point kill + 9/7 POI reads, evidence-bearing) waits on his 8/28
+    detail so all three ride complete — one decisive relay, not two. Next: HIS
+    8/28 answer (one question, report). NO build/run/commit.
+324. 8/28 ANSWERED BY RECORD + V141 FILED 2026-09-17 (his "explained it" rebuke —
+    right: detail was filed in decision memo + POI-R relay + RECON1 result +
+    council response + session prompts; my "exhausted" claim FALSE, search was
+    journal+ledger+markup only. Lesson: his explanations live across ALL filed
+    prose). 8/28 found: ~10:05 SHORT D-VWAP, entry ~next-open 1.16453-66, TP AVP
+    1.16380, slDist 0.00060, R 1.21 held / +0.10 early exit; EA killed via NYL TP
+    + decay 1.13->0.95 (his FIX directive on record). 9/4 = supersession failure
+    (M held, Y suppressed, died 0.06; his supersede ruling). 9/7 = timing AGREES
+    (CONFIRMPOLL confirm=1 both bars, pulled this turn), gap = POI (his W AVP vs
+    EA Weekly-POC) + R (his 2.03/1.06 vs 0.62/0.39). Council design settled (C1 +
+    C2-latch-only + C3 + C4-§3.6; AVP-selector OFF; packet-2 gate CLEARED; build 1
+    already landed; STEP 4 unbuilt). 8/28 QUESTION WITHDRAWN (no longer owed).
+    Filed relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v141-CALIBRATION-ISSUE.md`
+    (26 lines/9157D0B3; his verbatim rulings + per-miss evidence with ERA LABELS
+    — self-fixed a mixed-provenance header pre-filing; zero "..."). Asks packet-2
+    issuance; edit set + build on token+word after. Next: his paste (v141 ALONE,
+    all models) + answers whole. NO build/run/commit.
+325. V141 ANSWERS FILED + AVP-vs-CLOSEST TO HIM 2026-09-17 (his trip: Luna one-liner
+    + Sonnet full text whole). Filed Luna discrepancy (relay incoherent: AVP-TP
+    standard vs C2-closest both quoted, 8/28 return unsupported by packet-2 alone;
+    no issue as written; no Ruling-ID; marker LUNA-V141-FILED-001 0->1 + tail) +
+    Sonnet (no code = description-only per OWN rule 28; substance = strategy =
+    his call; will check a real diff line-by-line) to VERDICTS_SLDEF4-5 (marker
+    SONNET-V141-FILED-001 0->1 + tail; staging cleaned). OWNED: v141 juxtaposed
+    contradictory standards without resolving (Luna right); asked issuance of an
+    unwritten edit set (Sonnet right, rule-28 trip by own terms). The conflict is
+    between HIS OWN two rulings (AVP-TP standard vs closest-line ruling) — only HE
+    reconciles. Way out visible: R latch at confirmation close (1.13 PASS) returns
+    8/28 UNDER closest-line, no AVP needed — offered as the reconciling reading,
+    NOT asserted (council rules it after him). Next: HIS strategy answer (one
+    question, report). NO build/run/commit.
+326. SPEC SETTLES AVP-vs-CLOSEST + V141 SUPERSEDED 2026-09-17 (his rebuke: the
+    explanation is in the spec, he refuses to elaborate — correct; builder defect
+    under the record-first gate). Record-first search filed: (a) SPEC v4.2 §3.7
+    Step 6 — TP = NEAREST valid target (nearest session-liquidity level,
+    same-tier VWAP/POC opposite side, or higher-tier; anchor excluded); R
+    reference = the confirming close, LATCHED; ordering = R computed once EVERY
+    condition validated; §8 = latch+ordering NOT BUILT. (b) restatement — no file
+    on disk (03_SPECIFICATIONS holds CensusRules/ + MQLReference/ only;
+    06_HANDOFFS 0x). (c) findings AGREEMENT-01/02 — mechanisms only, no TP rule.
+    (d) journal — TP column "AVP" is a booking label, states no selection rule.
+    RESOLUTION: closest-line stands (spec + his verbatim "whichever is the
+    closest"). The "AVP-TP standard" in v141 was MY mis-elevation of a journal
+    label — never spec, never his ruled words. Luna's discrepancy DISSOLVES
+    under §3.7 (v22 precedent): packet-2 returns 8/28 via the latch (1.13 at the
+    confirm close) under closest-line, no AVP change. Sonnet description-only
+    point STANDS (issuance without code was defective); "strategy is his call"
+    point ANSWERED (the call is already made by him in spec + closest ruling —
+    nothing owed). V141 WITHDRAWN as issuance vehicle (stays on disk). Both
+    questions to him WITHDRAWN — nothing owed by him. Next: builder drafts
+    packet-2 edit set whole-code (C1 supersede + C2 latch-only + C3 8/18 safety
+    + C4 §3.6 gate), then whole-code relay. NO build/run/commit.
+327. MISS MECHANISMS CLOSED + ONE STRATEGY QUESTION 2026-09-17 (his proceed
+    order; worked end-to-end, no mid-stage stop). Measured on RECON45 rows: 8/28
+    confirm+entry 1.16466 (his exact) + SL 1.16508, TP=YPML 1.16459 (7pts) R 0.17
+    kill CORRECT as-built (no zone bound 10:00/10:05 — derivation found none);
+    9/4 SUPERSESSION WORKS (Monthly 15:30 seed -> Yearly re-bind 15:45 SUPERSEDED
+    -> held S4; latch R 0.99 one-point edge, no rule); 9/7 anchors match (his
+    gloss: AVP=POC — W AVP=Weekly-POC), TPs=YPMH 23pts R 0.62 / YNYH 9pts R 0.39.
+    Common cause: cleared promotion S1-TP-PROMOTION-001 (dual-key + his word)
+    put prev-day sub-session lines in the walk; they win every close race. Spec
+    §3.7 "relevant" undefined on record (grep: only OB-relevance §54) — naming
+    meaning = HIS call (lawful stop). Filed decision memo
+    `06_HANDOFFS\\BUILDER_DECISION_MEMO_TP-LEVELS.md` (33 lines/3EEB1918): three
+    kills plain-words + single NO/YES question (NO = exclusion edit + run proves;
+    YES = kills stand correct). No packet drafted (no strategy invented); no
+    council trip (nothing for council). Next: HIS one-word answer. NO build/run/
+    commit.
+328. SESSION LABELS CORRECTED + QUESTION RE-ASKED RIGHT 2026-09-17 (his
+    correction: premarket not in his rules; NY = AM + PM; times per FlowLogic).
+    Measured indicator inputs (ET): Asia 20:00-00:00, London 02:00-05:00, NY
+    07:00-12:00, PM 13:30-16:00; SRJ_Sessions.mqh = full PM session (hi/lo,
+    swept, prev-day cache) — no premarket concept anywhere. LABEL CORRECTION
+    (my memo words wrong, lines right): YPML = yesterday's NY-PM low (8/28
+    killer), YPMH = yesterday's NY-PM high (9/7 morning killer), YNYH =
+    yesterday's NY-AM high (9/7 afternoon killer). Substance question OPEN —
+    re-asked with his names (report). Memo TP-LEVELS stands, labels corrected
+    here. Next: HIS one-word answer (NO = exclude prev-day AM/PM lines from TP
+    walk + run proves; YES = kills stand). NO build/run/commit.
+329. HIS YES FILED + WINDOW VERDICT CLOSED 2026-09-17 (his words: yesterday's +
+    multi-day-back session H/L all valid targets; matters most when extremely
+    trending). SETTLES: (1) TP question — the three R-kills stand RULE-CORRECT
+    (8/28 R 0.17, 9/7 R 0.62/0.39, all per the kept 1R gate); no exclusion
+    packet — vindicates cleared promotion S1-TP-PROMOTION-001. Memo TP-LEVELS
+    question ANSWERED (YES). (2) Lookback rule RECORDED: session H/L N-days back
+    valid; current retention = 1 day (FlowLogic inSessionRetentionDays=1) →
+    QUEUED council-authorship packet for trending windows; zero current-window
+    effect (all kills use prev-day lines already in walk) → NOT relayed now
+    (relay budget). (3) WINDOW VERDICT: EA rule-correct on every row — 1 fire =
+    his stated Sept-8 short; 4 booked = 3 correctly declined per gate + Sept-4
+    one-point edge; all his declines matched. Residual (his takes vs EA
+    declines) = value-level divergence (his SL/TP reads vs EA's; his row-level
+    numbers not on record — early exit owned on 8/28, 9/7 reads unknown); a
+    swing-fidelity ask would be non-decisive (at most 1 of 3, speculative) →
+    NOT asked (no-drip + relay budget). Track CLOSED; reopens only on HIS
+    numbers. Next: NONE owed — builder idle till his direction. NO build/run/
+    commit.
+330. VERDICT CORRECTED + VALUE DIVERGENCE TABLED 2026-09-17 (his challenge: if
+    the EA stands correct, why miss valid setups — CONCEDED. "Stands correct"
+    was GATE-only; both VALUE legs diverge; the misses are real and unexplained
+    by anything filed). Table (EA run rows vs his numbers): 8/28 EA SL42pts/
+    TP7pts R0.17 vs his SL~71/TP86 R1.21 (his TP = daily POC per his gloss +
+    1.16380; his SL = swing+imbalance per his words, typo 1.65068 → ~1.16537
+    derived, SHAKY); 9/7am EA SL37/TP23 R0.62 vs his R2.03 (his legs ABSENT);
+    9/7pm EA SL23/TP9 R0.39 vs his R1.06 (ABSENT); 9/4 edge R0.99. Common TP
+    thread: EA takes nearest-valid, he takes farther family lines — his
+    practice vs his closest ruling UNRECONCILED (Luna v141 point REVIVED by
+    evidence; my §3.7 dissolution was premature). Record-first: journal
+    setup-only, spec classes-only, gloss names-only → his Sept-7 legs NOWHERE,
+    8/28 SL unconfirmed. Next: HIS numbers (one minimal question, report — 6
+    numbers max, decisive: pins exact packet). NO build/run/commit.
+331. NUMBERS FOUND ON RECORD + V142 FILED 2026-09-17 (his rebuke sustained —
+    second occurrence of the ask-before-full-search class; ledger 324 lesson
+    re-broken). Full-prose grep found: RECON1 result L50-57 = his 9/7 legs
+    (am TP 1.16200/SL 1.16098/R 1.76 MATCHED +2.03; pm TP 1.16315/SL 1.16218/
+    R 2.12 MATCHED +1.06 — both FIRED pre-promotion); OFFLOG rungs (9/7am r1
+    R2.03 exact, r2 = his SL 1.16098); 8/28 SL derivable ~1.16537 from his
+    three stated numbers (typo moot). NUMBERS QUESTION WITHDRAWN. REGRESSION
+    PROVEN: same three setups fired-then (farther family TPs) killed-now
+    (promotion-added micro YPML/YPMH/YNYH win nearest race); his YES keeps
+    micro valid → remaining fork = TP PREFERENCE (nearest vs family), strategy/
+    design → council WITH recommendation (spec §3.7 class-b + his gloss +
+    booked TPs all AVP-family). Filed relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v142-TP-PREFERENCE.md` (195 lines/
+    66C07CCB; 3 whole functions L2217-2238/2249-2263/2265-2393 machine-spliced;
+    8 OLD filed-record + 12 NEW rows re-verified 0 mismatches; zero "...";
+    ONE design question, no code authorized). Next: his paste (v142 ALONE, all
+    models) + answers whole; batched: word for issued shadow-only
+    P-SL-IMBALANCE-A (8/28 SL value fidelity second). NO build/run/commit.
+332. /srj-defect SKILL FILED 2026-09-17 (his order: skill + / command for
+    common mistakes, after repeat ask-before-search). Built
+    `.opencode/commands/srj-defect.md` (42 lines; 12 classes D1-D12 mined from
+    AGENTS rules + session defects: ask-before-search, description-only,
+    unresolved-contradiction, hand-typed evidence, mixed provenance, filer
+    faults, unnamed-file memo, scope steer, drip-feed, unmeasured claim,
+    single-proof zero, script hygiene; protocol = classify, mechanical audit,
+    file + plain report; skill learns per deployment). No opencode.json change
+    (auto-discovered); restart opencode to load. Next: his v142 paste.
+    NO build/run/commit.
+333. V142 ANSWERS FILED + ABSENCE EVIDENCE + V143 2026-09-17 (his trip: both
+    texts whole). Filed Luna family-first + closest fallback (no Ruling-ID;
+    marker LUNA-V142-FILED-001 0->1 + tail) + Sonnet exclusion-cause + two-pass
+    + arithmetic-verified + 9/4 caution (marker SONNET-V142-FILED-001 0->1 +
+    tail; staging cleaned). ADVERSARIAL CHECK same turn (rule 20): family lines
+    priced in-run (Daily-POC 14 rows, Weekly-VWAP 60) BUT absent at all three
+    kill bars with empties=0 (wrong side or single-bar read-fail); his 1.16380
+    matches NO buffer (Daily-POC 1.16451 at 11:35; feed/read divergence).
+    9/4 census pulled (#329: winner YLOL 170pts, only family Yearly-VWAP 298) —
+    answers Sonnet: anchor-admission changes nothing (anchor out-of-dir), but
+    family-pass FIRES 9/4 at ~1.74 matching his take (constraint fork!). Luna
+    numbers relay-relative (unmapped, noted); Sonnet anchor-identity wrong on
+    8/28 (anchor=Daily-VWAP; credit + correction). Filed relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v143-TP-FORK.md` (22 lines/81D97832;
+    6 rows machine-spliced + re-verified 0 mismatches; zero "..."; ONE fork
+    question, no code authorized; v142 code cited by digest+lines, attested).
+    Next: his paste (v143 ALONE, all models) + answers whole. NO build/run/
+    commit.
+334. V143 ANSWERS FILED + FORK NOW HIS 2026-09-17 (his trip: both texts whole).
+    Filed Luna fork-1 (per-setup mapping, 9/4 stays killed; numbers relay-
+    relative; no Ruling-ID; marker LUNA-V143-FILED-001 0->1) + Sonnet (accepts
+    anchor correction via v141 abort tag; fork analysis; 9/4 R1.74 arithmetic
+    holds; routes replicate-meaning to HIM; marker SONNET-V143-FILED-001 0->1;
+    staging cleaned). ADVERSARIAL CATCHES (rule 20, same turn): (a) Sonnet's
+    "0.84R" assumes units — journal header is "Gain %" (R-multiples appear ONLY
+    in Comments: "or 1.21R", "0.92R"); his 9/4 booked +0.84 reads as percent,
+    his entry-gate R unknown → "sub-gate trade" UNPROVEN, "invents better"
+    charge needs his entry R. (b) Sonnet's "*" dead-marker read CORRECT
+    (anchor skipped before admitted-print L2366 — marker can never fire;
+    minor dead code, recorded). (c) Anchor-absence from admitted = by
+    construction (not suspicion). FORK ROUTED: Luna fork-1 vs Sonnet fork-2-
+    with-flag → HIS call (both seats agree owner). Next: HIS fork ruling (one
+    question, report; carries unit disclosure). NO build/run/commit.
+335. HIS RULING: R=GAIN% + TP-REVISION + FORK-2 2026-09-17 (his verbatim: R /
+    RR / risk-to-reward and Gain % are the SAME, 1% risk either way; actual
+    gain counted AFTER exit — entry initial TP may differ or be REVISED closer
+    while floating; sub-1R/sub-1% gains come from TP revision or early exit).
+    SETTLES: (a) units — 0.84 = 0.84R realized; entry-gate R is what the gate
+    judges (his 9/4 entry TP farther → passed; revision cut it). Matches spec
+    §3.7 ¶189 verbatim (admission-only 1R; management no floor; his quote on
+    record). (b) FORK = FORK-2 (family-pass): 9/4 FIRES at entry (his take);
+    the "invents better" charge dissolves (realized governed by management =
+    STEP 4 unbuilt, queued — NOT the entry gate). Luna fork-1 OVERRIDDEN
+    (his rules outrank council). Predicted under fork-2: 8/28 FIRES (86/42),
+    9/4 FIRES (~1.74), 9/7am FIRES (65/37), 9/7pm FIRES via Yearly-VWAP 54pts
+    (R~2.35); FL + all declines unchanged. Next: v144 issuance relay (his
+    ruling verbatim + whole function + rows), his paste, token+word, build.
+    NO build/run/commit.
+336. V144 FILED 2026-09-17 (issuance ask for fork-2 family-pass on his ruling).
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v144-FORK2-ISSUE.md` (164 lines/
+    4FF14D35; ComputeNearestTpTarget L2265-2393 whole machine-spliced; his
+    ruling verbatim 3 lines; 12 rows machine-spliced + re-verified 0
+    mismatches; zero "..."; ONE issuance question with observables + gates).
+    Next: his paste (v144 ALONE, all models) + answers whole,     then token+word,
+    then build. NO build/run/commit.
+337. V144 ANSWERS FILED + BOTH HALT 2026-09-17 (his trip: both texts whole).
+    Filed Luna discrepancy + issue-amended (family-source before POI-first;
+    no Ruling-ID; marker LUNA-V144-FILED-001 0->1) + Sonnet code-claim
+    mismatch (pasted function = unchanged single-pass; demands real diff;
+    entry-vs-realized scoping legitimate, his call; marker SONNET-V144-FILED-001
+    0->1; staging cleaned). OWNED (D2 in camouflage: as-built code beside
+    fork-2 predictions — the /srj-defect audit that should have caught it).
+    Next: real diff packet + relay. NO build/run/commit.
+338. PACKET P-TP-FAMILYPASS DRAFTED + V145 FILED 2026-09-17 (real two-pass diff;
+    Sonnet's shape: POI loop first incl. anchor, session fallback; fallback POI
+    omitted PROVEN-subsumed, declared). `01_TASKS\\PACKET_P-TP-FAMILYPASS.md`
+    (336 lines/`2E20AF89`; new code ASCII-only, braces 27/27; consumers scoped:
+    entry sites inherit, exit scan untouched). Self-caught splice defect
+    mid-flight (CODE-NEW grabbed OLD span — first-signature trap; repaired,
+    verified). Relay `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v145-FAMILYPASS-ISSUE.md`
+    (285 lines/`56B0A00C`; OLD==EA 0 diffs, NEW==packet 0 diffs, 9 rows 0
+    mismatches, zero "..."; family table: 8/28 R3.43, 9/4 R1.74 = his matched
+    TP exactly, 9/7am R4.86, 9/7pm R2.35 = his matched TP exactly, FL still
+    fires TP-moved; G4 adjudication + C5 block declared). Next: his paste
+    (v145 ALONE, all models) + answers whole, then token+word, build. NO
+    build/run/commit.
+339. V145 ANSWERS FILED + BOTH HALT V2 2026-09-17 (his trip: both texts whole).
+    Filed Luna discrepancy (POI-wide not family-specific + census mismatch;
+    issue-amended; no Ruling-ID; marker LUNA-V145-FILED-001 0->1 + tail) +
+    Sonnet (5/5 arithmetic confirmed + subsumption holds + print-only census
+    anchor diagnostic; marker SONNET-V145-FILED-001 0->1 + tail; staging
+    cleaned). RULINGS: Luna BROADER-BEHAVIOR point ACCEPTED (E1 restated, no
+    family-mapping claim); Sonnet diagnostic ACCEPTED (E2); his 9/4 + 9/7pm
+    same-price 1.16315 coherence noted (slow Yearly-VWAP, not coincidence).
+    Next: packet v2 + v146. NO build/run/commit.
+340. PACKET P-TP-FAMILYPASS V2 + V146 FILED 2026-09-17 (answers v145 both-halt).
+    `01_TASKS\\PACKET_P-TP-FAMILYPASS.md` v2 (`6FA270AE`; E1 POI-first
+    restatement + E2 census anchor admission print-only; OLD==EA 0 diffs; NEW
+    ASCII-only, braces 27/27; NEW-span anchor-skip gone, 2 live markers).
+    Relay `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v146-FAMILYPASS-V2-ISSUE.md`
+    (288 lines/`81383220`; OLD==EA 0 diffs, NEW==packet 0 diffs, 9 rows 0
+    mismatches, zero "..."; priors A+B labeled + ruled; one issuance question,
+    template answer form). Next: his paste (v146 ALONE, all models) + answers
+    whole, then token+word, build. NO build/run/commit.
+341. V146 ANSWERS FILED = DUAL-CLEAR 2026-09-17 (his trip: both texts whole).
+    Filed Luna YES no-discrepancy L2265-2393 (v2 implements amended rule;
+    marker LUNA-V146-FILED-001 0->1 + tail) + Sonnet no-discrepancy (E1
+    byte-identical v145->v146, E2 one census line print-only verified by loop
+    trace, 5/5 R re-verified with FL SL1.16258/fill1.16205 pair; marker
+    SONNET-V146-FILED-001 0->1 + tail; staging cleaned). PACKET P-TP-FAMILYPASS
+    v2 COUNCIL-CLEARED. His order: next relay fresh-session compatible (new
+    Claude profile, no thread memory). Next: v147 fresh-safe. NO build/run/
+    commit.
+342. V147 FRESH-SAFE RELAY FILED 2026-09-17 (his new-profile order).
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v147-FAMILYPASS-FRESH-ISSUE.md`
+    (297 lines/`7B497AC6`; background + his 2 rulings verbatim + fork
+    derivation labeled + OLD==EA 0 diffs + NEW==packet 0 diffs + 9 rows 0
+    mismatches + zero "..." + v146 clearances A+B labeled + gates G1-G5 inline
+    + one issuance question, template answer form; no thread memory assumed).
+    Next: his paste (v147 ALONE, new profile) + answers whole, then token+
+    word, build. NO build/run/commit.
+343. V147 ANSWERS SPLIT + LUNA CATCH VERIFIED 2026-09-17 (his trip: both texts
+    whole, new profile). Filed Luna NO (rows-before vs winners-after unproven
+    + zone-guard gap; would not issue; marker LUNA-V147-FILED-001 0->1) +
+    Sonnet YES issue (E1+E2+structure+subsumption; 5/5 R POI-only; marker
+    SONNET-V147-FILED-001 0->1; staging cleaned). SAME-TURN DISK AUDIT (rule
+    19): her cites land exactly (L173-183 guard comment, L248-258 direction-
+    only census, L278-289 old-rows-then-table); guard LIVE at S5 (zone set S3,
+    latch is S5 gate L9845-9871 — census cannot replicate it, catch CREDITED);
+    containment measured from S3INPLAY rows: all five predicted winners
+    OUTSIDE zones by 62-292pts vs widths 11-26pts (8/28 + 9/8 same-bar zones;
+    9/4 + 9/7am + 9/7pm nearest-printed-bar, margins moot staleness). Her NO
+    stands on proof-standard (predictions, not measurements); his YES stands
+    on code+arithmetic. ISSUANCE BLOCKED (either seat halts). Next: v148
+    corrected-claims relay (same code). NO build/run/commit.
+344. V148 CORRECTED RELAY FILED 2026-09-17 (answers Luna NO visibly, rule 25).
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v148-FAMILYPASS-CORRECTED.md`
+    (321 lines/`DE83514D`; code UNCHANGED v2; OLD==EA + NEW==packet 0 diffs;
+    9 TP rows + 5 zone rows 0 mismatches; zero "..."; her NO quoted 11/11
+    substantive + ruled; his YES noted by marker; winners restated PREDICTED
+    with run-confirm gate G3 REPORT+HALT; one issuance question, template
+    form; fresh-safe). Next: his paste (v148 ALONE, new profile) + answers
+    whole, then token+word, build. NO build/run/commit.
+345. V148 PARTIAL ROUND 2026-09-17 (his trip: Luna text + limit screenshot, NO
+    Sonnet — fresh Claude session instantly hit 5-hr limit, resets 12:10 AM).
+    Filed Luna discrepancy (relay L595-597 do-not-issue; marker
+    LUNA-V148-FILED-001 0->1 + tail) LABELED PARTIAL, NOT adjudicated per his
+    "do not take" order (filed for audit, decided nothing). MECHANICAL CITE
+    CHECK same turn: relay v148 = 321 lines, packet v2 = 358 lines — her
+    L539-557 / L559-571 / L595 / L597 exist in NEITHER filed artifact
+    (unmappable rendering; substance recognized: old-labeled rows vs
+    predictions-vs-MUST-FIRE wording). NO claim rewrite on a partial round.
+    V148 ALREADY fresh-safe (background + ruling + whole code + 14 rows +
+    priors + gates inline) — stays the paste vehicle post-reset, no rebuild.
+    Next: his Sonnet v148 answer post-reset + token+word, then full-round
+    ruling + build. NO build/run/commit.
+346. V148 FULL ROUND: 4 SEATS HALT, 4 DIFFERENT REASONS 2026-09-17 (his trip:
+    Luna v148 + limit screenshot + Sonnet v148 + Astra v148 + Opus v148 + his
+    flagship question). Filed Sonnet DISCREPANCY (282->382 slip + 9/8
+    unverifiable; marker SONNET-V148-FILED-001 0->1) + Astra DISCREPANCY
+    (SWEPTMASK deletion OLD L2285-2309; marker ASTRA-V148-FILED-001 0->1) +
+    Opus DISCREPANCY (D1 EMPTY-page-gap + D2 anchor-data-gap + D3 9/8 minor;
+    marker OPUS-V148-FILED-001 0->1; staging cleaned). SAME-TURN DISK AUDIT:
+    (a) 382 CONFIRMED ((1.16315-1.15933)/pt=381.99; builder digit slip OWNED;
+    range claim wrong too). (b) SWEPTMASK DELETION CONFIRMED (NEW span 0 hits;
+    §1 "hoisted unchanged" claim FALSE — owned; authenticated miss x3 rounds).
+    (c) Opus D1 mechanism REFUTED (EA L2220 rejects EMPTY_VALUE verbatim —
+    leak impossible) but page-gap stands (function was off-page). (d) Opus D2
+    data gap STANDS (record-first search: no TP-anchor price prints, no POI
+    dumps; fracAnchorPx stop-side, not linkable) → gate restatement (his
+    option 2). (e) 9/8 pair sourced (SIDE1X_STOPREF e1.16205 SL53 → 135/53 =
+    2.55 derivable; close-consistent tp 1.16072, margin 290). Luna v148 cites
+    still unmappable (321/358) but substance answered via (d)+gate. Next:
+    packet v3 + v149. NO build/run/commit.
+347. PACKET V3 + V149 FILED 2026-09-17 (answers all four v148 halts visibly).
+    `01_TASKS\\PACKET_P-TP-FAMILYPASS.md` v3 (`16FF2077`; OLD==EA 0 diffs;
+    NEW ASCII-only braces 28/28; E3 SWEPTMASK restored byte-identical;
+    §2 expected-not-required; G3 POI-at-R>=1). Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v149-FAMILYPASS-V3-ISSUE.md` (439
+    lines/`90A645FD`; OLD==EA + NEW==packet + TPTU==EA 0 diffs; 9+5+1 rows 0
+    mismatches; 4 quotes 11/1/25/37 by construction; lone "..." is inside
+    Sonnet's quoted prose, not code; 382 + 62-382 range + 290 corrected;
+    one issuance question, template form; fresh-safe). His flagship question
+    answered in report (recommendation: flagships at issuance gates only).
+    Next: his paste (v149 ALONE, all models) + answers whole, then token+
+    word, build. NO build/run/commit.
+348. V149 ROUND: 3 YES + 1 ARITHMETIC HALT 2026-09-17 (his trip: all four
+    texts whole). Filed Luna YES (marker LUNA-V149-FILED-001 0->1) + Sonnet
+    YES (re-verified v3 vs 4 priors + code; marker SONNET-V149-FILED-001 0->1)
+    + Astra DISCREPANCY 9/8 R 2.55->2.51 entry-consistent + Decimal proof
+    (marker ASTRA-V149-FILED-001 0->1) + Opus YES (blockers closed +
+    independent re-verify + 1 wording note non-blocking; marker
+    OPUS-V149-FILED-001 0->1; staging cleaned). SAME-TURN AUDIT: Astra
+    CONFIRMED ((1.16205-1.16072)/pt=133.00, /53=2.5094; builder mixed-origin
+    slip OWNED — census-close 135 over entry-risk 53). Sonnet+Opus 135/53
+    inputs SUPERSEDED on origin (arithmetic was correct). Self-caught D4
+    mid-flight (hand-typed v3 OLD line in v150 shell — replaced with
+    attested-figure labeling before verify). Next: v150 confirm. NO build/
+    run/commit.
+349. PACKET V4 + V150 FILED 2026-09-17 (narrow correction-confirm, code
+    untouched). Packet v4 (`BA5BE07C`; OLD==EA 0 diffs; §2 9/8 R 2.51
+    entry-consistent + V4 note; only other 2.55 is the history note).
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v150-CORRECTION-CONFIRM.md` (45
+    lines/`A8A57061`; 2 source rows 0 mismatches; Astra quote 19/19;
+    0 ellipses; one confirm question, template form; fresh-safe short).
+    Next: his paste (v150 ALONE, all models) + answers whole, then token+
+    word, build. NO build/run/commit.
+350. V150 4x YES = PACKET V4 FULLY CLEARED 2026-09-17 (his trip: all four
+    texts whole). Filed Luna YES (LUNA-V150-FILED-001 0->1) + Sonnet YES
+    (2.51 independently recomputed; SONNET-V150-FILED-001 0->1) + Astra YES
+    (2.51 correct as written; ASTRA-V150-FILED-001 0->1) + Opus YES (2.51 +
+    origin diagnosis + cross-checks incl liveR=1.94 denominator proof;
+    1 note non-blocking; OPUS-V150-FILED-001 0->1; staging cleaned). Opus
+    note disposition: 290-margin "not on this page" is TRUE of narrow v150
+    but page-verified on v149 (zone row carried there, 0 mismatches; tp
+    unchanged) — no action, as he stated. Issuance gate satisfied on all
+    seats. Next: HIS token+word, then build P-TP-FAMILYPASS v4. NO build/
+    run/commit.
+351. P-TP-FAMILYPASS V4 BUILT + LAUNCHED 2026-09-17 (his "proceed" word;
+    treated as WORD; TOKEN = v149 3xYES + v150 4th YES on record). S1 PASS
+    (E5B97B36...CD5A/597425/11127LF; LF count governs, recorded). S2 applied
+    E1+E2+E3 (probe: EA slice == packet OLD 0 diffs; single-occurrence
+    replace; NEW CRLF-forced). S3 PASS post-write AE436EBC/599014 (BOM-strip
+    incident: WriteAllText added EF BB BF, caught on git-diff read, stripped,
+    re-verified; diff 39+/11- inside ComputeNearestTpTarget ONLY; hunk CRLF
+    0 bare). S4 PASS (Dukascopy metaeditor64 /compile →
+    T167_FAMILYPASS_EACOMPILE.log fresh 20:50:44; "Result: 0 errors,
+    0 warnings"; ex5 rebuilt 20:50:44). FlowLogic untouched. S5 LAUNCHED
+    20:55:09 WMI 9968 RC=0 (launcher launch_familypass_run.ps1; ini
+    RECON44_DEMO_P1 InpMode=1; terminal.ini [Tester] window verified
+    08-26→09-09, no change; TERMINAL_BUSY=False; PRE_JOURNAL_LINES=233652;
+    ceiling 90). Run FAMILYPASS-V4 ACTIVE. Next: HIS completion signal →
+    archive + G1-G5 + tabulate + result. NO commit (no token).
+352. FAMILYPASS-V4 DONE=PASSED 2026-09-17 21:43:11 (~48 min; his signal).
+    Archive `06_HANDOFFS\FAMILYPASS-V4_JOURNAL.log` (36755 lines/`736C24E8`/
+    7106003 B = STATUS count exactly). G1 PASS (Test passed, 3168 bars).
+    G2 PASS (WS161 3168/3168 mismatch 0). G3 PASS: all five fire with POI
+    winners at R>=1 — 8/28 3.43 (Yearly-VWAP 144), 9/4 1.74 (Yearly-VWAP 297,
+    his TP exactly), 9/7am 4.86 (Yearly-VWAP 180), 9/7pm 2.34 (Yearly-VWAP
+    54; exp 2.35, display band), 9/8 2.52 (Monthly-VWAP 133; exp 2.51,
+    full-precision band); all five names match; anchor wins none of the
+    five (E2 naming live in background, no false HALT). MUST-SILENT PASS
+    (8 alerts all on his trading days). G4 set: A1 8/28 16:25 SHORT R1.48,
+    A2 9/4 10:40 SHORT R10.35, A3 9/8 16:45 SHORT R1.62 (all POI, none
+    invalid-day; C5 not triggered). G5 PASS (EA post-run AE436EBC, no drift;
+    FlowLogic BEC2CBBD/69852 untouched; pointer baseline staleness noted, not
+    a finding). Kills intact (8/31 R0.34, 9/4 09:30 R0.63 shortfalls). Result
+    `06_HANDOFFS\BUILDER_RESULT_FAMILYPASS-V4.md` (34 lines/`B30CC2E1`).
+    EA UNCOMMITTED (canonical). Next: HIS A1/A2/A3 adjudication + grade
+    relay word. NO build/run/commit.
+353. HIS VERDICT: KILL ALL THREE + WORKFLOW CHARGE 2026-09-17 (his trip: text
+    + 3 screenshots sighted, chat-only). A1 KILL: his target prev-day London
+    low 1.16364 (not EA Yearly-VWAP 1.16322) → 66/73 = R 0.90 sub-1R, rejected
+    at the time (verified on disk). Naming note: his 1.16364 = EA prev-day
+    NY-low buffer price, not its London-low buffer (1.16416 at the bar) —
+    divergence logged, his number undisputed. A1 Q-a (why no early exit on
+    the 8/28 morning trade at Daily-POC bullish break 11:30; his +0.1%):
+    ANSWER — no exit model exists (STEP 4 unbuilt, queued); EA holds latched
+    TP per his entry-vs-realized ruling; his +0.1% is management. Filed as
+    STEP-4 input (opposing-POI-break exit), no code asked. A2 KILL: 5m bias
+    FVG invalidated + OPP FVG validated (CQD-invalid, same as previous EA
+    version rejection). A2 Q-b (why TP not prev-day Asian low 1.16224):
+    ANSWER — it WAS admitted (YASL:41 → 1.16224 exactly) but fork-2 POI-first
+    suppresses session lines whenever any POI qualifies (HIS ruled design);
+    moot — setup dies on validity first. Flagged consequence: his nearer
+    session level always loses to family under fork-2; his ruling stands
+    unless he says otherwise. A3 KILL: true SL two swings out (16:20 swing
+    no imbalance → 9:05 high) → sub-1R; valid entry 17:00 instead (EA fired
+    neither 17:00 nor anything after 16:45 — miss + wrong-fire both on
+    record). WORKFLOW CHARGE: GUILTY on A2 (v14-SEL1: "MUST-DECLINE,
+    operator-ruled CQD-invalid" — his exact reason, unsearched) and A3
+    (SEP8_MANUAL_REVIEW + v93: his verbatim 16:45-vs-17:00 reasoning, filed
+    before); PARTIAL on A1 (level on record, his 16:20 rejection + screenshot
+    new — but declines inventory unchecked). Same defect family as v142 (D1/
+    candidate-set). His grace ("this time okay") accepted, defect stands.
+    Skill /srj-defect tightened same turn (D1 now names declines inventory).
+    A2 FOLLOW-UP SEED (diagnostic, not diagnosis): FAMILYPASS-V4 journal shows
+    10:35:06 ABORT FRESH_OPP_FVG (his reason!) + STAND-DOWN, yet 10:40 fired
+    the same anchor/direction off the 10:35 candle — kill-then-fire on one
+    bar. Needs a validity-diagnostic packet, HIS scope word first. Next: HIS
+    follow-up scope (batched in report). NO build/run/commit.
+354. VALIDITY FIRST: A2 KILL-THEN-FIRE DIAGNOSED + P-FRESH-S5OPP + V151
+    2026-09-17 (his delegation: no technical questions, my priority —
+    validity, stop, exit). READ-ONLY DIAGNOSIS: S4 poll (EA L7198-7207,
+    P-SCOPE34) kills pre-confirmation ONLY; at S5 it is HOLD-only — so the
+    10:35:06 S4 ABORT (his exact reason) could not stop the 10:40 S5 fire.
+    NOT a contradiction in the machine: GoAbort→ResetSequence wipes working
+    set, re-seed fires clean. Design gap, not logic bug. P-SCOPE34 + his Q4
+    ("hold through flips") + spec 3.4 FORBID S5 2-of-3 teeth — so E1 is a
+    bar-veto (E1a define + E1b ResetSequence-exempt globals + E1c stamp +
+    E1d K1 bar-equality check, K2 sticky-until-clean alternate for council),
+    implementing his v14 + A2 decline with least blast radius. Regression
+    pre-checked: wanted LONG fires show oppFvg=0 (8/28: no FRESH row, never
+    aborted). Packet `01_TASKS\PACKET_P-FRESH-S5OPP.md` (DRAFT `7B306D7B`;
+    A1/A3/SL/STEP-4 fenced out). Relay
+    `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v151-FRESH-VETO-ISSUE.md` (147
+    lines/`508BAA16`; OLD regions + packet §1 byte-exact; 10 rows verified
+    (4 early key-collision flags proven artifact via 70-char recheck);
+    his A2 + v14 + Q4 carried; one K1/K2 question, template form;
+    fresh-safe). Filer self-catch: one duplicated ledger fragment (this
+    item's draft) repaired same turn by re-read. Next: his paste (v151
+    ALONE, all models) + answers whole, then token+word, build. NO build/
+    run/commit.
+355. V151 4X FILED + PACKET V2 + V152 2026-09-17 (his trip: 4 answers whole,
+    unanimous issue-amended K2). Filed verbatim: Luna (stamp-any-fail) +
+    Astra (K1-miss/scope/K2-comment-only) in BUILDER_VERDICTS_ASTRA.md;
+    Sonnet (K1-miss, substitute K2) + Opus (issue-amended K2 + E1b/G3 +
+    secondaries) in BUILDER_VERDICTS_SLDEF4-5.md (each marker x1 verified).
+    DISSENT-PRIORITY applied same turn: K1 WITHDRAWN (proven no-op on its
+    own numbers: stamp 10:30 vs latch 10:35/10:40). Packet v2
+    `01_TASKS\\PACKET_P-FRESH-S5OPP.md` (188 lines/`C5577419`/11095 B):
+    E1c OPP-only stamp; E1d K2 no-bar-term; E1e oppFvg expose; S4
+    persistence/clear + VETOCLEAR; G3 positive FRESHVETO (exactly one, SHORT,
+    vetoBar 10:30); anchor Daily-POC; anchor-index note in section 5;
+    S5-stamp half REFUTED on code (CheckFreshness returns empty when
+    kills=false, EA L2212-2213). Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v152-FRESH-VETO-V2-ISSUE.md` (321
+    lines/`3446A9C4`; 5 OLD regions re-read this turn; packet section 1
+    0-diff; 10 rows verified via 70-char keys, 0 nonmatch; 3 "..." hits all
+    inside the verbatim Opus quote with full rows riding inline — code-block
+    check clean per template; one question, template form, fresh-safe).
+    EA still `AE436EBC`/599014 UNCOMMITTED (canonical). Next: his paste
+    (v152 ALONE, all models) + answers whole, then token+word, build. NO
+    build/run/commit.
+356. V152 4X FILED + V2 HALTED + PACKET V3 + V153 2026-09-18 (his trip: Luna /
+    Sonnet / Astra / Opus whole, unanimous discrepancy, do-not-issue v2).
+    Filed verbatim: Luna (clear-behind-abort) + Astra (clear-before-abort +
+    E1d enforcement) in BUILDER_VERDICTS_ASTRA.md; Sonnet (structural
+    self-clear trace, do-not-issue) + Opus (D1-blocking + D2-D5) in
+    BUILDER_VERDICTS_SLDEF4-5.md (each marker x1 verified). DISSENT-PRIORITY
+    disk verdicts same turn: Sonnet CONFIRMED materially (re-seed S4 poll at
+    event 10:40:00 runs n==0 — no FRESHCOUNT for bar 10:35 though STATE
+    S3->S4->S5 all print — so v2 CLEAN would fire silently and 10:40 fires;
+    VETOCLEAR-then-fire, G3-passing-for-wrong-reason); Opus D1 mechanism
+    CONFIRMED, row guess CORRECTED (#156=15:45/#157=15:50 S4 HOLD oppFvg=0
+    for the afternoon LONG, not the 10:35 poll); D2 CONFIRMED (L2208/2210/
+    2211 UPSTREAM_UNREADY S5-reachable); D3 CONFIRMED (L2209 two spaces,
+    dotted); Luna/Astra ordering CONFIRMED on code. Credit Sonnet (catch
+    none of the 4 v151 seats + builder made) + Opus (D2-D5). Packet v3
+    `01_TASKS\\PACKET_P-FRESH-S5OPP.md` (240 lines/`1AA718A1`/14506 B): K3
+    EXACTLY-ONCE (CLEAN only when spent==1; pre-kill cleans seen-not-cleared,
+    K2 promise withdrawn in section 5); E1d BOUND/DAY enforcement at latch;
+    E1e byte-exact anchor + after-L2210 statement; D2 reword (OPP-gate-only
+    scope); D4 dead conjunct dropped; D5 state qualifier. Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v153-FRESH-VETO-V3-ISSUE.md` (381
+    lines/`DC8FE595`; 5 OLD regions re-read this turn; section 1 0-diff;
+    14 rows verified 70-char 0-nonmatch incl PROOF-ROWS; 3 "..." all inside
+    verbatim Sonnet quote, code-block check clean; one question, template
+    form, fresh-safe). EA still `AE436EBC`/599014 UNCOMMITTED (canonical).
+    Next: his paste (v153 ALONE, all models) + answers whole, then token+
+    word, build. NO build/run/commit.
+357. V153 4X FILED + V3 HALTED + PACKET V4 + V154 2026-09-18 (his trip: Luna /
+    Sonnet-yes / Astra / Opus whole). Filed verbatim: Luna (stale-0 CLEAN) +
+    Astra (E1d spent-gate) in BUILDER_VERDICTS_ASTRA.md; Sonnet (YES,
+    spent-ordering trace) + Opus (D1-blocking + D2-D4) in
+    BUILDER_VERDICTS_SLDEF4-5.md (each marker x1 verified). DISSENT-PRIORITY:
+    3 discrepancies OUTRANK Sonnet's confirm (credited as far as it went —
+    missed post-kill re-fire + missing consume). Disk verdicts same turn vs
+    packet v3: Luna CONFIRMED (CLEAN vs success-only write, -1-only keep);
+    Astra/Opus-D2 CONFIRMED (spent=1 set, veto never zeroed); Opus-D1 shape
+    CONFIRMED (CLEAN arm + no consume). Packet v4
+    `01_TASKS\\PACKET_P-FRESH-S5OPP.md` (240 lines/`0B4F470B`/14809 B): K4
+    CONSUME-ON-FIRE (E1d zeroes veto as it refuses — second refusal
+    impossible); CLEAN ARM + E1e + spent/lastOpp globals DELETED (stale-0
+    dies with the arm); Opus-D1(b) NO-REFIRE G3 HALT row (his adjudication
+    preserved; day-long veto REJECTED with reason — presumes an extension
+    only he can rule); D4 lands-at labels. Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v154-FRESH-VETO-V4-ISSUE.md` (336
+    lines/`DA0B8BAB`; 5 OLD regions re-read this turn; section 1 0-diff;
+    14 rows 70-char 0-nonmatch; ZERO "..." file-wide; one question, template
+    form, fresh-safe). EA still `AE436EBC`/599014 UNCOMMITTED (canonical).
+    Next: his paste (v154 ALONE, all models) + answers whole, then token+
+    word, build. NO build/run/commit.
+358. V154 4X FILED + PACKET V5 + V155 2026-09-18 (his trip: Luna / Sonnet /
+    Astra-yes / Opus whole). Filed: Luna (G3-vs-contract) + Astra (YES) in
+    BUILDER_VERDICTS_ASTRA.md; Sonnet (NO-DISCREPANCY + dependency, no marker
+    per his request, entry SONNET-V154-001) + Opus (cosmetic D1 + audit +
+    notes) in BUILDER_VERDICTS_SLDEF4-5.md (4 entries verified). DISK WORK
+    same turn: Sonnet dependency CLOSED (ResetSequence L6237-6264 enumerated
+    members only + veto names 0x in EA + GoAbort generic L6268-6275 +
+    SrjOrderEmit L5038 signature match + AnchorStr L1700 + int anchorLine
+    L972); five-fires exposure CLOSED (full 16-ABORT census: 7 OPP stamps
+    keyed — 8/26 W-POC LONG, 8/26 W-VWAP LONG, 8/27 W-VWAP LONG, 9/1 Y-POC
+    LONG, 9/2 D-VWAP SHORT, 9/4 10:30 D-POC SHORT, 9/4 17:20 M-VWAP SHORT —
+    none same-key-earlier than any fire; #162 dormant/DAY-cleared; #155 key
+    == A2 key exactly). Packet v5
+    `01_TASKS\\PACKET_P-FRESH-S5OPP.md` (267 lines/`04489E6D`/16737 B, words
+    only, no logic change): E1b span L1008-1014, at-most-one wording, G3
+    tripwire reframe (bar= unpinned) + own-bars census, Sonnet-closure +
+    midnight bullets in section 5. Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v155-FRESH-VETO-V5-AMEND.md` (314
+    lines/`DCD303FC`; section 1/G3/section 5 all 0-diff; ResetSequence whole
+    + 7 ABORT rows + 3 shape lines, 7/7 rows verified; 1 "..." inside G3
+    packet shorthand, carried byte-exact; v154 verdict demands quoted +
+    ruled; one question, template form, fresh-safe). EA still `AE436EBC`/
+    599014 UNCOMMITTED (canonical).     Next: his paste (v155 ALONE, all models)
+    + answers whole, then token+word, build. NO build/run/commit.
+359. V155 4X YES + P-FRESH-S5OPP V5 ISSUED 2026-09-18 (his trip: Luna-yes /
+    Sonnet-yes-issue / Astra-yes / Opus-yes-issue whole). Filed: Luna + Astra
+    in BUILDER_VERDICTS_ASTRA.md; Sonnet (entry SONNET-V155-001, no marker
+    per his request) + Opus (marker OPUS-V155-FILED-001) in
+    BUILDER_VERDICTS_SLDEF4-5.md (4 entries verified). DUAL-KEY CLEARED
+    (4x yes, zero halts) — council token for build recorded here. Builder-side
+    closes same turn: Opus note-4 second label site CONFIRMED fixed on disk
+    (packet L27 header + L46 section 1, both L1008-1014). Sonnet non-blocking
+    census note DISPOSITIONED without touching the frozen packet (no
+    post-issuance edits, ever): bar-vs-event convention applied per-row at
+    G3 tabulation in the result. NO packet change v5-issued→build (v5
+    `04489E6D`/16737/267 FROZEN). EA still `AE436EBC`/599014 UNCOMMITTED
+    (canonical).     Next: HIS WORD "Build P-FRESH-S5OPP" → S1 pre-hash + build.
+    NO build/run/commit until it.
+361. FRESHVETO-V1 DONE=PASSED 2026-09-18 02:07:06 (~49 min; his signal).
+    Archive `06_HANDOFFS\\FRESHVETO-V1_JOURNAL.log` (37303 lines/`8B2ED676`/
+    7226069 B = STATUS count exactly). G1 PASS (Test passed, 3168 bars,
+    563338 ticks). G2 PASS (WS161 21 fields, 3168/3168, mismatch 0). G3 PASS:
+    five fires byte-same as FAMILYPASS (3.43/1.74/4.86/2.34/2.52, same TPs);
+    A2 SILENT (7 signals = 5 + known A1/A3; delta exactly minus A2);
+    POSITIVE `FRESHVETO 9/4 10:35 SHORT Daily-POC vetoBar 10:30` exact
+    (bar=10:35 confirms recorded derivation); GENERALITY ROW 8/26 14:40 LONG
+    Weekly-POC vetoBar 11:35 (designed, silence-preserving, reported not
+    halted — RECON25 lesson cited); zero FRESHVETO on fire bars; 5 VETOCLEAR
+    all BOUND, 0 CLEAN; no-refire tripwire silent (sole DPOC-SHORT SIGNAL =
+    A1 8/28); MUST-SILENT days 0 signals. G4: A1/A3 byte-same, already
+    killed, no novel fires, C5 clean. G5 PASS (EA post-run 6C2E4028 no
+    drift; FlowLogic BEC2CBBD/69852 untouched). Kills alive (19 rows).
+    Result `06_HANDOFFS\\BUILDER_RESULT_FRESHVETO-V1.md` (31 lines/
+    `D8333645`). EA UNCOMMITTED (canonical). Next: HIS word (grade relay
+    "Grade FRESHVETO-V1" recommended, or commit-token path). NO build/run/
+    commit.
+360. P-FRESH-S5OPP V5 BUILT + FRESHVETO-V1 LAUNCHED 2026-09-18 (his word
+    "Build P-FRESH-S5OPP"; council token item 359). S1 PASS (pre-hash
+    `AE436EBC...FEC`/599014 exact). S2 byte-splice 4 sites (E1a +1, E1b +7,
+    E1c 10→36, E1d 1→37; Temp backup EA_PREFRESHVETO_BAK.mq5 kept). S3 PASS
+    (post `6C2E4028`/602894; bare-LF 128 unchanged, +70 CRLF; each NEW
+    region 1x == packet fence; roundtrip strip == backup byte-exact). S4
+    PASS (`06_HANDOFFS\\T168_FRESHVETO_EACOMPILE.log`: 0 errors, 0 warnings;
+    ex5 rebuilt 01:09). S5 LAUNCHED 01:18 WMI 19380 RC=0, STATUS RUNNING,
+    TERMINAL_BUSY=False, heartbeats live; same ini (InpMode=1) + same window
+    08-26→09-09 (DateFrom 1787702400/DateTo 1788998400 verified, unchanged);
+    launcher `00_CURRENT_WORKING\\launch_freshveto_run.ps1`; ceiling 90.
+    EA `6C2E4028` UNCOMMITTED (canonical). Next: HIS completion signal →
+    archive + G1-G5 + result. NO commit.
+362. V156 GRADE RELAY 2026-09-18 (his word "Grade FRESHVETO-V1"). Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v156-FRESHVETO-GRADE.md` (139 lines/
+    `B1ACD337`; 4 as-built regions re-read this turn (E1a L297-298, E1b
+    L1008-1016, E1c L7206-7241 == fence 0-diff, E1d L9873-9909 == fence
+    0-diff); compile tail verbatim 0/0; 22/22 rows verified 70-char
+    0-nonmatch (7 SIGNAL + 7 TP_ELECT + 2 FRESHVETO + 5 VETOCLEAR + WS161) +
+    engine ticks line + A2 double-zero absence proof; 0 "..." file-wide;
+    builder-caught E1b label slip disclosed (lands 1009-1015, decls
+    1013-1015 — E1a +1 shift unaccounted; anchors exact, no behavior effect,
+    packet frozen so carried not edited); issuance + strategy priors labeled;
+    one grade question with (a)/(b) explicit, template form, fresh-safe).
+    Self-catches: bogus Daily-POC|LONDON key + A2-TP_ELECT key (correctly
+    absent — veto pre-empts the shadow print) + prefixless ticks line, all
+    repaired via re-pull before filing. EA still `6C2E4028` UNCOMMITTED.
+    Next: his paste (v156 ALONE, all models) + answers whole. NO build/run/
+    commit.
+363. V156 4X FILED + V157 G4-CLOSURE 2026-09-18 (his trip: Luna-PASS /
+    Sonnet-scoped-PASS+offer / Astra-PASS / Opus-DISCREPANCY-G4-not-gradable
+    whole). Filed: Luna + Astra in BUILDER_VERDICTS_ASTRA.md; Sonnet (entry
+    SONNET-V156-001) + Opus (entry OPUS-V156-001, no version string in his
+    text) in BUILDER_VERDICTS_SLDEF4-5.md (4 entries verified). DISSENT-PRIORITY
+    disk close same turn: baseline archive 8 SIGNALs (5+A1+A2+A3) vs current
+    7 (5+A1+A3) — delta exactly minus A2; A1/A3 TP_ELECT rows byte-identical
+    across both archives (pre-date the veto → causal path REFUTED, latch
+    monotonicity stands); TP_ELECT 13→11 walked (A2 shadow pre-empted by
+    design + 8/26 R-kill pre-empted by veto, same silence either way).
+    Sonnet file-share offer DECLINED with reason (verification stays his
+    machine + his eyes; pasted files can't substitute). Opus scope-risk +
+    stamp-gate note LOGGED (decline-extension his-only; S4-gate queued
+    future, unbuilt). Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v157-G4-CLOSURE.md` (33 lines/
+    `E1AA145A`; 8 baseline SIGNAL + 2 A1/A3 rows, 10/10 verified vs both
+    archives; 0 "..."; one G4-close question, template form, fresh-safe;
+    self-catch: SimpleMatch-paren key pulled 0 rows, repaired via regex
+    re-pull before filing). EA still `6C2E4028` UNCOMMITTED. Next: his paste
+    (v157 ALONE, all models) + answers whole. NO build/run/commit.
+364. V157 4X FILED + OPUS-CATCH HOLDS + V158 FIX 2026-09-18 (his trip:
+    Luna-yes / Sonnet-non-verdict+upload-ask / Astra-G4-PASS /
+    Opus-discrepancy-narrow whole). Filed: Luna (LUNA-V157-001) + Astra
+    (ASTRA-V157-001) in BUILDER_VERDICTS_ASTRA.md; Sonnet (SONNET-V157-001)
+    + Opus (OPUS-V157-001) in BUILDER_VERDICTS_SLDEF4-5.md (4 markers 1x
+    each, bodies read-back verified). DISSENT-PRIORITY disk verify same
+    turn: Opus arithmetic HOLDS (baseline 8/13 vs current 7/11, two patterns
+    each; missing exactly 9/4 10:35 R=10.35 + 8/26 14:40 R=0.53; A1/A3
+    byte-identical both archives; A2 fenced double-zero re-proven 0/0);
+    wording catch ACCEPTED with corrections: (a) close holds at SIGNAL level
+    only, shadow is minus two outcome-identical; (b) v157 tense wrong —
+    baseline DID print both the 8/26 shadow AND the TP_RR_FAIL kill (1 row),
+    current prints neither (0/0) plus FRESHVETO — kill credit moves R-gate
+    to veto; (c) 10:35/10:40 offset CLOSED as uniform convention (SIGNAL time
+    == latchBar, bar == signal minus 5, all three setups; current A1/A3
+    SIGNAL times identical). Scope reach recorded as OBSERVED ONCE (8/26),
+    not future; credit Opus seat. Sonnet upload ask DECLINED (verification
+    split + standing seat-split). Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v158-G4-CLOSURE-FIX.md` (121 lines/
+    `5FB1E4D4`; 8 SIG + 13/11 census + 14 key + 5 time rows, 27/27 verified
+    vs both archives; complete Opus quote appendix; 0 placeholders; 0 "...";
+    one close question, template form, fresh-safe). EA still `6C2E4028`
+    UNCOMMITTED. Next: his paste (v158 ALONE, all models) + answers whole.
+    NO build/run/commit.
+365. V158 4X YES + G4 CLOSED PASS 2026-09-18 (his trip: Luna-G4-PASS /
+    Sonnet-conditional-logic-yes+process-note / Astra-G4-PASS /
+    Opus-G4-PASS+non-blocking-note whole). Filed: Luna (LUNA-V158-001) +
+    Astra (ASTRA-V158-001) in BUILDER_VERDICTS_ASTRA.md; Sonnet
+    (SONNET-V158-001) + Opus (OPUS-V158-001) in BUILDER_VERDICTS_SLDEF4-5.md
+    (4 markers 1x each, bodies read-back verified). G4 CLOSED PASS on
+    page-coherence: corrected close accepted all seats (Opus R-join +
+    convention closure re-derived on the page; Luna cites L119; Astra cites
+    the v157-to-v158 replacement; Sonnet conditional logic-yes).
+    ABSTENTION VISIBLE (by construction, per Opus ask): no chat seat
+    certifies genuineness/counts/bytes vs disk — disk proof stays builder
+    measurements (8/13 vs 7/11 two-pattern, 27/27 rows, digests) + his
+    machine/eyes. Opus next-relay note CLOSED on disk same turn (no new
+    relay needed): FRESHVETO baseline 0/0 vs current 2/2 (two patterns;
+    exactly the ruled 9/4 + observed-once 8/26) — reach exact at row level
+    too. Sonnet process note RECORDED, not gated (models reason, builder
+    measures, he transports; script diffs already ARE the disk gate beside
+    every run). FRESHVETO-V1 grade now complete: G1/G2/G3/G5 PASS (v156,
+    uncontested) + G4 PASS (v158). EA `6C2E4028` UNCOMMITTED (canonical,
+    needs council token). Next: HIS call (commit-token path and/or stop
+    packet second — no auto-build). NO build/run/commit.
+366. /SRJ-DEFECT NO-FIT + TASK-DUMP OWNED + V159 LAND-FIRST 2026-09-18 (his
+    charge correct: last report asked him to choose commit-token path vs
+    stop work — builder-owned sequencing, his load is transport/money/goals
+    only; rules breached §6.17/§6.26 + standing permissions). No D1-D12 fit
+    (D1 = record-answerable strategy asks; D8 = new scope; D9 = drip-feed
+    batching — none is operator-asked-to-decide-builder-work), so no forced
+    fit and no class filing. Recommendation decided mechanically: LAND FIRST,
+    then stop — stacking stop work on the uncommitted veto delta would mix
+    two behavior changes in every future isolation join. Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v159-LANDING-TOKEN.md` (116 lines/
+    `32DA0EAC`; 4 whole regions re-read this turn: E1a 2 + E1b 8 + E1c 36 +
+    E1d 37 with the old latch-context line labeled; 4 raw rows verified vs
+    archives; counts fresh this turn 8/13/0 vs 7/11/2 two-pattern; 0
+    placeholders; 0 "..."; one land question, template form, fresh-safe).
+    EA still `6C2E4028` UNCOMMITTED (token owed by council, never by him).
+    Next: his paste (v159 ALONE, all models) + answers whole. NO
+    build/run/commit.
+367. V159 4X YES + VETO TREE LANDED 3a932b9 2026-09-18 (his trip: Luna-yes
+    / Sonnet-logic-pass+stamp-note / Astra-yes / Opus-yes-commit whole).
+    Filed: Luna (LUNA-V159-001) + Astra (ASTRA-V159-001) in
+    BUILDER_VERDICTS_ASTRA.md; Sonnet (SONNET-V159-001) + Opus
+    (OPUS-V159-001) in BUILDER_VERDICTS_SLDEF4-5.md (4 markers 1x each,
+    bodies read-back verified). TOKEN for landing: Luna yes + Astra yes +
+    Opus explicit commit line, Sonnet logic-pass with one benign
+    observation, zero halts — dual-key satisfied. Observation closed same
+    turn (E1c re-stamps unconditionally — confirmed in the pasted block;
+    outcome-neutral for same setup+day since consume-once sits at the latch;
+    carried as future-hardening note, unbuilt). Astra E1d new-only span vs
+    relay span-plus-context line: both correct under their labels, no
+    effect. Pre-commit verify: EA re-hash `6C2E4028`/602894 exact (no
+    drift), FlowLogic clean. Committed EA alone via -F file (3a932b9,
+    +109/-11); pushed backup main ca66fcd..3a932b9, ls-remote == HEAD;
+    origin untouched. Records stay uncommitted for next housekeeping. Stop
+    work builds on 3a932b9 next. EA LANDED. Next: builder cuts the
+    stop-work authorship relay. NO build/run.
+368. STOP JOIN + V160 FILED 2026-09-18 (his "proceed"; record-first against
+    the unledgered v135-v141 arc: v140 close-out ask found STALE — its
+    RECON40/45 rows predate the family-pass TP move + veto landing; v135
+    forward ini dates Sept-10→17 BUT RECON46 executed old-window counts
+    (3168/563338 identical) so it graded nothing forward and stays a loose
+    end, untouched here). Zero-run join on landed-tree archive: DH STOPREF
+    byte-identical family-vs-veto (rule-side stop, family TP R10.35 PASS
+    instrument-side; TPCENSUS #304 byte-identical — veto drift zero); veto
+    refused DH latch anyway (his decline outranks instrument PASS); IE
+    STOPREF 0/0 both archives (two patterns) with S5-eval scope from code
+    L9733-9748 — confirmed SHORT S2POLL triple both archives but no S1 seed
+    after the 16:45 fire (17:00 IDLE both) so no S5 eval; reframed birth-miss
+    (ledger 353), veto-independent. 9/4 edge MOOT by R1.74 firing both; 9/7
+    tabled value-divergence (filed); 8/28 needs his entry time (record
+    lacks it — asked in report, priority). Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v160-STOPFIX-CLOSEOUT.md` (57 lines/
+    `06947545`; emit-site 16 lines + 15 rows verified vs archives (code
+    format line excepted); DH 1/1 each; 0 placeholders; 0 "..."; one
+    close-out question, template form, fresh-safe). Next: his paste (v160
+    ALONE, all models) + answers whole + HIS Aug-28 entry time (report).
+    NO build/run/commit.
+369. /SRJ-DEFECT D1 CONFIRMED + QUESTION WITHDRAWN + V160 REPAIRED 2026-09-18
+    (his challenge correct: he HAD explained the Aug-28 entry time).
+    D1 audit: spec MISS; findings HIT (BUILDER_FINDING_0828-FVG.md L7-15:
+    his verbatim 2026-09-11 correction + filed meaning entry 1.16466
+    next-open ~10:05, early exit 1.16464 at 11:35 open); journal row #257
+    exists; other prose HIT (v141 L10 his verbatim entry-next-open rule).
+    Cause: journal-only search presented as a search. Question WITHDRAWN
+    entirely, never re-asked; 8/28 miss stands as level-set mismatch for
+    mechanism work. V160 line 51 repaired same number pre-paste (record
+    answer inline, nothing asked of anyone; rows/question untouched).
+    Skill D1 tightened same turn (V5 entry-time source checklist). Next:
+    his paste (v160 ALONE, all models) + answers whole. NO build/run/
+    commit.
+370. V160 4X FILED (2 DISCREPANCY + 1 YES + 1 NON-VERDICT) + 10PT GAP
+    EXPLAINED + V161 2026-09-18 (his trip: Luna-discrepancy / Sonnet-
+    non-verdict+upload-ask+process-critique / Astra-discrepancy / Opus-yes
+    whole). Filed: Luna (LUNA-V160-001) + Astra (ASTRA-V160-001) in
+    BUILDER_VERDICTS_ASTRA.md; Sonnet (SONNET-V160-001) + Opus
+    (OPUS-V160-001) in BUILDER_VERDICTS_SLDEF4-5.md (4 markers 1x each,
+    bodies verified). DISSENT-PRIORITY: convergent Luna+Astra 10pt catch
+    (liveStop 1.16289 vs ruleStop 1.16299) OUTRANKS Opus yes on wording —
+    verified on disk same turn + fully attributed: select site EA L9664
+    (sel 0 takes s0px on s0-imb gating) + SHADOW-DH pair byte-identical
+    both archives (s0 1.16289 slot 1 imb 2 vs s1 1.16299 slot 13 imb 2,
+    sel 0, r0 10.35) — gap = s0-output vs s1-output, both ~80pts off stale
+    1.16379; identity wording WITHDRAWN, movement stands. Sonnet upload +
+    process critique RECORDED, not gated (verification split + seat-split
+    standing; disk audit this turn IS the verification). Relay
+    `06_HANDOFFS\\BUILDER_RELAY_COUNCIL_v161-STOPFIX-CORRECTED.md` (33
+    lines/`BC96AE28`; select site 6 lines + 4 rows verified vs archives;
+    0 placeholders; 0 "..."; one close-out question, template form,
+    fresh-safe). Next: his paste (v161 ALONE, all models) + answers whole.
+    NO build/run/commit.

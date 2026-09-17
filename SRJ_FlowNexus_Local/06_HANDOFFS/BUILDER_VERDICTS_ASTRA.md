@@ -11607,3 +11607,333 @@ The appropriate next state under this relay is therefore **builder waits for the
 
 yes — no discrepancy. L9984-9990.
 
+
+## Luna answer - 2026-09-17 - answers v135 (packet yes, no amend, window past 09-09; no Ruling-ID volunteered; builder marker LUNA-V135-FILED-001)
+
+yes — no discrepancy. No code lines to amend; use the proposed **next unseen feed-covered window past 2026-09-09, EURUSD M5**, with the same demo settings and report-only grade.
+
+
+## Luna answer - 2026-09-17 - answers v136 (code yes L9556-9604, run consistent; no Ruling-ID volunteered; builder marker LUNA-V136-FILED-001)
+
+yes — no discrepancy at L9556-9604. The single report-only proving run as specified is consistent with the landed rewire; the amended DH/IE/GQ/JJ outcomes are the run-grade hypotheses, not a code claim.
+
+
+## Luna answer - 2026-09-17 - answers v137 (no: neutrality is not proof; flip-window or row-level evidence; token not granted; no Ruling-ID volunteered; builder marker LUNA-V137-FILED-001)
+
+no — discrepancy: L9556-9604. The 14/14 outcome-neutral result does not by itself prove that the landed stopfix changes the selected `slRef`; it only shows no register outcome crosses a gate. Under the proposed outcome-match grade, a stopfix proving run therefore needs either a window where the selector changes an observable result or direct row-level evidence of the selected rule stop. Token not granted under the basis as written.
+
+
+## Luna answer - 2026-09-17 - answers v138 (no: ruleStop always s1 + row-3 liveR/r0 mismatch; no Ruling-ID volunteered; builder marker LUNA-V138-FILED-001)
+
+no — discrepancy, **L9657-9686**: `SIDE1X_STOPREF` prints `ruleStop=s1e_s1px` even when `s1e_sel=0`; therefore the row does not show the rule-selected stop. Also on **2026-09-08 16:40**, `liveStop=1.16274` equals `s0px`, but `liveR=0.02` does **not** equal the shadow `r0=0.05`, so the claimed row-level trace is internally inconsistent. A flip-window run is not established as unnecessary by this evidence.
+
+
+## Luna answer - 2026-09-17 - answers v139 (yes, no discrepancy both regions; no Ruling-ID volunteered; builder marker LUNA-V139-FILED-001)
+
+yes — no discrepancy, **L9556-9604** and **L9657-9686**.
+
+
+## Luna answer - 2026-09-17 - answers v140 (yes both regions; selection-based proving; misses stay separate; no Ruling-ID volunteered; builder marker LUNA-V140-FILED-001)
+
+yes — no discrepancy at **L9556-9604**. The cross-run rows directly show the live stop changing onto the rule-side selection on both DH and IE; the unchanged final outcomes are attributable to the separately changed TP, so the stopfix proving is selection-based, not outcome-flip-based. The three calibration misses should remain recorded as separate calibration/data findings, not attributed to the stopfix.
+
+
+## Luna answer - 2026-09-17 - answers v141 (discrepancy: AVP-standard vs C2-closest conflict; no issue as written; no Ruling-ID volunteered; builder marker LUNA-V141-FILED-001)
+
+discrepancy — the relay's own design record conflicts: the stated ruled standard requires the setup family's AVP TP, while settled **C2 explicitly keeps the closest-line TP and turns the AVP selector OFF**. Because the packet's claimed 8/28 return is therefore not supported by the stated packet-2 changes alone, I would not issue it exactly as written. No code line numbers are supplied for this conflict.
+
+
+## Luna answer - 2026-09-17 - answers v142 (family-first + closest fallback; 9/4 untouched; numbers relay-relative; no Ruling-ID; marker LUNA-V142-FILED-001)
+
+design: **preferred family target first, then the existing closest-admissible line fallback**.
+
+* Keep the session/previous-day candidates valid and still eligible; `TpSessionLevelFiltered()` remains the admission filter at **L53-79**, and the session walk stays at **L173-183**. Do **not** globally exclude yesterday's lines.
+* Before the current nearest-line selection wins, identify the **ruled family target** for the setup and prefer it when present and direction-valid: **Daily-VWAP → Daily-POC 1.16380** for 8/28, and **Weekly-AVP → Weekly-POC 1.16200 / 1.16315** for the two 9/7 setups. This preference must be applied deliberately rather than by making all POC lines globally dominant.
+* The current POI pass at **L185-199** must therefore permit the selected family target to compete even where the generic anchor exclusion at **L191** would otherwise remove it. Keep the existing higher-authority restriction for unrelated POIs.
+* When no ruled family target is available, retain the existing **closest-line** behavior from `TpTargetUpdateBest()` at **L45-49**, with the candidate walk continuing through **L173-199**.
+* Do **not** introduce a global "POC beats session line" rule: that could alter the **9/4 one-point edge**, which this packet explicitly keeps untouched. The preference should be limited to the settled family-target mapping; everything else remains the existing closest-admissible selection.
+
+So the required order is:
+
+**ruled family TP (when its family mapping is present) → otherwise closest admissible session/previous-day/POI candidate**, with the existing sweep/live filters retained.
+
+No discrepancy in the carried mechanics; the necessary behavioral change is specifically the **family-preference layer around L173-199**, while `TpTargetUpdateBest()` **L11-49** remains the fallback selector.
+
+
+## Luna answer - 2026-09-17 - answers v143 (fork: per-setup family mapping, 9/4 stays killed; no Ruling-ID; marker LUNA-V143-FILED-001)
+
+**per-setup family mapping** — **L173-199**, with the existing closest-line fallback at **L45-49**.
+
+The supplied rows support keeping the **9/4 one-point edge killed**: its admitted Yearly-VWAP is 298 points away while YLOL at 170 points is the current nearest winner; a blanket family-pass would replace that nearest winner and change the 9/4 result. By contrast, the three requested setups require explicit family-target preference rather than a global family-line pass.
+
+**Fork: per-setup family mapping.**
+
+
+## Luna answer - 2026-09-17 - answers v144 (discrepancy: reorder-insufficient; issue-amended with family-source; no Ruling-ID; marker LUNA-V144-FILED-001)
+
+discrepancy — **L173-199**. The proposed two-pass reorder is insufficient to produce all four stated outcomes.
+
+At the three 1R-kill bars, the required family targets are not in the admitted candidate set shown by the supplied census rows: **Daily-POC on 8/28, and the 9/7 Weekly-family targets** are absent there. Reordering the existing session/POI loops cannot select a candidate that those loops do not read/admit. The current fallback/nearest selection remains governed by `TpTargetUpdateBest()` at **L45-49** and the candidate walks at **L173-199**.
+
+**issue-amended** — add an explicit family-target resolution/read into the TP candidate set before the POI-first pass; then use POI-first including the anchor, with the existing full walk as fallback. Without that additional candidate source, the claimed 8/28 and 9/7 fires are not established by the specified fork alone.
+
+
+## Luna answer - 2026-09-17 - answers v145 (discrepancy: POI-wide not family-specific + census mismatch; issue-amended; no Ruling-ID; marker LUNA-V145-FILED-001)
+
+discrepancy — **NEW `ComputeNearestTpTarget`, family-pass loop**. The drafted packet calls this a "family pass," but the code does not select a defined family target; it scans **all POI lines** allowed by the anchor-rank filter and chooses the nearest direction-valid one:
+
+`for(int kf = 0; kf < POI_NLINES; kf++)` → rank filter → `ReadBuf1(...)` → `TpTargetUpdateBest(...)`.
+
+That is materially broader than a family-specific mapping. The fallback at the `else` then runs only when **no eligible POI exists at all**, not when no family line exists. So the stated "family line first, session fallback" semantics are not what the code implements.
+
+There is also a verification mismatch: the unchanged `TPCENSUS` still uses the old anchor exclusion, so its `winner`/`best` rows do not directly establish the NEW family-pass winner.
+
+**issue-amended** — either implement an explicit family-line selection, or restate the packet as **"nearest eligible POI including anchor, otherwise session/PD fallback"** and grade that broader behavior.
+
+
+## Luna answer - 2026-09-17 - answers v146 (YES no-discrepancy L2265-2393, v2 implements amended rule; no Ruling-ID; marker LUNA-V146-FILED-001)
+
+yes — no discrepancy, **L2265-2393**. The NEW v2 implements the amended rule as stated: nearest eligible POI first with the anchor admitted, and the session/PD walk only when no POI qualifies; the census second POI loop likewise admits the anchor for naming.
+
+
+## Luna answer - 2026-09-17 - answers v147 fresh (NO: rows-before vs winners-after unproven + zone-guard gap; would not issue; no Ruling-ID; marker LUNA-V147-FILED-001)
+
+No — discrepancy.
+
+The packet as drafted is internally inconsistent on the page:
+
+* **L278–L285** show the four previously failing setups still producing `TP_RR_FAIL_LATCH` and census winners that are **session lines** (`YPML`, `YPMH`, `YNYH`, `YLOL`).
+* **L286** likewise shows the 9/8 census winner as `YLOL`, not `Monthly-VWAP`.
+* **L289** then states that, **under NEW code**, the five winners are the named POI-family lines and that all five **FIRE**. Those conclusions are not established by the preceding run rows.
+* The code at **L173–L183** explicitly retains `TpTargetUpdateBest`'s in-zone guard during the POI-first pass, while the census at **L248–L258** only tests direction and therefore is not a complete reproduction of POI eligibility. Thus the admitted-distance lists alone cannot prove the L289 winners.
+
+So I would **not issue P-TP-FAMILYPASS v2 exactly as drafted**.
+
+
+## Luna answer - 2026-09-17 - answers v148 (PARTIAL ROUND, Sonnet absent on operator-side limit: discrepancy at relay L595-597, do-not-issue; no Ruling-ID; marker LUNA-V148-FILED-001)
+
+Discrepancy — **do not issue exactly as drafted.**
+
+**L539–L557** explicitly label the supplied run rows as **OLD-code behavior**, so they cannot be NEW-code run confirmation.
+
+**L595** then calls the five NEW-code winners “**PREDICTIONS — the run proves them**,” while the actual evidence presented immediately before is still the old-code run. That is a provenance contradiction.
+
+**L597** makes the contradiction explicit: it requires the five winners to **MUST-FIRE**, and says a predicted winner that does not materialize triggers REPORT+HALT. That means the winners are still hypotheses awaiting NEW-code materialization, not already run-confirmed facts.
+
+The zone evidence at **L559–L571** strengthens the eligibility case, but it does not convert the OLD-code rows into a NEW-code execution result.
+
+**Ruling: discrepancy at L595–L597.** The packet can be described as **predicted NEW-code winners supported by code/arithmetic/zone analysis**, but not “run-confirmed” from the evidence actually carried on the page.
+
+
+## Astra answer - 2026-09-17 - answers v148 (DISCREPANCY: SWEPTMASK block deletion OLD L2285-2309 undeclared; restore-or-declare; marker ASTRA-V148-FILED-001)
+
+Discrepancy — **OLD L2285–2309**: NEW v2 removes the entire Task 144 / EA-141 `SWEPTMASK` diagnostic block. This is an undeclared logging deletion beyond E1’s selector change and E2’s census anchor admission. Restore that block or explicitly declare its removal; **do not issue exactly as drafted**.
+
+
+## Luna answer - 2026-09-17 - answers v149 (YES; no Ruling-ID; marker LUNA-V149-FILED-001)
+
+yes
+
+
+## Astra answer - 2026-09-17 - answers v149 (DISCREPANCY: 9/8 R 2.55->2.51 entry-consistent; pass unchanged; marker ASTRA-V149-FILED-001)
+
+Discrepancy — **“Expected winners under NEW code” paragraph, L1 (paragraph-local), 9/8 SHORT clause:** `R 2.55` must be **`R 2.51`**. The supplied entry `1.16205`, SL `1.16258`, and expected TP `1.16072` give **133/53 = 2.5094R**. The 135-point distance is from census close, not entry. This correction does not change the expected R≥1 pass.
+
+here is the thinking process of astra that might be beneficial:
+Verify the September 8 expected reward-to-risk ratio from the supplied entry, stop, and target.
+
+Show command
+bash
+python3 - <<'PY'
+from decimal import Decimal as D
+entry, sl, tp = D('1.16205'), D('1.16258'), D('1.16072')
+print('reward points:', (entry-tp)/D('0.00001'))
+print('risk points:', (sl-entry)/D('0.00001'))
+print('R:', (entry-tp)/(sl-entry))
+PY
+
+Show output
+reward points: 133
+risk points: 53
+R: 2.509433962264150943396226415
+
+
+## Luna answer - 2026-09-17 - answers v150 (YES; no Ruling-ID; marker LUNA-V150-FILED-001)
+
+yes
+
+
+## Astra answer - 2026-09-17 - answers v150 (YES 2.51 correct as written; marker ASTRA-V150-FILED-001)
+
+Yes — §2, 9/8 SHORT line (L1): R 2.51 is correct as written.
+
+
+## Luna answer - 2026-09-17 - answers v151 (DISCREPANCY: stamp-any-fail broader than OPP scope; marker LUNA-V151-FILED-001)
+
+discrepancy — lines 159–171: E1c stamps `g_freshVetoBar/Anchor/Dir` for **any** `fail != ""`, not specifically `ABORT_FRESH_OPP_FVG`. E1d then consumes that stamp at lines 203–223, so the veto can suppress S5 after an unrelated freshness abort as well. The drafted change therefore is broader than the stated S5-opposing-FVG persistence scope.
+
+
+## Astra answer - 2026-09-17 - answers v151 (DISCREPANCY: K1 bar-miss + stamp-scope + K2-comment-only; marker ASTRA-V151-FILED-001)
+
+discrepancy
+
+- **E1c, OLD L7198–7207; E1d, OLD L9833–9843:** K1 stamps the **evaluated bar**, not the abort-instant bar. On the supplied sequence, that is **10:30**; the subsequent **10:35-eval** latch cannot match it. K1 therefore does not persist this abort into the offending latch. REPORT+HALT detects the miss; it does not correct the key.
+- **E1c, OLD L7198–7207:** The stamp covers **every nonempty `CheckFreshness` return at S4 or S5**, not exclusively an S4 abort as documented. An S5 live-bias-flip abort also stamps the veto.
+- **E1d, OLD L9833–9843:** K2 is a comment-only alternative, not an implemented substitute. Its clean-read clearing logic is absent; issuing it requires an explicit code amendment, not merely selecting the alternate.
+
+
+## Luna answer - 2026-09-17 - answers v152 (DISCREPANCY: clean-clear unreachable behind abort return; marker LUNA-V152-FILED-001)
+
+discrepancy — lines 225–273.
+
+The stated K2 clear path says the veto clears on a clean `oppFvg=0` read, but the implementation checks `if(g_freshLastOpp == 0)` only **after**:
+
+* line 225: `if(fail != "") { GoAbort(fail, g_state); return; }`
+
+So when `oppFvg==0` arrives together with a different freshness abort (for example `ABORT_FRESH_OB_DEAD`), execution returns at line 225 and never reaches the clean-read clear at lines 261–273. The ResetSequence-exempt veto can therefore remain latched despite the promised clean read.
+
+The rest of the stated K2 shape is internally consistent on the supplied page, but that clear-path ordering is a real discrepancy.
+
+
+## Astra answer - 2026-09-17 - answers v152 (DISCREPANCY: clear-before-abort + E1d independent enforcement; marker ASTRA-V152-FILED-001)
+
+discrepancy
+
+- **E1c — OLD L7198–7207, `if(fail != "")` before persistence/clear; E1e — OLD L2210:** A successful clean OPP read with `obValid=0`, `fvgValid=0`, `oppFvg=0` returns `ABORT_FRESH_OB_DEAD`. E1c aborts before clearing the existing veto, violating the promised clean-read clear. Clear the prior veto on that clean read before returning; retain the OB_DEAD abort.
+- **E1c — OLD L7198–7207; E1d — insertion above OLD L9839:** Setup-change/day clearing requires a successful S4 poll. E1d checks neither day nor intervening setup changes. Without that poll, a prior-day same-key veto can still refuse the latch; an A→B→A setup transition can revive an uncleared A veto. Enforce those invalidations independently of successful S4 polling before issuing.
+
+
+## Luna answer - 2026-09-18 - answers v153 (DISCREPANCY: stale-read CLEAN, do-not-issue; marker LUNA-V153-FILED-001)
+
+discrepancy — **E1c/E1e stale-read clearing**.
+
+At **L257-L269**, the CLEAN release clears when `g_freshLastOpp == 0`. But **L397-L403** explicitly says a failed OPP read leaves `g_freshLastOpp` stale and that this is supposed to **keep** the veto. A failed read at **L397-L399** can therefore leave a previous `0` in `g_freshLastOpp`, and E1c can incorrectly execute `why=CLEAN` before the `ABORT_UPSTREAM_UNREADY` return.
+
+That contradicts the stated “stale-safe: unknown keeps” contract at **L229-L229**.
+
+So **do not issue v3 exactly as drafted**; the CLEAN branch needs to distinguish a current successful `oppFvg==0` read from a stale value.
+
+
+## Astra answer - 2026-09-18 - answers v153 (DISCREPANCY: E1d needs spent==0 gate; marker ASTRA-V153-FILED-001)
+
+discrepancy — **E1d, insertion above OLD L9839:** the refusal condition never checks `g_freshVetoSpent == 0`. The first refusal sets `spent = 1` but leaves the stamp active; another same-day, same-anchor/direction latch can therefore be refused again unless an intervening clear occurs. An S4 poll with `obValid=1, fvgValid=1, oppFvg=1` neither aborts nor clears, so repeated refusal is possible without a new stamp.
+
+Add `&& g_freshVetoSpent == 0` to E1d’s final refusal condition. As drafted, v3 does **not** implement “kills exactly one latch then releases.”
+
+
+## Luna answer - 2026-09-18 - answers v154 (DISCREPANCY: G3 no-refire vs one-latch contract; marker LUNA-V154-FILED-001)
+
+discrepancy — **G3, section 5: no-refire criterion conflicts with E1d consume-on-fire.**
+
+At **E1d, inserted above OLD L9839**, the veto is zeroed immediately after `FRESH_VETO` is emitted, so a later same-day, same-anchor/direction latch is intentionally **not** vetoed. Therefore a G3 condition phrased as **“no Daily-POC SHORT SIGNAL on 9/4 after 10:40 through session close”** is broader than the implemented one-latch contract.
+
+The E1a/E1b/E1c/E1d mechanics themselves are internally consistent; the discrepancy is the **G3 post-10:40 acceptance criterion**, not the insertion sites.
+
+
+## Astra answer - 2026-09-18 - answers v154 (YES: anchors + consume + G3 contract consistent; marker ASTRA-V154-FILED-001)
+
+Yes — E1a after OLD L297; E1b after OLD L1007; E1c replaces OLD L7198–7207; E1d inserts above OLD L9839. OLD L2204–2214 remains unchanged.
+
+Consume prevents a second refusal **without a new stamp**; it does not prevent later re-entry. Under the stated G3 REPORT+HALT adjudication contract, that is consistent with v4.
+
+
+## Luna answer - 2026-09-18 - answers v155 (YES, no discrepancy; marker LUNA-V155-FILED-001)
+
+yes — no discrepancy with the stated line numbers. E1b is correctly fixed to L1008–L1014, with declarations at L1012–L1014; the packet’s final question and required answer form are consistent with that.
+
+
+## Astra answer - 2026-09-18 - answers v155 (YES, no discrepancy; marker ASTRA-V155-FILED-001)
+
+Yes — E1a after OLD L297; E1b after OLD L1007 (L1008–L1014, declarations L1012–L1014); E1c replaces OLD L7198–7207; E1d inserts before OLD L9839.
+
+No discrepancy on the page: amended G3 treats later re-fire as an adjudication tripwire, not a suppression guarantee.
+
+
+## Luna answer - 2026-09-18 - answers v156 (PASS with cosmetic label note; marker LUNA-V156-FILED-001)
+
+**PASS**
+
+**Gate ruling**
+
+* **G1 — PASS:** test passed; 3,168 bars / 563,338 ticks.
+* **G2 — PASS:** WS161 census 21 fields, 3,168/3,168, mismatch 0.
+* **G3 — PASS:** five pre-existing fires remained byte-identical; Sept-4 10:40 is silent; the positive veto row is exact; five clears are BOUND; CLEAN stayed zero; no-refire tripwire and silent-day checks remained silent.
+* **G4 — PASS:** the two extra fires are explicitly identified as already-killed setups, byte-identical in shape, with no novel fires and C5 clean.
+* **G5 — PASS:** stated digests match, FlowLogic is untouched, and the kills remain alive.
+
+**Explicit rulings**
+
+* **Aug-26 generality-row pass-with-note: ACCEPTED under G3.** The packet expressly treats it as designed silence-preserving behavior and says it is not a halt condition; halting it would recreate the cited false-void defect.
+* **E1b label slip: DISCREPANCY, non-gating.** The packet label says L1008–1014 while the disk landing is L1009–1015 because of the disclosed +1 shift. The packet states application was by byte-exact anchors, the outside hunks were roundtrip-verified identical, and future packets must freshly probe rather than reuse the stale label.
+
+**Final:** **PASS — with one disclosed cosmetic E1b line-label discrepancy; no G1–G5 failure.**
+
+
+## Astra answer - 2026-09-18 - answers v156 (PASS with label note; marker ASTRA-V156-FILED-001)
+
+PASS — against G1–G5 as stated, on the supplied page only.
+
+- **G1 PASS:** Reported test completion: 3,168 bars, 563,338 ticks.
+- **G2 PASS:** WS161 remains 21 fields; loads/stores 3,168/3,168; mismatch 0.
+- **G3 PASS — E1c L7206–7241; E1d L9873–9909:** Sept-4’s SHORT veto names the 10:30 abort and refuses the 10:35/10:40 latch; both absence checks are zero. E1d clears all three veto fields before `GoAbort`, implementing consume-on-fire. The five required fires are reported unchanged; the remaining stated tripwires are clean. **(a) Aug-26: pass with note.** The code is setup-bound, not Sept-4-specific; this additional veto preserves a required silent day. Under the stated gates, it is not a failure or grounds to void the run.
+- **G4 PASS:** The two additional fires are reported unchanged, already-adjudicated kills with queued stop work—not novel fires. This does not approve those setups.
+- **G5 PASS, with documentation discrepancy:** Source stability, untouched FlowLogic, and surviving kill rows are reported. **(b) E1b label slip:** L1008 is the anchor; the added block is **L1009–1015**, declarations **L1013–1015**. Frozen v5’s L1008–1014 / L1012–1014 labels are wrong by one. Given the stated anchor-based application and digest/row-based gates, this is a recorded locator discrepancy, not a gate failure.
+
+
+## Luna answer - 2026-09-18 - answers v157 (yes with line numbers; no Ruling-ID stated, filed as entry LUNA-V157-001)
+
+yes — lines 5, 15, 21, 23, 25, 29.
+
+
+## Astra answer - 2026-09-18 - answers v157 (G4 PASS with line numbers; no Ruling-ID stated, filed as entry ASTRA-V157-001)
+
+Yes — G4 PASS. Page lines 5–15 establish the 8→7 signal delta; lines 17–23 refute the alleged novel-fire causal path and account for the shadow delta; line 25 logs the scope risk.
+
+Line numbering counts the title as line 1 and includes blank lines.
+
+
+## Luna answer - 2026-09-18 - answers v158 (G4 PASS; L119 close cited; no Ruling-ID stated, filed as entry LUNA-V158-001)
+
+Yes — G4 PASS. The corrected close is internally coherent: SIGNAL delta −1 equals the ruled decline, shadow delta −2 is explicitly walked, the Aug-26 extra pre-emption is recorded as already observed once and bounded, and the causal refutation is preserved.
+
+The specific discrepancy identified by Opus is expressly corrected and closed in the level-qualified wording at L119.
+
+
+## Astra answer - 2026-09-18 - answers v158 (G4 PASS page-coherence with genuineness abstention; no Ruling-ID stated, filed as entry ASTRA-V158-001)
+
+Yes — G4 PASS on page-level coherence: v157 lines 23 and 29, as replaced by v158’s level-qualified close; line 21, as corrected by the Aug-26 walk.
+
+The causal refutation stands; both deltas are accounted for, and the additional outcome-identical pre-emption is recorded as already observed once—not merely future risk. Archive genuineness, counts, and byte identity remain unverified here; this PASS does not certify disk evidence.
+
+
+## Luna answer - 2026-09-18 - answers v159 (yes, no line discrepancy; no Ruling-ID stated, filed as entry LUNA-V159-001)
+
+yes — no line discrepancy.
+
+
+## Astra answer - 2026-09-18 - answers v159 (yes, land before stop work; E1d cited new-only L9873-9908; no Ruling-ID stated, filed as entry ASTRA-V159-001)
+
+Yes — E1a L297–298, E1b L1008–1015, E1c L7206–7241, E1d L9873–9908. On the supplied page evidence and closed grades, land EA 6C2E4028 before the queued stop work; no new code or run.
+
+
+## Luna answer - 2026-09-18 - answers v160 (discrepancy: liveStop/ruleStop 10pt gap; no Ruling-ID stated, filed as entry LUNA-V160-001)
+
+discrepancy — EA L9740: the emitted row shows `liveStop=1.16289` but `ruleStop=1.16299`, so the stated claim that the stopfix holds the rule-side value `1.16289` is not established by this print. Scope comment L9733-9739 does not resolve that mismatch.
+
+
+## Astra answer - 2026-09-18 - answers v160 (discrepancy: same 10pt gap, slot/imb attach to rule read; no Ruling-ID stated, filed as entry ASTRA-V160-001)
+
+Discrepancy — EA L9744–L9745: both DH rows show `liveStop=1.16289` versus `ruleStop=1.16299`. `ruleSlot=13` and `ruleImb=2` describe the rule reference, not the live stop. Cross-archive stability is demonstrated; the claimed rewire onto rule-side values is not established without an explained adjustment between those values.
+
+
+## Luna answer - 2026-09-18 - answers v161 (yes, select site cited; no Ruling-ID stated, filed as entry LUNA-V161-001)
+
+yes — L9661-L9666.
+
+
+## Astra answer - 2026-09-18 - answers v161 (yes, close stopfix on corrected wording; no Ruling-ID stated, filed as entry ASTRA-V161-001)
+
+Yes — EA L9662/L9664 select the imb-validated s0 live stop: 1.16289, slot 1, imb 2. The supplied STOPSHADOW/STOPREF rows distinguish the s1 rule read: 1.16299, slot 13, imb 2; the 10pt branch gap is explained, not an identity.
+
+Close the stopfix proving track on the supplied page, with corrected wording and residuals routed as stated.
+

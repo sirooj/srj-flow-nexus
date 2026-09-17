@@ -3,15 +3,15 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-17, QUIESCENT — RECON45 PASS, V134 READY TO PASTE)
+## State (2026-09-18, QUIESCENT — V161 READY TO PASTE)
 
-- RECON45 DONE=PASSED 14:39. Register 4/4: DEMO_PASS exactly 1 (`mode=0 login=1500183638`, mode==DEMO by construction); zero guard rejections (two-pattern); same fill byte-identical (1.16205, R 1.94/1.94, delta 0.00); compile 0/0. Isolation: 240 families, 2 deltas (new row + tester chatter only), net reconciled.
-- V134 FILED new-template (28 lines, `8B8328AF`): grade + land re-ask, whole code, raw rows, one question. EA `E5B97B36` uncommitted; LAND still HELD; NO commit.
-- Tree: HEAD 976a579. Uncommitted = EA + FlowLogic + HandFixture. RECON17 frozen. NO build/run/commit.
+- Two seats caught the same 10-point gap in my stop wording, independently. They were right. Disk shows the live stop is one branch pick and the rule read is another, 10 points apart, both far off the old stale extreme. The relay now says exactly that, with the code lines that decide it.
+- Corrected relay filed (33 lines, `BC96AE28`). One question closes the stop track. Nothing asked of you.
+- EA landed. NO build/run.
 
 ## Next (single action)
 
-- HIS TRIP: paste v134 ALONE whole to all models + answers whole — then speak the commit word from the report. NOTHING commits till then.
+- HIS TRIP: paste v161 ALONE whole to all models + answers whole.
 
 ## Resume order (exact)
 

@@ -281,6 +281,10 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     every "..." or "area"-style pointer in a relay is a BLOCKED relay until the
     full lines ride inline. Prior-session review texts ride labeled as filed-record
     under builder markers, never attributed to the current seat.
+    Same for ROWS: relay rows ride by mechanical pull + set-diff against the
+    journal, never typed (v138: one hand-typed liveR + one invented token
+    fabricated a contradiction both seats correctly flagged — the page was
+    wrong, not the code).
 29. PLAIN-TEMPLATE RULE (operator order 2026-09-17 — adopts the review-seat plain
     form; standing format lives in `06_HANDOFFS\BUILDER_RELAY_TEMPLATE.md`): every
     review/grade relay uses the template — one plain change-sentence, exact file/
@@ -292,6 +296,16 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     ID never substitutes. Anti-fabrication check = HE compares model-sent text with
     filed record (he transports verbatim both ways). A checkable discrepancy from
     any seat still halts per rule 19; disk verification same turn stays mandatory.
+    Model tier is verification-neutral — every chat seat shares the same paste
+    blind spot; file-access proof is builder-disk + his-eyes only, and every relay
+    says so (verification-split footer) so repeat file demands stop.
+30. SCOPE-ORIGIN RULE (operator correction 2026-09-17 — the RECON46 waste):
+    new dates, windows, instruments, or strategy direction come ONLY from his
+    explicit direction — the builder NEVER drafts scope-expanding packets
+    unprompted, and council answers never substitute for his scope order. His
+    run word authorizes the mechanics of a packet, never its direction: a word
+    spent on a builder-initiated scope is a BUILDER DEFECT, caught here, with
+    the track vacated the same turn (record stands, nothing built on it).
 
 ## 7. Automation rule (operator standing rules)
 
