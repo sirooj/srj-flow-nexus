@@ -295,6 +295,7 @@ void MtReset()
 //====================== Abort reason codes ============================
 #define ABORT_FRESH_OB_DEAD    "FRESH_OB_DEAD"
 #define ABORT_FRESH_OPP_FVG    "FRESH_OPP_FVG"
+#define ABORT_FRESH_VETO       "FRESH_VETO"
 #define ABORT_TP_RR_FAIL       "TP_RR_FAIL"
 #define ABORT_NO_REGIME        "NO_REGIME"
 #define ABORT_LTF_MISALIGN     "LTF_MISALIGN"
@@ -1005,6 +1006,13 @@ datetime         g_latchBarTime   = 0;
 //--- CONFIRM_DIV_WAIT rollback. Cleared in ResetSequence() and therefore a
 //--- working-set member (field 20, the membership rule).
 ENUM_SRJ_STATE   g_confirmFromState = ST_IDLE;
+//--- [P-FRESH-S5OPP E1-K4 2026-09-18] S4 FRESH-OPP-abort veto, consume-on-fire:
+//--- stamped on abort, refuses at most one latch, zeroed as it refuses. BOUND/DAY
+//--- release (S4) and at the latch (E1d). ResetSequence-EXEMPT +
+//--- non-working-set; WS161 stays 21.
+datetime         g_freshVetoBar    = 0;
+int              g_freshVetoAnchor = -1;
+int              g_freshVetoDir    = -1;
 
 //--- [P-SWINGIMB-3 E10] instrument-owned file-scope SLIMBR shadows: stamped by
 //--- SlimbWalkEmit on every evaluated call (barTime + site + base + nuance +
@@ -2308,19 +2316,44 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
                    (t144_m < 0) ? 9 : ((t144_m >> 13) & 1));
       }
 
-   for(int i = 0; i < ArraySize(sessbufs); i++)
-     {
-      double v;
-      if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask))
-         TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
-     }
+   //--- [P-TP-FAMILYPASS V3 2026-09-17] block above RESTORED byte-identical per Astra v148 (dropped in v2 draft; print-only, log-shape unchanged).
+   //--- [P-TP-FAMILYPASS E1 2026-09-17, V2 2026-09-17] POI-FIRST (fork-2,
+   //--- operator ruling 2026-09-17: entry TP is the family line; realized
+   //--- outcome is management, STEP 4; V2 restatement per v145 Luna: this is
+   //--- the NEAREST ELIGIBLE POI incl anchor, not a family-specific mapping).
+   //--- POI lines only, anchor ADMITTED, same tier-rank filter as the legacy
+   //--- walk. The nearest direction-valid POI line wins outright; the
+   //--- session/PD walk runs ONLY when NO eligible POI qualifies (fallback).
+   //--- TpTargetUpdateBest reuse keeps the in-zone guard (Task 31) and the
+   //--- nearest-wins reduction identical in each pass.
    int anchorRank = (g_anchorLine >= 0) ? g_authorityRank[g_anchorLine] : INT_MAX;
-   for(int k = 0; k < POI_NLINES; k++)
+   double famBest = 0.0;
+   bool   haveFam = false;
+   for(int kf = 0; kf < POI_NLINES; kf++)
      {
-      if(k == g_anchorLine || (g_authorityRank[k] / 2) > (anchorRank / 2)) continue;
-      double v;
-      if(!ReadBuf1(g_hPoi, k, v, barShift)) continue;
-      TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+      if((g_authorityRank[kf] / 2) > (anchorRank / 2)) continue;
+      double vf;
+      if(!ReadBuf1(g_hPoi, kf, vf, barShift)) continue;
+      TpTargetUpdateBest(vf, dir, currentPrice, famBest, haveFam);
+     }
+   if(haveFam)
+     {
+      best = famBest;
+      haveBest = true;
+     }
+   else
+     {
+      for(int i = 0; i < ArraySize(sessbufs); i++)
+        {
+         double v;
+         if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask))
+            TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+        }
+      //--- Fallback POI scan OMITTED by construction: the family pass admits a
+      //--- strict SUPERSET (identical filter minus the anchor skip, identical
+      //--- reduction, same bar and price) -- any line it could admit already set
+      //--- haveFam above. Deviation from the v144 "full walk fallback" phrasing
+      //--- declared here for council rule; behaviorally identical, proven above.
      }
    //--- TASK 23 (EA-23a / EA-24): read-only census of the take-profit candidate
    //--- set. Re-walks both candidate groups and matches each against the value
@@ -2328,6 +2361,9 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
    //--- assigns nothing this function reads and alters no control flow.
    //--- `best` was assigned directly from a candidate, so exact equality is a
    //--- valid identity test here and is not a tolerance comparison.
+   //--- [P-TP-FAMILYPASS E2 2026-09-17, print-only] census second loop ADMITS
+   //--- the anchor (rank filter unchanged) so an anchor win is nameable;
+   //--- behavior unchanged, gates read winner reliably.
    if(InpDebugLog)
      {
       static int s_tpDumps = 0;
@@ -2363,7 +2399,7 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
            }
          for(int k2 = 0; k2 < POI_NLINES; k2++)
            {
-            if(k2 == g_anchorLine || (g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;
+            if((g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;
             double pv;
             if(!ReadBuf1(g_hPoi, k2, pv, barShift)) continue;
             if(pv == EMPTY_VALUE) { nEmpty++; continue; }
@@ -7175,6 +7211,32 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- there is the live bias flip (the three-flag conjunction is the same
       //--- event per spec sections 3.4/5.5).
       string fail = CheckFreshness(barShift, g_state != ST_S5_GATE_CHECK);
+      //--- [P-FRESH-S5OPP E1-K4] veto persistence, S4 ONLY, BEFORE any abort
+      //--- return (Luna/Astra v152: the clear sees the fresh read even when
+      //--- this poll aborts on another predicate). BOUND/DAY only — no CLEAN
+      //--- arm (Luna/Opus-D3 v153: a stale-0 fail-open is unfixable in this
+      //--- shape, so the arm is dropped, not narrowed). Audited by VETOCLEAR.
+      if(g_state == ST_S4_ARMED && g_freshVetoBar != 0)
+        {
+         bool sameSetup = (g_freshVetoDir == (int)g_dir && g_freshVetoAnchor == g_anchorLine);
+         string vday = StringSubstr(TimeToString(g_freshVetoBar, TIME_DATE), 0, 10);
+         string cday = StringSubstr(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE), 0, 10);
+         if(!sameSetup || vday != cday)
+           {
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] VETOCLEAR bar=%s dir=%s why=%s",
+                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                           DirName(g_dir), (!sameSetup ? "BOUND" : "DAY"));
+            g_freshVetoBar = 0; g_freshVetoAnchor = -1; g_freshVetoDir = -1;
+           }
+        }
+      if(fail == ABORT_FRESH_OPP_FVG)
+        {
+         g_freshVetoBar = iTime(_Symbol, PERIOD_CURRENT, barShift);
+         g_freshVetoAnchor = g_anchorLine;
+         g_freshVetoDir = (int)g_dir;
+         GoAbort(fail, g_state); return;
+        }
       if(fail != "") { GoAbort(fail, g_state); return; }
      }
 
@@ -9808,6 +9870,42 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- closest"). Tested ONCE below: >= 1.0 fires; < 1.0 aborts TP_RR_FAIL
       //--- with the latch values. NEVER recomputed - single-shot, so latch
       //--- monotonicity holds by construction.
+      //--- [P-FRESH-S5OPP E1-K4] veto (consume-on-fire): an S4 FRESH-OPP abort
+      //--- for this anchor+direction refuses ONE latch (his ruled decline
+      //--- rides the abort) and is zeroed as it refuses. K3's spent flag and
+      //--- K2's CLEAN arm WITHDRAWN v4 (Sonnet/Opus-D1 + Luna/Opus-D3 v153).
+      if(g_freshVetoBar != 0
+         && (g_freshVetoDir != (int)g_dir || g_freshVetoAnchor != g_anchorLine))
+        {
+         if(InpDebugLog)
+            PrintFormat("[SRJ-EA] VETOCLEAR bar=%s dir=%s why=BOUND",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                        DirName(g_dir));
+         g_freshVetoBar = 0; g_freshVetoAnchor = -1; g_freshVetoDir = -1;
+        }
+      if(g_freshVetoBar != 0
+         && StringSubstr(TimeToString(g_freshVetoBar, TIME_DATE), 0, 10)
+            != StringSubstr(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE), 0, 10))
+        {
+         if(InpDebugLog)
+            PrintFormat("[SRJ-EA] VETOCLEAR bar=%s dir=%s why=DAY",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                        DirName(g_dir));
+         g_freshVetoBar = 0; g_freshVetoAnchor = -1; g_freshVetoDir = -1;
+        }
+      if(g_freshVetoBar != 0
+         && g_freshVetoDir == (int)g_dir
+         && g_freshVetoAnchor == g_anchorLine)
+        {
+         if(InpDebugLog)
+            PrintFormat("[SRJ-EA] FRESHVETO bar=%s dir=%s anchor=%s vetoBar=%s",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                        DirName(g_dir), AnchorStr(),
+                        TimeToString(g_freshVetoBar, TIME_DATE|TIME_MINUTES));
+         SrjOrderEmit(barShift, "FRESH_VETO");
+         g_freshVetoBar = 0; g_freshVetoAnchor = -1; g_freshVetoDir = -1;
+         GoAbort(ABORT_FRESH_VETO, g_state); return;
+        }
       g_latchedEntry = currentPrice;
       g_latchedSl    = slRef;
       g_latchedTp    = tpTarget;
