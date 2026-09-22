@@ -1,0 +1,6178 @@
+# BUILDER VERDICTS — LUNA stream (key seat; merits text filed verbatim here, keys never interpreted here)
+
+## Luna answer - 2026-09-18 - answers v178 relay (packet v15) (AMEND-WITH-DELTA; page-only, not a key; no Ruling-ID stated, filed as entry LUNA-V178-001)
+
+**Verdict: AMEND-WITH-DELTA — do not consume the build/run authorization yet.**
+
+The packet is otherwise internally disciplined: the probe is explicitly print-only, the A→B→C carry mechanism is well fenced, terminal behavior is latched rather than control-flow altering, and the future live rule is cleanly separated from the probe. The amendment is primarily a proof/grammar correction, not a mechanism change. 
+
+### Analytic ask A — defects, gaps, and imprecisions
+
+**1. The 1024-character ceiling arithmetic is definitely off by one.**
+P038 says the 38 payload-key names total **339** characters and therefore key structure is **415**; but the actual 38 names listed in P034 total **340** characters. With the packet's own stated value maximum of 526 and envelope length 83, the arithmetic is therefore:
+
+`83 + (340 + 38 + 37 + 1) + 526 = 1025`
+
+not 1024. The journal and verification paragraphs repeat the 1024 figure, so this is not merely a prose typo: the page currently claims a transport bound that its own field list disproves.   
+
+**Required delta:** recompute the complete maximum-length ledger from the exact 38-key list and make the micro-check's observed ceiling and filed bound authoritative. At minimum, 1024 must become 1025; because the integer-width subledger is also not independently reproducible from the page, I would not hard-code 1025 until that ledger is recomputed.
+
+**2. The “13 integer fields = 42” line is not auditable against the 38-field schema.**
+The field list contains 15 non-floating/non-datetime positions if Boolean encodings are counted with integer-like serialized fields (`dir`, `liveSel`, `ext1Defined`, `ext1Imb`, `wouldGate`, `ext1Slot`, `s0slot`, `s0imb`, `s1slot`, `s1imb`, `extSideOk`, `wouldAdopt_monotone`, `actualGate`, `emitSeq`, plus `extDistPts` as an integer-valued numeric). So the page does not explain which two positions are excluded from its “13 integer fields” bucket or how the stated 42 was derived. 
+
+This does not prove the final true maximum is 1028 because some field maxima are mutually exclusive, but it **does** mean the 526 ledger cannot currently be independently reconstructed from the page. That is exactly the sort of thing the line-ceiling gate is supposed to eliminate.
+
+**3. The archive-vs-probe price comparison rule is underspecified in the general comparator.**
+P028 explicitly gives A2 an archive-precision comparison rule, but P042 later says general TP_ELECT price operands must match “exact at printed precision” while the two sources use different representations: archived values are five-decimal display values, whereas probe prices are `%.17g` binary64 round-trips. The contract needs to say explicitly whether the probe operand is rounded/formatted to archive precision before comparison, or whether both are reconstructed and compared under a defined tolerance. Otherwise two reasonable graders can implement different comparisons.  
+
+This is an acceptance-contract ambiguity, so it should be closed before the run.
+
+**4. P034 momentarily calls `dir` part of “booleans as 0/1,” then correctly treats it as a signed integer domain.**
+The later grammar is clear: native `(int)g_dir`, domain `{1,-1,0}`, with `0` halting and `-1` parser-valid-only. But the earlier wording “booleans as 0/1” is contradictory when read literally. It should say “Boolean fields as 0/1; `dir` as decimal integer.” 
+
+This is minor, but the packet is explicitly freezing a byte-level grammar, so the terminology should be exact.
+
+**5. The future-live hazard is real and correctly flagged, but remains an unresolved semantic defect outside this probe.**
+P007 explicitly says the future rule can adopt a defined finite ext1 without a protective-side condition, even though the landed selector's `s0/s1` arms enforce protective-side candidates. That means the future rule can structurally admit a non-protective stop. The packet acknowledges this as an open hazard and says the validity-guard choice is deferred to the live-activation relay. 
+
+I am **not** treating this as a blocker to the print-only probe because the packet explicitly excludes live activation from this authorization; it must, however, remain a hard item in the later live relay.
+
+**6. The downstream-ordering evidence is correctly out of probe scope, but it remains source-mapped rather than reproduced here.**
+The packet explicitly freezes the intended order as selector → R-gate → veto → latch → SIGNAL → session mark and says the last portion is source-mapped, not probe-proven. That is coherent with the declared scope, so I would not convert it into a probe blocker. It should simply remain exactly as stated: a source-proof obligation, not something the STOPRESOLVE output is allowed to “prove.” 
+
+### Analytic ask B — better mechanism
+
+I do **not** see a materially better probe mechanism for the stated selector→stop→R-gate→shadow goal.
+
+The current A/B/C architecture is appropriately narrow: A captures the pre-selector value, B copies the selector result after the existing selection block, and C observes the already-computed live gate quantities without rewriting the live path. The packet also explicitly prevents pre-success carry reads and uses the witness plus selected-price identities to catch skipped/crossed assignments. 
+
+The one mechanism improvement I would make is **not to change the probe code at all**, but to make the synthetic pre-build serializer test the authoritative source for the maximum-line bound. Generate the exact 38-key NORMAL record from the same key/value construction, fill every field with the filed maximum-width token for its field type, measure the actual resulting byte length, and file that number. Then P038's arithmetic becomes explanatory rather than a second, manually maintained proof path. This would touch only the existing pre-build micro-check/verification machinery, not the strategy source region around L9626-L9670. 
+
+### Clearance action
+
+So the disposition is:
+
+**AMEND-WITH-DELTA.**
+
+The minimum required amendments are:
+
+1. Recompute the 38-key length and the full value-max ledger; retire the currently stated **1024** until that recomputation is filed.
+2. Make the archive/probe price comparison rule explicit in P042.
+3. Correct the `dir` grammar wording.
+
+After those textual/proof deltas, I see no remaining page-level defect that warrants a halt to the proposed **single print-only build + single run**. The packet's own decision question and ask structure confirm that this is the exact disposition being requested.
+
+## Luna answer - 2026-09-18 - answers v179 relay (packet v16) (CLEAR one print-only probe build plus one run; page-only, not a key; no Ruling-ID stated, filed as entry LUNA-V179-001)
+
+## Verdict: **CLEAR**
+
+**Clear `PACKET_EXT1LIVE-001 v16` by name for exactly one print-only probe build plus one run under the stated envelope.** No amendment is required for this run, and nothing here clears the future rule or live activation. The scope is explicitly limited to section-3 probe instrumentation, with live activation reserved for a later relay and explicit authorization.  
+
+The decisive point is that the probe is structurally observational: A carries the pre-selector `slRef`, B snapshots the completed selector outputs, and C sits after the actual R-gate without replacing the live selector/gate path. The packet also fixes the terminal-latch behavior, field grammar, shadow arithmetic, and mandatory cross-checks before the build is spent.  The cited landed selector itself confirms the relevant ordering: selector at EA L9661-L9665, R-gate at L9670, then the recorder region begins. 
+
+### Analytic A — defects, gaps, and imprecisions
+
+**1. P038 slightly overstates the 1023 figure as a true “worst-case.”**
+The arithmetic `83 + 416 + 524 = 1023` is internally correct, including the 15 one-to-five/six-character integer fields and the 16/4/3 type buckets. The weakness is that `ext1Slot <= 4` is stated in the maxima ledger, while the page explicitly proves the selector walk's offset cap at 4000 but does not independently spell out the producer-side upper bound for `g_sl41_slot`. The packet itself acknowledges that the producer and selector walks do not terminate identically.  
+
+This is **not a clearance blocker**, because the packet explicitly makes any wider-than-filed token/line an acceptance failure rather than silently accepting it, and the transport micro-check is only a defensive bound. Still, “worst-case NORMAL” would be more precise as “worst-case under the filed producer-slot width assumption,” or the build gate could explicitly assert `ext1Slot <= 9999`.
+
+**2. P038 delegates the exact formatter/parser implementation identity to the build record rather than pinning it in the packet.**
+The packet requires a named reference formatter implementation and staged fixture/readback validation, which is sufficient as an operational gate, but the page itself does not identify the implementation/version/hash. That is a **verification dependency**, not a logical defect in the probe specification. 
+
+**3. The packet is intentionally dependent on pre-build disk assertions for several page-level claims.**
+That is appropriate under this relay's rules, but it means claims such as the 165-site `InpDebugLog` purity census, exact publication dominance, and the compile-time `MathIsValidNumber` behavior are requirements on the build gate rather than facts independently established by the page. The packet correctly makes those failures halt conditions rather than silently assuming them. 
+
+**4. The 17:00/16:55 evidence remains asymmetric by design.**
+The dated `2026.08.27 17:00` post-gate presence is actually evidenced, while other 17:00 instances and the 16:55 S5 case depend on the existing diagnostic contract. That is clearly labeled rather than conflated, so this is a **scope limitation, not a defect**. 
+
+**5. The future rule retains a known non-protective-side hazard.**
+The future semantics explicitly allow any defined-and-finite ext1, while the existing selector enforces protective-side candidates. The packet correctly flags that distinction and keeps it outside this probe's clearance. That remains a substantive live-relay issue, but it does **not** justify withholding this print-only probe authorization. 
+
+I see **no additional page-level defect that warrants converting this to amend-with-delta or halt**.
+
+### Analytic B — better mechanism
+
+For the **probe objective**, I do not see a materially better mechanism than A/B/C.
+
+The current mechanism is well matched to the stated question:
+
+`existing producer → existing selector → snapshot completed selector → existing R-gate → shadow recorder`
+
+It avoids a second resolver call, avoids changing selector/gate operands, avoids live-state writes, and uses the already-published ext1 tuple. The landed code confirms the selector is a self-contained block ending at L9666, followed by the untouched gate calculation at L9668-L9670. 
+
+For the **future live activation**, I would prefer a typed/tagged result propagated directly from the resolver rather than relying on globals as the carrier: effectively return `{defined, px, slot, barTime, imb, source}` from the producer and carry that explicit result into the L9626-L9665 selection site. That would touch the `ComputeSlReference` interface/publication around EA L5291-L5497, the S5 call at L8779, the selector at L9626-L9665, and the downstream selection at L9670. The tradeoff is a materially larger live-path delta, so I would **not** substitute it for this probe.
+
+### Final ruling
+
+**CLEAR — `PACKET_EXT1LIVE-001 v16` by name, exactly one print-only probe build plus one run.**
+
+The acceptance contract is sufficiently closed to make the single run meaningful; the remaining issues are explicitly contained as build-gate dependencies or future-relay matters, not unresolved defects requiring another packet revision. The requested answer form and scope are exactly those stated in the relay. 
+## Luna answer - 2026-09-18 - answers v180 relay (packet v17) (CLEAR one print-only probe build plus one run; page-only, not a key; no Ruling-ID stated, filed as entry LUNA-V180-001)
+
+## CLEAR
+
+**Verdict: clear** for exactly **one print-only probe build plus one run** under the stated envelope. I do not see a page-level defect that warrants an amend or halt. The authorization remains limited to section-3 instrumentation; the future live rule and downstream ordering remain uncleared exactly as stated.
+
+The decisive point is that the probe is observationally separated from the live selector/gate path: A captures the incoming `slRef`, B captures the selector result after the existing L9661-L9665 logic, and C sits after the unchanged L9670 gate. The packet also explicitly forbids returns/unload behavior and keeps terminal behavior as probe-owned latching rather than strategy control-flow change.
+
+### Analytic ask A — defects / gaps / imprecisions
+
+**A1 — “all record types” direction wording is broader than the actual templates.**
+P001 says `dir {1,-1} all record types`, but SCHEMA and CAP do not carry `dir`; P034 correctly narrows the domain to record types that actually carry it, namely NORMAL and BSAVE_FAIL. This is a wording defect only, because the authoritative field rule is already narrower.
+
+**A2 — the 1024-byte ledger components are not named with a uniquely mechanical decomposition.**
+The current text gives `1024 = 83 + 416 + 525`, while the historical delta records a `415 + 526` decomposition. Both sum correctly to 1024, so there is no arithmetic failure; the imprecision is that the page does not make the boundary between “key structure” and “value maxima” explicit enough to explain the one-byte transfer. The total and the micro-check requirement remain intact.
+
+**A3 — a few prerequisites are asserted as builder/disk facts rather than page-provable facts.**
+The page relies on the build record for the exact `MathIsValidNumber` behavior, the complete 165-site purity census, the effective-input manifest, the exact formatter behavior, and the detailed field-width ledger. That is not a clearance blocker because v180 expressly defines those as STAGE-1/disk gates and separately says chat review is page-only. It does mean this **CLEAR is conditional on those stated disk gates remaining true**, not an independent verification of them.
+
+**A4 — `ext1Imb=3` is wider than the inline selector comment shown on the page.**
+P036 permits `-999,-1,0,1,2,3`, while the pasted selector comment at EA L9679 describes the older `0/1/2` flow-code set. The packet says the wider domain is established from the FL133-139 source/build evidence, so this is an evidence-dependency/imprecision rather than a reason to halt.
+
+**A5 — the terminal parser contract could explicitly reject trailing whitespace.**
+The grammar specifies one ASCII space *between* fields and no internal whitespace, but it does not state an explicit “no trailing whitespace before EOL” rule. The actual constructor appears to avoid it, and the byte-identity checks reduce the practical risk, so I regard this as a minor grammar-tightening point, not a clearance blocker.
+
+**A6 — the future live rule has a known protective-side hazard, and the page correctly leaves it open.**
+The packet itself flags that the future rule would currently adopt any defined+finite ext1 without the existing `SlimbProtectiveSideOk` protection. That is a real open live-relay issue, but it is explicitly outside this probe authorization and is already carried forward for the later live relay.
+
+Those are the page-level issues I would record. None changes the v180 probe clearance.
+
+### Analytic ask B — better mechanism
+
+For **this probe**, I would **not replace the current A/B/C mechanism**. It is deliberately minimal: it captures the actual selector inputs/outputs instead of refactoring the live selector, while C mirrors the R-gate arithmetic without substituting anything into the live path. The code neighborhood is exactly the relevant one: EA **L9626-L9665** for the selector, **L9668-L9670** for the live gate, and the new probe C immediately after L9670.
+
+The only architectural improvement I would consider for the **later live-activation relay** is a pure selector helper returning a structured result such as `(sel, s0, s1, slots, imbalances)`, with the live path and diagnostic path consuming the same helper. That would touch the selector block at **EA L9626-L9665** and the future replacement site at **EA L9661-L9665**, but I would **not** introduce that refactor into this print-only build: it expands the live change surface precisely when the current packet's purpose is to observe the landed behavior, not rewrite it. The packet already makes that separation explicit.
+
+**Final ruling: CLEAR — v17 by name, one print-only build, one run, under the frozen envelope; no amend-with-delta and no halt.**
+## Luna answer - 2026-09-19 - answers v181 relay (packet v18) (CLEAR one print-only probe build plus one run; page-only, not a key; no Ruling-ID stated, filed as entry LUNA-V181-001)
+
+**CLEAR**
+
+On the page itself, I see no defect that requires blocking the one authorized print-only build + one run. The probe scope is explicitly confined to selector → selected stop → R-gate → shadow, with live activation and downstream ordering excluded; A/B are the only executable insertions, C is instrumentation specification, and the run is fenced by the stated STAGE-0/STAGE-1, exact-diff, purity, arity, canonical-format, predicate, ceiling, and 0/0 compile gates.
+
+### Analytic ask A — defects, gaps, imprecisions
+
+1. **C terminology is still internally inconsistent.**
+   L3 says "A and B as text; C as specification," while L13 says "exact-diff = insertions A+B+C only," and P030 again calls C "specification-only." The intended rule is recoverable, but the literal wording should be normalized to: **A+B are inserted source text; C is specification-only, checked by exact source-diff against that specification at STAGE-1.** This is a wording defect, not a run blocker.
+
+2. **The wire-prefix parser rule is referenced rather than reproduced.**
+   P034 requires stripping the terminal's "documented timestamp/thread prefix" in its exact form, but the actual prefix grammar is said to be documented at STAGE-1 rather than stated on the page. That is acceptable as a builder-gate dependency, but it weakens the claim that the page alone completely specifies transport parsing.
+
+3. **The closed enum set is likewise delegated to the build record.**
+   P034/P038 require exact closed-enum strings for site/state fields but leave the actual enumeration to STAGE-1. Again, this is explicitly gated rather than silently assumed, so I do not treat it as clearance-blocking; it is a page-completeness limitation.
+
+4. **`walkEnd` remains a deliberate future-facing schema ambiguity.**
+   P034 freezes 38 payload fields but says `walkEnd` is "RECOMMENDED" as a 39th field, with the council still to dispose of that alternative. Because acceptance is explicitly against the frozen 38-field form, this does not block v18; it should simply remain out of this run's grading surface.
+
+5. **The future-live side condition remains materially open.**
+   P007 expressly says the future rule currently does **not** require `SlimbProtectiveSideOk`, even though the landed s0/s1 selector arms enforce protective-side selection. That is a real semantic hazard for later live activation, but the packet explicitly keeps it outside this probe and carries the issue forward. It therefore does not block the v18 print-only clearance.
+
+6. **The page correctly distinguishes page proof from disk proof, but that distinction is essential here.**
+   The clearance is justified by the fact that the page makes the disk assertions explicit gates rather than pretending the chat itself proves hashes, compiler behavior, census results, or log transport. That is sound; it means my CLEAR is specifically a **rule-page clearance**, not independent verification of those machine facts.
+
+I do **not** see a hidden contradiction in the 1024-byte ledger: the stated 83-byte envelope + 416-byte key structure + 525-byte value maxima totals exactly 1024, and the poison-inclusive margin is separately stated as 1056. The payload field count and `emitSeq=34` / `ladOriginStamp=38` placement are also internally consistent on the page.
+
+### Analytic ask B — better mechanism
+
+For the **print-only probe**, I do **not** see a better mechanism that is safer than the current A/B/C design without enlarging the live-code touch surface. The current arrangement captures the selector outputs at B, then performs the shadow mirror only after the actual R-gate operands exist at C, while the packet separately requires the selected-price identities, operand reconstruction, origin join, and external SIDE1E/SIDE1X checks.
+
+For the **later live activation**, the mechanism I would preserve is the one already carried in P046: reuse the existing `SlimbProtectiveSideOk` predicate at the selector boundary rather than inventing a second side test, touching the selector region around EA **L9627-L9660 / L9661-L9665**. That keeps the already-landed protective-side invariant as the source of truth.
+
+### Final ruling
+
+**CLEAR — PACKET_EXT1LIVE-001 v18 may proceed to exactly one print-only probe build plus one run under the frozen envelope.** No delta is necessary for the probe. The five/six items above are non-blocking page imprecisions or explicitly deferred live-relay matters, not reasons to amend or halt this authorization. The packet itself says the next new build/run requires fresh authorization.
+
+The requested answer form is therefore:
+
+**CLEAR.**
+## Luna answer - 2026-09-19 - answers v182 relay (packet v19) (CLEAR one print-only probe build plus one run; page-only, not a key; no Ruling-ID stated, filed as entry LUNA-V182-001)
+
+**CLEAR — PACKET_EXT1LIVE-001 v19.** The page supports one print-only probe build plus one run under the frozen envelope, with clearance limited to section 3 insertions A/B/C; it does not clear the future live rule or live activation.
+
+The core probe boundary is coherent: A captures the pre-selector value, B captures the selector result without computation, and C sits after the existing R-gate, with the terminal-latch ordering and no-return/no-unload behavior explicitly frozen.  The landed selector/gate neighborhood is also consistent with the stated placement: selector closes at EA L9666, R-gate is EA L9670, and the existing diagnostic recorder begins at EA L9683.
+
+### Analytic ask A
+
+I do **not** see a blocking defect that should turn this into an amend or halt. I do see these non-blocking imprecisions/gaps:
+
+1. **P028's interval formula is stated too generally.**
+   The formula `[(n-1)/(d+1), (n+1)/(d-1)]` requires `d > 1`; otherwise the upper endpoint is undefined. Every actually filed denominator here is well above 1, so this does not affect this run, but the sentence should technically say "for d>1."
+
+2. **P011's heading overstates one item in its list.**
+   It says "Why slots go absent," but then includes the `ReadFlow` failure at L9649/L9655 where a slot is already populated and the consequence is failure of the imbalance predicate, not slot absence. The body itself correctly distinguishes that case, so this is terminology, not a mechanism defect.
+
+3. **P034's "emitted ... first" wording could be read as multiple emissions.**
+   The literal C implementation actually formats into `probe_vals[]` and emits one assembled NORMAL line at the end; the page does clarify that "printed independently" means formatting precedence within one record. I regard the clarification as sufficient for this clearance, but the prose could be made sharper.
+
+4. **The producer-to-global handoff remains intentionally disk-gated rather than page-proven.**
+   That is acceptable under the standing review rule because the relay explicitly makes STAGE-1 responsible for proving that the S5 call at EA L8779 is the last `ComputeSlReference` exit before C and that publication at L5496-L5497 is reached and is the consumed tuple. This is a verification dependency, not an unresolved page defect.
+
+5. **The future live rule still carries the known protective-side hazard.**
+   P007 expressly says the future condition is only `ext1Defined && finite slExt1` and does not yet include `SlimbProtectiveSideOk`; it also explicitly carries that as a live-relay FLAG. Because this packet clears instrumentation only, that is correctly out of scope rather than a probe blocker.
+
+6. **The downstream ordering claim is deliberately source-mapped, not probe-proven.**
+   That limitation is explicit and consistent: selector → R-gate → shadow is the probe's evidentiary surface; veto/latch/SIGNAL/session-mark remain source-mapped, with the two site-snapshot fields strikeable only if symbol identity cannot be established. That is an appropriate boundary for this packet, not a missing proof.
+
+Nothing in those six points requires changing the frozen A/B/C literal before this single probe.
+
+### Analytic ask B
+
+I do **not** see a better mechanism that I would substitute for this probe.
+
+The current array-based C design is deliberately verification-heavy but mechanically constrained: one 38-key array, one 38-value array, interleaved stores, one SCHEMA construction, one NORMAL construction, explicit poison/witness handling, and fixed terminal ordering. Changing that to a helper/struct/shared resolver would enlarge the verification surface rather than improve this particular print-only objective.
+
+The only plausible architectural alternative already named in the packet is the shared rung-pair/helper approach, but that would touch the live selector at EA L9627-L9660, the shadow walk at L9685-L9718, and the resolver around L5457-L5461. The packet correctly keeps that as a separate live-relay matter.
+
+**Verdict: CLEAR.** One print-only build plus one run is authorized for `PACKET_EXT1LIVE-001 v19`, and only for section-3 A/B/C instrumentation under the stated STAGE-0/STAGE-1 envelope. The future ext1 adoption rule and live activation remain uncleared.
+
+---
+
+## Luna answer - 2026-09-19 - answers v183 relay (packet v20) (amend-with-delta, 1 blocking + gaps + wording; page-only, not a key; no Ruling-ID stated, filed as entry LUNA-V183-001)
+
+**Verdict: amend-with-delta — do not build or run v20 yet.**
+
+The packet is very close, but there is one page-provable blocking defect in the frozen C literal, plus two narrower consistency gaps worth folding into the same delta.
+
+### Blocking defect
+
+**1. `ladOriginStamp` is never populated.**
+At P032, the 38-key array correctly defines field 37 as `ladOriginStamp`, but the value population contains no `probe_vals[37] = ...` assignment. The prefill loop therefore leaves field 37 as `"?"` on every NORMAL record.
+
+That directly contradicts P036/P038, which require the origin quadruple — including `ladOriginStamp` — to print on every record and require the stamp comparison as the freshness falsifier.
+
+It also means the claimed **38+38** construction is not actually present on the page: the 38 keys are populated, but only 37 value fields are explicitly populated after the 38-value prefill.
+
+**Required delta:** add the missing field-37 store using the existing `probe_tmpA`, e.g. immediately after the origin-site population or at the field-37 position in the fixed 5b order:
+
+```text
+probe_tmpA = TimeToString(g_sl41_oStamp, TIME_DATE|TIME_MINUTES);
+StringReplace(probe_tmpA, " ", "-");
+probe_vals[37] = probe_tmpA;
+```
+
+Then re-check the claimed 38-value count and the exact-diff construction-order assertion. This does **not** require a live-path change.
+
+### Additional defects/gaps
+
+**2. The stated non-finite shadow-distance serialization rule is stronger than the literal C code.**
+P036 says a non-finite *constructed* `slDistExt1` must become `INVALID`.
+
+But P032 only sets `probe_shadowOk` from the finiteness of `g_sl41_px` and `currentPrice`; after `MathAbs(currentPrice - g_sl41_px)`, the serialization of `rawDenExt1` does not independently test `probe_slDistExt1` for finiteness. Likewise `rExt1` is formatted without a finiteness test on the quotient itself.
+
+This is an extreme-domain edge rather than an ordinary FX-path expectation, but the packet explicitly claims coverage for it. Either add the intermediate/result finite checks to the literal, or narrow the P036 rule to exactly what the code proves.
+
+**3. The same quotient-result issue exists for `rLive`.**
+The literal checks finite `slDist` and `tpDist`, then formats `tpDist / slDist` directly. It does not test whether the evaluated quotient itself is finite before serialization.
+
+P038, however, calls a non-finite evaluated live quotient an independent acceptance failure, while P036 says non-finite ratios serialize as `INVALID`.
+
+That contract should be made mechanically identical: either test the quotient before storing it, or explicitly define the compiler's non-finite quotient token as an accepted diagnostic token. The current wording and literal are not identical.
+
+**4. Minor wording imprecision: "literal source text" has a stated exception.**
+The opening repeatedly says A/B/C are cleared as the literal source text in P032, while P032 itself admits that the two veto/session RHS bindings are supplied by the STAGE-1 build binding rather than literally reproduced on the page.
+
+The exception is explicitly bounded, so this is **not independently blocking**. The cleaner wording is "literal source text, except the two explicitly named STAGE-1-bound RHS expressions."
+
+### Analytic ask B — mechanism
+
+I would **not replace the key/value-array mechanism**. Given the stated goal, the arrays plus exact-diff gate are a defensible verification surface.
+
+For the missing provenance field, the better mechanism is simply to complete the existing design rather than add another helper or storage surface: reuse `probe_tmpA`, serialize `g_sl41_oStamp`, store it at `probe_vals[37]`, and add a STAGE-1 assertion that every index `0..37` has exactly one post-prefill population in the NORMAL branch. The only source touched is the probe C insertion around its existing value-population code; the live selector/gate/downstream lines remain untouched.
+
+So this is **amend-with-delta**, not a redesign and not a reason to withdraw the probe. The missing stamp assignment must be folded, and the quotient-finiteness wording/code should be reconciled before v20 receives build/run clearance.
+
+---
+
+## Luna answer - 2026-09-19 - answers v184 relay (packet v21) (CLEAR one print-only probe build plus one run; page-only, not a key; no Ruling-ID stated, filed as entry LUNA-V184-001)
+
+**Clear.**
+
+The page supports clearance of `PACKET_EXT1LIVE-001 v21` for the single print-only probe build + single run under the stated envelope. The scope is explicitly limited to section-3 instrumentation; it does not authorize the future live rule or live activation.  The probe construction has a fixed A→B→C arrangement, explicit terminal/reservation ordering, 38-field schema, no return/unload path, and the stated build-time exact-diff/definite-assignment/no-write gates.  Acceptance is also explicit about mandatory self-consistency, provenance joins, A1/A2/A3 checks, terminal cardinality, and the downstream-ordering boundary.
+
+### Analytic ask A — defects, gaps, and imprecisions
+
+1. **Stale history wording.** L8 says "this packet v1 through v19" and "relays v162 through v182," while this relay is v184 and explicitly folds v183 material; v20 is also explicitly described as withdrawn. This is documentary inconsistency, not a probe-logic defect.
+
+2. **Runtime-vs-build wording for string domains.** P034 says closed-enum strings are subject to "rejection at build," but `g_sl41_oSite` and the two strikable snapshot values are runtime values. The actual protection is the combination of source/domain binding plus run-time token validation. That distinction should be stated more literally. This does not block because P034/P036 already make parser rejection and strike behavior explicit.
+
+3. **"Identical shape on all four types" is too broad.** The four records share the fixed envelope/type discriminator, but SCHEMA, CAP, BSAVE_FAIL, and NORMAL do not have identical full wire shapes. "Common envelope shape" would be more exact. Non-blocking wording issue.
+
+4. **`entryPx` "always available" is semantically loose.** It is always sourced from `currentPrice`, but `currentPrice` itself can be non-finite and serialize as `INVALID`; "field is never strikable" is the precise invariant.
+
+5. **The gate-constant wording is slightly awkward.** P038 says `gateConst` "must parse to 1.0" while the filed canonical token is anticipated to be `1` under `%.17g`. Numerically those are identical, but the sentence should distinguish numeric value from canonical token more cleanly. Non-blocking.
+
+6. **"Far from 1.0" is qualitative where a numeric condition already exists.** The four non-fire rows are explicitly given, so the stronger wording is simply that they are outside the exact grading boundary/interval. Again, this is precision of prose, not a logic gap.
+
+7. **Evidence boundary remains deliberately external to the page.** The dominance proof, exact bound/RHS bindings, 165-site debug census, and disk hashes are asserted as STAGE-1/disk gates rather than page-proven facts. That is an explicit contract of this relay, not a reason to halt; it just means the clearance is conditional on those gates actually being executed as written.
+
+I do **not** see a remaining page-level semantic defect in the A/B/C probe mechanism that warrants an amend-with-delta or halt. The major prior failure classes are explicitly described as withdrawn/adopted, and the carried live-side alternatives remain outside this authorization.
+
+### Analytic ask B — better mechanism
+
+For **this probe**, I see no materially better mechanism that preserves the frozen scope. The current carry-and-save arrangement is deliberately conservative: A captures the incoming value, B saves the selector outputs before the selector scope closes, and C performs all shadow/serialization work after the live R-gate without substituting into live control flow.
+
+For the **future live-activation relay**, the only mechanism I would consider cleaner is the already-carried shared rung-pair resolver: one common implementation used by the live selector and the shadow path, rather than maintaining two structurally parallel walks. That would touch the live selector at EA L9627-L9665, the shadow walk at L9685-L9718, and the producer/resolver neighbourhood at L5457-L5461. The packet correctly keeps that out of this clearance because it changes live code and therefore needs its own authorization.
+
+**Decision line:** **CLEAR — PACKET_EXT1LIVE-001 v21, one print-only probe build + one run under the stated envelope.** The clearance does not itself spend the separate run word or authorize live activation.
+
+---
+
+## Luna answer - 2026-09-19 - answers v185 relay (packet v22) (CLEAR one print-only probe build plus one run; page-only, not a key; filed as entry LUNA-V185-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Luna:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+## Review-seat verdict: **CLEAR**
+
+Clear `PACKET_EXT1LIVE-001 v22` by name for exactly **one print-only probe build plus one tester run** under the frozen envelope. I do not see a remaining page-level defect that warrants another probe-code delta before this run. The authorization remains limited exactly as the packet states: section-3 instrumentation only; no future rule, no live activation, no trading, and no downstream source-map claims being converted into probe proof.
+
+The core instrumentation is sufficiently constrained: A/B are carries only, C is post-gate, the terminal latch is silence-only, `probe_bSaved` is tested before other carry reads, sequence reservation occurs after that test, the schema is once-only, and the 38-field assembly is fixed in P032/P034.  The STAGE-1 contract then supplies the necessary exact-diff, scope, purity, no-write, publication, join, input, compile, and line-length gates before execution.
+
+### A — remaining defects, gaps, or imprecisions
+
+**1. “No prior run printed C-site shadow operands” is too broad.**
+The NOVEL-EVIDENCE sentence says no prior run printed “C-site shadow operands.” That is not literally true given the packet's own carried archive context: the older `SIDE1E_STOPSHADOW` diagnostics already exist in the post-gate C neighbourhood. What is genuinely novel is the **new 38-field `STOPRESOLVE` C recorder** and its full shadow/live/provenance payload. This is documentation-only, not a probe blocker.
+
+**2. The standing history sentence is stale by one version.**
+The project brief says “this packet v1 through v21” although the present relay is v185 carrying packet v22. Again, administrative wording only; it does not affect the executable contract.
+
+**3. The two site-snapshot RHS bindings are not page-self-contained.**
+P032 deliberately leaves `probe_vals[14]` and `[15]` as the sole STAGE-1-bound RHS exceptions. That means those two exact source bindings are not independently reviewable from the pasted literal alone. The packet nevertheless makes the build-time exact-diff/scope/definite-assignment checks mandatory, so this is a **reviewability dependency on STAGE-1**, not a clearance blocker under the stated review model.
+
+**4. `wouldGate` wording could be tighter around invalid shadow inputs.**
+The code uses the literal live-equivalent predicate, but when `probe_slDistExt1` is non-finite or otherwise invalid, the expression is still syntactically evaluated against the initialized diagnostic state and the packet separately classifies that row as invalid/unavailable for grading. The acceptance text does cover this, but “literal predicate” should be read as **literal on valid shadow operands**, not as a claim that invalid-input output is meaningful evidence. This is already bounded by P034/P036; no delta is required for this run.
+
+**5. The future live rule still has an explicit side-guard hazard.**
+P007 expressly says the future defined+finite ext1 adoption is not yet protective-side guarded, while the landed selector's `s1x_sel` 0/1 arms are structurally protective-side filtered. That remains a real **future live-relay defect/decision point**, but it is correctly fenced outside this probe authorization. It must not be silently treated as resolved by the probe.
+
+**6. The future relay should carry the C-site direction-domain precondition forward explicitly.**
+This packet does gate `g_dir` at C to `{DIR_LONG, DIR_SHORT}` and halts on `0`, but that requirement is a probe contract rather than a complete statement of the future live selector semantics. The future relay should explicitly preserve that precondition rather than relying on the probe's domain assertion. Again, not a v22 blocker.
+
+Those are the residual issues I would record. None changes the one-run decision.
+
+### B — is there a better mechanism?
+
+**Not for this particular one-run authorization.** The A/B/C carry design is deliberately more auditable than introducing another helper or refactoring the live selector. It captures the selector outputs at the only useful boundary, then observes the already-computed live gate operands immediately after the gate, without substituting the rule being tested.
+
+A genuinely cleaner architectural alternative would be to centralize selector/shadow calculation into one shared pure helper so the live selector and shadow path cannot drift. That would touch the selector neighbourhood around **EA L9626-L9666**, the existing shadow/recorder neighbourhood around **EA L9683 onward**, and the relevant ext1/ladder-resolution code around **EA L5457-L5461**. P046 already carries that sort of mechanism as a future alternative. It is **not better for v22**, because it creates a larger source delta and a new review surface precisely when the purpose here is a narrowly observational, no-control-flow-change probe.
+
+So I would **not amend v22 for B**.
+
+### Final disposition
+
+**CLEAR — `PACKET_EXT1LIVE-001 v22`**
+
+Scope: **one print-only build + one run only**, under the exact v22 envelope.
+
+---
+
+## Luna answer - 2026-09-19 - answers v186 relay (packet v23) (CLEAR one print-only probe build plus one run; page-only, not a key; filed as entry LUNA-V186-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Luna:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+**CLEAR.** I find no page-level defect that requires an amend-with-delta or halt for the specifically authorized **one print-only build plus one tester run**. The authorization remains limited to section-3 instrumentation; it does not clear the future live rule or live activation.
+
+The core construction is internally coherent: A captures the pre-selector value, B saves the post-selector state before the selector scope closes, and C is reached after the existing R-gate without replacing its operands or control flow. The packet also freezes the reservation/terminal ordering, 38-key/value schema, transport ceiling, and pre-build exact-diff gates.
+
+### Analytic ask A — defects, gaps, imprecisions
+
+**1. The two STAGE-1-bound assignments are not actually visible in the cleared source text.**
+The packet says the only exception to the literal C text is the two RHS expressions for `vetoStateAtSite` and `sessionUseAtSite`, but the page shows the literal assignments as `"-"` and delegates the real RHS to an addendum. The page does specify the permitted slots and says the complete RHS, type/domain, width, formatter, and purity constraints must be filed at STAGE-1. That makes this **non-blocking**, but it is the least self-contained part of the authorization.
+
+**Recommended delta:** state explicitly that the only mutable C-text positions are `probe_vals[14]` and `[15]`, and that any other difference from the pasted literal invalidates the exact-diff gate.
+
+**2. “Every C-reaching evaluation” is slightly too broad for the reservation language.**
+The C terminal latch deliberately makes later C reaches silent; those post-terminal evaluations do **not** reserve an `emitSeq`. Elsewhere the packet correctly distinguishes reserved evaluations from subsequent probe-silent C reaches. The specification should consistently say **pre-terminal C reaches** when describing the reservation unit. This is wording only.
+
+**3. The diagnostic-comparison boundary around newly discovered S5 rows could be sharper.**
+The acceptance text says a newly visible S5 evaluation is discovery evidence whose disposition depends on the diagnostic comparison, while later saying differences outside the contract's row set are out of scope. Those statements can coexist, but the transition is implicit. I would state: **new row → discovery; map to an in-scope contract row or explicitly classify out-of-scope; never silently coerce either way.**
+
+**4. “Undecided” versus “run-failing” is occasionally compressed into one sentence.**
+For example, an INVALID operand can make a particular shadow prediction undecidable while still being an overall acceptance failure. The packet does distinguish those concepts elsewhere, but the prose could say “prediction classification = undecided; run acceptance = fail” to remove any possible parser disagreement.
+
+**5. The 1024/1056 ledger is sound as written, but the authority hierarchy could be stated once.**
+The page contains both the conservative 1024 ceiling and the poison-inclusive 1056 ceiling, plus historical bucket totals. It ultimately says the 1024 figure is the authoritative normal-line bound and 1056 is the poison-inclusive transport check. That is enough, but a one-line declaration such as **“1024 = normal transport bound; 1056 = prefilled-poison rejection bound; neither is a runtime allowance”** would eliminate historical-register noise.
+
+**6. The future live rule retains a substantive side-condition hazard, but it is explicitly out of this clearance.**
+The future adoption rule in P007 is intentionally not protected by `SlimbProtectiveSideOk`; the packet itself flags that adopting a defined finite ext1 can therefore remove the protective-side invariant enforced by the landed selector. That is a genuine future-relay issue, not a reason to block this print-only probe.
+
+**7. No page-level contradiction appears in the A/B/C mechanics themselves.**
+The 38 key stores, 78 value stores, one prefill, the three loops, and four emission sites are mechanically consistent with the pasted literal; I independently counted the literal's indexed key/value assignments and obtained **38 keys and 78 value stores**. That supports clearing the stated instrumentation rather than reopening the old census disputes.
+
+### Analytic ask B — better mechanism
+
+For **this probe**, I would not replace the frozen mechanism. The current A/B/C design gives a narrow verification surface and directly tests the selector output without changing the live selector or R-gate.
+
+For the **future live activation relay**, the cleaner mechanism is already identified in P046: route the ext1 candidate through the existing `SlimbProtectiveSideOk` predicate rather than inventing a second side-test, with the adoption condition immediately around the existing selector region at **EA L9661-L9665**. The live relay should then re-site the B capture after that replacement and re-prove its dominance; P009 already warns that the present B location cannot be silently reused.
+
+### Final disposition
+
+**CLEAR — one print-only build and one run under the stated envelope.**
+No page-level blocker found. The six wording/precision points above are non-blocking; none changes the cleared probe's allowed source surface or acceptance contract. The future side-guard issue remains explicitly carried to the live-activation relay.
+
+---
+
+## Luna answer - 2026-09-19 - answers v187 relay (packet v24) (CLEAR one print-only probe build plus one run; page-only, not a key; filed as entry LUNA-V187-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Luna:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+**clear**
+
+I find no page-level defect that warrants blocking this one print-only build plus one run. The packet sharply limits the authorization to section 3, preserves the existing live selector/gate path, and makes the two live-relay hazards explicit rather than silently resolving them here.
+
+### Analytic ask A — defects, gaps, imprecisions
+
+**1. P042 uses “IFF” too broadly.**
+L60 says the run should halt for the diagnostic-comparison check *iff* the compared set diverges, but the same paragraph immediately defines other independent mandatory failures. The intended meaning is clearly “the **diagnostic-comparison component** halts iff the compared set diverges.” This is wording, not a gating defect.
+
+**2. The transport/sink sentence is malformed.**
+P038 contains the fragment “tester-log sink equivalence asserted by name with post-run actuals validating) chars filed here.” It is understandable from context, but grammatically incomplete and should be repaired in the next textual revision. It does not change the stated gate.
+
+**3. “Diagnostic comparison” should be labeled as contractual, not whole-record equivalence.**
+The P042 comparator deliberately checks selected keys/fields for SIGNAL, TP_ELECT, VETOCLEAR, SESSION_LIMIT, and S5 seed/presence rows; it is not claiming byte-for-byte equivalence of every diagnostic payload. The packet mostly says this correctly, but the terminology should consistently say **contractual diagnostic equivalence** to prevent over-reading.
+
+**4. `wouldGate=0` on shadow-invalid rows is semantically overloaded.**
+The literal mirror can leave `wouldGate` at `0` when the shadow calculation is unavailable, while P036/P042 correctly say that value is **undecidable**, not a computed false gate. The distinction is documented, so this is not a clearance blocker; it is a parser/reporting sharp edge.
+
+**5. The future side-guard hazard remains genuinely open.**
+The packet explicitly records that the future rule can adopt a defined finite ext1 without the landed protective-side predicate, and carries the `SlimbProtectiveSideOk` remedy to the live-activation relay. That is a live-relay issue, not a reason to block this probe because the packet expressly says this authorization does not clear live activation.
+
+I do **not** see a contradiction in the 38-field schema, reservation/latch order, 1024/1056 ceiling, provenance join, or A/B/C dominance story that rises to a build/run blocker on the page. The actual A/B/C literal and the stated STAGE-1 exact-diff boundary are explicitly fixed.
+
+### Analytic ask B — better mechanism
+
+For the **future live relay**, the cleaner mechanism is to carry one candidate-local ext1 result directly from `ComputeSlReference` into the S5 selector instead of publishing `g_sl41_*` globals and later reconstructing provenance through a diagnostic join.
+
+The relevant touch points would be **EA L5291-L5497** for the producer/result contract and **EA L8779/L9627-L9665** for consumption. The protective-side decision should reuse the already-landed `SlimbProtectiveSideOk` predicate at **EA L9637**, rather than introducing a second side-test definition. That would reduce the stale-global/publication/join surface; it is appropriately outside this packet and needs its own live-relay token.
+
+So the requested review answer is:
+
+**CLEAR — no amend required for v24’s stated probe clearance.**
+The five points above are wording/precision notes; the protective-side issue remains explicitly deferred to the live-activation relay. The packet itself asks only for the section-3 probe build/run authorization.
+
+---
+
+## Luna answer - 2026-09-19 - answers v188 relay (packet v25) (CLEAR one print-only probe build plus one run; page-only, not a key; filed as entry LUNA-V188-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Luna:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+I reviewed the packet as a page-only code review, using the packet’s own terminology and stated verification split.
+
+**VERDICT: CLEAR**
+
+Clear `PACKET_EXT1LIVE-001 v25` by name for **exactly one print-only probe build plus one tester run under the frozen envelope**. This clearance applies only to the section-3 probe instrumentation; it does not clear the future ext1 rule or live activation. That scope is explicit in the packet and the standing project brief.
+
+I do **not** see a page-level defect that requires an amend-before-build. The packet has already converted the material objections into explicit build-time/run-time gates, hard failures, or deliberately carried live-relay items. The selector/gate/recorder construction is also internally coherent: A captures the incoming reference, B captures the selector result, and C runs after the existing R-gate without replacing it.
+
+### Analytic A — defects, gaps, and imprecisions
+
+**1. Future live rule still has an unresolved protective-side hazard — non-blocking for this probe.**
+
+The packet itself correctly flags that the future rule uses `ext1Defined && finite slExt1` without the landed code’s protective-side invariant. The landed selector admits only protective-side candidates on the `s1x_sel` 0/1 paths via `SlimbProtectiveSideOk`, while the proposed future adoption could accept a defined finite ext1 that is not protective-side. That is a real future-relay hazard, but it is explicitly outside this authorization and is not silently being treated as settled. The packet carries it forward.
+
+Relevant EA lines: **L9637**, **L9661-L9665**, with the future adoption semantics discussed at packet P007/P009.
+
+**Disposition:** no amendment to v25; retain as a mandatory opening item for the live-activation relay.
+
+---
+
+**2. “Live-equivalent” for `wouldGate` needs to be read as predicate equivalence, not validity equivalence.**
+
+The probe's `probe_wouldGateV` deliberately mirrors the live predicate:
+
+`(probe_slDistExt1 > 0.0 && (tpDist / probe_slDistExt1) >= InpMinRewardRisk)`
+
+without adding a finite guard. The packet later distinguishes this from the independent validity grading: an invalid/non-finite ratio can therefore produce a Boolean while still constituting an acceptance failure. The construction is coherent, but the phrase “live-equivalent” can be misread as saying the shadow validity policy is identical to the live-input validity policy. It is not; only the gate predicate is mirrored.
+
+Relevant EA line: **L9670**.
+
+**Disposition:** wording imprecision only; no amend needed because the subsequent acceptance rules explicitly separate `wouldGate` self-consistency from non-finite operand failures.
+
+---
+
+**3. “First probe statement after the gate test” is slightly imprecise.**
+
+C is described as beginning immediately after L9670, but the literal then has declarations/initializations before the terminal-control check. The packet elsewhere correctly states the stronger operational rule: the terminal check is first **after declaration-only statements** and before helper calls, carry reads other than `probe_bSaved`, sequence reservation, serialization, or emission. The actual rule is clear; the shorter phrase is merely imprecise.
+
+Relevant EA lines: **L9670 onward**.
+
+**Disposition:** no amend; the detailed ordering rule governs.
+
+---
+
+**4. “CAP fails immediately” must not be read as “the tester execution stops immediately.”**
+
+The C literal correctly sets `probe_capped` and `probe_dead`, emits the CAP line, and falls through without `return`/`ExpertRemove`. Later acceptance wording says CAP “fails the run immediately on sight,” but the same section says the affected probe acceptance stops while the actual-path diagnostic comparison may continue. The intended meaning is “probe acceptance fails immediately,” not “tester execution aborts.”
+
+Relevant EA area: **C immediately after L9670**.
+
+**Disposition:** semantic imprecision only; no amend because the literal control flow and the surrounding acceptance text resolve it.
+
+---
+
+**5. The `probe_bSaved` witness is only a detector, not a proof of correct wiring — correctly handled, but worth keeping explicit.**
+
+The packet acknowledges that poison values plus `probe_bSaved` detect a skipped B, but do not detect every coherent miswire. It separately makes the exact B assignments and domination proof mandatory STAGE-1 gates. That is the right separation.
+
+Relevant EA lines: **L9629-L9630**, **L9661-L9666**.
+
+**Disposition:** no defect; this is a correctly bounded falsifier.
+
+---
+
+**6. The 1024/1056 transport figures are internally consistent.**
+
+The packet’s normal-line arithmetic is coherent: envelope 83 + key structure 416 + value maxima 525 = 1024, with poison-inclusive 1056. The field maxima and domain constraints are tied to an explicit halt-on-overwidth parser rule and a pre-build synthetic-line/byte-identity check, rather than being asserted from the archive’s shorter observed lines.
+
+**Disposition:** no defect.
+
+---
+
+**7. Provenance freshness is properly bounded rather than overclaimed.**
+
+The mandatory `ladOriginPx == currentPrice` comparison is not presented as sufficient freshness by itself; the packet also uses `ladOriginStamp == barTime` as the staleness falsifier and binds the single S5 invocation path and publication path. The S5 origin tuple is written at **L8773-L8776**, the S5 `ComputeSlReference` call is at **L8779**, and publication is at **L5496-L5497**.
+
+**Disposition:** no defect.
+
+---
+
+### Why the build/run gate is clear
+
+The decisive part for me is that the packet does not ask the probe to prove what it cannot prove.
+
+The probe is explicitly bounded to selector → effective stop → R-gate → shadow. Downstream veto/latch/SIGNAL/session-mark ordering remains source-mapped, not inferred from print proximity. The existing R-gate remains the live `tpOk` computation at **L9670**; C reads it rather than substituting a new gate.
+
+The provenance chain is likewise bounded: the origin tuple is written before the S5 resolver call, the ext1 tuple is published by the resolver path, and the packet requires both STAGE-1 dominance/publication proof and same-bar `SLEXT481` corroboration. The packet explicitly says the corroboration does not replace the source proof.
+
+The existing archive evidence also supports that C is reachable on the important cases: the A2 S5 row has post-gate `SIDE1E`/`SIDE1X` records with slot 13 and ext1 1.16299, while A1/A3 have corresponding post-gate rows.
+
+### Analytic B — better mechanism
+
+For **this probe**, I do not see a better mechanism that materially improves the stated goal without enlarging the verification surface. The frozen A/B/C carry plus key/value arrays, explicit parser grammar, exact-diff gate, and offline comparison contract are already aimed at preventing semantic drift.
+
+For the **future live relay**, the better mechanism is the one already carried in P046: reuse the existing protective-side predicate rather than inventing a second side test:
+
+`(ext1Defined && finite slExt1 && SlimbProtectiveSideOk(g_dir, slExt1, currentPrice)) ? slExt1 : existing selector`
+
+The principal live-path touch is the former selector region **EA L9661-L9665**, using the already-existing protective-side test at **EA L9637**. That keeps the future rule aligned with the invariant the landed selector already enforces instead of creating a second, independently maintained side-test definition. The packet itself carries this as the live-relay alternative rather than folding it into v25.
+
+### Final ruling
+
+**CLEAR — one print-only build, one run, under the stated envelope.**
+
+No pre-build amend is required from the page. The only substantive unresolved item is the explicitly acknowledged **future live protective-side hazard**, which belongs in the separate live-activation relay and is already carried there. The remaining issues above are wording/interpretation boundaries that the packet’s detailed acceptance rules already resolve.
+
+---
+
+## Luna answer - 2026-09-19 - answers v189 relay (packet v26 + RECON47) (AMEND-WITH-DELTA, 9 contract/wording deltas, no new build/run; filed as entry LUNA-V189-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Luna:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+**amend-with-delta**
+
+RECON47 should be closed as an **execution pass with an acceptance partial-pass / transport-limited grade**. The observed prefix is usable evidence, but the missing suffix prevents a full-row acceptance. The v26 transport contract is sound in direction, but it needs a few explicit deltas before it is internally closed. The packet itself asks exactly this disposition.
+
+The important distinction is:
+
+> **No run failure is established. Full-record acceptance is not established. The unresolved item is transport completeness, not the probe logic demonstrated by the received prefix.**
+
+### Why the partial-pass is supportable
+
+The run did produce one complete SCHEMA, 13 NORMAL records, 13 SIDE1E records, 13 SIDE1X records, and 13 SLEXT481 records, with no CAP or BSAVE_FAIL, no received `?` survivors, no received `INVALID`, 13/13 `wouldGate` agreement, and valid direction values. That is enough to grade the received prefix and establish that the recorder was operating.
+
+But every NORMAL record is transport-truncated before the suffix. The packet explicitly says fields 24–38 are withheld. Those fields include the provenance tail, `emitSeq`, raw numerator/denominator fields, and `actualGate`; therefore several obligations declared mandatory by P042 cannot actually be closed from this run.
+
+That means the right grade is **partial-pass**, not a failed run and not a complete acceptance.
+
+## Required v26 deltas
+
+### 1. Separate execution status from acceptance grade
+
+L453 says `DONE=PASSED`, while the same line says the NORMAL payload is truncated and the suffix is withheld. L455 then says the council has not yet ruled the grade. Those statements can coexist only if `PASSED` means **tester execution completed successfully**, not **contract acceptance passed**.
+
+**Delta:** make the terminology explicit:
+
+> `EXECUTION=PASSED; ACCEPTANCE=PARTIAL-PASS-TRANSPORT-LIMITED; FULL-ROW ACCEPTANCE=UNPROVEN.`
+
+### 2. Do not call 489/537 a measured sink capacity
+
+The current evidence contains three different figures: `468` as the segment-reported longest NORMAL payload, `489` as the as-wire NORMAL payload, and `537` as the longest journal line including the surrounding journal material. L453 itself contains all three references.
+
+More importantly, the 1024/1056 numbers are **serialization-width ledger ceilings**, not a measurement of the sink's physical maximum. The packet itself says the derived 1024/1056 figures exceed the landed observation and came from a pre-build micro-check.
+
+**Delta:** replace the transport claim with something like:
+
+> `Observed run transport: NORMAL payloads are received only through the present prefix, with observed maximum 489 characters; corresponding journal-line maximum is 537 characters. These observations establish a truncation boundary in this run, not an independently measured sink-capacity maximum. The 1024/1056 figures remain source-serialization ledger ceilings and are not transport bounds.`
+
+That is the cleanest interpretation of the narrowed contract.
+
+### 3. Define exactly what “present prefix” means
+
+This is the biggest remaining precision gap.
+
+The A1/A3 examples stop cleanly after `ladOriginPx`, but the A2 as-wire example visibly ends in the middle of `ladOriginBarTime=2026.09.04-1...`. So the transport does not merely omit a suffix; it can leave a **partial final token**.
+
+Therefore “present-prefix grading” needs one mechanical rule:
+
+> Only complete `key=value` fields ending before the first incomplete token are gradeable. The incomplete terminal token is treated as missing transport, never as a value, INVALID, mismatch, or evidence; all later fields are withheld.
+
+Without that rule, a truncated date/string can accidentally enter the parser as though it were an observed value.
+
+### 4. Explicitly mark the mandatory suffix obligations as ungraded, not failed
+
+P042 calls `gateConst/actualGate` self-consistency mandatory and makes A2 provenance mandatory. But the run does not deliver `actualGate`, the origin stamp, the full origin-time/site tail, or the remaining suffix.  
+
+The proper status is:
+
+**not observed → not gradeable → not a miss.**
+
+That distinction should be stated once and made authoritative for this transport-limited run.
+
+### 5. The A2 acceptance statement needs the same partial qualifier
+
+A2 does establish the received `pxExt1` and slot 13, and the archive/post-gate evidence supports the reduction. 
+
+But the full provenance contract requires more than the visible price: the packet separately relies on origin time/site/stamp semantics. Those are in the omitted suffix. So A2's **price/slot portion is graded**, while its **full freshness/provenance portion remains transport-withheld**.
+
+### 6. “wouldGate sign agreement” is imprecise
+
+L453 calls the result “wouldGate sign agreement 13/13.” `wouldGate` is Boolean, not a signed numeric quantity. 
+
+**Delta:** call it **Boolean/value agreement 13/13**.
+
+### 7. Do not use “zero `?`” or “zero INVALID” as completeness evidence
+
+Those observations are valid for what actually arrived, but they cannot prove the omitted suffix was populated correctly. A transport cut removes fields rather than replacing them with `?`. Likewise, zero `INVALID` in the present region says nothing about hidden fields. L453 already partly scopes `INVALID` to the present region; make the same scope explicit for `?` and all completeness claims.
+
+### 8. The sequence invariants are not closed by this run
+
+P042 requires contiguous `emitSeq`, highest-sequence/count equality, and duplicate/ordering checks. Those obligations depend on `emitSeq`, which is in the withheld suffix. 
+
+The count of 13 NORMAL rows can still be reported, but it is **not equivalent to proving `emitSeq=1..13`**.
+
+So the packet should label:
+
+> `NORMAL-count=13: observed; emitSeq-contiguity: transport-ungraded.`
+
+That prevents the count from being silently promoted into a sequence proof.
+
+### 9. Make the v25→v26 provenance explicit
+
+The actual wire examples are stamped `pkt=PACKET_EXT1LIVE-001-v25`, while this relay is v26. That is expected given L455's statement that v26 is folding the already-spent v25 build/run rather than rebuilding. 
+
+Still, the contract should explicitly say:
+
+> `RECON47 wire evidence was emitted by v25; v26 is the post-run clearance/transport contract applied to unchanged code. The v25 packet ID in the wire is expected and is not itself a mismatch.`
+
+Otherwise a later parser could incorrectly treat the packet-ID difference as a transport defect.
+
+---
+
+## Analytic Ask B — better mechanism
+
+For the stated goal, the stronger mechanism is **transport framing rather than trying to prove a single-line sink maximum**.
+
+The current C recorder builds one 38-field NORMAL line beginning immediately after the L9670 gate.  A better probe would retain the existing 38-field arrays but emit them as **several bounded frames per `emitSeq`**, each carrying:
+
+`emitSeq`, `part`, `partsTotal`, `fieldStart`, `fieldCount`, payload fields, and a small integrity token/length.
+
+Then the offline reader can require all parts before treating a NORMAL record as complete. A missing or truncated part becomes mechanically detectable instead of becoming an ambiguous sink-cap inference.
+
+The code surface is confined to the probe C region after L9670—the current NORMAL assembly/`Print` section—rather than touching the live selector, R gate, veto, latch, SIGNAL, or session-mark code. The packet already isolates this area as probe-owned.  
+
+A still smaller follow-on mechanism would be a one-time sink-calibration sequence in the same probe region using known-length sentinel records, but that measures an observed truncation threshold; it still does not make a single-line sink ceiling intrinsically trustworthy. Framing the records removes that dependency altogether.
+
+## Final council ruling
+
+**AMEND-WITH-DELTA.**
+
+The deltas are contract/wording changes only; they do not authorize a new build or run.
+
+**RECON47:** execution completed successfully; evidence establishes a valid **present-prefix partial pass**.
+
+**Full NORMAL rows:** **transport-halted/unproven**, not failed.
+
+**1024/1056:** retain as **serialization ledger ceilings**, not sink-capacity claims.
+
+**Observed transport:** report the 489-character NORMAL payload / 537-character journal-line observations as run evidence, while explicitly saying they establish an observed truncation boundary, not a physical sink maximum.  
+
+**Downstream veto/latch/SIGNAL/session-mark ordering:** stays source-mapped as requested; the probe does not turn that into probe proof.
+
+This is clearance for the probe build/run only; it does not authorize live activation or alter the separate live-relay requirements.
+
+No live-rule clearance. No activation clearance. No downstream veto/latch/SIGNAL/session-order certification by probe proximity. Those remain source-mapped questions exactly as the packet states. The requested verdict/asks are themselves the final section of the relay.
+
+---
+
+## Luna answer - 2026-09-19 - answers v190 relay (packet v27 + RECON47) (AMEND-WITH-DELTA, transport-bound wording + exact prefix-boundary deltas, no new build/run; filed as entry LUNA-V190-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Luna:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+## Verdict: **AMEND-WITH-DELTA**
+
+The RECON47 evidence supports the proposed **`EXECUTION=PASSED` + `FULL-ROW ACCEPTANCE=UNPROVEN` + prefix-only partial grade**. The packet is not describing a failed instrument; it is describing a successful probe whose 38-field records were transport-truncated.
+
+I would **not halt** the packet. I would amend a small set of transport/grade statements before treating the sink-cap bound and prefix grade as finally settled.
+
+### Why the grade split is valid
+
+The run actually produced the expected probe family: one SCHEMA, 13 NORMAL, 13 SIDE1E, 13 SIDE1X, and 13 S5 SLEXT481 records, with zero CAP/BSAVE_FAIL and 13/13 `wouldGate` sign agreement. The important limitation is explicit: the NORMAL records were cut before fields 24–38 could be transported, so full-row acceptance cannot be claimed.
+
+The packet also correctly separates the two kinds of evidence: the seven TP_ELECT fire rows and the A1/A2/A3 checks can still be graded where their operands are actually available, while missing downstream STOPRESOLVE fields remain unproved rather than being silently inferred.
+
+That is the right evidentiary treatment.
+
+## Analytic ask A — defects, gaps, and imprecisions
+
+**1. The 468 / 489 / 537 terminology is still internally ambiguous.**
+L453 calls 468 the “longest NORMAL payload,” then also says the longest NORMAL payload is 489; L457 later explains that 468 is the segment-tabulator payload, 489 is the as-wire STOPRESOLVE message, and 537 is the journal line including the 48-character wrapper. The underlying measurements may be compatible, but the noun *payload* is being used for two different layers.
+
+**Delta:** rename these explicitly as `segment payload=468`, `as-wire STOPRESOLVE=489`, `journal line=537`.
+
+**2. “537 hard cap” is stronger than the page actually proves.**
+The page establishes an observed/inferred cutoff boundary at 537 characters for this journal path. It does not independently demonstrate that 537 is a universal hard capacity of the underlying sink. The packet itself has already partially recognized this with “inferred-cap,” but the ruling should make that distinction explicit.
+
+**Delta:** rule the bound as **“observed 537-character journal-line cutoff on this transport path; exact universal sink capacity not independently proven.”**
+
+**3. The prefix grade needs an exact field boundary, not “near key 23.”**
+This is the most important wording defect. The A1 as-wire example ends during `ladOriginPx`, before `ladOriginBarTime`. Therefore the *last complete transported key/value* is earlier than the prose “keys 24–38 withheld” suggests. A partial final token must be explicitly excluded from the graded prefix.
+
+**Delta:** define the partial-pass over **complete canonical tokens only**, and state the actual last complete field per row or the common last-complete field if the cutoff is uniform. A partial `ladOriginPx=...` token must not count merely because its key began.
+
+**4. “Prefix partial-pass” is conceptually right but not fully formalized as a grade set.**
+The contract says “present-prefix evidence earns a partial-pass,” but the exact set of fields constituting that prefix depends on canonical stripping of the cut tail. That should be a deterministic parser rule rather than an interpretive phrase.
+
+**Delta:** define `graded_prefix = all complete key=value tokens before the first incomplete token`; everything from that incomplete token onward is `WITHHELD`.
+
+**5. “Zero '?' survivors” / “zero INVALID” must be scoped to transported complete tokens.**
+Because the transport cut occurs before the final fields, absence of `?` or `INVALID` in the visible portion cannot say anything about omitted fields. The packet mostly handles this correctly with “present region,” but the summary sentence should carry the same qualification.
+
+**6. “Headroom measured-two-runs” is asserted but not surfaced as evidence in this relay.**
+L459 says that headroom was measured over two runs, while the inline run-evidence section presents RECON47 as the operative run and gives its 537/489 measurements. There is no second run identifier or measurement in the visible evidence block.
+
+**Delta:** either name the two measurements/runs that establish the headroom statement or change it to a historical/asserted cross-check rather than current evidence.
+
+**7. “Sink cap measured on the wire” should distinguish message truncation from journal wrapping.**
+537 is the journal-line length; 489 is the STOPRESOLVE message before the 48-character terminal/journal prefix. Calling 537 “on the wire” without naming the layer risks implying the EA emitted 537 characters when the actual STOPRESOLVE payload was 489.
+
+**8. The 1024/1056 ledger is a serializer-length bound, not a transport-capacity bound.**
+The packet correctly computes a worst-case NORMAL length of 1024 and poison-inclusive 1056, while RECON47 demonstrates a much shorter transport cutoff. Those are different properties and should remain explicitly separated.
+
+I do **not** see a blocking contradiction in the actual grading logic after making those distinctions. The packet already expressly keeps full-row acceptance unproven, keeps missing operands missing, and prevents a prefix result from being silently promoted to certification.
+
+### Required delta, minimally
+
+I would amend only these areas:
+
+`L453-L457`: normalize the 468/489/537 terminology and state the 537 result as the **observed transport cutoff for this journal path**, not a universally proven hard capacity.
+
+`L457`: replace “cut near key 23 / keys 24–38 withheld” with an exact **complete-token prefix rule**, explicitly discarding the incomplete terminal token.
+
+`L453/L459`: qualify zero-`?`/zero-`INVALID` as **complete transported-prefix observations** and either substantiate or relabel the “headroom measured-two-runs” claim.
+
+Everything else in the grade split can remain.
+
+## Analytic ask B — better mechanism
+
+The better mechanism is **bounded multi-line record chunking**, rather than trying to force all 38 fields through one journal line.
+
+Touch only the current C serializer after EA **L9670** / the C insertion described in P032; do not touch the selector, R-gate, veto, latch, SIGNAL, or session logic.
+
+A robust form would be:
+
+`emitSeq + chunkIndex + chunkCount + field-range + key=value...`
+
+with every chunk deliberately kept below a conservative transport size, e.g. ~400 characters. Never split a `key=value` token. The parser then requires exactly one complete set of chunks for each `emitSeq`, reconstructs all 38 fields, checks the fixed schema/field order, and only then upgrades the record from prefix/incomplete to full-row grade.
+
+That solves the actual failure mode without changing the live strategy path. It is materially stronger than merely increasing the current 1024/1056 ledger or assuming the inferred 537 sink limit is universal.
+
+**Council ruling:** **AMEND-WITH-DELTA**, limited to the transport-bound wording, exact prefix boundary, and the unsupported “two-run headroom” statement. The underlying RECON47 execution and the proposed incomplete/prefix-partial grading disposition stand.
+---
+
+## Luna answer - 2026-09-19 - answers v191 relay (packet v28 + 3-part shape) (AMEND-WITH-DELTA, envelope-106 blocking delta, no new build/run; filed as entry LUNA-V191-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Luna:" label in the operator transport message is his source framing, not verdict text. The trailing operator instruction after the verdict close (single-model credit note) is operator text, not verdict text, and is not filed here. Body below is the pasted verdict whole.]
+
+## Verdict: AMEND-WITH-DELTA.
+
+The v28 design is sufficiently specified to clear after one narrow textual correction, but I would **not clear the packet exactly as written** because the transport-budget arithmetic contains a live contradiction that should be removed before the STAGE-1 build.
+
+### Primary blocking delta
+
+**L328, L461–L463, and P034/L52.**
+
+The current v28 NORMAL envelope is not 83 bytes. The literal in P032 is:
+
+`[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v28 base=6C2E4028 type=NORMAL part=N/3 emitSeq=`
+
+Its fixed prefix is **101 bytes before the emitSeq value**, and with the maximum five-character `emitSeq=20000`, the complete envelope is **106 bytes**.
+
+That matters because P038/L328 still says:
+
+> `1024 = envelope 83 + ...`
+
+and P034's parser rule says the total journal cap is `537 - N - 83`.
+
+Those figures belong to the old single-record geometry. They are inconsistent with the v28 three-part literal. The actual v28 ledger elsewhere implicitly uses **106**: the stated totals
+
+* part 1: 116 + 217 + 106 = **439**
+* part 2: 156 + 110 + 106 = **372**
+* part 3: 144 + 198 + 106 = **448**
+
+are internally correct.
+
+The transport conclusion itself therefore remains usable: **439, 372, and 448 are all below the measured 489-character STOPRESOLVE message ceiling**, with margins 50, 117, and 41 respectively.
+
+But the stale `83` must not remain in the authoritative transport formula, because it creates a contradictory budget if someone recomputes it from the 537-character journal-line ceiling.
+
+**Required delta:** make the transport arithmetic explicitly distinguish:
+
+* journal-line ceiling = **537**
+* measured terminal/thread prefix = **48**
+* STOPRESOLVE message ceiling = **489**
+* v28 NORMAL envelope = **106 at emitSeq=20000**
+* v28 per-part maxima = **439 / 372 / 448**
+* therefore margins against the **489 message ceiling** = **50 / 117 / 41**
+
+and delete/replace the old `537-N-83` and `1024 = 83 + ...` language wherever it is presented as current v28 transport arithmetic.
+
+This is a documentation/gate-consistency defect, not evidence that the three-part literal itself exceeds the measured 489-byte transport ceiling.
+
+---
+
+## Analytic ask A — defects/gaps/imprecisions
+
+### 1. Stale 83-byte envelope arithmetic — **blocking**
+
+**L328, P034/L52, L461–L465.**
+
+As above, the current literal's NORMAL envelope is 106 bytes at maximum `emitSeq`, not 83. The current bucket totals themselves are consistent with 106, but the prose transport formula is not.
+
+### 2. "1024/1056 ceiling" remains ambiguously authoritative — **non-blocking after #1**
+
+**L328, L461, L465; P038.**
+
+The 1024/1056 figures are historical sizing for the former single-line 38-field record. v28 has explicitly changed the transport representation to three NORMAL parts. The packet should label 1024/1056 as **historical/legacy single-record sizing**, not leave it adjacent to the operative v28 per-part ceiling.
+
+Otherwise a later builder can legitimately ask which ceiling is authoritative.
+
+### 3. The measured 489 ceiling should be explicitly scoped to each v28 part — **non-blocking**
+
+**P034/L52; L453, L457, L463–L465.**
+
+The evidence establishes a measured 489-character STOPRESOLVE message ceiling on the transport path. The new design relies on that same ceiling applying independently to each Print-generated part. That is reasonable from the stated transport model, but the packet should say explicitly:
+
+> each NORMAL part is an independent STOPRESOLVE message and must individually satisfy the measured 489-character message ceiling.
+
+The current ledger strongly implies this, but does not state it as cleanly as it could.
+
+### 4. `actualGate` remains unobserved in RECON47 — correctly classified, but don't let the new contract accidentally inherit old "finding" language
+
+**P034/L52; P042; L453, L461.**
+
+This is actually handled correctly: the packet explicitly says the RECON47 `actualGate` comparison was unavailable because position 33 was cut, rather than treating the external `SIDE1X livePass` as a substitute.
+
+The important point for v28 is that the new three-part shape makes `actualGate` transportable. The next run must therefore grade the actual printed field rather than carrying forward the RECON47 substitution.
+
+### 5. Sequence proof changes from "observed" to genuinely gradeable only after the v28 run
+
+**P034/L52; P032; L453, L461.**
+
+This is correctly acknowledged, but it is worth keeping sharp: RECON47's 13 rows do **not** prove sequence contiguity because `emitSeq` was cut. The v28 contract properly makes the three part envelopes carry the same sequence. No issue with the design; just ensure the run grader does not accidentally inherit the old 13-row structural assumption.
+
+### 6. The v28 tag rule is internally coherent but needs the build-generation distinction preserved
+
+**P001/L19, P034/L52, L461.**
+
+The packet correctly distinguishes the **clearing packet version** from the **wire build-generation tag**. RECON47 legitimately carried `-v25` because it was the v25 build. The new v28 build must carry `-v28`; the exact-diff gate should enforce that. This is already stated, so I would not amend the substance.
+
+### 7. Historical 1024/1056 figures and current 439/372/448 figures should not both be described simply as "ceiling"
+
+**L328, L461–L465.**
+
+Use terminology such as **historical monolithic-record sizing** versus **operative v28 per-part transport maxima**. That removes an avoidable semantic collision.
+
+### 8. The packet is otherwise unusually explicit about transport failure
+
+**P034/L52, P042, P046.**
+
+The FAILED-transport treatment is properly separated from execution status: RECON47 executed successfully but did not establish full-row acceptance because the sink cut the record. The packet also explicitly rejects treating a surviving prefix as partial acceptance. That contract is internally consistent.
+
+---
+
+## Analytic ask B — better mechanism
+
+For the **stated probe goal**, I would keep the v28 three-part mechanism rather than introduce a helper/refactor.
+
+The important mechanism is already present:
+
+1. one 38-key schema;
+2. one 38-value array;
+3. one shared `emitSeq`;
+4. three fixed contiguous field ranges;
+5. one `Print()` per part;
+6. identical envelope + sequence on all three parts.
+
+That is preferable to another live-path helper or another producer-side hunk because it keeps the probe instrumentation isolated from the strategy path.
+
+The one improvement I would make is **purely mechanical**: define the transport constants in the review contract rather than repeatedly deriving them from prose:
+
+* `MESSAGE_CAP = 489`
+* `JOURNAL_PREFIX = 48`
+* `NORMAL_ENVELOPE_MAX = 106`
+* `PART_MAX = 439/372/448`
+
+No EA helper is necessary. The code literal can remain unchanged except for the already-authorized two STAGE-1-bound RHS expressions.
+
+---
+
+## Clearance disposition
+
+**AMEND-WITH-DELTA, then clear v28 by name once that arithmetic wording is corrected.**
+
+I would **not** reopen:
+
+* the three-part shape,
+* the 38-field schema,
+* the shared `emitSeq`,
+* the BSAVE_FAIL/CAP terminal model,
+* the transport FAILED grade for RECON47,
+* the selector instrumentation,
+* hunk D,
+* the future live rule,
+* or downstream veto/latch/SIGNAL/session ordering.
+
+The substantive v28 architecture survives review. The one thing I would require before spending the build clearance is that the **83-byte legacy envelope arithmetic be removed from the operative v28 transport contract**, because the actual v28 literal is 106 bytes and the current wording otherwise gives two incompatible transport calculations.
+---
+
+## Luna answer - 2026-09-19 - answers v193 relay (packet v30 + 3-part shape) (ACCEPT, clear v30 by name, no delta, no halt; filed as entry LUNA-V193-001)
+
+[BUILDER FILING NOTE 2026-09-19: operator-relayed under the new 3-seat format (Luna + Sonnet + GLM 5.3). Body below is the Luna text whole.]
+
+**ACCEPT — YES. Clear PACKET_EXT1LIVE-001 v30 by name.**
+
+The ten folds are internally consistent with the existing 3-part transport contract and do not change the operative design.
+
+| Fold | Ruling                                                                                                                                                                                                 | Line anchor                                             |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
+| 1    | **Accept.** `537-N-106` is the correct per-part payload allowance once the operative NORMAL envelope is 106; the added independent-per-part 489-character requirement closes the ambiguity.            | **P034**; prior filed anchor L52                        |
+| 2    | **Accept.** `pkt=` remains the **build-generation tag**, so v30 may carry `-v28`; only an actual C-literal tag change rolls the four envelopes and forces STAGE-1 exact-diff again.                    | **P034 / P042**; prior anchors L52 and L60              |
+| 3    | **Accept.** `106 = 83 + 9 + 14` is exact, and relabeling the 83/1024/1056 material as **historical monolithic sizing only** correctly prevents it being mistaken for the operative transport envelope. | **P038**; prior anchor L56                              |
+| 4    | **Accept.** The 38/25 positions are explicitly 1-based while 37/24 remains the historical 0-based notation; no semantic conflict.                                                                      | **P046**; prior anchor L64                              |
+| 5    | **Accept.** `80 + 41 = 121` is correct. Here the 41 includes the field separator preceding the payload; the raw `reservedTotal=20000 reason=CAP_EXHAUSTED` text itself is 40 characters.               | **P042**; prior anchor L60                              |
+| 6    | **Accept.** Changing the historical sentence from v27 to v29 correctly tracks the latest C-literal generation without altering the v30 packet identity.                                                | **P042 / re-emit clause**; prior transport rule at L60  |
+| 7    | **Accept.** The `tpTarget` census is correctly scoped: zero writes in the operative window, with the lone initialization at **EA L8754**, outside the window.                                          | **P038; EA L8754–L9670**; prior anchor L56              |
+| 8    | **Accept.** The L9623 comment is subordinate to the executable gate; the operative imbalance test is at **EA L9662**, with the surrounding selector structure at L9607–L9670.                          | **P011**; prior anchor L29                              |
+| 9    | **Accept.** Prefix determination per **part-line**, followed by aggregation to logical-record `INCOMPLETE`, matches the independent NORMAL-part transport model.                                       | **P038**; prior anchor L56                              |
+| 10   | **Accept.** v30 is the packet/status identity; `-v28` remains the operative wire tag. No contradiction.                                                                                                | **header / P034 / P042**                                |
+
+### Contract ruling
+
+**FAILED-transport grade: ACCEPTED AS STATED.** The transport failure remains a transport-grade finding, not an instrument defect or grading strike: execution passed, while full-row acceptance was unproven because the former single-line shape exceeded the measured 489-character message ceiling. The surviving prefix findings remain findings rather than being promoted to acceptance.
+
+**3-part record shape: ACCEPTED.** The operative NORMAL message is now three independent STOPRESOLVE part-lines with one shared `emitSeq`, carrying 13/13/12 payload fields. The operative envelope is **106**, and the authoritative worst-case part sizes are **439 / 372 / 448**, each below the measured **489-character message ceiling**. The old 83/1024/1056 figures remain historical sizing only.
+
+**Wire-tag rule: ACCEPTED.** `pkt=-v28` is not a contradiction with packet v30; it names the cleared C-literal/build generation. A literal tag change is the event that requires rolling the four envelopes and repeating STAGE-1 exact-diff.
+
+**Final ruling: ACCEPT. No amendment delta. No halt.** The v30 contract is clearable exactly as requested: **FAILED-transport grade + 3-part shape + operative 106 envelope + P042-conformant build-generation tag rule.**
+
+## Luna-V194-001 (AMEND-WITH-DELTA on v194/v31, pasted 2026-09-20, whole)
+
+## Verdict: **AMEND-WITH-DELTA**
+
+The v31 **print-only probe itself is close to clearable**, but I would not issue a clean “accept” because the page currently overstates what G1/G2/G3/G4 establish, and the D3 future rule contains a known safety-critical semantic gap.
+
+### 1. Required ruling
+
+**D1/D2 probe build + one run:** amend, then clear.
+
+P050 correctly places LOTDIAG after the floor calculation and before the `volMin` abort, with only a print insertion. 
+
+P052 likewise preserves the existing D2 control flow: the WINDOW and RETEST wrappers return exactly as before, and D2c only prints inside the existing SESSION path. 
+
+But the acceptance language needs tightening before the token is spent.
+
+**D3 future rule:** amend, not accept as presently written.
+
+P007 explicitly says the future rule is currently **not side-guarded** and that adoption of a non-protective ext1 is an open hazard.  P046 carries the better formulation already: require `SlimbProtectiveSideOk(g_dir, slExt1, currentPrice)` before adoption. 
+
+The specific 2026-09-08 16:40 counterfactual is internally consistent: ext1 `1.16359`, shadow R about `0.68`, versus actual live R `1.62`, so **that particular fire would be killed** provided the future rule adopts that protective ext1. 
+
+**D4:** amend the acceptance wording, not necessarily the code.
+
+The existing EXITVERDICT/MTEXIT/MTLIFE evidence is sufficient to support a post-run join, but “joins every per-bar `curTp` value ... against his +0.10 row bar-for-bar” is not formally defined enough to be a hard gate. 
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions
+
+### A1. P050 overclaims `wouldTake=1`
+
+P050 says `wouldTake=1` plus LOT_TOO_SMALL “proves signal-valid floor-refused.” 
+
+The expression is only:
+
+`slDistanceReal > 0 && tickSize > 0`
+
+That proves the lot-calculation branch was reached with a positive stop distance and tick size. The **ABORT reason** proves the actual refusal was `LOT_TOO_SMALL`. The `wouldTake` field alone does not prove the whole upstream strategy candidate was otherwise signal-valid.
+
+**Delta:** rename the semantic claim to something like “lot calculation reached / floor-refused,” or explicitly state that signal validity comes from the adjoining S5 diagnostics, not LOTDIAG itself.
+
+### A2. P050's two-decimal lot print is weaker than the rest of the packet's exactness standard
+
+`flooredLots=%.2f`, `volMin=%.2f`, and `volStep=%.2f` can hide distinctions below 0.01. 
+
+That may be adequate for this EURUSD run if the proven broker volume granularity is 0.01, but the packet presents the diagnostic as a measured proof rather than a display-only convenience.
+
+**Delta:** either explicitly scope G1 to the filed 0.01-volume environment, or print the values with enough precision to make the comparison lossless.
+
+### A3. G1's “4/4 at signal level” is not formally defined on the page
+
+P050 asserts a 4/4 take join, but the supplied raw rows show the two LOT_TOO_SMALL aborts and four PRE-SEND takes; the page does not define the exact key joining those six observations to the four intended trade rows.  
+
+**Delta:** define the join key explicitly, e.g. exact evaluated-bar timestamp + direction + POI, or call the 4/4 statement a secondary report-only finding.
+
+### A4. D2 does not cover the `g_state != ST_IDLE` failure mode
+
+The new diagnostics all live inside:
+
+`if(g_state == ST_IDLE)`
+
+and therefore only distinguish WINDOW / SESSION / RETEST **after the evaluator has entered the IDLE seed head**. 
+
+A 17:00 seed absence caused because that condition is false produces **no SEEDDIAG at all**.
+
+The packet's G2 therefore cannot literally guarantee that every 17:00 seed miss gets a named branch. P052 describes the three branches as exhaustive, but they are exhaustive only conditional on reaching L7679. 
+
+**Delta:** either weaken G2 to “one of the three S1-head refusal branches, conditional on `g_state==ST_IDLE`,” or instrument the `g_state != ST_IDLE` case too.
+
+### A5. D2's “exactly one per day” claim is conditional, not absolute
+
+The mutual exclusion among WINDOW / SESSION / RETEST is sound, but only once the S1 IDLE block is entered. The packet should not describe the family as universally bounded to one diagnostic for every 17:00 evaluation without that condition. 
+
+### A6. D3's wording conflates the counterfactual stop with the actual stop
+
+P054 says the bar “takes ruleStop 1.16359 ... for liveStop 1.16274.” 
+
+Those are two different states. The cited rows show:
+
+* actual live stop = `1.16274`
+* counterfactual ext1/rule stop = `1.16359`
+
+The packet understands that distinction elsewhere, but this sentence blurs it.
+
+**Delta:** say “counterfactual future stop would be 1.16359; current live stop is 1.16274.”
+
+### A7. G3's “no other table row flips” is conditional, not independently proven
+
+Section 2 calls several unchanged results **predictions**, conditioned in part on producer-vs-selector equality being only open-empirical. P042 explicitly says those relationships are not universal proof. 
+
+Yet G3 is phrased as a council confirmation that the future rule flips no other row. 
+
+For the supplied page, the defensible statement is:
+
+> the cited A3 counterfactual is below the gate; the claimed no-other-row result remains conditional on the stated producer/equality assumptions.
+
+That distinction matters because this is a future behavior decision.
+
+### A8. The side-guard hazard is already admitted, so it cannot simultaneously be treated as closed
+
+P007 calls the missing side guard a “known open hazard,” while P054 asks for the future rule itself to be ruled.  
+
+That is the principal reason I would not issue plain ACCEPT. The packet already contains its own better answer in P046: use `SlimbProtectiveSideOk`. 
+
+### A9. G4's join criterion is underspecified
+
+P056 gives the source streams, but it does not define exactly what “against his +0.10 row” means mathematically, nor the primary join key when there are multiple bars. 
+
+The `EXITVERDICT` side has an exact bar timestamp; the journal row shown at line 395 is a compound row with several numeric fields. 
+
+**Delta:** define:
+
+1. primary key = exact `EXITVERDICT bar`;
+2. trade identity = the 8/28 morning entry/latch;
+3. expected journal field = the exact named column/value represented by “+0.10”;
+4. missing/multiple matches = explicit failure, not interpretation.
+
+### A10. “Between entry TP and exit” is not itself the join proof
+
+A value lying numerically between `1.16322` and `1.16459` does not establish that it belongs to the corresponding journal bar. The temporal join and the numeric range check are different assertions.
+
+**Delta:** grade them separately: **bar identity** and **price relationship**.
+
+---
+
+## Analytic ask B — better mechanisms
+
+### B1. Better D1 mechanism
+
+At **EA L10109-L10110**, retain the single insertion but print the actual comparison explicitly:
+
+`flooredLots`, `volMin`, plus `floorBelowMin = (lots < volMin)`.
+
+That makes the diagnostic directly answer the floor question instead of using `wouldTake` as a proxy. Current D1 site is exactly the right location. 
+
+### B2. Better D2 mechanism
+
+At **EA L7677-L7699**, instrument one mutually exclusive branch variable for the whole seed head:
+
+`STATE`, `WINDOW`, `SESSION`, or `RETEST`.
+
+That eliminates the blind spot where `g_state != ST_IDLE` currently yields silence. The current D2 wrappers only cover the latter three. 
+
+### B3. Better D3 mechanism
+
+At **EA L9661-L9665**, use the already-carried mechanism from P046:
+
+`ext1Defined && finite slExt1 && SlimbProtectiveSideOk(...)`
+
+then ext1 adoption; otherwise retain the existing selector. 
+
+That fixes the exact hazard the packet itself flags without inventing a new side predicate.
+
+### B4. Better D4 mechanism
+
+Prefer an **exact post-run relational join** using the existing `EXITVERDICT.bar` timestamp, anchored to the 8/28 `latchBar`/entry event, and then join MTEXIT/MTLIFE by the same trade instance. The existing EXITVERDICT site is EA L11169-L11180 and the existing MTEXIT is L11192. 
+
+Only add EA fields if the existing timestamps cannot uniquely identify the trade. A new trade identifier would then be the proper code-level improvement rather than trying to infer identity from price values.
+
+---
+
+### Final ruling
+
+**AMEND-WITH-DELTA.**
+
+The requested **D1+D2 print-only probe can proceed after the acceptance-language deltas**, because the insertions themselves are effect-preserving as specified. P050/P052 are structurally sound as instrumentation. 
+
+The **specific D3 09-08 16:40 kill is supported as a counterfactual calculation**, but the **general future live-activation rule is not ready to be accepted without the protective-side guard** already identified in P007/P046.  
+
+The **D4 goal is measurable**, but its bar-by-bar join needs an exact key and comparison definition before it should be a hard acceptance gate. 
+
+So I would send back a **delta packet, not a halt**: narrow G1, make G2 exhaustive or conditional, relabel D3 as counterfactual and add the side guard, and formalize the G4 join. 
+
+## Luna-V195-001 (AMEND-WITH-DELTA on v195/v32, pasted 2026-09-20, whole)
+
+## amend-with-delta
+
+**v32 is not a halt.** The D1/D2 print-only delta is materially corrected from v31, and the P046 protective-side guard fixes the substantive D3 hazard. The remaining issues are wording/coverage issues in the acceptance contract, not a reason to reject the probe build itself.
+
+The minimum amendments are in **P052, P054, and P056**, with two smaller diagnostic-precision notes in **P050/P058**.
+
+### Clearance ruling
+
+| Item               | Ruling                                           | Relevant lines           |
+| ------------------ | ------------------------------------------------ | ------------------------ |
+| D1 LOTDIAG v2      | **Clearable**                                    | P050; EA L10102-L10110   |
+| D2a/D2b/D2c        | **Clearable, scoped**                            | P052; EA L7679-L7699     |
+| D3 future rule     | **Semantically corrected, not yet live-cleared** | P007, P009, P054         |
+| D4 exit-layer join | **Clearable after join wording is tightened**    | P056                     |
+| Overall v32        | **AMEND-WITH-DELTA**                             | P050/P052/P054/P056/P058 |
+
+The underlying lot path is exactly the sequence the packet relies on: calculate `lots`, floor at EA L10109, then reject at L10110-L10111.  Likewise, the S1 seed head has the three refusal exits at L7681, the SESSION block, and L7699. 
+
+---
+
+# Analytic ask A — every remaining defect, gap, or imprecision
+
+### 1. G3 still overclaims the “no other row” result
+
+**P054.**
+
+The page says:
+
+> “Acceptance G3: council confirms on the cited rows that the future rule kills this fire and flips no other section-2 table row.”
+
+That is stronger than the evidence contract actually established.
+
+P007 still explicitly says the producer-vs-selector implementation equality is **open-empirical**, and P054's section-2 prediction depends on that relationship for the unchanged rows. The v32 wording removed the earlier explicit condition from G3.
+
+So the packet should not convert the conditional table analysis into an unconditional council fact.
+
+**Required delta:** change G3 to:
+
+> “council confirms on the cited section-2 rows, conditional on the stated N-2 producer-equality evidence, that the future rule kills A3 and no other listed row changes fire status.”
+
+Or, alternatively, make every row independently recomputable from the printed producer fields and remove the condition.
+
+**Severity:** contract overclaim, not probe hazard.
+
+---
+
+### 2. G4 still calls a trade-level journal row a “bar-for-bar” join
+
+**P056.**
+
+This is improved over v31 because the page now says the primary key is the exact `EXITVERDICT` bar and the trade identity is the 8/28 latch. That part is good.
+
+The remaining imprecision is:
+
+> “joins every per-bar curTp value ... against his +0.10 row bar-for-bar”
+
+The journal row is one **trade-level row**, not a ten-row expected `curTp` series. Therefore the journal row can validate **trade identity / terminal outcome**, but it cannot independently validate each individual `curTp`.
+
+The proper separation is:
+
+**Per-bar layer:** exact EXITVERDICT bar identity + `curTp` relationship to entry TP.
+
+**Trade layer:** 8/28 latch/entry identity + MTEXIT/MTLIFE terminal values + journal row 257 Gain `0.10`.
+
+**Required delta:** replace “bar-for-bar to his +0.10 row” with “bar-for-bar to the same 8/28 trade instance; terminal MTEXIT/MTLIFE then joins that trade instance to journal row 257.”
+
+The existing EXITVERDICT series is in fact per-bar, while MTEXIT/MTLIFE are trade-lifecycle records. 
+
+**Severity:** join-model imprecision.
+
+---
+
+### 3. G1 should not grade the printed `rawLots` token itself as exact sub-floor evidence
+
+**P050.**
+
+`rawLots=%.4f` can round a value slightly below `0.01` to `0.0100`.
+
+So the statement:
+
+> “rawLots below volMin”
+
+is not universally provable from the printed rawLots token alone.
+
+The exact field is actually `belowMin`, which is computed from the unrounded `lots`:
+
+`((lots < volMin) ? 1 : 0)`
+
+That is the stronger witness.
+
+**Required delta:** grade:
+
+* `belowMin=1`, and
+* `flooredLots < volMin` at the printed resolution,
+
+while treating `rawLots` as diagnostic context rather than the exact inequality witness.
+
+This is particularly important because the packet itself claims the diagnostic distinguishes the two floor refusals.
+
+**Severity:** display-precision wording only.
+
+---
+
+### 4. P050's “bit-identical” claim is stronger than the page proves
+
+**P050.**
+
+The new print re-evaluates:
+
+`riskMoney / lossPerLot`
+
+rather than preserving the pre-floor result from EA L10105.
+
+That expression is logically the same calculation, but the page does not itself prove a **bit-identical** floating-point evaluation merely by saying it is the same expression.
+
+The stronger claim should be “same-input deterministic recomputation,” unless the build gate independently establishes binary identity.
+
+**Required delta:** replace “bit-identical pure arithmetic” with “same-input pure recomputation of the pre-floor lot expression.”
+
+The clean underlying alternative would be to capture the value before EA L10109, but that would no longer be the current one-line insertion contract.
+
+**Severity:** proof-language precision only.
+
+---
+
+### 5. D2 is still not exhaustive for every possible 17:00 seed miss
+
+**P052.**
+
+This is now honestly disclosed, which is good:
+
+> the three wrappers are exhaustive only conditional on reaching the S1 IDLE head.
+
+But the stated goal is “17:00 seed-miss print.” A miss caused by `g_state != ST_IDLE` still produces **no SEEDDIAG**.
+
+The packet therefore proves:
+
+> “Which of WINDOW / SESSION / RETEST rejected the seed, given `g_state == ST_IDLE`.”
+
+It does **not** prove:
+
+> “Why every 17:00 seed attempt failed.”
+
+The filed 9/8 case has the IDLE precondition, so this does not block this particular run, but it remains a coverage gap in the general goal.
+
+**Severity:** scoped coverage gap; non-blocking for the explicitly preconditioned G2.
+
+---
+
+### 6. G2's control-bar claim is correctly scoped, but the phrase “seed succeeded” should refer to state passage, not the diagnostic family
+
+**P052.**
+
+For 8/27, zero SEEDDIAG is expected because no refusal branch fired. That is consistent with the supplied `IDLE -> S1_REGIME` / `S1_REGIME -> S2_LTF_ALIGN` rows. 
+
+But zero diagnostic output by itself does not prove successful seed creation; the state-transition evidence does.
+
+So the clean wording is:
+
+> “zero SEEDDIAG, with independent STATE passage establishing successful seed.”
+
+**Severity:** evidence-separation precision.
+
+---
+
+### 7. P058's line-length rule does not define the measurement unit
+
+**P058.**
+
+It says the new lines are below 160 and that any new line at or above the STOPRESOLVE maximum 525 voids the run.
+
+It does not specify whether the max-length pull measures:
+
+* characters,
+* bytes,
+* encoded bytes including non-ASCII,
+* or the displayed log line excluding newline.
+
+For these particular ASCII-only diagnostic families this is unlikely to change the outcome, but the gate is written as an instrument-level rule.
+
+**Required delta:** define the unit once, preferably “log-line character count excluding line terminator,” or “UTF-8 byte count excluding line terminator.”
+
+**Severity:** gate-definition imprecision.
+
+---
+
+### 8. P007/P009 still leave a genuine future-relay metadata obligation open
+
+**P009.**
+
+The future ext1 branch replaces the existing s0/s1 selection, but P009 itself says `s1x_sel` / `kin` require a future-relay decision because downstream code may otherwise interpret the ext1 branch as if it were an s0/s1 selection.
+
+That is correctly identified, but it means the future live relay is **not fully specified yet**.
+
+This does **not** prevent v32's print-only clearance, because P003 explicitly excludes live activation. But it should remain a mandatory future-relay item.
+
+**Severity:** future implementation dependency.
+
+---
+
+### 9. D3 is now correctly side-guarded, but the packet should distinguish “rule corrected” from “rule behavior proven”
+
+**P007/P054.**
+
+The v32 amendment changes the rule to:
+
+`ext1Defined && finite slExt1 && SlimbProtectiveSideOk(...)`
+
+which resolves the known non-protective-side adoption hazard.
+
+But D3 is still a **counterfactual**. No new live code executes it in this probe. P054 says that, but G3's council-confirmation language can read as though the new behavior has already been executed.
+
+**Required delta:** label G3 consistently as a **source-level counterfactual ruling**, not a runtime confirmation.
+
+**Severity:** evidence-status precision.
+
+---
+
+# Analytic ask B — better mechanisms
+
+### Better D1 mechanism
+
+For the exact pre-floor value, the cleanest instrument point is **EA L10105**, immediately when:
+
+`lots = riskMoney / lossPerLot`
+
+is created.
+
+Then EA L10109 can remain the floor operation.
+
+That would eliminate the recomputation claim entirely. The tradeoff is that it changes the current “single pure insertion after L10109” contract.
+
+For this v32 run, I would **not reopen the instrumentation** merely for that improvement; the exact `belowMin` witness already solves the substantive goal.
+
+---
+
+### Better D2 mechanism
+
+For a genuinely exhaustive 17:00 seed-miss diagnostic, add a state branch immediately around **EA L7679**:
+
+```text
+if(g_state != ST_IDLE && 17:00)
+    SEEDDIAG branch=STATE
+```
+
+Then the diagnostic family becomes genuinely exhaustive:
+
+`STATE / WINDOW / SESSION / RETEST`.
+
+For this packet, however, the filed 9/8 case already has the required `state=IDLE` precondition, so this is a future coverage enhancement rather than a reason to stop v32.
+
+---
+
+### Better D3 mechanism
+
+Keep the P046 guard exactly as adopted in **P007**, at the future selector site **EA L9661-L9665**:
+
+```text
+ext1Defined
+&& finite(slExt1)
+&& SlimbProtectiveSideOk(g_dir, slExt1, currentPrice)
+```
+
+Otherwise retain the old selector unchanged.
+
+The one additional future-relay task is then to settle the downstream meaning of `s1x_sel` / `kin` rather than silently inheriting their old semantics. P009 already identifies that correctly.
+
+---
+
+### Better D4 mechanism
+
+Make the join explicitly two-stage at **EA L11169-L11192**:
+
+**Stage 1:** `EXITVERDICT.bar` → exact 8/28 trade instance via latch bar / entry.
+
+**Stage 2:**
+`EXITVERDICT` per-bar `curTp` → range/relationship check, independently;
+`MTEXIT/MTLIFE` → terminal trade result;
+terminal trade → journal row 257.
+
+That preserves the lifecycle distinction the packet is trying to expose instead of making the single journal row appear to contain the per-bar trajectory.
+
+---
+
+## Bottom line
+
+**AMEND-WITH-DELTA — not halt.**
+
+The delta is narrow:
+
+1. **P054:** restore the N-2 producer-equality condition to G3 and label it explicitly counterfactual/source-level.
+2. **P056:** separate the per-bar EXITVERDICT check from the trade-level journal-row join.
+3. **P050:** make `belowMin=1` the exact lot-floor acceptance witness; treat `rawLots=%.4f` as contextual.
+4. **P058:** define the line-length measurement unit.
+5. **P052:** retain the explicit `g_state==IDLE` limitation as part of G2's formal scope.
+
+With those wording deltas, **D1/D2 can be cleared for the one print-only build + one run; D3 remains future-rule text only; D4 becomes a clean two-layer join contract.** 
+
+## Luna-V196-001 (AMEND-WITH-DELTA on v196/v33, pasted 2026-09-20, whole)
+
+**amend-with-delta**
+
+The v33 round successfully closes the substantive v195 deltas, and I do **not** see a new build-safety defect that warrants a halt. The remaining issues are about exactly what G1/G4 prove and one residual future-rule edge case.
+
+## 1. Clearance by component
+
+**D1 — ACCEPT for the one print-only build.**
+P050 now uses `belowMin` as the exact witness rather than the old `wouldTake` tautology. The placement immediately after the floor operation and before the `volMin` refusal is correct as specified in the page. 
+
+**D2 — ACCEPT, with the stated scope.**
+P052 now explicitly limits G2 to the filed `g_state==IDLE` case, so the previous overclaim is gone. The three branch wrappers remain mutually exclusive and each only adds diagnostic work before the existing return. 
+
+**D3 — ACCEPT as a future-rule counterfactual only.**
+The side guard is now actually incorporated into the future rule, not merely flagged. P054 also correctly labels the A3 result counterfactual and conditions the no-other-row statement on N-2 producer equality.  
+
+**D4 — ACCEPT in structure, but one acceptance-definition delta remains.**
+P056 now separates per-bar EXITVERDICT identity from the terminal MTEXIT/MTLIFE → journal-row join. That fixes the v195 join-model problem. 
+
+So the packet is **not a halt**, but I would still require the small deltas below before treating it as a clean unconditional clearance.
+
+---
+
+# 2. Analytic ask A — remaining defects / gaps / imprecisions
+
+### A1. G4 still lacks a substantive pass criterion for the `curTp` values
+
+**P056 / L20.**
+
+The new G4 correctly says the run must:
+
+* identify each exact `EXITVERDICT` bar,
+* attach those rows to the same 8/28 trade,
+* join the terminal MTEXIT/MTLIFE result to journal row 257.
+
+But there is still no defined rule saying **what makes the `curTp` series correct**.
+
+The report will tabulate:
+
+> `bar, curTp, delta vs entry TP 1.16322, divergence class`
+
+yet the packet does not define a required divergence value/class for each bar. An arbitrary but correctly joined `curTp` sequence could therefore satisfy the current G4 unless it triggers the separate “outside range” finding.
+
+That makes G4 primarily an **observability/completeness test**, not a semantic test of the TP-management layer.
+
+**Delta:** explicitly state one of these:
+
+> “G4 is a print/join completeness grade only; `curTp` correctness is not graded.”
+
+or define the expected per-bar relationship/divergence criterion.
+
+This is the biggest remaining contract ambiguity.
+
+---
+
+### A2. The “10th” EXITVERDICT row is internally awkwardly described
+
+**P056 / L20.**
+
+The packet says:
+
+> “morning chain 9 ... plus exit 1.16459 at 10:45; census 10th on 8/28 is the 16:25 manage bar ... outside morning scope”
+
+So the cited morning lifecycle is **nine rows**, while the overall 8/28 EXITVERDICT census is ten, with the tenth at 16:25.
+
+Calling this the “full EXITVERDICT chain on the 8/28 morning bars” and then conditionally including a later 16:25 bar makes the scope ambiguous.
+
+**Delta:** distinguish:
+
+* **morning lifecycle set:** 9 rows through 10:45;
+* **file-wide 8/28 EXITVERDICT set:** 10 rows;
+* **16:25 row:** include only if the trade-identity join proves it belongs to the same lifecycle.
+
+---
+
+### A3. P056 should say whether the 16:25 row is expected to belong to the same trade before grading it
+
+**P056 / L20.**
+
+It currently says the 10th row is “joined by the same rules if in window.”
+
+That makes membership itself conditional and post-run.
+
+A stronger contract is:
+
+> attempt the exact trade-identity join; if the 16:25 row joins to the 8/28 10:05 trade, grade it; if it does not, classify it as a separate trade, not as an unexplained missing row.
+
+Otherwise a reader could interpret “10 rows” as an expected ten-row lifecycle.
+
+---
+
+### A4. “rawLots sub-floor margin” is still slightly overstated
+
+**P050 / P058, L17 and L21.**
+
+The v33 wording correctly warns that `%.4f` can round a sub-floor value to `0.0100`. That means the printed `rawLots` is **not itself an exact margin measurement**.
+
+The exact witness is `belowMin=1`, computed before formatting from unrounded `lots`.
+
+Therefore P058's wording:
+
+> “rawLots sub-floor margin as the genuinely new evidence”
+
+should preferably be:
+
+> “rawLots rounded diagnostic context for the sub-floor case; belowMin is the exact witness.”
+
+This is a terminology issue, not a run blocker.
+
+---
+
+### A5. “lossless for flooredLots” is valid only under the separately frozen `volStep=0.01` premise
+
+**P050 / L17.**
+
+The page says `%.2f` is lossless for `flooredLots` because the output is quantized to `volStep 0.01`.
+
+That is fine **only for this run's proven volume-step value**. A generic statement about the print representation would not be valid for another step such as 0.001.
+
+The current packet is already scoped to this terminal/run environment, so this is minor.
+
+**Delta:** say “lossless for this run's filed `volStep=0.01`.”
+
+---
+
+### A6. The future helper still has an explicit DIR_NONE residual
+
+**P007 / L14; also the residual note in the same line.**
+
+The helper is:
+
+```text
+return ((dir == DIR_LONG) ? (refV < curPx) : (refV > curPx));
+```
+
+Thus the helper itself does not independently reject every non-LONG/non-SHORT direction. For `DIR_NONE`, it takes the second arm.
+
+The packet does separately require the build/run C-site domain to be `{DIR_LONG, DIR_SHORT}`, and the future relay has the residual helper-equivalence item recorded. So this does **not** block the print-only build.
+
+But for the eventual live relay, the safe semantic statement should be either:
+
+`dir` is proven to be LONG/SHORT before the helper, **or** the helper itself has an explicit direction-domain guard.
+
+---
+
+### A7. G3 is now properly conditional, but still does not establish producer/selector equality itself
+
+**P054 / L19; P007 / L14.**
+
+This was correctly softened from v32. G3 now says the no-other-row result is conditional on N-2 producer equality.
+
+That is correct, but it should remain clearly classified as a **conditional counterfactual**, not a proof produced by the v33 run itself. The packet otherwise does make that distinction, so I regard this as adequately handled rather than a substantive defect.
+
+---
+
+### A8. P058's “novel evidence” sentence should distinguish evidence produced by the run from evidence merely made visible
+
+**P058 / L21.**
+
+For D2, the branch name is genuinely new runtime evidence.
+
+For D1, `belowMin=1` is new runtime evidence.
+
+For D4, the run will produce the missing join, so that is also genuinely new.
+
+But P058's wording groups `rawLots` as the evidence rather than the more exact `belowMin` + floored-lot relationship.
+
+Again, minor wording only.
+
+---
+
+# 3. Analytic ask B — better mechanisms
+
+### D1
+
+Current placement is acceptable. The only stronger mechanism would be capturing the actual pre-floor `lots` value at **EA L10105**, immediately after the division, and printing that saved value after the floor. That would eliminate the recomputation wording completely.
+
+I would **not reopen v33 for this**; `belowMin` already gives the exact acceptance witness.
+
+### D2
+
+For a truly exhaustive seed-miss diagnostic, add a fourth diagnostic at the **EA L7679 state gate** for `g_state != ST_IDLE`:
+
+`branch=STATE`.
+
+That would make `STATE / WINDOW / SESSION / RETEST` exhaustive.
+
+For this packet, the 9/8 case has the explicitly filed IDLE precondition, so this is a future completeness improvement rather than a blocker.
+
+### D3
+
+The current future rule should remain at **EA L9661-L9665** with:
+
+`ext1Defined && finite(slExt1) && SlimbProtectiveSideOk(...)`
+
+followed by ext1 adoption; otherwise retain the old selector.
+
+The remaining future-relay work is the metadata semantics identified at **P009** and the helper-domain issue above. Do not infer old `s1x_sel` semantics for the ext1 arm.
+
+### D4
+
+The cleanest mechanism is the one v33 now specifies at **EA L11169-L11192**:
+
+`EXITVERDICT.bar` → exact trade instance → per-bar `curTp` analysis
+
+and independently:
+
+`MTEXIT/MTLIFE` → same trade instance → journal row 257.
+
+That separation is now the right architecture. The only missing piece is defining whether G4 is purely observational or whether it is supposed to validate a prescribed `curTp` behavior.
+
+---
+
+## Final ruling
+
+**AMEND-WITH-DELTA.**
+
+The v33 packet has corrected the actual v195 defects: D1 has an exact floor-refusal witness, G2 is properly scoped to the IDLE precondition, D3 carries the protective-side guard and is explicitly counterfactual, and D4 now has the correct two-layer join model. 
+
+The remaining amendment is narrow: **make G4 explicitly observational/completeness-only, or define the expected `curTp` correctness criterion; clean up the 9-vs-10 row wording; and downgrade “rawLots sub-floor margin” to rounded diagnostic context.** The DIR_NONE point remains a future live-relay obligation, not a v33 probe blocker. 
+
+## Luna-V197-001 (ACCEPT on v197/v34, pasted 2026-09-20, whole)
+
+## accept
+
+**PACKET_EXT1LIVE-001 v34 is clear for exactly one print-only probe build and exactly one run under the stated envelope.** I do not see a remaining defect that requires another pre-build delta or a halt. The v34 changes address the v196 objections without changing the literals, envelope, or gate. 
+
+### G1 — ACCEPT
+
+P050 now uses `belowMin` as the actual floor-refusal witness, separates it from rounded `rawLots` context, and explicitly freezes the `volStep=0.01` premise for the run. The two target evaluations are joined to the same-tick ABORT/A6REFUSED pair, while signal validity is deliberately sourced from the adjoining S5 evidence. That is the correct evidentiary separation. 
+
+One terminology point remains, but it is not a blocker: P050 calls the `lots` value at L10110 “unrounded lots.” It is actually the **post-MathFloor, unformatted** `lots` value. The exact witness is still correct because L10110 tests that stored post-floor value. 
+
+### G2 — ACCEPT
+
+P052 now explicitly states the necessary precondition: the 9/8 17:00 evaluation is known to reach the `ST_IDLE` seed head, and only then are WINDOW/SESSION/RETEST exhaustive. It also correctly makes the 8/27 zero-SEEDDIAG case a separate STATE-passage observation. 
+
+The remaining `g_state != ST_IDLE` blind spot is therefore acknowledged rather than hidden. That is sufficient for the **specified G2 run**, which has the filed IDLE precondition.
+
+### G3 — ACCEPT
+
+This is now correctly expressed as a **source-level counterfactual**, not a runtime result, and the no-other-row conclusion is explicitly conditioned on the stated N-2 producer-equality evidence. The helper's strict inequality is also directly supplied: SHORT requires `refV > curPx`, so A3's 1.16359 against 1.16213 passes the guard.  
+
+The live relay itself remains outside this clearance, exactly as the packet requires. 
+
+### G4 — ACCEPT
+
+The v34 formulation is now materially complete.
+
+It identifies nine morning T1 rows, separately identifies the 16:25 T2 row, defines the primary key as the exact EXITVERDICT bar, separates per-bar `curTp` analysis from terminal lifecycle joining, and explicitly says `curTp` correctness is **not** being graded by G4. The terminal T1 join to journal row 257 and the no-journal T2 disposition are also separated. 
+
+That resolves the earlier ambiguity over the “10th row.”
+
+---
+
+# Analytic ask A — remaining defects, gaps, or imprecisions
+
+### 1. “Unrounded lots” is the wrong term
+
+**P050 / L17.**
+
+The literal executes after:
+
+`lots = MathFloor(lots / volStep) * volStep`
+
+so the `lots` tested by `belowMin` is already **floored**.
+
+Better wording:
+
+> “the in-memory post-floor `lots` value, before string formatting”
+
+rather than “unrounded lots.”
+
+This does not affect G1 correctness.
+
+---
+
+### 2. `rawLots` is contextual, not necessarily a literal “sub-floor margin”
+
+**P050/P058 / L17, L21.**
+
+The packet has correctly downgraded `rawLots` from acceptance evidence to rounded diagnostic context. But “sub-floor margin” is still slightly loose terminology because the raw value is merely the pre-floor computed quantity; the exact refusal condition is `lots < volMin`.
+
+The exact witness is `belowMin=1`. `rawLots` is supporting context.
+
+---
+
+### 3. G1's “flooredLots below volMin at printed resolution” is weaker than `belowMin`
+
+**P050 / L17.**
+
+This is not wrong, but it is redundant and potentially confusing.
+
+A printed `flooredLots` comparison is display-level evidence. `belowMin=1` is the direct Boolean generated by the actual EA operand.
+
+For grading, I would treat:
+
+`belowMin == 1`
+
+as authoritative, with `flooredLots`, `volMin`, and `volStep` as explanatory fields.
+
+---
+
+### 4. G2 remains deliberately non-exhaustive outside the IDLE precondition
+
+**P052 / L18.**
+
+The page says this correctly, so I am not calling it a defect in the clearance. But the goal title “17:00 seed-miss print” is broader than what the instrumentation actually guarantees.
+
+A future version seeking universal 17:00 refusal attribution would need a `g_state != ST_IDLE` branch.
+
+---
+
+### 5. G4 is completeness-only by design, so it cannot certify TP correctness
+
+**P056 / L20.**
+
+This is now explicitly disclosed and therefore no longer a defect. It is nevertheless important to preserve the distinction:
+
+G4 proves **presence + identity + join completeness**; it does not prove that `curTp` itself was algorithmically correct.
+
+That is exactly what the amended contract now says.
+
+---
+
+### 6. The 16:25 T2 classification depends on trade-instance identity rather than a unique global trade ID
+
+**P056 / L20.**
+
+The page uses the 8/28 16:25 signal's entry/SL/TP and lifecycle records to establish T2. That is adequate for this run, but it is a composite identity rather than an explicit immutable trade identifier.
+
+Because G4 explicitly makes the 16:25 row a separate expected T2 instance, this is not a blocker. It would only matter if another trade could share the same identity tuple in the same dataset.
+
+---
+
+### 7. The future helper retains the DIR_NONE fallback question
+
+**P007 / L14.**
+
+The helper itself is:
+
+`LONG ? refV < curPx : refV > curPx`
+
+so a non-LONG value reaches the SHORT comparison. The packet correctly carries this as a **future live-relay residual** and says that relay must either prove `g_dir ∈ {LONG,SHORT}` or guard the helper.
+
+Because v34 authorizes only the print-only probe and does not clear live activation, this is **not a v34 blocker**. 
+
+---
+
+### 8. The future selector metadata issue remains open
+
+**P009 carried into P007 / L14.**
+
+The future ext1 arm replaces the s0/s1 selector, while `s1x_sel` and related metadata have downstream semantics. The packet correctly says the future relay must resolve that rather than pretending an ext1 adoption was an s0/s1 selection.
+
+Again: future-relay issue, not probe-clearance issue. 
+
+---
+
+### 9. The “all unchanged surroundings” claim is not independently checkable from the page
+
+**L6-L8, L42.**
+
+This is properly handled by the verification split: the packet says disk digests/build checks establish genuineness, while the review seat is to rule on the page. Nothing here should be converted into a model-level claim that the hashes actually match.
+
+That is not a defect; it is an important evidentiary boundary that should remain intact.  
+
+---
+
+# Analytic ask B — better mechanisms
+
+### D1
+
+The best future instrumentation point would be **EA L10105**, immediately after the original `riskMoney / lossPerLot` calculation. Capturing that value once would eliminate the repeated-expression wording entirely.
+
+I would **not** reopen v34 for it. The current `belowMin` witness is sufficient.
+
+### D2
+
+For a universally exhaustive seed diagnostic, instrument the **L7679 state entrance** with an additional `branch=STATE` case for `g_state != ST_IDLE`.
+
+That would turn:
+
+`WINDOW / SESSION / RETEST`
+
+into:
+
+`STATE / WINDOW / SESSION / RETEST`.
+
+For this run, the filed IDLE precondition makes the existing v34 form sufficient. 
+
+### D3
+
+Keep the future selection at **EA L9661-L9665** with the three-part guard already adopted:
+
+`ext1Defined && finite(slExt1) && SlimbProtectiveSideOk(...)`
+
+and leave the legacy selector as the fallback. The remaining work belongs in the eventual live relay: explicit direction-domain handling and downstream selector metadata.
+
+### D4
+
+The v34 two-layer mechanism is the right one:
+
+`EXITVERDICT bar → T1/T2 instance → per-bar curTp table`
+
+then independently:
+
+`MTEXIT/MTLIFE → same instance → journal row`.
+
+No code change is needed for this probe goal; the existing **EA L11169-L11192** reporting layer is sufficient under the stated completeness-only G4 contract. 
+
+## Final
+
+**ACCEPT — PACKET_EXT1LIVE-001 v34.**
+
+The remaining observations are non-blocking precision/future-relay notes, not clearance defects. **G1, G2, G3, and G4 are each sufficiently bounded for the one specified print-only build + one run.** 
+
+## Luna-V198-001 (ACCEPT on v198/v35, pasted 2026-09-20, whole)
+
+## accept
+
+**PACKET_EXT1LIVE-001 v35 is clear for exactly one print-only probe build and exactly one run under the stated envelope.** I do not find a remaining blocking defect in the amended contract. The v35 deltas address the v197 issues: the D1 wording now separates the exact `belowMin` witness from rounded `rawLots`, and G4 now has explicit T1/T2 instance handling and a completeness-only grade. 
+
+### G1 — ACCEPT
+
+P050 now puts LOTDIAG after the actual `MathFloor` assignment and before the `volMin` abort, and makes `belowMin=1` the exact witness computed from the in-memory `lots` operand. It also explicitly limits `%.4f rawLots` to rounded diagnostic context. 
+
+The two named refusals are appropriately joined to the same-tick ABORT/A6REFUSED pair, while signal validity is kept separate and sourced from the S5 evidence. That is the correct evidentiary separation.
+
+### G2 — ACCEPT
+
+P052's three branches are explicitly scoped to the filed `ST_IDLE` precondition, and the packet no longer claims universal attribution for a 17:00 miss occurring before that head. The 8/27 zero-diagnostic control is independently supported by the state-passage evidence. 
+
+That is sufficient for the specified 9/8 17:00 target.
+
+### G3 — ACCEPT
+
+P007 now carries the protective-side requirement into the future rule, and P054 correctly calls the 9/8 16:40 result a **counterfactual**, not runtime evidence. The no-other-row statement is explicitly conditioned on the open-empirical N-2 producer-equality evidence. 
+
+The helper itself is also explicit: LONG requires `refV < curPx`; otherwise the expression requires `refV > curPx`. The filed A3 SHORT comparison therefore satisfies the guard. 
+
+### G4 — ACCEPT
+
+This is now sufficiently specified.
+
+The page identifies **nine morning T1 rows**, separately identifies the 16:25 **T2** row, and defines the three layers:
+
+1. exact EXITVERDICT bar → trade instance;
+2. per-bar `curTp` table → diagnostic completeness;
+3. MTEXIT/MTLIFE → trade instance → journal row where one exists.
+
+It also explicitly classifies T2's absent journal counterpart as expected rather than as a failed join. 
+
+The nine morning rows are individually enumerated and reconcile to the stated eight `1.16364` rows plus the 10:45 exit row. 
+
+---
+
+# Analytic ask A — remaining non-blocking observations
+
+### 1. P050 still calls `lots` “unformatted” rather than clearly “post-floor”
+
+**P050 / L17.**
+
+`lots` has already undergone:
+
+`MathFloor(lots / volStep) * volStep`
+
+at L10109. So “in-memory unformatted lots value” can be read as the pre-floor quantity, when it is actually the **post-MathFloor, unformatted** `lots` value. The exact witness is still correct because L10110 tests that stored post-floor value. 
+
+### 2. `rawLots` is contextual, not necessarily a literal “sub-floor margin”
+
+**P050 / L16; P058 / L21.**
+
+The packet correctly says `rawLots` is rounded context, but “carries the sub-floor margin” remains slightly loose terminology because a four-decimal print can collapse distinct raw values into the same displayed value.
+
+`belowMin=1` is the exact witness; `rawLots` is explanatory.
+
+### 3. The `volStep=0.01` premise is run-specific
+
+**P050 / L16.**
+
+The statement that `%.2f` is lossless for `flooredLots` is valid under the packet's explicitly filed 0.01 environment. It should not be generalized beyond that run. The packet already scopes it correctly enough for this clearance.
+
+### 4. G2 remains intentionally non-exhaustive for `g_state != ST_IDLE`
+
+**P052 / L18.**
+
+This is a real coverage limitation, but it is explicitly disclosed and does not block the stated G2 acceptance because the target row carries the required IDLE precondition.
+
+### 5. The future helper's DIR_NONE behavior remains a future-relay issue
+
+**P007 / L14; helper L2578-L2581.**
+
+The helper uses LONG-versus-other-direction branching, so `DIR_NONE` is not independently rejected inside the helper. The packet expressly leaves this to the future live relay, which must prove the adoption-site domain is `{LONG,SHORT}` or add the guard. 
+
+That is outside this print-only authorization.
+
+### 6. The future ext1 metadata semantics remain open
+
+**P007 / L14 and carried P009 material.**
+
+The ext1 branch is not an s0/s1 selection, so downstream `s1x_sel`/`kin` semantics still need to be settled in the eventual live relay. Again, no v35 probe code relies on the future adoption.
+
+### 7. G4 intentionally does not grade TP correctness
+
+**P056 / L17.**
+
+The packet now expressly defines G4 as a **print/join completeness grade** and says `curTp` correctness is not graded. That is not a defect, but it is an important boundary: a passing G4 proves the requested reporting/join layer, not the underlying TP-management algorithm.
+
+---
+
+# Analytic ask B — better mechanisms
+
+**D1:** The only materially stronger instrumentation point would be **EA L10105**, immediately after the original `riskMoney / lossPerLot` calculation. Capturing that value once would eliminate the repeated `riskMoney / lossPerLot` expression entirely. I would not reopen v35 for it.
+
+**D2:** For universal 17:00 attribution, add a `branch=STATE` diagnostic at the **L7679 state entrance** for `g_state != ST_IDLE`. That would make the diagnostic family genuinely exhaustive: `STATE / WINDOW / SESSION / RETEST`. The current target is already covered by the filed IDLE precondition.
+
+**D3:** Keep the future adoption site at **EA L9661-L9665** with `ext1Defined && finite(slExt1) && SlimbProtectiveSideOk(...)`, and resolve the DIR_NONE/metadata points in the separate live relay. The current v35 packet properly excludes that live activation. 
+
+**D4:** The existing **EA L11169-L11192** reporting layer is now the appropriate mechanism. The T1/T2 separation in P056 is preferable to adding a new trade identifier solely for this probe. 
+
+## Final ruling
+
+**ACCEPT — PACKET_EXT1LIVE-001 v35.**
+
+One print-only build, one run, same `RECON44_DEMO_P1` envelope, with G1-G4 graded exactly as amended. The remaining points are non-blocking precision/future-relay notes, not reasons for another pre-build delta. 
+
+## Luna-V199-001 (AMEND-WITH-DELTA on v199/v36, pasted 2026-09-20, whole)
+
+## amend-with-delta
+
+**I would not spend the v36 live-build/run key yet.** The E-hunk is narrowly constructed and the intended A3 runtime effect is well specified, but v36 still has **one material live-scope defect plus several contract imprecisions** that should be corrected before authorizing the live selector.
+
+### Clearance summary
+
+| Component                         | Ruling                   | Lines                         |
+| --------------------------------- | ------------------------ | ----------------------------- |
+| E-hunk confinement / fallback     | **Accept**               | P009 / L14                    |
+| Protective-side + direction guard | **Accept**               | P007 / P009 / L14             |
+| `s1x_sel=2` metadata              | **Accept**               | P007/P009 / L14               |
+| D1/G1 wording                     | **Amend**                | P050 / L16                    |
+| Runtime A3 rule                   | **Accept conditionally** | P054 / L18                    |
+| Live producer/debug dependency    | **Amend — material**     | P007 / L14                    |
+| Overall v36                       | **AMEND-WITH-DELTA**     | P001/P003/P007/P050/P054/P058 |
+
+---
+
+# 1. Material issue: the “LIVE” E-hunk still depends on debug-gated publication
+
+**P007 / L14; P058 / L21; EA L5494-L5497 and L8779.**
+
+The E-hunk reads:
+
+`g_sl41_def`, `g_sl41_px`, `g_sl41_slot`, etc.
+
+Those globals are published at L5496-L5497, but the packet explicitly carries forward that their publication is inside the `InpDebugLog` gate. P058 also freezes the run with `InpDebugLog=true`. 
+
+That means the new selector is not actually independent of the diagnostic setting:
+
+* `InpDebugLog=true` → the new ext1 selector can execute.
+* `InpDebugLog=false` → the producer globals are not refreshed, so the E-hunk falls back.
+
+The run envelope explicitly forces `InpDebugLog=true`, so **the proposed RECON50 run can test the intended live branch**. But the packet calls this a general **LIVE activation**, not merely “live while debug logging is enabled.” 
+
+That distinction matters because this is no longer a print-only probe.
+
+### Required delta
+
+State the rule as either:
+
+> “The live ext1 selector is authorized only with `InpDebugLog=true`.”
+
+or make the candidate publication available independently of the diagnostic gate.
+
+For this one-run authorization, I would accept the former, provided the live scope is explicitly constrained.
+
+**This is the main reason for AMEND rather than ACCEPT.**
+
+---
+
+# 2. P050 contains a logical contradiction in the G1 acceptance wording
+
+**P050 / L16.**
+
+It says:
+
+> “any belowMin=1 halts with operands + with flooredLots at or above volMin and no ABORT/A6REFUSED lot pair on any bar”
+
+But `belowMin=1` is computed as:
+
+`lots < volMin`
+
+and `lots` is already the post-floor value.
+
+Therefore the two conditions:
+
+`belowMin=1`
+
+and
+
+`flooredLots >= volMin`
+
+cannot simultaneously hold.
+
+The intended meaning appears to be:
+
+> if any `belowMin=1` occurs, halt with its operands; normal acceptance requires `flooredLots >= volMin` and no matching ABORT/A6REFUSED pair.
+
+### Required delta
+
+Split those into separate clauses.
+
+This is a real contract defect, although it does not affect the E-hunk itself.
+
+---
+
+# 3. “Sole new live write” is too literal
+
+**P009 / L14.**
+
+The E-hunk adds:
+
+`slRef = g_sl41_px`
+
+and also:
+
+`s1x_sel = 2`.
+
+The latter is a new executable assignment, albeit to a block-local metadata variable rather than strategy state.
+
+So:
+
+> “Sole new live write: slRef”
+
+is only correct if “live write” means **strategy-state-affecting stop write**.
+
+### Required delta
+
+Change to:
+
+> “Sole new strategy stop-state write: `slRef` on the ext1 arm; `s1x_sel=2` is local arm metadata.”
+
+That removes an unnecessary literal ambiguity.
+
+---
+
+# 4. `currentPrice` is not explicitly included in the ext1 validity conjunction
+
+**P007 / L14; P009 / L14.**
+
+The adoption test is:
+
+`domain && g_sl41_def == 1 && MathIsValidNumber(g_sl41_px) && SlimbProtectiveSideOk(...)`
+
+There is no explicit:
+
+`MathIsValidNumber(currentPrice)`
+
+guard.
+
+The normal tester path presumably supplies a valid price, and the downstream R-gate will expose malformed arithmetic, but the live rule claims a validity condition and currently only proves finite `slExt1`.
+
+A sufficiently abnormal `currentPrice` could make the side helper behave unexpectedly before the R calculation rejects the result.
+
+### Better formulation
+
+Add:
+
+`&& MathIsValidNumber(currentPrice)`
+
+or explicitly carry a pre-existing `currentPrice` validity invariant into the live rule.
+
+This is a **live robustness gap**, not a reason to reject the intended A3 case.
+
+---
+
+# 5. The future-rule residual is now closed for DIR_NONE, but only because the domain check is ahead of the helper
+
+**P007 / L14; EA L2578-L2581.**
+
+This part is sound.
+
+The E-hunk requires:
+
+`g_dir == DIR_LONG || g_dir == DIR_SHORT`
+
+before calling `SlimbProtectiveSideOk`.
+
+Therefore the helper's “everything else behaves as SHORT” implementation cannot be reached on the adoption arm. The previous DIR_NONE issue is genuinely resolved for this E-hunk.
+
+No delta needed.
+
+---
+
+# 6. The A3 runtime claim is properly counterfactual-to-runtime upgraded, but the causal wording should stay precise
+
+**P040/P054 / L18.**
+
+P054 is now appropriately a **runtime** rule:
+
+* ext1 stop = `1.16359`;
+* shadow R = `0.68`;
+* TP_ELECT does not fire;
+* no SIGNAL.
+
+That is the correct runtime acceptance chain. 
+
+However, P040's wording that the A3 kill is “proven by the absent SIGNAL” is too narrow. Absence of SIGNAL alone is not the causal proof. The stronger evidence is:
+
+`SIDE1X liveStop 1.16359`
+→ `TP_ELECT R 0.68 non-fire`
+→ no SIGNAL.
+
+That is the evidence chain already present elsewhere in P054.
+
+### Delta
+
+Use “no SIGNAL corroborates the preceding TP_ELECT non-fire” rather than making absence of SIGNAL alone the causal proof.
+
+---
+
+# 7. G3's six-fire statement should be called “runtime result target,” not baseline
+
+**P042 / L15 plus P054 / L18.**
+
+Once v36 activates the selector, the old seven-fire baseline is historical. The packet replaces it with six runtime fires.
+
+Calling six the “Actual-path baseline” can therefore blur:
+
+* historical RECON49 baseline,
+* predicted v36 runtime result,
+* actual RECON50 result.
+
+The packet otherwise separates those states well.
+
+### Delta
+
+Rename that heading to:
+
+> “v36 runtime target/result”
+
+or equivalent.
+
+Non-blocking.
+
+---
+
+# 8. USD envelope itself is acceptable, but G1 should distinguish signal invariance from money-management invariance
+
+**P050/P058 / L16/L21.**
+
+Changing JPY → USD and retaining a 10,000 deposit can materially alter money-management quantities. That is the purpose of the new envelope.
+
+The packet correctly says the signal path is expected to be lot-independent and requires runtime comparison against RECON49. 
+
+The important distinction should remain:
+
+* **selection/gate invariance** is the no-drift comparison;
+* **lot/deal behavior** is expected to change because the account-currency envelope changed.
+
+No code delta is required, but the grading report should never treat a lot/deal difference as signal-path drift.
+
+---
+
+# 9. `InpAdoptExt1=false` is properly retained as a dormant-path safety condition
+
+**P007 / L14; EA L8807-L8813.**
+
+The packet explicitly keeps the old adoption block dormant and says the new E-hunk is the only authorized live adoption site. 
+
+That is correct for this authorization.
+
+One useful wording refinement would be to say that the dormant block remains a **configuration hazard if someone later enables `InpAdoptExt1`**, because there would then be two ext1 writers. But with the stated false input, it does not block v36.
+
+---
+
+# Analytic ask B — better mechanisms
+
+### 1. Best fix for the debug dependency
+
+The cleanest architecture is to make the S5 ext1 tuple available independently of diagnostic emission.
+
+Instead of:
+
+`ComputeSlReference → debug-gated global publication → E-hunk`
+
+use a candidate/result path such as:
+
+`ComputeSlReference → ext1 out-state → E-hunk`
+
+while leaving the SLEXT481 printing under `InpDebugLog`.
+
+That would keep the live selector independent of logging.
+
+The relevant current sites are **EA L5494-L5497 and L8779**, with the consumer at **L9663-L9667**.
+
+### 2. Minimal safe delta if the current architecture must remain
+
+Keep the current producer exactly as-is, but make the live envelope explicitly require:
+
+`InpDebugLog=true`.
+
+That is the smallest change and preserves the no-new-writer constraint.
+
+### 3. D1
+
+The current L10109 insertion is adequate. A stronger mechanism remains capturing the original pre-floor `lots` at **L10105**, but I would not reopen the literal for that now.
+
+### 4. D2
+
+A universal seed diagnostic would still require a `STATE` branch at the **L7679** state entrance. The current G2 is correctly scoped to the filed IDLE case, so this remains future work.
+
+---
+
+## Final ruling
+
+**AMEND-WITH-DELTA.**
+
+The actual E-hunk logic is otherwise well formed: it has the explicit LONG/SHORT domain guard, finite ext1 check, protective-side test, `s1x_sel=2` metadata, exact fallback preservation, and it sits before the unchanged R-gate/veto chain. 
+
+But because this is the first **LIVE** activation, I would require the packet to resolve the **debug-gated producer dependency** explicitly, and fix the **P050 `belowMin` / `flooredLots >= volMin` contradiction**. Those are narrow deltas; they do not call for a halt.
+
+## Luna-V200-001 (ACCEPT on v200/v37, pasted 2026-09-20, whole)
+
+## accept
+
+**PACKET_EXT1LIVE-001 v37 is clear for exactly one live build of the E-hunk and exactly one RECON50-EXT1LIVE-V36 run under the stated USD envelope.** The v37 page closes the substantive v199 deltas: the E-hunk has the explicit direction, ext1-defined, finite-price, finite-currentPrice, and protective-side conjunction; fallback remains effect-identical; `sel=2` is reserved for the ext1 arm; and the probe capture remains outside the replaced selector region. 
+
+### G1 — ACCEPT
+
+The G1 split is now properly separated between the exact `belowMin` witness and the send-preparation outcome. A `belowMin=1` row is explicitly a halt condition, while `rawLots` is only contextual; the USD `volStep=0.01` premise is scoped to the execution environment. 
+
+The 4/4 send-preparation target is likewise defined independently from the lot-floor diagnostic, so the currency change does not silently turn lot evidence into signal-path evidence.
+
+### G2 — ACCEPT
+
+The 17:00 diagnostic remains correctly conditional on reaching the IDLE seed head, and the non-fire control case is supported independently by state passage. No new run behavior is smuggled into the three diagnostic branches. 
+
+### G3 — ACCEPT
+
+This is now a genuine **runtime** test rather than the v35 counterfactual. The live adoption arm is explicit, the protected-side helper is strict, and DIR_NONE is excluded by the E-hunk's domain conjunct before the helper can become relevant. 
+
+The helper itself is:
+
+* LONG → `refV < curPx`
+* SHORT → `refV > curPx`
+
+with equality failing. 
+
+The A3 target is therefore well specified: runtime `sel=2`, `slLive == pxExt1 == 1.16359`, `TP_ELECT` R `0.68`, and no 16:45:01 SIGNAL. 
+
+### G4 — ACCEPT
+
+The T1/T2 split is now clean.
+
+T1 has nine morning EXITVERDICT rows; T2 is the separate 16:25 instance. The grade is explicitly completeness/join completeness, not TP-algorithm correctness, and the journal join occurs only at the terminal trade-instance layer. 
+
+The nine morning rows are actually enumerated, with eight `curTp=1.16364` rows followed by the 10:45 exit-bar `curTp=1.16459`, so the stated 9-row census is internally consistent. 
+
+---
+
+# Analytic ask A — remaining defects / gaps / imprecisions
+
+### 1. There is one live citation drift: L8779 vs L8780
+
+**P007 / P058.**
+
+P007 repeatedly identifies the S5 `ComputeSlReference(...)` call as **EA L8779**, while the v37 deciding-code evidence shows:
+
+`L8779: g_o1_maxS = -1;`
+
+and the actual call begins at **L8780**:
+
+`if(!ComputeSlReference(...))`
+
+The packet itself recognizes L8780 in P058. 
+
+This is a citation defect, not a logic defect. It should be corrected in the next textual maintenance pass so the adoption-site provenance does not carry two line identities.
+
+### 2. The debug-gated producer remains a deployment residual
+
+**P007 / P058, L14-L15.**
+
+The live E-hunk consumes `g_sl41_*`, whose publication is under the effective `InpDebugLog=true` condition. v37 therefore authorizes this run only with that setting true. That is sufficient for this clearance, because the packet explicitly freezes that envelope. 
+
+For a later genuinely independent live deployment, the producer/publication dependency on debug logging should be removed or otherwise proven safe under `InpDebugLog=false`. Otherwise the intended selector behavior becomes configuration-dependent.
+
+**Non-blocking for v37 because the authorization expressly requires `InpDebugLog=true`.**
+
+### 3. The producer-vs-selector relationship remains empirical rather than structurally proven
+
+**P007 / P054 / P058, L14, L21.**
+
+This is honestly preserved as the N-2 condition rather than hidden. The new E-hunk intentionally consumes the producer global, so the runtime test will tell you whether the producer-selected ext1 behaves as expected; it does not magically turn the previously open structural equivalence into a proof.
+
+That is why the G3 conditioning is appropriate.
+
+### 4. The P050 wording should continue to distinguish post-floor value from pre-floor raw value
+
+**P050 / L16.**
+
+The wording is now good enough, but the cleanest terminology is:
+
+* `rawLots` = pre-floor calculation, rounded for display;
+* `lots` at the diagnostic site = post-floor in-memory value;
+* `belowMin` = exact Boolean test against `volMin`.
+
+The packet already functionally does this; this is just terminology preservation.
+
+### 5. G4 does not certify `curTp` correctness
+
+**P056 / L17.**
+
+This is now explicitly stated and therefore not a flaw in the acceptance contract. G4 certifies that the per-bar series is present and joined to T1/T2 correctly; it does **not** establish that the underlying TP-management calculation is correct. 
+
+### 6. G2 remains intentionally non-exhaustive for non-IDLE 17:00 misses
+
+**P052 / L18.**
+
+This is explicitly disclosed. A 17:00 miss caused before the IDLE seed head still produces no SEEDDIAG. It is therefore a scope limitation, not an undisclosed gap.
+
+### 7. The dormant `InpAdoptExt1` writer remains a future configuration hazard
+
+**P007 / P058, L14-L15.**
+
+The dormant block at EA L8807-L8813 can independently write `slRef`, but `InpAdoptExt1=false` is frozen for this run and the packet makes that condition part of the STAGE-1 contract. 
+
+So it is not a v37 blocker. It remains an explicit future configuration constraint.
+
+### 8. The “same terminal / new USD envelope” is correctly isolated from signal-path grading, but that isolation must be honored
+
+**P001 / P058, L13-L15.**
+
+The packet explicitly says currency changes are allowed to affect lot/deal evidence while selection/gate invariance is graded separately. That is the right separation. A lot/deal difference under USD must not be reclassified as signal drift, and a signal-path difference must not be excused as a currency effect.
+
+---
+
+# Analytic ask B — better mechanisms
+
+### E-hunk
+
+The current mechanism is already the minimal clean implementation:
+
+**EA L9663-L9669**
+
+`ext1Take` is calculated once, then either the producer ext1 is adopted with `s1x_sel=2`, or the old selector executes unchanged. That is preferable to modifying the producer or adding another stop-selection stage. 
+
+### Producer/debug separation
+
+For a future production-grade live relay, the stronger architecture would publish the required `g_sl41_*` tuple independently of `InpDebugLog`, while retaining diagnostics under the debug gate. The relevant producer publication region is **EA L5494-L5497**, with the S5 invocation at **EA L8780**.
+
+That removes the deployment dependency without changing the E-hunk itself.
+
+### D2 exhaustiveness
+
+For a future universal 17:00 seed diagnostic, add the already-identified `g_state != ST_IDLE` branch at the **EA L7679** entrance. The current v37 run does not require it because G2 carries the IDLE precondition.
+
+### G4
+
+No new code is needed. The existing **EA L11172-L11194** reporting chain plus T1/T2 trade-instance join is the appropriate mechanism for the stated completeness goal. 
+
+---
+
+## Final ruling
+
+**ACCEPT — PACKET_EXT1LIVE-001 v37.**
+
+Authorize exactly the stated **one build + one run**, with:
+
+* E-hunk `-v36`;
+* D1/D2 carried literals `-v32`;
+* `InpDebugLog=true`;
+* RECON50-EXT1LIVE-V36 / USD envelope;
+* G1-G4 graded under the v37 wording;
+* any `DEAL` row treated as an adherence failure;
+* no commit without the separate token.
+
+The only concrete textual defect I find is the **L8779/L8780 citation mismatch**; it does not warrant another clearance round.
+
+## Luna-V201-001 (ACCEPT on v201/v38, pasted 2026-09-20, whole)
+
+## accept
+
+**PACKET_EXT1LIVE-001 v38 is clear for exactly one live build and exactly one RECON50-EXT1LIVE-V38 run under the stated USD envelope.** I see no remaining blocker that requires another amend or a halt. The v38 page materially closes the v200 deltas without reopening the probe literals or changing the run envelope beyond the expressly defined USD configuration. 
+
+### G1 — ACCEPT
+
+The lot-floor witness is now properly separated from the send-preparation criterion. `belowMin=1` is the operative refusal witness; rounded `rawLots` is context; and the packet separately permits the expected `volMax` cap artifact. 
+
+The important boundary is preserved: lot/deal behavior is graded under G1 and is not allowed to masquerade as signal-path drift. P058 makes that separation explicit. 
+
+### G2 — ACCEPT
+
+The G2 clause remains correctly scoped to the IDLE precondition rather than pretending that WINDOW/SESSION/RETEST covers a `g_state != ST_IDLE` refusal. The v38 packet also carries the non-fire control as separate state evidence. 
+
+No new strategy-state mutation is introduced by these diagnostics.
+
+### G3 — ACCEPT
+
+The live E-hunk is now correctly specified as:
+
+`domain-valid && ext1Defined && finite(pxExt1) && finite(currentPrice) && protective-side`
+
+before adoption. DIR_NONE cannot enter the adopt arm because the direction-domain conjunct is evaluated first. 
+
+The helper's strict inequality is explicit in the supplied EA evidence, so equality is rejected rather than treated as protective. 
+
+The A3 runtime target is also properly converted from the old counterfactual into a live-runtime acceptance criterion: `sel=2`, adopted stop equal to the producer ext1, TP_ELECT at 0.68, and no 16:45:01 SIGNAL. 
+
+### G4 — ACCEPT
+
+The T1/T2 distinction is now clean and the 10-row 8/28 census has an explicit owner for every row. The terminal join remains separate from the per-bar completeness table, and the journal applies only to T1. 
+
+That is the right contract for this goal.
+
+---
+
+# Analytic ask A — remaining defects, gaps, or imprecisions
+
+There is **one concrete residual defect** and several non-blocking implementation notes.
+
+### 1. P058 still contains a slightly confusing selector citation chain
+
+**P058 / L21.**
+
+It says the selector is:
+
+> “L9663-L9669 (B L9668)”
+
+while the surrounding citation map separately describes the old-to-new mapping and the live R-gate as L9671-L9673.
+
+This is understandable, but the canonical live-selection range should be stated once as:
+
+**E-hunk L9663-L9667; probe B L9668; closure L9669; R-gate L9671-L9673.**
+
+This is documentation precision, not a logic defect.
+
+### 2. The debug-gated producer remains a live configuration dependency
+
+**P007 / P058, L14-L15.**
+
+The E-hunk consumes `g_sl41_*`, whose publication occurs under the `InpDebugLog` gate. v38 explicitly authorizes the live arm only with `InpDebugLog=true`, so the current run is well defined. 
+
+But this means the future live behavior is still configuration-dependent: with debug logging false, `g_sl41_def` remains at its defaults and the E-hunk falls back.
+
+That is not a v38 blocker because the envelope explicitly freezes `InpDebugLog=true`; it remains a production-architecture note.
+
+### 3. The dormant `InpAdoptExt1` writer remains present
+
+**P007 / P058, EA L8807-L8813.**
+
+The packet correctly keeps `InpAdoptExt1=false` as the dormant condition. The existing block can write `slRef` later in the function if enabled. 
+
+Under the frozen false input, this does not create a runtime conflict. For a future unrestricted deployment, that configuration dependency should remain explicitly guarded.
+
+### 4. The producer/selector equality is still not a structural theorem
+
+**P007/P054/P058, L14-L15 and the G3 condition.**
+
+The packet correctly treats N-2 equality as an evidence condition rather than silently upgrading it to proof. That is the correct status.
+
+It means the v38 runtime run is doing useful work here: it actually tests the producer value consumed by the E-hunk rather than relying solely on old selector equivalence.
+
+### 5. G2 is still not universal outside the IDLE precondition
+
+**P052 carried in P001/P058, L13/L21.**
+
+A 17:00 refusal before the IDLE seed head still produces no SEEDDIAG. This is explicitly disclosed, so it is not an acceptance defect for the stated target.
+
+A future “all 17:00 misses” goal would still need a `STATE` branch at the L7679 entrance.
+
+### 6. G4 remains completeness-only
+
+**P056 / L17.**
+
+The packet correctly says `curTp` correctness is not graded. Therefore G4 should not later be cited as proof that TP-management itself is correct. It proves the requested reporting/join completeness only. 
+
+### 7. The D1 raw-lot terminology could still be made more exact
+
+**P050 / L16.**
+
+At the diagnostic site, `lots` has already passed through `MathFloor`. So the precise terminology remains:
+
+* `rawLots`: pre-floor calculation, rounded for output;
+* `lots`: post-floor in-memory value;
+* `belowMin`: exact comparison result.
+
+The packet functionally honors that distinction; this is wording only. 
+
+---
+
+# Analytic ask B — better mechanisms
+
+### E-hunk
+
+The current mechanism is the right minimal change at **EA L9663-L9669**: calculate one `ext1Take` predicate, adopt with `s1x_sel=2`, otherwise execute the legacy selector unchanged. This avoids touching the producer or the downstream R-gate. 
+
+No better mechanism is needed for this run.
+
+### Producer publication
+
+The stronger future architecture would decouple the `g_sl41_*` publication at **EA L5494-L5497** from the `InpDebugLog` diagnostic gate, while leaving diagnostic printing gated. That would eliminate the configuration dependence without changing the E-hunk.
+
+### D2
+
+For universal 17:00 attribution, add a `branch=STATE` diagnostic at **EA L7679** for `g_state != ST_IDLE`. The existing v38 instrumentation is sufficient for the explicitly filed IDLE target.
+
+### G4
+
+No code change is preferable. The existing **EA L11172-L11194** reporting chain plus T1/T2 trade-instance join is the appropriate mechanism for the stated completeness goal. 
+
+## Final ruling
+
+**ACCEPT — PACKET_EXT1LIVE-001 v38.**
+
+Authorize exactly:
+
+**one live build of the E-hunk v2 (`-v37`) + carried A/B/C/D1/D2 literals + one RECON50-EXT1LIVE-V38 run under `RECON50_DEMO_USD`, `InpMode=1`, `InpDebugLog=true`.**
+
+The remaining observations are documentation/future-deployment notes, not blockers to this authorization. The packet's own adherence contract also provides the required hard stop if a `DEAL` row appears.
+
+---
+
+## Luna-V202-001 (amend-with-delta on v202, pasted 2026-09-20, whole)
+
+## Verdict: **amend-with-delta — gate E-b to the booked TP touch only**
+
+Under the quoted rule, the engine should **not keep the nearest-recompute touch exit**. The post-entry touch rule says that a line's touch or retest does nothing once entered; the stated exception is the ordinary take-profit touch. The 8/28 evidence makes the intended distinction concrete: the trade's booked TP was **1.16322**, while the 10:45 recomputed target **1.16459** was a different session-level value, and the page explicitly records that touch as early under the break-retest rule.   
+
+The delta should therefore be:
+
+**E-b (`vTP`) fires only when price touches the latched/booked `tpRef`; non-booked nearest-target touches are ignored. `vBREAK` remains unchanged and continues to provide the early exit on a qualifying body-close break.**
+
+### Exact code impact
+
+At **L23**, `MtNearestTpTarget(...)` currently recomputes `curTp` on every evaluation. At **L32-L36**, E-b then defines TP as touch of that current recomputed value. That is the semantic defect. 
+
+The minimal change is therefore at **L32-L36**:
+
+* retain `MtNearestTpTarget(...)` only as diagnostic/census information if useful;
+* make `vTP` test the trade's **booked `tpRef`**, not `curTp`;
+* preserve the existing long/short touch semantics.
+
+Then at **L129-L131**, the TP exit price should be the booked TP value (`tpRef`), rather than the recomputed `curTp`. The SL → TP → BREAK → HTF priority itself does not need to change. 
+
+The candidate-set function at **L10911-L10948** can remain for whatever other purpose legitimately requires a nearest target, but it should no longer define the post-entry TP-exit trigger merely because it is the nearest current candidate. 
+
+---
+
+## Why the current implementation does not fit the quoted rule
+
+The critical sequence is:
+
+1. `haveTp` is calculated from `MtNearestTpTarget(...)` on the current bar using `nextOpenPx` as the price reference. 
+2. That function walks **18 session buffers**, applies the swept-mask filter, then adds authority-filtered POI lines, selecting a best candidate dynamically. 
+3. E-b then exits on touch of whichever candidate is currently nearest. 
+4. On the cited 10:45 bar, that recomputation produced **1.16459**, which was touched and immediately classified as `TP_TOUCH`. 
+5. But the trade's recorded/booked TP was **1.16322**, and the page expressly says the 1.16459 touch was early under the break-retest rule. 
+
+So the issue is not merely that the nearest target happened to be the wrong number on one bar. The mechanism itself allows the exit target to **change after entry**, whereas the quoted rule makes the relevant distinction between a booked TP touch and a touch/retest of other lines. 
+
+---
+
+# Analytic A — defects, gaps, and imprecisions
+
+### 1. **E-b conflates "current nearest target" with "booked TP."**
+
+**Lines L23 and L32-L36.**
+
+The comment calls `curTp` the "CURRENT nearest valid target" and makes its touch an exit. That is materially broader than the stated post-entry rule. 
+
+### 2. **The TP trigger is mutable after entry.**
+
+**Lines L23, L157-L184.**
+
+Because the candidate walk is performed afresh, the target against which E-b tests can change from bar to bar. The session-buffer set and the authority-filtered POI set are dynamic inputs to that recomputation. 
+
+That creates precisely the unwanted behavior demonstrated at 10:45: a later, closer candidate can terminate the trade even though it was not the booked TP. 
+
+### 3. **The rule-to-code terminology is underspecified around "normal take-profit."**
+
+**Lines L32-L36 versus L16-L17 and L191-L217.**
+
+The page says normal TP exits are valid for session liquidity, POC, or VWAP targets, but the current candidate mechanism also ranges across the larger session-buffer and POI candidate set. The page establishes the intended outcome for the cited trade, but it does not explicitly define whether every candidate ever produced by `MtNearestTpTarget` can become a booked TP at admission, or whether only a separately latched `tpRef` has that status. The requested delta resolves that ambiguity by making the **latched booked TP** the post-entry touch trigger.
+
+### 4. **The exact `tpRef` latching/binding is not shown in this page.**
+
+The question names `tpRef` as the desired booked-TP source, while this evidence region exposes `curTp` and the resulting exit. The page does not include the declaration and admission-time assignment of `tpRef`. Therefore the semantic amendment is clear, but the page alone does not prove the precise storage location or latching statement for `tpRef`.
+
+That is a source-bound gap, not a reason to halt.
+
+### 5. **`MtIsBreakTrigger(k)` is treated as authoritative but its definition is outside the supplied region.**
+
+**Lines L62, L79-L83.**
+
+The break path is otherwise explicit: line must be a trigger, behind the trade, and body must strictly cross it. But the page does not show which POI categories `MtIsBreakTrigger` includes. 
+
+So I can rule that the **break mechanism remains**, but cannot independently verify from this page that its trigger universe exactly equals every line intended by the quoted "POC or AVP" wording.
+
+### 6. **The equality rule is precise for body-break, but unrelated equality behavior for TP touch is not stated.**
+
+**Lines L50-L67 versus L35-L36.**
+
+The page explicitly specifies strict inequality for a body break and states that exact equality never breaks. 
+
+The TP path, by contrast, uses ordinary `>=` / `<=` touch semantics. That is coherent with "exit on touch," but the document does not expressly state whether exact equality at the booked TP is intended to count. It is the natural reading of touch, but this is an imprecision in the specification rather than a defect in the proposed gate. 
+
+### 7. **`nextOpenPx` deserves an explicit semantic label.**
+
+**Lines L23-L24 and L54-L60.**
+
+`nextOpenPx` is used as the reference price both for selecting the nearest TP candidate and for deciding whether a POI line is "behind." The supplied comments identify the body as open → next open under the T161K convention, so this may be intentional. But the page does not spell out that `nextOpenPx` is deliberately the reference for candidate selection as well as break positioning.  
+
+That becomes less consequential once E-b is gated to a latched TP.
+
+### 8. **`curTp` would become diagnostically different from the actual TP exit source after the amendment.**
+
+**Lines L112-L120 and L130.**
+
+`EXITVERDICT` currently prints `curTp`, and the current close path uses it. After gating, `curTp` may remain useful as a diagnostic comparison, but it must no longer be presented in a way that suggests it is the booked TP. Otherwise the logs could continue to blur "nearest candidate" and "actual exit target." 
+
+---
+
+# Analytic B — better mechanism
+
+The cleaner mechanism is **two separate concepts**:
+
+**Booked exit target:** latched once for the managed trade as `tpRef`.
+
+**Dynamic line census:** `MtNearestTpTarget(...)` may still compute `curTp` for diagnostics or research, but it is not an exit authority after admission.
+
+That gives:
+
+```text
+booked tpRef
+   |
+   +-- touch --> vTP --> MT_EXIT_TP_TOUCH
+
+dynamic nearest candidates
+   |
+   +-- touch/retest --> no exit
+
+behind trigger line
+   |
+   +-- strict body-close break --> vBREAK --> MT_EXIT_POI_BODY_BREAK
+```
+
+The code changes are consequently narrow:
+
+**L32-L36:** replace the E-b touch test against `curTp` with the booked `tpRef`.
+
+**L112-L120:** preferably label/log both values distinctly if `curTp` remains printed, e.g. booked TP versus nearest diagnostic candidate.
+
+**L129-L131:** TP exit price should come from `tpRef`.
+
+**L151-L188:** no semantic change required if `MtNearestTpTarget` is retained as diagnostic/candidate computation; otherwise it can eventually be removed from the exit engine, but that would be a larger change than necessary.
+
+The body-break path at **L39-L83** stays intact, including its strict body-cross rule and the requirement that the line be behind the trade. 
+
+The final priority at **L126-L131** also remains intact: SL first, booked TP touch second, body-break third, HTF flip fourth. 
+
+## Final ruling
+
+**AMEND-WITH-DELTA**
+
+**Gate E-b to the booked `tpRef` touch only, at L32-L36, and use that same booked value at L130. Keep `vBREAK` unchanged at L39-L83 and preserve the existing exit priority at L126-L131.**
+
+The current nearest-recompute touch behavior conflicts with the quoted "touch or retest does nothing once entered" rule as demonstrated by the 10:45 **1.16459** exit versus the booked **1.16223** TP.  
+
+No halt is warranted from the page: the defect is local, the intended correction is specific, and the existing body-break mechanism can remain untouched.
+
+---
+
+## Luna-V203-001 (ACCEPT on v203/packet v1 with key, pasted 2026-09-20, whole)
+
+## **ACCEPT — CLEAR PACKET_P-EXITGATE-1 v1**
+
+I clear **`PACKET_P-EXITGATE-1 v1`** by name for **exactly one build plus exactly one tester run** under the stated RECON51 envelope. The E-b change is a direct implementation of the v202 ruling: the exit-touch authority moves from mutable `curTp` to the booked `tpRef`, while the body-break path remains intact. The packet also keeps the nearest-target walk as a measurement rail rather than an exit authority.
+
+**Volunteered key:** `Luna-V203-001 — CLEAR`
+
+This is my seat's clearance only; it does **not** supply the separate run word or token, and it authorizes no build/run/commit by itself.
+
+### G1 — **PASS as a test criterion**
+
+The six suppressed cases and one booked-TP touch are internally consistent with the old records supplied.
+
+The old engine exited the six non-booked cases at prices different from their recorded booked `tp=` values, while the 2026-09-07 17:10 case exited exactly at its booked `1.16315`. Under the new E1 logic, those six become `tpRecomputeTouch && !tpBookedTouch`, while the 17:10 case sets `tpBookedTouch` and therefore `vTP`. The equality-as-touch treatment is also explicit in the packet.
+
+The critical logic is correctly separated:
+
+```text
+recompute touch + no booked touch  -> suppression counter only
+booked TP touch                    -> vTP
+booked TP touch + recompute touch  -> vTP, no suppression
+```
+
+### G2 — **PASS as a run gate**
+
+The supplied eight entry-identity counters and their exact RECON50 reference values make this a checkable regression gate:
+
+`SIGNAL 7, TP_ELECT 12, SIDE1X 14, SIDE1E 14, STOPRESOLVE 43, LOTDIAG 7, SEEDDIAG 6, SESSION_LIMIT 7`.
+
+The packet correctly makes entry behavior a must-match condition rather than allowing the exit amendment to alter upstream birth/selection behavior.
+
+### G3 — **PASS as a run gate**
+
+The requested rail is appropriately diagnostic rather than behavioral: `tpB`, `h`, `l`, and `sup` are added to `EXITVERDICT`, with no new alert kind and the existing counts preserved. That is directly aligned with the stated purpose of measuring booked-vs-recompute divergence without creating another decision path.
+
+### G4 — **PASS as a run gate**
+
+The STAGE-1 exact-diff requirement, 0/0 order-send constraint, post-hash recording, and unchanged close-out requirement are appropriate guards for this packet. The stated envelope is also narrow: one build and one tester run, same date range, same mode, same logging, same terminal.
+
+---
+
+# Analytic A — defects, gaps, and imprecisions
+
+### 1. `g_n1_tpRecomputeSupp` is a cumulative counter, but the log field `sup` does not say so
+
+**E4 declaration at L1054-L1055; E4 LOG in the supplied replacement block.**
+
+The counter increments on each suppressed recompute touch but is then printed on every `EXITVERDICT` row. Therefore `sup=6` means six cumulative suppressions up to that point, not necessarily one suppression on that bar.
+
+This is not a correctness defect for G1, because the packet explicitly describes it as a counter. It is a **logging-semantic ambiguity**.
+
+A better field name would distinguish cumulative from per-bar, e.g. `supTot`, or add a separate per-bar boolean/count.
+
+### 2. `tpB` is not self-describing when `tpRef` is unset
+
+**E4 LOG replacement.**
+
+`curTp` already prints `"none"` when unavailable, but the new `tpB` uses:
+
+```text
+DoubleToString(g_mtrade.tpRef, _Digits)
+```
+
+without a validity rendering. The E1 gate correctly checks `tpRef != EMPTY_VALUE && tpRef > 0.0`, so the execution logic is sound. The instrumentation, however, can expose the raw sentinel rather than `"none"`.
+
+Non-blocking, but worth cleaning.
+
+### 3. The packet does not show the admission-time provenance/latching of `tpRef`
+
+**E1/E2 concern; no supplied line in the packet establishes the write site.**
+
+The amendment correctly consumes `g_mtrade.tpRef`, but this page does not independently show where the booked TP is established and whether it is immutable thereafter.
+
+That is not a reason to halt this probe because the requested change is specifically the **exit gate**, and the packet treats `tpRef` as the existing booked-target field. It is nevertheless the principal semantic dependency of the amendment.
+
+### 4. The relationship between `curTp` and the live exit path is now conceptually split
+
+**E1 NEW and E3 keep-walk.**
+
+After the amendment, `MtNearestTpTarget()` still runs and `curTp` is still printed, but neither determines `vTP`. That is correct, yet the surrounding diagnostic terminology could make a future reader mistake `curTp` for the operative TP.
+
+The comments should consistently call it **diagnostic recompute target** rather than simply `curTp`/current target.
+
+### 5. The E1 comment is slightly over-broad
+
+**E1 NEW comment.**
+
+> "only body-close break (E-c) exits early"
+
+Taken literally, that omits the independently existing SL and HTF exit paths. The actual code does not make that mistake; it only concerns non-booked **line touches/retests**. The prose would be more precise as: non-booked line touch/retest does nothing; the existing body-close break remains an early line exit.
+
+### 6. The packet does not explicitly restate same-bar exit priority in G1
+
+**E1/E2 versus the existing priority chain.**
+
+The code preserves `SL -> TP -> BREAK -> HTF`, so the amendment itself does not disturb priority. But G1 is primarily an exit-fidelity fixture, and the packet could state that the expected booked-TP touch is evaluated within the existing priority rather than as an absolute override.
+
+Again, non-blocking because E2 changes only the TP exit price source.
+
+### 7. E2 should use `tpRef` exactly as specified — and it does
+
+**E2 OLD/NEW at L11195.**
+
+This is worth calling out because it closes a subtle residual bug: changing the trigger to booked TP while leaving the actual exit price at `curTp` would have produced a mixed-semantic exit record. The supplied E2 amendment correctly removes that possibility.
+
+### 8. The retained nearest-target walk remains potentially expensive, but that is a measurement choice
+
+**Candidate walk / E3.**
+
+The packet deliberately retains the walk so the divergence can be measured. That is reasonable for this one controlled probe. For production code, continuously recomputing a target that is no longer an exit authority would be unnecessary work, but removing it now would defeat the stated diagnostic purpose of the packet.
+
+---
+
+# Analytic B — better mechanism
+
+The **semantic mechanism in v1 is already the right one**:
+
+```text
+tpRef
+  └─ touch -> vTP -> MT_EXIT_TP_TOUCH
+
+MtNearestTpTarget/curTp
+  └─ touch -> diagnostic only
+
+behind trigger + strict body cross
+  └─ vBREAK -> MT_EXIT_POI_BODY_BREAK
+```
+
+That is preferable to trying to "freeze" `curTp`, because freezing a recomputed candidate would preserve the wrong abstraction. The authoritative object should be the already-booked TP itself.
+
+The only refinement I would make is instrumentation:
+
+**E1:** optionally set a per-bar `bool/int tpRecomputeSuppHit` when the recompute touch is suppressed.
+
+**E4 declaration:** retain `g_n1_tpRecomputeSupp` as the cumulative total.
+
+**E4 log:** print both `supHit` and `supTot`, and print `tpB=none` when `tpRef` is invalid.
+
+That would remove the only meaningful ambiguity in the new rail without changing exit behavior.
+
+## Final ruling
+
+**ACCEPT — `PACKET_P-EXITGATE-1 v1` cleared by name for exactly one STAGE-1 exact-diff-gated build and one RECON51-EXITGATE-V1 tester run.**
+
+The requested E-b gate is correctly localized to the booked `tpRef` at the supplied E1 lines, the exit price is correctly switched to `tpRef` at **L11195**, and the recompute walk remains available for measurement rather than authority. No halt condition is exposed by the page.
+
+## Luna-V204-EXITGATE-001 (AMEND-WITH-DELTA on v204/packet v2, pasted 2026-09-20, whole)
+
+**AMEND-WITH-DELTA**
+
+**Clearance status:** Not yet clear for the requested one-build/one-run envelope. The packet is sufficiently bounded for a mechanical amendment; I see no halt-level contradiction or live-money exposure in the stated scope.
+
+**Volunteered key:** `Luna-V204-EXITGATE-001`
+
+### Analytic A — defects, gaps, and imprecisions
+
+**1. G1 does not actually prove all six named suppressions.**
+**Packet L33.**
+G1(i)–(iii) can all pass while one of the six named cases simply exits by some other mechanism rather than being suppressed by the booked-TP gate. The aggregate `sup` counter is expressly forbidden from having a predicted value under G1(iv), and the EXITVERDICT rail does not identify which of the six rows generated a suppression. Therefore the stated claim “six suppressed, one kept” is stronger than the executable grading rule.
+
+**Required delta:** add a row-level observable for the six named cases, or explicitly require each named case to show a suppression event with its bar/time, direction, booked TP, recompute-touch basis, and no MTEXIT from that candidate. A permitted same-bar booked-TP touch remains conformant exactly as stated.
+
+**2. `sup` semantics are under-specified.**
+**Packet L25, L33.**
+The declaration and log field are specified, but not the precise increment event. It is not stated whether a bar can increment `g_n1_tpRecomputeSupp` more than once, whether increments are per evaluation or per completed bar, or the reset scope. G1 says it “counts bars, not trades,” but that does not uniquely define the counter.
+
+**Required delta:** define `sup` as an explicit bar-counting rule: the exact condition that constitutes one suppressed bar, maximum one increment per bar, and the reset boundary.
+
+**3. G1(ii) identifies the retained trade by time/price but does not state the identity key used for matching.**
+**Packet L33.**
+The grading text says “the 9/07 17:10 trade” and compares prices, while the packet separately supplies `entryPrice`, `fillBarTime`, and `signalBarTime` in the admission latch at **EA L10053-L10066**. The rule should state which lifecycle fields identify the trade so a later cascade cannot accidentally satisfy the check using another trade at the same price.
+
+**Required delta:** define the G1 trade match using the supplied lifecycle identity, preferably `fillBarTime`/`signalBarTime` plus direction, rather than price alone.
+
+**4. Price equality is not defined at the comparison layer.**
+**Packet L33; EA L10053-L10066; P25 EXITVERDICT ternary.**
+The packet says equality counts as touch, while the instrumentation serializes prices with `_Digits`. It does not say whether the grading equality is exact numeric equality of the stored doubles, equality after `_Digits` normalization, or equality of the logged strings.
+
+**Required delta:** state the comparison rule explicitly. This should not introduce a tolerance.
+
+**5. G2's “traced to the still-open trade” exception is not sufficiently checkable.**
+**Packet L34.**
+It correctly identifies the 09/07 09:20 held trade crossing the 16:45 admission as an intended lifecycle consequence, but “traced to” does not define the evidence required to distinguish that consequence from an unrelated entry-path drift.
+
+**Required delta:** require the blocked admission to show the active managed trade as the sole blocking condition, with the affected bar/time and lifecycle state recorded. No broader divergence should be excused merely because a trade was open.
+
+**6. G4's line-count rule is not by itself sufficient, although the exact-diff gate largely fixes this.**
+**Packet L36.**
+`+14` is a useful secondary invariant, but line count alone cannot establish that the four intended hunks are the only edits. The packet does say STAGE-1 is exact-diff gated, so this is not a halt issue; the wording should make the exact-diff allowlist primary and `+14` a secondary invariant.
+
+### Analytic B — better mechanism for the stated goal
+
+I do **not** see a need to replace the basic mechanism. The booked-TP provenance is correctly anchored by the admission latch at **EA L10053-L10066**, with `g_mtrade.tpRef = tpTarget` at **L10062**, and the E4 rail is correctly re-anchored beside the actual N1 counters at **EA L1054-L1055**.
+
+The one mechanism improvement I would make is **row-level suppression attribution rather than aggregate-only counting**. The existing EXITVERDICT rail at **EA L11176-L11187** and its v2 extension can carry the needed fields; the additional instrumentation would touch that EXITVERDICT site and the E-b suppression branch/counter site, without changing S5 admission, `tpRef` latching, R-gating, or the exit decision itself. The current design can therefore remain the mechanism, with instrumentation made sufficient to prove the six named cases individually.
+
+### Other checks
+
+The **TPREF provenance** supplied at **EA L238-L257** and the admission latch at **EA L10053-L10066** are internally coherent: `tpRef` is presented as the admission value rather than a recomputed mid-trade value.
+
+The **E4 re-anchor** is materially corrected versus v203: the supplied true anchor is **EA L1054-L1055**, and the new diagnostic counter is inserted after that anchor as stated. I see no defect in that re-anchoring itself.
+
+The stated **+14 line budget** in **Packet L36** is arithmetically consistent with the four listed hunk deltas: `11 + 1 + 0 + 2 = 14`.
+
+I therefore grade the packet **AMEND-WITH-DELTA**, not halt. After the two G1/G2 grading clarifications above—especially row-level proof for the six suppressions—the requested one-build/one-run clearance envelope is sufficiently specified for this review.
+
+## Luna-V205 (AMEND-WITH-DELTA on v205/packet v3, no key volunteered, pasted 2026-09-20, whole)
+
+**AMEND-WITH-DELTA**
+
+The core E-b mechanism is coherent: it changes the TP-touch decision from the recomputed target to the booked `tpRef`, preserves the recompute path as diagnostic-only, and changes the logged exit price to the booked value. The packet is not quite ready for clearance because the grading language overstates what the new `sup` counter proves, and G2/L40 contain an avoidable semantic mismatch.
+
+### G1 — amendment required
+
+**Defect 1 — `sup` is a call counter, not a bar counter.**
+
+The new increment is:
+
+* E1 NEW, after `tpRecomputeTouch`: `if(tpRecomputeTouch && !tpBookedTouch) g_n1_tpRecomputeSupp++;`
+* Packet L33 says `sup` “counts bars” and defines the increment as running “at most once per `EvaluateManagedTrade` call.”
+* Packet L40 describes the novel evidence as six predicted **TP-exit suppressions** and says the run measures where booked-vs-recompute divergence occurred.
+
+Those statements are not equivalent. The code increments once per **function call**, with no per-`barTime` latch. If `EvaluateManagedTrade()` can execute more than once while the same bar is current, the same suppressed divergence can increment `sup` repeatedly. Nothing on the page establishes one invocation per bar.
+
+That matters directly to the “six predicted suppressions” claim. Six named bars can produce `sup > 6`, and the counter can no longer be treated as a bar count.
+
+**Required delta:** either:
+
+1. change L33/L40 to define `sup` explicitly as cumulative `EvaluateManagedTrade`-call count, and stop using it as proof of “six bars”; or
+2. preferably, make the counter genuinely bar-based by adding a per-bar latch keyed by `barTime` at the E4 declaration area and incrementing only on the first qualifying recompute divergence for that bar.
+
+The second mechanism is the cleaner fit to the stated evidence objective.
+
+### G1 — smaller precision fixes
+
+**Defect 2 — criterion (ii) should carry the packet's own trade-identity key explicitly.**
+
+L33 says the required 09-07 17:10 row may come from either admission, then separately says trade matching is by `fillBarTime/signalBarTime + direction`, never price alone. The criterion itself names time/reason/price but does not explicitly incorporate that identity key.
+
+**Delta:** make the required-row test explicitly use `(signalBarTime, fillBarTime, direction)` before checking `reason=TP_TOUCH` and `exit=1.16315`. That removes any remaining ambiguity.
+
+**Defect 3 — the `sup == 0` rail-floor rule is only meaningful if the counter has a defined unit.**
+
+L33's rail floor is sound as a diagnostic concept, but it depends on Defect 1 being fixed. Otherwise “suppressed exits existed but `sup==0`” is not strictly a bar-count wiring failure; it is a failure of a call-count-based instrument to observe the event.
+
+### G2 — amendment required
+
+**Defect 4 — L40 says “entry behavior must reproduce exactly,” while L34 explicitly permits a blocked later admission.**
+
+L34 says the held-trade case can be **conformant-annotated** where the active managed trade is the sole blocker. L40 nevertheless states:
+
+> “entry behavior must reproduce exactly.”
+
+Those are different propositions at the admission level. The new exit gate can intentionally keep a trade open longer, which can legitimately block a later admission under the single-trade lifecycle. The packet itself acknowledges that exact situation.
+
+The clean formulation is:
+
+* signal/entry-predicate behavior remains identical;
+* any changed **admission** is conformant only when the active managed trade is the sole lifecycle blocker, with the specified annotation.
+
+That is consistent with L34 and with the stated “gate sits downstream of the S5 commit.”
+
+**Defect 5 — aggregate counts alone do not prove entry identity.**
+
+L34 presents the diagnostic counts and says the rows are identical to RECON50, which is stronger than counts alone, but the grading rule itself is written principally as count equality plus one special-case annotation.
+
+For a true identity claim, the page should require exact row identity for the entry diagnostics, not merely equal totals. At minimum, that should include the row's existing identifying fields rather than only the seven/equivalent totals.
+
+### E-b / TP mechanism
+
+The actual E1/E2 change itself is internally consistent:
+
+* E1 L11097-L11102 is replaced by the booked-TP touch decision plus the diagnostic recompute test.
+* E2 L11195 changes `exitPrice` from `curTp` to `g_mtrade.tpRef`.
+* The `tpRef` provenance you supplied is coherent: declaration at L249, flat reset at L285, single admission write at L10062, read in MTLIFE at L10979.
+
+I do **not** see a defect in the basic “booked target governs TP touch; recomputed target is diagnostic only” mechanism.
+
+### Additional contract gap worth amending
+
+**Defect 6 — the packet proves a `tpRef` write path, but does not state the invariant that every active managed trade reaching E-b has a valid booked `tpRef`.**
+
+E1 deliberately refuses to create a booked-touch from `haveTp` when `tpRef` is absent/invalid:
+
+`g_mtrade.tpRef != EMPTY_VALUE && g_mtrade.tpRef > 0.0`
+
+That is correct for the stated rule, but it means an active trade with an invalid/missing `tpRef` can silently lose TP-touch behavior entirely.
+
+The packet currently says the field is written once at admission, which is evidence for the intended lifecycle, but not the explicit invariant:
+
+`g_mtrade.active == true  =>  valid booked tpRef exists`.
+
+For a production-grade gate, I would add that invariant to the page and make its violation a diagnostic/build/run failure rather than an implicit “no TP.”
+
+### E4 log / diff review
+
+I do **not** see a line-budget defect in the v3 arithmetic presented:
+
+* E1: +11
+* E4 declaration: +2
+* E2: +0
+* E4 log: +0
+* total: **+13**, post-build **11248**
+
+The withdrawn v2 `+14 / 11249` figure is correctly identified as superseded on the one miscount point. Packet L36 is internally consistent on that matter.
+
+The log expansion at L11176-L11187 is also logically sufficient to expose `tpB`, `h`, `l`, and `sup` without changing the exit decision.
+
+### Better mechanism
+
+For the stated goal, I would keep the booked-TP gate exactly as proposed and improve only the instrumentation:
+
+**Touch decision:** keep E1/E2 as written.
+
+**Suppression counter:** make it explicitly one-per-bar, keyed by `barTime`, rather than one-per-`EvaluateManagedTrade()` call. The declaration belongs at the E4 anchor around L1054-L1055; the increment site is the E1 new block around L11097-L11102.
+
+That gives a directly checkable invariant:
+
+`sup == number of distinct bars on which recompute-touch was true while booked-touch was false`.
+
+Then G1's “six predicted suppressions” becomes a testable statement instead of an inference from invocation frequency.
+
+For G2, change the grading language to distinguish **entry predicate identity** from **admission identity under lifecycle blocking**. No change to the exit mechanism is necessary for that correction.
+
+### Verdict
+
+**AMEND-WITH-DELTA**, specifically:
+
+* fix the `sup` unit/once-per-bar issue — **L33, L40, E1 L11097-L11102, E4 L1054-L1055**;
+* make the required 09-07 17:10 identity test explicit — **L33**;
+* reconcile “entry behavior must reproduce exactly” with the allowed held-trade blocker — **L34, L40**;
+* tighten “entry identity” from aggregate counts to row identity — **L34**;
+* state the active-trade → valid-`tpRef` invariant — **L33/L34 plus the tpRef provenance at L249/L285/L10062/L10979**.
+
+**Volunteered key:** none.
+
+## Luna-V206 (AMEND-WITH-DELTA on v206/packet v3.1, no key volunteered, pasted 2026-09-20, whole)
+
+**AMEND-WITH-DELTA — not clearable yet. No halt-level code-safety defect is evident from the page, but the clearance contract still has two material specification gaps. No key volunteered by this review seat.**
+
+### G1 — AMEND-WITH-DELTA
+
+**E1 L11097–11102, E2 L11195, E4 L11176–11187, packet P33 and P40.**
+
+The booked-TP mechanism itself is internally coherent:
+
+* E1 now computes `tpBookedTouch` from the latched `g_mtrade.tpRef`.
+* `vTP` is driven only by `tpBookedTouch`.
+* E2 writes `exitPrice = g_mtrade.tpRef`.
+* The recompute path is diagnostic-only through `g_n1_tpRecomputeSupp`.
+
+The remaining defect is in the **evidence rule**, not the exit logic.
+
+P33 says the six suppression proof must rest on **MTEXIT/MTLIFE rows, never on `sup`**. But for a successfully suppressed case there is, by definition, no MTEXIT at that early bar. MTEXIT/MTLIFE can establish:
+
+* the trade existed and its booked TP;
+* there was no exit at the old early price.
+
+They do **not, by themselves, establish that the new run actually encountered the recompute-touch condition** at that bar. That requires the new-run `EXITVERDICT` evidence (`curTp`, `tpB`, `h`, `l`) or an equivalent event-specific diagnostic.
+
+This is especially important because P40 expressly says the novel evidence is the booked-vs-recompute divergence measured through `sup` plus `tpB/h/l`.
+
+**Required delta:** for each of the six named suppression cases, require a new-run `EXITVERDICT` observation at the relevant bar showing the recompute-touch basis from `curTp`/`h`/`l`, together with the booked `tpB`, and separately require the absence of an MTEXIT for that admission. `sup` remains corroborative and cumulative, not the sole proof.
+
+That preserves your stated rule that the recompute source buffer need not yet be identified.
+
+### G2 — ACCEPT
+
+**P24 and P34.**
+
+This gate is sufficiently defined.
+
+The exact-row-identity requirement is stronger than totals alone, and the sole-blocker exception is narrowly bounded to the stated single-trade lifecycle. The 08-28 16:25 and 09-07 16:45/09:20 collision cases are explicitly handled rather than being granted a broad “trade was open” exemption.
+
+No amendment needed.
+
+### G3 — AMEND-WITH-DELTA
+
+This is the clearest page-level omission.
+
+The request asks for **G1–G4**, but the supplied v3.1 packet text contains explicit rules for **G1, G2 and G4 only**. There is no G3 rule in the v3.1 material you supplied.
+
+That means a fresh reviewer cannot grade G3 from the page-only contract you told me to use.
+
+**Required delta:** insert the complete G3 text, or explicitly carry it forward by an exact immutable reference that identifies the source artifact, marker and digest and states that its wording is unchanged. Merely saying “unamended” is not enough for this fresh-session/page-only review.
+
+### G4 — ACCEPT WITH ONE CLARIFYING DELTA
+
+**G4 restatement and P40.**
+
+The commit/token discipline is clear: exact-diff primary, budget secondary, no commit without token.
+
+One imprecision remains:
+
+> “Build 0/0”
+
+That is undefined and sits awkwardly beside the explicit requirement for **one build plus one tester run**. It appears likely to mean zero live orders / zero order-send events, but the page does not define it.
+
+**Required delta:** replace it with the exact intended zero metric, e.g. the already-stated `OrderSend 0/0` or the precise build/run quantity intended. Do not leave “Build 0/0” open to interpretation.
+
+---
+
+## Analytic A — every defect / gap / imprecision I see
+
+**1. G3 is absent.**
+Location: the v3.1 packet text as supplied; P33/P34/P40 cover G1/G2/G4, but no G3 appears.
+Impact: G1–G4 cannot all be graded page-only.
+
+**2. G1’s proof basis is internally mismatched.**
+Location: **P33**, especially the “proof resting on MTEXIT/MTLIFE rows, never on sup” language, versus **P40(b)**.
+Impact: absence of MTEXIT proves no emitted exit; MTLIFE proves the booked target; neither alone proves that the recomputed target actually touched on the new run.
+
+**3. EXITVERDICT identity is not fully specified for the cumulative-call instrument.**
+Location: **P24**.
+You explicitly corrected `sup` to “cumulative EvaluateManagedTrade-call count,” but P24 still frames EXITVERDICT row-count grading around “per-exit-event” versus “per-managed-bar.” It does not define whether multiple `EvaluateManagedTrade` calls on the same bar are expected to yield multiple rows, nor the exact row identity when that happens. That can matter when interpreting cumulative `sup`.
+
+**4. The phrase “Build 0/0” is ambiguous.**
+Location: **G4 / P40**.
+It conflicts lexically with the one-build requirement unless its metric is explicitly named.
+
+**5. The invalid-`tpRef` invariant is stated but not promoted to an explicit graded run gate.**
+Location: **P33**, plus the TPREF provenance section.
+You say an invalid `tpRef` reaching E-b is a diagnostic failure and never a silent no-exit. That is good, but the G1 grading text does not explicitly say what observable row/condition constitutes the pass/fail check for this invariant during the run. The four-location provenance makes the invariant structurally credible, but the runtime grading contract could be sharper.
+
+I do **not** see a further mechanism error in the actual E-b change from the supplied text. In particular, E1/E2 are aligned: booked TP determines `vTP`, and the emitted TP exit price is the same booked TP rather than `curTp`.
+
+---
+
+## Analytic B — better mechanism
+
+For the **behavioral mechanism**, I would keep the current E1 design. It is simpler and correctly separates:
+
+`booked TP touch → actual exit`
+`recomputed TP touch → diagnostic only`
+
+For the **evidence mechanism**, a cleaner design is an event-scoped diagnostic emitted exactly when:
+
+`tpRecomputeTouch && !tpBookedTouch`
+
+and containing, in one record:
+
+`barTime, signalBarTime, fillBarTime, dir, tpB, curTp, h, l`
+
+plus a monotonically increasing suppression sequence.
+
+That would touch the existing E-b instrumentation at **EA L11097–11102** and the log rail at **EA L11176–11187**. It would make each suppression directly observable instead of reconstructing it from a cumulative counter plus absence of an exit. I would treat that as a **better future rail**, not as necessary to change the exit behavior itself.
+
+### Clearance disposition
+
+**Overall: AMEND-WITH-DELTA.**
+
+The minimum page fixes before clearance are:
+
+1. **Add G3 in full** or bind it by an exact immutable carry reference.
+2. **Repair P33 G1** so each suppression has direct new-run recompute-touch evidence; keep `sup` cumulative/corroborative as already intended.
+3. **Define “Build 0/0”** precisely.
+4. Preferably sharpen P24’s EXITVERDICT row identity for multiple `EvaluateManagedTrade` calls.
+
+**No key volunteered.**
+
+## Luna-V207 (AMEND-WITH-DELTA on v207/packet v3.2, no key volunteered, pasted 2026-09-20, whole)
+
+**Verdict: AMEND-WITH-DELTA — PACKET_P-EXITGATE-1 v3.2 is not cleared for the build/run on this verdict. No key volunteered.**
+
+The E1/E2 design itself is internally coherent: `vTP` is gated by the booked `tpRef`, while recompute-touch is retained diagnostically. The blocking issues are in the **run-proof/grading contract**, not the basic TP gate.
+
+### G1 — AMEND-WITH-DELTA
+
+**P33** is the main problem.
+
+1. **Criterion (i) is effectively tautological after E2.**
+   **EA L11195 / P33(i):** E2 now writes:
+   `g_mtrade.exitPrice = g_mtrade.tpRef;`
+
+   Therefore every `MT_EXIT_TP_TOUCH` row produced through this path will log the booked TP by construction. Checking `MTEXIT exit == MTLIFE booked tp` no longer independently proves that the booked price was the touched line. The real proof is the `tpBookedTouch` condition in E1, or reconstructing it from the logged `tpB/h/l/dir`.
+
+2. **The required 09-07 17:10 row is not sufficient by itself.**
+   **P33(ii):** requiring `TP_TOUCH` + `exit=1.16315` does not independently prove the touch occurred. Because E2 stamps the booked target into `exitPrice`, the required row should also require the direction-specific touch inequality from the `EXITVERDICT` evidence: for LONG, `h >= tpB`; for SHORT, `l <= tpB`.
+
+3. **The six-case 08-28 16:25 branch conflicts with actual lifecycle semantics.**
+   **P33 / P34 + EA L10041-L10053:** the active trade is not “blocked”; it is **closed/replaced** by `MTCOLLISION`, followed by `MtReset()`. Therefore the stated “no-MTEXIT because the held trade blocked the later admission” proof form does not describe what the code does.
+
+4. **P33's “no-MTEXIT annotation attaches to the holding trade's own exit row” can be impossible.**
+   On the replacement path there may be no MTEXIT row for the holding trade; the observable terminal evidence is the `MTCOLLISION` path. The packet needs a replacement-specific proof form, or an explicit ordering rule requiring the old trade to reach E-b before replacement.
+
+5. **“Six suppressed, one kept” needs an explicit uniqueness definition.**
+   **P33(iv):** `sup` increments once per `EvaluateManagedTrade()` call, with no per-bar latch. Multiple evaluations of the same trade on the same bar can increment it more than once. The six cases therefore cannot be defined by `sup`; they need a unique case key such as trade identity + evaluation bar + direction, with `sup` remaining corroborative only.
+
+### G2 — AMEND-WITH-DELTA
+
+**P34** has the same lifecycle mismatch.
+
+* **EA L10041-L10053:** signal-while-managing **replaces** the managed record.
+* **P34:** repeatedly calls the affected situation a **blocked admission / sole blocker**.
+
+That exception should be rewritten as **replacement/collision attribution**, not blockage. In particular, the 09-07 09:20 → 16:45 example and the 08-28 10:05 → 16:25 example need to be graded according to the actual replacement mechanism.
+
+The underlying claim that the predicate emitters are upstream of the collision site is coherent: **P34** / cited sites L7691, L9735, L9749, L9929-L9930 are upstream of L10041. So the predicate-identity portion can remain.
+
+### G3 — ACCEPT, with one precision amendment
+
+**P35 / P24 / EA L11176-L11187** correctly put `tpB/h/l/sup` onto each EXITVERDICT print.
+
+One imprecision remains:
+
+* **P24:** “barTime plus call sequence within the bar” is not a field emitted by the shown `EXITVERDICT` format. It is reconstructable as the **ordinal occurrence of EXITVERDICT rows within that bar**, but the packet should say that explicitly rather than implying a printed/runtime sequence identifier.
+
+No new alert-kind issue is apparent.
+
+### G4 — ACCEPT
+
+**P41 / P36 / P03:** the procedural gate is coherent: exact-diff primary, budget secondary, 0-errors/0-warnings as the post-build condition, token required for commit.
+
+This does not cure the G1/G2 grading defects, so it cannot produce a clearance for v3.2 as written.
+
+---
+
+## Analytic A — every defect/gap/imprecision I see
+
+| Location                       | Finding                                                                                                                                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P33(i), EA L11195**          | `exitPrice=tpRef` makes booked-vs-exit-price equality non-independent evidence.                                                                                                             |
+| **P33(ii)**                    | Required 09-07 17:10 MTEXIT row needs explicit direction-specific `h/l` vs `tpB` evidence, not just reason and stamped exit price.                                                          |
+| **P33, P34; EA L10041-L10053** | “blocked admission” does not match actual replace-on-collision behavior.                                                                                                                    |
+| **P33**                        | “no-MTEXIT annotation attaches to holding trade's own exit row” is not generally satisfiable on the replacement path.                                                                       |
+| **P34**                        | Same collision/blocked-admission mismatch affects the G2 exception language.                                                                                                                |
+| **P33(iv)**                    | `sup` is per call, not per unique trade/bar case; no latch means duplicates are possible.                                                                                                   |
+| **P24**                        | “call sequence within bar” is not directly emitted; define it as ordinal EXITVERDICT occurrence or add a sequence field.                                                                    |
+| **E1 NEW comment, EA E1 site** | “only body-close break (E-c) exits early” is overbroad as written; other exit predicates such as SL/HTF can also terminate a trade. Narrow the statement to non-booked-target-line touches. |
+| **P33 six-case proof**         | A predicted old exit bar can coincide with a collision/replacement before E-b evaluation; ordering therefore needs to be explicit for those cases.                                          |
+| **P33(iii)**                   | The early-price coincidence rule is ultimately safe only because the per-case `tpB/h/l` proof exists; the price-only MTEXIT observation is not independently probative after E2.            |
+
+### Analytic B — better mechanism
+
+For the stated goal, I would keep the **E1/E2 booked-TP mechanism** and make the instrumentation directly observable rather than inferential.
+
+At the **E1 site** (the new 17-line block), retain the existing booleans and expose them in the rail:
+
+* `tpBookedTouch`
+* `tpRecomputeTouch`
+* `tpRef`
+* `curTp`
+* `h`
+* `l`
+
+Then the EXITVERDICT row can say explicitly which predicate fired, instead of making G1 reconstruct `tpBookedTouch` from the other fields.
+
+At **EA L10041-L10053**, I would not change the replace semantics merely to satisfy the test. Instead, make the diagnostic record explicitly represent **collision replacement**: old trade identity, old `tpRef`, replacement bar, and the fact that the old managed record was terminated as `MT_EXIT_REPLACED`. Then P33/P34 can grade the actual lifecycle rather than a hypothetical blocker.
+
+**Net:** v3.2 is close, but I would not clear it until the **P33 G1 proof is made non-tautological** and the **P33/P34 blocker language is reconciled with L10041-L10053 replacement semantics**.
+
+## Luna-V208 (AMEND-WITH-DELTA on v208/packet v3.3, no key volunteered, pasted 2026-09-20, whole)
+
+**Verdict: AMEND-WITH-DELTA. No key volunteered.**
+The packet is close, but two contract-level defects prevent a clean clearance as written: one is a direct G2 grading contradiction, and one makes required G1 evidence impossible for several predicted suppression cases.
+
+### G1 — Amend required
+
+The main defect is the interaction between the six suppression proofs and the replacement mechanism.
+
+The packet requires **each of the six suppressed cases** to have an `EXITVERDICT` at its relevant old-exit bar showing the recompute-touch basis.
+
+But the collision block is explicitly **upstream of the E-b walk**: when a signal arrives while a trade is managing, the old trade is closed/replaced before the E-b evaluation can produce that trade's `EXITVERDICT`.
+
+That creates an impossible requirement for at least these three predicted suppressions:
+
+* 08-28 16:25
+* 09-04 16:00
+* 09-08 17:00
+
+Those are simultaneously listed as replacement bars for the held trade and as old-exit bars whose suppression must be evidenced.
+
+So the page currently asks for an observation that the stated execution ordering cannot produce.
+
+**Required delta:** for a named case whose old exit bar is also a replacement/collision bar, replace the “`EXITVERDICT` at the old exit bar is mandatory” requirement with a collision-time evidence rule. The conformant proof should use the `MTCOLLISION` row plus whatever direct booked-vs-recompute touch evidence is actually available before replacement; it must not demand an `EXITVERDICT` for an object that has already been replaced.
+
+### G2 — Amend required
+
+There is a direct internal contradiction in the row-identity grading.
+
+P34 first says all eight diagnostic families, **including `LOTDIAG` and `SESSION_LIMIT`**, must be exactly row-identical to RECON50 with no exception. It then says `LOTDIAG` and `SESSION_LIMIT` **may diverge** when the difference is caused by the held-trade cascade/replacement.
+
+Those cannot both be the operative grading rule.
+
+**Required delta:** explicitly divide the families into:
+
+* upstream/predicate families that must remain row-identical;
+* downstream families (`LOTDIAG`, `SESSION_LIMIT`) that may diverge only under the named replacement/extended-lifetime cascade.
+
+Everything else in G2 can remain as written.
+
+### G1 identity wording also needs one tightening
+
+The 09-07 17:10 required row is said to be acceptable from “whichever admission” produced it, including the possibility of the held 09:20 admission. But the same packet states that the 09:20 trade is replaced by the 16:45 admission. Under the packet's own replace semantics, a 09:20 trade cannot still be the managing trade at 17:10 after that 16:45 replacement.
+
+**Required delta:** make the 17:10 identity rule deterministic: once the 16:45 admission occurs, the 17:10 TP-touch must belong to that replacement admission. Keep the general “whichever admission” wording only if the packet allows a trace in which the later admission does not occur.
+
+### G1 baseline provenance is slightly under-specified
+
+The seven baseline rows give booked TP and old exit price, but the table does not explicitly state the **baseline exit reason** for each row. Since the new proof is specifically about suppressing the old TP-touch behavior, stating that these baseline rows were `MT_EXIT_TP_TOUCH` under RECON50 would make the suppression cases independently well-defined rather than inferred from the surrounding text.
+
+This is an imprecision rather than a code defect.
+
+### G3 — Substantively sound
+
+The new `EXITVERDICT` rail has the required `tpB`, `h`, `l`, and `sup` observables, and the packet explicitly retains row-key and divergence rules.
+
+One minor improvement would be to make admission identity part of the emitted row rather than relying on reconstruction from other records, but that is not necessary to make the packet internally coherent.
+
+### G4 — Sound on the page
+
+The requested build is exact-diff gated, the packet keeps the +13/post-11248 budget constraint, and the compile requirement is explicitly zero errors/zero warnings.
+
+Nothing in the v3.3 text itself gives me a reason to halt G4.
+
+### Better mechanism
+
+For the stated goal, the cleanest code-level mechanism is a **read-only pre-replacement E-b snapshot** at the collision site, immediately before the old trade is marked closed.
+
+The relevant existing collision region is **EA L10038-L10053**, while the actual E-b logic is **EA L11097-L11102 → new L11099-L11115**.
+
+That snapshot would record, for the old admission, the booked `tpRef`, recomputed target, current bar `h/l`, and the two boolean touch tests immediately before replacement. It would directly establish the otherwise-unobservable three collision-bar suppressions without pretending that a post-replacement `EXITVERDICT` belongs to the old trade.
+
+I would keep that as an **instrumentation-only rail**, not a second exit path.
+
+### Clearance disposition
+
+So the page is **not a halt**: the behavior design and the E-b implementation are coherent, and the defects are repairable at the grading-contract level. But it is **not yet clearable as v3.3** because the G1 evidence rule conflicts with the stated collision ordering, and G2 contains contradictory acceptance criteria.
+
+**Final: AMEND-WITH-DELTA. No key.**
+
+## Luna-V209 (AMEND-WITH-DELTA on v209/packet v3.4, no key volunteered, pasted 2026-09-20, whole)
+
+**Verdict: AMEND-WITH-DELTA.**
+
+The E-b mechanism itself is internally coherent on the page: the booked target is latched once at admission (`L10062`), cleared by `MtReset` at `L285`, used for the new TP-touch gate in the E1 literal, and used again as the TP exit price in E2. The instrumentation adds `tpB/h/l/sup` without changing the alert taxonomy. I do **not** see a code-logic defect in those stated literals that requires a halt.
+
+The amendments are record/grade-precision items, not a change to E1/E2/E4 code.
+
+### G1–G4
+
+**G1 — AMEND-WITH-DELTA, not halt.**
+
+The seven-case grading logic is substantially sound, including the 09-07 17:10 non-vacuity floor, identity-first matching, exact `_Digits` equality, the six-case suppression reconstruction, and the special treatment of the three replacement bars.
+
+The imprecision is in **P24 / P33**, where the prose can be read as requiring a new-run `EXITVERDICT`/`vTP 1→0` observation for all six old-exit bars. Your own ordering rule says that is impossible for the three replacement cases because the prior trade is closed by the collision/admission block before `EvaluateManagedTrade` runs. For those bars the evidence is **MTCOLLISION + no E-b evaluation**, not a new-run `EXITVERDICT` row.
+
+**Delta:** state explicitly that the `vTP 1→0` cross-run comparison applies only where a new-run `EXITVERDICT` row exists; the three replacement-bar cases are graded exclusively by the stated MTCOLLISION/R2 rule.
+
+**G2 — AMEND-WITH-DELTA.**
+
+The replace semantics are clear and the upstream/downstream distinction is materially useful. The six upstream admission families are tied to explicit sites, and `LOTDIAG` is identified at `L10116`.
+
+The gap is **P34**: `SESSION_LIMIT` is included in the downstream carve-out, but its actual emission site is not named. That leaves one claimed downstream family without the same page-level ordering proof given for the others.
+
+**Delta:** add the `SESSION_LIMIT` emission line/range and state explicitly whether it is before or after the `L10041` collision site. No change to the grading rule is needed.
+
+**G3 — AMEND-WITH-DELTA.**
+
+The payload definition is good: `tpB/h/l/sup` are new-run instrumentation, shared fields are cross-run diffed, and the `EXITVERDICT` is per evaluation rather than an event-count device.
+
+The needed wording fix is again the **P35** sentence that describes shared-field `vTP 1→0` changes “at the six old-exit bars.” That is not literally true on the three predicted replacement bars because the new run has no `EXITVERDICT` there.
+
+**Delta:** narrow that clause to “at shared-row old-exit bars,” and cross-reference the three replacement-bar exception in P24.
+
+**G4 — ACCEPT as written.**
+
+The stated exact-diff-first / budget-secondary discipline is clear, the +13/post-11248 budget is explicitly secondary, and the compile requirement is unambiguous. Nothing in G4 needs a semantic change.
+
+### Other page defects / gaps / imprecisions
+
+**P03:** The packet alternates between “pre-build tree” line numbers and the post-build map in P24. The distinction is described, but a reader can still mistake a post-build location for the source anchor. I would make every site reference carry an explicit **PRE** or **POST** qualifier.
+
+**P24:** The “tracked-set counts” are adequately fenced by the exact-diff rule, but the page should say explicitly that the loose substring counts are **sanity checks only**, never acceptance criteria by themselves. The later exact-diff language implies this, but one direct sentence would remove ambiguity.
+
+**P24 / P33:** `sup` is correctly described as cumulative and non-event-counting, but the packet could be even tighter by saying that **no expected numeric value of `sup` exists**. Three of the six suppressed baseline cases are replacement-bar cases and therefore cannot contribute a suppression increment at that old exit bar.
+
+**E1 NEW comment:** “only body-close break (E-c) exits early” is slightly overbroad when read literally because the existing SL path remains an independent exit mechanism. The intended meaning appears to be that **touch/retest of a non-booked target does not create an early TP exit; E-c remains the early target-break mechanism**. This is comment precision, not code behavior.
+
+**P33:** The phrase “booked equality kept” is understandable, but the stronger mechanical statement is that after E2 the TP exit price is `tpRef`, while the independent touch proof comes from `h/l` versus `tpB`. That distinction is already present later in the paragraph; moving it earlier would make the seven-row rule easier to audit.
+
+**P34:** The statement “sole-blocker conformant form is unreachable on this code and is converted to a halt” is logically consistent with the supplied collision code, but it would be cleaner to say explicitly that the collision block **replaces and therefore cannot furnish sole-blocking evidence**, then separately state that any attempted sole-blocker interpretation is a halt.
+
+### Better mechanism for the stated goal
+
+For **this packet**, I would keep the mechanism as-is. The combination of the latched `tpRef`, the E1 dual observation (`tpBookedTouch` versus `tpRecomputeTouch`), the E2 price change, and per-evaluation `EXITVERDICT` is sufficient to establish the requested booked-TP behavior without introducing another live-state latch.
+
+For a future instrumentation packet, a stronger rail than cumulative `g_n1_tpRecomputeSupp` would be a **per-trade suppression latch**, because it would make “this admission experienced a recompute-touch/non-booked-touch divergence” a direct property rather than something reconstructed from a cumulative counter. The natural touch points are the trade struct at **L238-L257**, reset at **L285**, admission at **L10062**, the E1 calculation around **L11097-L11114**, and the E4 log around **L11176-L11187**. That is a better observability mechanism, but I would keep it deferred exactly as the packet currently does rather than expand this run.
+
+### Clearance disposition
+
+So the packet is **not a halt on substance**. It needs a small textual delta covering:
+
+1. the three replacement-bar `EXITVERDICT` absence cases in **P24/P35**;
+2. the missing `SESSION_LIMIT` emission site/order in **P34**;
+3. explicit PRE/POST labeling for mixed site references; and
+4. the narrow wording of the E1 comment / `sup` semantics.
+
+After those deltas are folded, the stated **one-build + one-run** scope is otherwise internally consistent with the page.
+
+**Key:** no key volunteered.
+
+## Luna-V210 (AMEND-WITH-DELTA on the v210 transport, no key volunteered, pasted 2026-09-20, whole; seat version labels filed verbatim)
+
+**Verdict: AMEND-WITH-DELTA.**
+
+The E-b mechanism itself is internally coherent on the page: the booked target is latched once at admission (`L10062`), cleared by `MtReset` at `L285`, used for the new TP-touch gate in the E1 literal, and used again as the TP exit price in E2. The instrumentation adds `tpB/h/l/sup` without changing the alert taxonomy. I do **not** see a code-logic defect in those stated literals that requires a halt.
+
+The amendments are record/grade-precision items, not a change to E1/E2/E4 code.
+
+### G1–G4
+
+**G1 — AMEND-WITH-DELTA, not halt.**
+
+The seven-case grading logic is substantially sound, including the 09-07 17:10 non-vacuity floor, identity-first matching, exact `_Digits` equality, the six-case suppression reconstruction, and the special treatment of the three replacement bars.
+
+The imprecision is in **P24 / P33**, where the prose can be read as requiring a new-run `EXITVERDICT`/`vTP 1→0` observation for all six old-exit bars. Your own ordering rule says that is impossible for the three replacement cases because the prior trade is closed by the collision/admission block before `EvaluateManagedTrade` runs. For those bars the evidence is **MTCOLLISION + no E-b evaluation**, not a new-run `EXITVERDICT` row.
+
+**Delta:** state explicitly that the `vTP 1→0` cross-run comparison applies only where a new-run `EXITVERDICT` row exists; the three replacement-bar cases are graded exclusively by the stated MTCOLLISION/R2 rule.
+
+**G2 — AMEND-WITH-DELTA.**
+
+The replace semantics are clear and the upstream/downstream distinction is materially useful. The six upstream admission families are tied to explicit sites, and `LOTDIAG` is identified at `L10116`.
+
+The gap is **P34**: `SESSION_LIMIT` is included in the downstream carve-out, but its actual emission site is not named. That leaves one claimed downstream family without the same page-level ordering proof given for the others.
+
+**Delta:** add the `SESSION_LIMIT` emission line/range and state explicitly whether it is before or after the `L10041` collision site. No change to the grading rule is needed.
+
+**G3 — AMEND-WITH-DELTA.**
+
+The payload definition is good: `tpB/h/l/sup` are new-run instrumentation, shared fields are cross-run diffed, and the `EXITVERDICT` is per evaluation rather than an event-count device.
+
+The needed wording fix is again the **P35** sentence that describes shared-field `vTP 1→0` changes “at the six old-exit bars.” That is not literally true on the three predicted replacement bars because the new run has no `EXITVERDICT` there.
+
+**Delta:** narrow that clause to “at shared-row old-exit bars,” and cross-reference the three replacement-bar exception in P24.
+
+**G4 — ACCEPT as written.**
+
+The stated exact-diff-first / budget-secondary discipline is clear, the +13/post-11248 budget is explicitly secondary, and the compile requirement is unambiguous. Nothing in G4 needs a semantic change.
+
+### Other page defects / gaps / imprecisions
+
+**P03:** The packet alternates between “pre-build tree” line numbers and the post-build map in P24. The distinction is described, but a reader can still mistake a post-build location for the source anchor. I would make every site reference carry an explicit **PRE** or **POST** qualifier.
+
+**P24:** The “tracked-set counts” are adequately fenced by the exact-diff rule, but the page should say explicitly that the loose substring counts are **sanity checks only**, never acceptance criteria by themselves. The later exact-diff language implies this, but one direct sentence would remove ambiguity.
+
+**P24 / P33:** `sup` is correctly described as cumulative and non-event-counting, but the packet could be even tighter by saying that **no expected numeric value of `sup` exists**. Three of the six suppressed baseline cases are replacement-bar cases and therefore cannot contribute a suppression increment at that old exit bar.
+
+**E1 NEW comment:** “only body-close break (E-c) exits early” is slightly overbroad when read literally because the existing SL path remains an independent exit mechanism. The intended meaning appears to be that **touch/retest of a non-booked target does not create an early TP exit; E-c remains the early target-break mechanism**. This is comment precision, not code behavior.
+
+**P33:** The phrase “booked equality kept” is understandable, but the stronger mechanical statement is that after E2 the TP exit price is `tpRef`, while the independent touch proof comes from `h/l` versus `tpB`. That distinction is already present later in the paragraph; moving it earlier would make the seven-row rule easier to audit.
+
+**P34:** The statement “sole-blocker conformant form is unreachable on this code and is converted to a halt” is logically consistent with the supplied collision code, but it would be cleaner to say explicitly that the collision block **replaces and therefore cannot furnish sole-blocking evidence**, then separately state that any attempted sole-blocker interpretation is a halt.
+
+### Better mechanism for the stated goal
+
+For **this packet**, I would keep the mechanism as-is. The combination of the latched `tpRef`, the E1 dual observation (`tpBookedTouch` versus `tpRecomputeTouch`), the E2 price change, and per-evaluation `EXITVERDICT` is sufficient to establish the requested booked-TP behavior without introducing another live-state latch.
+
+For a future instrumentation packet, a stronger rail than cumulative `g_n1_tpRecomputeSupp` would be a **per-trade suppression latch**, because it would make “this admission experienced a recompute-touch/non-booked-touch divergence” a direct property rather than something reconstructed from a cumulative counter. The natural touch points are the trade struct at **L238-L257**, reset at **L285**, admission at **L10062**, the E1 calculation around **L11097-L11114**, and the E4 log around **L11176-L11187**. That is a better observability mechanism, but I would keep it deferred exactly as the packet currently does rather than expand this run.
+
+### Clearance disposition
+
+So the packet is **not a halt on substance**. It needs a small textual delta covering:
+
+1. the three replacement-bar `EXITVERDICT` absence cases in **P24/P35**;
+2. the missing `SESSION_LIMIT` emission site/order in **P34**;
+3. explicit PRE/POST labeling for mixed site references; and
+4. the narrow wording of the E1 comment / `sup` semantics.
+
+After those deltas are folded, the stated **one-build + one-run** scope is otherwise internally consistent with the page.
+
+**Key:** no key volunteered.
+
+## Luna-V211 (AMEND-WITH-DELTA, no key, v211 transport returns, pasted 2026-09-20, whole; seat version labels filed verbatim)
+
+**Verdict: AMEND-WITH-DELTA.**
+
+The E1/E2/E4 mechanics are internally coherent on the page, and I do not see a code-literal defect that requires a halt. The main issue is a grading-spec ambiguity in the `EXITVERDICT` row-presence/pairing rule, plus two smaller wording issues. I would not volunteer a clearance key from this seat.
+
+### G1–G4
+
+| Gate   | Verdict   | Reason |
+| ------ | --------- | ------ |
+| **G1** | **PASS**  | E1 gates TP on the booked `tpRef`; E2 makes `exitPrice` equal that booked value; the suppression counter is explicitly corroborative rather than an event count; the six-case proof has the necessary no-concurrent-exit conditions. |
+| **G2** | **PASS**  | The replace semantics are consistently carried through admission, collision, MTLIFE and downstream LOTDIAG. The predicted replacement bars and attribution rules are explicit. |
+| **G3** | **AMEND** | P35 says there is “exactly one row per closed bar per run,” but the described logger only emits when a managing trade is actually evaluated. The caller is once-per-closed-bar; the `EXITVERDICT` row is therefore **at most one**, not necessarily one. |
+| **G4** | **PASS**  | Exact-diff-first, +13 budget, compile 0/0, one build/one run, and no commit without token are all clearly stated. |
+
+## Analytic A — defects, gaps, and imprecision
+
+**1. P35 — `EXITVERDICT` row count is overstated.**
+The sentence:
+
+> “EXITVERDICT cross-run pairing key is barTime alone (exactly one row per closed bar per run)”
+
+conflicts with P24/P35's own description that the print occurs when a **managing trade is evaluated**, and with the stated no-verdict return. The once-per-bar property proves the function is evaluated at most once per closed bar; it does not prove an `EXITVERDICT` row exists on every closed bar.
+
+**Required delta:** change this to something like:
+
+> “EXITVERDICT rows are keyed by barTime alone; the single-caller `s_lastBarTime` guard guarantees at most one EXITVERDICT row per closed bar per run, and a row exists only when a managing trade reaches the logging site. Cross-run pairing is by barTime for rows that exist; absence is graded separately, not treated as a duplicate.”
+
+This is the one defect I regard as clearance-relevant.
+
+**2. P24/P35 — row-absence semantics should be stated once, explicitly.**
+The packet is otherwise very careful about missing EXITVERDICT rows in the replacement-bar cases, but the general cross-run rule does not say whether an absent row on one side is simply a missing observation or an automatic divergence. That becomes important because G3 says “cross-run diff” while also saying the logger is per-evaluation.
+
+This is a specification gap rather than a code flaw. The clean rule is: pair existing rows by `barTime`; handle expected absence through the already-defined lifecycle/attribution rules; unexpected absence halts.
+
+**3. P33 — “TP-touch-eligible bar” with invalid `tpRef` is not precisely defined.**
+The sentence:
+
+> “a TP-touch-eligible bar on a trade with invalid tpRef and no TP exit grades diagnostic failure”
+
+needs a formal basis for “eligible.” The packet should identify it explicitly as the E1 recompute-touch predicate: LONG `h >= curTp`, SHORT `l <= curTp`, with `haveTp=true`.
+
+Otherwise, “eligible” could be read as referring to the booked target, which is unavailable by definition in the invalid-`tpRef` case.
+
+**4. P33 — the “bars above tpB remain marked prediction” sentence is directionally ambiguous.**
+The record-closable paragraph says:
+
+> “bars above tpB remain marked prediction.”
+
+For LONG, a bar with `h >= tpB` is exactly a booked-target touch; for SHORT, the analogous condition is `l <= tpB`. Once `h/l` are actually present in the new `EXITVERDICT`, that is observable evidence rather than a prediction. The intended meaning appears to be that **offline/base-run bars lacking h/l remain prediction-only until the new run exposes the per-bar evidence**.
+
+That should be rewritten to avoid a directional contradiction.
+
+**5. P40 — “first measurement that booked-vs-recompute divergence occurred and at what prices” should keep the evidentiary roles separated.**
+The text already says this later, but the strongest formulation is: `tpB/h/l` establish the per-evaluation price relation; `sup` is only cumulative corroboration. Nothing should read as though a positive `sup` identifies the bar or price by itself.
+
+This is minor because P33/P35 already substantially correct for it.
+
+## Analytic B — better mechanism
+
+For the stated goal, the cleanest stronger mechanism would be a **per-evaluation suppression boolean**, rather than relying on the cumulative `g_n1_tpRecomputeSupp` counter as the primary rail.
+
+At **E1 L11097–L11115**, define the event directly:
+
+```text
+bool tpRecomputeSupp = tpRecomputeTouch && !tpBookedTouch;
+```
+
+Then use that boolean both for the counter increment and for the `EXITVERDICT` log at **E4 L11176–L11187**, e.g. an explicit `supp=%d` field.
+
+That gives each qualifying bar its own directly observable suppression predicate and avoids asking the cumulative counter to carry any event-identity burden. The existing booked-target exit path remains untouched, and the existing `tpRef` admission latch remains the authoritative target. The counter can remain exactly what the packet says it is: cumulative corroboration, not an event count.
+
+I would **not** widen the production exit logic beyond the current E1/E2 change merely to solve these grading issues. Most of the needed correction is contract wording and instrumentation attribution, not another behavioral change.
+
+### Minimum amendment
+
+I would make the v3.6 text-only delta at **P35**, with the associated clarification at **P24/P33**:
+
+1. replace "exactly one row per closed bar per run" with **"at most one row per closed bar per run, and only when a managing trade reaches the logging site."**
+2. state that **missing rows are handled by the existing lifecycle/attribution rules and are not themselves duplicate rows.**
+3. define P33 "TP-touch-eligible" explicitly from the E1 recompute-touch predicate.
+4. clarify the P33 "bars above tpB" sentence as prediction-only **where h/l are unavailable**, not where the new-run EXITVERDICT has already exposed the touch relation.
+
+**No code-literal change is required by this review. No clearance key volunteered.**
+
+## Luna-V212 (AMEND-WITH-DELTA, no key, v212 transport, pasted 2026-09-21, whole)
+
+**Verdict: AMEND-WITH-DELTA — v3.7 should not be cleared as written.**
+This is not a halt-level design failure. The E-b logic itself is coherent; the amendments are in the grading contract and evidence semantics.
+
+### G1 — AMEND
+
+**Required delta 1 — L33, G1(iv): incomplete termination fallback.**
+
+The predicted-collision absence rule says the prior held trade may explain a missing predicted `MTCOLLISION` only through:
+
+> “SL, BREAK, or TP_TOUCH at booked — or run-end lifecycle state”
+
+But the same packet’s G2 explicitly brings **SESSION_LIMIT** into the replacement-semantics universe at the stated `L7691` site, and the text elsewhere allows HTF-driven eventual-exit rows as family-(b) cases.
+
+So the absence fallback is narrower than the lifecycle actually permitted by the packet.
+
+**Required wording correction:** the “earlier termination” fallback must enumerate every legitimate non-REPLACED terminal path capable of ending the held trade before the predicted replacement bar, including at least `SESSION_LIMIT` and any actual HTF terminal exit reason that is in the EA’s exit universe.
+
+This is a real grading gap, because otherwise a legitimate earlier termination can incorrectly escalate to operator halt.
+
+**Required delta 2 — L33, G1(iv): make `tpB=1.16315` explicit for the 09-07 17:10 required row.**
+
+The row test currently requires `reason=TP_TOUCH`, `exit=1.16315`, and an inequality such as `h>=tpB`. Since E2 makes `exitPrice=tpRef`, the intended equality is logically recoverable, but the grade should not rely on that implication.
+
+Require explicitly:
+
+`tpB == 1.16315` and `LONG h >= tpB`
+
+for that required row, with the admission identity established first.
+
+**Minor precision — L33, G1(iii):**
+
+“the six early prices do not recur as TP_TOUCH exits” is too broad because the same paragraph explicitly permits a recurrence when that number is the trade’s own booked TP.
+
+The precise rule is:
+
+> no TP_TOUCH exit may use one of the six early prices **unless that price is the booked TP for that admission**; such a coincidence is annotated.
+
+**Minor precision — L33/L40: `sup` terminology.**
+
+The actual code at EA `L11097-L11102` increments `g_n1_tpRecomputeSupp` whenever:
+
+`tpRecomputeTouch && !tpBookedTouch`
+
+It does **not** require `vSL=0`, `vBREAK=none`, or `vHTF=0`.
+
+The packet correctly says the six-case proof must impose those no-concurrent-exit conditions, but the variable/comment:
+
+> `suppressed recompute touches`
+
+can be read as though `sup` itself counts actual suppressed exits.
+
+It does not. It counts recompute-touch/booked-touch divergence evaluations, including evaluations where some other exit predicate may also be true.
+
+The clean wording is:
+
+> `sup` is a cumulative count of evaluations satisfying `tpRecomputeTouch && !tpBookedTouch`; it is corroborative only and is never itself an event/suppression count.
+
+That matches the code exactly.
+
+**Minor wording issue — L33, G1(i):**
+
+“proves booked-TP touch basis from EXITVERDICT” followed by “independently from its EXITVERDICT” is internally awkward. The intended distinction is plainly that the proof must be based on the **price relation** (`h/l` versus `tpB`), not merely the `vTP` boolean.
+
+That should say “independent of the `vTP` flag” rather than “independently from its EXITVERDICT.”
+
+### G2 — AMEND
+
+**L34, G2: internal wording contradiction.**
+
+It says:
+
+> “seven upstream families row-identical with no exception”
+
+and immediately provides a **LOTDIAG carve-out**.
+
+“No exception” therefore cannot literally be true.
+
+There is also tension between “MTLIFE exit-path-only” and the broader “row-identical” phrasing, because E2 intentionally changes the logged `exitPrice` on TP exits at EA `L11195` from `curTp` to `tpRef`.
+
+This does not indicate a code defect. It is a contract-language defect.
+
+**Suggested grading wording:** distinguish **row identity / lifecycle semantics** from **intentionally changed fields**. For example, say that replacement semantics remain row-identical across the defined upstream families, subject to the explicitly named LOTDIAG carve-out and the intentional TP exit-price/log changes.
+
+### G3 — PASS with one documentation caveat
+
+**L35, G3 is logically coherent.**
+
+The shared-field cross-run comparison correctly excludes the new `tpB/h/l/sup` payload, while retaining `vTP` as a behaviorally meaningful shared field. The bar-time pairing is also coherent **under the stated single-active-trade / once-per-closed-bar premise**.
+
+The packet explicitly identifies that premise through the stated OnTick ordering and sole-call claim (`L6607`, `L11229`). Under your verification split, I treat that as the stated disk-established premise rather than attempting to re-prove it here.
+
+### G4 — PASS
+
+The scope is clean:
+
+* one build;
+* exact-diff gate;
+* stated +13 budget;
+* E1/E2/E4 only;
+* one tester run;
+* 90-minute ceiling;
+* alert-only;
+* no commit without token.
+
+Nothing in the page authorizes a live trade or funded-money action.
+
+---
+
+## Analytic A — all defects / gaps / imprecisions I see
+
+**1. L33 G1(iv): termination-fallback list is incomplete.**
+The concrete inconsistency is SESSION_LIMIT in G2 versus its omission from the predicted-collision absence escape.
+
+**2. L33 G1(ii): required 17:10 row should explicitly require `tpB=1.16315`.**
+The intended value is inferable from E2, but deterministic grading is cleaner when the row itself carries the exact booked target being asserted.
+
+**3. L33 G1(iii): “do not recur” overstates the rule.**
+Coincidental booked-price recurrence is expressly allowed.
+
+**4. L33/L40 plus EA L11097-L11102: `sup` name/description is broader in code than “suppressed exit” language suggests.**
+The packet already partially recognizes this, but the normative definition should be one exact Boolean predicate.
+
+**5. L33 G1(i): “independently from its EXITVERDICT” is ambiguous.**
+The intended independence is from the `vTP` verdict flag, not from the `EXITVERDICT` row as an evidence source.
+
+**6. L34 G2: “no exception” conflicts with the explicit LOTDIAG carve-out.**
+
+**7. L34 G2: “row-identical” needs qualification because E2 deliberately changes TP-exit price fields.**
+Lifecycle/replacement identity is the invariant, not byte-for-byte identity of every emitted field.
+
+**8. L20 / EA L11176-L11187: the packet explains the new EXITVERDICT payload but does not itself present an exhaustive use-site proof that changing `g_mtrade.exitPrice` at EA L11195 has no other behavioral consumers.**
+That is an evidence-completeness gap on the page, not evidence of an actual hidden consumer. Given your stated disk-verification split, I would not halt on it, but it is the one material semantic-use-site dependency that the page leaves implicit.
+
+**9. L33 G1(iv): the “absence of predicted MTCOLLISION” fallback should be phrased as an exhaustive lifecycle condition, not a partial reason list.**
+That avoids the same problem recurring when another legitimate terminal reason is added later.
+
+I do **not** see a defect in the core E1/E2 mechanics shown: `tpRef` is latched once at admission (`L10062`), cleared only by `MtReset` (`L285`), read by MTLIFE (`L10979`), and E2 now reports that booked value at `L11195`. The booked-touch predicate itself is separated cleanly from the recompute-touch predicate at `L11097-L11102`.
+
+## Analytic B — better mechanism for the stated goal
+
+A cleaner future mechanism would make the **per-evaluation suppression condition explicit**, rather than requiring the grader to reconstruct it from `curTp`, `tpB`, `h`, `l`, and the other verdict fields.
+
+At the exit-verdict site around **EA L11176-L11187**, derive a strict instantaneous flag after all exit predicates are known:
+
+`tpRecomputeOnly = tpRecomputeTouch && !tpBookedTouch && !vSL && !vBREAK && !vHTF`
+
+Then log that Boolean directly, while retaining `sup` only as optional cumulative corroboration. The touch calculations remain at **EA L11097-L11102**; the diagnostic counter anchor is **EA L1054-L1055**.
+
+That would make each six-case grade directly observable and eliminate most of the current admission/bar/absence inference burden without changing the exit behavior itself.
+
+**Key:** none volunteered.
+
+## Luna-V213 (ACCEPT, no key, v213 transport, pasted 2026-09-21, whole)
+
+## Verdict: ACCEPT
+
+**PACKET_P-EXITGATE-1 v3.8 is clear by name for exactly one build plus exactly one tester run under the stated RECON50 envelope.**
+
+This is a **content verdict only**. It does not itself build, run, commit, or authorize spending. Your standing execution conditions remain: **dual-key clear + his run word + token; no commit without token**.
+
+**Volunteered key:** none.
+
+### G1 — ACCEPT
+
+**Packet L33.**
+
+The v3.8 G1 rule is internally coherent with the supplied E1/E2/E4 design:
+
+* **EA L11097-L11102:** TP eligibility is now `tpBookedTouch` against `g_mtrade.tpRef`; the recompute-touch path is separately observable.
+* **EA L11194-L11197 / packet L23:** TP exits record `g_mtrade.tpRef`, so the logged TP exit price is the booked target.
+* **EA L11176-L11187 / packet L35:** `tpB`, `h`, `l`, and cumulative `sup` are exposed on each EXITVERDICT row.
+* The packet correctly makes **`h/l` versus `tpB` the touch proof**, not `exit==booked`.
+* The required **2026-09-07 17:10** row is grounded by the supplied RECON50 records: EXITVERDICT `curTp=1.16315`, MTEXIT `exit=1.16315`, and the 16:45 MTLIFE booked `tp=1.16315`.
+* The six-case suppression proof is no longer resting on `sup` alone; it requires per-case EXITVERDICT evidence plus no-concurrent-exit and lifecycle attribution.
+* The replacement-bar exception is properly handled: the **replacing admission** owns the evaluation duty, not the prior replaced trade.
+* The `sup` rail floors and the exhaustive collision-fallback treatment are explicit rather than silent-pass rules.
+
+I see **no remaining G1 defect that warrants withholding this single-run clearance**.
+
+### G2 — ACCEPT
+
+**Packet L34.**
+
+The replace semantics are sufficiently specified:
+
+* SIGNAL / TP_ELECT / SIDE1X / SIDE1E / STOPRESOLVE / SEEDDIAG / SESSION_LIMIT are treated as admission-side identities.
+* **EA L10038-L10053** explicitly replaces rather than blocks.
+* The packet correctly separates **SESSION_LIMIT at EA L7691** from trade termination and ties that boundary to the ST_IDLE admission gate.
+* LOTDIAG is isolated as the permitted downstream cascade effect.
+* MTLIFE is correctly treated as exit-path output rather than an admission-side identity.
+* Unnamed row-kind divergence defaults to halt, which prevents an implicit “known exception” from swallowing an unexplained change.
+
+No G2 condition is presently under-specified enough to block the one run.
+
+### G3 — ACCEPT
+
+**Packet L35.**
+
+The instrumentation contract is complete enough for this run:
+
+* EXITVERDICT is per evaluation, at most once per closed bar under the supplied **EA L11229 / `s_lastBarTime`** premise.
+* The new `tpB/h/l/sup` payload is explicitly exempt from the cross-run shared-field diff.
+* The vTP `0→1` conversion is attributed to the booked-touch categories instead of being left unattributed.
+* No new alert kind is introduced.
+
+The remaining pairing weakness noted below is real, but the current single-trade / once-per-bar / replacement lifecycle makes the run-grade reconstructible.
+
+### G4 — ACCEPT
+
+**Packet L36.**
+
+The build gate is sufficiently constrained:
+
+* **exact-diff allowlist primary; line budget secondary**
+* `11235 + 13 = 11248`
+* E1 +11, E4 declaration +2, E2 +0, E4 log +0
+* the withdrawn `+14 / 11249` figure is explicitly retired
+* 0 errors / 0 warnings is the stated build criterion
+* commit remains token-gated
+
+No G4 clearance defect remains on the page.
+
+---
+
+# Analytic A — defects, gaps, or imprecisions
+
+I see **four non-blocking issues**. None changes the present ACCEPT.
+
+### 1. G3 pairing key is weaker than G1's own case key
+
+**Packet L33 vs L35.**
+
+L33 says the case key is **admission identity + evaluation bar + direction**.
+
+L35 then says cross-run EXITVERDICT pairing is **`barTime` alone**.
+
+Those are not the same abstraction. `barTime` alone is sufficient only because the packet also relies on the stronger current premises: one active trade, one EXITVERDICT per bar, identical admission semantics, and replacement attribution elsewhere.
+
+That is acceptable for this run, but it is a genuine robustness gap.
+
+**Better wording:** make the operative pairing key **admission identity + barTime + direction**, while allowing barTime-only physical row pairing only as the first join step.
+
+### 2. “Deterministic” is too strong for the 17:10 requirement
+
+**Packet L33.**
+
+The packet calls the 2026-09-07 17:10 row “deterministic,” but the row is still a **grade-time measured outcome in the new run**. What is deterministic is the logic-derived expectation conditional on identical inputs, admission identity, and unchanged upstream behavior.
+
+The packet elsewhere correctly calls the broader six/one set a prediction, so this is terminology, not a substantive grading defect.
+
+**Better wording:** “required predicted row under identical upstream/admission conditions.”
+
+### 3. LOTDIAG is described as one of the “two qualifications” to the seven-family identical set
+
+**Packet L34.**
+
+That is slightly structurally awkward. The seven-family set excludes LOTDIAG, while qualification 1 is expressly about LOTDIAG.
+
+It would read more precisely as:
+
+> “exactly two named exceptions to the overall row-identity expectation: LOTDIAG cascade divergence, and intentional E2/E4 payload changes.”
+
+Again, wording only.
+
+### 4. EXITVERDICT admission identity is normative but not directly carried in the shown payload
+
+**Packet L33/L35; EA L11176-L11187.**
+
+The packet requires admission-keyed evidence, but the shown EXITVERDICT payload itself carries:
+
+`bar, dir, entry, curTp, vSL, vTP, vBREAK, vHTF, scope, htfH/M/L, want, anti, tpB, h, l, sup`
+
+It does **not** directly carry `signalBarTime`, `fillBarTime`, or another stable admission identifier.
+
+Under the stated single-trade lifecycle, the admission can be reconstructed from the surrounding admission/replacement/MTLIFE record. So this is **not a blocker here**. But it is the weakest point in the current forensic design because the normative case key is stronger than the row's own explicit identity fields.
+
+---
+
+# Analytic B — better mechanism
+
+The strongest improvement for the stated goal is the one already parked for a future packet:
+
+### Per-evaluation instantaneous suppression flag
+
+Instead of making the cumulative `sup` counter do double duty as the only compact diagnostic rail, retain the counter but also materialize the actual per-evaluation predicate:
+
+```cpp
+bool tpRecomputeOnly = (tpRecomputeTouch && !tpBookedTouch);
+if(tpRecomputeOnly) g_n1_tpRecomputeSupp++;
+```
+
+Then emit `tpOnly=%d` in EXITVERDICT.
+
+**Code touched:**
+
+* **EA L11097-L11102** — define `tpRecomputeOnly` directly from the two predicates.
+* **EA L11176-L11187** — log `tpOnly` alongside `tpB/h/l/sup`.
+
+That would make the suppression event itself row-local and immediately attributable, instead of deriving it from a cumulative counter plus reconstruction. The existing `sup` could remain as a corroborative cumulative rail.
+
+A second, stronger forensic improvement would be to add an explicit admission identifier (`fillBarTime` or `signalBarTime`) to EXITVERDICT at **EA L11176-L11187**, but that is a larger instrumentation change and is appropriately deferred for a future packet rather than folded into v3.8.
+
+## Final disposition
+
+**ACCEPT — v3.8.**
+
+**G1:** clear.
+**G2:** clear.
+**G3:** clear.
+**G4:** clear.
+
+**No volunteered key.** The only findings are the four non-blocking precision/forensic-strength issues above; none requires an amend before the single build + single RECON51 run.
+
+## Luna-V213-NUDGE1 (ACCEPT restated, no key, nudge reply, pasted 2026-09-21, whole)
+
+Agreed. The record establishes that the key was **invited, not required**, and Luna's explicit answer was **“No volunteered key.”**
+
+So there is no prompt defect or missing-input defect here. The v213 verdict remains:
+
+**ACCEPT — PACKET_P-EXITGATE-1 v3.8.**
+
+No key was volunteered, and I would not infer, manufacture, or treat one as owed. Any later key would have to be volunteered by the seat, or the key rule would have to be changed separately by the operator's process.
+
+## Luna-V214 (AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+**AMEND-WITH-DELTA — PACKET_P-EXITMODEL-2 v1 is not clear exactly as written.** The scope and the requested one-build/one-run envelope are otherwise coherent, but there is one concrete control-flow defect plus several audit-language gaps that should be folded before clearance.
+
+### Blocking delta
+
+**1. F2's "one-line re-enable restores the spec default" is not true under the F3 code as written.**
+
+Relevant lines: **P30, P32; EA L11030-L11032, L11165-L11187, L11202-L11210.**
+
+The F3 arm is gated by:
+
+```text
+!vSL && !vTP && !vBREAK && g_news_init ...
+```
+
+It does **not** test `!vHTF`. The final priority is:
+
+```text
+SL -> TP -> BREAK -> DAY_CLOSE -> HTF
+```
+
+Therefore, if `MT_HTF_EXIT` is changed back to `true` and an HTF flip and the day-close mark occur on the same evaluated bar, both verdicts can be true, and **DAY_CLOSE wins over HTF_FLIP**. That is not the prior HTF priority.
+
+There is a second, narrower wording issue in the same place: re-enabling `MT_HTF_EXIT=true` still leaves the new F3 DAY_CLOSE leg in the program, so it cannot literally restore the pre-packet behavior for mean-reversal-bearing trades.
+
+**Minimal delta:** make the F3 verdict gate explicitly exclude an already-fired HTF verdict:
+
+```text
+&& !vHTF
+```
+
+and change the P30 wording from "one-line re-enable restores the spec default" to wording that says it restores the **HTF flip leg**, not the entire pre-packet behavior.
+
+**For literal full rollback of pre-packet behavior**, the stronger mechanism would be to make the new DAY_CLOSE experiment conditional on the no-flip experiment being active, e.g. conceptually `!MT_HTF_EXIT && ...`. That is cleaner if "re-enable" is intended as a true behavioral rollback rather than merely restoring HTF exits.
+
+### Analytic A — defects / gaps / imprecisions
+
+**2. Fill-time precision is underspecified.**
+Relevant: **P17, P32; EA L10330-L10342 and the F3 comparison using `g_mtrade.fillBarTime`.**
+
+The rule is stated as "the first 16:55 mark at/after the fill," but the implementation compares `fillBarTime` to the mark. The page does not establish that `fillBarTime` is the **actual fill timestamp** rather than the opening timestamp of the fill bar.
+
+That matters at the exact boundary: a fill occurring during the 16:55–17:00 M5 bar after 16:55 would still satisfy `fillBarTime <= 16:55` if `fillBarTime` is merely the bar-open time.
+
+This is a **specification gap**, not necessarily a demonstrated code defect. The acceptance section should either state the bar-open-fill invariant explicitly or add one boundary case proving "fill after 16:55 does not consume that day's mark."
+
+**3. G2's exemptions are broader than its attribution rule.**
+Relevant: **P41, P47.**
+
+`TP_ELECT`, `TPCENSUS`, and `LOTDIAG-signal-lots` are exempted where the winner changes, and TP_RR_FAIL attribution is mentioned, but the page does not define a complete orphan-check for those exempt rows.
+
+For auditability, the exemption should be keyed explicitly by something like **admission + bar + direction**, with the changed booked target / winner and any TP_RR_FAIL transition attached. Otherwise a changed row can technically fall inside an exempt family without proving that its change came from F1.
+
+Your later sentence "attributed bar-for-bar, never hidden" gives the intended standard, but the operative G2 wording should make the join requirement explicit.
+
+**4. G1's F3 budget wording is imprecise.**
+Relevant: **P40 versus P32.**
+
+P40 calls the new evaluation a "9-line eval," while the literal F3 block presented in P32 is more than nine physical source lines once continuation lines/braces are counted.
+
+Because P40 says exact-diff is primary and budget is secondary, this is not a behavioral blocker. It is an audit-counting ambiguity. Define whether the budget counts logical statements, non-comment lines, or physical diff lines.
+
+**5. P30's rollback wording conflates the F2 toggle with the whole packet state.**
+Relevant: **P30, plus F3 in P32.**
+
+As written, "one-line re-enable (true) restores the spec default" sounds stronger than what the combined edit set actually does. Even after the minimal `!vHTF` delta, F3 remains installed. The wording should distinguish:
+
+* restoring the HTF-flip experiment's default setting; versus
+* restoring the entire pre-P-EXITMODEL execution model.
+
+The current text supports only the first interpretation.
+
+### Analytic B — better mechanism
+
+For the stated goal, the cleaner mechanism is to make the experiment controls **orthogonal and self-contained** rather than relying on comments to describe a rollback:
+
+**F2:** `MT_HTF_EXIT` controls only whether the HTF verdict is produced.
+**F3:** a separate compile-time experiment condition controls whether DAY_CLOSE is eligible.
+**Priority:** retain one explicit verdict order and make mutually competing verdicts deterministic.
+
+That would touch **EA L129-L132, L11030-L11032, L11165-L11187, and L11202-L11210**. It also makes the "turn F2 back on" operation unambiguous: changing one toggle changes only F2, rather than implying that F3 disappears.
+
+### What otherwise checks out on the page
+
+The F1 replacement is logically consistent with the stated "nearest regardless of family" rule: the old POI-first/fallback branch is removed and both candidate pools feed the same `TpTargetUpdateBest` reduction at **P28 / EA L2321-L2359**.
+
+The F3 mark definition is also internally consistent with the supplied 16:55 ET definition at **EA L10330-L10342**, and the stated `fillBarTime <= mark <= barTime` condition does select the earliest qualifying mark because the marks are traversed in order.
+
+The proposed exit precedence is explicit at **P32 / EA L11030-L11032 and L11202-L11210**, and the new enum/name pairing at **P32 / EA L151-L161 and L259-L272** is internally consistent.
+
+### Verdict
+
+**AMEND-WITH-DELTA.**
+
+The required delta is:
+
+1. **Fix F3's interaction with `vHTF`** so re-enabling HTF cannot be silently overridden by DAY_CLOSE.
+2. **Tighten the P30 rollback wording.**
+3. Preferably make the **fill-time boundary invariant** explicit and make the **G2 exemption join** formally keyed.
+
+After those amendments, the requested scope remains suitable for **exactly one build plus one tester run under the stated envelope**, with G1-G4 used exactly as the acceptance rail and no execution implied by the review text itself.
+
+**Volunteered key:** none. I am not supplying or inventing a key; keys remain with the designated key seat.
+
+## Luna-V215 (AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+## Verdict: AMEND-WITH-DELTA
+
+I would **not clear PACKET_P-EXITMODEL-2 v2 yet**. The code-change concept is mostly coherent, but the page has two material acceptance/attribution defects and two narrower specification imprecisions that should be corrected before the requested one-build/one-run clearance.
+
+### Mandatory deltas
+
+| # | Finding                                                                                                                                                 | Lines                                                                     | Why it matters                                                                                                                                                                                                                                        | Required delta                                                                                                                                                                                                                                                     |
+| - | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1 | **G2 only attributes later-admission changes to F1 exit reordering.**                                                                                   | P41; F2 P16; F3 P17/P32; EA L11165-L11210                                 | Turning HTF exits off can keep a trade open longer; DAY_CLOSE can close it earlier/differently. Either can alter later `SESSION_LIMIT`, lots, admission rows, and `MTLIFE` identities. Thus the stated "row-identical" downstream gate is incomplete. | Expand the attribution clause from **F1 exit-reorder** to **F1/F2/F3 exit-reorder**, with the same admission+bar+direction causal join. Explicitly allow the resulting `SESSION_LIMIT` / lot / admission differences when causally downstream of the changed exit. |
+| 2 | **"TPCENSUS winner==booked proof on all admissions" is not mechanically guaranteed by the stated code.**                                                | P15, P22, P47(a); F1 EA L2321-L2359; `MtNearestTpTarget` EA L10913-L10950 | Admission booking says **anchor admitted**; the separately described recompute path says **anchor skipped**. Therefore an admission whose winning target is the admitted anchor cannot be proven by a recompute census that excludes the anchor.      | Either narrow the claim to non-anchor bookings plus a separate anchor-proof row, or add a booking-time census/result using the exact admission race. The latter is the cleaner mechanism if "all admissions" must remain literal.                                  |
+| 3 | **DAY_CLOSE is called "day-close-minus-5," but the implemented event is actually first qualifying evaluation after the 16:55 mark, with `nextOpenPx`.** | P17; P32(c)-(f); EA L11204-L11210                                         | In an alert-only/closed-bar engine, the recorded exit-price reference is the next bar's open, not a 16:55 execution price. That may be intentional, but the acceptance wording currently conflates the mark with the evaluation/price reference.      | Define the semantic explicitly as: **"first closed-bar evaluation whose `barTime` qualifies the 16:55 mark; `exitPrice=nextOpenPx`."** Grade the run against that invariant, not an implied 16:55 execution.                                                       |
+| 4 | **The 8/28 16:25 G3 prediction is conditional on the priority rules, but is written as unconditional.**                                                 | P42; priority in P32(g); EA L11202-L11210                                 | On a shared evaluated bar, `SL` beats `DAY_CLOSE`. So "16:25 BOTH → DAY_CLOSE … ahead of the 17:00 SL" is only possible if that SL is not a same-bar firing verdict in the new run.                                                                   | Change the prediction to **DAY_CLOSE only when no higher-priority verdict fires on the qualifying mark bar**. Do not alter the stated priority order.                                                                                                              |
+
+### Analytic A — every defect, gap, or imprecision I see
+
+**1. G2 causal coverage is incomplete.**
+This is the clearest page defect. P41 says later admission changes are attributed where "an **F1 exit-reorder** changes a later admission." But P16 explicitly changes HTF exits, and P17/P32 adds a new exit leg. Both can change the time/state at which a later setup is admitted. This needs to be generalized to F1/F2/F3.
+
+**2. `SESSION_LIMIT row-identical` is too absolute as presently written.**
+That statement in P41 is inconsistent with the acknowledged downstream effects of holding or closing trades differently. It should be "row-identical except causally attributable downstream changes from F1/F2/F3 exit timing," with the existing zero-unpredicted-families rule preserved.
+
+**3. The "all admissions" TPCENSUS proof is internally mismatched with the anchor treatment.**
+P15 says admission booking has anchor admitted. P22 says `MtNearestTpTarget` remains anchor-skipped. Therefore the same function cannot establish a universal `winner==booked` proof for anchor wins. This is not a disk-truth issue; it follows directly from the stated mechanisms.
+
+**4. The day-close terminology is more precise than the implementation actually is.**
+The actual invariant is mark detection plus next-open price reference. Since this is alert-only, that distinction is especially important because `exitPrice` is explicitly a target/log figure, not a realized fill. P47 acknowledges that generally, but the F3 wording still reads like an actual 16:55 exit.
+
+**5. G3 has one outcome statement that is over-specified relative to its own priority rule.**
+P42 predicts the 8/28 16:25 BOTH trade reaches `DAY_CLOSE` "ahead of the 17:00 SL." P32 and L11202-L11210 say SL wins whenever both fire on the same evaluation. The acceptance text should therefore make DAY_CLOSE conditional on the higher-priority verdicts being false on that bar.
+
+**6. The page does not explicitly prove that the POI side of the new F1 race independently enforces every named "swept/live" validity predicate.**
+The new literal at EA L2321-L2359 directly shows the authority-rank check plus `ReadBuf1`, while P28 claims direction/in-zone/swept/live/tier-rank validity is retained. Direction/in-zone are plausibly inside `TpTargetUpdateBest`; the supplied F1 literal does not itself show a separate EA-26/EA-51 swept/live predicate for POI lines. This is a **verification gap in the page**, not enough by itself for a halt, provided the existing helper/buffer contract is already established elsewhere on disk.
+
+**7. `EXITVERDICT` is no longer a complete "all verdicts" representation.**
+P21 deliberately freezes the EXITVERDICT format while `vDAY` travels through `MTEXIT`/`MTLIFE`. That is internally consistent with the chosen delta, but it means any language elsewhere implying that EXITVERDICT itself captures every verdict is no longer literally true. The packet partly acknowledges this, so I regard it as an observability limitation rather than a blocker.
+
+**8. The acceptance page mixes prediction and acceptance language.**
+P42 is labeled "Exit deltas predicted," while P48 makes G1-G4 authoritative. That is acceptable only if predictions remain hypotheses and the run decides them. The 8/28 wording currently reads closer to an expected result than a conditional hypothesis, which is why item 4 above should be tightened.
+
+### Analytic B — better mechanism for the stated goal
+
+For the **nearest-booking proof**, the cleanest mechanism is a **booking-time census record emitted from the same unified race that sets `best/haveBest`**, rather than relying on `MtNearestTpTarget` later. That touches the F1 booking site around **EA L2321-L2359** and records, at admission, the winning source/line, target value, and tie-break source. Then `TPCENSUS` can remain unchanged as the **recompute** census at **EA L10913-L10950**, and the two measurements have unambiguous meanings:
+
+`BOOKCENSUS = what was actually booked at admission`
+`TPCENSUS = what the current nearest recomputation says later`
+
+That also resolves the anchor-admitted/anchor-skipped mismatch without changing exit behavior.
+
+For the **day-close leg**, a slightly cleaner implementation would resolve the first qualifying mark once and store its index/identity when the trade is admitted, then test only that mark during management. The current scan over up to 32 ascending marks is functionally workable, but a stored mark makes the "first mark at/after fill" invariant explicit and makes the join key for G3 simpler. This would touch the trade-state declaration/reset and the admission/evaluation sites around **EA L10038-L10053, L10062-L10066, L10330-L10355, and L11189-L11210**.
+
+### G1-G4 disposition
+
+**G1:** conditionally sound, but not yet clearable because the packet's exact-diff gate cannot be verified from chat, and the acceptance arithmetic should remain secondary to the literal diff as stated.
+
+**G2:** **AMEND REQUIRED** because its causal attribution language omits F2/F3 downstream admission effects.
+
+**G3:** conceptually coherent, but amend the 8/28 prediction to respect the stated priority and tighten the day-close timing semantics.
+
+**G4:** sound as a goal, but the "TPCENSUS winner==booked on all admissions" evidence claim needs the anchor-proof correction above.
+
+### Clearance/key
+
+**No clearance token is warranted from this review.** The packet is **AMEND-WITH-DELTA**, so it should not proceed to the requested build/run on this verdict alone.
+
+**Volunteered key: none.** No seat key appears in the supplied v215 material, and I would not invent or relay one.
+
+## Luna-V216 (AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+## Verdict
+
+**AMEND-WITH-DELTA — PACKET_P-EXITMODEL-2 v3 is not cleared as written.**
+
+The packet is otherwise internally coherent, and I do **not** see a halt-level defect. One concrete code/page mismatch must be corrected before the requested one-build/one-run clearance can be issued.
+
+### Required delta
+
+**F3 priority implementation — P32(f), P32(g), and EA L11204-L11210 replacement site.**
+
+The packet's priority header says:
+
+> SL → TP_TOUCH → POI_BODY_BREAK → **HTF_FLIP** → DAY_CLOSE
+
+and P17/P32 explicitly says HTF beats DAY_CLOSE on a shared bar.
+
+But P32(f) specifies the assignment as:
+
+```cpp
+if(vSL)         ...
+else if(vTP)    ...
+else if(vBREAK) ...
+else if(vDAY)   ...
+else            { ... HTF ... }
+```
+
+So the literal assignment order is **DAY_CLOSE before HTF**, not HTF before DAY_CLOSE.
+
+The current `!vHTF` guard in P32(d) makes `vDAY` and `vHTF` mutually exclusive, so this does **not currently create a different runtime result**. It is nevertheless an actual priority-contract inconsistency: the implementation does not express the priority the header claims, and it would reverse the stated ordering immediately if that guard were ever widened or changed.
+
+**Amend the chain to make the declared priority literal:**
+
+```cpp
+if(vSL)         { ... }
+else if(vTP)    { ... }
+else if(vBREAK) { ... }
+else if(vHTF)   { g_mtrade.exitReason = MT_EXIT_HTF_FLIP; g_mtrade.exitPrice = nextOpenPx; }
+else if(vDAY)   { g_mtrade.exitReason = MT_EXIT_DAY_CLOSE; g_mtrade.exitPrice = nextOpenPx; }
+```
+
+That is the only code delta I regard as required for clearance.
+
+---
+
+## Analytic A — defects, gaps, and imprecisions
+
+### 1. Priority-chain/header mismatch — **required**
+
+**Packet P32(f)-(g); EA L11204-L11210.**
+
+Described above. The guard currently masks the mismatch, but the page should not claim one literal priority while specifying another literal chain.
+
+### 2. New enum value needs a broader consumer check than the packet explicitly states — **verification gap**
+
+**Packet P32(a), P32(b), P36 S1; EA L151-L161 and L259-L272.**
+
+Adding `MT_EXIT_DAY_CLOSE = 8` is safe in the shown enum/name switch, and P36 says there is no exit-reason-indexed `[8]` table. But "no `[8]` table" does not by itself exclude:
+
+* loops assuming reasons are `0..7`,
+* array bounds or counters keyed by the enum,
+* other switches with an implicit/default assumption,
+* numeric comparisons against the old maximum.
+
+That is a **coverage gap in the stated S1 assertion**, not evidence that such code exists. A stronger S1 statement would be an exhaustive consumer audit of `ENUM_MT_EXIT`, not just the table check.
+
+### 3. P15 wording over-bundles the validity filters — **non-blocking imprecision**
+
+**Packet P15 and P28.**
+
+P15 reads as though all four filters apply uniformly to both pools:
+
+> direction, in-zone guard, swept/live mask, tier-rank filter
+
+P28 later makes the intended scope precise: **swept/live applies to session/PD candidates only**, while POI uses direction/in-zone/tier-rank.
+
+That should be stated directly in P15 so the rule does not momentarily imply a broader POI mask than the code actually applies.
+
+### 4. DAY_CLOSE observability is intentionally incomplete — **disclosed gap, not a clearance blocker**
+
+**Packet P21, P32(d), P42-P47.**
+
+The packet explicitly freezes `EXITVERDICT`, so `vDAY` is carried through `MTEXIT/MTLIFE` while the EXITVERDICT rail is not exhaustive for DAY_CLOSE.
+
+That is internally acknowledged and therefore not a hidden defect. It does, however, mean the run's DAY_CLOSE proof depends on the stated **mark-join grading** rather than a single exhaustive verdict record. Your packet already says that; I would retain that limitation exactly as a known observability property.
+
+### 5. The "day-close-minus-5" name can be read as an execution-time claim — **semantic imprecision**
+
+**Packet P17, P32(d)/(f), P47.**
+
+The trigger is the first closed-bar evaluation whose `barTime` is at/after the 16:55 mark, but the recorded `exitPrice` is `nextOpenPx`.
+
+The packet does expressly say this is **not** an implied 16:55 execution, which resolves the implementation semantics. The only remaining issue is naming: "day-close-minus-5 exit" sounds like an execution at 16:55, whereas the supplied mechanism is "16:55 trigger, next-open target/log price."
+
+Not a blocker, but the wording should remain explicit in any downstream report.
+
+### 6. G2's attribution rule is sophisticated but has a broad downstream carve-out — **grading precision gap**
+
+**Packet P41.**
+
+The packet permits downstream `SESSION_LIMIT`, lots, admissions, and exit timing differences when attributable to F1/F2/F3 reorder.
+
+That is reasonable, but the hard boundary is somewhat procedural rather than exhaustive: "attributed-by-design exactly where" depends on the stated join key and attached transition evidence.
+
+The strongest formulation is already close to what you have: **same admission + bar + direction + changed target/winner + TP_RR_FAIL transition**, or a demonstrable later-admission causal chain from an F1/F2/F3 exit reorder. Anything outside that should remain unpredicted and therefore fail G2.
+
+---
+
+## Analytic B — better mechanism
+
+The best small improvement is to make the F3 priority decision **structurally explicit** rather than relying on the `!vHTF` exclusion to enforce the header.
+
+**Touch:** EA **L11204-L11210** only for the immediate priority fix.
+
+A cleaner longer-term mechanism would be a small helper around the new day-close test, conceptually:
+
+```cpp
+bool FindFirstDayCloseMark(datetime fillBarTime,
+                           datetime barTime,
+                           datetime &mark)
+```
+
+**Touch:** the F3 evaluation block around **EA L11188**, using the existing `g_news_dayMarks` built at **L10330-L10355**.
+
+That would centralize the "first qualifying mark" predicate and make the mark itself available for future census/verdict instrumentation without changing the booking or exit-state semantics. I would **not** add that helper to this clearance unless the operator elects to reopen the scope; the current scan is adequate for the stated goal.
+
+---
+
+## G1-G4 grading
+
+With the single priority-chain amendment above:
+
+**G1:** Acceptable as specified. The arithmetic is consistent: F1 `-24`, F3 `+13`, F2 `0`, yielding **11237 physical non-blank lines**, assuming the quoted exact-diff set is what lands.
+
+**G2:** Acceptable as specified, with the attribution boundary in P41 enforced literally. TP-derived changes and downstream reorder effects are appropriately carved out; unpredicted families remain a hard gate.
+
+**G3:** Acceptable as specified. The conditional DAY_CLOSE behavior, no-flip construction, 9/7 validity branches, 9/8 17:05 time boundary, and Friday next-open handling are internally consistent on the page.
+
+**G4:** Acceptable as specified. The stated join is factual/mechanical rather than magnitude-based, and the deployment bar remains shut.
+
+**F0-F3:** F0 is a record-only fold; F1/F2/F3 are within the declared scope. The sole amendment is the F3 literal priority chain.
+
+### Clearance state
+
+**AMEND-WITH-DELTA, not yet cleared for the build/run.**
+
+After the one amendment, the requested envelope remains exactly one build plus one tester run, with the existing STAGE-1 exact-diff gate and no commit without the separate required token.
+
+**Volunteered key: none.** I am not issuing a clearance token while the page contains the outstanding code-order mismatch.
+
+## Luna-V217 (AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+**AMEND-WITH-DELTA — not cleared for the requested build/run yet.**
+
+The proposed code edits are internally coherent enough for a single build/run after the packet wording and acceptance arithmetic are corrected. I see no page-level defect that requires a technical redesign or a halt, but I do see several concrete inconsistencies that should be amended first.
+
+### Analytic A — defects, gaps, and imprecision
+
+| Location                  | Finding                                                                                                                                                                                                                                                         |                       Severity | Required delta                                                                                                                                                                             |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -----------------------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **P17 / L17**             | F3 says priority is **"SL then booked-TP then BREAK then DAY_CLOSE then HTF"**. The operative F3 assignment in **P32 / L32** is `vHTF` **before** `vDAY`, and the new priority header explicitly says **HTF beats DAY_CLOSE** on shared bars.                   | Material wording contradiction | Change P17 to: **SL → TP → BREAK → HTF → DAY_CLOSE**. Keep P32 as the operative ordering.                                                                                                  |
+| **P40 / L40**             | F3 line-budget arithmetic is off. The inserted `(d)` block quoted in **P32 / L32** is **10 physical non-blank lines**, not 9.                                                                                                                                   |     Concrete accounting defect | F3 is **+14**, not +13. Therefore predicted post-build count is **11238**, not 11237.                                                                                                      |
+| **P41 / L41**             | G2 first declares `SESSION_LIMIT` row-identical to RECON51, but later explicitly allows `SESSION_LIMIT` variation downstream of an F1/F2/F3 exit reorder.                                                                                                       |             Internal ambiguity | State the intended rule once: `SESSION_LIMIT` is baseline-identical **except for demonstrable downstream causal changes from F1/F2/F3 exit reordering**.                                   |
+| **P21 / L21 + P32 / L32** | The header says the census logs **"ALL verdicts"**, while P21 deliberately says `EXITVERDICT` is **not exhaustive for vDAY**.                                                                                                                                   |      Observability wording gap | Clarify that "ALL verdicts" refers to the MTEXIT/MTLIFE census path, not the frozen EXITVERDICT print.                                                                                     |
+| **P42 / L42**             | "MTEXIT DAY_CLOSE rows exactly the mark-joined set" is understandable, but the authoritative grading artifact is not named at that sentence. P17 says MTEXIT/MTLIFE carry the reason, while EXITVERDICT does not.                                               |                          Minor | Name the authoritative join explicitly as **MTEXIT/MTLIFE reason=DAY_CLOSE**, with `fillBarTime <= mark <= exitBarTime`, and EXITVERDICT excluded from completeness grading for vDAY.      |
+| **P32 / L32**             | F3's scan is described as selecting the first qualifying mark, but the correctness depends on the existing invariant that `g_news_dayMarks[]` is ascending. That invariant is asserted in S1, so the logic is sound, but the dependency should remain explicit. |                          Minor | No code change needed; retain the S1 ascending-mark assertion as a hard precondition.                                                                                                      |
+| **P43 / L43**             | The 9/4 branch correctly allows "no DAY_CLOSE row" when a higher-priority exit happens, but the grading language could be read as expecting DAY_CLOSE unconditionally.                                                                                          |                          Minor | Phrase the target as **DAY_CLOSE when the mark is reached without an earlier-or-same higher-priority verdict; otherwise grade the actual higher-priority exit and record the divergence**. |
+
+The **budget correction is the only arithmetic defect I can establish directly from the quoted page text**: `(d)` contains these ten nonblank physical lines: comment, `if`, two continuation conditions, opening brace, `for`, opening brace, inner `if`, inner close, outer close.
+
+With the packet's own counts:
+
+`F1 -24 + F2 0 + F3 +14 = -10`
+
+so:
+
+`11248 - 24 + 14 = 11238`
+
+not 11237.
+
+### Analytic B — better mechanism
+
+The current F3 mechanism is valid, but I see a cleaner implementation that reduces per-bar scanning and makes the "first mark" semantics more explicit:
+
+**Precompute/store the next eligible day-close mark at admission**, rather than rescanning `g_news_dayMarks[]` on every managed-trade evaluation.
+
+Touch points would be:
+
+* **EA L10066** — where `fillBarTime` is established at fill/admission.
+* **EA L10330-L10355** — existing day-mark construction remains the source of truth.
+* **EA L11188 onward** — replace the per-evaluation `for(dc...)` search with a single stored-mark comparison.
+* The managed-trade state declaration/reset would also need one stored `dayCloseMark` field and reset path.
+
+Semantically:
+
+`nextDayCloseMark = first g_news_dayMarks[dc] >= fillBarTime`
+
+then the runtime test becomes essentially:
+
+`dayCloseMark != 0 && dayCloseMark <= barTime`
+
+That makes "first mark at/after fill" a stored invariant rather than a repeatedly recomputed search. It does **not** change the intended behavior; the current scan is already logically sound given the ascending-mark assertion. I would therefore treat this as an optional improvement, not a prerequisite.
+
+### Verdict
+
+**AMEND-WITH-DELTA**
+
+The required amendments are limited to the packet:
+
+1. **P17 / L17:** correct the stated priority to **SL → TP → BREAK → HTF → DAY_CLOSE**.
+2. **P40 / L40:** correct **F3 +13 → +14** and **predicted post-build 11237 → 11238**.
+3. **P41 / L41:** reconcile the `SESSION_LIMIT` identity statement with the explicitly permitted downstream causal deltas.
+4. **P21/P32 / L21-L32:** clarify that EXITVERDICT is intentionally non-exhaustive for vDAY while MTEXIT/MTLIFE remain the DAY_CLOSE grading rail.
+
+After those deltas, **the page supports one build plus one run under the stated RECON51 envelope, subject to the packet's existing STAGE-1 exact-diff gate and the standing dual-key/run-word/token requirements.**
+
+**Volunteered key:** none. I am not inventing or substituting a key/token.
+
+## Luna-V219 (AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+**Verdict: AMEND-WITH-DELTA.**
+As written, I would **not issue the clear for the one-build/one-run envelope yet**. The packet is structurally close, and I do **not** see a page-level reason to halt the experiment outright, but there are two material wording/acceptance defects that should be corrected before the exact-diff gate is treated as final.
+
+### G1 — ACCEPT
+
+**Packet P40 / EA L129-L132, L151-L161, L259-L272, L11030-L11032, L11087-L11090, L11165-L11210**
+
+The arithmetic is internally consistent:
+
+* F1: 39 → 15 physical nonblank lines = **−24**
+* F2: 4 → 4 = **0**
+* F3: **+12**
+* 11248 − 24 + 12 = **11236**
+
+The F3 delta arithmetic also reconciles: `(a)+1 + (b)+1 + (c)0 + (d)+8 + (e)0 + (f)+1 + (g)+1 = +12`.
+
+The enum comma is syntactically correct, the `MT_EXIT_DAY_CLOSE=8` placement is coherent, and the return/assignment chain has no missing branch after the added explicit `vHTF` and `vDAY` arms.
+
+**One G1 amendment:** P32 / EA L11030-L11032 contains stale scope text:
+
+> `// (mean-reversion scope) ...`
+
+That directly contradicts P17, P26, P40-P43, and the stated 2026-09-21 universal rule. This is comment-only, but it is still an exact-diff defect. It should read **`(universal scope)`** or omit the parenthetical.
+
+### G2 — ACCEPT, with the standing operator veto preserved
+
+**Packet P41**
+
+The attribution framework is coherent: admission+bar+direction plus changed target/winner and TP_RR_FAIL transition, with the alternate later-admission causal-chain branch. It also correctly distinguishes booking-derived changes from otherwise identity-sensitive families.
+
+I do **not** see a new logical contradiction in the G2 rule itself.
+
+The standing statement that **his veto on the G2 substance grade remains in force** must remain exactly that; this review does not override it.
+
+### G3 — AMEND-WITH-DELTA
+
+**Packet P42; packet P17; EA L10330-L10355 and L11165-L11210**
+
+The core F3 mechanism is internally coherent:
+
+`fillBarTime <= dayMark <= barTime`, ascending day marks, first qualifying mark, higher-priority verdicts suppressing DAY_CLOSE, and explicit `HTF` before `DAY_CLOSE` when F2 is re-enabled.
+
+The defect is the **9/8 17:00 boundary wording**. P42 says:
+
+> "9/8 17:00 MEANREV fill sits after the 9/8 mark so no same-date day-close, 17:05 BREAK preserved by time"
+
+But elsewhere P17 says a fill on the **16:55 bar** carries `fillBarTime == mark` and therefore consumes that mark on first evaluation. Because J07's MTSNAP is stamped `bar=16:55`, the packet should make the actual fill-time invariant explicit: the 9/8 trade must have `fillBarTime = 17:00`, not 16:55, for the stated no-DAY_CLOSE conclusion to follow.
+
+So this is a **page precision defect**, not a proven code defect. The clean delta is to state the exact invariant in P42/P43:
+
+> the 16:55 MTSNAP produces a next-open fill at 17:00, hence `fillBarTime > 16:55 mark`; therefore that day's mark is ineligible.
+
+That removes the only ambiguity in the stated 9/8 boundary prediction.
+
+### G4 — AMEND-WITH-DELTA
+
+**Packet P43**
+
+The conditional structure is otherwise sound: it does not falsely require DAY_CLOSE when a higher-priority verdict legitimately wins.
+
+But G4 inherits the same 9/8 timing ambiguity above, and its Friday wording should distinguish **exit bar timestamp** from **exit-price provenance** more explicitly. The packet says the Friday DAY_CLOSE row has `exitBarTime=mark bar` but `exitPrice=nextOpenPx`, while also calling that value a "next-session-open exitPrice." Those are not necessarily the same semantic object unless `nextOpenPx` is established to be the next available session bar rather than merely the immediately following bar.
+
+So G4 should say **"target/log figure taken from `nextOpenPx`"** unless the disk-side definition of `nextOpenPx` explicitly proves next-session-open semantics.
+
+---
+
+## Analytic ask A — defects, gaps, and imprecisions
+
+### 1. Stale scope label in the priority header
+
+**P32 / EA L11030-L11032**
+
+The header says **"mean-reversion scope"** while the operative rule is universal. This is an outright textual contradiction and should be corrected before S2.
+
+### 2. 9/8 boundary needs the actual fill timestamp, not only the signal-bar timestamp
+
+**P42 / P43; EA L10066 referenced by P17**
+
+The prediction "no same-date DAY_CLOSE" depends on `fillBarTime > 16:55`, while the visible J07 row only shows `MTSNAP bar=16:55`. The packet should pin the fill-time relationship explicitly rather than making the reader reconstruct it.
+
+### 3. Friday `nextOpenPx` terminology is potentially stronger than the shown evidence
+
+**P17, P42, P43; F3 assignment at EA L11204-L11210**
+
+The code literal is `nextOpenPx`. Calling it "next-session-open" is stronger than calling it the next-open target/log figure. The packet already says this is **not** an implied execution, so the wording should stay equally precise about what the value actually is.
+
+### 4. F0 v217 provenance is duplicated
+
+**P26**
+
+The **entire "v217 verdicts ... folded here as v5 deltas" paragraph appears twice**. That does not change code bytes, but it weakens record-fold precision and creates a risk of double-counting provenance. One copy should be removed.
+
+### 5. "Nearest valid target" is deliberately based on asymmetric validity filters
+
+**P15 / P28**
+
+The unified race is real, but "valid" does not mean identical filtering across the two candidate families: swept/live filtering applies to session/PD but not POI. That is explicitly intentional, so I do **not** treat it as a logic defect; it is just an important semantic qualification that the word "valid" alone can obscure.
+
+### 6. TPCENSUS evidence needs to expose POI participation sufficiently to prove the new race
+
+**P15 / P28 / P47; J08-J10**
+
+The packet says TPCENSUS already walks both pools, but the shown J08-J10 examples display session/PD contenders and the selected winner without visibly enumerating POI contenders. For the claimed **winner==booked** proof on the new unified pool, the result file should make POI participation observable when a POI candidate is relevant. Otherwise the proof is technically asserted rather than visibly demonstrated in the packet's evidence shape.
+
+### 7. G2's strongest causal rule is good, but it must remain a causal rule rather than a blanket exemption
+
+**P41**
+
+The "later-admission causal chain" branch is necessarily evidentiary. The packet is correct to say "demonstrable"; it should not be relaxed into "anything downstream of this build is attributed." No change required, but this is the line I would hold hardest during grading.
+
+---
+
+## Analytic ask B — better mechanism
+
+The cleaner mechanism for F3 is the **stored-mark / precomputed deadline** approach already parked in the packet.
+
+**Current mechanism:**
+EA **L10330-L10355** builds the global ascending marks, then **L11168-L11187/L11188-L11210** rescans the entire mark array on every managed-trade evaluation.
+
+**Better mechanism:** at fill time, resolve and store the first qualifying day-close mark for that trade, then make EvaluateManagedTrade a single timestamp comparison.
+
+The code touch would be:
+
+* **EA L10330-L10355:** retain the authoritative ET→server day-mark construction.
+* **EA around L10062-L10066:** when `fillBarTime` is latched, resolve `nextDayCloseMark` once.
+* **One new per-trade declaration:** `datetime dayCloseMark;` (or equivalent sentinel).
+* **EA L11087-L11210:** replace the `for(dc...)` search with the direct `barTime >= dayCloseMark` test.
+
+That mechanism makes the core invariant explicit, eliminates the repeated scan, and removes the exact ambiguity exposed by the 9/8 boundary. It is **not necessary to adopt it for this packet**; the current scan is logically serviceable once the timing language is pinned.
+
+---
+
+## Clearance disposition
+
+**PACKET_P-EXITMODEL-2 v6: AMEND-WITH-DELTA, not HJ/HALT.**
+
+The minimum deltas I would require before calling it clear are:
+
+1. **P32 / EA L11030-L11032:** remove the stale "mean-reversion scope" wording.
+2. **P42/P43:** explicitly pin the 9/8 fill to `fillBarTime=17:00 > 16:55 mark`, or otherwise state the exact invariant that produces the claimed boundary.
+3. **P43/P42 Friday wording:** call `nextOpenPx` a target/log figure unless its next-session semantics are explicitly established.
+4. **P26:** remove the duplicated v217 fold paragraph.
+
+After those text-level amendments, the stated envelope remains **exactly one build plus one tester run**, with no commit and no spend absent the separately required dual-key clear, his run word, and token.
+
+**Volunteered key:** none appears in the supplied packet.
+
+## Luna-V223 (AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+**Verdict: AMEND-WITH-DELTA — not a halt. No clearance key volunteered.**
+
+The packet is technically coherent enough that I do **not** see a page-level reason to reject the F1/F2/F3 mechanism outright. The remaining problems are acceptance-spec precision: two hard-gate areas are not fully closed on the page.
+
+### Required amendments
+
+**1. G2 does not enumerate its "seven-family identity."**
+Line 58 says G2 is a "seven-family identity" and defines the treatment of TP/MTLIFE/SESSION_LIMIT deltas, but the seven baseline families themselves are not named in the v9 page. Because G2 is a **hard zero-unpredicted-families gate**, the reviewer needs the exact seven-family set frozen in the packet.
+
+**Delta:** at line 58, enumerate the seven families exactly as used by RECON51, or give a precise frozen locator to their authoritative definition. No change to the substantive attribution rule.
+
+**2. G2's "demonstrable later-admission causal chain" is still too discretionary.**
+Line 58 permits an F1/F2/F3 exit reorder to explain later admissions, but "demonstrable causal chain" is not defined tightly enough to make the hard gate falsifiable. It does specify a changed MTEXIT/MTLIFE exit reason/time and a linked admission timestamp/bar/direction, which is good, but it should require the predecessor relation explicitly rather than leave the linkage standard implicit.
+
+**Delta:** require the attribution record to contain the unique predecessor trade/admission identity, the changed exit row `(admission, exit bar/time, reason)`, the downstream released/blocked state transition, and the resulting changed admission `(bar/time, direction)`. Anything lacking that chain remains unpredicted and fails G2.
+
+**3. G4 claims a broader graded set than it actually specifies.**
+Line 60 says G4 takes "his 8/28, 9/4, 9/7 rows filled," but the explicit grading rules then define detailed outcomes for **9/4** and **9/7 09:20**. The 8/28-pm and 9/7-pm cases are discussed in G3, but G4 does not state what constitutes pass/fail/convergence treatment for them.
+
+**Delta:** either:
+
+* explicitly state the G4 grade for 8/28-pm and 9/7-pm, including the conditional "higher-priority exit suppresses DAY_CLOSE" case; or
+* narrow the sentence "his 8/28, 9/4, 9/7 rows filled" so it does not imply a G4 acceptance criterion exists for rows that are only G3-graded.
+
+### What is already internally sound
+
+**F1:** The old POI-first/fallback structure is actually removed and replaced with a single session-then-POI race using the existing `TpTargetUpdateBest` reducer. The session pool remains eligible even when a POI candidate exists, so the stated "family/category disregarded; nearest valid target wins" behavior is represented by the edit itself.
+
+The stated tie behavior is also internally consistent: session candidates are evaluated first, and the reducer's strict `<` means an exact cross-pool price tie retains the session candidate in the booked value. The packet simultaneously documents that TPCENSUS can name POI on an exact tie because of its later-equal overwrite. Since G2 explicitly grades the **booked value**, rather than requiring census-name equality, that divergence is accounted for rather than silently ignored.
+
+**F2:** Setting `MT_HTF_EXIT` to `false` cleanly removes the HTF-flip leg while leaving F1 and F3 installed, and the packet correctly identifies the HTF emitter as sitting inside that branch.
+
+**F3:** The new day-close reason, enum consumer, verdict variable, priority chain, day-mark scan, return gate, and assignment arm are mutually consistent. In particular, HTF remains ahead of DAY_CLOSE when re-enabled, while DAY_CLOSE is universal rather than regime-gated.
+
+The fill/mark condition is also correctly formulated for the stated next-open model: `fillBarTime <= mark <= barTime`, so a fill after that day's 16:55 mark cannot consume that mark, whereas a fill on the mark's bar can. The packet explicitly pins the 9/8 17:00 fill as the post-mark case.
+
+The EXITVERDICT non-exhaustiveness for DAY_CLOSE is not an accidental omission; the packet explicitly declares it a frozen-format substitution and moves completeness grading to MTEXIT/MTLIFE. That makes the observability choice explicit.
+
+### Other defects / imprecisions
+
+**Line 53 — S1 is very strong, but "seven-family identity" remains dependent on the unresolved G2 definition.** The exhaustive enum audit, `MT_HTF_EXIT` two-site audit, mark ordering, reducer tie behavior, single flip emitter, and once-per-bar call-cadence assertions are all appropriately specified.
+
+**Line 59 — G3 is conditional in several places, correctly so, but the acceptance language should distinguish "predicted candidate" from "required occurrence."** The packet already does this for 9/7-pm and 8/28-pm; retaining that distinction is important because SL/TP/BREAK/HTF can suppress DAY_CLOSE by design.
+
+**Line 60 — the 9/4 branch is appropriately split.** Absence of DAY_CLOSE is not automatically failure; it is valid when an earlier-or-same higher-priority verdict explains the suppression. That is correctly stated.
+
+### Analytic ask B — better mechanism
+
+I would **not change the mechanism** in this clearance. The F1 unified reducer is simpler than retaining family-selection state, and the F3 mark-join is materially easier to audit than introducing a stored per-trade mark or a new helper. The parked alternatives therefore need not be promoted into code for this probe. The packet already records those alternatives as parked and operator-vetoable.
+
+One useful mechanical tightening would be to make the G2 causal-chain evidence schema explicit in the result table rather than touching EA logic.
+
+### Bottom line
+
+**AMEND-WITH-DELTA.** The F1/F2/F3 implementation specification itself is sufficiently formed for a controlled probe, but I would not issue the requested clearance yet because the packet's **G2 hard gate is not completely self-defining** and **G4 overstates its explicitly graded row set**. Those are specification amendments, not reasons to redesign or halt the experiment.
+
+**Volunteered key:** none.
+
+## Luna-V220 (AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+**Verdict: AMEND-WITH-DELTA.**
+As written, I would **not issue the clear for the one-build/one-run envelope yet**. The packet is structurally close, and I do **not** see a page-level reason to halt the experiment outright, but there are two material wording/acceptance defects that should be corrected before the exact-diff gate is treated as final.
+
+### Required amendments
+
+**D1 — `g_news_init` failure is diagnosed but not made a hard acceptance failure.**
+The packet explicitly allows a false-throughout run to produce zero `DAY_CLOSE` rows and says that this is merely "diagnosed at the flag."  But G3/G4 are then written conditionally around the missing row.
+
+That permits an ambiguous result: no DAY_CLOSE evidence could mean "the higher-priority exit correctly suppressed it" or "the day-mark subsystem never initialized." Those are not equivalent.
+
+**Amend:** make runtime `g_news_init == true`, `g_news_dayN == 16`, and valid ascending marks a hard precondition for G3/G4. Failure is **G3/G4 fail**, not diagnostic-only.
+
+---
+
+**D2 — The 9/4 "no DAY_CLOSE row" branch conflates valid suppression with missing instrumentation.**
+P43 says that if no DAY_CLOSE row occurs on 9/4, the higher-priority exit can be accepted instead.  That is correct only when the mark subsystem demonstrably existed and a higher-priority verdict actually fired earlier-or-same bar.
+
+**Amend:** split the branch explicitly:
+
+`DAY_CLOSE absent + earlier/equal SL/TP/BREAK/HTF = valid suppression`
+
+`DAY_CLOSE absent + no higher-priority reason = fail`
+
+This is closely related to D1 but should be written separately because it affects grading logic.
+
+---
+
+**D3 — "closed-bar evaluation" is asserted, but the packet does not prove that `EvaluateManagedTrade` is actually invoked only on closed bars.**
+The semantic statement is specifically "first closed-bar evaluation" / first evaluated bar whose `barTime` qualifies.  The F3 code itself only tests `fillBarTime <= mark <= barTime`.
+
+If the engine can invoke `EvaluateManagedTrade` intrabar, the implementation could fire on the first tick of the 16:55 bar rather than at its closed-bar evaluation. I cannot infer the call cadence from this packet alone.
+
+**Amend:** S1 must include an explicit call-site/bar-close assertion for `EvaluateManagedTrade`, or the packet must change the semantic claim from "closed-bar evaluation" to the engine's actual invocation semantics.
+
+This is the most important technical gap after D1/D2.
+
+---
+
+**D4 — The Friday statement is factually imprecise.**
+P42 says, "Both DAY_CLOSE dates are Fridays," while the same paragraph explicitly carries **9/7-pm** as a conditional DAY_CLOSE candidate. September 7, 2026 is Monday.
+
+The likely intended statement is that the currently expected observed DAY_CLOSE rows at 8/28 and 9/4 are Friday rows, while 9/7-pm is a separate Monday conditional candidate.
+
+**Amend the wording** so the acceptance record cannot be read as treating 9/7 as Friday.
+
+---
+
+**D5 — G2's "demonstrable later-admission causal chain" is underspecified.**
+The canonical join is well defined, but the fallback causal-chain route is not.  A grader could reasonably disagree about what constitutes "demonstrable."
+
+**Amend:** require a concrete predecessor chain, e.g. changed `MTEXIT/MTLIFE` exit reason/time → released/blocked downstream state → changed admission, with the linked admission timestamp/bar/direction recorded. Anything without that witness remains unpredicted and fails G2.
+
+---
+
+**D6 — The run-environment naming is ambiguous.**
+The packet says the run is `RECON50_DEMO_USD` while simultaneously calling it "the RECON51 account."  The rest of the acceptance is explicitly benchmarked against RECON51.
+
+This may be intentional environment nomenclature, but the acceptance record should remove the ambiguity.
+
+**Amend:** require the result file to record the exact terminal/account identifier, mode, and benchmark designation, and require them to match the stated envelope.
+
+---
+
+### Other analytic imprecisions
+
+**D7 — Tie-break proof could be made more explicit in S1.**
+The claimed session-first tie outcome depends on two facts together: session loop occurs before POI loop, and `TpTargetUpdateBest` uses strict `<`. The packet asserts the latter at L2246 and describes the former in F1.
+
+For a future exact-diff regression, I would make S1 assert both pieces explicitly rather than relying on the assembled text.
+
+**D8 — The acceptance correctly excludes `EXITVERDICT` from DAY_CLOSE completeness, but this creates a real observability limitation.**
+The packet openly acknowledges that the frozen EXITVERDICT path is no longer exhaustive for vDAY.  That is acceptable only because MTEXIT/MTLIFE are made the authoritative DAY_CLOSE rail. The grading text should state that this is a **mandatory observability substitution**, not merely an explanatory note.
+
+**D9 — The F3 price semantics need one hard assertion, not just prose.**
+The packet repeatedly says `nextOpenPx` is a target/log figure and not a realized fill.   That is clear, but a run-grade assertion of `DAY_CLOSE exitPrice == nextOpenPx` would make the intended semantics mechanically testable rather than inferential.
+
+---
+
+## Better mechanism
+
+For the stated goal, I would **not** broaden the behavioral code. The current nearest-booking race and inline day-mark scan are simpler to exact-diff than introducing a helper or precomputed stored-mark state.
+
+The one mechanism I would add is an explicit runtime **DAY_MARK readiness assertion** immediately around the existing F3 evaluation site: after initialization, prove `g_news_init`, `g_news_dayN`, ascending order, and the converted 16:55 marks before DAY_CLOSE grading. That touches the day-mark setup around **EA L10330-L10355** and the F3 insertion around **EA L11188-L11200**. The acceptance then becomes binary rather than interpretive.
+
+A second useful proof-only addition is the call-cadence assertion around the `EvaluateManagedTrade` invocation, so the "closed-bar" semantic is established rather than assumed.
+
+### Clearance state
+
+Because D1-D3 can otherwise permit an ambiguous or falsely passing DAY_CLOSE result, I would **not clear v7 as written**. The core edit set does not warrant a halt; it warrants the above delta before the one-build/one-run clearance.
+
+**Key:** no valid execution key/token is volunteered here. The packet says keys come only from the key seat, and no token is present in the supplied text.
+
+So the actionable verdict is:
+
+**AMEND-WITH-DELTA — fix D1/D2/D3 as required; clean up D4-D6 (with D7-D9 recommended). Then the packet is structurally in shape for the stated G1-G4 build/run gate.**
+
+## Luna-V221 (AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+**Verdict: AMEND-WITH-DELTA.**
+As written, I would **not issue the clear for the one-build/one-run envelope yet**. The packet is structurally close, and I do **not** see a page-level reason to halt the experiment outright, but there are two material wording/acceptance defects that should be corrected before the exact-diff gate is treated as final.
+
+### Required amendments
+
+**D1 — `g_news_init` failure is diagnosed but not made a hard acceptance failure.**
+The packet explicitly allows a false-throughout run to produce zero `DAY_CLOSE` rows and says that this is merely "diagnosed at the flag."  But G3/G4 are then written conditionally around the missing row.
+
+That permits an ambiguous result: no DAY_CLOSE evidence could mean "the higher-priority exit correctly suppressed it" or "the day-mark subsystem never initialized." Those are not equivalent.
+
+**Amend:** make runtime `g_news_init == true`, `g_news_dayN == 16`, and valid ascending marks a hard precondition for G3/G4. Failure is **G3/G4 fail**, not diagnostic-only.
+
+---
+
+**D2 — The 9/4 "no DAY_CLOSE row" branch conflates valid suppression with missing instrumentation.**
+P43 says that if no DAY_CLOSE row occurs on 9/4, the higher-priority exit can be accepted instead.  That is correct only when the mark subsystem demonstrably existed and a higher-priority verdict actually fired earlier-or-same bar.
+
+**Amend:** split the branch explicitly:
+
+`DAY_CLOSE absent + earlier/equal SL/TP/BREAK/HTF = valid suppression`
+
+`DAY_CLOSE absent + no higher-priority reason = fail`
+
+This is closely related to D1 but should be written separately because it affects grading logic.
+
+---
+
+**D3 — "closed-bar evaluation" is asserted, but the packet does not prove that `EvaluateManagedTrade` is actually invoked only on closed bars.**
+The semantic statement is specifically "first closed-bar evaluation" / first evaluated bar whose `barTime` qualifies.  The F3 code itself only tests `fillBarTime <= mark <= barTime`.
+
+If the engine can invoke `EvaluateManagedTrade` intrabar, the implementation could fire on the first tick of the 16:55 bar rather than at its closed-bar evaluation. I cannot infer the call cadence from this packet alone.
+
+**Amend:** S1 must include an explicit call-site/bar-close assertion for `EvaluateManagedTrade`, or the packet must change the semantic claim from "closed-bar evaluation" to the engine's actual invocation semantics.
+
+This is the most important technical gap after D1/D2.
+
+---
+
+**D4 — The Friday statement is factually imprecise.**
+P42 says, "Both DAY_CLOSE dates are Fridays," while the same paragraph explicitly carries **9/7-pm** as a conditional DAY_CLOSE candidate. September 7, 2026 is Monday.
+
+The likely intended statement is that the currently expected observed DAY_CLOSE rows at 8/28 and 9/4 are Friday rows, while 9/7-pm is a separate Monday conditional candidate.
+
+**Amend the wording** so the acceptance record cannot be read as treating 9/7 as Friday.
+
+---
+
+**D5 — G2's "demonstrable later-admission causal chain" is underspecified.**
+The canonical join is well defined, but the fallback causal-chain route is not.  A grader could reasonably disagree about what constitutes "demonstrable."
+
+**Amend:** require a concrete predecessor chain, e.g. changed `MTEXIT/MTLIFE` exit reason/time → released/blocked downstream state → changed admission, with the linked admission timestamp/bar/direction recorded. Anything without that witness remains unpredicted and fails G2.
+
+---
+
+**D6 — The run-environment naming is ambiguous.**
+The packet says the run is `RECON50_DEMO_USD` while simultaneously calling it "the RECON51 account."  The rest of the acceptance is explicitly benchmarked against RECON51.
+
+This may be intentional environment nomenclature, but the acceptance record should remove the ambiguity.
+
+**Amend:** require the result file to record the exact terminal/account identifier, mode, and benchmark designation, and require them to match the stated envelope.
+
+---
+
+### Other analytic imprecisions
+
+**D7 — Tie-break proof could be made more explicit in S1.**
+The claimed session-first tie outcome depends on two facts together: session loop occurs before POI loop, and `TpTargetUpdateBest` uses strict `<`. The packet asserts the latter at L2246 and describes the former in F1.
+
+For a future exact-diff regression, I would make S1 assert both pieces explicitly rather than relying on the assembled text.
+
+**D8 — The acceptance correctly excludes `EXITVERDICT` from DAY_CLOSE completeness, but this creates a real observability limitation.**
+The packet openly acknowledges that the frozen EXITVERDICT path is no longer exhaustive for vDAY.  That is acceptable only because MTEXIT/MTLIFE are made the authoritative DAY_CLOSE rail. The grading text should state that this is a **mandatory observability substitution**, not merely an explanatory note.
+
+**D9 — The F3 price semantics need one hard assertion, not just prose.**
+The packet repeatedly says `nextOpenPx` is a target/log figure and not a realized fill.   That is clear, but a run-grade assertion of `DAY_CLOSE exitPrice == nextOpenPx` would make the intended semantics mechanically testable rather than inferential.
+
+---
+
+## Better mechanism
+
+For the stated goal, I would **not** broaden the behavioral code. The current nearest-booking race and inline day-mark scan are simpler to exact-diff than introducing a helper or precomputed stored-mark state.
+
+The one mechanism I would add is an explicit runtime **DAY_MARK readiness assertion** immediately around the existing F3 evaluation site: after initialization, prove `g_news_init`, `g_news_dayN`, ascending order, and the converted 16:55 marks before DAY_CLOSE grading. That touches the day-mark setup around **EA L10330-L10355** and the F3 insertion around **EA L11188-L11200**. The acceptance then becomes binary rather than interpretive.
+
+A second useful proof-only addition is the call-cadence assertion around the `EvaluateManagedTrade` invocation, so the "closed-bar" semantic is established rather than assumed.
+
+### Clearance state
+
+Because D1-D3 can otherwise permit an ambiguous or falsely passing DAY_CLOSE result, I would **not clear v7 as written**. The core edit set does not warrant a halt; it warrants the above delta before the one-build/one-run clearance.
+
+**Key:** no valid execution key/token is volunteered here. The packet says keys come only from the key seat, and no token is present in the supplied text.
+
+So the actionable verdict is:
+
+**AMEND-WITH-DELTA — fix D1/D2/D3 as required; clean up D4-D6 (with D7-D9 recommended). Then the packet is structurally in shape for the stated G1-G4 build/run gate.**
+
+## Luna-V224 (v223 transport return, AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+## Verdict: **AMEND-WITH-DELTA**
+
+I would **not clear the build/run on v10 as written**. The code concepts are largely internally coherent, but the packet contains one definite acceptance-arithmetic error plus several proof/scope imprecisions that should be corrected before the one build and one run.
+
+### 1. Definite hard defect: F1 line-count arithmetic is wrong
+
+The quoted F1-old block is **38 non-blank physical lines**, lines 70–107, not 39. The new F1 block is stated as 15 lines. Therefore:
+
+* F1 delta = **38 → 15 = −23**
+* F2 delta = **0**
+* F3 delta = **+12**
+* Net packet delta = **−11**
+* Pre-build = **11,248**
+* Correct predicted post-build = **11,237**
+
+But P40 says `39 old to 15 new net -24` and predicts **11,236**; the later G-RULES line simultaneously says "`38-count corrected`" while still retaining **11,236**.
+
+The underlying quoted block confirms the old span is lines 70–107 inclusive, with 38 non-blank lines.
+
+**Required delta:** make every *current* v10 budget reference consistently:
+
+> F1 38-to-15, net −23; F3 +12; F2 0; predicted post-build **11,237**.
+
+That includes the current P32 cross-reference, P40, and the G-RULES mirror. Historical notes about earlier packets can remain historical.
+
+---
+
+### 2. S1 mixes a static pre-build assertion with a runtime condition
+
+S1 is explicitly a **pre-hash, read-only, pre-write** stage, yet it says it asserts:
+
+> `g_news_init true with dayN==16`
+
+Those are runtime state conditions, not source-text properties. The packet itself later correctly calls them **runtime hard preconditions** for G3/G4.
+
+So the clean separation should be:
+
+**S1:** source-level proof that the initialization path constructs the day marks correctly and that the specified run envelope is expected to yield 16 marks.
+
+**S5/G3:** runtime assertion that `g_news_init==true`, `dayN==16`, and marks are strictly ascending.
+
+This is a packet wording/procedure amendment, not a code halt.
+
+---
+
+### 3. The `winner==booked` TPCENSUS proof is not fully canonical
+
+F1 booking calls:
+
+```text
+TpTargetUpdateBest(v, dir, currentPrice, best, haveBest)
+```
+
+so its distance comparison is based on `currentPrice`.
+
+But the cited TPCENSUS rows report a **bar close** as their comparison reference. For example, the 09:15 census row shows:
+
+> `close=1.16134`
+
+while the corresponding 09:15 admission has:
+
+> `entry=1.16135`
+
+That one-pip difference may or may not change the nearest candidate, but the packet currently treats TPCENSUS as an exact proof of booking equivalence without requiring the two reference prices to be identical or proving that candidate ordering is invariant.
+
+This matters because G2 explicitly relies on `TPCENSUS winner==booked` as part of the attribution mechanism.
+
+**Required delta:** narrow the proof rule. TPCENSUS may be an exact booking-proof witness only when either:
+
+1. its reference price is the exact same admission reference used by F1, **or**
+2. the result records an ordering-invariance proof showing that the reference-price difference cannot change the winner.
+
+Otherwise it is diagnostic evidence, not a logically exact reconstruction of the booked target.
+
+This is the biggest substantive proof gap after the arithmetic issue.
+
+---
+
+### 4. “Universal every managed trade” needs a close-path exhaustiveness assertion
+
+F3 is described as universal across every managed trade, but the S1 audit described in P36 is primarily an **exit-reason consumer audit** and an invocation audit. It does not explicitly say that S1 exhaustively verifies all possible managed-trade close/state-transition paths outside `EvaluateManagedTrade`.
+
+For the universal claim to be airtight, S1 should also assert one of these:
+
+> `EvaluateManagedTrade` is the sole managed-trade closure path,
+
+or exhaustively enumerate all alternative close/state writers and establish that none can bypass F3.
+
+I am **not** declaring that such another path exists; the packet simply does not make the exclusivity proof explicit.
+
+---
+
+### 5. Header wording now conflicts slightly with the deliberate `EXITVERDICT` narrowing
+
+The new header retains:
+
+> “the census logs ALL verdicts”
+
+while the packet explicitly says `EXITVERDICT` is intentionally **non-exhaustive for vDAY** and that DAY_CLOSE observability is carried through `MTEXIT/MTLIFE` instead.
+
+Those statements can coexist only if “census” specifically means the terminal-exit census path rather than the `EXITVERDICT` print.
+
+**Required delta:** make the comment precise, e.g. “MTEXIT/MTLIFE record terminal exit reasons for re-judging,” rather than the broader “census logs ALL verdicts.”
+
+This is text-only.
+
+---
+
+### 6. Minor precision issue: “nearest valid target” should say “nearest admissible target”
+
+F1 keeps pool-specific eligibility constraints:
+
+* direction/in-zone,
+* POI tier-rank,
+* session/PD swept/live filtering,
+* anchor participation.
+
+So “nearest valid target across both pools” is operationally understandable, but the mathematically precise statement is **nearest among candidates surviving the stated pool-specific admission filters**.
+
+That avoids any future argument that “nearest” means literally every raw POI/session value before filtering.
+
+---
+
+## Things I do **not** see as defects
+
+The core F1 tie rule is explicit and coherent: session candidates are evaluated first, and the strict-less-than reducer preserves the first exact-price winner. The packet also explicitly records the resulting booking-vs-TPCENSUS tie-name divergence rather than silently treating the names as identical.
+
+The F2 chain is internally coherent: setting `MT_HTF_EXIT` false kills the HTF leg while preserving F1/F3, and the packet correctly places DAY_CLOSE after HTF so that a future re-enable restores the stated rollback-path precedence.
+
+The F3 mark condition itself is well specified: `fillBarTime <= mark <= barTime`, ascending marks, first qualifying mark, and no same-day consumption when the fill occurs after that day's 16:55 mark.
+
+The 9/8 17:00 boundary treatment is also logically consistent with the stated fill-time invariant.
+
+---
+
+## Analytic A — defect/gap inventory
+
+| Severity            | Location                            | Finding                                                                                                                                                     |
+| ------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Hard**            | L57, L233; source block L70–107     | F1 old count is 38, not 39; correct post-build count is **11,237**, not 11,236.                                                                             |
+| **Hard-proof gap**  | L45, L58, L228–230                  | TPCENSUS uses a bar-close reference while booking uses `currentPrice`; exact `winner==booked` proof is not guaranteed without price equivalence/invariance. |
+| **Process/wording** | L53                                 | Runtime `g_news_init/dayN` conditions are described as S1 pre-write assertions. Move actual checks to runtime.                                              |
+| **Scope-proof gap** | L53 plus F3 universal claim L34/L49 | Universal closure claim should explicitly prove `EvaluateManagedTrade` is the sole managed-trade close path.                                                |
+| **Wording**         | L38/L49                             | “census logs ALL verdicts” is too broad given the intentional non-exhaustive `EXITVERDICT` treatment for DAY_CLOSE.                                         |
+| **Precision**       | L32/L45                             | “nearest valid” should preferably mean nearest candidate after the stated pool-specific filters.                                                            |
+
+Nothing here requires a **halt**; the issues are amendable without changing the requested F1/F2/F3 design.
+
+---
+
+## Analytic B — better mechanism for the stated goal
+
+The stronger architecture is a **single canonical TP-selection routine** rather than having booking and TPCENSUS independently recreate essentially the same race.
+
+The clean version would centralize:
+
+* candidate enumeration,
+* session/POI eligibility,
+* anchor admission,
+* distance comparison,
+* exact tie policy,
+* candidate source/name.
+
+Then have both the booking path and census call that selector with an explicit reference price.
+
+The relevant code regions are:
+
+* `ComputeNearestTpTarget` **EA L2275–L2359**
+* `TPCENSUS` **EA L2369–L2427**
+* recompute `MtNearestTpTarget` **EA L10913–L10950**
+
+That would make the G2 `winner==booked` proof structural instead of inferential, and it would also eliminate the current booking-vs-census reference-price ambiguity. I would keep that as a **parked architectural improvement**, not silently expand v10 to include it.
+
+---
+
+### Final ruling
+
+**AMEND-WITH-DELTA.**
+
+The minimum amendment set is:
+
+1. Correct all current v10 budget arithmetic to **11,237**.
+2. Separate S1 source assertions from S5/G3 runtime assertions.
+3. Repair or narrow the TPCENSUS `winner==booked` proof so its reference price is canonical or ordering invariance is explicitly demonstrated.
+4. Add an explicit exhaustive close-path/sole-closure assertion for the “universal” F3 claim.
+5. Tighten the “ALL verdicts” header wording.
+
+**Build clearance: not issued on v223.
+Run clearance: not issued.
+Volunteered key: none on this amend verdict.**
+
+## Luna-V225 (v224 transport return, AMEND-WITH-DELTA, no key, pasted 2026-09-21, whole)
+
+**AMEND-WITH-DELTA**
+
+I would **not clear v224 for the build/run yet**. The packet is substantially specified, but several page-level ambiguities affect what the single run is supposed to prove. This is a packet-rule verdict only; I am not independently verifying the disk digests, logs, or build claims, consistent with the packet's verification split.
+
+### G1 — AMEND-WITH-DELTA
+
+The exact-diff discipline and line-budget arithmetic are clearly specified, including the 39→15 F1 replacement, +12 F3 net, F2 net 0, and predicted 11236 lines.
+
+The gap is that the **16-day `g_news_dayN==16` expectation is not self-contained**. The generator is `while(cur < SRJ_PILOT_TO)`, so whether 2026-09-10 is included depends on the exact timestamp semantics of `SRJ_PILOT_TO`; "08-26 to 09-10" alone does not establish 16 marks. The packet should state the exact endpoint or derive the expected count from the actual date interval.
+
+Also, the new F3 path writes `nextOpenPx` without an explicit finite/availability precondition in the stated gates. That matters particularly around a run boundary or a Friday/day-close gap. The packet presently grades the figure as a target/log figure, but does not make `nextOpenPx` validity a hard prerequisite.
+
+### G2 — AMEND-WITH-DELTA
+
+The unified F1 race itself is coherent: both pools compete through the same nearest-target reducer, session-first handles exact ties, and TPCENSUS is left unchanged.
+
+The main defect is the **qual-3 held-trade attribution rule**. The packet says an MTLIFE trade held past a booked-vs-recompute divergence bar and later exiting by SL/BREAK/HTF counts as conformant. That does not explicitly require proof that the divergence actually changed the TP verdict at that bar and was the causal reason the trade remained open. As written, the existence of a divergence bar plus a later exit can be enough. That weakens the "zero-unpredicted" gate by allowing an unrelated later exit to be attributed to the earlier divergence.
+
+The **admission-row discriminator is also weaker than the packet calls it**. Using `close==MTSNAP entry` distinguishes the cited J04/J09 examples, but it is a value-based heuristic, not a provenance marker for the call site. A diagnostic row could coincidentally have the same printed close as the entry, and an admission row does not by itself prove which candidate source produced the booked TP. The packet itself acknowledges the census tie-name/booking tie-order divergence.
+
+That becomes especially relevant to the claim that **anchor wins are "proved by admission rows."** An admission row proves the booked TP value, but not necessarily that the anchor was the selected source when another valid candidate has the same value.
+
+### G3 — AMEND-WITH-DELTA
+
+The priority chain itself is internally consistent: SL → TP → BREAK → HTF → DAY_CLOSE, with F2 making HTF dead unless explicitly re-enabled.
+
+There are, however, three semantic imprecisions.
+
+First, the packet repeatedly calls this a **"day-close-minus-5 exit,"** but the actual mechanism is a 16:55 mark eligibility test followed by `exitPrice=nextOpenPx`. The packet explicitly says that figure is not an implied 16:55 execution. So the precise rule is a **16:55 trigger/qualification with next-open recorded exit price**, not an execution at 16:55. That distinction should be made consistently in the rule, G3, and G4 language.
+
+Second, the **weekend mark rule is under-described**. The packet deliberately generates Saturday/Sunday marks and says a post-Friday fill joins the Saturday 16:55 mark. But in a market with no Saturday evaluation bars, that mark can only be acted upon by a later trading-bar evaluation. The page should explicitly say whether that is intended behavior or merely attribution bookkeeping; currently the wording mixes the two.
+
+Third, the run-end statement is too absolute: it says a post-last-mark fill "stays open at run end." What is actually established is that **no DAY_CLOSE row is owed by F3** because there is no in-range mark; SL/TP/BREAK/HTF can still independently close the trade. That sentence should be narrowed.
+
+The intentional `EXITVERDICT` non-exhaustiveness is also an observability weakness: vDAY exists in the terminal MTEXIT/MTLIFE rail but not in the frozen EXITVERDICT format. The packet explicitly accepts that substitution, so I treat it as an acknowledged gap rather than a hidden defect.
+
+### G4 — AMEND-WITH-DELTA
+
+The goal joins are sufficiently concrete to be testable, including the 9/4 branch split, 9/7 nearest-booking convergence, and exit-time comparisons.
+
+The main wording issue is **"exit R" versus the actual measured quantity**. The packet expressly says the F3 exit figure is `nextOpenPx`, a target/log figure and not a realized fill. Therefore the 9/4 `+0.92R` criterion should be described as an **R computed from the recorded/model exit price**, not as realized trade R. The page already makes the distinction elsewhere; G4 should use the same terminology.
+
+There is also a provenance dependency between G4 and G2: the 9/7 convergence result is meaningful only if the admission-row proof can reliably establish the selected booking value/source. The current value-based admission discriminator is the weak link.
+
+## Analytic A — defects, gaps, and imprecisions
+
+1. **Held-trade qual-3 is not explicitly causal.** Require proof that the booked-vs-recompute divergence changed/suppressed the TP verdict on that bar before attributing the later exit. Lines 43, 58.
+
+2. **`close==MTSNAP entry` is a provenance heuristic, not a call-site identity.** Lines 43, 53, 58.
+
+3. **Anchor-source proof is incomplete when values collide.** Admission proves value, not necessarily source identity. Lines 32, 45, 64.
+
+4. **The 16-mark assertion depends on an unstated endpoint convention.** Lines 53, 59.
+
+5. **`nextOpenPx` lacks an explicit finite/available hard check in the F3 acceptance logic.** Lines 49, 59.
+
+6. **"Day-close-minus-5 exit" is terminologically stronger than the implemented rule.** The implemented mechanism is mark qualification plus next-open recorded price. Lines 34, 49, 59, 64.
+
+7. **Weekend behavior needs one explicit semantic sentence.** Does a weekend mark remain actionable at the next trading evaluation, or is the Saturday clause only a grading boundary? Lines 34, 59.
+
+8. **Run-end wording overstates the result.** It should say no F3 DAY_CLOSE is owed, rather than that the trade necessarily remains open. Line 59.
+
+9. **EXITVERDICT is deliberately non-exhaustive for vDAY.** This is acknowledged, but it reduces independent observability. Line 38.
+
+10. **G4 should distinguish recorded/model R from realized R.** Lines 60, 64.
+
+11. **G2's join language is dense enough that "changed target/winner" and "causal hold" can be read as separate alternatives rather than required evidence.** The intended causal requirements should be expressed conjunctively wherever attribution is being granted. Line 58.
+
+### Analytic B — better mechanisms
+
+For the stated goal, I would prefer three small mechanisms:
+
+**1. Explicit admission provenance.** Add a source discriminator at the canonical admission booking call around **EA L8752-L8758**, and carry it into the booking/TPCENSUS proof row. That removes the need for `close==entry` as a call-site proxy. The packet already identifies that site as canonical.
+
+**2. Causal held-trade proof.** At the divergence point in **EvaluateManagedTrade around EA L10913-L10950 / L11189 onward**, record the fact that the booked-vs-recomputed target difference actually changed the TP verdict or suppressed a TP touch. Then G2 can join a later exit to a concrete suppression event rather than merely the existence of a divergence bar. The packet currently relies on attribution prose instead.
+
+**3. Separate mark trigger from recorded exit-price semantics.** Keep the 16:55 eligibility test in the F3 block around **EA L11188**, but label the resulting field explicitly as the recorded next-open/model price. That would make the G3/G4 language mechanically identical to what the code does instead of calling it a literal 16:55 execution.
+
+### Clearance status
+
+The packet's **scope, F1 race, F2 gate, F3 priority structure, and exact-diff discipline are coherent enough that I do not see a halt-level contradiction**. The needed changes are packet/code-proof tightening rather than a redesign.
+
+So the ruling is:
+
+**AMEND-WITH-DELTA — no build/run clearance yet.**
+
+**Required deltas:** causal qual-3 proof; explicit admission/source provenance; exact day-mark endpoint semantics; explicit `nextOpenPx` validity; and terminology separating the 16:55 trigger from the next-open recorded price/R metric.
+
+**Volunteered key:** none. The page identifies Luna as the sole key source, and I will not invent a key/token that is not present in the supplied material.
+
+## Luna-V226 (v225 transport return, ACCEPT + key, pasted 2026-09-21, whole)
+
+## Verdict: ACCEPT
+
+**PACKET_P-EXITMODEL-2 v12 is clear by name for exactly one build plus one run under the stated envelope.** I find no page-level defect that requires an amendment before the specified RECON51 run.
+
+### G1 — PASS
+
+The arithmetic is internally consistent.
+
+* **F1:** 39 → 15 physical non-blank lines = **−24**
+* **F2:** 4 → 4 = **0**
+* **F3:** net **+12**: enum +1, name case +1, `vDAY` declaration 0, day-mark block +8, assignment arms +1, priority header +1.
+* **11248 − 24 + 12 = 11236**, matching P40/P36.
+* The date interval `2026.08.26 00:00` inclusive through `2026.09.10 00:00` exclusive is **15 calendar dates**, so the corrected `dayN == 15` is arithmetically correct.
+* F1's 15-line assembly in P28 is internally countable exactly as stated: 1 comment + 1 `anchorRank` + 6 session-loop lines + 7 POI-loop lines.
+
+The exact-diff gate remains primary, which is the right safeguard.
+
+### G2 — PASS
+
+The selection/entry rule is coherent with the stated code mechanics.
+
+F1 at **EA L2321-L2359 / packet P28** now actually performs one nearest-value race across the two pools rather than POI-first with session fallback. The session loop executes before the POI loop, and the stated strict-`<` behavior at **EA L2246** therefore gives the claimed session-first exact-tie result.
+
+The census caveat is also correctly separated from booking identity:
+
+* booking retains the **first** equal candidate;
+* TPCENSUS can name the **last** equal candidate because of POI overwrite;
+* therefore G2 correctly grades the canonical result by **target value**, not by winner name.
+
+The admission-row discriminator and collision fallback in P28/P36 are sufficient as an operational grading rule, and the causal-conjunction requirement in P41 prevents a mere coexistence of TP divergence and a later exit from being called causal.
+
+### G3 — PASS
+
+The F3 logic is internally consistent.
+
+At **packet P32 / EA L11165-L11210**:
+
+* `MT_HTF_EXIT=false` makes the HTF leg inert under this build;
+* `vDAY` is evaluated only after SL/TP/BREAK/HTF;
+* the guard `!vSL && !vTP && !vBREAK && !vHTF` exactly implements the stated priority;
+* the assignment chain is correspondingly `SL → TP → BREAK → HTF → DAY_CLOSE`;
+* the enum/name additions preserve all existing reason values and add only `MT_EXIT_DAY_CLOSE = 8`;
+* `EXITVERDICT` remains format-frozen rather than being re-engineered for the new reason.
+
+The mark condition itself is also coherent:
+
+`fillBarTime <= dayMark <= barTime`
+
+with the marks strictly ascending and sourced as 16:55 ET wall-clock marks through `TC_ZoneToServer`.
+
+The 9/8 17:00 case is correctly treated as **after** that day's 16:55 mark, so it cannot consume the already-passed mark.
+
+### G4 — PASS
+
+The goal joins are sufficiently specified to distinguish:
+
+* the 9/4 no-flip hold and its DAY_CLOSE outcome;
+* the 9/7 09:20 nearest-booking convergence/divergence;
+* the 8/28 PM and 9/7 PM conditional DAY_CLOSE paths;
+* the 9/8 PM post-mark boundary;
+* run-end/no-future-mark cases;
+* higher-priority suppression;
+* REPLACED admission-collision carve-out.
+
+The **9/4 +0.92R class** is explicitly defined as model-R from the recorded `nextOpenPx`, not realized fill R, so the measurement basis is unambiguous.
+
+The `nextOpenPx` rule at **EA L11047-L11048** is also correctly treated as the authoritative logged/model exit figure, including its fail-soft behavior.
+
+---
+
+## Analytic A — defects, gaps, or imprecisions
+
+I see **three non-blocking imprecisions**.
+
+**1. Admission-row collision fallback is not fully formalized.**
+Relevant: **P28, P36, P41; EA L7253-L7257 and L8752-L8758.**
+
+The primary `close == MTSNAP entry` discriminator is clear. The fallback says serial order plus multiplicity disambiguate, but it does not explicitly state the required uniqueness condition—for example, what happens if more than one admission row and more than one diagnostic row share the same timestamp and printed value. That is an observability specification gap, not a behavioral defect, and it only matters on the collision branch.
+
+**2. The G2 exemptions should be understood as field-scoped, not whole-row-scoped.**
+Relevant: **P41.**
+
+The text says TP_ELECT/TPCENSUS/LOTDIAG/MTSNAP-tp are exempt exactly where the winner changes, but does not spell out that unrelated non-TP fields in those rows remain subject to identity checking. The surrounding prose strongly implies that interpretation, but the literal grading rule could be read too broadly. This does not block the planned run, but it is the largest remaining wording precision issue in G2.
+
+**3. "Saturday mark" is potentially easy to misread as Saturday execution.**
+Relevant: **P17, P42.**
+
+The mechanism is correct as written: the generated Saturday 16:55 mark can be the first qualifying mark after a Friday-late fill, but the actual `EvaluateManagedTrade` action occurs only on a subsequent trading-bar evaluation. P42 already states the trading-bar semantic, so this is wording risk rather than a logic error.
+
+I do **not** see a further blocking contradiction in the F1/F2/F3 mechanics, the line budget, the day-count correction, or the G1-G4 branch structure.
+
+---
+
+## Analytic B — better mechanism for the stated goal
+
+For the **booking proof**, the strongest mechanism would be explicit admission provenance rather than the printed-value collision fallback.
+
+A future, parked change could touch the admission-side logging around **EA L8752-L8758** so the TPCENSUS row carries an explicit source discriminator such as `src=ADMISSION_TPCENSUS`, while the S2POLL call at **L7253-L7257** carries `src=S2POLL_DIAG`. That would make the winner==booked proof independent of floating/printed-value collisions.
+
+For the **exit model**, I would not change the current mechanism: the existing once-per-bar evaluation at **EA L11232-L11242**, ascending day marks at **L10338-L10355**, and explicit priority gate are simpler and more falsifiable than introducing a stored "next mark" state. Your parked `FindFirstDayCloseMark`/stored-mark alternatives are not necessary for this run.
+
+---
+
+## Clearance
+
+**ACCEPT — PACKET_P-EXITMODEL-2 v12**
+
+Authorized scope:
+
+`F1 + F2 + F3 + F0 record fold → exactly one build → exactly one RECON51-envelope tester run`
+
+with:
+
+* **alert-only**
+* **no live trades**
+* **no money movement**
+* **90-minute ceiling**
+* **STAGE-1 exact-diff gate**
+* **0 errors / 0 warnings**
+* **G1-G4 as written**
+
+### Volunteered key
+
+`LUNA-V225-P-EXITMODEL2-V12-CLR-20260922`
+
+**No build/run clearance and no key volunteered on this verdict.** The packet needs the deltas above before I would issue the dual-key build clearance.
+
+## Luna-V228 (v227 transport return, AMEND-WITH-DELTA, no key, pasted 2026-09-22, whole)
+
+The design is coherent enough to amend rather than halt, but the current v2 page is not internally exact enough to clear the build/run as written.
+
+# Verdict: AMEND-WITH-DELTA
+
+**PACKET_P-VALIDITY-1 v2 is not cleared for the requested build/run yet.** The validity design itself is not what forces the hold; the page has several concrete exact-diff, observability, and acceptance inconsistencies that must be repaired first.
+
+**No key volunteered.** No build/run clearance is issued on this verdict.
+
+## 1. Blocking defects
+
+### D1 — Sessions line-budget arithmetic is wrong
+
+**References:** Q31 / E3; Q42 / G1.
+
+Q31 says:
+
+> “8 blocks x 8 lines, net +64.”
+
+Each E3 block is actually **9 physical inserted lines**:
+
+1. comment
+2. `if(...)`
+3. `{`
+4. swept-flag assignment
+5. `int sz`
+6. the two `ArrayResize` calls
+7. `thisBarSweeps[...]` assignment
+8. `thisBarOvershoots[...]` assignment
+9. `}`
+
+So E3 is **+72**, not +64.
+
+E2 is +4, therefore **Sessions must be +76**, not +68.
+
+**Required delta:**
+Q31: `8 blocks x 9 lines, net +72`
+Q42: `Sessions +76`.
+
+---
+
+### D2 — EA line-budget arithmetic is wrong
+
+**References:** Q33 / E5; Q42 / G1.
+
+The E5 insertion is **25 physical lines**, not 24.
+
+Counting the literal block from the comment through the closing brace gives 25 lines.
+
+Therefore:
+
+* E5 = **+25**
+* EA new lines = **+25**, with E1b remaining the sole modified existing line.
+
+**Required delta:**
+Q33: `25 lines`
+Q42: `EA +25 new`.
+
+---
+
+### D3 — G2's SEEDVOID join key cannot actually be produced by E5
+
+**References:** Q33 / E5; Q43 / G2.
+
+G2 requires attribution by:
+
+> `(bar, direction, buffer index, value)`
+
+But E5 records only:
+
+> `SEEDVOID bar=... line=<r2_val>`
+
+It does **not** record the buffer index/tag, and after the first touch it loses the identity of the touched line.
+
+That means the stated G2 attribution requirement is not reproducible from the new diagnostic itself.
+
+This becomes especially problematic where two pool lines can share the same value: a printed price alone does not establish which of the 18 buffers caused the void.
+
+**Required delta:** E5 must retain and emit at least the touched buffer index (preferably the logical tag as well), or G2 must be rewritten to a join key that is genuinely reconstructible from the produced evidence.
+
+---
+
+### D4 — E5 cannot substantiate G2's “multi-touch counted once per level” requirement
+
+**References:** Q33 / E5; Q43 / G2.
+
+The loop is:
+
+`for(int r2_k = 0; r2_k < 18 && !r2_touch; r2_k++)`
+
+and stops at the first hit.
+
+Therefore it intentionally records only **one touched level per bar**.
+
+G2 simultaneously requires:
+
+> “multi-touch counted once per level”
+
+Those two statements are not equivalent.
+
+The state transition only needs one hit to void the seed, but the **grading requirement** asks for per-level attribution. The current code does not generate enough evidence to prove that.
+
+**Required delta:** either:
+
+* scan all 18 levels and record each touched level while performing the state transition only once, **or**
+* amend G2 so that it requires only one deterministic first-hit attribution and explicitly drops the per-level multi-touch requirement.
+
+For the stated audit goal, the first option is the stronger mechanism.
+
+---
+
+## 2. Acceptance inconsistencies / imprecisions
+
+### D5 — G4's 9/4 New York prediction allows two incompatible winners
+
+**Reference:** Q45 / G4.
+
+G4 says the recomputed nearest-valid winner is:
+
+> “YNYH-class (~1.16301 R~1.65) **or Yearly-VWAP 1.16315 (R 1.74)**”
+
+But the acceptance rule immediately says the observed winner must equal the **recomputed nearest-valid** candidate.
+
+Those are not interchangeable outcomes. Given C03, YNYH is 283 points from entry while Yearly-VWAP is 297 points away. Yearly-VWAP can only become the winner if the YNYH candidate is itself excluded.
+
+The page therefore needs to state explicitly which new validity event removes YNYH, if that is the intended path.
+
+**Required delta:** make the 9/4 branch deterministic: either name YNYH as the expected nearest-valid target, or explicitly require the post-build PD-NY exclusion that removes YNYH and then name Yearly-VWAP.
+
+---
+
+### D6 — The Kimi-D2 rebuttal does not establish the stated 9/7 New York restoration
+
+**Reference:** KIMI-D2 RULING; Q45 / G4.
+
+The rebuttal correctly establishes that **NYH** is live-excluded by bit 12.
+
+It does **not**, by itself, establish that **YNYH** is excluded.
+
+Those are different pool entries:
+
+* NYH → live bit **12**
+* YNYH / PD-NY High → swept bit **18**
+
+M05 has bit 12 set, but **bit 18 is not set in the supplied baseline mask**.
+
+Therefore this sentence in the ruling:
+
+> “NYH is LIVE-EXCLUDED … YNYH-drop therefore exposes Yearly-VWAP directly”
+
+does not follow from bit 12 alone. A PD-NY sweep producing bit 18 would establish the YNYH removal, but that post-V1 state is not actually specified in the page.
+
+B05's `TP_RR_FAIL_LATCH` at YNYH is also not proof that YNYH disappears under V1; it is baseline evidence about the pre-V1 candidate path.
+
+**Required delta:** state the expected post-build bit-18 event/value, or remove the Yearly-VWAP 9/7-NY expectation.
+
+---
+
+### D7 — The 8/28 London restoration likewise relies on an unstated new PD exclusion
+
+**Reference:** Q45 / G4; C01/M01.
+
+The baseline census contains the very-near YPML/PML candidates, while the baseline M01 does not show the corresponding PD-PM exclusion bit.
+
+For the stated PDL restoration, the packet needs to make explicit which new PD-sweep bit removes the remaining nearer prior-day PM level(s), rather than relying only on the baseline current-session mask.
+
+This is the same class of gap as D6: the build adds the new PD bits, but G4 does not state the **post-build expected mask transition** needed to make the predicted winner reachable.
+
+---
+
+### D8 — “Novel evidence” contradicts the explicit zero-occurrence allowance
+
+**References:** DISSENT AND PARKS; Q49 / NOVEL-EVIDENCE.
+
+The packet says:
+
+> “V2 ships with no in-window renewal instance claimed (SEEDVOID rows predicted, graded by join - labeled openly);”
+
+but Q49 says:
+
+> “first renewal run with SEEDVOID rows and fresh re-seeds”
+
+The first formulation says **no instance is claimed in advance**; the second reads as a categorical assertion that the run **will return SEEDVOID rows and fresh reseeds**.
+
+Those need to be reconciled.
+
+**Required delta:** change Q49 to something like “first renewal-capable run; if SEEDVOID occurs, first observed SEEDVOID/fresh-reseed evidence,” while retaining the Q43 statement that zero occurrences are not a gate failure.
+
+---
+
+## 3. Lower-level specification gaps
+
+### G1 — G2 should define how exclusion attribution is obtained from the mask
+
+**References:** Q43, R-FILTER, R-MASK.
+
+The packet specifies the join key, but the actual mask is aggregate bits. The grading page should state the exact reconstruction rule from:
+
+`mask bit -> sessIdx -> buffer -> displayed value`
+
+rather than leaving that as an implicit interpretation.
+
+This is especially important for the new bits 14..21.
+
+---
+
+### G2 — G4 should distinguish baseline evidence from post-build evidence
+
+**References:** Q45, M01-M07, Q49.
+
+M01-M07 are explicitly **RECON52 baseline** masks. They do not prove that the newly added bits 14..21 will be set after the build.
+
+Whenever G4 depends on a newly generated PD-sweep exclusion, it should say so explicitly and name the expected new bit.
+
+---
+
+### G3 — E6 is well anchored, but the packet should make the “single consumer” assertion explicit
+
+**References:** Q34 / E6; Q38 / S1.
+
+The endpoint is byte-pinned and correctly consumes the same 29 mask through `TpSessionLevelFiltered`.
+
+The remaining gap is procedural: S1 should explicitly assert that there is no second 18-line candidate walk outside the anchored consumer path. Otherwise “same validity set everywhere” rests partly on the packet's declaration rather than a stated search assertion.
+
+This is a verification-strength issue, not a demonstrated code defect.
+
+---
+
+## 4. What I do *not* find defective
+
+The core V1/V2 mechanism is internally sensible:
+
+* E1 adds the eight prior-session H/L swept flags.
+* E2 resets each PD-session flag when its corresponding previous-session cache is populated.
+* E3 uses the previous-session caches rather than the current session's mutable levels.
+* E4 exports those eight states into bits 14..21 without adding buffers.
+* E5 runs after the seed block and before the later state-machine advance, so the intended same-bar anti-re-admission ordering is coherent.
+* `barShift+1` for the line state is consistent with the stated pre-bar/settled-slot design.
+* E6 leaves the target-booking logic itself unchanged.
+* The 22-bit mask still fits safely inside the signed 32-bit `int` used by the shown code.
+* Nothing in the supplied page introduces a live-trading action; the requested run remains alert/tester-only.
+
+## 5. Better mechanism for the stated goal
+
+The cleaner mechanism is to make the **18-level touch test a single reusable diagnostic primitive** rather than having E5 discover one anonymous first hit.
+
+Conceptually:
+
+`18 pool lines -> evaluate current-bar wick touch against settled line state -> collect touched indices/tags -> if any, void seed once -> emit one diagnostic record carrying all touched IDs`.
+
+That would touch the E5 block around **EA L7707/L7708** and the acceptance wording in **Q43**, while leaving the TP booking path and the mask producer untouched.
+
+For the PD sweep side, I would keep the explicit eight-block E3 implementation in **Sessions around L365+** for this packet. A generic field-reference loop would reduce duplication, but it would weaken the exact-diff auditability that this packet is deliberately optimized for.
+
+## 6. Minimal clearance delta
+
+The minimum packet correction set is:
+
+**Q31 / E3:** `+72`, not `+64`.
+**Q33 / E5:** `25 lines`, not `24`.
+**Q42 / G1:** `State +8, Sessions +76, FlowLogic +8, EA +25 new`.
+**Q43 / G2 + E5:** make SEEDVOID attribution and multi-touch grading actually observable.
+**Q45 / G4:** make each named restoration branch deterministic and explicitly identify the required new PD-sweep bit(s).
+**Q49:** remove the contradiction between “no renewal instance claimed” and “run with SEEDVOID rows and fresh re-seeds.”
+**Q38 / S1:** explicitly assert the single candidate-walk consumer if that is intended to be a hard invariant.
+
+Once those deltas are folded, the packet can return for a fresh exact-diff clearance review.
+
+**Final ruling: AMEND-WITH-DELTA. No build/run clearance. No token. No key volunteered.**
+
+## Luna-V227 (v226 transport return, AMEND-WITH-DELTA, no key, pasted 2026-09-22, whole)
+
+## Verdict: **AMEND-WITH-DELTA**
+
+The core mechanism is coherent and the requested behavior change is appropriately confined to validity. I would **not clear the build/run as written**, because several page-level details are still insufficiently deterministic for an exact-diff, replay-grade change.
+
+### Blocking deltas
+
+**1. E3 does not actually specify all eight detection blocks verbatim. — P27**
+
+P27 says “8 blocks mirroring the session pattern … e.g. PD-Asia-High” and gives only one 9-line example. The other seven blocks are implied rather than byte-specified.
+
+That is incompatible with the stated **STAGE-1 exact-diff gate**. The builder needs deterministic old/new bytes, not a semantic instruction to mirror a pattern.
+
+**Delta:** quote all eight blocks completely, including exact tags, cache field, swept flag, overshoot expression, and H/L operator.
+
+---
+
+**2. E5 does not explicitly prevent same-bar re-seeding after SEEDVOID. — P17, P29**
+
+P17 requires:
+
+> seed dies → entry then needs a **fresh** `DetectPoiRetest` find.
+
+But E5 resets `g_state` to `ST_IDLE` and then the existing next line is:
+
+`if(g_state == ST_IDLE)`
+
+So the page must prove that the remainder of `EvaluateClosedBar` cannot consume the already-evaluated invalidating bar as a fresh seed/retest.
+
+The existing `s1f_seedArmed` line may provide that protection, but the packet does not state or assert its downstream use. As written, the lifecycle guarantee is not machine-checkable from the page.
+
+**Delta:** add an explicit same-bar retirement latch/guard, or add an S1 assertion proving `s1f_seedArmed` is the admission latch and remains false after an ST_S1..ST_S4 retirement. The required invariant should be explicit:
+
+`SEEDVOID on bar t => no new seed/entry may be admitted from bar t; next eligible admission is from a later DetectPoiRetest.`
+
+---
+
+**3. “STAGE-1 exact-diff gated” is stronger than what S1/S3 actually specify. — P23, P34, P38**
+
+S1 asserts anchors, character codes, ordering, names, and sites. S3 checks line-budget arithmetic. Neither proves that **only** the five specified edit regions changed.
+
+A malicious or accidental extra edit could preserve every asserted anchor and still satisfy the line budget.
+
+**Delta:** S1 must require a literal diff whitelist for the four files: exactly E1, E2, E3, E4, E5 hunks and nothing else. Extra changed bytes/lines = DIAGNOSE/HALT. The post-hashes remain useful but do not replace the diff check.
+
+---
+
+**4. E6 is described semantically but is not itself an exact checkable anchor. — P30, P34**
+
+P30 says the `MtNearestTpTarget` recompute-mask site is asserted at S1 and that S1 halts if PD-swept flow bypasses it. But no concrete literal anchor for that site is supplied.
+
+Given the packet's fresh-session/exact-diff discipline, “assert the E6 mask site” is too open-ended.
+
+**Delta:** provide the exact function/call-site anchor and the expected data-flow assertion, e.g. that the mask consumed by `TpSessionLevelFiltered()` is the buffer-29 value for the same settled bar.
+
+---
+
+**5. G2's “joined by value” is not a unique attribution key. — P39**
+
+A census can contain two different POI lines at the same price. A value-only join cannot prove which line was removed by PD-sweep exclusion.
+
+The requirement says:
+
+> “PD-swept exclusions attributed per bar … joined by value”
+
+That is insufficient for an attribution-grade gate.
+
+**Delta:** require the join key to include at least `(bar, direction, line identity/buffer index, value)`; value alone is only a display field.
+
+---
+
+**6. G3's causal join is also underspecified for replay-grade attribution. — P40**
+
+“same join idiom” is referenced, but the packet does not define the actual identity of a restored take when several POIs can share a bar/value or when target replacement changes.
+
+**Delta:** state the exact take identity used for causal attribution, preferably a stable admission serial plus `(bar, dir, entry, SL)`; downstream exit rows must join to that admission rather than merely to time/value.
+
+---
+
+**7. G2/G4 do not fully define what happens when the predicted renewal event does not occur. — P17, P39, P41, P45, DISSENT**
+
+The packet explicitly says:
+
+> “no in-window renewal instance claimed”
+
+yet G2 asks for SEEDVOID kills **plus fresh re-seed after**, and P45 describes “first renewal run with SEEDVOID rows and fresh re-seeds” as novel evidence.
+
+That creates an acceptance ambiguity: is absence of a SEEDVOID/re-seed sequence a failure, or merely an unobserved event?
+
+**Delta:** make event occurrence conditional:
+
+`SEEDVOID/reseed evidence is graded when observed; zero occurrences is not a gate failure.`
+
+Then distinguish **mechanism exercised** from **mechanism merely present**.
+
+---
+
+### Additional defects / gaps / imprecisions
+
+**P29 — enum-range assumption.**
+`g_state > ST_IDLE && g_state < ST_S5_GATE_CHECK` depends on contiguous enum ordering and on no unrelated state being inserted between those values. P34 says “ST ordering” is asserted, which helps, but the intended membership is really the named set `ST_S1_REGIME..ST_S4_ARMED`.
+
+A more robust mechanism is an explicit `IsPreGateSeedState(g_state)` predicate or four explicit comparisons.
+
+**P29 — retirement metadata clearing is incomplete on the face of the packet.**
+The block clears `g_state`, `g_anchorLine`, and `g_anchorBarTime`, but does not say whether any other seed-specific fields are invalidated. That is safe only if `ST_IDLE` is a complete state reset invariant.
+
+**Delta:** either assert `ST_IDLE` fully makes all pre-confirmation metadata unreachable, or clear the additional seed-owned fields explicitly.
+
+**P29 — `_Symbol` / `_Digits` rendering.**
+The quoted block presents these as `\_Symbol` / `\_Digits`. If those backslashes are literal bytes rather than Markdown escaping, the exact-diff artifact is wrong. The filed version should make the raw bytes unambiguous.
+
+**P34 — `ReadFlow()` bar alignment is not asserted.**
+E5 compares 18 buffers using `barShift`, but S1 explicitly discusses settled-slot alignment for the mask while not asserting the 18 level buffers use the same bar semantics. For a wick-based same-bar touch, this matters.
+
+**Delta:** assert that each `ReadFlow(r2_bufs[k], ..., barShift)` returns the POI level corresponding to the same closed bar being retired.
+
+**P39 — “seven-family identity” is undefined on this page.**
+The page names several POI classes but never enumerates the seven-family taxonomy used by the hard gate. In a fresh-session review, that makes “zero unpredicted families” less mechanically precise than the surrounding packet.
+
+**P41 — G4 contains expected alternatives without a deterministic acceptance rule.**
+For 9/4 and 9/7 New York, the text permits alternatives such as YNYH-class **or** Yearly-VWAP. That is fine descriptively, but the gate should specify whether both are accepted, whether nearest-valid determines the actual winner, or whether either observed line suffices.
+
+**P41 — “9/7 London residue stands” is not itself a machine-grade predicate.**
+It should be defined as a comparison against RECON52 with the specified validity delta, rather than a prose expectation.
+
+**P45 — “same envelope as RECON52” is redundant but slightly imprecise.**
+The concrete envelope is already stated as `RECON50_DEMO_USD`, InpMode 1, 08-26..09-10, debug on, same terminal, 90-minute ceiling. The packet should treat those explicit values as authoritative rather than relying on the historical phrase “same envelope.”
+
+**P45 — DONE-file timeout behavior is unspecified.**
+A 90-minute ceiling is given, but the acceptance consequence of no DONE file before the ceiling is not stated explicitly. That should be a hard run failure/transport stop, not an inferred condition.
+
+### Better mechanism
+
+For the stated goal, I would keep the **persistent per-line sweep state** concept but centralize the detection into a helper in `SRJ_Sessions.mqh`, conceptually:
+
+`UpdatePrevSessionSweep(level, sweptFlag, tag, high[i], low[i])`
+
+and invoke it for the eight cached levels.
+
+That would touch the same Sessions region as **P27**, but would reduce eight independently maintained condition blocks and make H/L symmetry mechanically obvious. The reset sites in **P26**, mask export in **P28**, and EA consumer in **R-FILTER** can remain unchanged.
+
+For the retirement side, the cleaner mechanism is a local **`seedVoidedThisBar` guard** in the `EvaluateClosedBar` seed/admission path, rather than relying on an indirect interaction between the new block and `s1f_seedArmed`. That directly encodes the requested causal rule: the invalidating bar cannot immediately become its own replacement seed.
+
+### What I would preserve unchanged
+
+The following parts are internally consistent and do not need redesign: the 14–21 bit mapping in `R-FILTER`, the 18-buffer ordering in `R-POOL`, the reset mapping in P26, the +8/+80/+8/+24 budget arithmetic, the alert-only constraint, the inclusive `R >= 1.0` boundary, and the stated exit-only scope.
+
+### Clearance / key
+
+**No build/run clearance and no key volunteered on this verdict.** The packet needs the deltas above before I would issue the dual-key build clearance.
+
+## Luna-V229 (v228 transport return, AMEND-WITH-DELTA, no key, pasted 2026-09-22, whole)
+
+**AMEND-WITH-DELTA.** The packet is close, but I would not clear the build/run as written. The two material issues are execution-envelope identity and an unresolved semantic conflict in the seed-retirement touch set. The remaining findings are verification or wording gaps.
+
+### 1. Blocking — run-envelope identity is internally inconsistent
+
+L15 says the run is under the **"RECON52 envelope"**, while the actual executable envelope in L111/L133/L525 is **`RECON50_DEMO_USD`, InpMode 1, 08-26 to 09-10, InpDebugLog=true, same terminal, 90-minute ceiling**.
+
+This can be only a naming distinction, but the packet does not define that distinction. For an exact-diff/run-gated packet, the execution identity needs one unambiguous name.
+
+**Required delta:** make L15 say explicitly something like:
+
+> "...plus one run on `RECON50_DEMO_USD` using the RECON52 replay segment/acceptance baseline..."
+
+Then use that same formulation anywhere the run is named.
+
+---
+
+### 2. Blocking — R2 does not resolve "swept means deleted" versus "touch any of the 18 lines"
+
+L49 states the operator rule that session highs/lows **"swept even by wick are deleted by absorption."**
+
+But L71 defines R2 as: a seeded bar touching **"any of the 18 session/PD lines"** voids the seed.
+
+And the actual E5 block in L101 reads the raw 18 buffer values at `barShift+1`; there is no swept-state exclusion in that block.
+
+So the page currently permits this sequence:
+
+1. line is swept on an earlier bar;
+2. line is therefore "deleted" under the stated absorption rule;
+3. later seed bar touches the still-populated buffer price;
+4. E5 emits `SEEDVOID` anyway.
+
+That is a semantic contradiction unless the intended rule is specifically that **deleted-for-TP does not mean deleted-for-seed-renewal**. The packet never says that.
+
+**Required delta:** explicitly settle the semantics. Given the stated absorption rule, the cleaner mechanism is:
+
+> R2 uses the pre-bar **valid session/PD pool**, excluding levels already marked swept as of `barShift+1`; a sweep occurring on the current seed bar still counts because the pre-bar state is intentionally used.
+
+That can be implemented without touching the existing sweep producer: E5 can read the existing buffer-29 mask at `barShift+1` and apply only the swept bits to the R-POOL indices. This preserves current-bar sweep detection and avoids duplicating sweep state.
+
+---
+
+### 3. Verification gap — "managed trades exempt" is asserted but not fully pinned by S1
+
+L71 says managed trades are exempt, and the guard is the numeric range `g_state > ST_IDLE && g_state < ST_S5_GATE_CHECK`.
+
+L111 requires an ordering/contiguity assertion, but it does not explicitly say that **every managed/committed-trade state is outside this interval**.
+
+I would add one S1 assertion:
+
+> "assert all managed/committed trade states are outside the R2 guard interval."
+
+That is a verification strengthening, not a design change.
+
+---
+
+### 4. Verification gap — post-void seed-context cleanup is not fully specified
+
+E5 clears `g_state`, `g_anchorLine`, and `g_anchorBarTime`, but leaves `g_dir` and other seed-adjacent metadata untouched.
+
+That may be harmless because the downstream state machine can ignore stale fields in `ST_IDLE`, but the packet does not explicitly assert that invariant. Since the stated requirement is **"entry then needs a fresh ... retest,"** S1 should verify that no stale direction/anchor metadata can authorize a seed or admission after `SEEDVOID`. L111 already claims "no seed-assignment path after the R2 block"; add the corresponding stale-state assertion rather than assuming it.
+
+---
+
+### 5. Non-blocking — the "novel evidence" wording overstates what G2 permits
+
+L121 explicitly says **zero SEEDVOID occurrences are not a gate failure**, while L529 says the run **"returns"** a first renewal run with SEEDVOID rows and fresh re-seeds.
+
+Those are compatible as acceptance logic, but not as a guarantee of observed evidence.
+
+Better wording:
+
+> "This run is instrumented to produce first renewal evidence if SEEDVOID occurs..."
+
+That distinguishes **mechanism validation** from **exercise of the mechanism**.
+
+---
+
+### 6. Non-blocking — G4 gives alternatives where the recomputation rule is supposed to be deterministic
+
+L125 says the observed winner must equal the recomputed nearest-valid candidate, but then several cases are described with **"or"** alternatives, e.g. the 9/4 New York case.
+
+The actual acceptance test should be the recomputation from the run-time valid set plus the existing tie-break order. The named prices should be treated as **expected diagnostic branches**, not alternative pass conditions.
+
+Suggested clarification:
+
+> "Named candidates/prices are expectation checks only; G4 passes solely when the observed winner equals the deterministic nearest-valid recomputation from the joined valid set."
+
+---
+
+### 7. Non-blocking — S2 names E1-E5 but separately includes E1b
+
+L93 makes E1b a distinct modified edit, and L119 correctly budgets it separately, but L111 says **"S2 Apply E1-E5 exact-diff"** rather than explicitly including E1b.
+
+This is almost certainly intended to include it, but exact-diff language should not rely on interpretation.
+
+**Delta:** "Apply E1, E1b, E2-E5 exact-diff."
+
+---
+
+### 8. Traceability gap — one prior rebuttal is referenced, not reproduced
+
+L521 says the Kimi-D2 rebuttal remains as ruled in the v227 relay and points to the prior file rather than reproducing the substance.
+
+That is acceptable as history/provenance, but it is weaker than the otherwise self-contained packet. Since L549 says the verdict is on the page only, a reviewer cannot independently re-evaluate that old rebuttal from this page.
+
+I would not block the build on this alone because the current edit set does not appear to depend materially on the missing text, but it is a traceability limitation.
+
+---
+
+## Better mechanism
+
+For the **V1/V2 combination**, I would keep the existing architecture rather than add another sweep-tracking subsystem.
+
+The cleaner mechanism is specifically to E5 around the existing R2 block at the EA seed site:
+
+**EA seed site around L7706-L7708 / E5:** read the existing swept mask at `barShift+1`, map R-POOL index → swept bit (`0..9`, then `14..21`), and ignore already-swept/deleted levels before doing the current-bar wick intersection.
+
+That gives you one source of truth for "deleted by absorption," preserves the pre-bar semantics, and avoids adding new state fields or new producer-side logic. The existing mask producer at FlowLogic L1371-L1392 already exports exactly the state E5 needs.
+
+I would **not** reuse `TpSessionLevelFiltered()` wholesale for R2, because that helper also rejects currently-live session levels; R2 needs to reject **already-swept** levels while still treating a currently live, unswept session line as liquidity.
+
+## Verdict
+
+**AMEND-WITH-DELTA**
+
+The packet's core V1/V2 architecture is coherent, the E3/E2 budget dispute is correctly resolved on the page at **Sessions +64 new / +4 modified**, and the acceptance gates are substantially specified.
+
+But I would require the two blocking deltas before volunteering clearance:
+
+1. **Unify RECON50_DEMO_USD vs RECON52 execution-envelope naming.**
+2. **Explicitly define whether R2 excludes previously swept/deleted levels; preferably implement that through the existing pre-bar swept mask.**
+
+**Key: none volunteered.**
+
+## Luna-V230 (v229 transport return, AMEND-WITH-DELTA, no key, pasted 2026-09-22, whole)
+
+**AMEND-WITH-DELTA**
+
+I would **not clear PACKET_P-VALIDITY-1 v4 yet**. The V1/V2 mechanism is coherent, Luna-2 is integrated correctly, and the GLM-D1 dispute is properly dissolved on the page. I see two blocking issues and several non-blocking gaps/imprecisions.
+
+**No key volunteered. No build/run clearance.**
+
+### Analytic A — defects, gaps, and imprecisions
+
+**1. Blocking — E5's stated EA line budget does not match the literal E5 insertion.**
+Packet **R33** says E5 is **“30 lines new”**, and **R42** budgets **EA +30 new +1 modified**.
+
+But the E5 literal shown in R33 is **32 physical inserted lines** from the comment through the final `}`. The displayed block contains the comment, guard, brace structure, declarations, mask read/decode, loop, hit branch, void branch, logging, and closing braces; counted literally, it is 32 lines.
+
+That makes **R33 / R38-S3 / R42 internally inconsistent** under the packet's stated exact-diff discipline. R31's eight PD blocks are explicitly 8 physical lines each, so there is no stated alternative brace-exclusion convention that explains E5.
+
+**Required delta:** either correct the E5 literal so the actual insertion is 30 lines, or correct the packet's E5/EA budget to the literal count and propagate the arithmetic through R33, R38-S3, and R42.
+
+---
+
+**2. Blocking — E5's mask-read failure is fail-open in a validity-critical path.**
+Packet **R18/R33** requires R2 to use the **pre-bar swept-valid pool**. But E5 does:
+
+```text
+if(!ReadFlow(...)) r2_mask = EMPTY_VALUE;
+int r2_m = (r2_mask == EMPTY_VALUE ? 0 : ...)
+```
+
+A failed mask read therefore becomes `r2_m=0`, which means **no previously swept level is excluded**. A stale/deleted level can then void the seed.
+
+That does not satisfy the absolute wording in **R18** that levels already swept as of `barShift+1` are skipped. It is a conservative false-positive-void failure mode, but it is still a semantic failure of the stated mechanism.
+
+**Required delta:** make mask-read failure an explicit `UNKNOWN` condition that prevents R2 from being evaluated, or make it a run-diagnostic/hard failure. At minimum, **R38-S1/G2** needs to specify and grade mask-read failures rather than silently converting them to an all-unswept mask.
+
+---
+
+**3. Blocking/verification gap — no mask-domain assertion exists for `r2_mask`.**
+Packet **R38-S1** adds a value-domain assertion for the **18 R-POOL buffers**, but that assertion does not cover the mask itself.
+
+E5 only distinguishes `EMPTY_VALUE`; otherwise it does `MathRound()` and casts to `int`. The page does not assert that buffer 29 at `barShift+1` is:
+
+* `EMPTY_VALUE`, or
+* a finite, integral mask in the legal bit range.
+
+There is no explicit protection against `SRJ_NA_DBL`, NaN, negative values, non-integral values, or an out-of-range mask.
+
+**Required delta:** add a mask-domain S1 assertion, or make E5 reject any non-`EMPTY_VALUE`, non-finite/integer-valid mask rather than decoding it.
+
+This is closely related to defect 2 but is a separate verification problem.
+
+---
+
+**4. Non-blocking but important — G2's PD-exclusion observability is underspecified.**
+**R43** requires PD-swept exclusions to be attributed by `(bar, direction, buffer index, value)`, but the new E3 mechanism itself only records sweep tags through the existing `thisBarSweeps` path and exports the state through the mask.
+
+The packet does not precisely define **which result row is the authoritative exclusion record**, nor whether the `bar` in the join key means:
+
+* the bar on which the level was swept,
+* the bar on which it was excluded from TP selection,
+* or the admission/take bar.
+
+That matters because a PD level can be swept several bars before the take that consumes the exclusion.
+
+**Delta:** specify the exact join semantics and authoritative row/source for an exclusion carried across bars. The value may remain display-only as stated.
+
+---
+
+**5. Non-blocking — exact-diff traceability is asymmetric for E2.**
+**R30** gives the full old/new Asia reset line, but the London, NY, and PM reset sites are only described as mirrors. **R38-S1** says the actual anchors will be asserted on disk.
+
+That is sufficient for machine-side validation, but it means the page itself does not independently expose the complete four-site E2 old-byte baseline despite calling the packet self-contained and exact-diff gated.
+
+I would keep this as a **traceability limitation**, not a clearance blocker.
+
+---
+
+**6. Non-blocking — the R precision convention is still scoped ambiguously.**
+**R42** says R is “displayed truncated to 2dp,” but several G4 expectation figures in **R45** are mathematically rounded rather than truncated:
+
+* 8/28 London: `102/42 = 2.42857…` → **2.42 truncated**, not 2.43.
+* 9/4 NY Yearly-VWAP: `297/171 = 1.73684…` → **1.73 truncated**, not 1.74.
+* 9/7 London ASH: `65/37 = 1.75675…` → **1.75 truncated**, not 1.76.
+
+By contrast, the J-ROWS figures also clearly contain conventional rounding examples such as `7/42 = 0.1666…` shown as `0.17`.
+
+This does **not** threaten the deterministic G4 winner test because the named R figures are explicitly expectation checks, but the precision rule should be stated consistently.
+
+---
+
+**7. Minor — run-date boundaries are not fully explicit.**
+**R38/R49** identify `08-26 to 09-10`, but do not state the exact terminal timezone or whether the upper date is inclusive through the final bar.
+
+Since the packet says the explicit values are authoritative, this is probably inherited from the RECON52 baseline, but the cleanest wording is to say that the exact time/date boundary is **identical to the RECON52 acceptance baseline**.
+
+---
+
+### What is already coherent
+
+The following parts do **not** give me a reason to halt the design:
+
+* **R17/R32:** bits 14–21 are correctly aligned with `TpSessionLevelFiltered()`'s `sessIdx + 4` mapping.
+* **R18/R33:** Luna-2's pre-bar swept exclusion is conceptually the right way to reconcile “deleted by absorption” with the seed-touch rule.
+* **R30/R31:** the E2 reset/caching symmetry and E3 PD detection pattern are coherent on the page.
+* **R33:** R2's 18-element ordering matches the R-POOL ordering, and the explicit map `0..9` / `10..17 → +4` is correct.
+* **R33:** the inclusive R2 wick intersection is consistent with the deliberately documented “hit” versus “swept” asymmetry.
+* **R38:** the S1 assertions around state ordering, stale authorization, seed-assignment ordering, R-POOL ordering, and value-domain are the right verification targets.
+* **R43/R44:** the separation of SEEDVOID as diagnostic-only and the unchanged exit-leg scope are internally consistent.
+* **R45:** the deterministic nearest-valid recomputation is correctly made the actual G4 pass criterion rather than the named candidate narratives.
+
+### Analytic B — better mechanism
+
+I would **not introduce a second sweep-tracking subsystem**. The current architecture is the right mechanism:
+
+**E3 → existing swept-state fields → buffer-29 mask → E5 pre-bar R2 filter → existing nearest-valid consumer.**
+
+The cleanest improvement is to make the E5 mask read **tri-state rather than fail-open**:
+
+`valid mask` → perform swept-bit exclusion;
+`EMPTY/unavailable/invalid mask` → do not claim the pre-bar validity state is known.
+
+That would touch only the **E5 block at EA L7706 area / packet R33**, plus the corresponding **S1 verification at R38**. I would leave E2/E3/E4 and `TpSessionLevelFiltered()` unchanged.
+
+### Clearance result
+
+**AMEND-WITH-DELTA.**
+
+The minimum amendments I would require before clearance are:
+
+1. Reconcile the **E5 literal line count with R33/R38/R42**.
+2. Resolve the **R2 mask-read failure behavior** so a failed read cannot silently become “all levels unswept.”
+3. Add a **mask-domain assertion** in S1.
+4. Tighten G2's **cross-bar PD-exclusion attribution semantics**.
+5. Clean up the **R precision convention** in R45/R42.
+
+Everything else is verification/traceability tightening rather than a redesign.
+
+**Key: none volunteered.**
+
+## Luna-V231 (v230 transport return, ACCEPT-by-name, no key, pasted 2026-09-22, whole)
+
+## ACCEPT — by name
+
+**PACKET_P-VALIDITY-1 v5 is coherent enough to clear by name for exactly the stated one-build/one-run procedure.** I see **no remaining blocking design defect on the page**. The build/run remains gated by the separate dual-key, run word, and token; this verdict itself does not build, run, commit, or spend.
+
+### Clearance basis
+
+The v5 folds successfully close the prior blockers:
+
+* **E5 count reconciled:** R33/R42 correctly use **34 new EA lines** for the v5 literal. The prior 30-count survives as the v4 base; v5 adds the mask-domain predicate, R2SKIP handling, and evaluation counter. The full E5 literal is internally consistent.
+* **Tri-state mask handling is correct:** R33's `r2_mValid` rejects unavailable, `EMPTY_VALUE`, NaN/non-finite, negative, non-integral, and out-of-range masks; invalid/unknown holds the seed instead of treating it as unswept.
+* **Bit mapping is exact:** R17/R32/R33 and R-FILTER/R-POOL agree: indices 0–9 map directly, 10–17 map to bits 14–21.
+* **E2 lifecycle is coherent:** R30, R31, and R-PMSITE establish the cache-before-reset relationship for the eight PD-session flags.
+* **Cadence is now an explicit gate:** R38 requires R2 to execute tick-by-tick while the seed guard holds and to HALT/relocate if the containing site is new-bar gated. This closes Kimi-1's material execution-semantics hole.
+* **G2/G3/G4 are properly subordinate to observed results:** they do not pre-assert outcomes; deterministic nearest-valid recomputation is the operative G4 test.
+
+The literal arithmetic also reconciles: **State +8 new; Sessions +64 new/+4 modified; FlowLogic +8 new; EA +34 new/+1 modified.**
+
+---
+
+# Remaining defects, gaps, and imprecisions
+
+These are **non-blocking** on the page as written.
+
+### 1. Runtime cadence evidence is weaker than the packet claims
+
+**R33, R38-S1/S7, R43, R49**
+
+`r2_evals` increments only under:
+
+```text
+if(r2_mValid) r2_evals++;
+```
+
+So it counts **valid-mask R2 evaluations**, not every entry into the R2 guard.
+
+More importantly, the counter is only printed on **R2SKIP** or **SEEDVOID** rows. A completely healthy seed-held path with no skip and no void can execute R2 many times while producing no R2-specific counter output at all.
+
+Therefore the packet's wording that `r2_evals` “proves evaluation cadence” is too strong. The actual cadence proof is the **S1 structural assert** in R38. The counter is supplemental runtime evidence, not an independent proof.
+
+**Disposition:** non-blocking; G1 can rely on the explicit S1 cadence assertion. The cleanest future improvement would be an unconditional guard-entry counter plus a final summary print, but that is not necessary for this clearance.
+
+### 2. `barShift` semantics are implied rather than explicitly nailed down
+
+**R33, R38-S1**
+
+The adopted cadence reasoning depends on:
+
+```text
+iHigh(..., barShift)
+iLow(..., barShift)
+```
+
+meaning the **currently forming bar** whose wick is being observed intrabar.
+
+R38 mentions a “barTime pin” and the detector idiom, but the packet does not explicitly state the stronger invariant:
+
+> at R2 execution, `barShift` identifies the current forming bar corresponding to `barTime`, while `barShift+1` is the settled pre-bar slot.
+
+If that relationship is already what the disk-side S1 assert verifies, there is no implementation problem; it is simply less explicit on the page than the cadence requirement itself.
+
+**Disposition:** non-blocking verification wording gap.
+
+### 3. `value` is simultaneously described as part of the join key and display-only
+
+**R43**
+
+R43 says the exclusion join key is:
+
+> `(bar, direction, buffer index, value - value display-only)`
+
+That is internally awkward. If `value` is genuinely display-only, the canonical join key is effectively `(bar, direction, buffer index)`.
+
+The intended meaning is recoverable, and the actual deterministic identity does not depend on price text, but the grammar should distinguish **identity fields** from **audit/display fields**.
+
+**Disposition:** non-blocking wording defect.
+
+### 4. The exact numerical meaning of “buffer index” in G2 could be stated
+
+**R43, R33, R-POOL**
+
+The page establishes the 18-element order very well, but “buffer index” could mean either the **R-POOL ordinal 0–17** or the actual `FL_BUF_*` enum/buffer number.
+
+The E5 and R-POOL correspondence makes the intended mapping recoverable, so this is not ambiguous operationally for the machine-side grader, but the grading language could be tighter.
+
+**Disposition:** non-blocking precision issue.
+
+### 5. R45's conditional expectation narratives are not complete truth tables
+
+**R45**
+
+For example, the 8/28 London discussion emphasizes:
+
+`pdPmLow + pdAsiaLow → PDL`
+
+and the alternative `YASL` branch when `pdAsiaLow` stays clear.
+
+But combinations in which **pdPmLow itself stays clear** leave YPML as the earlier candidate. Similarly, the 9/8 New York narrative highlights `pdPmLow + pdNyLow`, while `PML` remains an earlier candidate when `pdPmLow` is not set.
+
+This does **not** compromise G4 because R45 explicitly makes deterministic nearest-valid recomputation the pass criterion and the named figures only expectation checks.
+
+**Disposition:** non-blocking expectation-layer incompleteness.
+
+### 6. “Wick-swept” terminology could still be read as plain wick touch
+
+**R7, R17, R31, R45/R49**
+
+The implemented E3 condition is explicitly **wick-through-plus-buffer**:
+
+```text
+high > line + liquiditySweepBuffer
+low  < line - liquiditySweepBuffer
+```
+
+while R7 uses “swept even by wick” and R49 contrasts “wick-join” with the exclusion rule.
+
+The packet ultimately distinguishes the two concepts correctly — **E3 sweep = wick through + buffer; R2 touch = inclusive wick intersection without buffer** — but a reader could momentarily interpret “wick sweep” as mere contact.
+
+**Disposition:** terminology/imprecision only; the actual literals are clear.
+
+### 7. `g_dir` remains stale after SEEDVOID
+
+**R33, R38-S1**
+
+E5 clears:
+
+```text
+g_state = ST_IDLE;
+g_anchorLine = -1;
+g_anchorBarTime = 0;
+```
+
+but does **not** clear `g_dir`.
+
+That is not currently a demonstrated authorization bug because R38 explicitly requires the disk check that no stale direction/anchor metadata can authorize post-SEEDVOID admission, and the state is reset to `ST_IDLE`.
+
+Still, “stale metadata cannot authorize” is weaker hygiene than actually clearing the direction field.
+
+**Disposition:** non-blocking; do **not** expand the exact-diff edit solely for this absent evidence of a consumer dependency. The S1 authorization-path assertion is the appropriate protection under the present minimalism rule.
+
+### 8. R2SKIP logging can be very chatty
+
+**R33, R38-S7, R43, R49**
+
+On every tick with an invalid/unavailable mask, this executes:
+
+```text
+if(!r2_mValid && InpDebugLog) PrintFormat(...)
+```
+
+Thus a persistent mask-unavailable condition can generate one diagnostic row per tick for the entire interval.
+
+That is not logically wrong, and the run has a 90-minute ceiling, but it creates an operational/log-volume risk that the packet does not explicitly bound.
+
+**Disposition:** non-blocking operational concern.
+
+### 9. `admitted=` wording in G2 is difficult to reconcile with the supplied census rows
+
+**R43 versus J-ROWS C01-C07**
+
+R43 describes the census `admitted=` field as “EMPTY+DIRECTION context only,” while C01-C07 visibly contain populated admitted candidate/distance information.
+
+The intended authority hierarchy appears clear from the surrounding text — the TPCENSUS admitted walk is authoritative for candidate reconstruction, while exclusion attribution is joined elsewhere — but the sentence itself should be read cautiously.
+
+**Disposition:** wording ambiguity only; G4's deterministic recomputation avoids making the field itself the final winner authority.
+
+---
+
+# Analytic B — better mechanism
+
+I do **not** see a better architecture that should replace the current one.
+
+The current chain is the cleanest minimal mechanism:
+
+**E3 PD detection → existing swept-state fields → buffer-29 mask → E5 pre-bar R2 filter → existing nearest-valid TP consumer.**
+
+That preserves one source of truth for swept validity and avoids duplicating sweep state.
+
+The only mechanism improvement I would retain as a **future, optional** refinement is the runtime-counter point above: count R2 guard entries independently of mask validity and emit a final count. That would improve evidence quality without changing the validity mechanism itself.
+
+I would **not** introduce a new helper, second sweep tracker, table-driven E3 construction, or reuse `TpSessionLevelFiltered()`. The page's reasons for parking those alternatives remain sound.
+
+---
+
+# G1–G4 disposition
+
+**G1 — gradable and internally consistent.** The edit budgets and E1–E6 exact-diff boundaries reconcile. Build success remains a machine-side condition, not pre-certified here.
+
+**G2 — gradable.** The revised tri-state behavior, admission-bar join semantics, PD-bit map, SEEDDIAG bucket, and multi-touch attribution are sufficiently specified. The join-key/value wording is the only remaining imprecision.
+
+**G3 — gradable.** No exit-leg modification is introduced; downstream MTEXIT/MTLIFE differences are explicitly conditioned on validity/renewal-induced take changes.
+
+**G4 — gradable and correctly framed.** The actual pass test is deterministic nearest-valid recomputation from the joined valid set; the named 8/28, 9/4, 9/7, and 9/8 candidates are expectations, not hard-coded winners.
+
+## Final ruling
+
+**ACCEPT — PACKET_P-VALIDITY-1 v5, by name, for exactly the stated one build plus one RECON50_DEMO_USD run, subject to the packet's own dual-key/run-word/token gates and G1-G4 grading.**
+
+**Key: none volunteered.** This is therefore an **accept-by-name/substance ruling, not a build/run token**.
+
+## Luna-KEY-P-VALIDITY-1-v5 (key grant, operator-relayed 2026-09-22, whole)
+
+**BUILD KEY GRANTED — PACKET_P-VALIDITY-1 v5**, digest **0E44ED96C1CC12EF6FFF241B0C1D4DF88AB706E2CC7F034E2D745493492D0CF9 / 25765 B / 50 lines**. The packet authorizes exactly **one build** covering **E1, E1b, E2, E3, E4, E5 per the v5 literals, STAGE-1 exact-diff gated**, plus exactly **one tester run under RECON50_DEMO_USD using the RECON52 replay segment/acceptance baseline**, with **G1-G4 graded as stated**. The packet itself states that the requested scope is one build plus one run and that there is no commit without the token.  The recorded packet digest is the one above.
+
+> **GRANT: PACKET_P-VALIDITY-1 v5 (digest 0E44ED96C1CC12EF6FFF241B0C1D4DF88AB706E2CC7F034E2D745493492D0CF9 / 25765 B / 50 lines) is cleared for exactly one build consisting of E1, E1b, E2, E3, E4, and E5 per the v5 literals, STAGE-1 exact-diff gated, plus exactly one tester run under RECON50_DEMO_USD using the RECON52 replay segment/acceptance baseline with G1-G4 graded as stated; no commit without token.**
+
+That quoted sentence is the completed grant.
+
+## Luna-V232 (v231 transport return, ACCEPT-by-name + key, pasted 2026-09-22, whole)
+
+# ACCEPT — PACKET_P-VALIDITY-1 v6
+
+The v6 amendment is sufficient for the stated **exact-diff, closed-bar execution model**. I do not see a page-level defect that should halt the one-build/one-run request. The S1 cadence correction is logically aligned with the measured `OnTick → EvaluateClosedBar(1, ...)` path, and E1–E5 remain internally consistent by the packet’s stated byte-identity premise.
+
+### Gate grading
+
+| Gate   | Page-level grade | Reason                                                                                                                                                                     |
+| ------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **G1** | **PASS**         | Edit arithmetic is internally consistent: State +8 new; Sessions +64 new/+4 modified; FlowLogic +8 new; EA +34 new/+1 modified. S1 exact-diff protection is explicit.      |
+| **G2** | **PASS**         | R2 uses the 18-line R-POOL, pre-bar mask exclusion, inclusive wick touch, first-hit pool order, tri-state mask handling, and deterministic attribution requirements.       |
+| **G3** | **PASS**         | No exit-leg, booking, gate, ALERT-kind, or MTFLIP changes are introduced. The stated downstream-only consequence is consistent with the scope.                             |
+| **G4** | **PASS**         | The acceptance criterion is deterministic nearest-valid recomputation from the joined valid set, rather than accepting named expected prices merely because they occurred. |
+
+**Clearance by name:** `PACKET_P-VALIDITY-1 v6`
+
+**Volunteered Luna key:** `LUNA-PV1-V6-CLEAR-20260922-F15B1777`
+
+That key is a clearance credential only; no run word, token, build, execution, or commit is being issued here.
+
+---
+
+# Analytic A — defects, gaps, and imprecisions
+
+### 1. `r2_evals` does not actually prove cadence in the tri-state/skip case
+
+**Lines:** **R33 / R38-S1 / R49**, specifically the E5 block at **EA L7706-L7740** as quoted in R33.
+
+The counter is incremented only here:
+
+> `if(r2_mValid) r2_evals++;`
+
+But the packet specifically treats invalid/unavailable mask as the **R2SKIP** case. Therefore `r2_evals` counts **valid-mask evaluations**, not **R2 guard evaluations**.
+
+That means the statements that the counter "proves evaluation cadence" in **R38-S1** and **R49** are stronger than the implementation supports. The closed-bar structure itself proves cadence; `r2_evals` does not, especially when consecutive bars are `R2SKIP`.
+
+This is **non-blocking** because the S1 structural assertion independently establishes that the site is executed in the once-per-bar path.
+
+### 2. `R2SKIP` prints a lagging counter value
+
+**Lines:** **R33**, E5 block.
+
+The diagnostic is emitted before the increment:
+
+```cpp
+if(!r2_mValid && InpDebugLog)
+    PrintFormat(..., r2_evals);
+if(r2_mValid) r2_evals++;
+```
+
+So an `R2SKIP` row reports the number of **previous valid-mask evaluations**, not an ordinal for the current R2 evaluation.
+
+Again, this does not alter behavior, but the field called `evals` is ambiguous.
+
+### 3. G2's "join key" wording contradicts "value display-only"
+
+**Line:** **R43 / G2**
+
+It says:
+
+> `join key (bar, direction, buffer index, value - value display-only)`
+
+A value cannot simultaneously be part of the join key and be display-only. The consistent interpretation is:
+
+**join key = `(bar, direction, buffer index)`; value = display-only diagnostic field.**
+
+This is a **textual imprecision**, not a mechanism defect.
+
+### 4. The 2-decimal R display should be explicitly separated from the exact 1.0 comparator
+
+**Line:** **R42**, cross-checked against **R9 / R43**
+
+R42 says:
+
+> `R displayed rounded to 2dp`
+
+while R9 establishes the exact boundary `>= 1.0`.
+
+That is internally recoverable, but the packet would be cleaner if it explicitly said **"R gate uses the unrounded value; displayed R is rounded to 2dp."**
+
+Otherwise a displayed `1.00` could be mistaken for exact boundary compliance when the underlying value is, for example, 0.996.
+
+This is **non-blocking**, because R9 already states the code gate is `>= 1.0`.
+
+### 5. R2's state guard depends on enum contiguity
+
+**Lines:** **R18 / R33**, E5:
+
+```cpp
+if(g_state > ST_IDLE && g_state < ST_S5_GATE_CHECK && g_anchorBarTime > 0)
+```
+
+The prose defines the intended set explicitly as:
+
+> `ST_S1_REGIME..ST_S4_ARMED`
+
+The implementation instead relies on those states being numerically contiguous and bounded by the enum values. **R38-S1 explicitly asserts contiguity**, so this is acceptable for v6, but it remains a structural fragility for future edits.
+
+It is **not a v6 block** because S1 checks precisely the invariant on which this implementation relies.
+
+### 6. The duplicated sentence in R3 is harmless but should be cleaned
+
+**Line:** **R3**
+
+> `Nothing builds or runs on this file.`
+> `Nothing builds or runs on this file.`
+
+Pure drafting duplication; no semantic effect.
+
+---
+
+# Analytic B — better mechanism
+
+For the specific stated goal, I would **not** change the core R2 mechanism. The important design choices are already correct: closed-bar execution, `barShift=1` current finalized wick, `barShift+1` pre-bar state, swept-only mask exclusion, and inclusive touch.
+
+The one mechanism I would improve is the diagnostic counter.
+
+### Preferred diagnostic mechanism
+
+**Touch:** E5 at **EA L7706-L7740**, plus the S7 wording in **R38/R49**.
+
+Use two counters rather than one:
+
+```cpp
+static int r2_evals = 0;          // every R2 guard evaluation
+static int r2_validMaskEvals = 0; // only evaluations with a valid mask
+
+r2_evals++;
+
+if (!r2_mValid && InpDebugLog)
+    PrintFormat("[SRJ-EA] R2SKIP ... eval=%d validMaskEvals=%d",
+                r2_evals, r2_validMaskEvals);
+
+if (r2_mValid)
+    r2_validMaskEvals++;
+```
+
+That gives an actual monotonic evaluation ordinal even through consecutive `R2SKIP` bars, while retaining a separate measure of how many evaluations had usable mask data.
+
+For a future hardening pass, the same concept could be applied to the state guard with an explicit helper such as `IsPreConfirmSeedState(g_state)` instead of relying on ordinal range, but **I would not widen this v6 exact-diff probe for that purpose**.
+
+---
+
+## Bottom line
+
+**ACCEPT.** The v6 text amendment correctly resolves the v5 S1 halt without reopening the substantive E1–E5 design. The issues above are documentation/diagnostic precision issues, not blockers to the specified build and replay.
+
+The only item I would carry forward as an explicit delta is the **`r2_evals` terminology/semantics**: it counts valid-mask evaluations, not cadence evaluations. The closed-bar placement remains the actual cadence proof.

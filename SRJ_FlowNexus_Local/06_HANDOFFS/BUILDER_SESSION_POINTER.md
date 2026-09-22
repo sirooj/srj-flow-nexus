@@ -3,20 +3,27 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-18, QUIESCENT — V161 READY TO PASTE)
+## State (2026-09-22, RECON53 GRADED, RESULT FILED)
 
-- Two seats caught the same 10-point gap in my stop wording, independently. They were right. Disk shows the live stop is one branch pick and the rule read is another, 10 points apart, both far off the old stale extreme. The relay now says exactly that, with the code lines that decide it.
-- Corrected relay filed (33 lines, `BC96AE28`). One question closes the stop track. Nothing asked of you.
-- EA landed. NO build/run.
+- Result 06_HANDOFFS\BUILDER_RESULT_RECON53-
+  VALIDITY-V1.md filed (DC1006D5/8638/41). Takes 4
+  (was 1/7: HIT 9/4-NY-entry + 9/7-LDN + 9/8-LDN;
+  MISS 8/28-LDN + 9/7-NY renewal-lost, 9/8-17:00 floor).
+- Packet v6 + EA 0C913372 untouched, uncommitted
+  (no token). Ledger 587 at EOF. Segment
+  7EA459D8/3728662/21274. Deployment SHUT.
 
-## Next (single action)
+## Next (artifact owed)
 
-- HIS TRIP: paste v161 ALONE whole to all models + answers whole.
+- Nothing owed him (9/4-10:40 tester take rides
+  hypothesized, no question). Next packet, if any,
+  follows council route - never unprompted scope.
 
 ## Resume order (exact)
 
 1. This pointer. 2. AGENTS.md §10 checklist (hashes + git log/status, read-only).
 3. Latest result + relay + verdicts on disk. 4. Ledger ONLY for audits.
+5. Index 06_HANDOFFS\BUILDER_INDEX_RELEVANCE.md before ANY record search (relevance first).
 
 ## Update rule
 

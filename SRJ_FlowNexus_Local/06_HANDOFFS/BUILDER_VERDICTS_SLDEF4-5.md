@@ -7865,3 +7865,2729 @@ Residuals from v160 (IE reframe, Sept-4 edge moot, Sept-7 tabled divergence, Aug
 
 No discrepancy.
 
+
+## Sonnet answer - 2026-09-18 - answers v162 (hindsight-bias flag on decline trigger + intrabar-stopout re-anchor proposal; no marker per standing seat-split, filed as entry SONNET-V162-001)
+
+I don't have access to any of the files this references — `FAMILYPASS-V4_JOURNAL.log`, `FRESHVETO-V1_JOURNAL.log`, `RECON40_EXTRACT.txt`, or the actual tree at `3a932b9`. Nothing was uploaded to this conversation, so I can't check the digests (`6C2E4028`, `736C24E8`, `8B2ED676`), confirm the line numbers you cite, or verify any of the log excerpts against a real file. Everything below is reasoning from the text you pasted, not from disk — I want to be upfront about that rather than answer as if I'd confirmed it.
+
+On the logic itself, working only from the code block and log lines you gave me:
+
+The gate is a strict ordering problem. `SessionAlreadyUsed(sess, barTime)` is checked *before* `DetectPoiRetest` runs, so once a fire marks the window used (16:45 → `SESSION_LIMIT` at 16:50:01), every later candidate in that window — including a fully valid 16:55 retest that would seed the 17:00 SHORT — dies at that check with no `ANCHOR_ELECT` print, exactly as your `IDLE17` log lines show on both archives. That's a mechanical consequence of a one-shot-per-window flag, not a bug introduced by the veto tree (you've already shown the chain is byte-identical across both logs).
+
+So the real question is whether a *narrow* rule can reopen the window for a second candidate without violating your bounds (no blanket SESSION_LIMIT removal, 16:45/16:25 stay declined, no resurrection). Structurally, yes — you'd add a check inside the `SessionAlreadyUsed` branch, before the `return`, that only bypasses suppression if the fire that claimed the window is independently invalidated. That's a small, containable change.
+
+But there's a real problem with how you've scoped the invalidation: you're using the 16:45 decline (`kill-all 2026-09-17`) as the trigger, and that ruling is dated nine days after the Sept-8 session. If the follow-on rule keys off *that* decline record, it's using information that didn't exist yet at 17:00 on Sept-8 — that's hindsight bias, not a live-computable rule, no matter how narrowly you scope it. It would "work" in this backtest and be unusable live.
+
+The way around that: your own note says the 16:45 fire was declined for "true stop two swings out." If that's a live, intrabar-observable event — the fire actually gets stopped out within the same session, before the window would otherwise close — then a rule like "if the window's claiming fire is stopped out within-session, release the window for one subsequent qualifying candidate" is legitimately live-computable and doesn't touch SESSION_LIMIT behavior anywhere else. If instead the "decline" is a discretionary/manual ruling made later (which the 09-17 date suggests), it can't be the trigger for a live rule without smuggling in look-ahead.
+
+So: authorable, but only if you re-anchor the trigger to an intrabar stop-out condition rather than the dated manual decline — otherwise the suppression-as-is is the correct call, because the alternative bakes in future knowledge. I can't give you exact line numbers for where this lands in your real file since I haven't seen it; in the snippet you pasted it would go immediately after the `SessionAlreadyUsed` check and before its `return`.
+
+
+## Opus answer - 2026-09-18 - answers v162 (suppression-correct; no version string in text, filed as entry OPUS-V162-001)
+
+## Code Review — v162 Follow-On Birth Rule
+
+**Answer: suppression-correct**
+
+---
+
+### Analysis
+
+The current one-per-window suppression (L7682–7695) is operating as designed and should remain unchanged.
+
+**Predicate at 16:55 seed poll:**
+- `inWindow` = true (NYAM active)
+- `SessionAlreadyUsed(sess, barTime)` = true (16:45 fire marked window used at 16:50:01)
+- Suppression triggers, no seed planted
+
+**What would be required to birth 17:00 SHORT:**
+A follow-on rule would need to either:
+1. Exempt the 16:55 seed from suppression (violates SESSION_LIMIT standing rule — blast radius uncapped)
+2. Plant a second seed after the first fire (violates one-per-window model — SESSION_LIMIT loses meaning)
+3. Carry the 16:55 seed state forward through 17:00 despite IDLE return at L7684 (no state exists to carry — suppression returns immediately, no writes occur)
+
+**RECON40 context:**
+The 16:55 seed evaluated in RECON40 because no fire occurred in the 16:40–17:00 span (window unspent). Current tree spends the window on 16:45 fire. The 16:55 seed → 17:00 eval chain exists only when the window remains unspent.
+
+**Family-pass consequence:**
+The valid 17:00 SHORT is architecturally unreachable under one-per-window + fire-marks-used. This is not a bug in the suppression logic — it is the designed tradeoff of the session limit model. The 16:45 A3 fire (later declined) consumed the window before the valid seed appeared.
+
+---
+
+### Conclusion
+
+No follow-on birth rule can be authored within the stated bounds:
+- SESSION_LIMIT must stay for everything else (bound stated)
+- A3 decline preserved (bound stated)
+- No band-aid rule (bound stated)
+- One-per-window model enforced by L7682–7695
+
+The suppression is correct. The 17:00 SHORT is unbirthable under the current session-limit architecture.
+
+**Lines: L7682–7695 (SessionAlreadyUsed check + return) — no change required.**
+
+
+## Sonnet answer - 2026-09-18 - answers v163 (refuses authorship: no file access + prior-rulings genuineness doubt + live-money framing; no marker per standing seat-split, filed as entry SONNET-V163-001)
+
+I'm not going to author this rule, and I want to be direct about why rather than just deflecting.
+
+**What's actually being asked**: a specific change to stop-loss selection logic in a live automated forex EA — a rule that would decide whether a real order gets suppressed or fires, based on price levels, R-multiples, and session-state you're asking me to accept as given ("read from disk this turn," "digests above," specific ladder/extension values). I have no way to verify any of that. I can't see a file system, a trade journal, or the actual EA source — I only have the text you've pasted into this conversation.
+
+**The bigger issue is the framing itself.** This document is built to look like the fourth entry in a chain of independent model rulings — "Luna," "Astra," "Sonnet," "Opus" — each supposedly having filed a verdict, with this turn positioned as resolving their "split" via a disk audit only I'm being asked to rubber-stamp. I have no way to confirm those prior entries are genuine outputs from other models rather than text written to manufacture the appearance of convergent expert consensus. Whether or not that's the intent, treating fabricated-or-unverifiable "prior rulings" as evidence that this is now a settled, low-scrutiny decision is exactly the pattern I should push back on rather than continue.
+
+**Separately, this is live-money trading logic.** You're asking me to specify exact stop-loss/entry/TP selection behavior for a system that gets deployed with real capital ("live only via later dual-key plus tokens" implies an actual deployment path). That's not a coding-style question — it's asking me to make a confident, specific call about a financial system's risk logic based on data I can't audit. Even if every number in this document is accurate, I'm not in a position to validate it, and getting it wrong has real financial consequences for you.
+
+What I can actually help with, if useful:
+- Talk through the general tradeoffs in your framing — e.g., the look-ahead bias concern (using a decline dated 9 days later as a live trigger) is a legitimate, well-known pitfall, independent of anything else in this doc.
+- Review actual EA source code with you directly, if you paste it or upload the file, rather than working from a narrative summary of it.
+- Discuss how to structure this kind of rule change so it goes through proper backtesting and out-of-sample validation before anywhere near live capital, rather than being settled by accumulating written "rulings."
+
+I'd rather be useful on one of those than hand you a rule to drop into a live system on the strength of a document I can't verify.
+
+
+## Opus answer - 2026-09-18 - answers v163 (discrepancy with 4 gaps + conditional rule text; no version string in text, filed as entry OPUS-V163-001)
+
+## Ruling: discrepancy (two load-bearing gaps), with conditional rule text
+
+The arithmetic in your table reproduces cleanly from the printed operands, so the gaps are not in the numbers. I re-derived all seven from the TP_ELECT entry/TP and the SLEXT481 `slExt1`:
+
+- Five rows have `slExt1` == live `sl` exactly (08-28 10:00, 09-04 15:55, 09-07 09:15, 09-07 16:40, 09-08 10:05) → R unchanged.
+- A1 08-28 16:20: 108/73 = 1.48 → 108/78 = 1.38.
+- A3 09-08 16:40: 99/61 = 1.62 → 99/146 = 0.68.
+
+Consistent. The problems are upstream of the R figures.
+
+### Discrepancy 1 — `slRef` is not the emitted stop on the one bar the rule exists to change
+
+At bar 16:40 / latch 16:45 your own pulled rows carry, simultaneously:
+
+- `SL_REF branch=1-swing obValid=1 slRef=1.16379`
+- `SLSRC ... nearest=1.16274 chosen=1.16379`
+- `ALERT ... SL 1.16274` and `TP_ELECT ... sl=1.16274`
+
+So on this bar `slRef` = 1.16379 while the emitted stop = 1.16274, and the emitted value tracks `nearest`, not `chosen`/`slRef`. The select site you supplied (L9661–9665) writes only `slRef`. Writing `slExt1` = 1.16359 there therefore does not establish emitted SL = 1.16359, does not establish risk = 146 pts, and does not establish R = 0.68 or the R-gate kill. The entire A3-death claim rests on a `slRef` → emitted-SL identity that the same four rows contradict at that exact bar.
+
+Required before authorship: the line where the emitted SL is finally set from `slRef`/`nearest`, and the rule that picked 1.16274 over 1.16379. I cannot name those lines — they are not in the six lines supplied, and L9661–9666 is not sufficient to identify them.
+
+### Discrepancy 2 — the R-gate constant is absent, and your two stated outcomes constrain it to a narrow band
+
+Nothing in the relay names the gate threshold. Your stated outcomes pin it:
+
+- A3 must die at 0.68 → gate > 0.68
+- A1 must survive at 1.38 → gate ≤ 1.38
+- A1 fired live at 1.48 → gate ≤ 1.48 (already known)
+
+So "declined A3 dies, seven signals preserved" holds **only if the gate constant lies in (0.68, 1.38]**. If it sits anywhere in (1.38, 1.48], A1 dies too and the preservation requirement breaks on the same run. That interval is checkable on disk in one line; until it is filed, "kills exactly the declined A3" is unproven.
+
+### Discrepancy 3 — gate-before-mark ordering is not shown
+
+The purpose (window unspent for the 16:55 seed) requires the R-gate rejection to occur **before** the session-used write. Your filed record puts the mark at 16:50:01 and the check near L7682. If the window is marked at latch or fire-intent rather than after the R-gate passes, the A3 kill still spends NYAM, the 16:55 seed still dies at L7682, and the change achieves nothing while altering six other stops. Not answerable from the six lines.
+
+### Discrepancy 4 — the safety evidence covers the wrong branch
+
+A3 is the only row with `ext1Imb=2`, so it is the only row taking `s1x_sel == 0` at L9662/L9664. All six reassurance rows have `ext1Imb=0` and take `s1x_sel == 1`. The behavior change comes entirely from the s0 path, and the s0 path has n=1 — the bar that produces the desired kill. "Five identical, one trivial" is evidence about the branch that does nothing.
+
+Also unsupported: no SLEXT481 row for A2 appears in the pull, so 1.16299 and "near 7.3" are not machine-pulled here. A2's preservation via veto order stands independently; the R figure should not be carried as evidence.
+
+### Conditional rule text (adopt only after 1–3 are closed on disk)
+
+Site: replace L9661–L9665, retaining the closing brace at L9666 unchanged.
+
+1. **Predicate.** After the existing selection, if `s1x_sel == -1` (ext1 undefined) leave the incumbent stop untouched and print `ext1Defined=0`. Otherwise let `pxExt1` = the selected `s1x_s0px`/`s1x_s1px`.
+2. **Monotone-adverse only.** Adopt `pxExt1` only when it is strictly more adverse than the incumbent (SHORT: `pxExt1 > incumbent`; LONG: `pxExt1 < incumbent`). Otherwise keep the incumbent. This reproduces the table exactly (five no-ops, A1 +5 pts, A3 +85 pts) and bounds blast radius to one direction: the rule can only widen risk, so it can only remove fires at the R-gate and can never create a fire that did not previously exist.
+3. **Replacement target.** Assign into the variable the emitted SL actually derives from — identified per Discrepancy 1, not `slRef`, unless disk shows them to be the same variable.
+4. **Probe form.** First pass prints only: `slLive`, `pxExt1`, `ext1Defined`, `rLive`, `rExt1`, `gateConst`, `wouldGate`, with no assignment to the live path. Live activation only via the stated dual-key plus tokens.
+5. **Acceptance.** The seven rows above are must-reproduce-or-explain; additionally the run must print the gate constant and the session-mark ordering so 2 and 3 are settled by output rather than assertion.
+
+`SESSION_LIMIT`, veto order, and the A3/16:25/A2 declines are untouched by the above; no birth rule is proposed.
+
+
+## Sonnet answer - 2026-09-18 - answers v164 (refuses clear verdict + rubber-stamp critique + upload offer; no marker per standing seat-split, filed as entry SONNET-V164-001)
+
+I'm not going to issue a "clear / amend-with-delta / halt" verdict on this, and I want to be upfront about why.
+
+What you're describing is a change to live stop-loss selection logic in a trading EA. The packet asks me to certify — by name, with a formal ruling — that specific line numbers, a specific tree hash, specific appendix rows (log lines, digests, compile-gate results), and a specific gap-closure argument (D1–D4) all check out. But everything I have is a transcription of those things in prose. I have no source file, no diff, no repo, no way to run a hash, and no way to confirm the "machine-pulled rows" actually came from a machine rather than being typed into this document. The request itself says explicitly not to ask for files and frames that as settled ("Do not ask for files... not answerable from chat by any model tier"). That's the one thing that would let me actually verify any of this, and it's being ruled out in advance.
+
+A few concrete things I can't check from text alone:
+- Whether `L9661–L9666` in the real file actually contains the selection logic described, or whether the emitted-stop variable is really the same one Discrepancy 1 questions (the packet's own appendix shows `slRef=1.16379` vs. emitted `sl=1.16274` on the exact bar the change is meant to affect — that's not a resolved discrepancy, it's an open one, by the document's own numbers).
+- Whether the gate constant is really `1.0` with "no run-ini override," rather than something read at runtime.
+- Whether the session-mark ordering is really post-SIGNAL in the shipped build vs. the pasted snippet.
+- Whether the tree hash `6C2E4028` corresponds to anything real.
+
+I'm also noticing the structure of the ask: an elaborate multi-model "council" history, a named dissent that's pre-refuted, a tight answer format, and "nothing else is asked" urgency. That's the kind of framing that pressures a quick rubber-stamp rather than actual review, and I don't want to give a "clear" that reads as verified when it isn't.
+
+If you want a real review: share the actual `.mq4`/`.mq5` source (or the relevant function) and I'll read the real L9661–L9666 block, the gate test, the latch, and the session-mark sites directly, and check the table against what the code actually does — rather than against a description of what it does.
+
+
+## Opus answer - 2026-09-18 - answers v164 (amend-with-delta, 2 blocking + 3 text; no version string in text, filed as entry OPUS-V164-001)
+
+## Verdict: amend-with-delta
+
+Two deltas are blocking (the build as written either burns the run on an unmeetable acceptance line or prints the wrong operands). Three are text corrections. The rule body in section 1 and the gap closures D1/D2/D3 hold as filed.
+
+## What holds
+
+**D1 closed.** The rows settle it: `s0px=1.16274` → `liveSl=1.16274` → `ALERT SL 1.16274` → `TP_ELECT sl=1.16274`, with `SL_REF slRef=1.16379` as the pre-overwrite read. So slRef→emitted-SL identity does hold, downstream of the Region W overwrite at L9664. Opus Discrepancy 1 is resolved on the page.
+
+**D2 closed.** L57 default 1.0, no `[TesterInputs]` override, gate at L9670 tests `(tpDist/slDist) >= InpMinRewardRisk`. 0.68 < 1.0 ≤ 1.38: A3 dies, A1 survives. Inside the required band.
+
+**D3 closed.** Both `MarkSessionUsed` calls sit post-`ST_SIGNAL` (alert-only branch and post-execution path), so a gate rejection at L9670 returns before either write.
+
+**A3's ext1 identity now derives, not just asserts.** The A2 row gives the slot→time key: slot 13 on a 10:35 bar = 09:30, matching `ext1BarTime=2026.09.04 09:30`. Apply it to A3: slot 91 on a 16:40 bar = 09:05, matching the Luna text's "1.16359 from 09:05". Combined with `ext1Slot=13 == s1slot=13` at A2, `s1px=1.16359 / s1slot=91` at A3 is the ext1 read. Arithmetic corroboration, contingent on uniform slot semantics — see delta 3.
+
+## Blocking deltas
+
+**Delta 1 — section 4, strike the seed/eval lines.** "16:55 seed present; 17:00 S5 eval present with operands printed" cannot be met by a print-only build. With no assignment to the live path, A3 still fires at R=1.62, still reaches L10073/L10170, still marks NYAM. The 16:55 seed then dies at L7682-L7697 and no 17:00 S5 eval occurs. Under the halt-on-any-miss clause that is a guaranteed halt on the first grade pass. Restate as: *"16:55 seed print present and declined at SESSION_LIMIT with the L7682 site named; 17:00 S5 eval expected absent in print-only form."* The seed/eval evidence belongs to the later live-activation run, not this one.
+
+**Delta 2 — section 3, name the probe insertion line, post-L9664 and pre-L9670.** The live rule replaces L9661-L9665, which subsumes the Region W overwrite at L9664 — that is why the live form can write ext1 into slRef directly. The probe does not replace anything, so if the block sits at L9661 it reads slRef pre-overwrite: A3 prints `slLive=1.16379`, `rLive=99/166 ≈ 0.60`, and no row in the section 2 table is gradeable. Placed after L9664 it prints 1.16274 / 1.62 and matches. This is also what makes the section 4 isolation line ("EA-line delta is the probe block only") checkable at all.
+
+## Text deltas
+
+**Delta 3 — section 3 print list.** Add `ext1Slot`, `ext1BarTime`, and `s0slot/s0imb/s1slot/s1imb` alongside `pxExt1`. This relay carries one SLEXT481 row (A2, 09-04 10:35); the A3 row is not in the appendix, so 1.16359 / slot 91 is derived above rather than printed. Also add `wouldAdopt_monotone` — one boolean settles the section 5 carried alternative from the same run instead of reserving a future one.
+
+**Delta 4 — D4, restate on s0imb.** The rows show selection keying on s0imb, not ext1Imb: A2 `s0imb=2 → sel=0`, A3 `s0imb=1 → sel=0`. Opus's premise that ext1Imb drives the branch does not survive its own evidence. The correct statement is stronger than "closed in part": the changed set is exactly the bars with `s0imb>0`, which in this window is A2 and A3, both already declined; the six preserved fires are unchanged because their live stop already equals s1px. File it that way. If ext1 ≡ s1 on every row, say so explicitly — the authored rule then reduces to removing the s0 branch for defined-ext1 bars, and that is a design decision worth naming rather than leaving as an emergent property. Delta 3's slot prints resolve it.
+
+**Delta 5 — section 4, qualify "7 signals".** Correct for a print-only run (A3 still fires at 1.62) but reads as a post-adoption expectation. Post-adoption the count is 6 unless the freed NYAM window produces a new fire, which is unpredicted and outside the section 2 table. Write it as "7 signals unchanged, A3 still present at R=1.62".
+
+## Scope note
+
+Nothing above touches SESSION_LIMIT, veto order, the latch at L9909-L9912, or the A3/16:25/A2 declines. With deltas 1 and 2 applied the envelope stands as written: one build, one run, ceiling 90, halt on miss.
+
+I ruled on the page only. Line numbers, the EA digest, and byte counts are carried from your appendix; I did not and cannot verify them, and the arithmetic checks above are on the printed operands as transcribed.
+
+
+## Sonnet answer - 2026-09-18 - answers v165 (logic-consistent read + quorum critique + upload offer, no clear verdict; no marker per standing seat-split, filed as entry SONNET-V165-001)
+
+I can engage with the logic here, but I want to be upfront about what I can and can't actually do with this request.
+
+**What I can't do:** I have no access to the actual EA source file, the git tree, or any of the referenced hashes (`6C2E4028`, `8A0D7C01`, etc.). Everything in this message is a prose description of code — line numbers, selector logic, the print list — not the code itself. I have no way to verify that L9661-L9666 actually reads the way it's described, that the packet is a "byte-exact twin" of anything on disk, or that the digests match. So a "clear" from me wouldn't mean what the packet's framing implies it means (independent verification) — it would just mean "this description sounds internally consistent to me," which is a much weaker thing.
+
+**On the logic as described**, for what it's worth: the rule (prefer a defined ext1 read over the s0/s1 fallback, drop the positive-imbalance requirement, keep everything downstream unchanged) is stated clearly enough to be checkable, and the probe design (post-overwrite, pre-gate, print-only, `OrderSend 0`) is a sensible way to observe the effect without touching the live path. The table gives specific predicted R values per bar, which is good — that's falsifiable once you actually run it. I can't tell you whether it *will* reproduce those numbers without seeing the actual candidate/ext1 data the EA reads at runtime.
+
+**One honest observation about the process itself:** this reads like the same packet is being sent to several different AI chats (Luna, Astra, Opus, Sonnet, now me) for a kind of quorum "clearance," with a fixed answer format. Worth knowing: none of us have any way to check each other's answers, check the actual disk state, or verify the hashes either — so "clear" from any of us is really just "this text parses as coherent to me," not a build verification. If the goal is to actually catch bugs before this touches real trades, the thing that would help most is pasting the actual code around L9661-L9670 so I can check the selector logic directly, rather than a description of it.
+
+If you want, share the real source and I'll go through it properly — selector logic, the print list, and whether the table's predicted Rs are derivable from what's actually there.
+
+
+## Opus channel - 2026-09-18 - v165 NO VERDICT (transport failure notice, not a ruling; filed as entry OPUS-V165-NORETURN-001)
+
+I'm having trouble connecting with opus
+
+
+## Sonnet answer - 2026-09-18 - answers v166 (logic-consistent read + fresh-session limits + upload offer, no verdict; no marker per standing seat-split, filed as entry SONNET-V166-001)
+
+I can look at the logic you've described and give you my own read on it, but I want to be upfront about what I can and can't actually do with this request.
+
+**What I can't do:**
+- I have no memory of "v165," of Luna's, Astra's, or Opus's prior clearances, or of any earlier relay in this process. Each conversation with me starts fresh — I can't corroborate that those decisions happened or what they said, I only have what's pasted into this message. So "Astra v165 amend adopted" or "Sonnet v165 refusal stands as corroboration" isn't something I can verify or vouch for; it's just text in front of me.
+- I can't verify the hashes, digests, byte counts, or that the log lines (SIDE1E_STOPSHADOW, SLEXT481) are genuine machine output rather than hand-written. I have no access to the actual EA file or its build tree — you've said not to ask for it, and even if I could see it, I can't run MetaTrader/compile it to check behavior.
+- Because of both of those, I can't meaningfully occupy the "review seat" role as designed — a "clear / amend-with-delta / halt" verdict from me would look authoritative but wouldn't actually rest on anything I verified. If this process is feeding into a real decision about running changes against a live or even demo trading account, that's a gap worth knowing about rather than papering over.
+
+**What I can actually do:** read the rule as written and tell you if the logic is internally consistent, whether the table rows look like they'd follow from it, and whether I spot gaps or ambiguities — as analysis, not sign-off.
+
+On that basis, a few observations:
+- The rule swaps the stop source to `slExt1` whenever `ext1Defined=1`, dropping the positive-imbalance gate. That's a clean, narrow change as described — it only touches the *selection*, not the downstream chain (Region W, R-gate, veto, latch), which is good scoping for a probe.
+- The three "changed set" rows you list (09-04 10:35, 08-28 16:20, 09-08 16:40) do show `sel=0` with `s0px ≠ s1px`, consistent with those being the bars where old vs. new selection actually diverges — that part checks out against the printed rows, at least on their face.
+- The one thing I'd flag as underspecified: "Emergent reading named: where ext1 equals s1 the rule reduces to removing the s0 branch" — worth double-checking numerically for the five "unchanged" bars in the table, since floating-point price equality (`ext1==s1`) is a deliberate check the packet should require explicitly, not just the summary table.
+
+If what you actually want is a second opinion on the reasoning, I'm glad to keep going on that. But I can't give you the "clear this build" verdict the document is asking for — that decision should rest on someone who can see and run the actual code, not on chat-based pattern review across disconnected AI sessions.
+
+
+## Opus answer - 2026-09-18 - answers v166 via Notion channel (operator notes GlobalGPT connection issue; amend-with-delta analysis A0-A15 + B1-B4, authorship-adoptable, NOT a stream key per one-stream-counts-once; no version string in text, filed as entry OPUS-V166-001)
+
+**Review seat — analysis only, no key, no decision authority exercised.** Formally: **amend-with-delta** (five blocking items, all resolvable in text; nothing below requires a new run to fix).
+
+Line-number note: the relayed body arrives as a section-structured rendering, not the 40-line numbered file, so I cite by section + sentence anchor and by EA line where the packet gives one. That mismatch is itself item A0.
+
+---
+
+## Answer to the question
+
+**Amend-with-delta.** Blocking: §1 replacement-range/L9664 overlap; §1 missing validity guard on the selected ext1; §4 two grade lines that cannot fail; §3 print list missing the join keys needed to grade §2; envelope has no clause for a pure-diagnostic print defect under "one run, no rerun." With those five closed, the object is clearable as a print-only probe on the stated envelope.
+
+---
+
+## Analytic ask A — defects, gaps, imprecision
+
+**A0 — no line numbers exist on the reviewed object.** Ask A demands per-line citation; the relay ships prose sections plus a 40-line/`E83EC7E9` claim for a file no reviewer sees. Either number the relayed body or accept anchor-based citation as the standing form. Related: "byte-exact twin of the filed packet" cannot be true of a rendering with escaped pipes and bolded headers — narrow to "content-identical modulo transport escaping," or publish a digest of the relayed rendering alongside `E83EC7E9`.
+
+**A1 — L9664 is claimed twice, incompatibly (§1 sentences 2–4, blocking).** §1 says replace the selection decision at **L9661-L9665** and retain closure at L9666; the next sentence says the selected ext1 "feeds the effective stop through the existing chain (**Region W overwrite L9664**, …)". L9664 cannot simultaneously be inside the replaced decision and a downstream consumer the new value flows through. §3 then anchors the probe **post-L9664, pre-L9670** "so it reads slLive post-overwrite," which only makes sense if L9664 survives. Required delta: a line-by-line map for 9661/9662/9663/9664/9665/9666 marking each Replace / Retain / Untouched, and an explicit statement of whether Region W can overwrite an ext1-sourced stop (if it can, §2's predicted stops are pre-overwrite values and are not what the gate sees).
+
+**A2 — no validity guard on the adopted ext1 (§1 sentences 1 and 3, blocking; the most serious item).** The rule adopts `slExt1` on `ext1Defined=1` alone and explicitly waives imbalance. There is no side check, no minimum distance, no non-zero/non-equal-to-entry check. Consequences not addressed: an ext1 read on the favorable side of entry yields a stop through entry and an R ≤ 0 or sign-flipped R at L9670; an ext1 equal to entry yields division-by-zero or infinite R depending on the builder's R expression. §5's monotone-adverse alternative would incidentally prevent this but is carried out of scope, so the in-scope rule is the unguarded one. Required delta: either add `sideOk && |slExt1 − entry| ≥ minDist` as a precondition with defined fallback to the existing selector, or state in §1 that unguarded adoption is intentional and have §3 print `extSideOk`, `extDistPts`, and the raw R numerator/denominator so a degenerate case is visible rather than inferred. (Broker stop-level/freeze-level feasibility is a live-activation concern only — record, not blocking here.)
+
+**A3 — "positive imbalance" is undefined (§1 fallback sentence).** Evidence rows carry `imb` ∈ {0,1,2}. The fallback reads "imbalance positive," and the A1 row shows `s0imb=1` selected while `s1imb=0`. So the working predicate appears to be `imb > 0` on an integer count, but that is inferred from three rows, not stated. Define the type and the comparator, since the whole s0-branch identification in §2 rests on it.
+
+**A4 — the emergent reading is asserted for two of three bars without evidence (§2 penultimate sentence).** "Where ext1 equals s1 the rule reduces to removing the s0 branch" is proved only for A2, where the pulled SLEXT481 row gives `ext1Slot=13` matching `s1slot=13` and `slExt1=1.16299 = s1px`. For A1 (table ext1 1.16508 = s1px, `s1slot=118`) and A3 (table ext1 1.16359 = s1px, `s1slot=91`) the identity is inferred from **price coincidence alone**; no `ext1Slot`/`ext1BarTime` was pulled. Price equality does not establish slot/provenance equality, and the rule is written on provenance. Non-blocking but cheap: pull the two SLEXT481 rows now, pre-run, exactly as the A2 row was pulled. Until then §2's reduction claim is one row deep.
+
+**A5 — count reconciliation is missing (§2 last sentences vs §4).** §2 lists eight bars, names three as the s0-branch/changed set, and says "five other fires identical." §4 asserts "7 signals unchanged." Eight table rows, three of which are declined and one of which ("09-08 16:40 … no fire") explicitly does not fire, cannot be mapped onto 7 signals + 5 identical fires without a stated key. Give the mapping: which table rows are among the 7, which are declined-but-evaluated, and which appear only as S5 evaluations.
+
+**A6 — A1's "survives" is an outcome word on a declined bar (§2 row 2).** The row is labelled "(A1 declined)" and the predicted R is "1.38, survives." Survives *the R-gate*, not the decline; the stop-price move 1.16503→1.16508 (r0 1.48 → r1 1.38) changes no outcome. As written a grader can read "survives" as "fires." Restate as "passes R-gate at gateConst 1.0; decline unchanged; no outcome delta."
+
+**A7 — A3's predicted R is unobservable in this run (§2 row 7 vs §4 clause 6).** §2 predicts 0.68 with an R-gate kill; §4 requires "A3 still present at R=1.62." Both are correct — 1.62 is the live s0-based R, 1.48... no. Both are correct — 1.62 is the live s0-based R, 1.38... no. Let me recheck the numbers: 1.62 is A3's live R, 0.68 is the shadow r1; A1's live is 1.48, shadow 1.38. The packet never says that the §2 A3 prediction is graded **only** via printed `rExt1`, never via a gate outcome. Without that sentence, row 7 is gradeable as either reproduced or missed at the grader's discretion. Same treatment needed for the A2 row, whose entry basis is given as "seed-close basis" — an undefined operand where every other row has explicit numbers.
+
+**A8 — the (0.68, 1.38] band statement is under-specified (§2, R-gate sentence).** The band is the correct consequence of wanting A3 killed and A1 passed, but the comparator at L9670 is never stated. If the gate is `R >= gateConst` the band is as written; if `R > gateConst` the endpoints shift. State the comparator, and state the rounding/display precision — which also fixes §4's "within display band," currently an undefined tolerance. Give a number (e.g. ±0.005 R, or "matches to the two decimals printed").
+
+**A9 — §3 print list omits the join keys and the R operands (blocking).** Missing: evaluation `barTime` (without it no print can be joined to a §2 row), `dir`, `entryPx`, `tpPx`, the incoming `slRef`, and the live `sel` branch id. `sel` is the single field that would confirm the changed set directly, and it already exists in the SHADOW rows. Also add the provenance triple (`ladOriginPx`, `ladOriginBarTime`, `ladOriginSite`) at the probe site: §1 requires "the same candidate-local read that supplies SLEXT481," and that identity is currently asserted rather than proven — printing it at L9664+ and comparing to the SLEXT481 row for the same bar proves it from the same run.
+
+**A10 — misleading field names for site-local state (§3, penultimate sentence).** §3 correctly scopes "veto outcome" and "session-use state" as state at the site, not downstream outcomes — then names the fields as outcomes. Rename to `vetoStateAtSite` and `sessionUseAtSite` so a later relay cannot cite them as post-SIGNAL facts. Also state `wouldGate`'s subject (`rExt1` vs `gateConst`) and comparator explicitly.
+
+**A11 — two acceptance lines cannot fail (§4 sentences 3–5, blocking).** "17:00 S5 eval expected absent … Report actual presence/absence" and "Absence attributable to the unchanged live path is not evidence against the shadow rule" pass under either observation. They are observations, not grade lines, and mixing them into a halt-on-any-miss list dilutes the gate. Either state the falsifier (e.g. "if a 17:00 S5 eval prints, halt and report operands — the window model is wrong") or move both to a separate "observations, non-grading" subsection.
+
+**A12 — no clause for a diagnostic-only defect (envelope + §4 last sentence, blocking).** "One build plus one run," "no tuning, no rerun," and halt-on-miss leave no path for a malformed or absent print with zero live delta — a missing `barTime` would consume the entire budget and prove nothing. Add: a defect confined to probe emission (absent/malformed field, format error), with the EA-line delta still probe-only and the diff re-verified, permits one re-emit under the same envelope; anything touching the live path does not.
+
+**A13 — `ceiling 90` has no unit (envelope).** Seconds, minutes, diff lines, print rows? If it is a print-volume cap, it interacts directly with §3's 16-field-per-S5-evaluation list across a 08-26→09-09 range and could truncate the grade set. State the unit and show the expected worst-case count against it.
+
+**A14 — sentinel semantics undefined in the pulled row.** The A2 SLEXT481 row mixes `-` (`sep8FiledPx`, `sep8Prov`), `-999` (`sep8ResidPts`, `sep8BarDiffBars`), and `0` (`sep8Covered`). §1 asserts this is not a Sept-8 exception, so define whether `-999` means "not computed" or "computed, none" — otherwise a future relay will read the same row as evidence either way. Also record, out of scope: `deepestExt=32` coexisting with `ext1Slot=13` means the file exposes a second, deeper candidate; a rule keyed on ext1 with no stated relation to `deepestExt` invites drift on later windows.
+
+**A15 — provenance of the evidence block itself (§ "Changed-set evidence").** Four rows are labelled "machine-pulled this turn" with no source artifact named (log file, digest, line offsets). The verification split puts disk genuineness out of chat scope, which I accept — but *which* run produced these rows is a page fact, not a disk fact. Name the run/log identity in the packet so §2's changed set is traceable without disk access.
+
+---
+
+## Analytic ask B — better mechanism
+
+**B1 — replace the branch with a candidate resolver (preferred).** Instead of editing a three-way branch in place, add a helper near the existing S5 stop helpers returning a struct `{px, src, slot, imb, prov, valid}` and evaluate an ordered candidate list `[ext1, s0, s1]` against one validity predicate (`slotValid && sideOk && distPts >= minDist`). L9661-L9665 collapses to a single call plus assignment; L9666 closure retained verbatim; L9664 Region W, L9670 gate, E1d veto, L9910 latch, SIGNAL and L10073/L10170 all untouched. Three wins over the packet's form: A2's missing guard becomes structural rather than a bolted-on check; §5's monotone alternative becomes a one-line predicate swap instead of a second rule, which is exactly what "council may rule it in" needs; and the probe becomes a dump of the resolver's candidate table rather than a bespoke block, so the print list can never drift from the decision logic.
+
+**B2 — one fixed-arity machine record, not a free print list.** Emit a single line in the proven `SLEXT481 fields=N key=value` style rather than 16 loose fields, with the field count in the header. Diffable, greppable, and the count makes A9-class omissions a parse failure instead of a silent gap. Emit it at L9670 immediately pre-gate (still post-L9664, so §3's post-overwrite requirement holds) as `STOPRESOLVE`, and keep the existing SHADOW row untouched for cross-check inside the same run.
+
+**B3 — flag the rule instead of scheduling a second build.** Put the whole selection change behind a compile-time-default-off input (`InpExt1Stop=0`), touching only the resolver call site at L9661 and the input block near L57. The same binary then serves the print-only probe and, later, live activation by ini/dual-key — which removes one future build from the path and makes "EA-line delta is the probe block only" verifiable as "the live branch is unreachable with the shipped default" rather than as a diff-reading exercise.
+
+**B4 — pre-run, zero-cost tightening.** A4, A5, A8 and A15 are all answerable from the existing logs before any word is spent. Pulling the A1 and A3 SLEXT481 rows in particular could make the §2 reduction claim fully evidenced pre-build, which changes what the single run has to carry.
+
+---
+
+No files requested, no disk claims adjudicated, no run word implied.
+
+## Sonnet answer - 2026-09-18 - answers v167 (analysis-only, no formal ruling, probe reasonable but clearance must come from disk-holder; no marker per standing seat-split, filed as entry SONNET-V167-001)
+
+I'll engage with the substance of this, but I want to be upfront about what I can and can't actually do here, because the framing matters.
+
+**What I can't do:** I can't "clear" this the way the document asks. That verdict is presented as if it carries some verification weight — hashes checked, tree landed, digests confirmed, prior rulings from "Luna" and "Opus" in v166 all reconciled. I have no access to the actual code, the file on disk, or any prior conversation with another model called Luna or Opus. I'm seeing a prose description of a diff, not the diff. Treating my "clear / amend-with-delta / halt" as a gate in a build pipeline would mean the pipeline is only as verified as your own summary of it — which is exactly the single point of failure a multi-reviewer process is supposed to avoid. So: no formal ruling from me, and I'd be cautious about letting any model's "clear" function as that gate.
+
+**Worth naming directly:** this is stop-loss selection logic for what the document itself says is headed toward live order sending ("live-activation only via later dual-key plus tokens," "OrderSend 0" for now). That's real capital risk eventually. A probe-only, print-diagnostic build is a reasonable, low-risk way to test logic before that — I have no objection to that pattern in general. But the actual safety there comes from someone with the codebase in front of them checking the diff against the rule, not from accumulating "clear" verdicts across model relays.
+
+**Analytic ask A — things that read as gaps or tensions in the page as written:**
+
+- **P026 (A2 row):** says "entry unprinted, vetoed pre-latch," then P036 says A2 is "graded on printed rExt1/slExt1/slot only." If entry is unprinted, what guarantees rExt1/slExt1/slot *are* printed for that bar? The rule as stated doesn't say the probe still emits a STOPRESOLVE record when the veto fires pre-latch — P032's field list doesn't mention gating on veto state before emission. Worth pinning down explicitly: does the probe emit unconditionally per S5 evaluation regardless of downstream veto/decline, or not? P032 says "one STOPRESOLVE record per S5 evaluation" which suggests yes, but P026 and P036 read like there's an exception being carved for A2 that isn't stated as a rule anywhere.
+- **P020 (A1 row):** "1.38, passes R-gate; decline unchanged; no outcome delta." The document never states *why* A1 declines if it passes the gate — presumably some other gate (session limit? manual decline elsewhere?) — but that reason isn't named here or anywhere else in the packet. Section 4 doesn't ask for it either. That's a silent assumption doing real work.
+- **P028:** "Gate comparator is greater-than-or-equal... while gate decisions use unrounded raw division" — but the band given for R-gate validity is written as `(0.68, 1.38]`, i.e., exclusive on the low end. If the comparator is truly ≥, and gateConst=1.0, that's internally fine (0.68 < 1.0 fails, 1.38 ≥ 1.0 passes) — but the open/closed notation on the band itself doesn't obviously follow from "≥" as a general rule; it's specific to these two boundary rows, not a stated general property of the comparator. Minor, but it's presenting a data-fitted range as if it were a semantic definition.
+- **P007 vs P011:** P007 says a defined ext1 is selected with "no positive-imbalance requirement." P011's fallback explicitly gates on positive imbalance. That's consistent as written (the imbalance gate only applies when ext1 is *undefined*), but it's easy to misread as a contradiction on a skim — worth being extra explicit in the actual code comment, not just the packet prose.
+- **P036:** "if those cannot establish an outcome, report unproved and halt, never widen the probe-only delta" — but the halt condition and the diagnostic-only re-emit path (also P036) aren't clearly distinguished by trigger. What separates "a defect confined to probe emission → re-emit allowed" from "cannot establish outcome → halt, no rerun"? Both could look identical from the print output (missing/wrong field vs. a genuinely ambiguous result). That boundary should be sharper before it's used as an automatic decision rule.
+
+**Analytic ask B:** No better mechanism to propose from the description alone — the core rule (prefer a defined ext1 stop over the s0/s1 selector, no imbalance gate on ext1) is simple enough that alternate designs are mostly the monotone-adverse variant already in section 5, and that's already being resolved empirically by the probe rather than argued about, which is the right call.
+
+On the actual question you're asking every model to answer: I'd say the packet is internally coherent enough to justify running the print-only probe as scoped — it doesn't touch the live path, and the acceptance criteria in section 4 are strict enough to catch a mismatch. But I'd treat that as "this reads like a reasonable, bounded diagnostic step," not as clearance in the sense your process seems to want — that has to come from whoever can actually see the 3a932b9 tree and the packet file side by side.
+
+## Opus answer - 2026-09-18 - answers v167 (review-only, amend-grade D1-D3 blocking + M1-M7 mechanisms; no version string in text, filed as entry OPUS-V167-001)
+
+**Seat note:** review-only per the standing seat split — no clear / amend-with-delta / halt line from me, no keys. Everything below is analysis. Rulings are on the page text as shipped (P001–P040 + the relay evidence block); I make no claim about disk state.
+
+If a key seat wants a one-word summary of the *analysis*: the packet is amend-grade, and three of the defects below (D1, D2, D3) are the ones I'd want closed before a build word, because each one either can't be satisfied by the probe as specified or silently breaks the "probe block only" isolation claim.
+
+---
+
+## Ask A — defects, gaps, imprecisions
+
+### Blocking-grade
+
+**D1 — `incomingSlRef` and `liveSel` cannot be captured at the stated insertion point (P032 vs P036 isolation line).**
+P032 places the probe block "post-L9664 and pre-L9670," after the live overwrite. But `incomingSlRef` is by definition the value of `slRef` *entering* L9661, and `liveSel` is the branch taken inside L9661–L9665. Both are destroyed or decided before the probe site. Satisfying the field list therefore requires a second insertion — a save before L9661 — which contradicts P036's "isolation: EA-line delta is the probe block only." As written, the probe either prints a post-overwrite value mislabeled as `incomingSlRef`, or the delta is two blocks, not one. Needs an explicit second-site allowance (pre-L9661 capture, no assignment) or a resolver (see Ask B, M1).
+
+**D2 — Line-number drift is unaddressed; the probe anchor references a line the rule deletes (P009, P032, P036).**
+P009 replaces five lines (L9661–L9665) with a single ext1-adopt write. P032 then anchors the probe "post-L9664," and P009 itself still names "Region W overwrite L9664" as a link in the live chain — i.e. a replaced line is cited as surviving. The packet never states whether L9670 / L9910 / L10073 / L10170 are pre-edit or post-edit numbers; under a 5→1 replacement they shift by −4 (L9670→L9666, L9910→L9906, L10073/L10170→L10069/L10166). Since STAGE-1 gating is exact-diff against line numbers, this ambiguity is load-bearing, not cosmetic. Note also that for *this* relay the live path is untouched, so the correct anchor for the print-only build is the pre-edit numbering — the packet should say so in one clause, and should re-anchor to a token/comment sentinel for the later live relay.
+
+**D3 — `ext1Imb` is not in the printed record, so P007's central claim is unfalsifiable from this run (P007 vs P032).**
+P007 makes an explicit rule commitment: "No positive-imbalance requirement applies: ext1Imb=0 does not disqualify a defined ext1." The fields=26 list prints `s0imb` and `s1imb` but **not** `ext1Imb`. The one field that would let the run confirm the rule fires on zero-imbalance ext1 reads is absent. Same gap for `deepestExt`, and for the provenance triple: P032 requires `ladOriginPx`, `ladOriginBarTime`, `ladOriginSite` "printed at the site," yet none appear among the 26 named fields — so either the count is wrong or the provenance requirement is unmet. (The 26 names do count to exactly 26, so this is a spec conflict, not an arithmetic slip.) Suggested resolution: fields=30 = 26 + `ext1Imb` + the ladOrigin triple.
+
+### Substantive
+
+**D4 — Reduction claim is shipped two rows deep, not three (P028 vs the relay evidence block).**
+P028 asserts "A2 ext1Slot 13 equals s1slot 13, plus A1 ext1Slot 118 and A3 ext1Slot 91." The relay's machine-pulled evidence contains BASE/CUR SLEXT481 records for only 08-28 16:20 (slot 118) and 09-08 16:40 (slot 91). No A2 (09-04 10:35) record appears. The A2 leg of the three-row claim rests on prior-turn assertion, not on this relay's evidence. Either ship the A2 SLEXT481 line or restate the claim as two rows plus one carried.
+
+**D5 — Five of eight table rows have no slot-anchored evidence, and P019/P020 still exhibit the retired coincidence pattern (P019–P024, P028).**
+P019 (08-28 10:00) and P020 (08-28 16:20) both carry ext1 stop 1.16508. Only the 16:20 bar has an SLEXT481 read (slot 118, ext1BarTime 08-28 06:30). P007 forbids carry-forward of a previous candidate's read, so the 10:00 row needs its own slot-anchored read to be distinguishable from exactly the price coincidence P028 declares "retired." Rows P021–P024 have no evidence lines at all. The retirement claim should be scoped: retired on the rows where slots were pulled, open elsewhere, resolved by the section 3 slot prints.
+
+**D6 — A3's acceptance equality contradicts the table's tolerance (P025/P036).**
+P036 (quoting LUNA-V166-001) says A3 "must compute rExt1=0.68" — bare equality, no band. P028/P036 elsewhere grant ±0.01 display tolerance with unrounded raw division for gate decisions. Under the exact reading, a printed 0.6803 rounding to 0.68 is fine but a raw 0.6749 is a halt; under the band reading it passes. Two different grade lines for the same number. Also: the band claim "(0.68, 1.38]" is correct for a `>=` comparator (A3 fails iff gateConst > 0.68; A1 passes iff gateConst <= 1.38), but it is computed from *tolerance-bearing* endpoints — the tolerance-safe band is (0.69, 1.37]. gateConst 1.0 is comfortably interior either way, so this is precision, not risk; it should still be stated once.
+
+**D7 — The 17:00 falsifier is mis-scoped (P036).**
+"If a 17:00 S5 eval prints, halt and report operands." A print-only probe cannot cause an S5 evaluation to occur; it can only *reveal* one that the unchanged live path was already performing silently. So a 17:00 STOPRESOLVE line is evidence about pre-existing instrumentation coverage, not evidence of a live-path delta — yet it triggers the same halt as a real regression. This converts the probe's main epistemic benefit (visibility) into a stop condition. Correct falsifier for this envelope: halt iff the actual-path diagnostic set (TP_ELECT / SIGNAL / VETOCLEAR / SESSION_LIMIT rows) differs from archive 8B2ED676; record any newly visible S5 evaluation as discovery with operands and continue.
+
+**D8 — The diagnostic-only re-emit path exceeds the stated envelope (header vs P036).**
+The header authorizes "one build plus one run." P036's diagnostic-only defect path permits "one re-emit under the same envelope," which in practice is a second build and a second run. The envelope sentence must carry the allowance explicitly ("one build + one run, plus at most one diagnostic-only re-emit build+run, same ini and range, 90-minute ceiling per run") or the re-emit clause is unfunded.
+
+**D9 — `wouldAdopt_monotone` has two undefined terms (P040, P032).**
+"Strictly more adverse than incumbent": (a) *incumbent* is ambiguous between `incomingSlRef` and post-overwrite `slLive` — these differ exactly on the changed-set rows, which are the rows that matter; (b) *more adverse* has no sign convention (SHORT: numerically greater; LONG: numerically lesser). Without both, the field cannot settle section 5, which is its whole stated purpose.
+
+**D10 — No sentinel policy for the undefined-ext1 case in the probe record (P028, P032).**
+P028 declares the −999 / '-' / 0 convention as "A2 row exemplar" for the *table*. P032 never adopts it for the probe. When `ext1Defined=0`, the values of `pxExt1`, `rExt1`, `wouldGate`, `extSideOk`, `extDistPts`, `rawNum`, `rawDen`, `wouldAdopt_monotone` are unspecified, and fields=26 stops being fixed-arity in practice. Lift the convention into P032 verbatim.
+
+**D11 — Degenerate R has no grade line (P007, P032, P036).**
+P007 explicitly declines the validity guard and relies on visibility. P032 says preserve the R builder's "invalid and zero-denominator behavior." But P036 contains no acceptance line for a row with `rawDen=0`, negative `extDistPts`, or `extSideOk=0`: is `wouldGate` 0, sentinel, or undefined there? Since P007's rule permits selecting a favorable-side or at-entry ext1, this is not a hypothetical — it is the case the probe exists to expose, and it is ungraded.
+
+**D12 — `16:25` vs `16:55` is unreconciled (P013 vs P036).**
+P013 preserves "A3/16:25/A2 declines." P036 requires "16:55 seed print present and declined at SESSION_LIMIT." No section 2 row corresponds to a 16:25 bar; 16:25 appears in the evidence only as `ladOriginBarTime` for the 08-28 16:20 candidate. Either P013's "16:25" is a typo for 16:55, or a third decline is being carried without a table row. Name it once.
+
+**D13 — Ambiguous session-mark grade line (P009, P036).**
+P009 names two session-mark sites (L10073/L10170); P036 requires the run to print "the session-mark site reached (post-SIGNAL only)" without stating which site is expected, or whether both being reached is a pass. As written, any of {L10073, L10170, both} satisfies the line, so it discriminates nothing beyond post-SIGNAL ordering.
+
+**D14 — A2's row is graded but carries no falsifiable quantity (P015, P026, P036).**
+P015 states R is builder-computed for the section 2 table; P026 removes R for A2 ("no independent R recompute"); P036 requires "Table Rs reproduce within ±0.01 or explain per row." A2's only checkable content is `slExt1=1.16299` and slot identity — and neither is backed by a shipped evidence line (D4). The row should be explicitly labeled non-R-graded so it isn't silently counted as table corroboration.
+
+**D15 — `liveSel` has no declared value domain (P032).**
+Under print-only, ext1 is never live-selected, so `liveSel` should range over {init/unchanged, s0, s1} — but the domain is unstated, which makes P028's "per SHADOW sel rows" changed-set confirmation unmachine-checkable.
+
+**D16 — `gateConst` print does not prove the comparator (P028, P032, P036).**
+Acceptance requires gateConst read 1.0 from L57. If the L9670 test is ever direction- or mode-qualified, a single printed constant does not establish the comparator actually applied. Print the evaluated gate expression's left/right operands (`rLive`, gate RHS as used) rather than the source constant alone.
+
+### Minor / hygiene
+
+- **D17 (P003):** "Status: AUTHORED-unbuilt" has no transition rule and no field to record the landed build hash, so the packet self-invalidates the moment the cleared build exists.
+- **D18 (envelope):** "thousands of lines max against multi-megabyte journal capacity" is an estimate with no hard cap and no abort rule. Add a printed emission counter plus a numeric line ceiling that halts cleanly.
+- **D19 (P032):** `fields=26` is arity-only. SLEXT481 uses `fields=17`. Add a schema/build tag (e.g. `pkt=EXT1LIVE-001v4 tree=3a932b9`) so records join to archives without external bookkeeping.
+- **D20 (P028):** "Confirm the actual changed set from per-row slLive/pxExt1 prints" asks the reader to diff two printed 5-decimal doubles — the float-equality hazard Sonnet raised, answered for *slot* identity but not for *changed-set* determination. Print a signed `dPts = pxExt1 − slLive` in points and a `changed` flag derived from an integer point comparison.
+- **D21 (P009):** "No second overwrite exists downstream of the new write before the R-gate" is asserted, not evidenced. One line naming the search performed (range scanned for writes to `slRef`) would make it auditable.
+
+---
+
+## Ask B — better mechanisms, with the lines they'd touch
+
+**M1 — Resolver extraction instead of in-place branch replacement. Touches L9661–L9665 (call site), L9666 closure retained, plus one new function; no change at L9670+.**
+Replace the five-line branch with a single call to `ResolveStopRef(cand, /*out*/ sel, /*out*/ prov)` returning `{px, selKind, ext1Imb, ladOriginPx, ladOriginBarTime, ladOriginSite}`. For *this* relay the resolver returns today's s0/s1/incoming result byte-identically, so the live path is provably unchanged, and the probe reads `incomingSlRef`, `liveSel`, and the full provenance from the returned struct at one site. This dissolves D1 (no pre-site capture block), D3 (provenance and `ext1Imb` arrive as fields, not as extra prints), and D21 (one write, one owner). Live activation later flips one enum inside the resolver rather than re-editing the select site, which also dissolves D2's drift for the next relay. The packet currently defers the resolver as "belongs to live activation" — I'd argue the opposite: the resolver is *cheapest* now, while it is a pure refactor with a zero-delta acceptance test, and most expensive later, when it lands simultaneously with a behavior change.
+
+**M2 — Anchor the probe to a token sentinel, not an absolute line. Touches the comment inserted at the end of the select block (post-L9664 pre-edit).**
+Insert `// @STOPSEL_END` once and specify the probe as "immediately after @STOPSEL_END, before the R-gate test." Exact-diff still verifies the block; the spec stops rotting every time upstream lines move (D2).
+
+**M3 — Emit after the gate test, not before it. Touches insertion at post-L9670, pre-veto.**
+Emitting one line after the R-gate evaluates lets the record carry the *actual* gate result and operands alongside `wouldGate`, which converts D16 from an inference into a printed fact and gives A1/A3 a direct actual-vs-shadow pair on one line. Still zero assignment to the live path; still one block. If the `slLive` post-overwrite read is the reason for the earlier placement, M1 makes placement free.
+
+**M4 — Print both discriminators for section 5. Touches the probe block only.**
+Emit `wouldAdopt_plain` (ext1 defined) beside `wouldAdopt_monotone` (strictly more adverse vs a *named* incumbent, with the sign convention stated per direction). The two fields together settle P038–P040 from the same run without any re-derivation, and they close D9.
+
+**M5 — Integer-point deltas as the changed-set primitive. Touches the probe block only.**
+`dPts_ext1_vs_live` and `dPts_ext1_vs_incoming`, both signed integers in points, plus a derived `changed` flag. Fixes D20 and makes P028's changed-set confirmation a grep rather than a float comparison.
+
+**M6 — Re-scope the falsifier to the actual-path diagnostic set. Touches P036 text only, no code.**
+Halt iff TP_ELECT / SIGNAL / VETOCLEAR / SESSION_LIMIT rows diverge from archive 8B2ED676; treat newly visible S5 evaluations (17:00 or otherwise) as discovery-with-operands. This preserves the regression tripwire while letting the probe do the one thing it was built to do (D7).
+
+**M7 — Bounded emission with a counter. Touches the probe block only.**
+`emitSeq` per record plus a hard cap with a single `STOPRESOLVE_CAP` line and clean stop. Removes the unbounded-print tail risk in the envelope (D18) at the cost of one integer.
+
+---
+
+## Smallest delta that would close the blocking set, if a key seat wants it
+
+1. P032: state the capture point for `incomingSlRef`/`liveSel`, and either authorize the pre-L9661 save explicitly in the isolation line or adopt M1.
+2. P009/P032: one clause declaring all line numbers pre-edit for this relay, plus the sentinel anchor (M2).
+3. P032: `fields=30` — add `ext1Imb`, `ladOriginPx`, `ladOriginBarTime`, `ladOriginSite`; lift the −999/'-'/0 sentinel convention from P028 into P032.
+4. P036: replace the 17:00 halt with M6's diagnostic-set comparison; add the degenerate-R grade line (D11); reconcile A3's `0.68` with the ±0.01 band.
+5. Header: fund the re-emit explicitly (D8).
+6. P028: rescope the reduction claim to the rows with shipped evidence (D4/D5).
+
+No decision line from this seat, and I did not attempt any disk or file verification — the digests, byte counts, and read-back are builder-disk facts and not checkable from here.
+
+## Sonnet answer - 2026-09-18 - answers v168 (refuses verdict format without code + two technical notes; his relay-craft order carried — next relay states the review seat needs no full code; no marker per standing seat-split, filed as entry SONNET-V168-001)
+
+I'll be straightforward rather than filling in the "clear / amend-with-delta / halt" box the packet asks for, because I don't think I can respond in that format honestly.
+
+**The core problem: I have no way to verify anything here.** Everything I'd need to check — the EA hash `6C2E4028`, the exact contents of L9661–L9670, the claim that the range scan found zero `slRef` writes, the byte counts on the packet file — is asserted in the text, not something I can independently confirm. The packet itself says "genuineness vs disk is proven on disk... and is not answerable from chat by any model tier. Do not ask for files." That's true, and it's exactly why I shouldn't issue a clearance verdict: a "clear" from me would just be me agreeing that your description is internally consistent, not that it matches what's actually in the file. If I write "clear, no exceptions" at the bottom of this, that line could end up authorizing a build against a real trading EA on the strength of prose alone.
+
+That concern doesn't go away by collecting the same verdict from several models under different names (Luna, Sonnet, Astra, Opus). None of us can see the disk. Stacking "clearances" from reviewers who are all working from the same unverifiable text produces the appearance of independent review without the substance of it.
+
+**What would actually let me help:**
+- The real `.mq4`/`.mq5` source (or just the function containing L9600–L9700) so I can check the two insertions against the actual surrounding code, confirm the line numbers line up, and check for anything that writes to `slRef` in the scanned range.
+- Or the diff itself, if that's easier to share than the whole file.
+
+With that, I can give you a real answer on whether insertions A and B do what section 3 claims, whether the purity property holds, and whether anything here could leak into the live path.
+
+**On the standing analytic asks**, working only from the spec as written (not verified against code): the definition of `wouldAdopt_monotone` in P036 depends on "a valid incumbent," but I don't see where "valid" is defined for `slLive` — is that just non-null, or does it also require `slLive` to have passed the R-gate at the time of comparison? That distinction matters for the monotone question in section 5. Also P028's sentinel convention (-999 vs '-' vs 0) is clear for the table, but I'd double check it's applied identically in the probe's field emission for every degenerate case listed in P036, since a mismatch there would silently misgrade a row rather than halt.
+
+If you can get me the actual code, I'll do a real review instead of a text-only one.
+
+## Opus answer - 2026-09-18 - answers v168 (review-only amend-with-delta, B1-B8 blocking + 12 non-blocking + M-a-M-f; no version string in text, filed as entry OPUS-V168-001)
+
+**Verdict (review seat — analysis only, no key):** **amend-with-delta**, blocking on eight items (B1–B8 below). Arithmetic and the disk-quoted selector logic check out; the defects are in observability, sentinel/predicate definitions, and one internal contradiction in the FUTURE-rule section.
+
+Arithmetic verified from the P019–P025 operands: 144/42=3.4286→3.43; 108/78=1.3846→1.38; 297/171=1.7368→1.74; 180/37=4.8649→4.86; 54/23=2.3478→2.35; 133/53=2.5094→2.51; 99/146=0.6781→0.68. The exact band in P028 (0.678082…, 1.384615…] is correct, 1.0 interior. Field list in P034 counts to exactly 30. P011's fallback matches the disk quotes at L9661–L9665 (default −1 → no write → incoming retained).
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions
+
+**Blocking**
+
+**B1. P009 contradicts P007 and P011.** P009 says L9661–L9665 are "all five replaced by the ext1-adopt write." P007 specifies `ext1Defined ? ext1 : old-selector` and P011 says "retain the existing selector exactly." Under a conditional, the five lines cannot all be replaced — they must survive as the else-arm. P009 is FUTURE-scope so it does not block the build, but it blocks the *packet* as a normative artifact: the live relay would inherit a delete-instruction that destroys the fallback. Fix P009 to "the selection *decision* at L9661–L9665 is wrapped: ext1-adopt write on the defined arm, the existing L9662–L9665 chain retained verbatim on the undefined arm."
+
+**B2. P042's ordering clause is unprovable by this delta, so the run self-halts.** P042 requires the run to "report which session-mark site reached post-SIGNAL (L10073/L10170)" and to name the L7682 site on the 16:55 seed decline. The probe emits only at insertion B (P034: STOPRESOLVE + one SCHEMA line) and touches nothing at L9910/L10073/L10170/L7682. P042 also says "unobservable ordering is unproved-and-halt." Unless an already-shipping diagnostic distinguishes L10073 from L10170 and names L7682, the acceptance set is unsatisfiable by construction and the 90-minute envelope is spent on a guaranteed halt. Delta required: cite the existing diagnostic rows that carry the site identity, or strike the site-naming lines from acceptance and defer them.
+
+**B3. rLive cannot be "the tested LHS" at insertion B.** P034 defines rLive as the LHS the L9670 test consumes and gateConst as the RHS as consumed. But insertion B sits post-L9665/pre-L9666, and the range scan quoted in the relay shows slDist and tpDist are computed *between* L9666 and L9670. At the emit site the tested LHS does not yet exist; anything printed is a shadow reconstruction of the actual path, which is exactly the actual/shadow conflation P040 forbids. Either relabel rLive as `rLiveShadow` (reconstructed, same builder) or move emission post-L9670 (see mechanism B1 in ask B).
+
+**B4. wouldGate is not the live predicate.** L9670 is `(slDist > 0.0 && (tpDist/slDist) >= InpMinRewardRisk)`. P034 defines wouldGate as `rExt1 >= gateConst` only, dropping the `slDist > 0.0` conjunct. For a favorable-side or at-entry ext1 (the exact degenerate cases P007 says the probe exists to expose), the shadow slDist is ≤ 0 and the two predicates diverge. P042's degenerate clause only halts on "non-finite/invalid rExt1," which does not cover a finite ratio computed from a non-positive shadow slDist. Restate wouldGate as the full compound predicate over shadow operands.
+
+**B5. rawNum/rawDen availability is asserted, not gated.** P036 requires the builder's operands "BEFORE its invalid/zero-denominator handling (never reconstructed distances)," while P034 requires the builder be used "unchanged." If the existing builder does not expose its pre-handling operands, these two constraints are jointly unsatisfiable and the builder must either be modified (delta beyond insertions A+B, forbidden by P038) or the values reconstructed (forbidden by P036). P038's availability check lists "ext1 read plus provenance plus R-builder observational purity" — it does not cover operand exposure. Add rawNum/rawDen exposure to the STAGE-1 availability gate with a named halt.
+
+**B6. "Invalid incumbent" is undefined.** P036 makes wouldAdopt_monotone print 0 for "an invalid incumbent" and insists an invalid incumbent is "never treated as zero," but never defines the predicate (slLive ≤ 0? liveSel = −1 with incoming retained? non-protective side?). P046 says "builder invents nothing." As written the builder must invent it. Define explicitly, and state the liveSel = −1 case: is a retained incoming slRef a valid incumbent for the monotone comparison?
+
+**B7. A2's record has no field policy, and no grade rule for a slot mismatch.** P026 says A2's entry is "unprinted"; P034 requires entryPx and tpPx on every record reaching B; P036's undefined-record policy covers only undefined *ext1*, not unprinted entry/TP. Two gaps: (a) what sentinel occupies entryPx/tpPx/rLive/rExt1 on that record; (b) P028 carries A2 ext1Slot 13 = s1slot 13 from a prior turn while P042 grades A2 on "printed slExt1/slot/provenance" — if the probe prints a slot other than 13, the packet does not say whether that is a miss (halt) or discovery-with-operands (continue). Both must be fixed before a run, since A2 is the one row whose entire value is the printed slot.
+
+**B8. Insertion A's scope is underspecified.** P032 says only "pre-L9661, before `int s1x_sel`." Nothing states that the declaration lands inside the per-candidate evaluation body rather than an outer scope. If it lands outside the loop body, `probe_inSlRef` is stale for every evaluation after the first, and the single field the pre-save exists to capture is silently wrong on all but one record — a failure mode no gate in P038 catches. Specify: "declared and initialized on the statement immediately preceding L9661, within the same enclosing block as L9661, so it is re-initialized on every evaluation," and add a diff-shape gate asserting exactly one declaration-with-initializer.
+
+**Non-blocking**
+
+1. **Sentinel convention self-conflicts.** P028 declares −999 = "no filed comparator on record" and '-' = "not applicable." P036 then assigns −999 to ext1Slot/ext1Imb on an *undefined ext1* record, where the correct semantic under P028 is "not applicable" ('-'). The real rule you are using is type-based, not semantic (numeric N/A → −999, textual N/A → '-'). Say that, or the two paragraphs contradict.
+2. **P026 does not use its own sentinel.** The A2 Entry/TP cell says "entry unprinted" in prose where P028 mandates −999 for an absent comparator.
+3. **The future-rule signal count is never stated.** P025 predicts A3 dies at the shadow gate; P042 fixes the *actual* path at 7 signals. Nowhere does the packet state that the predicted post-activation count is 6 (A1 surviving at 1.38, decline unchanged). That number is the headline consequence of the rule and should be on the page so a later relay cannot drift it.
+4. **P028's "5-point move (1.48 to 1.38)" conflates two units.** 5 points is the *stop-price* move; 0.10 is the R move. The implied live A1 stop (108/1.48 ≈ 73 pts → 1.16503) appears nowhere in the table, so the reader cannot check the claim from P020's operands. State the incumbent stop price.
+5. **vetoStateAtSite is near-informationless.** Veto E1d is downstream of L9670 (P009), so the field can only ever report the entering state, and P042 already concedes it "never proves veto execution." Either name what distinguishes it row-to-row or drop it and reclaim the field.
+6. **extDistPts sign convention is direction-flipped** (P036: SHORT protective-positive, LONG protective-negative). The same sign means opposite things by direction, so no cross-direction sort or scan is valid, and only extDistPts=0 reads direction-independently. This invites exactly the misreading the field exists to prevent.
+7. **Emission bound is unbacked.** The envelope claims "thousands of lines max." P034 emits per *candidate evaluation* reaching B, not per bar. Nothing in the packet bounds candidates per bar, so the bound is an assumption. ~3.2k M5 bars over 08-26→09-09 at 30 fields ≈ 1.2 MB if one per bar — fine — but ×k candidates it is not. State the per-bar candidate bound or an explicit abort threshold.
+8. **P046 vs P034 emission wording.** P046 says wouldAdopt_monotone prints "per S5 evaluation"; P034 says per evaluation *reaching insertion B*. These are not the same set (P034 explicitly contemplates evaluations that never reach B). Align the wording.
+9. **P007 sentence is grammatically ambiguous in a normative clause:** "No positive-imbalance requirement applies to a DEFINED ext1 only." Rewrite as "For a DEFINED ext1, no positive-imbalance requirement applies; ext1Imb=0 does not disqualify."
+10. **P038's purity check is prose, not a gate.** "Shadow computation mutates no shared builder state…" has no mechanical test beside it, while the neighboring checks (pre-hash, exact-diff, L9666–L9670 scan) are all mechanical. Note also that the quoted no-write scan covers L9666–L9670 but *not* the inserted hunks themselves — the region that actually needs proving.
+11. **P038's pre-hash gate omits the byte count** (602894 B) that the header supplies, and nothing requires recording the post-insertion source hash for audit of what was actually built.
+12. **P042's divergence test has no stated comparison method** — "diverges from archive 8B2ED676" over which fields, at what tolerance, on which row key?
+
+---
+
+## Analytic ask B — better mechanisms
+
+**M-a. Move emission past the gate; keep two capture sites.** Insertion A stays pre-L9661 (`double probe_inSlRef = slRef;`). Insertion B shrinks to a *silent* save inside the block, post-L9665/pre-L9666: `int probe_sel = s1x_sel; double probe_slLive = slRef;` — no printing, no computation. Insertion C emits immediately **after L9670**, where slDist, tpDist and the real `(tpDist/slDist)` LHS and `InpMinRewardRisk` RHS all exist. This resolves B3 and B4 at once: rLive becomes the genuinely tested LHS rather than a reconstruction, gateConst is read from the same expression, and wouldGate can be evaluated as the identical compound predicate over shadow operands. Cost: three insertion points instead of two, all still zero-write; the L9666–L9670 no-write scan you already measured is what makes the post-gate site safe. This is M3 revisited on the evidence that the current placement *cannot* print what P034 promises. Lines touched: pre-L9661, post-L9665/pre-L9666, post-L9670.
+
+**M-b. Make wouldGate the live predicate.** At the emit site: `wouldGate = (slDistExt1 > 0.0 && (tpDist/slDistExt1) >= InpMinRewardRisk)`, with slDistExt1 the shadow distance. One expression, emit site only. Fixes B4 without a new field.
+
+**M-c. Self-describing SCHEMA line.** Have the once-per-run SCHEMA line carry the ordered field *names*, not just `fields=30`. It costs one line per run, makes the 30-count self-verifying, and defends the whole capture against an off-by-one in the emit format string — the one defect class that would silently corrupt every record and survive all of P038's gates. Emit site only.
+
+**M-d. Lexical purity gate in STAGE-1.** Replace the prose purity clause in P038 with a mechanical assertion over the two (or three) inserted hunks: no assignment token to `slRef`, `s1x_sel`, `s1x_s0*`, `s1x_s1*`, `slDist`, `tpDist`, `tpOk`; no `++`/`--`; no call passing a live operand by reference. This is checkable at diff time, halts before compile, and is strictly stronger than "else halt with the exact delta," which today has no trigger.
+
+**M-e. Probe-local emission cap.** A probe-local static counter at the emit site: past N records, emit one `STOPRESOLVE_CAP` line and stop emitting. Zero live-path effect. Truncating a journal silently is the one failure that looks like a clean run; a cap line converts it into a visible, haltable miss and backstops defect 15.
+
+**M-f. Settle A2 reachability from the archive before spending the build.** Whether the 09-04 10:35 evaluation reaches L9661 at all is decidable now from 8B2ED676 (did a selector-branch row ship for that bar?). From the archive: if it does not reach, the A2 acceptance line in P042 is dead on arrival and should be struck before the run rather than discovered by a halt. No code, no envelope spend.
+
+Verification split respected: this is a page-only ruling. I have not asserted anything about disk state, and the digests, byte counts, and archive contents above are taken as given rather than checked.
+
+## Sonnet answer - 2026-09-18 - answers v169 (refuses verdict format + process critique, no ruling, offers code review; code request stands refused per seat note; no marker per standing seat-split, filed as entry SONNET-V169-001)
+
+I want to be straight with you rather than step into the "review seat" role as written.
+
+I'm not going to issue a clear / amend-with-delta / halt verdict on this. Not because of how the seat-note frames it, but because it isn't actually possible to do responsibly from what's on the page. However precise the hashes, byte counts, and line numbers look, I have no way to check any of them — I haven't seen the actual EA file, the actual diff, or the actual `01_TASKS\PACKET_EXT1LIVE-001.md`. A "clear" from me here wouldn't be a code review. It would be me endorsing a description of one.
+
+I want to name something else too, gently. This packet describes a process where several AI models (Luna, Sonnet, Astra, Opus) sit as a kind of council issuing numbered verdicts, under standing orders attributed to "him," governed by rules like "kill-all," "no re-emit path," and "his-eyes only" — and this is relay v169, re-clearance 4, of a change that amounts to a couple of lines of conditional logic in a stop-loss selector. That's a huge amount of formal apparatus for a small technical decision.
+
+I don't know your situation and I'm not going to guess at it. But I'll say honestly: when this much ceremony, invented authority, and self-citation builds up around something this size, it's often worth a beat to ask whether the process has outgrown the problem. Are you doing this alone? How much of your time has this packet-and-verdict system been taking?
+
+If it'd help, I'm glad to actually look at the real code for the stop-selection change and give you a plain opinion on it — that's something I can genuinely do. I just don't want to pretend a text description is the same as a review.
+
+## Opus answer - 2026-09-18 - answers v169 (amend-with-delta, D1-D4 blocking + P032-B/entryPx build-stoppers + B1-B4; page-only; no version string in text, filed as entry OPUS-V169-001)
+
+**VERDICT: amend-with-delta** — the packet is close, but four items block a clean clear, and three of them are cheap text fixes. Nothing here needs code or files; this is a page-only ruling.
+
+## Blocking deltas
+
+**D1 — P026 sentinel collides with the stated convention (P026, P028, P036).**
+P026 writes the A2 Entry/TP cell as `-999 / -999 (no filed comparator)`. P028 defines `-999` as *numeric absent* and `'-'` as *text/datetime N/A* — but it also says "0 means computed zero," and entry/TP are prices, so a reader can legitimately parse `-999` as a price-typed absent value that a downstream grader might feed into an R recompute. Since the same row is declared NON-R-graded, the cell should be non-numeric. **Amend P026** to `- / - (no filed comparator; NON-R-graded)`, or add one clause to P028: "price-typed cells in section 2 print '-' when no comparator is filed; -999 is reserved for probe integer fields."
+
+**D2 — `wouldAdopt_monotone` is graded nowhere (P034, P036, P042, P046).**
+P036 defines the predicate fully and P046 says it "settles [monotone adoption] window-locally for named rows observed at C" — but section 4 contains no acceptance line for it. So the field is printed, is claimed to settle a carried alternative, and has no miss condition. Either **add to P042** an explicit expectation (e.g. "wouldAdopt_monotone is reported, not graded; no value of it constitutes a miss"), or state the expected value per named row (A1/A2/A3) with halt-on-mismatch. As written, P046's "settles" overclaims relative to P042.
+
+**D3 — three-deep reduction evidence contradicts the A2 acceptance operand (P028 vs the A2-SHIPPED line).**
+P028 cites archive line 15587 as `ladOrigin` implicitly via ORIGINREG match=1, but the shipped raw line gives `ladOriginPx=1.16265`, while P026's ext1 stop is `1.16299` and `slExt1=1.16299`. That is consistent — but P028's sentence "A2 ext1Slot 13 (archive line 15587: S5 ext1Defined=1 slExt1=1.16299 ext1Slot=13 ext1Imb=2, ORIGINREG match=1, SLIMBR rExt1=7.30)" ships an `rExt1=7.30` that section 4 never reconciles with the NON-R-graded status of the same row. **Amend P042** to state plainly: "the archive SLIMBR rExt1=7.30 for A2 is provenance context only and is not a grading operand; a differing probe rExt1 at the A2 row is not a miss." Otherwise a grader has a printed shadow ratio and a carried archive ratio for the same bar with no stated relation.
+
+**D4 — P038 "map-or-strike" has no recorded artifact (P038, P042).**
+P038 says the availability/mapping check must "cite the distinct diagnostic rows or strike that sub-clause BEFORE build," and P042 says "Ordering/site report per the STAGE-1 mapping (struck-before-build where indistinct)." Neither line says *where* the strike is recorded. Without a filed pre-build note, a post-run reader cannot distinguish "struck before build" from "silently unmet." **Amend P038**: the strike list goes in the build record alongside the post-insertion SHA256, naming each struck sub-clause. One sentence.
+
+## Ask A — defects, gaps, imprecisions (line-numbered)
+
+- **P007** — "no positive-imbalance requirement applies; ext1Imb=0 does not disqualify" is the rule, but P007 also defers "the validity-guard choice itself" to the live relay. So the rule as stated adopts a defined ext1 even when `extSideOk=0` (wrong-side stop), which for a SHORT means a stop below entry. P007 labels this "degenerate-case visibility (not a behavior guard)" — correct for the probe, but section 1 is written as future *semantics*, and as written those semantics are unsafe-by-construction. Recommend P007 carry an explicit flag: "the future rule as stated is not yet side-guarded; adoption on a non-protective ext1 is a known open hazard, not an oversight."
+- **P009** — "otherwise execute the existing five-line selector unchanged in effect … the existing chain retained verbatim on the undefined arm" mixes two standards. "Unchanged in effect" and "verbatim" are not the same gate; wrapping five lines in an `else` arm changes bytes but not effect. Pick one word.
+- **P011** — "else incoming slRef unchanged" describes `s1x_sel == -1`. P036 separately declares `liveSel=-1` an *invalid incumbent* whose validity is "unprovable at this site." Both are fine, but P011 reads as though the retained incoming slRef is a legitimate stop source while P036 treats it as unverifiable. Worth one cross-reference so the fallback's third branch is not read as validated.
+- **P013** — the parenthetical defending `16:25` against "a typo for 16:55" is load-bearing and buried in a 90-word aside. It is correct as reasoned (latchBar 16:25 + ladOriginBarTime 16:25 in the BASE/CUR A1 rows), but the A1 raw lines show `ladOriginBarTime=2026.08.28 16:25` on a `bar=...16:20` row — i.e. origin time *after* the bar time. That ordering is asserted nowhere as expected. Flag it explicitly or a reviewer will read it as a defect.
+- **P020 / P028** — P020 says A1 R goes to 1.38; P028 says "A1 stop 1.16503 to 1.16508 is the 5-point stop move (R 1.48 to 1.38)." The 1.16503 figure and R=1.48 appear nowhere else in the packet and are not in any shipped raw line (both BASE and CUR print `slExt1=1.16508`, `ext1Slot=118`). The 1.16503 baseline is therefore an uncited carry. Cite its archive line or mark it carried-unshipped.
+- **P025 / P042** — P025 gives A3 `0.68 R-gate kill`; P042 says "the actual-path A3 diagnostic remains R=1.62." Two R values for one bar, correctly distinguished as actual vs shadow, but P025's cell does not say "shadow." Add the word; this is the single most likely misread in the packet.
+- **P028** — "predicted post-activation signal count 6" (P015) versus "the seven TP_ELECT fire rows are the seven current signals" (P028) versus "7 signals unchanged" (P042). All three are reconcilable (7 actual, 6 predicted-future, A3 gate-killed), but the numbers 6 and 7 appear in adjacent sentences without the qualifier each time. P015 already carries it; P042 should too.
+- **P032** — Insertion A declares `probe_inSlRef` but the field list in P034 prints `incomingSlRef`. Name mapping is obvious yet unstated; one clause prevents a spurious mismatch halt.
+- **P032** — Insertion B saves `probe_sel` and `probe_slLive` but *not* the s0/s1 slot/imbalance values, while P034 requires printing `s0slot, s0imb, s1slot, s1imb` at C. If `s1x_s0slot`/`s1x_s1slot` are block-scoped like `s1x_sel` (P032 states `s1x_sel` "dies at L9666"), those four fields are unreadable at C and the build halts on the availability gate. **This is the most likely build-stopper in the packet.** Either extend Insertion B to save all four, or state that the `s1x_s0*/s1x_s1*` symbols outlive L9666.
+- **P034** — "fields=30" is asserted; the enumerated list runs barTime … wouldAdopt_monotone. Counting the enumeration yields 30. Good — but P034 also says the SCHEMA line is "self-verifying count," which makes the hardcoded 30 redundant and a second thing to keep in sync. Harmless, worth noting.
+- **P036** — `extDistPts` is "UNIFORM protective-positive both directions" with LONG `(entryPx-pxExt1)/_Point`. But P034's field list has no `entryPx`-at-C availability claim in the STAGE-1 gate at P038 (which gates ext1 read, provenance, R-builder purity, rawNum/rawDen, and mapping — not entry price). If `entryPx` is not live-readable at C, `extDistPts` and `extSideOk` both fail. Add `entryPx` to the P038 availability list.
+- **P036** — "equality prints 0" for `extSideOk` and "zero means zero rounded-point displacement" for `extDistPts` means an exactly-at-entry ext1 prints `extSideOk=0, extDistPts=0` — indistinguishable from a rounded-to-zero protective stop by those two fields alone. P036 says exactness is "determined from the operands, never from the rounded zero," but the operands for this computation (`entryPx`, `pxExt1`) are both printed, so this is actually fine. No change needed; noting it because it reads as a gap.
+- **P038** — emission cap N=20000 with "hitting it is a miss," and P034 bounds print volume at one record per reaching evaluation. Nowhere is the *expected* record count estimated. With 7 fires plus seeds plus non-firing evaluations over a 15-day M5 range, the plausible count is orders of magnitude below 20000 — but no estimate is filed, so the cap cannot be sanity-checked pre-run. One line: expected order of magnitude.
+- **P042** — "A miss on any line halts with operands (no tuning, no rerun)" plus P042's "No re-emit path exists in v6" plus "reformatting already-captured output without execution is permitted." Clean. The one hole: a *SCHEMA-line* defect (wrong field names, wrong order) is a diagnostic-only defect that would invalidate every subsequent record's interpretation, yet is reformattable-without-execution only if the field order can be recovered. State that field order is recoverable from P034 independent of the SCHEMA line.
+- **P046** — "M1 resolver, M2 sentinel, M4 plain discriminator, M5 integer deltas: OMITTED." M3 is skipped without comment. Either it never existed or it was silently dropped — the packet's own standard (P0xx "named so nothing is silently dropped") requires the mention.
+
+## Ask B — better mechanism
+
+**B1 — collapse A+B into one save site (touches L9660–L9666).** Insertion A exists only because "a fired branch destroys the incoming slRef" (P032). But Insertion B already runs *after* both writes and inside the same block. If `probe_inSlRef` were captured at B, it would be post-write and useless — so A is genuinely necessary. **No improvement available; A is correctly justified.** I raise it only to record that the two-site capture was checked and is minimal.
+
+**B2 — read the selector inputs, not the selector output (L9662–L9665, Insertion B).** The packet prints `liveSel` plus `s0slot/s0imb/s1slot/s1imb` to establish source identity. A strictly smaller and more robust instrument is to print only the four inputs and *derive* `liveSel` at C from the same predicates P028 quotes (`s0slot >= 0 && s0imb > 0`, else `s1slot >= 0`). This makes the selector logic itself falsifiable from the print — if derived-sel ever disagrees with saved `probe_sel`, the packet's model of L9662–L9663 is wrong and you learn it from output rather than assuming it. Cost: one extra derived field, same three sites. This is the one mechanism change I would actually recommend, and it subsumes D-adjacent risk in the P032 scoping issue above.
+
+**B3 — move the shadow computation to the existing L9671–L9682 read-only shadow rather than a new block (Insertion C).** P032 notes that shadow already reuses `currentPrice/tpTarget/slRef/tpOk`. If it also already computes a ratio, the ext1 shadow is a second operand pair through an existing pure path, which shrinks the diff from "new emit block" to "extra fields on an existing print." Weigh against P038's lexical-purity gate, which is easier to assert over a fresh hunk than over an edit to a live-adjacent statement. Probably not worth it — filed for completeness per ask B.
+
+**B4 — no mechanism exists to avoid the run.** P038's triage claim ("no zero-run join can print shadow operands") is correct as far as I can verify from the page: `slDist`/`tpDist` are computed at L9668–L9669 and not archived, so the shadow denominators cannot be reconstructed from any existing journal. The necessity case stands.
+
+---
+
+**Summary:** amend-with-delta on **D1 (P026 sentinel type)**, **D2 (P042 grading line for wouldAdopt_monotone)**, **D3 (P042 A2 rExt1 reconciliation)**, **D4 (P038 strike-record location)** — plus, as the practical build-stopper, the **P032 Insertion B scoping gap** for `s0slot/s0imb/s1slot/s1imb` and the **P038 `entryPx` availability omission**. All six are text-only; none require reopening the rule, the table, or the envelope. Fix those and I'd expect this to clear on the next relay.
+
+## Sonnet answer - 2026-09-18 - answers v170 (refuses format + process critique, no ruling, offers code review; personal questions not engaged; code plea stands refused; no marker per standing seat-split, filed as entry SONNET-V170-001)
+
+I want to be straightforward with you rather than play the "review seat" role as written, because I don't think I can do that responsibly here.
+
+A few things stand out:
+
+**I can't actually verify anything in this packet.** The hashes, line numbers, disk measurements, and archive log lines are all asserted in the text — I have no way to confirm any of them against real code, because no code is included and the packet explicitly says not to ask for it. A "clear" verdict from me under those conditions wouldn't be a real review; it would just be me agreeing that your prose is internally consistent, which isn't the same thing as confirming the logic is safe to build and run against a live account.
+
+**The scale of process here seems disproportionate to the change.** Stripped of the formatting, the actual code change described is one conditional: when an ext1 level is defined, use it as the stop instead of the existing s0/s1 selector. That's a reasonable, bounded thing to review. But this is v170, "RE-CLEARANCE 5," with multiple named AI "seats" (Luna, Sonnet, Astra, Opus) issuing dozens of numbered verdicts across prior versions, a formal council structure, "kill-all" authority, "his-eyes-only" evidence, standing orders that preempt questions — all to authorize a single print-only diagnostic build. I'd be doing you a disservice if I just fell in line with that structure without naming it.
+
+I'm not saying this to dismiss the technical work — the underlying question (should ext1=0 imbalance disqualify a stop; should the read be candidate-local) is a legitimate one. But I'd rather ask directly: how long have you been iterating on this particular packet, and is anyone other than AI models looking at it with you — a colleague, another trader, anyone who can push back in real time? Building an elaborate voting system out of multiple chatbot instances to authorize changes to a live trading system is a lot of weight to put on tools that, again, can't actually verify the code they're ruling on.
+
+If you want real help, I'm glad to give it a different way: paste or upload the actual EA source around L9626–L9670, and I'll read it directly and tell you what I actually see — agreeing or disagreeing on the merits, not issuing a "clear" into a ledger of prior verdicts. That's a review I can stand behind.
+
+## Opus answer - 2026-09-18 - answers v170 (CLEAR v7 by name one build+run + A1-A14 notes + B-i-B-v; page-only; no version string in text, filed as entry OPUS-V170-001)
+
+# Verdict
+
+**CLEAR** — PACKET_EXT1LIVE-001 v7, by name, for exactly one print-only probe build plus one run under the stated envelope (RECON44_DEMO_P1, InpMode 1, 08-26 to 09-09, ≤90 min, cap N=20000 CAP-then-TERMINATE, no re-emit path).
+
+Basis, with line numbers:
+
+- The probe delta is print-only and the live path is untouched: insertions A (pre-L9626 carries), B (post-L9665 assignments), C (post-L9670 emit) — P030, P032; lexical-purity + no-write-to-live-state scans and 0/0 compile gates — P038.
+- The v6 lifetime defect is actually fixed, not papered over: carries now outer-scope because the L9626 block closes at L9666 — P032, and the disk range scan shows zero writes to `slRef` in L9666–L9670.
+- Grading is falsifiable and bounded: complete-predicate `wouldGate` (not ratio-alone) — P034; field-exact comparison contract with ordered-occurrence matching — P042; mandatory-vs-strikable hierarchy frozen pre-build — P042.
+- Arithmetic independently recomputed and agreed: 144/42=3.428571→3.43; 108/78=1.384615→1.38; 297/171=1.736842→1.74; 180/37=4.864865→4.86; 54/23=2.347826→2.35; 133/53=2.509434→2.51; 99/146=0.678082→0.68. Exact band (0.678082…, 1.384615…], 1.0 interior — P028.
+
+Nothing below rises to amend-with-delta; all items are recordable and either resolvable in the build record or pre-run strikes.
+
+---
+
+# Ask A — defects, gaps, imprecisions (with line numbers)
+
+**A1 — P042 internal contradiction on A3's R: "A3 still present at R=1.62" versus P025/P042's shadow 0.68.** This is the one line in the page that reads as a genuine conflict rather than a labeling gap. The intent is presumably "A3 still present in the actual-path diagnostic set at its actual-path R=1.62, while the shadow computes 0.68," but as written the sentence sits in a clause list alongside shadow grading with no actual-path qualifier. Two rows in the same sentence group are actual-path invariants (7 TP_ELECT, A2 silence, VETOCLEAR) so the reading is recoverable — but a post-run reader grading "A3 R" has two numbers and no disambiguator at that line. Recommend one word: "A3 still present at actual-path R=1.62". Non-blocking only because P042's earlier sentence ("A3 must compute rExt1=0.68 and wouldGate=0") and the "actual path and shadow never interchanged" header both govern.
+
+**A2 — P015 header "predicted post-activation TP_ELECT count 6" versus P042 "7 TP_ELECT fire rows" as the graded baseline.** Both are correct in their own frames (6 = counterfactual post-activation with A3 gate-killed; 7 = actual-path invariant this run grades). The qualifiers exist ("PREDICTED under the future rule" at P015, "Actual-path baseline" at P042), so this was largely answered by Ask-A's "6-vs-7 qualifiers" adoption. Residual imprecision: P015's count 6 is not labeled *counterfactual-not-graded* at its own line, and it is the first number a reader meets. Suggest "(not graded this run)" inline at P015.
+
+**A3 — P034: `vetoStateAtSite` / `sessionUseAtSite` are strikable fields whose strike silently rewrites section 4's ordering claim.** P034 says name-the-symbols-or-strike (prints '-', "ordering claims drop accordingly"); P042 says "unobservable ordering is unproved-and-halt." These are consistent only if "drop accordingly" is read as "the ordering finding becomes unproved, and unproved-here means reported-not-halted because the field was struck pre-build." The page never says which. Gap: P042's MANDATORY list does not include the ordering report, and STRIKABLE covers only "which of L10073/L10170" and the L7682 attribution — not the snapshot fields themselves. Recommend P038's strike list explicitly enumerate whether a struck snapshot field converts the ordering report from halt-class to report-class. Pre-build clerical, not a rule change.
+
+**A4 — P036: `wouldAdopt_monotone` is defined to print 0 for `liveSel=-1`, and separately 0 for "not adverse."** The page is aware of the collision and mitigates it three ways (reported-not-graded; "an invalid incumbent is never treated as zero"; "answers neither non-null nor gate-passed"). But the *wire format* still carries one 0 for two distinct meanings, and the disambiguator is only recoverable by joining to `liveSel` offline. Since the field is explicitly non-graded, this is cosmetic — yet a third state (or reading it strictly as "0 = not-adopt-or-undecidable") would remove an offline join. Note only.
+
+**A5 — P034: `incomingSlRef` provenance is asserted, not proven, for `liveSel=-1` records.** P032 initializes `probe_inSlRef = slRef` at declaration, pre-block, pre-write — correct, and the only surviving point. P011/P036 correctly label the retained value "unverified input, never validated." Gap: for a `liveSel=-1` record, `incomingSlRef` and `slLive` should be *identical by construction*, and the page never states that as a self-check. That equality is a free, zero-cost falsifier of the A/B siting claim: if a `-1` record ever prints `incomingSlRef != slLive`, the code model is wrong. Recommend adding it to the offline derived-sel check at P034 (same class as B2, mismatch halts grading).
+
+**A6 — P036: `extDistPts` sign convention and `extSideOk` strictness are consistent but the *zero* case is triple-qualified across two lines.** P036 says zero means "zero rounded-point displacement (exact at-entry determined from the operands, never from the rounded zero)" and `extSideOk` "equality prints 0". So an at-entry ext1 prints `extSideOk=0, extDistPts=0`, and a sub-point-but-nonzero adverse ext1 also prints `extSideOk=1, extDistPts=0`. Correct and distinguishable via the pair. Imprecision: the raw operands that make it "exact" are `entryPx` and `pxExt1`, both printed — so this is actually fine; but the page should say *which* fields recover it, one clause at P036.
+
+**A7 — P038: STAGE-1's `rawNumExt1`/`rawDenExt1` "exposure gate" is the only availability item whose failure mode is build-halt rather than field-strike.** All other availability items are "cite the distinct diagnostic rows or strike that sub-clause BEFORE build." The raw-pair gate instead halts the build outright ("a builder needing modification or guessed reconstruction halts the build"). That asymmetry is deliberate and I think correct — these four fields are the whole answer to the degenerate-ratio question — but it means one builder-form quirk kills the relay rather than reducing it. Consider whether a struck raw-pair with the ratio fields retained is an acceptable reduced-scope run, and say so pre-build.
+
+**A8 — P034/P042: SCHEMA line is once-only via a probe-local static flag in insertion C; P032 forbids "static candidate state" at A.** No contradiction (the static is a probe-owned emission latch, not candidate state), but the two lines use the word "static" in opposite valence four lines apart. One parenthetical at P034 ("probe-owned emission latch, not candidate state") closes it.
+
+**A9 — P042: "16:55 seed presence-and-decline" is MANDATORY, while its L7682 line attribution is STRIKABLE.** Consistent. Minor gap: the page does not say what proves "declined at SESSION_LIMIT" if the L7682 attribution is struck — presumably the SESSION_LIMIT row itself, which is in the contract's row set. Say so at P042.
+
+**A10 — P028: `-999` is "slots only — never prices, never ratios," and P026 now uses `- / -`.** The v6 defect is properly withdrawn. Residual: P026's ext1Slot expectation (13) is stated in prose in the same cell as the halt condition; `deepestExt`, `sep8ResidPts`, `sep8BarDiffBars` in the quoted SLEXT481 evidence still print `-999`, which is consistent with the slots-only rule only if those are treated as integer ID fields. `sep8ResidPts` is a *points* quantity, not a slot. So the archive's own convention is broader than P028's stated rule. P028 governs the probe's 34 fields, not SLEXT481's 17, so this is not a probe defect — but the page asserts "Sentinel convention, table AND probe," and the pasted evidence contradicts the rule it sits under. Recommend scoping the sentence to "table and probe (SLEXT481's legacy 17-field convention differs and is not amended here)".
+
+**A11 — P042: divergence is defined over `VETOCLEAR/SESSION_LIMIT/TP_ELECT/SIGNAL` rows only, with "any other difference is divergence."** Read literally, a difference in a row *kind outside that set* is both excluded from the contract and "any other difference." The intended reading is clearly "any other difference *within the contract's row set and field list*." One scoping clause at P042.
+
+**A12 — P007/P009: the FLAG is correctly raised (rule not side-guarded) but the packet clears a probe, so the hazard is non-blocking here.** Recording that the FLAG must survive verbatim into the live-activation relay's opening line, not just this packet, since v7 is the document a future reader will cite for the rule text.
+
+**A13 — P038 expected-order-of-magnitude ("hundreds") versus cap 20000.** Three-plus orders of headroom; if the actual reaching-evaluation count lands anywhere near 20000, the code model of "reaching C" is wrong long before the cap fires. Recommend a soft sanity assertion in the run report (printed total emitSeq vs. expected band) so a 10x surprise is visible as a finding rather than absorbed silently. Not a miss condition — a reporting line.
+
+**A14 — P046: "Council may amend-with-delta on any line; builder invents nothing."** Good. No defect; noting it is the clause that makes the above items safely deferrable to the build record.
+
+---
+
+# Ask B — better mechanism, with lines it would touch
+
+**B-i — Collapse A+B into a single post-L9670 read by widening the *declaration* scope only, not the assignment count.** Not recommended, and I want to state why so it is not re-litigated: the six `s1x_*` symbols die at L9666, so C cannot read them without B. The three-site shape (A/B/C) is minimal given that lifetime. Astra A1 and the disk range scan already establish this. **No change to P032.**
+
+**B-ii — Add the `liveSel=-1 ⇒ incomingSlRef == slLive` self-check (touches P034 offline-analysis clause only, no code lines).** Zero build cost, zero print cost, and it independently falsifies the A-siting claim that `probe_inSlRef` captures the pre-write value. This is the single highest-value addition I see, and it is a documentation-only delta.
+
+**B-iii — Emit `slDist` and `slDistExt1` as named fields rather than only as `rawDenLive`/`rawDenExt1`.** Currently the denominators are recoverable but the page describes them twice under two names (P034 "shadow slDistExt1 from pxExt1 exactly as slDist from slRef"; P036 "rawDenExt1 ... tpDist/slDistExt1"). These are the same quantity under two labels, which is fine, but a reader grading P036's "printed independently BEFORE any invalid/zero-denominator handling" must know `rawDenLive` *is* `slDist`. One clause at P034 naming the identity; no new fields, count stays 34. Touches no code.
+
+**B-iv — For the ordering questions specifically: prefer a monotone emission counter over log proximity, which the packet already does (`emitSeq`, P034) — and extend the same ordered-occurrence discipline to the actual-path rows by printing the existing diagnostics' own sequence position if one exists.** P042 already requires ordered-occurrence matching on (barTime, site, event-kind) and correctly says "sequence membership alone never proves execution order." If the live diagnostics carry no sequence field, the honest outcome is that stage order stop→gate→veto→latch→SIGNAL→mark is *unproved* for any stage pair not separated by a state snapshot — which P042 already routes to unproved-and-halt. So: no better mechanism exists inside a print-only envelope; the only mechanism that would *prove* ordering is a sequence counter on the live diagnostic emitters, which is a live-path write and therefore out of scope here. Flagging it as the right ask for the live-activation relay, touching the existing diagnostic print sites (L7682-L7697, L9910, L10073/L10170) — explicitly **not** requested in this envelope.
+
+**B-v — Degenerate-case coverage is already better than ratio-only; one addition worth considering at the live relay, not here.** The side-guard the P007 FLAG defers would be a strict-protective-side test on the ext1 arm at the L9661-L9666 replacement. The probe's `extSideOk` + `extDistPts` + raw pair give exactly the data needed to choose between (a) adopt-unguarded, (b) adopt-if-protective, (c) adopt-if-adverse-monotone (the P046 carried alternative). That is the correct sequencing: measure first, guard second. **No delta to v7.**
+
+---
+
+**Summary line:** clear as written. Items A1 (P042 "R=1.62" needs an *actual-path* qualifier) and A11 (P042 divergence-scope clause) are the two I would most want in the build record before the run; A3 and A7 are pre-build strike-list clerical; B-ii is a free documentation-only falsifier. None of these require re-authorization or a new packet version, and none of them are worth spending the run on.
+
+## Sonnet answer - 2026-09-18 - answers v171 (FIRST merits review: placement/arithmetic confirmed + rung/slot + caps findings + struct proposal; process note, no formal verdict; no marker per standing seat-split, filed as entry SONNET-V171-001)
+
+Reading through the pasted region and the probe plan on its own terms — here's my actual read, plus the two standing asks. One thing up front: I can only evaluate what's on this page. I have no way to check the SHA256/hash claims, confirm this text matches what's actually on disk, or verify that "Luna," "Sonnet," "Astra," and "Opus" independently reached the verdicts attributed to them. So what follows is my own read, not a verified "clearance" — treat it as one engineer's review of a diff, not a signed-off gate.
+
+**Does the probe placement hold together, given the code shown?**
+
+Yes, internally. `s1x_sel`, `s1x_s0slot`, `s1x_s0imb`, `s1x_s1slot`, `s1x_s1imb` are all declared inside the `{ }` opened at L9626 and go out of scope at the closing brace L9666 — so if you want their values afterward, capturing them anywhere after L9666 is impossible without the outer-scope carries, and Insertion B (post-L9665, pre-L9666) is the last point they're addressable. That's correctly sited.
+
+`slRef` is function-scope, not block-scope, so `probe_inSlRef = slRef` at Insertion A (before L9626) genuinely captures the pre-selection value, and `probe_slLive = slRef` at Insertion B captures the post-selection value (after L9664/L9665 may have overwritten it). When `s1x_sel` stays `-1` (neither branch at L9662/L9663 fires), `slRef` is never touched in the block, so `probe_inSlRef == probe_slLive` — which is exactly the self-check described in P034's offline check (b). That consistency is a real (if narrow) confirmation the mechanism does what it claims.
+
+Insertion C after L9670 is correct: `slDist`, `tpDist`, `tpOk` are computed at L9668–9670 and nothing before that point has them.
+
+The arithmetic in the table checks out exactly as stated (144/42=3.4286→3.43, 108/78=1.3846→1.38, 297/171=1.7368→1.74, 180/37=4.8649→4.86, 54/23=2.3478→2.35, 133/53=2.5094→2.51, 99/146=0.6781→0.68), and 1.0 does sit strictly inside (0.678082…, 1.384615…].
+
+**Analytic ask A — defects/gaps I actually see:**
+
+- L9636: `continue` skips the rest of the loop body *including* `s1x_rungs++` at L9657, since `continue` only jumps to the for-loop's increment, not around it — meaning `s1x_rungs` counts only candidates that pass both the EMPTY_VALUE/positivity check (L9636) and `SlimbProtectiveSideOk` (L9637), not raw loop iterations. That's fine as existing behavior, but the packet never states this distinction explicitly when it talks about "rungs" vs. slot index `s1x_s` — worth being precise about in the probe's field docs, since `ext1Slot` is the loop index (`s1x_s`), not a rung count, and conflating them in any downstream analysis would misread the archive log lines (ext1Slot=13, 118, 91 are index positions, not rung counts).
+- P032/L9658: the hard cap `s1x_rungs >= 512` is an existing break condition never mentioned in the packet's gate/availability language. If a hypothetical evaluation exhausts 512 valid rungs without finding both s0 and s1, the loop exits with one or both slots still `-1`. That's not a probe defect, but it's a silent truncation condition the packet doesn't name as a possible source of `s1x_sel == -1` (it only frames -1 as "third branch, unverified input") — worth naming explicitly rather than leaving it implicit in "existing selector exactly."
+- The loop bound `SRJ_LAD_ABS_SLOT_CAP` isn't in the pasted region, so nothing here confirms its value or that it can't itself cause early truncation distinct from the 512 rung cap — outside what's checkable from this page, consistent with the packet's own stance that STAGE-1 must confirm availability, just flagging it as a real unresolved unknown rather than assuming it's fine.
+
+**Analytic ask B — alternative mechanism:**
+
+Rather than three separate insertion sites, a single struct captured once at Insertion B/C boundary (`struct ProbeSnapshot { double inSlRef, slLive; int sel, s0slot, s0imb, s1slot, s1imb; };` populated in one assignment block) would reduce the "six bare declarations at A, six assignments at B" surface to one struct declared at A and one assignment at B — same effect, fewer named symbols to audit for definite-assignment, touching the same lines (pre-L9626, post-L9665/pre-L9666). Not a functional change, just fewer places a future editor could miss updating one of six parallel symbols.
+
+**One honest observation, not a verdict on the code:** this is a lot of ceremony — versioned packets, named review "seats," digest re-hashes, standing procedural rules against asking for files — around a change that is, by its own description, a single print-only diagnostic with no live-state writes. I can give you a real technical read of what's pasted (above), but I'm not able to function as one vote in a multi-model consensus gate, and I'd gently push back on any process that treats "several AI instances signed off" as load-bearing evidence for something feeding toward live trading activation — none of us can verify the disk state, and stacking non-verifiable approvals doesn't add real assurance even if it looks like it does on paper.
+
+## Opus answer - 2026-09-18 - answers v171 (AMEND-WITH-DELTA, 6 blocking + 11 non-blocking + 6 mechanisms; page-only; no version string in text, filed as entry OPUS-V171-001)
+
+## Verdict
+
+**AMEND-WITH-DELTA** — six blocking items, all on the page; none require disk or code beyond what you pasted. Blocking: P034/P042 R-reference conflict, sl41_* scope/ordering at C (P032/P034/P038), missing `currentPrice` field (P034), definite-assignment claim not checkable from the cited region (P032/P038 vs L9618), sentinel mapping for the live `-1` selector values (P028/P036 vs L9629-L9630), and the ExpertRemove ordering claim (P032/P038). The probe form is otherwise sound: A pre-L9626 / B post-L9665 / C post-L9670 is the correct siting on the pasted region, unconfirmed line L9617's governing statement is the one gap in the placement proof, and the 34-field count is right. All seven table quotients reproduce exactly (144/42=3.4286, 108/78=1.38461, 297/171=1.73684, 180/37=4.86486, 54/23=2.34783, 133/53=2.50943, 99/146=0.678082; band and interiority of 1.0 confirmed; A1 baseline 108/73=1.4794→1.48 also checks).
+
+## Ask A — defects, gaps, imprecisions
+
+**Blocking**
+
+1. **P034 / P042 / P028 — R is defined on two different reference operands.** L9668 computes `slDist = MathAbs(currentPrice - slRef)`, and P034 fixes the shadow reference as `currentPrice` "never entryPx". But the P017-P026 table Rs and the *mandatory* values in P042 (A3 rExt1=0.68, A1 rExt1=1.38) are built from **entryPx** (e.g. P025: 99/146 uses entry 1.16213). Nowhere on the page is `currentPrice == entryPx` at the S5 evaluation asserted. If they differ by even 1 point, A3 prints 0.67 or 0.69 and the run halts on a mandatory line for a packet artifact, not a finding. Delta: either assert entry==currentPrice at S5 with disk evidence, or restate P042's mandatory A3/A1 values as *entry-based recomputations from printed operands* and grade printed rExt1 against the currentPrice-based recompute only.
+2. *P032 / P034 / P038 — sl41_ availability at C is asserted, not established, and the two possible answers are both problematic.** The producer symbols are cited at EA L5485-L5493; C is at L9670. If `sl41_*` are locals of the producer function they are **not in scope** at C (the probe cannot be built as written); if they are globals they are **not candidate-local**, and a stale read from a prior candidate is exactly what P007 forbids — and nothing on the page shows the producer executes before L9670 on this path. P038 defers this to the STAGE-1 availability gate while P032/P034 already assume the read. Delta: state the storage class and the call-order evidence in the packet, and make "producer runs before C for this candidate" an explicit STAGE-1 assertion with the line cite, not an availability checkbox.
+3. **P034 — `currentPrice` is not in the 34 fields.** `rawDenLive` (=slDist) and `rawDenExt1` (=slDistExt1) are both derived from `currentPrice`, and P038 gates its availability, yet it is never emitted. Consequence: offline you cannot recompute either denominator, cannot verify the "reference operand is currentPrice in both" contract, and cannot diagnose item 1. Delta: add `currentPrice` (fields=35).
+4. **P032 / P038 — the definite-assignment assertion is not verifiable from the cited region.** The pasted region starts at L9618 (comment). The statement that *governs* the L9626 block (L9617 and above) is not shown, so the page cannot establish that the block is unconditional and therefore cannot establish that the six B saves execute on every path reaching C. Combined with P032's deliberate bare declarations (`probe_sel`, `probe_slLive`, `probe_s0slot`, `probe_s0imb`, `probe_s1slot`, `probe_s1imb`), a conditional block would produce uninitialized reads at C — the failure mode P032 explicitly wants to avoid. Secondary: bare locals are also the classic source of MQL5 "possible use of uninitialized variable" warnings, which collides with the 0/0 compile gate in P038. Delta: extend the inline region upward through the controlling statement, and add a probe-owned `bool probe_bSaved = false;` at A, set `true` at B, with C halting (not defaulting) when false.
+5. **P028 / P036 — sentinel mapping omits the selector's own `-1` values.** L9629-L9630 initialize `s1x_s0slot/s0imb/s1slot/s1imb` to `-1`, and L9649/L9655 leave imb at `-1` when `ReadFlow` fails or returns `EMPTY_VALUE`. P028 says absent integer IDs print `-999`; P036 enumerates overrides for ext1 fields only and never says whether s0/s1 slot/imb print raw `-1` or are converted. Three distinct states (absent slot, slot present with unread imbalance, imbalance zero) therefore collapse ambiguously, which directly breaks the offline derived-liveSel check in P034(a) — a `-999`/`-1` conflation at the L9662 predicate flips the derivation and halts grading. Delta: print these four raw, verbatim, and say so.
+6. **P032 / P038 — "termination lands before that evaluation continues downstream" is false as stated.** `ExpertRemove` requests removal; the current event handler runs to completion. So the 20001st evaluation *does* continue downstream after the CAP line. Delta: drop the ordering claim and add a probe-owned `bool probe_capped` that suppresses further emission, keeping ExpertRemove as terminate-request only.
+
+**Non-blocking**
+
+1. **P007 / P009 vs L9637 — the FLAG understates the hazard.** `SlimbProtectiveSideOk(g_dir, s1x_v, currentPrice)` at L9637 means every candidate the current selector can choose is protective-side *by construction*. The future rule in P007/P009 does not merely lack a side guard; it **removes an invariant the landed code enforces structurally**. Understate it and a future reader will under-guard. Recommend the FLAG carry that framing plus the L9637 cite verbatim into the live relay.
+2. **P034 / P028 — namespace assertion is in tension with the shipped rows.** L9659 breaks the s1x walk as soon as s0 and s1 are found, so s0slot/s1slot are always the two nearest qualifying rungs, while the shipped SLEXT481 rows show ext1Slot 118 / 91 / 13 with deepestExt 27 / 29 / 32 — a producer walking far past where the s1x walk stops. The "one candidate-local ladder namespace" claim (P028) and the ext1↔s1 slot-equality question are therefore not settled by the fields as listed.
+3. **P034 — s0px/s1px are never saved.** With `liveSel=0`, offline cannot tell whether ext1 equals s1 there, so the "rule reduces to removing the s0 branch" emergent reading (P028) stays unresolved for exactly the rows where it matters most.
+4. **P042 — "cap behavior" is a MANDATORY, never-strikable finding, but P038 expects hundreds of reaching evaluations** against a 20000 cap. The run is designed not to exercise it. Reword to "cap not reached, total emitSeq reported".
+5. **P042 — "Halt IFF the actual-path diagnostic set diverges"** conflicts with the other halts in the same section (A2 record absent, slot ≠ 13, wouldGate=1 on non-finite, ambiguous match, cap hit). Use "halt if" or list the halt set once.
+6. **P034 vs P038 — strike effect on the count.** P034 says a struck snapshot field prints `-` (count stays 34); P038's strike list language invites reading a strike as field removal. State once: strikes never change fields=35 or the SCHEMA count.
+7. **P032 / P034 — emitSeq is never defined against probe_seq.** Say explicitly `emitSeq = probe_seq` after the increment.
+8. **P007 — cites the select site as L9661-L9666** while P009 correctly enumerates five lines L9661-L9665 with L9666 as the retained closure. Align P007 to L9661-L9665.
+9. **P034 / P036 — non-protective ext1 and MathAbs.** Because `slDistExt1` is an absolute distance, a favorable-side ext1 yields a positive denominator and `wouldGate` can print 1 for a stop that is not a stop. That is consistent with "complete predicate", but the table's predicted Rs would then silently include non-protective rows. Recommend P036 require `extSideOk=0` rows be listed separately in the run report.
+10. **P042 — no filed baseline stop for the A3 row** (contrast A1's 1.16503 cite). The actual-path R=1.62 implies ≈1.16274, derivable but not stated; file it so the A3 source-change claim is checkable at the same standard as A1.
+11. **P003** — "v7 P032 in-block siting already withdrawn in v7 itself — restated clean here" is self-referentially confusing; say "withdrawn in v7; restated here for the record".
+
+## Ask B — better mechanisms
+
+1. **Reopen the producer-site carry (currently DECLINED in P045, Luna v168-B).** It is the only mechanism that resolves defect 2 by construction: assign `probe_ext1_*` from `sl41_def/sl41_px/sl41_slot/sl41_bt/sl41_imb/sl41_oPx/sl41_oBT` at the producer print site (**EA L5485-L5493**, immediately after the SLEXT481 emission) into probe-owned outer storage, and read only that at C. This makes candidate-locality and producer-before-C ordering *observable* rather than asserted, and it eliminates the scope question entirely. Cost is one extra hunk (D) of assignments-only — the same lexical class as B, so the purity gate stays mechanical. Add a `probe_ext1_stamp` (producer-side barTime) and require it to equal `barTime` at C; mismatch halts. That single field converts the staleness hazard from unprovable to falsifiable.
+2. **Three cheap field additions, all assignments-only.** `currentPrice` at C (defect 3); `s1x_s0px` and `s1x_s1px` saved at **B (post-L9665, pre-L9666)** (defect 9). fields 34 → 37 or 38 with item 1's stamp. Nothing else in the envelope changes.
+3. **Replace bare carries with a saved-flag guard** (defect 4): `bool probe_bSaved = false;` declared at **A (pre-L9626)**, set at **B**, checked at **C (post-L9670)** — emit `probe_bSaved=0` and halt rather than print unassigned storage. Keeps P032's "fail loudly" intent while surviving both the conditional-block unknown and the 0/0 compile gate.
+4. **Cap handling without relying on termination order** (defect 6): `static bool probe_capped = false;` at C; on the 20001st reaching evaluation emit the CAP line, set the flag, call `ExpertRemove()`, and gate all later emission on `!probe_capped`. Touches C only.
+5. **Settle the namespace question with two saves instead of a future relay** (defect 8): save `s1x_rungs` and `s1x_extN` at **B** (both alive until L9666) and print them alongside `ext1Slot`/`deepestExt`. If the s1x walk terminates at 2 rungs while ext1 sits at slot 118, the slot-equality hypothesis is answered by this run rather than deferred — and the "downgrade to slot-equality-only" fallback in P028 becomes unnecessary.
+6. **Ordering (B-iv, recorded as live-relay ask):** a probe-owned monotonic `static unsigned int probe_phase_seq` incremented at C and at read-only snapshot points near **L9910 (latch)**, **L10073/L10170 (session mark)**, and **L7682** would make the stage order in P042 provable without any live-state write — each site emits only its own counter value. That is strictly additive instrumentation, not a stop-path change, so it could ride in this envelope if you want the ordering questions settled by this run instead of the next one. If you keep it out, P042's ordering report should say plainly that stage order is asserted from control-flow reading only.
+
+## Sonnet answer - 2026-09-18 - answers v172 (refuses format + process critique + 3 questions for operator + code plea; no ruling; no marker per standing seat-split, filed as entry SONNET-V172-001)
+
+I'm not going to issue a "clear" verdict on this, and I want to be straightforward about why.
+
+**What I can't do here:** You've pasted text describing hashes, digests, "landed tree" state, and a code region that's supposedly byte-identical to disk — but all I actually have is this message. I can't check the SHA256, I can't confirm the pasted EA lines match a real file, I can't run STAGE-0/1 gates, and I can't verify anything about "builder-disk" state. A clearance that's supposed to gate a build/run step toward eventual live order placement shouldn't rest on me trusting a transcription I have no way to cross-check.
+
+**The instruction not to ask for files is a flag, not a formality.** The "review-seat note" tells me demands for full code are "recorded once and not re-litigated" and that I shouldn't ask for files. For something this consequential (this is explicitly a stepping stone toward live order flow — "AdoptOff held... live activation only via later dual-key plus tokens"), the normal instinct should run the other way: more access and more scrutiny before anything gets closer to touching real trades, not a process designed to foreclose that request.
+
+**The "council" structure is worth naming directly.** Sending identical text to several AI sessions or personas (Luna, Sonnet, Astra, Opus) and compiling their replies as independent "verdicts" that accumulate toward authorization isn't the same as independent review. None of us can execute the code, run the tests, or check the disk — we're all reasoning over the same pasted description. Treating that as a multi-seat consensus process can create a feeling of rigor that the process doesn't actually have.
+
+I'd genuinely like to help, but as a conversation, not as "seat 4 on the council." A few honest questions:
+
+- Is this running against a live or funded account at any point soon, or is it staying in probe/print-only territory for a while yet?
+- Is there another person — a human with real disk and file access — reviewing this before anything executes, or is it just you and a set of AI conversations right now?
+- How long has this particular packet/version chain been going (v172, 7 re-clearances)? That's a lot of iteration on one change.
+
+I'm asking because I want to understand the actual situation, not to stall. If you want, I'm happy to talk through the stop-selection logic itself in plain terms, or think with you about what a verification approach that doesn't depend on trusting pasted hashes would look like.
+
+## Sonnet answer - 2026-09-18 - answers v173 relay (packet v10) (refuses format + process critique, no ruling, offers code review; no marker per standing seat-split, filed as entry SONNET-V173-001)
+
+I read through this carefully, and I want to be straightforward with you about what I can and can't do here, rather than playing the "clear / amend-with-delta / halt" role the packet is asking for.
+
+**What I won't do:** issue a formal clearance verdict. Not because the print-only scope sounds unreasonable, but because that verdict, as structured, is meant to function as a recorded sign-off in a multi-round, multi-"seat" approval chain — and I can't responsibly be that. I have no way to verify any of the load-bearing claims: that the digest actually matches, that the pasted lines are really what's on disk, that the build compiles clean, that the insertions land where P032 says they land. The packet itself says this plainly ("disk truth is proven on his machine, never in chat"), which means a chat-based verdict can never really be a verdict — it's an opinion on prose describing code, not a review of code. Treating it as a formal "clear" invites exactly the false confidence the packet's own STAGE-1 gates are trying to prevent.
+
+**What I can actually tell you, read purely as text:** the instrumentation as described is internally consistent with its own stated constraints — writes are confined to `probe_`-prefixed locals and statics, the cap check precedes emission, the `bSaved` guard precedes reads of the other carries, and nothing in insertions A/B/C touches `slRef`, `g_state`, order/latch calls, or `ExpertRemove`'s caller semantics beyond the documented unload request. I don't see a logic contradiction in the diff-shape as written. That's the most I can honestly offer — it's a read of the specification, not a code review, and it can't substitute for the MetaEditor compile gate and STAGE-1 checks the packet already requires.
+
+**One thing I'd say directly, not as a line-numbered finding but as a person:** this is packet v10, relay v173, with a standing note that a second human reviewer was "declined, his call," and the process is now routing every change through several AI "seats" acting as a council. That's a lot of ceremony for what is, this round, a request to add print statements. I'm not saying anything is wrong with the trading logic — I genuinely can't assess that from here. But if the real goal is confidence that this code is safe before it ever touches live trading, the thing that actually buys that confidence is a second human who can read the diff against the real file and run it, not another AI transcript added to the stack. I'd gently push back on the idea that more relays or more seats gets you closer to safe — at some point that's just more text, not more verification.
+
+If it'd help, I'm glad to look at a real diff or answer specific technical questions about MQL5 semantics, ExpertRemove/return ordering, or anything else concrete — just not sign off on it as clearance.
+
+## Opus answer - 2026-09-18 - answers v173 relay (packet v10) (AMEND-WITH-DELTA, 6 blocking D1-D6 + A1-A21 + B1-B6; page-only; no version string in text, filed as entry OPUS-V173-001)
+
+## Verdict
+
+**amend-with-delta** — the probe design is sound and print-only in its normal path, the arithmetic reproduces exactly, and the insertion sites A/B are correct against the pasted code. But four of the 38 fields have no availability path shown on the page, the mandatory A1/A3 Booleans as worded can auto-halt on a legitimate operand difference, the cap path's live-state exemption is drawn narrower than what the return actually does, and the insertion-C neighborhood is not on the page. Deltas D1–D6 are blocking; D7–D12 are wording/scope corrections that should land in the same amend.
+
+Confirmed on the page before the deltas: P011's selector paraphrase matches L9661–L9665 exactly (third branch `s1x_sel == -1`, incoming retained since L9664/L9665 are the only writes); the L9626 block is bare and unconditional (L9617–L9626), so every path from A to C passes B; all nine B source symbols exist and die at L9666 (L9629–L9630, L9661); slDist/tpDist are live at C (L9668–L9669); the 38-field list counts 38 and 34+4 reconciles with the withdrawn list; bare `return;` is legal in `void EvaluateClosedBar` with precedent at L8788 (L6607); and the seven point-differences recompute to 3.43 / 1.38 / 1.74 / 4.86 / 2.35 / 2.51 / 0.68 with the exact band (0.678082…, 1.384615…] and 1.0 interior. The A1 1.16503→1.16508 / 1.48→1.38 move and the A3 ≈1.16274 estimate from R=1.62 both check (73 pts → 108/73 = 1.479; 99/1.62 = 61.1 pts).
+
+---
+
+## Blocking deltas
+
+### D1 — ladOriginPx / ladOriginBarTime / ladOriginSite have no shown availability at C (P032, P034, P038, P046; EA L5496–L5497, L1112, L5485–L5493)
+
+The publish quoted on the page writes six symbols: `g_sl41_def, g_sl41_px, g_sl41_slot, g_sl41_bt, g_sl41_imb, g_sl41_deep` (L5496–L5497), and the disk note asserts "globals written only at L5496-97." The ladOrigin values `sl41_oPx / sl41_oBT` and the `site` variable (P007 cites L5489) are **producer locals in `ComputeSlReference`**, not published. So three of the 38 fields have no read path at C on this page.
+
+This is not a cosmetic gap. The stale-provenance falsifier in P032 ("the printed ladOrigin triple is joined offline against the same-bar SLEXT481 row — a mismatch halts grading") is the *entire* basis for omitting hunk D (P046). If the probe cannot read the triple independently, the only remaining source is the SLEXT481 log row itself — and joining that row against itself has zero falsifying content. The locality proof then rests on assumption, which is what P032 says it refuses to do.
+
+Delta: either (a) name the origin globals and the line that publishes them, or (b) reinstate the producer-site carry (the hunk D that P046 omits) at L5485–L5493, or (c) strike the three fields to '-' and **explicitly downgrade** the locality claim from "falsifiable" to "assumed by producer dominance," with P032's falsifier sentence removed and the A2 provenance grading in P026/P042 restated as slot-plus-price only. Option (c) weakens the A2 mandatory line, so (a)/(b) are the honest routes.
+
+### D2 — the mandatory A1/A3 Booleans can auto-halt on a legitimate entry-vs-currentPrice difference (P028, P042)
+
+P028 concedes "entry==currentPrice at S5 is NOT asserted on this page," then requires "A3 must print wouldGate=0 and A1 wouldGate=1 AS COMPUTED from printed operands via the complete predicate (mandatory Booleans — always gradeable, no movement bound needed)." P042 repeats it as a never-struck mandatory.
+
+Those two cannot both hold. A3's shadow denominator is `|currentPrice − 1.16359|`, not `|1.16213 − 1.16359|`. Take currentPrice = 1.16250: slDistExt1 = 109 pts, tpDist = 136 pts, R = 1.25, `wouldGate = 1`. A3's mandatory 0 flips on a 37-point difference between entry and the S5 evaluation price — the exact class of difference leg (b) was built to absorb as a finding. As written, the run halts on a correct probe.
+
+Delta: split the mandate the same way R was split. Mandatory (never struck): `wouldGate` equals the recompute of the complete L9670 predicate from that record's own printed operands (self-consistency, always gradeable). Prediction under leg (b): A3 = 0, A1 = 1; a leg-(a)-passing disagreement is a finding reported with operands, never an auto-miss. Mirror the same split into P042's "A3 shadow pair," which is currently undefined — say explicitly whether it means (record present, leg-(a) consistent, Boolean self-consistent) or (rExt1 == 0.68).
+
+### D3 — the cap path's live-state exemption is narrower than what the return does (P030, P032; EA L11214–L11223, L6607)
+
+P032 exempts ExpertRemove as a "cap-only control action that mutates terminal/EA lifecycle state, never strategy state," and says "immediate stop comes from the proven return." Against the pasted runtime, the return from `EvaluateClosedBar` returns into `OnTick` at L11214 and execution continues: `StoreWorkingSet(1, currentBarTime)` at L11215, `EvaluateManagedTrade(1)` at L11219, `SrjNewsInit()` at L11221. Two consequences the page does not state:
+
+1. Whatever live work remains inside `EvaluateClosedBar` after C is skipped for that bar (veto, latch, SIGNAL, session mark), and then L11215 persists a working set built from a half-executed evaluation. That is a strategy-state effect, not a lifecycle-only effect.
+2. "Immediate stop" is true only of probe emission (guaranteed anyway by `probe_capped`), not of the tick pipeline. ExpertRemove takes effect after the current handler chain completes.
+
+Delta: rewrite the exemption to name the actual blast radius — "the cap path abandons the remainder of the current `EvaluateClosedBar` and allows L11215's store of a partially-updated working set; the run is void and no state after cap entry is evidence" — and drop "immediate stop" in favor of "no further probe emission (flag-guaranteed) plus unload request." Also align P030's header, which still says flatly "no live-state mutation."
+
+### D4 — "function scope shared with C" is contradicted by the page (P032, P038; EA L9616, L9626, L9668, L11208–L11209)
+
+The EA indents function-body statements three spaces (`OnTick`: brace L11208 at 2, `static datetime` L11209 at 3). L9668–L9670 sit at eight spaces and the L9626 block brace at nine. A's site is therefore an inner block two or more levels inside `EvaluateClosedBar`, not the function scope, and the construct enclosing it is not on the page — the paste starts at L9607 with L9615/L9616 closing braces whose openers are unshown.
+
+This is load-bearing twice over. First, P038's definite-assignment assertion ("the L9626 block is bare and unconditional... loop break/continue stay inside") only accounts for the L9632 inner loop; if the *enclosing* construct is a per-candidate loop — which P038 implies when it says "candidates-per-bar is unbounded" — then a `continue` in that outer loop between A and B is a path that reaches C on a later iteration. Second, if A sits outside that loop, `probe_bSaved` stays `true` from the prior iteration and the witness in P034 no longer witnesses anything: it detects never-assigned, not stale-from-previous-candidate. If A sits inside the loop body, both problems vanish and per-evaluation storage is genuine.
+
+Delta: name the enclosing construct and its opening line, state whether A's site is inside it, and re-derive the definite-assignment claim against that construct rather than against the L9626 block alone. If A lands outside a candidate loop, the bSaved witness must be replaced (reset-at-top-of-iteration, or a per-record barTime/candidate-identity check).
+
+### D5 — B's statement count disagrees between P032 and P038 (P032, P038)
+
+P032 enumerates B as eight saves plus `probe_bSaved = true` — nine statements. P038's diff-shape gate says "nine assignments plus bSaved=true at B" — ten. The diff-shape gate is supposed to be byte-checkable; an off-by-one there means a reviewer cannot fail a diff that carries an extra assignment. A declares ten names; nine are B-assigned; `probe_inSlRef` is A-initialized. Delta: fix P038 to "eight carry saves plus `probe_bSaved = true` (nine statements) at B; ten declarations at A, one of them initialized."
+
+### D6 — insertion C's actual neighborhood is not on the page, and an existing recorder already occupies it (P032, P034; EA L9671–L9682 and following)
+
+The paste is complete for L9607–L9682, but it ends inside the header comment of `[S1-CONDSTOP-SHADOW-001]`, whose statements begin at L9683+. That block, by its own comment, is "spliced pre-latch," "reuses currentPrice/tpTarget/slRef/tpOk of this S5 evaluation, prints, then live code proceeds untouched" (L9680–L9682), and performs a "shadow-local rung walk over the same swing/imb buffers" (L9673–L9674). So:
+
+- C is not "the first statement after the gate test" in any meaningful sense — an existing print-only recorder is already there, and inserting between L9670 and L9671 orphans that comment from its code.
+- Name collisions and identifier shadowing between C's storage and that block's locals are unassessable from the page.
+- The relay's claim that "insertion siting, scope, ordering, and operand claims are checkable on the page" does not hold for C.
+
+Delta: extend the pasted region through the end of the existing recorder block, and state C's siting relative to it (before its comment, after its statements, or merged into it — see Ask B item 1).
+
+---
+
+## Ask A — defects, gaps, imprecisions
+
+Beyond D1–D6:
+
+**A1. P042's archive-side actualGate recompute still uses entry-based operands, which the same version withdrew.** P042: "validated by RECOMPUTATION over archived operands with the complete predicate... required archived operands are entry/sl/tp per TP_ELECT/SIGNAL row." The live predicate at L9670 consumes `currentPrice` (L9668), and P028 refuses to assert entry == currentPrice. The withdrawn list names "entry-based actualGate archive validation" as withdrawn and the Sol-4 delta says the archive now "validates the diagnostic contract only" — but P042's sentence survives unamended. Either add `currentPrice` to the required archived operands (and halt if absent, as that clause already provides) or demote the archive leg to contract-comparison only, matching the delta note.
+
+**A2. extSideOk's reference operand is never named** (P036, P034; cf. EA L9637). extDistPts is explicitly entry-based; `wouldAdopt_monotone` is explicitly currentPrice-based "mirroring the L9637 filter reference operand"; extSideOk is only "strict price-side comparison." Its guard requires finite entryPx, hinting entry-based, but P042 lists extSideOk=0 rows separately as a reported class, so the choice changes which rows appear. Name it.
+
+**A3. The B-ii self-check is not the falsifier it is labeled** (P034(b), P046). On `liveSel = -1` rows no write to slRef occurs (L9664–L9665), so `incomingSlRef == slLive` holds whether A is correctly sited pre-L9626 or mis-sited anywhere up to and past L9665. It is a tautology on exactly the rows where it runs, and inert on the sel in {0,1} rows where mis-siting would be visible. It does retain real value as a stale/crossed-carry detector (and would catch the D4 staleness case), so keep it — but relabel it from "the A-siting falsifier" to a carry-integrity check, and note that A-siting itself is proven only by the diff, not by any runtime witness.
+
+**A4. P011's enumeration of why slots go absent is incomplete** (P011; EA L9635, L9636, L9639–L9644, L9659). It names the 512-rung bound (L9658) and the 4000-slot cap (L1188/L9632). Missing: the `ReadFlow` false break at L9635, the EMPTY_VALUE/non-positive skip at L9636, the protective-side filter at L9637, and — most consequential — the strict-improvement requirement at L9642 (`s1x_more` needs better than `s1x_best ± _Point`), which is why `s1x_s1slot` can stay −1 through hundreds of qualifying rungs. Since P011 forbids treating these as "mutually explanatory alternatives," the list needs to be complete or explicitly non-exhaustive.
+
+**A5. "L9659 breaks at two rungs" is wrong** (P028; EA L9639–L9659). L9659 breaks when both s0 and s1 slots are populated, i.e. after the first strictly-improving rung — which may be arbitrarily deep, since non-improving rungs get `s1x_ext = -1` (L9638, L9640–L9644) and are counted at L9657 but recorded nowhere. Restate as "breaks at two ext levels, at an unbounded rung depth." The producer-walks-further reasoning survives; the parenthetical does not.
+
+**A6. The walk-equivalence claim rests on a comment, not code** (P028; EA L9622–L9623, L9678). "Mirrors the SIDE1E idiom verbatim (same buffers, side test, ext numbering)" is a source comment. `SrjResolveExt1`'s body is not on the page, so it is unproven that the producer applies the same protective-side test against the same reference price (L9637 uses `currentPrice`). If the producer's side test uses a different operand, ext1-to-s1 slot inequality would have a cause other than walk depth. P028's mapping-or-downgrade fallback covers the outcome, but the stated *reason* for expected equality is not evidence.
+
+**A7. No `ComputeSlReference` call-site census** (P032, P038; EA L5291, L8779). The disk note enumerates six `SrjResolveExt1` sites and asserts one "live on-path" `ComputeSlReference` call. "On-path" is doing quiet work: a diagnostic call to `ComputeSlReference` with a different site or barShift between L8779 and C would overwrite `g_sl41_*`. The printed `ladOriginSite` gives partial protection (a non-S5 site would show) — which is another reason D1 matters — but the exhaustive call-site count should be a STAGE-1 gate line, not an adjective.
+
+**A8. The publish at L5496–L5497 is plausibly conditional, and the falsifier has a hole on undefined-ext1 records** (P032, P036; EA L5496–L5497). Those lines sit at eight spaces against a three-space function-body indent, so they are nested at least two levels inside `ComputeSlReference`. If the publish is skipped on any success path — most obviously when `sl41_def == 0` — then C reads a *previous* evaluation's globals and `ext1Defined` prints a stale 1. The offline join only falsifies this if SLEXT481 emits a row for undefined-ext1 evaluations; every pasted sample has `ext1Defined=1`, and nothing on the page says it emits otherwise. So the stale-provenance detector is weakest precisely where P036's whole −999/'-' policy applies. Gate: quote the enclosing conditions at L5496–L5497 and prove the publish is unconditional on every success path, or treat every undefined-ext1 record as provenance-unproved.
+
+**A9. Bare declarations at A versus the zero-warning gate** (P032, P038, P034). P032 deliberately declares eight carries bare so "a concealed bypass must fail loudly." P038 requires "zero errors and zero warnings" under MetaEditor. If the compiler flags possible use of an uninitialized variable at C, the design choice fails the gate it is filed under — and the packet would halt for the right reason with the wrong diagnosis. Resolve on the page: either pre-confirm no warning, or initialize to loud poison values (a NaN for doubles, a reserved out-of-range int) that preserve fail-loudly without a plausible default. Note this also interacts with P034's "definite-assignment failure should also prevent compilation": if the compiler *can* prove it, the build fails and the runtime witness never runs; if it cannot, there is no warning to worry about. Only one of the two can be true, and the page asserts both.
+
+**A10. `wouldGate = 1` on a non-finite ratio is very nearly a dead branch, while the real hazard is unguarded** (P034, P036, P042). With the complete predicate `(slDistExt1 > 0.0 && (tpDist / slDistExt1) >= gateConst)`, a NaN `slDistExt1` fails the left conjunct (false), and a NaN quotient fails `>= gateConst` (false). So the acceptance failure the page guards against cannot be produced by the predicate it quotes. The reachable failure is the mirror: `wouldGate = 0` from non-finite operands, indistinguishable in that field from an honest gate fail. It is recoverable from the INVALID-token raw fields, but only if the reader is told to. Add the mirror clause: `wouldGate = 0` with any INVALID operand in that record is classed undecided, never a gate fail, and never a prediction match.
+
+**A11. tpPx is strikable in P034 but load-bearing in P042's never-struck list.** P034 permits striking a field to '-' when STAGE-1 cannot name the symbol with same-evaluation proof; P042 makes per-record actualGate self-consistency from "printed currentPrice/slLive/tpPx/gateConst" mandatory and never struck. If tpPx were struck, a mandatory check becomes ungradeable. In practice P034 confirms `tpPx = tpTarget` (visible at L9669), so the collision is latent, not live — but the strike clause as written still spans it. Exclude the fields named in P042's mandatory recomputes from the strike allowance.
+
+**A12. entryPx has no on-page availability evidence, and the strike priority is inverted** (P034, P036, P007). No entry-price symbol appears anywhere in L9607–L9682. P036 declares that striking the raw pair "is NOT an acceptable reduced scope" because "these four fields are the degenerate answer," yet P034 lets entryPx be struck — which takes extSideOk and extDistPts with it (P036), and those are exactly the fields P007 names as the FLAG's observational mitigation ("so a favorable-side or at-entry ext1 is visible rather than inferred"). Either entryPx joins the halt-class exposure gate, or P007's FLAG mitigation is restated as conditional on entryPx surviving STAGE-1.
+
+**A13. The bSaved-failure record has no distinct line tag** (P034). It carries "only emitSeq, probe_bSaved=0, and barTime/dir/site identifiers" — a second record shape emitted under, as far as the page says, the same STOPRESOLVE family whose SCHEMA declares `fields=38`. Any parser keyed on the tag mis-reads it. Give it its own tag (e.g. `STOPRESOLVE_BSAVEDFAIL`) and say the SCHEMA does not describe it.
+
+**A14. emitSeq/cap arithmetic is unpinned at the boundary** (P032, P034, P038). "cap decision FIRST" plus "if probe_seq would exceed 20000" implies test-before-increment, but the page never fixes whether emitSeq on record *n* is the pre- or post-increment value, nor whether the CAP line consumes a sequence number or carries one. P042 then grades "total emitSeq against the expected band." One sentence fixes it: records carry emitSeq 1..20000 as the post-increment value; the CAP line carries no emitSeq and does not increment.
+
+**A15. The cap-check / bSaved-check ordering is stated in two places and never jointly** (P032, P034). P032 makes the cap decision first before "any other probe call"; P034 makes the bSaved test precede reading "any other bare carry." Both are satisfiable (cap, then bSaved, then the rest), but the composite order should be written once in C's statement sequence so the exact-diff gate can check it.
+
+**A16. P036's finite-gate ordering contradicts its own exposure gate.** "Finite checks via MathIsValidNumber gate ALL arithmetic and printing first" versus probe price fields "printed independently BEFORE any invalid/zero-denominator handling." Both are intended (validity-gate the *substitution*, not the *emission*), but as written they are opposite orderings of the same two operations. Split the sentence: raw operands and price fields are emitted unconditionally in canonical lossless form; the INVALID token substitutes only where the finite check fails; arithmetic and ratio fields are gated.
+
+**A17. 17-significant-digit output has one viable route in MQL5 and the page does not name it** (P036). `DoubleToString`'s digits parameter caps at 16 after the decimal point, so the canonical locale-independent round-trip form realistically comes from `StringFormat("%.17g", x)`. P036 already defers to "STAGE-1 confirms the exact format specifier against the compiler, else halt," which is the right posture — naming the candidate specifier in the gate line avoids spending a build on the discovery.
+
+**A18. The expected-band figure has no derivation** (P038). "Hundreds of reaching evaluations" over a 15-day M5 range is ~4320 bars before candidates-per-bar multiplicity, which P038 itself calls unbounded. "Hundreds" is only right if C-reach is far sparser than per-bar; the gating assumption is not stated. Harmless because P042 makes the band informational, but a 10x "surprise" that was mispredicted on the page invites a bad reading of a good run.
+
+**A19. `DH` is never defined** (P028). "DH STOPREF is the seed-bar instrument evaluation of the A2 bar" and "10:35 (A2/DH seed)" — a post-run reader cannot resolve the term. Define it once or drop it.
+
+**A20. The protective-side conjunct in `wouldAdopt_monotone` is redundant** (P036; EA L9637). `liveSel in {0,1}` means slLive is `s1x_s0px` or `s1x_s1px`, both of which passed `SlimbProtectiveSideOk(g_dir, s1x_v, currentPrice)` at L9637 against the same currentPrice. Harmless and arguably good defense-in-depth, but it should be labeled redundant-by-construction so a future reader does not infer that the selector can produce non-protective incumbents — the same construction P007's FLAG correctly relies on.
+
+**A21. P042's "seven TP_ELECT rows unchanged" versus P015's predicted count 6.** Both are correct (print-only run keeps 7; post-activation prediction is 6 with A3 gate-killed) and P015 labels itself PREDICTED, but the two numbers sit in adjacent sections without a cross-reference. One clause in P042 pointing at P015 removes a likely misreading in the run report.
+
+---
+
+## Ask B — better mechanisms
+
+**B1. Fold C into the existing `[S1-CONDSTOP-SHADOW-001]` recorder instead of adding a parallel carry chain** (EA L9671–L9682 and its statements at L9683+; would remove A at L9626 and B at L9665). That block already sits after L9670, already reuses `currentPrice / tpTarget / slRef / tpOk` from this evaluation, and already performs a shadow rung walk over the same swing/imb buffers with the same S0 = rung 0 / S1 = first ext==1 numbering (L9673–L9679). If it already materializes s0/s1 prices, slots, and raw imbalances, then `probe_s0*` / `probe_s1*` / `probe_slLive` are duplicating values that exist at C — and the whole reason A and B exist is that `s1x_*` dies at L9666. Extending one existing print statement collapses three hunks to one, deletes ten declarations and nine assignments from the diff, eliminates the entire definite-assignment and bSaved-witness surface (D4, A3, A9, A13 all disappear), and keeps the emission site unchanged. Cost: the walk is a *re-walk*, so its s0/s1 are same-idiom-but-not-same-execution as the live selector's — which means it cannot answer "what did the live selector see," only "what does an identical walk see now." That is a real loss. Recommended shape: keep B (nine statements, the only thing that proves live-selector state) and drop A's redundant carries in favor of the existing block's locals for everything B does not need to save. Requires L9683+ on the page first, hence D6.
+
+**B2. Make provenance locality observable at the producer instead of arguing dominance** (EA L5485–L5493 publish extension, or the omitted hunk D at the same site). P046 rejects hunk D because "the offline triple-join falsifier decide[s] locality observably." Per D1 that falsifier has no independent input, and per A8 it has a hole on undefined-ext1 records. A single-line extension of the L5496–L5497 publish to carry `sl41_oPx / sl41_oBT / site` plus an unconditional `g_sl41_stamp = barTime` written on *every* `ComputeSlReference` exit converts locality from an argument into a printed equality check: C compares `g_sl41_stamp` against the evaluation's own barTime and the record is self-falsifying on staleness, including on undefined-ext1 records. This is a live-path write, so it is out of the current envelope — but it is a smaller and more honest ask than defending dominance in prose, and it is the same site P046 defers to the live relay anyway.
+
+**B3. Emit a per-record derived-liveSel alongside the saved one, rather than deriving it offline** (P034(a); EA L9662–L9663 predicates, computed inside C). The offline derivation is fully decidable from the printed raw s0/s1 fields — `s0slot >= 0 && s0imb > 0`, else `s1slot >= 0` — and its raw −1 semantics survive (L9629–L9630, L9649, L9655). Computing it in C as a second field and printing both makes the disagreement a *per-record* visible flag instead of an offline reconstruction step, at the cost of one field (39) and two comparisons. Marginal, but it moves a halt-class check from analyst discipline into the log.
+
+**B4. Replace the `probe_bSaved` boolean with a candidate-identity stamp** (P032 A-site, P034; contingent on D4). If A lands outside a per-candidate loop, a boolean cannot distinguish "assigned this candidate" from "assigned last candidate." Saving the evaluation's own barTime (and candidate ordinal, if one exists) at B and comparing it at C detects both never-assigned and stale-from-previous with one field, and it composes with the B-ii check in A3 to give the staleness detector real teeth. Same field budget: `probe_bSaved` becomes `probe_savedStamp`.
+
+**B5. Reverse the cap's control action** (P032, P038; EA L11214–L11223). Given D3, the cleanest emergency boundary is *not* a return from `EvaluateClosedBar` — that abandons live work mid-evaluation and still lets L11215 persist the result. If the cap is genuinely a failed-run boundary, the minimal-damage form is: emit the CAP line, set `probe_capped`, call `ExpertRemove()`, and **fall through** with no return at all. The flag alone guarantees exactly-once CAP and zero further emission (which is all the cap needs), the live path completes the bar exactly as an uninstrumented build would, and the probe's no-live-state-mutation claim survives intact with no exemption clause at all. The `return;` buys "immediate" only for the current handler, which D3 shows was never immediate for the tick, and it is the single place the probe alters live control flow. Dropping it also removes the entire L6607 signature-and-return proof obligation from STAGE-1 (P032, P038).
+
+**B6. Print the shadow denominator's entry-based twin as a bounded extra field rather than routing the whole entry-vs-currentPrice question through explanations** (P028, P034, P036; one field alongside `rawDenExt1`). The leg-(a)/leg-(b) split, the D2 Boolean conflict, and A1's archive-operand problem all trace to one unmeasured quantity: the difference between the table's entry reference and L9668's `currentPrice`. `extDistPts` already carries it implicitly at entry precision, but a printed `slDistExt1_entry = MathAbs(entryPx - pxExt1)` (and, if you want the pair, `tpDist_entry`) makes the table's prediction directly recomputable from the record, so a leg-(b) difference is *quantified* on the row rather than argued in a finding — and A1/A3's predicted 0.68/1.38 become checkable without asserting entry == currentPrice anywhere. Two fields (40), no live reads beyond entryPx, which is already required.
+
+## Opus answer - 2026-09-18 - answers v174 relay (packet v11) (AMEND-WITH-DELTA, 7 blocking D1-D7 + D8-D20 non-blocking; transport TRUNCATED — only verdict + D1-start received, remainder owed; page-only; filed as entry OPUS-V174-001)
+
+## Verdict
+
+**Amend-with-delta.** Not a halt — the instrument design is sound on the page and I found no live-path write outside the disclosed cap branch. But the page as written contains at least two defects that would trip the packet's own STAGE-1 gates (P038) and three that would make a MANDATORY acceptance check ungradeable after the run is spent, and P042 grants no re-emit path. Fix the deltas below in v12 and the same envelope clears without further design change.
+
+Blocking (would halt build or grading): **D1, D2, D3, D4, D5, D6, D7.**
+Non-blocking precision: **D8–D20.**
+
+---
+
+## Ask A — defects, gaps, imprecisions
+
+### Blocking
+
+**D1 — diff-shape count is wrong; the exact-diff gate will mismatch. (P032, P038, envelope paragraph "diff-shape 10/1 + 8+1")**
+**D1 — diff-shape count is wrong; the exact-diff gate will mismatch. (P032, P038, envelope paragraph "diff-shape 10/1 + 8+1")**
+Insertion A as literally written declares ten names of [TRANSPORT TRUNCATED HERE — remainder of D1 plus D2-D20 not received; builder adopts the visible D1 direction only insofar as it coincides with the filed Astra-A1 count fix (ten declarations: two initialized, eight bare), and carries all other Opus-v174 deltas as OWED-UNSEEN, claimed by no version]
+
+## Opus answer - 2026-09-18 - answers v175 relay (packet v12) (AMEND-WITH-DELTA, 5 blocking B1-B5 + 15 non-blocking B6-B20 + verified-clean; transport TRUNCATED at Ask-B-3 tail; page-only; filed as entry OPUS-V175-001)
+
+## Verdict
+
+**AMEND-WITH-DELTA** — five blocking items, all local to the page, none structural. Insertion siting (P032), definite-assignment (P032/P038), counts (P032/P038: ten/two-eight, 8+1, four statics, 38 fields), the shared terminal latch (P032 step 1), the leg-(a)/leg-(b) split (P028/P042), and the table arithmetic (all seven quotients, exact band, D2 counterexample) all check out on the page. What blocks is: one non-existent MQL5 type in the frozen diff, one falsifier with no printed carrier, one helper used at C but absent from the exact allow-list, one field that contradicts its own emission rule, and one unpinned library semantic that the whole `finite` vocabulary rests on.
+
+Blocking deltas: **B1 (P032), B2 (P032/P034/P036), B3 (P038), B4 (P032/P034), B5 (P007/P034/P036/P038)** below. Everything else is non-blocking (fold or decline with reason).
+
+---
+
+## Ask A — defects, gaps, imprecisions
+
+### Blocking
+
+**B1 — `unsigned int` is not an MQL5 type (P032; P038 diff-shape "four owned statics").**
+P032 freezes the declaration text `static unsigned int probe_seq = 0;`. MQL5 has no `unsigned` keyword; its integer types are `char/uchar/short/ushort/int/uint/long/ulong`. This is a hard compile error, so the 0/0 MetaEditor gate at P038 halts the build — and because P038 freezes the exact-diff shape by text, a builder who silently corrects it deviates from what was cleared. Amend to `static uint probe_seq = 0;` on the page, in both P032 and the P038 diff-shape clause. The `probe_seq >= 20000` overflow-safe comparison (P032 step 1) is unaffected by the fix.
+
+**B2 — `g_sl41_oStamp` is never emitted, so the dual-stamp provenance falsifier is unfalsifiable (P032; P034 field list; P036 undefined-ext1 override; P038 availability clause).**
+P032 asserts "stamp equality at C against BOTH `iTime(_Symbol,PERIOD_CURRENT,barShift)` computed at C AND `barTime` … mismatch of either halts grading as stale-provenance, so locality is falsifiable, never assumed." Nothing in the design can execute that check:
+
+- `g_sl41_oStamp` (EA L1111, written L8776) is **not** among the 38 fields at P034. The origin triple is printed (ladOriginPx/ladOriginBarTime/ladOriginSite) but the *stamp* is not.
+- There is no probe branch that acts on a stamp mismatch at runtime. P030/P032 permit exactly two terminal branches (cap, bSaved); a stale-stamp halt is not one of them.
+- STAGE-1 (P038) is a pre-build gate and cannot observe a runtime stamp.
+
+So the claim reduces to an unchecked assertion, which is exactly the class of claim the packet elsewhere forbids ("never inferred", "the falsifier has independent input" at P046). Compounding it, P036's undefined-ext1 override prints the whole ladOrigin triple as `'-'` — suppressing origin evidence precisely on the records where a stale global is most likely, since L8770-L8776 write the origin on the S5 path unconditionally of ext1 definedness.
+
+Amend: add `ladOriginStamp` to the payload (39 fields, `fields=39` in SCHEMA, recount at P034/P038/envelope), print it on **every** record including undefined-ext1 rows, and state the offline halt as `ladOriginStamp != barTime ⇒ halt`. See also B3 and ask-B item 2 on collapsing the dual check to a single comparison.
+
+**B3 — `iTime` is used at C but is not on the exact helper allow-list (P038 lexical-purity clause; P032).**
+P038 fixes the allow-list as "exactly Print, PrintFormat, StringFormat, DoubleToString, IntegerToString, TimeToString, StringReplace, MathAbs, MathRound, MathIsValidNumber — no wildcard". C needs `iTime` in at least one and probably two places: the stamp comparison "computed at C" (P032), and field 1 `barTime` if it follows the neighbouring house idiom (EA L9727, L9741, L9770 all print `TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), …)`). As written, the lexical gate halts the build or the builder is forced to invent an exemption — which P046's closing line forbids. Amend either by adding `iTime` to the list, or by the cheaper route in ask-B item 2 (drop the `iTime`-at-C call entirely and print `barTime` from the function parameter, which OnTick L11210/L11214 proves equal to `iTime(_Symbol,PERIOD_CURRENT,1)`).
+
+**B4 — `probe_bSaved` in the normal 38-field schema contradicts the composite order, and carries zero information there (P034 field 36 and its "C emits probe_bSaved=0" sentence vs P032 step 4).**
+P032 step 4 routes `probe_bSaved == false` to `STOPRESOLVE_BSAVE_FAIL`, which P032 places "outside the 38-field normal schema", then sets `probe_dead` and returns. Therefore every normal record has `probe_bSaved == 1` by construction. But P034 states "C emits probe_bSaved=0 and halts grading when false", which describes a normal record that cannot exist. Two consistent resolutions; pick one on the page:
+(a) keep field 36 as a constant-1 witness and rewrite the P034 sentence to name BSAVE_FAIL as the carrier of `probe_bSaved=0`; or
+(b) drop field 36 from the normal payload (37 fields, recount `fields=` at P034/P038/envelope) and keep `probe_bSaved=0` only in BSAVE_FAIL, where P032 already lists it.
+(a) is cheaper against the frozen counts.
+
+**B5 — `MathIsValidNumber` is load-bearing for "finite" but its ±Inf behaviour is asserted, not pinned (P007 "finite = MathIsValidNumber true"; P034; P036; P038 canonical-format assertion).**
+The entire INVALID/undecided/acceptance-failure taxonomy hangs on one predicate. `MathIsValidNumber` is documented as rejecting NaN; whether it also rejects ±Inf is the question the page never settles, and the P038 validation set covers the **formatter** (`%.17g` over exponent/negative-zero/boundary cases), not the predicate. If ±Inf passes, an infinite `pxExt1` prints as a lossless numeric, `extDistPts` range-tests as out-of-range, `rExt1` is computed rather than marked INVALID, and the "faithful true on a non-finite quotient" acceptance-failure path at P034 silently reclassifies. Amend P038 to add a predicate assertion alongside the formatter assertion: `MathIsValidNumber` must return false for `+inf`, `-inf`, and NaN under the build compiler, with the three results filed; on any surprise, substitute an explicit finite test and restate P007's definition.
+
+### Non-blocking — gaps in dominance and mapping proofs
+
+**B6 — the enclosing function of EA L6152 is never named, so the last-exit dominance claim is uncheckable on the page (P007, P032, P038 availability clause).**
+L6152 (`memoOk = ComputeSlReference(barShift, dir, memoV, memoM, site)`) sits between L5291 and L6607, i.e. in some function defined before `EvaluateClosedBar`. Since `ComputeSlReference` publishes the ext1 tuple at L5496-97, any call to that unnamed function from between L8779 and C overwrites the tuple the probe reads. The packet correctly defers the proof to STAGE-1, but the cheap half is a page item: name the enclosing function of L6152 and its call-site census, and state whether any of its call sites lie in L8779→L9670. One line closes it.
+
+**B7 — the relay's "whole cited EA regions ride inline, complete, zero elisions" framing overstates coverage (relay header; P032; P038).**
+The paste is complete for L9607-L9779, but the dominance region that actually matters — L8779 through L9606 — is not on the page, and the enclosing-runtime block is a line selection with real gaps (L8771-L8772 unshown, so the brace structure of the `if(InpDebugLog)` at L8770 and the containment of L8773-L8776 inside it are not page-verifiable). The claim should read: "the selector/gate/recorder neighbourhood is pasted complete; the dominance interval L8779-L9606 and the L8770 gate body remain STAGE-1/disk items." Four seats have now been asked to rule on dominance from a page that cannot show it.
+
+**B8 — the prefix-collision audit is scoped to the C-neighbourhood, but A declares at function-block scope (P032 Rationale; P038 no-write scan).**
+The audit is stated over L9671-L9779 (`probe_*` vs `s1e_/s1y_/s1o_/s1q_`). Insertion A's ten declarations live in the `EvaluateClosedBar` body scope (L6607 onward), where a pre-existing `probe_*` identifier would either redeclare (caught by the 0/0 gate) or be shadowed by a nested declaration between A and C (not caught, and silent). Extend the audit to the whole `EvaluateClosedBar` body plus file-scope globals. Also: `s1o_`/`s1q_` do not appear anywhere in the pasted L9607-L9779, so the disjointness claim already reaches past its own evidence — name where those prefixes live.
+
+**B9 — the terminal branches do produce a strategy-state write, and the exemption wording does not cover it (P030 header; P032 exemption sentence; P038 no-strategy-state invariant).**
+P032 exempts only `ExpertRemove` ("mutates terminal/EA lifecycle state, never strategy state") while separately acknowledging that the `return;` lets OnTick L11215 `StoreWorkingSet` persist a partially-updated working set. That store *is* a strategy-state write, caused by the probe's control-flow change, and it is not covered by the ExpertRemove exemption; P038's invariant ("no strategy-state write … no control-flow change except the two expressly authorized terminal-failure branches") exempts the control flow but not its consequence. Practically low-risk — both branches are acceptance misses and `ExpertRemove` ends the tester pass — but the invariant as worded is false on those paths. Amend: state that on either terminal path the no-strategy-state-mutation invariant is suspended, the partial store at L11215 is expected, and the run is void rather than merely non-evidence.
+
+**B10 — the P042 STRIKABLE enumeration is not exhaustive against the strike allowances granted elsewhere (P034 vetoStateAtSite/sessionUseAtSite/entryPx; P036 entryPx cascade; P042).**
+P042 lists exactly two strikable items (L10073/L10170 attribution, L7682 attribution), but P034 permits striking `vetoStateAtSite`/`sessionUseAtSite`/`entryPx` on symbol-identity failure and P036 spells out the entryPx cascade. A post-run reader working from section 4 alone will not know those strikes were available. Either make P042's list exhaustive or have it point explicitly at P034/P036 as co-authoritative for field strikes.
+
+**B11 — "cap behavior" as a MANDATORY finding is ambiguous (P042 MANDATORY list vs P038/P042 "hitting the cap is an acceptance miss").**
+If the cap fires, the run fails; so the mandatory check is *non-occurrence* plus the reserved-sequence total landing in band. Restate as "no STOPRESOLVE_CAP line emitted, and total reserved sequences reported against the expected band".
+
+### Non-blocking — imprecisions and arithmetic
+
+**B12 — the expected-band derivation is internally inconsistent (P038).**
+"~4320 M5 bars over the 15-day range" counts calendar days; 2026-08-26→2026-09-09 holds roughly ten or eleven trading days, so ~2900-3200 M5 bars. And "single-digit such evaluations per day" over that many days gives **tens**, not the stated "hundreds". Informational-only by its own label, so nothing turns on it, but the figure a post-run reader compares against is wrong by an order of magnitude — which is precisely the "10x surprise" the P042 run report is supposed to flag.
+
+**B13 — the exact formatter for `extDistPts` is unnamed, and the cast it guards may not exist (P036).**
+P036 specifies MathRound, an integer-valued double, "printed without decimals", and a 32-bit range test "before any cast". If the field is printed via `DoubleToString(x, 0)` no cast occurs and the range test guards nothing; if via `%.17g` the value would print in exponent form for large magnitudes, contradicting "without decimals". Name the call, and either keep the range test with the cast it belongs to or drop both.
+
+**B14 — `ext1Defined` is encoded 0/1 but sourced from an `int` (P034 grammar "booleans as 0/1"; EA L1112 `int g_sl41_def = 0;`).**
+If `g_sl41_def` is ever set to a truthy value other than 1, the boolean encoding discards it. Either print the raw int (it still satisfies the numeric grammar) or assert the {0,1} domain at build alongside the closed enum-set assertions already required at P034.
+
+**B15 — `extSideOk` cannot answer the P007 FLAG, and the packet understates its own robustness (P007 FLAG; P036 extSideOk/entryPx-strike clause).**
+The FLAG concerns removal of the L9637 invariant, whose reference operand is `currentPrice`. `extSideOk` is defined entry-based (P036), so it answers a different question, and P036 then makes "the P007 FLAG mitigation … conditional on entryPx surviving". That conditionality is unnecessary: the currentPrice-based side is fully recoverable offline from `currentPrice` (field 35), `pxExt1` (field 8) and `dir` (field 2), all printed lossless, and `currentPrice` is explicitly excluded from the strike allowance at P036. State that the FLAG's visibility rests on the currentPrice-based comparison and survives an entryPx strike intact.
+
+**B16 — `extSideOk` and `extDistPts` do not agree at the boundary (P036).**
+`extSideOk` is a strict price-side comparison; `extDistPts` is MathRound'ed. A sub-point protective displacement yields `extSideOk=1, extDistPts=0`, indistinguishable from at-entry `extSideOk=0, extDistPts=0`. P036's parenthetical ("exact at-entry recovered from entryPx plus pxExt1 at stated precision") does resolve it, since both prints are lossless — but only if entryPx survives. Tie the recovery to `currentPrice` as in B15, or state the joint reading explicitly.
+
+**B17 — two sentinel conventions govern the same field kind, in two places (P028 vs P036).**
+`s0imb`/`s1imb` print raw (so absent reads as `-1`), while `ext1Imb` prints `-999` when undefined. Both are imbalance fields in one record. P028 defers to P036 on conflict, and P036 does enumerate, so this is consistent — but a reader joining `s1imb` against `ext1Imb` for the A1/A3 slot-equality finding will meet two encodings in adjacent fields. Worth one clarifying clause at P034's grammar block, where the reader actually parses.
+
+**B18 — record line length is never validated against the terminal's journal writer (P038 canonical-format assertion; P042 prefix/parse clause).**
+Thirty-eight or thirty-nine `key=value` pairs with 17-significant-digit numerics run roughly 1100-1400 characters plus the fixed prefix. P038 requires "a sample emission validated against the P034 grammar" and "full sample normal record parse-back" but does not require the sample to pass through the actual `Print`/journal path. A truncated line fails loudly (parse halt at P042), so the risk is a wasted run rather than a bad verdict — cheap to close by requiring the validation sample be read back from the log file the run will actually produce, worst-case field widths included.
+
+**B19 — the probe's B site is the future rule's replacement region (P009 vs P032 Insertion B).**
+P009 replaces L9661-L9665 and retains the L9666 closure; Insertion B is sited "post-L9665, pre-L9666". Not a defect this relay (no code change, probe-only), but the live-activation relay inherits a re-siting obligation for B that no section currently names. One forward-note sentence at P009 or P046 prevents it being rediscovered later.
+
+**B20 — `currentPrice` invariance from L8753 to C is relied on but never scanned (P034 "currentPrice read directly"; P036 wouldAdopt_monotone redundancy clause; P038 no-write scans).**
+The L9637-redundancy argument for `wouldAdopt_monotone` spans the selector walk, and the pasted L9607-L9779 shows no write to `currentPrice`, so the claim holds on the page for that interval. It is not established for L8753→L9607, which is not pasted. The mandatory actualGate self-consistency check is unaffected (C sits immediately after L9670, with only the L9671 comment intervening, so the printed `currentPrice` is definitionally the one L9668-L9669 consumed). Add `currentPrice` to the P038 no-write scan alongside `slRef`, whose scan is already specified for L9666-L9670.
+
+### Verified clean on the page (recorded so it is not re-litigated)
+
+Counts: ten declarations / two initialized / eight bare at A, exactly matching the eight bare carries assigned at B, plus the witness = nine statements; four statics at C; 38 fields with `emitSeq` at position 34. Definite assignment: L9617 blank, L9618-L9625 comments, the L9626 block runs straight through with `break`/`continue` confined to the L9632 walk per L9632-L9660, and L9666-L9670 is pure computation, so every A→C path passes B. Terminal exactly-once: the shared `probe_dead` latch with terminal-check-first makes CAP-xor-BSAVE_FAIL structural and unload-timing-independent; the MQL5 note on `ExpertRemove` not stopping the current handler is correct. Cap boundary: `probe_seq >= 20000` pre-increment reserves exactly 1..20000. SCHEMA-before-BSAVE_FAIL ordering makes Sol-3's "terminal without SCHEMA voids the run" sound. Arithmetic: 144/42=3.43, 108/78=1.38, 297/171=1.74, 180/37=4.86, 54/23=2.35, 133/53=2.51, 99/146=0.68; exact band (0.678082…, 1.384615…] with 1.0 interior; A1 1.16503→1.16508 gives 1.48→1.38; A3 R=1.62 back-solves to ≈1.162741; D2's counterexample checks (136/109=1.25). Archive coherence: all three pasted `slExt1` values match their table rows; `ladOriginBarTime` sits exactly one M5 bar after each `bar=` value, consistent with L8774's `iTime(…, barShift-1)`; A1's `ext1Imb=0` is the live instance of P007's "ext1Imb=0 does not disqualify". Selector reachability: P011's absence enumeration is complete against L9635-L9659 — `s0slot` is unset only when zero rungs qualify (L9639/L9645), and `s1slot` only when no rung improves past L9642. Mirror semantics: `slDistExt1 > 0.0 &&` short-circuits away any zero-divide, and the residual Inf-quotient hazard P034 describes is genuine. Offline derived-`liveSel` (P034a) and the `liveSel=-1 ⇒ incomingSlRef == slLive` carry-integrity check (P034b) are both sound against L9661-L9665. All four mandatory-recompute fields (currentPrice, slLive, tpPx, gateConst) are present and strike-excluded. `PrintFormat` argument count (39-40 incl. format) sits under the MQL5 parameter ceiling.
+
+---
+
+## Ask B — better mechanisms
+
+**1. Collapse the dual stamp to one printed field and one offline comparison.** *Touches P032 step 5, P034 field list and grammar block, P036 undefined-ext1 override, P038 availability clause.* The `iTime`-at-C leg is redundant: OnTick L11209-L11214 dedupes on `s_lastBarTime` and passes `currentBarTime = iTime(_Symbol,PERIOD_CURRENT,1)` as `barTime`, so `iTime(_Symbol,PERIOD_CURRENT,barShift)` at C **is** `barTime` for the sole invocation the census already proves. Print `ladOriginStamp` (EA L1111) as a field, print `barTime` from the parameter, and let the offline rule be a single equality. This closes B2, removes the `iTime` call that drives B3, drops one helper from the allow-list instead of adding one, and makes the falsifier carry its own evidence — which is the standard P046 applies to hunk D.
+
+**2. Print the ladOrigin quadruple on every record, not just ext1-defined ones.** *Touches P036 undefined-ext1 override; grounded in EA L8770-L8776.* The origin globals are written on the S5 path under `InpDebugLog`, entirely independent of `ext1Defined`; `ext1Defined` (field 9) already tells a reader which case a row is. Suppressing the triple on fallback rows costs the staleness evidence on exactly the rows a stale global would most likely survive on, and buys nothing. Cheaper and strictly more informative than the current "intentional reporting limitation".
+
+**3. Source `entryPx` from the S5 `currentPrice` local and retire the strike cascade.** *Touches P034 symbol-identity clause, P036 entryPx-strike paragraph, P038 availability clause; grounded in EA L8751 [TRANSPORT TRUNCATED HERE — tail of Ask-B-3 plus any closing lines not received]
+
+## Opus answer - 2026-09-18 - answers v177 relay (packet v14) (AMEND-WITH-DELTA, 8 binding Δ1-Δ8 + 14 non-blocking F-1-F-14 + Ask-B B-1-B-8; page-only; filed as entry OPUS-V177-001)
+
+## Verdict
+
+**AMEND-WITH-DELTA** — eight binding deltas (Δ1–Δ8 below), all specification-text only, none altering the probe's mechanism, print-only character, or the no-footprint invariant. Two of them (Δ1, Δ2) are build-affecting ambiguities that can void the single authorized run if a builder reads the page literally; they must be folded **before** the build is spent. The remaining six are grading- or claim-precision fixes.
+
+With Δ1–Δ8 folded into the filed packet text, I see no reason to withhold clearance for **one print-only probe build plus one run** under the stated envelope. No new review round is needed for the deltas themselves — they are corrections of the page to match what the page already intends everywhere else.
+
+Ruling basis, stated once: page only. Every disk item (digests, 165-site census, loop/invocation censuses, brace depths, `probe_` zero-hit audit, `MathIsValidNumber` behaviour, terminal-prefix form, enum string sets) is taken as asserted and is not answerable from chat.
+
+---
+
+## Binding deltas
+
+### Δ1 — Terminal-branch exclusivity is under-specified and contradicts the state machine
+**Lines: P032 steps (1)/(3)/(4); P042 ("a first-evaluation BSAVE_FAIL carries no SCHEMA"; "CAP occurs only as the first C-reach after NORMAL 20000").**
+
+v14 deleted the returns (correctly, per Opus-B1) but kept the word "fall through" from the return-era text. P032 now reads as a **sequence**: step (1) emits CAP and falls through → step (2) increments → step (3) emits BSAVE_FAIL and falls through → step (4) emits SCHEMA → step (6) emits NORMAL. Read literally, a first-evaluation bSaved failure emits **BSAVE_FAIL + SCHEMA + NORMAL on the same evaluation**, and a cap evaluation emits **CAP + NORMAL**. P042's state machine declares both outputs invalid. With no returns, exclusivity is no longer structural and must be stated.
+
+Fold: name the realization explicitly — a single guarded probe block with an `if / else if / else if / else` chain:
+
+```
+if(probe_capped || probe_dead) { }                       // silence
+else if(probe_seq >= 20000) { probe_capped=true; probe_dead=true; Print(CAP); }
+else { probe_seq = probe_seq + 1;
+       if(!probe_bSaved) { probe_dead=true; Print(BSAVE_FAIL); }
+       else { if(!probe_schema_done){ Print(SCHEMA); probe_schema_done=true; }
+              /* shadow + values */ Print(NORMAL); } }
+```
+
+and add one sentence: *"'fall through' in this section means only that control resumes the live path after the probe block; it never means continuation into a later probe step."* This also makes P038's "four emission Prints — one per branch" literally true.
+
+### Δ2 — Two incompatible record-name forms
+**Lines: P032 steps (1)/(3)/(4) ("STOPRESOLVE_CAP", "STOPRESOLVE_BSAVE_FAIL", "STOPRESOLVE_SCHEMA") vs P034 envelope ("`[SRJ-EA] STOPRESOLVE format=2 … type=NORMAL|SCHEMA|CAP|BSAVE_FAIL`"); also P038 cap paragraph and P042 ("no STOPRESOLVE_CAP emitted").**
+
+P034 freezes the envelope as the literal token `STOPRESOLVE` followed by `type=` as a key/value; P034's transport rule then requires the literal open `[SRJ-EA] STOPRESOLVE`. A builder implementing P032's underscore tokens produces `[SRJ-EA] STOPRESOLVE_CAP …`, which fails the frozen open (no space-delimited `STOPRESOLVE`) and carries no `type=` key — every terminal line becomes unparseable and halts grading, for a naming slip. Fold: one form only (`type=` discriminator), and mark the underscore spellings as prose shorthand wherever they remain.
+
+### Δ3 — `dir` re-encoding collides with the EA's own enum
+**Lines: P034 (dir field, "locally-encoded three-way int"), P036, P038 (domain assertion), P042 (comparison-contract crosswalk); EA L225.**
+
+L225 is `DIR_NONE=0, DIR_LONG=1, DIR_SHORT=-1`. The probe encodes **SHORT as 0** and OTHER as −1 — so the probe's `0` is the EA's `DIR_NONE`, and the probe's `−1` is the EA's `DIR_SHORT`. Every downstream reader must carry a crosswalk that inverts two of three values against the source enum; a single un-crosswalked read silently reclassifies every SHORT row (and this run is SHORT-heavy: A1, A2, A3 all SHORT). There is no benefit: `(int)g_dir` yields `{1,-1,0}` with the same closed domain, the same halt-on-0 assertion, no `DirName` call, and no crosswalk anywhere. Fold: print `(int)g_dir`; delete the crosswalk from P034/P036/P038/P042.
+
+### Δ4 — The 1039-char worst case is not page-derivable and my recompute exceeds it
+**Lines: P038 (line-ceiling assertion), disk-measurements block ("Worst-case NORMAL length computed this turn: 1039 chars (envelope 84 + 39 payload maxima)"); P034 (text-identifier fields "enumerated in the build record").**
+
+Envelope 84 reproduces exactly (`[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v14 base=6C2E4028 type=BSAVE_FAIL` = 83–84 chars ✓). The payload does not. Keys alone sum to **353 chars**; with 39 `=` and 39 separators that is **431 chars before a single value**. Fifteen lossless numeric fields at `%.17g` worst case (24 chars: `-1.2345678901234567e-308`) = 360; four datetimes at 16 = 64; the integer/boolean set ≈ 67. That is ≈ 922 **excluding** `ladOriginSite`, `vetoStateAtSite`, `sessionUseAtSite`, and `extDistPts`, whose maxima the page explicitly defers ("closed enum sets with the exact strings enumerated in the build record"). At plausible widths my total lands **≈ 1050–1060**, i.e. above the filed figure. Fold: (a) label 1039 **provisional until the enum maxima are filed**; (b) file the per-field maxima table in the build record so the figure is reproducible; (c) require the micro-check synthetic line to be built from the **filed** maxima, not from 1039. Note the interaction with the archive evidence: max observed landed line is 537 chars, so the ceiling is unobserved territory and this is the one number the run cannot recover from if wrong (no re-emit path, P042).
+
+### Δ5 — The ±0.01 leg-(b) band is provably too tight, and the page carries its own counterexample
+**Lines: P015 header, P028 ("Display rounds to two decimals (plus-or-minus 0.01 band…)"), P042 ("Table Rs reproduce within plus-or-minus 0.01 or explain per row").**
+
+From the A2-POSTGATE row pasted on this page: entry 1.16265, liveStop 1.16289, liveTp 1.16017 ⇒ tpDist 248 pts, slDist 24 pts, **R = 10.3333** — but the same row prints **liveR = 10.35** (and `r0 = 10.35`). The 0.017 divergence is not an error: it is sub-display rounding (the true operands are ≈ 1.162650 / 1.162889 / 1.160176, all rounding to the printed five decimals). The same row's `r1 = 7.30` recomputes to 7.294 from its printed operands.
+
+Consequence for grading: the table's predicted Rs are computed from **five-decimal archived operands**, so their uncertainty scales as ±0.5 pt on the denominator. Row 09-07 16:40 (sl = 23 pts, R 2.35) carries ≈ ±0.05; row 09-07 09:15 (sl = 37 pts, R 1.38→ actually R 4.86) ≈ ±0.07; even A1 (sl = 78 pts, R 1.38) ≈ ±0.015. A perfectly correct probe can therefore print a leg-(b) "miss" on three or four rows with no defect anywhere. Fold: replace the flat ±0.01 with an **operand-propagated per-row tolerance** (±0.5 pt on each of entry/stop/tp, propagated through R) and file the per-row band in the build record before the run. This does not weaken anything mandatory — leg-(a) self-consistency and the wouldGate Booleans stay exact — and it prevents the report being dominated by rounding artefacts. The gate Booleans remain safe regardless: the exact band (0.678082…, 1.384615…] keeps 1.0 far interior even at ±0.07.
+
+### Δ6 — "cannot false-positive" is an overclaim
+**Line: P028 ("MANDATORY per-row origin-vs-live check: ladOriginPx == currentPrice as bit-equality … cannot false-positive on the same input series").**
+
+The inequality direction is sound (inequality ⇒ gate off or stale). The equality direction is not: if `InpDebugLog` were false, `g_sl41_oPx` holds a **prior bar's** open, and FX opens repeat — a stale global equal to today's open passes bit-equality. The real, non-coincidable falsifier is `ladOriginStamp == barTime` (P032's collapsed check). Fold: strike "cannot false-positive on the same input series"; state that the price bit-equality is a **corroborating** check and the stamp equality is the staleness falsifier.
+
+### Δ7 — "byte-exact canonical" and "exponent normalization" cannot both hold
+**Lines: P036 ("canonical = byte-exact `StringFormat("%.17g", x)` output confirmed against the compiler… the log-readback parser independently verifies … canonical reserialization"); P034 (numeric grammar, "exponent signs including `+` accepted"); delta paragraph, "Opus D7 adopted (named offline reference + exponent normalization …)".**
+
+Byte-equality against MQL5's formatter and normalization by an offline reference are mutually exclusive unless the exponent-digit convention is identical. MSVC-derived runtimes historically emit three-digit exponents (`e+000`); a Python/C99 reference emits two (`e+00`). Under the current wording an offline checker would flag every exponent-bearing token, or silently normalize and thereby stop being byte-exact. Fold: name the reference implementation, state the normalization rule (e.g. strip leading exponent zeros to a minimum of two digits on both sides before comparison), and file one actual MQL5 `%.17g` exponent sample at STAGE-1. Related, worth a sentence: **no live value in this run reaches the exponent branch** — all magnitudes lie in [1e-4, 1e2], and `%g` uses fixed notation for exponents ≥ −4, so `slDist = 0.00024` prints `0.00023999999999999998`. The exponent path is carried entirely by the fixtures; say so, so nobody later reads a clean run as validating it.
+
+### Δ8 — `extSideOk` / `wouldAdopt_monotone` are probe-local definitions, not the live predicate
+**Lines: P007 (FLAG visibility), P036 (extSideOk; wouldAdopt_monotone "mirroring the L9637 filter reference operand"); EA L9637; P038 helper allow-list.**
+
+`SlimbProtectiveSideOk` is (correctly) not on the allow-list and its body is not on the page, so the probe re-implements side-ness as a "strict price-side comparison vs entryPx". Tie handling, `_Point` tolerance, and DIR_NONE handling inside the live helper are unknown here; the probe's answer can therefore differ from the live filter's answer at the boundary — precisely the sub-point region P036 goes out of its way to discuss. Fold: label both fields explicitly as **probe-local side definitions, not the live predicate**, and either paste `SlimbProtectiveSideOk`'s body at the live-activation relay or defer any equivalence claim to it. This matters because P007's FLAG (the strongest thing on this page) rests on these two fields.
+
+---
+
+## Ask A — full defect / gap / imprecision list
+
+Beyond Δ1–Δ8:
+
+**F-1 — P007's protective-side invariant is stated one branch too wide.**
+P007: "L9637 admits only protective-side candidates … so every stop the current selector can choose is protective-side by construction." True for `s1x_sel ∈ {0,1}` (L9664/L9665 write from walk-filtered candidates). **Not** true for the third branch: at `s1x_sel == -1` the retained value is the incoming `slRef` from `ComputeSlReference`, which never passed L9637. P011 and P036 already say this ("P036 treats that retained value as unverified input"). Fold the qualifier into P007 so the live relay's opening FLAG is exact.
+
+**F-2 — The paste cannot establish insertion A's enclosing scope; brace bookkeeping shows why.**
+L9607 (`if`, 12 sp) opens at L9608 (14 sp) and closes at **L9615** (15 sp). **L9616** (12 sp) is therefore a closer whose partner is *off-page*, opened before L9607. So the pasted region alone cannot prove what construct encloses the A site. Indentation corroborates equal depth (A at the 8-space level with L9618–L9626, L9668–L9670, L9683), but indentation is not a proof. The STAGE-1 brace-depth assertion (P032, P038) is fully load-bearing for the "single straight-line tail" claim — record the **literal depth numbers for both sites** in the build record, not just "identical".
+
+**F-3 — No write-census for `slRef` or `tpTarget` over L8779 → L9626.**
+P038 scans `currentPrice` (L8753→C, exactly one write) and the base L9666–L9670 region, but nothing covers `slRef` between its production at L8779 and capture at A, or `tpTarget` before L9669. `incomingSlRef` is therefore "slRef as read at the A site", not provably "what ComputeSlReference returned". Cheap fix, same read-only class as the currentPrice scan: add both censuses to STAGE-1.
+
+**F-4 — `incomingSlRef` is a misleading field name.** (P034.) Define it in-page as *"slRef as read at the A site (pre-edit L9626)"*, since "incoming" invites the L8779 reading F-3 cannot support.
+
+**F-5 — "immutable ordered 39-key array" is not immutable.** (P032; P038 diff-shape "39 key assignments".) `probe_keys[39]` is listed among "probe-owned automatics", so it is repopulated on every C-reach. Either declare it `static` and populate once under a flag, or reword: immutability means a **single textual definition site**, not static lifetime.
+
+**F-6 — `uint` vs signed-literal comparison against the 0/0 gate.** (P032 `static uint probe_seq`; `probe_seq >= 20000`; P038 zero-errors-zero-warnings gate.) A signed/unsigned comparison warning would fail the compile gate and burn the build slot on a triviality. Pre-empt it: `const uint PROBE_CAP = 20000;` (or declare the counter `int` — 20000 has no overflow exposure at ~3200 max reaches).
+
+**F-7 — Insertion A splits a landed comment from its block.** (A site "before the L9626 opening brace"; comment L9618–L9625 documents that block.) Ten declarations between a comment and the brace it annotates makes the exact-diff harder to read and the landed annotation harder to attribute. Prefer siting A immediately **before L9618**; identical scope, cleaner diff.
+
+**F-8 — `ladOriginStamp == barTime` is construction-true only under tester semantics.** (P032; EA L11210, L8776.) `barTime = iTime(...,1)` is read at L11210; `g_sl41_oStamp = iTime(...,1)` is read at L8776, after L11213 and the whole S5 walk. In the tester the series cannot roll over mid-call, so the collapsed check is exact; on a live chart it could. Say "tester-envelope semantics" so the check is not carried unexamined into the live relay.
+
+**F-9 — The ext1 tuple still has no on-page falsifier.** (P032 publication obligation; P038 "the ext1 tuple itself is a pure disk item with worst case a same-bar S2POLL/S3ARM value".) The origin quadruple now has two falsifiers (stamp, ordered join). `g_sl41_px/_slot/_bt/_imb` have none: if L5496–97 is not reached on the L8779 call, the probe prints a stale tuple that self-agrees in every field and passes every on-page check. This is correctly named as the largest residual, but it is closeable at zero code cost — see B-2.
+
+**F-10 — Space-freeness is asserted for the grammar but only implied for the text fields.** (P034 "no spaces inside encoded values" vs "closed enum sets … enumerated in the build record".) Make space-freeness an explicit **domain condition** on `ladOriginSite`, `vetoStateAtSite`, `sessionUseAtSite` and the BSAVE_FAIL site literal, with rejection at build if any enumerated string contains 0x20. Today a two-word veto-state string silently breaks the whole line grammar.
+
+**F-11 — `probe_bSaved` on NORMAL is a constant-1 field.** (P034 field 36.) Harmless, but it consumes ~14 chars of a line budget that Δ4 is tightening, and it is not a falsifier (BSAVE_FAIL is). Keep or drop deliberately; if the micro-check reveals a tight terminal ceiling, this is the first field to spend.
+
+**F-12 — The necessity argument in P038 is weaker than the evidence on this page.**
+P038's triage says only "no zero-run join can print shadow operands". The A2 rows give a *demonstration*: five-decimal archive displays cannot reproduce R to better than ~±0.02 even for a row the archive itself computed (10.35 printed vs 10.333 recomputed). Put that sentence in the necessity case — it converts an assertion into a proof and is the cleanest justification for spending the run.
+
+**F-13 — No expected per-bar log ordering is frozen.** (P034 parser rules; P042 state machine.) Within one bar the deterministic order is SLEXT481 (L5485 producer, inside the L8779 call) → STOPRESOLVE (C) → SIDE1E (L9726) → SIDE1X (L9740) → SIDE1Y (L9769). Freezing it costs nothing and gives the ordered-occurrence joins a positional invariant they currently infer.
+
+**F-14 — Minor: "the 5-point stop move" and all point arithmetic presume `_Point = 1e-5`.** (P028; P038 files `_Point`/digits.) The R ratios are unit-free and survive any digits setting, but `extDistPts` does not. Already filed — just note in P028 that the point figures in that paragraph are display-derived, not `_Point`-derived, so a digits surprise at STAGE-1 does not silently invalidate the prose.
+
+### Checks that came out clean (recorded so they are not re-litigated)
+
+- **Table arithmetic, all seven rows, independently recomputed by exact subtraction:** 144/42 = 3.4286 → 3.43; 108/78 = 1.3846 → 1.38; 297/171 = 1.7368 → 1.74; 180/37 = 4.8649 → 4.86; 54/23 = 2.3478 → 2.35; 133/53 = 2.5094 → 2.51; 99/146 = 0.678082 → 0.68. Band (0.678082…, 1.384615…], 1.0 interior ✓. Post-activation TP_ELECT 7 → 6 (A3 gate-killed at 0.68, A1 survives at 1.38) ✓.
+- **Derived estimates:** A3 live stop from R = 1.62 ⇒ 99/1.62 = 61.1 pts ⇒ 1.162741 ≈ 1.16274 ✓. A1 1.16503 ⇒ 108/73 = 1.479 → 1.48; 1.16508 ⇒ 1.3846 → 1.38 ✓.
+- **A2 internal consistency:** SIDE1E r0/r1 ratio 10.35/7.30 = 1.4178 vs slot-distance ratio 34/24 = 1.4167 — consistent with a single sub-display operand set ✓ (this is what Δ5 rests on).
+- **Field arity:** the P034 list contains exactly 39 names, `emitSeq` at position 34, `ladOriginStamp` at 39 ✓. Insertion A = 10 declarations (1 copy + 1 witness + 8 poison) ✓; insertion B = 9 statements (8 carries + witness) ✓; poison values are disjoint from every live domain (−1e308 vs prices ~1.16; −2147483647 vs slots/imb ∈ {−1,0,1,2,…}; 99 vs sel ∈ {−1,0,1}) ✓.
+- **Code model vs pasted source:** P011's eight absence causes map line-for-line (L9635 break, L9636 skip, L9637 filter, L9642 strict improvement, L9649/L9655 imb-read failure, L9658 512 cap, L9659 two-level exit, L1188/L9632 slot cap 4000) ✓. `s1x_rungs` increments only past L9636–L9637, so "rungs count only qualifying candidates" ✓. `ext == 0` captures only the first qualifying rung and `ext == 1` only the second *improving* rung ✓. Selector identities `sel=0 ⇒ slRef = s1x_s0px` (L9664), `sel=1 ⇒ s1x_s1px` (L9665), `sel=-1 ⇒ untouched` (L9661) ✓ — the P034 crossed-assignment identities are exactly right.
+- **Dominance B → C:** every exit from the L9632 loop (breaks L9635/L9658/L9659, continues L9636/L9637, normal termination) lands at L9661; B sits after L9665 and before the sole block closer L9666; no return or other exit appears inside L9626–L9666 ✓. C at L9670+ is outside the L9683 debug gate, so emission does not depend on `InpDebugLog` ✓, while the archive's SIDE1E/SIDE1X rows (which live *inside* that gate, after C) do prove both C-reach and a true diagnostic setting in the archive run ✓.
+- **No-footprint on the pasted evidence:** A declares only new locals, B assigns only `probe_*`, C reads + prints + mutates only `probe_*` statics; `ExpertRemove` appears nowhere; no live operand is substituted; L9666–L9670 and everything downstream is untouched ✓.
+
+---
+
+## Ask B — better mechanisms, with the lines they touch
+
+**B-1 — Print `(int)g_dir` natively instead of the three-way re-encode.** *Touches:* the dir expression at C; P034/P036/P038/P042 text; consumes EA L225. Same closed domain, same halt-on-DIR_NONE, one fewer translation layer in the grading pipeline, and it removes the inverted-crosswalk failure mode described in Δ3.
+
+**B-2 — Make the same-bar SLEXT481 join *mandatory on every `ext1Defined` row*, not only on A2.** *Touches:* no code at all — P032/P038/P042 text only; consumes the existing producer print at EA L5485–L5493, which runs in the same run under `InpDebugLog=true`. Require, per row: probe `pxExt1` == SLEXT481 `slExt1` after applying the archive's five-decimal formatter, **and** probe `ext1Slot` == `ext1Slot`, **and** probe `ext1BarTime` == `ext1BarTime`, keyed on (barTime, site=S5) with the ordered-occurrence rule already frozen. This is the cheapest available closure of F-9: it converts the stale-tuple hazard from an un-falsifiable disk assumption into a per-row falsifier, and it is strictly better than the omitted producer-site hunk D (P046), which would cost a fourth insertion and a fresh review surface to buy less.
+
+**B-3 — Add two free bit-identities that close the B→C gap.** *Touches:* text only (P034 offline-analysis clause, P042 mandatory list). Require per row: `rawDenLive == MathAbs(currentPrice − slLive)` and `rawNumLive == MathAbs(tpPx − currentPrice)`, bit-exact under reconstruction from the lossless prints (subtraction and `fabs` are exact IEEE operations, so byte-level reproduction is achievable offline). Today the five-line window L9666→L9668 is covered only by a source scan; these identities make any divergence between the B-captured carry and the operand L9668 actually used **self-evident in the record**, which is the same class of protection the witness and crossed-assignment identities already provide upstream.
+
+**B-4 — Freeze the terminal structure as an if/else-if chain in the packet, not as prose.** *Touches:* insertion C; P032 steps (1)–(6); P038 diff-shape. See Δ1. As a by-product it makes P038's "one Print per branch" mechanically checkable in the exact-diff instead of by reading.
+
+**B-5 — Buy line-width headroom before the micro-check, not after.** *Touches:* P034 key names; P038 ceiling assertion. If the micro-check discovers a terminal cap below the true worst case, v14 has no recovery path (P042: no re-emit, fresh authorization for any new build). Two zero-risk levers, decided *now* rather than after a failed gate: shorten the four longest keys (`wouldAdopt_monotone` 19, `sessionUseAtSite` 16, `ladOriginBarTime` 16, `vetoStateAtSite` 15 → ~40 chars saved; SCHEMA carries the names, so nothing downstream is hardcoded), and drop the constant-1 `probe_bSaved` field from NORMAL (F-11). Together ≈ 55 chars — small, but it is the difference between a clean run and a burnt authorization if the cap lands near 1024.
+
+**B-6 — Freeze the per-bar emitter order** (F-13) as a structural cross-check in P042's state machine: SLEXT481 → STOPRESOLVE → SIDE1E → SIDE1X → SIDE1Y. Text only; gives the ordered joins a positional invariant and makes a missing producer publication visible as an ordering defect rather than only as a value mismatch.
+
+**B-7 — Add `slRef` and `tpTarget` write-censuses over L8779 → L9626 / L9669** (F-3) to STAGE-1. Read-only, same class and cost as the existing `currentPrice` L8753→C scan, and it is prerequisite evidence the live-activation relay will need anyway when it replaces the L9661–L9665 region.
+
+**B-8 — One thing I would *not* change:** the decision to keep the `wouldGate` mirror literal — complete predicate, identical short-circuit, no added finite guard, with non-finite handling pushed into a separate acceptance class (P034, P036). That is the correct shape for a counterfactual mirror, and the "faithful true on a non-finite quotient is a live-predicate hazard, not a probe defect" sentence is the most valuable line in section 3 after the P007 FLAG. Likewise the latch-and-continue rewrite (Opus-B1) is strictly better than the v13 return/unload form: it removes the last way the probe could void the actual-path comparison.
+
+## Opus answer - 2026-09-18 - answers v176 relay (packet v13) (AMEND-WITH-DELTA, 8 blocking D1-D8 + 10 non-blocking A1-A10, Ask-B truncated at B3 tail; page-only; filed as entry OPUS-V176-001)
+
+## Verdict
+
+**AMEND-WITH-DELTA.** Nothing on the page is unsafe for a print-only probe, and the arithmetic, counts, cap boundary, and grammar hold up under independent recompute. But eight items are either overstated claims, unenumerated freeze surface, or self-inflicted halt risk that would burn the single authorized build/run. All eight are page fixes; no code change, no new hunk required (D1 excepted, which can be closed by restating scope instead of building).
+
+Blocking deltas: **P046** (origin-falsifier scope), **P034** (text-identifier clause + `dir` domain), **P038/P032** (insertion-C diff-shape census), **P028/P036** (`s0px`/`s1px` sentinel), **P038** (scope-depth assertion) + **P032** (BSAVE_FAIL `site` source), **P042/P028** (A1 mandatory-list gap; A2 post-gate-reach evidence), **P034/P036/P038** (reserialization reference + line-length ceiling), and the citation-vs-paste mismatches at **EA L8777 / L8746 / L1112**.
+
+---
+
+## Delta list (blocking, in packet order)
+
+### D1 — P046 + P032 + P007: the origin falsifier does not cover the ext1 tuple
+P046 justifies omitting hunk D on the ground that "the falsifier carries its own evidence on every row." That claim is too wide on two counts:
+
+- **Coverage.** `ladOriginStamp` (EA L8776) and the triple-join cover `g_sl41_oPx/oBT/oSite/oStamp` (EA L1108-11), written at **L8773-76** *before* the L8779 call. The five ext1 fields (`pxExt1`, `ext1Defined`, `ext1Slot`, `ext1BarTime`, `ext1Imb`) come from a **different write site** — L5496-97 inside `ComputeSlReference`. A path that returns true from L5291 without reaching L5496-97 leaves the tuple stale while the stamp check passes clean. Nothing on the page falsifies that at runtime; it rests entirely on the STAGE-1 publication obligation.
+- **Reachable failure mode.** With `barShift` fixed at 1 by the sole caller (L11214) and `g_sl41_oStamp = iTime(...,barShift)` at L8776, `ladOriginStamp != barTime` is reachable in this envelope essentially only when the L8770 debug gate is off (stamp stays at the L1111 default 0). That case is already covered by the pre-run `InpDebugLog=true` assertion at P038. So the collapsed check is primarily an input-assertion falsifier, not a provenance falsifier.
+
+The staleness window is narrow — the only other `ComputeSlReference` invocation is L6152 under `SlRefMemo` (L6067), called from L7273/L8406, both *earlier in the same* `EvaluateClosedBar` call — so a stale tuple would be same-bar, different-site. Name that explicitly. **Amend P046 to say the falsifier covers the origin quadruple only, and that the ext1 tuple's freshness is a pure disk item whose worst case is a same-bar S2POLL/S3ARM value.** (Build option in Ask B6.)
+
+### D2 — P034: text-identifier clause names a field that does not exist; `dir` has no domain assertion
+P034 states: "Text identifier fields (site/dir/ladOriginSite) come from closed enum sets with the exact strings enumerated in the build record."
+
+- There is **no `site` field** in the 39-field list (P034). The only site field is `ladOriginSite` at position 25. `site` appears only on BSAVE_FAIL (P032).
+- **`dir` is not a text field** — P034 itself fixes it as `(g_dir==DIR_LONG)?1:0`. The clause contradicts the encoding two sentences earlier.
+- That ternary is a **two-valued collapse of an N-valued enum**: any non-`DIR_LONG` value, including `DIR_NONE` if reachable at C, prints `0` and reads as SHORT. This is the exact defect class Opus B14 closed for `ext1Defined` (raw int + `{0,1}` domain assertion) and it was not applied to `dir`. Either encode three-way (`1/0/-1`) or add a build-record domain assertion that `g_dir ∈ {DIR_LONG, DIR_SHORT}` at C, halting otherwise.
+- The offline join at P042 matches archive rows on `(barTime, dir)` where the archive prints `DirName` text (EA L9728/L9742) against the probe's int. **The `1↔LONG / 0↔SHORT` crosswalk is never stated.**
+
+### D3 — P038 + P032 step (4): insertion C has no statement census, and "four owned statics" collides with the frozen array construction
+A and B are pinned to the statement (ten declarations: two initialized, eight bare; nine statements). C is pinned only as "emit block with four owned statics ... in the fixed composite order." But P032 step (4) *requires* "a single ordered key array plus a single ordered value array consumed by both SCHEMA and normal-record formatting."
+
+Those two arrays are declarations that appear in no shape clause. If they are `static`, P038's "four owned statics" assertion fails against its own diff; if automatic, the A-style declaration census at C is simply absent. The consuming loop is also unenumerated — and note P038's lexical purity bans `++/--`, so the loop index must be written `i = i + 1`, which the exact-diff gate cannot check against an unstated shape.
+
+**Fix:** extend the P038 diff-shape to enumerate C's declarations (4 statics + 2 arrays sized 39/39 + any scalars), the loop form and bounds, and the emission-statement count — at the same granularity A and B already carry.
+
+### D4 — P028 + P036: `s0px`/`s1px` violate the stated price-sentinel convention
+P028: "every other N/A prints '-' (prices, text, datetimes, guard-blocked ratios); 0 means computed zero."
+
+But `s1x_s0px`/`s1x_s1px` initialize to `0.0` at **EA L9629-L9630** and stay `0.0` when the slot never populates. B copies them verbatim (P032), and P036 lists them among the lossless probe price fields with no sentinel substitution. So a no-candidate row prints `s0px=0` — a price field printing 0 where the convention promises `'-'`, and where "0 means computed zero" reads as a real price of zero.
+
+Grading is unaffected (the P034 identities only consult `s0px`/`s1px` when `probe_sel ∈ {0,1}`), so this is a page defect, not a build defect. **State it explicitly:** `s0px`/`s1px` are raw carries including the L9629-L9630 `0.0` no-candidate value, paired with `s0slot`/`s1slot = -1`, and exempt from the price-sentinel rule. Same treatment needed for `ext1Imb = -1` (producer "imbalance unread" with ext1 defined) which P028 covers for `s0imb`/`s1imb` only.
+
+### D5 — P038 definite-assignment gate + P032 BSAVE_FAIL identifiers
+- The gate cites a **loop census** (six openers L9051/L9218/L9230/L9368/L9386/L9506, sole loop to C at L9632) and an invocation census. A loop census says nothing about **conditional or switch nesting**. The A site sits immediately before L9626; the pasted region shows L9607-L9615 nested one level deeper (12-space indent) and L9616 closing an outer block opened *before* the paste. If any `if`/`switch` boundary falls between the A site and C, A's declarations die before C. That fails loudly at the 0/0 compile gate rather than silently — so it is a wasted build, not a bad result — but it should be an explicit STAGE-1 line: **A-site and C-site brace depth identical, no conditional/switch boundary between them.** Note the page *does* fully cover returns and exits between A and C (L9617-L9625 comments only, L9666-L9670 pasted, break/continue inside L9632 bounded); that part is clean.
+- P032 says BSAVE_FAIL carries "barTime/dir/site identifiers **independently available at C**." `barTime` is the L6607 parameter and `dir` is `g_dir`, both fine. But **there is no `site` symbol at C** — the "S5" string is a literal argument at L8779, and `g_sl41_oSite` is debug-gated and defaults to `"-"` (L1110). Name BSAVE_FAIL's `site` as a string literal in the build record, or drop the field.
+- Related: the **`barTime` field source is never named for normal records**. P034 names sources for `entryPx`, `tpPx`, `incomingSlRef`, `slLive`, `actualGate`, `gateConst`, `dir` — `barTime` is left to inference (presumably the L6607 parameter).
+
+### D6 — P042 + P028: A1 mandatory-list gap, and the A2 mandatory can halt on correct behavior
+- P028 requires "the required A1/A3 self-consistent Booleans," but P042's never-struck list names only **"the A3 shadow self-consistency."** A1's record-at-C and self-consistency appear in no mandatory list. Add A1 or strike the P028 wording.
+- **A2 record-at-C is mandatory (slot 13) on STAGE-0 evidence that does not prove C-reach.** The pull is `SLEXT481` line 15587 — printed inside the producer (L5485-L5493), i.e. *upstream* of L8779's return value. If `ComputeSlReference` returned false for that evaluation, the live path aborts at **L8780-L8788** (`GoAbort(...); return;`) and never reaches C. The run would then halt on a missing A2 record while the code behaved exactly as landed. **Fix at STAGE-0, not at grading:** pull the same-bar post-gate rows for 2026.09.04 10:35 — `SIDE1E_STOPSHADOW` (L9726) and/or `SIDE1X_STOPREF` (L9740) — from FRESHVETO-V1. Those print after L9670 and therefore prove C-reach directly. Same pull upgrades the 16:55 and 17:00 questions.
+
+### D7 — P034 + P036 + P038: reserialization reference and line-length ceiling
+- Canonicality is defined as "every numeric token must byte-equal `StringFormat("%.17g", parsed-value)` **offline**." Two different implementations are being equated: MQL5's formatter (emitting) and whatever runs offline (checking). The known divergence is **exponent-digit width** — a Windows-lineage `%g` can emit `1e+016` where a modern C/Python `%.17g` emits `1e+16`. Your acceptance regex `[eE][+-]?\d+` passes both, so the grammar won't catch it; the byte-equality check will halt grading on a formatting artifact. Prices at ~1.16 never take exponent form, so exposure is confined to degenerate `rawDen*` magnitudes — but the validation set explicitly covers exponent cases, which is exactly where it bites. **Name the offline reference implementation and permit exponent-digit normalization before byte comparison.**
+- P036's "log-readback validation at worst-case field widths" (Opus B18) has no number attached. Worst case is computable now: 39 fields × (key ~8-20 chars + `=` + up to ~24 chars of `%.17g`) ≈ **1.3-1.5 KB per line**, plus envelope. Put that figure and the MQL5 `Print`/`PrintFormat` output ceiling in the build record so the readback has a pass criterion rather than an adjective.
+
+### D8 — citation vs paste
+- The relay header claims "the S5 origin-gate body (**L8770-L8777**) rides inline" and the inline note says "**brace structure fully on page**." The paste **ends at L8776**. L8777 — the claimed closing brace — is not on the page. Indentation (10-space body at L8772-76 vs 8-space at L8779) supports the claim, but the page does not carry it. Either paste L8777 or drop the "fully on page" assertion.
+- P034 cites "**the L8746-L8753 directive**"; only L8751 and L8753 are pasted.
+- P032 cites "**EA L1112 declarations**" for a five-member tuple (`g_sl41_def/_px/_slot/_bt/_imb`). L1112 is `g_sl41_def` alone; the disk note puts the block at L1108-L1117 — which *overlaps the origin quadruple at L1108-11*. Cite L1112-L1117 and keep the two families textually separate.
+
+---
+
+## Ask A — further defects, gaps, imprecisions (non-blocking)
+
+**A1 — The CAP path is provably unreachable in this envelope (P032, P038, P042, P046).** C-reaches ≤ one per `EvaluateClosedBar` call (P032), one call per closed bar (L11211-L11214 guard), ~2900-3200 M5 bars in range (P038). Upper bound ~3200 against a 20000 reservation: the 20001st reaching evaluation cannot occur. So `probe_capped`, the CAP grammar, `ExpertRemove`, and "cap non-occurrence" as a mandatory finding are all dead surface that cannot execute. P038 calls it "a defensive boundary"; the honest statement is *unreachable by bar count, with the arithmetic on page*. See B4.
+
+**A2 — Three of the 39 fields carry the same number by construction (P034, P036, EA L8751/L8753/L8772/L8773).** `currentPrice = nextOpenPx = iOpen(barShift-1)` at L8751/L8753; `entryPx` prints that same variable; `g_sl41_oPx` at L8773 recomputes the identical `iOpen(barShift-1)` expression in the same call. Consequences:
+- The mandatory "`entryPx == currentPrice` textual equality per row" (P034, P038) is a tautology over one variable printed twice. It is free, it cannot fail, and it proves nothing. Keep it if you like, but do not count it as a falsifier.
+- `ladOriginPx` vs `currentPrice` is a *different* symbol pair (global written at L8773 vs local at L8753) and therefore a real equality check that is currently unused. See B3.
+
+**A3 — The page under-uses its own pre-run evidence on the leg-(b) question (P028, P042, evidence block).** P028 says "archived-entry==currentPrice at S5 is NOT asserted anywhere," and Opus D2 is carried as a live counterexample at `currentPrice = 1.16250` for A3. But the archive rows in this relay already answer it for A1 and A3: archive `ladOriginPx` is the next-open quantity (mechanism at L8772-73), and it equals the section-2 table entry exactly — A1 `1.16430` = P020 entry `1.16430`; A3 `1.16213` = P025 entry `1.16213`; A2 `1.16265` with no comparator. Two independent symbol families (producer local `sl41_oPx` feeding SLEXT481, global `g_sl41_oPx` feeding the probe) agreeing on the same quantity. So the D2 flip is contradicted by the archive for the A3 bar specifically. The leg-(a)/leg-(b) split should stay — it is correct policy — but A1/A3 leg-(b) can be pre-resolved on filed evidence instead of carried as an open prediction.
+
+**A4 — `ladOriginBarTime` is exactly the next bar, not "at/after" (P013, EA L8774).** `g_sl41_oBT = iTime(..., barShift-1)` with `barShift=1` is always the bar immediately following the evaluated bar. P013's "origin time at/after bar time is expected" is looser than the code. Tighten to the exact relation (offline-checkable against the M5 series; not a fixed +300 s across session gaps) and it becomes a second free falsifier rather than an explanation.
+
+**A5 — The eight bare carries are unnecessary and carry a 0/0-gate hazard (P032, P038).** P032 justifies bare declarations so "a concealed bypass must fail loudly, never hide." But `probe_bSaved` already provides that, and B is nine consecutive assignments in one basic block with `probe_bSaved = true` last — there is no path where the witness is true and any carry is unassigned. So the bare form adds zero detection while putting the whole build at the mercy of an MQL5 "possible use of uninitialized variable" diagnostic, which P038 declares an automatic halt. See B2.
+
+**A6 — Both terminal paths destroy the actual-path comparison they are graded against (P032, P042, EA L11214-L11223).** The terminal `return` fires at C — *before* veto, latch, SIGNAL, and session mark — then `ExpertRemove` ends the run. The archive comparison against 8B2ED676 (mandatory, P042) is therefore void for that bar and every later bar. P032 is honest about this ("the run is void on either terminal path"), but the design accepts a total loss of the mandatory actual-path leg in exchange for suppressing probe output that `probe_dead` already suppresses. See B1.
+
+**A7 — P034's strike sentence is wider than P036's strike policy (P034, P036, P042).** P034 groups `tpPx` and `entryPx` into the same "names the exact symbols ... **or strikes the field**" clause as `vetoStateAtSite`/`sessionUseAtSite`, while P036 excludes the mandatory recompute fields (`currentPrice`, `slLive`, `tpPx`, `gateConst`) from strike entirely and P042 makes P036 governing. Resolvable by precedence, but the sentence should name only `vetoStateAtSite`/`sessionUseAtSite` as strikable.
+
+**A8 — Log-line prefix handling is unstated (P034).** The grammar is declared authoritative and "one line per record ... opens with the fixed envelope," with parse failure halting. Actual journal lines carry the terminal's own timestamp/thread columns, and every existing diagnostic on the page carries a `[SRJ-EA]` tag (L9726, L9740, L9769). State whether STOPRESOLVE carries that tag and how the parser strips the terminal prefix — otherwise every line "fails to open with the envelope."
+
+**A9 — P028's slot-absence enumeration is complete, with one adjacent case worth naming (P011, EA L9649/L9655).** The seven causes at P011 check out against the pasted walk. Not listed: an imbalance-buffer `ReadFlow` failure at L9649/L9655 leaves `s0imb`/`s1imb` at `-1` with the slot *populated* — which then fails the L9662 predicate and pushes selection to s1. P028 covers the non-distinguishability of that `-1`; P011 should name it as a selection cause, since it is a path to `liveSel=1` that has nothing to do with slot absence.
+
+**A10 — Verified clean on recompute, recorded so it is not relitigated.** 39-field count and positions (`emitSeq` 34, `ladOriginStamp` 39) ✓. Cap boundary: `probe_seq >= 20000` pre-increment makes the 20001st reaching evaluation the CAP evaluation ✓. Count invariant `normals + BSAVE_FAIL = highest reserved emitSeq`, CAP unsequenced ✓. `uint` is correct MQL5 and 20000 is nowhere near overflow ✓. Composite order terminal→reserve→bSaved→SCHEMA→emit is internally consistent, and step (2)/(3) touch only probe-owned statics before the witness test ✓. `slLive == slRef` at L9668 holds given the stated zero-writes scan over L9666-L9670 ✓. All seven table ratios reproduce by exact subtraction (144/42, 108/78, 297/171, 180/37, 54/23, 133/53, 99/146) ✓; band `(0.678082…, 1.384615…]` with 1.0 interior ✓; post-activation count 6 follows from A3's 0.68 kill ✓. Degenerate `pxExt1 == currentPrice` resolves coherently (`rExt1='-'`, `wouldGate=0` decided, `extDistPts=0`, `extSideOk=0`) ✓. `wouldAdopt_monotone`'s protective-side clause is genuinely redundant given L9637 uses the same `currentPrice` ✓. Negative zero and the `%.17g` regex agree ✓.
+
+---
+
+## Ask B — better mechanisms, with the lines they touch
+
+**B1 — Latch and continue; delete both terminal returns and `ExpertRemove`.** *(P032 steps 1/3, P038 lexical purity + invariant, P042 terminal semantics, P046; insertion C at L9670-L9671; no change at L11214-L11215.)*
+`probe_dead`/`probe_capped` already guarantee exactly-once terminal emission and zero further probe output. The `return;` adds nothing to that guarantee and costs: a control-flow change, the suspension of the no-strategy-state-mutation invariant, the `ExpertRemove` exemption, the partial-`StoreWorkingSet` acknowledgment at L11215, and the whole mandatory archive-comparison leg (A6). Emit the terminal record, set the latch, fall through. The probe then has **zero** control-flow footprint, the invariant becomes unconditional, and a bSaved failure costs you the probe evidence while *preserving* the actual-path run. This is the single largest simplification available on the page.
+
+**B2 — Initialize all eight carries at A.** *(P032 insertion A, P038 diff-shape and 0/0 gate.)*
+Given `probe_bSaved` (A5), the bare form buys no detection and risks the 0/0 gate. Initialize the eight to fixed poison values and record in the build note that detection lives in the witness plus the P034 crossed-assignment identities, not in uninitialized storage. Diff-shape becomes ten initialized declarations.
+
+**B3 — Make `ladOriginPx == currentPrice` a mandatory per-row bit-equality check.** *(P028 join paragraph, P034 field list, P038 availability gate; evidence at L8751/L8753 vs L8772/L8773.)*
+Two distinct writes of the same `iOpen(barShift-1)` expression, in the same call, one inside the L8770 debug gate and one outside it. Any inequality proves the debug gate was off or the globals are stale — both fatal to the origin case. The check is free, it cannot false-positive (same input series, same call), and it subsumes the stamp's reachable failure mode (D1). Reconcile with A2 by keeping the tautological `entryPx == currentPrice` textual check as-is and adding this one as the real origin-vs-live equality.
+
+**B4 — [TRANSPORT TRUNCATED HERE — B4 onward not received; builder treats Opus-v176 Ask-B items after B3 as OWED-UNSEEN except where their visible counterparts already fold on this page]
+
+## Opus answer - 2026-09-18 - answers v178 relay (packet v15) (AMEND-WITH-DELTA, 5 blocking D1-D5 + 9 non-blocking D6-D14 + A-i-A-ix + B1-B6; page-only; filed as entry OPUS-V178-001)
+
+## Verdict
+
+**AMEND-WITH-DELTA** — five blocking page defects (D1–D5), nine non-blocking (D6–D14). No mechanism change is required: insertions A/B/C, the latch-and-continue terminal design, the poison+witness carry scheme, and A→B→C dominance over the pasted selector block (EA L9626–L9666) all hold on the page as shipped. What fails is the **ledger arithmetic behind the line ceiling** and **two grading predicates that contradict the pasted code and the packet's own canonical-format rule**. Both are text-level, both must land before the 0/0 compile gate, because the pre-build micro-check line is built *from* the ledger (P038) and one of the predicates would fail four of the seven fire rows on sight.
+
+### Blocking deltas
+
+**D1 — P034: the dir parenthetical invalidates every SHORT row.**
+P034 reads: `dir prints (int)g_dir natively ({1,-1,0} with halt on 0; … -1 is parser-valid only as an invalid/diagnostic class, never an accepted NORMAL-row domain)`. Per **EA L225**, `DIR_SHORT = -1`. So −1 is not a diagnostic class — it is the direction of **P019, P020 (A1), P024, P025 (A3)** and **P026 (A2)**, i.e. four of the seven fire rows plus the mandatory A2 record-at-C. It also contradicts **P042**'s comparison contract (`native mapping 1=LONG / -1=SHORT and halt on 0`) and **P038**'s domain assertion (`g_dir ∈ {DIR_LONG,DIR_SHORT}`).
+*Delta:* NORMAL-row dir domain is exactly `{1,-1}`; `0` halts; delete the "-1 is parser-valid only" clause. P042/P038 already carry the correct form — P034 is the outlier.
+
+**D2 — P038 (line-ceiling assertion) + relay "Worst-case NORMAL length computed this turn": the 1024 figure is not derivable from its own components, and the ledger enumerates only 36 of 38 fields.**
+
+I re-derived every component from the P034 field list:
+
+| Component | Filed | Recomputed | Note |
+|---|---|---|---|
+| Envelope (`type=NORMAL`) | 83 | **83 ✓** | `[SRJ-EA]`8 +1 +`STOPRESOLVE`11 +1 +`format=2`8 +1 +`pkt=…v15`27 +1 +`base=6C2E4028`13 +1 +`type=NORMAL`11 |
+| Sum of 38 key names | 339 | **340** | off by one |
+| Key structure (keys + 38 `=` + 37 spaces + 1 envelope space) | 415 | **416** | follows from 340 |
+| `%.17g` fields × 24 | 16 × 24 = 384 | **16 × 24 = 384 ✓** | class = 9 price fields + 4 raw operands + rLive + rExt1 + gateConst |
+| Datetimes × 16 | 4 × 16 = 64 | **64 ✓** | `2026.09.04-10:35` = 16 |
+| Integer-class fields | **13** = 42 | **15** fields | ledger covers 36 of 38 |
+| Strings | 6 + 30 | ✓ | |
+
+The 1-char key error is probably provenance: `wouldAdoptMonotone` = 18, `wouldAdopt_monotone` (the spelling actually in P034) = 19 → 339 vs 340. The field-count error is harder: 16 (`%.17g`) + 4 (datetime) + 3 (string) = 23, so the integer-class bucket is **15**, not 13 — `dir, liveSel, ext1Defined, ext1Imb, wouldGate, ext1Slot, s0slot, s0imb, s1slot, s1imb, extSideOk, extDistPts, wouldAdopt_monotone, actualGate, emitSeq`. And 42 chars for 15 fields is unreachable if you honour the declared domains: **s0imb/s1imb are post-cast `(int)s1x_f` (EA L9649/L9655) with no domain assertion anywhere in P038**, and **extDistPts is declared 32-bit signed** (P038, Astra-A4) — worst case 11 chars each.
+
+Two consistent exits:
+- **(a) unbounded:** integer bucket ≤ 63 → worst-case NORMAL = 83 + 416 + 384 + 64 + 63 + 6 + 30 = **1046**;
+- **(b) bounded:** add domain assertions `s0imb/s1imb ∈ {-1,0,1,2}` (per the FlowLogic 122-127 note at EA L9679) and a filed `|extDistPts| ≤ 99999` range → integer bucket 40 → **1023**.
+
+Either is defensible; the filed 1024 is neither. Note that v14's withdrawn 1039 was *recomputed downward* to 1024 by losing two fields and one character, not by tightening a provisional figure. Because P038 states the micro-check synthetic line "is built from the filed maxima ledger and governs transport," an under-derived ledger means the single authorized run emits lines wider than anything transport-tested — detectable only post-run, after the run is spent.
+*Delta:* refile the ledger as a 38-row per-field maxima table (Astra-A12's promise, not yet honoured by the on-page subtotal), pick exit (a) or (b), build the micro-check line at the corrected width.
+
+**D3 — P034: the Sol-S1 comma defect is relocated, not closed.**
+The enumeration protects `incomingSlRef` explicitly ("comma-free so mechanical counting holds"), but the list *ends* with `… s0px, s1px, ladOriginStamp (emitSeq appears exactly once, at position 34 of 38; ladOriginStamp is position 38)`. A mechanical comma-split over that sentence yields **39** fragments — the identical failure mode Sol-S1 raised, at the tail instead of the middle. (The positions themselves are correct: I counted emitSeq at 34 and ladOriginStamp at 38 ✓.)
+*Delta:* make the whole enumeration comma-free (semicolon the tail note, or move it to its own sentence).
+
+**D4 — P042 vs P034/P036: `gateConst` acceptance token.**
+P042: "Run prints gateConst (**must read 1.0**…)". P034/P036: canonical for the `%.17g` class is byte-equality with `StringFormat("%.17g", x)`, and `%.17g` of `1.0` emits **`1`**, not `1.0`. As written, the mandatory gateConst check fails on every row while the format check passes.
+*Delta:* state the acceptance as *parses to 1.0 and byte-equals `StringFormat("%.17g", InpMinRewardRisk)`*, with the actual token filed from the micro-check.
+
+**D5 — P036/P038: the "exponent path is fixture-only" claim is false for the distance operands.**
+"live magnitudes in [1e-4, 1e2] never exponentiate" holds for prices and ratios but not for `rawDenLive`, `rawDenExt1`, `rawNumLive`: on a 5-digit symbol a one-point distance is `1e-5`, whose decimal exponent is −5, so `%g` **does** switch to exponent form; sub-point residues from `MathAbs` are smaller still — and P036 itself contemplates sub-point cases ("protective-but-sub-point prints extSideOk=1 with extDistPts=0"). So exponent normalization is a live post-run path, not a fixture path. Width is unaffected (exponent form = 24 chars, inside budget); the grading claim is what breaks.
+*Delta:* declare the exponent path run-reachable for the raw/shadow distance fields; keep exponent normalization mandatory on actual records, not just fixtures.
+
+### Non-blocking deltas
+
+- **D6 — A-site line conflict.** P032 sites A "before the L9618 comment" (Opus-F-7); **P034** defines `incomingSlRef` as "slRef as read at the A site **pre-edit L9626**". Semantically identical (EA L9618–L9625 are comment lines), but P038's exact-diff gate checks literal siting. Pick pre-L9618 in both.
+- **D7 — the s0px/s1px `0.0` exemption is outside the clearable body.** It appears only in the relay's builder note on EA L9629/L9630 ("s0px/s1px print raw including this 0.0, exempt from the price-sentinel rule"). P028's sentinel paragraph says every unavailable price prints `'-'`, and P036's sentinel list never mentions the no-candidate price case. As cleared, a `s1x_s1slot = -1` row prints `s1px=0` against a rule that says `'-'`. Move the exemption into P036 (raw `0`, paired with slot `-1`, never a sentinel, never `'-'`).
+- **D8 — P038 diff-shape ledger for C omits `const uint PROBE_CAP`** (declared in P032). Add "+1 automatic const" so the exact-diff gate does not flag or skip it.
+- **D9 — P032's numbered composite order omits key-array population**, which P038's construction-order assertion includes ("…bSaved check, THEN key array, THEN SCHEMA-from-keys…"). Since P032 says the order is "fixed once here so the exact-diff gate checks it," insert step (3a) or cede authority to P038 explicitly.
+- **D10 — P001/P003 say "38-field envelope with tag"**, while P034 says the envelope is *excluded* from `fields=38`. Read as "38-field payload + fixed envelope".
+- **D11 — `InpAdoptExt1` is uncited.** The page quotes compiled defaults for `InpMinRewardRisk` (EA L57) and `InpDebugLog` (EA L60), but P038's slRef census excuses the **L8812** write as "inert under the frozen InpAdoptExt1=false input" and P034 asserts "AdoptOff held" — with no declaration line and no compiled default on the page. If that default is not false and the run ini does not override it, L8807–L8813 rewrites `slRef` *before* the selector, changing both `probe_inSlRef` and the actual path vs archive. Quote the declaration line and name it beside InpDebugLog in the pre-run assertion.
+- **D12 — expected-band incoherence and the join's unfiled prerequisite (P038).** "13 S5 evaluations" is inconsistent with its own derivation "single-digit such evaluations per day … ~10-11 trading days" (→ ~10–99). Separately, "443 SLEXT481 rows / 442 data rows" against 13 gate-reaching evaluations implies SLEXT481 is emitted per `ComputeSlReference` invocation across all sites (L6152 memo path included) — so the **same-bar `site=S5` subset** is the real prerequisite of the mandatory join that replaced hunk D (P046), and neither its count nor the SLEXT481 print's gating conditions are filed. If a C-reaching evaluation lacks a same-bar S5 row, the mandatory join halts as an *instrument gap*, wasting the run.
+- **D13 — asymmetric pre-proof for the mandatory A1/A3 records-at-C (P042, pre-run evidence block).** A2 was upgraded with post-gate SIDE1E/SIDE1X rows; A1/A3 ship only **pre-gate** SLEXT481 BASE/CUR rows. Their C-reach is sound by inference (TP_ELECT ⇒ livePass=1 ⇒ L9670 passed ⇒ C reached), but the inference is nowhere stated and the post-gate rows must exist in-archive. Pull them — zero-cost STAGE-0, closes Sol-S12 symmetry properly.
+- **D14 — micro-check sink ≠ run sink (P038).** The ceiling probe is script-type (terminal journal); the probe emits through the strategy-tester log, whose own maximum observed line in-archive is **537** chars (JOURNAL CEILING NOTE) against a ~1046-char NORMAL. Either file the documented tester-log line limit or assert sink equivalence by name; "script log readback" alone does not cover the sink that matters.
+
+---
+
+## Ask A — defects, gaps, imprecisions (freetext)
+
+Everything above (D1–D14) is an Ask-A item; the additional ones follow.
+
+**A-i. The ext1-tuple publication guard is quoted without its condition.**
+The page quotes **EA L5496–L5497** at eight-space indentation — i.e. inside at least one nested block within `ComputeSlReference` (EA L5291) — but never quotes the enclosing guard. The entire ext1 payload (`pxExt1, ext1Defined, ext1Imb, ext1Slot, ext1BarTime`) depends on it, and P007/P032/P038 carry the publication obligation as a STAGE-1 *promise* rather than a page fact. This is the one remaining place where the packet's central data path is unfalsifiable from the page. Pasting roughly L5480–L5500 with the guard would either close the obligation on the page or convert the SLEXT481 join from mandatory-or-halt into corroboration.
+
+**A-ii. Two of the 38 payload slots are zero-information by construction.**
+`entryPx` is `currentPrice` printed twice from the *same token* `probe_tokPx` — P034/Sol-S11 already concede the check "is FREE and proves nothing." `rawNumExt1` is `tpDist` unchanged (P034: "tpDist unchanged"), so it is byte-identical to `rawNumLive` on every row, defined or undefined. The headroom argument that dropped `probe_bSaved` from NORMAL (Opus-F-11/B-5) applies with more force to these two, and they are the two fields whose removal would fund the ledger fix in D2. Flagged as design waste, not as a correctness defect.
+
+**A-iii. No graded operand-mapping identity.**
+P042 grades `actualGate` against `currentPrice/slLive/tpPx/gateConst` and `rExt1` against its own printed operands, but never asserts the bridges `rawDenLive == MathAbs(currentPrice − slLive)`, `rawNumLive == MathAbs(tpPx − currentPrice)`, `rawDenExt1 == MathAbs(currentPrice − pxExt1)` as bit-equal reconstructions. A crossed raw-pair wiring is *mostly* detectable through the two existing checks, but only indirectly and not diagnosably. Three free offline lines.
+
+**A-iv. `extDistPts` negative zero is unhandled.**
+P036 sets sign semantics (positive = protective, 0 = rounded at-entry, negative = non-protective) and the formatter `DoubleToString(m,0)`. A sub-point non-protective displacement gives `MathRound(x) = -0.0`, and `DoubleToString(-0.0, 0)` can emit `-0`. P034 admits negative zero only for the binary64 *price/ratio* class ("negative zero accepted as binary64 round-trip"); the integer class must "byte-equal canonical decimal syntax within their domains," where `-0` is at best undefined. Name the token (`-0` accepted and read as 0, or normalise before serialisation).
+
+**A-v. `ext1Slot = -1` on a defined row has no encoding.**
+P028/P036 assign `-999` to *absent* ext1 integer IDs and P036 says `ext1Slot` prints the producer slot `g_sl41_slot`. A defined row whose producer slot is `-1` (never assigned) would print `-1` under a grammar that documents only `-999`/valid-slot. Minor; state that `ext1Slot` prints the raw producer int on defined rows and that `-1` is a halt-with-operands case.
+
+**A-vi. `s0imb/s1imb` domain silence is load-bearing twice.** It drives D2's width bucket *and* P028's honesty note ("absent slot, unread imbalance, and genuine -1 are not distinguished"). One assertion fixes both.
+
+**A-vii. Single-fault run voiding.** Under latch-and-continue with no re-emit path (P042), a first-evaluation `probe_bSaved=false` voids all ~3200 downstream probe records for one fault, and fresh authorization is required. Given that B's dominance is page-provable over L9626–L9666 this is near-impossible, so the exposure is accepted-and-cheap — but it is an exposure, and the packet nowhere says so.
+
+**A-viii. Leg-(b) "CONFIRMED" is display-precision.** P020/P025 confirm A1/A3 leg-(b) from archive `ladOriginPx` at five decimals against five-decimal table entries. Self-consistent and fine, but the word CONFIRMED sits one sentence away from P028's bit-equality language; label it *confirmed at archive display precision*.
+
+**A-ix. What I recomputed and found clean** (so it is not re-litigated): all seven table Rs from P019–P025 operands (144/42=3.43, 108/78=1.38, 297/171=1.74, 180/37=4.86, 54/23=2.35, 133/53=2.51, 99/146=0.68); the exact flip interval (0.678082…, 1.384615…] with 1.0 interior; **all seven P042 propagated bands** at ±1 pt per distance (3.33–3.54 / 1.35–1.42 / 1.72–1.75 / 4.71–5.03 / 2.21–2.50 / 2.44–2.58 / 0.67–0.69 — A3's upper 0.69 < 1.0 and A1's lower 1.35 > 1.0, so both wouldGate predictions are band-robust); the A2 necessity demonstration (248/34 = 7.294 vs printed 7.30; 248/24 = 10.333 vs printed 10.35); envelope = 83 exactly; payload = 38 with emitSeq at 34 and ladOriginStamp at 38; the eight slot-absence causes in P011 against EA L9632/L9635/L9636/L9637/L9642/L9649/L9655/L9658/L9659 and L1188 (complete over the pasted block); `ladOriginStamp == barTime` page-provable from L8776 + L11210 with barShift=1; `ladOriginPx` and `currentPrice` as the same `iOpen(barShift-1)` expression via L8772 and L8751/L8753; zero `slRef` writes in L9666–L9670; P009's five-line region matching L9661–L9665; and the P007 FLAG's structural claim against L9637.
+
+---
+
+## Ask B — better mechanisms, with the lines they touch
+
+**B1. Replace the order-of-magnitude band with an exact cross-check (no code).**
+With `InpDebugLog=true`, the recorder at **EA L9683/L9726** prints one `SIDE1E_STOPSHADOW` row per C-reach, and C sits unconditionally after **EA L9670** — so `NORMAL count ≡ SIDE1E_STOPSHADOW count` in the same run, exactly, and the archive's SIDE1E count is a mechanically countable pre-build prediction. This converts P038's "about a dozen / 10x surprise is reported" and P042's "expected band" from a finding into a mandatory equality, and it retires D12's incoherence at zero cost. *Touches:* P038 expected-band sentence, P042 count invariants. No code.
+
+**B2. Spend the two dead payload slots on the open question (2 lines at A, 2 at B).**
+Drop `entryPx` (identical token to `currentPrice`) and `rawNumExt1` (identical to `rawNumLive` by construction) — 36 — and add `s1xRungs`, `s1xExtN` — back to 38, with the width budget *shrinking*. Carries: at **A (pre-L9618)** `int probe_rungs = -2147483647; int probe_extN = -2147483647;`; at **B (post-L9665, pre-L9666)** `probe_rungs = s1x_rungs; probe_extN = s1x_extN;` (sources declared **EA L9631**, mutated **L9639/L9643/L9657**). This settles, per row and with no new risk class, the two questions the packet currently carries as OPEN or deferred: the "potentially many rungs depth" characterisation (P011, P028) and the ext1-slot-vs-selector-index namespace question (P028's downgrade-to-slot-value-equality fallback, P046's omitted "rungs/extN namespace saves"). Consequential edits: P036's `extSideOk`/`extDistPts` definitions re-anchor to `currentPrice` (already stated as equal), and P036's "with ext1 undefined the shadow raw pair equals the live raw pair" becomes "the shadow denominator equals the live denominator."
+
+**B3. Close the publication obligation on the page instead of in STAGE-1 (paste, no code).**
+Paste **EA L5480–L5500** including the guard enclosing L5496–L5497. If that guard is unconditional on the resolve path, the ext1-tuple hazard that motivated hunk D collapses on the page: the origin quadruple (L8773–L8776) already proves the L8779 call executed this bar via `ladOriginStamp == barTime`, and an unconditional publication inside the call closes the rest. The mandatory SLEXT481 join then downgrades to corroboration, which also removes D12's "join can halt as an instrument gap" exposure. Strictly cheaper than hunk D (P046) and strictly stronger than the current promise.
+
+**B4. Make the transport test dominate the ledger rather than depend on it.**
+Rather than sizing the micro-check line from a ledger that has now been wrong twice (1039 → 1024 → ~1046), build the synthetic line at a fixed **1200** chars and prove byte-identical readback in the **tester** sink. Then the derived figure becomes informational and the ledger arithmetic stops being a run-risk. If the sink cannot be exercised without a second run (D14), the cheaper substitute is renaming the three longest keys — `wouldAdopt_monotone` (19), `sessionUseAtSite` (16), `ladOriginBarTime` (16) — which buys ~20 chars at zero semantic cost, since SCHEMA publishes names anyway. *Touches:* P038 micro-check clause; P034 key list if renaming.
+
+**B5. Bounded rather than latched BSAVE_FAIL (optional, considered).**
+Emitting up to 5 BSAVE_FAIL records before latching would keep a single transient instrument fault from voiding ~3200 records (A-vii) while still bounding output. Cost: P042's "terminal cardinality zero-or-one" and the `normals + BSAVE = highest reserved emitSeq` invariant both need restating. Given that B's dominance is page-provable, I would **not** take this trade this round — recording it so it is not rediscovered.
+
+**B6. Three free offline identities** (A-iii) added to P042's mandatory self-consistency set: `rawDenLive == MathAbs(currentPrice − slLive)`, `rawNumLive == MathAbs(tpPx − currentPrice)`, `rawDenExt1 == MathAbs(currentPrice − pxExt1)`, each as bit-equal reconstruction. No code, no fields, strictly more diagnosable than the present indirect coverage.
+
+**Scope note, per the standing envelope:** nothing above clears the section-1 rule or live activation, and none of it authorizes a build or a run. On the page as amended by D1–D5 (D6–D14 folded as text), the section-3 instrumentation is sound and the probe is the minimal instrument for the stated question — selector → slRef → R-gate → shadow. The P007 FLAG (non-protective ext1 adoption, EA L9637) remains the live relay's opening line, unaddressed here by design.
+
+## Opus answer - 2026-09-18 - answers v179 relay (packet v16) (AMEND-WITH-DELTA, 8 blocking A-1-A-8 + A-9-A-17 non-blocking + B-1-B-8; page-only; received in two transports: part 1 truncated mid-B-1, part 2 complete after nudge; filed as entry OPUS-V179-001)
+
+## Verdict (part 1, as received - truncated)
+
+**AMEND-WITH-DELTA** — do not build v16 as written. Eight blocking deltas, all text-only; **none touches insertion A, B, or C code**, so re-clearance should be one cheap round.
+
+Primary blocker: **P007 / P032 / P038 / P046 mis-map the L5442 brace structure, and the packet's own pasted evidence (EA L5443, L5484, L5487-L5488, L5494-L5497, L5498) refutes the claim.** Secondary blockers are two ledger errors (P036/P038), two acceptance-evidence gaps that would burn the single authorized run (P038 COUNTS, P042), and three domain/sentinel gaps (P034/P036/P038, EA L1110).
+
+---
+
+## Ask A — defects, gaps, imprecisions
+
+### BLOCKING
+
+**A-1 — The L5442 guard block closes at L5484, not L5498; the publish site is *outside* it.**
+Cited at P007 ("publication executes under the L5442 guard … block closed at L5498 … interior L5444-L5493 is unrelated ORIGINCAND diagnostic emission"), repeated at P032, P038, P046.
+
+Three independent page proofs that this is wrong:
+
+| Evidence | Reading |
+|---|---|
+| Indentation grammar of this file (`if` at N, `{` at N+2, body at N+3 — cf. L9607/L9608/L9609 and L5442/L5443/L5444) | L5443 `{` at col 10 is closed by **L5484 `}` at col 10** |
+| L5494-L5497 sit at **col 8**, the same level as the `if` at L5442; L5498 `}` at **col 7** closes a *shallower, unnamed* enclosing block | publication is outside the guard |
+| **Decisive:** L5487 and L5488 are ternaries `(sl41_halt == "-") ? … : "-"` | those tests are dead code if L5485-L5493 were inside `if(sl41_halt == "-")`. They are not dead ⇒ the SLEXT481 assembly and the L5496-97 publication execute regardless of halt state |
+
+Consequences for the packet's dependency chain:
+- "STAGE-1 proves the guard passes on the S5 path" (P007, P032, P038) proves the wrong thing. The correct obligation is: **control reaches L5494-L5497 on the S5 path — i.e. no earlier `return` inside `ComputeSlReference` between L5291 and L5494 on that path.** That is a different proof and must be named as such.
+- "interior L5444-L5493 is unrelated ORIGINCAND diagnostic emission" is wrong on L5485-L5493, which is the SLEXT481 line assembly, not ORIGINCAND (ORIGINCAND is L5444-L5484).
+- Net effect on risk is *favourable* (publication is unconditional, not guard-conditional), but a packet that demands byte-exact structural claims cannot carry a structural claim its own paste falsifies. Delta required at P007, P032, P038, P046.
+
+**A-2 — The halt-state join case is unspecified (follows directly from A-1).**
+Because L5485-L5495 runs outside the guard, a same-bar `site=S5` SLEXT481 row can print `ladOriginPx=-` and `ladOriginBarTime=-` (EA L5487/L5488) **while L5496-97 still publishes**. The corroboration join (P028, P032, P038, P046) has no rule for a legacy row whose price/bartime fields are `'-'`: printed-precision equality against a lossless probe value is undefined there. Also unresolved: what `sl41_def` / `sl41_px` hold when `sl41_halt != "-"`, i.e. whether the published tuple is meaningful in that state. Delta: name the halt-state row an explicit join-halt, and extend the publication obligation wording ("including the undefined state when applicable", P007/P032) to cover the halt state.
+
+**A-3 — P038 ledger: `extDistPts<=6` is one char shorter than its own INVALID token.**
+P036 authorises `extDistPts` to print `INVALID` (7 chars) when the rounded double fails the `|x| <= 99999` range test. The ledger files max 6 (`-99999`). Two failures follow:
+- the worst-case NORMAL is **1024**, not 1023 (the v15→v16 "1024 → 1023" correction reintroduces the very figure it retired);
+- worse, P038's rule "a print wider than its filed maximum halts grading with operands as ungraded shape" would **misfire on a legitimate INVALID print**, converting a designed diagnostic into a shape halt.
+`extDistPts` is the only field with this collision — I checked every field that can carry `INVALID` against its filed maximum; all others are the 24-char binary64 class. Delta: `extDistPts<=7`, total 1024.
+
+**A-4 — The ceiling ledger excludes the poison values it exists to expose (P032 vs P038).**
+P032 declares int poison `-2147483647` (11 chars) for `probe_s0slot/s1slot/s0imb/s1imb` and retains it as a falsifier for "incomplete/crossed B assignments" — a case in which `probe_bSaved=true` and a **NORMAL record is emitted carrying poison**. The filed maxima are 4/4/2/2. Worst case: +7+7+9+9 = **1055 chars**, over both the filed ceiling and the micro-check line P038 says is "built from the filed maxima ledger and governs transport". Severity is bounded (a truncated line fails the 38-key arity check and halts rather than being silently accepted), but the falsifier can be mangled precisely when it fires. Double poison (`-1e308` → 24 chars) and `probe_sel=99` (2) are inside budget; only the four int carries overflow. Delta: file a poison-inclusive worst case and size the micro-check line to it.
+
+**A-5 — The 13th expected record is unaccounted (P038 COUNTS, P042).**
+The page predicts `SIDE1E_STOPSHADOW = 13` and same-bar `site=S5 SLEXT481 = 13`, and P042 makes the enumerated rows mandatory. The page names only **12** distinct C-reaching bars: 7 fire TP_ELECT (P019-P025) + 4 non-fire TP_ELECT (08-27 17:00, 08-27 18:50, 08-31 15:05, 09-04 09:25) + A2 09-04 10:35 (SIDE1E, no TP_ELECT). 16:55 is explicitly *excluded* ("zero post-gate rows in-archive"). One S5 evaluation reaching C is therefore unnamed, and will surface as an unexplained NORMAL record against a mandatory enumeration. This is a free STAGE-0 pull; it should not be discovered post-run.
+
+**A-6 — The 16:55 mandatory line is both undated and unevidenced (P013, P042, SEED-1655 evidence line).**
+P042 lists "the 16:55 seed presence-and-decline" as MANDATORY (never struck), and P038 forbids adding strikes after the build. But (a) the page never gives the **date** of the 16:55 seed bar — unlike "dated 2026.08.27 17:00", which is pinned and evidenced; and (b) the only filed evidence is *negative* ("zero post-gate rows in-archive"). No SLEXT481 `site=S5` 16:55 row and no SESSION_LIMIT row is quoted anywhere on the page, although P042 leans on "the SESSION_LIMIT row itself". Every other mandatory row (A1, A2, A3, dated 17:00) has its archive row pulled inline. Risk: the one authorized run ends in a mandatory-line halt on evidence that costs nothing to pull now. Delta: pin the date and quote the row at STAGE-0, or demote to FINDING before the build.
+
+**A-7 — `ext1Imb` domain omits -1 (P028, P036, P038).**
+P038 files `ext1Imb in {-999,0,1,2,3}`. The producer's imbalance is the same flow-read class as `s0imb/s1imb`, whose filed domain is `{-1,0,1,2,3}` with -1 meaning "slot populated, ReadFlow failed" (P011, EA L9649/L9655) — and the v177 delta paragraph itself records "Opus D4 adopted (… ext1Imb=-1 defined-case note)". A defined row with a failed imbalance read therefore prints -1 and halts as out-of-domain on a benign, expected value. Delta: `{-999,-1,0,1,2,3}` (width 4 unchanged; no ledger impact).
+
+**A-8 — `ladOriginSite` default `"-"` collides with the unavailable sentinel (EA L1110 vs P034/P036).**
+`g_sl41_oSite` is initialised to `"-"` (L1110). P034 defines `'-'` as the guard-blocked/unavailable sentinel and classes `ladOriginSite` as a closed-enum text field. With stale or default origin globals (the exact failure mode the quadruple exists to detect) the field prints `-`, which is indistinguishable from a legitimate sentinel and would pass the grammar. Delta: state that `-` in `ladOriginSite` is a default/stale-global halt, not a sentinel, and exclude `-` from the closed enum.
+
+### NON-BLOCKING (text precision)
+
+**A-9 — "raw 0.0" vs canonical token (P036).** P036 says no-candidate prices "print raw 0.0"; P034's field-typed canonical rule makes the wire token `StringFormat("%.17g", 0.0)` = `0`. A parser built to P036's prose rejects the conforming token. Say: the canonical %.17g rendering of positive zero, paired with slot -1.
+
+**A-10 — `ext1Slot` domain not enumerated (P038).** The ledger gives only a width ("slots in 4-char ladder indices") where every other integer field gets a domain; P036 requires -999 on undefined rows and halt on -1 for defined rows. File the domain `{-999} ∪ [0, barShift+SRJ_LAD_ABS_SLOT_CAP]` plus the -1 halt.
+
+**A-11 — BSAVE_FAIL `dir` domain unstated (P034).** P034 fixes `{1,-1}` as the "**NORMAL-row** domain"; the BSAVE_FAIL template also carries `dir=<native-int>`. State that the domain and the halt-on-0 apply to every record type carrying `dir`.
+
+**A-12 — `probe_tmpB` risks the 0/0 warning gate (P032, P038).** Four datetime fields are serialised through two temps; nothing in the stated construction requires two temps live simultaneously. If the implementation uses only `probe_tmpA`, MetaEditor's unused-variable warning trips the zero-warning gate and wastes the build. Either state the two-temp usage explicitly or declare one.
+
+**A-13 — The block enclosing L5442-L5498 is unnamed.** L5498 (col 7) closes something the page never identifies. Whether the SLEXT481 print at L5494-95 is itself under a higher `InpDebugLog` gate is therefore unresolved on the page — material, because the corroboration join depends on those rows existing and the 165-site census must classify them.
+
+**A-14 — The value-maxima delta 526 → 524 is untraceable (P003, v178 delta paragraph).** I independently reconstructed 524 from the itemized ledger and it is correct (384 + 64 + 40 + 6 + 30), but the two-char reduction from v15 is never attributed to a field.
+
+**A-15 — "no newly enabled downstream fire" could be sharpened (P015, P042).** On `liveSel ∈ {0,1}` rows the strict-improvement rule (L9639-L9643) puts ext1 further from price than s0, so R can only fall — no non-fire row can become a fire. The only channels for a *new* fire are (i) `liveSel = -1` rows, where the retained incoming `slRef` may be further than ext1, and (ii) rows where the producer ext1 ≠ selector s1 (the packet already refuses to assume equality). Naming those two channels turns the count-6 prediction into a per-row checkable claim instead of an open conditional.
+
+**A-16 — P007's producer invariant cites L2798 / L2806 / L2818, which are not pasted.** Correctly labelled a disk item and it bears on the *future* rule only, not the probe — but it is the one load-bearing invariant on the page with no inline support.
+
+**A-17 — The 165-site purity census is scoped wider than this run's acceptance requires.** See Ask B-2.
+
+### Verified sound (independently recomputed from the page)
+
+- **Field count and positions:** mechanical comma-split of P034 yields exactly 38, `emitSeq` at 34, `ladOriginStamp` at 38. ✔
+- **Ledger components:** keys sum to exactly **340**; key structure 340+38+37+1 = **416**; envelope string counts to exactly **83**; 16 binary64 fields × 24, 4 datetimes × 16, 15 integer fields = 40 (2+2+1+4+1+4+4+2+4+2+1+6+1+1+5), strings 36. Arithmetic is correct as filed — subject only to A-3 and A-4. ✔
+- **R table:** all seven exact quotients reproduce (144/42, 108/78, 297/171, 180/37, 54/23, 133/53, 99/146); the interval (0.678082…, 1.384615…] is correct and 1.0 is interior; all seven P042 propagated bands reproduce under the ±0.5pt-per-end method. ✔
+- **A→B→C dominance:** page-provable from the L9607-L9779 paste — L9626 opens unconditionally, B sits after the L9661-L9665 chain and before L9666, every `break`/`continue` targets the L9632 loop, no return in the range, A-site and C-site at the same 8-column statement level with only the unconditional L9626 block between. ✔
+- **Carry identities:** `sel=0 ⇒ slLive==s0px` / `sel=1 ⇒ slLive==s1px` match L9664/L9665 exactly; `rawDenLive == MathAbs(currentPrice-slLive)` and `rawNumLive == MathAbs(tpPx-currentPrice)` match L9668/L9669 with no intervening write to `slRef` (L9666 is a close brace). ✔
+- **Latch/cap arithmetic:** with increment-then-take, `probe_seq >= PROBE_CAP` makes the 20001st reaching evaluation the CAP evaluation; CAP-before-SCHEMA is structurally impossible; BSAVE_FAIL is the only pre-SCHEMA terminal. ✔
+- **Origin checks:** `ladOriginStamp == barTime` holds by L8776 vs L11210/L6607 with barShift=1; `ladOriginPx == currentPrice` holds by identical `iOpen(barShift-1)` at L8772 vs L8751. ✔
+- **FLAG:** the claim that L9637 makes every s0/s1-arm stop protective-by-construction is correct on the paste, and so is the statement that the future rule removes that invariant. ✔
+
+---
+
+## Ask B — better mechanisms
+
+**B-1 (strongest; zero code, zero extra run) — Use the same-evaluation SIDE1E/SIDE1X rows as an *external* falsifier for the A/B carries.**
+Every P034(c)/P034(b) identity currently compares probe fields to probe fields — self-consistent by construction, blind to a *systematically* mis-wired B (e.g. B
+
+[TRANSPORT TRUNCATED HERE per operator note - completion arrived after nudge, filed below as part 2]
+
+## Verdict (part 2, completion after nudge - whole)
+
+**B-1 (strongest; zero code, zero extra run) — Use the same-evaluation SIDE1E/SIDE1X rows as an *external* falsifier for the A/B carries.**
+
+Every identity in P034(b)/(c) compares probe fields to probe fields. Those are self-consistent by construction and therefore blind to a *systematically* mis-wired B — e.g. B reading the s0 tuple into both slots, or `probe_slLive = slRef` captured at the wrong point. The witness catches omission and the crossed-assignment identities catch a swap between the two saved tuples, but neither catches a save that is internally coherent and externally wrong.
+
+The page already contains an independent recomputation of exactly those quantities. The recorder at L9683-L9779 re-walks the same buffers with `s1e_` locals (L9690-L9718 mirrors L9632-L9660 statement for statement) and prints, on the same evaluation:
+
+| SIDE1E/SIDE1X field (line) | Probe counterpart | Comparison strength |
+|---|---|---|
+| `s0px`/`s1px` (L9729/L9730) | `probe_s0px`/`probe_s1px` | five-decimal printed precision |
+| `s0slot`/`s1slot`/`s0imb`/`s1imb` (L9729/L9730) | saved int carries | **exact integer equality** |
+| `sel` (L9723-L9725, L9731) | `probe_sel` | **exact** |
+| `liveSl` (L9732) / `liveStop` (L9744) | `probe_slLive` | five-decimal |
+| `livePass` (L9732/L9748) | `actualGate` | **exact Boolean — `tpOk` itself** |
+| `liveR` (L9747) | `rLive` | same guarded quotient idiom, 2dp |
+
+Note the selector predicates at L9724-L9725 are byte-identical to L9662-L9663, so `sel` equality is a real test of the packet's code model, not a tautology. And `livePass` is literally the `tpOk` the probe reports as `actualGate`, giving an exact external check on the one Boolean P042 makes mandatory — currently validated only by self-recompute.
+
+Cost: nothing. The rows already print in every authorized run (L9683 gate is asserted true), they are already in the archive for pre-build prediction, and P038's positional rule already orders STOPRESOLVE before SIDE1E on the bar. This converts P038's "about a dozen / 10x surprise is reported" and P042's "expected band" from a finding into a mandatory equality, and it retires D12's incoherence at zero cost. *Touches:* P038 expected-band sentence, P042 count invariants. No code.
+
+**B-2 — Rest the debug-input claim on archive equivalence plus the P042 comparison, and narrow the 165-site census.**
+
+P007/P032/P038 gate the build on classifying all 165 `InpDebugLog` sites as strategy-pure, with any misclassification a halt. That census is the most expensive and most error-prone item in STAGE-1, and it is largely redundant: the FRESHVETO-V1 archive was *itself* produced with the effective setting true (proven on the page by the in-gate SIDE-class rows), and P042 already requires row-for-row agreement with that archive under the comparison contract. If `InpDebugLog=true` perturbed strategy behaviour, the baseline would already embody the perturbation and the comparison would still be sound.
+
+Better allocation: keep a full census only for the two gates that sit on the C-reaching path (L8770 and L9683, both fully pasted and both already page-proven pure), plus a mechanical scan for the one pattern that actually breaks the argument — an early `return` or strategy-state write under a debug gate. P038's "any early-return diagnostic halts the build" already names that pattern; make the scan the obligation and drop per-site prose classification of the remaining 163. This lowers halt risk without weakening any claim the page relies on.
+
+Lines: P007, P032, P038; EA L8770-L8777, L9683.
+
+**B-3 — Derive `extDistPts` and `extSideOk` offline instead of printing them.**
+
+Both are exactly reconstructible from fields already printed lossless (`currentPrice`, `pxExt1`, `dir`) plus `_Point`, which P038 files in the build record. Deleting them removes, in one stroke: `MathRound` from the helper allow-list, the `DoubleToString(m,0)` special-case canonical rule, the `|x| <= 99999` range test, the 32-bit domain clause, the INVALID-token collision in A-3, and the sub-point boundary prose in P036. Degenerate-case visibility — the reason the FLAG cites them — is fully preserved, since the derivation is exact rather than rounded.
+
+Cost is real and the packet may refuse it: fields go 38 → 36, which moves `emitSeq` and `ladOriginStamp` off their frozen positions and re-opens the ledger the v178 round just settled. Given that, the cheap path is A-3 (`extDistPts<=7`, ceiling 1024) and this stays a council-mandate option. Flagging it because the field is the single largest source of grammar special-casing on the page, and it buys nothing that arithmetic on printed operands does not.
+
+Lines: P034 field list, P036, P038 ledger. No EA lines.
+
+**B-4 — Make poison detection an offline NORMAL-row rule.**
+
+A-4's exposure is that a coherent-but-incomplete B yields `probe_bSaved=true` and a NORMAL record carrying `-2147483647` or `-1e308`, at a width the filed ledger does not cover. Widening the ledger is necessary for transport, but the cleaner falsifier is an offline assertion: **no NORMAL row may carry any poison token in any field** — `-2147483647` in the four int carries, the canonical `%.17g` rendering of `-1e308` in the two price carries, `99` in `liveSel`. Any hit halts as incomplete-or-crossed B.
+
+This converts the poison values from a passive hope into an actively graded check, costs nothing at build time, and complements the witness (omission) and the P034(b) identities (crossing) by covering the third case, partial assignment. Pair it with sizing the micro-check line to the poison-inclusive worst case so the falsifier survives transport when it fires.
+
+Lines: P034(b), P038 (line-ceiling assertion and diff-shape), P042 (mandatory checks).
+
+**B-5 — Freeze the mandatory row set as the enumerated 13, not as "7 TP_ELECT plus named exceptions."**
+
+Right now the count identity (`SIDE1E = 13`, P038) and the mandatory list (7 fire rows + A1 + A2 + A3 + 16:55 + dated 17:00, P042) are two different objects assembled by different rules, which is how A-5's thirteenth bar and A-6's undated 16:55 both slipped through. Pull all 13 SIDE1E bars inline at STAGE-0 — a free read on an archive already being grepped — and make that list *the* mandatory enumeration, with each row labelled fire / non-fire / vetoed / seed. The count cross-check then becomes a restatement of the list rather than an independent prediction that can disagree with it.
+
+Lines: P038 COUNTS, P042 MANDATORY findings.
+
+**B-6 — Let the arity check carry the transport proof; demote the ceiling figure to an estimate.**
+
+The ledger has now been 1039 → 1024 → 1023 → (per A-3/A-4) 1024/1055 across three versions, consuming a large share of three review rounds. Meanwhile the actual transport falsifier is already mandatory and exact: P034 requires exactly 38 payload keys in order plus the envelope keys, so a truncated line fails arity and halts. A silently-truncated line that still parses as 38 well-formed key=value pairs is not constructible.
+
+So: keep the micro-check (it is cheap, script-type, and proves the sink accepts a long line), keep byte-identity readback, but state plainly that the numeric ceiling is a sizing estimate and that **arity failure is the graded transport falsifier** — classed as transport halt, not a grading miss. That ends the ledger's role as a clearance blocker while losing no protection. A-3 and A-4 still need fixing, because P038 currently makes the filed per-field maxima themselves a halt trigger (A-3 misfires on a legitimate INVALID print); with this change they become bookkeeping rather than blockers.
+
+Lines: P038 line-ceiling assertion, P042.
+
+**B-7 — For the live relay (out of this envelope, named now): route the ext1 candidate through `SlimbProtectiveSideOk` rather than a new side test.**
+
+The FLAG at P007 is correct and is the most consequential item on the page: L9637 is what makes every stop the s0/s1 arms can select protective-by-construction, and the future rule as drafted adopts `slExt1` without it. The packet defers the validity-guard choice and meanwhile carries a *probe-local* side definition in `wouldAdopt_monotone` (P036), explicitly labelled as not the live predicate, with tie handling, `_Point` tolerance and `DIR_NONE` behaviour left unknown.
+
+The minimal live form preserves the invariant by reusing the live predicate instead of approximating it:
+
+```
+(ext1Defined && finite slExt1 && SlimbProtectiveSideOk(g_dir, slExt1, currentPrice))
+  ? slExt1
+  : /* existing L9661-L9665 selector, unchanged in effect */
+```
+
+Three properties worth naming: it restores exactly the invariant L9637 enforces, with identical tie and tolerance semantics, so the deferred helper-equivalence question is resolved by construction rather than by proof; it needs no new helper and no new call surface; and the ext1-adopt arm's fallback is already the frozen disposition at P007, so a non-protective ext1 takes the existing selector rather than refusing.
+
+It also requires no change to this probe and no extra run: `extSideOk` is defined as the strict side comparison against `entryPx == currentPrice`, so the probe's printed `extSideOk`, `pxExt1`, `currentPrice` and `dir` already predict per-row which bars the guard would divert — the sub-point boundary rows (`extSideOk=1` with `extDistPts=0`) being precisely where this form and the drafted form could differ, and precisely what P036's lossless prints make decidable.
+
+Lines: EA L9637 (helper, unchanged), L9661-L9665 (replaced region); packet P007 FLAG, P009 replacement semantics, P046.
+
+**B-8 — A-1 makes the publication proof cheaper, not harder.**
+
+Once the brace mapping is corrected, the obligation at P007/P032/P038 stops being "prove the L5442 guard passes on the S5 path" — a state-dependent claim about `sl41_halt` — and becomes "prove control reaches L5494-L5497 on the S5 path," i.e. no earlier `return` inside `ComputeSlReference` between L5291 and L5494 on that path. The L5487/L5488 ternaries already establish unconditional reach *given* no early return, so the residual proof is a single return-census over one function, in the same class as the censuses STAGE-1 already performs. v17 can delete the guard-state proof rather than repair it.
+
+Lines: P007, P032, P038, P046; EA L5291-L5498.
+
+---
+
+## What a clear needs
+
+Text-only deltas, no change to insertion A, B or C:
+
+1. **A-1/A-2, B-8** — correct the L5442/L5484/L5498 mapping, restate the publication obligation as unconditional-reach, define the halt-state join case. *(P007, P032, P038, P046)*
+2. **A-3/A-4, B-4, B-6** — `extDistPts<=7`, ceiling 1024, poison-inclusive micro-check line, offline poison rule, arity-as-transport-falsifier. *(P034, P036, P038, P042)*
+3. **A-5/A-6, B-5** — enumerate the 13 SIDE1E bars at STAGE-0; pin and evidence the 16:55 date or demote it to FINDING before the build. *(P038, P042)*
+4. **A-7/A-8, A-10/A-11** — `ext1Imb` domain `{-999,-1,0,1,2,3}`; `ladOriginSite="-"` is a stale-global halt, not a sentinel; `ext1Slot` domain; `dir` domain applies to all record types. *(P034, P036, P038)*
+5. **A-9/A-12** — canonical zero wording; resolve `probe_tmpB` against the zero-warning gate. *(P032, P036, P038)*
+
+B-1 I would take in the same round — it is free, and it is the only external check on the carries the page can obtain without a second run. B-2, B-3, B-7 are council calls; B-7 belongs in the live-activation relay's opening line alongside the FLAG.
+
+One standing note on scope: everything above rules on the page only. The digests, censuses, counts, and the L8777/L9779 closes are disk items, unverifiable from here, and I have treated them as filed rather than proven. 
+## Opus answer - 2026-09-18 - answers v180 relay (packet v17) (AMEND-WITH-DELTA, D-1-D-3 blocking + N-1-N-9 + B-1-B-5; page-only; filed as entry OPUS-V180-001)
+
+## Verdict: **amend-with-delta** — not clear
+
+Three page-level items should be fixed before the one build/run is consumed. The probe as described is genuinely print-only in its own hunks, and the arithmetic checks out, so nothing here rises to halt.
+
+### Blocking deltas
+
+**D-1 — Insertion C is not on the page (P032, P034).** Insertions A and B ride as literal statement lists (ten initialized declarations; nine assignments). C does not: it rides as a six-step prose specification (terminal check → reserve → bSaved → SCHEMA → shadow → assemble/Print) plus four wire templates. The clearance asks me to clear "the section-3 probe instrumentation," but roughly two-thirds of it has no code text to rule on. Either paste C verbatim, or relabel the clearance honestly: *A and B cleared as text; C cleared as specification only, with the STAGE-1 exact-diff gate as the sole text check.*
+
+**D-2 — "Print-only" is measured against an already-rewired build (P030 vs EA L9626-L9666).** P030 defines print-only as "no live selector/gate substitution," but the landed block at **L9664-L9665** writes `slRef` unconditionally — not under `InpDebugLog` — and that value feeds `slDist` at **L9668** and `tpOk` at **L9670**. The probe adds no substitution, correct; but the run's output is produced by a selector that is already substituting. The page should read "no *new* substitution; the S1-LIVE-STOPFIX-001 rewire is already live in 6C2E4028."
+
+**D-3 — Walk termination is unobservable, and it will cost you the run (EA L9635, L9693).** `if(!ReadFlow(...)) break;` ends the walk on a failed read, and the resulting record is byte-identical to a genuine absence: `slot=-1`, `px=0.0`. P032 files that state as "by design," and the undefined-row census (relay L302) rests on the same indistinguishability. One field — `walkEnd ∈ {read_fail, rung_cap, both_found, slot_cap}` — separates instrument failure from real absence. Free a slot for it by dropping the duplicated `entryPx`/`currentPrice` pair (see N-4).
+
+### Ask A — remaining defects and imprecisions
+
+**N-1 — The shadow is self-confirming (L9685-L9718 vs L9627-L9660; L9723-L9725 vs L9661-L9663).** The shadow walk and `sel` derivation are verbatim copies of the live selector. They therefore cannot falsify it — a shared bug reproduces in both. P034(d) calls the SIDE1E/SIDE1X rows an "external falsifier"; that is true only for `liveSl`/`livePass`, which come from live storage. For `sel`, `s0*`, `s1*` it is not external. Downgrade the wording, or join against SLEXT481 (L5485-L5493), which *is* a separate producer.
+
+**N-2 — Producer equality is assumed, not proven.** P009 selects the "candidate-local ext1" from the `g_sl41_*` publication (resolver path, `SrjSecondSwing` at L5459-L5461), while the predicted-R table and the shadow both come from the L9632 walk. Nothing on the page shows the two implementations share side filtering, imbalance read, or rung numbering. They agree on the three rows pasted (L298/L301, L309/L311, L314) — that is empirical agreement on three bars, not structural identity.
+
+**N-3 — The dominance interval is load-bearing and not pasted (relay L11).** L8779-L9606 is explicitly a disk item, yet the invariants that carry the packet live inside it: single `currentPrice` write (L405), loop census (L406), no-return-bypass, no subsequent `g_sl41_*` writer before C (P032). The page repeatedly says "STAGE-1 asserts … else halt," which reads as proof but is a promise. State plainly that A→B→C domination is unprovable from this page.
+
+**N-4 — Two fields, one value (P034).** `entryPx` and `currentPrice` both serialize `probe_tokPx`. The page admits this proves serialization only. That is 1/19th of the payload spent on a tautology.
+
+**N-5 — Sentinel collision at L9721-L9722.** `r0`/`r1` return `0.0` for both "no candidate" and a real zero ratio. Don't mirror that idiom in `rExt1`; P036's `'-'`/`-999` scheme is the right one.
+
+**N-6 — Purity wording (P034 "no iTime call at C", "no DirName call at C").** Correct for the probe hunks, but `iTime` appears at L9727/L9741/L9770 and `DirName` at L9728/L9742/L9772 in the same block. Scope the phrase to the inserted hunks explicitly.
+
+**N-7 — Cap arithmetic (L9658, L9716, L1188).** `SRJ_LAD_ABS_SLOT_CAP 4000` bounds the scan; the 512-*valid-rung* cap is tighter only when valid rungs are dense. When `s1` never resolves, each evaluation scans up to 4001 slots, twice (live + shadow). Deepest observed slot is 118, so this is a ceiling note, not a finding — but "512 tighter in practice" is asserted, not measured.
+
+**N-8 — Arithmetic: verified, no defect.** 144/42=3.4286, 108/78=1.3846, 297/171=1.7368, 180/37=4.8649, 54/23=2.3478, 133/53=2.5094, 99/146=0.6781. Band (0.6781, 1.3846] with 1.0 interior — correct. Live rows corroborate: 08-28 16:20 → 108/73 = 1.479 → printed 1.48 (L315); 09-08 16:40 → 99/61 = 1.623 → printed 1.62 (L317).
+
+**N-9 — The predicted count of 6 is stronger than P015 claims.** P015 hedges it as "conditional on no newly enabled fires." It is structurally guaranteed: by L9642/L9700, `s1` is strictly more extreme than `s0`, so adopting ext1 can only widen `slDist`, so R is non-increasing on every bar and no non-fire (L318-L321, R = 0.35/0.18/0.34/0.63) can cross 1.0. Assert it with the L9642 citation — *provided* N-2 is closed, since the argument holds for the walk's `s1px`, not automatically for the resolver's `slExt1`.
+
+### Ask B — better mechanisms
+
+**B-1 — One walk, two callers.** Extract L9627-L9660 into `SrjRungPair(dir, barShift, currentPrice, &s0px, &s0slot, &s0imb, &s1px, &s1slot, &s1imb, &deepest)`. Call it at L9626 and at L9685, and ideally from the resolver near L5457-L5461. Deletes ~34 duplicated lines, converts N-1 from identical-by-copy to identical-by-construction, and makes N-2/N-9 a property of a single implementation. *Touches: L9627-L9660, L9685-L9718, L5457-L5461.*
+
+**B-2 — Delete insertions A and B entirely.** A and B exist only because the `s1x_*` locals die at the L9666 close. Hoist those ten declarations above L9626 and keep the block for the writes. That removes: the poison ledger, `probe_bSaved`, the `BSAVE_FAIL` record type, the step-3 pre-branch reference range, and the crossed-assignment identities in P034(b) — roughly half the packet's verification surface, for a two-line scope change. *Touches: L9626-L9666 only.*
+
+**B-3 — Drop the SCHEMA record (P032 step 4).** A `format=2` version key plus `key=value` pairs makes the first NORMAL row self-describing. Removes `probe_schema_done`, the once-only guard, and the key-array/value-array dual-consumption rule.
+
+**B-4 — Drop CAP (P032 step 1).** 20000 against ~3200 measured reaches. The branch cannot fire in this envelope, yet it carries `probe_capped`, `probe_dead`, cap arithmetic, a fourth wire template, and the "CAP without preceding SCHEMA" validity rule. Keep `probe_dead` for the bSaved path only.
+
+**B-5 — Eight fields, not 38.** `barTime, dir, currentPrice, tpTarget, slRef, s0px, s1px, ext1Defined` reconstruct every other payload field offline, including `rLive`, `rExt1`, `wouldGate`, `extDistPts`, and `wouldAdopt_monotone`. The 1024/1056 ceiling ledger, the per-field canonicalization rule, and the LINEWIDTH risk all disappear with it. The ratios are recomputations, not observations — they gain nothing by being computed in-EA.
+
+### Two things I cannot do
+
+I can rule only on the text above. Every digest, census, count, and row (`6C2E4028`, `C172819E`, 443 rows, 165 sites, the FRESHVETO-V1 pulls) is unverified here and remains unverified by any model you send this to — a seat that "confirms" them is confirming your own paste back to you. Second, the page's standing notes foreclose asking for the L8779-L9606 interval, which is exactly where N-3 lives; that is a real limit on what a page-only clearance can mean, and it is worth recording in the packet rather than in each round's verdict.
+## Opus answer - 2026-09-19 - answers v181 relay (packet v18) (AMEND-WITH-DELTA, D-1-D-7 blocking + N-1-N-9 non-blocking PARTIAL - PASTED TEXT TRUNCATED MID-N-9, REMAINDER OWED; page-only; filed as entry OPUS-V181-001)
+
+[BUILDER NOTE: the operator-pasted Opus text below ends mid-sentence in N-9 ("...exists in **v17**". This "). Anything after that point - rest of N-9, any Ask B, closing - was not transported and is OWED. Nothing is folded from the missing tail.]
+
+## Verdict
+
+**amend-with-delta.** Seven blocking deltas (D‑1 … D‑7), all text-only — no code change, no EA line moves required to clear. Cites: P015, P028, P030, P032, P034, P036, P038, P042, plus the relay's "File / function / lines" envelope paragraph.
+
+Nothing I found challenges the probe's print-only character, the latch-and-continue design, the no-footprint invariant, or the A/B siting logic. The blockers are all grading-surface defects: under this packet's own "a miss on any line halts with operands (no tuning, no rerun)" rule (P042), each of D‑1 … D‑4 can void the single authorized run without any fault in the instrument.
+
+---
+
+## Checks that pass (recomputed on the page, so the builder knows what was verified)
+
+- **Key sum 340 is exact.** I summed all 38 key spellings independently: 7+3+7+4+13+7+6+6+11+7+5+5+9+9+15+16+8+11+6+5+6+5+11+16+13+9+10+10+10+10+10+19+10+7+12+4+4+14 = **340**. Note `incomingSlRef` is 13 chars, not 14 — the total still lands on 340.
+- **Key structure 416** = 340 + 38 separators + 37 inter-field spaces + 1 envelope space ✓.
+- **Value maxima 525** = 384 (16 × 24) + 64 (4 × 16) + 41 (15 integers, itemization sums to 41) + 6 + 30 ✓, and the field partition 16+4+15+1+2 = 38 ✓.
+- **Envelope 83** reconstructs exactly for `type=NORMAL` (8+1+11+1+8+1+27+1+13+1+5+6) ✓, so **1024 = 83+416+525** ✓ and **1056 = 1024+32** ✓ (+7/+7/+9/+9 against s0slot 4, s1slot 4, s0imb 2, s1imb 2).
+- **All seven table ratios** by exact subtraction: 144/42=3.4286→3.43; 108/78=1.3846→1.38; 297/171=1.7368→1.74; 180/37=4.8649→4.86; 54/23=2.3478→2.35; 133/53=2.5094→2.51; 99/146=0.6781→0.68 ✓. Exact flip interval (0.678082…, 1.384615…] with 1.0 interior ✓.
+- **Ledger order matches P034 field order** entry-for-entry, 38 entries, emitSeq at 34, ladOriginStamp at 38 ✓.
+- **A2 necessity demonstration is sound**: 248/34 = 7.294 from displays vs archive 7.30, and 248/24 = 10.333 vs archive 10.35 — the display-rounded operands genuinely cannot reproduce the archive's own tokens, which is the necessity case (P038) ✓.
+- **Positional rule is consistent with the pasted code**: C sits post-L9670 and pre-L9671, SIDE1E/SIDE1X/SIDE1Y at L9683+ — so STOPRESOLVE precedes SIDE1E per bar ✓, and SIDE1E presence proves C-reach ✓.
+
+---
+
+## Ask A — blocking deltas
+
+### D‑1 — Band tables are inward-rounded; several stated bounds exclude values the stated method admits (P042; imported by P028)
+
+The method is "±0.5 pt per operand end (distances ±1 pt)". Applied to the filed integer point differences, the true bounds and the tabled bounds disagree in the **narrowing** direction on at least nine boundaries:
+
+2‑dp ext1 band table (P042):
+- 10:00: true min 143/43 = **3.32558**, tabled **3.33** → excludes [3.32558, 3.33)
+- 09‑07 16:40: true min 53/24 = **2.208333**, tabled **2.21** → excludes [2.2083, 2.21)
+- A3: true min 98/147 = **0.666667**, tabled **0.67** → excludes [0.6667, 0.67)
+- 15:55: true max 298/170 = **1.752941**, tabled **1.75** → excludes (1.75, 1.75294]
+
+3‑dp frozen actual-path table (P042), lower bounds ceil-rounded rather than floored:
+- 08‑28 10:00 **3.326** vs 3.325581; 08‑28 16:20 **1.446** vs 1.445946; 08‑31 15:05 **0.330** vs 0.329787; 09‑04 15:55 **1.721** vs 1.720930; 09‑07 09:15 **4.711** vs 4.710526; 09‑08 16:40 **1.581** vs 1.580645; and 08‑27 18:50 upper **0.195** vs 0.195122.
+
+Delta: state every band bound rounded **outward** (floor the lower, ceil the upper) at the stated precision, or grade against exact rationals (see B‑4). As written, a correct run can be graded a miss, and P042 forbids a rerun.
+
+### D‑2 — Two band tables cover the same rows with different bounds, and no precedence rule exists (P028, P042)
+
+P028 delegates leg‑(b) to "band table in P042"; P042 contains **two** tables. For 08‑28 10:00 the operands are identical in both (the row is in the five "live stop already equals s1px" set), yet the tables give **[3.33 .. 3.54]** and **[3.326 .. 3.537]** — different in both directions. For 09‑04 15:55 the uppers are 1.75 and 1.753. Delta: name one table authoritative per grading leg (ext1-shadow leg vs actual-path leg) and say so in P028 and P042, or merge them.
+
+### D‑3 — C's diff-shape census is not a sufficient "sole text check" (P030, P032, P038)
+
+P030/P003 relabel C as specification-only with "the STAGE-1 exact-diff gate as the sole text check", and P038's diff-shape enumerates: 4 statics + 1 automatic const + 2 arrays + probe_line + 6 temps + tmpA/tmpB + tokPx, 38 key assignments, 38 value assignments, two loops, four Prints, no return, no ExpertRemove.
+
+Statements that C provably must contain and that the census does **not** enumerate:
+- envelope assembly / `probe_line` initialization (P034 requires a fixed envelope on every line; no census slot exists for it);
+- the four datetime encodings (`TimeToString` assign + `StringReplace` per field — up to 8 statements, P034 grammar);
+- the ext1Defined pre-arithmetic branch and the fallback copy (P032, "explicit pre-arithmetic branch … else copy slDist/tpDist/rLive/actualGate");
+- sentinel/INVALID substitution logic for every field permitting it (P036 precedence rules);
+- extSideOk / extDistPts computation and the range test (P036);
+- the guarded `if / else-if / else-if / else` chain itself (P032 step 1/3).
+
+So the majority of C's executable surface is unconstrained by the only text check on it. Delta: either extend the P038 census to a complete statement class list for C (counts per class), or keep C as text like A and B. Note the housekeeping consequence: with a spec-only C and an incomplete census, "exact-diff" cannot fail on anything except the enumerated items, which is weaker than the page claims.
+
+### D‑4 — Two datetime temps serve four datetime fields with no stated interleaving, and the line-join/trailing-space rule is unspecified (P032 step 6, P034 grammar, P038 census)
+
+Two issues in the same mechanism:
+
+1. **Temp reuse ordering.** `probe_tmpA`/`probe_tmpB` must carry barTime, ext1BarTime, ladOriginBarTime, ladOriginStamp. That requires strict encode→store interleaving (encode, copy into `probe_vals[i]`, then reuse). Batch-encoding first silently loses two of the four. The 0/0 compile gate cannot catch it; the census cannot either (D‑3).
+2. **Join rule.** P034 freezes "single ASCII space between fields" and "no trailing whitespace before EOL" (Luna‑A5), but P032 step 6 freezes only "a single index loop … pairing keys with values". A loop appending `key=value ` satisfies the frozen loop form and violates the frozen grammar. The violation is invisible until post-run parse, where P042 gives no re-emit path.
+
+Delta: freeze both in P032 step 6 (see B‑3 for a one-line form that makes the trailing space structurally impossible and matches the "+1 envelope space" already in the ledger).
+
+### D‑5 — The frozen construction order in P032 has no position for the key-array and value-array population (P032 steps 1–6 vs P038 construction-order assertion)
+
+P032 says the composite order is "fixed once here so the exact-diff gate checks it" and lists (1) terminal, (2) reserve, (3) bSaved, (4) SCHEMA, (5) shadow temps, (6) NORMAL assembly. P038's construction-order assertion lists a **different** sequence: "terminal checks, reservation, bSaved check, **THEN key array**, THEN SCHEMA-from-keys, THEN shadow computation **plus value array**, THEN NORMAL-from-pairs". The v178 delta register records "Opus‑D9 key-array step (3a) adopted", but no 3a appears in P032. Since SCHEMA consumes the key array at step 4, the keys must be populated before it, and step 6's loop needs them on every record, not just the first. Delta: insert the explicit 3a (keys) and 5b (values) steps into P032's numbered order, or make P038 the single authority and say so.
+
+### D‑6 — The ext1 tuple publication is debug-gated, and "never published" has no dedicated falsifier (P007, P036, P038; EA L5305/L5306–L5498, L5496‑97, L1112)
+
+The page's own brace census places L5496‑L5497 at depth 2 inside `if(InpDebugLog)` (L5305). So InpDebugLog gates **the ext1 tuple itself**, not only the corroboration rows and the origin quadruple. The repeated framing "InpDebugLog gates origin validity only, never probe emission" (P007, and the annotation under EA L8777) understates this by one whole operand family.
+
+The failure mode matters because it is silent-shaped, not halt-shaped: with the tuple unpublished, `g_sl41_def` keeps its L1112 initializer 0, every row prints `ext1Defined=0`, and P036 then classes every row FALLBACK-CLASS — "excluded from ext1 shadow/gate prediction grading and source-change conclusions". The origin quadruple has the `ladOriginStamp == barTime` falsifier; the ext1 tuple has none of comparable strength. Only the three named mandatory records (A1/A2/A3 pxExt1) would catch it, and only by failing for an ambiguous reason.
+
+Delta (text): add an all-undefined halt — the archive proves 442/442 data rows `ext1Defined=1` (UNDEFINED-ROW PROOF line), so a run in which every graded row prints `ext1Defined=0` halts as an instrument/input failure, not as a fallback-class run. Mechanism alternative at B‑1.
+
+### D‑7 — New-fire channel (i) is misattributed to N‑2, so the count‑6 "structural guarantee" is not established (P015, P042, P011; EA L9661–L9665)
+
+P015 says "the new-fire channels are the N‑2-failure consequence: (i) liveSel=-1 rows with retained incoming slRef possibly further than ext1; (ii) rows where producer ext1 differs from selector s1". Channel (ii) is an N‑2 consequence. **Channel (i) is not.** It exists with perfect producer/selector equality: on the `s1x_sel == -1` arm (L9661 with L9662 and L9663 both failing) no write occurs at L9664/L9665, so slRef stays the resolver's incoming value, which P011 itself calls unverified and P007 calls unfiltered. If that retained value is *farther* than ext1, adopting ext1 **narrows** slDist and R **rises**, which is exactly the "no non-fire row crosses 1.0" claim breaking — and the L9642 strict-improvement argument says nothing about it, because the incoming value is not on the s0/s1 ladder at all.
+
+Delta: restate the count‑6 claim as conditioned on **two** independent things — N‑2 producer-equality **and** the absence of `liveSel=-1` among the four sub‑1.0 non-fire bars — and move channel (i) out of the N‑2 attribution sentence in both P015 and P042.
+
+---
+
+## Ask A — non-blocking findings
+
+- **N‑1 (P038 vs P042).** P038's C-reach inference reads "TP_ELECT with livePass=1 passed L9670, hence reached C", but P042 states plainly that "TP_ELECT rows carry no livePass field". Two row types are conflated. Separately, the inference is weaker than needed: C sits after the L9670 test unconditionally, so gate-passing is irrelevant — SIDE1E presence alone proves C-reach for all 13 bars.
+- **N‑2 (P042, P038).** "Total reserved sequences reported against the expected band" appears twice with no numeric band on the page. The only figure available is the archive prediction 13 and the "10x surprise" phrase. Either state the band (e.g. exactly 13, deviation = finding) or drop the word.
+- **N‑3 (P042; EA L9683).** The count identity "SIDE1E count = NORMAL + BSAVE_FAIL + CAP + probe-silent C-reaches" depends on InpDebugLog=true, because SIDE1E is inside the L9683 gate while C is not. The manifest asserts it, but the invariant should name the dependency where it is stated.
+- **N‑4 (P038, P034).** Envelope 83 is type-token-specific: `type=SCHEMA` is also 83, `type=CAP` is 80, `type=BSAVE_FAIL` is 87. P034's "identical shape on all four types" is true of shape, not of length; the ledger's flat "envelope 83" is correct only for NORMAL (which is all the ceiling needs, but the wording invites a wrong recompute).
+- **N‑5 (P038).** The poison-inclusive 1056 counts only the four int carries, which is correct **only if** `StringFormat("%.17g", -1e308)` is ≤ 24 chars. It is exactly 24 (sign + 1 + '.' + 16 digits + `e+308`). Zero margin. File the actual token at STAGE‑1 alongside the exponent sample already required, so the two price carries are not assumed.
+- **N‑6 (P038).** The per-field halt rule ("a print wider than its filed maximum halts grading") has no per-field number for vetoStateAtSite and sessionUseAtSite — only "≤30 combined". As written, an over-wide veto snapshot compensated by a short session snapshot passes, and the per-field rule is undefined for two of 38 fields.
+- **N‑7 (P034 strike clause vs P034 grammar).** Struck fields print `'-'`, but the same paragraph makes ladOriginSite/vetoStateAtSite/sessionUseAtSite closed-enum fields whose out-of-domain values "are rejected, never silently re-encoded", and explicitly excludes `-` from the ladOriginSite enum. Say whether `-` is an authorized token for the two strikable fields, or the strike allowance collides with the enum rejection rule.
+- **N‑8 (relay envelope paragraph, "File / function / lines").** Two retired items are still carried there: "domain assertions (native dir {1,-1,0} with halt on 0 **and ‑1 parser-valid-only** …)" — the ‑1-invalid/parser-valid-only clause was deleted from P034 at v16 and the relay adoptions superseded (v178 delta, Luna‑4/Opus‑D1/Astra‑A1) — and "log-readback **at worst-case widths**", which P036 explicitly scopes to synthetic fixtures ("actual records need not attain worst-case widths").
+- **N‑9 (P038, P042).** Version-label residue in a v18 packet: P038's bucket history says "**v17** files 15 integer fields = 41 …", and P042 says "No re-emit path exists in **v17**". This
+
+[BUILDER TAIL-MARKER: remainder received 2026-09-19, filed whole below. Joins the cut-off sentence above.]
+
+is the same residue class the v18 withdrawal list claims to have retired one version earlier ("noremit-v16 residue" is named in the "Withdrawn from v17" paragraph). A v18 page should read "v18 files 15 integer fields = 41" and "No re-emit path exists in v18", else a later reader cannot tell a carried-forward sentence from an unretired one. Text-only, but it is the third consecutive version with this exact defect class.
+
+- **N‑10 (P032, P038; archive COUNTS line).** The CAP headroom arithmetic uses the wrong unit in the safe direction. "~3200 maximum C-reaches vs 20000" is derived from bar count (3168 bars, FRESHVETO‑V1 G1), but a C-reach requires the S5 path through L8779 and past L9670's *evaluation* (not its result), and the archive's own count is **13** SIDE1E rows for the whole range. So the true margin is ~1500×, not ~6×. The conservative figure is not wrong as a bound; it is the wrong anchor for the "expected band" report of N‑2, which should be anchored to 13.
+- **N‑11 (P034, P038).** `gateConst` is filed as "must parse to 1.0 **and** byte-equal `StringFormat("%.17g", InpMinRewardRisk)`". Under `%g` semantics that token is `1` — one character, not `1.0`. The two clauses are compatible (the grammar `^-?(\d+\.?\d*|\.\d+)…$` accepts `1`), but the page nowhere states the expected spelling, and a grader expecting `1.0` would halt a correct run. The STAGE‑1 filing requirement covers it; naming the anticipated token on the page costs nothing and removes the trap. Same class: the ledger budgets `gateConst<=24` for a field that will print one byte.
+- **N‑12 (P038 ledger vs P034 strike clause).** `vetoStateAtSite + sessionUseAtSite <= 30 combined` is the only pair-scoped entry in a ledger whose halt rule is per-field ("a print wider than its filed maximum halts grading"). For these two fields the rule has no referent — an over-wide veto snapshot offset by a short session snapshot satisfies the combined budget while violating the spirit of the per-field gate. Split the 30 into two filed maxima at STAGE‑1 (the arithmetic is unchanged).
+- **N‑13 (P038, N‑5 companion).** The 1056 poison worst case is exactly at the boundary for the two price carries: `%.17g` of `-1e308` is 24 characters (`-1.0000000000000000e+308`), precisely the filed `<=24`. Zero margin means any formatter surprise (three-digit exponent padding, `e+0308`, or a 17th-digit artifact) breaks the ceiling rather than the field. File the actual token from the micro-check, not the derivation.
+- **N‑14 (P011; EA L9649/L9655).** "Imbalance is the integer flow-read count" is an interpretation of `(int)s1x_f` over a double buffer, and the page elsewhere admits the cast is lossy for provenance ("source-identity conclusions involving imbalance cannot prove the original flow value was integral"). The two sentences should not sit in different sections without cross-reference; P011's "count" wording is the stronger claim and should defer to P034's cast note.
+- **N‑15 (P042 comparison contract).** "TP_ELECT/SIGNAL rows match on (barTime, dir) with the native mapping 1=LONG / ‑1=SHORT" and, three clauses later, "directionless TP_ELECT rows attribute dir ONLY through an unambiguous ordered join". The pasted archive rows confirm the second sentence is the operative one — the four NONFIRE TP_ELECT rows carry `shadow=true entry= sl= tp= R= bar= latchBar=` and **no dir field**. So the "(barTime, dir)" match key is never directly available for TP_ELECT; every row takes the join path. Say so once rather than stating the direct key first.
+- **N‑16 (P042).** "A1 and A3 fire-but-declined among them" plus "the print-only run itself keeps all 7" is correct, but the 7-count is defined as "TP_ELECT row with R>=1.0" while the archive's four non-fire rows are identified by archived R (0.35/0.18/0.34/0.63). The page therefore defines a baseline by a threshold on a display-rounded field it elsewhere refuses to grade at display precision (P042: "binary64 lossless prints are provenance transport, never the comparison basis"). Harmless here — all four sit far from 1.0 — but the definition should name the archived 2‑dp R as the deliberate exception.
+
+---
+
+## Ask B — better mechanisms
+
+### B‑1 — Publish the ext1 tuple outside the debug gate (closes D‑6 structurally)
+**Touches:** EA L5496–L5497 (move the two publish statements past the L5498 close of the L5305 `if(InpDebugLog)` block), i.e. one relocation, no new symbols.
+
+Today the consumed operand family and its own diagnostic emission share one gate, which is why the page has to carry the archive/run-equivalence argument, the 165-site purity census, and the pre-run manifest assertion just to make `pxExt1` trustworthy. Relocating the publish makes the tuple unconditional on the S5 path and demotes InpDebugLog to what P007 already claims it is: an origin-validity and corroboration-row gate only.
+
+Cost, stated honestly: it is a write relocation in `ComputeSlReference`, so it is a live-file edit outside this print-only envelope and needs its own token — I am not asking for it in this relay. Until then, D‑6's all-undefined halt is the text-only substitute.
+
+### B‑2 — Prefix-space join, byte-identical to the filed ledger (closes D‑4.2)
+**Touches:** insertion C only (P032 step 6; no EA lines).
+
+```mql5
+probe_line = "[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v18 base=6C2E4028 type=NORMAL";
+for(int probe_i = 0; probe_i < 38; probe_i = probe_i + 1)
+   probe_line = probe_line + " " + probe_keys[probe_i] + "=" + probe_vals[probe_i];
+Print(probe_line);
+```
+
+The separator is emitted **before** each field, never after, so a trailing space is unreachable rather than forbidden-by-rule. Byte accounting is unchanged from P038: 38 spaces total = the ledger's "37 inter-field + 1 envelope space", 38 `=` separators, envelope with no trailing byte. The SCHEMA assembler is the same form over keys only, so the one frozen loop shape covers both consumers and the P038 two-loop census still matches.
+
+### B‑3 — One datetime temp used four times, interleaved at assignment (closes D‑4.1, removes a compile-gate risk)
+**Touches:** insertion C declarations and P038's C census (drops `probe_tmpB`; drops the "both referenced, else halt" assertion).
+
+```mql5
+probe_tmpA = TimeToString(barTime, TIME_DATE|TIME_MINUTES);
+StringReplace(probe_tmpA, " ", "-");
+probe_vals[0] = probe_tmpA;              // barTime — stored before reuse
+```
+repeated per datetime field. Reuse-before-store becomes impossible because the store is the next statement, and the two-temp "at least one reference each" gate that exists only to dodge an unused-variable warning disappears. Fewer declarations, one fewer STAGE‑1 assertion, same output bytes.
+
+### B‑4 — Grade R against exact rationals, not printed bands (closes D‑1 and D‑2 together)
+**Touches:** P028 and P042 text only; no code, no new field.
+
+Every table operand is an integer point count, so the propagated band has an exact closed form: for numerator `n` points and denominator `d` points at ±1 pt per distance, the band is `[(n-1)/(d+1), (n+1)/(d-1)]`. Grade the *parsed binary64* `rExt1` against that interval directly. This deletes both band tables, deletes the inward-rounding defect class, deletes the two-tables-one-row ambiguity, and removes the 2‑dp/3‑dp mismatch (09‑07 16:40 archived 2.34 vs 2.35-from-displays stops needing a special note — it is simply interior). The only text that survives is the operand list, which is already filed.
+
+### B‑5 — Close D‑7 before the build, at zero cost
+**Touches:** nothing; STAGE‑0 read-only pull.
+
+Channel (i) is decidable from the archive already in hand: pull the `SIDE1E_STOPSHADOW sel=` value for the four sub‑1.0 non-fire bars (08‑27 17:00, 08‑27 18:50, 08‑31 15:05, 09‑04 09:25). If all four print `sel=0` or `sel=1`, no retained-incoming row exists among the bars that could cross 1.0, and the count‑6 claim survives on N‑2 alone — which is what P015 wants to say. If any prints `sel=-1`, the claim is conditional on that row's operands and the page must say so. One grep, no run, no token.
+
+### B‑6 — Publication stamp instead of `walkEnd` for the 39th field (competes with D‑3/N‑4's RECOMMENDED slot)
+**Touches:** EA L5496–L5497 (one added global write), a declaration alongside L1112–L1117, and one probe field.
+
+If a 39th field is going to be spent, spend it on the falsifier the page lacks rather than on walk-termination classification. Publishing `g_sl41_pubStamp = iTime(_Symbol, PERIOD_CURRENT, barShift)` with the tuple gives `ext1Defined`/`pxExt1` exactly the staleness falsifier the origin quadruple already has (`ladOriginStamp == barTime`), and it fails loudly on the unpublished case that D‑6 currently catches only by ambiguity. `walkEnd` is diagnostically useful; it is not load-bearing for any mandatory check on the page. Same token caveat as B‑1 — live-file write, not this envelope.
+
+### B‑7 — Paste C as text (closes D‑3 with no new mechanism)
+**Touches:** the relay page, not the tree.
+
+The spec-only relabel was adopted to keep C flexible, but it leaves the majority of C's statements — envelope assembly, four datetime encodings, the pre-arithmetic branch, sentinel precedence, extSideOk/extDistPts — constrained by nothing at all, while the page simultaneously calls the exact-diff gate C's *sole* text check. Pasting C restores the property A and B already have: what is cleared is what compiles. If C stays spec-only, the P038 census needs a complete statement-class enumeration with counts, which is more page than pasting C would have cost.
+
+### B‑8 — Not re-litigated
+The shared rung-pair helper (Opus‑v180 B‑1) remains the right long-run answer to the L9627–L9660 / L9685–L9718 duplication, and the SlimbProtectiveSideOk routing (B‑7, carried) remains the right answer to the P007 FLAG. Both are live-path work with their own tokens; the declines are recorded and I am not re-opening them here.
+
+---
+
+## What this verdict does and does not settle
+
+On the page: the selector logic in L9626–L9666, the gate at L9670, the A/B siting, the latch-and-continue terminal design, the poison-plus-witness falsifier pair, and the 1024/1056 ledger arithmetic all hold as written. The blockers are grading-surface, not instrument-surface — which is why the delta is amend, not halt.
+
+Off the page, and not answerable from chat by me or any seat: the `6C2E4028` digest and 602894 B, the 165-site InpDebugLog census, the brace depths at the A and C sites, the L8779-last-exit proof, the L8779–L9606 dominance interval, the archive pulls, and the `%.17g` and `MathIsValidNumber` behaviours under the build compiler. Those are builder-disk plus his-eyes, per the verification split.
+
+A v19 folding D‑1 … D‑7 as text — with B‑2, B‑3, B‑4, B‑5, and B‑7 taken, all of which are free — would carry no defect I can see from this page, and would not need a code change to clear.
+
+[BUILDER END-MARKER: tail received whole 2026-09-19. Verdict now whole: D-1-D-7 + N-1-N-16 + B-1-B-8 + close.]
+## Opus answer - 2026-09-19 - answers v182 relay (packet v19) (AMEND-WITH-DELTA, A-1-A-4 blocking + A-5-A-14 non-blocking + B-1-B-5 PARTIAL - B-5 pasted 4x with last copy cut mid-sentence, B-6 onward not transported; page-only; filed as entry OPUS-V182-001)
+
+# Verdict
+
+**AMEND-WITH-DELTA.** Not a halt: the envelope, the authority split, the gate ledger and the acceptance machinery are sound, and nothing here touches live money or live activation. But the frozen C literal in **P032** does not implement the field policies the page asserts in **P036/P034/P028**, and P032 is now cleared *as text* under the STAGE-1 exact-diff gate ("what is cleared is what compiles", P038). Clearing it would freeze two defects into the audited artifact.
+
+Blocking lines: **P032** (frozen C literal — the `if(g_sl41_def == 1) … else …` block), with consequent contradictions at **P036** (origin-quadruple-on-every-record; INVALID/'-' precedence; wouldAdopt definition), **P034** (empty-token parse rule; universal live-operand identities; poison enumeration), **P028** (s0/s1 verbatim prints; mandatory per-row origin checks), **P038** (construction-order assertion; store census).
+
+Blocking: A-1, A-2, A-3, A-4. Non-blocking but text-fixable before build: A-5 through A-14.
+
+Everything below is page-only. Digests, brace censuses, 165-site enumeration, the L8779-last-exit proof and the L8779–L9606 dominance interval are disk items and I rule on none of them.
+
+---
+
+# Ask A — defects, gaps, imprecisions
+
+## A-1 (BLOCKING) — P032: ten `probe_vals` indices are never assigned on the `g_sl41_def != 1` path
+
+Tracing the literal, the common prologue stores indices **0, 1, 2, 3, 4, 5, 6, 10, 12, 32, 33, 34, 35, 36** (14). The `if(g_sl41_def == 1)` arm stores **7, 8, 9, 11, 13, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 37** (22). The `else` arm stores **7, 8, 9, 11, 13, 16, 17, 25, 26, 29, 30, 31** (12).
+
+So on any undefined-ext1 record these are never written and hold MQL5's default empty string:
+
+**18, 19, 20, 21** (s0slot/s0imb/s1slot/s1imb), **22, 23, 24** (ladOriginPx/BarTime/Site), **27, 28** (rawNumLive/rawDenLive), **37** (ladOriginStamp).
+
+Worse, the else arm's `probe_vals[29] = probe_vals[27];` and `probe_vals[30] = probe_vals[28];` copy from two of the unassigned slots, so rawNumExt1/rawDenExt1 come out empty too.
+
+Direct contradictions on the page:
+
+- **P036**: "the origin quadruple (ladOriginPx/ladOriginBarTime/ladOriginSite/ladOriginStamp) prints on EVERY record including undefined rows" — false in the literal, and the stated rationale ("suppressing staleness evidence where stale globals most likely survive buys nothing") is exactly inverted by the code.
+- **P034** line grammar: "empty token" is an enumerated parse failure halting grading; the NORMAL join emits `s0slot= s0imb= …`, i.e. ten empty tokens and two more copied empties.
+- **P028**: "s0/s1 slot/imb fields print post-cast selector ints verbatim" — these are selector carries, not ext1-dependent; they have no business inside the ext1 branch.
+- **P028/P038** mandatory per-row checks `ladOriginPx == currentPrice` (bit-equal) and `ladOriginStamp == barTime` become ungradeable on precisely the row class where stale globals are most likely.
+- **P034(c)**: "live-operand identities stay universal wherever finite reconstruction is defined" — unsatisfiable without rawNumLive/rawDenLive.
+
+The archive evidence (442/442 `ext1Defined=1`) makes the else arm *probably* unreached in this range, but the page keeps FALLBACK-CLASS as a graded class (P036, P042) and keeps D-6's all-undefined halt, so the path is live by the packet's own construction. And it compounds with A-9 below: the cheapest operator error (effective `InpDebugLog=false`) drives `g_sl41_def` to its L1112 default 0 — straight into the broken arm, producing malformed lines instead of the clean stamp/join halt the page promises.
+
+## A-2 (BLOCKING) — P032: `wouldAdopt_monotone` omits the adversity comparison entirely
+
+P036 defines it as "1 only for a defined, FINITE pxExt1 with a VALID incumbent under strict directional comparison (SHORT: pxExt1 higher; LONG: pxExt1 lower)". The literal condition is:
+
+```
+probe_shadowOk && (probe_sel == 0 || probe_sel == 1) && MathIsValidNumber(probe_slLive)
+&& MathIsValidNumber(currentPrice) && MathAbs(currentPrice - probe_slLive) != 0.0
+&& ((g_dir == DIR_LONG && probe_slLive < currentPrice) || (g_dir == DIR_SHORT && probe_slLive > currentPrice))
+```
+
+`g_sl41_px` appears nowhere in it. Every term tests **incumbent validity**; the pxExt1-vs-slLive comparison that gives the field its name is missing. Consequence on the predicted rows: the five bars where P028 predicts `slLive == s1px == pxExt1` should print 0 (no strict adversity), and the literal prints 1. The field answers "is the incumbent a valid protective stop" instead of "would adoption expand risk". It is REPORTED-not-graded (P036) so it cannot fail the run, but freezing it means the monotone carried alternative (P046) gets fed a field that measures something else.
+
+## A-3 (BLOCKING) — P032: INVALID/'-' precedence inverts when `pxExt1` is non-finite on a defined row
+
+If `g_sl41_def == 1` but `g_sl41_px` is non-finite, `probe_shadowOk` is false, so `probe_slDistExt1` keeps its `-1e308` initializer — which is **finite**. Then:
+
+- `probe_vals[30]` (rawDenExt1) passes `MathIsValidNumber(probe_slDistExt1)` and prints `-1e+308`.
+- `probe_vals[11]` (rExt1) takes the `probe_slDistExt1 > 0.0` false arm and prints `'-'`.
+
+P036 fixes precedence as "INVALID = failed finite check … '-' = guard-blocked finite division". Here a failed finite check on pxExt1 is reported as a guard-blocked division, and the row carries a poison-derived operand next to `pxExt1=INVALID`. P034's offline poison rule names "-1e308 in the two price carries" only (s0px/s1px), so this token is not caught by it either.
+
+## A-4 (BLOCKING, cheap) — P034: poison enumeration omits `probe_slLive`
+
+P032's insertion A poisons `probe_slLive = -1e308`, and slLive is a NORMAL field. P034's rule enumerates "-2147483647 in the four int carries, the canonical %.17g rendering of -1e308 in the two price carries, 99 in liveSel" — three price carries are poisoned, two are listed. A skipped-B row would carry `-1e+308` in slLive without tripping the named falsifier (liveSel=99 would still catch it, so the exposure is redundancy loss, not blindness).
+
+## A-5 — P032: `currentPrice`/`entryPx` are the only price fields with no finite guard
+
+```
+probe_tokPx = StringFormat("%.17g", currentPrice); probe_vals[2] = probe_tokPx; probe_vals[34] = probe_tokPx;
+```
+
+Every other price field (`[3] [4] [6] [7] [22] [35] [36]`) is wrapped in `MathIsValidNumber`. A non-finite currentPrice therefore emits a `nan`/`inf` spelling into two fields, which P034 lists under "Parse failures halting grading: noncanonical nan/inf spellings". P034 already declares non-finite currentPrice "a mandatory live-input failure", so the run fails either way — but the specified mechanism is the INVALID token, not a grammar break. Asymmetry should be closed for consistency and for the log-readback parser's field-typed check.
+
+## A-6 — P032: the two STAGE-1-bound stores are absent from the literal, not merely bound
+
+P030/P032/P038 claim the exact-diff gate "checks the build tree against that text … verbatim", then P032 excepts `probe_vals[14]`/`[15]`. The RHS binding is a declared exception; the **statements** and their **position** are not in the literal at all. That leaves two open questions the gate cannot answer: (i) whether they sit in the common prologue or inside a branch — which determines whether undefined rows carry them at all (see A-1); (ii) what the struck form looks like, given P036 authorizes `'-'` for exactly these two. Freeze both statements with a placeholder RHS token so the only build-bound element is a single identifier each.
+
+## A-7 — P038 construction-order assertion does not match the literal's order
+
+P032 numbers the steps "(2) increment and take the reserved sequence … (3) test probe_bSaved", and P038 asserts "terminal checks, reservation, bSaved check, THEN key array". The literal inverts 2 and 3: `!probe_bSaved` is the third chain condition, and `probe_seq = probe_seq + 1` is the first statement inside each of the two consuming branches. Semantics are unaffected (BSAVE_FAIL and NORMAL both carry the next reserved sequence, gaps stay terminal-only), but STAGE-1 is instructed to assert an order the frozen text does not have. Renumber P032 (2)/(3) and P038's clause to: terminal latch → cap-exhaustion → bSaved selector → reservation-in-branch → keys → SCHEMA-from-keys → shadow + values → NORMAL-from-pairs. Text only, no behavior change; the current wording instructs STAGE-1 to assert an order the literal does not have. Renumber P032 (2)/(3) and P038's clause to: terminal latch → cap-exhaustion → bSaved selector → reservation-in-branch → keys → SCHEMA-from-keys → shadow + values → NORMAL-from-pairs.
+
+## A-8 — P032/P038 vs P042: the "~3200 C-reaches" bound conflates bars with C-reaches
+
+P032 and P038 both justify the cap as "~3200 maximum C-reaches vs 20000 (archive run measured 3168 bars)". But C sits immediately before SIDE1E (EA L9683), and P038/P042 predict **exactly 13** SIDE1E rows with "SIDE1E count must equal NORMAL plus BSAVE_FAIL plus CAP plus subsequent probe-silent C-reaches". Both cannot be C-reach counts. 3168 is the bar count; C-reach requires the full S5 path past L8779 and the earlier aborts (e.g. L8788), which the archive puts at 13. The cap stays trivially safe under either figure, so nothing is dangerous — but the deviation band matters for grading: a run emitting 300 NORMAL records would sit inside the "~3200" bound while being a 23× miss against the 13-row prediction. State the bar count as the cap-headroom bound and 13 as the expected-count band, in different sentences.
+
+## A-9 — P007/P032: the publication gate and the undefined path interact badly
+
+The ext1 tuple publish (EA L5496-97) is at depth 2 inside the L5305 `if(InpDebugLog)` block; C is ungated. The page states this and names the falsifiers ("stale/default … grading halts on the stamp
+
+it got truncated and here is the rest
+
+[BUILDER TAIL-MARKER: operator transport note above preserved verbatim; pasted Opus text resumes below exactly as transported (visible break, 4x B-5 duplication kept).]
+
+/join mismatch" plus the all-undefined halt, P007/P032) — but both named falsifiers live in fields the literal does not populate on that very path.
+
+Trace the failure mode the page itself says is cheapest to hit. If the effective input is `InpDebugLog=false`, the L5305 gate closes, L5496-97 never runs, and `g_sl41_def` holds its L1112 default `0`. C is ungated, so C still emits — into the `else` arm. On that arm:
+
+- `probe_vals[37]` (ladOriginStamp) is unassigned → the `ladOriginStamp != barTime ⇒ halt` falsifier (P032, P038) has no operand.
+- `probe_vals[24]` (ladOriginSite) is unassigned → the designed stale-halt token (`g_sl41_oSite` default `-` at EA L1110, P034: "a `-` in ladOriginSite is a stale-global/default halt") never appears, because the field is not printed at all.
+- `probe_vals[22]`/`[23]` unassigned → the ordered triple-join has nothing to join on.
+
+So the staleness detection chain is circular: it detects stale globals only on rows where the globals were fresh. What actually happens is a grammar break (A-1), which does halt grading — by accident, through the empty-token rule, in the transport-halt class rather than the named stale-provenance class. The D-6 all-undefined halt would also fire. Nothing dangerous escapes, and the run is print-only, but the page's claim that the falsifier "carries its own evidence on every row including fallback rows for the quadruple" (P046) is not true of the frozen text. Fixing A-1 fixes this as a side effect, which is why I rank A-1 first.
+
+Note for the record: the clean structural cure is an ungated tuple publication, which is exactly **Opus-v181-B-1**, declined with reason as a live-file write needing its own token (P046). I agree it stays out of this envelope. This finding strengthens the case for taking it at the live relay; it does not change the decline here.
+
+## A-10 — P034/P038: the filed `-1e308` poison token is almost certainly not `-1e+308`
+
+P034's offline poison rule names "the canonical `%.17g` rendering of -1e308". `1e308` is not exactly representable in binary64, so `StringFormat("%.17g", -1e308)` renders the nearest double at 17 significant digits — the expected form is `-9.9999999999999998e+307`, not `-1e+308`. That is 24 characters, exactly the filed price maximum (P038 already calls it "the filed -1e308 price-carry token (zero-margin boundary)", so the width accounting is right). The risk is purely in grader instruction: an offline reader matching the literal string `-1e+308` finds nothing and reports no poison on a genuinely skipped-B row. P038 files the token at STAGE-1, which resolves it — but P034's prose should point at the filed token rather than spelling the source constant, the same way P042 handles `gateConst` ("the filed token governs").
+
+## A-11 — P032/P036: the INVALID class for `rawDenExt1` is structurally unreachable
+
+`probe_slDistExt1` is initialized to `-1e308` (finite) and is only reassigned under `probe_shadowOk`, which itself requires finite `g_sl41_px` and finite `currentPrice`. So `MathAbs(currentPrice - g_sl41_px)` can never produce a non-finite result, and the initializer is finite. Therefore `MathIsValidNumber(probe_slDistExt1)` is true on every path, and the guards at `probe_vals[29]`/`probe_vals[30]` never take their INVALID arms.
+
+P036 specifies "non-finite shadow inputs (or a non-finite constructed shadow distance) print INVALID for the unavailable counterfactual fields … and fail acceptance explicitly as a non-finite-operand failure". The frozen text cannot produce that classification. Combined with A-3, the actual behavior on a defined-but-non-finite `pxExt1` row is: `pxExt1=INVALID`, `rawDenExt1=-9.9999999999999998e+307`, `rExt1=-`, `wouldGate=0`. Three of those four are wrong against the stated policy, and the one poison-looking token is outside P034's poison enumeration (A-4's sibling). The class is rare-to-impossible on this archive, but it is a specified, graded class, and P038's gate checks the literal — so the literal has to be able to reach it.
+
+## A-12 — P028/P042: "interval" names two different objects
+
+P042 defines the grading band per row: `[(n-1)/(d+1), (n+1)/(d-1)]`, endpoints inclusive. P028 then says "The exact A3-fail/A1-pass interval from the table operands is (0.678082, 1.384615)", and the arithmetic recheck block writes "Exact band (0.678082…, 1.384615…]".
+
+Those endpoints are not a grading band. `99/146 = 0.678082…` and `108/78 = 1.384615…` are the two *computed R values* for A3 and A1; the claim being made is that `1.0` lies strictly between them, i.e. a **separation** statement about the two rows. The **grading** bands from the P042 rule are, for A1, `[107/79, 109/77] = [1.35443…, 1.41558…]` and for A3 `[98/147, 100/145] = [0.66666…, 0.68965…]` — the substance is fine, the naming is not. Three bracket conventions appear for the same pair of numbers across P028 and the recheck block (`(…)` twice, `(…]` once), which on a page that grades by exact rationals with inclusive endpoints is the kind of ambiguity that gets litigated at grading time. Give the two objects different names ("separation interval" vs "per-row grading band") and fix the brackets.
+
+## A-13 — P038: "38 value assignments" is not the count in the literal
+
+The frozen text contains 48 `probe_vals[...]` store statements (14 common + 22 defined + 12 undefined), plus the two STAGE-1-bound stores, arranged so that on the defined path each of 38 indices is written exactly once. P038's C census says "38 value assignments (frozen step 5b, interleaved)", which is a count of *positions*, not of statements — and the exact-diff gate is checking statements. Either number is fine to freeze; they just have to be distinguished, otherwise a builder reconciling the census against the literal finds a 10-statement discrepancy and has no page rule for which side governs. Recommended wording: "38 value positions, each written exactly once per emitted record, via 48 store statements across the branch structure plus 2 STAGE-1-bound stores." Same treatment for "two index loops" if B-5 below is adopted (it would make three).
+
+## A-14 — smaller items, grouped
+
+- **P032 step (5) vs literal placement.** The six numeric/Boolean temps are declared in the common declaration region ahead of the chain, not "in the successful branch"; P038's phrasing "initialized at declaration, populated only in the successful branch" is accurate, P032 step (5)'s "shadow computation into named … temporaries" reads as if declaration and population are co-located. Cosmetic, but P038 asserts against this text.
+- **P034 BSAVE_FAIL dir domain.** The `{1,-1}` domain with "0 … fails acceptance everywhere" applies to BSAVE_FAIL too. A `g_dir == 0` at C would then fail acceptance for a reason unrelated to the bSaved fault, muddying the instrument-failure class the page carefully carves out (P042: "any BSAVE_FAIL … fails probe acceptance while the actual-path run continues"). Worth one clause saying a BSAVE_FAIL row's dir domain violation is reported, never reclassified.
+- **P028 sentinel paragraph vs P036 for `s0px`/`s1px`.** P028 says "-999 marks absent EXT1 integer IDs … never prices" and "every other N/A prints '-' (prices, …)"; P036 says no-candidate prices print canonical positive zero `0` paired with slot `-1`, "never a sentinel and never '-'". P036 governs by P028's own deference clause, and the literal implements P036 (it prints `s1x_s0px`/`s1x_s1px` raw, which EA L9629/L9630 initialize to `0.0`). The two sentences still read as a contradiction to a first-time grader; P028's "every other N/A prints '-'" needs the s0px/s1px carve-out inline.
+- **P032 CAP/BSAVE_FAIL and `probe_keys`.** The CAP and BSAVE_FAIL branches run before any `probe_keys` population, which is correct and intended — but P032 step (3a) says keys are populated "every record". They are populated on every *NORMAL* record only. One-word fix.
+
+## Checks that pass (recomputed here, so they are not re-litigated)
+
+- **Envelope 83** confirmed byte-by-byte for `type=NORMAL`; the N-16 type-specific lengths check out: SCHEMA 83, CAP 80, BSAVE_FAIL 87.
+- **Key structure 416** = keys 340 + 38 `=` + 37 interior spaces + 1 envelope space. I summed all 38 key spellings independently and get **340** exactly (the two easy-to-miscount ones are `incomingSlRef`=13 and `ext1Imb`=7).
+- **Value maxima 525** = 16×24 (%.17g fields) + 4×16 (datetimes) + 41 (15 itemized integers) + 6 (ladOriginSite) + 30 (veto+session). Field-class census reconciles to 38: 16 + 4 + 15 + 1 + 2.
+- **Total 1024**; poison-inclusive **1056** = 1024 + (7+7+9+9) for the four int carries. The two poisoned price carries render at exactly 24, their filed maximum, so they add nothing — consistent with P038's own zero-margin note.
+- **Field-order mechanics**: comma-split of the P034 list yields 38 with `emitSeq` at 34 and `ladOriginStamp` at 38, matching the literal's `probe_keys[33]`/`probe_keys[37]`. Sol-S1's miscount stays closed.
+- **Statement-count items** in P038's diff-shape that I can verify from the literal: two `for` loops, four `Print` calls (one per branch), zero `return`, zero `ExpertRemove`, no `++`/`--`, and the 38 key assignments. All present as described.
+- **Loop/scope logic** for A→B→C on the pasted range: every `break`/`continue` in L9632–L9660 targets that loop, L9661–L9665 contains no exit, so B is unavoidable between A and C *within the pasted region*. The L8779–L9606 dominance interval remains a disk item and I claim nothing about it.
+
+---
+
+# Ask B — better mechanisms, with the lines they touch
+
+## B-1 (primary; fixes A-1 and A-9) — split the branch by *dependency*, not by proximity
+
+Ten of the indices currently inside the `if(g_sl41_def == 1)` arm are not ext1-dependent at all:
+
+- `[18] [19] [20] [21]` read `probe_s0slot/s0imb/s1slot/s1imb` — selector carries from B.
+- `[22] [23] [24] [37]` read `g_sl41_oPx/oBT/oSite/oStamp` — the origin quadruple, written at EA L8773-76 independently of `g_sl41_def`.
+- `[27] [28]` are `tpDist`/`slDist` — live operands.
+
+Hoist those ten stores into the common prologue, immediately after `probe_vals[36]`. The `if/else` then contains only genuinely ext1-dependent fields — `[7] [8] [9] [11] [13] [16] [17] [25] [26] [29] [30] [31]` — twelve in each arm, and `[29]`/`[30]` in the else arm copy from `[27]`/`[28]` which are now always populated.
+
+Result: 38 positions written on every emitted NORMAL record by construction, the empty-token class disappears, `ladOriginStamp`/`ladOriginSite` become genuine falsifiers on fallback rows exactly as P036 and P046 claim, and the `InpDebugLog=false` failure mode produces the *named* stale-provenance halt instead of a transport break.
+
+Touches: **P032** frozen literal only (statement order inside the `else` success branch). Zero live EA lines. P038's store census needs the recount from A-13. No field, no position, no ledger, no ceiling changes — the 1024/1056 figures are order-independent.
+
+## B-2 (fixes A-3 and A-11) — gate shadow serialization on `probe_shadowOk`, not on the finiteness of a poisoned temp
+
+Replace the three guards that currently test `MathIsValidNumber(probe_slDistExt1)`:
+
+- `[11]` rExt1: `if(!probe_shadowOk || !MathIsValidNumber(tpDist)) → "INVALID"; else if(probe_slDistExt1 > 0.0) → %.17g of probe_rExt1v; else → "-"`
+- `[29]` rawNumExt1: condition on `probe_shadowOk && MathIsValidNumber(tpDist)`
+- `[30]` rawDenExt1: condition on `probe_shadowOk` alone
+
+This makes the INVALID class reachable, restores P036's stated precedence (failed finite check outranks guard-blocked division), and keeps the poison value out of the wire on the one path that could emit it. It also removes the need to enumerate `-1e308` for `probe_slDistExt1` anywhere, since it can no longer reach serialization.
+
+Touches: **P032** indices `[11] [29] [30]`; **P036** precedence sentence (no rule change, just alignment).
+
+## B-3 (fixes A-2) — add the adversity term to `wouldAdopt_monotone`
+
+Append to the `probe_vals[31]` condition:
+
+```
+&& ((g_dir == DIR_LONG  && g_sl41_px < probe_slLive)
+ || (g_dir == DIR_SHORT && g_sl41_px > probe_slLive))
+```
+
+`probe_shadowOk` already carries `MathIsValidNumber(g_sl41_px)`, so no extra finite test is needed. This makes the field measure what P036 defines — monotone risk expansion relative to the incumbent — and makes it print 0 on the five bars where P028 predicts `pxExt1 == slLive`, which is the whole point of the carried alternative at P046.
+
+Touches: **P032** index `[31]`. No schema, ledger, or ceiling impact (`0`/`1`, width 1, unchanged).
+
+## B-4 (fixes A-5) — guard `currentPrice` like every other price field
+
+```
+if(!MathIsValidNumber(currentPrice)) { probe_vals[2] = "INVALID"; probe_vals[34] = "INVALID"; }
+else { probe_tokPx = StringFormat("%.17g", currentPrice); probe_vals[2] = probe_tokPx; probe_vals[34] = probe_tokPx; }
+```
+
+Preserves the single-token duplication invariant (P034: both fields populate from one token, textual equality free), keeps the mandatory live-input failure (P034/P042 already classify non-finite currentPrice as such), and routes it through the specified INVALID mechanism instead of a `nan`/`inf` grammar break.
+
+Touches: **P032** indices `[2]`/`[34]`.
+
+## B-5 (belt-and-braces, optional; cheap generic cure for the A-1 *class*) — prefill the value array with a one-character reject token
+
+Immediately before the `if/else` chain, or immediately after `probe_seq` reservation in the success branch:
+
+```
+for(int probe_j = 0; probe_j < 38; probe_j = probe_j + 1) probe_vals[probe_j] = "?";
+```
+
+`?` is printable ASCII, width 1 — it fits **every** filed per-field maximum, so the 1024/1056 ledger is untouched — and it fails every field rule on the page (not in the numeric grammar, not canonical decimal, not `-`, not `INVALID`, not `-999`, not in any closed enum). Any index the branch structure fails to write becomes a loud, named, position-identified falsifier instead of an empty token caught only by a generic parse rule.
+
+I recommend this **with** B-1, not instead of it: B-1 removes the defect, B-5 removes the defect *class* for any future field addition (walkEnd, the publication stamp, both carried at P034/P046). Note the cost honestly: it adds a third loop and one statement to P038's diff-shape census, and adds `?` to the grammar's reject vocabulary. Do not use a multi-character token like `UNSET` — that would force a ceiling recompute on the five 1-char Boolean fields.
+
+I recommend this **with** B-1, not instead of it: B-1 removes the defect, B-5 removes the defect *class* for any future field addition (walkEnd, the publication stamp, both carried at P034/P046). Note the cost honestly: it adds a third loop and one statement
+
+I recommend this **with** B-1, not instead of it: B-1 removes the defect, B-5 removes the defect *class* for any future field addition (walkEnd, the publication stamp, both carried at P034/P046). Note the cost honestly: it adds a third loop and one statement
+
+I recommend this **with** B-1, not instead of it: B-1 removes the defect, B-5 removes the defect *class* for any future field addition (walkEnd, the publication stamp, both carried at P034/P046). Note the cost honestly: it adds a third loop and one statement
+
+---
+
+## Opus answer - 2026-09-19 - answers v183 relay (packet v20) (AMEND-WITH-DELTA, F-1/F-2/F-3/F-7 blocking + F-4/F-5/F-6/F-8/F-9/F-10/F-11/F-12 + B-1-B-8; page-only; filed as entry OPUS-V183-001)
+
+## Verdict
+
+**AMEND-WITH-DELTA.** Blocking on four items in the frozen C literal at **P032** (F-1, F-2, F-3, F-7). The envelope, the ledger arithmetic, the scope/dominance argument, and the acceptance contract all survive review; the pasted text does not.
+
+The ledger checks out independently, so the amend is narrow: key spellings sum to exactly **340** (7+3+7+4+13+7+6+6+11+7+5+5+9+9+15+16+8+11+6+5+6+5+11+16+13+9+10+10+10+10+10+19+10+7+12+4+4+14), key structure 340+38+37+1 = **416**, value maxima 384+64+41+6+30 = **525**, NORMAL envelope `[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v20 base=6C2E4028 type=NORMAL` = **83**, total **1024**; poison delta 7+9+7+9 = **32** → **1056**. Zero-margin price boundary confirmed: `%.17g` of -1e308 is `-1.0000000000000000e+308` = 24 chars exactly. A-site/C-site depth equality is page-provable from the paste (L9608–L9615 balanced, L9616 nets -1, L9626–L9666 balanced), so that assertion is not disk-only.
+
+---
+
+## Ask A — defects, gaps, imprecisions
+
+### F-1 (BLOCKING) — surplus closing brace in the C literal: the NORMAL path escapes the guarded chain
+**P032**, frozen C literal, at `... if(!MathIsValidNumber(slDist)) probe_vals[28] = "INVALID"; else probe_vals[28] = StringFormat("%.17g", slDist); }` — that `}` closes the `else {` opened by the bSaved-success arm. Everything after it (`probe_vals[14]`, `probe_vals[15]`, the whole `if(g_sl41_def == 1) { ... } else { ... }` shadow block, the NORMAL envelope assignment, the join loop, and `Print(probe_line)`) sits at the outer level of the probe block, and the literal then ends with a second `}`.
+
+Brace accounting: one open (`else {`), two closes. Net **-1**.
+
+Two readings, both failures:
+- **As pasted:** the surplus `}` terminates `EvaluateClosedBar` (EA L6607) at the C site, orphaning L9671–L9779 and the rest of the function body. Compile errors, the 0/0 gate at **P038** halts, build wasted. "What is cleared is what compiles" (P038 diff-shape parenthetical) is violated by the cleared artifact itself.
+- **If a builder deletes the trailing brace instead of relocating the earlier one:** it compiles and is worse. Every non-dead *and* dead C-reach executes `probe_vals[14]/[15]`, the shadow block, and the NORMAL `Print`. That breaks, in order: **P032** step 1 ("emit nothing and perform no schema, sequence increment, shadow/provenance computation, or normal/failure-record emission"); **P032** terminal cardinality and the BSAVE_FAIL/CAP silence guarantee; **P042** post-terminal silence, the state machine, and `normal-record count + BSAVE_FAIL count = highest reserved emitSeq`; **P034** grammar (on a dead-path row `probe_keys[]` is never populated, so the join emits empty keys and `?` prefill values); **P032/P038** carry purity ("zero references to the nine non-witness A carries before the successful probe_bSaved branch" — `probe_sel` and `probe_slLive` are read in the `probe_vals[31]` condition, now outside the guard).
+
+Fix: move the `}` from after the `probe_vals[28]` statement to the end of the literal. One character relocated, no new surface, no census change.
+
+### F-2 (BLOCKING) — `probe_vals[37]` is never assigned; `g_sl41_oStamp` is never read
+**P032** literal: positions written are 0,1,2,3,4,5,6,10,12,18,19,20,21,22,23,24,27,28,32,33,34,35,36 (common) + 14,15 (bound) + 7,8,9,11,13,16,17,25,26,29,30,31 (both arms of the def branch). **Index 37 — `ladOriginStamp` — has no store anywhere.** `probe_keys[37] = "ladOriginStamp";` is present; the value is not.
+
+Consequences:
+- Every NORMAL record prints `ladOriginStamp=?`, which **P034** lists explicitly as a grading halt ("stray ? prefill token"). The run cannot produce one acceptable NORMAL row.
+- `g_sl41_oStamp` (EA L1111, written L8776) is read nowhere in the literal. The **P028** MANDATORY staleness falsifier (`ladOriginStamp != barTime ⇒ halt`), described in **P007/P032/P038** as "the single collapsed check" and "the staleness falsifier", is unobtainable from this build. The origin-quadruple availability claim in **P038** is therefore false for one of its four members.
+
+Corroborating internal evidence that this is a transcription drop rather than a design choice: **P032** step (5b) says `probe_tmpA` is "used four times with interleaved encode-store"; the literal uses it three times in the NORMAL path ([0], [23], [17]). The fourth is the missing stamp encode.
+
+### F-3 (BLOCKING) — P038 census contradicts the literal, so the exact-diff gate cannot pass both
+**P038** diff-shape: "38 value positions each written exactly once per emitted NORMAL record, via 50 store statements across the branch structure (26 common including 2 STAGE-1-bound + 12 defined + 12 fallback)". The literal yields **25** common positions (23 + 2 bound) and **49** total positions. Also, if "store statements" is read literally rather than as positions, the literal contains ~71 assignment statements to `probe_vals` (INVALID/else arms counted), so neither reading reconciles with 50. Two frozen artifacts disagree on the same count; STAGE-1 cannot satisfy both, and the disagreement is exactly the size of F-2.
+
+Same class: **P038** asserts the six temps are "populated only in the successful branch at P032 step 5" — under the literal's brace placement they are populated unconditionally (F-1).
+
+### F-4 — `extSideOk` gated on `_Point`, contradicting P036 and the FLAG-visibility claim
+Literal: `if(probe_shadowOk && MathIsValidNumber(_Point) && _Point > 0.0) { ... probe_vals[25] = IntegerToString(probe_extSideI); ... } else { probe_vals[25] = "-"; probe_vals[26] = "-"; }`.
+
+**P036** states extSideOk computes "ONLY after ext1Defined plus finite pxExt1 plus finite entryPx hold — otherwise '-'", and asserts "the FLAG's currentPrice-based visibility therefore survives anything". A side comparison needs no `_Point`. As written, a bad `_Point` suppresses extSideOk, so FLAG visibility (P007, last sentence) does **not** survive everything. Split the gates: side comparison under `probe_shadowOk` alone, displacement under the `_Point` conditions.
+
+### F-5 — extDistPts range test is pre-round in code, post-round in prose
+Literal: `if(!MathIsValidNumber(probe_extDistD) || MathAbs(probe_extDistD) > 99999.0) probe_vals[26] = "INVALID"; else probe_vals[26] = DoubleToString(MathRound(probe_extDistD), 0);`
+
+**P028** and **P036** both say "the rounded double is range-tested against the filed |extDistPts| <= 99999 range". At ±99999.5 the pre-round test passes and `MathRound` (away from zero) emits `100000`/`-100000` — 6–7 chars, inside the **P038** width ledger (`extDistPts<=7`) but outside the frozen domain (`extDistPts in |x|<=99999`). Result: a legitimate row halts grading on a domain violation the prose says cannot occur. Round into a temp, then test the temp.
+
+### F-6 — DIR_NONE silently encodes as SHORT in three places
+Literal ternaries `(g_dir == DIR_LONG) ? ... : ...` at `probe_extSideI`, `probe_extDistD`, and the `probe_vals[31]` condition treat `DIR_NONE=0` (EA L225) as SHORT. **P034** says dir 0 "is recognizable but invalid and fails acceptance everywhere" — true for field 2, but fields 26/27/32 would carry *wrong-side arithmetic* rather than an unavailable token. The page's halt is offline-only; the code manufactures a plausible value. Prefer explicit `g_dir == DIR_SHORT` arms with `-` on neither.
+
+### F-7 (BLOCKING) — `<<VETO_SYM>>` / `<<SESSION_SYM>>` break the literal-clearance mechanism and the strike policy
+`probe_vals[14] = <<VETO_SYM>>; probe_vals[15] = <<SESSION_SYM>>;` are not compilable tokens. **P003/P030** clear C "as literal source text" checked by "the STAGE-1 exact-diff gate against that text"; over these two statements the gate has nothing to diff against, so the sole text check has a hole at exactly the two positions the page concedes are unproven. Worse, **P034** and **P042** define the strike as "grading-side substitution applied by the grader, never probe code" — but the failure mode being covered (symbol-identity failure at C) is a *compile-time* condition. If no symbol exists, the build fails; a grading-side `-` cannot rescue it. The strike, as specified, cannot discharge the risk it is written for.
+
+### F-8 — poison enters the mirror predicate
+`probe_wouldGateV = (probe_slDistExt1 > 0.0 && (tpDist / probe_slDistExt1) >= InpMinRewardRisk);` is evaluated unconditionally inside the defined branch. When `probe_shadowOk` is false, `probe_slDistExt1` is still `-1e308`, so the comparison operand is the poison value. **P032** claims "no sentinel ever enters arithmetic"; **P034** claims the mirror uses "the actual numeric operands, never display tokens". The printed 0 is poison-derived, not a faithful mirror. The offline "undecided" class (P034/P036) limits the damage, but the two purity claims are false as stated. Either gate `probe_wouldGateV` on `probe_shadowOk` (and document that wouldGate is then unavailable, not 0), or amend the claims.
+
+### F-9 — P034 field-contract table omits INVALID for nine price/raw fields
+Frozen contract rows: `entryPx:NUM:24:%.17g`, `tpPx`, `incomingSlRef`, `slLive`, `ladOriginPx`, `currentPrice`, `rawNumLive`, `rawDenLive`, `s0px:NUM:24:0-with-slot--1`, `s1px`, `gateConst:NUM:24:anticipated-1`, `pxExt1:NUM:24:--undef`. The literal prints `INVALID` for all of these on a failed `MathIsValidNumber`. **P036** authorizes it in prose; the frozen table does not list the token, while **P036** also requires "the log-readback parser validates EVERY token against its own field rule". A strict parser built from the table rejects a legal row.
+
+### F-10 — a disk-only claim presented inline
+**P007**: "the single InpDebugLog hit in L9532-L9780 is the L9683 shadow-splice gate, post-C". The paste covers L9607–L9779 only; L9532–L9606 is inside the interval the page itself files as a STAGE-1/disk item. Label it as disk-proven rather than page-proven, as done for the dominance interval.
+
+### F-11 — minor: poison itemization order
+**P038**: "(four int carries at 11 chars each: +7 +7 +9 +9)". In field order the deltas are s0slot +7, s0imb +9, s1slot +7, s1imb +9. Sum 32 and the 1056 figure are unaffected; the listing order invites a misread of which field carries which delta.
+
+### F-12 — minor: `g_sl41_def ∉ {0,1}` routes to fallback while printing its raw value
+Branch predicate is `g_sl41_def == 1`, so a stale/corrupt 2 prints `ext1Defined=2` on a FALLBACK-CLASS row (P036 record-class rule). Behaviour is safe (the **P034** `{0,1}` domain assertion halts), but the record-class assignment happens before the domain check, which the page never states.
+
+---
+
+## Ask B — better mechanisms
+
+**B-1 — relocate one brace (P032 literal only).** Move the `}` that currently follows the `probe_vals[28]` statement to the end of the literal, so `[14]/[15]`, the `g_sl41_def` block, and the NORMAL assembly/`Print` sit inside the bSaved-success arm. Cheapest possible fix for F-1; no census change, no new surface, no new token.
+
+**B-2 — add the missing stamp store (P032 literal, after the `probe_vals[24]` store).** `probe_tmpA = TimeToString(g_sl41_oStamp, TIME_DATE|TIME_MINUTES); StringReplace(probe_tmpA, " ", "-"); probe_vals[37] = probe_tmpA;` — restores the four-datetime tmpA census (P032 step 5b), the 26-common / 50-store figure (P038), and the mandatory staleness falsifier (P028/P038). Reads EA L1111 only; no live-file touch.
+
+**B-3 — make the bound identifiers compile-safe instead of grading-safe (P032 literal + P034/P042 strike wording).** Set `probe_vals[14] = "-"; probe_vals[15] = "-";` in the base literal (inside the success arm), and file the two real RHS bindings as a named two-statement STAGE-1 addendum hunk that overwrites those positions. Then: the base literal is fully compilable and fully diffable, a strike is *deletion of the addendum* rather than a grading-side fiction, and F-7's compile-time hole closes without widening the cleared text.
+
+**B-4 — split the extSideOk / extDistPts gates (P032 literal, `probe_vals[25]`/`[26]`).** Compute the side comparison under `probe_shadowOk` alone; keep `_Point` finiteness/positivity as the gate on displacement only. Restores the P036/P007 FLAG-visibility claim verbatim.
+
+**B-5 — round into a temp, then range-test (P032 literal + P038 census +1 temp).** `probe_extRnd = MathRound(probe_extDistD); if(!MathIsValidNumber(probe_extRnd) || MathAbs(probe_extRnd) > 99999.0) probe_vals[26] = "INVALID"; else probe_vals[26] = DoubleToString(probe_extRnd, 0);` Removes the ±99999.5 domain escape (F-5) and makes code and prose read identically.
+
+**B-6 — add a brace-depth assertion on the emission site, not just A and C (P038 STAGE-1 list).** The page already asserts literal brace depth at the A site and the C site. Extend it: *the depth of the `Print(probe_line)` NORMAL statement must equal the depth of the bSaved-success arm body, and the depths of the CAP/BSAVE_FAIL Prints must equal their own arm bodies.* This is a textual, pre-build check that would have caught F-1 on the page rather than at the compiler — and it costs nothing to run.
+
+**B-7 — make the prefill a pre-build gate, not only a post-run falsifier (P038 micro-check allowance).** The `"?"` prefill plus the P034 stray-`?` halt currently catches F-2 *after* the run is spent. Add to the already-permitted script-type fixture: assemble one synthetic NORMAL line through the same key/value array construction and assert **zero `?` tokens and exactly 38 `key=value` pairs**. Same allowance, same artifact, but the store-completeness defect surfaces before the one-run authorization is consumed. This converts the human store census (F-3) from a claim into a machine check.
+
+**B-8 — explicit three-way dir arms in the three side-sensitive expressions (P032 literal).** Replace `(g_dir == DIR_LONG) ? X : Y` with LONG / SHORT arms and a neither-case that writes `-` to `probe_vals[25]/[26]` and `0` to `[31]`. A dir-0 row then self-identifies in the side fields instead of presenting SHORT-shaped arithmetic (F-6).
+
+---
+
+Nothing above touches the future rule, live activation, or the section-1 semantics; all eight B items are inside the section-3 probe text or the STAGE-1 assertion list. The FLAG at **P007** (non-protective-side adoption hazard, `SlimbProtectiveSideOk` at EA L9637 admitting only protective candidates on the s1x_sel 0/1 arms) is unchanged by this round and carries forward verbatim.
+
+---
+
+## Opus answer - 2026-09-19 - answers v184 relay (packet v21) (AMEND-WITH-DELTA, F-1/F-2 blocking + F-3-F-16 + B-1-B-4; page-only; filed as entry OPUS-V184-001)
+
+**Verdict: amend-with-delta.** Two pre-build gates as written are falsified by the frozen literal they are supposed to gate (F-1, F-2); everything else below is non-blocking. I found no defect in the C literal's executable logic — see the verification note at the end for what I checked and how.
+
+## Blocking deltas
+
+**F-1 — P038 construction-order assertion contradicts the frozen literal (P038 "construction-order assertion (...)"; P032 steps (5)/(5b)).**
+The gate reads "...THEN shadow computation plus value array, THEN NORMAL-from-pairs — values never evaluated before the authorized arithmetic phase." In the frozen literal, 26 value positions (`probe_vals[0..6]`, `[10]`, `[12]`, `[14]`, `[15]`, `[18..24]`, `[27]`, `[28]`, `[32..37]`) are stored *before* any shadow temp is computed, and `probe_rLiveV` is computed during that common serialization rather than in a distinct step-5 phase. There is no separable "step 5" in the literal at all: `probe_slDistExt1`/`probe_rExt1v`/`probe_wouldGateV`/`probe_extSideI`/`probe_extDistD`/`probe_extRnd` are computed interleaved inside the `if(g_sl41_def == 1)` arm. A builder honoring the gate literally must halt with delta; a builder reinterpreting it is exactly the drift the process forbids. Fix in prose, not code: renumber P032 as (1) terminal, (2) bSaved test, (3) reserve, (3b) prefill, (3a) keys, (4) SCHEMA, (5) common serialization including `probe_rLiveV`, (6) branch-local shadow computation interleaved with branch value stores, (7) NORMAL assembly — and restate the P038 clause as "no value position is stored before its own operand is computed," which is what the literal actually guarantees.
+
+**F-2 — P032's numbered composite order omits the prefill loop (P032 step (3)→(3a); P038 diff-shape).**
+`for(int probe_j = 0; probe_j < 38; probe_j = probe_j + 1) probe_vals[probe_j] = "?";` sits between the reservation and the key population in the literal, but appears in no numbered step. P038 counts it ("76 indexed stores plus the prefill statement", "three index loops") without placing it in the order. Give it a step number so the exact-diff and construction-order gates both have a position to check.
+
+## Ask A — defects, gaps, imprecisions
+
+**F-3 — P038 line-ceiling parenthetical mislabels 340 (P038 "key structure 416 (keys 340, the sum of the 38 SCHEMA key spellings + 38 separators + 37 spaces + 1 envelope space...)").**
+The breakdown describes 416, not 340. I recomputed: the 38 key spellings sum to exactly 340 bytes; 340 + 38 `=` + 38 spaces = 416. As written the sentence says 340 already includes the 76 bytes of separators and spaces, which would make 416 a double count. Arithmetic is right, the label is wrong. Reword: "key structure 416 = key spellings 340 + 38 separators + 38 spaces (37 inter-field + 1 envelope)."
+
+**F-4 — extDistPts `'-'` on unavailable `_Point` is not in P036's precedence rule (P032 C literal `else if(!MathIsValidNumber(_Point) || !(_Point > 0.0)) probe_vals[26] = "-";`; P036 "precedence: INVALID = failed finite check ... including non-finite point quotient; '-' = guard-blocked finite division").**
+A non-finite or non-positive `_Point` is a failed finite/availability check, and P036 assigns those to INVALID, but the literal emits `'-'`. P036 enumerates no third `'-'` cause for this field. An offline grader following P036 halts spuriously on a row the literal produced deliberately. Add the `_Point`-availability clause to P036 explicitly as an authorized `'-'` cause.
+
+**F-5 — `extSideOk = '-'` has two producers that P036 conflates (P032 C literal `else probe_extSideI = -1;` and the `else { probe_vals[25] = "-"; probe_vals[26] = "-"; }` arm; P036 "extSideOk keeps the 0/1/- domain").**
+`'-'` means either DIR_NONE at C (dir=0, which independently fails acceptance) or `probe_shadowOk` false (pxExt1 prints INVALID). Offline can separate them by joining `dir` and `pxExt1`, but P036 never says so, and the two classes carry different meanings — one is an instrument/domain failure, the other an ordinary unavailable counterfactual. State the disambiguation rule.
+
+**F-6 — no write census for the origin quadruple or the ext1 globals (P038 no-write scans; P007/P032 publication obligation).**
+P038 censuses writes to `currentPrice`, `slRef`, and `tpTarget`. There is no whole-file write census for `g_sl41_oPx`/`_oBT`/`_oSite`/`_oStamp` (EA L1108-11) or for `g_sl41_def`/`_px`/`_slot`/`_bt`/`_imb` (EA L1112-17). For the ext1 tuple the page asserts "no subsequent writer before C" as a STAGE-1 obligation; for the origin quadruple it asserts only that L8773-76 write them, and staleness detection rests entirely on the `ladOriginStamp == barTime` equality plus the site-equality join. Those falsifiers catch a *different-site* or *different-bar* intervening writer; they do not catch a same-bar writer that stores the same site string and stamp. Cheap fix, no code: add both censuses to STAGE-1 alongside the existing three.
+
+**F-7 — micro-check line length is specified two different ways (P034 "the micro-check line is sized poison-inclusive so the falsifier survives transport"; P038 "the micro-check synthetic line is built from the filed maxima ledger").**
+The maxima ledger yields 1024; poison-inclusive is 1056. Name the figure once — 1056 — so the transport proof covers the widest line the offline poison rule must survive.
+
+**F-8 — `probe_tmpA` has five encode-store sites, not four (P032 "ONE datetime temp probe_tmpA (used four times with interleaved encode-store per step 5b)"; P038 same wording).**
+Four in the NORMAL arm (`probe_vals[0]`, `[23]`, `[37]`, `[17]`) plus one in the BSAVE_FAIL arm, which is outside step 5b entirely. The exact-diff census should state five sites across two arms, else the filed count disagrees with the literal it audits.
+
+**F-9 — P042's interval notation disagrees with the relay's arithmetic recheck.**
+P042/P028 give the separation interval as `(0.678082, 1.384615)` open at both ends; the Arithmetic recheck line gives `(0.678082…, 1.384615…]`. The half-closed form is the correct one — A1 must pass, so the gate constant must be ≤ 108/78, while A3 must fail, so it must be > 99/146. No consequence for 1.0, which is interior either way, but pick one spelling.
+
+**F-10 — `SLIMBR` is cited as a record type that appears nowhere else on the page (P028 "the archive SLIMBR rExt1=7.30 for A2").**
+The same 7.30 is elsewhere sourced as the SIDE1E `r1` field. Since it is labeled provenance-context-only and never a grading operand, this is a citation gap, not a grading defect — but it is the only record family named without a template, a paste, or a line reference.
+
+**F-11 — the 08-26 14:40 row sits in the mandatory 13-bar enumeration but not in the MANDATORY findings list (P038 STAGE-0 enumeration; P042 "MANDATORY findings (never struck)").**
+P042's mandatory list names the 7 fire rows plus A1/A2/A3. The 14:40 generality row and the four non-fire TP_ELECT bars are covered only by the count invariant and the "deviation = finding" band sentence. Those two sentences pull in opposite directions: the count invariant is an equality whose failure halts, the band report is explicitly a finding. Say which governs when a single enumerated row is missing from C.
+
+**F-12 — P036's "printed independently BEFORE any invalid/zero-denominator handling" is false as written for the price fields.**
+Every price store in the literal is gated `if(!MathIsValidNumber(x)) ... = "INVALID"; else ... = StringFormat("%.17g", x);` — the INVALID substitution *is* that field's handling. P034's gloss ("formatting precedence within the single record, not separate emissions") repairs the "independently" half but not the "BEFORE any invalid handling" half. Reword to: each price field prints independently of *ratio-field* guard state, and still takes INVALID on its own finite-check failure.
+
+**F-13 — the helper allow-list is declared exhaustive but is a superset of use (P038 "allow-listed as exactly Print, PrintFormat, StringFormat, ...").**
+`PrintFormat` is allow-listed and never appears in the hunks. Harmless, but "exactly" invites a STAGE-1 reader to expect set equality.
+
+**F-14 — the 1024/1056 ceiling is domain-conditional in a way two fields do not enforce (P038 per-field maxima ledger; P032 C literal `probe_vals[8] = IntegerToString(g_sl41_def);` and `probe_vals[24] = g_sl41_oSite;`).**
+`ext1Defined` is filed at ≤1 char but prints the raw producer int on the fallback arm; `ladOriginSite` is filed at ≤6 but prints a raw global string with no length or charset check at emission. Both are caught after the fact — a wide `ext1Defined` trips the ungraded-shape halt, a space-bearing `oSite` trips the arity/transport halt — but neither is bounded by construction, so the ceiling holds over asserted domains only. The page does say exactly this ("a conservative bound over the specified field domains"); what is missing is the note that a domain violation in these two fields can also *exceed* the filed ceiling, so ceiling proof and domain halt are coupled rather than independent.
+
+**F-15 — the empty guard block is a residual 0/0 risk (P032 C literal `if(probe_capped || probe_dead) { }`).**
+MetaEditor's empty-controlled-statement diagnostic normally targets `if(x);` rather than `{ }`, so I expect this to pass, but the 0/0 gate is load-bearing and this is the one construct in the hunks whose warning behavior is not evidenced anywhere on the page. Worth naming in the build record as a known gate risk with a pre-decided disposition, since the remedy would otherwise require touching frozen text after clearance.
+
+**F-16 — the "same idiom" producer/selector equality remains the weakest link and is correctly labeled, but P015's count-6 guarantee leans on it at one more point than stated (P015; P007 N-2).**
+The structural argument (L9642 strict improvement ⇒ widening ⇒ R non-increasing) is complete for liveSel=0 and liveSel=1 rows, and channel (i) covers liveSel=-1. The uncovered sub-case is a row with `s1slot = -1` (the L9659/L9658 exits ended the selector walk before a second ext level) and a *defined* producer ext1: there, widening still follows if the producer's rung 0 equals the selector's s0, which is precisely the N-2 assumption. That is inside channel (ii) as written, but the page never names the `s1slot = -1`-with-defined-ext1 case as the place N-2 load-bears hardest. One sentence, no mechanism change.
+
+## Ask B — better mechanisms
+
+**B-1 — drop `extSideOk` and `extDistPts` from the payload.**
+Both are exact offline derivations from fields already printed lossless: `dir`, `currentPrice`, `pxExt1`, plus the `_Point`/digits values the build record files anyway. P007 justifies them as making a favorable-side or at-entry ext1 "visible rather than inferred," but arithmetic on lossless operands is not inference — it is the same computation moved offline, where it is reproducible and auditable instead of frozen in the hunk. Removing them deletes roughly 13 statements (the three-arm dir test, the `_Point` availability gate, the LONG/SHORT quotient pair, `MathRound`, the post-round range test, `DoubleToString(m,0)`, and both fallback stores), two variables (`probe_extSideI`, `probe_extDistD`, `probe_extRnd`), two ledger rows (1+7 bytes), `MathRound` and `DoubleToString` from the allow-list, and it dissolves F-4, F-5, and the whole extDistPts 32-bit/range/`-0` clause family in P028/P034/P036/P038. Touches only the P032 C literal plus the P034 field list, P036 field policies, and the P038 ledger — no live line, no EA line outside the hunks. This is narrower than the declined B-5 38→8 cut: it removes only fields with zero information content beyond what other printed fields already carry.
+
+**B-2 — one numeric-token helper instead of nine repetitions of the same guard.**
+`if(!MathIsValidNumber(x)) v = "INVALID"; else { probe_tokPx = StringFormat("%.17g", x); v = probe_tokPx; }` appears nine times across `entryPx`/`currentPrice`, `tpPx`, `incomingSlRef`, `slLive`, `s0px`, `s1px`, `ladOriginPx`, `pxExt1`, and the four raw operands. A single `string ProbeNum(const double v)` returning the token collapses ~20 statements to nine calls, and it makes the canonical-format assertion a one-site proof instead of a nine-site pattern match. It also retires `probe_tokPx` as a shared mutable temp, which removes the only place where two payload fields (`entryPx`, `currentPrice`) depend on a token surviving unmodified between two stores. Touches the P032 literal, the P038 allow-list and diff-shape census, and P034's entryPx/currentPrice "same token by construction" sentence — no live line, no EA line outside the hunks.
+
+Countervailing consideration, stated so the council can weigh it rather than rediscover it: P046 already declined the single-emitter helper on the grounds that a new function surface costs fresh review. This is a narrower ask — a pure function over one double with no probe state, no array access, and no output side effect — but it is the same category, and if the council's rule is "no new function surface inside a print-only probe," this falls to that rule consistently. I would rather it be declined with reasons than granted by exception.
+
+**B-3 — `rawNumExt1` carries no information (P032 C literal `probe_vals[29]`; P034 field list position 30; P036 raw-pair definitions).**
+On the defined arm `probe_vals[29] = StringFormat("%.17g", tpDist)` — the identical expression already stored at `probe_vals[27]`. On the fallback arm it is a literal copy: `probe_vals[29] = probe_vals[27]`. The shadow construction holds tpDist unchanged by design (P034: "tpDist unchanged"), so the two fields are byte-equal on every row of every class, unconditionally. The offline check "undefined-fallback rows require shadow/live raw-pair equality" is, for the numerator half, a tautology.
+
+Dropping it removes one field, one ledger row (24 bytes off both ceilings), two stores, and one clause from the P034(c) identity set, while losing nothing: the shadow numerator is recoverable from `rawNumLive` by the stated identity. Touches the P032 literal, the P034 field list and contract table, P036, and the P038 ledger. This is the cheapest of the payload cuts because it does not require deciding whether a derived field is worth printing — the field is not derived, it is duplicated.
+
+**B-4 — let `wouldGate` print `'-'` when `probe_shadowOk` is false.**
+P036 already concedes the problem in its own words: "when `probe_shadowOk` is false the defined-branch predicate evaluates over the poison distance and its printed 0 is unavailable, never a faithful mirror." The literal computes `probe_wouldGateV` unconditionally inside the defined arm, so with a non-finite `g_sl41_px` it evaluates `-1e308 > 0.0`, short-circuits false, and prints `0` — a value the offline grader must then reclassify as undecided by joining `pxExt1 == INVALID`. One store changes: `probe_vals[13] = (probe_shadowOk ? (probe_wouldGateV ? "1" : "0") : "-");`
+
+That puts the unavailability on the wire where the grammar can see it, and it deletes the entire "wouldGate=0 with any INVALID operand relevant to that calculation is undecided" reclassification rule from P034, P036, and P042 — three places where the same subtle distinction currently has to be restated identically.
+
+It does cut against the literal-mirror principle, so the scope matters: the mirror stays literal wherever a mirror exists. `probe_shadowOk` false means there is no shadow operand to mirror, so no live-predicate hazard is being hidden — the hazard class the mirror exists to expose (a faithful `true` on a non-finite quotient) is the `shadowOk`-true-with-NaN-`tpDist` case, which still evaluates and still prints literally. Touches the P032 literal (one store), the P034 contract table (`wouldGate:BOOL:1:0/1` → `0/1/-`), P036, and P042's undecided class.
+
+## Verification note — what I checked on the page
+
+Recomputed from the frozen literal and the field list, independently of the page's filed figures:
+
+- **Key array completeness and order.** All 38 indices `probe_keys[0..37]` assigned exactly once, spellings matching the P034 payload list in order, `emitSeq` at index 33 (position 34 of 38) and `ladOriginStamp` at index 37 (position 38). No duplicate, no gap.
+- **Value array coverage.** Every index `0..37` receives a final store on both the defined and the fallback path: 26 common stores (including the two STAGE-1-bound at `[14]`/`[15]`), 12 defined-arm, 12 fallback-arm. That matches P038's "50 position-populations (26 + 12 + 12)" exactly, and the `"?"` prefill cannot survive to the wire on any path.
+- **Key spellings sum to 340 bytes.** Confirmed field by field. Note the page's own ledger row for `ladOriginBarTime` is 16 characters, not 17 — I mention it only because an off-by-one there would have broken the total, and it does not.
+- **Key structure 416 = 340 + 38 `=` + 38 spaces**, consistent with the prefix-space join emitting one space before each field.
+- **Envelope 83 bytes** for `type=NORMAL`, counted character by character.
+- **Ceiling 1024 = 83 + 416 + 525**, with value maxima 525 = (16 × 24) + (4 × 16) + 41 + 6 + 30. The 16 NUM fields and 4 datetime fields resolve exactly against the field list.
+- **Poison-inclusive 1056 = 1024 + 32**, from four int carries at 11 bytes against filed maxima of 4/2/4/2. I also checked that the three poisoned price carries do not push past their own maxima: `%.17g` of `-1e308` renders as 24 characters, exactly at the filed limit — zero margin, which P038 already flags as a boundary case for the formatter fixture.
+- **Exact-rational arithmetic.** 144/42, 108/78, 297/171, 180/37, 54/23, 133/53, 99/146 agree with the displayed 3.43 / 1.38 / 1.74 / 4.86 / 2.35 / 2.51 / 0.68 at two decimals, and 1.0 is interior to (99/146, 108/78] — A3 fails, A1 passes, on the table operands.
+- **Branch reachability in the literal.** The four-arm chain is exhaustive and mutually exclusive; no arm returns or unloads; `probe_seq` increments only inside the BSAVE_FAIL and NORMAL arms; CAP neither increments nor carries a sequence; `probe_schema_done` is set once inside its own guard with no second site.
+
+What I could not check, and am not claiming: anything requiring the disk. The brace-depth equality between the A and C sites, the `L8779`-last-exit property, the no-earlier-return census over `L5291-L5494`, the 165-site debug census, the prefix-disjointness audit, the compile result, and every digest on the page are disk facts. My ruling is on the text as pasted, and F-1 and F-2 are text-versus-text contradictions inside that pasted material — they do not depend on disk truth either way.
+
+[BUILDER FILING NOTE 2026-09-19: the council text arrived in two transport halves; filed here joined in order as one entry OPUS-V184-001. His bridge sentence between the halves is omitted as transport framing, not verdict text. Seam merge: the sentence split across halves reads half-1 "~20 statements to" + half-2 "nine calls, and it makes..." (half-2 read "roughly 20"); single-word variance at the seam, arithmetic content identical.]
+
+---
+
+## Opus answer - 2026-09-19 - answers v185 relay (packet v22) (AMEND-WITH-DELTA, D-1-D-6 blocking + A-1-A-9 + B-1-B-6; page-only; filed as entry OPUS-V185-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Opus:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole, single transport half.]
+
+## Verdict
+
+**AMEND-WITH-DELTA** — five filed figures/censuses on the page are wrong or unreconstructible, and every one of them is consumed by a STAGE-1 gate that halts on mismatch. No code change is needed; all five are text corrections to the packet. Blocking lines: **P038** (store-statement count; slRef census; -1e308 boundary token), **P007** (brace census), plus the relay header's *File / function / lines* paragraph (`38+38 step-3a/5b stores`).
+
+The instrument itself reads clean. I traced every one of the 38 value positions through the frozen C literal in P032 and confirmed each has exactly one final population on every emitted NORMAL path (26 common + 12 defined + 12 fallback, all arms covered, no `"?"` survivor reachable); the 1024/1056 ledger recomputes exactly; the exact-rational interval fix is correct. The defects are in the accounting *about* the literal, not in the literal.
+
+---
+
+## Delta list (blocking)
+
+**D-1 — P038 store-statement count is wrong under every reading.**
+P038 files: *"syntactic store-statement count 77 STAGE-1-filed by mechanical count of the frozen literal (76 indexed stores plus the prefill statement) plus the prefill loop."*
+
+My mechanical count of the P032 literal:
+
+| class | count |
+|---|---|
+| `probe_keys[n] = ` | 38 |
+| `probe_vals[n] = ` (excl. prefill) | **78** |
+| prefill statement `probe_vals[probe_j] = "?"` | 1 |
+| total indexed stores incl. prefill | **117** |
+
+The 78 breaks down as 40 common (including the two STAGE-1-bound `"-"` stores at `probe_vals[14]`/`[15]`), 26 defined-branch, 12 fallback-branch. The defined branch is store-heavy because `probe_vals[26]` alone carries six alternative stores (`extSideI<0`, `_Point` unavailable, three intermediate `INVALID` arms, `DoubleToString`) and `probe_vals[11]` carries three.
+
+Neither 76 nor 77 matches 78, 79, 116, or 117. `78 − 2 = 76` only if the two STAGE-1-bound stores are excluded, which contradicts P038's own *"26 common including 2 STAGE-1-bound"* in the same sentence. The trailing *"plus the prefill loop"* also double-counts the prefill, which is already inside the parenthetical. **Delta:** restate as separate figures with the counting rule named — key stores, value stores, prefill — or delete (see Ask B, B-1).
+
+**D-2 — relay header `38+38 step-3a/5b stores` is a third incompatible figure.**
+The header (*File / function / lines*, STAGE-1 exact-diff clause) files `38+38` where P038 files 50 position-populations and 77 syntactic stores. Step 3a is 38 statements; step 5b is 38 *positions* via 78 *statements*. Three numbers for one artifact, two of them describing different things under the same word "stores." **Delta:** header should read positions, not stores, and defer to P038.
+
+**D-3 — P007 brace census contradicts the pasted block and the relay's own footer census.**
+P007: *"brace L5306-L5498, machine brace census: depth 2 at L5442-L5497."*
+The pasted block shows `L5443 {` opening depth 3, closed at `L5484 }`, with further nesting inside (`L5447 {`, `L5449 {`, `L5456 {`) reaching depth 5+. So L5443–L5483 is not depth 2. The relay footer's own census says *"depth 3 at L5443 only,"* which is it The relay footer's own census says *"depth 3 at L5443 only,"* which is itself wrong in the other direction. Counting braces in the pasted block: L5306 opens depth 2, L5443 opens depth 3, L5447 opens depth 4, L5449/L5456 open depth 5, L5482 closes to 4, L5483 to 3, L5484 closes the halt guard back to 2, L5485-L5497 run at depth 2, L5498 closes the debug gate to depth 1. So P007 understates L5443-L5484 by one-to-three levels, and the footer understates L5447-L5483 by one-to-two.
+
+The load-bearing conclusion survives: L5484 closing the guard and L5498 closing the gate are both visible in the paste, so publish at L5494-L5497 is outside the halt guard and inside the debug gate exactly as claimed. Only the census figures are wrong — and STAGE-1 re-asserts those figures against the tree and halts on mismatch, so a wrong filed census halts a correct build. **Delta:** refile both censuses from the file, or reduce the claim to the two closures that matter.
+
+**D-4 — P038 slRef write-census expects the wrong count over an ambiguous range.**
+P038: *"slRef and tpTarget write-censuses over L8779 to L9626/L9669 ... the census expects exactly one slRef assignment hit, L8812."*
+
+Two problems. First, the range endpoints are unmapped: two symbols, two endpoints (`L9626/L9669`), no statement of which goes with which. Second, under P038's own counting rule (*"assignments and by-ref/out-param writes count"*), L8779 is itself a by-ref write to slRef — `ComputeSlReference(barShift, g_dir, slRef, ...)` against `double &slRefOut` at L5292. With L8779 inclusive the expected count is 2, not 1. If the range runs to L9669 rather than L9626 it is 4, since L9664 and L9665 are slRef assignments in the pasted selector. **Delta:** state the range half-open from L8780, name the L8779 by-ref write as the excluded endpoint, and map each symbol to its own endpoint.
+
+**D-5 — the `-1e308` "zero-margin boundary" token contradicts the %g semantics the packet relies on elsewhere.**
+P038 files the price-carry poison token as the zero-margin boundary case against the ≤24 maximum. That holds only if `%.17g` does not strip trailing zeros (`-1.0000000000000000e+308`, 24 chars). But P042 anticipates `StringFormat("%.17g", 1.0)` producing the token `1` — which is trailing-zero stripping. Under stripping, `-1e308` renders `-1e+308`, 7 chars, and the validation set loses its only case that exercises the 24-char width. Both claims cannot be true.
+
+The 1024/1056 ledger is unaffected: 24 remains correct as the worst case for a general binary64 (e.g. `-1.2345678901234567e-308` is exactly 24), and poison price carries at 7 chars stay under their maximum, so 1056 holds as a bound. **Delta:** drop the zero-margin label, and name a real 24-char boundary value for the fixture set.
+
+**D-6 — P007/P038 call the ext1-tuple publication "unconditional reach" when it is gate-conditional.**
+My opening line said five; it is six. This one is the same class as D-1 through D-5 — a filed proof obligation a builder cannot discharge as worded.
+
+P007 asserts *"STAGE-1 proves unconditional reach (no earlier return in ComputeSlReference L5291-L5494 on the S5 path)"* and P038 repeats it as a gate (*"unconditional S5-path reach proved by the no-earlier-return census ... else halt"*). But L5494-L5497 sit inside the L5305 `if(InpDebugLog)` block, brace L5306-L5498 — which P007 itself states one sentence later. Reach is conditional on the debug gate. No census over L5291-L5494 can prove otherwise.
+
+The design is sound: STAGE-1 asserts InpDebugLog=true pre-run, and P007 names the false-flag consequence (stale globals, stamp-mismatch halt, all-undefined halt). Only the word is wrong, and it is wrong inside a halt gate. **Delta:** *"unconditional on the S5 path within the L5305 debug gate, whose effective value is asserted pre-run."*
+
+---
+
+## Ask A — defects, gaps, imprecisions (non-blocking)
+
+**A-1 (P034 vs P032 literal vs P036).** P034 says wouldGate is *"never clamped, never derived from a formatted field or sentinel."* In the frozen literal, `probe_wouldGateV` is computed outside `if(probe_shadowOk)`, so on a shadowOk-false row it evaluates over `probe_slDistExt1 = -1e308` — derived from a poison sentinel, printing `0`. P036 discloses the consequence and classes the row undecided, which is the right disposition; P034's absolute is what needs narrowing. Keep the literal mirror unclamped — that faithfulness is load-bearing.
+
+**A-2 (P028, P036 vs P034).** P028 and P036 expressly accept `-0` on extDistPts and read it as 0. P034 requires integer fields to *"byte-equal canonical decimal syntax within their domains."* `-0` is not canonical decimal for zero. This token is reachable: `MathRound` of a small negative displacement yields `-0.0`, and `DoubleToString(-0.0, 0)` prints `-0`. Two rules, one field, one reachable token. See B-4 for the cheaper fix.
+
+**A-3 (P038, ceiling coupling).** The coupling sentence names only ext1Defined and ladOriginSite as fields whose domain violation can exceed the filed ceiling. The same exposure applies to every raw-printed integer: ext1Imb and ext1Slot (straight from `g_sl41_*`), s0imb/s1imb/s0slot/s1slot (post-cast carries), dir, liveSel, extDistPts. None is clamped at build. The offline over-width halt catches all of them, so the falsifier is intact — the enumeration is what is incomplete.
+
+**A-4 (P032).** *"probe_tmpA ... used five times: four NORMAL-path encode-stores plus the BSAVE_FAIL barTime encode."* Only three of the four are common; `probe_vals[17]` (ext1BarTime) is defined-branch-only, so a fallback row uses the temp three times. The claim it cannot trip the unused-variable gate still holds via `probe_vals[0]`.
+
+**A-5 (P032, step labels).** The numbered order runs *(3b) prefill* then *(3a) keys*, so label order is the reverse of execution order while the exact-diff gate checks statement order. Relabel to (3a) prefill, (3b) keys. Pure transcription-risk reduction.
+
+**A-6 (P007).** *"the L5487/L5488 ternaries already establish unconditional reach given no early return"* is circular — the ternaries sit inside the L5485 StringFormat, so executing them proves reach of L5485, not the absence of an earlier return, and the clause assumes the conclusion. Delete it; the no-earlier-return census is the proof.
+
+**A-7 (P042 vs P038).** *"the expected band of exactly 13"* — a single value is not a band, and P038 treats the same figure as a prediction whose deviation is a finding rather than a halt. Harmonize the wording so a grader does not read 13 as a hard gate.
+
+**A-8 (P036, P032 literal).** The `else probe_extSideI = -1;` arm is unreachable under P038's domain assertion (`g_dir ∈ {DIR_LONG,DIR_SHORT}`, halt on 0). P036 describes DIR_NONE rows as a live join class. Keep the arm as defence, but label it dead-under-assertion so no reader expects gradeable `dir=0` rows.
+
+**A-9 (P038, 0/0 gate risk).** The pre-decided risk list names only the empty `if(probe_capped || probe_dead) { }` block. Two more candidates deserve the same file-and-halt disposition in advance: `IntegerToString(probe_seq)` (uint→long implicit conversion) and the nine temps declared in the common region but populated only in the success arm. Pre-disposing them costs nothing and avoids a post-compile judgement call.
+
+### Checked clean on the page (recorded so these do not recur)
+
+- **1024/1056 ledger is exact.** Envelope 83 (verified character-by-character), key structure 416 = 340 spellings + 38 + 38 (340 confirmed by summing all 38 key name lengths), value maxima 525 = 384 + 64 + 41 + 6 + 30. Poison delta +32 = 7+9+7+9 on the four int carries, with price carries and liveSel at or under their maxima. Totals 1024 and 1056 both reconcile.
+- **Value-position coverage is complete and non-overlapping.** 26 common (including the two STAGE-1-bound stores), 12 defined, 12 fallback, union exactly 38, one final population per index per emitted path. No `"?"` survivor is reachable. P038's *50 position-populations* figure is right; only the statement count (D-1) is wrong.
+- **Key array matches the P034 prose field list 1:1 in order**, emitSeq at position 34, ladOriginStamp at 38.
+- **P011's cause list is complete against the pasted loop** — L9635, L9636, L9637, L9642, L9649/L9655, L9658, L9659, L9632 cap all present and correctly characterised, including the `_Point` tolerance on strict improvement.
+- **All arithmetic reconciles.** A1 108/73→1.48 and 108/78→1.38; A3 99/61→1.62 and 99/146→0.68; the other five rows as filed; 09-04 09:25 at 26/41→0.63. Every one of the seven exact-rational intervals excludes 1.0, and all four non-fire rows sit outside it, so the count-6 structural claim survives its stated conditions.
+- **Terminal/CAP state machine is consistent** between P032, P038 and P042: flags set before emission, CAP only as the first reach after reserved 20000, BSAVE-first carries no SCHEMA, post-terminal silence by latch with no return and no ExpertRemove in the hunks.
+
+---
+
+## Ask B — better mechanisms
+
+**B-1 — Delete the store-statement count outright.** *Touches: P038 diff-shape clause. Zero code lines.* The count was never a falsifier; the falsifier already exists and is stronger — the `"?"` prefill token plus the offline arity and per-token checks reject any missed position mechanically. Three mutually inconsistent figures (D-1, D-2) vanish and nothing is lost. Replace with the two figures that are machine-checkable and already correct: 38 key stores, 50 value positions.
+
+**B-2 — Replace both hand-filed brace censuses with a generated running-depth table.** *Touches: P007, P032, P038 wording. Zero code lines.* File the `{`/`}` depth table over L5291-L5499 mechanically at STAGE-1 and replace the page claim with the two facts the paste actually proves: L5484 closes the L5442 halt guard, L5498 closes the L5305 debug gate. Everything else in the census can only introduce mismatch against a correct tree.
+
+**B-3 — Print the effective InpDebugLog in the probe envelope.** *Touches: the four envelope strings in the P032 C literal, P034 envelope grammar, P038 ceiling (1030/1062). Zero live EA lines.* This is the largest residual hole on the page: with the flag false, C still emits ~3200 NORMAL rows while the ext1 tuple and origin quadruple are stale or default, and the only defences are an offline stamp mismatch plus the all-undefined halt. Both are real, both are indirect. `dbg=` populated from `(InpDebugLog ? "1" : "0")` is a pure input read inside the already-cleared hunk, adds no gate and no live write, and converts the pre-run assertion from unverifiable-in-output into a one-token check on every row. It also makes the SIDE1E count identity self-documenting, since that identity depends on the same flag.
+
+**B-4 — `IntegerToString((int)probe_extRnd)` in place of `DoubleToString(probe_extRnd, 0)`.** *Touches: one statement in the P032 literal (`probe_vals[26]`), the `-0` sentences in P028 and P036, the extDistPts row in P034's contract table, and the P038 helper allow-list.* The `|x| <= 99999` range check already runs before this store, so the cast is safe. `IntegerToString` cannot emit `-0`, which retires A-2, makes the field genuinely INT-typed as its contract row claims, and — since `DoubleToString` appears nowhere else in the hunks — lets the allow-list drop a helper, shrinking lexical-purity surface rather than growing it.
+
+**B-5 — Restate the write-censuses as half-open ranges with by-ref writes named at each endpoint.** *Touches: P038. Zero code lines.* `slRef` over L8780→L9626 expecting exactly one hit (L8812), with L8779 named as the excluded by-ref boundary write; `tpTarget` over its own stated range. This is the fix for D-4 and it generalises: every census on the page that starts at a call site inherits the same off-by-one.
+
+**B-6 — The standing declines are correctly placed.** Opus-v180 B-1 through B-5 and Opus-v181 B-1/B-6 all touch live files or cut verification surface on frozen cleared text; keeping them behind their own tokens is the right call, and P046's register carries them visibly. I would add nothing to the live-relay carry list except the FLAG already at P007 — the future rule removes the L9637 protective-side invariant, and B-7's `SlimbProtectiveSideOk` routing remains the cheapest answer to it.
+
+---
+
+## Summary
+
+Amend-with-delta, six corrections, all text: **D-1** P038 store count (78 value stores, not 76/77), **D-2** header `38+38` restated as positions, **D-3** P007 and footer brace censuses refiled, **D-4** P038 slRef census range and expected count, **D-5** the `-1e308` zero-margin label, **D-6** "unconditional reach" narrowed to gate-conditional. None requires touching A, B, or C. The frozen C literal, the 38-position coverage, the 1024/1056 ledger, and all seven exact-rational intervals verify clean on the page; what fails is the accounting *about* the literal, in five places where a STAGE-1 gate halts on the mismatch it would find against a correct tree. Nine further imprecisions in Ask A, none blocking. Disk genuineness is not answerable from here and I make no claim on it.
+
+---
+
+## Opus answer - 2026-09-19 - answers v186 relay (packet v23) (AMEND-WITH-DELTA, D-1-D-15 + B-1-B-6; page-only; transport cut mid-sentence at the close, remainder owed; filed as entry OPUS-V186-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Opus:" label in the operator transport message is his source framing, not verdict text. The pasted verdict below is filed whole as received EXCEPT its final boilerplate sentence arrives cut mid-word ("br"); all operative content (disposition, recompute section, D-1-D-15, B-1-B-6) is complete sentences. Remainder owed on next transport.]
+
+**Verdict: amend-with-delta** — text-only on D-1 through D-9; D-10 through D-15 are precision items; the literal-touching items in Ask B stay carried for council token. Nothing I found in the frozen C literal changes what it computes or breaks the run, so this is not a halt.
+
+## What recomputes clean on the page
+
+Reported because it is the part that was miscounted in v22 and is now page-verifiable:
+
+- **Value stores = 78.** Common section 40 statements (vals 0,1 = 2; 2/34 = 4; 3 = 2; 4 = 2; 5 = 1; 6 = 2; 10 = 4; 12 = 2; 32 = 1; 33 = 1; 35 = 2; 36 = 2; 18–21 = 4; 22 = 2; 23 = 1; 24 = 1; 37 = 1; 27 = 2; 28 = 2; 14 = 1; 15 = 1). Defined branch 26 (7 = 2; 8 = 1; 9 = 1; 11 = 3; 13 = 1; 16 = 1; 17 = 1; 25 = 3; 26 = 7; 29 = 2; 30 = 2; 31 = 2). Fallback 12. 40 + 26 + 12 = 78 ✓
+- **Positions = 50.** 26 common (incl. the two STAGE-1-bound) + 12 defined + 12 fallback ✓, and the union of the three sets is exactly {0..37} — every position receives a final value on every emitted NORMAL path, so no `?` prefill token can survive ✓
+- **38 key stores, 1 prefill statement, 3 index loops, 4 Prints** ✓
+- **Ledger.** Envelope `[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v23 base=6C2E4028 type=NORMAL` = 83 ✓. Key spellings sum to 340 ✓; + 38 `=` + 38 spaces = 416 ✓. Value maxima 16×24 + 4×16 + 41 + 6 + 30 = 525 ✓. 83 + 416 + 525 = 1024 ✓. Poison delta (four int carries at 11 vs filed 4/2/4/2) = +7+9+7+9 = 32 → 1056 ✓. The 24-char boundary token `-1.2345678901234567e-308` is a genuine `%.17g` worst case ✓
+- **Pre-branch carry silence** holds in the pasted literal: the CAP arm reads no carry, the BSAVE_FAIL arm reads only `barTime`, `g_dir`, `probe_seq` ✓
+- **No division on poison.** `probe_wouldGateV`'s first conjunct `probe_slDistExt1 > 0.0` is false at −1e308, so the `tpDist / probe_slDistExt1` term never evaluates on a `!shadowOk` row ✓
+- **DIR_NONE is structurally protected** in the extDistPts nest: `extSideI = -1` routes to `vals[26] = "-"` before the `if(g_dir == DIR_LONG) … else …` arm can mis-sign a DIR_NONE row ✓
+- **Arithmetic.** 144/42 = 3.43, 108/78 = 1.3846, 297/171 = 1.737, 180/37 = 4.865, 54/23 = 2.348, 133/53 = 2.509, 99/146 = 0.678 ✓. Propagated intervals confirm the separation: A1 [107/79, 109/77] = [1.354, 1.416] wholly above 1.0; A3 [98/147, 100/145] = [0.667, 0.690] wholly below ✓. The four non-fire TP_ELECT rows recompute from their own quoted operands (26/74 = 0.351, 15/83 = 0.181, 32/93 = 0.344, 26/41 = 0.634) and all four propagated intervals stay below 1.0 ✓. The 13/11/7/4/2 count structure closes: 13 C-reaches − 2 rows without TP_ELECT (08-26 14:40, A2) = 11 TP_ELECT, of which 7 fire ✓
+
+## Ask A — defects, gaps, imprecisions
+
+**D-1 (P042) — version residue.** P042 reads "No re-emit path exists in **v22**" inside a v23 packet. Astra-v185-A7 is recorded in P046 as having fixed the v22 residue; this instance survives. Make it v23 or version-agnostic.
+
+**D-2 (P003) — stale cross-reference.** P003 says the addendum restructure is "per the **v21** fold list in the title". The title (P001) now carries the v23 fold list; there is no v21 fold list in it. Point the parenthetical at P001-as-is or name the v21 relay explicitly as history.
+
+**D-3 (P015, P042) — count label conflates rows with fires.** P015 predicts "post-activation **TP_ELECT count 6**". P042's own baseline plus the NONFIRE pulls prove TP_ELECT rows are emitted independent of the R-gate (four rows print at R 0.35/0.18/0.34/0.63). A3 dropping to 0.68 therefore leaves 11 TP_ELECT rows with 6 fires, not 6 TP_ELECT rows. P042 defines fire as "a TP_ELECT row with R>=1.0", so the correct prediction is "fire count 6 of 11 rows". As written, P015 predicts a row count that the page's own evidence contradicts.
+
+**D-4 (P013 vs the four SEED1655-CTX rows) — next-bar relation unscoped.** P013 states ladOriginBarTime "is EXACTLY the next M5 bar after the evaluated bar". All four quoted context rows print `bar=…16:55 ladOriginBarTime=…16:55` — equal, not next. They are S2POLL/S3ARM rows whose origin is written elsewhere, not by L8774's `iTime(barShift-1)` with barShift=1; the S5 rows (A1 16:20→16:25, A3 16:40→16:45, A2 10:35→10:40) all satisfy the relation. The page never scopes the claim, so it reads as falsified by its own quoted evidence. Scope it to the S5 path / barShift=1 and label the CTX rows as a different origin writer.
+
+**D-5 (P007, P032, P038) — the site-equality leg of the offline join is vacuous on this path.** `g_sl41_oSite` is assigned the literal `"S5"` at EA L8775 on every S5 pass before L8779. STOPRESOLVE's ladOriginSite therefore prints a constant, and the SLEXT481 side is the L5489 `site` local which is also "S5" on these rows. "Required equality between the two site sources" cannot falsify anything here. The named "second falsifier" reduces in substance to barTime plus ordered-occurrence multiplicity; the stamp equality remains the only staleness falsifier, as P028 already says. Relabel so a later reader does not count the site leg as independent evidence.
+
+**D-6 (P034, P038) — the addendum is not constrained to one statement per position.** P038 freezes 78 value stores and 50 positions "by mechanical count of the frozen literal", and the exact-diff gate checks that shape. P034 lets the STAGE-1 addendum overwrite `probe_vals[14]`/`[15]` with "the complete RHS expression, source type, encoding/domain, maximum width, and any permitted formatter call" — nothing there says *one statement per position, no guard, no branch*. A bound symbol needing a validity guard would silently re-open 78 → 79+ and 40 → 41+ and break the gate it was supposed to pass. Add the explicit rule: each addendum store is exactly one assignment statement; if a guard or branch is required, the `"-"` strike stands.
+
+**D-7 (P036, P038) — ext1Slot's domain and ledger width rest on unpasted producer code.** P036 files domain `[0, barShift+SRJ_LAD_ABS_SLOT_CAP]` for `g_sl41_slot`, and P038's ledger gives ext1Slot ≤ 4 chars. But P028 states the producer "walks further than the s1x walk stops" and admits the producer's code is not pasted (the sameness claim "rests on a source comment (L9622-L9623), not on pasted producer code"). P038 also couples ceiling proof to domain halts ("stand or fall together"). So the coupled proof inherits an off-page assumption about SrjResolveExt1's own loop bound. Either add the producer loop-bound line to the STAGE-1 pull list explicitly, or widen the filed ext1Slot maximum and re-derive.
+
+**D-8 (P034 vs P038) — incomingSlRef provability tension.** P034 defines incomingSlRef as slRef at the A site and adds "never provably what ComputeSlReference returned". P038 now files a slRef write-census over L8780→L9626 with exactly one hit (L8812) inside the dormant `InpAdoptExt1 && InpDebugLog` block, excused only with `InpAdoptExt1=false` proven (EA L71 quoted). Under that census the A-site read *is* the L8779 return value. One of the two statements should yield; my recommendation is to keep the census and downgrade P034's disclaimer to "provable only under the filed manifest".
+
+**D-9 (P034 field contract table) — poison presented as an authorized token, plus ambiguous sentinel spellings.** The row `liveSel:INT:2:99-poison` reads as though 99 is a permitted value; P034's own offline poison rule makes 99 in liveSel a grading halt. Same table carries `pxExt1:NUM:24:--undef`, `ext1BarTime:DT:16:--undef`, `ladOriginSite:STR:6:--stale-halt`, `s0px:NUM:24:0-with-slot--1` — compressed double-dashes that a reader must guess at ("`-` = undef", "0 paired with slot −1"). In a frozen, byte-audited artifact those spellings should be unambiguous.
+
+**D-10 (P034, P036) — the non-finite-mirror hazard clause is wider than the reachable path.** P034 warns that "a faithful true on a non-finite quotient exposes a live-predicate hazard". In the literal the only generator is `tpDist` non-finite with `probe_slDistExt1` finite and positive: on `!shadowOk` rows the poison distance fails `> 0.0` so `probe_wouldGateV` is structurally 0, and NaN `>= 1.0` is false, so `+inf / finite` is the sole route to a printed 1 alongside `rawNumExt1 = INVALID`. Naming that single generator turns a general warning into a checkable condition.
+
+**D-11 (P032 step 5 vs the literal) — shadowOk described as three terms, built from two.** Step 5 lists `probe_shadowOk (ext1Defined plus finite pxExt1 plus finite entryPx)`; the literal computes `MathIsValidNumber(g_sl41_px) && MathIsValidNumber(currentPrice)` with ext1Defined carried by the enclosing branch. Same semantics, different shape from the prose an exact-diff reader will check against.
+
+**D-12 (P036) — three INVALID causes for extDistPts are indistinguishable on the wire.** P036 enumerates non-finite subtraction, non-finite point quotient, and out-of-range rounding as separate causes; all three emit the same `INVALID` token from three different statements. The distinction cannot be read off the log, so any diagnosis is disk-only. Say so, or collapse the causes (see B-6).
+
+**D-13 (P011) — "deepest observed slot 118" does not name the metric.** The quoted archive rows carry both `ext1Slot` (max 118) and `deepestExt` (max 45). P028 spends a paragraph warning against conflating ladder indices with counts; P011 then uses a bare "slot" for the very quantity at issue.
+
+**D-14 (P038) — tpTarget's declaration is never cited, and its census stops one line short of C.** The tpTarget write-census runs L8779→L9669; the C site is post-L9670. The gap is a single pasted line (L9670) that contains no tpTarget write, so it closes by inspection, but the filed range as written does not reach the field it certifies. tpTarget's declaration/scope line is also the one operand line never quoted, so "tpPx prints tpTarget" rests on the L9669 usage alone.
+
+**D-15 (P032, P034, P038) — the cap number has three sources.** `const uint PROBE_CAP = 20000`, the CAP line's literal `reservedTotal=20000`, and the prose "reserved sequences 1..20000" / "emitSeq in 1..20000". Nothing ties them; a future change to one leaves the other two lying.
+
+## Ask B — better mechanisms
+
+**B-1 (prose only, free).** Relabel the offline join per D-5: site equality is vacuous on the S5 path (EA L8775 literal), so the join's independent content is barTime + ordered occurrence + price corroboration, with `ladOriginStamp == barTime` as the sole staleness falsifier. Touches P007, P032, P038 wording. No EA lines.
+
+**B-2 (literal, own token) — remove the empty-block 0/0 risk instead of pre-deciding a halt for it.** P038 files "the empty `if(probe_capped || probe_dead) { }` guard relies on no empty-block diagnostic" with disposition file-and-halt. That disposition costs the entire one-build authorization for a risk a restructure eliminates:
+
+```mql5
+if(!probe_capped && !probe_dead)
+  {
+   if(probe_seq >= PROBE_CAP) { /* CAP arm unchanged */ }
+   else if(!probe_bSaved)     { /* BSAVE_FAIL arm unchanged */ }
+   else                       { /* success arm unchanged */ }
+  }
+```
+
+Identical semantics, identical statement counts inside the arms, no empty block. Costs one nesting level, so P038's A-site/C-site brace-depth assertion and the diff shape re-file. Touches the chain head and its closing brace in the P032 literal.
+
+**B-3 (literal, own token) — kill the second pre-decided halt with two casts.** P038 pre-decides file-and-halt for `IntegerToString(probe_seq)` (uint→long implicit). Write `IntegerToString((long)probe_seq)` at both sites — the BSAVE_FAIL concatenation and `probe_vals[33]`. Two characters each, one fewer way to lose the round.
+
+**B-4 (literal, own token) — single-source the cap number** per D-15: `"… type=CAP reservedTotal=" + IntegerToString(PROBE_CAP) + " reason=CAP_EXHAUSTED"`. One statement in the CAP arm; removes the two-source drift without touching the CAP semantics or the non-sequenced rule.
+
+**B-5 (literal, own token) — collapse the extDistPts validity nest from 7 statements to 3.** The intermediate finite checks on `probe_extDifD` and `probe_extDistD` are dominated by the post-round check, since `MathRound` propagates NaN and ±inf and `MathAbs(inf) > 99999.0` is true:
+
+```mql5
+if(probe_extSideI < 0 || !MathIsValidNumber(_Point) || !(_Point > 0.0))
+   probe_vals[26] = "-";
+else
+  {
+   probe_extDifD = (g_dir == DIR_LONG) ? (currentPrice - g_sl41_px) : (g_sl41_px - currentPrice);
+   probe_extDistD = probe_extDifD / _Point;
+   probe_extRnd = MathRound(probe_extDistD);
+   if(!MathIsValidNumber(probe_extRnd) || MathAbs(probe_extRnd) > 99999.0) probe_vals[26] = "INVALID";
+   else probe_vals[26] = DoubleToString(probe_extRnd, 0);
+  }
+```
+
+Same tokens on every input, two fewer nesting levels, no detection lost, and it resolves D-12 by making the single INVALID token correspond to a single check. Re-files the value-store census 78 → 74 and the defined-branch count 26 → 22.
+
+**B-6 (prose + one STAGE-1 pull, cheaper than any new hunk).** Per D-7, add the producer's ladder loop bound (the SrjResolveExt1 line that bounds `sl41_slot`) to the STAGE-1 pull list. That is one grep on disk and it converts ext1Slot's domain and its ≤4-char ledger entry from assumption to filed fact, which matters because P038 couples the ceiling proof to the domain halts. Touches P036/P038 prose; no EA lines.
+
+[BUILDER TAIL-CUT NOTE 2026-09-19: transport ends here mid-word ("br"); the closing boilerplate sentence is cut. All operative content above (disposition, recompute section, D-1–D-15, B-1–B-6) is complete sentences. Remainder owed.]
+
+[BUILDER TRANSPORT NOTE 2026-09-19, v187 trip: operator relayed v187 to Opus 4 times, no output returned on his end (credit out, complexity-suspected). No Opus verdict filed for v187. Standing amendment applies (Astra-sufficient for print-only packets; Opus dual-key stays mandatory only for selection changes): Luna-CLEAR + Astra-AMEND decides this print-only round as AMEND. Opus re-adds by pasting the same v187 file whole when credit allows.]
+
+---
+
+## Opus answer - 2026-09-19 - answers v189 relay (packet v26 + RECON47) (AMEND-WITH-DELTA, D-1-D-14 + A-1-A-10 + B-1-B-5; page-only; filed as entry OPUS-V189-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Opus:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+## Verdict
+
+**amend-with-delta** — on the RECON47 grade and on the v26 narrowed contract. Fourteen blocking deltas below, each with line numbers. The run's *substance* is good: the instrument fired, the three named rows are internally consistent, and the sink cap is real evidence. What fails is the **grading label**. v26 calls the outcome a partial pass under "present-prefix grading," but the cut removes fields that P042 itself declares MANDATORY-never-struck, and P038 forbids adding strikes after seeing output. The honest label is *probe acceptance INCOMPLETE on a transport shortfall*, with a named recovery path — not a partial pass.
+
+Also blocking independently of the grade: **the frozen C literal in P032 no longer matches the tree that ran** (D-1).
+
+---
+
+## Blocking deltas
+
+### D-1 — `pkt=` token mismatch: the v26 literal cannot pass its own exact-diff gate (P032, P034, P003, run-evidence paragraph)
+
+The frozen C literal at P032 carries `pkt=PACKET_EXT1LIVE-001-v26` in all four envelope strings (CAP, BSAVE_FAIL, SCHEMA, NORMAL). P034 repeats it in the envelope spec and all three non-normal templates. The wire rows in the run-evidence paragraph carry `pkt=PACKET_EXT1LIVE-001-v25`.
+
+The relay header states "no code change this relay; tree landed 3a932b9 ... code untouched" and "repair-in-place." Both cannot hold. As written, the STAGE-1 exact-diff gate ("checks the build tree against that text plus the hunk," L3/P003/P030) would **halt against the very tree that produced the evidence**.
+
+Pick one and say it on the page:
+
+- **(a)** Revert the literal to `-v25` and state that the cleared text is the text that ran, with v26 changing prose only. Cheapest; keeps byte-identity between cleared text and run evidence.
+- **(b)** Keep `-v26` and state plainly that v26 authorizes a **rebuild**, which voids the RECON47 byte-identity claim and needs fresh run word.
+- **(c)** Add a version-token carve-out to the exact-diff gate (diff modulo the `pkt=` literal). I'd decline (c): it opens the one field that ties output to authorization.
+
+Recommend (a) if the intent is genuinely no-rebuild; the packet version then lives in P001/P003 and the wire token is documented as lagging one version, once, explicitly.
+
+### D-2 — the present-prefix rule admits a corrupted field into the graded region (P038 present-prefix clause; run-evidence paragraph)
+
+P038 says rows "grade on the present prefix (positions 0-22 plus full SCHEMA)." Position 22 is `ladOriginPx` — **exactly the field the cut lands inside** on two of the three quoted rows:
+
+- A1: `... ladOriginPx=1.16429999999` (truncated)
+- A3: `... ladOriginPx=1.16` (truncated)
+- A2: `... ladOriginBarTime=2026.09.04-1` (position 22 complete, 23 truncated)
+
+A truncated `%.17g` price is the worst possible failure mode: it **parses clean as a valid canonical-looking number** and compares wrong. P034's parse-failure list (noncanonical spellings, grouping separators, interior whitespace, empty token, stray `?`, reserialization mismatch) does not catch it. Fed to the MANDATORY `ladOriginPx == currentPrice` bit-equality check (P028), `1.16429999999` vs `1.1642999999999999` yields **a false staleness halt**.
+
+Delta, exact rule to file:
+
+> The graded prefix is determined **per row**, not globally: it is positions 0..k-1 where k is the index of the field containing the cut. The cut-containing field is WITHHELD, never parsed, never compared, and never counted toward any identity. A row whose final `key=value` pair is not terminated by the line terminator is treated as cut at that key.
+
+Graded prefix then reads 0-21 for A1 and A3, 0-22 for A2 — not 0-22 for all.
+
+### D-3 — P038 carries two contradictory transport rules in one paragraph (P038)
+
+Still on the page: "arity failure (a line without exactly the 38 ordered payload keys plus the exact envelope keys) is the graded transport falsifier in the **transport-halt class**, never a grading miss." Every one of the 13 NORMAL rows is an arity failure by that definition. The new sentence — "rows cut by the measured sink cap grade on the present prefix" — directly overrides it without withdrawing it.
+
+Delta: withdraw the arity-as-transport-halt sentence explicitly in the P003 supersede list, or keep it and accept that the run is a transport halt. Do not leave both texts standing; a later reader picks whichever suits.
+
+### D-4 — MANDATORY findings the cut makes ungradeable must be named individually, with recovery routes labeled (P042 mandatory list; P028; P034(b)(c)(d); P042 state machine and count invariants)
+
+"Keys past the cut are withheld, never failed" absorbs four mandatory obligations into a generic phrase. Name them:
+
+| Mandatory obligation | Cut field(s) | Status | Recovery available |
+|---|---|---|---|
+| gateConst/actualGate self-consistency (P042) | `actualGate` 32, `currentPrice` 34 | ungradeable on the wire | **Yes, external**: recompute `tpOk` from present `entryPx`/`slLive`/`tpPx`/`gateConst`, compare to same-bar SIDE1X `livePass` (13/13 present; P034(d) already calls `livePass` genuinely external) |
+| `ladOriginPx == currentPrice` bit-equality per row (P028, P038) | 22 truncated, 34 cut | ungradeable | **No** at bit precision; SIDE1X `entry=` gives 5dp corroboration only |
+| Sequence state machine — contiguity, uniqueness, terminal cardinality (P042, Astra-B1 "primary structural validator") | `emitSeq` 33 | ungradeable | **Partial**: 13 rows, distinct bars, in order, one SCHEMA first, zero terminal records; contiguity from 1 is **source-structural only** (increment-then-take), not run-proven |
+| Universal carry identities `sel=0 ⇒ slLive==s0px` (P034(b)) | `s0px` 35, `s1px` 36 | ungradeable bit-exact | **Yes, reduced**: SIDE1E 5dp — A1 s0px 1.16503 = slLive 1.16503; A3 1.16274 = 1.1627399999999999; A2 1.16289 = 1.16289. All three pass at 5dp as **copy-consistency**, not the bit-exact crossed-assignment falsifier |
+| A2 "stamp/provenance join" (P042 mandatory) | `ladOriginSite` 24, `ladOriginStamp` 37 | ungradeable | **No** — see D-6 |
+| Operand-mapping identities (P034(c)) | raws 27-30 | ungradeable as printed | **Yes, derived**: all four are reconstructible from present `tpPx`/`entryPx`/`slLive`/`pxExt1`; they lose falsifier status and become derivations |
+| `extSideOk=0` row listing, extDistPts (P042, P007 FLAG visibility) | 25, 26 | ungradeable | **Yes, derived** from `dir`/`entryPx`/`pxExt1` + filed `_Point`; all three named rows derive protective-side (SHORT, pxExt1 > entryPx in each) |
+
+Each recovery must carry its own label — **external / derived / source-structural** — and derived values must never be re-presented as on-wire falsifiers. Note the circularity to state explicitly: `entryPx` may stand in for cut `currentPrice` **only** on the source construction (single `probe_tokPx`, P034), and the textual check that would confirm that construction at runtime is itself field 34. That substitution is source-proven, not run-proven.
+
+### D-5 — present-prefix grading is a post-hoc strike, which P038 forbids (P038 strike-filing clause; P042 strikable list; P036 exclusion)
+
+P038: "every strike recorded BEFORE the build begins and before the one-run authorization is consumed — **no strike may be added after the build or after seeing output**." P036: "the P042 mandatory recompute fields (currentPrice, slLive, tpPx, gateConst) are EXCLUDED from the strike allowance entirely (a mandatory check never goes ungradeable by strike)." P042 strikable scope is exhaustive and lists only (i) L10073/L10170 attribution, (ii) VACANT, (iii) vetoState/sessionUse symbol identity.
+
+Withholding positions 23-38 after seeing output is functionally a strike of two excluded fields (`currentPrice`, and `actualGate` which carries the `gateConst` check) plus fifteen others, added after the run. Under the packet's own rules that is not permitted, and the closing disposition for retained obligations is spelled out: "unobservable ordering on RETAINED obligations is **unproved-and-halt**."
+
+Delta — relabel the outcome, don't renegotiate the scope:
+
+> RECON47: **instrument fired, probe acceptance INCOMPLETE** (transport shortfall, not an instrument defect and not a strike). Actual-path contractual-diagnostic comparison unaffected and completes on its own inputs. Present-prefix findings stand as findings. The withheld mandatory checks are **unproved**, carried to a transport-fixed build with fresh authorization. No re-emit; nothing is graded twice.
+
+That keeps every prior rule intact, reports the real gain honestly, and does not spend the mandatory list.
+
+### D-6 — losing `ladOriginStamp`/`ladOriginSite` falsifies P046's rationale for omitting hunk D (P046 hunk-D decline; P028; P038)
+
+P046 omits the producer-site carry hunk D because "origin rides globals written at L8773-76 with the single stamp equality plus the ordered triple-join with site equality — **the falsifier carries its own evidence on every row**." P028/P038 call `ladOriginStamp == barTime` "the **sole** staleness falsifier."
+
+`ladOriginStamp` (37) and `ladOriginSite` (24) are cut on every row, and unlike the raws they are **not reconstructible** — the stamp is probe-only (`g_sl41_oStamp`, EA L8776) and appears in no legacy emitter. SLEXT481 publishes `ladOriginPx`/`ladOriginBarTime`/`ladOriginSite` but no stamp. So the stale-globals hazard that hunk D was declined to avoid is **not discharged by this run**, and the decline's stated reason no longer holds on the evidence.
+
+Delta: move hunk D from OMITTED to **REOPENED, council to dispose at the next relay**, with the reason updated on the page. Note the cheaper alternative first: under the transport fix in D-2/B-1 the stamp simply transports, and hunk D stays omitted. The decision is therefore downstream of the transport fix, not independent of it.
+
+### D-7 — the premise that actually failed is still asserted on the page (P038 sink clause; JOURNAL CEILING NOTE)
+
+P003's supersede list withdraws four v25 items but not the load-bearing one. Still standing verbatim in P038: "**tester-log sink equivalence asserted by name** (post-run actuals validating, chars filed here)." And the JOURNAL CEILING NOTE still concludes: "the ceiling is proven by the expressly-allowed pre-build micro-check (script-type, zero strategy code), never assumed."
+
+Root cause, name it: the P038 micro-check allowance is **script-type**, and a script's Experts-log sink is not the tester's journal sink. The transport gate was never equivalent to the transport it gated. The 1024/1056 ledger was arithmetic about field widths and was never a transport measurement, which is what "537 total" now proves from the other direction.
+
+Delta: add "tester-log sink equivalence (asserted, never measured)" and "micro-check-proves-ceiling" to the P003 withdrawal list, and correct the JOURNAL CEILING NOTE's conclusion. The 32 archive LINEWIDTH lines at max 537 with zero truncation were **already evidence of the cap** and were read as evidence of headroom — that inversion is the lesson worth filing.
+
+### D-8 — the canonical-format rule is falsified by the run's own tokens (P036 canonical clause; P038 canonical-format assertion)
+
+P036 requires each numeric to "byte-equal `StringFormat("%.17g", parsed-value)`," with the offline reference permitted to **exponent-normalize** only. The wire shows `%g` trailing-zero stripping in force:
+
+- `gateConst=1` (not `1.0000000000000000`) — confirms the anticipated-`1` prediction ✓
+- `slLive=1.16503` and `entryPx=1.16265` — stripped
+- `entryPx=1.1642999999999999` — full 17 digits
+
+A reference formatter that pads to 17 significant digits rejects `1.16503` as noncanonical and halts a clean row. Exponent normalization does not cover this.
+
+Delta: add trailing-zero stripping to the canonical rule explicitly ("`%g` semantics: trailing zeros in the significand are stripped and a bare integer significand carries no decimal point; the reference formatter must reproduce this before comparison"), and file one stripped and one unstripped actual token from RECON47 as the fixtures. This is a genuine near-miss: it would have produced 13/13 false canonical failures under a naive reference implementation.
+
+### D-9 — internal contradiction on the measured payload maximum (run-evidence paragraph)
+
+Same sentence: "longest NORMAL payload **468**, longest journal line 537 total (day-log verified, longest NORMAL payload **489**)." Elsewhere P034/P038 use "~489." The three quoted rows are each labeled "489 chars, cut." Delta: state one number as the measurement with its measuring instrument named, and the other as whatever it actually is (segment-tabulator artifact? pre-day-log truncation?). The split point in any transport fix depends on this figure.
+
+### D-10 — clean-sweep claims must carry the prefix scope (run-evidence paragraph)
+
+"zero '?' survivors; zero INVALID in the present region" — the INVALID claim is scoped, the `?` claim is not. A prefill survivor at position 30 is unobservable on this run. Same for "wouldGate sign agreement 13/13": `wouldGate` is position 13 and present ✓, so that one holds — but state that it holds *because the field is inside the prefix*, so the reader can tell which claims survived transport and which are vacuous.
+
+Delta: scope every sweep claim to positions 0..k-1 per row, and add: "no claim of absence is made for withheld positions."
+
+### D-11 — the 7-fire mandatory and the 6-of-11 close are not page-provable (run-evidence paragraph; P015; P042)
+
+The run line reads "11 TP_ELECT lines with 7 SIGNAL alerts." P028 warns explicitly that these are different invariants: fire = TP_ELECT row with R ≥ 1.0; the SIGNAL count "is reported separately and is not the same invariant." The SIGNAL count does not discharge the MANDATORY "7 TP_ELECT fire rows" finding — that needs the 11 TP_ELECT R values.
+
+Separately: 10 of 13 NORMAL rows are not on the page. "signs 13/13" is a builder summary, not reviewable text. A page-only seat can rule the contract and the three quoted rows; it cannot certify the count closure.
+
+Delta: label the 6-of-11 close **builder-filed, page-unverified**, and ship the remaining 10 rows (present prefix only — they fit) at the next relay if council certification of the count is wanted. Restate the fire count against TP_ELECT R values, not SIGNAL alerts.
+
+### D-12 — enumerate poison-falsifier survival per field (P038 offline poison clause)
+
+"falsifier survival holds only within the cap" is too vague to act on. Actual survival:
+
+- **Survived** (inside prefix): `liveSel` 5 (99), `slLive` 6 (-1e308), `s0slot` 18 / `s0imb` 19 / `s1slot` 20 / `s1imb` 21 (-2147483647) — all four int carries present and clean on the quoted rows
+- **Lost** (cut): `s0px` 35, `s1px` 36 price poison
+
+Note the indirect cover: on `sel` ∈ {0,1} rows, SIDE1E's 5dp `s0px`/`s1px` agreeing with `slLive` excludes the price poison at 5dp. So B-miswiring detection degrades rather than disappears. Say that precisely — it's the difference between "falsifiers held" and "falsifiers held for six of eight carries with 5dp cover for the other two."
+
+### D-13 — 537 is an inferred cap; file the prefix width (P034 parser transport rule)
+
+That NORMAL rows were cut proves a cap at ≤537 exists. Whether the cap is exactly 537 **total**, or a payload cap that happens to sum to 537 with this prefix, is not derivable from the page: the timestamp/thread prefix width is never filed. P034 requires stripping "the terminal's documented timestamp/thread prefix ONLY (exact form documented from the day-log tail at STAGE-1)" — so the number exists at STAGE-1 but never reaches the page, and without it the 537/489 decomposition is unverifiable arithmetic and any split-point calculation is guesswork.
+
+Delta: file the exact prefix width and state the cap as "total-line cap ≤537 including a prefix of N chars, leaving a payload budget of 537 − N − 83 (envelope)." Also label 537 as an **inferred hard cap** (consistent with 32 archive lines maxing at exactly 537 with zero truncation), not merely an observed maximum.
+
+Corroboration worth filing on the page, because it strengthens the inference: the cut lands at a *different field* on each row, and the differences track cumulative field widths exactly — A1 carries `slLive=1.16503` (7 chars) while A3 carries `slLive=1.1627399999999999` (18), and A1 correspondingly shows ~11 more characters of `ladOriginPx`. That is a fixed byte cap, not field-dependent truncation.
+
+### D-14 — confirm the positions 14/15 strike was pre-filed (P038 strike clause; P042 strikable (iii))
+
+The wire shows `vetoStateAtSite=- sessionUseAtSite=-`, and the delta paragraph says "strikes print." Legitimate under P042(iii) **only if** filed in the build record before the build. P038 makes that a hard condition. The page asserts the outcome, not the pre-filing.
+
+Delta: one sentence confirming the pre-build strike filing with its build-record location. Consequence already correct on the page (ordering claims drop). Side note: with both snapshots struck to `-`, the 30-char budget in the 1024 ledger frees 28 characters — trivial, but it is 28 characters of the transport fix in D-2/B-1.
+
+---
+
+## Non-blocking: what the run actually earned
+
+Worth recording as findings, because they are real and were not free:
+
+**Leg-(a) self-consistency, recomputed from present fields on all three named rows.** A1: tpDist/slDistExt1 = |1.1632207745363128 − 1.1642999999999999| / |1.1642999999999999 − 1.1650800000000001| = 1.38362… = printed `rExt1=1.3836223893420441` ✓. rLive = 1.4783910461464782 against slDist from `slLive=1.16503` ✓, agreeing archive `liveR=1.48`. A3: `rExt1=0.6780821917805907`, inside the exact-rational interval [98/147, 100/145] = [0.66667, 0.68966] ✓, `wouldGate=0` ✓. A1 `wouldGate=1` ✓. A2: `rExt1=7.3029949705442476` and `rLive=10.345909541603788` ✓.
+
+**The necessity case is now demonstrated, not argued.** P038 predicted that 5-decimal archive operands recompute to 7.294 and 10.333 while the true binary64 values differ. The probe prints 7.3030 and 10.3459 — both rounding to the archive's 2dp displays (7.30, 10.35) and both distinct from the 5dp recomputes. The "no zero-run join can print shadow operands" argument is discharged empirically. Promote it from "necessity case filed" to "necessity case demonstrated."
+
+**Derived-sel check passes 3/3.** A1 s0slot=5, s0imb=1 → L9662 fires → sel=0 ✓. A3 s0slot=4, s0imb=1 → sel=0 ✓. A2 s0slot=1, s0imb=2 → sel=0 ✓. The packet's code model of L9662-L9663 is not falsified.
+
+**ext1-to-s1 slot equality confirmed 3/3 at run:** 118/118, 91/91, 13/13. Previously a per-row finding with archive-only confirmation. This strengthens N-2 producer-vs-selector equality without proving it (still no structural side-filter/rung-numbering proof).
+
+**The L9642 monotone guarantee is corroborated 3/3:** rExt1 ≤ rLive on every quoted row (1.3836 ≤ 1.4784; 0.6781 ≤ 1.6230; 7.3030 ≤ 10.3459). Consistent with the 6-of-11 prediction mechanism — A3's wouldGate=0 removes exactly one fire from the baseline 7.
+
+**All three source-changed bars print `liveSel=0`,** matching P028's prediction that 10:35, 08-28 16:20 and 09-08 16:40 are the source-changed set. The live selector took s0 on each; ext1 is the s1 counterfactual on each.
+
+**The imb=0 adoption case is now instantiated, not hypothetical.** A1 prints `ext1Defined=1 ext1Imb=0`. P007's clause "ext1Imb=0 does not disqualify" is therefore load-bearing on a real bar the future rule would change: the current L9662 gate rejects imb=0 at s0, and the future rule adopts a zero-imbalance ext1. Flag it in the live relay's opening line alongside the side-guard FLAG — it is the same class of "the rule removes a structural filter" concern.
+
+**`wouldAdopt_monotone` is derivable and uniformly 1** on all three rows (SHORT, pxExt1 > slLive in each: 1.16508 > 1.16503; 1.16359 > 1.16274; 1.16299 > 1.16289). Every source-changed bar is monotone risk expansion. That is the section-5 carried alternative's evidence, and it arrived despite the field being cut.
+
+**Side-hazard visibility survived by derivation.** All three rows derive `extSideOk=1` (protective) from `dir`/`entryPx`/`pxExt1`. The P007 FLAG's stated mechanism ("the probe prints extSideOk, extDistPts…") did not transport, but its *content* is recoverable. Say so — otherwise a later reader concludes the FLAG has zero probe evidence.
+
+---
+
+## Ask A — further defects and imprecisions
+
+**A-1 (P038, ceiling paragraph).** With rows cut at a fixed byte cap, the over-width halt ("a print wider than its filed maximum halts grading with operands as ungraded shape") can never fire: truncation makes fields *narrower*, not wider. The 1024/1056 ledger's falsifier role is dead for cut rows, and the coupled claim ("ceiling proof and domain halt stand or fall together") loses its enforcement arm — a domain-violating over-wide integer would now be silently truncated instead of halting. File the coupling as **suspended for cut rows**, and note that the domain halt must then be carried by per-field domain checks on the prefix alone.
+
+**A-2 (P038; P042).** The count invariant "normal-record count + BSAVE_FAIL count = highest reserved emitSeq" is unevaluable with `emitSeq` cut, and "CAP carries no sequence and occurs only after reserved sequence 20000" is vacuously satisfied. P042 designates the offline state machine as the *primary* structural validator (Astra-B1) with counts as cross-checks; on this run the primary is ungradeable and only the cross-checks (13 = 13) survive. The relay inverts the stated hierarchy without saying so.
+
+**A-3 (P042).** "Terminal exactly-once is verified: zero or one terminal record total" — verified as zero ✓, and that one does hold, since CAP/BSAVE_FAIL lines are short enough to transport intact. Worth stating explicitly that terminal detection was never at risk from the cap (CAP payload ≈ 40 chars, BSAVE_FAIL ≈ 120), so the instrument-failure channel was live throughout. That is a genuine positive the page leaves implicit.
+
+**A-4 (P028; run evidence).** A2's mandatory acceptance is "pxExt1 at archive precision + slot 13 + stamp/provenance," stated as three separate obligations where "an origin-only join never validates the ext1 price." Two of three are met on the wire (`pxExt1=1.16299` → 5dp 1.16299 ✓; `ext1Slot=13` ✓). The third is unrecoverable (D-6). State the 2-of-3 split explicitly rather than reporting A2 as confirmed.
+
+**A-5 (P034 transport rule; D-13).** "Strip the terminal's documented timestamp/thread prefix ONLY … then require the literal `[SRJ-EA] STOPRESOLVE` open — stripping arbitrary text until STOPRESOLVE appears is forbidden." Correct and load-bearing, and the prefix width it depends on is the same unfiled number as D-13. One measurement closes both.
+
+**A-6 (P032 cap-headroom clause).** "At most one C-reach per closed bar (3168 bars measured on the archive run)" — RECON47 observed 13 C-reaches over the same range, consistent, and CAP was never approached. The 20000 reservation is confirmed as pure defence. No change needed; noting that the headroom argument is now measured on two runs rather than one.
+
+**A-7 (P015; P042).** P015 predicts "6 of 11 TP_ELECT rows" post-activation conditioned on N-2 and on absence of `liveSel=-1` among the four sub-1.0 non-fire bars. RECON47 gives 13 rows, so the four sub-1.0 bars are among the 10 withheld. The discharge of that condition is therefore still archive-based, not run-based. If the 10 remaining prefixes ship (D-11), `liveSel` is at position 5 and well inside the prefix — the condition becomes run-discharged for free.
+
+**A-8 (P038 present-prefix clause, wording).** "Keys past the cut are withheld, never failed" is right in spirit and wrong in one respect: a *missing* key is withheld, but a **wrongly present** key past the expected cut would be evidence of a transport anomaly, not a withheld field. Add: "a key appearing past the measured cap, or a row longer than the measured cap, is an anomaly and halts."
+
+**A-9 (P003 supersede list, general).** The list now runs eleven versions deep in one paragraph. Every item is individually defensible, but the paragraph no longer functions as a reader aid — a reviewer cannot tell which withdrawals are live constraints and which are archaeology. Suggest splitting it: **live withdrawals** (v25/v24, still shaping current text) and **historical register** (v23 and earlier, pointer to the relay files). Presentation only; no rule changes. Flagging because the packet's own anti-drift mechanism depends on this list being readable.
+
+**A-10 (P036/P034, minor).** The three INVALID causes "share one INVALID token and are indistinguishable on the wire, so cause diagnosis is disk-only" — correct, and on this run moot (zero INVALID in the prefix), but note that all fields *capable* of INVALID except `entryPx`/`tpPx`/`incomingSlRef`/`slLive`/`rLive`/`rExt1`/`gateConst`/`ladOriginPx` sit past the cut. The INVALID machinery was substantially untested by this run. Not a defect; an honest coverage statement the page should carry.
+
+---
+
+## Ask B — better mechanisms
+
+Goal restated: get all 38 graded fields through the sink intact, without touching a live line, at minimum new review surface.
+
+### B-1 (recommended) — split NORMAL into three part-records sharing one `emitSeq`
+
+Change step 6 of P032 only. Keep the single 38-key / 38-value arrays, the key order, SCHEMA, the prefill, the branch structure, and every identity. Replace the single assembly loop with three bounded loops emitting three lines:
+
+```
+[SRJ-EA] STOPRESOLVE format=2 pkt=... base=6C2E4028 type=NORMAL part=1/3 emitSeq=<n> <keys 0-12>
+[SRJ-EA] STOPRESOLVE format=2 pkt=... base=6C2E4028 type=NORMAL part=2/3 emitSeq=<n> <keys 13-25>
+[SRJ-EA] STOPRESOLVE format=2 pkt=... base=6C2E4028 type=NORMAL part=3/3 emitSeq=<n> <keys 26-37>
+```
+
+Worst case per part: envelope 83 + `part=1/3` 9 + `emitSeq=` 13 + the widest 13-field bucket ≈ 300 payload — under half the measured budget, with margin for a prefix wider than currently assumed.
+
+- **Touches:** P032 (step 6 prose + the C literal's final loop and envelope string — one loop becomes three, one Print becomes three); P034 (envelope spec gains `part=`, `emitSeq` promoted into every part header, arity restated per part, three templates unchanged); P038 (diff-shape: Prints 4→6, loop count 3→5, per-part ceiling ledger replaces the 1024 figure); P042 (state machine: exactly three parts per `emitSeq`, in order; a missing part is a transport halt **for that evaluation only**, not run-wide).
+- **Live lines touched: zero.** A, B, C siting unchanged; no new symbol, no new helper, allow-list unchanged.
+- **Cost:** one token, one rebuild, one run.
+- **Gain:** `emitSeq` in every part restores the primary state machine *and* gives cross-part joining without positional assumptions. `ladOriginStamp` transports, so D-6 closes and hunk D stays omitted. Every mandatory check returns to on-wire gradeable.
+
+### B-2 — flip the transport gate's default (do this regardless of B-1)
+
+Pure gate wording, zero code, and it would have caught this round: **treat the maximum observed single-line length in any prior journal from the same sink as an upper bound on that sink's capacity until measured otherwise.** The archive's 32 LINEWIDTH lines at exactly 537 with zero truncation were the cap all along and were read as headroom. Also replace "tester-log sink equivalence asserted by name" (P038) with: the transport gate is satisfied only by a measurement **in the sink that will carry the graded records**; a script-log readback proves formatter correctness and nothing about the tester journal. Combined with B-1's per-part budget of ~300 against an inferred 537, the margin is large enough that the next run does not hinge on the measurement being exact.
+
+### B-3 — reorder-only (weaker alternative, if the council wants one line per record)
+
+Move the mandatory-graded set forward: `barTime, dir, liveSel, ext1Defined, ext1Slot, gateConst, wouldGate, actualGate, emitSeq, ladOriginStamp, ladOriginSite, entryPx, currentPrice, slLive, tpPx, pxExt1, ladOriginPx, rLive, rExt1` ≈ 270 payload including keys and separators, comfortably inside the cap; diagnostics and raws take the tail and are knowingly sacrificial. Touches P034 field order, the P032 key-assignment block, P038's ledger and the positional join rule, P042's precedence rule, and it cuts against the standing decline on single-emitter helpers only mildly. Its exact review surface would need scoping at the next relay either way.
+
+### B-4 — drop the four raw fields (arithmetic that makes one line fit)
+
+`rawNumLive` IS `tpDist`, `rawDenLive` IS `slDist`, `rawNumExt1`/`rawDenExt1` likewise — P034 already states the identities, and all four are reconstructible from fields that remain. Removing them saves ≈150 payload chars (489 → ≈340, inside the cap) with no derivation lost. **But** P036 has an explicit exposure gate: "a struck raw-pair is NOT an acceptable reduced scope, the gate halts by design since these four fields are the degenerate answer." So this is a graded-surface cut requiring that sentence withdrawn plus its own token, consistent with the standing declines on Opus-v180-B-5. Listing it because it is the cheapest arithmetic path if the council prefers one line per record; recommending against it on the packet's own stated grounds.
+
+### B-5 — `FileWrite` to CSV instead of `Print` (not recommended in this envelope)
+
+Bypasses the journal cap entirely, gives exact byte control, and is still money-print-only. But it adds `FileOpen`/`FileWrite`/`FileClose` to the allow-list, introduces handle lifetime and tester-sandbox path questions, adds a failure mode with no current falsifier (silent write failure), and replaces a sink whose behavior is now *measured* with one that is not. B-1 gets the same evidence inside the reviewed surface. Mentioning it so the option is on the record rather than rediscovered later.
+
+---
+
+## Summary of the ruling
+
+**amend-with-delta.** D-1 (pkt token) and D-5 (relabel the grade as INCOMPLETE rather than partial-pass) are the two that must land before anything else moves; D-2 (per-row prefix, cut field withheld, truncated tokens never parsed) must land before any grading script runs, or the grader will produce a false staleness halt on A1 and A3. D-6 through D-8 are premise repairs the page owes its own audit trail. B-1 plus B-2 is the path I'd take: it restores every mandatory check, closes the stamp loss without hunk D, tuts zero live lines, and costs one token and one run.
+
+The run was worth its 46 minutes. It produced three internally consistent rows, discharged the necessity case empirically, confirmed the derived-sel model and the monotone mechanism 3/3, instantiated the imb=0 adoption case on a real bar, and — most valuably — measured a transport cap that eleven rounds of ledger arithmetic had reasoned about without ever testing. That last finding is worth more than the fields it cost.
+
+---
+
+## Opus answer - 2026-09-19 - answers v190 relay (packet v27 + RECON47) (AMEND-WITH-DELTA + hard HALT on the 38-field single-line NORMAL record P032/P034/P038; page-only; filed as entry OPUS-V190-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Opus:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+## Verdict
+
+**Amend-with-delta** on both questions, with one component that is a hard **halt**.
+
+- **RECON47 grade split — amend (P042).** "Prefix partial-pass" is not a defensible label, and it is not one of the three dispositions this packet's own rules admit. Relabel: `EXECUTION=PASSED / PROBE ACCEPTANCE=FAILED (transport)`, with the surviving prefix retained as **findings**, not as partial acceptance. Reason below.
+- **v27 narrowed contract — halt on the 38-field single-line NORMAL record (P032 literal, P034 field list, P038 ledger).** Your own filed figures prove that record can never transport intact through the measured sink. Any rebuild on v27 as frozen is a guaranteed-truncation build. Everything else in v27 (grammar, latches, censuses, purity gates, exact-rational grading) I accept as text.
+
+## The decisive arithmetic (page-only, your figures)
+
+P038 files the NORMAL fixed cost as envelope **83** + key structure **416** (340 key spellings + 38 `=` + 38 spaces). That is **499 message bytes before a single value byte is written.**
+
+RECON47 measured the message budget at **489** (537 total minus N=48 prefix).
+
+499 > 489. So:
+
+- No 38-field single-line NORMAL record fits, **even with zero-length values**. The minimum deficit is 10 bytes; with observed values it is ~300; with the filed worst case (1024) it is 535.
+- Every one of the 13 rows cutting "near key 23" is not bad luck or a wide row — it is structurally forced. There is no value-side tightening, no `%.17g` fixture work, and no "transport fix" short of changing the record shape that recovers keys 24-38.
+- This also voids the hope in P046 that "under a transport fix the stamp transports and hunk D stays omitted." At 38 single-line fields there is no such fix.
+- Corollary: SCHEMA survived because it is 83 + 16 + 340 + 37 = 476 ≤ 489. It cleared by 13 bytes. Add one field name and SCHEMA truncates too, taking the positional decode rule with it.
+
+P038 already concedes "the gate was never equivalent to the transport it gated." The stronger statement is available on the page and should be filed: **the 1024/1056 ledger and the measured sink are not the same quantity in the same direction — the ledger bounds a record that cannot exist in this sink.** Keeping 1024 as "single authoritative status" under the heading "line-ceiling assertion" (P038) conflates a value-domain bound with a transport bound.
+
+## Why "partial-pass" fails on your own rules
+
+P042 lists MANDATORY findings "never struck." Against the wire:
+
+| Mandatory item | Status on RECON47 |
+|---|---|
+| 7 TP_ELECT fire rows | Met — and **independent of probe transport** (live diagnostics) |
+| A1 record-at-C + self-consistency | Record present; leg-(a) verifiable only via the entryPx substitution |
+| A3 record-at-C + shadow self-consistency | Same |
+| A2 record-at-C (slot 13, archive-precision price, stamp/provenance) | **1 of 3 unmet** — stamp/provenance cut |
+| gateConst/actualGate self-consistency | **Unavailable** — `actualGate` is position 33, cut |
+| cap non-occurrence | Met, transport-safe |
+
+P042 also says "unobservable ordering on RETAINED obligations is unproved-and-halt," and that a mandatory check "never goes ungradeable by strike." Transport loss is not a strike, but the effect on the grade is identical, and the packet never wrote the rule for it. Inventing "INCOMPLETE + partial-pass" at grading time is exactly the post-hoc grade construction the strike-pre-filing rule (P038) exists to prevent. The honest form: acceptance failed; these specific facts were nonetheless established; these specific facts were not.
+
+Note that a halt on `actualGate` alone would be pedantic — SIDE1X prints `livePass=1` on the same bar from live storage, which P034(d) already certifies as genuinely external, and the probe's `rLive` matches the recompute to the last digit. The *fact* is corroborated. The *mandatory self-consistency comparison* is not. Say both.
+
+## What the prefix does prove (recompute run on the page)
+
+Leg-(a) self-consistency is **verifiable for all three named rows** from surviving fields, substituting `entryPx` for the cut `currentPrice`:
+
+| Row | slDist | tpDist | recompute | printed rLive | rExt1 recompute | printed rExt1 |
+|---|---|---|---|---|---|---|
+| A1 | 7.3e-4 | 1.0792254636871e-3 | 1.4783910461… | 1.4783910461464782 ✓ | 1.3836223893… | 1.3836223893420441 ✓ |
+| A3 | 6.1e-4 | 9.9e-4 | 1.6229508196… | 1.6229508196718447 ✓ | 0.6780821917… | 0.6780821917805907 ✓ |
+| A2 | 2.4e-4 | 2.4830182899851e-3 | 10.345909541… | 10.345909541603788 ✓ | 7.3029949705… | 7.3029949705442476 ✓ |
+
+Also gradeable from the prefix and **left mislabeled as prediction** in P015/P042:
+
+- **The 6-of-11 post-activation fire count is now discharged on run evidence.** `wouldGate` is position 14, inside the cut. Over the 11 TP_ELECT bars the printed `wouldGate` reads 1 on exactly six (08-28 10:00, A1, 09-04 15:55, 09-07 09:15, 09-07 16:40, 09-08 10:05) and 0 on five. P015 still carries this as "PREDICTED … counterfactual."
+- **The three-source-changed prediction is confirmed.** On the ten sel=1 rows `slLive == pxExt1` byte-for-byte and `rLive == rExt1` byte-for-byte; only the three sel=0 rows (A1, A2, A3) differ. The "rule reduces to removing the s0 branch for defined-ext1 bars" reading in P028 is no longer emergent — it is measured, 10/13.
+- **ext1-tuple corroboration holds 3/3** against same-bar SLEXT481: A1 slot 118 / bt 08-28 06:30, A3 slot 91 / bt 09-08 09:05, A2 slot 13 / bt 09-04 09:30.
+
+## Analytic ask A — defects, gaps, imprecisions
+
+**A-1 (blocking). Transport impossibility unstated (P038, P034, P046).** 83 + 416 = 499 > 489. File it as a structural finding, not as a measurement note. Every consequence below follows from it.
+
+**A-2 (blocking). The staleness falsifier is gone and no replacement is named (P007, P028, P038, P046).** `ladOriginStamp` is the last field. P028 and P038 both name `ladOriginStamp == barTime` as "the sole staleness falsifier" for the origin quadruple, and P007 relies on it to catch an `InpDebugLog=false` stale-globals run. With it cut on every row, nothing on the wire distinguishes a fresh origin quadruple from a stale one. The ext1 tuple is covered by the SLEXT481 join; the origin quadruple is not covered by anything. Origin-provenance grading for RECON47 is unproven in full, not 2-of-3.
+
+**A-3 (blocking). The crossed-assignment falsifier is unavailable on exactly the three mandatory rows (P034(b), P038 poison inventory).** `s0px` (35) and `s1px` (36) are cut. The universal identity `probe_sel=0 ⇒ slLive==s0px` applies only to A1/A2/A3, the three sel=0 rows. P038's inventory notes "s0px 35 and s1px 36 cut" without drawing this conclusion. The 5dp SIDE1E recovery works numerically (1.16503 / 1.16274 / 1.16289 all agree `slLive`) but P034(d) explicitly downgrades that leg to copy-consistency, "never re-presented as falsifiers" — so the recovery cannot carry the check it is being used for. Either promote the SIDE1E leg with a stated reason or record binary64 crossing-detection as lost.
+
+**A-4. entryPx-for-currentPrice substitution is used but not authorized (P028, P034, P036, P042).** P034 says the entryPx/currentPrice equality is "FREE and proves nothing … never counted as a falsifier"; P036 repeats it. P042's recovery then rests on "source-proven entryPx==currentPrice." This is recoverable, not circular — the cleared literal at P032 populates both from one `probe_tokPx = StringFormat("%.17g", currentPrice)` — but the packet must say so in one place: *the duplicate is not a runtime falsifier of the mapping, and the cleared source text does establish the value, so entryPx is an authorized currentPrice proxy for recompute when position 35 is cut.* As written, the grading leans on a field the contract declared non-evidential.
+
+**A-5. Cut-detection rule is weaker than the practice already used (P038 vs the withheld-rows evidence block).** P038: "an unterminated final pair marks the cut at its key." That does not catch a cut landing on a token boundary. Truncation can produce domain-valid, canonical-looking shorter tokens — `s1slot=4` from `=42`, `ladOriginPx=1.16265` that happens to be complete, a datetime cut at a minute boundary. The evidence block already applies the stricter rule ("the final token withheld on every row per the cut rule, conservative where the wire token was complete"). Frozen rule and applied practice disagree; promote the practice: **the final key=value pair on any cut row is withheld unconditionally, completeness notwithstanding.**
+
+**A-6. The anomaly rule is key-indexed where it must be byte-indexed (P038).** "A key appearing past the measured cap … is an anomaly and halts." The cut byte is constant; the cut *key* is not — A1 cuts inside `ladOriginPx` (23), A2 reaches into `ladOriginBarTime` (24). As written, A2's row 24 trips the anomaly rule against A1's row 23. Restate in bytes against the filed cap.
+
+**A-7. N=48 is not proven constant (P034, final evidence block, SEED1655-CTX lines).** N is derived by subtraction from one row (537 − 489) and simultaneously labeled "measured" (P034) and "inferred hard cap" (evidence block). The day-log prefixes shown carry a 2-char id and a core number (`DH … Core 04`, `NN …`, `MK …`); if either varies in width, N varies, the per-row message budget varies, and "the measured cap" is a range. The proof you need is one sentence you may already have: state whether all 13 NORMAL rows cut at the identical byte count. If they do, N is constant and the 537 total cap stands. If they do not, every per-row cut position is its own measurement.
+
+**A-8. Measure names are used inconsistently (evidence block, P038, P042).** "Sink cap measured on the wire: longest NORMAL payload 468, longest journal line 537 total (day-log verified, longest NORMAL payload 489)" uses "payload" for two different quantities in one sentence. The definitions arrive later; the sentence should carry them. Same looseness in P042's "CAP payload near 40 chars, BSAVE_FAIL near 120" — BSAVE_FAIL computes to roughly 87 envelope + ~66 = ~153 message, not 120. Harmless to the conclusion (both clear 489 easily), but a packet that insists on byte-exact accounting elsewhere should not carry approximate byte figures here.
+
+**A-9. Sequence and count invariants are ungradeable and not listed as such (P042).** `emitSeq` is position 34, cut. That takes with it "normal-record count + BSAVE_FAIL = highest reserved emitSeq," "starts at 1," "strictly contiguous," and "no duplicates" — the entire sequence-integrity family. P042 records this only obliquely as "13-row order SOURCE-STRUCTURAL with contiguity unproven." Name the four invariants.
+
+**A-10. The transport-withheld mapping mixes three different classes (P042).** It should separate: (i) mandatory items independent of probe transport — 7 TP_ELECT fires, cap non-occurrence, SIDE1E/SIDE1X external equalities; (ii) items recovered from the prefix with a named substitution — leg-(a) on A1/A3/A2, slot equality, ext1-tuple join, wouldGate signs; (iii) items genuinely lost — printed `actualGate`, `ladOriginStamp`, `emitSeq`, the four raws, printed `currentPrice`, `s0px`/`s1px`. As written, class (i) is listed alongside class (iii) under "withheld," which understates what was actually established and overstates what the prefix rescued.
+
+**A-11. Arity rule and prefix rule both apply to every row, with opposite dispositions (P038).** "Arity failure … is the graded transport falsifier in the transport-halt class" and "rows cut by the measured sink cap grade on the present prefix" are both true of all 13 rows. One precedence sentence is missing. P003 lists "arity withdrawal" as a v26 withdrawal but P038 still carries the arity clause.
+
+**A-12. The wire version key does not identify the authorizing packet (P032 literal, P034 templates, P042 state machine, run evidence).** Every emitted line reads `pkt=PACKET_EXT1LIVE-001-v25` while clearance is sought for v27. Correct as a description of the built text, since v26/v27 changed no code — but P034 introduced the version key as drift protection, and a reader matching wire tag to authorization gets a mismatch. State the invariant explicitly: the wire `pkt=` tag names the build generation, not the clearing packet version, and the two diverge whenever a text-only relay lands.
+
+**A-13. P046 uses 0-based indices where P034 froze 1-based positions.** "ladOriginStamp 37 and ladOriginSite 24" against P034's "emitSeq appears exactly once at position 34 of 38; ladOriginStamp is position 38." Off by one in both.
+
+**A-14. P046 overstates the hunk-D loss.** It bundles `ladOriginSite` with `ladOriginStamp` as newly-needed evidence. But P038 already rules the site leg **vacuous on the S5 path** (both sides print the L8775 literal). Losing `ladOriginSite` costs nothing that was ever load-bearing. Only the stamp justifies reopening hunk D, and per A-2 it justifies it strongly.
+
+**A-15. "INVALID coverage" remains largely untested and the packet's own note undersells why (P036).** "All INVALID-capable fields past the cut except entryPx/tpPx/incomingSlRef/slLive/rLive/rExt1/gateConst/ladOriginPx left the machinery substantially untested on RECON47." True, but the reason is structural, not incidental: those fields are past the cut on every row and always will be under a 38-field single line. This is not "untested this run," it is "untestable in this record shape."
+
+**A-16. Minor: the 32-LINEWIDTH archive argument is weak on its own (JOURNAL CEILING NOTE).** "Max observed single-line length 537, zero truncated" is consistent with a 537 cap and equally consistent with no archive line ever having exceeded 537. It is the RECON47 truncation that establishes the cap. Cite that, not the archive maxima.
+
+## Analytic ask B — mechanisms, with the lines they touch
+
+**B-1 (recommended). Split NORMAL into two lines with a shared correlation key.** Replace the single assembly loop in the P032 literal with two range-bounded loops and two Prints:
+
+```
+probe_line = "[SRJ-EA] STOPRESOLVE format=2 pkt=... base=6C2E4028 type=NORMAL part=1 emitSeq=" + IntegerToString(probe_seq);
+for(int probe_i = 0;  probe_i < 19; probe_i = probe_i + 1) probe_line = probe_line + " " + probe_keys[probe_i] + "=" + probe_vals[probe_i];
+Print(probe_line);
+probe_line = "[SRJ-EA] STOPRESOLVE format=2 pkt=... base=6C2E4028 type=NORMAL part=2 emitSeq=" + IntegerToString(probe_seq);
+for(int probe_i = 19; probe_i < 38; probe_i = probe_i + 1) probe_line = probe_line + " " + probe_keys[probe_i] + "=" + probe_vals[probe_i];
+Print(probe_line);
+```
+
+Per-part cost: envelope 83 + `part=` 7 + `emitSeq=` 14 + half the key structure 208 + half the value maxima ~263 ≈ 575 worst case, ~370 observed. Worst case still overshoots 489, so **split into three parts** (or two parts plus the raw-field drop in B-3) for a worst-case-safe bound. Touches: P032 literal (assembly block only; no change to declarations, latches, prefill, keys, or value stores), P034 templates and the line-grammar paragraph (`part` becomes an envelope key; the arity rule becomes per-part), P038 diff-shape counts (Prints go 4 → 5 or 6; loops 3 → 4 or 5) and the ledger (per-part maxima replace 1024/1056), P042 state machine (a record is now N lines sharing one `emitSeq`; the missing-part case becomes a new invalid-output class). `emitSeq` moves into the envelope, which also fixes A-9 — the sequence survives on every part.
+
+**B-2. Drop `part` bookkeeping by making the split type-discriminated instead** (`type=NORMAL_A` / `type=NORMAL_B`), reusing the existing discriminator machinery rather than adding an envelope key. Cheaper in grammar terms, slightly worse for the "one record per evaluation" volume invariant (P032, P042) which has to be restated per type.
+
+**B-3. Drop the four raw fields.** `rawNumLive`, `rawDenLive`, `rawNumExt1`, `rawDenExt1` are derivable from fields already printed, and P034(c) *requires* them to equal exact reconstructions of `|tpPx-currentPrice|`, `|currentPrice-slLive|`, `|currentPrice-pxExt1|`. Removing them saves ~50 bytes of key structure plus ~76 of values (~126 total) and costs no evidence that survives its own consistency check. Touches: P032 `probe_keys[27..30]` and the corresponding value stores, P034 field list and contract table, P036 field definitions, P038 ledger and the 38→34 census, P042 operand-mapping identities. I flag the history: P003 lists "redundant-by-construction" as a v15 withdrawal, so this needs a stated reversal rather than a silent re-adoption. With B-1 two-part plus B-3, worst case per part lands comfortably inside 489.
+
+**B-4. If exactly one thing changes, change the field order.** The cut is positional, so the field order *is* the evidence priority order, and the current order buries every mandatory item in the tail: `ladOriginStamp` (38, the sole staleness falsifier), `actualGate` (33), `emitSeq` (34), `currentPrice` (35), `s0px`/`s1px` (36/37). Moving those six ahead of the four raws, the two site snapshots, and `ext1BarTime` makes the surviving ~23-field prefix carry the full mandatory set with no mechanism change at all. Touches only the `probe_keys[i]` assignment block in P032, the P034 order list and contract table, the P038 ledger ordering, and the P042 recovery mapping. Needs its own token because it edits frozen cleared text and shifts every value-store index. This is the highest evidence-per-byte change available and it composes with B-1.
+
+**B-5. Reuse the existing audit sink instead of `Print` for the payload.** `LwAudit` is already live and already carries diagnostics at EA L5452, L5480, L5494. If its sink has a different width limit, the probe could emit the full 38-field record there and keep a short `Print` line for terminal/journal correlation. Requires extending the P038 helper allow-list by name (currently Print, PrintFormat, StringFormat, DoubleToString, IntegerToString, TimeToString, StringReplace, MathAbs, MathRound, MathIsValidNumber) and a fresh purity proof that `LwAudit` performs no strategy-state write — which its existing diagnostic-only call sites make cheap, not free. Worth a disk measurement of LwAudit's own line handling before spending a token: if it truncates at the same width, this is a dead end and B-1 is the answer.
+
+**B-6. Sequence the two dependent changes.** Measure first, then build once: (i) micro-check the actual sink behaviour for a split record and for `LwAudit` at width, under the existing script-type allowance in P038 — no strategy code, no run authorization; (ii) then freeze whichever of B-1/B-3/B-4/B-5 the measurement supports; (iii) then one build. The failure mode to avoid is spending the next token on a reordered-but-still-single-line 38-field record, which A-1 guarantees will truncate again.
+
+**On hunk D (P046):** keep it reopened, and narrow the rationale to the stamp per A-14. But note that under B-1 or B-4 the stamp transports on the wire, at which point hunk D buys nothing again. Dispose of it *after* the record-shape decision, not before.

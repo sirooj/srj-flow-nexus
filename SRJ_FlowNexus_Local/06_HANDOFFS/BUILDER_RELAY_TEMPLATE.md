@@ -7,7 +7,7 @@
 - Decisions rest on three legs, all checkable: model answers + builder disk measurements + his word. A pasted ID never substitutes for any leg.
 - Verification split (read carefully — this answers repeat file requests): judge ONLY what is pasted in the prompt. Whether pasted code/rows match the repo is proven ON DISK by the builder (digests, counts, bytes quoted in the prompt) and double-checked by the operator, who owns the machine and transports every text verbatim. No chat model of any tier can perform that part — model tier is verification-neutral, every chat seat shares the same blind spot on pasted text, and pasting "the actual file" cannot substitute for it. Do not re-ask for files; rule on the page. File-access log checks happen disk-side, never by paste.
 
-## The template (copy whole; fill every slot; no roles, no IDs asked, no memory assumed)
+## The template v1 (superseded by v2 at file foot, kept for audit)
 
 ```
 CODE REVIEW REQUEST — v[NNN] — [date]
@@ -52,3 +52,36 @@ Compile log (verbatim tail): [...]
 - Models: answer the one question plainly. More models = more eyes; none clears anything.
 - Builder: files answers verbatim (filer + counts + tail), verifies every checkable claim on disk same turn, reports plainly.
 - Him: transport only (paste whole both ways) + strategy rulings + money words. He compares what a model sent with what got filed — that comparison IS the anti-fabrication check.
+
+## Format v2 (CURRENT — adopted 2026-09-18 on his word; relay count is the bottleneck)
+
+Same evidence to every model. Same decision question to every model. Analytic depth harvested every round:
+
+```
+Question (one, specific): [...]
+
+Answer form: plain yes / no / discrepancy (or the relay's stated decision form), with line numbers.
+
+Analytic ask A (standing, every relay): name every defect, gap, or imprecision you see in the page, each with line numbers — freetext, no length limit.
+
+Analytic ask B (standing, code relays): state any better mechanism you see for the stated goal, with the code lines it would touch.
+
+Review-seat packaging: the same relay text ships, but its verdict-slot line is excused for the review seat (standing seat-split: analysis out, review-only, never keys — nothing refused because nothing unanswerable is asked).
+
+Settled standing: verification split, upload-dead, and seat roles ride by reference (filed record); repeat objections to the FORMAT itself are recorded once, not re-litigated each round. New technical objections are always welcome.
+
+Verification split: rule on the page only — genuineness vs disk is proven on disk (digests + counts above) and is not answerable from chat by any model tier. Do not ask for files.
+Nothing else is asked. Thank you.
+```
+
+## Project brief (DEFAULT relay introduction — his order 2026-09-18; answers the repeat seat questions so they are asked once, never re-litigated)
+
+Ships at the top of every relay, same text to every seat:
+
+```
+Project brief (standing — read first):
+- Money: probe/print-only. Alert-only EA. No live trades. No funded money moves on any verdict here. Live activation needs a separate relay plus his explicit word. Nothing in this packet clears it.
+- People: one operator (trader, strategy owner, money authority) plus AI seats. No second human reviewer — declined, his call. He carries every text both ways verbatim. That carry IS the anti-fake check: he compares what a seat sent with what got filed.
+- History: this packet v1 through v9; relays v162 through v172 on disk; every version folds the prior round's verdicts (see each relay's delta paragraph). Rounds end in amend or clear, never silent drift.
+- Your verdict: rules on the page only (code lines, numbers, logic). Disk truth (digests, logs, builds) is proven on his machine, never in chat. Keys come only from the key seat. No ruling here builds code, runs anything, or spends money.
+```

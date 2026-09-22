@@ -64,6 +64,13 @@ Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says s
   one reviewer, build permission, run word. Builder never judges code, only quotes it.
 - UNGRADEABLE KEY (2026-09-16): a key that does not quote its completed text
   counts as NO key — grading stops, nothing builds on it.
+- TRANSPORT SEATS (live set named by his latest word; refreshed 2026-09-20): relay
+  transport = Luna + Sonnet + GLM, identical text all three. Luna remains the
+  only key source seen. History: Luna+Astra era (2026-09-19 order) superseded at
+  v193 (ledger 463 three-seat format) plus three straight verdict rounds from
+  these seats; Opus OPTIONAL credit-dependent; Sol PARKED; Astra silent since the
+  v201 waiver pattern. Seat names are never taken from memory - his latest word
+  governs and this line follows it the turn seats change.
 
 ## 3. Communication rule (operator directive, verbatim core)
 
@@ -86,6 +93,7 @@ plain words, trading-only — no code, no EA detail, no relay preamble.
 QUESTIONS PRIORITY (operator order 2026-09-16): his fact questions outrank every
 packet/relay/run; asked immediately (batched, priority), they dictate the plan —
 council routes around the answers, never instead of them.
+ONE-ASK RULE (operator correction 2026-09-21 — overlapping asks across turns confused him): every instruction to him ships ONCE, numbered, in a single message (exact file + exact action per step); a later message on the same ask restates the whole list, never appends item-four.
 
 ## 4. Escalation rule
 
@@ -121,10 +129,19 @@ the REALIZED delta in the same vocabulary (what improved vs what was only
 confirmed vs what voided) — the promise is always settled on record.
 RESUME-PROMPT RULE (operator rule 2026-09-15 — he had to ask): every
 thorough handoff ends with the exact paste-ready new-session prompt
-verbatim, so initialization never depends on asking. This file IS the cross-session
+verbatim, so initialization never depends on asking. Prompts name the exact
+artifact expected next plus the stop-and-report mismatch condition (2026-09-18
+lesson: verdicts pasted where a relay was expected). This file IS the cross-session
 rules memory: every defect class, lesson, and standing rule lands here the turn
 it is learned, never carried in chat alone. Running history lives in the ledger
 (§11) — never here.
+KEY-PROMPT RULE (operator order 2026-09-22 — prior session ruled defective for
+omitting it): when he asks what to say to get a key reply, the memo ships the
+exact paste-ready key ask as a numbered point (relay file fresh from disk first,
+then the ask naming packet + digest + one-build/one-run scope + the quote-the-grant
+rule), plus the grading checklist the builder will apply (name + digest + grant +
+verbatim quote + no new conditions) and what to paste back (whole reply + run
+word + token). A key-request memo without the asked prompt is a defective memo.
 CANDIDATE-SET CHECK (operator correction 2026-09-16 — the phantom-S1 waste): no
 birth/selection authorship relay moves until the site is checked against his filed
 trades; EA-derived sites ride labeled HYPOTHESIZED, never as his candidates.
@@ -132,7 +149,15 @@ REVIEWER-BOUND EVIDENCE (relay-craft 2026-09-15/16): every relay carries complet
 slices (entry-to-verdict quotes, never fragments), checkable claim numbers,
 NEW-vs-CARRIED labeled, asks addressed per seat; keys are never asked where
 verification is impossible. Code cited → the byte-verified companion rides (whole
-numbered regions); code-free relays ride ALONE.
+numbered regions); code-free relays ride ALONE. SONNET-SEAT THOROUGHNESS (his
+order 2026-09-18 — the repeat code-demand cure): code relays carry the whole
+cited EA region INLINE (complete contiguous lines, zero elisions — single-line
+quotes do not satisfy a code question); the no-code seat note stays, but
+thoroughness comes from pasted context, never from file demands. MANDATORY
+(his order 2026-09-18): a code relay that cites EA behavior but ships no inline
+region is defective BY FORMAT — blocked, never relayed. Snippet scope covers
+every cited line PLUS its governing statement (Opus v171-D4 lesson: the
+L9617-class line that decides conditionality rides too, never assumed).
 EVIDENCE VS CLEARANCE (2026-09-15): a relay that settles record without spending
 authority is always lawful — never confuse "no clearance asked" with "no relay needed."
 RELAY BUDGET (operator order 2026-09-16): relays are decisive-grade-only (each settles
@@ -163,6 +188,14 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     ONLY on his word; stage via add -A then unstage exactly the held-outs (canonical
     needs token, debris needs deletion word) + two-pattern verify; post-sync untracked
     == held-outs exactly; journals/logs/ex5 stay gitignored; backup-only, origin untouched.
+    VERSION-HYGIENE (his order 2026-09-22 - built versions piled up uncommitted):
+    every build's records checkpoint lands the SAME block its result file lands
+    (result + packet + relay + verdicts + ledger + pointer + index ride together),
+    so uncommitted records never span two built versions. Each checkpoint message
+    names its version + digests. Held-outs are re-derived every commit by PATTERN
+    (EA + indicator + every Include\SRJ\*.mqh including newly-appearing ones +
+    debris), never from memory - the pre-commit untracked-grouping must name any
+    new canonical-pattern path BEFORE add -A, or it rides by accident.
     AMENDMENT 2026-09-17 (his delegation order — development/demo-only, no real money):
     housekeeping at BUILDER discretion (records checkpoints incl. push + debris deletion
     whenever necessary, no per-item word; verify every push via ls-remote, never blind,
@@ -198,7 +231,7 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     verify EVERY file write by read-back (and every failed write by re-listing);
     filed content that differs from what was written is verified + adopted, never
     overwritten on assumption — in EITHER direction. An edit's aim re-emits every
-    anchor line; an anchor dropped is a defect, caught by read-back.
+    anchor line; an anchor dropped is a defect, caught by read-back. Hex and digest anchors are verified by byte-compare, never by eye (2026-09-19: EBf0-vs-EBF0 single-case miss invisible in prose rendering, caught by char-code dump).
 14. SCRIPT-HYGIENE RULE (2026-09-16 — the mojibake incident): ps1 files stay
     ASCII-ONLY always; non-ASCII enters relay/record files only via Write prose
     or byte-exact filer pulls. Every script-touched file gets a raw-byte audit
@@ -306,6 +339,32 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     run word authorizes the mechanics of a packet, never its direction: a word
     spent on a builder-initiated scope is a BUILDER DEFECT, caught here, with
     the track vacated the same turn (record stands, nothing built on it).
+    EXIT-ONLY SCOPE (his order 2026-09-22): the exit-model job covers exit
+    legs ONLY - booking/selection changes are out of scope on his word (F1
+    rode v12 clearance + 536 yet caused the 1/7 by itself; F2/F3 inert, zero
+    rows). The POI-menu probe stands parked on his challenge. Any future
+    booking touch needs his explicit scope word AND the council route, in
+    that order - never a council-first draft, never another ask.
+31. INDEX-DYNAMIC RULE (his order 2026-09-22 - relevance is dynamic):
+    re-read 06_HANDOFFS\BUILDER_INDEX_RELEVANCE.md before EVERY record
+    search; update it the SAME turn any filing lands, supersedes, retires,
+    or withdraws (new result/relay/packet/finding, amended lines, retired
+    numbers, corrected counts). An index silent on the just-filed round is
+    stale by definition. Ledger carries the change; pointer carries file +
+    fresh digest.
+32. LITERAL-STAGING RULE (2026-09-22 Luna-V230 corruption: double-quoted
+    PowerShell turns backtick-X into escapes/control chars - `r2_m cold became
+    CR plus mangled text across dozens of spans): verbatim text (verdicts,
+    code, packet spans) stages ONLY via literal-Edit params or single-quoted
+    strings, never double-quoted PowerShell. Probes avoid literal backticks
+    entirely ([char]96 construction). A staged block proves itself by backtick
+    count plus control-char audit before any dependent write.
+33. EOF-FIRST FILING RULE (2026-09-22 V232 recurrence of the 570 anomaly:
+    Edit-anchored appends land mid-file wherever the remembered tail text
+    sits): every filed append anchors on TRUE EOF confirmed the same batch
+    (file length plus tail read immediately before the edit); the after-grep
+    must show tail order unbroken. A mid-file landing is documented, never
+    reshuffled, and the recurrence is owned here.
 
 ## 7. Automation rule (operator standing rules)
 
@@ -313,6 +372,13 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
   rules OR a relay to the flagship council / external review. Do NOT stop at
   mechanical stage boundaries — execute packets continuously
   (edits → compile → run → gates → report) with no per-stage pauses.
+- TODO-DRIVEN CONTINUATION (operator order 2026-09-19 — the stop complaints):
+  every multi-step block runs under a visible todo list opened BEFORE the first
+  tool call; every turn advances the list with tool calls until the block is
+  complete or genuinely blocked (his-carrier-only matters: council pastes, run
+  words, money/goals, strategy rules). A turn never ends on a status report
+  while tool work remains. Turn breaks are scheduling, never stops — "the setup
+  made me stop" is never an explanation; the same setup ran clean before.
 - Do NOT ask pre-run option questions if the terminal is open. Close an open
   terminal YOURSELF (graceful, forced fallback, declare) and launch. No pre-run
   ask_question. Leave it closed unless told otherwise.
@@ -331,6 +397,47 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
 - RUN TRIAGE (2026-09-16): before any cleared run, a zero-run join/triage settles
   or sharpens the question if one can. Run/skip = builder's evidenced call
   (necessity case filed); his word follows only a positive case.
+  EXTENDED 2026-09-18 (format v2, his word): triage-joins required before
+  authorship relays too, not only runs.
+- PRE-RELAY LOOP (operator order 2026-09-18 — the relay is the biggest
+  bottleneck; builder-side defects caused every reject): the builder queue
+  before any relay is draft → attack-as-reviewer → fix-only-what-disk-proves
+  → repeat, with the relay DEPRIORITIZED until a full adversarial pass finds
+  zero disk-proven defects. Loop turns are unattended and unlimited; they stop
+  only for genuine operator input (strategy/money/record-verdict matters per
+  §4) or for a clean pass, which is the sole relay signal. The reviewer seat
+  is pre-transport self-audit only — it never rules, never clears, never
+  substitutes for dual-key. No operator input is sought for technical-shape
+  calls (builder-decided, veto-able on report). FULL means the relay prose
+  too (2026-09-18 lesson: a packet-only clean call was retracted the same
+  day when the first end-to-end relay-prose read found 5 defects) — a clean
+  pass covers every packet line plus every relay line whole, long-line tails
+  past tool truncation included, never packet alone. TWO-PASS (his order
+  2026-09-18): every relay draft takes a review pass plus an assurance pass
+  before any transport signal — the assurance pass reads the review-pass
+  fixes back in context with residual sweeps (v179 model: loop-14 found
+  11, loop-15 confirmed zero).
+- URGENCY (operator order 2026-09-20 — the stop complaints: filing-adjacent work
+  is never deferred to a later turn): ledger, pointer, result, finding, and skill
+  updates file THE SAME TURN as the work they record. A turn ends carrying open
+  tool work or genuinely blocked — never on a status report while filable work
+  sits open. His input is sought ONLY at his-carrier boundaries (council
+  pastes, run words, money/goals, strategy rules) — everything else is decided
+  inside authority and reported plainly. A genuine block names the ONE input that
+  unblocks plus everything already completed.
+- DRAFT-SPLIT (operator order 2026-09-20 — rushed drafts burn council rounds):
+  draft turns end with files plus pasted verification numbers, never a transport
+  ask. Transport turns carry only battery-green drafts. The two are never mixed.
+- RELAY-READY SCOPING (operator correction 2026-09-20 — the intake-stop defect):
+  todo lists scope to the next relay-ready artifact (draft files plus verification
+  numbers), never to an intake/accounting/report sub-step — a "report" terminal
+  item with the relay undrafted is a scoping defect, same class as a mid-packet
+  stop. A verdict accounting that grades amend-with-delta OPENS the fold draft
+  the same block, unattended: drafting new packet/relay versions is
+  builder-decided technical-shape work (veto-able on report) and never waits for
+  his word. "Read-only intake" constrains build/run/commit/canonical writes only,
+  never drafting. The block ends at battery-green draft files or a genuine
+  his-carrier block — never on a report.
 
 ## 8. Tester harness
 
@@ -411,6 +518,10 @@ any conflict: current digests live in the pointer + latest result file)
    divergence, alert-only). If none covers the current digest, draft the audit
    READ-ONLY first — never spend a run hour to re-prove a filed mismatch.
    First filed audit: `06_HANDOFFS\BUILDER_FINDING_ADOPT-READINESS.md`.
+- SKILL LOAD (operator order 2026-09-20 — files never opened constrain nothing):
+  load all four skills at session open (srj-goal, srj-council, srj-defect,
+  srj-strategy); re-read the two most relevant before each block. An unopened
+  skill is an unwritten rule.
 
 ## 11. Work ledger (living record — this section stays lean by rule)
 
@@ -461,3 +572,65 @@ without bumping its ack header. Dual-stream addition (operator rule
 possible, operator names the source model; builder files each verbatim
 under its source header before acting on either. No relay goes out
 referencing an unfiled verdict.
+
+## 14. Auto-loaded gates (operator order 2026-09-20 — the two-week lesson:
+rules on disk never opened constrain nothing, so the highest-cost gates live
+here and load every turn)
+
+- RECORD-FIRST fires before EVERY operator question, no exceptions (§2 gate:
+  spec section, restatement, findings, journal, all other filed prose (incl.
+  declines inventory bar-for-bar, entry-time triple-check, tester-vs-journal
+  join), with the failed-source trail filed beside any question that survives).
+- LABEL-BOTH-WAYS on every cited span (v203 lesson): content-from-label AND
+  label-from-content, first and last lines against disk at the cited numbers.
+  A byte-match that never checks the label passes a mislabeled block.
+- SESSION-OUTRIGHT on every relay page AND every transport memo (missed twice):
+  NEW vs CONTINUE stated outright, never hedged, never dropped from the memo.
+- SEATS-CURRENT (§2 live line): his latest word governs; never memory.
+- TIME-COST on every recommended run (measured: 2 weeks ~1 h, RECON50 51m18s):
+  cost stated against the in-period alternative; uncosted multi-hour plans are
+  out of order. Current window first, always.
+- BATTERY-BEFORE-SIGNAL: the srj-council battery runs before EVERY transport
+  signal, never substituted by ad-hoc checks; the transport memo carries the
+  pasted numbers or carries no transport ask (his no-numbers-no-carry rule,
+  builder-enforced).
+- GOAL-JOIN after every run (srj-goal: scoreboard re-joined, misses diagnosed,
+  next packet named); STRATEGY-CONSULT before grading, questions, and relays
+  (srj-strategy: his words over code, always).
+- SLIM-PAGES: one question per relay, smallest page that carries it (relay
+  budget §5); draft and transport turns never mixed (§7).
+- CANON-ORDER on any contradiction (D3): spec first, then his later words,
+  then council prose; council never overrules him. Later words amend earlier
+  (break-retest over touch-exit). Resolve on record or escalate as ONE question.
+- NO-EYE-MEASURE (v203 lesson): whitespace, counts, and digests are compared
+  by machine only - hands never count spaces, never judge indent by eye, never
+  compare hashes visually (EBf0-vs-EBF0 class). Every cited span and every
+  literal is verified by script output pasted verbatim.
+- WRITE-PROOF (D13): every filed write is verified by read-back plus counts
+  even when the tool reports success (a success that wrote nothing is the
+  defect, ledger-392). Trust the re-read, never the status line.
+- INBOUND-VERBATIM: pasted texts file byte-exact including typos, with
+  transpositions flagged at first use (Luna 1.16223 vs evidenced 1.16322).
+  Never silently correct inbound; never propagate a typo into a build.
+- READ-BEFORE-EDIT (anchor misses 500/502/504, all repaired by re-read):
+  every edit anchor derived from a same-turn Read, never memory; on miss,
+  byte-dump first per D6, never re-guess from rendered output.
+- RELAY-READY STOP (2026-09-20 intake-stop defect): no turn ends while a
+  graded-amend fold sits undrafted — the terminal todo names the artifact
+  (or the genuine his-carrier block), never a report.
+- ROUND-TRIP PROOF (D13-repeat 2026-09-20 — three filing successes with zero
+  bytes changed, one mid-file landing, one silent truncation): every filed
+  write proves itself on disk the same turn — post-file digest MUST differ
+  from the pre-file baseline (a filing that changes no bytes filed nothing);
+  filed markers must name the just-pasted round (pre-file absent, post-file
+  exactly once); every append anchors on EOF-confirmed tail (length plus tail
+  read BEFORE the write); the tail read-back must equal the filed text's own
+  last line, never merely EOF. A generic closing line is never an anchor
+  (it matches mid-file history too). Script rewrites of record files are
+  byte-audited (LF-vs-CRLF) with hash restoration proof on any excision.
+  GENERATOR-WRITE GATE (2026-09-21 ledger wipe — a repair script wrote a 640KB
+  record file from null-computed strings): no scripted record-file write runs
+  unless every computed string proved non-empty with an explicit length
+  assertion beside it; on any mid-script exception the file is re-read before
+  any further write, never a blind write on a failure.
+- FUNCTION-OUTPUT CAPTURE (2026-09-22 - pktv11fold POST-49 plus splice_relayv224 counts-plus-regions; both failed runs wrote nothing): a PowerShell function that echoes status text and returns a value captures the status INTO the caller variable (pipeline output unrolls into the assignment) - status echoes live only in main flow, never inside a value-returning function; return a single object (a hashtable for pairs) and verify element counts at every call site.

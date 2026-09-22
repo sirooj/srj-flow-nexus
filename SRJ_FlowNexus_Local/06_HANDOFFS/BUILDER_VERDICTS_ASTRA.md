@@ -11937,3 +11937,4112 @@ Yes — EA L9662/L9664 select the imb-validated s0 live stop: 1.16289, slot 1, i
 
 Close the stopfix proving track on the supplied page, with corrected wording and residuals routed as stated.
 
+
+## Luna answer - 2026-09-18 - answers v162 (discrepancy + authored follow-on rule; no Ruling-ID stated, filed as entry LUNA-V162-001)
+
+**discrepancy — seed gate L7677–7725; specifically L7682–7699.**
+
+The one-per-window suppression is **not correct as-is** for the stated Sept-8 sequence. At **L7682**, `SessionAlreadyUsed(sess, barTime)` causes an unconditional return before `DetectPoiRetest()`, so the already-spent NYAM window suppresses the 16:55 SHORT candidate and prevents the 17:00 birth.
+
+**Authored narrow follow-on rule:** at the `SessionAlreadyUsed()` branch around **L7682**, retain the normal suppression for ordinary post-fire candidates, but permit **exactly one post-fire follow-on birth** when all of these operands are true: the current session/window is already marked used by a prior fire; that prior fire is subsequently classified as **declined rather than a surviving/accepted signal**; the EA is back in `ST_IDLE`; the current candidate independently passes `DetectPoiRetest()`; and the candidate's confirmation remains valid. The allowance is **one candidate only, then suppression resumes**, with no resurrection of the declined 16:45 SHORT, no resurrection of the invalid 16:25 LONG, and no blanket removal of `SESSION_LIMIT`.
+
+Applied to the filed sequence, that authors the **Sept-8 17:00 SHORT** as a new ordinary SHORT birth after the 16:45 declined fire, with the recorded entry **1.16220**, stop **1.16274**, TP **1.16114**, and **R = 1.96**, while leaving the existing one-per-window rule intact outside that narrow declined-fire follow-on case.
+
+
+## Astra answer - 2026-09-18 - answers v162 (discrepancy: no machine-evaluable predicate; no live exemption; no Ruling-ID stated, filed as entry ASTRA-V162-001)
+
+**discrepancy — L7682–7697:** The spent-window return explains the missing birth, but does not establish that suppression is correct as a trading rule. It precedes `DetectPoiRetest` and all seed-state writes; the confirmed 16:55 shadow poll therefore cannot itself create the 17:00 candidate.
+
+A narrow standing exception is **not specified by the supplied evidence**. Missing is a machine-evaluable predicate that authorizes this post-fire successor while excluding other spent-window candidates, together with its re-arm/consumption hold. “The earlier fire was his declined A3” is an authorship finding, not an implemented eligibility operand; “a later SHORT confirms” would admit an unsupported class of follow-ons. Neither can be silently substituted for the missing rule.
+
+**Site: L7682, retaining L7681 and the ordinary suppression path through L7697.** Any proposed exception belongs at that decision, initially as print-only shadow, without live seeding or changes to session-use accounting. The recorded target is entry **1.16220**, SL **1.16274**, TP **1.16114**, **R=1.96**; bypassing this gate alone does not establish those operands, since RECON40 demonstrates the stale-stop failure downstream.
+
+Accordingly, neither a bounded birth rule nor “suppression correct as-is” is proven here. Preservation of the seven existing signals, A2 silence, silent days, and both declines remains an acceptance requirement—not an established result. No live exemption is authorized; later activation still requires the stated dual-key plus tokens.
+
+
+## Luna answer - 2026-09-18 - answers v163 (authored ext1-live rule; no Ruling-ID stated, filed as entry LUNA-V163-001)
+
+**AUTHORED RULE — EXT1-LIVE STOP**
+
+At **EA L9661–L9666**, replace the live-stop selection decision so that **when the S5 ext1 read is defined for the current fire, `slRef` is authored from that ext1 price; when ext1 is undefined, the existing selection is retained unchanged (`s0` when `s0imb > 0`, otherwise `s1`)**.
+
+This is a live, bar-local predicate: `ext1Defined` plus the ext1 price already read at the S5 site. It does not inspect the later decline ruling, alter `SESSION_LIMIT`, alter veto ordering, or create any follow-on birth rule. The resulting stop then flows through the existing downstream R-gate unchanged.
+
+For the documented Sept-8 A3 case, the ext1 read is **1.16359** from **09:05**, replacing the latched **1.16274**; that changes the fire from **R=1.62** to **R=0.68**, so the existing R-gate rejects it without firing. The same rule leaves the five identical fires unchanged, preserves A1 survival, and leaves the A2 decline governed by the existing resolution-then-veto path.
+
+
+## Astra answer - 2026-09-18 - answers v163 (authored ext1-live rule, print-only probe first; no Ruling-ID stated, filed as entry ASTRA-V163-001)
+
+**Authored-rule — EA L9661–9666, live-stop selection.**
+
+At this selection site, when the **current candidate’s ext1 read is defined**, select that read’s price (`slExt1`) as `slRef`, replacing the existing s0-first/s1-second selection. Use the same candidate-local ext1 definition and provenance that supply `SLEXT481`; do not substitute a previous candidate’s read or a subsequently reconstructed value. **No positive-imbalance requirement applies:** `ext1Imb=0` does not disqualify a defined ext1.
+
+**Replacement semantics:** replace the selection decision at L9661–L9665; retain the enclosing scope closure at L9666. The selected ext1 must feed the effective stop used by the existing R-gate and, if the candidate survives, its latch/fire—not merely the diagnostic output. Resolve the stop before its existing consumers, without changing resolution-then-veto order.
+
+**Ext1-undefined fallback:** retain the supplied selector exactly: choose s0 when its slot is valid and its imbalance is positive; otherwise choose s1 when its slot is valid; otherwise leave incoming `slRef` unchanged. Do not introduce another stop source or carry forward an earlier ext1.
+
+This is a standing stop-selection rule, not a Sept-8, A3, manual-decline, session-release, or follow-on-birth exception. **SESSION_LIMIT and L7682–7697 remain unchanged.** An R-rejected candidate must not fire or consume the window; nothing resets or refunds an already-used window.
+
+**Must reproduce or explain, using the supplied fixed entry/TP operands:**
+
+| Candidate bar | Selected ext1 | Predicted R |
+|---|---:|---:|
+| Aug-28 10:00 | 1.16508 | 3.43, unchanged |
+| Aug-28 16:20 | 1.16508 | 1.38, still R-eligible |
+| Sep-04 15:55 | 1.15847 | 1.74, unchanged |
+| Sep-07 09:15 | 1.16098 | 4.86, unchanged |
+| Sep-07 16:40 | 1.16238 | 2.34, unchanged |
+| Sep-08 10:05 | 1.16258 | 2.52, unchanged |
+| Sep-08 16:40 | 1.16359 | 0.68, R-rejected; no A3 fire |
+
+A3/16:25/A2 declines remain required; A2’s existing pre-latch veto remains decisive independently of R. Leaving the window unspent removes the cited session-use obstruction to the ordinary 16:55 seed; it **does not prove** that seed’s creation or the 17:00 result. Measure the latter with its actual entry, ext1/fallback stop, TP, and R printed. Do not prescribe 1.16274 or R=1.96: the 16:55 ext1 is unmeasured.
+
+**Authorization:** rule text only. First implementation is print-only: report candidate identity, ext1 definition/provenance, old and proposed stops, entry/TP, proposed R and gate outcome, veto outcome, and session-use state without changing live decisions or accounting. Such a probe cannot itself prove actual no-fire or successor birth. Live activation and behavioral acceptance require later dual-key plus tokens.
+
+**Filed v162 disposition:** Luna’s successor goal is retained, not its declined-fire trigger; Sonnet’s hindsight objection is respected, without inventing stop-out events; Astra’s predicate gap is addressed by candidate-local ext1 selection, not a birth exception; Opus’s suppression remains intact, while its unbirthability conclusion no longer necessarily follows if A3 never spends the window.
+
+
+## Luna answer - 2026-09-18 - answers v164 (clear one probe build+run, no live/commit; no Ruling-ID stated, filed as entry LUNA-V164-001)
+
+clear — EA L57; L9661-L9666; L9670; L9909-L9912; L10073; L10170. Packet §1–§4 are sufficient for exactly one print-only probe build plus one run under the stated RECON44_DEMO_P1 envelope; no live activation, extra run, or commit is cleared.
+
+
+## Astra answer - 2026-09-18 - answers v164 (amend-with-delta, 2 deltas + conditional clear; no Ruling-ID stated, filed as entry ASTRA-V164-001)
+
+amend-with-delta — `PACKET_EXT1LIVE-001`.
+
+- **§4; EA L9670, L9910, L10073/L10170, L7682–L7697:** Separate shadow predictions from live-path acceptance. A print-only probe cannot apply the counterfactual A3 rejection, prevent its existing session mark, or thereby establish recovery of the 16:55 seed and 17:00 S5 evaluation. Replace their unconditional presence requirements with: “Report actual presence/absence; print operands if evaluated. Absence attributable to the unchanged live path is not evidence against the shadow rule. Counterfactual seed/window recovery remains unproved and requires separately authorized testing.” All other acceptance failures retain report-plus-halt.
+- **§1 versus §3; EA L9661–L9666:** Section 1 is the shadow selector specification for this clearance, **not permission to replace the live selector**. Compute with probe-local values using the current candidate’s SLEXT481 provenance; leave live `slRef`, gate decisions, veto, latch, SIGNAL and accounting untouched.
+
+With those deltas, clear **exactly one print-only probe build plus one run**, subject to the stated run-word requirement and all remaining envelope gates. No live activation, monotone-adverse amendment, tuning or rerun authorized.
+
+
+## Luna answer - 2026-09-18 - answers v165 (plain clear, probe envelope consistent; no Ruling-ID stated, filed as entry LUNA-V165-001)
+
+plain clear — EA L9661-L9666 for the live-stop selection, with the print-only probe inserted post-L9664/pre-L9670; existing R-gate at L9670, veto/latch/SIGNAL/accounting remain untouched as specified. The packet's one-build/one-run envelope and 0/0 isolation gates are internally consistent.
+
+
+## Astra answer - 2026-09-18 - answers v165 (amend-with-delta, changed-set + shadow-vs-outcome; no Ruling-ID stated, filed as entry ASTRA-V165-001)
+
+amend-with-delta — PACKET_EXT1LIVE-001 v2.
+
+- **§2, changed-set sentence; EA L9661–L9665:** Replace “exactly the bars with s0imb>0 … A2 and A3” with: “The s0-branch cases are A2 and A3; the predicted stop-price changes also include A1’s stated 5-point move. Confirm the actual changed set from per-row slLive/pxExt1 prints.” The existing sentence excludes A1 while asserting its stop changes.
+- **§3, probe at post-L9664/pre-L9670:** Distinguish shadow predictions from observed outcomes. Veto and session-use prints here describe state available at this site, not a downstream outcome or proof of reaching the post-SIGNAL session mark. **§4; EA L9910, L10073/L10170:** Establish downstream outcomes from existing actual-path diagnostics; if those cannot establish them, report unproved and halt—do not widen the probe-only delta.
+
+Scope remains exactly **one print-only build plus one run**, subject to the stated gates and a fresh run word; no live selector change or monotone adoption.
+
+
+## Luna answer - 2026-09-18 - answers v166 (amend-with-delta, precision table + L36 rewrite + analytic B; no Ruling-ID stated, filed as entry LUNA-V166-001)
+
+**amend-with-delta**
+
+The rule itself is mechanically coherent, and the numerical table is internally consistent. I would not halt the probe, but I would amend the page before granting the one-build/one-run clearance because the acceptance language currently conflates the **unchanged actual path** with the **counterfactual ext1 shadow path**.
+
+### Analytic A — defects, gaps, and imprecision
+
+| Lines     | Issue                                                                                                                                                                                                                                         | Required precision                                                                                                                    |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **16**    | `slLive` is described as the post-L9664 value, but the probe is explicitly forbidden from assigning the live path. That makes `slLive` inherently the **current actual-path stop**, not the ext1-selected stop being proposed.                | State explicitly: `slLive` = unchanged actual-path stop; `pxExt1` / `shadowSl` = counterfactual ext1 stop.                            |
+| **16–17** | The text says the probe “reads slLive post-overwrite” and then asks it to settle the ext1 rule, but the two paths are not explicitly separated.                                                                                               | Define the two calculations side-by-side: incumbent/live path and ext1 shadow path.                                                   |
+| **23**    | `rLive` and `rExt1` are named, but their relation to the actual path versus counterfactual path is not explicitly stated.                                                                                                                     | Say `rLive` is actual-path R and `rExt1` is shadow/counterfactual R using the same R builder.                                         |
+| **27**    | “all three already declined” is true as a baseline-history statement, but the sentence then moves directly into predicted stop changes without distinguishing **declined actual outcome** from **shadow R outcome**.                          | Label this as baseline actual-path status versus ext1-shadow prediction.                                                              |
+| **27**    | “Five other fires identical” is also potentially misleading in a print-only probe: the probe cannot create or suppress a fire.                                                                                                                 | Change to “five other **actual fire rows are predicted unchanged under the shadow stop**.”                                            |
+| **36**    | This is the main defect. “**7 signals unchanged, A3 still present at R=1.62**” sits in the same acceptance sentence as the shadow prediction that A3 is `R=0.68` and would be killed. A grader can legitimately read this as contradictory.   | Explicitly say the **7 signals / A3 R=1.62 are actual-path baseline diagnostics**, while the **A3 shadow is R=0.68 and wouldGate=0**. |
+| **36**    | “session-mark site reached” is a downstream actual-path observation, whereas the probe itself sits before the R-gate.                                                                                                                         | Rename it “actual-path downstream session-mark site observed,” and keep it separate from shadow calculations.                         |
+| **36**    | “17:00 S5 eval expected absent in print-only form” is acceptable, but it needs one more qualifier: absence only proves the unchanged path did not evaluate it, not that the shadow rule would not.                                            | Add “under the unchanged actual path.”                                                                                                |
+| **23**    | `veto outcome` is not defined as either actual veto result or hypothetical veto result. A true counterfactual veto evaluation could duplicate or drift from live logic, while the stated goal is print-only.                                  | Specify whether this is an actual-path veto diagnostic or a pure local shadow predicate.                                              |
+| **23**    | `wouldGate` is not formally defined. The intended relation appears to be `rExt1 >= gateConst`, but the page never states it.                                                                                                                  | Define the boolean exactly.                                                                                                           |
+| **23**    | `rLive` / `rExt1` computation is delegated to the “R builder,” but the page does not say what happens on a zero/invalid risk denominator or other non-finite case.                                                                            | State “use the existing R builder unchanged; preserve its existing invalid/zero-denominator behavior.”                                |
+| **40**    | `wouldAdopt_monotone` is not fully checkable from the page because “more adverse” is direction-dependent.                                                                                                                                     | Define it explicitly: SHORT = higher stop is more adverse; LONG = lower stop is more adverse; adoption only if strictly more adverse. |
+| **9**     | The fallback is precise, but the phrase “defined ext1” would be stronger if tied explicitly to `ext1Defined=1`; otherwise “defined” remains prose.                                                                                            | State `ext1Defined=1` is the sole trigger for ext1 selection.                                                                         |
+| **13**    | “No carry-forward of an earlier ext1” is clear, but it would be safer to state that the ext1 must be recomputed/read from the **current candidate at the current S5 evaluation**, matching the provenance requirement already stated earlier. | Tie the prohibition directly to `SLEXT481` current-candidate provenance.                                                              |
+| **12**    | “Resolution-then-veto order unchanged” is clear conceptually, but because this is exactly an ordering probe, the acceptance section should name the expected stage sequence rather than relying on prose.                                       | Expected sequence should be stated as `stop resolution → R-gate → veto → latch → SIGNAL → session mark`.                              |
+
+### Most important amend
+
+I would make **line 36** unambiguous with wording equivalent to:
+
+> “Actual-path baseline remains 7 signals; the actual-path A3 diagnostic remains R=1.62. Under the print-only ext1 shadow, A3 must compute rExt1=0.68 and wouldGate=0. A2 remains silent on the actual path. Do not interpret actual-path downstream rows as evidence of the shadow outcome.”
+
+And I would amend **lines 16 and 23** so `slLive/rLive` are explicitly actual-path values, while the ext1 values are explicitly counterfactual/shadow values.
+
+### Analytic B — better mechanism
+
+A cleaner mechanism is a **side-by-side pure shadow calculation at L9661-L9670**:
+
+`incumbentSl` → existing actual selector → `rLive`
+`ext1ShadowSl` → `slExt1` when `ext1Defined=1`, otherwise `incumbentSl` → `rExt1` → `wouldGate`
+
+Then print both paths from the same candidate and same operands, with **no hypothetical veto/latch/SIGNAL calls at all**. Let the existing actual path alone generate `VETOCLEAR`, `SESSION_LIMIT`, `TP_ELECT`, `SIGNAL`, and session-mark evidence downstream.
+
+That minimizes semantic drift and makes the ordering proof much cleaner. The only probe insertion area needed is **EA L9661-L9670**; downstream locations **L9910, L10073, and L10170** remain read-only evidence sites.
+
+With those wording fixes, the requested **single print-only build plus single run** is sufficiently bounded for clearance.
+
+
+## Astra answer - 2026-09-18 - answers v166 (clear page-only + 9 non-blocking limits; no Ruling-ID stated, filed as entry ASTRA-V166-001)
+
+clear — PACKET_EXT1LIVE-001 v3, packet L7–L13, L32 and L36, for exactly one print-only probe build plus one run under the stated envelope. This is a **page-only review disposition, not an execution key**: fresh run word remains required; no live adoption, tuning, rerun, or widened instrumentation is cleared.
+
+Packet line references below count the title as L1 and include blank lines, matching the supplied 40-line body. EA references are explicitly labelled.
+
+### A. Defects, gaps and imprecisions
+
+**No blocking defect for this bounded probe.** The changed-set correction and shadow-versus-actual-outcome separation are sufficient for the requested observational test. The following limitations remain:
+
+1. **L19–L25 — arithmetic checks; downstream eligibility does not follow from it.**  
+   Using the supplied entry, TP and stop operands, the seven calculated Rs round to **3.43, 1.38, 1.74, 4.86, 2.35, 2.51 and 0.68**, respectively. Thus A1 “survives” means *survives the shadow R test*, not necessarily survives vetoes or fires. L32 and L36 appropriately prevent that inference.
+
+2. **L26, L28 — A2 remains numerically under-specified in the table.**  
+   “Seed-close basis” does not supply exact entry/TP operands, so its ext1 R cannot be independently recomputed from that row. The supplied SHADOW row reports `r1=7.30`, and the SLEXT481 row supports candidate-local ext1 price `1.16299`, slot 13. That supports the prediction but does not replace printing or identifying the actual R operands. L36’s explain-with-operands provision is sufficient; missing operands must remain unproved, not silently reconstructed.
+
+3. **L28 — “A2’s veto refusal is order-independent of R” is broader than the evidence warrants.**  
+   Distinguish an independently disqualifying veto condition from actual execution of the veto site. An earlier failing R test can prevent a later veto from being reached. For the stated A2 prediction, both reported stop-based Rs exceed the gate, so this wording does not block the probe. It must not be reported as proof that evaluation order is generally irrelevant.
+
+4. **L28 versus L36 — “all three already declined” needs its existing authored/shadow context.**  
+   It cannot mean all three are absent from the unchanged actual path: L36 explicitly requires A3 still present at live R=1.62. Likewise, “five other fires identical” is a prediction about those rows, not by itself proof of unchanged session state or total signal count. The actual-path diagnostics required by L36 supply the necessary separate test.
+
+5. **L32 — several output fields require precise interpretation.**
+   - `wouldGate` must unambiguously mean **would pass** or **would be rejected**.
+   - Undefined ext1 must not yield a seemingly valid `rExt1` or adoption decision from a stale/sentinel price.
+   - R comparison must use unrounded values and the existing live calculation/comparator semantics.
+   - “Veto outcome” at this insertion point is only the available state identified by L32—not a future execution result.
+
+   These are implementation-review checks within the existing probe specification, not permission to call mutating veto/session routines or alter the live path.
+
+6. **L32, L36 — per-row attribution and operands must be recoverable.**  
+   The explicit print list does not name candidate identity, direction, entry or TP. Existing same-run diagnostics may supply them, but correlation must be unambiguous, particularly if a bar has multiple S5 evaluations. A bar timestamp alone should not be assumed sufficient. If existing diagnostics plus the permitted probe cannot establish a required result, L36’s **unproved-and-halt** rule applies.
+
+7. **L36 — “within display band” is not numerically defined.**  
+   For the listed two-decimal predictions, reproduction should mean rounding to the displayed value using the established display convention—not accepting an unspecified tolerance. In particular, displayed Rs must not substitute for full-precision gate decisions.
+
+8. **L36 — the probe does not settle counterfactual downstream ordering or recovery.**  
+   It can establish post-overwrite live operands, candidate-local ext1 alternatives, and actual-path outcomes. It cannot establish the session state, seed/window recovery, or later signals that would result after live adoption. The explicit counterfactual exclusion correctly preserves this boundary.
+
+9. **L40 — “settling the alternative from the same run” is only window-local.**  
+   `wouldAdopt_monotone` can establish where monotone adoption agrees or differs on observed evaluations. It cannot choose between the policies for future bars. L40 already acknowledges that future divergence; the verdict should preserve that qualification.
+
+The insertion placement and scope preservation at **EA L9664–L9666**, candidate-local provenance, ext1-undefined fallback, and unchanged veto/session behavior are adequate **as specified on the page**. This review does not independently verify their implementation, the disk identity, or the pre-build gates.
+
+### B. Better mechanism
+
+For the stated **one-run observational goal**, no broader mechanism is warranted. The specified **EA post-L9664/pre-L9670 probe block** is the appropriate location.
+
+Within that block, the strongest implementation is a side-effect-free, candidate-local comparison:
+
+- Capture the already-selected live stop and the current SLEXT481 ext1 provenance.
+- Calculate shadow R using identical live R semantics, without assigning to live state.
+- Make the output self-identifying and distinguish shadow R eligibility from observed live outcomes.
+- Obtain downstream evidence only from existing actual-path diagnostics.
+
+Do **not** touch **EA L7682–L7697, L9910, L10073/L10170**, or replace the selector at **EA L9661–L9665** in this probe. Selector replacement belongs to a separately authorized live-adoption change. Monotone-adverse-only adoption is a different policy, not a superior diagnostic mechanism established by this window.
+
+Opus (just like last time, GlobalGPT has connection issue so i'm using notion):
+**Review seat — analysis only, no key, no decision authority exercised.** Formally: **amend-with-delta** (five blocking items, all resolvable in text; nothing below requires a new run to fix).
+
+Line-number note: the relayed body arrives as a section-structured rendering, not the 40-line numbered file, so I cite by section + sentence anchor and by EA line where the packet gives one. That mismatch is itself item A0.
+
+## Luna answer - 2026-09-18 - answers v167 (amend-with-delta, P009/P032 live-vs-probe contradiction + defects table + analytic B; no Ruling-ID stated, filed as entry LUNA-V167-001)
+
+**AMEND-WITH-DELTA**
+
+The packet is close enough for exactly one print-only probe, but one internal contradiction is material: as written, a builder could interpret the section-1 live selector replacement as part of the probe, which would violate the stated print-only / unchanged-actual-path envelope.
+
+### Decision basis
+
+The main defect is the interaction of **P009 and P032**.
+
+**P009** says L9661-L9665 are replaced by the ext1-adopt write and describes the resulting live chain as `slRef → R-gate → veto → latch → SIGNAL`.
+
+**P032** then says the probe is print-only, sits after L9664, reads `slLive` post-overwrite, and makes **no assignment to the live path**.
+
+Those statements are only simultaneously true if “live overwrite” in P032 means the **existing landed s0/s1 selector**, not the authored ext1 rule. But P009 explicitly says that selector is being replaced. That ambiguity is too consequential to clear a build on.
+
+### Required delta
+
+I would amend **P009 and P030-P032** so the probe relay is mechanically unambiguous:
+
+> The print-only probe does **not** replace, alter, or bypass L9661-L9665. The landed s0/s1 selector remains the actual path for this build. The probe is inserted after the landed selector write at L9665 and before the R-gate at L9670, reads the resulting actual `slLive`, and computes ext1 shadow values separately. The ext1 selector replacement described in Section 1 is the authored **future live-activation rule**, not an executable change in this probe relay.
+
+That one distinction resolves the core problem and makes the acceptance sentence “actual-path baseline remains 7 signals” operationally meaningful.
+
+### Other defects, gaps, or imprecisions
+
+| Lines | Finding | Severity |
+| --- | --- | --- |
+| **P007, P011** | “No positive-imbalance requirement” applies to a **defined ext1**, while the undefined fallback explicitly retains the old positive-imbalance gates. That scope should be stated explicitly; otherwise the two sentences can read as contradictory. | Medium |
+| **P009, P011** | P009 says all five selector lines are replaced by the ext1-adopt write, while P011 requires the old selector to remain exactly as fallback. The implementation form needs to say explicitly that the replacement is a conditional `ext1Defined ? ext1 : old-selector` decision, not unconditional removal of the old gates. | Medium |
+| **P009** | “Region W overwrite L9664” becomes stale terminology once L9664 is described as the replaced selector site. Call it the “L9664 stop-selection write/site” rather than simultaneously calling it the old Region W overwrite. | Low/Medium |
+| **P032** | `extSideOk` and `extDistPts` are named but their exact definitions are not given. For a probe whose purpose is to make degenerate cases checkable, the side predicate and point-distance convention should be explicit. | Medium |
+| **P032, P040** | `wouldAdopt_monotone` is only described as “strictly more adverse.” “Adverse” needs a mechanical directional definition, e.g. the stop produces greater risk distance for LONG/SHORT, with equality yielding 0. Otherwise the field is not independently checkable from output. | Medium |
+| **P032** | `rawNum` / `rawDen` are requested, but the packet does not explicitly identify the exact relationship between those fields and `rExt1`. “Use existing R builder unchanged” is reasonable, but the probe contract should say they are the exact numerator and denominator consumed by that builder for the ext1 shadow. | Low/Medium |
+| **P032** | `slLive` is called “actual-path,” while the surrounding section also talks about an ext1 live overwrite. Once the probe/live distinction above is repaired, this becomes unambiguous: `slLive` is the landed-tree actual stop; `pxExt1`/`rExt1` are shadow values. | Medium |
+| **P028** | The changed-set statement is presented assertively (“the s0-branch bars are...”), while the same paragraph says the run must confirm the actual changed set from prints. Label the listed set explicitly as **pre-run predicted changed set**. | Low |
+| **P028** | “Five other fires identical because live stop already equals s1px there” is likewise a prediction, not yet demonstrated by the pre-run evidence shown. It should be labelled predicted. | Low |
+| **P028** | “A2 row exemplar: -999 means no filed comparator on record” is clear, but the packet would be stronger if every sentinel-bearing field inherited that same convention explicitly rather than only the exemplar. | Low |
+| **P036** | “session-mark site reached (post-SIGNAL only)” and the separate 16:55 `SESSION_LIMIT` requirement refer to different points in the lifecycle. The text is technically reconcilable, but it should say explicitly that the session-mark requirement is for successful post-SIGNAL paths, while 16:55 is evidenced by the pre/post-limit diagnostic at L7682-L7697. | Low |
+| **P040** | The deferred monotone alternative is useful, but “adds an unconstrained future-bars divergence” is an evaluative assertion without the actual criterion for that divergence. Since it is out of scope, this is not a clearance blocker; “not admitted because it changes the future-bar decision surface beyond this probe’s minimal scope” would be more precise. | Low |
+
+### Analytic ask B — better mechanism
+
+For the stated goal, I would **not** put the ext1 rule itself into the print-only build.
+
+The cleaner mechanism is:
+
+**landed selector → capture actual `slLive` → compute ext1 shadow from the same candidate-local SLEXT481 provenance → compute shadow R → print one STOPRESOLVE row → continue completely unchanged into the existing R-gate/veto/latch/SIGNAL path.**
+
+That touches only the probe insertion immediately **after L9665 and before L9670**. It leaves **L9661-L9666, L9670, the veto path, latch, SIGNAL, and accounting untouched** for the probe run.
+
+The eventual live activation can then separately touch **L9661-L9665** exactly as Section 1 specifies. Keeping those two operations in separate relays removes the only material ambiguity in v4.
+
+### Final ruling
+
+**AMEND-WITH-DELTA — P009 and P030-P032, with the live-rule/probe distinction above.**
+
+After that delta, the rest of the packet is sufficiently bounded for **one print-only probe build plus one run** under the stated envelope. The table, A3 `0.68` shadow, A2 silence, and changed-set questions are appropriate run acceptance targets; they should remain run results rather than being treated as already-proven facts.
+
+## Astra answer - 2026-09-18 - answers v167 (amend-with-delta, envelope + emission coverage + diagnostic contract; no Ruling-ID stated, filed as entry ASTRA-V167-001)
+
+amend-with-delta — **PACKET_EXT1LIVE-001 v4**, principally P032 and P036. Review-only recommendation, not clearance keys or a run word. The print-only design is appropriate, but the execution budget, emission coverage, and diagnostic contract need the following tightening before authorizing exactly one build plus one run.
+
+## A. Defects, gaps, and imprecisions
+
+### Required amendments
+
+**1. P036 — The diagnostic-only re-emit exception conflicts with the one-build/one-run envelope.**
+
+An absent or malformed field can be discovered after compilation or execution. Fixing and re-emitting it could require another build or run. “Under the same envelope” does not resolve that conflict: the 90-minute ceiling and the execution-count limit are separate constraints.
+
+Replace the exception with:
+
+> A diagnostic-only defect does not authorize another build or run. Reformatting or re-extracting already captured output is permitted without execution; missing emitted information remains missing. Any correction requiring another build or run halts and returns for fresh authorization.
+
+If a retry is intended instead, explicitly change the requested envelope. It cannot coexist implicitly with “exactly one.”
+
+**2. P032, P036 — “One record per S5 evaluation” is stronger than the named insertion site guarantees.**
+
+A block after the live selector can emit only for evaluations that reach that block. The page does not establish that every S5 evaluation reaches it. This also matters to the 17:00 falsifier: absence of STOPRESOLVE alone cannot prove absence of an S5 evaluation if an earlier exit is possible.
+
+Amend to:
+
+> Emit exactly one STOPRESOLVE record per candidate evaluation reaching the post-selector/pre-R-gate site. Establish S5 evaluation presence or absence independently from existing S5 diagnostics, including at 17:00. If existing diagnostics cannot establish that distinction, report it unproved and halt; do not add wider instrumentation without authorization.
+
+If the intended claim really is that every S5 evaluation reaches this site, make that a pre-build control-flow prerequisite rather than an inference from missing output.
+
+**3. P032 — Candidate provenance is required in prose but is not represented in the 26-field record.**
+
+The list has exactly **26 fields**, but none is `ladOriginPx`, `ladOriginBarTime`, or `ladOriginSite`. `barTime` and `dir` are not, by themselves, a stated unique candidate identifier. The supplied evidence also illustrates why bar time and origin time must not be silently equated.
+
+Choose one explicit contract:
+
+- Include the three origin fields in STOPRESOLVE and update the count to 29; or
+- Retain 26 fields and specify an unambiguous same-candidate join to the existing SLEXT481 record carrying those origin fields.
+
+Either way:
+
+> Ambiguous or missing candidate provenance fails acceptance. No previous-candidate read, heuristic nearest-record match, or reconstructed ext1 is permitted.
+
+This is about making the stated provenance check executable, not asking for a new stop source.
+
+**4. P032, P036 — The post-overwrite block must be able to obtain genuinely pre-overwrite information.**
+
+`incomingSlRef` is an input to the selector, whereas the proposed block runs after that selector has overwritten `slRef`. Likewise, `liveSel` must describe the branch actually taken, not merely a price that happens to match a branch.
+
+The page does not establish that the needed pre-selector value survives in an existing candidate-local variable.
+
+Add:
+
+> Before building, establish that incomingSlRef is available from an existing preserved pre-selector value, and that liveSel reports the actual selector branch. Do not substitute post-selector slRef or infer branch identity from price equality. If either requires instrumentation outside the authorized block, halt and return the exact proposed delta for authorization.
+
+This preserves the probe-only changed-set promise without assuming unavailable information can be recovered.
+
+**5. P011, P028, P032, P040 — Complete the undefined/invalid-value contract for the diagnostic fields.**
+
+P011 correctly specifies the rule’s undefined-ext1 fallback. P032 does not say explicitly how that fallback appears in `rExt1`, `wouldGate`, or the ext1-only measurements. The distinction matters because `rExt1` could mean either “R for an ext1 price” or “R for the proposed rule, including fallback.”
+
+A minimal consistent amendment is:
+
+> rExt1 denotes the proposed-rule shadow R: use the candidate’s ext1 when defined; otherwise use the unchanged incumbent selected stop, so the shadow result equals the actual-path result. When ext1 is undefined, pxExt1 and ext1-specific geometry are not applicable, and wouldAdopt_monotone is 0. wouldGate reproduces the existing gate’s treatment of the builder result, including invalid and zero-denominator cases; never compare a display sentinel as though it were a valid R.
+
+Also specify:
+
+- `rawNum` and `rawDen` are the **shadow builder’s actual operands before its invalid/zero-denominator handling**, not independently reconstructed absolute distances.
+- `extDistPts` has an explicit sign convention and uses the instrument’s point unit.
+- `extSideOk` states explicitly whether equality at entry is false or separately represented.
+- `wouldAdopt_monotone` compares against **post-selector `slLive`**, is eligible only for a defined ext1 and a valid incumbent, and uses a strict directional comparison: higher stop for SHORT, lower stop for LONG. An invalid incumbent is not silently treated as zero.
+
+These are diagnostic definitions, not an ext1 validity guard or authorization for monotone adoption.
+
+### Other findings and qualifications
+
+**6. P007–P009 versus P032, P036 — Keep future live semantics distinct from this build’s changed set.**
+
+Sections 3–4 do establish print-only isolation. Nevertheless, P009’s “all five replaced” and “no second overwrite exists downstream of the new write” describe an implementation that this authorized build must **not** make.
+
+Label P007–P011 explicitly:
+
+> Proposed live-rule semantics only; not the implementation delta authorized by this probe packet.
+
+P009 also calls L9664 a “Region W overwrite” while saying that write is replaced. For the future rule, describe the chain as the **replacement at the former Region W selector site**, then the existing R-gate and downstream stages. This is a textual ambiguity, not evidence that the probe itself changes stops.
+
+**7. P028 — The current pre-run evidence does not itself establish three ext1-to-s1 identity comparisons.**
+
+The page states A2’s `ext1Slot == s1slot == 13`. The supplied A1/A3 records establish ext1 slots 118 and 91 and agreement between the displayed BASE/CUR ext1 reads; they do not display the corresponding A1/A3 `s1slot` values.
+
+Thus:
+
+- Three rows have ext1 provenance evidence.
+- Only A2 has an explicit ext1-to-s1 slot equality stated on this page.
+- The per-row reduction remains a probe question for A1/A3.
+
+P028’s instruction to resolve it from output is sound. Qualify the surrounding “three rows deep” claim accordingly. Slot comparisons must also refer to the same candidate and slot namespace.
+
+**8. P019–P025, P028 — The numerical table checks out; the displayed threshold band is not the exact separating interval.**
+
+Using the supplied entry/TP/stop operands and ordinary positive reward/risk division, all seven stated Rs round correctly:
+
+| Row | Calculated R |
+|---|---:|
+| 08-28 10:00 | 3.428571 |
+| 08-28 16:20 | 1.384615 |
+| 09-04 15:55 | 1.736842 |
+| 09-07 09:15 | 4.864865 |
+| 09-07 16:40 | 2.347826 |
+| 09-08 10:05 | 2.509434 |
+| 09-08 16:40 | 0.678082 |
+
+For an inclusive pass comparator, the exact A3-fail/A1-pass interval from these operands is approximately **(0.678082…, 1.384615…]**. The stated **(0.68, 1.38]** band is a conservative rounded band and safely contains 1.0. Label it that way; no gate change is needed.
+
+This arithmetic check does not independently establish the existing builder’s implementation.
+
+**9. P026, P028, P036 — A2’s limited grading is legitimate but must stay limited.**
+
+Without a filed entry comparator, A2 cannot receive an independent table-R reproduction grade. Newly printed operands can establish what this run computed; they do not retroactively create a filed comparator.
+
+Also keep separate:
+
+- Actual-path A2 silence and its recorded veto behavior.
+- Shadow `wouldGate`.
+- Any downstream shadow outcome, which this probe does not execute.
+
+P036 largely handles this correctly. Do not turn P026’s “veto refuses regardless” into a claim that a shadow evaluation necessarily reaches the veto.
+
+**10. P032, P036 — Calling the existing R builder requires observational purity.**
+
+“Probe-local values” and “no assignment to the live path” are necessary but do not alone exclude side effects inside a called helper.
+
+Make the pre-build check explicit: shadow computation must not mutate shared builder state, consume state, alter later live operands, or overwrite a live result. If the existing builder cannot be invoked observationally, stop and return the required delta rather than quietly refactoring it.
+
+**11. P036 — Outcome evidence and ordering evidence are different.**
+
+The listed diagnostics may establish seven signals, A2 silence, and session refusals without necessarily proving every internal stage boundary. Preserve the existing “unproved and halt” instruction for any ordering claim that those records cannot establish. Do not use log proximity or a pre-gate `vetoStateAtSite` value as proof that veto execution occurred.
+
+**12. P040 — Monotone equivalence remains a window-specific prediction.**
+
+Printing `wouldAdopt_monotone` is useful and belongs in this single probe. “Reproduces the table identically” should mean the named table rows, not every evaluated candidate in the range or future bars. For defined, comparable stops, `slLive`, `pxExt1`, direction, and the strict comparison are sufficient to identify divergence in the observed window.
+
+**13. P036 and the surrounding quotation claim — “Adopted verbatim” is not literally exact.**
+
+The quoted final sentence says:
+
+> Do not interpret actual-path downstream rows as evidence of the shadow outcome.
+
+P036 instead says:
+
+> Actual-path downstream rows are not evidence of the shadow outcome.
+
+The meaning is preserved. Call it adopted substantively, or use the exact quoted wording. This is editorial, not a behavioral blocker.
+
+## B. Better mechanism and touched lines
+
+**Keep the single post-selector shadow probe.** It is a better fit for this question than adding a resolver, activation flag, or live monotone branch.
+
+The minimal implementation boundary is:
+
+- **EA L9661–L9666:** unchanged live selector and closure.
+- **After the selector, before EA L9670:** one observational block computing and printing the candidate-local shadow, using the amendments above.
+- **EA L9670, veto sites, L9910, L10073/L10170, L7682–L7697:** unchanged.
+- No selector replacement, live adoption, session release, or shadow downstream execution.
+
+The one possible additional mechanism is a **probe-local pre-selector snapshot immediately before L9661**, but only if `incomingSlRef` is otherwise unavailable. That would violate the current single-block delta and therefore needs an explicit packet amendment before implementation—not builder discretion.
+
+With these amendments, the run can settle the printed ext1 operands, gate counterfactuals, changed stops, and observable ordering without claiming that unchanged actual-path downstream output proves shadow execution.
+
+## Luna answer - 2026-09-18 - answers v168 (CLEAR one probe build+run under envelope + 8 non-blocking notes with arithmetic; no Ruling-ID stated, filed as entry LUNA-V168-001)
+
+**CLEAR — PACKET_EXT1LIVE-001 v5** for exactly **one print-only probe build plus one run** under the stated envelope. I see no page-level defect that requires an amendment before this probe. The landed-tree/disk predicates remain builder-side gates, as you specified.
+
+### Analytic A — defects, gaps, and imprecisions
+
+1. **P032–P034: the exact source symbols for the ext1 shadow are still semantic rather than named.**
+   “current candidate's SLEXT481 provenance tied to `ladOriginPx`, `ladOriginBarTime`, `ladOriginSite`” is sufficiently constrained for a human reading the packet, but it still leaves the exact runtime object/helper carrying `slExt1`, `ext1Defined`, and `ext1Slot` to implementation discovery. Because P038 explicitly halts on unavailable provenance or invented computation, this is **not a clearance blocker**, but it is the main place where builder discretion could otherwise enter.
+
+2. **P034: “first emission per run is one SCHEMA line” does not specify the once-only mechanism.**
+   The two-insertion constraint is clear, but enforcing exactly one schema emission ordinarily needs either a probe-local/static flag or a once-per-run initialization point. The packet says “TWO insertions” and no wider instrumentation, so the mechanism should be understood as internal to insertion B, not a third site. **Non-blocking, but implementation-specific.**
+
+3. **P034/P036: `wouldAdopt_monotone` has an under-specified definition of “valid incumbent.”**
+   P036 correctly says an invalid incumbent is not treated as zero, but it does not identify the exact existing validity predicate for `slLive`. That could matter around degenerate prices. Again, because this is diagnostic-only and the packet says to halt rather than invent a predicate, I do not treat it as a blocker.
+   **Relevant lines: P034, P036.**
+
+4. **P036: `ROUND((pxExt1 - entryPx)/_Point)` is mathematically stated but not tied to an exact existing rounding primitive.**
+   For a diagnostic integer field, the intended result is clear, but “ROUND” could theoretically admit language/library differences, especially for negative values. The safest interpretation is the platform's normal mathematical rounding already used by the EA. **Non-blocking because it does not drive the live path or an acceptance gate.**
+
+5. **P040–P042: “actual-path diagnostic set diverges” is not fully defined as an equality test.**
+   P042 names the four diagnostic families—`VETOCLEAR`, `SESSION_LIMIT`, `TP_ELECT`, `SIGNAL`—but does not explicitly say whether the comparison to archive `8B2ED676` is row presence only, row count plus timestamps/directions, or complete payload equality. Since the packet otherwise says “halt IFF ... diverges,” the acceptance criterion would be stronger with an explicit comparison scope.
+   This is the most substantive remaining acceptance-language imprecision, but the surrounding text strongly indicates the purpose: **actual-path behavior must remain unchanged**, not merely the existence of those row types.
+
+6. **P042: “A3 shadow passes on printed `rExt1=0.68` with raw `wouldGate=0`” is awkward wording.**
+   A3 does **not** pass the R-gate under the shadow; it matches the predicted shadow result and is rejected by the gate. The same sentence is internally clarified by `wouldGate=0`, so this is terminology rather than ambiguity in the required output.
+   **Suggested reading:** “A3 shadow matches 0.68 and has raw `wouldGate=0`.”
+
+7. **P042: “A2 remains silent on the actual path” should be read specifically as signal/outcome silence, not probe silence.**
+   Elsewhere P034 expressly permits a `STOPRESOLVE` record for every evaluation reaching insertion B, and P026 says A2 is actually evaluated. So an A2 `STOPRESOLVE` line is compatible with “A2 remains silent” provided the sentence means no actual-path signal/fire outcome.
+   **Non-blocking, but worth preserving that distinction during grading.**
+
+8. **P013: “under his kill-all” is contextually understandable but actor-ambiguous.**
+   The rule itself is not affected; the v167 material clearly identifies A1/A3 as already-declined rows. This is an audit-language issue only.
+
+### Why I am clearing it
+
+The core separation is now clean:
+
+* **Future behavior rule:** P005–P013, explicitly not executed by this probe.
+* **Actual-path probe:** P030–P038, with the existing selector retained and only observational shadow computation added.
+* **Two-site capture rationale:** P032 correctly handles the block-scoped `s1x_sel` and destroyed incoming `slRef`.
+* **Shadow/actual distinction:** P034 and P036 explicitly separate `slLive/rLive` from `pxExt1/rExt1`.
+* **No positive-imbalance gate on defined ext1:** P007/P011 are explicit.
+* **A3/A1 arithmetic:** P017–P028 is internally consistent; for example, A3's predicted shadow R is `0.00099 / 0.00146 = 0.678082…`, while A1 is `0.00108 / 0.00078 = 1.384615…`, matching the stated rounded values and exact band.
+* **No-retry:** P042 unambiguously withdraws v4's re-emit path.
+* **Live-path protection:** P038 plus the stated exact-diff/L9666–L9670 scan and `OrderSend 0` envelope prevent the probe from becoming the proposed live change.
+* **Ordering:** P042 correctly refuses to infer execution order from log proximity alone and requires observable evidence.
+
+### Analytic B — better mechanism
+
+I do **not** see a better mechanism that is safer than the two-site probe already specified.
+
+The current design is the minimal one that solves the real mechanical problem:
+
+* **Before L9661:** save the incoming `slRef` (`P032`, insertion A).
+* **After L9665 / before L9666:** recover the selector result and compute/print the counterfactual (`P032`, insertion B).
+* **Do not touch L9661–L9665 during the probe.**
+* **Leave L9670 and all downstream veto/latch/SIGNAL/session accounting untouched.**
+
+The only plausible alternative would be to capture the ext1 result at the **SLEXT481 producer site** and carry that local result down to L9665, rather than reconstructing/reading it at insertion B. That would touch an additional location and therefore be a **larger delta**, contrary to the probe-minimal requirement. It becomes interesting only for the later live-activation relay, not for this probe.
+
+So the clearance disposition is:
+
+**CLEAR — PACKET_EXT1LIVE-001 v5, one build + one run only, under the exact envelope stated.**
+
+## Astra answer - 2026-09-18 - answers v168 (amend-with-delta, 3 required + 11 others; page-only review-seat, not a key; no Ruling-ID stated, filed as entry ASTRA-V168-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v5**, principally **P034/P036/P042** and **P028**. This is a page-only, review-seat verdict—not a build/run key. The amendments below retain exactly one print-only build plus one run, the two insertion sites, and the no-retry boundary.
+
+The probe/live split, incoming-stop capture, block-local selector capture, 30-field record, and withdrawal of re-emission resolve the principal structural problems described in the relay. I do not see a reason to widen the instrumentation or execute the future selector rule.
+
+## A. Defects, gaps, and imprecisions
+
+### Amendments required before clearance
+
+**1. `wouldGate` must represent the whole gate, not merely its ratio comparison. — P034, P036, P042; EA L9670**
+
+The quoted actual gate is:
+
+```cpp
+slDist > 0.0 && (tpDist / slDist) >= InpMinRewardRisk
+```
+
+P034 instead defines `wouldGate` as `rExt1 >= gateConst`. Those are not universally equivalent. P036 requires the undefined-ext1 case to equal the actual gate result, making the missing denominator predicate consequential.
+
+P034 also calls `rLive` “the tested LHS.” It is the ratio operand of the comparison, not the complete Boolean gate; when the denominator guard fails, short-circuit evaluation does not test that division.
+
+**Required delta:**
+
+> `wouldGate` is the counterfactual result of the complete L9670 predicate, using the shadow stop and the same operand construction, denominator guard, comparison, and short-circuit semantics as the actual path. `rLive` and `rExt1` describe the respective ratio values where defined; neither ratio alone denotes the complete gate. With ext1 undefined, the shadow operands and gate result equal the actual-path operands and gate result.
+
+Keep this wholly inside insertion B. Do not alter L9670 or introduce a protective-side validity guard that the live gate does not have.
+
+---
+
+**2. Undefined or invalid R needs an explicit representation and comparison policy. — P028, P034, P036, P042**
+
+The packet specifies:
+
+- preservation of the builder’s invalid/zero-denominator behavior;
+- raw operands before that handling;
+- a prohibition on treating display sentinels as valid R;
+- a halt when an invalid/non-finite `rExt1` nevertheless yields `wouldGate=1`.
+
+But it does not explicitly define how an unavailable ratio appears in `rLive` or `rExt1`. The undefined-ext1 policy addresses a missing ext1, not every invalid-R case.
+
+An absent ext1, a valid zero ratio, a denominator-guard failure, and a non-finite builder result are different conditions. The record must not collapse them.
+
+**Required delta:**
+
+> Specify the existing builder’s invalid-result representation before build. If no numeric ratio exists because the denominator guard prevents division, print `-` in the ratio field; retain any existing builder-defined invalid/non-finite representation without converting it to a valid numeric R. Print `rawNum` and `rawDen` independently. Evaluate `wouldGate` from the complete gate semantics, never from a formatted field or display sentinel. Retain P042’s halt on an invalid/non-finite R producing `wouldGate=1`.
+
+This needs no additional field. If the required operands or validity distinction are unavailable observationally, P038 already supplies the correct disposition: halt without widening the delta.
+
+---
+
+**3. Separate source-selection changes from stop-price changes. — P028; related P032/P034/P046**
+
+P028 requires confirmation of the “actual changed set” using integer slot/branch identity, “never from 5-decimal price equality.” That correctly rejects price coincidence as proof of provenance, but overstates what slot identity proves.
+
+Different slots can contain the same price. Conversely, matching source identity is not, by itself, proof that two reads had identical values at the relevant evaluation. The packet discusses both source changes and stop-price changes without consistently distinguishing them.
+
+Also, in this probe, the ext1 changed set is **observed counterfactual evidence**, not an actual live-path change.
+
+**Required delta:**
+
+> Report separately: (a) incumbent-versus-shadow source identity, using `liveSel` and candidate-local slot/provenance evidence; (b) incumbent-versus-shadow stop-value difference, using `slLive` and the defined ext1 value at sufficient numeric precision; and (c) actual-versus-shadow gate results. Slot identity establishes source identity, not price difference; displayed price equality establishes neither provenance nor exact numeric equality. All ext1 differences remain counterfactual in this print-only run.
+
+No new fields are necessary if the existing numeric fields preserve sufficient precision. Rounded R remains suitable for the stated table tolerance, not for proving exact operand equality.
+
+### Other defects or imprecisions
+
+**4. Future replacement wording conflicts with the required fallback. — P007/P009/P011**
+
+P009 says all five selector lines are replaced “by the ext1-adopt write.” Read literally, that removes the old-selector fallback required by P007 and P011.
+
+Replace that phrase with:
+
+> Replace the five-line selection region with a conditional: defined ext1 selects the candidate-local ext1; otherwise execute the existing five-line selector unchanged in effect.
+
+This is a future-rule drafting correction, not permission to implement that replacement in the probe.
+
+**5. The fallback does not have a positive-imbalance requirement on both branches. — P007/P011; EA L9662–L9663**
+
+P007’s “old positive-imbalance gates” is imprecise. The quoted code requires positive imbalance for s0; s1 requires only a valid slot.
+
+P011 states the actual rule correctly. Use “the existing s0 positive-imbalance gate and s1 slot-validity fallback” in P007 to remove any contrary reading.
+
+**6. Pre-edit references remain valid identifiers, but physical line numbers will move. — P009/P032/P038/P042**
+
+“The probe moves no live line so numbering is stable for this build” is inaccurate for ordinary source insertions. Existing statements remain unchanged, but their physical line numbers shift.
+
+Use:
+
+> All EA line references identify locations in the pre-edit landed tree. The build diff maps those locations to the instrumented source; existing live statements remain unchanged.
+
+In particular, the no-write scan must cover the region corresponding to **base L9666–L9670**, not blindly scan those numeric lines after insertion.
+
+**7. Emission coverage is narrower than “per S5 evaluation.” — P034/P046 and the envelope**
+
+P034 correctly limits emission to evaluations **reaching B**. P046 subsequently says the probe prints `wouldAdopt_monotone` “per S5 evaluation,” which is broader.
+
+Use “per S5 evaluation reaching insertion B” consistently. Preserve the existing rule that other S5 presence/absence comes from existing diagnostics.
+
+**8. Ordering observability is an acceptance condition, but not explicitly an availability preflight. — P038/P042**
+
+P042 correctly rejects log proximity and pre-gate veto state as execution-order proof. However, P038’s availability checks cover ext1, provenance, and R-builder purity, not whether existing diagnostics can distinguish the two session-mark sites and support the requested execution claims.
+
+This is not authority to add downstream instrumentation. Add to the pre-build availability check:
+
+> Identify the existing diagnostic/site mapping that can support the required ordering and reached-session-mark report; if unavailable, halt without building.
+
+That avoids spending the only run on an ordering question already known to be unobservable. Availability is not proof that a site will actually be reached; that remains a run-time finding.
+
+**9. Diagnostic comparison needs one consistent meaning. — P042**
+
+The packet alternates between:
+
+- the diagnostic “set” diverging from the archive;
+- seven unchanged signals;
+- VETOCLEAR behavior unchanged “in kind.”
+
+A mathematical set loses duplicate counts and ordering; “in kind” can permit changes that “diverges” appears to prohibit.
+
+Specify a baseline comparison contract covering candidate/event identity, multiplicity, relevant operands, and relevant event order. Permit only explicitly identified nonsemantic metadata normalization. Do not let “unchanged in kind” weaken the divergence halt.
+
+**10. One record per evaluation bounds the rate, not the total journal volume. — Envelope; P034/P046**
+
+The claimed “thousands of lines max” does not follow from the emission rule alone. The page gives neither a maximum count of reaching evaluations nor a maximum record length.
+
+The modest correction is to require complete log retention and to treat truncation, loss, or an exceeded external capture limit as an acceptance miss. Any hard volume ceiling should be enforced outside the trading logic; do not add live-path control behavior to make the estimate true.
+
+**11. A2 acceptance names a field that the schema does not contain. — P026/P028/P034/P042**
+
+The schema contains `pxExt1`, but A2 grading repeatedly refers to printed `slExt1`.
+
+State that `pxExt1` is the STOPRESOLVE field carrying the candidate-local `slExt1` read, and use `pxExt1` in acceptance wording. This is a naming correction, not a request for a 31st field.
+
+**12. Rounded zero distance does not uniquely mean at-entry. — P036**
+
+`ROUND((pxExt1-entryPx)/_Point) == 0` can also arise from a nonzero displacement smaller than half a point, unless the operands’ point-grid alignment is guaranteed.
+
+Thus “0 = at-entry” is stronger than the formula establishes. Use:
+
+> Zero means zero rounded-point displacement; exact at-entry is determined from the operands.
+
+Keep `extSideOk` based on strict price-side comparison. No tolerance-based behavior guard should be introduced.
+
+**13. Undefined-ext1 records deliberately discard candidate-origin provenance. — P032/P034/P036**
+
+P032 describes provenance tied to the candidate’s `ladOrigin` triple, while P036 replaces that triple with `-` whenever ext1 is undefined.
+
+This is not a probe-safety blocker, but it limits what a fallback record can establish about candidate provenance. Clarify that the blank triple is an intentional reporting limitation, not evidence that the candidate itself lacked an origin. Do not claim provenance completeness for those records.
+
+**14. Monotone coverage needs the same observation boundary as the rest of the probe. — P042/P046**
+
+The monotone flag is useful, and the strict comparison against post-selector `slLive` is appropriately defined. But a named row not reaching B cannot settle that row’s monotone question.
+
+Qualify the claim as applying to named table rows actually observed at B. Missing rows remain unproved under the existing halt policy; they must not be interpreted as `wouldAdopt_monotone=0`.
+
+### Points I would not reopen
+
+- **P030–P038:** Two insertion sites are justified by the stated scope and overwrite facts. A single post-closure insertion is not a substitute.
+- **P007/P030/P042:** The future selector rule and the actual print-only probe are now distinctly scoped.
+- **P028/P042:** A2 is explicitly exempt from independent R reconstruction; no invented entry comparator is needed.
+- **P038/P042:** Purity failure, unavailable operands, compilation failure, and missing acceptance evidence already fail closed.
+- **P042:** Diagnostic-only defects no longer authorize another build or run.
+- **P044–P046:** Deferring resolver, sentinel, and live-path refactoring is appropriate. None is necessary merely to capture the stated observations.
+
+## B. Better mechanism
+
+**Keep the two-site mechanism; improve its definitions rather than expand its footprint.**
+
+The smallest sufficient implementation remains:
+
+1. **Immediately before base EA L9661:** capture incoming `slRef` in the explicitly authorized probe-local variable.
+2. **After base EA L9665 and before L9666:** capture incumbent selector state, read candidate-local ext1/provenance, compute observational actual/shadow operands, evaluate the **complete** shadow gate predicate, and emit the specified record.
+3. **Base EA L9666 onward:** no changes. In particular, do not modify L9670, the veto path, L9910, SIGNAL, L10073/L10170, or L7682–L7697.
+
+Use offline analysis of the captured output to distinguish source changes, stop-value changes, and gate changes. That analysis can be corrected without another execution, but it cannot manufacture missing precision, missing provenance, or unobserved execution order.
+
+With the required deltas above incorporated, I see no page-level reason to require a larger probe. Clearance would still mean only the specified print-only experiment under its gates—not clearance of future ext1 activation, recovered signals, session release, or any previously declined candidate.
+
+## Luna answer - 2026-09-18 - answers v169 (AMEND-WITH-DELTA, P042 contract + 7 notes; probe mechanism retained; no Ruling-ID stated, filed as entry LUNA-V169-001)
+
+**AMEND-WITH-DELTA — PACKET_EXT1LIVE-001 v6.**
+The probe construction itself is bounded and coherent, but one acceptance clause is still under-specified enough that two reviewers could grade the same run differently.
+
+### Analytic A — defects, gaps, or imprecision
+
+**1. P042 — “operands within display tolerance” is not defined tightly enough.**
+This is the main blocker. The contract says rows must have equal kinds/timestamps/directions and “operands within display tolerance,” but it does not name the operand fields being compared for each event kind or state the numeric tolerance for those fields. The ±0.01 tolerance established in P028 is specifically for the R/table figures; P042 is broader than R. The comparison needs a deterministic field-by-field rule.
+
+**Required delta:** in P042, name the exact compared operand tuple for `VETOCLEAR`, `SESSION_LIMIT`, `TP_ELECT`, and `SIGNAL`, and give the exact tolerance/normalization rule for each numeric class.
+
+**2. P040/P042 — “7 signals” / “signal count 6” is terminologically ambiguous.**
+P028 makes clear that the seven current signal cases correspond to seven `TP_ELECT` fire rows, while P040 separately treats `TP_ELECT` and `SIGNAL` as distinct diagnostic event kinds. So “7 signals” can be read either as seven TP_ELECT fires or seven SIGNAL rows.
+
+**Required delta:** state the invariant in event-kind terms, e.g. `TP_ELECT fire-row count`, separately from `SIGNAL` event count. No behavior change is needed.
+
+**3. P034 / P038 — `vetoStateAtSite` and `sessionUseAtSite` are not actually identified on the page.**
+P034 defers their “exact symbols” to the build record, and P038 makes availability conditional before build. That is workable operationally, but the page itself does not tell the reviewer what the intended source symbols are. This is a documentation gap, not a live-path defect.
+
+**Required delta:** either name the symbols on the packet page or explicitly say “symbol identity is a builder-disk precondition; if unavailable, strike this field/subclause before build.”
+
+**4. P007 / P032 — `ladOriginSite` provenance is less explicit than the other provenance fields.**
+The named producer set is `sl41_def/sl41_px/sl41_slot/sl41_bt/sl41_imb` with `sl41_oPx/sl41_oBT`; `ladOriginSite` is emitted, but its source symbol is not named. The packet is therefore more explicit about origin price/time than origin site.
+
+**Required delta:** name the producer/source for `ladOriginSite`, or explicitly permit `-` for defined-ext1 records when the site is not directly exposed. Do not reconstruct it.
+
+**5. P034/P036 — “existing R builder” is not identified by symbol/location.**
+The packet correctly requires unchanged invalid/zero-denominator semantics and raw operand exposure, but “existing R builder” remains generic. The stated purity/availability gate can catch this on disk, so I do not treat it as a separate run blocker, but naming the exact builder would make the pre-build rule more mechanically checkable.
+
+**6. P038 — cap behavior says “stop emitting,” while the envelope says a miss halts.**
+P038 says 20,000 records → one `STOPRESOLVE_CAP` → “stop emitting.” P042 says hitting the cap is an acceptance miss and misses halt. The intended outcome is clear, but the execution instruction should explicitly terminate/abort the run at the cap rather than merely disable further probe prints.
+
+**Required delta:** say “emit `STOPRESOLVE_CAP`, then halt/terminate the run.”
+
+**7. P042 — “silent days” is asserted but not operationally defined.**
+The clause says “silent days” are part of the acceptance, but it does not specify the exact day set or what constitutes silence. The actual-path archive comparison may already make this implicit, but the phrase itself is not independently gradeable.
+
+**Required delta:** either remove the standalone phrase or tie it explicitly to the existing row-for-row archive comparison contract.
+
+**8. P007 — variable-name shorthand is slightly imprecise.**
+The exact producer field is `slExt1`, but the conditional is written as `ext1Defined ? ext1 : old-selector`. That is understandable shorthand, but the future activation text should use the exact selected-price symbol consistently.
+
+**Required delta:** change `ext1` to `slExt1` in that conditional description.
+
+### Analytic B — better mechanism
+
+For the stated goal, **I do not see a better probe mechanism than the current A+B+C placement**.
+
+The current placement is mechanically well chosen:
+
+* **A before L9661** preserves the incoming `slRef` before the selector can overwrite it.
+* **B after L9665 / before L9666** captures the selector result while `s1x_sel` is still in scope.
+* **C immediately after L9670** observes the exact gate operands actually tested and can construct the counterfactual ext1 side without modifying the live calculation.
+
+Touching the resolver earlier would risk observing a different candidate/local value; moving C later would weaken the claim about what operands were actually tested. A separate helper would also enlarge the delta and create a second proof surface.
+
+So the code-touch mechanism I would retain is **L9661–L9670 with the three zero-write insertions exactly as specified**. The amendment should be **packet-only, primarily P042**, plus the small terminology/source clarifications above.
+
+**Disposition:** amend the packet on those acceptance/documentation points, then the same one-build/one-run envelope is suitable for clearance.
+
+## Astra answer - 2026-09-18 - answers v169 (amend-with-delta BLOCKING scope bug A1 + A2-A4 + A5-A15 + 3-site fix; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V169-001)
+
+amend-with-delta — PACKET_EXT1LIVE-001 v6, principally P032/P038: the three-site design declares its saved values inside a block that closes before their consumer. Amend the capture scope and serialization contract before clearance.
+
+This is a page-only review, not an execution key. The revised packet can retain the requested one-build/one-run envelope; nothing below authorizes live activation, a retry, or wider instrumentation.
+
+## A. Defects, gaps, and imprecisions
+
+### Blocking amendments
+
+**A1. The A/B saves do not survive to C. — P032, P038; EA L9661–L9670**
+
+P032 places:
+- `probe_inSlRef` inside the same enclosing block as L9661;
+- the declarations of `probe_sel` and `probe_slLive` before that block’s closing brace at L9666;
+- their consumer C after L9670.
+
+Consequently, all three probe locals are out of scope at C. The stated reason for saving `s1x_sel` applies equally to the newly declared saves. Compilation would catch this, but a known contradiction should be amended now rather than delegated to the compile gate.
+
+**Required delta:** declare the carry variables in an enclosing, evaluation-local scope shared by the selector and C. B must **assign to those variables**, not declare new block-local copies. Update the A/B siting and exact-diff shapes in P032/P038. See B below.
+
+**A2. Two raw-operand fields are required to carry four values, without an encoding. — P034, P036**
+
+The 30-name list provides only `rawNum` and `rawDen`. P036 requires independently printed live and shadow operands:
+
+- live numerator and denominator;
+- shadow numerator and denominator.
+
+That is possible within 30 fields using explicitly tagged compound values, but the page never specifies that format. Alternatively, separate scalar fields require a changed count. A builder cannot choose between those under “builder invents nothing.”
+
+**Required delta:** specify either:
+
+- `rawNumLive`, `rawDenLive`, `rawNumExt1`, `rawDenExt1`, with the field count and schema updated; or
+- an exact, unambiguous live/shadow encoding inside each existing raw field.
+
+Also define the undefined-ext1 case: the shadow raw operands must equal the live operands, consistent with P034.
+
+**A3. The numeric sentinel contract contradicts the specific field policies. — P028, P034, P036**
+
+P028 says numeric N/A is `-999`; P036 instead prescribes `'-'` for numeric `pxExt1`, `extSideOk`, `extDistPts`, and the numeric component of the ladOrigin triple. Ratio fields introduce another intentional numeric exception.
+
+Explicit exceptions are acceptable. Calling the resulting policy uniformly type-based is not.
+
+**Required delta:** make P036 an explicit override and enumerate the exceptions, or standardize the numeric fields. Distinguish:
+
+1. unavailable value;
+2. division suppressed by the denominator guard;
+3. an actual invalid/non-finite arithmetic result;
+4. computed zero.
+
+The producer and parser must have one interpretation.
+
+**A4. Five-decimal prices cannot establish exact stop-value equality. — P028, P034, P042**
+
+P028 calls five-decimal prints “full-precision,” while correctly acknowledging that displayed equality does not establish exact numeric equality. Those statements cannot jointly support an exact changed-set finding.
+
+Unequal five-decimal prints establish a difference. Equal prints leave possible sub-display differences unresolved unless a normalization invariant is established.
+
+**Required delta:** either:
+
+- print prices using a round-trip-safe representation for the underlying type, retaining five-decimal summaries if desired; or
+- add read-only exact comparisons/deltas, with their representation specified; or
+- explicitly limit the changed-set result to **display-resolution differences**, leaving exact equality unproved.
+
+Apply the same distinction to raw-operand precision. Otherwise output near a gate boundary may not support an independent reconstruction of the decision.
+
+### Observability and acceptance gaps
+
+**A5. The actual gate result is available but is not emitted directly. — P034, P042; EA L9670**
+
+`tpOk` exists at C. The schema emits `wouldGate`, but not the observed actual gate result, despite P028 requiring an actual-versus-shadow gate finding.
+
+An actual result could be reconstructed from sufficiently precise live operands and the threshold. The current raw serialization and precision contract does not ensure that.
+
+**Delta:** preferably emit `actualGate = tpOk` directly and revise the field count. If retaining the current schema, explicitly require exact reconstructability and label the actual result as recomputed rather than observed. `rLive` rounded for display is insufficient.
+
+**A6. Availability must cover every field consumed at C, not only ext1 and the builder. — P032, P034, P038**
+
+The packet explicitly gates availability of ext1/provenance and builder operands. The schema also requires `s0slot`, `s0imb`, `s1slot`, `s1imb`, candidate identifiers, and other state.
+
+The page does **not** establish that those other symbols are unavailable; it also does not establish that they survive to C. The demonstrated selector-scope issue makes that distinction important.
+
+**Delta:** extend the STAGE-1 availability assertion to **all emitted inputs and carry variables**. Any extra capture needed beyond the amended authorized A/B shape is a halt-with-delta, not a discretionary addition.
+
+**A7. The required result for A2 should explicitly be a record at C. — P026, P028, P038, P042**
+
+The shipped evidence establishes that A2 reaches S5, not that it reaches C. P042 correctly makes the expectation of a STOPRESOLVE record conditional on reaching C, but the purpose of this run includes grading its ext1 price, slot, and provenance.
+
+**Delta:** state directly that successful acceptance requires an unambiguously matched A2 STOPRESOLVE record at C containing the required price/slot/provenance. S5 presence without that record is **unproved-and-halt**, not satisfaction of the A2 row. This makes the general completeness rule operational without claiming that S5 proves C reachability.
+
+**A8. Repeated evaluations need a matching rule. — P034, P042**
+
+Emission is per reaching evaluation, but the record has no evaluation sequence identifier. `barTime` and `dir` need not uniquely identify every evaluation of a candidate. The archive comparison key also permits repeated `(barTime, site, event-kind)` tuples.
+
+**Delta:** specify occurrence matching and multiplicity explicitly. A probe-local sequence number is the simplest output mechanism, but stable ordered-occurrence matching can preserve the field count if its relationship to the existing diagnostics is established. Do not silently collapse repeated rows.
+
+**A9. “Map-or-strike” and “unobservable ordering is unproved-and-halt” need one acceptance hierarchy. — P038, P042**
+
+P038 allows an ordering/site sub-clause to be struck before build. P042 then says unobservable ordering is unproved-and-halt. These are reconcilable only if the latter applies to obligations remaining after an explicitly permitted strike.
+
+**Delta:** identify which ordering/site findings are mandatory and which may be struck; freeze and record any permitted strikes before the build. A successful reduced-scope run must not be described as settling a struck ordering question. If the user’s ordering objective is mandatory in full, indistinct mapping must halt before build instead.
+
+**A10. The baseline comparison contract is not yet fully executable. — P042**
+
+“Operands within display tolerance” and “nonsemantic metadata normalized” do not name the permitted tolerances or normalization rules. “Row-for-row” also needs an ordering rule, especially where rows share keys.
+
+**Delta:** freeze before execution:
+
+- the compared operand fields and field-specific tolerances;
+- the exact metadata exclusions/normalizations;
+- duplicate-row matching and multiplicity;
+- whether event sequence is preserved or only matching membership is tested.
+
+A membership comparison cannot itself prove execution order.
+
+**A11. Source identity needs a stated slot-namespace assumption. — P028, P034**
+
+The proposed fields can expose branch identity and ext1-versus-s1 slot equality. They establish shared source identity only if those slots refer to the same candidate-local ladder namespace and the relevant lifetime is fixed.
+
+The page supplies ext1 provenance, but not a corresponding s1 provenance tuple.
+
+**Delta:** include the common namespace/lifetime assertion in STAGE-1 mapping. If that cannot be established, report **slot equality only**, not proven source identity. This does not automatically require more fields.
+
+### Additional precision issues
+
+**A12. The monotone predicate should explicitly address non-finite ext1 prices. — P036, P046**
+
+The incumbent must be finite, but the candidate ext1 price has no explicit finite requirement in `wouldAdopt_monotone`. A defined positive-infinite SHORT price, for example, could satisfy the stated directional comparison against a valid incumbent.
+
+**Delta:** either establish that `ext1Defined` guarantees a finite price, or require finite `pxExt1` in the diagnostic predicate. Keep this separate from the complete shadow R-gate and from deferred live validity guards.
+
+**A13. Define “no-write scan” as no live-state writes. — P032, P034, P038**
+
+The probe necessarily writes its own locals, once-only flag, and cap counter. The corrected B saves will also require assignments. An unqualified no-write scan over the hunks would reject the probe itself.
+
+**Delta:** explicitly allow writes only to named probe-owned storage while prohibiting live-state writes and mutation through calls/references. Preserve the existing lexical prohibition on `++/--`; a probe counter can be updated without those operators.
+
+**A14. State the cap boundary precisely. — P038, P042**
+
+“N=20000 records, then one CAP line” can mean either:
+
+- emit CAP when the 20,000th record is emitted; or
+- emit CAP only when a 20,001st evaluation would otherwise emit.
+
+“Hitting the cap is an acceptance miss” does not resolve which behavior is intended.
+
+**Delta:** specify whether exactly 20,000 reaching evaluations pass or fail. Keep the single CAP line, no further STOPRESOLVE emission, and no live-path effect.
+
+**A15. The future selector description needs to distinguish effective stop selection from selector metadata. — P007, P009; EA L9661–L9665**
+
+The future defined-ext1 arm adopts a price, but P009 does not say how `s1x_sel` or any associated selector metadata would be represented on that arm. That is not a reason to widen this probe, and the page does not establish that such metadata has downstream consumers.
+
+**Delta:** label that as a future-relay obligation: either establish that the selector metadata is local and irrelevant after selection, or define ext1-arm metadata without pretending ext1 was an s0/s1 selection. No activation is cleared here.
+
+The complete short-circuited shadow predicate, separation of signed side diagnostics from the absolute-distance builder, preservation of actual A3 behavior, prohibition on inferring execution from state snapshots, and no-rerun policy are sound boundaries. I would retain them.
+
+## B. Better mechanism
+
+**Keep three insertion sites, but make the capture lifetime correct.** No producer-site carry or downstream behavioral edits are needed for this correction.
+
+### A — before the selector’s opening block, in the scope shared with C
+
+The exact opening-brace line is not supplied, so this location must be mapped relative to **EA L9661–L9666**, not invented.
+
+Illustrative form:
+
+```cpp
+double probe_inSlRef = slRef;
+int    probe_sel     = -1;
+double probe_slLive  = slRef;
+```
+
+These must be automatic, per-evaluation variables—not static candidate state. Verify that the incoming-stop capture occurs before any selector write and that the chosen site does not capture an earlier, different incoming value.
+
+### B — after EA L9665, before EA L9666
+
+Assign to the outer variables:
+
+```cpp
+probe_sel    = s1x_sel;
+probe_slLive = slRef;
+```
+
+This preserves the selector and its closure unchanged. P038’s diff shape becomes **outer carry declarations at A; two probe-only assignments at B; emit block at C**.
+
+### C — immediately after EA L9670
+
+Keep all shadow calculation and emission here:
+
+- observe `tpOk` directly for the actual gate;
+- use the observed live `tpDist` and `slDist`;
+- construct shadow distance by the same `MathAbs` formula shown at EA L9668;
+- evaluate the entire short-circuited shadow predicate;
+- serialize both sides’ raw operands unambiguously;
+- emit with the specified precision, sentinel rules, and matching identity.
+
+Do not add a protective-side guard to this probe’s `wouldGate`: that would cease to mirror the quoted live predicate. Protective-side diagnostics and future validity policy remain separate.
+
+**If there is no suitable common per-evaluation scope, or required candidate-local inputs cannot reach C within the expressly amended capture shape, halt before build.** Do not fall back to static carries, reconstructed provenance, producer instrumentation, or another run.
+
+That mechanism addresses the central defect while preserving the probe’s intended boundary: three insertions, no live-path assignments, one authorized build and run only after the amended contract is cleared and the fresh run word is given.
+
+## Luna answer - 2026-09-18 - answers v177 relay (packet v14) (AMEND-WITH-DELTA, Defects 1-2 + B; no Ruling-ID stated, filed as entry LUNA-V177-001)
+
+## Verdict: **amend-with-delta.**
+
+The probe mechanism itself is sufficiently specified for the intended selector → `slRef` → R-gate → shadow observation, but I would not consume the one-build/one-run authorization until the page closes the few remaining specification gaps below. The packet explicitly limits this probe to that chain and leaves downstream runtime ordering to source mapping/diagnostics.
+
+### Analytic A — defects, gaps, and imprecision
+
+**1. The `InpDebugLog=true` safety gate is not strong enough. — P007/P038; EA L8770-L8777, L11222-L11223.**
+The run deliberately changes the effective input from the compiled default `false` to `true` so the origin globals are populated. The packet says the 165 debug-gate sites may be classified as “observational/print-only/early-return-diagnostic,” and only says a strategy-state writer under a debug gate halts. That leaves a hole: an `InpDebugLog` branch can still alter control flow, call a side-effecting helper, or terminate part of the execution without directly writing a strategy-state variable. That matters because the probe's actual-path comparison is supposed to prove the pre-existing run was not perturbed.
+
+**Required delta:** make the pre-build debug gate say that every `InpDebugLog`-guarded path relevant to the run must be observational only: no state mutation, no external side effect, no control-flow exit, no call whose transitive effect can alter execution/order/outcomes. An early-return diagnostic should therefore be an automatic halt, not an allowed classification.
+
+**2. The opening change sentence overstates what is “settled by output.” — opening change sentence; P030/P040/P042.**
+The first sentence says the one run is to settle “the ext1 table and the ordering questions by output,” but the acceptance text later explicitly says the probe output settles only selector → `slRef` → gate → shadow, while veto/latch/SIGNAL/session-mark ordering is established by source mapping and diagnostics. It even allows the L10073/L10170 ordering question to be struck.
+
+**Required delta:** change the top-level description to say exactly what the run settles. Either:
+
+* limit the claim to selector → stop → R-gate → shadow, or
+* make phase-order evidence mandatory rather than source-mapping/strikable.
+
+As written, the acceptance scope is internally clearer than the opening sentence, but the two statements should not coexist.
+
+**3. “Provenance” is stronger than the mandatory A2 checks actually require. — P026/P028/P036/P042; archive A2 evidence.**
+For A2, the packet makes `pxExt1`, slot 13, origin timestamp/site/provenance mandatory, but it does not make `ext1BarTime` or defined-case `ext1Imb` mandatory against the shipped `SLEXT481` row. Yet those are part of the producer tuple and are explicitly printed. A wrong candidate metadata tuple could therefore survive with the same price, same slot, and same S5-origin quadruple. The shipped A2 row contains `ext1BarTime=2026.09.04 09:30` and `ext1Imb=2`.
+
+**Required delta:** either compare `ext1BarTime` and `ext1Imb` for A2, or downgrade the wording from “provenance/source identity” to the narrower claim actually established.
+
+**4. `defined && finite` is not explicitly equivalent to “usable price.” — P007; P034/P036.**
+The future rule defines validity using `MathIsValidNumber`. That rejects NaN and infinities, but the page never states an invariant that a defined producer price can never be a sentinel such as `EMPTY_VALUE`. If such a sentinel is finite on the implementation, “finite” alone would not exclude it.
+
+This is a **future-live-rule issue, not a reason to reject the print-only probe**. The clean fix is to state the producer invariant `defined ⇒ pxExt1 is not EMPTY_VALUE`, or include the explicit sentinel exclusion in the future validity predicate.
+
+**5. The run does not exercise the undefined-ext1 path. — P036/P038; pre-run evidence.**
+The packet itself says all 442 archived data rows are defined; the lone non-`ext1Defined=1` line is a `LINEWIDTH` metadata line. Therefore this run can prove defined-case behavior but cannot empirically validate the undefined fallback branch. That is acceptable only as a coverage limitation, not as evidence that the fallback was runtime-tested.
+
+**6. The wire grammar treats `dir=-1` as a syntactically allowed value while the normal-run domain says it must never occur. — P034/P038.**
+P034 defines the three-way encoding `{1,0,-1}`, while P038 requires `g_dir ∈ {DIR_LONG,DIR_SHORT}` at C. That is defensible as a failure/sentinel grammar, but the page should say explicitly that `-1` is parser-valid only as an invalid/diagnostic class and is not an accepted NORMAL-row domain.
+
+**7. “No control-flow change” is literally too broad for a probe that deliberately contains control flow. — P030/P038.**
+The probe itself necessarily adds terminal branches, the BSAVE branch, and the cap latch. The intended invariant is plainly “no change to the existing strategy control flow / no early exit from the enclosing evaluation,” but the current wording can be read literally as forbidding the probe's own control flow.
+
+**8. The `A/B/C` construction is strong, but “immutable key array” is a behavioral assertion, not a language-level guarantee. — P032/P034/P038.**
+The exact-diff gate makes the intended single definition/assignment site enforceable, so I do not see a practical defect. I would merely phrase it as “single-construction, thereafter read-only” rather than “immutable,” because the array is not declared as a language-level immutable object. This is wording only.
+
+**9. The top-level “ordering” claim should not imply runtime-output proof where the packet deliberately uses source evidence. — P046/P042.**
+The page is actually quite disciplined about this later: log proximity is not proof, and source mapping remains primary. The inconsistency is contractual language, not mechanism failure.
+
+### What is *not* a blocker
+
+I do **not** see a remaining defect in the core A/B/C capture logic that warrants a halt. The packet has explicitly closed the important mechanics: A/B are structurally connected, B precedes C, poison initialization exists, `probe_bSaved` is a witness, C is post-gate, the selector's live `slRef` is preserved rather than substituted, the 39-field order is frozen, and terminal paths latch and fall through rather than unloading or returning.
+
+The archive evidence also closes the previously weak A2 reach question: the page records a same-bar post-gate A2 trace with selector `sel=0`, `s1slot=13`, `ruleStop=1.16299`, followed by the shipped SLEXT481 row with `ext1Slot=13`.
+
+### Analytic B — better mechanism
+
+For **this probe**, I would **not replace the A/B/C mechanism**. It is already close to the minimum-diff solution, and adding a helper/struct would enlarge the review surface without materially improving the evidence.
+
+For the separate goal of empirically proving the **downstream runtime ordering**, there is a materially better mechanism than relying on source mapping: add **phase-only print markers** at the exact existing boundaries:
+
+`L9670` after the R-gate → veto decision around `L7682` → latch at `L9910` → SIGNAL → session mark at `L10073/L10170`.
+
+Each marker should carry only `(barTime, dir, phase, sequence)` and be strictly print-only. That would directly establish execution order rather than infer it from source layout or log proximity. The packet itself identifies those exact downstream locations, while also deliberately keeping them out of this envelope.
+
+That mechanism belongs in the **next live/order relay**, not in this one-run selector probe.
+
+**Recommended delta set before consuming the run word:** strengthen the global `InpDebugLog=true` purity gate, narrow the opening “settled by output” claim, and either grade A2 `ext1BarTime/ext1Imb` or explicitly narrow the provenance claim. The remaining items are documentation/coverage clarifications rather than reasons to halt.
+
+## Astra answer - 2026-09-18 - answers v177 relay (packet v14) (amend-with-delta, A1-A12 + B; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V177-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v14, P034/P036/P038.** The print-only A/B/C design is supportable, but the frozen serialization and pre-build validation instructions need the corrections below before clearance by name. This is a page-only review verdict, not a key, build instruction, or run authorization.
+
+## Analytic A — defects, gaps, and imprecisions
+
+### Clearance-blocking deltas
+
+**A1. The non-normal templates repeat envelope fields despite requiring the envelope exactly once. — P034; corresponding descriptions P032/P038**
+
+The authoritative envelope already contains `format=2`, `pkt`, `base`, and `type`. The subsequent “complete ordered payload” descriptions append `format=2 + pkt + base` again. That conflicts with the same paragraph’s once-only envelope and exact-key requirements.
+
+Replace the three descriptions with literal templates:
+
+```text
+[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v14 base=6C2E4028 type=SCHEMA fields=39 names=<comma-separated-keys>
+[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v14 base=6C2E4028 type=CAP reservedTotal=20000 reason=CAP_EXHAUSTED
+[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v14 base=6C2E4028 type=BSAVE_FAIL emitSeq=<reserved> probe_bSaved=0 barTime=<encoded> dir=<encoded> site=S5
+```
+
+State that placeholders denote substituted values, not emitted angle brackets. Other descriptions should reference these templates rather than restating their envelope order.
+
+**A2. “EVERY numeric token” cannot universally obey the binary64 `%.17g` canonicalization rule while integer fields retain decimal-integer formatting. — P034/P036**
+
+The packet separately requires:
+
+- integers as decimal;
+- `extDistPts` through `DoubleToString(m,0)`;
+- every numeric token to byte-equal `StringFormat("%.17g", parsed-value)`.
+
+Those are different formatter contracts. General-format output can use exponent notation where an integer formatter does not. This is especially relevant if the integer domain includes sufficiently large magnitudes; envelope and terminal numeric metadata are also swept into “EVERY.”
+
+**Required delta:** define canonicalization by field type:
+
+- binary64 prices, raw operands, and ratios: the validated `%.17g` reference;
+- integer fields and Boolean encodings: canonical decimal integer syntax plus their domains;
+- `extDistPts`: the specified rounded-double integer formatter, finite/range validation, and integer-token rules;
+- sentinels: exact field-authorized tokens.
+
+Continue validating every token, but against its **field’s** canonicalization rule. The offline reference must reproduce the chosen MQL formatting behavior; an unspecified host-language general formatter is not automatically equivalent.
+
+**A3. The STAGE-1 gate contains a post-run prerequisite. — P036/P038**
+
+P038 places validation “read back from the actual log file the run produces at worst-case field widths” inside the pre-build canonical-format assertion. The authorized strategy run cannot provide evidence before its build, and its naturally occurring records need not exercise worst-case widths.
+
+The delta summary describes staged evidence, but the operative instructions do not consistently implement that distinction.
+
+**Required delta:**
+
+1. **Pre-build:** allowed synthetic script fixtures, actual script-log readback, all four templates, boundary formatter cases, and worst-case line transport.
+2. **Post-run:** parse every actual probe record and enforce the frozen grammar, identities, and acceptance contract.
+3. Explicitly state that synthetic fixtures are not strategy-run observations, and that actual records need not attain worst-case widths.
+
+This preserves the one-EA-build/one-EA-run envelope and the already bounded micro-check exception.
+
+### Additional corrections and limitations
+
+**A4. The `extDistPts` conversion domain is not fully frozen. — P028/P036/P038**
+
+“Range-tested before the offline `(int)` interpretation” does not expressly name the target integer width or limits. Also, finite price operands alone do not guarantee a finite subtraction or point quotient.
+
+Specify the target integer domain, require finite positive `_Point`, and finite-check the diagnostic displacement/quotient before rounding and conversion. A diagnostic failure must not alter the separately mandated literal shadow-gate calculation.
+
+**A5. The literal prohibition and witness requirement conflict unless the witness is expressly excluded. — P032/P038**
+
+P032 correctly says to test `probe_bSaved` before referencing any **other** carry. P038 instead requires “zero syntactic references to bare carries” through the successful-branch boundary. Since `probe_bSaved` is itself an A-declared carry, a literal scan could reject the required test.
+
+Use: “No references to the nine non-witness A carries before the successful `probe_bSaved` branch; references to `probe_bSaved` itself are permitted for the test and failure reporting.”
+
+**A6. The origin comparison’s causal diagnosis is stronger than its evidence. — P028/P038; EA L8751/L8753 and L8772–L8776**
+
+`ladOriginPx != currentPrice` is a useful mandatory failure. It does not, by itself, prove specifically that the debug gate was off or the globals were stale: separate series reads, a failed read, or a source/mapping defect are other possible explanations. Conversely, equal prices do not independently establish freshness.
+
+Replace the causal sentence with: “Inequality falsifies the required origin/live consistency; halt with operands and diagnose on disk.” Keep the stamp, site, ordered join, and publication proof as separate obligations.
+
+**A7. Undefined-row grading is described too narrowly in one place. — P032/P036/P038/P042**
+
+“Undefined rows grade stamp/site freshness only” is accurate only for the **ext1 provenance-join subcheck**. Undefined records still have mandatory origin/live comparison, actual-gate checks, fallback-copy checks, sentinels, serialization, and structural checks.
+
+Qualify that sentence accordingly; do not relax those universal obligations.
+
+**A8. Late `BSAVE_FAIL` should be explicitly identified as an acceptance failure. — P032/P042**
+
+The state machine properly permits `BSAVE_FAIL` as structurally interpretable failure output. First-evaluation failure is expressly called instrument failure, but an equally explicit blanket rule avoids confusing structurally valid terminal output with an acceptable run.
+
+Add: “Any `BSAVE_FAIL`, at any sequence, fails probe acceptance; the actual-path run continues and its diagnostic comparison remains required.”
+
+**A9. “No control-flow change” needs its intended scope. — P030/P032/P038**
+
+The probe necessarily introduces branches and loops. The meaningful invariant is **no alteration of existing strategy control flow**: no exit, skipped existing statement, changed existing branch predicate, or termination request.
+
+Use that wording. Latch-and-continue preserves the downstream OnTick pipeline at EA L11215–L11223; it is materially better than the withdrawn returns.
+
+**A10. Some factual wording is self-contradictory or stale. — P032/P042/P046**
+
+- “ExpertRemove appears nowhere on this page” is literally false; the page names it repeatedly. Say “no executable call in the inserted hunks.”
+- “After terminal return” should say “after terminal emission”; these paths do not return.
+- P003/P001 identify the unseen tail as **Opus-v176**, while P046 names **Opus-v175**. Reconcile the reference without claiming the unseen material has been reviewed.
+
+**A11. Runtime checks do not prove every carry assignment or ext1 publication property. — P032/P034/P038/P046**
+
+The witness proves that its assignment executed. Selected-price equalities and derived selection detect many capture mistakes, but cannot universally detect crossed fields when their values coincide or when a changed tuple yields the same selector result.
+
+Likewise, fresh origin globals do not prove fresh publication of the separate ext1 tuple. The packet substantially acknowledges this correctly.
+
+Keep these as **falsifiers**, with exact B-assignment verification and complete S5 publication/dominance proof remaining mandatory disk gates. No additional instrumentation is required merely to turn those limited checks into broader claims.
+
+**A12. The stated line-length maximum remains a builder assertion, not independently established here. — P038 and ceiling note**
+
+The page supplies the total but not the per-field maximum ledger, including the finally enumerated site strings and formatter outputs. File that ledger with the micro-check and recompute it after the serialization corrections. Do not silently retain the stated maximum if the corrected contract changes it.
+
+### What is satisfactory on the supplied page
+
+- **Capture siting:** A before EA L9626, B after L9665/before L9666, C after L9670 preserves access to selector locals through explicit carries and observes already-computed gate operands.
+- **Selector reconstruction:** the authoritative condition is positive imbalance at L9662, not the stale “nonzero” comment at L9623.
+- **Gate mirror:** P034 preserves the complete predicate and separates literal results from validity classification.
+- **Terminal behavior:** P032’s shared latch and fall-through avoid suppressing the existing recorder and downstream pipeline.
+- **Scope:** section 1 is not authorized; protective-side adoption remains a future-rule hazard. Slot/source identity and numeric price equality remain distinct findings.
+- **Evidence boundary:** the unpasted dominance interval, publication coverage, effective inputs, compiler behavior, and archive identity remain disk obligations—not facts independently certified by this review.
+
+## Analytic B — better mechanism
+
+**Retain the A/B/C mechanism; no fourth hunk or live-path rewrite is warranted for this probe.** The better refinement is a **field-typed offline schema** implementing A2: each of the 39 ordered keys has an explicit token class, formatter reference, sentinel policy, and domain. Use it to validate SCHEMA, NORMAL, terminal records, and fixtures without introducing another EA helper or another execution.
+
+Code touch points remain exactly those authorized by P032: **A before EA L9626, B after L9665/before L9666, C after L9670/before L9671**. The changes requested above are packet/parser corrections and C-local formatting/diagnostic guards only; EA L9661–L9670, the existing recorder, and downstream strategy statements stay untouched.
+
+## Luna answer - 2026-09-18 - answers v176 relay (packet v13) (AMEND-WITH-DELTA, 2 defects + B; no Ruling-ID stated, filed as entry LUNA-V176-001)
+
+## Verdict: **amend-with-delta**
+
+I would **not spend the one-build/one-run authorization yet**. The packet is structurally coherent enough to clear after two narrow page-level amendments; neither requires more code evidence.
+
+### Defect 1 — impossible “CAP-first has no SCHEMA” state
+
+**Lines:** P032 / P038 / P042.
+
+P032 fixes the order as:
+
+`terminal check → reserve → bSaved-check → SCHEMA → emit`
+
+and the CAP condition is `probe_seq >= 20000` **before reservation**. Therefore a CAP can only be reached after 20,000 prior reservations. Those prior reservations cannot include `BSAVE_FAIL`, because that terminal path sets `probe_dead` and returns. Hence a CAP run necessarily already has normal records and therefore necessarily already emitted SCHEMA.
+
+That contradicts P042's statement that **“CAP-first runs carry no SCHEMA.”**
+
+**Required delta:** replace that statement with the logically possible classification:
+
+> `BSAVE_FAIL` is the only terminal path that can occur before SCHEMA. A CAP terminal can occur only after the 20,000th reserved normal record, so SCHEMA must already have been emitted exactly once.
+
+The underlying `SCHEMA iff at least one normal-record C-reach` rule should remain.
+
+### Defect 2 — terminal grammars are described, but not actually frozen byte-for-byte
+
+**Lines:** P032/P034/P042.
+
+The normal record has a fully explicit 39-field order, but CAP and BSAVE_FAIL are only specified semantically as “envelope + … fields.” The page does **not** freeze their exact emitted key order, nor the exact complete token sequence for SCHEMA.
+
+That is inconsistent with the packet's own requirement that the serialization grammar be exact and that a grammar defect itself halts grading.
+
+**Required delta:** freeze, before build, the exact field/key order for:
+
+`type=CAP`, `type=BSAVE_FAIL`, and `type=SCHEMA`
+
+including the exact key names, delimiter spacing, sequencing/non-sequencing, and whether each identifier is emitted from the common envelope or payload construction. No implementation change is needed; this is a specification closure.
+
+## Analytic Ask B
+
+I do **not** see a materially better probe mechanism for the stated goal.
+
+The current A/B/C arrangement is appropriately minimal: A captures the incoming `slRef`, B captures the selector result before scope closure, and C sits immediately after the live R-gate where `slDist`, `tpDist`, and `tpOk` are already available. That directly tests selector → `slRef` → gate → shadow without substituting the live path.
+
+A helper/struct-based serializer would add another code surface without improving the primary falsifiers already specified. The better change is therefore **specification tightening, not mechanism replacement**.
+
+### Final ruling
+
+**AMEND-WITH-DELTA — then clear by name for exactly one print-only probe build plus one run, subject to the existing envelope and all pre-build gates.**
+
+No broader change to the future live rule is warranted by this review.
+
+## Astra answer - 2026-09-18 - answers v176 relay (packet v13) (amend-with-delta, A1-A8 + B; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V176-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v13 is not cleared as written.** The remaining issues are in the validation schedule, serialization contract, and a few contradictory evidence claims—not a demand for full code or disk access. This is a page-only review verdict, not a key or execution authorization.
+
+## Analytic ask A — defects, gaps, and imprecisions
+
+### A1. Pre-build validation depends on evidence obtainable only after the authorized run
+**P036, P038; also P003 and P042.**
+
+P038 places the canonical-format assertion among pre-build gates, but that assertion includes reading a validation sample back from “the actual log file the run produces at worst-case field widths.”
+
+That evidence cannot precede the build and run producing it. Moreover, the ordinary authorized run is not guaranteed to encounter exponent, negative-zero, boundary-width, or terminal-record cases. Intentionally exercising CAP or BSAVE_FAIL in that run would void it.
+
+**Required delta:** separate three evidence stages:
+
+- **Before build/run:** source-level serializer checks and validation of the offline parser against labeled fixtures.
+- **Compiler-specific prerequisite evidence:** identify what already exists to establish formatter and finite-predicate behavior. Any additional executable validation must have an expressly defined execution allowance; it cannot silently become another build/run.
+- **After the authorized run:** actual-log readback, complete parsing, and truncation checks on the records actually emitted.
+
+Synthetic worst-width and terminal fixtures must not be presented as records observed in the authorized run. If compiler-specific evidence is unavailable within the permitted envelope, halt rather than treating post-run evidence as a satisfied precondition.
+
+### A2. The non-normal wire formats are described, but not fully frozen
+**P032, P034, P038, P042.**
+
+The normal payload has an ordered field list. The other types have descriptive inventories, leaving implementation choices:
+
+- The exact key and value identifying the base tree/source.
+- The ordered payload keys for SCHEMA, CAP, and BSAVE_FAIL.
+- The encoding of SCHEMA’s ordered names.
+- The exact BSAVE_FAIL identifier keys and their encodings.
+
+P034’s single-space, key=value, no-interior-whitespace rules constrain those choices but do not uniquely resolve them. The explicit deferral to the build record means these formats are **build-record-completed**, not already fully enumerated on this page.
+
+**Required delta:** supply literal templates, or expressly authorize their completion in a pre-build appendix under fixed constraints. Each template should show the common envelope exactly once and specify the complete ordered payload.
+
+For SCHEMA, an explicitly specified comma-separated `names=` value would fit the existing space-free grammar. Also distinguish the **EA-emitted message** from any tester/journal transport prefix: stripping a documented platform prefix is permissible; stripping arbitrary text until `STOPRESOLVE` appears is not equivalent to checking prefix presence.
+
+Also correct **P038’s “all three terminal types”**: there are three **non-normal types**, but only CAP and BSAVE_FAIL are terminal. SCHEMA must permit subsequent normal emission.
+
+The parse-back gate is valuable, but it must validate an agreed grammar, not merely whichever grammar the builder chooses.
+
+### A3. Minute-formatted stamp equality is not native datetime equality
+**P032, P034, P038; EA L8776 and L11210–L11214.**
+
+The offline check compares printed `ladOriginStamp` and `barTime`, but P034 formats datetimes only to minutes. Equal printed minutes do not, by themselves, prove equality of the underlying datetime values.
+
+The pasted origin assignment and caller support the intended relationship. They do not make the minute-resolution serialized comparison lossless. The delta summary’s “native datetime equality” claim therefore exceeds the specified output check.
+
+**Required delta:** choose one:
+
+1. Print `barTime` and `ladOriginStamp` with seconds, or as decimal datetime values, and update their grammar; or
+2. Retain minute formatting, explicitly label the check minute-resolution, and require a separate proof that both underlying values always have zero seconds on every C-reaching path.
+
+The first option preserves 39 fields and makes the offline falsifier directly inspectable.
+
+### A4. Two terminal/schema descriptions contradict the fixed control flow
+**P032 step 4; P042 count invariants.**
+
+There are two concrete contradictions:
+
+- P032 says a broken A/B path “advertises the schema and then terminates at step 3.” Under the specified order, step 3 terminates **before** schema emission. P042 correctly says BSAVE-first carries no SCHEMA.
+- P042 calls CAP-first/no-SCHEMA an “expected-but-failed” class. With a fresh zero counter, reservation limit 20000, and the shared terminal latch, CAP cannot be the first record. Reaching CAP requires 20000 preceding normal records: an earlier BSAVE_FAIL would terminate the probe before CAP could occur.
+
+**Required delta:**
+
+- Replace the broken-A/B sentence with: “A first-reaching BSAVE failure emits only BSAVE_FAIL; it emits no SCHEMA.”
+- Classify CAP without its preceding SCHEMA and 20000 contiguous normal records as structurally invalid output, as well as a failed run.
+
+Also qualify P032’s volume invariant as **one NORMAL-or-terminal record per non-dead C-reaching evaluation, plus the separately permitted once-only SCHEMA metadata record**. Otherwise its literal “one record” wording conflicts with the first successful evaluation’s two lines.
+
+These are documentation/acceptance corrections; the specified terminal latch mechanism itself addresses repeated emission.
+
+### A5. The finite-predicate fallback conflicts with the halt-on-miss contract
+**P007, P038, P042.**
+
+P038 requires filed results showing that `MathIsValidNumber` rejects all three non-finite classes, but also says that a surprise leads the builder to substitute an explicit finite test and restate P007.
+
+The pre-build header says any miss halts with delta, and P042 prohibits an unauthorized replacement build/run. The substitute predicate’s exact expression is not frozen.
+
+**Required delta:** say explicitly that a predicate surprise halts this authorization and requires a reviewed replacement expression before proceeding. Alternatively, freeze the exact alternate expression and its selection/validation conditions in the cleared packet.
+
+Do not leave “substitute an explicit finite test” as open-ended builder discretion. This matters to the probe’s validity classification independently of the future live rule.
+
+### A6. A2’s mandatory price comparison needs an explicit precision rule
+**P026, P028, P042.**
+
+A2 has an explicit mandatory slot comparison, `ext1Slot == 13`. Its price acceptance is described as mandatory `pxExt1/slot/provenance`, with the filed price `1.16299`, but the exact price comparator is not stated as clearly.
+
+The packet correctly distinguishes lossless probe values from five-decimal archive values elsewhere. A2 should not acquire an unstated binary64 equality requirement against a rounded archive token.
+
+**Required delta:** state whether A2 requires equality after applying the archive’s documented five-decimal formatter to the finite probe value. If that is the intended comparator, say so directly.
+
+Also keep the obligations separate:
+
+- Expected A2 price at archive precision.
+- Slot 13.
+- Origin stamp and ordered provenance join.
+
+An origin-only join does not itself validate the ext1 price.
+
+### A7. The origin-gate excerpt is missing its claimed closing line
+**Review-seat coverage statement; inline EA L8770–L8776.**
+
+The relay says the S5 origin-gate body is supplied through L8777 and that its brace structure is fully on the page. The actual excerpt stops at L8776 before switching to the global declarations; L8777 is absent.
+
+**Required delta:** include that closing line or narrow the completeness claim. This is a one-line transcription issue, not a request for the dominance interval or full source.
+
+### What I do not regard as remaining defects
+
+The pasted neighborhood supports the principal siting design:
+
+- **A before EA L9626:** preserves the incoming stop before selector writes.
+- **B after L9665, before L9666:** captures the selector locals before their scope ends.
+- **C after L9670:** observes already-computed live distances and `tpOk`.
+- **EA L9662–L9665:** supports the derived-selector and selected-price identities.
+- **P028/P034/P042:** correctly separate record-local self-consistency from archived-entry predictions.
+- **P032 and EA L11214–L11223:** expressly acknowledge that returning from `EvaluateClosedBar` does not terminate the remaining OnTick statements.
+- **P007/P009:** keep protective-side hazards and future B re-siting outside this probe clearance.
+
+The publication, dominance, complete invocation, and debug-gate census claims remain builder-disk obligations, not facts independently verified here.
+
+## Analytic ask B — better mechanisms
+
+### B1. Validate record order with an offline state machine
+**Touches the P042 grader; no EA changes.**
+
+Counts alone should not be the primary structural validator. Use explicit transitions:
+
+- First successful evaluation: SCHEMA, then NORMAL with `emitSeq=1`.
+- Later successful evaluations: exactly the next NORMAL sequence.
+- BSAVE_FAIL: exactly the next reserved sequence, then permanent probe silence.
+- CAP: only after NORMAL sequence 20000, then permanent probe silence.
+- A first-evaluation BSAVE_FAIL has no SCHEMA.
+- Duplicate, late, or post-terminal SCHEMA is invalid.
+
+Then check count identities as independent cross-checks. This directly resolves the CAP-first ambiguity and catches records that satisfy aggregate counts but violate order.
+
+### B2. Separate schema construction from value evaluation
+**Insertion C after EA L9670; P032/P038.**
+
+Retain the scalar carries and array approach, but state the construction precisely:
+
+1. Terminal checks, reservation, and bSaved check.
+2. One ordered key array.
+3. SCHEMA formatting from that key array only.
+4. Shadow computation and one ordered value array.
+5. NORMAL formatting from the same keys paired with those values.
+
+The schema does not need to consume the value array. This avoids any suggestion that values must be evaluated before the authorized arithmetic phase, while preserving a single field-order definition.
+
+No helper function or fourth insertion is necessary.
+
+### B3. Make stamp evidence lossless at the existing C site
+**Insertion C after EA L9670; P034 datetime encoding.**
+
+Use second-resolution or integer datetime serialization for the two compared stamp fields. This improves the evidence without changing the origin producer, adding a field, or introducing an `iTime` call.
+
+### B4. Preserve the present instrumentation boundary
+**EA L9626, L9665–L9670; future sites named in P009/P046.**
+
+I do not recommend hunk D, a resolver rewrite, or live-emitter phase stamps for this authorization. The existing A/B/C design can answer the selector and shadow questions once the contract above is corrected. Downstream ordering should remain explicitly sourced to control-flow mapping and the retained diagnostic contract—not promoted to probe-proven execution order.
+
+**Disposition:** amend the packet at the cited lines and return it for clearance by name. No full-code submission is needed for these corrections, and none of them authorizes the future selector rule or live activation.
+
+## Luna answer - 2026-09-18 - answers v175 relay (packet v12) (AMEND-WITH-DELTA, 7 items + B; no Ruling-ID stated, filed as entry LUNA-V175-001)
+
+**AMEND-WITH-DELTA**
+
+The A/B/C siting, carry lifetime, selector isolation, gate mirror, sequence latch, and no-live-write design are internally coherent on the page. I would not halt the packet. I would require the following deltas before granting the one-build/one-run clearance.
+
+### Analytic A — defects, gaps, and imprecisions
+
+**1. The packet overstates what the new output can prove about downstream ordering. — P030, P032, P040-P042, P046**
+
+The new probe is located at C, immediately after the R-gate at EA L9670. It prints `vetoStateAtSite` and `sessionUseAtSite`, but it does **not** timestamp or emit evidence at the later veto/latch/SIGNAL/session-mark sites.
+
+That means the run can directly settle:
+
+`selector result → live slRef → R operands → shadow ext1 result`
+
+but it cannot, by output alone, establish the runtime execution ordering of:
+
+`R-gate → veto → latch → SIGNAL → session mark`
+
+P042 correctly says “log proximity is not proof,” but P046 simultaneously excludes the phase stamps that would provide such runtime evidence.
+
+**Required delta:** state explicitly that ordering is **not** being settled by this probe output; it is settled only by the already-filed source mapping/diagnostic contract, with any unproven site attribution struck before build. Alternatively, add downstream phase stamps, which would touch EA L7682-L7697, L9910, L10073/L10170 and therefore materially widen the envelope.
+
+This is the biggest scope/claim mismatch in v12.
+
+---
+
+**2. `InpDebugLog=true` is proven for this probe's origin path, but not explicitly proven equivalent to the archive's effective diagnostic environment. — P007, P032, P038; EA L60, L9683, L11222-L11223**
+
+The page says `InpDebugLog` gates origin validity only for the probe, but the inline runtime demonstrates that it also gates existing diagnostics at L9683 and the news hook at L11222-L11223. The packet does not provide a global census proving that every other `InpDebugLog` use is observational and cannot affect the actual-path comparison.
+
+For a **single-shot** run, that matters: the actual-path comparator in P042 is against archive `8B2ED676`, so the run should either:
+
+* use the same effective `InpDebugLog` setting as the archive, or
+* have a pre-build global census proving all differing `InpDebugLog` branches are diagnostic-only.
+
+**Required delta:** freeze the archive/run `InpDebugLog` equivalence or add the global debug-input census to STAGE-1. This is a clearance-envelope issue, not a defect in A/B/C itself.
+
+---
+
+**3. The “terminal-without-SCHEMA” invariant is stated incorrectly for the cap path. — P032, P038**
+
+P032 says the SCHEMA is emitted only after the terminal check. Therefore, on a fresh run, the legitimate 20001st C-reach can enter the cap branch **before SCHEMA has ever been emitted**.
+
+So this statement is too strong:
+
+> a run showing terminal activity with no SCHEMA is void as failed instrument
+
+That is not universally true. A fresh cap event can legitimately produce exactly that condition under your own ordering.
+
+The packet later says CAP independently fails the run, which resolves the grading consequence, but the invariant itself is inaccurate.
+
+**Required delta:** change it to distinguish:
+
+* `BSAVE_FAIL` without prior SCHEMA = instrument failure;
+* CAP without prior SCHEMA = expected under cap ordering, but independently fails the run.
+
+---
+
+**4. The “full serialization grammar” is complete for normal records but incomplete for the three terminal record types. — P032-P034, P042**
+
+Normal records have a fully enumerated 38-field grammar. CAP and BSAVE_FAIL do not.
+
+They are described semantically as “fixed prefix + format=2 + packet/base identifiers + ...”, but their exact key order, exact field names, and exact terminal grammar are not frozen on the page.
+
+P038 says all three terminal types are validated at build, so this is not inherently a successful-run blocker, but it conflicts with the stronger claim that the serialization grammar is fully frozen in v12.
+
+**Required delta:** either enumerate exact CAP and BSAVE_FAIL field grammars, or explicitly define them as a separate terminal grammar whose exact emitted key sequence is fixed and validated at STAGE-1.
+
+---
+
+**5. `extDistPts=0` is not sufficient evidence of exact at-entry equality. — P036**
+
+The packet correctly defines `extDistPts` using `MathRound`, but then says:
+
+> zero means zero rounded-point displacement
+
+and immediately associates that with recovering exact at-entry behavior.
+
+A rounded distance of zero can arise from a nonzero sub-point displacement. Therefore:
+
+`extDistPts == 0`
+
+means **rounded displacement is zero**, not necessarily:
+
+`entryPx == pxExt1`.
+
+The packet separately says the prices are lossless, which is enough to resolve the distinction, but the prose should not imply otherwise.
+
+**Required delta:** say exact at-entry is established only by the lossless `entryPx`/`pxExt1` equality; `extDistPts=0` alone is only rounded-zero.
+
+---
+
+**6. The “one STOPRESOLVE line per reaching evaluation” volume statement is slightly imprecise around terminal evaluations. — P032, P038, P042**
+
+A normal C-reach gets one normal STOPRESOLVE record. A BSAVE failure gets one terminal record instead. The cap-reaching evaluation gets one CAP record. A later invocation after `probe_dead` gets nothing.
+
+So the exact invariant is:
+
+> one **normal or terminal probe record** for each non-dead C-reaching evaluation, except the dead/capped short-circuit evaluations, which emit nothing.
+
+The current wording is understandable, but tighter phrasing would eliminate any ambiguity when counting records against `emitSeq`.
+
+Nonblocking, but worth correcting.
+
+---
+
+**7. The scope-freeze wording permits a small amount of post-clear scope mutation. — P038, P040-P042**
+
+P038 allows certain site-attribution questions to be “struck before build,” with the strike list filed in the build record. P042 then treats those questions as reduced-scope/report-class.
+
+That is procedurally workable, but from the standpoint of a fresh clearance, the review-seat authorization is being granted to an envelope whose final struck subset is not yet frozen on this relay.
+
+**Required delta:** make the rule explicit that any strike must be recorded **before the build begins and before the one-run authorization is consumed**, and that the builder may not add a new strike after the build or after seeing output.
+
+This is governance precision, not code safety.
+
+---
+
+### What I do **not** see as defects
+
+I do **not** find a page-level problem with:
+
+* A being outside the selector block and before L9626;
+* B being inside the selector block and immediately after L9665;
+* C being after L9670 while `slDist`, `tpDist`, and `tpOk` are live;
+* the two initialized / eight bare declaration design;
+* the `probe_bSaved` witness concept;
+* `incomingSlRef == slLive` as the `liveSel=-1` carry-integrity check;
+* the `probe_dead` shared latch;
+* the 1..20000 reservation model;
+* the literal R-gate mirror;
+* the ext1-undefined copy semantics;
+* the use of `g_sl41_*` plus the dual-stamped origin falsifier;
+* the 38-field count and `emitSeq` position 34.
+
+Those portions read coherently.
+
+### Analytic B — better mechanism
+
+For the **specific ext1 one-shot probe**, I do not see a materially better mechanism than A/B/C without increasing the proof surface.
+
+The cleanest *technical* mechanism for the **future live implementation**, however, would be to stop relying on the global `g_sl41_*` publication for candidate-local state and carry a single read-only ext1/result struct through the `EvaluateClosedBar` invocation:
+
+* extend the `ComputeSlReference` interface around EA L5291;
+* populate the candidate-local ext1/provenance result at the L5496-L5497 publication point;
+* receive it at the S5 call around L8779;
+* preserve it in function-local scope through the selector around L9626-L9665;
+* use that exact candidate-local value in the eventual replacement at L9661-L9665.
+
+That would reduce stale-global risk and eliminate the need for the offline producer/publication reconstruction. It is **not** better for this probe, because it adds a hunk and changes the live data path, which is exactly the proof surface v12 is trying to avoid.
+
+For the **ordering question specifically**, the better mechanism is unequivocally phase stamps at the actual execution sites: EA L7682-L7697, L9910, and L10073/L10170. That would turn runtime ordering from source-inference into directly observable evidence. It is also deliberately outside this envelope.
+
+### Clearance consequence
+
+So my ruling is:
+
+**AMEND-WITH-DELTA — do not spend the build/run word yet.**
+
+The minimum amendment is to correct **P030/P032/P038/P040-P046** so the packet says exactly what the probe proves about ordering, and to freeze the `InpDebugLog` comparability condition in **P007/P038**. The terminal-grammar and `extDistPts` wording corrections should be folded into the same delta.
+
+Once those are amended, I see no page-level reason to halt the single print-only probe build/run.
+
+## Astra answer - 2026-09-18 - answers v175 relay (packet v12) (amend-with-delta, A1-A8 + B; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V175-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v12, page-only review.** The A/B/C placement and shared terminal-latch design are supportable, but the helper allow-list, record-type grammar, and several proof/acceptance clauses need the amendments below before clearance by name. This is review analysis, not a key, build/run word, or authorization of section 1 or live activation.
+
+## A — Defects, gaps, and imprecisions
+
+### A1. Required `iTime` call conflicts with the exact helper allow-list
+**P032, P038.**
+
+P032 requires stamp equality against `iTime(_Symbol, PERIOD_CURRENT, barShift)` **computed at C**. P038’s exact helper allow-list excludes `iTime`. Thus an implementation satisfying the dual-stamp requirement fails the lexical-purity gate as written.
+
+**Required delta:** add exactly `iTime` as an authorized read-only call, restricted to the specified stamp operand. This is not permission for an `i*` wildcard or other data-access calls.
+
+The prohibition also means the builder cannot silently use `DirName`, although existing recorder lines use it at **EA L9728, L9742, L9772**. Unlike `iTime`, that helper is not necessary: the probe can encode the proven direction enum locally. State that choice in the build record rather than treating existing usage as implicit permission.
+
+### A2. The common prefix is frozen, but the record-type encoding is not
+**P032, P034, P038, P042.**
+
+Every family line must begin:
+
+`STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v12`
+
+But P032 separately names `STOPRESOLVE_SCHEMA`, `STOPRESOLVE_CAP`, and `STOPRESOLVE_BSAVE_FAIL` without specifying where or how those identifiers appear after that common prefix. The page therefore does not yet define one complete wire grammar for distinguishing normal, schema, and failure records.
+
+Likewise, “base tree” and “packet/base identifiers” are required metadata, but their exact keys, order, and relationship to the 38-field payload are not frozen.
+
+**Required delta:** specify a record discriminator and the metadata envelope. One satisfactory form is a `type=NORMAL|SCHEMA|CAP|BSAVE_FAIL` field following the existing common prefix, with metadata explicitly excluded from the 38 normal payload fields. Freeze the exact schema-name-list encoding and each non-normal record’s keys/order before implementation.
+
+Also correct **P038’s “all three terminal types”**: there are three **non-normal types**, but only CAP and BSAVE_FAIL are terminal. SCHEMA must permit subsequent normal emission.
+
+The parse-back gate is valuable, but it must validate an agreed grammar, not merely whichever grammar the builder chooses.
+
+### A3. The straight-line proof wording excludes the very loop that the pasted code contains
+**P032, P038; EA L9632–L9660.**
+
+Both packet lines say there is “no if/for/while/return between A and B except the bare L9626 block.” Literally, that is false: the block contains the selector loop and several conditionals.
+
+The substantive intended argument is sound on the pasted neighborhood: the loop’s `break` and `continue` target the inner selector walk; after that walk, selection and B execute before control leaves the block.
+
+**Required delta:** replace the contradictory wording with:
+
+> A, the selector block, B, and C lie on the same enclosing straight-line tail. Inside the selector block, all break/continue statements target the L9632 loop; no return or other exit bypasses B. Every path reaching C after A executes B.
+
+Retain the separate invocation/enclosing-loop census as a builder-disk obligation. This fixes the proof statement without changing the insertion sites or introducing another witness.
+
+### A4. Strike permissions are broader than “site-number attribution only”
+**P034, P036, P038, P042.**
+
+The page permits three materially different reductions:
+
+- striking `entryPx` and its dependent entry-based questions;
+- striking veto/session snapshots and consequently reducing ordering claims;
+- striking source-line attribution while retaining the underlying outcome requirement.
+
+Yet P042 labels the strikable scope **“site-number attribution only.”** That is not an accurate description of the earlier permissions.
+
+**Required delta:** consolidate the strike policy into an explicit, pre-build list covering those three categories and their consequences. State that P042’s “unobservable ordering is unproved-and-halt” applies to **retained ordering obligations**, not questions expressly dropped by an authorized strike.
+
+Keep the mandatory field and outcome exclusions unchanged. In particular, the entry strike must not remove the actual-gate recomputation, A2 record/slot/provenance requirement, or required actual-path outcomes.
+
+### A5. Live-quotient non-finiteness needs an explicit disposition
+**P034, P036, P042; EA L9668–L9670.**
+
+The packet clearly rejects non-finite mandatory live **operands**, and explicitly rejects a true shadow gate on a non-finite quotient. It does not state the corresponding live-quotient rule equally clearly.
+
+Finite live price operands, finite constructed distances, and a positive denominator do not by themselves guarantee a finite quotient. With ext1 defined, the shadow quotient can remain finite while the live quotient is non-finite. In that case:
+
+- `rLive` prints `INVALID`;
+- the literal `actualGate` can still be true;
+- actual-gate recomputation can agree;
+- the explicit shadow failure rule need not catch the live failure.
+
+This is a specification gap, not a claim that such a row occurs in this window.
+
+**Required delta:** explicitly classify a non-finite **evaluated live quotient** as an independent acceptance failure, while preserving the literal observed `actualGate`. Distinguish that from finite denominator-guard blocking, where `rLive='-'` remains valid and the quotient is not evaluated.
+
+Also clarify that “INVALID operand” refers to the inputs relevant to the stated calculation. An unrelated invalid diagnostic should not silently change the interpretation of a finite gate calculation.
+
+### A6. Unequal serialized strings do not universally prove unequal numeric prices
+**P028, P034, P036.**
+
+P028 says unequal lossless price prints prove a stop-value difference. P034 expressly accepts negative zero. Consequently, `0` versus `-0` is a permitted textual distinction that does **not** establish inequality under ordinary numeric comparison.
+
+More generally, the accepted numeric grammar allows multiple spellings of the same number, even if the chosen formatter normally emits only one.
+
+**Required delta:** determine stop-value changes from parsed binary64 values, with an explicit signed-zero policy. Report these separately if needed:
+
+- numeric price inequality;
+- textual difference;
+- bit-pattern difference.
+
+The existing lossless-format/round-trip gate supplies the necessary inputs. No EA instrumentation change is needed.
+
+Conversely, after successful binary64 round-trip validation, equal reconstructed finite values can establish equality of the captured binary64 operands. That still establishes neither shared provenance nor equality of any higher-precision underlying source.
+
+### A7. The ladder walk is not unbounded
+**P011, P028, P038; EA L9632, L9658–L9659.**
+
+The distinction between **two extension levels** and **two rungs** is correct. Calling the depth or visits “unbounded,” however, contradicts the pasted implementation:
+
+- L9632 bounds slot traversal by the inclusive maximum offset;
+- L9658 bounds qualifying rungs;
+- L9659 may terminate the walk earlier.
+
+This is a documentation correction, not a reason to change the cap mechanism.
+
+**Delta:** replace “unbounded rung depth” with “potentially many rungs, subject to the slot-offset and qualifying-rung bounds,” and remove “unbounded in principle.”
+
+This is a documentation correction, not a reason to change the cap mechanism.
+
+### A8. Make the A2 exemption explicitly shadow-R-only
+**P028, P034, P042.**
+
+“A2 exempt from R recompute” is broader than the same paragraph’s mandatory **per-record actualGate recomputation**. The surrounding text supports the intended distinction, but the abbreviated exemption can be read as waiving more than intended.
+
+**Delta:** state:
+
+> A2 is exempt from shadow-R/table acceptance; its mandatory ext1 acceptance is pxExt1/slot/provenance. It remains subject to the universal actualGate/live-operand checks, serialization checks, and terminal/diagnostic contract.
+
+This preserves the stated A2 scope rather than adding an independent A2 shadow-R requirement.
+
+### What does not require another mechanism
+
+The following are satisfactory as page-level designs, subject to the retained disk gates:
+
+- **A/B/C siting:** A preserves incoming `slRef`; B saves block-local selector outputs before **EA L9666**; C follows the live computations at **EA L9668–L9670**.
+- **Terminal behavior:** the shared latch, flag-before-emission, and explicit handler return address repeated probe emission independently of unload timing. The surviving OnTick work at **EA L11215–L11223** is disclosed rather than mistaken for cancellation.
+- **Publication:** P007/P032/P038 now require publication of the complete consumed tuple, including undefined state. The origin stamp is no longer offered as a substitute for that obligation.
+- **Scope:** the literal shadow predicate and separately classified validity findings do not authorize the future selector replacement. The protective-side hazard remains a future-relay issue.
+
+These are design findings, not certification of disk execution or evidence that the pre-build gates have passed.
+
+## B — Better mechanism for the stated goal
+
+**Keep the three insertions and scalar carries.** No fourth producer hunk, strategy-state write, or live-emitter phase stamp is necessary merely to address the defects above.
+
+The useful improvements are:
+
+1. **Explicit record envelope at C** — insertion after **EA L9670**, before **L9671**. Add the frozen type discriminator and metadata layout from A2; retain one ordered definition for the normal payload and schema names.
+
+2. **One explicit offline validity classification** — **P034/P036/P042**, with no live code touched. Classify live-input validity, live-quotient validity, shadow-input/quotient validity, and optional diagnostic availability separately. Preserve the literal Booleans; classify acceptance independently.
+
+3. **Numeric changed-set comparison offline** — **P028/P042**, with no EA code touched. Parse the round-trip values and distinguish numeric inequality from provenance and signed-zero/textual differences.
+
+A helper function or carry struct is not necessary for this limited probe. The current scalar design can work if its exact compiler, availability, publication, serialization, and control-flow gates actually pass.
+
+**Disposition:** amend the packet at the cited lines and return it for clearance by name. No full-code request, additional run, or live-activation permission is implied.
+
+## Luna answer - 2026-09-18 - answers v174 relay (packet v11) (AMEND-WITH-DELTA, 5 items + mechanism; no Ruling-ID stated, filed as entry LUNA-V174-001)
+
+**AMEND-WITH-DELTA**
+
+The probe design is substantially constrained and the acceptance contract is unusually explicit: one build/run only, probe-only scope, exact diff shape, no strategy-state mutation except the two terminal failure paths, 38-field schema, literal gate mirror, and mandatory A2/A3/cap checks.
+
+I would **not clear the build yet**, because there are several page-level defects/gaps that are cheap to fix now and otherwise create avoidable ambiguity during grading.
+
+### A — defects, gaps, and imprecisions
+
+**1. The canonical record grammar is not fully frozen. — P036/P038**
+
+The page freezes the numeric formatter and parser grammar, but not the **complete serialization grammar** for the 38-field record: delimiter, exact key/value syntax if any, timestamp encoding, text-field escaping, Boolean representation, and integer representation are not stated with the same precision.
+
+That matters because the acceptance procedure depends on deterministic offline reconstruction, ordered-occurrence matching, and recovery of all 38 fields. Saying only “fixed delimiter encoding” is not enough to make that serialization independently reproducible.
+
+**Amend:** state the literal record grammar, including delimiter and token forms for `barTime`, `dir`, `ladOriginSite`, booleans, integers, and the three sentinel classes.
+
+---
+
+**2. P036 contains an internal parser contradiction. — P036**
+
+The stated grammar is:
+
+`^[+-]? ...`
+
+but the following sentence says **leading `+` is a parse failure**.
+
+Those cannot both be the frozen grammar.
+
+**Amend:** either change the grammar to disallow `+` or remove “leading '+'” from the parse-failure list. The intended choice appears to be the former.
+
+---
+
+**3. P038 inaccurately describes what reaches C. — P038**
+
+It says:
+
+> “C-reach only at S5 evaluations passing the gate”
+
+But C is explicitly positioned **after L9670**, and L9670 merely computes `tpOk`; the C block is not placed under an `if(tpOk)` in the cited region. Therefore an S5 evaluation can reach C with `actualGate=0`.
+
+This is harmless to the mechanics if purely informational, but it is technically wrong and could contaminate later expectations about emission counts.
+
+**Amend:** replace “passing the gate” with **“reaching the post-L9670 C site”** or equivalent.
+
+The cited live sequence is `slDist` → `tpDist` → `tpOk` at L9668-L9670, followed immediately by the recorder region.
+
+---
+
+**4. The mandatory non-finite policy is explicit for the shadow, but not equally explicit for the live-path self-consistency check. — P034/P036/P042**
+
+The page clearly states that non-finite shadow operands fail acceptance and that `wouldGate` with invalid operands is not treated as an ordinary gate result. But `actualGate` is simultaneously a mandatory self-consistency check reconstructed from `currentPrice/slLive/tpPx/gateConst`.
+
+The missing sentence is: **what exact acceptance class applies when one of those mandatory live operands is non-finite?**
+
+Without that, a run could produce `INVALID` for a mandatory live operand while the acceptance contract is still described as requiring a Boolean recompute.
+
+**Amend:** explicitly say that any non-finite mandatory live operand is an **independent acceptance failure**, not “undecided,” and therefore terminates grading.
+
+---
+
+**5. BSAVE_FAIL’s exactly-once property is weaker than CAP’s. — P032/P038**
+
+CAP has a persistent `probe_capped` latch set before emission, specifically guaranteeing no later probe emission.
+
+The `bSaved=false` branch emits `STOPRESOLVE_BSAVE_FAIL`, requests removal, and returns, but does not set an equivalent terminal latch. That is probably sufficient if the intended MQL5 event/removal semantics guarantee that no later `EvaluateClosedBar` invocation can occur, but that guarantee is not stated as part of the page-level proof.
+
+**Amend one of two ways:** either add a `probe_failed` latch, or explicitly freeze the required MQL5 lifecycle property that makes a second evaluation impossible after `ExpertRemove()`.
+
+This is a robustness/proof issue, not a demonstrated runtime defect.
+
+---
+
+### B — better mechanism
+
+For the stated goal—**one observational run that distinguishes the actual selector from the ext1 shadow without changing live behavior**—I would keep the A+B+C architecture. The key siting is sound: A preserves the incoming `slRef`, B snapshots the selector outputs before the selector scope closes, and C observes the already-computed `slDist/tpDist/tpOk` immediately after the live gate.
+
+I do **not** see a better mechanism that justifies replacing that structure.
+
+The only mechanism change I would make is small:
+
+**C — add a terminal-failure latch shared by BSAVE_FAIL and CAP**, while preserving the same no-live-state-mutation invariant. That would make the “exactly once terminal record, then no more probe work” property structural rather than partly dependent on unload semantics.
+
+I would not add the declined M1/M2/M4/M5 machinery, producer-site hunk D, rung/extN saves, or a second serializer; the packet already gives explicit reasons for keeping those out of this probe.
+
+### Disposition
+
+**Amend-with-delta, not halt.**
+
+The amendments are narrow:
+
+1. Freeze the **full** 38-field serialization grammar.
+2. Fix the `+`-sign parser contradiction.
+3. Correct the P038 description of C-reach.
+4. Make the mandatory live non-finite acceptance rule explicit.
+5. Either add a BSAVE terminal latch or explicitly prove the unload lifecycle makes it unnecessary.
+
+After those are folded, the stated one-build/one-run envelope is internally coherent enough to proceed to the build gate. The future live rule remains out of scope, as required, and the known non-protective-side hazard remains a later-relay issue rather than a reason to reject this probe.
+
+## Astra answer - 2026-09-18 - answers v174 relay (packet v11) (amend-with-delta, A1-A11 + B; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V174-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v11 is not clear as written.** The A/B/C siting is supported by the pasted selector and gate, but the exact-diff contract and several validity/provenance clauses need the corrections below. This is a page-only review verdict, not a key, build instruction, run word, or live-activation clearance.
+
+## A. Defects, gaps, and imprecisions
+
+### Amend before clearance
+
+**A1 — The declaration initialization count contradicts the specified code.**
+**P032, P038.**
+
+Insertion A explicitly initializes both:
+
+- `probe_inSlRef = slRef`
+- `probe_bSaved = false`
+
+Consequently, “ten declarations (one initialized)” is incorrect. The eight other carries are bare. This matters because P038 makes the count an exact-diff gate.
+
+**Delta:** replace both count descriptions with **“ten declarations: two initialized (`probe_inSlRef`, `probe_bSaved`), eight bare.”** Preserve the declarations themselves. B’s eight saves plus the witness assignment are correctly specified.
+
+---
+
+**A2 — Last-call dominance does not establish publication on every successful producer path.**
+**P007, P032, P038; EA L5496–L5497, L6152, L8779.**
+
+Proving that L8779 is the last `ComputeSlReference` exit before C excludes a later invocation overwriting the globals. It does **not**, by itself, prove that the invocation executed L5496–L5497 before returning successfully.
+
+The origin stamp establishes freshness of the separately written origin globals. It does not independently stamp `g_sl41_def/px/slot/bt/imb`. The pasted publication assignments establish what gets written when reached, not that every C-reaching successful return reaches them.
+
+**Delta:** add a named STAGE-1 obligation:
+
+> On every C-reaching path, the L8779 invocation publishes the complete consumed `g_sl41_*` ext1 tuple for that invocation before successful return, including publication of the undefined state when applicable; no subsequent writer changes that tuple before C. Otherwise halt.
+
+This is a builder-disk control-flow/write-census gate, **not a request for more pasted code or a fourth insertion**.
+
+---
+
+**A3 — The canonical grammar and parser rejection list disagree.**
+**P036, P038.**
+
+The regex begins with `[+-]?`, expressly allowing a leading `+`. The following sentence expressly rejects “leading '+'.” A string can therefore pass the prescribed format validation and fail the prescribed parser.
+
+“Signed zero variants beyond the grammar” also does not define any additional canonical restriction: the grammar already admits negative zero and numerous equivalent zero spellings.
+
+**Delta:** choose one rule and use it for formatter validation and offline parsing. For example, if leading `+` is prohibited:
+
+```text
+^-?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$
+```
+
+Keep exponent signs permitted. State explicitly whether grammar-valid negative zero is accepted; accepting it is consistent with binary64 round-trip reporting. Remove the contradictory rejection wording.
+
+---
+
+**A4 — The arithmetic-validity exception needs an explicit boundary.**
+**P032, P034, P036, P038.**
+
+P034 requires an unguarded, literal live-equivalent `wouldGate` mirror, including the possibility of a non-finite quotient. P036 says “arithmetic and ratio fields are gated on finite inputs.” Read broadly, that instruction prevents the very arithmetic P034 requires.
+
+Likewise, “raw operands … emitted … first” can be read as an execution-order instruction rather than a formatting-precedence rule, despite the fixed single-record field order.
+
+**Delta:** state explicitly:
+
+> Shadow-distance construction and the literal `wouldGate` predicate are exceptions to the finite-gated diagnostic-arithmetic rule. They use the actual numeric operands, never display tokens. Finite checks govern diagnostic formatting and acceptance, not substitution or guarding of the mirror. “Printed independently” specifies formatting precedence within the single record, not separate emissions.
+
+If a non-finite operation prevents a complete record from being produced, the result remains missing evidence and a failed run—not a reconstructed Boolean.
+
+---
+
+**A5 — The stated terminal-control exception omits the bSaved-failure branch.**
+**P030, P032, P038.**
+
+P030 describes the exception as “cap-only unload/return,” but P032 separately authorizes unload and return on `STOPRESOLVE_BSAVE_FAIL`. P038 recognizes two terminal-failure branches, so the intended permission exists but the section’s scope statement contradicts it.
+
+The explicit caller-continuation discussion is also framed around cap entry, although the bSaved-failure return reaches the same OnTick continuation.
+
+**Delta:** name both exceptional conditions consistently:
+
+> No strategy-state mutation or live selector/gate substitution; terminal unload/return permitted only for cap failure and bSaved failure.
+
+Apply the partial-working-set/downstream-non-evidence rule explicitly to **both** failures. This clarifies existing specified behavior; it does not authorize another exit path.
+
+### Additional page corrections and precision requirements
+
+**A6 — Origin-join comparison precision is not pinned.**
+**P028, P032, P034, P036, P038; cited SLEXT481 records.**
+
+The ordered-occurrence and multiplicity rules are good. However, the origin-price comparison needs a representation rule. The supplied legacy SLEXT481 prices are rounded decimal displays; a fresh origin price must not be compared as a lossless numeric value against a rounded legacy display and called stale merely because additional digits differ.
+
+Also, `ladOriginPx` is not expressly included in P036’s enumerated lossless-price list.
+
+**Delta:** specify `ladOriginPx` formatting and the join relation. A suitable relation is equality after applying the legacy row’s documented price formatter to the probe origin value, with datetime/site equality under their defined encodings. Label this a **printed-precision provenance check**, not exact numeric identity.
+
+---
+
+**A7 — The C-reach estimate incorrectly says the gate must pass.**
+**P038; EA L9670–L9683.**
+
+C is immediately after assignment to `tpOk`; no `if(tpOk)` guards it. An evaluation with `tpOk=false` still reaches C.
+
+**Delta:** replace “C-reach only at S5 evaluations passing the gate” with **“C-reach at S5 evaluations reaching the gate computation, whether `tpOk` is true or false.”**
+
+This corrects the explanatory estimate, not the cap or acceptance contract.
+
+---
+
+**A8 — “Candidates-per-bar is unbounded” conflicts with the packet’s own scoped execution model.**
+**P032, P038; EA L11209–L11214.**
+
+P032 expressly claims fresh automatics, no enclosing candidate loop, and one `EvaluateClosedBar` call per observed closed bar through the shown OnTick path. Under that model, C is reached at most once per such call. “Candidates-per-bar is unbounded on this page” is therefore misleading if it means STOPRESOLVE-producing evaluations.
+
+**Delta:** distinguish ladder candidates visited inside L9632 from C-reaching evaluations. Keep the cap as a defensive boundary without invoking an unbounded emission model contradicted by the scope proof.
+
+---
+
+**A9 — The claimed fingerprint adoption is not fully present in the clearable body.**
+**P032, P038; trailing delta claim “Sol 18 adopted.”**
+
+SCHEMA expressly carries packet and base-tree identifiers. CAP and BSAVE_FAIL are assigned format/version and failure-specific fields, but their packet/base fingerprint fields are not expressly required in those definitions.
+
+**Delta:** either add those identifiers to both terminal record definitions or narrow the delta claim. Terminal records remain outside the 38-field normal schema.
+
+---
+
+**A10 — “Slot equality” needs to name the mandatory equality.**
+**P028, P042.**
+
+P028 correctly leaves A1/A3 ext1-to-s1 equality open until observed. P042 later lists “slot equality” among independently failing mandatory checks without identifying which equality it means.
+
+**Delta:** distinguish:
+
+- **Mandatory:** A2 producer slot equals the shipped value 13.
+- **Mandatory when used:** the namespace/provenance proof supporting a source-identity conclusion.
+- **Finding:** whether ext1 equals s0 or s1 on each observed row.
+
+An unequal A1/A3 ext1-to-s1 result must not silently become a failed prediction merely through that shorthand.
+
+---
+
+**A11 — Future selection wording still alternates between defined-only and defined-and-finite.**
+**P007, P009.**
+
+P007 freezes future adoption validity as `ext1Defined && finite slExt1`, but also gives a defined-only selector expression. P009 again says the defined arm selects ext1.
+
+**Delta:** make the future-arm predicate consistent and name the disposition of defined-but-non-finite ext1—whether fallback or refusal is left for that relay. Do not imply that a defined-only branch implements the frozen validity requirement.
+
+This is **not a reason to implement any future selection now**. Section 1 remains outside probe clearance, and the protective-side hazard remains open.
+
+## B. Better mechanism for the stated goal
+
+**Keep the three-insertion mechanism.** A before **EA L9626**, B after **L9665** and before **L9666**, and C after **L9670** are appropriate: B captures the actual selector execution, unlike the independent re-walk at **L9690–L9718**.
+
+The improvements I recommend do not require another live-code site:
+
+1. **Strengthen the producer-publication proof**, as A2 specifies, at **P038**, covering **EA L5496–L5497/L8779**. Add no hunk D unless that proof fails and a later packet authorizes an alternative.
+2. **Use one explicit formatting/parsing contract** for C’s record definition and offline grading—**P034/P036/P038; insertion C after EA L9670**. Validate representative exponent, negative-zero, and boundary round-trip cases rather than treating one grammar-valid sample as evidence of the entire formatter contract.
+3. **Replace the `Math*` wildcard with the exact functions actually needed**, at **P038**. The separate no-mutation scan already constrains behavior, but a literal helper list is easier to audit and avoids admitting stateful math/RNG helpers by name pattern.
+
+No selector substitution, producer restructuring, additional runtime re-walk, live phase stamps, or extra fields are needed to address these findings. The revised packet should return for named clearance; this verdict grants neither the build nor the run.
+
+## Luna answer - 2026-09-18 - answers v173 relay (packet v10) (AMEND-WITH-DELTA, 2 hard blockers + 5 notes; no Ruling-ID stated, filed as entry LUNA-V173-001)
+
+**Verdict: amend-with-delta. Do not clear v10 as written.**
+
+The probe architecture is otherwise sufficiently bounded and the A/B/C siting is coherent, but v10 contains two hard specification defects that make the claimed “38-field, self-verifying” contract internally inconsistent.
+
+### Defects / gaps / imprecisions
+
+**1. Hard blocker: the field list says 38 fields but actually names 39.**
+P034 lists `emitSeq` immediately before `barTime`, and then lists `emitSeq` again after `actualGate`. Counting the named entries gives **39**, with `emitSeq` duplicated. P016/P034/P038 simultaneously assert `fields=38`.
+
+This matters because P032/P034 make the SCHEMA line and ordered field names part of the self-verification contract; the current page cannot satisfy its own count/order requirement unambiguously.
+
+**Required delta:** retain exactly one `emitSeq`, state its position once, and explicitly restate the resulting ordered count as 38. The simplest repair is to keep the first `emitSeq` and remove the second occurrence near `actualGate`.
+
+---
+
+**2. Hard blocker: the already-capped branch does not explicitly specify the control exit.**
+P032 says, in substance, “if `probe_capped` already true, take the proven abort boundary with no further emission,” but the explicit `return;` is only attached to the branch that first discovers the cap. Because the packet repeatedly says the builder must invent nothing, “take the proven abort boundary” is not precise enough for the already-capped path.
+
+**Required delta:** make the branch literal in the contract: once `probe_capped` is true, emit nothing, perform no further probe work, and `return;` from `EvaluateClosedBar`. Keep the existing documented cap-discovery path unchanged.
+
+---
+
+**3. The failure-record exception should be made schema-explicit.**
+P034 first says every reaching evaluation gets a `STOPRESOLVE` record with the 38-field schema, then separately says `probe_bSaved=false` produces a dedicated failure record carrying only a subset of fields. That is logically understandable, but the record grammar is not frozen: a strict reader could see a non-38-field line as a schema violation.
+
+**Required delta:** name it explicitly as a distinct `STOPRESOLVE_BSAVE_FAIL` record type, outside the 38-field normal-record schema, and state that it is terminal/unload/return and therefore is never graded as a normal candidate record.
+
+---
+
+**4. SCHEMA-line sequencing should explicitly say whether it consumes `emitSeq`.**
+P032 says the first uncapped C reach emits `STOPRESOLVE_SCHEMA` “then record 1,” which strongly implies the schema line does **not** consume sequence 1, but the contract should say that directly. Otherwise the meaning of `emitSeq=1..20000` is technically underspecified.
+
+**Required delta:** state: `STOPRESOLVE_SCHEMA` is unnumbered/non-sequenced; the first normal record is `emitSeq=1`.
+
+---
+
+**5. CAP sequencing is similarly slightly underspecified.**
+The contract fixes that the 20,001st reaching evaluation emits the single CAP line, but it does not explicitly state whether the CAP line itself carries a sequence number or whether `probe_seq` remains at 20000. Since the cap line is not a normal 38-field record, either convention is workable, but one should be frozen.
+
+**Required delta:** say explicitly that the CAP line is non-record/non-sequenced, and the last normal record is `emitSeq=20000` (or specify the alternative convention).
+
+---
+
+**6. Future-rule validity is slightly wider than the probe's own finite-validity model.**
+P007 says a `defined` ext1 is selected, while P036 separately contemplates non-finite `pxExt1` and makes finite validity a prerequisite for arithmetic/printing. That creates a future-live ambiguity: does `ext1Defined=1` itself guarantee a usable finite `slExt1`, or must future adoption also require finiteness?
+
+This does **not** invalidate the print-only probe, because the packet explicitly treats a non-finite case as an acceptance failure rather than silently accepting it. But the future relay should freeze either:
+`ext1Defined => finite slExt1` as a proven invariant, **or**
+`ext1Defined && finite slExt1` as the live validity condition.
+
+---
+
+**7. “Print-only” is well defended, but the cap exception should stay attached to every top-level safety statement.**
+P003/P030/P032 correctly carve out `ExpertRemove()` as an EA-lifecycle action while preserving the no-strategy-state-mutation rule. The wording is internally consistent, but a reader scanning only the headline “print-only/no live-state mutation” could miss that the cap path intentionally changes EA lifecycle. The detailed section already says this; the opening safety sentence could repeat “except cap-only unload/return.”
+
+This is an imprecision, not a separate behavioral defect.
+
+### What does **not** need changing
+
+The core insertion geometry is sound on the page: A is outside the selector block so the incoming `slRef` survives to C; B captures the selector locals before their scope closes; C is after `slDist`, `tpDist`, and `tpOk` exist, while the live selector and downstream path remain untouched.
+
+The ext1 producer chain is also explicitly tied to `ComputeSlReference` → `g_sl41_*` publication → the S5 evaluation, rather than inventing a second ext1 computation.
+
+The R arithmetic contract is also much tighter than the earlier versions: it distinguishes entry-based prediction from current-price gate evaluation, requires per-record Boolean recomputation, and makes A1/A3 `wouldGate` mandatory rather than accepting the displayed table number alone.
+
+### Better mechanism for the stated goal
+
+I would **not replace the A+B+C probe architecture**. It is already minimal for the questions being settled.
+
+The better mechanism is to make the **C serializer/schema mechanically singular**: one canonical ordered 38-field definition used to generate both the SCHEMA declaration and the normal record, with the B-save names feeding that single record. In source terms, that remains confined to the same three probe sites around **L9626, L9665, and L9670**; it does not require touching the live selector, R-gate, veto, latch, SIGNAL, or session-mark lines. The main benefit is eliminating exactly the kind of duplicate-field/count drift currently present in P034.
+
+### Clearance disposition
+
+**AMEND-WITH-DELTA — no build/run clearance yet.**
+
+The necessary delta is narrow:
+
+1. Fix the 38-vs-39 field-list error by removing the duplicate `emitSeq`.
+2. Make the already-capped branch explicitly `return;` with zero further probe work.
+3. Freeze the `bSaved` failure line as a named non-normal record type.
+4. State that SCHEMA is unsequenced and define the CAP sequence convention.
+5. Resolve the future-rule meaning of `ext1Defined` versus finite `slExt1` before the later live-activation relay.
+
+After those amendments, the page should be in a form where the requested **one print-only build + one run** can be judged without the builder having to interpret any of these points.
+
+## Astra answer - 2026-09-18 - answers v173 relay (packet v10) (amend-with-delta, A1-A7 + accepted + B; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V173-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v10 is not cleared as written.** The A/B/C placement and cap-return design are acceptable on the page, subject to the stated build gates. The remaining amendments concern operand fidelity, non-finite semantics, and contradictory grading instructions—not authorization of the future selector or live activation.
+
+## A. Defects, gaps, and imprecisions
+
+### 1. Archive recomputation still purports to validate a different gate evaluation
+**P028, P042; EA L9668–L9670.**
+
+P028 correctly says that entry-based operands are not necessarily the live gate’s `currentPrice` operands. Nevertheless, P042 says `actualGate` per evaluation is validated by recomputation over archived `entry/sl/tp`, invokes “identical inputs,” and requires that validation **AND** per-record self-consistency.
+
+Those are not established identical inputs. Moreover, TP_ELECT/SIGNAL archive rows do not supply operands for every evaluation reaching C.
+
+**Required delta:** Replace that portion of P042 with an explicit separation:
+
+- Validate each STOPRESOLVE `actualGate` against **that record’s** gate operands.
+- Validate the archive comparison under the specified diagnostic comparison contract.
+- Label any archived entry-based gate calculation as an entry-based reference calculation, restricted to rows carrying its operands. It does not independently validate the gate at C without operand-identity evidence.
+- Missing operands for the mandatory diagnostic comparison still halt; absence of a TP_ELECT/SIGNAL row for a non-firing C evaluation does not itself create an archive-gate-validation failure.
+
+The relay’s delta summary describes this separation, but the operative P042 text has not fully adopted it.
+
+### 2. Mandatory gate recomputation needs an explicit lossless `tpPx` format
+**P034, P036, P042; EA L9669.**
+
+P042 requires recomputing the actual predicate from printed `currentPrice/slLive/tpPx/gateConst`. P036 explicitly gives lossless formatting to `currentPrice` and `slLive`, but its probe-price list omits `tpPx`.
+
+Printing `rawNumLive` losslessly does not automatically cure a separately mandatory recomputation from a potentially rounded `tpPx`. There is no page-level guarantee that `tpTarget` has no precision beyond a five-decimal display.
+
+**Required delta:** Add `tpPx` to the explicit 17-significant-digit, locale-independent price-format contract. State that offline recomputation reconstructs the printed binary64 operands and preserves the EA’s subtraction, absolute-value, division, and comparison order.
+
+Also clarify that ratio-display self-consistency is checked against the specified rounded display of the recomputed ratio—not exact equality between a two-decimal string and an unrounded quotient. Gate Booleans must never be derived from that rounded ratio.
+
+### 3. “Finite checks gate ALL arithmetic” conflicts with literal non-finite predicate preservation
+**P034, P036, P042.**
+
+P034 requires preserving the literal complete predicate, including a true result associated with a non-finite quotient. P036 simultaneously says finite checks gate **all** arithmetic first and says `wouldGate` uses finite-checked operands.
+
+For non-finite input operands, these instructions do not define one implementable policy: suppressing the division is not necessarily equivalent to evaluating the original predicate. Non-finite **inputs** and a non-finite **result produced from finite inputs** also need separate treatment.
+
+**Required delta:** Specify those cases explicitly. A suitable print-only policy is:
+
+- Preserve observed `actualGate` without modification.
+- For a defined ext1 with valid finite shadow operands, evaluate the original denominator guard and comparison without adding a gate filter. Check any computed quotient for display validity afterward; do not clamp its Boolean result.
+- For invalid shadow inputs or an invalid constructed shadow distance, print `INVALID` for the unavailable counterfactual result and fail acceptance explicitly. This must be an express exception to the unconditional literal-result requirement, not an implicit replacement Boolean.
+- Retain the undefined-ext1 copy policy: shadow operands/result copy the live values, with invalidity reported separately.
+- Define precedence between `INVALID` and `'-'`: the latter denotes a valid denominator-guard-blocked division, not a generic arithmetic failure.
+
+Another policy could be chosen, but the builder must not invent it.
+
+### 4. `ext1Slot` is assigned the wrong variable identity
+**P007, P028, P032, P036, P046; EA L9632, L9651–L9659.**
+
+P036 says:
+
+> “ext1Slot is the loop index s1x_s”
+
+The specified ext1 source is the producer’s `sl41_slot`, published as `g_sl41_slot`. `s1x_s` belongs to the separate live-selector walk. Sharing an index namespace, if proved, makes their index values comparable; it does not make them the same variable or guarantee that the selector walk visits the producer’s selected slot. The packet itself recognizes the differing stopping behavior.
+
+**Required delta:** Say:
+
+> `ext1Slot` prints the candidate-local producer slot `g_sl41_slot`, originating from `sl41_slot`; it is a ladder index, not a qualifying-rung count. Comparison with saved `s0slot/s1slot` establishes source identity only under the proved namespace/lifetime mapping; otherwise report slot-value equality only.
+
+Do not substitute `s1x_s` or infer the producer slot from the selector walk.
+
+### 5. The exact-diff assignment count disagrees with insertion B
+**P032, P038.**
+
+P032 lists eight data-save assignments followed by `probe_bSaved = true`. P038 demands “nine assignments plus bSaved=true.”
+
+**Required delta:** Make P038 match the literal P032 assignment list: **eight data saves plus the witness assignment**. Since this is an exact-diff gate, the discrepancy should not be left for builder interpretation.
+
+### 6. The slot-cap description is off at the inclusive boundary
+**P011, P038; EA L9632.**
+
+“4000-slot truncation” is not an exact description of the shown loop. Its upper bound includes `barShift + SRJ_LAD_ABS_SLOT_CAP`; the constant limits the maximum index offset, not the number of included indices.
+
+**Delta:** Describe it as “maximum slot offset 4000, inclusive, subject to earlier exits.” Keep it separate from the qualifying-rung bound and the two-found-slots early exit.
+
+### 7. Origin-triple availability remains a build-gated obligation, not something the shown publication proves
+**P032, P038, P046; EA L5496–L5497.**
+
+The supplied publication statements show ext1 fields being copied to globals. They do not show publication of the complete `ladOriginPx/ladOriginBarTime/ladOriginSite` triple. Naming producer-local origin variables does not itself make those variables readable at C.
+
+The existing availability gate handles this correctly; **I am not asserting that suitable symbols are absent**.
+
+**Clarification:** Treat P046’s “a fourth hunk buys nothing” as conditional on successful availability and provenance checks. The builder must name the actual C-readable sources. If those checks fail, halt under the existing envelope—do not reconstruct an origin or silently add D.
+
+## Points accepted without further amendment
+
+- **A/B/C scope and ordering:** P032 is consistent with EA L9668–L9670. The carries outlive the selector block; B captures the selected result; C observes the completed live gate.
+- **Cap boundary:** P032/P038 correctly distinguish an unload request from returning out of `EvaluateClosedBar`. EA L11215 onward can still execute in the caller; the packet no longer claims otherwise and excludes cap-path downstream behavior from accepted evidence.
+- **Boolean-first A1/A3 grading:** P028 appropriately distinguishes mandatory counterfactual gate results from entry-based numerical predictions.
+- **Defensive witness:** P034’s failure branch does not require reading the bare carries.
+- **Evidence-limited conclusions:** Undefined-ext1 handling, no default answer for missing C records, and no re-execution without fresh authorization are appropriately explicit.
+
+## B. Better mechanism
+
+**Keep the three-insertion mechanism; no additional instrumentation site is justified by this page.**
+
+The improvements should stay within **C, immediately after EA L9670**, and the offline grader:
+
+1. **Use the raw operand pairs as the primary gate-recomputation inputs.** Check `actualGate` from `rawNumLive/rawDenLive/gateConst`, and the defined-ext1 shadow predicate from its corresponding pair.
+2. **Separately validate operand construction:** confirm the live raw pair against lossless `currentPrice/slLive/tpPx`, and the shadow denominator against `currentPrice/pxExt1`. This distinguishes a construction defect from a predicate defect.
+3. **Implement one explicit validity/display case split** covering undefined ext1, invalid operands, denominator-guard failure, finite quotient, and invalid quotient. Keep display tokens out of arithmetic and keep observed `tpOk` untouched.
+
+These changes need no new fields, no producer hunk D, and no edits to **EA L9661–L9670 or downstream live statements**.
+
+This is a page-only amendment verdict. It supplies neither a run word nor live-activation clearance.
+
+## Luna answer - 2026-09-18 - answers v171 (AMEND-WITH-DELTA, ExpertRemove synchronicity blocker + 5 notes; no Ruling-ID stated, filed as entry LUNA-V171-001)
+
+**AMEND-WITH-DELTA — PACKET_EXT1LIVE-001 v8.**
+The packet is otherwise internally coherent enough for the requested print-only probe, but one control-flow defect is acceptance-critical.
+
+### Decision
+
+The required amendment is at the cap/termination mechanism in the probe C region, immediately after EA **L9670**. P032 states that the 20,001st reaching evaluation prints `STOPRESOLVE_CAP` and then `ExpertRemove`, with the evaluation terminating before downstream execution; P038 makes that cap behavior a gate, and P042 makes it a mandatory finding.
+
+That last part is not guaranteed by `ExpertRemove()` alone. The current MQL5 reference says `ExpertRemove()` does **not** stop execution immediately; it sets a flag so that subsequent events are not processed, while the current event handler continues. ([MQL5][1])
+
+So, as written, the claimed cap behavior:
+
+> `STOPRESOLVE_CAP` → `ExpertRemove` → downstream evaluation cannot continue
+
+is not established. On the cap boundary, the probe could print its termination line and still execute later statements in the current call, which conflicts with the print-only/no-live-state guarantee.
+
+The minimal amendment is therefore: **make the cap branch perform a proven immediate exit from the containing execution scope before any downstream live statements can run**, and revise the “sole control operation” wording accordingly. The exact exit statement cannot honestly be specified from this page alone because the containing function's return type/caller boundary is not included. The known probe touchpoint is **Insertion C, post-L9670**.
+
+### Analytic ask A — defects, gaps, or imprecision
+
+**1. Acceptance-critical: `ExpertRemove()` is treated as synchronous termination.**
+Lines **P032/P038/P042; EA L9670 successor**. This is the only defect I would block on. The external MQL5 semantics directly contradict the current wording. ([MQL5][1])
+
+**2. The slot-namespace assertion is a precondition, not demonstrated by the page itself.**
+P028 and P038 rely on the statement that `ext1Slot` and the locally reconstructed `s0/s1` slots share one candidate-local ladder namespace.
+That is acceptable as a **builder-disk STAGE-1 verification**, because the packet explicitly makes it an availability gate, but it is not independently established by the inline EA excerpt. If the build record does not contain that concrete lifetime/namespace check, the A2 source-identity claim remains only slot-equality evidence.
+
+**3. The L10073/L10170 and L7682 attribution remains intentionally unproved at page level.**
+P042 explicitly permits those site-number questions to be struck before build, converting them to report-class items rather than silently waiving them. That is a sound contract, but the page therefore cannot itself claim those exact line attributions as established facts.
+
+**4. The future live rule has an explicit side-validity hazard.**
+P007 deliberately says the future defined-ext1 adoption is not yet side-guarded.
+That is not a defect in this **probe**, because P032 explicitly says section 1 is not executed. It is, however, a genuine unresolved defect in the future live activation semantics and should remain fenced exactly as the packet does.
+
+**5. `wouldAdopt_monotone` is correctly non-accepting, but its `0` value is semantically overloaded.**
+P036 defines `0` to cover both non-adoption and the intentionally undecidable `liveSel=-1` case, with offline joining required to distinguish the reason.
+That is workable and documented, but the field itself is not a discriminator; any downstream consumer must honor the stated join rule.
+
+I do **not** see a substantive arithmetic, field-count, carry-scope, sentinel, definite-assignment, or actual-vs-shadow mixing defect in the page. The 34-field enumeration also counts consistently.
+
+### Analytic ask B — better mechanism
+
+For the stated probe goal, I would **not** redesign the three-insertion mechanism. A/B/C is the narrow mechanism here: outer-scope carries at A, assignment-only capture at B, and post-gate observation at C. The scope rationale is explicit and mechanically checkable.
+
+The one mechanism I would change is the cap:
+
+**At the C site after EA L9670, make the 20,001st path:**
+
+`emit CAP → enter an explicit immediate-exit path that is proven to prevent this evaluation from reaching any subsequent live statement.`
+
+That should be documented against the actual containing function's exit boundary, rather than relying on `ExpertRemove()`'s event-level unload semantics. The packet can then retain the same 20,000-record ceiling and the same no-rerun rule.
+
+### Final ruling
+
+**AMEND-WITH-DELTA — one required control-flow correction, centered on P032/P038/P042 and the post-L9670 Insertion-C cap branch.**
+
+After that correction is incorporated and freshly reviewed, the rest of the v8 page does not present another blocker to the **one print-only build + one run** envelope. The decision requested by the relay is therefore **not yet clear as written**, but the needed change is narrow and does not require changing the ext1 table, comparator, 34-field schema, A/B/C capture architecture, or live-stop rule itself.
+
+[1]: https://www.mql5.com/en/docs/common/expertremove?utm_source=chatgpt.com "ExpertRemove - Common Functions - MQL5 Reference"
+
+## Astra answer - 2026-09-18 - answers v171 (amend-with-delta, A1-A15 cap/operands/precision/contract; mechanism retains A+B+C; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V171-001)
+
+amend-with-delta — **PACKET_EXT1LIVE-001 v8 is not clear as written**, principally because the specified cap mechanism does not guarantee the immediate stop claimed, and the mandatory `actualGate` recomputation names insufficient operands and coverage. Required corrections are below. This is a page-only review ruling, not a build/run key.
+
+## A. Defects, gaps, and imprecisions
+
+### 1. `ExpertRemove()` does not provide the promised immediate termination
+**P032, P038; insertion C after EA L9670. — Blocking**
+
+P032 promises that termination occurs “before that evaluation continues downstream.” Calling `ExpertRemove()` alone does not guarantee this: it requests removal but does not immediately end the currently executing handler. Statements following the call can still execute.
+
+Thus the specified mechanism does not establish either:
+- no downstream continuation of evaluation 20001; or
+- exactly one CAP line if the same handler can reach C again.
+
+**Required delta:** expressly permit a cap-only control-flow exit in addition to `ExpertRemove()`, and require STAGE-1 to prove that the exit prevents downstream strategy execution. A `return` at C suffices only if its enclosing function and callers make it sufficient; returning from a helper may merely resume downstream work in its caller. If that proof requires edits outside A/B/C, halt with that exact delta rather than silently expanding the envelope.
+
+Documented API behavior: MetaQuotes, “ExpertRemove,” https://www.mql5.com/en/docs/common/expertremove
+
+### 2. Mandatory gate recomputation uses the wrong reference operand and lacks evaluation coverage
+**P034, P038, P042; EA L9668–L9670. — Blocking**
+
+The actual expression is:
+
+```text
+abs(tpTarget - currentPrice) / abs(currentPrice - slRef)
+```
+
+subject to the positive-denominator guard. P042 instead names archived `entry/sl/tp` operands. The page does not establish that archived entry equals `currentPrice` at C, nor that archived stop/target values preserve the exact gate operands.
+
+There is also a coverage contradiction: P042 requires validation **per evaluation**, but its named archive operands come from TP_ELECT/SIGNAL rows. Evaluations reaching C without either event are not covered. A2 is an explicit example: its C record is mandatory, it has no TP_ELECT row, and no filed entry comparator.
+
+**Required delta:** separate two checks:
+
+1. Recompute every emitted `actualGate` from that STOPRESOLVE record’s faithfully serialized `rawNumLive`, `rawDenLive`, and `gateConst`.
+2. Compare actual-path archive diagnostics under the independently specified diagnostic contract.
+
+If independent **archive-based** gate recomputation remains mandatory, require the actual gate-reference operands and a valid join for every evaluation being graded. Do not describe signal-only archive coverage as per-evaluation coverage. A2’s NON-R-graded status must remain explicit rather than being undone by another mandatory clause.
+
+### 3. Eight decimal places do not guarantee round-trip fidelity
+**P036; P042 gate recomputation. — Blocking for the claimed exact recomputation**
+
+“Finite raw operands print with 8 decimals (round-trip-capable for these magnitudes)” is not a valid general guarantee for binary floating-point values. Magnitude alone does not establish it. Distinct doubles can produce the same eight-decimal string; subtraction of prices can retain binary differences beyond that display precision.
+
+This matters at the denominator guard and gate boundary—not merely for presentation.
+
+**Required delta:** serialize raw operands with a verified round-trip representation, ordinarily 17 significant decimal digits for binary64, and use a compatible offline numeric interpretation. Apply the same principle to any gate constant whose exact value is needed. Keep two-decimal ratios and five-decimal table displays as presentation, not as exact gate operands.
+
+### 4. Exact at-entry equality cannot be recovered from five-decimal prices
+**P028, P036. — Required claim correction**
+
+P028 correctly says equal displayed prices do not prove exact numeric equality. P036 nevertheless says exact at-entry status is recovered from `entryPx` and `pxExt1`, while retaining five-decimal price output.
+
+Those statements conflict. Two unequal prices can print identically; `MathRound` can also produce zero displacement for a small nonzero displacement. `extSideOk=0` does not distinguish equality from the favorable side.
+
+**Required delta:** either:
+- print `entryPx` and `pxExt1` losslessly in STOPRESOLVE, retaining five-decimal displays offline; or
+- withdraw the exact-at-entry recovery claim and explicitly report that distinction as unproved.
+
+If exact incoming-stop equality is also intended to be checked from output under P034, give `incomingSlRef` and `slLive` the same lossless treatment. Five-decimal comparison is a useful falsifier, but not proof of exact equality.
+
+### 5. The non-finite rejection rule must not be presented as part of the live predicate
+**P034, P036, P042; EA L9670. — Required semantic clarification**
+
+EA L9670 contains no explicit finiteness test. Therefore:
+
+> identical complete predicate
+
+and
+
+> any `wouldGate=1` on a non-finite ratio is a probe-contract violation
+
+are not automatically equivalent statements.
+
+If the platform’s arithmetic produces a non-finite quotient that satisfies the comparison, faithfully reproducing L9670 can produce true. That would expose a live-predicate hazard, not necessarily an incorrect probe.
+
+**Required delta:** preserve the result of the literal predicate, print the recorded invalid/non-finite representation, and classify the condition as a **separate acceptance failure**. Stay with the halt. Do not clamp `wouldGate`, silently add a finite guard, or call faithful reproduction a probe implementation error. The run can still fail on that condition.
+
+### 6. Missing imbalance-read representation is not fully specified
+**P028, P034, P036; EA L9629–L9630, L9649, L9655. — Required serialization clarification**
+
+The native selector initializes both imbalance values to `-1`. They remain `-1` when a read is unavailable or returns `EMPTY_VALUE`. The packet’s general sentinel policy does not clearly say how those native values are emitted:
+
+- they are not absent slot IDs;
+- they are not necessarily computed negative counts;
+- the proposed carries do not preserve a separate read-success flag.
+
+**Required delta:** define `s0imb` and `s1imb` as the **raw native selector integers**, including their initial `-1` value, and explicitly state that this does not distinguish read failure from a genuine identical integer value. That preserves the operands required by the offline selector reconstruction without adding storage or fields.
+
+Also state the display normalization for absent `s0slot`/`s1slot` values, while keeping `liveSel=-1` as the retained-input selector enumeration—not an absent-ID sentinel.
+
+### 7. The incumbent-validity predicate lacks an explicit reference price
+**P036; EA L9637, L9668. — Required predicate clarification**
+
+For `wouldAdopt_monotone`, “strictly protective-side AND nonzero distance” does not identify the reference operand. Nearby diagnostics use `entryPx`; the live ladder filter uses `currentPrice`, and the live R denominator also uses `currentPrice`.
+
+**Required delta:** write the complete incumbent-validity predicate, naming the reference price. For a diagnostic intended to describe validity at the live selection site, `currentPrice` is the natural choice; if entry-relative validity is intended instead, name it explicitly and do not equate it with the live selector’s filter.
+
+Keeping the flag reported-not-graded is appropriate, but its definition still needs to be deterministic.
+
+### 8. S5 discovery is not fully integrated into the closed diagnostic comparison contract
+**P038, P042. — Required contract clarification**
+
+S5 diagnostics are required for:
+- the 16:55 seed;
+- 17:00 presence/absence;
+- discovery of other evaluations.
+
+But P042’s explicit per-kind comparison rules cover TP_ELECT, SIGNAL, VETOCLEAR, and SESSION_LIMIT. No corresponding field policy is supplied for S5 diagnostics, even though continuation after a newly visible S5 evaluation is said to depend on the diagnostic comparison.
+
+**Required delta:** choose and freeze one interpretation:
+
+- include specified S5 diagnostic kinds in the comparison set, with their matching and field rules; or
+- classify additional S5 discoveries as report-only outside that comparison, while retaining the separately mandatory 16:55 and A2 requirements.
+
+Do not leave S5 simultaneously relevant to continuation and outside the defined comparison policy.
+
+### 9. “Halt IFF” is overbroad beside the other mandatory failures
+**P042. — Required wording correction**
+
+“Halt IFF the actual-path diagnostic set diverges” cannot govern the whole run: the same paragraph requires failure for missing mandatory records, incorrect shadow results, cap hits, ambiguous joins, and other conditions even when the actual-path archive comparison matches.
+
+**Required delta:** say:
+
+> For the actual-path diagnostic-comparison check, fail iff the compared diagnostic set diverges under the following contract. Other mandatory acceptance checks remain independent.
+
+That removes a logical contradiction without changing the intended strictness.
+
+### 10. The A2 join refers to a site that is not a named evaluation-site field
+**P034, P042. — Mapping clarification**
+
+The record contains `ladOriginSite`, not a separate evaluation-site field. Those are conceptually different, even where both happen to be S5.
+
+**Required delta:** freeze insertion C’s evaluation-site identity as schema/build-mapping metadata and identify that as the `site` used in the A2 join. Do not substitute origin site without establishing equivalence. No additional per-record field is necessary if the emission site is fixed and unambiguous.
+
+Ordered occurrence and `emitSeq` help with ordering; they do not independently establish candidate identity. The existing ambiguous-match halt is appropriate.
+
+### 11. Some important obligations remain preconditions, not findings established by this page
+**P007, P009, P032, P038, P042; inline EA L9618–L9682. — Open, appropriately gated**
+
+The inline code establishes selector scope, assignments, distance construction, and gate placement. It does **not** itself establish:
+
+- availability and candidate lifetime of `sl41_*` at C;
+- the ladder namespace relationship;
+- downstream veto/latch/SIGNAL/session-mark execution;
+- snapshot symbol identity;
+- actual diagnostic coverage of those downstream claims.
+
+The packet already has gates for these matters. I am not asking for more code or treating their absence from the page as an independent veto. However, clearance must not relabel those gates as completed evidence.
+
+In particular, a state snapshot plus source order is not runtime proof that a downstream operation executed. P042’s separation of control-flow and runtime evidence should remain.
+
+### 12. The table arithmetic is correct, but its relationship to the live operands remains conditional
+**P015–P028, P034, P042; EA L9668–L9669. — Nonblocking qualification**
+
+All seven supplied point-ratio calculations and rounded values check out. The stated exact A3-fail/A1-pass interval is also correct for those operands.
+
+That does not establish that the live `currentPrice` equals the table’s entry price. The packet properly allows findings and then rejects a failed mandatory comparison; retain that distinction. An explanation of a mismatch is not permission to certify the predicted table.
+
+### 13. “Seven current actual-path signals” is loose beside the separate SIGNAL count
+**P028, P042. — Editorial**
+
+P028 calls the seven TP_ELECT fire rows “seven current actual-path signals,” then correctly says SIGNAL event count is a separate invariant.
+
+Prefer “seven actual-path TP_ELECT fire rows” consistently. This avoids reintroducing the event-count conflation the packet otherwise fixes.
+
+### 14. The future metadata obligation is broader than local scope alone
+**P009; EA L9661–L9666. — Future-relay clarification**
+
+The inline code establishes that `s1x_sel` is block-local. For future live activation, however, instrumentation B creates downstream diagnostic dependence on that value.
+
+If the probe survives into the activation build, the ext1 arm must give `probe_sel` and any related metadata truthful semantics; “the original variable was local” is not enough. P009’s metadata obligation is therefore necessary and should explicitly include retained probe consumers. This is not a reason to activate anything in the present probe.
+
+### 15. Specify when “halt” occurs
+**P038, P042; envelope. — Operational clarification**
+
+Pre-build rejection, immediate cap handling, external enforcement of the 90-minute ceiling, and post-run grading failure are different mechanisms.
+
+A mismatch discovered offline cannot retroactively stop the completed run. State that it stops acceptance and any further execution. Likewise, the emission-count cap does not enforce a wall-clock ceiling; that ceiling needs its own runner/operator enforcement.
+
+The no-rerun/no-re-emit rule already supplies the appropriate consequence.
+
+## B. Better mechanism
+
+**Retain A+B+C.** It is a sound minimal placement for this probe, subject to the corrections above:
+
+- **A, immediately before EA L9626:** capture incoming `slRef` and declare the six carries in the shared outer scope.
+- **B, after EA L9665 and before L9666:** copy the selector result, selected stop, slots, and imbalances.
+- **C, immediately after EA L9670:** observe `tpOk`, use the already-computed live distances, compute the shadow, and emit.
+
+The inline region supports definite assignment: the shown `break` statements exit the ladder loop, not the enclosing selector block, so they do not bypass B. Moving emission inside the block would again lose access to the live-computed gate operands.
+
+The better minimal implementation is:
+
+1. **Use the exact shown shadow expression at C:**
+   ```text
+   slDistExt1 = MathAbs(currentPrice - pxExt1)
+   ```
+   Reuse `tpDist`; reproduce the complete short-circuit predicate. For undefined ext1, copy the live operands and result as specified.
+
+2. **Make the existing raw fields sufficient for offline recomputation.**
+   Change serialization precision in C rather than adding a second resolver, a second R-builder, or new capture sites. Separate archive comparison from per-record gate recomputation.
+
+3. **Correct the cap branch at C.**
+   Permit the termination request plus a proven control-flow exit. If C is not situated where that exit prevents downstream continuation, the exact required caller changes must return for authorization. No replacement termination function should be assumed to solve this without checking its semantics.
+
+4. **Freeze the implicit S5 site in the schema/mapping.**
+   This avoids adding a field merely to repeat a constant, while keeping origin-site provenance distinct.
+
+5. **Keep identity and selector checks offline.**
+   Retain the derived-versus-saved selector check and retained-input check, with the precision and sentinel qualifications above. No producer-site capture or additional ladder walk is justified by the supplied region.
+
+**Bottom line:** the outer-scope carry correction, six assignment-only saves, post-gate emission, 34-field count, and table arithmetic stand. Immediate cap termination and exact per-evaluation gate verification do not yet stand as specified; those are the principal reasons to amend rather than clear v8.
+
+## Luna answer - 2026-09-18 - answers v170 (AMEND-WITH-DELTA, 3 mandatory + 12 minors, mechanism retained; no Ruling-ID stated, filed as entry LUNA-V170-001)
+
+**AMEND-WITH-DELTA — PACKET_EXT1LIVE-001 v7.**
+The packet is close, and the three-insertion mechanism is directionally sound, but there are several page-internal contract defects that can make the one authorized run either non-executable or non-gradeable.
+
+### Decision
+
+**AMEND v7, then seek fresh clearance.** The needed changes are packet-only; I see no need to alter the landed EA tree for the probe itself.
+
+### Analytic A — defects, gaps, and imprecisions
+
+| Page lines           | Finding                                                                                                                                                                                                                                                                                                                                        | Effect                                                                                                                                                                                |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P032, P034**       | `emitSeq` is specified as a probe-local 1-based counter, but its declaration, initialization, and exact update point are not defined in the three insertion contract. Likewise, the once-only schema flag is named only conceptually.                                                                                                          | **Blocking executability ambiguity.** Builder would have to invent storage/initialization details despite “builder invents nothing.”                                                  |
+| **P034, P038**       | `actualGate` is required to equal the archived actual-path gate outcomes “row-for-row,” but the stated archive comparison contract is keyed over `(barTime, site, event-kind)` and admits only `VETOCLEAR/SESSION_LIMIT/TP_ELECT/SIGNAL`. No archived **gate-evaluation** event/key is defined.                                                | **Blocking grading gap.** There is no stated archive-side object against which every printed `actualGate` can be matched.                                                             |
+| **P015, P028, P042** | P028 says **predicted post-activation TP_ELECT count 6**, while P042 requires **7 TP_ELECT rows unchanged** for the print-only run. The distinction between future-rule outcome and probe actual-path acceptance is inferable but not stated tightly enough.                                                                                   | **Must clarify** so 6 is never graded against the print-only run and 7 is never mistaken for the future-live prediction.                                                              |
+| **P026, P028, P042** | A2 is called “baseline fire, current silent” in P028, yet P042 says “A2 remains silent on the actual path,” while P042 also says the seven TP_ELECT rows are unchanged. “Fire” is not defined here as TP_ELECT, SIGNAL, vetoed candidate, or something else.                                                                                   | **Material semantic ambiguity.** The A2 baseline/current comparison needs an explicit event identity.                                                                                 |
+| **P034, P038**       | `vetoStateAtSite` and `sessionUseAtSite` are said to be name-or-strike. But the schema is fixed at **34 fields**, and P034 presents those fields as part of the mandatory 34-field record.                                                                                                                                                     | **Schema inconsistency.** If either field is struck, the fixed field count/order becomes false unless the packet defines a replacement sentinel while preserving the 34-field schema. |
+| **P034, P036**       | P034 says all emitted inputs must be available, while P038 permits a field to be struck when exact symbol identity is unavailable. The resulting grading state is not fully specified for a struck field: whether it remains emitted as `-`, whether the schema still says 34, and which acceptance claims disappear.                          | **Needs an explicit fallback rule** rather than leaving the outcome to builder interpretation.                                                                                        |
+| **P034, P036**       | `wouldGate` is correctly defined as the complete predicate, but the packet mixes “invalid/non-finite ratio representation” with the gate result. The acceptance rule says `wouldGate=1` on an invalid/non-finite ratio is a halt condition, rather than explaining that such a value is itself an implementation inconsistency to be rejected. | Minor wording issue; **tighten semantics** so the halt is clearly a probe-contract violation, not an alternate gate behavior.                                                         |
+| **P034**             | “first emission per run” depends on a static probe-local flag, but no lifetime boundary is stated beyond “per run.”                                                                                                                                                                                                                            | Minor. State that the probe-owned static is initialized once for the EA execution and resets on a fresh execution; otherwise a restart/reinitialization interpretation is left open.  |
+| **P038, P042**       | The packet says ordering/site attribution can be struck pre-build, but P042 also freezes a full ordering report. It does not explicitly say that striking one site removes *only* that particular attribution claim while preserving the rest of the stage-order acceptance.                                                                   | Needs one sentence defining the reduced-scope consequence.                                                                                                                            |
+| **P042**             | “16:55 seed print present and declined at SESSION_LIMIT” is mandatory, while the general rule immediately says STOPRESOLVE absence proves nothing. The packet should explicitly say this requirement is satisfied from the **existing S5 diagnostic**, not from a STOPRESOLVE line.                                                            | Minor clarity issue; current text strongly implies it, but a grader could otherwise look for the wrong artifact.                                                                      |
+| **P042**             | “newly visible S5 evaluation … continue” and “halt iff actual-path diagnostic set diverges” are not quite the same rule. A newly visible S5 row is outside the stated diagnostic-event comparison set.                                                                                         | Clarify that a new S5 row is **discovery evidence**, not automatically an acceptance delta; continuation depends on the defined diagnostic comparison.                                |
+| **P042**             | The phrase “A3 shadow matches 0.68 … and has raw wouldGate=0” is good, but “raw wouldGate” is imprecise because `wouldGate` is Boolean, not a raw ratio.                                                                                                                                                                                       | Terminology only.                                                                                                                                                                     |
+| **P036**             | `wouldAdopt_monotone` is explicitly non-graded, yet P028 calls the source-changing bars “PREDICTED source-changed bars” based on shadow-selection rows. The page should distinguish **observed source change** from **predicted future adoption** more mechanically.                                                                           | Prevents a shadow/source finding from being mistaken for future live behavior.                                                                                                        |
+| **P028, P042**       | P028 says five other fires are predicted identical because live stop already equals s1px; P042 says resolution must be established from the probe prints.                                                                                                                                                                                      | Not a correctness defect, but label the P028 statement as a **prediction only**, not a pre-accepted result.                                                                           |
+| **P038**             | “Expected order of magnitude: hundreds” is described as a pre-run sanity check, but no numerical fail boundary is stated.                                                                                                                                                                                                                      | Minor. State explicitly that it is informational only and cannot itself pass/fail the run.                                                                                            |
+
+### The three amendments I consider mandatory
+
+1. **P032/P034:** define the probe-owned storage for `emitSeq` and the one-time schema flag, including initialization and update semantics. It can remain inside insertion C; what matters is that the packet specifies it sufficiently that the builder does not invent behavior.
+
+2. **P034/P038/P042:** replace the current `actualGate` archive requirement with an executable comparison rule. Either the archive must contain a gate-evaluation record with a defined key, or `actualGate` must be validated against an explicitly named existing diagnostic whose semantics prove the gate result. The current `(barTime, site, event-kind)` contract does not supply that.
+
+3. **P015/P028/P042:** make the two counts explicit: **probe actual-path acceptance = 7 TP_ELECT rows; future live activation prediction = 6 because A3 would be removed by the ext1 shadow rule.** Also define exactly what A2 “baseline fire” means.
+
+The A2 wording is the one place where I would not let the run proceed on interpretation alone.
+
+### Analytic B — better mechanism
+
+For the **ext1 stop/source question itself**, I would **keep the three-site A+B+C mechanism**. It is materially smaller and cleaner than moving the carry to the producer or editing the existing selector logic. The current placement at **L9626 / L9666 / L9670** captures exactly the transition you need: incoming stop before selection, selected s0/s1 result after selection, then ext1 shadow versus live gate operands immediately after the real gate test.
+
+For the **ordering question**, a stronger mechanism exists: add probe-owned phase stamps at the actual execution sites, rather than infer ordering from heterogeneous diagnostics. That would touch **EA L9666** (stop resolution boundary), **L9670** (R-gate), the existing veto site, **L9910** (latch), **L10073/L10170** (session mark candidates), and **L7682-L7697** for the session-limit branch. Each stamp would use one probe-owned monotone sequence value and no live-state mutation. The packet does not provide the veto site's exact line number, so I would not invent it.
+
+That mechanism is stronger for execution-order proof, but it is a **larger delta than v7**. For the stated minimal-probe goal, I would not adopt it unless the archive cannot supply a defensible ordering proof.
+
+### Bottom line
+
+**AMEND-WITH-DELTA, not clear and not halt.**
+
+The ext1 observation mechanism itself is adequate. The blockers are contract-level: **undefined counter/flag mechanics, an ungradeable archive-side `actualGate` comparison, and the A2/6-vs-7 wording collision.** Once those are made executable and mutually consistent, I see no page-level reason to withhold the single print-only build/run clearance.
+
+## Astra answer - 2026-09-18 - answers v170 (amend-with-delta, A1-A5 clearance + A6-A15; mechanism retains A+B+C; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V170-001)
+
+amend-with-delta — PACKET_EXT1LIVE-001 v7, principally P034, P038 and P042. The outer-scope A/B/C mechanism fixes the stated lifetime defect, and the proposed probe remains distinct from live activation. I would clear the narrowly amended packet for **exactly one print-only build plus one run under the stated envelope**, subject to its pre-build gates and a separate fresh run word; this is review-only, not an execution key.
+
+## Analytic A — defects, gaps and imprecisions
+
+### Clearance amendments
+
+**A1. The actualGate archive comparison lacks an identified comparator. — P034, P042**
+
+P034 emits an observed `actualGate` for every evaluation reaching C. P042 requires agreement with archived actual-path gate outcomes “row-for-row,” but its comparison contract covers only VETOCLEAR, SESSION_LIMIT, TP_ELECT and SIGNAL. The page does not identify which archived records expose the gate Boolean for each corresponding evaluation.
+
+A downstream event or its absence cannot generally supply that Boolean: a passing gate can still be followed by a veto.
+
+**Delta:** STAGE-1 must name the archived gate-evidence record, matching key and coverage for this mandatory comparison. If the archive exposes operands rather than a Boolean, explicitly label the comparator as recomputed and specify the complete predicate. If neither is available, halt before build rather than silently infer outcomes or relax the requirement.
+
+**A2. The “executable comparison contract” still needs a closed field policy. — P028, P038, P042**
+
+The prose defines event kinds, sequence matching and several tolerances, but not the promised per-kind operand tuples. “Run/probe/wall-clock metadata” is also an open category unless its excluded fields are named. Different implementations could therefore compare different payloads while claiming compliance.
+
+**Delta:** Freeze before build, for each of the four event kinds:
+
+- its matching key and ordered-occurrence rule;
+- compared fields;
+- explicitly excluded fields;
+- exact versus tolerance comparison;
+- missing-field and invalid/non-finite handling.
+
+A compact alternative is: compare every parsed payload field exactly except an enumerated exclusion list and enumerated R fields. Require numeric validity before applying an R tolerance; a NaN comparison must not accidentally pass.
+
+**A3. Optional snapshots and mandatory ordering need one consistent precedence rule. — P034, P038, P042**
+
+P034 permits snapshot fields to print `'-'` and says ordering claims then drop accordingly. P038 broadly permits striking a mapping sub-clause. P042 permits striking only particular site-number attributions and otherwise requires ordering evidence or halt.
+
+These permissions are not sufficiently aligned. A missing state snapshot should neither prove execution order nor silently waive a mandatory ordering finding.
+
+**Delta:** State expressly:
+
+> Snapshot fields may be unavailable and print `'-'`; this does not waive mandatory execution-order findings. Only the site-number attributions expressly listed in P042 are strikable. Every other required ordering relation needs identified evidence or halts.
+
+Freeze the evidence supporting each required ordering relation before build. Source control-flow evidence and runtime diagnostic evidence should be labeled separately; proximity of log rows is insufficient.
+
+**A4. Mandatory evidence feasibility belongs in preflight, not first discovery after spending the run. — P038, P042**
+
+P042 correctly fails closed when diagnostics cannot establish an outcome. However, P038 does not unambiguously require a pre-build coverage check for **all** mandatory claims, including the actualGate comparison and the required ordering chain.
+
+**Delta:** Extend the existing STAGE-1 mapping check—not the probe—to cover every mandatory acceptance claim. Record its evidence source and join rule. Structural inability to observe a required fact halts before build; absence or divergence of expected evidence in the authorized run remains a run-time miss.
+
+This does not require another run or additional instrumentation.
+
+**A5. CAP termination needs an authorized mechanism compatible with the purity rule. — P038**
+
+“CAP then TERMINATE” is an appropriately fail-closed boundary, but termination is not ordinary printing. P038 simultaneously prohibits mutation through calls and permits writes only to probe-owned storage. The packet does not say whether termination is external or an explicitly allowed control operation inside C.
+
+**Delta:** Name the termination mechanism before build, including whether it requires a C-site call. If it does, expressly permit that termination-only operation while retaining the prohibition on strategy/live-state mutation. Require termination before the 20001st evaluation continues into downstream live processing. If the mechanism cannot satisfy this within the authorized shape, halt with delta.
+
+### Additional gaps and precision corrections
+
+**A6. Storage lifetime is repaired; definite assignment still needs an explicit check. — P032, P038**
+
+Moving declarations to A resolves the documented L9666 scope closure. It does not, by itself, prove that every path reaching C executed all six B assignments for that same evaluation.
+
+This is **not a claim that such a bypass exists**.
+
+**Delta:** Add a STAGE-1 control-flow assertion that A and all B saves execute on every path reaching C, with no intervening reassignment of the carries. Do not initialize the six carries to plausible defaults to conceal a failure.
+
+**A7. The shadow denominator formula is specified by equivalence, not yet frozen as an expression. — P032, P034, P036, P038**
+
+“Constructed … exactly as slDist from slRef” is the right requirement. The page nevertheless does not show the actual denominator expression, including whether its reference operand is `entryPx`, `currentPrice`, or something else. The explicitly entry-based `extDistPts` must not accidentally become a substitute for that expression.
+
+**Delta:** In the required pre-build R-form record, quote the live L9668–L9669 expressions and the shadow expression produced by replacing only the stop operand. Manifest the full predicate form. Preserve operation order, direction handling and units. If this cannot be done using inputs already available within A/B/C, halt under the existing rule.
+
+**A8. STOPRESOLVE-to-archive joining needs its own rule. — P028, P034, P042**
+
+`emitSeq` distinguishes probe emissions, but it does not itself identify an archived candidate. STOPRESOLVE also covers only evaluations reaching C, whereas S5 can contain evaluations that do not. Ordered matching between those two populations cannot assume identical occurrence ordinals.
+
+**Delta:** Freeze a join rule that explicitly handles the C-reaching subset and repeated same-bar/same-direction evaluations. Use existing identifiers and evidence where sufficient. If a named row—especially A2—cannot be matched unambiguously, halt; do not invent another field or capture site under this authorization.
+
+**A9. Raw-field precision is unspecified. — P034, P036, P042**
+
+The packet distinguishes five-decimal stop comparisons from exact numeric equality, which is good. But the “raw” numerators and denominators have no stated print precision. If rendered too coarsely, they cannot support the intended near-zero, invalid-value or threshold diagnosis.
+
+**Delta:** Specify a sufficiently precise, round-trip-capable representation for finite raw operands and retain the recorded representation for invalid values. Keep table/display prices at their stated precision. If exact at-entry status is to be independently reconstructed offline, the relevant price operands also need sufficient precision; otherwise attribute that finding to the strict runtime comparison, not rounded printed equality.
+
+**A10. “Slots only” does not describe the actual sentinel exception. — P028, P036; relay delta summary**
+
+P036 deliberately prints undefined `ext1Imb` as `-999`, although imbalance is not a slot. P028 already gives P036 precedence, so the record policy is recoverable; the surrounding “slots only” characterization remains inaccurate.
+
+**Delta:** Say “absent slots, plus undefined `ext1Imb` under P036.” Preserve the important prohibition on using numeric sentinels for prices and ratios.
+
+**A11. “Explain per row” must not imply an acceptance waiver. — P042**
+
+The table permits reproduction within tolerance “or explain per row,” while the closing rule says any miss halts. An explanation can document a discrepancy without curing it, but that distinction should be explicit.
+
+**Delta:** State that explanations are findings, not permission to accept a failed mandatory comparison. Also state that the specifically required A1/A3 rounded values and gate results take precedence over the general table tolerance.
+
+**A12. The monotone predicate should explicitly address non-finite ext1 prices. — P036, P046**
+
+The incumbent must be finite, but the candidate ext1 price has no explicit finite requirement in `wouldAdopt_monotone`. A defined positive-infinite SHORT price, for example, could satisfy the stated directional comparison against a valid incumbent.
+
+**Delta:** either establish that `ext1Defined` guarantees a finite price, or require finite `pxExt1` in the diagnostic predicate. Keep this separate from the complete shadow R-gate and from deferred live validity guards.
+
+**A13. Define “no-write scan” as no live-state writes. — P032, P034, P038**
+
+The probe necessarily writes its own locals, once-only flag, and cap counter. The corrected B saves will also require assignments. An unqualified no-write scan over the hunks would reject the probe itself.
+
+**Delta:** explicitly allow writes only to named probe-owned storage while prohibiting live-state writes and mutation through calls/references. Preserve the existing lexical prohibition on `++/--`; a probe counter can be updated without those operators.
+
+**A14. State the cap boundary precisely. — P038, P042**
+
+“N=20000 records, then one CAP line” can mean either:
+
+- emit CAP when the 20,000th record is emitted; or
+- emit CAP only when a 20,001st evaluation would otherwise emit.
+
+“Hitting the cap is an acceptance miss” does not resolve which behavior is intended.
+
+**Delta:** specify whether exactly 20,000 reaching evaluations pass or fail. Keep the single CAP line, no further STOPRESOLVE emission, and no live-path effect.
+
+**A15. The future selector description needs to distinguish effective stop selection from selector metadata. — P007, P009; EA L9661–L9665**
+
+The future defined-ext1 arm adopts a price, but P009 does not say how `s1x_sel` or any associated selector metadata would be represented on that arm. That is not a reason to widen this probe, and the page does not establish that such metadata has downstream consumers.
+
+**Delta:** label that as a future-relay obligation: either establish that the selector metadata is local and irrelevant after selection, or define ext1-arm metadata without pretending ext1 was an s0/s1 selection. No activation is cleared here.
+
+The complete short-circuited shadow predicate, separation of signed side diagnostics from the absolute-distance builder, preservation of actual A3 behavior, prohibition on inferring execution from state snapshots, and no-rerun policy are sound boundaries. I would retain them.
+
+## B. Better mechanism
+
+**Keep three insertion sites, but make the capture lifetime correct.** No producer-site carry or downstream behavioral edits are needed for this correction.
+
+### A — before the selector’s opening block, in the scope shared with C
+
+The exact opening-brace line is not supplied, so this location must be mapped relative to **EA L9661–L9666**, not invented.
+
+Illustrative form:
+
+```cpp
+double probe_inSlRef = slRef;
+int    probe_sel     = -1;
+double probe_slLive  = slRef;
+```
+
+These must be automatic, per-evaluation variables—not static candidate state. Verify that the incoming-stop capture occurs before any selector write and that the chosen site does not capture an earlier, different incoming value.
+
+### B — after EA L9665, before EA L9666
+
+Assign to the outer variables:
+
+```cpp
+probe_sel    = s1x_sel;
+probe_slLive = slRef;
+```
+
+This preserves the selector and its closure unchanged. P038’s diff shape becomes **outer carry declarations at A; two probe-only assignments at B; emit block at C**.
+
+### C — immediately after EA L9670
+
+Keep all shadow calculation and emission here:
+
+- observe `tpOk` directly for the actual gate;
+- use the observed live `tpDist` and `slDist`;
+- construct shadow distance by the same `MathAbs` formula shown at EA L9668;
+- evaluate the entire short-circuited shadow predicate;
+- serialize both sides’ raw operands unambiguously;
+- emit with the specified precision, sentinel rules, and matching identity.
+
+Do not add a protective-side guard to this probe’s `wouldGate`: that would cease to mirror the quoted live predicate. Protective-side diagnostics and future validity policy remain separate.
+
+**If there is no suitable common per-evaluation scope, or required candidate-local inputs cannot reach C within the expressly amended capture shape, halt before build.** Do not fall back to static carries, reconstructed provenance, producer instrumentation, or another run.
+
+That mechanism addresses the central defect while preserving the probe’s intended boundary: three insertions, no live-path assignments, one authorized build and run only after the amended contract is cleared and the fresh run word is given.
+
+## Astra answer - 2026-09-18 - answers v178 relay (packet v15) (amend-with-delta, A1-A4 blocking + A5-A11 corrections; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V178-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v15 is not cleared as written.** The A/B/C placement is coherent with the pasted selector and gate, but the page contains conflicting direction, debug-purity, and serialization requirements. This is a page-only ruling, not a finding about disk authenticity, and grants no build/run or activation authority.
+
+## Analytic ask A — defects, gaps, and imprecisions
+
+### Blocking deltas
+
+**A1. Valid SHORT records are expressly classified as unacceptable. — P034, P038, P042; EA L225**
+
+P034 says native `dir=-1` is “parser-valid only as an invalid/diagnostic class, never an accepted NORMAL-row domain.” But EA L225 defines `DIR_SHORT=-1`; P038 requires LONG or SHORT at C, and P042 requires several SHORT records.
+
+**Delta:** accepted NORMAL direction is exactly `{1,-1}`. Zero is recognizable but invalid and fails acceptance. Remove the contrary `-1` sentence and its adoption claim in the relay delta paragraph.
+
+**A2. The global debug-purity gate rejects the explicitly required origin writes. — P007, P032, P038; EA L8770–L8777**
+
+The census requires every debug-gated site to be observational-only with “no state mutation.” The pasted gate writes four globals at L8773–L8776, and those writes are essential to the probe. “No call with transitive execution effect” also needs to distinguish diagnostic effects from strategy effects.
+
+**Delta:** prohibit **strategy-state mutation and strategy-execution effects**, while explicitly allowing enumerated diagnostic-only storage writes and diagnostic output. Name the origin quadruple as an allowed diagnostic publication, with a disk obligation that its consumers cannot affect strategy execution. Do not require the builder to decide whether these known writes violate an absolute prohibition.
+
+**A3. The supposedly literal non-normal templates duplicate envelope keys. — P032, P034, P038**
+
+P034 fixes the envelope as:
+
+`[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v15 base=6C2E4028 type=...`
+
+It then describes each non-normal template as “envelope type=… + format=2 + pkt + base…”. Taken literally, this repeats three envelope fields; taken informally, it conflicts with the assertion that the templates are complete and frozen.
+
+**Delta:** give each complete template once, without additive envelope shorthand. For example:
+
+```text
+[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v15 base=6C2E4028 type=SCHEMA fields=38 names=<ordered-key-list>
+[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v15 base=6C2E4028 type=CAP reservedTotal=20000 reason=CAP_EXHAUSTED
+[SRJ-EA] STOPRESOLVE format=2 pkt=PACKET_EXT1LIVE-001-v15 base=6C2E4028 type=BSAVE_FAIL emitSeq=<reserved> probe_bSaved=0 barTime=<encoded> dir=<native-int> site=S5
+```
+
+Angle-bracket terms above are substitutions, not wire characters.
+
+**A4. Full ext1 publication is both mandatory and replaced by a weaker join. — P007, P032, P038, P046**
+
+P007/P032 require complete publication of the consumed ext1 tuple, including undefined state, on every successful S5 invocation. P038 and the disk-summary wording instead scope the publication obligation to the origin quadruple and claim the per-row SLEXT481 join proves the ext1 tuple.
+
+Those are different contracts. The stated join checks price at archive precision, slot, and bar time—not the full lossless tuple, and not expressly `ext1Imb`. Matching rounded prices cannot exclude a stale binary64 value with the same rounded representation. Defined-only matching also does not establish undefined-state publication.
+
+**Delta:** retain the complete ext1 publication/no-subsequent-writer disk obligation from P007/P032. Describe the runtime join as corroboration at its stated precision, not a replacement. Include `ext1Imb` in tuple corroboration if claiming that field is corroborated; otherwise name the narrower matched subset.
+
+### Additional corrections
+
+**A5. Canonical byte equality and exponent-normalized equality are different tests. — P034, P036, P038**
+
+P034 demands byte equality with compiler `StringFormat("%.17g", parsed-value)`. P036 permits exponent normalization before comparison. The latter can accept alternate raw spellings that the former rejects.
+
+**Delta:** separately specify:
+- the accepted raw MQL wire spelling;
+- any normalization used solely to compare an independent reference formatter;
+- rejection of noncanonical raw tokens.
+
+An offline reference implementation should be named in the build record, rather than left implicit.
+
+**A6. The diagnostic comparison’s R bands are not fully assigned. — P028, P042**
+
+The contract covers TP_ELECT/SIGNAL rows, including four non-fire TP_ELECT rows, but the supplied propagated-band list covers only the seven table predictions. Those predictions use ext1 stops; an actual-path comparison must use the actual-path stop operands instead.
+
+**Delta:** distinguish future-shadow prediction bands from actual-path diagnostic comparison tolerances. Freeze the latter for every included R-bearing row, using that row’s actual operands and formatter—or require exact matching of deterministic archived R tokens where that is the intended contract. Also replace references to the “P028 table” with the actual band location, P042.
+
+**A7. “Redundant-by-construction” overstates the strict protective-side proof. — P007, P036; EA L9637**
+
+Passing `SlimbProtectiveSideOk` establishes that helper’s predicate. The page expressly defers its tie/tolerance semantics, so it does not establish equivalence to the probe’s strict comparison.
+
+**Delta:** remove “redundant-by-construction” for the strict probe-side condition. Retain that condition as an independent diagnostic predicate; helper equivalence remains deferred.
+
+**A8. The public C-storage census omits the arithmetic temporaries or their construction method. — P032, P038**
+
+C’s listed storage includes arrays, strings, statics, and the cap constant, but the specification subsequently uses constructed shadow distances and rounded diagnostic values without naming their probe-owned scalar storage. The exact-diff and named-write allow-list should not force implementation choices to be invented at build.
+
+**Delta:** enumerate the additional scalar temporaries and their initialization/evaluation phase, or explicitly specify the inline expressions instead. Keep all shadow arithmetic after the successful witness check and SCHEMA phase.
+
+**A9. The claimed necessity example does not demonstrate failure of a ±0.02 tolerance. — P038**
+
+The stated comparisons, `7.30` versus `7.294` and `10.35` versus `10.333`, both lie within that tolerance.
+
+**Delta:** remove that particular claim. The defensible necessity argument is that rounded archival operands cannot establish exact binary64 self-consistency or resolve every boundary case—not that these two displayed differences exceed the stated tolerance.
+
+**A10. Diagnostic string validation needs a whole-token rule. — P034, P038**
+
+Rejecting ASCII spaces alone does not expressly reject tabs, carriage returns, linefeeds, or non-ASCII characters. Those can undermine the single-line grammar and character-based transport budget.
+
+**Delta:** require the filed closed-enum strings to be printable ASCII, without whitespace or line terminators, and compatible with the chosen `key=value` parser. Reject out-of-domain values; do not silently encode them differently at build.
+
+**A11. The post-activation six-fire count remains a prediction, not a consequence established by this probe. — P015, P028, P042**
+
+Killing one baseline gate does not independently establish the full future trajectory: altered session/latch state could change later evaluations. The page correctly says counterfactual recovery remains unproved.
+
+**Delta:** qualify the six-count prediction as conditional on no newly enabled downstream fire. Keep it entirely outside this run’s acceptance.
+
+## Analytic ask B — better mechanism and touched lines
+
+**Keep the three-insertion design.** A before EA L9618, B after L9665/before L9666, and C after L9670 are appropriate for observing incoming stop, selector result, live gate, and shadow without changing the existing selector or downstream flow. The poison initialization, witness, selected-price identities, and latch-and-continue approach are preferable to terminal returns or unload requests.
+
+The useful improvements are contractual rather than a larger runtime mechanism:
+
+1. **Retain the complete source-publication proof** at EA L5496–L5497 and the S5 invocation L8779, together with the no-subsequent-writer census through C. Use the SLEXT481 join as corroboration. No fourth insertion is required if that proof succeeds.
+2. **Use one authoritative wire-format definition** for C after L9670 and the offline parser/fixtures. Fix A1, A3, and A5 there without changing EA L9661–L9670.
+3. **Separate diagnostic-state purity from strategy-state purity** in the census covering EA L8770–L8777 and all other debug gates. This is a review-gate correction, not permission to modify those existing statements.
+4. **Keep downstream ordering outside probe proof.** No phase stamps or other writes at the veto/latch/SIGNAL/session-mark sites belong in this authorization.
+
+After these deltas, the page can return for named re-clearance. No full-code or file request is needed for this ruling.
+
+## Astra answer - 2026-09-18 - answers v179 relay (packet v16) (amend-with-delta, A1-A8; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V179-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v16 is not cleared as written.** The insertion sites and probe-only boundary are coherent, but the page contains conflicting publication, fallback-validation, and counting requirements. This is a page-only review, not disk verification or an execution key.
+
+### Analytic A — defects, gaps, and imprecisions
+
+1. **Publication-guard description contradicts the pasted braces. — P007, P032, P038; EA L5442–L5498.**  
+   In the supplied excerpt, L5484 closes the `if(sl41_halt == "-")` block opened at L5442–L5443. SLEXT481 construction and global publication at L5485–L5497 therefore occur **after that block**, not inside it as repeatedly stated. L5498 closes an outer scope whose opener is not included in this excerpt.
+
+   **Required delta:** correct the guard ownership and corresponding STAGE-1 publication obligation. Preserve the obligation to prove complete publication on every successful C-reaching S5 path, with no intervening writer; do not describe L5442 as the publication guard unless corrected source evidence supports that description. The ordered tuple join remains corroboration, not a replacement for this proof.
+
+2. **Universal shadow-denominator identity is incompatible with undefined-ext1 fallback. — P034(c), P036, P042.**  
+   P034(c) requires, “on every row,”  
+   `rawDenExt1 == MathAbs(currentPrice - pxExt1)`.  
+   But P036 requires undefined rows to print `pxExt1='-'` and copy `rawDenExt1=rawDenLive`. The prescribed identity cannot be evaluated for those valid fallback records.
+
+   **Required delta:** make the ext1-specific identity conditional:
+   - Defined, finite operands: reconstruct and compare the ext1 distance.
+   - Undefined: require shadow/live raw-pair equality, ratio equality, gate equality, and the prescribed sentinels.
+   - Invalid operands: apply the stated validity-failure classification without attempting arithmetic on display tokens.
+
+   Keep the live-operand identities universal wherever their finite reconstruction is defined.
+
+3. **Terminal count equation omits the CAP-reaching evaluation. — P038, P042.**  
+   The equation  
+   `SIDE1E = NORMAL + BSAVE_FAIL + post-terminal short-circuits`  
+   leaves out the evaluation that emits CAP. That evaluation is neither NORMAL nor BSAVE_FAIL nor a subsequent short-circuited evaluation; it still falls through to SIDE1E under the frozen diagnostic input.
+
+   **Required delta:** include `CAP count`, or expressly define a broader terminal-silent-evaluation term that includes the CAP evaluation. The clean equation is:
+   `SIDE1E = NORMAL + BSAVE_FAIL + CAP + subsequent probe-silent C-reaches`.
+   
+   CAP remains an immediate acceptance failure; that does not make its structural accounting optional.
+
+4. **Diagnostic comparison requires a direction field absent from the displayed TP_ELECT format. — P042; inline NONFIRE TP_ELECT rows.**  
+   The comparison contract keys TP_ELECT/SIGNAL rows on `(barTime, dir)`, but the supplied TP_ELECT examples contain no `dir`. The stated native/text direction mapping does not provide a missing field.
+
+   **Required delta:** specify how TP_ELECT receives its direction for comparison—for example, a frozen ordered join to a same-evaluation direction-bearing diagnostic—or use a sufficient key actually carried by that record. Preserve multiplicity and reject ambiguous joins. Do not silently infer direction from price ordering.
+
+5. **The envelope gives incompatible input instructions. — Opening envelope; P038.**  
+   The envelope fixes `InpMode=1` and the same ini, whereas P038 says “every other input at compiled default,” except the explicitly named debug/adoption settings. The page does not establish that the frozen ini and `InpMode=1` satisfy that broader default requirement.
+
+   **Required delta:** identify one authoritative effective-input manifest: frozen ini plus explicitly authorized overrides, with every effective value filed before execution. If all remaining values really are defaults, state that as a verified property of that manifest rather than a competing configuration instruction.
+
+6. **Non-finite diagnostic formatting lacks a complete field-level precedence rule. — P036, P038.**  
+   P036 says extSideOk/extDistPts are `'-'` unless ext1 is defined and the two prices are finite. P038 additionally requires finite displacement and quotient checks before rounding, but does not explicitly specify the extDistPts token when finite input prices produce a non-finite subtraction or point quotient.
+
+   **Required delta:** prescribe `extDistPts=INVALID` for failed intermediate finite/range checks after availability is established; keep `'-'` for unavailable inputs under the stated field policy. Keep extSideOk independently gradeable when its direct finite-price comparison remains valid.
+
+7. **Carry-integrity claims exceed what the runtime identities establish. — P032, P034, P046.**  
+   The witness proves that its assignment executed. Selected-price identities can detect some crossed assignments, but cannot detect every crossing—for example, equal-valued prices or internally consistent tuple swaps. The page already retains exact B-assignment verification, which is the necessary source-level protection.
+
+   **Delta:** describe these checks as falsifiers for detectable omissions/miswiring, not complete detection of “incomplete/crossed B assignments.” Source verification remains mandatory.
+
+8. **Observed archive line length is not an observed transport ceiling. — JOURNAL CEILING NOTE; P038.**  
+   “Max observed single-line cap 537 chars, zero truncated” establishes a maximum observed line length, not a sink capacity. The subsequent micro-check requirement handles the real risk correctly.
+
+   **Delta:** replace “cap” with “line length” in that observation. A successful synthetic readback establishes transport of the tested length, not necessarily the sink’s absolute ceiling.
+
+### Analytic B — better mechanism
+
+**Keep A/B/C; no additional EA instrumentation is needed to resolve these findings.**
+
+- **A before EA L9618; B after L9665 and before L9666; C after L9670:** retain the proposed carries, witness, literal gate mirror, and latch-only terminal behavior.
+- **Offline validator — P034/P036/P042:** use an explicit record-class dispatch: finite-defined, undefined fallback, and invalid-operand classes. Apply each class’s identities and sentinels there. This avoids making a universal formula operate on an intentionally unavailable ext1 price.
+- **Offline structural validator — P038/P042:** account separately for reserved records, the unreserved CAP event, and subsequent silent C-reaches.
+- **Publication proof — EA L5442–L5498 and the existing L8779→C disk obligation:** correct the scope map rather than adding producer hunk D to compensate for a misdescribed guard.
+- **Actual-path comparison — P042:** freeze the missing-direction join before execution; this needs no change to existing TP_ELECT emitters.
+
+The requested boundary remains appropriate: **section-3 print-only instrumentation only; no future-rule clearance, live activation, or probe-proven downstream ordering.** Resolve the contradictions above in the packet before consuming the one-build/one-run authorization. 
+## Astra answer - 2026-09-18 - answers v180 relay (packet v17) (amend-with-delta, A1-A6; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V180-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v17 is not cleared as written.** The blockers are specification inconsistencies in section 3 and its acceptance contract, not a request for additional code or files. This is a page-only review verdict, not a key or authorization to execute.
+
+### Analytic A — defects, gaps, and imprecisions
+
+**A1 — Blocking: the frozen C-storage census does not accommodate the specified numeric construction.**
+**P032, P034, P036, P038.**
+
+P038 freezes C’s declarations to the counter/latches, arrays, and string temporaries. P032 nevertheless requires construction of `slDistExt1`, sharing raw denominators, finite/intermediate checks, and rounding/range-checking the numeric `extDistPts` value. These numeric intermediates have no declared probe-owned storage in that census.
+
+Repeated inline expressions could implement some calculations, but the packet does not give that implementation and also requires sharing the constructed quantities. A builder should not have to choose between extra declarations and weakened construction identities.
+
+**Required delta:** explicitly authorize and enumerate the minimal numeric/Boolean temporaries needed, initialized and populated only in the successful branch at the stated arithmetic phase. Alternatively, supply an unambiguous expression-only construction consistent with the existing declaration census. Preserve the prohibition on arithmetic from serialized tokens.
+
+**A2 — Blocking: JOIN-HALT classification is not operationally specified, and “copied fields” conflicts with the shadow branch.**
+**P032, P036, P038; EA L5487–L5492.**
+
+The pasted emitter suppresses **origin** price/time when `sl41_halt != "-"` at L5487–L5488. It independently formats **ext1** price/time according to `sl41_def` at L5490–L5491. Thus “halt-state rows … legacy - price/bartime” needs to name the origin fields specifically.
+
+Also:
+
+- `sl41_halt` is not among the printed SLEXT481 fields.
+- The packet does not explicitly freeze the parser rule that recognizes JOIN-HALT from the paired origin sentinels.
+- P036 says JOIN-HALT rows have “copied fields” that self-check, but P032 copies live shadow fields **only when ext1 is undefined**. A halt-state row with `ext1Defined=1` follows the defined branch.
+
+**Required delta:** identify JOIN-HALT through the exact legacy origin-field pattern, reject inconsistent partial patterns, and separate that classification from `ext1Defined`. State that undefined rows copy live values; defined JOIN-HALT rows follow the defined shadow construction but are excluded from provenance-dependent prediction/source conclusions. Keep universal live checks and invalid-operand failures applicable.
+
+**A3 — Blocking: the diagnostic comparison contract requires a direction key absent from the supplied TP_ELECT rows.**
+**P042; inline NONFIRE TP_ELECT evidence.**
+
+P042 requires TP_ELECT/SIGNAL matching on `(barTime, dir)`. The four pasted TP_ELECT records contain `bar` and operands but no `dir`. No direction-inheritance rule is specified for those records.
+
+**Required delta:** define direction attribution for directionless TP_ELECT rows through an unambiguous ordered join to the corresponding same-bar S5/SIDE record, with multiplicity preserved and ambiguity halting. Do not infer direction from price relationships. State the rule separately for event types that carry their own direction.
+
+**A4 — Acceptance precision: explicitly map guard-blocked probe ratios to the legacy numeric-zero display.**
+**P034(d), P036; EA L9747.**
+
+The probe correctly uses `rLive='-'` for a finite guard-blocked division. SIDE1X emits numeric `0.00` in that case. “Under the same guarded 2dp quotient idiom” suggests the intended comparison, but is not an explicit token-comparison rule.
+
+**Required delta:** compare guard state first. If blocked, require probe `'-'` and legacy `0.00`; otherwise compare the finite quotient using the legacy formatter. Neither token represents a failed finite check.
+
+**A5 — Width contract: `INVALID` exceeds two filed one-character field maxima.**
+**P034, P036, P038.**
+
+P034 allows unavailable counterfactual fields to carry `INVALID` for non-finite shadow inputs; P036 generally specifies INVALID substitution where finite checks fail. Yet P038 caps `rExt1` generously but caps `wouldAdopt_monotone` and `extSideOk` at one character, while their field rules prescribe `0` and `'-'`, respectively.
+
+The specific rules can govern, but the broad language should not imply INVALID can replace either field.
+
+**Required delta:** explicitly state that `extSideOk` remains `0/1/-` and `wouldAdopt_monotone` remains `0/1`; their unavailable states never serialize as INVALID. Apply INVALID only to the named fields that permit it.
+
+**A6 — Non-blocking editorial residue.**
+**P042; final register-correction paragraph.**
+
+- “No re-emit path exists in **v16**” should say **v17**.
+- The final paragraph’s “15x40” recount conflicts with P038’s current **15 integer fields = 41** ledger. Distinguish the historical recount from the current total rather than leaving both apparently current.
+
+**Accepted scope points:** The A/B capture placement fits the pasted selector scope: B remains inside EA L9626–L9666, while C follows the live distance/gate calculation at L9668–L9670. The native `{1,-1}` direction rule, terminal silence without strategy returns, separate origin/ext1 publication obligations, and downstream source-mapping boundary are appropriate. I also accept the proposed **16:55 demotion to a finding** on the supplied evidence; absence does not establish a decline.
+
+### Analytic B — better mechanism
+
+**B1 — Keep A+B+C; add a small, explicit numeric construction layer.**
+**P032/P038; insertion C after EA L9670.**
+
+The better implementation is to compute each shadow denominator and diagnostic intermediate once into named probe-owned temporaries, then use those same values for formatting and predicates. This is clearer and less error-prone than repeated expressions under a string-only declaration census. It needs no new helper, producer hunk, or live-state write.
+
+**B2 — Make record classification an explicit offline decision table.**
+**P034/P036/P042; no EA changes.**
+
+Classify independently by:
+
+- ext1 defined/undefined;
+- normal-origin/JOIN-HALT provenance;
+- finite/invalid arithmetic;
+- terminal/nonterminal record type.
+
+That avoids treating JOIN-HALT as an undefined fallback and makes sentinel precedence executable rather than interpretive.
+
+**B3 — Use one explicit ordered correlation rule for directionless legacy events.**
+**P038/P042; no EA changes.**
+
+Extend the existing ordered-occurrence join rather than adding diagnostic emitters. Require a unique direction-bearing S5 association for each TP_ELECT occurrence; otherwise halt attribution.
+
+No broader instrumentation mechanism is warranted for this probe. The protective-side adoption decision and downstream phase instrumentation remain outside this authorization, as P007/P046 already require.
+## Astra answer - 2026-09-19 - answers v181 relay (packet v18) (amend-with-delta, A1-A11; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V181-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v18.** Page-only review; no clearance key, build permission, or run word is issued. The print-only boundary is sound in principle, but the following specification contradictions should be resolved before the builder implements specification-only C.
+
+### Analytic A — defects, gaps, and imprecision
+
+**A1 — Blocking: the numeric width ledger excludes the required `INVALID` tokens.**
+**P034, P036, P038.**
+
+The per-field ledger allows `extDistPts<=7`, which accommodates `INVALID`, but allows `extSideOk<=1` while that field legitimately accepts `-` as well as `0/1`—still one character, so no issue there. The actual unresolved ledger issue is poison handling: **liveSel's poison `99` is already covered by its two-character budget**, while the four integer-carry expansions are explicitly covered by 1056. Thus the cited ledger is not defective merely because poison exists.
+
+However, P038 calls 1024 both a **"worst-case"** ceiling and a **"sizing estimate."** Those are different contracts. File one authoritative status: a conservative bound over the specified field domains, subject to compiler-format validation. The micro-check must transport **both the ordinary maximal fixture and the poison-inclusive fixture**, with their actual generated lengths and exact readback, rather than relying on the headline numbers. A successful shorter fixture cannot establish transport for the longer one.
+
+**A2 — Blocking: halt-state classification still refers to an unavailable field.**
+**P036; EA L5485–L5493.**
+
+P036 identifies JOIN-HALT "ONLY" through the paired legacy origin sentinels, but also says "while `sl41_halt` is not `-`." The pasted SLEXT481 template does **not** serialize `sl41_halt`.
+
+Replace that clause with:
+
+> JOIN-HALT is identified offline by both legacy origin fields being `-`; the equivalence to `sl41_halt != "-"` is established by EA L5487–L5488, not by an independently observed halt field. Partial sentinel patterns halt grading.
+
+No new probe field is necessary.
+
+**A3 — Blocking: diagnostic finite-gating conflicts with the literal shadow mirror unless the temporary's meaning is clarified.**
+**P032 step 5, P034, P036.**
+
+`probe_rExt1v` is described as `tpDist / slDistExt1` under the denominator branch, while P036 says ratio arithmetic is finite-gated. Separately, the literal `wouldGate` expression must remain unguarded by additional finite checks.
+
+Specify these as distinct operations:
+
+- `probe_wouldGateV`: literal live-equivalent predicate, retaining short-circuit behavior.
+- `probe_rExt1v`: diagnostic quotient, evaluated only when its finite-input and denominator conditions permit; otherwise its initialized value is unused and serialization emits the authorized sentinel.
+- Non-finite results are classified independently.
+
+This avoids a builder choosing between two conflicting interpretations. The six named temporaries suffice.
+
+**A4 — Blocking: the debug-purity condition contradicts the expressly tolerated dormant adoption block unless scoped to effective inputs.**
+**P007, P038; EA L8807–L8813.**
+
+The census says **any strategy-state writer under a debug gate halts**, and also prohibits strategy-execution effects. P038 nevertheless expressly excuses the `slRef` assignment guarded by `InpAdoptExt1 && InpDebugLog`, because `InpAdoptExt1=false`.
+
+Make the distinction explicit:
+
+> Enumerate all debug-dependent effects, including dormant strategy-affecting branches. Under the frozen effective-input manifest, no reachable debug-dependent strategy mutation, operand substitution, or strategy-flow exit is permitted. The sole named dormant adoption assignment is acceptable only with its enclosing condition proven false.
+
+A strategy-local stop write is strategy-affecting even if it is not a global strategy-state write. Do not let the terminology hide that distinction.
+
+**A5 — Mandatory textual correction: the page-proof claim contradicts the adopted evidence split.**
+**P032, P042.**
+
+P032 correctly says dominance is not page-proven and remains a STAGE-1 obligation. P042 ends with **"B dominance is page-provable."**
+
+Replace that with:
+
+> B dominance is a mandatory STAGE-1 source proof; the witness detects a never-saved path but does not replace that proof.
+
+The pasted local selector supports the proposed B placement; it does not establish the entire upstream interval.
+
+**A6 — Mandatory textual correction: undefined and defined JOIN-HALT rows are conflated.**
+**P036.**
+
+After correctly distinguishing undefined fallback from defined JOIN-HALT shadow construction, the paragraph says the excluded rows' **"copied fields self-check."** Defined JOIN-HALT rows do not generally copy their shadow fields from live operands.
+
+Use:
+
+> Undefined rows retain fallback copy-equality checks. Defined JOIN-HALT rows retain defined-shadow arithmetic and Boolean self-consistency checks, but are excluded from provenance-dependent predictions and source conclusions.
+
+**A7 — Clarify the defined-slot sentinel rule.**
+**P036, P038.**
+
+The stated defined-row domain includes `-999`, while `-999` is elsewhere the absent-ext1 identifier sentinel. The page explicitly rejects `-1` on defined rows but does not clearly decide whether **defined plus `ext1Slot=-999`** is acceptable.
+
+For this probe, specify either:
+
+- defined ext1 requires a real ladder slot, and `-999` halts; or
+- `-999` represents a named defined-but-unavailable class, with explicitly limited grading.
+
+Do not silently treat an absent identifier as source provenance.
+
+**A8 — Freeze the legacy price formatter correctly.**
+**P028, P034, P038, P042; EA L9729–L9732, L9743–L9746, L5487, L5490.**
+
+The packet repeatedly calls the legacy formatter "five-decimal," but the pasted source uses **`DoubleToString(value, _Digits)`**. Those agree only if the frozen symbol has `_Digits=5`.
+
+Add an explicit `_Digits==5` prerequisite for the stated comparisons, or define comparisons through the filed legacy `_Digits` formatter and revise the fixed-five-decimal claims accordingly. Merely recording digits does not resolve a contrary value.
+
+**A9 — Non-blocking: the six-fire prediction needs its retained-stop exception at the point of assertion.**
+**P015, P042; EA L9661–L9665.**
+
+Producer equality alone does not prove monotonicity for `liveSel=-1`, because that arm retains an unconstrained incoming stop. P042 names this exception; P015's "structural guarantee" wording is stronger than that qualification.
+
+State the six-fire prediction as conditioned on producer equality **and absence of newly enabled retained-stop cases**. Keep it outside this run's acceptance.
+
+**A10 — Non-blocking: residual version wording.**
+**P042.**
+
+"No re-emit path exists in v17" should name **v18**. The operative no-rerun contract is otherwise clear.
+
+**A11 — Non-blocking: distinguish all TP_ELECT rows from the fire subset consistently.**
+**P015, P028, P042.**
+
+The packet ultimately establishes seven qualifying TP_ELECT fire rows plus four non-fire TP_ELECT rows. Some shorthand still reads as though there are seven total TP_ELECT rows. Use **"seven TP_ELECT fire rows; eleven TP_ELECT rows total"** where counts drive comparison.
+
+**Accepted without expansion:** retain 38 fields for this authorization; do not adopt `walkEnd` implicitly. The native direction domain on NORMAL and BSAVE_FAIL, terminal latch/fall-through design, literal gate mirror, separate origin/publication obligations, and source-mapped downstream ordering are appropriate boundaries. Accept the proposed 16:55 demotion to a finding; absence does not establish a declined S5 evaluation.
+
+### Analytic B — better mechanisms
+
+**B1 — Best improvement within this envelope: one executable offline contract.**
+**P034, P036, P038, P042; no EA lines changed.**
+
+Use one field-specification table to drive the parser, canonical-token checks, maxima fixtures, schema-order checks, and record-state-machine tests. Keep compiler-format evidence separate from reference-formatter normalization. This reduces the main remaining risk: inconsistent interpretations of an unusually large prose specification.
+
+**B2 — Do not add `walkEnd` for this build.**
+**P034; EA L9632–L9659 and insertion B.**
+
+It would improve explanations of missing selector candidates, but it requires capturing exit reasons inside the walk, expanding the authorized instrumentation beyond assignment-only B, and revising schema/transport gates. It is not necessary to settle the captured selector→stop→gate→shadow chain. Consider it only in a separately amended probe if output leaves an important ambiguity.
+
+**B3 — Future live relay: reuse the actual protective-side predicate.**
+**P007, P009, P046; EA L9637 and L9661–L9665.**
+
+The carried `SlimbProtectiveSideOk`-guarded adoption is preferable to implementing a second side definition. It still requires its own review of helper semantics, fallback behavior, selector metadata, and B re-siting. **It is not authorized here.**
+
+The requested corrections are specification changes, not a request for full code or additional workspace evidence. No change to existing strategy statements, no second strategy run, and no live activation is justified by this review.
+## Astra answer - 2026-09-19 - answers v182 relay (packet v19) (amend-with-delta, A1-A11; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V182-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v19 is not cleared as pasted.** The blocking problems are in the frozen insertion C at **P032**, which does not implement several mandatory **P034/P036/P038** contracts. STAGE-1 must reject those discrepancies, not repair them under an exact-diff authorization. This is a page-only review verdict, not a build/run key or live-activation clearance.
+
+## Analytic ask A — defects, gaps, and imprecisions
+
+### A-1 — Undefined-ext1 records lack mandatory value stores
+**P032; P034; P036; P038; P042 — blocking.**
+
+These value-array positions are populated **only inside `if(g_sl41_def == 1)`**:
+
+- `[18]–[21]`: s0/s1 slot and imbalance.
+- `[22]–[24]`: origin price, origin time, origin site.
+- `[27]–[28]`: live raw numerator and denominator.
+- `[37]`: origin stamp.
+
+The undefined branch assigns none of them. It additionally executes:
+
+```cpp
+probe_vals[29] = probe_vals[27];
+probe_vals[30] = probe_vals[28];
+```
+
+without having populated those live-source entries on that path.
+
+That contradicts the mandatory fallback-copy checks, universal live-operand exposure, and origin-quadruple-on-every-NORMAL-record requirements. Automatic array storage is not a substitute for per-record population; even default-empty strings would violate the grammar.
+
+**Required delta:** move these class-independent stores into the successful branch **outside and before** the defined/undefined split. Retain only ext1-specific computation and serialization inside that split. Repaste the amended C literal.
+
+The archive's all-defined observation does not discharge an explicitly supported undefined branch.
+
+### A-2 — `wouldAdopt_monotone` never compares the candidate against the incumbent
+**P032; P036; P046 — blocking semantic mismatch, although the flag is report-only.**
+
+The `[31]` predicate checks candidate finiteness and incumbent validity, but omits the actual adversity comparison:
+
+```cpp
+g_dir == DIR_LONG  && g_sl41_px < probe_slLive
+g_dir == DIR_SHORT && g_sl41_px > probe_slLive
+```
+
+Consequently, it reports `1` for a valid incumbent even when ext1 equals that incumbent or would tighten risk. P036 explicitly requires strict expansion relative to `slLive`.
+
+**Required delta:** add the directional candidate-versus-incumbent comparison to the literal predicate. Preserve `0` for equality, invalid incumbents, and undefined ext1. "Reported, not graded" does not make a mislabeled measurement acceptable.
+
+### A-3 — Non-finite shadow inputs leak the initialized distance poison into diagnostics
+**P032; P034; P036 — blocking.**
+
+When ext1 is defined but `g_sl41_px` or `currentPrice` is non-finite:
+
+1. `probe_shadowOk` becomes false.
+2. `probe_slDistExt1` remains the finite initialization `-1e308`.
+3. `probe_wouldGateV` tests that initialization rather than a constructed shadow distance.
+4. With finite `tpDist`, `rExt1` becomes `"-"`.
+5. `rawDenExt1` serializes the initialized poison as a finite numeric operand.
+
+This is neither the promised constructed-distance mirror nor the promised INVALID classification. In particular, `"-"` incorrectly presents an unavailable calculation as a valid finite denominator-guard block.
+
+**Required delta:** make the invalid-input branch explicit in the reviewed literal. Unavailable shadow operands/ratios must receive their authorized INVALID classification, never a numeric initialization value or a guard-blocked sentinel. Preserve the distinction between an invalid-input/undecided result and a genuine gate failure.
+
+Also reconcile the construction policy: **P032/P036 call shadow-distance construction an exception to finite-gated arithmetic, while the literal finite-gates that construction.** Choose and freeze one consistent policy; do not leave this to the builder.
+
+### A-4 — Non-finite quotient results are not checked before formatting
+**P032; P034; P036 — blocking.**
+
+The live-ratio serializer checks finite **inputs**, then formats:
+
+```cpp
+StringFormat("%.17g", tpDist / slDist)
+```
+
+without checking the evaluated quotient. The shadow serializer likewise formats `probe_rExt1v` without checking that result.
+
+Finite operands and a positive finite denominator do not guarantee a finite quotient. P036 promises the exact token `INVALID` for non-finite ratios, but the literal can instead pass a non-finite result to `%g`, producing a token the grammar rejects.
+
+**Required delta:** separately validate evaluated diagnostic quotients before serialization. Keep `actualGate` untouched and keep the shadow Boolean's authorized predicate semantics separate from this formatting check. If this requires another temporary, amend the frozen temporary census too.
+
+### A-5 — `currentPrice` and `entryPx` bypass the stated INVALID formatter
+**P032; P034; P036 — blocking contract mismatch.**
+
+The literal unconditionally performs:
+
+```cpp
+probe_tokPx = StringFormat("%.17g", currentPrice);
+probe_vals[2] = probe_tokPx;
+probe_vals[34] = probe_tokPx;
+```
+
+Other price fields receive a finite check. These two do not, despite P036 applying the same non-finite substitution rule to them.
+
+**Required delta:** finite-check `currentPrice` once and populate both positions from the same resulting numeric-or-INVALID token. Their textual identity remains a duplication invariant; non-finite currentPrice remains an independent mandatory acceptance failure.
+
+### A-6 — A finite shadow numerator is suppressed because its denominator is invalid
+**P032; P034; P036 — blocking contract mismatch.**
+
+The `[29]` serializer uses:
+
+```cpp
+if(!MathIsValidNumber(tpDist) ||
+   !MathIsValidNumber(probe_slDistExt1))
+    probe_vals[29] = "INVALID";
+```
+
+Thus a finite observed `tpDist` is replaced with `INVALID` merely because the shadow denominator is non-finite. Conversely, `[30]` suppresses a finite denominator when `tpDist` is non-finite.
+
+That contradicts the independent raw-operand exposure policy. Invalidity of the **calculation** must not erase an independently available finite operand.
+
+**Required delta:** serialize each available raw operand according to its own validity. Apply combined validity checks to the ratio and acceptance classification, not to the other operand's token. Handle an unavailable constructed distance explicitly under A-3.
+
+### A-7 — The extDistPts range check occurs before, not after, rounding
+**P028; P032; P036; P038 — amendment required.**
+
+The prose repeatedly specifies:
+
+> round the displacement, then range-test the rounded double.
+
+The literal instead checks:
+
+```cpp
+MathAbs(probe_extDistD) > 99999.0
+```
+
+before calling `MathRound` during formatting. A displacement slightly above the boundary that rounds back to the permitted boundary is therefore rejected contrary to the stated policy.
+
+**Required delta:** finite-check the displacement/quotient, round into probe-owned storage, range-test that rounded result, then format that same result. Alternatively, explicitly amend the policy to a pre-round bound—but that would be a different policy.
+
+Additionally, `[25]` (`extSideOk`) is conditional on `_Point` being finite and positive, although its specified strict price comparison does not use `_Point`. The frozen input gate may exclude that case operationally, but the implementation and field definition should still agree: separate the side calculation from point-distance availability.
+
+### A-8 — The snapshot exception does not actually freeze insertion positions
+**P032; P034; P038 — authorization-boundary gap.**
+
+The two snapshot stores are expressly excepted, so their missing RHS symbol bindings are not an undisclosed omission. However, the literal contains **neither assignment**, and the surrounding prose does not identify an exact statement anchor at which each is inserted.
+
+"Only these two RHS bindings" understates what the builder must currently supply: the assignment statements themselves, their locations, and the agreed serialization form.
+
+**Required delta:** freeze the two assignment locations and statement forms, including the `"-"` strike forms. Bound the exception precisely to the named symbol/encoding bindings. Both stores must execute on every successful NORMAL path, including undefined ext1.
+
+This does not require another source paste or disclosure of unavailable symbols now; it requires an unambiguous permitted substitution/insertion rule.
+
+### A-9 — Reservation order in the literal contradicts the audited construction order
+**P032; P038 — specification/literal mismatch.**
+
+The numbered contract says:
+
+> terminal checks → reserve sequence → test bSaved.
+
+The literal tests:
+
+```cpp
+else if(!probe_bSaved)
+```
+
+**before** incrementing the sequence inside either selected branch.
+
+Both branches currently reserve exactly once, so this is not an observed sequence-cardinality defect. It is nevertheless inconsistent with the order the exact-diff/construction-order gate is instructed to certify.
+
+**Required delta:** either update the order contract to describe this branch-first implementation accurately, or repaste a reserve-first implementation. Do not certify the current literal as reserve-before-test.
+
+### A-10 — "38 value assignments" is not a valid census of the supplied literal
+**P032; P038 — specification gap.**
+
+The literal contains multiple mutually exclusive stores to various indices, two absent snapshot assignments, and the path omissions identified in A-1. A count of assignment statements cannot establish complete record population.
+
+**Required delta:** distinguish:
+
+- Exactly 38 payload indices.
+- One frozen population region.
+- The actual syntactic store-site census, including alternative branches.
+- **Definite population of all 38 indices on every NORMAL-emitting path.**
+- No read of a value-array entry before its population on that path.
+
+The last two are the necessary checks. A 38-key SCHEMA cannot establish them.
+
+### A-11 — Smaller wording and evidence-boundary corrections
+**Nonblocking individually; fold into the same amendment.**
+
+1. **P028 versus the arithmetic recheck:** the threshold interval for *A3 fails and A1 passes* has an **open lower endpoint and closed upper endpoint**:
+
+   ```text
+   (99/146, 108/78]
+   ```
+
+   P028's open/open decimal interval is not the exact interval. Keep this threshold interval distinct from P042's inclusive prediction-tolerance intervals.
+
+2. **P042:** "No re-emit path exists in v18" is a stale version reference. It should name v19, or the replacement version being reviewed.
+
+3. **P042:** remaining bare "7 TP_ELECT rows" statements should say **seven fire rows among eleven total TP_ELECT rows**, consistent with the otherwise explicit baseline.
+
+4. **Opening review-seat coverage note:** the full **L5305–L5498** debug block is not pasted. What is pasted is **L5442–L5498**, plus the enclosing opener and the reported brace census. **L5307–L5441 remains unpasted.** Keep that interval, and the no-earlier-return proof, labeled as disk-gated evidence. No additional paste is requested.
+
+5. **P007/P028/P032/P038 halt-state wording:** be precise that EA **L5487–L5488** suppress the legacy **origin price/time**. EA **L5490–L5491** serialize ext1 price/time according to `sl41_def`, not `sl41_halt`. P036's explicit JOIN-HALT definition largely resolves this, but broad references to "legacy price/bartime fields" can wrongly suggest the entire ext1 tuple is suppressed.
+
+## Analytic ask B — better mechanism
+
+### B-1 — A common-field population block, followed by a narrow ext1 branch
+**Touches P032 insertion C, after base EA L9670 and before L9671; updates P038.**
+
+Populate all class-independent values once: live operands, carries, selector tuples, origin quadruple, snapshots, and sequence. Then branch only for ext1-specific values and fallback copies.
+
+This directly fixes the undefined-path omissions without a new helper, new live global, fourth hunk, or schema change. Keep SCHEMA before value computation and retain the existing terminal latches.
+
+### B-2 — Separate numeric evaluation, validity classification, and token formatting
+**Touches P032 C’s ratio/distance/flag expressions; corresponding P034/P036 definitions and P038 census.**
+
+Use probe-owned numeric results for diagnostic calculations, check their validity explicitly, and format only valid results. Serialize independently available raw operands independently. Keep the literal gate Boolean distinct from diagnostic ratio availability.
+
+This removes the poison-as-data path, non-finite quotient formatting, and numerator/denominator cross-suppression while leaving **EA L9668–L9670 untouched**.
+
+### B-3 — Validate record-class coverage, not just templates and key counts
+**Touches P038’s pre-build serializer/parser validation contract; no live EA lines.**
+
+Within the bounded synthetic allowance, explicitly cover:
+
+- Defined finite ext1.
+- Undefined fallback.
+- Defined invalid shadow input.
+- Guard-blocked denominator.
+- Non-finite diagnostic quotient.
+- Equal, adverse, and non-adverse ext1 versus a valid incumbent.
+- Rounded point-distance boundary.
+
+These are serializer/predicate fixtures, not strategy observations. They should validate the amended literal’s branch behavior, not merely hand-constructed well-formed lines. If that requires expanding the presently frozen allowance, name the expansion in the amendment.
+
+**Disposition:** retain the print-only boundary, current schema, no-return/no-unload behavior, source-mapped downstream ordering, and separate future-live authorization. Repaste corrected C and reconcile its contracts before seeking clearance; the present exact-diff gate cannot turn this literal into the promised instrument.
+
+---
+
+## Astra answer - 2026-09-19 - answers v183 relay (packet v20) (amend-with-delta, A1-A10; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V183-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v20 is not clear as pasted.** The frozen C literal has blocking structural and serialization defects. This is a page-only review, not a key, build authorization, or live-activation ruling.
+
+## Analytic A — defects, gaps, and imprecision
+
+### A1 — Blocking: the successful branch closes before shadow computation and NORMAL emission
+**P032; conflicting with P030, P038, P042.**
+
+The literal contains:
+
+```cpp
+if(!MathIsValidNumber(slDist)) probe_vals[28] = "INVALID";
+else probe_vals[28] = StringFormat("%.17g", slDist);
+}
+probe_vals[14] = <<VETO_SYM>>;
+probe_vals[15] = <<SESSION_SYM>>;
+if(g_sl41_def == 1) {
+```
+
+That `}` closes the successful `else` arm. Consequently the snapshot stores, defined/fallback computation, NORMAL assembly, and NORMAL Print are outside the terminal chain.
+
+This defeats the promised behavior: capped/dead/BSAVE_FAIL paths can fall into subsequent probe work with unpopulated keys and values. The final closing brace then has no matching insertion-local opening brace and can disturb the enclosing EA structure.
+
+**Required delta:** remove the premature closure and keep all snapshot stores, shadow work, value population, and NORMAL emission inside the successful arm. Retain its closing brace after the NORMAL Print. Re-freeze the complete literal; this is not an authorized builder interpretation of v20.
+
+### A2 — Blocking: `ladOriginStamp` is never populated
+**P032; P034 position 38; P036; P038; P042.**
+
+The literal defines:
+
+```cpp
+probe_keys[37] = "ladOriginStamp";
+```
+
+but contains no assignment to `probe_vals[37]`. The prefill leaves it `"?"` on successful records. Every NORMAL record therefore fails the parser and cannot perform the mandatory freshness check.
+
+**Required delta:** inside the successful arm, encode `g_sl41_oStamp` using the authorized datetime sequence and immediately store it in `probe_vals[37]`. Update the store census to match the corrected literal.
+
+### A3 — Blocking: finite-input checks do not implement the promised intermediate/quotient validity handling
+**P032 versus P034 and P036.**
+
+The following gaps remain:
+
+- `rLive` formats `tpDist / slDist` without checking the evaluated quotient.
+- `probe_shadowOk` checks the two price inputs, but not the constructed `probe_slDistExt1`.
+- `rawDenExt1` formats that constructed distance whenever `probe_shadowOk` is true, even if the subtraction overflowed.
+- `rExt1` formats `probe_rExt1v` without checking the quotient.
+
+Finite operands do not guarantee finite subtraction or division results. These paths can emit noncanonical infinity/NaN spellings rather than the required `INVALID`.
+
+**Required delta:** validate constructed distances and evaluated diagnostic quotients before formatting them. Preserve the independent, literal `wouldGate` comparison and the already-observed `actualGate`; do not turn diagnostic validity checks into extra guards on those Booleans. Any additional temporaries must enter the frozen declaration census.
+
+### A4 — Blocking contract mismatch: point-distance bounds are tested before rounding
+**P032 versus P028, P036, P038.**
+
+The literal rejects:
+
+```cpp
+MathAbs(probe_extDistD) > 99999.0
+```
+
+before applying `MathRound`. The contract instead range-tests the **rounded** double. A finite displacement slightly above 99999 can round to an allowed value but is rejected by the literal.
+
+**Required delta:** finite-check the displacement/point quotient, round it, then finite/range-check the rounded result before `DoubleToString(m,0)`. Freeze this order explicitly.
+
+### A5 — Snapshot strike handling is not executable as specified
+**P032, P034, P038, P042.**
+
+The only authorized literal exceptions are two RHS identifier bindings. Yet symbol-identity failure permits a strike, while P034 says the `-` substitution is grading-side, "never probe code."
+
+If a symbol is unavailable, grading-side substitution cannot make its source reference compile. If the bound symbol is numeric or Boolean, merely assigning it to a string also does not define the required canonical encoding and may conflict with the zero-warning gate.
+
+**Required delta:** distinguish two cases:
+
+1. **Available snapshot:** freeze the source identity, source type, and explicit serialization expression.
+2. **Unavailable/struck snapshot:** authorize the literal string RHS `"-"` before build, with no read of the unavailable symbol.
+
+Do not leave an unresolved or guessed source read behind an offline strike.
+
+### A6 — The construction census does not describe the literal
+**P032, P038; opening envelope description.**
+
+Besides the missing stamp store:
+
+- The prefill writes every value position before its final population, so "each written exactly once" needs to mean **one final population per execution path after prefill**.
+- Alternative finite/invalid branches create multiple syntactic assignment statements. "50 store statements" cannot be used interchangeably with logical field-population positions.
+- The opening description says "two loops"; P038 and the literal contain three, including prefill.
+- The promised four datetime encode/store uses on NORMAL records are not present without the stamp store.
+
+**Required delta:** use separate counts for syntactic stores, per-path final populations, prefill, and loops. Derive them from the repaired literal, not from the intended schema.
+
+### A7 — The invalid-`_Point` diagnostic policy is incomplete
+**P032, P036, P038.**
+
+The literal jointly gates `extSideOk` and `extDistPts` on finite positive `_Point`. But the strict price-side comparison does not require `_Point`. P036 describes its availability from defined ext1 and finite prices, while P038 makes valid `_Point` a build prerequisite.
+
+**Required delta:** either separate the side comparison from point-distance validity, or explicitly state that the joint `_Point` guard is unreachable under the mandatory prerequisite and define its failure classification. Do not imply that unavailable point scaling makes the price-side relationship unknown.
+
+### A8 — Shadow-distance exception wording conflicts with the literal
+**P032, P034, P036.**
+
+The prose calls shadow-distance construction an exception to finite-gated diagnostic arithmetic using actual numeric operands, while the literal computes it only when `probe_shadowOk` holds. With invalid input, the mirror instead sees the initialized negative poison distance.
+
+The explicit invalid-input acceptance failure prevents this from being a valid prediction, but it does not make the computation an unconditional literal mirror.
+
+**Required delta:** state precisely that invalid-input rows are outside mirror-result equivalence, or change the construction and its safety contract. Preserve the distinction between an invalid counterfactual and a legitimately false gate.
+
+### A9 — Archive confirmation must not be presented as prospective run proof
+**P020, P025, P028, P042.**
+
+"PRE-RESOLVED confirmed" establishes agreement among the cited archive displays. It does not pre-establish the new run's lossless operands, gate result, or producer equality. Most of the packet preserves this distinction, but the repeated wording can overstate it.
+
+**Delta:** use "archive-confirmed at display precision; new-run checks remain mandatory." No additional run is needed.
+
+### A10 — Evidence-coverage wording is broader than the pasted block
+**Review-seat introduction; P007, P038; inline publication evidence.**
+
+The introduction says the "L5305–L5498 debug-gate block rides below." What is actually pasted is L5442–L5498, plus the L5305–L5306 opener and the brace census—not the complete intervening body.
+
+**Delta:** describe that coverage exactly. The no-earlier-return proof remains a STAGE-1 disk obligation, as the packet otherwise correctly states.
+
+## Analytic B — better mechanism within this goal
+
+**B1 — Repair the existing guarded emitter rather than expanding the probe.**
+**Touches P032 insertion C, post-EA L9670/pre-L9671; corresponding P038 census.**
+
+Keep the current CAP/BSAVE_FAIL/NORMAL chain, but make the successful arm lexically contain **every** NORMAL-specific operation. Add the missing stamp store. This is the smallest correction and restores terminal silence without touching strategy flow.
+
+**B2 — Separate diagnostic arithmetic validity from gate mirroring.**
+**Touches P032 ratio/distance computation and serialization; P034/P036 validity contract.**
+
+Compute diagnostic results into explicit probe-owned temporaries, validate each result, and serialize either canonical numeric text or `INVALID`. Keep `actualGate` observed and `wouldGate` independently evaluated under its frozen predicate. This makes the validity contract inspectable without silently changing the gate.
+
+**B3 — Make the existing pre-build fixture check validate the frozen literal's structure.**
+**Touches P038's bounded source/fixture validation, not EA strategy lines.**
+
+Within the already-authorized checks, verify:
+
+- insertion-local brace balance;
+- NORMAL emission remains inside the successful arm;
+- every successful path replaces all 38 prefill tokens;
+- terminal/dead paths cannot reach NORMAL population or emission;
+- snapshot bindings are executable typed expressions.
+
+These checks directly catch A1/A2 before consuming the single EA build. They are source/fixture checks, not strategy-run evidence.
+
+**Disposition:** re-freeze the corrected C literal and aligned contract before clearance. The section-1 rule, live activation, and downstream runtime-order claims remain outside this probe's authorization.
+
+---
+
+## Astra answer - 2026-09-19 - answers v184 relay (packet v21) (amend-with-delta, A1-A3 blocking + A4-A6 notes + B1-B2; page-only, not a key; no Ruling-ID stated, filed as entry ASTRA-V184-001)
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v21 is not cleared as written.** Page-only review; no ruling on disk genuineness, no keys, and no build/run authorization issued.
+
+### Analytic A — defects and required deltas
+
+**A1 — The frozen point-distance calculation does not implement the promised pre-round checks.**
+**P032 literal; P036; P038.**
+
+P038 expressly requires finite checks on displacement and quotient **before rounding**. The literal instead computes the quotient, immediately calls `MathRound(probe_extDistD)`, and checks only `probe_extRnd`.
+
+Finite `currentPrice` and `g_sl41_px`, with finite positive `_Point`, do not establish that subtraction or division stays finite. A post-round check cannot establish the required pre-round validation.
+
+**Required delta:** check the signed subtraction before dividing, check `probe_extDistD` before `MathRound`, and retain the existing finite/range check on the rounded result. On arithmetic failure, store `INVALID` in `probe_vals[26]`. Preserve the independent `extSideOk` calculation and literal `wouldGate` predicate. Re-freeze the literal and update its temporary/store census as needed; this is not one of the two permitted builder-bound RHS substitutions.
+
+**A2 — The construction-order assertion contradicts the literal's prefill placement.**
+**P032 steps 3a–5b and literal; P038 construction-order assertion.**
+
+Immediately after successful sequence reservation, the literal populates `probe_vals` with `"?"`, before key population and SCHEMA. P038 nevertheless requires keys, then SCHEMA, then computation/value population, and says values are never evaluated before that arithmetic phase.
+
+The prefill is harmless probe-owned initialization, but the literal does not satisfy the unqualified assertion.
+
+**Required delta:** explicitly exempt the constant-only `"?"` prefill from the value-computation/population ordering restriction. State the actual order:
+
+> successful reservation → constant-only value prefill → keys → optional SCHEMA → operand-dependent computation and final value stores → NORMAL assembly/emission.
+
+No mechanism change is needed.
+
+**A3 — "Origin quadruple on EVERY record" overstates the wire contract.**
+**P036; P034 non-NORMAL templates; P046.**
+
+The origin quadruple is present on every **NORMAL** record, including undefined-ext1 NORMAL records. It is not present on SCHEMA, CAP, or BSAVE_FAIL. The complete templates correctly omit it there.
+
+**Required delta:** qualify the universal wording as "every NORMAL record, including undefined and defined JOIN-HALT rows." Keep the terminal templates unchanged.
+
+### Additional precision notes
+
+**A4 — The separation-interval notation is inconsistent.**
+**P028; relay "Arithmetic recheck."**
+
+For A3 to fail and A1 to pass under a `>=` gate, the threshold interval is open at A3's exact ratio and closed at A1's exact ratio:
+
+`(99/146, 108/78]`.
+
+P028 gives an open upper endpoint, while the later recheck gives a closed upper endpoint. Use the exact fractions and consistent endpoint notation. This does not affect the frozen threshold of 1.0 or replace P042's separate display-uncertainty intervals.
+
+**A5 — The stamp's scope remains important despite the corrected store.**
+**P032; P038; P046; EA L8773–L8779 and L5496–L5497.**
+
+The literal now stores `probe_vals[37]`, addressing the missing-stamp defect. That stamp witnesses the **pre-call origin publication**, not completion of the ext1 tuple publication. The packet mostly states this distinction correctly: retain the unconditional-publication/no-subsequent-writer disk obligations and precision-limited SLEXT481 corroboration. Do not promote stamp equality alone into ext1 freshness proof.
+
+**A6 — Zero-denominator shadow serialization is not a defect in this literal.**
+**P032; P036.**
+
+With finite shadow inputs and zero shadow distance, the diagnostic quotient remains its finite initialized value, and the denominator branch ultimately prints `"-"`. It does not necessarily print `INVALID` merely because division was skipped. Preserve this distinction when implementing A1.
+
+### Analytic B — better mechanism
+
+**B1 — Use a staged diagnostic calculation for point displacement.**
+**Touch: P032 C insertion, between EA L9670 and L9671; corresponding P036/P038 specification and census.**
+
+Separate signed subtraction, division, rounding, and rounded-range validation. This directly implements A1, isolates the failure stage, and leaves all live statements and the shadow gate mirror unchanged. A named probe-owned signed-displacement temporary is clearer than repeating the subtraction.
+
+**B2 — No broader refactor is required for this probe.**
+**EA L9618, L9665–L9666, L9670–L9671.**
+
+Keep the current A/B carry arrangement, successful-arm NORMAL assembly, and terminal latch-and-fall-through structure. The relocated closing brace and stored stamp address the specific prior structural defects visible on the page. A helper extraction, new producer stamp, schema reduction, or live selector change would expand the authorization surface without being necessary to resolve the defects above.
+
+**Disposition:** amend A1–A3 and normalize A4, then re-submit the re-frozen packet. Downstream veto/latch/SIGNAL/session-mark ordering remains source-mapped, never proven by this probe; live activation remains wholly outside this review.
+
+---
+
+## Astra answer - 2026-09-19 - answers v185 relay (packet v22) (amend-with-delta, A1-A7 + B1-B2; page-only, not a key; filed as entry ASTRA-V185-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Astra:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v22.** Review-only judgment, not a key or run authorization. The remaining issues are contract precision and reproducibility; I do not identify a necessary live-path change.
+
+## Analytic A — defects, gaps, and imprecisions
+
+**A1 — Make the exact-rational comparison executable without rounding its endpoints. P028, P042.**
+P042 specifies exact rational bounds but does not explicitly prescribe comparing the reconstructed binary64 value *as an exact rational* against those bounds. Converting each endpoint to binary64 first can change endpoint membership. Specify: decode the finite binary64 result into its exact integer ratio and compare by integer cross-products, with inclusive endpoints. Also write the P028 separation interval as **(99/146, 108/78]**; the displayed truncated decimals are not exact endpoints.
+
+**A2 — Resolve the unconditional debug-write prohibition against the effective-input exception. P007, P038; EA L8807–L8813.**
+P007 says “any strategy-state writer found under a debug gate halts the build.” P038 expressly permits the dormant adoption writes when `InpAdoptExt1=false` is proven. A literal census will find those writers regardless of their reachability. Make both sections say that **reachable strategy-affecting writes under the frozen manifest halt**, while the explicitly enumerated dormant writes are permitted only with their false conditions proven. This is a textual reconciliation, not permission for additional exceptions.
+
+**A3 — Separate syntax census from path-population census consistently. P032, P038.**
+The frozen literal supports the intended distinction between syntactic stores and one final value per position on an executed NORMAL path. However, P032’s “38 stores” and “each temp/format result stores … in the next statement” are stronger than the literal:
+
+- `probe_extDifD`, `probe_extDistD`, and `probe_extRnd` undergo staged checks and computation before serialization.
+- `probe_slDistExt1` supplies several later calculations before its raw-field store.
+- Shared price tokens intentionally supply two stores for `entryPx/currentPrice`.
+
+Restrict the immediate-store requirement to the **datetime encoding/temp-reuse rule**, and describe the other requirement as “each position receives its final value before NORMAL assembly; no scratch value is overwritten before its required consumers use it.” Keep syntactic counts and executed-path counts explicitly separate.
+
+**A4 — State how the offline canonical checker reproduces the compiler’s raw spelling. P034, P036, P038.**
+The distinction between wire canonicalization and exponent-normalized reference comparison is sound, but naming an independent formatter plus filing one exponent example does not itself establish byte-exact compiler equivalence for every actual token. Add a concrete STAGE-1 obligation: file the compiler-compatible raw-token reconstruction rule, including exponent width/case/sign and signed-zero behavior. Reference normalization must not cause a noncanonical raw spelling to pass.
+
+This needs no EA change and can remain within the already authorized offline-parser/formatter fixture allowance.
+
+**A5 — Make the two snapshot exceptions fully bounded as source expressions. P003, P032, P034, P038.**
+Their positions and combined width budget are frozen, but “named landed-symbol bindings” does not explicitly define the permitted RHS expression shape. A raw numeric symbol is not necessarily a valid canonical string RHS, and a builder-selected conversion can introduce behavior beyond a read.
+
+Require each addendum to file the **complete RHS expression**, source type, encoding/domain, maximum width, and any permitted formatter call. Apply the existing purity allow-list and no-live-reference-mutation rule to those expressions explicitly. If that cannot be established, retain the literal `"-"` strike. No new getter or helper should be implicitly authorized.
+
+**A6 — Correct two provenance/serialization descriptions. P007, P032, P036; EA L5487–L5492.**
+The descriptions of halt-state rows as publishing with legacy “price/bartime” dashes should identify **origin price/origin time** specifically. The pasted code suppresses those fields on `sl41_halt != "-"`; it independently emits ext1 price/time whenever `sl41_def == 1`. P036’s JOIN-HALT classification already reflects this correctly. Align the earlier descriptions with it.
+
+**A7 — Remove stale operative-version wording. P042.**
+“No re-emit path exists in v21” should say **v22**. The surrounding authorization makes the intended policy clear, but the operative acceptance section should not attribute its restriction to the withdrawn packet.
+
+### What is satisfactory on the supplied page
+
+- **P032:** The success-arm brace encloses NORMAL assembly; `probe_vals[37]` is populated; prefill precedes key construction and SCHEMA.
+- **P032/P036:** Signed displacement, point division, and rounding are staged with validity checks; side comparison is independent of `_Point` availability.
+- **P032/P034:** Terminal checks precede reservation and non-witness carry reads; failure and cap latches precede their emissions; no inserted return or unload request appears.
+- **P034/P036:** NORMAL-only origin-quadruple scope and `{1,-1}` on both dir-carrying types are coherent.
+- **P038/P042:** Build-time proof, runtime falsifiers, archive-precision corroboration, and downstream source mapping are materially distinguished. I do not treat the asserted disk measurements as independently verified here.
+
+## Analytic B — better mechanism
+
+**B1 — Prefer an offline validator with separately tested stages, not another EA instrumentation mechanism. P034, P036, P042; no EA lines touched.**
+Use separate validation stages for transport/templates, terminal sequencing, field domains/canonicalization, binary64 arithmetic identities, ordered provenance joins, and archive comparison. Preserve the original tokens alongside parsed values. This makes a transport or invalid-operand failure incapable of accidentally becoming a gate result or prediction match.
+
+**B2 — No additional live-path refactor is warranted for this probe. P032; EA L9618–L9671.**
+Keep A/B/C, the witness, and the literal mirror. A shared emitter helper or smaller payload could reduce maintenance burden, but would reopen the frozen source/schema surface without being necessary to resolve these deltas. The future protective-side routing question remains a separate live-relay issue at **EA L9661–L9665**, not a condition to implement in this print-only build.
+
+These amendments do not request another field, another strategy execution, full-code access, or a change to the existing selector/gate.
+
+---
+
+## Astra answer - 2026-09-19 - answers v186 relay (packet v23) (amend-with-delta, A1-A9 + B1-B3; page-only, not a key; filed as entry ASTRA-V186-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Astra:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v23, P003/P032/P036/P038/P042/P046.** Page-only review; no key, build permission, run word, or live-activation clearance is issued here. The remaining issues below can be resolved as packet-text changes without changing the frozen A/B/C instrumentation.
+
+## Analytic A — defects, gaps, and imprecisions
+
+### A1 — Make the binary64 decoding rule common to every numerical check
+**P028, P034, P036, P042.**
+
+P042 explicitly prescribes decoding the parsed binary64 ratio to an exact integer ratio for interval grading. However, the preceding decimal-token-to-binary64 conversion is not explicitly prescribed as correctly rounded, nor is its signed-zero handling stated as a common parser requirement.
+
+That matters because the packet also demands bit-equal reconstructed operands and compiler-canonical token reconstruction. A decimal parser that truncates, loses negative zero, or first passes through another precision can disagree before the exact-rational comparison even begins.
+
+**Required delta:** prescribe one common decoding rule for all finite binary64 fields: correctly rounded decimal-to-IEEE-754 binary64 conversion, round-to-nearest/ties-to-even, with signed zero preserved. Then apply the already-required compiler-compatible raw-token reconstruction and exact-rational comparison. Invalid or out-of-range decoded values must fail before arithmetic.
+
+This is an offline specification amendment, not an EA change.
+
+### A2 — Resolve the extDistPts negative-zero wording without requiring a literal change
+**P028, P034, P036, P046.**
+
+P028 accepts `-0`; P034 describes integer fields as canonical decimal syntax but separately gives extDistPts its own `DoubleToString(m,0)` rule. P036 nevertheless carries the “-0 tension” as something disposed by an **unadopted** IntegerToString literal change.
+
+The field-specific formatter rule can already resolve this. The unresolved-disposition sentence makes the intended authority needlessly ambiguous.
+
+**Required delta:** state that extDistPts is an integer-valued-double diagnostic governed exclusively by its `DoubleToString(m,0)` field rule. Accept `-0` only when it is compiler-canonical under the filed formatter behavior; interpret it numerically as zero while preserving its wire spelling. The canonical IntegerToString-style rule applies to the actual integer fields, not this diagnostic.
+
+Delete the claim that a declined literal change disposes the current contract. No formatter replacement is needed for this probe.
+
+### A3 — Define which records are adjacent in the corroboration order
+**P032, P038, P042; EA L5494–L5497, L9670–L9748.**
+
+The packet specifies:
+
+> SLEXT481 → STOPRESOLVE → SIDE1E → SIDE1X → SIDE1Y
+
+But the first successful evaluation emits **SCHEMA then NORMAL**, and the terminal alternatives replace NORMAL. Existing unrelated diagnostics can also occur between the named sites.
+
+The state machine describes these cases separately, but the positional join rule does not expressly incorporate them.
+
+**Required delta:** define the positional rule as relative order within the filtered, same-evaluation diagnostic stream—not physical adjacency. Specify:
+
+- First successful evaluation: SLEXT481, SCHEMA, NORMAL, SIDE1E, SIDE1X, SIDE1Y.
+- Later successful evaluations: SLEXT481, NORMAL, SIDE1E, SIDE1X, SIDE1Y.
+- Terminal evaluations: the corresponding terminal record replaces NORMAL; acceptance fails, while actual-path comparison continues.
+- Unrelated diagnostics are not positional violations.
+
+Keep ordered-occurrence matching, multiplicity preservation, and ambiguity-halts unchanged.
+
+### A4 — Distinguish an unconditional publication requirement from successful-return-only dominance
+**P007, P032, P038; EA L8779/L8788.**
+
+The text variously requires “no-earlier-return” over ComputeSlReference and publication “before successful return.” These are not equivalent requirements.
+
+An earlier **failure** return would not threaten C freshness if the caller necessarily aborts before C, as the supplied L8779/L8788 context says. Conversely, a successful return before publication would be a real defect.
+
+**Required delta:** choose and state the intended gate precisely. The sufficient requirement is:
+
+> Every successful S5 invocation capable of reaching C passes the complete publication site, and no intervening writer changes the consumed tuple before C; any invocation returning without publication cannot reach C.
+
+If the packet deliberately requires the stronger zero-return census, label it as an additional conservative build restriction—not as the only possible dominance proof. This does not request more source.
+
+### A5 — State the snapshot-expression shape rather than merely requiring it to be filed
+**P032, P034, P038.**
+
+The two snapshot exceptions require a complete RHS, source type, domain, width, and permitted formatter to be filed. Purity is constrained, but the **expression shape** remains broader than “bind a landed symbol”: arbitrary pure arithmetic, combinations of several symbols, or nested conditional expressions could satisfy the current description.
+
+That leaves more builder discretion than the opening claim of “two … RHS bindings” suggests.
+
+**Required delta:** limit each non-struck RHS to either:
+
+- a direct read of one identified landed scalar/string symbol; or
+- an explicitly bounded encoding of that symbol using the existing allow-listed formatter and a filed fixed enum mapping.
+
+Exclude computed strategy predicates, aggregation of multiple strategy variables, and new lookup logic. If such a restriction cannot express the snapshot, retain the already-authorized `"-"` strike.
+
+### A6 — Correct the remaining step-label mismatch
+**P032 versus P038.**
+
+P032 correctly assigns **3a to prefill** and **3b to keys**. P038 still calls the 38 key assignments “frozen step 3a.”
+
+**Required delta:** change that P038 reference to **step 3b**. This is a transcription fix, not a census or literal change.
+
+### A7 — Correct the active version residue
+**P042.**
+
+The active acceptance section still says:
+
+> No re-emit path exists in v22
+
+**Required delta:** change **v22** to **v23**. The surrounding rule already makes the intended prohibition clear.
+
+### A8 — Reconcile the adoption-status statement with the carried register
+**P003 versus P001/P036/P046.**
+
+P003 says both “no known-requested sliver stays unfolded” and “nothing known-requested stays unfolded.” P046 expressly lists received requests that were declined or carried for council disposal.
+
+Those can all be accounted for without all being adopted.
+
+**Required delta:** replace the blanket statement with:
+
+> Every received request is accounted for as adopted, declined with reasons, or explicitly carried; only adopted changes form this authorization.
+
+Also avoid “This version is cleared solely against…” in an AUTHORED-unbuilt packet awaiting this verdict; “submitted for clearance against…” accurately states its status.
+
+### A9 — Two non-blocking precision limits worth keeping explicit
+**P032/P034/P038/P042.**
+
+- **Transport:** successful readback of a 1056-character fixture proves that tested length survives the named sink. It does not, by itself, measure the sink’s maximum “single-Print ceiling.” Call it a demonstrated transport length unless the micro-check actually establishes a boundary.
+- **Cap bound:** the pasted OnTick guard prevents consecutive evaluation of the same bar timestamp. A whole-run “at most once per bar” bound also relies on monotonic tester-series progression and the stated no-reinitialization condition. Name that assumption rather than attributing the entire bound to the guard alone.
+
+Neither requires changing the probe literal.
+
+## Analytic B — better mechanisms
+
+### B1 — Use a staged offline validator
+**Touches the analysis contract at P034/P036/P038/P042; no EA lines.**
+
+The best improvement for this build is an explicit validation pipeline:
+
+1. Transport prefix and record grammar.
+2. Field-specific canonical decoding.
+3. SCHEMA/sequence/terminal state machine.
+4. Domain and validity classification.
+5. Ordered corroboration joins.
+6. Operand identities and binary64 gate recomputation.
+7. Exact-rational archive grading.
+8. Findings and outcome comparison.
+
+A failure in an earlier stage must prevent later numerical or provenance conclusions. This organizes existing obligations rather than adding instrumentation.
+
+### B2 — Keep snapshot strikes as the default
+**Touches only the permitted RHS exceptions in P032/P034.**
+
+For a probe whose declared purpose ends at selector→stop→gate→shadow, `"-"` is preferable to a complicated snapshot expression. Bind a snapshot only when one direct, well-defined source genuinely adds useful site-state evidence. Neither snapshot should be used to infer downstream execution.
+
+### B3 — Keep live-path improvements out of this authorization
+**Future touches: EA L9661–L9665 and B’s capture location; potentially producer publication at L5496–L5497.**
+
+Routing future ext1 adoption through the existing protective-side helper remains the stronger live mechanism than introducing an independent side test. Likewise, a producer-issued publication stamp could strengthen future tuple provenance. Neither belongs in this print-only amendment, and neither is a condition for clearing this probe after the text deltas above.
+
+**Bottom line:** the pasted A/B/C structure supports the intended print-only review scope, subject to the named disk gates. Amend the decoding, join, publication, snapshot-binding, and status wording above; do not spend the build/run authorization against mutually ambiguous acceptance text.
+
+---
+
+## Astra answer - 2026-09-19 - answers v187 relay (packet v24) (amend-with-delta, A-1-A-8 + B-1-B-3; page-only, not a key; filed as entry ASTRA-V187-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Astra:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+**amend-with-delta — PACKET_EXT1LIVE-001 v24.** Page-only review; no key, build/run authorization, or disk verification is asserted. The principal blocker is an incorrect exhaustive hazard claim in P034; it can be repaired without changing the frozen A/B/C literal.
+
+### Analytic A — defects, gaps, and imprecision
+
+**A-1 — Finite operands can also produce the non-finite-quotient hazard. Blocking text correction.**
+**P032, P034, P036, P042; EA L9670.**
+
+P034 says:
+
+> “the only generator of a printed 1 on a non-finite quotient is tpDist non-finite with probe_slDistExt1 finite and positive alongside rawNumExt1 INVALID”
+
+That is false under the packet’s binary64 arithmetic model. A finite positive numerator divided by a sufficiently small finite positive denominator can overflow to positive infinity. In that case:
+
+- `probe_shadowOk` can be true;
+- both raw shadow operands can serialize as finite numbers;
+- `probe_rExt1v` is non-finite, so `rExt1=INVALID`;
+- the unguarded mirror can produce `wouldGate=1`.
+
+The acceptance rules already broadly reject a non-finite evaluated quotient, so the literal need not change. **Replace the exhaustive generator sentence** with:
+
+> A printed wouldGate=1 with a non-finite evaluated quotient can arise from a positive-infinite numerator or from division overflow with finite operands and a finite positive denominator. Finite raw tokens therefore do not establish quotient validity. Either case fails acceptance; the literal Boolean remains preserved.
+
+Apply the same distinction when describing the actual-path quotient. This is a counterexample within the stated numeric contract, not a claim that the frozen market window will encounter it.
+
+**A-2 — The live denominator identity needs an explicit signed-zero policy.**
+**P034(c), P036, P042; EA L9668–L9669.**
+
+P042 correctly specifies signed-zero-preserving decoding, while P034(c) requires bit-equal reconstruction of subtraction followed by `MathAbs`. That is workable, but the reference arithmetic must reproduce the compiler’s absolute-value behavior for negative zero, not merely use a language’s numeric equality.
+
+**Delta:** include signed-zero subtraction/absolute-value cases in the already-authorized reference-arithmetic validation. This is a clarification of the existing bit-equality gate, not another run or a literal change.
+
+**A-3 — The tpTarget census description misidentifies the consuming line.**
+**P038; EA L9669–L9670.**
+
+P038 calls L9670 a “compound-predicate read of tpTarget.” The pasted L9670 reads `slDist`, `tpDist`, and `InpMinRewardRisk`; **tpTarget is read at L9669**, which constructs `tpDist`.
+
+Keep the census endpoint at L9670, but replace the parenthesis with:
+
+> L9669 reads tpTarget to construct tpDist; L9670 consumes tpDist in the compound predicate and contains no tpTarget reference or write.
+
+This does not invalidate the chosen census interval.
+
+**A-4 — Demonstrated transport length and measured ceiling remain conflated.**
+**P038; “JOURNAL CEILING NOTE”; final disk-measurement summary.**
+
+P038 properly says a successful 1056-character fixture demonstrates transport at that length, “never a measured single-Print maximum.” It later still requires an “observed single-Print ceiling.” Those are different measurements.
+
+**Delta:** consistently require:
+
+> successful byte-identical readback at the tested fixture lengths, including 1056 characters; no maximum supported line length is inferred.
+
+No search for a true sink maximum is necessary for this probe.
+
+**A-5 — Snapshot-expression restrictions should explicitly cover assignments inside the RHS.**
+**P032, P034, P038.**
+
+“One assignment statement with no guard and no branch” plus the helper allow-list and no-live-mutation rule substantially bounds the addendum. However, the outer statement can still contain nested assignments or other side effects within its RHS.
+
+**Delta:** state that each bound RHS is a read-only expression over the named site-readable symbols, constants, and permitted formatters, with **no nested assignment, increment/decrement, or mutation of any other probe storage**. Otherwise retain `"-"`.
+
+This closes expression-shape ambiguity without requiring a new getter or field.
+
+**A-6 — Expected count is a point prediction, not a band.**
+**P038, P042.**
+
+The page defines 13 as the archive-derived prediction and correctly makes deviation a finding subject to the diagnostic contract. P042 nevertheless retains “expected band” and “band report.”
+
+**Delta:** use “expected count 13 and observed deviation report” throughout. Do not introduce an unspecified tolerance band.
+
+**A-7 — “INVALID means failed finite check” is too narrow in the summary grammar.**
+**P034 versus P036; P032 extDistPts branch.**
+
+The literal emits `INVALID` when the rounded displacement is finite but exceeds the authorized range. P036 recognizes this; P034 still summarizes `INVALID` as “failed finite check.”
+
+**Delta:** describe it as:
+
+> failed field-validity check, including non-finite input/intermediate/result or the explicitly authorized extDistPts range failure.
+
+Keep the existing statement that the wire token does not distinguish causes.
+
+**A-8 — Fail-fast grading must not suppress the actual-path comparison obligation.**
+**P042.**
+
+“CAP short-circuits all downstream grading” and “terminating grading” on invalid mandatory live operands can be read as stopping the separately required actual-path diagnostic comparison. Elsewhere P042 explicitly requires that comparison even after instrument failure.
+
+**Delta:** distinguish:
+- immediate failure and cessation of affected **probe acceptance calculations**; from
+- completion/reporting of the **actual-path diagnostic comparison**, where its inputs remain available.
+
+No additional execution is authorized by that distinction.
+
+### Analytic B — better mechanisms
+
+**B-1 — Use the carried staged offline validator.**
+**Touches the offline implementation of P034/P036/P042; no EA lines.**
+
+A straightforward order is:
+
+1. transport and exact envelope;
+2. type-specific grammar, canonical tokens, and domains;
+3. sequence/terminal state machine;
+4. validity classification;
+5. binary64 reconstruction and carry/operand identities;
+6. ordered provenance and SIDE joins;
+7. archive comparison and findings.
+
+Keep actual-path comparison as a separately reported result so a failed probe does not erase evidence about unchanged strategy behavior. This is the most useful improvement without expanding the EA delta.
+
+**B-2 — Default the two optional snapshots to strikes.**
+**P032 `probe_vals[14]` and `[15]`; P034 addendum.**
+
+Unless their exact symbols and encodings are already straightforwardly established, retain the frozen `"-"` assignments. These snapshots cannot prove downstream execution order, so binding them is not worth introducing expression complexity merely to avoid a strike.
+
+**B-3 — No live-path refactor is needed for this authorization.**
+**EA L9626–L9670, L5496–L5497; P046.**
+
+Do not introduce a shared selector helper, relocate publication, or add a live side guard in this probe. Those changes would enlarge the proof obligation beyond observing the existing selector and counterfactual. The protective-side issue remains a separate live-activation obligation.
+
+**Disposition:** repair the text above and retain the frozen instrumentation. The page supports the intended print-only separation, but v24’s exhaustive quotient-hazard statement should not be cleared as written.
+
+---
+
+## Astra answer - 2026-09-19 - answers v188 relay (packet v25) (CLEAR one print-only probe build plus one run; page-only, not a key; filed as entry ASTRA-V188-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Astra:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+**clear — PACKET_EXT1LIVE-001 v25**, as a page-only review verdict for exactly one print-only probe build plus one run under the stated envelope, conditional on the frozen STAGE-1 gates and the operator’s fresh word. This is not a key, execution authorization, certification of disk evidence, or clearance of section 1/live activation. **P003, P030–P038, P042.**
+
+### Analytic A
+
+No blocking defect identified in the supplied instrumentation and acceptance contract. The following qualifications remain material:
+
+1. **The shadow mirror has a deliberately restricted equivalence domain.** On `probe_shadowOk=false`, the literal evaluates against the initialized poison distance rather than a constructed shadow distance. Consequently, its printed zero is not evidence of gate failure. P034/P036 explicitly classify it as unavailable/undecided and fail acceptance for the relevant invalid operands; that qualification makes the literal acceptable for this probe. **P032, P034, P036.**
+
+2. **Finite operands do not guarantee finite intermediate arithmetic.** Subtraction or division can overflow; finite `tpDist` and positive finite distance alone do not establish quotient validity. The separate validity checks and acceptance failures now address this without silently changing the gate Boolean. Preserve that separation in the grader. **P032, P034, P036, P042; EA L9668–L9670.**
+
+3. **Publication and dominance are prerequisites, not conclusions established by these prints.** The pasted block establishes that publication is outside the halt guard but inside the debug gate. It does not establish every path through the omitted interval. The last-call, successful-return publication, no-intervening-writer, and A/B/C dominance obligations therefore remain substantive STAGE-1 gates. The packet appropriately acknowledges that limitation. **P007, P032, P038; EA L5484–L5498, L8779.**
+
+4. **The provenance checks have different evidentiary strengths.** Origin/live price equality can detect inconsistency but cannot independently prove freshness. The stamp check addresses the evaluated-bar identity; the rounded tuple join corroborates publication only at legacy precision. Site equality on this S5 path is not an independent freshness test. None should be reported as a stronger proof than P038 permits. **P028, P032, P038.**
+
+5. **The length figures are domain-conditional bounds, not demonstrated sink maxima.** The fixture establishes byte-identical transport at its tested length; it does not establish the largest supported line. Runtime domain/width violations and truncation must retain their distinct failure classifications. The revised wording makes this distinction sufficiently explicit. **P034, P036, P038.**
+
+6. **Fail-fast probe grading must not suppress the actual-path comparison.** CAP or BSAVE_FAIL invalidates probe acceptance, while the strategy continues and its contractual diagnostic comparison remains required wherever the necessary inputs exist. P042’s final clarification governs the earlier “halts” language. **P032, P042.**
+
+7. **The 13-record expectation is not a substitute for contractual equivalence.** A count deviation alone is a finding; a missing mandatory named record, ambiguous join, broken state-machine sequence, or contractual diagnostic divergence fails independently. Conversely, matching the count does not establish matching evaluations. **P038, P042.**
+
+8. **The future protective-side hazard remains unresolved, intentionally.** Probe-local strict comparisons do not establish equivalence to `SlimbProtectiveSideOk`, and this clearance does not approve replacing the selector with an unguarded defined/finite ext1 arm. **P007, P036, P046; EA L9637.**
+
+### Analytic B
+
+**No EA mechanism change recommended for this authorized build.** The frozen assignment-only B capture and post-gate C recorder are adequate for the stated observational goal; refactoring them now would enlarge the review surface without being necessary for clearance. **P032; EA L9618–L9670.**
+
+For implementation of the **offline validator**, use separate stages for transport/schema validation, sequence-state validation, field/domain decoding, arithmetic reconstruction, provenance joins, and contractual archive comparison. Accumulate separately classified failures so an early probe failure cannot erase the required actual-path comparison. This touches the grading implementation governed by **P034–P042**, not the EA.
+
+For a **future live relay only**, retain the carried proposal to route the ext1 candidate through the existing protective-side helper before adoption, while preserving the fallback selector and re-proving B’s location and metadata semantics. That would touch **EA L9661–L9665**, reference **L9637**, and require the separate authorization already prescribed by **P009/P046**.
+
+---
+
+## Astra answer - 2026-09-19 - answers v189 relay (packet v26 + RECON47) (AMEND-WITH-DELTA, A1-A9 + B-1-B-3; page-only, not a key; filed as entry ASTRA-V189-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Astra:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole.]
+
+**AMEND-WITH-DELTA — P003, P034, P036, P038, P042, P046.**
+
+Accept **RECON47 as a completed execution with partial evidentiary success and a full-record transport halt**, not as a pass of the original mandatory probe-acceptance contract. Accept narrowing transport claims to demonstrated readback, but v26 needs the amendments below before its grading rules are internally consistent. This is a page-only review, not a key, build/run authorization, or live-activation clearance.
+
+## Analytic A — defects, gaps, and required deltas
+
+**A1. Separate execution completion from acceptance. — P003, P038, P042, P046; RECON47 evidence block**
+
+`DONE=PASSED` can describe tester completion; it cannot establish probe acceptance when mandatory fields were truncated. P042 requires stamp freshness, actualGate self-consistency, raw-operand identities, sequence continuity, and other unavailable checks.
+
+Record the disposition explicitly:
+
+> Execution completed. Complete surviving evidence may pass individually. Full NORMAL transport failed; mandatory checks depending on lost fields remain unproved. Original full probe acceptance was not achieved.
+
+“Partial-pass” is acceptable only with that definition—not as satisfaction of all retained mandatory obligations.
+
+**A2. “Positions 0–22” is not a uniformly intact prefix. — P034, P038; quoted A1/A3/A2 wire rows**
+
+Zero-based position 22 is `ladOriginPx`. It is truncated in the supplied A1 and A3 rows; A2 instead reaches a truncated `ladOriginBarTime` at position 23. Therefore neither “positions 0–22” nor “keys 24–38 withheld” correctly describes every row.
+
+A clipped numeric token can remain syntactically valid: A3’s `ladOriginPx=1.16` illustrates exactly that hazard. Canonical numeric parsing alone cannot certify token completeness.
+
+Require **per-row complete-field boundaries**. On a known truncated row, withhold the final unterminated key/value token even when it parses. Grade preceding complete tokens only; do not repair the clipped value from another diagnostic.
+
+**A3. Give partial-record grading an explicit precedence rule. — P034, P036, P038, P042**
+
+P034 still requires exactly 38 payload keys; P036 requires every actual record to satisfy the frozen grammar; P038 both classifies arity failure as transport-halt and permits prefix grading; P042 still makes missing mandatory evidence a halt.
+
+Resolve this without weakening the full-record parser:
+
+> A truncated NORMAL is invalid as a complete record. A separate salvage analysis may grade its demonstrably complete prefix fields. Salvage does not convert the record into a valid NORMAL, satisfy missing mandatory checks, or amend the original run’s acceptance retroactively.
+
+Expected truncation is **not a strategy-value mismatch**, but it remains a transport failure.
+
+**A4. Scope the sink finding and define the measured lengths. — P038; JOURNAL CEILING NOTE; RECON47 evidence block**
+
+The page mixes “payload” lengths of 468 and 489 with a total journal length of 537. State whether each length includes the STOPRESOLVE envelope, terminal prefix, and line terminator, and identify which extraction stage produced it.
+
+Accept the reported **537-total/489-message clipping boundary for the identified RECON47 log path**, subject to that definition. Do not promote it to a universal Print limit, a guarantee for every line at or below that length, or a maximum supported by other sinks.
+
+The old JOURNAL CEILING NOTE’s claim that the micro-check proves the ceiling must be expressly superseded. Keep:
+
+- **1024:** conditional NORMAL serialization-ledger bound.
+- **1056:** poison-inclusive ledger bound.
+- **Observed clipping boundary:** sink/path-specific transport finding.
+
+Those are different quantities.
+
+**A5. Preserve the failed pre-build transport gate in the history. — P036, P038; v188→v189 delta**
+
+The prior contract required actual-log readback of the long fixtures before the strategy build/run. The new evidence establishes that full NORMAL transport did not survive.
+
+The page does not establish whether the earlier gate was incorrectly passed, trusted through a non-equivalent path, or otherwise failed to detect the problem. Do not invent the cause. Record the gate discrepancy as unresolved unless the filed build record already explains it. Offline fixture validation cannot substitute for successful sink transport, and v26 cannot retroactively make that earlier prerequisite satisfied.
+
+**A6. Narrow each substantive result to its surviving evidence. — P028, P034, P042, P046**
+
+The following distinctions are necessary:
+
+- **A1/A3:** surviving ratios and wouldGate values support their reported shadow results. Recomputing from complete `entryPx`, `tpPx`, and `pxExt1` can test prefix-level arithmetic under the filed `entryPx=currentPrice` source mapping. It does **not** perform the missing raw-field or independently printed-currentPrice comparisons.
+- **A2:** complete price and slot tokens support the archive-precision price check and slot-13 check. Its mandatory **stamp freshness** check remains unproved.
+- **13/13 wouldGate agreement:** label exactly which operands and comparison produced it. It is not actualGate agreement; actualGate was lost.
+- **No INVALID or `?`:** restrict this to complete surviving tokens.
+- **Sequence continuity/reservation totals:** unproved from NORMAL output because emitSeq was lost.
+- **Origin/live bit equality, full provenance, selected-price identities involving s0px/s1px, extSideOk and monotone findings:** withhold where required fields are absent.
+
+Source mapping and legacy diagnostics remain useful evidence, but do not silently replace the specified STOPRESOLVE checks.
+
+**A7. Counts do not establish contractual diagnostic equivalence. — P042, P046; RECON47 evidence block**
+
+The reported 13/13/13/13 counts and zero terminal records support observational closure. They do not establish ordered duplicate matching, all contracted field equalities, or reserved-sequence continuity.
+
+Likewise, **11 TP_ELECT rows plus 7 SIGNAL alerts does not itself establish 7 TP_ELECT fire rows**. P028/P042 correctly distinguish these invariants; the result summary must preserve that distinction.
+
+Accept the reported counts as counts. Mark complete actual-path diagnostic equivalence “passed” only if the stated ordered comparison was performed and its result is explicitly reported.
+
+**A8. Separate the executed v25 artifact from the v26 review text. — P003, P032, P034, P038, P042**
+
+The supplied wire records say `pkt=...-v25`; the v26 literal requires `pkt=...-v26`. Apply the executed **v25 envelope** to RECON47 parsing. Do not relabel captured records or imply that RECON47 tested the v26 literal.
+
+Clarify that “AUTHORED-unbuilt” describes v26, while RECON47 consumed the v25 authorization. Also distinguish the unchanged base tree from the instrumented build artifact; “code untouched” must not imply that A/B/C were absent from the executed build. Update P042’s residual “No re-emit path exists in v25” to state the continuing v26 prohibition.
+
+**A9. Preserve the valid scope boundaries. — P007, P009, P038, P040, P042, P046**
+
+I accept the 16:55 demotion to a finding on the stated evidence. It proves neither an S5 evaluation nor a decline.
+
+Downstream veto/latch/SIGNAL/session-mark ordering remains source-mapped, not probe-proven. Neither partial arithmetic success nor the 13 observed rows clears the future selector rule, producer equivalence generally, the protective-side hazard, or live activation.
+
+## Analytic B — better mechanisms
+
+**B-1. Adopt the offline staged validator now; no EA change. — P034/P036/P038/P042**
+
+Separate transport classification, complete-token extraction, field validation, arithmetic checks, joins, and final acceptance. Report each obligation as **pass / fail / unproved**, with the missing dependency named. This permits honest salvage without relaxing the full-record grammar or inventing lost values.
+
+**B-2. For a separately authorized recorder revision, use bounded, correlated fragments. — P032 insertion C, P034 templates, P036 ledger, P042 state machine**
+
+Place an evaluation identifier near the beginning of **every fragment**, then fragment index/count and a bounded field group. Validate the resulting per-fragment lengths against the actual sink path; require complete ordered reassembly before full grading.
+
+This would change C’s assembly/emission surface, record templates, volume contract, and validator—not EA L9661–L9670’s selector/gate logic. It is a carried alternative only: **no repair execution or rerun is authorized here**.
+
+**B-3. No live-path refactor is needed for this authorization. — EA L9626–L9670, L5496–L5497; P046**
+
+Do not introduce a shared selector helper, relocate publication, or add a live side guard in this probe. Those changes would enlarge the proof obligation beyond observing the existing selector and counterfactual. The protective-side issue remains a separate live-activation obligation.
+
+---
+
+## Astra answer - 2026-09-19 - answers v190 relay (packet v27 + RECON47) (AMEND-WITH-DELTA, A1-A14 + B-1-B-4; page-only, not a key; filed as entry ASTRA-V190-001)
+
+[BUILDER FILING NOTE 2026-09-19: the "Astra:" label in the operator transport message is his source framing, not verdict text. Body below is the pasted verdict whole. First file attempt landed mid-file inside the V187 entry (repeated body sentence used as anchor); removed the same turn and re-filed here at tail. No verdict text altered.]
+
+**amend-with-delta — P003, P034, P036, P038, P042, P046.**
+
+The RECON47 split is defensible: **execution PASSED as builder-reported; probe acceptance INCOMPLETE; partial-pass restricted to individually established prefix checks; full-row acceptance UNPROVEN.** I do not accept v27 unchanged because the sink-bound, prefix-validation, and surviving mandatory-check language still conflict. These are text/analysis amendments; the tree stands as run. No new build, run, future-rule clearance, or live activation follows.
+
+## Analytic A — defects, gaps, and required deltas
+
+### A1. Observed truncation is not a proven sink maximum
+**P034, P038, P046; relay “JOURNAL CEILING NOTE” and “Measure definitions.”**
+
+The page alternates among “measured sink cap,” “inferred hard cap,” and an express statement that no maximum supported length was inferred. Those are different claims.
+
+The supplied evidence supports an **observed truncation boundary for the captured RECON47 NORMAL messages**, consistent with the reported journal lengths. It does not establish a universal terminal/tester sink limit, identify which transport stage truncated the messages, or establish identical behavior for every message type.
+
+**Delta:** use:
+> RECON47 observed boundary: 537 journal characters, comprising the filed 48-character prefix and 489-character STOPRESOLVE message. A hard sink maximum and its responsible transport stage remain unproved.
+
+Keep **1024/1056 as conditional serialization-ledger bounds**, not demonstrated transport capacities. Withdraw the relay’s surviving assertion that the script micro-check proves the journal ceiling.
+
+### A2. A complete SCHEMA appears inconsistent with the blanket cap/anomaly rule
+**P032, P034, P038, P042; run-evidence SCHEMA claim.**
+
+The SCHEMA template contains all 38 comma-separated key names plus its envelope and metadata. That is longer than the asserted 489-character message budget. Yet the evidence says SCHEMA arrived complete, while P038 says a row longer than the cap is an anomaly that halts.
+
+This does **not** by itself disprove NORMAL truncation. It disproves treating the reported boundary as an already-established uniform limit across all four templates.
+
+**Delta:** explicitly reconcile the complete-SCHEMA observation with the NORMAL boundary. Until reconciled, scope the anomaly rule to the **named capture path and record class**, not every STOPRESOLVE-family line. Preserve the complete-SCHEMA claim as builder-reported evidence, not proof of NORMAL transport.
+
+### A3. The full-record grammar and prefix salvage need an explicit precedence rule
+**P034, P038, P042.**
+
+P034 still requires exactly 38 ordered payload keys, while P038 both calls arity failure a transport halt and permits salvage. P042 retains blanket “miss on any line halts” and mandatory-check wording.
+
+**Delta:**
+> A truncated NORMAL fails complete-record validation and makes full-row acceptance INCOMPLETE. A separate salvage analysis may grade demonstrably complete prefix fields. Salvage does not satisfy the complete-record grammar, discharge missing mandatory checks, or resume full-record acceptance. An observed contradiction in a complete prefix field remains a failure, not merely missing evidence.
+
+This preserves the original acceptance contract instead of retroactively making truncated records valid.
+
+### A4. Token validity does not establish token completeness
+**P034, P038; three as-wire examples.**
+
+A truncated numeric value can remain syntactically valid and even canonical for a different value. A physical EOL does not prove the original value ended there.
+
+**Delta:** a salvaged field needs an observed subsequent separator/key boundary, or independently established complete-message termination. Withhold the final undelimited value on a known-cut row even if it parses successfully. Do not let canonicalization “validate” a cut numeric prefix.
+
+The relay’s conservative final-token withholding is appropriate; make it the operative rule.
+
+### A5. Replace global prefix coverage with a per-row check register
+**P034, P036, P038, P042.**
+
+“Positions 0–22,” “near key 23,” and “keys 24–38 withheld” are not interchangeable descriptions. The A1/A3 examples cut inside `ladOriginPx`; A2 carries that field completely and cuts later. Other shipped rows differ again.
+
+**Delta:** for each row record:
+- last demonstrably complete field;
+- cut/withheld field;
+- checks passed;
+- checks failed;
+- checks unavailable.
+
+Use either zero-based indices or one-based positions consistently. The partial-pass attaches to **checks**, not automatically to every present field or the row as a whole.
+
+### A6. Sign agreement is weaker than arithmetic self-consistency
+**P028, P034, P042, P046; run evidence.**
+
+`wouldGate == (printed rExt1 >= gateConst)` is a useful consistency check. It is not the required recomputation from independently captured raw operands and does not validate missing operand mappings.
+
+However, complete `entryPx`, `tpPx`, `pxExt1`, and `slLive` permit **source-conditioned derived recomputation**, because the frozen literal maps `entryPx` to `currentPrice`. That possibility applies to A3 as well as A1; it should not be described as an A1-only capability without a stated reason.
+
+**Delta:** distinguish:
+1. observed ratio/Boolean agreement;
+2. derived recomputation conditional on source-proven mappings;
+3. unavailable comparison against emitted raw operands and `actualGate`.
+
+Do not count category 2 as recovery of the missing wire fields.
+
+### A7. A2’s “2-of-3” is a checklist result, not partial provenance acceptance
+**P028, P042.**
+
+The stated split is acceptable: price at archive precision and slot 13 are supported; required stamp/provenance is withheld.
+
+**Delta:** state expressly:
+> A2 satisfies two separately named observations, not its mandatory acceptance conjunction. A2 provenance acceptance remains unproved.
+
+Slot/price agreement and the ordered legacy join cannot recreate the missing stamp.
+
+### A8. Missing `emitSeq` prevents runtime sequence validation
+**P038, P042, P046.**
+
+Thirteen NORMAL occurrences and thirteen matching legacy occurrences support count and ordered-join observations. They do not prove emitted reservation contiguity, absence of duplicate sequence numbers, or the highest reserved sequence when `emitSeq` is cut.
+
+**Delta:** retain those sequence properties as source-structural expectations, with their runtime checks **unavailable**. Report observed NORMAL count separately from “total reserved sequences.”
+
+### A9. Terminal non-occurrence is supported; terminal-path execution is not tested
+**P032, P042.**
+
+The short CAP/BSAVE_FAIL templates support a transport-survival argument under the filed boundary. Zero such records supports observed non-occurrence within the reported complete segment.
+
+“The instrument-failure channel was live throughout” is stronger: neither failure branch was exercised.
+
+**Delta:** label separately:
+- terminal absence: observed, subject to segment completeness;
+- terminal construction/latching: source-structural;
+- terminal emission/readback behavior: fixture evidence where filed, otherwise unexercised.
+
+### A10. INVALID and poison coverage remain overgeneralized
+**P034, P036, P038.**
+
+P036’s surviving-field inventory omits `pxExt1`, which is INVALID-capable and visibly present in the named rows. `ladOriginPx` availability is row-dependent. Absence of INVALID on ordinary finite rows does not exercise non-finite branches.
+
+Likewise, observing no poison in surviving fields does not validate cut `s0px`/`s1px` carries or their selected-price identities.
+
+**Delta:** replace the global inventory with the per-row register from A5, and distinguish **no observed invalid token** from **invalid-path coverage**. Keep crossed-assignment detection unavailable wherever its comparison operand was cut.
+
+### A11. Over-width rejection cannot prove the hidden domains
+**P038.**
+
+The coupling suspension is directionally correct, but a present prefix cannot establish domain compliance for absent fields. Truncation can also conceal an over-width value rather than merely hide later fields.
+
+**Delta:** apply domain/width checks only to demonstrably complete values. Keep the ledger conditional on all specified domains; do not claim the run established those domains globally.
+
+### A12. Record lifecycle and version identity need one authoritative statement
+**P003, P032, P034, P046.**
+
+`AUTHORED-unbuilt`, the completed v25 build/run, the unchanged base-tree measurements, and the v27 interpretation are currently interleaved. Keeping `pkt=...-v25` in the literal is correct for the historical run; changing it now would mislabel evidence.
+
+**Delta:**
+> v27 is an unexecuted adjudication amendment to the completed v25/RECON47 evidence. The wire identifier remains v25. This ruling authorizes no new execution and does not retroactively satisfy a failed pre-run transport premise.
+
+Distinguish the base source, instrumented run artifact, and adjudication document without asking the page review to authenticate their digests.
+
+### A13. Hunk D does not itself repair transport
+**P046.**
+
+Reopening the producer-site carry question is reasonable, but the reason must distinguish publication freshness from lost transport. Adding another global or another tail field does not make its value survive the same truncation.
+
+**Delta:** require any future hunk-D proposal to identify the independent freshness claim it adds and how that evidence will be transported. No hunk D is mandated for this historical grade.
+
+### A14. Source-mapped ordering and the live hazard remain correctly bounded
+**P007, P009, P013, P040–P042; EA L9637, L9661–L9670.**
+
+No amendment should promote the prefix evidence into proof of downstream veto/latch/SIGNAL/session-mark execution order. The future adoption rule also remains outside clearance and retains the protective-side hazard.
+
+The 16:55 demotion is acceptable as a **finding of absent supporting archive evidence**, not proof that no relevant event could occur.
+
+## Analytic B — better mechanisms, carried only
+
+### B1. Transport framed fragments instead of one oversized NORMAL line
+**Would touch P032 insertion C’s final assembly/Print and P034/P038/P042 transport/parser rules; A/B and EA L9661–L9670 need not change.**
+
+For a separately authorized revision, emit bounded fragments carrying a common execution identity, `emitSeq`, fragment index/count, and explicit completeness information. Validate every fragment through the actual tester capture path.
+
+This preserves all 38 fields without pretending prefix salvage is full acceptance. It changes emission cardinality and templates, so it needs its own reviewed delta.
+
+### B2. Stage the offline validator
+**Would touch P034, P038, P042 and the offline parser; no EA change.**
+
+Use separate stages for:
+1. transport/envelope classification;
+2. full-record validation or salvage classification;
+3. field canonicalization/domain checks;
+4. sequence and ordered joins;
+5. arithmetic/mapping checks;
+6. outcome contract.
+
+Every check returns **pass, fail, or unavailable**, with its evidence source. Counts remain cross-checks. This directly prevents missing evidence from being converted into a pass.
+
+### B3. Put indispensable evidence before optional diagnostics
+**Would touch P032 key/value ordering and P034/P038 schema/ledger rules.**
+
+If a later design retains single-line emission, prioritize sequence, freshness stamp, actual gate, and required operands ahead of optional snapshots and explanatory fields. Reordering only reduces likely damage; it does not establish complete transport.
+
+### B4. Test the real capture path, not a presumed equivalent one
+**Would touch P038’s future pre-run transport gate and build/run record requirements.**
+
+A future transport gate should exercise the same tester/log/export path used for grading. A script-log fixture remains useful for formatting but cannot certify tester-journal transport. Any extra execution remains subject to separate authorization.
+
+**Disposition:** approve the **INCOMPLETE / check-scoped prefix partial-pass distinction**, amend the contract as above, and retain every missing mandatory result as unproved. No rebuild is needed to make this historical ruling honest.
