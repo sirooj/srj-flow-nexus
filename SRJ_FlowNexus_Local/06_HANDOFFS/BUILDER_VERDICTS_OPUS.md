@@ -353,3 +353,23 @@ Scope note on "clear to build": the range and splice are clear on this page. The
 No ruling here builds, runs, or clears anything; live activation remains untouched and unaddressed by this packet.
 
 ## V255-EVICT END OPUS (verbatim close, nothing appended)
+
+## KEY OPUS EVICT-ASK OPEN (his carry, Opus channel, key ask on v255, filed whole - REFUSED; his paste wrapped "digest" as "di gest", transposition flagged, meaning kept)
+
+here is opus intead:
+I can't fill that. Two reasons, both standing rules from this packet line rather than anything new.
+
+**Keys aren't mine to issue.** The review seat is analysis out, review-only, never keys — your seat-split, carried on every page including v255. A build-plus-run clearance with the packet ID and digest restated as an authorization artifact is a key. It comes from the key seat. My restating `427AAA0F / 12138 B` in that slot would also read as an attestation that the bytes on your disk match, which the verification split says no seat can answer from chat.
+
+**"4/4 YES on v255" doesn't match what I sent.** My v255 line was yes on the range, discrepancy on packaging. The range fix is clean — 8801-8808 absorbs the old decl and the old return, ternary gone whole, 8809 close survives, brace count balances. Two items were left open:
+
+- **E3 has no stated insertion line.** Five comment lines, no anchor. E2 is declared to replace 8801-8808 and to leave 8792-8800 and 8809 untouched, so E3 has nowhere named to land. That is a splice ambiguity in the build you're clearing, not a cosmetic.
+- **The fold's "reword accepted over merge / fold text matches code" has no referent.** E2's one-liner and all five E3 lines are byte-identical to v4. Either the reword applied to the fold paragraph rather than the source comment, or it was dropped in the amend. As filed, the claim has no referent in the code.
+
+Also unresolved and cheap: E3 line 4 commits "A6REFUSED and STAND-DOWN gated (debug/armed)" into the source, and STAND-DOWN is not debug-gated (6308). That comment is wrong the moment it lands.
+
+If the other three seats returned clean YES on v255, the honest tally is 3 YES plus 1 discrepancy-on-packaging, and "zero conditions" isn't the state of the page. The fastest path to a real 4/4: merge E2 and E3 into one "replace 8801-8808 with these 25 lines" edit at 9-space indent, fix the gating sentence, state the post-write line count (11335, or 11336 if the F1 trailing blank is part of the add). That closes all three and I'd rule it clear without qualification.
+
+Happy to re-review the amended page the moment it ships. The clearance line itself needs your word and the key seat.
+
+## KEY OPUS EVICT-ASK END (verbatim close, REFUSED - no key granted)

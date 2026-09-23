@@ -3,17 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, CLEAR-TO-BUILD)
+## State (2026-09-24, KEYS REFUSED)
 
-- v255 ruled 4/4 YES (range fix).
-  Ledger 680. Key memo ships now:
-  Opus key + YOUR run word owed.
+- Both review seats refused keys.
+  Tally corrected: 3 YES + 1 disc.
+  Ledger 682. Next: v6, v256, Luna key.
 
 ## Next (artifact owed)
 
-- Owed: YOUR Opus key reply (whole)
-  + run word. Then I build, run,
-  grade, report - unattended.
+- Owed: builder drafts v6 + v256 next.
+  Luna key ask after council clears.
 
 ## Resume order (exact)
 

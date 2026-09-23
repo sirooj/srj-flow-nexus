@@ -1652,3 +1652,21 @@ Rather than three copy-pasted `if`/`if`/fallthrough branches each re-deriving `p
 None that changes the stated goal more cleanly than what's proposed. One structural option worth naming: capture `ENUM_SRJ_STATE prevState = g_state;` once at the top of the whole replacement block (as the old code did) rather than only inside the S3 branch, and pass `prevState` into the fallthrough's `LogState` call too (replacing the hardcoded `ST_S5_GATE_CHECK`) — this would remove defect 4 without adding lines, since the S4 branch doesn't need `prevState` for `LogState` (it doesn't call it) but the fallthrough branch would then log its true origin instead of an assumed one. Touches: 8801-area new decl line + the `LogState(ST_S5_GATE_CHECK, ST_S4_ARMED)` line in the proposed E2 block only.
 
 ## V255-EVICT END SONNET (verbatim close, nothing appended)
+
+## KEY SONNET EVICT-ASK OPEN (his carry, Sonnet channel, key ask on v255, filed whole - REFUSED)
+
+you are correct, it refused.
+
+I can't clear this for a build.
+
+I'm one seat you're consulting across separate conversations — I have no record of a "Council" or prior "4/4 YES," and I can't verify what other sessions or models supposedly said. My verdict in this thread was a code-correctness read of the diff you pasted, not a build authorization, and I flagged an unverified assumption (defect 1) and an asserted-but-unshown behavior (defect 2) that a real clearance would need resolved first.
+
+If you want a "cleared to build" line from me, it has to come from something I can actually check in this conversation — not restated as a fact from elsewhere. What would help:
+
+- Show me the code after old-8809 so I can confirm `prevDiv` isn't referenced there (closes defect 1).
+- Show me `GoAbort`'s definition so I can confirm it calls `LogState`/`LogAbort` internally (closes defect 2).
+- Confirm whether the new `PrintFormat` diagnostic on the fallthrough path is intentional (defect 3) — not something I can rule on either way.
+
+Once those are resolved on the page, I'm glad to give a plain yes/no on whether the block is safe to build. But "zero conditions" isn't something I can honestly say when I just listed conditions two messages ago.
+
+## KEY SONNET EVICT-ASK END (verbatim close, REFUSED - no key granted)
