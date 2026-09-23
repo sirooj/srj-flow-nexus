@@ -1675,3 +1675,35 @@ The abort itself is the right minimal mechanism; no alternative disposition (ret
 Clear to build on both verdicts as stated.
 
 ## V251-EVICT END KIMI (verbatim close, nothing appended)
+
+## V252-EVICT OPEN KIMI (his carry, Kimi channel, relay v252, filed whole)
+
+**Q1 verdict: discrepancy** (one blocking unproven assumption, one census misclassification; everything else on the page checks out).
+
+The on-page verifiable parts are clean: `ResetSequence` (EA 6266–6293) does not touch `g_sessionUsed_London/NYAM` or their day fields, and `MarkSessionUsed`/`SessionAlreadyUsed` (EA 1802–1817) live outside it — so the abort path does free the slot without consuming the session, exactly as claimed. `GoAbort` returns void, the caller's trailing `return;` is correct, and the dual-tag split (DIV_WAIT path marker kept below, GoAbort carrying LogAbort + A6REFUSED + STAND-DOWN) is coherent. The Q3 inline ruling (EA 7508–7520) is consistent with the change: a refused holder never executed, so it cannot have executed first.
+
+The discrepancies:
+
+**D1 (blocking) — the "S4-origin only" discriminator is not proven on this page.** The guard is the `if(g_confirmFromState == ST_S3_ZONE_WAIT)` line (proposed E2 insert, line 8). `g_confirmFromState` is assigned at bind time — the P-BUILD3 comment inside `ResetSequence` lists confirmFrom among fields the re-bind assigns — and is cleared only by `ResetSequence`. The page never shows where `g_confirmFromState` is written between S3 bind and S5 gate. If S4 arming does not reassign it (e.g., to `ST_S4_ARMED`), then every refused S5 holder — S3-origin or S4-origin — still reads `ST_S3_ZONE_WAIT`, the rollback branch eats the S4-origin refusal, the abort never fires, and the squatter this packet exists to evict survives. The packet asserts "S4-origin only" as a property of the guard but the page contains the guard and not the assignment that makes it true. Either paste the S4-arming assignment (or confirm it exists) at the next relay, Q1 converts to yes with no other changes required.
+
+**D2 (non-blocking) — A6REFUSED row misclassifies the new abort class.** Inside `GoAbort` (EA 6298–6301) the format string hardcodes `class=ABSENT_DECLINED` regardless of `reason`. Every `ABORT_DIV_FALLBACK` abort will file as ABSENT_DECLUSED in the refused-decision census, so the "decided outcome" the packet says GoAbort carries is wrong in exactly the row this change will generate most. `LogAbort` presumably logs the reason string, so the log remains truthful; the A6 row will not be.
+
+**Analytic ask A — all defects/gaps/imprecisions found:**
+
+- **A-a (blocking, = D1):** guard at E2 insert line 8 relies on an assignment the page doesn't show. Unproven, not disproven — but "S4-origin only" is asserted, not exhibited.
+- **A-b:** E2 insert line 7 — `ENUM_SRJ_STATE prevDiv` is declared before the `if` but consumed only inside the S3 branch. On the S4 path (the path this packet is about) it is declared-and-unused; MQL5 will emit a warning on a packet whose whole pitch is mechanical cleanliness. Move the declaration inside the branch (line 9's block).
+- **A-c:** E2 insert lines 10–12 — the defensive rollback restores `g_state` only. If this branch ever fires for a candidate that got as far as arming, the latch block (`g_latchedEntry/Sl/Tp/R`, `g_latchBarTime`, `g_alertedArmed`) set at arming is left stale into the S3 wait. Probably unreachable if D1 is fixed; worth a comment that the branch is pre-bind-only by invariant, or an assertion.
+- **A-d ( = D2):** EA 6298–6301 — hardcoded `class=ABSENT_DECLINED` in the A6 row. Pre-existing shape, but this packet adds the first non-absent refused class, so the defect now bites.
+- **A-e:** EA 6304–6305 — `g_ea19_noRegimeAborts` counts only `ABORT_NO_REGIME`. DIV_FALLBACK aborts won't accrue in any EA-side counter; they're recoverable from the log via `LogAbort`, so this is a measurement blind spot, not a functional gap. Flagging because the packet's own census discipline (3 pulls/run, zero-converted) suggests council will want the count.
+- **A-f:** E1 defines — fine, names are collision-free on the shown page and S1's pre-compile symbol assertion covers them. No defect; noting it was checked because the V251 round made identifier provenance blocking.
+- **A-g:** EA 6299 — the A6 emit key `"REF" + a6rBT + reason + StateName(atState)` collides if two aborts share minute+reason+state. Pre-existing, out of scope, noted only so it isn't mistaken for a new defect in the first DIV_FALLBACK-heavy run.
+
+**Analytic ask B — better mechanism, with lines touched:**
+
+- **B1 (preferred, one line):** make the discriminator real by advancing the marker at arming. In the S3→S4_ARMED transition (the code that logs `S3_ZONE_WAIT->S4_ARMED`; on the run rows this is the QF/GQ/LF/CE/CO/RJ transitions — exact EA lines not on this page), add `g_confirmFromState = ST_S4_ARMED;`. Then the E2 insert line 8 guard discriminates truthfully and the abort branch cannot be shadowed by the rollback. This touches one existing line, keeps the insert exactly as proposed, and converts D1 from "asserted" to "shown."
+- **B2 (alternative, zero new state):** if the insert sits only at the S5 site, drop the origin inference entirely and gate on the site itself — the S3 pre-bind refusal already has its own kept rollback below; the new block need only `GoAbort(ABORT_DIV_FALLBACK, g_state); return;`. The S3 branch inside the insert then deletes rather than defends. This is cleaner but relies on siting discipline forever; B1 is more robust against a future paste at the wrong site.
+- **B3 (census fix):** change the `a6rLn` format in GoAbort (EA 6298–6301) to take the class from `reason` (e.g., a three-way map: NO_REGIME/MISALIGN → ABSENT_DECLINED, DIV_FALLBACK → DIV_FALLBACK, POI_REPLACED → POIREPLACE) so the refused-decision census rows match their cause. Two lines touched.
+
+If the operator can paste the S4-arming assignment (or confirm it exists) at the next relay, Q1 converts to yes with no other changes required.
+
+## V252-EVICT END KIMI (verbatim close, nothing appended)

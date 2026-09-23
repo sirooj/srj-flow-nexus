@@ -1508,3 +1508,55 @@ Instead of an unconditional `GoAbort` replacing both branches at lines 8805–88
 I can't verify anything beyond what's on the page (per the split you noted) — in particular, `GoAbort`'s actual behavior and the missing `ABORT_DIV_FALLBACK` define are the two items that keep Q2 at "discrepancy" rather than a clean yes.
 
 ## V251-EVICT END SONNET (verbatim close, nothing appended)
+
+## V252-EVICT OPEN SONNET (his carry, Sonnet channel, relay v252, filed whole)
+
+**Q1 — discrepancy** (not a clean yes), for two reasons on the page as pasted:
+
+1. **The S4/S3 split is a negative test, not a positive one.** The dispatch is:
+```
+if(g_confirmFromState == ST_S3_ZONE_WAIT) { ...rollback...; return; }
+GoAbort(ABORT_DIV_FALLBACK, g_state); return;
+```
+This only proves "not S3-origin," not "is S4-origin." If `g_confirmFromState` can hold any value other than `ST_S3_ZONE_WAIT` besides the S4 one (e.g. `ST_IDLE`, or a state introduced elsewhere in the file that isn't shown), those cases fall into the `GoAbort` branch by default and get labeled/treated as S4-origin without the page proving that's what they are. The "S4-only scope" claim in the fold notes is asserted, not shown — there's no `else if(g_confirmFromState == ST_S4_ARMED)` guard visible.
+
+2. **"Session marks unconsumed" is unverifiable from these lines.** `ResetSequence` (6266‑6293) indeed never touches `g_sessionUsed_London/_NYAM`, and `MarkSessionUsed`/`SessionAlreadyUsed` (1802‑1817) live outside it — that part is clean. But whether the session was already marked used for *this* candidate before it reached the abort point depends on where `MarkSessionUsed` is called relative to S4 arming, and no call site is in the packet. If arming (or S3→S4 confirm) ever calls `MarkSessionUsed` speculatively, this fix resets state but still leaves the slot squatted for the day — which is the exact bug P-EVICT-1 exists to kill. Can't rule this clear on the page alone.
+
+Everything downstream of dispatch (GoAbort → LogAbort → conditional A6Emit while `g_dir` is still live → STAND-DOWN alert gated on `g_alertedArmed && !g_alertedSignal` → `ST_ABORT` + `LogState` → `ResetSequence`) is internally consistent and matches the V251 fold items (void return preserved at 6295‑6329, dual tag comment at the E2/E3 header, S3 rollback keeping zone/touch/anchor unset via the early return rather than a partial `ResetSequence`).
+
+**Analytic A — defects/gaps, freetext:**
+
+- **No enclosing guard shown.** The E2 fragment has leading indentation implying it sits inside an existing `if(...)` block, but that condition and its opening brace aren't pasted. I can't confirm this code is actually reachable only from the divergence-miss path described, versus also being reachable from some other branch that happens to share the indentation level. Rules-on-the-page review can't close this gap — it's a scope question, not a values question.
+- **Binary origin classification (point 1 above).** `g_confirmFromState == ST_S3_ZONE_WAIT` as the only branch condition means any third value silently routes to `GoAbort`. If a third value is impossible by construction elsewhere in the state machine, that invariant isn't demonstrated on this page.
+- **`ABORT_POI_REPLACED` is defined (F1) but not called anywhere in the pasted E2/E3 block or the GoAbort/ResetSequence contract.** Its only appearance is in the Q3 comment as the *removed* call at 7508‑7520. If it's genuinely dead in this file now, it's a harmless but noteworthy orphan; if it's called elsewhere, that call site isn't on the page and the symbol's continued relevance can't be checked here.
+- **`prevDiv` capture.** `ENUM_SRJ_STATE prevDiv = g_state;` is only consumed in the S3-rollback branch. Not a bug (compiler won't flag it, since it's used on that path), but it reads as scoped for a purpose the `GoAbort` branch doesn't share — GoAbort captures its own `prev` internally at 6320. Cosmetic only.
+- **Shadow record (TASK 15, lines within GoAbort) only fires for `ABORT_NO_REGIME` / `ABORT_LTF_MISALIGN`.** `ABORT_DIV_FALLBACK` is excluded, so this new abort class leaves no shadow record. That may be intentional (fallback aborts aren't "regime" measurement targets), but it's a silent asymmetry between abort reasons worth naming since P-EVICT-1 is explicitly a measurement-sensitive change (retry-conversion counts cited in the header comment).
+- **S1 "asserts the symbol pre-compile"** is referenced but the assertion mechanism itself (macro, `#ifndef`, static check) isn't in the pasted F1 block — just the two `#define` lines. Can't verify the gate exists from the page.
+- **Q3 ruling text is a comment, not code** — it correctly documents intent (arrival-order governs across time, tier governs same-bar ties only) but the enforcement it claims ("MarkSessionUsed on the SIGNAL path already enforces") again isn't shown, same gap as Q1 point 2.
+
+**Analytic B — alternative mechanism:**
+
+Replace the negative test with a positive, explicit one and make the origin classification a named enum comparison rather than an equality check against a single sentinel state, so a future third `confirmFromState` value fails loud instead of silently falling into the abort branch:
+
+```
+switch(g_confirmFromState)
+  {
+   case ST_S3_ZONE_WAIT:
+      g_state = ST_S3_ZONE_WAIT;
+      LogState(prevDiv, g_state);
+      return;
+   case ST_S4_ARMED:
+      GoAbort(ABORT_DIV_FALLBACK, g_state);
+      return;
+   default:
+      GoAbort(ABORT_DIV_FALLBACK, g_state);   // or a distinct reason/log line flagging unexpected origin
+      return;
+  }
+```
+Touches only the same E2 dispatch block (the `if/GoAbort` lines under the S5 comment header); no change to `GoAbort`, `ResetSequence`, or the session-mark functions. This doesn't change today's behavior if `ST_S3_ZONE_WAIT` and `ST_S4_ARMED` are truly the only two reachable values, but it converts an implicit assumption into something the page itself proves, and gives you a hook (the `default` arm) to log/count if that assumption is ever wrong — directly serving the "S4-origin only" claim the fold notes assert but don't currently demonstrate.
+
+---
+
+I can't verify anything beyond what's on the page (per the split you noted) — in particular, `GoAbort`'s actual behavior and the missing `ABORT_DIV_FALLBACK` define are the two items that keep Q2 at "discrepancy" rather than a clean yes.
+
+## V252-EVICT END SONNET (verbatim close, nothing appended)

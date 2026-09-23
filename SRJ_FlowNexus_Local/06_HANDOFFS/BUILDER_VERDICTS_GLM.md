@@ -2918,3 +2918,54 @@ What the page cannot verify (not a NO, just not on the page): GoAbort's contract
 **Before the one build:** resolve A1 (identifier), pin A2/A3 (after-shape + retained return), decide A4 (S3 scope), refresh A9 (comment + tags), and either carry the Q3/hold-record text or narrow Q2's claim (A8). With those folded, the disposition is mechanically sound on the page: it strikes the exact write (8805–8806) that sustains the veto, leaves the detection walk and take path untouched, and matches the demonstrated harm. Nothing here builds, runs, or moves money; disk truth stays on your side of the split.
 
 ## V251-EVICT END GLM (verbatim close, nothing appended)
+
+## V252-EVICT OPEN GLM (his carry, GLM channel, relay v252, filed whole)
+
+# GLM seat — v252 review (packet P-EVICT-1 v2, folds V251; page-rules only)
+
+## Q1 VERDICT
+
+**Yes.** The amended v2 disposition is mechanically specified and its claimed contract chain checks against the quoted code:
+
+- Abort path: F2:14 `GoAbort(ABORT_DIV_FALLBACK, g_state); return;` — void return pinned (EA 6295 signature), caller returns immediately (A3 ✓).
+- Contract chain verified in the quoted GoAbort: LogAbort EA 6297 → A6REFUSED EA 6298-6304 (guard `InpDebugLog && g_dir != DIR_NONE`, EA 6298; a refused S4-origin holder has `g_dir != DIR_NONE`, so it fires under debug) → STAND-DOWN EA 6308-6309 (`g_alertedArmed && !g_alertedSignal` — an S5-gate holder hasn't signaled, so armed holders alert) → ST_ABORT EA 6325-6327 → ResetSequence EA 6328.
+- ResetSequence (EA 6266-6293) clears state/dir/regime/anchor/zone/touch/latches/confirmFrom and contains **no** `g_sessionUsed_*` field; the marks window (EA 1802-1817) confirms marks live entirely outside the working set. So: slot freed (state IDLE, dir NONE, anchor cleared → the SUPPRESSED/HELD veto keyed on `heldState=S4_ARMED`, run row FP, can no longer fire) while the session is not consumed. Claim verified.
+- Q3: a holder refused at the gate has executed nothing; the abort creates a vacancy, it does not replace a live first-executed candidate (EA 7508-7520). No arrival-order violation. ✓
+- Fold-map completeness: identifier (F1), contract (F3/F4 quotes), S4-only scope (F2), pinned return (F2:14), dual tags (F2:1-5), A5 wording (fold), Q3 (F6 quote) — every V251 demand is mapped on this page. Parked items (walk/A6, readiness guard, divKind, collapse, warmup) are not silently load-bearing for this edit. ✓
+
+Gaps below are self-containedness items, not contradictions — nothing on the page contradicts the claimed behavior.
+
+## ANALYTIC ASK A
+
+1. **Load-bearing discriminator not proven on page (most important).** The S4/S3 partition rests entirely on `g_confirmFromState == ST_S3_ZONE_WAIT` (F2:8). The page shows only the ResetSequence default `ST_IDLE` (EA 6289) and the re-bind comment (EA 6290-6292). No assignment site is shown proving what a normally-confirmed S3→S4 holder carries at the fallback. If any confirm path stamps `ST_S3_ZONE_WAIT` onto *bound* S4 holders, the rollback branch swallows the abort and the entire change is dead code — the exact opposite behavior. v251 adopted this scope (Sonnet-B/GLM-B1), but v252 must carry the assignment line(s) or the S5 before-shape to be self-proving. Does not block on the fold's authority; blocks self-containedness.
+2. **DIV_WAIT emit unshown and positionally unverified.** F2:3 asserts "DIV_WAIT emit below stays as the path marker," but the emit is not in the after-shape, and both snippet paths return (F2:12, F2:14) — anything literally below in this flow is unreachable. If the emit lives on the still-waiting branch of the S5 block, the claim holds; the page doesn't show it. Paste the emit line and its branch condition.
+3. **Governing fallback condition unshown.** The after-shape shows the disposition statements but not the condition that routes a divergence-miss into them. Without it, the discriminator's position inside the block (before/after other S5 exits) can't be audited.
+4. **E1 duplicate-define ambiguity.** The fold says v251's defect was pasting "current-state defines only" — implying `ABORT_POI_REPLACED` already exists in the file, and only `ABORT_DIV_FALLBACK` (F1:2) is new. But F1 is labeled "E1 new lines" and shows both. If a builder inserts both, that's a macro redefinition diagnostic at best. State explicitly: add only F1:2; F1:1 is after-state context, already present.
+5. **Clears-list omission.** The fold's list "state/dir/regime/anchor/zone/touch/latches/confirmFrom" omits `g_sessionAtEntry` (EA 6272). It *should* clear (it's per-candidate working set), but name it explicitly so no one conflates it with the session-USE marks (EA 1804-1816), which correctly persist.
+6. **"Freed slot ≠ reopened session" boundary unstated.** If the session was already marked used earlier that day by another candidate's SIGNAL, eviction does not re-open it (`SessionAlreadyUsed` EA 1802-1809 still true). The claim holds for the cited scenario (holder never reached SIGNAL → marks never set, QI row sess=NYAM), but carry the boundary so a post-run "why didn't the valid setup trade" has a standing answer.
+7. **Log-shape vs comment wording.** Inline comment "refused armed holders abort" (F2:6) — but atState will be `S5_GATE_CHECK` (baseline re-arm rows EM/GQ/LF/CE/CO/RJ all show state S5_GATE_CHECK at fallback). Expect `STATE S5_GATE_CHECK->ST_ABORT` and `predicate=DIV_FALLBACK`, not `S4_ARMED`. Not wrong — but E3 should state the expected strings (see B1).
+8. **Gating unstated in F2 header.** A6REFUSED and STAND-DOWN are input/state-gated (EA 6298, EA 6308); F2:4 lists them unconditionally. Note the gates; both fire under normal config for this path.
+9. **LogAbort body not on page.** Named in the contract chain, only the call shown (EA 6297). Accept-by-prior-rounds; paste body or cite range for standalone proof.
+10. **A5 fold sentence garbled.** "zero of the REFUSED HOLDERS converted (takes flow through S5-pass, never the fallback branch)" — subject of "takes" is unclear. Precise form: "Conversions occurred only via the S5-pass flow; fallback re-arms converted 0/6."
+11. **Run-row tag collisions.** EM used twice (ANCHOR_ELECT and the 16:55 re-arm), CO twice (SEEDVOID and 08-31 re-arm). Cosmetic, but tag-references in discussion will be ambiguous.
+12. **KL row (A6TERM class=SELECTED) role unexplained page-standalone** — which candidate terminated, at which site, why it matters to the eviction argument. Presumably covered in v251; dangles here.
+13. **Dual comment blocks in F2.** E3 header (F2:1-5) plus inline marker (F2:6) state the same rule twice at different indents; trim one (keep the header; "squatter GC" is informal for a permanent comment) so the two can't drift apart.
+14. **`prevDiv` consumed only by the rollback branch** (F2:7 vs F2:11); GoAbort recaptures its own `prev` (EA 6325). Harmless; naming asymmetry only.
+15. **Census-key cleanliness.** Confirm no pre-existing literal "DIV_FALLBACK" rows in the baseline logs with a different meaning, so post-build greps on `predicate=DIV_FALLBACK` key only on the new abort. Also note: post-change, bar evolution cascades — the "3 per run" fallback census will *not* map 1:1 to post-change abort counts; the run gate must assert the invariant (zero re-arm rows / zero silent fallbacks), not count equality.
+16. **Stray `;` after the Q3 block comment** (EA 7520, `*/ ;`). Legal empty statement; tidiness note only, since the block is quoted verbatim as the operator-ruling record.
+
+## ANALYTIC ASK B
+
+1. **Mechanical post-build assertions (no code change; run-gate spec only).** (i) Grep the EA first to confirm `STATE S5_GATE_CHECK->S4_ARMED` has a single producer — if yes, the tester gate is "zero such rows post-build"; if multiple producers, assert instead on the union `LogAbort reason=DIV_FALLBACK` + `A6REFUSED predicate=DIV_FALLBACK` with zero fallbacks lacking both. (ii) Expect those rows at bars where baseline showed re-arms (EM/GQ/LF in RECON58; CE/CO/RJ in RECON57). (iii) Expect the matching downstream SUPPRESSED/HELD row (09-01 17:30 Monthly-VWAP) to vanish and the S1_REGIME→S2→SIGNAL chain to appear (RECON57 EL/QI/RM/PD show the shape). This makes the 52-min-class run verdict mechanically checkable, same discipline as S1's pre-compile assert.
+2. **Optional telemetry, separate packet if wanted:** add `|| reason == ABORT_DIV_FALLBACK` to the shadow-record condition (EA 6313-6314) if the council wants post-change "would-have" tracking of refused holders. Measurement-only per the existing comment (EA 6311-6312); not required for the eviction; changes shadow census composition — deliberate choice, not a rider.
+3. **Discriminator hardening without a new field** (respects P-BUILD3 E5, EA 6290-6292): either paste the confirmFromState assignment site(s) into the packet (closes A1), or append confirmFromState to LogAbort's line for this reason so the post-run census self-documents the partition. Touch: the unshown assignment site or LogAbort's format string.
+4. **E1 collision guard:** instruct the S1 gate to fail if any `ABORT_*` symbol greps to count ≠ 1 post-edit (closes the A4 misread mechanically).
+5. **Considered and rejected — preemptive eviction at suppression time** (the SUPPRESSED/HELD producer, run row FP's site): at suppression the holder has *not yet failed* its final check; div may still arrive. Gate-check-point eviction (this packet) kills only demonstrably-refused holders — the packet chose the more conservative cut point correctly. Do not switch.
+
+## Standing brief check
+
+Probe/print-only intact — the change touches state machinery and alerts only; no order-send path added or altered; it strictly *removes* re-arm conversions that empirically never happened (0/6). No keys, no second-human ask, operator carries both ways; no build/run/clear executed by this verdict — one gated build + one tester run remains the operator's next step on his machine.
+
+Nothing unanswerable is asked; nothing here clears live activation. Verdict-slot line excused per standing seat-split.
+
+## V252-EVICT END GLM (verbatim close, nothing appended)

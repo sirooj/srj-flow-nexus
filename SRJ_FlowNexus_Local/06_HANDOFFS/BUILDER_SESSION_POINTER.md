@@ -18,7 +18,8 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
   Relay v251 battery-green, transport
   signal ships (ledger 673). V251 ruled:
   amend (ledger 674). Relay v252 green,
-  signal ships now - ONE file.
+  signal ships now - ONE file. V252 ruled:
+  amend (ledger 675). Seat ruling owed.
 
 ## Next (artifact owed)
 

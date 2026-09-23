@@ -8027,3 +8027,41 @@ The important implementation condition is that `GoAbort` must be the already-est
 **Net verdict:** Q1 **YES**. Q2 **DISCREPANCY** because the proposed abort symbol and, more importantly, its slot-release semantics are not established by the supplied page.
 
 ## V251-EVICT END LUNA (verbatim close, nothing appended)
+
+## V252-EVICT OPEN LUNA (his carry, Luna channel, relay v252, filed whole)
+
+**Q1: discrepancy — not clear as written.** Lines 63–81 implement "S4-origin only" by excluding `ST_S3_ZONE_WAIT`, then aborting everything else. That is not a positive S4-origin test, so the branch is broader than the stated contract unless an invariant outside this excerpt guarantees that every non-S3 value is S4.
+
+### Analytic A — defects, gaps, and imprecisions
+
+1. **S4-only scope is under-specified in the actual predicate.**
+   The operative logic is `if(g_confirmFromState == ST_S3_ZONE_WAIT) ... else GoAbort(...)`. There is no explicit S4 test. An unexpected/invalid/non-S3 origin would also abort.
+
+2. **"Session marks unconsumed" is not proven by the supplied excerpt.**
+   The page shows that `ResetSequence()` does not clear the persistent session-used fields, and shows the `SessionAlreadyUsed()` / `MarkSessionUsed()` definitions, but it does not show the call-site ordering proving `MarkSessionUsed()` cannot already have fired for this refused candidate before this abort branch.
+
+3. **"No re-arm" is only partially demonstrated.**
+   The local `return` after `GoAbort()` is clear, but the excerpt does not include the caller boundary showing that nothing after this handler can re-bind/re-arm the candidate in the same execution path. The comment asserts that property, but the caller-side proof is absent here.
+
+4. **The E3 comment overstates what `GoAbort()` guarantees.**
+   The comment says the path carries `LogAbort + A6REFUSED + STAND-DOWN`, but `A6REFUSED` is conditional on `InpDebugLog && g_dir != DIR_NONE`, and `STAND-DOWN` is conditional on `InpAlertStandDown && g_alertedArmed && !g_alertedSignal`. Therefore `GoAbort()` does not unconditionally produce both emissions.
+
+5. **Abort provenance is not retained explicitly in the abort record.**
+   `GoAbort()` receives `atState`, but not `g_confirmFromState`; after `ResetSequence()`, `g_confirmFromState` is reset to `ST_IDLE`. Thus the shown logging does not directly preserve the origin classification that is being used to justify the S4-only disposition.
+
+6. **The claimed dual-tag behavior is asserted rather than demonstrated on-page.**
+   The packet says `DIV_WAIT` remains as the path marker while `GoAbort()` carries the outcome, but the actual `DIV_WAIT` emission is not included in the supplied code excerpt, so that part cannot be independently checked from this page.
+
+7. **The "zero of 6 fallbacks converted" / "zero of the refused holders converted" evidence is not visible in the displayed raw rows.**
+   The run paragraph states the census result, but the shown rows do not contain the fallback census entries themselves. That makes the numerical claim an asserted test result here, not something this page independently demonstrates.
+
+8. **The tester-run evidence needs an explicit simulation qualifier around the order row.**
+   The project brief says this packet is probe/print-only with no funded-money movement, while the raw mechanical rows include `order performed buy 2.04`. In a tester this may be simulated, but the page does not label that row as simulated, leaving an avoidable internal ambiguity.
+
+### Analytic B — better mechanism
+
+Use an **explicit origin classification** rather than treating "not S3" as synonymous with "S4." The disposition should positively distinguish S3-origin, S4-origin, and unexpected/unknown origin; only the positively identified S4 case should call `GoAbort(ABORT_DIV_FALLBACK, ...)`. For an unexpected origin, fail closed rather than silently treating it as S4.
+
+The cleanest touch points are the divergence disposition at lines 63–81 and the abort contract at lines 89–107: pass/log the explicit origin classification with the abort so the post-reset record preserves why the candidate qualified for eviction.
+
+## V252-EVICT END LUNA (verbatim close, nothing appended)
