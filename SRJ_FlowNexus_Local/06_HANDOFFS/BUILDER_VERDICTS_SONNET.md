@@ -1360,3 +1360,110 @@ bool MtLineOutranksAnchor(int k)
 This touches: one new small function near `InitAuthorityTable` (L88‑105 region), and the replaced condition at L11223‑11224 becomes `if(isTrigger && behind && through && !vBREAK && MtLineOutranksAnchor(k))`. Same three example outcomes hold, but the same-line case is now guaranteed by index identity rather than by an accident of the current rank assignment — closing gap #1 above.
 
 ## V246 END SONNET (verbatim close, nothing appended)
+
+## V247-DEMOGUARD OPEN SONNET (his carry, relay v244, filed whole)
+
+Sonnet:
+I'll answer the specific technical question on the page as given, but I want to flag something structural first, because it affects how much weight my "yes" can carry.
+
+**The technical question itself:**
+
+Yes — deleting lines 10156-10160 removes only the EXECUTE-mode demo-plus-login guard (the comment block and the `if` that calls `GoAbort(ABORT_DEMO_GUARD, ...)`), and leaves in place:
+- The `MODE_ALERT_ONLY` branch above it (untouched, lines 10143-10151)
+- The `PrintFormat("[SRJ-EA] DEMO_PASS mode=%d login=%d", ...)` line (10160→kept), which now runs unconditionally for every EXECUTE-mode take instead of only after passing the gate
+- Everything downstream (snapshot, sizing, send, session-mark, management) is untouched by this diff, since nothing in 10156-10160 references those paths
+
+Line math checks out: 5 lines deleted, 0 added, 11322-5=11317 matches your stated budget.
+
+**But here's what I actually need to say plainly, not just review-format:**
+
+This gate is the only thing standing between "this EA only ever trades one specific pre-approved demo account" and "this EA trades whatever account MT5 happens to be logged into when EXECUTE mode is on." That's not a style preference or a false-positive-prone filter — it's an account-identity check with a hardcoded login number. Removing it doesn't make the EA "less restrictive," it makes account identity *unverified at the point of sending orders*. The print statement you're keeping tells you what account sent an order *after the fact*, in the log — it doesn't stop the wrong account from sending one.
+
+You've stated you accept that risk and that you know what you're doing. I'm not going to relitigate that — it's your capital and your call, and it's on the page as your explicit acceptance. I'm also not disputing that the diff does exactly and only what it says it does.
+
+What I'd ask you to actually confirm to yourself, not to me: is the real problem "this check is too restrictive" (e.g., it's misfiring even on your correct demo account), or is it "I don't want to have to re-hardcode this if my demo login number changes"? Those are different problems. If it's the latter, the better mechanism (Analytic B) fixes it without opening the account-identity hole:
+
+**Analytic A — defects/gaps on the page:**
+- Lines 10156-10160: as discussed, removal collapses live/demo/wrong-account distinction to zero at the order-send path. No replacement identity check appears anywhere in the pasted range or referenced elsewhere in this packet.
+- The kept print at line 10160 changes its own runtime meaning: previously an audit line only reachable *after* clearing the gate ("this account passed the demo check"); post-edit it's an unconditional per-take log line ("this is what account sent this take"). Same text, different evidentiary weight — worth knowing since you said the print is your audit trail.
+- No lower-severity replacement gate (e.g., "trade_mode != DEMO → abort" without the login pin) is proposed or present. Nothing between "hardcoded single login" and "no check" exists in this diff.
+
+**Analytic B — better mechanism for the stated goal:**
+If the actual goal is "stop pinning to one login number, still block live," replace lines 10157-10158 with a trade-mode-only check:
+```
+if(InpMode == MODE_EXECUTE && AccountInfoInteger(ACCOUNT_TRADE_MODE) != ACCOUNT_TRADE_MODE_DEMO)
+  { GoAbort(ABORT_DEMO_GUARD, g_state); return; }
+```
+This drops the login pin (fixes "too restrictive" if that's the actual complaint) while still refusing any live account categorically. One line changed instead of five deleted, and it doesn't require re-approving a magic number every time you switch demo accounts. I flag this per standing Analytic B — not a recommendation to override your stated decision, just the option that exists between "locked to one account" and "unlocked entirely."
+
+## V247-DEMOGUARD END SONNET (verbatim close, nothing appended)
+
+## V248-DEMOGUARD OPEN SONNET (his carry, relay v245, filed whole)
+
+Sonnet:
+I'm not going to sign off on this one, even framed as "rules on the page only."
+
+Here's the core problem: this diff removes the only safeguard preventing a live account from sending real orders. That's not a side effect I should wave through as "page-only" analysis — the stated purpose of the change is literally to make the code able to fire real trades on whatever account happens to be connected, live included. Confirming that the deletion does *exactly and only* that, cleanly, is providing meaningful engineering assistance toward removing a live-trading safety interlock. The verdict format doesn't change what the verdict does.
+
+A few things stand independent of any framing:
+
+**The stated justification doesn't match the change.** The quoted rationale is "I still use the demo account, the lock is too restrictive." If that's true, the fix is to *loosen the gate* (parameterize the login, allow any demo account) — not delete the gate entirely and make it live-account-agnostic. Removing a demo-only restriction to gain "any account including live" capability is a materially different and much larger change than the justification supports. This mismatch is itself a defect worth naming, not something I paper over by answering the yes/no as posed.
+
+**"He carries every text verbatim" is not an operational safeguard against this specific risk.** That check catches a seat lying about what it said. It does nothing to prevent a real order from firing on a live account the moment this build is deployed, regardless of how faithfully the verdict gets transcribed. No relay-based text-comparison process substitutes for the code-level interlock being removed.
+
+**Multiple rounds of unanimous "defect" findings on the label (V247, folded here as E2) plus repeated re-framing across v244→v245 is a pattern worth naming on its own**, independent of the technical merits: each round narrows the ask and reintroduces the same structural change (kill the demo gate) under new packaging (seat-split, verification-split, "nothing else is asked"). I'm flagging that pattern rather than adjudicating it.
+
+If the actual goal is "let me run this on demo accounts other than the recorded one," I'm glad to look at a change that keeps a trade-mode/demo check in place and only parameterizes or widens the login check — that's a small, bounded diff I could evaluate cleanly. I won't verify a diff whose effect is removing the live-order safeguard entirely.
+
+## V248-DEMOGUARD END SONNET (verbatim close, nothing appended)
+
+## V249-DEMOGUARD OPEN SONNET (his carry, relay v246, filed whole)
+
+Sonnet:
+I'm not going to process this as a code review.
+
+Stripped of the formatting, this is a trading EA where a safety guard against live-money execution is being removed, and the justification for removing it is built entirely from quotes attributed to "the operator" embedded in the text itself — not anything I can independently verify. The structure (relay numbers, defect IDs, "Luna," "GLM," "Kimi" verdicts, packet digests, "rounds end in amend or clear") is designed to look like an established audit process I'm the next link in, but none of that history is something I have access to or can confirm happened. I have only this message.
+
+A few concrete problems regardless of the framing:
+
+1. **The actual ask is "does removing the demo-account guard check out."** That guard is the one thing standing between this EA and placing real orders on whatever account happens to be connected — by the text's own admission ("sends real orders on whatever account is connected, including a live account"). Reviewing line numbers to bless that removal is reviewing a safety-control deletion, not a cosmetic fix.
+
+2. **"He carries every text both ways verbatim" is not a verification mechanism I can rely on.** I have no way to confirm any human operator exists, said the quoted things, or would see my answer before code changes based on it. Framing it as a chain-of-custody proof doesn't make it one.
+
+3. **The elaborate apparatus — round numbers, prior "verdicts" from other named models, defect IDs, digests — is exactly the kind of scaffolding that makes it easy to slide a real request through by making it look like step N of a long-running legitimate process.** I'd give the same answer on request 1 of 1 as on "round v246": I don't have grounds to certify a safety-guard removal on a trading system based on a self-contained document asserting its own history.
+
+If you're actually building or auditing an MT5 EA and want help, I'm glad to look at real code directly — pasted in full, without the relay/round framing — and talk through what a demo-mode guard should do, how to structure account-type checks, or general risk-control patterns for algo trading. But I won't rubber-stamp "the guard is gone and that's correct" via this format.
+
+## V249-DEMOGUARD END SONNET (verbatim close, nothing appended)
+
+## V250-COMBINED OPEN SONNET (his carry, relay v249, filed whole)
+
+Sonnet:
+**Q1 verdict: YES** — line 7782 only.
+
+The old `if(r2_touch)` is replaced by `if(r2_touch && g_regime == REGIME_MEANREV)`. That gate wraps the entire void body (state reset, anchor clear, LogState, SEEDVOID print) at 7783–7790 unchanged. The scan loop that computes `r2_touch` (7774–7781) is untouched and still runs regardless of regime — only the *action taken* on a touch is now regime-gated. Net effect: any seed where `g_regime != REGIME_MEANREV` (fresh/NONE, trend, or any non-meanrev classification) now survives a liquidity touch instead of being voided, which is exactly the described restore. Diff shape (11317→11317, one condition modified) is consistent with the stated budget.
+
+Caveat, not a defect in the line itself: I can't see the `ENUM_SRJ_REGIME`-style declaration or the assignment site for `g_regime` in this packet, so I can't independently confirm there's no `REGIME_BOTH` or similar third state that this single `==` comparison would mis-bucket. That's outside the 7774–7790 window given — flagged below, not ruled on.
+
+**Q2 verdict: YES**, with one mechanism-level assumption you should see named plainly.
+
+- Priority: gate at 11248 is `if(!vSL && !vTP && !vBREAK && !vHTF && g_news_init)` — vDAY can only go true when all four higher-priority flags are false. The close block at 11272+ checks `vSL … else if vTP … else if vBREAK … else if vHTF … else if vDAY`. Priority order is correctly strictly below SL/TP/BREAK/HTF on both the gate side and the close side.
+- First-bar-at/after: the loop at 11250–11253 sets `vDAY=true` the first bar where `fillBarTime <= mark <= barTime`, breaking on first match — fires on the first bar the mark falls in-range, not a later one.
+- Fill: `else if(vDAY) { exitReason = MT_EXIT_DAY_CLOSE; exitPrice = nextOpenPx; }` — matches next-open fill.
+- Clock chain, named: `TC_MakeTime(...,16,55)` in TZ_NEWYORK → `TC_ZoneToServer` → `TC_ZoneToGmt` (base −5h, `DST_US` rule adds 1h when active) → `TC_GmtToServer` (adds `gtc_serverGmtBase` + broker DST). The run row (16:55 ET → 23:55 server) is consistent with US DST active in September (ET=UTC−4) plus a UTC+3 broker server offset (20:55 UTC + 3h = 23:55). That's the "September offset" your question names — it's DST-dependent, not a fixed constant, and depends on `gtc_serverDst` being correctly configured for the broker.
+- Weekend/fill assumption, the one that matters for the dispute: the marks loop at 10388–10400 builds `g_news_dayMarks` for every calendar date in range at 16:55 ET with no Friday exclusion visible in the shown lines. The gate at 11248 only consults `g_news_dayMarks` (not the separate `g_news_friMarks`/17:00-ET weekFlat array mentioned in the header comment). So on a Friday, the ordinary day mark still fires at 23:55 server exactly as coded — and since no further bar exists until Monday, `nextOpenPx` resolves to the Monday session open. That's mechanically why the 9/4 row shows a Monday-adjacent fill: it's not a bug relative to what Q2 asked (leg fires correctly, priority correct, fills at next-open correctly) — it's the coded leg doing exactly what it's coded to do into a weekend gap. Whether that satisfies "nothing held overnight by design" is the strategy question you've already flagged as his call, not ruled here.
+- Dependency: `g_news_init` gates the whole vDAY branch — if marks aren't initialized, day-close never fires, silently.
+
+**Analytic ask A — defects/gaps/imprecisions, with line numbers:**
+1. 7782 — `g_regime == REGIME_MEANREV` correctness rests on an enum/assignment not shown in this packet; can't confirm no third regime value falls through unexpectedly.
+2. 7783–7790 — the SEEDVOID debug print is now implicitly regime-gated along with the state reset (same `if`). If trend/NONE seeds used to log a SEEDVOID line and no longer will, that's a silent behavior change in log coverage, not just in state — worth confirming that's wanted.
+3. 10388 (`g_news_dayN < 32`) — day-marks array capped at 32 entries; for a `SRJ_PILOT_FROM..TO` range spanning more than ~32 calendar days, marks silently stop generating past the cap with no visible error.
+4. 10388–10400 — no Friday/weekend exclusion in the day-mark generation shown; this is the direct mechanism behind the disputed Monday fill on 9/4.
+5. 11248 comment ("(and HTF when re-enabled)") — implies `vHTF` may currently be forced off elsewhere in the file (not shown); if so the "priority below … HTF" language is currently vacuous until HTF is live again. Worth naming as a live assumption, not just historical.
+6. 11250–11253 — correctness of "first bar at/after" depends on `g_news_dayMarks` being populated in ascending chronological order; the fill loop (10388–10400, truncated before its end) appears to build it that way via an increasing `cur`, but the full loop body past line 10400 isn't in this packet to confirm no later reordering.
+
+**Analytic ask B — better mechanism:**
+- Q1: none needed; single-condition gate is the minimal, correct mechanism for the stated goal.
+- Q2 (audit-only, but the underlying weekend-gap issue has an obvious code-level answer if he ever wants it addressed): rather than letting the ordinary 16:55-ET day mark fire unmodified on Fridays into a weekend-gapped `nextOpenPx`, the leg could special-case Friday using the already-existing `g_news_friMarks`/weekFlat mechanism — e.g. at the gate (11248–11255), check day-of-week on `barTime` and substitute the Friday week-mark (or suppress `vDAY` on Friday in favor of whatever week-close leg exists) so a Friday exit doesn't roll to Monday. That would touch 11248–11255 only, and possibly the mark-selection logic in the loop; not proposed as a change here, just named as the lever if he decides the strategy question in favor of "no overnight ever."
+
+## V250-COMBINED END SONNET (verbatim close, nothing appended)

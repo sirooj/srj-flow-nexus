@@ -183,26 +183,33 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
    without content change (observed 2026-09-08).
 4. Record digests AFTER the write that produced them; never assert pre-execution.
    Pre-stated figures must be arithmetic derived from measured lengths.
-5. NO git add / commit / push without an explicit master token. Read-only git
+5. COMMIT IS THE BUILDER'S CALL (operator rule 2026-09-23, amends the 2026-09-16/17/22
+   commit-token orders): commit is NEVER a council call — council is web-based and
+   cannot see the local repo, so a council commit token is unobtainable by construction
+   and never asked in any relay again. The builder commits whenever necessary and
+   appropriate; standing order: commit after every build. Read-only git
    queries (status, ls-files, check-ignore, diff, log, ls-remote) always fine.
     Commit message via -F message-file pattern (quoting trap recorded).
-    Never re-issue a push blindly — verify via ls-remote; stderr progress is not failure.
-    GIT SYNC DISCIPLINE (operator order 2026-09-16): prepare unprompted but commit/push
-    ONLY on his word; stage via add -A then unstage exactly the held-outs (canonical
-    needs token, debris needs deletion word) + two-pattern verify; post-sync untracked
-    == held-outs exactly; journals/logs/ex5 stay gitignored; backup-only, origin untouched.
-    VERSION-HYGIENE (his order 2026-09-22 - built versions piled up uncommitted):
-    every build's records checkpoint lands the SAME block its result file lands
-    (result + packet + relay + verdicts + ledger + pointer + index ride together),
-    so uncommitted records never span two built versions. Each checkpoint message
-    names its version + digests. Held-outs are re-derived every commit by PATTERN
-    (EA + indicator + every Include\SRJ\*.mqh including newly-appearing ones +
-    debris), never from memory - the pre-commit untracked-grouping must name any
-    new canonical-pattern path BEFORE add -A, or it rides by accident.
+    Never push blindly — verify via ls-remote; stderr progress is not failure; push
+    needs his credentials (origin auth expired 2026-09-23) and stays gated on his
+    word, never automatic.
+    GIT SYNC DISCIPLINE (revised 2026-09-23): stage via add -A then unstage exactly
+    the held-outs (his-data journal + debris-needs-deletion-word) + two-pattern verify;
+    post-sync untracked == held-outs exactly; journals/logs/ex5 stay gitignored.
+    VERSION-HYGIENE (revised 2026-09-23): uncommitted state never spans two built
+    versions — the build commit (post-build tree + build records) lands the SAME block
+    as the build; the result commit (result + tabulation + segment + updated ledger +
+    pointer + index) lands the SAME block as the grade. Each message names its version
+    + digests. Held-outs are re-derived every commit by PATTERN
+    (his-data files + debris), never from memory - the pre-commit untracked-grouping
+    must name any new held-out-pattern path BEFORE add -A, or it rides by accident.
+    Canonical EDITS still need council packets (invariant 1, unchanged — only the
+    repo-blind commit step leaves council; code rulings from pasted text stay).
     AMENDMENT 2026-09-17 (his delegation order — development/demo-only, no real money):
     housekeeping at BUILDER discretion (records checkpoints incl. push + debris deletion
     whenever necessary, no per-item word; verify every push via ls-remote, never blind,
-    never force). Canonical files NEVER committed without council token. His standing
+    never force). Canonical files are committed on the builder's call per §6.5
+    (commit-token orders superseded 2026-09-23). His standing
     load is transport + money + goals only: technical-shape calls are builder-decided
     (veto-able on report); second human eyes DECLINED (AI workflow stands). Proving
     spans: same-settings rerun reproduces — spans must be unseen + feed-covered
@@ -323,9 +330,11 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     wrong, not the code).
 29. PLAIN-TEMPLATE RULE (operator order 2026-09-17 — adopts the review-seat plain
     form; standing format lives in `06_HANDOFFS\BUILDER_RELAY_TEMPLATE.md`): every
-    review/grade relay uses the template — one plain change-sentence, exact file/
-    function/lines + digest, WHOLE code (rule 28), raw rows for row claims, ONE
-    specific question, plain answer form. Same text to EVERY model. No roles, no
+    review/grade relay uses the template — one plain change-sentence per question, exact file/
+    function/lines + digest, WHOLE code (rule 28), raw rows for row claims, numbered
+    questions (Q1/Q2...) each with its OWN verdict line and plain answer form (multi-question
+    relays lawful per his 2026-09-23 simplification order; a NO on one never sinks the other).
+    Same text to EVERY model. No roles, no
     seat language, no Ruling-ID/clearance asked of anyone; volunteered keys are
     recorded, never demanded. Priors ride labeled (file + marker + digest), never
     unattributed. Decisions rest on answers + disk measurements + his word — a pasted
@@ -368,13 +377,20 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     (file length plus tail read immediately before the edit); the after-grep
     must show tail order unbroken. A mid-file landing is documented, never
     reshuffled, and the recurrence is owned here.
-34. PS-CAPTURE RULE (2026-09-23 - four vacuous greens inside one build:
-    String.Split on a CRLF string splits chars; @f(x), f(y) nests calls
-    silently; single-letter function names collide with aliases; mixed
-    CRLF-plus-lone-LF files punish joins): every probe and helper proves
-    itself by count-asserts beside its output (pre-counts, hit counts,
-    post-counts), never by echoed prose; a green with no deriving count
-    is unwritten.
+ 34. PS-CAPTURE RULE (2026-09-23 - four vacuous greens inside one build:
+     String.Split on a CRLF string splits chars; @f(x), f(y) nests calls
+     silently; single-letter function names collide with aliases; mixed
+     CRLF-plus-lone-LF files punish joins): every probe and helper proves
+     itself by count-asserts beside its output (pre-counts, hit counts,
+     post-counts), never by echoed prose; a green with no deriving count
+     is unwritten.
+     PROBE-INDEX COROLLARY (2026-09-23 - three defect classes in one session:
+     backslashes inside -SimpleMatch patterns match literally (zero hits,
+     silent); Select-String LineNumber is 1-indexed while content arrays are
+     0-indexed (off-by-one greens); $array[$i] on a scalar-unrolled single
+     returns a char): all three proved by a deliberately-failing control
+     (a pattern that must hit, an index that must align) beside the real
+     probe before its output is trusted.
 35. CITED-BUILD-DIFF RULE (2026-09-23 - his "how did the 5th build take it"
 correction: two full diagnoses written from the current tree alone while
 RECON51's segment proved both takes on disk, entries 1.16466 / 1.16261):
@@ -511,9 +527,9 @@ any conflict: current digests live in the pointer + latest result file)
   (25478 B, T162_FVG run-verified; wick-shrink, shrink-only).
 - Types: `Include\SRJ\SRJ_Types.mqh` = `D542B458...F03` (13835 B;
   remTop/remBottom fields).
-- HEAD: check `git log --oneline -5` at session open; snapshot+push ONLY on explicit
-  token (linear main, canonical commit + records commit + annotated tag, both remotes,
-  ls-remote verify).
+- HEAD: check `git log --oneline -5` at session open; commits are builder-called
+  per §6.5 (commit after every build; result commit at grade time). Tags + push
+  stay gated on his word + credentials (linear main, ls-remote verify).
 - Packets: `SRJ_FlowNexus_Local\01_TASKS\PACKET_*.md` (DRAFT ≠ ISSUED ≠ EXECUTED;
   answers are NOT issuance).
 - Results/findings: `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RESULT_*.md`,
@@ -619,8 +635,9 @@ here and load every turn)
 - GOAL-JOIN after every run (srj-goal: scoreboard re-joined, misses diagnosed,
   next packet named); STRATEGY-CONSULT before grading, questions, and relays
   (srj-strategy: his words over code, always).
-- SLIM-PAGES: one question per relay, smallest page that carries it (relay
-  budget §5); draft and transport turns never mixed (§7).
+- SLIM-PAGES: smallest page that carries the ask (relay
+  budget §5); one question per relay by DEFAULT, multi-question (Q1/Q2, separate verdicts)
+  on his per-round word (2026-09-23 simplification order); draft and transport turns never mixed (§7).
 - CANON-ORDER on any contradiction (D3): spec first, then his later words,
   then council prose; council never overrules him. Later words amend earlier
   (break-retest over touch-exit). Resolve on record or escalate as ONE question.

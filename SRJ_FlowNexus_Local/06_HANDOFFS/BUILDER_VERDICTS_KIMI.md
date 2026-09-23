@@ -1418,3 +1418,215 @@ Precompute once, before the loop: `int anchorRank = (g_mtrade.anchorLine >= 0 &&
 If only one of these ships, B1 is the one — it converts the packet's weakest verified claim (the two holds) into a directly logged fact for the price of two lines.
 
 ## V246 END KIMI (verbatim close, nothing appended)
+
+## V247-DEMOGUARD OPEN KIMI (his carry, relay v244, filed whole)
+
+KIMI:
+**Verdict: YES** — with one labeling defect flagged in Ask A (not a blocker to the stated intent).
+
+**Ruling on the page, line by line:**
+
+- Lines 10156–10160 are exactly five lines: three comment lines (10156–10158), the compound gate condition (10159), and the abort (10160). Deleting all five removes the comment with the gate, as stated. No dangling comment remains; the section header at 10155 ("Phase 2 Execution Logic") still accurately describes what follows.
+- Line 10143 (MODE_ALERT_ONLY) returns before line 10161 in alert-only mode, so the alert-only path is untouched — snapshot, sizing, send, session-mark, and management are behavior-identical there.
+- Line 10161 is retained, so the mode-plus-login print still fires on every EXECUTE-mode take, pre-sizing, as the audit trail.
+- The deleted condition `InpMode == MODE_EXECUTE && (mode != DEMO || login != 1500183638)` only ever fired in EXECUTE mode on accounts that were non-demo OR not the recorded login. On the recorded demo login 1500183638 the gate always passed, so removal changes nothing there. The only behavioral delta is exactly the intended one: EXECUTE mode on a non-demo or non-recorded account now proceeds to magic/concurrency/sizing/send instead of `GoAbort(ABORT_DEMO_GUARD, g_state)`.
+- Compile safety: `GoAbort`, `ABORT_DEMO_GUARD`, and the `AccountInfoInteger` calls all remain defined elsewhere; removing one call site breaks nothing. Line budget checks: 11322 − 5 = 11317, as stated.
+- The single live-account risk ("sends on whatever account is connected, including live") is disclosed on the page with his verbatim acceptance. Correctly disclosed: yes.
+
+**Ask A — defects, gaps, imprecisions on the page:**
+
+1. **Line 10161 — the retained print now lies on a live account.** After the gate is gone, nothing verifies demo status, yet the label still asserts `DEMO_PASS`. On a live account (`ACCOUNT_TRADE_MODE_REAL` = 2) the log will read `DEMO_PASS mode=2 login=<live login>` — an audit record that falsely certifies demo execution. Since the stated purpose of keeping this line is "the every-take audit trail," the trail is now inaccurate in exactly the scenario the risk disclosure contemplates. This is the one real defect on the page.
+2. **Lines 10143 vs 10161 — "every-take audit trail" is imprecise wording.** The print fires only in MODE_EXECUTE (the ALERT_ONLY branch returns at 10152 before reaching it). It audits every execute-mode take, not every take.
+3. **Page-scope gap (not an edit defect):** the excerpt cannot exclude a second enforcement site elsewhere in the 11,317 lines (e.g., a pre-send re-check inside the order wrapper, or an OnInit self-check referencing `S1-DEMO-GUARD-001`). Your verification split correctly assigns that to disk proof; flagged only so the "ONLY" in the question is scoped to the shown code.
+4. **Residual hygiene (page cannot confirm):** whether `ABORT_DEMO_GUARD` is now an unreachable enum value and whether any counter/report keyed to it expects nonzero occurrences. Harmless either way, but unverifiable from the page.
+
+**Ask B — better mechanism for the stated goal:**
+
+- **Line 10161 only:** change the label `DEMO_PASS` to a neutral tag (e.g. `EXECUTE_ACCT mode=%d login=%d`). Same zero-risk profile as the filed edit (one line, same position, same args), but the audit trail stays truthful on any connected account. Recommended; his call, since it breaks the "zero lines added" budget by one.
+- Declined by his recorded words, noted for completeness only: parameterize the login literal at 10159 into an input (declared in the inputs section, referenced at 10159) so a future demo login change doesn't require recompile — the middle path between the removed hard lock and no lock at all.
+
+Nothing refused; nothing unanswerable was asked.
+
+## V247-DEMOGUARD END KIMI (verbatim close, nothing appended)
+
+## V248-DEMOGUARD OPEN KIMI (his carry, relay v245, filed whole)
+
+KIMI:
+## Verdict: **YES**
+
+Ruling against the page only:
+
+- **E1 (delete 10156–10160)** removes exactly one complete unit: the three comment lines (10156–10158), the gate condition `if(InpMode == MODE_EXECUTE && (… != DEMO || … != 1500183638))` (10159), and the abort line `{ GoAbort(ABORT_DEMO_GUARD, g_state); return; }` (10160). It is a self-contained statement — no dangling braces, no variables declared inside it, no partial structure. Deletion is compile-safe.
+- What is removed: **only** the EXECUTE-mode refusal on non-demo or non-1500183638 accounts. Downstream lines (snapshot, magic/concurrency, sizing, send, session-mark, management) are not touched, so on any account the flow is now: ALERT_ONLY branch (10143–10153) unchanged → straight into Phase 2 execution. Behavior-identical everywhere except the removed early-abort path. That is the intended semantic change, and it is what the operator directed.
+- **E2 (modify 10161, DEMO_PASS → EXECUTE_ACCT)** is token-only: same condition, same args `(mode, login)`, same position, same format. It fires on every EXECUTE-mode pass through this block, and now prints the *actual* trade mode and login of whatever account is connected — so the line is truthful as an account-disclosure record, and arg values are self-correcting (a live attach logs `mode=0`, not a stale "PASS"). Rename does not change control flow.
+- Arithmetic on the page is internally consistent: 11322 − 5 = 11317, one modified, zero added; the digest/line count is disk truth and not re-litigated here.
+
+One boundary, stated not as a defect: whether `ABORT_DEMO_GUARD` or login `1500183638` is referenced anywhere else in the remaining 11317 lines is not answerable from this page. If nothing else references them, they become dead enum/string-table entries — harmless. A one-time `grep` on disk is the cheap close-out.
+
+Per the standing brief: this verdict clears nothing about live money. It rules on text only; live activation remains a separate relay plus the operator's explicit word. Nothing here builds or runs anything.
+
+## Analytic ask A — defects, gaps, imprecisions on the page
+
+1. **Dead artifacts after E1 (ex-10156–10160).** The `ABORT_DEMO_GUARD` enumerator, its abort-reason string mapping, and any per-reason counters become unreachable. Not harmful (MQL5 compiles unused enums fine), but the audit vocabulary now contains a reason nothing can ever emit again. Recommend a parking comment or future cleanup relay, not a change here.
+2. **Label scope on 10161 is disclosure, not execution.** `EXECUTE_ACCT` prints *pre-sizing/pre-send*, so it appears even when a later gate (concurrency, sizing) aborts the take. That was equally true of `DEMO_PASS`, so behavior is unchanged — but the name can be misread as "order executed." Acceptable; a pedantically tighter token would be `EXECUTE_MODE`. Non-blocking.
+3. **Log-parser break (intended, note it).** Anything grepping historical `DEMO_PASS` lines will no longer match new output. The five carried run rows (9/1–9/8) are `DEMO_GUARD` aborts from the old build — they stay valid history; new EXECUTE runs will simply never produce that reason again. No inconsistency, just a corpus split at the build boundary.
+4. **Stale line references.** Everything after old line 10160 shifts up by 5. Any packet/relay/docs citing line numbers in the 10161+ region are now off by five. Cosmetic, worth a one-line note in the next relay's delta.
+5. **No attach-time disclosure in this change.** With the gate gone, a live-account attach is invisible until the first EXECUTE-mode take reaches line 10161 (now 10156). The OnInit print was parked by the operator's own word — I list it only as a gap against auditability, not against this change's correctness. It is the single cheapest safety-improvement left on the table and touches nothing else.
+6. **Session-mark asymmetry (pre-existing, unchanged).** The ALERT_ONLY branch marks the session used (line 10147); the execute path presumably marks post-send. E1 doesn't touch either, so whatever asymmetry existed is preserved. Flagging only so it isn't accidentally attributed to this relay.
+
+## Analytic ask B — better mechanism for the stated goal
+
+For the stated goal exactly as given — *remove the refusal entirely, keep a truthful record* — the proposed diff is already the minimal and best mechanism. Anything "better" is a different goal the operator already considered and parked: mode-only gate (allow any demo, refuse live), parameterized allowlist of logins, warn-instead-of-abort, OnInit print. Of those, the only one I would actively re-recommend, as a non-gating addition, is the **OnInit disclosure print** (one line in `OnInit`, printing `ACCOUNT_TRADE_MODE` + `ACCOUNT_LOGIN` at attach): it restores the "what account is this running on" signal the deleted gate used to provide, at zero restriction to behavior, and would have made the 9/1–9/8 abort rows unnecessary as evidence. If ever un-parked, it touches only `OnInit`, not the take path.
+
+Nothing else is asked; nothing further is outstanding from this seat.
+
+## V248-DEMOGUARD END KIMI (verbatim close, nothing appended)
+
+## V249-DEMOGUARD OPEN KIMI (his carry, relay v246, filed whole)
+
+KIMI:
+**VERDICT: YES** — on the page as presented, with line numbers 10155–10161.
+
+**Why yes, line by line:**
+
+- The guard comment is exactly three contiguous lines: **10156** (`//--- [S1-DEMO-GUARD-001] G1 demo gate FIRST…`), **10157** (`//--- token+word)…`), **10158** (`//--- magic/concurrency/sizing/send…`). E1's span **10156–10160** covers all three.
+- **10155** (`// ------ Phase 2 Execution Logic ------`) is provably not part of the guard comment: different marker style (`// ------ … ------` section header vs `//---` tagged guard lines), and "Phase 2 Execution Logic" remains an accurate description of what follows. Its survival is correct, not stale. Luna's V248 defect #1/#3 rest on mapping the comment to 10155–10157; the disk lines show that mapping is off by one. Refuted.
+- **10159** (gate `if`) and **10160** (`GoAbort`) are inside the same span, so the executable guard leaves with the comment — no orphaned `if` or abort. Defect #2's "comment without gate" reading dissolves with the same proof: gate and comment share one contiguous five-line block.
+- E2 touches **10161** only, and only the token (`DEMO_PASS` → `EXECUTE_ACCT`) — the condition, args, and cast are unchanged, matching "label token only."
+- Arithmetic is consistent: 11322 − 5 (E1) = 11317, +1 modified, zero added; the digest/line count is disk truth and not re-litigated here.
+
+So: E1+E2 exactly as ruled, no residue at the delete site.
+
+**Audit-line truthfulness ("every-EXECUTE-take"):** yes. The print sits in the take path after the ALERT_ONLY early return (10143–10152), so it fires on every pass through the take path in `MODE_EXECUTE`. One precision caveat for A below, but the claim as worded holds.
+
+---
+
+**Analytic ask A — every defect, gap, or imprecision seen on this page:**
+
+1. **Numbering basis (observation, 10156–10161).** The disk lines quoted are *pre-delete* numbering. After E1 lands, the E2 print is at new line 10156, not 10161. The page is internally consistent about this ("budget 11322-5=11317"), but any future relay that cites line numbers should state which side of the delete it's counting from — this exact ambiguity is what produced the V248 off-by-one. Recommend the packet pin post-delete numbering once E1 is built.
+2. **"Every EXECUTE take" vs "every EXECUTE send" (wording, 10161).** The print fires on every EXECUTE *take-path entry*, including entries that later abort at magic/concurrency/sizing gates downstream. "Every EXECUTE take" is truthful; "every EXECUTE order sent" would not be. If the packet wants zero ambiguity, the phrase "every EXECUTE take-path entry" is the airtight form. As written, it passes.
+3. **Packet prose tense (PACKET_P-DEMOGUARD-2 v2, outside these line numbers).** The refutation asserts the packet names the guard "comment-plus-gate throughout," which answers defect #2. But I can only see the code page here. If any sentence in the operative packet still describes the guard as *running* in present tense rather than as the object of E1's delete, that prose — not the code — is stale after this round. Worth one grep of the packet before filing; the code side is clean either way.
+4. **Evidence status of the run rows (carried from v245).** The five `ABORT reason=DEMO_GUARD` rows are RECON56 output — they predate the removal (v1/v2 unbuilt; "no new run" is explicit and accepted under your rules). This is fine as round evidence, but note for the record: the claim "the audit line reads on every EXECUTE take" is currently established by code inspection only. The first run that actually emits `[SRJ-EA] EXECUTE_ACCT …` will be the first empirical confirmation of the renamed token.
+5. **Nothing else.** No orphaned brace, no largely-dangling reference to `ABORT_DEMO_GUARD` visible in this span, header/gate/comment boundary is unambiguous, and the E2 old→new pair shows a single-token diff.
+
+**Analytic ask B — better mechanism for the stated goal:**
+
+For the stated goal — full removal per the operator's twice-stated direction — there is no better mechanism. A five-line contiguous delete plus one-token rename is the minimal, complete change; anything "better" would reintroduce the lock he explicitly declined. No lines touched beyond 10156–10161 are needed.
+
+If a guard is ever wanted back (not asked, parked per his words), the right shape is an input-parameterized gate in the same slot, e.g. `InpGuardMode` (enum `GUARD_OFF / GUARD_DEMO / GUARD_LOGIN`), default `GUARD_OFF`, evaluated at the 10156 position with a one-time `OnInit` warning print — touches 10156–10161 plus OnInit, keeps the operator's "I know what i am doing" default intact while giving a future relay a non-hardcoded lever. Also parked per his words: login parameterization and OnInit print.
+
+Review-seat verdict slot acknowledged — analysis out, review-only, no keys.
+
+**Bottom line: YES** — E1 (10156–10160) removes the entire guard comment plus gate plus abort, 10155 surviving is correct, E2 is a token-only rename at 10161, and the audit line truthfully reads on every EXECUTE take. Luna V248 defects #1/#3 are closed by the numbered disk proof; #2 dissolves with it.
+
+## V249-DEMOGUARD END KIMI (verbatim close, nothing appended)
+
+## V250-COMBINED OPEN KIMI (his carry, relay v249, filed whole)
+
+KIMI:
+# RELAY v249-COMBINED-1 — REVIEW SEAT ANSWER
+
+Ruling on the page only. Two separate verdict lines, per the combine order.
+
+---
+
+## Q1 — retest clear — **YES** (build-clear on the page as stated)
+
+**Line check.** The block quoted under "lines 7774–7790" is internally consistent: counting from 7774, line 7782 is exactly `if(r2_touch)`, so the E1 replacement line
+```
+      if(r2_touch && g_regime == REGIME_MEANREV)
+```
+lands where claimed, condition-only, same indent. The branch body (lines 7783–7790: state reset to ST_IDLE, anchor clear, LogState, SEEDVOID print) is unchanged, so behavior inside the void is identical whenever the void fires.
+
+**Scope check.**
+- The scan loop (lines 7774–7781) that sets `r2_touch` is unconditioned, so `r2_touch` computation is regime-independent — but `r2_touch` is local and consumed only by the gated branch, so leaving trend/NONE seeds untouched has no side effect elsewhere on the shown lines.
+- Fresh S1 seeds (regime NONE): gate fails → no void → seed survives to confirmation. ✔
+- Trend/both-classified seeds: gate fails → the two cited sweep-then-retest paths survive. ✔
+- Veto path: the S5 veto is not on these lines and nothing in the edit touches it. ✔
+- Every other line: zero added, zero deleted, no reordering → behavior-identical outside the branch. ✔
+
+**One imprecision in the question's wording, not the code** (see A1): the gate samples `g_regime` at void-evaluation time (line 7782), i.e. "regime at touch," not "regime at seeding." If the classifier can reclassify a live seed mid-life, a seed that was mean-reversion at seeding but trend at touch survives, and vice versa. On the page, that is exactly what "confine the void to mean-reversion-classified seeds" reduces to. If `g_regime` is frozen per seed elsewhere, the two readings coincide. This does not sink the clear; it is named so the builder knows which semantic was ruled on.
+
+**Verdict Q1: YES.** Lines: gate 7782; scan 7774–7781; branch 7783–7790.
+
+---
+
+## Q2 — day-close audit — **YES, with named assumptions; three imprecisions on the page**
+
+**Firing check.** Gate (lines 11248–11255) requires `!vSL && !vTP && !vBREAK && !vHTF && g_news_init`, then fires when `fillBarTime <= mark <= barTime`. With bar-open semantics and the 16:55-ET mark, the first bar whose open is at/after the mark is the mark bar itself (16:55 is an M5 boundary — assumption A6). Measured September mapping: ET 16:55 → server 23:55 (+7h), consistent with NY base −5*3600 + US-DST +1h (EDT, UTC−4; converter lines 230, 241–242) → GMT 20:55 → server GMT+3, DST_NONE (lines 252–256, `default` branch with `gtc_serverGmtBase`/`gtc_serverDst`). Matches the CLOCK row (NYAM 07:00–12:00 ET = 14:00–19:00 server) and the live 9/4 exit at 23:55.
+
+**Priority check.** The close chain (lines 11272–11279) is `vSL → vTP → vBREAK → vHTF → vDAY` in strict else-if order, and the gate precludes vDAY when any earlier verdict is set. Priority strictly below SL/TP/BREAK/HTF: ✔.
+
+**Fill check.** `else if(vDAY) { g_mtrade.exitReason = MT_EXIT_DAY_CLOSE; g_mtrade.exitPrice = nextOpenPx; }` (line 11279). Fill at next-open: ✔ — including across the weekend gap, where next-open for the Friday 23:55 bar is Monday 00:00 open (the 1.16093 fill). That is the coded semantic, full stop.
+
+**Every assumption the leg depends on:**
+1. **Converter base:** NY = −5*3600 (line 230); DST_US adds +1h via `TC_DstActive` (line 241).
+2. **DST handling:** September is inside US DST → EDT, UTC−4; correctness of the transition dates rests on `TC_DstActive`, whose body is **not on this page**.
+3. **September offset:** +7h, implying server GMT+3/DST_NONE via `gtc_serverGmtBase`/`gtc_serverDst` — the **values of those globals are not on this page**; only the measured +7h session mapping evidences them.
+4. **Fill assumption:** next-open unconditionally; the weekend gap price is accepted without slippage cap or special case.
+5. **Priority assumption:** vSL/vTP/vBREAK/vHTF are fully evaluated before the gate; vDAY can never displace any of them.
+6. **Timeframe assumption:** mark-bar alignment relies on M5 bars (16:55 is an M5 open boundary). On any other timeframe, "first bar at/after" is the first bar *open* at/after 16:55, which can be later than 16:55.
+7. **Init assumption:** if `g_news_init` is false or mark computation fails, vDAY can never fire and nothing on the shown lines logs that failure mode.
+
+**Verdict Q2: YES** — the leg fires and fills exactly as coded and as measured on 9/4. Lines: marks 10388–10400; gate 11248–11255; close chain 11272–11279; converter 228–260.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions on the page
+
+**A1 (Q1, semantic).** Line 7782 samples `g_regime` at touch-evaluation time, not at seed time. If the classifier can flip a live seed's regime, the void follows the *current* regime. The question's phrase "mean-reversion-classified seeds" is ambiguous between the two; the code implements "regime is MEANREV when the touch check runs."
+
+**A2 (Q1, efficiency only).** The scan loop (7774–7781) burns up to 18 `ReadFlow` evals per bar for every regime even though the result is discarded unless regime is MEANREV. Harmless, wasteful.
+
+**A3 (Q2, real defect).** Line 10392: `while(cur < SRJ_PILOT_TO && g_news_dayN < 32)` — the 32-mark cap **silently truncates**. Any pilot range over 32 calendar days loses every mark past day 32, and the day-close leg then never fires on those days, with no log or error. The shown code has no truncation warning.
+
+**A4 (Q2, verification gap).** `gtc_serverGmtBase` and `gtc_serverDst` (converter lines 234–235, 252–257) are globals whose values are not on this page. The +7h offset is evidenced only by the measured CLOCK row, not by shown code. Likewise `TC_DstActive` is called (line 241) but its body is not shown — DST-boundary correctness is unverifiable from the page.
+
+**A5 (Q2, logging inconsistency — not a code defect).** Lines 11274–11275: on a Friday, `exitBarTime = barTime` (Friday 23:55) while `exitPrice = nextOpenPx` (Monday 00:00 open). MTEXIT/MTLIFE therefore join a Friday timestamp to a Monday price. Any downstream stat computed from barTime-to-price joins inherits that two-session inconsistency. This is exactly the shape of his "still not working" dispute; the code is doing what it says, and the timestamp/price split is the honest source of the confusion.
+
+**A6 (Q2, timeframe coupling).** The 16:55 mark coincides with an M5 bar open by luck of arithmetic. Nothing pins the EA to M5 on the shown lines; on M15 the leg would exit at the 17:00-bar open (first open at/after the mark), still "correct" per the code but not "16:55."
+
+**A7 (Q2, init dependency).** Gate requires `g_news_init` (line 11248). No fallback, no alarm if mark init fails or the array is empty — the leg silently never fires.
+
+**A8 (Q2, benign).** `<=` on both sides of the mark join (line 11253): a fill exactly on the mark bar fires on that same bar. Ascending-order break assumes the array is built ascending — true given the day-walk at line 10395, but the break at first match relies on it.
+
+---
+
+## Analytic ask B — better mechanisms for the stated goals
+
+**B1 (Q1 goal — make "classified" literal).** Store the regime **at seeding time** in the seed/pending-confirmation struct, and gate line 7782 on the stored value:
+```
+if(r2_touch && g_seedRegime == REGIME_MEANREV)   // 7782
+```
+Touches: the seeding site (not shown), line 7782. Budget exceeds +0/-0/+1 → his amend.
+
+**B2 (Q1 goal — efficiency, same semantics).** Hoist the regime test over the scan (lines 7774–77781) before the state machine even sees the seed:
+```
+if(g_regime == REGIME_MEANREV)                     // new guard above 7774
+   for(int r2_k = 0; ...) { ... }                  // 7774–7781 unchanged body
+```
+Saves the evals named in A2; behavior identical because `r2_touch` is local and un-consumed otherwise.
+
+Wait — correction on B2 as written above: placing the guard with that exact indentation would break the `for` scoping unless braces are added (`if(...) { for... }`). As sketched it needs braces or it only guards the `for` header, which changes nothing. Flagging my own sketch as needing braces before anyone files it.
+
+**B3 (Q2 goal — kill the cap, the init dependency, and A3 in one move).** Replace the precomputed array + scan (marks 10388–10400; gate loop 11249–11255) with on-demand mark computation per managed trade:
+```
+// in the gate, per bar, replacing the dc-loop:
+MqlDateTime et; TimeToStruct(TC_ServerToZone(barTime, TZ_NEWYORK), et);   // needs the inverse converter
+datetime mark = TC_ZoneToServer(TC_MakeTime(et.year, et.mon, et.day, 16, 55), TZ_NEWYORK);
+if(g_mtrade.fillBarTime <= mark && mark <= barTime) vDAY = true;
+```
+Touches: converter (add inverse mapping if absent), gate lines 11248–11255; the marks block 10388–10400 becomes optional/news-only. Result: no 32-day ceiling, no `g_news_init` dependency for the exit, no truncation silence. The Friday/weekend semantics stay exactly as coded (next-open fill untouched).
+
+**B4 (Q2, minimal patch alternative).** If the array stays, at minimum log a truncation alarm where the `while` exits with `g_news_dayN == 32 && cur < SRJ_PILOT_TO` (lines 10391–10392) and size the array from the range day-count instead of a literal 32.
+
+---
+
+## Seat summary
+
+- **Q1: YES** — clear on the page; condition-only edit at 7782 does exactly what is claimed. Semantic caveat A1 recorded, not blocking.
+- **Q2: YES** — the leg fires first-bar-at/after the 16:55-ET mark at strictly lowest priority and fills next-open, as the 9/4 rows show. Assumptions A1–A8 named; A3 (32-mark silent truncation) is the one genuine defect found; A4 is a verification gap (server globals and `TC_DstActive` not on page); A5 explains the Friday dispute without ruling on strategy.
+- Strategy half of the 9/4 dispute: not asked, not ruled. As recorded: the code does what it says; Friday 23:55 bar closes at Monday 00:00 open. His call.
+- Nothing in this answer builds code, runs anything, or touches money. Disk truth stays on his machine; the digests above are claimed, not verified here.
+
+## V250-COMBINED END KIMI (verbatim close, nothing appended)

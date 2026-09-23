@@ -234,6 +234,23 @@ void SRJ_RenderBiasPane(const datetime &time[],const double &close[],
               }
            }
         }
+      //--- [P-VNEXT-1 E2] structure fallback (his blank-FVG ruling 2026-09-22): boundary-gated search empty is not evidence; search the live structure before printing blank.
+      if(g_s.isDoubleOB && !fvgExistsForDisplay && !fvgExistsNow && !g_s.isInitialFlipBar && !SrjIsNa(g_s.currentStructureStartBar) && g_imbalances.Total() > 0)
+        {
+         int n2 = g_imbalances.Total();
+         for(int k2=0; k2<n2; k2++)
+           {
+            CImbalance *fvg2 = GetFVG(g_imbalances,k2);
+            if(fvg2==NULL) continue;
+            bool m2 = (g_s.currentBias=="bullish" && fvg2.isBullish) || (g_s.currentBias=="bearish" && !fvg2.isBullish);
+            if(m2 && fvg2.detectionBar >= g_s.currentStructureStartBar && fvg2.detectionBar >= g_s.strictLimitBar)
+              {
+               fvgExistsForDisplay = true;
+               if(!fvg2.isFilled) fvgExistsNow = true;
+               if(fvgExistsNow) break;
+              }
+           }
+        }
      }
    else
      {

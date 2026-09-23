@@ -7567,3 +7567,370 @@ Grant text as received: CLEARED for exactly one build plus one tester run.
 Builder grade (checklist published to operator): seat Luna yes; verbatim yes; scope one-build-one-run yes; packet/digest named in text NO (binding rests on the eliciting P-EXITRANK-6 key ask he carried - HIS confirmation owed); new conditions none. Status: PENDING his binding confirmation - no build spends on it until he confirms.
 
 ## KEY LUNA V246-EXITRANK END (nothing appended)
+
+## V247-DEMOGUARD OPEN LUNA (his carry, relay v244, filed whole)
+
+Luna:
+**discrepancy**
+
+Mechanically, deleting **10156–10160** does exactly what the packet says: it removes the five-line EXECUTE demo/login refusal and nothing else in the supplied branch. The retained print at **old 10161** becomes **10156** after the five-line deletion; subsequent code shifts upward by five lines, but no other executable statement is changed.
+
+So, on the page:
+
+* **10156–10160 deleted:** only the demo/login comments plus `GoAbort(ABORT_DEMO_GUARD, g_state); return;`.
+* **Snapshot path:** unchanged; the edit is after the stated snapshot point.
+* **Sizing/send path:** unchanged in code, but now reachable for every `MODE_EXECUTE` account instead of only the recorded demo/login.
+* **Session-mark path:** unchanged by this edit.
+* **Management path:** unchanged by this edit.
+* **No dangling guard comment:** correct.
+* **No new executable lines:** correct.
+
+The discrepancy is the retained audit line, **old 10161 / new 10156**:
+
+```cpp
+if(InpMode == MODE_EXECUTE)
+  PrintFormat("[SRJ-EA] DEMO_PASS mode=%d login=%d", ...);
+```
+
+After the guard is removed, `DEMO_PASS` is no longer semantically true for a non-demo or live account. The line will print `DEMO_PASS` precisely when the new policy permits those accounts too. It is therefore a misleading audit label, even though the mode/login values themselves remain useful.
+
+## Analytic ask A — defects, gaps, imprecisions
+
+**1. `DEMO_PASS` becomes a false/misleading label — old 10161, new 10156.**
+The deleted guard was what made “DEMO_PASS” mean “approved demo account + approved login.” After deletion it means only “we are in EXECUTE mode and reached this point.” A neutral label such as `EXECUTE_ACCOUNT` or `EXECUTE_CONTEXT` would match the new behavior.
+
+**2. The retained line is an entry-to-execution-path audit, not proof of a sent order — old 10161 / new 10156.**
+Because it executes before sizing/send, it will print even if a later sizing check, concurrency check, validation, or `OrderSend` fails. Calling it an “every-take audit trail” is imprecise unless “take” means “entered EXECUTE processing,” not “order actually sent.”
+
+**3. `ACCOUNT_LOGIN` is cast to `int` — old 10161 / new 10156.**
+`AccountInfoInteger(...)` supplies an integer-sized account value, while the print forcibly narrows the login to `int`. That is harmless for the cited `1500183638`, but it is not a robust generic account audit representation.
+
+**4. The change description understates the behavioral expansion.**
+The sentence says the deletion lets takes send on “the connected demo account,” while the actual post-edit condition is broader: there is no longer any demo-mode or login restriction in this branch. The later risk paragraph does disclose live-account operation, so the substantive risk is disclosed, but the opening change sentence is narrower than the resulting behavior.
+
+**5. The packet cannot establish downstream line-number stability, only behavioral stability.**
+The deletion necessarily changes every later source line number by **-5**. That does not change runtime behavior, but any external line-number references, diagnostics, or review markers tied to absolute source lines need to track that shift.
+
+**6. “Single stated live-account risk” is accurately disclosed, but the actual code change is broader than “live risk” alone.**
+The code removes the entire account-mode/login gate, not merely a live-account exception. The resulting rule is effectively “no account restriction at this point.” That is consistent with the stated goal, but the wording should describe the rule at that level.
+
+## Analytic ask B — better mechanism
+
+For the stated goal, I would **keep the deletion exactly as proposed** and change only the retained audit print, **old 10161 / new 10156**, to a neutral execution-context record.
+
+For example, conceptually:
+
+```cpp
+if(InpMode == MODE_EXECUTE)
+   PrintFormat("[SRJ-EA] EXECUTE_ACCOUNT mode=%d login=%I64d",
+               (int)AccountInfoInteger(ACCOUNT_TRADE_MODE),
+               AccountInfoInteger(ACCOUNT_LOGIN));
+```
+
+That preserves the requested “no restrictive lock” behavior while making the audit line truthful for demo, live, or any other connected account. Separately, the actual send-result logging should remain the evidence of a successful order send rather than relying on the pre-send context line.
+
+**Bottom line:** the **five-line deletion is behaviorally surgical**, but the packet has a **real semantic discrepancy in the retained `DEMO_PASS` audit label**.
+
+## V247-DEMOGUARD END LUNA (verbatim close, nothing appended)
+
+## V248-DEMOGUARD OPEN LUNA (his carry, relay v245, filed whole)
+
+Luna:
+**DISCREPANCY**
+
+E1 + E2 remove the intended **runtime refusal mechanism**, but the packet as written has one concrete source-page defect: the stated E1 deletion range does **not** delete the whole attached guard comment.
+
+### Verdict basis
+
+Within the supplied branch:
+
+* **10143–10153:** `MODE_ALERT_ONLY` behavior is unchanged.
+* The actual refusal is entirely in **10158–10159**:
+
+  ```cpp
+  if(InpMode == MODE_EXECUTE && (...DEMO... || ...LOGIN...))
+    { GoAbort(ABORT_DEMO_GUARD, g_state); return; }
+  ```
+
+  Removing that removes the execute-mode demo/non-recorded-login refusal.
+* **10160** is only the prior `DEMO_PASS` audit print; replacing it with `EXECUTE_ACCT` at the same position with the same arguments does not introduce a new control-flow decision.
+* Therefore, for an already-valid demo execution, the downstream execution path is unchanged apart from the audit label; for a non-demo or different login, control now proceeds instead of aborting. That is the stated intended behavioral change.
+
+### Defects / gaps / imprecisions
+
+**1. E1 line range leaves a stale guard comment — lines 10155–10156.**
+The supplied source has:
+
+* **10155:** `//--- [S1-DEMO-GUARD-001] G1 demo gate FIRST ...`
+* **10156:** `//--- token+word): execute-mode on non-demo or non-recorded login aborts before`
+* **10157:** `//--- magic/concurrency/sizing/send. Recorded demo login 1500183638 (measured).`
+* **10158–10159:** actual guard + abort
+* **10160:** old pass-audit print
+
+But the packet says **E1 = delete 10156–10160**. That leaves **10155** behind, falsely documenting a `G1 demo gate FIRST` that no longer exists.
+
+This is a source-page inconsistency even though it does not change runtime behavior.
+
+**2. “Five-line demo-plus-login order gate” is slightly imprecise — lines 10156–10160.**
+The five lines being deleted are not all gate logic. **10158–10159** are the refusal mechanism; **10160** is an audit print; **10156–10157** are explanatory comments. Calling all five the “gate” conflates the guard with its attached audit/comment material.
+
+**3. “comment with it” is factually false under the stated E1 range — lines 10155–10160.**
+The packet explicitly says the comment is deleted with E1, but **10155 remains** under the literal range supplied. This should be amended before the diff is treated as internally exact.
+
+**4. The claimed “every-take” audit wording is broader than the shown code proves — line 10161 after amendment.**
+`EXECUTE_ACCT` executes only under `InpMode == MODE_EXECUTE`. The shown `MODE_ALERT_ONLY` branch has a separate audit line at **10145**. So “every-take record” is only precise if it means every execute-mode take, rather than literally every take in every mode.
+
+**5. Downstream identity is not independently provable from the excerpt — after line 10161.**
+The supplied excerpt ends at the replacement audit line. Thus I can verify that E1/E2 introduce no new decision between the snapshot and that audit line, but I cannot independently establish from these displayed lines that all subsequent sizing/send/session-mark/management code is byte-for-byte or behavior-identical. That requires the downstream source, which this review deliberately does not have.
+
+### Better mechanism
+
+The cleanest stated-goal implementation is:
+
+* keep **10161's replacement audit line** exactly as proposed;
+* delete the actual guard and its explanatory comments;
+* **also remove or rewrite 10155** so no obsolete `S1-DEMO-GUARD-001` claim survives.
+
+Given the packet's fixed **11322 → 11317** line budget, the best minimal form is to **rewrite 10155 in place** rather than delete it, preserving the five-line reduction while eliminating the stale guard description. That touches **10155** plus the stated E1/E2 lines, but adds no lines and changes no runtime behavior.
+
+So the substantive mechanism is correct: **the demo/login refusal disappears, while the execute path's existing downstream logic remains the path taken.** The packet just needs the dangling **10155** comment corrected for the source description to be internally exact.
+
+## V248-DEMOGUARD END LUNA (verbatim close, nothing appended)
+
+## V249-DEMOGUARD OPEN LUNA (his carry, relay v246, filed whole)
+
+Luna:
+**Verdict: YES.**
+
+On the page as written, the numbered disk proof establishes the exact E1/E2 mapping:
+
+* **10155** is only `// ------ Phase 2 Execution Logic ------`; it is a section header, not part of the `[S1-DEMO-GUARD-001]` comment. Keeping it is correct.
+* **10156–10158** are exactly the three guard-comment lines.
+* **10159–10160** are exactly the guard condition and its abort.
+* Therefore **E1 = delete 10156–10160** removes the entire displayed guard comment **and** its executable gate/abort, with no fragment of that comment left between 10155 and the surviving 10161.
+* **10161** is outside E1 and E2 changes only its string literal from `DEMO_PASS` to `EXECUTE_ACCT`.
+* With no additions, the stated **11322 → 11317** line-count change is consistent with deleting five lines.
+* After the deletion, the old disk **10161 becomes post-edit line 10156**. Any future citation calling the surviving audit line “10161” would therefore be stale.
+
+So Luna V248’s stated **#1/#3 off-by-one premise is refuted by the numbered mapping on this page**. The related #2 point also falls with it insofar as it depended on treating 10155 as part of the guard block.
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **“Nothing stale remaining” is proven locally, not globally.**
+   The 10155–10161 proof establishes that nothing from the displayed guard block remains in that location. It does **not**, by itself, establish that the file contains no other occurrence of:
+
+   * `S1-DEMO-GUARD-001`
+   * `DEMO_GUARD`
+   * `DEMO_PASS`
+   * the same guard prose elsewhere.
+     That would require a file-wide search. This is a scope qualification, not a defect in the five-line mapping.
+
+2. **“Every-EXECUTE-take” is still slightly imprecise.**
+   **10161** sits immediately after the removed guard and **before downstream magic/concurrency/sizing/send logic**, according to the deleted comment at 10156–10158. Therefore it logs every EXECUTE path that reaches this point, but it can also log an attempt that is subsequently rejected by a later check. It is more precisely an **EXECUTE-path / execute-attempt account audit**, not proof that every actual order sent is logged.
+   This is the main wording issue I would still retain.
+
+3. **The surviving line name does not itself establish “take” semantics.**
+   `EXECUTE_ACCT` truthfully says the mode is EXECUTE and prints the account values; it does not say an order was actually sent. The label is consistent with the code, but the prose should avoid equating account-audit emission with order execution.
+
+4. **The login is still narrowed to `int` in the audit print.**
+   **10161** uses:
+   `"(int)AccountInfoInteger(ACCOUNT_LOGIN)"`.
+   `AccountInfoInteger()` returns an integer-width value, so an `int` cast can truncate sufficiently large account IDs. The current recorded login is within `int`, so this does not invalidate this round's proof; it is a robustness/audit-fidelity issue.
+
+5. **The “source digest” wording could be clearer about temporal status.**
+   The digest is explicitly described as the on-disk source measured **before the proposed E1/E2 edit**, since v1/v2 are unbuilt. Calling it simply the “source digest” can be read as though it represents the post-E1/E2 source. Better: **“pre-edit source digest”** or equivalent.
+
+6. **“Closing V248 defect #1/#3” is logically conditional on the characterization of those defects.**
+   This page demonstrates that the specific claimed premise — mapping the guard comment to **10155–10157** instead of **10156–10158** — is wrong. So the stated refutation is sound. What the page cannot independently establish is whether some *other* rationale existed behind V248 #1/#3. Your relay says their basis was that off-by-one mapping, so under that record the closure is justified.
+
+7. **The line-budget sentence mixes two different accounting concepts.**
+   `11322 - 5 = 11317` is the deletion arithmetic. The E2 modification does **not** alter line count. Saying “+1 modified” is fine as change accounting, but it should not be read as part of the line-count equation.
+
+### Analytic B — better mechanism
+
+For the stated objective, **E1/E2 is mechanically sufficient**; I do not see a need to redesign the removal itself.
+
+The one mechanism I would improve is the audit semantics:
+
+* Keep the surviving audit at **old 10161 / post-edit 10156** if the intended invariant is **“every EXECUTE path reaching Phase 2 is account-audited.”**
+* Rename the message to something unambiguously attempt/path-oriented, e.g. `EXECUTE_ACCT_ATTEMPT`, rather than implying a completed take.
+* If the intended invariant is instead **“every actual order send is account-audited,”** move the audit immediately adjacent to the actual `CTrade` send call, after all downstream vetoes/sizing checks. The supplied excerpt does not contain that send line, so I cannot give an honest numeric line number for that alternative without inventing one.
+
+**Bottom line:** the **E1 five-line deletion and E2 one-line rename are correctly proven by the supplied numbered lines**. The only substantive wording issue remaining is that **“every-EXECUTE-take” is stronger than what line 10161 itself proves**; “every EXECUTE-path/account audit” is exact.
+
+## V249-DEMOGUARD END LUNA (verbatim close, nothing appended)
+
+## KEY LUNA DEMOGUARD OPEN (his image, same-session Luna channel, two-line prompt v2, filed whole)
+
+P-DEMOGUARD-2 v2, 302023B3
+CLEARED for exactly one build plus one tester run
+
+## KEY LUNA DEMOGUARD END (verbatim close, nothing appended)
+
+## V250-COMBINED OPEN LUNA (his carry, relay v249, filed whole)
+
+Luna:
+## Q1 — retest clear
+
+**Verdict: DISCREPANCY.**
+
+The **local code change does what the first half of the question says**: line 7782 now requires both a touch and `REGIME_MEANREV` before the renewal-void body runs. The body at lines 49–59 is unchanged, so a touch with `TREND`, `BOTH`, or `NONE` no longer enters that void branch.
+
+That means:
+
+* `r2_touch == false` → no change.
+* `r2_touch == true` and `g_regime == REGIME_MEANREV` → the existing void/reset/log behavior still occurs.
+* `r2_touch == true` and any other regime → the void/reset/log block is skipped.
+
+The **gap is the final clause, “restoring exactly the two cited seed paths to confirmation.”** The supplied run rows show the two historical voids and the corresponding earlier fills, but the `SEEDVOID` rows do **not record `g_regime`**. Therefore this packet demonstrates that the new predicate *can* preserve non-mean-reversion seeds, but it does not demonstrate from the page alone that **both cited 8/28 and 9/7 seeds were `REGIME_MEANREV` at line 7782**, or that these are the only two paths affected.
+
+There is a second, narrower proof gap: the page does not show where `g_regime` is assigned/latching relative to the seed, so it cannot establish that the value at 7782 is necessarily the seed's classification rather than a later/current classification. The requested one-line condition itself is unambiguous; the missing evidence is the provenance of that global.
+
+So the clean ruling is:
+
+**Q1 = DISCREPANCY — line 7782 correctly confines the void branch to `REGIME_MEANREV`, but the page does not prove that this restores exactly the two named seed paths.**
+
+---
+
+## Q2 — day-close audit
+
+**Verdict: YES as to the shown F3 priority/fill mechanism; DISCREPANCY as to the complete clock proof requested.**
+
+The priority is explicit and correct in the supplied code. Day-close is only admitted when `vSL`, `vTP`, `vBREAK`, and `vHTF` are all false, and the final `else if(vDAY)` places it below those four outcomes. Its exit price is `nextOpenPx`.
+
+The day mark itself is constructed at **16:55 New York time** and converted through `TC_ZoneToServer()`. The gate fires when a mark is at or after the trade's fill bar and at or before the current `barTime`, so, assuming this routine is evaluated once per bar with `barTime` representing the bar's timestamp, the first qualifying bar is the first bar whose timestamp reaches/passes that mark.
+
+### Clock assumptions actually required
+
+**New York base/DST:** `TZ_NEWYORK` is defined with a `-5h` base and `DST_US`; `TC_ZoneToGmt()` adds one hour when `TC_DstActive()` says DST is active.
+
+**Server conversion:** GMT is converted to broker time using `gtc_serverGmtBase` plus broker DST as determined by `gtc_serverDst`; `TC_ZoneToServer()` chains those two conversions.
+
+**September mapping:** the observed 2026-09-04 exit is 23:55 server, which is consistent with 16:55 ET → 20:55 UTC → 23:55 server under the packet's stated +7-hour session mapping. The packet's own clock row supplies that observed mapping.
+
+**But the page does not expose the values/implementations of** `TC_DstActive()`, `TC_MakeTime()`, `TC_DayStart()`, `gtc_serverGmtBase`, or `gtc_serverDst`. Therefore the converter architecture is visible, but the complete numerical/DST proof is not entirely present in this packet.
+
+### Fill assumption
+
+The code explicitly assigns `nextOpenPx` for `MT_EXIT_DAY_CLOSE`.
+
+For Friday 2026-09-04, the supplied run demonstrates the consequence: the 23:55 Friday exit is assigned the **Monday 2026-09-07 00:00 open**, producing a weekend-gap fill. That is a modeled next-open assumption, not an intra-Friday 23:55 fill.
+
+### Weekend assumption
+
+There is **no special weekend exception in the F3 branch**. Weekend behavior therefore depends entirely on what `nextOpenPx` means in the surrounding exit engine. The packet gives one observed example, but not the definition of `nextOpenPx`, so it cannot establish that the same behavior is guaranteed for every Friday/holiday/market-closure case.
+
+### Other material gap
+
+The mark census is capped at **32 day marks**: `while(cur < SRJ_PILOT_TO && g_news_dayN < 32)`. A pilot range longer than 32 calendar dates silently stops receiving F3 day marks. That is a real coverage limitation in the mechanism, even though it does not invalidate the individual 2026-09-04 firing.
+
+Also, F3 requires `g_news_init`; the packet therefore depends on the news/day-mark initialization having completed before the exit check.
+
+So:
+
+**Q2 = DISCREPANCY — the shown F3 branch is correctly ordered below SL/TP/BREAK/HTF and explicitly uses `nextOpenPx`; the specific September 23:55 observation is consistent with the stated +7h mapping, but the packet does not expose enough of the clock/fill machinery to prove the entire general claim, and the 32-mark cap is an actual coverage defect.**
+
+---
+
+## Analytic ask A — defects / gaps / imprecisions
+
+**1. Q1 exact-restoration evidence gap — lines 65–79.**
+The modified predicate is visible, but the two `SEEDVOID` records omit regime classification. Thus “exactly the two cited paths” is not established from this page.
+
+**2. Q1 classification-provenance gap — line 65.**
+The condition reads current `g_regime`; the packet does not show whether that global is latched to the seed or can change before R2 renewal evaluation. That distinction matters to “classified seeds.”
+
+**3. Q2 converter-proof gap — lines 183–239.**
+`TC_DstActive`, `TC_MakeTime`, server-offset values, and related definitions are absent. The packet establishes the conversion chain, not all of its inputs/edge-case semantics.
+
+**4. Q2 bar-execution assumption — lines 125–133.**
+The claim “first bar at/after” assumes this test runs on every relevant bar and that `barTime` is the intended bar timestamp. Those surrounding execution semantics are not shown.
+
+**5. Q2 `nextOpenPx` definition gap — lines 175–179.**
+The F3 branch proves which price variable is selected, but not how `nextOpenPx` is populated. The weekend behavior consequently cannot be generalized solely from these lines.
+
+**6. Q2 hard 32-day cap — lines 111–119.**
+This is the clearest concrete code defect: more than 32 calendar dates in the pilot range lose day-close marks without an explicit failure.
+
+**7. Q2 initialization dependency — line 125.**
+`g_news_init` is an absolute prerequisite for F3. If initialization is incomplete or false, the day-close leg does nothing.
+
+**8. Q2 weekend wording is stronger than the evidence.**
+The packet demonstrates one Friday weekend-gap case, but not all closure/holiday cases. Calling the behavior universally “next-open across the weekend” requires the unseen `nextOpenPx` machinery.
+
+---
+
+## Analytic ask B — better mechanisms
+
+For **Q1**, the more robust mechanism is to use a **seed-latched regime classification** rather than relying on the current global `g_regime` at the renewal check. The final predicate at line 7782 would then test the seed's recorded classification. That prevents a later classifier transition from changing whether an already-created seed can be voided. The packet does not give the seed-creation line, so I would not invent a line number for that part; the existing R2 decision point is line 7782.
+
+For **Q2**, the cleaner mechanism is to eliminate the fixed **32-mark census** and derive the current day's 16:55 ET mark on demand, or dynamically size the mark collection to the actual `[SRJ_PILOT_FROM, SRJ_PILOT_TO)` span. The touch points are the mark-generation block at **10388–10400** and the F3 gate at **11248–11255**. That removes the silent >32-day truncation while preserving the existing priority and `nextOpenPx` behavior.
+
+### Final relay verdict
+
+**Q1: DISCREPANCY** — the one-line predicate correctly scopes the void to mean-reversion, but the packet does not prove that the two named historical seeds are exactly the restored cases.
+
+**Q2: DISCREPANCY** — the F3 branch itself has the requested priority and next-open selection, and the supplied September run is consistent with 16:55 ET → 23:55 server, but the packet leaves key converter/fill definitions unshown and contains a concrete 32-day mark-cap limitation.
+
+## V250-COMBINED END LUNA (verbatim close, nothing appended)
+
+## V251-RERULE OPEN LUNA (his carry, relay v250, filed whole)
+
+Luna:
+**Verdict: YES — with one narrow precision caveat.**
+
+The page establishes the key causal chain:
+
+* **Line 6271** resets `g_regime` to `REGIME_NONE`; **line 973** is the other initialization-to-NONE writer.
+* **Lines 7990–8001** show the only non-NONE writer. Crucially, `g_regime = regime` occurs only after `ClassifyRegime()` returns a value other than `REGIME_NONE`; the `REGIME_NONE` branch returns before that assignment.
+* The 8/28 and 9/7 rows show `S1_REGIME->IDLE`, with no S2 transition. Under the page's whole-file writer enumeration, neither seed therefore has a path to a non-NONE write before the R2 check.
+* **Line 7782** now requires `r2_touch && g_regime == REGIME_MEANREV`. A seed whose R2-time value is `NONE` therefore cannot enter the existing void body.
+
+So the specific prior evidence gap is closed: **both cited seeds are established as `REGIME_NONE` at the relevant R2 decision, and E1 therefore prevents the renewal void for both.**
+
+## Analytic A — defects, gaps, imprecision
+
+**1. Seed-to-`ResetSequence` callsite is still not shown.**
+The page states that each cited seed is born through the `ResetSequence` path and that this writes `NONE` at **line 6271**, but it does not show the callsite/order tying each particular 8/28 and 9/7 seed creation to that reset. That is a documentation/provenance gap, although the stated lifecycle plus the writer enumeration is sufficient for the packet's intended proof.
+
+**2. “Exactly the two cited seed paths” needs careful wording — lines 7782 and 7990–8001.**
+E1 does not target only those two historical seeds. It changes the rule for **every** touched seed whose `g_regime` is not `REGIME_MEANREV`. The two cited seeds are both restored because they are `NONE`, but the behavioral scope is broader than those two instances.
+
+**3. “Nothing else changing” should mean source-budget/change-set, not behavioral impact.**
+The page says E1 is unchanged and the source remains 11,317 lines. That supports “no further source edits,” but the new predicate necessarily changes behavior for any other non-mean-reversion seed that reaches the same R2 branch. The wording should distinguish source unchanged from behavioral scope.
+
+**4. Writer enumeration is essential to the proof.**
+The conclusion depends on the assertion that there are exactly three writers: **lines 973, 6271, and 7997**. Because that enumeration is described as a machine grep rather than shown as code, it is correctly treated as disk/machine evidence under the packet's own verification split, not independently provable from the pasted source excerpt.
+
+**5. The 9/7 `REGIMECENSUS` row is correctly treated as irrelevant.**
+Its `dir=SHORT`, `bar=15:05`, and post-void timing do not provide a classification for the 14:55 LONG seed. The packet's explanation is logically consistent, but this should remain explicit because otherwise that row could be misread as evidence about the cited seed.
+
+## Analytic B — better mechanism
+
+The current E1 mechanism is adequate for the stated goal, but a stronger implementation would make the classification **seed-local** rather than dependent on the mutable global `g_regime`.
+
+The relevant decision point is **line 7782**. A seed record could carry a `seedRegime` captured at seed creation, initialized to `REGIME_NONE`, then the R2 void test would use that stored value. The initialization/reset touchpoints would be **lines 6271 / seed-creation callsite**, and classification would be captured at the point currently represented by **lines 7990–8001**.
+
+That would make the invariant explicit:
+
+> an already-created seed keeps the regime classification it had when classified, rather than depending on whatever `g_regime` happens to contain when R2 evaluates the renewal touch.
+
+### Bottom line
+
+**Q1 = YES.** The newly supplied writer enumeration plus the two S1-terminal paths closes the substantive seed-regime/lifecycle objection from v249, so the operative E1 change restores the two cited seeds to the confirmation path. The only remaining issue is wording precision: the rule's behavioral scope extends to all non-mean-reversion seeds, not literally only those two historical cases.
+
+## V251-RERULE END LUNA (verbatim close, nothing appended)
+
+## KEY LUNA RETEST-2 OPEN (his carry, same-session Luna channel, history-free prompt, filed whole)
+
+Packet P-RETEST-2 v2 — 053D85FD, 7062 bytes
+CLEARED for exactly one build plus one tester run
+
+## KEY LUNA RETEST-2 END (verbatim close, nothing appended)
+
+## KEY LUNA RETEST OPEN (his image, same-session Luna channel, history-free two-line prompt, filed whole)
+
+Packet P-RETEST-2 v2 — 053D85FD, 7062 bytes
+NOT CLEARED for exactly one build plus one tester run
+
+## KEY LUNA RETEST END (verbatim close, nothing appended)

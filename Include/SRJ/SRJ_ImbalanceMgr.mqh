@@ -475,6 +475,22 @@ void SRJ_FVG_TickValidRecomputePass(bool withinLookbackWindow)
               }
            }
         }
+      //--- [P-VNEXT-1 E2] structure fallback (his blank-FVG ruling 2026-09-22): anchor-gated search empty is not evidence; search the live structure before defaulting valid.
+      if(SrjIsNa(latestBiasFVGBar) && !SrjIsNa(g_s.currentStructureStartBar) && g_imbalances.Total() > 0)
+        {
+         int m2 = g_imbalances.Total();
+         for(int j2=0; j2<m2; j2++)
+           {
+            CImbalance *fvg3 = GetFVG(g_imbalances,j2);
+            if(fvg3==NULL) continue;
+            bool b2 = (g_s.currentBias=="bullish" && fvg3.isBullish) || (g_s.currentBias=="bearish" && !fvg3.isBullish);
+            if((b2 && fvg3.startBar >= g_s.currentStructureStartBar && fvg3.startBar >= g_s.strictLimitBar) && (SrjIsNa(latestBiasFVGBar) || fvg3.startBar > latestBiasFVGBar))
+              {
+               latestBiasFVGBar = fvg3.startBar;
+               latestBiasFVGIsFilled = fvg3.isFilled;
+              }
+           }
+        }
       if(!SrjIsNa(latestBiasFVGBar))
          g_s.tickFVGIsValid = !latestBiasFVGIsFilled;
      }

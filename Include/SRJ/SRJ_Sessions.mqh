@@ -278,7 +278,7 @@ void SRJ_Sessions_Pass(const double &high[],const double &low[],
       g_s.prevPMHigh = g_s.pmHigh;
       g_s.prevPMLow  = g_s.pmLow;
       g_s.asiaHigh = SRJ_NA_DBL; g_s.asiaLow = SRJ_NA_DBL;
-      g_s.asiaHighSwept = false; g_s.asiaLowSwept = false;
+      g_s.asiaHighSwept = false; g_s.asiaLowSwept = false;      g_s.pdPmHighSwept = false; g_s.pdPmLowSwept = false;
       if(g_s.freshSweepExpirySession == "Asia") g_s.freshSweepExpired = true;
      }
    if(risingLondon)
@@ -287,7 +287,7 @@ void SRJ_Sessions_Pass(const double &high[],const double &low[],
       g_s.prevAsiaHigh = g_s.asiaHigh;
       g_s.prevAsiaLow  = g_s.asiaLow;
       g_s.londonHigh = SRJ_NA_DBL; g_s.londonLow = SRJ_NA_DBL;
-      g_s.londonHighSwept = false; g_s.londonLowSwept = false;
+      g_s.londonHighSwept = false; g_s.londonLowSwept = false;      g_s.pdAsiaHighSwept = false; g_s.pdAsiaLowSwept = false;
       if(g_s.freshSweepExpirySession == "London") g_s.freshSweepExpired = true;
      }
    if(risingNY)
@@ -296,7 +296,7 @@ void SRJ_Sessions_Pass(const double &high[],const double &low[],
       g_s.prevLondonHigh = g_s.londonHigh;
       g_s.prevLondonLow  = g_s.londonLow;
       g_s.nyHigh = SRJ_NA_DBL; g_s.nyLow = SRJ_NA_DBL;
-      g_s.nyHighSwept = false; g_s.nyLowSwept = false;
+      g_s.nyHighSwept = false; g_s.nyLowSwept = false;      g_s.pdLondonHighSwept = false; g_s.pdLondonLowSwept = false;
       if(g_s.freshSweepExpirySession == "NY") g_s.freshSweepExpired = true;
      }
    if(risingPM)
@@ -305,7 +305,7 @@ void SRJ_Sessions_Pass(const double &high[],const double &low[],
       g_s.prevNYHigh = g_s.nyHigh;
       g_s.prevNYLow  = g_s.nyLow;
       g_s.pmHigh = SRJ_NA_DBL; g_s.pmLow = SRJ_NA_DBL;
-      g_s.pmHighSwept = false; g_s.pmLowSwept = false;
+      g_s.pmHighSwept = false; g_s.pmLowSwept = false;      g_s.pdNyHighSwept = false; g_s.pdNyLowSwept = false;
       if(g_s.freshSweepExpirySession == "PM") g_s.freshSweepExpired = true;
      }
 
@@ -362,6 +362,70 @@ void SRJ_Sessions_Pass(const double &high[],const double &low[],
    // session value if available, otherwise the cached previous-session value.
    // This ensures sweeps in inter-session gaps are always detected.
 
+   // --- PD Asia High (P-VALIDITY-1: prev-session cache sweep) ---
+   if(!SrjIsNa(g_s.prevAsiaHigh) && !g_s.pdAsiaHighSwept && high[i] > g_s.prevAsiaHigh + liquiditySweepBuffer)
+     {
+      g_s.pdAsiaHighSwept = true;
+      int sz = ArraySize(thisBarSweeps);
+      ArrayResize(thisBarSweeps, sz + 1); ArrayResize(thisBarOvershoots, sz + 1);
+      thisBarSweeps[sz] = "pAS.H"; thisBarOvershoots[sz] = high[i] - g_s.prevAsiaHigh;
+     }
+   // --- PD Asia Low (P-VALIDITY-1: prev-session cache sweep) ---
+   if(!SrjIsNa(g_s.prevAsiaLow) && !g_s.pdAsiaLowSwept && low[i] < g_s.prevAsiaLow - liquiditySweepBuffer)
+     {
+      g_s.pdAsiaLowSwept = true;
+      int sz = ArraySize(thisBarSweeps);
+      ArrayResize(thisBarSweeps, sz + 1); ArrayResize(thisBarOvershoots, sz + 1);
+      thisBarSweeps[sz] = "pAS.L"; thisBarOvershoots[sz] = g_s.prevAsiaLow - low[i];
+     }
+   // --- PD London High (P-VALIDITY-1: prev-session cache sweep) ---
+   if(!SrjIsNa(g_s.prevLondonHigh) && !g_s.pdLondonHighSwept && high[i] > g_s.prevLondonHigh + liquiditySweepBuffer)
+     {
+      g_s.pdLondonHighSwept = true;
+      int sz = ArraySize(thisBarSweeps);
+      ArrayResize(thisBarSweeps, sz + 1); ArrayResize(thisBarOvershoots, sz + 1);
+      thisBarSweeps[sz] = "pLD.H"; thisBarOvershoots[sz] = high[i] - g_s.prevLondonHigh;
+     }
+   // --- PD London Low (P-VALIDITY-1: prev-session cache sweep) ---
+   if(!SrjIsNa(g_s.prevLondonLow) && !g_s.pdLondonLowSwept && low[i] < g_s.prevLondonLow - liquiditySweepBuffer)
+     {
+      g_s.pdLondonLowSwept = true;
+      int sz = ArraySize(thisBarSweeps);
+      ArrayResize(thisBarSweeps, sz + 1); ArrayResize(thisBarOvershoots, sz + 1);
+      thisBarSweeps[sz] = "pLD.L"; thisBarOvershoots[sz] = g_s.prevLondonLow - low[i];
+     }
+   // --- PD NY High (P-VALIDITY-1: prev-session cache sweep) ---
+   if(!SrjIsNa(g_s.prevNYHigh) && !g_s.pdNyHighSwept && high[i] > g_s.prevNYHigh + liquiditySweepBuffer)
+     {
+      g_s.pdNyHighSwept = true;
+      int sz = ArraySize(thisBarSweeps);
+      ArrayResize(thisBarSweeps, sz + 1); ArrayResize(thisBarOvershoots, sz + 1);
+      thisBarSweeps[sz] = "pNY.H"; thisBarOvershoots[sz] = high[i] - g_s.prevNYHigh;
+     }
+   // --- PD NY Low (P-VALIDITY-1: prev-session cache sweep) ---
+   if(!SrjIsNa(g_s.prevNYLow) && !g_s.pdNyLowSwept && low[i] < g_s.prevNYLow - liquiditySweepBuffer)
+     {
+      g_s.pdNyLowSwept = true;
+      int sz = ArraySize(thisBarSweeps);
+      ArrayResize(thisBarSweeps, sz + 1); ArrayResize(thisBarOvershoots, sz + 1);
+      thisBarSweeps[sz] = "pNY.L"; thisBarOvershoots[sz] = g_s.prevNYLow - low[i];
+     }
+   // --- PD PM High (P-VALIDITY-1: prev-session cache sweep) ---
+   if(!SrjIsNa(g_s.prevPMHigh) && !g_s.pdPmHighSwept && high[i] > g_s.prevPMHigh + liquiditySweepBuffer)
+     {
+      g_s.pdPmHighSwept = true;
+      int sz = ArraySize(thisBarSweeps);
+      ArrayResize(thisBarSweeps, sz + 1); ArrayResize(thisBarOvershoots, sz + 1);
+      thisBarSweeps[sz] = "pPM.H"; thisBarOvershoots[sz] = high[i] - g_s.prevPMHigh;
+     }
+   // --- PD PM Low (P-VALIDITY-1: prev-session cache sweep) ---
+   if(!SrjIsNa(g_s.prevPMLow) && !g_s.pdPmLowSwept && low[i] < g_s.prevPMLow - liquiditySweepBuffer)
+     {
+      g_s.pdPmLowSwept = true;
+      int sz = ArraySize(thisBarSweeps);
+      ArrayResize(thisBarSweeps, sz + 1); ArrayResize(thisBarOvershoots, sz + 1);
+      thisBarSweeps[sz] = "pPM.L"; thisBarOvershoots[sz] = g_s.prevPMLow - low[i];
+     }
    // --- Asia High ---
    double effAsiaHigh = !SrjIsNa(g_s.asiaHigh) ? g_s.asiaHigh : g_s.prevAsiaHigh;
    if(!SrjIsNa(effAsiaHigh) && !g_s.asiaHighSwept && high[i] > effAsiaHigh + liquiditySweepBuffer)

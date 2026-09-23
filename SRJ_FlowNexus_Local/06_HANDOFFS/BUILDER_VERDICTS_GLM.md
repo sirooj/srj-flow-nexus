@@ -2602,3 +2602,247 @@ No better mechanism than strict `<` over the filed table exists for the stated g
 Nothing above builds code, runs anything, or moves money; battery and byte-diff claims remain builder-side pre-transport checks, and this packet requests no transport — consistent with the standing brief. Verdict slot: **YES**, per the answer form.
 
 ## V246 END GLM (verbatim close, nothing appended)
+
+## V247-DEMOGUARD OPEN GLM (his carry, relay v244, filed whole)
+
+GLM:
+# SEAT RESPONSE — v244 — PACKET_P-DEMOGUARD-1 v1 — 2026-09-23
+
+## VERDICT SLOT (page-only; excused if this seat files as review-only — analysis below stands either way)
+
+**YES.**
+
+Deleting exactly lines 10156–10160 (three comment lines 10156–10158 + condition 10159 + body 10160) removes only the EXECUTE-mode demo-plus-login order refusal. Block arithmetic verified against the verbatim page: 10143 `if(ALERT_ONLY)` … 10153 close, 10154 blank, 10155 phase comment, 10156–10160 the five deleted lines, 10161 kept print — the stated delete range maps exactly. No braces orphaned (10159–10160 is self-contained; the ALERT_ONLY block's 10144/10153 braces are untouched). Line 10155 follows 10161 cleanly post-delete — no dangling comment, as claimed. Budget 11322 − 5 = 11317 ✓.
+
+Firing analysis, per the page:
+- **ALERT_ONLY** (10143–10153): gate's first conjunct false — never fired. Deletion is a no-op on this path. Untouched, byte-identical.
+- **EXECUTE on demo login 1500183638**: condition false — never fired. Deletion is a no-op. Snapshot, sizing, send, session-mark, management paths code-identical and reachability-identical for this configuration.
+- **EXECUTE on any other account (including live)**: gate fired (abort+return before magic/concurrency/sizing/send per comment 10157) — now proceeds. This is the refusal removal itself, the edit's stated purpose, and the disclosed risk. Downstream path code is untouched; only its reachability expands.
+- **Any third InpMode value**: both the deleted gate and the kept print are MODE_EXECUTE-conditional — third-mode paths untouched by this edit regardless.
+- **Kept print (10161 → post-edit 10156)**: firing set expands from "gate-pass only" to every EXECUTE take — exactly the "every-take audit trail" the change sentence states. Code unchanged.
+
+Disclosure check: the stakes line ("sends real orders on whatever account is connected, including a live account"), his acceptance verbatim ("i know what i am doing"), and his direction verbatim are all on the page, dated 2026-09-23. The phrasing "whatever account is connected, including live" correctly subsumes the broader class (other demo logins, other brokers). Correctly disclosed. Standing brief unchanged: nothing here clears live activation — this edit removes a guard; it does not activate, build, run, or spend anything.
+
+## ANALYTIC ASK A — defects, gaps, imprecisions (page lines cited)
+
+1. **Stale label "DEMO_PASS" — line 10161 (kept, becomes 10156).** After deletion it prints on every EXECUTE take on any account, including live, with no demo check behind it. A log reader skimming history may read DEMO_PASS on a live account and wrongly infer a guard ran. String-only, zero control-flow effect — but it is the top imprecision on the page. The change sentence accurately calls it "the mode-plus-login print," so the packet's claim holds; the string's name is what's stale. One-line rename belongs in a follow-up packet, not here (zero-lines-added constraint).
+
+2. **Provenance leaves the source — deleted lines 10156–10158.** The recorded demo login 1500183638 and the clearance reference (Luna V128) exist nowhere else in the shown source. Post-apply, re-establishing any login check requires pulling the number from disk records (RECON segments, packet), not from source. Marker [S1-DEMO-GUARD-001] also disappears; any file-header changelog or external doc citing it goes stale — not visible on this page; the carry/compare covers it on disk.
+
+3. **Line-number shift −5 for everything past 10160.** Any doc, test, or prior relay citing absolute lines >10160 needs re-basing after apply. Page-internal consistency is exact (verified above).
+
+4. **Digest is pre-edit.** The stated digest/622595 B/11322 is the current-on-disk measurement, consistent with "no edit since the RECON56 build." The 11317-line post-apply digest is to be produced on disk at apply — nothing checkable from chat, per the verification split. No gap; noted so the pairing is expected.
+
+5. **Redundancy observation — line 10161.** After ALERT_ONLY returns at 10152, `if(InpMode == MODE_EXECUTE)` is redundant if only two modes exist. Harmless; unchanged by this edit; listed for completeness only.
+
+6. **Visibility limit, not a defect of shown lines.** The page cannot show whether ABORT_DEMO_GUARD, GoAbort, or [S1-DEMO-GUARD-001] are referenced elsewhere in the 11322 lines (report/summary enumerations of abort reasons, header changelogs). Deleting the shown sole call site leaves the enum value defined-and-unused — compiles clean in MQL5, no behavior effect; any reason-enumeration stays valid, it just never fires. Disk carry covers this.
+
+7. **Run rows vs pass shape — consistent.** Five abort rows map one-to-one to five RECON55 orders by timestamp and direction (LONG×3 → buys 2.04/0.57/2.49; SHORT×2 → sells 1.92/1.92). No gap. (Cosmetic: the 9/1 row shows :01 seconds; no bearing.)
+
+8. **Residual posture, one line for the record.** With the gate gone, the only separation between EXECUTE-mode takes and a live account is the operator's own mode selection and account attachment at runtime; the recorded acceptance is the authority for that posture. Sizing/send code beyond the gate is not shown on this page; RECON55's pass shape evidences the post-gate path executing cleanly on the recorded demo, which is the strongest evidence available without disk claims.
+
+## ANALYTIC ASK B — better mechanisms (lines touched)
+
+1. **Safer variant — recorded as declined, restated for the file only, not proposed for adoption:** drop only the login conjunct on line 10159, keeping the demo-only check: `if(InpMode == MODE_EXECUTE && AccountInfoInteger(ACCOUNT_TRADE_MODE) != ACCOUNT_TRADE_MODE_DEMO)`. Behavior-identical on the recorded demo, protective on live; touches 10156–10159 only. The packet records "relax-to-any-demo declined per his words" — noted and closed.
+
+2. **Follow-up packet candidate (out of this packet's zero-lines-added scope):** one-line swap at kept print 10161→(new)10156 — `PrintFormat("[SRJ-EA] EXEC_TAKE mode=%d login=%d tradeMode=%d", (int)InpMode, (int)AccountInfoInteger(ACCOUNT_LOGIN), (int)AccountInfoInteger(ACCOUNT_TRADE_MODE));` — kills the stale DEMO_PASS label and puts account type in the every-take audit trail as a symbol, not just a login integer. Net-zero lines.
+
+3. **Optional, noted only:** a one-time OnInit print of account type+login (+1 line, init section) so each session's log opens with account identity before any take. Out of scope; listed because it is the cheapest hardening that adds no gate.
+
+## SCOPE NOTE
+
+Ruled on the page only: code lines, numbers, logic. No disk claims made or implied; no files requested; digests are recorded, not verified from chat. Nothing here builds, runs, trades, or moves money; probe/print-only and the live-activation bar stand untouched by this packet.
+
+Nothing else is asked; nothing refused.
+
+## V247-DEMOGUARD END GLM (verbatim close, nothing appended)
+
+## V248-DEMOGUARD OPEN GLM (his carry, relay v245, filed whole)
+
+GLM:
+**v245 — seat ruling — 2026-09-23**
+
+## VERDICT
+
+**YES.**
+
+E1 (delete 10156–10160) plus E2 (10161, label token only) removes exactly and only the EXECUTE-mode demo-plus-login order refusal on any connected account including live; every other line shown is untouched and runtime-identical; the audit line becomes truthful. One precision carried inside the YES, stated below.
+
+**Basis, line-numbered:**
+
+- E1 = 10156–10158 (comment) + 10159 (gate `if`) + 10160 (`GoAbort(ABORT_DEMO_GUARD, ...); return;`) = the five lines, exactly as described. The gate's logic is abort when NOT(demo AND login 1500183638). Deleting it leaves no on-page EXECUTE-mode account refusal; control falls through 10155 → (formerly 10161) print → Phase 2 on every EXECUTE arrival.
+- E2 = 10161: token `DEMO_PASS` → `EXECUTE_ACCT` only. Condition `if(InpMode == MODE_EXECUTE)` identical; args `(int)AccountInfoInteger(ACCOUNT_TRADE_MODE), (int)AccountInfoInteger(ACCOUNT_LOGIN)` identical, same order, same position; both `%d` placeholders intact, no format/arg mismatch. Post-E1 the old token would be false on any non-demo account; the new token asserts nothing false — truthful.
+- Untouched and identical: 10143–10153 ALERT_ONLY branch (print 10145–10146, `MarkSessionUsed` 10147, state transition 10148–10150, `ResetSequence` 10151, `return` 10152), 10154 blank, 10155 Phase 2 header.
+- Arithmetic: 11322 − 5 = 11317 ✓. Digest 5DD2…/622595 B/11322 is the pre-change file ("v1 unbuilt"), so all coordinates above are pre-change — internally consistent.
+- **Precision inside the YES:** snapshot/sizing/send/session-mark/management *code* is untouched — behavior-identical as code. Their *execution envelope* necessarily widens to every connected account in EXECUTE mode. That widening **is** the removal itself, not an additional change; the question's phrasing already covers it ("on any connected account including live").
+
+## Ask A — defects / gaps / imprecision
+
+- **A1 — coordinate shift after apply.** Post-E1, former 10161 becomes 10156; all downstream lines shift −5. All citations in this packet are pre-change coordinates (correct against digest 5DD2…/11322). Any future relay must re-anchor against the post-change 11317 digest, or citations will silently point five lines low.
+- **A2 — orphaned reason and marker.** With 10160 gone, `ABORT_DEMO_GUARD` has no remaining on-page producer; the run-row string `ABORT reason=DEMO_GUARD` becomes unreachable from this path; marker `[S1-DEMO-GUARD-001]` and the only on-page documentation of recorded login 1500183638 (10156–10158) are deleted. Zero runtime effect; if `ABORT_DEMO_GUARD` or `1500183638` appear elsewhere off-page, harmless — if not, the record loses the mapping.
+- **A3 — audit-line semantics (10161 post-change).** It fires on every EXECUTE-mode arrival at Phase 2 — post-snapshot, pre-sizing, pre-send. It records arrival + connected account class (mode int per ENUM_ACCOUNT_TRADE_MODE: demo/contest/real) + login. Truthful, but it is an arrival marker, not a fill record; the send record remains the CTrade line (RECON55 shape). No change required; naming the imprecision so nobody reads EXECUTE_ACCT as "order sent."
+- **A4 — retired abort class.** The DEMO_GUARD class (5 carried rows, all state=S5_GATE_CHECK) is retired, not suspended: post-change no take can produce it from this path. Any external tally keyed to it flatlines by design. The record should say retired.
+- **A5 — GoAbort side effects not shown.** Whether `GoAbort` at 10160 did anything beyond refusal-and-return (state log, session mark, sequence reset) is not on the page. If it carried record-keeping, those effects vanish for cases that now proceed — correct outcome — but one disk-side confirmation by him that nothing load-bearing depended on this specific abort would close it (his machine, not chat).
+- **A6 — parked items lose their subjects.** With the gate deleted, parked "any-demo gate" and "login parameterization" have no remaining subject — there is no gate left to relax. If either is ever revived it needs a new site. Parked "OnInit print" and "print-args change" (10161) remain live, unchanged; E2 correctly did **not** fold the print-args item (same args, same position, per his park).
+- **A7 — residual unknown, off-page.** The page shows nothing between 10161 and magic/concurrency/sizing/send that assumed the demo login. If any downstream line implicitly relied on "past the gate ⇒ login 1500183638," that reliance is now lifted silently. Not visible on the page; only his build/test settles it; no run granted, so it stands as the open residual — the only thing this YES cannot rule on.
+- **A8 — phrasing imprecision, resolved by lines.** "Five-line order gate (comment with it)" = 3 comment lines + 2 code lines; the refusal proper is 10159–10160. A strict reader could expect five code lines. The line refs resolve it; noted for the file.
+
+No discrepancy found. Every packet claim I could check against the page checked: line map 10143–10161 exact, five-line count exact, 11317 arithmetic exact, E2 token-only exact, V247 fold scope exact, parked items correctly excluded.
+
+## Ask B — better mechanism
+
+None better for the stated goal exists on the page. The refusal is two code lines (10159–10160); deletion is minimal and complete. Any retained or parameterized gate is a lock, which contradicts his recorded direction ("remove the lock… too restrictive") and duplicates parked items he declined. The only available improvements are additive and all currently parked by his word: (i) print-args legibility at 10161 — trade mode as DEMO/CONTEST/REAL text instead of raw int (parked "print-args change"); (ii) the parked OnInit account print — records the connected account once per attach, gates nothing; (iii) optionally, an account-class token in the existing send-result print (coordinates off-page) so each fill record carries the account class — additive lines, would need its own relay. Recommend reviving none unless he asks. E1+E2 as written is the right mechanism.
+
+## Standing guards
+
+- Page ruling only. Nothing built, run, or spent here; v1 unbuilt; no run granted; the run rows are prior-round evidence, correctly labeled as such.
+- Disk truth (digest 5DD2…/11322; segments 04B9C64B, EA5BCC5C) is proven on his machine, not in chat; nothing asked of the page requires it.
+- This YES does **not** clear live activation. Post-change, EXECUTE mode sends orders on whatever account is connected, including live — his acceptance is on the page as money authority. Live remains behind the separate relay plus his explicit word, per the standing brief. Nothing in this packet moves that line.
+
+## V248-DEMOGUARD END GLM (verbatim close, nothing appended)
+
+## V249-DEMOGUARD OPEN GLM (his carry, relay v246, filed whole)
+
+GLM:
+**VERDICT: YES** — on the page, lines 10156-10160 exhaust the guard (comment 10156/10157/10158 + gate 10159 + abort 10160), line 10155 is the section header and correctly survives, line 10161 is the E2 target and correctly survives, and Luna V248 defect #1/#3 is closed; #2 dissolves on the same proof.
+
+**Grounding (page-internal, line numbers):**
+
+1. The verbatim block spans exactly 19 lines and reconciles line-for-line with the numbered disk proof: ALERT_ONLY branch 10143-10153, blank 10154, header 10155, comment 10156-10158, gate 10159, abort 10160, print 10161. Count checks: 10143+18=10161.
+2. The off-by-one is refuted by content, not assertion: disk 10155 is `// ------ Phase 2 Execution Logic ------` — textually and structurally distinct from the guard comment whose first line (`//--- [S1-DEMO-GUARD-001] ...`) is disk 10156. Luna's mapping (comment at 10155-10157) does not survive the page's own text.
+3. Budget arithmetic pins the delete span: 3 comment + 1 gate + 1 abort = 5 lines; 11322−5=11317; zero added; one modified in place. The only five-line span that is comment-plus-gate-plus-abort and leaves header + print intact is 10156-10160. That closes #2 ("comment-plus-gate" naming matches the range exactly).
+4. Counterfactual worth recording: under Luna's mapping, deleting 10155-10159 would strand disk 10160's `{ GoAbort(ABORT_DEMO_GUARD, g_state); return; }` as a bare compound statement — which executes unconditionally, aborting every execute pass. The off-by-one was not cosmetic; the disk-line proof closes it by content.
+5. E2 is token-only: string literal `DEMO_PASS`→`EXECUTE_ACCT`; args `(int)AccountInfoInteger(ACCOUNT_TRADE_MODE), (int)AccountInfoInteger(ACCOUNT_LOGIN)` and format `%d %d` untouched. Login literal 1500183638 at 10158/10159 leaves the file entirely with the delete.
+6. Verification split respected: this rules page-internal consistency only. Page↔disk match remains the builder's job (digest 5DD25951…/622595 B/11322, pre-edit; post-edit 11317 is arithmetic, not yet a measured digest — next builder result should carry it so nobody reads 11317 as measured).
+
+**Audit line truthfulness:** Yes as a coverage claim — every execute-mode take must clear 10159 to reach any send, therefore prints at 10161; carried runs show 1:1 correspondence (5 ABORT rows ↔ 5 RECON55 sends, identical timestamps). Precision point below (A1) keeps it truthful.
+
+**Ask A — defects/gaps/imprecisions named:**
+
+- **A1 (the material one).** "Every-EXECUTE-take" is coverage-true but not exhaustive: 10161 fires on every execute pass clearing the gate, including passes that later abort at the very checks the deleted comment names (magic/concurrency/sizing, disk 10158). So line-count ≥ take-count. Truthful if the packet claims "every EXECUTE take shows the line"; an overcount if any sentence equates lines with takes. Recommend one packet sentence: *"fires on every execute pass clearing G1, including downstream aborts — coverage of takes, not a take ledger."* No code change.
+- **A2.** "Every" rests on the page's assertion that this is the sole take path (only 10143-10161 of 11322 lines shown). One disk grep — send sites reachable under MODE_EXECUTE (OrderSend/Buy/Sell/PositionOpen) — pins it. No rebuild.
+- **A3.** With the rename, put the decode in the packet: `mode=%d` is ACCOUNT_TRADE_MODE — 0=demo, 1=contest, 2=real (the exact axis of Kimi's prior mode=0-for-live slip). Zero lines.
+- **A4.** Pre-existing, unchanged by E2: the `(int)` cast on ACCOUNT_LOGIN at 10161 truncates logins >2,147,483,647 to negative. Relevant now that post-removal he may connect other accounts; belongs in the parked print-args item (`%I64d`/long), not this round's scope.
+- **A5.** Cosmetic: post-edit, header 10155 sits directly above the audit print with no explanatory comment. Fixing adds a line and breaks the zero-add budget — accept as-is or fold into a later budget.
+- **A6.** `EXECUTE_ACCT` token uniqueness across the file isn't shown on the page — trivial disk grep.
+
+No code defects found in E1/E2 as ruled.
+
+**Ask B:** No better mechanism within the stated goal and the zero-add budget. E1+E2 is the minimal faithful execution of his direction while keeping an execute-mode identity marker. Out-of-budget alternatives, already parked or available on request: (a) parameterized login allowlist instead of hard delete (adds lines; parked per his words); (b) post-send audit print with retcode at the send site for take-correlated audit (adds lines); (c) OnInit execute-mode account print (parked). None touch the delete range.
+
+**Stakes echo (one line, standing):** after E1, MODE_EXECUTE sends real orders on whatever account is connected, including live; his acceptance is on the page verbatim; nothing here clears live activation — that requires a separate relay plus his explicit word.
+
+## V249-DEMOGUARD END GLM (verbatim close, nothing appended)
+
+## V250-COMBINED OPEN GLM (his carry, relay v249, filed whole)
+
+GLM:
+# RELAY v249-COMBINED-1 — SEAT RESPONSE (page-only ruling)
+
+**Scope note:** Ruled on the relay page only — code lines, numbers, logic as shown. Disk truth (digests, builds, run rows) stays proven on his machine; nothing here builds, runs, or moves money. Q1's yes clears a test-bed one-line delta only; his token + run word remain owed after any clear, per the stakes on the page. Live activation untouched (separate relay + his explicit word). Q2 rules no strategy. If this seat is the review seat, the verdict-slot lines below are excused per the standing split — they are on-the-page analysis; the formal slot routes wherever he sends it.
+
+---
+
+## Q1 — VERDICT
+
+**Q1: YES — with line numbers 7782, 7774-7790 — the proposed conjunct confines the renewal void exactly as claimed; the "restores the two cited seed paths" clause holds conditionally on two premises the page asserts but does not display (named in Ask A as A2/A3).**
+
+### Q1 reasoning
+
+**Reading established first:** the verbatim block at 7782 shows `if(r2_touch)` — the pre-change condition — and the digest (98F6BBAC…, "no edit since the RECON57 build") pins that baseline. The "E1 replacement line" is the proposed replacement, not yet on disk. This is coherent with "build-blocking" and with the stakes ("Q1 clears a test-bed build… token + run word still owed after any clear"). I rule on the proposed delta against the shown baseline.
+
+**Truth table for line 7782, old vs new:**
+
+1. `r2_touch` false (loop 7774-7781 found no touch): no-fire / no-fire — identical.
+2. `r2_touch` true, `g_regime == REGIME_MEANREV`: fire / fire — body 7783-7790 identical (state reset 7784-7787, LogState 7788, SEEDVOID log 7789).
+3. `r2_touch` true, `g_regime != REGIME_MEANREV` (TREND, BOTH, NONE, any other): fire / **no-fire** — the intended change; `g_state` preserved, anchor kept.
+
+`&&` short-circuits, so `g_regime` is read only when `r2_touch` is true; reading it has no side effects. No line other than 7782 changes. The branch body now executes on a strict subset of its former inputs. The veto path (S5) is untouched by this delta as far as the shown block goes — the delta cannot alter any line outside 7782.
+
+**"Behavior-identical" reading:** the phrase is coherent only baseline-relative — identical to the pre-R2 semantics (RECON53, no void branch) for fresh S1/NONE and trend/both seeds, and identical for every other code line. Read as "identical to current RECON57 behavior," it would be false for touched non-meanrev seeds — deliberately false, since that is the change. Flagged as A5.
+
+**Restoration clause:** the two cited takes (8/28 10:05 SHORT 1.16466; 9/7 16:45 LONG 1.16261) correspond level-wise to the two SEEDVOID rows (line=1.16482 / 1.16218), and the RECON55 rows show the unscoped void firing on the very bars (10:00, 15:00) where confirmation was expected ("confirm=1 on 10:00 bar") — the bug evidence and the target are internally consistent. But the restoration follows only if (a) `g_regime` at 7782 carries the seed's classification at that moment (assignment site not shown), and (b) both seeds are non-meanrev (no row or field on the page states their regime). Both are page gaps, not contradictions. Post-build rows will settle it empirically; pre-build, they cannot exist.
+
+---
+
+## Q2 — VERDICT
+
+**Q2: YES — with line numbers 10396-10400, 11248-11254, 11272-11279, converter 233/244/251-253/259 — the leg fires the first bar at/after the 16:55-ET mark (23:55 server in September), strictly below SL/TP/BREAK/HTF, filling at next-open; the assumption list below is the audit deliverable.**
+
+### Q2 audit
+
+**Fire timing, verified:** mark built per server-calendar date as 16:55 ET wall (10400) → `TC_ZoneToGmt` (240-246): EST base −5h (233) + DST_US active in September (244) = −4h → 20:55 GMT → `TC_GmtToServer` (249-254): +7h net → 23:55 server, same server date (zone-safe per 10391-10392, since 16:55+7h < midnight). Gate 11248-11254: `fillBarTime <= mark && mark <= barTime` (11252) fires on the first bar whose open ≥ the first mark at/after fill — exact-match on the 23:55 bar open. Run rows agree: fill 16:00 server 9/4 (= 09:00 ET, inside NYAM 14:00-19:00 server), MTEXIT bar 23:55 reason=DAY_CLOSE; two independent +7h anchors on the page (CLOCK row NYAM mapping; BLACKOUT_ROW offsetMinutes=420 on 9/4 itself). MTLIFE carries 11 fields as claimed, closeBar 23:55 Friday, closePx 1.16093 = Monday 9/7 00:00 open (9/4/2026 is a Friday, 9/7 a Monday — consistent with the SEEDVOID/fill rows).
+
+**Priority, verified:** gate 11248 excludes co-fire (`!vSL && !vTP && !vBREAK && !vHTF`); the proceed test includes vDAY; the else-if chain places vDAY last (vDAY branch, 11279). Strictly below all four, including HTF as coded.
+
+**Fill, verified as coded:** exitPrice = nextOpenPx (vDAY branch, 11279) — verdict bar 23:55 Friday, fill at the next M5 bar's open = Monday 00:00 across the weekend gap. This is exactly the pattern in his disputed row; the strategy half (verdict near day close vs fill at Sunday-17:00-ET open) is walled off for his call, as the page states.
+
+**Assumptions the leg depends on:**
+
+*Clock:*
+- C1. ET base hardcoded EST −5h + DST_US (+1h when active) — 233, 244; `TC_DstActive` is **not shown**; its 2026 US transition dates (Mar 8 / Nov 1) are assumed.
+- C2. Server frame: `gtc_serverGmtBase` + `gtc_serverDst` compose to +7h vs GMT in September — values/init **not shown**; anchored only by the measured rows (CLOCK; BLACKOUT offsetMinutes=420).
+- C3. Zone-safety: the mark maps back into the same server date only because the offset keeps 16:55+offset < 24:00 (10391-10392); an offset > ~7h04m would roll marks to the next server date.
+- C4. DST evaluated on wall clocks, single-pass (244 on ET wall; 251-252 on the server probe) — safe away from transition hours; no transition in the graded September window; offset assumed constant per graded day.
+- C5. `barTime` = M5 bar open; marks land exactly on a bar open under a whole-hour offset — a fractional-hour offset would slide firing one boundary.
+- C6. Marks loop (10396-10400): `TC_DayStart`/`TC_MakeTime` not shown; SRJ_PILOT_FROM assumed server-frame; **32-mark cap at 10397** — pilot range must be ≤ 32 dates or later dates silently lose F3; SRJ_PILOT_TO inclusivity assumed such that the final date gets a mark; **loop tail beyond 10400 not shown** (cur advance, dayN++, Friday 17:00 friMarks).
+- C7. `g_news_init` true before any exit evaluation (11248) — init order assumed.
+- C8. Every graded date is a full session with a 23:55 server bar; early-close/holiday dates shift the fire to the next available bar (next session open) — same next-open fill pattern by construction.
+- C9. Bar series contiguous across the weekend: Friday 23:55 → Monday 00:00 adjacent.
+
+*Fill:*
+- F1. nextOpenPx = open of the bar after the verdict bar — computation **not shown**; asserted by the header comment and consistent with the rows (Mon 00:00 open 1.16093).
+- F2. Bookkeeping fill at exactly nextOpenPx — alert-only, no slippage; no exit-side spread visible on the page (spr appears only on the entry ALERT row).
+- F3. exitBarTime stays the verdict bar (11274); grading joins the mark (closeBar), not the fill timestamp.
+- F4. Single managed trade (`g_mtrade`); the gate is reached only with an open position (enclosing scope not shown; the row shows first live fire with position).
+
+*Priority:*
+- P1. vSL/vTP/vBREAK/vHTF are final for the bar before 11248 runs (their computation precedes the gate, not shown).
+- P2. The proceed test includes vDAY; chain order (11275-11279) matches the stated priority; with the gate's exclusivity the chain is defensive.
+- P3. vHTF currently inert ("when re-enabled"); if re-enabled it preempts DAY_CLOSE by the same gate — assumed intended.
+- P4. Same-bar conflict resolves by priority: SL/TP touch on the 23:55 bar wins; DAY_CLOSE not recorded.
+- P5. MT_EXIT_SCOPE / exit-model config does not suppress vDAY in this build — evidenced by the 9/4 row, not by shown code.
+
+---
+
+## Ask A — defects, gaps, imprecisions (each with lines)
+
+**Q1 page:**
+1. **Provenance mismatch:** run-row header says "RECON51 fills"; the fills text says "51 predates R2 (built RECON53)." One build id is wrong.
+2. **Seed regime absent:** no Q1 row or field states the two seeds' classification; SEEDVOID's PrintFormat (7789) has no regime field. The restoration claim requires both seeds non-meanrev — asserted, not shown.
+3. **`g_regime` lifecycle not shown:** no line displays where `g_regime` is assigned relative to 7782, its value for fresh S1 seeds, or that it survives unchanged from classification to the R2 check. If it were reset before 7782, E1 would dead-code the entire void — silently disabling the meanrev void too.
+4. **`REGIME_MEANREV` identifier:** its only on-page occurrence is the proposed line; enum semantics (and correspondence to MTSNAP's `regime=1`) not shown. Compile-resolvable on his machine; noted.
+5. **"Behavior-identical" ambiguity** (Q1 question text): true baseline-relative (pre-R2) and for all other lines; deliberately false vs RECON57 for touched non-meanrev seeds. Say which baseline.
+6. **"Exactly the two cited seed paths":** "exactly" is a window-evidence claim, not a code property — every non-meanrev touch in every window now survives (the intent, per his banked rule). Phrase precisely.
+7. **RECON57 "5-of-7, both misses"** cited twice without identifying the two misses; if they are the 8/28+9/7 takes they corroborate the bug — the page doesn't say.
+8. **Buffer semantics:** buf=12/15 ← r2_k=12/15 → sweptBits 16/19 via 7777's +4 mapping; what buffer families 10-17 hold is not on the page.
+9. **In-bar ordering:** that the void preempts same-bar confirmation rests on the RECON55 rows; the confirming code isn't shown.
+10. Minor: `evals=66/277`, "ledger 618" undefined on the page.
+
+**Q2 page:**
+11. **Loop tail elided** (after 10400): cur advance, dayN++, friMarks branch, bounds not shown — audit covers mark computation, not loop completion; the 32-cap can silently truncate (10397).
+12. **SRJ_PILOT_TO inclusivity** (10397): if TO is day-start-aligned, `cur < TO` drops the final pilot date's mark; constants not shown.
+13. **EXITVERDICT omits vDAY** (the PrintFormat between the gate and the return): when DAY_CLOSE fires, the per-bar verdict log shows neither vDAY nor the matched mark — directly relevant to debugging the "still not working" dispute.
+14. **nextOpenPx computation not shown** (header comment + vDAY branch 11279 only); Monday-open=1.16093 rests on row context.
+15. **`TC_DstActive` not shown** (referenced 244, 252); `gtc_serverGmtBase`/`gtc_serverDst` init not shown — the +7h is measured, not displayed as code.
+16. **`TC_DayStart` / `TC_MakeTime` not shown**; SRJ_PILOT_FROM frame assumed server.
+17. Comment phrase "Noon-dow is zone-safe" (10391) — cryptic wording; the substance (16:55+7h stays in-date) verifies.
+18. No exit-side spread/slippage model visible — bookkeeping assumption, flagged (F2).
+19. The digest 98F6BBAC pins the **pre-E1** file; after a clear + build, a new digest must pin the post-change state (state plainly so nobody reads the current digest as covering E1).
+
+---
+
+## Ask B — better mechanisms for the stated goals (proposals only; each needs his packet amend; nothing built)
+
+- **B1 (Q1, robustness):** snapshot the seed's regime at classification into a per-seed field and test that at 7782 instead of the live `g_regime` — removes gap A3 entirely. Touches the classification site (not shown) + 7782. Budget exceeds +0/-0/+1 → his amend.
+- **B2 (Q1, proof):** make restoration row-provable — add regime to the SEEDVOID log (7789) and/or an `else if(InpDebugLog && r2_touch)` SEEDCARRY line after 7790 printing regime + buffers. Debug-gated, zero strategy impact, but adds lines → amend. Without it, post-build proof rests on absence-of-SEEDVOID plus the two fills reappearing — workable, weaker.
+- **B3 (Q2, observability):** add vDAY + matched mark (index/time) to EXITVERDICT (the PrintFormat, ≈11256-11268) — makes the disputed leg debuggable next run. Zero behavior change; line-count change → amend.
+- **B4 (Q2, exit-price model — STRATEGY, his call, explicitly not ruled):** if the executable intent is "operator closes on the 16:55-ET alert," booking exitPrice at the verdict bar's close rather than nextOpenPx (touches 11279) would model the alert-executed outcome and remove the weekend-gap booking discrepancy. His dispute is banked; a new packet E-set would be required.
+- **B5 (Q2, guards):** log/assert when the 32-cap binds (10397) and when a graded date yields no 23:55 server bar (early close) — surfaces silent degradations in forward demo.
+- Considered and set aside: gating the void on swept-buffer family instead of regime — encodes classification via buffer taxonomy; the regime gate is the truer expression of his banked rule.
+
+---
+
+**Close:** Q1 yes = clearance of the one-line delta against the pinned baseline only; the build, token, and run word remain his. Q2 yes = the leg as coded, with the assumptions enumerated; the weekend-fill strategy dispute stays recorded for his ruling. No live activation, no money movement, nothing unanswerable asked or answered.
+
+## V250-COMBINED END GLM (verbatim close, nothing appended)

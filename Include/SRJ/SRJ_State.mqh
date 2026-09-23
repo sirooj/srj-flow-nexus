@@ -206,6 +206,14 @@ struct SState
    bool     pmLowSwept;
    bool     pdHighSwept;
    bool     pdLowSwept;
+   bool     pdAsiaHighSwept;
+   bool     pdAsiaLowSwept;
+   bool     pdLondonHighSwept;
+   bool     pdLondonLowSwept;
+   bool     pdNyHighSwept;
+   bool     pdNyLowSwept;
+   bool     pdPmHighSwept;
+   bool     pdPmLowSwept;
    int      dayStartBar;
    int      prevDayStartBar;
    int      prevDayEndBar;

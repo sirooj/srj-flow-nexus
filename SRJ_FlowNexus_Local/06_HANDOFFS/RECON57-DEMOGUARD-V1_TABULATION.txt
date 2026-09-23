@@ -1,0 +1,38 @@
+# RECON57-DEMOGUARD-V1 TABULATION (segment 6F242EAC vs RECON55 EA5BCC5C vs RECON56 04B9C64B; literal patterns)
+
+pattern | RECON57 | RECON55 | RECON56 | note
+ALERT SRJ SIGNAL | 5 | 5 | 5 | same 5 bars
+MTSNAP | 5 | 5 | 5 | same bars/entries/anchors/regime=1
+CTrade::OrderSend | 5 | 5 | 0 | takes returned, RECON55 bars/prices/lots
+EXECUTE_ACCT | 5 | n/a (DEMO_PASS 5) | 0 | renamed token, mode=0 login=1359506594 all 5
+DEMO_GUARD | 0 | 0 | 10 | zero, two-pattern proved
+DEMO_PASS | 0 | 5 | 0 | label gone from output
+TP_ELECT | 10 | 10 | 10 | byte-identical rows
+MTEXIT | 5 | 5 | 5 | 57 reasons == 56 phantom bar-for-bar
+MTLIFE | 6 | 6 | 6 | 5 closes + 1 admin
+DAY_CLOSE | 3 | 0 | 3 | 1 event (9/4 23:55)
+POI_BODY_BREAK | 0 | 6-subset | 0 | reason= 0/2/0 second pattern
+EXITVERDICT | 133 | 35 | 133 | rank-hold shape with fills
+EXITCENSUS verdict=BREAK | 2 | 2 | 2 | same-line crosses observed
+MTCOLLISION | 0 | 0 | 0 | hard gate
+SIDE1C_PREEMPT | 10 | 10 | 10 | identical bars
+SIDE1C_CHAIN unique bars | 66 | 66 | 76 | cascade gone, diff vs 55 empty
+FRESH_VETO | 4 | 4 | 4 | 9/4 10:40 identical
+VETOCLEAR | 4 | 4 | 6 | identical 4
+FRESHCOUNT rows / adverse bars | 38 / 9 | 38 / 9 | 44 / 11 | diff vs 55 empty
+A6REFUSED | 31 | 31 | 44 | back to 55 shape
+HEADS-UP rows | 30 | 30 | 36 | 55 shape
+STAND-DOWN rows | 25 | 25 | 31 | 55 shape
+ALERT SRJ EXIT | 5 | 5 | 5 | SL/DAY/TP/TP/SL
+LTFFLIP | 9 | 9 | 11 | shared 9
+RENEW | 0 | 0 | 0 | identical
+N1EQUALS | 28/30/0/2 | identical | identical | identical
+BIASCENSUS_FINAL | 3168/1554/0/1614 | identical | identical | feed
+ZONECENSUS_FINAL | identical | identical | identical | feed
+XOB-PROMOCENSUS rows | 469 | 469 | 469 | upstream identical
+WS161 loads/stores/changes/mismatch | 3168/3168/218/0 | identical | 245 changes | cascade gone
+TP_TOUCH | 6 | 6 | 6 | identical
+PRE-SEND | 5 | 5 | 0 | order path only (no orders in 56)
+balance | 10309.68 | 10309.68 | 10000.00 | same fills+exits as 55
+
+(End of file)

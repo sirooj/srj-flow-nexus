@@ -1,4 +1,4 @@
-# BUILDER INDEX RELEVANCE (2026-09-23, RECON56 graded)
+# BUILDER INDEX RELEVANCE (2026-09-23, Q1 4/4 YES - key/token/word owed)
 
 Rule: read this file BEFORE any record search. It points to the live source per topic and names what is stale. Stale files are history only - never ground a packet, relay, grade, or question on them. The pointer still wins on any conflict.
 
@@ -6,10 +6,12 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 
 - Pointer: 06_HANDOFFS\BUILDER_SESSION_POINTER.md (only live memory).
 - Rules: AGENTS.md (skill-load, gates, invariants).
-- Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON56-EXITRANK-V1.md (G1 PASS + G2 HALT-by-letter environment-diagnosed + G3 PASS-WITH-ATTRIBUTION + G4 PASS-logic fill-void; takes 0/5 DEMO_GUARD, 5 phantom lifecycles; 9/4 held to DAY_CLOSE 23:55 server first live fire; tabulation RECON56-EXITRANK-V1_TABULATION.txt).
+- Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON57-DEMOGUARD-V1.md (G1/G2/G3 PASS + G4 PASS-WITH-FILLS; 5/5 takes with fills, exits == phantom, EXECUTE_ACCT mode=0 login=1359506594; tabulation RECON57-DEMOGUARD-V1_TABULATION.txt).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON55-VNEXT-V1.md (takes 5 with fills; baseline for RECON56 grading).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v243-EXITRANK-CLEAR6.md (C669A216/19086, TRANSPORTED; V246 Luna-grant-CLEARED-one-build-one-run + Sonnet/GLM/Kimi YES, intake closed; built + ran ledger 635).
-- Packet: 01_TASKS\PACKET_P-EXITRANK-6.md (v6 7088F4B1/14263 BUILT + GRADED ledger 637: EA 5DD25951; re-run on same binary needs only his run word, no new packet).
+- Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 GRADED-CLEAR 4/4: V251 Luna-YES closes the gaps; key/token/word owed, key prompt in latest report).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
+- Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
+- Prior packet: 01_TASKS\PACKET_P-DEMOGUARD-2.md (v2 302023B3/9710 BUILT tree 98F6BBAC; guard arc closed RECON57).
 - Findings: 06_HANDOFFS\BUILDER_FINDING_SWEPT-ABSORPTION.md (absorption proof); 06_HANDOFFS\BUILDER_FINDING_BOOKING-GATE-VALIDSET.md (valid-set proof, 8/28 New York corrected); 06_HANDOFFS\BUILDER_FINDING_EXIT-BREAK-RETEST.md (exit rule).
 - Strategy of record: 00_CURRENT_WORKING\SRJ Flow Nexus - Part A Specification v4.2 (section 3.7 gate + validity) + GOAL_STATEMENT.md + CHARTER.md.
 - His journal: 00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv (rows 257/277/279/281/283/285-289 window set; economics often blank/0.00 - blank means unrecorded, never absent).

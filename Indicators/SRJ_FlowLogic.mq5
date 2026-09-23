@@ -1384,6 +1384,14 @@ int OnCalculate(const int rates_total,
          if(g_s.nyLowSwept)      swMask |= (1 << 7);
          if(g_s.pmHighSwept)     swMask |= (1 << 8);
          if(g_s.pmLowSwept)      swMask |= (1 << 9);
+         if(g_s.pdAsiaHighSwept)   swMask |= (1 << 14);
+         if(g_s.pdAsiaLowSwept)    swMask |= (1 << 15);
+         if(g_s.pdLondonHighSwept) swMask |= (1 << 16);
+         if(g_s.pdLondonLowSwept)  swMask |= (1 << 17);
+         if(g_s.pdNyHighSwept)     swMask |= (1 << 18);
+         if(g_s.pdNyLowSwept)      swMask |= (1 << 19);
+         if(g_s.pdPmHighSwept)     swMask |= (1 << 20);
+         if(g_s.pdPmLowSwept)      swMask |= (1 << 21);
          int liveSid = SRJ_GetSessionId(time[i]);
          if(liveSid == 0)      swMask |= (1 << 10);
          else if(liveSid == 1) swMask |= (1 << 11);

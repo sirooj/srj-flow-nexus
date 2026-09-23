@@ -43,7 +43,7 @@ Compile log (verbatim tail): [...]
 
 1. Code block re-read from disk this turn (digest + bytes cited).
 2. Zero "..." / "area"-style pointers in the code block.
-3. One question only; answer form present; no role/ID/clearance asked of anyone.
+3. Numbered questions each with own verdict line and answer form (multi on his per-round word); no role/ID/clearance asked of anyone.
 4. Prior texts labeled (file + marker + digest) or absent — never unattributed.
 5. Run rows raw where a per-row claim is made (aggregates alone = defective).
 
@@ -58,9 +58,9 @@ Compile log (verbatim tail): [...]
 Same evidence to every model. Same decision question to every model. Analytic depth harvested every round:
 
 ```
-Question (one, specific): [...]
+Question (one, specific — or Q1/Q2 numbered, each with its own verdict line, on his per-round multi-question word 2026-09-23; a NO on one never sinks the other): [...]
 
-Answer form: plain yes / no / discrepancy (or the relay's stated decision form), with line numbers.
+Answer form: plain yes / no / discrepancy, with line numbers (per question; or the relay's stated decision form).
 
 Analytic ask A (standing, every relay): name every defect, gap, or imprecision you see in the page, each with line numbers — freetext, no length limit.
 
