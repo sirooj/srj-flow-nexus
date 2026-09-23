@@ -3,29 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-23, GRADED + COMMITTED)
+## State (2026-09-23, V253 GREEN)
 
-- RECON58 graded (G1 pass, G2 fail
-  on 9/1 squatter-veto, G3/G4 noted).
-  Result 1F2D44F4 + tabulation filed.
-  Ledger 668-669. Result committed 9d13b4e.
-  Selection NOT cleared. Extra defects
-  filed (finding 750282D9). His three
-  defects mapped (ledger 670); session
-  rule banked (strategy-5, spec-anchored).
-  Skill updated (§8 double review).
-  Eviction draft filed (ledger 672).
-  Relay v251 battery-green, transport
-  signal ships (ledger 673). V251 ruled:
-  amend (ledger 674). Relay v252 green,
-  signal ships now - ONE file. V252 ruled:
-  amend (ledger 675). Seat ruling owed.
+- Packet v3 + relay v253 battery-green
+  (positive S4 test, stamp proven).
+  Ledger 677. Seats: Opus key + 4 eyes.
 
 ## Next (artifact owed)
 
-- Owed: squatter-eviction packet draft
-  (builder work, council route next).
-  Nothing owed from YOU.
+- Owed: YOUR carry of v253 to Opus,
+  GLM, Kimi, Sonnet (same text all).
+  Paste verdicts back whole.
 
 ## Resume order (exact)
 

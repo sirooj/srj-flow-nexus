@@ -8,9 +8,9 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Rules: AGENTS.md (skill-load, gates, invariants).
 - Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON58-RETEST-V1.md (1F2D44F4/161: G1 PASS, G2 FAIL on 9/1 squatter-veto miss, G3/G4 itemized; both hard-gate takes restored 51-identical; C1-C4 corrections own stale R3.43/1.16261/11:40-fill/57-day-close-fill; tabulation RECON58-RETEST-V1_TABULATION.txt AD3CE3B7/42).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON55-VNEXT-V1.md (takes 5 with fills; baseline for RECON56 grading).
-- Packet: 01_TASKS\PACKET_P-EVICT-1.md (v2 B66D0F57/91: V251-fold S4-only eviction; E1 +1, E2 +4/-0/+8, E3 +0/-0/+5; 11322).
+- Packet: 01_TASKS\PACKET_P-EVICT-1.md (v3 4E882693/104: V252-fold positive-S4 three-way; E1 +1, E2 +10/-0/+8, E3 +0/-0/+5; 11328).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v252-EVICT-2.md (13F93178/13824/195: Q1 single on amended v2; contract+session+Q3 inline; v251 labeled prior).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v253-EVICT-3.md (6EB7E4C1/12666/153: Q1 single on v3; stamp/guard/LogAbort/before-state inline; v252 labeled prior).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
 - Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
 - Prior packet: 01_TASKS\PACKET_P-DEMOGUARD-2.md (v2 302023B3/9710 BUILT tree 98F6BBAC; guard arc closed RECON57).
