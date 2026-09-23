@@ -3,20 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-23, RUN IN FLIGHT)
+## State (2026-09-23, GRADED G2-FAIL)
 
-- Packet v2 BUILT + launched
-  RECON58-RETEST-V1 (EA B01CBA64,
-  compile 0/0, WMI 14428, ceiling
-  90). Key SPENT. Ledger 666.
-  Commit BLOCKED (no council token).
+- RECON58 graded (G1 pass, G2 fail
+  on 9/1 squatter-veto, G3/G4 noted).
+  Result 1F2D44F4 + tabulation filed.
+  Ledger 668. Committing result now.
 
 ## Next (artifact owed)
 
-- Owed: YOUR completion word
-  ("the run has completed, please
-  proceed"). Then I grade, file the
-  result, and report - unattended.
+- Owed: result commit (builder call,
+  this block). Then squatter packet
+  draft via council - unattended.
 
 ## Resume order (exact)
 

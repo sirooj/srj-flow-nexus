@@ -1,0 +1,42 @@
+# RECON58-RETEST-V1 TABULATION (segment 424A5A0C/6624800/35016 vs RECON57 6F242EAC/4274727/24144 vs RECON51; literal patterns, zeros re-proved)
+
+pattern | RECON58 | RECON57 | RECON51 | note
+ALERT SRJ SIGNAL | 6 | 5 | see note | 58 bars: 8/28 10:05 + 9/4 16:00 + 9/7 09:20 + 9/7 16:45 + 9/8 10:10 + 9/8 17:00; 9/1 absent (miss, diagnosed)
+MTSNAP | 6 | 5 | - | net +1 (+2 restored -1 missed)
+CTrade fills order-performed | 12 | 10 | - | 6 entries + 6 broker exits, zero EA-sent closes
+EXECUTE_ACCT | 6 | 5 | n/a | audit covers all 6 takes
+DEMO_GUARD | 0 | 0 | 0 | zero, two-pattern proved
+TP_ELECT | 10 | 10 | - | identical count
+MTEXIT | 6 | 5 | - | 58: 11:40 BREAK + DAY_CLOSE + 3xTP + 9/8 SL; 8/28 SL verdict row absent (print-only delta)
+MTLIFE | 6 | 6 | - | 58 openBars: 8/28 10:05 + 9/4 16:00 + 9/7 09:20 + 9/7 16:45 + 9/8 10:10 + 9/8 17:00
+DAY_CLOSE | 3 | 3 | - | same 3 rows (verdict+life+alert), verdict-only in BOTH runs (57 fill claim withdrawn)
+POI_BODY_BREAK MTEXIT | 1 | 0 | 1 | 8/28 11:40 verdict-only in 51 and 58 (packet fill claim corrected)
+EXITVERDICT | 155 | 133 | - | +22 kept-seed evaluation churn
+EXITCENSUS verdict=BREAK | 3 | 2 | - | +1 is the 8/28 11:40 verdict (restored-take downstream)
+MTCOLLISION | 0 | 0 | - | hard gate clean
+SEEDVOID | 0 | ~70 | - | design effect: unscoped void fired constantly in 57, silent in 58 (no MEANREV seed ever touched)
+SIDE1C_PREEMPT | 15 | 10 | - | +5 competition churn
+SIDE1C_CHAIN unique bars | 59 | 66 | - | set-diff: 24 only-58, 31 only-57 (window-wide pool churn)
+FRESH_VETO | 12 | 4 | - | 9/4 10:40 veto identical; +8 kept-seed veto churn
+VETOCLEAR | 5 | 4 | - | +1
+FRESHCOUNT rows | 97 | 38 | - | +59 kept-seed pool rows
+A6REFUSED | 53 | 31 | - | +22 (9/4-invalid refusal preserved inside)
+HEADS-UP rows | 46 | 30 | - | churn | STAND-DOWN rows | 41 | 25 | - | churn (9/4 STAND-DOWN preserved inside)
+ALERT SRJ EXIT | 6 | 5 | - | 58: BREAK + DAY + 3xTP + 9/8 SL; 9/4 TP silent both runs; 8/28 SL silent (no verdict row)
+LTFFLIP | 17 | 9 | - | +8 churn
+RENEW | 0 | 0 | 0 | identical
+N1EQUALS body/wick/vwap/poc | 28/30/0/4 | 28/30/0/2 | - | +2 pocEq = the two restored takes stops (downstream)
+BIASCENSUS_FINAL | 3168/1554/0/1614 | identical | identical | feed identical
+ZONECENSUS_FINAL | identical | identical | identical | feed identical
+XOB-PROMOCENSUS rows | 469 | 469 | 469 | upstream identical
+WS161 loads/stores/changes/mismatch | 3168/3168/215/0 | 3168/3168/218/0 | 3168/3168/200/0 | -3 vs 57, open mechanism (loads/stores/bars identical)
+TP_TOUCH rows | 9 | 6 | - | +3 lifecycle rows
+PRE-SEND | 6 | 5 | - | one per entry (8/28: lots 2.38 entry 1.16466 slPts 42 tpPts 102)
+ticks/bars | 563338/3168 | identical | identical | feed identical
+balance | 10506.13 | 10309.68 | - | delta +196.45 = 8/28 SL (-42pts x 2.38) + 9/7-1645 TP (+51pts x 3.92) + lot-shrink on shared wins
+alert kinds | SIGNAL/EXIT/HEADS-UP/STAND-DOWN | same | - | nothing else (grouped census)
+
+8/28 lifecycle 58 vs 51: entry 10:05 1.16466 lots 2.38 (identical) + SL 1.16508 (identical) + 11:40 BREAK verdict exit 1.16439 (identical, unfilled both) + SL fill 17:00:17 at 1.16510 (identical second+price; ticket #3 vs #4). Booking differs: 51 TP 1.16322 (R3.43, pre-nearest-wins) vs 58 TP 1.16364 (R2.43, nearest-wins compliant).
+9/7-1645 lifecycle 58 vs 51: SIGNAL R2.34 SL 1.16238 TP 1.16315 (identical) + fill 1.16264 (identical; packet 1.16261 corrected to realized) + TP MTEXIT 17:10 + fill 17:13:30 at 1.16315 (identical; lots 3.92 vs 3.99 balance-path).
+
+(End of file)
