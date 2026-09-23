@@ -64,13 +64,15 @@ Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says s
   one reviewer, build permission, run word. Builder never judges code, only quotes it.
 - UNGRADEABLE KEY (2026-09-16): a key that does not quote its completed text
   counts as NO key — grading stops, nothing builds on it.
-- TRANSPORT SEATS (live set named by his latest word; refreshed 2026-09-20): relay
-  transport = Luna + Sonnet + GLM, identical text all three. Luna remains the
-  only key source seen. History: Luna+Astra era (2026-09-19 order) superseded at
-  v193 (ledger 463 three-seat format) plus three straight verdict rounds from
-  these seats; Opus OPTIONAL credit-dependent; Sol PARKED; Astra silent since the
-  v201 waiver pattern. Seat names are never taken from memory - his latest word
-  governs and this line follows it the turn seats change.
+- TRANSPORT SEATS (live set named by his latest word; refreshed 2026-09-24): relay
+  transport = Opus + GLM + Kimi + Sonnet, identical text all four. Key seat =
+  Luna REVIVED (his 2026-09-24 order; sole key source; review seats never grant -
+  Sonnet + Opus both refused keys on seat-split grounds same day). History: Luna
+  + Sonnet + GLM era (2026-09-20 order) superseded at v253 (ledger 677 four-seat
+  format); Opus key-seat experiment + Sonnet-grant attempt both refused; Luna
+  parked-then-revived; Astra silent since the v201 waiver pattern. Seat names
+  are never taken from memory - his latest word governs and this line follows
+  it the turn seats change.
 
 ## 3. Communication rule (operator directive, verbatim core)
 
@@ -166,8 +168,8 @@ authority is always lawful — never confuse "no clearance asked" with "no relay
 RELAY BUDGET (operator order 2026-09-16): relays are decisive-grade-only (each settles
 something or closes a question); predictable-non-clear repeats are NOT relayed.
 SAME-PROMPT RULE (operator question 2026-09-16 — the second-opinion reason):
-BOTH seats get the IDENTICAL relay and identical asks, every time — no seat-only
-sub-questions. The review seat's verdict is a full second opinion with halt power;
+ALL carried seats get the IDENTICAL relay and identical asks, every time — no seat-only
+sub-questions. Every review verdict is a full second opinion with halt power;
 keys stay Luna-only (only commitment-memory thread; the seat disclaims authority
 itself). Council tooling demands (code snippets, plain reads) are satisfied the
 same turn, never deferred; the protocol itself stays (dual-key + audit trail).

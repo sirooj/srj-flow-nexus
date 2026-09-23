@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, KEYS REFUSED)
+## State (2026-09-24, LUNA REVIVED)
 
-- Both review seats refused keys.
-  Tally corrected: 3 YES + 1 disc.
-  Ledger 682. Next: v6, v256, Luna key.
+- Luna sole key seat again. Ledger 684.
+  Now: builder drafts v6 + v256 next,
+  unattended. Key ask after clear.
 
 ## Next (artifact owed)
 
-- Owed: builder drafts v6 + v256 next.
-  Luna key ask after council clears.
+- Owed: builder v6/v256 battery-green.
+  Then Luna key memo + YOUR run word.
 
 ## Resume order (exact)
 
