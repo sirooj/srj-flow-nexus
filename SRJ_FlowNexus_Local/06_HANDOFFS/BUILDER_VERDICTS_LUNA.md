@@ -8130,3 +8130,68 @@ switch(g_confirmFromState)
 The **v5 range/disposition itself appears internally consistent on the page**; the principal remaining discrepancy is the hard-coded transition-source logging in the v6 replacement.
 
 ## V256-EVICT END LUNA (verbatim close, nothing appended)
+
+## V256B-EVICT OPEN LUNA (his carry, Luna channel, second reading v6-shape with v7-awareness, filed whole - distinct from V256-EVICT block)
+
+Q1: **discrepancy — EA 8801-8808.** The packaging is substantially aligned, but the replacement introduces one page-level state-accounting defect: the unexpected-origin branch hard-codes `LogState(ST_S5_GATE_CHECK, ST_S4_ARMED)` instead of preserving the prior `prevDiv = g_state` behavior. That makes the logged source state dependent on an unstated invariant. It should be corrected before treating the page as cleanly build-ready.
+
+### Analytic A — defects, gaps, and imprecisions
+
+1. **Hard-coded transition origin in the unexpected-origin branch — EA 8801-8808 replacement, specifically the final `LogState(...)` line.**
+   The before-state captures `ENUM_SRJ_STATE prevDiv = g_state;` and logs `LogState(prevDiv, g_state)`. The proposed replacement instead logs `ST_S5_GATE_CHECK` literally. Unless the packet explicitly establishes that `g_state` is *always* `ST_S5_GATE_CHECK` at this exact point, the new log can be factually wrong. This is the clearest concrete defect.
+
+2. **The E2 comment overstates preservation of "today's behavior" — EA 8801-8808 replacement, comment lines.**
+   The text says "other origins keep today's behavior with unconditional census," but the shown branch now adds an explicit `PrintFormat("[SRJ-EA] EVICT_UNEXPECTED_ORIGIN...")` and hard-coded transition logging. The state destination remains equivalent to the old non-S3 path, but the observable logging behavior is not literally identical.
+
+3. **"Unconditional census" is asserted rather than locally demonstrated — EA 8801-8808 replacement.**
+   The new S4 path exits immediately through `GoAbort(...)`. Therefore the packet relies on the standing v254 `GoAbort` proof to establish that the required census/abort accounting still occurs before the return. That can stand by reference, but the v6 page itself does not make the mechanism self-evident.
+
+4. **The S4 behavior is only exact if `ST_S4_ARMED` is the complete definition of an S4-origin holder — EA 8801-8808 replacement, `if(g_confirmFromState == ST_S4_ARMED)`.**
+   The prose repeatedly says "S4-origin holders," while the code recognizes exactly one enum value. If S4 has only that one origin enum, this is precise; otherwise the wording is broader than the predicate. The page should make that equivalence explicit.
+
+5. **The "one branch marker / E2 one-liner" packaging description is not perfectly aligned with the shown after-shape — V255 fold and the E2/E3 after-shape.**
+   The actual shown replacement contains a multi-line explanatory comment plus multiple branches. That is not necessarily a code defect, but the packet language describing it as an "E2 one-liner" is imprecise and makes exact-diff auditing harder.
+
+6. **"Retry converted 0 of 4 distinct refusals (57/58)" is insufficiently labeled — E2/E3 comment block.**
+   `57/58` is ambiguous on the page: bars, seeds, cases, or round identifiers are not stated there. As evidence metadata it may be correct, but as a packet assertion it is underspecified.
+
+7. **The line-count language should distinguish current/pre-build from target/post-build — V255 "Line-count fork" paragraph versus Source digest paragraph.**
+   The EA is stated as **11317 lines** "measured after the last write," while **11330** is stated as the standing post-count. These can be reconciled if 11317 is the current pre-build source and 09 is the expected post-build result, but the wording does not explicitly say that. This is a packaging ambiguity, not by itself a logic defect.
+
+8. **The before-state's generic fallback semantics are changed only for S4 — EA 8801-8808 before-state versus replacement.**
+   Old behavior was `S3 -> S3`, everything else `-> S4`. New behavior is `S4 -> ABORT`, `S3 -> S3`, everything else `-> S4`. That is clearly the intended semantic change described by the packet, but the packet should state explicitly that this is the *only* behavioral delta in the replacement block. The current wording strongly implies it, but does not formalize it as an invariant.
+
+### Analytic B — better mechanism
+
+A cleaner implementation is a single origin dispatch that preserves the actual prior state once, eliminating duplicated predicates and the hard-coded logging source:
+
+```cpp
+ENUM_SRJ_STATE prevDiv = g_state;
+
+switch(g_confirmFromState)
+  {
+   case ST_S4_ARMED:
+      GoAbort(ABORT_DIV_FALLBACK, g_state);
+      return;
+
+   case ST_S3_ZONE_WAIT:
+      g_state = ST_S3_ZONE_WAIT;
+      LogState(prevDiv, g_state);
+      return;
+
+   default:
+      PrintFormat("[SRJ-EA] EVICT_UNEXPECTED_ORIGIN bar=%s origin=%s",
+                  TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                               TIME_DATE|TIME_MINUTES),
+                  StateName(g_confirmFromState));
+      g_state = ST_S4_ARMED;
+      LogState(prevDiv, g_state);
+      return;
+  }
+```
+
+**Touches:** EA **8801-8808** (and the immediately preceding E3 insertion area only if `prevDiv` is not already available there). It preserves the old `prevDiv` logging invariant, makes the three mutually exclusive dispositions explicit, and removes the unstated dependency on `ST_S5_GATE_CHECK`.
+
+The **v5 range/disposition itself appears internally consistent on the page**; the principal remaining discrepancy is the hard-coded transition-source logging in the v6 replacement.
+
+## V256B-EVICT END LUNA (verbatim close, nothing appended)

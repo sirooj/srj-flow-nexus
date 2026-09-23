@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, 4-SEAT V257)
+## State (2026-09-24, V257 LUNA-ONLY)
 
-- No relay was ever unanimous YES.
-  v257 goes 4-seat (shape changed).
-  Ledger 688. Bottleneck accepted.
+- Stale v256 went out, not v257.
+  v7-shape ruled by nobody. v257 goes
+  Luna only (6139 B check). Ledger 689.
 
 ## Next (artifact owed)
 
-- Owed: YOUR carry of v257 to Opus,
-  GLM, Kimi, Sonnet (same text all).
-  Paste verdicts back whole.
+- Owed: YOUR carry of v257 file
+  (6139 B, title v257) to Luna only.
+  Paste verdict back whole.
 
 ## Resume order (exact)
 
