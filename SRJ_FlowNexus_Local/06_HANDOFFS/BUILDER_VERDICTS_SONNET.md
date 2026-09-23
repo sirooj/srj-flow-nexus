@@ -884,3 +884,479 @@ No line-numbered defect found beyond the two non-blocking notes above. No key vo
 - Nothing else jumps out as a defect in the quoted text; the naming collision you already flagged yourself (R23: `pd`-prefix meaning day-extremes vs per-session-swept) is a readability wart, not a correctness bug, and you've already declined to rename under exact-diff minimalism.
 
 **Analytic B (better mechanism):** None — the touch-test-via-shared-mask-at-barShift+1 approach is the same idiom E6 already uses, so R2 isn't introducing a second source of truth. That's the right call; a parallel raw-flag read (bypassing the mask) would have been the more error-prone alternative and you avoided it.
+
+## V233 (v232 round: relay F539FE12, packet FC308B7A) - SONNET verbatim, filed whole 1x
+
+## Question A — accept / amend-with-delta / halt
+
+**Amend-with-delta.** The two hunks are internally consistent with the "zero behavior change" gate on the *existing* code paths (SEEDVOID, RETESTBOOK, R2SKIP, ALERT kinds are all untouched by E1/E2a/E2b as written), so nothing here threatens G3. But the new material has three concrete issues, all fixable on the page before S1/S2:
+
+**D-A1 — guard asymmetry (P061 vs. the ShadowRetestBook guard in [[R-RB-B]]).**
+`ShadowRetestBook` gates on `if(!InpDebugLog || !SHADOW_RETESTBOOK) return;`. The new `ShadowRetestNearMiss` (P061) gates only on `if(!InpDebugLog) return;` — it drops the `!SHADOW_RETESTBOOK` check. The call site (E2b, P098–106) wraps both calls in one `if(... (SHADOW_RETESTBOOK || SHADOW_CONFIRMPOLL) && inWindow)`, so if `SHADOW_CONFIRMPOLL` is ever true while `SHADOW_RETESTBOOK` is false, `ShadowRetestBook` returns silently (no row) but `ShadowRetestNearMiss` still prints — an unpaired RETESTDIAG row. That directly contradicts the stated invariant "Prints beside every RETESTBOOK row" (P037) and the G2 acceptance test "RETESTDIAG present beside every RETESTBOOK row … (bar-joined)" (P126). Fix: add `|| !SHADOW_RETESTBOOK` to P061.
+
+**D-A2 — comment doesn't match implementation (P056–057 vs. P059–096).**
+The docstring says RETESTDIAG "Prints when the book finds nothing" (P056–057). But the function never receives `nHits` from `ShadowRetestBook` — there's no such conditional in the body (P059–096), and per the call site it fires on every eligible bar regardless of hits. That actual behavior matches the packet body (P035–038) and G2 (P126), so the *code* and the *acceptance test* agree with each other — it's the comment that's wrong. Recommend rewording P056–057 (e.g. "prints alongside every RETESTBOOK call; independent of whether it found a hit") so a future reader doesn't assume a conditional that isn't there.
+
+**D-A3 — budget arithmetic doesn't sum (P006 / P117 / P123–124 vs. P052 / P097 / P107).**
+Stated budget: "+42 new +2 modified." Itemized: E1 = 0 new / 1 modified (P052), E2a = 41 new / 0 modified (P097), E2b = 1 new / 0 modified (P107). Sum = 42 new / **1** modified, not 2. S1's own policy is "Miss = DIAGNOSE, never assume" — if S3's post-hash budget check literally expects 2 modified lines, this will trip that gate on a bookkeeping error, not a real diff problem. Reconcile before build: either the budget line should read "+42 new +1 modified," or there's a second modified line nobody itemized (possibly the anchor line at the E2a insertion point, if insertion is being counted as "touching" it) — worth naming explicitly either way.
+
+None of these are behavior bugs against G3; they're new-code correctness/documentation/bookkeeping issues. Fixing all three is small (one guard clause, one comment edit, one line of arithmetic).
+
+## Question B — exit fork
+
+Working from a single instance (9/4) isn't enough to generalize "hold to close" as a rule — that's the exact kind of anecdote-to-rule jump the packet itself is careful to avoid elsewhere (see P135–137's "observation run claims no restoration"). My read, as a design opinion rather than a trading directive:
+
+**Body-break exits by default; DAY_CLOSE-minus-5 override is scoped to mean-reversion regime only, and only when the break is a wick/intrabar event that doesn't close through the level with a confirming body.** Rationale: `POI_BODY_BREAK` exists as a risk control — an unconditional override removes that control from every mean-reversion trade, not just the ones where the break was noise. If the goal is "don't get stopped out by a spike that reverts," the more precise mechanism is to condition the hold-through on *how* the break happened (wick-only vs. body-confirmed close beyond the line), not on time-of-day alone. That's testable against the RECON53/RECON50 data you already have multiple takes for, rather than asserted from one exit.
+
+This is analysis, not a cleared rule — nothing here spends money or changes code by itself, per your own gate.
+
+## Analytic ask A (defects)
+D-A1, D-A2, D-A3 above are the three I can find purely from the page. No others jumped out in E1/E2a/E2b — the format-string arg count in P090–095 checks out (6 `%s`, 6 args), the boundary logic for `inside`/`nearAbove`/`nearBelow` (P078–087) is internally consistent (inclusive range, minimal-distance selection on each side, no double-counting since `inside` continues before the distance checks), and E1's `r2_hi`/`r2_lo` are already in scope at the print site (declared earlier in the same `if(r2_touch)` block per [[R-R2-B]]), so the widen is a clean 1-line modification as claimed.
+
+## Analytic ask B (better mechanism)
+If you actually want RETESTDIAG to be conditional on "book found nothing" (matching the comment as originally written, D-A2), the clean fix touches the call site (E2b, P098–106) and the function signature (P059): change `ShadowRetestBook` to return `nHits` (or add an out-param), and change the call to `int nHits = ShadowRetestBook(barShift); if(nHits==0) ShadowRetestNearMiss(barShift);`. That's a bigger diff than the current +42/+1 (touches `ShadowRetestBook`'s signature and its own internal `return;` at the top for the invalid-range case), so it's a real fork: either keep "always prints" (cheap, matches your current G2 test) or make it genuinely conditional (matches the comment, costs a bit more diff). I'd leave it as "always prints" and just fix the comment — smaller surface, same information content, and it's what G2 already grades against.
+
+No key to volunteer.
+
+## V233 END SONNET (verbatim close, nothing appended)
+
+## V234 (v233 round: relay B4868491, packet D8036144) - SONNET verbatim, filed whole 1x
+
+**Verdict: ACCEPT** (page-only; I have no way to touch disk truth, hashes, or the build/run pipeline, and I'm not volunteering a key — I don't hold one).
+
+**Line-by-line check of the diff as printed:**
+
+- **E1 (P056–P059):** `r2_hi`/`r2_lo` aren't new computations — they're the same locals already declared earlier in the R2 block (see `[[R-R2-B]]`: `double r2_hi = iHigh(...)`, `double r2_lo = iLow(...)`) and already used in the touch test (`r2_lo <= r2_v && r2_v <= r2_hi`). Adding them to the format string is a pure print expansion — no new reads, no control-flow change. +0 new/+1 modified checks out.
+
+- **E2a (P060–P104), `ShadowRetestNearMiss`:** Read-only — `iHigh`/`iLow`/`ReadBuf1`/`g_lineCode`/`StringLen`/`PrintFormat`/`DoubleToString` only, no writes to `g_state`, `g_anchor*`, or any global. It doesn't call or get called by anything in the seed/booking path. Tie-break on nearest-above/below uses strict `<` (P091, P093), so equal-distance ties keep the first-encountered line — matches the "ties first-encountered" claim in G2. Line count: I counted the function body + 3 header comment lines = 41, matching the stated +41.
+
+- **E2b (P105–P114):** Pure append after the existing `ShadowRetestBook(barShift);` call, same guard, no reordering. +1 checks out.
+
+- **Budget arithmetic:** E1 (+0/+1) + E2a (+41) + E2b (+1) = +42/+1, matching G1. 11270 + 42 = 11312, matching the asserted post-count.
+
+**Two minor notes (not defects, not gate violations):**
+1. P068's `if(!InpDebugLog) return;` inside the new function is redundant given the caller at P110 already gates on `InpDebugLog` — harmless, just double-guarded.
+2. P042–43's phrasing "beside every RETESTBOOK row" is only literally true when `SHADOW_RETESTBOOK` is the true disjunct; when only `SHADOW_CONFIRMPOLL` fires the guard, `RETESTDIAG` prints with no paired `RETESTBOOK` row that bar. You already flag this as an intentional, documented wider gate (P043–45), so it's not a hidden gap — just worth tightening the G2 grading language so "beside every row" isn't read as a strict 1:1 claim.
+
+**Analytic A (defects/gaps):** Only the two notes above. No state mutation, no new buffers, no change to the seed/selection/exit path is introduced by any of the three hunks as printed.
+
+**Analytic B (better mechanism):** None needed for the stated goal. Purely cosmetic: the log tag is `RETESTDIAG` but the function is named `ShadowRetestNearMiss` — renaming to `ShadowRetestDiag` would match convention with `ShadowRetestBook`, zero functional import.
+
+One flag on the process itself, for what it's worth: I can confirm the *code* is internally consistent with the stated zero-behavior-change claim — that's a genuine, checkable thing. But I can't confirm anchor byte-offsets, file hashes, or line counts against your actual tree, and no "verdict" from me (or any model) substitutes for that disk-side check you're already running yourself.
+
+## V234 END SONNET (verbatim close, nothing appended)
+
+## V235 (v234 round: relay 2122AE8D, packet 6D4772BF) - SONNET verbatim, filed whole 1x
+
+**Verdict: ACCEPT** (as a technical read of the code shown — not an authorization to build or spend anything; I have no "key" and I'm not a party to whatever multi-model transport process you're running).
+
+**E1 (P057–P060):**
+`r2_hi` / `r2_lo` are declared inside the same `if(r2_touch)` block as the print (see `R-R2-B`), so they're in scope. Format string has 7 `%s` placeholders and 7 arguments in matching order — correct. No behavior change: nothing upstream of the print statement is touched.
+
+**E2a (P067–P104):**
+Logic checks out for a nearest-line census:
+- Inside-range test (`L >= l && L <= h`) correctly separates "inside" from "nearest above/below," and `continue`s before reaching the above/below tests — no double-counting.
+- Above/below tie-break uses strict `<` (`(L - h) < distA`, `(l - L) < distB`), so the first candidate found at a given distance is kept and never displaced by an equal-distance later one — matches your stated "first-encountered" rule.
+- No writes to `g_*` state, no new buffers, no return value used elsewhere — it's a pure read/print function, consistent with the "writes no state" claim in P105.
+- Reuses `POI_NLINES`/`ReadBuf1`/`g_hPoi`/`g_lineCode`/`EMPTY_VALUE` the same way `ShadowRetestBook` does, so it inherits the same read semantics rather than introducing a new one.
+
+**E2b (P106–P115):**
+One asymmetry worth flagging with line numbers, though your packet already calls it out as intentional (P043–P044): `ShadowRetestBook` gates internally on `!InpDebugLog || !SHADOW_RETESTBOOK` (see `R-RB-B`, line 2), but `ShadowRetestNearMiss` only gates on `!InpDebugLog` (P069). So if `SHADOW_CONFIRMPOLL` is true and `SHADOW_RETESTBOOK` is false, the outer `if` at P107 still fires both calls, and `RETESTDIAG` will print with no paired `RETESTBOOK` row that bar. You've documented this as the "wider gate" and said pairing holds under RECON53-identical settings — that tracks, since in that config `SHADOW_RETESTBOOK` is presumably always true. I'd note it as the one line-level imprecision rather than a defect requiring halt, since it's disclosed and doesn't touch behavior — only which diagnostic rows appear.
+
+**G3 (behavior-identical):** Nothing in E1/E2a/E2b writes to any `g_state`, buffer, or booking structure — it's `Print`/`PrintFormat` and locals only. Based on the diff as shown, the zero-behavior-change claim holds.
+
+**Analytic ask A:** Only the gate-asymmetry above (P069 vs. the `SHADOW_RETESTBOOK` check in `ShadowRetestBook`) — already disclosed, not a new finding.
+
+**Analytic ask B:** If you ever want strict 1:1 pairing regardless of settings, add `|| !SHADOW_RETESTBOOK` to P069's guard — one-line change, out of scope for this packet since it'd alter which rows print under non-RECON53 settings.
+
+One caveat: I'm reading the diff text you pasted, not the live 11,270-line tree — I can't independently confirm the pre-build hash, line-number anchors, or that P057/P061/P106 land exactly where stated in your actual file. That part is, as your doc says, only provable on disk.
+
+## V235 END SONNET (verbatim close, nothing appended)
+## V236 (v235 round: relay 2B609EFD, packet AFF07B27) - SONNET verbatim, filed whole 1x
+**Verdict: amend-with-delta.** The four rules are directionally sound and match the rulings cited, but the diff as specified has four defects — two of which will make G2 and G4 fail even on a clean build. Line refs below.
+
+## Defects (Analytic ask A)
+
+**1. E4 — the veto FIRE condition is never re-keyed, so E4a/E4b don't actually fix the 10:40 case.**
+P085–P091 (EA L9942–9943, BOUND-clear block) drop the anchor check — good, that stops the same-direction re-seed from clearing the veto. But the third block in the same region (R-E4A-B, immediately below the DAY-clear block, unedited by the packet):
+```
+if(g_freshVetoBar != 0
+   && g_freshVetoDir == (int)g_dir
+   && g_freshVetoAnchor == g_anchorLine)
+```
+still requires `g_freshVetoAnchor == g_anchorLine` to fire. After a same-direction re-seed, `g_anchorLine` has changed to the new anchor while `g_freshVetoAnchor` still holds the old one — so with BOUND-clear now suppressed, the veto neither clears nor fires: it just sits inert until DAY-clear. The 10:40 latch proceeds unblocked, which is exactly the bug this packet is supposed to close, and G2's "FRESH_VETO fires at least 1 / no OrderSend 10:40" will fail.
+Fix: drop the anchor term here too — `if(g_freshVetoBar != 0 && g_freshVetoDir == (int)g_dir)` — matching E4a and E4b's DAY-only logic. This is a third hunk that belongs in E4, not covered by E4a/E4b as written.
+
+**2. E3 — the EXITCENSUS print isn't gated by `!isMeanRev`, so G4's own acceptance test can't pass.**
+P077–P084 add `isMeanRev` and gate the vBREAK-setting condition at old L11212. But the per-line diagnostic print sitting just above it in the same loop (R-E3-B):
+```
+(isTrigger && behind && through) ? "BREAK" : "ok"
+```
+is untouched. On a MEANREV trade this will still log `verdict=BREAK` even though the global `vBREAK` flag correctly stays false. G4 asks for "EXITCENSUS BREAK verdicts on MEANREV-classified trades == 0" — as written that's unreachable, since the census print's condition was never updated. Needs `&& !isMeanRev` added to the print ternary as well (isMeanRev is in scope there, declared earlier in the function per P078–P079).
+
+**3. E2b — the ImbalanceMgr fallback drops the "keep latest" comparison the primary search relies on.**
+Compare P061–P075 (new fallback) to R-E2C-B (the existing tick-recompute loop it's supposed to mirror). The existing pattern guards every candidate write with `if(SrjIsNa(latestBiasFVGBar) || fvg.startBar > latestBiasFVGBar)` so only the most recent matching FVG wins. The new fallback block just does:
+```
+if(b2 && fvg3.startBar >= g_s.currentStructureStartBar && fvg3.startBar >= g_s.strictLimitBar)
+  {
+   latestBiasFVGBar = fvg3.startBar;
+   latestBiasFVGIsFilled = fvg3.isFilled;
+  }
+```
+unconditionally overwriting on every match, so the result is whichever qualifying FVG happens to be last in `g_imbalances`' iteration order — correct only if the container is strictly ordered by `startBar` ascending, which isn't asserted anywhere in the packet. If it isn't, this silently returns a stale FVG's fill state instead of the newest one, corrupting the exact G3 "previously-blind bars now read" claim. Needs the same `SrjIsNa(...) || fvg3.startBar > latestBiasFVGBar` guard as the pattern it's extending.
+
+**4. E1 — the two new `IsConfirmationCandle` calls have side effects on the N1 census counters.**
+P032–P034 call `IsConfirmationCandle` twice per bar (for `t78_opConf` and `t78_heldConf`) inside the S1/S2 preempt-scan block, which runs on every bar where `g_state > ST_IDLE && g_anchorLine >= 0 && inWindow` — far more often than the function's existing call sites. Per R-E1B-B, `IsConfirmationCandle` isn't a pure predicate: it increments `g_n1_vwapEq/pocEq/vwapInv/pocInv/vwapSurv/pocSurv` as a side effect (the P-SLDEF-1/E19 census instrumentation). Adding two probe-only call sites will inflate those counters well beyond what the exit-site pairing logic (R-E3-B, `g_n1_exitBodyInv/Surv`) expects to reconcile against, since that pairing assumes the counters only move at the documented call sites. Either add a non-counting variant of the confirmation check for probe use, or the G3 "flips plus renewals counted with bar joins" grading will be reading contaminated N1 figures.
+
+## Analytic ask B (mechanism)
+
+For #1, the minimal fix is a third hunk (call it E4c) touching only the FIRE block's third `&&` clause — same file, ~15 lines below the E4a edit, no new locals, no print-format change needed (the print already says `dir=... vetoBar=...`, no anchor field to relabel). For #4, cheapest fix without touching `IsConfirmationCandle`'s signature: compute `t78_opConf`/`t78_heldConf` via a duplicate body that skips the `n1_vw`/`n1_poc` block, or gate the counter increments behind a `bool countable=true` default parameter so probe callers pass `false`.
+
+I'm not able to speak to hashes, line-count budgets, or build/run results — those are disk-verified per your split, not something readable from the pasted text. On the page as given: three of the four hunks need a follow-on edit before S2/S4 will produce the behavior G2/G3/G4 actually grade for.
+## V236 END SONNET (verbatim close, nothing appended)
+## V237 (v236 round: relay BFB2FCBC, packet D5796339) - SONNET verbatim, filed whole 1x
+A few things up front, plainly:
+
+I can review the logic in the diff you've pasted and point out what looks sound or shaky. I can't do anything else in the framing here — I'm not a "council seat," I don't hold or verify keys, digests, or hashes, and nothing I say authorizes a build, a run, or any money movement. Treat this as ordinary code review, not a clearance.
+
+**Technical read of the four hunks:**
+
+**E1 (displace unconfirmed-held anchor)** — logically sound. Widening the transfer trigger to `t78_opp && (S2 || (S1 && t78_opConf && !t78_heldConf))` correctly reuses the existing S2 transfer body, and confining the `IsConfirmationCandle` calls to `g_state == ST_S1_REGIME && t78_opp` does keep the N1 counters scoped to S1 opp-retest bars only, as you note in Scope. No red flags in the predicate itself.
+
+**E2a/E2b (structure fallback when the anchor-gated search is empty)** — the pane fallback (E2a) is display-only and correctly excludes state writes. The state fallback (E2b) adds a "latest wins" guard (`fvg3.startBar > latestBiasFVGBar`), which is the right shape to avoid picking a stale earlier FVG once a newer one exists outside the anchor boundary. One real gap worth flagging under Analytic Ask A: E2a's fallback only fires in the non-2xOB path implicitly (it's inserted after the double-OB branch closes, so it runs regardless of `g_s.isDoubleOB`) — but you've called out in Scope that "non-2xOB else-branch keeps primary-only" as a known limitation for the pane side, which reads inconsistent with where the code is actually inserted (after L236, i.e., after *both* branches). Worth double-checking that insertion point against the real file before build, since the stated limitation and the described anchor point don't obviously match.
+
+**E3 (mean-reversion suppresses BREAK)** — the gate change (`!isMeanRev` appended) is minimal and correctly leaves the EXITCENSUS logging line untouched, so the geometric BREAK label still appears in the census even when the operative exit is suppressed. That matches your G4 wording ("expected-and-itemized, never failures"). No issue.
+
+**E4a/E4b/E4c (dir-keyed veto)** — this is the one place I'd flag a real asymmetry, not just a wording nit. E4a's latch-site clear now fires only on `g_freshVetoDir != (int)g_dir` (DIR only, BOUND dropped). E4b's S4-site mirror also drops `sameSetup`, but instead of switching to a DIR check, it's changed to depend on `vday != cday` alone — so the S4 site no longer clears on a direction change at all, only the latch site does. Functionally this is probably harmless, since the fire check at E4c re-checks `g_freshVetoDir == (int)g_dir` before ever vetoing, and by then E4a will already have cleared a stale opposite-direction veto. But it does mean the S4-site VETOCLEAR log can under-report DIR clears relative to the latch site — worth a line in G2/G3 acceptance if you want the two sites' logs to reconcile 1:1.
+
+**Analytic Ask B** — if you want S4 and latch-site clears to reconcile exactly, mirror the DIR check at E4b instead of dropping it to DAY-only; that's a one-line change (`if(g_freshVetoDir != (int)g_dir || vday != cday)`) at the same site, no new locals needed.
+
+That's the substance I can offer from the page alone. Everything about hashes, line-count budgets, and build/run outcomes is disk truth, as you say — not something answerable from here.
+## V237 END SONNET (verbatim close, nothing appended)
+## V238 (v237 round: relay 5F1FCBCA, packet 3EEBBCEE) - SONNET verbatim, filed whole 1x
+My read of this: **amend-with-delta**, not accept — one real inconsistency in E2, everything else in E1/E3/E4 checks out against the stated rules.
+
+**E1 (displacement) — checks out.** The hoisted `t78_opConf`/`t78_heldConf` are computed only when `g_state == ST_S1_REGIME && t78_opp` (matching the widened transfer gate), and the condition `t78_opConf && !t78_heldConf` correctly implements "confirmed-opposite displaces unconfirmed-held" while leaving the tie case (both confirmed, or neither confirmed) untouched — held stays. That matches "tie resolves held-protected."
+
+**E2 (fallback) — inconsistent, this is the real gap.** You stated the operative definition as "latest means latest startBar, not detection time" (P021). But:
+- E2b (state fallback, ImbalanceMgr) correctly gates and tracks by `fvg3.startBar` and explicitly keeps the maximum (`fvg3.startBar > latestBiasFVGBar`).
+- E2a (pane fallback, Panels L213-237 / P051-P066) gates on `fvg2.detectionBar`, not `startBar`, and doesn't track "latest" at all — it just takes whichever match the loop hits first and stops once one is unfilled (`if(fvgExistsNow) break;`). If detectionBar and startBar ever diverge for a candidate FVG, or if iteration order doesn't correspond to chronological order, the pane can display a different FVG than the one the state fallback picked — silently, with no flag that they disagree.
+
+That's worth a line-level fix before this clears: either bound E2a on `startBar` too and track the max the same way E2b does, or explicitly document (and grade for, in G3) that pane and state are allowed to diverge under the fallback. Right now the packet's own "known limitation" note (P021) only mentions the non-2xOB else-branch, not this detectionBar/startBar mismatch — so it's an undocumented gap, not just a graded limitation.
+
+**E3 (precedence) — checks out.** `isMeanRev` gates the break branch only (`!vBREAK && ... && !isMeanRev`), leaves SL/TP untouched, and the geometric BREAK census logging above is unconditional (per your instrumentation-first design), so "expected-and-itemized, never failures" is accurate to the code.
+
+**E4 (veto re-key) — checks out, with one thing to confirm at grading time, not a bug.** Latch-site (E4a/E4c) drops the anchor-equality term everywhere, consistently. S4-site (E4b) drops direction from its own clear condition and becomes day-only — but since S4 never itself fires `GoAbort(ABORT_FRESH_VETO,...)` (only the latch site does, and it still checks `g_freshVetoDir`), this doesn't create a false abort path. It just means a stale veto with a superseded direction can sit unflagged through S4 until the latch site clears it. That's consistent with what you wrote ("S4 site DAY-only with latch site carrying DIR clears") — just flagging it so G2 grading explicitly checks that no fire happens between a dir-flip and the next latch-site pass, since that's the one place a real bug could hide.
+
+**Line numbers:** P051-P066 (E2a) vs P069-P084 (E2b) is where to fix the startBar/detectionBar mismatch, or P021 is where to add the divergence caveat if you're leaving it as-is.
+
+On verification: I can only rule on the logic as pasted here — I have no way to confirm it matches what's actually on disk, and I'm not going to pretend otherwise.
+## V238 END SONNET (verbatim close, nothing appended)
+
+## V239 OPEN SONNET (relay v238-EXITRANK, filed whole 1x this turn)
+
+Sonnet:
+**Verdict: discrepancy** (arithmetic checks out for the three named instances; one gate condition may cause broader behavior change than described).
+
+**Line-number check on the diff itself:** Counting from L11151 through the supplied 153-line block, the isMeanRev decl comment + line land exactly at L11157–L11158, and the B-fork comment + if-condition land exactly at L11223–L11224 — the DELETE/REPLACE targets are correctly addressed, no off-by-one.
+
+**Rank arithmetic for the three named instances (L11224):**
+- 9/4: anchor Yearly-POC (rank 2), break line Yearly-POC (rank 2) → `2 < 2` is false → no fire → hold. Matches expected.
+- 8/28: anchor Daily-VWAP (rank 11), break line Daily-POC (rank 10) → `10 < 11` is true → fires → exit. Matches expected.
+- 9/8 17:00 row: anchor Monthly-POC (rank 6), break line Monthly-POC (rank 6) → `6 < 6` false → hold. This flips the currently-logged MTEXIT (POI_BODY_BREAK) for that run to a held trade — consistent with "verdict flips confined to same-line rows."
+
+Since `InitAuthorityTable` (L91–105, as shown) assigns each of the 12 lines a distinct rank 0–11 with no duplicates, `rank[k] < rank[anchor]` is logically equivalent to "k has strictly higher authority than anchor," and rank equality is logically equivalent to "k is the same line as anchor." So the same-line-hold / higher-break-exit semantics are correctly implemented for the stated cases.
+
+**Where the discrepancy risk is:** the new condition adds `g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES` as a precondition. Nothing in the 153-line window declares or populates `anchorLine`, so I can't confirm from the page whether every managed trade always carries a valid anchor index. If `anchorLine` can ever be -1/uninitialized for some entries (e.g., signals not tied to a specific POI line), this guard doesn't just hold same-line crosses — it disables the body-break exit *entirely* for that trade, for every line, not just the anchor line. That would be a broader behavior change than "verdict flips confined to same-line rows," and it isn't addressed by anything shown on the page.
+
+**Analytic ask A — defects/gaps/imprecision:**
+- L11224: `g_mtrade.anchorLine` has no visible declaration/population in this window — its existence, type, and sentinel-for-"no anchor" semantics are unverifiable from the page alone.
+- L11224: as above, an invalid/unset anchorLine silently suppresses all break exits for that trade rather than just same-line ones — a possible scope mismatch with the stated intent.
+- The same-line detection is correct only because the authority table currently has unique ranks per line (L91–105 confirmed unique here); the logic has no independent line-identity check, so a future edit to the table that introduces a duplicate rank would silently break same-line detection with no compile-time signal.
+- The DELETE instruction assumes `isMeanRev` (L11157–L11158) is unused elsewhere in the file; that can't be confirmed from an 11151–11303 window alone.
+- The packet doesn't show whether the `{ vBREAK = true; breakLineVal = L; breakLineName = g_lineCode[k]; }` block immediately after L11224 is intended to stay byte-identical — it's implied by the REPLACE being scoped to only two lines, but worth an explicit confirmation given the exact-diff gate policy.
+
+**Analytic ask B — alternative mechanism:**
+Make same-line exclusion explicit rather than rank-equality-derived, decoupling it from the table's uniqueness invariant:
+`if(isTrigger && behind && through && !vBREAK && g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES && k != g_mtrade.anchorLine && g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine])`
+Only touches L11224. This keeps identical results today (given unique ranks) but removes the silent dependency on rank-table uniqueness for correctness.
+
+## V239 END SONNET (verbatim close, nothing appended)
+
+## V240 OPEN SONNET (relay v239-EXITRANK, filed whole 1x this turn)
+
+Sonnet:
+**Verdict: YES.**
+
+New gate (replacing L11223‑11224):
+`if(isTrigger && behind && through && !vBREAK && g_mtrade.anchorLine>=0 && g_mtrade.anchorLine<POI_NLINES && g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine])`
+
+Checked against the three instances:
+- **9/4** — anchor Yearly‑POC (rank 2), break line Yearly‑POC (rank 2): `2<2` false → no `vBREAK` → **hold**. Matches.
+- **8/28** — anchor Daily‑VWAP (rank 11), break line Daily‑POC (rank 10): `10<11` true → `vBREAK` → **exit**. Matches.
+- **9/8 17:05** — anchor Monthly‑POC (rank 6), break line Monthly‑POC (rank 6): `6<6` false → **hold**. Matches.
+
+The strict `<` (not `<=`) is what gives you "same-line never exits" for free — equal rank always fails the test — and it also blocks any *lower*-authority line from breaking, since only a strictly smaller rank number passes.
+
+SL/TP/HTF/DAY chain: untouched. `vSL`/`vTP` are computed above this block; HTF still gates on `!vBREAK`; DAY still gates on `!vSL&&!vTP&&!vBREAK&&!vHTF`. Deleting the `isMeanRev` decl (L11157‑11158) doesn't touch any of those since it had no other reader.
+
+Census rows: the `EXITCENSUS` print's `verdict=` field is `(isTrigger && behind && through) ? "BREAK" : "ok"` — it does **not** reference the new rank gate at all, so census still reports pure body-break geometry exactly as before. The flip only shows up downstream in `EXITVERDICT vBREAK=` and `MTEXIT`. Confirmed as designed.
+
+One thing to flag as explicit rather than assumed: dropping `!isMeanRev` means the rank gate is now universal, not meanrev-only — under the old code, TREND trades broke on *any* triggering line with zero rank filtering. That's the literal meaning of "replacing the mean-reversion-only fork," so it's in-scope, not a side effect — just making sure it's read as the third enumerated class ("MEANREV-class rank-gating") rather than missed.
+
+**Analytic A — defects/gaps on the page:**
+1. `g_mtrade.anchorLine`'s population (name→buffer-index mapping at admission) isn't in this excerpt. The gate trusts it's a correct integer index into `POI_NLINES`; unverifiable from these 153 lines.
+2. If `anchorLine` is ever `-1` or out-of-range, the whole clause is false — body-break exit is silently disabled for that trade for its entire life, falling through to HTF/DAY only. No log line marks this fallback; worth an explicit diagnostic.
+3. The loop iterates `k = 0..POI_NLINES-1`, and `!vBREAK` short-circuits on first match. This only picks the *highest-authority* breaking line correctly because buffer index order happens to equal rank order (per `InitAuthorityTable`, rank == k for every entry). That's a coincidence of the current table, not an invariant enforced by the loop — if the table is ever reordered, first-match-wins would stop meaning highest-authority-wins.
+4. Equality diagnostics (`g_n1_poiEqBody`, `g_n1_exitBodyInv/Surv`) are on a separate axis (price equality) from the new rank equality; the two "equal ⇒ no effect" rules are independent and neither doc'd as related — fine, but worth noting they're easy to conflate when reading logs.
+
+**Analytic B — alternative mechanism:**
+Instead of relying on loop-order == rank-order, track the best (lowest) authority rank among all *breaking* lines explicitly: initialize `bestRank = g_authorityRank[g_mtrade.anchorLine]`, scan the full loop without early-exit on `vBREAK`, and only set `vBREAK/breakLineVal/breakLineName` when `g_authorityRank[k] < bestRank`, updating `bestRank` each time. This makes "highest-authority break wins" a property of the algorithm rather than an artifact of table ordering, and costs nothing extra since the loop already runs to completion for the census log regardless. Touches only the same for-loop body around the proposed L11223‑11224 replacement — no other function needs to change.
+
+## V240 END SONNET (verbatim close, nothing appended)
+
+## V241 OPEN SONNET (relay v240-EXITRANK, filed whole 1x this turn)
+
+Sonnet:
+**Verdict: YES** — the proposed gate at L11223‑11224 correctly implements same‑line‑hold / higher‑authority‑break‑exit for all three named instances, with no leakage into SL/TP/HTF/DAY or into EXITCENSUS.
+
+**Why, per instance:**
+- **9/4** — anchor `Yearly-POC` (rank 2), break candidate `Yearly-POC` (rank 2). `g_authorityRank[k] < g_authorityRank[anchorLine]` → `2 < 2` = false → `vBREAK` stays false → hold. Correct (same line ⇒ k==anchorLine, since ranks 0‑11 are unique per line, so "equal rank" and "same line" are the same condition here).
+- **8/28** — anchor `Daily-VWAP` (rank 11), break candidate `Daily-POC` (rank 10). `10 < 11` = true → `vBREAK` fires. Correct: POC ranks above VWAP at every tier per the table (L88‑105), matching his stated hierarchy.
+- **9/8 "17:00"** — anchor `Monthly-POC` (rank 6), break candidate `Monthly-POC` (rank 6). `6 < 6` = false → hold. Same reasoning as 9/4.
+
+**Scope check:** the new condition only changes what sets `vBREAK` inside the existing `for(k…)` loop; it doesn't touch the loop bounds, the `EXITCENSUS` PrintFormat (still keyed off raw `isTrigger && behind && through`, unchanged as designed), or the SL/TP block above/HTF/DAY block below. The `isMeanRev` decl (old L11157‑11158) is provably dead after the swap — its only other use was the gate condition being replaced — so the delete is clean. Line math holds: 2 deleted + 2 modified, 0 added, 11324→11322.
+
+---
+
+**Analytic ask A — defects/gaps:**
+
+1. **L11223‑24 (new gate), interaction with L88‑105 (authority table):** for a trade anchored on `FOMC-POC` (rank 0, the top of the table), `g_authorityRank[k] < 0` is never true — body‑break exit is *structurally unreachable* for the life of that trade. Not a bug per the stated rule, but it's a real consequence that isn't called out anywhere in the packet: such trades fall through to SL/TP/HTF/DAY only. Worth confirming that's intended before it surprises someone reading a live log with no BREAK exits ever on an FOMC-POC-anchored trade.
+
+2. **L11223‑24, silent invariant failure:** the bounds guard `g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES` is defensive against the very invariant the packet says is filed ("every managed trade carries a valid anchorLine"). If that invariant is ever violated by an upstream bug, this line doesn't fail loud — it just quietly disables break-exit for that trade, indistinguishable in the logs from a legitimate same-line/lower-authority hold. No assert/print flags the invalid-anchor case specifically.
+
+3. **Untested code path:** the three rows exercise "equal rank" (×2) and "break outranks anchor" (×1). No row demonstrates the fourth logically-implied case — a *lower*-authority line breaking through a *higher*-authority anchor — which the strict `<` should also hold on. It's implied by the same inequality that governs case 2, so it's very likely fine, but it isn't empirically shown in this row set the way the other two classes are.
+
+4. **Loop-order dependency (L~11190 for-loop, k ascending) feeding L11223‑24:** the `!vBREAK` guard means the *first* k in loop order that satisfies the gate wins, not necessarily the highest-authority (lowest-rank) line among several that break in the same bar. Correctness of "first-found == highest-authority" currently rides on POI_BUF_* enum index order coincidentally matching `g_authorityRank` order (both count up F→Y→Q→M→W→D). Nothing in the shown code enforces that coupling — if a future line is inserted into the enum out of rank order, `vBREAK` could silently pick a lower-authority breaking line over a simultaneously-breaking higher-authority one, without any compile or runtime signal.
+
+5. **Documentation/labeling trap, not a logic bug:** `EXITCENSUS` still prints `verdict=BREAK` for any `isTrigger && behind && through`, independent of the new rank gate (by design, per the question's own framing). Post-patch, a census row can say `BREAK` on a trade that actually held. That's fine for the stated purpose (measuring all twelve lines per bar under any `MT_EXIT_SCOPE`), but anyone reading `EXITCENSUS` in isolation (without cross-referencing `EXITVERDICT`) will misread held trades as exited. Worth a one-line comment addition near the `PrintFormat` (in the existing unchanged block) flagging that `BREAK` here means "line criterion met," not "trade exited."
+
+**Analytic ask B — better mechanism:**
+
+Rather than relying on loop-order coincidence (defect 4), compute the winning break explicitly by minimum rank rather than first-found:
+
+- Touch the k-loop (currently sets `vBREAK` inline inside the loop) to instead, on each qualifying candidate (`isTrigger && behind && through && outranks-anchor`), compare `g_authorityRank[k]` against a running `bestRank` (init to `g_authorityRank[g_mtrade.anchorLine]`) and keep the minimum, updating `breakLineVal/breakLineName` only when a new minimum is found. Set `vBREAK = true` only after the loop finishes if any candidate qualified.
+- This removes the implicit dependency on POI_BUF_* enum order matching authority order, decoupling gate correctness from a fact that's true today but not enforced anywhere in the code you've shown.
+- Cheap add-on for defect 2: log once (e.g. via `InpDebugLog`) when `g_mtrade.anchorLine` fails the bounds check, so an invariant violation is visible in the same run rather than silently degrading to "always hold."
+
+Lines touched: the k-loop body (currently ~L11190‑11222 by your numbering) and the new gate block at L11223‑24; no change to SL/TP/HTF/DAY, authority table, or census log line.
+
+## V241 END SONNET (verbatim close, nothing appended)
+
+## V242 OPEN SONNET (relay v241-EXITRANK, filed whole 1x this turn)
+
+Sonnet:
+**Verdict: Yes — discrepancy-free for the three named instances, with one clarification.**
+
+The new gate at the replacement for L11223‑11224:
+
+```
+if(isTrigger && behind && through && !vBREAK && g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES && g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine])
+```
+
+correctly implements "only a strictly-higher-authority (lower rank number) break exits; equal rank (same line, since ranks 0‑11 are a bijection over the 12 lines per L91‑105) never exits":
+
+- **9/4**: anchor Yearly‑POC (rank 2), break Yearly‑POC (rank 2) → `2 < 2` is false → **hold**. Matches.
+- **8/28**: anchor Daily‑VWAP (rank 11), break Daily‑POC (rank 10) → `10 < 11` is true → **exit**. Matches.
+- **17:00/9/8**: anchor Monthly‑POC (rank 6), break Monthly‑POC (rank 6) → `6 < 6` false → **hold**. Matches.
+
+Clarification worth stating explicitly: the raw rows FG (9/4) and MM (17:00) show `reason=POI_BODY_BREAK` — that's the *old*, pre-amendment gate firing (no rank check, just `!isMeanRev`). Under the proposed new gate those two would flip to non-break outcomes (fall through to HTF/DAY). That's not a contradiction, it's the bug being fixed, but since the packet presents both the raw log and the new-code prediction side by side, it's easy to misread FG/MM as "current expected output" rather than "before" evidence. Worth saying so plainly if this goes to the operator.
+
+SL/TP/HTF/DAY legs, the EXITCENSUS printf block, and the census counters (`g_n1_poiEqBody`, `g_n1_exitBodyInv/Surv`) are untouched by the diff — they read `isTrigger && behind && through` directly, independent of the anchor-rank gate, so census rows are unaffected by design as claimed.
+
+**A — defects/gaps on the page:**
+
+1. **Anchor-invalid path is silent.** If `g_mtrade.anchorLine` is ever `-1` or out of range, the new guard just suppresses `vBREAK` for that trade's whole lifetime (falls through to HTF/DAY) with no counter or debug line marking it. The "filed admission invariant" (every trade has a valid anchor) is asserted in prose, not in code — nothing in the pasted 153 lines proves it. Worth a `g_n1_breakGateBadAnchor` counter or a debug print at the new gate site so a violation would be visible instead of silently degrading exit behavior.
+
+2. **Same-line-never-exits relies on rank bijectivity, unenforced.** The gate doesn't check `k != g_mtrade.anchorLine` directly — it relies on `g_authorityRank[]` being a strict permutation of 0..11 (L91‑105), so equal rank ⇔ same line. Nothing in `InitAuthorityTable` (L88‑105) asserts this. If the table is ever hand-edited and two lines end up with the same rank by mistake, the "same-line never exits" guarantee silently breaks for that pair without either line being the actual anchor. This is presumably what the header's "parked permutation guard" note is flagging — worth actually landing it: an init-time assert/loop over `g_authorityRank[]` checking it's a permutation of `0..POI_NLINES-1`.
+
+3. **`isMeanRev` "unused elsewhere" (L11157‑58 deletion) is unverifiable from this excerpt.** Only 153 of 11324 lines are shown; the claim that the two declaration lines have no other reader in the file can't be checked from the page alone — this is a disk-search claim, not a code-reading one, and should be confirmed by grep on his machine before the delete, not asserted here.
+
+4. **Multi-line-break tie-break is implicit.** With `!vBREAK` short-circuiting the loop, if two lines both qualify (higher rank than anchor, both broken same bar), the reported `breakLineName` is whichever has the lower POI_NLINES index — which happens to coincide with higher global authority given the current enum/table ordering, but that coincidence isn't asserted anywhere. Fine as behavior, just not a stated design decision.
+
+**B — better mechanism, same goal:**
+
+- Fold check 2 above directly into the gate for defense-in-depth even though logically redundant today: `g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine] && k != g_mtrade.anchorLine` at the new gate line. Costs nothing, survives a future authority-table mistake.
+- Add the permutation assert to `InitAuthorityTable()` (L88‑105) once, at init, rather than depending on it implicitly at every bar's gate check.
+- Add the anchor-invalid counter noted in A.1, incremented in an `else` branch alongside the existing gate, so a violated admission invariant shows up in the same census/debug stream as everything else instead of only being provable by disk log absence.
+
+No other behavior change seen beyond the enumerated classes (same-line holds, lower-authority holds, MEANREV-class now rank-gated instead of blanket-suppressed).
+
+## V242 END SONNET (verbatim close, nothing appended)
+
+## V243 OPEN SONNET (relay v242-EXITRANK, filed whole 1x this turn)
+
+Sonnet:
+**Verdict: YES**, with one gap noted below.
+
+**Walking the three instances against the proposed gate** (`g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine]`, replacing L11223‑11224):
+
+- **9/4** — anchor Yearly‑POC (rank 2), break Yearly‑POC (rank 2). `2 < 2` is false → **hold**. Matches.
+- **8/28** — anchor Daily‑VWAP (rank 11), break Daily‑POC (rank 10). `10 < 11` is true → **exit** via `POI_BODY_BREAK`. Matches.
+- **17:00 (9/8)** — anchor Monthly‑POC (rank 6), break Monthly‑POC (rank 6). `6 < 6` false → **hold**. Matches.
+
+So same-line cases hold and the strictly-higher-authority case (lower rank number) exits, as intended.
+
+**Scope check on the rest of the claim:**
+- The EXITCENSUS print block (which sets its `verdict` string from `isTrigger && behind && through` alone) sits *before* the replaced if-block and never references `isMeanRev` or `anchorLine` — so census rows are provably unchanged by this diff, as claimed.
+- SL (top of function), TP (booked/recompute touch), HTF (`!vSL && !vTP && !vBREAK` gated), and DAY (`!vSL && !vTP && !vBREAK && !vHTF` gated) blocks are untouched code and only see `vBREAK`'s *value* change, not new predicates of their own — no direct predicate edit, confirmed.
+- The four enumerated verdict-change classes are all real and accounted for: same-line holds and lower-authority holds fall out of the comparison directly; MEANREV-class rank-gating is real because deleting `isMeanRev` (L11157‑11158) removes the old categorical suppression, so MEANREV trades now go through the same rank test instead of being auto-deferred to DAY; and same-bar HTF/DAY fall-through changes follow mechanically from that, since a MEANREV trade that now gets `vBREAK=true` on a bar that previously fell through to HTF/DAY will no longer reach those blocks that bar.
+- Admission invariant: the added `anchorLine >= 0 && anchorLine < POI_NLINES` bound check is redundant given the stated invariant (every managed trade has a valid anchor), but it's a harmless defensive no-op, not a behavior change.
+
+**Analytic ask A — defects/gaps:**
+
+1. **Rank-equality vs. line-identity (real fragility).** The gate implements "same-line never exits" *implicitly*, via rank equality, not via `k == g_mtrade.anchorLine`. This is correct today only because `InitAuthorityTable` (L91‑105) assigns a strict bijection — every line has a unique rank. If any future edit to that table ever gives two different lines the same rank, a *different* line breaking at the anchor's rank would also incorrectly hold, silently reintroducing a same-line-style suppression for a line that isn't the anchor. Nothing in the diff enforces the bijection or asserts it.
+2. **Unverifiable "unused elsewhere" claim (L11157‑58 deletion).** The packet asserts `isMeanRev` is unused outside this 153‑line window. That's true within the shown block, but per the standing verification split I can't confirm no other function/log line in the EA references it — that's a disk-grep item, not a code-logic defect, but it's the one precondition of the deletion I can't clear from the page alone.
+3. **No explicit regression note for MEANREV trades that previously always deferred to DAY.** The packet correctly enumerates this as an intended change class, but there's no comment at the new gate (unlike the old one, which explicitly named the MEANREV interaction) documenting *why* MEANREV trades are now rank-gated instead of DAY-deferred — future readers lose that context the old comment gave them.
+4. **Multi-line-break tie-break is implicit.** With `!vBREAK` short-circuiting the loop, if two lines both qualify (higher rank than anchor, both broken same bar), the reported `breakLineName` is whichever has the lower POI_NLINES index — which happens to coincide with higher global authority given the current enum/table ordering, but that coincidence isn't asserted anywhere. Fine as behavior, just not a stated design decision.
+
+**Analytic ask B — better mechanism, same goal:**
+
+Replace the inline rank comparison with a named identity-first helper, so correctness doesn't depend on the rank table staying a bijection:
+
+```mql5
+bool MtLineOutranksAnchor(int k)
+  {
+   if(g_mtrade.anchorLine < 0 || g_mtrade.anchorLine >= POI_NLINES) return false;
+   if(k == g_mtrade.anchorLine) return false; // identity-based same-line guard
+   return g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine];
+  }
+```
+
+This touches: one new small function near `InitAuthorityTable` (L88‑105 region), and the replaced condition at L11223‑11224 becomes `if(isTrigger && behind && through && !vBREAK && MtLineOutranksAnchor(k))`. Same three example outcomes hold, but the same-line case is now guaranteed by index identity rather than by an accident of the current rank assignment — closing gap #1 above.
+
+## V243 END SONNET (verbatim close, nothing appended)
+
+## V244 OPEN SONNET (relay v243-EXITRANK, filed whole 1x this turn)
+
+Sonnet:
+**Verdict: YES** — the proposed gate at EA L11223‑11224 correctly implements "same-line never exits, only a higher‑authority break exits" for all three named instances, with no touch to the SL/TP/HTF/DAY predicates or the EXITCENSUS print, and the flip does live only in `vBREAK`/EXITVERDICT/MTEXIT.
+
+Walkthrough against the rank table (lower number = higher authority):
+
+- **9/4**: anchor `Yearly-POC` (rank 2), break line `Yearly-POC` (rank 2). `g_authorityRank[k] < g_authorityRank[anchorLine]` → `2 < 2` = false → `vBREAK` never sets → **hold**. Matches.
+- **8/28**: anchor `Daily-VWAP` (rank 11), break line `Daily-POC` (rank 10). `10 < 11` → true → **exit**. Matches.
+- **9/8 (17:00 row)**: anchor `Monthly-POC` (rank 6), break line `Monthly-POC` (rank 6). `6 < 6` → false → **hold**. Matches.
+
+Structural check: the census `for(k...)` loop, its `PrintFormat("...EXITCENSUS...")` call, and the `behind`/`through`/`isTrigger` computations are all upstream of and untouched by the gate — the gate only changes the condition guarding the `vBREAK = true;` block, so census row shape is unaffected by construction, as claimed. SL (before the loop), TP (before the loop), HTF and DAY (after the loop, gated on `!vBREAK`) are all visually unmodified in the pasted 153 lines.
+
+**Analytic ask A — defects/gaps I see:**
+
+1. **Silent disablement on invalid anchor, no diagnostic** (new gate line, replacing L11223‑11224). If `g_mtrade.anchorLine` is ever `-1` or out of `[0,POI_NLINES)` — i.e., the "every managed trade carries a valid anchorLine" invariant is violated — the bounds check makes the whole condition false for every `k`, every bar, for that trade's life. Break-exit is fully and silently disabled with no log line marking that this happened, distinct from a genuine same-line/lower-authority hold. If the admission invariant is ever wrong on disk, this gate hides it rather than surfacing it.
+
+2. **Cross-file "unused elsewhere" claim for the L11157‑L11158 delete isn't provable from the pasted window.** The packet asserts `isMeanRev unused elsewhere` as the reason it's safe to delete the declaration, but the pasted 153-line slice only proves it's unused *within this function*. Whether `g_mtrade.regimeAtAdmission == REGIME_MEANREV` logic or the `isMeanRev` name is referenced elsewhere in the other ~11,170 lines isn't something I can rule on from the page — that's disk-scope by your own verification split, so it belongs in the pre-build grep, not just this packet's assertion.
+
+3. **Simultaneous-qualifying-break tie-break isn't specified, only implied by loop order.** If two or more trigger lines both break through and both outrank the anchor in the same bar, the `!vBREAK` latch means the *first one hit in loop order* wins. Since `k` ascends 0→11 and the authority table assigns ascending rank numbers in the same index order (FOMC-POC=0 … Daily-VWAP=11), ascending `k` is descending authority-number order, i.e. **the highest-authority qualifying line always wins**, not the nearest-to-anchor qualifying line or the price-nearest one. That may well be intended (it's arguably the "cleanest" read of "outranks"), but the packet's prose never states this tie-break rule explicitly — it's only true by construction of the index/rank alignment, which is a fragile thing to rely on implicitly if the enum or authority table is ever reordered.
+
+4. **Comment drift.** The old comment on the deleted-and-replaced line describes "DAY_CLOSE-minus-5 outranks body-break on mean-reversion" — the new comment correctly replaces this, but nothing in the diff touches the DAY block's own comment block (`[P-EXITMODEL-2 F3]`), which still says "Priority below SL, TP, BREAK (and HTF when re-enabled)" — still accurate, no action needed, just noting it wasn't a stray dependency.
+
+**Analytic ask B — better mechanism (same lines touched):**
+
+Hoist the anchor's rank out of the loop instead of re-indexing `g_authorityRank[g_mtrade.anchorLine]` on every one of the 12 iterations per bar, and use the sentinel to fix gap #1 in the same stroke:
+
+```cpp
+int anchorRank = (g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES)
+                  ? g_authorityRank[g_mtrade.anchorLine] : -1;
+if(anchorRank < 0 && InpDebugLog)
+   PrintFormat("[SRJ-EA] MTEXIT-WARN invalid anchorLine=%d", g_mtrade.anchorLine);
+```
+then inside the loop:
+```cpp
+if(isTrigger && behind && through && !vBREAK && anchorRank >= 0 && g_authorityRank[k] < anchorRank)
+```
+Same truth table for the three named instances (equal ranks still hold, `anchorRank=-1` still fully disables break-exit), but it turns the invalid-anchor case from a silent no-op into a logged one, and computes the anchor's rank once per bar instead of once per line.
+
+## V244 END SONNET (verbatim close, nothing appended)
+
+## V245 OPEN SONNET (relay v243-EXITRANK, filed whole 1x this turn)
+
+Sonnet:
+**Verdict: YES** — the proposed gate at EA L11223‑11224 correctly implements "same-line never exits, only a higher‑authority break exits" for all three named instances, with no touch to the SL/TP/HTF/DAY predicates or the EXITCENSUS print, and the flip does live only in `vBREAK`/EXITVERDICT/MTEXIT.
+
+Walkthrough against the rank table (lower number = higher authority):
+
+- **9/4**: anchor `Yearly-POC` (rank 2), break line `Yearly-POC` (rank 2). `g_authorityRank[k] < g_authorityRank[anchorLine]` → `2 < 2` → false → `vBREAK` never sets → **hold**. Matches.
+- **8/28**: anchor `Daily-VWAP` (rank 11), break line `Daily-POC` (rank 10). `10 < 11` → true → **exit**. Matches.
+- **9/8 (17:00 row)**: anchor `Monthly-POC` (rank 6), break line `Monthly-POC` (rank 6). `6 < 6` → false → **hold**. Matches.
+
+Structural check: the census `for(k...)` loop, its `PrintFormat("...EXITCENSUS...")` call, and the `behind`/`through`/`isTrigger` computations are all upstream of and untouched by the gate — the gate only changes the condition guarding the `vBREAK = true;` block, so census row shape is unaffected by construction, as claimed. SL (before the loop), TP (before the loop), HTF and DAY (after the loop, gated on `!vBREAK`) are all visually unmodified in the pasted 153 lines.
+
+**Analytic ask A — defects/gaps I see:**
+
+1. **Silent disablement on invalid anchor, no diagnostic** (new gate line, replacing L11223‑11224). If `g_mtrade.anchorLine` is ever `-1` or out of `[0,POI_NLINES)` — i.e., the "every managed trade carries a valid anchorLine" invariant is violated — the bounds check makes the whole condition false for every `k`, every bar, for that trade's life. Break-exit is fully and silently disabled with no log line marking that this happened, distinct from a genuine same-line/lower-authority hold. If the admission invariant is ever wrong on disk, this gate hides it rather than surfacing it.
+
+2. **Cross-file "unused elsewhere" claim for the L11157‑L11158 delete isn't provable from the pasted window.** The packet asserts `isMeanRev unused elsewhere` as the reason it's safe to delete the declaration, but the pasted 153-line slice only proves it's unused *within this function*. Whether `g_mtrade.regimeAtAdmission == REGIME_MEANREV` logic or the `isMeanRev` name is referenced elsewhere in the other ~11,170 lines isn't something I can rule on from the page — that's disk-scope by your own verification split, so it belongs in the pre-build grep, not just this packet's assertion.
+
+3. **Simultaneous-qualifying-break tie-break isn't specified, only implied by loop order.** If two or more trigger lines both break through and both outrank the anchor in the same bar, the `!vBREAK` latch means the *first one hit in loop order* wins. Since `k` ascends 0→11 and the authority table assigns ascending rank numbers in the same index order (FOMC-POC=0 … Daily-VWAP=11), ascending `k` is descending authority-number order, i.e. **the highest-authority qualifying line always wins**, not the nearest-to-anchor qualifying line or the price-nearest one. That may well be intended (it's arguably the "cleanest" read of "outranks"), but the packet's prose never states this tie-break rule explicitly — it's only true by construction of the index/rank alignment, which is a fragile thing to rely on implicitly if the enum or authority table is ever reordered.
+
+4. **Comment drift.** The old comment on the deleted-and-replaced line describes "DAY_CLOSE-minus-5 outranks body-break on mean-reversion" — the new comment correctly replaces this, but nothing in the diff touches the DAY block's own comment block (`[P-EXITMODEL-2 F3]`), which still says "Priority below SL, TP, BREAK (and HTF when re-enabled)" — still accurate, no action needed, just noting it wasn't a stray dependency.
+
+**Analytic ask B — better mechanism (same lines touched):**
+
+Hoist the anchor's rank out of the loop instead of re-indexing `g_authorityRank[g_mtrade.anchorLine]` on every one of the 12 iterations per bar, and use the sentinel to fix gap #1 in the same stroke:
+
+```cpp
+int anchorRank = (g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES)
+                  ? g_authorityRank[g_mtrade.anchorLine] : -1;
+if(anchorRank < 0 && InpDebugLog)
+   PrintFormat("[SRJ-EA] MTEXIT-WARN invalid anchorLine=%d", g_mtrade.anchorLine);
+```
+then inside the loop:
+```cpp
+if(isTrigger && behind && through && !vBREAK && anchorRank >= 0 && g_authorityRank[k] < anchorRank)
+```
+Same truth table for the three named instances (equal ranks still hold, `anchorRank=-1` still fully disables break-exit), but it turns the invalid-anchor case from a silent no-op into a logged one, and computes the anchor's rank once per bar instead of once per line.
+
+## V245 END SONNET (verbatim close, nothing appended)
+
+## V246 OPEN SONNET (relay v243-EXITRANK second transport, filed whole 1x this turn)
+
+Sonnet:
+**Verdict: YES**, with one gap noted below.
+
+**Walking the three instances against the proposed gate** (`g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine]`, replacing L11223‑11224):
+
+- **9/4** — anchor Yearly‑POC (rank 2), break Yearly‑POC (rank 2). `2 < 2` is false → **hold**. Matches.
+- **8/28** — anchor Daily‑VWAP (rank 11), break Daily‑POC (rank 10). `10 < 11` is true → **exit** via `POI_BODY_BREAK`. Matches.
+- **17:00 (9/8)** — anchor Monthly‑POC (rank 6), break Monthly‑POC (rank 6). `6 < 6` false → **hold**. Matches.
+
+Clarification worth stating explicitly: the raw rows FG (9/4) and MM (17:00) show `reason=POI_BODY_BREAK` — that's the *old*, pre-amendment gate firing (no rank check, just `!isMeanRev`). Under the proposed new gate those two would flip to non-break outcomes (fall through to HTF/DAY). That's not a contradiction, it's the bug being fixed, but since the packet presents both the raw log and the new-code prediction side by side, it's easy to misread FG/MM as "current expected output" rather than "before" evidence. Worth saying so plainly if this goes to the operator.
+
+SL/TP/HTF/DAY legs, the EXITCENSUS printf block, and the census counters (`g_n1_poiEqBody`, `g_n1_exitBodyInv/Surv`) are untouched by the diff — they read `isTrigger && behind && through` directly, independent of the anchor-rank gate, so census rows are unaffected by design as claimed.
+
+**A — defects/gaps on the page:**
+
+1. **Anchor-invalid path is silent.** If `g_mtrade.anchorLine` is ever `-1` or out of range, the new guard just suppresses `vBREAK` for that trade's whole lifetime (falls through to HTF/DAY) with no counter or debug line marking it. The "filed admission invariant" (every trade has a valid anchor) is asserted in prose, not in code — nothing in the pasted 153 lines proves it. Worth a `g_n1_breakGateBadAnchor` counter or a debug print at the new gate site so a violation would be visible instead of silently degrading exit behavior.
+
+2. **Same-line-never-exits relies on rank bijectivity, unenforced.** The gate doesn't check `k != g_mtrade.anchorLine` directly — it relies on `g_authorityRank[]` being a strict permutation of 0..11 (L91‑105), so equal rank ⇔ same line. Nothing in `InitAuthorityTable` (L88‑105) asserts this. If the table is ever hand-edited and two lines end up with the same rank by mistake, the "same-line never exits" guarantee silently breaks for that pair without either line being the actual anchor. This is presumably what the header's "parked permutation guard" note is flagging — worth actually landing it: an init-time assert/loop over `g_authorityRank[]` checking it's a permutation of `0..POI_NLINES-1`.
+
+3. **`isMeanRev` "unused elsewhere" (L11157‑58 deletion) is unverifiable from this excerpt.** Only 153 of 11324 lines are shown; the claim that the two declaration lines have no other reader in the file can't be checked from the page alone — this is a disk-search claim, not a code-logic defect, but it's the one precondition of the deletion I can't clear from the page alone.
+
+4. **Multi-line-break tie-break is implicit.** With `!vBREAK` short-circuiting the loop, if two lines both qualify (higher rank than anchor, both broken same bar), the reported `breakLineName` is whichever has the lower POI_NLINES index — which happens to coincide with higher global authority given the current enum/table ordering, but that coincidence isn't asserted anywhere. Fine as behavior, just not a stated design decision.
+
+**Analytic ask B — better mechanism, same lines touched:**
+
+Replace the inline rank comparison with a named identity-first helper, so correctness doesn't depend on the rank table staying a bijection:
+
+```mql5
+bool MtLineOutranksAnchor(int k)
+  {
+   if(g_mtrade.anchorLine < 0 || g_mtrade.anchorLine >= POI_NLINES) return false;
+   if(k == g_mtrade.anchorLine) return false; // identity-based same-line guard
+   return g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine];
+  }
+```
+
+This touches: one new small function near `InitAuthorityTable` (L88‑105 region), and the replaced condition at L11223‑11224 becomes `if(isTrigger && behind && through && !vBREAK && MtLineOutranksAnchor(k))`. Same three example outcomes hold, but the same-line case is now guaranteed by index identity rather than by an accident of the current rank assignment — closing gap #1 above.
+
+## V246 END SONNET (verbatim close, nothing appended)

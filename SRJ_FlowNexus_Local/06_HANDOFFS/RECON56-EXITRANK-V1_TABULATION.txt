@@ -1,0 +1,41 @@
+# RECON56-EXITRANK-V1 TABULATION (segment 04B9C64B vs RECON55 EA5BCC5C; literal patterns, case-insensitive)
+
+pattern | RECON56 | RECON55 | note
+ALERT SRJ SIGNAL | 5 | 5 | same 5 bars
+MTSNAP | 5 | 5 | same bars/entries/anchors/regime=1
+CTrade::OrderSend (via OrderSend 1/6 minus SEL61INDEP 1/1) | 0 | 5 | DEMO_GUARD 5/5
+TP_ELECT | 10 | 10 | byte-identical rows incl 5 floor blocks
+MTEXIT | 5 | 5 | reasons differ on 2 rows (rank holds)
+MTLIFE | 6 | 6 | 5 closes + 1 LINEWIDTH admin both
+DAY_CLOSE | 3 | 0 | 1 MTEXIT + 1 MTLIFE + 1 EXIT alert (9/4 23:55)
+POI_BODY_BREAK | 0 | 6 | reason=POI_BODY_BREAK 0/2 second pattern
+EXITVERDICT | 133 | 35 | +93 on 9/4 hold (96 over 96-bar window) +5 on 17:00 hold (7 over 7-bar window)
+EXITCENSUS verdict=BREAK | 2 | 2 | same-line crosses observed, trades hold
+MTCOLLISION | 0 | 0 | hard gate
+SIDE1C_PREEMPT | 10 | 10 | identical bars
+SIDE1C_CHAIN / BOTHDIRS | 76 / 76 | 66 / 66 | +10 extra seed bars each
+SIDE1C_SUPP | 10 | 10 | identical
+FRESH_VETO | 4 | 4 | 9/4 10:40 identical
+FRESHVETO store 9/4 10:35 | 1 | 1 | identical
+VETOCLEAR | 6 | 4 | +9/2 15:45 DAY +9/7 09:05 DAY (extra veto stores)
+FRESHCOUNT rows / adverse=2 bars | 44 / 11 | 38 / 9 | shared 38 bars + shared adverse-9 identical; +9/1 17:45 +9/4 17:20 adverse (re-seed kills)
+FRESH_OPP_FVG S4 aborts | 7 | 5 | +9/1 17:50 +9/4 17:25 (re-seed veto stores)
+A6REFUSED | 44 | 31 | +5 DEMO_GUARD +2 FRESH_OPP +6 cascade polls
+ABORT reason=DEMO_GUARD | 5 | 0 | all 5 take bars
+DEMO_PASS | 0 | 5 | guard operands print on pass only
+HEADS-UP rows / unique bars | 36 / 22 | 30 / 16 | extra bars all in re-seed windows
+STAND-DOWN rows / unique bars | 31 / 18 | 25 / 12 | extra bars all in re-seed windows
+ALERT SRJ EXIT | 5 | 5 | SL/DAY_CLOSE/TP_TOUCH/TP_TOUCH/SL
+LTFFLIP | 11 | 9 | shared 9 identical; +9/4 17:30 +9/8 17:20 S4 flips (re-seed windows)
+RENEW | 0 | 0 | identical
+N1EQUALS | 28/30/0/2 | 28/30/0/2 | identical
+BIASCENSUS_FINAL | 3168/1554/0/1614 | identical | feed
+ZONECENSUS_FINAL | identical | identical | feed
+XOB-PROMOCENSUS rows | 469 | 469 | upstream identical
+WS161_CENSUS loads/stores/changes/mismatch | 3168/3168/245/0 | 3168/3168/218/0 | +27 changed bars attributed to extra seed sequences (mechanism EA L1590-1632; no per-bar print exists, inference labeled)
+TP_TOUCH | 6 | 6 | identical
+PRE-SEND rows (9/8-10:10 lifecycle) | 0 | 1 | order path only
+isMeanRev hits in built EA | 0 | n/a | E1 delete complete
+balance | 10000.00 | 10309.68 | no position opened in 56
+
+(End of file)

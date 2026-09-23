@@ -94,6 +94,9 @@ QUESTIONS PRIORITY (operator order 2026-09-16): his fact questions outrank every
 packet/relay/run; asked immediately (batched, priority), they dictate the plan —
 council routes around the answers, never instead of them.
 ONE-ASK RULE (operator correction 2026-09-21 — overlapping asks across turns confused him): every instruction to him ships ONCE, numbered, in a single message (exact file + exact action per step); a later message on the same ask restates the whole list, never appends item-four.
+SECOND-PERSON (operator correction 2026-09-22 — builder talked about him in
+third person in direct chat): operator-facing chat uses YOU/YOUR always, never
+"his". Third-person belongs in relay/record prose only, never in direct address.
 
 ## 4. Escalation rule
 
@@ -365,6 +368,25 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     (file length plus tail read immediately before the edit); the after-grep
     must show tail order unbroken. A mid-file landing is documented, never
     reshuffled, and the recurrence is owned here.
+34. PS-CAPTURE RULE (2026-09-23 - four vacuous greens inside one build:
+    String.Split on a CRLF string splits chars; @f(x), f(y) nests calls
+    silently; single-letter function names collide with aliases; mixed
+    CRLF-plus-lone-LF files punish joins): every probe and helper proves
+    itself by count-asserts beside its output (pre-counts, hit counts,
+    post-counts), never by echoed prose; a green with no deriving count
+    is unwritten.
+35. CITED-BUILD-DIFF RULE (2026-09-23 - his "how did the 5th build take it"
+correction: two full diagnoses written from the current tree alone while
+RECON51's segment proved both takes on disk, entries 1.16466 / 1.16261):
+when he cites a prior build's behavior, diff that build's segment (takes,
+election bars, seed-carry plus confirm rows) BEFORE any diagnosis; a
+diagnosis the cited build's rows already refute is a BUILDER DEFECT, caught
+here before any relay, never by him after it. Companion: OWNED-WITHDRAWAL -
+his "stop blaming" corrections withdraw the blamed line the same turn across
+result, finding, skills, and ledger, never defended and never re-asked. Ledger
+appends anchor on unique tail text, never item-number prefixes (three
+mid-file/split landings 2026-09-23, all from prefix anchors, all repaired
+same turn).
 
 ## 7. Automation rule (operator standing rules)
 

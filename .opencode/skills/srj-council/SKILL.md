@@ -78,3 +78,10 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - Re-scan banked gates before each attack loop (delta-memory); banked clean checks reopen only on new evidence.
 - Past verdicts are the training set: on any repeat theme across rounds (transport wording, grade labels, scope slips), promote the pattern to a gate with its round IDs. Nothing banked from memory of prose - every gate cites disk-proven rounds.
 - This file is the living memory: update it the turn a lesson is learned, never carry lessons in chat alone.
+
+## 8. Inbound-progress rule (his "gaslighting" correction 2026-09-23: two identical transport asks shipped while his pasted replies sat unprocessed)
+
+- Pasted seat replies ARE forward progress: file whole under the next V-markers plus grade plus advance the pipeline the same turn. NEVER answer pasted verdicts with a repeat transport ask for the same files.
+- A transport ask ships ONCE per file-version with fresh numbers. While the files are unchanged, the only lawful asks are the missing pieces by name (keys, run word, token) - never a re-list of completed transport steps.
+- His "proceed" / "second step" language continues the pipeline (grade into next artifact), never restarts it. When his words and the checklist disagree, re-read his last two messages before acting.
+- A pasted verdict set that matches no open ask is still filed plus graded (new round if new text, duplicate note if repeated) - never bounced, never re-asked.

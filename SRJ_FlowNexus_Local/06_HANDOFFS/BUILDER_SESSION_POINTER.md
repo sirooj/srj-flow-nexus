@@ -3,21 +3,27 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-22, RECON53 GRADED, RESULT FILED)
+## State (2026-09-23, RECON56 GRADED)
 
-- Result 06_HANDOFFS\BUILDER_RESULT_RECON53-
-  VALIDITY-V1.md filed (DC1006D5/8638/41). Takes 4
-  (was 1/7: HIT 9/4-NY-entry + 9/7-LDN + 9/8-LDN;
-  MISS 8/28-LDN + 9/7-NY renewal-lost, 9/8-17:00 floor).
-- Packet v6 + EA 0C913372 untouched, uncommitted
-  (no token). Ledger 587 at EOF. Segment
-  7EA459D8/3728662/21274. Deployment SHUT.
+- Result 06_HANDOFFS\BUILDER_RESULT_
+  RECON56-EXITRANK-V1.md filed
+  (0733DE5C/177). Takes 0/5:
+  terminal left the recorded demo,
+  guard blocked all orders. Exit
+  logic PASSED on phantom (9/4 held
+  to day-close, first live fire).
+  Ledger 637. Deployment SHUT.
+  Next: YOUR account-check + run
+  word for same-binary re-run.
 
 ## Next (artifact owed)
 
-- Nothing owed him (9/4-10:40 tester take rides
-  hypothesized, no question). Next packet, if any,
-  follows council route - never unprompted scope.
+- Owed: YOUR account-check (recorded
+  demo login back) + run word for a
+  same-binary RECON56 re-run (fills).
+  Guard-hardening packet named for
+  council route. Records checkpoint
+  committed (canonical held, token).
 
 ## Resume order (exact)
 
