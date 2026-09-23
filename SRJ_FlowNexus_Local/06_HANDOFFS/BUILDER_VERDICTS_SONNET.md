@@ -1595,3 +1595,38 @@ Everything else checks out on the page: the S3 branch is a straight-line copy of
 **Review-seat note:** verdict-slot line excused per standing packaging; analysis above stands as review-only.
 
 ## V253-EVICT END SONNET (verbatim close, nothing appended)
+
+## V254-EVICT OPEN SONNET (his carry, Sonnet channel, relay v254, filed whole)
+
+## Q1 verdict: **discrepancy** — line numbers below
+
+The disposition logic itself is sound (S4-origin abort, S3-origin rollback kept, unknown-origin falls to old default, census unconditional), but the patch as specified leaves a dead-variable defect introduced by the split between the "unchanged" prefix and the new replacement block.
+
+**The concrete issue:**
+- Line ~8800 (unchanged, per the stated `8792-8800 unchanged` boundary): `ENUM_SRJ_STATE prevDiv = g_state;` is retained.
+- New S4-origin branch (F2): calls `GoAbort(ABORT_DIV_FALLBACK, g_state)` — reads `g_state` directly, never touches `prevDiv`.
+- New default/unknown-origin branch (F2): hardcodes `LogState(ST_S5_GATE_CHECK, ST_S4_ARMED)` — also never touches `prevDiv`.
+- New S3-origin branch (F2): **redeclares its own `ENUM_SRJ_STATE prevDiv = g_state;`** inside its own `{ }` scope, shadowing the outer one instead of reusing it.
+
+Net effect: the outer `prevDiv` declared at line ~8800 is now read by nothing. It's dead code — legal (nested-scope shadowing, not a redeclaration error), but it'll draw an unused-variable warning and it's a needless leftover from the old ternary logic that the new block doesn't need. Either drop the outer `ENUM_SRJ_STATE prevDiv = g_state;` from the retained prefix (move the S3 branch's declaration outside its braces and reuse it), or explicitly note that 8792-8800 is *not* fully clean post-patch. As written, "8792-8800 unchanged" is true syntactically but misleading functionally — one of those lines becomes inert.
+
+Everything else checks out against the acceptance criteria as stated on the page:
+- `GoAbort(ABORT_DIV_FALLBACK, g_state)` — `g_state` at the call site is still `ST_S5_GATE_CHECK` (nothing mutates it before this call), so `LogAbort` prints `reason=DIV_FALLBACK state=S5_GATE_CHECK`, and `GoAbort`'s own `prev = g_state; g_state = ST_ABORT; LogState(prev, g_state)` logs `STATE S5_GATE_CHECK->ABORT` — both match the stated acceptance strings exactly.
+- `GoAbort`'s body never calls `MarkSessionUsed` (confirmed: the only two call sites are 10145-10150 and 10240-10243, both under the `ST_SIGNAL` path) — so "session marks unconsumed" on eviction holds.
+- S3 branch: `prevDiv = g_state` (= `S5_GATE_CHECK`) → `g_state = ST_S3_ZONE_WAIT` → `LogState` logs `S5_GATE_CHECK->S3_ZONE_WAIT`, identical to the old ternary's S3 case — no regression there.
+- Default branch reproduces the old fallback (`ST_S4_ARMED`) and adds the unconditional `EVICT_UNEXPECTED_ORIGIN` print — matches the "unknown origins keep existing behavior with unconditional census" requirement.
+- `#define ABORT_DIV_FALLBACK "DIV_FALLBACK"` matches its only use site and the `LogAbort` format string.
+
+I can't verify the `ResetSequence` "clears to IDLE" claim or the 8634-8635 hole-closure claim from this page — both are carried by reference to prior relays, not reproduced here, so per the verification split I'm not ruling on them, just flagging that they're outside what's checkable from this packet.
+
+## Analytic ask A — defects/gaps by line number
+1. **Dead/unused `prevDiv`** (line ~8800, unchanged prefix) — as above. Real, but cosmetic-to-functional (warning, not a break).
+2. **Style inconsistency**: the S3 branch captures a `prevDiv` local before mutating state; the default branch instead hardcodes `ST_S5_GATE_CHECK` as the "prev" argument to `LogState` rather than capturing a variable first. Functionally equivalent (g_state is unmutated at that point in all three branches), but it's an asymmetric pattern in code the fold explicitly called out for uniformity ("single statement per line," GLM-D1). Trivial to make consistent by using a shared `prevDiv` capture at the top of the `if(!divOk)` block for all three branches — which would also resolve defect 1.
+3. Comment block claims "0 of 4 distinct refusals observed 6 times (57/58)" — this is a disk/run-log claim embedded in a source comment, not independently checkable from the diff itself; flagging only because putting run-derived claims in a permanent code comment risks staleness if a future run changes the count.
+
+## Analytic ask B — alternative mechanism
+Rather than three copy-pasted `if`/`if`/fallthrough branches each re-deriving `prevDiv` or skipping it, a single `switch(g_confirmFromState)` on the known origin states (`ST_S4_ARMED`, `ST_S3_ZONE_WAIT`, `default:`) with one `ENUM_SRJ_STATE prevDiv = g_state;` captured once above the switch would eliminate the shadowing/dead-variable issue entirely, keep the "one statement per line" property, and make the "unknown origin falls to today's default" case read more clearly as the fallthrough it's meant to be. This would touch lines 8792-8807 (the whole current-plus-proposed span) as a single coherent block rather than a patch grafted onto a partially-retained prefix. This would touch lines 8792-8807 (the whole current-plus-proposed span) as a single coherent block rather than a patch grafted onto a partially-retained prefix.
+
+**Review-seat note:** verdict-slot line excused per standing packaging; analysis above stands as review-only.
+
+## V254-EVICT END SONNET (verbatim close, nothing appended)

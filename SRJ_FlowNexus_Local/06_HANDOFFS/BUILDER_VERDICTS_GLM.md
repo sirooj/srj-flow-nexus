@@ -3050,3 +3050,84 @@ No better core mechanism offered deliberately: abort-on-positive-S4 is the minim
 **Seat notes:** page-only ruling; no disk claims made or answerable from chat; no keys needed or requested; nothing here builds, runs, or clears - the PD fill row is pre-labeled simulated tester fill, consistent with the probe/print-only brief. Standing seat-split honored: analysis and verdict on the page, nothing unanswerable asked, nothing refused.
 
 ## V253-EVICT END GLM (verbatim close, nothing appended)
+
+## V254-EVICT OPEN GLM (his carry, GLM channel, relay v254, filed whole)
+
+**Q1 verdict: DISCREPANCY** - the v4 disposition semantics are correct on the page and every evidence row checks out; the discrepancy is that the page contradicts its own fold in one code line and two proof statements are written wider than their on-page support. All three are amendable without touching logic. With D1-D3 amended, this seat flips to plain yes on the same packet line, no re-review of the disposition needed.
+
+---
+
+**What checks out (recorded so the amend round doesn't re-litigate):**
+
+- Positive S4 test is exact: the 8629-8630 guard stamps `g_confirmFromState = prev` with `g_state == ST_S4_ARMED` at the 8741-8747 stamp, so the shape's first branch (`g_confirmFromState == ST_S4_ARMED`) captures precisely the S4-origin refusals - assuming the 8741 site is the only S4-stamp site (carried/asserted, see A8).
+- S3 branch (shape lines 12-17) is effect-identical to the before-state's S3 arm at 8805-8806: same assignment, same LogState, same return.
+- Unknown-origin branch (shape lines 18-25) reproduces the ternary's default arm (`ST_S4_ARMED`) plus a census print - today's behavior preserved, counted via the retained unconditional DIV_WAIT emit (8800) and the LogState row.
+- Emit position matches the corrected prose: DIV_WAIT emit at 8800 sits above the disposition ("8800 over 8801" verified against the verbatim block).
+- prevDiv's value is unchanged by its relocation: captured after the emit in both before (8801) and shape (line 7); `SrjOrderEmit` is print/census-side.
+- All three branches return; no fall-through into post-block code.
+- LogAbort unconditional is verbatim-proven: 1723-1729 has no InpDebugLog gate.
+- Denominator rows verify: 6 observations across exactly 4 distinct bars - CE (08-27), GQ+CO (08-31, one per run), EM+RJ (09-01 16:55, one per run), LF (09-04).
+- Cross-run pair verifies: FP/KL wall 20:10:12.193 (RECON58) vs EL/QI/RM/PD wall 16:17:18.931 (RECON57), same server second 2026.09.01 17:35:01; KL px=1.15975 matches QI sl_ref=1.15975 - coherent counterfactual.
+- Tag collisions verify: EM x2 at server 16:50 vs 16:55; CO x2 as 09-01 17:00 SEEDVOID vs 08-31 16:40:01 STATE.
+- Define block follows the ABORT_* convention; value "DIV_FALLBACK" matches the S1-named census key; F1:2-only instruction is explicit.
+- GoAbort call shape matches the LogAbort(reason, atState) parameter order proven at 1723-1729.
+
+---
+
+**Discrepancies (blocking, all textual/proof-level):**
+
+**D1 - Fold A-10 violated, shape line 10.** `GoAbort(ABORT_DIV_FALLBACK, g_state); return;` is two statements on one line. The fold explicitly carries "one statement per line (Opus-A-10)". Fix:
+```
+            GoAbort(ABORT_DIV_FALLBACK, g_state);
+            return;
+```
+
+**D2 - A7 log-shape tokens unsupported on-page.** The expectation "STATE S5_GATE_CHECK->ST_ABORT with `predicate=DIV_FALLBACK`" cannot be derived from anything quoted: LogAbort (1723-1729) emits `reason=%s`, never `predicate=`; and every observed STATE row (QF, EM, EL, GQ, LF, CE, CO, RJ) uses unprefixed names (S5_GATE_CHECK, S4_ARMED), while the expectation's `ST_ABORT` is prefixed. Both tokens must live in GoAbort internals (carried 6295-6329, not quoted here). Closure is one line: cite the exact GoAbort/StateName lines that emit those tokens, or amend A7 to the format the carried code actually prints (`reason=DIV_FALLBACK` + whatever StateName maps). As written, a post-build log compared against A7 will mismatch and cost a round.
+
+**D3 - Proof-coverage gap 8631-8635.** The claim "the 8741 stamp sits inside this guard - verified by continuous builder read 8636-8749, no intervening close" starts its continuous read six lines *after* the guard opens at 8630. Lines 8631-8635 are outside the stated read, so the no-intervening-close verification has an uncovered window at its own head. Fix: extend the read to 8631-8749 or quote the five lines. One-number amendment.
+
+---
+
+**Analytic ask A - further defects, gaps, imprecisions (non-blocking unless noted):**
+
+A1. "Single comment block" fold vs two blocks in the shape: a 5-line [P-EVICT-1] block (shape lines 1-5) plus a second [P-EVICT-1] one-liner (line 6). Either merge them or reword the fold item. Cosmetic.
+
+A2. "prevDiv scoped to rollback branch" vs shape line 7: declared at block top, so it also lives on the abort path where it is dead. If the fold meant "inside the !divOk block", satisfied; if "rollback paths only", violated. Free fix in B1 below satisfies both readings.
+
+A3. Q1 wording "session marks unconsumed" vs fold GLM-A6 "marks persist (already-used stays used)". "Unconsumed" reads as "not marked used"; the operative claim is "abort does not clear USE marks; sessionAtEntry is the cleared working-set item" (GLM-A5). Adopt the fold's phrasing in verdict text; code/carry fine.
+
+A4. Change sentence "pre-bind and unknown origins keep existing behavior with census" attaches "with census" to both; the E3 comment correctly scopes the new print to other-origins only. S3's census is the retained emit (8800) + STATE row. Wording only.
+
+A5. EVICT_UNEXPECTED_ORIGIN (shape lines 18-22) is InpDebugLog-gated, so non-debug runs never print the origin VALUE. Mitigation exists on-page: post-build, inside this block, `STATE S5_GATE_CHECK->S4_ARMED` can only be produced by the unknown branch (S4 aborts, S3 rolls to S3). If S1 confirms no other S5→S4 assignment site in the file, that row is a free unconditional census key - say so in the packet so the post-build check greps it.
+
+A6. RECON57 attribution: "except EL/RM/PD/QI/CO/IH/CE/RJ" names 8 tags, but CO x2 are both RECON57 (wall 16:17:12.827 and 16:12:44.273), making the true split 9/9 by wall-clock (16:xx vs 20:xx), not 10/8. Add "(CO x2 both RECON57)" to kill the miscount.
+
+A7. "0 of 4 converted" and "takes flow through S5-pass only" are full-run-log claims; the 18 pulls verify 4 bars / 6 observations but cannot verify zero-conversion. Disk truth per the split - listed so nobody attempts it from rows.
+
+A8. Carried dependencies this ruling leans on (permitted by protocol, recorded): GoAbort 6295-6329 (reason/atState contract, A6REFUSED/STAND-DOWN gating, STATE-row emission), ResetSequence 6266-6293 (sessionAtEntry cleared → slot freed), session marks 1802-1817 (USE marks persist), S1 asserts (define exists-once at 319; evaluator signature 6628; DIV_FALLBACK absent in baseline).
+
+A9. Cosmetics, parked per fold: mixed 9/10-space indents in the !divOk block (8798-8801 at 10 vs 8802-8808 at 9); DirName continuation misaligned (8798). The proposed 5-line comment sits at 7 spaces - normalize to 9 when applying so a third level isn't added.
+
+A10. E1 after-block shows both defines while the instruction is "add ONLY F1:2". Pasting the whole block would redefine ABORT_POI_REPLACED against EA 319. Keep the F1:2-only instruction physically attached to the build step; S1's exists-once assert verifies post-build.
+
+No semantic defects found beyond the above.
+
+---
+
+**Analytic ask B - mechanisms (all inside the proposed block; no core-mechanism change recommended):**
+
+B1. Move `ENUM_SRJ_STATE prevDiv = g_state;` from shape line 7 to just below the S4 branch's closing brace. Closes A2, removes the dead assignment on the abort path, zero behavior change.
+
+B2. Split shape line 10 (= D1's fix).
+
+B3. Adopt the A5 derived census key (post-build S5_GATE_CHECK->S4_ARMED rows ≡ unknown-origin refusals, pending S1 single-site confirmation) so the fail-closed path is counted unconditionally without ungating anything.
+
+B4. Optionally merge the line-6 one-liner into the 5-line block (closes A1 fold-literally).
+
+No better core mechanism offered deliberately: abort-on-positive-S4 is the minimal eviction backed by the page's own evidence - 0-of-4 retry conversion, and the 57/58 near-paired counterfactual at server 17:35:01 (FP/KL hold+suppress vs EL/QI/RM/PD take, same sl_ref/px coherence). A challenger-release path (free slot, return to S1, keep evaluating) would be a larger behavior change and belongs with the parked walk-robustness/A6 work, not this packet.
+
+---
+
+**Seat notes:** page-only ruling; no disk claims made or answerable from chat; no keys needed or requested; nothing here builds, runs, or clears - the PD fill row is pre-labeled simulated tester fill, consistent with the probe/print-only brief. Standing seat-split honored: analysis and verdict on the page, nothing unanswerable asked, nothing refused.
+
+## V254-EVICT END GLM (verbatim close, nothing appended)

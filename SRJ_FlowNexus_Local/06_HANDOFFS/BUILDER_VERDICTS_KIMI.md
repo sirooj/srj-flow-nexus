@@ -1771,3 +1771,67 @@ Touches E2/E3 lines 8-25. Effect: the squatter dies for *every* refused holder, 
 Nothing here touches money, keys, or disk; all rulings are page-only as requested.
 
 ## V253-EVICT END KIMI (verbatim close, nothing appended)
+
+## V254-EVICT OPEN KIMI (his carry, Kimi channel, relay v254, filed whole)
+
+## Q1 verdict: **YES**
+
+On the page, the amended v4 disposition is semantically clear and correct: the positive test `g_confirmFromState == ST_S4_ARMED` (E2/E3 line 8) aborts refused S4-origin holders via `GoAbort(ABORT_DIV_FALLBACK, g_state)` (line 10); the S3 branch (lines 12-17) reproduces the old ternary's S3 leg exactly (EA 8805-8806 before-state); the fallthrough (lines 18-25) preserves the old non-S3 behavior (re-arm S4 + `LogState`) and adds the census print. The stamp proof (8741-8747 sets `g_confirmFromState = prev` under the 8629 S4 guard) makes the positive test true exactly for S4 promotions, and the run rows corroborate the denominator (4 distinct refusal bars — CE 08-27, GQ/CO 08-31, EM/RJ 09-01, LF 09-04 — observed 6 times, matching the line-5 comment). Slot-freed and marks-unconsumed rest on the carried v252 proofs (GoAbort 6295-6329, ResetSequence 6266-6293, session marks 1802-1817), which the packet rules let stand by reference.
+
+Named nits below are fold-fidelity and acceptance-shape items; none alters the disposition's logic. If the council counts fold-mapping fidelity as part of Q1 rather than Ask A, item A1 is a discrepancy against the fold list.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions
+
+**A1. Fold claim "one statement per line (Opus-A-10)" is violated in the code.** E2/E3 line 10: `GoAbort(ABORT_DIV_FALLBACK, g_state); return;` — two statements on one line. The S3 branch (lines 14-16) and fallthrough (lines 23-25) comply; only the S4 branch does not. The fold manifest says this demand was folded; the page disagrees. Cosmetic, but it is a factual fold-vs-code mismatch on a page the operator carries verbatim.
+
+**A2. Expected log shape (GLM-A7 fold) does not match the LogAbort body shown.** The fold states post-build rows read `STATE S5_GATE_CHECK->ST_ABORT` with `predicate=DIV_FALLBACK`. The LogAbort body on the page (EA 1723-1729) prints `[SRJ-EA] <ts> ABORT reason=%s state=%s poi=%s dir=%s` — an ABORT row, field `reason=`, no `predicate=` field, no `STATE x->y` shape. The expected shape is only producible if GoAbort (carried, 6295-6329) emits its own STATE row with a `predicate=` field. Unverifiable from this page; the run gate's acceptance pattern must be confirmed against GoAbort's actual emission on disk, or rewritten to match `ABORT reason=DIV_FALLBACK state=S5_GATE_CHECK`.
+
+**A3. Census print for unexpected origins is debug-gated; "counted" is only true under InpDebugLog.** E2/E3 lines 18-22 gate `EVICT_UNEXPECTED_ORIGIN` on `InpDebugLog`. The fold language is "any other origin keeps today's behavior plus a census print (fail closed, counted)". With debug off, an unexpected origin is neither printed nor emitted — the safety-net detection for stamp-bypass states is silently absent in exactly the runs where you'd want the invariant checked. Contrast: the DIV_WAIT emit above (EA 8800) is unconditional.
+
+**A4. "Fail closed" is imprecise for the default path.** The fallthrough re-arms S4 (line 23) — fail-as-before, not fail-closed. Per agreed scope this is intentional (unknowns keep today's behavior), but the fold/comment wording overstates it: for any non-S3/non-S4 origin, the squatter behavior is preserved, not closed. Terminology nit in fold text and line 2-3 comment.
+
+**A5. `prevDiv` is a dead store on the S4-abort path, and its scoping doesn't match the fold wording.** Fold: "prevDiv scoped to rollback branch." Code: declared at block top (line 7), used only in the S3 branch (line 15) and fallthrough (line 24); assigned-never-read when the S4 branch fires. No compiler warning (used on sibling paths), but the fold's description ("scoped to rollback branch") is narrower than what the code does. Moving the declaration below line 11 would make code and fold text agree.
+
+**A6. Cross-run pair (FP/KL vs EL/QI/RM/PD at 17:35:01) does not isolate the squatter as the cause of suppression.** RECON57 itself contains the same squatter precondition — RJ shows `S5_GATE_CHECK->S4_ARMED dir=LONG poi=Yearly-POC` at 09-01 16:55 — yet RECON57 took Monthly-VWAP at 17:35:01 (EL→PD). RECON58, with the same 16:55 rollback (EM, same poi/dir), suppressed it (FP). Identical stamped origin, same POI, same direction, same server second — divergent outcome. The pair is honestly labeled "near-paired," but as presented it shows the squatter *can coexist with a take*, so it cannot carry causal weight for "squatter blocks the slot." The change's justification stands on the 0-of-4 retry-conversion stat (denominator), not on this pair.
+
+**A7. Stamp-containment is asserted, not shown.** The guard (8629-8630) and stamp (8741-8747) are quoted 112 lines apart; the claim that 8741 sits inside the 8629 block rests on the stated "continuous builder read 8636-8749," which is a disk claim, not page content. The packet flags this itself; noted so the page-only record is honest that containment is carried, not demonstrated.
+
+**A8. "LogAbort unconditional" is not demonstrable on this page.** The shown LogAbort body (1723-1729) is indeed unconditional, but the new S4 path never calls LogAbort directly — it relies on GoAbort invoking it (carried 6295-6329). The contract claim in the line-3 comment is therefore a carried dependency, not page evidence.
+
+**A9. Stale-origin edge is handled only implicitly.** If `g_confirmFromState` were ever stale-S4 at an S5 evaluation reached without a fresh stamp, the positive test (line 8) would abort a non-S4 setup as DIV_FALLBACK. The design's answer — every S5 entry is stamped immediately prior (8741-8747 and its S3 analog) — is coherent, and the fallthrough census exists for violations, but see A3: that census is debug-gated. The defense-in-depth chain has one gated link.
+
+**A10. Comment redundancy.** Line 1 of the comment block ("refused S4-origin holders ABORT") and line 6 ("refused S4 holders abort (squatter GC, positive test)") say the same thing twice; the "single comment block" fold (GLM-A13/Opus-A-9) is satisfied only in the loose sense that the two runs are adjacent with differing indentation. Merge or drop line 6.
+
+**A11. Cosmetic:** top comment block indented 7 spaces vs code at 9; pre-existing stray-space on the `SrjOrderEmit` line (EA 8800, 10 spaces vs 9) — already covered by the parked stray/cosmetics item; listed for completeness only.
+
+No correctness defects found in: define alignment/uniqueness (E1, EA 319-320), PrintFormat arity (lines 19-22, two `%s`/two args), `iTime`/`barShift` scope (matches before-state 8794-8797), brace style consistency with the before-state, returns on all three paths, and comment-vs-rows consistency of the 0-of-4 / 6-observation denominator.
+
+---
+
+## Analytic ask B — better mechanisms for the stated goal
+
+**B1. Make the default genuinely fail-closed (recommended).** Since the stamp proof establishes S3 and S4 as the only legitimate origins, invert the fallback: abort on *any* origin that isn't S3, with a distinct reason for the never-origin case (e.g., `ABORT_DIV_ORIGIN_UNKNOWN`) plus the census. This deletes the third branch entirely:
+
+```
+if(g_confirmFromState == ST_S3_ZONE_WAIT)  { rollback; return; }
+if(g_confirmFromState != ST_S4_ARMED)      { census-print; }   // unexpected, still aborts
+GoAbort(origin==S4 ? ABORT_DIV_FALLBACK : ABORT_DIV_ORIGIN_UNKNOWN, g_state); return;
+```
+
+Touches E2/E3 lines 8-25. Effect: the squatter dies for *every* refused holder, slot hygiene no longer depends on origin correctness, and A3/A4/A9 are resolved in one move. This widens the agreed scope (v253 fold: unknowns keep today's behavior), so it is a proposal for a v254 amendment, not a v253 correction.
+
+**B2. Ungate the census or route it through the emit path.** Change lines 18-22 to an unconditional `PrintFormat`, or better, a `SrjOrderEmit(barShift, "EVICT_UNEXPECTED_ORIGIN")` so the event rides the existing census surface like DIV_WAIT (EA 8800) instead of the debug channel. Resolves A3 independent of B1.
+
+**B3. `switch(g_confirmFromState)` instead of the if-chain.** Enum-keyed switch with `case ST_S4_ARMED`, `case ST_S3_ZONE_WAIT`, `default:` is self-documenting, extends cleanly when origins are added, and aligns with the parked enum-ization direction. Touches lines 8-25. Purely structural.
+
+**B4. Split `GoAbort`/`return` and re-scope `prevDiv`.** Line 10 → two lines; move line 7's declaration to just before line 12. Brings the code into literal compliance with the already-claimed folds (Opus-A-10, Sonnet-A4/Opus-A8/Kimi-A-c) at zero behavioral cost — cheapest possible v3.1 tidy.
+
+**B5. Pin the acceptance shape to the emitter.** Before the tester run, reconcile the GLM-A7 gate pattern with GoAbort's actual output on disk (A2): either the gate accepts `ABORT reason=DIV_FALLBACK state=S5_GATE_CHECK` per the shown LogAbort body (1723-1729), or the packet quotes the GoAbort lines that emit `STATE ...->ST_ABORT ... predicate=`. One line in the relay; prevents a false-fail or false-pass on the single gated run this packet budgets.
+
+---
+
+Nothing here touches money, keys, or disk; all rulings are page-only as requested.
+
+## V254-EVICT END KIMI (verbatim close, nothing appended)

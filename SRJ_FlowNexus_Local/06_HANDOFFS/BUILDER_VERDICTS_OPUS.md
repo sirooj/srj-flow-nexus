@@ -198,3 +198,99 @@ Plus one integration blocker independent of all of the above: the packet gives n
 Worth stating plainly, since most of the above is negative: one evidence chain on this page is clean and self-contained. EM shows `S5_GATE_CHECK->S4_ARMED` on Yearly-POC LONG at 09.01 16:55, GL confirms `heldState=S4_ARMED` on the same POI at 16:55, and FP still shows `heldPoi=Yearly-POC heldDir=LONG heldState=S4_ARMED` forty minutes later at 17:35:01, suppressing Monthly-VWAP with `opp=0 higher=0`. That is the squatter, observed persisting after a refusal and observed blocking a later setup, entirely within one run and without reference to disk. The mechanism the packet describes is real. What is not yet established on the page is that the proposed edit compiles, that the abort frees what it claims to free, and that the origin stamp it tests is reliably present and reliably fresh.
 
 ## V253-EVICT END OPUS (verbatim close, nothing appended)
+
+## V254-EVICT OPEN OPUS (his carry, Opus channel, relay v254, filed whole)
+
+## Q1 verdict
+
+**Discrepancy.**
+
+The S4-origin test itself is sound and the stamp premise mostly holds, but four of the five clauses in the question cannot be ruled clear on this page:
+
+| Q1 clause | Status |
+|---|---|
+| refused S4-origin holders abort | Yes, conditional on stamp enclosure (see D-9) — proposed L8-L11 |
+| slot freed | Unverifiable on page — rests on GoAbort 6295-6329, referenced not carried |
+| session marks unconsumed | Unverifiable **and** contradicted by the fold's own boundary (see D-3) — marks 1802-1817 referenced not carried |
+| S3 kept | Unverifiable — the S3 stamp site is not on the page (see D-8) |
+| unknowns censused | No — the census is `InpDebugLog`-gated (proposed L18) and the default is not fail-closed (see D-4) |
+
+Plus one integration blocker independent of all of the above: the packet gives no replace-range, and the new block redeclares `prevDiv`, which is already declared at EA 8801 in the carried before-state (D-1).
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions
+
+### Blocking
+
+**D-1. Duplicate `prevDiv` declaration / no replace-range.** The before-state at EA 8792-8809 already contains `ENUM_SRJ_STATE prevDiv = g_state;` (8801). The after-shape declares it again at proposed L7. The header calls the after-shape "packet v3 **new lines**," and the fold says the before-state is carried "showing print + emit + old disposition whole" — neither states that 8801-8807 is deleted. As written, an insert produces `variable already defined` at compile, and leaves the old ternary disposition (8805-8806) unreachable-but-present. The packet needs an explicit range: *replace 8801-8807, leave 8792-8800 untouched.* This is the single cheapest fix on the page and it is the one thing that decides whether the build compiles.
+
+**D-2. Slot-free claim rests entirely off-page.** Everything in "the squatter dies and the session slot frees" happens inside `GoAbort` (6295-6329) and `ResetSequence` (6266-6293), both carried "by labeled reference" only. What is actually on the page is `LogAbort` (1723-1729), which prints and nothing else. A page-only ruling cannot confirm that `GoAbort` transitions state, releases the holder slot, or calls `ResetSequence`. `GoAbort`'s **signature and arity are also unverified**, so `GoAbort(ABORT_DIV_FALLBACK, g_state)` at proposed L10 cannot be type-checked here. The fold asserts an evaluator signature at S1 6628 (Opus-A7) but never the abort surface's.
+
+**D-3. "Session marks unconsumed" contradicts the carried boundary.** GLM-A6 as folded says "a session already marked used by an earlier SIGNAL stays used (marks persist)." Q1 asks to confirm marks are "unconsumed." Those are different claims. If the refused sequence never emitted a SIGNAL, it consumed nothing and the phrasing is harmless; but the value case depends on the freed slot being *usable*, which requires the session to be unmarked. In the FP counterfactual the 58 run's NYAM mark state at 17:35:01 is not shown, so eviction may free a slot into an already-consumed session and produce no take at all. The impact claim needs the session-mark state at the moment of each of the 4 refusals.
+
+**D-4. The default branch is not fail-closed, and the census is not counted.** Proposed L18 gates the census behind `InpDebugLog`; a non-debug run produces no census row, which breaks GLM-A15's "run gate asserts invariant presence" for the unknown-origin path. Separately, the default at L23 sets `g_state = ST_S4_ARMED` — byte-identical to the else side of the existing ternary at 8805-8806. That preserves the exact squatter this packet exists to kill. "Fail closed" is defensible only in the narrow sense of *no take, no money*; it is fail-open with respect to the stated goal. Label it "no-take, holder retained, censused" and the page stops overclaiming.
+
+**D-5. No proven clear on `g_confirmFromState` → stale-origin misfire.** Nothing on the page resets `g_confirmFromState` on any path, and it is absent from the clears-list (GLM-A5 names only `sessionAtEntry`). After an abort at L10, the field retains `ST_S4_ARMED`. Any later sequence that reaches the S5 block without re-stamping reads a prior sequence's origin and takes the ABORT branch on stale data. The positive test is only as strong as the field's lifetime, and that lifetime is established nowhere here. This is the most consequential logic gap after D-1.
+
+### Fold-versus-code contradictions
+
+**D-6.** `prevDiv` is declared at L7, at block top, not "scoped to the rollback branch" (Sonnet-A4/Opus-A8/Kimi-A-c, marked folded). The S4 branch never uses it.
+
+**D-7.** L10 puts two statements on one line, contradicting Opus-A-10 (one statement per line, marked folded). L1-L5 plus L6 are two comment blocks, contradicting GLM-A13/Opus-A-9 (single comment block, marked folded). L1-L5 are also indented 7 spaces against L6-L25's 9, which reads as a different brace depth than the code it documents.
+
+**D-8. S3 stamp site missing.** The S4 promotion stamp is carried (8741-8747); the S3 pre-bind stamp is not. If S3 promotions do not stamp, they fall through L12 into the unknown-origin default and get promoted to `ST_S4_ARMED` — a behavior change for the pre-bind path, i.e. the regression this packet claims to avoid. "S3 keeps rollback" is unproven on the page.
+
+**D-9. The stamp-enclosure proof has a five-line hole.** The guard is carried at 8629-8630 and the continuous builder read is stated as 8636-8749. Lines 8631-8635 are neither carried nor covered. A closing brace there breaks the enclosure and with it the "S4 promotions stamp S4" premise. Extend the read to 8630-8749 and the premise is closed.
+
+**D-10. GLM-A7's expected log shape contradicts the carried `LogAbort`.** The expectation reads `STATE S5_GATE_CHECK->ST_ABORT` with `predicate=DIV_FALLBACK`. `LogAbort` at 1725 emits `%s ABORT reason=%s state=%s poi=%s dir=%s` — `reason=`, not `predicate=`, and no `->` transition. Every carried STATE row (QF, EM, GQ, LF, CE, CO, RJ) prints names without the `ST_` prefix, so `ST_ABORT` would not match either. As written the run gate's grep fails against correct output. Either `GoAbort` also emits a `LogState` (not shown) or the expectation text is wrong.
+
+**D-11.** The census token `EVICT_UNEXPECTED_ORIGIN` (L19) gets no baseline-absence assertion. GLM-A15 covers `DIV_FALLBACK` only.
+
+### Evidence gaps in the carried rows
+
+**D-12. The denominator's attribution is unproven.** The arithmetic checks out — 6 rows of `S5_GATE_CHECK->S4_ARMED` collapsing to 4 distinct events, with EM/RJ and GQ/CO as the 58/57 duplicates at 09.01 16:55 and 08.31 16:40:01. What the rows do not show is *why* each rolled back. They carry no reason field, and not one of the six is accompanied by a `CONFIRM_DIV_WAIT` print (8794) — the only row that would place it on the divergence path. If any other refusal in the S5 block rolls back to `ST_S4_ARMED`, some of the 6 belong to other predicates, and "0 of 4 distinct refusals" is measuring a set larger than the one being changed. That same uncertainty is the strongest argument for B-7 below.
+
+**D-13. The stamping event has no row.** No `S4_ARMED->S5_GATE_CHECK` row appears for any of the 4 events — EM's rollback at 09.01 16:55 follows QF's `S3_ZONE_WAIT->S4_ARMED` at 16:50 with no S5 entry row between. Pulling those four rows would put the 8741 `LogState` on the page and make the stamp premise observational rather than structural.
+
+**D-14. The cross-run pair is not established as a counterfactual.** FP/KL (58, wall 20:10:12.193) and EL/QI/RM/PD (57, wall 16:17:18.931) share server second 17:35:01, but nothing on the page states that RECON57 and RECON58 differ only in the respect under test. Without a stated config identity the pair is two observations, not a controlled comparison. Also, "takes flow through S5-pass only" has no supporting row: the 57 sequence shows `S1_REGIME->S2_LTF_ALIGN` (EL) and `SIGNAL` (QI) in the same second with no S3/S4/S5 rows at all.
+
+**D-15. KL is mislabeled.** The rows header calls KL "the stuck 17:30 challenger evaluation vs the squatter." KL's own fields read `class=SELECTED ok=1 slot=9` — a successful selection. Nothing in that row says stuck. Relabel without changing the argument: the 17:30 seed was selected and slotted (KL) yet never signaled because the session slot was held (FP) — that contrast is the evidence, not stuckness.
+
+**D-16. GL and FP describe two different suppression mechanisms; only one is addressed.** FP is `SUPPRESSED ... opp=0 higher=0 action=HELD` — suppressed purely because a holder existed, which eviction fixes. GL is `SIDE1H_WOULDPREEMPT ... newTier=4 heldTier=1 wouldPreempt=0` — a tier comparison. Citing both under one thesis blurs what the change buys.
+
+**D-17. The impact denominator may be understated by an order of magnitude.** FP carries `cum_n=70 cum_opp=20 cum_hi=5 cum_both=4`, implying ~41 suppressions with no opposing or higher-tier reason. The packet reasons from 4 refusals. Only the subset of those 70 attributable to post-refusal S4 squatters is addressable, but that derivation is not on the page, and it is the number that actually sizes the change.
+
+**D-18. Empirical claim baked into source.** L5 writes "0 of 4 distinct refusals across 57/58" into a code comment. Run-specific counts rot against the code they annotate; this belongs in the packet, not the file.
+
+### Cosmetic (page-level, not parked)
+
+**D-19.** Before-state 8797 (`DirName(g_dir), divVal);`) carries a stray leading space, and 8798-8801 sit at 10-space indent against 9 for the surrounding block. Pre-existing, adjacent to the edit, cheap to normalize while the region is open. The `#define` alignment at E1 is correct — both identifiers are 18 characters and the 5-space gap matches.
+
+---
+
+## Analytic ask B — better mechanisms
+
+**B-1. Give the replace-range, not a shape.** `replace EA 8801-8808; 8792-8800 unchanged`. Removes D-1 entirely and makes the before/after pair mechanically checkable. Touches: packet text only.
+
+**B-2. `switch` on the origin instead of an if-chain.** A `switch(g_confirmFromState)` with `case ST_S4_ARMED:` / `case ST_S3_ZONE_WAIT:` / `default:` gets one statement per line, one comment block, and the census into a syntactic `default` where it obviously belongs. Touches: proposed L7-L25 (EA 8801-8807 replacement).
+
+**B-3. Sentinel the origin field — highest value on the page.** Add `ST_NONE` (or reuse an existing invalid member), set `g_confirmFromState = ST_NONE` in `ResetSequence`, and clear it at each consumption point in the S5 block. The unknown-origin branch then fires on a *known-absent* stamp instead of silently inheriting a prior sequence's value, which converts D-5 from a latent misfire into a counted event. Touches: 6266-6293 (ResetSequence), 8741-8747 (stamp), 8801-8807 (consumption), plus the enum declaration.
+
+**B-4. Ungate the census.** Drop `if(InpDebugLog)` at proposed L18, or route the census through the same unconditional channel `LogAbort` uses (1723-1729). A fail-closed counter that disappears in production runs is not a counter. Add `(int)g_confirmFromState` alongside `StateName(...)` so an out-of-range value survives a `StateName` miss. Touches: proposed L18-L22.
+
+**B-5. Reconcile the run gate with the actual print.** Either have `GoAbort` emit a `LogState(prev, ST_ABORT)` so `STATE S5_GATE_CHECK->ABORT` exists, or restate GLM-A7 as `ABORT reason=DIV_FALLBACK state=S5_GATE_CHECK` with no `ST_` prefix. Touches: 6295-6329 or the packet's log-shape line.
+
+**B-6. Pull four rows before building.** The `S4_ARMED->S5_GATE_CHECK` rows and any `CONFIRM_DIV_WAIT` prints for the 08-27 / 08-31 / 09-01 / 09-04 events close D-12 and D-13 with no code change and no build. Zero-cost, and it is the difference between a structural argument and a measured one.
+
+**B-6b. S1 pre-compile gate addition (from Kimi B-5 thread):** reconcile the acceptance gate pattern with GoAbort's actual output on disk before the tester run.
+
+**B-7. Scope note — the general fix is a holder lease, not an origin test.** The defect class is "a holder occupies the slot indefinitely after any refusal." A bar-count or TTL lease checked at S4 entry covers every refusal predicate, needs no origin stamp, and is immune to D-5 and D-8 by construction. D-12 is exactly the symptom of the narrower framing: the page cannot currently tell how many of its own 6 observations belong to the divergence path. I would still ship DIV_FALLBACK first as the narrow, reviewable step, but the lease is where this line ends up, and naming it now keeps the origin test from accreting per-predicate branches. Touches: the S4 entry guard at 8629-8630 and the holder struct; a separate packet, not this one.
+
+---
+
+## What holds
+
+Worth stating plainly, since most of the above is negative: one evidence chain on this page is clean and self-contained. EM shows `S5_GATE_CHECK->S4_ARMED` on Yearly-POC LONG at 09.01 16:55, GL confirms `heldState=S4_ARMED` on the same POI at 16:55, and FP still shows `heldPoi=Yearly-POC heldDir=LONG heldState=S4_ARMED` forty minutes later at 17:35:01, suppressing Monthly-VWAP with `opp=0 higher=0`. That is the squatter, observed persisting after a refusal and observed blocking a later setup, entirely within one run and without reference to disk. The mechanism the packet describes is real. What is not yet established on the page is that the proposed edit compiles, that the abort frees what it claims to free, and that the origin stamp it tests is reliably present and reliably fresh.
+
+## V254-EVICT END OPUS (verbatim close, nothing appended)

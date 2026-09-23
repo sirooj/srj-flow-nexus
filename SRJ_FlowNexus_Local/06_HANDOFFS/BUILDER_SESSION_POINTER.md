@@ -3,15 +3,15 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-23, V254 GREEN)
+## State (2026-09-24, V255 GREEN)
 
-- Packet v4 + relay v254 battery-green
-  (positive S4, all paths censused).
-  Ledger 678. Committing, then signal.
+- Packet v5 + relay v255 battery-green
+  (range 8801-8808, narrow round).
+  Ledger 679. Committing, then signal.
 
 ## Next (artifact owed)
 
-- Owed: YOUR carry of v254 to Opus,
+- Owed: YOUR carry of v255 to Opus,
   GLM, Kimi, Sonnet (same text all).
   Paste verdicts back whole.
 

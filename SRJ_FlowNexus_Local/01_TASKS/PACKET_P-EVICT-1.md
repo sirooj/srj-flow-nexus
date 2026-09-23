@@ -1,6 +1,6 @@
-# PACKET_P-EVICT-1 v4 DRAFT - evict S5-refused S4-ARMED holders, positive test + fail-as-before default (squatter GC; nothing builds/runs/commits on this file)
+# PACKET_P-EVICT-1 v5 DRAFT - evict S5-refused S4-ARMED holders (range fix only vs v4; nothing builds/runs/commits on this file)
 
-Status: v4 DRAFT (amends v3 4E882693 per V253 round, 1 YES / 3 discrepancy: replace-range explicit; GoAbort re-carried; log-shape from disk; split/ungated/merged; S3-stamp window carried; default fail-as-before + censused; Kimi-B1 widening rejected with reason). Clearance via a clearance relay plus his run word, all owed.
+Status: v5 DRAFT (amends v4 32D4768E per V254 round, 1 YES / 3 discrepancy: range 8801-8808 absorbs old return + old decl; one-liner kept as branch marker per GLM alternative; KL/pair wording fixed; single-return asserted). Disposition UNCHANGED from v4 (Kimi-YES + GLM-contingent + Opus/Sonnet logic-sound stand). Clearance via a clearance relay plus his run word, all owed.
 Canonical files: exactly ONE - Experts\SRJ_FlowNexus_EA.mq5 (E1: new ABORT code define, 1 line added; E2: 8-line fallback block replaced by 20-line three-way, net +12; E3: 5-line comment rewritten in place, net +0).
 No new indicator buffers. Nothing under 02_TASK_CHECKPOINTS. Commits are builder-called (AGENTS 6.5); no council commit token exists or is asked.
 Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squatter-veto miss); this packet frees the session slot so the valid seed takes.
@@ -20,7 +20,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
 ## Rule (one disposition change at one site, positive S4 test, fail-as-before default)
 
 - A candidate refused at S5 divergence whose origin is POSITIVELY S4 (g_confirmFromState == ST_S4_ARMED) ABORTS (new code ABORT_DIV_FALLBACK). Pre-bind S3 rollback kept. Any other origin keeps today's S4 re-arm plus an UNCONDITIONAL census print (fail-as-before, counted - Sonnet-B/Kimi-B2 adopted; gated print dropped).
-- Replace-range explicit (Opus D-1/B-1): replace EA 8801-8807; 8792-8800 (if/print/emit) unchanged.
+- Replace-range explicit (Opus D-1/B-1): replace EA 8801-8808 (absorbs old 8801 decl AND old 8808 return; after-shape terminal return is THE return; S1 asserts single terminal return with 8809 close surviving); 8792-8800 (if/print/emit) unchanged.
 - Census duality: DIV_WAIT emit stays ABOVE the disposition as the path marker; GoAbort carries the decided outcome (LogAbort unconditional + gated A6REFUSED/STAND-DOWN, gates named). Both recoverable.
 - Claim scope: this removes the refused holder's occupancy (proven by ResetSequence clears); same-bar handoff and signal recovery are graded at acceptance, never promised.
 - Kimi-B1 widening (abort unknowns) REJECTED with reason: unknowns keep behavior per agreed S4-only scope; the unconditional census watches them; widening needs its own packet with take-impact evidence, never assumed safety.
@@ -90,7 +90,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
 
 ## Stages (T161N discipline; RECON58 precedent)
 
-S1 Pre-hash gate: re-hash EA (must equal B01CBA646A337EE2E95F040782615D531c59423000746f50eAFE653CABE2B14D / 622155 B / 11317 lines or DIAGNOSED successor state, never assumed) plus single-hits (old fallback block + E3 comment block + ABORT_POI_REPLACED line) plus char-code assert every OLD anchor above; assert no new buffers. S1 asserts (V253 counsel): ABORT_DIV_FALLBACK count 0 pre-edit + EVICT_UNEXPECTED_ORIGIN absent in EA and baselines (census-key clean); ABORT_POI_REPLACED count exactly 1 (exists, no redefine); every ABORT_* symbol count 1 post-edit; enclosing signature void EvaluateClosedBar line 6628. Miss = DIAGNOSE, never assume, never revert. S2 Apply E1+E2+E3 exact-diff (expected post-build EA 11330 lines, net +13: E1 +1, E2 +12, E3 +0). S3 Post-hash plus budget arithmetic from literal counts. S4 Compile both targets 0 errors 0 warnings. S5 Run under RECON50_DEMO_USD (same terminal, InpMode 1, 2026-08-26 to 2026-09-10, InpDebugLog=true), ceiling 90 min - ONLY on clearance relay plus his run word.
+S1 Pre-hash gate: re-hash EA (must equal B01CBA646A337EE2E95F040782615D531c59423000746f50eAFE653CABE2B14D / 622155 B / 11317 lines or DIAGNOSED successor state, never assumed) plus single-hits (old fallback block + E3 comment block + ABORT_POI_REPLACED line) plus char-code assert every OLD anchor above; assert no new buffers. S1 asserts (V253 counsel): ABORT_DIV_FALLBACK count 0 pre-edit + EVICT_UNEXPECTED_ORIGIN absent in EA and baselines (census-key clean); ABORT_POI_REPLACED count exactly 1 (exists, no redefine); every ABORT_* symbol count 1 post-edit; enclosing signature void EvaluateClosedBar line 6628; single terminal return before the 8809 close (range absorbs old return). Miss = DIAGNOSE, never assume, never revert. S2 Apply E1+E2+E3 exact-diff (expected post-build EA 11330 lines, net +13: E1 +1, E2 +12, E3 +0). S3 Post-hash plus budget arithmetic from literal counts. S4 Compile both targets 0 errors 0 warnings. S5 Run under RECON50_DEMO_USD (same terminal, InpMode 1, 2026-08-26 to 2026-09-10, InpDebugLog=true), ceiling 90 min - ONLY on clearance relay plus his run word.
 
 ## Acceptance (grade segment-vs-RECON58; GLM-B1 run-gate spec adopted)
 
