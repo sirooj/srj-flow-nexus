@@ -1835,3 +1835,39 @@ Touches E2/E3 lines 8-25. Effect: the squatter dies for *every* refused holder, 
 Nothing here touches money, keys, or disk; all rulings are page-only as requested.
 
 ## V254-EVICT END KIMI (verbatim close, nothing appended)
+
+## V255-EVICT OPEN KIMI (his carry, Kimi channel, relay v255, filed whole)
+
+# REVIEW SEAT RULING — v255, packet P-EVICT-1 v5
+
+## Q1 verdict: **yes** — clear to build.
+
+Basis, line by line (page-only ruling):
+
+- **Range start 8801** absorbs the old outer declaration `ENUM_SRJ_STATE prevDiv = g_state;` (old 8801). With it gone, the new block-scoped `prevDiv` (new line 9 of the after-shape) has no outer twin — no shadow, no duplicate decl, no dead variable. This closes the v254 blocker (Opus D-1 / GLM D1 / Kimi binding item / Sonnet dead-var) exactly as folded.
+- **Range end 8808** absorbs the old terminal `return;` (old 8808). The old ternary (old 8805–8806) and old `LogState` (old 8807) go with it — no unreachable remnant, no same-level duplicate return.
+- **After-shape returns:** three, all reachable, each path terminal — new line 5 (S4 abort), new line 12 (S3 rollback), new line 20 (fall-through). Post-edit absolute numbering: 8805, 8812, 8820. "Single terminal return" reads correctly: one return per `if`-block plus the block-terminal return, none stranded.
+- **Brace delta:** old 8801–8808 contains zero braces; new text carries 2 open / 2 close (new lines 3, 6, 8, 13) → net 0. The 8809 `}` survives and still closes its original opener (shifts to 8821). S1 assert holds on the page.
+- **Old block line count check:** quoted before-state is exactly 8 lines = 8801–8808 inclusive. Range arithmetic is consistent.
+- **Semantics preserved where intended:** S3 branch captures-then-assigns-then-logs in the old order (new lines 9–11); fall-through reproduces the old else-branch (promote to `ST_S4_ARMED` + `LogState`). The S4-origin behavior change (abort vs. promote) is the packet's stated intent, not a defect.
+
+## Analytic ask A — defects, gaps, imprecisions (nits only; no blocker found)
+
+1. **Hardcoded from-state, new line 19** (`LogState(ST_S5_GATE_CHECK, ST_S4_ARMED)`): old code captured `prevDiv` dynamically (old 8801/8807). Correct only under the invariant that entry state is always `ST_S5_GATE_CHECK`. Holds on the page (S5 block), but brittle if the enclosing guard ever widens — cf. the filed B1-widening nit. See B below.
+2. **`g_confirmFromState` never cleared on any new path (new lines 2–20):** the abort path relies on `GoAbort` to reset it — not page-verifiable, stands by the v254 GoAbort/Reset fence. S3 and fall-through paths match old behavior (no regression), but a stale S3 origin would re-enter the rollback on re-trigger, as before.
+3. **`barShift` scope, new line 15:** not verifiable from the page; stands by the v254 stamp fence.
+4. **`ABORT_POI_REPLACED` (E1):** no consumer shown on this page. Unused macros are warning-free in MQL5, so harmless — but the page alone can't show what references it.
+5. **`EVICT_UNEXPECTED_ORIGIN` print, new lines 14–17:** fires once per closed bar while an unexpected origin persists. Bounded log-spam class; nit.
+6. **E3 comment claims** ("LogAbort unconditional; A6REFUSED and STAND-DOWN gated"): concern code not shown (inside `GoAbort` or elsewhere); stands by the v254 LogAbort fence. Comment matches the shown code for everything shown.
+7. **Line-count prediction for the disk check (not a defect):** E2 is +12 lines (8→20); E1 adds 2 (3 if the trailing blank is written). Post-build EA should read 11331 or 11329+2/3 accordingly — digest and count on disk will prove it.
+8. **Cosmetic, consumed:** old 8801's stray extra leading space is fully absorbed by the range; no remnant.
+
+## Analytic ask B — better mechanisms (optional; not required for this build)
+
+- **Restore dynamic from-state capture:** hoist `ENUM_SRJ_STATE prevDiv = g_state;` to the top of the block (before new line 2), delete the inner re-declaration (new line 9), and change new line 19 to `LogState(prevDiv, ST_S4_ARMED);`. Optionally pass `prevDiv` to `GoAbort` (new line 4) — same value, since `g_state` is unmutated at that point. This removes nit A-1 and keeps the log truthful under any future guard widening. Touches new lines 2–4, 9, 19.
+- **Switch dispatch:** a `switch(g_confirmFromState)` over the three origins would make the three-way branch explicit and compiler-checked for enum coverage. Touches new lines 2–20. Marginal gain over the if-chain; not worth re-opening the round.
+- Neither change is a build gate — the v5 after-shape is correct as written under the S5-entry invariant stated on the page.
+
+**Verdict restated: yes — v5 disposition clear to build with replace range 8801–8808.**
+
+## V255-EVICT END KIMI (verbatim close, nothing appended)

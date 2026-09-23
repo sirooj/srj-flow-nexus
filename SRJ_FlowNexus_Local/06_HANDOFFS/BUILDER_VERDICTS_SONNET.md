@@ -1630,3 +1630,25 @@ Rather than three copy-pasted `if`/`if`/fallthrough branches each re-deriving `p
 **Review-seat note:** verdict-slot line excused per standing packaging; analysis above stands as review-only.
 
 ## V254-EVICT END SONNET (verbatim close, nothing appended)
+
+## V255-EVICT OPEN SONNET (his carry, Sonnet channel, relay v255, filed whole)
+
+**Q1 verdict: YES** — replace range 8801–8808 is correct for the stated after-shape.
+
+- 8801 (`ENUM_SRJ_STATE prevDiv = g_state;`) through 8808 (`return;`) is exactly the 8-line before-block shown; the range absorbs the old top-scope declaration and the old single return together, so nothing of the ternary/decl survives outside the replaced span.
+- The after-shape's only `prevDiv` declaration is now block-scoped inside the `ST_S3_ZONE_WAIT` branch — this isn't a duplicate of anything outside the replaced range as long as no code after 8809 refers to `prevDiv` (see Analytic A below; that's an assumption I can't verify from this snippet alone).
+- Three exits now exist instead of one (S4-abort return, S3-rollback return, fallthrough return), but only the last is "the terminal return" in the sense of being what 8809's untouched closing brace sits after — that lines up.
+- No unreachable code: each `if` either returns internally or falls through; the final three lines (`PrintFormat` → `g_state = ST_S4_ARMED` → `LogState` → `return`) are reachable only when neither branch matched, which is correct fallthrough semantics for "unexpected origin."
+
+**Analytic ask A — defects/gaps on the page:**
+
+1. **Unverifiable scope-safety assumption.** The whole "no duplicate decl" claim depends on `prevDiv` not being read anywhere after old-8809 in the enclosing scope. That's not provable from this excerpt — it's provable only by scanning past 8809, which is declared "untouched" but not shown far enough to confirm no later reference. Flagging as an assumption, not a defect I can prove exists.
+2. **Asymmetric logging across branches.** The S4-abort path (`GoAbort(ABORT_DIV_FALLBACK, g_state)` → return) does not call `LogState`, while the S3 path and the fallthrough path both do. If `GoAbort` doesn't internally call `LogState`/`LogAbort` with equivalent bookkeeping, the state-transition log stream now has an asymmetry it didn't have before (old code called `LogState` on every exit from this block). E3's comment claims "LogAbort unconditional," which implies `GoAbort` handles it internally — but that's asserted in a comment, not shown in code on this page.
+3. **Fallthrough branch changes observable behavior for a case the old code didn't special-case.** Old code: any `g_confirmFromState` other than `ST_S3_ZONE_WAIT` silently mapped to `ST_S4_ARMED` via the ternary — no print, no "unexpected origin" framing. New code: same origins other than S3/S4 now emit a `PrintFormat` diagnostic tagged `EVICT_UNEXPECTED_ORIGIN` before doing the same state assignment. This is a behavior addition (a new log line on a previously silent path), not a pure refactor — worth confirming it's intended and not just a byproduct of restructuring the ternary into if/else form.
+4. **`LogState(ST_S5_GATE_CHECK, ST_S4_ARMED)` uses a literal `ST_S5_GATE_CHECK` as "from" state rather than a captured `prevDiv`/`g_state` snapshot** the way the other two branches do (`LogState(prevDiv, g_state)`). If the caller can reach this line from a state other than `ST_S5_GATE_CHECK`, the log will misreport the actual prior state. Given the function is `EvaluateClosedBar`'s S5 block, this may always be true by construction — but it's a hardcoded assumption where the other two branches instead read the live variable.
+
+**Analytic ask B — alternative mechanism:**
+
+None that changes the stated goal more cleanly than what's proposed. One structural option worth naming: capture `ENUM_SRJ_STATE prevState = g_state;` once at the top of the whole replacement block (as the old code did) rather than only inside the S3 branch, and pass `prevState` into the fallthrough's `LogState` call too (replacing the hardcoded `ST_S5_GATE_CHECK`) — this would remove defect 4 without adding lines, since the S4 branch doesn't need `prevState` for `LogState` (it doesn't call it) but the fallthrough branch would then log its true origin instead of an assumed one. Touches: 8801-area new decl line + the `LogState(ST_S5_GATE_CHECK, ST_S4_ARMED)` line in the proposed E2 block only.
+
+## V255-EVICT END SONNET (verbatim close, nothing appended)

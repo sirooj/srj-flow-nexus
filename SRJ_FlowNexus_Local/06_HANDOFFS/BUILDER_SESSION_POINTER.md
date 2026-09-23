@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, V255 GREEN)
+## State (2026-09-24, CLEAR-TO-BUILD)
 
-- Packet v5 + relay v255 battery-green
-  (range 8801-8808, narrow round).
-  Ledger 679. Committing, then signal.
+- v255 ruled 4/4 YES (range fix).
+  Ledger 680. Key memo ships now:
+  Opus key + YOUR run word owed.
 
 ## Next (artifact owed)
 
-- Owed: YOUR carry of v255 to Opus,
-  GLM, Kimi, Sonnet (same text all).
-  Paste verdicts back whole.
+- Owed: YOUR Opus key reply (whole)
+  + run word. Then I build, run,
+  grade, report - unattended.
 
 ## Resume order (exact)
 

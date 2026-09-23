@@ -10,7 +10,7 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON55-VNEXT-V1.md (takes 5 with fills; baseline for RECON56 grading).
 - Packet: 01_TASKS\PACKET_P-EVICT-1.md (v5 427AAA0F/12138/107: V254-fold range 8801-8808 + wording; E1 +1, E2 net +12, E3 rewritten; 11330).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v255-EVICT-5.md (4D9E3BDC/6449/87: Q1 narrow on range; before-state diff 0; twin clean; v254 labeled prior).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v255-EVICT-5.md (4D9E3BDC/6449/87: Q1 narrow on range, RULED 4/4 YES 2026-09-24 - clear to build on Opus key + run word).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
 - Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
 - Prior packet: 01_TASKS\PACKET_P-DEMOGUARD-2.md (v2 302023B3/9710 BUILT tree 98F6BBAC; guard arc closed RECON57).

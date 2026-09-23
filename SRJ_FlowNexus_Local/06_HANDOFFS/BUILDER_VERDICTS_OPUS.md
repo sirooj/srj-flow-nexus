@@ -294,3 +294,62 @@ Plus one integration blocker independent of all of the above: the packet gives n
 Worth stating plainly, since most of the above is negative: one evidence chain on this page is clean and self-contained. EM shows `S5_GATE_CHECK->S4_ARMED` on Yearly-POC LONG at 09.01 16:55, GL confirms `heldState=S4_ARMED` on the same POI at 16:55, and FP still shows `heldPoi=Yearly-POC heldDir=LONG heldState=S4_ARMED` forty minutes later at 17:35:01, suppressing Monthly-VWAP with `opp=0 higher=0`. That is the squatter, observed persisting after a refusal and observed blocking a later setup, entirely within one run and without reference to disk. The mechanism the packet describes is real. What is not yet established on the page is that the proposed edit compiles, that the abort frees what it claims to free, and that the origin stamp it tests is reliably present and reliably fresh.
 
 ## V254-EVICT END OPUS (verbatim close, nothing appended)
+
+## V255-EVICT OPEN OPUS (his carry, Opus channel, relay v255, filed whole)
+
+## Q1 verdict
+
+**Yes on the range — the fix is correct and complete. Discrepancy on packaging: E3 has no stated insertion point, and the fold's claimed reword is not in the code.**
+
+Range check, which this page lets me do cross-version without disk access: the before-state block quoted as 8801-8808 is eight lines and is character-identical to the corresponding slice of the 8792-8809 window carried in v254, including the anomalous 10-space indent on 8801 and the ternary's two-line break at 8805-8806. Counting from `if(!divOk)` at 8792 puts `ENUM_SRJ_STATE prevDiv` at 8801 and `return;` at 8808. So:
+
+- Old declaration (8801) absorbed. No duplicate decl — the after-shape's only `prevDiv` is scoped inside the S3 branch.
+- Old `return;` (8808) absorbed. The v254 unreachable-code defect is gone.
+- Old ternary (8805-8806) and its 3-line comment (8802-8804) gone whole.
+- 8809 `}` survives, closing `if(!divOk)` at 8792. Brace count balances on the page.
+
+Two packaging defects, both fixable in relay text with no code change:
+
+1. **E3's anchor is unnamed.** E2 is declared to replace 8801-8808 and to leave 8792-8800 and 8809 untouched. E3's five comment lines therefore have nowhere stated to land. Intent is obviously "immediately above E2's block," but that is an insertion at 8801, which collides with E2's replace territory and makes both the splice and the post-write line count ambiguous. In v4 this was one contiguous edit and the question did not arise.
+2. **"Reword accepted over merge" is not visible.** The fold says GLM's alternative was taken and "fold text matches code," but the one-liner in E2 and all five E3 lines are byte-identical to v4. Either the reword applied to the fold paragraph rather than the source comment, or it was dropped in the amend. As filed, the claim has no referent in the code.
+
+One wording correction on the question itself: "after-shape terminal return the only return" is wrong as stated — the after-shape has **three** `return;` statements (new-block lines 5, 12, 20), one per path. What is singular is the terminal return at line 20. If S1's assert is written literally against "the only return," it will not match the block it is asserting about.
+
+Scope note on "clear to build": the range and splice are clear on this page. The disposition's clearance is not re-established here — GoAbort, LogAbort, the stamp windows, the mark call sites, and the run rows are all by-reference this round. `GoAbort(ABORT_DIV_FALLBACK, g_state)` cannot be arity-checked from this page, and nothing here shows the `ABORT_` constant set. That is consistent with the fold's "no re-review asked," but the yes above is a yes on the amend, riding v254's fences.
+
+---
+
+## A. Defects, gaps, imprecisions
+
+**This round's page**
+
+1. **E3 anchor unstated** (above). The packet's own discipline is exact ranges; this is the one edit without one.
+2. **Header omits E3.** "File / function / lines" names "E1 defines + E2 EvaluateClosedBar S5 block," then the body ships E3. Same mismatch in the run-cost line, which prices "define + disposition + comment" — so the comment is in scope, just missing from the header.
+3. **E3 commits an inaccurate comment into the source.** Line 4 reads "A6REFUSED and STAND-DOWN gated (debug/armed)." Per v254's carried GoAbort body, A6REFUSED is behind `InpDebugLog` (6298) but STAND-DOWN is behind `InpAlertStandDown && g_alertedArmed && !g_alertedSignal` (6308) — no debug gate. The compound phrasing implies both are debug-conditional. This was V254 item 10, is not in the fold's ridden-nits list, and E3 was re-shipped "twin-checked" unchanged, so the wrong description lands permanently in the file.
+4. **Post-write line count still unstated** (V254 item 3, unfolded and unnamed). E2 is 20 lines replacing 8 (+12), E3 is 5 (+5), E1 is 1 (+1): **11317 → 11335**, or 11336 if the trailing blank in the F1 block is part of the add. Note the number moved from my v254 figure precisely because the range grew by one line — which is why S1 should commit to one value against the 11317 / 622155 B baseline.
+5. **F1's insertion line and trailing blank still unspecified** (V254 item 2, unfolded and unnamed). "F1:1 context already at EA 319" implies 320 but never says it, and the blank line's status decides item 4's ±1.
+6. **No on-page evidence that `ABORT_DIV_FALLBACK` is undefined today** (V254 item 4). Weaker than last round: v254 at least showed `ABORT_NO_REGIME` and `ABORT_LTF_MISALIGN` in use at 6307/6317. A duplicate `#define` warns and silently takes the later value.
+7. **The S5 enclosing guard has never appeared on any page in this line** (V254 item 5, carried open, not named as parked). The hardcoded `LogState(ST_S5_GATE_CHECK, ST_S4_ARMED)` at new-block line 19, the acceptance string's `state=S5_GATE_CHECK`, and the premise that `prevDiv` can only be S5_GATE_CHECK all rest on it.
+8. **LogState's body is still uncarried and still unlisted** (V254 item 14). Half the acceptance criterion (`STATE S5_GATE_CHECK->ABORT`) is therefore unverified on-page in any version of this packet. The LogAbort half is solid.
+9. **The fold's ridden-nits enumeration is incomplete.** It names one-liner, KL/pair wording, A6 class, shadow/counter, warmup, enum, B1-widening. Unaccounted for from V254: items 2, 3, 4, 5, 10, 14, 15, 16, 24, 25, and B-items 2, 5, 6. Against the standing "rounds end in amend or clear, never silent drift," a partial enumeration is how items go quiet — each should be folded, parked with a reason, or rejected with a reason.
+10. **E3 indent still off by 2** (V254 item 24). E3 sits at 7 spaces; E2's one-liner and all statements sit at 9, matching disk 8794/8800.
+11. **`prevDiv`/hardcode asymmetry retained** (V254 item 25, B-2 neither taken nor refused). The branch written on the premise "origin is not what we expect" is the one that hardcodes its from-state.
+12. **"Retry converted 0 of 4 distinct refusals (57/58)" is being frozen into source.** Accurate as a retry-conversion statement, but adjacent to the eviction's description it invites reading all four as in-scope for the new branch. Per v254's rows, exactly one of the four (2026.09.01 16:55, Yearly-POC) has on-page S4-origin evidence via the preceding `S3_ZONE_WAIT->S4_ARMED` promotion; the other three carry no origin marker, so they may abort or merely census. A source comment should not carry a number whose scope is ambiguous without the run-row context that is not in the file.
+13. **Filed v254 relay carries a bad cite.** Its fold text says "8743 S4"; in the carried 8741-8747 window 8743 is `ENUM_SRJ_STATE prev = g_state;` and the stamp `g_confirmFromState = prev;` is 8744. Same relay also calls it "the 8741 stamp." Not on this page, but it is now the referenced fence for the stamp proof.
+14. **Packet arithmetic is checkable and slightly odd.** 11896 B → 12138 B (+242) with line count unchanged at 107. Only consistent if every edit was intra-line, which a fold rewrite plus a range change can be — flagging it as the kind of pair the operator can confirm on disk, not as an on-page defect.
+15. **EA digest unchanged from v254** (`b01cba64…` / 622155 B / 11317), consistent with "superseded unbuilt." Noted as passing, not as a gap.
+
+---
+
+## B. Better mechanisms
+
+1. **Merge E2 and E3 into one edit.** State: "replace 8801-8808 with the following 25 lines," E3's five first at 9-space indent, then E2's twenty. Removes defects 1, 2, and 10 in a single stroke, makes the net delta unambiguous (+17 code), and restores the v4 property that the comment and the branch cannot be spliced apart. Touches only the packet's range statement and E3's leading whitespace.
+2. **Fix the gating sentence in E3.** Replace line 4 with two clauses: `//--- A6REFUSED is debug-gated; STAND-DOWN fires on this path when armed` . Corrects defect 3 at zero code risk. Separately, decide whether the STAND-DOWN alert on every eviction is wanted — if not, add `reason != ABORT_DIV_FALLBACK` at 6308.
+3. **Re-carry two lines whenever Q1 says "clear to build."** GoAbort's signature (6295) plus one `ABORT_` constant use (6307) gives back on-page arity checking and a partial duplicate-define check for one line of relay length. A page that asks for a build clearance should carry the minimum that makes the call site checkable.
+4. **Drop the hardcoded transition pair** (restating v254 B-2, unfolded): `ENUM_SRJ_STATE prevU = g_state; g_state = ST_S4_ARMED; LogState(prevU, ST_S4_ARMED);`. Same window, same one-statement-per-line rule, and it removes the last dependence on the uncarried S5 guard (defect 7).
+5. **Anchor acceptance on LogAbort alone** (restating v254 B-4): key on `ABORT reason=DIV_FALLBACK state=S5_GATE_CHECK poi=<X> dir=<Y>` from 1723-1728 — unconditional and pre-`ResetSequence` — and match `poi=` against the SUPPRESSED row's `heldPoi=`. Makes the run's pass/fail independent of defect 8. Relay text only.
+6. **Add `origin=%s` to `CONFIRM_DIV_WAIT`** (restating v254 B-6, unfolded and unnamed): inside the existing `InpDebugLog` gate at 8794-8798, so no new unconditional output. One debug run then classifies all six historical rollback rows as S4-origin vs unknown and turns defect 12's estimate into a count. This reopens "8792-8800 untouched," which is the operator's call — but it is still the highest-value single line available, and it should at least be parked with a reason rather than dropped silently.
+
+No ruling here builds, runs, or clears anything; live activation remains untouched and unaddressed by this packet.
+
+## V255-EVICT END OPUS (verbatim close, nothing appended)

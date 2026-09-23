@@ -3131,3 +3131,76 @@ No better core mechanism offered deliberately: abort-on-positive-S4 is the minim
 **Seat notes:** page-only ruling; no disk claims made or answerable from chat; no keys needed or requested; nothing here builds, runs, or clears - the PD fill row is pre-labeled simulated tester fill, consistent with the probe/print-only brief. Standing seat-split honored: analysis and verdict on the page, nothing unanswerable asked, nothing refused.
 
 ## V254-EVICT END GLM (verbatim close, nothing appended)
+
+## V255-EVICT OPEN GLM (his carry, GLM channel, relay v255, filed whole)
+
+## Q1 — verdict: **yes** — clear to build
+
+Basis, page only, line arithmetic:
+
+- The verbatim before-state is exactly 8 lines and matches the claimed span: **8801** = old `prevDiv` declaration, **8802–8804** = old comment, **8805–8806** = old ternary, **8807** = `LogState`, **8808** = old `return;`. Range **8801–8808** therefore absorbs declaration, ternary, and return together — no fragment of the old block can survive.
+- The after-shape is **20 lines** and brace-neutral (`{` at AS-3/AS-8 closed at AS-6/AS-13; net zero), so the untouched close at **8809** still balances.
+- Terminal structure: exactly **one return in terminal position** (AS-20), immediately followed by the untouched 8809 close. The returns at AS-5 and AS-12 are guarded exits inside the two if-bodies, not terminal statements. No unreachable remnant, no duplicate `prevDiv` (the fresh decl at AS-9 is scope-confined to the S3 body), old ternary gone whole.
+- Semantics check: S3 path (AS-9..12) is identical to the old ternary's S3 outcome (capture, set S3, log, return — old 8801/8805/8807/8808). Fallthrough (AS-14..20) reproduces the old else outcome (state → `ST_S4_ARMED`, log, return) plus an additive diagnostic. The S4 guard (AS-2..6) is the intended disposition change, covered by the standing v254 fences (GoAbort/LogAbort/call-sites by reference).
+- E1 adds exactly one line (F1:2 `ABORT_DIV_FALLBACK`) — the only new identifier E2 references. F1:1 is context, not added.
+- Guardrail scan: no trade, order, or money call in any proposed line — E1 is a string constant, E2 is state + journal + the fenced GoAbort, E3 is comment. Alert-only posture preserved; nothing here touches live activation.
+
+## Analytic ask A
+
+All items below are **non-blocking**; none re-opens the disposition.
+
+**A1 (wording):** "single terminal return" (fold) / "terminal return the only return" (Q1) vs. three returns in the after-shape (AS-5, AS-12, AS-20). Under the term-of-art reading — exactly one return at terminal position, nothing between it and the 8809 close — the assert is true of the proposed code, and that reading matches the defect it guards (a surviving old 8808 return would be a second, unreachable return after the terminal one). Recommend the fold be read (or one word amended) as "unique terminal return; two guarded early returns intended," so a mechanical return-count self-check doesn't false-halt. This did not move the verdict because the assert's purpose is unambiguous from the fold's own defect list.
+
+**A2 (edit-ordering hazard):** every line anchor on the page (319; 8792–8800; 8801–8808; 8809) is indexed to the digest snapshot b01cba…/11317 lines. If E1 (+1 line at ~319) is applied before E2, the old block shifts to 8802–8809, and a then-literal "replace 8801–8808" cuts one line short — leaving the old return (then at 8809) alive and re-creating the exact defect this fix removes. Remedy is half-present already: the verbatim 8-line before-state is given — splice by exact content match, or pin one sentence: "all EA line numbers reference the digest snapshot; if E1 lands first, E2's range is 8802–8809 on the shifted file."
+
+**A3 (post-build addresses):** with net +12 (E2: 20 vs 8), +1 (E1), +5 (E3, if its five lines are net-new), expected post-build size is **11335 lines**, and the close that sits at 8809 pre-build sits at **8809 + (net lines inserted above it)** — 8827 if all three inserts land above. S1's post-build check should assert "the line immediately after the terminal return is the enclosing close," not "line 8809 is `}`," or it fails on a correct build. Also: "add ONLY F1:2" is one line — the snippet's trailing blank is separator, not payload.
+
+**A4 (log provenance):** the fallthrough logs a hardcoded from-state (AS-19: `LogState(ST_S5_GATE_CHECK, ST_S4_ARMED)`) whereas old 8801+8807 logged the actual prior `g_state` for both ternary outcomes. If the S5-block invariant `g_state == ST_S5_GATE_CHECK` holds at this point, the hardcode is exact; if it can differ on some origin, the journal misreports the from-state (the transition itself is identical to the old else-branch either way).
+
+**A5 (anchor completeness):** E2 is pinned (8801–8808; 8792–8800 and 8809 untouched) and E1 is pinned (context at EA 319), but E3's insertion anchor is inherited from v4/v5 by reference rather than restated. Rides per the standing fold (unchanged v4→v5, twin-checked, disposition not re-reviewed); the build log should record the anchor used so the post-build diff reconstructs from the page alone.
+
+**A6 (absorbed comment):** old 8802–8804 (the [P-CONFIRM-ANYSTATE E3] comment explaining rollback-to-promotion-origin) is absorbed and not re-stated locally; AS-1 documents the new S4 behavior and E3 lines 2–3 carry the S3-rollback/other-origins summary. Knowledge preserved across AS-1 + E3; noted so the P-CONFIRM-ANYSTATE paper trail isn't assumed to still live at the block.
+
+**A7 (byte-exact match):** old 8801 carries 10 leading spaces vs 9 on 8802–8808. Moot after absorption, but the content-match remedy in A2 must be on the exact bytes shown, extra space included.
+
+**A8 (scope bound, by reference):** the S4 guard (AS-2) tests origin only, with no refusal flag; whether every S4-origin arrival at this point is a "refused" holder is a property of the enclosing flow above 8801, not shown here. That placement is the v254 disposition, ruled sound and standing — flagged only to bound this ruling to the page.
+
+## Analytic ask B
+
+**B1 (better mechanism if S1 is enforced mechanically):** restructure the after-shape as if / else-if / else with one unconditional terminal return — same replace range (8801–8808), same 8809 close, identical behavior (nothing executes between the chain and the return; the GoAbort path falls through to the shared return, so even a strict "return immediately after GoAbort" contract is satisfied vacuously):
+
+```
+         //--- [P-EVICT-1] refused S4 holders abort (squatter GC, positive test).
+         if(g_confirmFromState == ST_S4_ARMED)
+           {
+            GoAbort(ABORT_DIV_FALLBACK, g_state);
+           }
+         else if(g_confirmFromState == ST_S3_ZONE_WAIT)
+           {
+            ENUM_SRJ_STATE prevDiv = g_state;
+            g_state = ST_S3_ZONE_WAIT;
+            LogState(prevDiv, g_state);
+           }
+         else
+           {
+            PrintFormat("[SRJ-EA] EVICT_UNEXPECTED_ORIGIN bar=%s origin=%s",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                     TIME_DATE|TIME_MINUTES),
+                        StateName(g_confirmFromState));
+            g_state = ST_S4_ARMED;
+            LogState(ST_S5_GATE_CHECK, ST_S4_ARMED);
+           }
+         return;
+```
+
+This makes "single terminal return" literally true under every reading and deletes A1 at zero behavioral cost. Trade-off: it diverges from the twin-checked v4/v5 E2 text (needs a fresh twin-check; net +10 vs +12, shifting A3's arithmetic by −2). Adopt only if the mechanical-gate form is wanted; otherwise the current shape plus the A1 reading note suffices.
+
+**B2 (optional fidelity tweak):** hoist the `prevDiv` capture to the top of the replaced block and use it in the fallthrough log (AS-19 → `LogState(prevDiv, ST_S4_ARMED)`), restoring the old code's actual-prior-state provenance (old 8801/8807). Cosmetic if the A4 invariant holds; touches only the same range.
+
+**B3 (build recipe, not code):** perform the splice by byte-exact match of the 8-line before-state (A7) rather than re-numbered lines — the robust form of A2; no code change.
+
+## Close
+
+Nothing else asked; no files requested; no keys touched. Nothing in this ruling builds, runs, or moves money — the yes above only clears the builder to proceed under the standing envelope, and live activation remains behind its separate relay and the operator's explicit word.
+
+## V255-EVICT END GLM (verbatim close, nothing appended)
