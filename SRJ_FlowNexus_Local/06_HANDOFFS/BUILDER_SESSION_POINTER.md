@@ -3,16 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, LUNA REVIVED)
+## State (2026-09-24, V256 GREEN)
 
-- Luna sole key seat again. Ledger 684.
-  Now: builder drafts v6 + v256 next,
-  unattended. Key ask after clear.
+- Packet v6 + relay v256 battery-green
+  (packaging round). Ledger 685.
+  Committing, then signal.
 
 ## Next (artifact owed)
 
-- Owed: builder v6/v256 battery-green.
-  Then Luna key memo + YOUR run word.
+- Owed: YOUR carry of v256 to Opus,
+  GLM, Kimi, Sonnet (same text all).
+  Paste verdicts back whole.
 
 ## Resume order (exact)
 

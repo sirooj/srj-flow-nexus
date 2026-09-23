@@ -1,6 +1,6 @@
-# PACKET_P-EVICT-1 v5 DRAFT - evict S5-refused S4-ARMED holders (range fix only vs v4; nothing builds/runs/commits on this file)
+# PACKET_P-EVICT-1 v6 DRAFT - evict S5-refused S4-ARMED holders (packaging fixes only vs v5; nothing builds/runs/commits on this file)
 
-Status: v5 DRAFT (amends v4 32D4768E per V254 round, 1 YES / 3 discrepancy: range 8801-8808 absorbs old return + old decl; one-liner kept as branch marker per GLM alternative; KL/pair wording fixed; single-return asserted). Disposition UNCHANGED from v4 (Kimi-YES + GLM-contingent + Opus/Sonnet logic-sound stand). Clearance via a clearance relay plus his run word, all owed.
+Status: v6 DRAFT (amends v5 427AAA0F per key-refusal round: E3 anchor explicit in-place + gating split + honest tally 3-YES + 1 packaging-disc; disposition + range + budget UNCHANGED). Clearance via a clearance relay plus his run word, all owed.
 Canonical files: exactly ONE - Experts\SRJ_FlowNexus_EA.mq5 (E1: new ABORT code define, 1 line added; E2: 8-line fallback block replaced by 20-line three-way, net +12; E3: 5-line comment rewritten in place, net +0).
 No new indicator buffers. Nothing under 02_TASK_CHECKPOINTS. Commits are builder-called (AGENTS 6.5); no council commit token exists or is asked.
 Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squatter-veto miss); this packet frees the session slot so the valid seed takes.
@@ -10,7 +10,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
 - His one-take-per-session rule (spec L283/L291 + his 2026-09-23 restatement, strategy skill section 5): one valid setup executed per pair per session; floating London plus valid NY both taken even if they contradict; arrival order governs across time (Q3: first executes, later higher does not).
 - His NO new-timing-rules boundary (scope-origin): eviction keys on the gate verdict, never on a bar count. No new constants, no thresholds.
 - His E3 detection ruling (robust newest-first divergence walk) is untouched - only the retry disposition changes, which was builder design ("may present later"), never his words.
-- Stamp census (code, closes V252 D1/GLM-A1/Astra-A1 + V253 Kimi-B1 question): g_confirmFromState writes are declaration-init IDLE (1010), resets to IDLE (6289/7559/7610), pre-bind stamp of prev (8607, window 8600-8610 carried - prev may be S1/S2/S3 there), and armed-edge stamp of prev UNDER the S4 guard (8629 + 8743-8744, enclosure 8629-8749 verified by continuous builder reads 8624-8633 + 8636-8749 with the 8634-8635 hole pulled: decl + comment only, no close). Hence S4 promotions stamp ST_S4_ARMED exactly; no stamp edit needed.
+- Stamp census (code, closes Kimi-D1/GLM-A1 + V253 Kimi-B1 question): g_confirmFromState writes are declaration-init IDLE (1010), resets to IDLE (6289/7559/7610), pre-bind stamp of prev (8607, window 8600-8610 carried - prev may be S1/S2/S3 there), and armed-edge stamp of prev UNDER the S4 guard (8629 + 8743-8744, enclosure 8629-8749 verified by continuous builder reads 8624-8633 + 8636-8749 with the 8634-8635 hole pulled: decl + comment only, no close). Hence S4 promotions stamp ST_S4_ARMED exactly; no stamp edit needed.
 - GoAbort contract (code EA 6295-6329, re-carried in relay): LogAbort(reason, atState) unconditional + A6REFUSED gated (InpDebugLog and dir live) + STAND-DOWN gated (armed, unsignaled) + ST_ABORT + ResetSequence() which clears state/dir/regime/anchor/sessionAtEntry/zone/touch/latches AND g_confirmFromState while session-use marks persist (marks live outside ResetSequence: 1812-1817, written ONLY at 10147/10240, both ST_SIGNAL paths carried - an abort frees the slot WITHOUT consuming the session). GoAbort returns void, so the caller keeps its returns.
 - LogState body (code EA 1715-1722, carried): InpDebugLog-gated, prints `STATE %s->%s` with unprefixed StateName (ST_ABORT maps "ABORT" at 1686). Post-build abort rows therefore read `ABORT reason=DIV_FALLBACK state=S5_GATE_CHECK` (LogAbort, unconditional) plus `STATE S5_GATE_CHECK->ABORT` (LogState via GoAbort, debug runs) - acceptance patterns written from disk, never assumed (GLM-D2/Kimi-A2 closed).
 - S1 session gating (code 6633 + 7711-7712, carried): seeding requires inWindow = sess != SESSION_NONE (London/NYAM windows only) - NONE-session candidates cannot seed; one-take-per-session enforced by marks at the take.
@@ -42,7 +42,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
   `#define ABORT_DIV_FALLBACK     "DIV_FALLBACK"`
   ``
   (F1:1 context already present - add ONLY F1:2. Blank L320 preserved.)
-- E3 disposition comment refresh (EA L8787-8791, 5 lines rewritten in place, net +0):
+- E3 disposition comment refresh (EA L8787-8791 rewritten IN PLACE, same lines, net +0; E2's replace starts at 8801, no overlap, no move):
   old L8787-8791:
   `       //--- [P-CONFIRM-GATE E3] one-bar validity, the divergence miss: the`
   `       //--- confirmation is CONSUMED and the candidate RETURNS TO S4_ARMED`
@@ -53,8 +53,8 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
   `       //--- [P-EVICT-1] divergence-miss disposition: refused S4-origin holders`
   `       //--- ABORT (DIV_FALLBACK); S3 pre-bind rollback kept; other origins keep`
   `       //--- today's behavior with unconditional census. LogAbort unconditional;`
-  `       //--- A6REFUSED and STAND-DOWN gated (debug/armed); DIV_WAIT emit above`
-  `       //--- stays the marker. Retry converted 0 of 4 distinct refusals (57/58).`
+  `       //--- A6REFUSED debug-gated; STAND-DOWN fires when armed (wanted, alert-only).`
+  `       //--- Retry converted 0 of 4 distinct refusals (57/58); DIV_WAIT stays marker.`
 - E2 S5 fallback becomes positive-S4 three-way (EA S5 block L8801-8808, 8 lines become 20, net +12):
   old L8801-8808:
   `         ENUM_SRJ_STATE prevDiv = g_state;`
@@ -86,7 +86,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
   `         g_state = ST_S4_ARMED;`
   `         LogState(ST_S5_GATE_CHECK, ST_S4_ARMED);`
   `         return;`
-  (DIV_WAIT print + SrjOrderEmit census above stay - path marker; single comment block; one statement per line; prevDiv scoped to rollback branch; retained returns structural)
+  (DIV_WAIT print + SrjOrderEmit census above stay - path marker; one disposition block + one branch marker per GLM alternative; one statement per line; prevDiv scoped to rollback branch; retained returns structural)
 
 ## Stages (T161N discipline; RECON58 precedent)
 
