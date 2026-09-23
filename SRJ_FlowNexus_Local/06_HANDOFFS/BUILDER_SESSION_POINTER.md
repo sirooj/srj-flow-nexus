@@ -10,7 +10,9 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
   Result 1F2D44F4 + tabulation filed.
   Ledger 668-669. Result committed 9d13b4e.
   Selection NOT cleared. Extra defects
-  filed (finding 750282D9).
+  filed (finding 750282D9). His three
+  defects mapped (ledger 670); session
+  rule banked (strategy-5, spec-anchored).
 
 ## Next (artifact owed)
 
