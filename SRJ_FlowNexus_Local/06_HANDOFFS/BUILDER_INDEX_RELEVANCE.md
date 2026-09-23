@@ -12,7 +12,7 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
 - Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
 - Prior packet: 01_TASKS\PACKET_P-DEMOGUARD-2.md (v2 302023B3/9710 BUILT tree 98F6BBAC; guard arc closed RECON57).
-- Findings: 06_HANDOFFS\BUILDER_FINDING_SWEPT-ABSORPTION.md (absorption proof); 06_HANDOFFS\BUILDER_FINDING_BOOKING-GATE-VALIDSET.md (valid-set proof, 8/28 New York corrected); 06_HANDOFFS\BUILDER_FINDING_EXIT-BREAK-RETEST.md (exit rule).
+- Findings: 06_HANDOFFS\BUILDER_FINDING_SWEPT-ABSORPTION.md (absorption proof); 06_HANDOFFS\BUILDER_FINDING_BOOKING-GATE-VALIDSET.md (valid-set proof, 8/28 New York corrected); 06_HANDOFFS\BUILDER_FINDING_EXIT-BREAK-RETEST.md (exit rule); 06_HANDOFFS\BUILDER_FINDING_RECON58-EXTRA-DEFECTS.md (750282D9/71: D1 squatter closed, D2 close-executor confirmed pre-existing, D3 8/28-accounting open, D4 booking non-defect, O1/O2 bounded).
 - Strategy of record: 00_CURRENT_WORKING\SRJ Flow Nexus - Part A Specification v4.2 (section 3.7 gate + validity) + GOAL_STATEMENT.md + CHARTER.md.
 - His journal: 00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv (rows 257/277/279/281/283/285-289 window set; economics often blank/0.00 - blank means unrecorded, never absent).
 - Skills: srj-goal (scoreboard) + srj-strategy (settled pins incl D1-V7) + srj-council (pre-transport battery).
