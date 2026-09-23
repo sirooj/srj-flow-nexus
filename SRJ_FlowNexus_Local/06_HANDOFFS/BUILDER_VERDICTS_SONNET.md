@@ -1560,3 +1560,38 @@ Touches only the same E2 dispatch block (the `if/GoAbort` lines under the S5 com
 I can't verify anything beyond what's on the page (per the split you noted) — in particular, `GoAbort`'s actual behavior and the missing `ABORT_DIV_FALLBACK` define are the two items that keep Q2 at "discrepancy" rather than a clean yes.
 
 ## V252-EVICT END SONNET (verbatim close, nothing appended)
+
+## V253-EVICT OPEN SONNET (his carry, Sonnet channel, relay v253, filed whole)
+
+**Q1 verdict: discrepancy.**
+
+The state-machine logic shown on the page (EA before-state 8792–8809 replaced by the new E2/E3 block) is internally consistent — but the central claims in the fold ("slot freed," "session marks unconsumed," "LogAbort unconditional") are not actually verifiable from what's on this page.
+
+**Why discrepancy, not yes:**
+
+1. **GoAbort is not on the page.** The new S4 branch is a single call — `GoAbort(ABORT_DIV_FALLBACK, g_state); return;` — and every load-bearing claim (slot freed, session marks left unconsumed, LogAbort called unconditionally inside it) is a property of GoAbort's *body*, which this packet carries only "by labeled reference" (GoAbort 6295–6329, from the prior relay, not reproduced here). Your own standing rule is "rules on the page only" — this ruling can't be closed on a function whose implementation isn't in the packet. Q1 as posed assumes GoAbort's effects; that assumption isn't checkable this round.
+
+2. **"Census, fail closed, counted" for unknown origins doesn't match the code shown.** The third branch (unexpected/pre-bind origin) only prints `EVICT_UNEXPECTED_ORIGIN` when `InpDebugLog` is true. If debug logging is off in a live/funded run, that branch produces *no log line at all* — not counted, not censused, just silent fallback to `ST_S4_ARMED`. That's a real behavior gap versus the stated "counted" guarantee, and it's a different marker string (`EVICT_UNEXPECTED_ORIGIN`) than the one S1's invariant-assertion gate checks for (`DIV_FALLBACK`), so the S1 census gate (GLM-A15) doesn't actually cover this branch.
+
+3. **"Single comment block" (GLM-A13/Opus-A-9) isn't honored as written.** The proposed insert has a 4-line block comment describing the whole change, immediately followed by a second, separate one-line comment ("refused S4 holders abort...") before the `prevDiv` declaration. That's two comment blocks, with overlapping content, not one.
+
+Everything else checks out on the page: the S3 branch is a straight-line copy of the old ternary's S3 case (no behavior change), variable scope for `prevDiv` is a clean in-place replacement (no redeclare), the `ABORT_DIV_FALLBACK` string matches the `predicate=DIV_FALLBACK` log-shape claim (GLM-A7), and the run-row date/tag math (6 occurrences across 4 distinct dates, CO/EM tag collisions) is internally consistent with the rows shown.
+
+---
+
+**Analytic ask A — defects/gaps, with lines:**
+
+- **E2/E3 new block:** `GoAbort(ABORT_DIV_FALLBACK, g_state)` — behavior (slot free, marks unconsumed, LogAbort unconditionality) unverifiable on this page; GoAbort body absent from packet (only cited 6295-6329 from a superseded relay).
+- **E2/E3 new block, unknown-origin branch:** `EVICT_UNEXPECTED_ORIGIN` print gated behind `InpDebugLog` — contradicts "census print (fail closed, counted)" framing; with debug logging off this path is invisible, not counted.
+- **E2/E3 new block:** two stacked comment blocks (4-line + 1-line) where "single comment block" was the agreed resolution.
+- **Denominator claim** ("0 of 4 distinct refusals... takes flow through S5-pass only") is asserted in prose but nothing in the diff enforces or asserts it in code — it's a claim about historical logs, not an invariant the new code checks.
+- **Census key asymmetry:** S1 only asserts on `DIV_FALLBACK`; the unexpected-origin path has no equivalent assertable key, so "unknowns censused" is aspirational for that branch, not enforced.
+
+**Analytic ask B — better mechanism:**
+
+- Give the unexpected-origin branch its own unconditional, ungated counter/print (a real census key, not `InpDebugLog`-gated), parallel to how `DIV_FALLBACK` is asserted — touches only the `if(InpDebugLog) PrintFormat(...EVICT_UNEXPECTED_ORIGIN...)` line in the new E2/E3 block. That would make "fail closed, counted" true for all three branches, not just the S4 one.
+- If GoAbort's slot-freeing/session-mark behavior is going to be load-bearing for this verdict every round, it should be pulled into the packet verbatim (like `LogAbort` body was, 1723-1729) rather than carried by line reference, so "rules on the page only" can actually close it.
+
+**Review-seat note:** verdict-slot line excused per standing packaging; analysis above stands as review-only.
+
+## V253-EVICT END SONNET (verbatim close, nothing appended)
