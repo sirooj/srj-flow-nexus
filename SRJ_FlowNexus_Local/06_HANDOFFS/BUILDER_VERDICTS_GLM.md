@@ -2846,3 +2846,75 @@ GLM:
 **Close:** Q1 yes = clearance of the one-line delta against the pinned baseline only; the build, token, and run word remain his. Q2 yes = the leg as coded, with the assumptions enumerated; the weekend-fill strategy dispute stays recorded for his ruling. No live activation, no money movement, nothing unanswerable asked or answered.
 
 ## V250-COMBINED END GLM (verbatim close, nothing appended)
+
+## V251-EVICT OPEN GLM (his carry, GLM channel, relay v251, filed whole)
+
+# Review-seat response — P-EVICT-1 v1
+
+Review seat per the standing split: analysis out, review-only, never keys. The verdict-slot line is excused, so what follows are **reads** on Q1/Q2 (page-only, not verdict-slot rulings) plus the two standing analytic asks. Nothing below rules on disk; no files requested.
+
+**Internal consistency check (positive):** the line arithmetic on the page checks out. E1 is exactly 7 lines (315–321); E2 is exactly 54 lines (8756–8809), with `prevDiv` at 8801 and `return;` at 8808 matching Q1's citation of 8801–8808. Row-to-segment attributions (57 vs 58) are explicit. One material inconsistency found — see A1.
+
+---
+
+## Q1 read — **Yes**, with one precision the page itself forces
+
+The fallback re-arm is unbounded by construction:
+
+- **EA 8805–8806**: the refused candidate is written back to `ST_S4_ARMED` (armed-origin path) unconditionally. Nothing in EA 8792–8809 carries an attempt counter, age limit, or expiry. No other line on the page expires a re-armed holder.
+- The restored `S4_ARMED` is exactly the state the suppression reads: **row FP** (58) — `heldPoi=Yearly-POC heldState=S4_ARMED action=HELD` — refuses the 17:30 Monthly-VWAP seed at 17:35:01, a seed that had already been selected and slotted (**row KL**: `site=S2POLL slot=9 ok=1`).
+- Tier-1 immunity removes the one competing exit: **row GL** — `heldTier=1` vs `newTier=4`, `wouldPreempt=0`, `wouldTierPassLegacy=0`.
+- Census: 3 fallback rows per run (58: QF 16:55, GQ 8/31, LF 9/4), zero conversions; and the 57/58 counterfactual — the same 17:30 seed took in 57 (rows EL→QI→RM→PD) and is suppressed in 58 (rows KL/FP). The veto has teeth and costs takes.
+
+Precision: "permanent" here means **no yielding exit exists in the shown code**, demonstrated 16:55→17:35+ in run 58. It is not a state-machine invariant proven to session end, because (a) the unbounded walk (EA 8762–8763) makes the gate re-passable by design — a later matching-direction verdict becomes "latest" and the holder takes; and (b) run 57's own rows show the same tier-1 re-armed holder (**row RJ**, 16:55) no longer holding by 17:35:01 (**row EL**, fresh `S1_REGIME`), with SEEDVOID rows (17:00, 17:05) as the only visible intervening mechanism — and SEEDVOID is defined nowhere in the packet. Detail in A5.
+
+## Q2 read — **Yes on the mechanism; discrepancy on the disposition as written**
+
+Mechanism, page-verifiable:
+
+- The refusal branch (EA 8792–8809) is self-contained. Its only outward effects are the census emit (8800), the state write (8805–8806), and the log (8807). The E3 walk (8768–8786) runs upstream and is untouched by an edit inside `!divOk`. The take path is the sibling continuation past 8809 — also untouched by construction, **provided** the `return;` at 8808 survives (A3).
+- EA 8805–8806 is the exact line that sustains the squat. Kill it and the holder leaves the state SUPPRESSED reads. With the 16:55 refusal (**row QF**) fatal, the 17:30 seed never meets a held holder — the 57 outcome becomes reachable in 58. The disposition targets the demonstrated harm at its actual line.
+
+Discrepancy, blocking as written:
+
+- **Q2 names `GoAbort(ABORT_DIV_FALLBACK, g_state)`; the page's only new define is `ABORT_POI_REPLACED` (EA 319).** `ABORT_DIV_FALLBACK` appears in no shown window. Either E1 adds the wrong define for this packet or Q2 names the wrong identifier. As written, the disposition does not compile against the page. One-line repair, but it must land before the gated build or the one-build envelope is spent discovering it.
+
+What the page cannot verify (not a NO, just not on the page): GoAbort's contract — what state it sets, whether it clears the hold record implied by `heldPoi/heldDir/heldState` in rows FP/GL, whether it returns — and the "Q3 arrival-order" / "session marks" references, neither of which exists on this page (A8).
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions
+
+**A1 (blocking) — identifier mismatch.** EA 319 adds `ABORT_POI_REPLACED "POI_REPLACED"`; Q2's disposition calls `GoAbort(ABORT_DIV_FALLBACK, …)`, defined nowhere shown. Beyond the compile issue, even `ABORT_POI_REPLACED` would mislabel the death: "POI_REPLACED" describes the preemption side; a divergence-refusal death should read "DIV_FALLBACK". Most economical repair: add `#define ABORT_DIV_FALLBACK "DIV_FALLBACK"` beside 319 (if 319 serves another Task 78 step, say so) or correct Q2's identifier.
+
+**A2 — E2 shows the before-state only.** EA 8756–8809 as shown still contains the re-arm; the after-state is nowhere on the page, so Q2 is necessarily conditional. The disposition should pin down, per line: keep 8794–8798 (diagnostic); keep 8800 (census emit — and whether the tag stays truthful, A9); replace 8801–8807; keep 8808.
+
+**A3 — `return;` at 8808 is load-bearing.** It is the only thing keeping a refused candidate out of the take path. If the replacement drops it and GoAbort returns normally, control falls past 8809 into the divOk continuation — which the page does not show, so nothing on the page proves the fall-through safe. The disposition statement must explicitly retain the return (or state that GoAbort does not return).
+
+**A4 — scope: the ternary at 8805–8806 covers two origins.** Replacing 8801–8808 wholesale kills the S3-origin rollback too. The stated harm is armed-path squatting (rows FP/GL: `heldState=S4_ARMED`). If S3_ZONE_WAIT candidates do not hold the session slot, killing their rollback exceeds the stated goal and contradicts the design comments at 8788–8790 and 8802–8804 (fresh confirmation may present later). The packet must either scope the abort to the S4-origin arm or show that S3-origin holders also squat. No S3-origin fallback event appears in the shown rows.
+
+**A5 — "permanent" precision and the 57 wrinkle.** (a) The unbounded walk makes the veto "until the holder passes or is evicted," not absolute — empirically 3-for-3 never-pass in the census, which is the honest support. (b) Run 57 shows the same tier-1 re-armed holder gone by 17:35:01 with only undefined SEEDVOID rows between — so the difference between 58's lasting veto and 57's early exit turns on a build delta (57 vs 58) the packet never states, yet leans on for the harm demonstration. (c) The census sentence "zero later took in either run" sits beside "57 took 9/1 17:35"; the intended scope — zero of the *refused holders* converted — must be stated or the page contradicts itself.
+
+**A6 — walk robustness, both pre-existing (do not bundle).** EA 8776: `continue` on read failure can promote an **older** verdict to "latest," contrary to the quoted ruling at 8758–8761 ("WHICH EVER LAST"); break-on-failure would match the ruling's intent. EA 8772–8773: worst-case full-history scan per S5 entry when the buffer holds no nonzero verdict, and the holder re-enters S5 each attempt, so it repeats. Caching the first-nonzero shift is ruling-compatible; a hard bound is not (it would contradict 8762).
+
+**A7 — unverifiable-on-page semantics.** Verdict domain (8778 `MathRound`), regular/hidden mapping (8781), direction match ±1/±2 (8782–8783) — the CQD contract is not on the page; noted, not ruled. `divKind` (8770, 8781) has no consumer inside the shown window; dead-store vs. take-path-consumed is indistinguishable here because the take path is unshown.
+
+**A8 — Q2's no-touch list references three things not on this page.** "Q3 arrival-order": no Q3 exists in this packet and the header says "no prior ruling" — dangling reference. "Session marks": the hold record implied by rows FP/GL is never shown; if GoAbort sets `g_state` but does not clear/overwrite that record, SUPPRESSED can still fire on stale held data — this is the packet's core claim ("frees the session slot") riding on exactly the code not shown. "Any take path": nothing past 8809. The claim is page-verifiable only as "the edit is confined to 8792–8809," not as an outcome guarantee. Next relay should carry the GoAbort definition and the hold-record window, or narrow Q2's claim.
+
+**A9 — stale self-description after the change.** EA 8787–8791 (says "RETURNS TO S4_ARMED … no abort"), the log tag at 8795 ("CONFIRM_DIV_WAIT"), and the census tag at 8800 ("DIV_WAIT") all misdescribe an abort. Under the project's own anti-drift standard (comments quote rulings verbatim), these must be rewritten in the same edit. Note the tension on 8800: changing the census tag breaks cross-run census comparability with the 3-per-run baseline; keeping it mislabels aborts. Operator's call — but make it explicitly.
+
+**A10 — minor.** E1's inertness claim (317–318, "no gate reads an abort reason") is a whole-file negative across 11,317 lines — not verifiable from a 7-line window; the gated build catches name collision but not semantic reads of the string. Cosmetic: mixed 9/10-space indentation inside the refusal branch (8794–8806) — normalize in the gated build.
+
+## Analytic ask B — better mechanism
+
+**B1 (recommended shape).** Keep the S3-origin rollback; abort only the S4-origin arm. Replace 8801–8807 with: S3-origin → rollback to `ST_S3_ZONE_WAIT` as today; otherwise → `GoAbort(<correctly named define>, g_state)` plus the retained `return;` (8808). Touched lines: 8801–8808 only, plus the A9 refreshes. Page justification: the census (3/run, zero conversions) shows a refused armed holder never converts, so an attempt-bound or grace counter adds working-set state for no demonstrated benefit — instant death at first refusal is the minimal state-free fix, and row QF shows it would have freed the slot two seeds before the harmed one.
+
+**B2 (only if S3-origin squatting is later demonstrated).** Per-candidate refusal counter bumped at 8800, abort at N. Touches the candidate state near 8768, 8800, 8801–8808. Not recommended now: zero S3-origin fallback events appear in the shown rows, so N>1 has no page evidence.
+
+**B3 (separate packet, explicitly not this change).** The A6 items — break-on-read-failure at 8776 and first-nonzero caching for 8772–8786. Both alter detection semantics/performance, not the eviction goal; bundling would break the one-change discipline.
+
+---
+
+**Before the one build:** resolve A1 (identifier), pin A2/A3 (after-shape + retained return), decide A4 (S3 scope), refresh A9 (comment + tags), and either carry the Q3/hold-record text or narrow Q2's claim (A8). With those folded, the disposition is mechanically sound on the page: it strikes the exact write (8805–8806) that sustains the veto, leaves the detection walk and take path untouched, and matches the demonstrated harm. Nothing here builds, runs, or moves money; disk truth stays on your side of the split.
+
+## V251-EVICT END GLM (verbatim close, nothing appended)

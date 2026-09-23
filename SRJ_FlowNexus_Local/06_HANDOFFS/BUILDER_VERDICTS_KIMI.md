@@ -1630,3 +1630,48 @@ Touches: converter (add inverse mapping if absent), gate lines 11248–11255; th
 - Nothing in this answer builds code, runs anything, or touches money. Disk truth stays on his machine; the digests above are claimed, not verified here.
 
 ## V250-COMBINED END KIMI (verbatim close, nothing appended)
+
+## V251-EVICT OPEN KIMI (his carry, Kimi channel, relay v251, filed whole)
+
+**Q1 verdict: YES** — the DIV_WAIT fallback re-arm at EA 8801–8808 creates a de facto permanent same-session veto for a tier-1, preemption-immune holder.
+
+Mechanism, from the page:
+
+1. 8801–8808 rolls the refused candidate back to S4_ARMED (or S3_ZONE_WAIT) instead of releasing it. The holder keeps the session slot. The SUPPRESSED row (`heldPoi=Yearly-POC heldState=S4_ARMED`, cum_n=70) shows the slot occupancy actively vetoing the later Monthly-VWAP candidate.
+2. Preemption cannot evict it: `SIDE1H_WOULDPREEMPT ... heldTier=1 wouldPreempt=0` — a tier-1 held setup is immune to the tier-4 challenger.
+3. The re-arm is a loop, not a retry with fresh odds. The walk at 8768–8786 is deterministic per bar: it always returns the same newest nonzero verdict. Since that verdict mismatched direction once, it mismatches on every subsequent S5 entry, so the setup is refused every time it re-promotes.
+4. Run evidence matches: six `STATE S5_GATE_CHECK->S4_ARMED` rows across both runs on the same sessions (8/27 10:15 Daily-POC; 8/31 16:40 Yearly-POC twice; 9/1 16:55 Yearly-POC twice; 9/4 09:45 Daily-POC), fallback census of 3 per run with **zero later took in either run**. The 57/58 divergence — 57 took the 9/1 17:35 Monthly-VWAP; 58 held it at S2POLL (KL) and suppressed it (FP) — is the veto shown end to end.
+
+One precision: "permanent" means "until session marks change or a newer same-direction CQD verdict prints"; the rows show neither ever rescued a fallback holder, so the veto is de facto permanent, not logically so.
+
+**Q2 verdict: YES** — replacing the rollback with `GoAbort(ABORT_DIV_FALLBACK, g_state)` frees the slot without touching the named surfaces.
+
+- The E3 detection walk (8768–8786) sits entirely above the edit and is untouched.
+- The replacement is confined to the tail 8801–8808 (rollback + LogState + return). No Q3 arrival-order, session-mark, or take-path code exists in this block; the abort routes through the same mechanism as the sibling reasons defined at 315–319 (`ABORT_NO_SL_REF`, `ABORT_NO_TP_TARGET`, `ABORT_POI_REPLACED`), whose purpose is slot release.
+- The gate is upstream of every take: the take rows (QI/RM/PD) flow through S2_LTF_ALIGN → SIGNAL → PRE-SEND, none of which is reachable from the S5 fallback branch.
+- Caveat stated for the record: `GoAbort`'s internals are not on this page; the ruling rests on the edit's line-locality plus the sibling-abort precedent. Nothing in the visible block contradicts it.
+
+---
+
+**Analytic ask A — defects, gaps, imprecisions on the page**
+
+1. **Stale comment after E2 (8787–8790).** "the candidate RETURNS TO S4_ARMED (CONFIRM_DIV_WAIT, no abort)" and "The old async wait RETIRES" become false the moment the re-arm becomes an abort. The comment must be rewritten with the code or the next reader rules against a phantom re-arm.
+2. **Census tag vs. decided outcome (8795–8796).** The comment says "the decided outcome rides the census," but the emit hard-codes `"DIV_WAIT"` while the decided outcome post-E2 is the abort. Either the abort reason should ride the census alongside or instead of DIV_WAIT, or the comment's claim is wrong.
+3. **`g_confirmFromState` never cleared in the block (8801–8802).** It is read to choose the rollback target and left set. Pre-E2 a stale origin could silently route a rollback to the wrong state; post-E2 the same field presumably lingers through teardown and could contaminate the next setup's promotion. The block shows no reset.
+4. **Unbounded walk cost and warmup edge (8772–8773).** `maxWalk = Bars(...) - 1` makes each S5 evaluation O(history), O(n²) cumulative per session. Worse, if the CQD buffer is empty/unready (ReadBuf1 failing at 8776), `divOk` stays false and every candidate refuses. Pre-E2 that was a re-arm loop; post-E2 it becomes an abort storm during history warmup.
+5. **Raised stakes of a single verdict read (8779–8784).** "WHICH EVER LAST" means one mismatched ancient verdict refuses the current structure forever within the session. That determinism is exactly what made Q1's veto permanent — and post-E2 the refusal is terminal. The code is correct per the standing ruling, but the packet should note that the abort makes the unbounded walk's semantics safety-critical rather than merely diagnostic.
+6. **Dead store (8781).** `divKind` is assigned and never read in the block; the diagnostic print at 8793–8794 logs `divVal` only. Either log the kind or drop the variable.
+7. **Page-level gap in E1 (315–321).** The "verbatim, no elisions" block shows the three sibling defines but not the new `ABORT_DIV_FALLBACK` define itself. Trivial, but the digest covers the file, not the paste — worth one line in the next relay confirming the define landed adjacent to its siblings.
+8. **"Permanent" precision (Q1).** As above: the veto ends if a newer same-direction verdict prints. The census (zero later took) supports de facto permanence; wording in the packet should say so explicitly.
+
+**Analytic ask B — better mechanisms for the stated goal**
+
+The abort itself is the right minimal mechanism; no alternative disposition (retry counters, cooldown re-arms) fixes the squatting without reintroducing it. Three refinements, in priority order:
+
+1. **Memoize the walk (touches 8768–8786).** `CQD_BUF_DIVVERDICT` is append-only per bar, so the first nonzero verdict at/left of each shift can be cached once per new closed bar and S5 reads the cache. This preserves the "WHICH EVER LAST" ruling *exactly* while removing the O(history) per-bar cost and the warmup exposure in A4. Do not add an age bound — that would overrule the operator's standing robustness ruling without a new one.
+2. **Census hygiene (touches 8795–8796 plus the GoAbort census path).** Emit `ABORT_DIV_FALLBACK` on the census with the DIV_WAIT marker so the decided outcome and the path to it are both recoverable from the census alone, as the E33 comment intends.
+3. **Readiness guard at S5 entry (touches ~8772, or the S5 promotion gate).** Refuse to enter the gate (not the setup) when `Bars()`/buffer readiness is below a floor, so an unready indicator voids the candidate by a distinct reason instead of masquerading as a divergence miss.
+
+Clear to build on both verdicts as stated.
+
+## V251-EVICT END KIMI (verbatim close, nothing appended)

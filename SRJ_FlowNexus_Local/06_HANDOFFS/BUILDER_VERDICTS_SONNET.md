@@ -1467,3 +1467,44 @@ Caveat, not a defect in the line itself: I can't see the `ENUM_SRJ_REGIME`-style
 - Q2 (audit-only, but the underlying weekend-gap issue has an obvious code-level answer if he ever wants it addressed): rather than letting the ordinary 16:55-ET day mark fire unmodified on Fridays into a weekend-gapped `nextOpenPx`, the leg could special-case Friday using the already-existing `g_news_friMarks`/weekFlat mechanism — e.g. at the gate (11248–11255), check day-of-week on `barTime` and substitute the Friday week-mark (or suppress `vDAY` on Friday in favor of whatever week-close leg exists) so a Friday exit doesn't roll to Monday. That would touch 11248–11255 only, and possibly the mark-selection logic in the loop; not proposed as a change here, just named as the lever if he decides the strategy question in favor of "no overnight ever."
 
 ## V250-COMBINED END SONNET (verbatim close, nothing appended)
+
+## V251-EVICT OPEN SONNET (his carry, Sonnet channel, relay v251, filed whole)
+
+Reviewing strictly against the two code excerpts as given (I'm not treating the packet/council framing as anything other than context — this is a code-logic review).
+
+**Q1 — Does the DIV_WAIT fallback create a same-session veto for a tier-1, preemption-immune holder?**
+
+Yes, with one caveat on "permanent."
+
+- Lines 8801–8808: on `!divOk`, the block does not abort or release the candidate — it sets `g_state` back to `ST_S3_ZONE_WAIT` or `ST_S4_ARMED` and returns. The POI slot stays held.
+- The log rows support the mechanism: `SIDE1H_WOULDPREEMPT ... heldState=S4_ARMED ... heldTier=1 ... wouldPreempt=0` shows a tier-1 held setup blocking a tier-4 candidate from taking the slot. If the tier-1 holder is the one repeatedly failing the divergence check, it re-arms on every bar (line 8805–8808) rather than vacating, so nothing lower-tier can ever preempt it.
+- "Permanent" is accurate *within the session* as shown — nothing in this excerpt gives the re-armed candidate an exit other than eventually passing `divOk` or some external invalidation not shown here (e.g., POI invalidation, session boundary). So: confirmed veto behavior, but "permanent" should be read as "until session end or an out-of-snippet invalidation path," not literally unbounded — I can't rule on that boundary since the relevant code isn't in this excerpt.
+
+**Q2 — Does swapping the re-arm for `GoAbort(ABORT_DIV_FALLBACK, g_state)` free the slot without touching the E3 walk, arrival-order, session marks, or take path?**
+
+Discrepancy — can't fully confirm, one gap blocks it.
+
+- The E3 divergence walk (lines 8770–8786, computing `divOk`/`divVal`/`divKind`) is untouched by the proposed swap; it sits entirely above the `if(!divOk)` block and the fix only touches lines 8801–8808. So *on the page*, the walk, the `SrjOrderEmit` census call, and the debug log line are all preserved as-is. That part is yes.
+- But `GoAbort` itself is referenced, not defined, in this excerpt — I have no visibility into whether it releases the held POI slot, what state it transitions to, or whether it touches anything downstream (arrival-order, session marks, take path). The verdict as asked ("frees the session slot... without touching...") requires knowing `GoAbort`'s body, which isn't on the page.
+- Separately: `ABORT_DIV_FALLBACK` is not among the defines shown in E1 (`ABORT_NO_SL_REF`, `ABORT_NO_TP_TARGET`, `ABORT_POI_REPLACED`). If E1 is meant to be the complete diff adding the needed define, it's missing the one the fix actually calls.
+
+**A — Defects / gaps / imprecision on the page**
+
+1. **Undefined symbol**: `GoAbort(ABORT_DIV_FALLBACK, g_state)` (implied by the Q2 framing) has no matching `#define` in E1. E1 adds `ABORT_POI_REPLACED`, not `ABORT_DIV_FALLBACK`. Either the wrong define was added, or the wrong constant is being called.
+2. **`GoAbort` signature/behavior unverified**: not shown anywhere in either excerpt. Can't confirm it releases the slot, clears `g_confirmFromState`, or is even the right call for a mid-gate-check abort vs. other abort sites in the file.
+3. **Unbounded walk cost**: `maxWalk = Bars(_Symbol, PERIOD_CURRENT) - 1` (line ~8771) makes the divergence walk scan from `barShift` to the *entire* chart history with no cap. The comment justifies this as "no seed-bar bound, no age limit" per the operator's ruling, but that's a potential performance cliff on deep history / large `Bars()` counts, worth flagging even if intentional.
+4. **`prevDiv` naming vs. dead branch**: `ENUM_SRJ_STATE prevDiv = g_state;` (line ~8800) captures pre-transition state only for the `LogState` call — fine — but if the re-arm is replaced with `GoAbort`, this local becomes dead/unused unless `GoAbort` also needs a "previous state" argument, which isn't shown.
+5. **No distinction between S3-origin and S4-origin failure in the abort proposal**: today the re-arm branches on `g_confirmFromState` to choose S3 vs S4. If the replacement is a single unconditional `GoAbort` call, it's not shown whether that call still needs to differentiate the two origins for correct logging/bookkeeping, or whether collapsing them is intentional and safe.
+6. **E1 comment self-contradicts slightly**: "Diagnostic string only; no gate reads an abort reason" — but the whole point of Q2's proposed change is to introduce a *new* gate-relevant abort path. If that comment's claim ("no gate reads an abort reason") is still asserted to hold after E2's change, that should be explicitly re-verified, not assumed from a comment written before this diff.
+
+**B — Alternative mechanism for the stated goal**
+
+The stated goal is: a setup refused at final gate-check should die, not re-arm, so it stops squatting the slot for tier-1/preemption-immune holders.
+
+Instead of an unconditional `GoAbort` replacing both branches at lines 8805–8808, consider keeping the S3-origin branch as re-arm (a pre-bind candidate that never held a slot doesn't need to "die" — it wasn't squatting anything) and only aborting the S4-origin branch (the one that already holds the session slot). That is: branch on `g_confirmFromState` as today, but call `GoAbort` only when `g_confirmFromState == ST_S4_ARMED`, and leave the S3 return-to-S3_ZONE_WAIT path untouched. This targets exactly the squatting case described (armed, slot-holding, preemption-immune) without changing behavior for candidates that never held a slot in the first place — narrower blast radius than aborting both origins. This would touch lines ~8798–8808 only, using the existing `g_confirmFromState` conditional rather than removing it.
+
+---
+
+I can't verify anything beyond what's on the page (per the split you noted) — in particular, `GoAbort`'s actual behavior and the missing `ABORT_DIV_FALLBACK` define are the two items that keep Q2 at "discrepancy" rather than a clean yes.
+
+## V251-EVICT END SONNET (verbatim close, nothing appended)

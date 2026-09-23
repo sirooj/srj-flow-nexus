@@ -7934,3 +7934,96 @@ Packet P-RETEST-2 v2 — 053D85FD, 7062 bytes
 NOT CLEARED for exactly one build plus one tester run
 
 ## KEY LUNA RETEST END (verbatim close, nothing appended)
+
+## V251-EVICT OPEN LUNA (his carry, Luna channel, relay v251, filed whole)
+
+**Q1: YES.**
+
+The fallback re-arm can create a persistent same-session veto for the stated tier-1, preemption-immune holder.
+
+The decisive lines are **EA 8805-8808**:
+
+* **8805-8806** set the state back to `ST_S4_ARMED` for the armed-edge case (`g_confirmFromState != ST_S3_ZONE_WAIT`).
+* **8807** records that re-arm.
+* **8808** returns from the closed-bar evaluation without clearing/releasing the held candidate.
+
+The problematic behavior is therefore not in the E3 divergence walk itself. It is the miss disposition at **8792-8808**: a failed final divergence check does not terminate the holder; it restores the holder to `S4_ARMED`.
+
+That matches the supplied run evidence. At **2026.09.01 16:55**, the holder is explicitly logged as `S5_GATE_CHECK->S4_ARMED`, and the subsequent **17:30** candidate is logged `SUPPRESSED ... heldState=S4_ARMED`, while the higher-tier `Weekly-VWAP` candidate at **16:50** reports `wouldPreempt=0`. Thus the refused holder remains the occupying armed state rather than relinquishing the session slot.
+
+I would qualify "permanent" as **persistent for the remainder of the session unless some other state-clearing/replacement path intervenes**; the supplied excerpt does not prove that no unrelated later path can clear it. The E2 path itself provides no such release.
+
+**Q2: DISCREPANCY.**
+
+The *site-local* change is correctly isolated: replacing **EA 8805-8808** with a `GoAbort(ABORT_DIV_FALLBACK, g_state)` disposition would leave the **E3 detection walk at 8768-8786 untouched**, and it would not intrinsically alter Q3 arrival-order logic or any visible take path in the supplied E2 block.
+
+However, the page does **not establish that `GoAbort(...)` actually frees the session slot**.
+
+The two missing proofs are:
+
+1. **`ABORT_DIV_FALLBACK` is not defined in the supplied E1.**
+   E1, **EA 315-321**, adds `ABORT_POI_REPLACED`, not `ABORT_DIV_FALLBACK`. Therefore the requested call cannot be established from this page as a valid defined symbol. It may exist elsewhere, but that is not shown here.
+
+2. **The definition/side effects of `GoAbort` are not supplied.**
+   The proposed call at **8805** can only be certified as "slot-freeing" if `GoAbort` clears or otherwise releases the same holder/session occupancy represented by `S4_ARMED`. The replacement line itself does not demonstrate that.
+
+So the narrow statement "this replacement does not touch E3/Q3/take logic" is supported; the stronger statement "this replacement frees the session slot" is **not proven by the page**.
+
+### Analytic A — defects, gaps, and imprecision
+
+**1. The current miss disposition contradicts the stated semantic goal. — EA 8787-8791, 8802-8808.**
+The comment calls the confirmation "CONSUMED" and says the candidate "RETURNS TO S4_ARMED." Those are incompatible with an eviction model. Consuming the confirmation while retaining the armed holder is exactly what permits the holder to continue occupying the session slot.
+
+**2. `DIV_WAIT` is semantically misleading for the armed-edge path. — EA 8799-8800.**
+`SrjOrderEmit(..., "DIV_WAIT")` describes the event as a wait, while the state transition immediately following it is a re-arm. For the stated P-EVICT goal, the decisive event is an abort/eviction, not a wait. That makes census interpretation materially ambiguous.
+
+**3. The page asks for `ABORT_DIV_FALLBACK`, but E1 defines a different abort constant. — EA 315-321.**
+This is a concrete packet/code-surface mismatch. E1 adds `ABORT_POI_REPLACED`; Q2 proposes `ABORT_DIV_FALLBACK`. Without the existing definition elsewhere, the proposed edit is incomplete.
+
+**4. The requested slot-release property depends on an unshown helper contract. - E2 8805-8808 and Q2 proposal.**
+Nothing in the supplied page proves what `GoAbort` clears, whether it clears the candidate/holder, whether it changes session occupancy, or whether it only records an abort/state. Therefore "free the session slot" cannot be certified from the provided material.
+
+**5. The E3 walk is explicitly unbounded in age. — EA 8761-8767, 8772-8784.**
+The code searches from `barShift` through `Bars(...)-1` with no seed-bar bound and no age limit. Consequently an arbitrarily old nonzero CQD verdict can become the "latest" usable divergence. That is a substantive distinction from ordinary one-bar confirmation semantics.
+
+**6. The "one-bar validity" comment is therefore imprecise relative to the actual detection rule. — EA 8787-8791 versus 8761-8767, 8772-8784.**
+The miss path is described as one-bar validity, but the confirmation source itself is not one-bar bounded. A stale historical divergence can satisfy the S5 check.
+
+**7. `divKind` is assigned but has no decision effect in the supplied block. — EA 8770, 8781.**
+It is diagnostic-only here. That is not necessarily a defect, but the packet does not say whether its retention is intentional or whether a later census/log consumer depends on it.
+
+**8. The no-verdict case and an opposite-direction verdict are collapsed into the same disposition. — EA 8769, 8780-8784, 8792-8800.**
+`divVal=0` means no usable nonzero verdict was found, while a nonzero opposite-direction verdict also produces `divOk=false`. Both become `DIV_WAIT`. That may be intentional, but it loses an analytically useful distinction.
+
+**9. The problematic holder survives because the rollback decision is based on promotion origin, not validity of the holder itself. — EA 8802-8806.**
+For an armed-edge confirmation, anything other than `ST_S3_ZONE_WAIT` deterministically goes back to `ST_S4_ARMED`; there is no "candidate is now dead" branch.
+
+**10. The supplied run evidence supports the state-squatting mechanism, but not by itself universal permanence. - run rows around 2026.09.01 16:55-17:30.**
+The evidence demonstrates persistence into later suppression in that session. It does not prove that every possible later transition is unable to clear the holder. Hence the precise claim is persistent-veto behavior absent another clearing path, rather than mathematically permanent across all state-machine paths.
+
+### Analytic B — better mechanism for the stated goal
+
+The clean mechanism is a **terminal abort on the divergence miss**, at the existing disposition site only.
+
+The minimal semantic change is at **EA 8805-8808**:
+
+* keep the E3 walk at **8768-8786** exactly as-is;
+* keep the miss logging/census at **8794-8800**;
+* replace the **S3/S4 rollback** at **8805-8808** with a dedicated abort path;
+* have that abort path explicitly perform whatever holder/session-slot release is required before returning.
+
+Conceptually:
+
+`DIV miss -> census emission -> GoAbort(ABORT_DIV_FALLBACK, previous/current state) -> return`
+
+rather than:
+
+`DIV miss -> census emission -> S3/S4 re-arm -> return`
+
+For the stated goal, I would touch **EA 315-321** only to add the *actual* `ABORT_DIV_FALLBACK` define, and **EA 8805-8808** for the disposition change. I would not alter **8768-8786** (E3 detection), Q3 arrival-order logic, session-mark logic, or any order/take path.
+
+The important implementation condition is that `GoAbort` must be the already-established primitive that **releases the same occupied holder/session state represented by `S4_ARMED`**. If it does not, the better mechanism is a dedicated abort-and-release helper rather than merely substituting a different state transition.
+
+**Net verdict:** Q1 **YES**. Q2 **DISCREPANCY** because the proposed abort symbol and, more importantly, its slot-release semantics are not established by the supplied page.
+
+## V251-EVICT END LUNA (verbatim close, nothing appended)

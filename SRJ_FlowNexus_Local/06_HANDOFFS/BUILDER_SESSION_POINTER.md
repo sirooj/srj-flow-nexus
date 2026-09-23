@@ -16,7 +16,9 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
   Skill updated (§8 double review).
   Eviction draft filed (ledger 672).
   Relay v251 battery-green, transport
-  signal ships (ledger 673).
+  signal ships (ledger 673). V251 ruled:
+  amend (ledger 674). Relay v252 green,
+  signal ships now - ONE file.
 
 ## Next (artifact owed)
 
