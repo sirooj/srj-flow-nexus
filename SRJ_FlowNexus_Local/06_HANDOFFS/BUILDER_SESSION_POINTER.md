@@ -3,11 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, V257 LUNA-ONLY)
+## State (2026-09-24, WHICH-FILE CHECK)
 
-- Stale v256 went out, not v257.
-  v7-shape ruled by nobody. v257 goes
-  Luna only (6139 B check). Ledger 689.
+- Nobody ruled v257 content (proven).
+  Cause open: stale file vs memory.
+  Ledger 690. Quote-back rule banked.
+
+## Next (artifact owed)
+
+- Owed: YOUR answer - which file did
+  YOU open, v256 or v257? Then carry
+  per the answer.
 
 ## Next (artifact owed)
 
