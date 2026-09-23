@@ -1,6 +1,6 @@
-# PACKET_P-EVICT-1 v6 DRAFT - evict S5-refused S4-ARMED holders (packaging fixes only vs v5; nothing builds/runs/commits on this file)
+# PACKET_P-EVICT-1 v7 DRAFT - evict S5-refused S4-ARMED holders (Luna v256 fold; nothing builds/runs/commits on this file)
 
-Status: v6 DRAFT (amends v5 427AAA0F per key-refusal round: E3 anchor explicit in-place + gating split + honest tally 3-YES + 1 packaging-disc; disposition + range + budget UNCHANGED). Clearance via a clearance relay plus his run word, all owed.
+Status: v7 DRAFT (amends v6 ADDA5B1D per Luna V256 round, discrepancy on one line: hoisted prevDiv (used by S3 + default, GoAbort recaptures its own) + dynamic from-state logging + wording fixes; disposition + range + budget UNCHANGED, post 11330 stands). Clearance via a clearance relay plus his run word, all owed.
 Canonical files: exactly ONE - Experts\SRJ_FlowNexus_EA.mq5 (E1: new ABORT code define, 1 line added; E2: 8-line fallback block replaced by 20-line three-way, net +12; E3: 5-line comment rewritten in place, net +0).
 No new indicator buffers. Nothing under 02_TASK_CHECKPOINTS. Commits are builder-called (AGENTS 6.5); no council commit token exists or is asked.
 Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squatter-veto miss); this packet frees the session slot so the valid seed takes.
@@ -22,7 +22,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
 - A candidate refused at S5 divergence whose origin is POSITIVELY S4 (g_confirmFromState == ST_S4_ARMED) ABORTS (new code ABORT_DIV_FALLBACK). Pre-bind S3 rollback kept. Any other origin keeps today's S4 re-arm plus an UNCONDITIONAL census print (fail-as-before, counted - Sonnet-B/Kimi-B2 adopted; gated print dropped).
 - Replace-range explicit (Opus D-1/B-1): replace EA 8801-8808 (absorbs old 8801 decl AND old 8808 return; after-shape terminal return is THE return; S1 asserts single terminal return with 8809 close surviving); 8792-8800 (if/print/emit) unchanged.
 - Census duality: DIV_WAIT emit stays ABOVE the disposition as the path marker; GoAbort carries the decided outcome (LogAbort unconditional + gated A6REFUSED/STAND-DOWN, gates named). Both recoverable.
-- Claim scope: this removes the refused holder's occupancy (proven by ResetSequence clears); same-bar handoff and signal recovery are graded at acceptance, never promised.
+- Claim scope: this removes the refused holder's occupancy (proven by ResetSequence clears); same-bar handoff and signal recovery are graded at acceptance, never promised. The ONLY behavioral delta in the replacement block is S4-origin abort (Luna-A8 formalized): S3 and default legs reproduce old outcomes exactly. S4-origin is exactly confirmFrom == ST_S4_ARMED (Luna-A4 equivalence: the only value S4 promotions stamp, proven by 8629-guard + 8743-stamp census).
 - Kimi-B1 widening (abort unknowns) REJECTED with reason: unknowns keep behavior per agreed S4-only scope; the unconditional census watches them; widening needs its own packet with take-impact evidence, never assumed safety.
 - Untouched: E3 detection walk, R2 scoping, Q3 arrival-order, cross-dir preempt, B3 upgrade, session marks, booking, exits, R floor, votes, alerts. E1-1 POI_REPLACED is after-state context (exists at EA 319, S1 asserts exists-once). Name DIV_FALLBACK kept (S1-named). Parked, separate packets: walk robustness/A6, readiness guard (+warmup note: grading runs on covered feed), divKind, collapse (intentional), A6 clock/dedupe, shadow/counter telemetry, enum-ization, A6 class rename, SrjSideNote, stray-; (pre-existing cosmetics).
 
@@ -54,7 +54,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
   `       //--- ABORT (DIV_FALLBACK); S3 pre-bind rollback kept; other origins keep`
   `       //--- today's behavior with unconditional census. LogAbort unconditional;`
   `       //--- A6REFUSED debug-gated; STAND-DOWN fires when armed (wanted, alert-only).`
-  `       //--- Retry converted 0 of 4 distinct refusals (57/58); DIV_WAIT stays marker.`
+  `       //--- Retry converted 0 of 4 distinct refusals (RECON57/RECON58); DIV_WAIT stays marker.`
 - E2 S5 fallback becomes positive-S4 three-way (EA S5 block L8801-8808, 8 lines become 20, net +12):
   old L8801-8808:
   `         ENUM_SRJ_STATE prevDiv = g_state;`
@@ -67,6 +67,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
   `         return;`
   new:
   `         //--- [P-EVICT-1] refused S4 holders abort (squatter GC, positive test).`
+  `         ENUM_SRJ_STATE prevDiv = g_state;`
   `         if(g_confirmFromState == ST_S4_ARMED)`
   `           {`
   `            GoAbort(ABORT_DIV_FALLBACK, g_state);`
@@ -74,7 +75,6 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
   `           }`
   `         if(g_confirmFromState == ST_S3_ZONE_WAIT)`
   `           {`
-  `            ENUM_SRJ_STATE prevDiv = g_state;`
   `            g_state = ST_S3_ZONE_WAIT;`
   `            LogState(prevDiv, g_state);`
   `            return;`
@@ -84,7 +84,7 @@ Successor context: RECON58 (built tree B01CBA64, graded G2-FAIL on the 9/1 squat
   `                                  TIME_DATE|TIME_MINUTES),`
   `                     StateName(g_confirmFromState));`
   `         g_state = ST_S4_ARMED;`
-  `         LogState(ST_S5_GATE_CHECK, ST_S4_ARMED);`
+  `         LogState(prevDiv, ST_S4_ARMED);`
   `         return;`
   (DIV_WAIT print + SrjOrderEmit census above stay - path marker; one disposition block + one branch marker per GLM alternative; one statement per line; prevDiv scoped to rollback branch; retained returns structural)
 
