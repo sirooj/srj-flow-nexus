@@ -13,6 +13,8 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
   filed (finding 750282D9). His three
   defects mapped (ledger 670); session
   rule banked (strategy-5, spec-anchored).
+  Skill updated (§8 double review).
+  Eviction draft filed (ledger 672).
 
 ## Next (artifact owed)
 
