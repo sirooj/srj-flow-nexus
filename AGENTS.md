@@ -391,6 +391,12 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
      returns a char): all three proved by a deliberately-failing control
      (a pattern that must hit, an index that must align) beside the real
      probe before its output is trusted.
+     ROW-RENDER TRAP (2026-09-23 - relay rows hand-copied from tool output
+     all byte-off: journal fields are TAB-separated, tool output renders TABs
+     as spaces, so a "verbatim" copy never matches the segment): relay/record
+     rows ride ONLY by mechanical splice from the segment file (pattern pulled,
+     hit-count asserted, byte-compared after); a rows-fence proves itself by
+     per-row SimpleMatch hit plus uniqueness counts, never by eye.
 35. CITED-BUILD-DIFF RULE (2026-09-23 - his "how did the 5th build take it"
 correction: two full diagnoses written from the current tree alone while
 RECON51's segment proved both takes on disk, entries 1.16466 / 1.16261):

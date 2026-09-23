@@ -15,6 +15,8 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
   rule banked (strategy-5, spec-anchored).
   Skill updated (§8 double review).
   Eviction draft filed (ledger 672).
+  Relay v251 battery-green, transport
+  signal ships (ledger 673).
 
 ## Next (artifact owed)
 
