@@ -8195,3 +8195,19 @@ switch(g_confirmFromState)
 The **v5 range/disposition itself appears internally consistent on the page**; the principal remaining discrepancy is the hard-coded transition-source logging in the v6 replacement.
 
 ## V256B-EVICT END LUNA (verbatim close, nothing appended)
+
+## V257-EVICT OPEN LUNA (his carry, Luna channel + key seat, relay v257, filed whole - PROVEN by his screenshot showing the v257 paste with title + digest line; remainder below image fold marked CROP-NOTED, full text owed with key reply)
+
+Q1: **yes** — E1 at the EA ~319 anchor and E2 replacing **EA 8801–8808**. The v7 block captures `prevDiv` before mutation, logs `prevDiv → ST_S3_ZONE_WAIT` on the S3 branch, and logs `prevDiv → ST_S4_ARMED` on the default branch; the S4-origin branch exits through `GoAbort` before either mutation or normal-path logging. No remaining discrepancy is visible in the stated v6 disposition/range.
+
+### Analytic A — defects, gaps, and imprecisions
+
+1. **“zero logic change” is too broad.**
+   The sentence under **Change (one plain sentence)** says “with zero logic change since the Luna-reviewed shape.” The proposed E2 is behavior-preserving relative to the accepted shape except for the already-cleared S4 abort behavior, but it is not literally zero logic change: the ternary rollback is replaced by two explicit predicates plus a default path (**proposed E2 8801–8820; old E2 8801–8808**). Better wording is “no new behavioral delta beyond the already-cleared S4-abort rule.”
+
+2. **The “default” branch remains intentionally permissive but is not fail-closed.**
+   **Proposed E2 8808–8820** accepts every `g_confirmFromState` value other than `ST_S4_ARMED` and `ST_S3_ZONE_WAIT`, prints `EVICT_UNEXPECTED_ORIGIN`, and arms `ST_S4_ARMED`. That preserves the stated old outcome, but it means a future enum value or otherwise unrecognized origin is converted into S4 rather than rejected. This is a robustness gap, not a v7 regression.
+
+[CROP-NOTED remainder: image cuts at A2 mid-text ("Ask anything" box overlaps); A3+ and close owed with key reply - requested same turn.]
+
+## V257-EVICT END LUNA (verbatim close, Q1-YES on v257 page proven by screenshot)
