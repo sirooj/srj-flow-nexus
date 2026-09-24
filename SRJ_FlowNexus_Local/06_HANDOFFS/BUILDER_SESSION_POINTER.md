@@ -13,8 +13,8 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
   Seats Opus+GLM+Astra; Luna
   silent (key seat unaffected);
   nothing builds on council
-  text. Ledger 703 (number
-  from tail read).
+  text. Ledger 704 (703-duplicate
+  repaired same turn).
 
 ## Next (artifact owed)
 
