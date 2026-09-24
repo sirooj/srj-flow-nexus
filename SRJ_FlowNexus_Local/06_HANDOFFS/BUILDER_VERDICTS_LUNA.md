@@ -8769,3 +8769,86 @@ For **Q2**, make the identity contract explicit at E8c/E5: resolve and store an 
 **Net ruling: Q1 CLEAR; Q2 NOT-CLEAR.**
 
 ## V266-RESQUAT-CLEAR7 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V267-RESQUAT-CLEAR8 OPEN LUNA (his carry, relay v267 clearance ask; pasted text follows verbatim)
+
+## Q1 — CLEAR
+
+**Q1 CLEAR.** No remaining page-level contradiction in E1–E4 requires a build halt. The v266 blockers are addressed in the v9 literals: the +138/+152 recount defect is repaired, the E3 read gate and E4 capture are tied to the same candidate tuple, the session/direction/line bridges are explicitly fenced, and the suppression state is a per-session/day bitset rather than a single overwritable slot.
+
+**Gate delta:** none beyond the stated S1–S5 gates and the +81 net recount.
+
+### Q1 — remaining defects / imprecisions
+
+1. **E4 direction validation is weaker than the stated invariant.**
+   In the E4 ARM guard, the condition is:
+   `s4e_dir != DIR_NONE`
+   followed by:
+   `s4e_line * 2 + (s4e_dir == DIR_LONG ? 0 : 1)`.
+   This proves “not NONE,” but does not literally prove `s4e_dir ∈ {DIR_LONG, DIR_SHORT}`. Any impossible third enum value would be encoded as SHORT. This is nonblocking because the page also fences the live writer domain to the two documented directions, but the guard is weaker than the prose claim.
+   **Location:** E4, EA 8802–8808 replacement block; specifically the record-validity/index-guard expression and `s4e_bit` calculation.
+
+2. **E3 session-domain guard is implicit rather than explicit.**
+   The read gate has `if(sess == SESSION_LONDON) ... else if(sess == SESSION_NYAM) ...` with no explicit invalid-session rejection. The packet elsewhere treats only those two sessions as live. Again nonblocking under the stated writer/call-site constraints, but the literal is narrower than the general “live tuple” language.
+   **Location:** E3, EA 7730 onward, the two session branches.
+
+3. **`EVICTSUPPRESS_SKIP` is an intentionally impossible expected-zero path, but its relation to S1 could be clearer.**
+   The packet correctly says a dead record emits `EVICTSUPPRESS_SKIP` while `RESEED_BLOCKED action=INDEX-INVALID` is a separate guard. The acceptance then requires both to be zero. That is coherent, but the two “protective” paths are easy to conflate.
+   **Location:** E4 replacement block around EA 8802 onward; G2 expected-zero predicates.
+
+These do not alter the Q1 clearance.
+
+---
+
+## Q2 — CLEAR
+
+**Q2 CLEAR.** The v9 Q2 literals close the specific v266 gaps on the page: E8c now derives the latch from the entry deal and validates `POSITION_IDENTIFIER`; E5 returns the stated tri-state and gates success on `TRADE_RETCODE_DONE`; E7 consumes that return only for the winning BREAK/DAY_CLOSE verdicts; and the reference price is now `g_mtrade.exitPrice`, eliminating the prior `nextOpenPx` scope ambiguity.
+
+**Gate delta:** none beyond the stated S1–S5 gates and the +71 net recount.
+
+### Q2 — remaining defects / imprecisions
+
+1. **The execution-time identity proof is only an entry-time proof.**
+   E8c validates:
+   `DEAL_POSITION_ID -> current position -> POSITION_IDENTIFIER == entryPid`, then stores the position ticket.
+   E5 later closes by that stored ticket alone:
+   `PositionSelectByTicket(ticket)`.
+   Therefore, the page proves the ticket was correct **when latched**, but not that the ticket is still the position carrying the same identifier at exit. The packet itself acknowledges that the position ticket is service-mutable. In the bounded tester envelope this is not necessarily exercised, so I do not make it a clearance halt; it is the principal remaining mechanism gap.
+   **Locations:** E8c, EA 10236–10261; E5 helper above EA 11095; specifically `ulong ticket = g_mtrade.ticket;` and `PositionSelectByTicket(ticket)`.
+
+2. **`action=%d` is the CTrade boolean, not the packet's tri-state status.**
+   E5 prints `(int)ok`, while the actual tri-state is the helper return:
+   `-1 / 0 / 1`.
+   Thus a request can print `action=1` while still returning `0` if `ok==true` but `closerc != TRADE_RETCODE_DONE`. `MTCLOSE_FAIL` catches that case, so execution gating is still correct, but the log field named `action` is semantically less precise than the surrounding tri-state prose suggests.
+   **Location:** E5 helper, the `MTCLOSE` `PrintFormat` immediately before `return (ok && closerc == TRADE_RETCODE_DONE ? 1 : 0);`.
+
+3. **`closedeal` appears in the S1 new-name collision list but is not actually a local in the filed E5 code.**
+   The filed code uses `g_trade.ResultDeal()` inline. That is harmless functionally, but the packet's S1 name inventory and the machine-fence inventory are not perfectly synchronized.
+   **Locations:** S1(2b) `closedeal` list; section 3 new-local census; E5 helper `PrintFormat`.
+
+4. **The current G3 join proves ticket/deal correspondence through the logs, but the close-deal is not independently validated against the entry `pid` in code.**
+   The E5 log prints the close deal, and the acceptance asks the tester to join it externally. The code itself gates success on `ok && retcode==DONE`, not on a post-close history check that the returned close deal has the expected position identifier. That is acceptable for the stated evidence battery, but a stronger implementation would make the identity join executable rather than purely log-audited.
+   **Location:** E5 helper, `g_trade.ResultDeal()` print and return; G3 deal-ticket-identifier join.
+
+None of these defeats the stated v9 build objective under its bounded S5 tester envelope.
+
+---
+
+## Analytic B — stronger mechanisms
+
+The clearest upgrade for Q2 would be to **persist `entryPid` alongside `ticket` and re-resolve the current position ticket by `POSITION_IDENTIFIER` immediately before closing**:
+
+`stored entry deal -> stored pid -> scan current positions -> exact current ticket -> verify symbol/magic -> PositionClose(currentTicket)`.
+
+That would touch the E8a/E8b/E8c capture path and the E5 helper, while preserving the existing deal-derived admission logic. It would directly use the lifecycle-stable identity that motivated the v9 repair, rather than relying on the entry-time ticket remaining unchanged.
+
+A second, smaller hardening is to make the printed `action` field the actual tri-state result, or rename it to `ok=` so it cannot be mistaken for the helper's `-1/0/1` status. This touches only the E5 `MTCLOSE` print.
+
+### Bottom line
+
+**Q1 CLEAR — no gate delta.**
+**Q2 CLEAR — no gate delta.**
+
+The remaining findings are implementation-hardening and wording/observability issues, not page-level contradictions that require halting this v9 build.
+
+## V267-RESQUAT-CLEAR8 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

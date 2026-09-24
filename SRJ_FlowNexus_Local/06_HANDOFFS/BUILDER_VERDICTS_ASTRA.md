@@ -16360,3 +16360,101 @@ For Q2, modify **E8c, E5/E7, S1 dependencies, and G3** as above: exact identifie
 The API distinctions above follow the MQL5 documentation for *Position Properties* and *CTrade::PositionClose*. The tester-only boundary remains mandatory; nothing here clears live activation.
 
 ## V266-RESQUAT-CLEAR7 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V267-RESQUAT-CLEAR8 OPEN ASTRA (his carry, relay v267 clearance ask; pasted text follows verbatim)
+
+**Q1 CLEAR — E1–E4, +81, subject to the filed S1–S4 gates.** No Q1 logic amendment required.
+
+**Q2 NOT-CLEAR — E5–E8, +71.** The identifier lookup and retcode repairs are sound, but the position-exclusivity premise remains insufficiently specified. Amend S1(24)/S5 and make the close-deal join explicit in G3 as below.
+
+References below use edit labels, supplied EA anchors, and named clauses; I have not verified disk assertions.
+
+### A. Findings
+
+**1. Q1: the suppression mechanism is coherent.**
+E1–E4, EA 1803 / 1813–1818 / 7730–7732 / 8802–8808:
+
+- The bounded line/direction mapping fits the declared bitset.
+- E4 captures before reset and accumulates tuples rather than overwriting them.
+- E3 applies the corresponding session/day/line/direction test.
+- E2 clears only an armed set for the consuming session/day.
+- The supplied writer censuses and §4b pass-through answer the convention-bridge objection on the page, subject to their filed machine gates.
+
+The authorized INDEX-INVALID refusal, cross-day asymmetry, and R-c tuple residual remain explicit. I find no new contradiction of R-a–R-e in this half. G2's valid-take-loss halt remains essential; this clearance does not establish that the target take will occur.
+
+**2. Q2 blocking gap: ownership is not position exclusivity.**
+**S1(24), S5; E8c at EA 10236–10240; E5 `PositionClose(ticket)`.**
+
+The revised E8c correctly searches actual position tickets and compares `POSITION_IDENTIFIER` with the entry deal’s `DEAL_POSITION_ID`. It no longer casts an identifier into a ticket.
+
+However, “tester starts flat” and “every in-window position is ours” do not establish that the selected position represents **only this managed entry**. On a netting account, a later entry can modify an existing same-symbol position; an identity match establishes the position lifecycle, not separation of individual entry exposure. E5 closes that position.
+
+R-a permits entries in different sessions. A single paper record and the MTCOLLISION halt do not, by themselves, establish broker flatness before each subsequent entry—particularly given this packet’s explicit distinction between paper state and broker state.
+
+**Required gate delta:** pin the tester account’s position-accounting mode and establish either:
+
+- hedging with the selected position corresponding exclusively to the managed entry; or
+- netting with no existing same-symbol broker position immediately before each entry send.
+
+A failed premise must halt diagnosis; do not silently introduce a new entry-admission rule. This is a missing premise, not a claim that the specified account actually violates it.
+
+**3. G3 needs an explicit close-deal identity predicate.**
+**E5 result print; G3 “deal-ticket-identifier join.”**
+
+The formal equality currently checks the close-request ticket against the entry ticket, then checks the **entry** deal’s position identifier. The printed **close** deal is mentioned as joined evidence but its identity predicate is not stated.
+
+**Required text-only delta:** for each completed close, require:
+
+- the printed close deal to exist and be nonzero;
+- its `DEAL_POSITION_ID` to equal that managed entry’s printed `pid`;
+- its deal-entry classification to represent an exit, not an entry or reversal;
+- closing volume and resulting position state to establish the required complete close.
+
+Any mismatch halts. This makes the promised executor-ticket / entry-ticket / deal-identity join explicit rather than inferred.
+
+**4. The main v9 executor repairs work as written.**
+**E5 return; E7 at EA 11294–11301; E8c.**
+
+- `return 1` now requires both `ok` and `TRADE_RETCODE_DONE`.
+- Policy no-send returns `-1` before ticket selection, so default-mode SKIP does not become FAIL.
+- E7 consumes failure and gates on the winning exit reason.
+- Using `g_mtrade.exitPrice` removes the disputed local-price dependency.
+- E6’s supplied whole statement supports the format/argument insertion.
+
+These are not outstanding halt items.
+
+**5. `action=1` remains a raw boolean, not the helper’s successful status.**
+**E5 print; rename-table tri-state description.**
+
+The code prints `(int)ok`, while the return predicate additionally checks the retcode. G3 correctly warns about this, but prose saying the field “reads sent-ok” is imprecise. Text-only correction: call it the raw `PositionClose` boolean; completed-close evidence requires the return predicate and deal join.
+
+**6. Ticket mutation remains a diagnosed-failure residual.**
+**E8c latch → E5 selection.**
+
+A position ticket can change during its lifecycle. E5 does not refresh it from the identifier. Under the filed discipline, failed selection produces NOTHING/FAIL and halts. That is an explicit limitation, not another clearance blocker; no retry is required.
+
+**7. Separate-half clearance needs separate application budgets.**
+**§0; S2–S4; G1.**
+
+The combined arithmetic is consistent: +81 +71 = +152, yielding 11482. If independent-half building is intended, state:
+
+- Q1-only: 11411 lines.
+- Q2-only: 11435 lines.
+- Combined: 11482 lines.
+
+Otherwise, state that independent verdicts are recorded but application waits for both. Neither budget is a run authorization.
+
+**8. Historical summaries conflict.**
+**§0 session summary; packet opening Status; Authority’s v266 paragraph.**
+
+The summaries attribute different Q1 v266 verdicts to Luna/Astra/Opus. This does not change my literal-code assessment, but the filed verdict texts should govern and the summaries should be reconciled. Also remove unused `closedeal` from S1(2b), or label it intentionally reserved.
+
+### B. Better mechanism
+
+For **Q1**, retain the filed bitsets; no further re-plumbing is justified here.
+
+For **Q2**, the smallest repair is the accounting/exclusivity gate plus explicit close-deal acceptance above. A possible later robustness improvement is to store the entry `pid` alongside `ticket` in E8a/E8b/E8c and validate it again in E5 before closing. That would strengthen close-time identity checks, but would not solve netting aggregation and would require a re-cut and recount.
+
+Official MQL5 Position Properties documentation supports the identifier/ticket distinction and the netting concern. No disk truth, build, run, key, commit, money movement, or live activation is certified or authorized by this response.
+
+## V267-RESQUAT-CLEAR8 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

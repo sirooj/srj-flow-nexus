@@ -3732,3 +3732,66 @@ R-a (used flag untouched; SESSION_LIMIT item carried), R-b (no timer/bar count �
 Q1 CLEAR and Q2 CLEAR, each with the assert-6 +137→+138 text-only delta named. Both stand owed: Luna key plus his run word before any S5 minute is spent; either frontier-seat halt on this text overrides this clear per standing rule. Nothing builds, runs, or commits on this relay.
 
 ## V265-RESQUAT-CLEAR6 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V267-RESQUAT-CLEAR8 OPEN GLM (his carry, relay v267 clearance ask; pasted text follows verbatim — text self-declares packet v7/relay v265, see grading)
+
+# GLM seat verdict — P-RESQUAT-1 v7, relay v265 (CONTINUE)
+
+Ruled on the page only. Disk identity (twin diff 0, tree 15A41634/622631/11330) is asserted in section 3 and re-proves at STAGE-1; nothing here builds, runs, or spends. My v264 stance was clear on both halves, overruled by either-seat-halt; this ruling is an independent on-page examination of the v7 redesign, not a persistence of that stance — the halted mechanisms are gone, so I re-derive from the text.
+
+## Verdict Q1: Q1 CLEAR (E1-E4, +74)
+
+Support, page-only:
+
+1. **Budget recount, mechanical, per edit from the twin literals**: E1 11 new − 1 old = +10 (6 comment + 4 decls + anchor line). E2 19 − 6 = +13. E3 19 − 3 = +16. E4 20 − 7 = +13. Sum 10+13+16+13 = +52. Matches the fence Budget row and 11330 + 52 = 11382 subset / +105 combined = 11435. No drift.
+2. **v5→v6 Q1 delta verified as claimed**: E4 indent whitespace-only (no token differs; +0 lines, budget unchanged) plus absorbed S1 asserts (items 11, 14-18 are gates, not EA logic). The v263 CLEAR 4/4 carries over a logic-identical half.
+3. **Capture/abort/write order is sound**: E4 captures `s4e_line/s4e_dir/s4e_sess` BEFORE GoAbort and writes the record AFTER — and this is safe by construction because ResetSequence (body 6267-6294, item 14) is unchanged code that cannot reference the new globals; the record survives the reset it rides (E1 comment made literal). Item 9 pins capture-precedes-GoAbort; item 14 proves no re-entered seed evaluation can interleave between GoAbort and the ARM writes.
+4. **Index safety**: item 11 (g_anchorLine=-1 writers exactly {976, 6274, 7787}, none reachable holding S4/S5) plus item 17 (0 ≤ g_anchorLine < POI_NLINES while holding S4) make both `g_lineCode[s4e_line]` (E4 print) and `g_lineCode[g_evictSuppressLine]` (E2 print) safe; E2/E4 prints read pre-clear captures, not post-reset state.
+5. **The suppression closure is airtight against re-squat in every ordering**: before any same-session signal, the record blocks via the E3 gate (all four keys must match); after any same-session signal, MarkSessionUsed sets the used flags and the pre-existing SessionAlreadyUsed/R-a mechanism blocks all re-seeds for that session+day regardless of the record. Cross-day the record is inert (day-key mismatch falls through, R-b-clean: no timer, no bar count). Cross-session re-seed of the same line is allowed by F-a's own (line, dir, session, day) scoping — per the rule as written, and G2's set-diff halt catches any unexpected election delta outside 9/1 16:55-17:35.
+6. **Residuals named and gated, not silent**: C4 transfer admission, single-slot overwrite (with the G2 x2-join halt), R-c tuple (halt on valid-take loss). These are his accepted watches, present in the twin.
+7. **Rules**: no rule contradicted. R-a untouched (FIRE rides the existing SIGNAL mark; SESSION_LIMIT item preserved in G2). R-b clean (EXPIRE is verdict/state-keyed). R-c untouched. R-d clean (E3 sits downstream of DetectPoiRetest; item 5 hash gate). R-e clean (E1-E4 add prints only, never an order).
+
+Gate deltas to file (no silent drift): E4 indent whitespace-only; S1 absorbed items 11, 14-18; fence rows added (g_anchorLine writers, POI_NLINES, enum decls, GoAbort/ResetSequence bodies). No EA-logic delta vs the v263-cleared text.
+
+---
+
+## Verdict Q2: Q2 CLEAR (E5–E8, +64)
+
+Support, page-only, keyed to the v263 halt items:
+
+1. **Astra halt (E7 predicate-vs-winning-verdict) — CLOSED, provably on the page.** Section 4a: vSL/vTP/vBREAK/vHTF/vDAY are assigned independently upstream (4c), the guard at 11283 admits any nonempty set, and the priority chain assigns exitReason SL-first. Therefore on an SL-winning bar exitReason = MT_EXIT_SL even when vBREAK is also true, and the v6 gate `exitReason == MT_EXIT_POI_BODY_BREAK || exitReason == MT_EXIT_DAY_CLOSE` does not fire — the broker SL/TP stays owner of that close. The gate keys the OUTPUT of the priority chain, which is categorically stronger than any pre-predicate test. Ternary proof: exitReason = POI_BODY_BREAK is reachable only through `else if(vBREAK)` (so vBREAK true → "POI_BODY_BREAK"); exitReason = DAY_CLOSE is reachable only when vSL/vTP/vBREAK/vHTF are all false (4b guarantees vDAY implies exactly that at set time) → "DAY_CLOSE". Label = winning reason in every reachable state. CANCEL paths return above (E7 comment); HTF is off, and if ever re-enabled its leg is excluded by the gate per the stated Q3 rule.
+2. **Opus halt (MODE_EXECUTE ordinal) — CLOSED**: S1 item 13 pins ENUM_SRJ_MODE EA 19 (ALERT_ONLY=0, EXECUTE=1), single existing comparison EA 10169, S5 pins InpMode 1; fence row `MODE_EXECUTE | 2` carries the same pin. The E5 double gate (`InpMode != MODE_EXECUTE || MQL_TESTER == 0`) is now ordinal-anchored and R-e-clean: order only inside tester+EXECUTE; live prints SKIP-NO-SEND and returns false, never sends.
+3. **Opus anchor-half — CLOSED**: E7 old block is byte-pulled EA 11294-11301, char-code verified, item 12 asserts one-hit-as-block plus the `MTEXIT bar= | 2` row explains the second hit as a different statement.
+4. **Opus addenda — CLOSED**: GoAbort-no-reentry (item 14), per-entry-magic (item 15: EA 10170 compute, EA 10214 SetExpertMagicNumber immediately before Buy/Sell 10220/10222, never init-only — this is exactly the convention E5's scan matches), enum positions (item 16 + fence rows EA 226/228 above 1803), upper bound (item 17), vDAY census + barTime scope at E7 (item 18: barTime in use at EA 11294, the insert point's own anchor; nextOpenPx fenced at 17 hits with the anchor-block use in scope).
+5. **Opus G3 underspec — CLOSED**: SKIP-NO-SEND expected 0 (S5 pins tester + InpMode 1), NOTHING-TO-CLOSE expected 0 (E7 fires only on a winning BREAK/DAY_CLOSE with the broker record held — and every paper record implies a broker fill in InpMode 1 per RECON59), any occurrence HALTS for diagnosis. The delimiter-anchored EVICTSUPPRESS counting convention (bar= rows, never FIRE rows) is correctly carried into G2 — "EVICTSUPPRESS_FIRE" contains "EVICTSUPPRESS", so the anchor is required and present.
+6. **GLM residual — CLOSED**: E5 comment now cites the entry-magic convention EA 10170 (+0 lines).
+7. **Race coherence (new check this round)**: SL/TP are checked pre-OnTick in the tester; if SL/TP is touched at the verdict tick, vSL/vTP wins the chain, the gate stays off, no MTCLOSE, and the broker fill stands — paper and broker agree by construction; G3's "zero SL/TP/HTF/CANCEL legs" and G4's "stop fill gone / target fill gone" pin both outcomes. X1 (verdict 1.16439 vs stop 1.16510 at 17:00) and X2 (verdict 1.16093 vs target 1.16302 on 9/7) are internally consistent with the Scope's new-close expectations.
+8. **Budget recount**: E5 new site 49 (1 blank + 47 content + 1 retained header) vs 1 = +48; E6a/E6b +0 each (arg alignment verified: format vTP/vBREAK/vHTF/vDAY/scope ↔ args (int)vTP...(int)vHTF, (int)vDAY, (int)MT_EXIT_SCOPE; %d/bool-cast types match the v4 7/7 rule); E7 13 − 8 = +5. Sum +53. All PrintFormat format/arg counts checked: 3/3, 6/6, 7/7, 3/3, 5/5, 5/5 — all match. Collision-freedom fenced: PositionClose 0, MTCLOSE 0, MtCloseBrokerPosition 0-on-tree/3-in-packet.
+9. **Scope isolation**: Q2 code references no g_evictSuppress\*; Q1 code references no MTCLOSE symbol. The two-verdict split is structurally real — either half can halt without sinking the other.
+
+Gate deltas to file (no silent drift): E7 gate is the one CODE change (+5, confined to the insert); S1 items 12-18 and G3 expected-0 are text-only; E6a/E6b remain scribed-with-provenance, STAGE-1/S4 gated (status unchanged since it stood through v263).
+
+---
+
+## Analytic ask A (defects/gaps/imprecision, none halt-worthy)
+
+1. **Fence completeness gap (evidentiary, not a gate hole)**: the fence table carries one-hit anchors for E1-E4 and E7 but has NO rows for the E5 anchor (the `[P-EXITMODEL] EvaluateManagedTrade` banner), the E6a anchor (`"vTP=%d vBREAK=%s vHTF=%d scope=%d "`), the E6b anchor (`(int)vHTF, (int)MT_EXIT_SCOPE,`), or zero-collision rows for the new identifiers g_evictSuppress\* (4), s4e_\* (3), rsq_dir. I do NOT halt on this, and here is the principled line I am applying: the v263 Opus ordinal halt was a VALUE pin absent from every gate (it could silently flip gate logic); anchor one-hit and new-identifier collisions are already gated by S1 (1) "one hit per exact edit anchor", (2) identifier availability, (3) char-code assert, and S4's 0-warnings gate (a shadowed local warns; a non-one-hit anchor misses loudly at S1 → DIAGNOSE). Missing fence rows weaken the on-page proof, not the gate. Recommend adding these rows at the next cut for fence-completeness parity; the council may overrule my distinction if it holds a stricter standard.
+2. **G3 ok=0 naming**: "any SKIP/NOTHING row HALTS" does not cover an MTCLOSE row with action=0 / retcode≠done (a full row, not SKIP/NOTHING). It is caught implicitly by G3's expected "BREAK ok=1 / DAY_CLOSE ok=1" join, but the packet should name ok=0 as its own halt-for-diagnosis row in the next cut, symmetric with SKIP/NOTHING.
+3. **E2 FIRE key breadth**: the FIRE arm checks (sess, day) but not line/dir — any same-session+day SIGNAL clears the record, even one for a different line. This matches "FIRE on either SIGNAL path" and is behaviorally harmless (per Q1 support ¶5, the session-used flag blocks all re-seeds post-signal, and G2's inequality is written for exactly these semantics). Named so nobody later mistakes it for a bug; if the operator ever intends line-paired FIRE, E2's condition and G2's expected counts both change.
+4. **E6a/E6b scribed status**: no filed literals exist; both ride STAGE-1/S4. Standing since v263 accepted it; restated so the record shows it was checked, not missed.
+5. **Presentation artifact**: in the relay body, E4's `g_evictSuppressDay` line and several section-4 lines show inconsistent backtick/indent rendering. The TWIN row (diff 0) is the byte-authority and the edit-set literals govern the build; do not mistake chat rendering for content.
+6. **Print-only nit**: `(int)pmagic` for %d truncates if InpMagicBase > 2³¹ — print-only, no logic effect; relevant only if the base is ever huge.
+7. **Watch, no gate change**: no fence/assert names an OnTradeTransaction or other trade-event handler that could observe the executor's DEAL_ENTRY_OUT close. RECON59 already exercised entry fills (so any handler is in the count baseline), and G3's family count-identity would surface any ripple. Watch-item only.
+
+## Analytic ask B (better mechanisms, for the record)
+
+1. **E5 ticket storage**: storing the entry ticket at fill (entry path EA 10214-10222, g_mtrade struct) would make the close O(1) and identity-exact versus the magic scan. Recommended AGAINST this round: it touches the entry path, grows the diff, and the single-record invariant already bounds the scan — the packet explicitly considered this ("g_mtrade carries no ticket"). Revisit only if a multi-position future ever breaks the invariant.
+2. **E4 direct-write-before-GoAbort**: writing the record before GoAbort would drop the three capture locals and the post-abort writes (−3 lines). Recommended AGAINST: v263 cleared this structure 4/4; churn buys nothing; the capture/write split documents the survive-the-reset intent.
+3. **Multi-slot record**: an array of suppression tuples would kill the single-slot overwrite residual. Recommended AGAINST: bigger diff, and the residual is named, watched, and halt-gated in G2.
+4. **Endorse**: the exitReason-tied gate IS the right mechanism (reads the post-priority winner, immune to future predicate or priority edits); keep it over any pre-predicate test.
+
+## Rules and close
+
+No binding rule (R-a..R-e) is contradicted by anything on the page; no rule-stop. Frontier weighting (Astra + Opus) consistent with either-seat-halt; no rule change needed. The run it prepares still owes the clearance relay, the Luna key, and his explicit run word — none granted or spent here.
+
+## V267-RESQUAT-CLEAR8 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

@@ -10,9 +10,9 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON58-RETEST-V1.md (G1 PASS, G2 FAIL on 9/1 squatter-veto miss, G3 MIXED, G4 CORRECTED; 6 takes 51/57-identical).
 - Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v267-RESQUAT-CLEAR8.md (0495C276/58420/482 READY: clearance ask Q1+Q2 on packet v9; twin 337/337 diff 0; deal-validate fence; battery green; draft-split, transport owed).
-- Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v9 753B436E/42906/337 DRAFT: S1-141 fix + census proofs + deal-validate + rc-gate + exitPrice = +152/11482; ledger 713).
-- V266 verdicts: Luna Q1-CLEAR/Q2-NOT-CLEAR; Astra NOT/NOT; Opus NOT/NOT; GLM replay (no v266 ruling). Ledger 712.
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v267-RESQUAT-CLEAR8.md (0495C276/58420/482 GRADED-HALTED this turn, ledger 714: twin 337/337 diff 0 stood; v9 unbuilt).
+- Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v9 753B436E/42906/337 GRADED-HALTED: S1-152 fix + census proofs + deal-validate + rc-gate + exitPrice = +152/11482; v10 drafts on re-carry only).
+- V267 verdicts (graded this turn, ledger 714): Luna C/C (light); Astra C/NC-halt-SUSTAINED (exclusivity+G3); Opus/GLM no v9 ruling (version-incoherent text / v7-object text). Q1 OPEN, Q2 HALTED. NO build. Re-carry owed.
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
 - Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
 - Prior packet: 01_TASKS\PACKET_P-DEMOGUARD-2.md (v2 302023B3/9710 BUILT tree 98F6BBAC; guard arc closed RECON57).
