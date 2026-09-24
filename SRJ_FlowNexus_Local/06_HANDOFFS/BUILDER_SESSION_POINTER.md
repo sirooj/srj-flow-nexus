@@ -3,21 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, HANDOFF FILED)
+## State (2026-09-25, RECON60 GRADED)
 
 - Built D74FE972/11502, 0/0
-  both targets, RECON60 DONE
-  PASSED on disk, UNGRADED
-  (handoff POST-V271 filed).
-  Key spent. Awaiting
-  YOUR completion signal.
+  both targets, RECON60 G4-PASS
+  graded (result 1E3E3294,
+  tab A2AE6285). 9/1 take back,
+  exits executed. Key spent.
 
 ## Next (artifact owed)
 
-- Owed: his completion word
-  ("run has completed").
-  Then gates + tabulate +
-  result, same turn.
+- Owed: nothing now. YOUR next
+  scope word opens the next
+  packet via council route.
 
 ## Resume order (exact)
 

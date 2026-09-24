@@ -1,0 +1,173 @@
+﻿# RECON60-RESQUAT-V12 TABULATION (seg60 4824FE61/6465733/34269 vs seg59 7A7E74C0/6618090/34993; literal .Contains, same method both sides; zeros re-proved by second patterns below)
+
+pattern | RECON60 | RECON59
+ALERT SRJ SIGNAL | 7 | 6
+ALERT SRJ EXIT | 7 | 6
+ALERT SRJ HEADS-UP | 46 | 47
+ALERT SRJ STAND-DOWN | 40 | 42
+MTSNAP | 7 | 6
+EXECUTE_ACCT | 7 | 6
+PRE-SEND | 7 | 6
+order performed | 14 | 12
+deal performed | 14 | 12
+MTLIFE fields= | 7 | 6
+MTEXIT | 7 | 6
+DAY_CLOSE | 4 | 3
+TP_ELECT | 11 | 10
+EXITVERDICT | 159 | 155
+FRESH_VETO | 12 | 12
+A6REFUSED | 51 | 54
+HEADS-UP | 46 | 47
+STAND-DOWN | 40 | 42
+RENEW | 0 | 0
+MTCOLLISION | 0 | 0
+SEEDVOID | 0 | 0
+DIV_FALLBACK | 9 | 9
+EVICT_UNEXPECTED_ORIGIN | 0 | 0
+S5_GATE_CHECK->S4_ARMED | 0 | 0
+S5_GATE_CHECK->ABORT | 10 | 10
+S5_GATE_CHECK->SIGNAL | 7 | 6
+ABORT reason= | 51 | 54
+DIV_WAIT | 8 | 8
+CONFIRM_DIV_WAIT | 4 | 4
+SUPPRESSED | 452 | 482
+SIDE1C_CHAIN | 58 | 60
+SIDE1C_PREEMPT | 15 | 15
+FRESHCOUNT | 81 | 95
+VETOCLEAR | 3 | 4
+TP_TOUCH | 9 | 9
+EXITCENSUS | 1908 | 1860
+LTFFLIP | 16 | 16
+XOB-PROMOCENSUS | 469 | 469
+WS161_CENSUS | 1 | 1
+BIASCENSUS_FINAL | 1 | 1
+ZONECENSUS_FINAL | 1 | 1
+TPCENSUS | 279 | 295
+DEMO_GUARD | 0 | 0
+TP_RR_FAIL | 16 | 16
+FRESH_OPP_FVG | 18 | 21
+SESSION_CLOSED | 20 | 22
+LTF_MISALIGN | 60 | 60
+FRESH_OB_DEAD | 27 | 30
+LINEWIDTH | 32 | 32
+MTCLOSE bar= | 2 | 0
+MTCLOSE_FAIL | 0 | 0
+ENTRY_TICKET | 7 | 0
+EVICTSUPPRESS bar= | 3 | 0
+EVICTSUPPRESS_FIRE | 1 | 0
+RESEED_BLOCKED | 3 | 0
+EVICTSUPPRESS_SKIP | 0 | 0
+INDEX-INVALID | 0 | 0
+SESSION_LIMIT | 7 | 6
+ANCHOR_ELECT | 58 | 60
+POIREPLACE | 7 | 6
+MTEXEC | 0 | 0
+
+## Zero re-proofs (second differently-formed patterns)
+MTCOLLISION-2 COLLISION | 0 | 0
+SEEDVOID-2 SEED_VOID | 0 | 0
+DEMOGUARD-2 ABORT_DEMO_GUARD | 0 | 0
+EVICT-2 EVICT_UNEXPECTED | 0 | 0
+MTCLOSE-SKIP SKIP-NO-SEND | 0 | 0
+MTCLOSE-NOTHING NOTHING-TO-CLOSE | 0 | 0
+OLDNAME MTEXEC | 0 | 0
+MTCLOSE-ACTION0 MTCLOSE+action=0 | 0 | 0
+MTCLOSE-DONE MTCLOSE+retcode=10009 | 2 | 0
+ENTRYTICKET-ZERO ENTRY_TICKET+ticket=0 | 0 | 0
+
+## G2 joins (60 only unless noted)
+DIVABORT-S5 ABORT+DIV_FALLBACK+S5_GATE_CHECK | 3 vs EVICTSUPPRESS bar= 3
+SKIP-POST655 RESEED_BLOCKED+SKIP+2026.09.01 | 1 (rows follow the 16:55 ARM)
+HOLD-IN-SPAN SUPPRESSED+2026.09.01 17:+heldPoi=Yearly-POC | 0 (second form below)
+HOLD-IN-SPAN-2 SUPPRESSED bar=+Yearly-POC-held in 17:00-17:35 | 0
+FIRE-DAY EVICTSUPPRESS_FIRE day=2026.09.01 | 1
+S5SIG-901 S5_GATE_CHECK->SIGNAL+2026.09.01 | 1 | 0
+SIG-901 ALERT SRJ SIGNAL+2026.09.01 | 1 | 0
+
+## G3 joins (MTCLOSE rows + paired MTEXIT rows)
+MTCLOSE> Core 04	2026.08.28 11:45:02   [SRJ-EA] MTCLOSE bar=2026.08.28 11:40 leg=POI_BODY_BREAK ticket=2 magic=773001 action=1 retcode=10009 deal=3 closepid=2 closeentry=1 entryPid=2 flat=1 ref=1.16439
+MTCLOSE> Core 04	2026.09.07 00:00:07   [SRJ-EA] MTCLOSE bar=2026.09.04 23:55 leg=DAY_CLOSE ticket=6 magic=773002 action=1 retcode=10009 deal=7 closepid=6 closeentry=1 entryPid=6 flat=1 ref=1.16093
+JOIN bar=2026.08.28 11:40 ref=1.16439 exit=1.16439 MATCH
+JOIN bar=2026.09.04 23:55 ref=1.16093 exit=1.16093 MATCH
+
+## Per-day localization (60/59; all delta families)
+2026.08.28 | SUPPRESSED=58/58 | FRESHCOUNT=0/0 | TPCENSUS=40/40 | EXITCENSUS=240/240 | A6REFUSED=5/5 | ABORT reason==5/5 | SIDE1C_CHAIN=6/6 | VETOCLEAR=0/0 | SESSION_CLOSED=3/3 | FRESH_OB_DEAD=0/0 | FRESH_OPP_FVG=0/0 | HEADS-UP=5/5 | STAND-DOWN=5/5 | TP_ELECT=2/2 | EXITVERDICT=20/20 | ANCHOR_ELECT=6/6
+2026.08.31 | SUPPRESSED=28/44 | FRESHCOUNT=2/13 | TPCENSUS=14/28 | EXITCENSUS=0/0 | A6REFUSED=4/5 | ABORT reason==4/5 | SIDE1C_CHAIN=4/5 | VETOCLEAR=0/0 | SESSION_CLOSED=2/2 | FRESH_OB_DEAD=0/3 | FRESH_OPP_FVG=0/0 | HEADS-UP=3/4 | STAND-DOWN=3/4 | TP_ELECT=1/1 | EXITVERDICT=0/0 | ANCHOR_ELECT=4/5
+2026.09.01 | SUPPRESSED=47/61 | FRESHCOUNT=7/10 | TPCENSUS=27/29 | EXITCENSUS=48/0 | A6REFUSED=4/6 | ABORT reason==4/6 | SIDE1C_CHAIN=5/6 | VETOCLEAR=0/0 | SESSION_CLOSED=2/4 | FRESH_OB_DEAD=0/0 | FRESH_OPP_FVG=0/3 | HEADS-UP=4/4 | STAND-DOWN=3/4 | TP_ELECT=1/0 | EXITVERDICT=4/0 | ANCHOR_ELECT=5/6
+2026.09.04 | SUPPRESSED=40/40 | FRESHCOUNT=15/15 | TPCENSUS=25/25 | EXITCENSUS=1152/1152 | A6REFUSED=6/6 | ABORT reason==6/6 | SIDE1C_CHAIN=7/7 | VETOCLEAR=1/1 | SESSION_CLOSED=0/0 | FRESH_OB_DEAD=6/6 | FRESH_OPP_FVG=3/3 | HEADS-UP=7/7 | STAND-DOWN=6/6 | TP_ELECT=2/2 | EXITVERDICT=96/96 | ANCHOR_ELECT=7/7
+2026.09.07 | SUPPRESSED=31/31 | FRESHCOUNT=12/12 | TPCENSUS=20/20 | EXITCENSUS=312/312 | A6REFUSED=0/0 | ABORT reason==0/0 | SIDE1C_CHAIN=2/2 | VETOCLEAR=0/0 | SESSION_CLOSED=0/0 | FRESH_OB_DEAD=0/0 | FRESH_OPP_FVG=0/0 | HEADS-UP=2/2 | STAND-DOWN=0/0 | TP_ELECT=2/2 | EXITVERDICT=26/26 | ANCHOR_ELECT=2/2
+2026.09.08 | SUPPRESSED=42/42 | FRESHCOUNT=9/9 | TPCENSUS=24/24 | EXITCENSUS=168/168 | A6REFUSED=4/4 | ABORT reason==4/4 | SIDE1C_CHAIN=6/6 | VETOCLEAR=0/0 | SESSION_CLOSED=0/0 | FRESH_OB_DEAD=6/6 | FRESH_OPP_FVG=0/0 | HEADS-UP=5/5 | STAND-DOWN=3/3 | TP_ELECT=3/3 | EXITVERDICT=14/14 | ANCHOR_ELECT=6/6
+
+## Set-diffs (wall-stripped unique lines; 60-only vs 59-only counts + the differing lines)
+FAMILY MTSNAP only60=1 only59=0
+  60> Core 04	2026.09.01 17:35:01   [SRJ-EA] MTSNAP bar=2026.09.01 17:30 dir=LONG anchor=Monthly-VWAP entry=1.16022 sl=1.15975 tp=1.16077 regime=1
+FAMILY PRE-SEND only60=5 only59=4
+  60> Core 04	2026.09.01 17:35:01   [SRJ-EA] PRE-SEND lots=2.05 entry=1.16024 slPts=49 tpPts=53 stopsLevel=0 freezeLevel=0 spreadPts=2
+  60> Core 04	2026.09.07 09:20:00   [SRJ-EA] PRE-SEND lots=2.50 entry=1.16138 slPts=40 tpPts=62 stopsLevel=0 freezeLevel=0 spreadPts=3
+  60> Core 04	2026.09.07 16:45:00   [SRJ-EA] PRE-SEND lots=3.90 entry=1.16264 slPts=26 tpPts=51 stopsLevel=0 freezeLevel=0 spreadPts=3
+  60> Core 04	2026.09.08 10:10:00   [SRJ-EA] PRE-SEND lots=1.95 entry=1.16205 slPts=53 tpPts=103 stopsLevel=0 freezeLevel=0 spreadPts=1
+  60> Core 04	2026.09.08 17:00:00   [SRJ-EA] PRE-SEND lots=1.95 entry=1.16220 slPts=54 tpPts=106 stopsLevel=0 freezeLevel=0 spreadPts=3
+  59> Core 04	2026.09.07 09:20:00   [SRJ-EA] PRE-SEND lots=2.48 entry=1.16138 slPts=40 tpPts=62 stopsLevel=0 freezeLevel=0 spreadPts=3
+  59> Core 04	2026.09.07 16:45:00   [SRJ-EA] PRE-SEND lots=3.92 entry=1.16264 slPts=26 tpPts=51 stopsLevel=0 freezeLevel=0 spreadPts=3
+  59> Core 04	2026.09.08 10:10:00   [SRJ-EA] PRE-SEND lots=1.96 entry=1.16205 slPts=53 tpPts=103 stopsLevel=0 freezeLevel=0 spreadPts=1
+  59> Core 04	2026.09.08 17:00:00   [SRJ-EA] PRE-SEND lots=1.96 entry=1.16220 slPts=54 tpPts=106 stopsLevel=0 freezeLevel=0 spreadPts=3
+FAMILY MTEXIT only60=1 only59=0
+  60> Core 04	2026.09.01 17:55:01   [SRJ-EA] MTEXIT bar=2026.09.01 17:50 reason=SL line=- lineVal=- entry=1.16022 exit=1.15975
+FAMILY MTLIFE fields= only60=1 only59=0
+  60> Core 04	2026.09.01 17:55:01   [SRJ-EA] MTLIFE fields=11 openBar=2026.09.01 17:35 dir=LONG entry=1.16022 sl=1.15975 tp=1.16077 verdict=SL closeBar=2026.09.01 17:50 closePx=1.15975 openAtNewsStart=0 openAtDayClose=0 openAtWeekClose=0
+FAMILY ABORT reason= only60=0 only59=3
+  59> Core 04	2026.08.31 18:20:00   [SRJ-EA] 2026.08.31 18:20:00 ABORT reason=FRESH_OB_DEAD state=S4_ARMED poi=Yearly-POC dir=LONG
+  59> Core 04	2026.09.01 17:50:00   [SRJ-EA] 2026.09.01 17:50:00 ABORT reason=FRESH_OPP_FVG state=S4_ARMED poi=Yearly-POC dir=LONG
+  59> Core 04	2026.09.01 19:05:02   [SRJ-EA] 2026.09.01 19:05:02 ABORT reason=SESSION_CLOSED state=S1_REGIME poi=Yearly-POC dir=SHORT
+FAMILY order performed only60=13 only59=11
+  60> Core 04	2026.08.28 11:45:02   order performed buy 2.38 at 1.16440 [#3 buy 2.38 EURUSD at 1.16440]
+  60> Core 04	2026.09.01 17:35:01   order performed buy 2.05 at 1.16024 [#4 buy 2.05 EURUSD at 1.16024]
+  60> Core 04	2026.09.01 17:51:04   order performed sell 2.05 at 1.15975 [#5 sell 2.05 EURUSD at 1.15975]
+  60> Core 04	2026.09.04 16:00:00   order performed buy 0.57 at 1.16019 [#6 buy 0.57 EURUSD at 1.16019]
+  60> Core 04	2026.09.07 00:00:07   order performed sell 0.57 at 1.16093 [#7 sell 0.57 EURUSD at 1.16093]
+  60> Core 04	2026.09.07 09:20:00   order performed buy 2.5 at 1.16138 [#8 buy 2.5 EURUSD at 1.16138]
+  60> Core 04	2026.09.07 10:53:07   order performed sell 2.5 at 1.16201 [#9 sell 2.5 EURUSD at 1.16200]
+  60> Core 04	2026.09.07 16:45:00   order performed buy 3.9 at 1.16264 [#10 buy 3.9 EURUSD at 1.16264]
+  60> Core 04	2026.09.07 17:13:30   order performed sell 3.9 at 1.16315 [#11 sell 3.9 EURUSD at 1.16315]
+  60> Core 04	2026.09.08 10:10:00   order performed sell 1.95 at 1.16205 [#12 sell 1.95 EURUSD at 1.16205]
+  60> Core 04	2026.09.08 10:42:46   order performed buy 1.95 at 1.16102 [#13 buy 1.95 EURUSD at 1.16102]
+  60> Core 04	2026.09.08 17:00:00   order performed sell 1.95 at 1.16220 [#14 sell 1.95 EURUSD at 1.16220]
+  60> Core 04	2026.09.08 17:26:29   order performed buy 1.95 at 1.16275 [#15 buy 1.95 EURUSD at 1.16274]
+  59> Core 04	2026.08.28 17:00:17   order performed buy 2.38 at 1.16510 [#3 buy 2.38 EURUSD at 1.16508]
+  59> Core 04	2026.09.04 16:00:00   order performed buy 0.57 at 1.16019 [#4 buy 0.57 EURUSD at 1.16019]
+  59> Core 04	2026.09.07 09:20:00   order performed buy 2.48 at 1.16138 [#5 buy 2.48 EURUSD at 1.16138]
+  59> Core 04	2026.09.07 10:53:07   order performed sell 2.48 at 1.16201 [#6 sell 2.48 EURUSD at 1.16200]
+  59> Core 04	2026.09.07 11:12:27   order performed sell 0.57 at 1.16307 [#7 sell 0.57 EURUSD at 1.16302]
+  59> Core 04	2026.09.07 16:45:00   order performed buy 3.92 at 1.16264 [#8 buy 3.92 EURUSD at 1.16264]
+  59> Core 04	2026.09.07 17:13:30   order performed sell 3.92 at 1.16315 [#9 sell 3.92 EURUSD at 1.16315]
+  59> Core 04	2026.09.08 10:10:00   order performed sell 1.96 at 1.16205 [#10 sell 1.96 EURUSD at 1.16205]
+  59> Core 04	2026.09.08 10:42:46   order performed buy 1.96 at 1.16102 [#11 buy 1.96 EURUSD at 1.16102]
+  59> Core 04	2026.09.08 17:00:00   order performed sell 1.96 at 1.16220 [#12 sell 1.96 EURUSD at 1.16220]
+  59> Core 04	2026.09.08 17:26:29   order performed buy 1.96 at 1.16275 [#13 buy 1.96 EURUSD at 1.16274]
+FAMILY deal performed only60=13 only59=11
+  60> Core 04	2026.08.28 11:45:02   deal performed [#3 buy 2.38 EURUSD at 1.16440]
+  60> Core 04	2026.09.01 17:35:01   deal performed [#4 buy 2.05 EURUSD at 1.16024]
+  60> Core 04	2026.09.01 17:51:04   deal performed [#5 sell 2.05 EURUSD at 1.15975]
+  60> Core 04	2026.09.04 16:00:00   deal performed [#6 buy 0.57 EURUSD at 1.16019]
+  60> Core 04	2026.09.07 00:00:07   deal performed [#7 sell 0.57 EURUSD at 1.16093]
+  60> Core 04	2026.09.07 09:20:00   deal performed [#8 buy 2.5 EURUSD at 1.16138]
+  60> Core 04	2026.09.07 10:53:07   deal performed [#9 sell 2.5 EURUSD at 1.16201]
+  60> Core 04	2026.09.07 16:45:00   deal performed [#10 buy 3.9 EURUSD at 1.16264]
+  60> Core 04	2026.09.07 17:13:30   deal performed [#11 sell 3.9 EURUSD at 1.16315]
+  60> Core 04	2026.09.08 10:10:00   deal performed [#12 sell 1.95 EURUSD at 1.16205]
+  60> Core 04	2026.09.08 10:42:46   deal performed [#13 buy 1.95 EURUSD at 1.16102]
+  60> Core 04	2026.09.08 17:00:00   deal performed [#14 sell 1.95 EURUSD at 1.16220]
+  60> Core 04	2026.09.08 17:26:29   deal performed [#15 buy 1.95 EURUSD at 1.16275]
+  59> Core 04	2026.08.28 17:00:17   deal performed [#3 buy 2.38 EURUSD at 1.16510]
+  59> Core 04	2026.09.04 16:00:00   deal performed [#4 buy 0.57 EURUSD at 1.16019]
+  59> Core 04	2026.09.07 09:20:00   deal performed [#5 buy 2.48 EURUSD at 1.16138]
+  59> Core 04	2026.09.07 10:53:07   deal performed [#6 sell 2.48 EURUSD at 1.16201]
+  59> Core 04	2026.09.07 11:12:27   deal performed [#7 sell 0.57 EURUSD at 1.16307]
+  59> Core 04	2026.09.07 16:45:00   deal performed [#8 buy 3.92 EURUSD at 1.16264]
+  59> Core 04	2026.09.07 17:13:30   deal performed [#9 sell 3.92 EURUSD at 1.16315]
+  59> Core 04	2026.09.08 10:10:00   deal performed [#10 sell 1.96 EURUSD at 1.16205]
+  59> Core 04	2026.09.08 10:42:46   deal performed [#11 buy 1.96 EURUSD at 1.16102]
+  59> Core 04	2026.09.08 17:00:00   deal performed [#12 sell 1.96 EURUSD at 1.16220]
+  59> Core 04	2026.09.08 17:26:29   deal performed [#13 buy 1.96 EURUSD at 1.16275]
+
+(End of file)
