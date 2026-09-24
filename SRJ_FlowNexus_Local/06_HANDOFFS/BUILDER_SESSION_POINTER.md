@@ -3,23 +3,26 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, LUNA YES - KEY ASK)
+## State (2026-09-24, RECON59 GRADED)
 
-- Luna ruled v257 Q1-YES (screenshot).
-  Stale charge withdrawn (ledger 691).
-  Novelty-check-first rule banked.
+- G2-FAIL by re-squat. Eviction
+  fires 3/3 (S5-to-S4 zero),
+  6 takes tick-identical incl
+  fills, 9/1 still misses (same
+  POI re-seeds 17:00, re-vetoes
+  17:30, dies 17:50). Result
+  06_HANDOFFS\BUILDER_RESULT_
+  RECON59-EVICT-V1.md filed
+  (564D9227). Key SPENT.
+  Ledger 693 + index filed.
+  Result commit this block.
 
 ## Next (artifact owed)
 
-- Owed: Luna key ask + YOUR run word
-  + verdict rest. Then I build, run,
-  grade, report - unattended.
-
-## Next (artifact owed)
-
-- Owed: YOUR carry of v257 file
-  (6139 B, title v257) to Luna only.
-  Paste verdict back whole.
+- Owed: re-seed-suppression
+  packet draft via council
+  route (builder drafts;
+  transport only battery-green).
 
 ## Resume order (exact)
 

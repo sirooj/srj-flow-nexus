@@ -317,6 +317,7 @@ void MtReset()
 //--- [Task 78] Part A Step 8 / D-3 / G-2 replacement. Diagnostic string only;
 //--- no gate reads an abort reason.
 #define ABORT_POI_REPLACED     "POI_REPLACED"
+#define ABORT_DIV_FALLBACK     "DIV_FALLBACK"
 
 //====================== [Task 160] Migration data contracts ==========
 // Twelve data contracts as an INERT ARCHITECTURE SHELL. Types only.
@@ -8784,11 +8785,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           break;
          }
       }
-      //--- [P-CONFIRM-GATE E3] one-bar validity, the divergence miss: the
-      //--- confirmation is CONSUMED and the candidate RETURNS TO S4_ARMED
-      //--- (CONFIRM_DIV_WAIT, no abort) - a fresh confirmation may present on
-      //--- a later bar. The old async wait ("S5 waiting: divLatch=0 tpOk=1")
-      //--- RETIRES.
+       //--- [P-EVICT-1] divergence-miss disposition: refused S4-origin holders
+       //--- ABORT (DIV_FALLBACK); S3 pre-bind rollback kept; other origins keep
+       //--- today's behavior with unconditional census. LogAbort unconditional;
+       //--- A6REFUSED debug-gated; STAND-DOWN fires when armed (wanted, alert-only).
+       //--- Retry converted 0 of 4 distinct refusals (RECON57/RECON58); DIV_WAIT stays marker.
       if(!divOk)
         {
          if(InpDebugLog)
@@ -8798,13 +8799,25 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                          DirName(g_dir), divVal);
           //--- [P-SLDEF-4 E33] the decided outcome rides the census.
           SrjOrderEmit(barShift, "DIV_WAIT");
-          ENUM_SRJ_STATE prevDiv = g_state;
-         //--- [P-CONFIRM-ANYSTATE E3] the rollback returns to the promotion
-         //--- origin: S3 for a pre-bind confirmation, S4 for the armed edge
-         //--- (identical to the build-2 behavior for the armed path).
-         g_state = (g_confirmFromState == ST_S3_ZONE_WAIT) ? ST_S3_ZONE_WAIT
-                                                           : ST_S4_ARMED;
-         LogState(prevDiv, g_state);
+         //--- [P-EVICT-1] refused S4 holders abort (squatter GC, positive test).
+         ENUM_SRJ_STATE prevDiv = g_state;
+         if(g_confirmFromState == ST_S4_ARMED)
+           {
+            GoAbort(ABORT_DIV_FALLBACK, g_state);
+            return;
+           }
+         if(g_confirmFromState == ST_S3_ZONE_WAIT)
+           {
+            g_state = ST_S3_ZONE_WAIT;
+            LogState(prevDiv, g_state);
+            return;
+           }
+         PrintFormat("[SRJ-EA] EVICT_UNEXPECTED_ORIGIN bar=%s origin=%s",
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                  TIME_DATE|TIME_MINUTES),
+                     StateName(g_confirmFromState));
+         g_state = ST_S4_ARMED;
+         LogState(prevDiv, ST_S4_ARMED);
          return;
         }
 

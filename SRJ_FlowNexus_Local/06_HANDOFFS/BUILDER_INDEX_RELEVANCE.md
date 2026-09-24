@@ -6,9 +6,9 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 
 - Pointer: 06_HANDOFFS\BUILDER_SESSION_POINTER.md (only live memory).
 - Rules: AGENTS.md (skill-load, gates, invariants).
-- Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON58-RETEST-V1.md (1F2D44F4/161: G1 PASS, G2 FAIL on 9/1 squatter-veto miss, G3/G4 itemized; both hard-gate takes restored 51-identical; C1-C4 corrections own stale R3.43/1.16261/11:40-fill/57-day-close-fill; tabulation RECON58-RETEST-V1_TABULATION.txt AD3CE3B7/42).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON55-VNEXT-V1.md (takes 5 with fills; baseline for RECON56 grading).
-- Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107: Luna-D1 fold, hoisted prevDiv + dynamic logging; E1 +1, E2 net +12, E3 rewritten; 11330).
+- Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON59-EVICT-V1.md (564D9227/10453/79: G1 PASS, G2 FAIL on 9/1 re-squat miss, G3 MIXED, G4 PASS; 6 takes tick-identical incl fills; eviction fires 3/3 venues; tabulation RECON59-EVICT-V1_TABULATION.txt 4CB94C7A/2833/82).
+- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON58-RETEST-V1.md (G1 PASS, G2 FAIL on 9/1 squatter-veto miss, G3 MIXED, G4 CORRECTED; 6 takes 51/57-identical).
+- Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v257-EVICT-7.md (90FF9038/6139/82: Q1 D1-fix on v7, Luna-only round).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
@@ -32,7 +32,7 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - 9/7: journal 281/283 + ledger 535/536 (AS.H) + AS.H-touch proof (ledger 561).
 - 9/8: journal 285-288 (structures blank) + SEP8 review (17:00 valid) + RECON51 17:00 rows (entry match, exit divergence).
 - 9/9: journal 289 (London blank, no New York row) + silent segments (no miss).
-- 9/1: journal 265 (London only, less-than-1R note; no New York row) + row 301 (NY 17:35 LONG VALID-taken-not-taken-by-him, his ruling 2026-09-23; early-exit instance 17:45 close, tolerance open) + result B97F8AC8 + finding FC8038F1 + RECON58 MISS (Yearly-POC S4 squatter vetoes 17:30 seed; 57 voided the squatters, 58 keeps them - eviction packet owed).
+- 9/1: journal 265 (London only, less-than-1R note; no New York row) + row 301 (NY 17:35 LONG VALID-taken-not-taken-by-him, his ruling 2026-09-23; early-exit instance 17:45 close, tolerance open) + result B97F8AC8 + finding FC8038F1 + RECON58 MISS (Yearly-POC S4 squatter vetoes 17:30 seed; 57 voided the squatters, 58 keeps them - eviction packet owed) + RECON59 MISS (eviction fires 16:55, same POI re-seeds 17:00, re-arms, re-vetoes 17:30 winner, dies 17:50 FRESH_OPP_FVG - re-seed-suppression packet owed).
 
 ## Stale (history only, never operative)
 

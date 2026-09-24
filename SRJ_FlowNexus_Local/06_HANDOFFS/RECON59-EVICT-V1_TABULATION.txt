@@ -1,0 +1,82 @@
+﻿# RECON59-EVICT-V1 TABULATION (seg59 7A7E74C0/6618090/34993 vs seg58 424A5A0C/6624800/35016; literal .Contains, same method both sides; zeros re-proved by second patterns below)
+
+pattern | RECON59 | RECON58
+ALERT SRJ SIGNAL | 6 | 6
+ALERT SRJ EXIT | 6 | 6
+ALERT SRJ HEADS-UP | 47 | 46
+ALERT SRJ STAND-DOWN | 42 | 41
+MTSNAP | 6 | 6
+EXECUTE_ACCT | 6 | 6
+PRE-SEND | 6 | 6
+order performed | 12 | 12
+deal performed | 12 | 12
+MTLIFE fields= | 6 | 6
+MTEXIT | 6 | 6
+DAY_CLOSE | 3 | 3
+TP_ELECT | 10 | 10
+EXITVERDICT | 155 | 155
+FRESH_VETO | 12 | 12
+A6REFUSED | 54 | 53
+HEADS-UP | 47 | 46
+STAND-DOWN | 42 | 41
+RENEW | 0 | 0
+MTCOLLISION | 0 | 0
+SEEDVOID | 0 | 0
+DIV_FALLBACK | 9 | 0
+EVICT_UNEXPECTED_ORIGIN | 0 | 0
+S5_GATE_CHECK->S4_ARMED | 0 | 3
+S5_GATE_CHECK->ABORT | 10 | 7
+S5_GATE_CHECK->SIGNAL | 6 | 6
+ABORT reason= | 54 | 53
+DIV_WAIT | 8 | 8
+CONFIRM_DIV_WAIT | 4 | 4
+SUPPRESSED | 482 | 484
+SIDE1C_CHAIN | 60 | 59
+SIDE1C_PREEMPT | 15 | 15
+FRESHCOUNT | 95 | 97
+VETOCLEAR | 4 | 5
+TP_TOUCH | 9 | 9
+EXITCENSUS | 1860 | 1860
+LTFFLIP | 16 | 17
+XOB-PROMOCENSUS | 469 | 469
+WS161_CENSUS | 1 | 1
+BIASCENSUS_FINAL | 1 | 1
+ZONECENSUS_FINAL | 1 | 1
+TPCENSUS | 295 | 297
+DEMO_GUARD | 0 | 0
+TP_RR_FAIL | 16 | 16
+FRESH_OPP_FVG | 21 | 24
+SESSION_CLOSED | 22 | 22
+LTF_MISALIGN | 60 | 64
+FRESH_OB_DEAD | 30 | 30
+FRESH_VETO | 12 | 12
+LINEWIDTH | 32 | 32
+
+## Zero re-proofs (second differently-formed patterns)
+MTCOLLISION-2 COLLISION | 0 | 0
+SEEDVOID-2 SEED_VOID | 0 | 0
+DEMOGUARD-2 ABORT_DEMO_GUARD | 0 | 0
+EVICT-2 EVICT_UNEXPECTED | 0 | 0
+
+## 9/1-focused census (59 only unless noted)
+SUPPRESSED and 2026.09.01 | 61 | 62
+SIGNAL and 2026.09.01 | 0 | 0
+S5->SIGNAL and 2026.09.01 | 0 | 0
+DIV_FALLBACK and 2026.09.01 | 3 | 0
+ABORT and 2026.09.01 | 6 | 5
+
+## Set-diffs (wall-stripped unique lines; A-only vs B-only counts + the differing lines)
+FAMILY MTSNAP only59=0 only58=0
+FAMILY PRE-SEND only59=0 only58=0
+FAMILY order performed only59=0 only58=0
+FAMILY deal performed only59=0 only58=0
+FAMILY MTEXIT only59=0 only58=0
+FAMILY MTLIFE fields= only59=0 only58=0
+FAMILY ABORT reason= only59=3 only58=2
+  A> Core 04	2026.08.31 16:40:01   [SRJ-EA] 2026.08.31 16:40:01 ABORT reason=DIV_FALLBACK state=S5_GATE_CHECK poi=Yearly-POC dir=LONG
+  A> Core 04	2026.09.01 16:55:00   [SRJ-EA] 2026.09.01 16:55:00 ABORT reason=DIV_FALLBACK state=S5_GATE_CHECK poi=Yearly-POC dir=LONG
+  A> Core 04	2026.09.04 09:45:02   [SRJ-EA] 2026.09.04 09:45:02 ABORT reason=DIV_FALLBACK state=S5_GATE_CHECK poi=Daily-POC dir=LONG
+  B> Core 04	2026.08.31 16:50:00   [SRJ-EA] 2026.08.31 16:50:00 ABORT reason=FRESH_OPP_FVG state=S4_ARMED poi=Yearly-POC dir=LONG
+  B> Core 04	2026.09.04 09:50:03   [SRJ-EA] 2026.09.04 09:50:03 ABORT reason=LTF_MISALIGN state=S4_ARMED poi=Daily-POC dir=LONG
+
+(End of file)

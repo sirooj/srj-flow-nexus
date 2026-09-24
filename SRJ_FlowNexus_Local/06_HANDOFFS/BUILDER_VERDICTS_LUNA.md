@@ -8211,3 +8211,10 @@ Q1: **yes** — E1 at the EA ~319 anchor and E2 replacing **EA 8801–8808**. Th
 [CROP-NOTED remainder: image cuts at A2 mid-text ("Ask anything" box overlaps); A3+ and close owed with key reply - requested same turn.]
 
 ## V257-EVICT END LUNA (verbatim close, Q1-YES on v257 page proven by screenshot)
+
+## KEY LUNA EVICT-1 OPEN (his carry, Luna key seat + channel, packet v7, filed whole - CLEARED, graded PASS 5/5 below)
+
+Packet P-EVICT-1 v7 — 2EF1A9E0, 12461 bytes.
+CLEARED for exactly one build plus one tester run.
+
+## KEY LUNA EVICT-1 END (verbatim close; grade: seat Luna by his channel declaration + packet 2EF1A9E0 + bytes 12461 match disk + one-build-one-run scope + verbatim quote + zero new conditions = PASS 5/5; SPENDS on the v7 build+run in the new session; Luna verdict rest below image fold still owed)
