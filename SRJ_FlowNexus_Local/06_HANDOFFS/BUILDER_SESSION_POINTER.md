@@ -3,23 +3,23 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, V261 DRAFTED)
+## State (2026-09-24, V262 READY)
 
 - Clearance relay for packet
-  v2 drafted battery-green:
-  06_HANDOFFS\BUILDER_RELAY_
-  COUNCIL_v261-RESQUAT-CLEAR2.md
-  (C93C801F). Twin diff 0.
-  Seats Opus+GLM+Astra per
-  your orders (Sonnet parked,
-  Kimi out). Luna not carried;
-  no key; nothing builds on
-  council text. Ledger 699.
+  v3 double-battery green
+  twice: 06_HANDOFFS\
+  BUILDER_RELAY_COUNCIL_v262-
+  RESQUAT-CLEAR3.md (E841C3AF).
+  Twin diff 0, budget +105.
+  Seats Opus+GLM+Astra; Luna
+  not carried; no key; nothing
+  builds on council text.
+  Ledger 703.
 
 ## Next (artifact owed)
 
 - Owed: transport signal (his
-  carry of the v261 file).
+  carry of the v262 file).
 
 ## Resume order (exact)
 
