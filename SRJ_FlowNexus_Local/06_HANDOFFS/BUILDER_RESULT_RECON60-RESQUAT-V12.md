@@ -57,7 +57,7 @@
 ## Goal join (window 08-26 to 09-09; scoreboard re-joined)
 
 - HIT - 8/28 London SHORT (entry/bar identical; exit now 11:40 BREAK close fill 1.16440 vs his 11:35 body-break exit - converged to a 1-bar verdict delta with the stop-loss exit gone).
-- HIT - 9/4 NY LONG R1.66 (entry identical; exit DAY_CLOSE flatten bar 23:55 vs his day-close-minus-5 rule - the verdict bar IS 23:55, rule-matched).
+- HIT - 9/4 NY LONG R1.66 (entry identical; exit DAY_CLOSE flatten bar 23:55 - verdict bar matches, FILL TIMING OPEN: filled Mon 00:00 day-open, not Fri 23:55-open; his 2026-09-25 timing rule banked, fold drafted).
 - HIT - 9/7 London LONG R1.76 + 9/7 NY LONG R2.34 (entries/bars identical; lots re-derived only).
 - HIT - 9/8 London SHORT R1.94 + 9/8 17:00 SHORT (entries/bars identical; lots re-derived only).
 - TAKE-NOW - 9/1 NY LONG (his VALID row; tester takes 2.05 at 1.16024 exact, SL 17:50 - entry HIT, exit tolerance-open, no question).
@@ -67,6 +67,12 @@
 ## Cost and next
 
 - Cost: one build (E1-E9 suppression record + gate + arms + executor + sole resolver, STAGE-1 gated) + one run 0:51:08 wall (90 ceiling respected; test 0:50:19) + Luna key RESQUAT-1 SPENT. Novel evidence delivered: all five packet items (a) through (e) with rows.
-- Next: no packet drafted here; any follow-on (9/1 exit-tolerance join, full-journal span) goes via council route on his scope word. No transport owed (grading turns carry no transport ask). Result commit follows this file (builder-called).
+- Next: fold PACKET_P-DAY2355-1 v1 DRAFT opened this turn on his 23:55-open word (relay + battery next block); 9/1 exit-tolerance join + full-journal span still via council route on his scope word. No transport owed (draft turns carry no transport ask).
+
+## Timing correction (his 2026-09-25 chart ruling, R35)
+
+- WITHDRAWN: the goal-join "rule-matched" phrase - the 9/4 DAY_CLOSE verdict bar (23:55) matched his rule but the FILL (Mon 00:00:07 day-open, spread 18 on his chart) violates his 23:55-open rule and its purpose (avoid swap + new-day spread). Builder defect (graded the bar, missed the fill timing), owned same turn.
+- SURVIVES: G4 PASS on bars/refs/fills as measured (fill 1.16093 == ref); the gap is fill TIMING, a new open item, never a G4 reversal.
+- Banked: strategy-skill 23:55-open execution pin; ledger 736; fold PACKET_P-DAY2355-1 v1 DRAFT (this turn).
 
 (End of file)

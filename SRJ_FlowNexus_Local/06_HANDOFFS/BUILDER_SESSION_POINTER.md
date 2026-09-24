@@ -3,19 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RECON60 GRADED)
+## State (2026-09-25, 23:55 RULE)
 
-- Built D74FE972/11502, 0/0
-  both targets, RECON60 G4-PASS
-  graded (result 1E3E3294,
-  tab A2AE6285). 9/1 take back,
-  exits executed. Key spent.
+- HIS 23:55-open rule banked
+  (day-close fills Friday at
+  23:55 open, never Mon open;
+  purpose swap + spread).
+  Fold PACKET_P-DAY2355-1 v1
+  DRAFT opened. No build/run.
 
 ## Next (artifact owed)
 
-- Owed: nothing now. YOUR next
-  scope word opens the next
-  packet via council route.
+- Relay draft + battery next
+  (unattended); transport ask
+  only when battery green.
 
 ## Resume order (exact)
 
