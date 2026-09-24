@@ -6,15 +6,15 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 ## State (2026-09-24, V263 READY)
 
 - Clearance relay for packet
-  v4 battery-green: 06_HANDOFFS\
-  BUILDER_RELAY_COUNCIL_v263-
-  RESQUAT-CLEAR4.md (3340F7FE).
-  Twin diff 0, budget +105.
-  Seats Opus+GLM+Astra; Luna
-  silent (key seat unaffected);
-  nothing builds on council
-  text. Ledger 704 (703-duplicate
-  repaired same turn).
+  v5 re-verified end to end:
+  06_HANDOFFS\BUILDER_RELAY_
+  COUNCIL_v263-RESQUAT-CLEAR4.md
+  (9D7B6319). Real twin diff 0,
+  budget +105. Seats Opus+GLM+
+  Astra; Luna silent (key seat
+  unaffected); nothing builds
+  on council text. Ledger 705
+  (number from tail read).
 
 ## Next (artifact owed)
 

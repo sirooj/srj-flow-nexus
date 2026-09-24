@@ -1,4 +1,4 @@
-﻿# BUILDER RELAY COUNCIL v263-RESQUAT-CLEAR4 (2026-09-24, clearance ask: clear PACKET_P-RESQUAT-1 v4 to build; session CONTINUE)
+﻿# BUILDER RELAY COUNCIL v263-RESQUAT-CLEAR4 (2026-09-24, clearance ask: clear PACKET_P-RESQUAT-1 v5 to build; session CONTINUE)
 
 ## 0. What this relay asks (read first)
 
@@ -6,9 +6,10 @@
 - Session: CONTINUE (same tree, same window; v262 verdicts filed whole 1x: Opus HALT both with nine repairs + Opus Q1-CLEAR/Q2-print-HALT + Luna silence + Astra silent; NO build, nothing spent; packet re-cut to v4 below with every halt item repaired; v262 twin of v3 superseded with it, untransported).
 - Run cost of THIS relay: zero. The run it prepares costs one build + one 90-minute tester run on the same terminal, spent only on clearance plus the Luna key plus his run word.
 - Why this run has novel evidence no prior run did: first eviction-paired suppression take (9/1 17:35) plus first executed BREAK and DAY_CLOSE fills with retcodes, graded bars-first lots-second.
-- Disk identity: packet P-RESQUAT-1 v4 = measured this turn (twin section 2). EA pre-build tree = 15A41634/622631/11330 (no canonical edit since the RECON59 grade). Segments on record (59 = 7A7E74C0/6618090/34993; 58 = 424A5A0C/6624800/35016; 57 = 6F242EAC/4274727/24144). Relay digest recorded in the ledger post-splice, never inside this file.
+- Disk identity: packet P-RESQUAT-1 v5 = measured this turn (twin section 2). EA pre-build tree = 15A41634/622631/11330 (no canonical edit since the RECON59 grade). Segments on record (59 = 7A7E74C0/6618090/34993; 58 = 424A5A0C/6624800/35016; 57 = 6F242EAC/4274727/24144). Relay digest recorded in the ledger post-splice, never inside this file.
 - Evidence discipline: defect rows and code regions rode whole in v259 and are presence-asserted here, never re-inserted. What rides whole HERE is the packet twin (section 2, the object under clearance) plus the machine fence table (section 3, buildability proofs). Priors ride labeled (file + marker + digest).
 - v3-to-v4 repair map (every v262 halt item, all within-line, budget unchanged +105/11435): E5 success print corrected 7/7 (action=%d retcode=%d ref=%s); SKIP formats joined by explicit concat; (ulong) cast on the magic; barTime param + all three prints + E7 call aligned to paper bar terms; E4 key unified to barTime; vBREAK/vDAY bool pin (no change - declarations rule); -1 writers invariant (assert route, no code change); GetCorrectFillingMode + E6b anchor + Trade.mqh fenced; G2 FIRE identity restated; R-c tuple residual added.
+- v4-to-v5 repair map (readiness re-verification this turn: FIRE identity restated <= ARM in Scope+G2 (v4 overclaimed an equality the code cannot produce); G2 anchored-grep spacing fixed. Budget UNCHANGED +105/11435, code UNCHANGED. v4 SUPERSEDED, re-twinned below).
 
 ## 1. Binding rules (unchanged: R-a..R-e amended, F-a ruled, F-b/F-c his call)
 
@@ -16,10 +17,10 @@
 
 ## 2. Packet twin (the object under clearance; byte-verified section 3)
 
---- PACKET P-RESQUAT-1 v4 TWIN BEGIN ---
-# PACKET_P-RESQUAT-1 v4 DRAFT - eviction-paired reseed suppression + tester exit legs, v262-halt repairs within-line (nothing builds/runs/commits on this file)
+--- PACKET P-RESQUAT-1 v5 TWIN BEGIN ---
+# PACKET_P-RESQUAT-1 v5 DRAFT - eviction-paired reseed suppression + tester exit legs, FIRE-identity repair (nothing builds/runs/commits on this file)
 
-Status: v4 DRAFT (re-cuts v3 on the v262 verdicts this turn: Opus HALT both (FIRE identity + unguarded index + day-key expr + S1 gaps + print 8v7 + vDAY + filling-mode + E6b anchor + E7 anchors + bar-time) + Opus Q1-CLEAR/Q2-print-HALT + Luna silence; Astra silent. All repairs below are within-line (+0): E5 success print corrected 7/7, SKIP explicit concat, (ulong) cast, barTime param + prints + call, E4 key unified to barTime. Budget UNCHANGED +105/11435 (S3 recount governs). v3 SUPERSEDED (carried only by untransported v262 twin). Clearance via a new clearance relay plus Luna key plus his run word, all owed).
+Status: v5 DRAFT (re-cuts v4 on the readiness re-verification this turn: FIRE identity restated <= ARM in Scope+G2 (v4 overclaimed an equality the code cannot produce); G2 anchored-grep spacing fixed. Budget UNCHANGED +105/11435, code UNCHANGED. v4 SUPERSEDED, re-twinned below. Prior: v3 re-cut v2 (full literals, recount, E6a/E6b); v262 verdicts Opus-halt + Opus-clear + Luna silence. Clearance via this relay plus Luna key plus his run word, all owed).
 Canonical files: exactly ONE - Experts\SRJ_FlowNexus_EA.mq5 (Q2: E1 +10, E2 +13, E3 +16, E4 +13 = +52; Q3: E5 +48, E6a +0, E6b +0, E7 +5 = +53; combined +105, post 11435 NET: new-site-total minus old-site-total per edit, S3 recount governs).
 No new indicator buffers (four plain globals; 48 unchanged). No new inputs. Nothing under 02_TASK_CHECKPOINTS. Commits are builder-called (AGENTS 6.5); no council commit token exists or is asked.
 Successor context: RECON59 (built tree 15A41634, graded G2-FAIL on the 9/1 re-squat miss + G4 paper-exit verdicts); this packet converts the freed slot (Q2) and executes the verdicts (Q3).
@@ -55,7 +56,7 @@ Successor context: RECON59 (built tree 15A41634, graded G2-FAIL on the 9/1 re-sq
 ## Scope (9/1 restoration + verdict execution, adopted names)
 
 - REQUIRED: 9/1 take 17:35 entry 1.16024 (57 shape: SL 1.15975, TP 1.16077); other takes identical bars/entries (lots re-derive downstream of executed exits, graded second); 8/28 exit 11:40 near 1.16439 (stop fill gone); 9/4 flat 23:55 near 1.16093 (target fill gone).
-- 9/4-invalid still refused; MTCOLLISION 0; EVICTSUPPRESS count == DIV_FALLBACK S4-origin count (delimiter-anchored: EVICTSUPPRESS bar= rows only, never the FIRE rows); RESEED_BLOCKED >= 1 on 9/1 16:55-bar; EVICTSUPPRESS_FIRE == take count; ANCHOR_ELECT Monthly-VWAP at next evaluation; SUPPRESSED Yearly-POC-held rows GONE from 17:00-17:35 span.
+- 9/4-invalid still refused; MTCOLLISION 0; EVICTSUPPRESS count == DIV_FALLBACK S4-origin count (delimiter-anchored: EVICTSUPPRESS bar= rows only, never the FIRE rows); RESEED_BLOCKED >= 1 on 9/1 16:55-bar; EVICTSUPPRESS_FIRE <= ARM count (equality only for takes in armed sessions); ANCHOR_ELECT Monthly-VWAP at next evaluation; SUPPRESSED Yearly-POC-held rows GONE from 17:00-17:35 span.
 
 ## Edit set (exact verbatim old/new; STAGE-1 exact-diff gated)
 
@@ -238,7 +239,7 @@ S1 Pre-hash gate: re-hash EA (must equal 15A41634798A9307D2D38EB631946F1BCCDD071
 ## Acceptance (grade segment-vs-RECON59; bars-first lots-second)
 
 G1 Build: 0 errors 0 warnings both targets; post-hashes recorded; budget EA 11435 lines, net +105 from literals.
-G2 Takes: 9/1 take 17:35 entry 1.16024 (SIGNAL/alert/MTSNAP/PRE-SEND/fill chain); other takes identical bars/entries (lots re-derived, graded second); 9/4-invalid still refused at S5; MTCOLLISION 0; EVICTSUPPRESS bar= == DIV_FALLBACK S4 count; RESEED_BLOCKED >= 1 on 9/1 16:55-bar; EVICTSUPPRESS_FIRE == take count; R-a item: post-exit same-session candidate produces SESSION_LIMIT row and never a new PRE-SEND; ANCHOR_ELECT Monthly-VWAP at next evaluation; SUPPRESSED Yearly-POC-held rows GONE from 17:00-17:35 span. Any unpredicted election delta HALTS (incl POIREPLACE/SIDE1C_PREEMPT/ANCHOR_ELECT/SUPPRESSED/SEEDVOID set-diff outside 9/1 16:55-17:35; single-slot watch: any (session,day) with EVICTSUPPRESS x2 joined against later ANCHOR_ELECT for the earlier tuple).
+G2 Takes: 9/1 take 17:35 entry 1.16024 (SIGNAL/alert/MTSNAP/PRE-SEND/fill chain); other takes identical bars/entries (lots re-derived, graded second); 9/4-invalid still refused at S5; MTCOLLISION 0; EVICTSUPPRESS-bar rows == DIV_FALLBACK S4 count (anchored `EVICTSUPPRESS bar=`, never FIRE rows); RESEED_BLOCKED >= 1 on 9/1 16:55-bar; EVICTSUPPRESS_FIRE <= ARM count (equality only for takes in armed sessions); R-a item: post-exit same-session candidate produces SESSION_LIMIT row and never a new PRE-SEND; ANCHOR_ELECT Monthly-VWAP at next evaluation; SUPPRESSED Yearly-POC-held rows GONE from 17:00-17:35 span. Any unpredicted election delta HALTS (incl POIREPLACE/SIDE1C_PREEMPT/ANCHOR_ELECT/SUPPRESSED/SEEDVOID set-diff outside 9/1 16:55-17:35; single-slot watch: any (session,day) with EVICTSUPPRESS x2 joined against later ANCHOR_ELECT for the earlier tuple).
 G3 State-identical plus 9/1 and plus executed exits: all non-exit families count-identical vs RECON59 except downstream of the 9/1 take and the two executed exits; MTCLOSE print-family joins (BREAK ok=1 8/28 11:40, DAY_CLOSE ok=1 9/4 23:55; zero SL/TP/HTF/CANCEL legs); vDAY field present; alert kinds SIGNAL/EXIT/HEADS-UP/STAND-DOWN (MTCLOSE lives in the print clause, never an alert kind).
 G4 Exits: 8/28 close 11:40 near 1.16439 (stop fill gone); 9/4 flat 23:55 near 1.16093 (target fill gone); other exits identical bars/reasons; DAY_CLOSE counts re-derived; spread tolerance on fills per bar-granularity standard.
 L-final Graded set authoritative: G1/G2/G3/G4 above.
@@ -248,12 +249,12 @@ L-final Graded set authoritative: G1/G2/G3/G4 above.
 One build (suppression record + gate + arms + executor, STAGE-1 gated) plus one tester run, ceiling 90 minutes, same envelope as RECON59. Novel evidence vs RECON59: (a) first 9/1 take on the suppressed tree; (b) first executed BREAK + DAY_CLOSE fills with retcodes; (c) suppression census rows with takes intact. Exit figures are target figures until fills print, never realized before.
 
 (End of file)
---- PACKET P-RESQUAT-1 v4 TWIN END ---
+--- PACKET P-RESQUAT-1 v5 TWIN END ---
 
 ## 3. Fence table (machine counts on the pre-build tree; buildability proofs)
 
 --- FENCE TABLE (machine counts on pre-build tree 15A41634/11330; FlowLogic buffers) ---
-twin | packet A53E6ABB/20824/231
+twin | packet 8FB7CC0E/20791/231
 fence | bool SessionAlreadyUsed | 1
 fence | void MarkSessionUsed | 1
 fence | MarkSessionUsed( | 3

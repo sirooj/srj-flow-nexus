@@ -10,8 +10,8 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON58-RETEST-V1.md (G1 PASS, G2 FAIL on 9/1 squatter-veto miss, G3 MIXED, G4 CORRECTED; 6 takes 51/57-identical).
 - Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v263-RESQUAT-CLEAR4.md (3340F7FE/27789/330: clearance ask Q1+Q2 on packet v4 +105/11435; twin diff 0; extended fence; battery green).
-- Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v4 A53E6ABB/20824/231 DRAFT: v262-halt repairs within-line (print 7/7, concat, cast, barTime, key unify); budget +105/11435 stands; v3 superseded).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v263-RESQUAT-CLEAR4.md (9D7B6319/28024/331 READY: clearance ask Q1+Q2 on packet v5 +105/11435; real twin diff 0; extended fence; re-battery green).
+- Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v5 8FB7CC0E/20791/231 DRAFT: FIRE-identity repair; code + budget unchanged from v4).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
 - Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
 - Prior packet: 01_TASKS\PACKET_P-DEMOGUARD-2.md (v2 302023B3/9710 BUILT tree 98F6BBAC; guard arc closed RECON57).
