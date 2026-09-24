@@ -10,7 +10,7 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON58-RETEST-V1.md (G1 PASS, G2 FAIL on 9/1 squatter-veto miss, G3 MIXED, G4 CORRECTED; 6 takes 51/57-identical).
 - Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v259-RESQUAT-PLUS-EXIT.md (A0AC419C/56341/796: solve-request Q1 cause + Q2 resquat code + Q3 exit code; verdicts Luna-full + Opus-full filed, Sonnet process-refusal without verdict, Kimi no-credits, Opus pending; v258 superseded untransported).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v260-RESQUAT-CLEAR.md (54F3A492/16046/151: clearance ask Q1 resquat-half + Q2 executor-half on packet P-RESQUAT-1 v1; twin diff 0; fence table; Kimi seat broke).
 - Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v1 D351E32C/10089/70 DRAFT: Opus-Q2 suppression +52 + Opus-Q3 executor +54, post 11436; Luna-Q2/Q3 rejected on rows/compile-break; R-c ruled on record).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
 - Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
