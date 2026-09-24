@@ -471,3 +471,122 @@ Two residuals to add to the watched list before the run, neither blocking:
 Verification split honored: I judged the pasted twin and fence table only. Every count above is read from section 3 as given, and the three declaration-order conditions in asserts 3, 9, and the `g_trade` note below are inferences from spliced usage, not disk facts. On `g_trade`: fence `PositionClose 0` means the close surface is never exercised on the current tree, so S1 should also assert `g_trade`'s declared type exposes `PositionClose` and `ResultRetcode` rather than leaning on the `Buy`/`Sell` surface alone. 
 
 ## V260-RESQUAT-CLEAR END OPUS (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V262-RESQUAT-CLEAR3 OPEN OPUS (his carry, relay v262 clearance ask, filed whole 1x)
+
+Opus:
+## Independent recount first (the v261 halt item)
+
+Counted mechanically from the pasted literals in section 2, one NET convention (new-site lines − old-site lines):
+
+| Edit | old | new | NET |
+|---|---|---|---|
+| E1 | 1 | 11 | +10 |
+| E2 | 6 | 19 | +13 |
+| E3 | 3 | 19 | +16 |
+| E4 | 7 | 20 | +13 |
+| E5 | 1 | 49 | +48 |
+| E6a | 1 | 1 | +0 |
+| E6b | 1 | 1 | +0 |
+| E7 | 0 | 5 | +5 |
+
+Q2 = +52, Q3 = +53, combined **+105**, post 11330 → **11435**. Every figure agrees with the packet. The v2 arithmetic defect is repaired; E2's "print is 3 lines" and E5's "1 blank + 47 + 1 retained header" both check out against the pasted text. The `EVICTSUPPRESS bar=` vs `EVICTSUPPRESS_FIRE sess=` delimiter repair also holds — the ARM search string cannot match a FIRE row.
+
+Both halves still halt, on different grounds.
+
+---
+
+## Q1. Re-squat half (E1–E4, +52)
+
+**Q1 verdict: not cleared, because (a) G2's `EVICTSUPPRESS_FIRE == take count` is an identity the pasted E2 code cannot produce, (b) E4 indexes `g_lineCode[s4e_line]` unguarded, which can abort the run, and (c) the day key is written and compared through two different expressions.**
+
+The edit set itself is sound — capture-before-abort is correct, the read gate returns into a free slot, the globals sit outside `ResetSequence`'s clear set by construction, and `MarkSessionUsed(` at 3 hits (2 calls + 1 def) means FIRE covers both SIGNAL paths. The three items below are all pre-build repairs at zero run cost.
+
+### Rules
+
+- **R-a (one-take-per-session):** held — FIRE clears only after `g_sessionUsed_*`/`g_sessionUsedDay_*` are set in E2, and G2 carries the explicit R-a item (SESSION_LIMIT row, never a new PRE-SEND).
+- **R-b (no timing rules):** held — E3's EXPIRE arm is a calendar day-key mismatch ("no timer, no bar count"), and E4 keys on `TC_DayStart`, not elapsed bars.
+- **R-c (R floor + replicate-all):** held for the filed case under the S5-refused RULING, but the tuple is (line, dir, session, day), so a later *independent* valid setup on the same tuple is also suppressed. That exposure is not in the named-residuals list (which carries only C4 transfer admission and single-slot overwrite). Add it as a named residual.
+- **R-d (detection walk untouched):** held — E3 only *reads* `PoiRetestResult`; no walk body is edited, and S1 assert 5 pins signature AND body hash pre/post.
+- **R-e (alert-only demo bounds):** not engaged by E1–E4; no order surface is touched in this half.
+
+### STAGE-1 asserts restated as checkable conditions
+
+1. Pre-hash equals `15A41634798A9307D2D38EB631946F1BCCDD07171544C053F986B9416A2E7739` / 622631 B / 11330 lines, or a DIAGNOSED successor. Never assumed.
+2. One hit per exact edit anchor: `bool SessionAlreadyUsed` = 1, `void MarkSessionUsed` = 1, `branch=RETEST inWin=1` = 1, `s1g_legDir = pr.isLong` = 1, `squatter GC` = 1. All five confirmed in the fence table.
+3. Identifier availability — **the filed list is incomplete for this half.** `g_anchorLine`, `g_dir`, `g_sessionAtEntry`, `pr.topLine`, and `barShift`-in-scope-at-C8 appear only in new text and are absent from both the S1 list and the fence table. Add all five as S1 rows before apply.
+4. Char-code assert every OLD anchor (E1 one line, E2 six lines, E3 three lines, E4 seven lines).
+5. Detector signature and body/shared-walk hash identical at S1-pre and S3-post.
+6. Buffers: declaration VALUE 48, binding census identical pre/post (`FlowLogic SetIndexBuffer(48` = 0 confirms no 49th binding).
+7. `MarkSessionUsed(` call count == 2 at @10160/@10253, def excluded, 3 total hits. Fence confirms 3.
+8. `ENUM_SRJ_DIR`, `ENUM_SRJ_SESSION`, `DIR_NONE`, `SESSION_NONE` declared above EA 1803. Presence is fenced; the *ordering* claim is gate-only and stays gate-only.
+9. E4 capture lines precede the `GoAbort` line — satisfied by the pasted block (lines 7–9 before line 10).
+10. Scope E1–E4 only, NET +52, post-site counts 11/19/19/20.
+
+### Repairs owed
+
+- **G2 identity.** FIRE prints only when a record is armed *and* `sess`/`today` match. A take in a (session, day) with no prior eviction emits no FIRE row, so the true relation is `EVICTSUPPRESS_FIRE ≤ EVICTSUPPRESS(ARM) count`, with equality only against takes that fall inside an armed (session, day). Restate the bar that way in both Scope and G2, or the grade halts on a bar the code was never able to meet.
+- **Array bound.** `g_lineCode[s4e_line]` in the ARM print is unguarded; `s4e_line = g_anchorLine` at a `GoAbort` path. If it is ever −1, MQL5 raises array-out-of-range and the tester run terminates — a full 90-minute spend lost. Guard with `s4e_line >= 0 && s4e_line < POI_NLINES` (both identifiers fenced), or add an S1/S2 assert that `g_anchorLine` is always valid at the C8 branch. Same guard question applies to `g_lineCode[pr.topLine]` in E3. E2's FIRE print is already safe behind `g_evictSuppressLine >= 0`.
+- **Day-key expression.** E3 compares `TC_DayStart(barTime)`; E4 writes `TC_DayStart(iTime(_Symbol, PERIOD_CURRENT, barShift))`; E3's own new print uses the `iTime` form while its old anchor uses `barTime`. Pick one expression for the key and assert the two are the same instant at the E3 site. If they diverge, `RESEED_BLOCKED` silently never fires and G2's `>= 1 on 9/1 16:55-bar` fails only after the run is spent.
+
+---
+
+## Q2. Exit-executor half (E5–E7, +53)
+
+**Q2 verdict: not cleared, because the E5 result `PrintFormat` is malformed (8 specifiers, 7 arguments, scrambled order), and `vDAY` — which E6b and E7 both depend on — is nowhere proven to exist.**
+
+### Rules
+
+- **R-a:** held — MTCLOSE closes a broker position; it never re-arms a session or emits a PRE-SEND.
+- **R-b:** held — the close fires on the BREAK/DAY_CLOSE verdict at the `nextOpenPx` instant, with no timer or bar-count condition.
+- **R-c:** held — no setup validity, R floor, or seed path is touched; lots are explicitly graded second in Scope and G4.
+- **R-d:** held — E5 is a new function above EA 11095, E6a/E6b are format/argument lines, E7 is a call site. No detection-walk region is in scope; S1 assert 5 still pins it.
+- **R-e (amended, tester-closes-only):** held *in the pasted gate*, and this is the strongest part of the half — see the called check below. Live remains alerts-only through the SKIP-NO-SEND return.
+
+### Double gate restated as the called check
+
+An order is sent only under the conjunction. The pasted guard is the negation of that conjunction:
+
+```mql5
+if(InpMode != MODE_EXECUTE || MQLInfoInteger(MQL_TESTER) == 0)
+  { /* MTCLOSE ... action=SKIP-NO-SEND mode=%d tester=%d */ return false; }
+```
+
+so `send ⟺ (InpMode == MODE_EXECUTE) ∧ (MQLInfoInteger(MQL_TESTER) != 0)`. Correct as filed, and the skip row prints both operands, which makes the gate auditable in the log rather than assumed. Live and non-tester paths reach `return false` before any `g_trade` call. One gap: **S5 runs `InpMode 1`, and nothing asserts that `MODE_EXECUTE` evaluates to 1.** The fence gives 2 occurrences of the token, not its ordinal. Assert 4 already checks a declaration VALUE for buffers; add the same class of assert for `MODE_EXECUTE` against the S5 setting, or the gate skips silently and G4 grades zero fills after 90 minutes.
+
+### Grading bar restated
+
+- 8/28 **11:40** broker close near **1.16439**, prior stop fill at 1.16510 **gone**; `MTCLOSE leg=POI_BODY_BREAK ok=1 retcode=<recorded>`.
+- 9/4 **23:55** flat near **1.16093**, prior target fill at 1.16302 on 9/7 **gone**; `MTCLOSE leg=DAY_CLOSE ok=1 retcode=<recorded>`.
+- Zero SL/TP/HTF/CANCEL_BIAS legs reach a close; `MTCOLLISION` 0.
+- Bars and reasons first; **lots re-derived downstream and graded second**; DAY_CLOSE counts re-derived; spread tolerance per the bar-granularity standard.
+- MTCLOSE joins as a **print family in the print clause only** — never an alert kind; alert kinds stay SIGNAL/EXIT/HEADS-UP/STAND-DOWN. `vDAY` field present in the MTEXIT row.
+- Exit figures stay target figures until fills print.
+
+### Halt items
+
+**1. The result print cannot be graded as written.** Format string carries 8 specifiers:
+
+```
+bar=%s leg=%s ticket=%I64u magic=%d ref=%s action=%s retcode=%d fill=%s
+```
+
+The argument list supplies 7: `TimeToString(...)`, `leg`, `ticket`, `(int)pmagic`, `(int)ok`, `(int)g_trade.ResultRetcode()`, `DoubleToString(refPx, _Digits)`. Past `magic=%d` everything shifts: `ref=%s` receives `(int)ok`, `action=%s` receives the retcode, `retcode=%d` receives a string, and `fill=%s` receives nothing. Either S4 fails the 0-warnings bar on the printf-style check, or the row that G3 and G4 are graded from is corrupt — and `retcode` is named evidence item (b) in the run-cost section. The other two prints in E5 are well-formed, which is what makes this look like a transcription slip rather than a design question. Repair, restate the count, and re-assert: E5 new site stays 49 lines only if the fix is argument-side, not line-side.
+
+**2. `vDAY` is unproven.** The fence row `vDAY=%d | 0` proves the *format field* is absent — it is equally consistent with the variable not existing at all. There is no fence row for `vDAY` as an identifier, and it is absent from the S1 identifier list, yet E6b inserts `(int)vDAY` and E7 branches on `vBREAK || vDAY`. Both edits fail to compile if the symbol is not in scope at those sites. `vBREAK` is fenced at 12 and listed; `vDAY` needs the same treatment before apply.
+
+**3. `GetCorrectFillingMode` is unfenced.** E5 calls it with `_Symbol`; it appears in neither the fence table nor the S1 identifier list. Its existence, signature, and return type feeding `g_trade.SetTypeFilling()` are all unproven.
+
+**4. E6b's old anchor is unfenced.** `(int)vHTF, (int)MT_EXIT_SCOPE,` has no fence row, and `MT_EXIT_SCOPE` has none either. E6a's anchor is fenced at 1; E6b's uniqueness is asserted, not measured. Add the row.
+
+**5. E7 is not an exact verbatim diff.** The edit-set header promises exact verbatim old/new, but E7 supplies new text only and describes its old anchor in prose ("between the MTEXIT PrintFormat statement and `if(InpDebugLog) MtLifeEmit();`"). The trailing anchor is fenced unique at 1, which makes placement determinable, but the leading anchor is not pasted, so STAGE-1 cannot char-code it. Paste both anchor lines.
+
+**6. `bar=` prints `TimeCurrent()`, not the bar time,** while the grading bar is stated in bar terms (11:40, 23:55) and the comment promises "the same nextOpenPx instant the paper leg records." Align the printed time with whatever the paper MTEXIT row prints, or G4's timestamp match becomes an interpretation argument after the run rather than a check.
+
+---
+
+## What is owed back
+
+Two not-cleared verdicts, nine named repairs, none of which require re-cutting the edit structure — E1–E4 stand as logic, E5's gate stands as filed, and the +105/11435 recount survives independent verification. Items Q1-1 (the FIRE identity) and Q2-1 (the malformed print) are the two that would otherwise corrupt a grade after the spend; the rest are S1 assert rows and fence rows that cost nothing to add. Nothing builds, runs, or commits on this relay; the Luna key and his run word remain owed regardless. 
+
+## V262-RESQUAT-CLEAR3 END OPUS (verbatim close; filed whole 1x this turn, novel inbound)

@@ -8567,3 +8567,7 @@ Luna:
 **Grading bar:** `8/28 11:40` close **near 1.16439**, with the prior stop fill gone; `9/4 23:55` flat **near 1.16093**, with the prior target fill gone; other exits must remain identical by the stated acceptance rules; **lots are graded second, downstream of the executed exits**. 
 
 ## V260-RESQUAT-CLEAR END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V262-RESQUAT-CLEAR3 OPEN LUNA (his carry, relay v262 clearance ask; Luna seat sent no text this round - silence recorded, never chased)
+
+## V262-RESQUAT-CLEAR3 END LUNA (silence marker; no inbound text arrived for this round)

@@ -3466,3 +3466,66 @@ Joins the run should show: `MTEXIT reason=POI_BODY_BREAK` → `MTCLOSE leg=POI_B
 3. **Two behavioral consequences the builder should carry into the packet draft, not discover at grade time.** Closing a position in MT5 removes its attached SL/TP orders with it, so no orphan pendings survive an executed exit — but it also frees `IsSessionPositionOpen(magic)`, which makes the day-keyed session mark the sole one-take guard for the rest of that session. And because exits now change the balance path, every take after the first executed exit re-derives lots; the relay's bars-first/lots-second grading order is what makes that gradeable. 
 
 ## V259-RESQUAT-PLUS-EXIT END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V262-RESQUAT-CLEAR3 OPEN GLM (his carry, relay v262 clearance ask, filed whole 1x)
+
+GLM:
+# Seat verdicts — P-RESQUAT-1 v3 (twin A94E7349/19092/227)
+
+Recount performed this turn from the pasted literals, all seven blocks counted whole: E1 11−1=+10, E2 19−6=+13, E3 19−3=+16, E4 20−7=+13, E5 49−1=+48, E6a/E6b +0, E7 +5. Q2-half +52, Q3-half +53, combined +105, 11330+105=11435. The v2 figures (+106/11436) are correctly withdrawn. All S3 numbers reconcile.
+
+## Q1. Re-squat half (E1-E4, +52)
+
+**Q1 verdict: the re-squat half is cleared to build.**
+
+Rules, one line each:
+
+- **R-a** — held: E1-E4 create no take; the gate only blocks a re-seed (E3 SKIP row) and FIRE rides the existing session-mark call inside MarkSessionUsed (E2); G2's "R-a item: post-exit same-session candidate produces SESSION_LIMIT row and never a new PRE-SEND" grades the invariant.
+- **R-b** — held: E3's EXPIRE arm is day-key mismatch fall-through, filed verbatim "no timer, no bar count (R-b)"; no timer or bar counter exists in E1/E2/E4.
+- **R-c** — held: the suppressed tuple is the S5-refused holder (E4's ST_S4_ARMED → ABORT_DIV_FALLBACK branch, the tree's single ABORT_DIV_FALLBACK use per fence), and per the R-c ruling S5-refused is not a valid setup; takes intact per G2.
+- **R-d** — held by gate: E3 sits in the IDLE seed caller after DetectPoiRetest returns, not in the detector; S1 assert 5 (signature AND body/shared-walk hash, S1 pre vs S3 post) is the binding check and a miss = DIAGNOSE stop, never a silent pass.
+- **R-e** — held: E1-E4 send no orders; suppression is print + four plain globals only.
+
+STAGE-1 asserts restated as checkable conditions:
+
+1. **Pre-hash**: disk EA == 15A41634798A9307D2D38EB631946F1BCCDD07171544C053F986B9416A2E7739 / 622631 B / 11330 lines, or a DIAGNOSED successor, never assumed.
+2. **One-hit-per-anchor** (fence-proven at 1): `bool SessionAlreadyUsed`, `void MarkSessionUsed`, `branch=RETEST inWin=1`, `s1g_legDir = pr.isLong`, `squatter GC`.
+3. **Identifier availability**: g_lineCode (40), SessionName (10), TC_DayStart (6), DirName (111); **add `barShift` in scope at the EA 8802 evict site** — E4's two new iTime calls use it and it is absent from the packet's S1(2) list (S4 compile is the deterministic backstop; assert it at S1 anyway).
+4. **Old-anchor bytes**: char-code assert of the E1 header line, E2's 6 lines (1813-1818), E3's 3 lines (7730-7732), E4's 7 lines (8802-8808) before diff.
+5. **Detector**: DetectPoiRetest signature + body/shared-walk hash identical pre/post.
+6. **Buffers**: indicator_buffers VALUE 48 + binding census identical pre/post; E1's four globals are plain (fence: `SetIndexBuffer(48` = 0).
+7. **MarkSessionUsed-call count**: 3 total hits = 1 def + exactly 2 calls @10160/@10253; E2 adds none.
+8. **Enum decls**: ENUM_SRJ_DIR / ENUM_SRJ_SESSION / DIR_NONE / SESSION_NONE declared above EA 1803 (fence 56/13/15/6 nonzero; position is the S1 check).
+9. **E4 ordering**: the three capture lines precede the GoAbort line inside the branch; fence pins the branch uniquely (1 #define + 1 use).
+10. **Scope + recount**: E1-E4 only, +52 NET; plus a post-build confinement census — all `g_evictSuppress*` occurrences confined to the E1/E2/E3/E4 sites (7/4/5/7 by my count: line 7, dir 4, sess 5, day 7), none in ResetSequence's clear set or anywhere else.
+
+Named, non-halting: (a) the packet's parenthetical labels the halves "Q2:/Q3:" (prior council numbering) where this relay's asks are Q1/Q2 — the half→edit map is identical in sections 0 and 2, so no ambiguity, but v4 should restate it in relay numbering; (b) the record survives ResetSequence by design but not a terminal restart — inert in the graded tester window; add to the residual watch list or disclose.
+
+## Q2. Exit-executor half (E5-E7, E6a/E6b, +53)
+
+**Q2 verdict: not cleared because the E5 success-row PrintFormat is malformed — 8 format specifiers against 7 arguments, with type shifts after `magic=` — and that is the exact row G3 grades.**
+
+Halt grounds, checked specifier-by-specifier on the pasted whole: format carries `bar=%s leg=%s ticket=%I64u magic=%d ref=%s action=%s retcode=%d fill=%s` = 8 specifiers; args carry TimeToString, leg, ticket, (int)pmagic, (int)ok, (int)ResultRetcode, DoubleToString(refPx) = 7. From slot 5 every field shifts: (int)ok lands in `ref=%s`, the retcode int lands in `action=%s`, the refPx string lands in `retcode=%d`, and `fill=%s` receives nothing. MQL5 does not type-check varargs, so S4's 0/0 gate passes it; the corruption surfaces only at S5, inside the graded MTCLOSE rows (G3's "BREAK ok=1 8/28 11:40, DAY_CLOSE ok=1 9/4 23:55") and the packet's own novel-evidence item (b) "fills with retcodes" — i.e., the one-shot 90-minute run's evidence is corrupted exactly where the grade reads. This is a v261-class presentation defect caught pre-spend. The other five new prints are clean (3/3, 6/6, 3/3, 5/5, 5/5).
+
+Rules (they hold on the design; the halt is the literal):
+
+- **R-a** — held: E5-E7 create no takes; they close an existing managed position only; G2's R-a item still grades.
+- **R-b** — held: E7 is verdict-keyed only (`if(vBREAK || vDAY)`); no timing anywhere in the half.
+- **R-c** — held: lots re-derive downstream of executed exits, graded second (Scope, G2, Run-cost); no sizing touched.
+- **R-d** — held: no detector edit in the half; S1(5) hash gate unchanged.
+- **R-e (amended, tester-closes-only)** — held by design: order sent only behind the double gate; live stays alerts-only.
+
+Double gate restated as the called check: the send sits behind `if(InpMode != MODE_EXECUTE || MQLInfoInteger(MQL_TESTER) == 0) { ...SKIP-NO-SEND...; return false; }` — an order requires InpMode == MODE_EXECUTE AND MQL_TESTER != 0, conjoined; live or non-EXECUTE prints SKIP-NO-SEND with the ticket and returns false before PositionClose. Second layer: E7's `vBREAK || vDAY` excludes TP/HTF/CANCEL_BIAS even if they fall through to the print.
+
+Grading bar restated: 8/28 close 11:40 near 1.16439 with the stop fill (1.16510 @ 17:00) gone; 9/4 flat 23:55 near 1.16093 with the target fill (1.16302 on 9/7) gone; other exits identical bars/reasons; lots graded second; MTCLOSE print-family joins only (zero SL/TP/HTF/CANCEL legs); vDAY field present; DAY_CLOSE counts re-derived; spread tolerance per bar-granularity standard.
+
+**What v4 owes (Q2 half only; Q1 carries unchanged per the two-half rule):**
+
+1. Re-file the E5 success row as a corrected whole literal — e.g. `"...magic=%d action=%d retcode=%d ref=%s"` against args …pmagic, ok, ResultRetcode, DoubleToString(refPx) (7/7, types match). If the repair stays within-line, E5 stays 49 and +48/+53/+105/11435 all stand; any line-count change forces an S3 recount.
+2. Re-file the SKIP-NO-SEND format with explicit `+` between the two literals (adjacent-literal concatenation is not an MQL5 feature; as filed it likely stops S4). Two lines kept → recount unchanged.
+3. Assert vBREAK/vDAY types at the E6/E7 site: the filed E6a old line prints `vBREAK=%s` (string), while E7 uses `vBREAK ||` / `vBREAK ? :` (boolean) — one of the two is wrong; pin it, since E7 is scribed-from-prose with no filed literal.
+4. Add to S1(2)/fence: `vDAY` availability, the E6b anchor `(int)vHTF, (int)MT_EXIT_SCOPE,` one-hit (absent from section 3), `GetCorrectFillingMode` availability, and an explicit cast for the long→ulong `SetExpertMagicNumber(pmagic)` to protect S4's 0-warnings bar.
+
+No rule is contradicted in either half; the Q2 stop is a defect in the graded-evidence literal, repairable without touching Q1's cleared set. Nothing builds on this reply. 
+
+## V262-RESQUAT-CLEAR3 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

@@ -1,4 +1,23 @@
-﻿# PACKET_P-RESQUAT-1 v4 DRAFT - eviction-paired reseed suppression + tester exit legs, v262-halt repairs within-line (nothing builds/runs/commits on this file)
+﻿# BUILDER RELAY COUNCIL v263-RESQUAT-CLEAR4 (2026-09-24, clearance ask: clear PACKET_P-RESQUAT-1 v4 to build; session CONTINUE)
+
+## 0. What this relay asks (read first)
+
+- ONE clearance packet, TWO halves, TWO verdicts: Q1 clears the re-squat half (E1-E4), Q2 clears the exit-executor half (E5-E7, E6a/E6b). Each half has its own verdict line; either half can halt without sinking the other.
+- Session: CONTINUE (same tree, same window; v262 verdicts filed whole 1x: Opus HALT both with nine repairs + Opus Q1-CLEAR/Q2-print-HALT + Luna silence + Astra silent; NO build, nothing spent; packet re-cut to v4 below with every halt item repaired; v262 twin of v3 superseded with it, untransported).
+- Run cost of THIS relay: zero. The run it prepares costs one build + one 90-minute tester run on the same terminal, spent only on clearance plus the Luna key plus his run word.
+- Why this run has novel evidence no prior run did: first eviction-paired suppression take (9/1 17:35) plus first executed BREAK and DAY_CLOSE fills with retcodes, graded bars-first lots-second.
+- Disk identity: packet P-RESQUAT-1 v4 = measured this turn (twin section 2). EA pre-build tree = 15A41634/622631/11330 (no canonical edit since the RECON59 grade). Segments on record (59 = 7A7E74C0/6618090/34993; 58 = 424A5A0C/6624800/35016; 57 = 6F242EAC/4274727/24144). Relay digest recorded in the ledger post-splice, never inside this file.
+- Evidence discipline: defect rows and code regions rode whole in v259 and are presence-asserted here, never re-inserted. What rides whole HERE is the packet twin (section 2, the object under clearance) plus the machine fence table (section 3, buildability proofs). Priors ride labeled (file + marker + digest).
+- v3-to-v4 repair map (every v262 halt item, all within-line, budget unchanged +105/11435): E5 success print corrected 7/7 (action=%d retcode=%d ref=%s); SKIP formats joined by explicit concat; (ulong) cast on the magic; barTime param + all three prints + E7 call aligned to paper bar terms; E4 key unified to barTime; vBREAK/vDAY bool pin (no change - declarations rule); -1 writers invariant (assert route, no code change); GetCorrectFillingMode + E6b anchor + Trade.mqh fenced; G2 FIRE identity restated; R-c tuple residual added.
+
+## 1. Binding rules (unchanged: R-a..R-e amended, F-a ruled, F-b/F-c his call)
+
+- R-a one-take-per-session (marks SIGNAL-only); R-b no timing rules (verdict-keyed only); R-c R floor 1.0 + replicate-all valid set (suppressed seed was S5-refused); R-d detection walk untouched (signature AND body hash); R-e alert-only demo bounds with tester-closes-only. A rule contradicted must be NAMED with a stop.
+
+## 2. Packet twin (the object under clearance; byte-verified section 3)
+
+--- PACKET P-RESQUAT-1 v4 TWIN BEGIN ---
+# PACKET_P-RESQUAT-1 v4 DRAFT - eviction-paired reseed suppression + tester exit legs, v262-halt repairs within-line (nothing builds/runs/commits on this file)
 
 Status: v4 DRAFT (re-cuts v3 on the v262 verdicts this turn: Opus HALT both (FIRE identity + unguarded index + day-key expr + S1 gaps + print 8v7 + vDAY + filling-mode + E6b anchor + E7 anchors + bar-time) + Opus Q1-CLEAR/Q2-print-HALT + Luna silence; Astra silent. All repairs below are within-line (+0): E5 success print corrected 7/7, SKIP explicit concat, (ulong) cast, barTime param + prints + call, E4 key unified to barTime. Budget UNCHANGED +105/11435 (S3 recount governs). v3 SUPERSEDED (carried only by untransported v262 twin). Clearance via a new clearance relay plus Luna key plus his run word, all owed).
 Canonical files: exactly ONE - Experts\SRJ_FlowNexus_EA.mq5 (Q2: E1 +10, E2 +13, E3 +16, E4 +13 = +52; Q3: E5 +48, E6a +0, E6b +0, E7 +5 = +53; combined +105, post 11435 NET: new-site-total minus old-site-total per edit, S3 recount governs).
@@ -227,5 +246,85 @@ L-final Graded set authoritative: G1/G2/G3/G4 above.
 ## Run cost and novel evidence
 
 One build (suppression record + gate + arms + executor, STAGE-1 gated) plus one tester run, ceiling 90 minutes, same envelope as RECON59. Novel evidence vs RECON59: (a) first 9/1 take on the suppressed tree; (b) first executed BREAK + DAY_CLOSE fills with retcodes; (c) suppression census rows with takes intact. Exit figures are target figures until fills print, never realized before.
+
+(End of file)
+--- PACKET P-RESQUAT-1 v4 TWIN END ---
+
+## 3. Fence table (machine counts on the pre-build tree; buildability proofs)
+
+--- FENCE TABLE (machine counts on pre-build tree 15A41634/11330; FlowLogic buffers) ---
+twin | packet A53E6ABB/20824/231
+fence | bool SessionAlreadyUsed | 1
+fence | void MarkSessionUsed | 1
+fence | MarkSessionUsed( | 3
+fence | branch=RETEST inWin=1 | 1
+fence | s1g_legDir = pr.isLong | 1
+fence | squatter GC | 1
+fence | EvaluateManagedTrade ========================== | 1
+fence | vTP=%d vBREAK=%s vHTF=%d scope=%d | 1
+fence | vDAY=%d | 0
+fence | (int)vHTF, (int)MT_EXIT_SCOPE, | 1
+fence | if(InpDebugLog) MtLifeEmit(); | 1
+fence | g_lineCode | 40
+fence | POI_NLINES | 15
+fence | SessionName | 10
+fence | TC_DayStart | 6
+fence | DirName | 111
+fence | InpMagicBase | 2
+fence | ENUM_SRJ_DIR | 56
+fence | ENUM_SRJ_SESSION | 13
+fence | DIR_NONE | 15
+fence | SESSION_NONE | 6
+fence | CTrade g_trade | 1
+fence | g_mtrade | 103
+fence | vBREAK | 12
+fence | nextOpenPx | 15
+fence | InpMode | 4
+fence | MODE_EXECUTE | 2
+fence | ResultRetcode | 1
+fence | Trade.mqh | 2
+fence | GetCorrectFillingMode | 2
+fence | SetExpertMagicNumber | 1
+fence | PositionGetTicket | 1
+fence | MQLInfoInteger(MQL_TESTER) | 2
+fence | g_trade.Buy | 1
+fence | g_trade.Sell | 1
+fence | PositionClose | 0
+fence | MTCLOSE | 0
+fence | MTEXEC | 0
+fence | MtCloseExecute | 0
+fence | MtCloseBrokerPosition | 0
+fence | EVICTSUPPRESS | 0
+fence | RESEED_BLOCKED | 0
+fence | EVICTSUPPRESS_FIRE | 0
+fence | EVICT_FILTER | 0
+fence | excludeMask | 0
+fence | g_evictSuppressLine | 0
+fence | DetectPoiRetest | 14
+fence | ABORT_DIV_FALLBACK | 2
+fence | #define ABORT_DIV_FALLBACK | 1
+fence | FlowLogic indicator_buffers | 1
+fence | FlowLogic SetIndexBuffer(48 | 0
+--- end fence table ---
+
+## Q1. Clear the re-squat half (E1-E4, +52) to build.
+
+- Q1 verdict: the re-squat half is cleared to build. (or: not cleared because ___.)
+- Answer form: cleared / not-cleared, then one line per rule R-a..R-e naming the packet lines that hold it, then the STAGE-1 asserts restated as checkable conditions (pre-hash, one-hit-per-anchor, identifier availability, old-anchor bytes, detector signature + body hash, buffers value + census, MarkSessionUsed-call count, enum decls, E4 ordering, -1-writer invariant, scope + NET recount).
+
+## Q2. Clear the exit-executor half (E5-E7, +53) to build.
+
+- Q2 verdict: the exit-executor half is cleared to build. (or: not cleared because ___.)
+- Answer form: cleared / not-cleared, then one line per rule R-a..R-e (amended R-e) naming the packet lines that hold it, then the double tester gate restated as the called check (MODE_EXECUTE conjoined with MQL_TESTER; live alerts-only), then the grading bar restated (8/28 11:40 near 1.16439 with stop fill gone; 9/4 23:55 near 1.16093 with target fill gone; lots graded second; MTCLOSE print-family with retcode joins).
+
+## 6. Seat packaging (same text all carried seats)
+
+- This identical file goes to every carried seat (his carry). Luna (key seat) is NOT carried unless he words it; the key ask rides separately after clearance, never inside this relay. No build, run, or commit is authorized by any answer: clearance returns as text; the build still needs the Luna key plus his run word (standing dual-key + key-seat + builder-call-commit rules unchanged).
+- Verification split: seats judge the pasted text only; file-access proof is builder-disk plus his-eyes only. The twin below is byte-verified against the packet file (section 3 fence TWIN); fence counts are machine-derived on the pre-build tree digest above.
+
+## 8. Close (what comes back, what happens next)
+
+- Owed back: two verdicts (Q1 re-squat clearance + Q2 executor clearance) in the answer forms above, same text compared across seats; a checkable discrepancy from any seat halts per standing rule 19 with same-turn disk verification.
+- Next: on clearance, the builder executes the packet (S1 exact-diff gate first; any gate miss stops closed), then compiles, runs, grades G1-G4, files the result, and commits at grade. Nothing builds on this relay alone.
 
 (End of file)
