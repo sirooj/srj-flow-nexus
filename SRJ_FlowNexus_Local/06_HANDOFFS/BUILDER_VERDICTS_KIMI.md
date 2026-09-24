@@ -1871,3 +1871,10 @@ Basis, line by line (page-only ruling):
 **Verdict restated: yes — v5 disposition clear to build with replace range 8801–8808.**
 
 ## V255-EVICT END KIMI (verbatim close, nothing appended)
+
+## V259-RESQUAT-PLUS-EXIT OPEN KIMI (his carry, relay v259 solve-request, filed whole 1x)
+
+Kimi:
+I ran out of Kimi credits
+
+## V259-RESQUAT-PLUS-EXIT END KIMI (verbatim close; filed whole 1x this turn, novel inbound; no verdict - seat has no credits, fallback routing noted)

@@ -8218,3 +8218,319 @@ Packet P-EVICT-1 v7 — 2EF1A9E0, 12461 bytes.
 CLEARED for exactly one build plus one tester run.
 
 ## KEY LUNA EVICT-1 END (verbatim close; grade: seat Luna by his channel declaration + packet 2EF1A9E0 + bytes 12461 match disk + one-build-one-run scope + verbatim quote + zero new conditions = PASS 5/5; SPENDS on the v7 build+run in the new session; Luna verdict rest below image fold still owed)
+
+## V259-RESQUAT-PLUS-EXIT OPEN LUNA (his carry, relay v259 solve-request Q1/Q2/Q3, filed whole 1x)
+
+Luna:
+## Q1 — proximate cause
+
+**Cause:** the 16:55 `DIV_FALLBACK` eviction frees the singleton before the 17:00 seed, and because the IDLE seed path has no eviction memory, the same Yearly-POC line re-seeds and re-arms first, suppressing the Monthly-VWAP candidate through the 17:35 take bar until a fresh opposing-pressure abort at 17:50. 
+
+**Deciding rows:** W1 = the 16:55 `DIV_FALLBACK` eviction; W2 = same-line Yearly-POC fresh retest/reseed/ARM at 17:00; W3-W4 = Monthly-VWAP held behind the re-squatted Yearly-POC through 17:35; W5 = final fresh-opposition abort at 17:50; W6a-W6e = the pre-evict counterfactual where 16:55 is voided, Monthly-VWAP seeds from the 17:00 bar, then signals and takes at 17:35.  
+
+**17:00 legitimacy:** the reseed is mechanically legitimate under R-a/R-d because no session-used mark exists until a SIGNAL path, and the 17:00 hit is a fresh retest rather than an expired/bar-count event; the defect is that the freshly detected candidate is the previously evicted line. 
+
+---
+
+## Q2 — exact re-squat change
+
+**Implement:** session-scoped, eviction-paired suppression of the evicted POI **at seed selection**, while asking the detector for the **next-best non-evicted candidate** on the same bar. Do not suppress the ARM stage, do not consume the session, and do not remove the existing same-bar fall-through mechanism. The required behavioral target is exactly the W6 shape: Yearly-POC is excluded after its eviction, Monthly-VWAP can become the selected candidate. The current code explicitly says the IDLE block re-detects the same line after `GoAbort`, with no memory of the abort. 
+
+**Fork:** `F-a`. No `F-b` bar expiry and no `F-c` R2 widening. 
+
+### Q2.1 — new eviction ledger
+
+Insert immediately after `MarkSessionUsed()` in the C3 region. It is a session/day-keyed bitmask, not an indicator buffer and not a bar-count expiry.
+
+```cpp
+uint EvictionMaskForSession(const ENUM_SRJ_SESSION sess,const datetime barTime,const int addLine)
+  {
+   static ENUM_SRJ_SESSION s_sess=SESSION_NONE;
+   static datetime s_day=0;
+   static uint s_mask=0;
+   datetime day=TC_DayStart(barTime);
+   if(s_sess!=sess || s_day!=day) { s_sess=sess; s_day=day; s_mask=0; }
+   if(addLine>=0 && addLine<POI_NLINES) s_mask|=(uint)(1u<<addLine);
+   return s_mask;
+  }
+```
+
+### Q2.2 — record the eviction before `ResetSequence()`
+
+Current C1 tail:
+
+```cpp
+ENUM_SRJ_STATE prev = g_state;
+g_state = ST_ABORT;
+LogState(prev, g_state);
+ResetSequence();
+```
+
+Replace with:
+
+```cpp
+ENUM_SRJ_STATE prev = g_state;
+g_state = ST_ABORT;
+LogState(prev, g_state);
+if(reason == ABORT_DIV_FALLBACK && g_anchorLine >= 0 &&
+   g_sessionAtEntry != SESSION_NONE && g_anchorBarTime > 0)
+   EvictionMaskForSession(g_sessionAtEntry, g_anchorBarTime, g_anchorLine);
+ResetSequence();
+```
+
+This preserves the existing reset semantics: all ordinary sequence state is still cleared, while the eviction memory lives outside that working set. The existing `ResetSequence()` clears `g_state`, direction, regime, anchor, latch and related fields, while session-used marks remain separate. 
+
+### Q2.3 — make `DetectPoiRetest` able to exclude evicted candidates
+
+The relay does **not** splice the actual `DetectPoiRetest()` body, so a whole old/new body cannot be truthfully reconstructed from this packet. The exact required contract change is:
+
+```cpp
+// old
+bool DetectPoiRetest(const int barShift, PoiRetestResult &out)
+
+// new
+bool DetectPoiRetest(const int barShift, PoiRetestResult &out, const uint excludeMask=0)
+```
+
+At the detector's candidate-selection point, add exactly this exclusion before a candidate can become the authoritative result:
+
+```cpp
+if((excludeMask & (uint)(1u << candidateLine)) != 0) continue;
+```
+
+Everything else in the detector stays unchanged: same retest predicate, same 12 POI buffers, same authority ordering. Only the candidate set is filtered.
+
+### Q2.4 — change only the IDLE seed call
+
+Replace the existing two-line declaration/call:
+
+```cpp
+PoiRetestResult pr;
+if(!DetectPoiRetest(barShift, pr) || !pr.found) { if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00") PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=RETEST inWin=1 sess=%s retestFound=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), (pr.found ? 1 : 0)); return; }
+```
+
+with:
+
+```cpp
+uint evictMask = EvictionMaskForSession(sess, barTime, -1);
+        PoiRetestResult pr;
+        if(!DetectPoiRetest(barShift, pr, evictMask) || !pr.found)
+          {
+           if(evictMask != 0)
+              PrintFormat("[SRJ-EA] EVICT_FILTER bar=%s sess=%s mask=%u selected=none",
+                          TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), evictMask);
+           if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00")
+              PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=RETEST inWin=1 sess=%s retestFound=%d",
+                          TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), (pr.found ? 1 : 0));
+           return;
+          }
+        if(evictMask != 0)
+           PrintFormat("[SRJ-EA] EVICT_FILTER bar=%s sess=%s mask=%u selected=%s action=NEXT_BEST",
+                       TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), evictMask, g_lineCode[pr.topLine]);
+```
+
+That makes the staleness decision explicit:
+
+**Seed-time suppress the evicted line; select next-best. Do not suppress ARM; do not mark the session used; do not invent a timer; do not general-filter fresh retests.**
+
+### Q2 line budget
+
+Visible relay-side delta:
+
+`+10` helper
+`+3` C1 amendment
+`+13` C6 replacement
+`+1` detector candidate-skip predicate
+`= +27 source lines`
+
+The signature change is line-neutral. The detector body itself is not present in the relay, so that `+1` is the only non-spliced literal.
+
+### Q2 rule preservation
+
+**R-a:** session usage remains SIGNAL-only; the new ledger does not mark the session used. C3 and C9 preserve that. 
+
+**R-b:** no new bar count, timeout, expiry, threshold, or timing constant; only `(session, day, evicted line)` is used. 
+
+**R-c:** the R floor remains 1.0 inclusive; this patch does not touch TP/R validation.
+
+**R-d:** E3 and the MEANREV-only R2 void remain untouched. 
+
+**R-e:** no indicator buffers are added; alert-only behavior is untouched, and Q3 is isolated to the managed-exit executor. 
+
+**Observability:** `EVICT_FILTER` is unconditional, so the new path has an explicit census row rather than silently changing the election.
+
+**Grading bar:** 9/1 17:35 take + the six identical takes/entries/fills, 9/4-invalid still refused, `MTCOLLISION=0`; any other election delta halts, exactly as requested. 
+
+---
+
+## Q3 — exact exit executor
+
+**Implement:** actual tester-only closes for `POI_BODY_BREAK`, `HTF_FLIP`, and `DAY_CLOSE`; leave SL/TP broker-owned. The current evaluator computes the verdicts but only changes paper state and emits an alert, which is why X1 and X2 show `MTEXIT` without an actual close.  
+
+For position identity, add **one `long magicAtEntry` field to `g_mtrade`** and copy the exact session magic already chosen in E4. Do not key the exit from `g_sessionAtEntry`, because `ResetSequence()` clears that global to `SESSION_NONE`. Use the stored magic plus symbol/direction to resolve the current position ticket, then close **that ticket**. This is important on hedging accounts, where symbol-only close can select the wrong position; MQL5 explicitly supports `PositionClose(ticket)` and requires checking `ResultRetcode()` after the call. ([MQL5][1])
+
+### Q3.1 — managed-record identity
+
+Add to the `ManagedTrade` record:
+
+```cpp
+long magicAtEntry;
+```
+
+The struct itself is not spliced into this relay, so that field insertion cannot be shown as a complete old/new block here.
+
+### Q3.2 — capture the same magic used by E4
+
+E4 currently derives:
+
+```cpp
+long magic = (g_sessionAtEntry == SESSION_LONDON) ? InpMagicBase + 1 : InpMagicBase + 2;
+```
+
+immediately after the broker-send setup. 
+
+After the existing `Buy/Sell` call succeeds, add:
+
+```cpp
+if(tradeResult) g_mtrade.magicAtEntry = magic;
+```
+
+### Q3.3 — make `vDAY` visible
+
+Keep the existing `EXITVERDICT` block line count unchanged, changing only the format/argument:
+
+```cpp
+PrintFormat("[SRJ-EA] EXITVERDICT bar=%s dir=%s entry=%s curTp=%s vSL=%d "
+                   "vTP=%d vBREAK=%s vHTF=%d vDAY=%d scope=%d "
+                   "htfH=%g htfM=%g htfL=%g want=%d anti=%d tpB=%s h=%s l=%s sup=%d",
+```
+
+and add `(int)vDAY` in the corresponding argument sequence.
+
+That directly fixes the observability defect called out by X2. The existing evaluator has `vDAY`, but its printed row omits it.  
+
+### Q3.4 — replace the paper-only close tail
+
+Current block begins:
+
+```cpp
+if(!(vSL || vTP || vBREAK || vHTF || vDAY)) return;
+```
+
+and then only updates `g_mtrade`, prints `MTEXIT`, emits `MTLIFE`, and alerts. 
+
+Replace the whole contiguous block with:
+
+```cpp
+if(!(vSL || vTP || vBREAK || vHTF || vDAY)) return;
+
+  int execReason = vBREAK ? MT_EXIT_POI_BODY_BREAK :
+                   (vHTF ? MT_EXIT_HTF_FLIP : MT_EXIT_DAY_CLOSE);
+  bool execLeg = !vSL && !vTP && (vBREAK || vHTF || vDAY) &&
+                 InpMode == MODE_EXECUTE && MQLInfoInteger(MQL_TESTER);
+  if(execLeg)
+    {
+     long magic = g_mtrade.magicAtEntry;
+     ENUM_POSITION_TYPE want = (g_mtrade.dir == DIR_LONG) ? POSITION_TYPE_BUY : POSITION_TYPE_SELL;
+     ulong ticket = 0;
+     for(int pi = PositionsTotal() - 1; pi >= 0; pi--)
+       {
+        ulong t = PositionGetTicket(pi);
+        if(t == 0 || PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
+        if((long)PositionGetInteger(POSITION_MAGIC) != magic) continue;
+        if((ENUM_POSITION_TYPE)PositionGetInteger(POSITION_TYPE) != want) continue;
+        ticket = t;
+        break;
+       }
+     if(ticket == 0)
+       {
+        PrintFormat("[SRJ-EA] MTEXEC_FAIL bar=%s reason=%s ticket=0 magic=%I64d price=%s rc=0",
+                    TimeToString(barTime, TIME_DATE|TIME_MINUTES), MtExitName(execReason),
+                    magic, DoubleToString(nextOpenPx, _Digits));
+        return;
+       }
+     g_trade.SetExpertMagicNumber(magic);
+     bool closeReq = g_trade.PositionClose(ticket);
+     uint rc = g_trade.ResultRetcode();
+     bool stillOpen = PositionSelectByTicket(ticket);
+     if(!closeReq || rc != TRADE_RETCODE_DONE || stillOpen)
+       {
+        PrintFormat("[SRJ-EA] MTEXEC_FAIL bar=%s reason=%s ticket=%I64u magic=%I64d price=%s rc=%u stillOpen=%d",
+                    TimeToString(barTime, TIME_DATE|TIME_MINUTES), MtExitName(execReason),
+                    ticket, magic, DoubleToString(nextOpenPx, _Digits), rc, (int)stillOpen);
+        return;
+       }
+     PrintFormat("[SRJ-EA] MTEXEC bar=%s reason=%s ticket=%I64u magic=%I64d price=%s rc=%u",
+                 TimeToString(barTime, TIME_DATE|TIME_MINUTES), MtExitName(execReason),
+                 ticket, magic, DoubleToString(nextOpenPx, _Digits), rc);
+    }
+
+  //--- close the paper record after any required tester execution
+  g_state = MT_CLOSED;
+  g_mtrade.exitBarTime = barTime;
+  if(vSL)         { g_mtrade.exitReason = MT_EXIT_SL;           g_mtrade.exitPrice = g_mtrade.slRef; }
+  else if(vTP)    { g_mtrade.exitReason = MT_EXIT_TP_TOUCH;     g_mtrade.exitPrice = g_mtrade.tpRef; }
+  else if(vBREAK) { g_mtrade.exitReason = MT_EXIT_POI_BODY_BREAK; g_mtrade.exitPrice = nextOpenPx; }
+  else if(vHTF)   { g_mtrade.exitReason = MT_EXIT_HTF_FLIP;     g_mtrade.exitPrice = nextOpenPx; }
+  else            { g_mtrade.exitReason = MT_EXIT_DAY_CLOSE;    g_mtrade.exitPrice = nextOpenPx; }
+
+  PrintFormat("[SRJ-EA] MTEXIT bar=%s reason=%s line=%s lineVal=%s entry=%s exit=%s",
+              TimeToString(barTime, TIME_DATE|TIME_MINUTES),
+              MtExitName(g_mtrade.exitReason),
+              (vBREAK ? breakLineName : "-"),
+              (vBREAK ? DoubleToString(breakLineVal, _Digits) : "-"),
+              DoubleToString(g_mtrade.entryPrice, _Digits),
+              DoubleToString(g_mtrade.exitPrice, _Digits));
+
+  if(InpDebugLog) MtLifeEmit();
+  EmitAlert("EXIT",
+            StringFormat("%s%s at %s (entry %s)",
+                         MtExitName(g_mtrade.exitReason),
+                         (vBREAK ? " [" + breakLineName + "]" : ""),
+                         DoubleToString(g_mtrade.exitPrice, _Digits),
+                         DoubleToString(g_mtrade.entryPrice, _Digits)),
+            true);
+```
+
+The critical points are:
+
+`SL` and `TP` **never** invoke the manual executor; they remain broker-owned.
+
+`BREAK`, `HTF`, and `DAY_CLOSE` execute only when `InpMode == MODE_EXECUTE && MQLInfoInteger(MQL_TESTER)`, so live alert-only behavior is unchanged. `MQL_TESTER` is the official MQL5 runtime flag for Strategy Tester execution. ([MQL5][2])
+
+The close is by the resolved **position ticket**, not by symbol alone. `CTrade::PositionClose(ticket)` is the exact ticket overload, and `ResultRetcode()` is checked rather than treating the boolean request result as proof of execution. ([MQL5][1])
+
+The printed close price remains `nextOpenPx`, exactly matching the existing paper leg.
+
+### Q3 line budget
+
+`+1` managed-record field
+`+1` E2 magic capture
+`+0` lines for the `vDAY` format/argument amendment
+`28 → 68` lines for the E1 close tail = `+40`
+**Total = +42 source lines**
+
+The struct location is the second unspliced source region in this relay; its exact surrounding old/new block is therefore not recoverable from this packet alone.
+
+### Q3 rule preservation
+
+**R-a:** no session-used mark is added by exits; entry/session semantics remain unchanged.
+
+**R-b:** no timing or bar-count rule is introduced. The existing 16:55-derived `DAY_CLOSE` verdict remains the trigger. 
+
+**R-c:** R floor remains untouched.
+
+**R-d:** E3 remains `MT_HTF_EXIT=false` during the experiment; the code merely provides the already-defined executor for that leg if re-enabled. 
+
+**R-e, amended:** alerts remain the live behavior; actual manual closes are tester-only. SL/TP, the pending `CANCEL_BIAS` path, and managed-record collision logic remain untouched. 
+
+### Accepted grading bar
+
+This proposal accepts exactly the stated test: **8/28 11:40 `POI_BODY_BREAK` near 1.16439; 9/4 23:55 `DAY_CLOSE` near 1.16093; 9/1 17:35 take plus five other identical-bar/entry takes; 9/4-invalid still refused; `MTCOLLISION=0`; any other election delta halts.** 
+
+**Net ruling:** Q1 is fully determined. Q2 and Q3 have concrete implementation specs, but this relay does not contain the `DetectPoiRetest()` body or the `ManagedTrade` struct, so those two source regions are the only places where a truly byte-complete old/new patch would require the builder's actual EA source rather than invented text.
+
+[1]: https://www.mql5.com/en/docs/standardlibrary/tradeclasses/ctrade/ctradepositionclose?utm_source=chatgpt.com "PositionClose(const string,ulong) - CTrade - Trade Classes - Standard Library - MQL5 Reference"
+[2]: https://www.mql5.com/en/docs/constants/environment_state/mql5_programm_info?utm_source=chatgpt.com "Running MQL5 Program Properties - Environment State - Constants, Enumerations and Structures - MQL5 Reference" 
+
+## V259-RESQUAT-PLUS-EXIT END LUNA (verbatim close; filed whole 1x this turn, novel inbound, adopted as replay-check passed)

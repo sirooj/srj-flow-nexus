@@ -3,26 +3,23 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, RECON59 GRADED)
+## State (2026-09-24, VERDICTS GRADED)
 
-- G2-FAIL by re-squat. Eviction
-  fires 3/3 (S5-to-S4 zero),
-  6 takes tick-identical incl
-  fills, 9/1 still misses (same
-  POI re-seeds 17:00, re-vetoes
-  17:30, dies 17:50). Result
-  06_HANDOFFS\BUILDER_RESULT_
-  RECON59-EVICT-V1.md filed
-  (564D9227). Key SPENT.
-  Ledger 693 + index filed.
-  Result commit this block.
+- v259 answers filed whole
+  (Luna + Opus full, Sonnet
+  refusal w/o verdict, Kimi
+  broke, Opus pending).
+  Q1 adopted; Q2 Opus (+52);
+  Q3 Opus (+54); Luna-Q2/Q3
+  rejected with reasons.
+  Fold packet P-RESQUAT-1 v1
+  (D351E32C) open. Ledger 697.
+  Record commit this block.
 
 ## Next (artifact owed)
 
-- Owed: re-seed-suppression
-  packet draft via council
-  route (builder drafts;
-  transport only battery-green).
+- Owed: clearance relay v260
+  draft (builder drafts).
 
 ## Resume order (exact)
 

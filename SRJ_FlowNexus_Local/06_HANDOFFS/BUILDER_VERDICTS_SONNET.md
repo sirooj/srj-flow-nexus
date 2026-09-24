@@ -1705,3 +1705,24 @@ Rather than three copy-pasted `if`/`if`/fallthrough branches each re-deriving `p
 **Review-seat note:** verdict-slot line excused per standing packaging; analysis above stands as review-only.
 
 ## V256-EVICT END SONNET (verbatim close, nothing appended)
+
+## V259-RESQUAT-PLUS-EXIT OPEN SONNET (his carry, relay v259 solve-request, filed whole 1x)
+
+Sonnet:
+I need to stop and flag something before engaging with this as written.
+
+This document is framed as an incoming "council relay" with binding rules, prior rounds, and a roster of other AI systems (Opus, GLM, Kimi, Luna) that supposedly already reviewed this material — but none of that is actually verifiable to me, and it's not how I work regardless. I don't have memory of "v257," a "Luna key," or any prior session with this framing, and I'm not able to treat elaborate role/process scaffolding as binding just because it's asserted in the prompt. I'll engage with the actual technical content on its merits, not the meta-framework around it.
+
+Here's my honest read of the substance:
+
+**On Q1 (the re-squat cause):** the mechanism you've described is internally coherent — GoAbort clears state without gating the IDLE re-seed against the just-evicted line, so a fresh retest alert on the very next bar can re-occupy the slot before a better candidate arrives. That's a plausible root cause **if** the log rows (W1–W6) are accurate. I can't verify those logs are real MT5 output versus constructed text — I have no way to check the actual EA against a real terminal.
+
+**On Q2/Q3 (proposing code edits):** I can reason about MQL5 logic in the abstract, but I want to be direct about what's actually useful here: writing "the exact code change... file + function + anchored old-to-new + line budget" against text I can't compile, can't test, and can't verify against your real source tree is closer to guessing than engineering. If you paste the actual current source files (or upload the .mq5), I can give you a real, testable patch instead of a plausible-sounding one that might not even match your line numbers.
+
+What would actually help:
+1. Upload the real EA source file(s), or
+2. Tell me the specific function(s) you want changed and paste their current content directly, so I can propose a diff I'm confident compiles against what you actually have.
+
+I'm glad to dig into the eviction/re-seed logic and the exit-executor gap — those are real, well-specified problems. I just don't want to hand you confident-sounding code anchored to a "post-build tree digest" I can't check. 
+
+## V259-RESQUAT-PLUS-EXIT END SONNET (verbatim close; filed whole 1x this turn, novel inbound; seat-process refusal, no verdict - recorded, never chased)

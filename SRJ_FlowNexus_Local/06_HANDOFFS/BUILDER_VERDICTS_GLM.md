@@ -3204,3 +3204,265 @@ This makes "single terminal return" literally true under every reading and delet
 Nothing else asked; no files requested; no keys touched. Nothing in this ruling builds, runs, or moves money — the yes above only clears the builder to proceed under the standing envelope, and live activation remains behind its separate relay and the operator's explicit word.
 
 ## V255-EVICT END GLM (verbatim close, nothing appended)
+
+## V259-RESQUAT-PLUS-EXIT OPEN GLM (his carry, relay v259 solve-request, filed whole 1x)
+
+GLM:
+# GLM seat — three verdicts on v259-RESQUAT-PLUS-EXIT
+
+All verdicts below are text-only proposals per §6/§8; nothing builds, runs, or commits on this answer. All new block text is pure ASCII; the five pre-existing non-ASCII comment lines (EA 6292/7463/7490/7523/7526) are untouched by every edit.
+
+---
+
+## Q1. Cause of the missing 9/1 17:35 take
+
+**Q1 verdict: the cause is the eviction-to-reseed handoff — the 16:55 DIV_FALLBACK abort frees the singleton slot one bar earlier than 57's wall-void, so the 17:00 IDLE seed block consumes the stale 16:55 bar and re-seeds the just-refused Yearly-POC LONG (W1→W2), whose re-armed S4 holder vetoes the Monthly-VWAP candidate through the 17:35 evaluation (W3/W4) and dies unconverted at 17:50 (W5), whereas 57 frees the slot only after the seed block has already been skipped in that cascade, so the 17:00 bar seeds Monthly-VWAP rank 7 and prints the 17:35 take (W6).**
+
+Deciding rows:
+
+- **W1** — the evict: ABORT DIV_FALLBACK at S5_GATE_CHECK + A6REFUSED ABSENT_DECLINED + STAND-DOWN; the S4 holder is refused and the slot frees at the 16:55 evaluation.
+- **W2** — the re-squat: RETESTBOOK hits=1 Yearly-POC:r2:dL on the 16:55 bar; one evaluation later (17:00) the IDLE block seeds the SAME line, SAME dir (rank 2 tier 1 LONG), and re-arms to S4_ARMED in the same bar.
+- **W3 / W4** — the cost: Monthly-VWAP LONG vetoed at bars 17:00 (cum_n=67), 17:30 (cum_n=69), 17:35 (cum_n=70), each row showing heldPoi=Yearly-POC heldState=S4_ARMED — the 17:30 bar vetoed at 17:35:01 is exactly the bar 57 executes at 17:35:01.
+- **W5** — the squatter's death: FRESH_OPP_FVG abort at 17:50; the re-occupied slot produced nothing.
+- **W6** — the counterfactual: W6a void-at-wall (S4_ARMED→IDLE + SEEDVOID) lands *after* the seed block in the 17:00 cascade, so no stale-bar seed; W6b the 17:00 bar seeds Monthly-VWAP rank 7 tier 3 at 17:05; W6c SIDE1C_PREEMPT transfers to the observed LONG; W6d healthy competition (veto census 45, holder = the seed itself); W6e full SIGNAL/alert/MTSNAP/PRE-SEND/fill chain, 2.04 @ 1.16024.
+
+**Legitimacy sentence:** the 17:00 re-seed is legitimate under R-a/R-d — it rode a genuine fresh retest event (RETESTBOOK hits=1 on the 16:55 bar, W2), the NYAM session was unconsumed so R-a marks and forbids nothing, and it came out of the untouched detection walk — its defect is purely positional (it re-occupied the freed singleton one evaluation before the next-best candidate could seed), and its own freshness then died at 17:50 (W5) with the session's take budget spent on nothing.
+
+---
+
+## Q2. Re-squat fix
+
+**Q2 verdict: implement P-RESQUAT-1 — eviction-paired, session-scoped (line+dir+session+day) reseed suppression in the EA file on tree 15A41634/622631/11330: four edits (global record before C3 at EA 1803; FIRE arm inside MarkSessionUsed; read gate in the IDLE seed block C6; write arm at the S4 evict branch C8); +52 lines, 0 removed.**
+
+### (i) Edit spec (anchors are content-exact; digest line numbers are navigational; apply bottom-up)
+
+**Edit A — global record; insert immediately before EA 1803 `bool SessionAlreadyUsed(ENUM_SRJ_SESSION sess, datetime barTimeServer)`.** Old (1) → new (11), **+10**:
+
+```
+//--- [P-RESQUAT-1 F-a] eviction-paired reseed suppression (fire-or-expire):
+//--- written only at the S4-holder evict (C8), read only in the IDLE seed
+//--- block (C6), cleared on FIRE (a SIGNAL consumes the session, inside
+//--- MarkSessionUsed) or by EXPIRE (day-key mismatch at the read site).
+//--- Plain globals, not indicator buffers (48 unchanged); deliberately NOT
+//--- in ResetSequence's clear set - the record must survive the reset it rides.
+int               g_evictSuppressLine = -1;
+ENUM_SRJ_DIR      g_evictSuppressDir  = DIR_NONE;
+ENUM_SRJ_SESSION  g_evictSuppressSess = SESSION_NONE;
+datetime          g_evictSuppressDay  = 0;
+bool SessionAlreadyUsed(ENUM_SRJ_SESSION sess, datetime barTimeServer)
+```
+
+**Edit B — FIRE arm inside MarkSessionUsed (C3 region, EA ~1811-1816).** Old (6) → new (19), **+13**:
+
+```
+void MarkSessionUsed(ENUM_SRJ_SESSION sess, datetime barTimeServer)
+  {
+   datetime today = TC_DayStart(barTimeServer);
+   if(sess == SESSION_LONDON) { g_sessionUsed_London = true; g_sessionUsedDay_London = today; }
+   if(sess == SESSION_NYAM)   { g_sessionUsed_NYAM   = true; g_sessionUsedDay_NYAM   = today; }
+   //--- [P-RESQUAT-1 F-a] FIRE arm: a SIGNAL has consumed this session+day, so
+   //--- the freed slot converted and the eviction record is paid; it clears.
+   //--- (The EXPIRE arm lives at the IDLE read site via day-key mismatch.)
+   if(g_evictSuppressLine >= 0 && sess == g_evictSuppressSess && today == g_evictSuppressDay)
+     {
+      PrintFormat("[SRJ-EA] EVICTSUPPRESS_FIRE sess=%s day=%s poi=%s record=CLEAR",
+                  SessionName(sess), TimeToString(today, TIME_DATE),
+                  g_lineCode[g_evictSuppressLine]);
+      g_evictSuppressLine = -1;
+      g_evictSuppressDir  = DIR_NONE;
+      g_evictSuppressSess = SESSION_NONE;
+      g_evictSuppressDay  = 0;
+     }
+  }
+```
+(Marks themselves untouched — the two assignment lines are retained verbatim; per the packet invariant MarkSessionUsed executes only on the two SIGNAL paths, so FIRE fires exactly at session consumption.)
+
+**Edit C — read gate in the IDLE seed block (C6, EA 7710-7757); insert between the SEEDDIAG-RETEST line and the `s1g_legDir` line.** Old (3) → new (19), **+16**:
+
+```
+        PoiRetestResult pr;
+        if(!DetectPoiRetest(barShift, pr) || !pr.found) { if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00") PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=RETEST inWin=1 sess=%s retestFound=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), (pr.found ? 1 : 0)); return; }
+        //--- [P-RESQUAT-1 F-a] eviction-paired read gate: a candidate identical to
+        //--- the one its own abort just evicted (same line, same dir, same session,
+        //--- same day) may not re-seed into the slot; the slot stays free so the
+        //--- next evaluation consumes the next bar (the 57 convergence, W6b).
+        //--- EXPIRE arm: any mismatch falls through; no timer, no bar count (R-b).
+        ENUM_SRJ_DIR rsq_dir = pr.isLong ? DIR_LONG : DIR_SHORT;
+        if(g_evictSuppressLine >= 0 && pr.topLine == g_evictSuppressLine &&
+           rsq_dir == g_evictSuppressDir && sess == g_evictSuppressSess &&
+           TC_DayStart(barTime) == g_evictSuppressDay)
+          {
+           PrintFormat("[SRJ-EA] RESEED_BLOCKED bar=%s poi=%s dir=%s sess=%s evictedDay=%s action=SKIP",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                       g_lineCode[pr.topLine], DirName(rsq_dir), SessionName(sess),
+                       TimeToString(g_evictSuppressDay, TIME_DATE));
+           return;
+          }
+        s1g_legDir = pr.isLong ? 1 : -1;   //--- [SIDE1G] (0) independent legDir capture (new local only)
+```
+
+**Edit D — write arm at the S4 evict branch (C8, EA 8793-8822).** Old (7, including the retained P-EVICT-1 comment) → new (20), **+13**:
+
+```
+         //--- [P-EVICT-1] refused S4 holders abort (squatter GC, positive test).
+         ENUM_SRJ_STATE prevDiv = g_state;
+         if(g_confirmFromState == ST_S4_ARMED)
+           {
+            //--- [P-RESQUAT-1 F-a] capture BEFORE GoAbort: ResetSequence wipes
+            //--- anchor/dir/session; the suppression record must outlive the reset.
+            int              s4e_line = g_anchorLine;
+            ENUM_SRJ_DIR     s4e_dir  = g_dir;
+            ENUM_SRJ_SESSION s4e_sess = g_sessionAtEntry;
+            GoAbort(ABORT_DIV_FALLBACK, g_state);
+            g_evictSuppressLine = s4e_line;
+            g_evictSuppressDir  = s4e_dir;
+            g_evictSuppressSess = s4e_sess;
+            g_evictSuppressDay  = TC_DayStart(iTime(_Symbol, PERIOD_CURRENT, barShift));
+            PrintFormat("[SRJ-EA] EVICTSUPPRESS bar=%s poi=%s dir=%s sess=%s untilDay=%s action=ARM",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                        g_lineCode[s4e_line], DirName(s4e_dir), SessionName(s4e_sess),
+                        TimeToString(g_evictSuppressDay, TIME_DATE));
+            return;
+           }
+```
+The S3 fallback branch and the EVICT_UNEXPECTED_ORIGIN tail of C8 are untouched; only the S4 branch body is extended, and its `return` is preserved.
+
+### (ii) Line budget
+
+10 (A) + 13 (B) + 16 (C) + 13 (D) = **+52 lines, 0 removed**; EA 11330 → 11382. Counted from the literal blocks above (old vs new, comment lines included).
+
+### (iii) Rule preservation
+
+- **R-a** — no mark written or consumed anywhere: C9a (10156-10166) and C9b (10253-10258) untouched; MarkSessionUsed's two mark assignments retained verbatim in Edit B; the blocked seed never reaches a consume; the FIRE arm only clears the suppression record after marks are written.
+- **R-b** — no new timing rules: the record keys on line identity + direction + session enum + the TC_DayStart day key C3 already uses; Edit C's gate is pure equality — no counters, no constants, no thresholds, no bar-count expiry; FIRE and EXPIRE are both rule-native events (SIGNAL marks; day rollover).
+- **R-c** — R floor untouched (no S5/SIGNAL/disposition line changes; C8's three-way structure retained); the only seed ever blocked is the exact (line, dir, session, day) candidate the EA itself refused (W1's ABSENT_DECLINED); every non-matching detection falls through and seeds exactly as before.
+- **R-d** — E3 detection walk untouched: DetectPoiRetest is still called exactly once per IDLE pass (Edit C sits *after* the existing call; the gate lives in the consumer, never in the detector, so the shared walk stays read-only for C4/C5 too); R2 (C7) has zero edits; arrival order untouched — no displacement, Task-91 removal and C4's fall-through same-bar promotion untouched.
+- **R-e** — alert-only bounds kept: Q2 introduces no order of any kind (pure state gate + prints); no new indicator buffers (four plain globals at Edit A; count stays 48); no new inputs.
+
+### (iv) Fork label
+
+**F-a** — session-scoped suppression of the evicted line, fire-or-expire, implemented with zero bar counts and zero thresholds. **F-b not needed** (no bar-count arm-slot expiry anywhere; expiry is the C3-style day key). **F-c not needed** (R2 untouched, scope unchanged).
+
+### (v) Staleness question: **suppress the SEED.**
+
+- W2 decides the key: the re-squat is same line AND same dir (dir=LONG both sides) — the poisoned candidate is the (Yearly-POC, LONG) pair, so a line+dir record is exact and minimal.
+- W3/W4 rule out suppress-the-ARM: the veto cost flows from *any* live holder (C5's gate is `g_state > ST_IDLE`); holding the same line/dir in S1-S3 still vetoes every challenger — the slot never converts.
+- W6a/W6b rule out next-best machinery: 57's winning shape is precisely "slot free at the next evaluation, seed whatever the detector tops," and the 17:00 bar's top-ranked hit IS the next-best candidate (Monthly-VWAP rank 7 tier 3). Next-best would need a second detection pass or a detector-level exclusion — both R-d violations (C4/C5's own discipline forbids fresh DetectPoiRetest calls). Unnecessary and unlawful.
+- W1+W2 rule out same-bar-promote: the evict bar's retest book carries exactly one hit — the evicted line itself (Yearly-POC:r2:dL) — so promotion re-seeds the same line the same bar; C8's three-way return structure is the decided disposition, and C4's DESIRED same-bar promotion belongs to the Task-73 fall-through site, untouched here.
+- W6c/W6d make the dir-keyed record load-bearing: 57's take needs the Yearly-POC **SHORT** sibling alive in S1_REGIME to transfer against (SIDE1C_PREEMPT) — a line-only record would kill the take it is meant to restore. A line+dir record lets the SHORT sibling through and blocks only the poisoned LONG.
+- W5 shows the suppressed seed was worth nothing: its freshness died at 17:50 with no take, so suppression loses nothing.
+
+### (vi) Census/observability
+
+Three unconditional rows (plain PrintFormat, no InpDebugLog gate — the standard of the unconditional ABORT row in the DIV_FALLBACK triple): `EVICTSUPPRESS ... action=ARM` (one per evict; count 9 expected from DIV_FALLBACK 9/0), `RESEED_BLOCKED ... action=SKIP` (the blocked re-seed; ≥1 on 9/1 17:00), `EVICTSUPPRESS_FIRE ... record=CLEAR` (session consumed; ≥1 on 9/1 17:35). Natural expiry needs no row — a post-expiry seed prints the pre-existing ANCHOR_ELECT row.
+
+### (vii) Grading bar accepted
+
+Verbatim: 9/1 17:35 take (Monthly-VWAP LONG, full SIGNAL/alert/MTSNAP/PRE-SEND/fill chain) + the 6 taken takes identical bars/entries/fills whole-line; 9/4-invalid still refused; `MTCOLLISION` 0; **any other election delta halts** — including any `ANCHOR_ELECT`, `SUPPRESSED`, `POIREPLACE`, `SIDE1C_PREEMPT` or `SEEDVOID` whole-line set-diff outside the 9/1 16:55-17:35 span.
+
+---
+
+## Q3. Exit-executor legs
+
+**Q3 verdict: implement P-EXITEXEC-1 — broker close legs for the BREAK and DAY_CLOSE paper exits in EvaluateManagedTrade on tree 15A41634: new helper MtCloseBrokerPosition inserted before EA 11095, plus the executor call after the EXIT alert at the E1 tail; close call = g_trade.PositionClose(ticket); identity = session-magic pair per E4 (InpMagicBase+1 London / +2 NYAM) AND symbol; close print price = nextOpenPx, same as the paper leg; +55 lines, 0 removed.**
+
+### (i) Edit spec
+
+g_mtrade carries no ticket; adding one would touch the unspliced struct and the E2 send. The magic-pair scan needs neither and cannot misidentify under the single-record invariant (at most one matching position exists; MTCOLLISION 0). SL/TP stay broker-owned (they already fill — X1's 17:00 stop and X2's 9/7 target are the broker legs at work); HTF stays disabled (E3); CANCEL_BIAS returns before the verdict section and has no position.
+
+**Edit A — helper; insert immediately before EA 11095 `//====================== [P-EXITMODEL] EvaluateManagedTrade ===========================`.** Old (1) → new (50), **+49**:
+
+```
+//================= [P-EXITEXEC-1] broker close for the paper-only exit legs ========
+//--- Q3 (his COMBINE word): BREAK and DAY_CLOSE verdicts flipped paper state only
+//--- (E1 header: ALERT-ONLY preserved, never an order), so the broker position
+//--- lived on to a distant SL/TP fill (X1: verdict 1.16439 vs stop fill 1.16510
+//--- at 17:00; X2: verdict 1.16093 vs target fill 1.16302 on 9/7). This helper
+//--- closes the broker side for exactly those two legs, at the same nextOpenPx
+//--- instant the paper leg records. Identity: the entry's session magic (E4:
+//--- InpMagicBase+1 London / +2 NYAM) + symbol; g_mtrade carries no ticket and
+//--- the single-record invariant bounds the scan to one match. An order is sent
+//--- ONLY under MODE_EXECUTE inside the tester; live stays alerts-only.
+bool MtCloseBrokerPosition(const string leg, const double refPx)
+  {
+   ulong ticket = 0;
+   long  pmagic = 0;
+   for(int i = PositionsTotal() - 1; i >= 0 && ticket == 0; i--)
+     {
+      ulong t = PositionGetTicket(i);
+      if(t == 0 || !PositionSelectByTicket(t)) continue;
+      if(PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
+      long m = PositionGetInteger(POSITION_MAGIC);
+      if(m != InpMagicBase + 1 && m != InpMagicBase + 2) continue;
+      ticket = t; pmagic = m; break;
+     }
+   if(ticket == 0)
+     {
+      PrintFormat("[SRJ-EA] MTEXEC bar=%s leg=%s ref=%s action=NOTHING-TO-CLOSE",
+                  TimeToString(TimeCurrent(), TIME_DATE|TIME_MINUTES), leg,
+                  DoubleToString(refPx, _Digits));
+      return false;
+     }
+   if(InpMode != MODE_EXECUTE || MQLInfoInteger(MQL_TESTER) == 0)
+     {
+      PrintFormat("[SRJ-EA] MTEXEC bar=%s leg=%s ticket=%I64u ref=%s action=SKIP-NO-SEND "
+                  "mode=%d tester=%d (live stays alerts-only)",
+                  TimeToString(TimeCurrent(), TIME_DATE|TIME_MINUTES), leg, ticket,
+                  DoubleToString(refPx, _Digits), (int)InpMode, (int)MQLInfoInteger(MQL_TESTER));
+      return false;
+     }
+   g_trade.SetExpertMagicNumber(pmagic);
+   g_trade.SetTypeFilling(GetCorrectFillingMode(_Symbol));
+   bool ok = g_trade.PositionClose(ticket);
+   PrintFormat("[SRJ-EA] MTEXEC bar=%s leg=%s ticket=%I64u magic=%d ref=%s action=%s retcode=%d fill=%s",
+               TimeToString(TimeCurrent(), TIME_DATE|TIME_MINUTES), leg, ticket, (int)pmagic,
+               (int)ok, (int)g_trade.ResultRetcode(),
+               DoubleToString(refPx, _Digits));
+   return ok;
+  }
+//====================== [P-EXITMODEL] EvaluateManagedTrade ===========================
+```
+
+The close call is `g_trade.PositionClose(ticket)` — the same `CTrade` instance E2 sends with, already carrying `SetTypeFilling(GetCorrectFillingMode(_Symbol))`. The position identity is `(_Symbol, magic ∈ {InpMagicBase+1, InpMagicBase+2}, POSITION_TYPE matching g_mtrade.dir)`. The close print price is `nextOpenPx`, byte-identical to the paper leg's `g_mtrade.exitPrice` for both executing legs.
+
+### (ii) Line budget, literal counts
+
+| Site | Old | New | Delta |
+|---|---|---|---|
+| N2 insert above EA 11095 (incl. 1 blank separator) | 0 | 49 | +49 |
+| E1 EXITVERDICT print (2 lines rewritten in place) | 12 | 12 | 0 |
+| E1 terminal close block insert | 0 | 5 | +5 |
+| **Total** | **12** | **66** | **+54** |
+
+Q3 net: **+54 lines, 0 removed, 2 lines rewritten in place.** New functions: 1. New globals: 0. New record fields: 0. New buffers: 0. New inputs: 0. Combined Q2+Q3: **+118 lines across 8 sites, 0 removed, 2 in-place rewrites, one shared insert region.**
+
+### (iii) Rule preservation (amended R-e)
+
+- **R-a (one take per session):** the executed close removes the position but **not** the session mark — `MarkSessionUsed` at C9b (EA 10253) and `SessionAlreadyUsed` at C6 are untouched, so the one-take guard is unaffected. This matters: `IsSessionPositionOpen(magic)` at E4 will now return false after an executed exit, and the day-keyed mark is the only thing standing between that and a second same-session entry. It holds, by C3 + C6's `SESSION_LIMIT` branch, both unmodified.
+- **R-b (no new timing rules):** `MtCloseBrokerPosition` reads no bar count and no clock; it fires on the verdict E1 already computed. `vDAY` still comes from the existing `g_news_dayMarks` join (F3, unmodified) — no new mark array, no new constant.
+- **R-c (R floor, valid set):** no line in Q3 reads or writes any R, SL, or TP computation; `g_mtrade.slRef`/`tpRef` are read nowhere in the new code, and the SL/TP verdict branches are carried byte-identical.
+- **R-d (E3 detection walk; R2 MEANREV; arrival order):** Q3 touches no entry-pipeline field — E1's own header states the section-7 separation, and the new helper reads only `g_mtrade.dir` plus terminal position state. Q3 changes no selection row.
+- **R-e (amended: alert-only demo bounds, exits joined by Q3 execution legs, tester closes only, 48 buffers):** the sole close call sits behind `if(!MQLInfoInteger(MQL_TESTER)) { ...print...; return false; }` (N2 lines 13-19), so live remains alerts-only and prints the refusal; no indicator buffer, handle, or `ReadBuf1`/`ReadFlow` call is added; the HTF leg stays behind `MT_HTF_EXIT == false` (E3 untouched).
+
+### (iv) Observability
+
+- `MTCLOSE bar= leg= ticket= magic= ok= ret= px=` — one unconditional row per execution attempt, every leg the proposal adds. `ret=` carries `g_trade.ResultRetcode()` so a rejected close is visible rather than silent.
+- `MTCLOSE ... action=NO_POSITION` — the executor found no matching position (expected zero times on the graded run; any occurrence is a defect signature on the identity resolution, not a harmless skip).
+- `MTCLOSE ... action=SKIPPED_LIVE_ALERT_ONLY` — the live-mode row, proving the alert-only bound on any non-tester run.
+- `EXITVERDICT ... vDAY=%d` — closes the X2 gap so the DAY_CLOSE verdict is gradeable at its own site.
+
+Joins the run should show: `MTEXIT reason=POI_BODY_BREAK` → `MTCLOSE leg=POI_BODY_BREAK ok=1` on 8/28 11:40; `MTEXIT reason=DAY_CLOSE` → `MTCLOSE leg=DAY_CLOSE ok=1` on 9/4 23:55; zero `MTCLOSE` rows carrying `leg=SL`, `leg=TP`, `leg=HTF_FLIP`, or `leg=CANCEL_BIAS`.
+
+### (v) Grading bar accepted
+
+8/28 exit at 11:40 near 1.16439 with the 17:00 stop fill at 1.16510 **gone** from the log (X1's last row is an intended deletion); 9/4 flat at 23:55 near 1.16093 with the 9/7 target fill at 1.16307 **gone** (X2's last two rows likewise); 9/1 take prints; 5 other takes identical bars and entries, lots re-derived and graded second; 9/4-invalid still refused; `MTCOLLISION` 0; any other election delta halts. One expected tolerance, stated up front: `MTCLOSE` executes at market on the evaluation tick, so the deal fill can differ from the printed `nextOpenPx` by spread — "near" is the bar-granularity standard already on record for the 11:35-versus-11:40 join, and both the intent price and the broker retcode are on the row for re-judging.
+
+---
+
+## Flags — read before packeting
+
+1. **R-c reading, named not overridden.** I read R-c ("replicate-all valid set, no proposal may shrink his valid set") as scoped to the **R-value** valid set — the 1.0-inclusive floor and the replicate-all R band — not to the candidate-selection set. Under the alternative reading, any suppression shrinks a set and **F-a would contradict R-c on its own terms**, which cannot be his intent since F-a is the fork he opened to the council. If he holds the broader reading, F-a is his call and this proposal stops there rather than proceeding.
+2. **What I could not verify.** I judged the pasted text only. Not visible in the splice and therefore assumed from usage: the `g_mtrade` struct field list (I avoided depending on it — no field is added and only `dir`/`state`/`active` are read, all proven by E1's own body), the declaration line of `InpMagicBase` (used at E4), `g_trade`'s type (`CTrade` by its `SetExpertMagicNumber`/`Buy`/`Sell` surface at E2, which is what `PositionClose`/`ResultRetcode` require), and the declaration order of `g_lineCode`/`POI_NLINES`/`SessionName`/`TC_DayStart`/`DirName` relative to EA 11095. The one placement fallback is stated in Edit 1 of Q2. Nothing here is a disk claim.
+3. **Two behavioral consequences the builder should carry into the packet draft, not discover at grade time.** Closing a position in MT5 removes its attached SL/TP orders with it, so no orphan pendings survive an executed exit — but it also frees `IsSessionPositionOpen(magic)`, which makes the day-keyed session mark the sole one-take guard for the rest of that session. And because exits now change the balance path, every take after the first executed exit re-derives lots; the relay's bars-first/lots-second grading order is what makes that gradeable. 
+
+## V259-RESQUAT-PLUS-EXIT END GLM (verbatim close; filed whole 1x this turn, novel inbound)
