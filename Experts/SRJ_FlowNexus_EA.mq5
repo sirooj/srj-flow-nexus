@@ -254,6 +254,8 @@ struct SManagedTrade
    int          exitReason;        // ENUM_MT_EXIT
    datetime     exitBarTime;
    double       exitPrice;
+   ulong        ticket;          // broker position ticket latched at fill (E8c; 0 = uncaptured)
+   long         entryPid;        // position ID latched at fill (E8c; 0 = uncaptured)
   };
 SManagedTrade g_mtrade;
 
@@ -291,6 +293,8 @@ void MtReset()
    g_mtrade.exitReason        = MT_EXIT_NONE;
    g_mtrade.exitBarTime       = 0;
    g_mtrade.exitPrice         = 0.0;
+   g_mtrade.ticket            = 0;
+   g_mtrade.entryPid          = 0;
   }
 
 
@@ -1800,6 +1804,17 @@ ENUM_SRJ_SESSION CurrentTradingWindow(datetime barTimeServer)
    return SESSION_NONE;
   }
 
+//--- [P-RESQUAT-1 F-a] eviction-paired suppression SET (fire-or-expire):
+//--- 24-bit domain per session (bit = line*2 + dirIdx LONG=0/SHORT=1;
+//--- POI_NLINES=12, two sessions London/NYAM); each set carries its day.
+//--- Plain ints, never indicator buffers (48 unchanged); deliberately NOT
+//--- in ResetSequence's clear set - records must survive the reset they ride.
+//--- Day mismatch makes a set nonblocking and clears its bits (the day key resets on the next ARM);
+//--- a SIGNAL consuming the session clears its set (FIRE) - persistence holds until the first signal;
+int      g_evictBitsLon = 0;
+int      g_evictBitsNY  = 0;
+datetime g_evictDayLon  = 0;
+datetime g_evictDayNY   = 0;
 bool SessionAlreadyUsed(ENUM_SRJ_SESSION sess, datetime barTimeServer)
   {
    datetime today = TC_DayStart(barTimeServer);
@@ -1815,6 +1830,21 @@ void MarkSessionUsed(ENUM_SRJ_SESSION sess, datetime barTimeServer)
    datetime today = TC_DayStart(barTimeServer);
    if(sess == SESSION_LONDON) { g_sessionUsed_London = true; g_sessionUsedDay_London = today; }
    if(sess == SESSION_NYAM)   { g_sessionUsed_NYAM   = true; g_sessionUsedDay_NYAM   = today; }
+   //--- [P-RESQUAT-1 F-a] FIRE: a SIGNAL has consumed this session+day, so
+   //--- the session set clears (any line/dir - the used flag now blocks all
+   //--- re-seeds for the session+day; breadth note GLM-A3: harmless by the flag).
+   if(sess == SESSION_LONDON && today == g_evictDayLon && g_evictBitsLon != 0)
+     {
+      PrintFormat("[SRJ-EA] EVICTSUPPRESS_FIRE sess=%s day=%s action=CLEAR",
+                  SessionName(sess), TimeToString(today, TIME_DATE));
+      g_evictBitsLon = 0;
+     }
+   if(sess == SESSION_NYAM && today == g_evictDayNY && g_evictBitsNY != 0)
+     {
+      PrintFormat("[SRJ-EA] EVICTSUPPRESS_FIRE sess=%s day=%s action=CLEAR",
+                  SessionName(sess), TimeToString(today, TIME_DATE));
+      g_evictBitsNY = 0;
+     }
   }
 
 //====================== Upstream readiness ===========================
@@ -7729,6 +7759,39 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         }
         PoiRetestResult pr;
         if(!DetectPoiRetest(barShift, pr) || !pr.found) { if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00") PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=RETEST inWin=1 sess=%s retestFound=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), (pr.found ? 1 : 0)); return; }
+        //--- [P-RESQUAT-1 F-a] eviction-paired read gate: a candidate identical to
+        //--- one its own abort just evicted (same line, same dir, same session,
+        //--- same day) may not re-seed into the slot; the slot stays free so the
+        //--- next evaluation consumes the next bar (the 57 convergence, W6b).
+        //--- EXPIRE: a day-mismatched set is nonblocking and cleared here;
+        //--- no timer, no bar count (R-b).
+        ENUM_SRJ_DIR rsq_dir = pr.isLong ? DIR_LONG : DIR_SHORT;
+        int rsq_bit = (pr.topLine >= 0 && pr.topLine < POI_NLINES) ? pr.topLine * 2 + (pr.isLong ? 0 : 1) : -1;
+        bool rsq_blocked = false;
+        datetime rsq_day = TC_DayStart(barTime);
+        if(rsq_bit < 0)
+          {
+           PrintFormat("[SRJ-EA] RESEED_BLOCKED bar=%s action=INDEX-INVALID", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES));
+           return;
+          }
+        if(sess == SESSION_LONDON)
+          {
+           if(rsq_day != g_evictDayLon) g_evictBitsLon = 0;
+           else if(rsq_bit >= 0 && (g_evictBitsLon & (1 << rsq_bit)) != 0) rsq_blocked = true;
+          }
+        else if(sess == SESSION_NYAM)
+          {
+           if(rsq_day != g_evictDayNY) g_evictBitsNY = 0;
+           else if(rsq_bit >= 0 && (g_evictBitsNY & (1 << rsq_bit)) != 0) rsq_blocked = true;
+          }
+        if(rsq_blocked)
+          {
+           PrintFormat("[SRJ-EA] RESEED_BLOCKED bar=%s poi=%s dir=%s sess=%s evictedDay=%s action=SKIP",
+                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                       g_lineCode[pr.topLine], DirName(rsq_dir), SessionName(sess),
+                       TimeToString(rsq_day, TIME_DATE));
+           return;
+          }
         s1g_legDir = pr.isLong ? 1 : -1;   //--- [SIDE1G] (0) independent legDir capture (new local only)
         g_s2_seedShift = barShift;   //--- [STAGE-C E-C05] exact-seed bar carriage for the live vote
          g_anchorLine    = pr.topLine;
@@ -8803,7 +8866,29 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          ENUM_SRJ_STATE prevDiv = g_state;
          if(g_confirmFromState == ST_S4_ARMED)
            {
+            //--- [P-RESQUAT-1 F-a] capture BEFORE GoAbort: ResetSequence clears the anchor line (EA 6274 sentinel);
+            //--- anchor/dir/session captured together for tuple atomicity; dir/session capture is harmless (no ResetSequence writes per S1(22) census); the suppression record must outlive the reset.
+            int              s4e_line = g_anchorLine;
+            ENUM_SRJ_DIR     s4e_dir  = g_dir;
+            ENUM_SRJ_SESSION s4e_sess = g_sessionAtEntry;
+            datetime         s4e_day  = TC_DayStart(barTime);
             GoAbort(ABORT_DIV_FALLBACK, g_state);
+            //--- record-validity + index guard (Opus B/Q1-4): ARM only a live tuple;
+            //--- a dead record skips ARM (SKIP printed, no ARM row) so G2 audibly mismatches, never silently counts.
+            if(s4e_line >= 0 && s4e_line < POI_NLINES && s4e_dir != DIR_NONE && (s4e_sess == SESSION_LONDON || s4e_sess == SESSION_NYAM))
+              {
+               int s4e_bit = s4e_line * 2 + (s4e_dir == DIR_LONG ? 0 : 1);
+               if(s4e_sess == SESSION_LONDON)
+                 { if(s4e_day != g_evictDayLon) { g_evictBitsLon = 0; g_evictDayLon = s4e_day; } g_evictBitsLon |= (1 << s4e_bit); }
+               else
+                 { if(s4e_day != g_evictDayNY) { g_evictBitsNY = 0; g_evictDayNY = s4e_day; } g_evictBitsNY |= (1 << s4e_bit); }
+               PrintFormat("[SRJ-EA] EVICTSUPPRESS bar=%s poi=%s dir=%s sess=%s untilDay=%s action=ARM",
+                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                           g_lineCode[s4e_line], DirName(s4e_dir), SessionName(s4e_sess),
+                           TimeToString(s4e_day, TIME_DATE));
+              }
+            else
+               PrintFormat("[SRJ-EA] EVICTSUPPRESS_SKIP bar=%s cause=dead-record line=%d dir=%s sess=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), s4e_line, DirName(s4e_dir), SessionName(s4e_sess));
             return;
            }
          if(g_confirmFromState == ST_S3_ZONE_WAIT)
@@ -10238,6 +10323,18 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                            DoubleToString(fill, _Digits),
                            slDistFill / _Point, tpDistFill / _Point,
                            rFill, tpR, rFill - tpR);
+               //--- [P-RESQUAT-1 E8] latch the managed entry identity from its deal:
+               //--- DEAL_POSITION_ID names the position (lifecycle-stable per docs);
+               //--- resolves via the sole MtPidToTicket resolver; persist is fail-closed.
+               ulong entryDeal = g_trade.ResultDeal();
+               ulong entryTick = 0;
+               long entryPid = 0;
+               if(entryDeal > 0 && HistoryDealSelect(entryDeal))
+                 entryPid = HistoryDealGetInteger(entryDeal, DEAL_POSITION_ID);
+               entryTick = MtPidToTicket(entryPid);
+               g_mtrade.ticket = entryTick;
+               g_mtrade.entryPid = (entryTick != 0 ? entryPid : 0);
+               PrintFormat("[SRJ-EA] ENTRY_TICKET bar=%s ticket=%I64u deal=%I64u pid=%I64d ppid=%I64d magic=%I64d", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), entryTick, entryDeal, entryPid, g_mtrade.entryPid, magic);
               }
            }
         }
@@ -11091,8 +11188,74 @@ void MtFlipEmit(const int barShift, const datetime barTime, const int antiNow, c
     LwAudit("MTFLIP", mfl);
     Print(mfl);
    }
+//--- [P-EXITEXEC-1] sole position-identity resolver (pid -> live ticket, 0 = none)
+ulong MtPidToTicket(const long pid)
+  {
+   if(pid <= 0) return 0;
+   for(int mtp_i = PositionsTotal() - 1; mtp_i >= 0; mtp_i--)
+     {
+      ulong mtp_t = PositionGetTicket(mtp_i);
+      if(mtp_t == 0 || !PositionSelectByTicket(mtp_t)) continue;
+      if(PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
+      if(PositionGetInteger(POSITION_IDENTIFIER) != pid) continue;
+      return mtp_t;
+     }
+   return 0;
+  }
 
-//====================== [P-EXITMODEL] EvaluateManagedTrade ===========================
+
+
+//================= [P-EXITEXEC-1] broker close for the paper-only exit legs ========
+//--- Q2 (his COMBINE word): BREAK and DAY_CLOSE verdicts flipped paper state only
+//--- (ALERT-ONLY preserved, never an order), so the broker position lived on
+//--- to a distant SL/TP fill (X1: verdict 1.16439 vs stop fill 1.16510 at 17:00;
+//--- X2: verdict 1.16093 vs target fill 1.16302 on 9/7). This helper closes the
+//--- broker side for exactly those two legs, at the verdict bar. Identity (v11
+//--- Luna B plus Astra P2/P3): entryPid resolves the live ticket via the
+//--- sole resolver (pid-filtered scan, never stored-ticket trust); the close
+//--- deal must carry the same pid with exit classification, then flatness;
+//--- returns -1 policy no-send, 0 fail (NOTHING, refusal, or identity break), 1 sent-ok.
+int MtCloseBrokerPosition(const string leg, const double refPx, const datetime barTime)
+  {
+   if(InpMode != MODE_EXECUTE || MQLInfoInteger(MQL_TESTER) == 0)
+     {
+      PrintFormat("[SRJ-EA] MTCLOSE bar=%s leg=%s ticket=%I64u pid=%I64d ref=%s action=SKIP-NO-SEND " +
+                  "mode=%d tester=%d (live stays alerts-only; ticket/pid are latched diagnostics, never close trust)",
+                  TimeToString(barTime, TIME_DATE|TIME_MINUTES), leg, g_mtrade.ticket, g_mtrade.entryPid,
+                  DoubleToString(refPx, _Digits), (int)InpMode, (int)MQLInfoInteger(MQL_TESTER));
+      return -1;
+     }
+   long entryPid = g_mtrade.entryPid;
+   ulong ticket = MtPidToTicket(entryPid);
+   long pmagic = 0;
+   if(ticket == 0 || !PositionSelectByTicket(ticket))
+     {
+      PrintFormat("[SRJ-EA] MTCLOSE bar=%s leg=%s ticket=%I64u pid=%I64d ref=%s action=NOTHING-TO-CLOSE",
+                  TimeToString(barTime, TIME_DATE|TIME_MINUTES), leg, ticket, entryPid,
+                  DoubleToString(refPx, _Digits));
+      return 0;
+     }
+   pmagic = PositionGetInteger(POSITION_MAGIC);
+   g_trade.SetExpertMagicNumber((ulong)pmagic);
+   g_trade.SetTypeFilling(GetCorrectFillingMode(_Symbol));
+   bool ok = g_trade.PositionClose(ticket);
+   long closerc = g_trade.ResultRetcode();
+   ulong closedeal = g_trade.ResultDeal();
+   long closepid = 0;
+   int closeentry = -1;
+   if(closedeal > 0 && HistoryDealSelect(closedeal))
+     {
+      closepid = HistoryDealGetInteger(closedeal, DEAL_POSITION_ID);
+      closeentry = (int)HistoryDealGetInteger(closedeal, DEAL_ENTRY);
+     }
+   PrintFormat("[SRJ-EA] MTCLOSE bar=%s leg=%s ticket=%I64u magic=%I64d action=%d retcode=%d deal=%I64u closepid=%I64d closeentry=%d entryPid=%I64d flat=%d ref=%s",
+               TimeToString(barTime, TIME_DATE|TIME_MINUTES), leg, ticket, pmagic,
+               (int)ok, (int)closerc, closedeal, closepid, closeentry, entryPid, (MtPidToTicket(entryPid) == 0 ? 1 : 0),
+               DoubleToString(refPx, _Digits));
+   if(!(ok && closerc == TRADE_RETCODE_DONE && closepid == entryPid && closeentry == DEAL_ENTRY_OUT)) return 0;
+   if(MtPidToTicket(entryPid) != 0) return 0;   // partial/failed close: position still live
+   return 1;
+  }
 // Spec section 4 site 3: the exit, evaluated at the NEXT candle's open. Called once
 // per closed bar from OnTick AFTER the entry pipeline (section 7's separation: this
 // function never touches the entry pipeline or any working-set field). Every verdict
@@ -11269,7 +11432,7 @@ if(!vSL && !vTP && !vBREAK && !vHTF && g_news_init)
 
     if(InpDebugLog)
       PrintFormat("[SRJ-EA] EXITVERDICT bar=%s dir=%s entry=%s curTp=%s vSL=%d "
-                   "vTP=%d vBREAK=%s vHTF=%d scope=%d "
+                   "vTP=%d vBREAK=%s vHTF=%d vDAY=%d scope=%d "
                    "htfH=%g htfM=%g htfL=%g want=%d anti=%d tpB=%s h=%s l=%s sup=%d",
                    TimeToString(barTime, TIME_DATE|TIME_MINUTES),
                    DirName(g_mtrade.dir),
@@ -11277,7 +11440,7 @@ if(!vSL && !vTP && !vBREAK && !vHTF && g_news_init)
                    (haveTp ? DoubleToString(curTp, _Digits) : "none"),
                    (int)vSL, (int)vTP,
                    (vBREAK ? breakLineName : "none"),
-                   (int)vHTF, (int)MT_EXIT_SCOPE,
+                   (int)vHTF, (int)vDAY, (int)MT_EXIT_SCOPE,
                    mtlH, mtlM, mtlL, mtlWant, mtlAnti, (g_mtrade.tpRef != EMPTY_VALUE && g_mtrade.tpRef > 0.0 ? DoubleToString(g_mtrade.tpRef, _Digits) : "none"), DoubleToString(h, _Digits), DoubleToString(l, _Digits), g_n1_tpRecomputeSupp);
 
 if(!(vSL || vTP || vBREAK || vHTF || vDAY)) return;
@@ -11298,6 +11461,15 @@ if(!(vSL || vTP || vBREAK || vHTF || vDAY)) return;
                 (vBREAK ? DoubleToString(breakLineVal, _Digits) : "-"),
                 DoubleToString(g_mtrade.entryPrice, _Digits),
                 DoubleToString(g_mtrade.exitPrice, _Digits));
+    //--- [P-EXITEXEC-1 E7] execution legs: SL/TP broker-owned, HTF stays off,
+    //--- CANCEL_BIAS returned above - only the WINNING BREAK/DAY_CLOSE verdict closes.
+    //--- Price reference = g_mtrade.exitPrice (= nextOpenPx on the gated legs per EA 11290/11292); paper MTEXIT/MTLIFE/EXIT rows print regardless.
+    if(g_mtrade.exitReason == MT_EXIT_POI_BODY_BREAK || g_mtrade.exitReason == MT_EXIT_DAY_CLOSE)
+      {
+       int mtexecRc = MtCloseBrokerPosition(MtExitName(g_mtrade.exitReason), g_mtrade.exitPrice, barTime);
+       if(mtexecRc == 0)
+          PrintFormat("[SRJ-EA] MTCLOSE_FAIL bar=%s reason=%s entryTicket=%I64u entryPid=%I64d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), MtExitName(g_mtrade.exitReason), g_mtrade.ticket, g_mtrade.entryPid);
+      }
     if(InpDebugLog) MtLifeEmit();
    EmitAlert("EXIT",
              StringFormat("%s%s at %s (entry %s)",

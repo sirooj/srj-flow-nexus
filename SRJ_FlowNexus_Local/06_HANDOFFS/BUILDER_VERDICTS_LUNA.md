@@ -8852,3 +8852,161 @@ A second, smaller hardening is to make the printed `action` field the actual tri
 The remaining findings are implementation-hardening and wording/observability issues, not page-level contradictions that require halting this v9 build.
 
 ## V267-RESQUAT-CLEAR8 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V268-RESQUAT-CLEAR9 OPEN LUNA (his carry, relay v268 clearance ask; pasted text follows verbatim)
+
+## Verdicts
+
+**Q1: Q1 CLEAR.**
+E1–E4 implement the stated F-a tuple-scoped suppression coherently, and the page contains the required tuple/session/day bridges and capture-before-reset ordering.
+
+**Gate delta: none.** The Q1 edits remain text/code as specified; I do not see a remaining contradiction that requires another code change before the requested build.
+
+**Q2: Q2 NOT-CLEAR.**
+The pid-based close mechanism is substantially repaired, but two page-level defects remain material to the authoritative G3 acceptance.
+
+### Q2 defects
+
+**1. The authoritative ticket-join invariant conflicts with the new pid re-resolution mechanism.**
+At E8c, the original broker ticket is persisted in `g_mtrade.ticket` and the lifecycle pid in `g_mtrade.entryPid`. At E5, however, the live ticket is re-found by scanning positions for `POSITION_IDENTIFIER == entryPid` and the resulting `ticket` is used for `PositionClose(ticket)`. That means the close ticket is permitted to differ from the fill-time `g_mtrade.ticket`.
+
+But G3 simultaneously requires:
+
+> every `MTCLOSE ticket == an ENTRY_TICKET ticket`
+
+The relevant regions are E8a/E8b/E8c, E5, and G3. This is internally inconsistent once the very ticket mutation scenario that motivated pid persistence is admitted.
+
+**Required repair:** make pid the authoritative identity join in G3. The invariant should be `MTCLOSE.closepid == ENTRY_TICKET.pid == managed entryPid`; the current close ticket may differ from the original fill ticket. Alternatively, code would have to forbid ticket change, which defeats the stated purpose of the pid re-resolution.
+
+**2. “Successful close” does not prove the managed position is actually flat.**
+E5 returns `1` when:
+
+`ok && closerc == TRADE_RETCODE_DONE && closepid == entryPid && closeentry == DEAL_ENTRY_OUT`
+
+There is no post-close assertion that no live position with `POSITION_IDENTIFIER == entryPid` remains. A successful exit deal can establish the requested deal identity without, by itself, proving complete liquidation of the position. The acceptance phrase “1 = completed-close result” therefore overstates what the predicate currently proves.
+
+Relevant region: **E5, the final return predicate immediately after the MTCLOSE `PrintFormat`.**
+
+**Required repair:** after the close result/deal validation, assert that no live position bearing `entryPid` remains before returning `1`; otherwise return `0` and emit the existing failure path.
+
+**3. Minor wording imprecision, not independently fatal:**
+The E5 comment says the pid resolution uses “never a scan,” but the implementation explicitly performs a `PositionsTotal()` loop with `PositionGetTicket()`/`PositionSelectByTicket()`. The mechanism is a **pid-filtered position scan**, not “never a scan.” This is documentation imprecision rather than a separate clearance blocker, but it should be corrected.
+
+### D2 ruled question
+
+**D2: TEXT-ONLY.** No `HistorySelect`-family addition is needed for the stated operation because E5/E8c operate on a specific deal ticket and use `HistoryDealSelect(dealTicket)` directly. The packet can close D2 with this sentence:
+
+> **“D2 is TEXT-ONLY: the executor needs only direct selection of the specific deal ticket returned by CTrade, so HistorySelect-family enumeration is not required for the E8c/E5 identity checks.”**
+
+### Analytic B — better mechanism
+
+For the stated executor goal, the cleanest identity model is:
+
+**entry deal → `DEAL_POSITION_ID` → managed `entryPid` → resolve current live ticket by pid → close → returned close deal → `DEAL_POSITION_ID` + exit classification → verify no position with that pid remains.**
+
+That touches **E5 and G3**, while E8c remains the capture/validation point. It removes the contradictory original-ticket equality requirement and makes the final `action=1` predicate prove actual closure rather than merely a successful exit deal.
+
+## Bottom line
+
+**Q1 CLEAR — no gate delta.**
+**Q2 NOT-CLEAR — amend G3's ticket-equality invariant and add a post-close-flatness check in E5 before the `return 1`.**
+
+## V268-RESQUAT-CLEAR9 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V269-RESQUAT-CLEAR10 OPEN LUNA (his carry, relay v269 clearance ask; pasted text follows verbatim)
+
+## Verdict
+
+**Q1 CLEAR.**
+The re-squat half is internally coherent on the page. E1-E4 preserve the stated tuple-scoped F-a behavior: set storage at the declarations above EA 1803; FIRE in `MarkSessionUsed` at the EA 1813-1818 replacement; candidate read gate at EA 7730-7732; pre-`GoAbort` capture and ARM at EA 8802-8808. `POI_NLINES == 12` is pinned at EA 86, so the 30-bit `int` representation safely covers all 24 `(line,dir)` combinations. The existing R-c residual remains explicitly named rather than hidden. **Gate delta: none.**
+
+**Q2 NOT-CLEAR.**
+The execution logic itself is substantially sound, but the packet's required G3 evidence is not fully observable from the successful close row. The E5 helper at the shared EA 11095 site re-resolves by `entryPid`, validates `closepid == entryPid`, requires `DEAL_ENTRY_OUT`, and then proves no live position remains. MQL5 documents `POSITION_IDENTIFIER` as lifecycle-stable and `DEAL_POSITION_ID` as the identifier carried by closing deals; `PositionClose(ulong ticket)` closes the specified ticket, with the trade-server retcode requiring separate validation. ([MQL5][1])
+
+The defect is in the **successful `MTCLOSE` telemetry inside E5**: its `PrintFormat` contains `ticket`, `magic`, `action`, `retcode`, `deal`, `closepid`, `closeentry`, and `ref`, but **does not print `entryPid`**. That conflicts with G3's pid-authoritative acceptance rule and with the packet's own statement that tickets are diagnostic only and may change while the pid remains authoritative. A successful row therefore cannot independently demonstrate `closepid == ENTRY_TICKET pid` when a service re-ticket occurs. The code checks the relation internally, but the required executed evidence does not expose both sides of the join.
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **Q2 blocking: missing successful-close `entryPid` telemetry.**
+   E5 shared insertion at EA 11095; specifically the `MTCLOSE` `PrintFormat` block. G3 requires a pid-authoritative join, while the success row omits the entry pid.
+
+2. **Q2 observability: flatness is enforced but not printed.**
+   The final `MtPidToTicket(entryPid) != 0` test is a real gate, so the logic is fail-closed. But there is no explicit `flat=1`/`flat=0` field. G3's “proved-flat” evidence therefore depends on inference from the absence of `MTCLOSE_FAIL`, rather than a directly recorded predicate result.
+
+3. **Q2 observability: `action=%d` is the raw `ok` boolean, not the final execution status.**
+   E5 can print `action=1` while `ResultRetcode()` is not `TRADE_RETCODE_DONE`; the later predicate then returns failure. That is logically safe, and the packet explicitly says action alone is not proof, but the field name is semantically ambiguous.
+
+4. **S5 is a stage/run gate rather than a code-local gate.**
+   The helper itself only enforces `MODE_EXECUTE && MQL_TESTER`; the hedging-only condition is asserted by S5 before the run. That is acceptable as the stated run protocol, but it is not independently enforced inside `MtCloseBrokerPosition`.
+
+5. **Q1 remains deliberately tuple-scoped.**
+   A later independently valid setup on an evicted `(line,dir,session,day)` remains blocked until FIRE or EXPIRE. The packet names this R-c residual and correctly attaches halt-on-take-loss; it is not an accidental defect, but it remains a material behavioral limitation of F-a.
+
+6. **Q1 day-key correctness is envelope-dependent.**
+   E2 keys FIRE from `g_anchorBarTime`, while E3/E4 key suppression from `barTime`. The packet closes that potential mismatch through the stated London/NYAM no-server-midnight-straddle premise at EA 1787-1790. Thus this is not a present halt, but the equivalence is demonstrated by the run envelope rather than enforced generically in the code.
+
+### Analytic B — better mechanism
+
+For the Q2 evidence contract, I would make the **successful MTCLOSE row self-contained** at the E5 `PrintFormat` site:
+
+```text
+... ticket=%I64u entryPid=%I64d magic=%I64d action=%d retcode=%d
+   deal=%I64u closepid=%I64d closeentry=%d flat=%d ref=%s
+```
+
+Populate `flat` from the same final `MtPidToTicket(entryPid) == 0` predicate that currently governs `return 1`. Also expose a final `status`/`mtexecRc` field rather than relying on the overloaded `action` boolean. This does not change selection or execution semantics; it makes the G3 join and proved-flat claim directly auditable from each successful close row.
+
+**Therefore: Q1 clears; Q2 remains halted on the page as written, solely because the required pid-authoritative successful-close evidence is under-specified in the actual `MTCLOSE` print.**
+
+[1]: https://www.mql5.com/en/docs/constants/tradingconstants/positionproperties?utm_source=chatgpt.com "Position Properties - Trade Constants - Constants, Enumerations and Structures - MQL5 Reference"
+
+## V269-RESQUAT-CLEAR10 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V270-RESQUAT-CLEAR11 OPEN LUNA (his carry, relay v270 clearance ask; pasted text follows verbatim)
+
+## Verdict
+
+**Q1 CLEAR.**
+The re-squat half is internally coherent on the page. E1-E4 preserve the stated tuple-scoped F-a behavior: set storage at the declarations above EA 1803; FIRE in `MarkSessionUsed` at the EA 1813-1818 replacement; candidate read gate at EA 7730-7732; pre-`GoAbort` capture and ARM at EA 8802-8808. `POI_NLINES == 12` is pinned at EA 86, so the 30-bit `int` representation safely covers all 24 `(line,dir)` combinations. The existing R-c residual remains explicitly named rather than hidden. **Gate delta: none.**
+
+**Q2 NOT-CLEAR.**
+The execution logic itself is substantially sound, but the packet's required G3 evidence is not fully observable from the successful close row. The E5 helper at the shared EA 11095 site re-resolves by `entryPid`, validates `closepid == entryPid`, requires `DEAL_ENTRY_OUT`, and then proves no live position remains. MQL5 documents `POSITION_IDENTIFIER` as lifecycle-stable and `DEAL_POSITION_ID` as the identifier carried by closing deals; `PositionClose(ulong ticket)` closes the specified ticket, with the trade-server retcode requiring separate validation. ([MQL5][1])
+
+The defect is in the **successful `MTCLOSE` telemetry inside E5**: its `PrintFormat` contains `ticket`, `magic`, `action`, `retcode`, `deal`, `closepid`, `closeentry`, and `ref`, but **does not print `entryPid`**. That conflicts with G3's pid-authoritative acceptance rule and with the packet's own statement that tickets are diagnostic only and may change while the pid remains authoritative. A successful row therefore cannot independently demonstrate `closepid == ENTRY_TICKET pid` when a service re-ticket occurs. The code checks the relation internally, but the required executed evidence does not expose both sides of the join.
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **Q2 blocking: missing successful-close `entryPid` telemetry.**
+   E5 shared insertion at EA 11095; specifically the `MTCLOSE` `PrintFormat` block. G3 requires a pid-authoritative join, while the success row omits the entry pid.
+
+2. **Q2 observability: flatness is enforced but not printed.**
+   The final `MtPidToTicket(entryPid) != 0` test is a real gate, so the logic is fail-closed. But there is no explicit `flat=1`/`flat=0` field. G3's “proved-flat” evidence therefore depends on inference from the absence of `MTCLOSE_FAIL`, rather than a directly recorded predicate result.
+
+3. **Q2 observability: `action=%d` is the raw `ok` boolean, not the final execution status.**
+   E5 can print `action=1` while `ResultRetcode()` is not `TRADE_RETCODE_DONE`; the later predicate then returns failure. That is logically safe, and the packet explicitly says action alone is not proof, but the field name is semantically ambiguous.
+
+4. **S5 is a stage/run gate rather than a code-local gate.**
+   The helper itself only enforces `MODE_EXECUTE && MQL_TESTER`; the hedging-only condition is asserted by S5 before the run. That is acceptable as the stated run protocol, but it is not independently enforced inside `MtCloseBrokerPosition`.
+
+5. **Q1 remains deliberately tuple-scoped.**
+   A later independently valid setup on an evicted `(line,dir,session,day)` remains blocked until FIRE or EXPIRE. The packet names this R-c residual and correctly attaches halt-on-take-loss; it is not an accidental defect, but it remains a material behavioral limitation of F-a.
+
+6. **Q1 day-key correctness is envelope-dependent.**
+   E2 keys FIRE from `g_anchorBarTime`, while E3/E4 key suppression from `barTime`. The packet closes that potential mismatch through the stated London/NYAM no-server-midnight-straddle premise at EA 1787-1790. Thus this is not a present halt, but the equivalence is demonstrated by the run envelope rather than enforced generically in the code.
+
+### Analytic B — better mechanism
+
+For the Q2 evidence contract, I would make the **successful MTCLOSE row self-contained** at the E5 `PrintFormat` site:
+
+```text
+... ticket=%I64u entryPid=%I64d magic=%I64d action=%d retcode=%d
+   deal=%I64u closepid=%I64d closeentry=%d flat=%d ref=%s
+```
+
+Populate `flat` from the same final `MtPidToTicket(entryPid) == 0` predicate that currently governs `return 1`. Also expose a final `status`/`mtexecRc` field rather than relying on the overloaded `action` boolean. This does not change selection or execution semantics; it makes the G3 join and proved-flat claim directly auditable from each successful close row.
+
+**Therefore: Q1 clears; Q2 remains halted on the page as written, solely because the required pid-authoritative successful-close evidence is under-specified in the actual `MTCLOSE` print.**
+
+[1]: https://www.mql5.com/en/docs/constants/tradingconstants/positionproperties?utm_source=chatgpt.com "Position Properties - Trade Constants - Constants, Enumerations and Structures - MQL5 Reference"
+
+## V270-RESQUAT-CLEAR11 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

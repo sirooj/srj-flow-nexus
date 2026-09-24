@@ -1,3 +1,30 @@
+# BUILDER RELAY COUNCIL v270-RESQUAT-CLEAR11 (2026-09-24, clearance ask: clear PACKET_P-RESQUAT-1 v12 to build; session CONTINUE)
+
+Project brief (standing - read first):
+- Money: probe/print-only. Alert-only EA. No live trades. No funded money moves on any verdict here. Live activation needs a separate relay plus his explicit word. Nothing in this packet clears it.
+- People: one operator (trader, strategy owner, money authority) plus AI seats. No second human reviewer - declined, his call. He carries every text both ways verbatim. That carry IS the anti-fake check: he compares what a seat sent with what got filed.
+- History: packet P-RESQUAT-1 v1 through v12; relays v259 through v269 on disk; every version folds the prior round's verdicts (see each relay's delta paragraph). Rounds end in amend or clear, never silent drift.
+- Your verdict: rules on the page only (code lines, numbers, logic). Disk truth (digests, logs, builds) is proven on his machine, never in chat. Keys come only from the key seat. No ruling here builds code, runs anything, or spends money.
+
+## 0. What this relay asks (read first)
+
+- ONE clearance packet, TWO halves, TWO verdicts: Q1 clears the re-squat half (E1-E4, +81; v12 delta vs halted v11 text: text-only - E1 24-bit domain, E4 wipe-line-only + no-ARM-row, G2 envelope scope + SKIP phrasing), Q2 clears the deal-executor half (E5-E9, +91; v12 delta: MTCLOSE + entryPid/flat telemetry, ENTRY_TICKET + ppid, E8c header rewrite, S5/G2/G3 wording scoped, S1(2a)/S1(12) prose; budget held +172/11502, all +0 lines). Each half has its own verdict line; either half can halt without sinking the other. D2 stays CLOSED (TEXT-ONLY unanimous, ledgers 718+720; closing sentence folded at S1(2a)).
+- Session: CONTINUE (same tree, same window; v269 verdicts (all filed whole 1x under V269 headers, ledger 720; Opus silent credits-outage, Kimi fallback filed): Luna Q1-CLEAR/Q2-NOT-CLEAR (success-row entryPid sole blocker); Astra Q1-CLEAR/Q2-NOT-CLEAR (hedging stage, E8c header, day-key scope, pid-vs-persisted, G3 text, OUT_BY wording); Kimi Q1-CLEAR/Q2-CLEAR (+2 texts); GLM Q1-CLEAR (+4 texts)/Q2-CLEAR (+5 texts) - Q1 CLEAR 4/4, Q2 HALTED, D2 stays CLOSED, verified same-turn on disk; NO build, nothing spent; packet re-cut to v12 below).
+- Frontier weight (his steer 2026-09-24): Astra + Opus weighted as frontier seats - consistent with either-seat-halt; no rule change.
+- Run cost of THIS relay: zero. The run it prepares costs one build + one 90-minute tester run on the same terminal, spent only on clearance plus the Luna key plus his run word.
+- Why this run has novel evidence no prior run did: (a) first eviction-paired suppression take (9/1 17:35) on a set that cannot lose tuples; (b) first executed BREAK and DAY_CLOSE fills with retcodes from winning verdicts only; (c) suppression census rows with takes intact; (d) pid-authoritative executor join (MTCLOSE closepid == ENTRY_TICKET pid == entry DEAL_POSITION_ID) on every MTCLOSE, tickets as diagnostics, with the close deal printed in-log; (e) executable close-deal identity (closepid == entry pid with exit classification, any break returns 0 into MTCLOSE_FAIL); (f) proved-flat closes (no live pid after return 1) with pid-authoritative joins under the hedging-only gate; (g) self-contained success rows (entryPid + flat printed; observed-vs-persisted pid distinguished). Graded bars-first lots-second.
+- Disk identity: packet P-RESQUAT-1 v12 = measured this turn (twin section 2, diff 0 section 3). EA pre-build tree = 15A41634/622631/11330 (no canonical edit since the RECON59 grade). Segments on record (59 = 7A7E74C0/6618090/34993; 58 = 424A5A0C/6624800/35016; 57 = 6F242EAC/4274727/24144). Relay digest recorded in the ledger post-splice, never inside this file.
+- v11-to-v12 repair map (every v269 halt/addendum item, all +0 lines, budget HELD +172/11502, mechanical this turn: 11+15+33+22+52+0+0+9+2+2+12+14): Q1 text-only (E1 24-bit domain; E4 wipe-line-only + no-ARM-row; G2 envelope-scoped day-key + SKIP phrasing); Q2 telemetry (MTCLOSE success + entryPid/flat per Luna-1/B; ENTRY_TICKET + ppid per Astra-4; E8c header rewrite per Astra-2/Kimi-A1/GLM-Q2-d1) + wording (S5 refuses-the-run + tester source per Astra-1; G3 attribution + ticket-selection fix per Astra-5/6; S1(2a) retire nextOpenPx; S1(12) mtexecRc; fence E5-banner row + OUT_BY reword); Luna-A4/S5-framing folded; ghost-transport fidelity closed (ledger 721: Ctrl+A tail byte-match, hash unchanged, seats ruled v11); declined standing carried (B5 ticket-drop, B6 HistorySelectByPosition fallback, volume-equality, entry-send observation, GLM-B1 runtime gate, GLM-B2 adjacency assert, all with reasons in the twin).
+- Evidence discipline: v259-v269 defect rows and code regions are presence-asserted here, never re-inserted. What rides whole HERE is the packet twin (section 2, the object under clearance) plus the machine fence table (section 3) plus the decision code regions (section 4: EXITVERDICT whole statement + S2ResolveLive whole body). The v264-v269 regions (struct, MtExitName, post-gate latch, t78/b3 blocks, B3 bound/return, E6 singles, E7 priority chain, E8c site, evaluator defs, MTCOLLISION boundary, session windows EA 1787-1790) are presence-asserted unchanged from relays v266-v269 (file + marker + digest in the ledger). The E5/E8/E9 blocks ride whole inside the twin above. Priors ride labeled (file + marker + digest).
+- Same text ships to every seat (Opus + GLM + Astra). No seat-only sub-questions.
+
+## 1. Binding rules (unchanged: R-a..R-e amended, F-a ruled, F-b/F-c his call)
+
+- R-a one-take-per-session (marks SIGNAL-only); R-b no timing rules (verdict-keyed only); R-c R floor 1.0 + replicate-all valid set (S5-refused is not a valid setup; the R-c tuple residual stays named); R-d detection walk untouched (signature AND body/shared-walk hash); R-e alert-only demo bounds with tester-closes-only. A rule contradicted must be NAMED with a stop.
+
+## 2. Packet twin (the object under clearance; byte-verified section 3)
+
+--- PACKET P-RESQUAT-1 v12 TWIN BEGIN ---
 # PACKET_P-RESQUAT-1 v12 DRAFT - self-contained success telemetry plus wording fold, v269-verdict fold (nothing builds/runs/commits on this file)
 
 Status: v12 DRAFT (folding the v269 verdicts, ledger 720: Q1 CLEAR 4/4 (deltas text-only); Q2 NOT-CLEAR Luna + Astra vs Kimi + GLM CLEAR - HALT stands (success-row entryPid, hedging stage, E8c header); D2 stays CLOSED. Q1 OPEN on v9 (Luna-CLEAR + Astra-CLEAR, Opus + GLM no transferable ruling); Q2 HALTED on v9 (Luna + Astra + Opus NOT-CLEAR vs GLM CLEAR) - NO build, nothing spent. Changes: S1(6) chain 138 (v8) to +152 (v9) to +178 (v10) to +172 (v11, B1 net-negative fold) to +172 held (v12 +0-line telemetry + text fold); Q1 text-only (E1 24-bit domain; E4 wipe-line-only + no-ARM-row; G2 envelope scope + SKIP phrasing; writer censuses stand); Q2 telemetry + text-only (MTCLOSE + entryPid/flat; ENTRY_TICKET + ppid; E8c header rewrite; S5 refuses-the-run + tester source; G3 attribution + ticket-selection fix; S1(2a)/S1(12) prose; fence E5-banner row + OUT_BY reword); folds every v269 correction; Budget RECOUNTED +172/11502 (Q1 +81: 11+15+33+22; Q2 +91: 52+0+0+9+2+2+12+14), mechanical from the literals below, S3 recount governs. v11 SUPERSEDED. Label map (Astra A9): relay Q1 = packet Q1 (E1-E4 re-squat); relay Q2 = packet Q2 (E5-E9 executor); older tags in history lines are provenance-only. Clearance via this relay plus Luna key plus his run word, all owed).
@@ -376,3 +403,133 @@ L-final Graded set authoritative: G1/G2/G3/G4 above.
 One build (suppression record + gate + arms + executor + sole resolver, STAGE-1 gated) plus one tester run, ceiling 90 minutes, same envelope as RECON59. Novel evidence vs RECON59: (a) first 9/1 take on the suppressed tree; (b) first executed BREAK + DAY_CLOSE fills with retcodes; (c) suppression census rows with takes intact; (d) proved-flat closes (no live pid after return 1) with pid-authoritative joins under the hedging-only gate; (e) self-contained success rows (entryPid + flat printed; observed-vs-persisted pid distinguished). Exit figures are target figures until fills print, never realized before.
 
 (End of file)
+--- PACKET P-RESQUAT-1 v12 TWIN END ---
+
+## 3. Machine fence (buildability proofs; every count measured on disk this turn unless marked carried)
+
+- `bool SessionAlreadyUsed` | 1 | E1 anchor (carried: tree unchanged)
+- `void MarkSessionUsed` | 1 | E2 anchor (carried)
+- `branch=RETEST inWin=1` | 1 | E3 anchor (carried)
+- `s1g_legDir = pr.isLong` | 1 | E3 retained line (carried)
+- `squatter GC` | 1 | E4 anchor (carried)
+- `"vTP=%d vBREAK=%s vHTF=%d scope=%d "` | 1 | E6a anchor, EA 11272 (carried one-hit + same-statement)
+- `(int)vHTF, (int)MT_EXIT_SCOPE,` | 1 | E6b anchor, EA 11280 (carried one-hit + same-statement)
+- `EXECUTED fill=` | 1 | E8c anchor block first line (carried one-hit)
+- E8c OLD block (5 lines, 15/27sp) | byte-match EA 10236-10240, 0 mismatches | re-pulled v8, re-verified this turn (tree domain)
+- E7 OLD block (8 lines) | byte-match EA 11294-11301, 0 mismatches | carried (tree unchanged)
+- E8c NEW retained 5 lines | byte-match E8c OLD 5 lines, 0 orphans (retained-only gate; the resolver call + fail-closed persist are new lines outside this match) | embedded gate proved this turn (packet domain)
+- E7 NEW retained 8 lines | byte-match E7 OLD 8 lines, 0 orphans | embedded gate proved this turn (packet domain)
+- `g_anchorLine` assigning writers | {7546, 7598, 7734} + sentinels {976, 6274, 7787} | complete census carried (tree unchanged)
+- `g_sessionAtEntry` sole live writer | 7743 copies sess | carried
+- `g_dir` live writers | {7549, 7739} both isLong-sense | carried
+- B3 line domain | loop bound EA 2010, return bestLine EA 2027 | carried
+- `pr.topLine` | 14 | struct field EA 1919 + uses (carried)
+- `DIR_LONG` | 144 | enum EA 226 (=1) (carried)
+- `DIR_SHORT` | 32 | enum EA 226 (=-1) (carried)
+- `g_dir` | 197 | decl EA 973 (carried)
+- `g_sessionAtEntry` | 18 | decl EA 975 type ENUM_SRJ_SESSION quoted (carried)
+- `ENUM_SRJ_DIR` decl | EA 226 | above EA 1803 (carried)
+- `ENUM_SRJ_SESSION` decl | EA 228 | above EA 1803 (carried)
+- `vDAY` | 4 | decl EA 11160 + set 11266 + guard 11283 + assign 11292 (carried)
+- `vBREAK` | 12 | decl + single set EA 11232 + uses (carried)
+- `MODE_EXECUTE` | 2 | decl EA 19 (=1) + comparison EA 10169 (carried)
+- `InpMode` | 4 | decl EA 32 + comparisons 10156/10169 (carried)
+- `MT_EXIT_POI_BODY_BREAK` | 3 | enum + assign EA 11290 + name map EA 265 (carried)
+- `MT_EXIT_DAY_CLOSE` | 3 | enum + assign EA 11292 + name map EA 271 (carried)
+- `exitReason` | 13 | field + chain + MTEXIT + E7 gate (carried)
+- `SetExpertMagicNumber` | 1 | EA 10214 per-entry (carried)
+- `long magic` | EA 10170 | same function as E8c site (carried)
+- `InpMagicBase` | 2 | decl EA 29 + use EA 10170 (carried)
+- `CTrade g_trade` | 1 | E5 surface decl (carried)
+- `Trade.mqh` | 2 | include + guard (carried)
+- `GetCorrectFillingMode` | 2 | def EA 1656 + use EA 10215 (carried)
+- `ResultRetcode` | 1 | E5 evidence join (carried)
+- `ResultDeal` / `HistoryDealSelect` / `HistoryDealGetInteger` / `DEAL_POSITION_ID` | 0 each on tree | platform surface for E8c latch (tree domain; S1(2)/S1(10) list as builtins/members, MQL5 docs ground the mapping)
+- `SetTypeFilling` | 0 use-sites on tree besides EA 10215 | CTrade member per S1(10), MQL5 trade library (not tree-count evidence)
+- `TRADE_RETCODE_DONE` | 0 on tree | platform enum for the rc-gate predicate (not tree-count evidence)
+- `DEAL_ENTRY` / `DEAL_ENTRY_OUT` | 0 on tree | platform enums for the closeentry classification (not tree-count evidence)
+- `g_trade.Buy` / `g_trade.Sell` | 1 / 1 | entry path EA 10220/10222 (carried)
+- `PositionClose` | 0 | E5-only post-build (carried)
+- `MTCLOSE` | 0 | E5-only post-build (carried)
+- `MtCloseBrokerPosition` | 0 on tree | new symbol (packet domain: rename + E5 sig + E7 call)
+- `MTEXIT bar=` | 2 | anchor first line (carried; second hit CANCEL_BIAS print 11148)
+- `ENTRY_TICKET` / `MTCLOSE_FAIL` / `EVICTSUPPRESS_SKIP` / `INDEX-INVALID` | 0 each | v8/v9 print names, collision-free (tree domain)
+- `mtexecRc` / `entryDeal` / `entryPid` / `closerc` / `closepid` / `closeentry` | 0 each on tree (word-boundary) | v10/v11 new locals, collision-free (tree domain; `closedeal` a declared E5 local since v10, Luna-A3/Astra-A8 closed)
+- `pmagic` / `ticket` / `ok` | E5-locals in a function new on tree (no outer scope; tree hits are other-function scopes + literals) | inventoried, not 0-hit claims
+- `mtp_i` / `mtp_t` / `MtPidToTicket` | 0 each on tree | v11 E9 locals + helper (pi/pt retired from EvaluateClosedBar entirely)
+- `g_mtrade.entryPid` | struct member + reset + E8c persist + fail-closed | v10 Luna B + v11 Astra-3 (packet domain; 0 hits on tree, collision-free)
+- `POI_NLINES` | 15 hits on tree | census only, NOT a value pin (Opus-Q1-1 held)
+- `POI_NLINES` VALUE | == 12 | EA 86 #define (packet E1 comment corrected 15 to 12; bit domain max 23 < 31)
+- `MarkSessionUsed(` | 3 | 2 calls @10160/@10253 + def; both pass (g_sessionAtEntry, g_anchorBarTime) (carried)
+- `DetectPoiRetest` | 14 | detector untouched (carried)
+- `void GoAbort` | 1 | def EA 6296 (carried)
+- `void ResetSequence` | 1 | def EA 6267 (carried)
+- `ENUM_SRJ_MODE` | 2 | decl EA 19 + input EA 32 (carried)
+- `g_lineCode` | 40 | indexed store (carried)
+- `SessionName` | 10 | helper def EA 1706 (carried)
+- `TC_DayStart` | 6 | day-key helper (carried)
+- `DirName` | 111 | helper def EA 1692 (carried)
+- `nextOpenPx` | 17 on tree | NO LONGER referenced by E7 (v9-Opus-B1 exitPrice swap, distinguished from v268-Opus-B1 resolver); 17 uses elsewhere on tree (tree domain)
+- `g_mtrade.exitPrice` | E7 call arg | equals nextOpenPx on the gated legs EA 11290/11292; MTEXIT exit= prints it EA 11299-11300 (tree domain; E7 twin block shows both, not section 4a)
+- `g_anchorLine = -1` writers | {976 decl, 6274 ResetSequence->IDLE, 7787 R2->IDLE} | spaced-form 1 (@7787); set per v262 filed verification, tree digest unchanged (carried)
+- `EvaluateClosedBar` sig | EA 6629 | params (barShift, barTime); caller (1, iTime 1) EA 11315-11319 (carried)
+- `EvaluateManagedTrade` def | EA 11105 | next def OnTick EA 11311 (carried)
+- E6 same-statement pin | PrintFormat EA 11271 opens, close EA 11281, zero semicolons EA 11272-11280 | carried
+- MTCOLLISION boundary | EA 10115-10129 single cite | one paper record structural (tree domain; section 4 v266 presence-assert)
+- TWIN row | diff 0 | twin span bytes == packet file bytes, 0 mismatches (v270 splice proof: 378/378)
+- Budget row | +172 / 11502 | E1 +11, E2 +15, E3 +33, E4 +22, E5 +52, E6a +0, E6b +0, E7 +9, E8a +2, E8b +2, E8c +12, E9 +14 (held this turn: all v12 deltas +0 lines, S3 recount governs)
+- E9 anchor row | blank EA 11094 (empty) + banner EA 11095 one-hit combo | new anchor, byte-verified this turn
+- E8a anchor row | struct `   double       exitPrice;` line one-hit | gated at S1(19), fence completeness v11
+- E8b anchor row | MtReset 3-line block EA 291-293, block one-hit (lines 2-3 one-hit each; line-1 form repeats once at EA 10144 in the fill path without lines 2-3) | gated at S1(19), fence completeness v11
+- `PositionCloseBy` / `DEAL_ENTRY_OUT_BY` | 0 hits | negative row: exact-equality on DEAL_ENTRY_OUT unreachable without a close-by call (tree has none)
+- Print parity row | MTCLOSE 12/12, SKIP-NO-SEND 7/7, NOTHING-TO-CLOSE 5/5, ENTRY_TICKET 6/6, MTCLOSE_FAIL 4/4 | format/arg counts verified on the page this turn (v12: success + entryPid/flat, ENTRY_TICKET + ppid)
+
+## 4. Decision code (whole contiguous regions; byte-verified section 3)
+
+### 4a. EXITVERDICT whole statement EA 11271-11281 (E6a format + E6b args proved one statement; vDAY field rides it)
+      PrintFormat("[SRJ-EA] EXITVERDICT bar=%s dir=%s entry=%s curTp=%s vSL=%d "
+                   "vTP=%d vBREAK=%s vHTF=%d scope=%d "
+                   "htfH=%g htfM=%g htfL=%g want=%d anti=%d tpB=%s h=%s l=%s sup=%d",
+                   TimeToString(barTime, TIME_DATE|TIME_MINUTES),
+                   DirName(g_mtrade.dir),
+                   DoubleToString(g_mtrade.entryPrice, _Digits),
+                   (haveTp ? DoubleToString(curTp, _Digits) : "none"),
+                   (int)vSL, (int)vTP,
+                   (vBREAK ? breakLineName : "none"),
+                   (int)vHTF, (int)MT_EXIT_SCOPE,
+                   mtlH, mtlM, mtlL, mtlWant, mtlAnti, (g_mtrade.tpRef != EMPTY_VALUE && g_mtrade.tpRef > 0.0 ? DoubleToString(g_mtrade.tpRef, _Digits) : "none"), DoubleToString(h, _Digits), DoubleToString(l, _Digits), g_n1_tpRecomputeSupp);
+
+### 4b. S2ResolveLive whole body EA 3949-3956 (unconditional pass-through: returns legDir; closes Opus A11 with bytes, not presence)
+ENUM_SRJ_DIR S2ResolveLive(const ENUM_SRJ_DIR legDir)
+  {
+   //--- [C0-PROBE] null-effect pass-through: live vote DELETED; counters kept
+   //--- (agree==calls by construction; SEL61LIVE agree==calls expected, print-only)
+   g_s2_nLiveCalls++;
+   g_s2_nLiveAgree++;
+   return legDir;
+  }
+
+Reading (the standing proof in one paragraph, content unchanged since v9): the statement 4a shows E6a/E6b as format-line + argument-lines of one PrintFormat call (open 11271, close 11281, zero semicolons inside), so `(int)vDAY` cannot desync into a corrupted row; the body 4b shows the pass-through unconditional (no live-row contingency in code), so the E4-stored convention == the E3-compared convention rebukes the carried-conditional worry on disk. All other v264-v267 decision regions (post-gate latch, t78/b3 blocks, B3 bound/return, E6 singles, E7 priority chain, E8c site, struct, MtExitName, evaluator defs, MTCOLLISION boundary) are presence-asserted unchanged from relays v266/v267 (file + marker + digest in the ledger).
+
+## 5. Questions (template v2; a NO on one never sinks the other)
+
+Q1: Is the re-squat half (E1-E4, +81) clear to build?
+Q1 answer form: Q1 CLEAR / Q1 NOT-CLEAR, with line numbers and any gate delta (text-only deltas named, no silent drift).
+
+Q2: Is the deal-executor half (E5-E9, +91) clear to build?
+Q2 answer form: Q2 CLEAR / Q2 NOT-CLEAR, with line numbers and any gate delta.
+
+D2 stays CLOSED (TEXT-ONLY unanimous, ledgers 718+720 with no seat reopening it; closing sentence folded at packet S1(2a); no line owed, no question asked).
+
+Analytic ask A (standing, every relay): name every defect, gap, or imprecision you see in the page, each with line numbers - freetext, no length limit.
+
+Analytic ask B (standing, code relays): state any better mechanism you see for the stated goal, with the code lines it would touch.
+
+Review-seat packaging: the same relay text ships, but its verdict-slot line is excused for the review seat (standing seat-split: analysis out, review-only, never keys - nothing refused because nothing unanswerable is asked).
+
+Verification split: rule on the page only - genuineness vs disk is proven on disk (digests + counts above) and is not answerable from chat by any model tier. Do not ask for files.
+Nothing else is asked. Thank you.
+
+## 6. Run cost and close
+
+One build (E1-E9, STAGE-1 gated) plus one tester run, ceiling 90 minutes, same envelope as RECON59 (tester, InpMode 1, 2026-08-26 to 2026-09-10, debug on) - ONLY on clearance plus Luna key plus his run word. Acceptance G1-G4 in the twin; grading bars-first lots-second. Nothing builds, runs, or commits on this relay.

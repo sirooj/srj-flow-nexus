@@ -1878,3 +1878,109 @@ Kimi:
 I ran out of Kimi credits
 
 ## V259-RESQUAT-PLUS-EXIT END KIMI (verbatim close; filed whole 1x this turn, novel inbound; no verdict - seat has no credits, fallback routing noted)
+
+## V270-RESQUAT-CLEAR11 OPEN KIMI (his carry, relay v270 clearance ask, Opus-credits fallback seat; pasted text self-heads GLM-seat AND packet-v11, filed under his Kimi label with both mismatches recorded; pasted text follows verbatim)
+
+# V269 SEAT VERDICT (packet P-RESQUAT-1 v11)
+
+## Q1: Is the re-squat half (E1-E4, +81) clear to build?
+
+**Q1 CLEAR.** No gate delta.
+
+Named verification of the two v268 text-only deltas (Opus), both confirmed folded:
+- **POI_NLINES VALUE pin**: E1 comment line 3 reads `POI_NLINES=12`, matching S1(26) (EA 86 `#define`, bit domain max 23 < 31). Folded ✓.
+- **Day-key premise named in G2**: G2 day-key join paragraph present, with the false-halt cause (no server-midnight straddle per EA 1787-1790) named and closed on disk. Folded ✓.
+
+Logic check on the page: E4 capture-before-GoAbort ordering correct against S1(9)/S1(14) (no-reentry carried); E4 guard enforces `0 <= s4e_line < POI_NLINES` + live dir + live session, so a dead record prints `EVICTSUPPRESS_SKIP` and skips ARM — G2's audible-mismatch requirement holds. E3 EXPIRE branch clears bits on day mismatch and E2 FIRE requires day-equality with a non-empty set, so FIRE day == most recent ARM untilDay by construction. ARM re-keys on day mismatch, so the E3 EXPIRE-clear leaving the day key stale between read and next ARM is self-healing and row-neutral (see A4). E3 INDEX-INVALID refusal is authorized in the Rule section, expected-0. Counts verified: E1 12−1=+11, E2 21−6=+15, E3 36−3=+33, E4 29−7=+22 → +81 ✓.
+
+## Q2: Is the deal-executor half (E5-E9, +91) clear to build?
+
+**Q2 CLEAR**, with two named text-only deltas (same class as Opus's v268 Q1 "+2 text deltas" precedent — no logic impact, S3 recount governs).
+
+Named verification of every v268 Q2 halt item, confirmed folded on the page:
+- **Luna-1 (G3 pid re-resolve)**: E5 line 23 `ulong ticket = MtPidToTicket(entryPid);` — stored-ticket never trusted for the close; predicate `closepid == entryPid` enforced at E5 line 49; `MTCLOSE_FAIL` prints `entryTicket` (latched diagnostic) + `entryPid` ✓.
+- **Luna-2 (flatness term)**: E5 line 50 `if(MtPidToTicket(entryPid) != 0) return 0;` ✓.
+- **Luna-3 / Astra-5 (never-scan wording)**: E5 header comment line 9 "pid-filtered scan, never stored-ticket trust" ✓.
+- **Astra-1 (exclusivity / hedging-only gate)**: S1(24) pins the hedging-only premise with margin-mode assert enforced pre-run at S5 (fail-closed refuse); enforcement chain E8c latch → E5 re-resolve → flatness named; netting unsupported, premise failure prints FAIL/NOTHING and halts, never a new admission rule ✓.
+- **Astra-2 / Opus Q2-4 (G3 join text)**: MTCLOSE print carries deal/closepid/closeentry; G3 pid-authoritative join stated; tickets ride as diagnostics with the service re-ticket attribution rule ✓.
+- **Astra-3 (E8c fail-closed persist)**: E8c line 16 `g_mtrade.entryPid = (entryTick != 0 ? entryPid : 0);` — all-or-zero ✓.
+- **Astra-A8/Opus-A11 (FAIL-ticket)**: MTCLOSE_FAIL print carries entryTicket + entryPid ✓.
+- **Opus Q2-1 (E8a/b old-form)**: E8a/b new spans match old-span prefix form; S1(23) re-audit claimed green ✓.
+- **Opus Q2-2 (prefix STOP)**: resolver-collapsed — E5 loop → 1 call, E8c loop → 1 call; fence rows `mtp_i`/`mtp_t`/`MtPidToTicket` 0 hits on tree; pi/pt retired from EvaluateClosedBar ✓.
+- **E9 resolver**: symbol-filtered, pid-matched, first-hit return, 0 on none; serves all three sites; shared-site order E9-before-E5 respected ✓.
+
+Counts verified from literals: E5 53−1=+52, E7 17−8=+9, E8a +2, E8b +2, E8c 17−5=+12, E9 16−2=+14 → +91 ✓ (see A1 on the E8c header line). Budget +172/11502 consistent.
+
+## D2
+
+CLOSED — nothing owed, no question answered.
+
+## Analytic ask A (every defect/gap/imprecision on the page)
+
+1. **E8c edit-set header, packet edit-set section**: the header line reads "(old 5 EXECUTED print lines, new 27, +22)" — the literal block below it is 17 lines total (5 retained + 3 comments + 9 code = 12 inserted), and every governing site (canonical-files header "E8c +12", Status budget "…+2+12+14", relay recap, S1(19) "E8c new 17 lines") says +12. If the filed header indeed prints 27/+22 it is a stale text line — fix to (old 5, new 17, +12). Text-only; S3 recount governs, no logic risk.
+2. **E8c header prose describes retired mechanism**: the same header says "VALIDATES it (ResultDeal to HistoryDealSelect to DEAL_POSITION_ID to select-by-ticket to POSITION_IDENTIFIER compare…)" — that describes the v9/v10 inline select-compare the v11 fold retired. The literal code resolves via `MtPidToTicket(entryPid)`. The fail-closed *outcome* is equivalent (0 on any failure → entryPid persisted 0), so no logic defect, but the description should name the resolver. Text-only.
+3. **E3 redundant guard (minor)**: the `rsq_bit >= 0` tests inside the London/NYAM `else if` conditions are dead — the `if(rsq_bit < 0)` block above returns unconditionally. Harmless; could be dropped for cleanliness. No logic change either way.
+4. **Verified-consistent observation (not a defect)**: E3's EXPIRE branch clears bits without re-keying `g_evictDayLon/NY`; the key stays stale until the next ARM re-keys on mismatch (E4) or FIRE's day-equality precondition (E2) gates on it. No row can be lost or falsely emitted through the stale window; G2's joins hold.
+
+Nothing else on the page fails line-number, number, or logic inspection. No halt item stands.
+
+## Analytic ask B (better mechanism)
+
+None for the stated goal. The v11 mechanism set — sole pid resolver (E9), pid re-resolve at close (E5), executable close-deal predicate (closepid + exit classification), post-close flatness re-scan, fail-closed latch persist (E8c), hedging-only gate with margin-mode assert (S5) — is the minimal sufficient set: each layer retires a distinct failure class (stored-ticket trust, wrong-record close, partial/failed close, netting ambiguity) and each is independently audible in the log. The standing declines remain correctly declined: B6 HistorySelectByPosition fallback is future-only per unanimous D2 TEXT-ONLY and unnecessary under the pid join; volume-equality flatness is strictly weaker than the pid re-scan; ticket-drop would erase the terminal-side cross-reference the G3 diagnostic join uses. No code lines would be touched by any alternative I can defend.
+
+— End of verdict.
+
+## V270-RESQUAT-CLEAR11 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V269-RESQUAT-CLEAR10 OPEN KIMI (his carry, relay v269 clearance ask, fallback seat for Opus credits-outage; pasted text follows verbatim)
+
+# V269 SEAT VERDICT (packet P-RESQUAT-1 v11)
+
+## Q1: Is the re-squat half (E1-E4, +81) clear to build?
+
+**Q1 CLEAR.** No gate delta.
+
+Named verification of the two v268 text-only deltas (Opus), both confirmed folded:
+- **POI_NLINES VALUE pin**: E1 comment line 3 reads `POI_NLINES=12`, matching S1(26) (EA 86 `#define`, bit domain max 23 < 31). Folded ✓.
+- **Day-key premise named in G2**: G2 day-key join paragraph present, with the false-halt cause (no server-midnight straddle per EA 1787-1790) named and closed on disk. Folded ✓.
+
+Logic check on the page: E4 capture-before-GoAbort ordering correct against S1(9)/S1(14) (no-reentry carried); E4 guard enforces `0 <= s4e_line < POI_NLINES` + live dir + live session, so a dead record prints `EVICTSUPPRESS_SKIP` and skips ARM — G2's audible-mismatch requirement holds. E3 EXPIRE branch clears bits on day mismatch and E2 FIRE requires day-equality with a non-empty set, so FIRE day == most recent ARM untilDay by construction. ARM re-keys on day mismatch, so the E3 EXPIRE-clear leaving the day key stale between read and next ARM is self-healing and row-neutral (see A4). E3 INDEX-INVALID refusal is authorized in the Rule section, expected-0. Counts verified: E1 12−1=+11, E2 21−6=+15, E3 36−3=+33, E4 29−7=+22 → +81 ✓.
+
+## Q2: Is the deal-executor half (E5-E9, +91) clear to build?
+
+**Q2 CLEAR**, with two named text-only deltas (same class as Opus's v268 Q1 "+2 text deltas" precedent — no logic impact, S3 recount governs).
+
+Named verification of every v268 Q2 halt item, confirmed folded on the page:
+- **Luna-1 (G3 pid re-resolve)**: E5 line 23 `ulong ticket = MtPidToTicket(entryPid);` — stored-ticket never trusted for the close; predicate `closepid == entryPid` enforced at E5 line 49; `MTCLOSE_FAIL` prints `entryTicket` (latched diagnostic) + `entryPid` ✓.
+- **Luna-2 (flatness term)**: E5 line 50 `if(MtPidToTicket(entryPid) != 0) return 0;` ✓.
+- **Luna-3 / Astra-5 (never-scan wording)**: E5 header comment line 9 "pid-filtered scan, never stored-ticket trust" ✓.
+- **Astra-1 (exclusivity / hedging-only gate)**: S1(24) pins the hedging-only premise with margin-mode assert enforced pre-run at S5 (fail-closed refuse); enforcement chain E8c latch → E5 re-resolve → flatness named; netting unsupported, premise failure prints FAIL/NOTHING and halts, never a new admission rule ✓.
+- **Astra-2 / Opus Q2-4 (G3 join text)**: MTCLOSE print carries deal/closepid/closeentry; G3 pid-authoritative join stated; tickets ride as diagnostics with the service re-ticket attribution rule ✓.
+- **Astra-3 (E8c fail-closed persist)**: E8c line 16 `g_mtrade.entryPid = (entryTick != 0 ? entryPid : 0);` — all-or-zero ✓.
+- **Astra-A8/Opus-A11 (FAIL-ticket)**: MTCLOSE_FAIL print carries entryTicket + entryPid ✓.
+- **Opus Q2-1 (E8a/b old-form)**: E8a/b new spans match old-span prefix form; S1(23) re-audit claimed green ✓.
+- **Opus Q2-2 (prefix STOP)**: resolver-collapsed — E5 loop → 1 call, E8c loop → 1 call; fence rows `mtp_i`/`mtp_t`/`MtPidToTicket` 0 hits on tree; pi/pt retired from EvaluateClosedBar ✓.
+- **E9 resolver**: symbol-filtered, pid-matched, first-hit return, 0 on none; serves all three sites; shared-site order E9-before-E5 respected ✓.
+
+Counts verified from literals: E5 53−1=+52, E7 17−8=+9, E8a +2, E8b +2, E8c 17−5=+12, E9 16−2=+14 → +91 ✓ (see A1 on the E8c header line). Budget +172/11502 consistent.
+
+## D2
+
+CLOSED — nothing owed, no question answered.
+
+## Analytic ask A (every defect/gap/imprecision on the page)
+
+1. **E8c edit-set header, packet edit-set section**: the header line reads "(old 5 EXECUTED print lines, new 27, +22)" — the literal block below it is 17 lines total (5 retained + 3 comments + 9 code = 12 inserted), and every governing site (canonical-files header "E8c +12", Status budget "…+2+12+14", relay recap, S1(19) "E8c new 17 lines") says +12. If the filed header indeed prints 27/+22 it is a stale text line — fix to (old 5, new 17, +12). Text-only; S3 recount governs, no logic risk.
+2. **E8c header prose describes retired mechanism**: the same header says "VALIDATES it (ResultDeal to HistoryDealSelect to DEAL_POSITION_ID to select-by-ticket to POSITION_IDENTIFIER compare…)" — that describes the v9/v10 inline select-compare the v11 fold retired. The literal code resolves via `MtPidToTicket(entryPid)`. The fail-closed *outcome* is equivalent (0 on any failure → entryPid persisted 0), so no logic defect, but the description should name the resolver. Text-only.
+3. **E3 redundant guard (minor)**: the `rsq_bit >= 0` tests inside the London/NYAM `else if` conditions are dead — the `if(rsq_bit < 0)` block above returns unconditionally. Harmless; could be dropped for cleanliness. No logic change either way.
+4. **Verified-consistent observation (not a defect)**: E3's EXPIRE branch clears bits without re-keying `g_evictDayLon/NY`; the key stays stale until the next ARM re-keys on mismatch (E4) or FIRE's day-equality precondition (E2) gates on it. No row can be lost or falsely emitted through the stale window; G2's joins hold.
+
+Nothing else on the page fails line-number, number, or logic inspection. No halt item stands.
+
+## Analytic ask B (better mechanism)
+
+None for the stated goal. The v11 mechanism set — sole pid resolver (E9), pid re-resolve at close (E5), executable close-deal predicate (closepid + exit classification), post-close flatness re-scan, fail-closed latch persist (E8c), hedging-only gate with margin-mode assert (S5) — is the minimal sufficient set: each layer retires a distinct failure class (stored-ticket trust, wrong-record close, partial/failed close, netting ambiguity) and each is independently audible in the log. The standing declines remain correctly declined: B6 HistorySelectByPosition fallback is future-only per unanimous D2 TEXT-ONLY and unnecessary under the pid join; volume-equality flatness is strictly weaker than the pid re-scan; ticket-drop would erase the terminal-side cross-reference the G3 diagnostic join uses. No code lines would be touched by any alternative I can defend.
+
+— End of verdict.
+
+## V269-RESQUAT-CLEAR10 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)

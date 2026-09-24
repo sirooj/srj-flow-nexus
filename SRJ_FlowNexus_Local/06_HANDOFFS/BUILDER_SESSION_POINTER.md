@@ -3,22 +3,21 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, V267 INTAKE)
+## State (2026-09-24, HANDOFF FILED)
 
-- 4 verdicts filed whole 1x
-  (Luna/Astra/Opus/GLM).
-  Q1 OPEN (2 clears, no halt,
-  dual-key incomplete).
-  Q2 HALTED (Astra, sustained).
-  NO build, no key, no run.
-  Ledger 714. His sent-vs-filed
-  check requested on V267 blocks.
+- Built D74FE972/11502, 0/0
+  both targets, RECON60 DONE
+  PASSED on disk, UNGRADED
+  (handoff POST-V271 filed).
+  Key spent. Awaiting
+  YOUR completion signal.
 
 ## Next (artifact owed)
 
-- Owed: his re-carry (v267 file
-  to Opus+GLM+Astra, fresh
-  pastes back).
+- Owed: his completion word
+  ("run has completed").
+  Then gates + tabulate +
+  result, same turn.
 
 ## Resume order (exact)
 

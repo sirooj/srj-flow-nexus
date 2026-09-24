@@ -988,3 +988,153 @@ Repair is text-only: a fence row with the one-hit count for each E6 anchor, the 
 - **One struct global instead of four.** Folding line/dir/session/day into a single record struct at E1 shortens the E1 block, makes "not in ResetSequence's clear set" a one-line statement about one symbol, and makes the clear/arm operations single assignments at E2/E3/E4. Cost-neutral to slightly negative on lines; touches all four Q1 edits, so it is a v7 candidate rather than a v6 patch.
 
 ## V267-RESQUAT-CLEAR8 END OPUS (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V268-RESQUAT-CLEAR9 OPEN OPUS (his carry, relay v268 clearance ask; pasted text follows verbatim)
+
+## Verdicts
+
+**Q1 CLEAR** — re-squat half (E1-E4, +81), with two named text-only gate deltas owed before S2 (no logic change, no literal re-cut):
+1. **S1 owes a VALUE pin on `POI_NLINES`** (fence row reads `POI_NLINES | 15 | bound for the index invariant`, which in that table's own convention is a *hit count*, not a value — compare `DIR_LONG | 144`). The whole bitset encoding rests on the value: `bit = line*2 + dirIdx`, max bit 29, and `int` gives 31 usable. E1:L2-L3 assert 15 in a comment only. This is the same class as the MODE_EXECUTE ordinal pin that halted v263 and that S1(13) now carries; S1(4) already distinguishes "declaration VALUE 48" from a census, so the packet knows the difference. Add: *`POI_NLINES` declaration VALUE == 15 asserted pre-apply; bit domain `line*2+dir` ≤ 29 < 31.* Plus a fence VALUE row.
+2. **Day-key source asymmetry stays a must-grade, named louder.** E4:L10 keys ARM on `TC_DayStart(barTime)` (evaluated bar) and E3:L12 compares the same; E2:L3 keys FIRE on `TC_DayStart(barTimeServer)`, and both call sites pass `g_anchorBarTime` (fence: `MarkSessionUsed( | 3`). S1(21) names the edge and defers it to G2, which is acceptable because both failure shapes are audible (a missed FIRE self-heals at the next day's EXPIRE-clear; a stale FIRE trips the G2 day-key join). What is *not* on the page is the premise that makes it unreachable: that neither session window straddles server midnight. Name it in G2 as a false-halt cause for the day-key join, or pin the window premise.
+
+Everything else in E1-E4 checks out on the page: budget mechanical (12-1=11, 21-6=15, 36-3=33, 29-7=22 = +81, and 81+97 = 178, 11330+178 = 11508); bit domain safe (`DIR_NONE=0` excluded by the E4:L14 record-validity guard, so `DIR_SHORT → 1`); E4 captures precede `GoAbort` (E4:L7-L10 before L11); the dead-record branch prints rather than silently skipping (E4:L27); every new-span line in E1-E4 wears the col-0 backtick form S1(23) demands; all seven print sites have specifier/arg parity and type match (I checked each: 5/5 ARM, 4/4 SKIP, 5/5 RESEED SKIP, 1/1 INDEX-INVALID, 2/2 FIRE).
+
+**Q2 NOT-CLEAR** — deal-executor half (E5-E8, +97). Four items, two of them hard stops.
+
+### Q2-1 (STOP — a named S1 rule is contradicted on the page)
+S1(23) asserts *"every new-span code line backtick-col-0; audit 0 flags; old-spans 2sp+backtick; **E8 spans included**"*. The **E8a new span (3 lines) and E8b new span (5 lines) are written in the old 2sp+backtick form**. E5, E7, E8c, E1-E4 and E6a/E6b are all col-0; only the E8 struct/reset spans drift. That is 8 new-span lines contradicting the gate, and it is the fourth occurrence of the hand-transcription class in this packet's history (v264's 18 old-form lines, the S1(6) 137→138 token, the E8c 16/28sp whitespace). Per binding rules, a contradicted rule must be named with a stop. Repair is mechanical, +0 lines.
+
+Credit where due: the **E8c and E7 retained-line whitespace is correct this round** — E8c new-span retained lines carry 15sp/27sp matching EA 10236-10240, E7 retained carries 4sp/16sp matching EA 11294-11301. The GLM-A3 embedded gate holds where it failed in v266.
+
+### Q2-2 (STOP — uncensused bare locals against a 0-warning gate)
+S1(2b) enumerates new names and the fence gives 0-hit rows for `mtexecRc / entryDeal / entryPid / closerc / closepid / closeentry`. **Neither lists `pi`, `pt`, `pmagic`, `ticket`, or `ok`.** For E5 that is cosmetic (helper-local scope, collision-free by construction). For **E8c it is a build-gate risk**: E8c:L16 declares `int pi` and E8c:L18 declares `ulong pt` inside `EvaluateClosedBar` (def EA 6629, still in scope at the 10236 capture site per S1(21)) — a function spanning thousands of lines with no census for either name. An outer `pi`/`pt` in that body yields a shadow-declaration warning, and **S4 demands 0 warnings**, so an uncensused two-letter local can fail the build gate. This is the third consecutive round where the inventory list has come up short (v10 was cut to repair exactly this for `closedeal`, Luna-A3/Astra-A8).
+
+Repair, +0 lines: rename to the packet's own prefix discipline — `mtc_pi/mtc_pt` in E5:L26/L28, `e8c_pi/e8c_pt` in E8c:L16/L18 — and add `pmagic`, `ticket`, `ok` plus the renamed loop vars to S1(2b) and the fence. Also missing from the S1(2a) builtin list while used in code: **`PositionsTotal`, `PositionGetTicket`, `DEAL_ENTRY_OUT`** (E5:L26/L28/L60, E8c:L16/L18). S1(2a) says builtins aren't censused, so this has no gate effect, but the list purports to enumerate the surface E5/E8c touch and does not.
+
+### Q2-3 (STOP — G3 claims completion the code never proves)
+G3 defines `1` as a **"completed-close result (ok AND retcode DONE AND closepid == entry pid AND closeentry == exit class)"**. E5:L60 implements exactly those four terms and **no volume or flatness term**. A partial fill satisfies all four — retcode DONE, `DEAL_ENTRY_OUT`, pid match — while the broker position survives. The run would then grade 8/28 11:40 and 9/4 23:55 as executed exits with the position still open, and G4's "stop fill gone / target fill gone" rows would contradict a `action=1` row with no census able to say which is true. This is the identical class that halted v266 (action=1 is not execution) and v267 (retcode is not identity): the predicate is one term short of the claim it licenses.
+
+Cheapest correct repair is flatness, not volume equality (no float tolerance, no partial-fill arithmetic): after E5:L60's predicate passes, re-resolve by pid and require nothing live.
+
+```cpp
+   if(!(ok && closerc == TRADE_RETCODE_DONE && closepid == entryPid && closeentry == DEAL_ENTRY_OUT)) return 0;
+   if(MtPidToTicket(entryPid) != 0) return 0;   // partial/failed close: position still live
+   return 1;
+```
+That is +1 line if the resolver is extracted (Analytic B1); +11 duplicated lines if not. Either way S3's budget moves off +97/+178 and must be recounted, and G3's "1 = completed-close" wording gains the flatness term.
+
+### Q2-4 (text-only — a G3 join term contradicts v10's own premise)
+G3 reads *"deal-ticket-identifier join: **every MTCLOSE ticket == an ENTRY_TICKET ticket** AND that ENTRY_TICKET's pid == the DEAL_POSITION_ID of the entry deal"*. But v10's whole rationale (E5:L7-L9, rename table, v266 authority line citing the MQL5 position/deal property pages) is that **`POSITION_TICKET` can change on service operations while `DEAL_POSITION_ID` cannot** — which is precisely why E5 stopped trusting `g_mtrade.ticket` and re-resolves. So the first conjunct asks the grade to halt on the one scenario the code was rebuilt to survive: pid matches, re-resolved ticket differs from the latched ticket, close is correct, join fails. Demote it: join on **`MTCLOSE closepid == ENTRY_TICKET pid`**, keep the ticket fields as informational, and if they differ, attribute to a service re-ticket rather than halting.
+
+---
+
+## D2 ruling: **TEXT-ONLY**
+
+No `HistorySelect`-family call is owed. `HistoryDealSelect(ulong ticket)` selects a single deal by its ticket and does not depend on a prior range request; the `HistorySelect` / `HistorySelectByPosition` + `HistoryDealsTotal` / `HistoryDealGetTicket` family exists for *enumeration over a range*, which neither E8c nor E5 performs — both hold an explicit deal ticket from `ResultDeal()`. The Luna-B pid persist and the executable close-deal check do subsume the identity half of the concern. What they do **not** subsume is the `ResultDeal() == 0` path, and the page should say so rather than leave it inferred. Sentence to add at S1(2a) or the E5/E8c comment block:
+
+> The history reads select a single deal by explicit ticket (`HistoryDealSelect(closedeal)` E5:L51, `HistoryDealSelect(entryDeal)` E8c:L12), so no `HistorySelect` range request is required or made; a `ResultDeal()` of 0 or a failed select leaves `entryPid`/`closepid` at 0, which fails the E5 predicate and prints `NOTHING-TO-CLOSE` or `MTCLOSE_FAIL` for diagnosis — a `HistorySelectByPosition` fallback is declined for this build as future-only.
+
+One qualifier: the reference-file citation (`03_SPECIFICATIONS/.../mql5-reference.md` lines 385-392) is a disk claim. I rule on the page; I have not seen that file and am not treating its line range as verified.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions
+
+Convention: `E{n}:L{k}` = k-th line of that edit's new span as printed in section 2; absolute EA lines where the packet supplies them.
+
+**Provenance / version coherence**
+
+- **A1. The twin's Status paragraph folds the wrong round.** Section 2 line 3 describes *"Q1 NOT-CLEAR Luna (bridges unproved on the page + S1-138 contradiction) vs Astra + Opus-conditional + GLM clear; Q2 NOT-CLEAR Luna + Astra + Opus (E8c latest-time is not deal identity; Opus Q2-H1 default-mode FAIL rows) vs GLM clear"* and *"GLM paste determined v265 replay, adopted, v266 ruling owed"* and *"Changes: S1(6) +138 to +152 one-token fix FIRST"*. Those are v265/v266-era facts. Relay section 0 records v267 as Luna Q1-CLEAR/Q2-CLEAR, Astra Q1-CLEAR/Q2-NOT-CLEAR, Opus and GLM no ruling. The same paragraph's budget clause (+178/11508, Q1 +81, Q2 +97) *is* v10-correct, so the paragraph is half-updated. This is the exact version-incoherence that voided the Opus v267 ruling, now inside the object under clearance. Text-only, but it is the packet's own provenance record.
+- **A2. S1(6) no longer says what A1 claims.** S1(6) reads "recount +178 NET"; the Status line's "+138 to +152" describes a superseded figure.
+- **A3. Successor-sentence chain off by one.** The v266 authority bullet ends *"This v10 persists entryPid…"* while v263→v6, v264→v7, v265→v8 follow the pattern bullet-N names successor N+1. The v266 bullet should name v9; the v267 bullet (which names no successor) should carry the v10 sentence.
+- **A4. Section 4's reading paragraph says "the v9 proof in one paragraph"** in a v10 relay. Stale label.
+
+**Q2 code**
+
+- **A5.** S1(23) contradicted by E8a:L1-L3 and E8b:L1-L5 (old 2sp+backtick form). = Q2-1.
+- **A6.** `pi`, `pt` uncensused at E8c:L16/L18 inside `EvaluateClosedBar` (EA 6629) against S4's 0-warning gate; `pmagic`, `ticket`, `ok` absent from S1(2b) and the fence. = Q2-2.
+- **A7.** `PositionsTotal`, `PositionGetTicket`, `DEAL_ENTRY_OUT` used (E5:L26/L28/L60, E8c:L16/L18) but absent from the S1(2a) enumerated builtin surface.
+- **A8.** No completion term; G3 calls the 4-term predicate a "completed-close result". = Q2-3.
+- **A9.** G3's ticket-equality join term contradicts the pid-not-ticket premise. = Q2-4.
+- **A10. `NOTHING-TO-CLOSE` (E5:L38-L40) cannot be attributed from its own row.** It prints `ticket` (0 whenever the pid scan found nothing) but never `entryPid`. G3 demands the row be attributed to the known TP-while-BREAK path on sight; as written, the log cannot distinguish "E8c latch failed, pid was 0" from "pid found no live position because a broker TP already filled". Add `pid=%I64d` to the existing format and arg lines — +0 lines.
+- **A11. `MTCLOSE_FAIL` (E7:L8) prints `g_mtrade.ticket`, not the resolved ticket or the pid.** On the `NOTHING-TO-CLOSE` path the MTCLOSE row prints `ticket=0` while the paired FAIL row prints the latched ticket: two ticket values for one event, feeding directly into A9's join ambiguity. Print `entryPid` there, or the resolved ticket.
+- **A12. `SKIP-NO-SEND` (E5:L18) consumes `g_mtrade.ticket`** while E5:L9 claims *"never a stored-ticket trust"*. The row is expected 0 under S5, so this is a claim/code mismatch, not a behavior risk — but it is on the page.
+- **A13. Dead condition** at E5:L36 and E8c: the `ticket == 0` / `entryPid > 0` guards make part of the downstream test redundant; and E5:L35 `long pmagic = 0;` is initialized only to be overwritten at L43, since no path between them reads it. Cosmetic.
+- **A14. Two verbatim copies of the pid-resolution loop** (E5:L26-L33, E8c:L16-L23) hand-transcribed. Given that this packet has been halted three times for hand-transcription drift, duplicating the one region that defines *identity* is the highest-risk structural choice on the page. See B1.
+
+**Q1 code**
+
+- **A15.** `POI_NLINES` value unpinned while the bit encoding depends on it. = Q1 delta 1.
+- **A16.** Day-key source asymmetry E2:L3 vs E3:L12/E4:L10. = Q1 delta 2.
+- **A17. Redundant `rsq_bit >= 0` at E3:L21 and E3:L26** — unreachable as false, since E3:L13-L17 returns on `rsq_bit < 0`. Harmless, but it reads as if the INDEX-INVALID return were not there.
+- **A18. Mixed bar-time sources in row keys.** E3:L15, E3:L30, E4:L22, E4:L27 print `iTime(_Symbol, PERIOD_CURRENT, barShift)`; E2:L11 prints `today`; E5/E7 print the passed `barTime`. S1(21) proves `barTime == iTime(barShift)` at all three sites, so the values agree — but `iTime` re-reads the series and returns 0 on a series error, stamping a row `1970.01.01` in the middle of a join the grade depends on. Prefer the passed `barTime` in every new row; +0 lines.
+
+**Fence / section 3**
+
+- **A19.** Row *"E8c NEW retained 5 lines **+ pid-persist line** | byte-match E8c OLD 5 lines, 0 orphans"* conflates a retained-line byte gate with a new line. The pid-persist line has no old-side counterpart and cannot be part of a retained-line match.
+- **A20.** No fence row for `PositionCloseBy` / `DEAL_ENTRY_OUT_BY`. E5:L60 requires `closeentry == DEAL_ENTRY_OUT` exactly; the reason `OUT_BY` is unreachable (no close-by call exists on the tree) is true but unstated. One 0-hit row closes it.
+- **A21.** The TWIN row (366/366) and every "carried" row are disk claims. I am not ruling them; per the verification split they are unanswerable from chat.
+
+---
+
+## Analytic ask B — better mechanism
+
+**B1. Extract the pid resolver. One definition, three uses.** This is the single change that most reduces risk on this page, because it deletes the duplicated identity code (A14) and makes Q2-3's flatness check cost one line instead of eleven.
+
+```cpp
+//--- [P-EXITEXEC-1] sole position-identity resolver (pid -> live ticket, 0 = none)
+ulong MtPidToTicket(const long pid)
+  {
+   if(pid <= 0) return 0;
+   for(int mtp_i = PositionsTotal() - 1; mtp_i >= 0; mtp_i--)
+     {
+      ulong mtp_t = PositionGetTicket(mtp_i);
+      if(mtp_t == 0 || !PositionSelectByTicket(mtp_t)) continue;
+      if(PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
+      if(PositionGetInteger(POSITION_IDENTIFIER) != pid) continue;
+      return mtp_t;
+     }
+   return 0;
+  }
+```
+
+Lines it touches: **E5:L22-L34 collapse to `ulong ticket = MtPidToTicket(g_mtrade.entryPid);`** (−12); **E8c:L14-L24 collapse to `entryTick = MtPidToTicket(entryPid);`** (−10); helper defined above the E5 block (+13); flatness check E5 post-L60 (+1). Net roughly −8 against v10, so Q2 lands near +89 and the combined near +170 — S3 recount governs, and S1 gains one new name (`MtPidToTicket`, `mtp_i`, `mtp_t`) and one anchor. Side benefit: `pi`/`pt` disappear from `EvaluateClosedBar` entirely, which retires Q2-2's warning risk rather than renaming around it.
+
+**B1. Extract the pid resolver. One definition, three uses.** This is the single change that most reduces risk on this page, because it deletes the duplicated identity code (A14) and makes Q2-3's flatness check cost one line instead of eleven.
+
+```cpp
+//--- [P-EXITEXEC-1] sole position-identity resolver (pid -> live ticket, 0 = none)
+ulong MtPidToTicket(const long pid)
+  {
+   if(pid <= 0) return 0;
+   for(int mtp_i = PositionsTotal() - 1; mtp_i >= 0; mtp_i--)
+     {
+      ulong mtp_t = PositionGetTicket(mtp_i);
+      if(mtp_t == 0 || !PositionSelectByTicket(mtp_t)) continue;
+      if(PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
+      if(PositionGetInteger(POSITION_IDENTIFIER) != pid) continue;
+      return mtp_t;
+     }
+   return 0;
+  }
+```
+
+Lines it touches: **E5:L22-L34 collapse to `ulong ticket = MtPidToTicket(g_mtrade.entryPid);`** (−12); **E8c:L14-L24 collapse to `entryTick = MtPidToTicket(entryPid);`** (−10); helper defined above the E5 block (+13); flatness check E5 post-L60 (+1). Net roughly −8 against v10, so Q2 lands near +89 and the combined near +170 — S3 recount governs, and S1 gains one new name (`MtPidToTicket`, `mtp_i`, `mtp_t`) and one anchor. Side benefit: `pi`/`pt` disappear from `EvaluateClosedBar` entirely, which retires Q2-2's warning risk rather than renaming around it.
+
+**B2. Prove flatness, don't infer it.** With B1 in place, `if(MtPidToTicket(entryPid) != 0) return 0;` after the E5:L60 predicate is a complete completion proof — no volume tolerance, no partial-fill arithmetic, no assumption about how the server reports the close. Strictly stronger than a `DEAL_VOLUME == POSITION_VOLUME` comparison, which needs a step-based epsilon and still misses a same-bar re-open.
+
+**B3. Make the volume visible even though the predicate no longer needs it.** Capture `double pvol = PositionGetDouble(POSITION_VOLUME);` right after the E5:L36 guard (+1) and `HistoryDealGetDouble(closedeal, DEAL_VOLUME)` inside the existing E5:L51 block (+1), then append `vol=%.2f/%.2f` to the existing MTCLOSE format and arg lines (+0). A partial close then shows in the log as a number rather than as an absent halt.
+
+**B4. Join on pid, print ticket.** G3's join key becomes `MTCLOSE closepid == ENTRY_TICKET pid == DEAL_POSITION_ID of the entry deal`, three terms all lifecycle-stable. Ticket fields stay in both rows as diagnostics; a ticket difference with a pid match is attributed, not halted. Text-only.
+
+**B5. Consider retiring `g_mtrade.ticket`.** v10 no longer trusts it for anything but three print fields (E5:L18, E7:L8, and the ENTRY_TICKET row). Carrying two identities in one record is what produced the v266 and v267 halts and A11/A12 above. Dropping the field (E8a −1, E8b −1, prints switch to `entryPid`) leaves exactly one identity on the page. I raise this as an option, not a demand — the standing declined list already refuses several field-drops, and the operator may prefer the ticket visible in the log for terminal-side cross-reference.
+
+**B6. Future-only, declined now:** a `HistorySelectByPosition(entryPid)` fallback would convert the `ResultDeal() == 0` FAIL class into a recoverable identity path. Not owed for this build (see the D2 sentence), worth a named residual row.
+
+---
+
+## What this ruling does not do
+
+No build, no run, nothing spent. Q1's clearance carries two text-only gate deltas and no change to any E1-E4 literal; Q2 halts on four items, three of which are +0-line mechanical repairs and one (Q2-3) which adds a line and moves the budget off +97/+178. If B1 is taken, both the Q2-2 rename and the Q2-3 flatness line are absorbed into a smaller diff than v10's — which is the first time in this packet's history that a repair round would reduce the line count.
+
+## V268-RESQUAT-CLEAR9 END OPUS (verbatim close; filed whole 1x this turn, novel inbound)

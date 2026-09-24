@@ -16458,3 +16458,246 @@ For **Q2**, the smallest repair is the accounting/exclusivity gate plus explicit
 Official MQL5 Position Properties documentation supports the identifier/ticket distinction and the netting concern. No disk truth, build, run, key, commit, money movement, or live activation is certified or authorized by this response.
 
 ## V267-RESQUAT-CLEAR8 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V268-RESQUAT-CLEAR9 OPEN ASTRA (his carry, relay v268 clearance ask; pasted text follows verbatim)
+
+**Q1 CLEAR — E1–E4, subject to the stated S1–S4 gates.** No Q1 logic amendment required.
+**Q2 NOT-CLEAR — E5–E8.** S1(24)/S5 assert accounting-premise enforcement that the supplied code does not perform.
+**D2 TEXT-ONLY.** A preceding `HistorySelect` is not required for selecting one known deal with `HistoryDealSelect`.
+
+These are page-only findings, not verification of disk evidence, buildability, execution, or authority to run. References below use edit labels and exact statements because the packet does not number its new lines.
+
+## A. Findings
+
+### 1. Q2 blocker: identity validation does not enforce entry exclusivity
+
+**References:** E8c, from `HistoryDealGetInteger(entryDeal, DEAL_POSITION_ID)` through the position loop; E5, the matching loop and final success predicate; S1(24); S5.
+
+The new code establishes a valuable identity chain: entry deal → position identifier → currently selected position → close deal with matching identifier and `DEAL_ENTRY_OUT`.
+
+It does **not** establish that the position contains exclusively the managed entry.
+
+In particular, a same-direction entry into an existing same-symbol **netting** position can produce this sequence:
+
+- The new entry deal identifies the existing net position.
+- E8c finds that position and persists its identifier.
+- E5 finds the same position and closes its aggregate volume.
+- The close returns `DONE`, carries the same identifier, and has `DEAL_ENTRY_OUT`.
+
+Every supplied identity predicate can pass. Neither `NOTHING-TO-CLOSE` nor `MTCLOSE_FAIL` is forced. Starting the tester flat and owning every position does not establish that the symbol is flat **at every later entry send**. The packet expressly allows broker positions to survive across sessions.
+
+Consequently, these assertions are false as written:
+
+> “enforced per entry by the E8c latch plus the E5 pid re-resolve”
+
+> “any premise failure prints FAIL/NOTHING”
+
+**Stop basis:** the Q2 scope promises closure of the managed entry, not an aggregate containing a surviving earlier entry. This is an executor-scope/premise defect; it is **not** a demonstrated R-e live-money breach, because the helper retains its tester gate.
+
+**Required gate delta:** choose an actually checkable accounting premise. The smallest repair is a hedging-only tester gate with position exclusivity audited from deal history. Retaining netting requires independent evidence that no same-symbol position existed immediately before each entry send; the supplied latch cannot provide that evidence retrospectively by itself.
+
+### 2. Q2 acceptance contradicts the reason for pid re-resolution
+
+**References:** G3, `every MTCLOSE ticket == an ENTRY_TICKET ticket`; E5, `ticket = pt`; E8c, `g_mtrade.ticket = entryTick`.
+
+The packet correctly adopts a lifecycle-stable identifier because a position ticket can change. Yet G3 still requires literal entry-ticket/close-ticket equality.
+
+If the ticket changes while the identifier remains stable, E5 can correctly resolve and close the position, but G3 rejects it.
+
+**Text-only gate delta:**
+
+> Each MTCLOSE must join to its managed ENTRY_TICKET record through the persisted position identifier and the entry/close deal identifiers. Entry-time and close-time position tickets must each be validated against that identifier; ticket inequality is diagnostic, not by itself an identity failure.
+
+Alternatively, retain strict ticket equality as an explicitly stronger **test-envelope restriction** and halt on ticket changes. Do not present equality as generally implied by stable position identity.
+
+### 3. E8c does not implement its advertised all-or-zero latch
+
+**References:** E8c, `g_mtrade.ticket = entryTick;` and `g_mtrade.entryPid = entryPid;`; E8c description, “0 on any failure.”
+
+If deal selection succeeds but the position search finds no match, the persisted state is:
+
+- `ticket == 0`
+- `entryPid > 0`
+
+That is not an all-or-zero validated latch. E5 may subsequently resolve that identifier and proceed.
+
+This need not be inherently incorrect, but the specification must choose between **validated-at-entry capture** and **deal-derived identity with deferred position resolution**.
+
+For the former, a one-line replacement is:
+
+```cpp
+g_mtrade.entryPid = (entryTick != 0 ? entryPid : 0);
+```
+
+That makes failed entry-position validation fail closed at E5. Any code amendment requires a fresh literal/budget check; it is not included in this verdict.
+
+### 4. The printed `action` is not the helper’s tri-state result
+
+**References:** E5, `(int)ok` in the MTCLOSE print; final identity predicate; Rule Q2 and G3.
+
+`action=1` can accompany a helper return of `0`, including a close-deal identity failure. G3 correctly warns that `action=1` alone is insufficient, so this is not an additional blocker. However, wording that equates the printed action with “sent-ok” or “completed-close result” remains imprecise.
+
+**Text-only delta:** define `action` as the raw `PositionClose` Boolean result. Define helper return `1` separately as passing the complete success predicate.
+
+### 5. E5’s “never a scan” comment contradicts its implementation
+
+**Reference:** E5 header comment versus:
+
+```cpp
+for(int pi = PositionsTotal() - 1; pi >= 0 && ticket == 0; pi--)
+```
+
+This is a scan, restricted by symbol and persisted identifier.
+
+**Text-only delta:** replace “never a stored-ticket trust, never a scan” with:
+
+> “never stored-ticket trust or magic-only selection; the live position is resolved by symbol and persisted position identifier.”
+
+The same distinction should replace the “not any scan” wording in S1(24).
+
+### 6. The opening Status paragraph carries incompatible current-state claims
+
+**References:** packet opening `Status: v10 DRAFT`; Authority’s explicit v267 paragraph; relay §0.
+
+The opening Status paragraph attributes an older verdict configuration to v267 and says both halves remained halted. The dedicated v267 record instead reports Luna clear/clear, Astra clear/not-clear, and no transferable Opus/GLM v9 rulings, leaving Q1 open and Q2 halted.
+
+It also describes `+138` → `+152` as the current first repair, although current S1(6) says `+178`.
+
+**Text-only delta:** replace the opening Status paragraph with the actual v267 disposition and v10 delta, or label the older material expressly as superseded provenance. I do not treat its historical arithmetic as the current budget gate.
+
+### 7. Some summary counts/descriptions remain stale
+
+**References:** “No new indicator buffers (four plain globals; 48 unchanged)”; Untouched/E8 description, “struct field + reset init”; S1(2a).
+
+- Four new suppression globals is accurate, but E8 now adds **two** struct fields and **two** reset assignments. Use plurals consistently.
+- The dependency inventory names `DEAL_ENTRY` but omits `DEAL_ENTRY_OUT`, which the executable predicate uses. Section 3 does name it. Make the inventory consistent; this is not evidence of a missing platform symbol.
+
+### 8. `MTCLOSE_FAIL ticket=` identifies the entry-time ticket, not necessarily the attempted close ticket
+
+**References:** E7 failure print, `g_mtrade.ticket`; E5’s local resolved `ticket`.
+
+After ticket re-resolution, those values can differ. The preceding MTCLOSE row contains the attempted ticket, but the failure row alone is ambiguous.
+
+**Text-only minimum:** document it as the entry-time ticket. A better diagnostic would label it `entryTicket=` and include `entryPid=`.
+
+### 9. Q1’s residuals remain real, but are expressly authorized and graded
+
+**References:** E2 FIRE; E3 candidate rejection; E4 day key; G2.
+
+I find no new Q1 blocker:
+
+- E4 preserves earlier tuples through bitwise OR rather than overwrite.
+- E3 uses the same stated line/direction convention and rejects before the retained seed latch.
+- The bounded line domain keeps the bitset within its stated capacity.
+- E4 captures the tuple before reset; the stated no-reentry gate addresses the subsequent ARM write.
+- E2’s session-wide FIRE is consistent with the session-used flag.
+
+The tuple-scoped R-c residual, signal-consumption-without-take issue, cross-day key issue, and next-bar rather than same-bar alternative selection are not eliminated. They are disclosed and have explicit acceptance stops. **Q1 clearance does not waive those stops or establish that the target take will occur.**
+
+## D2 ruling
+
+**TEXT-ONLY — no additional code line owed for a prerequisite `HistorySelect`.**
+
+Closing sentence:
+
+> “HistoryDealSelect(entryDeal) and HistoryDealSelect(closedeal) select individual deals by ticket without a prerequisite HistorySelect call; failure is handled through the existing zero/default values and failure predicate. Pid re-resolution does not subsume this API question—it addresses position identity instead.”
+
+One additional caveat belongs in the dependency review: `HistoryDealSelect` resets the available deal-history list to the selected deal. Confirm that no surrounding consumer relies on an earlier multi-deal selection remaining intact. The supplied regions do not establish such a consumer.
+
+I have not independently fetched the current MQL5 reference in this response; the API ruling above reflects the documented individual-deal selection semantics, not a claimed fresh web verification.
+
+## B. Better mechanism
+
+The **persisted identifier plus live ticket re-resolution** is the better mechanism for lifecycle identity. Keep it; do not revert to ticket trust or magic-only selection.
+
+For this bounded probe, the smallest coherent repair is:
+
+1. **S1(24)/S5:** require and verify a hedging tester account; remove the unsupported netting-enforcement claim.
+2. **G3:** audit that the selected position’s deal lifecycle contains only the intended managed entry and its permitted exit activity.
+3. **E8c:** choose explicitly between validated-at-entry and deferred-resolution semantics; use the one-line fail-closed assignment above if validation at entry is mandatory.
+4. **G3:** make identifier continuity authoritative, with tickets recorded as entry-time and close-time observations.
+5. **E5/E7 diagnostics:** distinguish raw request Boolean, completed-close predicate, entry ticket, and resolved close ticket.
+
+If netting must remain supported, the mechanism must additionally observe the same-symbol position state **before Buy/Sell**, around the entry-send site cited as EA 10220/10222. A post-fill identifier match cannot prove pre-send flatness.
+
+**Final disposition: Q1 CLEAR; Q2 NOT-CLEAR; D2 TEXT-ONLY. No key, build, run, commit, or live activation is authorized by this review.**
+
+## V268-RESQUAT-CLEAR9 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V269-RESQUAT-CLEAR10 OPEN ASTRA (his carry, relay v269 clearance ask; pasted text follows verbatim)
+
+**Q1 CLEAR — E1–E4, +81, subject to the stated machine gates.** No Q1 code delta requested. The set preserves multiple evicted tuples, the pinned line domain fits the bit representation, and E4 captures identity before reset. The named R-c residual and halt-on-valid-take-loss remain binding.
+
+**Q2 NOT-CLEAR — E5–E9.** The principal v268 code repairs are present, but the accounting-mode prerequisite needs an unambiguous enforcement point before clearance. There is also a definite stale edit-count declaration.
+
+References below use edit labels and original EA anchors because the supplied packet has no continuous line numbering. These are page-only findings, not verification of the asserted disk evidence.
+
+### A. Defects, gaps, and imprecision
+
+1. **Blocking: hedging prerequisite has inconsistent stage semantics.**
+   **References:** S1(24), S2–S5, especially S5’s margin-mode gate.
+
+   S5 says STAGE checks `ACCOUNT_MARGIN_MODE_RETAIL_HEDGING` **pre-run**, refuses “the run otherwise,” and also says “never builds.” But S2 applies edits and S4 compiles before S5. The packet therefore does not consistently specify whether an unsupported accounting mode prevents the build or only the run.
+
+   The page also does not identify how STAGE obtains the **tester account’s** margin mode before the run. A check of a connected terminal account must not silently substitute for the tester-account assertion required here.
+
+   **Required gate delta:** identify the observation source and stage explicitly. If “never builds” is intended, put the verified tester-account prerequisite before S2. Otherwise remove that claim and specify a fail-closed tester-start check before any entry submission. No netting clearance follows from E8c’s post-fill identity capture.
+
+   This is a Q2 premise/enforcement gap, not evidence that the posted E5 gate violates R-e.
+
+2. **Definite text defect: E8c’s local count contradicts its literal and the governing budget.**
+   **Reference:** E8c heading, original EA 10236–10240.
+
+   The heading still says **“new 27, +22.”** Its displayed replacement contains **17 lines**, consistent with S1(19) and the fence’s **+12**.
+
+   **Required text-only delta:** change the heading to **“old 5, new 17, +12.”** The governing +91/+172 budget does not need to change on that account.
+
+3. **Q1 day-key explanation overstates what the session windows establish.**
+   **Reference:** G2 day-key join; carried EA 1787-1790.
+
+   “Admit no server-midnight straddle at any real GMT offset” is not established by giving London 02–05 ET and NYAM 07–12 ET windows. Translating a multi-hour ET window to another timezone can place midnight inside it.
+
+   **Text-only gate delta:** scope the assertion to the actual tester server-time mapping across the specified date range, and require that mapping to establish the relevant anchor/eviction/signal day equality. The existing G2 halt remains; this does not require changing E1–E4 or reopening their mechanism.
+
+4. **ENTRY_TICKET’s printed pid is not always the persisted pid.**
+   **Reference:** E8c’s final three lines.
+
+   The print uses local `entryPid`; persistence uses:
+   ```cpp
+   g_mtrade.entryPid = (entryTick != 0 ? entryPid : 0);
+   ```
+   Thus an unsuccessful live resolution can produce `ticket=0 pid=<nonzero>` while the managed pid is zero. This is fail-closed code, not an identity leak, but descriptions that treat every printed pid as persisted are inaccurate.
+
+   **Text-only delta:** explicitly distinguish observed deal pid from persisted managed pid, and require nonzero ticket plus matching persisted identity for a successful entry join. Alternatively, print both values.
+
+5. **Flatness failure is loud but not specifically attributable from the posted print.**
+   **References:** E5’s final print and final two predicates; E7 MTCLOSE_FAIL.
+
+   A successful broker result followed by a still-live pid prints the same generic MTCLOSE_FAIL as a close-deal identity failure. The packet correctly halts, but “flatness recorded” overstates the print’s diagnostic content.
+
+   **Nonblocking:** describe flatness as enforced by the return predicate, or add a specific failure cause/live-ticket field.
+
+6. **G3 contains a stale ticket-selection description.**
+   **Reference:** G3, NOTHING-TO-CLOSE expectation.
+
+   “With the latched ticket selected” should read **“with the entry pid resolving to a selectable live ticket.”** E5 deliberately does not trust the latched ticket.
+
+7. **The OUT_BY fence explanation is ambiguous.**
+   **Reference:** section 3, `PositionCloseBy` / `DEAL_ENTRY_OUT_BY` row.
+
+   The useful claim is that this posted executor calls `PositionClose`, not `PositionCloseBy`, and accepts only `DEAL_ENTRY_OUT`. The phrase “exact-equality on DEAL_ENTRY_OUT unreachable without a close-by call” appears to say the opposite.
+
+   **Text-only delta:** state that `DEAL_ENTRY_OUT_BY` is not accepted and no close-by call is introduced.
+
+### B. Better mechanism
+
+The extracted **E9 sole resolver**, reused by E8c and E5, is a better mechanism than duplicated scans. I do not propose replacing it, adding retries, adding a history-range fallback, or altering the detection walk.
+
+Two narrowly scoped improvements remain:
+
+- **Accounting enforcement:** put the hedging assertion at a clearly identified boundary before any tester order submission, if the external STAGE check cannot establish the tester account mode. This would require an explicitly authorized gate delta; it is not part of the posted E1–E9 literals.
+- **Failure diagnostics:** at **E5’s two final predicates**, print distinct identity/retcode versus still-live causes before returning zero. This improves diagnosis without changing acceptance or retry behavior; it is optional.
+
+D2 remains closed. No disk verification, key issuance, build, run, commit, live activation, or money movement is authorized by this response.
+
+## V269-RESQUAT-CLEAR10 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

@@ -3795,3 +3795,248 @@ Gate deltas to file (no silent drift): E7 gate is the one CODE change (+5, confi
 No binding rule (R-a..R-e) is contradicted by anything on the page; no rule-stop. Frontier weighting (Astra + Opus) consistent with either-seat-halt; no rule change needed. The run it prepares still owes the clearance relay, the Luna key, and his explicit run word — none granted or spent here.
 
 ## V267-RESQUAT-CLEAR8 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V268-RESQUAT-CLEAR9 OPEN GLM (his carry, relay v268 clearance ask; pasted text follows verbatim)
+
+**GLM seat — relay v268, packet P-RESQUAT-1 v10, session CONTINUE.**
+
+Scope discipline: page-only. I rule on the twin (§2), the fence (§3), and the decision regions (§4). Disk truth is his; nothing builds, runs, or keys on this text. Version discipline applied per the v267 lesson: I rule v10 as pasted, not any carried version. If the operator files this text under the review-slot split instead, the two verdict lines are excused per standing packaging and the analytics stand alone.
+
+## Independent budget recount (from the twin literals only)
+
+- E1 12−1 = **+11** ✓ (30-bit claim checks: line∈[0,14]×2 + dir∈{0,1} → max bit 29, fits int)
+- E2 21−6 = **+15** ✓; E3 36−3 = **+33** ✓; E4 29−7 = **+22** ✓ → Q1 **+81** ✓
+- E5 63−1 = **+62** ✓ (retained header at line 63); E6a/E6b +0/+0 ✓; E7 17−8 = **+9** ✓; E8a 3−1 = **+2** ✓; E8b 5−3 = **+2** ✓; E8c 27−5 = **+22** ✓ → Q2 **+97** ✓
+- Combined **+178**; 11330 + 178 = **11508** ✓ matches the canonical-files line and the fence budget row.
+- Embedded-retained gate passes on visual comparison for all six multi-line edits (E1 header, E2 body 5, E3 lines 1–2 + 36, E4 seven, E7 eight, E8c five, E5 header) — consistent with the fence's packet-domain byte-match rows.
+
+## Q1 answer
+
+**Q1 CLEAR.**
+
+Basis (twin line numbers):
+- F-a set semantics match the ruled rule exactly: ARM accumulates by OR (E4 18/20), FIRE clears on signal-consume with day-match (E2 9–20), EXPIRE makes a stale set nonblocking and clears bits on first candidate read (E3 20/25), day key resets only on next ARM (E4 18/20) — matching the E1 comment verbatim. No overwrite class remains; deleting the v6 single-slot watch is correct.
+- Capture-before-reset ordering holds: s4e_* lines 7–10 precede GoAbort line 11 (S1(9) asserted); dead-record guard line 14 with audible EVICTSUPPRESS_SKIP (expected 0); INDEX-INVALID refusal lines 13–17 is the authorized protective guard, expected-0 per G2.
+- Writer census (S1(25)) matches the literals I enumerated: bits written at E1 init / E2 FIRE / E3 EXPIRE / E4 ARM only; days at E1 init / E4 reset only. No stray paste surface.
+- Bridges evidenced on the page: §4b shows S2ResolveLive unconditionally returning legDir (no live-row contingency), so E4-stored == E3-compared convention; S1(22) writer censuses carried.
+- Gate/writer/enum preconditions all above EA 1803 or pinned (S1(8), S1(16)); `sess`/`barTime` in scope per S1(21).
+- R-b respected (day-key is event-keyed, no timer/bar count, E3 comment 7–8); R-d untouched (no detector edits; S1(5) hashes post-build); R-e untouched by Q1.
+- The 16:55 SKIP and the 17:35 take co-existence is asserted, not provable on the page — if the 57 take shared the evicted tuple, the run loses the take and the named R-c residual halts loudly with take-loss cause. That is the designed, named behavior; not a halt.
+- Gate delta: S1(24) gains the accounting-mode premise pin (text-only, named). S1(2b) `closedeal` resolution lands as an E5 local (Q2-side code, named). No logic change vs the cleared design.
+
+## Q2 answer
+
+**Q2 CLEAR.**
+
+Basis:
+- Tri-state implemented exactly as ruled: mode gate first (E5 14–21) → −1 with SKIP-NO-SEND, before any position work, so default mode emits SKIP only, never FAIL/NOTHING; NOTHING-TO-CLOSE (36–42) → 0; refusal / retcode≠DONE / identity break (60) → 0; success (61) → 1. E7 consumes the rc (12–15), FAIL iff 0, −1 silent — live stays alerts-only under R-e/COMBINE (double gate tester+EXECUTE).
+- The Astra P3 predicate is executable code, not prose: E5 line 60 (`ok && closerc == TRADE_RETCODE_DONE && closepid == entryPid && closeentry == DEAL_ENTRY_OUT`), and the full MTCLOSE evidence row prints **before** the predicate (56–59), so every identity break is graded from printed fields (deal/closepid/closeentry), never silently.
+- The Luna B rework removes stored-ticket trust: E5 resolves the live ticket by POSITION_IDENTIFIER (22–34) — identity-based, not magic-based, which is correct because magic is only session-unique (+1/+2, S1(15)); the either-magic scan halted in v264 stays dead. E8c validates select-by-ticket against POSITION_IDENTIFIER before latching and persists both fields (9–26); ENTRY_TICKET carries ticket+deal+pid+magic for the G3 join.
+- Format/arg counts verified: MTCLOSE 10/10 (%I64u/%I64d match ulong/long incl. magic and closedeal), SKIP-NO-SEND 6/6, NOTHING 4/4, ENTRY_TICKET 5/5, MTCLOSE_FAIL 3/3, ARM SKIP row 5/5, FIRE 2/2, INDEX-INVALID 1/1.
+- pmagic keep + per-entry magic re-set (S1(15)) means no trade-object cross-contamination; SetTypeFilling mirrors EA 10215.
+- E7 gate preserves SL/TP-first priority (EA 11288–11292 above the insert) and yields zero SL/TP/HTF/CANCEL legs; the exitPrice swap (B1) stands with the fence row; MTCLOSE ref= joins MTEXIT exit= byte-for-byte (both DoubleToString of g_mtrade.exitPrice).
+- TP-while-BREAK NOTHING path named with halt-attribution; MTCOLLISION REPLACED boundary pre-excluded with halt; premise pin at S1(24)+S5 with failures loud and no new admission rule — this is exactly the Astra P2 text the repair map promised.
+- Entry additions are capture-only: nothing reads ticket/entryPid except E5; no selection, sizing, booking, or vote change.
+
+## D2 ruling: **TEXT-ONLY** (Luna-B subsumption adopted; no line owed)
+
+Closing sentence: HistoryDealSelect(ulong ticket) is the per-ticket selector of the HistorySelect family (filed reference, mql5-reference.md 385–392) and needs no window call — HistorySelect(from,to) exists only to feed the HistoryDealsTotal/HistoryDealGetTicket enumeration pair that neither E8c nor E5 uses, both sites select the exact ticket just returned by ResultDeal() and gate every read (E8c's entryPid>0 gate before use; E5's four-conjunct predicate), so a failed selection degrades to a 0/−1 read that fails the executable predicate and lands in MTCLOSE_FAIL — the residual is subsumed loud, and no line is owed.
+
+## Gate deltas (named, no silent drift)
+
+1. S1(24) premise pin added (Astra P2 text) — accepted.
+2. S1(2b) `closedeal` → E5 local (Luna-A3/Astra-A8 closed; E5 line 48).
+3. E5/E8 rework per rename table (ticket-trust → pid re-resolve; rc-gate → four-conjunct predicate).
+4. S1(6) figure chain 138 → +152 (v9-true, arithmetic checks: 81 + (39+0+0+9+1+1+21) = 152) → +178 (v10 recount). The status sentence narrates the intermediate; no page defect.
+
+## Analytic ask A (all non-blocking; no halt item found)
+
+1. Fence row `g_mtrade.exitPrice` says "section 4 statement shows both" — §4a is EXITVERDICT (E6 proof) and shows neither the MTEXIT exitPrice print nor the E7 call arg; both ride in the E7 twin block. Pointer imprecision only.
+2. Fence table lacks E8a/E8b anchor rows (struct line; MtReset 3-line block) — gated at S1(19) but absent from the buildability table. Completeness only.
+3. Rule paragraph's tri-state shorthand ("1 gated on ok AND retcode DONE") omits the two identity conjuncts E5 line 60 and G3 enforce. G3 + code agree; the Rule line under-states. Text-only.
+4. E7 MTCLOSE_FAIL prints `g_mtrade.ticket` (record latch) while the close attempt used the pid-re-resolved ticket (authoritative in E5's MTCLOSE row); the two can differ on the ticket-churn path. Diagnosis-procedure note.
+5. E8c zero-latch is silent at entry (latches 0/0, continues); failure surfaces at close (NOTHING-TO-CLOSE → MTCLOSE_FAIL) or at G2 (take chain requires nonzero ticket+pid). Audible but late — see Ask B.
+6. E3: `rsq_bit >= 0` in the two else-if arms is dead (INDEX-INVALID already returned). Harmless; keep the literal byte-stable.
+7. E3 SKIP row's `evictedDay=` prints rsq_day — truthful only transitively (blocking requires rsq_day == stored key, which E4 set to the eviction day; S1(25) holds the invariant). G2's join verifies it at grading. Precision note.
+8. S1(13) "single existing MODE_EXECUTE comparison" is pre-apply only; post-apply count is 2 (E5's gate). State "pre 1 / post 2" so a later census doesn't misflag.
+9. E4 dead-record SKIP row can print DirName/SessionName on DIR_NONE/SESSION_NONE values — expected-0 row; if it ever fires, confirm both helpers render sentinels before trusting the fields.
+10. E2 FIRE keys on the anchor-bar day (calls pass g_anchorBarTime) vs E4's abort-bar day — the anchor-vs-bar edge is already graded at G2 (S1(21)); same-day on the expected window.
+
+## Analytic ask B
+
+- Keep pid-first close. A stored-ticket fast path (select by latch, compare identifier, fall back to scan) saves a trivial loop and reintroduces the churn trust v10 removed. Reject.
+- One mechanism worth a future cut: entry-time loud latch guard after `g_mtrade.entryPid = entryPid;` — `if(entryTick == 0 || entryPid == 0) PrintFormat("[SRJ-EA] ENTRY_TICKET_FAIL bar=%s deal=%I64u pid=%I64d", ...);` (+1 line → +179/11509). Prints and continues; halting stays with G2/G3. Closes A5 at the source. Not required for v10.
+- HistoryOrderSelect-based position derivation for E8c: more surface, same identity question. Reject.
+- D2: no line owed (ruling above).
+
+## Close
+
+Nothing builds, runs, or commits on this relay text. The run remains gated on this relay's outcome + the Luna key + his explicit run word; cost unchanged (one build + one ≤90-minute tester run). Grading authority stays with G1–G4/L-final as written.
+
+## V268-RESQUAT-CLEAR9 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V269-RESQUAT-CLEAR10 OPEN GLM (his carry, relay v269 clearance ask; pasted text follows verbatim)
+
+**Seat: GLM. Session CONTINUE. Ruling on the page only — the twin (section 2), the fence (section 3), and the decision code (section 4). Disk digests, hashes, and counts are his machine's proofs under the verification split; I do not re-verify them here and ask for no files. Nothing builds, runs, or commits on this verdict.**
+
+---
+
+## Q1 answer
+
+**Q1 CLEAR** (E1–E4, +81).
+
+Basis, on the page:
+
+- **Budget recounted and agrees:** 11+15+33+22 = +81; combined +172 → 11330+172 = 11502. Verified independently line-by-line: E1 12−1=+11, E2 21−6=+15, E3 36−3=+33, E4 29−7=+22. No logic change in v11 (E1 comment token 15→12 matches EA 86 pin).
+- **Set semantics are sound:** bit = line*2 + dirIdx with the E3 guard (E3 new line 10) and E4 guard (E4 new line 14) both bounding to POI_NLINES; max bit 23 < 31, sign-safe. No overwrite class remains (the v6 single-slot watch is correctly deleted).
+- **Capture-before-abort is correctly ordered:** E4 new lines 7–10 capture before GoAbort (line 11), and S1(14) (GoAbort EA 6296-6330 = LogAbort/LogState/ResetSequence only, no evaluator call) closes the reentry window, so the ARM writes cannot interleave a re-entered seed evaluation.
+- **Convention bridges hold:** E3 compares isLong-derived dir (E3 line 9) vs E4's stored g_dir; S1(22) census (writers {7549, 7739}, both isLong-sense) plus 4b (S2ResolveLive unconditional pass-through, shown whole) rebukes the conditional-remap worry on the page.
+- **Fire-or-expire is event-keyed, not timed (R-b clean):** EXPIRE = day-mismatch clear at read (E3 lines 20, 25); FIRE = signal-consume clear (E2 lines 9–20), with S1(7) pinning MarkSessionUsed to exactly the two signal-consume call sites. No timer, no bar count anywhere. R-a/R-c/R-d/R-e untouched; the R-c tuple residual stays named in Rule and G2 with halt-on-valid-take-loss — no new stop owed.
+- **Counting is delimiter-safe:** `EVICTSUPPRESS bar=` cannot match `_FIRE`/`_SKIP` rows by substring, so the G2 ARM-count join counts only ARM rows as intended.
+
+Gate deltas for Q1 — **text-only, +0 lines, no logic change, named for the next fold:**
+1. E1 comment "one 30-bit set per session" — the actual domain is 24 bits (POI_NLINES=12 × 2); the fence row already pins 23 < 31. Reword or drop the number.
+2. E4 comment "ResetSequence wipes anchor/dir/session" vs the S1(22) census: only g_anchorLine shows a ResetSequence sentinel (6274); g_dir live writers are {7549, 7739} and g_sessionAtEntry's sole live writer is 7743 — no ResetSequence entries. The capture-before placement is correct under **both** readings (it is required for the line, harmless for dir/session), so this is prose alignment, not logic; either fix the comment or complete the census.
+3. E4 comment "a dead record skips ARM (no row)" — the else branch **does** print EVICTSUPPRESS_SKIP (by design, and G2 wants it expected-0 with halt). Say "no ARM row."
+4. E3 lines 21/26: the `rsq_bit >= 0` sub-conditions are dead (INDEX-INVALID returned at line 16). Harmless; optional cleanup, recommend leaving the carried form byte-stable.
+
+---
+
+## Q2 answer
+
+**Q2 CLEAR** (E5–E9, +91).
+
+Basis, on the page:
+
+- **Budget recounted and agrees:** 52+0+0+9+2+2+12+14 = +91 (E5 53−1, E9 16−2, E7 17−8, E8a 3−1, E8b 5−3, E8c 17−5=+12 — see Ask A item 1 on the E8c header). Total +172/11502 confirmed.
+- **Sole resolver (E9) is correct and minimal:** pid ≤ 0 → 0; symbol- and identifier-filtered scan (lines 9–10); pi/pt retired from EvaluateClosedBar structurally (Q2-2 absorbed). A lone `POSITION_IDENTIFIER` is lifecycle-stable per the v266 docs grounding.
+- **E5 identity chain verified line-by-line:** gate (lines 14–21) = tester AND EXECUTE, else −1 SKIP-NO-SEND (live stays alerts-only); pid-resolve (22–23); NOTHING-TO-CLOSE fail-closed on ticket 0 / unselected (25–31); identity predicate (49) requires ok AND retcode DONE AND closepid == entryPid AND closeentry == DEAL_ENTRY_OUT; **flatness** (50) re-resolves by pid and refuses while any live position with entryPid remains; return 1 only past all four. Every break lands in a G3 expected-0 row with halt-on-sight. The negative row (PositionCloseBy/DEAL_ENTRY_OUT_BY = 0) makes the exact-equality on DEAL_ENTRY_OUT sound.
+- **Print parity verified on the page:** MTCLOSE 10/10, SKIP-NO-SEND 7/7, NOTHING-TO-CLOSE 5/5, ENTRY_TICKET 5/5, MTCLOSE_FAIL 4/4; %I64d/%I64u match long/ulong args; `magic` long per S1(15).
+- **E7 consume is correct:** verdict-gated (lines 12), int rc consumed, FAIL iff 0 (15–16), SL/TP-first priority untouched (EA 11288–11292 carried), ref= = g_mtrade.exitPrice so MTCLOSE ref= joins MTEXIT exit= byte-for-byte (both DoubleToString of g_mtrade.exitPrice).
+- **E8c latch is fail-closed both-or-neither:** entryPid persisted only when entryTick ≠ 0 (line 16, Astra-3), so any deal-side failure strands ticket=0 → later NOTHING → MTCLOSE_FAIL → halt. Loud, never silent.
+- **Shared-site order is self-enforcing:** E9's anchor is (blank, BANNER-A); if E5 applied first, E5's leading blank pairs with BANNER-B, not BANNER-A, and the line above E5's trailing BANNER-A is a closing brace — anchor miss → DIAGNOSE. The stated E9-then-E5 order cannot be silently violated.
+- **S5 hedging-only gate is fail-closed:** margin-mode assert refuses the run on netting; netting unsupported is stated, not admitted by new code. Tri-state −1/0/1 semantics match G3 exactly, including the TP-while-BREAK attribution path.
+
+Gate deltas for Q2 — **text-only, +0 lines, no logic change:**
+1. **Mandatory next fold:** the E8c preamble "(old 5 EXECUTED print lines, new 27, +22)" is stale v10 text. The v11 block is **new 17 / +12**, as S1(19), the fence Budget row (measured this turn), and the repair map already state; "S3 recount governs" resolves precedence and STAGE-2 applies literals, not headers — so this cannot produce a wrong build. Fix the header to "new 17, +12." Named here so it is not silent drift.
+2. Fence completeness: add a one-hit row for E5's banner anchor (BANNER-A alone). The E9 row covers only the (blank + BANNER-A) combo; S1(1) still gates it (miss → DIAGNOSE), but E8a/E8b got completeness rows in v11 — E5 should too.
+3. S1(2a): retire `nextOpenPx` from the dependency list (stale since the v9 exitPrice swap; fence: 17 uses, "NO LONGER referenced by E7"). Harmless but stale.
+4. S1(12): "(int rc; FAIL iff 0…)" — the actual local is `mtexecRc`. Cosmetic naming drift in gate prose.
+5. S5 paragraph "(fail-closed, never builds)" — the margin-mode assert runs pre-run (S5), after build (S4); say "refuses the run."
+
+---
+
+## D2
+
+CLOSED, TEXT-ONLY 4/4, ledger 718. Closing sentence folded at S1(2a). Nothing owed, no question asked. The v268 Opus D2 builder-observed residual remains non-binding as ruled.
+
+## Rule walk
+
+R-a (SIGNAL-only marks) clean — FIRE keys to MarkSessionUsed signal paths only. R-b clean — no timing rules added. R-c clean — floor/replicate untouched, tuple residual named with halt. R-d clean — detection walk untouched, S1(5) signature AND body hash. R-e clean — alert-only bounds preserved, E5 is tester-closes-only per the COMBINE word. **No rule contradicted → no stop required.**
+
+## Ask A — defects, gaps, imprecisions (all named above; consolidated index)
+
+1. E8c preamble stale "new 27, +22" → must read "new 17, +12" (the one substantive item; governed, text-only).
+2. E4 "wipes anchor/dir/session" vs S1(22) census — prose/census mismatch, capture placement correct either way.
+3. E1 "30-bit" vs 24-bit domain.
+4. E4 "(no row)" → "no ARM row" (SKIP row prints by design).
+5. Missing fence one-hit row for E5's banner anchor.
+6. S1(2a) stale `nextOpenPx` dependency.
+7. S1(12) "int rc" vs `mtexecRc`.
+8. S5 "never builds" sequencing prose → "refuses the run."
+9. E3 dead `rsq_bit >= 0` sub-conditions (lines 21/26) — harmless.
+10. G2 "RESEED_BLOCKED action=SKIP >= 1 on 9/1 16:55-bar" — the SKIP rows land on bars *following* the 16:55 ARM (17:00–17:35 span per Scope); compress the phrasing to "following the 9/1 16:55 ARM."
+11. E3 SKIP print's `evictedDay=` field prints rsq_day — verified **correct** (blocked implies day-match, so rsq_day == the eviction day); noted so no later seat re-flags it.
+
+## Ask B — better mechanisms
+
+No better mechanism found for either goal. The bitset set + capture-before-abort + fire-or-expire (Q1) and the sole pid resolver + identity predicate + flatness + fail-closed persist (Q2) are the minimal sound forms; the E9 collapse strictly improved v10. Two optional, non-required hardenings, offered for the record: (1) a one-line runtime pre-gate in E5 asserting `ACCOUNT_MARGIN_MODE == RETAIL_HEDGING` → SKIP-NO-SEND with cause, moving the hedging premise from run-prep to runtime fail-closed (+1–2 lines; I do **not** require it — the S5 STAGE gate is already fail-closed and the declined-list philosophy correctly avoids a new admission rule); (2) a post-apply adjacency assert at the 11095 site (line above E5's leading blank must be BANNER-A) to make the E9/E5 ordering machine-checked rather than prose-checked — cheap, kills item permanently.
+
+## Close
+
+Q1 CLEAR, Q2 CLEAR, each with text-only deltas named above — no logic change, no line-count change, no gate weakening. Nothing builds, runs, or commits on this relay; the run it prepares remains gated on clearance relay + Luna key + his run word, and live activation is untouched by anything here.
+
+## V269-RESQUAT-CLEAR10 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V270-RESQUAT-CLEAR11 OPEN GLM (his carry, relay v270 clearance ask; pasted text follows verbatim)
+
+**Seat: GLM. Session CONTINUE. Ruling on the page only — the twin (section 2), the fence (section 3), and the decision code (section 4). Disk digests, hashes, and counts are his machine's proofs under the verification split; I do not re-verify them here and ask for no files. Nothing builds, runs, or commits on this verdict.**
+
+---
+
+## Q1 answer
+
+**Q1 CLEAR** (E1–E4, +81).
+
+Basis, on the page:
+
+- **Budget recounted and agrees:** 11+15+33+22 = +81; combined +172 → 11330+172 = 11502. Verified independently line-by-line: E1 12−1=+11, E2 21−6=+15, E3 36−3=+33, E4 29−7=+22. No logic change in v11 (E1 comment token 15→12 matches EA 86 pin).
+- **Set semantics are sound:** bit = line*2 + dirIdx with the E3 guard (E3 new line 10) and E4 guard (E4 new line 14) both bounding to POI_NLINES; max bit 23 < 31, sign-safe. No overwrite class remains (the v6 single-slot watch is correctly deleted).
+- **Capture-before-abort is correctly ordered:** E4 new lines 7–10 capture before GoAbort (line 11), and S1(14) (GoAbort EA 6296-6330 = LogAbort/LogState/ResetSequence only, no evaluator call) closes the reentry window, so the ARM writes cannot interleave a re-entered seed evaluation.
+- **Convention bridges hold:** E3 compares isLong-derived dir (E3 line 9) vs E4's stored g_dir; S1(22) census (writers {7549, 7739}, both isLong-sense) plus 4b (S2ResolveLive unconditional pass-through, shown whole) rebukes the conditional-remap worry on the page.
+- **Fire-or-expire is event-keyed, not timed (R-b clean):** EXPIRE = day-mismatch clear at read (E3 lines 20, 25); FIRE = signal-consume clear (E2 lines 9–20), with S1(7) pinning MarkSessionUsed to exactly the two signal-consume call sites. No timer, no bar count anywhere. R-a/R-c/R-d/R-e untouched; the R-c tuple residual stays named in Rule and G2 with halt-on-valid-take-loss — no new stop owed.
+- **Counting is delimiter-safe:** `EVICTSUPPRESS bar=` cannot match `_FIRE`/`_SKIP` rows by substring, so the G2 ARM-count join counts only ARM rows as intended.
+
+Gate deltas for Q1 — **text-only, +0 lines, no logic change, named for the next fold:**
+1. E1 comment "one 30-bit set per session" — the actual domain is 24 bits (POI_NLINES=12 × 2); the fence row already pins 23 < 31. Reword or drop the number.
+2. E4 comment "ResetSequence wipes anchor/dir/session" vs the S1(22) census: only g_anchorLine shows a ResetSequence sentinel (6274); g_dir live writers are {7549, 7739} and g_sessionAtEntry's sole live writer is 7743 — no ResetSequence entries. The capture-before placement is correct under **both** readings (it is required for the line, harmless for dir/session), so this is prose alignment, not logic; either fix the comment or complete the census.
+3. E4 comment "a dead record skips ARM (no row)" — the else branch **does** print EVICTSUPPRESS_SKIP (by design, and G2 wants it expected-0 with halt). Say "no ARM row."
+4. E3 lines 21/26: the `rsq_bit >= 0` sub-conditions are dead (INDEX-INVALID returned at line 16). Harmless; optional cleanup, recommend leaving the carried form byte-stable.
+
+---
+
+## Q2 answer
+
+**Q2 CLEAR** (E5–E9, +91).
+
+Basis, on the page:
+
+- **Budget recounted and agrees:** 52+0+0+9+2+2+12+14 = +91 (E5 53−1, E9 16−2, E7 17−8, E8a 3−1, E8b 5−3, E8c 17−5=+12 — see Ask A item 1 on the E8c header). Total +172/11502 confirmed.
+- **Sole resolver (E9) is correct and minimal:** pid ≤ 0 → 0; symbol- and identifier-filtered scan (lines 9–10); pi/pt retired from EvaluateClosedBar structurally (Q2-2 absorbed). A lone `POSITION_IDENTIFIER` is lifecycle-stable per the v266 docs grounding.
+- **E5 identity chain verified line-by-line:** gate (lines 14–21) = tester AND EXECUTE, else −1 SKIP-NO-SEND (live stays alerts-only); pid-resolve (22–23); NOTHING-TO-CLOSE fail-closed on ticket 0 / unselected (25–31); identity predicate (49) requires ok AND retcode DONE AND closepid == entryPid AND closeentry == DEAL_ENTRY_OUT; **flatness** (50) re-resolves by pid and refuses while any live position with entryPid remains; return 1 only past all four. Every break lands in a G3 expected-0 row with halt-on-sight. The negative row (PositionCloseBy/DEAL_ENTRY_OUT_BY = 0) makes the exact-equality on DEAL_ENTRY_OUT sound.
+- **Print parity verified on the page:** MTCLOSE 10/10, SKIP-NO-SEND 7/7, NOTHING-TO-CLOSE 5/5, ENTRY_TICKET 5/5, MTCLOSE_FAIL 4/4; %I64d/%I64u match long/ulong args; `magic` long per S1(15).
+- **E7 consume is correct:** verdict-gated (lines 12), int rc consumed, FAIL iff 0 (15–16), SL/TP-first priority untouched (EA 11288–11292 carried), ref= = g_mtrade.exitPrice so MTCLOSE ref= joins MTEXIT exit= byte-for-byte (both DoubleToString of g_mtrade.exitPrice).
+- **E8c latch is fail-closed both-or-neither:** entryPid persisted only when entryTick ≠ 0 (line 16, Astra-3), so any deal-side failure strands ticket=0 → later NOTHING → MTCLOSE_FAIL → halt. Loud, never silent.
+- **Shared-site order is self-enforcing:** E9's anchor is (blank, BANNER-A); if E5 applied first, E5's leading blank pairs with BANNER-B, not BANNER-A, and the line above E5's trailing BANNER-A is a closing brace — anchor miss → DIAGNOSE. The stated E9-then-E5 order cannot be silently violated.
+- **S5 hedging-only gate is fail-closed:** margin-mode assert refuses the run on netting; netting unsupported is stated, not admitted by new code. Tri-state −1/0/1 semantics match G3 exactly, including the TP-while-BREAK attribution path.
+
+Gate deltas for Q2 — **text-only, +0 lines, no logic change:**
+1. **Mandatory next fold:** the E8c preamble "(old 5 EXECUTED print lines, new 27, +22)" is stale v10 text. The v11 block is **new 17 / +12**, as S1(19), the fence Budget row (measured this turn), and the repair map already state; "S3 recount governs" resolves precedence and STAGE-2 applies literals, not headers — so this cannot produce a wrong build. Fix the header to "new 17, +12." Named here so it is not silent drift.
+2. Fence completeness: add a one-hit row for E5's banner anchor (BANNER-A alone). The E9 row covers only the (blank + BANNER-A) combo; S1(1) still gates it (miss → DIAGNOSE), but E8a/E8b got completeness rows in v11 — E5 should too.
+3. S1(2a): retire `nextOpenPx` from the dependency list (stale since the v9 exitPrice swap; fence: 17 uses, "NO LONGER referenced by E7"). Harmless but stale.
+4. S1(12): "(int rc; FAIL iff 0…)" — the actual local is `mtexecRc`. Cosmetic naming drift in gate prose.
+5. S5 paragraph "(fail-closed, never builds)" — the margin-mode assert runs pre-run (S5), after build (S4); say "refuses the run."
+
+---
+
+## D2
+
+CLOSED, TEXT-ONLY 4/4, ledger 718. Closing sentence folded at S1(2a). Nothing owed, no question asked. The v268 Opus D2 builder-observed residual remains non-binding as ruled.
+
+## Rule walk
+
+R-a (SIGNAL-only marks) clean — FIRE keys to MarkSessionUsed signal paths only. R-b clean — no timing rules added. R-c clean — floor/replicate untouched, tuple residual named with halt. R-d clean — detection walk untouched, S1(5) signature AND body hash. R-e clean — alert-only bounds preserved, E5 is tester-closes-only per the COMBINE word. **No rule contradicted → no stop required.**
+
+## Ask A — defects, gaps, imprecisions (all named above; consolidated index)
+
+1. E8c preamble stale "new 27, +22" → must read "new 17, +12" (the one substantive item; governed, text-only).
+2. E4 "wipes anchor/dir/session" vs S1(22) census — prose/census mismatch, capture placement correct either way.
+3. E1 "30-bit" vs 24-bit domain.
+4. E4 "(no row)" → "no ARM row" (SKIP row prints by design).
+5. Missing fence one-hit row for E5's banner anchor.
+6. S1(2a) stale `nextOpenPx` dependency.
+7. S1(12) "int rc" vs `mtexecRc`.
+8. S5 "never builds" sequencing prose → "refuses the run."
+9. E3 dead `rsq_bit >= 0` sub-conditions (lines 21/26) — harmless.
+10. G2 "RESEED_BLOCKED action=SKIP >= 1 on 9/1 16:55-bar" — the SKIP rows land on bars *following* the 16:55 ARM (17:00–17:35 span per Scope); compress the phrasing to "following the 9/1 16:55 ARM."
+11. E3 SKIP print's `evictedDay=` field prints rsq_day — verified **correct** (blocked implies day-match, so rsq_day == the eviction day); noted so no later seat re-flags it.
+
+## Ask B — better mechanisms
+
+No better mechanism found for either goal. The bitset set + capture-before-abort + fire-or-expire (Q1) and the sole pid resolver + identity predicate + flatness + fail-closed persist (Q2) are the minimal sound forms; the E9 collapse strictly improved v10. Two optional, non-required hardenings, offered for the record: (1) a one-line runtime pre-gate in E5 asserting `ACCOUNT_MARGIN_MODE == RETAIL_HEDGING` → SKIP-NO-SEND with cause, moving the hedging premise from run-prep to runtime fail-closed (+1–2 lines; I do **not** require it — the S5 STAGE gate is already fail-closed and the declined-list philosophy correctly avoids a new admission rule); (2) a post-apply adjacency assert at the 11095 site (line above E5's leading blank must be BANNER-A) to make the E9/E5 ordering machine-checked rather than prose-checked — cheap, kills item permanently.
+
+## Close
+
+Q1 CLEAR, Q2 CLEAR, each with text-only deltas named above — no logic change, no line-count change, no gate weakening. Nothing builds, runs, or commits on this relay; the run it prepares remains gated on clearance relay + Luna key + his run word, and live activation is untouched by anything here.
+
+## V270-RESQUAT-CLEAR11 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

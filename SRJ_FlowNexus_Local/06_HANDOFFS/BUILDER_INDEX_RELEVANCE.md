@@ -10,9 +10,14 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON58-RETEST-V1.md (G1 PASS, G2 FAIL on 9/1 squatter-veto miss, G3 MIXED, G4 CORRECTED; 6 takes 51/57-identical).
 - Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v267-RESQUAT-CLEAR8.md (0495C276/58420/482 GRADED-HALTED this turn, ledger 714: twin 337/337 diff 0 stood; v9 unbuilt).
-- Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v9 753B436E/42906/337 GRADED-HALTED: S1-152 fix + census proofs + deal-validate + rc-gate + exitPrice = +152/11482; v10 drafts on re-carry only).
-- V267 verdicts (graded this turn, ledger 714): Luna C/C (light); Astra C/NC-halt-SUSTAINED (exclusivity+G3); Opus/GLM no v9 ruling (version-incoherent text / v7-object text). Q1 OPEN, Q2 HALTED. NO build. Re-carry owed.
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v270-RESQUAT-CLEAR11.md (0F1BDF87/70153/535 SPENT: key spent + run word granted, RECON60 running, ledger 734).
+- Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v269-RESQUAT-CLEAR10.md (E9FE03BF/68579/533 GRADED-HALTED, ledger 720: Q1 CLEAR 4/4, Q2 HALTED Luna+Astra vs Kimi+GLM, D2 closed; v11 unbuilt, superseded).
+- Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v12 405DB460/52763/378 BUILT 0C0F179E/11502, 0/0 both targets; key spent, run active).
+- V267 verdicts (ledger 714): Luna C/C (light); Astra C/NC-halt-SUSTAINED (exclusivity+G3); Opus/GLM no v9 ruling (version-incoherent text / v7-object text). Q1 OPEN, Q2 HALTED. NO build. Re-carry WITHDRAWN (byte-identical waste, ledger 716).
+- V268 verdicts (ledger 718): Luna C/NC (G3-join, flatness); Astra C/NC (exclusivity/hedging gate, G3-join, latch choice); Opus C/NC (Q2-1 prefix STOP held, Q2-2 STOP dissolved to text, Q2-3 flatness STOP, Q2-4 join text; POI VALUE pin = 12); GLM C/C (overruled by halt). Q1 CLEAR 4/4, Q2 HALTED, D2 TEXT-ONLY 4/4. NO build.
+- V269 verdicts (ledger 720, Opus silent credits-outage, Kimi fallback filed): Luna C/NC (success-row entryPid); Astra C/NC (hedging stage, E8c header, day-key scope, pid-vs-persisted, G3 text, OUT_BY); Kimi C/C (+2 texts); GLM C/C (+9 texts). Q1 CLEAR 4/4, Q2 HALTED, D2 closed. NO build.
+- V270 verdicts (ledger 723, Opus + Astra silent credits-outage, Kimi fallback filed): Luna NO-RULING (stale v11 print); Kimi CLEAR (v12-proven body, header noted); GLM CLEAR. Stage-1 on v12 NOT unanimous (Luna re-carry owed). NO build.
+- Handoff: 06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V268.md + ADD1 DB0E358A/5921/50 (correction 716 banked; v269 fold ready ledger 719; re-carry dead; v269 files on disk, transport owed).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
 - Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
 - Prior packet: 01_TASKS\PACKET_P-DEMOGUARD-2.md (v2 302023B3/9710 BUILT tree 98F6BBAC; guard arc closed RECON57).
