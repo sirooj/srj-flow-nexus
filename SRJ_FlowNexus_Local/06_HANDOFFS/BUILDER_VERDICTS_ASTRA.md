@@ -16115,3 +16115,248 @@ Re-clearance requires: exact E5–E7 literals, a consistent helper/call name, de
 Neither verdict rejects the proposed behavior in principle. Both halt on checkable packet discrepancies; either half can be corrected and re-packeted independently. 
 
 ## V260-RESQUAT-CLEAR END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V263-RESQUAT-CLEAR4 OPEN ASTRA (his carry, relay v263 clearance ask; pasted text follows verbatim)
+
+## Q1 — cleared
+
+**Q1 verdict: the re-squat half (E1–E4, +52) is cleared to build, subject to the fail-closed STAGE-1 conditions below.** This is text clearance, not independent verification of the asserted disk evidence.
+
+- **R-a — one take per session:** E2 preserves the existing session-used writes in `MarkSessionUsed`; FIRE clears the suppression record, not the session mark. G2 requires a post-exit same-session candidate to produce `SESSION_LIMIT` without a new `PRE-SEND`.
+- **R-b — no new timing rules:** E3 blocks by `(line, dir, session, day)` equality, without a timer or bar counter. Day mismatch makes the record ineffective; it does **not** physically clear the globals. That is consistent with the stated mismatch-falls-through behavior.
+- **R-c — R floor and replicate-all valid set:** The Rule/Untouched clause preserves the R floor; E4 arms only at the adopted S4-origin refusal branch. G2’s take comparison and the named R-c tuple residual must halt acceptance if a later independent **valid** setup is lost. Clearance does not waive that residual.
+- **R-d — detection walk untouched:** E3 gates the result after the unchanged `DetectPoiRetest` call. S1/S3 require the detection signature and body/shared-walk hashes to remain identical.
+- **R-e — alert-only demo bounds, tester-closes-only:** E1–E4 introduce suppression state and logging, not trade sends or closes. Existing operating bounds remain binding.
+
+### STAGE-1: checkable conditions
+
+Each condition is required; any miss stops for diagnosis.
+
+1. **Pre-hash:** EA equals SHA-256 `15A41634798A9307D2D38EB631946F1BCCDD07171544C053F986B9416A2E7739`, **622631 bytes / 11330 lines**, or a successor is explicitly diagnosed before proceeding.
+2. **Unique anchors:** Every exact old edit site resolves once. For E7, verify the specified insertion **between the complete MTEXIT print statement and** `if(InpDebugLog) MtLifeEmit();`, not merely the latter line’s uniqueness.
+3. **Identifier availability:** Verify declarations, types and applicable scope—not only occurrence counts—for `g_lineCode`, `POI_NLINES`, `SessionName`, `TC_DayStart`, `DirName`, the suppression enums, and all executor dependencies enumerated in S1 when applying the combined packet.
+4. **Old-anchor bytes:** Character-code comparisons match every complete OLD block, including E6a/E6b. Token counts do not substitute for this check.
+5. **Detection integrity:** Record pre-edit signature and body/shared-walk hashes; require exact post-edit equality.
+6. **Buffers:** Verify the declaration **value is 48** and the complete binding census is unchanged. Absence of `SetIndexBuffer(48` alone is insufficient.
+7. **Session-use calls:** Exactly two `MarkSessionUsed` call sites, at pre-edit 10160/10253; three occurrences including its definition. Preserve both SIGNAL paths.
+8. **Enum placement:** `ENUM_SRJ_DIR`, `ENUM_SRJ_SESSION`, `DIR_NONE` and `SESSION_NONE` are declared before E1’s insertion.
+9. **E4 ordering:** Capture line, direction and session before `GoAbort`; write the surviving suppression record afterward; use `TC_DayStart(barTime)` for its day key.
+10. **Index invariant:** Verify the asserted `g_anchorLine = -1` writers are exactly declaration 976, ResetSequence 6274 and R2 7787, with neither reset route leaving a reachable S5 holder. Establish that E4’s captured index is valid for `g_lineCode`, and that E3’s detected index satisfies the detector’s valid-index contract.
+11. **Executor surface, if combined:** Verify `CTrade g_trade`, `Trade.mqh`, the filling-mode helper, `PositionClose` and `ResultRetcode`; verify `vBREAK`/`vDAY` are booleans and the MTCLOSE signature, prints and call use `barTime`.
+12. **Scope and NET:** Q1 changes only E1–E4, totaling the packet’s **+52 NET**. The combined **+105 / 11435-line** target applies only if Q2 is also cleared and E5–E7 are applied; Q1 clearance does not authorize those edits.
+
+## Q2 — not-cleared
+
+**Q2 verdict: the exit-executor half (E5–E7, +53) is not cleared because E7 does not, in the supplied text, establish that the selected exit verdict—not merely a true candidate predicate—is BREAK or DAY_CLOSE.**
+
+The unresolved check is:
+
+```cpp
+if(vBREAK || vDAY)
+   MtCloseBrokerPosition(vBREAK ? "POI_BODY_BREAK" : "DAY_CLOSE", nextOpenPx, barTime);
+```
+
+If a broker-owned SL/TP verdict can win while either predicate remains true, this call can still execute and label a managed close. The packet asserts preserved priority and “SL/TP broker-owned,” but does not provide a checkable mutual-exclusion or control-flow condition tying E7 to the **winning** verdict. This is a **Rule/Scope stop concerning exit-leg ownership and priority**, not an allegation that the live-send gate is broken.
+
+- **R-a — one take per session:** E5–E7 do not clear session-used marks. G2’s `SESSION_LIMIT`/no-new-`PRE-SEND` check remains required after executed exits.
+- **R-b — no new timing rules:** E7 consumes existing exit predicates and `nextOpenPx`; it introduces no new timer or threshold.
+- **R-c — R floor and replicate-all valid set:** The Untouched clause preserves admission and the R floor. G2/G4 require bars and entries to remain as specified, with downstream lots re-derived and graded second.
+- **R-d — detection walk untouched:** E5–E7 are outside the detection walk; S1/S3 signature and body/shared-walk equality remains mandatory.
+- **R-e — amended tester-closes-only:** E5’s local send guard satisfies the stated tester/execute restriction. That guard does not resolve which exit leg is entitled to send.
+
+**Called double gate:** `PositionClose(ticket)` is reachable only when
+
+```cpp
+InpMode == MODE_EXECUTE && MQLInfoInteger(MQL_TESTER) != 0
+```
+
+Otherwise the helper returns without sending. Live operation remains alerts-only under this helper.
+
+**Minimum clearance repair:** Add a fail-closed pre-edit assertion proving that, at E7, `vBREAK || vDAY` is equivalent to “the selected verdict is BREAK or DAY_CLOSE,” including simultaneous SL/TP and BREAK/DAY cases and BREAK-versus-DAY priority. If the existing surrounding control flow proves this, no code change is needed; otherwise gate and label the call from the selected verdict and reissue the affected literal/budget.
+
+**Grading bar remains:** 8/28 close **11:40 near 1.16439**, with the later stop fill gone; 9/4 flat **23:55 near 1.16093**, with the later target fill gone. Grade bars first, lots second. Join MTCLOSE `action=1` and `retcode` to actual close deals and resulting position state—`PositionClose`’s boolean alone is not execution proof—and require zero SL/TP/HTF/CANCEL executor legs.
+
+Neither verdict authorizes a build, run or commit; the Luna key and his run word remain outstanding.
+
+## V263-RESQUAT-CLEAR4 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V264-RESQUAT-CLEAR5 OPEN ASTRA (his carry, relay v264 clearance ask; pasted text follows verbatim)
+
+Q1 CLEAR — E1–E4, +52, under the packet’s existing S1–S4 gates. References: E1 above EA 1803; E2 EA 1813–1818; E3 EA 7730–7732; E4 EA 8802–8808. No code-gate delta.
+
+Q2 CLEAR — E5–E7, +53, under the packet’s existing S1–S4 gates. References: E5 above EA 11095; E6a/E6b census replacements; E7 EA 11294–11301, read with EA 11283–11292. No code-gate delta.
+
+These are **page-level build clearances**, not verification of disk identity, successful compilation, execution, or fills. They supply neither the Luna key nor his run word and authorize no live activity.
+
+### Basis for clearance
+
+**Q1:** E4 captures the holder’s identity before `GoAbort`, then installs the suppression record after the reset. The S1 no-reentry assertion closes the intervening-call concern. E3 rejects the exact recorded line/direction/session/day tuple downstream of detection without changing the detection walk or introducing a timer. E2 clears a matching record when `MarkSessionUsed` consumes its session/day. The declared overwrite and independent-valid-tuple risks remain subject to G2’s halt conditions; clearance does not establish that those risks will be absent in the run.
+
+**Q2:** The v6 E7 change repairs the demonstrated v5 defect:
+
+- An SL- or TP-winning bar fails the new `exitReason` gate, even when `vBREAK` is also true.
+- A BREAK-winning bar passes, has `vBREAK=true`, and receives the BREAK label.
+- A DAY_CLOSE-winning bar passes and has `vBREAK=false`, so receives the DAY_CLOSE label.
+- HTF-winning bars fail the gate.
+
+This follows from the contiguous priority chain at EA 11288–11292. The retained label ternary is therefore sound **at this insertion point**. S1(13) explicitly pins `MODE_EXECUTE=1`, and E5 places its tester/EXECUTE check before `PositionClose`. The two v263 Q2 halt causes are addressed on the page.
+
+### A. Defects, gaps, and imprecisions
+
+The following do not introduce an additional build halt. Text corrections are named explicitly; none authorizes an unrecorded code change.
+
+1. **EXPIRE is logical expiry, not physical clearing.**  
+   **References:** E1 comments above EA 1803; E2 EXPIRE comment; E3 replacement at EA 7730–7732.  
+   E3 does not clear any suppression globals on a day mismatch. It merely stops blocking a mismatched candidate. Its “any mismatch falls through” comment also encompasses line, direction, and session mismatches, which do not expire the stored record.  
+   **Text-only correction:** describe day mismatch as making the record nonblocking; FIRE clears it and a later ARM overwrites it. Do not claim an EXPIRE clearing assignment exists.
+
+2. **The helper’s scan does not explicitly select the managed trade’s entry session.**  
+   **Reference:** E5 position scan above EA 11095.  
+   It accepts either session magic for the symbol and stops at the first match. That is sufficient under the stated one-matching-broker-position invariant, but “single paper record” alone would not establish that invariant. The per-entry magic assertion proves how entries are tagged, not position uniqueness.  
+   **Clarification:** clearance relies on the stated broker-position uniqueness premise; G2/G4 evidence must not be represented as already obtained.
+
+3. **`action=1` is not itself successful-close evidence.**  
+   **References:** E5 `PositionClose`, success-path print and `return ok`; G3/G4.  
+   The printed `action` is the method’s Boolean return. The retcode and joined deals must establish that the intended position actually closed. G4 already requires the fills, so this is not a missing acceptance outcome.  
+   **Text-only correction:** G3’s “ok=1” should say “`action=1`, with successful execution established by retcode and the joined close deal.”
+
+4. **Close failure leaves the paper trade closed.**  
+   **References:** EA 11286–11292; E7 insert; E5 return value.  
+   Paper state is closed before the broker-close attempt, and E7 ignores the returned Boolean. There is no retry or reconciliation here. That is a deliberate limitation acceptable for this bounded diagnostic run only because an unsuccessful required close fails acceptance. It is not a production-grade executor.
+
+5. **`refPx` is a reference, not an execution-price constraint.**  
+   **References:** E5 signature, prints and `PositionClose(ticket)`; E7 call.  
+   The helper does not submit `nextOpenPx` as a requested close price. Consequently, the E5 phrase “at the same nextOpenPx instant” overstates what this helper alone proves.  
+   **Text-only correction:** it attempts the market close at the verdict evaluation and logs the paper reference price; actual timing and price come from the deal join under G4.
+
+6. **The upper-bound assertion needs to cover the capture point, not merely the earlier S4 state.**  
+   **References:** E4 EA 8802–8808; S1(11), S1(17).  
+   E4 branches on `g_confirmFromState == ST_S4_ARMED`; that is an origin test. The required fact is `0 <= s4e_line < POI_NLINES` when captured and printed. S1(17)’s parenthetical points toward this, but “while holding S4” is less precise.  
+   **Text-only clarification:** assert the bound at E4 capture on the S4-origin eviction path.
+
+7. **One fence reference does not support its stated scope proof.**  
+   **References:** section 3 `nextOpenPx` row; section 4a EA 11294–11301.  
+   The displayed anchor block uses `barTime`, not `nextOpenPx`. The latter’s nearby uses are in the priority chain at EA 11290–11292.  
+   **Text-only correction:** cite those uses and the enclosing scope; retain the S1 identifier/scope check.
+
+8. **Some fence counts lack a consistently stated search domain.**  
+   **References:** section 3 `MtCloseBrokerPosition` and `exitReason` rows.  
+   “3 in packet” does not describe all textual appearances of the helper name in the displayed twin, which also mentions it in provenance and rename material. The `exitReason` description mixes the pre-build census with the new E7 use.  
+   **Text-only correction:** distinguish raw pre-build identifier counts, proposed-code counts, and prose mentions. These descriptions are not a substitute for the one-hit anchor gates.
+
+9. **The packet retains historical Q2/Q3 labels.**  
+   **References:** twin “Canonical files,” “Rule,” and stage budget text versus relay section 5.  
+   The present verdict mapping is unambiguous from the relay, but the internal labels can misroute a quoted verdict.  
+   **Text-only clarification:** current **Q1 = E1–E4**; current **Q2 = E5–E7**, including E6a/E6b. Historical adoption labels remain provenance only.
+
+No contradiction of R-a through R-e is demonstrated by the proposed code on this page. The named residuals and required run outcomes remain unproven until graded.
+
+### B. Better mechanisms
+
+These are optional successor improvements, **not additions to this cleared exact-diff packet**:
+
+- **Derive the helper label from the winning reason.** Touch E7’s call line at EA 11294–11301. Using the winning enum directly would remove the label’s dependency on the surrounding predicate chain. The present ternary is nevertheless correct under that chain.
+- **Check uniqueness rather than selecting the first eligible position.** Touch E5’s scan above EA 11095. Count matching positions and diagnose zero or multiple matches before sending; a captured broker-position identity would be stronger still but would require entry-path changes around EA 10214–10222.
+- **Return an execution outcome, not just the method Boolean.** Touch E5’s return/retcode handling and E7’s ignored result. This would make failure explicit at the call site without introducing automatic retries or expanding live authority.
+
+**Disposition:** both halves clear to build under their stated gates; all compilation, invariant verification, and G1–G4 outcomes remain owed.
+
+## V264-RESQUAT-CLEAR5 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V265-RESQUAT-CLEAR6 OPEN ASTRA (his carry, relay v265 clearance ask; pasted text follows verbatim)
+
+**Q1 CLEAR — E1–E4 (+74), with the text-only gate corrections below.** The bitsets retain multiple evictions without overwriting another tuple. For the stated 15-line domain, direction encoding is consistent; London and NYAM remain separate; day mismatch clears/nonblocks; FIRE clears behind the session-used flag. This clears the proposed probe implementation—not compliance of its eventual takes. The named **R-c residual remains a halt-on-valid-take-loss condition**.
+
+**Q2 NOT-CLEAR — E8c, EA 10236–10240 insertion; E5–E7 depend on it.** Ticket selection has moved from exit time to entry time, but entry identity is still inferred by a symbol/magic/time scan. That does not establish that the latched position belongs to the successful entry request. This halt is independent of Q1.
+
+References below use edit labels and supplied EA anchors; I have not verified disk assertions.
+
+### A. Defects, gaps, and imprecisions
+
+1. **Q2 blocker: E8c still has ambiguous identity.**  
+   At the EA 10236–10240 insertion, `POSITION_TIME` plus `>=` selects the last visited maximum-time match. Two matching positions with equal opening timestamps produce an enumeration-dependent selection. More fundamentally, no condition joins the selected position to this entry’s execution result. Section 4d expressly declines to guarantee broker-position uniqueness. Changing to millisecond timestamps or a ticket tie-breaker would make selection more deterministic, not prove ownership.
+
+2. **Q2 blocker: G3’s identity test can validate the wrong position.**  
+   `MTCLOSE ticket == an ENTRY_TICKET ticket` proves that E5 reused what E8c recorded. If E8c recorded the wrong ticket, both rows still agree. G3 needs a join from **this signal/request → successful entry deal → position identity/current ticket → close deal**, not merely equality between two application prints. Join each close to its corresponding managed entry, not “an” entry anywhere in the segment.
+
+3. **Q2 missing account-model premise — E8c/E5; S1/S5.**  
+   Hedging versus netting is not pinned. Under netting, a new entry may modify an existing aggregate position; closing its ticket need not mean closing only this managed entry’s exposure. For this narrow packet, fence the tester account model and the necessary position-ownership invariant. Unsupported aggregation must halt rather than be assumed away. This is an executor-identity boundary, not evidence that R-e’s live-send gate is breached.
+
+3. **Return consumption is improved, but narrower than full execution failure — E5 `return ok`; E7 `if(!mtexecOk)`.**  
+   The MQL5 `CTrade::PositionClose` documentation confirms that a true return does not guarantee successful execution. Thus `MTCLOSE_FAIL` detects a false method return, not every failed close. **G3 already separately checks retcodes and joined deals**, so this is not another ignored-return blocker if “halt” means reject the run during grading. Explicitly retain that distinction: E7 prints a diagnostic; it does not stop the tester, retry, or restore the already-closed paper state at EA 11287 onward.
+
+4. **Ticket lifetime proof is incomplete — E8b/E8c; S1(19).**  
+   The reset initialization is specified, but the excerpt does not establish that managed-record initialization completes before E8c, with no intervening reset before E7. Add an ordering/lifetime assertion. This is a missing proof, not a claim that an unseen reset actually occurs.
+
+5. **Conflicting budget gate — S1(6).**  
+   S1 still requires `+137 NET`; the edit arithmetic gives **Q1 +74, Q2 +64, combined +138, post 11468**. Change S1(6) to +138. For an independently cleared Q1 build, explicitly fence E1–E4 only and its own recount; do not imply Q2 clearance.
+
+6. **Pre/post identifier domains — S1(2), machine fence.**  
+   “Pre-hash” identifier availability includes new globals and `g_mtrade.ticket`, while the fence correctly says they do not exist pre-edit. Split this into **existing dependencies available before application**, **new names collision-free before application**, and **new declarations/uses present afterward**.
+
+7. **Visible E8c anchor whitespace disagreement — edit OLD versus section 4e.**  
+   The displayed OLD block has a different leading-space prefix from the supplied decision-region block. Because STAGE-1 requires byte-exact anchors, reconcile the two representations explicitly. I cannot decide from chat which matches disk.
+
+8. **Label and count wording drift.**
+   - **G3:** require `leg=POI_BODY_BREAK`, the actual `MtExitName` string at EA 265; “BREAK action=1” is ambiguous if used as a literal matcher.
+   - **E7 description:** “8-line … insert” should say nine added lines; eight is the retained OLD block.
+   - **Relay repair map versus packet Status/S1(23):** normalization is described as both 45 and 18 lines. Distinguish total scope from historical subset, or reconcile the count.
+   - **Section 4 introduction versus 4f:** 4f is a selection of noncontiguous lines, not a whole contiguous region. Label it accordingly.
+
+9. **Q1’s residual needs an independent acceptance reference — E3; named residuals; G2/G3.**  
+    A later independent valid setup on an evicted tuple remains blocked intentionally. Absence from the new run cannot itself establish invalidity. Preserve the required-valid-take reference and explicit attribution of E3 skips; any valid-take loss must stop under **R-c**, not be excused merely as “downstream” of the intended change. The packet already names this residual, so I do not reinstate the removed singleton-overwrite objection.
+
+### B. Better mechanisms
+
+**Q1:** Keep the bitset design. It addresses the overwrite defect without touching the detection walk. No additional mechanism is needed for the stated bounded domain.
+
+**Q2:** Replace E8c’s latest-position heuristic with **execution-result-derived identity**. Capture the successful entry result immediately around Buy/Sell at EA 10220/10222, resolve the resulting deal’s `DEAL_POSITION_ID`, and map that identity uniquely to the current position ticket. Do not assume a deal ticket, order ticket, position identifier, and current position ticket are interchangeable. Touch E8a/E8b for any additional identity field, E8c for capture, E5 for identity validation, and G2/G3 for the full join. Unresolved or ambiguous identity must produce a diagnostic failure and close nothing.
+
+No key, build, run, commit, or money authorization is issued here.
+
+## V265-RESQUAT-CLEAR6 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V266-RESQUAT-CLEAR7 OPEN ASTRA (his carry, relay v266 clearance ask; pasted text follows verbatim)
+
+**Q1 NOT-CLEAR — text-gate contradiction remains; no new E1–E4 logic blocker identified.**
+
+**Q2 NOT-CLEAR — deal identifier is still treated as a position ticket; executor return semantics also need repair.**
+
+These are page-only verdicts, not disk verification or authorization to build, run, or trade.
+
+### A. Defects, gaps, and imprecisions
+
+1. **Both halves — S1(6) still says `+138 NET`.**  
+   S2, S3’s governing recount, G1, and section 3’s budget row require **+141 / 11471**. The advertised first repair fixes the old number to another inconsistent number. **Text-only gate delta:** replace S1(6)’s `+138` with `+141` and reconcile current-version repair claims. Historical numbers may remain explicitly historical. This blocks the shared gate, not Q1’s suppression algorithm.
+
+2. **Q2 — E8c, replacing EA 10236–10240: identity is not ticket.**  
+   `DEAL_POSITION_ID` identifies the position through `POSITION_IDENTIFIER`; it is not a guarantee of the current `POSITION_TICKET`.  
+   ```
+   PositionSelectByTicket(entryPid)
+   entryTick = entryPid
+   ```
+   therefore does not establish the claimed identity bridge. Successful selection validates a ticket exists, not that its `POSITION_IDENTIFIER` matches the entry deal. Flat-start ownership does not prove identifier–ticket equality.
+
+   **Required code delta:** resolve the deal’s position identifier to a current position whose `POSITION_IDENTIFIER` equals it, then capture that position’s actual `POSITION_TICKET`. This is exact identity resolution, not the rejected latest-time/either-magic heuristic.
+
+3. **Q2 — G3’s equality must change with E8c.**  
+   `MTCLOSE ticket == ENTRY_TICKET ticket == DEAL_POSITION_ID` conflates separate domains. Require close-ticket == captured-entry-ticket, plus the selected position’s identifier == entry deal’s `DEAL_POSITION_ID`; join the close deal through that identifier. Print both identifier and ticket.
+
+4. **Q2 — E5’s final return and E7’s FAIL mapping are overstated.**  
+   MQL5 documents `PositionClose()` returning true as successful basic checks, **not confirmed execution**. `return (ok ? 1 : 0)` can consequently return 1 on a server refusal and omit `MTCLOSE_FAIL`. G3’s retcode check would catch this later, but does not make the advertised tri-state true.  
+   **Required code delta:** return 1 only for the accepted completed-close result; return 0 for refusal or incomplete execution. Preserve retcode printing and independent close-deal verification. No retry is required.
+
+5. **Q1 proof wording — section 4c changes line, not direction.**  
+   B3 preserves direction while replacing the line; calling this a replacement of “line+dir as consistent pairs” is inaccurate. Also, isolated loop-bound and return lines in 4d/4e do not show `bestLine`’s assignment. The census is a stated disk premise, not a complete derivation from those excerpts. Correct that description; this is not evidence of a new algorithm defect.
+
+6. **E4 comment versus actual diagnostics:** “dead record skips ARM (no row)” should say **“no ARM row; emits EVICTSUPPRESS_SKIP.”**
+
+### B. Better mechanism
+
+Keep Q1’s per-session bitsets and explicit expiry/FIRE behavior; no re-plumb is warranted by the supplied page.
+
+For Q2, modify **E8c, E5/E7, S1 dependencies, and G3** as above: exact identifier resolution to the actual ticket, explicit identifier validation, and execution-result-aware tri-state. Recount the revised literals rather than retaining +60/+141 by assumption.
+
+The API distinctions above follow the MQL5 documentation for *Position Properties* and *CTrade::PositionClose*. The tester-only boundary remains mandatory; nothing here clears live activation.
+
+## V266-RESQUAT-CLEAR7 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

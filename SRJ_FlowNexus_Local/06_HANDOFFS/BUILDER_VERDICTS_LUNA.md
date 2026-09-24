@@ -8571,3 +8571,201 @@ Luna:
 ## V262-RESQUAT-CLEAR3 OPEN LUNA (his carry, relay v262 clearance ask; Luna seat sent no text this round - silence recorded, never chased)
 
 ## V262-RESQUAT-CLEAR3 END LUNA (silence marker; no inbound text arrived for this round)
+
+## V263-RESQUAT-CLEAR4 OPEN LUNA (his carry, relay v263 clearance ask; pasted text follows verbatim)
+
+## Q1 — Re-squat half (E1–E4, +52)
+
+**CLEARED to build.**
+
+**R-a:** §1 R-a binds one take per session and SIGNAL-only marking; §2 Rule F-a prohibits same `(line, dir, session, day)` re-seeding after its S4 eviction; §2 G2 requires the post-exit same-session candidate to produce `SESSION_LIMIT` and no new `PRE-SEND`.
+
+**R-b:** §1 R-b prohibits timing/bar-count rules; E3 explicitly uses only tuple/day-key matching, with “no timer, no bar count”; EXPIRE is by day-key mismatch.
+
+**R-c:** §1 R-c requires R≥1.0 and replication of the valid set; the §2 Rule/F-a and G2 acceptance preserve the existing valid setup and explicitly route the identified same-tuple and single-slot residuals to runtime take-join checking.
+
+**R-d:** §1 R-d requires the detection walk to remain untouched by signature AND body hash; §2 Rule says the detection walk is untouched; S1 requires the same signature and body/shared-walk hash pre/post build.
+
+**R-e:** §1 R-e binds the alert-only demo envelope with tester-closes-only; §2 Rule Q3 preserves alert-only/live behavior, while S5 fixes the run to the stated tester envelope.
+
+**STAGE-1 assertions:**
+
+* Pre-hash must equal `15A41634798A9307D2D38EB631946F1BCCDD07171544C053F986B9416A2E7739` / 622631 B / 11330 lines, or produce a DIAGNOSED successor; never assume equality.
+* Exactly one hit at each exact edit anchor; no identifier-census substitution for anchor checks.
+* All listed identifiers/surfaces must be available: `g_lineCode`, `POI_NLINES`, `SessionName`, `TC_DayStart`, `DirName`, `InpMagicBase`, `g_trade` Buy/Sell surface, `g_mtrade` dir/state/active, `vBREAK`, `nextOpenPx`, `InpMode`, `MODE_EXECUTE`, `ResultRetcode`, and `Trade.mqh`.
+* Every OLD anchor must byte-match the filed OLD text via char-code assertion.
+* Detector signature AND body/shared-walk hash must remain identical post-build.
+* FlowLogic buffer declaration VALUE remains 48 and the binding census remains identical pre/post.
+* `MarkSessionUsed(` remains exactly 3 textual hits total, with exactly 2 call sites at the stated locations.
+* `ENUM_SRJ_DIR`, `ENUM_SRJ_SESSION`, `DIR_NONE`, and `SESSION_NONE` remain above EA 1803.
+* E4 capture of `g_anchorLine`, `g_dir`, and `g_sessionAtEntry` must precede `GoAbort`.
+* `g_anchorLine=-1` writers remain exactly `{976 declaration, 6274 ResetSequence->IDLE, 7787 R2->IDLE}`, with no reachable writer holding S5 state.
+* Scope must be E1–E7 only, and the literal NET recount must be `+105` total: Q1 `+52`, Q2 `+53`, post-build EA `11435` lines.
+
+## Q2 — Exit-executor half (E5–E7, +53)
+
+**CLEARED to build.**
+
+**R-a:** §1 R-a remains SIGNAL-only for session consumption; §2 Q3 adds only BREAK/DAY_CLOSE broker closing and does not create a new SIGNAL/take.
+
+**R-b:** §1 R-b remains free of timing/bar-count entry rules; Q3 exit activation is verdict-keyed (`vBREAK || vDAY`), not timer-keyed.
+
+**R-c:** §1 R-c keeps R≥1.0 and the existing valid-set replication requirement; §2 G3 makes all non-exit families state-identical to RECON59 apart from the explicitly downstream 9/1 take and two executed exits.
+
+**R-d:** §2 Rule expressly leaves the detection walk untouched; S1/S3 require unchanged signature and body/shared-walk hash.
+
+**R-e (amended):** §2 Rule and S5 require tester-closes-only. `MtCloseBrokerPosition()` sends only when **both** `InpMode == MODE_EXECUTE` **and** `MQLInfoInteger(MQL_TESTER) != 0`; otherwise it prints `SKIP-NO-SEND` and returns, so live execution remains alerts-only.
+
+**Grading bar:** bars are authoritative first, lots second. The required exit evidence is `8/28 11:40` near `1.16439`, with the prior stop fill gone, and `9/4 23:55` near `1.16093`, with the prior target fill gone. The MTCLOSE family must join the corresponding BREAK/DAY_CLOSE rows with the execution `ok`/retcode evidence; no SL/TP, HTF, or CANCEL_BIAS executor legs are permitted.
+
+## V263-RESQUAT-CLEAR4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V264-RESQUAT-CLEAR5 OPEN LUNA (his carry, relay v264 clearance ask; pasted text follows verbatim)
+
+## Verdict
+
+### Q1 — **Q1 NOT-CLEAR**
+
+The re-squat rule is correctly expressed in the normal one-eviction case, but the implementation has a material tuple-loss defect that the packet itself explicitly acknowledges.
+
+The suppression state is only one tuple: `g_evictSuppressLine/Dir/Sess/Day`.  Each new S4 eviction unconditionally writes those four fields again.  Therefore, a second eviction in the same session/day can overwrite the first tuple before its candidate is tested. The packet explicitly names this as the “single-slot overwrite” residual. 
+
+That is not merely observational: F-a is tuple-specific — “the (line, dir, session, day) evicted … may not re-seed.”  A two-eviction sequence can therefore lose the first tuple's suppression memory and permit precisely the re-seed F-a is supposed to prevent.
+
+**Gate delta:** this is a logic change, not a text-only clarification. I would not clear E1-E4 until the suppression state can retain every eviction tuple that remains live, or an equivalent invariant is actually established and enforced.
+
+### Q2 — **Q2 NOT-CLEAR**
+
+The v6 `exitReason` gate fixes the specific Astra defect from v263: E7 now executes only for the winning `BREAK` or `DAY_CLOSE` reason, rather than the bare `vBREAK || vDAY` predicate.  The SL-first priority chain is also preserved. 
+
+But two executor-level correctness gaps remain.
+
+**1. The broker position is not uniquely identified.**
+`MtCloseBrokerPosition()` scans positions and closes the first position whose symbol matches and whose magic is `InpMagicBase+1` or `+2`.  The packet says the magic is an entry-session convention, not a unique entry identifier.  Thus the executor has not proved that the selected ticket is the position represented by `g_mtrade`. A stale or additional position with the same session magic could satisfy the scan first.
+
+**2. Paper closure and broker closure can diverge silently.**
+The evaluator sets `g_mtrade.state = MT_CLOSED` and records the winning exit before calling the broker executor.  The call's return value is ignored at E7.  Inside the helper, `PositionClose()` produces `ok` and a retcode print, but that result is merely returned; there is no caller-side failure handling or post-close position verification.  Consequently, a failed/partial broker close can leave the broker position open while the paper state is already `MT_CLOSED`.
+
+So the v6 repair closes the prior Astra finding, but it does **not** establish exact-position execution or broker/paper convergence.
+
+---
+
+## Analytic ask A — defects, gaps, imprecision
+
+**Q1 / E1-E4**
+
+1. **Single-slot suppression storage can overwrite a still-live tuple.** E1 declares exactly one `(line, dir, session, day)` record; E4 overwrites it on each eviction.   This is the material Q1 blocker.
+
+2. **The packet acknowledges the overwrite but does not define its acceptance treatment.** It is classified as “watched,” even though it can violate the literal F-a invariant. 
+
+3. **The R-c tuple residual is likewise explicitly unresolved.** The packet says a later independent valid setup on the same tuple may be suppressed and calls this “watched.”  The page does not establish why that suppression is acceptable under the stated replicate-all-valid-set rule.
+
+4. **E4 has no runtime defensive bound before indexing `g_lineCode[s4e_line]`.** The page relies on the S4 invariant/Stage-1 assertion that `0 <= g_anchorLine < POI_NLINES`.  The print itself indexes the captured value without a local guard.  This is survivable if the existing state invariant is genuinely guaranteed, but the implementation is not self-defending.
+
+**Q2 / E5-E7**
+
+5. **Executor selection is session-magic based, not entry-identity based.** The scan accepts either `InpMagicBase+1` or `+2` and takes the first match. 
+
+6. **The stated “single-record invariant” does not itself prove unique broker-position identity.** The packet asserts it as the rationale for the scan, but the code shown does not encode a direct relationship between `g_mtrade` and the ticket being closed. 
+
+7. **Broker-close failure is not part of the state machine.** `MT_CLOSED` is committed before the broker close attempt.  The E7 call discards the helper's boolean result. 
+
+8. **`ok` is not equivalent to confirmed execution.** The helper prints `ResultRetcode()` but does not make that retcode authoritative for state transition, nor does it verify that the target position actually disappeared after the close request. 
+
+9. **The acceptance criteria do not explicitly require broker-position identity matching.** G3/G4 require successful-looking `MTCLOSE` evidence and the expected bars/prices, but they do not contain a join proving “executor ticket = managed-entry ticket.” 
+
+10. **`SKIP-NO-SEND` and `NOTHING-TO-CLOSE` are correctly treated as hard-stop outcomes for this run, but executor failure itself is not equivalently specified as a halt class.** 
+
+---
+
+## Analytic ask B — better mechanisms
+
+### For E1-E4: replace the singleton suppression tuple with a small tuple set
+
+The cleanest mechanism is a bounded per-session/day suppression set keyed by `(POI line, direction, session, day)` rather than four singleton globals.
+
+Touch the current E1 storage at **129-135**, the FIRE clear logic at **173-191**, the IDLE read gate at **223-241**, and the E4 writer at **277-299**.    
+
+Because `POI_NLINES` is 15 and direction is binary, a compact bitset per session/day would be enough and would eliminate the overwrite class entirely without indicator buffers.
+
+### For E5/E7: bind the executor to the exact managed position
+
+The stronger design is to capture the actual broker position ticket when the entry is filled, store that ticket with `g_mtrade`, and have E5 close **that ticket only**.
+
+The relevant entry surface is the magic assignment and Buy/Sell path at **EA 10170, 10214, 10220-10222**, which the packet already identifies.  The executor at **335-359** then becomes `PositionSelectByTicket(g_mtrade.ticket)` rather than a symbol/magic census. 
+
+Then make the broker-close result an explicit state/acceptance transition: inspect the trade-server retcode and verify the ticket is actually closed before treating the broker leg as successfully executed. The current E7 call at **477-481** should consume that result rather than discard it. 
+
+**Bottom line:** v6 successfully repairs the previously identified E7 predicate bug, but I would **NOT-CLEAR both Q1 and Q2** because the remaining issues are substantive execution-state invariants, not packaging or wording defects.
+
+## V264-RESQUAT-CLEAR5 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V265-RESQUAT-CLEAR6 OPEN LUNA (his carry, relay v265 clearance ask; pasted text follows verbatim)
+
+Q1: **Q1 NOT-CLEAR.** The v7 set mechanism removes the singleton-overwrite defect, but the tuple identity needed by F-a is not fully proven on the page: E3 tests `(pr.topLine, pr.isLong, sess, rsq_day)` at the E3 gate, while E4 records `(g_anchorLine, g_dir, g_sessionAtEntry, s4e_day)` after the abort. The fence proves `g_dir` is assigned through `S2ResolveLive` (EA 7739), but does not prove `g_anchorLine == pr.topLine`, `g_sessionAtEntry == sess`, or that `g_dir` cannot be changed between E3 and E4. Those are the actual suppression-key equivalence conditions. Also, S1 says `recount +137 NET` while every mechanical recount in the packet says **+138 / 11468**; that is a direct gate-text contradiction. E1 ~EA 1803; E3 ~EA 7730-7759; E4 ~EA 8802-8828.
+
+Q2: **Q2 NOT-CLEAR.** The entry-latched ticket design is materially better than the rejected either-magic close scan, and E5 does close by a stored ticket, but E8c still derives that ticket by scanning all positions matching symbol + magic and choosing the greatest `POSITION_TIME` (EA 10236 onward). That is not a deterministic transaction-to-position identity proof when two qualifying positions share the same second, which remains possible under the packet's own MTCOLLISION/multi-position boundary. The stronger invariant is “ticket belongs to the fill that produced this managed record,” which the current page does not prove. E5 ~EA 11095 onward; E8c EA 10236-10255; MTCOLLISION EA 10115-10129.
+
+**Analytic A — defects/gaps/imprecision**
+
+1. **Suppression-key equivalence gap:** E3 compares `pr.topLine`/`pr.isLong`/`sess`; E4 stores `g_anchorLine`/`g_dir`/`g_sessionAtEntry`. Only the direction bridge is partially established. The line and session bridges are asserted, not demonstrated. E3 ~7730; E4 ~8802.
+
+2. **Direction lifetime gap:** EA 7739 establishes one write of `g_dir`, but the page does not provide a writer census or an invariant that it cannot change before the S4 eviction at ~8802.
+
+3. **Day-key stale-state imprecision:** E3 clears a day-mismatched bitset but leaves `g_evictDayLon/NY` unchanged. That is functionally nonblocking, but “EXPIRE ... clears it” is not literally “reset key to current day.” E3 ~7740-7750. E4 later repairs the key when an eviction is actually recorded.
+
+4. **Global budget contradiction:** S1 requires **+137**, while S2, section 3, and the packet header require **+138** and 11468 lines. This must be reconciled before a staged gate can be considered deterministic.
+
+5. **Ticket capture is latest-time selection, not direct fill identity:** E8c's `POSITION_TIME >= entryTickTime` rule does not uniquely identify the just-created position under equal-second timestamps. EA 10236 onward.
+
+6. **Execution-success semantics are split:** E5 consumes `PositionClose()`'s boolean, but acceptance separately treats `ResultRetcode()` and the close deal as authoritative execution evidence. The code therefore does not itself make `mtexecOk == true` equivalent to “broker close completed.” EA E5/E7; acceptance G3.
+
+7. **“Entry-latched ticket” wording is stronger than the implementation:** the ticket is latched immediately after fill, but its selection method is still an inference over the position set rather than a direct linkage to the executed entry transaction.
+
+**Analytic B — better mechanisms**
+
+For Q1, the cleanest mechanism is to carry the exact tuple produced by the E3 candidate through the S4-abort path: store `pr.topLine`, `pr.isLong`, and the resolved session/day used by that evaluation, then ARM exactly that tuple after `GoAbort`. That removes the need to prove equivalence between two independently sourced state variables. It touches E3 ~7730 and E4 ~8802.
+
+For Q2, derive the newly opened **position identity from the executed transaction/deal result**, then resolve that position's ticket, rather than selecting the newest position by symbol/magic/time. That makes the `ENTRY_TICKET → MTCLOSE` join transaction-specific and survives same-second/multi-position cases. It touches E8c ~10236 and leaves E5's ticket-only close architecture intact.
+
+The two halves therefore remain independently halted: **Q1 NOT-CLEAR and Q2 NOT-CLEAR.**
+
+## V265-RESQUAT-CLEAR6 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V266-RESQUAT-CLEAR7 OPEN LUNA (his carry, relay v266 clearance ask; pasted text follows verbatim)
+
+## Q1 — CLEAR
+
+**Q1 CLEAR.** The re-squat half (E1–E4, +81) is sufficiently pinned to build. The key v265 issue is closed on the page: the post-gate latch binds line/dir/time/session in the same evaluation; the t78 replacement keeps line+direction paired; the B3 candidate is constrained to the `POI_NLINES` ordinal domain with an explicit bounded walk and ordinal return. 
+
+The acceptance also has the right targeted checks for the stated behavior: the 9/1 16:55 suppression, tuple join against the earlier eviction, FIRE-vs-take relation, R-a session limit, anchor election, and suppression-row census. 
+
+**Q1 gate delta:** none. The v8 bridge material is text/proof only; it does not alter Q1 selection logic. 
+
+## Q2 — NOT-CLEAR
+
+**Q2 NOT-CLEAR.** Two page-level defects remain material:
+
+1. **The E8c identity conversion is not proved.** E8c takes `DEAL_POSITION_ID` into `entryPid` and then passes that value directly to `PositionSelectByTicket(entryPid)`. The packet calls the resulting value a broker position ticket, but it never proves on the page that the identifier returned by `DEAL_POSITION_ID` is the ticket required by `PositionSelectByTicket`. That is the central identity invariant the new executor depends on. 
+
+2. **The tri-state `1 = sent-ok` contract is stronger than the implemented predicate.** `MtCloseBrokerPosition()` returns `1` solely when `CTrade::PositionClose(ticket)` returns boolean `true`; it does not gate that return on an execution-success `ResultRetcode()`. Yet the stated Q2 rule defines `1` as `sent-ok`, and G3 requires execution success to be established from the retcode.   
+
+### Analytic A — other defects / gaps / imprecisions
+
+**Q1**
+
+* The EXPIRE path clears the suppression bits but leaves the corresponding `g_evictDay*` unchanged until a later ARM. That is nonblocking as implemented, but the wording “EXPIRE ... clears it” is less precise than the actual state transition. 
+* The claimed “every evicted tuple” persistence is intentionally terminated by FIRE clearing the entire session set. That matches the stated F-a rule, but the terminology “retains every evicted tuple” is only true until the first signal consumes the session. 
+
+**Q2**
+
+* A failed E8c latch (`entryTick == 0`) is only exposed by `ENTRY_TICKET`; there is no immediate entry-time failure state. The failure is deferred until a later winning exit attempts the close. 
+* G3 requires a joined **close deal**, while the E5 print shown here exposes `retcode` but not the close `ResultDeal()`/deal identity. The packet does not show the mechanical source of that later close-deal join.  
+
+### Analytic B — better mechanism
+
+For **Q2**, make the identity contract explicit at E8c/E5: resolve and store an identifier that is unambiguously the value required by the close-selection API, rather than treating `DEAL_POSITION_ID` as a ticket by assertion. Then make the executor’s `1` state depend on an explicit retcode-success predicate, and preferably record the resulting close deal for the G3 join. The affected regions are E8c **EA 10236–10251**, E5 **EA 11095 onward / helper body**, and the E7 consume site **EA 11294 onward**.   
+
+**Net ruling: Q1 CLEAR; Q2 NOT-CLEAR.**
+
+## V266-RESQUAT-CLEAR7 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

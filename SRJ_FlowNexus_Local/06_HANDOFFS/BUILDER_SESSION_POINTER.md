@@ -3,23 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, V263 READY)
+## State (2026-09-24, V267 READY)
 
-- Clearance relay for packet
-  v5 re-verified end to end:
-  06_HANDOFFS\BUILDER_RELAY_
-  COUNCIL_v263-RESQUAT-CLEAR4.md
-  (9D7B6319). Real twin diff 0,
-  budget +105. Seats Opus+GLM+
-  Astra; Luna silent (key seat
-  unaffected); nothing builds
-  on council text. Ledger 705
-  (number from tail read).
+- Packet v9 753B436E + relay
+  v267 0495C276 battery-green.
+  Draft-split: no transport
+  this turn. Ledger 713.
+  No build, nothing spent.
 
 ## Next (artifact owed)
 
-- Owed: transport signal (his
-  carry of the v263 file).
+- Owed: transport signal
+  (his carry of the v267
+  file to Opus+GLM+Astra)
+  + GLM v266 re-carry.
 
 ## Resume order (exact)
 
