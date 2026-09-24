@@ -16046,3 +16046,72 @@ If a later design retains single-line emission, prioritize sequence, freshness s
 A future transport gate should exercise the same tester/log/export path used for grading. A script-log fixture remains useful for formatting but cannot certify tester-journal transport. Any extra execution remains subject to separate authorization.
 
 **Disposition:** approve the **INCOMPLETE / check-scoped prefix partial-pass distinction**, amend the contract as above, and retain every missing mandatory result as unproved. No rebuild is needed to make this historical ruling honest.
+
+## V260-RESQUAT-CLEAR OPEN ASTRA (his carry, relay v260 clearance ask, filed whole 1x; seat routed replacing Kimi, no credits)
+
+Astra (replacing Kimi):
+GPT-6 Astra
+
+Review scope: pasted text only. The prior v259 code, ledger, disk hashes, and machine-count provenance are not independently available here. These verdicts concern the packet’s textual build clearance—not authorization to build, run, or commit. The two halves are assessed independently.
+Q1 — Re-squat half, E1–E4 (+52)
+
+Q1 verdict: not-cleared because the exact replacement code for E2–E4 is absent, and the packet contains unresolved expiration, diagnostic-name, and STAGE-1 assertion discrepancies.
+Binding-rule checks
+Rule 	Packet lines supporting it 	Assessment
+R-a 	Authority: “one-take-per-session”; E1: FIRE occurs inside MarkSessionUsed; Untouched: “session marks.” 	Declared preserved. E2 must demonstrate that only the existing SIGNAL paths mark a session used; suppression itself must not consume it.
+R-b 	Rule Q2: “FIRE on either SIGNAL path, EXPIRE on day-key mismatch”; suppression keyed by line, direction, session, day. 	No new timing threshold is proposed. However, the actual day-mismatch clearing operation is not present in the supplied E3 summary.
+R-c 	“R-c RULING”: the suppressed candidate was S5-refused; Untouched: “R floor.” 	The packet supplies a rationale for preserving the valid set. Exact code is still needed to verify that suppression matches the complete tuple and does not exclude another direction or session/day.
+R-d 	Q2 adoption: “consumer-side gate keeps the detector byte-identical”; Untouched: “E3 walk, R2 scope, Q3 arrival order.” 	Declared preserved. An unchanged detector signature alone does not establish an unchanged detector body or shared walk.
+R-e 	Authority: “alert-only demo bounds”; no execution operation described in E1–E4. 	No declared conflict. Exact-diff verification must confirm this half introduces no trading operation.
+Checkable discrepancies
+
+    Exact-diff payload missing. E2–E4 reference prior edits “whole,” but their replacement literals are not reproduced here. Fence occurrence counts establish neither replacement contents nor control-flow correctness.
+    EXPIRE is not demonstrated. E1 and the Rule require day-mismatch expiration. E3’s summary lists direction calculation, an equality gate, a print, and a return—not explicit expiration. This is an unresolved omission, not proof that the prior code lacks it.
+    Acceptance names do not match the described emitters. E3/E4 describe RESEED_BLOCKED and EVICTSUPPRESS; G2 requires RESQUAT_SUPPRESS and EVICTMARK. Supply an explicit grading mapping or align the producer and acceptance names.
+    “Identifier single-hits” contradicts the fence if interpreted as occurrence counts. For example, g_lineCode=40, POI_NLINES=15, and DirName=111. Unique anchors and identifier/type validation need separate assertions.
+
+STAGE-1 conditions required for clearance
+
+    Pre-hash: EA must match SHA-256
+    15A41634798A9307D2D38EB631946F1BCCDD07171544C053F986B9416A2E7739,
+    622631 bytes / 11330 lines, or stop for a documented, diagnosed successor.
+    Identifier assertions: verify required declarations, types, members, and callable signatures. Require one hit per exact edit anchor, not one occurrence per identifier.
+    Old-anchor bytes: compare every complete OLD literal byte-for-byte and require a unique replacement location; provide the corresponding complete NEW literals.
+    Buffers 48/48: verify the actual buffer declaration and binding inventory remain unchanged at 48. The two supplied buffer fence counts alone do not prove this.
+    Detector unchanged: verify its signature and complete implementation/shared-walk regions are byte-identical before and after.
+    Scope: permit only E1–E4 differences; recount the claimed +52 from literals.
+
+Re-clearance requires: the exact E2–E4 replacements, explicit EXPIRE behavior, consistent diagnostic grading names, and corrected assertion wording.
+Q2 — Exit-executor half, E5–E7 (+54)
+
+Q2 verdict: not-cleared because the helper and call literals are absent, and E5 names MtCloseBrokerPosition while E7 names MtCloseExecute, without supplying a definition or wrapper connecting them.
+Binding-rule checks
+Rule 	Packet lines supporting it 	Assessment
+R-a 	Untouched: “session marks”; Q3 operates on exit verdicts. 	Declared preserved. Exact E5–E7 code must introduce no session-mark changes or extra entry path.
+R-b 	Q3: “BREAK and DAY_CLOSE verdicts close”; “priority order untouched.” 	Declared verdict-keyed. The executor must consume existing verdicts, not introduce a separate clock trigger.
+R-c 	Untouched: “R floor”; Acceptance: “bars-first lots-second.” 	No proposed R-filter change. Lots may change downstream of executed exits and must be re-derived rather than forced to prior values.
+R-d 	Untouched: “E3 walk, R2 scope, Q3 arrival order”; Q3: “CANCEL_BIAS untouched.” 	Declared preserved. Missing literals prevent verification of ordering and failure-path continuity.
+R-e, amended 	Q3: “tester only (live stays alerts-only)”; Authority: “tester-closes-only on his COMBINE word.” 	Correct stated boundary, but the exact double gate and its placement before all execution effects are not shown. Clearance does not substitute for the required operator authorization.
+Tester gate required
+
+Broker-close execution must require both:
+text Copy
+
+MQL_TESTER is true AND operating mode is MODE_EXECUTE
+
+Outside that conjunction, live remains alerts-only. The executable helper must enforce this boundary, resolve the intended position unambiguously, and record the close result/retcode. Close failure must not bypass the existing paper MTEXIT/MTLIFE/EXIT reporting sequence.
+
+The fence’s pre-build PositionClose=0 and MtCloseBrokerPosition=0 counts do not prove any of those post-edit properties.
+Grading bar
+
+    8/28: BREAK close at 11:40, near 1.16439; the former stop fill must be absent.
+    9/4: DAY_CLOSE leaves the position flat at 23:55, near 1.16093; the former target fill must be absent.
+    Require successful MTCLOSE joins with execution retcodes on both legs; zero executor legs for SL/TP/HTF/CANCEL.
+    Other exits retain their bars/reasons, subject only to explicitly permitted downstream effects.
+    Bars and entries first; re-derived lots second. Prices remain targets until fills are observed.
+
+Re-clearance requires: exact E5–E7 literals, a consistent helper/call name, demonstrated double gating and reporting continuity, and a literal recount confirming +54.
+
+Neither verdict rejects the proposed behavior in principle. Both halt on checkable packet discrepancies; either half can be corrected and re-packeted independently. 
+
+## V260-RESQUAT-CLEAR END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

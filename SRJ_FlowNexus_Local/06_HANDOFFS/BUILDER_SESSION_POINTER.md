@@ -3,23 +3,24 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-24, V260 DRAFTED)
+## State (2026-09-24, V260 HALTED)
 
-- Clearance relay (Q1 resquat
-  half + Q2 executor half)
-  drafted and battery-green:
-  06_HANDOFFS\BUILDER_RELAY_
-  COUNCIL_v260-RESQUAT-CLEAR.md
-  (54F3A492). Twin diff 0.
-  Same text all carried seats;
-  Luna not carried; no key;
-  nothing builds on council
-  text. Ledger 698.
+- v260 verdicts: Opus + Astra
+  halt (D1/D2/D3 + missing
+  literals, all confirmed on
+  disk same turn); Luna thin
+  clear; Opus conditional;
+  Sonnet refused again.
+  NO BUILD, nothing spent.
+  Packet v2 (BEFDB5F4) open
+  with full verbatim blocks.
+  Ledger 698. Record commit
+  this block.
 
 ## Next (artifact owed)
 
-- Owed: transport signal (his
-  carry of the v260 file).
+- Owed: clearance relay v261
+  draft (builder drafts).
 
 ## Resume order (exact)
 

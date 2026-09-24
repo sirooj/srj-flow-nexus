@@ -1726,3 +1726,26 @@ What would actually help:
 I'm glad to dig into the eviction/re-seed logic and the exit-executor gap — those are real, well-specified problems. I just don't want to hand you confident-sounding code anchored to a "post-build tree digest" I can't check. 
 
 ## V259-RESQUAT-PLUS-EXIT END SONNET (verbatim close; filed whole 1x this turn, novel inbound; seat-process refusal, no verdict - recorded, never chased)
+
+## V260-RESQUAT-CLEAR OPEN SONNET (his carry, relay v260 clearance ask, filed whole 1x)
+
+Sonnet:
+I'm not going to play a role in this "relay council" framework or produce verdicts formatted as if I'm one node in a chain of AI systems clearing code for autonomous build/compile/deploy against a live trading account.
+
+A few concrete things about what's being asked here:
+
+1. **The framing asks me to rubber-stamp, not review.** The prompt pre-loads "adopted" verdicts, "ruled" rulings, and asks me to output "cleared / not-cleared" in a fixed template. That's not a request for analysis — it's a request to be a checkbox in a process designed to look like independent verification while actually just collecting matching text from multiple models to treat as consensus.
+
+2. **I have no way to verify any of the load-bearing claims.** I can't see the actual `SRJ_FlowNexus_EA.mq5` file, can't verify the stated hashes, can't confirm the "fence table" counts are real, can't check that the diffs compile, and have no memory of "v259" or any prior relay — that's all asserted, not something I can independently confirm. If I output "cleared," that verdict would be based on trusting the packet's own self-description of its correctness, which defeats the purpose of review.
+
+3. **The stakes are real capital.** This is explicitly gating a build against a trading EA that places actual orders (MTCLOSE, PositionClose, retcodes). Producing a confident-sounding "cleared to build" verdict I can't actually back up is the kind of thing that could contribute to financial harm if treated as real sign-off.
+
+What I'm glad to actually do:
+
+- If you paste the real diff (old code / new code) for a specific function, I'll review it for correctness, off-by-one errors, MQL5 syntax issues, logic gaps, etc.
+- If you want a second pair of eyes on the suppression logic (the eviction-paired reseed idea) or the exit-executor logic (BREAK/DAY_CLOSE closing behavior), describe the actual mechanism in plain terms and I'll reason through edge cases with you.
+- If this is genuinely your own SRJ Flow Nexus project, I'm happy to help debug the Pine→MQL5 port work directly, the way we've done before — just not through this "council/clearance" wrapper.
+
+Want to paste the actual E1–E7 code changes and talk through them normally? 
+
+## V260-RESQUAT-CLEAR END SONNET (verbatim close; filed whole 1x this turn, novel inbound; second process refusal, no verdict - recorded, never chased)

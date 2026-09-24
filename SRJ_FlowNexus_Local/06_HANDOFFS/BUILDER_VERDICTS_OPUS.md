@@ -373,3 +373,101 @@ If the other three seats returned clean YES on v255, the honest tally is 3 YES p
 Happy to re-review the amended page the moment it ships. The clearance line itself needs your word and the key seat.
 
 ## KEY OPUS EVICT-ASK END (verbatim close, REFUSED - no key granted)
+
+## V260-RESQUAT-CLEAR OPEN OPUS (his carry, relay v260 clearance ask, filed whole 1x)
+
+Opus:
+## Q1. Re-squat half (E1-E4, +52)
+
+**Q1 verdict: NOT CLEARED, because two defects in the twin would survive STAGE-1 and cost the run: (D1) E4's new block is described as placing the capture *after* `GoAbort`, which makes the suppression record a silent no-op; (D2) the Scope/G2 acceptance greps census families the edit set never emits.** Both are text-level, both repair inside one re-cut, and neither touches the adopted logic.
+
+### D1 (blocking): E4 capture ordering
+
+Packet E4 reads: "new = same with capture + record + EVICTSUPPRESS print after GoAbort (Opus-Q2 Edit D whole)."
+
+`GoAbort` (C1, EA 6289-6330) ends `g_state = ST_ABORT; LogState(...); ResetSequence();`, and `ResetSequence` (C1, EA 6267) clears `g_anchorLine = -1`, `g_dir = DIR_NONE`, `g_sessionAtEntry = SESSION_NONE`. If the capture reads those three after `GoAbort` returns, the record stores `(-1, DIR_NONE, SESSION_NONE)`, E3's gate short-circuits on the empty test forever, `RESEED_BLOCKED` never prints, and G2 fails on its own suppression clause. The build is clean, the compile is clean, the 90 minutes are spent, and the failure looks like a logic miss rather than an ordering slip.
+
+The referenced filing places the mark strictly above the `GoAbort` line with that clearing named in its comment, so the twin's summary and its own reference disagree. Record-and-print after `GoAbort` is fine and arguably better for row order (abort triple first, then `EVICTSUPPRESS`); only the **capture** must sit above the call.
+
+Repair for v2: paste E4's new block verbatim with three locals assigned above `GoAbort(ABORT_DIV_FALLBACK, g_state);` and the four record writes plus the print below it, and add a STAGE-1 char-code assert that the capture lines precede the `GoAbort` line inside the new block.
+
+### D2 (blocking): acceptance names no emitted row
+
+| Emitted by edit set | Required by Scope / G2 | Pre-build fence |
+|---|---|---|
+| `EVICTSUPPRESS` (E4) | `EVICTMARK` count == DIV_FALLBACK S4-origin count | both 0 |
+| `RESEED_BLOCKED` (E3) | `RESQUAT_SUPPRESS >= 1` on 9/1 | both 0 |
+| `EVICTSUPPRESS_FIRE` (E2) | not graded | 0 |
+
+The fold renamed the census families away from the filed names but left the acceptance on the filed names. Every fence entry is 0 pre-build, so the fence cannot disambiguate and the grader would read two satisfied-by-absence clauses as failures. Repair: re-cut Scope and G2 onto `EVICTSUPPRESS` / `RESEED_BLOCKED` / `EVICTSUPPRESS_FIRE`, and add the third family to the graded set (`EVICTSUPPRESS_FIRE` count == take count in the graded window, the fire leg's own proof).
+
+### Rule preservation, one line per rule
+
+- **R-a:** packet E2 inserts the FIRE arm inside `MarkSessionUsed` (old EA 1813-1818) and adds no mark write and removes none; `SessionAlreadyUsed` (EA 1803-1811) and C6's `SESSION_LIMIT` branch are outside the edit set, and "Untouched: ... session marks" states it. Holds **conditional on assert 8 below**: moving the clear inside `MarkSessionUsed` is equivalent to clearing on the two SIGNAL paths only if `MarkSessionUsed` has exactly two call sites, which the fence table counts for the definition (1) but not for the calls.
+- **R-b:** E3's gate is four equality tests on (line, dir, sess, day) plus the `<0` empty test; E1 declares four plain scalars and no counter; EXPIRE is day-key mismatch at the read site, so there is no expiry constant, threshold, or bar count anywhere in E1-E4.
+- **R-c:** held by the packet's own Authority ruling (S5-refused = `ABSENT_DECLINED` = not a valid setup under A+ strict, so F-a shrinks no valid set) plus "Untouched: ... R floor". This discharges my v259 flag 1: the narrow R-value reading is now ruled on record, and I do not re-open it.
+- **R-d:** E3 is consumer-side, placed after the existing detector call and before the first state write; S1 asserts the `DetectPoiRetest` signature unchanged; fence `excludeMask 0` proves no detector-body mask rode in; "Untouched: E3 walk, R2 scope, Q3 arrival order, Task-91 removal + C4 fall-through" covers the rest.
+- **R-e:** the Q2 half adds no order call, no `EmitAlert`, no indicator handle, no buffer index, no input; fence `PositionClose 0` confirms the only close surface arrives in the Q3 half.
+
+### STAGE-1 asserts, restated as checkable conditions
+
+1. Pre-hash: EA == `15A41634798A9307D2D38EB631946F1BCCDD07171544C053F986B9416A2E7739` / 622631 B / 11330 lines, else DIAGNOSE, never assume, never revert.
+2. Anchor single-hits, exact counts as fenced: `bool SessionAlreadyUsed` 1, `void MarkSessionUsed` 1, `branch=RETEST inWin=1` 1, `s1g_legDir = pr.isLong` 1, `squatter GC` 1, `ABORT_DIV_FALLBACK` 2 (one `#define`, one use at the E4 site).
+3. Identifier availability: `g_lineCode` 40, `POI_NLINES` 15, `SessionName` 10, `TC_DayStart` 6, `DirName` 111, all nonzero and all first-occurring above their new call sites.
+4. New-name virginity, all 0 pre-build: `g_evictSuppressLine`, `EVICTSUPPRESS`, `EVICTSUPPRESS_FIRE`, `RESEED_BLOCKED`.
+5. Old-anchor char-code assert, byte-exact, all four: E1 one line at 1803, E2 EA 1813-1818, E3 EA 7730-7732, E4 EA 8802-8808.
+6. Buffers 48/48: `FlowLogic indicator_buffers` single-hit, `FlowLogic SetIndexBuffer(48` == 0.
+7. Detector untouched: `DetectPoiRetest` signature byte-identical and call count 14 pre == 14 post (E3 adds no call).
+8. **Add:** `MarkSessionUsed(` call-site count == 2, resolving to EA 10160 (C9a) and EA 10253 (C9b). This is the R-a proof for the E2 restructure and the fence table omits it.
+9. **Add:** `ENUM_SRJ_DIR`, `ENUM_SRJ_SESSION`, `DIR_NONE`, `SESSION_NONE` all declared above EA 1803. MQL5 has no forward enum declaration, so E1's four typed globals at 1803 require it. The inference is sound from `DirName(g_dir)` at EA 1719, but it is an inference, not a measurement.
+10. **Add:** E4 new-block internal ordering per D1.
+
+Anchor numbering note: the packet's `7730-7732` is correct and my v259 labeling of the same two lines as `7731-7732` was off by one. Use the packet's.
+
+---
+
+## Q2. Exit-executor half (E5-E7, +54)
+
+**Q2 verdict: NOT CLEARED, because (D3) E5 defines `MtCloseBrokerPosition` while E7 calls `MtCloseExecute`.** One name, one repair. S4 would catch it as an undeclared-identifier error, so the cost is a failed compile rather than a failed run, but it is a declared-verbatim edit set that cannot build as written.
+
+Repair: pick one name, apply it to both blocks, and fence it once in v2 (the fence table currently carries `MtCloseBrokerPosition 0` and does not carry `MtCloseExecute` at all, so the table cannot catch this class of drift on its own).
+
+### Rule preservation, one line per rule (R-e amended)
+
+- **R-a:** Q3 writes no session mark and E5 reads none; the executed close does free `IsSessionPositionOpen(magic)` at E4 (EA 10171), which leaves C3's day-keyed mark as the sole one-take guard for the rest of that session. The packet carries this as acceptance; recommend one explicit graded item, since "any unpredicted election delta HALTS" detects it only indirectly: after an executed exit, a same-session candidate must produce a `SESSION_LIMIT` row and never a new `PRE-SEND`.
+- **R-b:** E7 fires on verdicts E1 already computes on the closed bar; E6 adds a print field only; `vDAY` still derives from the existing `g_news_dayMarks` join with F3 unmodified, so no new mark array, constant, or bar count enters.
+- **R-c:** no R, SL, or TP arithmetic is read or written; the `vSL`/`vTP` verdict branches and `slRef`/`tpRef` assignments are carried byte-identical; broker-owned legs untouched.
+- **R-d:** E1's section-7 separation holds, the helper reads only `g_mtrade.dir` plus terminal position state, and no selection row changes except lots downstream of the two executed exits.
+- **R-e amended:** the single close call sits behind the tester gate, live prints and returns false, `MT_HTF_EXIT` stays false with E3 outside the edit set, `CANCEL_BIAS` returns above the executor, and no buffer, handle, or input is added.
+
+### Tester gate restated
+
+Attempt a close only inside the strategy tester: `MQLInfoInteger(MQL_TESTER)` true. On false, print `MTCLOSE ... action=SKIPPED_LIVE_ALERT_ONLY` and return false, no order, so live remains alerts-only with zero send paths added.
+
+One recommended tightening, not a blocker: the filed gate tests `MQL_TESTER` only, while the relay's own restatement reads "MODE_EXECUTE inside MQL_TESTER". Conjoining `InpMode == MODE_EXECUTE` makes the phrase literal and stops an alert-only tester run from emitting a `NO_POSITION` row on every BREAK and DAY_CLOSE verdict. S5 runs `InpMode 1` and RECON59 printed real fills, so the graded run is unaffected either way.
+
+### Grading bar restated
+
+- 8/28: `MTCLOSE leg=POI_BODY_BREAK ok=1` with retcode at bar 11:40, close near 1.16439, and the 17:00 stop fill (`order performed buy 2.38 at 1.16510`) absent from the segment.
+- 9/4: `MTCLOSE leg=DAY_CLOSE ok=1` with retcode at bar 23:55, flat near 1.16093, and the 9/7 target fill (`order performed sell 0.57 at 1.16307`, deal at 1.16302) absent.
+- 9/1 take plus 5 other takes identical bars and entries; **lots re-derived and graded second**, downstream of the changed balance path.
+- 9/4-invalid still refused at S5; `MTCOLLISION` 0; `vDAY` field present on EXITVERDICT; zero `MTCLOSE` rows carrying SL, TP, HTF, or CANCEL legs; spread tolerance on fills at the bar-granularity standard already on record for the 11:35-versus-11:40 join.
+
+G3 wording correction to fold with D2: `MTCLOSE` is a `PrintFormat` family, not an alert kind. The alert inventory stays SIGNAL / EXIT / HEADS-UP / STAND-DOWN exactly as today, and G3's "alert kinds ... MTCLOSE-family only" should move `MTCLOSE` into the print-family clause so the acceptance does not imply a new alert kind that would itself read as an R-e delta.
+
+---
+
+## What clears on v2
+
+Nothing structural. All three defects are in the twin's presentation, and two of them share one cause worth fixing at the process level: the edit set is headed "exact verbatim" but only E1 pastes its new block. E2-E7 resolve by reference to labels (`Edit A/B/C/D`, `Edit 2/3`) that do not match the filed labels of the answer they adopt (Q2 was Edits 1-5 of 5, Q3 was Edits 1-3 of 3). D1 and D3 are both label-resolution slips. Paste all seven new blocks verbatim in the v2 twin and STAGE-1's exact-diff gets a self-contained source.
+
+On the folded arithmetic: the recount is right and the drift was mine. My v259 Q2 verdict line said +65 while my own table totalled +64. The point is moot under the restructure, which legitimately recomputes to +52 (10+13+16+13), and +52 +54 = +106 against 11330 gives 11436 as claimed. S3's machine recount governs.
+
+Two residuals to add to the watched list before the run, neither blocking:
+
+- **Single-slot overwrite.** The record holds one (line, dir, session, day) tuple. A second eviction in the same session overwrites the first and un-suppresses that line. DIV_FALLBACK is 9 across the window, so two in one session is plausible but unproven. Graded join: any (session, day) carrying `EVICTSUPPRESS` more than once, checked against a later `ANCHOR_ELECT action=SEED` for the earlier tuple.
+- **C4 transfer admission.** Already named in the packet as the opposite-dir residual; it stays watched by `POIREPLACE` and `SIDE1C_PREEMPT` set-diffs outside 9/1, and it is the reason direction stays in the key (W6c's Yearly-POC SHORT seed must survive).
+
+Verification split honored: I judged the pasted twin and fence table only. Every count above is read from section 3 as given, and the three declaration-order conditions in asserts 3, 9, and the `g_trade` note below are inferences from spliced usage, not disk facts. On `g_trade`: fence `PositionClose 0` means the close surface is never exercised on the current tree, so S1 should also assert `g_trade`'s declared type exposes `PositionClose` and `ResultRetcode` rather than leaning on the `Buy`/`Sell` surface alone. 
+
+## V260-RESQUAT-CLEAR END OPUS (verbatim close; filed whole 1x this turn, novel inbound)

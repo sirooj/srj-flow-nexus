@@ -8534,3 +8534,36 @@ This proposal accepts exactly the stated test: **8/28 11:40 `POI_BODY_BREAK` nea
 [2]: https://www.mql5.com/en/docs/constants/environment_state/mql5_programm_info?utm_source=chatgpt.com "Running MQL5 Program Properties - Environment State - Constants, Enumerations and Structures - MQL5 Reference" 
 
 ## V259-RESQUAT-PLUS-EXIT END LUNA (verbatim close; filed whole 1x this turn, novel inbound, adopted as replay-check passed)
+
+## V260-RESQUAT-CLEAR OPEN LUNA (his carry, relay v260 clearance ask, filed whole 1x)
+
+Luna:
+### Q1 — Re-squat half (E1–E4, +52)
+
+**CLEARED TO BUILD.**
+
+**R-a:** One-take-per-session is preserved: Section 1 R-a; Section 2 “Q2 F-a” clears suppression only at the S4-holder eviction and retains FIRE/EXPIRE semantics.
+**R-b:** No timing rules are introduced: Section 1 R-b; Section 2 “Q2 F-a” is verdict-keyed only.
+**R-c:** R floor 1.0 inclusive + replicate-all valid set are preserved: Section 1 R-c; Section 2 R-c ruling explicitly keeps the suppressed S5-refused seed outside the valid set.
+**R-d:** E3/R2/Q3 remain untouched: Section 1 R-d; Section 2 “Untouched” explicitly preserves the E3 walk and R2 scope.
+**R-e:** Alert-only demo bounds are preserved: Section 1 R-e; Section 2 “Untouched” and “Stages S5” require the tester-only execution envelope.
+
+**STAGE-1 asserts:** Pre-hash must equal `15A41634798A9307D2D38EB631946F1BCCDD07171544C053F986B9416A2E7739 / 622631 B / 11330 lines`, or produce a diagnosed successor; each required identifier must occur exactly once (`g_lineCode`, `POI_NLINES`, `SessionName`, `TC_DayStart`, `DirName`, `InpMagicBase`, `g_trade Buy/Sell`, `g_mtrade dir/state/active`); every OLD anchor must match its specified bytes/char codes; `FlowLogic indicator_buffers` must remain `48/48`; `DetectPoiRetest` signature must remain unchanged, proving the detector is consumer-side untouched.
+
+---
+
+### Q2 — Exit-executor half (E5–E7, +54)
+
+**CLEARED TO BUILD.**
+
+**R-a:** One-take-per-session remains untouched: Section 1 R-a; Section 2 Q3 changes only tester-side closure of BREAK/DAY_CLOSE positions.
+**R-b:** No timing rules are added: Section 1 R-b; Section 2 Q3 is verdict-keyed and preserves priority/order.
+**R-c:** R floor 1.0 + replicate-all remain binding: Section 1 R-c; Section 2 Q3 does not alter setup validity or the valid set.
+**R-d:** E3/R2/Q3 detector/consumer boundaries remain untouched: Section 1 R-d; Section 2 states E3 walk and R2 scope are untouched while Q3 arrival order is preserved.
+**R-e (amended):** Alert-only live behavior is preserved, with broker-position closure permitted only in the tester under the specified execute gate and COMBINE-word run envelope: Section 2 Q3, “Stages S5,” and “Untouched.”
+
+**Tester gate:** `MODE_EXECUTE` must be active **inside `MQL_TESTER`**; live behavior remains **alerts-only**; SL/TP remain broker-owned, with no live `PositionClose` path.
+
+**Grading bar:** `8/28 11:40` close **near 1.16439**, with the prior stop fill gone; `9/4 23:55` flat **near 1.16093**, with the prior target fill gone; other exits must remain identical by the stated acceptance rules; **lots are graded second, downstream of the executed exits**. 
+
+## V260-RESQUAT-CLEAR END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
