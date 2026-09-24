@@ -10,7 +10,7 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON58-RETEST-V1.md (G1 PASS, G2 FAIL on 9/1 squatter-veto miss, G3 MIXED, G4 CORRECTED; 6 takes 51/57-identical).
 - Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v260-RESQUAT-CLEAR.md (54F3A492/16046/151: verdicts Opus-halt + Astra-halt + Luna-clear + Opus-clear-cond + Sonnet second refusal; v1 HALTED pre-build, nothing spent; v2 opened).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v261-RESQUAT-CLEAR2.md (C93C801F/20751/201: clearance ask Q1+Q2 on packet v2; twin diff 0; 41-row fence incl TWIN row + new asserts; seats Opus+GLM+Astra).
 - Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v2 BEFDB5F4/13709/115 DRAFT: full verbatim E1-E7, adopted Opus names, E4 capture-before, double gate, MTCLOSE; E6/E7 scribed-with-provenance; v1 halted on D1/D2/D3+B1-B4 owned).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
 - Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).

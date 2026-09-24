@@ -64,14 +64,17 @@ Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says s
   one reviewer, build permission, run word. Builder never judges code, only quotes it.
 - UNGRADEABLE KEY (2026-09-16): a key that does not quote its completed text
   counts as NO key — grading stops, nothing builds on it.
-- TRANSPORT SEATS (live set named by his latest word; refreshed 2026-09-24): relay
-  transport = Opus + GLM + Kimi + Sonnet, identical text all four. Key seat =
+- TRANSPORT SEATS (live set named by his latest word; refreshed 2026-09-24, his drop-Sonnet + Kimi-to-Astra orders): relay
+  transport = Opus + GLM + Astra, identical text all three. Key seat =
   Luna REVIVED (his 2026-09-24 order; sole key source; review seats never grant -
   Sonnet + Opus both refused keys on seat-split grounds same day). History: Luna
   + Sonnet + GLM era (2026-09-20 order) superseded at v253 (ledger 677 four-seat
   format); Opus key-seat experiment + Sonnet-grant attempt both refused; Luna
-  parked-then-revived; Astra silent since the v201 waiver pattern. Seat names
-  are never taken from memory - his latest word governs and this line follows
+  parked-then-revived; Sonnet parked 2026-09-24 after two process refusals
+  (v259/v260 verdicts filed whole, recorded, never chased); Kimi broke
+  (no credits on v259/v260, Astra answered its seat on v260) then switched out;
+  Astra promoted from silent/fallback to full review seat with halt power.
+  Seat names are never taken from memory - his latest word governs and this line follows
   it the turn seats change.
 
 ## 3. Communication rule (operator directive, verbatim core)
@@ -158,7 +161,9 @@ numbered regions); code-free relays ride ALONE. SONNET-SEAT THOROUGHNESS (his
 order 2026-09-18 — the repeat code-demand cure): code relays carry the whole
 cited EA region INLINE (complete contiguous lines, zero elisions — single-line
 quotes do not satisfy a code question); the no-code seat note stays, but
-thoroughness comes from pasted context, never from file demands. MANDATORY
+  thoroughness comes from pasted context, never from file demands. (Sonnet seat
+  parked 2026-09-24 on his drop order; whole-code duty lives in rule 28 for all
+  seats.) MANDATORY
 (his order 2026-09-18): a code relay that cites EA behavior but ships no inline
 region is defective BY FORMAT — blocked, never relayed. Snippet scope covers
 every cited line PLUS its governing statement (Opus v171-D4 lesson: the
@@ -304,9 +309,9 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     trader/strategy-owner/risk-owner/final-say — never the coder or code reviewer, and
     no human reviewer exists on his side. Re-check CHARTER section 8 + GOAL role mapping
     before assigning him anything: strategy gaps go to HIM in plain words, code questions
-    go to council, code-review eyes go to Sonnet-with-source. Never predicate progress
+    go to council, code-review eyes go to every carried seat with source (Sonnet-with-source retired with the seat 2026-09-24). Never predicate progress
     on a human reviewer; never stop without his strategy input or a council relay.
-27. SONNET-FORMAT RULE (operator-relayed Sonnet guide 2026-09-17 — same-prompt kept):
+27. SONNET-FORMAT RULE — RETIRED 2026-09-24 (Sonnet seat dropped on his order; source-complete duty lives in rules 28-29 for all seats). Original (operator-relayed Sonnet guide 2026-09-17 — same-prompt kept):
     review-seat material ships source-complete (whole functions, raw rows/values for
     recompute), ONE claim focus per relay, disagreements as open quotes never
     attributed positions, and the review seat is NEVER asked to rule/clear/grant
