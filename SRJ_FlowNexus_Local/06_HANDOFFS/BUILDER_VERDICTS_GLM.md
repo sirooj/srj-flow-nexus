@@ -4596,3 +4596,48 @@ The v3 blocker is gone; everything v283 found conforming is carried verbatim; co
 
 Standing constraints acknowledged: probe/print-only throughout; nothing here builds, runs, or spends; no live activation is cleared or asked. Disk truth remains STAGE-1's (re-hash CD95241F/637583/11552 or diagnose a successor).
 ## V284-USDJPY-GUARDS4 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V285-USDJPY-GUARDS5 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+## Seat verdict — packet v5 prose-fold, Q1 + Q2 (ruled on the page only, per the verification split; no files requested, nothing built/run/spent here)
+
+---
+
+**Q1 verdict line: Q1-YES**
+
+"Q1 YES - the unreadability sentence is exact"
+
+Basis, all page-verified against the twinned v5 twin + code companion:
+
+- **Predicate stated exactly, twice.** P013: "e6a_block == (oOpp == 1) stated exactly". P017: "Exact relation: e6a_block == (oOpp == 1) on identical inputs". Both carry the exact string; neither falls back to raw truthiness (P013 pins "oOpp int with -1 sentinel per C5141, never raw truthiness" — correct, since oOpp=-1 is truthy if cast).
+- **Relation holds on all three input classes.** C5141 `oOpp = (oAntiNow < 0) ? -1 : ((oAntiNow >= 2) ? 1 : 0)` vs P092 `e6a_block = (e6a_antiNow >= 2)`: antiNow≥2 → block=true ∧ oOpp=1; antiNow∈{0,1} → block=false ∧ oOpp=0; antiNow=-1 → block=false ∧ oOpp=-1. And P073-P090 is line-for-line the C5117-C5134 computation (same ReadFlow legs, same barShift/barShift+1, same MathRound compares, renamed vars), so "identical inputs" holds by construction.
+- **Current-bundle split is correct.** P017: "current-bundle unreadable (antiNow=-1): no opposition kill … never in the gate bool" — P092 reads antiNow only, so -1 can never produce a kill; -1 reaches the page only via raw fields in the P128 print. Matches.
+- **Previous-bundle split is correct.** P017: "affects flip observability only and does not suppress a readable current opposition kill" — P091 requires antiPrev≥0 (flip reads 0, unobservable) while P129 still fires on readable antiNow≥2. Matches C5135.
+- **The old overbroad sentence is gone.** The Astra-Q1 defect ("both no-kill") is replaced by the P017 split, and the P093 either-leg SKIP print (P095) is print-only with no return — SKIP bars may still abort, exactly as P018 documents. Ledger quote "kills at P129" is behavior-consistent with P092/P129 as carried.
+
+One scoping note (non-blocking): P017's "no opposition kill on both" reads as "under either prev-bundle state" — the only reading consistent with the same sentence's final clause and with P092; the final clause alone already eliminates the old overbreadth.
+
+---
+
+**Q2 verdict line: Q2-YES**
+
+"Q2 YES - the battery is gradeable"
+
+Basis:
+
+- **B1 (P176):** anti=2/{0,1} is adjudicable on-row — HJ carries biasAtGate=2 / flipNewThisBar=1, and C5135 makes flip=1 ⟹ prev∈{0,1}; pobreak adjudicated from the P128 print fields (not pre-declared); ORDER-row absence is a real expectation since the P129/P130 return precedes the S5 ORDER site (baseline HJ row barTime=2026.06.04 16:15 must vanish); HF same-bar fate declared both ways. Gradeable.
+- **B2 (P177):** same clause structure; RE row (biasAtGate=3, flip=1) self-adjudicates the digits; opposed=1 + ABORT_LTF_MISALIGN + ORDER absence all row-checkable. Gradeable.
+- **B3 (P178):** anti=1/* correct (PN biasAtGate=1; flip=0 for every prev at antiNow=1 per C5135); CL row pasted in the fence — "MTEXIT bar=2026.06.05 12:15 reason=TP_TOUCH … entry=159.948 exit=159.899" — matches KS TP 159.899 and HS fill 159.948; walked≥1/skipped=0 consistent with CM seedbar 09:35 (walk = exactly the seed bar, shift+1); epoch bbar clause in P185. Gradeable.
+- **B4 (P179):** fence carries all three field rows (MH fill=159.932; KK SL 159.889 TP 159.983; GM MTEXIT entry=159.929 exit=159.983); 0.003 = 0.3-pip gap declared sourced-differently; "(second fill)" withdrawn with the 1x deal-#2 corroboration; parity criterion (booked SL/TP + TP_TOUCH) checkable as written. Gradeable.
+- **S1 counts (P171) verified against the twinned blocks:** E4B_GUARD trailing-space print 1x (P128 only; P095/P106/P125 are the 3 SKIP sites, matching the census rule); ABORT_S54_POIBREAK 2 post / 0 pre (P155 define + P130 call; C302-C324 carries no such define); the two-emitter GoAbort(ABORT_LTF_MISALIGN) count correctly left as STAGE-1 disk work (invariant call off-page past C7130, as the companion itself flags). Budget arithmetic checks: 86−27=+59, 4−2=+2, 5−4=+1, 11552+62=11614.
+- **Pairing / precedence / identity / epoch all in place:** pairing key (GUARD bar= + ABORT state=) uses fields both rows actually print (P128; C1730-C1732); E6a precedence is in the code order (P129 before P130); B8 seed-instance binding and P185 seedbar-epoch/seed=-1 pairing are print-consistent (TimeToString(0) = epoch; unset anchor pairs with seed=-1).
+- **Debug gating consistent:** guard control flow unconditional, GUARD/SKIP rows InpDebugLog-gated, ABORT rows unconditional via LogAbort (C1728-C1733); runs carry InpDebugLog=true, so every graded row appears.
+
+---
+
+**Non-blocking notes for the record (neither withholds a YES):**
+1. P017 "on both" scoping as read above — one clause worth keeping exactly as-is in any future fold, since the final clause is what kills the old overbreadth.
+2. B2 pins no anti digits (B1 pins 2/{0,1}); the row self-adjudicates and the global mismatch rule (P182) covers any deviation — acceptable as written.
+
+**Transport notes:** Ruled on the page only. EA re-hash CD95241F/637583/11552, STAGE-1 exact-diff of the three carried-identical blocks, and segment C03D4774 counts remain builder-disk + his-eyes items — nothing asked of chat. Old blocks vs C8086-C8112 / C323-C324 / C7099-C7102 read clean as pasted; no code surface touched by either verdict.
+
+Both questions clear: **Q1-YES, Q2-YES.** Nothing halts.
+## V285-USDJPY-GUARDS5 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

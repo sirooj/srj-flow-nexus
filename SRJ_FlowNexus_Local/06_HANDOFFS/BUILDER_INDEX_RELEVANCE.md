@@ -1,4 +1,4 @@
-# BUILDER INDEX RELEVANCE (2026-09-25, V284 graded NO-CLEAR, fold v5 + relay v285 battery-green, transport owed)
+# BUILDER INDEX RELEVANCE (2026-09-25, V285 graded CLEAR 3-0, key owed next)
 
 Rule: read this file BEFORE any record search. It points to the live source per topic and names what is stale. Stale files are history only - never ground a packet, relay, grade, or question on them. The pointer still wins on any conflict.
 
@@ -6,7 +6,8 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 
 - Pointer: 06_HANDOFFS\BUILDER_SESSION_POINTER.md (only live memory).
 - Rules: AGENTS.md (skill-load, gates, invariants).
-- Latest result: 06_HANDOFFS\BUILDER_RESULT_V284-GRADE.md (A999C6B3/6557/45: V284 5 verdicts tallied NO-CLEAR on prose/ledger only, every checkable claim disk-verified held, triage joins, fold packet v5 72236198 drafted; ledger 784).
+- Latest result: 06_HANDOFFS\BUILDER_RESULT_V285-GRADE.md (5634F30F/2764/24: V285 3 verdicts tallied CLEAR 3-0, flags answered by procedure/record, key owed next; ledger 785).
+- Prior result: 06_HANDOFFS\BUILDER_RESULT_V284-GRADE.md (A999C6B3/6557/45: V284 5 verdicts tallied NO-CLEAR on prose/ledger only, every checkable claim disk-verified held, triage joins, fold packet v5 72236198 drafted; ledger 784).
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v285-USDJPY-GUARDS5.md (32A8138B/50841/391 battery-green: twin 194/194 diff 0, code 102 byte-diff 0, rows 29 with CL segment-spliced, quotes fragment-verified; Q1/Q2 + A/B + split; transport owed, seats his choice).
 - Latest packet: 01_TASKS\PACKET_P-USDJPY-2v5.md (72236198/25207/194 prose-only fold; code L30-167 0-diff vs v11; UNBUILT).
 - V284 verdicts (ledger 784): Luna YES/YES + Astra DISCREPANCY(Q1-wording)/YES + Sonnet YES/YES + Opus YES/YES + GLM YES/YES-amend-with-delta, filed whole 1x/1x (LUNA 10372 / ASTRA 16966 / SONNET 2027 / OPUS 1509 / GLM 4598).

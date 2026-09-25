@@ -10370,3 +10370,8 @@ For example, the evidence should directly expose `seedShift` and `barShift`, so 
 
 **Final rulings: Q1 = YES. Q2 = YES.** The remaining issues are precision/observability/verification seams, not a surviving E6a or E6b behavior blocker.
 ## V284-USDJPY-GUARDS4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V285-USDJPY-GUARDS5 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Q1 YES - the unreadability sentence is exact
+
+Q2 YES - the battery is gradeable
+## V285-USDJPY-GUARDS5 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

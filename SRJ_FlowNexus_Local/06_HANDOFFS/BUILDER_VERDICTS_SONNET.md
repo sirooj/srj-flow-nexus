@@ -2025,3 +2025,23 @@ Lines: P098-P130, P152-P155 vs C323-C324.
 
 3. Durable item carried from v283, unchanged: the shared three-state HTF-opposition helper (`-1`/`0`/`1`) consumed by both C5117-5141 and P073-092 remains the structurally cleanest fix for making Q1 a representation-level identity rather than a behavioral proof — still correctly deferred as a new function surface pending scope word.
 ## V284-USDJPY-GUARDS4 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V285-USDJPY-GUARDS5 OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+Q1 verdict: **Q1-YES** — the wording holds up against the pasted predicates.
+
+Checking it directly: `e6a_block = (e6a_antiNow >= 2)` (P092) and `oOpp = (oAntiNow<0) ? -1 : ((oAntiNow>=2) ? 1 : 0)` (C5141). Since `e6a_antiNow` and `oAntiNow` are computed by the same read/count logic on the same inputs, they're equal, so:
+- When readable (`antiNow>=0`): `oOpp==1` iff `antiNow>=2`, which is exactly `e6a_block`. Equivalence holds.
+- When unreadable (`antiNow=-1`): `e6a_block` evaluates to `false` (since -1 is not ≥2), and `oOpp=-1≠1`, so `(oOpp==1)` is also `false`. The equivalence still holds — it isn't just true "on identical readable inputs," it's true unconditionally, including in the unreadable case, which is actually a stronger/cleaner statement than P013/P017 claims (they hedge with "on identical inputs" as if there were an edge case, but there isn't one).
+- The `antiPrev` claim also checks out: `e6a_flip` (P091) depends on `antiPrev`, but `e6a_block` (P092) does not reference `antiPrev` at all — so previous-bundle unreadability genuinely only affects the flip field, never the gate/kill decision.
+
+So the sentence is accurate (if anything slightly under-selling how robust the equivalence is).
+
+Q2 verdict: **Q2-YES, with one unverifiable item flagged.**
+
+The row-level claims check out against the pasted fence:
+- B1 (HJ): `biasAtGate=2, biasOpposedAtGate=1, flipNewThisBar=1` — flip=1 requires `antiPrev∈{0,1}` per the C5135 formula, matching "anti=2/{0,1}."
+- B3 (PN): `biasAtGate=1, flipNewThisBar=0` — at antiNow=1, flip is 0 regardless of antiPrev, so "anti=1/*" (prev unconstrained) is correct.
+- B3 exit (CL row): entry=159.948/exit=159.899 matches HS (EXECUTED 159.948) and KS (TP 159.899) exactly.
+- B4: MH fill=159.932 vs GM MTEXIT entry=159.929 — the 0.3-pip gap is real in the pasted rows, so calling it "sourced-differently" rather than a contradiction is the accurate framing.
+
+The one item I can't confirm from what's pasted: the S1 census claim that `GoAbort(ABORT_LTF_MISALIGN)` has exactly 2 call sites (P129 + "the invariant site"). Only P129's call site is actually shown in this document — the second one is explicitly described as "off-page past C7130" and flagged in your own text as "STAGE-1 disk work," i.e., not something this pasted material lets me verify. That's not a defect in the packet — you've already scoped it as disk-only — but I want to be precise that my "YES" here is a check of internal/textual consistency, not an independent verification of the actual file on disk (I have no way to hash or diff a file I can't see).
+## V285-USDJPY-GUARDS5 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)

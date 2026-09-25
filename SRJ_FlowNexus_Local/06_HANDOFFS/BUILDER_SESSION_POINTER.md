@@ -3,19 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V284 GRADED)
+## State (2026-09-25, V285 CLEAR)
 
-- V284 5 verdicts filed + tallied
-  NO-CLEAR (prose/ledger only).
-  Fold v5 + relay v285 battery-
-  green on disk. No build, run,
-  key. Ledger 784. Packet v5
-  72236198. Relay v285 32A8138B.
+- V285 3 verdicts filed + tallied
+  CLEAR 3-0, no halt. Key owed
+  next (Luna only). No build,
+  run. Ledger 785. Packet v5
+  72236198 (clear). Relay v285
+  32A8138B. Result 5634F30F.
 
 ## Next (artifact owed)
 
-- YOUR carry: v285 file, seats
-  your choice + paste-back.
+- YOUR key carry: paste-ready
+  Luna ask in chat + paste back
+  her whole reply (run word only).
 
 ## Resume order (exact)
 
