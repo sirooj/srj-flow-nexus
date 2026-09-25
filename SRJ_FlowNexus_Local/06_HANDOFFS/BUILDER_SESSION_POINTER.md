@@ -3,19 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V281 HALTED)
+## State (2026-09-25, V282 READY)
 
-- 4 verdicts filed, tally HALTED,
-  no clear. Fold v9 packet ready
-  (kill not defer, opp standing,
-  behind deleted). Ledger 775.
-- Relay v282 drafts next, then
-  your carry (you pick seats).
+- Relay v282 battery-green
+  (packet v9 3A1E640F). Purged
+  a confabulated reviewer cite.
+  Ledger 776. No build/run/key.
 
 ## Next (artifact owed)
 
-- Builder: relay v282 battery-green
-  + transport memo. Nothing of you.
+- YOUR carry: v282 file, seats
+  your choice + paste-back.
 
 ## Resume order (exact)
 
