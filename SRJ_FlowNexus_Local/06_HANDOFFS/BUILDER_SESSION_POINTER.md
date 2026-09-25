@@ -3,20 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V2 PACKET READY)
+## State (2026-09-25, RECURRENCE BANKED)
 
-- V274 halted (NO/NO/DISCREPANCY
-  vs YES + conditional). No build.
-- Packet v2 drafted + verified
-  (3D176605/26324/331, budget
-  +42/post 11548). Ledger 753.
-- All 5 verdicts filed whole.
+- Wrong-bar class, 3rd instance
+  (R0.68, rule-matched, 14:45).
+  BAR-TRIPLE rule banked. Ledger
+  755. Relay v275 still owed.
+- Packet v2 venue already right;
+  seats got the wrong bar.
 
 ## Next (artifact owed)
 
 - Relay v275 draft + battery,
-  then YOUR transport (low-tier
-  seats only, YOUR word).
+  then YOUR transport (low-tier).
 
 ## Resume order (exact)
 

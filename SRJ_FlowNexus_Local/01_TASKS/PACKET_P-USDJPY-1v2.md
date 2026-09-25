@@ -317,7 +317,7 @@ Canonical files: exactly ONE - Experts\SRJ_FlowNexus_EA.mq5 (E1b/E2b/E4b additiv
 
 - A1 (09:45 pass, 09:40 bar, SHORT, Daily-POC): S5 arrival with resolution (SIGNAL 09:45 entry next-open OR TP_RR_FAIL latch R<1; walk-away halts with cause).
 - A2 (16:10 pass, 16:05 bar, LONG, Daily-POC; 16:15 entry if taken): TPFALLBACK with line + distPts, then R resolution (take or refuse); NO_TP_TARGET halts with cause (means no in-direction line at all).
-- A3 (14:40 pass, 14:35 bar, LONG, Daily-POC; entry 14:40-open; 15:15 bar alternate venue with confirm=1 at 15:20:00): S5 arrival with R resolution (predicted refuse on the 3pt-vs-22pt face; 15:15 proves the same fix if 14:40 does not fire).
+- A3 (14:40 pass, 14:35 bar, LONG, Daily-POC; entry 14:40-open; 15:15 bar alternate venue with confirm=1 at 15:20:00): S5 arrival with R resolution (predicted refuse on the 3pt-vs-22pt face; 15:15 proves the same fix if 14:40 does not fire). The 14:45 bar is never judged (his confirm-once + next-open-only rules 2026-09-25; builder off-by-one owned): 14:35 passes body on rows (bodyDir=1, body=3pts), so the B_BODY debate on 14:45 is moot at the corrected venue.
 - A4 (6/3 intact): EXECUTED/DEAL fill 159.932 basis identical (MTEXIT entry 159.929 noted as next-open reference; TP 159.983).
 - A5 (EURUSD 8/26-9/10 superset join): 7 baseline takes bit-identical on bar/entry/exit + each new EU take journal-matched with row tag attributing E1b/E2b/E4b + each former NO_TP venue resolving take-or-refuse with its row; rejects diagnostic (refusal rows observable).
 - L-final: A1/A2/A3/A4/A5 above.
