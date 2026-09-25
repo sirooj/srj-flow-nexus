@@ -4193,3 +4193,48 @@ No keys issued, none demanded. Clearance covers the named build and scoped run a
 
 Standing opens unchanged: E-c watch (GLM-11) — POC supremacy now lives at entry-confirm while the management body-close break (C11334–C11350) stays fenced; any early exit on a POC-anchored position in either run is a NEW packet. GLM-10 unchanged. E3 stays parked; keys untouched; nothing here builds, runs, or spends.
 ## V275-USDJPY-CLEAR2 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V276-USDJPY-CLEAR3 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+## VERDICT Q1: DISCREPANCY
+
+The mechanism is sound and near-clearable; the page is not yet splice-clean by its own exact-diff standard. One amendment pass fixes it. Itemized below.
+
+**What I verified clean (so you know the check ran):**
+- Every OLD anchor's pasted text matches the pasted C-regions byte-for-byte: E1b (P032-P041 = C2216-C2225), sig (P057-P061 = C2349-C2353), mask (P069-P071 = C2367-C2368), session call (P077-P079 = C2400-C2401), rank (P084 = C2405), POI call (P089 = C2408), S2 poll (P093-P100 = C7306-C7313), S5 call (P120-P130 = C8916-C8926), E4b (P154-P164 = C8067-C8077), S4 comment (P195-P198 = C8795-C8798). No v275-style stale-block mismatch.
+- S3 arithmetic verified line-by-line: +2 +1 +2 +0 +1 +0 +9 +9 +16 +2 = **+42; 11506+42 = 11548** ✓; per-site new-block line counts (12, 6, 4, 2, 2, 1, 17, 20, 27, 6) all confirmed by hand count.
+- E1b semantics: `anchorIsPoc` (P045) is a pure function of `g_lineCode[anchorLine]`, invariant across the call; hoist safe; guard at C2197 ensures anchorLine ≥ 0 before indexing; non-POC behavior identical; the pocInv cessation note (P016) is accurate for the A2 term.
+- E2b semantics: `s39_eff` fail-open matches old EMPTY_VALUE path (C2335); `s39_mask` preserved for Task-144 (C2371-C2392 reads raw ✓); zone guard untouched (C2318) and inert pre-bind per C2316-C2317, consistent with the PREBIND precedent (C8655-C8680); TpTargetUpdateBest untouched; 1R gate C9840 untouched; brace balance verified in both new two-pass blocks.
+- E4b semantics: single state transition on every path (P177-P180 promote, then P191's `if(g_state == ST_S2_LTF_ALIGN)` guard correctly suppresses the second transition); aligned path byte-equivalent behavior to C8074-C8076; FAIL retains with identical S2WAIT print.
+- Venue coherence with RECON63 rows: E1b rescues the 15:15 A2_CLOSE_BREAK (rows KF/ME), E2b rescues the 16:05 mask-blocked five (rows GH/LE: PDH/NYH/PMH/YNYH/YPMH all swept-or-live per SWEPTMASK LE, decoded bits confirm), E4b makes the 09:40 S2 confirm promotable (row DL). A4 basis matches rows ND/OI. Windows cover all venues.
+
+**Why discrepancy, not yes — two page-level defects:**
+
+**D1. Whitespace drift on nine "unchanged" lines across four new blocks (P028/P090 vs pasted bytes).**
+The relay's own discipline is char-code exact (P003 NO-HAND-CODE, P028 exact-diff, S1 char-code asserts). The C-paste is asserted byte-diff-0 vs disk, so disk indentation is the C-paste's. The following NEW blocks carry +1 leading space on lines that are supposed to be unchanged:
+- E2b-sig body: P066 (`   {` vs C2351 `  {`), P067, P068 (4 spaces vs C2352-C2353's 3).
+- E2b-rank: P087 (4 spaces vs C2405's 3).
+- E2b-POI call: P091 (4 spaces vs C2408's 3) — **P090's "unchanged text" is therefore false as pasted.**
+- S4 comment lines 1-4: P200-P203 (10 spaces vs C8795-C8798's 9).
+
+E1b, E2b-mask, E2b-session, E2b-S2poll, E2b-S5call, and E4b all preserve indentation exactly — which isolates this as a hand-assembly slip in exactly four short blocks. Zero behavior, zero count impact (+42 holds either way), but the built file would silently differ from disk on 9 unchanged lines while the packet claims byte-exact splice. Fix: re-splice those four new blocks carrying disk whitespace on unchanged lines, or declare the drift explicitly in P028.
+
+**D2. P018's shadow-divergence sentence is inverted.**
+P018: "on POC-waived bars the shadow prints confirm=0 while the live gate passes." Impossible: ShadowConfirmPoll's terms (C2162-C2167: oppCandle, bodyDir, !isDoji, touch) are a strict subset of the live gate's terms (A + A2 + B + C, C2222-C2231). Live pass ⇒ shadow pass, always. The banked divergence ran the other way — row ME (shadow confirm=1) beside row KF (live FAIL A2_CLOSE_BREAK) at 15:15. Post-E1b on POC anchors that divergence *disappears* (both pass); on non-POC anchors it persists. The "acknowledged without edit" posture is fine; the stated direction is wrong and should be corrected before this sentence is graded into the record.
+
+## ANALYTIC ASK A — further defects/gaps/imprecisions
+
+1. **TPCENSUS line-identity hole for fallback (P018, P024, A2).** The census POI loop keeps the rank filter (C2454), so a second-pass best that is a *rank-excluded POI line* cannot be named — census skips it before the `cv == best` test. The two specified venues are safe (their fallback winners are session lines; the census session loop C2441-C2451 applies no mask), but A2's mechanism claim "line via adjacent second-pass TPCENSUS" overclaims generally.
+2. **A2 wording: "NO_TP_TARGET ... means no in-direction line at all" (P024, P215).** With the zone guard always on, a venue whose only in-dir lines sit inside the bound zone aborts NO_TP_TARGET while lines exist. "At all" should read "at all outside the bound zone / direction-valid."
+3. **E1b has no row tag, but A5 demands per-take attribution "with row tag attributing E1b/E2b/E4b" (P024, P218).** Only E2b (TPFALLBACK/TPCENSUS) and E4b (CONFIRM_PREBIND_S2) emit tags. E1b-attributed takes rest on inference (POC anchor + absent A2_CLOSE_BREAK + promotion). Workable; phrasing overstates.
+4. **Counter re-attribution (extends P016's note).** POC anchors failing A2 now fall through to B_BODY/C_TOUCH; on failure there, `g_n1_pocInv++` fires at those returns (P052/P054). pocInv doesn't merely stop — it re-attributes to later terms. One clause for the graded-diff continuity note.
+5. **S2-poll state-span narration gap.** The poll at C7303 covers S2..S5, so the two-pass rescues mid-arm walk-aways too (e.g., the historical 15:25 S4_ARMED abort, row FL, would post-E2b book a fallback TP and continue if any filterless line exists). The packet narrates E2b as an S2/S5 call-site change; the S4 walk-away consequence is unnarrated. A1/A3's "walk-away halts with cause" clauses remain testable, but the operator should know halts get rarer.
+6. **Minor:** new S5 block drops the `= 0.0` init (P133 vs C8917) — harmless (out-param, GoAbort on total failure), but it is an undeclared-in-prose text change beyond param threading; the E33 comment carriage (P142) is correct.
+
+## ANALYTIC ASK B — better mechanisms for the stated goals
+
+1. **Booking-time winner tag (kills defect A1 outright):** track winner identity where `best` is assigned — a `bestKind/bestName` local set in the session loop (C2400-C2401) and POI loop (C2408), threaded to the TPFALLBACK prints at P114-P117 / P147-P150. Total coverage (no rank/zone blind spots), no second re-walk, no reliance on census filters.
+2. **E1b observability:** one line inside the waived branch — `if(!closeSideOk && anchorIsPoc) { if(InpDebugLog) PrintFormat("[SRJ-EA] A2_WAIVED_POC bar=%s ...", ...); }` immediately before the fall-through at P054. Gives A5 its literal E1b row tag and makes POC-supremacy measurable in-run.
+3. **Divergence made measurable, not narrative:** add an `a2ok=%d` field to CONFIRMPOLL (one line, C2168-C2174) so the shadow/live delta is graded per row. Out of fence — record-only is acceptable; offer stands.
+4. **If walk-away rescue at S4 is not wanted:** gate the second pass by state (`g_state == ST_S2_LTF_ALIGN || g_state == ST_S5_GATE_CHECK`) at the poll site (C7303/C7307). A1/A3 as written appear to *want* rescue — leave as-is unless he rules.
+
+Nothing above builds, runs, or spends. The build remains gated on his acceptance of this verdict plus the S1/S3 mechanical gates; the amendment items D1-D2 are the only things standing between this packet and a plain yes on re-relay.
+## V276-USDJPY-CLEAR3 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

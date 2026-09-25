@@ -9259,3 +9259,54 @@ For the TP refinement specifically, the single-walker `applyFilters` design is s
 
 **Bottom line:** the intended v2 rule set is sufficiently specified to understand, but the packet as submitted is **not internally self-consistent enough for a clean clearance**. The required next state is an amended packet whose patch blocks and C-prefixed code agree exactly; then the stated one-build/two-run gate can be judged against that version.
 ## V275-USDJPY-CLEAR2 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V276-USDJPY-CLEAR3 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+**Verdict Q1: DISCREPANCY — not cleared for the requested build/runs.**
+
+The packet’s **rule/edit section and its purported “complete code” are internally inconsistent**. That is a page-level defect, so I cannot give a clean YES from this packet alone.
+
+### A. Defects / gaps / imprecision
+
+1. **E1b is specified in the patch, but the supplied C-code still has the old unconditional A2 veto.**
+   The new rule introduces `anchorIsPoc` and changes the guard to `if(!closeSideOk && !anchorIsPoc)` at P050/P055, while the C-prefixed code still has `if(!closeSideOk)` at C2224-C2225.
+
+2. **E2b’s new `applyFilters` signature is not present in the supplied C-code.**
+   P064-P066 says `ComputeNearestTpTarget(..., const bool applyFilters = true)`, but C2349-C2350 still shows the four-argument signature.
+
+3. **The E2b zone switch is specified, but the supplied C-code still applies the zone unconditionally.**
+   P072-P073 changes the guard to `applyZone && ...`; C2318 remains unconditional.
+
+4. **The E2b session/POI threading is specified, but the C-code still calls `TpTargetUpdateBest` without the filter argument.**
+   The patch specifies the threaded calls at P096 and P106 and the rank gate at P101; C2401, C2405, and C2408 still show the old unthreaded/unconditional forms.
+
+5. **The E2b two-pass S2 behavior is absent from the supplied C-code.**
+   P118-P133 specifies the second `ComputeNearestTpTarget(..., false)` pass plus `TPFALLBACK`; C7307-C7313 still has only the single pass and immediate `NO_TP_TARGET` abort.
+
+6. **The same E2b two-pass S5 behavior is absent from the supplied C-code.**
+   P149-P165 specifies the fallback pass; C8918-C8926 still has the old single-pass behavior.
+
+7. **The E4b S2 exception is specified in the patch, but the supplied C-code still immediately retains an unaligned S2 candidate.**
+   P248-P266 adds the confirmation test and S2→S5 promotion; C8072-C8077 still does `S2WAIT ... return` followed by S2→S3 only when aligned.
+
+8. **The E4b block is duplicated in the packet.**
+   Essentially the same “new” S2 block appears once at P240-P267 and again at P270-P296. That makes the intended mechanical edit ambiguous: one insertion or two?
+
+9. **The E2b S2 and S5 old/new blocks are also duplicated.**
+   The S2 old/new material is repeated around P107-P133 and P167-P193; the S5 material is repeated around P134-P166 and P194-P226.
+
+10. **“Complete code, verbatim, no elisions” is not compatible with what is actually supplied after it.**
+    The packet explicitly labels the C section as complete/no-elision code, yet the key E1b/E2b/E4b edits are not reflected there. That is the central transport/provenance discrepancy on the page.
+
+11. **The S1 claim that all existing callers become behaviorally identical under the default `true` is asserted, but the packet does not enumerate all callers.**
+    The packet relies on the S1 hit/count gate to establish this mechanically rather than proving it from the supplied page. That is acceptable as a tester gate, but it is not independently demonstrated in the text.
+
+12. **E-c remains only a standing watch, exactly as the packet says.**
+    The management excerpt states that only the booked TP touch acts normally and that a body-close E-c path can exit early, but that downstream branch is not included in the supplied C-region. Per the packet’s own scope, this is a watch item rather than a new blocker.
+
+### B. Better mechanism for the stated goal
+
+The cleaner mechanism is already implicit in the packet’s intended architecture: **one canonical post-edit source snapshot plus one exact-diff patch**, rather than a patch specification followed by a contradictory old-code snapshot.
+
+For the TP refinement specifically, the single-walker `applyFilters` design is structurally cleaner than duplicating a fallback helper: one `ComputeNearestTpTarget` implementation, with the filter switch threaded through `TpTargetUpdateBest`, S2, and S5. The relevant touchpoints are P064-P106 and P118-P165.
+
+**Bottom line:** the intended v2 rule set is sufficiently specified to understand, but the packet as submitted is **not internally self-consistent enough for a clean clearance**. The required next state is an amended packet whose patch blocks and C-prefixed code agree exactly; then the stated one-build/two-run gate can be judged against that version.
+## V276-USDJPY-CLEAR3 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

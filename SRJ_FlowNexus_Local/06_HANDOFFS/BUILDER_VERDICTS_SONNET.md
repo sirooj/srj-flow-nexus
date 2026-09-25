@@ -1749,3 +1749,30 @@ What I'm glad to actually do:
 Want to paste the actual E1–E7 code changes and talk through them normally? 
 
 ## V260-RESQUAT-CLEAR END SONNET (verbatim close; filed whole 1x this turn, novel inbound; second process refusal, no verdict - recorded, never chased)
+## V276-USDJPY-CLEAR3 OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound; Kimi seat replaced by Sonnet on his word - no credits)
+**Verdict Q1: DISCREPANCY — not a clean clear.**
+
+The logic changes (E1b, E2b, E4b) check out on their own terms, and the S3 line-count arithmetic in the packet is internally consistent. But the STAGE-1 exact-diff premise — that the "old" blocks in the edit set are a faithful machine-splice of the "Complete code" disk dump — fails at one site, which is exactly the class of problem that halted v275.
+
+**The discrepancy:**
+- P057–P061 (claimed old signature of `ComputeNearestTpTarget`) is 5 lines and includes an opening brace: `bool ComputeNearestTpTarget(...)` / `... &tpTargetOut)` / `  {` / `double best = 0.0;` / `bool haveBest = false;`
+- C2349–C2352 (the "Complete code" disk dump of the same site) shows only 4 lines with no brace line at all: `C2349` (sig line 1), `C2350` (sig line 2, closing paren), `C2351` (`double best = 0.0;`), `C2352` (`bool haveBest = false;`). The function opens directly into a statement with no `{` on its own line.
+- Every other multi-line function signature in the same dump (`ShadowConfirmPoll` at C2148–2149, `IsConfirmationCandle` at C2193–2195, `TpTargetUpdateBest` at C2301–C2303) *does* carry the brace as its own numbered line. This one site is the outlier.
+
+Two explanations, both bad for a clear verdict: either the disk file is actually missing a brace there (which wouldn't compile, so unlikely), or the "Complete code" dump was hand-touched somewhere in assembly and one line got dropped without the numbering being corrected — which directly contradicts "machine-spliced... never hand-typed" and "byte-diff 0 vs disk." Either way, the old-block splice used to build the E2b-sig diff doesn't verifiably match the disk truth as presented on the page. That's a S1 pre-hash-gate failure by the packet's own rules, not something I can wave through from chat.
+
+Secondary, lower-confidence note: the indentation on the `//--- [P-SLDEF-4 E33]` comment block differs between P127–129 (old, S5 call) and C8923–8925 — the C-dump lines read one space deeper. I can't reliably eyeball whitespace at this scale, so treat this as "worth a char-code assert," not a confirmed finding.
+
+**Everything else I checked came out clean:**
+- E1b: `anchorIsPoc` is computed once and reused at both the counter site and the `A2_CLOSE_BREAK` guard; non-POC path is provably byte-identical to old behavior (`!closeSideOk && !anchorIsPoc` reduces to `!closeSideOk` when `anchorIsPoc` is false).
+- E2b: the two-pass (`applyFilters=true` then explicit `false`) is wired consistently at both the S2 poll (C7307/new) and S5 call (C8918/new) sites; `s39_eff` correctly degrades to unfiltered via the existing `mask==EMPTY_VALUE` fast-path in `TpSessionLevelFiltered`; rank check is correctly gated; `TpTargetUpdateBest` and the zone guard are untouched as claimed.
+- One consequence worth flagging under a defect, not a discrepancy: `TPCENSUS` and `SWEPTMASK` are printed unconditionally inside `ComputeNearestTpTarget` (C2369–2393, C2419–2477), which aren't touched by this diff. On a fallback path this means *both* calls (filtered, then unfiltered) each emit their own `TPCENSUS`/`SWEPTMASK` line, so every TPFALLBACK event burns two `s_tpDumps` slots instead of one, and "line identity via adjacent second-pass TPCENSUS" is an ordering convention, not a labeled field — the reader has to trust adjacency, not a tag.
+- E4b: traced both branches by hand. Aligned path is unchanged (falls through to the same S3 promotion). Unaligned+confirmed path promotes directly to S5 without falling into the old S3-promotion tail (guarded by `if(g_state == ST_S2_LTF_ALIGN)` at the bottom, which is now false). Unaligned+unconfirmed path returns exactly as before. No double-transition, no dead code.
+- S3 line-count math: I recomputed each site's old/new line delta independently (+2, +8, +21, +15) and it sums to +42, matching the packet's own total and the 11506→11552 claim.
+- E-c watch: in the run rows given, the only executed position (rows LG/KS/ND/CR/OI) is anchored on Daily-VWAP, not Daily-POC — no POC-anchored position reaches an exit in this sample, so no observable conflict with POC-supremacy here. That's a narrow read of prior evidence, not a check on the v3 build's own output, since v3 hasn't run yet.
+
+**Analytic B (mechanism):**
+Given E4b now creates a third site (S2, alongside pre-bind and S4) that does "check confirmation → jump to S5, `g_confirmFromState = prev`," factoring that into one small helper (touching C8067-equivalent, C8655–8680, C8795–8816) would remove the copy-paste surface that produces exactly this kind of drift. Separately, adding an explicit pass tag to the `TPCENSUS`/`SWEPTMASK` prints (touching C2374 and C2466) would replace "adjacent line" convention with a labeled field, which is cheap and removes an entire class of future log-misreading.
+
+I haven't touched, built, or run anything — this is a page-only read, and the brace item needs a disk-side char-code check before STAGE-1 can honestly pass.
+## V276-USDJPY-CLEAR3 END SONNET (verbatim close; filed whole 1x this turn, novel inbound; Kimi seat replaced by Sonnet on his word - no credits)
