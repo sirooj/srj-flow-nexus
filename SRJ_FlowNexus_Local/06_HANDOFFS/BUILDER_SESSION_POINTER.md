@@ -3,14 +3,14 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RECON62 RUNNING)
+## State (2026-09-25, RECON62 RUNNING FULL)
 
-- RECON62-DAY2355-FULL RUNNING
-  (fidelity, full 8/26-9/10, same
-  built tree A82F15E7, no code
-  change). WMI 17892, ceiling 90.
-- RECON61 graded L-final PASS
-  (result 2954D44F). Ledger 744.
+- RECON62-DAY2355-FULL RUNNING,
+  full 8/26-9/10 (journal-proved),
+  same tree A82F15E7, no code.
+- Scoped duplicate VACATED (my
+  window defect, ledger 745).
+- RECON61 PASS (2954D44F).
 - Key: none spent (no build).
 
 ## Next (artifact owed)
