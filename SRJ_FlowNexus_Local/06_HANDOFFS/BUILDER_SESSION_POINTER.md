@@ -3,18 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RUN 2 LIVE)
+## State (2026-09-25, HIS RULING FILED)
 
-- Run 1 graded on disk: A1 take,
-  A2 refuse, A4 intact, A3 no-seed
-  (both trees), extras attributed.
-  Ledger 769. EU run PID 17960.
-- Last step: EU join + final grade.
+- Your retest ruling journaled
+  (finding 8EF27EF8). Both rules
+  are on record (S5.4, S3.3).
+  My grade missed them - owned.
+  EU run untouched. Ledger 770.
 
 ## Next (artifact owed)
 
-- Builder polls EU DONE, grades
-  A5 + L-final, files, commits.
+- Builder: EU DONE, row analysis
+  under your two rules, grades.
 
 ## Resume order (exact)
 
