@@ -3,19 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RELAY QUOTE-FIX)
+## State (2026-09-25, V284 READY)
 
-- v284 relay drafted + spliced
-  (twin/code/rows green) but 29
-  demand quotes condensed -
-  fix to filed-exact, re-verify
-  to zero, then battery + memo.
-  Ledger 780. Builder work only.
+- Relay v284 battery-green
+  (packet v11 F993D252, demands
+  true + complete). Owned and
+  corrected a confabulation.
+  Ledger 781. No build/run/key.
 
 ## Next (artifact owed)
 
-- Builder: demands rewrite +
-  full re-battery + transport memo.
+- YOUR carry: v284 file, seats
+  your choice + paste-back.
 
 ## Resume order (exact)
 
