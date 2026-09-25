@@ -1984,3 +1984,55 @@ None for the stated goal. The v11 mechanism set — sole pid resolver (E9), pid 
 — End of verdict.
 
 ## V269-RESQUAT-CLEAR10 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)
+## V271-DAY2355-CLEAR1 KIMI (verbatim open; novel inbound; NO open v271 ask to this seat - carried seats were Luna+GLM; filed whole per inbound rule, graded advisory)
+Kimi:
+# Verdict
+
+**Q1: YES — with two scoped caveats.**
+
+The insert fires at the Friday 23:55:00 evaluation and executes at the 23:55 open, as far as the page proves:
+
+- **Fires at 23:55:00.** The FRIDAY-2355-EVAL row shows the last evaluation before close had `bar=2026.09.04 23:50`, i.e. `barTime = 23:50` at sim `23:55:00` (closed-bar model: the 23:50 bar just closed, evaluation runs on the first tick of the 23:55 bar). Old test at C11429: `23:55 <= 23:50` false → matches the row's `vDAY=0`. New test: `23:55 <= 23:50 + PeriodSeconds()(300) = 23:55` true → fires. Condition met exactly, no tolerance needed.
+- **Executes at the 23:55 open.** `vDAY` routes to `g_mtrade.exitPrice = nextOpenPx` (C11455) and the gated executor `MtCloseBrokerPosition(..., g_mtrade.exitPrice, barTime)` (C11467–11471). Per the on-page comment (C11466), `nextOpenPx` is the next-bar open after `barTime`; at this evaluation the next bar IS the 23:55 bar and the evaluation tick IS its first tick, so the passed price is the 23:55 open. Exactness beyond that is graded by A2's byte join — not provable from chat, as the split requires.
+- **Monday fallback preserved.** The new condition `mark <= barTime + PeriodSeconds()` is a strict superset of the old `mark <= barTime`: every case the old line caught, the new line still catches. Monday firing (barTime = Friday 23:55 bar, Monday 00:00 eval) still passes. The fallback is not just preserved — it is logically implied.
+- **Other legs untouched.** The guard at C11425, the priority chain C11446/C11451–C11455, the executor C11467–C11471, and all prints are outside the edit region. Only the DAY_CLOSE mark test changes.
+
+**Caveat 1:** the mechanism only proves "exactly the 23:55 open" if the evaluation at 23:55:00 is the bar's first tick. The 16 rows prove a 23:55:00 evaluation exists; closed-bar MQL5 semantics make that evaluation the open tick of the new bar. Solid, but it is the one load-bearing assumption the page does not itself state — the A2 join carries it.
+
+**Caveat 2:** see defect D1 below — the change is unconditional, so "DAY_CLOSE timing only" is honored at the leg level but the timing shift applies to every mark, every day.
+
+# Analytic ask A — defects, gaps, imprecisions
+
+**D1 (main): the +PeriodSeconds() lookahead is not gated to the boundary case (new line replacing C11429).** The comment rationale (new lines 1–3 of the insert) is specifically the weekend/boundary case — "the mark bar (23:55) only closes after the boundary." But the code applies the one-bar-early firing to *every* `g_news_dayMarks[dc]` on *every* day. On a normal trading day, a 16:55-ET mark that the old code exited at the 17:00-bar open now exits at the 16:55-bar open — every DAY_CLOSE exit system-wide shifts one bar earlier, not just Friday. This is internally consistent with Rule P015's general phrasing ("when the day mark falls inside the NEXT bar at a closed-bar evaluation"), but it sits in tension with: (a) Scope's "REQUIRED … 9/7 exits identical prices" — which holds only if no in-window 9/7 position reaches a non-Friday mark; and (b) the scoped-run claim "takes identical bars/entries," which survives only because entries are graded, not exits. The packet half-acknowledges this ("takes intact with earlier closes") but never states plainly that regular-day DAY_CLOSE exits move from the post-mark bar open to the mark-bar open. If the operator's intent was "fix the Friday 23:55→Monday defect only," this build over-delivers; if intent was "all marks fire at the mark-bar open," the comment undersells it. Either way: imprecise.
+
+**D2: "one bar early" is timeframe-relative, not "one 5-minute bar."** `PeriodSeconds()` (new C11429 line) is one bar of the *current chart*. The page's evidence (EXITCENSUS rows at 23:45/23:50 steps) is 5-minute bars, so one bar = 5 minutes and the rationale holds. On any other TF the same code fires a whole TF-bar before the mark (e.g., on a 1H chart the 16:55 mark inside [16:00,17:00) would be caught at the 16:00 evaluation → exit at the 16:00 open, ~55 min early). No TF guard or assert exists. In-scope only because the graded run is the 5-min setup; as written the mechanism silently changes meaning with the chart period.
+
+**D3: fill-guard unchanged is correct but unstated as a designed property (C11429 left clause).** `g_mtrade.fillBarTime <= g_news_dayMarks[dc]` still requires the fill at/before the mark. With the early firing this now means a trade filled *during the 23:50–23:55 window* (after the mark-minute begins… precisely: filled in the bar immediately preceding the mark bar) still qualifies and would exit at the mark-bar open — one bar sooner than before relative to its fill. Harmless for the graded segment, worth one line in the packet so the builder doesn't "fix" it later.
+
+**D4: no assert that the evaluation is the first tick of the mark bar.** The entire "exactly the 23:55 open, no tolerance" claim reduces to: evaluation runs at the 23:55:00 tick. The 16 rows show 23:55:00 evaluations; nothing on the page asserts the handler is `OnTick`-first-tick-of-bar driven rather than, say, a timer that could land mid-bar (at which point `nextOpenPx` of the *forming* bar is still the bar open in MQL5 — iOpen of the current bar — but the broker fill at mid-bar bid is not). The A2 join is the correct place to grade it; the page just never names this as the load-bearing assumption. Naming it would make A1's "halt with cause" sharper (cause = no-Friday-ticks vs mid-bar execution are different failure classes).
+
+**D5: EXITVERDICT print at C11433–11444 prints `vDAY` *after* the mark loop, so post-patch the Friday 23:55:00 row will show `bar=…23:50 … vDAY=1` — verdict bar label (23:50) while the MTCLOSE row (C11457–C11463) prints `bar=2026.09.04 23:50` with fill-time 23:55:00.** This is the known Opus print-label point, folded by design (P-scope: prints unchanged). But it now produces a cosmetic oddity the packet should state once: the graded join keys are fill-time + ref, not the printed bar — obvious to the drafter, not to the next reader of the log.
+
+**D6: minor — the three-line comment block says "qualify one bar early" but the code qualifies when the mark is in the next bar *including* its right edge (`<=`); a mark at exactly `barTime + PeriodSeconds()` is the open instant of the next bar, so "inside the next bar" and "at the next bar's open" are treated identically. Harmless on 5-min marks (marks are bar-aligned), but on a mark that lands mid-bar the semantics edge toward "at or before the next bar's open," not strictly "inside." Cosmetic.
+
+No other defects seen: priority order, executor gating, MTCOLLISION path, buffers/inputs untouched claims all check out against the pasted lines; the Monday-fallback acceptance logic (A1 halts with cause) is sound.
+
+# Analytic ask B — better mechanism
+
+For the stated goal ("exact 23:55-open fill on the boundary case, nothing else moves"), the cleaner mechanism is to **gate the lookahead to marks whose bar close crosses the trading-day/session boundary**, leaving all other marks on the old test:
+
+```
+// replaces the new C11429 line; ~2 lines, still STAGE-1 exact-diff friendly
+datetime markClose = g_news_dayMarks[dc] + PeriodSeconds();
+bool markCrossesBoundary = /* markClose >= next session open (Fri→Mon gap)
+                             or day-end; e.g. vs. g_news_friMarks census or
+                             SymbolInfoSessionTrade day close            */;
+if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] &&
+   g_news_dayMarks[dc] <= barTime + (markCrossesBoundary ? PeriodSeconds() : 0))
+  { vDAY = true; break; }
+```
+
+Touched lines: only the new insert line (old C11429). Everything else — guard, loop, executor, prints — untouched. This buys: regular-day exits stay byte-identical to RECON60 (A3's "identical prices" claim becomes unconditional rather than conditional); D1 and D2's TF-relative hazard shrink to the boundary case only (and could be pinned to 300 explicitly for the boundary test if the mark set is known 5-min-aligned); and the comment rationale finally matches the code's reach. The cost: the boundary source isn't on the page, so the council would owe one more relay word on where the day/session boundary comes from — which is why the unconditional form in this packet is a defensible floor, just not the tightest one.
+
+If the operator's actual intent was "all DAY_CLOSE exits happen at the mark-bar open" (not just Friday), then the unconditional insert is correct as pasted and only the comment and the A3 wording need sharpening — that intent question is the one thing the page leaves genuinely open.
+## V271-DAY2355-CLEAR1 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)

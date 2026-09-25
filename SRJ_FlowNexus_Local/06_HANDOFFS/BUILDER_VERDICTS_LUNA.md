@@ -9010,3 +9010,68 @@ Populate `flat` from the same final `MtPidToTicket(entryPid) == 0` predicate tha
 [1]: https://www.mql5.com/en/docs/constants/tradingconstants/positionproperties?utm_source=chatgpt.com "Position Properties - Trade Constants - Constants, Enumerations and Structures - MQL5 Reference"
 
 ## V270-RESQUAT-CLEAR11 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V271-DAY2355-CLEAR1 LUNA (verbatim open; novel inbound, counts 0)
+Luna:
+**Q1: DISCREPANCY —** the E1 condition at **C11429 / P039** should set `vDAY` on the first evaluation of the new 23:55 bar, assuming `barTime` is the just-closed 23:50 bar and `PeriodSeconds()` is 300 seconds; the original `mark <= barTime` path remains for Monday fallback. However, the pasted E1 block does **not by itself prove “execute exactly the 23:55 open”**: that depends on the unseen construction of `nextOpenPx` and the actual behavior of `MtCloseBrokerPosition()` at **C11453-C11469**. The supplied `FRIDAY-2355-EVAL` row showing `vDAY=0` is **RECON60 baseline evidence, not v2 behavior**, so it neither refutes nor proves the insert.
+
+### Analytic A — defects, gaps, and imprecisions
+
+1. **Exact-fill claim is stronger than the shown code proves.**
+   **P013-P015, P049; C11455-C11469.**
+   E1 only changes election timing. The actual executor still does:
+   `exitPrice = nextOpenPx` at **C11455**, then passes that value to `MtCloseBrokerPosition()` at **C11469**. Neither the calculation of `nextOpenPx` nor the close-function implementation is present. Therefore the page establishes the intended reference price, not guaranteed equality of the broker/tester deal price to that reference.
+
+2. **The “23:55-open” assertion is direction-specific as written.**
+   **P015, P020, P049, C11455.**
+   The text explicitly relies on “the first tick of the 23:55 bar, whose **bid** IS the bar open.” That directly describes a sell-at-bid close. A DAY_CLOSE applied to a short position would be a buy-side close, and the page contains no side-specific ask/open treatment. So the universal requirement “every DAY_CLOSE deal fill == iOpen” is not established for both trade directions by the shown mechanism.
+
+3. **`PeriodSeconds()` is not explicitly locked to M5.**
+   **P036-P039 / C11429.**
+   The comment describes a fixed 5-minute relationship, but the predicate uses `PeriodSeconds()` without an explicit period. If the EA/chart period is ever not M5, the lookahead is no longer exactly one 5-minute bar. If the caller invariant is permanently M5, this is harmless operationally, but the code itself does not enforce that invariant.
+
+4. **The new predicate is broader than “the 23:55 mark only.”**
+   **P036-P039.**
+   The comment says “the mark bar (23:55) only,” but the actual predicate is:
+   `mark <= barTime + PeriodSeconds()`.
+   That gives **every** `g_news_dayMarks[dc]` a one-period early firing opportunity, not specifically a 23:55 mark. With the presumed one-mark-per-day construction this may be exactly what is wanted, but the code does not encode the narrower textual claim.
+
+5. **“Inside the next bar” is temporally imprecise.**
+   **P015, P037-P038.**
+   At the Friday 23:55 evaluation, a 23:50 M5 candle has just closed and the 23:55 candle has just opened. The 23:55 mark is therefore at the **start/boundary of the next bar**, not “inside” it. The predicate itself is consistent with the intended boundary case; the prose is what is imprecise.
+
+6. **The Friday execution still depends on an actual evaluation tick at/very near 23:55:00.**
+   **P010, P015, P048, P055.**
+   The lookahead makes the signal eligible one bar early, but it cannot manufacture a market tick. The page therefore correctly treats Friday 23:55 tick existence as something to verify in the scoped run. The 16 baseline rows in **P055/raw rows** demonstrate historical feasibility, but they are not evidence that v2 itself executed there.
+
+7. **The Monday-fallback preservation is structural, but the “halt with cause” behavior is not in E1.**
+   **P015, P048-P050.**
+   The old branch remains because the original `mark <= barTime` is still present in **C11429** as the first half of the widened predicate. So the fallback logic is preserved. But “Monday DAY_CLOSE fill halts with cause unless no-Friday-ticks proved” is an **acceptance/test-harness rule**, not something implemented by E1 in the pasted code.
+
+8. **The page mixes trigger-time semantics with print-bar semantics without fully pinning both.**
+   **P020, P040, P049; C11450, C11457-C11469.**
+   `barTime` is the evaluation/bar identity, while the requested execution moment is the 23:55 current tick. The packet says this distinction is intentional, but the actual executor call at **C11469** receives `barTime`, not an explicit execution timestamp/current-bar-open timestamp. That is acceptable only if the logging and executor semantics are already established elsewhere.
+
+9. **“No other election delta” cannot be established from the inserted four lines alone.**
+   **P016, P050; C11446-C11455.**
+   E1 visibly leaves `vSL/vTP/vBREAK/vHTF` untouched and retains their priority, which supports the claim structurally. But proving zero downstream behavioral delta still requires the stated scoped run because setting `vDAY` earlier changes the election surface whenever the other four are false.
+
+### Analytic B — better mechanism for the stated goal
+
+A tighter predicate would preserve the old fallback **and only add the exact next-bar boundary case**, rather than widening the entire day-mark interval:
+
+```cpp
+if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] &&
+   (g_news_dayMarks[dc] <= barTime ||
+    g_news_dayMarks[dc] == barTime + PeriodSeconds()))
+{
+   vDAY = true;
+   break;
+}
+```
+
+That would touch only **C11429** (or the corresponding proposed **P039** line), with **P036-P038** rewritten to say explicitly that the added case is **exactly the next bar's opening boundary**. It removes the unnecessary possibility of an arbitrary mark occurring somewhere within the following bar while retaining the existing Monday fallback.
+
+For the **exact-fill** objective, the stronger mechanism would be to make the execution reference explicitly side-aware and tie it to the actual current 23:55 opening quote, then have the tester grade that same reference against the resulting deal. That requires inspection/change of the `nextOpenPx` construction and **`MtCloseBrokerPosition()`**, not merely E1.
+
+The key page-level conclusion is therefore: **E1 fixes the one-bar-late DAY_CLOSE election path, but E1 alone does not prove the universal exact-deal-price claim.**
+## V271-DAY2355-CLEAR1 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

@@ -3,18 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V271 ASKED)
+## State (2026-09-25, V272 GREEN)
 
-- Relay v271 asked to Luna
-  + GLM identical (frontier
-  out on YOUR word). Awaiting
-  YOUR two pasted replies.
+- V271 verdicts filed (Luna
+  DISCREPANCY, GLM YES,
+  Kimi YES-advisory). Fold v3
+  + relay v272 battery-green.
+  Seats Luna + GLM. No build.
 
 ## Next (artifact owed)
 
-- YOUR paste-back: Luna reply
-  whole + GLM reply whole.
-  Then I file, grade, advance.
+- Transport turn next: ONE-ASK
+  memo (v272 file + paste +
+  paste-back). Separate turn.
 
 ## Resume order (exact)
 

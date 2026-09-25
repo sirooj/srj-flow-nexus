@@ -4040,3 +4040,45 @@ No better mechanism found for either goal. The bitset set + capture-before-abort
 Q1 CLEAR, Q2 CLEAR, each with text-only deltas named above — no logic change, no line-count change, no gate weakening. Nothing builds, runs, or commits on this relay; the run it prepares remains gated on clearance relay + Luna key + his run word, and live activation is untouched by anything here.
 
 ## V270-RESQUAT-CLEAR11 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V271-DAY2355-CLEAR1 GLM (verbatim open; novel inbound, counts 0)
+GLM:
+**VERDICT Q1: YES — on the page, with one named contingency (A-2 below). No discrepancy found in the pasted code or packet logic.**
+
+**Trigger arithmetic (all evidenced on-page):**
+- At sim 2026.09.04 23:55:00 the EA's evaluation bar is the just-closed 23:50 bar — proven by the FRIDAY-2355-EVAL pull: EXITVERDICT and all 12 EXITCENSUS rows print `bar=2026.09.04 23:50` at 23:55:00 (16/16 rows counted, matches the claimed hit count).
+- C11425 gate passes at that evaluation with the same values RECON60 printed (vSL=0, vTP=0, vBREAK=none, vHTF=0).
+- Old line C11429: mark 23:55 ≤ 23:50 → false, no fire. Inserted line (P039): mark 23:55 ≤ 23:50 + 300s = 23:55 → **true** (fillBarTime 9/4 16:00 ≤ 23:55 per P055 take list). vDAY fires at the first tick of the 23:55 bar. One bar earlier check: at the 23:50:00 evaluation (barTime=23:45), 23:55 ≤ 23:50 is false — the lookahead extends exactly one bar, no further.
+- Execution: C11449–C11455 unchanged → exitReason=MT_EXIT_DAY_CLOSE, exitPrice=nextOpenPx; C11467–C11471 executor unchanged → market close on the same tick. Tester bar-open = first-tick bid; the evaluation tick IS the first tick of the 23:55 bar, so fill = 23:55 open exactly. A1: fill-date 9/4 == verdict-date 9/4. A2: ref == iOpen(9/4 23:55) join holds.
+- **Monday fallback preserved:** the old line C11429 is retained (E1 is a pure insert, old 0). If no Friday 23:55:00 evaluation exists, Monday's first tick closes the 23:55 bar → evaluation barTime=23:55 → C11429 fires (23:55 ≤ 23:55) → Monday fill → A1 halts with cause. Never silent.
+- **Other legs untouched:** zero edits outside the loop body. C11425 gate, C11433–C11444 print, C11446 priority return, C11451–C11454 SL/TP/BREAK/HTF assignments, C11457–C11463 print, C11464–C11472 executor — all out of the edit set. At the firing evaluation the row evidence shows DAY_CLOSE wins priority outright.
+
+**Contingency:** "exactly the 23:55 open" ultimately rests on nextOpenPx's definition at EA 11290/11292 — referenced (C11466) but outside the reviewed window. It is corroborated by the defect rows (barTime=23:55 → exit=1.16093 = Monday 00:00 open, deal #7 filled same) and empirically gated by A2, whose `deal fill == ref` clause also catches any non-first-tick fill. On the page: yes; on disk: A2 decides.
+
+---
+
+**Analytic ask A — defects, gaps, imprecisions:**
+
+1. **Window labels conflict and one is false (P003, P009, P055, Q line).** 2026-09-08 is a **Tuesday**; 2026-09-07 is the Monday. "Monday 9/8 00:00" is a false label; P009's "Friday 9/4 to Monday 9/7" reads as DateTo=9/7 00:00, which would exclude both 9/7 takes and the Monday-absence proof — contradicting P055. Operative window must be stated: DateFrom 2026.09.04 00:00, DateTo **2026.09.08 00:00** (through Monday). Fix the label before the run word.
+2. **nextOpenPx out-of-window (C11453–C11455; C11466 cites EA 11290/11292).** The exact-open guarantee rests on an unpasted definition. Corroborated + A2-gated as above, but the packet should say plainly that Q1's price clause is contingent, not self-proven.
+3. **S1 assert scope mismatch (P044 vs P035).** P044 lists char-code asserts for "every OLD anchor"; P035 asserts the NEW 4 lines also carry S1 char-code asserts. Align: the gate must cover both the old anchors and the exact bytes of the insert.
+4. **"zero Monday fills" (P055) is ambiguous.** Read literally it also forbids a legitimate verdict-date-9/7 Monday-23:55 DAY_CLOSE and the 9/7 takes' own Monday exit fills. Restate as A1's criterion: zero fills dated Monday for the Friday mark; fill-date == verdict-date everywhere.
+5. **"9/7 exits identical prices" (P055) is unsubstantiated on the page.** No 9/7 take exit rows are pasted. If either 9/7 take survives to Monday 23:55, the fix creates an in-span exit absent from RECON60's same span (old-code exit lands 9/8 00:00:xx, outside the window) — which A3's "no other election delta" (P050) would fail although it is the intended general behavior. Either cite the RECON60 rows showing the 9/7 takes exit via untouched legs before 23:55, or pre-declare a verdict-date-9/7 DAY_CLOSE as in-scope-pass under A1/A2 rather than an A3 failure.
+6. **A3 "BREAK-leg rows 0-delta" (P050) self-conflicts with P055.** A fresh 9/4-start window means balance-derived lots/tickets differ on ALL legs by construction ("balance path differs by construction; lots recorded-not-graded"). Literal row 0-delta is then impossible. Scope A3's 0-delta to bars/prices/elections; exclude lots/tickets/balance-derived fields explicitly, as already done for takes.
+7. **Print-label consequence (folded, restated for the battery).** New-run MTEXIT/MTCLOSE will print `bar=2026.09.04 23:50` (C11457–C11458 print the evaluated barTime) while ref carries the 23:55 open. P040 acknowledges this. Battery greps must key on print-time 23:55:00 + ref + fill-time, never the bar= field.
+8. **A1's "no-Friday-ticks" cause (P048) needs a falsifiable probe.** Require the new run to reproduce the Friday 23:55:00 evaluation rows (≥1 row at sim 2026.09.04 23:55:00 with bar=23:50, the 16-row RECON60 pattern) before any no-Friday-ticks halt-cause is accepted. Otherwise the fallback audit is unfalsifiable.
+9. **PeriodSeconds() is PERIOD_CURRENT (inserted line P039).** Lookahead width is chart-period-dependent. The run is M5 (23:45/23:50/23:55 stamps evidence this) — fine here; any future non-M5 run changes the "one bar early" window silently. Note it in the packet for reuse.
+10. **Out-of-window edge, note only:** a fill executed exactly at 23:55:00 could take a same-tick DAY_CLOSE under the new line if the exit evaluation runs after the fill within that tick. No in-window take fills at 23:55:00; no action for this run.
+11. **P021 stated-unmeasurable is correct and binding:** swap-avoidance is proven by timing proxy (A1) only; the battery must not grade swap rows in-window.
+
+**Analytic ask B — better mechanism for the stated goal:**
+
+- **Equality variant, same inserted line:** `g_news_dayMarks[dc] == barTime + PeriodSeconds()` fires exactly when the forming bar IS the mark bar — semantically tighter to "fill exactly the 23:55 opening price," immune to misaligned marks strictly inside (barTime, barTime+P). Behaviorally identical for bar-aligned 23:55 marks. Trade-off: the pasted inequality additionally fires on a later tick *within* the mark bar if the first-tick evaluation were skipped (ref = open, fill = later tick → A2 fails honestly); the equality form falls back to the next-day line (A1 halts with cause). Both halt honestly; first-tick evaluation is tester-proven. Recommendation: keep the pasted inequality — A2 already enforces exactness and the inequality maximizes fill-timing success.
+- **Price-pin variant** (exitPrice = iOpen(mark) explicitly) would touch C11455 and break the additive-only constraint (P040: no EA lines beyond E1) while discarding the ref/fill same-tick property that makes `deal == ref` hold. Dominated.
+- **New-bar-open handler** (tick-time check against the mark) adds a new evaluation path — contradicts the minimal-diff discipline. Dominated.
+
+Conclusion: the pasted E1 is the best minimal mechanism for the stated goal; no change recommended for this run.
+
+---
+
+Standing reminders honored: this verdict rules on the page only — it builds nothing, runs nothing, spends nothing. Disk truth (digests, hashes, build, run) is proven on his machine. Keys come only from the key seat. Live activation remains outside anything here.
+## V271-DAY2355-CLEAR1 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
