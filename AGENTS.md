@@ -85,6 +85,11 @@ language: dates, times, sessions (London/NY), directions, line names (tier +
 POC/VWAP). NEVER bare journal row numbers (one cite in parentheses for record
 only). Short sentences. Gloss every EA journal code
 (e.g. TP_RR_FAIL = "not worth 1R"). TP_RR_FAIL never unglossed.
+HIS WORDS ONLY (operator correction 2026-09-25, standing): builder-invented
+mechanism words (seeded, dead, armed, stages, aborts, holds, latches, counts
+as nouns, unglossed journal codes) are NEVER used with him. HIS vocabulary:
+retest, confirmation candle, entry, line (tier + POC/VWAP), target, session,
+floating (trade still open).
 
 Lesson 2026-09-13 (operator correction, standing): the operator cannot
 see the builder's file tree and does not know file names. Every memo
@@ -148,8 +153,9 @@ omitting it): when he asks what to say to get a key reply, the memo ships the
 exact paste-ready key ask as a numbered point (relay file fresh from disk first,
 then the ask naming packet + digest + one-build/one-run scope + the quote-the-grant
 rule), plus the grading checklist the builder will apply (name + digest + grant +
-verbatim quote + no new conditions) and what to paste back (whole reply + run
-word + token). A key-request memo without the asked prompt is a defective memo.
+verbatim quote + no new conditions) and what to paste back (whole reply +
+run word only - token WITHDRAWN 2026-09-25 as builder-invented, never his word,
+absent from the passing 5/5 key). A key-request memo without the asked prompt is a defective memo.
 CANDIDATE-SET CHECK (operator correction 2026-09-16 — the phantom-S1 waste): no
 birth/selection authorship relay moves until the site is checked against his filed
 trades; EA-derived sites ride labeled HYPOTHESIZED, never as his candidates.
@@ -384,10 +390,12 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
     (file length plus tail read immediately before the edit); the after-grep
     must show tail order unbroken. A mid-file landing is documented, never
     reshuffled, and the recurrence is owned here.
- 34. PS-CAPTURE RULE (2026-09-23 - four vacuous greens inside one build:
-     String.Split on a CRLF string splits chars; @f(x), f(y) nests calls
-     silently; single-letter function names collide with aliases; mixed
-     CRLF-plus-lone-LF files punish joins): every probe and helper proves
+  34. PS-CAPTURE RULE (2026-09-23 - four vacuous greens inside one build:
+      String.Split on a CRLF string splits chars; @f(x), f(y) nests calls
+      silently; single-letter function names collide with aliases; never reuse
+      a variable name differing only by case ($REL/$rel killed a splice write,
+      $PKT/$pkt killed a verify tail - three billed instances 2026-09-24); mixed
+      CRLF-plus-lone-LF files punish joins): every probe and helper proves
      itself by count-asserts beside its output (pre-counts, hit counts,
      post-counts), never by echoed prose; a green with no deriving count
      is unwritten.
@@ -481,6 +489,7 @@ same turn).
   pastes, run words, money/goals, strategy rules) — everything else is decided
   inside authority and reported plainly. A genuine block names the ONE input that
   unblocks plus everything already completed.
+- SKILL-WITH-EVERY-DEFECT (operator order 2026-09-25 — "ledger always, skills never, mistakes repeat": the URGENCY line above named skill updates and the builder still filed defects ledger-only until ordered, repeating confabulation 3x): every turn that files a defect (any ledger defect entry, any owned builder defect, any halt-class verdict finding) ALSO updates the owning skill THE SAME TURN (battery gate in srj-council, pin in srj-strategy, guard in srj-goal - whichever owns the violated rule), verified by read-back counts. If genuinely no skill owns the defect class, the ledger entry states which skill was checked and why nothing changed. A defect turn ending ledger-only is itself a repeat-cause defect. The operator never orders the skill update twice - the first defect carries it.
 - DRAFT-SPLIT (operator order 2026-09-20 — rushed drafts burn council rounds):
   draft turns end with files plus pasted verification numbers, never a transport
   ask. Transport turns carry only battery-green drafts. The two are never mixed.
@@ -503,6 +512,7 @@ same turn).
   test stopped / log-file-written / connection closed), LOCK-TOLERANT archive,
   60-min ceiling, dedicated `<RunName>_DONE.txt` at EVERY terminal state.
 - Wrapper NEVER kills a terminal. Builder closes OWN leftovers as documented hygiene.
+- RUN-BINARY-PROOF (2026-09-26 — his 7-trade EU report proved a tree no run had logged: segments prove windows/feeds/takes but never WHICH BYTES ran): every launch records EA digest + ex5 LastWriteTime into STATUS pre-flight; every grade re-verifies digest against the intended tree before any take attribution; a run whose binary is unproven is ungraded until proven, never attributed by lineage.
 - Wrapper can die (VS Code closed) before DONE — manual completion protocol:
   PRE_JOURNAL_LINES → segment archive → gates → tabulate. DONE marker read via
   file-read (shell-independent) is the poll fallback.
@@ -510,6 +520,14 @@ same turn).
 - Terminal.ini `[Tester]` DateFrom/DateTo (unix seconds) is the run's range source;
   ini FromDate/ToDate keys are IGNORED by this build. Window changes target
   terminal.ini `[Tester]` (guard BOM, one occurrence, backup, digest pair).
+- CLOSE-FIRST-THEN-EDIT (lesson 2026-09-25 — the RECON62 scoped duplicate: a
+  running terminal saves its in-memory `[Tester]` dates to disk on exit,
+  silently reverting a disk edit made before the close). Order is fixed:
+  close the terminal FIRST (graceful, verified gone), then edit, then
+  verify by independent read-back, then launch. The run's range is proven
+  by the journal "testing of ... from ... to ..." line after launch, never
+  by the edit script's own echo.
+- RUN-WINDOW GATE (lesson 2026-09-25 — the RECON65 wrong-window void: a separate run ini with human FromDate/ToDate launched clean and tested the STALE config June window, wasting a 50-minute run; second window-setup failure after RECON62, and the ignored-keys rule two lines above stood unread at launch). This section is read WHOLE before every launch - memory of the last working launch never substitutes. Triple-proof, every launch, no exceptions: (1) AFTER terminal-close, read the /config ini's `[Tester]` DateFrom/DateTo unix values and unix-compare against the intended window - a separate run ini NEVER carries the window (its date keys are decorative; only Expert/Symbol/Period/Inputs ride it); a window change edits config terminal.ini `[Tester]` per the order above. (2) AFTER launch, the run's range is proven by the journal "testing of ... from ... to ..." line before any further claim - a run whose opening journal shows the wrong range is closed and voided within minutes, never nursed to DONE. (3) On mismatch: void segment kept ungraded, relaunch under a NEW RunName (tainted names never reused). A launch missing any proof is defective BY FORMAT - blocked, never launched.
 - NEVER read the day log whole (25 MB). Tail 5 lines only.
 - LAUNCHER DETACH LAW (lesson 2026-09-12): the launch script must start the
   wrapper via Start-Process with stdout/stderr redirected to files. The old
@@ -640,6 +658,15 @@ here and load every turn)
 - LABEL-BOTH-WAYS on every cited span (v203 lesson): content-from-label AND
   label-from-content, first and last lines against disk at the cited numbers.
   A byte-match that never checks the label passes a mislabeled block.
+- BAR-TRIPLE on every row-cited event (his 2026-09-25 correction - THIRD
+  instance of the class: RECON53 R0.68 graded 16:45 instead of the 17:00 bar;
+  RECON60 rule-matched graded the 23:55 bar and missed the Monday fill;
+  v274 litigated the 14:45 bar instead of 14:35 + 14:40 open): every claim
+  names evaluated-bar + pass-time + entry-bar, all three read from the row
+  text, never inferred from each other. A row carries all three (bar=,
+  stamp, entry/fill fields); citing the pass-time bar as the proving bar,
+  or the print bar as the fill bar, is the defect. All three seats compounded
+  the 14:45 instance because the relay handed them the wrong bar.
 - SESSION-OUTRIGHT on every relay page AND every transport memo (missed twice):
   NEW vs CONTINUE stated outright, never hedged, never dropped from the memo.
 - SEATS-CURRENT (§2 live line): his latest word governs; never memory.
@@ -694,3 +721,4 @@ here and load every turn)
 - NAME-PROVENANCE (operator order 2026-09-24 — the B1/B2/B3 confabulations: packet/relay identifiers and census-names that exist in no filed verdict and no disk grep): every name in a packet/relay resolves to a filed verdict line (file + marker) or a disk grep hit counted same turn; a name from memory is unwritten. Check by substring-count against both sources before filing.
 - NUMBER-FROM-TAIL (operator order 2026-09-24 — ledger 698x2/699x2 + displaced tail, repaired as 702): the next ledger item number comes from a same-turn tail read, never memory; EOF-first anchoring on remembered text is insufficient without the number check.
 - BUDGET-FROM-LITERALS (operator order 2026-09-24 — v2 packet +106/11436 vs mechanical +105/11435): packet budgets count mechanically from the pasted new/old blocks under ONE stated convention (NET per site = new-site-total minus old-site-total), script-verified pre-filing; a budget no literal supports is unwritten. Transcribed council text is byte-compared against its filed source by script before the packet ships.
+- NOVELTY-TWO-WAYS (operator order 2026-09-24 — Grep returned false negatives plus beyond-EOF hits on verdict files this session): inbound novelty is proven by bash count-asserts PLUS a Read tail, never by a single search tool; a replay adopted on one unconfirmed check is a BUILDER DEFECT.
