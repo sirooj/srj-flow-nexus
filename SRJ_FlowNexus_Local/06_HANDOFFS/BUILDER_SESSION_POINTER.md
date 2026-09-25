@@ -3,18 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V5 BUILT)
+## State (2026-09-26, JUNE PASS)
 
-- Luna key 4/4 spent + v7 word.
-  EA built 89810547/642681/
-  11614, compile 0/0. Two runs
-  owed (June + Aug-Sep).
-  Ledger 786. Key + word SPENT.
+- RECON66 DONE=PASSED, graded
+  B1-B8 PASS. Segment 022E464E.
+  Run 2 owed (Aug-Sep window
+  change first). Ledger 787.
+  Result B9046972.
 
 ## Next (artifact owed)
 
-- Run 1 launch: USDJPY June
-  window (triple-proof first).
+- Run 2 launch: EURUSD Aug-Sep
+  (close-first, edit, verify).
 
 ## Resume order (exact)
 
