@@ -9504,3 +9504,66 @@ The stated E-c watch remains exactly that: a future conflict trigger. The suppli
 
 The principal substantive issue is the **E1b counter re-attribution claim vs. its actual `n1_poc` gating** at P017/P045-P057. The E4b pre-bind S5 dependency is a further page-level gap, and the A5 causal row-tag requirement is not sufficiently specified.
 ## V278-USDJPY-CLEAR5 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V279-USDJPY-CLEAR6 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+## Q1 — DISCREPANCY / DO NOT CLEAR
+
+The behavioral intent of E1b/E2b/E4b is mostly internally coherent, but the page has unresolved implementation/acceptance discrepancies that prevent a clean **“yes”** for exactly one build plus two runs.
+
+### Defects / gaps / imprecisions
+
+**1. The stated E1b counter behavior is not actually achieved by the proposed code.**
+P017 says the POC inverse counter “stops incrementing at the A2 terminal … and re-attributes to B_BODY/C_TOUCH returns on later failures.” But P045-P057 retain `n1_poc = false` unless `c1 == L` at P051. A POC waiver occurs specifically on `!closeSideOk && anchorIsPoc` at P056-P057, which means the equality test normally did **not** set `n1_poc`. Therefore, if that waived candidate later fails B_BODY or C_TOUCH, the later return cannot increment `g_n1_pocInv` because `n1_poc` is still false. The stated “re-attribution” is not true for the waiver cases it is supposed to cover.
+
+The same issue exists in the baseline form at C2216-C2225: the family flag is tied to equality, not to POC-anchor identity.
+
+**2. E4b creates a new S2→S5 reachable edge without showing that every S5 dependency is valid on the pre-bind path.**
+P176-P194 changes an unaligned S2 candidate directly to `ST_S5_GATE_CHECK`. But C2316-C2317 explicitly state that `g_zoneHi/g_zoneLo` remain `0.0` until the S3 transition sets them. That makes the TP zone guard inert pre-arm. The packet asserts that this is intentional, but it does not establish from the supplied page that every S5/R/divergence dependency is independent of S3-bound state. This is a **verification gap**, not proof that the path is wrong.
+
+The same concern applies to `g_confirmFromState = ST_S2_LTF_ALIGN` at P180-P182: no supplied downstream code demonstrates that S5 consumers distinguish or safely accept that source state.
+
+**3. The A5 “row tag attributing E1b/E2b/E4b” requirement is underspecified and not actually defined in the edit set.**
+P279 requires each new EU take to be journal-matched “with row tag attributing E1b/E2b/E4b,” but the pasted new blocks do not define a machine-readable attribution field or format. P104-P120 prints `TPFALLBACK`; P176-P188 prints `CONFIRM_PREBIND_S2`; P056-P057 prints `A2_WAIVED_POC`; none establishes a common causal tag such as `cause=E2b` or `cause=E4b`. An external grade row can be manually annotated, but the packet does not state that convention.
+
+That leaves the A5 acceptance criterion materially ambiguous.
+
+**4. The “complete code, verbatim, no elisions” wording is inaccurate as presented.**
+The C section is a collection of selected regions, e.g. C86 → C2148 → C2301 → C7302, with large omitted ranges. P030 says “zero elisions,” while the supplied C body plainly has elisions between regions. This need not block the build if the intended object is “all claimed regions,” but the packet should not call that entire section “complete code.”
+
+**5. The packet’s P-v5 new blocks are not reflected in the C-prefixed code, which is ambiguous unless explicitly treated as the pre-edit baseline.**
+For example:
+
+* P065-P094 proposes the new `applyFilters` parameter and gated filters, while C2349-C2408 still has the old four-argument function and unconditional filters.
+* P104-P120 proposes the two-pass S2 poll, while C7307-C7313 still shows the old single call.
+* P134-P154 proposes the two-pass S5 call, while C8918-C8926 still shows the old single call.
+* P168-P195 proposes S2 confirmation promotion, while C8067-C8077 is still the old LTF-alignment-only block.
+* P222-P266 proposes filtered census logic, while C2441-C2465 is still the old census logic.
+
+That is perfectly understandable **only if C is explicitly the pre-build source baseline and P is the intended patch**. The packet currently mixes “exact proposed edit” language with “complete code” language, so the status is ambiguous on the page.
+
+**6. The A3 “14:45 is never judged” rule is visually muddied by the raw evidence rows.**
+P025 and P277 correctly say the judged A3 venue is the **14:40 pass / 14:35 bar** and that 14:45 is never judged. Yet the raw evidence immediately supplied includes 14:45 `CONFIRMPOLL`, `CONFIRM_STRUCT_FAIL`, `RETESTBOOK`, and `TPCENSUS` rows from June 11. Those are evidently historical diagnostic evidence rather than acceptance judgments, but the packet does not label that distinction sharply enough. This is especially important because the venue correction is explicitly standing authority.
+
+**7. The census “names the fallback winner” claim has a known tie ambiguity.**
+C2395 openly records that booking uses first-arrived equality while the census can overwrite the name on an exact cross-pool tie, so booking can be `session` while the census names `POI`. P020/P222-P266 call the census “honest,” which is true at the value level, but not as unique line identity. The A2 venues are said to have no ties, so this is not necessarily an A2 blocker; it remains an A5 audit limitation.
+
+**8. `distPts` is rounded to an integer, so it is diagnostic rather than exact.**
+P117-P120 use `MathRound(.../_Point)` into an `int`. Since exact TP identity is instead established through the TP value join, this is not a behavioral defect, but the packet should not imply that `distPts` itself is sufficient to uniquely reconstruct the candidate.
+
+### What does *not* presently look like a defect
+
+The core E2b narrowing is internally consistent: `applyFilters=false` disables the swept/live mask and POI tier-rank filtering while the `TpTargetUpdateBest()` direction/in-zone test remains active, matching P018 and the stated “zone always on” fence. The first-pass behavior is also preserved by the default-true parameter. P065-P094 are coherent on that point.
+
+The stated E-c watch remains exactly that: a future conflict trigger. The supplied C11334-C11350 code suppresses recompute-touch exit when the booked TP was not touched; I would not manufacture a new E-c ruling from those lines. A genuine POC-anchored early-exit conflict would be a new packet as instructed.
+
+## Better mechanism
+
+**For the counter problem**, separate *family identity* from *equality*. At P045-P057 / C2216-C2225, make `n1_poc` represent “anchor is POC” independently of `c1 == L`, while `g_n1_pocEq` remains conditioned on equality. That makes the later B_BODY/C_TOUCH accounting actually cover waived POC cases without changing trading behavior.
+
+**For TP auditability**, a stronger mechanism would be for `ComputeNearestTpTarget()` to optionally return the winning candidate index/source alongside `tpTargetOut`, then have TPFALLBACK/TPCENSUS print that exact winner rather than reconstructing identity from `tp == best`. That would touch P065-P094 and P222-P266 / C2349-C2481 and would remove the acknowledged tie-name ambiguity.
+
+### Final verdict
+
+**Q1: DISCREPANCY — not cleared for exactly one build plus two runs.**
+
+The principal substantive issue is the **E1b counter re-attribution claim vs. its actual `n1_poc` gating** at P017/P045-P057. The E4b pre-bind S5 dependency is a further page-level gap, and the A5 causal row-tag requirement is not sufficiently specified.
+## V279-USDJPY-CLEAR6 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
