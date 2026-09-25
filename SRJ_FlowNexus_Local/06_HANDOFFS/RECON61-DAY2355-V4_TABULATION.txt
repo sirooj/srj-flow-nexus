@@ -1,0 +1,50 @@
+# RECON61-DAY2355-V4_TABULATION (2026-09-25; machine pulls, .Contains parity; zeros re-proved with second pattern)
+
+## Segments
+- SEG61 06_HANDOFFS\RECON61-DAY2355-V4_JOURNAL.log 5B8DD2A4/1896029/10747 (ARCHIVED_LINES=10747 == file lines 10747; wrapper-archived; STATUS terminal PASSED; DONE=PASSED 2026-09-25 08:11:43)
+- SEG60 06_HANDOFFS\RECON60-RESQUAT-V12_JOURNAL.log 4824FE61/6465733/34269 (baseline, full window 08-26 to 09-09)
+- Window: tester header both legs "from 2026.09.04 00:00 to 2026.09.08 00:00" (Fri 9/4 00:00 through Mon 9/7, DateTo Tue 9/8 exclusive; full Monday, no Tuesday)
+- Feed: 94355 ticks, 576 bars; test passed in 0:11:42; wall 12:03 (07:59:40 launch to 08:11:43 DONE)
+
+## A1 timing (fill-date == verdict-date)
+- MTCLOSE61-hits=1: Core 04 2026.09.04 23:55:00 [SRJ-EA] MTCLOSE bar=2026.09.04 23:50 leg=DAY_CLOSE ticket=2 magic=773002 action=1 retcode=10009 deal=3 closepid=2 closeentry=1 entryPid=2 flat=1 ref=1.16129
+- MTEXIT61-DAY_CLOSE: Core 04 2026.09.04 23:55:00 [SRJ-EA] MTEXIT bar=2026.09.04 23:50 reason=DAY_CLOSE line=- lineVal=- entry=1.16018 exit=1.16129
+- DEAL61-DAY_CLOSE: Core 04 2026.09.04 23:55:00 deal performed [#3 sell 0.58 EURUSD at 1.16129] (Friday, not Monday)
+- MTCLOSE60 defect (same-span): printed 2026.09.07 00:00:07, bar=2026.09.04 23:55, ref=1.16093, deal=7 (Monday fill for the Friday mark)
+- Overshoot trade-class rows dated >= 2026.09.08: pat1=0, pat2=0 (deal/MTEXIT/MTCLOSE/SIGNAL/PRE-SEND/EXECUTED/ENTRY_TICKET)
+- Informational 09.08 rows: 31 = 2 tester window headers + 29 end-diagnostics stamped sim 2026.09.07 23:59:58 (SEL60END/SEL61SEAT/SEL57/SEL60DISCEND/SEL61PROBE/O1BARS/A6MATCH/A6DECISION/A6CQD/GEOMMATCH/SIDE1P2/SIDE1P3, all MISSING/ABSENT/EMPTY verdicts - no Tuesday data, expected)
+- Last sim timestamp: 2026.09.07 23:59:58 (SIDE1P3_COUNT row; nothing later)
+
+## A2 price (ref == fill == 23:55 open, exact)
+- Four-way exact join at Friday 23:55:00: MTCLOSE ref=1.16129 + MTEXIT exit=1.16129 + MTLIFE closePx=1.16129 + deal fill 1.16129 + order 1.16129 + CTrade done at 1.16129 (market sell 0.58 close #2 1.16129/1.16136)
+- First-tick timing: all execution rows stamped 2026.09.04 23:55:00 (the 23:55 bar's first tick, whose bid IS the bar open)
+- Bar-label rule: prints carry evaluated bar 23:50 (MTCLOSE/MTEXIT/MTLIFE bars), fill-time joins Friday 23:55:00
+- MTLIFE61: openBar=2026.09.04 16:00 dir=LONG entry=1.16018 sl=1.15847 tp=1.16302 verdict=DAY_CLOSE closeBar=2026.09.04 23:50 closePx=1.16129
+- Contingency (packet F16, stated): price clause contingent on nextOpenPx identity (EA 11290/11292); gated on disk by the join above, never self-proven
+- Feed note: tester Friday-23:55 fill 1.16129 vs Monday-00:00 fill 1.16093 = 36pt tester weekend gap; his chart Monday-00:00 O 1.16093 == tester Monday fill (agreement); his-feed Friday-23:55 open unmeasured on disk (feed gap, never an EA defect)
+
+## A3 identical (segment vs RECON60 same-span)
+- SIGNAL 3/3 identical bars/lines/R/SL/TP: 9/4 16:00 LONG Yearly-POC NYAM R=1.66 SL 1.15847 TP 1.16302 + 9/7 09:20 LONG Weekly-POC LONDON R=1.76 SL 1.16098 TP 1.16200 + 9/7 16:45 LONG Weekly-POC NYAM R=2.34 SL 1.16238 TP 1.16315
+- Entries identical: 1.16019 / 1.16138 / 1.16264 both runs (PRE-SEND/EXECUTED fills match)
+- Lots re-derived second (window starts 9/4, balance path differs by construction): 0.57/2.5/3.9 (60) vs 0.58/2.51/3.93 (61); recorded, never graded
+- ENTRY_TICKET 3/3 both runs, pid==ppid nonzero; magic pattern identical (773002/773001/773002 both runs - not a delta)
+- 9/7 TP exits identical bars/reasons/entries/fills: MTEXIT 10:50 TP_TOUCH entry=1.16135 exit=1.16200 + 17:10 TP_TOUCH entry=1.16261 exit=1.16315; deal fills 1.16201/1.16315 both runs
+- 9/4-invalid refused 7/7 identical: 10:35 S4 FRESH_OPP_FVG triplet (ABORT/A6REFUSED/STAND-DOWN Daily-POC SHORT) + 10:40 S5 FRESH_VETO quadruplet (ORDER/ABORT/A6REFUSED/STAND-DOWN)
+- EVICTSUPPRESS 9/4 ARM 1/1 identical: bar=2026.09.04 09:40 poi=Daily-POC dir=LONG sess=LONDON untilDay=2026.09.04 action=ARM
+- CQD DIV 9/4: 82/82 identical
+- MTCOLLISION: 0 (60) / 0+0 two patterns (61)
+- POI_BODY_BREAK in-window: 0 (61); 8/28 break out of window, untouched leg
+- MTCLOSE_FAIL/SKIP-NO-SEND/NOTHING-TO-CLOSE: 0 (61)
+- MTEXIT61-hits=3 (DAY_CLOSE + 2x TP_TOUCH); DEAL61-hits=6 (#2/#3 9/4 pair, #4/#5 + #6/#7 9/7 pairs)
+
+## Adopted probes (ledger 741)
+- EXITVERDICT vDAY=1: exactly 1x, Friday 23:55:00, bar=23:50, entry=1.16018, curTp=1.16158, vSL=0 vTP=0 vBREAK=none vHTF=0 scope=1 (all other EXITVERDICTs vDAY=0)
+- Friday 23:55:00 eval rows: 25 (16-pattern reproduced: DIV + OBPROV + CQDRECHECK + 12x EXITCENSUS + EXITVERDICT, all bar=23:50 with bodyLo=1.16121 bodyHi=1.16129; plus 9 execution rows: MTEXIT/MTCLOSE/MTLIFE/deal/order/CTrade/market/ALERT-EXIT - the falsifiable probe reproduces WITH execution)
+- Window-overshoot clause: zero trade-class rows ge-9/8 (0/0 two patterns)
+- Bar-label rule: 23:50-print vs 23:55-fill (joins key on fill-time + ref, never the printed bar)
+- Last-log-timestamp: 2026.09.07 23:59:58, inside window
+
+## Balance
+- Final 10422.36 (STATUS GATE row); RECON60 full-window 10450.09 - different windows, EA-driven (Friday close 1.16129 vs Monday 1.16093 changes the 9/4 exit + downstream lots 0.58/2.51/3.93); no swap/commission rows; never graded, recorded only
+
+(End of file)

@@ -3,18 +3,22 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RECON61 RUN)
+## State (2026-09-25, RECON61 GRADED)
 
-- Built A82F15E7/11506, 0/0
-  both targets, RECON61 running
-  (scoped Fri-Mon, key spent).
-  Grade on YOUR completion word.
+- RECON61-DAY2355-V4 DONE=PASSED,
+  graded L-final PASS (A1/A2/A3).
+- Result 2954D44F/5657/53 + tab
+  3B279921/5298/50 + seg
+  5B8DD2A4/1896029/10747.
+- Key SPENT. Ledger 743. Friday
+  23:55 fill 1.16129 exact.
 
 ## Next (artifact owed)
 
-- YOUR completion word ("run
-  has completed"). Then gates
-  + tabulate + result file.
+- Exit-model follow-ons via council
+  route on YOUR scope word; full-
+  journal span on YOUR scope word.
+- No transport owed. No run open.
 
 ## Resume order (exact)
 
