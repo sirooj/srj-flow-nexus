@@ -3,14 +3,13 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V275 HALTED)
+## State (2026-09-25, SKILL UPGRADED)
 
-- 3 verdicts: NO + discrepancy
-  + DISCREPANCY. Filed whole.
-  Duplication in v2 owned.
-- v3 direction set (dedup,
-  narrowed E2b, relabels).
-  Ledger 757. No build.
+- Council skill section 9 banks
+  11 round gates. Ledger 758.
+- Every future draft runs under
+  them. v3 + v276 + batteries
+  owed next. No build.
 
 ## Next (artifact owed)
 
