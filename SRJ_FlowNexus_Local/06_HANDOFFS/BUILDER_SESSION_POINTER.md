@@ -3,20 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, 23:55 RULE)
+## State (2026-09-25, V271 GREEN)
 
-- HIS 23:55-open rule banked
-  (day-close fills Friday at
-  23:55 open, never Mon open;
-  purpose swap + spread).
-  Fold PACKET_P-DAY2355-1 v1
-  DRAFT opened. No build/run.
+- Packet v2 + relay v271
+  battery-green (twin 57,
+  code 49, rows whole).
+  Seats Luna + GLM. No build.
 
 ## Next (artifact owed)
 
-- Relay draft + battery next
-  (unattended); transport ask
-  only when battery green.
+- Transport turn next: ONE-ASK
+  memo (file + paste + key ask).
+  Separate turn, never mixed.
 
 ## Resume order (exact)
 
