@@ -3,23 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RULES BANKED)
+## State (2026-09-25, RELAY READY)
 
-- YOUR 5 USDJPY rules banked
-  verbatim (confirm-once, prior-
-  close-irrelevant, POC-supremacy,
-  nearest-only-target, retarget).
-- Language corrected: YOUR words
-  only with YOU. Ledger 750.
-- 8/4 Euro Y-POC hold recorded
-  as YOUR precedent (outside
-  tested spans, YOUR chart).
+- Relay v274 battery-green
+  (4C106CD5/33673/345) + packet
+  v1 (E7613DAE/14154/155).
+- Seats Opus+GLM+Astra, same
+  text. Ledger 752. No build,
+  no run, no key spent.
 
 ## Next (artifact owed)
 
-- YOUR objection data + YOUR
-  staleness call (age vs distance).
-  Then council route for all five.
+- YOUR carry: v274 file to 3
+  seats, paste back 3 verdicts.
+  Memo below names each step.
 
 ## Resume order (exact)
 
