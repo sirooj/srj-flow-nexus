@@ -3,19 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, REVERTED)
+## State (2026-09-26, CORRECTED)
 
-- Your REVERT done: tree back
-  CD95241F/637583/11552 exact,
-  compiled 0/0. Lessons banked
-  (4 gates). Ledger 790. Re-runs
-  need a new key from you.
+- Your 7-trade report proved the
+  target: D74FE972 (not v7).
+  Tree restored + compiled 0/0.
+  Proof RECON69 running (9/4-9/8
+  slice). Ledger 794. Range
+  proof owed on journal lines.
 
 ## Next (artifact owed)
 
-- YOUR word: new Luna key for
-  re-runs, or entry packet
-  route (council first).
+- YOUR signal when the proof
+  run completes (then grade:
+  your 3 takes + 9/7 NY).
 
 ## Resume order (exact)
 
