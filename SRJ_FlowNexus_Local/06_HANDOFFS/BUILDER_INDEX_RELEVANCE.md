@@ -1,4 +1,4 @@
-# BUILDER INDEX RELEVANCE (2026-09-26, June guard run graded PASS, EU run owed)
+# BUILDER INDEX RELEVANCE (2026-09-26, EU join graded, 2 rulings owed, next packet via council)
 
 Rule: read this file BEFORE any record search. It points to the live source per topic and names what is stale. Stale files are history only - never ground a packet, relay, grade, or question on them. The pointer still wins on any conflict.
 
@@ -6,7 +6,8 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 
 - Pointer: 06_HANDOFFS\BUILDER_SESSION_POINTER.md (only live memory).
 - Rules: AGENTS.md (skill-load, gates, invariants).
-- Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON66-V5-USDJPY.md (B9046972/3300/26: DONE=PASSED, B1-B8 PASS, S1 live, goal-joined; ledger 787).
+- Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON67-V5-EU.md (630A5873/3302/30: DONE=PASSED, his takes joined (3 hits + 1 displaced + 1 known miss), rejects silent, invalid dead, 2 hypothesized takes owed his ruling; ledger 788).
+- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON66-V5-USDJPY.md (B9046972/3300/26: DONE=PASSED, B1-B8 PASS, S1 live, goal-joined; ledger 787).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_V5-BUILD.md (D1B0CBB7/3017/33: Luna key 4/4 spent + v7 word, STAGE-1 all pass, 3 edits, compile 0/0, built tree 89810547/642681/11614, post-build S1 incl 2-emitter census; ledger 786).
 - Built tree: Experts\SRJ_FlowNexus_EA.mq5 89810547/642681/11614 (from packet v5 72236198, relay v285 CLEAR 3-0).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_V285-GRADE.md (5634F30F/2764/24: V285 3 verdicts tallied CLEAR 3-0, flags answered by procedure/record, key owed next; ledger 785).
