@@ -3,21 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, DEFECT D1)
+## State (2026-09-26, REVERTED)
 
-- Your chart rulings filed (8/27
-  + 9/1 entries wrong, proven
-  on disk). My question was D1
-  (record answered it). E6 did
-  not cause entries (kill-only).
-  Ledger 789. Revert-vs-fix is
-  YOUR call (proposal in chat).
+- Your REVERT done: tree back
+  CD95241F/637583/11552 exact,
+  compiled 0/0. Lessons banked
+  (4 gates). Ledger 790. Re-runs
+  need a new key from you.
 
 ## Next (artifact owed)
 
-- YOUR word: revert to pre-v5
-  tree, or fix entries via
-  council (needs new key).
+- YOUR word: new Luna key for
+  re-runs, or entry packet
+  route (council first).
 
 ## Resume order (exact)
 
