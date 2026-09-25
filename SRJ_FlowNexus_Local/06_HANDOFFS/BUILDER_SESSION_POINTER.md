@@ -3,18 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V283 NO-CLEAR)
+## State (2026-09-25, RELAY QUOTE-FIX)
 
-- 3 verdicts filed, tripwire bug
-  blocks all three (genuine).
-  P031-105 refuted (stale cites).
-  Fold v11 ready. Ledger 779.
-  No build, run, key.
+- v284 relay drafted + spliced
+  (twin/code/rows green) but 29
+  demand quotes condensed -
+  fix to filed-exact, re-verify
+  to zero, then battery + memo.
+  Ledger 780. Builder work only.
 
 ## Next (artifact owed)
 
-- Builder: relay v284 draft +
-  battery, then your carry.
+- Builder: demands rewrite +
+  full re-battery + transport memo.
 
 ## Resume order (exact)
 
