@@ -16701,3 +16701,109 @@ Two narrowly scoped improvements remain:
 D2 remains closed. No disk verification, key issuance, build, run, commit, live activation, or money movement is authorized by this response.
 
 ## V269-RESQUAT-CLEAR10 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V274-USDJPY-CLEAR1 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+I’m reviewing the pasted rules, edits, and evidence for internal consistency; disk assertions remain outside this verdict.
+**Verdict Q1: NO — PACKET_P-USDJPY-1 v1 does not clear as pasted for the proposed one build plus two runs.** The principal blockers are the E4 alignment contradiction, the incomplete E2 exact edit, and the mismatch between A3’s required timing and the supplied evidence. This is a page-only ruling; it neither challenges nor verifies the asserted disk digests and authorizes no build, run, key request, or money movement.
+
+Analytic ask A — defects, gaps, and imprecisions:
+
+1. **E4 explicitly bypasses the alignment requirement that its rule says it preserves.**
+   **Lines:** P019, P106–P128, P152; C8067–C8077.
+   P019 says “a still-unaligned seed stays” and the venue advances “only where aligned.” But P112–P120 evaluates confirmation inside `if(!aligned)` and promotes a passing, unaligned candidate directly to S5. This is a substantive change to admission, not merely extending an existing confirmation check to an earlier state.
+
+   P152 naming the aggressive alternative does not resolve the contradictory normative statement. The packet must choose a single policy. Keeping alignment required is consistent with P019; allowing confirmation to override alignment requires an explicit amendment to that rule and the refine-only scope. The supplied shadow-confirm row does not itself settle which policy should govern.
+
+2. **E2 is not an exact, complete buildable edit specification yet.**
+   **Lines:** P070–P092, P137–P138.
+   The new helper references `g_fallbackBufs`, but the packet provides neither its declaration nor the eighteen buffer IDs. P092 expressly leaves share-versus-copy unresolved. The original target walker at EA 2356–2481, including its existing list and the insertion anchor, is not pasted.
+
+   Consequently, the page cannot establish name resolution, array extent, exact target membership, or the complete byte change. S1 assertions can verify an agreed edit on disk; they cannot substitute for choosing and specifying that edit beforehand. The reported line budget also omits any new declaration and any changes needed to share the existing list.
+
+3. **“Never-empty” and “sole refusal” are stronger than the proposed implementation.**
+   **Lines:** P018, P057–P064, P071–P088.
+   The fallback returns `false` if all eighteen reads fail, contain empty/nonpositive values, or yield no strictly in-direction price. Its caller then aborts with `NO_TP_TARGET`, before the R gate. Thus “this function never [refuses]” and “the S5 1R gate … stays the SOLE refusal” are not literally implemented.
+
+   A finite set of observed lines cannot guarantee an in-direction target for every price. The packet should distinguish “filtered pool exhausted, usable directional line exists” from “no usable directional line exists.” The latter needs an explicit outcome; a fabricated target would not satisfy nearest-line booking.
+
+4. **The two-pass mechanism does not guarantee the globally nearest target.**
+   **Lines:** P009, P018, P055–P058, P077–P086, P152.
+   Fallback runs only when the filtered first pass finds nothing. If a nearer directional line is filtered out but a farther line survives, the farther line wins without fallback.
+
+   That implements *nearest eligible first; nearest unfiltered only when empty*. It does not implement unconditional distance-only selection over all available lines. P018 explicitly specifies the two-pass policy, so the code follows that narrower clause; the discrepancy is between that clause and the broader “NEAREST-ONLY-TP” wording. Resolve the intended priority before clearance.
+
+5. **Age independence is not demonstrated for the complete selection path.**
+   **Lines:** P018, P080–P081, P092, P152.
+   The fallback contains no explicit age test, but the first-pass implementation and buffer-production rules are absent. Ignoring age in this helper cannot recover a historical line that upstream buffers no longer expose.
+
+   My recommendation is to keep the stated no-age-disqualification default; no supplied evidence supports inventing an age cutoff. Specify that this operates over available, readable line values, and verify that first-pass eligibility does not silently impose a conflicting age rule.
+
+6. **E1 removes A2 for POC, but does not establish the complete verbal confirmation rule.**
+   **Lines:** P009, P017, P037–P042; C2198–C2231.
+   The narrow edit correctly exempts a recognized POC anchor from `A2_CLOSE_BREAK` while preserving A_OPP, B_BODY, and C_TOUCH. However, the shown predicate does not require the retest’s **open** to be on the setup side or the confirmation’s **close** to hold that side. Candle direction and range-touch alone do not imply either condition.
+
+   For example, a bullish confirmation can close below a long anchor and still pass B_BODY. If “retest-open side + next-close-hold judges” is the operative rule, those predicates must be shown at an unavoidable earlier gate or specified in the confirmation function. E1 alone proves only the A2 exemption, not that broader contract. “Prior close irrelevant” should also be understood as irrelevant to **anchor-side classification**, since A_OPP still uses the prior close as expressly retained.
+
+7. **The proposed upper-bound guard is too late to protect existing indexing.**
+   **Lines:** P040; C2197, C2207, C2217–C2220.
+   P040 protects its own `g_lineCode[anchorLine]` access, but the function previously rejects only negative indices. Before reaching P040, the equality-counter branch can already index `g_lineCode[anchorLine]`; the buffer read also receives that index.
+
+   This is an existing bounds gap, not one newly introduced by E1. For the standing bound-style question, prefer a single valid-range check at function entry, using the actual line-array bound. Its exact relationship to `POI_NLINES` needs to be established. Also, substring-based POC recognition is only as reliable as the omitted line-code mapping.
+
+8. **A3’s timestamp and predicted refusal are not supported by the pasted rows.**
+   **Lines:** P011, P024, P039, P144; C2198–C2199, C2228–C2229; raw rows QP, MO, MH, FH, KQ.
+   The raw `A2_CLOSE_BREAK` row is for **bar 14:45**, evaluated at **14:50**. In this function, that uses the previous bar at **14:40**, not 14:30. The three-point target census likewise belongs to bar 14:45. P144 instead requires S5 arrival at 14:40, and P039 cites a 14:30 prior close.
+
+   Furthermore, the supplied shadow-confirm row at bar 14:45 reports `bodyDir=0`. If that diagnostic matches the shown predicate, removing A2 would expose B_BODY failure on that same bar, not produce S5 arrival. The 22-point stop underlying the predicted refusal is not shown either.
+
+   This does not establish that an earlier valid confirmation was absent. It establishes that the pasted rows do not demonstrate the claimed A3 fix. A3 needs separate retest-bar, confirmation-bar, and evaluation/entry timestamps with evidence for the intended event.
+
+9. **A2 has a similar, smaller timing gap.**
+   **Lines:** P011, P024, P143; raw rows GH, QO.
+   The observed exhaustion is at evaluation time 16:10, on bar 16:05. Acceptance names 16:15. Recovery from that abort could permit a later confirmation, but the pasted evidence does not show why 16:15 is the required resolution time. Distinguish fallback-book time from confirmation and entry time.
+
+10. **S2-to-S5 fall-through and confirmation-once are not fully reviewable from these regions.**
+    **Lines:** P019, P119–P133; C8067–C8077, C8655–C8680, C10081–C10085.
+    The guarded tail correctly avoids overwriting the new S5 state with S3. But the intervening code between the S2 edit and the S5 gate is not present, so “identical fall-through” remains unproven: intervening returns, state-dependent setup, and downstream uses of `g_confirmFromState` could matter.
+
+    Similarly, assigning S5 does not alone prove that confirmation is never re-litigated or that a refused confirmation is consumed correctly. These are evidence gaps, not established defects in omitted code.
+
+11. **The pasted “S5 R-gate” region is actually latch assignment, not the threshold decision.**
+    **Lines:** P018, P142–P144; C10081–C10085.
+    These lines assign entry, stop, target, R, and bar time. They do not show the referenced EA 10041 comparison, refusal branch, or their ordering relative to the latch. The page therefore cannot establish `>= 1.0` acceptance, `< 1.0` refusal, or the promised refusal-latch evidence.
+
+    The baseline also distinguishes signal R from executed R. Acceptance should name the exact price basis and R field being graded, rather than treating those measures as interchangeable.
+
+12. **A5 contains incompatible definitions of regression success.**
+    **Lines:** P010, P024, P146.
+    “Full-window zero-delta” and seven identical takes imply exact take-set preservation. P146 simultaneously contemplates new EU takes if journal-supported. Those are different acceptance policies.
+
+    Choose either exact take-set equality, or preservation of the seven baseline takes plus explicitly permitted journal-matched additions. For the latter, define the matching criteria and provide the relevant journal evidence in the amended relay. “Rejects silent” also needs to distinguish no outward alert from no diagnostic logging; per-venue refusal grading requires observable diagnostics.
+
+13. **POC supremacy is broader than the edit actually shown.**
+    **Lines:** P009, P013, P020; C8795–C8798, C11334–C11350.
+    E1 addresses one confirmation term. It does not establish that other POC-cross invalidation or exit paths honor the broader rule. The excerpt comments identify a body-close-break exit elsewhere, but its implementation is absent. Treat broader compliance as unverified here, not as delivered by E1.
+
+    The old “VWAP and POC alike” and S4 A2 comments also become misleading after E1. Amend them or place explicit supersession comments in the source. Keeping historical text need not leave it presented as current behavior.
+
+14. **Counts and diagnostic coverage need finalization.**
+    **Lines:** P030, P092, P138, P151; P065–P068, P123–P128.
+    P151 says E1 `+3`, whereas P030 and P138 specify `+2`. P138’s budget describes the listed blocks but cannot be the finalized whole-edit budget while the buffer declaration remains unspecified.
+
+    `TPFALLBACK` prints price but not line identity or selection distance. The S2 failure branch computes `cfTermS2` but discards it, logging only unaligned waiting. Those omissions make “nearest” and failed-confirmation diagnoses harder to establish. Acceptance diagnostics are also debug-gated; the two run specifications should pin the required logging configuration.
+
+Analytic ask B — better mechanisms within the stated goal:
+
+- **Make confirmation a single explicit predicate with a single alignment policy.**
+  **Touch:** C2197–C2231 and C8067–C8077; review callers C8668 and C8805.
+  If alignment remains mandatory, preserve the unaligned return and evaluate the agreed prebind confirmation only after alignment passes. If unaligned confirmation is intentionally permitted, state that override explicitly before specifying the code. Put any required retest-open and confirmation-close side checks in the shared predicate so S2, S3, and S4 cannot disagree.
+
+- **Use one explicit target-candidate definition and a deterministic selector.**
+  **Touch:** the referenced EA 2356–2481, proposed helper P071–P091, and C7306–C7313.
+  Prefer a single shared, explicitly declared buffer list, with loop extent derived from its array size. Return target identity alongside price. Decide whether eligibility outranks proximity; then express that policy directly. Separate “no usable directional data” from “selected target fails R,” and print enough information to verify both selection and refusal.
+
+- **Grade event tuples rather than ambiguous clock labels.**
+  **Touch:** P142–P146 and the confirmation/R-resolution diagnostics.
+  For each miss, specify direction, anchor, retest bar, confirmation bar, evaluation time, entry time if taken, target identity, R basis, and terminal result. This preserves take-or-refuse acceptance while preventing evidence from different bars from being combined into a claimed fix.
+
+**E3 may remain parked.** Its stated lack of a proving instance is a coherent reason not to expand this build into exit-management changes. The next packet should resolve the blockers above as an exact amended specification; v1 should not be cleared conditionally on the builder choosing the missing semantics.
+## V274-USDJPY-CLEAR1 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

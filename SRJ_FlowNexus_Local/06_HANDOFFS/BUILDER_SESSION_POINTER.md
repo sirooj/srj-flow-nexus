@@ -3,20 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RELAY READY)
+## State (2026-09-25, V2 PACKET READY)
 
-- Relay v274 battery-green
-  (4C106CD5/33673/345) + packet
-  v1 (E7613DAE/14154/155).
-- Seats Opus+GLM+Astra, same
-  text. Ledger 752. No build,
-  no run, no key spent.
+- V274 halted (NO/NO/DISCREPANCY
+  vs YES + conditional). No build.
+- Packet v2 drafted + verified
+  (3D176605/26324/331, budget
+  +42/post 11548). Ledger 753.
+- All 5 verdicts filed whole.
 
 ## Next (artifact owed)
 
-- YOUR carry: v274 file to 3
-  seats, paste back 3 verdicts.
-  Memo below names each step.
+- Relay v275 draft + battery,
+  then YOUR transport (low-tier
+  seats only, YOUR word).
 
 ## Resume order (exact)
 

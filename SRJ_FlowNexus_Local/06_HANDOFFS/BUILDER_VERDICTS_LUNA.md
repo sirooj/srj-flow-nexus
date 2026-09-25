@@ -9147,3 +9147,64 @@ A still stronger architecture would additionally gate execution on an explicit *
 
 **Bottom line: Q1 = YES.** The packet is coherent enough for the single build and single scoped run; the run is the correct place to falsify the cadence-dependent A1/A2 behavior.
 ## V273-DAY2355-CLEAR4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V274-USDJPY-CLEAR1 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+## Q1 verdict: **DISCREPANCY / NO**
+
+I would **not clear PACKET_P-USDJPY-1 v1 for the requested one build + two runs as currently written**.
+
+The decisive issue is **A3 (6/11 14:40–14:45 LONG)**. E1 only removes `A2_CLOSE_BREAK` for a POC-anchored confirmation; it leaves the existing `B_BODY` and `C_TOUCH` predicates unchanged.
+
+But the actual miss record says the 14:45 confirmation had:
+
+* `oppCandle=1`
+* `bodyDir=0`
+* `body=1pt`
+* `touchAttr=1`
+* `confirm=0`
+* failure recorded as `A2_CLOSE_BREAK`.
+
+The confirmation function then tests `B_BODY` after A2. `bodyDir` for a LONG must be `c0 > o0`; with `bodyDir=0`, bypassing A2 simply exposes the next failure and **the same candle still does not confirm**.
+
+That conflicts directly with A3's required outcome, which says the 6/11 venue must reach S5 and resolve at R, with the predicted R-refusal serving as proof of the confirmation fix.
+
+So the packet currently asks the tester to prove a behavior that **E1, by itself, does not produce on the named proving bar**.
+
+### Analytic A — defects, gaps, and imprecision
+
+**1. A3 causal proof is not valid as written.**
+After E1, the 14:45 bar can still fail `B_BODY`. Therefore an eventual S5 event on a later bar would not establish that E1 fixed the cited 14:45 miss.
+
+**2. The “never-empty pool” wording is stronger than the fallback implementation.**
+The fallback helper still returns `false` when there is no non-empty in-direction line, so `NO_TP_TARGET` remains technically reachable. The implementation guarantees “nearest available in-direction line without the first-pass validity filters,” not a mathematically never-empty pool.
+
+**3. “Filters off” needs narrower terminology.**
+The fallback does **not** turn every filter off: it explicitly retains the direction requirement (`v > currentPrice` for LONG / `v < currentPrice` for SHORT). What is being removed is the first-pass validity filtering such as swept/live/zone/tier.
+
+**4. E4 wording is internally awkward.**
+The packet says the LTF-align requirement is “NOT removed,” while the proposed E4 explicitly allows a confirmation while unaligned to promote directly to S5. Operationally that is a deliberate exception/override, so the rule should say that plainly.
+
+**5. `g_fallbackBufs` is under-specified.**
+The packet leaves “shared static vs copy” open. Since the whole point is to guarantee the same 18 candidate lines as `ComputeNearestTpTarget`, the source of truth should be explicit rather than merely S1-asserted.
+
+**6. The POC test is somewhat loose.**
+`StringFind(g_lineCode[anchorLine], "POC") >= 0` is a substring classification, not an exact line-family test. It works if the line-code namespace guarantees that convention, but the packet does not state that invariant.
+
+**7. Staleness remains an open semantic choice.**
+The operative rule is distance-only / age never disqualifies, while the alternative “age disqualifies” remains intentionally open in Analytic Ask A. That is fine as an analytic note, but it should not be allowed to mutate during implementation.
+
+**8. A4 has a logging-label ambiguity.**
+The historical row says the signal is at 09:10, while `ENTRY_TICKET` records `bar=09:05`. The acceptance should define whether “identical bar” means the signal bar or the stored ticket-origin bar.
+
+### Analytic B — better mechanisms
+
+The cleanest mechanism for the A3 problem is **not to weaken `B_BODY` implicitly**. Instead, make the acceptance causal:
+
+* Either require the tester to show that the **named 6/11 14:45 bar itself** becomes a valid confirmation under an explicitly amended predicate; that would require an additional, explicitly scoped rule beyond the current E1.
+* Or keep the confirmation predicate unchanged and redefine A3 to require a **later qualifying confirmation bar**, with the log proving that the later bar—not merely any eventual S5 event—caused promotion.
+
+For E2, I would use **one canonical 18-buffer array/function** shared by the normal target scan and the fallback walker, rather than two representations. That keeps the candidate universe mechanically identical while allowing the fallback to toggle only the intended validity filters. The touched area is the S2 poll around `C7307` plus the target helper immediately around the existing `ComputeNearestTpTarget` implementation.
+
+For E4, a small common promotion helper would also reduce divergence between S2 and S3: both paths should call the same “confirmation passed → record source state → promote S5 → log” routine, with only the eligibility point differing. The current proposed blocks duplicate that state-transition logic. The touched area is the S3-prebind precedent (C8655-C8680) plus the amended S2 block.
+
+**Disposition:** **Q1 = NO / DISCREPANCY.** The packet needs an A3 repair before the requested build clearance is logically supportable.
+## V274-USDJPY-CLEAR1 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

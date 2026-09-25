@@ -2076,3 +2076,48 @@ Kimi:
 
 One build plus one scoped run authorized by this verdict. A1 falsifiable-probe discipline (GLM-A8) and the S1 exact-diff gate govern execution; nothing here activates live trading, and no keys are requested.
 ## V273-DAY2355-CLEAR4 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)
+## V274-USDJPY-CLEAR1 OPEN KIMI (verbatim open; filed whole 1x this turn, novel inbound)
+Ruling on the page only. I read the packet twin, the C-prefixed code, the run rows, and the edit set line by line, and I re-counted the S3 budget.
+
+## Verdict Q1: **Discrepancy — conditional clear (amend, then yes)**
+
+The three edits are logically coherent in intent, mechanically budgeted correctly (+2/+8/+21/+15 = +46, 11506 → 11552, P138 checks out), and the run-cost ask (one build + two runs, A1–A5) is proportionate. But the page as pasted is **not transportable as-is**. Four defects, two of which must be closed in the packet text before any transport:
+
+**Blocking:**
+
+1. **E2 as pasted cannot compile — `g_fallbackBufs` is undeclared anywhere on the page.** The new helper (P071–P091, to sit after EA 2481) loops `ReadFlow(g_fallbackBufs[i], v, barShift)` over a symbol no line of the packet defines. The NOTE at P092 openly defers the "share-vs-copy form" to council, and S1 (P137) is claimed to assert the 18 ids — but an edit set advertised as "exact verbatim old/new, STAGE-1 exact-diff gated, char-code assert every insert byte" (P028–P029) cannot be byte-asserted when an insert references an undefined symbol. Worse, the NOTE's own phrasing — "a shared static" — is not compilable across functions: a `static` local to `ComputeNearestTpTarget` (EA 2356–2364) is invisible to `ComputeFallbackTpTarget`; the only workable forms are a file-scope handle array (new global, allowed — P005 bans new buffers/inputs, not globals) or a copy of the literal 18-id list inside the helper. Council must pick one and add the declaration to the Edit set. This is the single true blocker.
+
+2. **The Edit set omits an amendment the packet itself promises.** P013 (Supersession) states the S4-edge comment at EA 8795–8798 "amended for POC anchors only," but no such edit appears in the Edit set (P030–P133). Either the comment edit is missing (then S1's insert-byte assert fails, or the comment ships stale, directly contradicting the new C2224–C2225 behavior) or P013 overpromises. One sentence in the packet must change.
+
+**Non-blocking but must be corrected in the Acceptance/Scope rows:**
+
+3. **A2's bar label matches no disk bar.** Scope P024 and Acceptance P143 say "6/5 16:15 LONG"; the disk rows show the venue seeded at 16:00 (GK/ML), polled at the 16:05 bar (GH/CJ) and aborted at **16:10** (QO/HI, `state=S2_LTF_ALIGN`). No 16:15 bar exists in the record. Name the anchor bar (16:10 poll / 16:15 projected continuation) or the row is ungradeable as written.
+
+4. **A3's proof claim overreaches on the logged bar.** The 6/11 14:45 poll (MH/FH) logs `oppCandle=1 bodyDir=0 body=1pts touchAttr=1 confirm=0 term=A2_CLOSE_BREAK`. E1 removes the A2 term for POC anchors — but the *same bar* then fails at **B_BODY** (C2228–C2229: `bodyDir=0` for LONG). So E1 is necessary but the page does not show it sufficient at 14:45; the candidate needs a later bar (it lived until the 15:25 NO_TP_TARGET abort, FL) to present a passing confirmation. "A refuse PROVES the confirm fix" (P024/P144) should read "a refuse proves *a* confirm fired after E1+E2 kept the venue alive" — and the acceptance should name the expected confirming bar or the bar window (14:50–15:20). Note E2 is doing half the work here: the later NO_TP_TARGET re-seed (FL) is exactly what the fallback kills.
+
+Minor imprecisions (record, don't block): E4's pasted block has an indentation slip at P110 (`if(!CheckLtfAlign` one space short of P109) — cosmetic, compiles; E1's new upper-bound guard (P040) is defensive coverage the existing counters at C2219–C2220 already assume away, so it's inconsistent-but-harmless; A4's "identical bar/entry/fill" is un-provable on the page (E4 can in principle fire earlier from S2), but that is precisely what the A5 regression run is for, and the packet says so — accepted as designed.
+
+With items 1–2 closed in packet text and 3–4 relabeled: **yes — clear for exactly one build plus the two runs as costed.** Nothing here needs new evidence, a third run, or E3 un-parked. Money/keys posture respected: probe-only, nothing builds on this verdict.
+
+## Analytic ask A — every defect/gap/imprecision, with lines
+
+1. **`g_fallbackBufs` undefined** — P071–P091 use it; declaration deferred at P092; "shared static" phrasing not compilable cross-function. See Q1-1.
+2. **Missing S4-edge comment edit** — promised at P013 (EA 8795–8798), absent from P030–P133. See Q1-2.
+3. **A2 bar label mismatch** — P024/P143 "16:15" vs QO/HI abort at 16:10, GH/CJ poll bar 16:05. See Q1-3.
+4. **A3 premise imprecise on the logged bar** — MH/FH show `bodyDir=0`; with E1 the 14:45 bar fails at B_BODY (C2228–C2229), not A2. Confirming bar unnamed. See Q1-4.
+5. **E4 indentation slip** — P110 vs P109; claimed "indentation matched" at P036/P106.
+6. **E1 guard inconsistency** — P040 bounds-checks `g_lineCode[anchorLine]`; the pre-existing counters at C2219–C2220 index the same array unguarded. Either style is fine; doing both is muddled.
+7. **Substring POC test** — P040 `StringFind(..., "POC")` duplicates the C2220 predicate; consistent with existing style, but a line code containing "POC" incidentally (none on page) would silently widen E1's scope. Low risk, worth one comment line pinning the intent to the code family.
+8. **"Sole refusal" claim unverifiable on page** — P018 says the S5 1R gate (EA 10041, cited but not pasted; the latch is visible at C10081–C10085) is the sole refusal, but the S3 prebind comment (C8661–C8662) names a "divergence walk" in the same block. If the divergence walk can refuse, "sole refusal" is imprecise wording. Not contradicted — not shown.
+9. **Hardcoded 18** — P077; S1 asserts it (P137), but a named constant matching the EA 2356–2364 list would remove a silent drift point between the two walkers.
+10. **Standing opens disposition** — staleness default (distance-only) follows his verbatim word (P009); fine. E4 aggressive corner is honestly named with the rejected alternative (P152); the keep-alternative (S3-only) provably keeps the 6/5 miss, so the packet's choice stands. E1 bound style: the guard form (P040) is acceptable; see 6.
+
+## Analytic ask B — better mechanisms, with lines touched
+
+1. **One walker, filter mask (preferred over two walkers).** Give `ComputeNearestTpTarget` a `bool applyFilters` (or a small mask) parameter and call it twice from the S2 poll (EA 7307 site): first pass filters on, second pass filters off. Touches EA 2356–2364 (body) and C7306–C7313 (call). Kills the entire `g_fallbackBufs` share-vs-copy problem (defect 1), the hardcoded-18 duplication (item 9), and any future drift between two 18-buffer walks. Cost: one parameter, zero new globals, still additive-or-narrow per P005.
+2. **Cache POC-ness at election.** `ANCHOR_ELECT` already knows the line code; store a `g_anchorIsPoc` bool at seed and read that in `IsConfirmationCandle` instead of a per-bar `StringFind`. Touches the ANCHOR_ELECT block (near the DK/GK rows) and C2216–C2225. Removes the substring fragility (item 7) and the per-bar scan; one source of truth for "POC anchor."
+3. **Factor the prebind-confirm into one helper.** A single `ConfirmOrRetain()` called from both the S2 block (C8067–C8077, as amended at P107–P132) and the S3 block (C8655–C8680) makes "identical predicate, identical fall-through" (P119) *structural* rather than copy-maintained — the E4 edit is currently a hand-copy of the 2026-09-11 block, and the next refinement to one side will silently fork the two.
+4. **Process fix for A3, no code.** Have the builder print the CONFIRMPOLL/CONFIRM_STRUCT_FAIL rows for the full 14:50–15:20 window in the graded run so the acceptance can name the actual confirming bar before grading, instead of grading against an unnamed prediction.
+
+Nothing else is asked; nothing here builds, runs, or spends.
+## V274-USDJPY-CLEAR1 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)
