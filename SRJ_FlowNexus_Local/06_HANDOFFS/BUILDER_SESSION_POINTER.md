@@ -3,19 +3,23 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, MISSES FILED)
+## State (2026-09-25, RULES BANKED)
 
-- 3 USDJPY misses diagnosed on
-  disk (finding DD1255FB). No
-  CQD veto, no XOB kill. Ledger
-  749. 6/3 take stands.
-- Blind intact. No grade.
+- YOUR 5 USDJPY rules banked
+  verbatim (confirm-once, prior-
+  close-irrelevant, POC-supremacy,
+  nearest-only-target, retarget).
+- Language corrected: YOUR words
+  only with YOU. Ledger 750.
+- 8/4 Euro Y-POC hold recorded
+  as YOUR precedent (outside
+  tested spans, YOUR chart).
 
 ## Next (artifact owed)
 
-- YOUR objection with YOUR data
-  (direction on 6/5 morning, TP
-  levels, FVG/block reads).
+- YOUR objection data + YOUR
+  staleness call (age vs distance).
+  Then council route for all five.
 
 ## Resume order (exact)
 
