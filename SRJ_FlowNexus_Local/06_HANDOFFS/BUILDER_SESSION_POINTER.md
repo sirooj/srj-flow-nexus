@@ -3,18 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, KEY ASKED)
+## State (2026-09-25, RECON61 RUN)
 
-- V273 ruled unanimous-clear
-  (Luna YES, GLM YES, Kimi
-  advisory). Key ask owed to
-  Luna. No build yet.
+- Built A82F15E7/11506, 0/0
+  both targets, RECON61 running
+  (scoped Fri-Mon, key spent).
+  Grade on YOUR completion word.
 
 ## Next (artifact owed)
 
-- YOUR key reply whole +
-  YOUR run word + token.
-  Then I build + run.
+- YOUR completion word ("run
+  has completed"). Then gates
+  + tabulate + result file.
 
 ## Resume order (exact)
 
