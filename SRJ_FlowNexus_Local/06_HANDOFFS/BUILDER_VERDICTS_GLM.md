@@ -4411,3 +4411,64 @@ Standing opens acknowledged: E-c watch stays open — E1b/E4b make earlier POC-a
 
 No keys requested or issued; nothing here builds, runs, or spends. Round ends in clear with the fold-list above — items 1-6 are wording/carry material, none behavioral.
 ## V280-USDJPY-CLEAR7 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V282-USDJPY-GUARDS2 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+# RELAY v282 — SEAT VERDICT on PACKET_P-USDJPY-2 v2
+
+Ruled on the page only: P-lines (packet), C-lines (code excerpts), log row IDs (excerpts). No disk claims answered.
+
+## Q1 (E6a): **YES**
+
+The standing gate, abort disposition, and proxy wording are a correct implementation of the kill rule for the E4b path, and every v281 ADOPTED demand is realized in the block:
+
+- Gate: P092 `e6a_block = (e6a_antiNow >= 2)` — exactly Opus-B1's ruled condition, matching `biasOpposedAtGate` semantics at C5141. Census transcription is verbatim: P073-P090 mirrors C5117-C5134 read-for-read; P091 flip formula is character-identical to C5135. Flip is computed and printed (P118) but gates nothing — only `e6a_block` and `e6b_broken` gate (P119-P120). Astra-B flip-tracking ruling honored.
+- Row separation: 6/04 biasAtGate=2 → block (HJ); 6/08 biasAtGate=3 → block (RE); A1 biasAtGate=1 → pass (PN); A4 biasAtGate=1 → untouched (RF, S4 path, guard never runs there). Matches the Opus-B1 table and B1/B2/B3/B4 expectations exactly.
+- Disposition: P119 `GoAbort(ABORT_LTF_MISALIGN, g_state)` after the evidence print (P117-P118 precede P119-P120, satisfying P020's "print first, then abort"). Existing code per C307; ABORT rows unconditional via LogAbort (C1730, ungated). Attribution between the two LTF_MISALIGN populations survives structurally: the E6a kill fires at `state=ST_S2_LTF_ALIGN` in the ABORT row, the invariant kill at S3+ states — separable post-hoc without a new code. This materially softens the Task-76 "unambiguous" concern (but see Ask A item 3 on the comment wording).
+- Ordering: guards sit inside the confirm-true branch (P070 opens it; guards P072-P120; promotion P121-P129), so a fired guard is by construction a blocked promotion (Opus-B2 adopted). Confirm-fail retains at S2 (P131-P132) — the only remaining S2WAIT, per P018.
+- Proxy wording: P072 comment and P017 rule text both carry "HTF-opposition proxy separating the ruled rows… his word governs any remap," with the LTF-seed alternative's rejection row-grounded in P013 (seedBiasAl 0/0/0/1 — A1's 0 kills the blessed pass; the SIDE1T rows JO/PM/IR/NH corroborate 0/0/0/1).
+- Coverage: E4B_GUARD prints on every confirm-true evaluation (P117), clean promotions print zeros — B3's coverage proof is satisfiable as written.
+
+## Q2 (E6b): **YES**
+
+The predicate, abort code, and scope are a correct implementation of spec S5.4 as characterized on this page for this refinement round (spec text itself is disk-truth; see Ask A item 13):
+
+- Interval contract: P106 `for(int e6b_s = barShift + 1; e6b_s <= e6b_seedShift; e6b_s++)` — confirm-exclusive, seed-inclusive, exactly as stated at P019/P093. Equal shifts silent (falls through both P099 and P104), per the ruled confirm-on-seed boundary.
+- Plain cross, behind deleted: P113 is the only hit test — LONG `o >= v && c < v`, SHORT mirrored `o <= v && c > v`. No `behind` term exists anywhere in P093-P116. The v281 no-op proof holds structurally: for LONG, `behind (v <= o)` ⟺ `o >= v`, which is already clause one; SHORT mirrored. Equality/gap choices (open-at-level starts, close-exactly-on-level excluded, beyond-beyond excluded) are the stated v1 choices, unchanged.
+- Seed contract: P097 `g_anchorBarTime > 0`, P098 `iBarShift(..., true)` exact, P099-P103 `E4B_GUARD_SKIP reason=SEED` anomaly on unresolvable seed — Opus-B5 as recorded in the ruling ("anomaly print on unresolvable seed"); cap correctly absent per the REJECTED leg.
+- Evidence: breaking bar carried out (P095 init, P114 capture, P118 `bbar`/`bpx` fields) — Opus-B4 adopted; SEED anomaly — B5; per-attempt row — B3; all inside confirm-true (P070→P120), so no POI walk without a confirm shape (P021).
+- Disposition: P120 `GoAbort(ABORT_S54_POIBREAK, g_state)`; define P144-P145 — name is descriptive, ties to S5.4, no collision in C302-C324. I ratify the name.
+- Scope: fence P022 confines edits to the E4b block interior + one define + one comment (verified: S3 fall-through P134-P135 is byte-identical to C8110-C8111; S2WAIT P132 identical to C8108; E4b comment P068 identical to C8093); S3/S4 extension parked at P026. Old/new blocks and counts otherwise check out: old 27 (C8086-C8112), new 76, defines +2, comment +1, total +52, post 11604 — as computed at P162. **But see Ask A item 1: P031 contradicts this.**
+
+Both verdicts stand independently; nothing above couples them.
+
+## Analytic ask A — defects, gaps, imprecisions
+
+1. **P031 line-math is wrong.** "old EA 8086-8112 27 lines, new 105 lines, NET +78" — the new block P061-P136 is 76 lines, NET +49, as P162 and the relay header correctly state. Stale number (likely a v1 leftover). P162's "S3 recount governs" contains the blast radius, but fix the line — a mechanical gate should not have to adjudicate its own packet.
+2. **P013 mislabels the ORDER pair.** "ORDER flip/opposed 1/0 (A1), 2/1 (6/04), 3/1 (6/08), 1/0 (A4)" — those values are biasAtGate(=antiNow)/opposed (PN/HJ/RE/RF). The flip values are 0/1/1/0. Label should read "bias/opposed." The evidence itself is unaffected.
+3. **Task-76 amended comment (P155-P156) has two wording defects.** (a) "an E4b-guard flip kill" mislabels the gate: the kill condition is standing opposition (P092), which also fires with flip=0 when antiPrev>=2 — the Disclosure-1 class (P011) exists precisely beyond the ruled transitions, and both ruled rows merely happen to carry flip=1. Say "opposition kill" or "E4b-guard kill (standing HTF opposition)." (b) "the string is now unambiguous" is no longer literally true — the amendment itself names a second population. Suggest: "now has exactly two emitters — post-S2 invariant failures and E4b-guard kills — separable by the state field in the ABORT row." Semantics unaffected; text only.
+4. **B5 tripwire ambiguity is unresolved.** The demand verbatim: "print an anomaly row on seedShift < barShift or cap-exceeded." The recorded ruling: "ADOPTED except the lookback cap… anomaly print on unresolvable seed." Those two sentences do not scope identically. The code implements the narrow reading: P099 covers only seedShift<0; a resolved seed with 0 <= seedShift < barShift (seed newer than confirm — should be impossible, which is why the tripwire was demanded) is silently ignored at P104's else. Equal-shift silence IS ruled (P019). Needs his word, or the three-line branch in Ask B item 2. Do not let this close by silence.
+5. **S1 print-census token collision.** `E4B_GUARD` is a substring of `E4B_GUARD_SKIP` (P102 vs P118). A naive grep of "E4B_GUARD" hits both lines and the census double-counts. P161 must state token boundaries (e.g., trailing space, or SKIP matched and subtracted) before STAGE-1 runs.
+6. **E4B_GUARD row cannot distinguish HTF-unreadable from clean.** If the three HTF reads fail, antiNow stays −1 (P073), block=false (P092, fail-open — ruled), and the row prints flip=0 opposed=0 — byte-identical to a clean A1-style row (P118). The raw counts (antiNow/antiPrev), seedShift, and walked-bar count that B3 originally specified were narrowed out at adoption (P010 records the reduced field set, so this is ruled — but it is a real observability gap). Mitigated in practice: the same-bar ORDER census row would print biasAtGate=-1 — but only if an ORDER row prints for that bar, which the page does not guarantee for every S2 confirm.
+7. **Evidence expectations lack a mismatch rule.** B1 asserts "pobreak=1 expected" (P166) and B3 asserts "pobreak=0" (P168) — neither states what happens if the grade observes the opposite. pobreak=0 on 6/04 means E6a alone killed (kill still stands — is B1 failed?); pobreak=1 on A1 means a genuine S5.4 kill on a blessed row (halt-worthy, but say so). Add one global Acceptance clause: any evidence-field expectation mismatch = halt with attribution, or amend the expectation with his word.
+8. **B2 has no pobreak clause while B1 does** (P167 vs P166). If intentional — 6/08 attributed purely to E6a — state it; if not, make them symmetric.
+9. **Durability is page-asserted, not page-shown.** P018's "aborted candidates never revive" rests on GoAbort semantics; only LogAbort (C1728-C1733) is excerpted. Fine under the verification split, and B8 (P173) grades it, but the record should note it as an assumption the grade tests rather than proves.
+10. **No-break sentinel representation.** With e6b_bt=0 (P095), P118 prints `bbar=1970.01.01 00:00`, not a zero. "Clean promotions print zeros" (P010) is loose for the bbar field. Graders should treat the epoch string as the sentinel; one clause in P019 or the acceptance section closes it.
+11. **Opus-B7 "NOTED in packet scope prose" is not executed on the packet page.** P026 parks the S3/S4 extension but never names EA 7119-7130 as the surveyed future insertion site — that naming exists only in the relay's demands quote. One clause in P026 executes the ruling as recorded.
+12. **P013/P169 value "159.929" appears nowhere on the page.** KK/MH show fill 159.932, SL 159.889, TP 159.983 (slPts=43/tpPts=51 corroborate 159.889/159.983). If 159.929 is a second S4 fill from a row not excerpted, fine — but it is unverifiable here and B4's parity expectation depends on it. Route through his carry-check against the full v281 record.
+13. **P013 "WAIVED 16:00 x2" has no matching excerpted row.** The A2_WAIVED_POC rows shown are 6/11 15:15 (DN) and 6/03 18:35 (QL). The excerpts are admittedly single samples, so this may be sample bias — carry-check item, same lane as item 12.
+14. **S5.4's own text is not on the page.** Q2 is ruled against the packet's paraphrase (P019-P020, P093 comment) plus his finding 8EF27EF8 by reference. Consistent with the verification split and prior rounds' practice; noted for the record so the ruling's basis is explicit.
+15. **Dynamic-vs-locked anchor value is implemented but unstated.** Astra-B's interval demand included "define dynamic versus locked anchor value"; the code reads the POI buffer per-bar (P109, e6b_v varies by shift) — presumably v1 continuity, but P019 states equality/gap only. One clause: "anchor value = per-bar POI buffer read (dynamic), not locked to the arm-time level."
+16. **Transport artifact in the old-code excerpt:** C318 contains mojibake ("Ã¢â‚¬â€" for an em-dash). Outside every edit anchor (the defines insert anchors on C323-C324, which are clean), so no char-assert implications — noted solely for his carry-check so it isn't mistaken for EA corruption.
+
+Deferrals honored, verified on the page: no shared HTF helper (E6a recomputes, P073-P090), no three-state helper (fail-open preserved, P109/P112 continues), no latched side (plain cross only, P113), no retain-print helper (single S2WAIT at P132). Nothing below re-petitions them.
+
+## Analytic ask B — better mechanisms for the stated goal
+
+1. **Raw-field diagnostic on the existing E4B_GUARD row** (closes Ask A items 6 and 10; print-only, no new surface). Add `antiNow`, `antiPrev`, `seedShift`, and walked-bar count to P118's format and args; the variables already exist (P073, P096, loop bound at P106 — capture a counter at P107/P115 if wanted). This restores B3's original field intent, makes the fail-open/unreadable case (`antiNow=-1`) observable in the guard row itself rather than via a possibly-absent ORDER row, and makes the no-break sentinel unambiguous (`seedShift=-1` in the row vs epoch guessing). Touches P095-P096 (init), P106/P115 (one counter), P118 (format string + args). Given the GUARD row already prints unconditionally per confirm-true, marginal cost is nil.
+2. **Seed-order tripwire branch** (resolves Ask A item 4 in code, pending his word). After P104's `else if(e6b_seedShift > barShift)`, add `else if(e6b_seedShift >= 0)` emitting the existing `E4B_GUARD_SKIP` shape with `reason=SEEDORDER`. Three lines, P104 region only; equal-shift silence stays untouched per P019. If he rules the narrow reading correct instead, delete this item.
+
+Both are mechanism notes for his word, not edit demands — the packet's own rule (council never scopes) governs.
+
+## Standing note
+
+Verification split respected: nothing above rules on digests, builds, or log truth; the P031 arithmetic and C-line counts were checked from the page's own blocks. Nothing here clears money, builds code, or touches the live gate — probe/print-only stands.
+## V282-USDJPY-GUARDS2 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

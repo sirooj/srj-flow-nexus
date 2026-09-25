@@ -1900,3 +1900,40 @@ Scope (E4b-only): acceptable as stated — both proven violations (`6/04 16:20`,
 - **For the E6b behind-gate gap (item 1 above):** latch the POI-relative side once, at the seed bar, before the walk — e.g. compute `e6b_side` from the seed bar's own open/close relative to the anchor at `e6b_seedShift` (a single read, before the `for` loop at `P092`), store it as a fixed bool, and use *that* latched variable as the "behind" gate on every iteration instead of recomputing `e6b_behind` per-bar. Keep the per-bar `crossDn`/`crossUp` test as-is for the actual break detection. This would touch `P088–P105`, adding one small block above the loop and swapping `e6b_behind` inside the loop body from a per-bar recompute to the latched variable. This turns disclosure (3) from "known simplification" into an actual latched-side implementation, and stops the AND from being a no-op.
 - **For the duplication risk (item 6 above):** factor the antiNow/antiPrev leg-count logic (`C5120–5134` and `P071–P085`) into a single shared helper (e.g. `bool CountHtfAntiLegs(int shift, int want, int &antiOut)`) called from both the ORDER census site and the E6a site. Touches `C5117–5135` and `P068–P086`. Purely a maintenance/drift-prevention change — output is currently identical either way, so no behavior change, no B1–B7 risk.
 ## V281-USDJPY-GUARDS END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V282-USDJPY-GUARDS2 OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+**Q1 (E6a amended): YES, with one comment-level discrepancy.**
+
+- Standing-opposition gate: `e6a_antiNow`/`e6a_antiPrev` (P073–P090) reproduce the ORDER census reads/counts verbatim (same `ReadFlow` calls, same `MathRound`/anti-leg logic as C5117–C5134). `e6a_block = (e6a_antiNow >= 2)` (P092) is the gate; `e6a_flip` (P091) is only ever consumed in the `PrintFormat` at P118 (`(int)e6a_flip`), never in a conditional — confirmed print-only.
+- Disposition: `if(e6a_block) { GoAbort(ABORT_LTF_MISALIGN, g_state); return; }` (P119) — existing code reused, fires after the P117–118 evidence print, so the kill is durable (no fallthrough to S3, `return` exits the tick).
+- Rows check out: A1 (bar 06/05 09:40, `biasAtGate=1`) has `e6a_antiNow=1` → `e6a_block=false` → promotes (matches log `CONFIRM_PREBIND_S2`/`SIGNAL` at 09:40/09:45). 6/04 16:15 (`biasAtGate=2`) and 6/08 09:30 (`biasAtGate=3`) both satisfy `antiNow>=2` and would abort under this code (the pasted journal predates the guard, so it still shows their old `CONFIRM_PREBIND_S2` — consistent with "code UNCHANGED until now").
+- Wording relabel to "HTF-opposition proxy" appears verbatim in the P072 rule comment.
+- Discrepancy: the Task-76 comment amendment (P155–156) calls the new kill an "E4b-guard **flip** kill," but the gate variable is `e6a_block` (standing opposition, P092), not `e6a_flip` (P091, explicitly print-only per this same packet's own claim). That's a naming inconsistency between P072 ("standing opposition") and P155–156 ("flip kill") describing the identical mechanism.
+
+**Q2 (E6b amended): YES, with two verification gaps (not contradictions).**
+
+- Behind term: no `behind` variable appears anywhere in P093–P116. Confirmed absent from the code as pasted.
+- Body cross: `e6b_hit` (P113) is dir-matched (`LONG: o>=v && c<v`; `SHORT: o<=v && c>v`), matching the stated open-at-level-starts/close-exactly-excluded/beyond-beyond-excluded choices.
+- Seed lookup: `if(g_anchorBarTime > 0) e6b_seedShift = iBarShift(_Symbol, PERIOD_CURRENT, g_anchorBarTime, true)` (P097–098) — `anchor>0` guard plus `exact=true` param, as claimed.
+- Anomaly print: `E4B_GUARD_SKIP ... reason=SEED` fires on `e6b_seedShift < 0` (P099–103).
+- Breaking-bar evidence: `e6b_bt/bv/bo/bc` set at the hit (P114) and carried into the P118 print (`bbar`/`bpx`).
+- In-branch ordering: the whole E6a/E6b block sits inside `if(IsConfirmationCandle(...))` (P070–071), so no walk runs without a confirm shape.
+- New abort: `GoAbort(ABORT_S54_POIBREAK, g_state)` (P120) with the define added at P145.
+- Gap 1: the anomaly print only covers `e6b_seedShift < 0`. The middle case `0 <= e6b_seedShift < barShift` (seed bar temporally *after* the confirm bar — a genuine ordering anomaly, same class Opus-B5 flagged) falls through both P099 and P104's conditions silently, with no print at all — not even the "silent by design" case the packet documents (P019 only describes the *equal*-shift case as intentionally silent).
+- Gap 2: I can't independently confirm "behind term deleted" as an edit against v1's actual draft, since v1's E6b code isn't reproduced anywhere in this packet — the "old" block shown (C8086–C8112 / P033–P059) predates any guard and never contained a behind term. This claim rests on the packet's own assertion, not a visible before/after in what's pasted here.
+
+**Analytic A — defects/gaps/imprecisions, with lines:**
+
+1. **Line-count self-contradiction.** P031 states "(old EA 8086-8112 27 lines, new 105 lines, NET +78)". The actual pasted block (P061–P136) is 76 lines, matching the top-of-packet header ("E4b old 27 / new 76 / NET +49") and the S3 budget (P162: "E4b +49 (76-27)"). P031's own parenthetical is wrong; everything downstream (total +52, post-11604) is consistent with 76/+49, not 105/+78.
+2. **Fail-open/no-trace in E6a.** If any of the three `ReadFlow` calls fails at `barShift` or `barShift+1` (P076/P084), `e6a_antiNow`/`e6a_antiPrev` stay at `-1`. `e6a_block = (antiNow>=2)` (P092) evaluates false, so an unreadable HTF read promotes exactly like a genuinely aligned one, and the P118 print shows `opposed=0` — indistinguishable from a true zero. No SKIP/anomaly print exists for this case (contrast with E6b's explicit SEED anomaly).
+3. **Fail-open/no-trace in E6b.** Any unreadable POI read inside the walk silently `continue`s (P109). If every bar across the whole seed-to-confirm span is unreadable, `e6b_broken` stays false and the row prints `pobreak=0` — indistinguishable from a genuinely clean walk. No count of bars actually read vs. skipped is carried into the print.
+4. **Undocumented ordering case** — see Q2 Gap 1 above (P099/P104).
+5. **Attribution collision.** When `e6a_block` and `e6b_broken` are both true on the same bar, only `ABORT_LTF_MISALIGN` fires (P119 returns before P120 is reached). The GUARD row at P118 still carries both `opposed=1` and `pobreak=1` — fine, just flagging that any later per-guard tally has to parse those fields rather than count rows.
+6. **Comment inconsistency** — see Q1 discrepancy (P072 vs P155–156).
+
+**Analytic B — mechanisms for the stated goal (new suggestions only; not re-raising deferred items):**
+
+1. Split E6a's `-1` (unreadable) state out from the `<2` (aligned) state explicitly, with its own `E4B_GUARD_SKIP reason=HTF` print, rather than folding "can't read" into "not opposed." Touches P073–P092, P117–P119.
+2. Add a walked/skipped-bar counter (`e6b_read`, `e6b_skipped`) to the E6b loop and print both, so a fully-unreadable walk is visibly distinct from a genuinely clean one. Touches P094–P116, P118.
+3. Extend the seed-anomaly branch to also fire on `0 <= e6b_seedShift < barShift`, not just `<0`. Touches P099–P105.
+4. Correct the P031 parenthetical to 76/+49 to match P162 and the header (documentation-only, no code touch).
+## V282-USDJPY-GUARDS2 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)

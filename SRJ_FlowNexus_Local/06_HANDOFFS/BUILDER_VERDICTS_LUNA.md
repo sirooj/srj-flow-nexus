@@ -9721,3 +9721,47 @@ Before touching either predicate, I would settle **what "S3.3 kills" means opera
 
 **Q2: YES** — E6b predicate is consistent with the stated S5.4 rule, and E4b-only scope is acceptable for this explicitly bounded refinement, with the S3/S4 gap remaining open.
 ## V281-USDJPY-GUARDS END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V282-USDJPY-GUARDS2 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+## Verdict
+
+**Q1 — DISCREPANCY.**
+The *behavioral* kill rule is implemented correctly: the E4b branch computes current HTF opposition, defines the block as `antiNow >= 2`, evaluates it only after confirmation succeeds, and aborts with `ABORT_LTF_MISALIGN`. That matches the amended rule and the stated durable-kill disposition.
+
+The discrepancy is structural: the packet's adopted Opus-B1 ruling explicitly called for the already-defined `oOpp` / `biasOpposedAtGate` state boolean at C5141, while the proposed E4b code re-implements the same count locally and sets `e6a_block = (e6a_antiNow >= 2)` instead. The numerical predicate is the same on readable data, but the implementation does not literally follow that adopted mechanism.
+
+**Q2 — YES.**
+The S5.4 refinement is correctly represented for this round: exact `iBarShift(..., true)` seed resolution, positive anchor-time prerequisite, confirm+1 through seed inclusive, plain directional body-cross test, no `behind` term, breaking-bar/value/OHLC evidence, evaluation inside the confirm-true branch, and termination with the new `ABORT_S54_POIBREAK`. The E4b-only fence is also preserved.
+
+## Analytic A — defects, gaps, imprecisions
+
+**1. The packet's E4b line-count accounting is internally contradictory.**
+P031 says old 27 → new 105, NET +78; the packet header and S3 say old 27 → new 76, NET +49, total +52, post 11604. Those cannot all describe the same edit. This is material because STAGE-1 is explicitly exact-diff/line-count gated.
+
+**2. E6a still duplicates the ORDER opposition calculation.**
+The packet itself records shared-predicate/helper factoring as deferred, but that leaves two independently maintained implementations of the same HTF count: C5117-C5134 and P073-P090. That is the main long-term drift point.
+
+**3. HTF read failure is not distinguishable from a clean non-opposed state in the E4B evidence.**
+`e6a_antiNow` remains `-1` if the three reads fail; `e6a_block` then becomes false, while the print emits only `opposed=0`. Thus `opposed=0` can mean either "0/1 opposing legs" or "HTF evidence unreadable." The same issue affects `e6a_flip`. That weakens the claimed adjudicability of fail-open cases.
+
+**4. POI unreadability is likewise collapsed into `pobreak=0`.**
+The walker silently `continue`s on failed/empty POI reads. If every intervening bar is unreadable/empty, the final row is indistinguishable from a genuinely clean walk because there is no unreadable count/status in `E4B_GUARD`. This is especially relevant because the prior outcome-separation ruling specifically called for unknown evidence to remain observable rather than look clean.
+
+**5. `seedShift < barShift` is silently accepted.**
+The code only anomalies `seedShift < 0`; otherwise it walks only when `seedShift > barShift`. Therefore both `seedShift == barShift` and the temporally inverted `seedShift < barShift` fall through to promotion. The packet explicitly says equality is intentionally silent, but it does not explain or diagnose the inverted case. The prior B5 demand had specifically identified that relation as something to anomaly rather than silently skip.
+
+**6. "anchor>0" is imprecise.**
+The rule prose says "exact seed with anchor>0," while the implementation checks `g_anchorBarTime > 0`, not `g_anchorLine > 0`. That may be the intended meaning, but the packet should say "anchor-bar-time > 0" explicitly so the rule cannot be read as a price-level validity test.
+
+**7. B7 still contains a grader-discretion phrase.**
+"Genuine flip/break," "unattributable kill," and "no genuine cause" are not operationally defined in the acceptance text. The packet gives the observable fields, but not the exact adjudication predicate tying those fields to "genuine." That can create a post-run interpretation gap.
+
+## Analytic B — better mechanism
+
+For the durable design, the strongest mechanism remains the already-deferred **shared HTF-opposition predicate/helper** used by both ORDER and E4b, eliminating duplicate counting logic; the packet itself records that proposal and the exact touch points.
+
+For E6b, the deferred **three-state break result (`CLEAN / BROKEN / UNREADABLE`)** is the cleanest way to distinguish a proven no-break from insufficient POI evidence without falsely treating unreadable data as clean.
+
+Within the current no-new-helper scope, the most useful low-scope hardening would be to add explicit HTF/POI read-status fields to `E4B_GUARD` and diagnose `seedShift < barShift`; those would improve adjudication without changing the settled kill predicate.
+
+**Bottom line: Q1 = DISCREPANCY; Q2 = YES.** The two most important packet defects are the **+78 vs +49 line-count contradiction** and the **clean-vs-unreadable evidence collapse.**
+## V282-USDJPY-GUARDS2 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

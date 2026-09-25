@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V282 READY)
+## State (2026-09-25, V282 NO-CLEAR)
 
-- Relay v282 battery-green
-  (packet v9 3A1E640F). Purged
-  a confabulated reviewer cite.
-  Ledger 776. No build/run/key.
+- 3 verdicts filed, Luna-Q1 halts.
+  Fold v10 packet ready (text +
+  tripwire + raw fields).
+  Ledger 777. No build/run/key.
 
 ## Next (artifact owed)
 
-- YOUR carry: v282 file, seats
-  your choice + paste-back.
+- Builder: relay v283 draft +
+  battery, then your carry.
 
 ## Resume order (exact)
 
