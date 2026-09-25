@@ -1937,3 +1937,53 @@ Scope (E4b-only): acceptable as stated — both proven violations (`6/04 16:20`,
 3. Extend the seed-anomaly branch to also fire on `0 <= e6b_seedShift < barShift`, not just `<0`. Touches P099–P105.
 4. Correct the P031 parenthetical to 76/+49 to match P162 and the header (documentation-only, no code touch).
 ## V282-USDJPY-GUARDS2 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V283-USDJPY-GUARDS3 OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+## Q1 (E6a amended) — **DISCREPANCY**
+
+The equivalence claim is correct on the part that matters for Luna's original concern (the read/shift/formula/convention are byte-for-byte structurally identical), but the claim "same outputs on all inputs" is overstated once you look at codomain, not just formula.
+
+- `e6a_antiNow` inits to `-1` (P073), same pattern as `oAntiNow` (C5119).
+- Both accumulate identically from `ReadFlow(HTF_HIGH/MID/LOW, ..., barShift)` (P076‑082 vs C5120‑5125) and `barShift+1` (P084‑090 vs C5127‑5133). This part of the proof holds — the computation of `antiNow`/`antiPrev` is genuinely extensionally identical.
+- Where it breaks: `e6a_block = (e6a_antiNow >= 2)` (P092) is a **two-state boolean**. `oOpp = (oAntiNow<0) ? -1 : ((oAntiNow>=2) ? 1 : 0)` (C5141) is a **three-state int**. On readable data (`antiNow` ∈ {0,1,2,3}) they do agree: `e6a_block == (oOpp==1)`. But on unreadable data (`antiNow == -1`), `oOpp` reports `-1` (a distinct, observable third state) while `e6a_block` collapses to `false` — indistinguishable in that variable from a genuine 0/1 non-opposed read. They are not "the same output on all inputs"; they're the same output only on the readable subset, which is exactly what Luna's original wording said ("same on readable data") before the v283 proof over-claimed "all inputs."
+
+In practice this is harmless because `e6a_antiNow` itself (not `e6a_block`) is separately printed raw at P125 (`anti=%d/%d`), so the unreadable case remains adjudicable at the row level — the Luna-A3 fix covers what the Q1 over-claim doesn't. But the proof text itself should say "identical on readable inputs; e6a_block intentionally discards the -1 state that oOpp preserves, mitigated by the raw antiNow/antiPrev print" rather than "same outputs on all inputs."
+
+Without the shared helper, wording narrowed as above would satisfy Q1. As currently worded (P013), it overclaims.
+
+## Q2 (E6b amended) — **DISCREPANCY**
+
+Predicate, raw fields, abort wiring, and scope are all correctly implemented. The tripwire has a boundary bug that contradicts the ruling's own stated intent.
+
+**What's correct:**
+- Seed resolution: `if(g_anchorBarTime > 0) e6b_seedShift = iBarShift(_Symbol, PERIOD_CURRENT, g_anchorBarTime, true)` (P098‑099) — exact match (`true`), matches "seed exact=true with anchor-bar-time>0."
+- Dir-matched cross: `e6b_hit` (P115) — LONG: `o>=v && c<v`; SHORT: `o<=v && c>v`. No "behind" term anywhere in this block, consistent with the deletion claim (and with Sonnet Gap-2's point that no prior E6b code exists on this page to diff against — this is judged as new code, not a before/after).
+- Walked/skipped counters: `e6b_walked++` every iteration (P109); `e6b_skipped++` on bad POI read or bad OHLC (P111, P114) — matches Sonnet-B2/GLM-B1.
+- Raw fields in print: `anti=%d/%d ... seed=%d walked=%d skipped=%d bbar=... bpx=.../.../...` (P125) — all present.
+- Abort: `if(e6b_broken) { GoAbort(ABORT_S54_POIBREAK, g_state); return; }` (P127), define at P152. Correct code/name pairing.
+- Scope: entire edit stays inside the `ST_S2_LTF_ALIGN` / confirm-true body; no S3/S4 touch visible in the diff.
+
+**The bug:** P019 states "SEEDORDER anomaly (0<=seed<confirm); equal shifts silent." The code is:
+```
+P100: if(e6b_seedShift < 0)              → SKIP reason=SEED
+P105: else if(e6b_seedShift > barShift)  → walk
+P119: else if(e6b_seedShift >= 0)        → SKIP reason=SEEDORDER
+```
+Branch 3's condition is just `>= 0`. Since branch 1 already excludes `<0` and branch 2 already excludes `>barShift`, branch 3 actually catches **every remaining case**, i.e. `0 <= seedShift <= barShift` — which includes `seedShift == barShift` (the equal case). That means equal-shift now *also* fires `E4B_GUARD_SKIP reason=SEEDORDER`, not silence. This is a direct contradiction of P019's own text and of GLM-B2's ruling, which asked for "equal-shift silence [to stay] untouched per P019" — the ruling's proposed one-liner (`else if(e6b_seedShift >= 0)`) is exactly what got implemented, but that condition does not actually achieve the silence it promises, because there's no upper bound excluding `== barShift`. The fix is a one-token change: `else if(e6b_seedShift >= 0 && e6b_seedShift < barShift)`, leaving equal to fall through all three branches doing nothing (true silence).
+
+---
+
+## Analytic ask A — defects/gaps/imprecisions on the page
+
+1. **P119 SEEDORDER boundary bug** (detailed above): `else if(e6b_seedShift >= 0)` fires on `seedShift == barShift` as well as `0<=seedShift<barShift`, contradicting P019's "equal shifts silent" and GLM-B2's ruling text. Lines: P098‑123, cf. P019.
+2. **P013/P073/P092 equivalence overclaim**: "same outputs on all inputs" is false for the unreadable branch (`antiNow==-1`); true only for readable inputs. `e6a_block` (P092) is boolean, `oOpp` (C5141) is tri-state. Mitigated but not eliminated by the raw-field print (P125).
+3. **Asymmetric strictness in `e6b_hit`** (P115): open comparisons are inclusive (`>=`/`<=`), close comparisons are strict (`<`/`>`). Consistent within each direction branch, but worth naming explicitly in the rule prose (P019) since it's a real boundary decision — an open exactly at the POI counts as "behind," a close exactly at the POI does not count as broken.
+4. **Attribution collision persists by design** (P126‑127): `e6a_block` and `e6b_broken` can both be true on one bar; only `ABORT_LTF_MISALIGN` fires (P126 returns before P127). The row printed at P124‑125 still carries both `opposed=1`/`pobreak=1` correctly (Sonnet-A5's fix), so this isn't new, just confirming it's preserved after the reorder.
+5. **No print distinguishes the SEEDORDER case at the field level in `E4B_GUARD` itself.** When SEEDORDER fires (P119‑123), only the SKIP line prints; the following `E4B_GUARD` print at P124‑125 still runs regardless (it's after the if/else-if chain, not inside it) and will show `seed=%d` with whatever `e6b_seedShift` value triggered the anomaly, `walked=0 skipped=0` (loop never ran) and `pobreak=0` (never set true) — which is technically adjudicable via `seed` being less than `barShift`, but there's no dedicated boolean/flag in the row itself marking "SEEDORDER fired," only the separate SKIP line. Given item 1's boundary bug, an equal-shift row and a strictly-fine walk-then-clean-break row could both show `seed==barShift`-adjacent values without a field distinguishing "fell into branch 3" from "fell into branch 2 and walked 0 iterations" — worth a grader's attention since B7's mismatch rule depends on row evidence alone.
+6. **Line-count arithmetic is clean this round** (P031, P169: 83−27=56, 4−2=2, 5−4=1, total 59, post 11611) — no P031-style contradiction this time; noting this positively since the battery is supposed to check it.
+
+## Analytic ask B — better mechanisms
+
+- **Q2 fix (low scope, in-round):** change P119 to `else if(e6b_seedShift >= 0 && e6b_seedShift < barShift)` — one boundary token, same three lines GLM-B2 already authorized, now actually delivering the promised equal-shift silence. Touches P119 only.
+- **Q1 wording fix (no code touch):** replace "same outputs on all inputs" in P013 with "identical on readable inputs; `e6a_block` intentionally discards the -1 state `oOpp` preserves, covered instead by the raw `antiNow`/`antiPrev` print at P125." Removes the overclaim without requiring the shared helper.
+- **Durable (still deferred, unchanged from v282):** the shared HTF-opposition predicate/helper (Luna-B) and the three-state `CLEAN/BROKEN/UNREADABLE` result (Luna-B) remain the structurally cleanest fixes for both items above — a helper returning the tri-state directly would make `e6a_block` literally `(helper(...)==1)` instead of needing a separate equivalence argument at all.
+## V283-USDJPY-GUARDS3 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)

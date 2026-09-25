@@ -9765,3 +9765,428 @@ Within the current no-new-helper scope, the most useful low-scope hardening woul
 
 **Bottom line: Q1 = DISCREPANCY; Q2 = YES.** The two most important packet defects are the **+78 vs +49 line-count contradiction** and the **clean-vs-unreadable evidence collapse.**
 ## V282-USDJPY-GUARDS2 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V283-USDJPY-GUARDS3 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+## Q1 — discrepancy
+
+The **behavioral block/no-block predicate is equivalent**, but the packet's **claimed extensional-equivalence proof is not true as written**.
+
+At E6a, `e6a_antiNow` is initialized to `-1` and remains `-1` when the current HTF read bundle fails at P073/P076-P082. `e6a_block` is then simply:
+
+> `bool e6a_block = (e6a_antiNow >= 2);`
+
+at P092, so unreadable means `false`.
+
+The ORDER implementation instead preserves the unreadable sentinel in `oOpp`:
+
+> `int oOpp = (oAntiNow < 0) ? -1 : ((oAntiNow >= 2) ? 1 : 0);`
+
+at C5141. Thus, on unreadable input:
+
+| Condition         |       E6a |  ORDER |
+| ----------------- | --------: | -----: |
+| 0/1 opposing legs |     false |      0 |
+| 2/3 opposing legs |      true |      1 |
+| HTF unreadable    | **false** | **-1** |
+
+The reads, shifts, and count formula are indeed the same at P073-P090 and C5117-C5134, and the blocking truth value is therefore the same. But **the outputs are not identical on all inputs**, contrary to P013's claim.
+
+So the exact Q1 ruling is:
+
+**Q1: discrepancy — equivalence of the gate truth value is proved, but extensional equivalence of the variables is not.**
+
+The shared-helper refactor remains unnecessary for this round as a behavior requirement, but the proof needs to be narrowed to **"same block/no-block truth value for every input"**, not "same outputs on all inputs."
+
+---
+
+## Q2 — no
+
+There is a direct contradiction between the stated equality rule and the actual tripwire.
+
+The rule says at P019:
+
+> "SEEDORDER anomaly (0<=seed<confirm); equal shifts silent."
+
+But the code is:
+
+* P100: `if(e6b_seedShift < 0)`
+* P105: `else if(e6b_seedShift > barShift)`
+* P119: `else if(e6b_seedShift >= 0)`
+
+After the first two branches, P119 is true for **both**:
+
+* `0 <= e6b_seedShift < barShift` — desired SEEDORDER case
+* `e6b_seedShift == barShift` — the explicitly ruled **silent** case
+
+So an equality case currently prints:
+
+`reason=SEEDORDER`
+
+at P121-P122, instead of remaining silent.
+
+The implementation does satisfy the other Q2 components:
+
+* exact seed lookup with `iBarShift(..., true)` and `g_anchorBarTime > 0`: P098-P099
+* inclusive walk from `barShift+1` through `e6b_seedShift`: P107
+* plain direction-matched body cross: P115
+* breaking-bar evidence capture: P116
+* walked/skipped fields: P096, P109-P114
+* GUARD emission before abort: P124-P125
+* E6a abort: P126
+* E6b abort: P127
+* new abort code: P151-P152
+* all of it remains inside the confirmation-bearing E4b/S2 branch: P070-P137
+
+But the equality contradiction is enough for **Q2 = no**.
+
+---
+
+# Analytic A — defects, gaps, and imprecisions
+
+### 1. Q1 proof overclaims equivalence
+
+**Lines:** P013, P073-P092, C5117-C5141.
+
+The proof says "same outputs on all inputs," but the unreadable state is `false` in `e6a_block` and `-1` in `oOpp`.
+
+**Correct formulation:** same **block/no-block truth value**, not same variable output/state domain.
+
+---
+
+### 2. Q2 SEEDORDER tripwire catches equality
+
+**Lines:** P019, P100-P123.
+
+This is the concrete Q2 implementation defect.
+
+Required:
+
+```text
+seedShift >= 0 && seedShift < barShift
+```
+
+Actual:
+
+```text
+seedShift >= 0
+```
+
+after the `> barShift` branch.
+
+---
+
+### 3. `e6b_walked` is not actually a "read/walked" count
+
+**Lines:** P096, P109-P114.
+
+`e6b_walked++` occurs **before** the POI read. Therefore it counts attempted loop bars, including unreadable/empty bars and missing OHLC bars.
+
+So:
+
+* `walked=1, skipped=1` means **zero usable bars**
+* `walked=1, skipped=0` means one usable bar
+
+Yet B3 says:
+
+> `walked>=1 row (coverage proof)`
+
+at P175.
+
+That is not sufficient proof of readable POI coverage.
+
+This is particularly important because the whole purpose of the added raw counters was to distinguish unreadable evidence from clean evidence.
+
+---
+
+### 4. Epoch `bbar` is only "no recorded break," not intrinsically "clean"
+
+**Lines:** P125, P182.
+
+`e6b_bt` remains zero whenever no break is recorded, including anomaly paths. Therefore:
+
+`1970.01.01 00:00`
+
+does not by itself prove a clean walk.
+
+The packet does preserve `seed`, `walked`, and `skipped`, so the row is adjudicable; the imprecision is specifically the prose:
+
+> "epoch bbar sentinel read as clean"
+
+That should really mean **"no breaking bar was recorded"**, with cleanliness established from the accompanying status fields.
+
+---
+
+### 5. B7 still contains non-operational "genuine" language
+
+**Lines:** P179.
+
+The packet says:
+
+> "genuine flip/break"
+
+and
+
+> "unattributable kill" / "no genuine cause"
+
+but never supplies a machine-level predicate for those terms.
+
+The added evidence fields help substantially, but they do not themselves define exactly when a cause is "genuine." This remains a grader-interpretation seam.
+
+---
+
+### 6. B7 still says "flip/break" after E6a was explicitly renamed to opposition-kill
+
+**Lines:** P072, P091-P092, P159-P164, P179.
+
+The amended Task-76 comment correctly says:
+
+> "E4b-guard opposition kill"
+
+and identifies `e6a_flip` as a print-only field at P072/P091.
+
+But B7 still describes a killed take as carrying a:
+
+> "genuine flip/break"
+
+That is stale terminology. An E6a kill is caused by **standing opposition**, not necessarily a flip. E6b is the break mechanism.
+
+This should read in terms of **opposition-kill / POI-break**, matching the amended rule text.
+
+---
+
+### 7. "No counter touches" conflicts literally with adding two diagnostic counters
+
+**Lines:** P005, P096.
+
+P005 says:
+
+> "No counter touches."
+
+The edit introduces:
+
+`e6b_walked` and `e6b_skipped`
+
+at P096.
+
+This is probably intended to mean **no existing/global strategy counters are touched**, but the packet should say that explicitly. Otherwise it is internally inconsistent.
+
+---
+
+### 8. HTF unreadability remains only aggregate, not per-leg
+
+**Lines:** P073-P090.
+
+The `-1` sentinel makes unreadable distinguishable from clean, which solves the prior fail-open observability problem.
+
+But the row cannot tell whether:
+
+* HIGH failed,
+* MID failed,
+* LOW failed,
+* or multiple/all failed.
+
+That is not a blocker for the present rule, but it is a diagnostic-resolution gap.
+
+---
+
+### 9. POI skipped count conflates distinct failure classes
+
+**Lines:** P111-P114.
+
+The same `e6b_skipped++` is used for:
+
+* POI read failure / `EMPTY_VALUE`
+* `iOpen()==0`
+* `iClose()==0`
+
+So `skipped=1` does not say what failed.
+
+Again, this is observability rather than a settled behavioral-rule defect.
+
+---
+
+### 10. "Behind term deleted" is not independently demonstrable from the pasted old/new pair
+
+**Lines:** P031-P060 versus P061-P143.
+
+The old E4b block shown on the page contains no visible "behind" term. Therefore the page itself does not provide a before/after diff proving that a prior E6b "behind" condition was removed.
+
+The packet can legitimately rely on STAGE-1 disk diff for that fact, but it is a **page-evidence gap**, not a conclusion that the edit is wrong.
+
+---
+
+### 11. S5.4 is referenced rather than reproduced
+
+**Lines:** P093, P188.
+
+The packet paraphrases the S5.4 rule but does not include the authoritative S5.4 text itself. That leaves some semantic details dependent on the cited prior ruling/finding rather than independently checkable on this page.
+
+This is exactly the limitation already identified in the v282 material, so I would classify it as a **documentation/evidence gap**, not a new behavioral defect.
+
+---
+
+### 12. The "two emitters separable by ABORT-row state" assertion is not fully demonstrated here
+
+**Lines:** P163, C1728-C1733.
+
+The common logger prints:
+
+`reason`, `state`, `poi`, `dir`
+
+but not an explicit emitter identifier.
+
+The amended comment says the two `ABORT_LTF_MISALIGN` emitters are separable by state. That may be true in the full EA, but the second emitter is not reproduced in this packet, so the separation is not independently proven on-page.
+
+---
+
+### 13. Abort evidence is dependent on a preceding GUARD row
+
+**Lines:** P124-P127, C1728-C1733, P179.
+
+The abort line itself contains no `opposed`, `pobreak`, `antiNow`, `seedShift`, or break-bar data. Those live in the preceding `E4B_GUARD` row.
+
+The packet knows this and explicitly says to use GUARD-row pairing, so it is not a logic error. It is nevertheless a **join dependency** in the grading protocol and makes the attribution more fragile than an abort row carrying its own cause fields.
+
+---
+
+### 14. B8 correctness is not established by the shown code alone
+
+**Lines:** P180, P126-P127, C1728-C1733.
+
+The shown code proves:
+
+```text
+GoAbort(...); return;
+```
+
+but not what `GoAbort()` does thereafter.
+
+Therefore the claimed:
+
+> "no post-kill revival"
+
+is a **run-grade property**, not something this excerpt independently proves. The packet itself correctly treats B8 as an acceptance-run check.
+
+---
+
+### 15. The packet's Q1 claim should distinguish value equality from predicate equivalence
+
+**Lines:** P013, P017, P092, C5141.
+
+There are really two claims:
+
+1. `e6a_block` and `oOpp` select the same bars for blocking.
+2. `e6a_block` and `oOpp` are the same-valued representation.
+
+**(1) is true. (2) is false.**
+
+That distinction is the cleanest way to close the Q1 structural issue without requiring a helper this round.
+
+---
+
+# Analytic B — better mechanisms
+
+### 1. Durable Q1 mechanism: one shared three-state opposition helper
+
+**Current touch points:** C5117-C5141 and P073-P092.
+
+The strongest durable design remains a single helper returning the same three-state value:
+
+```text
+-1 = unreadable
+ 0 = not opposed
+ 1 = opposed
+```
+
+Then ORDER and E4b both consume that same result.
+
+That directly eliminates the current duplicate predicate drift and makes the equivalence literal at the representation level, not merely behavioral.
+
+The natural two consumers are exactly:
+
+* ORDER: C5117-C5141
+* E4b: P073-P092
+
+This is still a **new function surface**, so keeping it deferred for this round is consistent with the stated scope.
+
+---
+
+### 2. Immediate Q2 correction: make the order predicate explicit
+
+**Touch:** P119-P123.
+
+Use the exact intended relation:
+
+```text
+else if(e6b_seedShift >= 0 && e6b_seedShift < barShift)
+```
+
+Then there is no ambiguity:
+
+* `< 0` → `SEED`
+* `> barShift` → normal walk
+* `0 <= seed < barShift` → `SEEDORDER`
+* `== barShift` → silent fall-through
+
+That is the minimal correction and preserves every other current behavior.
+
+---
+
+### 3. Make the coverage field semantically exact
+
+**Touch:** P096, P109-P116, P125, P175.
+
+Either rename `e6b_walked` to something like `e6b_attempted`, or add an explicit successful-read count:
+
+```text
+e6b_attempted
+e6b_skipped
+e6b_read = attempted - skipped
+```
+
+Then B3 should require usable evidence, e.g. `read>=1`, rather than merely `walked>=1`.
+
+That would make the new observability fields actually prove the thing the acceptance text claims they prove.
+
+---
+
+### 4. Tighten the sentinel wording
+
+**Touch:** P175/P182.
+
+Define:
+
+* `bbar=epoch` = no break recorded
+* `skipped=0` + valid seed/order + readable walk = clean walk evidence
+
+rather than equating the epoch sentinel itself with "clean."
+
+---
+
+### 5. Make B7 terminology match the actual guards
+
+**Touch:** P179.
+
+Replace the generic "flip/break" language with the actual two causes:
+
+```text
+standing-opposition kill
+POI-break kill
+```
+
+Then the evidence mapping becomes operationally obvious:
+
+* `opposed=1` → E6a cause
+* `pobreak=1` → E6b cause
+
+while `flip` remains explicitly diagnostic/print-only.
+
+---
+
+## Bottom line
+
+**Q1: discrepancy.** The adopted **blocking predicate** is extensionally equivalent to ORDER, but the packet's stronger claim of identical outputs is false because unreadable HTF state is `false` in `e6a_block` versus `-1` in `oOpp` (P073-P092 vs C5141).
+
+**Q2: no.** The implementation has the required E6b structure, but P119-P122 incorrectly fires `SEEDORDER` for `seedShift == barShift`, despite P019 explicitly requiring equality to remain silent.
+
+The most important additional acceptance defect is B3's `walked>=1` criterion: P109 counts attempts before the read, so it does not prove that any POI evidence was actually readable.
+## V283-USDJPY-GUARDS3 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
