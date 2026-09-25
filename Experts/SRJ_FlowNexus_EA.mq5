@@ -2214,15 +2214,18 @@ bool IsConfirmationCandle(const int barShift, const int anchorLine,
     //--- [P-SLDEF-1b E19] A2 verdict flags: set where equality is encountered,
     //--- paired at each terminal return below (no branch touched).
     bool n1_vw = false, n1_poc = false;
+    //--- [P-USDJPY-1 E1b] his POC-supremacy rule 2026-09-25: one flag, reused below (no new bound style).
+    bool anchorIsPoc = (StringFind(g_lineCode[anchorLine], "POC") >= 0);
     if(c1 == L)
       {
        if(StringFind(g_lineCode[anchorLine], "VWAP") >= 0) { g_n1_vwapEq++; n1_vw = true; }
-       if(StringFind(g_lineCode[anchorLine], "POC") >= 0) { g_n1_pocEq++; n1_poc = true; }
+       if(anchorIsPoc) { g_n1_pocEq++; n1_poc = true; }
       }
     bool oppCandle = (dir == DIR_LONG)  ? (c1 < o1) : (c1 > o1);
     if(!oppCandle)  { failTerm = "A_OPP"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
     bool closeSideOk = (dir == DIR_LONG) ? (c1 >= L) : (c1 <= L);
-    if(!closeSideOk) { failTerm = "A2_CLOSE_BREAK"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
+    if(!closeSideOk && !anchorIsPoc) { failTerm = "A2_CLOSE_BREAK"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
+    if(!closeSideOk && anchorIsPoc) { if(InpDebugLog) PrintFormat("[SRJ-EA] A2_WAIVED_POC bar=%s dir=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(dir)); }
     double body    = MathAbs(c0 - o0);
     bool   isDoji  = (body < _Point * 0.0001);
     bool   bodyDir = (dir == DIR_LONG)  ? (c0 > o0) : (c0 < o0);
@@ -2347,7 +2350,8 @@ bool TpSessionLevelFiltered(int sessIdx, double mask)
   }
 
 bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
-                             double currentPrice, double &tpTargetOut)
+                             double currentPrice, double &tpTargetOut,
+                             const bool applyFilters = true)
   {
    double best = 0.0;
    bool   haveBest = false;
@@ -2366,7 +2370,9 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
    //--- The POI-line loop below is deliberately not filtered by it.
    double s39_mask;
    if(!ReadFlow(FL_BUF_SWEPT_MASK, s39_mask, barShift)) s39_mask = EMPTY_VALUE;
-    //--- [Task 144 / EA-141] print the swept+live mask so every session-level
+   //--- [P-USDJPY-1 E2b] filters-off reads through s39_eff (mask EMPTY = unfiltered, existing warmup semantics); s39_mask itself untouched.
+   double s39_eff = applyFilters ? s39_mask : EMPTY_VALUE;
+     //--- [Task 144 / EA-141] print the swept+live mask so every session-level
     //--- exclusion is attributable to a branch. Print only; nothing reads this.
     if(InpDebugLog)
       {
@@ -2397,12 +2403,13 @@ int anchorRank = (g_anchorLine >= 0) ? g_authorityRank[g_anchorLine] : INT_MAX;
 for(int i = 0; i < ArraySize(sessbufs); i++)
   {
    double v;
-   if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask))
+   if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_eff))
       TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
   }
 for(int kf = 0; kf < POI_NLINES; kf++)
   {
-   if((g_authorityRank[kf] / 2) > (anchorRank / 2)) continue;
+   //--- [P-USDJPY-1 E2b] tier-rank binds the first pass only.
+   if(applyFilters && (g_authorityRank[kf] / 2) > (anchorRank / 2)) continue;
    double vf;
    if(!ReadBuf1(g_hPoi, kf, vf, barShift)) continue;
    TpTargetUpdateBest(vf, dir, currentPrice, best, haveBest);
@@ -2438,31 +2445,34 @@ for(int kf = 0; kf < POI_NLINES; kf++)
          string winner   = "NONE";
          string admitted = "";
          int    nEmpty   = 0;
-         for(int i = 0; i < 18; i++)
-           {
-            double cv;
-            if(!ReadFlow(cbuf[i], cv, barShift)) continue;
-            if(cv == EMPTY_VALUE) { nEmpty++; continue; }
-            bool inDir = (dir == DIR_LONG) ? (cv > currentPrice) : (cv < currentPrice);
-            if(!inDir) continue;
-            admitted += cname[i] + ":" +
-                        DoubleToString(MathAbs(cv - currentPrice) / _Point, 0) + " ";
-            if(haveBest && cv == best) winner = cname[i];
-           }
-         for(int k2 = 0; k2 < POI_NLINES; k2++)
-           {
-            if((g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;
-            double pv;
-            if(!ReadBuf1(g_hPoi, k2, pv, barShift)) continue;
-            if(pv == EMPTY_VALUE) { nEmpty++; continue; }
-            bool inDir = (dir == DIR_LONG) ? (pv > currentPrice) : (pv < currentPrice);
-            if(!inDir) continue;
-            admitted += g_lineCode[k2] +
-                        ((k2 == g_anchorLine) ? "*" : "") + ":" +
-                        DoubleToString(MathAbs(pv - currentPrice) / _Point, 0) + " ";
-            if(haveBest && pv == best)
-               winner = g_lineCode[k2] + ((k2 == g_anchorLine) ? "(ANCHOR)" : "");
-           }
+          for(int i = 0; i < 18; i++)
+            {
+             double cv;
+             if(!ReadFlow(cbuf[i], cv, barShift)) continue;
+             if(cv == EMPTY_VALUE) { nEmpty++; continue; }
+             bool inDir = (dir == DIR_LONG) ? (cv > currentPrice) : (cv < currentPrice);
+             if(!inDir) continue;
+             //--- [P-USDJPY-1 E5a] census honesty: session loop honors the booking effective mask (print-only).
+             if(TpSessionLevelFiltered(i, s39_eff)) continue;
+             admitted += cname[i] + ":" +
+                         DoubleToString(MathAbs(cv - currentPrice) / _Point, 0) + " ";
+             if(haveBest && cv == best) winner = cname[i];
+            }
+          for(int k2 = 0; k2 < POI_NLINES; k2++)
+            {
+             //--- [P-USDJPY-1 E5b] census honesty: POI rank obeys the booking switch (print-only).
+             if(applyFilters && (g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;
+             double pv;
+             if(!ReadBuf1(g_hPoi, k2, pv, barShift)) continue;
+             if(pv == EMPTY_VALUE) { nEmpty++; continue; }
+             bool inDir = (dir == DIR_LONG) ? (pv > currentPrice) : (pv < currentPrice);
+             if(!inDir) continue;
+             admitted += g_lineCode[k2] +
+                         ((k2 == g_anchorLine) ? "*" : "") + ":" +
+                         DoubleToString(MathAbs(pv - currentPrice) / _Point, 0) + " ";
+             if(haveBest && pv == best)
+                winner = g_lineCode[k2] + ((k2 == g_anchorLine) ? "(ANCHOR)" : "");
+            }
          PrintFormat("[SRJ-EA] TPCENSUS #%d bar=%s dir=%s close=%s winner=%s best=%s "
                      "distPts=%s empties=%d admitted= %s",
                      s_tpDumps,
@@ -7306,10 +7316,19 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       double tpTarget;
       if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget))
         {
+         //--- [P-USDJPY-1 E2b] his nearest-only rule 2026-09-25: second pass, filters off (mask+rank; zone stays on); the S5 1R gate below stays the sole TP/R refusal.
+         if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget, false))
+           {
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] %s S2POLL_NO_TP_TARGET",
+                           TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
+            GoAbort(ABORT_NO_TP_TARGET, g_state); return;
+           }
          if(InpDebugLog)
-            PrintFormat("[SRJ-EA] %s S2POLL_NO_TP_TARGET",
-                        TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-         GoAbort(ABORT_NO_TP_TARGET, g_state); return;
+            PrintFormat("[SRJ-EA] TPFALLBACK bar=%s dir=%s tp=%s distPts=%d",
+                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                        DirName(g_dir), DoubleToString(tpTarget, _Digits),
+                        (int)MathRound(MathAbs(tpTarget - currentPrice) / _Point));
         }
       double slRef = 0.0; ENUM_SRJ_SLMODE slMode = SL_MODE_NONE;
       //--- [P-FIX-S2POLL E1 / operator Q1+Q3 2026-09-11] The stop pair is ATOMIC:
@@ -8070,10 +8089,26 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       if(!CheckLtfAlign(barShift, g_dir, aligned))
         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
       if(!aligned)
-        { if(InpDebugLog) PrintFormat("[SRJ-EA] S2WAIT bar=%s dir=%s poi=%s sess=%s - LTF bias unaligned, candidate RETAINED (Stage 3a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), SessionName(g_sessionAtEntry)); return; }
+        {
+         //--- [P-USDJPY-1 E4b] his confirm-once rule 2026-09-25 + 2026-09-11 ruling extended to S2 as a deliberate exception (LTF-stay overridden for confirm-bearing candidates only; S3-only keeps the 6/5 miss dead). Identical predicate, identical S5 fall-through; FAIL retains at S2.
+         string cfTermS2 = "";
+         if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermS2))
+           {
+            ENUM_SRJ_STATE prevS2 = g_state;
+            g_confirmFromState = prevS2;
+            g_state = ST_S5_GATE_CHECK;
+            LogState(prevS2, g_state);
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] CONFIRM_PREBIND_S2 bar=%s dir=%s poi=%s seedbar=%s",
+                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                           DirName(g_dir), AnchorStr(),
+                           TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES));
+           }
+         else
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] S2WAIT bar=%s dir=%s poi=%s sess=%s - LTF bias unaligned, candidate RETAINED (Stage 3a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), SessionName(g_sessionAtEntry)); return; }
+        }
       ENUM_SRJ_STATE prev = g_state;
-      g_state = ST_S3_ZONE_WAIT;
-      LogState(prev, g_state);
+      if(g_state == ST_S2_LTF_ALIGN) { g_state = ST_S3_ZONE_WAIT; LogState(prev, g_state); }
      }
 
    if(g_state == ST_S3_ZONE_WAIT)
@@ -8796,6 +8831,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          //--- now (terms A/A2/B/C; the ruled retracement term A2: the prior
          //--- candle's CLOSE stays on the setup side of the anchor line - a wick
          //--- through is the retracement, a CLOSE through is a line break).
+          //--- [P-USDJPY-1 E1b] amended for POC anchors only (his 2026-09-25 rule): A2 binds non-POC anchors; POC-anchored setups never fail the prior close.
+          //--- (E2b/E4b carry no comment amendments; their in-code comments at the touched sites govern.)
          //--- One-bar validity: promotion happens ONLY on a true test bar; a
          //--- failed term consumes the confirmation (no carry-forward) and a
          //--- later bar can present a fresh confirmation while the candidate is
@@ -8917,13 +8954,22 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       double tpTarget = 0.0;
       if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget))
         {
-         if(InpDebugLog)
-             PrintFormat("[SRJ-EA] %s S5_NO_TP_TARGET",
-                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-          //--- [P-SLDEF-4 E33] the decided outcome rides the census.
-          SrjOrderEmit(barShift, "NO_TP");
-          GoAbort(ABORT_NO_TP_TARGET, g_state); return;
-        }
+         //--- [P-USDJPY-1 E2b] second pass here too (every call site inherits; abort means no in-direction line outside the bound zone).
+         if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget, false))
+           {
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] %s S5_NO_TP_TARGET",
+                            TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
+              //--- [P-SLDEF-4 E33] the decided outcome rides the census.
+              SrjOrderEmit(barShift, "NO_TP");
+              GoAbort(ABORT_NO_TP_TARGET, g_state); return;
+            }
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] TPFALLBACK bar=%s dir=%s tp=%s distPts=%d",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                         DirName(g_dir), DoubleToString(tpTarget, _Digits),
+                         (int)MathRound(MathAbs(tpTarget - currentPrice) / _Point));
+         }
 
       double slRef = 0.0;
       ENUM_SRJ_SLMODE slMode = SL_MODE_NONE;
