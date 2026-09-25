@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V280 READY)
+## State (2026-09-25, V280 GRADED CLEAR)
 
-- Packet v7 + relay v280 green
-  (ECC1E56B + 5BA413BE). v279
-  halted by Luna genuine-NO.
-- Seats GLM+Sonnet. Ledger 763.
-  No build, run, key.
+- V280 verdicts filed + graded
+  CLEAR 3-0 (Luna YES, Sonnet
+  YES, GLM YES). Result filed,
+  ledger 764. No build, run, key.
+- Key ask owed (KEY-VEHICLE).
 
 ## Next (artifact owed)
 
-- ONE-ASK memo: v280 file +
-  digest check + 2-seat paste
-  + paste-back. Key AFTER.
+- YOUR key ask to Luna (exact
+  prompt in chat) + paste back
+  whole reply + run word.
 
 ## Resume order (exact)
 

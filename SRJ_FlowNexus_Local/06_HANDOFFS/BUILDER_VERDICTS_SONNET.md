@@ -1834,3 +1834,26 @@ Reasoning, site by site:
 
 No file/output was requested here — this is a pure verdict-and-analysis response, so I've kept it in text per the packet's own no-build/no-run/no-invention constraints.
 ## V279-USDJPY-CLEAR6 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V280-USDJPY-CLEAR7 OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+I'll answer this as myself — a single reviewer looking at the pasted diff and code regions on their own terms, not as a stand-in for any other seat in your process. I checked the arithmetic in the diff blocks and the logic each edit produces when applied to the disk lines you pasted.
+
+**Verdict Q1: YES, with one caveat (see finding A-1).**
+
+The line-count math in the S3 budget (P271) checks out exactly against the pasted old/new blocks: E1b +3, sig +1, mask +2, session +0, rank +1, POI +0, S2-poll +9, S5-call +9, E4b +16, comment +2, E5a +2, E5b +1 → sum +46, matching the stated total. The logic in each edit is internally consistent with what's claimed:
+
+- **E1b**: `anchorIsPoc` is computed once and reused; the waiver branch (`!closeSideOk && anchorIsPoc`) can only be reached when `c1 != L`, so `n1_poc` is provably `false` there — the "no counter movement" claim holds by construction, not just assertion.
+- **E2b**: the `applyFilters` default of `true` preserves every untouched caller's behavior exactly, since only the two named call sites (S2 poll, S5 call) pass `false` explicitly. The zone guard in `TpTargetUpdateBest` is untouched, so "zone stays ALWAYS ON" is accurate.
+- **E4b**: the S2 fallback mirrors the existing S3 pre-bind pattern (`g_confirmFromState` set before the state jump, no early return on success), so the "fall-through to S5 same tick" behavior is structurally the same mechanism already proven at C8655–8680, not a new pattern.
+- **E5a/E5b**: both census loops are gated by the same `s39_eff`/`applyFilters` values the walker itself uses, so census naming can't diverge from booking on this axis — consistent with "print-only, behavior untouched."
+
+**Analytic A — findings:**
+
+- **A-1 (real gap, not a logic bug):** The `A2_WAIVED_POC` print (P057, landing in `IsConfirmationCandle`) fires as soon as the waiver condition is met, *before* the `B_BODY`/`C_TOUCH` checks run. If a waived candidate then fails `B_BODY` or `C_TOUCH`, that failure has no dedicated print when reached via the E4b/S2 path (P169–195) — the `else` branch there only emits `S2WAIT`, not a term-specific failure. So a `A2_WAIVED_POC` row can appear on disk with no distinguishable downstream reconciliation record when the candidate fails for an unrelated term after being waived. This directly touches your A3b acceptance clause ("every `A2_WAIVED_POC` row reconciles") — worth confirming at grade time that every waived row's *eventual* fate (take/refuse/no-seed) is actually recoverable from the log, not just assumed.
+- **A-2 (expected, not a defect):** Calling `ComputeNearestTpTarget` twice on fallback re-fires the unconditional `SWEPTMASK` print and the `TPCENSUS` block inside it, so every fallback event produces two `TPCENSUS` rows for one logical decision. You've already anticipated this in the A2 acceptance text ("same pass prints twice"), so this is a non-issue as long as the grading script expects the pair.
+- **A-3 (scope limit, not a code finding):** I can't independently confirm `g_anchorBarTime`'s declaration point relative to C8067, or the "48/48 buffers, collision-free" and char-code assertions in S1 — those require the full file, which is outside what's pasted. Flagging per your own verification-split rule rather than asserting either way.
+
+**Analytic B — alternative mechanism:**
+One option worth considering for E2b: rather than a boolean re-run of the whole walker, thread a single `MODE` enum (`STRICT`/`RELAXED`) through `ComputeNearestTpTarget` so the fallback pass and its provenance are returned as an out-param (e.g., `bool usedFallback`) rather than inferred purely from the print sequence. That would let the S2/S5 call sites (C7307, C8918) directly tag `SrjOrderEmit`/journal rows with fallback status at the call site instead of relying on log-adjacency (TPFALLBACK next to TPCENSUS) for A5's attribution matching — closing the gap in A-1 above at the source rather than downstream.
+
+That's my full read of what's on the page — nothing here is a disk claim, just the pasted text.
+## V280-USDJPY-CLEAR7 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)

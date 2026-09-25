@@ -9567,3 +9567,57 @@ The stated E-c watch remains exactly that: a future conflict trigger. The suppli
 
 The principal substantive issue is the **E1b counter re-attribution claim vs. its actual `n1_poc` gating** at P017/P045-P057. The E4b pre-bind S5 dependency is a further page-level gap, and the A5 causal row-tag requirement is not sufficiently specified.
 ## V279-USDJPY-CLEAR6 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V280-USDJPY-CLEAR7 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+## Verdict Q1
+
+**YES — page-level logic clears PACKET_P-USDJPY-1 v7 for exactly one STAGE-1-gated build plus the two specified tester runs.** The proposed changes are internally consistent with the stated E1b/E2b/E4b rules, the refine-only fence, and the A1-A5 acceptance contract. The packet explicitly keeps this at probe/print-only scope with no live-money authorization.
+
+I am treating the digest/genuineness/build claims as **gated disk attestations, not independently verified chat facts**, exactly as the packet requires.
+
+### Analytic A — defects, gaps, and imprecisions
+
+**1. “Each call twice” is imprecise.**
+The stated E2b description says the S2 and S5 sites “each call twice,” but the actual proposed control flow performs the second call **only when the first filtered call returns false**. That is correctly implemented as a two-pass fallback, but “each call twice” is literally inaccurate.
+**Severity:** wording only; no behavior defect.
+
+**2. E4b computes `cfTermS2` but throws away the failure reason.**
+The S2 path creates `string cfTermS2 = ""` and passes it into `IsConfirmationCandle()`, but the failure branch prints only `S2WAIT`; unlike S4, it does not print the first failed term. That makes S2 confirmation failures materially less auditable.
+**Severity:** diagnostic gap, not behavior-changing.
+
+**3. `TPFALLBACK` is under-labeled for a two-site/two-pass audit.**
+S2 and S5 can both emit a `TPFALLBACK` for the same judged bar, with only `bar/dir/tp/distPts` identifying it. The packet then relies on an “adjacent second-pass TPCENSUS row” to establish identity. That is workable, but the output itself does not say `site=S2|S5` or `pass=2/filter=off`, so the forensic join is more implicit than necessary.
+
+**4. The census likewise does not explicitly identify the filter mode.**
+E5a/E5b makes the census behaviorally honest, but `TPCENSUS` still does not print whether `applyFilters` was true or false. The acceptance therefore depends on print adjacency/order rather than an explicit pass label.
+**Severity:** diagnostic/audit imprecision.
+
+**5. The “R floor 1.0” claim is not completely self-proving from the shown code.**
+The page says the S5 rule is `>= 1.0` versus `<1.0`, but the displayed code actually compares against `InpMinRewardRisk`. The page excerpt does not show that input's value or definition. The standing rule says the floor is 1.0, so this is not a contradiction, but it is an attestation dependency rather than a page-local proof.
+**Severity:** configuration-verification gap. S1 should explicitly pin/assert the value if it is not already part of the standing harness.
+
+**6. The `g_confirmFromState` consumer and post-refusal terminal are asserted but not shown in the supplied code excerpts.**
+The packet explicitly requires S1 to assert that the consumer classifies `ST_S2_LTF_ALIGN` as pre-binding, and it describes the post-refusal terminal, but those downstream consumers are not included in the displayed C-region excerpts.
+**Severity:** verification gap, already fenced by the stated STAGE-1 assertions rather than a reason to reject the change.
+
+**7. “Complete code, verbatim, no elisions” is too broad as wording.**
+The packet contains the complete cited regions/touched functions, but not literally the entire 11,506-line EA. The source section itself is a selected-region presentation keyed by true disk line numbers.
+**Severity:** wording only.
+
+**8. “Prior-close-irrelevant” is broader than what E1b actually changes.**
+The code specifically waives **A2 close-side failure** for POC anchors; it does not make the entire prior candle irrelevant, because `oppCandle` and touch remain active. The later S4 comment is more precise.
+**Severity:** terminology/imprecision only.
+
+**9. `NO_TP_TARGET` wording is slightly too broad at S2.**
+The acceptance says it means “no in-direction line exists outside the bound zone,” but the S2 pre-bind path is explicitly before the zone is bound, and the zone guard is inert until that state exists. The wording is exact for the bound/S5 context, less so for S2.
+**Severity:** semantic wording only.
+
+### Analytic B — better mechanism
+
+The strongest improvement I see is **diagnostic-only, preserving the current behavior**:
+
+At the existing `TPFALLBACK` and `TPCENSUS` sites, emit an explicit `site` and `mode`, e.g. `S2/FILTERED`, `S2/FALLBACK`, `S5/FILTERED`, `S5/FALLBACK`, instead of forcing the grade to infer the second pass from adjacency. The logic touch points are the S2/S5 calls and the census inside `ComputeNearestTpTarget`: the proposed call sites around EA 7307 and 8918, plus the census region corresponding to C2425-C2475.
+
+For E4b, the similarly narrow improvement is to print `cfTermS2` on the S2 failure branch, matching the existing S4 `CONFIRM_STRUCT_FAIL` diagnostic. That would make the new S2 exception fully row-auditable without changing the predicate or state transition.
+
+**Bottom line:** no page-level behavioral defect forces a HOLD. The E1b waiver is correctly scoped to POC/A2, E2b keeps the zone guard while removing only mask/rank on the second pass, E4b uses the existing live confirmation predicate and routes a passing S2-unalinged confirmation directly to S5, and E5a/E5b make the census follow the actual booking mode.
+## V280-USDJPY-CLEAR7 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
