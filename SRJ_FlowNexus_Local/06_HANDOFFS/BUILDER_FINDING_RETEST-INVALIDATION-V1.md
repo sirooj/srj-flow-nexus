@@ -32,4 +32,10 @@
 - EU grade applies S5.4 + S3.3 from the first row. USDJPY grade re-opens on the same two rules; A1/A2/A4 takes already proven fated stay fated - validity is re-judged, fills are not re-typed.
 - No packet, no relay, no code touch, no EU halt: his orders. Analysis + council route (if semantic) after EU DONE.
 
+## 6. His EU rulings 2026-09-26 (chart + words, filed whole; EU done, both runs graded)
+
+- Ruling 3 (8/27 venue): "8/27 that is the correct exit, but the entry is WRONG! the last valid retest is at 18:05 and the bearish retest is invalidated by breaking it with a candle body close at 18:10 and 18:15." Segment proof same turn (RECON67 E8B0E582): retest book 17:45 hits=1 W-POC (seed); 18:10 book bar=18:05 hits=0; 18:15 book bar=18:10 hits=2 with 18:10 CONFIRMPOLL bodyDir=0; 18:20:01 CONFIRMPOLL bar=18:15 confirm=1 (touchAttr=1) → PREBIND seedbar=17:45 → GUARD opposed=0 pobreak=0 → SIGNAL/EXEC 18:20. Tester confirmed on 18:15 touch and entered 18:20 on a setup dead by his 18:10/18:15 closes. E6b walked 6 bars pobreak=0 (anchor Weekly-POC per-bar reads uncrossed; confirm bar itself excluded by construction). Entry path has no S5.4 guard (section 3 S8 NOT BUILT, still true post-v5).
+- Ruling 4 (9/1 venue): "Same with 9/1, YOUR ENTRY LOGIC IS OFF BY +1 candle! Why is the POI line retest after the confirmation candle?!" Segment proof same turn: books 15:05→15:20 hits=0 after the 15:00 SHORT hits=2; 15:30:00 book bar=15:25 hits=2 + CONFIRMPOLL bar=15:25 dir=SHORT confirm=1 same pass → PREBIND seedbar=15:25 (seed==confirm) → GUARD walked=0 silent → SIGNAL/EXEC 15:30. Retest-detection and confirmation coincide in one pass with 4 dead bars since the last standalone retest; no confirm-recency gate in the confirm path (pre-existing, both trees).
+- Status of both takes: ruled INVALID entries by him (fills stand as evidence, never his trades). Next: entry-logic packet (S5.4 gate in entry path + confirm-recency + 9/7 NY detector) via council route; revert-vs-fix is his call (revert cannot move entries - kill-only proof on record).
+
 (End of file)

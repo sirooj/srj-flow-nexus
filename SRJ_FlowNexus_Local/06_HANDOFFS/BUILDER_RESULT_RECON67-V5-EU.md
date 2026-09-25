@@ -15,16 +15,16 @@
 - 9/8 London 10:10 ruled VALID: ENTRY HIT (1.16205) + TAKE HIT + TP 1.16102.
 - 9/4 10:40 INVALID: correctly dead - E4b GUARD 10:45 opposed=0 pobreak=0 promoted (correct: no standing opposition at the confirm bar), downstream S4 rejected, no signal, no take. Designed division, no contradiction.
 - 8/28 New York decline (his "less than 1R, wicked on news speech"): SILENT - no signal, no take after 12:00. CORRECT.
-- Tester-only takes (HYPOTHESIZED, his ruling owed): 8/27 evening SHORT (fill 1.16496, DAY_CLOSE loss) + 9/01 afternoon SHORT (fill 1.15921, SL loss). 9/4 London 0.92R is W=0 (not a take, no obligation).
+- Tester-only takes RULED INVALID ENTRIES by him 2026-09-26 (chart + words filed in finding RETEST-INVALIDATION-V1 section 6; question withdrawn): 8/27 evening SHORT (last valid retest 18:05, invalidated by 18:10 + 18:15 body closes; tester confirmed 18:15 touch, entered 18:20) + 9/01 afternoon SHORT (retest+confirm same pass 15:30:00 after 4 dead bars; entered 15:30, off-by-one). Fills stand as evidence (1.16496, 1.15921), never his trades. WITHDRAWN from this grade: "0 falses vs his set" (now 2 ruled-invalid entries) and the valid-or-not question. Surviving conclusions kept: his 4-take join, B-scores on ruled instances, guard behavior (E6 never fired wrongly: 0 POIBREAK, kills all attributed). 9/4 London 0.92R is W=0 (not a take, no obligation).
 
 ## 3. Guard behavior in-window (B7 EU)
 - 6 GUARD rows, all opposed=0 (4 promotes + 2 ruled-silent equal-shift 9/01 + 9/03, seed=barShift, walked=0, correctly no SKIP). SKIP 0x (second patterns reason=HTF/SEEDORDER 0x). 0 E4b kills (MISALIGN 13x all non-S2 states = invariant-site baseline; S2KILLS 0x double-proved: no S2 state + all GUARD opposed=0 + all pobreak=0). 0 S54_POIBREAK fires. 5 TP_RR_FAIL aborts incl B5/B6 latches (untouched path).
-- 7 takes, 7 exits (2 DAY_CLOSE, 1 BREAK, 2 TP_TOUCH, 2 SL), all attributed; 0 unattributable kills; 0 falses vs his set.
+- 7 takes, 7 exits (2 DAY_CLOSE, 1 BREAK, 2 TP_TOUCH, 2 SL), all attributed; 0 unattributable kills; 2 ruled-invalid entries (8/27, 9/1 - his chart rulings, entry-engine flaws, present in both trees).
 
 ## 4. Scoreboard + bar
-- Takes: 3 full hits (9/4, 9/7 London, 9/8 pair) + 1 entry-hit/exit-displaced (8/28) + 1 miss (9/7 NY, known gap). Rejects: silent. Invalid: correctly dead. Deployment bar UNMET (9/7 NY miss + full-journal open + 2 hypothesized takes awaiting his ruling).
+- Takes: 3 full hits (9/4, 9/7 London, 9/8 pair) + 1 entry-hit/exit-displaced (8/28) + 1 miss (9/7 NY, known gap) + 2 ruled-invalid entries (8/27, 9/1). Rejects: silent. Invalid: correctly dead. Deployment bar UNMET (9/7 NY miss + entry-engine flaws + full-journal open).
 
 ## 5. Owed next
-- His ruling on the two hypothesized takes (plain question in report). Next packet (9/7 NY retest-detector + exit-engine day-close leg state) via council route. No build/run (key + word spent).
+- Entry-logic packet (S5.4 gate in entry path + confirm-recency + 9/7 NY detector) via council route; revert-vs-fix is his call (revert proposal with cost + gates in the report - revert cannot move entries, kill-only proof on record). No build/run (key + word spent).
 
 (End of file)

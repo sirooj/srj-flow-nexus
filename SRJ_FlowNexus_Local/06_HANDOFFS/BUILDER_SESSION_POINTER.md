@@ -3,20 +3,21 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, EU GRADED)
+## State (2026-09-26, DEFECT D1)
 
-- RECON67 DONE=PASSED, join
-  graded (3 hits + 1 displaced
-  + 1 known miss). Segment
-  E8B0E582. Ruling owed on 2
-  tester takes. Ledger 788.
-  Result 630A5873.
+- Your chart rulings filed (8/27
+  + 9/1 entries wrong, proven
+  on disk). My question was D1
+  (record answered it). E6 did
+  not cause entries (kill-only).
+  Ledger 789. Revert-vs-fix is
+  YOUR call (proposal in chat).
 
 ## Next (artifact owed)
 
-- YOUR ruling: 27 Aug evening
-  + 1 Sep afternoon takes
-  (valid or not, plain words).
+- YOUR word: revert to pre-v5
+  tree, or fix entries via
+  council (needs new key).
 
 ## Resume order (exact)
 
