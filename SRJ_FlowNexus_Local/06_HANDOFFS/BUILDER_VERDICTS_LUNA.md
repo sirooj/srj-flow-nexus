@@ -9075,3 +9075,75 @@ For the **exact-fill** objective, the stronger mechanism would be to make the ex
 
 The key page-level conclusion is therefore: **E1 fixes the one-bar-late DAY_CLOSE election path, but E1 alone does not prove the universal exact-deal-price claim.**
 ## V271-DAY2355-CLEAR1 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V273-DAY2355-CLEAR4 LUNA (verbatim open; novel inbound, counts 0)
+Luna:
+## Q1
+
+**YES — PACKET_P-DAY2355-1 v4 clears for exactly one build plus one scoped tester run.**
+
+The proposed E1 at **P037–P040** changes the day-mark eligibility from `mark <= barTime` to a one-period lookahead, which is sufficient to move the 23:55 Friday DAY_CLOSE evaluation from the following available bar onto the 23:55 boundary, provided the existing closed-bar evaluation cadence stated at **P045/P049** holds. The requested run window and acceptance scope are internally consistent with the stated MT5 end-date behavior at **P056**.
+
+No additional clearance condition is required.
+
+## Analytic A — defects, gaps, and imprecisions
+
+1. **“Mark sits inside the next bar” is technically imprecise.**
+   **P037–P039.** At the relevant evaluation, `barTime` is the closed 23:50 bar and 23:55 is the **opening boundary of the next bar**, not a timestamp “inside” that next bar. The code itself reflects the boundary relationship more accurately than the comment.
+
+2. **E1 does not, by itself, guarantee first-tick execution.**
+   **P040; P045; C11424–C11431.**
+   `g_news_dayMarks[dc] <= barTime + PeriodSeconds()` creates a one-period eligibility interval. It becomes an exact 23:55 trigger only because the surrounding mechanism is asserted to evaluate on the first tick of the new closed-bar boundary. The four inserted lines do not themselves enforce “first tick only.” Thus exactness is a **system-level cadence property**, not a property proved by E1 alone.
+
+3. **The predicate is broader than the stated exact-boundary rule.**
+   **P040.**
+   `<= barTime + PeriodSeconds()` admits any mark up to one period after `barTime`. For the pinned M5 / exact 16:55-and-23:55 marks this produces the intended result, but as a generic mechanism it is wider than “the mark equals the next bar opening boundary.”
+
+4. **`PeriodSeconds()` makes the mechanism chart-period dependent.**
+   **P045; P040.**
+   The packet correctly pins the graded run to M5, so this is controlled for this run. Outside that pin, the same source line would mean a different lookahead interval.
+
+5. **The universal scope is broader than the ticket name suggests.**
+   **P016, P040.**
+   E1 applies to **every `g_news_dayMarks` mark on every day**, not specifically the Friday 23:55 case. The packet explicitly says this is intentional and universal, so it is not a clearance blocker, but “DAY2355” can misleadingly suggest a Friday-specific implementation.
+
+6. **Exact price equality is not established by the shown E1 change.**
+   **P050; C11453–C11455; C11467–C11469.**
+   E1 establishes when `vDAY` becomes true. Exact equality of the resulting fill to the 23:55 open additionally depends on `nextOpenPx` identity and the execution path. The packet appropriately makes that a run-time acceptance check rather than pretending E1 proves it locally.
+
+7. **The executor receives `barTime`, not an explicit current-tick timestamp.**
+   **C11469.**
+   `MtCloseBrokerPosition(..., g_mtrade.exitPrice, barTime)` passes the evaluated/closed-bar timestamp. That is compatible with the packet's stated audit convention, but it does not itself encode “execute at 23:55:00 first tick.” Any exact execution semantics therefore remain dependent on the helper and caller context not shown here.
+
+8. **The weekend fallback remains semantically asymmetric.**
+   **P016, P049.**
+   Friday is intended to fire at the 23:55 boundary, while a missing Friday evaluation can still produce a Monday fallback. The packet explicitly distinguishes that fallback by requiring a halt cause, so this is an accepted diagnostic branch rather than an unhandled failure.
+
+9. **“23:55 bar only closes after the boundary” conflates bar identity and timestamp.**
+   **P037–P039.**
+   More precise wording would distinguish the **23:55 mark**, the **23:50 closed evaluation bar**, and the **23:55 newly opened bar**.
+
+10. **A1 is partly runtime/harness-dependent rather than source-local.**
+    **P049, P056.**
+    The assertion that `DateTo = 2026-09-08 00:00` includes all of Monday but no Tuesday depends on the stated MT5 tester end-date semantics. That is appropriate for the scoped run, but it is not established by the EA source itself.
+
+I do **not** see a logic defect in the four-line insertion that would justify denying this one-build/one-run clearance. The material issues are mainly precision and dependency boundaries.
+
+## Analytic B — better mechanism
+
+A tighter mechanism for the stated **exact-next-bar-open** goal would replace the interval test with an equality test against the next M5 boundary:
+
+```cpp
+if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] &&
+   g_news_dayMarks[dc] == barTime + PeriodSeconds())
+{
+   vDAY = true;
+   break;
+}
+```
+
+That would touch only the E1 predicate at **C11429 / proposed P040**, and would make the source semantics match the prose more literally: the mark must be **exactly** the next bar boundary, rather than merely falling anywhere within the next period.
+
+A still stronger architecture would additionally gate execution on an explicit **new-bar/first-tick condition** and pass the actual tick time into the executor; that would require touching the caller/cadence path around **C11424–C11431** and the execution call at **C11467–C11469**, so it is materially larger than this ticket.
+
+**Bottom line: Q1 = YES.** The packet is coherent enough for the single build and single scoped run; the run is the correct place to falsify the cadence-dependent A1/A2 behavior.
+## V273-DAY2355-CLEAR4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

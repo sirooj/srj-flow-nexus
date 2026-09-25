@@ -4082,3 +4082,45 @@ Conclusion: the pasted E1 is the best minimal mechanism for the stated goal; no 
 
 Standing reminders honored: this verdict rules on the page only — it builds nothing, runs nothing, spends nothing. Disk truth (digests, hashes, build, run) is proven on his machine. Keys come only from the key seat. Live activation remains outside anything here.
 ## V271-DAY2355-CLEAR1 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V273-DAY2355-CLEAR4 GLM (verbatim open; novel inbound, counts 0)
+GLM:
+**Verdict Q1: YES** — packet v4 clears DAY2355 for exactly one build plus one scoped run (DateFrom Fri 9/4 00:00, DateTo Tue 9/8 00:00, A1–A3 as stated), nothing more.
+
+Basis, on the page only: the trigger change (P040 vs C11429) is a minimal lookahead whose firing semantics are coherent with the evaluation timing the page itself proves — EXITCENSUS/EXITVERDICT rows stamped sim 2026.09.04 23:55:00 with bar=23:50 (16 rows, P011 + raw rows) establish barTime lags tick time by one bar, and the defect rows (P011: Monday 00:00:07 fill of a Friday-verdict bar) establish the failure mode being fixed. The insert makes the union condition `fillBarTime <= mark <= barTime + PeriodSeconds()`, which at that evaluation resolves mark 23:55 ≤ 23:55 → fires on the mark bar's own first tick, with price identity honestly routed through A2 (P050) rather than self-proven. Acceptance is falsifiable with named halt causes (P016, P049). The retained old line is subsumed, not conflicting (see A-5). Execution of the clearance remains on his word per the standing brief; this verdict builds and spends nothing itself.
+
+---
+
+**Analytic ask A — defects, gaps, imprecisions (all named, none verdict-flipping):**
+
+1. **P049 (A1) probe wording is ambiguous as written.** "16-row RECON60 pattern - must reproduce" cannot be read byte-literally: in the new run the 23:55:00 evaluation must show **vDAY=1** in EXITVERDICT (the RECON60 row shows vDAY=0), and MTEXIT + MTCLOSE + the deal row will be *added* at 23:55:00 (so 16 evaluation rows plus new exit rows at the same sim second). Define the probe as: "the 16 evaluation rows stamped 2026.09.04 23:55:00 reproduce (CQD DIV, OBPROV, CQDRECHECK, 12× EXITCENSUS, EXITVERDICT), EXITVERDICT showing vDAY=1, with MTEXIT/MTCLOSE added at the same stamp." A literal reading forces a false halt; a loose reading could mask a missing-evaluation defect.
+
+2. **P021/P049–P051: no acceptance clause enforces the window's own "no Tuesday" claim.** If the tester end-date behavior word (P056) were wrong in either direction, Tuesday 9/8 rows could enter the run and A1–A3 would not necessarily flag them — if RECON60 "same-span" also contained them, "no other election delta" (P051) passes vacuously. Add one tabulation-only clause: "zero rows stamped ≥ 2026.09.08 00:00:00; any such row halts with cause window-overshoot." No code touched.
+
+3. **P056: RECON60's own window parameters are not on the page.** "Same-span" is asserted, not shown. Either state RECON60's DateFrom/DateTo in the tabulation header or scope the comparison explicitly to sim-time ≤ 2026.09.07 23:59:59, so same-span is checkable rather than assumed.
+
+4. **P011 defect rows vs P021: the bar-label shift must be carried verbatim into the tabulation checklist.** The new MTEXIT/MTCLOSE will print bar=2026.09.04 **23:50** at sim 23:55:00, while RECON60's defect rows print bar=2026.09.04 **23:55**. The page already declares this (P021, join on fill-time + ref, never the printed bar) — require the checklist to repeat it so the label shift is neither diffed as a false delta nor "corrected."
+
+5. **C11429 + P040: the retained old line is a dead superset branch.** `mark <= barTime` ⊂ `mark <= barTime + PeriodSeconds()`, so the old line can never fire where the new one doesn't. Harmless, consistent with "+4 additive, old 0" (P026), and the comment-narrowness is already recorded openly (P016). No action; just never tabulate it as a second election.
+
+6. **P041/P050: nextOpenPx identity (EA 11290/11292) is the single load-bearing unpasted dependency** — including the P016 claim "whose bid IS the bar open," which holds only because closed-bar evaluation executes on the bar's first processed tick (the 16-row 23:55:00 stamp evidences this in-tester). A2 correctly gates it rather than self-proving; name it so nobody treats A2 as a formality — it is the clause that converts "should be the 23:55 open" into disk fact.
+
+7. **P045: PeriodSeconds() is chart-period-relative; M5 is pinned for this graded run only.** The universal sentence (P016) outruns what this run can ever evidence on non-M5 charts. Fine for this clearance; any future universal claim must stay M5-qualified or add a period guard in a separately-relayed diff.
+
+8. **Edge to pre-declare before any universal use (cannot occur in this window):** a managed fill arriving *inside* the mark bar (e.g., 23:55:30 Friday) has already missed the 23:55:00 evaluation; the old line fires at the next evaluation (next trading day's first tick) → a next-day fill for that mark. Defensible under "first mark at/after the fill," but A1 as written would halt on it. No 23:55:xx fill exists in-window (RECON60 rows), so this run is clean; pre-declare the semantics now or accept that halt-cause name later.
+
+9. **Standing-brief drift (brief "History" line):** "this packet v1 through v9; relays v162 through v172 on disk" contradicts this packet's v1–v4 lineage (P001, P003) and relays v271/v272/v273 (header, priors). Boilerplate staleness only; refresh the standing text. No effect on this verdict.
+
+10. **Non-defect, noted to preempt re-litigation:** Monday 2026-09-07 is a US holiday (Labor Day); the defect rows themselves prove Monday ticks exist in this dataset (00:00:07 fill; 10:50/17:10 TP). No calendar objection stands.
+
+---
+
+**Analytic ask B — better mechanisms for the stated goal:**
+
+1. **Forming-bar-open formulation of the same one line (C11429/P040):** `if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] && g_news_dayMarks[dc] <= iTime(_Symbol, _Period, 0))` — reads as "the mark bar is the currently forming bar," is period-robust by construction (iTime(...,0) equals barTime + PeriodSeconds() under closed-bar evaluation), and self-documents against the P016 rule sentence. On M5 it is numerically identical to the pasted insert. **Recommendation: keep E1 for this build** — switching now costs another relay word and a re-assert of insert bytes (the cost already recorded at P056) — but prefer this form if a universal pass is ever relayed, and collapse the subsumed old line (C11429) in that same future diff so one predicate carries the whole rule.
+
+2. **Acceptance-side, zero code:** fold A-1's probe definition and A-2's window clause verbatim into the tabulation checklist. These are the two cheapest upgrades that make A1–A3 fully self-contained on the page rather than partially resting on his behavior word.
+
+3. **Print-label hygiene (deliberately out of scope here):** a future edit could make MTEXIT/MTCLOSE carry both evaluated-bar and fill-time (C11457–C11463 args), eliminating the recurring label-shift friction. It touches print lines and violates minimal-diff for this fix; the P021 join rule is sufficient for this run.
+
+No keys issued, none demanded. Clearance covers the named build and scoped run and nothing else.
+## V273-DAY2355-CLEAR4 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

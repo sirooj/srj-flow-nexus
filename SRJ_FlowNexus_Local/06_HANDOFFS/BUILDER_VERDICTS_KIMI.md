@@ -2036,3 +2036,43 @@ Touched lines: only the new insert line (old C11429). Everything else — guard,
 
 If the operator's actual intent was "all DAY_CLOSE exits happen at the mark-bar open" (not just Friday), then the unconditional insert is correct as pasted and only the comment and the A3 wording need sharpening — that intent question is the one thing the page leaves genuinely open.
 ## V271-DAY2355-CLEAR1 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)
+## V273-DAY2355-CLEAR4 KIMI (verbatim open; novel inbound; NO open ask to this seat - carried seats were Luna+GLM; filed whole per inbound rule, graded advisory)
+Kimi:
+# Verdict — PACKET_P-DAY2355-1 v4 (Q1)
+
+**Verdict Q1: YES (advisory).** E1 as pasted at C11424–C11472 clears for exactly one build plus one scoped run (DateFrom 2026.09.04 00:00, DateTo 2026.09.08 00:00; A1–A3 as stated at P049–P052). This matches my v271 stance (YES-advisory) and folds v272's same-E1 continuity. The v4 delta is prose-only (P056 window-rationale sentence); the calendar chain verifies mechanically (2026-09-04 Friday, 09-07 Monday, 09-08 Tuesday), the 16-row Friday-23:55:00 evaluation pattern (vDAY=0 under old code at C11429) is exactly the falsifiable probe A1/GLM-A8 demands, and the defect rows (deal #7 filled Monday 00:00:07 for the Friday mark) are internally consistent with the fix's intent. No discrepancy. No open ask to this seat. Nothing in this verdict builds, runs, or spends.
+
+---
+
+# Analytic ask A — every defect, gap, or imprecision seen (with lines)
+
+**A-1. "old 0" understates the edit by one line (P005, P026, P036).** The 4-line insert at P037–P040 does not purely add: the old mark-hit line C11429 is deleted and replaced by the widened `if` plus 3 comment lines. Exact shape: **1 deletion + 4 insertions (net +3 lines)** at C11429, not "+4 additive, old 0." STAGE-1's char-code asserts on the OLD anchor *and* insert bytes (P045) make this harmless in practice — but the prose count is imprecise and should read "+4 insert / 1 line rewritten" for byte-exact honesty in the record.
+
+**A-2. `PeriodSeconds()` is chart-period-relative with no code guard (C11429; P045 acknowledges).** Folded caveat (Kimi-D2 / GLM-A9 / Luna-A3), restated: on a non-M5 chart the lookahead window changes with the period — M1 would qualify the mark at the 23:54 bar's close (wrong bar, wrong open), H1 would fire a full hour early. M5 is pinned at S1 (P045), so the graded run is safe; the hazard is latent reuse only. No blocker; keep the folded note visible in the next packet that reuses this pattern.
+
+**A-3. Same-bar-fill edge created by the widening (C11429).** New: the predicate is satisfiable at an evaluation tick *before the trade exists*. If a fill ever lands inside the mark bar itself (`fillBarTime == mark == 23:55`), then at the 23:55:00 tick (evaluated bar 23:50) the condition `fillBarTime <= mark <= barTime+300` holds and DAY_CLOSE fires on the same tick as the fill — instant exit at entry-identical price. The old code (`mark <= barTime`) deferred such a fill to the next bar. In-window occurrence: none, and structurally excluded here — MTEXIT DAY_CLOSE == 1 whole-window (disk-proven, P016), the single DAY_CLOSE fill is a daytime bar, and marks sit inside news suppression. Optional one-line guard exists (see ask B). Not graded-relevant; record as known edge.
+
+**A-4. Printed-bar vs fill-bar divergence after the fix (C11433–C11444, C11450, C11457–C11463).** Post-fix, the Friday DAY_CLOSE verdict and MTEXIT rows will print `bar=2026.09.04 23:50` while the actual fill is the 23:55 bar; `exitBarTime` is stamped 23:50 in state. The packet states the join rule (fill-time + ref, never printed bar; P021, P056) and print immutability is by design — but a future grader reading raw logs can misread a 23:50-stamped row as a 23:50 exit. Stated, honest, keep the join rule prominent in the tabulation header.
+
+**A-5. Window exclusivity rests on his empirical word, not on anything falsifiable from this page (P009, P056).** The claim "DateTo 9/8 00:00 yields full Monday, no Tuesday" is accepted as his tester-behavior ruling per protocol — but it is the one load-bearing sentence in v4 that no seat can verify in chat. Impact if a given terminal behaves differently (day-inclusive end date): scope creeps to Tuesday 9/8. Bounded: A1–A3 date-scope the graded window through 9/7, so grading survives; only the absence-proof framing and row counts shift. Zero-cost mitigation at run time: confirm the last log timestamp is ≤ 2026.09.08 00:00 before citing Monday-absence reasoning. Advisory, not discrepancy — his word governs run config.
+
+**A-6. A2's price identity is a stated contingency, correctly gated (P050).** Exactness of `nextOpenPx == 23:55 bar open` at the early firing hinges on EA 11290/11292 behavior (out-of-window); corroborated by defect rows but not self-proven. A2 gates it on disk, never in chat — the right discipline. Nothing to fix; noting so it isn't mistaken for a proven premise.
+
+**A-7. Weekday universal shift is asserted, only partially graded (P016, P021).** All DAY_CLOSE exits move to mark-bar open, including weekday marks whose old behavior filled at the following bar's open. In-window graded instances: Friday and (if it forms) Monday 23:55 — the latter pre-declared in-scope at P021 (GLM-A5). Consistent with his universal word; recorded for completeness, no action.
+
+---
+
+# Analytic ask B — better mechanism for the stated goal
+
+**Kept mechanism is adequate; no change recommended for this round.** The folded record stands: GLM-B (keep — A2 enforces exactness, the inequality maximizes fill success), Kimi-B (another relay word to change it), Luna-B (tighter predicates widen scope beyond this small fix). If a line may ever be touched, the improvements in order:
+
+1. **Same-bar-fill guard — one line at C11429:** qualify the early window only for trades that already exist at the evaluated bar:
+   `if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] && (g_news_dayMarks[dc] <= barTime || (g_news_dayMarks[dc] <= barTime + PeriodSeconds() && g_mtrade.fillBarTime <= barTime)))`
+   Eliminates A-3 entirely; preserves the fallback line (mark `<= barTime`) untouched; graded-run behavior identical (the in-window trade's `fillBarTime` is hours before 23:50). Do not burn a relay word on it now — fold as post-graded cleanup note.
+2. **Period pin — C11429:** replace `PeriodSeconds()` with literal `300` or gate on `_Period==PERIOD_M5`. Removes the A-2 reuse hazard; costs generality and one more diff line. S1's M5 pin already covers the graded run; declined by minimal-diff discipline.
+3. **Bookkeeping exactness — C11450 and C11469:** pass the true exit-bar time (23:55) into state and `MtCloseBrokerPosition` so `exitBarTime` and prints stop carrying the evaluated bar. The genuinely better long-term mechanism for A-4 — but it touches the executor, which Luna-B correctly scoped out of this fix. Not for this round.
+
+---
+
+One build plus one scoped run authorized by this verdict. A1 falsifiable-probe discipline (GLM-A8) and the S1 exact-diff gate govern execution; nothing here activates live trading, and no keys are requested.
+## V273-DAY2355-CLEAR4 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)

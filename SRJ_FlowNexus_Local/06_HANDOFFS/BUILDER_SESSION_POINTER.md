@@ -3,19 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V273 ASKED)
+## State (2026-09-25, KEY ASKED)
 
-- Packet v4 + relay v273
-  battery-green (twin 58,
-  code 49, rows whole).
-  Asked to Luna + GLM.
-  Awaiting YOUR replies.
+- V273 ruled unanimous-clear
+  (Luna YES, GLM YES, Kimi
+  advisory). Key ask owed to
+  Luna. No build yet.
 
 ## Next (artifact owed)
 
-- YOUR paste-back: Luna reply
-  whole + GLM reply whole.
-  Then I file, grade, advance.
+- YOUR key reply whole +
+  YOUR run word + token.
+  Then I build + run.
 
 ## Resume order (exact)
 

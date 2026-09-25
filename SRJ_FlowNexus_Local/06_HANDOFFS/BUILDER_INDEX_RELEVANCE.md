@@ -13,7 +13,7 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v270-RESQUAT-CLEAR11.md (0F1BDF87/70153/535 SPENT+GRADED: key spent, RECON60 G4-PASS, ledger 735).
 - Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v269-RESQUAT-CLEAR10.md (E9FE03BF/68579/533 GRADED-HALTED, ledger 720: Q1 CLEAR 4/4, Q2 HALTED Luna+Astra vs Kimi+GLM, D2 closed; v11 unbuilt, superseded).
 - Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v12 405DB460/52763/378 BUILT D74FE972/633552/11502, 0/0 both targets; key spent, RECON60 G4-PASS graded ledger 735).
-- Fold draft: 01_TASKS\PACKET_P-DAY2355-1.md (v4 7C915C61/9898/58, E1 unchanged; relay v273 90FF7606/21643/149 battery-green; transport asked, verdicts owed).
+- Fold draft: 01_TASKS\PACKET_P-DAY2355-1.md (v4 7C915C61/9898/58, E1 unchanged; relay v273 90FF7606/21643/149 ruled unanimous-clear; key ask owed).
 - V267 verdicts (ledger 714): Luna C/C (light); Astra C/NC-halt-SUSTAINED (exclusivity+G3); Opus/GLM no v9 ruling (version-incoherent text / v7-object text). Q1 OPEN, Q2 HALTED. NO build. Re-carry WITHDRAWN (byte-identical waste, ledger 716).
 - V268 verdicts (ledger 718): Luna C/NC (G3-join, flatness); Astra C/NC (exclusivity/hedging gate, G3-join, latch choice); Opus C/NC (Q2-1 prefix STOP held, Q2-2 STOP dissolved to text, Q2-3 flatness STOP, Q2-4 join text; POI VALUE pin = 12); GLM C/C (overruled by halt). Q1 CLEAR 4/4, Q2 HALTED, D2 TEXT-ONLY 4/4. NO build.
 - V269 verdicts (ledger 720, Opus silent credits-outage, Kimi fallback filed): Luna C/NC (success-row entryPid); Astra C/NC (hedging stage, E8c header, day-key scope, pid-vs-persisted, G3 text, OUT_BY); Kimi C/C (+2 texts); GLM C/C (+9 texts). Q1 CLEAR 4/4, Q2 HALTED, D2 closed. NO build.
