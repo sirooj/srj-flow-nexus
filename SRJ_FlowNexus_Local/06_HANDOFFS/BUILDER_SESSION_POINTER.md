@@ -3,20 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, MATRIX LIVE)
+## State (2026-09-26, RELAY READY)
 
-- Cause owned + take matrix on
-  disk (which build took what,
-  no more inference). D74FE972
-  perfect per your report.
-  Ledger 795. Proof run still
-  going (grade on signal).
+- Entry packet v1 + relay v286
+  battery-green (S5.4 + recency;
+  UJ owed). Packet EC920021.
+  Relay 20905683. Ledger 800.
+  No build, run, key.
 
 ## Next (artifact owed)
 
-- YOUR signal when the proof
-  run completes (then grade:
-  your 3 takes + 9/7 NY).
+- YOUR carry: v286 file to
+  seats + 3 UJ answers back.
 
 ## Resume order (exact)
 
