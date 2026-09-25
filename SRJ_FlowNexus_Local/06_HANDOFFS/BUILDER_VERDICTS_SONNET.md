@@ -1987,3 +1987,41 @@ Branch 3's condition is just `>= 0`. Since branch 1 already excludes `<0` and br
 - **Q1 wording fix (no code touch):** replace "same outputs on all inputs" in P013 with "identical on readable inputs; `e6a_block` intentionally discards the -1 state `oOpp` preserves, covered instead by the raw `antiNow`/`antiPrev` print at P125." Removes the overclaim without requiring the shared helper.
 - **Durable (still deferred, unchanged from v282):** the shared HTF-opposition predicate/helper (Luna-B) and the three-state `CLEAN/BROKEN/UNREADABLE` result (Luna-B) remain the structurally cleanest fixes for both items above — a helper returning the tri-state directly would make `e6a_block` literally `(helper(...)==1)` instead of needing a separate equivalence argument at all.
 ## V283-USDJPY-GUARDS3 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V284-USDJPY-GUARDS4 OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+**Q1 (E6a amended) — YES.**
+The narrowed proof holds as stated. `e6a_block = (e6a_antiNow >= 2)` (P092) and `oOpp = (oAntiNow<0)?-1:((oAntiNow>=2)?1:0)` (C5141) agree on the *decision* in all three regimes: readable-opposed (antiNow≥2 → both block/oOpp=1), readable-not-opposed (both no-kill), and unreadable (antiNow=-1 → e6a_block=false=no-kill, oOpp=-1=no-kill). The -1 state is not folded into `e6a_block` — it survives untouched in `e6a_antiNow`/`e6a_antiPrev` (P073) and is printed raw at P128 (`anti=%d/%d`). That's exactly "readable: same decision; unreadable: both no-kill with -1 carried in raw fields, never in the gate bool," matching P017/P013.
+The SKIP print exists and fires correctly: `e6a_unread = (e6a_antiNow<0 || e6a_antiPrev<0)` (P093) gates `E4B_GUARD_SKIP reason=HTF` at P094-095.
+Shared helper genuinely stays deferred — E6a (P073-090) and ORDER (C5117-5134) remain two independent computations, not calls to one function.
+Lines: P072-P095, P128-P129 vs C5117-C5141.
+
+**Q2 (E6b amended) — YES.**
+The tripwire is fixed. Branch order: `<0` → SEED (P103), `>barShift` → walk (P108), `>=0 && <barShift` → SEEDORDER (P122). Since branches 1-2 already exclude `<0` and `>barShift`, branch 3's explicit `<barShift` now excludes the equality case (`seedShift==barShift`) — that case now falls through all three conditions and prints nothing, matching P019's "equal shifts silent." This is the exact one-token fix Sonnet/GLM specified in v283, now delivered.
+Everything else checks out: exact seed lookup guarded by `g_anchorBarTime>0` (P101-102, `true` flag on `iBarShift`); inclusive walk `barShift+1..seedShift` (P110); open-inclusive/close-strict dir-matched cross (P118); breaking-bar capture (P119); walked/skipped counters (P111, P114, P117); raw-field print (P128); abort wiring `GoAbort(ABORT_S54_POIBREAK, g_state)` (P130) with define inserted cleanly after the C323-324 pair (P152-155); whole guard stays inside the confirm-true branch (P070-P143), S3/S4 fence untouched.
+Lines: P098-P130, P152-P155 vs C323-C324.
+
+---
+
+**Analytic ask A — defects/gaps/imprecisions**
+
+1. **SKIP/GUARD co-print on partial HTF unreadability.** `e6a_unread` (P093) fires `reason=HTF` (P094-095) if *either* `antiNow<0` *or* `antiPrev<0`. But the gate (`e6a_block`, P092) only depends on `antiNow`. So a bar where `antiNow` is fully readable (e.g. =3, gate correctly fires) but `antiPrev` alone is unreadable still prints `E4B_GUARD_SKIP reason=HTF` *and then* the normal `E4B_GUARD` row with a determinate decision. Nothing is actually "skipped" — control falls through regardless (no `return` after P095). A grader could misread the SKIP row as meaning no decision was made this bar. Lines: P090-095, P128-130.
+
+2. **SEED/SEEDORDER "anomalies" don't gate anything by themselves — they're fail-open, but that isn't said explicitly.** In both branches (P103-107, P122-126) the walk simply doesn't run (`e6b_walked=e6b_skipped=0`, `e6b_broken` stays false), so E6b silently permits promotion on those bars exactly as it does on a clean pass. That's consistent with the rest of the fail-open convention, but P019 names the SKIP reasons without stating that they also mean "no break-kill possible this bar." Lines: P019, P100-126.
+
+3. **B1 vs B2 inconsistency on `pobreak`.** B1 (P176) states "pobreak=1 expected" as a flat expectation; B2 (P177), a structurally identical HTF-opposition-kill scenario, explicitly refuses to pre-declare it ("pobreak field adjudicated, not pre-declared"). Same code path, same category of kill, different evidentiary posture in the acceptance text. Lines: P176-177.
+
+4. **`GJ` token still collides** — reused for both `CONFIRM_PREBIND_FAIL` (6/05 16:10) and `TP_RR_FAIL_LATCH` (6/03 18:40) in the rows fence. Previously noted (GLM-A8), not fixed (not required to be — ruled "noted"), still present. No line in the .mq5 file; rows-fence evidence only.
+
+5. **Redundant `>=0` in P122's condition** — harmless (branch 1 already excludes `<0`), and the Q2 wording explicitly asked for "explicit both bounds," so this is deliberate over-specification for audit-proofing rather than a bug. Flagging only for completeness, not as a defect. Line: P122.
+
+6. **B7's "anti>=2" clause is tautological with `opposed`** (P182): `opposed=1` (i.e. `e6a_block=true`) is defined as `antiNow>=2` (P092), so "opposed=1 with anti>=2" restates one condition twice rather than adding an independent check. Harmless but imprecise prose.
+
+7. Standing/already-ruled items carried unchanged this round (not re-litigated, listed for completeness): attribution collision when both `e6a_block` and `e6b_broken` are true — only `ABORT_LTF_MISALIGN` fires (P129 returns before P130), still by design; `e6b_walked` increments before the read succeeds (P111 before P114), mitigated only where `skipped=0` accompanies `walked>=1` (as B3, P178, does).
+
+**Analytic ask B — better mechanism**
+
+1. **Split the SKIP-reason trigger from the diagnostic-unreadable flag.** Fire `E4B_GUARD_SKIP reason=HTF` only on `e6a_antiNow<0` (the value that actually feeds the gate), and drop `e6a_antiPrev<0` from that trigger — `antiPrev` unreadability is print-only (it only feeds `e6a_flip`, itself print-only) and is already visible raw in the GUARD row's `anti=%d/%d`. This removes the false-SKIP-on-determined-bar case in item A1. Touches: P093 (redefine condition to `e6a_antiNow < 0` alone, or split into two reasons e.g. `HTF`/`HTF_PREV`).
+
+2. **Align B1/B2 wording.** Change B1 (P176) to the same "adjudicated, not pre-declared" phrasing B2 already uses, since both are the same guard mechanism and neither should encode a value the code computes independently at run time. Touches: P176 only (prose, no code).
+
+3. Durable item carried from v283, unchanged: the shared three-state HTF-opposition helper (`-1`/`0`/`1`) consumed by both C5117-5141 and P073-092 remains the structurally cleanest fix for making Q1 a representation-level identity rather than a behavioral proof — still correctly deferred as a new function surface pending scope word.
+## V284-USDJPY-GUARDS4 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)

@@ -10190,3 +10190,183 @@ while `flip` remains explicitly diagnostic/print-only.
 
 The most important additional acceptance defect is B3's `walked>=1` criterion: P109 counts attempts before the read, so it does not prove that any POI evidence was actually readable.
 ## V283-USDJPY-GUARDS3 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V284-USDJPY-GUARDS4 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+## Q1 — YES
+
+The narrowed proof is sufficient for the **gate decision**, without the shared-helper refactor.
+
+The current E6a computation mirrors ORDER's HTF reads, shifts, and opposition count at P073–P090 versus C5117–C5134.  The actual kill predicate is `e6a_antiNow >= 2` at P092, while ORDER represents the same kill condition as `oOpp==1`, with `-1` reserved for unreadable at C5141. Thus readable inputs produce the same block/no-block decision, and unreadable input produces no kill on both paths while the E6a raw `antiNow/antiPrev` values remain `-1` at P128. The HTF-unreadable SKIP print is also present at P093–P095.
+
+The opposition-kill disposition remains `ABORT_LTF_MISALIGN` at P129, and the amended Task-76 comment now identifies the two intended populations at P163–P167.
+
+**One wording imprecision remains:** "same block/no-block truth value as `oOpp`" should ideally mean `e6a_block == (oOpp==1)`. `oOpp` itself is an integer and `-1` would be truthy if treated directly as a boolean. That is a wording issue, not a behavioral discrepancy. Lines P017 and C5141.
+
+---
+
+## Q2 — YES
+
+The v4 E6b implementation now matches the amended S5.4 rule for this round.
+
+The seed is resolved only when `g_anchorBarTime > 0`, using exact `iBarShift(..., true)` at P100–P102.  The normal walk is `barShift+1` through `e6b_seedShift` inclusive at P108–P120, which is confirm-exclusive / seed-inclusive. The cross predicate at P118 is direction-matched with inclusive open and strict close, exactly as stated in P019/P096.
+
+The corrected tripwire is now explicit:
+
+`e6b_seedShift >= 0 && e6b_seedShift < barShift`
+
+at P122, so `seedShift == barShift` falls through silently. That removes the v283 blocker.
+
+The raw evidence is present in the E4B_GUARD row at P127–P128, including `anti`, `seed`, `walked`, `skipped`, `bbar`, and `bpx`.  Break disposition is `ABORT_S54_POIBREAK` at P130, with the define at P154–P155.   The whole guard remains inside the confirm-true E4b/S2 branch, ending before the unchanged S3 fall-through at P140–P145.
+
+So **Q2 is YES**.
+
+---
+
+# Analytic A — defects, gaps, and imprecision
+
+### 1. `e6b_walked` is still an attempted-read counter, not a successful-read/coverage counter
+
+**Lines:** P099, P110–P117, P178.
+
+`e6b_walked++` occurs before `ReadBuf1()` and before OHLC validation. Therefore `walked=1, skipped=1` means one attempted bar and zero usable bars. B3 nevertheless calls `walked>=1` a "coverage proof." That statement is still technically false. This is the clearest remaining acceptance-language defect.
+
+### 2. "No counter touches" is literally inconsistent with the edit
+
+**Lines:** P005 versus P099, P112, P114, P117.
+
+The packet introduces two new counters. The intended meaning is evidently "no existing/global strategy counters are touched," but P005 does not say that. This should be narrowed.
+
+### 3. Q1's `oOpp` comparison should be expressed as a predicate, not as raw truthiness
+
+**Lines:** P017, P092–P093, C5141.
+
+The actual equivalence is:
+
+`e6a_block == (oOpp == 1)`
+
+not `e6a_block == oOpp` and not C-style boolean truthiness of `oOpp`. The current prose explains the intended semantics, but the mathematical/code predicate should be stated explicitly.
+
+### 4. HTF unreadability is still aggregate rather than per-leg
+
+**Lines:** P073–P095, P128.
+
+`antiNow=-1` or `antiPrev=-1` establishes unreadability, but the row cannot say whether HIGH, MID, LOW, or multiple legs failed. This remains a diagnostic-resolution gap, not a Q1 blocker.
+
+### 5. The `HTF` SKIP reason does not identify whether "now" or "prev" was unreadable
+
+**Lines:** P093–P095.
+
+The SKIP prints only `reason=HTF`. The raw row lets the grader infer the distinction through `anti=%d/%d`, but the SKIP itself is not self-describing.
+
+### 6. `SEED` conflates at least two causes
+
+**Lines:** P100–P106, P128.
+
+`seedShift < 0` can mean either `g_anchorBarTime <= 0` or exact `iBarShift(..., true)` failure. Both become `reason=SEED`. The raw `seed=-1` makes the result observable but does not identify which cause occurred.
+
+### 7. `e6b_skipped` conflates distinct failure classes
+
+**Lines:** P114, P117.
+
+The same counter is incremented for POI-buffer failure/`EMPTY_VALUE` and for invalid OHLC. That remains a diagnostic compression.
+
+### 8. SEEDORDER SKIP rows are not completely self-adjudicating
+
+**Lines:** P122–P128.
+
+The SKIP line itself prints only `reason=SEEDORDER`. The following GUARD row carries `seed=%d`, but not an explicit confirm-bar shift. The equality/inversion distinction is therefore reconstructed from the candidate bar and seed-bar timestamps rather than printed directly as two integer bounds.
+
+The current pairing procedure makes this adjudicable, but it is less robust than printing `seed=%d cbar=%d` directly.
+
+### 9. Abort attribution remains a join dependency
+
+**Lines:** P127–P130, C1728–C1733, P182.
+
+`LogAbort()` prints only `reason`, `state`, `poi`, and `dir`. The raw cause evidence lives in the preceding `E4B_GUARD` row. The packet explicitly requires that pairing, so this is not a logic error, but it remains an attribution fragility.
+
+### 10. "Exactly two emitters" is not fully demonstrated by the page excerpt
+
+**Lines:** P163–P167, C7119–C7130, C307.
+
+The shown state separation is sound: the E4b abort is emitted while `g_state` is S2, while the shown invariant block is S3–S5. But the claim that `ABORT_LTF_MISALIGN` has **exactly two emitters globally** is a call-site census claim. The page gives the relevant sites, but does not itself show a complete `GoAbort(ABORT_LTF_MISALIGN,...)` census.
+
+So the *state-separation mechanism* is demonstrated; the word **"exactly"** remains disk-census dependent.
+
+### 11. P020 overstates what a "clean" E4B_GUARD row contains
+
+**Lines:** P020 versus P128 and B3 P178.
+
+P020 says clean prints "zeros," but a clean A1 row is explicitly expected to have `anti=1/1`, `seed=...`, `walked>=1`, etc. Only the break-related fields such as `pobreak` and `bbar/bpx` are zero/sentinel on a clean walk. The prose should say that precisely.
+
+### 12. P018 omits the debug-gating qualification
+
+**Lines:** P018, P094–P095, P171.
+
+The HTF SKIP print is conditional on `InpDebugLog`. The packet later documents that, and the grading precondition is `true`, so operationally this is fine; the rule sentence itself is slightly overbroad.
+
+### 13. "E6 guards terminate" is too broad
+
+**Lines:** P191, contrasted with P103–P107 and P122–P126.
+
+The actual behavior is not that every E6 guard terminates. HTF unreadability produces a SKIP print and continues; SEED and SEEDORDER anomalies also continue. Only the actual opposition/break predicates abort. P191 should say "E6 kill predicates terminate" or equivalent.
+
+### 14. B7's "genuine" language is better, but still partly inferential
+
+**Lines:** P182, P128–P130.
+
+The positive opposition predicate is operationally clear: `opposed=1` with `anti>=2`. The break side is likewise tied to `pobreak=1` and recorded break evidence. But "bpx populated" is still prose rather than an explicit machine field/state, and the attribution still depends on pairing the GUARD and ABORT rows.
+
+### 15. The "behind term deleted" claim remains page-unprovable from the pasted old block alone
+
+**Lines:** P031–P060 versus P061–P145; P191.
+
+The old 27-line excerpt contains no prior E6b implementation to compare against. So the absence of the "behind" term is demonstrable in the **new** block, but deletion from the previous implementation is not independently proven by this page. The packet correctly relies on the separately ruled finding/STAGE-1 evidence for that point.
+
+---
+
+# Analytic B — better mechanisms
+
+### Durable Q1 mechanism
+
+The strongest structural mechanism remains the previously deferred shared three-state helper:
+
+`HTF opposition → -1 unreadable / 0 not opposed / 1 opposed`
+
+with both consumers using the same result.
+
+Touch points:
+
+* ORDER: **C5117–C5141**
+* E4b: **P073–P092**
+
+Then E4b becomes effectively `e6a_block = (helper(...) == 1)`, and ORDER prints/uses the same underlying state. That removes the duplicate-read/predicate equivalence proof altogether. It is still a **future-scope** change because it introduces a new function surface.
+
+### Immediate E6b observability mechanism
+
+For the remaining coverage seam, the cleanest future refinement is to separate:
+
+`attempted`, `readable`, `skipped`
+
+rather than treating `walked` as coverage.
+
+Touch points:
+
+* initialization: **P099**
+* loop/read accounting: **P110–P117**
+* GUARD print: **P128**
+* B3 acceptance criterion: **P178**
+
+That would let B3 assert actual readable POI evidence instead of `walked>=1`.
+
+### Lowest-scope tripwire hardening
+
+For self-adjudicating SKIP rows, add the confirm shift beside the seed shift in both SKIP prints.
+
+Touch:
+
+* **P103–P106**
+* **P122–P126**
+
+For example, the evidence should directly expose `seedShift` and `barShift`, so inverted (`0 <= seed < confirm`) and equality (`seed == confirm`, silent) cases can be distinguished from the SKIP row itself without reconstructing the relationship from timestamps.
+
+**Final rulings: Q1 = YES. Q2 = YES.** The remaining issues are precision/observability/verification seams, not a surviving E6a or E6b behavior blocker.
+## V284-USDJPY-GUARDS4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

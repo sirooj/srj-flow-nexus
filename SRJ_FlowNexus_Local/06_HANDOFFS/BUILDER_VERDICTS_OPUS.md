@@ -1352,3 +1352,158 @@ Correct and creditable as built: old-block fidelity to C8086-C8112, the +49 arit
 
 Everything above is a page ruling. Nothing here builds, runs, commits, spends, or clears live activation.
 ## V281-USDJPY-GUARDS END OPUS (verbatim close; filed whole 1x this turn, novel inbound)
+## V284-USDJPY-GUARDS4 OPEN OPUS (verbatim open; filed whole 1x this turn, novel inbound)
+# RELAY v284 — PACKET_P-USDJPY-2 v4 — verdict
+
+## Q1 (E6a amended): **YES**
+
+The narrowed proof plus the SKIP print satisfies Q1 without the shared helper. Checked element by element against the pasted ORDER site:
+
+| element | packet | ORDER | result |
+|---|---|---|---|
+| want | P074 | C5117 | identical |
+| −1 init | P073 | C5119 | identical |
+| now-bundle read | P076 | C5120 | identical (HIGH/MID/LOW, `barShift`) |
+| now count | P078–P081 | C5122–C5125 | identical, term for term |
+| prev-bundle read | P084 | C5128 | identical (`barShift + 1`) |
+| prev count | P086–P089 | C5130–C5133 | identical |
+| flip predicate | P091 | C5135 | identical (bool vs int ternary, same terms) |
+| gate | P092 | C5141 | block-equivalent (below) |
+
+**Narrowed claim is true as written.** `oOpp` (C5141) is `1` iff `oAntiNow >= 2`; `e6a_block` (P092) is `true` iff `e6a_antiNow >= 2`. Therefore `e6a_block == (oOpp == 1)` on every input, including `antiNow == -1`, where both are no-kill. The v283 objection (LUNA-Q1/A1/A15, SONNET-Q1/A2, GLM-A1 — all labeled as priors) was against "same outputs on all inputs"; P013 and P017 now assert only identical block/no-block truth value, with the `-1` state carried in the raw fields. That is the exact statement the code supports.
+
+**−1 remains adjudicable outside the gate bool:** `anti=%d/%d` prints raw `e6a_antiNow`/`e6a_antiPrev` at P128; nothing reads `e6a_unread` (P093) as a gate — P129 reads `e6a_block` only.
+
+**SKIP print present and gated:** P093–P095, `reason=HTF`, `InpDebugLog`-gated, print-only, no control-flow effect.
+
+**Disposition:** P129 `GoAbort(ABORT_LTF_MISALIGN, g_state)`, existing define C307, no new code.
+
+**Two-emitter separability holds on the page:** the E4b kill fires with `g_state == ST_S2_LTF_ALIGN` (P129 executes before the transition at P133); the invariant emitter sits in the `ST_S3_ZONE_WAIT..ST_S5_GATE_CHECK` range (C7119) and reaches `GoAbort` at C7129 only through the state-range guard. `LogAbort` prints `state=%s` (C1730–C1732), so the ABORT row carries the discriminant. Comment P163–P167 states exactly this and drops the "now unambiguous" claim.
+
+**Helper deferral honored:** no new function surface; E6a recomputes at P073–P090 (P013).
+
+Imprecisions in this area are in Ask A items 1, 2, 9, 10 — none change the verdict.
+
+## Q2 (E6b amended): **YES** for this round, against the paraphrase
+
+**Tripwire fixed.** P122 `else if(e6b_seedShift >= 0 && e6b_seedShift < barShift)`. Full branch table with P103 and P108 upstream:
+
+| seedShift | branch | output |
+|---|---|---|
+| `< 0` | P103 | SKIP `reason=SEED` (P106) |
+| `> barShift` | P108 | walk (P110–P120) |
+| `0 <= s < barShift` | P122 | SKIP `reason=SEEDORDER` (P125) |
+| `== barShift` | none | silent fall-through to P127 |
+
+Equal now genuinely falls through all three branches. The v283 blocking defect (LUNA-Q2/A2, SONNET-Q2/A1, GLM-Q2 — priors) is closed, and closed with both bounds explicit rather than relying on branch order, so a future reorder cannot silently re-break it.
+
+**Predicate conforms.** Seed exact with the time guard: P101–P102 (`iBarShift(..., true)`, `g_anchorBarTime > 0`). Walk bounds seed-inclusive / confirm-exclusive: P110 (`barShift + 1 .. e6b_seedShift`), matching the P019 and P096 prose. Plain dir-matched body cross, no behind term anywhere in P097–P126: P118 (LONG `o >= v && c < v`; SHORT `o <= v && c > v`), and the asymmetry is now stated in prose at P019 and P096. Anchor value read per bar at P114, stated at P184.
+
+**Raw fields conform.** P097–P100 inits; `e6b_walked++` every iteration P112; `e6b_skipped++` on bad POI read/EMPTY P114 and bad OHLC P117; breaking-bar capture P119 (`bt`/`bv`/`bo`/`bc`); all emitted at P128 as `anti=%d/%d seed=%d walked=%d skipped=%d bbar=%s bpx=%s/%s/%s`. A fully unreadable walk (`walked=N skipped=N`) is distinguishable from a clean one (`walked=N skipped=0`).
+
+**Abort code conforms.** P130 `GoAbort(ABORT_S54_POIBREAK, g_state)`; define P155 with the ratified name; insert anchors P152–P153 match C323–C324 token and spacing as transported; comment line P154 carries no bare token. Attribution order P129 → P130 preserved, with both causes visible in the P128 row.
+
+**Scope conforms.** Everything lives inside the confirm-true body opened at P070 and closed at P140. The else arm P141–P142 matches C8107–C8108; the fall-through P144–P146 matches C8110–C8112; no S3/S4 path, ORDER/DIV gate, counter, buffer, or input is touched. Abort control flow is unconditional; GUARD and SKIP rows are debug-gated; ABORT rows print unconditionally through C1728–C1733.
+
+**Counts check against the pasted blocks.** New E4b block P061–P146 = 86 lines, old P033–P059 = 27, NET +59; defines 4−2 = +2; comment 5−4 = +1; total +62; post 11614. P031, P172 and the relay header all agree. No arithmetic contradiction this round.
+
+**Caveat on the basis, not the verdict:** S5.4's authoritative text is still not on the page (P019–P020, P096 paraphrase plus the labeled finding 8EF27EF8). Per the verification split I rule against the paraphrase; if the paraphrase is wrong, my Q2 is wrong with it.
+
+---
+
+# Analytic ask A — defects, gaps, imprecisions
+
+## Blocking-class for the acceptance battery (not for Q1/Q2)
+
+**A1. B1 pre-declares `anti=2/1`, and the rows cannot pin the prev digit (P176, cf. P012, C5135).**
+Row HJ gives `biasAtGate=2 flipNewThisBar=1`. `flipNewThisBar=1` at C5135 means `antiPrev >= 0 && antiPrev < 2`, i.e. `antiPrev ∈ {0,1}` — not `1`. B1 states `anti=2/1` as an expectation, and P182's global mismatch rule makes any evidence-field mismatch a halt. An `anti=2/0` row would therefore halt a grade that is otherwise exactly the ruled behavior. Same defect in B3 (P178, `anti=1/1`): row PN gives `biasAtGate=1 flipNewThisBar=0`, and with `antiNow=1` the flip predicate is false for every `antiPrev`, so `antiPrev` is completely unconstrained by the page. Fix: write `anti=2/{0,1}` and `anti=1/*`, or move the prev digit to adjudicated.
+
+**A2. B1 pre-declares `pobreak=1` with no on-page price evidence (P176).**
+B2 explicitly leaves `pobreak` adjudicated (P177), B1 does not. For 6/04 the walk covers shifts for 16:10, 16:05, 16:00 (seedbar 16:00 from row GG, confirm 16:15), so `walked=3` is derivable — but whether any of those three bars body-crossed the Daily-POC is nowhere on the page. Under P182, `pobreak=0` at 6/04 halts, even though E6a alone delivers the ruled kill (`opposed=1 anti=2`). B1 should mirror B2.
+
+**A3. No clause for the ORDER row disappearing at the kill minutes (P176, P177, cf. rows HJ/RE).**
+With the guard installed, 6/04 16:20 and 6/08 09:35 abort at S2 and never reach C5117–C5146, so `ORDER fields=10` rows at those minutes vanish. B1/B2 say nothing about it, and P182 treats any evidence-field expectation mismatch as a halt. Absence of an expected row is exactly the case the mismatch rule is worded to catch. State the absence as expected.
+
+**A4. B4's "fills 159.932/159.929/159.983" mixes three different field kinds and contains an unexplained entry discrepancy (P179, P012, rows MH/KK/GM).**
+Row MH: `EXECUTED fill=159.932 slPts=43 tpPts=51`; row KK: `SL 159.889 TP 159.983`. The point distances corroborate 159.932 as the entry basis (159.932 − 0.043 = 159.889; + 0.051 = 159.983). Row GM then reports `MTEXIT ... entry=159.929 exit=159.983`. So 159.929 is now on the page (closing the v283 GLM-A12 evidence gap as a citation), but it contradicts the EXECUTED fill for the same trade by 0.3 pip, and 159.983 is an exit, not a fill. Either it is a second/partial fill, or the MTEXIT entry field is sourced differently. P012's parenthetical "(A4 second fill)" asserts the first reading without evidence. B4 is a parity check, so this does not block, but a three-value equality expectation built on a self-inconsistent triple will produce an unresolvable halt. Route to the carry-check and restate B4 as `EXECUTED fill=159.932 ... MTEXIT entry=159.929 exit=159.983`, field-named.
+
+**A5. B3's `TP_TOUCH 159.899` has no pasted row (P178, rows KS/HS).**
+The only MTEXIT row on the page is GM (6/03). For A1, 159.899 appears solely as the ALERT's TP level (row KS), not as a touched exit. Page-evidence gap in the same lane as A4.
+
+## Demands-ledger integrity
+
+**A6. The GLM ruling column is mis-paired with its demands across at least seven items (relay demands block).**
+- GLM-A2 (P119 equal-case defect) → "pairs corrected to bias/opposed with flip stated" — that is GLM-A3's remedy.
+- GLM-A3 (P012 garbled sequence) → "renamed opposition kill with two emitters" — that is the LUNA-A6/B5 remedy.
+- GLM-A4 (SKIP prints carry no numbers) → "ADOPTED as explicit tripwire" — that is the A2 remedy.
+- GLM-A5 (open==POI equality unstated) → "S1 states trailing-space boundaries with SKIP subtracted" — census remedy, unrelated.
+- GLM-A7 (census counts unpinned) → "ADOPTED as global mismatch clause" — unrelated, and see A13 below: the census is still unpinned.
+- GLM-A8 (duplicate `GJ` token) → "B2 notes E6a-primary with pobreak adjudicated" — unrelated, and the collision persists (see A7).
+- GLM-A10 (v9/v2 naming drift) → "ADOPTED as epoch-sentinel clause" — unrelated, and the drift persists (see A8).
+- GLM-B1 (shared helper) → "ADOPTED as raw fields (plus skipped count)"; GLM-B2 (three-state break result) → "ADOPTED as explicit tripwire". Both read as adoptions of mechanisms that are *not* in the code: there is no helper (P073–P090 recomputes) and no three-state break result (P097 is a bool). P013 correctly says the helper stays DEFERRED, so the ledger contradicts the packet.
+The code and packet came out right anyway — the tripwire, the P012 pair correction, and the prose clauses all landed — so nothing was built on a mis-paired ruling. The damage is to the carry-check itself: the operator compares what a seat sent against what was filed, and this column no longer supports that comparison. Two demands (GLM-A8, GLM-A10) are effectively **unruled** while appearing ruled, and GLM-A9 is recorded as "noted as grade-tested assumption" when its positive predicate was in fact executed at P182. Re-pair before the next round.
+
+**A7. Duplicate row token `GJ` persists (rows fence).** `GJ` labels both `CONFIRM_PREBIND_FAIL` 6/05 16:10 and `TP_RR_FAIL_LATCH` 6/03 18:40. Citations by token are ambiguous, which is precisely what the fence exists to prevent.
+
+**A8. Two live numbering schemes for the same artifacts (P003, P013, P190, relay priors).** P003 calls the superseded file v3 (25D60185) while the priors call the same digest "packet v10"; the ruling texts say the proof was "narrowed in v11" while this file is v4; P190 compares cost to "v10". If v4 == v11 the statements are consistent, but the page never says so. Add a one-line mapping, or drop one scheme.
+
+**A9. P011 attributes the HTF SKIP print to "Sonnet-B1", which is not among the quoted v283 demands.** The quoted Sonnet B-items are B-Q2fix, B-Q1wording, B-durable. The SKIP print appears in the LUNA-A3 ruling text instead. Under "nothing built on unruled demands," the attribution should point at a quoted item or be recorded as builder-originated, the way the v9-header find was handled.
+
+**A10. P012 corrects the pairs but drops the row tokens.** GLM-A3's corrected form was tied to PN/HJ/RE/RF; P012 writes clock/date labels only. Cite the tokens so the carry-check is mechanical. Related: P174 requires event tuples, never bare clock labels, yet B3 says "A1 09:40" and B5 says "A2 16:50" with no date (the rows put them at 6/05).
+
+## Code-level imprecisions
+
+**A11. `E4B_GUARD_SKIP reason=HTF` can co-print with a kill, and "SKIP" overstates what happens (P093–P095, P129).**
+`e6a_unread` is `antiNow < 0 || antiPrev < 0`, but only `antiNow` gates (P092). With `antiNow = 2` and `antiPrev = -1` the row prints `reason=HTF` and the bar still aborts at P129. Nothing is skipped: the gate ran and killed. The prose at P018 ("HTF-unreadable prints ... reason=HTF") permits this reading, so it is not a discrepancy, but the token invites a grader to read a SKIP row as "guard did not decide." The `reason` value also does not say which of now/prev failed, nor which leg (the aggregate-unreadability gap recorded as a prior at LUNA-A8 in v283).
+
+**A12. `e6b_walked` still counts attempts, not reads (P112 before P114).**
+B3 now conjoins `skipped=0` (P178), and `walked>=1 ∧ skipped=0` does prove coverage, so the acceptance clause is sound. What remains unexecuted is the naming/semantics: P019 says "walked/skipped counters out" without defining that `walked` is bars attempted and `read = walked − skipped`. P185's epoch clause covers `bbar` and `anti/seed` but not the walked/skipped semantics. One sentence closes it.
+
+**A13. P171's census is still not mechanically decidable (GLM-A7 residual).** No expected counts are pinned. Post-edit the page implies: `E4B_GUARD ` (trailing-space form) = 1 (P128); `E4B_GUARD_SKIP` = 3 (P095, P106, P125 — up from 2 in v3, because the HTF reason is new); `ABORT_S54_POIBREAK` = 2 (define P155 + call P130); `ReadFlow` HTF-leg calls = 12 post-build (6 at P076/P084 plus 6 at C5120/C5128), plus any pre-existing site not on this page. The trailing-space discriminator at P171 does work — `"E4B_GUARD "` cannot match `E4B_GUARD_SKIP` — but S1 cannot pass or fail a count that was never written down.
+
+**A14. P005 "No counter touches" still contradicts P099 (LUNA-A7 residual, recorded as ruled).** Two function-local counters are added. The intended meaning is no existing or global strategy counter; say that.
+
+**A15. SKIP rows still carry no numbers (P106, P125; GLM-A4/B3 residual).** Adjudication works, but only through the GUARD row: P128 prints `seed=%d` and both `bar=%s` and `seedbar=%s`, so `seed < barShift`, `seed == barShift`, and `seed < 0` are each recoverable by comparing the two times under the M5 pin. That is a time-arithmetic join, not a field read, and `barShift` itself is never printed as an integer anywhere in the row.
+
+**A16. Which break is recorded is unstated (P110, P119, P182, P185).** The loop runs from `barShift + 1` toward the seed, i.e. newest to oldest, and `break`s on the first hit. So `bbar`/`bpx` capture the break **nearest the confirm bar**, not the earliest break, and a walk with several crossings is indistinguishable from one with a single crossing. B7's `bbar not epoch ∧ bpx populated` predicate is unaffected, but the prose should say which break the fields describe.
+
+**A17. `reason=SEED` still covers two causes (P101, P103; GLM-A6 residual).** Anchor-time unset (`g_anchorBarTime <= 0`, seedShift stays −1 from P100) and `iBarShift` failure land on the same label. This *is* adjudicable, because P128 prints `seedbar=%s` and the unset case prints the 1970 epoch — but P185's epoch clause names only `bbar`, not `seedbar`. Extend the clause and the cause is fully separable.
+
+**A18. Float-equality idioms (P114, P117).** `e6b_v == EMPTY_VALUE` and `e6b_o == 0.0 || e6b_c == 0.0` are exact double compares. Both are defensible here (`EMPTY_VALUE` is an assigned sentinel; a zero FX price is not reachable), and they follow existing practice, but they are the two places where a silent `skipped++` could hide a real value if a future buffer used a computed empty.
+
+**A19. The walk has no span bound (P110).** `seedShift` is whatever `iBarShift` returns for the anchor bar. A long-retained anchor produces a proportionally long scan on every confirm-true bar. Only reachable on confirm-true, so the cost is bounded in practice by retention length, but nothing on the page caps it and no field reports the span independently of `walked`.
+
+**A20. Abort rows still carry no cause fields (P129–P130, C1728–C1733).** Documented as a pairing procedure at P182, so not a logic error. Worth recording that the pairing is safe only because the print order within one pass is fixed — SKIP(HTF) → SKIP(SEED|SEEDORDER) → GUARD (P128) → ABORT — so the GUARD row is always immediately adjacent to its ABORT row. `LogAbort` prints `TimeCurrent()` and no bar identifier (C1730–C1732), so the join is by adjacency alone. That holds for single-symbol runs; it is an assumption, not a guarantee.
+
+**A21. B8 remains a run-grade property (P183, P129–P130, C1728–C1733).** The excerpt proves `GoAbort(...); return;` and nothing about what `GoAbort` does after. Correctly treated as an acceptance check; noted so the basis stays explicit (a prior recorded at LUNA-A14 in v283).
+
+**A22. Transport artifact at C318** (`Ã¢â‚¬â€` for an em-dash) is outside every edit anchor; the insert anchors C323–C324 are clean. Carry-check note only, so it is not mistaken for EA corruption.
+
+**A23. Whitespace on the fall-through lines cannot be verified from chat (P144–P146 vs C8110–C8112).** The tokens match; leading-space counts arrive through transport. P171's char-code assert on every old anchor and insert byte is the only thing that can settle it, which is where it belongs.
+
+## Confirmed executed from v283 (no action)
+
+Epoch-sentinel clause P185; dynamic-anchor clause P184; B7 positive field predicate P182 (`opposed=1 ∧ anti>=2`; `pobreak=1 ∧ bbar≠epoch ∧ bpx populated`) plus the global mismatch rule; abort-pairing procedure P182; opposition-kill / POI-break rename P018, P163–P167, P176–P177, P182; asymmetric strictness stated P019, P096; parked site named EA 7119-7130 at P026; WAIVED pair pasted (rows EQ/GK, `hits=2 pair`, bar 16:00 / print 16:05 — P012 says "16:05", which is the print minute, worth stating as such since three other `A2_WAIVED_POC` rows exist at HF, DN, QL and "count 2" scopes to that one minute only); MTEXIT row pasted (GM), subject to A4.
+
+---
+
+# Analytic ask B — better mechanisms
+
+**B1. Tri-state opposition helper, consumed by both sites** (touches C5117–C5141 and replaces P073–P090). Returns `-1/0/1`; E6a becomes `bool e6a_block = (SrjHtfOpposition(barShift, g_dir, antiNow, antiPrev) == 1);`. This retires the equivalence argument entirely — no proof to narrow, no drift point to re-verify each round. New function surface, so it stays deferred pending his scope word; recording it as still the durable fix.
+
+**B2. Split the HTF skip reason and gate it on the gating leg** (P093–P095). `reason=HTF_NOW` when `antiNow < 0`, `reason=HTF_PREV` when only `antiPrev < 0`. Then a SKIP row never co-occurs with a kill under a label that implies no decision was made (A11), and the row says which read failed. Two literals, no new fields.
+
+**B3. Emit the read count** (P099 init, P128 format). `int e6b_read = e6b_walked - e6b_skipped;` printed as `read=%d`, with B3 at P178 requiring `read>=1`. The acceptance clause then proves coverage from one field instead of a conjunction a future edit could drop.
+
+**B4. Self-adjudicating SKIP rows** (P106, P125). Add `seed=%d cbar=%d` to both prints. `SEED`, `SEEDORDER`-inverted, and the ruled-silent equal case become classifiable from the SKIP row alone, and the tripwire stays audit-proof even if the branch is later reordered. No new function surface; this is the cheapest remaining hardening on the page.
+
+**B5. Span cap with its own reason** (P108–P121). `else if(e6b_seedShift > barShift && e6b_seedShift - barShift <= InpMaxWalk)` is out of scope (new input), but a literal cap with `reason=SEEDSPAN` and the span in the row bounds A19 and makes a pathological anchor visible instead of expensive.
+
+**B6. Crossing count instead of a single capture** (P110–P120, P128). Keep `break` for control flow, add `e6b_hits++` before it or drop the break and count, printing `hits=%d`. Distinguishes one crossing from several and tells the grader unambiguously that `bbar` is the nearest-to-confirm one (A16).
+
+**B7. `seqStamp` as a free E4b-path discriminator** (P176–P179 acceptance text, evidence C5142–C5146). The three E4b-exception instances on the page are exactly the `SEQ_UNSTAMPED` / `S4S5_NOBIAS` rows (PN, HJ, RE, each paired with a `CONFIRM_PREBIND_S2` row — CM, GG, EJ), while A4 is `STAMPED` (RF) with no PREBIND row, because it reached the confirm bar already at S3+ and never took the exception. So B4 can state positively that **no `E4B_GUARD` row is expected at A4**, and B1/B2/B3 can each assert a GUARD row exists. That converts "S4 path untouched" from an assertion into a row-checkable expectation at zero code cost.
+
+**B8. Abort rows carrying their own cause** (C1728–C1733, call sites P129–P130). An optional evidence parameter on `LogAbort` — defaulted empty so the other ~20 call sites are untouched — would let the two E4b aborts print `opposed`/`pobreak`/`anti`/`seed` inline and retire the GUARD-pairing join dependency (A20) and its adjacency assumption. Changes a shared function signature, so deferred-class, needs his scope word.
+
+Nothing above re-petitions a parked item: no latched side, no retain-print helper, no S3/S4 extension.
+## V284-USDJPY-GUARDS4 END OPUS (verbatim close; filed whole 1x this turn, novel inbound)

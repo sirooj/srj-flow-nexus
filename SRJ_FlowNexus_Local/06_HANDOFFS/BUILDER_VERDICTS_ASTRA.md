@@ -16866,3 +16866,101 @@ Analytic ask B — better mechanisms:
 
 - **Grade candidate death, not just two missing signals.** Amend P143–P150 to require independent E6a/E6b attribution and to prove that the same invalidated candidate cannot confirm later or escape through later alignment. Keep broader S3/S4-origin coverage parked under P024 unless the operator authorizes that extension.
 ## V281-USDJPY-GUARDS END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V284-USDJPY-GUARDS4 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Q1 — **discrepancy**. The narrowed **predicate equivalence is correct**, and a shared helper is unnecessary for this round: P073–P090 matches C5117–C5134, and P092 is equivalent to **`oOpp == 1`**, using C5141. P091 is print-only; P128 preserves both raw anti counts; P129 supplies the required abort.
+
+However, "unreadable: both no-kill" at P013/P017 is broader than the implemented unreadability predicate at P093. For example, **`antiNow=2, antiPrev=-1`** produces `e6a_unread=true`, prints `reason=HTF` at P095, and **kills** at P129. That behavior correctly implements standing opposition, but contradicts the unqualified unreadable/no-kill wording. Narrow it to **"current-bundle unreadable (`antiNow=-1`): no opposition kill; previous-bundle unreadability does not suppress a readable current opposition kill."** With that wording, Q1 is yes without the helper. The new SKIP print itself is present and correctly debug-gated at P093–P095.
+
+Q2 — **yes**, against the S5.4 rule reproduced in this packet. P101–P102 supplies the positive-time, exact seed lookup; P108–P110 implements the seed-inclusive, confirm-exclusive interval; P118 implements the direction-matched cross with inclusive open and strict close. **P122 fixes the tripwire with both bounds and excludes equality.** P112–P119 and P128 preserve attempted/skipped counts and breaking-bar evidence. P130 uses the new code defined at P155. The guards remain inside the unaligned S2 confirmation-true branch, P061–P071, before promotion at P131–P134. No shared helper or wider S3/S4 implementation is needed for this scoped verdict.
+
+**Analytic ask A — defects, gaps, and imprecisions**
+
+1. **Unreadability needs current/previous qualification.**
+**P013, P017–P018, P073–P095, P129.** The Q1 discrepancy above matters operationally: an HTF SKIP row can coexist with an entirely valid opposition kill. `reason=HTF` means at least one bundle was unreadable; it does not establish that the standing-opposition evaluation was skipped. Raw `anti` fields resolve the distinction, provided the grader explicitly uses them.
+
+2. **The ORDER excerpt proves a diagnostic predicate, not an ORDER blocking operation.**
+**P013, P017; C5135–C5146.** The excerpt computes and prints `oOpp`; it does not show an ORDER abort or gate consuming it. The precise on-page theorem is:
+```
+For identical direction and HTF read results:
+e6a_block == (oOpp == 1).
+```
+It does not prove identical end-to-end behavior between two executions at different sites or times. That does not require a helper; it requires keeping the proof's object precise.
+
+3. **"No counter touches" remains literally inconsistent with the local diagnostic counters.**
+**P005, P022, P099, P112, P114, P117.** The intended restriction appears to be "no existing/global strategy-counter changes." The page still says "No counter touches," although the replacement introduces and increments two counters. The ruling attached to LUNA-A7 concerns a print census and does not actually repair this wording.
+
+4. **P020 still overstates the raw-field conventions.**
+**P020, P073, P097–P100, P112–P128, P185.** Clean rows do not generally "print zeros": readable anti counts, seed shifts, and walked counts can be positive. POI/OHLC unreadability does not print a corresponding `-1`; it increments `skipped`. An entirely unreadable walk can have `pobreak=0`, epoch `bbar`, and zero `bpx`, with its uncertainty carried by `walked/skipped`. P185 improves the sentinel description but does not fully correct P020.
+
+5. **B3's earlier usable-coverage defect is repaired. Broader coverage terminology still needs care.**
+**P110–P119, P178.** `walked>=1 && skipped=0` now proves at least one usable attempted bar under the implemented read checks. Because B3 also requires `pobreak=0`, the loop did not stop at a detected break. On a broken row, however, the counters describe only the visited portion: P119 exits at the first hit. They are not necessarily totals for the full seed-to-confirm interval.
+
+6. **The recorded breaking bar is the most recent qualifying bar found, not the earliest historical break.**
+**P110, P119.** The walk starts nearest the confirmation and moves toward the seed. This is correct for an existential "any cross kills" rule, but the evidence should not be described as the first break chronologically.
+
+7. **Equality is silent only with respect to the SEEDORDER SKIP.**
+**P019, P093–P095, P122–P130.** At `seedShift == barShift`, the E6b anomaly branch is silent, but the normal GUARD still prints, an HTF SKIP may print, and E6a may abort. The corrected tripwire is sound; "equal shifts silent" should retain that specific scope.
+
+8. **SEED still covers more than "unresolvable."**
+**P019, P100–P106, P185.** It also covers an unset or nonpositive anchor time, because the lookup is bypassed. Calling this "unset or unresolvable seed" would match the code. A seed sentinel describes unavailable seed resolution, not necessarily a failed data read.
+
+9. **Both causes may be true, but E6a has abort precedence.**
+**P021, P128–P130, P176–P177.** If both predicates are true, only `ABORT_LTF_MISALIGN` is emitted. The GUARD correctly retains `pobreak=1`. Thus P021's unconditional-sounding "ABORT_S54_POIBREAK on break-fire" needs "when E6a has not already aborted." B1 already expects this dual-cause situation. The ruling attached to SONNET-A4 incorrectly calls this the tripwire issue; it is a separate attribution rule.
+
+10. **B7's positive break evidence is weaker than its stated S5.4 adjudication.**
+**P118–P119, P128, P182, P184.** `pobreak=1`, non-epoch `bbar`, and populated `bpx` establish a reported cause, but "populated" does not require the printed prices to satisfy the direction-matched cross or the breaking bar to lie in the permitted interval. For independent evidence adjudication, those checks should be explicit. Also, P128 rounds prices to `_Digits`, while P118 compares doubles; strict raw comparisons may not remain distinguishable after formatting if a POI value contains sub-point precision.
+
+11. **The pairing instruction is not a fully specified join.**
+**P128–P130, P171, P182; C1728–C1733.** "The preceding GUARD row" does not specify matching evaluation, direction, POI, run/pass, or allowable intervening rows. GUARD records the evaluated bar and seed time; ABORT records `TimeCurrent()` and no seed or evaluation ID. The new calls visibly precede `GoAbort`, but that function is not reproduced, so immediate log adjacency is not proved here.
+
+Also, "abort rows never read alone, always paired" must mean **E4b guard-abort rows**. The other abort sites visible at P065 and C7128 do not have a preceding E4b GUARD in their shown branches.
+
+12. **The two-emitter assertion is still only partly demonstrated.**
+**P163–P167, P129; C7119–C7130; C1728–C1733.** E4b's S2 state and the logger's state field are shown. The invariant excerpt ends at `if(!t79_aligned)`, before its abort call. Therefore the page does not independently establish that call's reason/state argument, or that exactly two emitters exist throughout the EA. The proposed separation is plausible and consistent with the excerpt; the exhaustive census remains disk work.
+
+13. **B8's event identity is underspecified relative to the packet's event-tuple rule.**
+**P174, P176–P177, P183; P128.** B8 names dates, directions, and POI labels but omits seed timestamps. Those labels can recur on newly seeded candidates. "Through window end" is also stronger than B1's "rest of its S2 retention." Clarify whether silence applies to the killed seed instance or to every later candidate sharing that POI label and direction. `GoAbort(...); return;` alone does not prove either longer-term property.
+
+14. **The S1 census is not yet mechanically unambiguous.**
+**P171; P076, P084, P095, P106, P125, P128, P130, P155.** An exact trailing-space `E4B_GUARD ` match already excludes `E4B_GUARD_SKIP`; subtracting SKIP matches from that count would be wrong. Choose either a broad-prefix count minus SKIPs or the exact trailing-space count without subtraction.
+
+P171 also leaves the expected pre/post count for `ABORT_S54_POIBREAK` unstated and does not clearly label the six HTF-leg reads as local to the inserted guard. Its numerical source-line references must be identified as baseline references, since insertions change later source positions.
+
+15. **Several adoption references do not match the quoted demands.**
+**P011 and the unnumbered complete V283 quotations.** The supplied GLM-B2 is the deferred three-state break result, not the explicit tripwire proposal. The supplied SONNET-B-Q1wording concerns proof wording, not an HTF SKIP print; "Sonnet-B1/B3" numbering is not mapped to the labels used in the complete quotation. GLM-A2 is the equality bug, whereas GLM-A3 is the row-pair correction.
+
+The appended rulings show the same problem more widely: GLM-A3 is followed by an opposition-label ruling, A5 by a census ruling, A8 by a B2 ruling, A10 by a sentinel ruling, and GLM-B1/B2 by raw-field/tripwire rulings. These are provenance defects, not reasons to reject the corrected P122 predicate. They should be repaired so each demand has its actual disposition.
+
+16. **The WAIVED pair's two clocks are still conflated.**
+**P012; unnumbered EQ/GK rows.** Those rows were emitted at **16:05** but identify **`bar=16:00`**. P012's "at 16:05" is defensible as emission time, but must say so. The row-level event tuple uses the 16:00 evaluated bar. This distinction also matters when interpreting "kill minute" in P176–P177 against GUARD bar time and ABORT emission time.
+
+17. **A4's price roles and claimed coverage remain imprecise.**
+**P012, P179, P192; unnumbered MH/KK/GM rows.** GM now supplies the previously missing `159.929` entry and `159.983` exit, closing that missing-value gap. It does not by itself establish that `159.929` was a separate "second fill," rather than another representation or source of entry price. P179's "fills 159.932/159.929/159.983" also labels an exit price as a fill without identifying its role.
+
+P192's "A1/A4 … with coverage rows" exceeds P179, which correctly calls A4 an untouched-S4 parity check, not cleanliness evidence. E4b coverage is not promised for that S4 path.
+
+18. **Some acceptance evidence remains prospective or external, as permitted by the verification split.**
+**P009, P176–P183, P191.** The authoritative S5.4 finding is referenced rather than reproduced; Q2 therefore rests on the explicit packet paraphrase. B1's expected `pobreak=1`, B3's `antiPrev=1` and TP-touch parity, and B8's long-window silence are not independently established by the supplied baseline rows. The old/new pair also cannot demonstrate deletion from an earlier E6b draft because the old E4b block contains no E6b guard. These remain run-grade or historical-diff obligations, not newly discovered code failures.
+
+19. **Diagnostic resolution and input assumptions remain limited.**
+**P074, P076–P090, P114–P119.** HTF sentinels do not identify the failed leg; `skipped` combines POI and OHLC failures. The ternaries treat every non-LONG direction as SHORT, so valid-direction enforcement is an external invariant. Definitions of `ReadFlow` and `ReadBuf1` are absent; their handling of invalid numeric values is not established by this excerpt. Breaking-bar time is also read without a local success check. These are bounded proof/diagnostic gaps, not evidence that such failures occur.
+
+20. **Minor document-state and transport imprecisions remain.**
+**P003; C318.** "SUPERSEDED untransported-folded — transported as v283" needs an explicit distinction between the untransported fold and the transported predecessor. C318's mojibake remains outside the edit anchors and is not a defect in the proposed guard.
+
+**Analytic ask B — better mechanisms and their touch points**
+
+- **Immediate Q1 closure: state the exact Boolean relation and distinguish the two unreadable bundles.** Touch **P013, P017–P018**, referring to **P092–P095 and C5141**. State `e6a_block == (oOpp == 1)` for identical read inputs, with current-read failure yielding no opposition kill and previous-read failure affecting flip observability only. This needs no code change.
+
+- **Make grading derive usable coverage and verify the actual cause.** Touch acceptance prose **P178, P182, P185**, consuming **P110–P119/P128**. Use `usable = walked - skipped`; distinguish no recorded break from a complete readable no-break walk; check the direction-specific price relation and break-time interval. No extra counter or helper is needed. If printed prices must independently prove strict comparisons, **P128** would need sufficient precision to preserve those comparisons.
+
+- **Make attribution deterministic within the existing logging design.** Touch **P182–P183** first: define the GUARD/ABORT pairing procedure, E6a precedence, and seed-instance identity for post-kill silence. If a later authorized refinement needs self-contained evidence, add an evaluation/seed identifier at **P128–P130 and C1728–C1733**, and numeric seed/confirm fields at **P106/P125**. The broader logger change is not necessary for this round and is not authorized by this verdict.
+
+- **Retain the explicit bounded tripwire.** **P122** is already the preferable local mechanism: both bounds are visible, and equality cannot accidentally enter the anomaly branch. No further predicate change is indicated.
+
+- **Keep the durable shared opposition helper deferred.** Its consumers would be **P073–P092 and C5117–C5141**. It would reduce future drift, but the present formula equivalence does not require it.
+
+- **Keep an explicit break-result status deferred.** A later result distinguishing broken, fully checked without a break, and incomplete evidence would touch **P097–P128**. Any such change must preserve the currently ruled fail-open behavior unless separately authorized; it is not a prerequisite for Q2.
+
+These are page-only findings. Q2 stands independently; Q1 needs the unreadability sentence corrected, not a shared-helper refactor. No disk truth, build, run, key, or live activation is cleared.
+## V284-USDJPY-GUARDS4 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
