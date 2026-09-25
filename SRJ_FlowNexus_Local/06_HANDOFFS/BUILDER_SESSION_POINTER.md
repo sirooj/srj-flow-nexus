@@ -3,21 +3,21 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RECON63 RUNNING)
+## State (2026-09-25, RECON63 FILED)
 
-- RECON63-USDJPY-JUNE RUNNING
-  (blind, USDJPY 6/1-6/13, same
-  tree A82F15E7, no code change).
-- YOUR journal kept by YOU. No
-  goal join from builder. Ledger
-  747. Hardenings parked (not
-  necessary, on record).
+- RECON63-USDJPY-JUNE DONE=PASSED,
+  census filed (1 take: 3 June
+  London long, TP win). No grade
+  (blind - YOUR ruling only).
+- Result C71F3329/1651/27 + seg
+  F50A9BFE/3830054/21292.
+- Ledger 748. Key: none spent.
 
 ## Next (artifact owed)
 
-- YOUR completion word ("run
-  has completed"). Then full
-  signal census for YOUR ruling.
+- Nothing. YOUR ruling on the
+  1 take. Further spans/pairs
+  on YOUR scope word.
 
 ## Resume order (exact)
 
