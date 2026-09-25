@@ -3,19 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, KEY NO-KEY)
+## State (2026-09-25, DEFECT OWNED)
 
-- YOUR 2 pastes graded: (a) ask
-  text, (b) run word RECEIVED +
-  HELD. NO Luna reply, NO key.
-  Nothing builds. Ledger 765.
-- Run word spends only beside
-  a gradeable key.
+- Token requirement was mine,
+  never yours - WITHDRAWN from
+  the key ask and the rule.
+  Checklist back to your words.
+- Paste still 0/4 for the right
+  reason: no Luna text at all.
+  Nothing builds. Ledger 766.
 
 ## Next (artifact owed)
 
 - YOUR paste-back: Luna whole
-  reply verbatim + token.
+  reply verbatim. Nothing else.
 
 ## Resume order (exact)
 
