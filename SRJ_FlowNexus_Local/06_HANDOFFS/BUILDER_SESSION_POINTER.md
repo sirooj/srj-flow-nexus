@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V280 GRADED CLEAR)
+## State (2026-09-25, KEY NO-KEY)
 
-- V280 verdicts filed + graded
-  CLEAR 3-0 (Luna YES, Sonnet
-  YES, GLM YES). Result filed,
-  ledger 764. No build, run, key.
-- Key ask owed (KEY-VEHICLE).
+- YOUR 2 pastes graded: (a) ask
+  text, (b) run word RECEIVED +
+  HELD. NO Luna reply, NO key.
+  Nothing builds. Ledger 765.
+- Run word spends only beside
+  a gradeable key.
 
 ## Next (artifact owed)
 
-- YOUR key ask to Luna (exact
-  prompt in chat) + paste back
-  whole reply + run word.
+- YOUR paste-back: Luna whole
+  reply verbatim + token.
 
 ## Resume order (exact)
 
