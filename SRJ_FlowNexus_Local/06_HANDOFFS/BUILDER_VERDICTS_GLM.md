@@ -4149,3 +4149,47 @@ No keys issued, none demanded. Clearance covers the named build and scoped run a
 
 **Close:** nothing here builds, runs, or spends; no keys asked or given; disk truth (hash, counts, tree state) stays proven on his machine per the split. A1's SHORT reading is confirmed by the trail (rows DK/JF/IL, dir=SHORT) — his 9:35/9:40/9:45 timeline maps to the E4 fire at the 09:45 pass.
 ## V274-USDJPY-CLEAR1 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V275-USDJPY-CLEAR2 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+**Verdict Q1: discrepancy — does not clear as pasted.** The edit logic (E1b/E2b/E4b semantics) is sound on the page and folds the v274 verdicts faithfully, but the packet contradicts itself in four places, two of which make the edit set not uniquely machine-applicable and one of which makes an acceptance criterion unmeetable as written. All four are mechanical fixes; none requires logic rework. A v3 with the fixes below clears on this seat without reopening substance.
+
+## Blockers (page-level, must resolve before "exactly one build")
+
+**B1 — Duplicate edit blocks; one site pasted twice each; S5 variants diverge.**
+- S2 poll old+new pasted twice: P107–P133 and P167–P193, byte-identical code.
+- E4b old+new pasted twice: P241–P267 and P270–P296, byte-identical.
+- S5 call pasted twice with **conflicting variants**: P134–P166 (6-space base, matches disk C8916–C8926 exactly, comment P151 without attribution) vs P194–P226 (7-space base, comment P211 adds "Opus B4:", old block P195–P205 does **not** byte-match disk C8916–C8926 which is 6-space). Both cannot be the verbatim edit; the second's old anchor fails the STAGE-1 char-code assert; the S3 budget counts each site once. The page must carry exactly one block per site and name it governing.
+
+**B2 — E4b line count / budget mismatch.** Pasted new block P270–P296 is **27 lines** (P270 through P296 inclusive), matching first copy P241–P267 (also 27). Packet claims "new 26 lines NET +15" (P227) and budgets "E4b +15 (26-11)" (P314), post 11548. Paste gives +16, post **11549**. By the packet's own rule ("S3 recount governs", P005) the paste wins and the claim is wrong — or one pasted line is spurious. Either way the page is self-contradictory, which is exactly the class that halted v1 (P151 +3 vs +2).
+
+**B3 — TPFALLBACK "line identity" is claimed but not delivered.** P018 ("TPFALLBACK gains line + distPts"), the second S2 label (P176: "line identity + distance"), and A2 (P319: "TPFALLBACK with line + distPts") all require the winning line's identity. The actual print at all four sites (P129–P132, P162–P165, P189–P192, P222–P225) emits only `bar/dir/tp/distPts`. The signature (P064–P066; C2349–C2350) returns only the value — no out-param names the winner. The census cannot substitute: its POI rank gate (C2454) is not filter-switched, so on the fallback pass it skips rank-excluded winners the booking walk admits; its session loop never mask-checks (C2444); and its tie-naming divergence is already documented (C2395). Fix by plumbing an identity out-param, or amend P018/A2 to "tp value + distPts". As pasted, A2's evidence requirement is unsatisfiable.
+
+**B4 — CONFIRM_PREBIND_S2 "termset" is structurally vacuous.** `failTerm` is set to `""` at function entry (C2196) and assigned only on fail paths (C2197, C2205, C2208, C2210, C2223, C2225, C2229, C2231); success returns true with `failTerm` still `""` (C2232–C2233). The print fires only on the pass branch (P285–P289), so `termset=` prints empty on every row that can carry it. The claimed Opus B5 enrichment (P018) cannot appear. Drop the field or accumulate evaluated terms via an added out-param.
+
+## Should-fix (fold in the same rev)
+
+1. **Zone guard drops on fallback.** P017 lists "the zone guard" among what obeys the switch; the second pass threads `applyZone=false` (P096, P106). The Task-31 inside-zone pathology (C2308–C2318, a measured instance) is therefore reachable on the fallback path; the 1R gate (C9840) backstops only when R<1, not when geometry inverts inside a wide zone. Stated mechanically, consequence unstated — either keep zone on the second pass (nearest *geometrically valid* line) or state the accepted risk in A2.
+2. **SWEPTMASK prints the nuked mask on the fallback pass.** The overwrite (P090) lands between the read (C2368) and the Task-144 print (C2369–C2393), so filters-off rows show raw=EMPTY/m=-1/all-9s — the true sweep state is lost on exactly the rows that diagnose fallback bookings. Print before overwrite or carry a raw copy.
+3. **Post-1R-refusal candidate semantics unstated.** A3's 15:15 alternate ("proves the same fix if 14:40 does not fire", P320) and A5's bit-identity/superset join (P322) both depend on whether an S5 1R refusal is terminal or retains the candidate. If terminal, E4b can **suppress** (not only add or accelerate) a baseline take — the superset framing is incomplete until the refusal row and post-refusal state are named.
+4. **Indentation wobble, +1 base on E2b inserts and the S4 comment.** New blocks sit at 4-space body base vs disk 3 (P067–P069 vs C2351–C2353; P087–P090 vs C2367–C2368; P095–P096 vs C2400–C2401; P100–P101/P106 vs C2405/C2408), and the S4 comment's first four lines shift 9→10 spaces (P304–P307 vs C8795–C8798). This contradicts the packet's own GLM-9 normalization discipline claimed at P018. E1b and E4b match disk correctly.
+5. **E4b's freshness-poll cost unstated.** S2-confirm firings proceed without the freshness poll under the same pre-bind doctrine as C8664–C8666; P018 states only the LTF-advisory cost.
+6. **A2/A5 observability requires InpDebugLog on** in the graded runs (TPFALLBACK, TPCENSUS, SWEPTMASK, CONFIRMPOLL are all gated). State it in the run config.
+7. **Counter note:** under E1b, `g_n1_pocInv` stops incrementing on POC close-breaks (P055 vs C2225) — intended, but record it for graded-diff continuity.
+
+## What checks out on the page (verified, for the record)
+
+- **Mask-table decode is arithmetically correct**: 4182845 = bits {0,2,3,4,5,8,9} swept + bit12 live + bits {14–21} prev-swept; row LE's `swept=1011110011 live=0010` matches; all five 6/5 16:05 candidates (PDH/NYH/PMH/YNYH/YPMH) fail real mask bits. Miss-2 root cause (P026) stands.
+- **Opus-4 dissolution confirmed on-page**: single poll at C7303 covers `ST_S2_LTF_ALIGN..ST_S5_GATE_CHECK` inclusive — all of S2..S5.
+- **E1b non-POC byte-identity holds**: `!closeSideOk && !anchorIsPoc` ≡ `!closeSideOk` when `anchorIsPoc` is false; counter conditions exactly preserved (P049–P050 vs C2219–C2220).
+- **E4b tail guard is correct**: promotion path leaves state at S5, guard skips the S3 transition; aligned path logs S2→S3 identically to old C8074–C8076.
+- **Budget arithmetic otherwise exact** (every other site's old/new counts verify; sum +42 modulo B2), **first-copy old anchors byte-match disk**, **fence respected** (C9838–C9840, C10081–C10085, C11334–C11350 untouched; default-true protects management callers), and the A1/A3 venues cohere with rows IL/DL and FN/ME/KF under E1b+E4b.
+
+## Analytic ask B — better mechanisms for the stated goal
+
+- **Winner identity**: add `const string srcName` through `TpTargetUpdateBest` (C2301–C2322), record at the update site (C2320–C2321), expose via `string &winnerName` out-param on `ComputeNearestTpTarget`, print in TPFALLBACK. Four touch points. Zero-code alternative: grade A2 by value-join of TPFALLBACK `tp=` against the second-pass TPCENSUS `best=`, amending A2's wording.
+- **Term set on pass**: second out-param on `IsConfirmationCandle` accumulating A/A2/B/C evaluations (C2193–C2231), printed at P286.
+- **Census coherence on fallback**: gate C2454 with the switch (print-only; changes rows, not behavior).
+- **Zone-on-fallback**: pass `applyZone=true` on the second pass so only mask+rank drop — nearest geometrically valid line, Task-31 preserved.
+- **SWEPTMASK**: hoist the print above the overwrite.
+
+Standing opens unchanged: E-c watch (GLM-11) — POC supremacy now lives at entry-confirm while the management body-close break (C11334–C11350) stays fenced; any early exit on a POC-anchored position in either run is a NEW packet. GLM-10 unchanged. E3 stays parked; keys untouched; nothing here builds, runs, or spends.
+## V275-USDJPY-CLEAR2 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

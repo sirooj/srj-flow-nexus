@@ -2121,3 +2121,43 @@ With items 1–2 closed in packet text and 3–4 relabeled: **yes — clear for 
 
 Nothing else is asked; nothing here builds, runs, or spends.
 ## V274-USDJPY-CLEAR1 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)
+## V275-USDJPY-CLEAR2 OPEN KIMI (verbatim open; filed whole 1x this turn, novel inbound)
+**Verdict Q1: DISCREPANCY** — substance clears; the STAGE-1 gate as written cannot pass. Every blocker is a paste-level whitespace defect on OLD anchors (the new lines themselves already carry disk whitespace), plus one duplicated edit block. No logic defect found. Named items below; with B1–B2 touched up and N1–N2 relabeled, this packet clears for exactly one build plus the two runs.
+
+---
+
+**Analytic A — defects, gaps, imprecisions (by severity)**
+
+**B1 (blocking, S1 old-anchor byte-assert fails at 6 sites, 11 lines).** The pasted disk lines are asserted byte-exact, and several OLD anchors do not match their leading whitespace:
+
+| Site | Packet old | Disk (pasted) | Lines |
+|---|---|---|---|
+| E2b mask | 3 sp | 4 sp | C2367–C2368 |
+| E2b session call | 3/6 sp | 4/7 sp | C2400–C2401 |
+| E2b rank | 3 sp | 4 sp | C2405 |
+| E2b POI call | 3 sp | 4 sp | C2408 |
+| E4b S2WAIT line | 8 sp | 9 sp | C8073 |
+| S4 comment block | 9 sp | 10 sp | C8795–C8798 |
+
+Tell-tale: the NEW lines at every one of these sites are already at disk whitespace — only the old sides were pasted short. The pre-comment-region anchors (E1b C2216–C2225, sig C2349–C2353, zone C2318, TpTargetUpdateBest sig C2301–C2303, S2 poll C7306–C7313, S5 call first variant C8916–C8926) all match cleanly. Fix is a re-paste of those 11 old lines at disk whitespace; zero logic change.
+
+**B2 (blocking, process).** The S5 call site is pasted twice with conflicting pairs: P134–P166 matches disk C8916–C8926 (6-space base); P194–P226 sits at a 7-space base that matches nothing on disk. STAGE-1 requires exactly one hit per anchor; keep the first, strike the second. The S2 poll block is likewise duplicated verbatim (P107–P133 and P167–P193) — harmless but strike for hygiene; S3 counts each site once, so the budget is unaffected.
+
+**N1 (relabel, acceptance overpromises print).** P017 and Acceptance A2 promise "TPFALLBACK with **line** + distPts (GLM-15, Opus B5)"; the coded format string carries only bar/dir/tp/distPts — no line identity. Attribution falls to the second-pass TPCENSUS row (debug-only, capped at s_tpDumps<2000, C2421–C2424). Either relabel A2 to "tp + distPts, line via adjacent TPCENSUS," or add the winner name. Recommend the relabel; adding the name properly touches the census path and strains the refine-only fence.
+
+**N2 (state the cost, per the packet's own E4b standard).** Filters-off threads `applyFilters` into TpTargetUpdateBest as `applyZone`, so the fallback pass waives the Task-31 zone guard (C2308–C2318) in addition to mask/rank. A fallback TP can therefore book *inside the entry zone* — precisely the measured 1.15090 inversion instance the guard exists for. The Rule section lists the zone guard among switch-obeying items but never states this consequence. One honest sentence, same as E4b's corner cost, or scope the switch to mask+rank only.
+
+**N3 (standing shadow/live divergence, document only).** ShadowConfirmPoll (C2148–C2175) is not amended to mirror E1b. On POC-anchored bars where A2 is now waived, the shadow will print confirm=0 while the live gate passes — the same divergence class as the 6/11 15:15 row pair (ME confirm=1 vs KF term=A2_CLOSE_BREAK) that this packet already has to explain. Out of the edit fence; add one packet sentence acknowledging it rather than editing.
+
+**N4 (optional observability).** E1b's A2 waiver is silent in the N1 counters — no "waived" counter exists, so A3 grading leans entirely on R-latch/TPFALLBACK rows. A `g_n1_pocA2Waived++` at the waiver site would make the fix provable at census. Optional, fenced as counter-only.
+
+**N5 (S1 assert addition, low risk).** `g_anchorBarTime` appears in the new CONFIRM_PREBIND_S2 print (E4b new line 20) but is not shown in any pasted line; S1 cannot prove its declaration from the page. Add "g_anchorBarTime declared before C8067" to the S1 assert list.
+
+**Verified clean (so the record shows what was checked):** budget recounts exactly (+42 → 11548, all 12 sites line-counted by hand); all new blocks brace-balanced; E4b's `if(g_state == ST_S2_LTF_ALIGN)` guard (new line 26) correctly prevents the double S2→S3 transition after promotion; E1b is monotone-relaxing (no previously-confirming bar newly fails), so the A5 "7 EU baselines bit-identical" claim holds structurally; E2b/E4b only add bookings/promotions, never remove — superset-join reasoning is sound; abort-after-two-passes genuinely means "no in-direction line at all"; fail-open mask semantics (C2335) reused correctly; the 6/5 16:05 mask decode (LE, m=4182845) matches P011's table and shows all five admitted candidates failing real filters, so A2's fallback path is real; the 6/11 A3 chain (FN confirm=1 at 14:40 pass on the 14:35 bar, KQ's 3pt TP face) supports the predicted refuse, with the 15:15 alternate reachable via E1b's waiver.
+
+**Standing opens:** E-c watch — management leg C11334–C11350 untouched, booked-touch-only exit retained, nothing in this packet introduces an early exit on a POC-anchored position; no new conflict. Open-side clause — E4b "FAIL retains at S2" (new line 23) keeps narrative-only discipline; no new text.
+
+**Analytic B — better mechanism.** For N1 only: have ComputeNearestTpTarget expose the winner it already computes — add one out-param (winnerName, default-unused) fed from the existing census walk (C2438–C2464), then print it in the two TPFALLBACK rows. Touches: sig C2349–C2353, census block C2419–C2477 (assign alongside print), the two PrintFormat sites (new S2 poll lines 12–16, new S5 call lines 15–19). Not recommended this round — the adjacent second-pass TPCENSUS already attributes, and the fence is refine-only. Hold as a named fallback if A2 grading proves attribution insufficient in the USDJPY run.
+
+Nothing here builds, runs, or spends. Keys: none asked. Thank you.
+## V275-USDJPY-CLEAR2 END KIMI (verbatim close; filed whole 1x this turn, novel inbound)

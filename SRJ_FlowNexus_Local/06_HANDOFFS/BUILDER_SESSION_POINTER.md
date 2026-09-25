@@ -3,20 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RELAY READY)
+## State (2026-09-25, V275 HALTED)
 
-- Relay v275 battery-green
-  (33566A79/65436/766) + packet
-  v2 (FD3F0D75/26546/331).
-- Seats GLM+Kimi, same text.
-  Ledger 756. No build, run,
-  key. Transport turn owed.
+- 3 verdicts: NO + discrepancy
+  + DISCREPANCY. Filed whole.
+  Duplication in v2 owned.
+- v3 direction set (dedup,
+  narrowed E2b, relabels).
+  Ledger 757. No build.
 
 ## Next (artifact owed)
 
-- ONE-ASK memo: v275 file +
-  2-seat paste + paste-back.
-  Key ask AFTER verdicts.
+- Packet v3 draft + battery,
+  relay v276 + battery, then
+  YOUR transport (low-tier).
 
 ## Resume order (exact)
 
