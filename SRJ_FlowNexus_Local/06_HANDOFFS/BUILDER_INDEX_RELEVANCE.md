@@ -1,4 +1,4 @@
-# BUILDER INDEX RELEVANCE (2026-09-25, RECON61 graded L-final PASS - Friday 23:55 fill 1.16129 exact, takes intact)
+# BUILDER INDEX RELEVANCE (2026-09-25, RECON62 full-window fidelity L-final PASS - zero-delta outside the 9/4 mark trade)
 
 Rule: read this file BEFORE any record search. It points to the live source per topic and names what is stale. Stale files are history only - never ground a packet, relay, grade, or question on them. The pointer still wins on any conflict.
 
@@ -6,8 +6,9 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 
 - Pointer: 06_HANDOFFS\BUILDER_SESSION_POINTER.md (only live memory).
 - Rules: AGENTS.md (skill-load, gates, invariants).
-- Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON61-DAY2355-V4.md (2954D44F/5657/53: A1 PASS, A2 PASS, A3 PASS, L-final PASS; Friday 23:55 fill 1.16129 exact, takes intact; tabulation RECON61-DAY2355-V4_TABULATION.txt 3B279921/5298/50; ledger 743).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON60-RESQUAT-V12.md (1E3E3294/11792/72: G1 PASS, G2 PASS, G3 PASS, G4 PASS; 7 takes incl 9/1 entry 1.16024; MTCLOSE x2 DONE+flat; tabulation RECON60-RESQUAT-V12_TABULATION.txt A2AE6285/12101/173).
+- Latest result: 06_HANDOFFS\BUILDER_RESULT_RECON62-DAY2355-FULL.md (D3EE168B/4332/47: F1 PASS, F2 PASS, F3 PASS, L-final PASS; full-window fidelity, zero-delta outside 9/4; tabulation RECON62-DAY2355-FULL_TABULATION.txt 9F7EE982/3564/33; ledger 746).
+- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON61-DAY2355-V4.md (2954D44F/5657/53: A1 PASS, A2 PASS, A3 PASS, L-final PASS; Friday 23:55 fill 1.16129 exact, takes intact).
+- Baseline result: 06_HANDOFFS\BUILDER_RESULT_RECON60-RESQUAT-V12.md (1E3E3294/11792/72: G1 PASS, G2 PASS, G3 PASS, G4 PASS; 7 takes incl 9/1 entry 1.16024; tabulation RECON60-RESQUAT-V12_TABULATION.txt A2AE6285/12101/173).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON59-EVICT-V1.md (564D9227/10453/79: G1 PASS, G2 FAIL on 9/1 re-squat miss, G3 MIXED, G4 PASS; 6 takes tick-identical incl fills; eviction fires 3/3 venues; tabulation RECON59-EVICT-V1_TABULATION.txt 4CB94C7A/2833/82).
 - Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).

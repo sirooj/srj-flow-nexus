@@ -1,0 +1,33 @@
+# RECON62-DAY2355-FULL_TABULATION (2026-09-25; machine pulls, .Contains parity; zeros re-proved; prefix-stripped set-diff both directions)
+
+## Segments
+- SEG62 06_HANDOFFS\RECON62-DAY2355-FULL_JOURNAL.log 163B20FA/6463131/34254 (ARCHIVED_LINES=34254 == file lines 34254; STATUS terminal PASSED; DONE=PASSED 2026-09-25 09:22:21)
+- SEG60 06_HANDOFFS\RECON60-RESQUAT-V12_JOURNAL.log 4824FE61/6465733/34269 (baseline, full window)
+- Window (journal-proved): from 2026.08.26 00:00 to 2026.09.10 00:00 (the vacated 08:30 scoped attempt never graded; this segment starts PRE_JOURNAL_LINES=47553)
+- Feed: 563338 ticks, 3168 bars both; test passed 0:47:49 (wall 48:11, 08:34:10 launch to 09:22:21 DONE, ceiling 90 respected)
+
+## Takes (7/7 identical bars/entries)
+- SIGNAL 7/7 identical bars/lines/R/SL/TP: 8/28 10:05 SHORT Daily-VWAP R2.43 + 9/1 17:35 LONG Monthly-VWAP R1.17 + 9/4 16:00 LONG Yearly-POC R1.66 + 9/7 09:20 LONG Weekly-POC R1.76 + 9/7 16:45 LONG Weekly-POC R2.34 + 9/8 10:10 SHORT Monthly-POC R1.94 + 9/8 17:00 SHORT Monthly-POC R1.96
+- PRE-SEND 7/7 + EXECUTED 7/7 + ENTRY_TICKET 7/7 (pid==ppid nonzero) both runs
+- Deal entries identical all 7: 1.16466 / 1.16024 / 1.16019 / 1.16138 / 1.16264 / 1.16205 / 1.16220
+- Lots-second (recorded, never graded): 9/4 0.57 same; 9/7 first raw 2.5000 vs 2.5060 floored 2.50 same take; 9/7 second raw 3.9068 vs 3.9160 floored 3.90 vs 3.91 (re-derived downstream of the Friday close); 9/8 1.95/1.95 same
+
+## Exits (6 identical + the Friday fix)
+- MTEXIT 7/7: 8/28 11:40 BREAK (Daily-POC 1.16451, exit 1.16439) + 9/1 17:50 SL (exit 1.15975) + 9/7 10:50 TP (exit 1.16200) + 9/7 17:10 TP (exit 1.16315) + 9/8 10:40 TP (exit 1.16102) + 9/8 17:30 SL (exit 1.16274) identical bars/reasons/entries/exits; 9/4 DAY_CLOSE moved Friday 23:55:00 exit 1.16129 (was Monday 00:00:07 exit 1.16093)
+- MTCLOSE 2/2 both runs, joins hold: 8/28 BREAK ref==exit 1.16439 MATCH, pid triple, flat, retcode DONE + 9/4 DAY_CLOSE ref==fill exact (1.16129 Fri vs 1.16093 Mon), pid triple, flat, retcode DONE
+- Deals 14/14 both runs (7 pairs, same ticket/deal sequence #2-#15); only #7 differs (Friday 1.16129 vs Monday 1.16093); #10/#11 lots 3.91 vs 3.90 second-decimal only, fills identical
+- 9/4-invalid refused both runs (10:35 S4 triplet + 10:40 S5 quadruplet); MTCOLLISION 0/0 both
+
+## Elections + census (identical)
+- ABORT 51/51 zero set-diff; CQD DIV 906/906; EVICTSUPPRESS 4/4; FIRE 1/1; RESEED_BLOCKED 3/3; FRESH_VETO 12/12; FRESH_OPP_FVG 18/18
+- BIASCENSUS_FINAL + ZONECENSUS_FINAL byte-identical (2/2 zero mismatches); PROMOCENSUS 469/469 zero mismatches; WS161 loads/stores 3168/3168 mismatch 0, changes 208/208
+- EXITVERDICT 159 vs 158: the -1 is the removed Monday verdict (60: Friday vDAY=0 + Monday vDAY=1; 62: Friday vDAY=1 only); vDAY=1 exactly 1x in 62, Friday first-tick
+
+## Set-diff venue (prefix-stripped, both directions)
+- only60=49, only62=36; every row classified: startup/build artifacts (history sync, .ex5 loads with differing byte sizes/timestamps, BUILD/CQD timing) + Monday-00:00:07 execution cluster (60) + Friday-23:55:00 execution cluster (62) + 3.90-lot rows (60) + 3.91-lot rows (62) + Friday EXITVERDICT vDAY=0 row (60) + balance/summary rows (10450.09 vs 10474.64; sync/test times)
+- Unexplained rows outside those classes: 0 both directions (balance + summary are the EA-driven/wall-clock pair, recorded only)
+
+## Balance
+- Final 10474.64 vs 10450.09 (+24.55 EA-driven: Friday close 1.16129 vs Monday 1.16093 on 0.57 plus downstream lots); no swap/commission rows; never graded, recorded only
+
+(End of file)

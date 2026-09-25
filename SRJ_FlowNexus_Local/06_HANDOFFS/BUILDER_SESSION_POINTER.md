@@ -3,21 +3,23 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RECON62 RUNNING FULL)
+## State (2026-09-25, RECON62 GRADED)
 
-- RECON62-DAY2355-FULL RUNNING,
-  full 8/26-9/10 (journal-proved),
-  same tree A82F15E7, no code.
-- Scoped duplicate VACATED (my
-  window defect, ledger 745).
-- RECON61 PASS (2954D44F).
+- RECON62-DAY2355-FULL DONE=PASSED,
+  graded L-final PASS (F1/F2/F3).
+- Result D3EE168B/4332/47 + tab
+  9F7EE982/3564/33 + seg
+  163B20FA/6463131/34254.
+- Full-window zero-delta outside
+  the 9/4 mark trade. Ledger 746.
 - Key: none spent (no build).
 
 ## Next (artifact owed)
 
-- YOUR completion word ("run
-  has completed"). Then gates
-  vs RECON60 full-window + grade.
+- Exit-model follow-ons via council
+  route on YOUR scope word; wider
+  spans on YOUR scope word.
+- No transport owed. No run open.
 
 ## Resume order (exact)
 
