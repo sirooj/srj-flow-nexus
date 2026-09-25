@@ -3,18 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, HIS RULING FILED)
+## State (2026-09-25, V281 READY)
 
-- Your retest ruling journaled
-  (finding 8EF27EF8). Both rules
-  are on record (S5.4, S3.3).
-  My grade missed them - owned.
-  EU run untouched. Ledger 770.
+- Packet v8 + relay v281
+  battery-green (E4b guards for
+  your two instances). Ledger
+  774. No build, run, key.
 
 ## Next (artifact owed)
 
-- Builder: EU DONE, row analysis
-  under your two rules, grades.
+- YOUR carry: v281 file to
+  2 seats + paste back verdicts.
 
 ## Resume order (exact)
 
