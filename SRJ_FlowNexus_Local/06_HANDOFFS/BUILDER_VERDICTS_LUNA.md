@@ -9310,3 +9310,134 @@ For the TP refinement specifically, the single-walker `applyFilters` design is s
 
 **Bottom line:** the intended v2 rule set is sufficiently specified to understand, but the packet as submitted is **not internally self-consistent enough for a clean clearance**. The required next state is an amended packet whose patch blocks and C-prefixed code agree exactly; then the stated one-build/two-run gate can be judged against that version.
 ## V276-USDJPY-CLEAR3 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V277-USDJPY-CLEAR4 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+## Q1
+
+**NO — discrepancy.**
+
+The v4 edit set is not yet an internally sufficient clearance packet for the stated A1–A5 proof standard. The main blocker is the **E2b fallback/census mismatch**: the second-pass walker can select POI targets that the census is still forbidden to name.
+
+### A — Defects, gaps, and imprecisions
+
+**1. E2b fallback can book a POI that the second-pass census cannot identify. — CLEARANCE-BLOCKING**
+
+The booking walk disables the POI tier-rank filter when `applyFilters=false`:
+
+* **P088–P089:** rank skip is gated by `applyFilters`.
+* Therefore the fallback pass at **P108** / **P139** can select a lower-authority POI line than the anchor.
+
+But the census walk still has the rank filter unconditionally:
+
+* **P2452–P2454:** `if((g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;`
+
+So a fallback can legitimately book, for example, a POI line rejected by that census filter, while `winner` remains `NONE` or names another equal-valued candidate.
+
+That directly conflicts with:
+
+* **P217:** A2 requires line identity through the adjacent second-pass `TPCENSUS`.
+* **P227:** novel evidence is supposed to include `TPFALLBACK` rows with enough information to establish the fallback.
+* The comment in **C2395** describes the census as the witness for the candidate set.
+
+The `best=` value is still the actual booked value, but **value equality is not sufficient to establish line identity when the census candidate set differs from the booking candidate set**.
+
+**2. Exact-value join does not always establish line identity. — GAP / IMPRECISION**
+
+The packet says:
+
+* **P217:** “line identity by exact value-join”
+* **P2395:** explicitly acknowledges that exact-price ties can produce **census-name divergence** from booking order.
+
+That means `tp=` = `best=` proves the booked **price**, not necessarily the booked **line**, whenever multiple candidates share the same price. The packet already admits this possibility.
+
+So A2's phrase “line identity by exact value-join” is technically overstated. It should say **booked-value identity**, unless the code also emits the actual source line/index.
+
+**3. The census cap can break the promised adjacency evidence. — GAP**
+
+The census is capped:
+
+* **C2421–C2422:** `if(s_tpDumps < 2000)`
+
+The packet requires A2's fallback row to be paired with the adjacent second-pass `TPCENSUS` row:
+
+* **P217**
+* **P227**
+
+But there is no condition that the required A1/A2/A3 venue occurs before dump 2000. Once the cap is reached, `TPFALLBACK` can still print while the corresponding `TPCENSUS` evidence disappears.
+
+That makes the acceptance criterion non-deterministic from the page.
+
+**4. “NO_TP_TARGET means no in-direction line at all” is too broad. — IMPRECISION**
+
+The packet says:
+
+* **P018:** abort retained only when “no in-direction line exists at all”
+* **P138–P139:** same implication
+* But **C2318** keeps the zone-containment guard always active.
+
+Therefore `NO_TP_TARGET` can occur even when an in-direction target **does exist**, provided every such target lies inside the active entry zone.
+
+The acceptance wording is better at:
+
+* **P217:** “no in-direction line outside the bound zone.”
+
+That is the mechanically correct statement and should replace the broader wording in P018/P138.
+
+**5. A5’s per-take attribution is not mechanically guaranteed. — GAP**
+
+A5 requires:
+
+* **P220:** every new EU take to be journal-matched with a row tag attributing `E1b/E2b/E4b`.
+
+The new runtime evidence is conditional:
+
+* **E1b:** `A2_WAIVED_POC` only prints when the POC A2 waiver actually fires, **P055–P056**.
+* **E2b:** `TPFALLBACK` only prints when the filtered first pass finds nothing, **P115–P120 / P148–P152**.
+* **E4b:** `CONFIRM_PREBIND_S2` only prints when the S2 confirmation path fires, **P177–P187**.
+
+Thus a new take can exist without one of those diagnostic rows being emitted. In particular, an E1b-affected POC candidate whose prior close already satisfies A2 gets no E1b-specific runtime marker.
+
+So the packet can demonstrate **that certain special paths fired**, but not universally attribute **every novel take** to one of the three refinements.
+
+**6. The “literal E1b row tag” claim is imprecise. — IMPRECISION**
+
+The delta text says E1b gained a literal E1b attribution tag, but the actual proposed print is:
+
+* **P056:** `"[SRJ-EA] A2_WAIVED_POC ..."`
+
+There is no literal `E1b` token in that runtime row. The semantic attribution is obvious, but the statement “literal E1b row tag” is stronger than the pasted code supports.
+
+**7. The current C-code is the pre-edit baseline, not the v4 implementation. — DOCUMENTATION DISCREPANCY, not by itself a build blocker**
+
+The “complete code” still shows the old implementations:
+
+* **C2216–C2225:** no `anchorIsPoc`, no POC A2 waiver.
+* **C2349–C2353:** old four-argument `ComputeNearestTpTarget`.
+* **C2367–C2368:** no `s39_eff`.
+* **C2400 / C2405:** filters are unconditional.
+* **C7307–C7312:** single S2 call.
+* **C8067–C8077:** old S2 LTF-alignment behavior.
+* **C8795–C8803:** old S4 comment.
+* **C8918–C8925:** single S5 call.
+
+The edit set at **P31–P207** clearly instructs those replacements, so I treat this as the **builder baseline**, not as evidence that v4 has already been applied. But calling the appended source “complete code” while the proposed v4 behavior exists only in the patch blocks is potentially confusing.
+
+### B — Better mechanism for the stated goal
+
+The cleaner mechanism is to make **`ComputeNearestTpTarget` return the winning candidate identity directly**, rather than reconstructing identity afterward from a separate census walk.
+
+The relevant touch points would be:
+
+* **P65–P70 / C2349 onward:** add an output for candidate source identity, e.g. session/PD index or POI line index.
+* **C2301–C2321:** have `TpTargetUpdateBest` update both `best` and the winning source identity.
+* **S2 call, C7307 area / P104–P120:** print the actual fallback source directly.
+* **S5 call, C8916 area / P134–P153:** same.
+* The census at **C2419–C2477** could remain print-only diagnostic rather than being the authoritative identity witness.
+
+That removes the two structural weaknesses simultaneously: **filter-state divergence** and **same-price identity ambiguity**.
+
+### Bottom line
+
+**Q1: NO.**
+
+The packet's intended E1b/E2b/E4b code changes are understandable, but **E2b's filters-off booking path and filters-on census path are not the same candidate universe**, so A2's required fallback-line proof is not mechanically sound. The census cap and A5 attribution language add further gaps.
+## V277-USDJPY-CLEAR4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

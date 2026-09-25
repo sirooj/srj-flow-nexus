@@ -13,7 +13,7 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON59-EVICT-V1.md (564D9227/10453/79: G1 PASS, G2 FAIL on 9/1 re-squat miss, G3 MIXED, G4 PASS; 6 takes tick-identical incl fills; eviction fires 3/3 venues; tabulation RECON59-EVICT-V1_TABULATION.txt 4CB94C7A/2833/82).
 - Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
 - Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v277-USDJPY-CLEAR4.md (5B75456C/59478/664 battery-green, packet v4 47394518/21101/229; seats GLM+Sonnet identical; transport owed, ledger 760).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v278-USDJPY-CLEAR5.md (32BBEC54/63725/723 battery-green, packet v5 94A8BF84/25079/288; seats GLM+Sonnet identical; transport owed, ledger 761).
 - Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v273-DAY2355-CLEAR4.md (90FF7606/21643/149 unanimous-clear 3-0, key spent, RECON61 L-final PASS graded ledger 743).
 - Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v12 405DB460/52763/378 BUILT D74FE972/633552/11502, 0/0 both targets; key spent, RECON60 G4-PASS graded ledger 735).
 - Fold graded: 01_TASKS\PACKET_P-DAY2355-1.md (v4 7C915C61/9898/58 built A82F15E7/633938/11506, 0/0; key SPENT; RECON61 graded L-final PASS ledger 743; B-alternatives kept-recorded via council route).

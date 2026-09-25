@@ -3,17 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V277 READY)
+## State (2026-09-25, V278 READY)
 
-- Packet v4 + relay v277 green
-  (47394518 + 5B75456C). Stale
-  rulings recorded, none transfer.
-- Seats GLM+Sonnet. Ledger 760.
-  No build, run, key.
+- Packet v5 + relay v278 green
+  (94A8BF84 + 32BBEC54). v277
+  verdicts stale-page, one genuine
+  point folded. Ledger 761.
+- Seats GLM+Sonnet. No build,
+  run, key. Transport turn owed.
 
 ## Next (artifact owed)
 
-- ONE-ASK memo: v277 file +
+- ONE-ASK memo: v278 file +
   digest check + 2-seat paste
   + paste-back. Key AFTER.
 

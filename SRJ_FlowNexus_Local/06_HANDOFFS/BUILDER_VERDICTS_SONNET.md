@@ -1776,3 +1776,19 @@ Given E4b now creates a third site (S2, alongside pre-bind and S4) that does "ch
 
 I haven't touched, built, or run anything — this is a page-only read, and the brace item needs a disk-side char-code check before STAGE-1 can honestly pass.
 ## V276-USDJPY-CLEAR3 END SONNET (verbatim close; filed whole 1x this turn, novel inbound; Kimi seat replaced by Sonnet on his word - no credits)
+## V277-USDJPY-CLEAR4 OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+**Verdict Q1: discrepancy** (not a clean clear — see finding below; everything else checked at the page level is internally consistent).
+
+**What checks out:**
+- S3 budget arithmetic: I re-summed every site delta as stated — E1b +3 (10→13), sig +1, mask +2, session +0, rank +1, POI +0, S2poll +9 (8→17), S5call +9 (11→20), E4b +16 (11→27), comment +2 (4→6) → total +43. That's self-consistent and matches your stated 11506+43=11549.
+- E1b logic: hoisting `anchorIsPoc` and using it to waive `A2_CLOSE_BREAK` only (not `A_OPP`, not `B_BODY`, not `C_TOUCH`) matches the stated "POC-supremacy, non-POC unchanged" claim. The counter behavior (`g_n1_pocInv` stops incrementing on POC close-breaks) is consistent with the code as pasted, not a bug — just a documented side-effect of the waiver.
+- E2b: default `applyFilters=true` preserves every unlisted caller's behavior; mask gates the session pool, tier-rank gates the POI pool, zone (in `TpTargetUpdateBest`) is untouched and always-on — matches your "narrowed" description exactly. The two-pass fallback at both C7307 and C8918 is symmetric.
+- E4b: the `if(g_state == ST_S2_LTF_ALIGN)` guard after the new confirm-check block correctly prevents the S3 transition from stomping a state already advanced to S5. Aligned-candidate path is untouched (byte-identical), as claimed.
+
+**The gap (Analytic A):** E1b's waiver is a change to `IsConfirmationCandle` itself (C2193-2233) — it fires wherever that function is called, not just at the venues you're grading. Your run rows show a POC-anchored `A2_CLOSE_BREAK` failure at the **14:45 bar** (rows MH/FH, `CONFIRM_STRUCT_FAIL term=A2_CLOSE_BREAK`, anchor=Daily-POC) — structurally identical to the 15:15 "alternate venue" case (KF) that E4b/E1b's shadow-divergence note explicitly discusses. A3's acceptance scope declares "the 14:45 bar is never judged," but that's an analyst/grading choice, not a runtime gate — nothing in the E1b diff excludes 14:45 from the waiver at execution time. So post-build, the EA will very likely promote a *new* candidate at 14:45 that never existed pre-E1b, with its own S5/R resolution, and A3 as written doesn't require it to be graded. That's exactly the kind of silent-drift risk your own process rule (P003: "amend or clear, never silent drift") is meant to catch — it's a real behavioral consequence of the diff sitting outside the stated acceptance test, not a disk-truth question.
+
+**Analytic B:** if 14:45 is genuinely meant to stay unjudged by design (banked off-by-one reasoning), consider making that explicit in code rather than convention — e.g., a bar-time/session guard at the C8805 call site (or a parameter on `IsConfirmationCandle`) that suppresses promotion for that specific bar, so the "never judged" rule is enforced rather than assumed. Otherwise, add a sixth acceptance line (A3b) requiring the 14:45 candidate's outcome to be logged and reconciled, so E1b's full behavioral footprint on this run is actually graded rather than incidentally observed.
+
+Everything else in the pasted blocks (E2b call sites, E-comment) reads clean; I'd hold the clear until A3 either adds that line or you rule the 14:45 exclusion intentional-and-sufficient on the record.
+
+## V277-USDJPY-CLEAR4 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
