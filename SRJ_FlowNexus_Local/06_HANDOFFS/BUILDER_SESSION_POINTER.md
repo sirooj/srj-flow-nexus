@@ -3,21 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RECON63 FILED)
+## State (2026-09-25, MISSES FILED)
 
-- RECON63-USDJPY-JUNE DONE=PASSED,
-  census filed (1 take: 3 June
-  London long, TP win). No grade
-  (blind - YOUR ruling only).
-- Result C71F3329/1651/27 + seg
-  F50A9BFE/3830054/21292.
-- Ledger 748. Key: none spent.
+- 3 USDJPY misses diagnosed on
+  disk (finding DD1255FB). No
+  CQD veto, no XOB kill. Ledger
+  749. 6/3 take stands.
+- Blind intact. No grade.
 
 ## Next (artifact owed)
 
-- Nothing. YOUR ruling on the
-  1 take. Further spans/pairs
-  on YOUR scope word.
+- YOUR objection with YOUR data
+  (direction on 6/5 morning, TP
+  levels, FVG/block reads).
 
 ## Resume order (exact)
 
