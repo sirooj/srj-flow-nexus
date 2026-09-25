@@ -1857,3 +1857,46 @@ One option worth considering for E2b: rather than a boolean re-run of the whole 
 
 That's my full read of what's on the page — nothing here is a disk claim, just the pasted text.
 ## V280-USDJPY-CLEAR7 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V281-USDJPY-GUARDS OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+## Q1 — E6a flip gate: **YES**
+
+Reads match the census predicate exactly:
+- Confirm-bar reads: `P071` `ReadFlow(FL_BUF_HTF_HIGH/MID/LOW, ..., barShift)` — same buffer set as `C5120`.
+- Prior-bar reads: `P079` same three buffers at `barShift+1` — same as `C5128`.
+- Count logic: `P073–P077` vs `C5122–5126` (per-leg `MathRound(...) == -want`) — identical.
+- Gate: `P086` `e6a_flip = (antiNow>=2 && antiPrev>=0 && antiPrev<2)` vs `C5135` `oFlip = (oAntiNow>=2 && oAntiPrev>=0 && oAntiPrev<2)` — identical formula.
+- Unreadable-read handling: `antiNow`/`antiPrev` init to `-1` (`P068`) and only overwritten on a successful triple-read; `-1 >= 2` is false, so an unreadable pair silently produces "no gate" — matches disclosure (2).
+- Disposition: on fire, falls to `P106→P114`, which prints the *same* S2WAIT retain line as the pre-existing fallback (`P130`, matching old `C8108`). No `GoAbort` call anywhere in the new block. Retain, not abort, is the right call — it reuses the confirm-fail shape the branch already had, adds no new state/abort surface, and matches "falls into S2WAIT retain" in the rule text (`P018`).
+
+## Q2 — E6b POI-break guard: **DISCREPANCY**
+
+Walk mechanics check out: `P089–P090` (seed shift via `iBarShift` on `g_anchorBarTime`, guarded by `seedShift > barShift`), loop `P092–P104` walking `confirm+1..seed` inclusive of seed, `EMPTY_VALUE`/zero-OHLC skip (`P095`, `P098`) — all as claimed.
+
+The defect is in the "behind gate" itself, `P099–P103`:
+```
+e6b_behind  = LONG ? (v <= o) : (v >= o)
+e6b_crossDn = (o >= v && c < v)
+e6b_crossUp = (o <= v && c > v)
+```
+For `LONG`, `v <= o` and `o >= v` are the *same condition* — `e6b_behind` is literally the first clause of `e6b_crossDn`. Same for `SHORT`/`crossUp`. So `e6b_behind && e6b_against` reduces algebraically to just `e6b_against` — the "behind" test contributes zero additional restriction. As written, `P103` is a plain "body closed through the anchor against direction" test, not a "POI was behind the setup and then got broken" test. That's a real gap against the stated intent in `P019`/`P087`'s comments (and against disclosure (3), which frames "per-bar vs latched side" as a scope simplification — but the current code isn't even a meaningful per-bar side test, it's a no-op AND).
+
+Secondary note: `P089`'s `iBarShift` call omits the `exact` argument (defaults `false`), so it will almost always resolve to the nearest bar rather than fail — "unreadable seed = no gate" is a rarely-reachable path in practice, more an ordering guard than a data-absence guard.
+
+Scope (E4b-only): acceptable as stated — both proven violations (`6/04 16:20`, `6/08 09:35`) rode E4b per `P011`, and his order is refinement-phase / no overall-logic revision (`P009`, `P022–P024`).
+
+---
+
+## Analytic A — defects/gaps (line numbers)
+
+1. **`P099–P103`** — `e6b_behind` is algebraically redundant with the open-side clause of `e6b_crossDn`/`e6b_crossUp` for the matching `g_dir`; the guard silently degrades to a plain cross-against-direction test with no independent "behind" restriction. Main finding above.
+2. **`P089`** — `iBarShift(_Symbol, PERIOD_CURRENT, g_anchorBarTime)` has no explicit `exact` flag (defaults `false`); "unreadable seed" as a fail-safe is close to unreachable, so the safety net described in the rule text is weaker than stated.
+3. **`P092`** (loop start `barShift+1`) — confirm bar's own candle is excluded from the E6b walk. Reasonable if `IsConfirmationCandle` already vets the confirm bar's own body, but the rule text ("between seed and confirm bars," `P019`) doesn't make this boundary explicit — worth a one-line clarification so it isn't mistaken for an oversight later.
+4. **`P106`** — `e6a_flip || e6b_broken` share one print/one retain path; correct given "no counter touches" (`P005`), but means nothing in the log distinguishes an E6a-only vs E6b-only fire except the two int fields already in the `E4B_GUARD` line (`P109–P113`) — fine, just flagging that any later per-guard tally has to parse those fields rather than count rows.
+5. **`P069`** — `e6a_want = (g_dir==DIR_LONG)?1:-1` silently treats any non-LONG `g_dir` as SHORT. Not a live bug given the two-direction enum in use, but it's an unstated assumption baked into a ternary rather than an explicit check.
+6. **`P068/P078` vs `C5118/C5127`** — the antiNow/antiPrev computation is now duplicated verbatim in two places (ORDER census at `C5117–5146`, E6a at `P068–P086`). Not wrong, but a drift risk: a future change to the census predicate at one site won't propagate to the other. Noted for Analytic B.
+
+## Analytic B — better mechanisms
+
+- **For the E6b behind-gate gap (item 1 above):** latch the POI-relative side once, at the seed bar, before the walk — e.g. compute `e6b_side` from the seed bar's own open/close relative to the anchor at `e6b_seedShift` (a single read, before the `for` loop at `P092`), store it as a fixed bool, and use *that* latched variable as the "behind" gate on every iteration instead of recomputing `e6b_behind` per-bar. Keep the per-bar `crossDn`/`crossUp` test as-is for the actual break detection. This would touch `P088–P105`, adding one small block above the loop and swapping `e6b_behind` inside the loop body from a per-bar recompute to the latched variable. This turns disclosure (3) from "known simplification" into an actual latched-side implementation, and stops the AND from being a no-op.
+- **For the duplication risk (item 6 above):** factor the antiNow/antiPrev leg-count logic (`C5120–5134` and `P071–P085`) into a single shared helper (e.g. `bool CountHtfAntiLegs(int shift, int want, int &antiOut)`) called from both the ORDER census site and the E6a site. Touches `C5117–5135` and `P068–P086`. Purely a maintenance/drift-prevention change — output is currently identical either way, so no behavior change, no B1–B7 risk.
+## V281-USDJPY-GUARDS END SONNET (verbatim close; filed whole 1x this turn, novel inbound)

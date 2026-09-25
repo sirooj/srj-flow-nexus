@@ -9621,3 +9621,103 @@ For E4b, the similarly narrow improvement is to print `cfTermS2` on the S2 failu
 
 **Bottom line:** no page-level behavioral defect forces a HOLD. The E1b waiver is correctly scoped to POC/A2, E2b keeps the zone guard while removing only mask/rank on the second pass, E4b uses the existing live confirmation predicate and routes a passing S2-unalinged confirmation directly to S5, and E5a/E5b make the census follow the actual booking mode.
 ## V280-USDJPY-CLEAR7 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V281-USDJPY-GUARDS OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+## Q1 — **DISCREPANCY**
+
+The **E6a predicate is a correct reproduction of the existing ORDER newness predicate**: it counts opposing HTF legs at the confirm bar and prior bar, then defines fresh opposition as `antiNow >= 2` with `antiPrev` in `[0,2)`. That matches the existing `SrjOrderEmit` predicate at EA 5135.
+
+The **problem is the disposition**. The authority text on the page describes S3.3 Step 2 as a 5m flip against the locked direction that **"kills"** the candidate.  But this patch does not kill or abort the candidate: it logs `E4B_GUARD`, prints the existing `S2WAIT` message, and returns while retaining the candidate in S2.
+
+So the ruling is:
+
+**Predicate: YES.
+S2WAIT-retain as the meaning of "flip kills": DISCREPANCY.**
+
+The page does not establish the narrower interpretation "kills only this confirmation promotion, but the armed candidate remains alive." It explicitly uses the stronger word "kills."
+
+---
+
+## Q2 — **YES**
+
+The E6b walk is materially aligned with the stated S5.4 rule on this page.
+
+It walks older bars from `confirm+1` through the seed shift, obtains the anchor POI value, skips `EMPTY_VALUE`/unreadable POI and zero OHLC reads, then applies the dynamic per-bar "behind" test and the direction-specific body cross. LONG is `anchor <= open` plus `open >= anchor && close < anchor`; SHORT is mirrored.
+
+That matches the page's stated S5.4 formulation: a candidate armed for the confirming close is dead on an anchor-POI-behind body break before confirmation.
+
+**E4b-only scope: YES for this refinement round.** The packet explicitly limits the change to the E4b branch and parks S3/S4 extension until the operator gives scope for it.  That is a deliberate scope limitation, not a complete implementation of the rule across all promotion paths. The packet itself discloses that S3/S4-path coverage remains untouched.
+
+One implementation imprecision remains: the page says the seed shift comes from `iBarShift`, but it does not specify the exact-match mode or formally define the intended seed/confirm boundary semantics.
+
+---
+
+# Analytic A — defects, gaps, and imprecisions
+
+**1. The principal defect is the Q1 semantic mismatch.**
+"S3.3 flip kills" and "S2WAIT candidate retained" are not naturally the same state transition. The code needs the settled meaning clarified in the rule itself, or the disposition needs to change.
+
+**2. E6a is duplicated logic rather than a shared predicate.**
+The guard reimplements the same HTF counting/newness calculation already present in `SrjOrderEmit`, creating future drift risk even though it is verbatim-equivalent today.
+
+**3. Both guards fail open on unreadable inputs.**
+That is explicitly disclosed, so it is not hidden, but it means a real flip or body break can pass whenever the relevant read is unavailable.
+
+**4. E6b's seed lookup semantics are underspecified.**
+`iBarShift(_Symbol, PERIOD_CURRENT, g_anchorBarTime)` is used without an explicit exact-match argument, and the packet only says "unreadable seed = no gate." The page does not specify what must happen if the supplied time maps to a non-exact bar.
+
+**5. E6b boundary inclusion is not stated tightly enough.**
+The actual loop is `barShift + 1 ... e6b_seedShift`, so the seed bar is included and the confirm bar is excluded. That may be correct, but the packet should state those boundaries explicitly rather than relying on "between seed and confirm."
+
+**6. There is no isolated E6b-positive acceptance case.**
+B1 combines `flip=1` with the POI walk, so it does not independently prove that **POI-break alone** blocks promotion when `flip=0`.
+
+**7. There is no isolated E6a threshold-edge acceptance case.**
+The acceptance does not exercise boundaries such as current opposition `2`, prior opposition `1`; current `2`, prior `2`; current `1`; or unreadable now/previous. The predicate is clear, but the acceptance matrix is not exhaustive around its exact threshold.
+
+**8. There is no direct LONG-side positive E6b proof.**
+The two ruled cases cited for the new guard are SHORT cases. The page states the SHORT mirror and discloses dynamic side handling, but the acceptance section does not include an explicit LONG-side E6b trigger.
+
+**9. The "DIAGNOSED successor" escape in S1 is undefined.**
+The gate says the source digest must match the given tree "or DIAGNOSED successor," but this page does not define the evidence or authority required to classify a successor as diagnosed.
+
+**10. "One hit per anchor" is not operationally defined.**
+It appears in S1 as a mechanical requirement, but the packet does not state whether this means one code occurrence, one execution, one print row, or one candidate anchor.
+
+**11. The call-site census language is imprecise.**
+"No new walker callers" and "E6 reads are Flow/POI/OHLC only" are understandable intent statements, but no exact caller/function census is enumerated in the acceptance itself.
+
+**12. B7 is less concrete than the packet's own event-tuple standard.**
+The packet says acceptance should use event tuples rather than bare clock labels, but B7 refers to "his TAKEN rows" and "7 baseline takes" without enumerating those rows in this page. That makes independent grading less deterministic from this page alone.
+
+**13. The acceptance permits an alternate halt outcome without tightly constraining its equivalence.**
+B1 allows either the expected S2WAIT result or "a walk-away halt with cause." That broadens the pass condition beyond the stated implementation shape.
+
+**14. The packet deliberately leaves global S5.4/S3.3 coverage incomplete.**
+E4b is covered; S3/S4 paths are expressly parked. That is acceptable for the declared refinement scope, but it remains an open behavioral coverage gap.
+
+---
+
+# Analytic B — better mechanisms
+
+### E6a
+
+The stronger long-term mechanism is a **single shared fresh-HTF-opposition predicate** used both by the existing ORDER census and by the E4b guard. That would remove duplicate counting logic and make "verbatim predicate" structural rather than textual.
+
+The relevant touch points would be the E4b insertion at the 8086-8112 site and the existing ORDER calculation at 5117-5146.
+
+### E6b
+
+A better mechanism is a **dedicated anchor-body-break helper** returning a three-state result such as `CLEAN / BROKEN / UNREADABLE`, while preserving the packet's settled fail-open behavior for `UNREADABLE`. That makes the distinction observable instead of collapsing "could not prove a break" into ordinary clean state.
+
+The current logic lives entirely in the E4b block at the 8086-8112 region described by the packet.  The current walk itself is specified at P087-P106.
+
+### Most important mechanism change
+
+Before touching either predicate, I would settle **what "S3.3 kills" means operationally**. If it means "this confirmation attempt is invalid but the armed candidate survives," the current S2WAIT return is coherent. If it means "the candidate is dead," the current E6a disposition is not sufficient. The page currently contains both meanings without resolving them.
+
+## Final ruling
+
+**Q1: DISCREPANCY** — E6a predicate is correct; the stated "flip kills" rule does not clearly support retaining the candidate in S2.
+
+**Q2: YES** — E6b predicate is consistent with the stated S5.4 rule, and E4b-only scope is acceptable for this explicitly bounded refinement, with the S3/S4 gap remaining open.
+## V281-USDJPY-GUARDS END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
