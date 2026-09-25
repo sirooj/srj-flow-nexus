@@ -11427,6 +11427,10 @@ if(!vSL && !vTP && !vBREAK && !vHTF && g_news_init)
    for(int dc = 0; dc < g_news_dayN; dc++)
      {
       if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] && g_news_dayMarks[dc] <= barTime) { vDAY = true; break; }
+      //--- [P-DAY2355-1] his 23:55-open rule 2026-09-25: the mark bar (23:55) only
+      //--- closes after the boundary (weekend: Monday), so qualify one bar early -
+      //--- at this evaluation (Friday 23:55:00) the mark sits inside the next bar.
+      if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] && g_news_dayMarks[dc] <= barTime + PeriodSeconds()) { vDAY = true; break; }
      }
   }
 

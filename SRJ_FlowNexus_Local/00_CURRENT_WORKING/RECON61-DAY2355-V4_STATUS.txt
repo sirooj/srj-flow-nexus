@@ -1,0 +1,21 @@
+﻿RUN=RECON61-DAY2355-V4
+WRAPPER=V2
+CEILING_MIN=90
+WRAPPER_STARTED=2026-09-25 07:59:40
+INI=c:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\00_CURRENT_WORKING\RECON50_DEMO_USD.ini
+INI_EXISTS=True
+TERM_EXISTS=True
+TERMINAL_BUSY=False
+JOURNAL=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\Tester\logs\20260925.log
+PRE_JOURNAL_LINES=34270
+PID=15992
+LAUNCHED_AT=2026-09-25 07:59:40
+STAGE=RUNNING (completion = the journal marker, NOT process exit)
+HEARTBEAT=07:59:51 terminal_alive=True journal_lines=34283
+JOURNAL_LAST=OH	0	07:59:50.675	Tester	EURUSD,M5 (Dukascopy-demo-mt5-1): testing of Experts\SRJ_FlowNexus_EA.ex5 from 2026.09.04 00:00 to 2026.09.08 00:00
+HEARTBEAT=08:00:01 terminal_alive=True journal_lines=36325
+JOURNAL_LAST=KR	0	07:59:56.945	Core 04	2026.09.04 00:00:00   SRJ XOB-PROMOCENSUS t=2026.09.03 14:20 bar=124950 mode=nearest bias=bullish objId=1603 isValid=1 isActivated=1 obStart=124900 obStartT=2026.09.03 10:10 obVal=124949 obInval=-2147483648 boundary=124948 boundaryOk=0 oppInvalCount=0 promoBar=124950 promoT=2026.09.03 14:20
+HEARTBEAT=08:00:11 terminal_alive=True journal_lines=36325
+HEARTBEAT=08:00:21 terminal_alive=True journal_lines=36325
+HEARTBEAT=08:00:31 terminal_alive=True journal_lines=36325
+HEARTBEAT=08:00:41 terminal_alive=True journal_lines=36325
