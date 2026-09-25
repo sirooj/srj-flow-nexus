@@ -3,14 +3,14 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, CORRECTED)
+## State (2026-09-26, MATRIX LIVE)
 
-- Your 7-trade report proved the
-  target: D74FE972 (not v7).
-  Tree restored + compiled 0/0.
-  Proof RECON69 running (9/4-9/8
-  slice). Ledger 794. Range
-  proof owed on journal lines.
+- Cause owned + take matrix on
+  disk (which build took what,
+  no more inference). D74FE972
+  perfect per your report.
+  Ledger 795. Proof run still
+  going (grade on signal).
 
 ## Next (artifact owed)
 
