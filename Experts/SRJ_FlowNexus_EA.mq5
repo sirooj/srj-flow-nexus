@@ -322,6 +322,8 @@ void MtReset()
 //--- no gate reads an abort reason.
 #define ABORT_POI_REPLACED     "POI_REPLACED"
 #define ABORT_DIV_FALLBACK     "DIV_FALLBACK"
+//--- [P-USDJPY-2 E6b] settled-rule kill reason (S5.4 POI-break; council-ruled name).
+#define ABORT_S54_POIBREAK     "S54_POIBREAK"
 
 //====================== [Task 160] Migration data contracts ==========
 // Twelve data contracts as an INERT ARCHITECTURE SHELL. Types only.
@@ -7097,9 +7099,10 @@ void EvaluateClosedBar(int barShift, datetime barTime)
    //--- AFTER alignment was confirmed.
    //---
    //--- Reuses ABORT_LTF_MISALIGN and adds no new reason code. Task 76 removed
-   //--- the only other site that emitted it, so the string is now unambiguous:
-   //--- every LTF_MISALIGN abort is a post-S2 invariant failure. It is NOT the
-   //--- same population as the pre-Task-76 count and must not be compared to it.
+   //--- the only other site that emitted it: every LTF_MISALIGN abort is a post-S2
+   //--- invariant failure or an E4b-guard opposition kill (standing HTF opposition).
+   //--- The string now has exactly two emitters, separable by the ABORT-row state
+   //--- field. It is NOT the pre-Task-76 population and must not be compared to it.
    //---
    //--- Fail-closed on an unreadable upstream value, matching Part A section 4
    //--- and the S2 block's own handling: a candidate that survived unchecked is
@@ -8094,6 +8097,65 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          string cfTermS2 = "";
          if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermS2))
            {
+            //--- [P-USDJPY-2 E6a] HTF-opposition proxy separating the ruled rows (A1 anti=1 promotes; 6/04 anti=2 and 6/08 anti=3 abort): gate on STANDING opposition (antiNow>=2); flip kept as print field only. S3.3 5m-mapping: LTF invariant covers S3+; E4b needs row-separation - his word governs any remap.
+            int e6a_antiNow = -1, e6a_antiPrev = -1;
+            int e6a_want = (g_dir == DIR_LONG) ? 1 : -1;
+            double e6a_h = 0.0, e6a_m = 0.0, e6a_l = 0.0;
+            if(ReadFlow(FL_BUF_HTF_HIGH, e6a_h, barShift) && ReadFlow(FL_BUF_HTF_MID, e6a_m, barShift) && ReadFlow(FL_BUF_HTF_LOW, e6a_l, barShift))
+              {
+               e6a_antiNow = 0;
+               if((int)MathRound(e6a_h) == -e6a_want) e6a_antiNow++;
+               if((int)MathRound(e6a_m) == -e6a_want) e6a_antiNow++;
+               if((int)MathRound(e6a_l) == -e6a_want) e6a_antiNow++;
+              }
+            double e6a_h1 = 0.0, e6a_m1 = 0.0, e6a_l1 = 0.0;
+            if(ReadFlow(FL_BUF_HTF_HIGH, e6a_h1, barShift + 1) && ReadFlow(FL_BUF_HTF_MID, e6a_m1, barShift + 1) && ReadFlow(FL_BUF_HTF_LOW, e6a_l1, barShift + 1))
+              {
+               e6a_antiPrev = 0;
+               if((int)MathRound(e6a_h1) == -e6a_want) e6a_antiPrev++;
+               if((int)MathRound(e6a_m1) == -e6a_want) e6a_antiPrev++;
+               if((int)MathRound(e6a_l1) == -e6a_want) e6a_antiPrev++;
+              }
+            bool e6a_flip = (e6a_antiNow >= 2 && e6a_antiPrev >= 0 && e6a_antiPrev < 2);
+            bool e6a_block = (e6a_antiNow >= 2);
+            bool e6a_unread = (e6a_antiNow < 0 || e6a_antiPrev < 0);
+            if(e6a_unread && InpDebugLog)
+               PrintFormat("[SRJ-EA] E4B_GUARD_SKIP bar=%s dir=%s poi=%s reason=HTF", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr());
+            //--- [P-USDJPY-2 E6b] spec S5.4: anchor POI body cross from seed bar (inclusive) through confirm bar (exclusive) kills the promotion. Walk shifts confirm+1..seed; EMPTY/unreadable skipped with walked/skipped counts; exact seed with anchor-bar-time>0; open inclusive, close strict; anchor value dynamic per-bar read.
+            bool e6b_broken = false;
+            datetime e6b_bt = 0; double e6b_bv = 0.0, e6b_bo = 0.0, e6b_bc = 0.0;
+            int e6b_walked = 0, e6b_skipped = 0;
+            int e6b_seedShift = -1;
+            if(g_anchorBarTime > 0)
+               e6b_seedShift = iBarShift(_Symbol, PERIOD_CURRENT, g_anchorBarTime, true);
+            if(e6b_seedShift < 0)
+              {
+               if(InpDebugLog)
+                  PrintFormat("[SRJ-EA] E4B_GUARD_SKIP bar=%s dir=%s poi=%s reason=SEED", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr());
+              }
+            else if(e6b_seedShift > barShift)
+              {
+               for(int e6b_s = barShift + 1; e6b_s <= e6b_seedShift; e6b_s++)
+                 {
+                  e6b_walked++;
+                  double e6b_v = 0.0;
+                  if(!ReadBuf1(g_hPoi, g_anchorLine, e6b_v, e6b_s) || e6b_v == EMPTY_VALUE) { e6b_skipped++; continue; }
+                  double e6b_o = iOpen(_Symbol, PERIOD_CURRENT, e6b_s);
+                  double e6b_c = iClose(_Symbol, PERIOD_CURRENT, e6b_s);
+                  if(e6b_o == 0.0 || e6b_c == 0.0) { e6b_skipped++; continue; }
+                  bool e6b_hit = (g_dir == DIR_LONG) ? (e6b_o >= e6b_v && e6b_c < e6b_v) : (e6b_o <= e6b_v && e6b_c > e6b_v);
+                  if(e6b_hit) { e6b_broken = true; e6b_bt = iTime(_Symbol, PERIOD_CURRENT, e6b_s); e6b_bv = e6b_v; e6b_bo = e6b_o; e6b_bc = e6b_c; break; }
+                 }
+              }
+            else if(e6b_seedShift >= 0 && e6b_seedShift < barShift)
+              {
+               if(InpDebugLog)
+                  PrintFormat("[SRJ-EA] E4B_GUARD_SKIP bar=%s dir=%s poi=%s reason=SEEDORDER", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr());
+              }
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] E4B_GUARD bar=%s dir=%s poi=%s seedbar=%s flip=%d opposed=%d pobreak=%d anti=%d/%d seed=%d walked=%d skipped=%d bbar=%s bpx=%s/%s/%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES), (int)e6a_flip, (int)e6a_block, (int)e6b_broken, e6a_antiNow, e6a_antiPrev, e6b_seedShift, e6b_walked, e6b_skipped, TimeToString(e6b_bt, TIME_DATE|TIME_MINUTES), DoubleToString(e6b_bv, _Digits), DoubleToString(e6b_bo, _Digits), DoubleToString(e6b_bc, _Digits));
+            if(e6a_block) { GoAbort(ABORT_LTF_MISALIGN, g_state); return; }
+            if(e6b_broken) { GoAbort(ABORT_S54_POIBREAK, g_state); return; }
             ENUM_SRJ_STATE prevS2 = g_state;
             g_confirmFromState = prevS2;
             g_state = ST_S5_GATE_CHECK;

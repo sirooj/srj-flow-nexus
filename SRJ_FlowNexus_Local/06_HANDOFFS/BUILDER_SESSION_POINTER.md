@@ -3,20 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, V285 CLEAR)
+## State (2026-09-25, V5 BUILT)
 
-- V285 3 verdicts filed + tallied
-  CLEAR 3-0, no halt. Key owed
-  next (Luna only). No build,
-  run. Ledger 785. Packet v5
-  72236198 (clear). Relay v285
-  32A8138B. Result 5634F30F.
+- Luna key 4/4 spent + v7 word.
+  EA built 89810547/642681/
+  11614, compile 0/0. Two runs
+  owed (June + Aug-Sep).
+  Ledger 786. Key + word SPENT.
 
 ## Next (artifact owed)
 
-- YOUR key carry: paste-ready
-  Luna ask in chat + paste back
-  her whole reply (run word only).
+- Run 1 launch: USDJPY June
+  window (triple-proof first).
 
 ## Resume order (exact)
 
