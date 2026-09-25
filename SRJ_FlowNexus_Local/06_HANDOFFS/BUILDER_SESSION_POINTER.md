@@ -3,23 +3,21 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-25, RECON62 GRADED)
+## State (2026-09-25, RECON63 RUNNING)
 
-- RECON62-DAY2355-FULL DONE=PASSED,
-  graded L-final PASS (F1/F2/F3).
-- Result D3EE168B/4332/47 + tab
-  9F7EE982/3564/33 + seg
-  163B20FA/6463131/34254.
-- Full-window zero-delta outside
-  the 9/4 mark trade. Ledger 746.
-- Key: none spent (no build).
+- RECON63-USDJPY-JUNE RUNNING
+  (blind, USDJPY 6/1-6/13, same
+  tree A82F15E7, no code change).
+- YOUR journal kept by YOU. No
+  goal join from builder. Ledger
+  747. Hardenings parked (not
+  necessary, on record).
 
 ## Next (artifact owed)
 
-- Exit-model follow-ons via council
-  route on YOUR scope word; wider
-  spans on YOUR scope word.
-- No transport owed. No run open.
+- YOUR completion word ("run
+  has completed"). Then full
+  signal census for YOUR ruling.
 
 ## Resume order (exact)
 
