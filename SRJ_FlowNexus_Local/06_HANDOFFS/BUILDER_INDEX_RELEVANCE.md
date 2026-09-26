@@ -11,8 +11,8 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v14 E5E1158D/26929/175 (tails excised + route requirement + UJ2 hardenings; UNBUILT - no key spent).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v298-ENTRY-UJ123.md` 66884F69/59535/477, DRAFT (Q3 unchanged re-ask; twin 175/175 diff 0, code 212 diff 0, rows 26).
+- Open packet: `01_TASKS\PACKET_P-UJIMPL-1.md` v1 7EE87EF8/6609/54 (design questions, zero code edits; UNBUILT - no key spent).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v299-UJIMPL-1.md` 218D8012/42489/428, DRAFT (Q1/Q2/Q3 design; twin 54/54 diff 0, code 268 diff 0, rows 26).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_V298-GRADE.md` CBBEE04A/3624/28 (3 texts, Q3 CLEAR 3-0, Sonnet none).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
 - Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
@@ -30,7 +30,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## STALE - READ-ONLY HISTORY (superseded; cite only as labeled priors with file + marker + digest)
 
 - Relays: v287 (76E47DDF - transported, halted, verdicts filed) + v288 (949DF205 - transported, halted) + v289 (A16C295C - transported, halted) + v290 (0F4D0DA0 - DRAFTED, never transported, no verdicts exist) + v291 (7FCC60F2 - DRAFTED, never transported, no verdicts exist). Anything before v287: two-week history, same treatment.
-- Packets: every `01_TASKS\PACKET_*` file EXCEPT `PACKET_P-ENTRY-2.md` is a closed round (built or retired - check the ledger line that closed it before citing).
+- Packets: `PACKET_P-ENTRY-2.md` (E1/E2 + cleared UJ prose, the build vehicle) + `PACKET_P-UJIMPL-1.md` (open design round) are live; every other `01_TASKS\PACKET_*` file is a closed round (built or retired - check the ledger line that closed it before citing).
 - Results before `BUILDER_RESULT_V292-GRADE.md`: snapshots only; the latest grade carries the live numbers forward.
 - Verdicts: `BUILDER_VERDICTS_*.md` hold every pasted seat text whole (Luna/Astra/Sonnet/GLM/Opus files). Markers named per round (V287/V288/V289/V292/V294/V295 headers filed 1x/1x; NO V290/V291/V293 markers exist anywhere - nothing was ever filed under them).
 - Void runs (never graded, never cited for behavior): RECON69-D74-PROOF (early-exit ~70s, zero journal lines) + RECON70-D74-UJDIAG (stopped on non-consent, UNDETERMINED).

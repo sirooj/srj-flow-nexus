@@ -3,19 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V298 CLEAR 3-0)
+## State (2026-09-26, UJIMPL DRAFT)
 
-- All three seats clear the prose
-  as scoped (route fail-closed +
-  pool obligations carried). Result
-  V298-GRADE filed. Ledger 829
-  (828 before it; rule-33 repair).
+- Design packet + relay v299 battery-
+  green DRAFT (218D8012/42489/428):
+  Q1 source+route, Q2 lookup+siting,
+  Q3 yield. No build, run, key.
+  Ledger 830.
 
 ## Next (owed him)
 
-- Nothing owed. Implementation relay
-  drafted next (veto-able); key +
-  run word only after council packet.
+- Nothing owed. v299 transports on
+  his word (paste whole to all seats).
 
 ## Next (owed him)
 
