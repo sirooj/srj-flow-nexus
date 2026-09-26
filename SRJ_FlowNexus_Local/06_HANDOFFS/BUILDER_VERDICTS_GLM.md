@@ -4910,3 +4910,36 @@ Basis (page-only ruling per the verification split; disk genuineness — hash, b
 
 Scope note: nothing here builds, runs, spends, or clears live activation; no key spent; no files requested. The two predicate-time items named above (lock-path recency realization; swing-store depth before source choice) are council-forward at predicate time under the packet's own staging, not clearance defects.
 ## V295-ENTRY-UJ13 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V297-ENTRY-UJ123 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+## VERDICT
+
+**Q3-NO**
+
+**Q3 NO - A-UJ1 (packet line P164) overreaches because its post-splice v12 tail — "confirm-lock fire at 09:45 open off 09:40 confirm=1 ([R63 DL]) with standing 09:35 retest ([R63] FF/DK); downstream gates bypassed for the confirmed bar" — re-asserts, unlabeled, inside the live acceptance set that L-final (P167) cites whole, the bypass that was dropped whole on his confirm ("nothing carries", P003 Status / P037 history), directly contradicting E-UJ1-15M's own "no DIV machinery touched" (P034) and the S1 gate's disk citation of the DIV region (EA 8851-8869) as recorded non-bypassed; companion defect of the same class at A-UJ2 (P165), whose tail "retarget to current NY high on exceed" re-asserts the superseded exceed trigger against his ruled TOUCH-RETARGET ("revise the TP target with price or wick touch").**
+
+## The blocking item, precisely
+
+Both folded acceptance lines carry NEW v13 head + ".:" + OLD v12 body — the fold inserted the new text and failed to excise the old body:
+
+- P164: head ends "(cascade guard).:" then the v12 confirm-lock text including **"downstream gates bypassed for the confirmed bar"** — the exact scope two halt rounds (v294, v295) killed and his 2026-09-26 confirm superseded with the 15m road. Nothing in his words commissions a gate bypass; his words commission the flip condition instead.
+- P165: head ends "on this path only.:" then the v12 text with **"on exceed"** — his ruled trigger is touch ("with price or wick touch"), and the v13 head already carries it correctly; the tail contradicts the ruled predicate in the same line.
+
+Why blocking, not cosmetic: (1) acceptance lines are grade contracts in this discipline (A-S54-827's fail-closed conditional shows the force they carry), and a grader cited to "A-UJ1 above" reads the tail as operative; (2) the packet's own Status claim — "v11 bypass dropped whole on his confirm, nothing carries" — is falsified by its own P164; (3) the ask's closing clause "with nothing asserted as ruled… anywhere" fails at P164's tail. The battery cannot catch this class: twin diff-0 verifies twin==packet, not fold-correctness, so the residue passes battery by construction. This is the one defect a page-ruling seat exists to catch.
+
+## What clears on his words (so the re-fold is surgical — do not touch the predicates)
+
+- **E-UJ1-15M (P034): correct.** "the 15m bias is only confirmed flipped to be bearish at the 9:45, which the same opening candle to enter" + journal row 17 (15m Bull / Bias bear = waiting-for-15m) + corrected 9:35/9:40/09:45 all land on the proposed predicate; the open-tick entry shape matches the once-per-bar evaluation (C11483-11492); 1 Sep 15:30 silence is structurally guaranteed by E2 precedence (seedbar 15:25 == confirmBar 15:25, P029) with the guard as belt-and-suspenders; 15m sourcing routed, not asserted; DIV untouched per "that is only an example" + "i never had a problem on the divergence detection".
+- **E-UJ2-SPEC (P035): correct.** NEAREST-ANY-AGE = "NEAREST point upon when taking the trade… no matter how old"; TOUCH-RETARGET = session H/L "valid to be targetted or retargetted to revise the TP target with price or wick touch" once closed; CLOSE-ONLY-GAP-BREAK = "the only time for the candle close confirmation close is the POC or VWAP gap break"; the 1R floor is the only implementation consistent with his <1R risk framing plus nearest-wins; degenerate pin is conservative; booking+census coupling is required because census is read-only (C2410-2413); the far-back lookup insufficiency is honestly measured and routed (H1-600 ~25d reach vs ~36d to the April-30 high).
+- **E-UJ3 (P039): correct as carried.** "confirmation candle of 14:35" is the decision; "FVG invalidation does not matter" + sole-death no-kill bound the yield to the qualifying-flip bar, whose fields are the on-disk confirm terms (C2222-2231); seed 14:20 < confirm 14:35 is E2-eligible (CE/QF/FN cohere); the 14:45 pair stays dropped as post-entry per confirm-once; A2 = Daily-POC anchor settled by the FN row.
+
+Rule-line folds P034/P035/P039, L-final, and budget are clean; A-UJ3 (P166, unfolded) is clean; the residue is isolated to exactly the two folded acceptance lines.
+
+## Fix scope
+
+Excise both tails at the ".:" joins (full v12 text already lives in git + relay twins; if retention is wanted, it must carry the explicit WITHDRAWN/PARKED labels per the P037/P038 convention — excision is cleaner). Re-splice, re-battery, and add a fold-correctness assertion to the battery: no folded line may contain its own superseded body. Re-relay Q3 unchanged. No predicate change, no E1/E2 change, budget unchanged.
+
+## Compliance
+
+Ruled on the page only; no disk or file access claimed or asked; disk genuineness stays builder-disk + his-eyes. Q1/Q2 CLEAR carried, not re-asked. Nothing builds, runs, spends, or clears live activation on this verdict. Verdict filed for the tally.
+## V297-ENTRY-UJ123 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

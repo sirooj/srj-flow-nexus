@@ -10419,3 +10419,17 @@ Q3 NO - E-UJ2 remains under-specified because its multi-week-high source and ret
 Luna:
 Q3 NO - E-UJ2 remains under-specified because the source choice (swing store vs new export) and exceed trigger (close vs touch) are still open predicates, so the UJ2 proposal is not yet sufficiently bounded for clearance.
 ## V295-ENTRY-UJ13 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V297-ENTRY-UJ123 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+**Q3 YES — proposals clear as scoped.**
+
+The three legs remain within the stated evidence and scope:
+
+* **E-UJ1-15M:** the packet faithfully uses the corrected 5 June sequence: 09:35 retest, 09:40 confirmation, 09:45 open entry, with the 15m structural flip present at the entry-candle open. It explicitly keeps the cascade guard, E1/E2 precedence, pre-confirmation deaths, and no DIV changes; sourcing the 15m bias is left as council mechanism work rather than invented here.
+* **E-UJ2-SPEC:** the proposed mechanics match the stated rulings: nearest previous day/session H/L regardless of age, touch-based retargeting to today's NY H/L, candle-close validation only for POC/VWAP gap breaks, plus the 1R admission floor and the narrowly stated degenerate case.
+* **E-UJ3:** it preserves the 14:35 confirmation / 14:40 entry interpretation, makes FVG handling a yield mechanism rather than a post-entry re-litigation, and expressly excludes later bars from selection evidence.
+
+There is **no blocking overreach in v13's prose formulation itself**. The packet also explicitly keeps all three as **proposals only**, with no code-surface change in this round.
+
+**Q3 YES — proposals clear as scoped.**
+## V297-ENTRY-UJ123 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

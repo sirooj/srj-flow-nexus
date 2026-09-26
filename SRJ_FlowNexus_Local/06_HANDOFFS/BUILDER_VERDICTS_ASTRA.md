@@ -17034,3 +17034,23 @@ UJ2’s source/trigger remain open predicate-design decisions; UJ3’s scoped FV
 Astra:
 Q3 NO - E-UJ1 cannot deliver the proposed 09:45 entry through the narrowed bypass. The packet’s 09:45 census places the candidate in pre-arm S2, while the cited confirmation promotion paths are S3-PREBIND and S4 (P030; EA 8665-8668, 8804-8805). Bypassing S4 touch-fallback and FRESHCOUNT holds does not create an S2 promotion path. The CONFIRMPOLL `confirm=1` row proves the predicate passed, not that the EA can commit or fire from S2. E-UJ2’s source and trigger choices also remain open, so this is not clearance for the combined proposals.
 ## V295-ENTRY-UJ13 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V297-ENTRY-UJ123 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+Q3-NO
+
+Q3 NO - A-UJ1 at P164 overreaches because it still authorizes “downstream gates bypassed for the confirmed bar,” while P034/P037 withdraw the v11 bypass whole and the supplied code retains substantive downstream checks, including DIV refusal at C8856–C8869.
+
+The v13 rule is materially narrower than that surviving acceptance clause. A battery proving the twin matches the packet cannot resolve this internal contradiction: the contradictory text would simply be faithfully transported.
+
+Two corrections are needed before this combined proposal clears:
+
+1. **Remove the superseded acceptance tails.** P164 must end with the v13 standing-confirmation + entry-time 15m-flip requirement and cascade guard; its appended confirm-lock/bypass clause cannot remain operative. P165 likewise retains an appended older acceptance after “only.:”, including “on exceed” where the new rule specifies touch. Replace each acceptance with one authoritative v13 statement.
+
+2. **Specify the UJ1 promotion route within the proposed scope.** C8655–C8666 expressly limits existing prebinding confirmation to S3 and excludes S2; P030 identifies only the S3 and S4 promotion sites. The new 15m condition identifies *when* entry should become eligible, but P034 does not establish *how* the standing candidate reaches either existing promotion site on that same evaluation pass. State whether the ordinary alignment transition supplies that route, with its ordering, or whether a narrowly scoped S2 extension is proposed. A shadow `CONFIRMPOLL confirm=1` proves the confirmation predicate, not executable promotion. This is a mechanism requirement for council, not a request to re-ask his trading rule.
+
+**UJ2’s substantive rulings are now sufficiently specified for mechanism design:** nearest eligible historical level without an age cutoff, closed-session eligibility, touch-triggered retargeting, and admission only when the nearest target supplies at least 1R. A farther target must not rescue a sub-1R nearest target. The historical lookup mechanism may remain council work as explicitly routed; an incomplete historical pool cannot establish “nearest any age.” Its retarget snapshot must also respect the stated closed-session eligibility rule.
+
+**UJ3 remains acceptable as the carried, narrowly bounded proposal:** E1/E2 first, the proven 14:35 confirmation, qualifying-flip-only FVG yield, and no A2 waiver or post-entry selection evidence.
+
+Q1/Q2 remain carried and unopened. This verdict concerns the supplied page only; it asserts no independent disk verification and authorizes no build, run, spend, or live activation.
+## V297-ENTRY-UJ123 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

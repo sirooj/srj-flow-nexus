@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V297 DRAFT)
+## State (2026-09-26, V297 GRADED + V298 DRAFT)
 
-- Packet v13 + relay v297 battery-green
-  DRAFT (8B4D3CB6/58748/477): 15m road
-  + specified UJ2 + carried UJ3, his
-  words INLINE. No build, run, key.
-  Ledger 826.
+- V297 halted 1-2 (Luna YES, Astra +
+  GLM NO on folded tails - defect
+  owned, excised). v298 battery-green
+  DRAFT (66884F69/59535/477), Q3
+  unchanged. Ledger 827.
 
 ## Next (owed him)
 
-- Nothing owed. v297 transports on
+- Nothing owed. v298 transports on
   his word (paste whole to all seats).
 
 ## Next (owed him)
