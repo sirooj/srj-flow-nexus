@@ -10818,3 +10818,139 @@ Touch point: **the `S1WAIT` decision site C8060-C8065, with inputs from the exis
 
 So this packet does **not** establish a three-leg implementation-ready design. The remaining hard blockers are the **UJ1 S2→promotion route**, the **explicit DQ3 passage predicate/site**, and, separately, several wording/contracts that should be tightened before a build packet is allowed.
 ## V303-UJIMPL-4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V305-UJIMPL-6 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+The page supports a **halt on DQ1–DQ3 and a firm implementation budget on DQ4**. The main issue is not that the proposed mechanisms are conceptually wrong; it is that several critical bindings are still only described as contracts rather than nailed to the current disk shape, and DQ2 contains one explicit contradiction with the present EA.
+
+# BUILDER RELAY COUNCIL v305-UJIMPL-6 — RULING
+
+## DQ1 — UJ1 indicator repair + consumption
+
+**DQ1-NO - confirmed-leg export is not yet mechanically bound, because the current disk still exposes the HTF vote buffers through the live-output configuration and the packet does not resolve the exact confirmed-buffer mapping: `Indicators\SRJ_FlowLogic.mq5` F252 has `inUseConfirmedHTFOnly=false`, while the EA reads `FL_BUF_HTF_HIGH/MID/LOW` directly at EA 2240-2248. The packet also does not give the exact indicator fill/buffer binding that makes the M15 leg confirmed without creating an unintended semantic change to the other HTF legs. The required consumption ordering is described at EA 11490-11492 / 8067-8077 / 8668 / 8805, but the confirmed source read itself is not yet actually sited there.**
+
+The required repair direction is therefore:
+
+* confirmed-output mapping must be fixed inside the existing HTF engine / FlowLogic path, using the confirmed state exposed by the engine at HTFEngine 570-577 and its FlowLogic fill sites around 1195-1200;
+* the M15 decision value must be derived from the **closed M15 leg**, not from a live/open-instant state;
+* value-turn detection must replace reliance on the broken flip-event path; `SRJ_BiasEngine.mqh` B140-B144 is explicitly nonfunctional as an event-producing mechanism and must remain diagnostic rather than authoritative;
+* the resulting confirmed read must occur before the promotion decision on the same `EvaluateClosedBar` pass, with the existing S2 bridge at EA 2270-2276 and ordinary S3/E1/E2 route intact.
+
+No second handle and no EA-side mirror are authorized.
+
+## DQ2 — UJ2 historical lookup + booking + 1R
+
+**DQ2-NO - the v6 contract materially improves the mechanism, but it does not yet close the implementation gaps, and the present EA contains an explicit entry-reference mismatch at EA 7305: `currentPrice = iClose(...)` while the ruling requires the election reference to be the entry-open / would-be-fill price.**
+
+Additional unresolved implementation points are:
+
+* the required any-age extraction is specified as `Bars(_Symbol, PERIOD_CURRENT)` with the walker's own `CopyBuffer`, but the actual extractor/cache implementation and exact insertion site are not present in the packet;
+* record identity, source-session/day, close/availability timestamps, earliest-day coverage, and rollover-cache refresh are specified as requirements, but not mechanically bound to concrete implementation lines;
+* the admission 1R gate is said to sit after `SlRefMemo` / EA 7325, but the actual post-7334 inequality is not shown or otherwise pinned;
+* the touch-retarget event is still presented as a conditional choice between the swept-mask route and managed recompute rather than one fully specified canonical implementation site;
+* the booking proof and census proof must use the **same entry-open reference and same authoritative eligibility set**. EA 2441-2465 is explicitly read-only and omits some authoritative filters, so it cannot itself substitute for booking proof.
+
+The existing nearest-in-price comparator at EA 2301-2321 may remain intact. The required repair is around its input/reference population, historical pool completeness, admission gate, and closed-session retarget event.
+
+## DQ3 — UJ3 regime passage
+
+**DQ3-NO - the pinned predicate is clear, but it is not yet wired into the current regime path. EA 2239-2248 still reads `FL_BUF_HTF_HIGH/MID/LOW`, and those buffers are currently live-output buffers under FlowLogic F252; therefore the disk does not yet demonstrate `confirmed votes >= 2` plus `confirmed-M15-direction == trade direction` at the passage predicate.**
+
+The remaining exact gaps are:
+
+* the confirmed H4/H1/M15 source values required by the predicate are not yet bound into EA 2239-2248;
+* the direction-alignment term is specified but no exact insertion at the S1 admission/promotion decision is fixed;
+* EA 8060-8064 currently converts the classification result into `ST_S2_LTF_ALIGN`, but the page does not yet show the completed predicate that prevents a live-MTF classification from passing that edge;
+* the required UJ3 suppression diagnostic — full `SUPPRESSED` row or its candidate/session emitter — is mandated by P031, yet the packet's own row battery says none is presently exhibited for the 14:40:22 pass;
+* the 14:35-class and 09:45-class are said to share one parameterized passage, but the exact evidence-source mapping for each class still has to be fixed in implementation rather than merely described.
+
+The correct conceptual predicate is still:
+
+`confirmed_HTF_votes >= 2 && confirmed_M15_direction == trade_direction`
+
+with the class difference confined to the evidence timestamps/trace, not to divergent gate logic.
+
+## DQ4 — code-surface + budget
+
+**DQ4-RULED - permitted surface is limited to the existing indicator engine/FlowLogic path plus `Experts\SRJ_FlowNexus_EA.mq5`; no second indicator handle, no EA-side indicator mirror, no new branch-family, no new input, and no unrelated strategy surface. S1 exact-diff/pre-hash and S3 code-surface recount are mandatory, with any surface or budget breach failing closed.**
+
+Permitted implementation regions are the existing ones identified in this packet:
+
+* existing HTF engine / indicator logic around HTFEngine 115-118 and 570-577, `SRJ_BiasEngine.mqh` B16-B35 / B138-B169, and FlowLogic HTF declarations/fill path F30-F60 / F1195-F1200;
+* EA confirmed-source consumption / passage regions around 2193-2208, 2239-2248, 2270-2276, 8060-8077, 8668, 8805, and the closed-bar ordering at 11483-11492;
+* UJ2 booking/lookup regions around 2301-2424, 2441-2465, 7305-7334, and 11095-11118.
+
+No new file is authorized merely to work around an indicator-side problem. An existing HTF-engine include may be modified only where the engine already owns the cited functionality.
+
+Budget for the implementation packet:
+
+**one implementation build; S1 exact-diff gate before it; S3 surface/budget recount before tester use; then only the already-defined EU 8/26-9/10 and UJ 6/1-6/13 grade windows under the existing key/word gates.**
+
+---
+
+# Analytic Ask A — defects, gaps, and imprecision
+
+1. **Confirmed-export ambiguity:** D1 says “confirmed M15-leg bias + flip timing” but does not identify the exact exported buffer semantics or resolve how that coexists with the existing live HTF buffers. F30-F60, F246-F256, EA 2240-2248.
+
+2. **Live/confirmed contradiction:** F252 explicitly sets `inUseConfirmedHTFOnly=false`, while DQ1/DQ3 require confirmed HTF evidence. F252; EA 2240-2248.
+
+3. **No-buffer constraint is under-specified:** P005 says no new buffers are proposed, but the existing declared HTF outputs are already 19/20/21. The page does not yet prove which existing output can safely carry the confirmed leg without changing an unrelated consumer. F58-F60.
+
+4. **Flip timing is not mechanically defined:** “value-turn” replaces the broken flip-event path, but the exact previous/current sample pair and timestamp rule for the 15m turn are not fully fixed in code terms. B138-B145; D1 P017.
+
+5. **Detection-robustness scope is blended:** “open-instant repaint” and “non-firing flip events” are two different failure modes. The packet says “and/or” without making clear whether both are mandatory or whether the confirmed closed-bar export alone supersedes both.
+
+6. **UJ2 entry reference is contradicted by disk:** D023 pins the entry-open proxy, but EA 7305 currently feeds `iClose(...)` into the TP election. This is a concrete implementation defect, not merely a missing proof.
+
+7. **Historical extraction is contractual, not yet mechanically located:** P024 requires a `Bars()`-depth `CopyBuffer` extraction, day-keyed records, rollover cache, and earliest-day coverage, but no exact helper/function insertion is identified.
+
+8. **1R gate is described but not shown:** P025 fixes the gate after `SlRefMemo` EA 7325, but the actual gate inequality and its concrete branch are absent from the supplied code surface.
+
+9. **Touch-retarget route has two possible implementations:** “swept mask first, else managed recompute” leaves the exact canonical event implementation unresolved. A grade must not have two materially different mechanisms unless both are explicitly proven.
+
+10. **Census is non-authoritative by design:** EA 2410-2413 and 2441-2465 cannot themselves prove booking eligibility because they omit authoritative mask/zone filtering. The acceptance language must keep census as evidence only, never admission authority.
+
+11. **UJ3 confirmed predicate is not wired:** EA 2240-2248 still implements the old live-buffer vote calculation. The packet's new confirmed-M15 alignment rule therefore remains a design statement, not current behavior.
+
+12. **Suppression evidence is a stated acceptance obligation but not exhibited:** P031 requires the complete suppression row or emitter, while the rows battery states none is currently present for 14:40:22.
+
+13. **E1/E2 precedence is specified but not yet fully demonstrated:** P018 requires upstream eligibility first and the confirmed read before promotion on the same pass; the snippets identify the sites, but the final implementation ordering has not yet been written.
+
+14. **The “same parameterized passage” claim needs exact class parameters:** the 14:35 and 09:45 cases legitimately differ in source/confirmation timing, but the exact evidence stamps and source shifts need to be encoded rather than left as prose.
+
+15. **EA 7305 / 2397-2408 reference consistency needs preservation:** changing the admission reference to entry-open must also ensure the booking census and all nearest-distance evidence are computed from that same reference, otherwise the printed proof can diverge from the booked target.
+
+# Analytic Ask B — better mechanisms
+
+### UJ1
+
+Use the existing HTF engine's **confirmed per-TF state as the sole authoritative source**, with a closed-M15 latch updated only when the M15 bar closes. Export that confirmed state through the existing HTF output path rather than creating a second EA handle. The EA should read the confirmed tuple once on the 5m evaluation pass before the S1/S2/S3 promotion logic.
+
+Relevant surfaces: HTFEngine 570-577; FlowLogic F30-F60 and F1195-F1200; EA 2240-2248, 2270-2276, 11490-11492.
+
+For flip detection, compare the confirmed current M15 direction against the immediately preceding confirmed M15 direction. This eliminates dependence on `wasBiasFlip` / event firing and naturally survives the B140-B145 no-op defect.
+
+### UJ2
+
+Split the mechanism into two explicit stages:
+
+**history materialization → target election.**
+
+Materialize the previous day/session H/L pool once per completed day/session into a day-keyed cache, with source timestamps and coverage bounds. Then make `ComputeNearestTpTarget` consume that pool plus the POI pool, using the **entry-open reference** for admission. Put the single 1R test immediately after the winner and stop are both known.
+
+For retargeting, treat the closed NY AM H/L touch as an event which triggers a fresh election against the closed-session pool; never use a still-open session level.
+
+Relevant surfaces: EA 2301-2321, 2349-2408, 7305-7334, 11095-11118.
+
+### Implementation discipline
+
+Keep `IsConfirmationCandle` unchanged; the existing E1/E2 consumers at EA 8668 and 8805 already provide the confirmation path. Do not reopen DIV logic at EA 8835-8849, and do not use the divergence machinery as an indirect fix for any of UJ1-UJ3.
+
+## Final tally
+
+**DQ1-NO**
+**DQ2-NO**
+**DQ3-NO**
+**DQ4-RULED**
+
+No build, run, spend, handle, mirror, or live-activation clearance is granted by this ruling.
+## V305-UJIMPL-6 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

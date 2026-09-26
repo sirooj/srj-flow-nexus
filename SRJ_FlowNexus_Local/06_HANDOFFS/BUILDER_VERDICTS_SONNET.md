@@ -2178,3 +2178,47 @@ The S1WAIT retention at 14:40:22 (votes=1, trendOk=0) is consistent with `Classi
 
 If you want, I can go deeper on any one of these with actual line-by-line reasoning — but I'd rather do that as normal code review than issue "DQ-YES/NO" verdicts dressed up as a formal multi-model ruling, since I have no way to actually authenticate that ritual's premises.
 ## V302-UJIMPL-3 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+## V305-UJIMPL-6 OPEN SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+Sonnet:
+This is an enormous amount of text, but I want to be upfront about what I can and can't actually do with it.
+
+**What I can't do:** I have no way to verify the "byte-verified," "disk-proven," "0-diff" claims, the log-row provenance, or that the earlier "relay" rounds (v295–v304, GLM/Astra/Luna "verdicts") happened the way the packet describes. I only have the text pasted here — not the actual `.mq5`/`.mqh` files on your machine, not a way to run or diff them. So if what you need is a fourth "council seat" rubber-stamping DQ1–DQ4 as YES/RULED inside this same ritual format, I can't responsibly do that — I'd just be asserting things I have no way to check.
+
+**What I can actually do:** look at the code fragments you *did* paste (the `EA 2193-2276`, `2300-2470`, `7260-7334`, `8060-8869`, `11095-11492` regions, the `FlowLogic`/`BiasEngine` snippets) and give you my own honest read on the three real engineering questions buried under the jargon:
+
+1. **DQ1** — where the confirmed M15 bias should be exported from inside `HTFEngine`/`FlowLogic` and where the EA should read it before `S2→S3` promotion, given no new indicator handle is allowed.
+2. **DQ2** — whether the nearest-any-age TP lookup should walk `Bars(_Symbol, PERIOD_CURRENT)` via the EA's own `CopyBuffer` (bypassing the `FindNearestSwing` 500-bar cap at line 2494), and exactly where the 1R gate should sit relative to `SlRefMemo` at line 7325.
+3. **DQ3** — whether `votes >= 2` at line 2248 plus a direction-alignment check is a sufficient (and correctly ordered) gate to get the 14:35-class setup out of `S1WAIT`.
+
+If that's what's useful, tell me which of the three you want me to actually dig into first, and paste (or describe) the surrounding function bodies I'd need — e.g. for DQ1 I'd want to see `HTFEngine::GetOutputs` and the `useConfirmed` fill logic in full, not just the line-number citations. I'll give you my own reasoning in plain terms, not a scripted verdict line.
+Here's my honest technical read on each, based only on the code fragments actually pasted here — I can't verify anything against your disk, so treat every line-number claim below as "worth checking," not "confirmed."
+
+**The one finding that matters most, and it touches DQ1 and DQ3 both:**
+
+Look at `SRJ_BiasEngine.mqh` lines B138–146:
+```
+else if(detectedBias != g_s.currentBias)
+  {
+   g_s.wasBiasFlip = g_s.wasBiasFlip;   // self-assignment — no-op
+  }
+else
+  {
+   g_s.wasBiasFlip = g_s.wasBiasFlip;   // self-assignment — no-op
+  }
+```
+Both branches assign the variable to itself. There is no code path here that ever sets `wasBiasFlip = true`, and `g_s.currentBias` is never updated to `detectedBias` either. This function structurally cannot detect a flip — regardless of what `detectedBias` computes, nothing downstream ever learns about it. That lines up exactly with the "53 bias hits, zero flip hits" symptom: the bias *value* gets read and tallied 53 times, but the *flip flag* can never fire because this code never sets it.
+
+The packet's own line ("BiasEngine no-op noted... diagnostic only, untouched") waves this off. I'd push back on that framing hard when you relay this — this reads like the actual root cause, not a side diagnostic. The real fix is small: in the `detectedBias != g_s.currentBias` branch, set `g_s.wasBiasFlip = true`, update `g_s.currentBias = detectedBias`, and populate `oldBias`/`newBiasDirection`/`drawBiasLineNow` as the surrounding reset-pass fields (B18–23) imply they're meant to be set.
+
+**DQ1 — my answer:** Don't chase "open-instant repaint" as the primary mechanism yet. Fix the self-assignment bug first. Separately, `inUseConfirmedHTFOnly` (F252) is a single flag governing H4/H1/M15 together — flipping it globally to fix just the M15/"Lo" leg risks changing H4/H1 semantics you may not want touched. The cleaner export-mapping fix is to route the M15 leg's *confirmed* output (the engine already carries `outCBias` etc. per-TF, HTFEngine 570-577) into its own path independent of the global flag, rather than toggling the flag. Consumption siting (S2-holder bridge via `CheckLtfAlign` reading `FL_BUF_LTF_BIAS`) looks fine as proposed — that's a separate buffer from the HTF vote buffers, so no conflict there.
+
+**DQ2 — my answer:** Two concrete things worth checking, not just endorsing:
+1. `FindNearestSwing` (2490–2503) is capped at `evalShift+500` — genuinely insufficient for a 36-day-old high on M5 bars (~10,000+ bars back). Extending it to walk `Bars(_Symbol, PERIOD_CURRENT)-1`, mirroring the existing CQD divergence walk at 8836–8849, is a reasonable and low-risk fix since that pattern already exists and works elsewhere in the same file. Worth double-checking `ReadFlow` itself doesn't impose its own internal read cap that would silently defeat an "unbounded" walk.
+2. The "entry-open proxy" claim needs verification against the actual code: line 7305–7306 sets `currentPrice = iClose(_Symbol, PERIOD_CURRENT, barShift)` — that's the *close* of `barShift`, not an *open*. If the design intent is "elect from the entry-open price," but the code is actually feeding in a close price, that's precisely the confirmation-close-vs-entry-open conflation this whole relay series keeps circling. I'd flag this explicitly and ask the builder to show what `barShift` resolves to at the call site before accepting "entry-open proxy PINNED" as settled. Gate placement after `SlRefMemo` (7325), with both TP and SL in hand before any admission action, is structurally sound as proposed.
+
+**DQ3 — my answer:** The exhibited failure row is `votes=1 trendOk=0` — one of the three HTF timeframes isn't voting the expected direction. If the M15/Lo vote is wrong because of the BiasEngine no-op bug above, fixing DQ1 may raise this to `votes>=2` on its own, and the regime would pass through the *existing* `votes>=2` gate at line 2248 with no new predicate needed. Adding a new "direction-alignment" term on top of `votes>=2` before confirming whether the vote-count bug is the real cause risks building a second gate around a first bug instead of just fixing the bug. My recommendation: fix DQ1, re-run the 6/11 14:35 case, and only add new passage logic if `votes` is still short of 2 after that.
+
+**DQ4 — my answer:** Given the above, the actual code surface needed is small and specific: `SRJ_BiasEngine.mqh` (~B138–146 and whatever reset/state fields need populating alongside), `SRJ_FlowLogic.mq5` (confirmed-M15 export, scoped to the Lo leg only), and the EA's `FindNearestSwing` walk bound. I'd resist ruling a broader budget than that until DQ3 is re-tested post-DQ1-fix — ruling a wide surface now, before knowing whether DQ3 needs its own new gate at all, invites scope creep on a leg that might not need touching.
+
+That's my genuine engineering opinion on the four questions — happy to go deeper on any one of them if you can paste the fuller function bodies (especially `HTFEngine::GetOutputs` in full, and whatever sets `detectedBias` before line B138).
+## V305-UJIMPL-6 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
