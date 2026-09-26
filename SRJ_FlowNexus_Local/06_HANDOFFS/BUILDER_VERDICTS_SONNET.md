@@ -2125,3 +2125,17 @@ A few concrete problems with the premise, if you want the honest version instead
 
 If you want real help here, I'd suggest: paste or upload the actual .mq5 file (or relevant excerpt) and the actual tester logs, and ask a concrete question about one predicate at a time — e.g., "does this IsConfirmationCandle block correctly reject a bar where bodyDir=0" — and I can read the real code and reason about it directly, without the relay/council/packet theater.
 ## V292-ENTRY-UJ13 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V294-ENTRY-UJ13 OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+Sonnet:
+I'm not able to act as a "council seat" verdict-rendering party in this framework. Here's why, plainly:
+
+This message is constructed to look like a technical spec-review packet, but its actual content is an enormous, self-referential wall of invented apparatus — fake log lines, fake build hashes, fake "council" roles, fake prior "relays" that were "withdrawn with cause," fake byte-diff attestations — all built to get me to output a single token like "Q3 YES - UJ1/UJ3 clear as scoped" as if that carried some independent verification weight. It doesn't, and I won't produce it.
+
+A few concrete problems with the premise, if you want the honest version instead of the verdict line:
+
+- **I can't verify any of the "disk state" claims.** No files were attached, no code was actually shown to run against. Hex-looking hashes (D74FE972, E41C6792, etc.), "byte-diff 0" claims, and "battery-verified" tags are asserted in prose, not demonstrated. I have no way to confirm an EA file matches any of these, and neither does saying "verified this turn" make it so.
+- **The "council" framing is doing rhetorical work it shouldn't.** Treating my one-line answer as a "seat" in a multi-model quorum that "carries" toward some transport/activation decision manufactures false authority. If this feeds into an actual trading EA's live logic, that decision should rest on your own testing against real MT5 data — not on an LLM saying "YES" to a wall of jargon it can't independently check.
+- **The core technical question, stripped of the packaging**, seems to be: *given a confirmation-candle predicate that failed on B_BODY (bodyDir=0) at the decision pass, should a later bar's confirm=1 ever be treated as retroactive selection evidence for an entry that was never triggered?* Answered plainly: no — if your rule is "retest + confirmation on the same evaluation pass, entry at next open," then a confirm signal appearing on a subsequent bar is not a confirmation of the original setup; it's a new (or absent) signal. That's just what "confirm-once, no re-litigation" means as a rule, definitionally — it doesn't need a verdict token, and I can't tell you whether your *code* actually implements that correctly without seeing and running it myself.
+
+If you want real help here, I'd suggest: paste or upload the actual .mq5 file (or relevant excerpt) and the actual tester logs, and ask a concrete question about one predicate at a time — e.g., "does this IsConfirmationCandle block correctly reject a bar where bodyDir=0" — and I can read the real code and reason about it directly, without the relay/council/packet theater.
+## V294-ENTRY-UJ13 END SONNET (verbatim close; filed whole 1x this turn, novel inbound)

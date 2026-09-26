@@ -179,3 +179,8 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 ## 16. Premise-supersession (his message-C correction 2026-09-26 - a whole fold died unbuilt)
 
 - When his later word removes a fold's premise, the fold dies UNBUILT without spending council: no rebuttal drafted, no verdict relitigated, no round burned (v7 same-bar-6/5 + v8 carve-out + separator question all died on his 9:35/9:40/9:45 words; v293 HELD died with them; v294 restores the pre-premise design with his authority). Withdrawal names every dead line; the record keeps the audit, never the premise.
+
+## 17. Filing and numbering discipline (v294 round: two filings silently failed, one number collided)
+
+- FILING-TRIPLE-PROOF: no verdict filing stands on marker counts alone - markers 1x/1x PLUS git-diff content proof PLUS tail content re-read, all three the same turn (v294: Sonnet + GLM filings reported success with wire-clean counts while bytes showed nothing filed; caught by the marker audit + git diff; re-filed with triple proof).
+- NUMBER-MAX: the next ledger item number = MAX(all existing item numbers)+1 computed same turn, never tail-position+1 (v294 round: tail order ran 815/815/816/817/818/814 from overlapping-turn appends with a duplicate 815; reading order documented in 819, never reshuffled).

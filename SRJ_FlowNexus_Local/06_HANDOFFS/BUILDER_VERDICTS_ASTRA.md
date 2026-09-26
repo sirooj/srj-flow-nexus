@@ -17014,3 +17014,19 @@ Finally, P010 still presents the withdrawn 09:35/09:40/09:45 mapping as authorit
 
 This verdict uses only the supplied page; it asserts no disk verification or build/run authorization.
 ## V292-ENTRY-UJ13 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V294-ENTRY-UJ13 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+**Q3-NO**
+
+Q3 NO - E-UJ1’s full bypass list overreaches because the supplied code does not establish a separable non-DIV STAND-DOWN path or a post-confirm close-break gate that can be bypassed without changing confirmation or pre-confirmation validity.
+
+The message-C correction resolves the former UJ1/E2 timing objection: DK/FF establish 09:35, and DL reports confirmation on 09:40 at the 09:45 pass. I do **not** carry forward the same-bar objection, separator question, carve-out, or DL exclusion. Q1/Q2 remain CLEAR-carried.
+
+The remaining blocking items are:
+
+- **Bypass boundary:** C8851–C8869 place the supplied STAND-DOWN reference inside divergence-refusal handling, which P035 expressly protects. No separate bypassable STAND-DOWN branch is shown. C2224–C2225 are **A2 inside the confirmation predicate**, not a post-confirm close-break gate; DL already passes that predicate. Those citations cannot authorize the broader bypass.
+- **Lock eligibility and ordering:** DL is `CONFIRMPOLL … shadow=true`; it proves the reported predicate result, not passage through candidate-validity and promotion gates. UJ1 must explicitly preserve pre-confirmation seed deaths, require E1/E2 before commitment, and identify which listed holds obstruct that otherwise eligible commitment. P037 supplies this precedence for UJ3; P035 does not. The stated 10:40 exclusion remains an acceptance obligation, not demonstrated protection.
+- **Operative-text conflict:** P003 still makes clearance depend on the withdrawn separator, and P035 still offers touch-fallback-only despite the relay withdrawing option (ii). Remove those conflicting operative alternatives.
+
+UJ2’s source/trigger remain open predicate-design decisions; UJ3’s scoped FVG yield is not the reason for this NO. This is a page-only ruling, with no claim of independent disk verification.
+## V294-ENTRY-UJ13 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

@@ -3,18 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, MESSAGE-C FOLDED)
+## State (2026-09-26, V294 GRADED + V295 DRAFT)
 
-- Your 6/5 rule: 9:35 retest,
-  9:40 confirmation, 9:45 entry.
-  V294 battery-green DRAFT
+- V294 NO-CLEAR on Q3 (1-2).
+  V295 battery-green DRAFT
   (draft turn, no transport ask).
-  No build, run, key. Ledger 818.
+  No build, run, key. Ledger 819.
 
 ## Next (owed him)
 
 - NOTHING owed: draft turn filed
-  v294 + register. Transport memo
+  v295 + grade. Transport memo
   ships next turn.
 
 ## Resume order (exact)
