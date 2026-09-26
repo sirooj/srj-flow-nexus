@@ -46,4 +46,11 @@
 
 - HIS objection with HIS data (direction on #1, TP levels on #2/#3, FVG/block reads). No packet drafted (strategy questions go to HIM in plain words; code questions to council). No build, no key, nothing spent.
 
+## His UJ answers 2026-09-26 (verbatim whole, asked batched with the v286 transport memo; asked once)
+
+- A1 (6/5 09:45 direction): "no, short."
+- A2 (6/5 16:15 TP levels): "as i have said previouly, there is no such thing as no profit target, there is only target there is less than 1R. i can understand on the code technical side, because the valid nearest target is the april 30th previous day high for 160.723 and that is more than 10 days of the code max session detection. but eventually, the TP target is revised to the current new york session high once it's over. i want your solution."
+- A3 (6/11 14:40 POI/FVG): "i have explained thoroughly regarding the validity of the valid POI line retest, please recall that and ask me again if you still don't understand.if you're talking about the FVG for the validity of the structure, the confirmation candle of 14:35 is when the bullish flip happen so the FVG invalidation does not matter."
+- Builder note: A1 settles direction SHORT (miss-1 fix designable); A2 commissions a builder solution (old-high pool + retarget rule) for council clearance; A3 routes to record-first recall (FVG-validity corpus) + one permitted re-ask on the A2 line only.
+
 (End of file)
