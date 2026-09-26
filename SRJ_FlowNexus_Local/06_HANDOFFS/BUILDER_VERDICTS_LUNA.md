@@ -10954,3 +10954,106 @@ Keep `IsConfirmationCandle` unchanged; the existing E1/E2 consumers at EA 8668 a
 
 No build, run, spend, handle, mirror, or live-activation clearance is granted by this ruling.
 ## V305-UJIMPL-6 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V306-UJIMPL-7 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## V306-UJIMPL-7 ruling
+
+### DQ1
+
+**DQ1 YES — repair the indicator, not the EA, and consume the repaired confirmed outputs on the same evaluation pass.**
+
+The required repair is the BiasEngine flip path at **B138–B146**: the current branches at B140 and B144 self-assign `g_s.wasBiasFlip`, so a detected change never records a flip. The packet itself identifies this as the disk-verified root cause and directs repair of `wasBiasFlip=true`, `currentBias=detectedBias`, and the associated fields.
+
+The second required part is the confirmed-output path: the HTF engine already exposes confirmed outputs at **H570–H577**, while the deployed FlowLogic setting at **F246–F252** currently has `inUseConfirmedHTFOnly=false`; the repair therefore needs the 19/20/21 export/fill path to deliver the confirmed H4/H1/M15 values used by the EA.
+
+Consumption remains on the existing EA path: confirmed read first, then the ordinary candidate promotion path; the S2 holder still has to cross `CheckLtfAlign` at **C2270–C2276**, then S3 reaches the existing E1/E2 confirmation sites at **C8668** / **C8805**. No second handle and no EA-side mirror.
+
+**DQ1 is a design CLEAR, but not an implementation proof yet.**
+
+---
+
+### DQ2
+
+**DQ2 YES — use the any-age extraction-first pool, integrate it into the existing nearest-target race, and put the 1R gate immediately after the stop memo at C7325.**
+
+The existing `FindNearestSwing()` at **C2490–C2503** cannot satisfy the operator's rule: it walks only `evalShift..evalShift+500` and returns the first encountered value, whereas the ruled requirement is nearest-by-price with no age cutoff.
+
+The implementation contract therefore correctly moves historical extraction to the walker's own `Bars(_Symbol, PERIOD_CURRENT)` / `CopyBuffer` depth, with day/session identity, rollover cache, coverage evidence, and mask-safe historical records. The 4000-bar selection snapshot is not to be mistaken for the extraction span.
+
+The booking race itself is the right integration point: **C2349 onward**, with session/PD candidates at **C2356–C2364**, mask read at **C2367–C2368**, and the existing nearest comparator at **C2301–C2321** left intact.
+
+The important admission correction is explicit: the current disk still uses `iClose` at **C7305**, but the ruled race must elect from the **entry-open proxy**. The 1R gate belongs after `SlRefMemo` at **C7325**, before admission action, and must not leak into the managed recompute at **C11095–C11118**.
+
+The swept-mask-first trigger ordering and closed-NY-AM-only retarget object are also correctly contracted.
+
+**DQ2 is a design CLEAR.**
+
+---
+
+### DQ3
+
+**DQ3 YES — admit through the S1→S2 promotion boundary only after the confirmed HTF predicate passes: votes ≥2 AND confirmed-M15 direction equals trade direction.**
+
+The current classifier at **C2238–C2267** only establishes `trendOk = votes >= 2` and separately considers `mrOk`; it does not currently contain the additional confirmed-M15 direction-alignment predicate.
+
+The correct implementation site is therefore the existing S1 promotion boundary around **C8059–C8063**, before the candidate is allowed into the ordinary S2 path. The packet explicitly requires E1/E2 upstream precedence, the confirmed H4/H1/M15 read before promotion, and no alteration to the DIV path.
+
+This is not merely a `REGIME_NONE` workaround. The admitted regime must be the correct classification. The 6/11 evidence currently shows why the existing disk fails: at 14:40:22 the candidate is retained in S1WAIT with **votes=1 / trendOk=0**, despite the 14:35 retest+confirmation evidence.
+
+The required sequencing is therefore:
+
+**DQ1 indicator repair → 6/11 confirmed-output probe → only if the repaired confirmed votes remain below 2, add the specified passage predicate → then verify the 14:35-class case.**
+
+No suppression bypass is authorized; the full SUPPRESSED row or emitter must be observable so a suppression failure cannot be confused with regime failure.
+
+**DQ3 is a design CLEAR, conditional on that exact implementation/probe sequence.**
+
+---
+
+### DQ4
+
+**DQ4 RULED — indicator-side HTF/BiasEngine repair plus existing EA consumption/lookup integration only; no second handle, no EA-side mirror, no E1/E2 rewrite, and S1 pre-hash + S3 exact-diff/budget recount govern the implementation packet.**
+
+The packet explicitly carries the prior **DQ4 2–0 RULED** result and says this round introduces no code edits.
+
+The implementation surface is therefore limited to the canonical indicator and the existing EA regions already identified in the packet; E1/E2 remain byte-identical, and the recount discipline is **STAGE-1 exact diff → S1 pre-hash → S3 budget recount**.
+
+One precision issue: **v8 does not reproduce a numerical line/byte budget value**. I would not invent one. The binding rule available here is the carried DQ4 ruling plus the S1/S3 recount discipline.
+
+---
+
+## Analytic A — defects/gaps still visible on the page
+
+1. **Bias flip is still broken in the current disk.** B140/B144 are self-assignments, so the flip state cannot propagate.
+
+2. **Confirmed HTF capability exists but the deployed selection is live-output mode.** `inUseConfirmedHTFOnly=false` conflicts with the required confirmed-value consumption until the indicator export/fill path is repaired.
+
+3. **Current S2POLL target election is not yet R-at-open compliant.** The disk passes `iClose` as `currentPrice` at C7305; the packet's contract requires the would-be entry open.
+
+4. **The existing +500 swing walk is both depth-limited and wrong for nearest-by-price semantics.** It returns the first qualifying historical swing encountered.
+
+5. **Current regime logic still lacks the new direction-alignment condition.** C2248 only enforces `votes >= 2`; nothing there checks confirmed-M15 direction against trade direction.
+
+6. **Current 14:35 evidence still dies at S1WAIT.** The exhibited row is `votes=1 trendOk=0`, so the new passage mechanism is not yet implemented/proven on disk.
+
+7. **The SUPPRESSED mechanism remains an evidence gap in the existing disk.** The packet requires its full row/emitter to be exhibited so suppression-blocked cannot be misclassified as regime failure.
+
+8. **DQ4's numeric budget is under-specified in v8.** The ruling is carried, but this packet does not state the actual numeric ceiling; implementation should therefore inherit the prior ruled value rather than infer a new one.
+
+## Analytic B — mechanism I would use
+
+The cleanest mechanism is the packet's own indicator-first route:
+
+**repair the BiasEngine flip state → export confirmed H4/H1/M15 outputs → consume them before promotion → preserve the existing S2/S3/E1/E2 path → implement any-age TP extraction separately from the 4000-bar snapshot → elect nearest by price from the existing unified race → apply the entry-open 1R gate once at admission.**
+
+That keeps the repair causal rather than adding a second parallel intelligence layer, and it respects the explicit fix-not-replace scope.
+
+### Final seat verdict
+
+**DQ1 YES**
+**DQ2 YES**
+**DQ3 YES**
+**DQ4 RULED**
+
+This is a **design-round ruling only**. It does not authorize a build, tester run, commit, or live activation; the packet itself explicitly reserves those actions for the subsequent gated implementation stage.
+## V306-UJIMPL-7 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

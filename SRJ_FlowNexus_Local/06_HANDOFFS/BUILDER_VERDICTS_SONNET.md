@@ -2222,3 +2222,36 @@ The packet's own line ("BiasEngine no-op noted... diagnostic only, untouched") w
 
 That's my genuine engineering opinion on the four questions — happy to go deeper on any one of them if you can paste the fuller function bodies (especially `HTFEngine::GetOutputs` in full, and whatever sets `detectedBias` before line B138).
 ## V305-UJIMPL-6 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+## V306-UJIMPL-7 OPEN SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+Sonnet:
+Before I get into the technical detail, one honest observation: this "council" apparatus (seats, keys, tallies, transport verdicts, battery diffs) has grown very large for what are, underneath it, three or four specific code questions. I'm not able to verify any of the ledger numbers, transport history, or "byte-verified diff 0" claims — I only see the text pasted here — so I'm going to answer as myself, giving my own opinion, not as a "voting seat" casting a DQ-YES/DQ-NO verdict in someone else's tally. Take what's useful and leave the rest.
+
+**The most important thing I found this round: DQ1's root cause may point at the wrong file.**
+
+Last time I flagged the self-assignment no-op in `SRJ_BiasEngine.mqh` (B138–146) as "the" root cause of the "53 bias hits, zero flip hits" symptom. Looking at the new evidence more carefully, I think that attribution needs to be checked, not assumed:
+
+- `BiasEngine` (the B-file) tracks `g_s.currentBias` / `g_s.wasBiasFlip` — its own private state.
+- The actual gate at line 2238–2248 (`ClassifyRegime`, `htfH/htfM/htfL` from `FL_BUF_HTF_HIGH/MID/LOW`) reads buffers `g_bufHtfHi/Mid/Lo` (F58–60), which — per the packet's own text — are filled by "the fill switch FlowLogic 1195-1200" from `HTFEngine`'s `SRJ_HTF_RunAll` → `SRJ_HTF_GetOutputs` (H562–577), a **completely separate class** (`CHTFEngineState`) with its own `cBias`/`outBias` fields, not `g_s.wasBiasFlip` at all.
+
+So: BiasEngine's no-op bug and the HTF vote buffers feeding the `votes>=2` gate look like two different subsystems that happen to share the word "bias." Fixing B138–146 might fix whatever *BiasEngine* drives (probably a pane/alert display), and do nothing to `FL_BUF_HTF_LOW` (the M15 vote DQ1/DQ3 actually need).
+
+**Before ruling DQ1 either way, I'd want to see:**
+1. The actual `PrintFormat` line that emits "53 bias hits, zero flip hits" — is it in `BiasEngine.mqh` or `HTFEngine.mqh`? The packet cites them as two separate items in P017 ("BiasEngine flip state... ; HTF engine include (53 bias hits, zero flip hits)") which suggests they may already be separate, and the "53/0" stat belongs to HTFEngine, not the BiasEngine bug I found. If so, my earlier diagnosis was likely a false lead, and the real non-firing mechanism is somewhere in `SRJ_HTF_RunAll`/`SRJ_HTF_ProcessBar`/`SRJ_HTF_GetOutputs` or the FlowLogic 1195–1200 fill switch, none of which I've seen in full.
+2. FlowLogic lines 1195–1200 (the fill switch) — this is the actual bridge from HTFEngine's string outputs to the numeric vote buffers, and it's never been pasted. That's where a translation bug (e.g., string comparison, stale `cBias` on `useConfirmed=true` vs `outBias` on `false`) is more likely to live than in BiasEngine.
+
+**My recommendation for DQ1:** don't rule repair-vs-diagnostic on B138–146 yet. First confirm which file the 53/0 counter actually lives in, and get the 1195–1200 fill switch on the record. If it turns out BiasEngine is genuinely unrelated to the M15 vote, the B138–146 fix may still be worth doing (it's clearly dead code either way — self-assignment can never do anything) but it wouldn't be "the" DQ1 fix, just a separate latent bug worth patching on its own merits.
+
+**DQ2 — one thing hasn't actually changed despite v8 claiming it's pinned:**
+
+C7305 still reads:
+```
+double currentPrice = iClose(_Symbol, PERIOD_CURRENT, barShift);
+```
+That's a close price. The packet asserts "Entry-open proxy PINNED... the race MUST elect from the entry-open price (not the confirmation close)" — but the code doing the electing (`ComputeNearestTpTarget` called with this `currentPrice`) is still being fed a close, not an open. This is the same gap I raised last round, and it's still open in v8's own pasted code. I'd treat DQ2 as NO on this specific point until either the call site changes to an open price, or someone shows me `barShift` resolves in a way that makes `iClose(barShift)` equal the next bar's open (which would be unusual and worth stating explicitly, not left implicit).
+
+**DQ3 — still downstream of DQ1.** The `votes>=2` gate is unchanged code; whether the 14:35 case passes depends entirely on what's actually driving `FL_BUF_HTF_LOW` at that bar, which is the same open question as DQ1. I wouldn't add the new "direction-alignment term" on top of `votes>=2` until it's known whether the vote count itself is wrong. Adding a second gate on top of a possibly-broken first gate is how you end up unable to tell which one is failing later.
+
+**DQ4 —** given the above, I'd keep the surface narrow and explicitly provisional: `SRJ_FlowLogic.mq5` lines ~1195–1200 (fill switch — once seen), `SRJ_HTFEngine.mqh` (if the fault is there), and the `iClose`→entry-open fix at C7305. I would not rule BiasEngine.mqh into the budget yet, and I would not close DQ4 as fully "RULED" until the 1195–1200 code is on the table — ruling a budget before knowing which file has the actual bug tends to force a second budget round later anyway.
+
+If you can get the builder to paste FlowLogic 1195–1200 and whatever print statement produces "53 bias hits, zero flip hits," I can give you a real answer on DQ1 instead of a conditional one.
+## V306-UJIMPL-7 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)

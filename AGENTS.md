@@ -64,7 +64,7 @@ Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says s
   one reviewer, build permission, run word. Builder never judges code, only quotes it.
 - UNGRADEABLE KEY (2026-09-16): a key that does not quote its completed text
   counts as NO key — grading stops, nothing builds on it.
-- TRANSPORT SEATS (live set named by his latest word; refreshed 2026-09-24, his drop-Sonnet + Kimi-to-Astra orders): relay
+- TRANSPORT SEATS (live set named by his latest word; refreshed 2026-09-24, his drop-Sonnet + Kimi-to-Astra orders; AVAILABILITY 2026-09-26, his credits-out word: Astra + Opus parked until he says otherwise - active transport = Luna + GLM + Sonnet advisory, identical text all active): relay
   transport = Opus + GLM + Astra, identical text all three. Key seat =
   Luna REVIVED (his 2026-09-24 order; sole key source; review seats never grant -
   Sonnet + Opus both refused keys on seat-split grounds same day). History: Luna

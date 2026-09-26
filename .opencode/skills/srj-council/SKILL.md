@@ -189,3 +189,7 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 ## 18. Caller-count wording (V303 grade 2026-09-26 - Luna caught the relay's absolute)
 
 - NO-X-ANYWHERE claims prove themselves by caller-count assert beside the prose: a "no <function> touch anywhere" line ships only with the mechanical count (Select-String count + line numbers) pasted in the battery; a nonzero count rewrites the line to "no NEW <function> caller proposed" before transport (v303: "No IsConfirmationCandle touch anywhere (12 sites)" vs 11 disk refs incl EA 8668 + 8805; owned + fixed in v304).
+
+## 19. Producer-before-premise (V306 grade 2026-09-26 - Sonnet's wrong-file catch, disk-proven)
+
+- No cross-file mechanism premise ships without the producer census on disk: which file writes the field, which lines, who reads it, plus reader counts tree-wide (v6-v8 defect owned: "B138-repair fixes the M15 vote" rode three folds with zero producer evidence; disk showed wasBiasFlip unread outside BiasEngine, the 53/0 census as file-text counts never runtime, LTF_BIAS fed by currentBias not the flip flag; premise withdrawn, correction carried visibly into v307). A grep census is labeled grep-vs-runtime at creation, never presented as behavior.

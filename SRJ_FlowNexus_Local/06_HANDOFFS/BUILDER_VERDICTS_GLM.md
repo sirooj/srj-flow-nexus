@@ -5379,3 +5379,91 @@ Passage: S2 CheckLtfAlign C2270-2276 (the 14:35-bar LTF_BIAS row must read +1 �
 
 Ruled on the page only; no files requested; nothing built, run, spent, or cleared here. The four verdicts are independent per the multi-question rule.
 ## V305-UJIMPL-6 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V306-UJIMPL-7 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+Seat ruling on the page as pasted (companion pulls and rows treated as page-internal evidence per the verification split; disk fidelity is builder-side, not re-asserted here). All four questions ruled; a NO on none sinks the others.
+
+---
+
+## DQ1
+
+**DQ1-YES**
+
+DQ1 YES - both repairs, sequenced (b) → (a), plus the consumption siting:
+
+**Source ruling:** the 15m source is the confirmed M15 leg of the existing FlowLogic feed — FL_BUF_HTF_LOW (buffer 21) carrying the confirmed vote after the selection switch. Snapshotter candidate stays dead (SrjSelSnapTF EA 3046 is generic but no M15 call exists on disk); sheet column stays operator-transport only.
+
+**Repair (b) first — the root cause:** SRJ_BiasEngine.mqh **B138-146**. In the `detectedBias != g_s.currentBias` branch (B138-141): set `g_s.wasBiasFlip = true; g_s.currentBias = detectedBias; g_s.newBiasDirection = detectedBias;` plus the matching flip alert (B31-32 vocabulary) and `drawBiasLineNow` per the pane's own declared fields; delete both self-assignments (B140, B144); the same-bias branch (B142-145) stays inert. **Precondition:** a `g_s.currentBias` write-site census (include-126 init/NA-case + any DecisionBlock B149+ strong-flip writer) with flip-precedence defined before the edit — see ask A #4. **Ruling on the open quote: repair, overriding keep-diagnostic-only.** The hard-untouched stance protected an unruled region; this round supplies the ruling. The defect is disk-proven and bounded (both branches self-assign — the code provably never does what its field vocabulary declares; 53 bias hits vs zero flip hits isolates it), his fix-not-replace order directs exactly this inside-the-engine repair, and building DQ3 gates over a permanently dead flip path is the parked seat's second-gate-around-a-first-bug risk. EU preservation battery re-runs over the changed bias trajectory; a preservation fail reports as a ruled-rule finding (A-7PRESERVE class).
+
+**Repair (a) second — the confirmed selection:** EA **C10667** literal `false`→`true` (the 7th positional arg maps `inUseConfirmedHTFOnly`, F252). GetOutputs H570-577 then routes outCBias/outC2OB/outCLine3/outCOpp through the existing fill sites (FlowLogic F1195-1200, unchanged); no engine-side latch edit, no new buffer, no new input. The 14:40:22 H4/H1 probe doubles as the iCustom binding assertion (a positional mis-bind would show as unmoved votes).
+
+**Consumption siting:** confirmed reads ride LoadWorkingSet **EA 11490** on the once-per-bar pass **EA 11484-11492**, ahead of the earliest ordinary-path consumer (ClassifyRegime reads EA 2240-2242) and the promotion decision. Alignment guards sit immediately above **C8655/C8795**, outside the byte-identical sections, retain disposition with a named print (the 8060/8073 vocabulary). The S2-holder bridge stays the hard gate: CheckLtfAlign **EA 2270-2276** must pass on the repaired feed, then S2→S3 **EA 8074-8076**; confirmed-M15 alignment is necessary, not sufficient. E1-walk + E2-recency precede passage; DIV walk **EA 8836-8849** unaltered. **No H115-118 edit** — the confirmed switch subsumes EA-consumption repaint exposure; the live path stays for the chart pane. Probes gate fail-closed: 09:45:00 (confirmed M15 +1→−1 turn AND 09:40-bar LTF_BIAS SHORT, with source-row bar-time stamps) and 14:40:22 (confirmed H4/H1); probe fail halts the leg, never a handle. Re-test-post-fix sequencing rides: fix lands, the 6/11 14:35 case re-runs, any DQ3 gate addition waits on the re-run's vote count.
+
+---
+
+## DQ2
+
+**DQ2-YES**
+
+DQ2 YES - the v6 contract closes at design level:
+
+**Lookup:** extraction-first walker (new EA function, CQD-walk shape per **EA 8836-8849**: own CopyBuffer, depth `Bars(_Symbol, PERIOD_CURRENT) − 1`, bypassing the +500 bound at EA 2494-2497); day-keyed reads of buffers **8/9 + 40-47** at one bar per completed day, broker-midnight keying (F327-328); EMPTY_VALUE/0 skipped; records strictly older than the live-PD day; day-keyed rollover cache refreshed on rollover, visible to selection AND post-entry, SELHALT (EA 4995-5004) never freezes it; coverage print reports earliest extracted day AND requested window start, **outside** the s_tpDumps cap (EA 2421-2424); admission fails closed on coverage shortfall (April-30 pre-window dependency stated).
+
+**Integration:** third candidate loop between **EA 2402/2403** into TpTargetUpdateBest (**EA 2301-2322 unchanged** — in-direction 2305, zone-exclusion 2318, nearest C2319-2321); census mirror between **EA 2451/2452** carrying the coverage print; election reference at **EA 7305** changes from `iClose(barShift)` to the forming-bar open (the would-be fill, the S5 next-open reference per EA 248) so the race elects from the entry open; **1R gate after the SlRefMemo success block EA 7325-7334** (winner EA 7307 + s1_stopRef in hand, direction-aware risk, nonpositive/wrong-side stop fails closed with no absolute-value normalization) before any admission action, disposition `GoAbort(ABORT_SUB_1R)`; managed recompute **EA 11095-11118** stays nearest-only (mask read 11098, filter 11102) and never sees the admission gate; swept-mask probed first (mask flip on touch → zero new trigger code + event print), else the touch check rides the EA 11095 head with the event object (closed-NY-AM level + closing timestamp) separated from the election pool; TP_ELECT shadow EA 10087 context; degenerate exact-landing rides the single in-direction inequality (EA 2305), never double-implemented.
+
+**Residuals the implementation packet must state (none contract-level):** the 1R proxy is exact only when the firing pass equals the last-S2POLL pass (both exhibited classes are same-pass — state the proxy-staleness rule or add a firing-pass re-check); the completed-day→bar-index walk needs its own lines; one disambiguating sentence on the mask wording pair (ask A #9); walker depth is bounded by indicator BarsCalculated + terminal max-bars, not Bars() alone, so the coverage tuple carries both fields.
+
+---
+
+## DQ3
+
+**DQ3-YES**
+
+DQ3 YES - with the siting pin made explicit:
+
+**Past S1WAIT:** confirmed votes >= 2 at **EA 2248** on the repaired confirmed feed — ClassifyRegime **EA 2238-2267 unchanged** (the votes change is feed-level via DQ1's C10667 switch, never new classifier logic); the S1 promote path **EA 8061-8064** runs unmodified. **The direction-alignment term sits at the E1/E2 promotion guards immediately above C8655 and C8795** — outside the byte-identical sections, retain disposition with a named print (the 8060 S1WAIT vocabulary), never folded into the confirmation branches — **not at the S1→S2 edge.** P030's "at the promotion predicate" must be pinned to these guard positions in the implementation packet: an S1-edge siting opens the same-pass S1→S5 cascade (8061-8064 falls through 8067 → 8079 → 8668 → 8820 with no returns on the promote path) past the S2..S5 poll region at **EA 7260-7334**, firing without TP booking, stop memo, or the DQ2 1R gate. With the guards at E1/E2 the candidate is at S2/S3 at pass top and the poll runs before the cascade — but the poll's call-site ordering must be exhibited as an implementation obligation (ask A #1/#2).
+
+**Remainder:** class difference confined to evidence stamps (09:45-class: prior-bar 5m confirm + at-open 15m flip; 14:35-class: same-bar 5m flip + standing-aligned 15m) — one guard, two parameterizations, no divergent gate logic; the H4/H1 confirmed-value probe at 6/11 14:40:22 is the prerequisite (confirmed-H4-bearish → A-UJ3-REGIME fails closed to the chart-vs-indicator diagnostic, never new gate logic); the SUPPRESSED row or its emitter exhibited print-only so the grade separates suppression-blocked from passage-achieved (no suppression bypass anywhere); DIV walk **EA 8836-8849** untouched; the admitted regime rides **C251** and drives the 5.6 scope — correct classification, never mere REGIME_NONE avoidance; E1/E2 upstream-first (walk + recency precede passage); the interlock stands (a pool-gate fail presents as S2POLL abort rows EA 7307-7312, never as regime/route failure).
+
+---
+
+## DQ4
+
+**DQ4-RULED**
+
+DQ4 RULED - surface + budget:
+
+**Base surface (may change):** (1) Include\SRJ\SRJ_BiasEngine.mqh **B138-146 only** (flip-branch repair; write-site census attached; no other BiasEngine lines); (2) Experts\SRJ_FlowNexus_EA.mq5: **C10667** literal flip; **EA 7305** election-reference change; the new 1R-gate block after **EA 7334** (ABORT_SUB_1R via GoAbort); the new historical walker + third loop between **EA 2402/2403** + census mirror between **EA 2451/2452** + coverage print outside the cap; alignment guards immediately above **C8655/C8795** (retain prints); probe/staleness prints (09:45:00 + 14:40:22 + vote timeline); touch-event print (mask-probe first, else the EA 11095-head check); day-keyed rollover cache + SELHALT non-freeze; SUPPRESSED-emitter exhibit (print-only, once located). **HTFEngine.mqh / FlowLogic.mq5 enter the surface only as a second ruled round if the probes fail** (the leg halts first — never a mid-round latch edit).
+
+**Untouched:** E1/E2 byte-identical sections **C8655-8691 / C8795-8818**; TpTargetUpdateBest EA 2301-2322; DIV walk EA 8836-8849; CheckLtfAlign EA 2270-2276; ClassifyRegime EA 2238-2267; managed recompute body EA 11095-11118; IsConfirmationCandle EA 2193-2233 and its 11 call sites (no new callers); no new indicator buffers, no new inputs, no second handle, no EA-side mirror.
+
+**Budget:** the v305 2-0 ruling carries; the numeric figure is not restatable from this page and attaches explicitly at the implementation packet's **S3 budget recount** (S1 pre-hash gates the tree digest; STAGE-1 exact-diffs the edit; the recount governs the surface above). E1/E2 P-ENTRY-2 Q1/Q2 labels ride unchanged everywhere (P050).
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions on the page
+
+1. **"At the promotion predicate" is not line-pinned (P030; DQ3 text).** The two readings diverge materially: at the S1→S2 edge, the same-pass cascade (no returns on the promote path: 8061-8064 → 8067 → 8079 → 8668 → 8820) bypasses the S2..S5 poll region (EA 7260-7334: freshness 7265, TP race 7307, stop memo 7325) — a candidate promoted from S1 at the decision pass fires without TP booking, stop memo, or the 1R gate. Only the E1/E2-guard reading (P018's own siting) is internally coherent; the packet needs one sentence saying so.
+2. **The S2POLL call-site/gate is never exhibited.** The fragments at EA 7260-7334 carry no enclosing function or state gate; the poll's position in the pass relative to the state blocks (8060+) is page-unproven, and both exhibited route proofs depend on it. The FRESHSKIP row ([R63] IL: state=S2, reason=PRE_BINDING, 09:45:00 pass) proves the poll ran for a candidate *already* at S2 entering the pass — it does not prove it runs for one promoted into S2 mid-pass.
+3. **FL_BUF_LTF_BIAS producer unmapped (P017).** The UJ1 symptom is an LTF_BIAS misread (CheckLtfAlign EA 2270-2276), but no line maps which engine field fills FL_BUF_LTF_BIAS or at which fill site. The B138-146 → S2WAIT-alignment linkage is asserted, not proven; the 09:45:00 probe gates it fail-closed, but the repair *choice* needs the producer census.
+4. **The currentBias story is in unexplained tension with the EU tree.** The open quote says currentBias is set at init (include-126) and never on the flip path — yet the base tree passed S2 alignment in both directions across days (SHORT 8/27 + 9/1, LONG 9/7 per [R67]/[R60]/[D74]). Either a second writer exists (DecisionBlock B149-169 elided strong-flip region) or LTF_BIAS is not currentBias-fed. The write-site census must precede the repair; a second writer without defined precedence creates dual-writer flip conflicts.
+5. **File-relationship ambiguity in the companion labels.** "53 bias hits, zero flip hits" is attributed to the HTF engine include (P017) while the no-op flip branch is in SRJ_BiasEngine.mqh (B138-146); whether the BiasEngine machinery is per-TF shared into the 19/20/21 votes or chart-TF-only is never stated. The repair's blast radius (votes vs LTF_BIAS vs both) depends on it.
+6. **One-bar swing-confirmation lag vs the 09:45-class read (H115-118).** The structure judgment detects the swing at j-1 while processing bar j (H117), forming bar excluded (H107). A 15m flip evidenced by the 09:30-09:45 bar's *own swing shape* is undetectable at the 09:45:00 tick (it registers at 10:00). The 09:45-class eligibility therefore requires the flip to be close-break-evidenced. The page never states which evidence class his 15m flip uses; the staleness stamps distinguish stale from unaligned but not "structurally undetectable yet" — a third probe disposition may be needed.
+7. **1R proxy freshness (P023/P025/P047).** The proxy is exact only when the firing pass equals the last-S2POLL pass; A-UJ2-POOL says "1R admission" with no reference-refresh disposition for delayed-fire routes.
+8. **Extraction depth wording (P024).** The walker's own CopyBuffer is bounded by indicator BarsCalculated and terminal max-bars, not by Bars() alone; the coverage artifact names only "earliest extracted day" — the tuple should carry the requested window start and the comparison rule explicitly.
+9. **Mask wording contradiction (P024).** "never bypass the swept/live mask" (extraction boundary) vs "old records ride mask-free" (record rule). The intended reading is separable (live slots keep their mask; the historical pool is separate and geometric) but needs one disambiguating sentence.
+10. **Citation gaps in the root-cause exhibit.** include-126 (the claimed init write) falls inside the elided B125-137 region and is not shown; the Luna DQ4 hard-untouched list's *content* is never stated (voting seats weigh the override blind); the SUPPRESSED-row emitter has no located lines — the exhibit obligation is real but unsited.
+11. **A-UJ2-POOL's touch-retarget proof has an unstated dependency.** It requires an executed trade; if the unaltered DIV walk (EA 8836-8849) returns an adverse latest verdict at the 09:45:00/14:40:22 passes, the route dies at S5 and the touch leg cannot be graded. His priors say divergence was never the problem, but the acceptance preconditions should name the DIV-verdict dependency.
+12. **Mechanical/wording:** P037's unbalanced parenthesis; P005 says "S1 recount will govern the implementation packet" where P050's discipline names S3 as the code-surface recount (S1 = pre-hash/exact-diff); P049's inline "[ELSE STRUCK v8…]" leaves the struck clause's scope ambiguous mid-schema (restate the tuple fields clean); P003's "A1-A16 contracted" list is never enumerated against the acceptance section.
+13. **The touch-trigger conditional shape (P025).** "Swept-mask probed FIRST … else the managed recompute head carries the check" makes touch code conditional on a run-time observation; if the mask doesn't flip on touch and no check was implemented, the touch proof fails closed and costs a grade round (see ask B #3).
+
+## Analytic ask B — better mechanisms
+
+1. **Fire-edge memo guard (closes A #1/#2/#7 at once).** One fail-closed guard at the S5→SIGNAL conversion: abort with a named token (sibling of ABORT_NO_TP_TARGET) if `s1_haveStop` is false or the TP memo is unset at signal time. Covers every route shape — same-pass cascade, delayed fire, future routes — sits outside all byte-identical sections, and makes the poll's call-site ordering non-load-bearing. Strictly more robust than pinning the poll's position.
+2. **The H4/H1 probe as the iCustom binding assertion.** After the C10667 flip, the 14:40:22 confirmed H4/H1 probe doubles as proof the positional argument still maps `inUseConfirmedHTFOnly` (a silent input-order drift between the EA's positional args C10665-10667 and FlowLogic's input list F246-256 would show as unmoved votes). State it as such in the probe tuple so the binding is graded, not assumed.
+3. **Unconditional touch-event print at the EA 11095 head** (vs the conditional mask-probe-else shape): keyed on the closed-NY-AM level crossing with the record's close/availability timestamps; the mask path rides free when it flips. Removes the two-round risk on the touch proof for a few lines inside the ruled surface.
+4. **One probe printer, one region.** The 09:45:00/14:40:22 probes, the vote timeline across the seed→decision span, and the staleness stamps could ride a single bar-time-stamped tuple emitter after EA 11490 (top of the pass), instead of scattered site-specific prints — one code region, one cap, all three legs' acceptance tuples served; smaller surface than per-site prints.
+5. **Flip-precedence rule for the B-repair.** If the write-site census finds a second currentBias writer (strong-flip path), define structure-flip vs strong-flip precedence explicitly (single writer function or a stated ordering rule) rather than leaving it to code order — otherwise the repair and the existing writer can fight across bars and the LTF_BIAS trajectory becomes nondeterministic per bar sequence.
+
+Nothing else is asked; no key spent, nothing built or run here.
+## V306-UJIMPL-7 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
