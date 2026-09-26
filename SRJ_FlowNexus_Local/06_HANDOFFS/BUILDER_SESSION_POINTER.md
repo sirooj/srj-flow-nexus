@@ -3,14 +3,15 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V287 FINAL)
+## State (2026-09-26, REVIEWED)
 
-- A2 answered: daily POC already
-  the anchor — flip-only fix,
-  no line change, no re-ask.
-  Packet D0016C37. Relay
-  C41473ED. Ledger 802. No
-  build, run, key.
+- Your clarification reviewed
+  adversarially: no repeat (E1
+  contained, E2 threat found +
+  dissolved on your 9/7 seed
+  rows, UJ zero-change).
+  Packet E1C20F3C. Relay
+  76E47DDF. Ledger 803.
 
 ## Next (artifact owed)
 
