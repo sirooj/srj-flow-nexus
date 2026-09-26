@@ -10395,3 +10395,11 @@ Both actual promotion sites enforce `g_anchorBarTime > 0 && g_anchorBarTime < iT
 
 Q3 **NO** - E-UJ3 overreaches on the temporal predicate because the cited `IsConfirmationCandle()` fields do not, by themselves, identify an independently timed **14:35** flip confirmation. In the shown implementation, `oppCandle` and `touch` are derived from the prior bar (`c1/o1`, `h1/l1`), while `bodyDir` is derived from the evaluated bar (`c0/o0`); replacing only `A2_CLOSE_BREAK` therefore does not establish how a 14:35 flip is carried into the later 14:45 retest/confirmation pass. The proposal needs an explicit flip-bar identity/timing predicate or state handoff before it can be considered fully specified.
 ## V288-ENTRY-FULL END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V289-ENTRY-FULL OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+Q1 YES - the gate matches the rule.
+
+Q2 YES - recency and battery hold.
+
+Q3 YES - proposals clear with options.
+## V289-ENTRY-FULL END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

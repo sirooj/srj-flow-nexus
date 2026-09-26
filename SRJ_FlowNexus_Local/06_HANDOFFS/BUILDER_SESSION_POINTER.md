@@ -5,14 +5,14 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 
 ## State (2026-09-26, GRADE + FOLD FILED)
 
-- V288 graded NO-CLEAR (Q1 CLEAR,
-  Q2 HALT, Q3 HALT). V289
+- V289 graded NO-CLEAR (Q1+Q2
+  CLEAR, Q3 HALT). V290
   battery-green, TRANSPORT OWED.
-  No build, run, key. Ledger 806.
+  No build, run, key. Ledger 807.
 
 ## Next (artifact owed)
 
-- YOUR carry: v289 file, seats
+- YOUR carry: v290 file, seats
   your choice + paste-back.
 
 ## Resume order (exact)

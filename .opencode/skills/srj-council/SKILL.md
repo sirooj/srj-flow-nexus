@@ -150,3 +150,9 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - EVAL-EXCLUSION: foreign-build walk fields with 0 hits on the base tree are excluded with cause, never left unreconciled beside a demand they contradict (v288: v5 E4B pobreak/bbar/bpx beside demanded E1 S54VOID; 0 hits on D74FE972).
 - HANDOFF-COMPLETENESS: a cross-pass proposal names the stored identity + timing predicate + staleness bound (v288: UJ3 flip cited prior-bar/evaluated-bar fields with no carry into the later pass; FLIPSEEN row + accept predicate folded).
 - RENDER-VS-DISK: a rendering-observed mismatch is byte-decided before any packet change; a 0-diff kills the note the same turn (v288: E2b old block 14/14 byte-diff 0 vs EA 8804-8817, rendering artifact only).
+
+## 12. v289 round gates (builder-owned defects, 2026-09-26 - battery passed green, Q1+Q2 clear, Q3 halted narrow)
+
+- SAME-PASS-EDGE: a cross-pass accept predicate is tested against the same-pass completion before transport (v289: strict flip-bar < confirm-bar stranded every completion per A_OPP/B_BODY; the 14:40 pass evaluating the 14:35 flip is the only consistent structure - rule <= with the same-evaluation ordering stated).
+- SEED-ROW-CITE: every seedbar value in acceptance rides its ANCHOR_ELECT fence row, 1x in the labeled segment (v289: A-97NY cited 14:55 with only RETESTBOOK/CONFIRMPOLL rows pasted; D74 row added, 1x).
+- LABEL-HYGIENE: every mechanism label is misparse-proofed on first advisory confusion, never defended as "already glossed" (v289: "locked bar" read as market-chase despite the gloss; renamed confirmed-bar/confirm-commit the same turn).

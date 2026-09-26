@@ -4751,3 +4751,69 @@ The E2b old block's CONFIRM_STRUCT_FAIL continuation lines (P121-123) render at 
 
 Nothing else is asked.
 ## V288-ENTRY-FULL END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V289-ENTRY-FULL OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+**Seat ruling (review, page-only per the verification split — no key, no build, no run): Q1-YES / Q2-YES / Q3-NO (one item, narrow fold).**
+
+---
+
+## Q1 — S5.4 gate rule verification
+
+**Q1 verdict line: Q1-YES**
+
+**Q1 YES - the gate matches the rule**
+
+Pinned checks against the page + code companion:
+
+- **Fence** (P060) ≡ C7823 verbatim (`g_state > ST_IDLE && g_state < ST_S5_GATE_CHECK && g_anchorBarTime > 0`); no regime term — R2's `REGIME_MEANREV` gate (C7846) untouched, regime-blind per P020.
+- **Window**: `for(s54_s = barShift; s54_s < s54_seedShift; ...)` (P068) = (seedbar, evaluation bar] — seed never walked (seed-edge ruling honored); `seedShift == barShift` no-runs (the seed's own establishment bar cannot kill its own retest); `seedShift < 0` no-walk (fail-open).
+- **Predicate**: per-bar `ReadBuf1` on `g_anchorLine` at the *walked* bar's shift (P072) — dynamic line value, the correct test for his per-bar close-through ruling (and the reason the D74 confirm could pass A2 against a later line value while the 18:10 body broke its own bar's value); strict direction-matched cross (P076 ≡ P022, the v11-unanimous idiom carried as ruled — not relitigated); high/low never read → wick/touch never kill.
+- **Fail-open**: ReadBuf1-false/EMPTY_VALUE/zero-OHLC → `skipped++; continue` (P072/P075); void unconditional, row debug-gated (P080-P090) — matches P023.
+- **Disposition** ≡ R2 (C7846-C7853): `AnchorStr()` captured BEFORE the clears (P083 — the killed line is named), IDLE + line/time cleared, LogState, S54VOID with bar/dir/poi/bbar/bpx(v/o/c)/walked/skipped all present.
+- **Siting** after 7855, before the state-machine body = gate-before-promotion ordering: the confirming pass walks its own evaluated bar first (eval-inclusive) — the E6b confirm-exclusion hole closed. Full anchor clear delivers +1-cannot-revive; reseed-fresh per spec section 6 (P024), nothing carries the dead candidate.
+- **Non-coverage** P025 as stated (anchor-line only; A-S54-827's void-conditional + P025 fail-closed fallback is the honest encoding of the gap).
+- **Budget**: insert P059-P091 = 33 lines; 36−3 = +33 ✓.
+
+---
+
+## Q2 — recency + preservation verification
+
+**Q2 verdict line: Q2-YES**
+
+**Q2 YES - recency and battery hold**
+
+- **E2a** (8668 true branch): stale-arm `!(g_anchorBarTime > 0 && g_anchorBarTime < iTime(..., barShift))` — strict seedbar < evaluated bar; STALE row + `return` mirroring the FAIL arm (C8688) — candidate retained at S3. ✓
+- **E2b** (8804-8817, balanced): same predicate; stale-arm prints + skips promotion (no return — fall-through preserved); else-arm promotion body byte-carried; inner braces 3/3; else-if tail carried. ✓ No `IsConfirmationCandle` touch (both edits wrap call sites only); exactly two promotion sites on D74 (PREBIND_S2 0 hits; the [R67] CONFIRM_PREBIND_S2 rows are E8B0E582 — attribution fenced). ✓
+- **9/1**: seedbar 15:25 == confirmBar 15:25 ([D74] LN at pass 15:30:00) — dies by rule; on D74 never reaches a site (S2WAIT retained + S1→S2, [D74] ON/PQ), so A-STALE-901's negative + E2 defense-in-depth declaration is the correct, falsifiable grade. ✓
+- **9/7**: seedbar 14:55 < confirm 16:40; retest 16:35 < 16:40 ([R60] EH/RJ) — passes by rule text; E1 walk (14:55, 16:40] expected clean, grade-decided. ✓
+- **A-S54-827 re-tuple mechanically right**: pass 18:15:00 evaluates bar 18:10 per C11483-C11492 (OnTick once-per-new-bar, `EvaluateClosedBar(1, iTime(...,1))`); walk (17:45, 18:10]; expected bbar 18:10 per his ruling with the grade-time row deciding bbar AND whether the void prints; NO SIGNAL at 18:20 conditional on the void with the P025 fail-closed fallback; NO CONFIRM_PREBIND structurally impossible on D74. ✓
+- **E4B reconciliation correct**: pobreak/bbar/bpx are E8B0E582 guard-walk fields (the [R67] E4B_GUARD row), 0 hits on D74FE972, predicate ≠ s54_hit — no evidence against E1; exclusion with cause. ✓
+- **Budget** +6/+8, total +47, post 11549 ✓; census pins (S54VOID=1, CONFIRM_STALE_SKIP=2) match the blocks. ✓
+
+---
+
+## Q3 — UJ proposals clearance
+
+**Q3 verdict line: Q3-NO**
+
+**Q3 NO - the E-UJ3 flip-handoff accept predicate overreaches because, as written, it cannot confirm the very trade A-UJ3 grades.**
+
+The defect, disk-pinned:
+
+1. **Confirm-bar referent is fixed by the packet itself**: P029 ("seedbar == confirmBar 15:25" — [D74] LN, the poll's bar= at the 15:30 pass) and A-97NY ("retest 16:35 < confirm 16:40" — [R60] RJ, the poll's bar=) both establish confirm-bar = the CONFIRMPOLL bar= = the evaluated bar at the promotion pass.
+2. Under that referent, **"flip-bar < confirm-bar" (strict) excludes the same-pass flip** (flip-bar == confirm-bar).
+3. **Every later-pass route is closed by the pasted fields**: the qualifying flip bar is with-direction (bodyDir=direction, P037), so as the *prior* bar of the next pass it fails A_OPP (C2222-C2223: LONG requires c1 < o1) — the 14:45:00 pass (evaluating 14:40, prior = the bullish 14:35) can never confirm; the 14:50:00 pass fails B_BODY on the evaluated 14:45 bar ([R63] MH: bodyDir=0 body=1pts doji=0 vs C2226-C2229) even with A2 waived; passes ≥14:55 are unpasted and are not the 14:40 row in any case.
+4. The only completion consistent with his words ("14:35 flip-bar IS the confirmation") and A-UJ3 ("with-direction flip bar satisfies confirm (14:35)" → the 6/11 14:40 LONG) is **the 14:40:00 pass evaluating the flip bar itself** — exactly the structure E-UJ1 correctly uses for its own target (fire at 09:45 open off the 09:40 confirm=1 at the pass evaluating the confirming candle — [R63] DL). The strict inequality forbids precisely this. (If "14:40" were read as the confirm bar rather than the entry, the 14:45:00 pass evaluating it still fails A_OPP on the bullish 14:35 prior — broken under both readings.)
+5. If the intended referent was the confirm pass's wall bar (14:35 < 14:40 would pass), the packet never says so, and it contradicts P029/A-97NY. An unstated referent in the accept predicate is not "the exact flip handoff."
+
+**Fold needed (narrow)**: rule the same-pass edge explicitly — e.g., accept iff flip-bar <= confirm-bar when the FLIPSEEN was printed by the retest pass earlier in the same evaluation (the flip's own prior bar supplies oppCandle/touchAttr, the flip bar supplies bodyDir, A2 waived; E1/E2 precedence unchanged) — or re-derive A-UJ3's entry time. Predicate-time rows owed: the unpasted 14:40:00-pass CONFIRMPOLL decides whether the waiver alone captures the row or state-machine readiness also binds.
+
+**What clears in Q3** (so the fold stays one item): E-UJ1 (options i/ii bounded; DIV-refusal EA 8851-8869 excluded; locked-bar-only bound; 10:40 conditioning with predicate-time rows; P013 lock-commits/entry-next-open reconciliation; [R63] DL/QO anchors correct); E-UJ2 (booking+census paired — census read-only per C2410-C2413, so the pairing is necessary, not optional; source + trigger-semantics left as open questions; degenerate pin; nearest-wins/filter preservation); E-UJ3's FVG-yield boundary (yield only on the qualifying-flip bar; FRESHCOUNT 6-ref pin; FRESH_OPP_FVG/FRESH_OB_DEAD vetoes; sole-death no-kill per his corpus); the SETTLED line-identity fact is evidence-backed ([R63] MH anchor=Daily-POC), not a predicate ruling; nothing else asserted as ruled.
+
+---
+
+## Shared notes (non-blocking)
+
+- **Render-class observation**: the E1/E2a NEW blocks render their carried lines +1 space vs their old blocks (P057/P058/P092 vs P053-P055; P100-P102/P109 vs P095-P098), while E2b carries identically. Same class as the v4-answered E2b note ("rendering artifact only"); STAGE-1 exact-diff + char-code asserts on every old anchor and insert byte govern at build. Whitespace-only, no rule impact — flagged so the build gate reads it as expected drift-or-artifact, never silent.
+- Page-only ruling per the verification split: disk genuineness (D74FE972/633552/11502 re-hash, STAGE-1, battery counts) remains builder-disk + his-eyes; no file access asked. No key spent, nothing built/run/committed here. Dual-key effect: this seat's Q3-NO halts Q3; Q1 and Q2 stand clear from this seat.
+## V289-ENTRY-FULL END GLM (verbatim close; filed whole 1x this turn, novel inbound)

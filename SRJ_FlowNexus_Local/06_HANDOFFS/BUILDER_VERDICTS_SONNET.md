@@ -2079,3 +2079,35 @@ With that boundary clear, here's my actual read of the pasted diffs:
 
 If you want an answer I can actually stand behind at the "verified" level this process seems to want, the way to get that is to hand me the real `.mq5` file (or the relevant sections) directly — I can then check the diff against it line by line myself, rather than working from a description of what was checked elsewhere.
 ## V288-ENTRY-FULL END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V289-ENTRY-FULL OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+Sonnet:
+I'll answer this as a straight code-review of what's pasted here — I can't independently confirm disk hashes, "byte-diff 0" claims, or anything outside the text and code snippets included in this message, so my verdicts are scoped to that.
+
+**Q1 — S5.4 gate (E1): YES**
+
+The pasted diff matches the stated rule:
+- **Fence**: `if(g_state > ST_IDLE && g_state < ST_S5_GATE_CHECK && g_anchorBarTime > 0)` is identical to R2's fence (C7823), and there's no added regime check — matches "no regime gate."
+- **Seed-exclusive window**: `for(int s54_s = barShift; s54_s < s54_seedShift; s54_s++)` starts at the evaluation bar and stops before reaching `s54_seedShift` (the seed bar's index). Since MT5 shift indices increase going back in time, this walks evaluation→seed without ever touching the seed bar itself — matches the "seed bar never walked" ruling.
+- **Predicate**: `(g_dir==DIR_LONG) ? (s54_o>=s54_v && s54_c<s54_v) : (s54_o<=s54_v && s54_c>s54_v)` is a direction-matched strict open/close straddle of the line — a body break, not a wick touch. Matches "wick-through never kills."
+- **Fail-open**: unreadable buffer or zero OHLC increments `continue` (counted as skipped) rather than breaking — matches the stated fail-open behavior.
+- **Disposition**: state→IDLE, anchor line/time cleared, `LogState`, then `S54VOID` printed with bar/dir/poi/bbar/bpx/walked/skipped — matches R2's disposition shape and the named fields.
+
+I have nothing in front of me that contradicts the rule text.
+
+**Q2 — Recency + preservation (E2): YES, with one evidentiary gap flagged**
+
+- Both sites (`E2a` at the S3-PREBIND branch, `E2b` at the S4 edge) gate on the same predicate — `g_anchorBarTime > 0 && g_anchorBarTime < iTime(...,barShift)` — and both retain rather than promote on failure (E2a via early `return`, E2b via the `else` branch that simply skips the state transition). Neither touches `IsConfirmationCandle` itself.
+- The A-S54-827 timing claim checks out against the pasted `OnTick`/`EvaluateClosedBar` code: since `barShift` is always evaluated against the last fully-closed bar, a pass firing at 18:15:00 does correspond to evaluated bar 18:10 — consistent with "walk starts at the last closed bar."
+- **Gap**: the A-97NY claim that 9/7's seedbar is 14:55 (giving E2 a ~2h margin) isn't backed by any `ANCHOR_ELECT` row in the rows fence pasted here — only `RETESTBOOK 16:35` and `CONFIRMPOLL 16:40` are shown. The retest-before-confirm ordering (16:35 < 16:40) is evidenced; the specific seedbar value isn't. That's a documentation gap in what's pasted, not something that contradicts the code — so I'm not calling it a NO, but it shouldn't clear as fully closed until that row is produced.
+
+**Q3 — UJ proposals (E-UJ1/2/3): YES**
+
+Scoped honestly as proposals, not asserted as ruled:
+- Touch sites are named concretely (booking race 2396-2409, census 2441-2465, confirm terms 2222-2233, FRESHCOUNT's 6 refs, DIV-refusal region explicitly excluded from UJ1's bypass).
+- Options are presented as real alternatives (UJ1's bypass-list vs. touch-fallback-only) rather than a foregone conclusion, and the 10:40 false-positive risk is stated with a conditioning guard rather than hand-waved.
+- The flip-handoff predicate (`flip-bar < confirm-bar AND flip-bar >= seedbar AND same line AND E1/E2 first`, replacing only `A2_CLOSE_BREAK`) is precise and doesn't touch the other confirm terms.
+
+One soft spot worth tightening before this leaves proposal stage: UJ1's phrase "locks the next-order entry" is glossed as "committed-confirm, not market chase" — that's a clarification bolted onto a label that reads ambiguously on first pass. Not disqualifying, just worth rewording so a future reader doesn't misparse it as a market-chase instruction.
+
+I'll leave the "council"/transport mechanics (seats, keys, halts) alone — that's your process, not mine to certify. The above is my honest read of the logic as pasted.
+## V289-ENTRY-FULL END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
