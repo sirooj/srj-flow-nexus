@@ -3,17 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V302 GRADED)
+## State (2026-09-26, SCOPE DECIDED)
 
-- DQ1 0-3 NO, DQ2 1-2 halt, DQ3 1-2
-  halt (Astra halts both). Label triple
-  agrees. Result filed. Ledger 842.
+- Second 15m handle PROCEEDS on your
+  word. S2 re-scope dropped. Buffer
+  probe first. Ledger 843.
 
 ## Next (owed him)
 
-- YOUR two scope words (S2 pre-bind
-  re-scope + second 15m handle).
-  v5 drafts after answers.
+- Nothing owed. v5 drafts on decided
+  shapes (veto-able).
 
 ## Resume order (exact)
 

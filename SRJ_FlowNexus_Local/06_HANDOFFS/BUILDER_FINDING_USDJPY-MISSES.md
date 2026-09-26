@@ -110,4 +110,8 @@
 - His retarget object: "today's high is logically impossible becuase we flatten any position by the end of the session, so the scenario on 6/5 is the NY AM session high which closed at 19:00."
 - Builder record: EXITMODEL-1 Q6 already documents the exit-nearest rule ("even if less than 1R after the entry and revision") - record-first failure owned; R-ref + closed-session retarget are fresh rulings carried as stated.
 
+## Rulings-I 2026-09-26 (ledger 843; his words verbatim incl typos)
+- His redirect: "you're asking code technical aspect outside of my capability and role, just as what you're recommended as the best way. why would'nt the EA won't open the indicator? i don't even know what s2 is."
+- Builder record: DEFECT OWNED - mechanism + surface scope put to him (ROLES-FIRST); DECIDED same turn (technical-shape, veto-able): second M15 handle PROCEEDS on his "why wouldn't it" (approval); buffer-map probe first (no new surface); S2-pre-bind re-scope WITHDRAWN as unnecessary (unified S1 passage covers UJ1 once sourced); UJ2 buffer-extraction-first with M5-walk fallback; S2-state jargon banned with him going forward.
+
 (End of file)
