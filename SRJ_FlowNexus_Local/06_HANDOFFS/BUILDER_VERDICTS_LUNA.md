@@ -11057,3 +11057,45 @@ That keeps the repair causal rather than adding a second parallel intelligence l
 
 This is a **design-round ruling only**. It does not authorize a build, tester run, commit, or live activation; the packet itself explicitly reserves those actions for the subsequent gated implementation stage.
 ## V306-UJIMPL-7 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V307-UJIMPL-8 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling
+
+**DQ1R CONFIRM -** the B138-146 repair is correctly DEMOTED to cleanup-optional and OUT of the base surface, and the surviving DQ1 design stands: single existing FlowLogic/indicator path, confirmed H4/H1/M15 outputs selected through the existing export path, LTF_BIAS traced from `g_bufBias/currentBias`, same-pass consumption ordering, and probe-gated fail-closed behavior.
+
+**DQ4R CONFIRM -** the base surface is correctly WITHOUT BiasEngine: FlowLogic fill/LTF producer regions, HTFEngine state/output/latch verification, the existing EA FlowLogic handle, guards/probes, historical walker, 1R admission gate, touch/retarget integration, cache, plus S1 pre-hash/S3 recount; B140/144 remain cleanup-optional and E1/E2 remain byte-identical.
+
+DQ2 and DQ3 remain **CLEAR-carried** from v306 and are not reopened.
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **DQ1's “confirmed selection via C10667” is not yet literally true on the current code.** The FlowLogic input `inUseConfirmedHTFOnly` is `false`, the EA's `C10667` call also passes `false`, and `F1195-1200` therefore selects `outBias/outBias/outBias` rather than the confirmed outputs. The design is confirmable, but the implementation packet must explicitly resolve how that existing path is switched to confirmed output.
+
+2. **The source-row timing contract needs to be stated more mechanically.** The packet correctly requires the closed M15 bar eligible at the 09:45 boundary and distinguishes source-row time from stale/unready reads, but “C10667 confirmed selection” alone does not prove which M15 source row is represented at the M5 buffer index consumed by the EA. The implementation grade must prove source TF, source shift, source open/close, previous/current direction, and readiness exactly as the packet already requires.
+
+3. **There is a direct current-code mismatch on the R-at-open rule.** The packet pins the TP race to the would-be entry/open price, explicitly not the confirmation close, but the present S2POLL call sets `currentPrice = iClose(..., barShift)` before `ComputeNearestTpTarget`. That must be resolved in the implementation packet; otherwise the nearest target can be elected from the wrong reference.
+
+4. **The any-age historical-pool solution is specified but not demonstrated by the companion code excerpt.** The existing `FindNearestSwing()` remains a `+500` M5-bar walk, explicitly known to miss the April-30 target. The new `Bars(_Symbol, PERIOD_CURRENT)` extraction/walker is therefore a required future implementation surface, not something demonstrated by the current `FindNearestSwing` code.
+
+5. **Touch-retarget is a design requirement, not yet a demonstrated mechanism in this page.** The packet defines the event as touching the closed NY-AM H/L and requires re-election from the closed-session pool, while the code excerpts shown here demonstrate “touch” primarily as confirmation-candle geometry. Acceptance therefore needs an explicit post-entry event/re-election proof rather than relying on the existing `C_TOUCH` confirmation term.
+
+6. **The current confirmation evidence and the 15m-bias evidence must not be conflated.** The packet correctly separates the 5m confirmation at 09:40 from the 15m flip becoming eligible at the 09:45 boundary, but the implementation proof needs to preserve those as two distinct evidence timestamps. A single “confirm=1” row cannot establish the 15m source transition by itself.
+
+7. **The current LTF producer census is useful but does not itself prove ordering.** `g_bufBias` is written from `currentBias`, while `currentBias` can be changed in the Bias decision block. The packet correctly calls for an ordering trace; the implementation grade must show that the exported/read value corresponds to the intended state on the same evaluation pass rather than merely proving both writer locations exist.
+
+8. **The B-demotion rationale is now internally coherent.** `wasBiasFlip` is reset, is writable at the DecisionBlock, but the `B138-146` assignments are self-assignments and therefore do not constitute an externally consumed flip mechanism. That means removing/demoting them is logically separate from fixing the actual LTF/HTF producer path.
+
+### Analytic B — better mechanism
+
+The cleanest DQ1 mechanism is **one existing FlowLogic handle, no second handle and no EA-side mirrored bias algorithm**:
+
+* Fix/verify the HTF engine's confirmed-state production inside `SRJ_HTFEngine` (`H562-H577`), including the confirmation latch/state transition.
+* Make the existing FlowLogic export path at `F1195-F1200` the sole authoritative HTF export used for this purpose.
+* Explicitly make the EA's existing `C10667` path consume those confirmed outputs rather than the currently-selected live outputs; this should be a deliberate one-site change, not a new indicator copy.
+* Add a diagnostic tuple at that same export/read boundary containing source TF, source bar time, previous/current direction, confirmed/live selection, and readiness. That directly satisfies the packet's stale-vs-unaligned distinction without adding a second algorithm.
+* Keep `CheckLtfAlign()` at `C2270-C2276` as the downstream gate, because it already consumes the existing `FL_BUF_LTF_BIAS`; the new proof should establish that this buffer contains the correctly ordered `currentBias` value rather than replacing the gate.
+
+For DQ2, the better mechanism remains the packet's own **buffer-extraction-first historical pool**, not enlarging `FindNearestSwing(+500)`: the extraction must cover the authoritative history first, then the existing nearest-in-price comparator can remain intact.
+
+**Net:** both confirm questions are **CLEAR**, with the two material implementation points that must not be lost in the next packet being **confirmed-output activation/row identity** and **entry-open rather than confirmation-close TP election**. The relay itself correctly remains design-only: no build, run, spend, or live activation is authorized here.
+## V307-UJIMPL-8 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

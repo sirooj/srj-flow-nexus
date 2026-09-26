@@ -5467,3 +5467,53 @@ DQ4 RULED - surface + budget:
 
 Nothing else is asked; no key spent, nothing built or run here.
 ## V306-UJIMPL-7 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V307-UJIMPL-8 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+## DQ1R — B-demotion + surviving-design confirm
+
+**DQ1R-CONFIRM**
+
+**DQ1R CONFIRM - both halves stand.**
+
+(a) The demotion is airtight on the page: wasBiasFlip is write-only everywhere it appears — reset B19, self-assign no-ops B140/B144, write B271 — and no pulled FlowLogic or EA region reads it; LTF_BIAS is fed from `g_s.currentBias` at F1075, not the flag, so repairing the B138 branch cannot change any EA behavior; the 53/0 figure is file-text, never runtime (no such print exists on disk); B271 keeps the flag writable, so only the B138 branch is dead. Cleanup-optional (B140/144 only) and OUT of the base surface is the correct disposition. Note the conservative scope is right: B140/144-only removal leaves B19/B271 as live-but-unread writes, harmless; a full-flag removal would be a wider cleanup than ruled.
+
+(b) The surviving design stands unchanged by the correction: confirmed H4/H1/M15 export via the C10665-10667 iCustom argument flip selecting `outCBias` through the verified fill switch F1195-1200 (no indicator edit needed if the latch verifies — the switch already exists); LTF producer mapping banked (g_bufBias ← currentBias at F1075; writers init-126 + DecisionBlock-267); consumption siting before the earliest ordinary-path consumer and the promotion decision on the same once-per-bar pass (EA 11484-11492); guards outside the byte-identical E1/E2 sections (immediately above C8655/C8795); 09:45:00 and 14:35 probes with fail-closed halt; no second handle, no EA-side mirror.
+
+## DQ4R — surface-without-BiasEngine confirm
+
+**DQ4R-CONFIRM**
+
+**DQ4R CONFIRM - the base surface stands WITHOUT BiasEngine:** FlowLogic fill region F1195-1200 (verification/trace only — the input flip rides EA C10667) + LTF region F1070-1080 (trace only, producer already correct); HTFEngine latch/ordering verification (H562-577 GetOutputs + confirmed-latch timing); EA-side C10667 flip + alignment guards above C8655/C8795 + probes (readiness print, source-row bar-time fields) + any-age walker (Bars-bounded, EA 8836-8849 mirror) + 1R gate after SlRefMemo EA 7325 inside the S2POLL block (managed recompute EA 11095-11118 excluded, nearest-only) + touch trigger (swept-mask probe first, else managed-recompute head / TP_ELECT context) + day-keyed rollover cache with the SELHALT no-freeze guard; B140/144 cleanup-optional only; E1/E2 byte-identical; S1 pre-hash + S3 budget recount govern the implementation packet. No BiasEngine edit survives in the base surface; the LTF-trace obligation is read-only.
+
+## Analytic ask A — defects, gaps, imprecisions
+
+**A1 (highest weight) — EU preservation gap on the confirmed switch.** The C10667 false→true flip changes buffers 19/20/21 from live to confirmed votes for EVERY consumer, including ClassifyRegime (EA 2238-2267, votes at 2245-2248) on the EU tree. The only named EU preservation row is A-7PRESERVE (1R-gate entry-open reference, P025/P051). Since the EU window (P038) is graded on the edited tree, a changed EU regime classification or trade set would report as an unattributed regression. The implementation packet needs a sibling preservation row: EU-window trade-set + REGIMECENSUS population diff vs his 7-trade base tree, every diff attributed to the confirmed switch (the only vote-character change), veto-able to him — or his explicit knowingly-accepted word banked.
+
+**A2 — structural-flip propagation contingency is implied but not stated.** The banked census (currentBias writers = init-126 + DecisionBlock-267; the producer's `detectedBias != currentBias` branch B138-146 is a no-op) implies a 5m STRUCTURAL flip — his 9:25 — does not write currentBias; only the DecisionBlock OB-count flip does. If the 09:45:00 probe's "09:40-bar LTF_BIAS SHORT" half fails for this reason (P017's own "flip-path dead" trace phrase), A-UJ1-ROUTE halts fail-closed AND nothing in the ruled surface can deliver his 9:25 flip to the S2 gate: CheckLtfAlign (EA 2270-2276) reads FL_BUF_LTF_BIAS only, an alternate source is the withdrawn EA-side mirror, and a BiasEngine propagation edit is outside the surface. The packet should state this outcome branch explicitly (halt → finding → new round for a propagation repair under his fix-not-replace order, veto-able). "B140/144 cleanup-optional" is true for wasBiasFlip, but the no-op else-if is also the unimplemented structural-flip→currentBias propagation point — the leading root-cause candidate for the 09:45 S2WAIT row [R63 FJ]. Framing the region as merely inert dead code understates this.
+
+**A3 — DQ4R wording vs D1 repair authorization.** DQ4R says "HTFEngine latch/ordering verification" while D1 (P017) authorizes repairs ("engine update + confirmation-latch + buffer-binding + fill sites") as ruled candidates. If verification finds a latch defect, the repair is authorized by D1 but reads outside DQ4R's "verification" wording. The implementation packet should phrase it "verification, with D1-ruled repairs in-scope if verification fails."
+
+**A4 — producer census exhibit is one line short.** The census cites "init include-126" as a currentBias writer, but the companion pull stops at B124 and the SrjIsNa branch body (B125-137, containing that write) is elided. Exhibit B125-127 next round so the writer row is visually closed. Precision note only; the census is disk-banked.
+
+**A5 — P017 strike-layering.** The operative design sentence is buried under three generations of brackets ([STRUCK v8], WITHDRAWN v9, V7 SUPERSEDED). The implementation packet should carry a consolidated clean D1 with history in an annex — misreading the operative path is the main risk of this page shape.
+
+**A6 — detection-robustness option rides a withdrawn premise.** P017's "and/or... open-instant repaint at HTFEngine L115-118 + non-firing flip events, 53 bias / zero flip hits" inherits the withdrawn 53/0 count and the retired flip-EVENT reliance; with the confirmed switch in, EA consumers never read live outputs, so the surviving motivation is chart-display fidelity only. Restate the motivation or narrow the option into the latch verification (overlaps A3).
+
+**A7 — LTF export offset.** F1072-1075 writes at `target = i - 1`; each g_bufBias row's evaluation instant is loop-bounds-dependent and not pulled. The probe tuples (P049 V8 DELTA, source-row bar-time vs expected closed-bar time) cover it; recommend the readiness print also emit the processing index alongside target so the 09:40-row write instant is pinned without a second pull.
+
+**A8 (minor) — label drift.** The companion header calls B138-169 the "flip branch" while the relay text means the B138-146 no-op tail by "the B138 branch." Harmless; one consistent label in the implementation packet.
+
+## Analytic ask B — better mechanisms
+
+**B1 (for A1).** No same-run dual-mode read is possible (single handle; second handle withdrawn), so EU preservation must be a grade-run diff: EU window on the edited tree, diff trade set + REGIMECENSUS populations vs the base-tree journal, attribute every diff to the confirmed switch, route veto-able. Touches no code — an acceptance row in the implementation packet.
+
+**B2 (for A2).** No in-scope alternative exists; the fail-closed halt is correct. The improvement is procedural: pre-register the finding template so a flip-path-dead trace converts to a scoped repair ask in one round instead of two.
+
+**B3 (for A7).** One-line probe enhancement: emit processing index i and target in the readiness/LTF-trace print (inside the ruled probe surface, print-only).
+
+**B4 (latch verification).** GetOutputs (H570-577) already exposes both live and confirmed strings; an indicator-side debug print of `outBias` vs `outCBias` per M15 close during the probe window (near the H562-577 RunAll/GetOutputs sites, print-only, within the ruled verification surface) exhibits the confirmed-latch lag directly — stronger evidence than inferring latch timing from EA-side buffer reads alone.
+
+The core mechanism itself needs no replacement: the input flip through the existing fill switch is the minimal-surface path — zero indicator edits if the latch verifies.
+
+DQ2/DQ3 CLEAR carried untouched. No scope owed. Nothing else asked.
+## V307-UJIMPL-8 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

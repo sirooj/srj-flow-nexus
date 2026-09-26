@@ -11,9 +11,9 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-UJIMPL-1.md` v9 425E908C/21767/57 (B-premise withdrawn, producer census banked, surface without BiasEngine; UNBUILT - no key spent).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v307-UJIMPL-8.md` 5A92EBB4/91318/957, READY (slim DQ1R + DQ4R; DQ2/DQ3 CLEAR carried; twin 57/57, EA 525 + B 103 + F 71 + H 70, rows 30).
-- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V303-GRADE.md` (3 texts, DQ1 1-2 + DQ2 2-1 + DQ3 1-2 HALT; EOF-wording defect owned + fixed).
+- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-1.md` v1 D70596C6/6654/43 (issue: exact edits E1-E10 + acceptance; build gated on key + word).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v308-UJIMPL-9.md` EA5FB314/76735/954, READY (IQ1 + IQ2; twin 43/43, EA 525 + B 116 + F 71 + H 70, rows 30).
+- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V307-GRADE.md` (2 texts, DQ1R + DQ4R 2-0 CONFIRM; design CLEAR complete).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
 - Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
 - Your UJ answers (filed whole): `06_HANDOFFS\BUILDER_FINDING_USDJPY-MISSES.md` lines 48-54 + correction section at end.
@@ -29,7 +29,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## STALE - READ-ONLY HISTORY (superseded; cite only as labeled priors with file + marker + digest)
 
-- Relays: v287 (76E47DDF - transported, halted, verdicts filed) + v288 (949DF205 - transported, halted) + v289 (A16C295C - transported, halted) + v290 (0F4D0DA0 - DRAFTED, never transported, no verdicts exist) + v291 (7FCC60F2 - DRAFTED, never transported, no verdicts exist) + v302 (886AB7D8 - transported, graded per-leg HALT) + v303 (6C49FF9E - transported, graded per-leg HALT) + v304 (237883D6 - DRAFTED, never transported, WITHDRAWN on his fix-not-replace order, no verdicts exist) + v305 (6A8475C8 - transported, graded DQ1-3 1-1 HALT + DQ4 2-0 RULED, Sonnet advisory, Astra owed) + v306 (DDAD0B5A - transported, graded DQ1-3 2-0 CLEAR* amended + DQ4 RULED, Sonnet advisory, Astra parked-credits-out). Anything before v287: two-week history, same treatment.
+- Relays: v287 (76E47DDF - transported, halted, verdicts filed) + v288 (949DF205 - transported, halted) + v289 (A16C295C - transported, halted) + v290 (0F4D0DA0 - DRAFTED, never transported, no verdicts exist) + v291 (7FCC60F2 - DRAFTED, never transported, no verdicts exist) + v302 (886AB7D8 - transported, graded per-leg HALT) + v303 (6C49FF9E - transported, graded per-leg HALT) + v304 (237883D6 - DRAFTED, never transported, WITHDRAWN on his fix-not-replace order, no verdicts exist) + v305 (6A8475C8 - transported, graded DQ1-3 1-1 HALT + DQ4 2-0 RULED, Sonnet advisory, Astra owed) + v306 (DDAD0B5A - transported, graded DQ1-3 2-0 CLEAR* amended + DQ4 RULED, Sonnet advisory, Astra parked-credits-out) + v307 (5A92EBB4 - transported, graded DQ1R + DQ4R 2-0 CONFIRM, Sonnet none, Astra parked). Anything before v287: two-week history, same treatment.
 - Packets: `PACKET_P-ENTRY-2.md` (E1/E2 + cleared UJ prose, the build vehicle) + `PACKET_P-UJIMPL-1.md` (open design round) are live; every other `01_TASKS\PACKET_*` file is a closed round (built or retired - check the ledger line that closed it before citing).
 - Results before `BUILDER_RESULT_V292-GRADE.md`: snapshots only; the latest grade carries the live numbers forward.
 - Verdicts: `BUILDER_VERDICTS_*.md` hold every pasted seat text whole (Luna/Astra/Sonnet/GLM/Opus files). Markers named per round (V287/V288/V289/V292/V294/V295 headers filed 1x/1x; NO V290/V291/V293 markers exist anywhere - nothing was ever filed under them).

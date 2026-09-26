@@ -3,17 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V9/V307 FOLD GREEN)
+## State (2026-09-26, IMPL-1/V308 ISSUE GREEN)
 
-- V306 graded (DQ1-3 2-0 CLEAR* amended, DQ4 RULED).
-  B-premise withdrawn (producer census).
-  Relay v307 drafted-green, uncarried.
-  Seats: Luna + GLM (Astra/Opus parked).
-  Tree clean, quiet. Ledger 855.
+- Design CLEAR complete (v306 + v307 confirms).
+  Relay v308 drafted-green, uncarried.
+  Build gated: new Luna key + word.
+  Seats: Luna + GLM. Ledger 857.
 
 ## Next (owed him)
 
-- HIS v307 carry (paste whole to Luna
+- HIS v308 carry (paste whole to Luna
   + GLM, same text both).
   Then his verdict paste.
 
