@@ -10518,3 +10518,83 @@ That avoids changing the already-established confirmation semantics while making
 
 The two blockers are concrete: **UJ1 lacks the mapped 15m structural-bias source/timing predicate; UJ2 lacks an unbounded historical session/day H/L pool plus exact gate/retarget siting.** Q3 already has a coherent executable yield point at **EA 7265**, fed by the existing E1/E2 confirmation transitions.
 ## V299-UJIMPL-1 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V301-UJIMPL-2 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## v301-UJIMPL-2 ruling
+
+The packet is a **design round only**: no code edits, builds, runs, or budget are authorized by this file.
+
+### DQ1
+
+**DQ1-NO - the 15m structural-bias source is not mechanically identified, so no exact same-pass promotion route can yet be approved.**
+
+The packet establishes that the FlowLogic handle receives H4/H1/M15 inputs, but explicitly says **which buffer carries the 15m structural bias is unmapped**. The alternative `SrjSelSnapTF` route is only shown for M5 and H1; no M15 call exists. The ordinary promotion sites are known—S3-PREBIND and S4—but the source value cannot be proven to arrive before the promotion decision.
+
+The code companion reinforces that `SrjSelSnapTF()` is a fractal snapshot routine, with existing calls at M5 and H1, not an existing 15m structural-bias reader.
+
+**Required gap:** identify the exact FlowLogic bias buffer, or explicitly define a valid new M15 source and its depth, then pin the read to the closed M15 bar as of the decision tick and place it before the existing S3/S4 promotion edge.
+
+### DQ2
+
+**DQ2-NO - the required any-age historical pool is not mechanically implemented or exactly sited.**
+
+The existing `FindNearestSwing()` searches only `evalShift..evalShift+500`, and the packet says that range is already proven insufficient for the approximately 36-day-old April-30 level. The H1 snapshot is only 600 bars and is likewise described as insufficient for that historical requirement. The proposed “new deep lookup” is only a recommended shape; its implementation surface is explicitly unscoped.
+
+The existing booking race is usable as the integration point: `ComputeNearestTpTarget()` already walks the session/PD pool and POI pool, with nearest-distance selection in `TpTargetUpdateBest()`. The 1R admission location is also identified at the S2 TP-target consumer. But the census is explicitly read-only, and the touch/closed-session re-selection path is only described at design level, not as an exact implemented trigger.
+
+The current comparator itself is indeed nearest-by-price and direction-filtered, with the in-zone exclusion already present.
+
+**Required gap:** define and site the deep historical level pool, prove calendar-depth completeness, wire it into the existing unified booking race, put the 1R gate immediately after the winner is known at admission, and separately define the post-entry closed-session touch/retarget event.
+
+### DQ3
+
+**DQ3-NO - no existing gate mechanically admits the 14:35-class bias-aligned, flip-confirmed setup past S1WAIT.**
+
+The packet records the required setup precisely: the 14:35 candle contains flip + retest + confirmation, entry is the 14:40 open, and later bars are not selection evidence. Yet the actual demonstrated path at 14:40:22 is `S1WAIT` with `REGIME_NONE`, and the existing classifier only computes HTF votes plus the sweep-derived mean-reversion condition.
+
+The existing code confirms that `ClassifyRegime()` derives `trendOk` from HTF buffers 19/20/21 and `mrOk` from the sweep tag; when neither is true it returns `REGIME_NONE`. The caller then retains the candidate at S1 rather than passing it onward.
+
+The confirmation predicate itself is intact: the prior bar must satisfy the opposite-candle and close-side terms, while the evaluated bar must have directional body and touch the anchor.
+
+**Required gap:** an explicit regime-passage predicate has to be integrated into the existing S1 decision so that the already-confirmed, bias-aligned setup can proceed through the ordinary S1→S2→S3 path without relying on the invalid SUPPRESSED mechanism.
+
+---
+
+## Analytic A — defects / gaps / imprecisions
+
+**1. Packet-version inconsistency.**
+The header identifies this as v301 and says packet v2, while the embedded “Twin” says `PACKET_P-UJIMPL-1 v1 DRAFT`, then labels the status **v3**. That should be normalized before implementation so the canonical packet identity is unambiguous.
+
+**2. DQ1's evidence contract is incomplete by construction.**
+The acceptance rule requires a declared 15m-read timestamp, but the source buffer itself is still unmapped. Thus the requested event tuple cannot currently be generated with a genuine source identifier.
+
+**3. DQ2 mixes “booking integration is known” with “historical pool is known.”**
+Those are separate proofs. The booking race is identifiable, but the any-age source pool is not. A passing integration point does not establish a passing historical lookup.
+
+**4. The DQ2 touch trigger is still conceptual rather than mechanically pinned.**
+The packet says touch of today's NY H/L is the event and closed-session re-election is the response, but the exact live consumer/state transition is not pinned to a concrete code site in this design round.
+
+**5. DQ3 has a provenance mismatch that needs to remain explicit.**
+The required 11-June context is described as 4H bullish until 6/12 00:00, while the journal record is said to differ on 4H; meanwhile the machine `ClassifyRegime()` uses the three HTF buffers generically rather than a specifically identified 4H chart-state predicate. That is acceptable as documented provenance, but not yet an unambiguous machine predicate.
+
+**6. Session scope is evidenced, but not shown as part of the regime admission predicate.**
+The indicator's session definitions are present, including London and NY, but the packet does not yet show the exact S1 passage site consuming those session constraints.
+
+---
+
+## Analytic B — better mechanisms
+
+**DQ1:** use the existing `g_hFlow` rather than `SrjSelSnapTF()`. First map the actual FlowLogic structural-bias buffer, then read the **closed M15 bar corresponding to the decision tick** and latch that value before the existing S3-PREBIND/S4 confirmation promotion. `SrjSelSnapTF()` is the wrong abstraction because its present implementation snapshots fractal buffers, not structural-bias state.
+
+**DQ2:** create a dedicated historical session/PD level pool with explicit calendar coverage, then feed that pool into the existing `ComputeNearestTpTarget()` race rather than extending `FindNearestSwing()`. Preserve `TpTargetUpdateBest()` as the single nearest-by-price comparator, and perform the 1R check immediately after the unified winner is selected. That keeps booking and admission semantics centralized.
+
+**DQ3:** do not create a second state machine or resurrect SUPPRESSED. Fold a **bias-aligned flip-confirmed admission predicate into the existing S1 regime decision**, so a valid 14:35-class setup can obtain a normal `S1→S2` transition when the required 15m flip, HTF context, session eligibility, and already-established confirmation are all true. That preserves the existing downstream path and avoids a parallel bypass route. The current S1→S2 transition is already the natural insertion point.
+
+### Bottom line
+
+**DQ1-NO** — source identity is missing.
+**DQ2-NO** — any-age historical pool and exact retarget implementation are missing.
+**DQ3-NO** — the required S1 regime-passage gate does not exist on disk.
+
+Accordingly, this packet **does not clear an implementation build**. The three design gaps should be resolved in the next implementation packet, with the existing E1/E2 path preserved and no live/build action taken from this verdict. The packet itself confirms there is no run proposed in this round.
+## V301-UJIMPL-2 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

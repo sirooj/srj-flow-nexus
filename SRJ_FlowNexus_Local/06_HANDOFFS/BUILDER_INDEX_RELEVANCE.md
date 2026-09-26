@@ -12,8 +12,8 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-1.md` v2 86A93F63/9726/57 (re-scoped UJ3 + pulls + slips fixed; UNBUILT - no key spent).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v301-UJIMPL-2.md` D1D6CB19/64226/750, READY (DQ1/DQ2/DQ3; twin 57/57, EA 475 + B 54 + F 54, rows 28).
-- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V299-GRADE.md` 432C6239/3885/28 (4 texts, Q1 NO + Q2 NO + Q3 halt, Sonnet advisory).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v301-UJIMPL-2.md` D1D6CB19/64226/750, GRADED per-leg (DQ1/DQ2/DQ3 halt; v4 owed).
+- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V301-GRADE.md` AF947990/3589/31 (3 texts, DQ1 NO + DQ2 halt + DQ3 halt, Sonnet none).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
 - Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
 - Your UJ answers (filed whole): `06_HANDOFFS\BUILDER_FINDING_USDJPY-MISSES.md` lines 48-54 + correction section at end.

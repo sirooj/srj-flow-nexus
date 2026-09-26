@@ -17145,3 +17145,104 @@ These are independent implementation-design verdicts. They do not reopen the car
 
 The implementation round remains unresolved on all three legs for separate, concrete reasons. The page supports these mechanism directions, but not exact, reviewable source-and-route, gate-and-trigger, or yield siting sufficient for a YES.
 ## V299-UJIMPL-1 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V301-UJIMPL-2 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+DQ1-NO
+DQ1 NO - The FlowLogic HTF-low slot is the leading M15 source candidate, but its structural-bias producer, closed-M15 timestamp semantics, and earliest-consumer ordering are not established by the supplied code; the ordinary same-pass route to S3-PREBIND or S4 is also incomplete.
+
+DQ2-NO
+DQ2 NO - The historical-pool integration slots are identifiable, but authoritative history coverage, historical level eligibility, the final admission-price/stop consumer, and the executable touch-trigger path remain unspecified. EA 7307–7312 cannot alone host a complete 1R gate because the stop lookup follows it.
+
+DQ3-NO
+DQ3 NO - The exhibited failure is REGIME_NONE at EA 8059–8060, but the page does not establish why the chart-aligned H4/M15 states become only one aligned vote, or supply an authorized alternate regime predicate. Bypassing S1WAIT would conceal that unresolved source or classification defect.
+
+These are independent implementation-design verdicts. E1/E2 remain CLEAR-carried and are not re-asked. I am ruling on the supplied page, not attesting to disk hashes, byte identity, or transport history.
+
+**Analytic A — defects, gaps, and imprecisions**
+
+1. **DQ1: a likely buffer mapping is not a verified source contract.**
+EA 10665–10667 passes H4/H1/M15, EA 202–204 names HTF high/mid/low as 19/20/21, and EA 2240–2247 consumes those slots as signed votes. That makes buffer 21 the natural M15 candidate. However, F58–F60 supplies array declarations, not buffer bindings or the assignments that establish their meaning. P017 correctly calls the mapping unproved; the additional excerpts narrow the investigation without closing it.
+
+2. **DQ1: “closed-M15 discipline” is a requirement, not demonstrated behavior.**
+P017 requires the 09:30–09:45 M15 result at the 09:45 decision boundary. F252 and EA 10667 instead establish that confirmed-only mode is false. This does not prove the exported historical value is wrong, but it prevents treating it as confirmed merely because the EA reads M5 `barShift=1`. The producer must establish which M15 interval each M5-indexed value represents, when that value becomes available, and whether later data can change it.
+
+3. **DQ1: the M15 snapshot alternative is not a structural-bias implementation.**
+EA 3045–3055 describes an iFractals snapshot and copies upper/lower fractal buffers. A new call would provide fractal events, not automatically the operator’s M15 structural-bias state or flip. Further, EA 3048 distinguishes H1 from everything else. Its remaining storage and projection logic is not supplied. An M15 call could enter an existing non-H1 path; independence from M5 storage must be established before choosing this mechanism. Moreover, C3052–C3054 read fractal events and timestamps, not a structural-bias verdict. Snapshot depth alone cannot supply the missing bias semantics.
+
+4. **DQ1: the exact source-read insertion point remains open.**
+EA 11490 calls `LoadWorkingSet` before `EvaluateClosedBar` at 11491. If either working-set loading or earlier evaluation logic consumes the relevant bias, a read placed only before promotion is too late. P017’s “earliest ordinary-path consumer” requirement is sound, but the first such consumer is not identified.
+
+5. **DQ1: the ordinary route is only partially exhibited.**
+EA 8061–8077 shows S1→S2→S3 without an intervening unconditional return when regime and alignment pass. EA 8668 and 8805 shows the confirmation edges. The intervening S3 logic, its returns, and the UJ1 candidate’s state on that pass are not fully supplied. `CONFIRMPOLL confirm=1 shadow=true` proves the reported shadow result, not that the ordinary candidate reaches either live promotion site. Historical R67 `CONFIRM_PREBIND_S2` rows cannot close this gap on D74.
+
+6. **DQ1/DQ3: E1/E2 precedence is stated but not mechanically specified.**
+P018, P033, P046 and P048 require E1-walk and E2-recency first. The companion names EA 7822–7856, but does not reproduce that block. A design must show where their results become authoritative and how a failed result prevents admission. This is a placement-proof gap, not a challenge to the carried rulings.
+
+7. **DQ2: “any age” lacks an operational completeness boundary.**
+P024’s completeness contract is necessary, but “authoritative history coverage stated” needs a defined start, acquisition source, synchronization status, and treatment of missing intervals. Exhausting locally available bars establishes the available-history boundary; it does not by itself establish all eligible historical levels. Merely removing the 500-bar or 600-bar cap cannot prove nearest-any-age.
+
+8. **DQ2: the cache needs session identity and time semantics, not only day keys.**
+P024 recommends a day-keyed cache at EA 5005–5010. F321–F327 shows NY-time sessions, an overnight Asia interval, and a broker-midnight daily anchor. Historical records must distinguish day highs/lows from session highs/lows and preserve the correct start, close, timezone conversion and source coverage. A single broker-date key is insufficient to express those facts.
+
+9. **DQ2: historical eligibility cannot be inherited blindly from the current mask.**
+EA 2367–2368 and 2397–2401 apply an index-based mask to the existing 18 slots. The page supplies no corresponding validity representation for arbitrary older sessions. New historical records need attributable live/closed and swept-status decisions consistent with the existing rule. Their age alone must not exclude them, but “any age” does not establish every other eligibility condition.
+
+10. **DQ2: missing mask data has no demonstrated fail-closed disposition.**
+EA 2368 and 11098 replace a failed mask read with `EMPTY_VALUE`; `TpSessionLevelFiltered` is not supplied. Therefore the page does not establish whether unavailable eligibility data rejects candidates, rejects the election, or admits them. Pool-proof cannot assume the favorable interpretation.
+
+11. **DQ2: the 1R gate’s proposed location precedes its required stop evidence.**
+EA 7307–7312 handles target-election failure. The stop reference is declared at 7314 and requested at 7325; its success branch is not shown. A valid ratio requires the elected target, a valid directional stop, and the admission price. The gate belongs after those inputs are established, not inside the no-target failure branch.
+
+12. **DQ2: the exhibited price is a prior close, not established entry pricing.**
+EA 7305 uses `iClose(..., barShift)`. The stipulated trade enters at N+1 open. A gap or executable-price difference can change both the nearest eligible target and its R distance. An early poll may reject obvious failures, but it cannot certify final admission unless its price is explicitly established as the authoritative admission reference.
+
+13. **DQ2: exact landing does not currently reach the proposed ratio check.**
+P023/P025 treats exact landing as a sub-1R case. EA 2305 rejects equality before the nearest-distance comparison. An equal-price session level therefore never becomes the winner; another farther candidate may win. “Comparator unchanged” plus “single post-race check on the winner” does not implement the stated exact-landing refusal. The design must explicitly reconcile this without silently rescuing the trade through a farther level.
+
+14. **DQ2: census mirroring alone cannot establish pool proof.**
+EA 2441–2465 omits the session mask and zone exclusions used by booking and assigns names by last-equal matches. Its 2,000-dump limit is explicit at 2421–2424. Inserting a historical naming loop at 2451/2452 preserves a diagnostic, but does not make it authoritative evidence of membership, completeness or winner provenance.
+
+15. **DQ2: admission and managed elections would otherwise use different historical universes.**
+The proposed historical booking loop at 2402/2403 does not affect the separately implemented managed race at 11099–11114. If retargeting must re-elect from the closed historical pool, that path needs the same historical enumeration. The admission-only 1R gate must remain outside managed recomputation.
+
+16. **DQ2: the trigger and snapshot discipline have no exact executable site.**
+P025 gives EA 10087 as shadow design context, not the trigger body. EA 11484–11492 processes once per new M5 bar, so the page also needs to distinguish immediate tick-touch handling from detecting a completed bar’s wick touch at the next evaluation.
+
+17. **DQ3: the evidence identifies the refusal, not its upstream cause.**
+CI/IH establish REGIME_NONE with one aligned vote and no sweep. EA 2245–2248 requires two aligned votes. Under the supplied chart ruling, correctly represented bullish H4 and bullish M15 would already provide two votes for LONG. The census does not print individual values or source timestamps, so it cannot distinguish an H4 error, M15 error, mapping error or timing error. A new regime exception is premature.
+
+18. **DQ3: the confirmation excerpts do not independently prove the flip event or same-bar retest attribution.**
+EA 2198–2203 and 2222–2231 tests the prior candle’s opposition, close-side and touch, plus the evaluated candle’s body. It contains no structural-flip test and no evaluated-candle high/low touch test. FN’s shadow confirmation is accepted as supplied evidence; it should not be described as independently proving every component of “flip + retest + confirmation on 14:35.” Preserve the predicate, but show how the existing retest and flip evidence joins the same candidate and confirmation bar.
+
+19. **DQ3: session validity is asserted without its operative gate being shown.**
+F321–F326 supplies configuration; it does not show the EA’s session-admission consumer or prove how operator-facing London 09:00 maps to those timestamps. Likewise, the BiasEngine excerpts are not a timestamped HTF export contract. Any passage design needs the operative session result for the candidate, not a new conversion inferred from the labels.
+
+20. **DQ3: suppression remains ambiguously present in the acceptance wording.**
+P031 expressly withdraws SUPPRESSED as this failure mechanism, while P048 and DQ3 still say “S1WAIT/suppression.” Separate the obligations: regime passage is the exhibited repair target; invalid cross-session suppression is a distinct diagnostic or acceptance condition. The latter cannot justify an otherwise unspecified suppression bypass.
+
+21. **Packaging and proof precision.**
+P001 still says v1 while P003 says v3. P005 says an S1 recount governs the implementation packet, whereas P037/P050 assigns code-surface budgeting to S3. Normalize those labels. Also, preserve the distinction between the required 14:40 evaluation boundary and the observed 14:40:22 evaluation time: the latter does not prove an execution at the exact opening price. P049 usefully keeps both timestamps.
+
+**Analytic B — better mechanisms and their prospective code surfaces**
+
+**DQ1: prefer the existing FlowLogic source, subject to producer proof.**
+Trace the binding and assignments behind F58–F60 and EA 202–204, including the HTF engine’s closed-bar selection. If buffer 21 satisfies the required contract, consume that authoritative value before the earliest relevant ordinary consumer associated with EA 11490–11491 and EA 2240–2242. Do not substitute a fractal snapshot for structural bias.
+
+Then preserve the ordinary route through EA 8059–8077 and the existing promotion edges at 8668 or 8805. Its proof must include E1/E2 results, candidate identity, source interval and availability time, and actual state transitions. If that path does not reach an existing promotion edge on the same pass, fail A-UJ1; do not add an S2 confirmation edge.
+
+**DQ2: use a shared historical-level enumerator backed by closed-period records.**
+EA 5005–5010 is a reasonable proposed preparation site, provided every election receives an up-to-date, as-of snapshot. Records should carry symbol, day/session identity, start/end, high/low, coverage and eligibility provenance. Cache depth must follow the completeness contract, not a replacement fixed lookback.
+
+Insert historical candidates between EA 2402/2403 and into the managed race between 11104/11105. Preserve the ordinary nearest-price comparator at 2301–2322, while resolving exact landing explicitly as an admission eligibility issue before it can disappear from consideration. Add the naming mirror at 2451/2452 only as a diagnostic; authoritative proof should originate from the actual election and coverage result.
+
+Insert historical candidates between EA 2402/2403 and into the managed race between 11104/11105. Preserve the ordinary nearest-price comparator at 2301–2322, while resolving exact landing explicitly as an admission eligibility issue before it can disappear from consideration. Add the naming mirror at 2451/2452 only as a diagnostic; authoritative proof should originate from the actual election and coverage result.
+
+Place the admission-only 1R decision after successful stop resolution following EA 7325 and at the authoritative pre-order price consumer, whose exact line is absent here. Reject an under-1R nearest result without electing a farther substitute. The touch-trigger site must be identified in the executable managed path around the cited EA 10087 context; the page cannot support a more exact insertion line.
+
+**DQ3: repair demonstrated source fidelity before adding a passage exception.**
+Expand the evidence at EA 2240–2247 and 2262 to include named H4/H1/M15 values, per-slot value rows at the 6/5 09:45 M15 boundary, and confirmation status. Establish the candidate’s London/NY eligibility and E1/E2 precedence.
+
+If corrected authoritative H4 and M15 inputs produce two aligned votes, the existing `trendOk` test at 2248 and assignment at 2263 already supply passage through EA 8061–8077. That is the preferred mechanism: preserve the regime threshold and confirmation predicate, and correct the proven data defect at its source or consumer.
+
+If reliable inputs still yield fewer than two votes, a new exception requires an explicit general predicate and authority beyond the displayed implementation. Neither “flip-confirmed” nor the June 11 example specifies that exception sufficiently to implement it. No freshness relocation, suppression-as-killer theory, DIV bypass, or post-entry candle re-evaluation is justified by this page.
+## V301-UJIMPL-2 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

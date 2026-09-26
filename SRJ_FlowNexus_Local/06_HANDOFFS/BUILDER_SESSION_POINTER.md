@@ -3,17 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V301 READY)
+## State (2026-09-26, V301 GRADED)
 
-- Packet v2 + relay v301 battery-green
-  (D1D6CB19/64226/750): DQ1 source+
-  route, DQ2 lookup+siting, DQ3 regime
-  passage, S1 death rows in. Ledger 838.
+- DQ1 0-3 NO, DQ2 1-2 halt, DQ3 1-2
+  halt (Astra halts both). Draft slips
+  owned (labels, cites, math, fence).
+  Result filed. Ledger 839.
 
 ## Next (owed him)
 
-- Carry v301 whole to all seats (one
-  text each). Nothing else owed.
+- YOUR three veto words (1R price
+  reference, kill-vs-retain, retarget
+  shape). v4 drafts after answers.
 
 ## Resume order (exact)
 
