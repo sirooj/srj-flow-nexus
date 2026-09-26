@@ -16,7 +16,7 @@
 ## 4. Same-turn disk verification of every checkable claim
 - E2-vs-UJ1 clash (GLM 1-5, Astra): HOLDS end-to-end. DK+LS share the 09:40:00 pass (timestamps re-pulled); E2 strict-< fails 09:35==09:35 (packet's own P029/P103/P130 text); E2a/E2b absent from E-UJ1's census (8668/8805 hit only the edit-set headers); E1 window empty on seedbar==evaluation bar (P021 text). A-UJ1 unreachable as scoped - blocking-grade, owned.
 - A2-before-B_BODY (Astra): HOLDS (C2224 A2 returns before C2229 B_BODY; LS exposes no failTerm). A-UJ1's exclusive "=" softened to "B_BODY fails, A2 unresolved".
-- P010 stale mapping (Astra): HOLDS (v7 fixed P031, missed P010). Extra: builder's own pre-fold probe returned a false 0 on it (single-pattern trust, no second form) - owned alongside.
+- P010 stale mapping (Astra): HOLDS on v7, FIXED by the v8 fold (git -S: stale string added in a955a32, removed in be448e8; hunks cover line 10). A mid-turn grep returned a false 0 on the same bytes (single-pattern trust defect, owned - pair probes always). A later false "already-fixed" correction built on confusion is WITHDRAWN here in favor of git-object ground truth (see ledger 815).
 - Traceability "locked" (Astra): HOLDS (relay L452 v2-era bypass wording). Fixed in fold.
 - UJ3 E2-eligibility (GLM c): corroborated (R63 elect rows: 14:05 SEED + 14:20 LONG SEED; none at the 14:40 pass; seedbar 14:20 < 14:35 so E2 passes).
 - E-UJ2 incomplete-by-design: AGREED (source + trigger stay open questions; no implementation clearance asked or implied).
