@@ -3,21 +3,20 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V295 GRADED + V296 DRAFT)
+## State (2026-09-26, HIS 3 QS ANSWERED)
 
-- V295 verdicts graded NO-CLEAR
-  Q3 1-2 (Luna + Astra NO,
-  GLM YES). Fold v12 + relay
-  v296 battery-green DRAFT
-  (A63D1F82/56177/469). No build,
-  run, key. Ledger 821.
+- His 3 answered plain (same-logic
+  kept, jargon withdrawn, retarget
+  = today's NY high). Fold v12 +
+  relay v296 DRAFT stand. No build,
+  run, key. Ledger 822.
 
 ## Next (owed him)
 
-- HIS three plain-words answers
-  (UJ1 scope + UJ2 source +
-  UJ2 trigger). v296 transports
-  after his words.
+- HIS two trade calls (UJ2 range:
+  30 Apr oldest, or older; exceed:
+  wick or close). UJ1 scope word
+  still owed, unasked today.
 
 ## Resume order (exact)
 
