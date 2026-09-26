@@ -3,17 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, INDICATOR-FIRST)
+## State (2026-09-26, V303 READY)
 
-- 15m vote exists (buffer 21) with no
-  flip timing. Refine indicator first,
-  second copy only if needed. Your
-  direction. Ledger 844.
+- Packet v5 + relay v303 green
+  (6C49FF9E/71540/799) with dup-proof
+  + audit discipline. Ledger 845.
 
 ## Next (owed him)
 
-- Nothing owed. v5 carries indicator-
-  first design (veto-able).
+- Carry v303 whole to all seats (one
+  text each). Nothing else owed.
 
 ## Resume order (exact)
 
