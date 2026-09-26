@@ -161,3 +161,7 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 - EA-NEVER-MAPS-HIS-WORDS: his bar labels are never translated into EA pass-times inside any record of his rule (v291: ledger 750 banked "(9:35 + 9:40 + 9:45)" as his verbatim when the middle terms were builder EA-mapping from ledger 749; corrected ledger 809, never quoted again).
 - TRANSPORT-STATUS-PROOF: every relay status word (transported/halted/drafted) is proven by verdict-marker counts on the same turn it is written (v291: "v290 TRANSPORTED + V290 markers 1x/1x" written with zero V290 markers on any verdict file - the v289 set misattributed to v290; withdrawn in v292 + result + ledger the same turn the count proved it).
+
+## 14. Bar-stamp rule (his order 2026-09-26 - bare "9:45" caused four turns of confusion)
+
+- Every clock-time in builder output and record carries date + session + time + bar role on first use per context (retest / confirmation / entry), e.g. 5 June London 09:35 (retest + confirmation bar), entry 09:40 open; 11 June New York 14:35 (retest + confirmation bar), entry 14:40 open. The 5 June London 09:45 bar and the 11 June New York 14:45 bar are post-owed-entry by his rule - named whole, never bare. AGENTS.md BAR-STAMP governs; this gate enforces it in review (a draft with a bare bar fails battery the same turn).
