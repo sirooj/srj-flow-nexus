@@ -3,12 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, BYPASS DROP CONFIRMED)
+## State (2026-09-26, V297 DRAFT)
 
-- Old bypass dropped on his confirm
-  (nothing carries into the 15m road).
-  Next fold drafts 15m road + UJ2 +
-  UJ3 for council. Ledger 825.
+- Packet v13 + relay v297 battery-green
+  DRAFT (8B4D3CB6/58748/477): 15m road
+  + specified UJ2 + carried UJ3, his
+  words INLINE. No build, run, key.
+  Ledger 826.
+
+## Next (owed him)
+
+- Nothing owed. v297 transports on
+  his word (paste whole to all seats).
 
 ## Next (owed him)
 

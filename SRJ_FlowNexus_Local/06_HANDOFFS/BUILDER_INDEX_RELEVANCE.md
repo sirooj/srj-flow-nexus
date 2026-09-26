@@ -11,8 +11,8 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v12 16872F87/26182/173 (UJ1 withdrawn + UJ2 parked + UJ3 alone; UNBUILT - no key spent).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v296-ENTRY-UJ3.md` A63D1F82/56177/469, DRAFT (UJ3-only re-clear; twin 173/173 diff 0, code 212 diff 0, rows 26).
+- Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v13 66C12546/26350/175 (15m road + specified UJ2 + carried UJ3; UNBUILT - no key spent).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v297-ENTRY-UJ123.md` 8B4D3CB6/58748/477, DRAFT (three-leg Q3; twin 175/175 diff 0, code 212 diff 0, rows 26).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_V295-GRADE.md` 638E8644/3857/28 (3 texts, Q3 halted 1-2, Sonnet none).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
 - Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
