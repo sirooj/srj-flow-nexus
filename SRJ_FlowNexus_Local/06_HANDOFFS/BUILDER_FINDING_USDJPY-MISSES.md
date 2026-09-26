@@ -79,6 +79,11 @@
 ## Rulings-E 2026-09-26 (ledger 832; his words verbatim incl typos)
 - His source questions + redirect: "so where does the EA get's the HTF bias direction currently? how does the EA correctly detecting the valid trend following setups if it can't see the HTF structural bias? i thought currently is getting it from the SRJ Flow Logic auto MTF HTF bias detection? i am aware that the detection is historically not realiable that might explain it is not getting the most accurate and up to date HTF bias. if so, then logically it is better to refine the SRJ Flow Logic indicator MTF bias detection rather than the EA having it's own MTF HTF detection. this is coming from tarder and non coding people perspective."
 - His scope word: "yes" (to opening the indicator file as evidence for the 15m read).
-- Builder answers filed: EA reads bias OUT of his indicator (LTF bias buffer EA 2273 + EA 11300; no EA-side HTF variable; all bias feeds indicator-fed); indicator HEAD digest 956BF3E3 via committed companion 66da45c (§9 line stale, diagnosed never assumed); mirror path dropped on his redirect; indicator edits stay canonical-gated.
+- Builder answers filed: EA reads bias OUT of his indicator (LTF bias buffer EA 2273 + EA 11300; no EA-side HTF variable; all bias feeds indicator-fed
+
+## UJ3-MECHANISM CORRECTION 2026-09-26 (ledger 833; refutes the FVG-yield premise with segment rows)
+- Refutation (RECON63 segment, count-asserted): the 14:40:22 decision pass for the 11 June 14:35 setup = 13 rows showing S1 SUPPRESSED (singleton held, heldState=S1_REGIME) + S1WAIT regime-unclassified retention + REGIMECENSUS votes=1 trendOk=0; zero freshness involvement. bar=14:35 with ABORT/HOLD/FRESH/STATE = 3 rows across ALL passes, all S1-stage. FRESHCOUNT on June-11 14:40-14:50 = 2 rows for OTHER bars (14:45/14:50, HOLD scope=pre adverse=1). ABORT_FRESH on June-11 = 0.
+- Withdrawn: "refused post-confirm by FRESHCOUNT HOLD on fvgDead" (all instances v291-v298 + V298 CLEAR UJ3 leg + v299/v300 Q3). Actual evidenced refusal: S1 suppression (slot held, xobId 3070 per IDCHANGE row) + S1WAIT regime-unclassified retention. Polls QF/FN/CE prove predicates only, never promotion or death.
+- Next: S1-suppression diagnosis (slot-holder + votes=1 cause), then UJ3 re-scope; v300 HELD until then.); indicator HEAD digest 956BF3E3 via committed companion 66da45c (§9 line stale, diagnosed never assumed); mirror path dropped on his redirect; indicator edits stay canonical-gated.
 
 (End of file)

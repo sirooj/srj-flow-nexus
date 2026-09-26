@@ -3,25 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, INDICATOR RULED)
+## State (2026-09-26, UJ3 REFUTED + V300 HELD)
 
-- Bias comes from your indicator (EA
-  reads its buffers; no EA-side HTF
-  brain). Your redirect carried:
-  refine the indicator, mirror dropped.
-  Scope YES used. Ledger 832.
-
-## Next (owed him)
-
-- Nothing owed. v2 pivots to
-  indicator-MTF design (veto-able);
-  indicator edits stay council-gated.
+- 11 June 14:40 pass = S1-held, zero
+  freshness. FVG premise withdrawn,
+  V298 UJ3 leg withdrawn, v300 HELD.
+  Tallies stand. Ledger 833.
 
 ## Next (owed him)
 
-- Nothing owed. Next fold drafts the
-  15m road + specified UJ2 + UJ3
-  for council (veto-able).
+- Nothing owed. Next block: S1-slot
+  diagnosis, then UJ3 re-scope.
 
 ## Resume order (exact)
 
