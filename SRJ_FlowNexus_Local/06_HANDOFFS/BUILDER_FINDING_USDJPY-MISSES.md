@@ -76,4 +76,9 @@
 - Journal corroboration (read-only, row 17, 6/5/26 LDN TF: 4H Bear, 1H Bear, 15m Bull, Bias bear): the 15m column stands bullish against a bear bias on his sheet - the waiting-for-15m shape, matching his account that the 15m only confirmed bearish at the entry candle.
 - Builder rule carried: STRUCTURAL-BIAS-FLIP TIMING - 5m flips first, 15m confirms at the entry-candle open, entry enabled by the 15m flip (trend-following bias); a road demanding lineup before the entry candle can never fire it - the road takes the 15m confirmation ON the entry candle.
 
+## Rulings-E 2026-09-26 (ledger 832; his words verbatim incl typos)
+- His source questions + redirect: "so where does the EA get's the HTF bias direction currently? how does the EA correctly detecting the valid trend following setups if it can't see the HTF structural bias? i thought currently is getting it from the SRJ Flow Logic auto MTF HTF bias detection? i am aware that the detection is historically not realiable that might explain it is not getting the most accurate and up to date HTF bias. if so, then logically it is better to refine the SRJ Flow Logic indicator MTF bias detection rather than the EA having it's own MTF HTF detection. this is coming from tarder and non coding people perspective."
+- His scope word: "yes" (to opening the indicator file as evidence for the 15m read).
+- Builder answers filed: EA reads bias OUT of his indicator (LTF bias buffer EA 2273 + EA 11300; no EA-side HTF variable; all bias feeds indicator-fed); indicator HEAD digest 956BF3E3 via committed companion 66da45c (§9 line stale, diagnosed never assumed); mirror path dropped on his redirect; indicator edits stay canonical-gated.
+
 (End of file)

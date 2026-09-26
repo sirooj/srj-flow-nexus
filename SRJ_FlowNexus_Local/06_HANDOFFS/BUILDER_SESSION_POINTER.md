@@ -3,18 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V299 GRADED)
+## State (2026-09-26, INDICATOR RULED)
 
-- Q1 NO + Q2 NO + Q3 halted (Astra).
-  Council left exact pull lists + your
-  two words gate v2. Result V299-GRADE
-  filed. Ledger 831.
+- Bias comes from your indicator (EA
+  reads its buffers; no EA-side HTF
+  brain). Your redirect carried:
+  refine the indicator, mirror dropped.
+  Scope YES used. Ledger 832.
 
 ## Next (owed him)
 
-- YOUR two plain words (15m mirror
-  confirm + indicator-file scope).
-  v2 drafts after your answers.
+- Nothing owed. v2 pivots to
+  indicator-MTF design (veto-able);
+  indicator edits stay council-gated.
 
 ## Next (owed him)
 
