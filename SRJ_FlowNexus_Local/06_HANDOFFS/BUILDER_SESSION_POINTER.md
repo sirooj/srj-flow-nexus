@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, CASCADE + UJ2 RULES)
+## State (2026-09-26, BIAS-FLIP RULED)
 
-- Cascade answered in trader logic
-  (lineup, not divergence - his
-  detection stands). UJ2 rules landed
-  (nearest-any-age, touch-retarget).
-  No build, run, key. Ledger 823.
+- His timing ruled (5m flipped 9:25,
+  15m confirms at 09:45 entry candle,
+  journal row 17 corroborates). UJ1
+  road specified by his rule; scope
+  question dissolved. Ledger 824.
 
 ## Next (owed him)
 
-- HIS UJ1 scope word only (design
-  the 5 June 09:45 road, or drop
-  the miss). Nothing else owed.
+- Nothing owed. Next fold drafts the
+  15m road + specified UJ2 + UJ3
+  for council (veto-able).
 
 ## Resume order (exact)
 
