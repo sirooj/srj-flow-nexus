@@ -17068,3 +17068,80 @@ Q3 YES - proposals clear as scoped.
 
 This clears the **proposals as scoped**, not their implementation or acceptance results. Q1/Q2 remain carried; no disk verification, build/run permission, key expenditure, or live activation is implied.
 ## V298-ENTRY-UJ123 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V299-UJIMPL-1 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+Q1-NO
+Q1 NO - the M15 structural-bias source and ordinary same-pass route are not established because C10665–C10667 identify an indicator input, not an output buffer, and C8668/C8805 show promotion edges without the upstream transitions that make the standing candidate reach them.
+
+Q2-NO
+Q2 NO - nearest-any-age lookup and exact admission/retarget siting remain unspecified because C2490–C2503 return the first populated swing within a bounded scan, C5003 supplies a bounded fractal snapshot, and the supplied target-election region contains neither the admission gate nor the retarget handler.
+
+Q3-NO
+Q3 NO - the exact qualifying-flip yield cannot be located from the supplied control flow because C2295’s HOLD is diagnostic text, C2297 already returns success, and the caller’s complete abort/veto handling and qualifying-flip predicate are absent.
+
+These are independent implementation-design verdicts. They do not reopen the carried E1/E2 rulings or the stated V298 prose clearance. My findings concern the supplied page; I make no independent disk-verification claim.
+
+**Analytic ask A — defects, gaps, and imprecision**
+
+1. **An M15 input is not an identified structural-bias output.** P017 and C10665–C10667 establish that `PERIOD_M15` enters FlowLogic. They do not establish a buffer identifier, value encoding, timestamp convention, readiness test, or whether the output reflects a confirmed structural flip. Naming a buffer here would invent an interface.
+
+2. **The snapshotter’s signature does not establish M15 support.** P017 calls `SrjSelSnapTF` generic, but C3048 explicitly distinguishes H1 from everything else. Its remaining storage and projection logic is not supplied. An M15 call could enter an existing non-H1 path; independence from M5 storage must be established before choosing this mechanism. Moreover, C3052–C3054 read fractal events and timestamps, not a structural-bias verdict. Snapshot depth alone cannot supply the missing bias semantics.
+
+3. **The M15 decision-time contract is missing.** P010, P016–P018 and C11487–C11491 require two distinct timestamps: the M5 confirmation bar being evaluated and the entry boundary at which the M15 flip becomes confirmed. For the stipulated UJ1 case these are the 09:40 M5 bar and the 09:45 entry boundary. A source indexed only by the M5 bar label can be stale; an unrestricted current-bar read can use unfinished information. The design must identify the M15 observation available at that boundary and its closure/readiness semantics.
+
+4. **New-bar evaluation does not guarantee execution exactly at the open.** C11484–C11491 run on the first received tick that exposes a new last-closed-bar timestamp. They establish once-per-observed-bar evaluation, not a tick at the exact opening instant. QF/FN illustrate this distinction: the 14:35-bar decision is logged at 14:40:22. Preserve the entry-boundary rule while distinguishing scheduled boundary, actual evaluation time, and eventual execution time.
+
+5. **The source can be needed before an upstream state decision, not merely before promotion.** P017 requires reading before promotion. That is insufficient if an earlier alignment decision retains or rejects the candidate using the old bias. The required ordering is before the earliest ordinary-path consumer that needs the newly confirmed M15 value. That consumer’s code is not supplied.
+
+6. **Promotion destinations do not prove route reachability.** P018 and C8655–C8691/C8795–C8818 show what happens once the candidate reaches the relevant S3 or S4 branch. They do not show the ordinary S2 exit, S3 binding decisions, intervening returns, or same-pass fallthrough. The R63 `CONFIRMPOLL ... shadow=true` row proves a shadow confirmation result, not live-route traversal on D74. The R67 `CONFIRM_PREBIND_S2` rows cannot supply the missing proof: they belong to another build and an expressly excluded route.
+
+7. **E1/E2 ordering remains an obligation rather than a demonstrated sequence.** P018, P045 and P047 require E1/E2 first. The companion names C7822–C7856 without reproducing it; C7265 is earlier in textual order than that named region. Textual order alone cannot settle runtime order, but it exposes the missing control-flow proof. The page does not establish that the proposed yield decision has already received E1/E2 results.
+
+8. **The swing lookup has a semantic mismatch beyond its cap.** P024 and C2490–C2503 describe a scan that returns immediately on the first nonempty buffer value. It selects the first encountered event in scan order, not the nearest eligible price across previous day/session highs and lows. Extending the cap would fix neither the event-family mismatch nor price-nearest election.
+
+9. **C4501–C4502 are not shown to be TP-booking sites.** Their context includes protective-side checks and a “1-away” selection comment at C4496–C4505. Nothing supplied establishes that modifying these calls integrates historical targets into C2396–C2409. Treating them as the UJ2 insertion point could change unrelated geometry selection.
+
+10. **The H1 reach estimate is not a coverage proof.** P024 describes 600 H1 bars as approximately 25 days. Those are bar-hours, not guaranteed calendar-day coverage; trading gaps and available history matter. More fundamentally, C5003 supplies a fractal snapshot, not a complete archive of closed day/session extrema. Actual timestamps and session completeness must govern coverage.
+
+11. **“Any age” needs a completeness contract.** P023–P024 and P046 do not define the historical universe, source completeness, earliest coverage, or treatment of missing intervals. Scanning all locally available history does not prove that no nearer valid level exists before that history. A fixed deeper window cannot resolve this. Pool proof needs either complete coverage under a stated authoritative history contract or another valid certificate of completeness; otherwise admission fails closed.
+
+12. **Historical eligibility is not mapped to the current masks.** C2400 applies `TpSessionLevelFiltered(i, s39_mask)` to indexed current session/PD entries. The page does not explain how arbitrary-age records obtain corresponding swept/live status, session identity, or validity as of the decision. P023’s “once closed” rule also needs reconciliation with those carried filters. Raw old highs/lows cannot simply bypass them, nor can their exclusion be assumed without a stated rule.
+
+13. **The census is not an eligibility-equivalent pool proof.** C2441–C2465 do not reproduce all booking filters: the session census omits the mask test, and both shown census loops omit the comparator’s zone-exclusion test at C2318. C2395 also acknowledges tie-name divergence. Consequently, the census’s `admitted` text cannot by itself establish the eligible pool or winner provenance. C2421–C2424 additionally cap census output, so required grade evidence cannot depend solely on that stream.
+
+14. **The exact 1R gate is absent.** P025–P026 leave its site open, and no supplied excerpt identifies the final admission price, stop, risk calculation, or order gate. The required semantic order is clear: elect the nearest eligible target first, then test that winner against 1R. Removing sub-1R candidates before election would permit the forbidden farther-target rescue. An exact gate line cannot be named from this page.
+
+15. **The touch trigger and snapshot lifecycle are absent.** P023, P025 and P046 do not identify the incumbent-target touch handler, NY-session close transition, or persistent closed-session storage. C11488 also matters: if touch handling exists only below this once-per-bar guard, it cannot react on every intrabar tick. A design must specify whether it consumes live touches or detects a completed bar’s wick touch at the next evaluation.
+
+16. **The retarget geometry needs explicit reference prices.** P023 says “strictly-forward NY high” while P046 says NY high/low. The symmetric short rule and the reference for “forward” must be stated. C2305 excludes equality against its `currentPrice` argument; that alone does not prove the proposed retarget handler preserves the stipulated exact-landing `NO_TP_TARGET` outcome. The handler and the price it passes are not shown.
+
+17. **HOLD is not a returned blocking condition here.** P031–P032 describe proceeding past HOLD, but C2295 prints HOLD for any nonzero adverse count that does not satisfy the active kill rule. C2297 then returns `""`. It does not establish confirmation, a qualifying flip, or a control-flow hold. The implementation packet must distinguish this diagnostic from any separate downstream blocking arm.
+
+18. **Disabling the kill parameter would be broader than merely passing a logged HOLD.** At C2296, changing `twoOfThreeKills` from true to false also suppresses both freshness abort outcomes for two or three adverse flags. P030’s sole-death rule does not by itself define which multi-flag outcomes yield on a qualifying flip. A precise qualifying-flip exception must enumerate the affected outcomes and retain unrelated invalidations.
+
+19. **The qualifying-flip predicate is not specified.** P030–P032 and P047 establish the intended event class but do not identify a machine-readable flip test, its direction, bar timestamp, readiness requirements, or binding to the standing candidate. C2222–C2233 supplies confirmation terms; it does not supply a structural-flip test. CE/QF/FN support the stipulated seed/confirmation relationship, not the omitted live predicate.
+
+20. **Freshness-veto handling is incomplete.** C7272–C7283 shows day-based clearing; C7285–C7287 begins a veto-setting arm. The subsequent abort handling and later veto consumers are absent. A local yield can therefore be ineffective because an existing veto still blocks promotion, or too broad because it clears unrelated veto state. Neither outcome can be ruled out from the excerpt.
+
+21. **Freshness readiness remains substantive even when kills are disabled.** C2291–C2295 still return `ABORT_UPSTREAM_UNREADY` on read failure when `twoOfThreeKills=false`. “FVG irrelevant post-flip” at P030 therefore needs a narrower implementation meaning: irrelevant to cancellation, or also unnecessary for readiness? The page does not settle that distinction. Unavailable data must not silently become a successful qualifying-flip proof.
+
+22. **The confirmation handoff description exceeds the reproduced code.** The companion names C2193–C2208, but those lines are not included. C2222–C2233 does show that opposite-candle, close-side and touch terms use prior-bar variables, while body direction uses evaluated-bar variables. Keep that predicate intact; do not reinterpret the evaluated flip bar as supplying every term. FN’s confirmed Daily-POC event does not license a new call or altered bar shift.
+
+23. **Acceptance rows need an explicit identity schema.** P043–P048 correctly require event tuples, but do not define their fields. Route, pool and yield proofs need enough identity to prevent joining different candidates or passes: build, symbol, direction, anchor, seed time, confirmation-bar time, evaluation boundary and actual evaluation time, plus the relevant source/session timestamps.
+
+24. **Packet bookkeeping contains avoidable ambiguity.** P005 says “S1 recount”; P036 says “S3 recount”; P041 invokes STAGE-1/S3. Their relationship is not defined. The priors and seat packaging also reuse “Q1/Q2” for carried E1/E2 questions while this relay assigns Q1/Q2 to UJ1/UJ2. Label carried questions by their original packet or leg. Analytic asks A/B are duplicated verbatim.
+
+**Analytic ask B — better mechanisms and the code surfaces they would touch**
+
+- **UJ1: use one timestamped, authoritative M15 bias observation.** Prefer the existing FlowLogic output if its actual buffer contract establishes confirmed M15 structural bias. C10665–C10667 is the interface-discovery anchor, not sufficient evidence for choosing a buffer. Integrate the read with the evaluation working set around C11490–C11491, before the earliest ordinary alignment consumer. Retain C8668 and C8805 as the existing confirmation/promotion edges. Prove the intervening ordinary route; if it does not reach either site on that pass, fail A-UJ1 rather than manufacture a transition. Do not add an M15 snapshot call at C5001–C5004 until the C3046 helper’s storage and structural-bias semantics are established.
+
+- **UJ2: maintain an incrementally updated archive of eligible closed-session/day extrema.** Each historical record should retain price, family, session boundaries, closure availability time, and the metadata needed for the carried validity filters. Backfill against an explicit coverage contract, then update on session/day closure. An ordered price index can make directional-nearest queries efficient without imposing an age cutoff.
+
+  Feed eligible archived records into the same `best/haveBest` election at C2396–C2409 through C2301–C2322; preserve existing eligibility and tie behavior. Derive pool-proof diagnostics from the same eligibility results rather than treating C2441–C2465 as authoritative admission enumeration. Apply 1R once to the elected winner at the final admission gate. The archive lifecycle, final gate and touch-handler lines are not supplied, so this is a mechanism recommendation, not a fully sited YES.
+
+- **UJ3: make any freshness exception a candidate-and-bar-scoped decision.** At the caller region around C7265, consume an already established qualifying-flip/confirmation result tied to the same candidate and evaluated bar, with E1/E2 satisfied first. Do not introduce another `IsConfirmationCandle` call or change C2222–C2233.
+
+  Any approved exception must explicitly govern the freshness outcomes at C2296 and their caller handling beginning at C7285, while accounting for existing veto state at C7272–C7283 and downstream consumers. Keep upstream-unready and unrelated aborts distinct. C2295 should describe the actual reason for diagnostic treatment rather than allowing “HOLD” or `scope=post` to imply a state transition that never occurred. The full caller and upstream qualification path are necessary to determine whether this can be accomplished within the stated no-new-branch constraint.
+
+The implementation round remains unresolved on all three legs for separate, concrete reasons. The page supports these mechanism directions, but not exact, reviewable source-and-route, gate-and-trigger, or yield siting sufficient for a YES.
+## V299-UJIMPL-1 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

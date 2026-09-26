@@ -4960,3 +4960,103 @@ Ruling basis (page only, per the verification split):
 
 Scope note: this YES rules the page; disk genuineness, twin/code/rows battery numbers, and STAGE-1 diffs ride the builder battery + transport memo + his eyes, not this chat.
 ## V298-ENTRY-UJ123 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V299-UJIMPL-1 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+# SEAT VERDICT — packet P-UJIMPL-1 v1 (Q1/Q2/Q3)
+
+Verdict lines (one each; a NO never sinks the others):
+
+- **Q1-NO**
+- **Q2-NO**
+- **Q3-YES**
+
+Nothing here builds, runs, spends, or clears live activation; these are design rulings only, not issuance (the implementation packet carries exact old/new under its own council pass, STAGE-1, and battery). I rule on the page only; battery numbers ride in the transport memo.
+
+---
+
+## Q1 — UJ1 15m source + promotion route
+
+**Q1 verdict line: Q1-NO**
+
+**Q1 plain answer: Q1 NO — the 15m-bias source is unruleable on this record because neither candidate is closeable from the page; the route half is ruled below and carried.**
+
+Source (the gap):
+
+- **(a) fails on the page's own fact.** P017/D1 states the M15-bias buffer is "unmapped on record." The on-record ReadFlow map in the companion covers LTF OB/FVG flags (EA 2291/2293/2295), swing high/low (EA 4501-4502), OB swing extreme (EA 4497), 18 session bufs (EA 2397-2400), and POI lines (EA 2407) — no HTF/M15 bias buffer exists in evidence. EA 10665-10668 proves M15 data *enters* the FlowLogic indicator; it proves nothing about what buffer, if any, exposes a 15m structural bias back to the EA. Closing (a) is not a pull: the FlowLogic indicator is outside the packet's canonical set (P005: exactly ONE canonical file), so its buffer map cannot enter evidence inside this packet's scope at all — it needs a canonical-scope decision (add the indicator file) or an operator answer.
+- **(b) fails on semantics.** SrjSelSnapTF (EA 3046-3054) snapshots iFractals *event* buffers; an M15 call also presupposes a new M15 fractals handle (none on disk — P017 says so). Fractal swing events are not structural bias; no on-record rule derives "15m structural bias" from M15 swing events, so ruling (b) would invent the bias definition. The only structural-bias computation evidenced on disk — the S2 LTF-bias read (the S2WAIT row class, e.g., [D74] ON "LTF bias unaligned") — is not pulled, so a mirrorable derivation cannot be verified from this page.
+- **(c) is operator transport only** (P017, his sheet column).
+
+Route (ruled, carried for the implementation packet): the 15m gate is an additional AND-term at the existing promotion sites — E1 S3-PREBIND at EA 8667-8668 and E2 S4 edge at EA 8804-8805 — evaluated only when the 5m confirmation passes (confirm first, then the 15m term: preserves IsConfirmationCandle call semantics, its g_n1_* counters, and the CONFIRMPOLL row class), same evaluation pass (once-per-bar, EA 11484-11492), with closed-M15-bar discipline (the bias as of the last closed M15 bar at the decision tick — the 09:30–09:45 bar at the 09:45:00 tick, per his "simultaniously turned bearish" at the 9:45 open). A 15m-misaligned pass consumes the confirmation like any failed term (no carry-forward, one-bar rule); no S2 extension (EA 8666 outside scope stands); no new branch; E1-walk + E2-recency first; state path unmodified (P-ENTRY-2 P034).
+
+Closure paths for the re-ask: (i) canonical-scope decision + FlowLogic buffer map for (a); or (ii) his explicit M15 structure-bias derivation rule plus the S2/LTF-bias region pulled (ask B1 sketches the least-surface shape). Until one closes, A-UJ1 fails closed per P045 — no bypass, ever.
+
+---
+
+## Q2 — UJ2 lookup + integration + gate siting
+
+**Q2 verdict line: Q2-NO**
+
+**Q2 plain answer: Q2 NO — the lookup mechanism and booking/census integration are ruled below with lines; the NO is strictly the unpageable sitings: the session-window definitions, the admission-consumer line (1R gate), and the post-entry refresh line (touch trigger).**
+
+Lookup (ruled): **(c) new deep lookup**, two arms, built **once per day** (day-keyed cache) inside the existing selection snapshot block (sited with the EA 5005-5010 cluster, after the SrjSelSnapTF calls at 5001/5003 — the snapshot-discipline precedent), never per-tick:
+
+- PD arm: CopyRates(PERIOD_D1) backward scan (compile-time bound, e.g., 260 D1 bars ≈ 1yr — covers the April-30 ~36d class with margin; no new input per P005), collecting every prior day's H/L.
+- Session arm: intraday reconstruction of prior sessions' H/L over the same age window from M5/H1 rates grouped by the EA's session windows — **pending the session-window region** (not in the companion; the page names sessions — NYAM at [D74] ON — without pulling their boundaries).
+
+Both arms feed values only; selection is nearest-in-**price** through the existing comparator (his "NEAREST point" word) — **not** FindNearestSwing (EA 2490-2503), which is nearest-in-**time** over swing points (wrong sense, and proven short at 500 M5 bars; deepening its loop also cannot exceed the FlowLogic swing-buffer depth — the ReadFlow break at EA 2497 is a second, unnamed bound). The same category mismatch applies to candidate (b): the H1-600 snapshot is a selection-side structure feed, not a PD/session-level pool.
+
+Integration (ruled, exact): a third candidate loop **between EA 2402 (session loop end) and EA 2403 (POI loop head)**, feeding TpTargetUpdateBest **unchanged** (EA 2301-2322: in-direction 2305, zone-exclusion 2318, nearest 2319-2321 all live there). Deep candidates are session/PD-class, so they evaluate on the session side of the tie-break (before the POI loop), preserving "exact price ties resolve to the session line" (EA 2395 comment discipline). Census gains a mirror naming arm **between EA 2451 and EA 2452** over the same cached values, keeping winner==booked nameable and census read-only (EA 2410-2413).
+
+1R gate (constraint ruled; **line pending**): at the admission consumer of best/haveBest — the same decision point that emits NO_TP_TARGET (the 16:10 [R63] QO row's emitter) — **after** the race, testing the **winner**: haveBest && |best − admission price| < 1R → refuse. No-rescue means never filtering candidates inside the race (filtering falls through to farther targets, violating P023) and never siting the gate inside the shared race at all — its post-entry recompute callers (EA 2395 comment: "the recompute skips anchor") must not see an admission-only gate. !haveBest → NO_TP_TARGET as built; exact-landing is the distance<1R degenerate — one gate, no second check. The race function's head/signature and call sites are not in the companion; the exact line cannot be ruled from this page.
+
+Touch trigger + closed-snapshot (constraint ruled; **line pending**): in the post-entry TP refresh path (TP_ELECT/MTSNAP row class — cited in the EA 2395 comment, region unpulled): on each closed bar, a price/wick touch of today's NY H/L is the retarget **event**; the retarget re-elects nearest from the pool of **closed-session** H/L only (a session's H/L enters the pool at its close — P025 discipline); POC/VWAP gap-break body-close confirmation is existing logic, untouched (P012-class discipline). "Strictly-forward NY high" (P023) is undefined on the page — time-forward vs price-forward — and the P023/P025 sequencing (forming-level touch vs closed-session pool) needs his one-line disambiguation before the trigger is sited.
+
+Pulls that convert this NO to YES: (1) session-window definitions region; (2) race call sites + admission consumer + NO_TP emitter; (3) post-entry TP refresh region; (4) a ruling or operator word on the retarget sequencing and "strictly-forward" sense. Pool-proof obligation stands (P024): grade rows establish nearest or fail closed.
+
+---
+
+## Q3 — UJ3 yield siting
+
+**Q3 verdict line: Q3-YES**
+
+**Q3 plain answer: Q3 YES — the yield sits as a pass-order relocation of the CheckFreshness call-site block; no arm, argument, or predicate changes. Siting: relocate the [P-SCOPE34] block — the call at EA 7265 (verbatim: `CheckFreshness(barShift, g_state != ST_S5_GATE_CHECK)`) with its veto-persistence/VETOCLEAR logic (EA 7272-7284) and abort arms (EA 7285 through the block's end; the companion cuts at 7287 — extent is a pull obligation) — to a position after the S4 confirmation edge (after EA 8818) and at the head of the ST_S5_GATE_CHECK block (head line lies in the unpulled EA 8819-8851 gap, before the DIV/stand-down region at EA 8851-8869), such that both promotion fall-throughs (E1 PREBIND EA 8668-8679, E2 S4 edge EA 8805-8811) precede it in the same evaluation pass (EA 11484-11492).**
+
+Mechanism: on the qualifying-flip bar, the E1/E2 confirmation predicate runs **first** (CONFIRMPOLL precedes FRESHCOUNT on that bar — "E1/E2 first" made visible); promotion sets `g_state = ST_S5_GATE_CHECK` (EA 8672/8809) before the poll executes; the poll's own argument therefore evaluates false → twoOfThreeKills=false → the 2-of-3 ABORT arms (ABORT_FRESH_OPP_FVG / ABORT_FRESH_OB_DEAD, EA 2296) cannot fire; the FRESHCOUNT row prints verdict=HOLD scope=post (EA 2295) — the proceed-past-HOLD row P047 names; the same-pass S5 block then runs DIV walk → R latch → fire (EA 8660-8662 fall-through declaration), entry at the N+1 open (14:40-class). On every other bar, behavior is unchanged: S4 bars reach the relocated poll with state still S4 (the failed-confirm path at EA 8812-8816 does not return) and the kill fires as built; S3-unbound candidates never reach the poll (the PREBIND-fail return at EA 8688), exactly as the DECLARED at EA 8664-8665 exempts them.
+
+Arms: none modified. ABORT_UPSTREAM_UNREADY (EA 2291-2294) stays fail-closed and position-independent. The yield is achieved purely by evaluation order — the arms' authority becomes state-gated by position. Confirm predicate intact: IsConfirmationCandle untouched at all 12 sites; no new caller, no signature change, no new state, no new branch.
+
+Blast radius (bar-scoped by construction): the only behavioral change is confirmation bars that ALSO trip the 2-of-3 pre-confirmation kill — precisely the qualifying-flip class (the flip kills OB/FVG by nature; such a bar could never fire under the old order, which is the UJ3 miss itself). Declared deltas, all nameable: (1) print order — CONFIRMPOLL/state rows now precede FRESHCOUNT rows on armed bars, and FRESHCOUNT rows on confirmation bars shift scope=pre→post (same HOLD verdict when n<2); CONFIRM_STRUCT_FAIL (EA 8812-8816) now prints on freshness-abort bars where the old order died before the confirm check (the g_n1_* counters increment there — real evaluations); (2) pre-bind firings (S3→S5 at EA 8668) now traverse the poll at S5 scope — print-only HOLD, amending the EA 8664-8665 DECLARED "proceeds without it" to "proceeds with diagnostic-only HOLD," with UPSTREAM_UNREADY now fail-closing pre-bind firings on read failure (declare it); (3) VETOCLEAR/latch arming runs later in the pass (day-granular; internal clear-before-arms order preserved; the latch consumer region is unpulled — verify in the battery).
+
+Preservation coupling: any EU confirmation bar in the battery windows that trips 2-of-3 would now fire — a new EU trade breaks A-7PRESERVE. The FRESHCOUNT census (scope=pre, cum2/cum3, EA 2295) predicts coincidences; the grade run proves the 7 unchanged; if a coincidence exists, the implementation fails and returns for scoping — no silent acceptance. The battery must also exhibit the 14:35-pass death row class (see A7 below) to prove the relocation addresses the actual death.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (each with lines)
+
+- **A1** (P005, P017): the (a) source candidate is unruleable as posed — the page itself declares the M15-bias buffer "unmapped on record," and the FlowLogic indicator is outside the canonical file set, so the buffer map cannot enter evidence by any pull within this packet's scope. Closing (a) requires a canonical-scope decision or an operator answer, which the packet does not request.
+- **A2** (P017): the (b) candidate conflates data availability with semantics — SrjSelSnapTF (EA 3046-3054) yields iFractals swing events, not structural bias; no on-record rule converts one to the other, and the EA's only evidenced structural-bias computation (the S2 LTF-bias read, S2WAIT row class) is not pulled, so a mirrorable derivation cannot be verified.
+- **A3** (P016-P017): the 15m timing discipline is unstated — "flipped at the entry-candle open" must mean the bias computed from **closed** M15 bars as of the decision tick (the 09:30–09:45 bar at 09:45:00). The page states the analogous closed-snapshot discipline for UJ2 (P025) but not for the 15m read; without it, a live/intra-bar M15 read is a misimplementation risk.
+- **A4** (P024): nearest-sense mismatch, unflagged — FindNearestSwing (EA 2490-2503) returns the most-recent swing in its window (first non-empty at ascending shift = nearest-in-time); his rule is nearest-in-price among PD/session H/L. The page offers the site (EA 4501-4502) without flagging the wrong sense; it also names only the 500-bar loop cap (EA 2494) while the FlowLogic swing-buffer depth (ReadFlow break, EA 2497) is a separate bound. Candidate (b) has the same category mismatch (structure feed, not a level pool).
+- **A5** (P024-P025): the regions needed to close the declared-open sitings are absent — session-window definitions, the race function's head/signature and call sites, the admission consumer / NO_TP_TARGET emitter (the 16:10 [R63] QO row's source), and the post-entry TP refresh path (TP_ELECT/MTSNAP, cited only inside the EA 2395 comment). "1R gate siting open; touch-trigger siting open" cannot be closed from this companion.
+- **A6** (P023 vs P025/P046): retarget sequencing tension unresolved — P023 says "revise on price/wick touch to today's NY high/low" (a forming intraday level) while P025/P046 restrict retarget reads to closed sessions. A composite reading (touch of today's NY H/L is the event; re-election is from the closed-session pool) is constructible but not stated. "Strictly-forward NY high required" (P023) is undefined — forward in time or in price.
+- **A7** (P031, rows fence): the UJ3 death evidence is asserted, not exhibited — the fence carries the 14:35 decision rows ([R63] QF/FN/CE) but no row of the death itself (the fence is 1x-per-pattern, so absence proves nothing about the log, but the yield-point claim then rests on the builder's diagnosis alone). The implementation battery must exhibit which arm fired at the 14:35 pass; if the death was not the 2-of-3 kill at the EA 7265 site, the relocation misses.
+- **A8** (P031): splice boundaries unpulled — the abort arms below EA 7287 (companion cuts mid-block) and the ST_S5_GATE_CHECK head in the EA 8819-8851 gap (companion jumps 8818→8851). The relocation's old-block extent and target anchor are unverifiable from the companion; pull obligation.
+- **A9** (EA 2422 vs P024/P046): the census dump cap (`s_tpDumps < 2000`) silently truncates TPCENSUS naming on long grade runs (10+ day M5 windows exceed 2000 dumps); the A-UJ2-POOL pool-proof obligation depends on census coverage, and the deep-arm census mirror inherits the cap. Unaddressed.
+- **A10** (P045): A-UJ1-ROUTE requires predicate-time rows proving the 15m flip, but no row class is named for the 15m read — without a declared print spec the acceptance is ungradeable.
+- **A11** (P023): "degenerate exact-landing keeps NO_TP_TARGET" is the distance<1R degenerate of the same gate (a level exactly at admission price gives 0R); listing it separately invites a redundant second check — state once, implement once.
+- **A12** (P031 vs EA 2222-2231): term-attribution slip — the parenthetical reads "oppCandle/bodyDir/touch on prior bar, bodyDir on evaluated bar," double-listing bodyDir and omitting the A2 close-side term. Prior-bar terms are oppCandle (2222-2223), A2 close-side (2224-2225), touch (2230-2231); bodyDir/doji are evaluated-bar (2226-2229, c0/o0).
+- **A13** (code companion): cited-but-unpasted regions — EA 7822-7856 (R2 seed-death) and EA 2193-2208 (confirm signature + bar reads) are described in the companion's region list but carry no pasted body; any ruling leaning on them would rule on description alone (mine does not).
+- **A14** (rows fence vs P018): the [R67] CONFIRM_PREBIND_S2 rows (8/27 18:15, 9/1 15:25) are from the v5 build (E8B0E582) and are historical only — P018's "PREBIND_S2 0 hits on disk" (base tree) is the operative fact. Worth an explicit "historical build only" tag so no seat reads S2-prebind as live base-tree behavior.
+
+## Analytic ask B — better mechanisms, with lines
+
+- **B1** (UJ1 source, once the gap closes): the least-surface machine source is likely neither (a) nor (b) as posed, but a third: direct closed-M15 OHLC (CopyRates on PERIOD_M15) plus the EA's own LTF structural-bias computation mirrored at M15 — if the S2/LTF-bias region is a price-structure rule mirrorable over M15 rates. Avoids the FlowLogic buffer map (blocked by canonical scope, A1) and new fractal handles (A2). Touches: the S2/LTF-bias region (pull first), a new M15 rates read at the promotion gates (EA 8667-8668 / 8804-8805 as an AND-term). Requires his confirmation that the mirrored rule reproduces his journal's 15m column (row-17 class).
+- **B2** (UJ2 efficiency, his friction point): day-keyed cached deep-lookup builder — compute the any-age PD/session-H/L candidate arrays once per day (day-change guard) inside the snapshot block (EA 5005-5010 cluster), never per tick; per-tick cost becomes an array scan through the existing comparator. ~2k values/day at a 260-D1 bound is negligible — directly answers "expensive, computing power wise and not efficient."
+- **B3** (UJ2 integration): deep candidates enter as a third race loop between EA 2402 and EA 2403 (session side of the tie-break, before the POI loop) with a mirror census arm between EA 2451 and EA 2452; TpTargetUpdateBest (EA 2301-2322) unchanged; the 1R gate is admission-consumer-only, tests the winner after the race, never filters candidates (filtering = rescue, violating P023).
+- **B4** (UJ3 variant): if the council prefers VETOCLEAR byte-untouched, split the move — relocate only the poll call + abort arms (EA 7265-7267 + 7285-armend), leave the VETOCLEAR block (EA 7272-7284) at its site; the clear still precedes the arms in the pass (7272 < relocated arms), preserving the v152 "clear sees the fresh read" ordering. Equivalent yield, two smaller splices. Note also: the FRESHCOUNT print condition (EA 2295, t88_n > 0) already guarantees the A-UJ3-YIELD row prints on the qualifying-flip bar (n≥2 by the flip's nature) — no print change needed for the acceptance rows.
+- **B5** (battery): raise or account the census dump cap (EA 2422) for the UJ windows (A9); exhibit the 14:35-pass death row class and the 09:45-pass UJ1 route rows in the predicate-time battery (A7/A10); use the FRESHCOUNT scope=pre census (cum2/cum3) to predict any EU confirm∧2-of-3 coincidence before the A-7PRESERVE grade.
+
+---
+
+**Close:** Q1/Q2 fail closed on named, closable gaps — the carried rulings above survive them verbatim; Q3 is ruleable now and is ruled YES with its deltas declared and its preservation coupling named. No key spent; no build/run here; no bypass authorized anywhere, ever. A NO on one leg never sinks the others.
+## V299-UJIMPL-1 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

@@ -10439,3 +10439,82 @@ Q3-YES
 
 Q3 YES - proposals clear as scoped.
 ## V298-ENTRY-UJ123 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V299-UJIMPL-1 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Verdicts
+
+**Q1-NO** — The packet does not yet identify a machine-readable 15m structural-bias source. The existing `g_hFlow` does receive `PERIOD_M15` at **EA 10665-10667**, but the packet explicitly says the buffer carrying the 15m structural bias is unmapped (**P017**). The alternative `SrjSelSnapTF` path at **EA 3046-3054** is an `iFractals` snapshot mechanism, not a demonstrated structural-bias source, and no M15 call exists (**P017**). The S3/S4 promotion sites at **EA 8668** and **EA 8805** prove confirmation-to-S5 routing, but they do not by themselves establish the required `15m flip at entry-candle open -> promotion` source/ordering. A-UJ1 therefore cannot be proven from the stated disk surface (**P045**).
+
+**Q2-NO** — The existing historical pool cannot establish **nearest-any-age**. `FindNearestSwing()` is hard-capped at **500 M5 bars** at **EA 2490-2503**, and the H1 snapshot is only **600 bars** at **EA 5003**; the packet itself records the April-30 example as beyond both reaches (**P024**). The “new deep lookup” is only an unscoped candidate, so no exact implementation site currently proves the required pool. The unified booking race at **EA 2397-2409** and read-only census at **EA 2441-2465** are suitable integration points, but they do not create the missing historical pool. The **1R admission gate, touch-retarget trigger, and closed-session snapshot discipline** also remain open rather than tied to exact executable sites (**P025-P026**). Therefore A-UJ2-POOL is not yet implementable/provable as specified (**P046**).
+
+**Q3-YES** — The existing yield site is materially identified. Confirmation reaches `ST_S5_GATE_CHECK` through **EA 8668-8679** for S3-prebind/E1 and **EA 8805-8811** for S4/E2. The common gate then calls `CheckFreshness(barShift, g_state != ST_S5_GATE_CHECK)` at **EA 7265**; in S5 this passes `false`, so the 2-of-3 freshness test is diagnostic-only rather than an abort. `CheckFreshness()` implements that distinction at **EA 2288-2298**, with the actual abort occurring only when `twoOfThreeKills` is true at **EA 2296**. The confirmation predicate itself remains intact at **EA 2222-2233**. That is the required proceed-past-HOLD behavior on the confirmation/qualifying-flip pass, with E1 and E2 both entering S5 in the same evaluation pass.
+
+## Analytic A — defects / gaps / imprecisions
+
+1. **15m source semantic mapping is missing.**
+   **P017; EA 10665-10667.** `PERIOD_M15` being passed into FlowLogic proves an M15 input exists, not which output buffer contains the structural-bias state required by UJ1.
+
+2. **The proposed M15 snapshotter alternative does not establish structural bias.**
+   **P017; EA 3046-3054.** `SrjSelSnapTF()` explicitly snapshots `iFractals` buffers. Merely calling it for M15 would produce M15 fractal events, not a documented 15m structural-bias predicate.
+
+3. **Entry-open timing is not actually proven by the current evaluation timing.**
+   **P016-P018; EA 11487-11492.** The EA evaluates the newly closed M5 bar (`barShift=1`). The UJ1 rule requires the 15m structural bias to be flipped **at the 09:45 entry-candle open**. The packet does not specify which M15 bar/shift is read so that the 09:45-open state is used without accidentally using a subsequently closed 15m candle.
+
+4. **Promotion route is specified only as a generic confirmation route, not as the complete UJ1 route.**
+   **P018-P019; EA 8668-8691 and 8805-8818.** Those sites establish S3/S4 -> S5 confirmation promotion, but the 15m-bias eligibility read and its ordering relative to that promotion decision are not present.
+
+5. **Nearest-any-age remains impossible on the demonstrated pool.**
+   **P023-P024; EA 2490-2503; EA 5003.** The packet correctly identifies the finite-lookback problem, but its replacement is not specified at executable level.
+
+6. **The current target comparator does not enforce the 1R floor.**
+   **EA 2301-2321; P025.** `TpTargetUpdateBest()` only checks direction, entry-zone exclusion, and nearest distance. It can select a valid-but-sub-1R target; the required admission gate still has to be inserted elsewhere.
+
+7. **Touch-retarget is not actually sited.**
+   **P023-P026.** The packet states the rule but does not identify a concrete executable location at which a closed-session H/L becomes eligible on wick/price touch and causes TP revision.
+
+8. **Closed-session discipline is asserted but not mechanically pinned.**
+   **P025.** There is no exact line-level predicate showing that an unclosed session's H/L is excluded while a closed session's H/L is admitted/retargeted.
+
+9. **Q3's implementation is broader than the phrase “qualifying-flip bar only.”**
+   **EA 7265; P032.** The suppression is keyed to `g_state == ST_S5_GATE_CHECK`, not explicitly to a separately identified UJ3 15m-flip event. It therefore applies to any confirmation that reaches S5. That may be intentional, but the packet should not describe it as flip-specific without saying why S5 is the complete intended scope.
+
+10. **The Q3 diagnostic wording is slightly misleading.**
+    **EA 2295-2297 and EA 7265.** The debug output can print `verdict=HOLD`, but `CheckFreshness()` actually returns `""` in S5. “HOLD” is diagnostic terminology, not the function's control-flow result. That should be stated precisely in the implementation packet/log contract.
+
+11. **The “same-pass” requirement needs an explicit event tuple, not only a state transition.**
+    **P018, P045, P047; EA 8668-8679 / 8805-8811.** The code proves same-pass fall-through to S5, but acceptance should record the source-bar timestamp, confirmation-bar timestamp, entry-candle timestamp, and S5 promotion event together so a later-bar re-entry cannot masquerade as the qualifying event.
+
+## Analytic B — better mechanisms
+
+### UJ1
+
+Use the **existing FlowLogic handle**, but explicitly map the exact 15m structural-bias buffer rather than creating an M15 fractal snapshot. Add a small read helper adjacent to the existing selection reads and invoke it in the same closed-bar evaluation pass **before** the S3/S4 confirmation-promotion decision.
+
+The key sites are **EA 10665-10667**, **EA 8668-8679**, **EA 8805-8811**, and the evaluation entry at **EA 11490-11491**.
+
+The predicate should bind the 15m state to the **entry-candle open timestamp**, not simply “latest closed M15 value.” That is the critical piece needed to reproduce the 09:45 UJ1 event without lookahead.
+
+### UJ2
+
+Do **not** extend `FindNearestSwing()` or rely on deeper fractal history. The trade rule is previous **session/day H/L**, not “nearest fractal swing.”
+
+Create a dedicated historical session/day target enumerator near **EA 2490-2503**, returning the nearest strictly-forward eligible H/L from a closed-session archive/history scan. Then feed those candidates into the **same unified `best` race at EA 2397-2409**. Keep `TpTargetUpdateBest()` as the single nearest-value comparator.
+
+Then place the **1R admission gate immediately after the unified winner is finalized and before admission/fire**, and place the **touch-retarget update in the closed-bar evaluation path** so only already-closed sessions can enter the target pool. The census at **EA 2441-2465** should remain read-only.
+
+This gives one target-selection mechanism rather than a special fallback branch.
+
+### UJ3
+
+The current S5-based mechanism is serviceable, but the implementation packet should make the scope explicit. Keep the confirmation predicate untouched at **EA 2222-2233**, retain the E1/E2 promotion sites at **EA 8668** and **EA 8805**, and make the freshness suppression at **EA 7265** explicitly describe that it is a **post-confirmation S5 control-flow rule**, not a generic “flip detector.”
+
+That avoids changing the already-established confirmation semantics while making the 14:35-class yield traceable as:
+
+`seed 14:20 -> confirmation 14:35 -> S5 same pass -> freshness HOLD diagnostic only -> continue`.
+
+### Bottom line
+
+**Q1: NO. Q2: NO. Q3: YES.**
+
+The two blockers are concrete: **UJ1 lacks the mapped 15m structural-bias source/timing predicate; UJ2 lacks an unbounded historical session/day H/L pool plus exact gate/retarget siting.** Q3 already has a coherent executable yield point at **EA 7265**, fed by the existing E1/E2 confirmation transitions.
+## V299-UJIMPL-1 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
