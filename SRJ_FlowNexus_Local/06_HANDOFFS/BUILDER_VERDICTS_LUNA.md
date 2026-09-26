@@ -10433,3 +10433,9 @@ There is **no blocking overreach in v13's prose formulation itself**. The packet
 
 **Q3 YES — proposals clear as scoped.**
 ## V297-ENTRY-UJ123 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V298-ENTRY-UJ123 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+Q3-YES
+
+Q3 YES - proposals clear as scoped.
+## V298-ENTRY-UJ123 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

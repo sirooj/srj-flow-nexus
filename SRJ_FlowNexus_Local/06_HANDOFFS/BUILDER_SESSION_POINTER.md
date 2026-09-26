@@ -3,18 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V297 GRADED + V298 DRAFT)
+## State (2026-09-26, V298 CLEAR 3-0)
 
-- V297 halted 1-2 (Luna YES, Astra +
-  GLM NO on folded tails - defect
-  owned, excised). v298 battery-green
-  DRAFT (66884F69/59535/477), Q3
-  unchanged. Ledger 827.
+- All three seats clear the prose
+  as scoped (route fail-closed +
+  pool obligations carried). Result
+  V298-GRADE filed. Ledger 829
+  (828 before it; rule-33 repair).
 
 ## Next (owed him)
 
-- Nothing owed. v298 transports on
-  his word (paste whole to all seats).
+- Nothing owed. Implementation relay
+  drafted next (veto-able); key +
+  run word only after council packet.
 
 ## Next (owed him)
 

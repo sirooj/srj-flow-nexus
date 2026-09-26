@@ -13,7 +13,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v14 E5E1158D/26929/175 (tails excised + route requirement + UJ2 hardenings; UNBUILT - no key spent).
 - Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v298-ENTRY-UJ123.md` 66884F69/59535/477, DRAFT (Q3 unchanged re-ask; twin 175/175 diff 0, code 212 diff 0, rows 26).
-- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V295-GRADE.md` 638E8644/3857/28 (3 texts, Q3 halted 1-2, Sonnet none).
+- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V298-GRADE.md` CBBEE04A/3624/28 (3 texts, Q3 CLEAR 3-0, Sonnet none).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
 - Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
 - Your UJ answers (filed whole): `06_HANDOFFS\BUILDER_FINDING_USDJPY-MISSES.md` lines 48-54 + correction section at end.

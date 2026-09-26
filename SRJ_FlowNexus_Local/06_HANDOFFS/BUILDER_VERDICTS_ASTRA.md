@@ -17054,3 +17054,17 @@ Two corrections are needed before this combined proposal clears:
 
 Q1/Q2 remain carried and unopened. This verdict concerns the supplied page only; it asserts no independent disk verification and authorizes no build, run, spend, or live activation.
 ## V297-ENTRY-UJ123 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V298-ENTRY-UJ123 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+Q3-YES
+
+Q3 YES - proposals clear as scoped.
+
+- **UJ1 — P034/P164:** The excised acceptance no longer carries the withdrawn bypass. The proposed road requires the standing 09:35 retest and 09:40 confirmation, with the 15m flip available at the 09:45 entry open. P034 expressly requires same-pass promotion through the ordinary, unmodified state path; it authorizes neither an S2 extension nor a new branch. The supplied CONFIRMPOLL row establishes confirmation evidence, not promotion-path reachability. That route remains a grade-time obligation: failure to prove it fails A-UJ1, without authorizing a bypass. E1/E2 precedence, the September 1 silence guard, and unchanged DIV machinery remain binding.
+
+- **UJ2 — P035/P038/P165:** NEAREST-ANY-AGE, NO-RESCUE, CLOSED-SNAPSHOT, and POOL-PROOF make the proposed target rule sufficiently bounded for prose clearance. Selection must establish the nearest eligible target before applying the admission 1R floor; a farther target cannot rescue a nearer sub-1R target. Touch-based retargeting must use an already-closed session snapshot and satisfy the strictly-forward requirement; exact landing retains NO_TP_TARGET. P165's positive acceptance is governed by those predicates, not an unconditional instruction to remove the abort. Historical-source completeness and booking/census integration remain mechanism obligations, not demonstrated capabilities of the supplied code.
+
+- **UJ3 — P039/P166:** The carried proposal remains a qualifying-flip FVG yield only, with E1/E2 first and the existing confirmation predicate intact. The supplied decision evidence is the 14:35 confirm=1 against Daily-POC, with the 14:20 seed preceding it. No A2 waiver, confirmation carry, or post-entry-bar selection test is reinstated.
+
+This clears the **proposals as scoped**, not their implementation or acceptance results. Q1/Q2 remain carried; no disk verification, build/run permission, key expenditure, or live activation is implied.
+## V298-ENTRY-UJ123 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

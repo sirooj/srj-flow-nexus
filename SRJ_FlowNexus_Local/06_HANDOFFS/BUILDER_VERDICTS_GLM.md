@@ -4943,3 +4943,20 @@ Excise both tails at the ".:" joins (full v12 text already lives in git + relay 
 
 Ruled on the page only; no disk or file access claimed or asked; disk genuineness stays builder-disk + his-eyes. Q1/Q2 CLEAR carried, not re-asked. Nothing builds, runs, spends, or clears live activation on this verdict. Verdict filed for the tally.
 ## V297-ENTRY-UJ123 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V298-ENTRY-UJ123 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+Q3 verdict line: Q3-YES
+
+Q3 plain answer: "Q3 YES - proposals clear as scoped"
+
+Ruling basis (page only, per the verification split):
+
+- **Tails cured.** My v297 NO was on the acceptance tails. On this page, A-UJ1 (P164) now ends at the cascade guard and A-UJ2 (P165) at "NO_TP_TARGET gone on this path only" — no outcome-asserting residue at either join; L-final carries all three as PROPOSED, nothing graded as owed.
+- **Route cured fail-closed.** ROUTE REQUIREMENT v14 (P034) binds E-UJ1 to the ordinary unmodified state path on the same evaluation pass — no new branch, no S2 extension, E1/E2 precedence as on disk — with predicate-time rows proving the route or A-UJ1 failing closed at grade time. The proposal asserts no route and invents no bypass (the v294/v295 lesson held); 15m-bias sourcing stays council-routed, not asserted.
+- **UJ2 hardenings are his words.** CLOSED-SNAPSHOT = "once the session has closed"; NO-RESCUE follows from nearest-wins plus his sub-1R risk quote; POOL-PROOF is a grading fail-close, not a predicate.
+- **All three legs trace to filed rulings.** (a) 5m 9:25 / 15m flip at the 09:45 entry candle (his bias-flip words + journal row 17) with the DL/FF/DK decision rows; the 1 Sep 15:30 guard is over-determined with the pre-existing S2-hold (A-STALE-901) and touches nothing live this round since E-UJ is PROSE. (b) NEAREST-ANY-AGE + TOUCH-RETARGET + CLOSE-ONLY-GAP-BREAK + 1R-floor, each verbatim-grounded. (c) 14:35 confirm [R63 FN] + seed 14:20 [R63 CE], FVG-yield-only, the v6 scaffolding staying withdrawn with cause.
+- **No post-entry selection evidence.** The 09:50+ polls and the 14:45 pair are fenced out with cause; FN proves the anchor at decision. P010's A2-line note is line-identity attribution (the same fact proven at decision by FN), not selection input.
+- **Surface untouched.** E1/E2 byte-identical, budget carried +47/post 11549, E-UJ prose-only — nothing builds, runs, spends, or clears live activation on this verdict.
+
+Scope note: this YES rules the page; disk genuineness, twin/code/rows battery numbers, and STAGE-1 diffs ride the builder battery + transport memo + his eyes, not this chat.
+## V298-ENTRY-UJ123 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
