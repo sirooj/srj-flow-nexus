@@ -47,6 +47,7 @@ Role: every block of work answers to the deployment bar first. Process wins (cle
 ## 6. Learning loop
 
 - After every run: re-join the scoreboard, bank each new mismatch class with its bar and mechanism, retire fixed classes with the run ID that fixed them.
+- TAKES-TEACH-CONSTRAINTS (his order 2026-09-26): every audited valid take is banked as a must-keep regression cell (matrix + preservation battery), never as a pattern to copy. Three reasons, all standing: (a) the clean sample is thin (EU 7 on the register window; June blind 1 unrelated take) - too few to generalize from; (b) a row shows YOUR trade, never YOUR reason - reasons come from your rulings only, never induced from rows; (c) copying past takes is fitting, and blind windows punish fitting - only rules travel. Your trade lists + rulings are legitimate design input (you own them); tester output on unseen windows stays unseen until grade - never studied to design. Scoreboard honesty per this pin: EU register entries at-goal (7/7 valid, 0 invalid taken); the whole goal UNMET until full-journal reconciliation across all windows (June blind open with 3 misses).
 - After every operator correction: check whether these sections already covered it; if yes, cite the section in the report instead of adding text; if no, tighten here the same turn (D1-V6 pattern).
 - This file is the goal memory: update it the turn the goal picture changes, never carry goal lessons in chat alone.
 
