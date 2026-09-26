@@ -11,9 +11,9 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v9 86A303F7/25359/173 (entry kill-rule + retest-before-confirm + Yen proposals; UNBUILT - no key spent).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v293-ENTRY-UJ13.md` 038F0D29/54798/468, DRAFT-HELD for your separator word (Q3 single; twin 173/173 diff 0, code 212 diff 0, rows 25).
-- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V292-GRADE.md` 16A95539/4132/36 (4 texts, Q3 halted 0-3).
+- Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v10 348EEDE7/23998/173 (message-C restoration; UNBUILT - no key spent).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v294-ENTRY-UJ13.md` EF7A973D/53155/468, DRAFT (twin 173/173 diff 0, code 212 diff 0, rows 25; transport memo ships next turn).
+- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V293-RULING.md` 81E60751/2416/22 (message-C restoration, withdrawals, v10/v294 draft).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
 - Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
 - Your UJ answers (filed whole): `06_HANDOFFS\BUILDER_FINDING_USDJPY-MISSES.md` lines 48-54 + correction section at end.

@@ -174,4 +174,8 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 ## 14. Bar-stamp rule (his order 2026-09-26 - bare "9:45" caused four turns of confusion)
 
-- Every clock-time in builder output and record carries date + session + time + bar role on first use per context (retest / confirmation / entry), e.g. 5 June London 09:35 (retest + confirmation bar), entry 09:40 open; 11 June New York 14:35 (retest + confirmation bar), entry 14:40 open. The 5 June London 09:45 bar and the 11 June New York 14:45 bar are post-owed-entry by his rule - named whole, never bare. AGENTS.md BAR-STAMP governs; this gate enforces it in review (a draft with a bare bar fails battery the same turn).
+- Every clock-time in builder output and record carries date + session + pair + time + bar role on first use per context (retest / confirmation / entry), e.g. 5 June London USDJPY 09:35 (retest bar), 09:40 (confirmation bar), entry 09:45 open; 11 June New York USDJPY 14:35 (retest + confirmation bar), entry 14:40 open. Bars after the owed entry never re-litigate - named whole, never bare. AGENTS.md BAR-STAMP governs; this gate enforces it in review (a draft with a bare bar fails battery the same turn).
+
+## 16. Premise-supersession (his message-C correction 2026-09-26 - a whole fold died unbuilt)
+
+- When his later word removes a fold's premise, the fold dies UNBUILT without spending council: no rebuttal drafted, no verdict relitigated, no round burned (v7 same-bar-6/5 + v8 carve-out + separator question all died on his 9:35/9:40/9:45 words; v293 HELD died with them; v294 restores the pre-premise design with his authority). Withdrawal names every dead line; the record keeps the audit, never the premise.

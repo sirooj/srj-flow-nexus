@@ -100,7 +100,7 @@ that references a deliverable MUST name its exact file
 a defective memo — reissue it named.
 DATES-FIRST (operator rule 2026-09-16): operator questions open with dates,
 plain words, trading-only — no code, no EA detail, no relay preamble.
-BAR-STAMP (operator order 2026-09-26 — the bare-"9:45" confusion across ledgers 807-810): every bar mention in builder chat, memos, ledger, packets, relays, results, and skills carries date + session + time + bar role (retest / confirmation / entry) on first use per context — e.g. "5 June London 09:35 (retest + confirmation bar), entry 09:40 open". A bare clock-time ("9:45") is unwritable anywhere, including ledger prose. Past bare forms are read with their session context only, never quoted forward bare.
+BAR-STAMP (operator order 2026-09-26 — the bare-"9:45" confusion across ledgers 807-810): every bar mention in builder chat, memos, ledger, packets, relays, results, and skills carries date + session + pair + time + bar role (retest / confirmation / entry) on first use per context — e.g. "5 June London USDJPY 09:35 (retest bar), 09:40 (confirmation bar), entry 09:45 open". A bare clock-time ("9:45") is unwritable anywhere, including ledger prose. Past bare forms are read with their session context only, never quoted forward bare.
 QUESTIONS PRIORITY (operator order 2026-09-16): his fact questions outrank every
 packet/relay/run; asked immediately (batched, priority), they dictate the plan —
 council routes around the answers, never instead of them.

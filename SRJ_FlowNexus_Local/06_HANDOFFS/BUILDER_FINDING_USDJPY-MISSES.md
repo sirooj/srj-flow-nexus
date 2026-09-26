@@ -57,4 +57,8 @@
 - His correction: miss-1 = 9:35 retest AND 9:35 confirmation, entry 9:40 open. The 09:40-bar confirm=1 (DL row at the 09:45 pass) is post-owed-entry polling, never selection evidence. The line-6 "9:45 open entry" row label is amended by his later words (canon order); the line-19 fit note ("09:40 confirm=1 ... matches his 9:45 timing") is withdrawn as builder inference.
 - Decision rows (RECON63, all 1x): ANCHOR_ELECT SEED 09:35 + RETESTBOOK hits=1 + CONFIRMPOLL confirm=0 (bodyDir=0, B_BODY) at the 09:40:00 pass. The miss = B_BODY refusal at decision, not downstream gates.
 
+## Correction 2026-09-26-B (ledger 818; supersedes the Correction above for miss-1 timing)
+- His latest words govern: 5 June London USDJPY = 9:35 retest, 9:40 confirmation, 9:45 open entry. The "9:35 = confirmation" framing (message B) and everything built on it (v7 re-point, v8 carve-out, separator question, DL-exclusion, LS-as-refusal) are WITHDRAWN as superseded - the DL row (CONFIRMPOLL bar=09:40 confirm=1 at the 09:45 pass) is decision evidence again; the 09:35 poll row correctly shows no confirmation (nothing to confirm yet at the retest bar).
+- History above (including the first Correction) stands as audit of what was believed when, never as live rule.
+
 (End of file)
