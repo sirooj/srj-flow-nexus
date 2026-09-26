@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, VETO CLOSED)
+## State (2026-09-26, V302 READY)
 
-- R = entry open. Kill sub-1R at entry,
-  always exit nearest (Q6 documented -
-  defect owned). Retarget = closed NY
-  AM high. Ledger 840. v4 unblocked.
+- Replay adopted (grade stands).
+  Packet v4 + relay v302 green
+  (886AB7D8/69733/797) with dup-proof.
+  Ledger 841.
 
 ## Next (owed him)
 
-- Nothing owed. Drafting v4 + v302
-  (veto-able) under PROCEED.
+- Carry v302 whole to all seats (one
+  text each). Nothing else owed.
 
 ## Resume order (exact)
 
