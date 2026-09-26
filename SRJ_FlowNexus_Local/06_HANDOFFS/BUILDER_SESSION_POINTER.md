@@ -3,13 +3,12 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, BIAS-FLIP RULED)
+## State (2026-09-26, BYPASS DROP CONFIRMED)
 
-- His timing ruled (5m flipped 9:25,
-  15m confirms at 09:45 entry candle,
-  journal row 17 corroborates). UJ1
-  road specified by his rule; scope
-  question dissolved. Ledger 824.
+- Old bypass dropped on his confirm
+  (nothing carries into the 15m road).
+  Next fold drafts 15m road + UJ2 +
+  UJ3 for council. Ledger 825.
 
 ## Next (owed him)
 
