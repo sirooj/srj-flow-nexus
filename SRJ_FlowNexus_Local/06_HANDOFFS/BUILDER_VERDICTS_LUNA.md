@@ -10758,3 +10758,63 @@ The important property is that this is a **replacement for the missing regime ad
 
 **No build, tester run, spend, commit, or live-activation clearance follows from these rulings.**
 ## V302-UJIMPL-3 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V303-UJIMPL-4 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling
+
+**DQ1 NO -** the proposed source is correctly identified as the **confirmed M15 leg of the existing HTF engine**, with second-`iCustom(PERIOD_M15)` fallback, but the page does not establish an executable promotion route for the exhibited UJ1 candidate: the 09:45 candidate is still **`S2_LTF_ALIGN` / `S2WAIT`**, while the packet simultaneously forbids an S2 extension and requires promotion only through existing S3/S4 sites. The source read itself is also not yet mapped to an actual exported buffer/flip field.
+**Relevant lines:** P017-P019; EA C5001-C5004; EA C8067-C8077; EA C8660-C8679; EA C8804-C8811; EA C11483-C11492; UJ1 rows `FRESHSKIP 09:40` + `S2WAIT 09:40`.
+
+**DQ2 YES -** use **buffer-extraction-first** from the day-keyed historical session/previous-day buffers, with `FindNearestSwing` and H1-600 only as fallback; feed the resulting pool into the existing single nearest-price race, with the additional candidate walk before the existing census walk; place the **1R admission gate after successful winner selection at the S2 admission consumer**, and keep touch-retarget in the post-entry refresh path reading only the **closed-session snapshot**. The packet gives enough siting to rule the mechanism, while acceptance must prove pool completeness and nearest selection.
+**Relevant lines:** P024-P025; EA C181-C200; EA C2301-C2321; EA C2349-C2409; EA C2410-C2465; EA C7305-C7313; EA C11095-C11118.
+The 500-M5 `FindNearestSwing` cap and 600-H1 reach are explicitly insufficient for the April-30 UJ2 historical level, so they cannot remain authoritative.
+
+**DQ3 NO -** the required passage is not actually specified at an exact code site with an exact admitting predicate. The exhibited 14:35 setup still terminates in `REGIME_NONE` because `ClassifyRegime` requires `trendOk` and/or `mrOk`; the packet describes a “unified passage” concept, but does not state the concrete predicate that replaces this `S1WAIT` retention, nor exactly where it is inserted relative to the existing E1/E2 path.
+**Relevant lines:** P028-P033; EA C2238-C2267; EA C8060-C8065; EA C8660-C8679; EA C8795-C8811; UJ3 rows `S1WAIT` + `REGIMECENSUS votes=1 trendOk=0 mrOk=0`.
+
+## Analytic A — defects, gaps, and imprecisions
+
+| Location | Finding |
+| -------- | ------- |
+| **P017** | The “confirmed-output discovery” is conceptually sound but not yet source-complete: the actual **buffer index/export contract for the confirmed M15 leg and flip timestamp is still unmapped**. `g_bufHtfLo` at F58 is presently only the ordinary FlowLogic HTF export, not proof that it carries confirmed M15 state. |
+| **F246-F256, EA C202-C204** | `inUseConfirmedHTFOnly=false` means the presently exported HTF 19/20/21 path is **live**, while the requirement is decision-time confirmed M15 structure. The page correctly identifies this, but that makes the current buffers unusable as authoritative DQ1 evidence until the confirmed export exists. |
+| **B138-B145** | `g_s.wasBiasFlip = g_s.wasBiasFlip;` is a no-op in both branches. The shown BiasEngine therefore does not demonstrate a real per-bar flip assignment at this site. That is material because DQ1 expressly needs flip timing. |
+| **P017 + EA C11483-C11492** | The “09:45:00 closed M15” timing needs an explicit **readiness/shift contract**: which M15 shift is read, and what proves the indicator has finalized that bar before the EA consumes it on the same 5m evaluation pass. |
+| **P018 + EA C8067-C8077** | This is the largest DQ1 route contradiction: the cited UJ1 evidence is parked in **S2_LTF_ALIGN**, yet the design says **no S2 extension** and points promotion at S3/S4. The page has not supplied the bridge. |
+| **P018** | “E1-walk + E2-recency first” and “ordinary unmodified state path” are not enough to define whether the 09:45 candidate can reach S3/S4 without modifying S2. The exact state transition is missing. |
+| **P024** | “day-keyed reads” is still an algorithm description, not a fully bounded historical traversal contract. It needs an explicit historical iteration domain and stopping/completeness rule sufficient to establish **ANY-age** rather than merely “deeper than 500 bars.” |
+| **P024 + F46-F56** | The packet relies on rollover-cached previous-session values, but does not specify how a historical walk distinguishes repeated cached values for different completed days, or how it proves the value belongs to the required closed day/session instance. |
+| **P025 + EA C2349-C2368** | The existing session candidate array includes current session buffers as well as previous-day/session buffers. The page says closed-session discipline is required, but the exact admission-time exclusion of still-open session levels is not shown here. |
+| **P025 + EA C7305-C7313** | `ComputeNearestTpTarget()` is fed **`currentPrice = iClose(..., barShift)`**. The 1R rule is explicitly measured from **entry open**, so the packet must distinguish the price used for nearest-target competition from the price used for the 1R test. As written, that distinction is not explicit. |
+| **P025** | The exact 1R insertion site is described as “post-race” but is not given as a concrete statement-level insertion, e.g. immediately after a successful `ComputeNearestTpTarget()` return and before stop/transition consumption. |
+| **P025 + EA C11095-C11118** | The managed recompute is shown, but the page does not pinpoint the actual **touch-event detector** that causes re-election. “TP_ELECT shadow” is design context, not a complete predicate/site contract. |
+| **P025** | The packet correctly says management may revise below 1R and still exits nearest, but that requires a strong distinction between the **admission-only R gate** and the **management-time nearest selector**. The page should state explicitly that no 1R filter is applied inside the managed selector. |
+| **P028-P033** | “Unified-passage” is a design label rather than a predicate. It lacks the exact Boolean condition and exact destination state for the 14:35-class and 09:45-class parameterizations. |
+| **P030 + EA C2238-C2267** | The DQ3 premise says HTF-bullish context governs, but the shown `ClassifyRegime()` derives `trendOk` from the three exported HTF buffers. Because those buffers are presently live and the exhibited UJ3 row is `votes=1`, the packet has not yet separated **machine HTF regime detection** from the operator’s chart/journal HTF ruling. |
+| **P031** | The packet correctly withdraws FVG-yield as the mechanism, but it should explicitly say what **positive mechanism now owns the former death point**. Otherwise it proves the old mechanism was wrong without fully instantiating the replacement. |
+| **P044-P049** | The acceptance schema is strong, but DQ1’s required source stamps depend on an export that does not yet exist, and DQ3’s “flip-read + census stamps” do not identify the exact fields that will populate them. |
+| **P055** | Calling this the “first code-level predicate specification” is fair, but several predicates remain prose-level: the DQ1 promotion bridge, DQ2 touch trigger, and DQ3 passage condition are not yet code-addressable enough for a builder to implement without interpretation. |
+| **End-of-file statement: “No `IsConfirmationCandle` touch anywhere (12 sites)”** | This wording is incorrect against the pasted code: `IsConfirmationCandle()` is explicitly called at **C8668** and **C8805**. The defensible wording is “no **new** `IsConfirmationCandle` caller proposed” or equivalent. |
+| **C8660-C8679 vs P018** | The PREBIND path can promote directly to `ST_S5_GATE_CHECK`, but that path is only reachable once the candidate is already in the cited prebind state. The packet does not show how the UJ1/UJ3 candidates reach that state at the decision candle. |
+| **C8822-C8848** | The divergence walk is explicitly unbounded and newest-first, but DQ1/DQ3 both say divergence machinery is outside the bypass. The packet should say explicitly that the unified passage **does not alter** this S5 divergence gate after promotion. |
+| **C7307-C7312** | Current behavior is still “no TP target → abort.” There is no shown 1R predicate here; the packet is therefore specifying a future gate, not documenting an existing one. That is acceptable for design, but it should be labeled as such. |
+
+## Analytic B — better mechanisms
+
+**DQ1:** the cleaner mechanism is **not** a second EA-side M15 mirror as the primary path. Export the HTF engine’s **confirmed Lo/M15 state plus its confirmed flip event/time** from the indicator, then consume that export at the earliest existing evaluation point before any promotion decision. The second `iCustom(PERIOD_M15)` should remain a validation/fallback path only. The critical implementation question that must be solved before build is the **state-path bridge from the exhibited S2 holder to an existing promotion site**; absent that bridge, the source fix alone cannot produce the 09:45 entry.
+Touch points: **HTF engine/GetOutputs around the cited 570-577 region; FlowLogic buffer declarations F30-F60; EA source read before the promotion logic; S3/S4 at C8668-C8679 and C8804-C8811; evaluation ordering C11483-C11492.**
+
+**DQ2:** retain one unified `TpTargetUpdateBest()` race. Add the historical PD/session extraction as a **true candidate source**, not as a competing TP engine; walk historical completed-day buffer observations until the completeness contract is satisfied, feed candidates through the unchanged comparator, then perform the 1R test against **latched entry open**, not the evaluation close. Keep touch-triggered re-election as a separate post-entry event that snapshots only the now-closed NY AM level before invoking the same nearest selector.
+Touch points: **C2301-C2321, C2349-C2409, C2452-C2464, admission around C7307-C7313, and managed recompute C11095-C11118.**
+
+**DQ3:** the best mechanism is a **single parameterized S1 passage predicate** immediately adjacent to the existing `REGIME_NONE` retention, not a new divergent regime engine. Its two parameterizations are the ones already stated in P030: (1) same-bar 5m flip + confirmation for the 14:35-class case, and (2) prior-bar 5m confirmation + confirmed-M15-at-open flip for the 09:45-class case. E1/E2 precedence remains intact, confirmation remains one-bar, and the ordinary S5 divergence/management gates remain downstream.
+Touch point: **the `S1WAIT` decision site C8060-C8065, with inputs from the existing confirmation read C2193-C2233 and the confirmed-M15 source defined under DQ1; do not alter C8668-C8679/C8804-C8811 beyond consuming the promoted state.**
+
+### Final tally
+
+**DQ1 — NO**
+**DQ2 — YES**
+**DQ3 — NO**
+
+So this packet does **not** establish a three-leg implementation-ready design. The remaining hard blockers are the **UJ1 S2→promotion route**, the **explicit DQ3 passage predicate/site**, and, separately, several wording/contracts that should be tightened before a build packet is allowed.
+## V303-UJIMPL-4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

@@ -185,3 +185,7 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 - FILING-TRIPLE-PROOF: no verdict filing stands on marker counts alone - markers 1x/1x PLUS git-diff content proof PLUS tail content re-read, all three the same turn (v294: Sonnet + GLM filings reported success with wire-clean counts while bytes showed nothing filed; caught by the marker audit + git diff; re-filed with triple proof).
 - NUMBER-MAX: the next ledger item number = MAX(all existing item numbers)+1 computed same turn, never tail-position+1 (v294 round: tail order ran 815/815/816/817/818/814 from overlapping-turn appends with a duplicate 815; reading order documented in 819, never reshuffled).
+
+## 18. Caller-count wording (V303 grade 2026-09-26 - Luna caught the relay's absolute)
+
+- NO-X-ANYWHERE claims prove themselves by caller-count assert beside the prose: a "no <function> touch anywhere" line ships only with the mechanical count (Select-String count + line numbers) pasted in the battery; a nonzero count rewrites the line to "no NEW <function> caller proposed" before transport (v303: "No IsConfirmationCandle touch anywhere (12 sites)" vs 11 disk refs incl EA 8668 + 8805; owned + fixed in v304).

@@ -17322,3 +17322,98 @@ If authoritative values still yield only one vote, the missing item is a general
 
 The v4 corrections improve the record, especially the explicit S2 rows and admission-versus-management distinction. They do not yet close the source/route gap in DQ1, the election/trigger contradictions in DQ2, or the missing regime predicate in DQ3.
 ## V302-UJIMPL-3 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V303-UJIMPL-4 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+DQ1-NO
+DQ1 NO - The confirmed-M15 export is the preferred source design, but its EA-readable interface and the ordinary same-pass route remain unresolved: P017 describes an internal confirmed output without an export mapping, while C2270–C2275 and the UJ1 FJ row show that S2 alignment reads the separate LTF buffer and retains the candidate before S3.
+
+DQ2-NO
+DQ2 NO - Buffer extraction and the booking insertion points are suitable design choices, but history completeness, historical eligibility, entry-open risk measurement, exact-landing handling, and the executable touch-trigger site are not yet specified consistently; C7305 uses the confirmation close, C7314–C7325 obtain the stop afterward, and C2305 excludes exact landing before the proposed winner gate can inspect it.
+
+DQ3-NO
+DQ3 NO - The page identifies the regime refusal at C8059–C8060, but does not establish the machine-readable bullish inputs or an authorized alternative classification predicate that admits this candidate; C2244–C2248 still require two aligned HTF votes, and an S1-only passage cannot resolve UJ1’s independent S2 refusal.
+
+These are independent design verdicts, not a council tally. E1/E2 remain CLEAR-carried and are not re-asked. This review treats the pasted material as the evidence; it does not authenticate disk hashes, byte identity, or unpasted sources.
+
+**Analytic A — defects, gaps, and imprecisions**
+
+1. **The primary source proposal conflicts with the stated implementation surface.** P005 limits edits to the EA and proposes no new indicator buffers; P017 proposes exporting confirmed M15 bias and flip timing from the indicator engine. Read-only permission to inspect the indicator does not itself reconcile those statements. The implementation packet must identify either an existing accessible interface or an explicitly revised edit surface. The indicator-first direction is clear; the concrete interface is not.
+
+2. **An internal confirmed value is not yet an EA-readable export.** P017 reports `GetOutputs` selecting confirmed or live engine members, but the actual HTF update, confirmation-latch, buffer-binding, and fill code is not reproduced. C202–C204 establish the EA’s HTF buffer constants, not a separately addressable confirmed-M15 stream. Neither F30 nor the listed declarations establish the fallback bias buffer’s `SetIndexBuffer` index.
+
+3. **The live-output setting is a diagnostic lead, not an established cause.** F252 and C10665–C10667 support the stated use of `false`. P017’s reported fill switch supports investigating live-versus-confirmed behavior. It does not establish that this choice caused either chart disagreement, or that changing it produces the required directions at the two decision boundaries.
+
+4. **Changing the existing confirmed-output flag is not shown to be M15-only.** F249–F252 define three HTF legs and one confirmed-only switch. Changing the argument at C10667 could alter all three outputs consumed at C2240–C2247. That is a materially broader behavioral surface than exposing an additional confirmed M15 observation, and requires an explicit choice and preservation proof.
+
+5. **Flip timing needs a transition contract, not just a direction value.** P017/P049 need to distinguish a genuine previous-confirmed-direction → current-confirmed-direction transition from initialization, replay, or repeated observation of an already-bearish state. A reported zero count of “flip” identifiers in the HTF include establishes neither the absence nor the correctness of transition semantics.
+
+6. **M15 closure must be anchored to the entry boundary, not merely the actual decision tick.** P017’s “as of the decision tick” and P049’s separate evaluation-boundary/actual-time fields need a precise rule: select the M15 bar whose close is eligible at the intended entry boundary. A delayed evaluation must not substitute an M15 bar that closed afterward. Conversely, a generic EA shift of 1 does not, by itself, prove which HTF closure an M5-indexed export represents.
+
+7. **The once-per-bar readiness behavior is unresolved.** C11487–C11491 mark the bar processed before loading and evaluating. If the required indicator output is unavailable on that first tick, the same bar is not automatically retried by this code. The design must state the fail-closed disposition and record readiness; it cannot assume a later same-bar read will occur. Any retry proposal would need its own explicit scope and one-entry protection.
+
+8. **UJ1’s immediate blocker is the LTF alignment read.** C2273–C2274 read `FL_BUF_LTF_BIAS`, whereas C2242 reads the M15 HTF leg. Correcting the latter does not mechanically correct the former. The FJ row is direct evidence that the standing candidate remains in S2 at the relevant pass. P017/P018 therefore specify a necessary source improvement without a sufficient route.
+
+9. **The proposed unified S1 passage does not explain the exhibited S2 state.** P030 says one S1 passage template serves both classes. UJ1 is already at `ST_S2_LTF_ALIGN`, and C8067–C8073 independently retain it. Shared evidence handling is plausible; a single S1 gate is not demonstrated to be sufficient. The no-S2-extension restriction must remain effective unless the ordinary LTF read is shown to align.
+
+10. **Same-pass S3 reachability is not established by listing the destination sites.** P018 identifies C8668 and C8805, but the intervening S3 logic beginning at C8079 is not reproduced in full. Reaching S3 must also reach the relevant ordinary confirmation consumer without an earlier return or veto. Historical `CONFIRM_PREBIND_S2` rows from another build cannot establish this route.
+
+11. **“E1/E2 first” needs an explicit dependency order.** P018/P030/P048 do not distinguish the carried E1 walk and E2 recency obligations from the confirmation-promotion consumers at C8668/C8805. Those consumers occur downstream of S1/S2. A new S1 gate cannot depend on an already-completed downstream promotion without circularity. Name the upstream eligibility results that must precede passage, while leaving the existing confirmation consumers intact.
+
+12. **The fallback’s equivalence remains unproven.** P017 proposes a native M15 handle running BiasEngine semantics. The existing MTF engine and the native-chart BiasEngine are separate cited mechanisms. Agreement on one `+1 → -1` observation would support that event, but would not alone prove matching initialization, closure timing, or historical transition behavior. The fallback must also specify its complete relevant input configuration.
+
+13. **PD/session buffer values need source-session identity.** P024 and F46–F48 establish rollover-cached previous-session values, including persistence across day rollover. They do not show that an arbitrary completed-day sample uniquely represents every session whose history is required. Extraction needs source session/day, close time, availability time, validity, and deduplication—not just sampled prices.
+
+14. **“Any age” is not proved by exhausting available bars.** P024/P047 require authoritative coverage, but do not define how its beginning and gaps are established. Reaching the oldest locally available bar proves only local exhaustion. Inclusion of the April-30 level is a necessary case check, not proof that no omitted eligible level is nearer.
+
+15. **Historical eligibility cannot be inferred from today’s mask.** C2367–C2368 obtain one mask for the current session/PD slots. No mapping is supplied from an arbitrary historical session record to its eligibility at the decision boundary. The third loop must apply the inherited relevant filtering without treating old records as current slots or importing future validity information. Missing-mask behavior also remains unresolved because `TpSessionLevelFiltered` is not shown.
+
+16. **The H1 calendar-span statement is too definite.** P024’s conversion of 600 H1 bars into a fixed calendar reach does not establish actual coverage. Broker bar availability and market closures matter; first and last timestamps are the evidence. More fundamentally, this snapshot remains a structure feed rather than a complete day/session-level pool.
+
+17. **Entry-session permission is being conflated with target-session eligibility.** P025 cites C228 to say PM is excluded by construction. C228 limits the EA’s entry-session enum, while C2356–C2364 explicitly include Asia and PM target buffers. London/NY-only entries do not establish exclusion of Asia/PM historical targets. Any such exclusion would need its own authority.
+
+18. **The cited admission site currently ranks from the wrong reference price.** C7305 passes the confirmation bar’s close into the race at C7307. An entry-open gap can change direction eligibility, nearest ordering, and zone relationships. Measuring only the final winner’s R from the entry open is insufficient if the winner was elected from a different price.
+
+19. **The risk gate lacks an established stop at the proposed immediate site.** C7314–C7325 obtain the stop after the TP lookup. The 1R check needs the finalized, valid stop and the entry-open reference. It must sit after both are available and before admission; C7307–C7312 alone do not identify that point. Nonpositive risk or wrong-side stop geometry must not be normalized into a valid R by an absolute-value calculation.
+
+20. **Exact landing is removed before the proposed single gate.** C2305 requires strict profit-side inequality. A target equal to the entry reference is discarded, allowing a farther target to win. Thus P023/P025’s “same 1R gate” cannot reject the exact-landing nearest level while keeping the candidate semantics entirely unchanged. This contradiction requires an explicit resolution, not a second ad hoc exception.
+
+21. **Booking parity is still missing from the census.** C2441–C2451 omit the session mask and zone exclusion; C2452–C2464 also do not reproduce every booking exclusion. Inserting historical names between C2451/C2452 does not make `admitted` an authoritative eligibility list. C2421–C2424 additionally cap output. P047 requires decision evidence that remains available after that cap.
+
+22. **The managed target race needs the historical pool too.** P025 gives exact historical insertion points for booking and census, but C11099–C11114 show a separate managed race. An any-age pool absent there would satisfy initial admission while failing the management requirement. Its cache must remain available when selection halts, as the packet correctly recognizes.
+
+23. **Touch-event identity and executable siting remain open.** P025 refers both to “today’s NY H/L” and a closed-session-only re-election pool; the veto wording identifies the closed NY AM object. These can describe different roles only if the event object and the elected target object are explicitly distinguished. The cited `TP_ELECT` shadow context is not executable trigger code. The page does not show crossing/touch detection, deduplication, or ordering when session closure and touch share an evaluation interval.
+
+24. **A corrected regime vote is preferable to an unproved override, but neither is established yet.** C2244–C2248 require two aligned votes. P030 supplies authoritative chart/journal context for investigating the inputs; it does not supply the corresponding ready machine values at the decision boundary. Neither a lower vote threshold nor “confirmation implies trend” follows from that evidence.
+
+25. **Regime passage affects management semantics.** C251 stores the admitted regime and states that it drives section 5.6 scope. Assigning `REGIME_TREND` or `REGIME_BOTH` merely to pass C8059 therefore has downstream consequences. The proposed passage must establish the correct classification, not just avoid `REGIME_NONE`.
+
+26. **Suppression is not an identified edit mechanism.** P031 correctly rejects the exhibited cross-session claim as the explanation for this miss. P048 and DQ3 nevertheless retain “suppression passed” language without its executable site or a demonstrated active blocker. Do not authorize an unspecified suppression bypass. If relevant in implementation evidence, expose it separately with candidate/session identity.
+
+27. **Reference entry price and executable fill must stay distinct.** P030 names the 14:40 open, while the exhibited actual evaluation occurs at 14:40:22. C248 describes the next-open reference as the fill level. The event tuple must preserve the model’s entry-open reference separately from an actual execution time/price; the later log does not prove execution at the historical open.
+
+**Analytic B — better mechanisms and their touch points**
+
+1. **Use a timestamped confirmed observation from the existing indicator engine.** Prefer P017’s indicator-first route. Define an EA-readable contract containing timeframe, source open/close, confirmed direction, prior confirmed direction, transition boundary, and readiness. Map the engine update and export sites before issuing an implementation packet; the reported HTFEngine 570–577 and FlowLogic 1195–1200 are inspection anchors, not sufficient export specifications.
+
+   The EA consumer belongs before the earliest dependent read in C2238–C2267 and before promotion at C8668/C8805. Inspect C11490 as well: if `LoadWorkingSet` reads or caches those values, inserting the read only inside `EvaluateClosedBar` would be too late. Preserve unrelated output semantics unless their correction is expressly part of the design.
+
+2. **Repair evidence feeding the ordinary route before designing a passage exception.** For UJ1, trace the LTF export read at C2273 against the operator’s 09:25 flip and the 09:40 confirmation. A correctly aligned ordinary read permits C8074–C8076 to advance to S3 without an S2 extension. If that read remains unaligned, halt the leg; confirmed M15 alignment is not a substitute.
+
+   For UJ3, establish whether corrected indicator inputs make the existing C2248 threshold pass. Then C8061–C8064 can perform the ordinary S1 transition. This approach preserves the intact confirmation predicate and downstream DIV handling. If corrected inputs still yield `REGIME_NONE`, specify the additional authorized regime rule before choosing override code.
+
+3. **Share an evidence contract between UJ1 and UJ3, not an assumed universal state transition.** P030’s two timing classes can share candidate identity, session eligibility, carried E1/E2 results, source readiness, and confirmation-boundary provenance. Their ordinary state transitions still differ. Keep C8668/C8805 as the existing confirmation consumers; add no walker callers and do not repurpose a shadow `CONFIRMPOLL` result as execution authorization.
+
+4. **Extract completed-session records into an incrementally maintained historical index.** Start with buffers 8/9 and 40–47 as directed in P024. Prove their sampling and reconstruction behavior first; use the M5 reconstruction fallback only where those exports cannot establish the required records.
+
+   Each record should retain source identity, closure/availability timestamps, price, and eligibility evidence. Query nearest in price over the eligible covered universe. Refresh independently of the selection-only path around C4995–C5004 so `SELHALT` cannot freeze managed data. A price-ordered index can reduce repeated lookup cost without imposing an age limit.
+
+5. **Use the same eligible historical records in both target races.** Insert the admission iteration between C2402/C2403, and the managed iteration between C11104/C11105. Add the requested read-only census mirror between C2451/C2452, but make grade evidence report the actual eligibility decisions used by booking. Preserve the existing nearest comparator for ordinary eligible targets; first resolve its exact-landing incompatibility with the admission rule.
+
+6. **Elect and validate admission using one coherent entry snapshot.** At the admission path containing C7304–C7325, use the intended entry-open reference, finalized stop, and complete eligible target pool. Elect the nearest eligible target first, then reject if it provides less than 1R; do not discard sub-1R candidates to promote a farther winner. Site that gate after successful stop acquisition and before the actual admission action. The precise final insertion line is not in this paste.
+
+   Management must continue to choose the nearest eligible target without the admission-only 1R floor. Resolve a target exactly at the reference price explicitly so it cannot disappear before the admission decision.
+
+7. **Make retargeting consume a timestamped closed-session snapshot.** Define the touch event’s object and timestamp separately from the target-election pool. At the event, include only session records closed and available by that event boundary; apply the same historical eligibility contract in C11099–C11114. Identify the executable touch consumer before supplying an exact trigger insertion line—EA 10087 is only a stated design anchor here.
+
+The packet now gives a credible indicator-first and extraction-first direction. It does not yet give a complete source-to-consumer contract for DQ1, a coherent nearest/entry-open admission contract for DQ2, or an evidenced regime predicate for DQ3; those are the specific remaining barriers to YES.
+## V303-UJIMPL-4 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
