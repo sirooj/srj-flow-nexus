@@ -1,7 +1,7 @@
 # BUILDER RELAY COUNCIL v287-ENTRY-FULL - packet P-ENTRY-2 v2 (S5.4 + recency + UJ proposals)
 
 ## 0. What this round is (read first)
-- Packet v2 (01_TASKS\PACKET_P-ENTRY-2.md D0016C37/18615/172) folds his UJ answers into the entry job: E1 S5.4 gate + E2 recency (ruled mechanisms, carried byte-identical from v1) + E-UJ proposals (UJ-1 confirm-once bypass, UJ-2 old-high pool + retarget, UJ-3 flip-confirmation + FVG-yield - for clearance, no code yet). Base tree D74FE972/633552/11502 (his 7-trade EU tree, current disk).
+- Packet v2 (01_TASKS\PACKET_P-ENTRY-2.md E1C20F3C/18786/172) folds his UJ answers into the entry job: E1 S5.4 gate + E2 recency (ruled mechanisms, carried byte-identical from v1) + E-UJ proposals (UJ-1 confirm-once bypass, UJ-2 old-high pool + retarget, UJ-3 flip-confirmation + FVG-yield - for clearance, no code yet). Base tree D74FE972/633552/11502 (his 7-trade EU tree, current disk).
 - Relay v286 SUPERSEDED untransported (no verdicts came; UJ answers arrived first and change the scope). No work lost: E1/E2/rows carry over verified.
 - This relay asks THREE questions (Q1 S5.4, Q2 recency + preservation, Q3 UJ proposals). Same text to every seat. Nothing builds, runs, spends, or clears live activation here.
 
@@ -170,7 +170,7 @@ P154: ## Acceptance (grade segment-vs-baselines; event tuples, never bare clock 
 P155: 
 P156: - A-S54-827 (8/27 SHORT Weekly-POC): S54VOID row at the 18:10 evaluation (bbar 18:10, break values populated, walked/skipped printed) + NO SIGNAL at 18:20 + NO CONFIRM_PREBIND at 18:20 + anchor cleared (no takes on the dead seed; fresh reseed allowed per spec section 6).
 P157: - A-STALE-901 (9/1 SHORT Monthly-POC): CONFIRM_STALE_SKIP row at the 15:30 evaluation (seedbar == 15:25 confirm bar printed) + NO SIGNAL at 15:30 + NO take.
-P158: - A-97NY (9/7 LONG Weekly-POC): SIGNAL + take at 16:45 + TP exit preserved (seedbar stands strictly before 16:40 confirm - grade-time rows; E1 walk over (seed, 16:40] finds no POI break; NO S54VOID + NO STALE on this path).
+P158: - A-97NY (9/7 LONG Weekly-POC): SIGNAL + take at 16:45 + TP exit preserved (seedbar 14:55 per RECON60 ANCHOR_ELECT stands ~2h before confirm 16:40 - E2 margin wide; retest 16:35 < confirm 16:40 - grade-time rows; E1 walk over (seed, 16:40] finds no POI break; NO S54VOID + NO STALE on this path; seeds are long-lived by retention, same-bar seed+confirm coincidence is the exception E2 targets).
 P159: - A-7PRESERVE: all 7 valid EU takes present (8/28 + 9/1 17:35 + 9/4 + 9/7 x2 + 9/8 x2); invalid still dead (9/4 10:40, 8/28 NY silent, 8/27 + 9/1-15:30 gone by the new gates).
 P160: - A-UJ-OWED: UJ evidence spec only (which gate refuses each on D74FE972 rows + his 3 objections answered) - NO criteria in v1; a v1 relay grading UJ takes is defective BY FORMAT.
 P161: - A-UJ1 (6/5 09:45 SHORT, PROPOSED): confirm-once fire at 09:45 open off 09:40 confirm=1 with standing 09:35 retest (locked bar bypasses touch-fallback/A2-post/HOLD/STAND-DOWN).

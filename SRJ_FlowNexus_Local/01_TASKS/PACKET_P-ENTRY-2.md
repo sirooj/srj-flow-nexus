@@ -155,7 +155,7 @@ Canonical files: exactly ONE - Experts\SRJ_FlowNexus_EA.mq5 (E1 S5.4 block + E2 
 
 - A-S54-827 (8/27 SHORT Weekly-POC): S54VOID row at the 18:10 evaluation (bbar 18:10, break values populated, walked/skipped printed) + NO SIGNAL at 18:20 + NO CONFIRM_PREBIND at 18:20 + anchor cleared (no takes on the dead seed; fresh reseed allowed per spec section 6).
 - A-STALE-901 (9/1 SHORT Monthly-POC): CONFIRM_STALE_SKIP row at the 15:30 evaluation (seedbar == 15:25 confirm bar printed) + NO SIGNAL at 15:30 + NO take.
-- A-97NY (9/7 LONG Weekly-POC): SIGNAL + take at 16:45 + TP exit preserved (seedbar stands strictly before 16:40 confirm - grade-time rows; E1 walk over (seed, 16:40] finds no POI break; NO S54VOID + NO STALE on this path).
+- A-97NY (9/7 LONG Weekly-POC): SIGNAL + take at 16:45 + TP exit preserved (seedbar 14:55 per RECON60 ANCHOR_ELECT stands ~2h before confirm 16:40 - E2 margin wide; retest 16:35 < confirm 16:40 - grade-time rows; E1 walk over (seed, 16:40] finds no POI break; NO S54VOID + NO STALE on this path; seeds are long-lived by retention, same-bar seed+confirm coincidence is the exception E2 targets).
 - A-7PRESERVE: all 7 valid EU takes present (8/28 + 9/1 17:35 + 9/4 + 9/7 x2 + 9/8 x2); invalid still dead (9/4 10:40, 8/28 NY silent, 8/27 + 9/1-15:30 gone by the new gates).
 - A-UJ-OWED: UJ evidence spec only (which gate refuses each on D74FE972 rows + his 3 objections answered) - NO criteria in v1; a v1 relay grading UJ takes is defective BY FORMAT.
 - A-UJ1 (6/5 09:45 SHORT, PROPOSED): confirm-once fire at 09:45 open off 09:40 confirm=1 with standing 09:35 retest (locked bar bypasses touch-fallback/A2-post/HOLD/STAND-DOWN).
