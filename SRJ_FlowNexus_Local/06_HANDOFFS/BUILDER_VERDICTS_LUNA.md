@@ -10598,3 +10598,163 @@ The indicator's session definitions are present, including London and NY, but th
 
 Accordingly, this packet **does not clear an implementation build**. The three design gaps should be resolved in the next implementation packet, with the existing E1/E2 path preserved and no live/build action taken from this verdict. The packet itself confirms there is no run proposed in this round.
 ## V301-UJIMPL-2 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V302-UJIMPL-3 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling
+
+### DQ1 — UJ1 15m source + promotion route
+
+**DQ1 NO — the 15m structural-bias source is not machine-mapped on disk, and the only explicit native M15 second-handle route is a new unscoped surface; therefore the required same-pass promotion route cannot be specified without inventing a source.**
+
+The blocking facts are:
+
+* The FlowLogic handle is instantiated with H4/H1/M15 parameters at **C10665–C10667**, but the packet explicitly says the buffer carrying the **15m structural bias is unmapped**. The visible FlowLogic exports show only a generic `g_bufBias[]` at **F30** plus HTF high/mid/low buffers at **F58–F60**; nothing in the supplied record establishes that `g_bufBias` is a separately addressable M15 series.
+* The generic snapshotter exists at **C3046–C3055**, but current selection calls are only M5 at **C5001–C5002** and H1 at **C5003–C5004**. There is no M15 call.
+* The proposed second `iCustom(... PERIOD_M15 ...)` route is expressly marked **new surface + compute requiring an explicit scope word**, P017. That word is not present in this relay.
+* The existing promotion sites are downstream: **S3-PREBIND C8655–C8666** and **S4 C8795–C8816**. They can consume confirmation, but the packet has not established a valid machine-readable 15m-flip value that can be read before promotion on the same pass.
+* The current evaluation cadence is once per newly closed chart bar at **C11483–C11492**. The desired 09:45 decision therefore needs the 15m value to be available *before* the promotion decision in that exact pass; P017 requires that ordering but does not provide an existing source satisfying it.
+
+So the route is not merely underspecified at the edges; its required **source predicate is missing**.
+
+---
+
+### DQ2 — UJ2 historical lookup + integration + 1R gate
+
+**DQ2 NO — the existing lookup cannot establish nearest-any-age, and the proposed deep day-keyed cache is not yet an on-disk mechanism; existing booking lines are usable as integration sites but do not cure the pool-completeness failure.**
+
+The blocking facts are:
+
+* `FindNearestSwing()` is explicitly capped at **500 M5 bars, C2490–C2503**, and returns the first qualifying value encountered. That is a **time-ordered scan**, not the operator's required **nearest-in-price** search. P024 itself flags this distinction and the April-30 example exceeds the demonstrated reach.
+* The H1 snapshot is **600 bars at C5003–C5004**. P024 correctly states that this is about five weeks / roughly 35 calendar days and can be short of the cited ~36-day historical level. It also is a structure-event snapshot, not a complete historical target pool.
+* The proposed B2 day-keyed deep lookup/cache is only a **recommended shape**, not existing code. P024 calls it a new deep lookup and unscoped surface.
+* The existing unified booking race is real at **C2349–C2409**: session/PD candidates at **C2397–C2402**, POI candidates at **C2403–C2408**, and nearest-value comparison in **C2301–C2321**. The census is read-only at **C2410–C2418** and naming is at **C2441–C2465**. Those lines provide an integration framework, not authoritative historical completeness.
+* The admission consumer currently obtains `currentPrice = iClose(...)` at **C7304–C7307**. That conflicts with the explicit **R-at-open** rule in P023: the 1R floor is measured from the **entry open**, not the confirmation-bar close. The packet says the 1R gate belongs after the winner at admission, but it does not identify an existing value path carrying the next-open entry price into that exact gate.
+* The managed recompute at **C11095–C11118** exists, but it still reads the existing finite buffers. It does not establish the required any-age historical pool.
+* Touch-retarget and closed-session snapshotting are prescribed in P023/P025, but the supplied disk pull does **not** show a complete event-trigger implementation that turns a touch of today's NY high/low into a re-election from the **closed NY session pool only**. The packet describes the intended mechanism but does not show the on-disk predicate that does it.
+
+Therefore the existing booking machinery is a viable **siting framework**, but the actual DQ2 requirement—**authoritative nearest-any-age pool + entry-open 1R admission + closed-session touch-retarget**—is not implemented sufficiently to answer YES.
+
+---
+
+### DQ3 — UJ3 regime passage
+
+**DQ3 NO — the current regime gate cannot admit the cited 14:35 flip-confirmed setup because S1 requires `ClassifyRegime()` to return non-NONE, while the exhibited decision row is `REGIME_NONE`; E1/E2 occur only after that gate and therefore cannot provide the required passage.**
+
+The blocking facts are:
+
+* The present regime classification is **C2238–C2267**: three HTF votes from buffers 19/20/21, plus a sweep-derived mean-reversion test. The candidate must obtain at least two directional HTF votes for `trendOk`, or a qualifying sweep for `mrOk`.
+* The 6/11 decision-pass evidence is explicit: **S1WAIT at R63 CI** and **REGIMECENSUS at R63 IH**, with `votes=1 trendOk=0 sweepTag=0 mrOk=0`. P031 and the row itself establish `REGIME_NONE`.
+* The actual state gate is **C8060–C8065**: regime NONE causes the candidate to be retained in S1WAIT; only a classified regime advances to `ST_S2_LTF_ALIGN`.
+* E1 at **C8655–C8689** and E2 at **C8795–C8816** operate in S3/S4. They are therefore **downstream of the S1 regime gate**, not a mechanism for crossing it.
+* The required 14:35 setup is nevertheless documented as having **retest + confirmation on the same 14:35 candle**, with the 14:40 open as entry. The acceptance condition in P048 asks for that bias-aligned setup to pass S1/suppression **with E1/E2 first**, but no existing on-disk predicate is shown that converts “flip-confirmed + HTF-bullish context + valid London/NY scope” into a regime admission before C8060.
+* The present `ClassifyRegime()` also does not directly encode the required **15m structural-flip timing**. Its HTF inputs are the 19/20/21 classification buffers, not a documented 15m flip timestamp/source.
+* The packet expressly withdrew the FVG-yield relocation as the solution in P030–P032, so that cannot be used to manufacture a passage.
+
+Accordingly, DQ3 is a genuine **missing admission mechanism**, not merely a logging deficiency.
+
+---
+
+## Analytic A — defects / gaps / imprecisions
+
+1. **DQ1 source identity is unresolved.**
+   P017 says FlowLogic consumes M15, but the exact 15m structural-bias buffer is unmapped. `g_bufBias[]` at **F30** is insufficient by itself to prove TF identity.
+
+2. **DQ1's alternative source is not actually authorized.**
+   The M15 snapshotter option is absent from current calls (**C5001–C5004**), while the proposed second handle is explicitly marked unscoped in **P017**.
+
+3. **DQ1 route ordering is prescribed but not instantiated.**
+   P017 requires the 15m read before promotion, yet no concrete existing call site is identified where that value is acquired before **C8655/C8795**.
+
+4. **The “15m flip at the entry candle open” timing needs one exact machine boundary.**
+   P010/P017 describe the 09:30–09:45 closed M15 bar and the 09:45 open together; the implementation still needs an explicit rule that the read occurs at `09:45:00` and uses that closed M15 bar, before the 5m promotion decision in the same pass.
+
+5. **DQ2 nearest semantics are internally mixed.**
+   P023 requires **nearest in price**, while the current `FindNearestSwing()` is **first qualifying event in time** at **C2494–C2501**.
+
+6. **DQ2 finite history cannot prove “any age.”**
+   The 500-M5 and 600-H1 bounds (**C2494–C2501; C5003–C5004**) are inherently finite. P025's pre-window statement acknowledges this, but the acceptance wording “any-age nearest” needs an explicit completeness contract at runtime, not only a prose declaration.
+
+7. **The admission 1R reference is wrong at the current integration point.**
+   `currentPrice` is `iClose(..., barShift)` at **C7304–C7307**. The packet's ruling is **R-at-open**, P023. Those are not the same price.
+
+8. **Selection and management distance bases are not explicitly separated.**
+   `TpTargetUpdateBest()` measures candidate distance from its `currentPrice` at **C2319–C2321**. The packet needs to distinguish admission-from-entry-open from management-nearest-at-management-price explicitly.
+
+9. **The target universe is not fully reconciled.**
+   DQ2 speaks in terms of previous day/session H/L, while the existing unified race includes both session/PD candidates and POI lines at **C2397–C2408**. The exact precedence between “nearest historical session/day level” and the unified POI race needs one operative statement.
+
+10. **Session taxonomy and target taxonomy are not identical.**
+    `ENUM_SRJ_SESSION` at **C228** contains `SESSION_LONDON` and `SESSION_NYAM` only, while FlowLogic exports Asia/London/NY/PM and previous-day session buffers at **F38–F56**. The packet says PM is excluded “by construction,” but it does not say whether Asia historical H/L are target-eligible despite Asia not being an entry-session enum.
+
+11. **Touch-retarget trigger mechanics are still conceptual.**
+    P023/P025 specify the event and closed-pool re-election, but no exact current disk line is shown that detects the touch and invokes the refresh with the closed NY-AM snapshot.
+
+12. **Closed-session snapshot boundary needs an exact machine definition.**
+    The 6/5 example says NY AM closed at 19:00, but the packet should still fix the exact session interval, closure timestamp, and whether the closing bar is included/excluded.
+
+13. **DQ3's “HTF-bullish context” is not equivalent to current `ClassifyRegime()` evidence.**
+    The code at **C2243–C2248** consumes three direction votes from HTF buffers; that is not the same thing as a machine-readable 4H/1H/15m structural-bias stack with the operator's documented 15m flip timing.
+
+14. **The 14:35 regime refusal is conclusively shown, but the desired replacement predicate is not.**
+    P031 correctly removes FVG-yield as the mechanism, but P033 does not name an existing on-disk gate capable of admitting the candidate.
+
+15. **“E1/E2 first” is underspecified as an execution-order rule.**
+    P048 says the regime passage should occur with E1/E2 first, but E1/E2 themselves are downstream state transitions. The exact precedence relation between confirmation consumption, regime admission, and S3/S4 freshness logic needs to be operationally defined.
+
+16. **The suppression terminology is not fully pinned.**
+    P031 says the `SUPPRESSED` row is inadmissible as a mechanism, but the D3 acceptance wording still says “S1WAIT/suppression passed.” That leaves an avoidable ambiguity over whether suppression is observed diagnostically or is a live veto.
+
+---
+
+## Analytic B — better mechanisms
+
+### UJ1
+
+Use a **dedicated, read-only M15 bias snapshot** sourced from a clearly identified exported bias buffer, acquired once on each M5 evaluation pass at the decision boundary, before any promotion logic.
+
+The clean placement is around the existing evaluation path **C11490–C11492**, before the S1/S3/S4 state decisions consume the candidate, with the promotion outcome then flowing through the existing **C8655–C8689 / C8795–C8816** machinery rather than adding another confirmation branch.
+
+The critical implementation contract should be:
+
+`M15 closed bar @ decision tick -> read 15m structural bias + flip timestamp -> validate entry-candle-open flip -> existing E1/E2 promotion`
+
+The missing part is the source itself; that is why DQ1 remains NO until that source is authorized and mapped.
+
+### UJ2
+
+Use a **day-keyed historical level pool** populated from authoritative session/day closures, then perform a **nearest-by-price directional reduction** over that pool. Do not repurpose `FindNearestSwing()` as the historical mechanism.
+
+The existing booking reducer **C2301–C2321** can remain the comparator primitive, but the admission-side candidate walk around **C2349–C2409** should consume the complete historical pool rather than the finite 500-bar swing search.
+
+Separately:
+
+* Admission price basis: **next-open entry price**, replacing the present `iClose()` basis at **C7304–C7307**.
+* 1R test: apply once to the elected admission target.
+* Touch event: detect today's NY H/L touch after entry.
+* On touch: snapshot the now-closed NY session, then re-run the same nearest-price reducer against the **closed-session pool only**.
+* Keep the management nearest-target rule distinct from the admission 1R gate.
+
+That mechanism directly addresses the three actual defects: historical reach, price-nearest semantics, and R-at-open.
+
+### UJ3
+
+Do **not** move the candidate into S5 from confirmation, because that would bypass the state architecture. Instead, add a narrowly defined **regime-admission predicate immediately before the existing S1→S2 gate at C8060–C8065**, using already-established evidence:
+
+`confirmed structural flip -> correct direction -> required 15m/HTF context -> London/NY session -> existing confirmation signature -> admit`
+
+Then let the normal path continue through **C8067 onward**, preserving E1/E2 precedence downstream.
+
+The important property is that this is a **replacement for the missing regime admission predicate**, not an FVG exception and not a new firing branch. It should not consume post-entry bars and should not use the later 14:45 evidence.
+
+---
+
+## Final tally
+
+| Question | Ruling | Core reason |
+| -------- | ------ | ----------- |
+| **DQ1**  | **NO** | 15m structural-bias source is not mapped; M15 read path is absent; new M15 handle is unscoped |
+| **DQ2**  | **NO** | No authoritative nearest-any-age pool; current lookup is finite/time-first; admission uses close instead of entry open; retarget mechanism not shown |
+| **DQ3**  | **NO** | Current S1 regime classifier returns `REGIME_NONE`; E1/E2 are downstream and cannot admit the 14:35 setup |
+
+**No build, tester run, spend, commit, or live-activation clearance follows from these rulings.**
+## V302-UJIMPL-3 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

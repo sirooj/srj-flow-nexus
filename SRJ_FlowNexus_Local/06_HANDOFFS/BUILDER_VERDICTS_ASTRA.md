@@ -17246,3 +17246,79 @@ If corrected authoritative H4 and M15 inputs produce two aligned votes, the exis
 
 If reliable inputs still yield fewer than two votes, a new exception requires an explicit general predicate and authority beyond the displayed implementation. Neither “flip-confirmed” nor the June 11 example specifies that exception sufficiently to implement it. No freshness relocation, suppression-as-killer theory, DIV bypass, or post-entry candle re-evaluation is justified by this page.
 ## V301-UJIMPL-2 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V302-UJIMPL-3 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+DQ1-NO
+DQ1 NO - neither an identified closed-M15 structural-bias source nor the permitted same-pass promotion route is established, because C2273 reads the M5 LTF-bias buffer and C8072–C8073 retains the exhibited candidate in S2 before either permitted confirmation site.
+
+DQ2-NO
+DQ2 NO - the historical-pool design has a viable insertion shape, but entry-open election/gating and closed-session retargeting remain internally inconsistent, because C7305 supplies the confirmation close, C2305 discards exact landings before the proposed gate, and P025 still names today’s NY H/L as the trigger despite the closed-NY-AM ruling.
+
+DQ3-NO
+DQ3 NO - no supported replacement predicate admits the setup past S1WAIT, because C2243–C2265 requires two aligned HTF votes or an eligible sweep, while the exhibited decision pass supplies one vote and no sweep; a confirmation result alone does not establish a replacement regime rule.
+
+These are independent design verdicts. E1/E2 remain CLEAR-carried and are not re-asked. This review treats the pasted material as the record; it does not authenticate disk bytes, execute anything, or authorize implementation.
+
+**A — Defects, gaps, and imprecisions**
+
+1. **DQ1: passing `PERIOD_M15` does not identify a structural-bias export.**
+P017; C10665–C10667; C202–C204; F58–F60; F249–F252.
+These establish an M15 input and three HTF buffer names. They do not establish that buffer 21 exports native M15 BiasEngine structural direction, its encoding, its update timing, or its confirmed-bar semantics. Selecting buffer 21 from the naming alone would invent the missing contract.
+
+2. **DQ1: a fractal snapshot is not a structural-bias source.**
+P017; C3045–C3055; C5001–C5003.
+`SrjSelSnapTF` copies fractal highs/lows and timestamps. An M15 invocation, at any depth, would not by itself reproduce the BiasEngine decision semantics. Moreover, C3048 distinguishes H1 from everything else; the shown signature does not prove that the downstream storage supports a third timeframe without modification.
+
+3. **DQ1: the native-M15 second handle is a conditional mechanism, not an available cleared source.**
+P017; F30; F247; B16–B35; B149–B169.
+P017 correctly leaves this option outside the current authorized surface. Beyond its export index and historical value probe, the design must specify the chart-trading-timeframe input: F247 defaults to `CTF_5MIN`, so changing only the `iCustom` timeframe does not prove that all internal semantics become M15-native. Indicator initialization, readiness and closed-bar availability also remain unspecified.
+
+4. **DQ1: the new rows expose a route blocker that M15 agreement does not repair.**
+P018, P046; C2270–C2275; C8067–C8077; C8666–C8668; rows IL/FJ.
+At the decision pass, the candidate is in S2 and `CheckLtfAlign` reports unaligned. That function reads `FL_BUF_LTF_BIAS`, not the proposed M15 source. A confirmed bearish M15 value cannot make this M5 read bearish without an additional, explicitly justified change. With the ordinary path unchanged, C8073 returns before S3-PREBIND or S4. Fail-closed acceptance is appropriate, but it does not supply the requested route.
+
+5. **DQ1: source ordering must include upstream consumers, not only promotion.**
+P017–P018; C2240–C2248; C8070; C8668; C8805.
+P017’s earliest-consumer requirement is stronger than its concluding “before the promotion decision” statement. Any corrected source that affects regime classification must be available before C2240–C2248; an alignment-source correction must precede C8070. Reading just before C8668 cannot repair an earlier return.
+
+6. **DQ1: the promised M15 diagnostic specification is still a requirement rather than a specification.**
+P049.
+The page calls for a declared print spec but does not declare the source handle/buffer, requested timeframe and shift, source-bar opening and closing timestamps, previous/current direction, readiness result, or consuming candidate/pass. The general event tuple is useful but does not establish which M15 value was actually consumed.
+
+7. **DQ2: the H1 reach is an approximation, not a coverage proof.**
+P024; C5003.
+The nominal five-trading-week interpretation does not establish exact calendar reach. Actual oldest copied timestamps, partial weeks, holidays and missing bars govern coverage. This does not rehabilitate H1-600: it remains a structure snapshot rather than the required level pool. The defect is presenting an approximate reach as an exact historical boundary.
+
+8. **DQ2: “authoritative history coverage” needs a defined completeness boundary.**
+P024–P025, P047.
+Loading April 30 demonstrates access to the named example, not nearest-any-age completeness. The contract must identify the authoritative history start, eligible closed periods, missing-data treatment, and how previously archived levels survive later history truncation. Otherwise an omitted older level may be closer in price than the elected winner. A bounded pool cannot be called complete merely because its lookup has no loop cap.
+
+9. **DQ2: the proposed cache location is downstream of selection-halt returns.**
+P024–P025; C4995–C5004; C5005–C5010.
+A refresh placed only at C5005–C5010 will not run after the displayed `SELHALT` returns. The carried “must not freeze” requirement is correct, but the named insertion cluster does not satisfy it by itself. Shared refresh needs a reachable location independent of successful selection snapshots, or a managed-consumer ensure-current path.
+
+10. **DQ2: the existing race uses the wrong price reference for the new admission rule.**
+P023–P025; C7305–C7307; C2305–C2321.
+C7305 passes the confirming bar’s close. Entry-open election must use the entry-open reference for both directional eligibility and distance ranking, not merely substitute that price in a later R calculation. A gap can change which levels are ahead of entry and which target wins.
+
+11. **DQ2: the proposed gate site precedes establishment of the stop reference.**
+P025; C7307–C7325.
+An R gate needs the valid admission stop as well as the entry reference and elected target. The excerpt starts stop acquisition only after the proposed target site. Place the decision after successful atomic stop acquisition and before admission; the exact successful-stop continuation and final admission consumer are not pasted, so their line numbers cannot honestly be supplied.
+
+12. **DQ2: exact landing does not currently reach the proposed ratio check.**
+P023, P025; C2305–C2306.
+A target exactly equal to the reference price is removed by strict `>`/`<` before the race can elect it. A farther target can then win and pass 1R. Thus “same gate, implement once” is not achieved with the unchanged comparator alone. The design must preserve an otherwise eligible exact landing and otherwise selects the nearest valid target relative to the entry-open reference. After successful stop acquisition beginning at C7325, apply the single admission test:
+
+`directional target distance >= valid entry-open stop risk`
+
+Reject the elected sub-1R target without searching for a farther substitute. Do not apply this floor to managed recomputation.
+
+Replace P025’s trigger wording with touch of the identified **closed NY AM high/low**, carrying its closing timestamp. Exact executable trigger siting remains unestablished because the relevant refresh body is absent.
+
+3. **UJ3: correct timestamped HTF inputs before creating a regime exception.**
+First expose H4/H1/M15 direction, source-bar timestamps and readiness at C2240–C2247. If authoritative corrected values meet the existing threshold, retain C2248–C2265 and allow normal passage through C8061–C8077. This fixes the source of refusal without broadening the classifier.
+
+If authoritative values still yield only one vote, the missing item is a general regime-admission predicate—not merely an insertion line. Any subsequently ruled predicate belongs before the `REGIME_NONE` return at EA 8059–8060, with an explicit regime result because C251 shows that admission regime affects later management. It must preserve the confirmation predicate, carried E1/E2 precedence, session eligibility and downstream checks.
+
+The v4 corrections improve the record, especially the explicit S2 rows and admission-versus-management distinction. They do not yet close the source/route gap in DQ1, the election/trigger contradictions in DQ2, or the missing regime predicate in DQ3.
+## V302-UJIMPL-3 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

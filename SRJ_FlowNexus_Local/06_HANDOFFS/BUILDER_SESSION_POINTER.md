@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V302 READY)
+## State (2026-09-26, V302 GRADED)
 
-- Replay adopted (grade stands).
-  Packet v4 + relay v302 green
-  (886AB7D8/69733/797) with dup-proof.
-  Ledger 841.
+- DQ1 0-3 NO, DQ2 1-2 halt, DQ3 1-2
+  halt (Astra halts both). Label triple
+  agrees. Result filed. Ledger 842.
 
 ## Next (owed him)
 
-- Carry v302 whole to all seats (one
-  text each). Nothing else owed.
+- YOUR two scope words (S2 pre-bind
+  re-scope + second 15m handle).
+  v5 drafts after answers.
 
 ## Resume order (exact)
 

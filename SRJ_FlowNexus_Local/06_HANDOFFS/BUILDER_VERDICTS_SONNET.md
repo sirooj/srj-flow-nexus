@@ -2163,3 +2163,18 @@ This one looks mostly already done, functionally, in the existing code — worth
 
 If you want, I can go through the MQL5 excerpts in more depth on any one of these — especially the M15 buffer mapping, since that's the one place I genuinely don't have enough visibility to tell you what's on the other end of that `iCustom` handle.
 ## V299-UJIMPL-1 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+## V302-UJIMPL-3 OPEN SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+Sonnet:
+I can engage with this as a code-review question, but I want to flag something first: I can't verify any of the "council," "seat," "battery diff," or "disk hash" claims in the framing — I only see the text pasted here, not your actual repo, so I can't confirm 0-diff claims, line-number precision beyond what's shown, or that other named reviewers ("Luna," "Astra," "GLM") actually produced the cited opinions. I'll treat this as: "review these three design questions against the code snippets provided," and give you my own honest read rather than a fabricated consensus verdict.
+
+**DQ1 — 15m bias source/route**
+From what's shown, `g_hFlow` is opened with `PERIOD_M15` as one of three HTF args (C10665-10668), but there's no evidence in the pasted buffer map (F30-F60) of *which* buffer index carries a 15m-specific structural bias distinct from the generic `g_bufBias`/HTF buffers (F58-60 are H/HTF hi/mid/lo, not bias-by-timeframe). So candidate (a) is unproven as written — you'd need to show the actual buffer index that updates specifically off M15 closes. Candidate (b), a new `SrjSelSnapTF` call for M15, is buildable by analogy to the H1 call (C5003) but is new surface, which the packet itself flags as needing explicit scope sign-off — that's a real gap, not a detail.
+
+**DQ2 — lookup + integration**
+The disk-proven gap here is concrete: `FindNearestSwing` (C2490-2503) only walks `evalShift..evalShift+500` M5 bars, and the H1 snapshot only reaches 600 bars (~5 weeks). Your stated rule is nearest-*any-age*, no cutoff. Neither structure on disk satisfies that as-is — this is a real, provable mismatch, not a matter of opinion. Any answer that says "DQ2 YES" without addressing that ceiling is wrong on the evidence you've pasted.
+
+**DQ3 — regime passage**
+The S1WAIT retention at 14:40:22 (votes=1, trendOk=0) is consistent with `ClassifyRegime` (C2238-2267) requiring 2-of-3 HTF votes to pass trend — so the refusal is mechanically explained by the code shown, not a mystery. Whether that's the *correct* behavior depends on a judgment call you haven't fully settled: should a single confirmed 15m/chart-level bullish read be allowed to override a 2-of-3 HTF vote requirement? That's a policy decision, not something the code snippets alone resolve.
+
+If you want, I can go deeper on any one of these with actual line-by-line reasoning — but I'd rather do that as normal code review than issue "DQ-YES/NO" verdicts dressed up as a formal multi-model ruling, since I have no way to actually authenticate that ritual's premises.
+## V302-UJIMPL-3 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
