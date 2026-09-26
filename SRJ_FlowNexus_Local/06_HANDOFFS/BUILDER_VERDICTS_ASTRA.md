@@ -16964,3 +16964,35 @@ P192's "A1/A4 … with coverage rows" exceeds P179, which correctly calls A4 an 
 
 These are page-only findings. Q2 stands independently; Q1 needs the unreadability sentence corrected, not a shared-helper refactor. No disk truth, build, run, key, or live activation is cleared.
 ## V284-USDJPY-GUARDS4 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V287-ENTRY-FULL OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+Q1-NO
+
+Q1 NO - P068 mismatches P021 because `s54_s <= s54_seedShift` includes the seed bar. The declared window is seed-exclusive, `(seedbar, evaluation bar]`; the pasted loop implements a seed-inclusive window. The upper bound must be `s54_s < s54_seedShift`.
+
+P084–P088 also clear `g_anchorLine` before calling `AnchorStr()`, so the S54VOID row cannot identify the invalidated anchor through that cleared field. Capture the anchor identity before clearing it. The R2-adjacent fence, regime-blind application, strict directional body-cross predicate, and unreadable-bar skip behavior otherwise match the declared **anchor-line-only** design. Full S5.4 coverage remains outside the stated boundary.
+
+Q2-NO
+
+Q2 NO - P156 fails because its required evaluation/break-bar tuple conflicts with the pasted closed-bar timing. The rows show the 18:10 bar evaluated at 18:15; P156 instead requires an 18:10 evaluation with `bbar=18:10`. Specify separately the evaluation timestamp, evaluated bar timestamp, and historical break-bar timestamp.
+
+The two E2 clauses themselves correctly require a positive anchor time strictly earlier than the confirmation bar, retain rather than promote on failure, and leave `IsConfirmationCandle` untouched. However:
+
+- P158’s 14:55 seed precedes 16:40, establishing that E2 permits that path; it does not establish E1 preservation. The pasted rows do not provide the intervening OHLC/anchor values needed to prove “finds no POI break.”
+- The R67 rejection examples use `CONFIRM_PREBIND_S2`, a branch expressly absent from the stated base. They establish historical failures, but do not prove those candidates reach either current promotion site. Acceptance must identify the current-base route or distinguish an already-absent take from a newly demonstrated rejection.
+- P160/P164 retain the historical UJ evidence-only criterion alongside proposed UJ take criteria. Make the E1/E2 acceptance set separate from the future, cleared-and-implemented UJ acceptance set.
+
+Thus, recency is correct at the two displayed sites, but the preservation battery is not fully gradeable as written.
+
+Q3-NO
+
+Q3 NO - E-UJ1, E-UJ2, and E-UJ3 remain incomplete proposals; the supplied excerpts do not support complete touch-site or predicate clearance.
+
+- **E-UJ1 — P035/P161:** “locks the next-open entry” conflicts with P013’s confirming-close **limit** order unless explicitly reconciled. The supplied `confirm=1 shadow=true` row establishes a diagnostic predicate result, not an authoritative confirmation commitment. Define where a valid standing retest, E1/E2 eligibility, and confirmation become committed before allowing later rechecks to yield. Blanket STAND-DOWN bypass also reaches machinery associated with divergence refusal in C8851–C8869; confirm-once does not itself authorize bypassing that independent refusal. Neither the broad list nor touch-fallback-only is proven sufficient by the pasted sites.
+
+- **E-UJ2 — P036/P162:** The older-high source is appropriately disclosed as unresolved, but adding census visibility alone cannot change booking: C2410–C2415 explicitly describe the census as read-only. The proposal must cover actual candidate admission and source-specific validity, as well as reporting. Retargeting “once price exceeds” an already-booked TP also needs execution ordering: an executable TP may close the position before that trigger can revise it. Define whether this is pre-entry target reselection or management of an open position, when the NY high is sampled, and what happens when it is not a valid forward target. Touch-versus-close alone does not resolve this.
+
+- **E-UJ3 — P037/P163:** Accept the supplied ruling that 14:35 is this case’s confirmation and Daily-POC is its anchor. Generalizing that to “a with-direction flip bar satisfies the confirm requirement” still needs an exact qualifying flip predicate, candidate/retest timing, the confirmation terms it replaces, and precedence against E1. The pasted 14:45 failure row does not establish the 14:35 mechanism. FVG-yield likewise needs an explicit boundary identifying which FVG-dependent holds cease to apply after the qualifying flip.
+
+These are page-only verdicts. No disk authenticity, build, run, commit, or live activation is certified.
+## V287-ENTRY-FULL END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

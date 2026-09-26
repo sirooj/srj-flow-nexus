@@ -10375,3 +10375,13 @@ Q1 YES - the unreadability sentence is exact
 
 Q2 YES - the battery is gradeable
 ## V285-USDJPY-GUARDS5 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V287-ENTRY-FULL OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+Q1 **NO** — E1 does not exactly implement the stated seed-exclusive window. The rule says `(seedbar, evaluation bar]`, but the walker at P068 uses `s54_s <= s54_seedShift`, which includes the seed bar itself.
+
+Q2 **YES** — recency is enforced with the required strict `seedbar < confirmBar` test at both promotion sites, with stale handling preserving the candidate and leaving `IsConfirmationCandle` untouched; the 9/7 preservation case is also internally gradeable from the stated timings.
+
+Q3 **YES** — the three UJ items are presented as proposals rather than ruled code, with the bypass scope/options and 10:40 conditioning for UJ1, the source/trigger choices for UJ2, and the flip/FVG-yield predicate plus settled anchor for UJ3 all explicitly stated.
+
+**Verdict: Q1-NO / Q2-YES / Q3-YES.**
+## V287-ENTRY-FULL END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

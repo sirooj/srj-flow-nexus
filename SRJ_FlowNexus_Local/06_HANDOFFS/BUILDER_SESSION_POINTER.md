@@ -3,20 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, REVIEWED)
+## State (2026-09-26, GRADE + FOLD FILED)
 
-- Your clarification reviewed
-  adversarially: no repeat (E1
-  contained, E2 threat found +
-  dissolved on your 9/7 seed
-  rows, UJ zero-change).
-  Packet E1C20F3C. Relay
-  76E47DDF. Ledger 803.
+- V287 graded NO-CLEAR (4 seats:
+  Q1 0-4, Q2 2-2, Q3 3-1).
+  V288 battery-green, TRANSPORT
+  OWED. No build, run, key.
+  Ledger 805.
 
 ## Next (artifact owed)
 
-- YOUR carry: v287 file to
-  seats + paste-back only.
+- YOUR carry: v288 file, seats
+  your choice + paste-back.
 
 ## Resume order (exact)
 

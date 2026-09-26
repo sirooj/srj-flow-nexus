@@ -135,3 +135,11 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - FORM-STAND (Luna-B answer, recorded not adopted): C stays the pre-build baseline plus exact patch plus S3 post-proof; rendered unbuilt trees are never shipped (fabrication risk exceeds review value). The demand is logged, the form stands.
 - FILING-READBACK: every verdict filing ends with marker counts (1x/1x) plus a read-back of the filed text against the inbound before any grade (own GLM self-inserted bullet caught this way, excised same turn).
 - COUNT-METHOD declaration: every cited count states its tool (Get-Content vs ReadAllLines trailing-line class, v275 154/155) and same-method comparisons govern.
+
+## 10. v287 round gates (builder-owned defects, 2026-09-26 - battery passed green, all four seats halted Q1)
+
+- INTERVAL-EDGE: every rule-text interval bound is matched against the code loop bound before transport, inclusive/exclusive stated on both sides (v287: P021 seed-exclusive vs P068 `<=` walked the seed bar itself; Q1 0-4 halt).
+- PRINT-AFTER-CLEAR: every row printed after a state clear captures its identifying fields BEFORE the clear (v287: S54VOID poi= read AnchorStr() after g_anchorLine=-1, always "-" per EA L1718; fix captures first).
+- ROUTE-PREMISE: every acceptance row demanding a print at a site proves the candidate reaches that site on the BASE-tree build (v287: A-STALE-901 demanded STALE at 15:30 while D74FE972 rows show S1->S2 hold; the R67 rows were build E8B0E582, not D74).
+- TUPLE-ACCEPTANCE: every time-based acceptance names evaluation-pass, evaluated-bar, and event-bar separately (v287: P156 fused 18:10 evaluation with bbar=18:10 against rows showing the 18:10 bar evaluated at the 18:15 pass).
+- CENSUS-PIN: every multi-site cite pins the exact id set by mechanical count, identical in all cites (v287: FRESHCOUNT rode two forms; disk = 2286/2295/7190/7220/7222/7223, 6 refs).

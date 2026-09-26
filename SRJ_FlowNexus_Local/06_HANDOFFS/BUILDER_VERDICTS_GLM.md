@@ -4641,3 +4641,66 @@ Basis:
 
 Both questions clear: **Q1-YES, Q2-YES.** Nothing halts.
 ## V285-USDJPY-GUARDS5 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V287-ENTRY-FULL OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+# RULING — review seat, packet P-ENTRY-2 v2 (carried EC920021 lineage), base tree D74FE972/633552/11502
+
+Ruled on the page only (packet text, code companion, rows fence). No disk claims asserted; no key spent; nothing builds, runs, or transports on this verdict. Per seat packaging, this seat exercises halt power on Q1+Q2.
+
+---
+
+## Q1 — S5.4 gate rule verification
+
+**Q1-NO**
+
+**Q1 NO - P021 "Window: (seedbar, evaluation bar] - seed-exclusive, CURRENT-bar-inclusive" mismatches because the E1 insert's walk (P068) is `for(int s54_s = barShift; s54_s <= s54_seedShift; s54_s++)` — the bound `<= s54_seedShift` walks the seed bar itself, so the pasted code (which STAGE-1 will enshrine byte-exact) is seed-INCLUSIVE while the rule text and the battery's own walk description (P158: "E1 walk over (seed, 16:40]") are seed-EXCLUSIVE.**
+
+Details:
+- Shifts grow into the past; seed-exclusive requires the walk to stop at `s54_s < s54_seedShift`. As pasted, the seed bar's own OHLC is tested against the break predicate.
+- This is the exact edge class the rule exists to police (P021 cites E6b's confirm-exclusion as "the hole"; Ruling 4 is an off-by-one ruling). Text, code, and acceptance must agree at the seed edge before build. Behavioral inertness (a valid election bar closed on the setup side can never hit the break predicate) is *possible* but unproven on the page — the election/arming predicate is not pasted — so the edge cannot be cleared as "exactly."
+- Fix, one of two, made consistent across P021 + P068 + P158: (a) code-side — tighten to `s54_s < s54_seedShift`, keep the text; or (b) rule-side — declare the window `[seedbar, evaluation bar]` on the spec-literal basis ("body-broken **before that close**" includes the seed bar's own close) and amend P021/P158. Either is a one-line resolution; it may not be resolved silently.
+
+Secondary (cleanup required in the same revision): P025's non-coverage boundary — a blocking-grade scope statement — still carries "(E3 owed)" against P040/P042's explicit retirement ("not owed, not defective to relay"); P169 "UJ detector owed" is the same stale carried text. Amend so the boundary is self-consistent.
+
+What passes in E1: fence identical to R2 (C7823), no regime gate ✓; asymmetric direction-matched strict cross exactly as stated (P076 vs P022) ✓; wick-safe (only open/close read) ✓; disposition mirrors R2 field-for-field (C7848–7853 vs P082–088), void unconditional, row debug-gated ✓; fail-open on EMPTY/zero-OHLC/iBarShift −1 ✓; reseed-fresh / no-revive holds by disposition (post-void state IDLE + anchor 0 = gate can't re-fire on the dead candidate) ✓; siting after R2-close before the state-machine body is confirmed against C7854–7856 and is what makes A-S54-827 gradeable (E1 is state-blind within S1–S4, so it catches the S2-held 8/27 seed regardless of the S2-branch absence) ✓; S3 +32 (35−3) recounted from the pasted block ✓.
+
+---
+
+## Q2 — recency + preservation verification
+
+**Q2-NO**
+
+**Q2 NO - A-STALE-901 (P157) fails because the demanded row (CONFIRM_STALE_SKIP at the 15:30 evaluation) requires the 9/1 15:25 confirm to reach promotion site (a) EA 8668 or (b) EA 8805 on D74FE972, and the only rows pasted for that confirm are R67's — build E8B0E582 per P009 — which show it promoted via CONFIRM_PREBIND_S2 (row PD: bar=15:25, seedbar=15:25) with the S5 fall-through in the same pass (row KO), i.e., the candidate sat at S2 at the confirm pass on the ruling build; P030 states D74FE972 has no S2-exception branch and exactly two promotion sites, so the route premise for the row is unproven and the battery is not gradeable as written under the packet's own standard (P154: "event tuples, never bare clock labels"; P030: "each proven separately").**
+
+Corroboration from the packet's own numbers: pre-edit there is no recency gate; R67 shows confirm=1 (row CH) and pobreak=0 (row KO) for that pass. Had the 15:25 confirm reached a promotion site on D74FE972, it would have promoted and fired the 15:30 false take — yet D74FE972 is characterized as the 7-trade tree (P003) with no false listed (P016, vs E6E90831's explicit "+ 1 false"). So the 15:25 confirm most likely never reaches either site on D74FE972; no STALE row can print at 15:30; the 15:30 non-take is pre-existing structure (branch absence), not E2. A-STALE-901's "gone by the new gates" attribution (P159) is loose for 9/1 in the same way.
+
+Fix: pull the D74FE972 EU-run rows for the 9/1 15:25 pass (they exist — the matrix was built from that run). If they show a site-(a)/(b) evaluation at 15:25, paste them and A-STALE-901 stands as written. If they show CONFIRMPOLL-only with no site row, re-target A-STALE-901 to the actual refusing mechanism with its row, and either re-point E2's gradeability to a real same-bar case or declare it explicitly defense-in-depth/inert on EU. Also label the rows fence's build attribution (R67 rows = E8B0E582) so the PREBIND_S2 rows stop reading as a contradiction against "PREBIND_S2 0 hits on disk."
+
+What passes in E2 (stated so the revision carries it): strict `g_anchorBarTime < iTime(barShift)` at both sites ✓ (9/1: 15:25 < 15:25 false; 9/7: 14:55 < 16:40 true, 16:35 < 16:40 a fortiori); E2a STALE + `return` mirrors the FAIL arm (retain, no promotion, no S5 fall-through) ✓; E2b STALE + skip-promotion retains, promotion preserved verbatim in the else ✓; no IsConfirmationCandle touch (function untouched; only two site branches wrapped) ✓; print census 2 ✓; S3 +6/+8 recounted ✓; 9/7 preserved by rule text ✓ (modulo the Q1 walk-edge fix, since A-97NY repeats the exclusive form).
+
+---
+
+## Q3 — UJ proposals clearance
+
+**Q3-YES**
+
+**Q3 YES - proposals clear with options.**
+
+All three are prose-only, marked PROPOSED, with honest options (UJ1: full bypass-list vs touch-fallback-only; UJ2: pool-source data question + close-vs-touch trigger semantics; UJ3: A2 line settled by his answer, mechanism only), stated risks (10:40 conditioning via confirm=1 AND standing retest), and concrete criteria (A-UJ1/2/3). "MY SOLUTION as commissioned" correctly attributes UJ2 to the builder under his "i want your solution" — nothing is asserted as ruled; settled items cite his filed answers. Nothing builds on clearance ✓.
+
+Predicate-time requirements (ride the relay; not blockers to this clearance):
+1. **UJ2 site precision:** the fix must extend the BOOKING race (session/POI loops, EA 2396–2409) and the census naming together — "extend the TP census pool" as worded is census-side and would leave NO_TP_TARGET firing and break winner==booked. Say booking+census pool.
+2. **UJ2 retarget site:** no touch site cited for where the booked target is stored/revised; cite it when ruling predicates, and pin the degenerate exceed case (price == session high at trigger → target == price).
+3. **UJ1 site list:** FRESHCOUNT is inconsistent between P035 ("2286/2295/7190/7190-7223") and P151 ("2286/2295/7190-7223") — pin the exact set.
+4. **UJ1 conditioning:** "grade rows prove the conditioning" for 10:40 — paste those rows at predicate time.
+5. **Hygiene:** A-UJ-OWED (P160: "NO criteria in v1… defective BY FORMAT") sits in L-final beside the proposed criteria, and P025/P169's stale "owed" lines contradict P040–042 — amend the carried lines so the v2 acceptance list is self-consistent.
+
+---
+
+## Disposition
+
+- **Halt per dual-key on Q1-NO + Q2-NO.** Packet returns for revision. No key spent, no build, no runs, no transport.
+- **Carries verified this pass:** E1 disposition/fence/predicate-idiom/fail-open/reseed; E2 mechanics at both sites; 9/7 preservation by rule text; S3 arithmetic (+32/+6/+8 = +46, post 11548, recounted from the pasted blocks, matches P152); A-S54-827 gradeability (E1's pre-state-machine siting covers the S2-held seed); A-97NY and A-7PRESERVE structure; row pattern hits as labeled.
+- **Revision list (small):** (1) resolve the E1 seed-edge (code or text, all three of P021/P068/P158 agreeing, with an explicit ruling line); (2) paste the D74FE972 9/1 15:25-pass rows or re-target A-STALE-901; (3) label rows-fence build attribution; (4) amend stale E3/"owed" and A-UJ-OWED carried lines; (5) fold the Q3 predicate-time notes into the next packet.
+- Disk-side backstops (re-hash, STAGE-1 exact-diff, char-code asserts, segment counts) remain builder-disk + his-eyes only, per the verification split. Nothing further was asked; nothing further is ruled.
+## V287-ENTRY-FULL END GLM (verbatim close; filed whole 1x this turn, novel inbound)
