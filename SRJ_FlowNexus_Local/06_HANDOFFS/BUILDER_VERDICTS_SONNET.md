@@ -2061,3 +2061,21 @@ for(int s54_s = barShift; s54_s <= s54_seedShift; s54_s++)
 
 **Q3 — YES.** All three read as proposals, not rulings. UJ-2 explicitly flags the data-source choice and the trigger semantics (close vs. touch) as open questions for the council rather than deciding them; UJ-1 states the bypass scope as two named options with a concrete, checkable risk condition (confirm=1 AND standing retest, so 9/4 10:40 — which died pre-confirm — can't qualify); UJ-3 keeps the "A2 line = Daily-POC" resolution separate from the actual proposed mechanism (flip-satisfies-confirm, FVG-yields), and only the former is claimed as settled, on cited evidence, not the mechanism itself. The one soft spot is the same kind as Q2's: the "touch sites" lists for each proposal are asserted as complete, and that completeness isn't something I can check from a handful of cited line ranges — a gate living outside those ranges wouldn't show up here.
 ## V287-ENTRY-FULL END SONNET (verbatim close; filed whole 1x this turn, novel inbound)
+## V288-ENTRY-FULL OPEN SONNET (verbatim open; filed whole 1x this turn, novel inbound)
+Sonnet:
+I can only work from the text pasted into this message — I have no access to any actual disk, EA file, build hash, or prior conversation with other models. So a few things I want to be upfront about before answering:
+
+- I can't confirm the hash `D74FE972/633552/11502`, the "byte-diff 0" claims, or that the log rows shown are genuine backtest output — those are all assertions in the text, not things I can independently check.
+- I have no visibility into any "Luna / Astra / Sonnet / GLM" verdicts or a "relay v287" — I can't corroborate the 0-4 / 2-2 / 3-1 tally or treat it as evidence of anything.
+- I'm not able to act as a voting "seat" in a binding multi-model council — I can only give you my own read of the code as written here.
+
+With that boundary clear, here's my actual read of the pasted diffs:
+
+**Q1 (S5.4 gate, E1):** As written, the loop `for(s54_s = barShift; s54_s < s54_seedShift; s54_s++)` starts at the evaluation bar and stops strictly before `s54_seedShift`, so the seed bar itself is never entered into the walk — that matches the "seed bar never walked" rule you're describing. `s54_poi = AnchorStr()` is captured before `g_anchorLine` is cleared, which is the correct ordering to avoid logging a stale/cleared POI name. The skip-on-unreadable-buffer path (`skipped++; continue`) is fail-open, not fail-closed. So: internally consistent with the spec as pasted. I can't tell you whether this text matches what's actually sitting in the live `.mq5` file.
+
+**Q2 (recency, E2a/E2b):** Both sites add the same strict check (`g_anchorBarTime < iTime(..., barShift)`), and on failure they print a `CONFIRM_STALE_SKIP` row and avoid promotion (return in one site, skip via else in the other) rather than falling through — neither diff touches `IsConfirmationCandle` itself. As written, that matches "strict seedbar<confirmBar, retain, no confirm-function touch." Again, I can't verify this against the real file or that the quoted log rows came from an actual run.
+
+**Q3 (UJ proposals):** These are explicitly flagged as prose, not code, so there's nothing committed to certify as complete or defective yet. The stated boundaries (DIV-refusal excluded from the confirm-once bypass, degenerate-exceed pinned, FRESHCOUNT count fixed at 6) read as reasonable scoping language, but I only have small snippets of the confirm/FRESHCOUNT/DIV regions here, not the surrounding code, so I can't check whether those boundaries actually hold against the rest of the file.
+
+If you want an answer I can actually stand behind at the "verified" level this process seems to want, the way to get that is to hand me the real `.mq5` file (or the relevant sections) directly — I can then check the diff against it line by line myself, rather than working from a description of what was checked elsewhere.
+## V288-ENTRY-FULL END SONNET (verbatim close; filed whole 1x this turn, novel inbound)

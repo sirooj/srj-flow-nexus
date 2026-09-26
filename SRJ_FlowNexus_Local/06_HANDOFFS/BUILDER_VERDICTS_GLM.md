@@ -4704,3 +4704,50 @@ Predicate-time requirements (ride the relay; not blockers to this clearance):
 - **Revision list (small):** (1) resolve the E1 seed-edge (code or text, all three of P021/P068/P158 agreeing, with an explicit ruling line); (2) paste the D74FE972 9/1 15:25-pass rows or re-target A-STALE-901; (3) label rows-fence build attribution; (4) amend stale E3/"owed" and A-UJ-OWED carried lines; (5) fold the Q3 predicate-time notes into the next packet.
 - Disk-side backstops (re-hash, STAGE-1 exact-diff, char-code asserts, segment counts) remain builder-disk + his-eyes only, per the verification split. Nothing further was asked; nothing further is ruled.
 ## V287-ENTRY-FULL END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V288-ENTRY-FULL OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+## Seat ruling: Q1-YES / Q2-NO / Q3-YES — Q2 halts (dual-key)
+
+## Q1 — S5.4 gate rule verification
+
+Verified against the pasted block (P057-092) and companion pulls:
+
+- **Window**: `for(s54_s = barShift; s54_s < s54_seedShift; ...)` (P068) walks [barShift, seedShift) = (seedbar, evaluation bar] in time — seed-exclusive (the v3 ruling line, code-side), current-bar-inclusive (starts at barShift, so the confirm bar's own close is walked before the state-machine body runs — the 8/27 lesson encoded; E6b's confirm-exclusion hole closed).
+- **Predicate**: direction-matched strict cross on open/close only (P076) — LONG open≥v∧close<v, SHORT open≤v∧close>v; wick/touch never kill; per-bar ReadBuf1 on g_anchorLine (P072) = dynamic line values, E6b precedent.
+- **Fence** (P060) is byte-equivalent to R2's (C7823); no regime gate — declared with the spec-S5.4-regime-blind reason; R2's MEANREV term untouched. Siting correct (insert between R2 close and S2-shadow comment, per the old-block anchor).
+- **Disposition** mirrors R2 (IDLE + line clear + time clear + LogState + row); `s54_poi = AnchorStr()` (P083) captured **before** `g_anchorLine = -1` (P085) — the poi-capture fold is in the code and P089's `poi=%s` names the killed line. Void unconditional, row debug-gated.
+- **Fail-open**: seedShift<0 → no walk; unreadable POI / zero OHLC → skipped++/continue — never kills. **+1 cannot revive / reseed-fresh**: kill clears the anchor, nothing revives, spec §6 reseed cited. Non-coverage boundary (P025) declared, not overclaimed. Budget 36−3=+33 ✓, S54VOID print sites = 1 ✓, s54_* locals only, no new walker callers.
+
+**Q1-YES**
+**Q1 YES - the gate matches the rule** (as scoped; the anchor-line-only boundary is honestly declared and does the work it claims).
+
+## Q2 — recency + preservation verification
+
+What holds: E2a/E2b sit correctly (strict `g_anchorBarTime < iTime(barShift)` inside both true branches; STALE + return at S3-PREBIND mirroring the FAIL arm's return at C8688; STALE + skip at the balanced S4 edge; IsConfirmationCandle untouched; +6/+8 → +47/post 11549 ✓; CONFIRM_STALE_SKIP sites = 2 ✓). A-STALE-901's re-target is an honest fold — the D74 trio (CONFIRMPOLL 15:25 confirm=1 + S2WAIT retained + STATE S1→S2 at 15:30:00) proves no promotion site is reached, so no STALE can print; negative acceptance + defense-in-depth declared. A-97NY gradeable (seedbar 14:55 ≪ confirm 16:40; negatives demanded as negatives).
+
+Two defects block the battery as written — both in **A-S54-827 (P157)**:
+
+**(1) The re-tupled triple is internally inconsistent.** The packet's own D74 rows pin the pass↔bar convention: RETESTBOOK at pass 18:15:00 names bar **18:10**; CONFIRMPOLL at pass 18:20:01 names bar **18:15**. "S54VOID row at the 18:15:00 evaluation pass (evaluated bar 18:15…)" pairs a pass with an evaluated bar that pass cannot have. Under the favorable model (seedbar 17:45 per the packet's own R67 rows, break on 18:10), the natural row prints at pass 18:15:00 with bar=18:10/bbar=18:10 (E1's print uses barTime; the walk at that pass covers (seedbar, 18:10]) — elements 1 and 3 match, element 2 fails. Under any other model a different element fails. The hedge "grade-time row decides bbar" covers the break-bar only, not the pass/evaluated-bar pairing. The P156 fold claimed this fixed; it isn't.
+
+**(2) The demanded S54VOID is unreconciled with the packet's own pasted evidence.** The [R67] E4B_GUARD row walks the identical window on the identical anchor — seedbar=17:45, seed=7, walked=6 = (17:45, 18:15] on Weekly-POC SHORT — and reports **pobreak=0, bbar=1970.01.01 00:00, bpx=0.00000/0.00000/0.00000**: the v5-lineage break-walk (bbar + bpx 3-tuple, the same field shape E1's S54VOID row prints) found **no anchor-line body break on 8/27**. The packet never states whether E4B's pobreak is E1's predicate (in which case no break exists for E1 to find and the S54VOID — and A-7PRESERVE's "8/27 by E1 S54VOID" — cannot happen) or a different check (in which case anti=1/1 needs its own account). The confirm-side rows cut the same way: CONFIRMPOLL confirm=1 requires the A2 close-side term to pass (a walked-bar close on the setup side of the anchor value) while Ruling 3 kills on the 18:10+18:15 body closes — the page's own rows place his ruling's death on a line that is not the EA's anchor, which is precisely E1's declared non-coverage (P025). An acceptance demanding E1 reproduce a death the packet's own evidence locates outside E1's boundary is not gradeable as written — the ~50-min EU run would be spent on a contract its own rows contradict or leave undetermined.
+
+**Q2-NO**
+**Q2 NO - P157 (A-S54-827) fails because the packet's own D74 rows pin pass 18:15:00 ↔ evaluated bar 18:10 and pass 18:20:01 ↔ bar 18:15, so the tuple's "18:15:00 evaluation pass (evaluated bar 18:15)" is impossible; and the packet's own [R67] E4B_GUARD row (seed=7, walked=6, same (17:45, 18:15] window, same Weekly-POC anchor) reports pobreak=0 / bbar=epoch / bpx=0.00000/0.00000/0.00000 — the v5-lineage walk found no anchor-line body break — unreconciled with the demanded "expected bbar 18:10" and with A-7PRESERVE's "8/27 by E1 S54VOID".**
+
+**Fold for v4** (surgical; E2 and A-STALE-901/A-97NY stand): either (a) paste the D74 8/27 seed row (ANCHOR_ELECT-class, as A-97NY does for 9/7) + explain the E4B pobreak/bbar/bpx/anti fields and why E1's per-bar walk diverges from the v5 walk that found nothing, and correct the tuple to the coherent triple (pass 18:15:00 / evaluated bar 18:10 / bbar grade-time-decided), or (b) re-target A-S54-827 the way A-STALE-901 was re-targeted (negative acceptance: no signal/no take at 18:20 + the 8/27 kill explicitly deferred to line-mapping with his word). A-7PRESERVE's "8/27 by E1 S54VOID" clause rides the same fix.
+
+## Q3 — UJ proposals clearance
+
+- **E-UJ1**: bypass bounded to the locked bar only; DIV-refusal machinery explicitly excluded (CONFIRM_DIV_WAIT + evict-abort EA 8851-8869 stand proud — matches the companion pull); FRESHCOUNT 6-id pin (EA 2286/2295/7190/7220/7222/7223); honest options (i)/(ii) with the narrower recommended default; 10:40 risk stated with the conditioning (confirm=1 AND standing retest; 10:40 died pre-confirm at S4-armed ABORTs, rows owed at predicate time). Limit semantics reconciled: lock commits at the confirming close, entry next-open — consistent with the 7 takes' timing and S5.5.
+- **E-UJ2**: booking+census pool is the correct shape — census is read-only per EA 2410-2413 (matches the disk comment verbatim), so extending the booking race (EA 2396-2409) and naming loops (EA 2441-2465) together is the only coherent design; retarget store (best/haveBest) pinned with predicate-time line cites owed; degenerate pin honest (strictly-forward NY high, else NO_TP_TARGET stands); source choice and trigger semantics left as open questions. Nothing asserted as ruled.
+- **E-UJ3**: exact fields (oppCandle=1 + bodyDir=direction + touchAttr=1 on the candidate's line, on the retest pass, candidate standing, anchor time set); replaces only the A2 close-side term (EA 2224) with all other confirm terms untouched; E1/E2 precedence first; FVG-yield limited to the qualifying-flip bar with sole-death no-kill per his corpus; A2 line settled as anchor Daily-POC (segment-proved, no re-ask). R63 rows (09:40 confirm=1; 16:10 NO_TP_TARGET; 14:45 book/poll pair) evidence the three misses as claimed.
+
+**Q3-YES**
+**Q3 YES - proposals clear with options.**
+
+## STAGE-1 note (non-blocking, flag so it isn't missed)
+
+The E2b old block's CONFIRM_STRUCT_FAIL continuation lines (P121-123) render at 24/37/24 spaces while the companion pull (C8814-8816) renders 28/41/25; the companion values also break the file's own paren-alignment convention visible at C8676/C8685/C8860, so I suspect the companion rendering — but the char-code assert on every old-anchor byte decides at exact-diff, per the verification split (byte fidelity is builder-side; I rule the page only).
+
+Nothing else is asked.
+## V288-ENTRY-FULL END GLM (verbatim close; filed whole 1x this turn, novel inbound)

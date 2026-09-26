@@ -143,3 +143,10 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - ROUTE-PREMISE: every acceptance row demanding a print at a site proves the candidate reaches that site on the BASE-tree build (v287: A-STALE-901 demanded STALE at 15:30 while D74FE972 rows show S1->S2 hold; the R67 rows were build E8B0E582, not D74).
 - TUPLE-ACCEPTANCE: every time-based acceptance names evaluation-pass, evaluated-bar, and event-bar separately (v287: P156 fused 18:10 evaluation with bbar=18:10 against rows showing the 18:10 bar evaluated at the 18:15 pass).
 - CENSUS-PIN: every multi-site cite pins the exact id set by mechanical count, identical in all cites (v287: FRESHCOUNT rode two forms; disk = 2286/2295/7190/7220/7222/7223, 6 refs).
+
+## 11. v288 round gates (builder-owned defects, 2026-09-26 - battery passed green, halted Q2+Q3)
+
+- CLOSED-BAR-TIMING: every time-based acceptance is written in the EA's evaluation convention, pinned from the OnTick call (v288: EvaluateClosedBar(1, iTime(...,1)) per EA 11487-11491 - pass 18:15:00 names bar 18:10; the v3 tuple paired 18:15:00 with bar 18:15, impossible on disk).
+- EVAL-EXCLUSION: foreign-build walk fields with 0 hits on the base tree are excluded with cause, never left unreconciled beside a demand they contradict (v288: v5 E4B pobreak/bbar/bpx beside demanded E1 S54VOID; 0 hits on D74FE972).
+- HANDOFF-COMPLETENESS: a cross-pass proposal names the stored identity + timing predicate + staleness bound (v288: UJ3 flip cited prior-bar/evaluated-bar fields with no carry into the later pass; FLIPSEEN row + accept predicate folded).
+- RENDER-VS-DISK: a rendering-observed mismatch is byte-decided before any packet change; a 0-diff kills the note the same turn (v288: E2b old block 14/14 byte-diff 0 vs EA 8804-8817, rendering artifact only).

@@ -1,4 +1,4 @@
-# BUILDER INDEX RELEVANCE (2026-09-26, V287 graded NO-CLEAR 0-4/2-2/3-1, v288 battery-green transport owed)
+# BUILDER INDEX RELEVANCE (2026-09-26, V288 graded NO-CLEAR Q1-CLEAR/Q2-HALT/Q3-HALT, v289 battery-green transport owed)
 
 Rule: read this file BEFORE any record search. It points to the live source per topic and names what is stale. Stale files are history only - never ground a packet, relay, grade, or question on them. The pointer still wins on any conflict.
 
@@ -12,11 +12,12 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Built tree: Experts\SRJ_FlowNexus_EA.mq5 89810547/642681/11614 (from packet v5 72236198, relay v285 CLEAR 3-0).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_V285-GRADE.md (5634F30F/2764/24: V285 3 verdicts tallied CLEAR 3-0, flags answered by procedure/record, key owed next; ledger 785).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_V284-GRADE.md (A999C6B3/6557/45: V284 5 verdicts tallied NO-CLEAR on prose/ledger only, every checkable claim disk-verified held, triage joins, fold packet v5 72236198 drafted; ledger 784).
-- Latest result: 06_HANDOFFS\BUILDER_RESULT_V287-GRADE.md (10911F65/4659/33: 4 verdicts tallied NO-CLEAR Q1 0-4/Q2 2-2/Q3 3-1, every dissent claim disk-verified, D74 triage join, fold v3+v288 drafted battery-green; ledger 805).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v288-ENTRY-FULL.md (949DF205/48504/440 battery-green: twin 173/173 diff 0, code 186 byte-diff 0, rows 21 incl 5x[D74], Q1/Q2/Q3 + split; transport owed, seats his choice).
-- Latest packet: 01_TASKS\PACKET_P-ENTRY-2.md (v3 89877FD2/21911/173: code-side seed-edge + poi-capture + re-tuple + A-STALE re-target on D74 rows + hygiene + UJ predicate notes; S3 +47/post 11549; UNBUILT).
-- V287 verdicts (ledger 805): Luna Q1-NO/Q2-YES/Q3-YES + Astra 3xNO + Sonnet Q1-NO/Q2-YES/Q3-YES + GLM Q1-NO/Q2-NO/Q3-YES, filed whole 1x/1x (LUNA +10 / ASTRA +32 / SONNET +16 / GLM +63).
-- Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v287-ENTRY-FULL.md (76E47DDF/41055/407 TRANSPORTED + HALTED; superseded by v288 fold).
+- Latest result: 06_HANDOFFS\BUILDER_RESULT_V288-GRADE.md (D4112FB8/3183/29: 3 texts tallied NO-CLEAR Q1-CLEAR/Q2-HALT/Q3-HALT, Sonnet advisory non-seat, every dissent claim disk-verified, fold v4+v289 drafted battery-green; ledger 806).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v289-ENTRY-FULL.md (A16C295C/52161/469 battery-green: twin 173/173 diff 0, code 212 byte-diff 0, rows 22 incl 6x[D74], Q1/Q2/Q3 + split; transport owed, seats his choice).
+- Latest packet: 01_TASKS\PACKET_P-ENTRY-2.md (v4 EEE0E886/23300/173: corrected triple + E4B-reconciliation + flip-handoff + render answer, no code-surface change, S3 +47/post 11549 carried; UNBUILT).
+- V288 verdicts (ledger 806): Luna Q1-YES/Q2-YES/Q3-NO + Sonnet advisory-consistent non-seat + GLM Q1-YES/Q2-NO/Q3-YES, filed whole 1x/1x (LUNA +10 / SONNET +18 / GLM +47).
+- Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v288-ENTRY-FULL.md (949DF205/48504/440 TRANSPORTED + HALTED; superseded by v289 fold).
+- Prior result: 06_HANDOFFS\BUILDER_RESULT_V287-GRADE.md (10911F65/4659/33: 4 verdicts tallied NO-CLEAR Q1 0-4/Q2 2-2/Q3 3-1, every dissent claim disk-verified, D74 triage join, fold v3+v288 drafted battery-green; ledger 805).
 - V284 verdicts (ledger 784): Luna YES/YES + Astra DISCREPANCY(Q1-wording)/YES + Sonnet YES/YES + Opus YES/YES + GLM YES/YES-amend-with-delta, filed whole 1x/1x (LUNA 10372 / ASTRA 16966 / SONNET 2027 / OPUS 1509 / GLM 4598).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_V283-GRADE.md (5B9D05A2/2849/35: v283 3 verdicts tallied NO-CLEAR, fold packet v11 F993D252 drafted battery-green; ledger 779).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON63-USDJPY-JUNE.md (C71F3329/1651/27: blind census, 1 take 3 June London long TP win, no gates, no grade; ledger 748); earlier RECON62-DAY2355-FULL D3EE168B/4332/47.
