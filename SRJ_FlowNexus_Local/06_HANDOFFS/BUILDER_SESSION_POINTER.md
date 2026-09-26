@@ -3,17 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, UJ3 REFUTED + V300 HELD)
+## State (2026-09-26, S1 DIAGNOSED)
 
-- 11 June 14:40 pass = S1-held, zero
-  freshness. FVG premise withdrawn,
-  V298 UJ3 leg withdrawn, v300 HELD.
-  Tallies stand. Ledger 833.
+- 14:35 is the same morning zone
+  (object 3070 since 08:30, singleton
+  refuses second claim) + regime NONE
+  (1/3 votes, no sweep). Record-first
+  failed. Ledger 834.
 
 ## Next (owed him)
 
-- Nothing owed. Next block: S1-slot
-  diagnosis, then UJ3 re-scope.
+- YOUR two calls (11 June regime +
+  same-zone). Re-scope after answers.
 
 ## Resume order (exact)
 
