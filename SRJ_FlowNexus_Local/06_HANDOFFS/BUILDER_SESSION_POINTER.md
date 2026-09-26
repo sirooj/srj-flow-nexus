@@ -3,20 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, HIS 3 QS ANSWERED)
+## State (2026-09-26, CASCADE + UJ2 RULES)
 
-- His 3 answered plain (same-logic
-  kept, jargon withdrawn, retarget
-  = today's NY high). Fold v12 +
-  relay v296 DRAFT stand. No build,
-  run, key. Ledger 822.
+- Cascade answered in trader logic
+  (lineup, not divergence - his
+  detection stands). UJ2 rules landed
+  (nearest-any-age, touch-retarget).
+  No build, run, key. Ledger 823.
 
 ## Next (owed him)
 
-- HIS two trade calls (UJ2 range:
-  30 Apr oldest, or older; exceed:
-  wick or close). UJ1 scope word
-  still owed, unasked today.
+- HIS UJ1 scope word only (design
+  the 5 June 09:45 road, or drop
+  the miss). Nothing else owed.
 
 ## Resume order (exact)
 

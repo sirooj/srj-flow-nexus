@@ -50,7 +50,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - Entries: retest bar N + confirmation bar N can share one bar; entry N+1 open; after entry no bar is re-litigated (your confirm-once rule + 2026-09-26 corrections for 11 June 14:35/14:40 and 5 June 9:35/9:40, both USDJPY).
 - Declines (never re-ask, never present as open): 17 Sep kill-all + SEP8 review + v14-SEL1 + v93 quotes + 9/4 10:40 SHORT ruled INVALID by you.
 - 9/1: journal 265 + row 301 (17:35 LONG valid, taken-not-taken-by-you per your 2026-09-23 ruling); 15:30 was never your trade (tester-only take).
-- Yen misses: 5 June 09:45 London + 5 June 16:15 New York + 11 June 14:40 New York (finding USDJPY-MISSES; your answers A1/A2/A3 filed whole; plain-words annex 2026-09-26: same-logic ruling + swing/retarget definitions + 2 trade calls owed).
+- Yen misses: 5 June 09:45 London + 5 June 16:15 New York + 11 June 14:40 New York (finding USDJPY-MISSES; your answers A1/A2/A3 filed whole; plain-words annex 2026-09-26: same-logic ruling + swing/retarget definitions + 2 trade calls owed; Rulings-C: nearest-any-age + touch-retarget + close-only-gap-break + divergence example-only).
 - 9/4: journal 277/279 + 0.84 retired flawed + ++ BOTH-TRUE (trend AND mean-reversion).
 - 9/7: journal 281/283 + AS.H booked (your rule-choice) + sweep-then-retest valids with chart proof.
 - Strategy pins: skills `srj-strategy` (your rules) + `srj-goal` (scoreboard) + `srj-council` (pre-transport battery gates).
