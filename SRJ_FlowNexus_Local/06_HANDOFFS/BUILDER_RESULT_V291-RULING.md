@@ -5,7 +5,7 @@
 - Standing: his latest words govern (canon order). No operator question - archaeology below settles provenance.
 
 ## 2. Archaeology: whose words was 9:40/9:45 (builder inference, owned)
-- His 9/25 row (finding USDJPY-MISSES line 6): "6/5 London TF, 9:45 open entry" - his label, kept as history and amended by today.
+- His USDJPY 6/5 row (finding USDJPY-MISSES line 6, filed 2026-09-25): "6/5 London TF, 9:45 open entry" - his label, kept as history and amended by today.
 - Ledger 749 (builder diagnosis): "confirm=1 on 09:40 bar matching his 9:45 timing" - the builder's EA-to-row MAPPING, correctly labeled his/mine at birth.
 - Ledger 750 (builder banking "his corrections verbatim"): CONFIRM-ONCE "(9:35 retest + 9:40 confirm + 9:45 entry...)" - the mapping smuggled INSIDE a verbatim claim. FUSED-QUOTE defect: EA timings presented as his rule. Withdrawn here; corrected rule = his today-words (N/N+1, never re-litigate).
 - Same-class repeat check: the 14:45 correction (ledger 808) was the same shape (post-owed-entry rows as selection evidence). Both withdrawn.
