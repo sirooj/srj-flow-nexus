@@ -28,7 +28,7 @@ $c0 = @(FindIdx $rl0 '^C10665: '); $c1 = @(FindIdx $rl0 '^C11492: ')
 $rAll = @(FindIdx $rl0 '^hits=1 ')
 if ($t0.Count -ne 1 -or $t1.Count -ne 1 -or $pall.Count -ne ($t1[0] - $t0[0] + 1)) { 'SPLICE-HALT-TWIN-BOUND'; exit 1 }
 if ($c0.Count -ne 1 -or $c1.Count -ne 1) { 'SPLICE-HALT-CODE-BOUND'; exit 1 }
-if ($rAll.Count -ne 26 -and $rAll.Count -ne 29) { 'SPLICE-HALT-ROWS-BOUND hits=' + $rAll.Count; exit 1 }
+if ($rAll.Count -ne 26 -and $rAll.Count -ne 28 -and $rAll.Count -ne 29) { 'SPLICE-HALT-ROWS-BOUND hits=' + $rAll.Count; exit 1 }
 $r0 = $rAll[0]; $r1 = $rAll[$rAll.Count - 1]
 'TWIN-OLD-LINES=' + ($t1[0] - $t0[0] + 1)
 'CODE-OLD-BOUNDS=' + $c0[0] + '..' + $c1[0]
@@ -61,12 +61,12 @@ $rows = @()
 $bad = 0
 foreach ($p in @('RETESTBOOK bar=2026.08.27 18:05', 'RETESTBOOK bar=2026.08.27 18:10', 'CONFIRMPOLL bar=2026.08.27 18:15', 'CONFIRM_PREBIND_S2 bar=2026.08.27 18:15', 'E4B_GUARD bar=2026.08.27 18:15', 'RETESTBOOK bar=2026.09.01 15:25', 'CONFIRMPOLL bar=2026.09.01 15:25', 'CONFIRM_PREBIND_S2 bar=2026.09.01 15:25', 'E4B_GUARD bar=2026.09.01 15:25')) { $hits = @($sg67 | Where-Object { $_.Contains($p) }); if ($hits.Count -ne 1) { $bad++; Write-Output ('ROW-HALT-R67 pattern=[' + $p + '] hits=' + $hits.Count) } else { $rows += ('hits=1 [R67]: ' + $hits[0]) } }
 foreach ($p in @('RETESTBOOK bar=2026.09.07 16:35', 'CONFIRMPOLL bar=2026.09.07 16:40', 'RETESTBOOK bar=2026.09.07 16:40', 'ANCHOR_ELECT bar=2026.09.07 14:55')) { $hits = @($sg60 | Where-Object { $_.Contains($p) }); if ($hits.Count -ne 1) { $bad++; Write-Output ('ROW-HALT-R60 pattern=[' + $p + '] hits=' + $hits.Count) } else { $rows += ('hits=1 [R60]: ' + $hits[0]) } }
-foreach ($p in @('2026.06.05 16:10:00   [SRJ-EA] 2026.06.05 16:10:00 ABORT reason=NO_TP_TARGET', 'ANCHOR_ELECT bar=2026.06.05 09:35', 'RETESTBOOK bar=2026.06.05 09:35', 'CONFIRMPOLL bar=2026.06.05 09:40', 'RETESTBOOK bar=2026.06.11 14:35', 'CONFIRMPOLL bar=2026.06.11 14:35', 'ANCHOR_ELECT bar=2026.06.11 14:20', 'SUPPRESSED bar=2026.06.11 14:35', 'S1WAIT bar=2026.06.11 14:35', 'REGIMECENSUS #176 bar=2026.06.11 14:35')) { $hits = @($sg63 | Where-Object { $_.Contains($p) }); if ($hits.Count -ne 1) { $bad++; Write-Output ('ROW-HALT-R63 pattern=[' + $p + '] hits=' + $hits.Count) } else { $rows += ('hits=1 [R63]: ' + $hits[0]) } }
+foreach ($p in @('2026.06.05 16:10:00   [SRJ-EA] 2026.06.05 16:10:00 ABORT reason=NO_TP_TARGET', 'ANCHOR_ELECT bar=2026.06.05 09:35', 'RETESTBOOK bar=2026.06.05 09:35', 'CONFIRMPOLL bar=2026.06.05 09:40', 'RETESTBOOK bar=2026.06.11 14:35', 'CONFIRMPOLL bar=2026.06.11 14:35', 'ANCHOR_ELECT bar=2026.06.11 14:20', 'S1WAIT bar=2026.06.11 14:35', 'REGIMECENSUS #176 bar=2026.06.11 14:35')) { $hits = @($sg63 | Where-Object { $_.Contains($p) }); if ($hits.Count -ne 1) { $bad++; Write-Output ('ROW-HALT-R63 pattern=[' + $p + '] hits=' + $hits.Count) } else { $rows += ('hits=1 [R63]: ' + $hits[0]) } }
 foreach ($p in @('ANCHOR_ELECT bar=2026.08.27 17:45', 'RETESTBOOK bar=2026.08.27 18:10 hits=2', 'CONFIRMPOLL bar=2026.08.27 18:15 anchor=Weekly-POC', 'CONFIRMPOLL bar=2026.09.01 15:25 anchor=Monthly-POC', 'S2WAIT bar=2026.09.01 15:25', '15:30:00 STATE S1_REGIME->S2_LTF_ALIGN dir=SHORT poi=Monthly-POC')) { $hits = @($sg60 | Where-Object { $_.Contains($p) }); if ($hits.Count -ne 1) { $bad++; Write-Output ('ROW-HALT-D74 pattern=[' + $p + '] hits=' + $hits.Count) } else { $rows += ('hits=1 [D74]: ' + $hits[0]) } }
-'ROW-PATTERNS=29'
+'ROW-PATTERNS=28'
 'ROWS-PULLED=' + $rows.Count
 if ($bad -gt 0) { 'SPLICE-HALT-ROWS'; exit 1 }
-if ($rows.Count -ne 29) { 'SPLICE-HALT-ROWS-COUNT'; exit 1 }
+if ($rows.Count -ne 28) { 'SPLICE-HALT-ROWS-COUNT'; exit 1 }
 $ntw = 0
 foreach ($r in $twin) { foreach ($ch in $r.ToCharArray()) { if ([int]$ch -gt 127) { $ntw++ } } }
 'nonwin-ascii=' + $ntw

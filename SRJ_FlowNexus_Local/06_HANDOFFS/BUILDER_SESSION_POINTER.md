@@ -6,9 +6,9 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 ## State (2026-09-26, V301 READY)
 
 - Packet v2 + relay v301 battery-green
-  (F2ED3F15/64175/751): DQ1 source+
+  (D1D6CB19/64226/750): DQ1 source+
   route, DQ2 lookup+siting, DQ3 regime
-  passage, S1 death rows in. Ledger 837.
+  passage, S1 death rows in. Ledger 838.
 
 ## Next (owed him)
 

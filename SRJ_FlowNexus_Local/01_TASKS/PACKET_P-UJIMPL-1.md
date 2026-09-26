@@ -1,6 +1,6 @@
 # PACKET_P-UJIMPL-1 v1 DRAFT - implementation predicates for cleared UJ legs (design questions, no code edits, nothing builds/runs/commits on this file)
 
-Status: v2 DRAFT (v1 + V299 per-leg NOs + his terms/indicator/session rulings: D3 re-scoped regime-based, session + race + S1 pulls in, A12 slip fixed, composite touch/closed-pool reading adopted with strictly-forward dropped, DQ labels, recount defined; zero code edits; budget OPEN); v1 history retained below; follows V298 CLEAR 3-0 on P-ENTRY-2 v14 PROSE
+Status: v3 DRAFT (v2 + his 11 June chart conflict: 4H bullish till 6/12 00:00 flip, SUPPRESSED-as-killer WITHDRAWN under session rules, regime-only death exhibit; zero code edits; budget OPEN); v2 history retained below; follows V298 CLEAR 3-0 on P-ENTRY-2 v14 PROSE
 
 Canonical files: exactly ONE for edits - Experts\SRJ_FlowNexus_EA.mq5 (predicates only; no new indicator buffers proposed here - council rules; no new inputs proposed here; S1 recount will govern the implementation packet). Read-only evidence pulls span the indicator + includes under his scope YES (ledger 832); edit-canonical stays EA-only.
 
@@ -27,10 +27,10 @@ Canonical files: exactly ONE for edits - Experts\SRJ_FlowNexus_EA.mq5 (predicate
 
 ## D3 - UJ3 regime passage for the bias-aligned setup (RE-SCOPED v2; FVG-yield premise WITHDRAWN ledger 833)
 
-- Trade rule (his, settled): 14:35 flip + retest + confirmation SAME 14:35 candle, entry 14:40 open; HTF bullish context (15m Bull on journal rows 33-36; 4H Bear + 1H mixed flagged veto-able); 14:45+ post-entry never selection (DO-NOT-REPEAT); trend bias follows the flip direction generally.
-- Refutation carried (ledger 833, double-proven): 14:40:22 pass = S1 SUPPRESSED/HELD + S1WAIT regime-NONE, zero freshness; the FVG-yield relocation addresses a death that never occurred.
-- Passage candidates on disk (council rules implementation): S1WAIT print EA 8060 with consumer 8059 (REGIME_NONE retention); ordinary S2 exit EA 8067-8077 (aligned to S3 on LTF alignment); ClassifyRegime EA 2238-2267 (HTF 19/20/21 votes, trendOk 2+, sweepTag mrOk); R2 seed-death block EA 7822-7856 (A13 pull); confirm signature + bar reads EA 2193-2208 (A13 pull); S1WAIT/SUPPRESSED/REGIMECENSUS death rows exhibited at 14:40:22 (new fence patterns).
-- DQ3 for council: regime-passage implementation for the bias-aligned flip-confirmed setup (which gate admits it past S1WAIT/suppression, with exact siting + ordering + E1/E2 precedence), with exact lines?
+- Trade rule (his, settled): 14:35 flip + retest + confirmation SAME 14:35 candle, entry 14:40 open; HTF bullish context (his 4H chart: bullish till the 6/12 00:00 flip; 15m Bull on journal rows 33-36; journal 4H Bear differs - chart governs per his presentation; MTF-detection inaccuracy corroborated); 14:45+ post-entry never selection (DO-NOT-REPEAT); trend bias follows the flip direction generally.
+- Refutation carried (ledger 833, double-proven): 14:40:22 pass = S1WAIT regime-NONE retention, zero freshness; the FVG-yield relocation addresses a death that never occurred. The SUPPRESSED row at the same pass is present but INADMISSIBLE as mechanism under his session rules (an unexecuted cross-session claim cannot block; its survival without POI-break/5m-flip invalidation is the open diagnostic, ledger 835).
+- Passage candidates on disk (council rules implementation): S1WAIT print EA 8060 with consumer 8059 (REGIME_NONE retention); ordinary S2 exit EA 8067-8077 (aligned to S3 on LTF alignment); ClassifyRegime EA 2238-2267 (HTF 19/20/21 votes, trendOk 2+, sweepTag mrOk); R2 seed-death block EA 7822-7856 (A13 pull); confirm signature + bar reads EA 2193-2208 (A13 pull); S1WAIT/REGIMECENSUS death rows exhibited at 14:40:22 (new fence patterns).
+- DQ3 for council: regime-passage implementation for the bias-aligned flip-confirmed setup (which gate admits it past S1WAIT, with exact siting + ordering + E1/E2 precedence), with exact lines?
 
 ## Scope (his orders + refinement discipline)
 
