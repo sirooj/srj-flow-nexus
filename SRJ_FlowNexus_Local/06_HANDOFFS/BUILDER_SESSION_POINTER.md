@@ -3,18 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, S1 DIAGNOSED)
+## State (2026-09-26, SESSION RULES)
 
-- 14:35 is the same morning zone
-  (object 3070 since 08:30, singleton
-  refuses second claim) + regime NONE
-  (1/3 votes, no sweep). Record-first
-  failed. Ledger 834.
+- Your rebuke stands: London never
+  blocks NY (ONE-TAKE pin answered it
+  on record). Same-zone mechanism
+  withdrawn. 15m+1H short-bias rule
+  filed. Ledger 835.
 
 ## Next (owed him)
 
-- YOUR two calls (11 June regime +
-  same-zone). Re-scope after answers.
+- Nothing owed. Zero-ask turn. Next:
+  UJ3 re-scope on surviving refusal.
 
 ## Resume order (exact)
 

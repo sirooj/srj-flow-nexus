@@ -87,8 +87,14 @@
 - Next: S1-suppression diagnosis (slot-holder + votes=1 cause), then UJ3 re-scope; v300 HELD until then.
 
 ### S1 diagnosis 2026-09-26 (ledger 834; segment + code, count-asserted)
-- Slot-holder: object 3070 (promoT 08:30, obStart 05:20, bullish, valid+activated; re-identified 10:45 inWin=1, then 14:35 as xobId 3091->3070 on the identical 160.489/160.504 zone) - the 14:35 Daily-POC LONG is the SAME morning zone; the singleton (SUPPRESSED/HELD, heldState=S1_REGIME) refuses the second claim.
-- Regime rule (ClassifyRegime EA 2238-2267): HTF HIGH/MID/LOW buffers 19/20/21 vote, trendOk = 2+, sweepTag yields mrOk; BOTH/TREND/MEANREV/NONE. 14:35 scored votes=1 trendOk=0 sweepTag=0 mrOk=0 = NONE -> S1WAIT retained (print EA 8060, consumer 8059).
-- Record-first: no HTF-vote-count rule in his words (findings 2-of-3 = freshness kill, not regime) -> his two calls owed in chat.
+- Slot-holder: object 3070 (promoT 08:30, obStart 05:20, bullish, valid+activated; re-identified 10:45 inWin=1, then 14:35 as xobId 3091->3070 on the identical 160.489/160.504 zone) - the 14:35 Daily-POC LONG was read as the SAME morning zone; the singleton (SUPPRESSED/HELD, heldState=S1_REGIME) refuses the second claim. MECHANISM WITHDRAWN ledger 835 (contradicts his ONE-TAKE-PER-SESSION rule) - kept as audit of what was believed, never as live mechanism.
+- Regime rule (ClassifyRegime EA 2238-2267): HTF HIGH/MID/LOW buffers 19/20/21 vote, trendOk = 2+, sweepTag yields mrOk; BOTH/TREND/MEANREV/NONE. 14:35 scored votes=1 trendOk=0 sweepTag=0 mrOk=0 = NONE -> S1WAIT retained (print EA 8060, consumer 8059). SURVIVES as the evidenced refusal.
+- Record-first: no HTF-vote-count rule in his words (findings 2-of-3 = freshness kill, not regime) -> his two calls were owed in chat (superseded: he ruled instead - see Rulings-F).
+
+## Rulings-F 2026-09-26 (ledger 835; his words verbatim incl typos)
+- His 15m/1H short-bias rule: "this is why i mentioned the 15m HTF bias! i know that the trend following short bias only enabled and confirmed at 14:45 because that is when the 15m structure bias flip, combining with the bearish 1H that makes it valid for the trend following setup bias for short."
+- His session-rules rebuke: "you still conflicting this rule that shows either you didn't read the skill strategy or the strategy specification. this confusion and problem is not new and has been explained by me before. what is the 8:30 potential non executed setup doing here that is preventing the 14:40 entry? why has not been invalidated by the line POI break bias or the flip of the 5m structure bias. besides that, the london setup is irrelevant to prevent setup on the NY, the one position at a time does not apply multi session. meaning i can execute a setup on NY session while the london setup is still floating, even if it's conflicting bias direction wise. also why is the 8:30 setup even considered? the london session begins at 9:00 or at most 8:55 that could be executed at the 9:00 open candle?"
+- Builder record: ONE-TAKE-PER-SESSION pin (skill line 73 + spec L283/L291) answered the session question on record - record-first failure owned; London-9:00-start pinned NEW (not found on record); 08:30-survival (no POI-break/5m-flip invalidation, no session-boundary expiry) recorded as open diagnostic for council route.
+- Read-back (veto-able, no new ask): 14:40 long stands owed on the 14:35 flip; 14:45 15m-bearish + 1H-bearish enables the short trend bias after it.
 
 (End of file)
