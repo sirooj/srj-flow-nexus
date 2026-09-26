@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, TERMS CORRECTED)
+## State (2026-09-26, V301 READY)
 
-- Bias timeframe-named only. 11 June:
-  14:35 flip+retest+confirm, entry
-  14:40; 14:45 never live. London
-  fundamental sourced. Ledger 836.
+- Packet v2 + relay v301 battery-green
+  (F2ED3F15/64175/751): DQ1 source+
+  route, DQ2 lookup+siting, DQ3 regime
+  passage, S1 death rows in. Ledger 837.
 
 ## Next (owed him)
 
-- Nothing owed. Drafting v2 re-scope
-  (veto-able) under PROCEED.
+- Carry v301 whole to all seats (one
+  text each). Nothing else owed.
 
 ## Resume order (exact)
 
