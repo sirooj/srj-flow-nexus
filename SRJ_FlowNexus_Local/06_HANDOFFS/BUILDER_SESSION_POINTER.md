@@ -3,18 +3,21 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V294 GRADED + V295 DRAFT)
+## State (2026-09-26, V295 GRADED + V296 DRAFT)
 
-- V294 NO-CLEAR on Q3 (1-2).
-  V295 battery-green DRAFT
-  (draft turn, no transport ask).
-  No build, run, key. Ledger 820.
+- V295 verdicts graded NO-CLEAR
+  Q3 1-2 (Luna + Astra NO,
+  GLM YES). Fold v12 + relay
+  v296 battery-green DRAFT
+  (A63D1F82/56177/469). No build,
+  run, key. Ledger 821.
 
 ## Next (owed him)
 
-- NOTHING owed: draft turn filed
-  v295 + grade. Transport memo
-  ships next turn.
+- HIS three plain-words answers
+  (UJ1 scope + UJ2 source +
+  UJ2 trigger). v296 transports
+  after his words.
 
 ## Resume order (exact)
 

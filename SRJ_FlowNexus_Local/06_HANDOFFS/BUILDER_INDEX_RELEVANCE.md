@@ -11,9 +11,9 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v11 805771D5/25006/173 (narrowed UJ1 + UJ2 facts; UNBUILT - no key spent).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v295-ENTRY-UJ13.md` 318A4D43/54840/469, DRAFT (twin 173/173 diff 0, code 212 diff 0, rows 26; transport memo ships next turn).
-- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V294-GRADE.md` B7794EE1/4532/31 (3 texts, Q3 halted 1-2, Sonnet none).
+- Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v12 16872F87/26182/173 (UJ1 withdrawn + UJ2 parked + UJ3 alone; UNBUILT - no key spent).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v296-ENTRY-UJ3.md` A63D1F82/56177/469, DRAFT (UJ3-only re-clear; twin 173/173 diff 0, code 212 diff 0, rows 26).
+- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V295-GRADE.md` 638E8644/3857/28 (3 texts, Q3 halted 1-2, Sonnet none).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
 - Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
 - Your UJ answers (filed whole): `06_HANDOFFS\BUILDER_FINDING_USDJPY-MISSES.md` lines 48-54 + correction section at end.
@@ -32,7 +32,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - Relays: v287 (76E47DDF - transported, halted, verdicts filed) + v288 (949DF205 - transported, halted) + v289 (A16C295C - transported, halted) + v290 (0F4D0DA0 - DRAFTED, never transported, no verdicts exist) + v291 (7FCC60F2 - DRAFTED, never transported, no verdicts exist). Anything before v287: two-week history, same treatment.
 - Packets: every `01_TASKS\PACKET_*` file EXCEPT `PACKET_P-ENTRY-2.md` is a closed round (built or retired - check the ledger line that closed it before citing).
 - Results before `BUILDER_RESULT_V292-GRADE.md`: snapshots only; the latest grade carries the live numbers forward.
-- Verdicts: `BUILDER_VERDICTS_*.md` hold every pasted seat text whole (Luna/Astra/Sonnet/GLM/Opus files). Markers named per round (V287/V288/V289/V292 headers filed 1x/1x; NO V290/V291/V293 markers exist anywhere - nothing was ever filed under them).
+- Verdicts: `BUILDER_VERDICTS_*.md` hold every pasted seat text whole (Luna/Astra/Sonnet/GLM/Opus files). Markers named per round (V287/V288/V289/V292/V294/V295 headers filed 1x/1x; NO V290/V291/V293 markers exist anywhere - nothing was ever filed under them).
 - Void runs (never graded, never cited for behavior): RECON69-D74-PROOF (early-exit ~70s, zero journal lines) + RECON70-D74-UJDIAG (stopped on non-consent, UNDETERMINED).
 - Ledger gap 371-510 (wiped 9/21, ruled unrecoverable - nothing may be cited from it).
 - `.clinerules` (full session archive, never required reading).

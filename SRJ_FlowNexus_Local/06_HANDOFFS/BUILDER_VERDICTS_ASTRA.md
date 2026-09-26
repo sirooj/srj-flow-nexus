@@ -17030,3 +17030,7 @@ The remaining blocking items are:
 
 UJ2’s source/trigger remain open predicate-design decisions; UJ3’s scoped FVG yield is not the reason for this NO. This is a page-only ruling, with no claim of independent disk verification.
 ## V294-ENTRY-UJ13 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V295-ENTRY-UJ13 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+Q3 NO - E-UJ1 cannot deliver the proposed 09:45 entry through the narrowed bypass. The packet’s 09:45 census places the candidate in pre-arm S2, while the cited confirmation promotion paths are S3-PREBIND and S4 (P030; EA 8665-8668, 8804-8805). Bypassing S4 touch-fallback and FRESHCOUNT holds does not create an S2 promotion path. The CONFIRMPOLL `confirm=1` row proves the predicate passed, not that the EA can commit or fire from S2. E-UJ2’s source and trigger choices also remain open, so this is not clearance for the combined proposals.
+## V295-ENTRY-UJ13 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

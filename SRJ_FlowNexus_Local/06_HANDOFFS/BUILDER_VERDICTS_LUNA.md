@@ -10415,3 +10415,7 @@ Because that predicate is the actual mechanism that determines whether the misse
 Luna:
 Q3 NO - E-UJ2 remains under-specified because its multi-week-high source and retarget trigger semantics (close vs touch) are explicitly still open; E-UJ1 and E-UJ3 are otherwise scoped consistently with the corrected 09:35→09:40→09:45 and 14:35→14:40 sequences.
 ## V294-ENTRY-UJ13 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V295-ENTRY-UJ13 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+Q3 NO - E-UJ2 remains under-specified because the source choice (swing store vs new export) and exceed trigger (close vs touch) are still open predicates, so the UJ2 proposal is not yet sufficiently bounded for clearance.
+## V295-ENTRY-UJ13 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

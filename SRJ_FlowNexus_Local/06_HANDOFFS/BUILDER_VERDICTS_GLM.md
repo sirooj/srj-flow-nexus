@@ -4879,3 +4879,34 @@ GLM:
 
 Ruling on the page only; disk genuineness remains builder-disk + his eyes. No key spent, nothing built/run/cleared here. The halt is surgical to E-UJ1's missing E2-recency interaction; UJ2/UJ3 re-present unchanged with the E2 scoping added.
 ## V294-ENTRY-UJ13 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V295-ENTRY-UJ13 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+**Q3 verdict line: Q3-YES**
+
+**Q3 plain answer: Q3 YES - proposals clear as scoped.**
+
+Basis (page-only ruling per the verification split; disk genuineness — hash, byte-diff, segment counts — rides the transport-memo battery, never chat):
+
+**(a) E-UJ1 — the narrowed single bypass clears.**
+
+- The v294 E2-chain objection is cured by the facts, not carved around: under the corrected timeline the UJ1 decision evidence is seed 09:35 [R63 DK] + retest 09:35 hits=1 [R63 FF] + confirm bar 09:40 confirm=1 [R63 DL] at the 09:45 pass — so seedbar 09:35 sits strictly before confirm bar 09:40 and E2's strict-before predicate is *satisfied*, with no same-bar exception surviving anywhere in the proposal (v7 framing and v8 carve-out both withdrawn with cause, P035/P031).
+- Precedence is committed in the direction the halt demanded: E1-walk + E2-recency evaluate first, pre-confirmation seed deaths stand. One predicate-time consequence (non-blocking, since E-UJ stays PROSE): E2's clauses live at the two promotion sites, so the lock's own fire path must carry the same strict-before test to honor the committed precedence.
+- The bypass scope now matches the census-proven refusing set: the filed 09:45-pass census (18 rows — pre-arm S2 FRESHSKIP, SL/TPCENSUS machinery, DL confirm=1; zero DIV/HOLD/VETO/ABORT/STALE at the pass) is exactly what justifies dropping the STAND-DOWN bypass (nothing DIV refused at the pass; the 8851-8890 intertwine stands refused) and the A2-post bypass (A2 lives at EA 2224-2225 inside the already-passed confirm predicate — the pasted companion shows no separate post-confirm A2 site; EA 622 carries nothing once the STAND-DOWN bypass is dropped).
+- Timing is his words, not EA-mapping: the 09:40 bar is the confirmation candle, the lock commits at its close, entry executes at the 09:45 open per next-open precedent — committed-confirm, not market chase. The census is decision-pass evidence, pre-entry; no post-entry bar enters anywhere.
+- The 10:40-exclusion risk is correctly conditioned (confirm=1 AND standing retest; the 10:40-class died pre-confirm at S4-armed ABORTs and cannot reach the bypass).
+
+**(b) E-UJ2 — clears as scoped with the opens labeled as opens.**
+
+- The hygiene defect is withdrawn with cause (3000-bar depth "never on disk") and replaced by measured facts: H1-600 + limbs + fractals exist, no weekly source, April-30 at ~36 days past the ~25-day H1 reach — HTF-insufficiency stated as measurement, not asserted away.
+- The two genuine choices (swing store, 302 refs with depth unmeasured, vs new export disfavored per non-goals; close-vs-touch trigger) are presented for council at predicate time, not asserted — the correct posture for a mechanism commissioned by "i want your solution" rather than ruled. Predicate-time note: the swing-store depth measurement must precede the source choice, as the page itself leaves it unmeasured.
+- The degenerate pin (exact-landing on the sampled high keeps NO_TP_TARGET; the trigger requires a strictly-forward NY high), the booking+census coupling (race EA 2396-2409 + naming EA 2441-2465 together; census read-only at 2410-2413 per the companion), and the preservation line (nearest-wins, direction/in-zone/swept-live/tier filters unchanged) keep the ruled booking semantics intact. The 16:10 NO_TP_TARGET refuse [R63 QO] is decision-pass evidence, correctly used.
+
+**(c) E-UJ3 — carries clean.**
+
+- The v6 withdrawals stand (A2-close-waiver, FLIPSEEN, same-pass edge — all scaffolded on the post-entry 14:45 row, correctly never-selection). The mechanism is yield-only on the qualifying-flip bar (FRESHCOUNT HOLDs + FRESH_OPP_FVG/FRESH_OB_DEAD vetoes yield only there); sole-death no-kill is already his corpus; the A2 line is settled as anchor with no re-ask; the 14:45 pair is dropped as redundant with cause (FN proves Daily-POC at decision).
+- E2-clean by rows: seed 14:20 [R63 CE] < confirm bar 14:35 [R63 FN]; retest book 14:35 hits=2 [R63 QF].
+
+**Fences verified:** post-entry-decision rows fenced at both UJ sites (09:50+ polls; 14:45 pair); every mechanism line carries PROPOSED/commissioned framing — his words map only to what he actually ruled (direction SHORT, old-high validity, flip-as-confirmation, FVG irrelevance post-flip); the traceability map and the Q3 text agree line-for-line; the E1/E2 surface is byte-identical with Q1/Q2 CLEAR carried and not re-asked; budget carried +47/post 11549 with no code-surface change.
+
+Scope note: nothing here builds, runs, spends, or clears live activation; no key spent; no files requested. The two predicate-time items named above (lock-path recency realization; swing-store depth before source choice) are council-forward at predicate time under the packet's own staging, not clearance defects.
+## V295-ENTRY-UJ13 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
