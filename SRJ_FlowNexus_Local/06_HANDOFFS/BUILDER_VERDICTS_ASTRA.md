@@ -16996,3 +16996,21 @@ Q3 NO - E-UJ1, E-UJ2, and E-UJ3 remain incomplete proposals; the supplied excerp
 
 These are page-only verdicts. No disk authenticity, build, run, commit, or live activation is certified.
 ## V287-ENTRY-FULL END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V292-ENTRY-UJ13 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+Q3-NO
+
+Q3 NO - E-UJ1 overreaches because the pasted E2 clauses reject its same-bar seed and confirmation even if B_BODY is changed; the decision-pass poll also does not establish B_BODY as the first refusing term.
+
+- **E-UJ1 conflicts with “E1/E2 first.”** DK seeds the candidate at 09:35, and the required confirmation bar is also 09:35. P103 and P130 require `g_anchorBarTime < iTime(..., barShift)`. That condition is false for this tuple. At either edited promotion site, an admitted confirmation would therefore be retained without promotion, preventing the proposed 09:40 entry. This is a Q3 compatibility failure, not a re-vote on carried Q1/Q2.
+
+- **B_BODY is a failing condition, but the first refusal is unproven.** LS establishes `bodyDir=0`, which fails C2229 if reached. However, A2 at C2224–C2225 returns earlier, and LS does not expose its result. The supported diagnosis is “B_BODY fails; A2 unresolved,” not an exclusive B_BODY refusal. Moreover, `oppCandle` and `touchAttr` concern the prior candle in the supplied predicate; together they do not establish a qualifying directional flip on 09:35. No discriminating replacement predicate or predicate-time 10:40 comparison is supplied to clear that change.
+
+- **E-UJ2 remains an incomplete proposal.** Booking plus census is the appropriate scope, but the historical-high source and exceed trigger remain open. Those choices cannot receive implementation clearance from this paste.
+
+- **E-UJ3’s corrected scope is coherent as a proposal:** use the 14:35 successful confirmation and narrowly qualified FVG yield, without selecting on 14:45. It does not resolve UJ1’s blockers.
+
+Finally, P010 still presents the withdrawn 09:35/09:40/09:45 mapping as authority, and Rule traceability still describes UJ1 as a bypass for a “locked” bar. Both require correction to match v7.
+
+This verdict uses only the supplied page; it asserts no disk verification or build/run authorization.
+## V292-ENTRY-UJ13 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

@@ -10403,3 +10403,11 @@ Q2 YES - recency and battery hold.
 
 Q3 YES - proposals clear with options.
 ## V289-ENTRY-FULL END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V292-ENTRY-UJ13 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+**Q3-NO — the E-UJ1 portion is not yet sufficiently specified to clear.**
+
+The packet explicitly leaves the decisive admission predicate unresolved: whether the 9:35 SHORT is admitted by changing the `B_BODY` requirement or by a separate flip-reading term.
+
+Because that predicate is the actual mechanism that determines whether the missed 9:35 setup fires—and the packet itself says the council must decide which term admits it—I would not clear the combined UJ1/UJ3 proposal for build as presently written. E-UJ2 and E-UJ3 can remain scoped as proposals; the blocker is the unresolved UJ1 admission term.
+## V292-ENTRY-UJ13 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

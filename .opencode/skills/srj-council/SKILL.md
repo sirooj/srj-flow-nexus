@@ -157,6 +157,14 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - SEED-ROW-CITE: every seedbar value in acceptance rides its ANCHOR_ELECT fence row, 1x in the labeled segment (v289: A-97NY cited 14:55 with only RETESTBOOK/CONFIRMPOLL rows pasted; D74 row added, 1x).
 - LABEL-HYGIENE: every mechanism label is misparse-proofed on first advisory confusion, never defended as "already glossed" (v289: "locked bar" read as market-chase despite the gloss; renamed confirmed-bar/confirm-commit the same turn).
 
+## 15. v292 round gates (builder-owned defects, 2026-09-26 - Q3 halted 0-3, Sonnet second refusal)
+
+- CARRIED-GATE-INTERACTION: every new proposal scopes its interaction with every carried gate it can meet, with the gate sites in its census (v292: E-UJ1 met carried E2 with E2a/E2b absent from its census - A-UJ1 provably unreachable on the page; carve-out + census folded v8).
+- AUTHORITY-LINE SWEEP: mapping withdrawals are re-grepped across ALL authority/census lines, never fixed at one site (v292: v7 fixed P031, missed P010 with the identical stale mapping - Astra caught it; twin-wide sweep folded v8).
+- TRACEABILITY-CURRENT: the traceability section is reworded with every design change it describes (v292: "bypass for the locked bar" survived the bypass retirement; fixed v8).
+- DIAGNOSIS-PRECISION: a multi-term refusal is never attributed to one term exclusively unless the row isolates it (v292: "the miss = B_BODY refusal" when A2 precedes B_BODY and the poll row exposes no failTerm - softened to "fails, first unproven" v8).
+- REFUSAL-GRADE: a seat text refusing seat authority and verdict form is filed whole and graded as non-seat advisory with zero tally weight, two refusals noted as pattern without chase (v292 Sonnet: technical sentence recorded as aligned-advisory; file-demand refused per split).
+
 ## 13. v291 correction gates (builder-owned defects, 2026-09-26 - his two timing corrections + v290 status misstatement)
 
 - EA-NEVER-MAPS-HIS-WORDS: his bar labels are never translated into EA pass-times inside any record of his rule (v291: ledger 750 banked "(9:35 + 9:40 + 9:45)" as his verbatim when the middle terms were builder EA-mapping from ledger 749; corrected ledger 809, never quoted again).

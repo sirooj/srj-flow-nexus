@@ -4817,3 +4817,34 @@ The defect, disk-pinned:
 - **Render-class observation**: the E1/E2a NEW blocks render their carried lines +1 space vs their old blocks (P057/P058/P092 vs P053-P055; P100-P102/P109 vs P095-P098), while E2b carries identically. Same class as the v4-answered E2b note ("rendering artifact only"); STAGE-1 exact-diff + char-code asserts on every old anchor and insert byte govern at build. Whitespace-only, no rule impact — flagged so the build gate reads it as expected drift-or-artifact, never silent.
 - Page-only ruling per the verification split: disk genuineness (D74FE972/633552/11502 re-hash, STAGE-1, battery counts) remains builder-disk + his-eyes; no file access asked. No key spent, nothing built/run/committed here. Dual-key effect: this seat's Q3-NO halts Q3; Q1 and Q2 stand clear from this seat.
 ## V289-ENTRY-FULL END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V292-ENTRY-UJ13 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+**Seat ruling — Q3, packet P-ENTRY-2 v7 (relay v292-ENTRY-UJ13). Page-only per the verification split; twin/battery/row-hit numbers taken as pasted; no files asked; Q1/Q2 stand carried CLEAR and are not re-asked.**
+
+## Verdict
+
+**Q3-NO**
+
+**Q3 NO — E-UJ1 (re-pointed) overreaches because the carried E2 recency clause refuses the very bar the admission targets: [R63 DK] elects the seed on 09:35 and [R63 LS] polls the confirm on 09:35 in the same 09:40 pass, so seedbar == confirmBar == 09:35 — the exact class E2 kills by its own 9/1 example (P029: "seedbar == confirmBar 15:25") — and with "E1/E2 first" declared, no admitting term at EA 2193-2233 can deliver "entry at the next open on admission"; A-UJ1 is unreachable as scoped.**
+
+## The chain (all premises on the page)
+
+1. **The seed is ON the admission bar.** [R63 DK]: ANCHOR_ELECT bar=09:35 action=SEED, printed at the same 09:40:00 pass as the [R63 LS] poll of bar=09:35. Born-and-polled on one bar — the same-pass shape the 9/1 R67 rows prove is reachable (CONFIRM_PREBIND_S2 bar=15:25 seedbar=15:25).
+2. **E1 does not intercept.** The E1 window is (seedbar, evaluation bar], seed-exclusive, current-inclusive (P021). With seedbar == evaluation bar the walk is empty — E1 passes trivially. The first carried gate the admitted bar meets is E2.
+3. **E2 refuses it.** The carried clause (P029; E2a at EA 8668, E2b at EA 8805 — this packet's own edit set, byte-identical v6→v7) requires anchorBarTime strictly before iTime(barShift): 09:35 < 09:35 is false → CONFIRM_STALE_SKIP → return/skip → no promotion → no 09:40-open entry. This is not a corner reading; it is E2's own worked example.
+4. **The only structural escape is excluded by this packet's own discipline.** Firing off the 09:40 bar at the 09:45 pass (the [R63 DL] confirm=1 path, where E2 passes: 09:35 < 09:40) is precisely the withdrawn ledger-750 "(9:35 + 9:40 + 9:45)" EA-mapping and the post-owed-entry row his correction excludes. The admission is boxed in: the bar his corrected rule blesses is the bar class E2 was built to kill.
+5. **The contradiction is carried, not scoped.** P031 sits inside the E2 section asserting "his confirm-once rule rides unchanged (9:35 retest + 9:35 confirmation, entry 9:40 open)" beside a predicate that refuses exactly that pattern; E2's basis (Ruling 4, 9/1: same-pass retest+confirm, off-by-one) is the structural twin of the UJ1 case. His 2026-09-26 correction post-dates the Q1/Q2 clearance and bears on E2's semantic core; the E-UJ1 touch-site census (predicate + FRESHCOUNT + STAND-DOWN + DIV boundary) omits the two E2 clause sites entirely. This is a Q3 scope defect, not a re-ask of Q1/Q2 — E1/E2 stay carried; what is missing is interaction scoping for the class the new proposal itself creates.
+
+**Why blocking:** A-UJ1 is provably unreachable on the page — clearing the admitting-term question would spend the build + two runs on an acceptance no predicate term can meet, surfacing at grade time as an unscoped STALE. Per this council's own P025-class standard (a relay claiming coverage beyond its scoped boundary is defective), an unscoped interaction between a new proposal and a carried gate is blocking-grade.
+
+**Cure for the re-ask (either, both prose-only):** (i) scope the E2-recency interaction explicitly — a proposed carve-out/re-anchor rule for the admitted same-bar class as a named E-UJ1 sub-item, with the E2a/E2b sites added to its touch census — EU-inert as scoped (A-STALE-901's own note: no same-bar case reaches a promotion site there; A-97NY and A-7PRESERVE guards any new EU same-bar promotion the admitting term surfaces); or (ii) his explicit word reconciling 9/1 (same-pass, off-by-one, dead) with 6/5 (same-bar, owed entry) — the separating feature (bar shape? the "after 4 dead bars" POI state?) is his to name, never council-first.
+
+## What does not halt from this seat
+
+- **(b) E-UJ2 as carried:** faithful to the commissioned solution — booking+census pool (the census-alone read-only fact at EA 2410-2413 correctly forces the booking-side extension), retarget to current NY high on exceed, degenerate pinned, nearest-wins/filter preservation; retarget store (best/haveBest) pinned with predicate-time line cites owed; degenerate pin honest (strictly-forward NY high, else NO_TP_TARGET stands); source choice and trigger semantics left as open questions. Nothing asserted as ruled.
+- **(c) E-UJ3 as carried:** selection evidence is decision-pass only ([R63 QF] + [R63 FN]); the 14:45 pair is retained as declared line-identity only — and redundantly so, since [R63 FN]'s own anchor field proves Daily-POC at decision (the pair could be dropped outright); v6 withdrawals honored; the FRESHCOUNT-yield precedence is coherent because the candidate is standing (pre-14:35 seed — inferable: same-pass seeds print ANCHOR_ELECT rows per the [R63 DK] precedent, and none prints at the 14:40 pass), so E2 passes and the yield is reachable. Clear as scoped.
+- The bypass-list retirement itself is faithful (no decision-pass confirm=1 exists to lock); the [R63 DL] exclusion is exactly his correction; the B_BODY attribution stands as disclosed (A2 unreadable; the up-bar poke from below corroborates the prior close below the line); the 10:40-exclusion risk is properly stated and deferred to predicate-time rows.
+- Hygiene, non-blocking: "16:10 NO_TP triple" describes three rows but only the [R63 QO] abort is pasted — the refuse-point is proven, the companions are not load-bearing here.
+
+Ruling on the page only; disk genuineness remains builder-disk + his eyes. No key spent, nothing built/run/cleared here. The halt is surgical to E-UJ1's missing E2-recency interaction; UJ2/UJ3 re-present unchanged with the E2 scoping added.
+## V292-ENTRY-UJ13 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

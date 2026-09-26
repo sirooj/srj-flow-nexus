@@ -3,18 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, CORRECTION FOLDED)
+## State (2026-09-26, GRADED + FOLD HELD)
 
-- Your miss-1 rule: 9:35 retest
-  + 9:35 confirmation, entry 9:40
-  open. V292 battery-green
-  Q3-only, TRANSPORT OWED.
-  No build, run, key. Ledger 809.
+- V292 NO-CLEAR on Q3 (0-3).
+  V293 battery-green DRAFT-HELD
+  for his separator word.
+  No build, run, key. Ledger 814.
 
-## Next (artifact owed)
+## Next (owed him)
 
-- YOUR carry: v292 file, seats
-  your choice + paste-back.
+- ONE question: the 9/1-vs-6/5
+  separator yes/no. V293
+  transports on his answer.
 
 ## Resume order (exact)
 
