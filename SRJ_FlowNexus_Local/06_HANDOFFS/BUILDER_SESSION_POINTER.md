@@ -3,18 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V303 GRADED + V304 FOLD GREEN)
+## State (2026-09-26, V7/V305 FOLD GREEN)
 
 - V303 graded per-leg HALT (DQ1 1-2, DQ2 2-1, DQ3 1-2).
-  Relay v304 drafted-green, uncarried.
-  Handoff POST-V304 superseded (v303 TRANSPORTED after all).
-  Tree clean, quiet. Ledger 847.
+  Relay v305 drafted-green, uncarried (v304 withdrawn).
+  Fix-not-replace governs. Tree clean, quiet. Ledger 850.
 
 ## Next (owed him)
 
-- HIS v304 carry (paste whole to all
-  seats) + isolated-handle scope word.
-  Then his verdict paste.
+- HIS v305 carry (paste whole to all
+  seats). Then his verdict paste.
 
 ## Resume order (exact)
 
