@@ -3,16 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, SCOPE DECIDED)
+## State (2026-09-26, INDICATOR-FIRST)
 
-- Second 15m handle PROCEEDS on your
-  word. S2 re-scope dropped. Buffer
-  probe first. Ledger 843.
+- 15m vote exists (buffer 21) with no
+  flip timing. Refine indicator first,
+  second copy only if needed. Your
+  direction. Ledger 844.
 
 ## Next (owed him)
 
-- Nothing owed. v5 drafts on decided
-  shapes (veto-able).
+- Nothing owed. v5 carries indicator-
+  first design (veto-able).
 
 ## Resume order (exact)
 
