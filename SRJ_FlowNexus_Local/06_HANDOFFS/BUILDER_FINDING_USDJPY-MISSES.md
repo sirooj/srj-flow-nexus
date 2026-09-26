@@ -104,4 +104,10 @@
 - His London fundamental: "The london setup which starts at 9:00 is not a new rule. this is very fundamental rule that you might overlook, which is i only trade or take a setup on the london and NY session which has been defined on the SRJ Flow Logic sessions time section." Builder corrected: NOT new - fundamental, overlooked; sessions sourced to his indicator sessions-time section (Asia 20-00 / London 02-05 / NY 07-12 / PM 13:30-16 NY tz, broker +3; buffers 8-17 + PD 40-47; HTF engine include, 53 bias hits, zero flip hits; BiasEngine flip state wasBiasFlip + bull/bear alerts).
 - His short-bias text scoped (rendering, veto-able): 15m flip + 1H agreement enables trend bias IN THE FLIP DIRECTION generally; 11 June instance = bullish variant (long bias); date-ambiguity of the earlier text stated, not resolved by invention.
 
+## Rulings-H 2026-09-26 (ledger 840; his words verbatim incl typos)
+- His R reference: "entry open."
+- His entry-vs-manage rule: "i know you meant the revision target because on the exit off the NY.H it gives less than 1R. although i reject setups that are less than 1R, i still exit and literally exit on the nearest target which is on this example setup, although upon entry the setup is valid and executed, the new revised target makes the gain less than 1R. the difference is when the setup TP is first measured upon entry vs the dynamic revised tp target such as the newer session close H/L or gapped POC. This is not a new rule and has been documented. READ YOUR STARTEGY SKILL AND STRATEGY SPECIFICATION. DEFECT!"
+- His retarget object: "today's high is logically impossible becuase we flatten any position by the end of the session, so the scenario on 6/5 is the NY AM session high which closed at 19:00."
+- Builder record: EXITMODEL-1 Q6 already documents the exit-nearest rule ("even if less than 1R after the entry and revision") - record-first failure owned; R-ref + closed-session retarget are fresh rulings carried as stated.
+
 (End of file)

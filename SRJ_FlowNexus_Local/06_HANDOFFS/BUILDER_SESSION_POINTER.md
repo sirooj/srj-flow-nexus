@@ -3,18 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V301 GRADED)
+## State (2026-09-26, VETO CLOSED)
 
-- DQ1 0-3 NO, DQ2 1-2 halt, DQ3 1-2
-  halt (Astra halts both). Draft slips
-  owned (labels, cites, math, fence).
-  Result filed. Ledger 839.
+- R = entry open. Kill sub-1R at entry,
+  always exit nearest (Q6 documented -
+  defect owned). Retarget = closed NY
+  AM high. Ledger 840. v4 unblocked.
 
 ## Next (owed him)
 
-- YOUR three veto words (1R price
-  reference, kill-vs-retain, retarget
-  shape). v4 drafts after answers.
+- Nothing owed. Drafting v4 + v302
+  (veto-able) under PROCEED.
 
 ## Resume order (exact)
 
