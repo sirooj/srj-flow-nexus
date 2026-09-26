@@ -3,16 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, GRADE + FOLD FILED)
+## State (2026-09-26, CORRECTION FOLDED)
 
-- V289 graded NO-CLEAR (Q1+Q2
-  CLEAR, Q3 HALT). V290
-  battery-green, TRANSPORT OWED.
-  No build, run, key. Ledger 807.
+- Your correction: 14:45 OUT,
+  UJ3 FVG-yield-only. V291
+  battery-green Q3-only,
+  TRANSPORT OWED. No build,
+  run, key. Ledger 808.
 
 ## Next (artifact owed)
 
-- YOUR carry: v290 file, seats
+- YOUR carry: v291 file, seats
   your choice + paste-back.
 
 ## Resume order (exact)
