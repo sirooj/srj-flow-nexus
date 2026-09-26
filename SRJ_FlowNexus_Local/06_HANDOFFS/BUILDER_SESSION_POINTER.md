@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, IMPL-1/V308 ISSUE GREEN)
+## State (2026-09-26, IMPL-1 v2/V309 AMEND GREEN)
 
-- Design CLEAR complete (v306 + v307 confirms).
-  Relay v308 drafted-green, uncarried.
+- V308 graded (IQ1 0-2 OBJECT, IQ2 1-1 HALT).
+  Relay v309 drafted-green, uncarried.
   Build gated: new Luna key + word.
-  Seats: Luna + GLM. Ledger 857.
+  Seats: Luna + GLM. Ledger 859.
 
 ## Next (owed him)
 
-- HIS v308 carry (paste whole to Luna
+- HIS v309 carry (paste whole to Luna
   + GLM, same text both).
   Then his verdict paste.
 

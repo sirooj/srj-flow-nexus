@@ -11099,3 +11099,113 @@ For DQ2, the better mechanism remains the packet's own **buffer-extraction-first
 
 **Net:** both confirm questions are **CLEAR**, with the two material implementation points that must not be lost in the next packet being **confirmed-output activation/row identity** and **entry-open rather than confirmation-close TP election**. The relay itself correctly remains design-only: no build, run, spend, or live activation is authorized here.
 ## V307-UJIMPL-8 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V308-UJIMPL-9 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+### Council verdict
+
+**IQ1 OBJECT** — the edit set is materially specified, but two parts are not exact enough to support the stated verification contract.
+
+**IQ2 OBJECT** — the acceptance battery contains a substantive attribution defect in A-EU-PRESERVE.
+
+### IQ1 — exact edit-list review
+
+1. **E1 — acceptable.**
+   C10667 changes only `false` → `true`, matching `inUseConfirmedHTFOnly` at F252 and the confirmed/live selector at F1195-F1200.
+
+2. **E2 — specified, but with one dependency that should be explicit.**
+   The proposed read of `FL_BUF_HTF_LOW` is only the 15m confirmed feed because F251 fixes the third HTF to `PERIOD_M15`. The edit is therefore correct on the canonical configuration, but P018 should state that dependency explicitly. Otherwise changing the third HTF input would silently change what this guard means.
+
+3. **E3 — same issue as E2.**
+   P019 inherits the same implicit `FL_BUF_HTF_LOW == M15` assumption.
+
+4. **E4 — insufficiently specified for the proof it is supposed to support.**
+   P020 requires “H4/H1 confirmed” plus an LTF row, but the critical E1 change is the **third HTF / M15 confirmed output**. The shown E4 payload does not explicitly require printing that value/source. The code-side mapping is H4/H1/M15 at F1195-F1200, so the probe should expose all three selected confirmed votes, not merely H4/H1 plus LTF bias.
+   **Failure:** P020, F1195-F1200.
+
+5. **E5 — broadly coherent.**
+   The proposed walker is compatible with the existing candidate mechanism at C2300-C2321 and the live session/PD candidate walk beginning C2354. The refresh placement above the SELHALT gate is also mechanically clear from C4995 onward.
+   Minor imprecision: P021 does not give explicit cache invalidation/reset semantics, so stale cache state is not fully specified for repeated tester windows. That is a verification concern rather than a demonstrated defect.
+
+6. **E6 — acceptable.**
+   C7305 → `iOpen(...,0)` correctly aligns the 1R calculation with the next-bar fill reference under the existing once-per-new-bar cadence at C11483-C11492.
+
+7. **E7 — acceptable in placement and intent.**
+   C7334 is the right post-stop-memo/pre-admission location. The direction-aware condition must remain explicit: long requires `TP > entry` and `SL < entry`; short requires `TP < entry` and `SL > entry`. No absolute-distance normalization.
+
+8. **E8 — intent is clear, but “unconditional print” is ambiguous.**
+   P024 can mean either “print every managed-recompute pass” or “when the touch event occurs, print regardless of debug mode.” Those are materially different log contracts. The acceptance battery expects an event row, so the latter should be stated explicitly.
+   **Failure/imprecision:** P024, C11095 onward.
+
+9. **E9 — acceptable in placement.**
+   The pre-latch location before C10216 is appropriate for the stated same-pass/delayed-fire protection. The guard must validate the current memo, not merely a stale nonzero numeric.
+
+10. **E10 — under-anchored.**
+    P026 says “near H562-577,” but H562-H577 are the HTF run/output routines, not an exact per-M15-close call site. Nothing shown proves that a print inserted there fires exactly once per M15 close during the probe window.
+    **Failure:** P026, H562-H577.
+
+**IQ1 verdict line:**
+**IQ1 OBJECT — E4 does not explicitly expose the confirmed M15 vote that E1 changes, and E10 has no exact per-M15-close call-site anchor; E2/E3 also rely implicitly on F251 remaining M15.**
+
+---
+
+### IQ2 — acceptance review
+
+The major defect is **A-EU-PRESERVE**.
+
+P032 says every EU trade-set / REGIMECENSUS difference must be attributable to:
+
+> “the confirmed switch (sole vote-character change) + entry-open reference change”
+
+That is not sufficient for this edited tree.
+
+The implementation changes additional live decision behavior:
+
+* **E2/E3** add new LTF/15m alignment guards at C8655/C8795.
+* **E5** changes the TP candidate population by adding the historical walker/cache.
+* **E7** adds a new admission veto for sub-1R outcomes.
+* **E8** changes post-entry target management/re-election.
+* **E9** adds a fire-edge fail-closed condition.
+
+Therefore an EU trade-set or population difference cannot, as written, be uniquely attributed to only E1 + E6. Even if the desired preservation comparison eventually shows zero differences, the **attribution rule itself is incomplete**. The preservation battery needs per-edit attribution or a narrowly defined pre-entry/regime census that isolates E1's vote-character effect.
+
+There are two smaller acceptance imprecisions:
+
+* **A-IMPL1/P029:** the probe evidence does not explicitly require the actual M15 confirmed vote, despite E1 changing the confirmed-vs-live HTF selection.
+* **A-IMPL2/P030:** “UJTOUCH re-election” needs to distinguish the touch event from the subsequent changed winner/value, otherwise a touch print alone does not prove retargeting occurred.
+
+**IQ2 verdict line:**
+**IQ2 OBJECT — A-EU-PRESERVE cannot validly attribute all edited-tree EU differences only to E1 + E6 while E2/E3/E5/E7/E8/E9 also alter runtime behavior; A-IMPL1/A-IMPL2 also need the M15-vote and retarget-result evidence made explicit.**
+
+### Analytic A — all defects/gaps/imprecisions
+
+| Location               | Issue                                                                                                                                                                               |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P008 vs P017-P019      | “E1/E2 CLEAR carried” uses the same labels as implementation E1/E2, creating avoidable namespace ambiguity between design edits and IMPL-1 edits.                                   |
+| P018, F251/F1195-F1200 | `FL_BUF_HTF_LOW` means M15 only because HTF slot 3 is M15. That dependency is implicit, not contractual.                                                                            |
+| P019, F251/F1195-F1200 | Same dependency for E3.                                                                                                                                                             |
+| P020, F1195-F1200      | Probe payload does not explicitly expose the third/15m confirmed value even though E1's purpose is to switch the three HTF feeds to confirmed outputs.                              |
+| P021                   | Cache reset/invalidation semantics are not explicit.                                                                                                                                |
+| P024, C11095+          | “unconditional print” is ambiguous between unconditional-on-touch and unconditional-on-pass.                                                                                        |
+| P026, H562-F577        | “near” is not an exact insertion/call-site anchor and does not itself establish per-M15-close cadence.                                                                              |
+| P029                   | “E1/E2-unchanged diffs” is not precise enough to distinguish unchanged ruled regions from the new implementation E1/E2 inserts.                                                     |
+| P030                   | A touch event alone does not prove the target actually re-elected to a different/updated winner/value.                                                                              |
+| P032                   | **Material defect:** attribution excludes E2/E3/E5/E7/E8/E9, all of which can alter the EU runtime result.                                                                          |
+| P031                   | Structural-flip contingency is described procedurally, but no exact required finding/token/log predicate is specified.                                                              |
+| P033                   | DIV dependency says “adverse DIV,” but the exact emitted value/criterion to classify a pass as ungradeable is not stated in the acceptance text; code semantics are at C8832-C8848. |
+
+### Analytic B — better mechanisms
+
+**For E4:** make the probe authoritative by reading and printing the actual exported HTF trio at the probe bar:
+
+* `FL_BUF_HTF_HIGH` = H4 confirmed
+* `FL_BUF_HTF_MID` = H1 confirmed
+* `FL_BUF_HTF_LOW` = M15 confirmed
+
+alongside the source-TF labels. This directly verifies F1195-F1200 and removes the ambiguity between “LTF bias” and the 15m confirmed HTF vote.
+
+**For E8:** emit two distinct records: one `UJTOUCH` record containing the touched NY-AM level and touch type, then a second re-election record containing `oldTP`, `newTP`, winner identity, and the closed-session source. That makes retargeting independently gradeable rather than inferred from a touch print.
+
+**For A-EU-PRESERVE:** retain the whole edited-tree comparison, but decompose attribution by mechanism: E1 vote-source change, E2/E3 alignment disposition, E5 target-pool expansion, E7 1R rejection, E8 management-only effect, E9 fire-edge fail-closed. That is the only structure that can distinguish a real regression from an intentional behavioral change.
+
+**Net:** the underlying implementation design is substantially coherent, but **this issue packet is not yet acceptance-tight enough to carry either IQ1 or IQ2 as CONFIRM.** No build/run clearance follows from this ruling.
+## V308-UJIMPL-9 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
