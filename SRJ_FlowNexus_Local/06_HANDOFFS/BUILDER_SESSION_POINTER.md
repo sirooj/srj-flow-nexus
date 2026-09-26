@@ -8,7 +8,7 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 - V294 NO-CLEAR on Q3 (1-2).
   V295 battery-green DRAFT
   (draft turn, no transport ask).
-  No build, run, key. Ledger 819.
+  No build, run, key. Ledger 820.
 
 ## Next (owed him)
 
