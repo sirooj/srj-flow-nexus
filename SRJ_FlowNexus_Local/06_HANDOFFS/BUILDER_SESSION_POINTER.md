@@ -3,18 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, SESSION RULES)
+## State (2026-09-26, TERMS CORRECTED)
 
-- Your rebuke stands: London never
-  blocks NY (ONE-TAKE pin answered it
-  on record). Same-zone mechanism
-  withdrawn. 15m+1H short-bias rule
-  filed. Ledger 835.
+- Bias timeframe-named only. 11 June:
+  14:35 flip+retest+confirm, entry
+  14:40; 14:45 never live. London
+  fundamental sourced. Ledger 836.
 
 ## Next (owed him)
 
-- Nothing owed. Zero-ask turn. Next:
-  UJ3 re-scope on surviving refusal.
+- Nothing owed. Drafting v2 re-scope
+  (veto-able) under PROCEED.
 
 ## Resume order (exact)
 
