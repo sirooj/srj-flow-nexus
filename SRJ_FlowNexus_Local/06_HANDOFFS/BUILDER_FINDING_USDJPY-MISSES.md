@@ -53,4 +53,8 @@
 - A3 (6/11 14:40 POI/FVG): "i have explained thoroughly regarding the validity of the valid POI line retest, please recall that and ask me again if you still don't understand.if you're talking about the FVG for the validity of the structure, the confirmation candle of 14:35 is when the bullish flip happen so the FVG invalidation does not matter."
 - Builder note: A1 settles direction SHORT (miss-1 fix designable); A2 commissions a builder solution (old-high pool + retarget rule) for council clearance; A3 routes to record-first recall (FVG-validity corpus) + one permitted re-ask on the A2 line only.
 
+## Correction 2026-09-26 (ledger 809; history above stands, live rule below)
+- His correction: miss-1 = 9:35 retest AND 9:35 confirmation, entry 9:40 open. The 09:40-bar confirm=1 (DL row at the 09:45 pass) is post-owed-entry polling, never selection evidence. The line-6 "9:45 open entry" row label is amended by his later words (canon order); the line-19 fit note ("09:40 confirm=1 ... matches his 9:45 timing") is withdrawn as builder inference.
+- Decision rows (RECON63, all 1x): ANCHOR_ELECT SEED 09:35 + RETESTBOOK hits=1 + CONFIRMPOLL confirm=0 (bodyDir=0, B_BODY) at the 09:40:00 pass. The miss = B_BODY refusal at decision, not downstream gates.
+
 (End of file)

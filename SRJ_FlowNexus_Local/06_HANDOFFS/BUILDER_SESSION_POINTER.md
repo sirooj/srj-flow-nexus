@@ -5,15 +5,15 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 
 ## State (2026-09-26, CORRECTION FOLDED)
 
-- Your correction: 14:45 OUT,
-  UJ3 FVG-yield-only. V291
-  battery-green Q3-only,
-  TRANSPORT OWED. No build,
-  run, key. Ledger 808.
+- Your miss-1 rule: 9:35 retest
+  + 9:35 confirmation, entry 9:40
+  open. V292 battery-green
+  Q3-only, TRANSPORT OWED.
+  No build, run, key. Ledger 809.
 
 ## Next (artifact owed)
 
-- YOUR carry: v291 file, seats
+- YOUR carry: v292 file, seats
   your choice + paste-back.
 
 ## Resume order (exact)

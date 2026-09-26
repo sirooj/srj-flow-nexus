@@ -156,3 +156,8 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - SAME-PASS-EDGE: a cross-pass accept predicate is tested against the same-pass completion before transport (v289: strict flip-bar < confirm-bar stranded every completion per A_OPP/B_BODY; the 14:40 pass evaluating the 14:35 flip is the only consistent structure - rule <= with the same-evaluation ordering stated).
 - SEED-ROW-CITE: every seedbar value in acceptance rides its ANCHOR_ELECT fence row, 1x in the labeled segment (v289: A-97NY cited 14:55 with only RETESTBOOK/CONFIRMPOLL rows pasted; D74 row added, 1x).
 - LABEL-HYGIENE: every mechanism label is misparse-proofed on first advisory confusion, never defended as "already glossed" (v289: "locked bar" read as market-chase despite the gloss; renamed confirmed-bar/confirm-commit the same turn).
+
+## 13. v291 correction gates (builder-owned defects, 2026-09-26 - his two timing corrections + v290 status misstatement)
+
+- EA-NEVER-MAPS-HIS-WORDS: his bar labels are never translated into EA pass-times inside any record of his rule (v291: ledger 750 banked "(9:35 + 9:40 + 9:45)" as his verbatim when the middle terms were builder EA-mapping from ledger 749; corrected ledger 809, never quoted again).
+- TRANSPORT-STATUS-PROOF: every relay status word (transported/halted/drafted) is proven by verdict-marker counts on the same turn it is written (v291: "v290 TRANSPORTED + V290 markers 1x/1x" written with zero V290 markers on any verdict file - the v289 set misattributed to v290; withdrawn in v292 + result + ledger the same turn the count proved it).

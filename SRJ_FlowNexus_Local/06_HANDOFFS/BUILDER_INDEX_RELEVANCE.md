@@ -1,4 +1,4 @@
-# BUILDER INDEX RELEVANCE (2026-09-26, his correction: 14:45 OUT, UJ3 FVG-yield-only, v291 Q3-only transport owed)
+# BUILDER INDEX RELEVANCE (2026-09-26, his miss-1 rule 9:35/9:40, v292 Q3-only transport owed)
 
 Rule: read this file BEFORE any record search. It points to the live source per topic and names what is stale. Stale files are history only - never ground a packet, relay, grade, or question on them. The pointer still wins on any conflict.
 
@@ -12,9 +12,9 @@ Rule: read this file BEFORE any record search. It points to the live source per 
 - Built tree: Experts\SRJ_FlowNexus_EA.mq5 89810547/642681/11614 (from packet v5 72236198, relay v285 CLEAR 3-0).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_V285-GRADE.md (5634F30F/2764/24: V285 3 verdicts tallied CLEAR 3-0, flags answered by procedure/record, key owed next; ledger 785).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_V284-GRADE.md (A999C6B3/6557/45: V284 5 verdicts tallied NO-CLEAR on prose/ledger only, every checkable claim disk-verified held, triage joins, fold packet v5 72236198 drafted; ledger 784).
-- Latest result: 06_HANDOFFS\BUILDER_RESULT_V290-RULING.md (0EA05B67/2405/19: his correction 14:45 OUT, record-first defect owned, decision-pass confirm=1 measured, 14:45-analysis withdrawn, fold v6+v291 Q3-only battery-green; ledger 808).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v291-ENTRY-UJ3.md (7FCC60F2/52200/466 battery-green Q3-only: twin 173/173 diff 0, code 212 byte-diff 0, rows 25 incl FN+QF, Q1/Q2 CLEAR carried; transport owed, seats his choice).
-- Latest packet: 01_TASKS\PACKET_P-ENTRY-2.md (v6 E41C6792/23530/173: UJ3 FVG-yield-only, confirm-once universal, A2/FLIPSEEN/same-pass withdrawn, E1/E2 byte-identical, S3 +47/post 11549 carried; UNBUILT).
+- Latest result: 06_HANDOFFS\BUILDER_RESULT_V291-RULING.md (B3B844F5/2838/24: his miss-1 rule 9:35/9:40, 750-mapping withdrawn as builder inference, decision-pass B_BODY refusal measured, DL excluded, fold v7+v292 Q3-only battery-green; ledger 809).
+- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v292-ENTRY-UJ13.md (43FC9AEB/54305/470 battery-green Q3-only: twin 173/173 diff 0, code 212 byte-diff 0, rows 27 incl LS/FF/DK, Q1/Q2 CLEAR carried; transport owed, seats his choice).
+- Latest packet: 01_TASKS\PACKET_P-ENTRY-2.md (v7 9C4A247E/24261/173: UJ1 re-pointed to admission question, P031 corrected, A-UJ1 09:40-off-09:35, finding corrected, E1/E2 byte-identical, S3 +47/post 11549 carried; UNBUILT).
 - Prior result: 06_HANDOFFS\BUILDER_RESULT_V289-GRADE.md (FB5FFC61/2734/28: 3 texts tallied NO-CLEAR Q1+Q2-CLEAR/Q3-HALT, Sonnet advisory non-seat, every item disk-verified, fold v5+v290 drafted battery-green; ledger 807).
 - V289 verdicts (ledger 807): Luna Q1-YES/Q2-YES/Q3-YES + Sonnet YES/YES/YES advisory non-seat + GLM Q1-YES/Q2-YES/Q3-NO, filed whole 1x/1x (LUNA +8 / SONNET +32 / GLM +66).
 - Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v290-ENTRY-FULL.md (0F4D0DA0/53136/470 TRANSPORTED + HALTED Q3-narrow; superseded by v291 fold).
