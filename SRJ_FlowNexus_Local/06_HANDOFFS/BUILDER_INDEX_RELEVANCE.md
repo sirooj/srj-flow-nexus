@@ -1,72 +1,65 @@
-# BUILDER INDEX RELEVANCE (2026-09-26, V292 NO-CLEAR Q3 0-3, v293 draft-held for his separator word)
+# BUILDER DIRECTORY GUIDE (2026-09-26 — what is live, what is dead, where things are)
 
-Rule: read this file BEFORE any record search. It points to the live source per topic and names what is stale. Stale files are history only - never ground a packet, relay, grade, or question on them. The pointer still wins on any conflict.
+Rule: read this file BEFORE any record search. Told files are history only - never ground a packet, relay, grade, or question on them. The pointer (`06_HANDOFFS\BUILDER_SESSION_POINTER.md`) wins on any conflict.
 
-## Live (read first, in this order)
+## START HERE (three files, in order)
 
-- Pointer: 06_HANDOFFS\BUILDER_SESSION_POINTER.md (only live memory).
-- Rules: AGENTS.md (skill-load, gates, invariants).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON67-V5-EU.md (630A5873/3302/30: DONE=PASSED, his takes joined (3 hits + 1 displaced + 1 known miss), rejects silent, invalid dead, 2 hypothesized takes owed his ruling; ledger 788).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON66-V5-USDJPY.md (B9046972/3300/26: DONE=PASSED, B1-B8 PASS, S1 live, goal-joined; ledger 787).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_V5-BUILD.md (D1B0CBB7/3017/33: Luna key 4/4 spent + v7 word, STAGE-1 all pass, 3 edits, compile 0/0, built tree 89810547/642681/11614, post-build S1 incl 2-emitter census; ledger 786).
-- Built tree: Experts\SRJ_FlowNexus_EA.mq5 89810547/642681/11614 (from packet v5 72236198, relay v285 CLEAR 3-0).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_V285-GRADE.md (5634F30F/2764/24: V285 3 verdicts tallied CLEAR 3-0, flags answered by procedure/record, key owed next; ledger 785).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_V284-GRADE.md (A999C6B3/6557/45: V284 5 verdicts tallied NO-CLEAR on prose/ledger only, every checkable claim disk-verified held, triage joins, fold packet v5 72236198 drafted; ledger 784).
-- Latest result: 06_HANDOFFS\BUILDER_RESULT_V292-GRADE.md (16A95539/4132/36: 4 texts NO-CLEAR Q3 0-3, Sonnet second refusal non-seat, every claim disk-verified, record-first search filed, fold v8 + v293 draft-held for his word; ledger 814).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v293-ENTRY-UJ13.md (1ECBB6CA/54806/468 battery-green DRAFT-HELD: twin 173/173 diff 0, code 212 diff 0, rows 25, Q3 single; transports on his separator answer).
-- Latest packet: 01_TASKS\PACKET_P-ENTRY-2.md (v8 7F2C7A60/25367/173: E2 carve-out + census + A2-softening + P010 + MH/PG drop, E1/E2 byte-identical, S3 +47/post 11549 carried; UNBUILT).
-- V292 verdicts (ledger 814): Luna Q3-NO + Astra Q3-NO + Sonnet non-seat refusal + GLM Q3-NO, filed whole 1x/1x (LUNA +8 / ASTRA +18 / SONNET +14 / GLM +31).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_V289-GRADE.md (FB5FFC61/2734/28: 3 texts tallied NO-CLEAR Q1+Q2-CLEAR/Q3-HALT, Sonnet advisory non-seat, every item disk-verified, fold v5+v290 drafted battery-green; ledger 807).
-- V289 verdicts (ledger 807): Luna Q1-YES/Q2-YES/Q3-YES + Sonnet YES/YES/YES advisory non-seat + GLM Q1-YES/Q2-YES/Q3-NO, filed whole 1x/1x (LUNA +8 / SONNET +32 / GLM +66).
-- Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v290-ENTRY-FULL.md (0F4D0DA0/53136/470 TRANSPORTED + HALTED Q3-narrow; superseded by v291 fold).
-- V284 verdicts (ledger 784): Luna YES/YES + Astra DISCREPANCY(Q1-wording)/YES + Sonnet YES/YES + Opus YES/YES + GLM YES/YES-amend-with-delta, filed whole 1x/1x (LUNA 10372 / ASTRA 16966 / SONNET 2027 / OPUS 1509 / GLM 4598).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_V283-GRADE.md (5B9D05A2/2849/35: v283 3 verdicts tallied NO-CLEAR, fold packet v11 F993D252 drafted battery-green; ledger 779).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON63-USDJPY-JUNE.md (C71F3329/1651/27: blind census, 1 take 3 June London long TP win, no gates, no grade; ledger 748); earlier RECON62-DAY2355-FULL D3EE168B/4332/47.
-- Earlier: 06_HANDOFFS\BUILDER_RESULT_RECON61-DAY2355-V4.md (2954D44F/5657/53: A1/A2/A3 PASS; Friday 23:55 fill 1.16129 exact).
-- Baseline result: 06_HANDOFFS\BUILDER_RESULT_RECON60-RESQUAT-V12.md (1E3E3294/11792/72: G1 PASS, G2 PASS, G3 PASS, G4 PASS; 7 takes incl 9/1 entry 1.16024; tabulation RECON60-RESQUAT-V12_TABULATION.txt A2AE6285/12101/173).
-- Prior result: 06_HANDOFFS\BUILDER_RESULT_RECON59-EVICT-V1.md (564D9227/10453/79: G1 PASS, G2 FAIL on 9/1 re-squat miss, G3 MIXED, G4 PASS; 6 takes tick-identical incl fills; eviction fires 3/3 venues; tabulation RECON59-EVICT-V1_TABULATION.txt 4CB94C7A/2833/82).
-- Packet: 01_TASKS\PACKET_P-EVICT-1.md (v7 2EF1A9E0/12461/107 BUILT tree 15A41634/622631/11330, Luna key SPENT, RECON59 G2-FAIL graded: eviction fires 3/3, 9/1 lost to re-squat).
-- Prior packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 BUILT B01CBA64, key SPENT, G2-FAIL graded: takes restored, 9/1 lost to S5-reject squatter-veto).
-- Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v280-USDJPY-CLEAR7.md (5BA413BE/65431/723 battery-green, packet v7 ECC1E56B/26623/288; seats GLM+Sonnet identical; V280 verdicts graded CLEAR 3-0 ledger 764, Luna key ask owed).
-- Prior relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v273-DAY2355-CLEAR4.md (90FF7606/21643/149 unanimous-clear 3-0, key spent, RECON61 L-final PASS graded ledger 743).
-- Packet: 01_TASKS\PACKET_P-RESQUAT-1.md (v12 405DB460/52763/378 BUILT D74FE972/633552/11502, 0/0 both targets; key spent, RECON60 G4-PASS graded ledger 735).
-- Fold graded: 01_TASKS\PACKET_P-DAY2355-1.md (v4 7C915C61/9898/58 built A82F15E7/633938/11506, 0/0; key SPENT; RECON61 graded L-final PASS ledger 743; B-alternatives kept-recorded via council route).
-- Fold draft: 01_TASKS\PACKET_P-USDJPY-1v2.md (3D176605/26324/331 v2 amend-with-delta on v274 halt; E1b/E2b/E4b + S4 comment; budget +42/post 11548; relay v275 owed next).
-- V267 verdicts (ledger 714): Luna C/C (light); Astra C/NC-halt-SUSTAINED (exclusivity+G3); Opus/GLM no v9 ruling (version-incoherent text / v7-object text). Q1 OPEN, Q2 HALTED. NO build. Re-carry WITHDRAWN (byte-identical waste, ledger 716).
-- V268 verdicts (ledger 718): Luna C/NC (G3-join, flatness); Astra C/NC (exclusivity/hedging gate, G3-join, latch choice); Opus C/NC (Q2-1 prefix STOP held, Q2-2 STOP dissolved to text, Q2-3 flatness STOP, Q2-4 join text; POI VALUE pin = 12); GLM C/C (overruled by halt). Q1 CLEAR 4/4, Q2 HALTED, D2 TEXT-ONLY 4/4. NO build.
-- V269 verdicts (ledger 720, Opus silent credits-outage, Kimi fallback filed): Luna C/NC (success-row entryPid); Astra C/NC (hedging stage, E8c header, day-key scope, pid-vs-persisted, G3 text, OUT_BY); Kimi C/C (+2 texts); GLM C/C (+9 texts). Q1 CLEAR 4/4, Q2 HALTED, D2 closed. NO build.
-- V270 verdicts (ledger 723, Opus + Astra silent credits-outage, Kimi fallback filed): Luna NO-RULING (stale v11 print); Kimi CLEAR (v12-proven body, header noted); GLM CLEAR. Stage-1 on v12 NOT unanimous (Luna re-carry owed). NO build.
-- Handoff: 06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V268.md + ADD1 DB0E358A/5921/50 (correction 716 banked; v269 fold ready ledger 719; re-carry dead; v269 files on disk, transport owed).
-- Latest relay: 06_HANDOFFS\BUILDER_RELAY_COUNCIL_v250-RERULE-1.md (389571F8/5711 GRADED V251 Luna-YES).
-- Packet: 01_TASKS\PACKET_P-RETEST-2.md (v2 053D85FD/7062 DRAFT: R2 MEANREV-only void +1 modified, lines stay 11317; his FRESH + trend rulings banked strategy-5) + finding BUILDER_FINDING_BOOKING-ASH.md (36211CB5/1716: AS.H booked, thread closed).
-- Prior packet: 01_TASKS\PACKET_P-DEMOGUARD-2.md (v2 302023B3/9710 BUILT tree 98F6BBAC; guard arc closed RECON57).
-- Findings: 06_HANDOFFS\BUILDER_FINDING_SWEPT-ABSORPTION.md (absorption proof); 06_HANDOFFS\BUILDER_FINDING_BOOKING-GATE-VALIDSET.md (valid-set proof, 8/28 New York corrected); 06_HANDOFFS\BUILDER_FINDING_EXIT-BREAK-RETEST.md (exit rule); 06_HANDOFFS\BUILDER_FINDING_RECON58-EXTRA-DEFECTS.md (750282D9/71: D1 squatter closed, D2 close-executor confirmed pre-existing, D3 8/28-accounting open, D4 booking non-defect, O1/O2 bounded).
-- Strategy of record: 00_CURRENT_WORKING\SRJ Flow Nexus - Part A Specification v4.2 (section 3.7 gate + validity) + GOAL_STATEMENT.md + CHARTER.md.
-- His journal: 00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv (rows 257/277/279/281/283/285-289 window set; economics often blank/0.00 - blank means unrecorded, never absent).
-- Skills: srj-goal (scoreboard) + srj-strategy (settled pins incl D1-V7) + srj-council (pre-transport battery).
+1. `06_HANDOFFS\BUILDER_SESSION_POINTER.md` - only live memory (under 35 lines).
+2. This guide - full map with live digests.
+3. `AGENTS.md` - standing rules. Skills load per task, never from memory.
 
-## Per-topic pointers (live source first)
+## LIVE NOW (measured this turn - these numbers win over any older cite)
 
-- Booking: ledger 536 (nearest) + v142 L198 (micro-line kill) + TPCENSUS admission rows (close==entry).
-- Gate: spec 3.7 + v141 (KEEP; flat 1.0 valid) + EA L9670 + TP_RR_FAIL_LATCH rows.
-- Exits: break-retest finding + strategy skill exits + MTEXIT/MTLIFE rows + his 8/28 London + 9/7 London rulings (ledger 561) + anchor-rank rule 2026-09-23 (skill section 1: same-line hold vs higher-break exit; E3 fork contradicts it, rank redesign via council).
-- Absorption/validity: SWEPT finding + spec 3.7 L187 + EA L2261-2292 + FlowLogic L1371-1392 + Sessions L340-435.
-- Renewal: ledger 557 (his words) + SWEPT finding renewal half + RECON53 instances (76 voids, 10:10-void to 10:40-take chain, renewal-lost 8/28 + 9/7).
-- Declines (never re-ask): kill-all 2026-09-17 + SEP8 review + v14-SEL1 + v93 quotes + A1/A3 (v169 P013 repeats).
-- 8/28: journal 257 (London valid) + A1 decline (New York never valid) + RECON48 stop (filed-record only, rows unrecoverable).
-- 9/4: journal 277/279 (London + New York takes) + ledger 534/535 + 0.84 retired (ledger 559) + ++ BOTH-TRUE (trend AND meanrev, type irrelevant to day-close, his 2026-09-23 correction) + 16:10 BREAK read valid (finding FC8038F1 correction; hold-vs-8/28-exit distinguisher his call).
-- 9/7: journal 281/283 + ledger 535/536 (AS.H) + AS.H-touch proof (ledger 561).
-- 9/8: journal 285-288 (structures blank) + SEP8 review (17:00 valid) + RECON51 17:00 rows (entry match, exit divergence).
-- 9/9: journal 289 (London blank, no New York row) + silent segments (no miss).
-- 9/1: journal 265 (London only, less-than-1R note; no New York row) + row 301 (NY 17:35 LONG VALID-taken-not-taken-by-him, his ruling 2026-09-23; early-exit instance 17:45 close, tolerance open) + result B97F8AC8 + finding FC8038F1 + RECON58 MISS (Yearly-POC S4 squatter vetoes 17:30 seed; 57 voided the squatters, 58 keeps them - eviction packet owed) + RECON59 MISS (eviction fires 16:55, same POI re-seeds 17:00, re-arms, re-vetoes 17:30 winner, dies 17:50 FRESH_OPP_FVG - re-seed-suppression packet owed).
+- EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
+- Open packet: `01_TASKS\PACKET_P-ENTRY-2.md` v9 86A303F7/25359/173 (entry kill-rule + retest-before-confirm + Yen proposals; UNBUILT - no key spent).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v293-ENTRY-UJ13.md` 038F0D29/54798/468, DRAFT-HELD for your separator word (Q3 single; twin 173/173 diff 0, code 212 diff 0, rows 25).
+- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V292-GRADE.md` 16A95539/4132/36 (4 texts, Q3 halted 0-3).
+- Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
+- Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
+- Your UJ answers (filed whole): `06_HANDOFFS\BUILDER_FINDING_USDJPY-MISSES.md` lines 48-54 + correction section at end.
+- Your chart rulings: `06_HANDOFFS\BUILDER_FINDING_RETEST-INVALIDATION-V1.md` section 6 (Ruling 3 for 27 Aug + Ruling 4 for 1 Sep).
+- Law of the land: `00_CURRENT_WORKING\SRJ Flow Nexus — Part A Specification v4.2` + `GOAL_STATEMENT.md` + `CHARTER.md`.
 
-## Stale (history only, never operative)
+## QUARANTINED ON YOUR ORDER (genuine files - row-level use BLOCKED until you bless which binary ran them)
 
-- Relays v162-v227 (superseded; cite only as labeled priors with file + marker + digest).
-- Relays v232-v234 (seedfix round, TRANSPORTED v234, V235 clear-conditional executed RECON54) plus v235-v236 (v-next v1/v2 DRAFTs, never transported, superseded by folds); cite only as labeled priors.
-- Packets: P-EXITMODEL charter (superseded) + P-EXITGATE-1 v3.8 (built, superseded by reference) + FAMILYPASS rounds + P-VALIDITY-1 v1/v2 (superseded by v3).
-- Results before RECON51 (history; goal snapshots carry the surviving figures forward).
-- Ledger gap 371-510 (9/21 wipe, ruled unrecoverable - nothing may be cited from it).
-- V229 round (2026-09-22): 4 verdicts filed (Luna/GLM/Kimi AMEND + Sonnet substance-accept, V229 headers); triage ledger 572; verdicts bind transported packet v3 6DFAEAE9 (file now 00C17159 draft evolution, v4 bump owed); GLM-D1 dissolved (Sessions L302-310 sole prevNY writer risingPM + relay L240 C01 YNYL:102==NYL:102); handoff POST-V229.
-- .clinerules (full archive, never required reading).
-- Any figure superseded on record: journal 9/4 0.84 (retired), relay R-F1OLD 38-count (withdrawn), v11 16-date sentence (withdrawn), 562's RECON48 answer (withdrawn, non-responsive scope), packet R3.43 8/28 (withdrawn - realized R2.43 nearest-booking), packet entry 1.16261 9/7 (corrected to realized 1.16264), packet 8/28 11:40 fill (verdict-only, realized SL 17:00), RECON57 9/4 DAY_CLOSE fill (verdict-only, realized TP 9/7).
+- `06_HANDOFFS\RECON60-RESQUAT-V12_JOURNAL.log` 4824FE61/6465733/34269 (file hash matches its archive record - the FILE is genuine; which build bytes ran it is your open call). DO NOT quote its rows until you rule.
+- Everything built on those rows (all on hold with the file): A-STALE-901's 1 Sep 15:25 trio, A-S54-827's 27 Aug pair, A-97NY's 7 Sep 14:55 seed cite, the matrix D74 row-cites (your 7-trade report itself is YOUR data and stays valid), the 1 Sep 17:35 routing triage.
+- Open questions sitting on the quarantine: (a) your 9/1-vs-6/5 separator yes/no (asked, owed); (b) which runs count as proven (owed with it).
+- v293 stays HELD (never transported) until both are answered.
+
+## STALE - READ-ONLY HISTORY (superseded; cite only as labeled priors with file + marker + digest)
+
+- Relays: v287 (76E47DDF - transported, halted, verdicts filed) + v288 (949DF205 - transported, halted) + v289 (A16C295C - transported, halted) + v290 (0F4D0DA0 - DRAFTED, never transported, no verdicts exist) + v291 (7FCC60F2 - DRAFTED, never transported, no verdicts exist). Anything before v287: two-week history, same treatment.
+- Packets: every `01_TASKS\PACKET_*` file EXCEPT `PACKET_P-ENTRY-2.md` is a closed round (built or retired - check the ledger line that closed it before citing).
+- Results before `BUILDER_RESULT_V292-GRADE.md`: snapshots only; the latest grade carries the live numbers forward.
+- Verdicts: `BUILDER_VERDICTS_*.md` hold every pasted seat text whole (Luna/Astra/Sonnet/GLM/Opus files). Markers named per round (V287/V288/V289/V292 headers filed 1x/1x; NO V290/V291/V293 markers exist anywhere - nothing was ever filed under them).
+- Void runs (never graded, never cited for behavior): RECON69-D74-PROOF (early-exit ~70s, zero journal lines) + RECON70-D74-UJDIAG (stopped on non-consent, UNDETERMINED).
+- Ledger gap 371-510 (wiped 9/21, ruled unrecoverable - nothing may be cited from it).
+- `.clinerules` (full session archive, never required reading).
+
+## RUN INVENTORY (what ran, what counted)
+
+- COUNTED (DONE=PASSED, graded): RECON59-EVICT + RECON60-RESQUAT-V12 (tree disputed - see quarantine) + RECON63-USDJPY-JUNE blind + RECON64/66/67 (v5/v7 builds, superseded by revert) + RECON68-V7-PROOF (slice).
+- VOID (never graded): RECON69 + RECON70 (above).
+- Cost per full run ~50 minutes - runs spend only on your explicit word + key.
+
+## PER-TOPIC POINTERS (live source first)
+
+- Booking: nearest valid target wins, family disregarded (your 2026-09-21 words); 1R floor kept, flat 1.0 valid.
+- Exits: body-break flips bias and exits; touch/retest does nothing once entered; every trade exits near day close (your words).
+- Entries: retest bar N + confirmation bar N can share one bar; entry N+1 open; after entry no bar is re-litigated (your confirm-once rule + 2026-09-26 corrections for 11 June 14:35/14:40 and 5 June 9:35/9:40, both USDJPY).
+- Declines (never re-ask, never present as open): 17 Sep kill-all + SEP8 review + v14-SEL1 + v93 quotes + 9/4 10:40 SHORT ruled INVALID by you.
+- 9/1: journal 265 + row 301 (17:35 LONG valid, taken-not-taken-by-you per your 2026-09-23 ruling); 15:30 was never your trade (tester-only take).
+- Yen misses: 5 June 09:45 London + 5 June 16:15 New York + 11 June 14:40 New York (finding USDJPY-MISSES; your answers A1/A2/A3 filed whole).
+- 9/4: journal 277/279 + 0.84 retired flawed + ++ BOTH-TRUE (trend AND mean-reversion).
+- 9/7: journal 281/283 + AS.H booked (your rule-choice) + sweep-then-retest valids with chart proof.
+- Strategy pins: skills `srj-strategy` (your rules) + `srj-goal` (scoreboard) + `srj-council` (pre-transport battery gates).
+- Bar form (your order): every bar carries date + session + pair + time + role - bare clock-times are unwritable.
+
+## DEBRIS (needs YOUR deletion word - builder never deletes)
+
+- `EA_STATE_REG.md`, `recovery_compile.ps1` (root debris, word owed).
+- `00_CURRENT_WORKING\RECON*_STATUS.txt` / `*_DONE.txt` / `launch_*.ps1` (run debris, kept until you say otherwise).
+- `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V*.md` (old handoffs, history).
+
+(End of file)
