@@ -3,20 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V287 READY)
+## State (2026-09-26, V287 FINAL)
 
-- Entry packet v2 + relay v287
-  battery-green (S5.4 + recency
-  + UJ proposals; v286 never
-  transported, superseded).
-  Packet 65E2E544. Relay
-  13F5D496. Ledger 801. No
+- A2 answered: daily POC already
+  the anchor — flip-only fix,
+  no line change, no re-ask.
+  Packet D0016C37. Relay
+  C41473ED. Ledger 802. No
   build, run, key.
 
 ## Next (artifact owed)
 
 - YOUR carry: v287 file to
-  seats + 1 line answer back.
+  seats + paste-back only.
 
 ## Resume order (exact)
 
