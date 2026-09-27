@@ -393,7 +393,7 @@ void MtReset()
 //--- [P-UJIMPL-IMPL-1 v8 IE7/IE9] fire-path abort reasons (print + abort)
 #define ABORT_SUB_1R           "SUB_1R"
 #define ABORT_NO_MEMO_AT_FIRE  "NO_MEMO_AT_FIRE"
-#define ABORT_MEMO_MISMATCH    "MEMO_MISMATCH"
+#define ABORT_MEMO_IDENTITY  "MEMO_IDENTITY"
 //--- [Task 78] Part A Step 8 / D-3 / G-2 replacement. Diagnostic string only;
 //--- no gate reads an abort reason.
 #define ABORT_POI_REPLACED     "POI_REPLACED"
@@ -2399,8 +2399,19 @@ void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
    if(!haveBest || dist < MathAbs(best - currentPrice))
      { best = v; haveBest = true;
        uj_winnerSource = src; uj_winnerDayKey = dayKey; uj_winnerPoolGen = poolGen; }
-  }
+   }
 
+bool UjPoiTargetValid(int k, int anchor)
+  {
+   if(k == anchor) return false;
+   string ak = ((anchor >= 0 && anchor < POI_NLINES) ? g_lineCode[anchor] : "");
+   string ck = g_lineCode[k];
+   int ap = StringFind(ak, "-"), cp = StringFind(ck, "-");
+   if(ap < 0 || cp < 0) return true;
+   if(StringSubstr(ak, 0, ap) != StringSubstr(ck, 0, cp)) return true;
+   if(StringSubstr(ak, ap + 1) == "POC" && StringSubstr(ck, cp + 1) == "VWAP") return false;
+   return true;
+  }
 //--- TASK 39 (EA-26 + EA-51): decode FlowLogic buffer 29 for one session/PD TP
 //--- candidate. sessIdx is the sessbufs[] index (0..9). Excluded when:
 //---   EA-26  its swept bit (0..9, same order) is set Ã¢â‚¬â€ swept once = not fresh; or
@@ -2497,20 +2508,37 @@ if(SrjUjPoolConsumable(uj_dk))
   }
 for(int kf = 0; kf < POI_NLINES; kf++)
   {
+   if(!UjPoiTargetValid(kf, g_anchorLine))
+     { if(InpDebugLog) PrintFormat("[SRJ-EA] UJPOISKIP bar=%s line=%s anchor=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_lineCode[kf], (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none")); continue; }
    if((g_authorityRank[kf] / 2) > (anchorRank / 2)) continue;
    double vf;
    if(!ReadBuf1(g_hPoi, kf, vf, barShift)) continue;
-   TpTargetUpdateBest(vf, dir, currentPrice, best, haveBest, g_lineCode[kf], uj_dk, -1);
+    TpTargetUpdateBest(vf, dir, currentPrice, best, haveBest, g_lineCode[kf], uj_dk, -1);
+   }
+if(!haveBest)
+  {
+   string uj_fbpool = "";
+   for(int i = 0; i < ArraySize(sessbufs); i++)
+     {
+      double dv = 0.0;
+      if(!ReadFlow(sessbufs[i], dv, barShift)) continue;
+      bool uj_inD = (dir == DIR_LONG) ? (dv > currentPrice) : (dv < currentPrice);
+      if(uj_inD) uj_fbpool += sname[i] + ":" + DoubleToString(MathAbs(dv - currentPrice) / _Point, 0) + " ";
+      TpTargetUpdateBest(dv, dir, currentPrice, best, haveBest, sname[i], uj_dk, -1);
+     }
+   if(haveBest && InpDebugLog)
+     { PrintFormat("[SRJ-EA] UJFBPOOL bar=%s dir=%s pool=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(dir), uj_fbpool);
+       PrintFormat("[SRJ-EA] TPFALLBACK bar=%s dir=%s tp=%s distPts=%s src=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(dir), DoubleToString(best, _Digits), DoubleToString(MathAbs(best - currentPrice) / _Point, 0), uj_winnerSource); }
   }
-   //--- TASK 23 (EA-23a / EA-24): read-only census of the take-profit candidate
+    //--- TASK 23 (EA-23a / EA-24): read-only census of the take-profit candidate
    //--- set. Re-walks both candidate groups and matches each against the value
    //--- `best` already holds, so it names the winner without touching it. It
    //--- assigns nothing this function reads and alters no control flow.
    //--- `best` was assigned directly from a candidate, so exact equality is a
    //--- valid identity test here and is not a tolerance comparison.
-   //--- [P-TP-FAMILYPASS E2 2026-09-17, print-only] census second loop ADMITS
-   //--- the anchor (rank filter unchanged) so an anchor win is nameable;
-   //--- behavior unchanged, gates read winner reliably.
+    //--- [P-TP-FAMILYPASS E2 2026-09-17, print-only, OVERRIDDEN by IMPL-2 Fix B:]
+    //--- the helper skips the anchor + same-family VWAP first:
+    //--- anchor wins are excluded from the Compute POI election (B1) and from the POI census (B3); no anchor win survives to be named.]
    if(InpDebugLog)
      {
       static int s_tpDumps = 0;
@@ -2556,19 +2584,20 @@ for(int kf = 0; kf < POI_NLINES; kf++)
                         DoubleToString(MathAbs(uj_cv - currentPrice) / _Point, 0) + " ";
             if(haveBest && uj_cv == best) winner = uj_pool[uji].source;
            }
-         for(int k2 = 0; k2 < POI_NLINES; k2++)
-           {
-            if((g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;
+          for(int k2 = 0; k2 < POI_NLINES; k2++)
+            {
+   if(!UjPoiTargetValid(k2, g_anchorLine))
+     { if(InpDebugLog) PrintFormat("[SRJ-EA] UJPOISKIP bar=%s line=%s anchor=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_lineCode[k2], (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none")); continue; }
+             if((g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;
             double pv;
             if(!ReadBuf1(g_hPoi, k2, pv, barShift)) continue;
             if(pv == EMPTY_VALUE) { nEmpty++; continue; }
             bool inDir = (dir == DIR_LONG) ? (pv > currentPrice) : (pv < currentPrice);
             if(!inDir) continue;
-            admitted += g_lineCode[k2] +
-                        ((k2 == g_anchorLine) ? "*" : "") + ":" +
+            admitted += g_lineCode[k2] + ":" +
                         DoubleToString(MathAbs(pv - currentPrice) / _Point, 0) + " ";
             if(haveBest && pv == best)
-               winner = g_lineCode[k2] + ((k2 == g_anchorLine) ? "(ANCHOR)" : "");
+               winner = g_lineCode[k2];
            }
          PrintFormat("[SRJ-EA] TPCENSUS #%d bar=%s dir=%s ref=%s winner=%s best=%s "
                      "distPts=%s empties=%d admitted= %s",
@@ -8193,7 +8222,18 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       if(!CheckLtfAlign(barShift, g_dir, aligned))
         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
       if(!aligned)
-        { if(InpDebugLog) PrintFormat("[SRJ-EA] S2WAIT bar=%s dir=%s poi=%s sess=%s - LTF bias unaligned, candidate RETAINED (Stage 3a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), SessionName(g_sessionAtEntry)); return; }
+        {
+         double uj_m15b = 0.0;
+         bool uj_m15r = ReadFlow(FL_BUF_HTF_LOW, uj_m15b, barShift);
+         double uj_wantb = (g_dir == DIR_LONG ? 1.0 : -1.0);
+         if(uj_m15r && uj_m15b == uj_wantb)
+           { double uj_ltfb = 0.0; int uj_ltfOk = ReadFlow(FL_BUF_LTF_BIAS, uj_ltfb, barShift) ? 1 : 0;
+             int uj_m15s = (int)iTime(_Symbol, PERIOD_CURRENT, barShift);
+             datetime uj_m15src = (datetime)(uj_m15s - uj_m15s % 900);
+             if(InpDebugLog) PrintFormat("[SRJ-EA] S2PROMOTE_M15 bar=%s dir=%s poi=%s sess=%s m15=%s m15src=%s ltf=%s rf=%d/%d", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), SessionName(g_sessionAtEntry), DoubleToString(uj_m15b, 1), TimeToString(uj_m15src, TIME_DATE|TIME_MINUTES), UjDbl(uj_ltfb), (uj_m15r ? 1 : 0), uj_ltfOk); }
+         else
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] S2WAIT bar=%s dir=%s poi=%s sess=%s - LTF bias unaligned, candidate RETAINED (Stage 3a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), SessionName(g_sessionAtEntry)); return; }
+        }
       ENUM_SRJ_STATE prev = g_state;
       g_state = ST_S3_ZONE_WAIT;
       LogState(prev, g_state);
@@ -8897,8 +8937,9 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       double s52_legT  = 0.0;
       bool   s52_found = FindLegTouch(barShift, g_zoneHi, g_zoneLo,
                                       s52_shift, s52_legT, s35_fromFvg);
-      if(s52_found && !g_touchSeen)
-        {
+       if(s52_found && !g_touchSeen)
+         {
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJTOUCHSEEN evalBar=%s touchBar=%s dir=%s anchor=%s zoneTouch=%d", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), TimeToString(iTime(_Symbol, PERIOD_CURRENT, s52_shift), TIME_DATE|TIME_MINUTES), DirName(g_dir), (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none"), (s35_fromFvg ? 1 : 0));
          g_touchSeen  = true;
          g_touchBarHi = iHigh(_Symbol, PERIOD_CURRENT, s52_shift);
          g_touchBarLo = iLow (_Symbol, PERIOD_CURRENT, s52_shift);
@@ -8922,7 +8963,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          bool oppositeDir = (g_dir == DIR_LONG) ? (c < o) : (c > o);
          bool touchesZone = (h >= g_zoneLo && l <= g_zoneHi);
          if(oppositeDir && (!s35_fromFvg || touchesZone))
-           { g_touchSeen = true; g_touchBarHi = h; g_touchBarLo = l; }
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] UJTOUCHSEEN evalBar=%s touchBar=%s dir=%s anchor=%s zoneTouch=%d", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none"), (touchesZone ? 1 : 0)); g_touchSeen = true; g_touchBarHi = h; g_touchBarLo = l; }
         }
       else
         {
@@ -10385,14 +10426,22 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          uj_memo_wsrc = uj_winnerSource; uj_memo_wday = uj_winnerDayKey;
          uj_memo_wgen = uj_winnerPoolGen; uj_memo_wage = UjDayDiff(barTime, uj_winnerDayKey);
         }
-      //--- [P-UJIMPL-IMPL-1 v8 IE9] fire-edge memo guard (candidate identity +
-      //--- value equality; cross-check tuple on pass).
+      //--- [P-UJIMPL-IMPL-2 v4 Fix A] fire-edge memo guard (liveness + identity;
+      //--- admitted tuple validated by the FIRE 1R gate below, evidenced by MTSNAP).
+      double uj_fireR = -1.0;
+      string uj_fireWsrc = "";
+      string uj_fireWday = "";
+      int    uj_fireWgen = -1;
+      int    uj_fireWage = -1;
         {
          string uj_bk9 = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+         double uj_frisk = 0.0, uj_freward = 0.0;
+         if(!SrjUjAssert1R(currentPrice, slRef, tpTarget, uj_bk9, "FIRE", uj_frisk, uj_freward, uj_fireR))
+           { GoAbort(ABORT_SUB_1R, g_state); return; }
          if(!uj_memo_valid || uj_memo_barTime != barTime || uj_memo_tp <= 0.0 || uj_memo_sl <= 0.0)
            { if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_FAIL bar=%s reason=NO_MEMO_AT_FIRE src=%s", uj_bk9, uj_memo_src); GoAbort(ABORT_NO_MEMO_AT_FIRE, g_state); return; }
-         if(uj_memo_anchor != g_anchorLine || uj_memo_dir != (int)g_dir || uj_memo_tp != tpTarget || uj_memo_sl != slRef)
-           { if(InpDebugLog) PrintFormat("[SRJ-EA] UJMISMATCH bar=%s memo_tp=%s memo_sl=%s fire_tp=%s fire_sl=%s memo_src=%s", uj_bk9, DoubleToString(uj_memo_tp, _Digits), DoubleToString(uj_memo_sl, _Digits), DoubleToString(tpTarget, _Digits), DoubleToString(slRef, _Digits), uj_memo_src); GoAbort(ABORT_MEMO_MISMATCH, g_state); return; }
+         if(uj_memo_anchor != g_anchorLine || uj_memo_dir != (int)g_dir)
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_FAIL bar=%s reason=IDENTITY src=%s", uj_bk9, uj_memo_src); GoAbort(ABORT_MEMO_IDENTITY, g_state); return; }
          if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_PASS bar=%s admit_key=%s:%I64d entry=%s tp=%s sl=%s R=%.2f src=%s wsrc=%s wday=%s wgen=%d", uj_bk9, uj_bk9, uj_tradeSeqNext, DoubleToString(uj_memo_entry, _Digits), DoubleToString(uj_memo_tp, _Digits), DoubleToString(uj_memo_sl, _Digits), uj_memo_R, uj_memo_src, uj_memo_wsrc, uj_memo_wday, uj_memo_wgen);
         }
       g_mtrade.active            = true;
@@ -10423,10 +10472,12 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- publication of the admission key {uj_bar_key, tradeSeq} + poolGen chain).
       g_mtrade.uj_admitBarTime = barTime;
       g_mtrade.uj_tradeSeq = uj_tradeSeqNext; uj_tradeSeqNext++;
-      uj_admitCount++;
-        {
+       uj_admitCount++;
+         uj_fireWsrc = uj_winnerSource; uj_fireWday = uj_winnerDayKey;
+         uj_fireWgen = uj_winnerPoolGen; uj_fireWage = UjDayDiff(barTime, uj_winnerDayKey);
+         {
          string uj_abk = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
-         PrintFormat("[SRJ-EA] UJADMIT bar_key=%s trade_seq=%I64d admit_bar=%s entry=%s sl=%s tp=%s R=%.2f poolGen=%d wsrc=%s wday=%s wage=%d", uj_abk, g_mtrade.uj_tradeSeq, TimeToString(barTime, TIME_DATE|TIME_MINUTES), DoubleToString(currentPrice, _Digits), DoubleToString(slRef, _Digits), DoubleToString(tpTarget, _Digits), uj_memo_R, uj_memo_wgen, uj_memo_wsrc, uj_memo_wday, uj_memo_wage);
+         PrintFormat("[SRJ-EA] UJADMIT bar_key=%s trade_seq=%I64d admit_bar=%s entry=%s sl=%s tp=%s R=%.2f poolGen=%d wsrc=%s wday=%s wage=%d", uj_abk, g_mtrade.uj_tradeSeq, TimeToString(barTime, TIME_DATE|TIME_MINUTES), DoubleToString(currentPrice, _Digits), DoubleToString(slRef, _Digits), DoubleToString(tpTarget, _Digits), uj_fireR, uj_fireWgen, uj_fireWsrc, uj_fireWday, uj_fireWage);
         }
 
       if(InpMode == MODE_ALERT_ONLY)
@@ -11360,9 +11411,11 @@ bool MtNearestTpTarget(const int barShift, const ENUM_SRJ_DIR dir,
                     ? g_authorityRank[g_mtrade.anchorLine] : INT_MAX;
    for(int k = 0; k < POI_NLINES; k++)
      {
-      if(k == g_mtrade.anchorLine || (g_authorityRank[k] / 2) > (anchorRank / 2))
-         continue;
-      double v;
+       if(k == g_mtrade.anchorLine || (g_authorityRank[k] / 2) > (anchorRank / 2))
+          continue;
+   if(!UjPoiTargetValid(k, g_mtrade.anchorLine))
+     { if(InpDebugLog) PrintFormat("[SRJ-EA] UJPOISKIP bar=%s line=%s anchor=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_lineCode[k], (g_mtrade.anchorLine >= 0 ? g_lineCode[g_mtrade.anchorLine] : "none")); continue; }
+       double v;
       if(!ReadBuf1(g_hPoi, k, v, barShift)) continue;
       TpTargetUpdateBest(v, dir, currentPrice, best, haveBest, g_lineCode[k], uj_dk, -1);
      }
