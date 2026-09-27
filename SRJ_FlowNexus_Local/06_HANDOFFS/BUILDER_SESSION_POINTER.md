@@ -3,19 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, RECON72 GRADED 1/4)
+## State (2026-09-27, DEFECT D3 FILED)
 
-- RECON72-V9-UJ DONE=PASSED 22:42:43,
-  graded from the segment (23002 lines).
-  Tree 48EDC504; key FULLY SPENT.
-- Result RECON72-V9-UJ 2499FB87/10374/70:
-  6/3 take TP win, 3 misses diagnosed.
-  Ledger 902; register 6/3 VALID-taken.
+- Ledger 904: 160.028 answer OWNED WRONG.
+  Correct-refusal WITHDRAWN (row-fact only).
+  Skill srj-defect filed from his text.
+- Entry-open math: booked line sits below
+  his 160.059 entry; his 160.723 at R3.7.
 
 ## Next (owed him)
 
-- This analysis report (his "what went
-  wrong" ask). Then his word for next.
+- This 4-answer report. Then his word.
 
 ## Resume order (exact)
 
