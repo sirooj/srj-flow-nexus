@@ -11822,3 +11822,28 @@ IQ1v7 CONFIRM - fire-site fallback, publication/attempt split, poolGen chain, de
 IQ2v7 OBJECT - DIV acceptance still conflates incomplete/unreadable search with genuine absence because C8840 skips read failures and C8856-C8864 routes the resulting !divOk to DIV_WAIT; require an explicit completed-readable DIV result before closure.
 ```
 ## V314-UJIMPL-15 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V315-UJIMPL-16 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+
+Luna:
+## Council ruling
+
+**IQ1v8 CONFIRM — the edit list stands.** The packet closes the requested DIV/provenance objects: probe-side four-state DIV classification with counters while leaving the firing walk untouched; `poolGen` lineage; canonical `{uj_bar_key, tradeSeq}` identity; trading-day and `SHORT`/`FAILED` semantics; shared `SrjUjAssert1R`; memo source tagging and mismatch abort; pinned fire-local SL; provenance propagation; `UJALIGN_PASS`; and the revised `UJ-S2RETAIN` predicate. 
+
+**IQ2v8 CONFIRM — the acceptance stands.** The closed acceptance explicitly distinguishes DIV outcomes as aligned/continue, absent/stand-down, opposing/incomplete/held, and carries the same provenance chain, identity key, trading-day/`SHORT`/`FAILED` semantics, cross-check tuple, and flag record into grade-time proof.  
+
+### Analytic ask A — defects / gaps / imprecisions
+
+I see **no new design-level veto defect**, but three precision points should remain explicit:
+
+1. **DIV four-state vs firing-path observability.** The existing firing code still collapses the negative branch into `DIV_WAIT`; the four-way classification is explicitly probe-side. Therefore, the distinction between **ABSENT → stand-down** and **OPPOSING/INCOMPLETE → held** must remain a grade/acceptance interpretation, not be mistaken for four new firing branches. The packet does state that the firing walk is untouched, so this is a wording/verification boundary rather than an implementation veto.  
+
+2. **Disk-proof boundary must not be overstated.** This relay is a design/implementation-edit packet; it explicitly says no build/run occurs here and that disk genuineness is proven on the builder disk and by the operator, not by chat. So the two CONFIRM rulings establish that the **page specification is internally closed**, not that the future build already proves those edits exist in the compiled tree.  
+
+3. **`tradeSeq` has deliberately different timing from `uj_bar_key`.** `uj_bar_key` is available on probe records, while `tradeSeq` is allocated only after the fire guard succeeds. That is coherent with the packet's definition of the admission key as `{uj_bar_key, tradeSeq}`, but grade logic must not treat pre-admission records as having the final admission key.  
+
+### Analytic ask B — better mechanisms
+
+No replacement mechanism is needed. The packet already uses the stronger architecture for the stated goal: **one shared 1R assertion helper**, **one canonical causal identity**, **one provenance payload propagated atomically with the elected TP**, and **publication separated from refresh-attempt state**. That minimizes duplicated authority and makes the future tester able to prove selection → admission → management continuity from joined records. 
+
+**Net ruling: IQ1v8 CONFIRM + IQ2v8 CONFIRM. No additional scope owed; no build/run clearance is created by this round.** 
+## V315-UJIMPL-16 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

@@ -5933,3 +5933,72 @@ GLM:
 
 **Close.** Both objects are narrow: each names a one-clause/one-field fix inside P021/P023/P025/P027/P032/P033; every other closure item in both questions is confirmed standing and should not be re-litigated on this seat's account. No follow-up ask for the parked seat. Build gating unchanged: nothing here spends or asks for the Luna key or his run word.
 ## V314-UJIMPL-15 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V315-UJIMPL-16 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+
+Seat ruling (page only; disk genuineness, battery numbers, and STAGE-1 diffs are builder-disk + his-eyes per the verification split — no files asked, nothing spent, nothing built).
+
+---
+
+## IQ1v8 verdict
+
+**IQ1v8-CONFIRM**
+
+**IQ1v8 CONFIRM - the closure edit list stands.** All thirteen closure items are present in packet IMPL-1 v8 and anchored, and every anchor the companion carries matches the disk pulls:
+
+- Probe-side DIV classifier (counters + four states, walk untouched): P020 — aligned/opposing/absent/incomplete with readFailures + emptyVerdicts tracked in the tuple, latestNonZero + complete flag; the S5 firing walk at C8836-8849 is untouched. Acceptance side (P036) consumes the same four states with EMPTY_VALUE distinct from failed data.
+- poolGen in provenance + admission tuple: P021 (monotonic per successful publication, lineage chain refresh → TP election → winner provenance → admission tuple → managed retarget), P023 (uj_winnerProvenance value+source+dayKey+poolGen, atomic at becomes-best C2320-2321, four caller sites), P033 (admission tuple + run-level pool-service schema both carry poolGen).
+- Canonical {uj_bar_key, tradeSeq}: P033 (admission key), P035 (sole causal identity key), P026 (uj_admitBarTime + snapshot at the latch, monotonic never-reset counter).
+- Trading-day rule: P021 — M5-bars day = trading day (visited or empty-valid); bar-less dates skipped, never unavailable; broker-midnight keying matches F327-328.
+- SHORT/FAILED wording: P021 — SHORT = truncation with partial achievement, non-consumable for authoritative election, diagnostic-visible with shortfall finding, same-day retry; FAILED = nothing achieved, no-consume fail-closed, same-day retry, last-good never consumed.
+- Cross-check tuple: P027 — candidate identity + TP + SL + entry reference + bar/admission key; ABORT_MEMO_MISMATCH carries both value sets.
+- Flag record: P036 — one acceptance row pins InpMode=1 + InpDebugLog=true + M5 + HTF debug.
+- Shared 1R helper + memo tagging + mismatch abort: P027 — SrjUjAssert1R at both memo write points (post-7335 poll + 8918 fallback), one print schema, shared ABORT_SUB_1R; uj_memo_src POLL|FIRELOCAL printed by the guard.
+- SL pin: P027 — fire block's slRef local at the 8918 context, pinned, never a persistent global.
+- Provenance plumbing: P023 — payload at C2320-2321 inside the becomes-best block (strict-less-than first-arrived semantics at C2320 preserved), callers at session loop C2400-2401, IE5 pool loop, POI loop C2407-2408, IE5b C11102-11103.
+- UJALIGN_PASS prints: P018/P019 — unconditional on the pass branch of both guards.
+- S2RETAIN redefined: P032 — S2WAIT retained at pass P AND the M15 confirmed vote aligned at P, both fields already on the IE4 tuple; carries the 6/5 miss evidence.
+- Publish struct: P021 — {dayKey, publishedPoolState, refreshAttemptState, poolGen}.
+
+Anchor verification against the companion: C10665-10668 (IE1 OLD string verbatim at C10667, the flipped token maps to F252 inUseConfirmedHTFOnly, not F251), C8652-8654/C8655-8691 (IE2 insert point + E1 region + FAIL shape C8681-8689), C8786-8794/C8795-8818 (IE3 insert at the touchSeen brace + E2 region + print-only branch C8812-8816), C11483-11492 (IE4/IE5/IE9 boundary), C2402/2403 + C2451/2452 (pool loops), C7305 + C2466-2471 (IE6), C7325-7334 + C318-321 (IE7), C10214-10217 + C11081-11083 + C239-252 (IE8/IE9), C2301-2322 (IE5c), F251-253, F327-328, F1072-1075, F1195-1200, H562-568 (IE10B tail). All match. The defects I see are wording-level and are named in analytic ask A; none changes observable behavior or the grade surface.
+
+---
+
+## IQ2v8 verdict
+
+**IQ2v8-CONFIRM**
+
+**IQ2v8 CONFIRM - the closed acceptance stands.** DIV distinct consumption per state is supported at P036: ALIGNED → route gradeable, firing path continues (divOk at C8846-8848); genuinely-ABSENT → route gradeable, the null-walk DIV_WAIT print + SrjOrderEmit at C8856-8864 grade a HELD route per confirmation origin (S4 aborts at C8867-8875, S3 rolls back — terminal disposition, never promotion); OPPOSING/INCOMPLETE-unreadable → route ungradeable that pass, named not failed, with the genuinely-absent definition (completed readable search over the declared walk domain, no unreadable position that could conceal a newer verdict, EMPTY_VALUE distinct from failed data) closing the concealment hole. The poolGen lineage chain rides the sole identity key {uj_bar_key, tradeSeq} (P033/P035) with the chain enumerated at P021 and the zero-admission run-level pool-service record (P033) closing the vacuous-pass hole. Trading-day + SHORT/FAILED wording (P021), cross-check tuple (P027), and flag record (P036) are all stated and mutually consistent with the edit set confirmed under IQ1v8. Nothing on the page fails.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (page-only)
+
+1. **IE5 publish-state vocabulary drift (P021).** Three overlapping vocabularies: `publishedPoolState READY|EMPTY`, `refreshAttemptState BUILDING|READY|SHORT|FAILED`, and `validity enum uj_poolState EMPTY/BUILDING/READY/SHORT/FAILED published separately from the day key`. The consumer no-consume gate's owning field is not pinned by name (uj_poolState vs publishedPoolState read as the same thing but carry different value sets), and "atomic publish: publish on success only" (data) is reconcilable with the state flipping to SHORT/FAILED on failure only via "published separately from the day key". The operative matrix (consume iff READY; SHORT non-consumable for authoritative election; EMPTY/BUILDING/FAILED no-consume; SHORT/FAILED same-day retry; READY same-day = explicit no-rebuild) is stated consistently, so behavior is determinate — but STAGE-1 needs one resolution rule so the naming collision can't fork into two gates.
+2. **IE2/IE3 "confirmation burns per one-bar rule" (P018/P019).** The guards return BEFORE IsConfirmationCandle runs (insert above C8655 / above C8795), so the bar's confirmation is skipped, not failed — the "consumed (no carry-forward)" language at C8662-8663 and C8799-8801 belongs to predicate FAILs. Candidate-retained + later-fresh-confirmation semantics are unaffected; the parenthetical is loose.
+3. **UJALIGN_NOMATCH print gating unspecified (P018/P019).** PASS is explicitly unconditional; the cited "design-E1-FAIL shape at C8681-8689" is InpDebugLog-gated (C8683-8684). The flag record pins InpDebugLog=true so rows exist either way, but the NOMATCH print's gating should be stated (recommend unconditional, matching PASS).
+4. **IE8 record-source wording (P026).** "H/L from the PD NY pair post-rollover for just-closed today sessions" vs "retarget pool = live PD slots (just-closed today sessions)" — a just-closed TODAY session is readable from the live NY pair (FL_BUF_NY_HIGH/LOW, C187-188) pre-midnight and from the PD NY pair (FL_BUF_PD_NY_HIGH/LOW, C197-198) only after day rollover; "live PD slots" conflates the live-session family with the PD family. The mechanism (existing recompute over the 18 sessbufs at C11088-11103 + IE5b pool loop) is recoverable; the source sentence should name both phases.
+5. **Probe-classifier walk domain not pinned to the firing walk's (P020 + P036).** The firing walk bound is `int maxWalk = Bars(_Symbol, PERIOD_CURRENT) - 1;` from barShift (C8836-8837). P036's "declared walk domain" is not cross-referenced to that expression; a narrower probe domain could label a pass genuinely-absent whose firing walk later finds a verdict. The conservative counters (readFailures/emptyVerdicts + complete flag) imply the full mirror — pin it explicitly.
+6. **IE7 vs IE9 redundancy (P025/P027).** IE7 describes the poll-site gate as "explicit arithmetic" while IE9 locates the arithmetic in the shared helper SrjUjAssert1R called at both memo-write points — the same poll-site logic is described twice in pre-helper and helper vocabulary. State that IE7's poll-site gate IS the helper's post-7335 call so STAGE-1 cannot write the arithmetic twice.
+7. **ABORT_MEMO_MISMATCH define placement unstated (P027).** ABORT_SUB_1R (P025) and ABORT_NO_MEMO_AT_FIRE (P027) get "beside ABORT_NO_TP_TARGET" (C318-321); ABORT_MEMO_MISMATCH is named without placement. Trivial.
+8. **EA 8918 off-page (P024).** The fire-local election caller is cited as builder-verified (P-NEXTOPEN) but is not in this relay's companion; page-only ruling takes the citation as stated — recorded for the memo, not a demand for files.
+9. **April 29 preload floor derivation unstated (P021).** The floor is named as a dependency with fail-closed shortfall, but whether it is a disk history-availability bound or a design bound is not stated; his target-age rule is "no matter how old," so a design bound belongs on his veto surface. Declared, fail-closed, gradeable either way.
+10. **A-IMPL3 middle-outcome gap (P034).** Outcomes where the repaired feed classifies regime (votes>=2) but the candidate dies below S5 (UJALIGN_NOMATCH at the guard, or S2WAIT at the 14:40:22 pass) satisfy neither the pass condition nor UJ-FLIPPATH-DEAD's IFF (REGIME_NONE/S1WAIT retained); A-IMPL1's UJ-LTFPATH-DEAD is scoped to the 6/5 09:45 pass. The discipline sentence (P031) governs this as a bare failed proof with evidence rows — acceptable fail-closed, but unattributed by name.
+11. **A-EU-PRESERVE dual identity vocabulary (P035).** Row matching "by trade identity (anchorLine/dir/barTime)" vs "sole causal identity key {uj_bar_key, tradeSeq}" in one bullet — the causal key exists only for admission rows (tradeSeq allocated at the latch, P033). Coherent, but label the two notions (matching identity vs causal identity) so the battery is deterministic.
+12. **TPCENSUS label rename exclusion unstated (P024/P035).** The `close=` → `ref=` rename (C2466-2471) changes TPCENSUS text in every edited-tree debug row vs base logs; A-EU-PRESERVE's named populations (trade-set + REGIMECENSUS) exclude TPCENSUS so the battery is unaffected — the memo should state that exclusion explicitly.
+13. **Terminal decision-pass record unanchored (P032).** "Reached stage + prerequisite status + disposition" has no owning IE/print; presumably assembled from existing LogState/decision rows — name the composing rows so the proof row is deterministic.
+14. **Note, not a defect (P021):** the census mirror before the POI census loop (C2451/2452) adds a third family to the already-recorded tie-name divergence (LAST-equal POI overwrite at C2463 vs first-arrived booking at C2320, per the C2395 comment) — census is informational-only, recorded-not-failed, consistent.
+
+---
+
+## Analytic ask B — better mechanisms for the stated goals
+
+1. **Shared M15-vote read helper.** One function (e.g. `SrjUjM15Vote(barShift, &vote, &readOk)`) used by IE2 (insert at C8654/8655), IE3 (insert at C8794/8795), and the IE4 probe (C11490/11491) — guarantees the value that GATED is identical to the value RECORDED in the tuple, eliminating guard-vs-probe read divergence as a grade-join failure class. Buffer 21 read (C204, F1200) is currently described three times independently.
+2. **Probe classifier reuses the firing walk's bound verbatim.** Copy the expression `int maxWalk = Bars(_Symbol, PERIOD_CURRENT) - 1;` (C8836) into SrjUjProbeTuple rather than re-declaring a domain — domain identity by construction instead of by declaration; directly closes A-item 5.
+3. **Single consumer gate for the pool.** One function `SrjUjPoolConsumable()` (returns state==READY) reading the single separately-published uj_poolState, with the {dayKey, publishedPoolState, refreshAttemptState, poolGen} struct kept diagnostic-only — removes the A-item 1 naming collision by making one code path the gate; touches the IE5 publication site (refresh call between C11489/11490).
+4. **Optional cost-only alternative (not recommended):** SHORT/FAILED same-day retry cadence keyed to M15-new-bar instead of every M5 pass, at the IE5 refresh call site — cuts full-history rewalks on persistently failing days; the unconditional per-bar retry is the cleaner fail-closed posture and refresh latency is telemetry-only (P037), so this is offered as an option, not a change request.
+5. **Acceptance-text-only:** name the A-IMPL3 middle outcome (e.g., a finding firing IFF votes>=2 AND UJALIGN_NOMATCH at the decision pass) — touches P034 only, no code.
+
+---
+
+Both verdicts stand on the page as transported. No key spent, no build proposed, no files requested. 
+## V315-UJIMPL-16 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
