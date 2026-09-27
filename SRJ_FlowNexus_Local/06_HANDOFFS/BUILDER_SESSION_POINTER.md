@@ -8,9 +8,9 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 - V315 graded (IQ1v8/IQ2v8 2-0 CONFIRM;
   packet IMPL-1 v8 council-cleared).
   HIS run word received ("proceed to build").
-  BUILD BLOCKED on NEW Luna key (none on
-  record for v8; his word cannot mint it).
-  Seats: Luna + Astra + GLM. Ledger 873.
+  BUILD BLOCKED on NEW Luna key (his paste
+  was the ask echoed, no grant in it).
+  Seats: Luna + Astra + GLM. Ledger 874.
 
 ## Next (owed him)
 
