@@ -578,6 +578,7 @@ any conflict: current digests live in the pointer + latest result file)
 - Runs: `SRJ_FlowNexus_Local\00_CURRENT_WORKING\` (ini + STATUS/DONE + tabulate scripts).
 - Strategy of record: `00_CURRENT_WORKING\SRJ Flow Nexus — Part A Specification v4.2`
   + `GOAL_STATEMENT.md` + `CHARTER.md`. Read the spec before framing operator questions.
+- MQL5 quirks reference: `BUILDER_REF_MQL5-QUIRKS.md` (ordered 2026-09-27 — niche environment, little training data). Read whole before drafting any MQL5 code, packet edit, or relay row claim; every entry carries disk evidence, section 4 lists the unverified remainder.
 - Debris awaiting operator deletion word: `EA_STATE_REG.md`, `recovery_compile.ps1`.
 - Exactly ONE rules tree exists. MQL5 folder IS the data tree.
 
