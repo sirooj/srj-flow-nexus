@@ -12346,3 +12346,12 @@ No necessary mechanism change remains for this round. The most meaningful future
 **IQ2v14: CONFIRM**
 
 ## V322-IMPL2-7 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## KEY LUNA V322-IMPL2V9 (operator-carried 2026-09-27, filed whole 1x this turn)
+
+Operator paste, verbatim:
+
+CLEARED for exactly one build of PACKET_P-UJIMPL-IMPL-2 v9 (packet code D511601D) and exactly one strategy-tester run of the resulting built EA, and nothing else.
+No additional build, tester run, commit, live activation, trade execution, money movement, or other action is cleared by this relay.
+
+## KEY LUNA V322-IMPL2V9 END (nothing appended; HELD unspent, run word owed)

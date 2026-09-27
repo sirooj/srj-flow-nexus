@@ -15,9 +15,8 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 
 ## Next (owed him)
 
-- HIS key carry (paste key ask to Luna,
-  paste whole reply back, name Luna) +
-  HIS run word (build + June run).
+- HIS run word (build + June run).
+  Key V322-IMPL2V9 VALID HELD.
   (draft/transport never mixed).
 
 ## Resume order (exact)
