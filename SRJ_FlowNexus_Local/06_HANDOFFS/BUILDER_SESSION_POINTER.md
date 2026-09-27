@@ -3,18 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, PACKET V3)
+## State (2026-09-27, RELAY GREEN)
 
-- Fix packet IMPL-2 v3 drafted
-  (62865962, budget +35, four venues:
-  6/3-A truce, 6/5am-C, 6/5pm-D, 6/11-B).
-  Relay v316 owed via council.
-  Grant spent. Seats unchanged. Ledger 881.
+- Relay v316 battery-green on disk
+  (69739C9C/32074/317; twin/rows/prose
+  all proven above). No transport ask
+  shipped (draft turn). Ledger 884.
 
 ## Next (owed him)
 
-- NOTHING: builder drafts relay v316
-  + battery next; no carry ask until green.
+- NOTHING owed: relay waits for YOUR
+  carry word; say it and the memo ships.
 
 ## Next (owed him)
 
