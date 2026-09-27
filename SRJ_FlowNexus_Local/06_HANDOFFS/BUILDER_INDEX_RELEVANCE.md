@@ -13,8 +13,8 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v9 D511601D/34635/198 FROZEN (council-cleared triple-CONFIRM 2026-09-27; build needs new Luna key + his run word).
 - Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v322-IMPL2-7.md` E3AF54E0/77984/598 (graded triple-CONFIRM both; verdicts filed).
-- Built tree: `Experts\SRJ_FlowNexus_EA.mq5` 14C7476C/660687/11975 (v8 build; ex5 2026-09-27 13:29:04; RECON71 PASSED 0 takes, diagnosed + corrected; grant spent; fix packet IMPL-2 v5 + relay v318 green, untransported).
-- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V322-GRADE.md` BBB5A1E9 (3 texts, IQ1v15/IQ2v15 3-0 CLEAR both; key ask owed).
+- Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
+- Latest grade: `06_HANDOFFS\BUILDER_RESULT_RECON72-V9-UJ.md` 2499FB87/10374/70 (A-SL1 PASS with S5.4/S3.3 audit clean; A-S2P UJ-NOADMIT+UJ-NOPROMO; A-POIV UJ-NOTOUCH+UJ-NOPROMO; A-FB UJ-NOADMIT correct sub-1R refusal; EU-pending).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
 - Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
 - Your UJ answers (filed whole): `06_HANDOFFS\BUILDER_FINDING_USDJPY-MISSES.md` lines 48-54 + correction section at end.
@@ -40,7 +40,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## RUN INVENTORY (what ran, what counted)
 
-- COUNTED (DONE=PASSED, graded): RECON59-EVICT + RECON60-RESQUAT-V12 (tree disputed - see quarantine) + RECON63-USDJPY-JUNE blind + RECON64/66/67 (v5/v7 builds, superseded by revert) + RECON68-V7-PROOF (slice) + RECON71-V8-UJ (v8 build, 0 takes, diagnosed + corrected).
+- COUNTED (DONE=PASSED, graded): RECON59-EVICT + RECON60-RESQUAT-V12 (tree disputed - see quarantine) + RECON63-USDJPY-JUNE blind + RECON64/66/67 (v5/v7 builds, superseded by revert) + RECON68-V7-PROOF (slice) + RECON71-V8-UJ (v8 build, 0 takes, diagnosed + corrected) + RECON72-V9-UJ (v9 build, 1/4 venues: 6/3 TP win +118.27, 3 misses diagnosed).
 - VOID (never graded): RECON69 + RECON70 (above).
 - Cost per full run ~50 minutes - runs spend only on your explicit word + key.
 
@@ -54,7 +54,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - Yen misses: 3 June 09:10 London take (regressed in v8 on SL pair, Fix A parity) + 5 June 09:45 London + 5 June 16:15 New York + 11 June 14:40 New York (finding USDJPY-MISSES; your answers A1/A2/A3 filed whole; Rulings-J: own-source + hierarchy + entry triple; 4-valid word + matrix 6/03 TP win); plain-words annex 2026-09-26: same-logic ruling + swing/retarget definitions + 2 trade calls owed; Rulings-C: nearest-any-age + touch-retarget + close-only-gap-break + divergence example-only; Rulings-D: 5m-flip-9:25 + 15m-confirms-at-entry-candle + journal row 17; Rulings-E: indicator-refine direction + scope YES + HEAD 956BF3E3 diagnosis; UJ3-correction 2026-09-26: 14:40 pass S1-held, FVG premise withdrawn, v300 HELD; S1 diagnosis: same morning zone 3070 + regime NONE, 2 his-calls owed; Rulings-F: 15m+1H short-bias + session-boundary discipline, same-zone mechanism withdrawn; Rulings-G: timeframe-named bias + 14:35-same-candle + London-fundamental + 15m-Bull read-back; Rulings-H: R-at-open + manage-nearest + closed-AM retarget + defect; Rulings-I: scope redirect + best-way decisions; HTF-engine pulls: 3 instances + buffer-21 vote + flip-timing gap).
 - 9/4: journal 277/279 + 0.84 retired flawed + ++ BOTH-TRUE (trend AND mean-reversion).
 - 9/7: journal 281/283 + AS.H booked (your rule-choice) + sweep-then-retest valids with chart proof.
-- Strategy pins: skills `srj-strategy` (your rules) + `srj-goal` (scoreboard) + `srj-council` (pre-transport battery gates + §§20-23 defect pins, §23 closing the operator-caught backlog).
+- Strategy pins: skills `srj-strategy` (your rules) + `srj-goal` (scoreboard) + `srj-council` (pre-transport battery gates + §§20-26 defect pins, §23 closing the operator-caught backlog).
 - Bar form (your order): every bar carries date + session + pair + time + role - bare clock-times are unwritable.
 
 ## DEBRIS (needs YOUR deletion word - builder never deletes)

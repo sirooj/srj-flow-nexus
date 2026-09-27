@@ -33,7 +33,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - 28 Aug 16:25 take (E6-only): vs his decline; E6E90831 demoted for it.
 - 8 Sep 16:45: declined by him (never valid).
 - 8/28 New York news bar: false alert (A1 kill-all decline owns it, not EA defect).
-- 3 June London take (blind): tester-only, unruled (no question asked on it).
+- 3 June London LONG (blind window, entry 09:10 open 159.929, TP_TOUCH 09:55 at 159.983): VALID-taken per his 4-valid word 2026-09-27 (packet P-UJIMPL-IMPL-2 line 10); RECON72 took it (fire R=1.35, +118.27 tester). The prior `unruled` label is SUPERSEDED, never quoted again.
 
 ## D. QUARANTINE ANNEX (his "do not use that" order - no conclusions drawn here)
 

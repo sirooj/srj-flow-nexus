@@ -162,6 +162,7 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 ## 15. v292 round gates (builder-owned defects, 2026-09-26 - Q3 halted 0-3, Sonnet second refusal)
 
 - CARRIED-GATE-INTERACTION: every new proposal scopes its interaction with every carried gate it can meet, with the gate sites in its census (v292: E-UJ1 met carried E2 with E2a/E2b absent from its census - A-UJ1 provably unreachable on the page; carve-out + census folded v8).
+- INTERACTION-FIRE-BEHAVIOR (RECON72 proof 2026-09-27, owned non-execution of the line above: v9 FIX C scoped guard sites but never the LTF_MISALIGN abort's per-bar fire behavior on the promoted path - 3 promotions aborted inside 30 minutes on 5 June morning plus the 11 June 14:20 instance): scoping names the guard's fire rate and loop behavior on the new path (promote-then-abort cycling, re-seed duplication), not just its sites; a promote-instead-of-retain fix meeting a per-bar abort guard predicts the cycle on paper before any run.
 - AUTHORITY-LINE SWEEP: mapping withdrawals are re-grepped across ALL authority/census lines, never fixed at one site (v292: v7 fixed P031, missed P010 with the identical stale mapping - Astra caught it; twin-wide sweep folded v8).
 - TRACEABILITY-CURRENT: the traceability section is reworded with every design change it describes (v292: "bypass for the locked bar" survived the bypass retirement; fixed v8).
 - DIAGNOSIS-PRECISION: a multi-term refusal is never attributed to one term exclusively unless the row isolates it (v292: "the miss = B_BODY refusal" when A2 precedes B_BODY and the poll row exposes no failTerm - softened to "fails, first unproven" v8).
@@ -225,3 +226,8 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 - A verdict's CONTENT (cited lines, ranges, rows that exist only in the current packet/relay version) governs its round attribution, never its header label: V322 texts ruled v9 matter (zoneTouch schema, R23-R25, C6663-C6692, P161-P189 - none present in v321) while labeled v14. Adopt to the content-proven round with the label mismatch flagged in the header, result, and ledger - never bounced, never re-asked (bouncing a convergent triple-CONFIRM burns his turns for zero information).
 - Tallies are REGION-SCOPED per V-marker pair (OPEN..END line ranges): labels collide across rounds (V321 and V322 blocks both carry IQ1v14 strings), so whole-file verdict-line counts are inadmissible for grading - count CONFIRM/OBJECT lines strictly inside the round's region. A tally from unscoped counts is unwritten.
+
+## 26. Acceptance-series rule (RECON72 grade 2026-09-27 - owned authorship defect D2: A-S2P pre-declared the fixed run's confirmation bar (09:40, series all-0 through 09:35) from base-tree rows, though promote-earlier predictably moves confirmation earlier (actual first confirm=1 at 09:15))
+
+- Acceptance time-series predictions (confirm bars, vote series, first-evaluation claims about the FIXED run) carry their source: fixed-tree evidence or HYPOTHESIS label. A base-tree-derived series asserted as a must-match value is unwritten - the fix under test moves the series it predicts.
+- Grade-time mismatch against a hypothesis-labeled series is a UJ finding (failed proof with its finding), never a format defect and never a regrade.

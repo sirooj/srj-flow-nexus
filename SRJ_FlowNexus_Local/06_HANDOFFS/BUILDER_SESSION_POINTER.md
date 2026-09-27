@@ -3,20 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, RECON72 RUNNING)
+## State (2026-09-27, RECON72 GRADED 1/4)
 
-- RECON72-V9-UJ launched 21:53:45
-  (WMI 20588, PID 6476, ceiling 90).
+- RECON72-V9-UJ DONE=PASSED 22:42:43,
+  graded from the segment (23002 lines).
   Tree 48EDC504; key FULLY SPENT.
-- Awaiting HIS done signal + journal
-  opening-line window proof. No grade
-  until then. Ledger 901.
+- Result RECON72-V9-UJ 2499FB87/10374/70:
+  6/3 take TP win, 3 misses diagnosed.
+  Ledger 902; register 6/3 VALID-taken.
 
 ## Next (owed him)
 
-- HIS done signal (run completed).
-  Then grade from the segment.
-  (draft/transport never mixed).
+- This analysis report (his "what went
+  wrong" ask). Then his word for next.
 
 ## Resume order (exact)
 
