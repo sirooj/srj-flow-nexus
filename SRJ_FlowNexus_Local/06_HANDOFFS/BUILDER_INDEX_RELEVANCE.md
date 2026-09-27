@@ -11,7 +11,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v1 6A91B6D1/7913/92 (RECON71 fixes: SL single-source + S2/M15 edge + POI own-source; DRAFT, relay v316 owed).
+- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v3 62865962/10475/97 (RECON71 fixes for all four June venues: SL truce + S2/M15 edge + POI own-source + mask-off fallback; DRAFT, relay v316 owed).
 - Built tree: `Experts\SRJ_FlowNexus_EA.mq5` 14C7476C/660687/11975 (v8 build; ex5 2026-09-27 13:29:04; RECON71 PASSED 0 takes, diagnosed + corrected ledger 878-879; grant spent; fix packet v9 owed: SL single-source + S2/M15 + POI-validity).
 - Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v315-UJIMPL-16.md` A6623B35/96540/1029, TRANSPORTED + GRADED (IQ1v8/IQ2v8 2-0 CONFIRM; twin 46/46, EA 594 + B 116 + F 71 + H 70, rows 30).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_V315-GRADE.md` (2 texts, IQ1v8/IQ2v8 2-0 CONFIRM; v8 cleared).

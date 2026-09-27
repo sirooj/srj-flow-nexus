@@ -3,12 +3,13 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, PACKET DRAFTED)
+## State (2026-09-27, PACKET V3)
 
-- Fix packet IMPL-2 v1 drafted
-  (6A91B6D1, budget +24, base untouched).
+- Fix packet IMPL-2 v3 drafted
+  (62865962, budget +35, four venues:
+  6/3-A truce, 6/5am-C, 6/5pm-D, 6/11-B).
   Relay v316 owed via council.
-  Grant spent. Seats unchanged. Ledger 880.
+  Grant spent. Seats unchanged. Ledger 881.
 
 ## Next (owed him)
 
