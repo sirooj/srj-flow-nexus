@@ -18291,3 +18291,43 @@ Analytic B — better mechanisms, optional future work:
 These are page-only check verdicts. No key, build, run, money movement, or live activation is authorized.
 
 ## V321-IMPL2-6 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V322-IMPL2-7 OPEN ASTRA (verbatim open; novel inbound; label note: seat wrote v14 throughout, content rules v9/v322 matter - zoneTouch, C6663-C6692, P161-P189 - adopted as the V322 round on content evidence)
+
+IQ1v14: CONFIRM — P027–P180; C2379–C2402, C6663–C6692, C8896–C8905, C8920–C8926.
+
+IQ2v14: CONFIRM — P182–P189, read together with P161’s admitted-candidate S3-window requirement.
+
+The new geometry evidence closes the specific touch-proof objection. At E, `zoneTouch=1` directly reports `touchesZone` from C8923. At E2, `s52_found && s35_fromFvg` implies that FindLegTouch accepted an opposite-direction candle intersecting the supplied zone: C6688–C6690 enforce that conjunction. Both edits preserve the existing setter behavior. A qualifying row therefore proves intersection with the zone used by that setter, rather than merely proving that the setter ran.
+
+The acceptance remains a future-run test, not a prediction that four admissions will occur. P185 now requires positive geometry evidence; P188 requires exactly four matching admissions; P189 distinguishes missing evidence from demonstrated non-occurrence. The stated downstream gates and separate EU grade remain operative.
+
+Analytic A — defects, gaps, and imprecisions:
+
+- **P161/P185 — candidate correlation remains load-bearing.** The numeric interval `[14:20,14:35]` alone cannot exclude another candidate with the same direction and anchor that existed within that interval. P161 separately requires the row’s evaluated bar to belong to the admitted candidate’s evidenced S3-active window. My confirmation applies to those requirements together. A same-key row within the numeric interval, without the admitted-candidate chain evidence, cannot satisfy the proof. The interval supplies a time bound; the chain supplies candidate attribution.
+
+- **P176/P179 — the geometry field is intentionally conservative, not a complete intersection classifier.** When `s35_fromFvg=false`, E2 prints zero even if the selected candle happens to intersect the zone. Thus `zoneTouch=1` proves geometry, but `zoneTouch=0` does not prove nonintersection. P179 and P185 already give the zero value the correct “unproven” meaning. This can leave a physically intersecting candle unproven by the current evidence scheme; that outcome must remain UJ-NOTOUCH unless the acceptance is amended.
+
+- **P179/P185 — `evalBar` is not the processing-pass timestamp.** Both print implementations use `iTime(..., barShift)`. Consequently, a row produced during the 14:25 processing pass can have `evalBar=14:20`. Replace “evalBar = firing pass” with “evalBar = evaluated-bar timestamp.” The numeric acceptance interval is coherent when interpreted as evaluated-bar timestamps, consistent with the promotion wording.
+
+- **P161/P185 — stale internal references.** P161 cites “P181 rule,” but P181 is blank; the acceptance rule is now P185. P185 cites “P096 siting,” but B2 siting is now P100. These are reference defects, not unresolved placement choices.
+
+- **P180 — byte identity and line-count identity are different claims.** “v9 … fences re-verified identical” cannot literally mean identical fence contents: the two `zoneTouch` additions change the print lines. State that the net line counts remain unchanged, while identifying the changed fence contents. This review does not authenticate either disk comparison.
+
+- **P186; C10374–C10379 — FIRELOCAL remains conditional.** The wording “expected” permits the correct interpretation, but FIRELOCAL is not required for every fallback-sourced admission. A current POLL memo bypasses that branch. FIRE remains the required admission-tuple check; FIRELOCAL is supporting evidence when its branch executes. The separate TPFALLBACK requirement is consistent with P154–P156 and the debug pin.
+
+- **P186/P189 — no-election taxonomy needs the stated chronology.** An evidenced earlier fallback rejection that prevents arrival is UJ-NOADMIT under P186. The broader phrase “a chain never reaching election evaluation” should not override that specific case with UJ-NOPROMO. Attach UJ-NOPROMO when the required promotion predicate fails; multiple findings remain permitted.
+
+- **P188 — “never a fix defect” still overstates what missing touch evidence establishes.** UJ-NOTOUCH keeps the venue failed and can route the mechanism question onward. It cannot rule out an independently demonstrated implementation defect, such as failure to insert the required print. Missing evidence alone does not establish the cause.
+
+Analytic B — better mechanisms, optional future work:
+
+- **P176; C8898–C8904:** If a future round needs complete geometry classification at E2, calculate intersection directly from the accepted candle’s high/low and the zone bounds used by FindLegTouch. This would distinguish an actual nonintersection from an intersection that the non-FVG setter did not require. It is optional here because the present positive-proof implication is sound.
+
+- **P161/P185; both touch prints and C10424–C10429:** A candidate-generation identifier carried through touch and admission evidence would make candidate attribution explicit. The current evidenced-window requirement is usable, but must not be replaced by the numeric interval alone.
+
+- **P063–P066; C2379–C2401:** Returning election provenance alongside the elected price remains a stronger structural mechanism than snapshotting mutable winner globals. The supplied admission-pass ordering supports the current implementation; this is future refactoring, not a blocker.
+
+These are independent page-only verdicts. They authenticate no disk facts and provide no key, build/run authorization, money authority, or live-activation clearance.
+
+## V322-IMPL2-7 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

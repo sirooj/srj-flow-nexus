@@ -6319,3 +6319,70 @@ Scope of ruling: page only (packet P-lines, companion C-lines, rows R01-R22, log
 Both verdicts are page rulings only. Build remains gated on a new key plus his run word; neither is spent, asked, or cleared here.
 
 ## V321-IMPL2-6 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V322-IMPL2-7 OPEN GLM (verbatim open; novel inbound; label note: seat wrote v14/v13-era labels throughout, content rules v9/v322 matter - full UpdateBest body, FindLegTouch predicate, R01-R25 - adopted as the V322 round on content evidence)
+
+## Verdict lines
+
+**IQ1v14: CONFIRM**
+
+**IQ2v14: CONFIRM**
+
+Scope of ruling: page only (packet P-lines, companion C-lines, rows R01-R25, logic). Disk facts (twin diff 0, digests, row 1x hits, the "9sp" disk indent) are his to prove; nothing here builds, runs, spends, or clears live activation, and no key is volunteered or asked.
+
+---
+
+## Basis for IQ1 (amended edits internally closed)
+
+**The zoneTouch mapping is sound against the predicate now on the page.** This is the load-bearing v9 change, so I traced it end to end:
+
+- **E setter (P166-P167)**: `zoneTouch=(touchesZone?1:0)` reads the C8923 local `(h >= g_zoneLo && l <= g_zoneHi)` — the actual geometric test on the touch bar (which at this setter *is* the evaluated bar, per the documented duplication). When `s35_fromFvg` is true the setter required the test, so zoneTouch=1 is forced; when false the field honestly reports actual geometry either way. Five format specifiers, five args. ✓
+- **E2 setter (P174-P177)**: `zoneTouch=(s35_fromFvg?1:0)`. The inference chain is airtight from C6689: `oppositeDir && (!fromFvg || touchesZone)` with `touchesZone=(sh >= zLo && sl <= zHi)` at C6688 — a found shift with fromFvg true *necessarily* had touchesZone true at the found bar, so zoneTouch=1 ⟺ geometric intersection proven at the found bar; fromFvg false ⟺ setter-only acceptance, reported 0. The conservative asymmetry (E reports actual geometry, E2 reports proven-ness) is disclosed at P179 rather than hidden. Scope: `touchesZone` in scope at the E insert (C8923 precedes C8924); `s35_fromFvg` in scope at the E2 insert (used at C8898-C8899). ✓
+- Both prints remain transition-only (both setters guarded by `!g_touchSeen`, leg path runs before the touch book within a pass), so "ONE UJTOUCHSEEN row" is structurally right for one candidate chain.
+
+**Everything else re-verified at v8-level rigor:**
+- Fences match the companion: A3 old = C10394-C10395; A4/A6/A8/A9a/A9b placements are consistent with the shown structure (A4 after C10391 uj_bk9 def, before C10392; A6/A9a function-scope before the C10390 brace, visible at the latch and at A9b/C10426-C10429; A9b between C10426 and C10427). A7 old matches C10429 (P050/P052 indents now match in the paste); B3b old matches C2567-C2571 (5→4 lines, −1); B3c = 3-vs-3 with the sharpened, correctly-scoped text (B1 election exclusion + B3 census exclusion, P117-P119); C old = C8195-C8196 with balanced braces, promote-branch fall-through to the byte-unchanged C8197-C8199, retain-branch identical print + return; E old = C8924-C8925; E2 old = C8900-C8902; D1 between C2504 and C2505 with the same sessbufs/sname/uj_dk scope as C2484-C2488.
+- **Budget recount (independent):** A3 −1 (guard 2-vs-2, define retired) + A4 +3 + A5 0 + A6 +1 + A7 0 + A8 +1 + A9 +6 (A9a 4 + A9b 2) + B0 +11 + B1/B2/B3 +2 each + B3b −1 + B3c 0 + C +11 (2-vs-13) + D1 +15 + E 0 + E2 +1 (3-vs-4) = **+53**. Matches P176 exactly. Zero fence-byte change vs v7 is consistent with the B2 relocation being siting-prose-only.
+- The newly cited premises close the prior gaps: P019 grounds zoneTouch in the on-page C6663-C6692 predicate; P020 gives the EA-side `ReadFlow(FL_BUF_HTF_LOW, ...)` call-shape precedent (8783/8934 et al.); P021 puts the full UpdateBest body (C2379-C2402) on-page — the C2383 EMPTY guard, C2384 in-direction, and C2397 zone-containment guard now visibly carry the D1 premise ("zone enforced inside UpdateBest") rather than resting on assertion.
+- External-interface surface unchanged (P005); B2 post-skip siting unchanged from the v8 resolution; compile fail-closed stands.
+
+---
+
+## Basis for IQ2 (legs provable as named, no improvised grading)
+
+**Luna's v321 objection is resolved on the merits, not by wording alone.** The v8 predicate conflated "setter fired" with "touch happened geometrically"; v9 splits them at source and the venue requires the geometric class (zoneTouch=1), with zoneTouch=0 rows explicitly "prove the setter ran, never geometry" (P185) and UJ-NOTOUCH broadened to "row absent, or present but wrong anchor/dir/timestamp/window/zoneTouch" (P189). The claim and the proof capacity now match exactly.
+
+**The 6/11 promotion pin's inference is airtight on the page.** P018's key-scoped census (S2WAIT at eval 14:20/14:25/14:30 only; 10:45 is a different key) + "S2WAIT prints every LTF-opposed S2 pass" (C8196 structure) + R25 showing the candidate in S2 at the 14:25 pass ⟹ first in-S2 evaluation is the 14:25 pass evaluating 14:20, where R23 gives m15=+1.0 (LONG want) with ltf=−1.0 opposed ⟹ Fix C promotes at 14:20-signal. An earlier aligned-promotion of a same-key chain is invisible to the S2WAIT census but cannot coexist with R25 (single global state machine), so it neither contradicts the pin nor contaminates the window. R16/R25 as absent-witnesses are consistent (promoted at the 14:25 pass → no S2 evaluations after), and the unpinned eval-14:25 S2WAIT absence is covered by the promotion predicate (UJ-NOPROMO).
+
+**The numeric window [14:20,14:35] is derivable, not asserted**: lower bound = the first possible S3 evalBar (S3 opens at the 14:25 pass, evaluating the 14:20 signal bar); upper bound = the signal bar deadline (touch established by the 14:40 pass). touchBar carries no lower bound — correct, since the E2 leg scan runs backward (s from barShift, C6676) and can find an older physical candle. This replaces the loose S3-window correlation with numbers whose provenance is pinned.
+
+**The taxonomy fixes land where I flagged them in v321**: FBDEAD-vs-NOADMIT-vs-NOPROMO boundary stated in the leg (P186: eval-16:05 fallback death → UJ-NOADMIT, "never UJ-FBDEAD") and the map now reads "AT THE ADMISSION PASS (evaluating the signal bar)" — the two texts are coextensive; TPFALLBACK status stated (fallback-sourced admission implies the row with debug on; a masked-winner admission at eval-16:10 legitimately lacks it; missing required rows name UJ-NOEVID) — and given the debug pin, no-TPFALLBACK ⟹ fallback didn't book, so the grade inference is closed; P008 now carries the enumeration form; the div field is declared inert in the fence header; the pass-time wording at A-S2P (signal-bar identity 09:05, pass/execution 09:10) removes the last ambiguity in the promotion-row reading.
+
+**Failure coverage**: every outcome I can construct maps to a named finding or the fail-closed discipline — wrong fill → UJ-TIMEBASE; confirm landing one pass late → UJ-TIMEBASE; touch not landing within the window or landing non-geometric → UJ-NOTOUCH with the touch-vs-retest question routed to council visibly; S3 kill → UJ-NOADMIT; earlier chain death at 16:10 → UJ-NOADMIT; admission-pass fallback death → UJ-FBDEAD; fifth/mismatched admission → UJ-EXTRA; exactly-four bound; one resolution per venue; missing row fails the proof, never asserts non-occurrence. The A-POIV honest load-bearing risk (entry scheduling unchanged, so the 14:40/160.524 pin rides on a qualifying geometric touch by the deadline) is stated, not hidden.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (none break closure)
+
+1. **Stale v8 line references inside v9 text**: P161 cites "(P181 rule)" — v9's P181 is blank; the operative touch rule is P185. P185 cites "per the corrected P096 siting" — v9's siting prose is P100 (v9's P096 is the B3 fence marker). Content is unambiguous in both cases; renumber in the next fold.
+2. **Phrasing-level inconsistency on the correlation rule**: P017 and the traceability line still say "evalBar inside the candidate S3 window" (the v8 formulation) while the operative A-POIV rule is the numeric interval [14:20,14:35]. The acceptance governs, but the authority lines should say "numeric interval" to avoid two formulations of one rule.
+3. **P180 "fences re-verified identical"** is inaccurate read as byte-identity: the E/E2 fences gained `zoneTouch=%d` + arguments and B3c's comment text changed; what is identical is the line counts and the +53 total. Tighten the wording to counts.
+4. **D1 phantom list entries (P148-P151)**: the `uj_fbpool` append runs before UpdateBest's C2383 EMPTY guard, and the masked walk at C2487 tolerates EMPTY reads (the guard rejects them downstream), so an EMPTY session value can pass `uj_inD` (EMPTY is huge; for LONG `dv > currentPrice` holds) and append a phantom entry with an absurd distance. The census guards EMPTY explicitly (C2539-C2540). Print-only, supporting row, nearest-wins unaffected — but a `dv == EMPTY_VALUE` continue before the append would match the census discipline.
+5. **E2 zoneTouch understatement**: with fromFvg=false and a found bar that happens to intersect the zone, the field still reports 0 (proven-ness, not actual geometry). Disclosed at P179; grade interpretation should remember 0 means "not proven," not "geometrically false."
+6. **Exactly-once asymmetry**: A-S2P pins "exactly-once overall for this key" for the 6/5 promotion; A-POIV pins the 14:20-signal promotion for the 6/11 key without an exactly-once clause. A second same-key S2PROMOTE row (regenerated chain) leaves the UJ-NOPROMO "duplicate" arm interpretive at grade. One sentence would close it.
+7. **Window-rule residual (accepted by the fold, noted for the record)**: within-window same-key regeneration is not discriminated by dir+anchor+interval alone. The single-state-machine structure and the venue's substantive pins (entry/wsrc/bars, UJ-SRCMISM/UJ-SUB1R) bound it, and the fold's disposition (window usable per Astra; absent evidence fails UJ-NOEVID) is workable — but it is a grade-time judgment, not a structural proof.
+8. **P196 "full-helper companion"**: loose — the v9 companion additions are the full TpTargetUpdateBest body and the FindLegTouch predicate; "helper" collides with the B0 helper naming. Cosmetic.
+
+## Analytic ask B — better mechanisms, with lines
+
+- **D1 EMPTY guard (item 4)**: one line at P149-P151 (`if(dv == EMPTY_VALUE) continue;` before the append) — matches the census discipline at C2539-C2540, zero behavior change, removes phantom diagnostics.
+- **E2 actual-geometry field**: recomputing `(iHigh(s52_shift) >= g_zoneLo && iLow(s52_shift) <= g_zoneHi)` at P176 would report actual geometry at the leg bar instead of the fromFvg proxy, making both setters report the same semantics. The current conservative form is sound; this is a nicety for a future round.
+- **Candidate-generation identifier in UJTOUCHSEEN** (e.g., the promotion row's key or an S-chain epoch printed at P167/P176) would make the window rule structural rather than judgment-based — schema churn, declined-class, consistent with this round's discipline; record it next to the parked rank-parity item.
+- **Rank-parity family test (B0, P073-P083)**: still the more robust, rename-proof encoding; correctly parked with the fail-open risk recorded at P121.
+- **E-setter unconditional zone requirement (EA 8924 / C6689)**: remains the actual touch-vs-retest mechanism question; this packet rightly classifies it rather than deciding it. UJ-NOTOUCH is its trigger; keep it routed to council.
+
+---
+
+Both verdicts are page rulings only. Build stays gated on a new key plus his run word; neither is spent, asked, or cleared here.
+
+## V322-IMPL2-7 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

@@ -3,20 +3,21 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, V321 GRADED + v9/v322 GREEN)
+## State (2026-09-27, V322 GRADED CLEAR + KEY ASK)
 
-- V321 verdicts filed + graded IQ1 3-0
-  CLEAR + IQ2 2-1 HALT (Luna O alone).
-- Fold v9 D511601D + relay v322 E3AF54E0
-  battery-green, UNTRANSPORTED. EA
-  14C7476C unchanged; no build/run/key.
-  Result FCE92170; ledger 896; skill
-  srj-council §24 pinned.
+- V322 verdicts filed + graded 3-0 CLEAR
+  both (triple CONFIRM; v14 labels
+  adopted on content). Packet v9 FROZEN.
+- Key ask + run word owed him this turn.
+  EA 14C7476C; no build/run/key spent.
+  Result BBB5A1E9; ledger 897; skill
+  srj-council §25 pinned.
 
 ## Next (owed him)
 
-- Transport ask for v322 ships NEXT turn
-  (draft/transport never mixed).
+- HIS key carry (paste key ask to Luna,
+  paste whole reply back, name Luna) +
+  HIS run word (build + June run).
   (draft/transport never mixed).
 
 ## Resume order (exact)

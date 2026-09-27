@@ -12265,3 +12265,84 @@ That would make the acceptance evidence correspond exactly to what the code esta
 **IQ2v14: OBJECT — P181, with supporting semantic mismatch at P157/P175 and source behavior C8922–C8925.**
 
 ## V321-IMPL2-6 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V322-IMPL2-7 OPEN LUNA (verbatim open; novel inbound; label note: seat wrote v14 throughout, content rules v9/v322 matter - zoneTouch schema, R23-R25, C6663-C6692 companion, P161-P189 - adopted as the V322 round on content evidence)
+
+## IQ1v14 — **CONFIRM**
+
+The v9 edit set is internally closed on the page.
+
+The prior IQ2 touch objection is actually repaired: the source code now exposes the geometry distinction, and the acceptance requires `zoneTouch=1`. For the leg-touch path, C6663–C6692 establishes that when `fromFvg=true`, the function can return `true` only after `touchesZone` is true. For the opposite-direction setter, C8922–C8925 computes and applies the same geometric predicate directly. Thus P161/P165–P179 and P185 now agree on what `zoneTouch=1` means.
+
+The A7 indentation correction does not introduce a semantic issue, and the claimed +53 budget remains unchanged.
+
+### IQ1 analytic ask A — remaining defects / gaps / imprecisions
+
+1. **POI-family matching remains rename-brittle.**
+   P077–P086 use `StringFind`/`StringSubstr` on `g_lineCode[]`. P121 explicitly records the failure mode: a line-code rename could bypass the same-family exclusion. This is a robustness defect, not a present-run closure failure.
+   Supporting authority table: C91–C105.
+
+2. **`datetime` is narrowed through `int` in Fix C.**
+   P134 uses:
+   `int uj_m15s = (int)iTime(...)`.
+   For the stated 2026 replay this is within signed 32-bit range, so it does not invalidate this packet, but `datetime` arithmetic would be cleaner and remove the horizon dependency.
+
+3. **The edit-set proof for Fix D depends on the existing `TpTargetUpdateBest` contract.**
+   P152/P159 rely on C2379–C2402 for in-direction and zone exclusion. That body is now supplied, so unlike v8 this is no longer a missing page premise; nevertheless, the fallback's correctness is coupled to that shared helper.
+
+4. **P100's statement that B2's anchor arm is dead is control-flow dependent on the existing skip.**
+   It is correctly supported by the ordering described there and by C11363–C11364. I would classify this as a dependency worth preserving in the proof, not as an objection.
+
+5. **The E/E2 evidence still proves setter semantics, not necessarily a universal “touch” concept.**
+   This is now explicitly handled correctly: `zoneTouch=0` is admitted as setter-only evidence, while IQ2 requires `zoneTouch=1`. P167/P176/P179 make the distinction explicit.
+
+### IQ1 analytic ask B — better mechanism
+
+The only substantial mechanism improvement remains the POI-family test.
+
+Replace the line-code parsing in **P080–P085 / `UjPoiTargetValid()`** with structural authority metadata derived from **C91–C105**. Using the rank/index pairing would eliminate the silent rename failure documented at P121 while preserving the current one-directional POC-over-VWAP rule.
+
+---
+
+# IQ2v14 — **CONFIRM**
+
+The corrected acceptance is now provable as stated on the page, without requiring an improvised interpretation.
+
+The critical repaired point is A-POIV:
+
+* **P185** requires `zoneTouch=1`.
+* **C6663–C6692** shows `FindLegTouch()` requires `oppositeDir && (!fromFvg || touchesZone)`, with `touchesZone = (sh >= zLo && sl <= zHi)`. Therefore a leg-touch result with `fromFvg=true` is geometric by construction.
+* **P176** explicitly maps E2's `zoneTouch` to `s35_fromFvg`, which is sufficient because the function predicate makes `fromFvg=true` a prerequisite for the geometric branch.
+* The opposite-direction setter directly logs `touchesZone ? 1 : 0` at **P167**.
+* The acceptance requires the row to match direction, anchor, timestamp window, and `zoneTouch=1`.
+
+The earlier ambiguity between “setter fired” and “geometric touch” has therefore been removed rather than merely reworded.
+
+### IQ2 analytic ask A — remaining defects / gaps / imprecisions
+
+1. **The acceptance's phrase “first in-S2 evaluation” should always be interpreted as evaluated-bar time, not processing-pass time.**
+   P184 and P185 now distinguish this correctly, so this is no longer an acceptance defect; it is simply a terminology point to preserve in later rounds.
+
+2. **The touch-window lower bound is a policy boundary, not something independently computed by the touch code.**
+   P185 defines `[14:20,14:35]` explicitly and ties 14:20 to the first S2 evidence. That makes the grade deterministic. It is not a defect, but the distinction between *code-derived timestamp* and *acceptance-defined eligibility window* should remain explicit.
+
+3. **`UJ-FBDEAD` versus `UJ-NOADMIT` is now materially separated, but the grader must preserve the stated event boundary.**
+   P186/P189 distinguish an unsuccessful fallback election **at the admission pass** from earlier state death. That is sufficiently closed; future grading should not collapse those predicates.
+
+4. **The positive-only `UJPOISKIP` evidence remains intentionally non-complete.**
+   P185 says absence of a skip row is not failure. That is logically appropriate because the helper need not execute on every election pass. The acceptance therefore proves the exclusion when observed, rather than asserting universal execution.
+
+5. **The EU comparator remains future-dependent.**
+   P187 explicitly makes it pending and separately graded. This does not block IQ2 because the UJ acceptance does not pretend that evidence already exists.
+
+### IQ2 analytic ask B — better mechanism
+
+No necessary mechanism change remains for this round. The most meaningful future hardening is still the structural POI-family test described above; the touch mechanism itself is now aligned between source predicate, printed field, and acceptance predicate.
+
+## Final relay lines
+
+**IQ1v14: CONFIRM**
+
+**IQ2v14: CONFIRM**
+
+## V322-IMPL2-7 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
