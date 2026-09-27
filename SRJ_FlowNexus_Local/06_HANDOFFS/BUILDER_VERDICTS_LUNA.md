@@ -12085,3 +12085,53 @@ IQ2v11: CONFIRM
 The remaining points are precision notes for the future build/test, not blockers to this amend-round clearance.
 
 ## V318-IMPL2-3 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V319-IMPL2-4 OPEN LUNA (verbatim open; novel inbound, pre-counts 0/0)
+
+**IQ1v12: OBJECT — P096, P175-P176**
+
+**IQ2v12: OBJECT — P181-P185**
+
+### Analytic ask A — defects / gaps / imprecisions
+
+1. **B2 anchor-skip print is internally contradictory.**
+   P096 says B2 “prints `UJPOISKIP` for the anchor on managing passes,” but the supplied companion code has the pre-existing `C11363` guard:
+   `if(k == g_mtrade.anchorLine || ...) continue;`
+   Since that `continue` executes before the new B2 helper, the helper cannot print an anchor skip there. P096 itself then acknowledges the anchor case is “unreachable,” which conflicts with the preceding claim that it prints. This is documentation imprecision, not a behavioral defect.
+
+2. **The fallback evidence label is broader than the actual elected pool.**
+   P137-P155 describe D as re-walking the session lines and booking the nearest in-direction line, with zone enforcement delegated to `TpTargetUpdateBest`. But `uj_fbpool` at P147 is populated **before** `TpTargetUpdateBest` applies its zone logic. Therefore the `UJFBPOOL` diagnostic is a raw in-direction set, not necessarily the actual post-zone eligible pool. Calling it simply “pool” can mislead grade-time interpretation. The packet does say it is pre-zone, so this is a precision issue rather than a logic contradiction.
+
+3. **The touch-print bar field does not identify the actual touch bar on the leg-touch path.**
+   P165-P175 add the print at the `FindLegTouch()` setter, but P172 prints:
+   `bar=%s` from `iTime(..., barShift)`,
+   while the actual located touch is `s52_shift`. The companion confirms `FindLegTouch()` returns `s52_shift` at C8898-C8904. Therefore the printed `bar` is the **evaluation bar**, not necessarily the candle on which the located leg touch occurred.
+   This matters because IQ2 P181 frames the predicate as a touch evidenced “at bar <= 14:35 on/before the 14:35-signal pass.” The current row proves that the state transition setter fired during that evaluation pass; it does **not** independently prove that the underlying located touch candle was 14:35 or earlier.
+
+4. **The touch contract should explicitly distinguish setter-time from found-touch-time.**
+   Relatedly, P157/P175 say “row-presence == touch-set.” That is true for the state-transition print, but not equivalent to “row-presence == actual candle touch.” The acceptance wording in P181 blends those two concepts. This is the main IQ2 precision gap.
+
+5. **The EU comparison is not fully pinned to an explicit run population in IQ2.**
+   P183-P184 identify the D74FE972 baseline and comparison fields, but do not explicitly restate the exact future EU run window/population in the IQ2 contract. The UJ window is explicit elsewhere as 6/1-6/13, while the EU sibling is merely “future.” For a no-improvised-grading contract, P183 should name the exact EU population/window or explicitly state that it is the identical 6/1-6/13 population.
+
+### Analytic ask B — better mechanism
+
+**For Fix E, print both timestamps instead of overloading `bar`.** Touching P172 and the E-side print at P163:
+
+```mql5
+PrintFormat("[SRJ-EA] UJTOUCHSEEN evalBar=%s touchBar=%s dir=%s anchor=%s",
+            TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                         TIME_DATE|TIME_MINUTES),
+            TimeToString(iTime(_Symbol, PERIOD_CURRENT, s52_shift),
+                         TIME_DATE|TIME_MINUTES),
+            DirName(g_dir),
+            (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none"));
+```
+
+For the E2 path, `s52_shift` is already available at C8896-C8904. This directly separates **when the setter fired** from **which candle supplied the located touch**, eliminating the ambiguity in P181 without changing behavior.
+
+**For Fix B's managed loop, remove the redundant helper anchor case or move the helper before the existing C11363 anchor `continue`.** As currently specified in P096 and the companion C11361-C11367, the helper cannot observe an anchor in the managed path. That is unnecessary duplicated gating.
+
+**Bottom line:** the core four-fix logic is substantially specified, but the touch-proof contract is not mechanically precise enough for a strict grade, and the B2 prose is internally inconsistent. Hence both IQs remain **OBJECT** rather than CONFIRM.
+
+## V319-IMPL2-4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

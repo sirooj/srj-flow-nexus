@@ -6156,3 +6156,49 @@ Both rulings are page-only: edit-set closure verified by hand (anchors, budget a
 3. **If UJ-TIMEBASE fires at grade** (the A-POIV reachability gap in item A9): the future mechanism is either fill-at-signal-open scheduling (touching the fill/entry assignment at C10405/C10409-C10410) or a touch-book lookback evaluating the touch over a window ending at the signal bar rather than the single signal bar (touching C8920-C8926). Out of scope here by the packet's own gating (P150, P156) and correctly so — the touch-vs-retest rule must go to council first; naming the code lines now saves the next round the search.
 
 ## V318-IMPL2-3 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V319-IMPL2-4 OPEN GLM (verbatim open; novel inbound, pre-counts 0/0)
+
+## IQ1v12 — amended edit confirm
+
+**IQ1v12 verdict line: CONFIRM**
+
+Closure verification performed on the page:
+
+- **Budget**: -1 (A3 retired define) +3 (A4) +0 (A5) +1 (A6) +0 (A7) +1 (A8) +6 (A9a+A9b) +11 (B0) +6 (B1/B2/B3) -1 (B3b) +0 (B3c) +11 (C, 2-vs-13) +15 (D1, counted at P139-P153) +0 (E) +1 (E2, 3-vs-4) = **+53 exactly** (P176). Per-site counts all match the fenced blocks.
+- **Old fences vs companion**: A3 (P025-P026 ≈ C10394-C10395), A5 (P064-P065 ≈ C10388-C10389), B3b (P098-P102 ≈ C2567-C2571), B3c (P109-P111 ≈ C2511-C2513), C (P120-P121 ≈ C8195-C8196), E (P159-P160 ≈ C8924-C8925), E2 (P166-P168 ≈ C8900-C8902, including the double-space in `g_touchSeen  = true;`) — text-for-text identical. The v6 byte-exactness claim holds on-page; the A6 A-half rebuttal is accepted.
+- **Signatures/scope**: SrjUjAssert1R 8-arg call at P037 matches C11768; UjDbl (C11750) and UjDayDiff (C11762) in scope at their new uses; barShift in scope at both touch setters (C8898/C8933); A4/A9a locals sit outside the C10390 block, visible at A4, A9b, and A7. New-C brace structure (P123-P135) balances and the else binds correctly; fall-through to the untouched C8197 promote is correct.
+- **Provenance closure (Astra #1)**: A9b (P058-P062) snapshots the election winner after `uj_admitCount++` (C10426) and before the UJADMIT block (C10427); with the OnTick order (C11962-C11969, entry pipeline inline before EvaluateManagedTrade) and all UpdateBest sites pre-census/pre-snapshot, UJADMIT now publishes the fire tuple's R and provenance in both the Compute and D-fallback paths. Structurally closed.
+- **External-interface surface**: per the packet's own definition (P005) — no new buffers, inputs, handles, or mirrors; UJADMIT schema shape unchanged (values re-sourced only). Consistent.
+
+Analytic ask A (notes, none blocking):
+
+1. **P023 call-site census is era-mixed**: "call sites 2488/2495/2503/11349/11356/11367 only" is base-tree numbering; D1 (P137-P153) adds a seventh site the moment it lands, so the literal "only" is stale post-edit. The proof's substance survives — P062 already extends it over the D path ("a fallback winner IS the fire winner") and all sites remain pre-census and pre-snapshot — but the census should be restated post-edit or tagged "base-tree, pre-D1."
+2. **New-block indentation offsets**: P048, P059-P060, P104-P107, P172 sit one space deeper than the adjacent disk style (cf. P048 vs C10429; P104-P107 vs C2567-C2571). Compiles clean and new-block bytes are not fence-bound, but style-consistent emission keeps future fence compares clean.
+3. **A4 × FIRELOCAL double-assert**: on a no-poll-memo pass the same tuple is asserted at C10378 (src=FIRELOCAL) and again at A4 (src=FIRE) — two UJ1R rows at one bar. Diagnostics-only, but the expected multiplicity is never stated (cross-ref IQ2 note 3).
+4. **B2 anchor skip-noise** (P096): correctly recorded as dead-branch/log-noise; no action, but the acceptance uses UJPOISKIP as helper-execution proof without a count bound or per-pass requirement (cross-ref IQ2 note 6).
+
+Analytic ask B: (i) add the touch bar itself to the UJTOUCHSEEN schema — at the leg setter `s52_shift` is in scope (C8898-C8903), at the opposite-dir setter it is `barShift` — one field at P163/P172, budget +0; (ii) optional one-line invariant at the A9b site (P059-P062) that `uj_fireWsrc != ""` at admission, catching any pipeline path that books without an election winner; (iii) restate the P023 census post-edit. The standing declines (centralized election, mask API, arithmetic helper, UJSLDIV) remain correctly declined for scope; the rank-parity future-audit note (P117) is the right long-term fix for B0's fail-open-on-rename.
+
+## IQ2v12 — corrected acceptance confirm
+
+**IQ2v12 verdict line: CONFIRM**
+
+The legs are executable as stated: each venue pins identity, bars, pre-declared vs grade-read fields, named supporting rows, and a closed findings map; every failure path I can construct lands on a named finding (UJ-SIGNALBAR, UJ-TIMEBASE, UJ-NOTOUCH, UJ-NOPROMO, UJ-NOADMIT, UJ-PARITY, UJ-SUB1R...), with "a missing row fails the proof; it never asserts the event did not occur" (P185) keeping the epistemics sound. The two v6 withdrawals (S2PROMOTE 09:30-signal, A-FB 16:10/16:15) are correctly derived: R18 (bar_key=09:30, ticktime 09:35, m15=-1.0 == SHORT want) with the chartTime-1bar convention puts promotion at the 09:35 pass; C10409-C10410 with the R02/R07 evaluated-bar convention puts the A-FB signal at 16:10/fill 16:15, with R09/R10 correctly demoted to election-witness context.
+
+Analytic ask A (notes, none blocking):
+
+1. **Pre-trigger m15 window unevidenced** (P016, P180): "exactly once at 09:30-signal" requires m15 non-aligned at eval-09:05 through eval-09:20; only eval-09:25 (R14, +1.0) and eval-09:30 (R18) are rowed. The pin is falsifiable with UJ-SIGNALBAR, so the contract holds, but one clause ("probe series m15≠want for eval-09:05..09:25, machine-checked") would close the gap on-page.
+2. **S2WAIT census gaps** (P016): the 7-pass census omits eval-09:10/09:15 while the CONFIRMPOLL series runs from eval-09:05 — the two missing bars are unexplained and are exactly the bars note 1 depends on.
+3. **UJ1R row multiplicity unstated** (P179, P182): at 6/3 the fixed run will print a poll-tuple UJ1R (R=2.25 on sl 159.905) beside the pinned fire-tuple UJ1R (R=1.35); on fallback-memo passes, FIRELOCAL + FIRE. Expected co-resident rows should be named so a grader doesn't read them as duplication.
+4. **UJTOUCHSEEN bar-field semantics** (P157, P163, P172, P181): the row stamps the evaluated pass bar, not the touch bar; A-POIV's "bar <= 14:35" reads the pass bar. Correct as written, but a half-sentence (or the B-suggestion field) would prevent a grade-time misread.
+5. **A-POIV reachability is openly conditional** (P175, P181): R17 shows no touch through eval-14:35 in base, so the pin lands only if the earlier S3 entry changes the touch scan. Honestly handled (UJ-NOTOUCH; touch-vs-retest deferred to council visibly), but L-final (P184) should state that a UJ-NOTOUCH outcome routes the touch-vs-retest question to the next round — a mechanism question, not a fix defect.
+6. **Replay-configuration pin missing** (P178-P181): pre-declared must-match prices (159.929, 160.524) reproduce only under the same replay setup (tick model, spread, pass timing) as RECON63/71; the preamble pins InpDebugLog but not the replay config. One clause closes it.
+7. **UJPOISKIP unbounded** (P096, P181): B2 emits it every managing pass; state whether zero rows on an election pass is itself a failure, so "helper-execution proof" has a defined negative.
+8. A-EU-PRESERVE deferral (P183) and the findings-map closure (P185) are clean as stated.
+
+Analytic ask B: the E2/E touch-bar field and A9b empty-wsrc invariant under IQ1-B serve IQ2 directly (notes 4 and the provenance invariant); nothing else I'd change without expanding scope.
+
+Standing constraints acknowledged: nothing here builds, runs, spends, or clears live activation; the build gate (new key + his run word) is untouched by these verdicts, and disk genuineness (twin diff 0, companion 0-diff, digests) remains his machine's proof, not mine.
+
+## V319-IMPL2-4 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

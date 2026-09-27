@@ -18171,3 +18171,44 @@ The B3 suffix/comment amendment, managed-anchor use, state-gated S2 fall-through
 No key, build, run, money movement, or live activation is authorized by these verdicts.
 
 ## V318-IMPL2-3 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V319-IMPL2-4 OPEN ASTRA (verbatim open; novel inbound, pre-counts 0/0)
+
+The revised provenance and bar-pair definitions address the main v318 objections; acceptance still has touch and findings-map ambiguities.
+IQ1v12: CONFIRM — P023–P070, P071–P176; C2399–C2402, C10405–C10430, C11957–C11969. The amended edit set is internally coherent on the supplied page, subject to the stated disk-side checks.
+
+IQ2v12: OBJECT — P181–P182, P185. The touch timing predicate contradicts its reachability sentence, and the findings map still leaves required failure cases without an explicit classification.
+
+These verdicts are independent. Neither certifies disk bytes, a successful build, future takes, or activation authority.
+
+1. **The prior admission-provenance objection is closed at page level.** P048 replaces memo provenance with the A9 snapshot; C2399–C2401 couples winner provenance to assignment of `best`. P023 supplies the call-site census and ordering assertion, while C11963–C11969 places the probe before entry evaluation and managed evaluation afterward. Together, these support the proposed snapshot at P059–P062 without restoring TP or SL equality.
+
+   This conclusion relies on the supplied assertion that the intervening entry path does not overwrite that winner before admission. The OnTick excerpt alone would not prove that internal property; P023 supplies the additional premise. Its disk verification remains with the operator.
+
+2. **The corrected signal/fill pairs close the prior bar-label objections.** P179 explicitly specifies 09:05/09:10; P180 specifies admission 09:40/09:45 separately from promotion at 09:30-signal; P182 distinguishes the 16:05 election witness from admission 16:10/16:15. R18 supports the amended promotion trigger. These are testable future expectations, not claims that the base rows already prove the amended takes.
+
+3. **Blocking IQ2: the touch predicate permits earlier touch, but the reachability sentence requires the 14:35 candle to set it.** P181 accepts a matching `UJTOUCHSEEN` at any bar **≤14:35**, then states that the pin is reachable **IFF the 14:35 candle sets the touch**. Those are different conditions.
+
+   There is also a direct code reason not to equate the print’s bar with the candle that physically touched: C8898–C8904 finds a leg touch at `s52_shift`, whereas P172 prints the current evaluated `barShift`. That row proves when the setter recognized the touch; it does not necessarily prove that the evaluated candle itself touched.
+
+   **Better mechanism:** amend P181 and the IQ2 restatement to require that touch be established for the admitted candidate by the 14:35-signal evaluation. Remove the candle-specific “IFF” assertion unless the strategy actually requires it. If the physical touch candle must be graded, enrich P172 with `atBar` derived from `s52_shift`, and make P163 report the current evaluated candle as its touch bar. That would require a separately recounted print amendment; it is not necessary for the simpler setter-by-deadline contract.
+
+4. **Blocking IQ2: exact promotion cardinality still has no named failure finding.** P180 requires `S2PROMOTE_M15` **exactly once**. P185 maps missing promotion to `UJ-NOPROMO` and explicitly confines `UJ-DUPADMIT` to admissions. Two promotion rows with one correct admission therefore fail a required predicate without a declared finding.
+
+   **Better contract:** add a promotion-cardinality finding, or explicitly broaden `UJ-NOPROMO` to mean “required promotion predicate failed,” including duplicate or wrong-bar promotion. The present “missing promotion/confirmation” definition does not do that.
+
+5. **Blocking IQ2: fallback-related admitted sub-1R and missing evidence remain incompletely mapped.** P185 restricts `UJ-SUB1R` to admitted tuples failing recomputation **outside fallback**. P182 defines the sub-1R `UJ-FBDEAD` branch through an election leading to a `SUB_1R` abort row. An erroneous fallback admission that fails grade-time 1R recomputation need not produce that abort row, so the contract should explicitly classify it.
+
+   Similarly, P185 says missing rows fail proof, but it does not name a general finding for absent required evidence such as `UJMEMO_PASS`, the FIRE `UJ1R` row, or required fallback-support rows when an admission otherwise appears correct. `UJ-NOADMIT` would incorrectly describe some of those cases.
+
+   **Better contract:** apply `UJ-SUB1R` to **every admitted tuple** that fails recomputation, including fallback admissions; reserve `UJ-FBDEAD` for the defined unsuccessful fallback-election event. Add a missing-evidence finding, with the missing row or field identified. Several findings may attach under P184, so no new resolution model is needed.
+
+6. **Nonblocking precision: P013 retains the withdrawn promotion label.** It still says “promote 09:35,” whereas P016/P180 distinguish promotion at the 09:35 processing pass from its 09:30 signal label. Replace that phrase with “promote at the 09:35 pass, bar=09:30.” This is wording cleanup, not another timing change.
+
+7. **Nonblocking precision: touch correlation needs the candidate’s state sequence, not just a matching anchor.** P157 calls `dir + anchor + bar` the correlation key, while P181 accepts a row from any earlier bar. Those fields do not by themselves distinguish successive candidates with the same direction and anchor. P178’s candidate-identity requirement should be applied through the intervening state/reset sequence so an earlier candidate’s touch cannot satisfy the later admission.
+
+   A print-only candidate identifier would strengthen this, but a defined state-chain correlation rule is sufficient; I am not making a new identifier a condition of IQ1.
+
+The A9 provenance change, second-setter print, corrected admission bars, and separation of missing evidence from event non-occurrence are substantive closures. The remaining IQ2 objections can be resolved primarily by tightening P181–P185; they do not require reopening the four-fix design.
+
+## V319-IMPL2-4 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
