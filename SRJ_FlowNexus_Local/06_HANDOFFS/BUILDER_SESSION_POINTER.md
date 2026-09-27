@@ -14,8 +14,12 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 
 ## Next (owed him)
 
-- HIS Luna-key carry (paste whole relay
-  fresh + key ask, paste whole reply back).
+- HIS Luna-key carry (paste the new
+  name-only ask as-is, no file - she
+  holds the ruled relay; paste whole
+  reply back). Revised ask filed in
+  ledger 875; old file-carry wording
+  withdrawn.
 
 ## Resume order (exact)
 

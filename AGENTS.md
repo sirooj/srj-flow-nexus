@@ -150,13 +150,17 @@ rules memory: every defect class, lesson, and standing rule lands here the turn
 it is learned, never carried in chat alone. Running history lives in the ledger
 (§11) — never here.
 KEY-PROMPT RULE (operator order 2026-09-22 — prior session ruled defective for
-omitting it): when he asks what to say to get a key reply, the memo ships the
-exact paste-ready key ask as a numbered point (relay file fresh from disk first,
-then the ask naming packet + digest + one-build/one-run scope + the quote-the-grant
-rule), plus the grading checklist the builder will apply (name + digest + grant +
-verbatim quote + no new conditions) and what to paste back (whole reply +
-run word only - token WITHDRAWN 2026-09-25 as builder-invented, never his word,
-absent from the passing 5/5 key). A key-request memo without the asked prompt is a defective memo.
+omitting it; CONFORMED 2026-09-26 to the 2026-09-23 skill corrections L122/L124,
+which supersede the struck phrasing below): the memo ships the
+exact paste-ready key ask as a numbered point (the ask names packet + digest +
+the ruling demand for exactly one build plus one tester run, and NOTHING else —
+no relay re-paste since the seat holds the ruled file, no round IDs, no verdict
+references, no quoted sentences, no quotable instructions), plus the grading
+checklist the builder will apply (packet + digest + scope + own-words ruling +
+no new conditions; seat is his declaration alone) and what to paste back (whole
+reply). The 2026-09-22 phrasing (relay fresh from disk first + quote-the-grant rule)
+is WITHDRAWN — both are echo prompts per L122/L124. A key-request memo without
+the asked prompt is a defective memo.
 CANDIDATE-SET CHECK (operator correction 2026-09-16 — the phantom-S1 waste): no
 birth/selection authorship relay moves until the site is checked against his filed
 trades; EA-derived sites ride labeled HYPOTHESIZED, never as his candidates.
