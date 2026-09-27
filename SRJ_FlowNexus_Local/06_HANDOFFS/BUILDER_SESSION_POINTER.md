@@ -11,8 +11,9 @@ Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required rea
 - Fold v8 473325BC + relay v321 0AAA785E
   battery-green, UNTRANSPORTED. EA
   14C7476C unchanged; no build/run/key.
-  Result V320-GRADE; ledger 892; skill
-  srj-council §22 pinned.
+  Result V320-GRADE; ledger 893; skill
+  srj-council §23 pinned (operator-caught
+  backlog closed).
 
 ## Next (owed him)
 
