@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, DEFECT D3 FILED)
+## State (2026-09-27, V10+V323 DRAFT GREEN)
 
-- Ledger 904: 160.028 answer OWNED WRONG.
-  Correct-refusal WITHDRAWN (row-fact only).
-  Skill srj-defect filed from his text.
-- Entry-open math: booked line sits below
-  his 160.059 entry; his 160.723 at R3.7.
+- Packet v10 6E627ADC + relay v323 DBA81FA6.
+  Battery green same turn (twin/rows/names).
+- Fixes F/G/H drafted for the 3 misses.
+  EU preserve + C-silence ride the run.
 
 ## Next (owed him)
 
-- This 4-answer report. Then his word.
+- Transport memo turn (battery numbers
+  plus key + word asks, one ask, once).
 
 ## Resume order (exact)
 

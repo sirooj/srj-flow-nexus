@@ -32,6 +32,8 @@ Declined/invalid (never takes): 8/28 PM news (journal row 259) | 9/4 10:40 SHORT
 - 89810547 RECON66: per result B9046972 (B1-B8 PASS; take list not re-enumerated here).
 - His UJ report 2026-09-25 18:19 (7 trades +687.52): tree UNPROVEN (no digest logged;
   ex5 stamp unrecorded - see RUN-BINARY-PROOF). NEVER infer.
-- D74FE972 UJ behavior: UNKNOWN (never ran UJ). UJ re-grade owed under S5.4/S3.3.
+- D74FE972 UJ behavior: UNKNOWN (never ran UJ). RECON72 graded the v9 UJ window with S5.4/S3.3 executed on the take.
+- 14C7476C RECON71: 0 takes (6/3 UJMISMATCH kill, 6/5 S2-held, 6/11 VWAP-kill); diagnosed, corrected by IMPL-2 v1-v9.
+- 48EDC504 (v9 build, RECON72 result 2499FB87 DONE=PASSED): UJ 1/4 (6/3 London LONG 09:10 entry TP win; misses 6/5 09:45 + 6/5 16:15 + 6/11 14:40 with death rows); EU UNTESTED on v9 (sibling run pending).
 
 (End of file)

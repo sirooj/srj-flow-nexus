@@ -10,9 +10,9 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
-- EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v9 D511601D/34635/198 FROZEN (council-cleared triple-CONFIRM 2026-09-27; build needs new Luna key + his run word).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v322-IMPL2-7.md` E3AF54E0/77984/598 (graded triple-CONFIRM both; verdicts filed).
+- EA under test: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 built 2026-09-27; alert-only stands; v10 packet drafts F/G/H against it, unbuilt).
+- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v10 DRAFT 6E627ADC/56554/369 (battery-green draft, untransported; build needs new Luna key + his run word, neither spent nor asked).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v323-IMPL2-8.md` DBA81FA6/97508/850 (battery-green draft, untransported; three questions Q1/Q2a/Q2b/Q3).
 - Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_RECON72-V9-UJ.md` 2499FB87/10374/70 (A-SL1 PASS with S5.4/S3.3 audit clean; A-S2P UJ-NOADMIT+UJ-NOPROMO; A-POIV UJ-NOTOUCH+UJ-NOPROMO; A-FB UJ-NOADMIT correct sub-1R refusal; EU-pending).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
