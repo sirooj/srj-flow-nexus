@@ -2279,3 +2279,27 @@ The existing code already documents an asymmetry (C2395): booking keeps first-ar
 
 Those are the substantive gaps I'd want closed before treating this as build-ready: IE1's unscoped side effects, the IE6/IE7 staleness question, IE10B's join-key correctness, and the three-way tie re-verification. Want me to dig into any one of these against more of the actual source (e.g., the full `MtReset` body, or every call site of `ComputeNearestTpTarget`)?
 ## V311-UJIMPL-12 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+## V312-UJIMPL-13 OPEN SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+Sonnet:
+Alright — going through the actual code logic for each edit, independent of the tally/verdict structure.
+
+**IE1 (HTF fill-switch, `false`→`true` at line 10667)**
+This flips `inUseConfirmedHTFOnly` globally, which per F1195–1200 affects *all three* HTF votes (H4, H1, M15), not just the M15 timing issue your correction was actually about. The packet's own text acknowledges this ("EU preservation sibling row grades the global effect") — meaning the H4/H1 side effects are being discovered by regression testing after the fact, not reasoned about up front. A narrower fix would gate only the M15 slot's fill switch, leaving H4/H1 on live votes if that's what was working. As written, you're accepting an unscoped blast radius and hoping the preservation battery catches any damage.
+
+**IE6 (`iClose(barShift)` → `iOpen(_Symbol, PERIOD_CURRENT, 0)`, line 7305)**
+This makes sense *if* `ComputeNearestTpTarget` is only ever called from the S2POLL site with barShift=1 — then bar 0's open is genuinely "the next bar," consistent with the confirm-then-enter-next-open rule. But nothing in what's pasted confirms this is the *only* call site. If the same function is reused anywhere in the historical/shadow walker (IE5's territory), using the *live* chart's bar-0 open there would silently corrupt a historical re-election with a present-day price. Worth a direct grep before treating this as safe.
+
+**IE7 (1R gate) + IE9 (memo guard) — the real dependency**
+IE7 computes risk/reward off the same `iOpen(0)` from IE6, which is internally consistent. But the S2WAIT log rows show a candidate can sit *retained* across multiple bars before reaching S5. If IE7's 1R check only runs once at first election rather than refreshing every poll while retained, the R value (and the "entry" price it was measured against) goes stale by the time the trade actually fires. IE9's memo guard checks "was a memo written," not "was it written *this* bar" — so it doesn't by itself catch staleness. The packet claims election and fire are "the same pass," which would resolve this, but that claim needs to hold for every path into S5, not just the common one.
+
+**IE8 (touch latch)**
+Looks properly scoped — separate fields (`uj_mtrade.uj_touchDone` etc.) from the existing pre-admission `g_touchSeen`, so no aliasing risk on the surface. The one thing I can't verify from the excerpt is whether `MtReset()`'s actual body (not shown) resets these new fields — the packet asserts it's "bound" but the diff isn't pasted.
+
+**IE10B (debug timestamp / join-key)**
+This is print-only, but it's load-bearing for grading: the acceptance proofs (A-IMPL1-ROUTE etc.) depend on correctly joining chart-time to EA bar-time with a stated one-bar lag. Because it's "just a debug print," an off-by-one here wouldn't break live trading — it would silently produce a false-positive PASS at grading time by correlating the wrong bars. This is the one place I'd want independently re-derived rather than taken on the strength of being labeled a diagnostic.
+
+**IE5/IE5b (historical pool, three-way tie race)**
+The existing code already documents an asymmetry (C2395): booking keeps first-arrived on exact ties, census names last-equal, and that's "recorded-not-failed" for the *two*-pool case (session vs. POI). Adding the historical pool as a third competitor in the same `TpTargetUpdateBest` race means that asymmetry is now three-way, and nothing in the packet re-derives whether it still holds. Separately, the one-time `Bars()-1` `CopyBuffer` at run start is asymptotically fine but could be a real latency spike on a broker with deep history — worth timing before calling the performance concern (which your own correction flagged) solved.
+
+Those are the substantive gaps I'd want closed before treating this as build-ready: IE1's unscoped side effects, the IE6/IE7 staleness question, IE10B's join-key correctness, and the three-way tie re-verification. Want me to dig into any one of these against more of the actual source (e.g., the full `MtReset` body, or every call site of `ComputeNearestTpTarget`)?
+## V312-UJIMPL-13 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)

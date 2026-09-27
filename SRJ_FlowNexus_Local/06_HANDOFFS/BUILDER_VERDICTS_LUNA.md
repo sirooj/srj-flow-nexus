@@ -11425,3 +11425,68 @@ I am treating the testimony about the management-side third loop (IE5b) as settl
 
 **IQ2v4 OBJECT — attribution cause-mapping and the admission/touch join schema remain unclosed, so the acceptance contract is not yet mechanically complete.**
 ## V311-UJIMPL-12 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V312-UJIMPL-13 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling
+
+**IQ1v5 — OBJECT**
+
+The intended closure is coherent, but the page still has material closure gaps:
+
+1. **`tradeSeq` semantics are not closed.** IE8 says `uj_tradeSeq` is reset through `MtReset`, while the acceptance treats it as part of the admission identity. The packet never states the increment/uniqueness rule or whether reset means “zeroed” versus “assigned a new sequence.”
+
+2. **The admission key is not actually defined as a key.** The acceptance says `uj_bar_key` is stored in `uj_admitBarTime`, then separately carries `tradeSeq`; it never defines the canonical composite identity. A timestamp alone can collide if multiple admissions occur on one bar.
+
+3. **The validity enum has states but not a complete state machine.** `EMPTY/BUILDING/READY/SHORT/FAILED` is named, and only `FAILED` is explicitly retried. There is no precise transition/refresh rule for `SHORT`, nor an explicit “READY same day = no rebuild” predicate. That matters because the refresh is described as unconditional/every new bar while the cache is supposed to be day-keyed.
+
+4. **“Unconditional OnTick refresh” is imprecise.** The actual lifecycle shown is an early-return new-bar gate followed by `LoadWorkingSet()`/`EvaluateClosedBar()`. So the intended property is “unconditional within the new-bar path and independent of debug,” not literally unconditional on every tick.
+
+5. **IE10B has a cardinality ambiguity.** The packet says file-scope debug variables are written by each `RunOne`, then printed once at the `RunAll` tail after the three `RunOne` calls. With a single set of variables, the tail can only unambiguously represent the last writer unless the variables are per-TF. The supplied `RunAll` has exactly three sequential calls and no per-engine debug-record structure.
+
+6. **`MtReset` is a binding-site assertion, not yet a field-reset contract.** The packet names the reset site, but does not give the exact reset assignments/defaults for the new touch/key/memo fields. “Reset through the MtReset path” is not enough to prove which fields survive or increment across trades.
+
+The existing DIV disposition itself is present: the code walks the newest nonzero CQD verdict and `DIV_WAIT` emits a held-route record before the S4-origin abort path. That part does not justify an objection by itself.
+
+**IQ2v5 — OBJECT**
+
+1. **The requested “producer table per field” is not actually present.** There are producer facts scattered through P014/P020/P033, but no closed field-by-field table covering every accepted field, its sole producer, source, timing, and join identity.
+
+2. **`winnerAge` is missing from the provenance contract.** IE5c specifies `value + source + dayKey`, while A-IMPL2 demands `winnerSource/winnerDayKey/winnerAge`. No definition or derivation rule for `winnerAge` is given.
+
+3. **DIV four-outcome classification is not mechanically closed.** The acceptance wants `aligned/opposing/absent/incomplete`, but the shown S5 walk treats failed `ReadBuf1` reads and `EMPTY_VALUE` as “continue,” which can leave both cases indistinguishable from a genuinely absent verdict unless the new probe explicitly maintains read-status evidence. The packet names the four classes but does not give that classifier's exact predicate.
+
+4. **Bitmask causality lacks a row-identity rule.** Saying base/edited rows are “row-matched” and assigning `bit0..bit6` does not define the stable key used to match duplicate/similar rows, nor how multi-cause changes are assigned. Without that, an attribution mask can establish association but not uniquely establish causality.
+
+5. **Zero-admission/vacuous-pass logic is incomplete.** A-IMPL2 is defined as “one joined proof row per admission.” With zero admissions there is no admission row from which to prove the pool service assertion, yet the requested failure matrix explicitly includes “vacuous pass + pool coverage.” The packet needs a separate mandatory non-admission coverage predicate.
+
+6. **Pool-state-to-acceptance mapping is incomplete.** The implementation has `EMPTY/BUILDING/READY/SHORT/FAILED`, while acceptance says “coverage … or named-empty with cause.” It does not explicitly say which enum states are acceptable, which are findings, and which require another retry.
+
+7. **“Short/gaps” and “finding-without-admission” are named failure cases without exact verdict predicates.** The acceptance mentions them, but not the precise row/state condition that converts each into pass, held, finding, or L-final failure.
+
+8. **Latency is evidence, not a gate.** “Refresh latency timing reported at grade” has no threshold or acceptance criterion. That is acceptable as telemetry, but it does not actually close a performance/service obligation.
+
+### Analytic A — consolidated defect list
+
+The highest-value blockers are therefore: **trade-sequence identity; validity-state transitions; RunAll debug cardinality; literal-vs-new-bar refresh wording; missing producer table; undefined winner age; DIV absent/incomplete discrimination; stable row identity for causality; zero-admission pool coverage; and exact failure-state predicates.** The packet itself asks for every such defect to be surfaced with line numbers.
+
+### Analytic B — better mechanisms
+
+The cleaner implementation mechanism would be to make the proof objects first-class rather than relying on prose joins:
+
+* Define one immutable **admission key** as `{uj_bar_key, tradeSeq}` and keep `uj_admitBarTime` only as the timestamp field.
+* Make `tradeSeq` a monotonic per-admission counter; `MtReset` clears per-trade state but **does not reset the global sequence**.
+* Store HTF debug evidence as a **three-slot per-TF record** (`H4/H1/M15`) and print all three at the `RunAll` tail, instead of sharing one mutable file-scope tuple.
+* Make `SrjHistPoolBuild()` return a structured result containing `{dayKey, requestedStart, achievedStart, state, attempt}`; `READY` on the same day should be an explicit no-rebuild path, while `SHORT/FAILED` have explicit retry predicates.
+* Have the DIV probe return an actual enum `ALIGNED/OPPOSING/ABSENT/INCOMPLETE`, with read-failure and empty-verdict counters retained separately.
+* Give every preservation row a deterministic row ID before calculating the IE attribution mask; allow multiple cause bits on one row, then grade only after the row match is proven.
+* Add a mandatory **run-level pool-service record** independent of admissions, so a zero-trade window cannot vacuously bypass coverage.
+* Define `winnerAge` mechanically from the same day-key representation used by the pool, eliminating a second interpretation of “age.”
+
+Those changes would touch the packet's IE4/IE5/IE5c/IE8/IE10B surfaces and A-IMPL2/A-EU-PRESERVE acceptance rather than altering the trading logic itself.
+
+**Final council lines:**
+
+`IQ1v5 OBJECT - trade-seq/key identity, validity transitions, and RunAll debug cardinality are not fully closed by the page.`
+
+`IQ2v5 OBJECT - producer/provenance, DIV four-state classification, causality row identity, and zero-admission failure predicates are not fully closed.`
+## V312-UJIMPL-13 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

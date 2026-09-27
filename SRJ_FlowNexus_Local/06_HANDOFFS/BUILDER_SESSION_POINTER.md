@@ -3,17 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, IMPL-1 v5/V312 SCHED-JOIN GREEN)
+## State (2026-09-26, IMPL-1 v6/V313 OWNERSHIP GREEN)
 
-- V311 graded (IQ1v4/IQ2v4 0-3 both OBJECT).
-  Relay v312 drafted-green, uncarried.
-  Astra active (Opus still parked).
+- V312 graded (IQ1v5/IQ2v5 1-2 both HALT).
+  Relay v313 drafted-green, uncarried.
   Build gated: new Luna key + word.
-  Seats: Luna + Astra + GLM. Ledger 865.
+  Seats: Luna + Astra + GLM. Ledger 867.
 
 ## Next (owed him)
 
-- HIS v312 carry (paste whole to Luna
+- HIS v313 carry (paste whole to Luna
   + Astra + GLM, same text all).
   Then his verdict paste.
 

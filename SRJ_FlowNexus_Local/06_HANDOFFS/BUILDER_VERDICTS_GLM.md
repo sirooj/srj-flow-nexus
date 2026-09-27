@@ -5718,3 +5718,77 @@ The remaining acceptance items stand: finding predicates boolean (P031/P033), bi
 
 Nothing else asked; no key, no files, no scope requested.
 ## V311-UJIMPL-12 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V312-UJIMPL-13 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+# SEAT RULING — relay v312 (packet IMPL-1 v5, IQ1v5 + IQ2v5)
+
+Ruling on the page only, per the verification split: no disk-genuineness claim is made or asked, no files requested, nothing spent, no key or word asked.
+
+---
+
+## IQ1v5 verdict line
+
+**IQ1v5-CONFIRM**
+
+## IQ1v5 plain answer
+
+**IQ1v5 CONFIRM - the closure edit list stands:**
+
+- **Unconditional OnTick refresh + validity enum + retry** — twin P021: refresh call in OnTick between EA 11489 assignment and EA 11490 LoadWorkingSet, once-per-new-bar, pre-evaluation, debug-independent; `uj_poolState` EMPTY/BUILDING/READY/SHORT/FAILED published separately from the day key; same-day retry on FAILED; SrjSelEndOfRun diagnostic-only (no pool construction; its coverage print, if retained, reads the built pool). Companion confirms the boundary (C11483–C11492: latch/return at 11488, assignment 11489, LoadWorkingSet 11490, EvaluateClosedBar 11491) and SrjSelEndOfRun's print-only character (C4992–C4994; caller comment C11047–C11048 "Print-only").
+- **RunAll-tail print + debug vars; GetOutputs-body print dropped** — twin P029: vars written in RunOne, stamped/printed with outBias vs outCBias at the RunAll tail H567–568 under g_htfDebugLog; H562–H568 exhibited shows the three RunOne calls (H565–H567) and the tail brace (H568) — the print site is provably live (RunAll feeds the fill-switch reads at F1195–1200); GetOutputs H570–H577 rides whole with no print added, and the drop is explicit ("liveness unproven" — GetOutputs has no exhibited caller).
+- **Admission key + trade seq in SManagedTrade** — twin P026: `uj_admitBarTime` + `uj_tradeSeq` among the struct fields added at EA 239–252 via STAGE-1 diff (struct exhibited C239–C251); admission key printed in IE7/IE8 rows (P033).
+- **IE6 safe** — twin P024: one-token edit at EA 7305; companion C7305 shows the exact OLD text. Safety holds structurally: ComputeNearestTpTarget takes `currentPrice` as a parameter (C7349–C7350, C7307), so every caller — including the fire-local at EA 8918 — supplies its own local; a one-line edit at 7305 cannot touch 8918. Census label rename `close=`→`ref=` verified against C2466.
+- **Per-pass election refresh (no staleness)** — twin P025: S2POLL re-elects every pass while retained (poll site kills across S2..S5 per the sibling NO_TP/NO_SL convention, C7315–C7321); IE9 memo cleared each pass at the 11490/11491 boundary and written at the single election point, so the fire always consumes the current-pass memo; the fail-closed ABORT_NO_MEMO_AT_FIRE guard covers any ordering surprise.
+- **MtReset binding site confirmed** — twin P026/P027: reset via MtReset at EA 10215 (companion C10215 `MtReset();` immediately before the latch C10216–C10217); IE9 inserts between 10215 and 10216. No collision with the IE4/IE5 insert points on the same boundary chain (11489|refresh|11490|probe+memo-clear|11491).
+- **S5 DIV_WAIT disposition exhibited** — twin P036 + companion C8856–C8875: null-walk DIV_WAIT print + SrjOrderEmit("DIV_WAIT") + S4-origin holder abort (GoAbort ABORT_DIV_FALLBACK); grades a HELD route, never a promotion.
+
+None of the defects named in Analytic ask A breaks an edit anchor, a closure item, or the anchor chain (10667, 8654/8655, 8786–8795, 2402/2403, 2451/2452, 320, 7305, 7325–7334, 10215/10216, 11083, 11104/11105, 11489–11491, H567–568, F327–328, F1075, F1195–1200 — all check against the twin and companion).
+
+---
+
+## IQ2v5 verdict line
+
+**IQ2v5-CONFIRM**
+
+## IQ2v5 plain answer
+
+**IQ2v5 CONFIRM - the closed acceptance stands:**
+
+- **Producer table per field** — A-IMPL2 (P033): one joined proof row per admission carrying entryPrice/slRef/tpTarget (IE6/IE7 print), risk/reward/R (IE7 arithmetic), winnerSource/winnerDayKey/winnerAge (IE5c memo), poolCoverageStart (IE5 coverage print), UJTOUCH pair (IE8), all keyed by uj_bar_key + the admission key. The P014 producer map checks against the exhibited companion: currentBias writers B126 (init) and B267 (DecisionBlock), export at F1075, fill switch F1195–1200, wasBiasFlip unread outside BiasEngine.
+- **Pool-service assertion + UJ-POOLDEAD** — A-IMPL2: coverage at or before the requested window start, or named-empty with cause; live-routes-but-dead-pool yields UJ-POOLDEAD with no silent fallback grading; both routes dead rides the IMPL1/IMPL3 findings (stated, not a pass).
+- **DIV four outcomes with gradeability each** — P036: aligned / opposing / absent / incomplete; aligned or genuinely-absent = gradeable, opposing or incomplete/unreadable = ungradeable that pass, named not failed.
+- **Bitmask causality** — A-EU-PRESERVE (P035): bit0=IE1, bit1=IE2/IE3, bit2=IE6, bit3=IE7, bit4=IE9, bit5=IE5/IE5b, bit6=IE8, 0=unattributed; only truly unattributed diffs are regressions and fail L-final absent his override. The bit set exactly covers the behavior-changing edits; print-only edits (IE4/IE10A/IE10B) produce no trade-set/census-population change and are correctly bitless.
+- **Failure-case dispositions** — all present and distributed: vacuous pass prevented by the pool-service assertion plus the P031 discipline ("a fail-closed outcome is a failed proof unless its finding predicate fires"); one route dead = that route's IFF finding (UJ-LTFPATH-DEAD P032, UJ-FLIPPATH-DEAD P034, UJ-POOLDEAD P033); short/gaps = SHORT enum state + EMPTY/0 skip + preload shortfall failing closed as evidence (P021); absent rows = failed proof because each IFF predicate requires its probe/vote rows present; finding-without-admission = graded as a finding (route-dead or no-silent-fallback), never as a pass.
+- **Latency timing at grade** — P021 ("refresh latency timed at grade") + P040 ("refresh-latency timing reported at grade").
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (page-only, with line references)
+
+1. **IE3 anchor label is wrong (twin P019).** "insert between EA 8794 print-close and EA 8795 comment" — the companion shows C8793 `else` / C8794 `{` (the else-branch open brace); the print-close in that region is C8785. The label is copied from IE2 (where C8654 *is* a print-close) and misdescribes 8794. The numeric anchor (between 8794 and 8795) is exact and lands the guard as the first statement of the else branch above the E2 comment — but any splice driven by the label rather than the line numbers would misplace it. Relatedly, "touch book at 8786-8793" counts the `else` (C8793) into the touch book; the if-branch is 8786–8792.
+2. **Refresh-caller contradiction between the companion bullet and the twin.** Bullet "Managed-trade head (… refresh caller at EA 11049, order pinned STAGE-1)" vs twin P021 (refresh unconditional in OnTick at EA 11489/11490; SrjSelEndOfRun at 11049 diagnostic-only, NO pool construction). On the page, C11049 is `if(InpDebugLog) SrjSelEndOfRun();` — the end-of-run diagnostic caller, not a refresh caller. Either the bullet is a stale v4 label (the pre-V311 siting at the end-of-run site) or "refresh" mislabels "diagnostic caller." The twin is unambiguous and is the authority, but the page carries two different claims about EA 11049 and should be cleaned before transport.
+3. **Census-rule mislabel (twin P023).** "first-eligible-wins kept as the census rule" contradicts the page's own C2395 ruling: census naming is LAST-equal via POI overwrite (C2450/C2463–2464 region), while *booking* keeps FIRST-equal (C2320). Non-functional — the census name is declared informational-only and no IE touches census naming — but the parenthetical attributes the booking rule to the census.
+4. **Wrong internal cross-reference (twin P021).** "winner provenance comes from the election per IE5b-census note below" — the census note lives in P023 (IE5c), not P022 (IE5b, the managed-side pool loop, which contains no census note).
+5. **uj_tradeSeq home unstated (twin P026).** The trade-seq field is listed among SManagedTrade fields "reset through the MtReset path at EA 10215 for the next trade." A monotonic trade sequence cannot itself live in a per-trade-reset struct field without collapsing to a constant. The design only works if the counter is file-scope and the struct field is a per-admission snapshot assigned at admission; the twin does not say where the counter lives. If the counter were the struct field, the 6/5 and 6/11 admissions would be indistinguishable — exactly what the seq exists to prevent.
+6. **Preload boundary ambiguity (twin P021).** "a 6/1-start UJ run needs M5 history back to April 30" — his phrase "april 30th previous day high for 160.723" is ambiguous between the 4/30 session/PD values and the PD line drawn *on* 4/30 (origin 4/29). Under the second reading the walker also needs 4/29 bars and the stated boundary is one day short. The shortfall fails closed and the pool-service assertion names it (loud, not silent), but the boundary as stated may be under-specified by one day.
+7. **Closure-time compression (twin P021).** "closure time = D's session close, source = session of origin" — for PD-origin records (origin D−1) the availability stamp must be the *origin* day's session close; as written the sentence stamps the walked day D's close. The origin-day mapping is stated in the same clause-set so the intent is recoverable, but the sentence stamps the wrong day for the PD-origin half of the pool — and the IE8 eligibility edge ("a touch on the bar that closes the session is INELIGIBLE") consumes exactly this stamp.
+8. **IFF predicate wording (twin P032).** "S2WAIT retained with no later guard pass at that pass" — "no later … at that pass" is self-contradictory. Intended reading: no guard-pass row at the 09:45:00 pass or at any later pass while the candidate is retained. Grade-time logic implements IFF predicates literally; restate before build.
+9. **"Retention rows" mislabel (twin P036).** The exhibited DIV_WAIT path (C8856–C8875) aborts S4-origin holders (GoAbort ABORT_DIV_FALLBACK, C8875) and rolls back S3-prebind origins; "retention" describes the S1WAIT/S2WAIT family (C8060, C8073). The HELD-never-promotion disposition is correct; the noun points at the wrong row family.
+10. **Load-bearing constant not exhibited (twin P014).** "FL_BUF_LTF_BIAS (EA define = 2) = g_bufBias (FlowLogic slot 2)" — the producer-map identity rests on the EA define's value and the indicator's SetBuffer order, neither of which appears in this page's companion (C180–204 contains no FL_BUF_LTF_BIAS; F30–60 shows declarations, not buffer-binding order). Carried from prior rounds; on this page it is assertion, not exhibit.
+11. **IE7 anchor end-line vs companion cut (twin P025).** "insert after the SlRefMemo success block EA 7325-7334" — 7325–7333 is the *failure* branch and C7334 is the first success assignment (`s1_stopRef = slRef;`); the success block's true end (the s1_haveStop assignment that follows) lies past the companion's cut at C7334, so the page cannot itself confirm the insert lands after the last success statement. STAGE-1 exact-diff pins it; the anchor is under-specified by the paste's own cut.
+12. **Minor labels/deferrals.** (a) P026 "after the EA 11081 brace" — the brace is at C11083 (signature C11081–C11082); "top of MtNearestTpTarget" is unambiguous, the line label is off by two. (b) P020 "cap pinned >= window bars" gives no number and no owner. (c) P029 "STAGE-1 confirms the flag needs no new input" — g_htfDebugLog's definition is not exhibited on the page. (d) P021 "third candidate loop" — the pool loop is the second loop in execution order (session > pool > POI); "third" counts candidate sources, not position; anchor 2402/2403 is correct.
+
+None of the above flips a verdict: every anchor's line-number identity checks, the twin's closure items are complete against the V311 fold list (all thirteen named objects appear in P003/P017–P029/P031–P036), and the companion exhibits every region the closure claims rest on.
+
+---
+
+## Analytic ask B — better mechanisms for the stated goal
+
+1. **Single-source the per-pass DIV verdict.** The S5 gate walks the CQD buffer newest-first every pass (C8836–C8849); the IE4 probe computes its own DIV class per pass (P020). Computing the walk once per pass at the IE4 site, caching the verdict in the pass memo, and having the S5 block read the cache would (i) halve the CQD walking and (ii) make a probe-class vs gate-verdict disagreement structurally impossible at grade. Touches: C8836–C8849 (inline walk → memo read), the IE4 insert site (EA 11490/11491 boundary), the memo fields (P027). Trade-off: it couples a diagnostic to the firing path — a cache defect would change behavior — whereas the twin's independent probe is the safer diagnostic. Adopt only if the double-walk cost or a probe/gate divergence ever shows at grade.
+2. **Incremental day-extend for the pool instead of full rebuild on rollover.** IE5 rebuilds the day-keyed cache from a Bars()-1 sweep at each rollover (P021). Only one day accrues per rollover, so a delta-extend (append the new day's records, never drop) bounds per-rollover cost to the new day and makes the refresh-latency figure trivially small. Touches: the SrjHistPoolBuild body + the file-scope cache arrays (P021). Trade-off: the full rebuild is self-healing against history reloads; a delta-extend must detect history rewrites, which the coverage watermark (requested-start vs achieved-start) already tracks.
+3. **Carry risk/reward/R in the IE9 memo.** IE7 computes the 1R arithmetic at the poll site (P025) and IE9's fire guard re-compares TP/SL only (P027). Adding risk/reward/R to the memo (written at the election point, compared at fire) single-sources the arithmetic and lets the fire guard prove the *fired* R equals the *elected* R, not just the prices. Touches: the memo fields (P027) + the IE7 print block. No surface growth.
+
+---
+
+Scope note: both CONFIRMs are page-rulings on the twin + companion + rows fence as pasted; disk genuineness, STAGE-1 diffs, and battery numbers remain builder-disk + his-eyes per the verification split. Build remains gated on a new Luna key + his run word, neither asked here.
+## V312-UJIMPL-13 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

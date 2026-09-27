@@ -17716,3 +17716,264 @@ For the telemetry, a minimal common record should identify the run/symbol/timefr
 
 *Software review only, not a trading recommendation; obtain qualified financial advice before any live use.*
 ## V311-UJIMPL-12 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+## V312-UJIMPL-13 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+Astra:
+Review basis: the pasted packet, companion excerpts, and labeled rows only. I do not independently verify disk hashes, byte identity, transport history, or runtime results. Design CLEAR and the carried E1/E2 rulings remain outside this review.
+
+**IQ1v5-OBJECT**
+
+IQ1v5 OBJECT — the refresh ownership and print location are materially improved, but the join remains underspecified, admission sequence allocation is not bound to a successful fire, and the claimed S5 HELD disposition conflicts with the exhibited S4-origin abort path at C8867–C8875.
+
+**IQ2v5-OBJECT**
+
+IQ2v5 OBJECT — the acceptance still permits incomplete evidence to masquerade as coverage or causality, and its finding predicates and DIV dispositions do not yet distinguish all relevant execution outcomes.
+
+These are separate verdicts. Neither authorizes a build or run.
+
+The following v311 objections are resolved at the specification level:
+
+- **Refresh ownership:** P021 explicitly moves construction to unconditional, pre-evaluation `OnTick` processing and makes `SrjSelEndOfRun` diagnostic-only. The former end-of-run scheduling objection is closed.
+- **Validity representation:** P021 separates pool state from day key and requires same-day retry on `FAILED`. That resolves the absence of a validity representation, though not all transitions.
+- **Print location:** P029 drops the unproven `GetOutputs` location and places printing after the three exhibited `RunOne` calls at H565–H567. That is a concrete execution location; the timestamp mapping still needs closure.
+- **Winner authority:** P023 makes election provenance authoritative and census naming informational. This resolves reliance on the existing last-equal census as proof of the booked source.
+- **Touch event structure:** P026 specifies per-trade one-shot state, closed-bar evaluation, closure-bar exclusion, and separate touch/re-election records, including no winner.
+- **DIV evidence:** C8852–C8875 now exhibits an actual disposition branch. It establishes that `DIV_WAIT` is an emitted marker before origin-dependent handling, not that all such cases remain held.
+
+## Analytic A — remaining defects, gaps, and imprecisions
+
+### A1. The indicator/EA join asserts equality while also asserting a slot offset
+
+**References: P020, P028–P029; F1072–F1075, F1195–F1200; H562–H567; C11487–C11491.**
+
+The EA’s key is the evaluated closed M5 bar time: 09:40 at the 09:45 pass. P029 describes the corresponding engine state as post-09:45 confirmation and proposes using `chartTime` at `RunAll`.
+
+Those timestamps are not established as equal by the supplied excerpts. `target=i-1` establishes an index relationship; it does not establish what timestamp the unseen `RunAll` caller passes.
+
+This is not a finding that the join is necessarily wrong. It is a finding that the page has not defined the transformation required to make it right.
+
+**Closure needed:** explicitly distinguish engine processing time, exported target-slot time, and EA evaluated-bar time. Define `uj_bar_key` as the target-slot time on both records, or define an exact mapping from the engine timestamp. Exhibit or specify the caller-side timestamp binding. Do not rely on subtracting five minutes where missing bars can break that mapping.
+
+### A2. RunOne debug state can be stale or overwritten unless its lifetime is specified
+
+**References: P029; H565–H567.**
+
+Three `RunOne` calls precede the print. “File-scope debug-only vars” does not specify whether the variables are:
+
+- per timeframe;
+- intentionally M15-only;
+- overwritten by every call;
+- reset before a call that can return without processing.
+
+The supplied companion does not include the `RunOne` body, its early returns, or the `g_htfDebugLog` enabling path. Consequently, the page supports the print’s placement but not the promised processing-index/readiness semantics or flag availability.
+
+**Closure needed:** specify per-TF snapshots, or explicitly M15-only ownership; clear current-call validity before invocation; publish whether processing occurred for this invocation. Give the existing flag binding as an implementation dependency, rather than treating it as already exhibited.
+
+### A3. Trade sequence and admission identity have storage but no allocation lifecycle
+
+**References: P025–P027, P033; C10215–C10217.**
+
+P026 adds `uj_admitBarTime` and `uj_tradeSeq` to `SManagedTrade`, but does not state:
+
+- where the sequence counter lives;
+- when it increments;
+- whether reset clears the counter or only the trade’s stored sequence;
+- which admission record first publishes it;
+- whether both touch and re-election records emit it.
+
+P033 requires an admission key in IE7 rows, yet IE7 executes at a poll across S2–S5, before admission is assured. A retained or rejected poll cannot truthfully carry a committed admission identity.
+
+**Closure needed:** distinguish poll/election identity from committed trade identity. Assign a run-local sequence only after the fire guard succeeds; store it after `MtReset`; emit an admission record joining that sequence to the accepted memo’s pass key. Later events must carry both their event-bar key and that immutable admission identity.
+
+### A4. Memo binding is named but not explicitly checked
+
+**References: P027; C10215–C10217.**
+
+P027 lists `anchorLine/dir/barTime`, but its actual rejection condition names only current-pass validity and valid TP/SL. A boolean cleared once per pass does not itself prove that the memo belongs to the candidate reaching fire.
+
+Likewise, “fire TP/SL must equal memo TP/SL” leaves unclear whether fire directly assigns memo values or compares separately calculated values.
+
+**Closure needed:** make candidate identity equality part of the guard. Specify direct consumption of the accepted memo, or explicit equality checks with a rejection disposition. Per-pass recomputation addresses cross-bar staleness; it does not establish candidate identity within a pass.
+
+### A5. Pool validity states need consumer and retry semantics
+
+**References: P021–P022, P033.**
+
+Retry is specified for `FAILED`, but not for `SHORT` or an initially empty/unready feed. It remains possible under the written contract to publish `SHORT` once and retain it all day after additional history becomes available.
+
+The packet also does not say whether admission and management consume `EMPTY`, `BUILDING`, `SHORT`, or `FAILED`, or whether “fails closed as evidence” means only a failed grade.
+
+**Closure needed:** define allowed consumer states and retry behavior for recoverable short/unready results. Distinguish trading behavior from evidence grading. A day key must not turn an incomplete first build into a completed refresh.
+
+### A6. Historical record derivation still lacks a finalized sampling rule
+
+**References: P021; F46–F48; F321–F328; C181–C200.**
+
+“Read PD/session buffers at D’s bars with origin-day mapping” does not specify which sample is authoritative for each source.
+
+The excerpts establish that previous-session values persist across day rollover. Therefore, observation day alone cannot identify origin day. A daily high/low also has a daily finalization boundary, whereas P021 gives the generic closure rule “D’s session close.”
+
+**Closure needed:** define, per buffer family, final sampling slot, origin-day mapping, availability timestamp, daily/session closure rule, and deduplication identity. Records must be admitted only when their source interval is finalized as of the evaluated pass.
+
+### A7. An earliest watermark does not prove a complete pool
+
+**References: P021, P033.**
+
+`achieved-start <= requested-start` establishes depth, not continuity or successful extraction. One old record can satisfy that inequality while intervening reads or entire source families are missing.
+
+“Named-empty with cause” also combines two materially different conditions:
+
+- complete traversal with no eligible records;
+- inability to establish records because history or reads are incomplete.
+
+**Closure needed:** require traversal/read completeness alongside depth, with valid-empty distinct from unavailable. Define `UJ-POOLDEAD` as an explicit predicate over those states. A diagnostic cause must not turn missing coverage into a successful pool-service assertion.
+
+### A8. Same-day closed-session sourcing is imprecisely named
+
+**References: P026; C2356–C2364; C11088–C11094; F46–F48.**
+
+P026 calls the same-day source “live PD slots (just-closed today sessions).” The companion distinguishes current-session buffers from previous-session buffers. Those are not interchangeable source identities.
+
+The existing managed loop includes both families, so this wording does not prove a runtime omission. It does leave the touch detector’s exact source unresolved.
+
+**Closure needed:** name the buffer pair and closure/availability provenance for the just-closed NY-AM session, and explain when any previous-session pair is used.
+
+### A9. The touch contract lacks post-admission and call-coverage guarantees
+
+**References: P026; C11081–C11085; C11115–C11117.**
+
+“First valid price-or-wick touch per trade” requires more than a one-shot flag:
+
+- the evaluated touch bar must belong to the trade’s lifetime;
+- every eligible managed bar must reach the detector;
+- repeated calls on one bar must not duplicate the event;
+- the chosen range predicate and touch-type classification must be defined.
+
+If recomputation occurs on the admission pass, the evaluated closed bar precedes the entry open. That bar cannot provide a post-entry touch. The supplied excerpts do not establish whether this call occurs, so this is a contract gap rather than a claimed observed error.
+
+**Closure needed:** bind eligibility to entry time, session availability, and current trade identity; specify the exact OHLC touch predicate and guarantee the detector’s per-bar invocation.
+
+### A10. The re-election record must distinguish computed and applied targets
+
+**References: P026; C11115–C11117.**
+
+The exhibited function returns a computed target. It does not exhibit where the caller applies that target to managed state.
+
+An `oldTP/newTP` record inside this function can prove an election result, but cannot alone prove an actual TP revision.
+
+**Closure needed:** label the second record as election output and join it to an application record, or emit the revision record at the actual assignment site. Define whether no winner leaves the current TP unchanged.
+
+### A11. Census first-eligible behavior still needs an explicit edit
+
+**References: P021, P023; C2441–C2464.**
+
+The proposed rule is clear, but the exhibited loops overwrite `winner` on each equality and omit some booking eligibility checks.
+
+P023 removes this census from authoritative provenance, which is sufficient to close the earlier authoritative-source objection. However, “first-eligible-wins kept” is not an accurate description of the supplied code.
+
+**Closure needed:** explicitly include the existing equality assignments and eligibility tests in the census amendment, or retain the legacy behavior and label it accurately.
+
+### A12. DIV null does not imply HELD
+
+**References: P036; C8832–C8848; C8856–C8875.**
+
+A complete walk with no nonzero verdict leaves `divOk=false`. The code emits `DIV_WAIT`, then, for S4-origin confirmation, calls `GoAbort(ABORT_DIV_FALLBACK, g_state)`.
+
+Thus, P036’s statement that null-walk `DIV_WAIT` plus `SrjOrderEmit` grades a HELD route is false for the exhibited S4-origin branch. The comments also identify S3 rollback; its implementation is not included here.
+
+**Closure needed:** grade the terminal disposition by confirmation origin. `DIV_WAIT` is an intermediate reason marker, not proof of retention. Distinguish upstream route reachability from S5 admission and from subsequent held/rollback/abort outcomes.
+
+### A13. Four DIV labels need a completeness algorithm
+
+**References: P020, P036; C8836–C8848.**
+
+The existing walker skips failed reads and can accept an older verdict despite unreadable newer slots. A diagnostic classifier cannot reliably label that result “latest aligned” without knowing that the preceding search interval was readable.
+
+Similarly, exhausting the walk with failures is not genuine absence.
+
+**Closure needed:** classify as incomplete when unreadable positions could conceal a newer verdict. Genuine absence requires a completed readable search over the declared domain. Specify how `EMPTY_VALUE` differs from failed/unavailable data.
+
+This can remain diagnostic-only; it does not require changing the carried DIV decision logic.
+
+### A14. The finding predicates do not fully encode the claimed prerequisites
+
+**References: P032, P034; C2270–C2275; C2239–C2265; C8060–C8076.**
+
+For `UJ-LTFPATH-DEAD`, “readable-valid” does not distinguish an aligned vote from a valid but opposing vote. The latter legitimately produces `S2WAIT`. Also, once `S2WAIT` returns at C8073, no later S3/S4 guard is reachable in that pass; the second predicate term adds little causal information.
+
+For `UJ-FLIPPATH-DEAD`, readable votes and probed H4/H1 do not imply `votes>=2`. With one aligned vote and no qualifying sweep, `REGIME_NONE` is the exhibited expected result.
+
+**Closure needed:** distinguish:
+
+- repair-goal failure despite valid inputs;
+- control-flow failure despite satisfied predicates;
+- ordinary predicate refusal;
+- unreadable evidence.
+
+A single finding may intentionally include the first and third categories, but then it must not imply an execution defect.
+
+### A15. Admission-only proof rows leave a vacuous-pass gap
+
+**References: P033, P037.**
+
+“One joined proof row per admission” is vacuously satisfied when there are no admissions. P033 names route-dead alternatives, but does not define a complete disposition when a route is reached and admission is rejected by TP, SL, 1R, memo, or DIV handling.
+
+Nor does it specify an independent pool-service proof when no admission occurs.
+
+**Closure needed:** require a scheduled pool-service record independent of admissions and a terminal disposition for each required decision pass. Keep successful admission proofs, named findings, ungradeable evidence, and failed acceptance distinct. Define how those statuses aggregate at L-final.
+
+### A16. Field ownership remains partial
+
+**References: P023, P025–P027, P033.**
+
+The producer list is a useful improvement, but several required fields remain incomplete:
+
+- `winnerAge` has no defined unit or derivation.
+- IE5c stores provenance but has no explicit admission-time emitter.
+- `uj_tradeSeq` is absent from P033’s stated join requirements.
+- Initial `UJTOUCH=NONE` is no longer explicitly required.
+- Coverage records have no stated build/version identity tying an admission to the cache it actually consumed.
+
+**Closure needed:** specify emitter, identity, validity, and null representation for these fields. A stored field is not yet a produced proof row.
+
+### A17. Bitmask mapping does not establish causality or acceptance
+
+**References: P035.**
+
+The bit assignments are explicit. “Base/edited row-matched with evidence per bit” is a proof obligation, not a defined causal rule.
+
+Changed trade populations also contain added and removed rows without one-to-one trade matches. Most importantly, an attributable change can still be an unintended regression. Knowing which edit caused a defect does not make that defect intended or accepted.
+
+**Closure needed:** define alignment for added/removed events and the evidence required to set each bit. Keep causality, intendedness, and operator acceptance separate. Require every unexplained difference to fail, without treating explanation alone as approval.
+
+### A18. Several anchor and verification claims overstate the supplied exhibit
+
+**References: P024–P026; C11081–C11083; C7325–C7334.**
+
+- P026 says “after the EA 11081 brace”; the opening brace is C11083.
+- P025 calls C7325–C7334 the success block, while the supplied excerpt stops at the `s1_stopRef` assignment. The accompanying description says `s1_haveStop` is part of that atomic success.
+- P024 asserts the other caller at EA 8918 has an independent `nextOpenPx` local; that caller is not exhibited here.
+
+These do not prove the intended edits are wrong. Correct the numeric anchor, specify insertion after **both** successful stop assignments, and label the 8918 safety claim as builder-verified rather than independently established by this companion.
+
+## Analytic B — better mechanisms within the stated scope
+
+1. **Use an atomic pool snapshot.**
+   At P021’s `OnTick` insertion before C11490, construct a temporary snapshot and publish records, day key, validity, coverage result, and version together. Specify what consumers do if publication fails. This avoids partially rebuilt or ambiguously stale caches without introducing another indicator or handle.
+
+2. **Capture provenance when the winner changes.**
+   At C2301–C2321 and the candidate loops at C2397–C2408 and C11099–C11113, update value and provenance atomically when a candidate becomes best. A small wrapper can preserve the existing price-selection function. Exact ties naturally preserve the first source. Census remains a diagnostic consumer.
+
+3. **Commit one admission record after the fire guard.**
+   Around C10215–C10217, validate the memo’s full candidate binding, assign the successful trade sequence, latch memo values, and emit the authoritative admission tuple. Join IE7 poll evidence to this record rather than calling each poll an admission.
+
+4. **Use separate event and admission keys.**
+   IE8 should emit `event_bar_key`, immutable `admit_bar_key`, and `trade_seq`. Engine rows should carry processing time and exported slot time separately, with the latter matching the EA’s `uj_bar_key`. This directly resolves both time-offset and later-management joins.
+
+5. **Separate touch detection, election, and application evidence.**
+   At the managed-bar caller and C11083–C11117, detect and latch the first eligible touch, record the election result, and record application at the actual TP assignment. The records can share one event identity without conflating three different facts.
+
+6. **Use a terminal decision-pass record for grading.**
+   At the relevant return/promotion sites—C8060, C8073, the IE2/IE3 guards, IE7, IE9, and C8856 onward—record the reached stage, prerequisite status, and actual terminal disposition. Grade the required 09:45 and 14:40 passes from those records, preserving the rule that later bars do not re-litigate selection.
+
+Refresh latency can remain a grade-time measurement as proposed in P040. The remaining objections concern the meaning and completeness of the evidence, not a demand for an unauthorized run.
+## V312-UJIMPL-13 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
