@@ -17977,3 +17977,71 @@ These do not prove the intended edits are wrong. Correct the numeric anchor, spe
 
 Refresh latency can remain a grade-time measurement as proposed in P040. The remaining objections concern the meaning and completeness of the evidence, not a demand for an unauthorized run.
 ## V312-UJIMPL-13 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V316-IMPL2-1 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+
+Astra:
+IQ1v9: OBJECT — P005, P020–P028, P043–P048, P065–P080; C10392–C10410.
+IQ2v9: OBJECT — P082–P088, especially P083–P086; C8190–C8200; R11–R13.
+
+These verdicts are independent and concern the page only. I accept the supplied disk claims as transported premises; I do not authenticate them here. Nothing in this answer grants a key or authorizes a build, run, trade, or live activation.
+
+1. **IQ1v9 — four-fix edit set**
+
+   **Fix A implements the stated SL truce, but leaves the admission proof incomplete.** P025–P026 retains identity checking, and C10392–C10393 retains memo liveness. C10405–C10407 then latches the fire-local entry, SL, and TP, consistent with the cited 159.889 stop. However, P028 expressly preserves **memo-write** 1R assertions while the new guard permits both SL and TP to differ from that memo. A passing memo R therefore does not prove that the tuple actually latched passes 1R.
+
+   This is a proof gap, not a claim that the unseen fire path lacks a suitable gate. Close it by identifying the existing fire-local gate and its exact ordering before C10398, or by adding that gate. It must validate the actual direction, entry, SL, TP, and R used at C10405–C10407. The 6/3 example establishes parity for that example; it does not establish the invariant for every admission.
+
+   **Fix A's retained diagnostic now has a narrower meaning than its labels suggest.** C10388–C10389 still describes "value equality; cross-check tuple on pass," although P025 removes that check. C10396 prints a memo tuple and R under `UJMEMO_PASS` with an `admit_key`, while the admission may use different values. P020 and P028 do explain that the memo remains evidence, but the executable diagnostic and comment should explicitly distinguish "memo liveness/identity passed" from "admitted tuple validated." Update the comment and specify which row proves the actual latched tuple.
+
+   **Fix B is mechanically sound for a POC anchor excluding its paired VWAP, but the broader own-source claim needs a stated boundary.** P033 excludes the anchor; P038–P039 excludes the same-family VWAP when the anchor is POC. With the supplied authority table, that excludes Daily-POC and Daily-VWAP for a Daily-POC anchor. Conversely, a Daily-VWAP anchor can still target Daily-POC. That is consistent with a *directional POC-over-VWAP hierarchy*, but the helper does not independently represent a multi-source confluence.
+
+   State at P029–P040 whether the settled booking invariant guarantees that a POC+VWAP confluence is anchored to POC. If it does, cite that invariant. If it does not, this helper alone does not establish the broader promise that every contributing own-source line is excluded. This does not require reopening the operator's rule.
+
+   **Fix B's exact sites and substitutions are not fully pinned.** P029 names the EA 2379 region, whereas the supplied helper insertion anchor closes at C2402. P048 names the Mt loop at the EA 11623 region; the companion places it at C11361–C11368. Region drift can be resolved by STAGE-1, but it remains an imprecision in a request to confirm exact anchors.
+
+   Also, "B2 identical with `(k, g_mtrade.anchorLine)`" at P048 does not explicitly replace the `g_anchorLine` references inside the print at P046. If only the helper arguments change, eligibility uses the managed trade's anchor while the diagnostic names the current candidate's anchor. Supply the full B2 insertion, using `g_mtrade.anchorLine` consistently in both the test and the printed anchor. Supply B3 explicitly as well so the exact-diff surface is unambiguous.
+
+   **Fix C's displayed control flow supports one S2-to-S3 promotion.** P054–P063 falls through to C8197–C8199 on an aligned M15 read, and retains the existing wait on an unsuccessful or nonmatching read. That part is coherent. The companion does not show the downstream guards asserted at P016, so I treat their preservation as the packet's explicit premise, not an independently demonstrated result. Fix C's principal defect is the acceptance requirement discussed under IQ2.
+
+   **Fix D implements an empty-election fallback, which is narrower than an unconditional nearest-only election.** Under P067, any existing masked winner prevents the mask-off walk. Therefore a farther eligible masked line can still win while a nearer swept line remains excluded. P065 accurately describes the conditional fallback; the unqualified "book nearest, refuse ONLY below 1R" at P014 needs its scope made explicit.
+
+   If the settled pin applies only when the masked election is empty, say so at P014 and P065. If it applies to every admission, P067 is insufficient: admission must elect the nearest line from the intended mask-off pool before applying 1R. The supplied page does not justify silently choosing between those scopes.
+
+   **Fix D's census-coherence claim is not demonstrated by the supplied companion.** P065 says insertion before the census makes the census name the fallback winner. C2505–C2510 establishes that the census re-walks candidates, but the supplied census implementation covers only the POI loop. The fallback elects **session** lines. Show or pin the existing session-census behavior that names a swept fallback winner, including its tie rule. This is a missing proof, not evidence that the census necessarily fails.
+
+   **The file-scope statement omits Fix D.** P005 says "fixes A-C below," while P065–P078 adds D in the same EA. Amend it to A–D.
+
+   **The stated +35 budget matches the fenced edit accounting as written.** P080 is not itself an arithmetic objection. However, that budget cannot also cover unspecified diagnostic, gate, or scope amendments. Recount the final explicit edit set after resolving them. Likewise, "surface unchanged" should mean the declared files/interfaces/buffers/inputs/handles remain unchanged; these edits intentionally change behavior.
+
+   **Better mechanism for IQ1:** retain the liveness-and-identity memo guard, then prove or enforce 1R on the exact fire-local tuple immediately before C10398 and log that tuple at admission. Make B2's managed-anchor substitution explicit at C11361–C11368. For D, settle the pool scope at P014/P065 and implement that scope directly at C2504–C2505. These changes address the actual invariants without restoring the retired memo/fire equality abort.
+
+2. **IQ2v9 — five-leg acceptance**
+
+   **A-SL1 has contradictory mandatory SL values.** P083 requires "memo-sourced SL" and `UJADMIT sl=159.905`. P020, P092, C10406, R01–R05, and the IQ2 summary require the parity fire-local stop **159.889**. Both cannot grade the same admission as specified.
+
+   Replace P083 with the parity tuple: signal bar **6/3 09:05**, admission corresponding to the **09:10** opening bar, entry **159.929**, SL **159.889**, TP **159.983**, and a passing 1R proof on that actual tuple. Memo SL **159.905** may remain explicitly labeled evidence. Zero `UJMISMATCH` occurrences after retiring its producer is a retirement check; it is not proof of a successful admission.
+
+   **A-S2P asks for a second S2 promotion after the candidate has left S2.** P084 and the IQ2 summary require `S2PROMOTE_M15` on both 09:35 and 09:40 passes. The first successful pass executes C8198 and changes state to `ST_S3_ZONE_WAIT`. The same continuously progressing candidate therefore does not execute the S2 promotion branch again on the next pass. A second promotion would require an additional transition back to S2 or a different candidate; neither is the stated path.
+
+   Grade the intended sequence instead: promotion on signal bar **09:35**, confirmation on **09:40**, and one SHORT admission on the **09:45** opening bar. P013 already describes that sequence. Merely reaching S3 does not prove the morning venue's take.
+
+   Require one LONG admission with `signalBarTime=14:35`, `fillBarTime=14:40`, entry **160.524**, and YLOH TP **160.587**, with 1R proved on its actual SL. If the unchanged path already produces this, pin that path. Otherwise, the four-fix set lacks the timing correction needed for this acceptance.
+
+   Requiring both `UJPOISKIP` rows on that admission path is also stronger than the shown evidence supports: an earlier session-target return could bypass the POI loop. Keep the skip rows as a helper-execution proof when that loop is reached; make the correctly timed admission and eligible winner the venue proof.
+
+   **A-FB does not yet prove the fourth valid trade.** P086 accepts "UJ1R verdict + take path per R." That wording can accommodate a sub-1R rejection, yet P010 and the IQ2 opening promise four valid trades and one take per venue. P082's exception for a firing "finding predicate" does not name such a predicate for this leg.
+
+   Require a single **6/5 16:15 LONG** admission, with its signal/confirmation bar, elected source, entry, SL, TP, and actual 1R result identified. Show that the elected fallback is the nearest candidate satisfying the declared remaining eligibility rules. If it is below 1R or no eligible line exists, grade the four-take proof as failed and name that finding; do not let a correctly logged rejection count as the promised take. R09's distance census alone does not establish zone eligibility or the final admission tuple.
+
+   The "16:10–16:15 passes print" requirement also needs an explicit distinction between processing time and `bar=` time. `TPFALLBACK` is conditional on both reaching this computation with `!haveBest` and enabling debug logging. It is not inherently guaranteed on every pass in that interval.
+
+   **The five-leg description overstates what its predicates require.** P083 and P085 ask for admissions; P084 stops at promotion; P086 permits a conditional take path. P088 simply aggregates those uneven predicates. Add a common requirement for exactly one matching admission per named venue, keyed to candidate/admission identity and the correct signal and fill bars. Count repeated diagnostics separately from admissions.
+
+   **A-EU-PRESERVE is carried but not operationally defined on this page.** P087 gives the date range and "zero-delta sibling row," without naming the baseline or the comparison fields. The edits shown are not visibly USDJPY-gated, so EU preservation is a meaningful regression condition.
+
+   The acceptance should reference the exact carried comparator: baseline identity, matched row keys, compared behavioral fields, and treatment of intentionally added diagnostics. A zero-delta comparison of raw logs would conflict with new print producers; a zero-delta comparison of admission and outcome behavior can be well-defined. The EU leg remains pending until its future evidence is supplied.
+
+   **Better mechanism for IQ2:** use a per-venue acceptance record containing candidate/admission identity, direction, signal bar, fill bar, actual entry/SL/TP, target source, actual-tuple 1R verdict, and admission count. Attach mechanism-specific rows—memo identity pass, M15 promotion, POI exclusion, or mask-off fallback—as supporting evidence. State the run's debug setting because P060, P075–P076, and C10412 make several required rows conditional on it. Name each failure predicate explicitly, and require all four venue admissions plus the defined EU comparison for L-final. 
+
+## V316-IMPL2-1 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

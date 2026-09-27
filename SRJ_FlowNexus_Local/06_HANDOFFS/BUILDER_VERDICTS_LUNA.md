@@ -11859,3 +11859,81 @@ GRANT CONFIRMED.
 No additional build or run is authorized by this grant.
 
 ## KEY LUNA V315-IMPL1V8 END (nothing appended)
+
+## V316-IMPL2-1 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+
+Luna:
+## IQ1v9 — OBJECT
+
+The four fixes are directionally coherent, but the page is **not internally closed enough to CONFIRM** as written.
+
+1. **Fix A does not show the claimed latch change.** The packet says the latch must consume the fire locals and restore the proven `159.889` stop, but the actual A edit shown only removes TP/SL value equality from the memo guard. No assignment that changes the fire-side `slRef`/`tpTarget` from the memo tuple to the fire locals is shown. The later MTSNAP block still simply records `slRef` and `tpTarget`.  
+
+2. **A-SL1 contains a direct acceptance contradiction.** It says the take is "memo-sourced SL … `159.905`" while the later IQ2 leg requires the take/UJADMIT to be `159.889`. Those are different semantics and different prices.  
+
+3. **The "own-source lines" wording is broader than Fix B's actual rule.** The helper excludes the anchor itself and the specific same-family `POC → VWAP` case. It does not implement a general provenance-based "own origin line" exclusion. The plain-sentence description therefore overstates what the code guarantees.  
+
+4. **Fix C does not explicitly prove that `FL_BUF_HTF_LOW` is the confirmed M15 vote being asserted.** The code re-reads that buffer and compares direction, but the acceptance evidence separately contains a `confirmedFeed=1` field. The proposed edit itself does not carry or assert confirmation-state/bar identity. That leaves the claimed "15-minute confirmation vote" partly implicit.  
+
+5. **Fix D's "mask-off" property is asserted rather than mechanically demonstrated on the page.** The fallback omits a visible mask test, but it still reads the same `sessbufs`; the packet does not show whether masking is external to those buffers or encoded in their returned values. Therefore "mask-off" is not fully proven by the displayed edit alone. 
+
+### IQ1 verdict line
+
+**OBJECT — L87-L103, L159-L171, L177-L201, L213-L217, L543-L559.**
+
+The +35 budget itself is arithmetically presented consistently; the failure is closure/precision, not the headline budget. 
+
+---
+
+## IQ2v9 — OBJECT
+
+The acceptance set has multiple problems beyond simply being a future run.
+
+**A-SL1 is internally inconsistent** because the required stop is simultaneously `159.905` and `159.889`.  
+
+**A-POIV conflicts with the entry-bar evidence.** The settled ruling says 14:35 is confirmation and **14:40 opens at `160.524`**, with `160.520` belonging to the 14:45 open. Yet the worked RECON71 rows show the 14:40 census/ref and UJ1R entry as `160.520`. The acceptance also points to YLOH from the 14:35 row while requiring the repaired 14:40 result to book YLOH. That exact 14:40 proof is absent.   
+
+**The "rows must reproduce in fixed form" requirement is therefore impossible as written.** R12/R13 are explicitly the pre-fix erroneous `14:40 / 160.520` evidence, while the same packet declares that value belongs to 14:45.  
+
+**A-FB is underspecified as an acceptance predicate.** It requires a nearest fallback and an R verdict, but does not name the expected fallback line/value. R09/R10 establish why the original election was empty; they do not establish which exact mask-off session line the repaired code must book.  
+
+### IQ2 verdict line
+
+**OBJECT — L213-L221, L523-L527, L569-L587.**
+
+---
+
+## Analytic ask A — defects / gaps / imprecision
+
+**L87-L88:** "latch consumes fire locals" is not represented in the supplied A replacement.
+
+**L103 / L243-L259:** the code companion is explicitly the built-tree/base-tree pull, but it is easy to misread as the post-fix code. It still contains `ABORT_MEMO_MISMATCH`. Labeling it explicitly "pre-patch base witness" would remove ambiguity. 
+
+**L137-L143:** B1/B2/B3 are described as identical, but the actual surrounding loops have materially different pre-existing conditions. The relay should state whether the helper is an additional gate or the replacement for an existing anchor exclusion at each site.  
+
+**L159-L167:** the M15 promotion predicate has no explicit confirmation timestamp/bar identity.
+
+**L177-L205:** "mask-off" depends on unseen semantics of `sessbufs`; the edit proves omission of an explicit filter, not necessarily raw-line access.
+
+**L213-L217 vs L573-L579:** contradictory A-SL1 stop semantics.
+
+**L523-L527:** known-bad 6/11 entry price remains embedded in the "rows fence."
+
+**L581-L583:** requiring R01-R13 to be reproduced "in fixed form" conflicts with the stated correction of R12/R13.
+
+**L587-L595:** IQ2 says "provable as stated," but the packet mixes historical witness rows, future acceptance rows, and corrected expected outcomes without clearly separating those three classes.
+
+---
+
+## Analytic ask B — better mechanisms
+
+**Fix A:** make the fire tuple explicit and single-sourced. Capture `fireTp/fireSl` immediately after the final fire-side election, then validate only memo liveness/identity and assign the admitted trade from the fire tuple. Add one invariant that `UJADMIT` and `MTSNAP` equal that tuple. This directly closes the gap at the A/MTSNAP region around L97-L101 and L283-L301. 
+
+**Fix B:** centralize the own-source/hierarchy rule inside the target-election function, with an admission-only flag if managed-side retargeting must remain untouched. That avoids three call sites drifting apart. The relevant surface is L109-L129 and the three target loops at L343-L353, L379-L405, and L409-L423.   
+
+**Fix C:** carry an explicit confirmed-M15 observation `(barTime, direction, confirmed=true)` into S2 promotion rather than re-deriving the vote from the current M5 evaluation context. This removes the indexing/confirmation ambiguity around L159-L167. 
+
+**Fix D:** make "mask-off" an explicit API condition, e.g. a raw/unmasked session-line read or an explicit `ignoreSweepMask=true` path in the election helper. That makes the intended rule mechanically visible instead of inferred from omitted code at L181-L193. 
+
+**Council disposition:** this relay needs an amendment before either IQ1 or IQ2 can be cleared. 
+## V316-IMPL2-1 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

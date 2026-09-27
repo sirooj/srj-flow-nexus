@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, RELAY GREEN)
+## State (2026-09-27, V316 FOLDED)
 
-- Relay v316 battery-green on disk
-  (69739C9C/32074/317; twin/rows/prose
-  all proven above). No transport ask
-  shipped (draft turn). Ledger 884.
+- V316 graded 0-3 both (HALT, no build).
+  Fold green: packet v4 789C313B +
+  relay v317 C3D58CB5 battery-green.
+  Grant spent. Seats unchanged. Ledger 887.
 
 ## Next (owed him)
 
-- NOTHING owed: relay waits for YOUR
+- NOTHING owed: v317 waits for YOUR
   carry word; say it and the memo ships.
 
 ## Next (owed him)
