@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, V315 GRADED)
+## State (2026-09-26, WORD IN / KEY OWED)
 
 - V315 graded (IQ1v8/IQ2v8 2-0 CONFIRM;
   packet IMPL-1 v8 council-cleared).
-  Build gated: NEW Luna key + run word
-  (not asked, never demanded).
-  Handoff POST-V316 on disk, uncommitted.
-  Seats: Luna + Astra + GLM. Ledger 872.
+  HIS run word received ("proceed to build").
+  BUILD BLOCKED on NEW Luna key (none on
+  record for v8; his word cannot mint it).
+  Seats: Luna + Astra + GLM. Ledger 873.
 
 ## Next (owed him)
 
-- HIS key + run word for the v8 build
-  when ready; nothing else owed.
+- HIS Luna-key carry (paste whole relay
+  fresh + key ask, paste whole reply back).
 
 ## Resume order (exact)
 

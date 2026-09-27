@@ -11,7 +11,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-1.md` v8 D3A66F97/19633/46 (DIV + provenance closure; COUNCIL-CLEARED 2-0, build gated on key + word).
+- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-1.md` v8 D3A66F97/19633/46 (DIV + provenance closure; COUNCIL-CLEARED 2-0; HIS run word received 2026-09-26; NEW Luna key owed - build blocked until it lands).
 - Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v315-UJIMPL-16.md` A6623B35/96540/1029, TRANSPORTED + GRADED (IQ1v8/IQ2v8 2-0 CONFIRM; twin 46/46, EA 594 + B 116 + F 71 + H 70, rows 30).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_V315-GRADE.md` (2 texts, IQ1v8/IQ2v8 2-0 CONFIRM; v8 cleared).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
