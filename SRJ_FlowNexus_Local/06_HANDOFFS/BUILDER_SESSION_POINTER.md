@@ -3,18 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, V8 BUILT)
+## State (2026-09-27, RUN ACTIVE)
 
-- Packet v8 BUILT 14C7476C (EA 0/0 +
-  FlowLogic 0/0; key build-leg spent).
-  Tester-run leg open: ONE run allowed.
-  Seats: Luna + Astra + GLM. Ledger 876.
+- RECON71-V8-UJ launched 13:38 (UJ 6/1-6/13,
+  tree 14C7476C; grant run-leg spent).
+  Range proof pending journal line.
+  Ceiling 90. Seats unchanged. Ledger 877.
 
 ## Next (owed him)
 
-- HIS window pick (UJ 6/1-6/13 miss
-  venues vs EU 8/26-9/10 preservation;
-  one run covers one symbol only).
+- HIS run-completion word when the tester
+  finishes (or the DONE file lands first).
 
 ## Next (owed him)
 
