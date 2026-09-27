@@ -12010,3 +12010,78 @@ There is also a minor evidentiary inconsistency in the B3-related diagnostics: t
 The objections are page-level only; nothing here questions the packet's stated four-fix design or its disk-side evidence claims. 
 
 ## V317-IMPL2-2 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V318-IMPL2-3 OPEN LUNA (verbatim open; novel inbound, pre-counts 0/0)
+
+## IQ1v11 — **CONFIRM**
+
+The amended edit set is internally closed on the page. The four-fix logic, +46 net budget, unchanged external interface, and exact edit anchors are mutually consistent. The packet explicitly gates the build on a new key plus the operator’s run word, so this round itself does not authorize a build/run.
+
+The strongest closure points are:
+
+* Fix A now validates **1R on the fire-local tuple**, carries that value into admission, and separates identity failure from liveness failure. The old value-equality mismatch is explicitly retired.
+* Fix B consistently adds the own-anchor / same-family POC→VWAP exclusion at the three stated loops, while retaining the existing rank filter. The one-directional hierarchy rule is explicit.
+* Fix C promotes on the specified M15 vote rather than retaining the candidate, while leaving the downstream S3 path unchanged.
+* Fix D is genuinely empty-election-only and performs a mask-off session re-walk before the final 1R gate; it does not replace the normal election.
+* Fix E is explicitly print-only.
+* The stated +46 net is arithmetically reproducible from the per-site deltas shown in the packet.
+
+### IQ1 analytic defects / imprecisions
+
+**1. “Containing-M15 source evidence” is slightly too strong — non-blocking.**
+The packet itself correctly admits that `m15src` is derived from the containing M5 bar and is **not** confirmed indicator-source timing; source-time mapping is deferred to future indicator work. So the precise claim is “containing-M15 time mapping,” not “M15 source evidence.”
+
+**2. “Surface unchanged” should technically read “external interface surface unchanged” — non-blocking.**
+The source surface itself changes through code and diagnostics; what remains unchanged is the input/buffer/handle interface. The packet elsewhere defines that correctly as no new buffers, inputs, handles, or EA-side mirror.
+
+**3. Fix A’s memo identity remains deliberately narrower than full tuple identity — non-blocking, but important.**
+After the repair, identity is effectively anchored by memo validity/bar plus anchor and direction, while TP/SL numeric equality is retired. That is consistent with the stated doctrine, but it means the memo is evidence/liveness rather than proof that the memo TP/SL exactly equals the currently elected fire tuple. The packet explicitly relies on the fire-local 1R gate for the authoritative tuple.
+
+No other page-level defect is sufficient to change IQ1 to OBJECT.
+
+---
+
+## IQ2v11 — **CONFIRM**
+
+The acceptance contract is sufficiently specified to be gradeable without inventing criteria. It pins the four named June venues, their signal/fill identities, source requirements, 1R requirements, witness prohibitions, and the EU-preservation comparator; it also defines named failure findings for each materially different failure mode.
+
+The contract is especially well closed in these places:
+
+* **6/3 SL parity:** fire/local SL is explicitly 159.889, while 159.905 remains memo evidence only.
+* **6/5 09:45 short:** promotion at 09:35, confirmation at 09:40, and fill at 09:45 are separately pinned.
+* **6/11 POI trade:** signal bar 14:35, fill bar 14:40, entry 160.524, YLOH source, touch prerequisite, and wrong-fill/touch failure findings are explicit.
+* **6/5 fallback:** 16:05 signal / 16:10 evaluation / 16:15 admission timing is distinguished, the selected source and actual tuple are grade-read, and empty/sub-1R fallback failure has a dedicated finding.
+* EU comparison is explicitly separated from the four-venue L-final rather than silently folded into it.
+
+### IQ2 analytic defects / imprecisions
+
+**1. `UJ1R PASS` is a future grade fact, not something demonstrated by the cited pre-fix R01–R04 rows — non-blocking.**
+The acceptance correctly marks grade-read fields as read at grade, but the wording can momentarily look as though the old parity rows already prove the future `UJ1R`. They do not; the future run must produce it.
+
+**2. Census evidence is appropriately demoted to corroboration, but that distinction should remain strict — non-blocking.**
+For 6/11, the admission-tuple `wsrc=YLOH` is the authoritative source proof; `TPCENSUS #76` is only corroboration. That is correctly stated and avoids the old equal-price ambiguity.
+
+**3. “Exactly once” is an admission/promotion predicate, not merely a print-count predicate — non-blocking.**
+The acceptance should be read as exactly one state transition for the named candidate; repeated diagnostics must not be mistaken for duplicate promotions. The packet separately establishes that diagnostics and admissions are distinct.
+
+No material acceptance gap requires IQ2 to become OBJECT.
+
+---
+
+## Analytic ask B — better mechanisms
+
+I do **not** see a better mechanism that is sufficiently justified to replace the cleared designs on this page.
+
+The only mechanism I would flag for a later optimization review is **centralized POI-target validation**. A shared election helper could reduce repeated B1/B2/B3 gating logic, but the packet explicitly declines centralization because the three sites have different anchor provenance (`g_anchorLine` versus `g_mtrade.anchorLine`). Given that constraint, the current per-site helper gate is the safer page-closed mechanism.
+
+### Final council output
+
+```text
+IQ1v11: CONFIRM
+
+IQ2v11: CONFIRM
+```
+
+The remaining points are precision notes for the future build/test, not blockers to this amend-round clearance.
+
+## V318-IMPL2-3 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

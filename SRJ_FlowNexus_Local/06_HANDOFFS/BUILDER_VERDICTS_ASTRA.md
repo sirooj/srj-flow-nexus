@@ -18111,3 +18111,63 @@ The verdicts are independent and concern the supplied page only. Disk claims rem
 These objections concern evidence precision and internal consistency. They do not assert that the four future trades cannot occur, and a corrected acceptance contract would not itself establish that they have occurred. 
 
 ## V317-IMPL2-2 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V318-IMPL2-3 OPEN ASTRA (verbatim open; novel inbound, pre-counts 0/0)
+
+IQ1v11: OBJECT — P025–P047, C10405–C10407, C10429: fire-local TP and memo-derived target provenance can diverge, yet the admission row presents them as one tuple.
+
+IQ2v11: OBJECT — P153–P160, C10409–C10410, C10429: target-source proof remains unbound to the admitted TP; several bar predicates and failure mappings remain underspecified; the touch requirement differs between the packet and the IQ2 restatement.
+
+These are independent page-only verdicts. I accept the companion as the labeled pre-patch witness; I do not certify the stated disk checks or run outcomes.
+
+1. **Blocking both questions: admission provenance is still memo-derived after TP equality is retired.** P025–P026 checks anchor and direction, while C10392 retains memo liveness. Neither requires memo TP to equal fire TP. P034 correctly tests the fire-local entry/SL/TP, and P045 correctly changes admission R to `uj_fireR`, but that same admission row still publishes `uj_memo_wsrc`, `uj_memo_wday`, `uj_memo_wgen`, and `uj_memo_wage`.
+
+   Consequently, the shown code permits an admission with fire TP X and provenance belonging to memo TP Y. The 1R check establishes the economics of X; it does not establish X’s source. P037 explicitly anticipates fire-time TP divergence, so this is within the amendment’s stated scope.
+
+   This defeats P156’s claim that admission `wsrc=YLOH` proves the admitted target’s source. Even equal target prices cannot establish source identity where different candidates share a price—the packet itself recognizes that ambiguity.
+
+   **Better mechanism:** at the fire-side election supplying `tpTarget`, preserve that election’s provenance together with its target value, using the existing winner assignments illustrated at C2399–C2401. Publish that preserved provenance at P045/C10429. The exact fire-side election/capture location is not shown, so I cannot supply an exact insertion anchor from this page. Alternatively, explicitly label the existing fields as memo provenance and provide a separately bound fire-election record. Neither remedy requires restoring SL equality.
+
+2. **IQ2: the expected signal/fill pairs are not completely specified.** P153 requires signal and fill bars, and P159 requires matching against those bars, but P154 specifies only the June 3 signal bar, 09:05. R01–R02 show processing at 09:10; that is evidence supporting an expected fill, not an explicit acceptance predicate for `fillBarTime`.
+
+   P155 specifies promotion at 09:35, confirmation at 09:40, and fill at 09:45, but does not explicitly pin the admission’s `signalBarTime`. Under the shown latch at C10410, that field is the bar evaluated at admission, not necessarily the earlier promotion bar.
+
+   **Better contract:** explicitly declare June 3’s expected signal/fill pair and June 5 morning’s expected admission signal/fill pair. If the intended pairs are 09:05/09:10 and 09:40/09:45 respectively, write those pairs into P154–P155. Do not leave the grader to choose them.
+
+3. **IQ2: the afternoon leg conflates the fallback diagnostic bar with the admission signal bar.** P157 and the IQ2 A-FB restatement associate signal bar 16:05, evaluation at 16:10, and admission at 16:15. C10409–C10410, however, assign fill and signal times at the admission edge from shift 0 and `barShift`.
+
+   The page does not show how an admission at 16:15 retains 16:05 as its signal bar, or whether 16:05 is intended only as the earlier fallback-election witness. This is a proof gap, not a finding that the combination is impossible.
+
+   **Better contract:** distinguish `fallback evaluation bar/time` from `admission signalBarTime/fillBarTime`, then pin the latter pair. If retaining an earlier signal bar is required, show the existing storage and use that achieves it; no timing edit should be inferred.
+
+4. **IQ2: touch acceptance has two different definitions.** P156 permits either `UJTOUCHSEEN` by 14:35 **or** progression past the S4 touch gate. The IQ2 A-POIV restatement requires `UJTOUCHSEEN` by 14:35 and omits that alternative. These produce different verdicts when progression is evidenced but the touch row is absent.
+
+   Moreover, P148 prints bar and direction without an admission/candidate identifier or anchor. A same-direction touch row alone does not identify the intended candidate. P153’s general identity requirement is useful, but the touch evidence still needs an explicit correlation rule.
+
+   **Better contract:** choose one touch predicate in both places. If progression is an allowed substitute, name the qualifying progression record and its candidate linkage. Otherwise require the touch row linked to the candidate through a defined state sequence, or enrich P148 with an available candidate key.
+
+5. **IQ2: the findings map does not cover every required predicate.** P160 says every failed predicate names a finding. It does not explicitly map, for example:
+
+   - An admitted tuple failing actual-tuple 1R outside the fallback leg.
+   - A wrong signal bar with the correct fill bar.
+   - A wrong direction or candidate identity.
+   - More than one promotion diagnostic but exactly one admission.
+   - Missing required evidence where absence does not establish that the underlying event never occurred.
+
+   `UJ-DUPADMIT` cannot describe duplicate promotion rows because P159 explicitly distinguishes diagnostics from admissions. `UJ-TIMEBASE` currently maps wrong fill, not wrong signal. `UJ-NOTOUCH` describes touch never set, which is stronger than an unproven touch.
+
+   **Better contract:** broaden the existing definitions explicitly or add findings for these cases. Specify whether multiple findings may attach to one failed venue; this need not change the one-resolution-per-venue rule.
+
+6. **IQ2: fallback failure phase remains ambiguous.** P157 makes `UJ-FBDEAD` fire iff fallback elects nothing or elects sub-1R “at the 16:15 pass,” while its supporting election witness is the 16:05 bar evaluated at 16:10. P124 also makes fallback conditional on an empty ordinary election: reaching a later pass does not itself establish that fallback ran there.
+
+   **Better contract:** name the precise election event to which `UJ-FBDEAD` applies and how it is linked to the intended admission. Preserve the stated distinction: no admission fails the take proof; a justified refusal can resolve the venue without passing it. The packet already states that distinction correctly.
+
+7. **Nonblocking precision: two diagnostic descriptions overstate or misname what is printed.** P047/P151 and the IQ1 Fix A summary call A7 an “MTSNAP R swap,” but P043–P045 changes `UJADMIT`; the shown MTSNAP at C10413–C10421 has no R field. Also, IQ1 describes Fix C’s `rf` values as “readFail flags,” whereas P111/P114/P117 emit read-success values: 1 means successful read.
+
+   **Better wording:** “UJADMIT R swap” and “M15/LTF read-success flags.” P151’s explicit disclaimer that `m15src` is a containing-bar label, not indicator source-time proof, is adequate; I do not reopen that withdrawn objection.
+
+The B3 suffix/comment amendment, managed-anchor use, state-gated S2 fall-through, mask omission in the empty-election fallback, existing fire-local latch assignments, and print-only nature of E are supported by the displayed edits. I do not request centralized election, a new mask API, an arithmetic helper, or an additional human reviewer.
+
+No key, build, run, money movement, or live activation is authorized by these verdicts.
+
+## V318-IMPL2-3 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

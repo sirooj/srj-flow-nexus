@@ -6114,3 +6114,45 @@ A-SL1 and A-FB are provable as stated: A-SL1's mechanism is fully closed by the 
 
 **Close**: IQ2's objection is surgical — one leg's pre-declared values lack an on-page producer, plus two naming gaps. Everything else (edit set, budget, rows fence, A-SL1/A-S2P/A-FB legs, parity safety of Fix B against the 6/3 and 6/5-am venues) verified clean on the page. A v5 that grade-reads or evidences the 6/11 fill, names the no-admission findings, and un-bundles L-final would be confirmable. Ruling on the page only; no files requested; nothing built, run, spent, or cleared here. 
 ## V317-IMPL2-2 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V318-IMPL2-3 OPEN GLM (verbatim open; novel inbound, pre-counts 0/0)
+
+IQ1v11 verdict line: CONFIRM
+
+IQ2v11 verdict line: CONFIRM
+
+Both rulings are page-only: edit-set closure verified by hand (anchors, budget arithmetic re-counted below, surface), acceptance closure verified by named-rows/named-findings per leg. Nothing here builds, runs, spends, or clears live activation; no key volunteered or asked.
+
+## Analytic ask A (defects, gaps, imprecisions — page-only)
+
+1. **A7 row mislabel** (P047, P151): the parenthetical "(single MTSNAP line)" and the budget tag "(MTSNAP R swap)" misname the edited row. The swap is on the UJADMIT PrintFormat (companion C10429); MTSNAP (C10413-C10421) carries no R field. The fenced old/new blocks are unambiguous; label-only defect.
+
+2. **A-FB bar-label mixing** (P157): the leg uses three timestamps without pinning the record's fields — "ONE 6/5 16:15 LONG admission record", "(signal-bar time 16:05 evaluated 16:10...)", and "sub-1R at the 16:15 pass". The leg stays closed only via venue uniqueness (one expected admission) plus all-grade-read values; the prose never states which pass's election/1R verdict fires UJ-FBDEAD. The IFF predicate (elected nothing OR elected sub-1R) is clear; the pass label is not.
+
+3. **A-S2P scope unstated** (P155): "S2PROMOTE_M15 exactly once at 09:35" is not explicitly candidate-scoped. The same run is predicted by the page itself (rows fence: "R15 14:30 probe m15-aligned while S2WAIT retained (Fix-C counterfactual)") to contain a second S2PROMOTE_M15 row at bar 14:30 for the 6/11 candidate. A whole-run row-count reading would false-fail the leg. The venue-scoped reading is inferable from context and the L-final venue keying (P159), but the leg should say "for this candidate."
+
+4. **A-S2P pin partially off-page** (P155 vs fence): "exactly once at 09:35" (not 09:30) rests on the base's 09:30-signal probe, which is not fenced (R14 is 09:25, R06 is 09:35). A miss is closed by findings (UJ-NOPROMO / UJ-TIMEBASE), but the pin's evidentiary basis is partially disk-side.
+
+5. **R05 label vs WITNESS definition** (rows-fence preamble vs R05): WITNESS is defined as prohibitions "by candidate, phase, and bar (never whole diagnostic classes)," yet R05 is labeled "retired mismatch path globally." Resolved in practice by A-SL1's S1 pre-hash proof ("never a run row," P154) — the witness is a tree-digest fact, not a run-row class prohibition — but the label sits outside the class definition as written.
+
+6. **Fenced old-block indentation vs companion** (P022-P023 vs C10394-C10395; P083-P087 vs C2567-C2571; P094-P096 vs C2511-C2513): the fenced old-blocks differ from the byte-verified companion pulls by one leading space (A-side −1, B3b/B3c-side +1). If STAGE-1 exact-diff matches old-blocks byte-for-byte, the splice fails closed at build (caught, never silent drift); the packet should state which indentation governs.
+
+7. **Unevidenced call signatures on the page** (P034 A4; P117 Fix C): SrjUjAssert1R's exact parameter list and the UjDbl helper appear only via prior-round carry and row shapes (R13's UJ1R fields; P055's "1R assertions at both memo-write points stay"). Disk truth; compile fail-closed catches any mismatch. Page-level gap only.
+
+8. **Fix E scope evidence** (P148 vs C8920-C8926): the E print references barShift, which the old block and the companion region do not show in scope at the touch book. Plausible (h/l/o/c derive from the evaluation shift) but unevidenced; compile fail-closed catches.
+
+9. **A-POIV reachability condition unstated** (P156 vs R17/R12/R13): the pinned tuple (signalBarTime=14:35, fillBarTime=14:40, entry 160.524) is reachable only if the touch prerequisite passes at the 14:35-signal pass. R17 (touchSeen=0 at that pass, base), R13's entry=160.520 at the base's 14:40-signal fire attempt, and "entry-scheduling unchanged (no timing fix)" leave the pin dependent on the unresolved touch rule — which P150 correctly defers to council. The leg is closed as a fail-closed test (UJ-TIMEBASE / UJ-NOTOUCH pre-named, "never regraded"), but the page nowhere names the dependency; one sentence ("pin reachable IFF the 14:35 candle sets the touch at the 14:35-signal pass under the fixed run's earlier S3 entry") would remove the residual ambiguity. Same structure at A-FB: the sub-1R refusal outcome is pre-declared failed-proof, so the risk is honest, just not annotated.
+
+10. **B2 shadows the pre-existing anchor skip** (P081 vs C11361-C11368): B2's first-position insert fires its continue for k == g_mtrade.anchorLine before C11363's check, so that line becomes unreachable for the anchor case while standing in the file. Behavior identical (both skip); the acknowledged "log noise" is the only visible change. Dead-branch note for the next audit.
+
+11. **Budget bookkeeping nit** (P151): the define retirement (−1) is attributed to A3 and the new define (+1) to A8; the pair nets 0. Arithmetic verified: A +4 (guard 2v2, define −1, A4 +3, A5 0, A6 +1, A7 0, A8 +1), B +16 (B0 +11, B1/B2/B3 +6, B3b −1, B3c 0), C +11 (2-vs-13), D +15 (P124-P138 counted), E 0 → **+46**, matching the stated total.
+
+## Analytic ask B (better mechanisms, with code lines)
+
+1. **Fix B via rank parity instead of string parsing** — the authority table (C91-C105) pairs POC at even rank / VWAP at odd within each family, and rank/2 is the family index. The own-source test could be: same family (`g_authorityRank[anchor]/2 == g_authorityRank[k]/2`) AND anchor rank even AND candidate rank odd → skip. Touches only the B0 helper (P058-P068). Advantage: the string version fails **open** on a lineCode rename (a renamed "Daily-POC" would silently pass as a valid target); the rank version ties to the enum ordering. The packet's decline-with-cause (readability, pairing evidenced at call sites) stands for this round; the fail-open-on-rename property is worth recording for a future audit.
+
+2. **Fix D loop deduplication** — the fallback walk (P124-P138) duplicates the session-walk pattern (C2484-C2489) minus the filter. A single parametrized walk with an explicit `bool applyMask` would make the omission a named parameter rather than a structural contrast. Touches C2484-C2489 and D1. Cosmetic; the companion-contrast evidence design (P070's framing) is why the packet declined an explicit mask API, and that decline is defensible.
+
+3. **If UJ-TIMEBASE fires at grade** (the A-POIV reachability gap in item A9): the future mechanism is either fill-at-signal-open scheduling (touching the fill/entry assignment at C10405/C10409-C10410) or a touch-book lookback evaluating the touch over a window ending at the signal bar rather than the single signal bar (touching C8920-C8926). Out of scope here by the packet's own gating (P150, P156) and correctly so — the touch-vs-retest rule must go to council first; naming the code lines now saves the next round the search.
+
+## V318-IMPL2-3 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
