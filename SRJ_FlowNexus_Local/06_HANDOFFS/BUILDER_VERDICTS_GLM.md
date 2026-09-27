@@ -5580,3 +5580,59 @@ Two named residuals that do not sink the confirm: (1) the coverage-tuple leg of 
 
 Nothing else is asked. No key spent here; no build, run, or transport action taken; build stays gated on a new Luna key + his run word after clearance. The IQ1 object is one anchor with a one-line fix shape; nine edits and the acceptance confirm as stated.
 ## V308-UJIMPL-9 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V309-UJIMPL-10 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+**GLM seat — packet P-UJIMPL-IMPL-1 v2, issue round IQ1v2 + IQ2v2. Page-rule only; no files asked; nothing built/run/spent here; the build gate (new Luna key + run word) untouched. Design CLEAR (v306/v307) is not re-litigated — the object below is the acceptance's proof-target against the page's own evidence, which is exactly what IQ2 asks me to state.**
+
+---
+
+## IQ1v2 verdict line: IQ1v2-CONFIRM
+
+**IQ1v2 CONFIRM - the edit list stands.** Every anchor verifies on the pasted disk: IE1 (C10667 — the `false` token is the 6th iCustom param = inUseConfirmedHTFOnly per the F246-F253 input order the working base call already proves; the F251/slot-3 dependency note is sound and dual-pinned by the C10667 param 5); IE2 (C8654/C8655, above the byte-identical 8655-8691, E1-FAIL shape at C8681-8689); IE3 (C8785/C8786, above the byte-identical 8795-8818); IE4 (C11490/C11491, print-only, EA/engine field split); IE5 (refresh after the C4993 brace above the C4994-4995 SELHALT gate; third loop C2402/C2403; census mirror C2451/C2452; cache + April-30 preload named); IE6 (C7305); IE7 (post-C7325-7334, `#define` beside C320, managed recompute 11095-11118 explicitly untouched); IE8 (MtNearestTpTarget top, unconditional-on-touch); IE9 (before C10216, `#define` beside C320); IE10A/IE10B split as stated. **One sentence must be pinned before STAGE-1 locks the diff:** P024's "re-election reads the closed-session pool via the existing recompute" — under the packet's own vocabulary ("pool" = the walker pool, P021/P031), no edit wires the walker pool into MtNearestTpTarget (EA 11081-11118 reads only sessbufs incl. PD_* at C11095-11103 and POI at C11107-11114). If the walker-pool reading is intended, the list is missing the management-side pool loop (insert between C11104/C11105) and I flip to OBJECT on that ground alone; if the PD-buffer family is meant, reword to kill the term collision. The remaining gaps (A4-A16 below) are STAGE-1-pinnable precision items, not disk failures of any edit.
+
+## IQ2v2 verdict line: IQ2v2-OBJECT
+
+**IQ2v2 OBJECT - A-IMPL1 (P030), because its pass condition "guard pass + same-pass promotion at the 09:45:00 pass" is unreachable on the page's own evidence.** The chain:
+
+1. The packet's own fence proves the UJ1 candidate sat **below S3 at the decision pass**: [R63] IL (`FRESHSKIP bar=2026.06.05 09:40 dir=SHORT state=S2_LTF_ALIGN reason=PRE_BINDING`) + FJ (`S2WAIT bar=2026.06.05 09:40 ... LTF bias unaligned, candidate RETAINED`), both at the 09:45:00 pass — and the packet itself labels them "candidate below S3 at the decision pass."
+2. No IE changes the read that blocked it. CheckLtfAlign (C2270-2276) reads FL_BUF_LTF_BIAS (buffer 2) ← g_bufBias ← currentBias (F1075; writers init B126 + DecisionBlock B264-282). IE1 changes only the trio fill (F1195-1200, buffers 19-21). The S2 block (C8067-8077; unaligned → return at C8073) has no edit. D1 itself asserts the LTF producer "already correct" (P013) — deliberately unchanged.
+3. The 9:25 5m flip — the design's premise per the rule traceability — was a **structure** flip, and the structure branch is a no-op for currentBias (B138-144, the self-assignments at B140/144; the packet's own V305/V306 disk facts, "B138-branch dead"). So the 09:40-slot LTF value at the 09:45:00 tick was still bullish — exactly what FJ records — and the repaired tree, running the identical 5m engine on identical data, reproduces the identical read. The pass retains at S2; the pre-bind E1 (C8655-8691) never evaluates; IE2's guard never runs at that pass; the 09:45-open entry cannot fire.
+4. His 15m-confirmed premise is real but lands on the **trio** (S1 votes, C2238-2266) and the IE2 guard — not on the S2 LTF read. The listed repair fixes UJ3's S1 blocker (A-IMPL3, with its contingency) and leaves UJ1's S2 blocker standing.
+5. Therefore A-IMPL1 fails closed **after** the gated build (new key + word) is spent — and unlike A-IMPL3 (P032, UJ-FLIPPATH-DEAD), P030 carries no finding predicate for that outcome, routing the failure into an unplanned cycle, contradicting the packet's own no-second-cycle pre-registration.
+
+**What fails, precisely:** P030's pass condition vs [R63] IL/FJ + C8073 / C2270-2276 / F1075 / F1195-1200 / B138-144, plus the no-IE-touches-buffer-2 fact. **Fix before the build gate (any one):** (a) extend the finding predicate to A-IMPL1 — the UJPROBE tuple already emits the LTF row (P020), so "A-IMPL1 fail-closed yields UJ-LTFPATH-DEAD from the probe's LTF row at the 09:45:00 pass" pre-registers halt-to-finding-to-propagation-repair with no cycle burned (the propagation-repair candidate is the B140/144 writer — out of base surface per D1, his EU call); (b) add an S2-site fallback edit (C8072-8076, read the confirmed M15 before the retain-return) — but that re-semantics his LTF rule, touches EU (attributed + veto-able), and needs his word, not the council's; (c) produce the page fact that rescues the premise (a row showing the 09:40-slot LTF bearish at that pass — the page's own FJ row is against it). **Everything else in the acceptance stands:** A-IMPL2 (contingent on the named preload + the P024 pin), A-IMPL3 (with its contingency — see A17), A-UJ3-REGIME (with its contingency — see A17), A-EU-PRESERVE (with the A13 tightening), the DIV criterion (C8846 semantics, correct), the windows.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (standing ask; complete list)
+
+- **A1 (load-bearing, = the IQ2 object):** P030's route target vs [R63] IL/FJ + C8067-8077/C2270-2276/F1075/F1195-1200/B138-144. The page's own fence refutes its own acceptance target.
+- **A2:** P030 has no finding predicate for its fail-closed; P032 does. Asymmetric disposition.
+- **A3:** P024's "closed-session pool via the existing recompute" — ambiguous or contradictory (no walker-pool access exists in MtNearestTpTarget, EA 11081-11118; IE5's loop lives only in ComputeNearestTpTarget at C2402/C2403). Either a management-side pool loop is missing (his "always exit nearest" + any-age rulings) or the term collides with the walker pool.
+- **A4:** IE10A (P026) — the EA cannot print "outBias-vs-outCBias" (engine-internal strings, H570-577); post-IE1 the EA sees only buffers 19-21. Pin the A-side content (the M15 buffer row + the iTime(PERIOD_M15) key); the live-vs-confirmed comparison belongs to IE10B alone.
+- **A5:** IE10B (P027) — (i) `g_htfDebugLog` is not evidenced in the pasted input regions (F246-256, F320-331); if absent on disk, IE10B adds a new input, contradicting P005; (ii) the fill switch reads the engine fields directly (F1195-1200), bypassing GetOutputs — if GetOutputs is display-only at STAGE-1, IE10B never fires in the tester, yet P020 routes the engine-internal fields (processing index, prev-cur, readiness) onto it; the join would be empty.
+- **A6:** IE3's insert site (C8785/C8786) sits above the touch-latch update (C8786-8793): a misaligned pass returns before `g_touchSeen` can set, dropping retracement touches on misaligned bars — a side effect outside the guard's purpose and an extra EU-diff source. C8794/C8795 gates the confirmation without touching the touch book.
+- **A7:** IE7 — the entry price at the gate is unpinned; pin it to the forming-bar open (iOpen shift 0, matching IE6's C7305 ref) so R is measured from the would-be fill per his veto.
+- **A8:** IE2/IE3 print gating unspecified — the E1-FAIL model (C8683) is InpDebugLog-gated; IE8 is explicitly unconditional; state which UJALIGN_NOMATCH follows (moot under P034's InpDebugLog=true, but the diff should be exact).
+- **A9:** P005's canonical-files line assigns the EA "IE1-IE9" — IE10A is EA-side (inside the IE4 printer) and unlisted.
+- **A10:** IE5 — the refresh cadence rides SrjSelEndOfRun's call schedule, nowhere evidenced in the paste (no caller shown); the pool must be populated before the first pool-consuming election at C2402/2403. "Early ... passes" implies repeated calls — pin the schedule at STAGE-1.
+- **A11:** The IE4 cap is unpinned; the EU window alone is ~4,600+ M5 bars — a cap below the window's bar count silently truncates grade rows (cf. the 2000-cap at C2422). Pin cap ≥ window bars.
+- **A12:** The IE10A join key — the probe keys on the evaluated M5 bar; the M15 gate keys on iTime(PERIOD_M15); state the containment semantics or boundary rows mismatch.
+- **A13:** P033's "only truly unattributed diffs = regressions, reported not graded" — state whether an unattributed diff fails L-final absent his override; as written a regression can ride a missed veto.
+- **A14:** P030-P032's "or fail closed" — ambiguous whether a fail-closed outcome is a failed proof or an alternative pass; P035 implies failed proof — say so once.
+- **A15:** IE9 — "immediately before EA 10216" lands after MtReset() (C10215); pin before-or-after MtReset.
+- **A16:** The pool's tie position — the third loop (C2402/2403) enters pool candidates between the session lines and the POI lines, so exact price ties now resolve session > pool > POI — a new fact beside the F1 ruling's session > POI (C2395 note); state it.
+- **A17 (premise-risk, not a separate object):** A-IMPL3 shares the S2 exposure — the 14:40:22 pass needs the 5m currentBias bullish at the 14:35 slot; if the 14:35 "flip" was also structural-only (the same B138-144 no-op), the currentBias lags past the pass. The UJPROBE tuple's LTF row makes it probe-visible and P032's contingency plausibly catches it — but name the LTF row explicitly in the contingency sentence rather than rely on the general "probe fail."
+
+## Analytic ask B — better mechanisms (standing ask)
+
+- **B1:** Extend the finding-predicate pattern to A-IMPL1 (P030): "fail-closed yields UJ-LTFPATH-DEAD from the probe's LTF row at the 09:45:00 pass" — zero new code, no cycle burned, and the propagation-repair candidate (B140/144) stays parked for his EU call.
+- **B2:** If the route must stand this build: the only in-surface mechanism is the S2-site fallback — C8072-8076, before the retain-return, read FL_BUF_HTF_LOW (confirmed M15 post-IE1) and promote on alignment. Needs his word (re-semantics the LTF rule; EU-attributed).
+- **B3:** For the management any-age nearest: add IE5's third loop inside MtNearestTpTarget (insert between C11104 and C11105) — same cache, same TpTargetUpdateBest entry, tie order session > pool > POI; makes "always exit nearest" any-age-true and P024 true under either reading.
+- **B4:** For A6: move the IE3 insert to C8794/C8795.
+- **B5:** For A5(ii): if GetOutputs proves display-only at STAGE-1, move the latch debug to the fill site itself (a print inside F1195-1200 under the debug input — observes the actual reads; FlowLogic then joins P005's canonical list), or verify the GetOutputs call path before locking IE10B.
+
+---
+
+**Scope close:** IQ1v2 CONFIRM and IQ2v2 OBJECT are independent per the issue-round rule; the object is amendable by any of the three named fixes without touching the carried design. No key or run word asked, spent, or needed here.
+## V309-UJIMPL-10 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

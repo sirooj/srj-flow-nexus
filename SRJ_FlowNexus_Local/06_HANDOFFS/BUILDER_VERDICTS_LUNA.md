@@ -11209,3 +11209,60 @@ alongside the source-TF labels. This directly verifies F1195-F1200 and removes t
 
 **Net:** the underlying implementation design is substantially coherent, but **this issue packet is not yet acceptance-tight enough to carry either IQ1 or IQ2 as CONFIRM.** No build/run clearance follows from this ruling.
 ## V308-UJIMPL-9 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V309-UJIMPL-10 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling
+
+**IQ1v2 OBJECT - the amended edit list is not yet build-safe because IE7 is labeled a 1R gate but its specified predicate does not actually enforce R≥1.00; IE4/IE10B also lack a concrete same-bar-time join mechanism, and IE9 leaves current-pass memo provenance underspecified.**
+
+**IQ2v2 OBJECT - the amended acceptance is not yet sufficient because A-IMPL2 does not require the arithmetic proof of R≥1.00 or an explicit winner/source-age proof for the any-age nearest election; A-EU-PRESERVE also needs a mechanically defined attribution record, and the referenced “single discipline sentence” is not actually stated in the acceptance block.**
+
+### Defects / gaps
+
+| Location                         | Finding                                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P023 / C7305–C7313**           | **Blocking defect:** IE7 is not an actual 1R test. `TP > entry && SL < entry` only proves correct-side geometry. It admits, for example, entry 160.00 / SL 159.90 / TP 160.05, which is only 0.5R. The required predicate is reward ≥ risk: LONG `(tp-entry) >= (entry-sl)`; SHORT `(entry-tp) >= (sl-entry)`, after positive-risk and side checks.                                                             |
+| **P023**                         | The packet calls this `ABORT_SUB_1R`, but no explicit equality/ratio/tolerance rule is stated. The exact arithmetic should be fixed before build.                                                                                                                                                                                                                                                               |
+| **P020 / P026–P027 / H562–H577** | **Join-key gap:** IE4 says EA/engine rows join on the same bar-time, but `SRJ_HTF_GetOutputs()` at H570–H577 receives no bar-time. `SRJ_HTF_RunAll()` has `chartTime` at H562–H563, but IE10B does not state how that value reaches the print. Without an explicit timestamp source, the two print classes cannot be mechanically joined as claimed.                                                            |
+| **P025 / C10214–C10217**         | **Scope/provenance gap:** IE9 says “CURRENT-pass tpTarget valid AND slRef valid,” but the shown selection-side values at C7305–C7314 are local variables. The packet does not identify the exact persistent/current-pass fields that C10216 can read, nor how they are cleared each pass. A stale memo could therefore satisfy the guard unless the implementation defines the authoritative pass-state fields. |
+| **P024 / C11095–C11118**         | **Touch predicate under-specified:** “closed-NY-AM level crossing” is named, but the exact closure condition and exact high/low source are not. The implementation must distinguish a closed NY-AM level from the still-live NY-AM level, and define whether one level can fire once per trade/session or repeatedly on overlapping bars.                                                                       |
+| **P021 / C4992–C5004**           | Refresh-before-SELHALT is defensible, but the contract is incomplete: the refresh routine must explicitly fail closed when `g_hFlow`/history is unavailable and must not leave a partially populated historical pool that can later be mistaken for complete coverage.                                                                                                                                          |
+| **P021**                         | Cache semantics are only named (“invalidation + preload”). The exact invalidation key, coverage high-water mark, rollover trigger, and behavior after late history backfill are not stated. For “any age,” those details matter.                                                                                                                                                                                |
+| **P031**                         | **Acceptance gap:** “April-30 in pool” proves presence/coverage, not necessarily that April-30 participated in the winning nearest election. The proof should expose winner source, winner day key/age, winner value, and preferably admitted-candidate count/list.                                                                                                                                             |
+| **P031 / P033**                  | A-IMPL2 says “1R admission,” but there is no explicit required evidence tuple such as `entry / SL / TP / risk / reward / R`. Given the current IE7 defect, this acceptance could pass without proving the actual 1R floor.                                                                                                                                                                                      |
+| **P033**                         | Per-edit EU attribution is requested, but a single base-vs-edited diff does not by itself prove causality when edits interact. The grade should require an explicit edit-attribution field/bitmask or a deterministic classification showing which edited branch(es) occurred on every changed row.                                                                                                             |
+| **P029–P035**                    | IQ2 explicitly asks for a “single discipline sentence,” but the acceptance block contains no clearly identifiable standalone sentence defining that discipline. This is a textual omission rather than a strategy defect, but the packet should state it exactly.                                                                                                                                               |
+
+### Better mechanisms
+
+**IE7 — make the 1R gate mathematically explicit.** After `SlRefMemo` succeeds, use the entry-open price from IE6 and compute:
+
+* LONG: `risk = entry - sl`, `reward = tp - entry`
+* SHORT: `risk = sl - entry`, `reward = entry - tp`
+
+Require `risk > 0`, `reward > 0`, and `reward >= risk`. Print all four values plus `R = reward/risk` before `ABORT_SUB_1R`. This directly enforces the user's 1R floor rather than merely checking side orientation.
+
+**IE10A/IE10B — carry one authoritative debug timestamp.** The cleanest low-surface mechanism is to set a file-scope debug-only timestamp from `chartTime` in `SRJ_HTF_RunAll()` (H562–H567), then have IE10B print that exact timestamp at H570–H577. IE4 prints the same timestamp from the EA probe. That preserves the current function signature and makes the join deterministic.
+
+**IE9 — persist the current-pass election state explicitly.** The values used by admission should be stored in the working-set/pass memo immediately after election, then IE9 should validate those exact stored fields immediately before C10216. Do not rely on a local `tpTarget`/`slRef` from C7305 onward. Also clear the pass-valid flags at the beginning of each evaluation so stale values cannot satisfy the guard.
+
+**IE8 — define a one-shot closed-session touch event.** Record the closed NY-AM session's actual close/availability timestamp and direction-relevant H/L. On each closed-bar management pass, detect the first valid price-or-wick touch against that closed level, stamp it once, print `UJTOUCH`, then immediately re-elect using the historical/current unified pool. This makes “closed” and “touch” mechanically auditable.
+
+**IE5 — make historical records self-describing.** Each cached level should carry at least `dayKey`, session identifier, H/L side, value, and source/closure time. The refresh should maintain a coverage watermark and explicitly report requested-start versus achieved-start. A shortfall then has an unambiguous fail-closed meaning.
+
+### What I would change in acceptance
+
+For **A-IMPL2**, require one joined proof row containing:
+
+`entryPrice | slRef | tpTarget | risk | reward | R | winnerSource | winnerDayKey | winnerAge | poolCoverageStart | UJTOUCH`
+
+with `R >= 1.0` explicitly evaluated from the entry-open reference.
+
+For **A-EU-PRESERVE**, require every changed EU row to carry a deterministic attribution set such as:
+
+`IE1 | IE2 | IE3 | IE6 | IE7 | IE9 | IE5 | IE8`
+
+with “designed difference” versus “unattributed regression” mechanically distinguished. That is substantially stronger than post-hoc narrative attribution.
+
+The most important correction is **IE7**: as currently written, the packet does **not** implement the stated 1R floor. That alone is sufficient to keep **IQ1v2 and the dependent acceptance at OBJECT**.
+## V309-UJIMPL-10 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
