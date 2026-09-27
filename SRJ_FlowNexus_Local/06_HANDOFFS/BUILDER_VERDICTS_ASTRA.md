@@ -18212,3 +18212,47 @@ These verdicts are independent. Neither certifies disk bytes, a successful build
 The A9 provenance change, second-setter print, corrected admission bars, and separation of missing evidence from event non-occurrence are substantive closures. The remaining IQ2 objections can be resolved primarily by tightening P181–P185; they do not require reopening the four-fix design.
 
 ## V319-IMPL2-4 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V320-IMPL2-5 OPEN ASTRA (verbatim open; novel inbound, pre-counts 0/0)
+
+IQ1v13: CONFIRM — P023–P176; C2399–C2402, C8190–C8200, C8896–C8926, C10388–C10430, C11957–C11969.
+
+IQ2v13: CONFIRM — P178–P185; P013–P017; R01–R22, with the evidence-classification and wording notes below.
+
+These are independent page-only confirmations. They do not certify disk authenticity, compilation, future admissions, a key, or authorization to build, run, or activate live trading.
+
+1. **The v319 touch-proof objection is closed.** P163 and P172 now distinguish the evaluated bar from the candle identified by the setter. The leg path uses `s52_shift`, consistent with C8898–C8904; the opposite-direction path uses `barShift`, consistent with the evaluated OHLC test at C8922–C8925.
+
+   P181 also requires the setter’s evaluation to fall within the admitted candidate’s S3-active window. That closes the earlier-candidate correlation gap at the contract level: matching direction and anchor alone cannot satisfy the requirement. The future evidence must establish that state chain; absent required chain evidence falls under P185’s `UJ-NOEVID`.
+
+2. **The v319 findings-map objections are closed.** P180/P185 explicitly classify missing, duplicate, or wrong-bar promotion under `UJ-NOPROMO`. P185 applies `UJ-SUB1R` to every admitted tuple, including fallback admissions, while reserving `UJ-FBDEAD` for an unsuccessful fallback-election event. Required evidence that is absent now has a named finding, `UJ-NOEVID`.
+
+   P184 permits several findings per failed venue while retaining one resolution. Thus a missing admission and missing supporting evidence can both be recorded without treating diagnostic rows as admissions or a rejection as a successful take.
+
+3. **The amended promotion pin is a testable prediction supported by the stated census, not an outcome proved by the probe rows alone.** P016 expressly places the first S2 evaluation at the 09:10 processing pass, evaluating the 09:05 signal bar. R19 supplies the aligned M15 vote for that bar. Given that stated S2 membership and successful upstream readiness, P123–P135 falls through to the unchanged transition at C8197–C8199.
+
+   P180 appropriately leaves survival through the earlier S3 window to the future run. The base confirmation series does not prove that the amended candidate survives; an intervening kill fails the venue rather than moving its expected admission.
+
+4. **A9 provenance closure remains accepted.** P023 supplies the ordering and call-site premises; C2399–C2401 binds winner provenance to the selected target; P059–P062 snapshots that provenance before P048 publishes it. The fire tuple remains the latch input at C10405–C10407, with its own 1R assertion at P037.
+
+   This remains conditional on the supplied internal ordering assertion being true on disk. Empty fire provenance fails acceptance through `UJ-SRCMISM`; declining an additional runtime abort does not weaken this probe-only acceptance contract.
+
+5. **Nonblocking contradiction in the rows-fence description:** its PREDICTION-basis sentence describes M15 alignment at eval 09:05/09:10/09:15 “while candidate outside S2.” That conflicts with P016/P180 at **09:05**, which is explicitly the first S2 evaluation. R19 itself is a probe row and does not establish S2 membership.
+
+   **Better wording:** “M15 aligned at eval 09:05/09:10/09:15; the stated S2WAIT census places this candidate in S2 at eval 09:05 and outside S2 at eval 09:10/09:15 in the base run.” This corrects the evidence description without changing the operative P180 predicate.
+
+6. **Nonblocking overstatement at P181:** “reachable iff a qualifying touch is established” still sounds as though touch alone establishes reachability. The unchanged confirmation, zone, election, memo, and 1R gates must also permit admission.
+
+   **Better wording:** “A qualifying touch established by the deadline is necessary; admission additionally requires the unchanged downstream gates to pass.” The operative acceptance already requires the actual matching admission, so this explanatory overstatement does not create an alternate passing outcome.
+
+7. **Nonblocking placement and schema shorthand should be cleaned up.**
+
+   - **P096:** “B2 sits first in the Mt POI loop” conflicts with the same paragraph’s explicit instruction that C11363 executes first. The detailed dead-arm explanation resolves the intended placement. State it directly: insert B2 **after the existing anchor/rank skip and before `double v` at C11365**. B1/B3 placement remains as specified.
+   - **P157:** `dir + anchor + bar` is obsolete shorthand after introducing two timestamps. Use the fuller P017/P181 rule: direction and anchor, physical `touchBar`, and `evalBar` within the admitted candidate’s evidenced S3-active window.
+   - **P175:** “physical touch” should mean the candle accepted by the existing setter rule. C8924 permits an opposite-direction candle without `touchesZone` when `s35_fromFvg` is false. The print does not independently prove geometric zone intersection in that branch.
+
+8. **The EU population clarification closes the prior comparator ambiguity.** P183 identifies the EURUSD sibling population, replay-configuration requirement, bidirectional take comparison, and grouped regime counts. It also keeps EU grading separate from the UJ L-final. Confirmation here accepts that future comparison contract; it does not establish preservation before its evidence exists.
+
+For the stated goal, I see no necessary additional behavior change. The remaining improvements are the precise placement and wording corrections above; the dual-timestamp prints, fire-side provenance snapshot, and findings-v3 map supply the previously missing proof structure.
+
+## V320-IMPL2-5 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

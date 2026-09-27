@@ -12135,3 +12135,31 @@ For the E2 path, `s52_shift` is already available at C8896-C8904. This directly 
 **Bottom line:** the core four-fix logic is substantially specified, but the touch-proof contract is not mechanically precise enough for a strict grade, and the B2 prose is internally inconsistent. Hence both IQs remain **OBJECT** rather than CONFIRM.
 
 ## V319-IMPL2-4 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V320-IMPL2-5 OPEN LUNA (verbatim open; novel inbound, pre-counts 0/0)
+
+IQ1v13: **CONFIRM**. The amended edit set is internally closed on the page: the four fixes are concretely anchored, the +53 net budget reconciles, and the external interface remains unchanged. The fire-local 1R/provenance closure, POI helper gates, M15 promotion edge, fallback walk, and touch evidence are all specified without leaving an unresolved edit dependency.
+
+IQ2v13: **CONFIRM**. The corrected acceptance is sufficiently pinned for a future grade: each of the four UJ venues has a declared admission identity and signal/fill bars, with fire-side source, tuple-level 1R grading, and named failure predicates. The EU sibling comparison is separately defined rather than improperly folded into the UJ L-final.
+
+### Analytic A — defects / gaps / imprecision
+
+No **gating** defect remains that warrants an OBJECT.
+
+Two minor precision points are worth carrying forward, but neither breaks closure:
+
+1. **IQ2 A-S2P wording:** “09:05-signal” should not be confused with the actual evaluation pass at 09:10. The packet does state the distinction elsewhere, so this is already recoverable from the page rather than a substantive acceptance hole.
+
+2. **Fix B string-family mechanism:** `UjPoiTargetValid()` relies on the current `g_lineCode[]` naming convention (`Daily-POC`, `Daily-VWAP`, etc.). The packet itself correctly records the rename vulnerability and the rank-parity alternative as a future audit item; it does not undermine this round's closure against the stated current code.
+
+The underlying evidence chain is also internally consistent: the cited 6/3 divergence is exactly the memo-vs-fire SL problem the Fix-A latch is intended to remove, while the 6/5 promotion and 6/11 POI/entry-bar cases are explicitly mapped to Fixes C and B.
+
+### Analytic B — better mechanism
+
+**None required for this round.** The proposed mechanisms directly address the diagnosed failures without adding buffers, inputs, handles, or an EA-side mirror. The rank-parity approach is a legitimate future hardening mechanism for Fix B, but introducing it now would expand scope without being necessary to close IQ1v13.
+
+**Final ruling:**
+**IQ1v13 — CONFIRM**
+**IQ2v13 — CONFIRM**
+
+## V320-IMPL2-5 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

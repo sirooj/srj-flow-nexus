@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, V319 GRADED + v7/v320 GREEN)
+## State (2026-09-27, V320 GRADED + v8/v321 GREEN)
 
-- V319 verdicts filed + graded 2-1 HALT
-  IQ1 (Luna O, Astra C, GLM C) + 1-2
-  HALT IQ2 (Luna O, Astra O, GLM C).
-- Fold v7 D1A8DDCD + relay v320 1F23FD87
+- V320 verdicts filed + graded 2-1 HALT
+  both (Luna C/C, Astra C/C, GLM O/O
+  on the B2 pair alone).
+- Fold v8 473325BC + relay v321 0AAA785E
   battery-green, UNTRANSPORTED. EA
   14C7476C unchanged; no build/run/key.
-  Result 553A3808; ledger 891; skill
-  srj-council §21 pinned.
+  Result V320-GRADE; ledger 892; skill
+  srj-council §22 pinned.
 
 ## Next (owed him)
 

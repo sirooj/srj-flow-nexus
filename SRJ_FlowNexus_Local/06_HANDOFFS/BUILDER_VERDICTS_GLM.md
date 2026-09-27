@@ -6202,3 +6202,56 @@ Analytic ask B: the E2/E touch-bar field and A9b empty-wsrc invariant under IQ1-
 Standing constraints acknowledged: nothing here builds, runs, spends, or clears live activation; the build gate (new key + his run word) is untouched by these verdicts, and disk genuineness (twin diff 0, companion 0-diff, digests) remains his machine's proof, not mine.
 
 ## V319-IMPL2-4 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V320-IMPL2-5 OPEN GLM (verbatim open; novel inbound, pre-counts 0/0)
+
+**Seat: GLM. Page-only ruling per the standing split. No keys volunteered or asked; nothing here builds, runs, spends, or touches the build gate. Position note: I CONFIRMed both questions in v319. The indent rebuttal (section 0) is accepted as folded — machine measure is disk-side, and P104-P107/P172 present normalized on the page. The objection below is new on this re-read: the claimed B2 prose correction did not land.**
+
+---
+
+## IQ1v13 — OBJECT (P096; context P090-P091 and the section-0 decline "Fix-B arm removal/reorder … prose fix instead")
+
+The page specifies B2's geometry two mutually exclusive ways:
+
+- **P096, sentence 1:** "B2 sits first in the Mt POI loop (EA 11361-region)" — i.e., before the pre-existing skip at C11363.
+- **P096, sentence 2** (and the section-0 withdrawal note): "B2's anchor arm never fires on managing passes (the C11363 pre-existing skip runs first and continues; no UJPOISKIP-anchor rows expected there)" — i.e., after C11363.
+
+Trace both: if B2 precedes C11363, then for k == g_mtrade.anchorLine the helper's first check (P075, `k == anchor`) returns false, B2 prints UJPOISKIP with line=anchor and continues — one such row on every managing pass that reaches the Mt POI loop (InpDebugLog=true is pinned), and C11363's `k == g_mtrade.anchorLine` term becomes the dead code. If B2 follows C11363-C11364, the arm is dead and "sits first" is false. Both cannot hold. The section-0 decline ("reorder merely relocates deadness plus noise rows; **prose fix instead**") means the chosen geometry is the siting sentence's (B2 stays first) — under which the honest prose is "anchor arm fires, one noise row per managing pass, C11363's anchor term dead." The v7 sentence says the opposite. The round's own delta headline ("the managed-loop prose states the dead arm plainly") is exactly the clause that failed.
+
+Materiality is low — the candidate set at B2 is identical either way (anchor and same-family VWAP excluded under both geometries; only print noise and which check is dead differ) — but the anchor is not closed on the page: a STAGE-1 exact-diff implements one geometry and falsifies one of the two sentences, and the acceptance pins the geometry-B expectation (see IQ2).
+
+Everything else in the edit set closes on the page:
+- **Budget verified line-by-line: +53 exact.** A: -1+3+0+1+0+1+6 = +10; B: +11+2+2+2-1+0 = +16; C: +11; D1: +15; E: 0; E2: +1. Total 53. Per-item counts match the fenced blocks as written.
+- **Old blocks match the companion byte-for-byte where fenced:** A3=C10394-95, A5=C10388-89, A7=C10429, B3b=C2567-71, B3c=C2511-13, C=C8195-96, E=C8924-25, E2=C8900-02.
+- **Scope/compile closure cited:** SrjUjAssert1R EA-11768, UjDbl EA-11750, s52_shift EA-8896, barShift EA-8909, sessbufs/sname/uj_dk in scope at the D1 site (per C2484-89), A4-before-liveness ordering documented, A9b after uj_admitCount (C10426) before the UJADMIT brace (C10427), C's fall-through structure valid, FL buffer cites pinned (FL-705/FL-1200/F251).
+- **External-interface surface unchanged:** no inputs, buffers, handles, or EA-side mirror; new matter is locals, one define swap, one helper, prints. A4/A9 ordering and the E/E2 touchBar schema are as described.
+
+## IQ2v13 — OBJECT (P181; root P096)
+
+Single narrow objection, same root: A-POIV states "B2-anchor rows never occur, dead arm" as a fixed-run expectation. Under the packet's own siting spec (P096 sentence 1) that statement is falsifiable by construction — the fixed run's managing passes (required by A-SL1's "MT managing open") would print them, and no finding in the v3 map covers an unexpected row, so the filed acceptance would carry a self-falsified claim. Amend P096 and the P181 parenthetical together (one sentence each) and this objection clears. Nothing else in the acceptance blocks:
+
+- A-SL1 arithmetic checks on the page: fire R = 0.054/0.040 = 1.35, poll R = 0.054/0.024 = 2.25, matching P011's rungs and R01-R04.
+- A-S2P is consistent with R19-R22/R06/R14/R18 and the 54-row enumeration; m15src for the 09:05 bar computes to 09:00 under the %900 mapping; confirm-first-1 at eval-09:40 (R07) matches the pinned admission bars via the C10409-C10410 latch.
+- A-POIV's touch predicate is now closed by the E/E2 schema (row-presence == setter-fired; touchBar = physical candle at both setters per P017; window correlation by dir+anchor).
+- A-FB's UJ-FBDEAD IFF conditions, FIRELOCAL+FIRE multiplicity, and witness-vs-admission-field scoping are named; A-EU is honestly pending with its own finding and excluded from L-final; the findings-v3 map covers every declared failure mode with no improvisation room.
+
+## Analytic ask A — defects, gaps, imprecisions
+
+1. **P096 B2 contradiction** (the objection; echoed at P181 and in the IQ2 leg text).
+2. **P023 overbroad clause:** "every site runs pre-snapshot and pre-census" is false for the three Mt sites (11349/11356/11367), which run in EvaluateManagedTrade (EA-11969) post-admission — the same sentence's trailing clause ("Mt elections run post-admission") concedes it. The A9 invariant only needs no UpdateBest between the fire election and the A9b snapshot, which the page does support; reword to the scoped claim.
+3. **D1 fallback scope unstated against the pool walk (P137/P155, site 2495 in the P023 list):** D1 re-walks sessbufs only; the existing "pool" walk is never shown and its filter status is unstated. If it is masked like the session walk, the fallback is narrower than "pool never empty, book nearest." State its status or fence EA-2490-2497.
+4. **No predicate for admissions outside the four venues (P178-P185):** a fifth admission in 6/1-6/13 (P019 notes the Fix-C edge changes S3 entry timing on M15-aligned passes generally, not only for the two diagnosed candidates) fails no named predicate and blocks nothing, while his four-valid word (P010) is the authority for exactly four. UJ-DUPADMIT covers duplicates of a venue only.
+5. **P134 observability:** the retained S2WAIT print carries no m15 vote or ReadFlow-fail field, so a retention row cannot distinguish "m15 opposed" from "read failed." UJPROBE's unconditional per-bar rows mitigate at grade; minor.
+6. **Micro:** P181 "evalBar on/before the 14:35-signal pass" mixes a bar time with a pass (read as evalBar ≤ signal bar); P163's E print intentionally passes the same iTime expression for both fields (correct per P017) — an in-block comment would prevent a future reader from "fixing" it. B0's fail-open on a missing "-" (P079) is acknowledged at P117 with the rank-parity audit note — accepted risk, recorded.
+
+## Analytic ask B — better mechanisms
+
+1. **Minimum (this round's amend):** pick one B2 geometry and make both sentences say it. (a) B2 sits immediately after the C11363-C11364 skip — anchor arm dead, no anchor rows, "sits first" corrected (quieter at grade); or (b) B2 stays first — prose corrected to "anchor arm fires, one UJPOISKIP-anchor row per managing pass; C11363's anchor term is dead," and P181's parenthetical updated to match (consistent with the declined-reorder rationale as written).
+2. **Long-term (future round; touches B0 P073-P083 and call sites P087-P094):** an explicit helper parameter (e.g., `UjPoiTargetValid(k, anchor, skipAnchor)`) with B2 passing skipAnchor=false — the dead-arm question disappears by construction instead of by pre-emption; B1/B3 pass true. Behavior-identical, schema churn; declined-class this round, not asked.
+3. **For ask-A item 4:** add an L-final predicate "exactly four UJ admissions in 6/1-6/13" with a named finding (e.g., UJ-EXTRA) for any admission outside the four venues — one sentence in P184/P185.
+
+Both objections trace to one sentence pair and clear with a two-line amend. No other blocking defect found on the page.
+
+(End of seat reply — transport verbatim.)
+
+## V320-IMPL2-5 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

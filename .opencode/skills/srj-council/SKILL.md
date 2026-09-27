@@ -204,3 +204,7 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 ## 21. Trigger-bar enumeration rule (V319 fold 2026-09-27 - owned second consecutive pre-window mispin)
 
 - A pinned trigger bar requires the FULL ordered candidate series on-page (every evaluation bar with its vote), never the first-checked bar: v5 pinned S2PROMOTE at 09:35 without checking pre-09:25 bars (R18 refuted, owned); v6 pinned 09:30 without checking pre-09:25 bars either (09:05/09:10/09:15 aligned series refuted, owned again). The fold that pins a trigger carries the machine-checked vote series (R-fenced) plus the full state-row enumeration proving first evaluation (v319: 54-row S2WAIT census proving no earlier S2 pass) - a trigger no series supports is unwritten.
+
+## 22. Insert-siting neighbor rule (V320 fold 2026-09-27 - owned self-contradiction: v7 said B2 "sits first" and "skip runs first" in one paragraph)
+
+- Every code insert states its siting ONCE as exact neighbor anchors (after-X-line / before-Y-line with disk line numbers), never as bare ordinals ("first", "at the top") that a second sentence can contradict: v7's B2 paragraph claimed both geometries and neither STAGE-1 nor the grade could satisfy both (GLM halt, owned). The review pass re-reads every siting sentence against its neighbor sentence before transport; two siting claims for one insert is a BLOCKED relay until one is struck.
