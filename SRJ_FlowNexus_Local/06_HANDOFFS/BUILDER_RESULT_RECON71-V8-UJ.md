@@ -27,4 +27,9 @@
 - Next packet candidates: (a) single-source fire SL from the memo (admission consumes memo values); (b) S2-axis vs M15-axis reconciliation (S2 waits on 5m LTF; his 15m thesis unrepresented in promotion); (c) POI validity: was the 6/11 14:40 2pt Daily-VWAP valid in his eye (his answer decides filter fix vs correct-refusal grade); (d) poll-site vs fire-edge 1R placement (his veto surface, P025-recorded).
 - Strategy question for him (record-first trail filed here: spec booking-validity + rank filter are code, not his words; no filed VWAP-validity rule found): see memo.
 
+## 6. Correction (his rulings 2026-09-27; sections 1-5 stand verbatim)
+- WITHDRAWN (a) the 14:40 entry-bar attribution carrying ref 160.520: 160.520 is the 14:45 open; his entry is the 14:40 open at 160.524 (TPCENSUS #76: bar 14:35, ref 160.524, winner YLOH 160.587, R 1.75 PASS, promoted). Repeat +1-bar defect, owned. (b) The section-5 VWAP-validity question: ANSWERED NO by his own-source ruling (finding USDJPY-MISSES Rulings-J); withdrawn as a question, never re-asked. (c) Venue diagnoses unattributed to his filed rulings: recall-join filed in Rulings-J (Rulings-D/F/G + STRUCTURAL-BIAS + VENUE-CORRECTION + NEAREST-ONLY-TP pins); re-derivation withdrawn.
+- Revised 6/11: correct election at 14:35 (entry-consistent, R 1.75, promoted past S2); wrong kill at 14:40 on invalid VWAP-2pts (own-source + POC-over-VWAP hierarchy); surviving booking YLOH. Fix items for the packet: (a) POI own-source exclusion + hierarchy in the race; (b) SL single-source (memo-consumed admission); (c) S2 5m-axis vs 15m-confirm representation.
+- Gates violated: BAR-TRIPLE (evaluated/pass/entry unconflated - failed on 160.520) + RECORD-FIRST (filed rulings uncited). No skill change beyond the strategy pins (OWN-SOURCE-EXCLUSION + ENTRY-BAR READ-BACK, read-back verified 1x each): BAR-TRIPLE, RECORD-FIRST, and DEATH-ROW already govern; execution failure, not a rule gap.
+
 (End of file)
