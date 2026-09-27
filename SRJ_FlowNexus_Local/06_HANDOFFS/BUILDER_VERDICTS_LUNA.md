@@ -11266,3 +11266,96 @@ with “designed difference” versus “unattributed regression” mechanically
 
 The most important correction is **IE7**: as currently written, the packet does **not** implement the stated 1R floor. That alone is sufficient to keep **IQ1v2 and the dependent acceptance at OBJECT**.
 ## V309-UJIMPL-10 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V310-UJIMPL-11 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling — v310-UJIMPL-11
+
+**IQ1v3 OBJECT — the edit list is not yet mechanically closed.**
+
+The main defects are:
+
+1. **IE9 has no exact clear anchor.** P026 says the pass-memo fields are “cleared at each evaluation start,” but the only exact edit anchor supplied is immediately before `g_mtrade` at **EA 10215–10216**. The actual evaluation-start clear is not assigned an anchor. The current evaluation entry is **EA 11490–11491**. This leaves lifecycle behavior under-specified.
+
+2. **IE9 has no exact write anchor for the election memo.** P026 says the fields are “written at election,” but does not identify the exact election site/path that performs the write. With multiple TP/SL/state routes, “at election” is descriptive rather than mechanically bounded.
+
+3. **IE8 lacks an exact once-per-trade state lifecycle.** P025 specifies one-shot behavior but does not name the latch fields or the reset anchor that makes the touch available again for the next managed trade. `MtReset()` at **EA 10215** is the obvious lifecycle anchor, but the packet does not actually bind the new touch fields to that reset.
+
+4. **IE8's “first valid price-or-wick touch” is temporally ambiguous.** P025 says the event belongs to the **closed NY-AM record**, but it does not explicitly state whether a touch on the bar that closes the NY-AM session is eligible, nor the ordering of “session becomes closed” versus “touch is evaluated.”
+
+5. **IE5 self-description is conceptually specified but not mechanically defined.** P021 requires `dayKey + session id + H/L side + value + source/closure time`, yet gives no exact derivation rule for `source/closure time` from the historical buffer walk. This matters because the candidate pool is intended to distinguish source day/session from the day on which the copied value is observed.
+
+6. **The historical cache lifecycle is only partially anchored.** P021 says “re-init at run start” and “rebuild on rollover,” but provides the explicit refresh anchor only at **EA 4992–4994**. The exact run-start initialization point for the new cache state is not specified.
+
+Because those are implementation-level lifecycle gaps, I would not sign IQ1v3 as `CONFIRM`.
+
+---
+
+**IQ2v3 OBJECT — the amended acceptance is still not mechanically closed.**
+
+The strongest defects are:
+
+1. **The “bitmask attribution” is not actually defined as a bitmask.** P034 names seven causes:
+   `IE1 | IE2/IE3 | IE6 | IE7 | IE9 | IE5 | IE8`
+   but assigns no bit positions, integer encoding, zero/default semantics, or exact print/storage field. P034 calls it an “attribution set,” while IQ2v3 explicitly calls for a **bitmask**. That is still an object.
+
+2. **A-IMPL2 requires a future management event inside an admission proof row.** P032 requires one joined row **per admission** containing:
+   `entryPrice | slRef | tpTarget | risk | reward | R | winnerSource | winnerDayKey | winnerAge | poolCoverageStart | UJTOUCH pair`.
+
+   But P025 makes `UJTOUCH` a later, management-time event that fires only on the first valid touch of the closed NY-AM target. The packet never states how that later record is joined back into the earlier admission row, nor what value is emitted when no touch occurs. The “join key” in P020/P026 does not by itself solve that temporal join.
+
+3. **The finding predicate for `UJ-LTFPATH-DEAD` is not literal enough.** P031 says it comes “from the probe LTF row,” but never defines the exact boolean condition that fires the finding.
+
+4. **The finding predicate for `UJ-FLIPPATH-DEAD` is likewise not literal enough.** P033 says “LTF row named in the contingency” but does not define the exact state/row combination that converts a halt into that finding.
+
+5. **The acceptance does not state the null/no-verdict handling for DIV.** P035 specifies the latest nonzero opposing verdict as a route-ungradeable condition, but does not explicitly define the no-nonzero-verdict case. The code at **EA 8832–8848** clearly has a possible “no nonzero verdict found” state, so the acceptance should close that case explicitly.
+
+6. **A-IMPL2's join is underspecified even apart from UJTOUCH.** P020 says the join is a file-scope timestamp from `chartTime`; P032 asks for a joined proof row, but does not require every participating record to print the same named key. The field identity is described, not contractually fixed.
+
+Therefore IQ2v3 should also remain `OBJECT`.
+
+---
+
+## Analytic ask A — every material defect/gap/imprecision
+
+| Ref                      | Defect                                                                                                                                    |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **P020 / P030–P032**     | Join key described, but not made an explicit common record field contract across all rows.                                                |
+| **P021**                 | Historical record provenance fields are named, but derivation of source day/closure timestamp from the historical buffers is unspecified. |
+| **P021**                 | Cache “run start” initialization lacks an exact anchor.                                                                                   |
+| **P025**                 | One-shot touch has no named latch/reset contract.                                                                                         |
+| **P025**                 | “Closed-session” versus “touch on close bar” event ordering is ambiguous.                                                                 |
+| **P025 / P032**          | Future `UJTOUCH` event is required inside an admission-time joined proof row without a defined later-join/reconciliation mechanism.       |
+| **P026 / C11490–C11491** | Memo-clear lifecycle is asserted but not anchored to evaluation start.                                                                    |
+| **P026**                 | Memo-write lifecycle has no exact election write anchor.                                                                                  |
+| **P030–P033**            | `UJ-LTFPATH-DEAD` finding predicate is named but not boolean/mechanical.                                                                  |
+| **P033**                 | `UJ-FLIPPATH-DEAD` finding predicate is named but not boolean/mechanical.                                                                 |
+| **P034**                 | “Attribution set” is not an actual bitmask specification.                                                                                 |
+| **P034**                 | No exact mapping from changed row → attribution integer → unattributed=0 rule.                                                            |
+| **P035 / C8832–C8848**   | No explicit acceptance semantics for “no nonzero DIV verdict exists.”                                                                     |
+| **P032**                 | `UJTOUCH pair` is not defined as a field schema or optional/mandatory state.                                                              |
+| **P027**                 | IE10A says M15-new-bar gating but does not define initial-state behavior for the gate.                                                    |
+| **P028**                 | IE10B identifies timestamp/output fields but does not state reset/overwrite semantics for the debug latch.                                |
+
+The existing code regions also expose why the lifecycle anchors matter: the actual evaluation sequence is **LoadWorkingSet → EvaluateClosedBar** at **EA 11490–11491**, while the managed-trade latch is at **EA 10215–10217**. The packet needs to bind those states explicitly rather than describe them only in prose.
+
+---
+
+## Analytic ask B — better mechanisms
+
+**Memo lifecycle:** clear the new memo fields at the actual evaluation boundary immediately before `EvaluateClosedBar`, i.e. around **EA 11490–11491**, and write them at the single successful election point after the TP/SL/1R predicates have all passed. That makes “current-pass” mathematically literal instead of inferred from the fire site.
+
+**Touch lifecycle:** make the touch state part of `SManagedTrade` and reset it through the existing `MtReset()` path at **EA 10215**. Store at minimum `touchDone`, `touchLevel`, `touchType`, and `touchBarTime`. The event predicate should require the source session record to be closed before evaluating touch eligibility; that resolves the P025 timing ambiguity.
+
+**Admission/touch joining:** retain the required `chartTime` join key, but give the managed event the same admission key plus a trade-local sequence/identity. The admission record can then state `UJTOUCH=NONE` initially, while the later event amends the joined record. That is cleaner than requiring a future event to exist inside the original admission row.
+
+**Attribution bitmask:** make the seven P034 causes literal bits, for example:
+`bit0=IE1, bit1=IE2/IE3, bit2=IE6, bit3=IE7, bit4=IE9, bit5=IE5/IE5b, bit6=IE8`, with `0=unattributed`. Print the integer mask on every changed EU row. This directly closes the P034 ambiguity.
+
+**Finding predicates:** define them as explicit state assertions at the two requested passes. For example, `UJ-LTFPATH-DEAD` should require the probe to show the relevant LTF value is present/expected but the guarded route remains blocked; `UJ-FLIPPATH-DEAD` should require the expected repaired HTF/LTF/regime prerequisites at the 14:40:22 pass while the required state promotion is absent. The important point is that each finding must be triggered by a stated row combination, not merely by “the probe failed.”
+
+### Final two verdict lines
+
+**IQ1v3 OBJECT — memo clear/write lifecycle and one-shot-touch reset/ordering remain mechanically unanchored, with historical record provenance also under-specified.**
+
+**IQ2v3 OBJECT — attribution is not yet a defined bitmask, and A-IMPL2/finding predicates do not fully specify the future-touch join and fail-to-finding conditions.**
+## V310-UJIMPL-11 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
