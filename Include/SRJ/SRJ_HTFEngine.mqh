@@ -6,6 +6,13 @@
 #include "SRJ_Text.mqh"
 #include "SRJ_Fractals.mqh"
 
+//--- [P-UJIMPL-IMPL-1 v8 IE10B] print-only latch debug (removable; within
+//--- ruled verification surface). Per-TF three-slot H4/H1/M15 record.
+datetime uj_dbgStamp[3];
+int      uj_dbgProcIdx[3];
+string   uj_dbgPrevCur[3];
+int      uj_dbgReady[3];
+
 class CHTFEngineState : public CObject
   {
 public:
@@ -549,11 +556,23 @@ void SRJ_HTF_RunOne(CHTFEngineState &e,ENUM_TIMEFRAMES tf,
    for(int k=0; k<copied; k++)
      { ro[k]=rr[k].open; rh[k]=rr[k].high; rl[k]=rr[k].low; rc[k]=rr[k].close; }
 
-   SRJ_HTF_StateInit(e);
-   for(int j=2; j<copied; j++)
-      SRJ_HTF_ProcessBar(e,ro,rh,rl,rc,j,copied,htfLookbackBars,htfMaxTrackedObjects);
+    SRJ_HTF_StateInit(e);
+    for(int j=2; j<copied; j++)
+       SRJ_HTF_ProcessBar(e,ro,rh,rl,rc,j,copied,htfLookbackBars,htfMaxTrackedObjects);
 
-   e.lastProcessedHTFTime = newestHTFTime;
+    //--- [P-UJIMPL-IMPL-1 v8 IE10B] stamp the per-TF latch record in RunOne
+    //--- (prev/cur pair captured before the lastProcessed update below).
+      {
+       int uj_slot = ((tf == PERIOD_H4) ? 0 : ((tf == PERIOD_H1) ? 1 : 2));
+       uj_dbgStamp[uj_slot] = chartTime;
+       uj_dbgProcIdx[uj_slot] = copied;
+       uj_dbgPrevCur[uj_slot] = StringFormat("%s/%s",
+          TimeToString(e.lastProcessedHTFTime, TIME_DATE|TIME_MINUTES),
+          TimeToString(newestHTFTime, TIME_DATE|TIME_MINUTES));
+       uj_dbgReady[uj_slot] = (everSucceeded ? 1 : 0);
+      }
+
+    e.lastProcessedHTFTime = newestHTFTime;
 
    if(g_htfDebugLog)
       Print("SRJ HTF [",EnumToString(tf),"]: processed ",copied," bars (of ",availableBars," available) — resulting htfBias=",e.htfBias," outBias=",e.outBias);
@@ -562,10 +581,19 @@ void SRJ_HTF_RunOne(CHTFEngineState &e,ENUM_TIMEFRAMES tf,
 void SRJ_HTF_RunAll(int htfLookbackBars,int htfMaxTrackedObjects,
                     bool useConfirmedHTFOnly,datetime chartTime)
   {
-   SRJ_HTF_RunOne(g_htfHi, g_htfHighTF, htfLookbackBars,htfMaxTrackedObjects,chartTime);
-   SRJ_HTF_RunOne(g_htfMid,g_htfMidTF,  htfLookbackBars,htfMaxTrackedObjects,chartTime);
-   SRJ_HTF_RunOne(g_htfLo, g_htfLowTF,  htfLookbackBars,htfMaxTrackedObjects,chartTime);
-  }
+    SRJ_HTF_RunOne(g_htfHi, g_htfHighTF, htfLookbackBars,htfMaxTrackedObjects,chartTime);
+    SRJ_HTF_RunOne(g_htfMid,g_htfMidTF,  htfLookbackBars,htfMaxTrackedObjects,chartTime);
+    SRJ_HTF_RunOne(g_htfLo, g_htfLowTF,  htfLookbackBars,htfMaxTrackedObjects,chartTime);
+    //--- [P-UJIMPL-IMPL-1 v8 IE10B] RunAll-tail latch print (print-only;
+    //--- join mapping: chartTime here vs EA bar-time with the one-bar slot lag
+    //--- F1072-1075 target=i-1, carried in the EA tuple; no 5-minute subtraction).
+    if(g_htfDebugLog)
+       PrintFormat("SRJ-HTF-UJDBG chart=%s h4stamp=%s h4idx=%d h4prevcur=%s h4ready=%d h4out=%s/%s h1stamp=%s h1idx=%d h1prevcur=%s h1ready=%d h1out=%s/%s m15stamp=%s m15idx=%d m15prevcur=%s m15ready=%d m15out=%s/%s",
+                   TimeToString(chartTime, TIME_DATE|TIME_MINUTES),
+                   TimeToString(uj_dbgStamp[0], TIME_DATE|TIME_MINUTES), uj_dbgProcIdx[0], uj_dbgPrevCur[0], uj_dbgReady[0], g_htfHi.outBias, g_htfHi.outCBias,
+                   TimeToString(uj_dbgStamp[1], TIME_DATE|TIME_MINUTES), uj_dbgProcIdx[1], uj_dbgPrevCur[1], uj_dbgReady[1], g_htfMid.outBias, g_htfMid.outCBias,
+                   TimeToString(uj_dbgStamp[2], TIME_DATE|TIME_MINUTES), uj_dbgProcIdx[2], uj_dbgPrevCur[2], uj_dbgReady[2], g_htfLo.outBias, g_htfLo.outCBias);
+   }
 
 void SRJ_HTF_GetOutputs(CHTFEngineState &e,bool useConfirmed,
                         string &bias,string &twoOB,string &line3,string &opp)

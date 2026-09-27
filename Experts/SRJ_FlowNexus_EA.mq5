@@ -256,8 +256,71 @@ struct SManagedTrade
    double       exitPrice;
    ulong        ticket;          // broker position ticket latched at fill (E8c; 0 = uncaptured)
    long         entryPid;        // position ID latched at fill (E8c; 0 = uncaptured)
+   //--- [P-UJIMPL-IMPL-1 v8 IE8] one-shot closed-session touch + admission identity
+   bool         uj_touchDone;
+   double       uj_touchLevel;
+   string       uj_touchType;    // PRICE (body) or WICK
+   datetime     uj_touchBarTime;
+   datetime     uj_admitBarTime;
+   long         uj_tradeSeq;     // file-scope uj_tradeSeqNext snapshot, never reset
   };
 SManagedTrade g_mtrade;
+
+//====================== [P-UJIMPL-IMPL-1 v8] UJ closure decls =================
+// Probe-side DIV/provenance closure: file-scope state + prototypes. Print-only
+// additions; no selection predicate changed by these declarations alone.
+enum ENUM_UJ_POOLSTATE
+  { UJ_POOL_EMPTY = 0, UJ_POOL_BUILDING = 1, UJ_POOL_READY = 2,
+    UJ_POOL_SHORT = 3, UJ_POOL_FAILED = 4 };
+struct SUjPoolRec
+  {
+   string   dayKey;    // origin-day key YYYY.MM.DD (broker midnight)
+   string   sess;      // ASIA/LONDON/NY/PM
+   int      side;      // 0 = HIGH, 1 = LOW
+   double   value;
+   string   source;    // LIVE (origin day) or PD (origin day - 1)
+   datetime closure;   // origin-day session close (day-end approximation)
+   int      poolGen;   // refresh generation that published this record
+  };
+SUjPoolRec uj_pool[];
+string uj_poolDayKey = "";
+int    uj_pubState = UJ_POOL_EMPTY;
+int    uj_attemptState = UJ_POOL_EMPTY;
+int    uj_poolGen = 0;
+int    uj_attemptCount = 0;
+string uj_reqStart = "";
+string uj_achStart = "";
+int    uj_dayCount = 0;
+int    uj_famRead = 0;
+int    uj_unavail = 0;
+int    uj_emptyValid = 0;
+int    uj_admitCount = 0;
+//--- pass memo (written post-election, cleared per new bar, consumed at fire)
+double   uj_memo_tp = 0.0;
+double   uj_memo_sl = 0.0;
+double   uj_memo_entry = 0.0;
+bool     uj_memo_valid = false;
+int      uj_memo_anchor = -1;
+int      uj_memo_dir = 0;
+datetime uj_memo_barTime = 0;
+double   uj_memo_risk = 0.0;
+double   uj_memo_reward = 0.0;
+double   uj_memo_R = 0.0;
+string   uj_memo_src = "";
+string   uj_memo_wsrc = "";
+string   uj_memo_wday = "";
+int      uj_memo_wgen = -1;
+int      uj_memo_wage = -1;
+//--- winner provenance globals (snapshot into memo at memo-write time)
+string   uj_winnerSource = "";
+string   uj_winnerDayKey = "";
+int      uj_winnerPoolGen = -1;
+long     uj_tradeSeqNext = 1;
+//--- prototypes (definitions sit before OnTick; callers precede them)
+bool   SrjUjAssert1R(double entry, double sl, double tp, string barKey, string src, double &riskOut, double &rewardOut, double &ROut);
+int    UjDayDiff(datetime barT, string dayKey);
+bool   SrjUjPoolConsumable(string dayKey);
+void   SrjUjPoolFinalize();
 
 string MtExitName(const int r)
   {
@@ -295,6 +358,15 @@ void MtReset()
    g_mtrade.exitPrice         = 0.0;
    g_mtrade.ticket            = 0;
    g_mtrade.entryPid          = 0;
+   //--- [P-UJIMPL-IMPL-1 v8 IE8] touch/admit reset rides the reset path;
+   //--- the 10215 site repeats these assignments explicitly (memo untouched,
+   //--- global uj_tradeSeqNext never reset).
+   g_mtrade.uj_touchDone      = false;
+   g_mtrade.uj_touchLevel     = 0.0;
+   g_mtrade.uj_touchType      = "";
+   g_mtrade.uj_touchBarTime   = 0;
+   g_mtrade.uj_admitBarTime   = 0;
+   g_mtrade.uj_tradeSeq       = 0;
   }
 
 
@@ -318,6 +390,10 @@ void MtReset()
 //--- These two codes are diagnostic only Ã¢â‚¬â€ no gate reads a reason string.
 #define ABORT_NO_SL_REF        "NO_SL_REF"
 #define ABORT_NO_TP_TARGET     "NO_TP_TARGET"
+//--- [P-UJIMPL-IMPL-1 v8 IE7/IE9] fire-path abort reasons (print + abort)
+#define ABORT_SUB_1R           "SUB_1R"
+#define ABORT_NO_MEMO_AT_FIRE  "NO_MEMO_AT_FIRE"
+#define ABORT_MEMO_MISMATCH    "MEMO_MISMATCH"
 //--- [Task 78] Part A Step 8 / D-3 / G-2 replacement. Diagnostic string only;
 //--- no gate reads an abort reason.
 #define ABORT_POI_REPLACED     "POI_REPLACED"
@@ -2298,8 +2374,11 @@ string CheckFreshness(int barShift, bool twoOfThreeKills)
   }
 
 //====================== Step 6: TP target computation =================
+//--- [P-UJIMPL-IMPL-1 v8 IE5c] provenance payload rides the becomes-best
+//--- assignment atomically (value + source + dayKey + poolGen together).
 void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
-                         double &best, bool &haveBest)
+                         double &best, bool &haveBest,
+                         string src, string dayKey, int poolGen)
   {
    if(v == EMPTY_VALUE || v <= 0.0) return;
    bool inDir = (dir == DIR_LONG) ? (v > currentPrice) : (v < currentPrice);
@@ -2318,7 +2397,8 @@ void TpTargetUpdateBest(double v, ENUM_SRJ_DIR dir, double currentPrice,
    if(g_zoneHi > 0.0 && g_zoneLo > 0.0 && v >= g_zoneLo && v <= g_zoneHi) return;
    double dist = MathAbs(v - currentPrice);
    if(!haveBest || dist < MathAbs(best - currentPrice))
-     { best = v; haveBest = true; }
+     { best = v; haveBest = true;
+       uj_winnerSource = src; uj_winnerDayKey = dayKey; uj_winnerPoolGen = poolGen; }
   }
 
 //--- TASK 39 (EA-26 + EA-51): decode FlowLogic buffer 29 for one session/PD TP
@@ -2351,6 +2431,8 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
   {
    double best = 0.0;
    bool   haveBest = false;
+   //--- [P-UJIMPL-IMPL-1 v8 IE5c] election-day key for winner provenance
+   string uj_dk = UjDayKey(iTime(_Symbol, PERIOD_CURRENT, barShift));
    //--- [S1-TP-PROMOTION-001] live promotion: prev-day session H/L join the
    //--- candidate walk (indices 10..17 -> swept bits 14..21, unset this stage).
    const int sessbufs[18] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
@@ -2361,7 +2443,12 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
                               FL_BUF_PD_ASIA_HIGH, FL_BUF_PD_ASIA_LOW,
                               FL_BUF_PD_LONDON_HIGH, FL_BUF_PD_LONDON_LOW,
                               FL_BUF_PD_NY_HIGH, FL_BUF_PD_NY_LOW,
-                              FL_BUF_PD_PM_HIGH, FL_BUF_PD_PM_LOW };
+                               FL_BUF_PD_PM_HIGH, FL_BUF_PD_PM_LOW };
+   //--- [P-UJIMPL-IMPL-1 v8 IE5c] session names parallel sessbufs (census cname mirror)
+   const string sname[18] = { "PDH", "PDL", "ASH", "ASL", "LOH", "LOL",
+                              "NYH", "NYL", "PMH", "PML",
+                              "YASH", "YASL", "YLOH", "YLOL",
+                              "YNYH", "YNYL", "YPMH", "YPML" };
    //--- TASK 39: swept + session-live mask, read once for the session/PD group.
    //--- The POI-line loop below is deliberately not filtered by it.
    double s39_mask;
@@ -2398,14 +2485,22 @@ for(int i = 0; i < ArraySize(sessbufs); i++)
   {
    double v;
    if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask))
-      TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+      TpTargetUpdateBest(v, dir, currentPrice, best, haveBest, sname[i], uj_dk, -1);
+  }
+//--- [P-UJIMPL-IMPL-1 v8 IE5] third candidate loop: published history pool,
+//--- consumable only when READY for the election day; tie order session > pool > POI.
+if(SrjUjPoolConsumable(uj_dk))
+  {
+   for(int uji = 0; uji < ArraySize(uj_pool); uji++)
+      TpTargetUpdateBest(uj_pool[uji].value, dir, currentPrice, best, haveBest,
+                         uj_pool[uji].source, uj_pool[uji].dayKey, uj_pool[uji].poolGen);
   }
 for(int kf = 0; kf < POI_NLINES; kf++)
   {
    if((g_authorityRank[kf] / 2) > (anchorRank / 2)) continue;
    double vf;
    if(!ReadBuf1(g_hPoi, kf, vf, barShift)) continue;
-   TpTargetUpdateBest(vf, dir, currentPrice, best, haveBest);
+   TpTargetUpdateBest(vf, dir, currentPrice, best, haveBest, g_lineCode[kf], uj_dk, -1);
   }
    //--- TASK 23 (EA-23a / EA-24): read-only census of the take-profit candidate
    //--- set. Re-walks both candidate groups and matches each against the value
@@ -2449,6 +2544,18 @@ for(int kf = 0; kf < POI_NLINES; kf++)
                         DoubleToString(MathAbs(cv - currentPrice) / _Point, 0) + " ";
             if(haveBest && cv == best) winner = cname[i];
            }
+         //--- [P-UJIMPL-IMPL-1 v8 IE5] census mirror over the published pool
+         //--- (informational only, never authoritative; legacy LAST-equal kept).
+         for(int uji = 0; uji < ArraySize(uj_pool); uji++)
+           {
+            double uj_cv = uj_pool[uji].value;
+            if(uj_cv == EMPTY_VALUE) continue;
+            bool uj_inDir = (dir == DIR_LONG) ? (uj_cv > currentPrice) : (uj_cv < currentPrice);
+            if(!uj_inDir) continue;
+            admitted += uj_pool[uji].source + ":" +
+                        DoubleToString(MathAbs(uj_cv - currentPrice) / _Point, 0) + " ";
+            if(haveBest && uj_cv == best) winner = uj_pool[uji].source;
+           }
          for(int k2 = 0; k2 < POI_NLINES; k2++)
            {
             if((g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;
@@ -2463,7 +2570,7 @@ for(int kf = 0; kf < POI_NLINES; kf++)
             if(haveBest && pv == best)
                winner = g_lineCode[k2] + ((k2 == g_anchorLine) ? "(ANCHOR)" : "");
            }
-         PrintFormat("[SRJ-EA] TPCENSUS #%d bar=%s dir=%s close=%s winner=%s best=%s "
+         PrintFormat("[SRJ-EA] TPCENSUS #%d bar=%s dir=%s ref=%s winner=%s best=%s "
                      "distPts=%s empties=%d admitted= %s",
                      s_tpDumps,
                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
@@ -7302,7 +7409,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
     double s1_stopRef = 0.0; bool s1_haveStop = false;
    if(g_state >= ST_S2_LTF_ALIGN && g_state <= ST_S5_GATE_CHECK)
      {
-      double currentPrice = iClose(_Symbol, PERIOD_CURRENT, barShift);
+      //--- [P-UJIMPL-IMPL-1 v8 IE6] entry reference = forming-bar open (would-be fill)
+      double currentPrice = iOpen(_Symbol, PERIOD_CURRENT, 0);
       double tpTarget;
       if(!ComputeNearestTpTarget(barShift, g_dir, currentPrice, tpTarget))
         {
@@ -7333,6 +7441,21 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         }
       s1_stopRef  = slRef;
       s1_haveStop = true;
+      //--- [P-UJIMPL-IMPL-1 v8 IE7] 1R gate on the entry-open price + memo write
+      //--- (single successful election point: TP/SL/1R pass; poll route).
+        {
+         double uj_risk = 0.0, uj_reward = 0.0, uj_R = 0.0;
+         string uj_bk7 = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+         if(!SrjUjAssert1R(currentPrice, slRef, tpTarget, uj_bk7, "POLL", uj_risk, uj_reward, uj_R))
+           { GoAbort(ABORT_SUB_1R, g_state); return; }
+         uj_memo_tp = tpTarget; uj_memo_sl = slRef; uj_memo_entry = currentPrice;
+         uj_memo_valid = true;
+         uj_memo_anchor = g_anchorLine; uj_memo_dir = (int)g_dir; uj_memo_barTime = barTime;
+         uj_memo_risk = uj_risk; uj_memo_reward = uj_reward; uj_memo_R = uj_R;
+         uj_memo_src = "POLL";
+         uj_memo_wsrc = uj_winnerSource; uj_memo_wday = uj_winnerDayKey;
+         uj_memo_wgen = uj_winnerPoolGen; uj_memo_wage = UjDayDiff(barTime, uj_winnerDayKey);
+        }
         {
          double slDist = MathAbs(currentPrice - slRef);
          double tpDist = MathAbs(tpTarget - currentPrice);
@@ -8649,10 +8772,21 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         }
       else
         {
-         if(InpDebugLog)
-            PrintFormat("[SRJ-EA] %s S3 waiting: no qualifying zone",
-                        TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-         //--- [P-CONFIRM-ANYSTATE E1 2026-09-11, operator ruling verbatim: "if
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] %s S3 waiting: no qualifying zone",
+                         TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
+          //--- [P-UJIMPL-IMPL-1 v8 IE2] direction-alignment guard above design-E1
+          //--- (buffer 21 = M15 confirmed vote; F251 preserved, changing it re-scopes).
+            {
+             double uj_m15 = 0.0; int uj_rf = 0;
+             string uj_bk = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+             if(!ReadFlow(FL_BUF_HTF_LOW, uj_m15, barShift)) uj_rf = 1;
+             double uj_want = (g_dir == DIR_LONG ? 1.0 : -1.0);
+             if(uj_rf == 1 || uj_m15 != uj_want)
+               { PrintFormat("[SRJ-EA] UJALIGN_NOMATCH bar=%s dir=%s m15=%s uj_readFail=%d", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1), uj_rf); return; }
+             PrintFormat("[SRJ-EA] UJALIGN_PASS bar=%s dir=%s m15=%s", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1));
+            }
+          //--- [P-CONFIRM-ANYSTATE E1 2026-09-11, operator ruling verbatim: "if
          //--- all my conditions are met, the trade is ON. The EA must take the
          //--- confirmation candle whenever it appears (even while its own prep
          //--- is unfinished), keeping the one-bar rule."] A PRE-BINDING
@@ -8792,6 +8926,17 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         }
       else
         {
+         //--- [P-UJIMPL-IMPL-1 v8 IE3] direction-alignment guard above design-E2
+         //--- (touch book at 8786-8793 runs before it, no shadow).
+           {
+            double uj_m15 = 0.0; int uj_rf = 0;
+            string uj_bk = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+            if(!ReadFlow(FL_BUF_HTF_LOW, uj_m15, barShift)) uj_rf = 1;
+            double uj_want = (g_dir == DIR_LONG ? 1.0 : -1.0);
+            if(uj_rf == 1 || uj_m15 != uj_want)
+              { PrintFormat("[SRJ-EA] UJALIGN_NOMATCH bar=%s dir=%s m15=%s uj_readFail=%d", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1), uj_rf); return; }
+            PrintFormat("[SRJ-EA] UJALIGN_PASS bar=%s dir=%s m15=%s", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1));
+           }
          //--- [P-CONFIRM-GATE E2] the S4->S5 edge IS the confirmation predicate
          //--- now (terms A/A2/B/C; the ruled retracement term A2: the prior
          //--- candle's CLOSE stays on the setup side of the anchor line - a wick
@@ -10213,6 +10358,43 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          g_mtrade.exitBarTime = iTime(_Symbol, PERIOD_CURRENT, barShift);
         }
       MtReset();
+      //--- [P-UJIMPL-IMPL-1 v8 IE8] touch/admit/snapshot zeroing (memo untouched,
+      //--- global uj_tradeSeqNext never reset).
+      g_mtrade.uj_touchDone      = false;
+      g_mtrade.uj_touchLevel     = 0.0;
+      g_mtrade.uj_touchType      = "";
+      g_mtrade.uj_touchBarTime   = 0;
+      g_mtrade.uj_admitBarTime   = 0;
+      g_mtrade.uj_tradeSeq       = 0;
+      //--- [P-UJIMPL-IMPL-1 v8 IE9] fire-site fallback: when the S2POLL memo is
+      //--- absent for the current pass, write it from the fire-local election
+      //--- (TP from the 8918 election, SL from the fire block slRef local pinned
+      //--- here at the fire approach so post-election SL mutations are captured;
+      //--- never a persistent global, never stale cross-pass).
+      if(!uj_memo_valid || uj_memo_barTime != barTime)
+        {
+         double uj_fr = 0.0, uj_fw = 0.0, uj_fR = 0.0;
+         string uj_fbk = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+         if(!SrjUjAssert1R(currentPrice, slRef, tpTarget, uj_fbk, "FIRELOCAL", uj_fr, uj_fw, uj_fR))
+           { GoAbort(ABORT_SUB_1R, g_state); return; }
+         uj_memo_tp = tpTarget; uj_memo_sl = slRef; uj_memo_entry = currentPrice;
+         uj_memo_valid = true;
+         uj_memo_anchor = g_anchorLine; uj_memo_dir = (int)g_dir; uj_memo_barTime = barTime;
+         uj_memo_risk = uj_fr; uj_memo_reward = uj_fw; uj_memo_R = uj_fR;
+         uj_memo_src = "FIRELOCAL";
+         uj_memo_wsrc = uj_winnerSource; uj_memo_wday = uj_winnerDayKey;
+         uj_memo_wgen = uj_winnerPoolGen; uj_memo_wage = UjDayDiff(barTime, uj_winnerDayKey);
+        }
+      //--- [P-UJIMPL-IMPL-1 v8 IE9] fire-edge memo guard (candidate identity +
+      //--- value equality; cross-check tuple on pass).
+        {
+         string uj_bk9 = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+         if(!uj_memo_valid || uj_memo_barTime != barTime || uj_memo_tp <= 0.0 || uj_memo_sl <= 0.0)
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_FAIL bar=%s reason=NO_MEMO_AT_FIRE src=%s", uj_bk9, uj_memo_src); GoAbort(ABORT_NO_MEMO_AT_FIRE, g_state); return; }
+         if(uj_memo_anchor != g_anchorLine || uj_memo_dir != (int)g_dir || uj_memo_tp != tpTarget || uj_memo_sl != slRef)
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] UJMISMATCH bar=%s memo_tp=%s memo_sl=%s fire_tp=%s fire_sl=%s memo_src=%s", uj_bk9, DoubleToString(uj_memo_tp, _Digits), DoubleToString(uj_memo_sl, _Digits), DoubleToString(tpTarget, _Digits), DoubleToString(slRef, _Digits), uj_memo_src); GoAbort(ABORT_MEMO_MISMATCH, g_state); return; }
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_PASS bar=%s admit_key=%s:%I64d entry=%s tp=%s sl=%s R=%.2f src=%s wsrc=%s wday=%s wgen=%d", uj_bk9, uj_bk9, uj_tradeSeqNext, DoubleToString(uj_memo_entry, _Digits), DoubleToString(uj_memo_tp, _Digits), DoubleToString(uj_memo_sl, _Digits), uj_memo_R, uj_memo_src, uj_memo_wsrc, uj_memo_wday, uj_memo_wgen);
+        }
       g_mtrade.active            = true;
       g_mtrade.state             = MT_MANAGING;
       g_mtrade.dir               = g_dir;
@@ -10237,6 +10419,15 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      DoubleToString(slRef, _Digits),
                      DoubleToString(tpTarget, _Digits),
                      (int)g_regime);
+      //--- [P-UJIMPL-IMPL-1 v8 IE5c/IE9] authoritative admission tuple (first
+      //--- publication of the admission key {uj_bar_key, tradeSeq} + poolGen chain).
+      g_mtrade.uj_admitBarTime = barTime;
+      g_mtrade.uj_tradeSeq = uj_tradeSeqNext; uj_tradeSeqNext++;
+      uj_admitCount++;
+        {
+         string uj_abk = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+         PrintFormat("[SRJ-EA] UJADMIT bar_key=%s trade_seq=%I64d admit_bar=%s entry=%s sl=%s tp=%s R=%.2f poolGen=%d wsrc=%s wday=%s wage=%d", uj_abk, g_mtrade.uj_tradeSeq, TimeToString(barTime, TIME_DATE|TIME_MINUTES), DoubleToString(currentPrice, _Digits), DoubleToString(slRef, _Digits), DoubleToString(tpTarget, _Digits), uj_memo_R, uj_memo_wgen, uj_memo_wsrc, uj_memo_wday, uj_memo_wage);
+        }
 
       if(InpMode == MODE_ALERT_ONLY)
         {
@@ -10664,7 +10855,10 @@ int OnInit()
    ResetLastError();
    g_hFlow = iCustom(_Symbol, PERIOD_CURRENT, InpFlowLogicName,
                      1, InpFL_HtfLookbackBars,
-                     PERIOD_H4, PERIOD_H1, PERIOD_M15, false, 60);
+                     //--- [P-UJIMPL-IMPL-1 v8 IE1] confirmed selection (F252
+                     //--- inUseConfirmedHTFOnly; EU preservation sibling row
+                     //--- grades the global effect).
+                     PERIOD_H4, PERIOD_H1, PERIOD_M15, true, 60);
    PrintFormat("[SRJ-EA] Flow handle=%d err=%d", g_hFlow, GetLastError());
     if(g_hPoi == INVALID_HANDLE || g_hCqd == INVALID_HANDLE || g_hFlow == INVALID_HANDLE)
       { Print("[SRJ-EA] OnInit FAILED: one or more iCustom handles are invalid."); return INIT_FAILED; }
@@ -11047,6 +11241,9 @@ void OnDeinit(const int reason)
     //--- [P-SEL-1 E52/E53/E56] end-of-run shadow evaluation (history reads
     //--- only; handles still valid here). Print-only.
     if(InpDebugLog) SrjSelEndOfRun();
+    //--- [P-UJIMPL-IMPL-1 v8 IE5] run-level pool-service record (diagnostic
+    //--- only; SrjSelEndOfRun performs no pool construction).
+    SrjUjPoolFinalize();
 
     if(g_hPoi  != INVALID_HANDLE) IndicatorRelease(g_hPoi);
     if(g_hCqd  != INVALID_HANDLE) IndicatorRelease(g_hCqd);
@@ -11083,6 +11280,55 @@ bool MtNearestTpTarget(const int barShift, const ENUM_SRJ_DIR dir,
   {
    double best = 0.0;
    bool   haveBest = false;
+   //--- [P-UJIMPL-IMPL-1 v8 IE5b/IE5c/IE8] election-day key + session names
+   string uj_dk = UjDayKey(iTime(_Symbol, PERIOD_CURRENT, barShift));
+   const string uj_sname[18] = { "PDH", "PDL", "ASH", "ASL", "LOH", "LOL",
+                                 "NYH", "NYL", "PMH", "PML",
+                                 "YASH", "YASL", "YLOH", "YLOL",
+                                 "YNYH", "YNYL", "YPMH", "YPML" };
+   //--- [P-UJIMPL-IMPL-1 v8 IE8] one-shot closed-session touch detection.
+   //--- Levels come from already-closed sessions only (PD NY pair = yesterday
+   //--- closed; walker pool = strictly older), so the bar-that-closes-the-session
+   //--- ineligibility holds by construction; lifetime-bound to [fill, now].
+   double uj_oldTP = g_mtrade.tpRef;
+   string uj_bk8 = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+   bool uj_firedNow = false;
+   if(g_mtrade.active && g_mtrade.state == MT_MANAGING && !g_mtrade.uj_touchDone)
+     {
+      datetime uj_bt = iTime(_Symbol, PERIOD_CURRENT, barShift);
+      if(uj_bt > 0 && g_mtrade.fillBarTime > 0 && uj_bt > g_mtrade.fillBarTime)
+        {
+         double uj_h = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+         double uj_l = iLow(_Symbol, PERIOD_CURRENT, barShift);
+         double uj_o = iOpen(_Symbol, PERIOD_CURRENT, barShift);
+         double uj_c = iClose(_Symbol, PERIOD_CURRENT, barShift);
+         double uj_lv[10]; int uj_ln = 0;
+         double uj_t = 0.0;
+         if(ReadFlow(FL_BUF_PD_NY_HIGH, uj_t, barShift) && uj_t != EMPTY_VALUE && uj_t > 0.0 && uj_ln < 10) { uj_lv[uj_ln] = uj_t; uj_ln++; }
+         if(ReadFlow(FL_BUF_PD_NY_LOW, uj_t, barShift) && uj_t != EMPTY_VALUE && uj_t > 0.0 && uj_ln < 10) { uj_lv[uj_ln] = uj_t; uj_ln++; }
+         string uj_todayK = UjDayKey(uj_bt);
+         for(int uj_pi = 0; uj_pi < ArraySize(uj_pool) && uj_ln < 10; uj_pi++)
+           {
+            if(uj_pool[uj_pi].dayKey >= uj_todayK) continue;
+            double uj_pv = uj_pool[uj_pi].value;
+            if(uj_pv == EMPTY_VALUE || uj_pv <= 0.0) continue;
+            uj_lv[uj_ln] = uj_pv; uj_ln++;
+           }
+         for(int uj_li = 0; uj_li < uj_ln; uj_li++)
+           {
+            double uj_L = uj_lv[uj_li];
+            bool uj_inR = (g_mtrade.dir == DIR_LONG) ? (uj_L > g_mtrade.entryPrice) : (uj_L < g_mtrade.entryPrice);
+            if(!uj_inR) continue;
+            if(!(uj_L >= uj_l && uj_L <= uj_h)) continue;
+            double uj_lo = MathMin(uj_o, uj_c), uj_hi = MathMax(uj_o, uj_c);
+            string uj_ty = ((uj_L >= uj_lo && uj_L <= uj_hi) ? "PRICE" : "WICK");
+            g_mtrade.uj_touchDone = true; g_mtrade.uj_touchLevel = uj_L;
+            g_mtrade.uj_touchType = uj_ty; g_mtrade.uj_touchBarTime = uj_bt;
+            PrintFormat("[SRJ-EA] UJTOUCH level=%s type=%s event_bar_key=%s admit_bar_key=%s trade_seq=%I64d", DoubleToString(uj_L, _Digits), uj_ty, uj_bk8, TimeToString(g_mtrade.uj_admitBarTime, TIME_DATE|TIME_MINUTES), g_mtrade.uj_tradeSeq);
+            uj_firedNow = true; break;
+           }
+        }
+     }
    //--- [S1-TP-PROMOTION-001] live promotion: prev-day session H/L join the
    //--- candidate walk (indices 10..17 -> swept bits 14..21, unset this stage).
    const int sessbufs[18] = { FL_BUF_PDAY_HIGH, FL_BUF_PDAY_LOW,
@@ -11100,7 +11346,15 @@ bool MtNearestTpTarget(const int barShift, const ENUM_SRJ_DIR dir,
      {
       double v;
       if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask))
-         TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+         TpTargetUpdateBest(v, dir, currentPrice, best, haveBest, uj_sname[i], uj_dk, -1);
+     }
+   //--- [P-UJIMPL-IMPL-1 v8 IE5b] managed-side pool loop (same cache + entry;
+   //--- tie session > pool > POI; makes always-exit-nearest any-age-true).
+   if(SrjUjPoolConsumable(uj_dk))
+     {
+      for(int uji = 0; uji < ArraySize(uj_pool); uji++)
+         TpTargetUpdateBest(uj_pool[uji].value, dir, currentPrice, best, haveBest,
+                            uj_pool[uji].source, uj_pool[uji].dayKey, uj_pool[uji].poolGen);
      }
    int anchorRank = (g_mtrade.anchorLine >= 0)
                     ? g_authorityRank[g_mtrade.anchorLine] : INT_MAX;
@@ -11110,10 +11364,21 @@ bool MtNearestTpTarget(const int barShift, const ENUM_SRJ_DIR dir,
          continue;
       double v;
       if(!ReadBuf1(g_hPoi, k, v, barShift)) continue;
-      TpTargetUpdateBest(v, dir, currentPrice, best, haveBest);
+      TpTargetUpdateBest(v, dir, currentPrice, best, haveBest, g_lineCode[k], uj_dk, -1);
      }
-   if(!haveBest) return false;
+   if(!haveBest)
+     {
+      //--- [P-UJIMPL-IMPL-1 v8 IE8] re-election record: no winner leaves TP
+      //--- unchanged (explicit no-winner record, one-shot per trade).
+      if(uj_firedNow)
+         PrintFormat("[SRJ-EA] UJREELECT bar_key=%s trade_seq=%I64d oldTP=%s newTP=UNCHANGED winner=NONE src=retarget-pool", uj_bk8, g_mtrade.uj_tradeSeq, DoubleToString(uj_oldTP, _Digits));
+      return false;
+     }
    tpTargetOut = best;
+   //--- [P-UJIMPL-IMPL-1 v8 IE8] re-election record: election output at the TP
+   //--- assignment site (one-shot per trade).
+   if(uj_firedNow)
+      PrintFormat("[SRJ-EA] UJREELECT bar_key=%s trade_seq=%I64d oldTP=%s newTP=%s winner=%s src=retarget-pool", uj_bk8, g_mtrade.uj_tradeSeq, DoubleToString(uj_oldTP, _Digits), DoubleToString(tpTargetOut, _Digits), uj_winnerSource);
    return true;
   }
 
@@ -11480,6 +11745,208 @@ if(!(vSL || vTP || vBREAK || vHTF || vDAY)) return;
              true);
   }
 
+//====================== [P-UJIMPL-IMPL-1 v8] UJ closure implementation ============
+//--- print helper: EMPTY-safe double
+string UjDbl(double v)
+  {
+   if(v == EMPTY_VALUE) return "EMPTY";
+   return DoubleToString(v, 1);
+  }
+//--- day key YYYY.MM.DD at broker midnight (F327-328 alignment, EA-side)
+string UjDayKey(datetime t)
+  {
+   if(t <= 0) return "";
+   return TimeToString(StringToTime(TimeToString(t, TIME_DATE)), TIME_DATE);
+  }
+//--- whole-day difference bar-day minus key-day (-1 when unkeyed)
+int UjDayDiff(datetime barT, string dayKey)
+  {
+   if(barT <= 0 || dayKey == "") return -1;
+   return (int)((StringToTime(TimeToString(barT, TIME_DATE)) - StringToTime(dayKey)) / 86400);
+  }
+//--- shared 1R assertion (single print schema; callers abort on false)
+bool SrjUjAssert1R(double entry, double sl, double tp, string barKey, string src,
+                   double &riskOut, double &rewardOut, double &ROut)
+  {
+   int d = 0;
+   if(tp > entry && sl < entry) d = 1;
+   else if(tp < entry && sl > entry) d = -1;
+   double risk = -1.0, reward = -1.0, R = -1.0;
+   bool ok = false;
+   if(d != 0)
+     {
+      risk = (d == 1) ? (entry - sl) : (sl - entry);
+      reward = (d == 1) ? (tp - entry) : (entry - tp);
+      R = (risk > 0.0) ? (reward / risk) : -1.0;
+      ok = (risk > 0.0 && reward > 0.0 && reward >= risk);
+     }
+   PrintFormat("[SRJ-EA] UJ1R bar=%s src=%s entry=%s sl=%s tp=%s risk=%s reward=%s R=%.2f verdict=%s",
+               barKey, src, DoubleToString(entry, _Digits), DoubleToString(sl, _Digits),
+               DoubleToString(tp, _Digits), DoubleToString(risk, _Digits),
+               DoubleToString(reward, _Digits), R, (ok ? "PASS" : "FAIL"));
+   riskOut = risk; rewardOut = reward; ROut = R;
+   return ok;
+  }
+//--- pool consumability: READY for the election day (SHORT/EMPTY/FAILED/stale: no-consume)
+bool SrjUjPoolConsumable(string dayKey)
+  {
+   return (uj_pubState == UJ_POOL_READY && dayKey != "" && uj_poolDayKey == dayKey);
+  }
+//--- history walker: builds temp pool over [2026.04.29, today]
+int SrjHistPoolBuild(SUjPoolRec &out[], string &achStart, int &dayCnt, int &famRead, int &unavail, int &emptyValid)
+  {
+   ArrayResize(out, 0);
+   achStart = ""; dayCnt = 0; famRead = 0; unavail = 0; emptyValid = 0;
+   datetime reqD = StringToTime("2026.04.29");
+   datetime nowB = iTime(_Symbol, PERIOD_CURRENT, 1);
+   if(nowB <= 0 || reqD <= 0) return UJ_POOL_FAILED;
+   datetime todayD = StringToTime(TimeToString(nowB, TIME_DATE));
+   datetime maxOrigin = todayD - 2 * 86400;
+   string sessName[4] = { "ASIA", "LONDON", "NY", "PM" };
+   bool truncated = false;
+   for(datetime D = reqD; D <= todayD; D += 86400)
+     {
+      datetime refT = D + 43200;
+      int sh = iBarShift(_Symbol, PERIOD_CURRENT, refT, false);
+      if(sh < 0) { truncated = true; unavail++; break; }
+      datetime bt = iTime(_Symbol, PERIOD_CURRENT, sh);
+      if(bt <= 0) { truncated = true; unavail++; break; }
+      if(StringToTime(TimeToString(bt, TIME_DATE)) != D) continue;
+      dayCnt++;
+      if(achStart == "") achStart = TimeToString(D, TIME_DATE);
+      bool dayEmpty = true;
+      for(int s = 0; s < 4; s++)
+        {
+         double vLH = 0.0, vLL = 0.0, vPH = 0.0, vPL = 0.0;
+         if(!ReadFlow(10 + s * 2, vLH, sh) || !ReadFlow(11 + s * 2, vLL, sh) ||
+            !ReadFlow(40 + s * 2, vPH, sh) || !ReadFlow(41 + s * 2, vPL, sh))
+           { truncated = true; unavail++; break; }
+         famRead += 4;
+         double lv[4]; datetime ov[4]; string sv[4];
+         lv[0] = vLH; ov[0] = D; sv[0] = "LIVE";
+         lv[1] = vLL; ov[1] = D; sv[1] = "LIVE";
+         lv[2] = vPH; ov[2] = D - 86400; sv[2] = "PD";
+         lv[3] = vPL; ov[3] = D - 86400; sv[3] = "PD";
+         for(int r = 0; r < 4; r++)
+           {
+            if(lv[r] == EMPTY_VALUE || lv[r] <= 0.0) continue;
+            if(ov[r] < reqD || ov[r] > maxOrigin) continue;
+            int side = ((r == 0 || r == 2) ? 0 : 1);
+            string okey = TimeToString(ov[r], TIME_DATE);
+            bool dup = false;
+            for(int e = 0; e < ArraySize(out); e++)
+              { if(out[e].dayKey == okey && out[e].sess == sessName[s] && out[e].side == side) { dup = true; break; } }
+            if(dup) continue;
+            int n = ArraySize(out);
+            ArrayResize(out, n + 1);
+            out[n].dayKey = okey; out[n].sess = sessName[s]; out[n].side = side;
+            out[n].value = lv[r]; out[n].source = sv[r];
+            out[n].closure = ov[r] + 86399; out[n].poolGen = uj_poolGen + 1;
+            dayEmpty = false;
+           }
+         if(truncated) break;
+        }
+      if(truncated) break;
+      if(dayEmpty) emptyValid++;
+     }
+   if(truncated) return (ArraySize(out) > 0 ? UJ_POOL_SHORT : UJ_POOL_FAILED);
+   return UJ_POOL_READY;
+  }
+//--- unconditional refresh in the new-bar path (day-keyed rollover rebuild)
+void SrjUjPoolRefresh()
+  {
+   datetime nowB = iTime(_Symbol, PERIOD_CURRENT, 1);
+   string todayK = UjDayKey(nowB);
+   if(todayK != "" && todayK == uj_poolDayKey && uj_pubState == UJ_POOL_READY)
+     {
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] UJPOOLCOV req=%s ach=%s days=%d famRead=%d unavail=%d emptyValid=%d state=%d attempt=%d poolGen=%d cadence=no-rebuild",
+                     uj_reqStart, uj_achStart, uj_dayCount, uj_famRead, uj_unavail,
+                     uj_emptyValid, uj_pubState, uj_attemptCount, uj_poolGen);
+      return;
+     }
+   uj_attemptState = UJ_POOL_BUILDING; uj_attemptCount++;
+   SUjPoolRec tmp[];
+   string ach = ""; int dc = 0, fr = 0, un = 0, ev = 0;
+   int st = SrjHistPoolBuild(tmp, ach, dc, fr, un, ev);
+   uj_attemptState = st;
+   uj_reqStart = "2026.04.29"; uj_achStart = ach;
+   uj_dayCount = dc; uj_famRead = fr; uj_unavail = un; uj_emptyValid = ev;
+   if(st == UJ_POOL_READY)
+     {
+      int n = ArraySize(tmp);
+      ArrayResize(uj_pool, n);
+      for(int i = 0; i < n; i++)
+        {
+         uj_pool[i].dayKey = tmp[i].dayKey; uj_pool[i].sess = tmp[i].sess;
+         uj_pool[i].side = tmp[i].side; uj_pool[i].value = tmp[i].value;
+         uj_pool[i].source = tmp[i].source; uj_pool[i].closure = tmp[i].closure;
+         uj_pool[i].poolGen = tmp[i].poolGen;
+        }
+      uj_poolDayKey = todayK; uj_pubState = UJ_POOL_READY; uj_poolGen++;
+     }
+   //--- SHORT/FAILED: published pool untouched (last-good; stale never consumed:
+   //--- the consumability gate requires day match + READY).
+   if(InpDebugLog)
+      PrintFormat("[SRJ-EA] UJPOOLCOV req=%s ach=%s days=%d famRead=%d unavail=%d emptyValid=%d state=%d attempt=%d poolGen=%d cadence=rebuild",
+                  uj_reqStart, ach, dc, fr, un, ev, st, uj_attemptCount, uj_poolGen);
+   if(InpDebugLog)
+      PrintFormat("[SRJ-EA] UJPOOLSTATE dayKey=%s publishedPoolState=%d refreshAttemptState=%d poolGen=%d",
+                  uj_poolDayKey, uj_pubState, uj_attemptState, uj_poolGen);
+  }
+//--- run-level pool-service record (zero admissions print the schema, never vacuous)
+void SrjUjPoolFinalize()
+  {
+   if(!InpDebugLog) return;
+   datetime nowB = iTime(_Symbol, PERIOD_CURRENT, 1);
+   PrintFormat("[SRJ-EA] UJPOOLSVC requestedStart=%s achievedStart=%s runEnd=%s dayCount=%d familyRead=%d unavailable=%d emptyValid=%d finalState=%d attempt=%d poolGen=%d admissions=%d",
+               uj_reqStart, uj_achStart, UjDayKey(nowB), uj_dayCount, uj_famRead,
+               uj_unavail, uj_emptyValid, uj_attemptState, uj_attemptCount, uj_poolGen, uj_admitCount);
+  }
+//--- single probe printer (pass bar-time join key; M15 row gated on M15-new-bar)
+void SrjUjProbeTuple(int barShift, datetime barTime)
+  {
+   string bk = TimeToString(barTime, TIME_DATE|TIME_MINUTES);
+   double h4 = EMPTY_VALUE, h1 = EMPTY_VALUE, m15 = EMPTY_VALUE, ltf = EMPTY_VALUE;
+   if(!ReadFlow(FL_BUF_HTF_HIGH, h4, barShift)) h4 = EMPTY_VALUE;
+   if(!ReadFlow(FL_BUF_HTF_MID, h1, barShift)) h1 = EMPTY_VALUE;
+   if(!ReadFlow(FL_BUF_HTF_LOW, m15, barShift)) m15 = EMPTY_VALUE;
+   if(!ReadFlow(FL_BUF_LTF_BIAS, ltf, barShift)) ltf = EMPTY_VALUE;
+   //--- probe-side DIV classifier: verbatim firing-walk bound, full domain
+   int maxWalk = Bars(_Symbol, PERIOD_CURRENT) - 1;
+   int readFail = 0, emptyV = 0, zeroV = 0, latestNZ = 0;
+   string kind = "-";
+   bool complete = true;
+   for(int s = barShift; s <= maxWalk; s++)
+     {
+      double verdict = EMPTY_VALUE;
+      if(!ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, verdict, s)) { readFail++; complete = false; continue; }
+      if(verdict == EMPTY_VALUE) { emptyV++; continue; }
+      int v = (int)MathRound(verdict);
+      if(v == 0) { zeroV++; continue; }
+      if(latestNZ == 0) { latestNZ = v; kind = ((MathAbs(v) == 1) ? "regular" : "hidden"); }
+     }
+   bool aligned = ((g_dir == DIR_LONG && (latestNZ == 1 || latestNZ == 2)) ||
+                   (g_dir == DIR_SHORT && (latestNZ == -1 || latestNZ == -2)));
+   string cls = (!complete ? "INCOMPLETE" : (latestNZ == 0 ? "ABSENT" : (aligned ? "ALIGNED" : "OPPOSING")));
+   PrintFormat("[SRJ-EA] UJPROBE bar_key=%s h4=%s h1=%s m15=%s confirmedFeed=1 ltf=%s div=%s kind=%s readFail=%d empty=%d zero=%d complete=%d latestNZ=%d covReq=%s covAch=%s dayCount=%d ticktime=%s lag=chartTime-1bar",
+               bk, UjDbl(h4), UjDbl(h1), UjDbl(m15), UjDbl(ltf), cls, kind,
+               readFail, emptyV, zeroV, (complete ? 1 : 0), latestNZ,
+               ((uj_reqStart == "") ? "-" : uj_reqStart), ((uj_achStart == "") ? "-" : uj_achStart),
+               uj_dayCount, TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
+   //--- IE10A: M15 buffer-row print fires only on M15-new-bar ticks
+   static datetime uj_lastM15 = 0;
+   datetime m15t = iTime(_Symbol, PERIOD_M15, 0);
+   if(m15t <= 0)
+     { if(InpDebugLog) PrintFormat("[SRJ-EA] UJM15RF bar_key=%s", bk); }
+   else if(uj_lastM15 == 0)
+     { uj_lastM15 = m15t;
+       PrintFormat("[SRJ-EA] UJM15ROW bar_key=%s m15time=%s m15vote=%s", bk, TimeToString(m15t, TIME_DATE|TIME_MINUTES), UjDbl(m15)); }
+   else if(m15t != uj_lastM15)
+     { uj_lastM15 = m15t;
+       PrintFormat("[SRJ-EA] UJM15ROW bar_key=%s m15time=%s m15vote=%s", bk, TimeToString(m15t, TIME_DATE|TIME_MINUTES), UjDbl(m15)); }
+  }
+
 //====================== OnTick =========================================
 void OnTick()
   {
@@ -11487,7 +11954,13 @@ void OnTick()
    datetime currentBarTime = iTime(_Symbol, PERIOD_CURRENT, 1);
    if(currentBarTime == s_lastBarTime) return;
    s_lastBarTime = currentBarTime;
+   //--- [P-UJIMPL-IMPL-1 v8 IE5] unconditional pool refresh in the new-bar path
+   SrjUjPoolRefresh();
    LoadWorkingSet(1, currentBarTime);
+   //--- [P-UJIMPL-IMPL-1 v8 IE9/IE4] boundary order: memo-clear, probe-print,
+   //--- then evaluation (non-load-bearing beyond this sentence).
+   uj_memo_valid = false; uj_memo_barTime = 0; uj_memo_src = "";
+   SrjUjProbeTuple(1, currentBarTime);
    EvaluateClosedBar(1, currentBarTime);
    StoreWorkingSet(1, currentBarTime);
    //--- [P-EXITMODEL] the section 4 site-3 exit phase: runs AFTER the entry pipeline

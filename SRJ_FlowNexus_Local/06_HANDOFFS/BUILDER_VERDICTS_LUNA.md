@@ -11847,3 +11847,15 @@ No replacement mechanism is needed. The packet already uses the stronger archite
 
 **Net ruling: IQ1v8 CONFIRM + IQ2v8 CONFIRM. No additional scope owed; no build/run clearance is created by this round.** 
 ## V315-UJIMPL-16 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## KEY LUNA V315-IMPL1V8 (operator-carried 2026-09-26, filed whole 1x this turn)
+
+Operator paste, verbatim:
+
+GRANT CONFIRMED.
+
+**Luna grant:** `PACKET_P-UJIMPL-IMPL-1` (`D3A66F97`) is granted a key for **exactly one build plus one tester run**. The packet itself states that build execution is gated on a new Luna key and the user's run word.
+
+No additional build or run is authorized by this grant.
+
+## KEY LUNA V315-IMPL1V8 END (nothing appended)

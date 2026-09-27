@@ -3,14 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-26, WORD IN / KEY OWED)
+## State (2026-09-27, V8 BUILT)
 
-- V315 graded (IQ1v8/IQ2v8 2-0 CONFIRM;
-  packet IMPL-1 v8 council-cleared).
-  HIS run word received ("proceed to build").
-  BUILD BLOCKED on NEW Luna key (his paste
-  was the ask echoed, no grant in it).
-  Seats: Luna + Astra + GLM. Ledger 874.
+- Packet v8 BUILT 14C7476C (EA 0/0 +
+  FlowLogic 0/0; key build-leg spent).
+  Tester-run leg open: ONE run allowed.
+  Seats: Luna + Astra + GLM. Ledger 876.
+
+## Next (owed him)
+
+- HIS window pick (UJ 6/1-6/13 miss
+  venues vs EU 8/26-9/10 preservation;
+  one run covers one symbol only).
 
 ## Next (owed him)
 
