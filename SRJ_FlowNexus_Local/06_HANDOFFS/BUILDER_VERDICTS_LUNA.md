@@ -11744,3 +11744,81 @@ IQ2v6 OBJECT - the acceptance package lacks a pool-generation/version key bindin
 
 The packet is therefore **not closure-ready as v6**. The most important repair is to make TP/SL/1R/memo preparation a **single common pre-fire operation available to every S5 entry route**, rather than an S2-only producer.
 ## V313-UJIMPL-14 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V314-UJIMPL-15 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling
+
+**IQ1v7 CONFIRM** — The route/publication closure stands. The fire-site fallback covers the S1-origin same-pass cascade, the publication/attempt split preserves last-good state, SHORT is non-consumable, read failure truncates, dedup identity is explicit, and the poolGen propagation is specified through the route.
+
+**IQ2v7 OBJECT** — The acceptance closure is not fully precise on the DIV path. The packet says an opposing/incomplete/unreadable DIV search is **ungradeable**, but the cited firing code currently collapses both genuine absence and unreadable gaps into `!divOk` and proceeds to `DIV_WAIT` at C8856-C8864. That does not preserve the required distinction between **completed readable absence** and **incomplete search**. The acceptance needs a distinct completeness predicate/result carried into S5 disposition.
+
+### Analytic defects / gaps
+
+| Priority                 | Lines                          | Finding                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------ | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Blocker for IQ2**      | P036; C8836-C8848; C8856-C8864 | DIV formal predicate says “completed readable search,” but the live walker does `if(!ReadBuf1(...)) continue;`. A failed read is therefore silently skipped, and an eventual no-verdict result becomes `DIV_WAIT`. This can make **incomplete/unreadable** indistinguishable from **genuinely absent**, contrary to P036.                      |
+| **Material imprecision** | P021, P023                     | `poolGen` is said to chain through “winner provenance,” but IE5c defines `uj_winnerProvenance` only as `{value, source, dayKey}`. There is no explicit `winnerPoolGen` field in the provenance schema. Add it explicitly and require equality into the admission tuple.                                                                        |
+| **Material imprecision** | P035                           | Canonical causality identity is described as `(uj_bar_key + admission key + tradeSeq)`, while P033 defines `admission key = {uj_bar_key, tradeSeq}`. The identity is therefore redundant/self-nested. Make the canonical key simply `{uj_bar_key, tradeSeq}` and use that everywhere.                                                          |
+| **Material edge case**   | P021, P033                     | The “every D in range visited” rule does not explicitly define how a calendar day with no M5 bars is classified. Without a trading-day/calendar-day rule, weekend/no-bar dates can be confused with unavailable history.                                                                                                                       |
+| **Minor**                | P021                           | “publishes SHORT” is potentially ambiguous because the packet separately distinguishes `publishedPoolState` from `refreshAttemptState`. State explicitly that a SHORT/FAILED attempt **never replaces the published READY dataset**, while the authoritative consumer separately rejects any generation whose current attempt is SHORT/FAILED. |
+| **Minor**                | P027                           | “cross-checks both when both exist” lacks the exact equality tuple. It should state which fields must match: at minimum candidate identity, TP, SL, entry reference, and bar/admission key.                                                                                                                                                    |
+| **Minor**                | P029, P036                     | “flag state pinned” is stated, but the acceptance text does not enumerate the exact runtime flag values in the same closure sentence. For reproducibility, pin `InpMode=1`, `InpDebugLog=true`, M5, and HTF debug enabled in one explicit acceptance record.                                                                                   |
+
+### Better mechanisms
+
+**DIV:** Keep the existing newest-first walk, but make read failure a first-class result rather than `continue`.
+
+Conceptually:
+
+```text
+DIV_SCAN:
+  latestNonZero = none
+  complete = true
+  readFailures = 0
+  emptyVerdicts = 0
+
+  for s = barShift .. maxWalk:
+      if ReadBuf1 fails:
+          complete = false
+          readFailures++
+          break/truncate
+
+      if EMPTY_VALUE:
+          emptyVerdicts++
+          continue
+
+      if verdict == 0:
+          continue
+
+      latestNonZero = verdict
+      break
+
+  result:
+      complete && latestNonZero absent      => GENUINELY_ABSENT
+      complete && latestNonZero aligned     => ALIGNED
+      complete && latestNonZero opposing    => OPPOSING
+      !complete                              => INCOMPLETE
+```
+
+Then S5 must consume those states distinctly: **ALIGNED → continue**, **GENUINELY_ABSENT → gradeable stand-down/absence path**, **OPPOSING/INCOMPLETE → held/ungradeable path**, rather than routing all three through `!divOk`. The acceptance row should prove the state, not merely `divOk`.
+
+For the pool, I would make the lineage explicit as:
+
+```text
+refreshRecord.poolGen
+    -> tpElection.poolGen
+    -> winnerProvenance.poolGen
+    -> admissionTuple.poolGen
+    -> managedRetarget.poolGen
+```
+
+with `{uj_bar_key, tradeSeq}` as the sole causal identity key.
+
+### Final verdict lines
+
+```text
+IQ1v7 CONFIRM - fire-site fallback, publication/attempt split, poolGen chain, dedup, SHORT non-consumable, validity transitions, read-failure truncation, and flag-state pin all stand.
+
+IQ2v7 OBJECT - DIV acceptance still conflates incomplete/unreadable search with genuine absence because C8840 skips read failures and C8856-C8864 routes the resulting !divOk to DIV_WAIT; require an explicit completed-readable DIV result before closure.
+```
+## V314-UJIMPL-15 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)

@@ -5872,3 +5872,64 @@ Confirmed-coherent for the record: the walker's "read PD/session buffers at D's 
 
 Nothing else is asked; no key, no build, no scope owed.
 ## V313-UJIMPL-14 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V314-UJIMPL-15 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+**GLM seat ruling — page only.** Ruling on the twin + companion + rows as pasted; no disk claims beyond them; no files asked; no key spent or requested; nothing here builds, runs, or clears activation.
+
+---
+
+## IQ1v7 — route-conflict + publication edit confirm
+
+**IQ1v7 verdict line: IQ1v7-OBJECT**
+
+**IQ1v7 plain answer:** "IQ1v7 OBJECT - the fallback route is covered for memo presence, identity, and values, but not for the 1R-floor veto or the SL source, and the poolGen chain's downstream fields are omitted:
+
+1. **Fallback 1R enforcement unpinned.** P027 itself names the route the fallback serves ("S1-origin same-pass cascade via the pre-bind fall-through, which skips the poll") and writes the memo at EA 8918 with "R per IE7 arithmetic" — but IE7's *enforcement* (risk>0 AND reward>0 AND reward>=risk; fail prints + GoAbort(ABORT_SUB_1R)) is sited only after EA 7325-7335 at the poll (P025), which the same P027 sentence says this route skips. The IE9 guard checks "candidate-identity equality AND value equality" — no R threshold. The only 1R-pass language at a write point ("written at the single successful election point after TP/SL/1R pass") both contradicts the two-source design ("single") and names no abort code, no print, and no seat at 8918. So the one route the fallback opens can reach the EA 10216 latch without a pinned sub-1R rejection — against his veto word (P009; priors: REJECT sub-1R nearest at admission, 1R floor from the entry open).
+2. **Fallback SL source unpinned.** "SL from the latched stop" (P027) pins no disk line. On the cascade route the poll-side latch s1_stopRef (EA 7334) is unwritten this pass; if the referent is the S5 R-latch stop (the C8662 comment's "R latch"), its code is never cited — and if it is a persistent global, a stale cross-pass/cross-candidate stop is consumable.
+3. **poolGen chain unprovable past the refresh record.** P021 carries poolGen "refresh record -> TP election -> winner provenance -> admission tuple -> managed retarget", but P023 enumerates uj_winnerProvenance as (value + source + dayKey) and P033's per-admission named producers omit poolGen. dayKey cannot disambiguate same-day re-publications (SHORT/FAILED same-day retries increment the generation under one dayKey), so the chain refresh→admission cannot be evidenced as enumerated.
+
+**What stands (not sunk by this OBJECT):** memo-absent coverage for presence/identity/values at both sources; last-good hygiene with the published pool untouched and never consumed on FAILED; dedup identity {originDay, sessionId, side} (correctly collapses multi-bar PD reads and the live-slot/walker double observation of one origin day); SHORT non-consumable with same-day retry; validity transitions (READY same-day = no-rebuild, rollover rebuild, re-init at run start); read-failure truncation with EMPTY_VALUE distinct from failed data; flag pinning. Each is internally consistent with the code companion."
+
+---
+
+## IQ2v7 — route-publication acceptance confirm
+
+**IQ2v7 verdict line: IQ2v7-OBJECT**
+
+**IQ2v7 plain answer:** "IQ2v7 OBJECT - the UJ-S2RETAIN predicate is unfireable as worded. P032 requires 'promotion evidenced + retention with LTF aligned', but the S2 block retains only on a readable-unaligned vote (EA 8070-8071 aborts on read failure; EA 8072-8073 prints S2WAIT and returns only when aligned==false), and the IE4 probe's LTF row is the same FL_BUF_LTF_BIAS read (C2273) at the same barShift in the same tick — the only reading under which the probe evidences the gate's input — so it cannot disagree with CheckLtfAlign, and aligned-plus-retained never co-occurs. The fireable intent (the M15 confirmed vote aligned per his 15m rule while the 5m gate retains — the 6/5 miss evidence this finding exists to carry, per the rows-fence UJ1 note '5m standing confirm + 15m flip at the entry candle') is not what the line says. One clause fixes it.
+
+**What stands:** the zero-admission schema counts exactly the 10 named fields (requestedStart/achievedStart/requestedEnd-or-runEnd/day-count/family-read/unavailable/empty-valid counts/final state/attempt/poolGen); the DIV predicate (completed readable search over the declared domain, EMPTY_VALUE distinct from failed data, unreadable = ungradeable-named-not-failed) is operable; the added/removed standalone lists with per-row attribution bits are coherent; L-final aggregation with fired findings redeeming fail-closed outcomes per the P031 discipline is stated; the S5 DIV_WAIT disposition per confirmation origin (S4 aborts, S3 rolls back, graded by terminal disposition) is disk-pinned at C8851-8875."
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (page lines; freetext)
+
+1. **P025/P027 — fallback 1R enforcement** (the OBJECT, restated): IE7's gate exists only at the poll; the guard checks no threshold; "after TP/SL/1R pass" is the sole 1R language at a write point and it also says "single."
+2. **P027 — fallback SL source** (the OBJECT, restated): "the latched stop" has no anchor; the poll-side latch (EA 734) is unwritten on this route.
+3. **P021/P023/P033 — poolGen enumeration** (the OBJECT, restated): asserted carried to provenance/admission; omitted from both field lists; dayKey is not generation-unique.
+4. **P021 — pool-state domains stated three inconsistent ways**: the split says publishedPoolState READY|EMPTY; the read-failure rule "publishes SHORT" (making SHORT a published state absent from the split's published domain); and the "validity enum uj_poolState EMPTY/BUILDING/READY/SHORT/FAILED" sentence re-conflates published and attempt states. The functional no-consume rules are consistent — pin the two field domains (suggest published {READY, EMPTY, SHORT}, attempt {BUILDING, READY, SHORT, FAILED}).
+5. **P032 — UJ-S2RETAIN referent** (the OBJECT, restated): under the packet's own LTF usage (FL_BUF_LTF_BIAS, the 5m row) the predicate is dead; the M15 reading is never stated.
+6. **P018/P019 + P032 — no pass-side guard print.** The guards print only UJALIGN_NOMATCH (mismatch/read-fail); A-IMPL1's "no guard-pass row at that pass or any later retained pass" has no literal row to read. Pin the derivation (downstream promotion implies guard pass) or add a pass print.
+7. **P027 — cross-check disposition unstated.** "Cross-checks both when both exist" says nothing about what happens on disagreement (which abort code, which value authoritative). With IE6 both sites are next-open-referenced and should agree — say what happens when they do not.
+8. **P027 — "single successful election point"** is a v6 remnant; the fallback creates two write points. "One write per pass" is the accurate statement.
+9. **P018/P019 — "confirmation burns per one-bar rule" on read-fail.** IsConfirmationCandle (C8668/C8805) never ran; the bar passes unevaluated with no carry-forward. Outcome-equivalent, wording imprecise.
+10. **P035 — causality identity dual-keying.** Base-tree rows carry none of (uj_bar_key, admission key, tradeSeq); the operative base/edited matching is trade identity (anchorLine/dir/barTime), stated earlier in the same leg. Two match domains (cross-tree trade matching vs in-tree record joining) compressed into one sentence — separate them.
+11. **P036 — DIV walk-domain coincidence.** "Declared walk domain" should be stated to coincide with the EA's firing walk (barShift..Bars-1, C8836-8837), else "genuinely-absent" can be declared over a smaller domain than the EA walks.
+12. **P033 — assertion vocabulary lacks SHORT.** The pool-service assertion ("coverage at or before the requested window start … or named-empty with cause") has no partial-coverage case; since admissions consume READY only, state that the assertion is evaluated against READY pools so a grader does not apply it to SHORT.
+13. **P025 — early-kill semantics.** The poll-site 1R gate kills retained S2/S3/S4 candidates on any transient sub-1R election (per the NO_TP/NO_SL sibling convention), stricter than his admission-time word. The fire-edge alternative is recorded as veto-able; the early-kill-vs-recover-later choice deserves the same surfacing.
+14. **P020 — probe cap source.** "Cap pinned >= window bars" should name the number's source (RUN-WINDOW GATE bar count) so STAGE-1 provably covers the grade window.
+15. **P021 — EndOfRun coverage print.** With the coverage print moved to the refresh site, "if retained reads the built pool" should be removed-or-retained explicitly, to avoid two coverage prints with different watermarks.
+
+## Analytic ask B — better mechanisms for the stated goal
+
+1. **One shared 1R assert helper** (e.g., SrjUjAssert1R(entry, sl, tp, barKey, src)) called at both memo write points — after EA 7335 (IE7's seat) and after the EA 8918 election in the fallback — sharing the ABORT_SUB_1R define (EA 320-321) and one print schema. One code path makes the veto route-complete by construction.
+2. **Memo source tagging**: add uj_memo_src (POLL|FIRELOCAL) to the IE9 memo fields; the guard prints it and the cross-check disposition becomes explicit (mismatch = abort carrying both value sets); grade rows distinguish routes without inference.
+3. **poolGen plumbing through the election**: extend TpTargetUpdateBest (EA 2301-2322, becomes-best at 2320-2321) with a provenance payload (source, dayKey, poolGen) updated atomically with the winner; callers at 2397-2402 (session), the IE5 pool loop at 2402/2403, 2403-2409 (POI), and IE5b at 11099-11104. IE5c and the admission tuple then carry (value+source+dayKey+poolGen) and A-IMPL2 can prove the chain end-to-end.
+4. **One-line UJALIGN_PASS print** at each guard's pass branch (the EA 8654/8655 and C8794/8795 insert sites), unconditional like UJTOUCH — makes "guard-pass row" a real row and simplifies the LTFPATH-DEAD predicate.
+5. **UJ-S2RETAIN needs no code**: both required fields (the S2WAIT row and the M15 confirmed vote) already ride the IE4 tuple — redefine the predicate as "S2WAIT retained at pass P AND the M15 confirmed vote aligned at P" and the finding becomes fireable and carries exactly the 6/5 miss evidence.
+6. **Publish pool state as one struct** {dayKey, publishedPoolState, refreshAttemptState, poolGen} under a single "STATE" readout — removes the three-way domain wording in P021.
+
+---
+
+**Close.** Both objects are narrow: each names a one-clause/one-field fix inside P021/P023/P025/P027/P032/P033; every other closure item in both questions is confirmed standing and should not be re-litigated on this seat's account. No follow-up ask for the parked seat. Build gating unchanged: nothing here spends or asks for the Luna key or his run word.
+## V314-UJIMPL-15 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
