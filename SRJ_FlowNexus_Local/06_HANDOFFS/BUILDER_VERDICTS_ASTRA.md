@@ -18256,3 +18256,38 @@ These are independent page-only confirmations. They do not certify disk authenti
 For the stated goal, I see no necessary additional behavior change. The remaining improvements are the precise placement and wording corrections above; the dual-timestamp prints, fire-side provenance snapshot, and findings-v3 map supply the previously missing proof structure.
 
 ## V320-IMPL2-5 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V321-IMPL2-6 OPEN ASTRA (verbatim open; novel inbound, pre-counts 0/0)
+
+I’m checking the two verdicts independently against the supplied code and acceptance predicates; disk claims remain outside this review.
+IQ1v14: CONFIRM — P023–P176; C10388–C10430, C11361–C11368.
+
+IQ2v14: CONFIRM — P178–P185, subject to the explicit future-run proofs and failure predicates already stated.
+
+The amended B2 geometry closes the prior contradiction: P096 puts B2 after C11363–C11364 and before C11365. The existing skip removes the managed anchor before the helper executes; eligible same-family VWAP candidates still reach the helper. Retaining the helper’s anchor arm is consistent with its use at B1/B3.
+
+Fix A’s guard, fire-local validation, and publication are internally consistent: A4 checks the tuple subsequently latched at C10405–C10407; A6 carries its R; A9 supplies the fire-side provenance published by A7. This conclusion relies on the stated complete call-site inventory and admission-pass ordering at P023, supported by C11962–C11969. It does not independently authenticate that inventory against disk.
+
+Fix C falls through to the existing promotion at C8197–C8199 only when the additional M15 check passes; failed M15 reads or opposed votes retain the candidate. Fix D remains empty-election-only. Fix E adds evidence at both shown setters without changing their predicates.
+
+For IQ2, confirmation means the acceptance contract can distinguish success from failure—not that the edits have established four future admissions. P181 expressly preserves downstream gate requirements; P182 keeps rejected fallback elections failed; P184 requires exactly four admissions across the four specified venues and rejects extras. The separate EU grade is explicit.
+
+Analytic A — remaining imprecisions, none blocking these verdicts:
+
+- **P003 versus section 0:** P003 says “V320 2-1/1-2 HALT,” whereas section 0 and the stated V320 history say 2-1 HALT on both questions. Correct the status summary to the stated V320 result.
+- **P096:** “B1/B3 have no pre-existing skip” is too broad. C2500 and C2561 contain pre-existing rank skips. The precise statement is that B1/B3 have no pre-existing **anchor-exclusion** skip and that their new helper calls precede their rank skips.
+- **P115:** “anchor wins are unnamed by construction” can suggest a surviving anchor win whose label is suppressed. Under B1, the anchor is excluded from the Compute POI election; under B3, it is excluded from the POI census. Describe those exclusions directly.
+- **P175/P181:** The clarified setter-rule meaning is essential. These rows prove which setter accepted which candle; the E branch does not independently prove geometric zone intersection when `s35_fromFvg` is false. “Physical-candle touch proof” in the IQ2 summary must retain that qualification.
+- **P181/P185:** P181’s full touch predicate governs grading. P185’s parenthetical “row absent by the signal pass” is only one way touch can remain unproven; a present row with the wrong anchor, direction, timestamp, or candidate window also fails that predicate.
+- **P182:** “FIRELOCAL + FIRE” should remain route-dependent supporting evidence, as the paragraph’s “expected” wording permits. C10374 makes FIRELOCAL conditional on an absent or stale memo; a current POLL memo bypasses that branch. FIRE remains the mandatory admission-tuple assertion.
+- **P184:** Routing an unproven-touch outcome to a mechanism review is coherent. The phrase “never a fix defect” should not preclude a separately evidenced implementation defect, such as an omitted required print. Missing evidence alone establishes neither non-occurrence nor root cause.
+
+Analytic B — better mechanisms, optional future work:
+
+- **P073–P082; C91–C105:** The already-recorded rank-based family test would avoid dependence on line-code spelling, provided the authority-table pairing becomes an explicit invariant. No change is needed to resolve this round.
+- **P059–P060; C2399–C2401:** Returning winner provenance together with the elected price would make the admission snapshot structurally independent of mutable global winner fields. That is a broader refactor; the stated ordering supports the present mechanism.
+- **P163/P172/P181:** A candidate-generation identifier propagated into both touch rows and the admission record would make correlation more direct than reconstructing S3 windows. The present window rule remains usable if the required chain evidence exists; absent evidence fails under UJ-NOEVID.
+
+These are page-only check verdicts. No key, build, run, money movement, or live activation is authorized.
+
+## V321-IMPL2-6 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

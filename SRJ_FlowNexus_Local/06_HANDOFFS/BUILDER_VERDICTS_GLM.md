@@ -6255,3 +6255,67 @@ Both objections trace to one sentence pair and clear with a two-line amend. No o
 (End of seat reply — transport verbatim.)
 
 ## V320-IMPL2-5 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V321-IMPL2-6 OPEN GLM (verbatim open; novel inbound, pre-counts 0/0)
+
+## Verdict lines
+
+**IQ1v14: CONFIRM**
+
+**IQ2v14: CONFIRM**
+
+Scope of ruling: page only (packet P-lines, companion C-lines, rows R01-R22, logic). Disk genuineness (twin diff 0, digests, row 1x hits) is his to prove on the machine; nothing here builds, runs, spends, or clears live activation, and no key is volunteered or asked.
+
+---
+
+## Basis for IQ1 (internal closure of the amended edit set)
+
+**Fences vs companion — byte checks pass:**
+- A3 old matches C10394-C10395; A4/A6/A8/A9a/A9b placements are consistent with the shown structure (A4 after C10391 uj_bk9 def, before C10392; A6/A9a function-scope before the C10390 brace, visible at the latch and at A9b/C10426-C10429; A9b between C10426 and C10427). A7 old matches C10429; A5 old matches C10388-C10389; the retired ABORT_MEMO_MISMATCH is the C396 define with its sole use at the retired guard (P070), replacement define A8 in the C394-C397 region.
+- B: B0 helper after the C2402 close; B3b old matches C2567-C2571 (5→4 lines, −1); B3c old matches C2511-C2513 (3→3). **B2 siting is now unambiguous**: after the C11363-C11364 skip, before `double v` at C11365, testing g_mtrade.anchorLine — the v320 "sits first vs skip runs first" objection is resolved by construction (the `k == g_mtrade.anchorLine` arm at C11363 kills the anchor arm before B2, so the dead-arm prose and "no B2-anchor rows" claim at P096/P181 follow from a line shown verbatim in the companion).
+- C old matches C8195-C8196 exactly; the new block's braces balance, the promote branch falls through to the byte-unchanged C8197-C8199 promote, the retain branch prints the identical S2WAIT line and returns. Fail-closed on m15 read failure (uj_m15r false → else → retain). Scope/signatures: SrjUjAssert1R 8 args matches C11768-C11770; UjDbl C11750; UjDayDiff C11762; ReadFlow/TpTargetUpdateBest call shapes match the C2487/C2488 and C2503 patterns; s52_shift in scope at E2 (C8896-C8898); barShift in scope at both setters.
+- D1 sits between the C2504 loop close and the C2505 census comment, so the census names the fallback winner as claimed; the fallback uses the same sessbufs/sname/uj_dk scope as the C2484-C2488 walk, mask deliberately omitted, UpdateBest zone enforcement carried in the same call. Pool-walk status (EA 2492-2496, consumable-gated) is stated with cause; managed-side retarget decline is carried.
+- E old matches C8924-C8925; E2 old matches C8900-C8902; both prints are transition-only (both setters are guarded by `!g_touchSeen`), so "row-presence == setter-fired" holds; the deliberate evalBar==touchBar duplication at E is documented as intentional (P175).
+
+**Budget recount (independent):** A3 −1 (guard 2-vs-2, define retired) + A4 +3 + A5 0 + A6 +1 + A7 0 + A8 +1 + A9 +6 (A9a 4 + A9b 2) + B0 +11 + B1/B2/B3 +2 each + B3b −1 + B3c 0 + C +11 (2-vs-13) + D1 +15 + E 0 + E2 +1 (3-vs-4) = **+53**. Matches P176 exactly. Zero fence-byte change vs v7 is consistent with the B2 relocation being siting-prose-only.
+
+**External-interface surface:** no new buffers, inputs, handles, or EA-side mirror (P005); Fix C reads existing FL buffers per P013's cites; new rows are InpDebugLog-gated journal diagnostics, consistent with the established print discipline. A9b's snapshot ordering proof holds on the page given the C11957-C11969 OnTick order and the seven-site UpdateBest census (2488/2495/2503/D1 inline pre-snapshot; 11349/11356/11367 post-admission).
+
+**1R arithmetic spot-checks:** poll tuple (159.983−159.929)/(159.929−159.905) = 2.25; fire tuple (159.983−159.929)/(159.929−159.889) = 1.35 — both match P179.
+
+---
+
+## Basis for IQ2 (legs provable as stated, no improvised grading)
+
+- Every leg pins identity + signal/fill bars + pre-declared values or grade-read fields, and every failure mode I can construct maps to a named finding in the v4 map or to the fail-closed discipline (S1/S3/STAGE-1 sentence at P178): wrong fill → UJ-TIMEBASE; unproven touch → UJ-NOTOUCH with the touch-vs-retest question routed to council visibly, not treated as a fix defect (P181/P184); fallback death → UJ-FBDEAD per the IFF clause or UJ-NOADMIT; fifth/mismatched admission → UJ-EXTRA; empty fire wsrc → UJ-SRCMISM.
+- A-S2P's first-evaluation inference is sound on the page: C8196 prints S2WAIT on every LTF-opposed S2 pass, ltf opposed at every 6/5am probe, no S2WAIT bar ≤ 09:00 → first S2 evaluation is the 09:10 pass (eval 09:05), where m15 −1.0 equals the SHORT want → promote. The 09:30 mispin withdrawal is owned; R08-as-witness holds trivially post-promotion.
+- A-FB's bar correction (signal 16:10, fill 16:15; the 16:05-evaluated-at-16:10 context as witness, not admission fields) is consistent with the C10409-C10410 latch, the evaluated-bar convention, and P008's "NO_TP_TARGET at S2 16:10" — the v5 mislabel is owned and withdrawn.
+- A-POIV honestly states the load-bearing uncertainty: entry scheduling is unchanged, so the pinned fill 14:40/160.524 depends on a qualifying touch by the deadline; if it does not land, the venue fails with a named finding and the mechanism question routes forward. That is a closed predicate, not an improvised one.
+- L-final's exactly-four bound, one-resolution-per-venue, several-findings-per-venue, "missing row fails the proof, never asserts non-occurrence" (P185), and the EU leg graded separately when its run exists (P183) are all internally consistent with the brief.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (none break closure)
+
+1. **P048 (new-A7) indent drift**: one extra leading space vs P046/C10429. The P176 indent-normalization note names only B3b/E2-print, not A7. Cosmetic; 1-vs-1 line count unaffected; STAGE-1/S3 will catch it.
+2. **Rows-fence PREDICTION paragraph, R15 note** — "second promotion for the 6/11 candidate in the fixed run": ambiguous referent (the run's second promotion event, vs a second promotion *of* the 6/11 key). No pinned predicate keys on it (exactly-once is pinned only for the 6/5 key at A-S2P; A-POIV pins the admission + touch chain), but tighten in a future fold.
+3. **P185 vs P182 (UJ-FBDEAD)**: the map's wording ("unsuccessful fallback-election event (elects nothing or sub-1R, no admission)") is broader than the leg's IFF reservation (admission-pass fallback evaluating 16:10). An eval-16:05 fallback death at the 16:10 pass grades UJ-NOADMIT under the leg but reads like UJ-FBDEAD under the map. Both are named findings, so no improvisation is forced — but the two texts are not coextensive; align them.
+4. **P182 "UJFBPOOL + TPFALLBACK supporting"**: required-vs-corroborating status unpinned. D1's code prints TPFALLBACK whenever the fallback books with debug on, so a fallback-sourced admission implies the row; but an admission via a masked winner at eval-16:10 would legitimately have no TPFALLBACK. State which is expected so UJ-NOEVID's scope is unambiguous at grade.
+5. **P126/P129 (Fix C)**: ReadFlow/FL_BUF_HTF_LOW/FL_BUF_LTF_BIAS provenance rests on P013's FL-side buffer cites; unlike P018's EA-side signature cites, no EA-side call-site cite for a ReadFlow call with an HTF enum is given. Compile fail-closed covers a wrong constant or signature; flag for the S3 recount.
+6. **P008 vs P016**: "S2WAIT-LTF retained 09:25-09:45" (P008) vs the machine enumeration "09:05/09:20/…/09:45" (P016). P016 is the operative census; P008's prose window is loose. Imprecision only.
+7. **R19 vs R20**: div=OPPOSING vs div=ALIGNED on identical h4/h1/m15/ltf values — the div field is undefined on the page. No predicate cites it (inert), but define it if it ever becomes load-bearing.
+8. **P117**: the string-match fail-OPEN on a lineCode rename is disclosed and recorded for a future audit — a latent robustness gap, correctly not changed this round.
+9. **A-S2P context rows**: the eval-09:40/09:45 m15 votes rest on P013's machine-check claim without fenced rows (fence carries eval-09:05 through eval-09:35). Nothing pinned depends on those two values (promotion keys on eval-09:05; confirm on CONFIRMPOLL), so context-only — noting for completeness.
+
+## Analytic ask B — better mechanisms, with lines
+
+- **B0 (P073-P083)**: the rank-parity encoding already recorded at P117 (same family via g_authorityRank/2, anchor rank even, candidate rank odd) is the more robust form — rename-proof, enum-tied. It would touch only B0's body (P075-P082); B1/B2/B3 call sites and prints unchanged. Correctly parked for a future round.
+- **E setter (C8924 / P159-P163)**: the `(!s35_fromFvg || touchesZone)` arm accepts a touch without geometric zone proof when s35_fromFvg is false — P175 admits this. Requiring touchesZone unconditionally is a one-condition change at EA 8924, but it changes the touch-vs-retest rule itself, which this packet correctly routes to council rather than deciding. That is the likely next-round mechanism question; UJ-NOTOUCH is its trigger.
+- **Exactly-once promotion (A-S2P)**: currently grade-enforced (UJ-NOPROMO). A per-key promoted latch in the Fix C region (P123-P135) would make duplicates structurally impossible — schema churn, parked consistent with this round's decline discipline.
+- **UJFBPOOL (P141/P147)**: the pre-zone list cannot distinguish "listed but zone-rejected" from "listed and eligible" at grade; a post-zone eligible list or a zone-reject counter alongside D1 would close that without a second walk. The TPFALLBACK tp/src pair already carries the eligible outcome, so this is a nicety, not a need.
+
+---
+
+Both verdicts are page rulings only. Build remains gated on a new key plus his run word; neither is spent, asked, or cleared here.
+
+## V321-IMPL2-6 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
