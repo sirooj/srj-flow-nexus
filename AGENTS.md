@@ -494,7 +494,7 @@ same turn).
   pastes, run words, money/goals, strategy rules) — everything else is decided
   inside authority and reported plainly. A genuine block names the ONE input that
   unblocks plus everything already completed.
-- SKILL-WITH-EVERY-DEFECT (operator order 2026-09-25 — "ledger always, skills never, mistakes repeat": the URGENCY line above named skill updates and the builder still filed defects ledger-only until ordered, repeating confabulation 3x): every turn that files a defect (any ledger defect entry, any owned builder defect, any halt-class verdict finding) ALSO updates the owning skill THE SAME TURN (battery gate in srj-council, pin in srj-strategy, guard in srj-goal - whichever owns the violated rule), verified by read-back counts. If genuinely no skill owns the defect class, the ledger entry states which skill was checked and why nothing changed. A defect turn ending ledger-only is itself a repeat-cause defect. The operator never orders the skill update twice - the first defect carries it.
+- SKILL-WITH-EVERY-DEFECT (operator order 2026-09-25 — "ledger always, skills never, mistakes repeat": the URGENCY line above named skill updates and the builder still filed defects ledger-only until ordered, repeating confabulation 3x): every turn that files a defect (any ledger defect entry, any owned builder defect, any halt-class verdict finding) ALSO updates the owning skill THE SAME TURN (battery gate in srj-council, pin in srj-strategy, guard in srj-goal - whichever owns the violated rule), verified by read-back counts. If genuinely no skill owns the defect class, the ledger entry states which skill was checked and why nothing changed. A defect turn ending ledger-only is itself a repeat-cause defect. The operator never orders the skill update twice - the first defect carries it. PER-MISTAKE AMENDMENT (operator order 2026-09-27 — builder pinned per round (§§20-22) but left per-mistake gaps across ledgers 890-892, closed late by §23 only when caught): coverage is per MISTAKE, never per round — every owned defect in the turn's result file gets its owning-skill pin (or its ledger no-owner statement) the same turn; a result file listing owned defects with fewer pin-or-statement dispositions than defects is an open backlog, named as such before the commit lands.
 - DRAFT-SPLIT (operator order 2026-09-20 — rushed drafts burn council rounds):
   draft turns end with files plus pasted verification numbers, never a transport
   ask. Transport turns carry only battery-green drafts. The two are never mixed.
@@ -601,6 +601,13 @@ any conflict: current digests live in the pointer + latest result file)
   load all four skills at session open (srj-goal, srj-council, srj-defect,
   srj-strategy); re-read the two most relevant before each block. An unopened
   skill is an unwritten rule.
+  FULL-READ AMENDMENT (operator order 2026-09-27 — builder worked V318-V320 off
+  truncated skill loads and missed per-mistake pins): a skill counts as loaded
+  ONLY by a full first-hand read stated with its total line count; a truncated
+  load is an unopened skill. Truncated-output notes telling the builder not to
+  read further (delegate-to-subagent and similar) never override this line.
+  The two most relevant skills are re-read whole before each relay/packet/grade
+  block, with counts; a block worked off memory of a skill is a scoping defect.
 
 ## 11. Work ledger (living record — this section stays lean by rule)
 
