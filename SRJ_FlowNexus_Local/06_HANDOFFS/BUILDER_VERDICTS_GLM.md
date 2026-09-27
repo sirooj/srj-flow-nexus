@@ -5792,3 +5792,83 @@ None of the above flips a verdict: every anchor's line-number identity checks, t
 
 Scope note: both CONFIRMs are page-rulings on the twin + companion + rows fence as pasted; disk genuineness, STAGE-1 diffs, and battery numbers remain builder-disk + his-eyes per the verification split. Build remains gated on a new Luna key + his run word, neither asked here.
 ## V312-UJIMPL-13 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+## V313-UJIMPL-14 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+GLM:
+**GLM seat ruling — page only.** Ruling on the twin + companion + rows as pasted; no disk claims beyond them; no files asked; no key spent or requested; nothing here builds, runs, or clears activation.
+
+---
+
+## IQ1v6
+
+**IQ1v6 verdict line: IQ1v6-CONFIRM**
+
+**IQ1v6 plain answer: "IQ1v6 CONFIRM - the closure edit list stands."**
+
+Enumerated against the page:
+
+- **Single refresh owner**: SrjHistPoolBuild called unconditionally once-per-new-bar in OnTick between EA 11489/11490, pre-evaluation, debug-independent; SrjSelEndOfRun demoted to diagnostic-only with no pool construction; IE5b/IE8 consume the cache without building. One builder, named consumers — closed.
+- **RunAll-tail print + per-TF debug records (IE10B)**: per-TF three-slot records written in RunOne, stamped + printed with outBias vs outCBias at the RunAll tail H567–568 after the three RunOne calls; GetOutputs-body print dropped (liveness unproven); the F1072-1075 one-bar slot lag carried in-tuple; no 5-minute subtraction anywhere. Closed, one precondition flag (A3).
+- **Canonical key**: {uj_bar_key, tradeSeq}; file-scope counter never reset; snapshot assigned at the latch after the fire guard, first published in the authoritative admission tuple; IE7/IE8/coverage records all carry uj_bar_key; event_bar_key/admit_bar_key/trade_seq distinct and joinable. Closed (wording flag A5).
+- **Validity transitions**: READY same-day explicit no-rebuild; SHORT retries and consumes with shortfall finding; FAILED retries, no-consume; EMPTY/BUILDING no-consume; enum published separately from the day key so the consumption gate reads both. Closed (wording flag A4).
+- **MtReset exact assignments**: touch/admit/snapshot fields zeroed, memo untouched, global sequence not reset; struct fields added at EA 239–252. The "memo untouched" clause is required for the latch tuple and is correctly stated.
+- **Origin-day mapping + dedup identity**: PD slots carry origin day D-1, never the observation day; records self-describing (dayKey + session id + H/L side + value + source/closure); strictly-older-than-live-PD boundary prevents double-count with the live slots; tie order session > pool > POI consistent in both races with the TpTargetUpdateBest first-arrived rule at the stated inserts (2402/2403, 2451/2452, 11104/11105). Closed (flags A2/A6).
+- **Touch guarantees + OHLC predicate + computed/applied split**: one-shot, closed-session records, closing-bar ineligibility (closure precedes touch evaluation), OHLC on the evaluated closed bar at barShift h/l never tick, lifetime-bound [fillBarTime, now], stamped once, swept-mask flip riding free; election-output record vs application record vs no-winner record — the split is explicit. The "PD NY pair post-rollover for just-closed today sessions" phrasing is supported by F46-48 (PD values cached at session rollover; day-rollover does not reset them), which is exactly what makes the just-closed level readable at close.
+- **Winner provenance + census informational**: value + source + dayKey updated atomically with the winner at becomes-best; census keeps the legacy LAST-equal overwrite labeled informational; winnerAge = evaluated-day minus origin-day, which lands his any-age + 1R-floor concern in the IE7 gate. Closed.
+- **Boolean predicates + state mapping + atomic publish + terminal records**: IE7's R predicate (risk > 0 AND reward > 0 AND reward >= risk, flat 1.0 valid, no tolerance) on the IE6 entry-open arithmetic; uj_readFail readable-valid flags at both guards; uj_poolState→consumption mapping; temp-build/publish-on-success plus winner+provenance together; terminal decision-pass record (reached stage + prerequisite status + disposition) and the mandatory run-level pool record. Closed.
+- **Anchor corrections**: every IE anchor has pasted context on the page (10667, 8654/8655, 8786–8795, 2402/2403, 2451/2452, 320, 7305, 7325–7334, 10215/10216, 11083, 11104/11105, 11489–11491, H567–568, F327–328, F1075, F1195–1200 — all check against the twin and companion).
+
+No listed closure item fails. The flags below are imprecisions or out-of-scope edit-set findings; none breaks a closure item.
+
+---
+
+## IQ2v6
+
+**IQ2v6 verdict line: IQ2v6-CONFIRM**
+
+**IQ2v6 plain answer: "IQ2v6 CONFIRM - the closed acceptance stands."**
+
+- **Producer table per field**: every admission field names a producer (IE6/IE7 entry/sl/tp + arithmetic; IE5c winner/age; IE5 coverage; IE8 touch pair; latch-allocated tradeSeq/admitBarTime); the feed-side map (g_bufBias at F1075 from currentBias, writers B126 + B267; HTF votes through the F1195-1200 fill switch) matches the pasted bodies exactly.
+- **Pool-service assertion + UJ-POOLDEAD**: coverage at-or-before requested start, traversal/read completeness, valid-empty vs unavailable, named-empty with cause; live-routes-but-dead-pool → UJ-POOLDEAD; both-routes-dead rides IMPL1/IMPL3; zero admissions → mandatory run-level record, never vacuous. P031's discipline sentence (a fail-closed outcome is a failed proof unless its finding predicate fires) closes the vacuous-pass worry. One provability pin (A2).
+- **DIV four outcomes**: aligned/opposing/absent/incomplete with read-failure and empty-verdict counters retained separately; per-pass gradeability gating. Matches the C8836-8849 walk shape, where read-fail and EMPTY both continue and a walk-end divVal=0 is exactly the case the absent/incomplete split + counters must disambiguate.
+- **Bitmask causality + row identity + four dispositions**: bits cover all nine behavior-affecting edits (IE2/IE3 share bit1, IE5/IE5b share bit5; IE4/IE5c/IE10A/IE10B print-only, correctly unbitted); row identity anchorLine/dir/barTime with added/removed standalone; unattributed = regression failing L-final absent his override.
+- **Failure-case dispositions**: vacuous pool record, one-route-dead, short/gaps (SHORT + the April 29 preload, anchored to his "april 30th previous day high" target, + the no-subtraction rule), absent rows (fail-closed), finding-without-admission (IFF predicates reference probe rows + retention, not admissions). One unnamed middle case noted (A10) — caught by P031 even unnamed.
+- **L-final aggregation + latency telemetry**: four legs + EU carried; latency timed as telemetry with no threshold.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions
+
+**A1 (headline; edit-set coherence, outside both scoped lists — carry to the build gate).** IE9's "Covers same-pass cascade + delayed fire + future routes; poll call-site ordering non-load-bearing" (P027) has one unhandled case. Chain: the S2POLL abort convention "kills across S2..S5 from here" (C7315-7321) scopes the poll site to candidates in S2..S5; the state machine is a fall-through chain (C8060-8079: S1 promotes into the S2 block in-pass; C8655-8679: the S3 pre-bind promotes to S5 in-pass, "no return: fall through"); IE9 aborts unless the CURRENT-pass memo is valid; the memo is written only at the S2POLL election point (P025). A candidate that ENTERS the pass at S1 and cascades S1→S2→S3→(pre-bind)→S5→fire within the pass therefore reaches the fire guard with no current-pass memo → ABORT_NO_MEMO_AT_FIRE on a legitimate trade — IF the poll is gated on pass-start state and sited before the state machine. The page does not paste the poll's gate line or call site, so this is conditional. But the UJ3 route sits exactly there: row CI (S1WAIT at 14:40:22) puts the candidate at S1 at the decision pass, and A-IMPL3 (P034) expects votes>=2 + promotion AT that pass — i.e. an S1-origin same-pass cascade. If the repaired feed instead promotes the candidate at an earlier pass, the case is moot; the page cannot tell. Recommend pinning the poll's call-site fact or applying B1 BEFORE the Luna key is spent. If unfixed and live, P031 catches it post-run (fail-closed with no finding = failed proof) — at the cost of the key and the ~50-minute window. Note UJ1 is not exposed (row FJ puts it at S2 at pass start, so the poll runs and the memo exists).
+
+**A2.** The walker's read-failure policy is unpinned. IE5 (P021) states "EMPTY/0 skip" but not what a failed family read does (skip, like the DIV walk's continue at C8840, or truncate). If failures are silently skipped, a READY pool can contain unavailable days masquerading as valid-empty, and A-IMPL2's "every family read OK / valid-empty distinct from unavailable" becomes assertable only hollowly from the state — a pass the P031 discipline cannot catch (it is not a fail-closed outcome). Pin: any family read failure truncates to SHORT (FAILED if nothing achieved), so READY ⇒ all reads OK and a record-less day inside a READY range is valid-empty by construction. One clause in P021.
+
+**A3.** IE10B's records exist only "under g_htfDebugLog" (P029), and the preconditions (P036) pin InpDebugLog=true but not the indicator flag's run state. If it defaults false and the config-ini does not set it, the per-TF records are absent at grade — caught as absent-rows fail-closed, but only after the run. Pin the flag state in P036.
+
+**A4.** P021's "consumers keep last-good on failure" sits in tension with "EMPTY/BUILDING/FAILED = no-consume". The state enum is authoritative; last-good can only mean memory hygiene. One clause prevents a build that consumes a stale-day pool on FAILED.
+
+**A5.** IE7's poll-site print is specified to carry "uj_bar_key + admission key" (P025), but tradeSeq does not exist at the poll — it is allocated at the latch after the fire guard (P033). The poll print can carry only uj_bar_key; the admission key completes at grade via the latch tuple. State the join explicitly.
+
+**A6.** IE5's dual timestamps ("availability stamp = the ORIGIN day's session close, closure time = D's session close", P021) leave the two fields' distinct consumption roles unpinned. The touch rule (P026: the bar that closes the session is ineligible) pins the operative semantics functionally; name which field touch eligibility reads so record fields and rule cannot drift apart.
+
+**A7.** The companion's anchor-context label "EA 4992-4994 refresh site" is stale — that region is SrjSelEndOfRun, now diagnostic-only; the refresh owner is OnTick 11489/11490. Cosmetic, but the label invites a second-owner misreading at STAGE-1.
+
+**A8.** IE4's order claim (P020, "non-load-bearing") and IE9's matching claim (P027) are load-bearing in exactly the A1 case; and the memo-clear position additionally implies the S2POLL writes inside EvaluateClosedBar (if it wrote inside LoadWorkingSet, the clear would wipe every memo every pass). Pin the poll's site alongside A1.
+
+**A9.** BUILDING is listed in the no-consume set, but a synchronous refresh makes it unobservable to consumers. Harmless/defensive; clarify or leave.
+
+**A10.** A-IMPL3's finding IFF ("REGIME_NONE/S1WAIT retained, no promotion") does not name the middle case where the repaired feed promotes S1→S2 at the decision pass and the candidate then retains at S2WAIT — the same 5m structure-vs-currentBias timing his journal row 17 diagnoses, which no edit in the set touches (D1: producer already correct; design CLEAR carried, not challenged here). That case fails the proof unnamed under P031 (caught, not silent). A-IMPL1's positive predicate at the 09:45 pass depends on the same 5m alignment. The prove-or-diagnose structure is coherent; naming the S2-retention-after-promotion case would save his eyes a decoding step when the finding does not fire.
+
+Confirmed-coherent for the record: the walker's "read PD/session buffers at D's bars" is sound because the FlowLogic buffers are per-bar time series (historical shifts carry historical PD values) with the F327-328 broker-midnight day keying; and the DIV probe class at the IE4 boundary matches the S5 walk's outcome within a pass since the CQD buffers are static within the pass.
+
+---
+
+## Analytic ask B — better mechanisms
+
+**B1 (fixes A1).** Write the memo at the fire-site election as a fallback: the fire-local ComputeNearestTpTarget caller at EA 8918 (named in IE6, P024, already nextOpenPx-sourced and untouched) already re-elects at fire. When the S2POLL memo is absent for the current pass, write the memo there (TP from the 8918 election, SL from the latched stop, R per IE7's single-sourced arithmetic) and let the guard accept either current-pass source, cross-checking both when both exist. This preserves "fire proves the FIRED R equals the ELECTED R" — for a cascade fire, the fire-site election IS the election. Touches P027 + the 8918 region. Cheaper alternative: pin the S2POLL call site and gate on the page; if pre-state-machine and pass-start-gated, call the poll at each S2+ block entry (post-promotion) instead.
+
+**B2 (fixes A2).** One clause in P021: "any family read failure truncates the walk and publishes SHORT (FAILED if nothing achieved); READY therefore implies every D visited and every family read OK, and a record-less day inside a READY range is valid-empty by construction." Optionally emit a per-day visit line from the refresh site (dayKey + families read + empties + failures) — print-only, cheap, and makes A-IMPL2's traversal completeness directly evidenced rather than inferred from state.
+
+**B3 (fixes A3).** Add the indicator debug flag's run state to P036's preconditions (config-ini line or stated default) so the IE10B per-TF records are guaranteed present at grade.
+
+Nothing else is asked; no key, no build, no scope owed.
+## V313-UJIMPL-14 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

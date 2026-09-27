@@ -11490,3 +11490,257 @@ Those changes would touch the packet's IE4/IE5/IE5c/IE8/IE10B surfaces and A-IMP
 
 `IQ2v5 OBJECT - producer/provenance, DIV four-state classification, causality row identity, and zero-admission failure predicates are not fully closed.`
 ## V312-UJIMPL-13 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V313-UJIMPL-14 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling
+
+**IQ1v6 OBJECT**
+**IQ2v6 OBJECT**
+
+The ownership/identity package is materially improved, but the v6 page still contains several internal contradictions and one concrete execution-path defect that prevents closure.
+
+### IQ1v6 — OBJECT
+
+The decisive defect is the interaction between **IE7, IE9, IE10A, and the pre-bind S3/S4 routes**.
+
+**1. IE7 is scoped to S2, but IE9 requires a current-pass memo for all fire routes.**
+
+Packet P025 places IE7 immediately after the S2 `SlRefMemo` block at **EA 7325–7335** and describes it as the 1R gate / memo source.
+
+P027 then requires at the fire edge:
+
+> "unless the CURRENT-pass memo valid AND tp/sl valid, print + GoAbort(ABORT_NO_MEMO_AT_FIRE...) + return"
+
+But the packet explicitly preserves the pre-bind behavior at **EA 8658–8679**:
+
+* S3 pre-bind confirmation can pass;
+* it directly promotes to `ST_S5_GATE_CHECK`;
+* the same pass falls through into S5;
+* S2 is explicitly outside that route.
+
+Therefore, on a later pass where the candidate is already in S3/S4, **IE7 at the S2 poll does not execute on the fire pass**. P020 simultaneously says the memo is cleared before every `EvaluateClosedBar` pass.
+
+That produces this route:
+
+`S3/S4 candidate → confirmation PASS → S5 same pass → IE9 → current-pass memo absent → ABORT_NO_MEMO_AT_FIRE`
+
+So the claimed "same-pass promotion" path in **A-IMPL1/P032** and the claimed universal fire-edge memo contract in **P027** cannot both be true.
+
+This is not merely a documentation gap; it is a deterministic control-flow conflict.
+
+**2. The "memo never stales" claim in P025 is only true for retained S2 candidates.**
+
+P025 says:
+
+> "S2POLL re-elects every pass while retained ... so the memo never stales"
+
+That does not cover candidates already in **S3/S4**, which can remain alive across multiple bars and later confirm. IE9 nonetheless requires the memo to be current-pass. The memo therefore has incomplete route coverage.
+
+**3. IE5's failure-state semantics are internally contradictory.**
+
+P021 says all of these simultaneously:
+
+* "atomic publish: build temp, publish on success only"
+* "consumers keep last-good on failure"
+* `FAILED = no-consume + fail-closed evidence`
+
+If a failed rebuild leaves the last-good published pool available, consumers are in fact consuming the last-good pool. If `FAILED` means no-consume, they are not.
+
+The packet needs to distinguish:
+
+* **published pool version/state**, and
+* **latest refresh attempt/result state**.
+
+Without that distinction, "last-good" and "FAILED/no-consume" are mutually inconsistent.
+
+**4. "Origin-day mapping + dedup identity" is not actually closed.**
+
+IQ1 explicitly asks for "origin-day mapping + dedup identity", but P021 only gives a self-describing record:
+
+`dayKey + session id + H/L side + value + source/closure time`
+
+It never states the actual **deduplication key**, nor the rule for collapsing duplicate observations of the same historical level.
+
+That is especially relevant because the walker reads buffer values across bars; the same level can be encountered repeatedly.
+
+**5. Closure-time semantics are imprecise in P021.**
+
+P021 says:
+
+* PD slots carry origin day `D-1`;
+* availability stamp = origin day's session close;
+* closure time = `D`'s session close.
+
+Those timestamps describe different events. The packet needs to explicitly state whether:
+
+* `originSessionClose` = when the source level became complete,
+* `availabilityTime` = when the EA can first observe it,
+* `observationDayClose` = the day whose bars were traversed.
+
+Otherwise provenance/age proofs can be interpreted two different ways.
+
+---
+
+### IQ2v6 — OBJECT
+
+**1. Pool-service proof is not bound to the exact pool generation consumed by an admission.**
+
+P033 requires:
+
+`{uj_bar_key, tradeSeq}`
+
+plus `poolCoverageStart`, winner provenance, and the pool-service assertion.
+
+But there is no **pool build/version/generation identifier** tying:
+
+`refresh attempt → published pool → election → admission`
+
+into one immutable chain.
+
+A later refresh can occur on the same run, and the admission row can still share the same `uj_bar_key`. `tradeSeq` identifies the trade, but not **which pool instance produced `winnerSource/winnerDayKey`**.
+
+For a true provenance proof, the admission tuple should carry something like:
+
+`poolGen` / `poolVersion`
+
+that is atomically assigned with the published pool and copied into the election/admission evidence.
+
+**2. `SHORT consumes` is too permissive for the stated any-age target requirement.**
+
+P021 says:
+
+> `SHORT consumes with shortfall finding`
+
+Yet the operator requirement is effectively complete nearest-any-age selection, and P033 requires coverage reaching the requested start.
+
+A short pool can therefore still feed target selection before the acceptance predicate later declares the service incomplete. That risks selecting a farther target simply because the nearer historical level was outside the traversed range.
+
+For this strategy, incomplete historical coverage should be **non-consumable for authoritative TP election**. It can remain diagnostically visible as `SHORT`, but it should not participate in authoritative selection.
+
+**3. `zero admissions = run-level pool-service record mandatory` is good, but the actual record schema is underspecified.**
+
+P033 correctly prevents a vacuous pass, but it does not specify the minimum fields required for that run-level service record.
+
+At minimum it needs a deterministic:
+
+`requestedStart / achievedStart / requestedEnd-or-runEnd / day-count visited / family-read counts / unavailable counts / empty-valid counts / final state / attempt / poolGen`
+
+Otherwise "mandatory record" can exist without proving completeness.
+
+**4. The four DIV outcomes are conceptually sound, but "absent" versus "incomplete" needs a closed predicate.**
+
+P036 says:
+
+* aligned
+* opposing
+* absent
+* incomplete
+
+and separately retains read-failure counters.
+
+The page still does not define the exact boolean condition for **genuinely absent** versus **incomplete search**. It says "completed readable search" but does not define the completion condition for the search itself.
+
+Given that DIV is explicitly a gradeability dependency, this should be a formal predicate, not only prose.
+
+**5. Causality attribution is stronger than the actual per-row linkage shown.**
+
+P035 defines the attribution bitmask, but the packet does not explicitly require every changed trade row to carry the exact **base identity + edited identity + bitmask + disposition** in one atomic evidence record.
+
+The ingredients are present; the row-level evidence contract is not completely nailed down.
+
+---
+
+## Standing analytic ask A — every defect / gap / imprecision
+
+| ID    | Location                        | Issue                                                                                                                                                                              | Severity     |
+| ----- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| IQ1-1 | P025 + P027 + C8658-8679 + P020 | S2-only IE7 cannot satisfy current-pass memo for S3/S4 same-pass promotion                                                                                                         | **Critical** |
+| IQ1-2 | P021                            | `last-good on failure` conflicts with `FAILED=no-consume`                                                                                                                          | **Major**    |
+| IQ1-3 | IQ1 wording + P021              | Dedup identity is claimed but no actual dedup key/rule is specified                                                                                                                | Major        |
+| IQ1-4 | P021                            | origin-day / availability / closure timestamps are not semantically separated                                                                                                      | Major        |
+| IQ2-1 | P033 + P023                     | No pool-generation/version joins published pool to election/admission                                                                                                              | **Major**    |
+| IQ2-2 | P021                            | `SHORT consumes` conflicts with authoritative complete any-age selection                                                                                                           | **Major**    |
+| IQ2-3 | P033                            | Mandatory zero-admission pool record has no minimum schema                                                                                                                         | Medium       |
+| IQ2-4 | P036                            | `absent` vs `incomplete` DIV predicate lacks a formal completion condition                                                                                                         | Medium       |
+| IQ2-5 | P035                            | Attribution ingredients exist, but atomic row-level identity/disposition linkage is not explicit                                                                                   | Medium       |
+| IQ2-6 | P033                            | `winnerAge` is defined as evaluated-day minus origin-day, but the age reference convention should explicitly use the published pool record's origin-day, not only the winner value | Medium       |
+| IQ1-5 | P020/P029                       | Canonical join key is clear for bar/trade rows, but pool-service and HTF debug records lack an explicitly immutable record-generation field                                        | Medium       |
+
+### Standing analytic ask B — better mechanisms
+
+**1. Fix the IE7/IE9 route conflict by moving authoritative admission preparation to one common S5 entry point.**
+
+Do **not** keep the 1R/memo calculation solely at EA 7325–7335.
+
+Use one common function, conceptually:
+
+`PrepareAdmissionMemo(barShift, barTime, dir)`
+
+It should atomically:
+
+1. compute current entry-open reference;
+2. compute nearest authoritative TP;
+3. compute SL;
+4. calculate risk/reward/R;
+5. enforce `R >= 1.0`;
+6. write `uj_memo_tp/sl/R`;
+7. bind candidate identity + `uj_bar_key`;
+8. bind `poolGen`;
+9. return only after the complete memo exists.
+
+Call it from the common **S5 gate/final-fire preparation path**, so both:
+
+* normal S4→S5 confirmation, and
+* S3 pre-bind→S5 same-pass confirmation
+
+use exactly the same machinery.
+
+Relevant touch points: **EA 8658–8679, EA 8795–8810, EA 8820+, EA 10215–10217**, with the existing IE7 arithmetic moved or factored so it is no longer S2-route-dependent.
+
+**2. Separate pool publication state from refresh-attempt state.**
+
+Use two concepts:
+
+`publishedPoolState = READY | EMPTY`
+
+and
+
+`refreshAttemptState = BUILDING | READY | SHORT | FAILED`
+
+A failed rebuild leaves the previous immutable `publishedPool` untouched, while the refresh attempt is marked failed. Authoritative consumers then have an explicit policy:
+
+* valid published pool → consume;
+* no valid published pool → fail closed.
+
+That actually implements "last-good" without contradicting `FAILED`.
+
+**3. Add `poolGen` as the pool provenance key.**
+
+Every successful publication increments a monotonic generation:
+
+`poolGen`
+
+Carry it through:
+
+`pool refresh record → TP election → winner provenance → admission tuple → managed retarget`
+
+Then the acceptance proof can establish that the winner actually came from the fully serviced pool that existed at that admission.
+
+**4. Make dedup identity explicit.**
+
+A clean identity is:
+
+`{originDay, sessionId, side}`
+
+with value/source retained as attributes, unless the strategy explicitly permits multiple distinct records for the same session/side. That decision should be written down rather than inferred.
+
+---
+
+## Recommended verdict text
+
+IQ1v6 OBJECT - IE7 is scoped to the S2 poll, while IE9 requires a current-pass TP/SL/R memo for every fire route; the preserved S3/S4 pre-bind same-pass promotion at EA 8658-8679 can reach S5 without executing IE7, while P020 clears the memo before each EvaluateClosedBar pass. This makes the current-pass fire guard reject that route. P021 also leaves last-good-on-failure versus FAILED=no-consume internally contradictory, and dedup identity is not explicitly defined.
+
+IQ2v6 OBJECT - the acceptance package lacks a pool-generation/version key binding the published pool to the election/admission, so pool-service and winner provenance are not fully joined. P021 also says SHORT consumes despite the authoritative any-age requirement needing complete historical coverage. The zero-admission pool-service schema and formal DIV absent/incomplete predicates remain underspecified.
+
+The packet is therefore **not closure-ready as v6**. The most important repair is to make TP/SL/1R/memo preparation a **single common pre-fire operation available to every S5 entry route**, rather than an S2-only producer.
+## V313-UJIMPL-14 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
