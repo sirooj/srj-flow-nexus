@@ -11359,3 +11359,69 @@ The existing code regions also expose why the lifecycle anchors matter: the actu
 
 **IQ2v3 OBJECT — attribution is not yet a defined bitmask, and A-IMPL2/finding predicates do not fully specify the future-touch join and fail-to-finding conditions.**
 ## V310-UJIMPL-11 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+## V311-UJIMPL-12 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+Luna:
+## Council ruling — v311-UJIMPL-12
+
+**IQ1v4 OBJECT — the edit list is not mechanically closed.**
+
+Although the exact failure is one missing emission path for the acceptance evidence, rather than an underspecified edit, the main defects are:
+
+1. **The join key described in IE4 is not produced by a single demonstrated mechanism.** P020 requires every evidence row to print `uj_bar_key`, and Luna's own prior table of field producers specifies bar-time only, but the proposed code derives the EA-side key from the probe tuple and the indicator-side key from chart-time/debug state in two different places. Without a single keyed producer on each side, or an unambiguous statement of which producer is normative, the acceptance rows that depend on `uj_bar_key` cannot mechanically join across files.
+
+2. **IE10B still has no live insertion anchor.** P028 now sends the timestamp from `chartTime`, but the companion code itself does not show a call of `GetOutputs` from a live EA path. If that routine is only called from diagnostics/panel logic, the IE10B rows can be empty in tester runs, and there will be no indicator-side join evidence.
+
+3. **Astra's concern about the duplicate `SrjHistPoolBuild()` refresh is valid and not separately budgeted.** The unconditional per-new-bar refresh is a new scheduled call, whereas IE5 bills the refresh as happening inside `SrjSelEndOfRun`. Citing both sites leaves two candidate owners for the same pool build. One owner must be named and the other explicitly excluded.
+
+4. **IE8's "first valid price-or-wick touch" is temporally ambiguous.** The packet does not specify whether a touch on the bar that closes the NY-AM session is eligible, nor the ordering of "session becomes closed" versus "touch is evaluated." The packet should state explicitly whether same-bar touch eligibility is included or excluded.
+
+5. **IE5 self-description is conceptually specified but not mechanically defined.** P021 requires `dayKey + session id + H/L side + value + source/closure time`, yet gives no exact derivation rule for `source/closure time` from the historical buffer walk. This matters because the candidate pool is intended to distinguish source day/session from the day on which the copied value is observed.
+
+6. **The historical cache lifecycle is only partially anchored.** The refresh is now unconditional and scheduled, but initialization/reset semantics (empty versus stale states, day-key rollover identity) are specified only in prose. A single failed refresh should deterministically make the pool unusable rather than leave stale/empty data in place. **This is an edge-case contract, not a demonstrated blocker.**
+
+Because those are implementation-level contract gaps, I would not sign IQ1v4 as `CONFIRM`.
+
+---
+
+**IQ2v4 OBJECT — the amended acceptance is still not mechanically closed.**
+
+The defects are (a) most of the above list propagates into acceptance (duplicate refresh owner, single-producer key ambiguity, liveness of the indicator-side rows); (b) **the “bitmask attribution” is not mechanically closed** — it is a well-formed seven-cause bitmask specification, but the packet does not specify what single edit's bit should be set when multiple edits interact on the same changed EU row (vote-source change plus guard disposition plus 1R rejection plus memo guard, all present at once); and (c) **A-IMPL2 requires a future management event inside an admission proof row**, and the proposed amend-join through admission key plus trade identity still lacks the exact record schema/typing and the no-touch reconciliation value. GLM's verdict explicitly notes that the remaining gaps “do not touch a clause,” which concedes that the acceptance clauses themselves are not proved closed.
+
+Therefore IQ2v4 should also remain `OBJECT`.
+
+---
+
+## Analytic ask A — every material defect/gap/imprecision
+
+| Ref                      | Defect                                                                                                                                                   |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P020 / P028**          | `uj_bar_key` described, but not produced by a single normative producer on each side.                                                                   |
+| **P021**                 | Refresh ownership is ambiguous: unconditional per-new-bar build versus build inside `SrjSelEndOfRun`.                                                    |
+| **P025**                 | “Closed-session” versus “touch on close bar” event ordering is ambiguous.                                                                                |
+| **P025 / P032**          | Future `UJTOUCH` event is required inside an admission-time joined proof row without a fully specified amend-join record schema and no-touch value.      |
+| **P021**                 | Historical record provenance fields are named, but derivation of source day/closure timestamp from the historical buffers is unspecified.                |
+| **P034**                 | Multi-cause changed rows: no rule for which single bit is set when several edits interact (bitmask is well-formed, cause-mapping is not closed).        |
+| **P032**                 | `UJTOUCH pair` is not defined as a fully specified field schema with optionality, identity, and reconciliation semantics.                                                                                 |
+| **P027**                 | IE10A says M15-new-bar gating but does not define initial-state behavior for the gate.                                                                                    |
+| **P028**                 | IE10B identifies timestamp/output fields but does not state reset/overwrite semantics for the debug latch.                                                                |
+
+I am treating the testimony about the management-side third loop (IE5b) as settled and requiring no independent review, because its code/specification correspondence has already been adequately established by a prior round.
+
+---
+
+## Analytic ask B — better mechanisms
+
+**Join key:** make the EA-side probe the canonical producer of `uj_bar_key` from the pass instant, and derive all indicator-side timestamps from the same logical key (not from raw chart-time). That makes the join one-directional and auditable.
+
+**Refresh ownership:** keep exactly one scheduled refresh — the unconditional OnTick per-new-bar build — and state explicitly that `SrjSelEndOfRun` performs no pool construction (its coverage print, if retained there, reads the already-built pool). All pool-cadence claims then follow from a single owner.
+
+**Attribution mapping:** where several edits could have caused a changed EU row, print the bitmask of the earliest edit in pass order whose disposition actually refused, admitted, or retargeted the candidate (IE1 vote read → IE2/IE3 guards → IE6 reference → IE7 gate → IE9 memo → IE5/IE5b pool → IE8 touch). That closes the multi-cause mapping deterministically.
+
+**Admission/touch joining:** retain the required `chartTime` join key, but give the managed event the same admission key plus a trade-local sequence/identity. The admission record can then state `UJTOUCH=NONE` initially, while the later event amends the joined record. That is cleaner than requiring a future event to exist inside the original admission row.
+
+### Final two verdict lines
+
+**IQ1v4 OBJECT — join-key producer ambiguity, liveness of the indicator-side rows, and unresolved refresh ownership keep the edit list from mechanical closure.**
+
+**IQ2v4 OBJECT — attribution cause-mapping and the admission/touch join schema remain unclosed, so the acceptance contract is not yet mechanically complete.**
+## V311-UJIMPL-12 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
