@@ -3,18 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, RECON71 GRADED)
+## State (2026-09-27, PACKET DRAFTED)
 
-- RECON71 PASSED, 0 takes, diagnosed:
-  6/3 guard-kill (SL divergence), 6/5 pair
-  S2-held, 6/11 VWAP-2pts refusal.
-  Grant spent. Seats unchanged. Ledger 878.
+- Fix packet IMPL-2 v1 drafted
+  (6A91B6D1, budget +24, base untouched).
+  Relay v316 owed via council.
+  Grant spent. Seats unchanged. Ledger 880.
 
 ## Next (owed him)
 
-- HIS VWAP-validity answer (6/11 14:40
-  2pt line: valid target or not); then
-  the fix packet goes to council.
+- NOTHING: builder drafts relay v316
+  + battery next; no carry ask until green.
 
 ## Next (owed him)
 
