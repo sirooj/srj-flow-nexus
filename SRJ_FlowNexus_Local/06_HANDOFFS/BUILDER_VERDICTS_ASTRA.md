@@ -18045,3 +18045,69 @@ These verdicts are independent and concern the page only. I accept the supplied 
    **Better mechanism for IQ2:** use a per-venue acceptance record containing candidate/admission identity, direction, signal bar, fill bar, actual entry/SL/TP, target source, actual-tuple 1R verdict, and admission count. Attach mechanism-specific rows—memo identity pass, M15 promotion, POI exclusion, or mask-off fallback—as supporting evidence. State the run's debug setting because P060, P075–P076, and C10412 make several required rows conditional on it. Name each failure predicate explicitly, and require all four venue admissions plus the defined EU comparison for L-final. 
 
 ## V316-IMPL2-1 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V317-IMPL2-2 OPEN ASTRA (verbatim open; filed whole 1x this turn, novel inbound)
+
+Astra:
+IQ1v10: OBJECT — P015/P067, P081–P082, P087; C2399–C2401, C2536–C2545, C2570–C2571.
+IQ2v10: OBJECT — P104–P110; C10396, C10409–C10421; Rows fence PARITY/WITNESS definitions.
+
+The verdicts are independent and concern the supplied page only. Disk claims remain transported premises. Neither verdict grants a key or authorizes a build, run, money movement, or live activation.
+
+1. **IQ1v10 — amended edits**
+
+   Several V316 objections are closed. A4 checks the same fire-local entry, SL, and TP that C10405–C10407 subsequently latch; no extra latch assignment is needed. A5 correctly distinguishes that check from memo evidence. B2 now consistently uses the managed anchor, all three skip prints are debug-gated, and the helper's one-directional hierarchy is explicit. P014 settles D's empty-election-only scope. The supplied companion is plainly a pre-patch witness.
+
+   The remaining defects are:
+
+   **The new `m15time` field does not identify the source of the vote — P077, P081–P082.** The vote is read through `ReadFlow(..., barShift)`, but its purported accompanying time comes from `iTime(..., PERIOD_M15, 0)`. The latter identifies the currently open M15 bar. No shown relationship establishes that it is the M15 bar supplying the indicator's aligned or confirmed vote.
+
+   This does not prove the vote itself is wrong. It means the enriched row cannot prove vote provenance as described. The minimal amendment is to rename the field and variable to identify them explicitly as the **current M15 open time**, and disclaim source-time meaning. If source-time proof is required, obtain it from the indicator's actual alignment/confirmation mapping; substituting another shift without that mapping would not close the gap.
+
+   **The census can name a different source from the source that actually won — P087; C2399–C2401 versus C2545 and C2570–C2571.** Election updates only on a strictly smaller distance, preserving the first equal-price winner and its `uj_winnerSource`. Census naming overwrites `winner` whenever a later candidate equals `best`. It also scans session candidates without the mask filter.
+
+   Consequently, the census proves that a named candidate shares the elected price; it does not necessarily prove that candidate supplied the election. R11 makes the distinction material: both LOH and YLOH are listed at the winning distance. The page does not establish that the printed `YLOH` is the source recorded by the election.
+
+   The added session companion closes the earlier question about whether swept candidates can appear in the census. It does **not** close source identity under ties. P087's claim that the census "names the fallback winner" needs that qualification or a correction.
+
+   **"E2 untouched" conflicts with the explicit E2 override — P015 and P067; C2511–C2513.** P067 now clearly declares the intended change, which is an improvement. Nevertheless, P015 still carries E2 as untouched, and the surviving code comment says that the census admits the anchor for naming. B3 prevents precisely that behavior.
+
+   Amend the lineage sentence to state the narrow exception, and update the affected comment. This is documentary consistency around an expressly authorized behavior change, not a request to reopen the strategy.
+
+   **Better mechanism for IQ1:** use the election's recorded provenance as authoritative. At C2545 and C2570–C2571, prevent value matches from overwriting the actual source, or explicitly label census names as equal-price matches and print `uj_winnerSource` separately. Retain P098's election-source diagnostic. Correct P081–P082's time label unless a source-time mapping is supplied. Update P015 and C2511–C2513, then recount any changed edit budget.
+
+   I do not object to the fallback retaining the original rank, direction, and zone machinery, or to managed-side retarget remaining outside Fix D's stated admission scope.
+
+2. **IQ2v10 — restated acceptance**
+
+   The revised acceptance correctly separates a take from a logged rejection. It also fixes the double-promotion expectation, pins debug logging, requires actual admission tuples, and makes a wrong 6/11 fill time fail rather than permitting retrospective regrading. Those conclusions survive.
+
+   The remaining proof defects are:
+
+   **The required admission record has no fully specified observable join — P104–P110; C10396, C10409–C10421.** MTSNAP prints the signal bar, direction, anchor, and actual tuple. It does not print `fillBarTime`, an admission identifier, or elected source. UJMEMO_PASS prints an `admit_key`, but its tuple and source are expressly memo evidence. The assignments at C10409–C10410 demonstrate internal storage, but not emission of the stored values.
+
+   Thus, the supplied page does not specify how the grader proves that the actual tuple, fill bar, source, FIRE verdict, and exactly-one count all belong to the same admission. An existing admission row may provide this, but none is named with its fields and join rule here.
+
+   Close this by citing the existing emitting row and deterministic join. If none exists, extend the admission diagnostic at C10412–C10421 to include the stored signal/fill times, admission identity, and captured admission-source provenance. Define which record counts as an admission so repeated diagnostics cannot inflate the count.
+
+   **A-POIV's source requirement cannot rest on R11's census label — P107; R11; C2545.** The price requirement `160.587` is clear. The stronger requirement that **YLOH supplied the target** needs election-source evidence because of the tie behavior above. Preserve the source requirement if intended, but grade it against captured election provenance, not a last-matching census label.
+
+   **The parity rule is overbroad as written — Rows fence PARITY definition, R01–R04.** "Must reproduce exactly" includes historical journal prefixes and, in R03, cumulative counters such as `computes`, `hits`, and `genID`. Earlier newly admitted trades can legitimately change later cache/call histories. Those counters are not the parity tuple.
+
+   Specify the exact semantic comparison fields for each row. For example, R02 can pin event date, signal bar, direction, anchor, entry, SL, TP, and regime; R03 can pin the relevant memo value and provenance while excluding counters unless their equality is separately required and justified. Exclude transport prefixes from parity.
+
+   **The witness prohibition needs venue and event scope — Rows fence WITNESS definition; P106–P107.** R05's retired mismatch path can be prohibited globally. R08 establishes an unwanted wait for the specified candidate at 09:35; it does not prohibit valid S2WAIT rows elsewhere. R12/R13 are bad pre-admission outcomes for the intended 6/11 entry, but subsequent management can legitimately produce diagnostics at 14:40.
+
+   Define prohibited behavior by candidate, phase, and bar. Exact textual non-reproduction is too weak, while banning whole diagnostic classes is too broad.
+
+   **The findings contract remains incomplete — P104, P108, P110.** Only UJ-TIMEBASE and UJ-FBDEAD have explicit mappings here. Missing or duplicate admissions, wrong parity tuples, missing promotion/confirmation, source mismatch, and EU differences lack named finding mappings despite P110's promise that each failed proof names its finding.
+
+   Also define UJ-FBDEAD's "16:15 pass": is that execution/fill time or signal-bar time? The cited empty election is signal bar 16:05 evaluated at 16:10. A candidate that never reaches the later fallback evaluation must still fail acceptance, but cannot satisfy the stated IFF predicate merely by being absent.
+
+   **EU comparison lacks a complete equality rule — P109.** Naming the baseline and comparison categories is useful, but "compared" does not establish what passes. Specify zero unmatched take identities in both directions, the exact entry-bar fields compared, and the grouping keys and counts constituting equal REGIMECENSUS populations. Explicitly identify any excluded volatile fields.
+
+   **Better mechanism for IQ2:** add a compact grading contract at P104–P110 defining the authoritative admission row and join key, exact parity fields, candidate-scoped negative checks, and a finding mapping for every failed predicate. Define EU equality there as well. This can be a packet-only amendment if existing diagnostics expose the required fields; otherwise, add the missing fields to the admission print and revise the budget.
+
+These objections concern evidence precision and internal consistency. They do not assert that the four future trades cannot occur, and a corrected acceptance contract would not itself establish that they have occurred. 
+
+## V317-IMPL2-2 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)

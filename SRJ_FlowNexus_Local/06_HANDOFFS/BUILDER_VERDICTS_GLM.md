@@ -6059,3 +6059,58 @@ Both blockers are leg-statement defects, not design defects. The five-leg struct
 
 Both OBJECTs are single-amend text fixes — one anchor number (plus the P029 hedge), two leg restatements, and the optional wording/gating items above. Nothing in either verdict touches the design: the four-fix logic, the budget, the surface, the CLEAR lineage, and E1/E2 + IE1-IE10B are undisturbed, and I re-open nothing. The new key + run word should not be spent until the amended page comes back closed. Nothing here builds, runs, spends, or clears live activation; disk genuineness remains his to prove on his machine. Thank you. 
 ## V316-IMPL2-1 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V317-IMPL2-2 OPEN GLM (verbatim open; filed whole 1x this turn, novel inbound)
+
+GLM:
+# RELAY v317 — SEAT VERDICT (page-only ruling; nothing here builds, runs, spends, or clears anything)
+
+```text
+IQ1v10 verdict line: CONFIRM
+```
+
+```text
+IQ2v10 verdict line: OBJECT — L107 (A-POIV pre-declares fillBarTime=14:40 / entry 160.524) is not carried by any mechanism on the page: the packet's own rows put the decisive v8 6/11 gates one pass later (R11 at 14:40:22 "promoted", R12/R13 at 14:45:05 "abort from S4", the fence's own "known-bad late rows"), P008 never explains why the chart-14:40 pass — which elected YLOH at R 1.75 per the packet's own citation — did not fire, P010 credits 6/11 to Fix B alone, L107 itself concedes "entry-scheduling unchanged (no timing fix)", and no 6/11 M15/probe row is fenced (contrast R06/R14 for 6/5) to carry a Fix-C rescue. Secondary grounds: L106/L107 leave no-admission outcomes unnamed (UJ-TIMEBASE covers only "any other fill bar"); L110 bundles the EU comparison into L-final while L109/P113 defer the EU run to the future.
+```
+
+---
+
+## IQ1v10 — CONFIRM (verification performed)
+
+- **Anchors**: every edit site verified against the companion — A5 replaces C10388-C10389 (2-vs-2), A4 inserts after C10391 in the same block scope, A3 replaces C10394-C10395, define retired at C396; B0 after C2402, B1 in C2498-C2504, B3 in C2559-C2572, B2 in C11361-C11368 (managed anchor in test and print, per P067); C replaces C8195-C8196 with the fall-through to the untouched C8197-C8199; D1 sits between C2504 and the C2505 census comment, correctly omitting the C2487 mask filter. The withdrawn P048 anchor error is fixed (P067 now cites 11361-region = companion C11361-C11368).
+- **Budget**: recounted from the fenced blocks — A3 −1 (guard 2-vs-2 + retired define), A4 +3, A5 0, B0 +11 (P031-P041), B1/B2/B3 +2 each → +6, C +10 (2-vs-12), D1 +11. **NET +40 exactly.**
+- **Surface**: no new buffers/inputs/handles/mirror; one new helper + locals only, single canonical file (P005). All referenced identifiers (uj_winnerSource, sessbufs, sname, uj_dk, barShift, FL_BUF_HTF_LOW, FL_BUF_LTF_BIAS, SrjUjAssert1R, ABORT_SUB_1R) are in scope per the companion regions.
+- **V316 folds**: A4, A5, B full texts + managed-anchor prints + one-direction/anchor/E2 sentences, C enriched row, FL cites, D unchanged, restated legs, EU comparator, debug pin — all present as claimed; both rebuttals (latch fire locals at C10405-C10407; companion as pre-patch witness) check out on the page.
+- Residual imprecisions exist (analytic A, items A3-A10) but none break edit-internal closure.
+
+## IQ2v10 — OBJECT (grounds)
+
+1. **The 6/11 fill pin has no on-page producer.** The design-normal cadence (A-S2P L106 + P013 + R07/R02: promote-pass(N) → confirm-pass(N+1) evaluating the just-closed bar, lag=chartTime-1bar) means the 14:40 fill requires the confirm-pass at chart 14:40 evaluating bar 14:35 — his confirmation candle. The v8 evidence shows the decisive gates ran at chart 14:45 (R12/R13; P008 "abort from S4"; the fence itself calls R12/R13 "known-bad late rows"), i.e., v8 was one pass behind his triple. Every self-consistent reading of the fenced rows leaves the cause outside A-D's reach: either the S2 promote came at the 14:40 pass (P008 "#76 promoted" — then only Fix C's M15 path at the 14:30-bar pass rescues it, uncredited in P010 and unevidenced — no 6/11 probe row is fenced), or the confirm on bar 14:35 failed in v8 (a signal-logic miss no edit touches), or the 14:40 pass died post-census on something unfenced and unnamed (e.g., a liveness abort — the liveness check survives A3 by design). In all branches, the post-fix outcome is a 14:45 fill (UJ-TIMEBASE fail) or no admission (unnamed fail; per R12 the next-nearest after the Daily exclusions is YNYH:9 from ref 160.520, ≈R 0.41 on R13's 22pt risk, unless masked — sub-1R abort either way).
+2. **Unnamed no-admission findings (L106, L107).** A-FB names UJ-FBDEAD for its refuse/empty case; A-POIV and A-S2P define findings only for wrong fill bars/row shapes. The preamble (L104) requires failed proofs to name findings; these legs would fail unnamed — an improvised-grading risk at grade time.
+3. **L-final vs deferred EU (L110 vs L109/P113).** L-final requires "+ EU comparison" while the packet defers the EU sibling run to the future — L-final is unsatisfiable as bundled this round.
+
+A-SL1 and A-FB are provable as stated: A-SL1's mechanism is fully closed by the page (v8 reached the fire edge at chart 09:10 per R05; the guard relaxation + A4 on entry 159.929 / sl 159.889 / tp 159.983 → R 1.35 PASS; R01-R04 reproduce; Fix B is parity-inert for 6/3 since the winner YASH is a session line and the Daily-VWAP anchor was not the nearest in-direction candidate). A-FB is correctly all-grade-read with a named finding.
+
+## Analytic ask A — defects, gaps, imprecision (all items)
+
+- **A1 (major)**: the 6/11 mechanism gap, as objected above (L107 vs P008, P010, P013, R11-R13).
+- **A2 (moderate)**: unnamed no-admission findings on A-POIV/A-S2P (L106-L107).
+- **A3 (minor)**: A3's abort-code reuse — the identity path aborts with ABORT_NO_MEMO_AT_FIRE while printing reason=IDENTITY (P026); two failure modes share one abort code, distinguishable only via the UJMEMO_FAIL reason field.
+- **A4 (minor)**: A4 sits before the liveness check (P028-P033), so sub-1R-with-stale-memo aborts SUB_1R rather than NO_MEMO_AT_FIRE — diagnostic precedence inverted vs the memo-write points; unstated.
+- **A5 (minor)**: L-final/EU ambiguity (L109-L110, P113).
+- **A6 (minor)**: Fix C's `ReadFlow(FL_BUF_LTF_BIAS, uj_ltfb, barShift)` return ignored (P080) — a failed read prints ltf=0.0 with no readFail marker (contrast R06's readFail field). Promote logic unaffected.
+- **A7 (minor)**: B2 duplicates C11363's managed-anchor exclusion, and B1's "first in the loop" placement runs before the C2500 rank filter — behaviorally identical (a same-family VWAP is never rank-skipped: (anchorRank+1)/2 == anchorRank/2 for even POC ranks per C91-C105), but the intended order should be stated once for all three sites.
+- **A8 (observation)**: A3 retires TP equality too — a ≥1R fire-time TP divergence now passes silently (memo TP = evidence only); P033 concedes the backstop covers only the sub-1R case.
+- **A9 (observation)**: A-S2P's "exactly once" (L106) is venue-keyed but not explicitly window-scoped; other 6/1-6/13 candidates hitting the M15 path would add S2PROMOTE_M15 rows.
+- **A10 (observation)**: under B3, excluded lines skip the census before the C2564 EMPTY check, so venues where the anchor/family line is empty lose 1-2 from `empties`. R11 reproduces cleanly (at ref 160.524 the Daily lines were valued and out-of-direction — neither admitted nor emptied, pre- or post-fix).
+- **A11 (verified, no defect)**: P068's R~0.14 (3/22) and P008's R 1.75 (63/36, implying sl 160.488 at the 14:35 elect vs R13's 160.498 at 14:40 — different bars, consistent with A-POIV's SL grade-read) both check arithmetically.
+
+## Analytic ask B — better mechanisms
+
+1. **For the 6/11 leg (the object)**: (a) acceptance-side, no code: grade-read A-POIV's fillBarTime/entry in A-FB's form, keeping his triple as the interpretive frame rather than the proof pin; or (b) evidence-side, disk-truth at his discretion: fence the 6/11 UJPROBE rows for the 14:25-14:35-bar passes so the M15 vote is on the page, and credit the B+C interplay in the P010 map — then the 14:40 fill becomes a carried prediction; or (c) if neither, the 6/11 stall diagnosis (which gate ran at the 14:40 pass after the census, and why it did not fire) belongs in a future round before a key is spent.
+2. **One-line define**: `#define ABORT_MEMO_IDENTITY "MEMO_IDENTITY"` in the C394-C397 region (+1 budget) to separate the identity abort from the liveness abort.
+3. **Diagnostic parity**: add readFail flags for both buffer reads to the P082 S2PROMOTE_M15 row (matches R06's field set).
+4. No better mechanism is seen for A or D as such: the fire-local 1R gate is the right backstop shape for the truce, and the mask-off second walk through TpTargetUpdateBest with the 1R gate deciding matches the NEAREST-ONLY-TP pin's semantics with correct empty-only scoping.
+
+**Close**: IQ2's objection is surgical — one leg's pre-declared values lack an on-page producer, plus two naming gaps. Everything else (edit set, budget, rows fence, A-SL1/A-S2P/A-FB legs, parity safety of Fix B against the 6/3 and 6/5-am venues) verified clean on the page. A v5 that grade-reads or evidences the 6/11 fill, names the no-admission findings, and un-bundles L-final would be confirmable. Ruling on the page only; no files requested; nothing built, run, spent, or cleared here. 
+## V317-IMPL2-2 END GLM (verbatim close; filed whole 1x this turn, novel inbound)

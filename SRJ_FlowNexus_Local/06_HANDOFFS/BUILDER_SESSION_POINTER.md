@@ -3,26 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, V316 FOLDED)
+## State (2026-09-27, V317 FOLDED)
 
-- V316 graded 0-3 both (HALT, no build).
-  Fold green: packet v4 789C313B +
-  relay v317 C3D58CB5 battery-green.
-  Grant spent. Seats unchanged. Ledger 887.
+- V317 graded split (IQ1 1-2, IQ2 0-3 HALT).
+- Fold green: packet v5 4CC9229D +
+  relay v318 1CEC68AF battery-green.
+  Grant spent. Seats unchanged. Ledger 889.
 
 ## Next (owed him)
 
-- NOTHING owed: v317 waits for YOUR
+- NOTHING owed: v318 waits for YOUR
   carry word; say it and the memo ships.
-
-## Next (owed him)
-
-- HIS Luna-key carry (paste the new
-  name-only ask as-is, no file - she
-  holds the ruled relay; paste whole
-  reply back). Revised ask filed in
-  ledger 875; old file-carry wording
-  withdrawn.
 
 ## Resume order (exact)
 

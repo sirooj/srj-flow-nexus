@@ -11937,3 +11937,76 @@ The acceptance set has multiple problems beyond simply being a future run.
 
 **Council disposition:** this relay needs an amendment before either IQ1 or IQ2 can be cleared. 
 ## V316-IMPL2-1 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V317-IMPL2-2 OPEN LUNA (verbatim open; filed whole 1x this turn, novel inbound)
+
+Luna:
+## IQ1v10 — OBJECT
+
+The four-fix intent is mostly coherent, but the page is **not internally closed as written**. The main defect is a concrete mismatch between the B3 edit block and its claimed print behavior.
+
+### Analytic ask A — defects / gaps / imprecision
+
+**1. B3 claims a print cleanup that the fenced edit does not perform.**
+The packet states that B3 "OVERRIDES the E2 anchor-naming path" and that the anchor no longer appears with `*` or `(ANCHOR)`. 
+
+But the only shown B3 edit is the added `UjPoiTargetValid()` gate and skip print. 
+The companion base witness still has:
+
+* `+ ((k2 == g_anchorLine) ? "*"...` at C2568
+* `+ ((k2 == g_anchorLine) ? "(ANCHOR)" : "")` at C2571. 
+
+Nothing in the shown B3 diff removes or replaces those expressions. The stated "anchor no longer appears" result therefore does not follow from the exact edit set. This is a page-level closure defect, independent of disk truth.
+
+**2. The +40 budget depends on the same omission.**
+The budget says B1/B2/B3 each contribute `+2` lines, for `+6` total. 
+That is consistent with *adding* the helper gate/print, but not with actually replacing the two E2 anchor-naming expressions at B3. If those expressions really must disappear, the stated budget is incomplete.
+
+**3. Fix C's `m15time` evidence is not tied to the M15 value actually read.**
+The code reads the M15-aligned value with `ReadFlow(..., barShift)` but logs `iTime(_Symbol, PERIOD_M15, 0)`. 
+The acceptance calls this an enriched M15 promotion row, but the logged time is the current open M15 bar, not explicitly the source bar corresponding to `barShift`. Thus the row can document the wrong M15 timestamp even if the buffer value itself is correct.
+
+**4. The fallback proof does not explicitly prove "nearest" from the printed evidence alone.**
+Fix D re-walks every session buffer with the mask removed and sends each value through `TpTargetUpdateBest()`. 
+The only fallback diagnostic shown is the final winner. There is no fallback census/list of the eligible mask-off candidates. So the acceptance can establish that a fallback winner was emitted, but not from the packet alone that the emitted line was the nearest eligible line unless the semantics of `TpTargetUpdateBest()` are already treated as externally settled.
+
+**5. The 1R responsibility of Fix D is under-specified on this page.**
+The packet says the "1R gate (not emptiness) decides," while the actual fallback block itself contains no visible 1R calculation; it delegates everything to `TpTargetUpdateBest()`. 
+Because that helper's relevant implementation is not included in this relay, the statement is asserted rather than demonstrated here.
+
+**6. A-S2P's "M15 evidence" has the same timestamp ambiguity.**
+The required row says promotion is at 09:35 and specifically calls for the enriched promotion evidence. 
+But the code's logged `m15time` comes from `PERIOD_M15,0`, rather than deriving the source time from the evaluated `barShift`. That makes the acceptance field imprecise even though the transition logic itself is understandable.
+
+### Analytic ask B — better mechanisms
+
+For **B3**, the clean mechanism is to make the intended print change explicit in the same edit site: after the helper gate, remove the `*` and `(ANCHOR)` suffixes from the census construction rather than merely asserting that E2 is "overridden." That would make the edit, stated behavior, and +line budget mechanically agree. The affected lines are the B3 census block around C2559-C2572. 
+
+For **C**, log the M15 source bar derived from the same evaluated `barShift`, rather than `PERIOD_M15,0`, so the diagnostic proves the exact source observation used for promotion. The relevant insertion is the C8197-adjacent promotion block. 
+
+For **D**, a stronger proof mechanism is a fallback census that records each eligible mask-off candidate and then identifies the winner, making "nearest-only" directly gradeable rather than inferred from the final winner. The affected block is C2484-C2514 / the new D1 site. 
+
+---
+
+## IQ2v10 — OBJECT
+
+The four UJ legs are individually named with useful identity/bar/value predicates, but the acceptance is **not fully mechanically provable as stated** because at least the fallback and EU-preservation portions leave grading predicates implicit.
+
+The A-SL1, A-S2P, and A-POIV rows are relatively well pinned: the packet gives exact bars and prices, including the 6/3 parity tuple, the 6/5 promotion sequence, and the 6/11 14:35 → 14:40 identity. 
+
+The weaker portions are:
+
+**A-FB:** "one admission record" plus `TPFALLBACK` does not itself establish that the chosen target was the nearest eligible mask-off line, and the acceptance does not specify the expected source/value. 
+
+**A-EU-PRESERVE:** it says to compare RECON60 against the new run by identity, takes, and `REGIMECENSUS`, but does not define the equality/difference predicate for those populations. "Compared" is therefore not a fully specified pass/fail condition. 
+
+There is also a minor evidentiary inconsistency in the B3-related diagnostics: the acceptance expects helper-execution evidence while simultaneously claiming the census's anchor labels have already been removed, but the displayed edit does not actually perform that removal. 
+
+### Bottom line
+
+**IQ1v10: OBJECT — B3 edit/print/budget contradiction, plus the C/D evidentiary gaps above.**
+**IQ2v10: OBJECT — A-FB nearest-proof and A-EU-PRESERVE comparison predicate are not fully closed on the page.**
+
+The objections are page-level only; nothing here questions the packet's stated four-fix design or its disk-side evidence claims. 
+
+## V317-IMPL2-2 END LUNA (verbatim close; filed whole 1x this turn, novel inbound)
