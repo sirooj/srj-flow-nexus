@@ -12,7 +12,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` D74FE972/633552/11502 (your 7-trade EU tree; NOTHING built since the revert compiles - alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-1.md` v8 D3A66F97/19633/46 (DIV + provenance closure; COUNCIL-CLEARED 2-0, key build-leg SPENT 2026-09-27 -> built tree 14C7476C/660687/11975, EA 0/0 + FlowLogic 0/0; ONE tester run owed - window question open).
-- Built tree: `Experts\SRJ_FlowNexus_EA.mq5` 14C7476C/660687/11975 (v8 build; ex5 2026-09-27 13:29:04; HIS run word banked, key run-leg unspent).
+- Built tree: `Experts\SRJ_FlowNexus_EA.mq5` 14C7476C/660687/11975 (v8 build; ex5 2026-09-27 13:29:04; RECON71 PASSED 0 takes, diagnosed ledger 878; grant spent).
 - Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v315-UJIMPL-16.md` A6623B35/96540/1029, TRANSPORTED + GRADED (IQ1v8/IQ2v8 2-0 CONFIRM; twin 46/46, EA 594 + B 116 + F 71 + H 70, rows 30).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_V315-GRADE.md` (2 texts, IQ1v8/IQ2v8 2-0 CONFIRM; v8 cleared).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).

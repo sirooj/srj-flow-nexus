@@ -3,17 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, RUN ACTIVE)
+## State (2026-09-27, RECON71 GRADED)
 
-- RECON71-V8-UJ launched 13:38 (UJ 6/1-6/13,
-  tree 14C7476C; grant run-leg spent).
-  Range proof pending journal line.
-  Ceiling 90. Seats unchanged. Ledger 877.
+- RECON71 PASSED, 0 takes, diagnosed:
+  6/3 guard-kill (SL divergence), 6/5 pair
+  S2-held, 6/11 VWAP-2pts refusal.
+  Grant spent. Seats unchanged. Ledger 878.
 
 ## Next (owed him)
 
-- HIS run-completion word when the tester
-  finishes (or the DONE file lands first).
+- HIS VWAP-validity answer (6/11 14:40
+  2pt line: valid target or not); then
+  the fix packet goes to council.
 
 ## Next (owed him)
 
