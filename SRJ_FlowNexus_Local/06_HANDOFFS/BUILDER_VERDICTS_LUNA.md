@@ -13360,3 +13360,94 @@ So if both penetration and body conditions are false, only `no-penetration` is r
 The single most important repair is **Z placement**: as pasted, the 09:40 confirmation can still be skipped by the preceding M15 `return`, so the packet's principal Z death-row fix is not actually implemented by the shown R-Z region.
 
 ## V333-IMPL2-18 END LUNA
+
+## V334-IMPL2-19 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+Luna:
+## Council ruling
+
+### Q1 — **OBJECT**
+
+The repaired Z/B fences are mechanically coherent in the visible code, but I cannot CONFIRM the packet as written because its claimed complete-region proof is internally inconsistent.
+
+**Material defect:** the v21 packet says the deferred-abort declaration moved to the function top at **EA-6875–6877** and consists of four lines (`uj_saAbort`, `uj_saA`, `uj_saD`, `uj_saT`) at **P495–P501, P604–P605**. But the purported complete `R-DECLTOP` region at **P639** / **EA-6873–6878** contains only:
+
+* `Side1p2Snap`
+* `Side1p3Snap`
+* `sess`
+* `inWindow`
+* the following comment
+
+and contains **none** of those four S-a declarations.
+
+That is a direct contradiction with the packet's claims of “complete code regions,” “zero elisions,” and the stated B2 siting. The separate `R-DECL` at **EA-7976–7978** is `s1f_seedArmed` and does not cure the omission.
+
+So the blocker is **packet-proof completeness**, not a demonstrated failure of the Z/B1/B3 mechanism itself.
+
+### Q1 analytic A — defects / gaps / imprecision
+
+1. **Missing S-a declaration fence — blocker.**
+   P496–P501 and P604 say the declarations are at EA-6875–6877, but P639's EA-6873–6878 region does not contain them.
+
+2. **“Complete code regions” claim is therefore false as presented.**
+   P036/P639 says the regions are complete and zero-elided, while the supposedly load-bearing B2 declaration is absent.
+
+3. **Z purity/determinism is asserted rather than demonstrated on-page.**
+   P461/P475 says the hoisted `IsConfirmationCandle(...)` result is identical to the old call “within the pass.” That is plausible, but the packet does not show the helper body or a direct side-effect/purity proof. This is an evidence gap, not a demonstrated behavioral defect.
+
+4. **Q1 B2 wording is slightly stronger than the visible code proof.**
+   P599 says “gate contender evaluation on a live holder.” The visible S-b gate at **P522** is `g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED`, which is a state-based proxy for an occupied candidate, not an explicit holder-validity predicate. The packet explains why that state represents the holder, but the exact holder-identity predicate is not independently shown.
+
+5. **The Z bypass telemetry rereads M15 on the confirmed branch.**
+   At **EA-8925–8927 / P487–P492**, `uj_bm15` is read solely for the print. That is not a behavior defect, but the cleaner mechanism would reuse the already-established confirmation result and make the telemetry explicitly non-authoritative.
+
+6. **Known B0 naming fragility remains.**
+   P131 admits `UjPoiTargetValid()` identifies same-family lines through string prefixes around `"-"`. A future line-code rename can silently change behavior. The packet explicitly parks rank-parity as a future alternative, so I do **not** treat this as a v21 blocker.
+
+### Q1 analytic B — better mechanism
+
+For the **Z fence**, the cleaner minimal implementation is to make the control dependency explicit once:
+
+```mql5
+string cfTermZ = "";
+bool cfPassZ = IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermZ);
+
+if(!cfPassZ)
+  {
+   // existing M15 guard
+  }
+else
+  {
+   // BYPASS telemetry only
+  }
+```
+
+That is effectively the current v21 mechanism, and I would **not** widen it further. The main required repair is the packet fence itself: include the four S-a declarations at their claimed EA-6875–6877 location so the page actually proves what it says it contains.
+
+For **S-a**, a single identity object/struct would be cleaner than four parallel locals, but that would introduce unnecessary churn during this refinement phase. The present four-local scheme is preferable for this packet once its declaration fence is correctly represented.
+
+---
+
+### Q2 — **CONFIRM**
+
+The Q2 touchup is sound.
+
+The `ShadowRetestBook` loop already has the evaluated-bar `l` and `h` values in scope and uses them for the existing hit predicates at **EA-2164–2181**. The new `UJDTTERMS` loop at **P569–P588** reuses exactly those operands rather than issuing fresh `iLow/iHigh` reads.
+
+The actual predicates are therefore observationally identical:
+
+* long: `l <= L - P + EPS` and `bodyLo >= L - EPS`
+* short: `h >= L + P - EPS` and `bodyHi <= L + EPS`
+
+No state is assigned, no book data is changed, and the existing `RETESTBOOK` construction is untouched. The cited gate/placement at **P568/P590** is consistent with the zero-behavior claim.
+
+One wording precision: “reuse the loop's own low/high” is slightly imprecise; they are really the function's **already-read `l`/`h` values reused by the second loop**. That does not affect the verdict.
+
+## Final ledger
+
+**Q1: OBJECT** — page/evidence defect: the claimed B2/S-a declaration fence is missing from the supposedly complete EA-6873–6878 region.
+**Q2: CONFIRM** — `l/h` reuse is behavior-preserving and correctly fenced.
+
+No build, run, clearance, or live activation is implicated by either ruling.
+
+## V334-IMPL2-19 END LUNA

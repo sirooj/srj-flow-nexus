@@ -2970,3 +2970,119 @@ In strategy terms: Z and S-a, as written, would each fail to deliver what their 
 - **Log volume.** The row lists every line on every bar. Printing only lines with a non-trivial term would cut the volume, which is optional.
 
 ## V333-IMPL2-18 END SONNET
+
+## V334-IMPL2-19 OPEN SONNET (filed whole 1x this turn, novel inbound, advisory only per seat-split; see ledger)
+
+Sonnet:
+# Verdict (review seat), relay v334-IMPL2-19, packet v21
+
+**Q1 verdict: CONFIRM** the v21 repaired Z+S fences, with three required corrections on the page (A1, A2, A3 below). None of them changes code bytes. The design ruling stands on the fences as written.
+
+**Q2 verdict: CONFIRM** the touchup.
+
+Both verdicts are on the page only. Disk truth is not asserted.
+
+---
+
+## Q1: what I checked
+
+**Z fences (R-Z, EA 8912-8963, 52 lines; count re-derived by hand).**
+- Zins goes after the "S3 waiting" print (EA 8914-8916). That print is a braceless `if(InpDebugLog) PrintFormat(...)` ending at 8916, so the insert sits at else-block scope. `cfTermZ`/`cfPassZ` are therefore visible to the guard block (8919-8927) and to the prebind site.
+- Zguard is 3-vs-3 (comment, comment, `{` becomes `if(!cfPassZ) {`).
+- The guard block's own closing `}` at 8927 is followed by the Zbypass `else { ... }` (P488-492), which is 5 lines and balanced. There is no dangling-else hazard, because nothing sits between `}` and `else`.
+- Zrep (`cfTermPB = cfTermZ; if(cfPassZ)`) keeps the FAIL print's name and value.
+- Unconfirmed passes run guard, NOMATCH return and FAIL path byte-identically. The hoist only adds one `IsConfirmationCandle` call per else-branch pass, so N1 goes up (telemetry, admitted on page).
+- Confirmed passes now skip UJALIGN_PASS/NOMATCH and print UJALIGN_BYPASS, then CONFIRM_PREBIND. That matches the B5(a) trace with R18/R19: carve-hold at bar 09:40, `m15=1.0` against SHORT, `rf=1`.
+
+**S-a (R-DECLTOP, R-F11).**
+- SaSet's old-fence is byte-equal to the R-F11 tail (`else`, `{`, GoAbort, return, `}`, `}` = 6 lines).
+- The new SaSet is 6 lines, because `uj_saT` is on the flag line.
+- The decl at function top (EA 6875-6876, before the first comment at 6877) is reset per pass before it is set, so B2 is satisfied. There is no stale-flag path.
+
+**Scomb (P520-566).** I counted braces and lines.
+- The gate `{` (P522) closes at P550.
+- The inner PoiRetestResult block (P524/528) and the transfer block (P533/549) are balanced.
+- S-a-apply (P551-565) sits outside the gate, as B3 requires.
+- Total is 45 lines (43 + 2 wrap).
+- The transfer resets are a complete mirror of R-XFER (EA 7811-7839): anchor, price, time, dir, zone, touch, latched E/S/T/R, latchBarTime, confirmFromState. It adds `uj_memo_valid = false`.
+- Identity drop on the 6/11 pass works even though holder and contender are the same POI line (Daily-POC). `uj_saD == (int)g_dir` mismatches (SHORT vs LONG), and the anchorBarTime also differs, so UJDEFERDROP fires.
+
+**Why swallowing the deferred flag is fail-safe.**
+- By the packet's own cites, every admitting block (arming-if EA-8784, S4 EA-8867, S5 EA-9006, and this fence's own prebind at 8912+) sits after S2-end EA-8329.
+- A `return` anywhere in EA 7392-8323 therefore ends the pass with no admission possible. The next pass's stateless invariant re-derives the abort.
+- Worst case is a one-bar-late abort, never a spurious fire.
+- That closes the concern I would otherwise have raised beyond P495's S2WAIT-only argument. Please add this argument to P495.
+
+## Q2: what I checked
+
+- The new UJDTTERMS predicates mirror R-Q2LOOP's own longHit/shortHit operands term for term:
+  - `l <= L - P + EPS && bodyLo >= L - EPS`
+  - `h >= L + P - EPS && bodyHi <= L + EPS`
+- The insert lands between 2180 (end of the RETESTBOOK print) and 2181 (function close).
+- The new local is `uj_dtL`, so it does not collide with the case-distinct `L` or `l`.
+- The fence is 19 lines, which matches the budget.
+- Q2r is zero-delta by construction: identical operands, print-only, behind the cited EA-2150 gate.
+
+---
+
+## Analytic ask A: defects and imprecisions
+
+**A1. S-a itemization contradicts its own fence (P604, P605).**
+- P604 says "SaSet plus uj_saT line (7-vs-6, +1)" and P605 says "S-a 5 (decl 4 + set 1)".
+- The fenced SaSet (P510-517) is 6-vs-6 (+0), with `uj_saT` on the same line as the flag. The walk sentence in P605 ("+0 set (same-line uj_saT)") agrees with the fence.
+- The correct itemization is Z 7 / S-a 4 / S-comb 45 / Q2 19 = 75. The list as written sums to 76 against a stated total of 75.
+- The total +75 and final tree 12202 are right. Only the per-site lines are wrong.
+- Fix: P604 SaSet becomes "6-vs-6, +0", and P605 S-a becomes "4 (decl 4 + set 0)".
+
+**A2. R-DECL (EA 7976-7978) is an orphan.**
+- After B2 moved the decl to R-DECLTOP, nothing in v21 refers to the `s1f_seedArmed` site.
+- It still counts in "127 lines in 7 spans".
+- Either drop it (120 lines in 6 spans) or label it history, so a reader does not take 7976 as the decl siting.
+
+**A3. The 09:40 death mechanism is inferred, not shown.**
+- P458 names "IE2 M15-agree return" as the killer, but no UJALIGN_NOMATCH row for bar 09:40 is among R01-R23.
+- That row prints unconditionally (EA 8925 has no debug gate), so it should exist on disk with `m15=1.0 uj_readFail=0`.
+- Please splice it, or state it was not found. Right now the death is proven by elimination (R01/R02/R18/R19 plus an absent PREBIND row).
+
+**A4. Two claims rest on code not on the page.**
+- (a) The S-b transfer keeps state S4 with `g_zoneHi/Lo = 0.0`.
+  - That state combination is new. The PREEMPT precedent zeroes the zone in S1/S2, where the zone is not yet in use.
+  - The claim that the S4 live re-read (EA 8980-8995) rebuilds the zone the same pass is cited but not spliced.
+  - Please splice the region, or a line-level statement that the re-read overwrites unconditionally or fails closed.
+  - This matters because tests like `h >= zLo` are trivially true at zLo = 0.0.
+- (b) The SUPPRESSED/HELD path (R16) is the path S-b depends on.
+  - Nothing on the page shows whether it `return`s. S-b is unreachable on exactly the contended passes if it does.
+  - Please add a `return` census for the t78 SUPPRESSED path, or splice about EA 7840-7870.
+
+**A5. Smaller items.**
+- P532 repeats the S3/S4 state test that the new gate at P522 already enforces. This is harmless, but the "condition widened (0)" wording obscures it.
+- P567 says DIR_NONE "must hit 1x+ ... before transport". This is the transported text, and no census result is stated. Please state the hit count.
+- DetectPoiRetest and IsConfirmationCandle purity rest on cites, not bodies. F11 already depends on this, so it is not new.
+- The Q1 line list omits the F11 tail site (EA 7379-7391), although SaSet edits it.
+- `ReadFlow` in the bypass is print-only, so a read failure changes only the `rf=` field.
+
+**A6. Sufficiency of the EU structural fence (council question, ruled openly).**
+- Z, S-a and S-b are not session-, instrument- or venue-gated. They live in general EvaluateClosedBar code.
+- The EU risk is additions or displacements on confirmed or M15-opposed bars, not silent removals. It is bounded by alert-only mode, and it is unproven without the August run.
+- My ruling is that the structural fence is sufficient for this design round and for a build-and-UJ-window run.
+- It is not sufficient evidence for any later live-activation relay. I ask that this be recorded as a standing precondition of that relay. It does not need to bind anything he has declined now.
+
+**A8 (carried).** I concur that no blessing is asked. Nothing on the page shows S-b inventing a rule.
+- A holder in S3/S4 cannot have a prior confirmation. It would already have promoted to S5 and fired the same pass.
+- So "unconfirmed holder" is well-defined, and the trigger applies his setup-definition rather than adding one.
+- The residual is only the refinement-scope words, which is a size argument, not a logic one.
+
+## Analytic ask B: better mechanism
+
+**B-1 (S4 transfer).** If A4(a) cannot be shown from EA 8980-8995, demote the transferred candidate to S3 (`g_state = ST_S3_ZONE_WAIT`) for S4 holders only.
+- A confirmed contender then reaches S5 the same pass through the Z prebind route when its zone is not in play, or through the G1 cascade when its zone is in play and M15 agrees.
+- That removes the zero-zone S4 combination.
+- Cost: it touches the 6/11 hypothesis path, so it would need re-grading. Only do this if the re-read proof fails.
+
+**B-2 (Scomb, low priority).** Make `uj_sbConfH` lazy: `bool uj_sbConfH = uj_sbConfC ? IsConfirmationCandle(...) : false;`.
+- It drops a call on every S3/S4 pass with no contender and cuts N1 churn.
+- The earlier lazy-carve parking concerned F11's baseline. This site has no baseline, so parking does not apply here.
+
+Nothing here builds, runs or spends anything, and nothing clears live activation.
+
+## V334-IMPL2-19 END SONNET

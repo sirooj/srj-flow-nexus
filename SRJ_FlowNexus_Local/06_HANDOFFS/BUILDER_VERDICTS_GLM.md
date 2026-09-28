@@ -7160,3 +7160,54 @@ GLM:
 Close: nothing here builds, runs, spends, or clears live activation; any repair round rides the same gates (new key + his run word, neither asked). The two verdicts are independent per the relay rule: Q1 OBJECT on the fences as written (Z1-Z4), Q2 CONFIRM as fenced. Disk truth (digests, counts, twin) remains proven on his machine; every defect above is page-internal — fence-vs-region, scope order, or logic — and none of them requires a file to adjudicate.
 
 ## V333-IMPL2-18 END GLM
+
+## V334-IMPL2-19 OPEN GLM (filed whole 1x this turn, novel inbound; see ledger)
+
+GLM:
+**Seat filing — packet P-UJIMPL-IMPL-2 v21 (relay v334-IMPL2-19), Q1 + Q2**
+
+Scope honored: ruling on the page only (fences, numbers, logic). Disk genuineness (digests, counts, builds) is not answerable from chat and is not ruled. Nothing here builds, runs, spends, or clears live activation; a future build still needs a new key plus his run word.
+
+## Q1 verdict: CONFIRM
+
+The v21 repaired fences implement the three change-sentences as specified:
+
+- **B1 (guard-swap + bypass) — CONFIRM.** Swap is 3-vs-3 at EA-8917-8919 (fences P477-P486); bypass +5 after EA-8927 (P487-P493); Z-ins +2 / Z-rep 2-vs-2 carried (P462-P474). Braces balance against R-Z: the guard block becomes the `if(!cfPassZ)` body, the `else` binds to it, and the bypass falls through to the prebind branch, which consumes `cfPassZ` — two rows, two meanings as stated (P494). Unconfirmed passes run guard + FAIL path byte-identical to BASE. The hoisted call's args are stable across the pass on the no-transfer trace (the only intervening mutation site is the Scomb insert at EA-8324+, S3/S4-gated, no-op without an opposite confirmed contender). The Z-venue death (IE2 return EA-8920-8927 skipping the prebind test the carve passed — R18 with rf=1 forcing the carve clause, R19 confirm=1) is repaired by construction: cfPassZ true → guard skipped → BYPASS → CONFIRM_PREBIND pass → S5 same pass → fire 09:45 open.
+- **B2 (decl-to-function-top) — CONFIRM.** SaDecl 4 lines at EA-6873-6878 (P496-P501), ahead of the set (F11 tail, EA-7379-7391, fence P510-P516), ahead of the apply (EA-8324+). The v20 geometry (decl at the R-DECL site EA-7976-7978, after the set) would have re-initialized the flag between set and apply — swallowed; the v21 siting removes the swallow, and the datetime completes the identity key. All three sites sit inside EvaluateClosedBar (EA-6871+), so the function-scope locals are visible at set and apply.
+- **B3 (gate-hoist, apply outside) — CONFIRM.** K&R wrap +2 (P521/P549) gates detection plus both confirmation calls on a live S3/S4 holder; the S-a-apply (P551-P564) sits outside the gate, so a flag set for an S5-held candidate (the invariant's range EA-7321 includes ST_S5_GATE_CHECK) still applies — the inside-gate placement would have evaporated S5-holder flags at pass end. Identity key anchor+dir+barTime (P513, P553-P554) is sufficient: the only identity-changer between set and apply is the S-b transfer itself, which rewrites all three (P534-P536). Braces balance; 45 lines as budgeted. The A4 dissolution is sound (EA-7321: the flag-setter is S3+; the S2WAIT return is S2-state-only; no swallow path exists).
+
+Wording fixes present as claimed (Q2 l/h + gate cite P568; acceptance deltas P606; N1 re-baselines admitted at P475/P567; C-silence widened surface stated openly at P494/P606). Rule-preservation carried: the 6/3 path diverges only on cfPassZ-true else-branch passes, which it never takes (its confirm bar was consumed by the S4/STRUCT route); exactly-four + UJ-EXTRA + DUPADMIT + C-silence bound the widened surfaces. One budget-prose discrepancy is named in Ask A item 1 — it touches no fence byte, and the operative total (+75, tree 12202) is consistent with the fences as counted (Z 7 + S-a 4 + Scomb 45 + Q2 19).
+
+## Q2 verdict: CONFIRM
+
+Fence P569-P589, 19 lines, -2 vs v20, sits after the RETESTBOOK print (EA-2177-2180) before the function close, inside the caller-gated region (def EA-2148, early-return EA-2150, caller EA-7964). Zero behavior delta by construction — and stronger than "identical operands": the terms reuse the loop's own l/h/bodyLo/bodyHi (in scope per R-Q2LOOP EA-2164-2181), so the decomposition cannot diverge from the hit classification it mirrors. Print-only: the only assignments are uj_dt* locals; no state writes, no gate reads.
+
+## Analytic ask A — defects, gaps, imprecisions
+
+1. **Budget sub-label contradiction (the concrete one).** P604 says "SaSet plus uj_saT line (7-vs-6, +1)"; P605 says "S-a 5 (decl 4 + set 1)". The fences are 6-vs-6 (old P502-P508 vs new P510-P516 — uj_saT rides the same line), P605's own walk says "+0 set (same-line uj_saT)", and the site-sum with "set 1" gives 7+5+45+19 = 76 against the stated +75. The operative numbers are right (75 from the fences; 12127+75=12202 matches P003); only the sub-label and P604's "(7-vs-6)" are wrong. Zero fence-byte impact; S3 recount governs at build — correct it in v22's fold so the "script-counted" claim stays literal.
+2. **S-venue transfer-pass mechanics unstated (hypothesis-level).** The H-terms (P594: "LONG-confirm at 14:30-bar; M15 at eval-14:35") make the transfer eligible at the 14:35:10 pass, while the adopted B5 trace (P602b) compresses flag, transfer, drop, re-read, edge, and fire into the 14:40:22 pass — and P594 itself warns a same-pass edge fire at eval-14:30 books 14:35 (UJ-TIMEBASE). The page never states which term blocks the S4 edge on the transfer pass under the 14:30-confirm hypothesis (the touch/zone resets are named at P537-P538 but their edge-blocking effect is not asserted; the STRUCT predicate's terms on the 14:30 bar are not enumerated). Falsifiability is intact (UJ-TIMEBASE / UJ-NOADMIT named); v22 should trace the transfer pass explicitly — which pass carries SIDE1C_YIELD, and what the edge does on that pass's evaluated bar.
+3. **NO_MEMO/fire-block semantics cited, never fenced.** P054 places A4 "before the NO_MEMO check" but the no-memo path's behavior (abort vs proceed on fire locals) is not on the page, and it is now load-bearing twice: the Z-venue prediction (prebind pass → S5 same pass → fire, P593) presumes a fire without a poll-written memo — which the E1 comment itself declares (R-Z: "a pre-bind firing proceeds without it") — and the S-b transfer's uj_memo_valid=false (P541) presumes the same for a transferred holder firing before any next-pass poll re-derives the memo (the poll site EA-7473-8487 precedes the transfer site EA-8324+ in every pass, so a same-pass transfer→fire cannot carry a valid memo). Both hold only under the proceeds-on-fire-locals reading with A4 covering economics. Pre-existing dependency (the prebind route has carried it since IMPL-1), so it does not block this ruling — but fence it or quirk-enter it before a build key: two of four venue predictions hang on it.
+4. **Q2 print ungated** (P585): UJDTTERMS prints unconditionally, deviating from the InpDebugLog convention of every other v20/v21 insert. It matches the enclosing function's own precedent (RETESTBOOK at EA-2177-2180 ungated) and the volume is caller-gated — cosmetic; noted, not objected.
+5. **Z-rep indent churn** (P472-P473 vs P468-P469): replacement lines sit +2 spaces over the replaced lines; harmless, same cosmetic class as the documented F11 churn (P239). The old-fence byte-exactness itself checks on-page against R-Z.
+6. **g_alertedArmed not reset on transfer** (P533-P541): the mirror faithfully copies EA-7813-7829 (R-XFER), which also leaves the HEADS-UP latch set — a transferred holder inherits the old holder's alerted state and emits no fresh HEADS-UP. Faithful-to-mirror, alert-side only; named so the next round decides deliberately rather than by inheritance.
+7. **Fold-audit item "0.61/name corrections" (section 0) untraceable on-page**: no 0.61 value appears anywhere in this packet, so the correction's subject cannot be located from the page (presumably corrected-away; visible numbers, e.g., SHORT POLL R 0.68 at P459, are row-consistent). Accounting-level.
+8. **uj_saT lacks its own 0-hit census sentence**: P518 lists "uj_saAbort/uj_saA/uj_saD 0 hits pre-edit" — the v21-added uj_saT is never added to that census claim (P604 adds the line but not the census). Implicit in the fold battery's fence re-verification; extend the sentence in v22.
+9. **Redundant state re-check** (P531 vs P521): the inner S3/S4 re-test is dead by construction (neither DetectPoiRetest nor IsConfirmationCandle mutates g_state). Harmless; noted for the record.
+10. **"The 14:40 evaluation" (P594) is ambiguous** between the 14:40:22 pass (evaluating 14:35) and a pass evaluating the 14:40 bar (14:45:05); the entry pin and trace disambiguate, but the acceptance should name passes by wall-time + evaluated bar per the house's own row convention (R12/R14).
+
+Carried residuals kept on record (not defects): S-b remains the widest logical change under the refinement-scope pin, and with the August run declined its only behavioral bound is the June exactly-four + UJ-EXTRA + takes-fence — the openly-stated structural residual (P596/P606), accepted as sufficient-for-design per his decline. The A8 ruling (P601) is taken: the direction was conceded in V333 (P602), the authority is a disclosed builder reading of his on-record words, and the build stays key+word-gated.
+
+## Analytic ask B — better mechanisms
+
+None for the four edits as fenced; each is the minimal-delta form under the refinement-scope pin:
+
+- **B1**: deleting the M15 guard outright would widen the unconfirmed surface and break BASE-compat; the `if(!cfPassZ)` gate + bypass row is the minimal repair.
+- **S-a**: moving the invariant block below the S2 evaluation would achieve pass-completion without a flag, but relocating the invariant is the bigger revision (its siting is load-bearing for the aligned/hold paths). The S-b-before-S-a-apply ordering (P520 vs P550) is load-bearing and correctly chosen — apply-first would abort the 6/11 pass before the contender's transfer could land.
+- **S-b**: the gated form is the V333-B3 fix itself; a contender-slot design is barred by the SINGLETON pin (EA-7347-7348).
+- **Q2**: the l/h reuse *is* the improvement over v20's re-read; no further gain without churn.
+
+## Close
+
+Q1 CONFIRM, Q2 CONFIRM — each on its own line as asked; a NO on one was never allowed to sink the other and neither is a NO. Design ruling only: nothing builds, runs, spends, or clears live activation; live stays alerts-only; a future build needs a new key plus his run word, neither asked here. The Ask A item 1 discrepancy is named for v22's fold, not held against the fences.
+
+## V334-IMPL2-19 END GLM
