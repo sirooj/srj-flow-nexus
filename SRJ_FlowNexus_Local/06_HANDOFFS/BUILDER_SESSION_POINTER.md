@@ -3,19 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V331 MEMO SHIPPED)
+## State (2026-09-28, V332 MEMO SHIPPED)
 
-- Memo shipped on his digest word
-  C0692AA3: relay v331 to Luna +
-  GLM + Sonnet, identical text,
-  whole file each (Astra out,
-  as announced).
+- Memo ships relay v332
+  `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v332-IMPL2-17.md`
+  (`744768F4/157676/1437`) whole
+  to Luna + GLM + Sonnet.
 - Verdicts owed back whole per seat.
 - Nothing else asked; no build/run/key.
 
 ## Next (awaited carrier)
 
-- His pasted V331 verdicts (whole
+- His pasted V332 verdicts (whole
   text per seat), then grade.
 
 ## Resume order (exact)

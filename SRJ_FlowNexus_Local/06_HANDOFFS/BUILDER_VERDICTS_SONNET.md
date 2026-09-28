@@ -2814,3 +2814,68 @@ Evaluate the carve lazily, only when M15 disagrees: `uj_hcarve = uj_hm15agree ? 
 Disk claims (digests, twin diff, 1x row hits) can't be verified from the paste. 
 
 ## V330-IMPL2-15 END SONNET
+
+## V331-IMPL2-16 OPEN SONNET (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, Sonnet text as received; byte-exact as received incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+**Q1 verdict: OBJECT** (P003, P467, P024)
+
+The reconciliation ties out arithmetically, but the base it is pinned to makes the figure wrong. I recounted every fence:
+
+| Fence | Net lines |
+|---|---|
+| A3 | -1 |
+| A4 | +3 |
+| A6 | +1 |
+| A8 | +1 |
+| A9a/A9b | +6 |
+| B0 | +11 |
+| B1/B2/B3 | +6 |
+| B3b | -1 |
+| C | +11 |
+| D1 | +15 |
+| E2 | +1 |
+| **Carried total** | **+53** |
+| F11 (17 old, 27 new) | +10 |
+| G1 (29 old, 41 new) | +12 |
+| H1 (15 old, 16 new) | +1 |
+| H2a | +6 |
+| H2b (85) minus D1 (15) | +70 |
+| **v18 total** | **+152** |
+
+The six terms match at P003 and P467.
+
+The problem is that P003 binds +152 to "base = built tree 48EDC504/664981/12028". The carried +53 is already inside that base:
+- P024 gives the v8 build as 11975 lines, and 12028 − 11975 = 53 exactly.
+- The region dumps show the carried fixes live in the built tree: Fix C at EA 8219-8240, Fix A/A6/A9 at EA 10415-10446, and the E2 print at EA 8940-8946.
+- D1, which the +53 also counts, is the removal target at EA 2518-2532 in that same built tree.
+
+So +152 holds only against the v8 base of 11975, giving 12127. Against the built base of 12028 the correct delta is +99, which also gives 12127. As written, an S3 recount against 12028 would expect 12180. The fix is one line: state both figures (cumulative +152 vs 11975, or +99 vs 12028) and the expected final count of 12127.
+
+Two placement defects also sit at the budget site:
+- The relay's Q1 text cites P462 as the second budget site, but P462 is the raw-clock park line. The budget is at P467.
+- P467 opens with an orphaned Fix C sentence ("Fall-through to the shared S3 promote…") that belongs after P150.
+
+**R1 verdict: OBJECT** (P315, P451, P461)
+
+The bundle is mostly consistent. The six per-array reasons are at P384-386 and P401-403. The five parks are P462-466 and match the Status list. The Fix-D-to-H2 remap at P010 is correct, and the truncation naming at P354 is fine. Two lines contradict the code:
+
+1. **P315:** it says a G1-cascade pass "promotes S3-direct to S5". The code at P279-280 sets and logs S3→S4, then P308-311 captures `uj_cprev` after that assignment, so `g_confirmFromState` = S4_ARMED. The trace is S3→S4→S5 with two LogState rows. "S3-direct" is the prebind route (EA 8842-8856, `prevPB` = S3). The equivalence claim about EA-9053 is right only because of this, so the prose should say so.
+2. **P451 and P461:** both say the swept-record filter sits "in the refresh fill". The fill at P389-399 has no running max/min. The filter is in the consult loop at P432-439, and P354 itself says the record filter moved to consult.
+
+**Analytic A: further defects and imprecisions**
+- **Same-bar wording (P240, P316 terms 1, 2 and 5, P472):** these say retest and confirmation share bar 14:35.
+  - `IsConfirmationCandle` (EA 2269-2310) reads the opposing candle, close-side and touch terms at `barShift+1`, and only the body term at `barShift`.
+  - So a pass at eval-14:35 tests the 14:30 bar for A_OPP, A2 and C_TOUCH. R41's A_OPP fail at eval-14:40 fits that reading.
+  - RETESTBOOK and RETESTDIAG (R62/R63) key on bar 14:35, so G2 term 2 ("same touchBar") may compare rows about a different bar than the predicate's own touch.
+  - The packet should say which bar each term uses. The 14:30 bar's OHLC is on no row on the page, so "predicate PASS at 14:35" rests on unshown data.
+- **Row tags (R26-R64):** tag IR appears at R54 and R61, and LQ at R39 and R62, with different content. If the tags are meant as unique handles, that is a collision.
+- **F11 carve call (P229-230):** `uj_hcarve` is evaluated on every LTF-opposed pass, even when M15 agrees. It is disclosed as telemetry-only, but it is a second N1 count per bar alongside the later prebind or S4-edge call on the same bar.
+
+**Analytic B**
+
+Evaluate the carve lazily, only when M15 disagrees: `uj_hcarve = uj_hm15agree ? false : IsConfirmationCandle(...)`. That touches P229-230 only, and the mode label still separates M15 holds from CARVE holds.
+
+This is a page-only ruling. Disk genuineness (twin diff, digests, 1x rows) is not checked here. 
+
+## V331-IMPL2-16 END SONNET

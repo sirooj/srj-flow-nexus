@@ -13014,3 +13014,56 @@ R1: CONFIRM
 No build/run clearance is implied by these verdicts; the packet itself keeps that gated separately. 
 
 ## V330-IMPL2-15 END LUNA
+
+## V331-IMPL2-16 OPEN LUNA (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, Luna text as received; byte-exact as received incl. transport glyphs; see ledger)
+
+Luna:
+## Q1 — OBJECT
+
+`OBJECT — lines 1399-1400.`
+
+The arithmetic itself is correct: `53 + 10 + 12 + 1 + 6 + 70 = 152`, and the detailed budget decomposition appears at **P467**, line 517. 
+
+But Q1 explicitly says the two agreeing locations are **P003 and P462**. P003 contains the +152 decomposition, while **P462 is actually the “Raw-clock sentinel … parked” note**, not the budget decomposition.  
+
+So the underlying reconciliation is present, but the stated cross-reference does not close the OBJECT **as written**. The likely intended second reference is **P467**, not P462. The traceability sentence also repeats the erroneous `Status/P462-budget` reference. 
+
+## Q2 — CARRIED
+
+No new ruling: the packet explicitly carries the prior **2-0 CLEAR** and says it is never re-asked. 
+
+## R1 — CONFIRM
+
+`CONFIRM`
+
+The six array-resize reasons are actually represented: three temporary-array reasons (`RSIZE_HI/LO/DAY`) and three commit-array reasons (`COMMIT_HI/LO/DAY`). 
+
+The other notes are also present on the page: the truncation point is explicitly labeled as the v14 design, G1 term-6 scope is explicitly stated, P010 maps the 16:15 venue to H2, the N1 counting disclosure/purity correction is stated, and the five specifically parked items correspond to GLM-B2, GLM-B3, locals, lazy-carve, and retry.    
+
+## Analytic A — defects / gaps / imprecisions
+
+**A1. Wrong budget cross-reference — material.**
+Lines **1399-1400** identify P462 as the second budget location, but P462 is the raw-clock parked note. The actual detailed +152 budget is P467/line 517. This is the reason Q1 is OBJECT.  
+
+**A2. The same wrong reference is repeated in the traceability map.**
+Line **1395** says the V330 R1-OBJECT answers are at “Status/P462-budget”; that anchor is likewise inaccurate. 
+
+**A3. Seat-packaging wording conflicts with the stated Analytic A/B asks.**
+Lines **1405-1406** expressly request freetext Analytic A and B, while line **1420** says “check-form verdicts only,” and line **1424** says “Nothing else is asked.” Those statements are not literally compatible. The clean wording would distinguish the two required verdict lines from the additional standing analytics.  
+
+**A4. Fix B has an acknowledged naming-dependence weakness.**
+`UjPoiTargetValid()` determines family by parsing `g_lineCode` before/after `"-"`. The page itself concedes that a line-code rename could silently bypass the same-family exclusion and records rank parity as the stronger future mechanism. That is a genuine robustness gap, even though it is explicitly parked. 
+
+I do **not** see another page-supported defect that overturns R1. The remaining parked mechanisms are explicitly identified as parked rather than silently presented as implemented behavior. 
+
+## Analytic B — better mechanism
+
+For the **budget-reconciliation goal**, I would not touch EA behavior at all. The cleaner mechanism is one authoritative budget block and consistent cross-references to that block:
+
+`P003 + P467` → exact six-term decomposition → total `+152`.
+
+That would touch packet/prose anchors **1395, 1399-1400**, and preserve the already-correct detailed budget at **P467/line 517**. No EA code change is warranted for this defect. 
+
+For the independent **Fix B robustness gap**, the better mechanism already identified by the packet is rank-based family matching rather than string-prefix parsing; the relevant implementation is `UjPoiTargetValid()` at **P087-P096**, with the current weakness documented at **P131**. 
+
+## V331-IMPL2-16 END LUNA

@@ -6980,3 +6980,70 @@ Verdicts independent per the round rule: the Q1 CONFIRM stands on the fences reg
 - Nothing in this seat's answer spends a key, builds, runs, or clears live activation. Build still gates on a new key plus his run word, neither asked here.
 
 ## V330-IMPL2-15 END GLM
+
+## V331-IMPL2-16 OPEN GLM (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, GLM text as received; byte-exact as received incl. transport glyphs; see ledger)
+
+GLM:
+**Relay v331 — packet P-UJIMPL-IMPL-2 v18 — seat verdict (page-only ruling; disk genuineness taken as claimed and ruled nowhere; no key volunteered; nothing here builds, runs, spends, or clears live activation)**
+
+**Q1 verdict line: CONFIRM**
+
+**R1 verdict line: CONFIRM**
+
+Grounds (page-verified):
+
+1. Both places carry +152 with the identical six terms. P003: "budget +152 = carried +53 + F11 +10 (17/27) + G1 +12 (29/41) + H1 +1 (15/16) + H2a +6 + H2b-D1 +70 (H2b 85 / D1 15)". The budget line: "Total NET +152 = carried v9 +53 + F11 +10 (old-F 17 / new-F11 27) + G1 +12 (old-G1 29 / new-G1 41) + H1 +1 (old-H1 15 / new-H1 16) + H2a +6 + H2b-D1 +70 (H2b 85 / D1 fence 15)". Six terms, identical values and sub-counts; 53+10+12+1+6+70 = 152.
+2. Every fence re-counted on the page: old-F 17 (P192–P208) vs new-F11 27 (P211–P237) = +10; old-G1 29 (P242–P270) vs new-G1 41 (P273–P313) = +12; old-H1 15 (P319–P333) vs new-H1 16 (P336–P351) = +1; H2a 6 (P356–P361: 4 store decls + 2 fail decls); H2b 85 (P365–P449) minus D1 15 (P153–P167) = +70. The carried +53 is itemized and sums exactly (A3 −1, A4 +3, A5 0, A6 +1, A7 0, A8 +1, A9 +6, B0 +11, B1/B2/B3 +6, B3b −1, B3c 0, C +11, D1 +15, E 0, E2 +1 = 53).
+3. The P033b prose line (P034) carries no budget figure — outside the EA-line budget as claimed.
+4. The V330 R1 OBJECT (v17 budget line carrying 153 against Status 152) is closed in substance: both places now read +152 with identical terms.
+
+One citation defect, named for the record (does not sink the verdict; the reconciliation is locatable and correct): the v18 budget line is **P467, not P462**. On the v18 page, P462 is the raw-clock-sentinel park. The relay cites P462 in three places (Q1 change sentence; the Priors supersede note "superseded by v18 Status/P462 at +152"; Rule traceability "Status/P462-budget"). The cite matches v17's numbering (v17 = 480 lines per the Priors ruling line, budget at P462 — the V330 OBJECT's own line cite); v18's five added park lines (P462–P466) shifted the budget line to P467 and the packet to 485 lines (P485 = "(End of file)", P-sequence unbroken). Supersede the pointer to P467 in the transport record; the packet itself needs no change.
+
+## R1 basis — funnel consistency plus notes present and consistent
+
+Grounds (page-verified — all six note-classes present and consistent):
+
+1. Per-array reasons at six sites: RSIZE_HI/LO/DAY (P384–P386) + COMMIT_HI/LO/DAY (P401–P403).
+2. Truncation named as v14 design: P354 ("probe-break truncation note… fill-validated, fail-safe direction: fewer targets, never invalid targets"), consistent with the fence (probe breaks at uj_dct <= 0, P379; fill validates per-read, P395–P396) and disambiguated from v14's "no truncated publish" by the probe-break label.
+3. G1 term-6 scoped: P315 ("on a G1-cascade pass the candidate promotes S3-direct to S5 and the S4 block does not evaluate it that pass - term-6 scope") plus P316 term (6) ("on the cascade evaluation pass only").
+4. P010 remapped to H2: P010 ("6/5 16:15 Fix H2 (was Fix D, superseded v10 per P151)"); P151 is the Fix-D supersession bullet — cite verifies.
+5. Purity corrected with counting disclosed: P239 ("pure test with N1 census counting per call… g_n1_*++ per evaluation - carve calls count once more on carve-evaluated bars, telemetry only"); corroborated by the EA 2269–2310 display (g_n1_vwapEq++/g_n1_pocEq++ in the body).
+6. Five parks stated: P462–P466 (B2 raw-clock sentinel, B3 D1-key hoist, flag/state locals, lazy carve, retry backoff).
+
+Funnel consistency in the fence: per-pass reset (P369); CLOCK/DAY sentinels (P370–P371) gating the refresh (P372); first-failure preserved (uj_hok-chained RSIZE reasons P384–P386; uj_commit-chained COMMIT reasons P401–403; WITNESS does not overwrite an earlier reason, P422); fail print on any fail (P423); consult fail-closed (P424: histToday == today AND hdayt > 0 AND witness-ok AND day-key match); same-day re-refresh blocked by the P372 guard; a failed refresh leaves uj_histToday stale so the consult gate blocks (P410–P413 never write uj_histToday).
+
+## Analytic A — defects / gaps / imprecisions (each with line numbers):
+
+- A1. Stale budget-line pointer, relay-side, three occurrences (Q1 change sentence; Priors supersede note; Rule traceability). v18 budget line = P467; P462 = raw-clock-sentinel park. Origin: v17 numbering (480 lines, budget at P462); v18's five added park lines (P462–P466) shifted it. Packet-side unaffected.
+- A2. Dual "P462" referents in one round: packet P016 cites "(P462 CONFIRMPOLL-as-classification covers semantics)" — a prior-version line reference — while the relay's "P462" means the v17 budget line. Version-qualify historical line cites on the next fold.
+- A3. Region label overstates content: "EA 11808-11813 UjDayKey/UjDayDiff defs (6 lines)" shows only UjDayKey; UjDayDiff (EA-11815 per P354) is outside the span. Display-only mismatch.
+- A4. P354 "the fill still names any invalid record it touches" vs. P396/P423: the funnel reports reason=INVALID without identifying the failing record (index/day). "Names" overstates granularity; print-only, fail-closed regardless.
+- A5. P028 trailing punctuation: "…reads R~3.7 at entry-open);." — stray ");.". Cosmetic.
+- A6. Region-list redundancy (no conflict): EA 8990-9002 appears twice with identical bytes under two labels; EA 2518-2532 appears twice identically. Overlaps (EA 8784-8812 vs 8784-8791/8813-8828; EA 8936-8946 vs 8940-8960) are content-consistent.
+- A7. B3 insert indentation (cosmetic, carried built state): in the EA 2557-2610 region the UjPoiTargetValid gate lines sit at 3/5-space indent inside a ~12/13-space loop body, matching the B3 fence (P106-P108) as written. No logic impact; STAGE-1 whitespace churn will surface it.
+- A8. P003 phrasing: "the +2 names the fail-decl subset" — decodable but embarrassing. Minor.
+- A9. Phrasing variance: P003 "per-site RSIZE/COMMIT reasons" vs R1 "per-array reasons at six sites" — same six lines (P384–P386, P401–P403); both accurate; one wording on a future fold removes the variance.
+- A10. Witness reads are consult-time (P416–P419): yesterday/today D1 extremes re-read per consult; intraday growth of tHi/tLo would re-classify older highs as swept within a live day. Already scoped out on the page (P354: tester-static, alert-only); noted for completeness.
+- A11. Disk-side claims (digests, twin diff 0, row 1x, battery counts) are not page-verifiable and are ruled per the verification split — no defect inferred.
+- **A12 (note)** — persistent refresh failure re-probes full D1 history per empty-election pass (P374-381), no backoff; bounded, tester-cheap; adjacent retry counter parked at P354.
+- **A13 (cosmetic)** — the D1 fence is tagged "mql5-new-D1" (P152) though it is the removal target per P151; historical tag, mildly confusing.
+
+## Analytic B — better mechanisms for the stated goals:
+
+- B1. For the reconciliation defect class (v17's 152-vs-153, this round's stale pointer): single-source the decomposition. Keep the six-term arithmetic in one place (the budget line, P467) and reduce P003 to a reference ("budget per P467, +152"). Two hand-maintained copies of the same numerals are what drifted; one source plus one reference cannot. Touches P003 only; zero code, zero behavior. Weaker alternative: keep both and add a fold-time check comparing the six numerals across P003 and the budget line.
+- B2. For funnel granularity (optional, print-only): append the failing index to the INVALID reason — P396 becomes uj_histWhy = "INVALID:" + IntegerToString(uj_dr), printed at P423. uj_histWhy is read only by the print (P423) and the reset (P369); no gate consumes it, so zero behavior change. Low value; park unless a grade ever needs the failing day.
+- B3. For stale line pointers generally: extend the P-sequence battery invariant with cited-pointer resolution — every P### cited in relay prose (question text, supersede notes, traceability) must resolve to the claimed content class on the current twin. Catches the P462→P467 class at fold time. Process-side; no packet line touched.
+- **B4** — R1 fix per A1/A2: fence the P033b line (or state its built-tree line number in P034) and restore the term at P462 so the script-count claim holds and the S3 recount has one unambiguous expectation.
+
+No better EA-side mechanism is offered for the Q1/R1 substance: the reason scheme, guards, and gates are proportionate to a print-only funnel; error enums or structured fail codes would add compile/runtime surface for zero grading value at this stage. Nothing here builds, runs, spends, or clears live activation. 
+
+Verdicts independent per the round rule: the Q1 CONFIRM stands on the fences regardless of the R1 OBJECT, and the R1 OBJECT does not touch the fail-funnel. Disk items (twin diff 0, digests, rows 1x, region 0-diffs) taken as claimed per the verification split. Note the P033b at P003 budget counts... let me recount... P462 says "script-counted from the fenced blocks above" and the fence candidate: P033b is prose. The v17 P034 names it as analysis. P033b has no fenced block on the page, so I do NOT count it toward the EA-line budget: 53 + 10 + 12 + 1 + 6 + 70 = 152, and +152 is the reconciled total.
+
+---
+## Seat notes
+
+- My CONFIRMs rule on the page as pasted. Disk genuineness (twin diff 0, region 0-diffs, row 1x, digests) stays proven on the operator's machine per the split; I asked for no files.
+- Every A-item above is amend material with line numbers; none is a halt predicate under the questions as scoped, for the reasons stated (carried-matter rule, purge scope, disclaimed annex, grade-covered hypothesis terms).
+- Nothing here builds, runs, spends, or clears live activation. Build still gates on a new key plus his run word, neither asked here.
+
+## V331-IMPL2-16 END GLM
