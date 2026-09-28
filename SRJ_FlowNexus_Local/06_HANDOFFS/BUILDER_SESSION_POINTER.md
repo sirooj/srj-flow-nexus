@@ -3,18 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, INCIDENT + V12 READY)
+## State (2026-09-28, V325 FILED GREEN)
 
-- Mystery v325 file quarantined (unrecorded,
-  lossy, never ship). Clean v325 staged in
-  Temp, proven byte-clean. v324 exonerated.
-- Packet v12 complete (66CB6CA2/68936/433).
-  Clean v325 staged in Temp (A0B783BE).
-  One question owed (see Next).
+- Squatter deleted on his word; clean v325
+  filed A0B783BE/116633/990, battery green.
+- Writer verdict: my writes all accounted;
+  status misreports owned (D13 both ways).
+- Runner unknown; second-session check is
+  his-eyes-only. Packet v12 stands ready.
 
 ## Next (owed him)
 
-- Deletion word + second-session check.
+- Transport memo on his word (battery
+  numbers plus key + word asks, once).
 
 ## Resume order (exact)
 
