@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V325 GRADED)
+## State (2026-09-28, V326 READY)
 
-- V325: Q1 3-0 CLEAR / Q2a 3-0 CLEAR /
-  Q2b 2-1 HALT / Q3 2-1 HALT (ledger 916,
-  result 08FB8198; 4 seats filed 1x).
-- v13 fold opens: G2 predicate + H2b
-  hardening + swept rule + P033 + minors.
+- Packet v13 CD4397A2/74890/467 +
+  relay v326 915CF2A6/130074/1129:
+  battery-green draft, untransported.
+- v13: G2 predicate + H2b hardening +
+  swept filter + P033 + minors.
 - Nothing cleared; no build/run/key.
 
-## Next (builder, unattended)
+## Next (owed him)
 
-- Draft packet IMPL-2 v13 (builder-owned
-  technical shape, council rules it).
+- Word to ship the v326 memo
+  (three pastes, identical text).
 
 ## Resume order (exact)
 
