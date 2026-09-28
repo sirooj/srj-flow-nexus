@@ -11,9 +11,9 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 built 2026-09-27; alert-only stands; v12 packet drafts F11/G1/H against it, unbuilt).
-- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v14 DRAFT 9D4A2950/78537/472 (battery-green; untransported; build needs new Luna key + his run word, neither spent nor asked).
+- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v15 DRAFT 51F2C3CD/78995/472 (battery-green; untransported; build needs new Luna key + his run word, neither spent nor asked).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v327-IMPL2-12.md` 1BDCC539/139857/1248 (battery-green; untransported; two questions Q1/Q2 plus rider R1).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v328-IMPL2-13.md` E8E05C46/145668/1344 (battery-green; untransported; two questions Q1/Q2 plus rider R1).
 - Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_RECON72-V9-UJ.md` 2499FB87/10374/70 (A-SL1 PASS with S5.4/S3.3 audit clean; A-S2P UJ-NOADMIT+UJ-NOPROMO; A-POIV UJ-NOTOUCH+UJ-NOPROMO; A-FB UJ-NOADMIT correct sub-1R refusal; EU-pending).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
@@ -64,6 +64,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - `00_CURRENT_WORKING\RECON*_STATUS.txt` / `*_DONE.txt` / `launch_*.ps1` (run debris, kept until you say otherwise).
 - `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V*.md` (old handoffs, history).
 
-- 2026-09-28: V327 graded Q1/Q2/R1 2-0 ALL CLEAR (ledger 922; result 6F65D4C0; Luna+Sonnet+GLM filed whole 1x, Astra out; Sonnet checkables disk-verified); v15 fold opens (sentinel guards + census proof + stale purge).
+- 2026-09-28: packet v15 51F2C3CD/78995/472 + relay v328 E8E05C46/145668/1344 DRAFT GREEN (ledger 923; sentinels + census proof + purge; battery-green, untransported).
 
 (End of file)

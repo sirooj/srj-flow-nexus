@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V327 GRADED)
+## State (2026-09-28, V328 READY)
 
-- V327: Q1/Q2/R1 2-0 ALL CLEAR
-  (ledger 922, result 6F65D4C0;
-  3 seats filed 1x, Astra out).
-- v15 fold opens: sentinel guards +
-  census proof + stale purge.
-- No build (dual-key out); no run/key.
+- Packet v15 51F2C3CD/78995/472 +
+  relay v328 E8E05C46/145668/1344:
+  battery-green draft, untransported.
+- v15: sentinels + census proof +
+  purge + wording batches.
+- Nothing cleared; no build/run/key.
 
-## Next (builder, unattended)
+## Next (owed him)
 
-- Draft packet IMPL-2 v15 (builder-owned
-  technical shape, council rules it).
+- Word to ship the v328 memo
+  (three pastes, identical text).
 
 ## Resume order (exact)
 
