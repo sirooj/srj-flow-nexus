@@ -13123,3 +13123,240 @@ No second build, no second tester run, no additional experiment, and no live-act
 **Disposition: CLEAR — ONE BUILD + ONE TESTER RUN ONLY.**
 
 ## KEY-IMPL2-V19 END LUNA
+
+## V333-IMPL2-18 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+Luna:
+## Q1 — **OBJECT**
+
+The Z+S concept is directionally aligned with the stated death-row diagnoses, but the supplied implementation does **not yet realize the Z reachability change as written**, and S-b has a material state/progress gap.
+
+### Q1 defect 1 — Fix Z is not actually hoisted above the M15 return
+
+The operative description says:
+
+> “hoist the IsConfirmationCandle call above the IE2 M15-agree guard” (P461)
+
+and says:
+
+> “confirmation tested first, M15 guard governs only the unconfirmed fallthrough” (P466).
+
+But the supplied **R-Z code is the opposite**. At EA-8912 onward, the code enters the M15 alignment guard first:
+
+```mql5
+if(uj_rf == 1 || uj_m15 != uj_want)
+  { PrintFormat(...); return; }
+```
+
+That `return` occurs **before** the new `cfPassZ` test shown at P463-465 / the `if(cfPassZ)` replacement at P471-474.
+
+So on the exact Z death-row class — M15 disagreeing/unread while the confirmation predicate passes — execution still returns at the M15 guard and never reaches the confirmation test.
+
+**Exact defect:**
+
+* Packet claim: P461, P466.
+* Actual supplied placement: Region R-Z, EA-8912 through EA-8927, with the return before the P463/P464-equivalent confirmation test.
+* Consequence: **the advertised Z death-row flip remains unreachable.**
+
+This is a blocking defect for Q1.
+
+### Q1 defect 2 — The Z name census is internally imprecise
+
+P475 says the new names are:
+
+> `uj_cfZTerm/uj_cfZPass/cfPassZ/cfTermZ`
+
+but the actual supplied code only declares:
+
+```mql5
+string cfTermZ = "";
+bool cfPassZ = IsConfirmationCandle(...);
+```
+
+There is no `uj_cfZTerm` or `uj_cfZPass` in the supplied region.
+
+This is not itself a behavioral defect, but it conflicts with the stated pre-edit name-census claim in P475 and weakens the byte/name audit language.
+
+### Q1 defect 3 — S-b does not explicitly restore a coherent state after replacing an S4 holder
+
+P459 defines the death case as a **SHORT S4 holder** at 14:35 whose slot is taken by the LONG contender.
+
+P500-528 allows:
+
+```mql5
+if(uj_sbConfC && !uj_sbConfH &&
+   (g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED))
+```
+
+but after the transfer it resets:
+
+```mql5
+g_zoneHi = 0.0; g_zoneLo = 0.0;
+g_touchSeen = false;
+...
+```
+
+while **never changing `g_state`**.
+
+Therefore an `ST_S4_ARMED` holder can become:
+
+* new `g_anchorLine`
+* new `g_dir`
+* new anchor price/time
+* **zeroed zone**
+* **still `ST_S4_ARMED`**
+
+There is no explicit `g_state = ST_S3_ZONE_WAIT`, no new S3 arming transition, and no explicit same-pass S5 transition in S-b itself.
+
+That is inconsistent with the stated S-b objective in P459/P499:
+
+> “let a confirmed setup take the slot from an unconfirmed holder, keeping its progress”
+
+because the code actually clears most of the holder's progress state while retaining the holder's state enum.
+
+The acceptance then assumes the transfer leads to the 14:40 admission path (P574), but the supplied S-b fence does not itself prove that route.
+
+**Relevant anchors:**
+
+* P459: death row and desired transfer.
+* P500-528: actual S-b transfer.
+* P529-543: deferred-abort handling.
+* EA-8324-8329: insertion site.
+* P240/P272-313: G1 only provides its cascade inside the S3 arming branch; S-b does not invoke that cascade.
+
+I would require the packet to make the post-transfer state mechanically explicit. Otherwise the acceptance is assuming a downstream behavior not established by the shown edit.
+
+### Q1 defect 4 — “Keeping its progress” is not what the code literally does
+
+P499 characterizes S-b as a transfer that “keeps its progress.”
+
+The actual code clears:
+
+```mql5
+g_zoneHi / g_zoneLo
+g_touchSeen
+g_touchBarHi / g_touchBarLo
+g_latchedEntry / g_latchedSl / g_latchedTp / g_latchedR
+g_latchBarTime
+g_confirmFromState
+uj_memo_valid
+```
+
+(P515-521).
+
+That may be correct as a **new-candidate reset**, but it is not literal preservation of progress. The packet should describe this as **slot replacement with a fresh candidate anchored on the confirmation bar**, unless the intended behavior really is to preserve some subset of the prior state.
+
+This is principally a wording/semantic precision issue, but it matters because the acceptance uses “keeping its progress” as justification for the transfer design.
+
+### Q1 defect 5 — The S-b acceptance requires telemetry that the shown S-b code does not itself guarantee
+
+P574 requires, at 14:35:
+
+> `RETESTBOOK + CONFIRMPOLL rows PRESENT`
+
+Yet S-b performs:
+
+```mql5
+DetectPoiRetest(...)
+IsConfirmationCandle(...)
+```
+
+inside its own transfer block (P503-510), but the shown S-b block does **not** itself emit either the `RETESTBOOK` or `CONFIRMPOLL` row.
+
+The base death row specifically showed both as zero because the candidate was held in the S4 path (P459, R14-style evidence).
+
+Therefore the acceptance needs a concrete proof that the surrounding control flow will execute the normal RETESTBOOK/CONFIRMPOLL emitters after the transfer. That proof is absent from the pasted page.
+
+I would classify this as an **acceptance-proof gap**, not automatically as a code bug.
+
+### Q1 defect 6 — Deferred-abort identity is weaker than the packet's “same holder” language
+
+P476/P529 call the mechanism “identity-keyed,” but the identity is only:
+
+```mql5
+uj_saA == g_anchorLine && uj_saD == (int)g_dir
+```
+
+(P532).
+
+It does not include the candidate's anchor bar/time, seed identity, or another episode identifier.
+
+For the currently described single-transfer path this may be sufficient, but the claim “holder unchanged” is stronger than what the identity actually proves. A same anchor+direction reappearance within the same pass would satisfy the identity test.
+
+This is not a proven failure on the stated venue; it is an **identity-precision gap**.
+
+---
+
+## Q1 Analytic B — better mechanism
+
+For **Z**, the minimal correct mechanism is exactly the one claimed in P461, but the actual code must be physically reordered:
+
+1. Evaluate `IsConfirmationCandle(...)`.
+2. If it passes, execute the prebind transition.
+3. Only the **unconfirmed** fallthrough reaches the M15 `UJALIGN_NOMATCH` guard.
+
+In other words, the new `cfTermZ/cfPassZ` block must sit **before the EA-8920-ish M15 return**, not merely before the old `IsConfirmationCandle` call.
+
+That touches the R-Z site at **EA-8912 through EA-8963**, specifically the ordering of the M15 guard and the P463-474 insert/replacement. No new helper or state is required.
+
+For **S-b**, the cleaner mechanism is to make the transfer's resulting state explicit. The transfer should establish the new candidate as the state appropriate to the new candidate's lifecycle, rather than retaining `ST_S4_ARMED` while zeroing the S4 zone. The exact choice depends on whether the intended 14:35 route is:
+
+* `S4 holder → new S3 candidate → same-bar confirmation path`, or
+* `S4 holder → direct S5 confirmation route`.
+
+The current packet does not make that state transition explicit, so I would not accept the present ambiguity.
+
+---
+
+# Q2 — **CONFIRM**
+
+The Q2 detector-term print is correctly **print-only** on the supplied code.
+
+### Why Q2 passes
+
+At EA-2164-2181 / P547-570 it:
+
+* reads the POI value,
+* reads the evaluated bar's `Low`/`High`,
+* computes local strings only,
+* appends them to `uj_dtTerms`,
+* performs a single `PrintFormat`,
+* assigns no EA state,
+* does not alter `hits`, `nHits`, or any election/entry variable.
+
+The existing `RETESTBOOK` hit construction remains unchanged at P/R-Q2LOOP.
+
+So the stated behavioral surface is effectively zero.
+
+### Q2 imprecision — “per bar per line” is technically narrower than literal wording
+
+The loop skips lines when `ReadBuf1` fails or when the level is `EMPTY_VALUE`/non-positive (P552-553). Therefore it means **per readable, valid POI line**, not literally every enumerated POI slot.
+
+That is appropriate for this detector and not a blocking defect.
+
+### Q2 imprecision — it reports the first failed stage, not every failed subterm
+
+For each direction, the logic is:
+
+```mql5
+if(!(penetration))        -> no-penetration
+else if(!(body condition)) -> body-below/body-above
+else                       -> HIT
+```
+
+(P557-562).
+
+So if both penetration and body conditions are false, only `no-penetration` is reported. That is still sufficient for the stated purpose of locating the first predicate failure, but it should not be described as a complete truth table of every failed subcondition.
+
+---
+
+# Final council ledger
+
+| Question              | Verdict     | Blocking reason                                                                                                          |
+| --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Q1 Z + S**          | **OBJECT**  | **Z confirmation is still downstream of the M15-return guard; S-b also lacks an explicit coherent post-transfer state.** |
+| **Q2 detector terms** | **CONFIRM** | Print-only, local-only diagnostic surface; adequate for mapping the 16:10 predicate failure.                             |
+
+The single most important repair is **Z placement**: as pasted, the 09:40 confirmation can still be skipped by the preceding M15 `return`, so the packet's principal Z death-row fix is not actually implemented by the shown R-Z region.
+
+## V333-IMPL2-18 END LUNA

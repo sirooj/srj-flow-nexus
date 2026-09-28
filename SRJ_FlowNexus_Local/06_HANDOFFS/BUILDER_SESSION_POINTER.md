@@ -3,17 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V333 RELAY-READY)
+## State (2026-09-29, V333 GRADED + V21 FOLDED)
 
-- Packet v20 + relay v333 (D22E7EA0/839)
-  memo-shipped to 3 seats; verdicts owed.
-- His 16:15 question asked with trail.
-  Key spent; no build/run/key this round.
+- V333: Q1 0-2 HALT, Q2 2-0 CLEAR.
+  All seats filed whole; v21 repairs folded
+  per B1-B3 (battery green); his 16:00
+  answer banked; D named for v22.
+- Next: v334 relay-ready assembly, then
+  transport memo with verdicts owed.
 
 ## Next
 
-- Verdicts owed back whole per seat; grade,
-  fold, result, ledger, pointer, commit.
+- Assemble v334 (twin + regions + rows),
+  battery to zero, memo, commit, stop.
 
 ## Resume order (exact)
 

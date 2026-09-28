@@ -2917,3 +2917,56 @@ I recounted the budget on the page and it closes the OBJECT.
 Nothing better for the stated goal. If the P462 sentinel park is ever revisited, the cheapest option is to set `uj_hdayt = 0` when `uj_hdayk == ""`. That goes in H2b at P368–370 and removes the dependence on `StringToTime("")` behaviour, with no new builtins. 
 
 ## V332-IMPL2-17 END SONNET
+
+## V333-IMPL2-18 OPEN SONNET (filed whole 1x this turn, novel inbound, advisory only per seat-split; see ledger)
+
+Sonnet:
+**Q1: OBJECT. Q2: CONFIRM, with notes.**
+
+In strategy terms: Z and S-a, as written, would each fail to deliver what their change-sentences promise. Z would still skip the 5 June 09:45 entry, and S-a would not compile. S-b is the right idea but its S4 behavior is unproven on the page. Q2 is safe.
+
+## Q1 defects (each blocks)
+
+**1. Z does nothing as specified (P461-P475).**
+- Z-ins only computes `cfPassZ` early. Z-rep only swaps the later prebind call for that result. Nothing edits the M15 guard.
+- In R-Z, the guard `if(uj_rf == 1 || uj_m15 != uj_want) {... UJALIGN_NOMATCH ...; return; }` still returns before `if(cfPassZ)` is reached.
+- The death row shows exactly that case. R18 (SEG5285) has m15=+1.0 against a SHORT, so `uj_m15 != uj_want` is true and the pass still returns. The promised CONFIRM_PREBIND pass row at the 09:40-bar (P573) cannot appear.
+- Minimum repair: make the guard `if(!cfPassZ && (uj_rf == 1 || uj_m15 != uj_want))`, and print a distinct bypass row instead of UJALIGN_PASS when it is bypassed.
+- Once the guard is bypassed, a confirming candle can go to S5 with M15 and LTF both opposed. That widens the else-branch admission surface beyond the 6/5 venue. The packet must say so, and C-silence has to carry it.
+
+**2. S-a's decl sits after its use, so it will not compile (P476-P479).**
+- SaSet is at EA-7386-7391 (R-F11). The decl anchor is EA-7977 (R-DECL), beside `s1f_seedArmed`. Both are inside EvaluateClosedBar, so `uj_saAbort`, `uj_saA` and `uj_saD` are undeclared at the set site.
+- The decl must move above the invariant block, before about EA-7245, at function scope. It is still a per-pass local, so the reset holds.
+- The stated precedent (EA-7977) is the wrong anchor.
+
+**3. S-b calls IsConfirmationCandle for the holder unconditionally (P509-P510).**
+- `uj_sbConfH` runs on every pass that reaches the insert, before the state test. That includes IDLE or S1 passes where `g_anchorLine` may be -1. If the function does not guard a negative anchor, that is an out-of-range read.
+- It also contradicts P545, which says calls happen "ONLY on contender-evaluated passes".
+- Fix: compute `uj_sbConfH` only inside `if(uj_sbConfC && (state is S3 or S4))`.
+
+**4. S-b's S4 behavior is not on the page (P499-P528).**
+- The transfer keeps the state at S4 but zeroes `g_zoneHi`, `g_zoneLo` and the latched values, and clears `g_confirmFromState`.
+- The S4 block (EA-8867-9002) and the freshness poll read the bound zone. The page does not show whether a zero-zone S4 candidate fires, holds or kills. The 14:40 fire depends on this.
+- Put those S4 consumers on the page, or state the expected row.
+
+## Other gaps and discrepancies
+
+- **N1 claim is false for Z (P461, P475).** Today the call happens only on passes where M15 agrees. After the hoist it runs on every pass reaching the else-branch. Counts must be re-baselined, as P545 already concedes for S-b.
+- **Stale names (P475).** `uj_cfZTerm` and `uj_cfZPass` do not exist in the fences. The real names are `cfTermZ` and `cfPassZ`.
+- **Citation mismatch.** P459 puts the 14:40:22 SHORT abort at SEG 14077. R12 has it at SEG14784, and SEG14080 (R11) is the 11:00 abort.
+- **Missing proof row for Z.** P458 blames the IE2 return, but no UJALIGN_NOMATCH row for the 09:40 pass is among R01-R23. That print is ungated, so it should be in the segment, and it should be added.
+- **Deferred abort can be lost (S-a).** Any return between EA-7391 and EA-8324 skips the application, so the abort waits until the next pass's invariant. This self-heals but should be stated.
+- **Scomb insert point (P500).** There is no old-block fence, so STAGE-1 cannot pin the placement. State it as after the `}` at EA-8327 and before the `if(g_state == ST_S3_ZONE_WAIT)` at EA-8329.
+- **Whitespace churn.** P472-P473 use 10 spaces where the disk has 9.
+- **EU sufficiency (P576).** The structural fence covers valid-take identity. It does not cover new admissions on the C-silence list, which only the declined August run would check. This is a stated residual and the council's call.
+- **Budget arithmetic checks out.** 2+0+3+0+43+21 = 69, and 12127+69 = 12196.
+
+**Analytic B (better mechanism for S-b).** The S1H gate at EA-7811 already has the contender/holder confirmation pair (`t78_opConf`, `t78_heldConf`, EA-7808/7809) and the transfer body. Extending that gate to S3 and S4 holders would reuse them. That drops the duplicate DetectPoiRetest and IsConfirmationCandle calls in Scomb. The catch is that S-a must let the pass reach that block, and the `t78_*` scope has to be checked on disk.
+
+## Q2: CONFIRM (P547-P569)
+- The terms match the real predicate. `LW` is "HIT" only when `l <= L-P+EPS` and `bodyLo >= L-EPS` both hold, and `SW` mirrors it (R-Q2LOOP). It assigns no state, and the +21 count is right.
+- **Gate not visible.** The RETESTBOOK print at EA-2177-2180 is ungated in the region shown, so "existing gate" is unverifiable from the page. It should be a one-line cite of the function head or caller.
+- **Redundant reads.** Q2 re-reads `iLow` and `iHigh` although `l` and `h` are already in scope. That is harmless if they are the same bar, but reusing them removes the doubt.
+- **Log volume.** The row lists every line on every bar. Printing only lines with a non-trivial term would cut the volume, which is optional.
+
+## V333-IMPL2-18 END SONNET

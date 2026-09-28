@@ -77,5 +77,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - 2026-09-29: RECON73 GRADED 1/4 (ledger 945: DONE=PASSED, 6/3 identical, three UJ-NOADMIT with death rows; result + 23-row extract; next zone/contention/detector via council).
 - 2026-09-29: EU-DECLINE + PINS (ledger 946: August run withdrawn on his word, EU-preserve goes code-fenced; goal DEATH-POINT-FIRST + council 32 pinned; relay-ready block open, no build/run/key).
 - 2026-09-29: V333 RELAY-READY (ledger 947: packet v20 9414061B/610, relay D22E7EA0/839, double battery green, memo shipped with 16:15 question; verdicts owed).
+- 2026-09-29: V333 GRADED + V21 FOLDED (ledger 948: Q1 0-2 HALT / Q2 2-0 CLEAR, 3 seats filed whole; B1/B2/B3 + wording adopted, Z3/A4 dissolved, A8 carried; his 16:00 answer banked; v21 +75/12202).
 
 (End of file)
