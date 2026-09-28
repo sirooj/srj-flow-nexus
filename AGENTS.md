@@ -506,16 +506,7 @@ index it wrote, compare the replaced span), never on a parallel source.
 - DRAFT-SPLIT (operator order 2026-09-20 — rushed drafts burn council rounds):
   draft turns end with files plus pasted verification numbers, never a transport
   ask. Transport turns carry only battery-green drafts. The two are never mixed.
-  MEMO-COMPLETION (operator order 2026-09-28 - the relay-ready block is not done
-  at files-plus-numbers): while his proceed word for that relay version is not
-  held, the draft turn ends as above with a single word-ask. The moment his word
-  is held, the SAME block continues through memo shipment (memo text plus ledger
-  plus pointer plus commit) with no mid-block stop - the block ends
-  memo-shipped-and-recorded, or files-plus-numbers-plus-single-word-ask where the
-  word is genuinely awaited. A stop between battery-green and memo with the word
-  held is a friction defect. No word is ever invented or assumed: transport ships
-  only on his word (digest-named preferred; bare proceed accepted only when
-  exactly one artifact awaits it, as honored).
+  MEMO-COMPLETION (operator order 2026-09-28, amended same turn - the word-ask is removed: he always proceeds, asking was friction): a battery-green relay ships its transport memo the SAME block (memo text plus ledger plus pointer plus commit) with NO separate proceed-word ask - his standing proceed covers every relay-ready transport. The block ends memo-shipped-and-recorded, and stops there: the only lawful outstanding item is his verdict paste-back. Build/run/key words are NOT covered by this removal - code, runs, and keys still need his explicit word every time (unchanged). His veto on any transport is withholding the paste, never a builder-side wait.
 - RELAY-READY SCOPING (operator correction 2026-09-20 — the intake-stop defect):
   todo lists scope to the next relay-ready artifact (draft files plus verification
   numbers), never to an intake/accounting/report sub-step — a "report" terminal

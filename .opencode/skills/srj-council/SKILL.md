@@ -250,5 +250,5 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 ## 30. Memo-completes-the-block (operator order 2026-09-28 - relay-ready plus memo is one block)
 
-- A battery-green draft with his proceed word held ships its transport memo the SAME block (memo text plus ledger plus pointer plus commit); stopping at files-plus-numbers with the word held is a friction defect, same class as any mid-packet stop.
-- Without his word, the block ends at files-plus-numbers-plus-single-word-ask (genuine his-carrier stop). The word is never invented, assumed, or carried across relay versions: digest-named preferred, bare proceed only when exactly one artifact awaits it.
+- A battery-green draft ships its transport memo the SAME block (memo text plus ledger plus pointer plus commit); no proceed-word ask ships first - his standing proceed covers every relay-ready transport (operator amendment 2026-09-28, word-ask removed as friction; conforms AGENTS MEMO-COMPLETION).
+- The block ends memo-shipped-and-recorded with verdicts owed as the sole outstanding item; stopping at files-plus-numbers with the memo unshipped is a friction defect, same class as any mid-packet stop. Build/run/key words stay gated on his explicit word (unchanged).
