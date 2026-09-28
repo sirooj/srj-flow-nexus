@@ -1,6 +1,6 @@
-# PACKET_P-UJIMPL-IMPL-2 v19 DRAFT - V331-OBJECT fold: budget single-source +152 with dual base binding + S3-direct and refresh-fill corrections + notes (build gated on new key + run word; nothing builds/runs/commits on this file)
+# PACKET_P-UJIMPL-IMPL-2 v20 DRAFT - RECON73 answers: Fix Z (prebind reachability) + Fix S (pass completion + unconfirmed-holder yield) + Fix Q2 (detector terms print-only) (build gated on new key + run word; nothing builds/runs/commits on this file)
 
-Status: v19 DRAFT (v18 + V331 answers: Q1 1-1 HALT / R1 2-0 CLEAR (Luna+GLM tallied; Sonnet advisory zero weight; Opus parked; Astra silent; V330 carried): H2b fail-funnel stands CLEAR (per-array reasons at six sites); design: v19 amendments (budget per P467-budget-line: +152 cumulative vs v8 11975 (+99 vs built v9 12028; final tree 12127 either way); H2b per-array reasons + funnel/prose notes + parks; external-interface surface unchanged; EA-side day-high arrays are new state, S3-recounted at build); base = built tree 48EDC504/664981/12028 (v9 built; vs-base delta +99; final tree 12127); STAGE-1/S3 disciplines attach; build needs a NEW key + his run word, neither spent nor asked here).
+Status: v20 DRAFT (v19 + RECON73 grade 1/4 ledger 945: A-S2P/A-POIV/A-FB death rows with segment lines; design: v20 amendments (Fix Z prebind-reachability +2, Fix S-a deferred-abort decl+3/set+0, Fix S-b/S-a-apply combined +43, Fix Q2 detector terms +21; budget +69 vs v10 12127; final tree 12196); v19 budget self-ref P467 reads in the v19 frame (v19 twin P001-P485 in relay v332 744768F4); base = v10 tree FC41EE0D/671645/12127 (v10 built; vs-base delta +69; final tree 12196); STAGE-1/S3 disciplines attach; build needs a NEW key + his run word, neither spent nor asked here).
 
 Canonical files: Experts\SRJ_FlowNexus_EA.mq5 ONLY (fixes A-H below; HTF include + FlowLogic untouched). No new indicator buffers, no new inputs, no new handles, no EA-side mirror; EA-side day-high arrays are new state (FIX H2, S3-recounted at build).
 
@@ -452,6 +452,130 @@ H2b replaces the D1 mask-off session re-walk body at the same siting (after the 
 - H3 collapse + exclusions (no code): entry-side exclusion needs NO code (Assert1R direction gate EA-11825-11826 fails a below-entry TP by arithmetic at fire); own-source N/A for day-H/L vs POI anchor (disjoint name sets: sname EA-2459-2462 vs g_lineCode, helper scoped to the POI loop only per B1 fence); stale-swept-death beyond entry-side explicitly NON-COVERED (standing FRESH-SWEEP council item; scope disclaimer below). H2b now filters swept record days (FRESH-SWEEP item closed for H2b scope; session-pool staleness unchanged).
 - H takes + cascade (Rule-vs-takes, pre-draft): 6/3 identical (fallback never ran there; fire code untouched; poll still PASSes); EU takes are fenced at grade (A-EU-PRESERVE entry-bar compare + blocking rule; retiring a poll abort or swapping an unreachable fallback adds admissions via fire PASS (hypothesis; the EU battery proves; code unchanged)); single-candidate exclusivity cited (Task-135 SINGLETON comment EA-7347-7348 v9 pin: one g_state/g_dir/g_anchorLine set; Sonnet-Q3 closed by cite, slot telemetry parked as scope creep). empty-masked EU elections + C-silence ride the grade battery (D1 is v9-new, so no D74 behavior changes wherever the masked walk succeeds).
 
+## v20 delta (RECON73 death rows; v19 operative text above stays byte-identical history, superseded for the next run where this section says so)
+
+- v20 authority (death-row-first per goal pin; every row 1x on RECON73-V10-UJ_JOURNAL.log 28868 lines; his frames from register, no new words from him):
+  Z (5 June 09:45 SHORT; his frame register B-timings: 09:35 retest, 09:40 confirmation, 09:45 open entry): CONFIRMPOLL 09:40 confirm=1 (SEG 5307) + UJLTFHOLD CARVE at 09:40-bar (SEG 5285, term empty) + RETESTBOOK 09:40 0 (SEG 5305) + ZONEPICK haveXob=1/xobInPlay=0 + S3INPLAY inPlay=0 (SEG 5310/5311, bar above zone, 0 hits over 189 swings) + "no qualifying zone" + NO prebind verdict row at 09:40 + ABORT at 09:50 (SEG 5326). Death = IE2 M15-agree return (EA-8920-8927) skipped the prebind test the carve had already passed. Flipped row: absent PREBIND verdict becomes CONFIRM_PREBIND pass.
+  S (11 June 14:40 LONG; his frame: 14:35 retest + confirmation, entry 14:40 open 160.524): LONG dL retest hits 14:20/14:25/14:30 + SUPPRESSED/HELD every pass by SHORT S4 squatter, wouldPreempt=0 same tier (SEG 14763/14765/14766) + SHORT POLL R 0.68 FAIL (SEG 14659/14689, unfireable holder) + 14:40:22 SHORT ABORT (SEG 14077) with the pass dying on it: RETESTBOOK 14:35 0 rows + CONFIRMPOLL 14:35 0 rows (both zero, two patterns) + RETESTBOOK 14:40 0 (SEG 14790) + SHORT re-cycle at 14:50 (SEG 14811). Death = contention + unevaluated decision bar. Flipped rows: 14:35 polls present + SIDE1C_YIELD transfer.
+  Q2 (5 June 16:15 LONG; his frame register B2/Rulings-J/A4: entry 16:15 open 160.059, TP 30-April high 160.723; retest bar unrecorded on journal/register/findings - record-first trail filed, question lawful): SEED 16:00 Daily-POC LONG (SEG 5722) + RETESTBOOK 0 at 16:05/16:10 (SEG 5775/5817) + CONFIRMPOLL 16:10 confirm=0 touchAttr=0 + RETESTDIAG 16:10 inside=- nearBelow VWAP 13.1pts (SEG 5818) + ZONEPICK/S3INPLAY 16:10 zone-miss 65pts (SEG 5822/5823) beside UJ1R R 3.73 PASS (SEG 5816) + TPFALLBACK 160.723 (SEG 5801) + UJHISTPOOL DH20260430 (SEG 5800). Print-only terms commission the predicate answer; the retest-bar question rides the transport memo in his plain words, never the relay.
+- FIX Z (prebind reachability; 09:40-bar class): hoist the IsConfirmationCandle call above the IE2 M15-agree guard so a passing confirmation is tested before any M15 return. Values identical within the pass (same args, deterministic per pass); N1 census unchanged (one call per pass at this site, same as today). Sits in the S3 else-branch (EA-8912-8963 v10 pins; anchors pre-proven 1x at draft battery).
+```mql5-new-Zins
+          string cfTermZ = "";
+          bool cfPassZ = IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermZ);
+```
+Z-ins sits immediately after the "S3 waiting" print (EA-8916) before the IE2 comment (EA-8917): confirmation tested first, M15 guard governs only the unconfirmed fallthrough.
+```mql5-old-Zrep
+         string cfTermPB = "";
+         if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermPB))
+```
+```mql5-new-Zrep
+          string cfTermPB = cfTermZ;
+          if(cfPassZ)
+```
+Z-rep swaps the existing prebind call for the hoisted result (FAIL print keeps its name + value; row-compat preserved; no duplicate evaluation). MQL5 audit: IsConfirmationCandle 4-arg shape EA-7808/7809/8842/8991; string/bool in-scope shapes; new names uj_cfZTerm/uj_cfZPass/cfPassZ/cfTermZ 0 hits pre-edit (battery census); N1 count unchanged (moved call, same total per pass).
+- FIX S-a (pass completion; 14:40:22 class): the F11 abort returns before the S1H side-check + seed + S2 evaluation, so the decision bar goes unjudged. Defer application: flag at the invariant, apply identity-keyed after S2 before S3. Sits: decl beside s1f_seedArmed (EA-7977 precedent, per-pass reset); set in Fix F11 tail; apply at S2-end/S3-start (EA-8324-8329 anchor). All anchors pre-proven 1x at draft battery.
+```mql5-new-SaDecl
+    bool uj_saAbort = false;
+    int  uj_saA = -1;
+    int  uj_saD = -1;
+```
+```mql5-old-SaSet
+          else
+            {
+             GoAbort(ABORT_LTF_MISALIGN, g_state);
+             return;
+            }
+         }
+```
+```mql5-new-SaSet
+          else
+            {
+             uj_saAbort = true; uj_saA = g_anchorLine; uj_saD = (int)g_dir;
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJDEFERABORT bar=%s dir=%s poi=%s state=%s - LTF opposed, abort deferred past evaluation (Fix S-a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), StateName(g_state));
+            }
+         }
+```
+SaSet swaps the immediate abort for a flag + decision row (ABORT/STATE rows print at application; census counts same, order moves within the pass; sequence reads key on bar=, never file order). New names uj_saAbort/uj_saA/uj_saD 0 hits pre-edit (battery census).
+- FIX S-b (unconfirmed-holder yield; 14:20-14:35 suppression class): opposite contender with booked retest + confirmation displaces an UNCONFIRMED S3/S4 holder keeping state (transfer, not reseed, so the 14:40 fire timing survives). Authority: his SETUP-DEFINED (unconfirmed held = never a setup; confirmation-candle entry makes the setup) + POIREPLACE-removal rationale (his Q3 arrival-order protects completed setups only) + S1-gated transfer precedent (EA-7811-7837, shape mirrored, cited not pasted). Holder-unconfirmed = contender confirms AND holder does not (symmetric IsConfirmationCandle pair, shapes EA-7808/7809); holder sub-1R POLL FAILs (14:30 SHORT R 0.61) ride as supporting evidence, never the trigger. Transfer mirrors EA-7813-7829 (anchor/dir/price/time/zone/latch/provenance reset; relay region R-XFER carries EA-7811-7839 with gate plus print) + memo-validity reset (uj_memo_valid = false; battery-cited decl/use; S2POLL memo write re-derives downstream) + SIDE1C_YIELD print. Settled-rules ride: S5.4 has no code path (ABORT census re-proven at battery: body-break kill 0x); S3.3 flip-kill intact (F11 block untouched; S-a still applies pre-S3); freshness re-polls downstream (zone reset; Task-134 retention precedent in-tree EA-7395-7434); memo/1R/fire/R-gate/session untouched. Sits after S2-end (EA-8324-8329 anchor, S-b BEFORE S-a-apply in one combined insert so a transfer drops the stale flag by identity).
+```mql5-new-Scomb
+       //--- [v20 S-b] contender evaluation (self-contained; transfer shape mirrors EA-7813-7829, cited, not pasted).
+       bool uj_sbHave = false; ENUM_SRJ_DIR uj_sbDir = DIR_NONE; int uj_sbLine = -1;
+       {
+        PoiRetestResult uj_sbPr;
+        if(DetectPoiRetest(barShift, uj_sbPr) && uj_sbPr.found)
+          { uj_sbHave = true; uj_sbDir = uj_sbPr.isLong ? DIR_LONG : DIR_SHORT; uj_sbLine = uj_sbPr.topLine; }
+       }
+       string uj_sbTermC = "", uj_sbTermH = "";
+       bool uj_sbConfC = (uj_sbHave && (uj_sbDir != g_dir)) ? IsConfirmationCandle(barShift, uj_sbLine, uj_sbDir, uj_sbTermC) : false;
+       bool uj_sbConfH = IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_sbTermH);
+       if(uj_sbConfC && !uj_sbConfH && (g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED))
+         {
+          int uj_sbFromLine = g_anchorLine; ENUM_SRJ_DIR uj_sbFromDir = g_dir;
+          g_anchorLine = uj_sbLine; g_dir = uj_sbDir;
+          ReadBuf1(g_hPoi, uj_sbLine, g_anchorPrice, barShift);
+          g_anchorBarTime = barTime;
+          g_zoneHi = 0.0; g_zoneLo = 0.0; g_touchSeen = false;
+          g_touchBarHi = 0.0; g_touchBarLo = 0.0;
+          g_latchedEntry = 0.0; g_latchedSl = 0.0; g_latchedTp = 0.0; g_latchedR = 0.0;
+          g_latchBarTime = 0; g_confirmFromState = ST_IDLE;
+          uj_memo_valid = false;
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] SIDE1C_YIELD bar=%s from=%s fromDir=%s to=%s toDir=%s state=%s term=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                         g_lineCode[uj_sbFromLine], DirName(uj_sbFromDir),
+                         g_lineCode[uj_sbLine], DirName(uj_sbDir),
+                         StateName(g_state), uj_sbTermC);
+         }
+       //--- [v20 S-a] deferred-abort application (identity-keyed; set in Fix F11 tail).
+       if(uj_saAbort)
+         {
+          if(uj_saA == g_anchorLine && uj_saD == (int)g_dir)
+            {
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJDEFERAPPLY bar=%s dir=%s poi=%s - deferred LTF abort applies, holder unchanged (Fix S-a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr());
+             GoAbort(ABORT_LTF_MISALIGN, g_state);
+             return;
+            }
+          else
+            {
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJDEFERDROP bar=%s dir=%s poi=%s - deferred LTF abort dropped, holder changed (Fix S-a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr());
+            }
+          uj_saAbort = false;
+         }
+```
+MQL5 audit: ENUM_SRJ_DIR/DIR_NONE (battery-cited; DIR_NONE must hit 1x+ or the decl line changes to int -1 sentinel before transport); PoiRetestResult/DetectPoiRetest shapes EA-7750/7751; IsConfirmationCandle shapes EA-7808/7809; ReadBuf1 shape EA-7816; barTime in scope (battery: use within 30 lines above anchor); every assigned global in the EA-7813-7829 mirror (battery per-name census); new names uj_sb*/uj_sa* 0 hits pre-edit (battery census); N1 census: S-b adds IsConfirmationCandle calls ONLY on contender-evaluated passes (telemetry character per F11 precedent; N1 counts re-baselined at grade, never asserted here).
+- FIX Q2 (detector terms print-only; 16:10 class): per-line inequality terms beside the shadow book so his retest-bar answer maps to an exact predicate edit. Zero behavior (new print inside the READ+PRINT-only function behind its existing gate; assigns no state; same guarantee as FIX E).
+```mql5-new-Q2
+    string uj_dtTerms = "";
+    for(int uj_dtK = 0; uj_dtK < POI_NLINES; uj_dtK++)
+      {
+       double uj_dtL;
+       if(!ReadBuf1(g_hPoi, uj_dtK, uj_dtL, barShift)) continue;
+       if(uj_dtL == EMPTY_VALUE || uj_dtL <= 0.0)      continue;
+       double uj_dtLo = iLow(_Symbol, PERIOD_CURRENT, barShift);
+       double uj_dtHi = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+       string uj_dtLW = "", uj_dtSW = "";
+       if(!(uj_dtLo <= uj_dtL - P + EPS)) uj_dtLW = "no-penetration";
+       else if(!(bodyLo >= uj_dtL - EPS)) uj_dtLW = "body-below";
+       else uj_dtLW = "HIT";
+       if(!(uj_dtHi >= uj_dtL + P - EPS)) uj_dtSW = "no-penetration";
+       else if(!(bodyHi <= uj_dtL + EPS)) uj_dtSW = "body-above";
+       else uj_dtSW = "HIT";
+       uj_dtTerms += g_lineCode[uj_dtK] + "=L" + uj_dtLW + "/S" + uj_dtSW + " ";
+      }
+    PrintFormat("[SRJ-EA] UJDTTERMS bar=%s %s",
+                TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                             TIME_DATE|TIME_MINUTES),
+                uj_dtTerms);
+```
+Q2 sits after the RETESTBOOK print (EA-2177-2180 anchor) before the function close: P/EPS/bodyLo/bodyHi/iLow/iHigh/POI_NLINES/g_hPoi/ReadBuf1/EMPTY_VALUE/g_lineCode all in-scope shapes of the same function (battery per-name census); new names uj_dt* 0 hits pre-edit; existing RETESTBOOK rows byte-identical (hits string untouched).
+- v20 budget (script-counted from the fenced blocks above at draft battery, same convention NET per site = new minus old): Z-ins +2 / Z-rep +0 (2-vs-2) / SaDecl +3 / SaSet +0 (6-vs-6) / Scomb +43 / Q2 +21. Total NET +69 vs v10 12127; final tree 12196. S3 recount governs at build.
+- v20 acceptance (grade-time proofs on a future UJ 6/1-6/13 run with InpDebugLog=true pinned under the same replay configuration as RECON63/71/72/73 (tick model, spread, pass timing); v19 acceptance superseded for the next run EXCEPT A-SL1-PRESERVE (carried unchanged) and L-final venue bound (carried: exactly four UJ admissions; any outside fails UJ-EXTRA) and C-silence and DUPADMIT-consume and fail-closed discipline (all carried):
+  Z-venue (5 June 09:45 SHORT): CONFIRM_PREBIND pass row at the 09:40-bar INSTEAD of the absent verdict (death-row flip); UJLTFHOLD CARVE row retained (SEG 5285); promotions 09:05 (SEG 5041) + 09:30 (SEG 5217) retained; fire 09:45 with entry/SL/TP grade-read; per-venue record per v19 preamble.
+  S-venue (11 June 14:40 LONG): RETESTBOOK + CONFIRMPOLL rows PRESENT for the 14:35-bar (death-row flip on the missing pair); SIDE1C_YIELD transfer row (bankBar window + from/to + term) INSTEAD of the third SUPPRESSED/HELD; UJCONFIRMCARRY-or-STRUCT fire at the 14:40 evaluation with entry 160.524; TPCENSUS ref + UJ1R R PASS grade-read (fire tuple); per-venue record per v19 preamble. Hypothesis terms (fixed-tree computed, labeled H per council 26): LONG-confirm at 14:30-bar; M15 at eval-14:35.
+  Q2-venue (5 June 16:15 LONG): UJDTTERMS rows present for 16:05/16:10 (term census, never failure predicates); his retest-bar answer (memo Q, plain words) shapes v21; NO admission promised on this venue in v20 (stated openly: detector question first, mechanism second).
+  Takes-fence: 6/3 via STRUCT route + session-exhaustion (MarkSessionUsed sites EA-10586/10691 battery-cited + UJADMIT run-wide bound); prebind-vs-STRUCT ordering (prebind promotes S3-sitters only; S4-held take the S4 edge per v19-P033b; DUPADMIT consumes any same-bar double); EU takes structural-only (Z S3-else-scoped + STRUCT-route EU takes never in the else-branch; S preserves-then-kills with all guards re-run; NO August run on his decline recorded ledger 946 - stated openly, council rules sufficiency).
+  Findings map (v19 map carried; one addition): pass-completion failure (required poll pair absent on a live pass) UJ-NOEVAL; fulfilled prebind expectation unmet UJ-NOPREBIND. Failed proof names its finding; one RESOLUTION per venue stands.
+
 ## Parked with cause (no code; Analytic-B responsiveness without churn)
 - Shared enabling-timeframe helper (Luna-B/Sonnet-B: one UjEnablingTfAgrees for FIX C + F): parked (refactor churn; convention locked by dual cite + UJLTFHOLD/S2PROMOTE m15-value parity at grade).
 - touchClass UJADMIT field (Sonnet-B G2): parked (print-schema churn; UJCONFIRMCARRY already distinguishes the route at grade).
@@ -481,5 +605,6 @@ Budget (script-counted from the fenced blocks above, same turn): A3 -1 (retired 
 
 ## Annex: design history (one line each; operative path above is the only authority)
 - IMPL-1 v8 (D3A66F97): DIV + provenance closure, built 14C7476C, RECON71 0-take diagnosed (SL divergence / S2-held / VWAP wrong-kill). IMPL-2 v1-v3: RECON71 fixes. IMPL-2 v4: V316 amend (A4 fire-1R gate, A5 comment, B full texts + gating + managed anchor + direction/boundary sentences, C enriched print, D/legs/EU restated, R14 boundary row). IMPL-2 v5: V317 split amend (B3b suffix removal + E2 comment swap, C containing-m15 source field, D pre-zone census list, ABORT_MEMO_IDENTITY separation, E touch-transition print, findings map, EU comparator, per-venue record contract). IMPL-2 v6: V318 fold (A9 fire provenance + snapshot, E2 leg-setter print + anchor key, S2PROMOTE 09:30 + A-FB 16:10/16:15 corrections with two owned withdrawals, findings-v2, byte-exact B3b/B3c/E fences, R18, signature/scope cites, reachability notes). IMPL-2 v7: V319 fold (touchBar schema on both touch prints, first-S2-eval 09:05 promotion pin with owned second withdrawal, S3-window correlation rule, findings-v3 with NOPROMO/SUB1R/NOEVID, EU population pinned, B2 prose corrected, census restated post-edit, new-block indents normalized, R19-R22). IMPL-2 v8: V320 fold (B2 post-skip geometry, UJ-EXTRA venue bound, pool-walk status, scoped census claim, touch wording, rows-fence 09:05 fix). IMPL-2 v9: V321 fold (zoneTouch geometry field, 6/11 promotion pin + numeric window + R23-R25, fallback taxonomy aligned, TPFALLBACK status, P003/V320-tally + P048 + P096/P115 precision, full-helper companion). IMPL-2 v10: V323 fold (FIX F M15-hold + FIX G1 cascade + G2 touch-resolution + FIX H1/H2 old-high pool; acceptance rewritten as PRESERVE + three HYPOTHESIS retakes; UJ-NOTOUCH retired; budget +96). IMPL-2 v11: V324 fold (F11 carve-out per GLM design + G1 re-sited with no-return proof and touch census + G2 exact predicate + H DH-line and hierarchy sentence + pre-size adopt + parked section; acceptance re-pinned: two promotions, expected P09:25 abort, hypothesis terms; budget +103). IMPL-2 v12: V325 fold (G1 full-branch fence per GLM-B + term-2 verdict form + DH/daykey/guard fixes + EU window correction + closures; budget +106). IMPL-2 v13: V326 fold (G2 single predicate + H2b snapshot/refresh hardening + swept-record filter + P033 qualifier + wording closures; budget +140). IMPL-2 v14: V327 fold (H2b re-surgery + G2/R1 wording batches + P033 diagnosis + census reconciliation; budget +145). IMPL-2 v15: V328 fold (sentinel guards + census proof + stale purge + wording; budget +145). Setter numbers 8900-series/8920-region retired v15 (v9 pins EA 8940-8946/8961-8967 govern since v13). IMPL-2 v16: V329 fold (sentinels/day-check + fail flag + tmpT drop + G2 prebind/S3 label + P033 operative + purge-verified + labels + names; budget +149). Withdrawn history relocated here v16: v6 09:30 pin (owned second mispin) + v9 correct-refusal correctness claim (ledger 904, D3).
+- IMPL-2 v20: RECON73 fold (Fix Z prebind-reachability +2, Fix S-a deferred-abort decl+3/set+0, Fix S-b/S-a-apply combined +43, Fix Q2 detector terms +21; budget +69; death-row-first acceptance; EU structural-fence on his August-decline).
 
 (End of file)

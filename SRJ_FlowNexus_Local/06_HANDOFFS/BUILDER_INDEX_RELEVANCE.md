@@ -76,5 +76,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - 2026-09-28: RECON73-V10-UJ LAUNCHED (ledger 944: window + binary pre-proven, journal testing-of 2026.06.01-2026.06.13, Core 04 live; key fully spent; grade on completion signal).
 - 2026-09-29: RECON73 GRADED 1/4 (ledger 945: DONE=PASSED, 6/3 identical, three UJ-NOADMIT with death rows; result + 23-row extract; next zone/contention/detector via council).
 - 2026-09-29: EU-DECLINE + PINS (ledger 946: August run withdrawn on his word, EU-preserve goes code-fenced; goal DEATH-POINT-FIRST + council 32 pinned; relay-ready block open, no build/run/key).
+- 2026-09-29: V333 RELAY-READY (ledger 947: packet v20 9414061B/610, relay D22E7EA0/839, double battery green, memo shipped with 16:15 question; verdicts owed).
 
 (End of file)

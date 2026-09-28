@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, RELAY-READY BLOCK OPEN)
+## State (2026-09-29, V333 RELAY-READY)
 
-- RECON73 graded 1/4, lessons pinned,
-  EU run withdrawn on his word; key spent.
-- Drafting packet v20 (zone + contention +
-  detector) with takes-fence, unattended.
+- Packet v20 + relay v333 (D22E7EA0/839)
+  memo-shipped to 3 seats; verdicts owed.
+- His 16:15 question asked with trail.
+  Key spent; no build/run/key this round.
 
 ## Next
 
-- Relay-ready v333 + memo + commit; verdicts
-  owed after. No build/run/key this block.
+- Verdicts owed back whole per seat; grade,
+  fold, result, ledger, pointer, commit.
 
 ## Resume order (exact)
 
