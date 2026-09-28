@@ -6611,3 +6611,68 @@ Positive page checks worth recording (for the operator's tally): the budget clos
 3. **No better mechanism offered for F11 or G1.** The F11 carve (stateless re-read, mode/term telemetry, no latch) and the G1 full-branch cascade with confirmFromState=S4_ARMED equivalence are the minimal-surface forms of their respective rules; every alternative I considered (entry-candle-governed kill at the invariant, latched M15 state, promotion-latch, union election) is already parked with cause at P409-P413 and I have nothing lower-surface to add. 
 
 ## V325-IMPL2-10 END GLM
+
+## V326-IMPL2-11 OPEN GLM (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, seat lines 240-299 of 299; byte-exact incl. transport glyphs; see ledger)
+
+GLM:
+# BUILDER RELAY COUNCIL v326 — council seat verdicts (packet IMPL-2 v13; rules on the page only)
+
+Ruling basis: code lines, numbers, logic as pasted. No disk access claimed or performed; twin/region/row genuineness stays with the builder and the operator. Nothing in this reply builds, runs, spends, or clears live activation.
+
+## Q1 — G2 single predicate (no code change)
+
+```text
+Q1 verdict line: CONFIRM — the single route-specific RETEST_CORROBORATED predicate (P315, terms 1–7 plus decoded legend) replaces the v12 dual wording with no code change; every term is machine-checkable against the decoded row schemas and the spliced BASE rows (R62/R63/R64/R42), the split-bar PASS-path evidence is FAIL-absence plus downstream admission rows (sound under the pinned InpDebugLog discipline; the PASS path prints nothing per EA-8990–9002), the cascade zone association is openly trace-based against R64's bounds matching R42, and zoneTouch=1 is retired with stated reason, never silently restored.
+```
+
+Reason (short): the v12 P315-vs-P420 contradiction is gone; P454/P457/P458 all reference the one predicate consistently; the legend fields verified line-by-line against EA-2160–2174, EA-2210–2215, EA-2244–2250, EA-8940–8960, the G1 fence's UJCONFIRMCARRY schema (P306), and the S3-zone print at EA-8792–8802 (no dir/anchor/bar fields — stated openly). Term 6 is checkable because LEGTOUCH prints unconditionally when the book runs (EA-8947–8960), so its absence on the cascade pass is real evidence the S4 block was skipped. The split-bar FAIL-absence inference is corroborated by positive admission rows, so it does not collide with P458's missing-row caveat.
+
+## Q2 — H2b snapshot/refresh hardening + swept-record filter (code)
+
+```text
+Q2 verdict line: CONFIRM — the fence (P362–437) closes the stated V325 refresh/evidence gaps (commit-before-load replaced by probe-into-temps with per-read validation and histToday assigned LAST, P368–419; stale consult replaced by the histToday==hdayt consult gate with clear-on-fail so failed loads consult nothing, P416–421/P438) and elects record days only with the swept rule visibly pinned (P353/P448); the record filter's boundary blindness below does not fail the question's terms but is load-bearing for A-FB-RETAKE and is carried as Analytic A1 with a repair demanded before any build/key ask.
+```
+
+Reason (short): the enumerated fence elements all verified — probe-into-temps (P368–377), per-read validation on the fill (P383–391), resize-checked commit with histToday last (P406–415), clear-on-fail (P416–419), consult gate (P421), 75-line shape at the D1 siting with in-scope params per EA-2440–2442 and the UpdateBest signature per EA-2379–2402. The refresh is content-stable intraday (D1 shifts 2+ are complete days), exhaustion stays distinguishable (uj_dcap=0 → uj_hok=false → no commit → consult gated off), and the commit-count>0 rule matches P353. The question's own change-sentence ("snapshot-validates every read, commits only after a checked fill, clears on failure, consults only validated days, elects record days only") is true of the fence line-by-line. The overstatement at P439/P455 is a page-level claim defect, named at full strength in A1 rather than buried.
+
+## R1 — wording closures rider (print-only; own grade lines)
+
+```text
+R1 verdict line: CONFIRM — the P033 qualifier (P033) matches the code shape (EA 8784–8812 if-branch vs 8813–8828 else, corroborated on-page by R58's UJALIGN_PASS on the S4-held re-arm-fail pass), the legend (P315) decodes against the spliced rows and print sites, and the F-tail (EA 7301) / GoAbort (EA 7303–7304) / setter-v9 pins (EA 8940–8946, 8961–8967, 8947–8960) / P003-remnant / drift-flag (P016, with the P453 CONFIRMPOLL-as-classification cite verified) repairs are consistent as stated; residual label imprecision is named in A5.
+```
+
+Note on the P431/P465 pair: section 0's "P431 duplication" and P003's "P465 dup" reconcile under version-scoped cites (v12 body 433 lines → v13 body 467; a defect at v12-P431 lands at v13-P465 after the +34 shift). Consistent, but implicit — see A5.
+
+## Analytic ask A (standing — every defect, gap, or imprecision on the page)
+
+**A1. H2b record-day filter boundary blindness — load-bearing for A-FB-RETAKE.** P392–405 (filter), P421–435 (consult), P439, P455, against P028. The filter keeps index 0 (D1 shift 2, the most recent pool day) unconditionally (P399–403: `!uj_hasM ||` short-circuits the first element) and compares pool highs only against more-recent POOL days — never against the D1 shift-1 (yesterday) or shift-0 (today, forming) high. Lines swept by yesterday's or today's price therefore remain electable. The 6/5 16:15 venue's sweep class is exactly today's (P028: the 16:00 bar 159.726–160.262 swept every line below 160.262): any record day 5/1–6/3 with a high in (ref 160.009, 160.262] is swept-but-electable and nearer than DH20260430, so the elected winner depends on unstated data (that max(6/3…5/1 day-highs) ≤ the ref), not on the construction. "Swept days excluded by construction" (P455) and "FRESH-SWEEP item closed for H2b scope" (P439) are overstated — the construction excludes only pool-internal sweeps. The venue outcome is fenced by the DH20260430-mandatory term + UJ-IDENTITY (P455), so the failure is named and the prove run adjudicates — but the page should either complete the filter (B1) or scope the two claims honestly before any key/run ask. The 6/3 and 6/5-09:45 preserves are unaffected (the consult runs only inside `if(!haveBest)`).
+
+**A2. R46 census-number contradiction.** R46 splices "TPCENSUS #46 bar=2026.06.05 16:05" while P028 cites the same row (winner=YNYH 160.028, distPts=19, identical admitted list) as "TPCENSUS #20", and P027/P454 cite "#46" as the 6/11 14:40 ref=160.520 row; R45 splices "#45" at 6/11 14:35. Within one run (one segment, one 0:48:06 pass, gates P025) a monotonic census counter cannot emit #46 at 6/5 16:05 (tester-earlier) before #45 at 6/11 14:35 (tester-later). R46's label is impossible in any consistent reading; at most one of {R46, P027/P028} is right. The G2 predicate cites rows by content (R62/R63/R64), so nothing sinks, but the A-FB/A-POIV legs cite census numbers — pin one numbering (disk-side check: the journal row's actual counter).
+
+**A3. YASH/ASH source mismatch.** Takes sheet (section 0: "masked YASH walk succeeds") and P011 ("TP 159.983 YASH") vs the spliced R54 admission ("wsrc=ASH wday=2026.06.03 wage=0"). The TP value agrees (159.983); the source label does not. R54 is the spliced admission; either the prose cites carry the cited build's (RECON63) label — then mark them as such — or they are stale. A-SL1's provenance rides UJADMIT wsrc, so the prose should match R54 or label its lineage.
+
+**A4. R42 prefix anomaly.** R42 (LEGTOUCH bar=2026.06.11 14:35, zone 160.489–160.504 — matching the same-pass arming per R64) carries the journal prefix 14:35:10; under the shift-1 pass convention evidenced by R38/R59 (a 14:35:10 pass evaluates bar 14:30) and R44 (a 14:45:05 pass evaluates 14:40), a LEGTOUCH with bar=14:35 belongs to the 14:40 pass (content-consistent: fresh zone from the same-pass arming, touchSeen=0 from the arming reset per EA-8788). Either the prefix is a splice defect or the G2 term-4 "evaluated-bar association" needs its pass anchor pinned. The bounds themselves match R64 and stay load-bearing; only the timestamp anchoring is off.
+
+**A5. Acceptance-leg label drift (residual, in the R1-claimed class).** P452's header "A-SL1" vs P457's "A-SL1-PRESERVE"; P453's "A-S2P-RETAKE-v12" (version-suffixed) vs the unsuffixed P454 "A-POIV-RETAKE" / P455 "A-FB-RETAKE". Referents are unambiguous, but the grade battery keys on leg names; one canonical set is demanded (drop the suffix everywhere or suffix all four; make the preserve leg's header read A-SL1-PRESERVE). Likewise, the P431/P465 dup cite is consistent only under the implicit +34-line version shift (A-note above R1) — state the version scoping explicitly so the pair cannot be read as two defects or as a contradiction.
+
+**A6. P012's run attribution is implicit.** P012's "16:05 five-line rows (TPCENSUS #27: winner NONE …)" are RECON71 (v8) rows per P008's framing, but P012 does not name the run; against RECON72's #20/#46 at the same bar (R46) the numbering reads as a contradiction until the run split is noticed. One word ("RECON71") fixes it.
+
+**A7. Dangling cross-relay cite.** P452 cites "booking parity with R02"; the R-row set on this page is R26–R64. R02 is not present — either splice it or cite by content (the operator carries the earlier relays, but the page should not cite rows it does not carry).
+
+**A8. UJHISTPOOL print gating.** P432–435: the pool print fires only `if(haveBest && InpDebugLog)`, so a consult whose every in-direction line is zone-excluded prints nothing — the pool content is then invisible, and a UJ-NOEVID grade on "UJHISTPOOL contains DH20260430" cannot distinguish pool-absent from zone-blocked. D1 had the same shape, but H2b's grade leans on the pool list (P455: availability vs eligibility vs election stated separately); an unconditional-on-consult print (B2) or a declared distinction would close it. For the A-FB venue itself the zone is 0.000 (R50) so the gate is inert there.
+
+**A9. Takes-sheet vs P452 prebind-window drift.** Takes sheet: "no prebind row at 09:00"; P452: "no prebind row at 09:00-09:05". Trivial, but a closure round should carry one form.
+
+Checks that passed (for the record): budget arithmetic P003/P449 (+140 = +53 carried +10 +12 +1 +4 +60; per-site sums re-add to 53 and 140); G1 fence +12 (P300–311 is exactly 12 lines); H1 15→16; H2a 4; the promotion-set predictions {09:05, 09:30} (6/5) and {14:20} only (6/11) are consistent with the F11 hold/abort dynamics and the M15 series at P013/P018; the UJLTFHOLD pass list (09:15/09:20/09:40 M15 + 09:45 CARVE + expected 09:25 abort) is complete against the invariant's S3–S5 window and the singleton admission at 09:45; R58 corroborates the P033 qualifier in BASE; R60/R64 same-wall-pass arming consistency; R61 S4-at-09:05 consistent with the 6/3 no-cascade proof (retest-only arm bar fails IsConfirmationCandle); the midnight day-key park (P353) reads honest for the prove windows (age-0/1 stays session-pool-owned; D1 shifts 2+ are content-stable intraday).
+
+## Analytic ask B (standing, code relay — better mechanisms for the stated goal)
+
+**B1. Complete the swept-record filter (the A1 fix; touches only H2b lines).** At P392–405, seed the running max/min with the D1 shift-1 day before the walk (LONG: `double uj_runM = iHigh(_Symbol, PERIOD_D1, 1); bool uj_hasM = (uj_runM > 0.0 && uj_runM != EMPTY_VALUE);` — SHORT mirror on `iLow`, folded into the same per-read validation and clear-on-fail discipline), so a pool day is kept only if its high/low also survives yesterday's; AND at P424–431, before the in-direction test in the consult loop, skip lines already crossed by today's forming day (LONG: `if(uj_hv <= iHigh(_Symbol, PERIOD_D1, 0)) continue;` — a line at/below today's high was crossed today, i.e. swept per FRESH-SWEEP; SHORT mirror: `if(uj_hv >= iLow(_Symbol, PERIOD_D1, 0)) continue;`). Together these make "swept days excluded by construction" true for the age-0/1 sweep class — precisely the 16:00-bar class of the target venue — and remove the data-contingent pollution risk. No new buffers/inputs/handles; new names would need the battery census; S3 recount +2.
+
+**B2. Unconditional-on-consult pool print (the A8 fix).** At P432–435, gate the UJHISTPOOL print on the consult having run (`if(uj_histToday == uj_hdayt && InpDebugLog)`) rather than on haveBest, keeping the TPFALLBACK print on haveBest as the post-zone eligibility evidence. This deviates from D1's print convention, so it is offered as a B-candidate only; it removes the UJ-NOEVID ambiguity for zone-blocked consults without touching election behavior.
+
+## Closing
+
+Q1 CONFIRM, Q2 CONFIRM, R1 CONFIRM — each scoped to its question's terms; A1 (the record-day filter's boundary blindness vs the P439/P455 claims) is stated as load-bearing for the A-FB-RETAKE leg and should be resolved (B1, or an honest claim-scope repair) before any build/key/run ask, since nothing in this round builds, runs, spends, or clears live activation — the build gate (new key plus his run word) is untouched here. Findings on the fixed run remain the adjudicator for every hypothesis term named above. 
+
+## V326-IMPL2-11 END GLM

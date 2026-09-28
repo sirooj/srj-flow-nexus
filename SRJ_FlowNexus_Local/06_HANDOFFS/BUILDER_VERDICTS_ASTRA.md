@@ -18516,3 +18516,94 @@ Analytic B:
 Two filing corrections also remain: **P032** calls the prior response a “bare-OBJECT,” although the carried response includes explanations and alternatives; **P431** duplicates the v12 history entry. Neither changes these four independent verdicts. 
 
 ## V325-IMPL2-10 END ASTRA
+
+## V326-IMPL2-11 OPEN ASTRA (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, seat lines 65-150 of 299; byte-exact incl. transport glyphs; see ledger)
+
+Astra:
+Q1: CONFIRM — P315, P454, P457–P458.  
+Q2: OBJECT — P366–P405, P414–P430, P439, P455.  
+R1: OBJECT — P031, P033, P238, P314–P315, P440, P453–P455.
+
+These are independent page-only verdicts. Q1 confirms the stated replacement evidence rule, not a completed venue proof. Disk genuineness remains with the builder and operator; nothing here grants a key or authorizes a build, run, expenditure, or live activation.
+
+**Q1 — The single route-specific predicate resolves the operative contradiction.**
+
+P315 now names the S3-zone arming print for cascade venues and LEGTOUCH bounds for split-bar venues. It distinguishes confirmation classification from verdict evidence, requires anchor containment rather than equality, limits touch-print absence to the cascade pass, and assigns missing or ambiguous terms to `UJ-NOEVID`. P454 uses that same cascade predicate; P457–P458 do not silently restore `zoneTouch=1`.
+
+I confirm this as **anchor-retest corroboration with associated zone and confirmation evidence**. It does not establish that the candle geometrically intersected the bound XOB/FVG zone. Retiring that geometric requirement is the explicit rule change being accepted.
+
+Analytic A:
+
+- **P315, term 3 — R64 attribution is wrong.** R64 is a BASE S3-zone row. It contains neither `bankBar` nor a confirmation verdict and is not a `UJCONFIRMCARRY` row. The new fence at P304–P306 establishes what a future CARRY row would prove. Rewrite the parenthesis to say that BASE R64 supplies associated zone bounds only; future CARRY must supply `bankBar=14:35` and the verdict evidence. This is a wording defect, graded under R1, rather than a second operative predicate.
+- **P315, split-bar evidence — “the PASS path prints nothing” is inaccurate.** The supplied edge calls `LogState(prev, g_state)`. It has no dedicated confirmation-PASS diagnostic. Require the observed, candidate-associated S4→S5 transition, no corresponding `CONFIRM_STRUCT_FAIL`, and downstream admission. FAIL-absence plus an admission alone must not substitute for identifying this route.
+- **P315, term 4 — LEGTOUCH has no anchor field.** Its candidate association must use the ordered candidate trace, as with the S3-zone row. Direction and evaluated bar alone do not establish the anchor. The existing ambiguity-fails rule is appropriate.
+- **P315, term 5 — split-bar ordering could be stated directly.** Require `touchBar < confirmBar` for the named split-bar venues, with both associated with the same uninterrupted candidate episode. “Same anchor/dir” must not join evidence across an abort and reseed.
+- **P315, term 6 — absence is a route-consistency check.** Zero touch-book prints on the cascade pass supports the specified control flow; it is not affirmative retest or confirmation evidence. Terms 1–5 carry that proof.
+
+Analytic B: No code change is needed. Keep the single predicate and make the evidence wording above exact. Require an unambiguous candidate episode and observed transition in the grade contract; ambiguity remains `UJ-NOEVID`.
+
+**Q2 — The publication order improves, but the cache and swept filter remain incorrect.**
+
+The checked destination resizes, fill before `uj_histToday` assignment, and day-gated consultation address substantial parts of the former stale-publication problem. Three independent defects still block this fence.
+
+1. **The cached subset depends on direction, but its validity key does not — P366, P397–P404, P414, P421–P427.**
+
+   Refresh filters record highs for LONG or record lows for SHORT, then stores only those days. Subsequent calls reuse that subset solely because the day matches.
+
+   A LONG-first refresh can discard a day whose low is an unswept SHORT target. A later SHORT fallback that day cannot recover it. It can also consult lows from retained high-record days without having established that those lows are records. SHORT-first has the symmetric defect.
+
+   Storing both high and low values for each retained day does not make the **selected days** direction-independent. SINGLETON prevents simultaneous candidates; it does not prevent successive candidates of opposite directions.
+
+2. **The filter omits the most recent sweep witnesses and freezes intraday validity — P369, P385, P392–P405, P366.**
+
+   The running extreme starts empty, and scanning starts at D1 shift 2. Thus shift 2 is always retained, even if yesterday or today has already swept it. Older levels are checked against shifts 2 onward, but never against shifts 1 and 0.
+
+   Excluding today and yesterday as fallback **target sources** does not justify excluding them as **sweep witnesses**. The session mask filters session candidates; nothing shown applies its result to the new DH/DL records.
+
+   Moreover, a once-daily retained subset cannot detect an old level swept later that same day. After price retraces, the level can again satisfy `uj_hinD` and be elected. Static historical availability does not imply static sweep status.
+
+   Therefore P439’s “FRESH-SWEEP item closed for H2b scope” and P455’s “swept days excluded by construction” are not supported.
+
+3. **A probe read failure can still publish a truncated pool as successfully refreshed — P369–P379, P406–P414.**
+
+   P375 handles an invalid high or low with `break`. If earlier iterations succeeded, `uj_dcap > 0`; the second pass can validate those earlier entries and commit them. The invalid read never sets a failure flag.
+
+   The result is a published prefix, marked current for the rest of the day. The second pass validates the prefix but does not cure the failed read that prematurely ended discovery.
+
+   Similarly, P372 treats every nonpositive timestamp as exhaustion. The page provides no distinction between established end-of-history and a failed or unavailable read. That distinction is necessary for the stated “clear-on-fail” guarantee.
+
+Further Analytic A:
+
+- **P389 — validation is incomplete.** The checks do not explicitly reject non-finite prices, inverted high/low pairs, or inconsistent timestamp ordering. A snapshot guarantee should state which integrity conditions are established. At minimum, reject non-finite prices and `high < low`; establish that the records are the intended ordered historical days.
+- **P401/P403 — equality has an unstated rule.** Strict record comparisons discard an older equal high or low. That implements touch-or-exceed invalidation for equal levels. State whether equality counts as swept under the governing rule; the quoted swept-line challenge alone does not settle that boundary.
+- **P455 — nearest must mean nearest eligible.** `UJHISTPOOL` is pre-zone, while `TpTargetUpdateBest` excludes zone-contained levels. “Elected winner == pool-nearest-above-election-ref” omits that exclusion. A correct election can skip the nearest printed level because it lies inside the zone.
+- **P429/P455 — the pool list alone cannot prove every reference comparison.** It contains rounded distances from one reference, not exact candidate prices or per-candidate eligibility. Near the entry-reference boundary, rounding can leave eligibility or ordering ambiguous. Such a case must fail the evidence proof or use exact source data established on the operator’s machine. Calling the comparison a hypothesis does not make rounded evidence sufficient.
+- **P432–P434/P455 — absent pool output does not uniquely diagnose history depth.** The pool prints only when `haveBest` becomes true. Absence can result from failed refresh, no in-direction candidates, or zone exclusion. Likewise, missing DH20260430 can result from filtering, not only insufficient history. Name the observed missing term without asserting an unproved cause.
+
+Analytic B — preferred correction:
+
+- **P378–P414:** Cache a validated, direction-independent snapshot of completed source days. Do not discard days according to the first caller’s direction.
+- **P421–P430:** Apply side-specific swept eligibility at each consultation. Include yesterday and today-to-the-election-time as sweep witnesses, even though they are not fallback target sources. Update the running extreme across all more-recent days, independently of whether those days are themselves target-eligible.
+- **P369–P389:** Distinguish normal exhaustion from read failure. Any invalid available record must invalidate the refresh, not silently shorten it.
+- **P455:** Define the expected winner as the nearest unswept, in-direction, zone-eligible candidate; require exact evidence where the rounded list cannot decide.
+
+Separate high-record and low-record caches could also fix the direction defect, but they would still need current sweep checks and proper failure handling. Adding only a direction cache key is insufficient.
+
+**R1 — The main UJALIGN correction is right, but the wording closures are not yet consistent.**
+
+The branch-conditional qualifier in P033 matches the supplied `if/else` structure. F11’s CARVE hold does not bypass the later UJALIGN return when re-arming fails. Marking the 09:45 arming path as a hypothesis is appropriate. The setter pins, F-tail pins, and CONFIRMPOLL classification distinction are useful repairs.
+
+Remaining rider defects:
+
+- **P033:** The earlier unconditional sentence, “S4-held candidates skip it,” remains before its correction. Replace it with the conditional rule rather than retaining both formulations.
+- **P031:** “OHLC-zone intersection proven” overstates R63. The `inside` list establishes anchor-line inclusion under that diagnostic; it does not establish intersection with R64’s bound XOB zone.
+- **P315:** Correct the R64/`bankBar` attribution and “PASS path prints nothing” wording identified under Q1. The RETESTBOOK legend should also distinguish the emitted `hits=<count>` field from the internal variable `nHits`.
+- **P033/P314:** PREBIND success/failure counts do not bound false admissions on the new cascade branch. Label them BASE observations, not a predicate-rarity or falses bound.
+- **P238/P440:** “Adds admissions only” conflicts with the supplied SINGLETON explanation: longer retention can suppress a later candidate. Preserve the future comparison gate without claiming monotonic admissions.
+- **P314:** HEADS-UP precedes CARRY **when HEADS-UP is emitted**; HEADS-UP is conditional.
+- **P453–P454:** Operative acceptance still uses `RETAKE-v12` and “v12 trajectory.” Label these v13 predictions or explicitly identify them as carried, unchanged hypotheses.
+- **P455:** Replace the unsupported swept-by-construction and history-depth causal wording as part of the Q2 amendment.
+
+These rider objections do not reopen the cleared F11 Boolean mechanism or G1 full-branch fence. Q1’s replacement predicate is accepted; Q2 requires a code amendment, and R1 requires the cited wording corrections. 
+
+## V326-IMPL2-11 END ASTRA

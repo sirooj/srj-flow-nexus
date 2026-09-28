@@ -64,6 +64,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - `00_CURRENT_WORKING\RECON*_STATUS.txt` / `*_DONE.txt` / `launch_*.ps1` (run debris, kept until you say otherwise).
 - `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V*.md` (old handoffs, history).
 
-- 2026-09-28: packet v13 CD4397A2/74890/467 + relay v326 915CF2A6/130074/1129 DRAFT GREEN (ledger 917; G2 single predicate + H2b snapshot/filter + P033 qualifier; battery-green, untransported).
+- 2026-09-28: V326 graded Q1 3-0 CLEAR / Q2 2-1 HALT / R1 1-2 HALT (ledger 919; result 75CA96B4; all four seats filed whole 1x, Sonnet advisory); v14 fold opens (H2b re-surgery + wording batches).
 
 (End of file)

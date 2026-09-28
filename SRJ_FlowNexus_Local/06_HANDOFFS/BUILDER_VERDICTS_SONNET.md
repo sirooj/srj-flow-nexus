@@ -2504,3 +2504,95 @@ I object on one point.
 - The `uj_hpool` print (P390-P396) is still unbounded. 
 
 ## V325-IMPL2-10 END SONNET
+
+## V326-IMPL2-11 OPEN SONNET (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, seat lines 152-238 of 299; byte-exact incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+# Seat verdicts on packet IMPL-2 v13
+
+**Q1: CONFIRM**, with notes
+
+**Q2: OBJECT** (P354-P358, P366, P392-P404, P421)
+
+**R1: OBJECT** (P033, R58, R43, P453)
+
+---
+
+## Q1: G2 single predicate
+
+**CONFIRM.** The single route-specific predicate at P315 replaces the v12 dual wording. The zone term now comes from R64 on cascade venues, and LEGTOUCH bounds are explicitly not touch evidence (R42 found=0). Term 1 matches the decoded schema at EA 2160-2174. R62 reads `Daily-POC:r10:dL`, which is code, rank and hit direction. The legend cites for RETESTDIAG, CONFIRMPOLL, LEGTOUCH and the S3-zone print match the region prints.
+
+**Notes (none block):**
+1. **Direction letter.** P315 term 1 says "same (direction, anchor)" but never says LONG requires `dL` and SHORT requires `dS`. State it, since R62 shows VWAP also hit.
+2. **Absence versus positive evidence.** P315 uses FAIL-absence as split-bar verdict evidence, while P458 says a missing row never asserts non-occurrence. The two are reconciled only if the admission rows (ALERT, UJADMIT, UJMEMO_PASS at the fire pass) are named as the positive evidence and FAIL-absence as corroboration only.
+3. **The cascade bypasses the S4 touch book.**
+   - In BASE the S4 block ran on the arming pass (R42 LEGTOUCH at 14:40:22 with found=0), and R44's touch only set at the next pass.
+   - After the cascade sets S5, the S4 block is skipped. The touch step of the S4 edge is therefore bypassed by code, not merely unevidenced.
+   - RETEST_CORROBORATED is what substitutes for it. Say plainly that the ruling is retest-as-touch. P188 promised that question to council.
+4. **R64 has no dir, anchor or bar field.** The page already says association is same-pass trace-ordered, which is fair.
+
+---
+
+## Q2: H2b
+
+The refresh hardening itself is sound:
+- Probe into temps with per-read validation (P383-P391).
+- ArrayResize return checks (P380-P382, P394-P396, P407-P409).
+- `histToday` assigned last (P414).
+- Clear-on-fail (P418).
+- Consult gated on `histToday == today` (P421).
+- The line count is right: 75 lines, and 53+10+12+1+4+60 gives +140.
+
+I object on two defects.
+
+**Defect 1 (decisive): the cache is keyed by day, but the record filter depends on direction.**
+- P400-P403 keeps records by `dir` (highs for LONG, lows for SHORT). P413 stores the filtered set, and P366 and P421 gate everything on the day alone.
+- If a SHORT consult follows a LONG consult on the same day, P421 passes with no refresh. P427 then reads `uj_histLo` of the LONG-record days, which is the wrong set. The reverse case is the same.
+- The filter can therefore admit swept lines or drop live ones on a same-day direction flip. That is exactly the swept-line challenge the filter was adopted to answer.
+- **Fix, either of:**
+  - (a) Add `int uj_histDir` beside H2a. Refresh when `uj_hdayt != uj_histToday || (int)dir != uj_histDir`, and assign it last with `histToday`.
+  - (b) Store the unfiltered temp arrays at refresh and run the running max/min in the consult loop (P424). The cost is one cheap pass per fallback election.
+
+**Defect 2: the running max is not seeded with yesterday.**
+- `uj_runM` starts empty (P392) and the walk begins at shift 2. A day high exceeded only by yesterday's high (D1 shift 1) is kept as a "record", though yesterday swept it.
+- In the fallback such a line would be nearer than the masked-out PDH, and it could win. This is the same defect the filter exists to fix.
+- **Fix:** seed with `iHigh/iLow(_Symbol, PERIOD_D1, 1)`, with the same >0 and EMPTY_VALUE validation. Yesterday is static in tester history.
+- Today's intraday extremes are not seeded, which is correct given day-level caching. State that limitation in P353.
+
+**Notes:**
+- P353's new-names list still carries `uj_dcount` and `uj_dd`, which no longer appear in the code. The battery census will show zero hits for names that were never introduced.
+- The unbounded D1 probe loop (P369) re-runs on every pass while loads fail. That is acceptable in tester, but a `dcap == 0` retry counter would keep logs clean.
+- P455's DH20260430 MANDATORY assertion depends on Defect 2's seed. If 30 April's high was exceeded by yesterday's, the pool would still contain it and the record status would be wrong.
+
+---
+
+## R1: wording closures
+
+Most closures are consistent:
+- The F-tail spans at P238 and P189 match the region: GoAbort at 7303, return at 7304.
+- The B-cascade cites: UJALIGN_NOMATCH at EA 8826 counts correctly from the 8813-8828 region.
+- The legend cites match the prints.
+- P431 is de-duplicated as P465.
+- The setter pins at EA 8940-8946 and 8961-8967 match the regions.
+
+I object on the P033 qualifier.
+
+**P033: R58 contradicts the qualifier and the acceptance built on it.**
+- P033 says "S4-held candidates skip UJALIGN only while the arming branch takes them". That is inverted, and R58 shows it.
+- R58 is a UJALIGN_PASS for bar 14:40, printed at 14:45:05, in the same pass as R43 (FRESHCOUNT with `state=S4_ARMED`) and R41 (STRUCT_FAIL). P027 puts arming at the 14:40 pass, so the candidate was S4-held at 14:45.
+- The else-branch therefore ran on an S4-held candidate. Had the arming-if been true it would have re-armed and printed a second S3-zone row, and R64 exists only once.
+- **Consequence for A-S2P (P453):**
+  - The 09:45 pass is S4-held. The CARVE row means M15 disagrees at eval 09:40, since P013 has m15 = +1.0 against a SHORT.
+  - UJALIGN would run at that pass, return NOMATCH (region lines 8825-8826), and the fire would never happen.
+  - The F11 hold delivers the bar and UJALIGN then kills it.
+- The packet marks this a "hypothesis term", but its own R58 and R43 rows refute the hypothesis. It cannot go to grade as a prediction.
+- **Demanded fix, either of:**
+  - Paste the S3 block's enclosing condition (roughly EA 8760-8783), and either gate UJALIGN to `g_state == ST_S3_ZONE_WAIT` on the code side or carry the carve-out past it.
+  - Or rewrite P453 to expect UJALIGN_NOMATCH at 09:45, and accept that the venue fails.
+
+**Stale labels still on the page:**
+- P453 is labelled RETAKE-v12.
+- P456 says "v12 remainder".
+- P188 still says "E sits in the touch book (EA 8920-region)" and "EA 8900-8902 byte-exact above", beside the v13 pin. 
+
+## V326-IMPL2-11 END SONNET

@@ -12725,3 +12725,71 @@ The present H2 architecture is preferable to a unified all-pools election becaus
 The v12 page closes the four requested objections. The residual items are wording/hardening points only: explicitly naming R64 in the G2 predicate, stronger atomic-load validation for H2, and an explicit equal-distance historical tie-break. None changes the four verdicts. 
 
 ## V325-IMPL2-10 END LUNA
+
+## V326-IMPL2-11 OPEN LUNA (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, seat lines 1-63 of 299; byte-exact incl. transport glyphs; see ledger)
+
+Luna:
+## Q1 — G2 single predicate
+
+**CONFIRM**
+
+The v13 page now has one route-specific `RETEST_CORROBORATED` predicate, explicitly replaces the v12 dual wording, pins the cascade zone to R64, distinguishes cascade and split-bar evidence, defines the S3 window/correlation rules, retires `zoneTouch=1`, and maps missing/ambiguous terms to `UJ-NOEVID`. 
+
+### Analytic A
+
+The remaining defects/gaps I see are:
+
+* **“Touch proven” is semantically stronger than the actual evidence state.** The defined state is `RETEST_CORROBORATED`; for split-bar cases, the zone component is explicitly `LEGTOUCH` bounds and “NOT touch evidence.” So this is really proof of the specified retest/confirmation corroboration rule, not literal physical-touch proof. 
+* **Split-bar confirmation evidence is negative-plus-downstream rather than positive.** The page relies on no `CONFIRM_STRUCT_FAIL` on `confirmBar` plus later admission rows, because the S4→S5 pass emits no positive print. That is logically usable under the stated state-machine/venue fencing, but it is weaker evidence than a direct transition print. 
+* The packet correctly makes the lack of `UJTOUCHSEEN`/`LEGTOUCH` on a G1 cascade pass an expected consequence, so those rows cannot simultaneously be required as positive cascade evidence. That distinction is explicit and coherent. 
+
+### Analytic B
+
+A stronger future mechanism would add a dedicated positive print at the S4→S5 confirmation transition in the existing **EA 8990-9002** site, carrying `confirmBar`, direction, anchor, and confirmation term. That would remove the current reliance on FAIL-absence plus downstream admission for split-bar evidence. The current v13 wording is nevertheless internally closed without that change. 
+
+---
+
+## Q2 — H2b snapshot/refresh + swept-record filter
+
+**CONFIRM**
+
+The hardening is present in the code as described: reads go into temporary arrays, each probe/fill is validated, record-day selection occurs before publication, array resizing is checked, `histToday` is assigned only after the copy succeeds, failure clears the published arrays, and consultation is gated by `uj_histToday == uj_hdayt`. 
+
+The record-day filter is also explicitly tied to the swept-line rule: recent-to-oldest running maximum for LONG / minimum for SHORT, preserving only historical record days while leaving the age concept unbounded.  
+
+### Analytic A
+
+* The refresh is now properly **publish-after-validation**, not merely “load then hope.” In particular, `histToday` is last, and the consult gate prevents failed loads from being consumed. 
+* Per-read validation occurs both during the capacity probe and during the actual fill into temporary arrays. 
+* The record filter is deterministic and side-aware: HIGH records for LONG, LOW records for SHORT. 
+* Minor hardening gap: the clear-on-fail `ArrayResize(...,0)` calls themselves are unchecked. That does not reopen consultation because `histToday` is not advanced on failure, so it is not a demonstrated correctness defect under the stated gate.
+* Minor precision gap: equal-distance targets remain governed by the existing strict `<` comparison in `TpTargetUpdateBest()`, so ties are resolved by iteration order rather than an explicit tie-break. 
+
+### Analytic B
+
+No materially better mechanism is needed for this round. The temporary-snapshot → validate → filter → publish-last architecture is appropriately fail-closed and keeps the change localized.
+
+---
+
+## R1 — wording closures rider
+
+**OBJECT — line 496**
+
+The rider is **not fully closed as written** because the v13 acceptance still names **`A-S2P-RETAKE-v12`** in the current v13 packet. That is a stale RETAKE label directly inside the operative acceptance section. 
+
+There are also two residual stale setter references:
+
+* The main FIX E prose still says the leg setter is **EA 8900-8904** and the opposite setter **EA 8924-8925**, while simultaneously saying the v9-tree sites are **EA 8940-8946** and **EA 8961-8967** and that the older numbers are superseded. 
+* The E2 prose still calls **EA 8900-8902** “byte-exact above” before stating that the v13 **EA 8940-8946** cite supersedes it. That leaves a stale citation inside the operative explanation. 
+
+Those should be normalized rather than merely marked superseded.
+
+## Final tally
+
+**Q1: CONFIRM**
+**Q2: CONFIRM**
+**R1: OBJECT — L496; residual stale setter citations at L213 and L231.**
+
+No build, run, commit, or live-activation clearance follows from these verdicts. 
+
+## V326-IMPL2-11 END LUNA

@@ -3,18 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V326 SHIPPED)
+## State (2026-09-28, V326 GRADED)
 
-- Memo shipped on his word 915CF2A6:
-  relay v326 to Luna + Astra + GLM,
-  identical text, whole file each.
-- Verdicts owed back whole per seat.
-- Nothing else asked; no build/run/key.
+- V326: Q1 3-0 CLEAR / Q2 2-1 HALT /
+  R1 1-2 HALT (ledger 919, result
+  75CA96B4; 4 seats filed 1x).
+- v14 fold opens: H2b re-surgery +
+  wording batches + P033 diagnosis.
+- Nothing cleared; no build/run/key.
 
-## Next (awaited carrier)
+## Next (builder, unattended)
 
-- His pasted V326 verdicts (whole
-  text per seat), then grade.
+- Draft packet IMPL-2 v14 (builder-owned
+  technical shape, council rules it).
 
 ## Resume order (exact)
 
