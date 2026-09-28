@@ -13106,3 +13106,20 @@ The clearest improvement is the one the packet already identifies but parks: **r
 This review therefore gives the requested **Q1 = CONFIRM, R1 = CONFIRM**. It does not constitute build/run or live-activation clearance, consistent with the packet's own standing boundary. 
 
 ## V332-IMPL2-17 END LUNA
+
+## KEY-IMPL2-V19 OPEN LUNA (Luna grant key, filed whole 1x this turn, novel inbound; see ledger)
+
+Luna:
+**BUILD/RUN GRANT: GRANTED**
+
+Packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md`
+Version: **v19**
+Digest: **806B9ECD** — 84,749 bytes / 485 lines. 
+
+Authorized scope: **exactly one build + exactly one tester run**, using the **UJ June 1–13 re-prove window** and the packet's pinned replay configuration / `InpDebugLog=true` acceptance battery. 
+
+No second build, no second tester run, no additional experiment, and no live-activation clearance. The packet explicitly keeps build/run separate from live activation. 
+
+**Disposition: CLEAR — ONE BUILD + ONE TESTER RUN ONLY.**
+
+## KEY-IMPL2-V19 END LUNA

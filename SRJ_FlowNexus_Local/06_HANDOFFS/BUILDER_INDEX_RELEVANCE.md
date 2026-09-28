@@ -11,7 +11,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 built 2026-09-27; alert-only stands; v12 packet drafts F11/G1/H against it, unbuilt).
-- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v17 DRAFT F1CDF21C/83306/480 (V329-OBJECT fold answers; unruled, unbuilt; build needs new Luna key + his run word, neither spent nor asked).
+- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v19 DRAFT 806B9ECD/84749/485 (V331-fold answers; Luna KEY-IMPL2-V19 granted + his run word banked ledger 942; build+run authorized fresh session).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
 - Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v332-IMPL2-17.md` 744768F4/157676/1437 (transported + graded ALL CLEAR ledger 938; twin of v19 806B9ECD).
 - Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
@@ -70,5 +70,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - 2026-09-28: V330 graded (ledger 933; Q1 2-0 CLEAR / R1 1-1 HALT; 3 seats filed whole 1x) + packet v18 649B6A67/84376/485 DRAFT (budget +152, B1 literals, notes, battery-lite green) + relay v331 C0692AA3/156038/1426 RELAY-READY (ledger 934; twin 485/485 diff-0, rows 39, regions 37, battery green two passes); transport word owed.
 - 2026-09-28: V331 graded (ledger 936; Q1 1-1 HALT / R1 2-0 CLEAR; 3 seats filed whole 1x) + packet v19 806B9ECD/84749/485 DRAFT (budget single-source +152/dual-base, notes, battery-lite green) + relay v332 744768F4/157676/1437 RELAY-READY + MEMO SHIPPED (ledger 937; twin 485/485 diff-0, rows 39, regions 37, battery green two passes; standing proceed, no word-ask).
 - 2026-09-28: V332 graded ALL CLEAR (ledger 938; Q1+R1 2-0 CLEAR; 3 seats filed whole 1x; authorizes no build; micro-wordlist pending, no v20/v333 per relay budget).
+- 2026-09-28: his credits word (ledger 939) + seats answer (ledger 940) + dual-key amendment (ledger 941: Luna+GLM CLEAR = build-clearable, Sonnet-advisory addressed; Opus+Astra parked/out rejoin on word/credits).
+- 2026-09-28: Luna KEY-IMPL2-V19 VALID + handoff POST-V333 (ledger 942: key filed whole 1x Luna 13110-13125, one build + one UJ-June run, unspent; run word banked for fresh session; pointer refreshed).
 
 (End of file)

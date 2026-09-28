@@ -3,20 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V332 GRADED ALL-CLEAR)
+## State (2026-09-28, HANDOFF FILED)
 
-- Grade: Q1 2-0 CLEAR / R1 2-0
-  CLEAR (Luna+GLM; Sonnet adv).
-  Authorizes no build (dual-key
-  out; no key; no run word).
-- Accepted-pending wordlist filed
-  (no v20/v333 per relay budget).
+- Luna key VALID, unspent (one build
+  + one UJ-June run); his run word
+  banked for the new session.
+- Handoff POST-V333 on disk (55 lines,
+  read-back verified; no commit inside).
 - Tree quiescent; harness idle.
 
-## Next (nothing builder-owed)
+## Next (fresh session)
 
-- Verdicts answered; nothing pending.
-  Build/key/scope are his call.
+- Open with the section-7 prompt
+  pasted below, verbatim.
 
 ## Resume order (exact)
 
