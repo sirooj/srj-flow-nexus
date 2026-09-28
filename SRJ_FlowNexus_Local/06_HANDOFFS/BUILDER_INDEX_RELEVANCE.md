@@ -10,7 +10,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
-- EA under test: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 built 2026-09-27; alert-only stands; v12 packet drafts F11/G1/H against it, unbuilt).
+- EA under test: `Experts\SRJ_FlowNexus_EA.mq5` FC41EE0D/671645/12127 (v10 built 2026-09-28 from v19 remainder F/G1/H1/H2; 0/0 compile; alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v19 DRAFT 806B9ECD/84749/485 (V331-fold answers; Luna KEY-IMPL2-V19 granted + his run word banked ledger 942; build+run authorized fresh session).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
 - Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v332-IMPL2-17.md` 744768F4/157676/1437 (transported + graded ALL CLEAR ledger 938; twin of v19 806B9ECD).
@@ -72,5 +72,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - 2026-09-28: V332 graded ALL CLEAR (ledger 938; Q1+R1 2-0 CLEAR; 3 seats filed whole 1x; authorizes no build; micro-wordlist pending, no v20/v333 per relay budget).
 - 2026-09-28: his credits word (ledger 939) + seats answer (ledger 940) + dual-key amendment (ledger 941: Luna+GLM CLEAR = build-clearable, Sonnet-advisory addressed; Opus+Astra parked/out rejoin on word/credits).
 - 2026-09-28: Luna KEY-IMPL2-V19 VALID + handoff POST-V333 (ledger 942: key filed whole 1x Luna 13110-13125, one build + one UJ-June run, unspent; run word banked for fresh session; pointer refreshed).
+- 2026-09-28: V19-remainder BUILT (ledger 943: STAGE-1 green, F/G1/H1/H2a/H2b applied, FC41EE0D/671645/12127, 0/0 compile, ex5 rebuilt; adherence audit filed; key build spent, one UJ run remains).
 
 (End of file)

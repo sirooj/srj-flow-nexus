@@ -311,6 +311,12 @@ string   uj_memo_wsrc = "";
 string   uj_memo_wday = "";
 int      uj_memo_wgen = -1;
 int      uj_memo_wage = -1;
+double uj_histHi[];
+double uj_histLo[];
+string uj_histDay[];
+datetime uj_histToday = 0;
+bool uj_histFail = false;
+string uj_histWhy = "";
 //--- winner provenance globals (snapshot into memo at memo-write time)
 string   uj_winnerSource = "";
 string   uj_winnerDayKey = "";
@@ -2517,18 +2523,88 @@ for(int kf = 0; kf < POI_NLINES; kf++)
    }
 if(!haveBest)
   {
-   string uj_fbpool = "";
-   for(int i = 0; i < ArraySize(sessbufs); i++)
+   string uj_hdayk = UjDayKey(iTime(_Symbol, PERIOD_CURRENT, 0));
+   datetime uj_hdayt = StringToTime(uj_hdayk);
+   uj_histFail = false; uj_histWhy = "";
+   if(uj_hdayt <= 0) { uj_histFail = true; uj_histWhy = "CLOCK"; }
+   else if(UjDayKey(iTime(_Symbol, PERIOD_D1, 0)) != uj_hdayk) { uj_histFail = true; uj_histWhy = "DAY"; }
+   if(uj_hdayt != uj_histToday && uj_hdayt > 0 && UjDayKey(iTime(_Symbol, PERIOD_D1, 0)) == uj_hdayk)
      {
-      double dv = 0.0;
-      if(!ReadFlow(sessbufs[i], dv, barShift)) continue;
-      bool uj_inD = (dir == DIR_LONG) ? (dv > currentPrice) : (dv < currentPrice);
-      if(uj_inD) uj_fbpool += sname[i] + ":" + DoubleToString(MathAbs(dv - currentPrice) / _Point, 0) + " ";
-      TpTargetUpdateBest(dv, dir, currentPrice, best, haveBest, sname[i], uj_dk, -1);
+      int uj_dcap = 0;
+      bool uj_hok = true;
+      for(int uj_dc = 2; uj_hok; uj_dc++)
+        {
+         datetime uj_dct = iTime(_Symbol, PERIOD_D1, uj_dc);
+         if(uj_dct <= 0) break;
+         uj_dcap++;
+        }
+      double uj_tmpHi[]; double uj_tmpLo[]; string uj_tmpDay[];
+      if(uj_dcap <= 0) { uj_hok = false; uj_histWhy = "EMPTY"; }
+      if(uj_hok && ArrayResize(uj_tmpHi, uj_dcap) < 0) { uj_hok = false; uj_histWhy = "RSIZE_HI"; }
+      if(uj_hok && ArrayResize(uj_tmpLo, uj_dcap) < 0) { uj_hok = false; uj_histWhy = "RSIZE_LO"; }
+      if(uj_hok && ArrayResize(uj_tmpDay, uj_dcap) < 0) { uj_hok = false; uj_histWhy = "RSIZE_DAY"; }
+      //--- v16: uj_tmpT retired (ordering uses uj_prevT/uj_hasP locals).
+      datetime uj_prevT = 0; bool uj_hasP = false;
+      for(int uj_dr = 0; uj_dr < uj_dcap && uj_hok; uj_dr++)
+        {
+         int uj_ds = uj_dr + 2;
+         datetime uj_drt = iTime(_Symbol, PERIOD_D1, uj_ds);
+         double uj_drh = iHigh(_Symbol, PERIOD_D1, uj_ds);
+         double uj_drl = iLow(_Symbol, PERIOD_D1, uj_ds);
+         bool uj_dok = (uj_drt > 0) && (uj_drh > 0.0) && (uj_drl > 0.0) && (uj_drh != EMPTY_VALUE) && (uj_drl != EMPTY_VALUE) && (uj_drh == uj_drh) && (uj_drl == uj_drl) && (uj_drh >= uj_drl) && (!uj_hasP || (uj_drt < uj_prevT));
+         if(!uj_dok) { uj_hok = false; uj_histWhy = "INVALID"; break; }
+         uj_tmpHi[uj_dr] = uj_drh; uj_tmpLo[uj_dr] = uj_drl; uj_tmpDay[uj_dr] = UjDayKey(uj_drt);
+         uj_prevT = uj_drt; uj_hasP = true;
+        }
+      bool uj_commit = (uj_hok && uj_dcap > 0);
+      if(uj_commit && ArrayResize(uj_histHi, uj_dcap) != uj_dcap) { uj_commit = false; uj_histWhy = "COMMIT_HI"; }
+      if(uj_commit && ArrayResize(uj_histLo, uj_dcap) != uj_dcap) { uj_commit = false; uj_histWhy = "COMMIT_LO"; }
+      if(uj_commit && ArrayResize(uj_histDay, uj_dcap) != uj_dcap) { uj_commit = false; uj_histWhy = "COMMIT_DAY"; }
+      if(uj_commit)
+        {
+         for(int uj_ci = 0; uj_ci < uj_dcap; uj_ci++)
+           { uj_histHi[uj_ci] = uj_tmpHi[uj_ci]; uj_histLo[uj_ci] = uj_tmpLo[uj_ci]; uj_histDay[uj_ci] = uj_tmpDay[uj_ci]; }
+         uj_histToday = uj_hdayt; uj_histFail = false; uj_histWhy = "";
+        }
+      else
+        {
+         ArrayResize(uj_histHi, 0); ArrayResize(uj_histLo, 0); ArrayResize(uj_histDay, 0); uj_histFail = true;
+        }
      }
-   if(haveBest && InpDebugLog)
-     { PrintFormat("[SRJ-EA] UJFBPOOL bar=%s dir=%s pool=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(dir), uj_fbpool);
-       PrintFormat("[SRJ-EA] TPFALLBACK bar=%s dir=%s tp=%s distPts=%s src=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(dir), DoubleToString(best, _Digits), DoubleToString(MathAbs(best - currentPrice) / _Point, 0), uj_winnerSource); }
+   bool uj_wok = true;
+   double uj_yHi = iHigh(_Symbol, PERIOD_D1, 1);
+   double uj_yLo = iLow(_Symbol, PERIOD_D1, 1);
+   double uj_tHi = iHigh(_Symbol, PERIOD_D1, 0);
+   double uj_tLo = iLow(_Symbol, PERIOD_D1, 0);
+   if(uj_yHi <= 0.0 || uj_yLo <= 0.0 || uj_yHi == EMPTY_VALUE || uj_yLo == EMPTY_VALUE || uj_yHi != uj_yHi || uj_yLo != uj_yLo || uj_yHi < uj_yLo) uj_wok = false;
+   if(uj_tHi <= 0.0 || uj_tLo <= 0.0 || uj_tHi == EMPTY_VALUE || uj_tLo == EMPTY_VALUE || uj_tHi != uj_tHi || uj_tLo != uj_tLo || uj_tHi < uj_tLo) uj_wok = false;
+   if(!uj_wok && !uj_histFail) { uj_histFail = true; uj_histWhy = "WITNESS"; }
+   if(uj_histFail && InpDebugLog) PrintFormat("[SRJ-EA] UJHISTFAIL bar=%s dir=%s reason=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(dir), uj_histWhy);
+   if(uj_histToday == uj_hdayt && uj_hdayt > 0 && uj_wok && UjDayKey(iTime(_Symbol, PERIOD_D1, 0)) == uj_hdayk)
+     {
+      double uj_cRun = 0.0;
+      if(dir == DIR_LONG)
+        { uj_cRun = ((uj_yHi > uj_tHi) ? uj_yHi : uj_tHi); }
+      else
+        { uj_cRun = ((uj_yLo < uj_tLo) ? uj_yLo : uj_tLo); }
+      string uj_hpool = "";
+      for(int uj_hj = 0; uj_hj < ArraySize(uj_histHi); uj_hj++)
+        {
+         bool uj_swept = false;
+         if(dir == DIR_LONG)
+           { if(uj_histHi[uj_hj] > uj_cRun) uj_cRun = uj_histHi[uj_hj]; else uj_swept = true; }
+         else
+           { if(uj_histLo[uj_hj] < uj_cRun) uj_cRun = uj_histLo[uj_hj]; else uj_swept = true; }
+         if(uj_swept) continue;
+         double uj_hv = (dir == DIR_LONG) ? uj_histHi[uj_hj] : uj_histLo[uj_hj];
+         string uj_hsrc = (dir == DIR_LONG ? "DH" : "DL") + StringSubstr(uj_histDay[uj_hj], 0, 4) + StringSubstr(uj_histDay[uj_hj], 5, 2) + StringSubstr(uj_histDay[uj_hj], 8, 2);
+         bool uj_hinD = (dir == DIR_LONG) ? (uj_hv > currentPrice) : (uj_hv < currentPrice);
+         if(uj_hinD) uj_hpool += uj_hsrc + ":" + DoubleToString(MathAbs(uj_hv - currentPrice) / _Point, 0) + " ";
+         TpTargetUpdateBest(uj_hv, dir, currentPrice, best, haveBest, uj_hsrc, uj_histDay[uj_hj], -1);
+        }
+      if(InpDebugLog) PrintFormat("[SRJ-EA] UJHISTPOOL bar=%s dir=%s pool=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(dir), uj_hpool);
+      if(haveBest && InpDebugLog) PrintFormat("[SRJ-EA] TPFALLBACK bar=%s dir=%s tp=%s distPts=%s src=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(dir), DoubleToString(best, _Digits), DoubleToString(MathAbs(best - currentPrice) / _Point, 0), uj_winnerSource);
+     }
   }
     //--- TASK 23 (EA-23a / EA-24): read-only census of the take-profit candidate
    //--- set. Re-walks both candidate groups and matches each against the value
@@ -7286,23 +7362,33 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                             && (int)MathRound(t81_ob1) == 0
                             && (int)MathRound(t81_fv1) == 0
                             && (int)MathRound(t81_op1) == 1;
-            PrintFormat("[SRJ-EA] LTFDIAG bar=%s dir=%s state=%s kind=%s "
-                        "ok0=%d bias0=%d ob0=%d fvg0=%d opp0=%d "
-                        "ok1=%d bias1=%d ob1=%d fvg1=%d opp1=%d",
-                        TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
-                                     TIME_DATE|TIME_MINUTES),
-                        DirName(g_dir), StateName(g_state),
-                        (t81_weak ? "WEAK" : (t81_k1 ? "STRONG" : "UNKNOWN")),
-                        (int)t81_k0, (int)MathRound(t81_bi0),
-                        (int)MathRound(t81_ob0), (int)MathRound(t81_fv0),
-                        (int)MathRound(t81_op0),
-                        (int)t81_k1, (int)MathRound(t81_bi1),
-                        (int)MathRound(t81_ob1), (int)MathRound(t81_fv1),
-                        (int)MathRound(t81_op1));
-           }
-         GoAbort(ABORT_LTF_MISALIGN, g_state);
-         return;
-        }
+          PrintFormat("[SRJ-EA] LTFDIAG bar=%s dir=%s state=%s kind=%s "
+                         "ok0=%d bias0=%d ob0=%d fvg0=%d opp0=%d "
+                         "ok1=%d bias1=%d ob1=%d fvg1=%d opp1=%d",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                      TIME_DATE|TIME_MINUTES),
+                         DirName(g_dir), StateName(g_state),
+                         (t81_weak ? "WEAK" : (t81_k1 ? "STRONG" : "UNKNOWN")),
+                         (int)t81_k0, (int)MathRound(t81_bi0),
+                         (int)MathRound(t81_ob0), (int)MathRound(t81_fv0),
+                         (int)MathRound(t81_op0),
+                         (int)t81_k1, (int)MathRound(t81_bi1),
+                         (int)MathRound(t81_ob1), (int)MathRound(t81_fv1),
+                         (int)MathRound(t81_op1));
+            }
+          double uj_hm15 = 0.0;
+          bool uj_hm15r = ReadFlow(FL_BUF_HTF_LOW, uj_hm15, barShift);
+          double uj_hwant = (g_dir == DIR_LONG ? 1.0 : -1.0);
+          string uj_hterm = "";
+          bool uj_hcarve = IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_hterm);
+          if((uj_hm15r && uj_hm15 == uj_hwant) || uj_hcarve)
+            { if(InpDebugLog) PrintFormat("[SRJ-EA] UJLTFHOLD bar=%s dir=%s poi=%s state=%s m15=%s rf=%d mode=%s term=%s - LTF opposed, hold (Fix F11)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), StateName(g_state), DoubleToString(uj_hm15, 1), (uj_hm15r ? 1 : 0), ((uj_hm15r && uj_hm15 == uj_hwant) ? "M15" : "CARVE"), uj_hterm); }
+          else
+            {
+             GoAbort(ABORT_LTF_MISALIGN, g_state);
+             return;
+            }
+         }
      }
 
    //--- [Task 135 / A-3 section 5.1 / v4.2 section 3.4 errata] The
@@ -7470,13 +7556,14 @@ void EvaluateClosedBar(int barShift, datetime barTime)
         }
       s1_stopRef  = slRef;
       s1_haveStop = true;
-      //--- [P-UJIMPL-IMPL-1 v8 IE7] 1R gate on the entry-open price + memo write
-      //--- (single successful election point: TP/SL/1R pass; poll route).
+      //--- [P-UJIMPL-IMPL-2 v10 Fix H1] poll verdict is telemetry + memo write
+      //--- (R-AT-OPEN: the admission verdict fires ONLY at the fire approach
+      //--- on entry-open ref; a poll FAIL no longer aborts).
         {
          double uj_risk = 0.0, uj_reward = 0.0, uj_R = 0.0;
          string uj_bk7 = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
          if(!SrjUjAssert1R(currentPrice, slRef, tpTarget, uj_bk7, "POLL", uj_risk, uj_reward, uj_R))
-           { GoAbort(ABORT_SUB_1R, g_state); return; }
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] UJPOLLRISK bar=%s dir=%s R=%.2f - poll-ref verdict telemetry only, admission verdict at fire (Fix H1)", uj_bk7, DirName(g_dir), uj_R); }
          uj_memo_tp = tpTarget; uj_memo_sl = slRef; uj_memo_entry = currentPrice;
          uj_memo_valid = true;
          uj_memo_anchor = g_anchorLine; uj_memo_dir = (int)g_dir; uj_memo_barTime = barTime;
@@ -8809,6 +8896,18 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                                    DoubleToString(g_zoneHi, _Digits)),
                       false);
            }
+          string uj_carryTerm = "";
+          double uj_carryM15 = 0.0;
+          bool uj_carryR = ReadFlow(FL_BUF_HTF_LOW, uj_carryM15, barShift);
+          double uj_carryWant = (g_dir == DIR_LONG ? 1.0 : -1.0);
+          if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_carryTerm) && uj_carryR && uj_carryM15 == uj_carryWant)
+            {
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJCONFIRMCARRY bankBar=%s fireBar=%s dir=%s poi=%s term=%s m15=%s - same-bar retest+confirm, S4 armed and firing same pass (Fix G1)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), TimeToString(iTime(_Symbol, PERIOD_CURRENT, 0), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), uj_carryTerm, DoubleToString(uj_carryM15, 1));
+             ENUM_SRJ_STATE uj_cprev = g_state;
+             g_confirmFromState = uj_cprev;
+             g_state = ST_S5_GATE_CHECK;
+             LogState(uj_cprev, g_state);
+            }
         }
       else
         {
