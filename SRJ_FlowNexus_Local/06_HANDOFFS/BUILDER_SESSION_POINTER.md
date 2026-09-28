@@ -3,19 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V326 READY)
+## State (2026-09-28, V326 SHIPPED)
 
-- Packet v13 CD4397A2/74890/467 +
-  relay v326 915CF2A6/130074/1129:
-  battery-green draft, untransported.
-- v13: G2 predicate + H2b hardening +
-  swept filter + P033 + minors.
-- Nothing cleared; no build/run/key.
+- Memo shipped on his word 915CF2A6:
+  relay v326 to Luna + Astra + GLM,
+  identical text, whole file each.
+- Verdicts owed back whole per seat.
+- Nothing else asked; no build/run/key.
 
-## Next (owed him)
+## Next (awaited carrier)
 
-- Word to ship the v326 memo
-  (three pastes, identical text).
+- His pasted V326 verdicts (whole
+  text per seat), then grade.
 
 ## Resume order (exact)
 
