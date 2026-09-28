@@ -3,21 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V330 RELAY-READY)
+## State (2026-09-28, V330 MEMO SHIPPED)
 
-- Relay v330 8F577C5E/151601/1374,
-  battery green (twin 480 diff-0,
-  rows 39, regions 36, no ellipsis).
-- v17 F1CDF21C + result BA30C89E
-  committed (ledger 930).
-- Tree quiescent; harness idle.
+- Memo shipped on his word: relay
+  v330 to Luna + GLM + Sonnet,
+  identical text, whole file each
+  (Astra out, as announced).
+- Verdicts owed back whole per seat.
+- Nothing else asked; no build/run/key.
 
-## Next (one word owed, then carry)
+## Next (awaited carrier)
 
-1. Say the word for v330 (digest
-   8F577C5E); then paste the file
-   `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v330-IMPL2-15.md`
-   whole to Luna + GLM + Sonnet.
+- His pasted V330 verdicts (whole
+  text per seat), then grade.
 
 ## Resume order (exact)
 
