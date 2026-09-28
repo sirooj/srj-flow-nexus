@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V326 GRADED)
+## State (2026-09-28, V327 READY)
 
-- V326: Q1 3-0 CLEAR / Q2 2-1 HALT /
-  R1 1-2 HALT (ledger 919, result
-  75CA96B4; 4 seats filed 1x).
-- v14 fold opens: H2b re-surgery +
-  wording batches + P033 diagnosis.
+- Packet v14 9D4A2950/78537/472 +
+  relay v327 1BDCC539/139857/1248:
+  battery-green draft, untransported.
+- v14: H2b re-surgery + P033/census
+  evidence + wording batches.
 - Nothing cleared; no build/run/key.
 
-## Next (builder, unattended)
+## Next (owed him)
 
-- Draft packet IMPL-2 v14 (builder-owned
-  technical shape, council rules it).
+- Word to ship the v327 memo
+  (three pastes, identical text).
 
 ## Resume order (exact)
 
