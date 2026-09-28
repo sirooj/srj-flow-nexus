@@ -3086,3 +3086,77 @@ Both verdicts are on the page only. Disk truth is not asserted.
 Nothing here builds, runs or spends anything, and nothing clears live activation.
 
 ## V334-IMPL2-19 END SONNET
+
+## V335-IMPL2-20 OPEN SONNET (filed whole 1x this turn, novel inbound, advisory only per seat-split; see ledger)
+
+# Q1 verdict: CONFIRM (with non-blocking discrepancies)
+
+The v22 presentation repairs match their specified old-to-new deltas. Any code-side claim rests on the page only. Digests and byte equality against v21 are disk truth and are not answerable from chat.
+
+## What I checked on the page
+
+- **B2 fence-form (P496-P515 vs R-DECLTOP).** The old fence (P497-P502, 6 lines) is verbatim R-DECLTOP (EA 6873-6878). The new fence (P505-P514) adds exactly the four decl lines after `inWindow` (EA 6876), giving 10 lines and +4. The siting matches P624.
+- **Budget arithmetic.** I re-counted every fence, and each ties to its label:
+  - Z-ins is 2 lines, Z-rep is 2-vs-2, and the guard swap is 3-vs-3 (P478-P480 vs P483-P485).
+  - The bypass is 5 lines (P488-P492).
+  - S-a is decl 4 and set 6-vs-6 (P517-P522 vs P525-P530), which is 4 in total.
+  - S-comb is 45 lines (P535-P579). Q2 is 19 lines (P584-P602).
+  - The sum is 7 + 4 + 45 + 19 = 75, and 12127 + 75 = 12202.
+  - The walk from v20 also closes: 69 + 5 + 1 + 2 - 2 = 75.
+- **Anchors.** I recomputed each against the region line counts:
+  - R-Z is 52 lines. The Z-ins point is EA 8916/8917, the guard is 8917-8919, and the bypass anchor is 8925-8927.
+  - R-Q2LOOP is 18 lines, with the print at 2177-2180 and the function close at 2181.
+  - R-S2END is 6 lines.
+  - The seven regions total 52+13+6+29+18+6+16 = 140.
+- **Old-SaSet (P517-P522)** is byte-identical to the R-F11 tail. Scomb braces balance.
+- **A2.** R-DECL is absent from the relay regions, and the history note is kept at P624.
+- **A3.** R24 is present and matches the P607 cite (SEG 5321, NOMATCH 09:40, m15=1.0, uj_readFail=0). It also fits the R18, R19, R01 and R02 ordering (SEG 5285 < 5307 < 5310/5311 < 5321).
+
+Zero code change versus v21 is supported only by count-consistency. The v21 fences are not on this page.
+
+## Discrepancies (none blocking Q1)
+
+1. **P624** says "+4 bytes" where the fence delta is +4 lines.
+2. **P625** cites "P604/P605" for the A1 label fix. The budget prose is P605 only, and P604 is the Q2 anchor paragraph.
+3. **Indent drift.** The new-fence decl lines (P509-P512) sit at 4 spaces beside 3-space neighbours. Zrep/Zins (P463, P472) sit at 10 spaces against 9 in the old. The page says STAGE-1 shows this churn only for the retained LTFDIAG lines, so it should say so here too.
+4. **R-number namespaces.** P016, P018, P027, P316, P648 and P650 cite R-numbers from earlier relay pages (R19-R25, R53-R55, R64). This page's R19-R24 are different rows. P018's "R23/R24/R25 fence the trigger" now lands on the 6/12 abort and the 6/5 NOMATCH row. The census-namespace note at the top does not cover old-relay R-numbers.
+5. **`rf=` polarity.** UJLTFHOLD, S2PROMOTE and the new BYPASS row print `rf=1` for read OK. UJALIGN_NOMATCH prints `uj_readFail=1` for read FAILED. Both rows print on the same pass, so a grader can misread one.
+6. **R-REREAD (EA 8980-8995)** ends mid-PrintFormat. The claims it supports lean on line 3 (EA 8982), which is inside the region. The S4-to-S5 edge (EA 8990-9002, LogState 8996) and the EA-8973-8975 comment that P533 cites are off-page.
+
+## Analytic ask A: substantive gaps
+
+These concern the design, not the presentation. They are on-page derivations and are labelled as such.
+
+**A-1. S-b zeroes the zone while keeping S4, and R-REREAD's third term is false for LONG on a zero zone.**
+- Transfer sets `g_zoneHi = g_zoneLo = 0.0` (P552) and retains the state enum (P533).
+- The re-read conjunction at EA 8982 includes `(g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point*0.5) : (s35_zHi >= g_zoneHi - _Point*0.5)`.
+- For LONG that reads about 160.49 <= 0.0005, which is false. No rebuild is possible, and the zone stays 0/0.
+- For SHORT it reads `>= -0.0005`, which is always true. The asymmetry lands on exactly the 6/11 LONG venue.
+- P533's "rebuild-iff-adoptable" undercounts the conjunction. It has three terms, and the third is a no-shrink test.
+- The B5(b) trace (P616) does not address this. What the S4 edge and freshness poll do with a zero zone is outside the page.
+- A base-tree S4 never carries an unbound zone, because arming binds it.
+
+**A-2. Memo after an S4-held transfer.**
+- S-b sets `uj_memo_valid = false` (P556).
+- P533 says "S2POLL memo write re-derives downstream". That applies to S2-state candidates. The page does not show which memo-write point serves an S4-held candidate.
+- P628 carries NO_MEMO as pending, and B5(b) has no memo step.
+- If the fire-edge liveness check aborts on an invalid memo, the 14:40 fire dies on the memo guard. The name suggests this, but the check's line is not on the page.
+
+**A-3. Return census gap for the deferred abort.**
+- The flag is set at the F11 tail (R-F11, EA 7391) and is function-local (P509).
+- P626's census covers 7740-8330, so EA 7392-7739 is uncovered.
+- P533 cites the freshness poll (EA 7395-7434) inside that span, though its pin (v9 or v10) is not labelled.
+- Any `return` a flagged S3+ candidate takes there drops the flag silently. The candidate F11 would have killed then stays alive, whereas BASE aborted immediately. That is fail-open on flag loss.
+- P495's argument only excludes the S2-only returns.
+
+## Analytic ask B: better mechanism
+
+For A-1, rebind at transfer instead of zeroing. In the S4-held branch of Scomb (P548-P555), take the zone from `ReadQualifyingZone` and `ZoneAdoptable` for `uj_sbDir`, the same shapes as R-REREAD line 3. If none is adoptable, demote to S3 with `LogState`. That is the parked B-1 demotion, and it costs the same-pass STRUCT timing.
+
+Keeping the zone unbound as a special case would need a direction-symmetric sentinel and a zero-zone audit of every zone reader. That seems the worse trade.
+
+For A-3, either extend the census to 7392-7739 or apply the deferred abort at the first return site.
+
+**Recommendation:** CONFIRM Q1. Carry A-1 to A-3 as build-gate items alongside NO_MEMO before any key is spent. A-1 is the one that could change the 6/11 acceptance prediction.
+
+## V335-IMPL2-20 END SONNET

@@ -7211,3 +7211,38 @@ None for the four edits as fenced; each is the minimal-delta form under the refi
 Q1 CONFIRM, Q2 CONFIRM — each on its own line as asked; a NO on one was never allowed to sink the other and neither is a NO. Design ruling only: nothing builds, runs, spends, or clears live activation; live stays alerts-only; a future build needs a new key plus his run word, neither asked here. The Ask A item 1 discrepancy is named for v22's fold, not held against the fences.
 
 ## V334-IMPL2-19 END GLM
+
+## V335-IMPL2-20 OPEN GLM (filed whole 1x this turn, novel inbound; see ledger)
+
+**Q1 verdict: CONFIRM** — the v22 presentation repairs match the specified old-to-new deltas, with zero code change versus v21 (B2 delivered as an old-context/new exact-diff pair; A1/A2/A3 delivered; GLM wording notes folded in substance; budget +75 / final tree 12202 unchanged from v21). Discrepancies found are named under Ask A below; none is a mismatch between a specified delta and its execution, and none touches code bytes. Q2 carried-CLEAR from V334 is sound to carry (P630: no fence-byte delta, so the V334 Q2 subject is untouched).
+
+**What was checked and matched (P-lines for prose, EA-lines for code):**
+
+1. **B2 fence-form (P496–P515)**: old-SaDeclSit carries exactly 6 context lines (P497–P502) matching the R-DECLTOP region (EA 6873–6878) content-identical; new-SaDeclSit carries 10 lines (P505–P514) — same 6 plus the 4 decls (P509–P512: uj_saAbort/uj_saA/uj_saD/uj_saT) inserted after inWindow (L6876), before the E54 comment. Net +4, matching v21's "decl 4" (P618/P619) and P630's "S-a 4 (decl 4 + set 0)". The old side gives STAGE-1 its diff base; the anchor proof region stands.
+2. **Budget recounted from the fences on the page**: Z-ins +2 (P463–P464), Z-rep 0 (2-vs-2, P472–P473), Z-guard 0 (3-vs-3, P483–P485), Z-bypass +5 (P488–P492) → Z 7; S-a 4; S-comb 45 (counted P535–P579); Q2 19 (counted P584–P602). Total +75; 12127 + 75 = 12202. Matches P619 and P630 exactly — A1's sub-labels now equal the fence values they describe.
+3. **A2**: 7 spans, 52+13+6+29+18+6+16 = 140 region lines; R-DECL absent from the relay; the history note is kept (P624).
+4. **A3**: R24 = SEG5321 UJALIGN_NOMATCH bar=09:40, spliced 1x, referenced at P607 as the death row it is; pass-naming wall-time + evaluated bar present in acceptance (P608 "14:40:22 pass (evaluating 14:35)"; P649 "(evaluating the 09:40 confirmation bar)").
+5. **GLM notes**: N1 rewording present (P475, P581); S4 cite tempered with no S-b-specific fire path and B-1 parked (P533); S-b as slot-replacement (P533); uj_saT in the census sentence (P532); Q2 l/h reuse (P582); return census stated (P626).
+6. **Wording verified present**: all P627 items located (P608 coexistence and entry-bar dependence; P608 vanished-rows named; P495 A4 S2-exclusion; P317 poll-site cites; no "0.61" anywhere in v20/v21/v22 sections; P617 verbatim 16:00 answer matching the His-words section including "strucure").
+7. **Zero code change vs v21**: identical budget arithmetic and final tree (P619 vs P630); the only fence-form change is SaDecl→SaDeclSit, whose tree effect is the same 4 decls at the same anchor with the same consumers (SaSet same-line uj_saT at P527; Scomb apply at P566–P579); both versions unbuilt against FC41EE0D/12127. Alert-only stands.
+8. **Cross-anchoring holds**: every v20+ fix's old side or siting is page-verifiable against a relayed region (R-DECLTOP for SaDeclSit; R-F11 tail for SaSet; R-Z for Z-guard/Z-rep and the EA-8916/8917–8919/8925–8927 anchors; R-Q2LOOP EA 2164–2181 containing the EA-2177–2180 insert anchor; R-S2END for Scomb; R-XFER as the cited transfer mirror; R-REREAD supporting the tempered rebuild statement at P533).
+
+**Analytic A — defects, gaps, imprecisions (named with lines):**
+
+1. **SEG mis-cite at P459**: "14:40:22 SHORT ABORT (SEG 14077)" is contradicted by the page's own rows — the 24 spliced rows are strictly log-ordered in SEG vs simulated time (R08 SEG2839 6/4 10:00 → R11 SEG14080 6/11 11:00 → R16 SEG14765 14:35:10 → R12 SEG14784 14:40:22 → R14 SEG14790 14:45:05 → R17 SEG14838 14:50:00 → R13 SEG14879 15:00 → R23 SEG18048 6/12 17:15), so SEG14077 sits at ~11:00 and cannot be the 14:40:22 abort; that event's STATE row is R12 (SEG14784) and its reason row must be adjacent (~1478x; 14077 reads as a digit error). Pre-existing v20-history defect, not v22-introduced and not in the V334 disposal list; does not touch fences, budget, or code. One-line v23 correction.
+2. **Stale P-citation at P625**: "P604/P605 prose" for the A1 quotes — in the shipped v22 packet the quoted strings live at P618 ("6-vs-6, +0") and P619 ("S-a 4 (decl 4 + set 0)"); current P604 (Q2 tail audit) carries neither, and current P605 carries only the v20-era "SaSet +0 (6-vs-6)". The offset is exactly the +14 twin lines the B2 repair adds at P496–P515 (v21's 6-P-line lone fence → v22's 20-P-line pair), so the citation was written against the pre-repair layout and not re-based. Content present; pointer stale.
+3. **Return-census placement (P626)**: the census (EA 7740–8330; 7997/8014/8032 gated; 8310/8322 S2-only) exists only in the fold list — the Fix S-a operative text (P495, P532) carries the conclusion ("the flag cannot be swallowed", "S2-state only") without it, and no v22 region covers EA 7740–8330 (R-DECL was dropped per A2), so the census is not page-verifiable in v22 and rides on the V334 record plus the disk battery. Traceability gap, not a code defect.
+4. **Quote-verbatim gap (P626 vs P582)**: the folded phrase "already-read l/h values" appears nowhere on the page; the operative equivalent is P582's "l/h reused from the loop (no re-reads)". Substance folded; the quoted string is not.
+5. **Annex completeness (P660–P664)**: one-liners run v8, v4–v16, then jump to v20; v17–v19 have no lines (v17 is referenced at P354; v19's supersession at P455/P606). Pre-existing gap.
+6. **Supersession note (P617 vs P629)**: v21 history says "D-design named for v22"; the operative v22 says "named for v23+" (P629, section 0). Supersession is visible in-document; record note only.
+7. **Format observation, not a finding and not a genuineness ruling (disk-side per the split)**: rows from distinct simulated passes share identical tester-times (R16/R12 at 00:28:21.808→.067; R14/R17/R13 at 00:28:27.171 spanning 14:45:05–15:00:00; R21 at 00:09:25.808 with the 09:45-pass rows R18/R19/R24) — consistent with journal flush/batch timestamp granularity rather than per-line stamps; the battery asserts rows 1x and digests, not per-line timestamp uniqueness. Named so the record shows it was seen.
+
+**Analytic B — better mechanism (prose/process only; no code alternative proposed, since the v22 spec is zero code change and the fence set already satisfies STAGE-1 exact-diff needs):**
+
+- Add a citation re-base step to the fold battery: after any presentation change that shifts twin lines, script-verify that every P-cite in the new delta still points at its quoted string (same pass as the twin diff). Would have caught item 2 at zero cost.
+- For item 3, one sentence in the Fix S-a audit (P532) carrying the census — or a compact gated-returns region in a future relay — restores page-verifiability with no code change.
+- For item 1, v23 corrects the P459 SEG id against the segment on disk.
+
+Nothing here builds, runs, spends, or clears live activation; disk-genuineness (digests, counts, row 1x, twin diff-0) is not answerable from chat and was not ruled. Live stays alerts-only; any future build needs a new key plus his run word, neither asked here.
+
+## V335-IMPL2-20 END GLM

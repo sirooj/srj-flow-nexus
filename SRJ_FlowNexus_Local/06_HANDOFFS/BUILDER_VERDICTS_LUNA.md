@@ -13451,3 +13451,64 @@ One wording precision: “reuse the loop's own low/high” is slightly imprecise
 No build, run, clearance, or live activation is implicated by either ruling.
 
 ## V334-IMPL2-19 END LUNA
+
+## V335-IMPL2-20 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+**Q1 verdict: OBJECT.**
+
+The requested v22 presentation repair is **not fully confirmable as written**. The central problem is not evidence of a v22 code change; it is that the page does not provide a sufficiently clean proof for the claim that there was **zero code change versus v21**, and it contains at least one explicit accounting/unit error. The packet defines Q1 around exactly that comparison and presents the code regions as the proof surface.
+
+### Analytic A — defects / gaps / imprecision
+
+**1. Zero-code-change-vs-v21 is asserted, not actually proven on the page — BLOCKING.**
+P012/P041/P042 claim “ZERO code change vs v21” and identify the current EA digest as `FC41EE0D/671645/12127`, while P015/P044-P045 prove only the packet twin against the EA/current embedded tree. The page gives the v21 **packet** digest, but no v21 **EA/source digest or v21→v22 byte/diff witness**. Thus the presented evidence establishes roughly:
+
+`v22 packet region == current EA region`
+
+but not:
+
+`v22 EA/source == v21 EA/source`.
+
+That distinction matters because Q1 specifically asks for zero code change **versus v21**, not merely zero delta versus the currently embedded v10 EA.
+**Refs:** P012, P041-P045; P003/P615-P630.
+
+**2. “same +4 bytes” is the wrong unit — BLOCKING to the stated presentation claim.**
+P624 says the old fence has 6 lines and the new fence has 10 lines, then calls the change “the same +4 bytes.” Four inserted declaration **lines** are not four bytes. The packet elsewhere explicitly uses `new lines - old lines` as its NET budget convention. This should say **+4 lines**, or provide an actual byte delta.
+**Ref:** P624; corroborated by the budget convention in P630 and the old/new blocks P496-P515.
+
+**3. The current acceptance contains a stale/historic tree-size statement with no version label — BLOCKING/CONFUSING.**
+P645 says `Total NET +152 ... final tree 12127`, while the active v22 section says `Total NET +75 ... final tree 12202`. P645 is evidently a carried historical budget, but inside the current acceptance section it reads like current v22 accounting. The packet needs an explicit label such as **“historical v16 budget; not v22”** or it should be moved back into the historical annex.
+**Refs:** P630 vs P645.
+
+**4. The literal `(End of file)` marker occurs before substantial packet content.**
+P666 says `(End of file)`, but the file then continues with R-Z, R-F11, R-S2END, R-XFER, R-Q2LOOP, R-DECLTOP, R-REREAD, Q1, rows, and Close. That marker is structurally false as written. It should be something like **`End of embedded twin`** or be removed.
+**Ref:** P666, followed immediately by the region/Q1 material.
+
+**5. The “complete code regions, zero elisions” claim is too strong for the R-REREAD presentation.**
+The R-REREAD fence is only the specified EA-8980-8995 span and ends in the middle of a `PrintFormat` argument sequence. That may be an intentional line-span excerpt, but it is not a self-contained code construct. Since P043 explicitly calls the regions “complete” and “zero elisions,” the wording should be narrowed to **“exact line spans, no internal elisions”** or the fence should be extended through the statement closure.
+**Refs:** P043; R-REREAD EA-8980-8995.
+
+**6. A1/A2/A3 are described as having landed “verbatim,” but the page does not give an old/new proof for those presentation edits.**
+P625-P627 state that the budget sublabels, relay-region removal, R24 splice, and wording corrections were applied, but unlike SaDeclSit there is no explicit before/after text for each presentation repair. For a Q1 whose subject is presentation fidelity, that makes the verification asymmetrical.
+**Refs:** P625-P627.
+
+**7. The EU August-run requirement remains semantically inconsistent with the standing decline.**
+P628 records the August run as declined; P652/P657 nevertheless make an August EU run part of the future acceptance/cost. This can be valid only as a **conditional dormant requirement requiring a later explicit re-authorization**. As currently worded, it reads like a future build prerequisite despite the operator's recorded decline.
+**Refs:** P628, P652, P657.
+
+### Analytic B — better mechanism
+
+For the stated Q1 goal, I would not change EA logic at all. The cleaner mechanism is a **pure presentation-proof fence**:
+
+1. Preserve the exact v21 source snapshot identifier/digest.
+2. Show the **v21→v22 source diff explicitly as zero**.
+3. Separately show the **SaDeclSit presentation diff** as old/new packet text.
+4. Keep the current EA twin proof separate: `v22 packet twin == current EA`.
+5. Rename the historical budget block and eliminate the false `End of file` marker.
+6. Change `+4 bytes` to `+4 lines` unless an actual byte measurement is supplied.
+
+The only source-code line span that would be touched for the SaDecl presentation fence is **EvaluateClosedBar EA-6873-6878**; the verification mechanism itself should touch **no executable EA code**.
+
+**Disposition:** **OBJECT / HALT on Q1 presentation closure.** The blocker is documentary/proof integrity, not a finding that v22 introduced behavioral code changes. No build/run/live clearance follows from this ruling.
+
+## V335-IMPL2-20 END LUNA
