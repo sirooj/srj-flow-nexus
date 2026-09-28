@@ -12929,3 +12929,46 @@ The current setter pins themselves are consistent: the operative E2 wording uses
 The packet therefore has **one narrow amend-only defect: correct the G2 prebind transition wording at L359.** No Q1 or R1 blocker is supported by the page.
 
 ## V328-IMPL2-13 END LUNA
+
+## V329-IMPL2-14 OPEN LUNA (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, Luna text as received; byte-exact as received incl. transport glyphs; see ledger)
+
+Luna:
+The relay yields one blocking issue in Q1; Q2 and R1 are consistent as filed.
+
+Q1 verdict line: OBJECT — lines 412-463.
+
+The day-equality guards themselves are present at the refresh and consult gates, but a failed day match does not set `uj_histFail`, set `uj_histWhy`, or emit `UJHISTFAIL`; both paths simply fall through without the promised named failure row.
+
+There is a second concrete Q1 gap in the failure funnel: the temporary-array `ArrayResize` failures at lines 424-426 set `uj_hok=false` without assigning a reason, and the `uj_histLo` commit resize at line 442 likewise clears the commit without assigning `uj_histWhy`. The later failure print can therefore emit an old or empty reason rather than a reason for the actual failure.
+
+Better mechanism: funnel every refresh/consult precondition failure through one `fail(reason)` path, including both day checks and every resize failure, and emit the row from that single path. The natural edit surface is lines 412-419 and 440-464.
+
+Q2 verdict line: CONFIRM.
+
+The P033 description is internally consistent with the shown commit structure: the packet identifies the t133 BAR anchor and the `t133_inPlay` result is committed into `s31_inPlay`; the prebind route explicitly records the prior state, changes `ST_S3...` to `ST_S5_GATE_CHECK`, logs the transition, and falls through without a return.
+
+The census is also print-only in the shown region: `winner` is populated for the census print, while the historical fallback election is separately evidenced by `UJHISTPOOL`/`TPFALLBACK`; the later `UJREELECT` region independently records `winner=NONE`.
+
+R46, R54, and R42 are reconciled consistently as separate relay-row labels versus EA census counters/records; the packet explicitly keeps those namespaces distinct. The underlying rows themselves match the stated 6/5 census, 6/3 admission, and 6/11 touch records.
+
+One evidence limitation is worth recording, but it does not change Q2: the packet names EA-8715 as the t133 BAR site, while the reproduced code excerpt begins later in the t133 walk, so the BAR operation is cited rather than locally reproduced in that excerpt.
+
+R1 verdict line: CONFIRM.
+
+The stale 8900/8920-series setter references are explicitly retired into the annex history, while the operative setter references are the later EA 8940-8946 / 8961-8967 pins; the v16 authoritative-name paragraph explicitly supersedes the earlier versioned name lists.
+
+The L-final/remainder wording is also labeled v16, and the packet's historical annex clearly identifies the older versions as history rather than current operative authority.
+
+Analytic defects / imprecisions beyond the three verdict lines:
+
+1. The Q1 day check uses `iTime(...,0)` for the M5 day rather than explicitly deriving the day from `barShift`/the entry bar, despite the prose repeatedly calling this the “entry day.” That correspondence is asserted, not directly enforced by the shown expression.
+
+2. `uj_histFail` is not itself part of the final consult predicate. The consult gate relies on `histToday`, `uj_wok`, and the D1 day match. Thus the flag is telemetry/state evidence, not an explicit fail-closed gate.
+
+3. The packet has a numeric budget inconsistency: the v16 status and budget section say NET `+149`, while the historical annex's v16 entry says budget `+147`.
+
+4. The census `uj_pool` population is used by the print region, but its declaration/population source is not reproduced in the pasted code excerpt. The claim that the census never sees the H2 D1 arrays is stated in the surrounding prose, but cannot be independently re-derived from the displayed census fragment alone.
+
+Overall council result: **Q1 OBJECT; Q2 CONFIRM; R1 CONFIRM.** Q1 therefore remains the unresolved closure item; nothing in this verdict authorizes a build or run.
+
+## V329-IMPL2-14 END LUNA

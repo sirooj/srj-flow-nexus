@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, WORKFLOW COMMITTED)
+## State (2026-09-28, V329 GRADED + V17 DRAFTED)
 
-- Upgrade committed (ledger 929):
-  AGENTS MEMO-COMPLETION + 36 ASSERT-SCOPE
-  + council 30 + defect D16.
-- v329 transported, verdicts owed whole
-  per seat; twin 476/476 (472 slip fixed).
+- V329: Q1 1-1 HALT / Q2 2-0 CLEAR /
+  R1 2-0 CLEAR (4 seats filed 1x).
+- v17 DRAFT F1CDF21C/83306/480,
+  battery-lite green, unruled.
 - Tree quiescent; harness idle.
 
-## Next (awaited carrier)
+## Next (builder work, no word needed)
 
-- His pasted V329 verdicts (whole
-  text per seat), then grade.
+- Draft relay v330 (twin of v17)
+  + full battery; transport only
+  on his word after green.
 
 ## Resume order (exact)
 

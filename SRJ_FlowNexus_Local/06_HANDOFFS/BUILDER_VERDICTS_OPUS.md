@@ -1507,3 +1507,151 @@ Epoch-sentinel clause P185; dynamic-anchor clause P184; B7 positive field predic
 
 Nothing above re-petitions a parked item: no latched side, no retain-print helper, no S3/S4 extension.
 ## V284-USDJPY-GUARDS4 END OPUS (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V329-IMPL2-14 OPEN OPUS (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, Opus text as received; byte-exact as received incl. transport glyphs; parked seat, advisory, zero weight; see ledger)
+
+Opus:
+# Q1 - H2b day-check with fail flag
+
+**CONFIRM** — The day-equality guards plus uj_histFail flag with reason plus UJHISTFAIL row plus tmpT drop close the V328 evidence gaps as stated.
+
+**Reasoning:**
+- **Day-equality enforcement:** P368 refresh guard `uj_hdayt != uj_histToday && uj_hdayt > 0 && UjDayKey(iTime(_Symbol, PERIOD_D1, 0)) == uj_hdayk` ensures refresh only on M5-day rollover matching D1-day rollover
+- P420 consult guard `uj_histToday == uj_hdayt && uj_hdayt > 0 && ... && UjDayKey(iTime(_Symbol, PERIOD_D1, 0)) == uj_hdayk` ensures consult only when refresh succeeded same-day
+- Sentinels `uj_hdayt > 0` at both gates prevent dead-clock mode from consulting empty stores (P368/P420)
+- **Fail flag mechanism:** P359/P360 declare uj_histFail + uj_histWhy at file scope
+- P379/P392/P397/P408 set failures with reasons EMPTY/INVALID/COMMIT
+- P418 sets WITNESS failure when yesterday/today D1 reads fail integrity
+- P419 prints UJHISTFAIL with reason on any failure
+- P404 clears flag on commit success, P408 sets flag on commit fail
+- **tmpT removal:** P383 comment explicitly states "v16: uj_tmpT retired (ordering uses uj_prevT/uj_hasP locals)"
+- P384 shows uj_prevT/uj_hasP per-fill locals replacing the temp array
+- P391/P394 use uj_prevT/uj_hasP for strictly-decreasing D1 time validation
+- **Prove-window behavior unchanged:** Day-equality on prove windows (June/August fixed dates) means refresh runs once at window-open then consults succeed throughout; failure modes (EMPTY/INVALID/WITNESS) cannot occur on static tester history with valid D1 data
+
+No defects in the mechanism.
+
+---
+
+# Q2 - P033 t133 with G2 prebind and census evidence
+
+**CONFIRM** — The P033 t133-operative wording plus G2 prebind route plus census proof plus R46/R54/R42 reconciliation are consistent as stated.
+
+**Reasoning:**
+- **P033 t133 operative claim:** P033 states t133 BAR test at EA-8715 sets s31_inPlay, triggering the arming-if at EA-8784, which skips UJALIGN when held
+- EA-8664-8670 shows t133 verdict locals init false
+- EA-8740-8784 shows INPLAYCOMMIT region ending with arming-if test `if((haveFvg || haveXob) && s31_inPlay)`
+- EA-8813-8828 shows else-branch containing UJALIGN
+- Conditional logic confirmed: arming-if holds → UJALIGN skipped; arming-if fails → UJALIGN runs
+- **G2 prebind route:** P315 states prebind route as "S3/prebind route, skipping the S4-to-S5 edge"
+- EA-8841-8863 shows prebind confirmation at S3_ZONE_WAIT transitioning S3→S5 with CONFIRM_PREBIND print
+- EA-8990-9002 shows S4→S5 edge with CONFIRM_STRUCT_FAIL on failure
+- Routes distinguished: prebind prints CONFIRM_PREBIND, split-bar prints nothing on PASS or CONFIRM_STRUCT_FAIL on failure
+- **Census winner proof:** P315 states "Census-winner NONE expected there (print-only local)"
+- EA-2557-2610 shows winner local set EA-2573/2585/2600, used only in TPCENSUS print EA-2597-2609
+- EA-11420-11428 shows UJREELECT using separate mechanism (TpTargetUpdateBest → best/haveBest), printing winner=NONE on !haveBest
+- Census winner never gates anything; election uses best/haveBest globals set by UpdateBest calls
+- **R46/R54/R42 reconciliation:** P027 explicitly states "R45 splices #45 and R46 splices #20; #46 exists unspliced"
+- R45 row shows TPCENSUS #45 with bar=14:35
+- P465 notes #46 at bar=14:40 is post-entry (ENTRY-BAR ruling), segment-verified but relay-unspliced
+- R54 shows wsrc=ASH where P461 notes YASH is RECON63 label; "parity on values" reconciles label divergence
+- R42 shows LEGTOUCH bar=14:35 as evaluated bar, bounds-only, explicitly NOT touch evidence per P315 term-4
+
+All statements internally consistent.
+
+---
+
+# R1 - purge-verified plus labels rider
+
+**CONFIRM** — The stale purge plus v16 label bumps plus authoritative names paragraph are consistent as stated.
+
+**Reasoning:**
+- **Stale purge:** P473 design history shows v8→v16 progression with numbered Fix-letters A/B/C/D/E/F/G1/G2/H1/H2
+- P352 states v16 authoritative names: live list uj_histHi/uj_histLo/...uj_histWhy + v14 carried names
+- P352 retired list: uj_dcount/uj_dd (v12), uj_runM/... (v13), uj_tmpT (v14)
+- P003 Status line shows v16 digest 6F337E27 with v15 V328 fold complete
+- **Version labels current:** P461 shows A-SL1-PRESERVE, P462 A-S2P-RETAKE, P463 A-POIV-RETAKE, P464 A-FB-RETAKE, P465 A-EU-PRESERVE
+- P473 annex shows IMPL-2 v1→v16 progression with V316→V329 fold markers
+- **Authoritative names:** P352 explicitly states "v16 authoritative names (battery census this turn)" with complete live/retired split
+- P003 shows v16 DRAFT status with V328 fold plus amendments list
+- P458 budget reconciliation shows NET +149 with line-by-line accounting
+
+No label drift or stale references remain in operative prose.
+
+---
+
+# Analytic Notes (Consolidated)
+
+**A1. H2b refresh halt-on-any-invalid is strict but correct**
+- P391 validation: ANY invalid record (time/hi/lo/order) fails entire refresh via P392 `uj_hok = false; uj_histWhy = "INVALID"; break`
+- Consequence: one corrupt D1 bar blocks consult even if 99 valid days exist
+- Justification: declared at P354 "fill validates time+hi+lo+order per read and ANY invalid available record fails the refresh"
+- Alternative would be truncate-to-valid-prefix (keep valid records, stop at first invalid)
+- Current design prioritizes data integrity over availability; acceptable for alert-only + prove-window scope
+
+**A2. UJHISTFAIL reason taxonomy incomplete**
+- P359-P360 declare uj_histWhy as string
+- P379/P392/P397 set reasons EMPTY/INVALID/COMMIT
+- P418 sets WITNESS
+- No SENTINEL reason despite P368/P420 using `uj_hdayt > 0` guards
+- If sentinel fires (dead M5 clock), failure is silent (uj_histFail stays previous value)
+- Impact: minimal (prove windows have valid clocks; live-terminal dead-clock already degrades)
+- Recommendation: add `if(uj_hdayt <= 0) { uj_histFail = true; uj_histWhy = "SENTINEL"; }` before P379
+
+**A3. Swept-record filter duplicates running-max logic in refresh and consult**
+- P385-P395 refresh fill computes uj_prevT/uj_hasP for strictly-decreasing time validation
+- P420-P435 consult computes uj_cRun as direction-dependent running max/min for swept detection
+- Both iterate same data structure with similar patterns
+- Alternative: compute swept mask during refresh, store in parallel array, consult reads mask
+- Current design re-scans on every consult; acceptable for alert-only (consult runs once per day max on prove windows)
+
+**A4. P033 fallback-gate wording preserved despite diagnosis declaring it operative**
+- P033 final sentence: "Fallback if council still OBJECTs: gate UJALIGN to ST_S3_ZONE_WAIT (code, stated now so the next round needs no new design)"
+- Diagnosis declares t133 BAR test operative, so fallback should be moot
+- Recommendation: strike fallback sentence or clarify it as "if diagnosis proves wrong"
+
+**A5. G2 RETEST_CORROBORATED term-6 (cascade-pass touch absence) is fragile**
+- P315 term-6: "cascade-pass touch absence as route-consistency check: zero UJTOUCHSEEN/LEGTOUCH prints expected ON the cascade evaluation pass only"
+- Relies on absence-of-print as evidence
+- If print is accidentally present (code error, extra call), term-6 fails even if terms 1-5 pass
+- Alternative: positive route marker (UJCONFIRMCARRY already exists for cascade route)
+- Current design uses negative evidence for consistency check; acceptable as cross-check not primary proof
+
+**B1. Refresh could batch-validate and commit atomically**
+Current flow (P378-P409):
+1. Probe count available D1 bars → uj_dcap
+2. Resize temps, fill with validation
+3. Resize target arrays, copy from temps
+
+Alternative single-pass:
+```mql5
+// Resize targets directly to probed count, fill with validation, rollback on any fail
+if(uj_dcap > 0 && ArrayResize(uj_histHi, uj_dcap) == uj_dcap && ...)
+  {
+   for(int uj_dr = 0; uj_dr < uj_dcap && uj_hok; uj_dr++)
+     {
+      // Fill directly into uj_histHi[uj_dr], validate inline
+      // On fail: ArrayResize all to 0, break
+     }
+  }
+```
+
+Touches: P378-P409 (refresh block)
+Benefit: eliminates temp arrays, one fewer copy loop
+Cost: rollback on fail is slightly more complex (must resize 3 arrays to 0)
+Current design is more conservative (temps insulate target arrays from partial fills); acceptable.
+
+**B2. UJALIGN could helper-wrap the M15-agree test**
+- EA-8223-8233 (FIX C), EA-7224-7235 (FIX F), EA-8301-8311 (FIX G1), EA-8820-8829 (UJALIGN) all read FL_BUF_HTF_LOW and compare to want-value
+- Identical pattern repeated 4 times
+- Alternative: `bool UjM15Agrees(int barShift, ENUM_SRJ_DIR dir, double &m15Out)` returning true if readable and matches
+- Touches: all 4 M15-read sites
+- Benefit: single-source M15 semantics, easier to change buffer if needed
+- Cost: one more function, 4 call-site changes
+- Current design is explicit and auditable; refactor churn acknowledged at P452
+
+---
+
+All three questions confirmed. Packet internally consistent. Analytic notes flag minor improvements, none blocking.
+
+## V329-IMPL2-14 END OPUS

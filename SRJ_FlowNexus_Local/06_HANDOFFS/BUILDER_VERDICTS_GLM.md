@@ -6812,3 +6812,91 @@ B3. (Cosmetic) Drop the vestigial uj_hok from the probe-loop condition in the H2
 All three verdicts are CONFIRM. The named imprecisions (A1, A3) are wording-level and do not invert any claimed correction; the reachability question (A2) is already owned as hypothesis with a stated fallback. Nothing here clears live activation; build remains gated on a new key plus his run word. 
 
 ## V328-IMPL2-13 END GLM
+
+## V329-IMPL2-14 OPEN GLM (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, GLM text as received; byte-exact as received incl. transport glyphs; see ledger)
+
+GLM:
+# Seat verdict — relay v329, packet IMPL-2 v16 (page-only; no disk claims; nothing here builds, runs, spends, or clears)
+
+Ruled on the page as shown. Where a cite lands in an unshown span I say so instead of guessing. No verdict below grants a key, a build, a run, or live activation.
+
+---
+
+## Q1 — H2b day-check with fail flag: **CONFIRM**
+
+Basis, all on-page:
+
+- **Day-equality at refresh**: P368 gates refresh on `UjDayKey(iTime(_Symbol, PERIOD_D1, 0)) == uj_hdayk` where `uj_hdayk` derives from the forming M5 bar (P366) — D1 day must match entry day. **Day-equality at consult**: P420 repeats the identical condition. Both sites verified.
+- **Fail flag with reason + row**: decls P359–360; reason set at P379 (EMPTY), P392 (INVALID), P397/P399 (COMMIT), P418 (WITNESS); row P419 (UJHISTFAIL, InpDebugLog-gated, which the grade run pins true per P460). Every store/witness failure path publishes.
+- **tmpT drop**: no `uj_tmpT` anywhere in the fence (P363–P445); ordering uses read locals `uj_prevT`/`uj_hasP` at P384/P391/P394 — semantics preserved (strict decrease, equality handled by the else branch at P432/P434 per the equality-is-swept rule).
+- **No behavior change on prove windows**: in the tester, D1[0] day always equals the forming M5 day, so both new day-gates are tautologies there; the flag only rows on failure; the tmpT drop removes a dead write. The 6/3 path stays unreachable for H2b (masked walk succeeds → `!haveBest` never entered).
+
+### Q1 Analytic A (defects/gaps, line numbers)
+
+1. **P398 — missing reason assignment.** `uj_histLo` resize failure sets `uj_commit = false` without `uj_histWhy = "COMMIT"` (unlike P397/P399). A failure on that line alone publishes UJHISTFAIL (P419) with an empty or stale reason. One-token fix.
+2. **Sticky `uj_histFail`.** The flag is only cleared on successful commit (P404). After a WITNESS failure (P418), later passes with recovered witnesses still print UJHISTFAIL (P419) — spurious rows. Consult correctness unaffected (gates on fresh `uj_wok`, P420). Cosmetic.
+3. **Reason clobbering.** Single `uj_histWhy` slot: refresh failure (e.g. EMPTY, P379) followed by witness failure in the same pass (P418) overwrites the reason; one class is lost from the row.
+4. **Residual silent gate-skips (no row):** (a) `uj_hdayt == 0` (P368/P420) — dead-clock case skips both refresh and consult with no row unless witnesses also fail; (b) D1-day mismatch with value-valid witnesses — no row. Both fail-SAFE (no consult) and unreachable in tester windows; flag as the last silent modes for the live/alert context.
+5. **Refresh retry spam.** After a failed refresh, `uj_hdayt != uj_histToday` stays true, so the refresh retries and re-rows every pass all day (P368, P419). Noisy, safe.
+6. **Dead loop condition.** P372 `for(int uj_dc = 2; uj_hok; uj_dc++)` — nothing sets `uj_hok` false inside the probe loop; termination is via P375. Harmless; tighten if touched.
+7. **P461 evidence shape.** "UJFBPOOL 0 rows on 6/3" is vacuous on the v16 tree — that print is removed with the D1 fence, so it is 0 rows everywhere. The operative 6/3 unreachability evidence should be named as UJHISTPOOL 0 rows on 6/3 plus the masked-success take (wsrc=ASH). The unreachability itself holds; only the named evidence is stale-shaped.
+8. **Names census claim.** P353 says "battery census this turn", but the header's measured battery list (packet/EA/twin/regions/rows/ellipsis/P-sequence/non-ASCII) does not include a name census. Add the line to the header or soften the claim.
+
+### Q1 Analytic B (better mechanism)
+
+- **Per-pass failure telemetry:** carry this-pass refresh/witness failures in locals, print UJHISTFAIL once per detected failure, keep the sticky global only if a reader needs it (none exists — its sole reads are P404/P408/P418/P419). Touches P359–360, P392, P397–399, P404, P408, P418–419. Kills defects 2 and 3 with zero consult-path change.
+- **Minimal variant:** add `uj_histWhy = "COMMIT";` at P398.
+- **Optional DAY row:** when the P368/P420 day-gate fails with valid witnesses, print reason=DAY — closes the last silent mode; touches P368/P419/P420 only.
+
+---
+
+## Q2 — P033 t133-operative + G2 prebind + census: **CONFIRM**
+
+This is the best-verified page I have graded in this series. Exact line-cite matches against the shown regions:
+
+- P033 "init false EA-8666" = `bool t133_inPlay = false;` (region 8664–8670) — exact. "hits EA-8755" = `if(t133_hits > 0) t133_inPlay = true;` — exact. "commit at EA-8758" = `s31_inPlay = t133_inPlay;` — exact. "INPLAYCOMMIT EA-8761-8782" — exact. "arming-if EA-8784" — exact. Zone latch "EA-8786-8788" — exact (and P239's touchSeen reset EA-8788).
+- UJALIGN "EA-8820-8828" — exact against region 8813–8828; NOMATCH return EA-8826 — exact.
+- G2 prebind route: region 8841–8863 shows the prebind PASS transitioning `prevPB` (S3_ZONE_WAIT) → `ST_S5_GATE_CHECK` with CONFIRM_PREBIND at EA-8849-8852 and FAIL-return at EA-8862 — "S3-to-S5" reads correctly on the code, and the region comment states "promote DIRECTLY to ST_S5_GATE_CHECK" verbatim.
+- Census print-only: P353's cites verify to the line — winner local EA-2561, sets EA-2573/2585/2600 — exact. The region also shows LAST-equal tie resolution by loop order, which is itself a reason the string must never gate; the grade correctly keys on TPFALLBACK + fire wsrc (P464). UJREELECT region (11420–11428) carries its own separate winner local — "separate" verified.
+- R46/R54/R42: R46 splices census #20 (6/5 16:05), R45 splices #45 (6/11 14:35) — namespace rule held; R54 wsrc=ASH with parity-on-values stated (P461); R42 bar=14:35 under a 14:40:22 wall prefix, content-consistent, and G2 correctly demotes it to bounds-only, "explicitly NOT touch evidence."
+- Census-winner NONE on the old-high venue: coherent — the census loops cover session/pool/POI only; DH-* lines never enter them; the 16:05 election on v16 yields winner=NONE with best=160.723, election proven by TPFALLBACK + fire wsrc.
+
+### Q2 Analytic A
+
+1. **EA-8715 is unshown.** The operative-setter claim (t133 BAR test) rests on a cite inside the unshown span EA-8671–8739. Three neighboring cites (8666, 8755, 8758) verify exactly, which supports the claim; it is not displayed. Request the EA ~8705–8740 span in the next region pull.
+2. **P333 cite imprecision:** "zone-hit tests (EA-8365/8375/…)" — EA-8365 is the `s31_inPlay` declaration and the BAR test sits at EA-8374 (8375 is the setter line). Region disambiguates; tighten the cites.
+3. **"Unconditional commit" ambiguity.** The region shows `s31_inPlay = t133_inPlay;` inside a deeper-indented block (closes at 8759), and `t133_applied`/`t133_bounded` exist (8664–8665). If the commit is applied-gated, P033's "unconditional" is loose. Either reading is grade-covered (INPLAYCOMMIT applied/committed/via fields decide at grade; the 09:45 path is hypothesis-marked anyway), but state the gating explicitly once the span is shown.
+
+### Q2 Analytic B
+
+- Zero-code: add the EA 8705–8740 span to the region set so the operative-setter naming is displayable, and align P333's test cites to 8374/8382. No better mechanism exists for the census proof itself — the four exact cites plus the tie-disclosure plus grade-keying on TPFALLBACK/fire-wsrc is the strongest on-page form.
+
+---
+
+## R1 — purge + labels + names: **CONFIRM**
+
+- **Scoped purge verified:** no 8900-series/8920-region setter numbers anywhere in operative prose (P017, P170, P188, P315 all carry the v9 pins EA 8940-8946/8961-8967, verified exactly against regions incl. L8942/L8943); the retirement lives in the one labeled-history annex sentence (P474). v13/v14 name drift is superseded by the P353 paragraph with the explicit supersede clause.
+- **Label bumps verified:** L-final v16 (P466), remainder v16 (P465), names paragraph v16 (P353), status v16 DRAFT (P003). In-code version comments (v4 Fix A, v10 Fix H1) are historically accurate, not drift.
+- **Budget arithmetic verified:** A-series +53 (−1+3+1+1+6+11+6−1+11+15+1), F11 +10 (old 17 / new 27, counted), G1 +12 (29/41), H1 +1 (15/16), H2a +6, H2b-D1 +67 (H2b 82 = P364–P445; D1 15 = P152–P166) → **+149**. P003/P458 agree.
+
+### R1 Analytic A (amend material; none flips the verdict — reasons given)
+
+1. **Names paragraph is incomplete as sole authority.** Nine live fence names are absent from P353's live list: `uj_dc` (P372), `uj_dct` (P374), `uj_commit` (P396–400), `uj_ci` (P402–403), `uj_hpool` (P427/439/442), `uj_hj` (P428–441), `uj_hsrc` (P437–440), `uj_hinD` (P438), `uj_hv` (P436–440); plus retired-side `uj_dch`/`uj_dcl` (v12 list, gone from fence, absent from the retired list). This state predates v16 and was cleared 2-0 at V328, so I do not re-argue it — but the supersede clause makes the paragraph sole authority, so the next amend should either append the carried names or scope the clause. One line.
+2. **Annex budget drift.** P474 says v16 "budget +147"; P003/P458 say +149, and the fence arithmetic proves +149. The annex is disclaimed non-operative (P473), so the operative page stands; sync the annex line anyway — this packet exists to kill exactly this drift class.
+3. **Stale siting cite in operative prose.** P075 pins A9b "after uj_admitCount++ (EA 10426), before the UJADMIT block brace (EA 10427)"; the shown region is EA 10470-10485 (16 lines, internally consistent, dovetails with the fire region at EA-10446), putting admitCount++ at EA-10475 and the brace at EA-10479. The purge claim was scoped to setter numbers (P000), so this is new work, not a broken purge: re-pin to EA-10475/10479 or de-number the sentence (STAGE-1 diffs the fence, not the cite).
+4. **FindLegTouch predicate cite span.** P019/P188/P315 cite EA-6663-6692 for the scan predicate; the shown function is EA 6692-6722 (31 lines, header consistent), with the predicate verified exactly at EA-6716 (`oppositeDir`) and ~6718 (`touchesZone`). Either the 6663–6691 span is caller-side premise (then say so) or the cite is a stale span; re-anchor to 6692-6722.
+5. **Header battery omission** (cross-ref Q1-A8): the name census claimed at P353 is not in the header's measured list.
+
+### R1 Analytic B
+
+- Three one-line amends close items 1–3: append/scope the names clause (P353), sync P474 to +149, re-pin or de-number P075. Item 4 is a cite re-anchor; item 5 a header line. No code changes; no fence changes; no behavioral surface.
+
+---
+
+## Seat notes
+
+- My CONFIRMs rule on the page as pasted. Disk genuineness (twin diff 0, region 0-diffs, row 1x, digests) stays proven on the operator's machine per the split; I asked for no files.
+- Every A-item above is amend material with line numbers; none is a halt predicate under the questions as scoped, for the reasons stated (carried-matter rule, purge scope, disclaimed annex, grade-covered hypothesis terms).
+- Nothing in this seat's answer spends a key, builds, runs, or clears live activation. Build still gates on a new key plus his run word, neither asked here.
+
+## V329-IMPL2-14 END GLM

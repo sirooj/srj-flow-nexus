@@ -2733,3 +2733,43 @@ What checks out: the prebind lines (EA-8842 test, 8847 `LogState`, 8849-8852 pri
 **Analytic ask B (better mechanism):** in H2b at P366, add `&& TimeToString(iTime(_Symbol,PERIOD_D1,0),TIME_DATE) == TimeToString(iTime(_Symbol,PERIOD_CURRENT,0),TIME_DATE)` (or the `UjDayKey` equivalent) to both the refresh and consult guards. Failing means consulting nothing, so prove-window behavior is unchanged and the misalignment gap closes.
 
 ## V328-IMPL2-13 END SONNET
+
+## V329-IMPL2-14 OPEN SONNET (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, Sonnet text as received; byte-exact as received incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+**Seat verdict, relay v329 (page-only rulings; no disk claims)**
+
+Line numbers below are P-numbers from the packet twin.
+
+**Q1: OBJECT** (P368, P379-P382, P398, P404, P418-P420)
+
+1. **Missing reasons.** P380, P381 and P382 set `uj_hok=false` without writing `uj_histWhy`. P398 (the Lo resize) sets `uj_commit=false` with no reason, while P397 and P399 do set "COMMIT". These paths reach P408 with `uj_histWhy` empty or stale from an earlier failure. The row would then print `reason=` blank or wrong. That fails the "named reason" claim.
+2. **Sticky flag.** P418 sets `uj_histFail=true, "WITNESS"`. Only a successful refresh (P404) clears it, and a refresh runs only on day rollover (P368). Once a witness read fails transiently, `uj_histFail` and `uj_histWhy` stay set. From then on P419 prints a false UJHISTFAIL every consult, even though P420 passes (`uj_wok` true). The row's meaning is broken.
+3. **Silent paths remain.** If `uj_hdayt<=0` (dead M5 clock), or `D1[0]` day differs from the M5 day (the third clause at P368), no refresh runs. No fail flag or row is written, and P420 silently blocks the consult. The V328 "silent fail modes" withdrawal is not closed for these two modes. They need reasons such as CLOCK and DAYMISMATCH.
+4. `UjDayKey` is not on the page (only "EA-11809/11815 defs"). The P366 and P437 substring offsets (0,4 / 5,2 / 8,2) assume the format "YYYY.MM.DD", which no page region proves.
+5. Refresh failures retry on every `!haveBest` consult, with a probe plus fill scan and a row each time. This is cost and log noise, not correctness. The parked retry counter should at least be named as also covering INVALID.
+
+The tmpT drop and the day-equality logic at P368 and P420 read fine, and the swept walk at P428-P435 is correct. Prove windows are unaffected, since H2b is unreachable there.
+
+*Better mechanism (B):* Keep the witness verdict local (`uj_why` reset each consult) and let the global flag record refresh outcomes only. Give every `uj_hok=false` and `uj_commit=false` site its own reason. Print once per (day, reason).
+
+**Q2: OBJECT** (P033, P315, P462, takes sheet)
+
+1. **P033 contradicts P462 on pass state.** P033 says the 09:45 pass re-enters the S3 arming-if, where the t133 BAR test holds it and skips UJALIGN. P462 says S4 is armed at the 09:40 pass. A candidate already in S4 at the 09:45 pass does not run the S3 arming-if or the UJALIGN else-branch at all. It runs the S4-to-S5 edge (EA 8990-9002). Either the state at the 09:45 pass is S3, or the P033 mechanism is moot. The text mixes bar-time and pass-time ("09:40 arming", "09:45 arming-takes"). State the state at each pass.
+2. **The BAR test at EA-8715 is on no page region.** Regions 8664-8670, 8740-8784 and 8365-8430 confirm the init (8666), hits (8755), commit (8758) and INPLAYCOMMIT (8761-8782). The claimed t133 BAR test is at 8715, in the unshown 8700s. "t133-operative" therefore rests on an unpaged line.
+3. **Prebind naming conflict.** P315 calls prebind "same-bar-in-S3 takes". The takes sheet calls it "the second split-bar mechanism" on the 11 June venue. Those cannot both hold. Prebind also has no mapping for G2 terms 4 (zone report) and 5 (touchBar < confirmBar). It has no bound zone, so those terms would fail via term 7.
+4. **"14:35 arming pass" (P315, P463) is a bar/pass mix.** R60 and R64 show arming at the 14:40:22 pass, evaluating bar 14:35.
+5. **The 14:25 M15 vote is unmarked.** P463 replaces the R38 promotion with an F11 hold at the 14:30 pass, but there is no M15 row for eval-14:25. The page marks only 14:35 as hypothesis, so the 14:25 vote should be marked too.
+
+Census line checks hold: EA-2561, 2573, 2585, 2600 all land on the region lines, and the UJREELECT `winner=NONE` literal is a separate print. R45/R46 splice #45/#20 (as the packet states), R54 wsrc=ASH and R42 at 14:40:22 are consistent.
+
+**R1: OBJECT** (P003, P170, P188, P453, P463, P474)
+
+1. **P003 gives the wrong V328 grade.** It says Q2 2-0 CLEAR. Section 0 and the priors say Q2 1-1 HALT. The twin's claim of diff 0 does not fix a wrong status line.
+2. **Budget mismatch.** P003 and P458 say +149, and my sum of P458's components matches that. P474's v16 line says +147. P003's "H2a fail decls +2 lines" also conflicts with H2a +6 at P458. Separately, 53 of the 149 is already built into the stated base 48EDC504 (P003), so the +149 is not a delta against that base.
+3. **Labels not bumped.** P170 and P188 still read "v13 pin", and P463 still says "v13 trajectory". R1 claims that setter pins now read v16.
+4. **Names paragraph is not authoritative.** The code at P372-P440 uses `uj_dc`, `uj_dct`, `uj_commit`, `uj_ci`, `uj_hpool`, `uj_hj`, `uj_hsrc`, `uj_hinD` and `uj_hv`. None of them is in P453's v16 live list or its retired list. P453 also lists `uj_n` as both new (v13) and retired, and lists `uj_dcount` and `uj_dd` as retired twice.
+
+Nothing here builds, runs, spends or clears anything. I am filing this as advisory verdict text only.
+
+## V329-IMPL2-14 END SONNET
