@@ -38,7 +38,7 @@ Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says s
   model can halt. Where both clear with different requirements, builder
   satisfies the stricter without inventing; irreconcilable conflict →
     operator adjudicates with both quoted. Agreement between them is
-    logged, never assumed. AMENDMENT 2026-09-13 (operator, Astra-outage
+    logged, never assumed. AMENDMENT 2026-09-28 (his word: Luna-plus-GLM tallied CLEAR = build-clearable with Sonnet-advisory addressed; Opus + Astra parked-out rejoin on his word/credits): while both flagships are unrunnable, Luna+GLM double-CONFIRM (battery-green, Luna key + his run word) satisfies the build gate; EITHER active tallied seat still halts (OBJECT = no build). His later word amends this further. AMENDMENT 2026-09-13 (operator, Astra-outage
     fallback): Astra-sufficient for PRINT-ONLY packets (nothing builds
     that can move selection); dual-key stays mandatory for any
     selection change. First use: P-ORIGIN-1 builds on Astra-1 alone.
