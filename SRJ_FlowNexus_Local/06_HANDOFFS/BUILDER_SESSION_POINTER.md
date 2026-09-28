@@ -3,14 +3,14 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V329 SHIPPED)
+## State (2026-09-28, WORKFLOW COMMITTED)
 
-- Memo shipped on his word 18AB411B:
-  relay v329 to Luna + GLM + Sonnet,
-  identical text, whole file each
-  (Astra out, as announced).
-- Verdicts owed back whole per seat.
-- Nothing else asked; no build/run/key.
+- Upgrade committed (ledger 929):
+  AGENTS MEMO-COMPLETION + 36 ASSERT-SCOPE
+  + council 30 + defect D16.
+- v329 transported, verdicts owed whole
+  per seat; twin 476/476 (472 slip fixed).
+- Tree quiescent; harness idle.
 
 ## Next (awaited carrier)
 

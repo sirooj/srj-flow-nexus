@@ -434,6 +434,14 @@ result, finding, skills, and ledger, never defended and never re-asked. Ledger
 appends anchor on unique tail text, never item-number prefixes (three
 mid-file/split landings 2026-09-23, all from prefix anchors, all repaired
 same turn).
+36. ASSERT-SCOPE RULE (2026-09-28 - twice-seen class, filed from handoff
+POST-V330 section 6: v14 L1b assert read DISK while Replace targeted a MEMORY
+index, fail-closed on 2 hits; v16 budget op silently no-opped on a shifted
+index, caught only by content verification): assert scope must equal write
+scope - a uniqueness/count assert that reads the DISK file while the write
+targets a MEMORY index (or vice versa) proves nothing about the write; every
+scripted write asserts its post-condition on the WRITTEN artifact (re-read the
+index it wrote, compare the replaced span), never on a parallel source.
 
 ## 7. Automation rule (operator standing rules)
 
@@ -498,6 +506,16 @@ same turn).
 - DRAFT-SPLIT (operator order 2026-09-20 — rushed drafts burn council rounds):
   draft turns end with files plus pasted verification numbers, never a transport
   ask. Transport turns carry only battery-green drafts. The two are never mixed.
+  MEMO-COMPLETION (operator order 2026-09-28 - the relay-ready block is not done
+  at files-plus-numbers): while his proceed word for that relay version is not
+  held, the draft turn ends as above with a single word-ask. The moment his word
+  is held, the SAME block continues through memo shipment (memo text plus ledger
+  plus pointer plus commit) with no mid-block stop - the block ends
+  memo-shipped-and-recorded, or files-plus-numbers-plus-single-word-ask where the
+  word is genuinely awaited. A stop between battery-green and memo with the word
+  held is a friction defect. No word is ever invented or assumed: transport ships
+  only on his word (digest-named preferred; bare proceed accepted only when
+  exactly one artifact awaits it, as honored).
 - RELAY-READY SCOPING (operator correction 2026-09-20 — the intake-stop defect):
   todo lists scope to the next relay-ready artifact (draft files plus verification
   numbers), never to an intake/accounting/report sub-step — a "report" terminal

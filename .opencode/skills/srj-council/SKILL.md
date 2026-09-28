@@ -247,3 +247,8 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 - Multi-seat completeness: every inbound paste files EVERY seat the same turn; the filing turn asserts per-seat OPEN markers 1x before any grade; a grade citing an unfiled seat is BLOCKED.
 - Tally-from-paste: every per-question tally quotes its deriving verdict lines from filed bytes; tallies re-proven against the files post-filing before any relay cites them; a tally no filed line supports is unwritten.
+
+## 30. Memo-completes-the-block (operator order 2026-09-28 - relay-ready plus memo is one block)
+
+- A battery-green draft with his proceed word held ships its transport memo the SAME block (memo text plus ledger plus pointer plus commit); stopping at files-plus-numbers with the word held is a friction defect, same class as any mid-packet stop.
+- Without his word, the block ends at files-plus-numbers-plus-single-word-ask (genuine his-carrier stop). The word is never invented, assumed, or carried across relay versions: digest-named preferred, bare proceed only when exactly one artifact awaits it.
