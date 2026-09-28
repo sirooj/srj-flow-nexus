@@ -3,13 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V334 GRADED)
+## State (2026-09-29, V335 RELAY-READY)
 
-- V334: Q1 1-1 SPLIT-HALT, Q2 2-0 CLEAR.
-  All seats filed whole; v22 fold decided
-  (B2 fence-form + required corrections).
-- Next: v22 battery, v335 assembly, memo,
-  commit. No build/run/key (key spent).
+- Packet v22 + relay v335 (0A694566/905)
+  memo-shipped to 3 seats; verdicts owed.
+- Key spent; EU declined standing; D v23+.
+  No build/run/key this round.
+
+## Next
+
+- Verdicts owed back whole per seat; grade,
+  fold-or-close, result, ledger, commit.
 
 ## Next
 
