@@ -2596,3 +2596,102 @@ I object on the P033 qualifier.
 - P188 still says "E sits in the touch book (EA 8920-region)" and "EA 8900-8902 byte-exact above", beside the v13 pin. 
 
 ## V326-IMPL2-11 END SONNET
+
+## V327-IMPL2-12 OPEN SONNET (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, seat lines 74-167 of 234; byte-exact incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+# Seat verdicts, relay v327 (page-only; nothing here is disk-proven)
+
+**Q1 verdict: OBJECT** (P365-P366, P402, P416; P443 with P150/P012)
+**Q2 verdict: OBJECT** (P033 with EA 8758/8784 and P013/P458)
+**R1 verdict: OBJECT** (P075, P315, P353, P461-P462)
+
+I checked the budget arithmetic (H2b 80 lines minus the D1 fence's 15 gives +65; the total is +145) and the EA line cites for the RETESTBOOK, RETESTDIAG, CONFIRMPOLL and LEGTOUCH prints, the touch setters, and the prebind and S4-edge returns. All match the on-page regions. The swept logic in P424-P431 is correct: equality counts as swept, and both directions mirror each other.
+
+## Q1: H2b fence
+
+**1. The day-key sentinel collides with an unloaded store (P365-P366, P402, P416).**
+- `uj_histToday` starts at 0.
+- If `iTime(...,0)` reads 0 or `UjDayKey` degrades, `uj_hdayt` becomes 0 (`"1970.01.01"` gives 0).
+- The refresh is then skipped, because `0 != 0` is false.
+- The consult gate `uj_histToday == uj_hdayt && uj_wok` passes on an empty store.
+- That prints a false `UJHISTPOOL pool=` and looks like a real consult-run with no winner.
+- The fix is to require `uj_hdayt > 0` at both P366 and P416.
+
+**2. The winner label and gates for a DH winner are not on the page (P443; P150 "census names the fallback winner"; P012 "winner NONE" then NO_TP_TARGET; B3b P111-P115).**
+- The census names a winner only by matching `pv == best` over session and POI lines.
+- A DH line is in neither loop, so the census would print `winner=NONE best=160.723`.
+- P012 shows a census `winner NONE` followed by NO_TP_TARGET, and the E2 comment says gates read `winner`.
+- The page never shows the census loop or the gate.
+- Before this is CONFIRMed, the page needs on-page proof that no gate keys on the census winner string, or a census label for DH-family winners.
+
+**3. A refresh failure leaves no evidence (P390, P406, P416).**
+- Failure modes are: dcap ≤ 0, an invalid record, a commit failure, or witness-not-ok.
+- All of them produce no row.
+- The grade would read them as UJ-NOEVID "not reached", which is indistinguishable from a real failure.
+- One gated `UJHISTFAIL reason=` print would close this (print-only).
+
+## Q1: Analytic A (other gaps, lower severity)
+
+- **Witness validation (P410-P415).** Only values are checked. Neither `iTime(D1,1)`/`iTime(D1,0)` validity nor ordering against store index 0 is checked. The store's day is also not tied to `iTime(D1,0)`. `uj_hdayt` comes from the M5 bar, so if D1 rolls after the store is built, the store and witness frames can offset by one day.
+- **Dead store (P376, P391).** `uj_tmpT` is written but never read.
+- **Name lists (P353).**
+  - `uj_n` appears in both the "new" and "retired" lists.
+  - `uj_dch` and `uj_dcl` (v12 names) appear in neither the fence nor the retired list.
+  - The `uj_dcount`/`uj_dd` retirement is stated twice.
+- **Evaluated bar versus "today" (P364, P410-P413).** Today is keyed to shift 0 and the witnesses are D1 shifts 1 and 0, while `barShift` drives everything else. That is fine for barShift = 1 in the tester. It is unstated for any other caller.
+
+## Q1: Analytic B (better mechanism)
+
+**Publish the validated contiguous prefix instead of failing the whole refresh, and print a truncation row (P390-P406).**
+- In P424-P431 the unswept lines strictly increase with age (LONG).
+- The winner is therefore the first unswept, zone-eligible line above price.
+- An unvalidated older tail can only turn an election into empty, which is an honest NO_TP_TARGET. It can never produce a wrong winner.
+- One junk record from years back currently kills the 30 April line, which the fourth valid trade needs.
+- The withdrawn v13 error was silent truncation. A printed truncation with the prefix-safety argument on the page avoids it.
+
+## Q2: P033 diagnosis
+
+**1. The commit overrides the BAR path (P033; EA 8758, 8761-8782, 8784).**
+- P033 cites 8758 as a "zone-hit test", but line 8758 is `s31_inPlay = t133_inPlay;`.
+- It overwrites whatever the BAR path set at 8375.
+- The INPLAYCOMMIT `changed=` field exists because the two values can differ.
+- The page shows neither `t133_inPlay`'s initialization nor the guard around 8758.
+- "BAR path sets s31_inPlay and the arming-if holds" is therefore unsupported as written.
+
+**2. The pass and state chain conflicts with P458.**
+- P458 says S4 is armed at the 09:40 pass.
+- In that case the 09:45 pass is in S4, and the S3 block (arming-if and the UJALIGN else-branch) does not run at all.
+- P033's 09:45 chain only makes sense if the candidate is still in S3 at 09:45.
+- The S3 block's outer state guard is not pasted, so the page cannot settle which reading applies.
+
+**3. "G1 cascade skips UJALIGN" is a misattribution.**
+- At eval 09:40, M15 = +1.0, opposed to SHORT (P013).
+- The cascade needs `uj_carryM15 == want` (P304), so it cannot fire.
+- What skips UJALIGN is the arming-if holding.
+- If the arming-if fails, the UJALIGN_NOMATCH return at EA 8826 kills the candidate, because M15 is opposed.
+- The hypothesis should say this.
+
+**4. The fallback is vacuous or underspecified.**
+- "Gate UJALIGN to ST_S3_ZONE_WAIT" does nothing if the else-branch already runs only in S3.
+- The fallback needs to name which states reach it. That again requires the outer guard.
+
+**5. Cite nit.** P033 says the BAR path is at EA-8374, but 8374 is the test and 8375 is the set.
+
+**What checks out.** The R46/R54/R42 reconciliation is consistent: R45 splices #45, R46 splices #20, R54 wsrc=ASH, and R42's 14:40:22 prefix evaluates bar 14:35.
+
+## R1: wording batch
+
+- **Stale cite (P075).** The A9b siting says `uj_admitCount++` is at EA 10426 and the UJADMIT brace at 10427. The on-page region EA 10415-10446 is contiguous and contains neither; 10426-10427 are memo-write lines there.
+- **Missing route in term (3) (P315).** The split-bar clause only names the S4-to-S5 edge (EA 8996). The prebind route also PASSes through LogState at EA 8847 with a CONFIRM_PREBIND print at 8849-8852. A valid same-bar-in-S3 take, which is P033's own fallback path, would fail UJ-NOEVID under the current wording.
+- **"The only PASS-path print" (P315).** This is true only for the S4 edge. The G1 cascade and the prebind path also emit LogState.
+- **Pass and bar labels (P315).** "14:35 arming pass" is ambiguous. R64 is wall 14:40:22, the pass evaluating bar 14:35. The relay is otherwise careful about this, so this line should match.
+- **Field naming (P315).** The correlation key says "anchor", but the CONFIRMCARRY schema is `poi=AnchorStr()`.
+- **Residual v13 labels.** P462 still reads "L-final v13" and P461 reads "v13 remainder" in a v14 packet.
+- **Name lists (P353).** The inconsistencies are the same ones listed under Q1 Analytic A.
+
+## Standing asks
+
+Analytic B for Q2 and R1 is none beyond the above. The bulk of the risk is in the P033 chain and the census/gate proof for DH winners; both are page-fixable with one region paste (the S3 outer guard and t133 init, plus the census/gate code) and one wording round. 
+
+## V327-IMPL2-12 END SONNET

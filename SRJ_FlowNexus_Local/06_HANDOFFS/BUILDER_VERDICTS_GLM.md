@@ -6676,3 +6676,74 @@ Checks that passed (for the record): budget arithmetic P003/P449 (+140 = +53 car
 Q1 CONFIRM, Q2 CONFIRM, R1 CONFIRM — each scoped to its question's terms; A1 (the record-day filter's boundary blindness vs the P439/P455 claims) is stated as load-bearing for the A-FB-RETAKE leg and should be resolved (B1, or an honest claim-scope repair) before any build/key/run ask, since nothing in this round builds, runs, spends, or clears live activation — the build gate (new key plus his run word) is untouched here. Findings on the fixed run remain the adjudicator for every hypothesis term named above. 
 
 ## V326-IMPL2-11 END GLM
+
+## V327-IMPL2-12 OPEN GLM (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, seat lines 169-234 of 234; byte-exact incl. transport glyphs; see ledger)
+
+GLM:
+# GLM seat — relay v327 (packet IMPL-2 v14) — check-form verdicts
+
+Ruling on the page only. Disk claims (digests 9D4A2950/48EDC504, twin 472/472 diff 0, region 0-diffs, row 1x hits) are the operator's to prove per the verification split; I do not ask for files.
+
+## Q1 — H2b re-surgery
+
+```text
+Q1 verdict line: CONFIRM
+```
+
+Verified against the fence (twin P361-P442) and the regions:
+
+- **Direction-independent snapshot**: single store of hi+lo per day (H2a P354-P359; fill P391), validated per read — positive, non-EMPTY, self-equal, hi>=lo, strictly decreasing D1 times (P389). Any invalid available record fails the refresh (P390); exhaustion stops the probe and keeps the prefix (P373-P375). Commit resizes-checked with histToday assigned LAST (P394-P402); clear-on-fail (P404-P407). No truncated publish.
+- **Yesterday/today-to-election witnesses**: read fresh outside the refresh gate on every consult (P409-P415), validated; consult gated on histToday==today AND witness-ok (P416). Days never targets — yHi/tHi only feed uj_cRun, never TpTargetUpdateBest.
+- **Per-consult swept eligibility, equality-is-swept**: running max/min from witnesses over most-recent-to-oldest snapshot days (P418-P431); LONG/SHORT consult the respective side only; `else` arm makes equality swept (touch-or-exceed) — verified by case analysis (a later equal high/low touches the line).
+- **Winner definition**: unswept days only reach UpdateBest (P436), which enforces in-direction + zone + nearest — matches "nearest unswept in-direction zone-eligible".
+- **Evidence gap (GLM B2)**: UJHISTPOOL prints on consult-run regardless of winner (P438); TPFALLBACK only on election (P439). Availability/eligibility/election separated at P460.
+- **Siting/replace**: D1 body (15 lines, matches region EA 2518-2532 verbatim) removed at the same siting; UJFBPOOL absent-by-construction matches A-FB's removal proof. Budget arithmetic self-consistent: H2b 80 − D1 15 = +65; 53+10+12+1+4+65 = +145 ✓.
+- All four v13 withdrawals (direction-keyed cache, un-witnessed pool, silent truncation, rounded-pool winner) are replaced on-page, not retained beside their replacements.
+
+## Q2 — P033 diagnosis
+
+```text
+Q2 verdict line: CONFIRM
+```
+
+- **Conditional rule**: region EA 8813-8828 places UJALIGN in the arming-if's else; s31_inPlay is a per-pass local from zone-hit tests (region EA 8365-8430, BAR test at ~8374). R58 (UJALIGN_PASS bar=14:40 at 14:45:05) proves the S3 else executes for an S4-held candidate — directly falsifying the old "S4-held candidates skip it" sentence, which is replaced, not retained. The "no UJALIGN row at 14:35" absence coheres: the 14:40 pass took the arming branch (R64/R60), the 14:45 pass took the else.
+- **09:45 hypothesis**: honestly labeled (persistence of haveFvg/haveXob unproven; BASE died at the 09:40 pass so no row exists — R28); code-gate fallback stated in the same paragraph. The A-S2P expected-row set (holds at 09:15/09:20/09:40 M15, 09:25 expected abort, 09:45 CARVE) is consistent with P013's m15 series, "ltf=+1.0 opposed throughout", and F11 mechanics — including the subtlety that the 09:20-pass hold exists in v14 only because F11 keeps the original candidate alive past the 09:15 abort.
+- **PREBIND 1x-vs-28** scoped as BASE observations in both P033 and P314 — consistent, not double-counted as bounds.
+- **Census reconciliation**: R45 content = TPCENSUS #45, R46 content = TPCENSUS #20, #46 named as existing unspliced and post-entry-only (P459) — namespaces distinct and stated. R54 wsrc=ASH with wage=0 is self-consistent (age-0 Asia line); YASH/ASH parity ruled on values with the lineage stated. R42 bar=14:35 at prefix 14:40:22 matches the evaluated-bar print convention (barShift) used by every other row cited.
+
+## R1 — wording batches rider
+
+```text
+R1 verdict line: CONFIRM
+```
+
+- G2 legend schemas verified against regions and rows: RETESTBOOK (EA 2160-2174, R62), RETESTDIAG (EA 2210-2215, R63), CONFIRMPOLL (EA 2244-2250, R32/R40, shadow=true is a literal in the print), LEGTOUCH (EA 8948-8960, R42), UJCONFIRMCARRY (G1 fence), S3-zone (EA 8792-8802, R64, correctly described as no dir/anchor/bar fields).
+- dL/dS mapping matches the builder (`":d" + (longHit ? "L" : "S")`, EA 2167 region) and R62; LONG requires dL, SHORT dS — correct.
+- R64 limitation (bounds-only, no bankBar/verdict, ordered-trace association stated openly, future CARRY rows must carry bankBar) is on-page at P315.
+- R02 phantom removed — P457 now says "R02 is on no relay page" and rests on R55 (MTSNAP sl=159.889, on-page) ✓.
+- Withdrawn items are actually gone from the page (unconditional P033 skip, unscoped adds-only, v13 label drift, stale setter cites superseded by the v9 pins which match the regions EA 8936-8946/8961-8967). Pool-print gate present in the fence. Scope sentences present (P189, P444). Run configuration tagged (P456). One-prebind form; E's intentional evalBar==touchBar duplication carries its do-not-fix note (P188), consistent with R44.
+
+## Analytic A — defects, gaps, imprecisions
+
+1. **Stale filter-location prose (must-fix next fold)**: P443 ("Record-day filter sits in the refresh fill (recent-to-oldest running max/min...)") and P453 ("ADOPTED in the H2b refresh fill above") both place the swept/record filter in the **refresh fill**, but the v14 fence implements it in the **consult** (P418-P437) and P353 explicitly says "record filter moved to consult" and retires the v13 fill-filter names. Leftover v13 wording — exactly the class the R1 batch exists to clean. The fence is operative so no build risk, but the page self-contradicts on the filter's location.
+2. **Unstated just-armed edge gate**: G1's no-return proof (P314) says "the S4 block (EA-8867) then the S5 block (EA-9006) evaluate top-down the same pass", while P239 asserts "S3->S4 arming consumes the pass" and "no STRUCT_FAIL row... at 14:35". If the S4 block were live-state-gated and same-pass reachable as the sentence reads, BASE's 14:40 pass would have run the S4→S5 edge on the 14:35 bar and printed (PASS → LogState + fire, or FAIL → row) — neither is on record. Some gate excludes just-armed passes from the edge; the page never names it. The cascade itself is robust under both plausible structures (switch-with-post-switch-S5, or live-gated blocks where post-cascade state S5 skips the S4 block) because the no-return-to-S5 property holds either way — but the sentence should be scoped to the S5 block or the edge's exclusion named.
+3. **G2 term-6 mechanism under-pinned**: "touch book skipped with the S4 block" (P315) presumes the book sits inside a live-state-gated S4 block. BASE R42 (LEGTOUCH at 14:40:22, the arming pass, zone latched mid-pass) is consistent with that reading (state S4 post-arming) and post-cascade skipping (state S5) — but if the book is reached from the S3 path unconditionally, v14 will print an R42-shaped LEGTOUCH at 14:40:22 and the zero-print expectation is false. Self-scoped as corroborating-only (terms 1-5 carry the proof), so no grade impact — but the mechanism claim is not pinned.
+4. **uj_tmpT is write-only**: declared/resized/filled (P376, P381, P391) but never read — the commit copy (P400-P401) takes only tmpHi/tmpLo/tmpDay, and the ordering validation uses the uj_prevT/uj_hasP locals. Dead state; drop it or commit-copy it for a future time-integrity re-check.
+5. **dcap==0 conflated with failure** (P377): a market with ≤2 days of D1 history never publishes, never sets histToday, and silently retries on every !haveBest pass; at grade, row-absence cannot distinguish honest-empty history from a failed refresh (both land UJ-NOEVID). The parked retry counter acknowledges the log cost, not the evidence ambiguity. Inert for the prove windows.
+6. **P033 phrasing**: "the G1 cascade skips UJALIGN" — the skip is the arming-if holding (else bypass); the cascade is not the skip mechanism. Wording only; the same sentence states the real mechanism correctly.
+7. **ASH/YASH grade instruction implicit**: the value-parity ruling (P457) is sound, but the per-venue record includes "target source (fire wsrc)" (P456) and a v14 re-run will book ASH where RECON63's cited take booked YASH; the lineage sentence covers it — make the grade line's acceptance of either label explicit to avoid a grader-side UJ-SRCMISM false positive.
+8. **Near-tautological in-direction check** (P434): for unswept LONG lines, hi > cRun ≥ tHi ≥ currentPrice, so uj_hinD is automatic unless the reference price is ask-side against a bid-based day high. Load-bearing only under spread asymmetry — worth one sentence in the MQL5 audit; it is currently undocumented redundancy.
+9. **Inert probe-loop condition** (P370): `uj_hok` is never false inside the probe loop; termination is break-only. Cosmetic.
+10. **Duplicate region pastes**: EA 8990-9002 and EA 2518-2532 each appear twice (textually identical as far as the page shows). Cosmetic.
+11. **Mixed run sourcing in P016**: the S2WAIT enumeration is RECON71 while the promotion pins R29-R31 are RECON72 — tagged at the bullet's tail, but one bullet mixing two runs' row sets invites misreading (the CONFIRMPOLL drift note covers the class).
+
+## Analytic B — better mechanisms
+
+1. **H2b evidence split (closes A5)**: add one file-scope `bool uj_histFail` beside H2a (P354-P359), set on clear-on-fail, cleared on commit, and echo a state field in the UJHISTPOOL row (or a distinct UJHISTFAIL row) — zero behavior change, touches only the H2b fence (P394-P407, P438). Lets a grade separate failed-refresh from exhausted-history instead of both presenting as row-absence.
+2. **Drop or commit-copy uj_tmpT** (P376-P401) — closes A4 with a one-line change.
+3. **P033 fallback variant (if the 09:45 hypothesis fails at grade)**: rather than gating the whole UJALIGN block to ST_S3_ZONE_WAIT (which also silences the S4-held R58-class telemetry), gate only the NOMATCH **return** (EA-8826) on `g_state == ST_S3_ZONE_WAIT` and keep both prints — same one-line site, removes the kill while preserving the diagnosis evidence.
+4. **Wording-only**: one sentence in P314/P315 pinning the S4-block/edge gating (or correcting the no-return sentence to claim only S5-block reachability) — closes A2/A3 without touching code.
+
+All three verdicts are check-form only. Nothing here builds, runs, spends, or clears live activation; build remains gated on a new key plus his run word. 
+
+## V327-IMPL2-12 END GLM

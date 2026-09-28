@@ -64,6 +64,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - `00_CURRENT_WORKING\RECON*_STATUS.txt` / `*_DONE.txt` / `launch_*.ps1` (run debris, kept until you say otherwise).
 - `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V*.md` (old handoffs, history).
 
-- 2026-09-28: packet v14 9D4A2950/78537/472 + relay v327 1BDCC539/139857/1248 DRAFT GREEN (ledger 920; H2b re-surgery + P033 diagnosis + census reconciliation; battery-green, untransported).
+- 2026-09-28: V327 graded Q1/Q2/R1 2-0 ALL CLEAR (ledger 922; result 6F65D4C0; Luna+Sonnet+GLM filed whole 1x, Astra out; Sonnet checkables disk-verified); v15 fold opens (sentinel guards + census proof + stale purge).
 
 (End of file)

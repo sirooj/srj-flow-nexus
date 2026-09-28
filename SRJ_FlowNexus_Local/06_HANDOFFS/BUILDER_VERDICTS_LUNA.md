@@ -12793,3 +12793,78 @@ Those should be normalized rather than merely marked superseded.
 No build, run, commit, or live-activation clearance follows from these verdicts. 
 
 ## V326-IMPL2-11 END LUNA
+
+## V327-IMPL2-12 OPEN LUNA (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, seat lines 3-72 of 234; byte-exact incl. transport glyphs; Astra out of credits, no gap; see ledger)
+
+Luna:
+## Q1 — H2b re-surgery
+
+**CONFIRM**
+
+The fence now closes the substantive V326 gaps. The cache is direction-independent and built from validated D1 records; refresh stops on exhaustion, rejects invalid records, commits only after all validations/resizes succeed, and clears the published arrays on failure. 
+
+The consult-side sweep rule is also correctly pinned: yesterday and today form the initial witness, historical records are then processed from more-recent to older, equality counts as swept, and only surviving in-direction records reach `TpTargetUpdateBest`, which independently applies the zone and nearest-price election. The print is consult-gated and `TPFALLBACK` is emitted only when an election actually exists. 
+
+### Q1 — Analytic A
+
+No blocking defect found.
+
+One residual precision point: the page says “any invalid available record fails the refresh.” The implementation detects exhaustion through `iTime(...)=0`; therefore the guarantee is conditional on the D1 series exposing its available history contiguously, as the packet explicitly assumes. That is not a contradiction inside this packet, but it is the remaining dependency in the wording. 
+
+### Q1 — Analytic B
+
+I see no better mechanism that materially improves the stated goal without adding regression surface. The current separation is appropriate: direction-independent storage at refresh, direction-specific sweep eligibility at consult, then the existing `TpTargetUpdateBest` election. Changing this to a pre-filtered directional cache would recreate the V326 architectural problem the packet explicitly retired. 
+
+---
+
+## Q2 — P033 diagnosis
+
+**CONFIRM**
+
+The conditional diagnosis is internally consistent. `UJALIGN` is in the `else` branch of the qualifying-zone test, while the qualifying branch has no return after G1's cascade insertion; therefore an armed candidate can bypass `UJALIGN`, whereas an actually unbound/non-qualifying S3 candidate reaches it. 
+
+The 09:45 claim is correctly kept as a **hypothesis**, not presented as proven telemetry: the packet explicitly identifies the missing row-proof and bases the explanation on recomputation of `s31_inPlay` from the evaluated bar's zone intersection. 
+
+The census reconciliation is also coherent. R46 is relay-row 46 but contains EA census counter `#20`; R54's `wsrc=ASH` is explicitly treated as label lineage rather than a value mismatch; and R42's `14:40:22` prefix is reconciled with the evaluated `14:35` bar. 
+
+### Q2 — Analytic A
+
+No blocking defect found.
+
+The only remaining evidentiary limitation is exactly the one the packet acknowledges: the 09:45 “arming-takes” path is not proven by a BASE UJ-series row, so it must remain a grade-time hypothesis. Treating it as established fact would be an error; the packet does not do that. 
+
+### Q2 — Analytic B
+
+No better mechanism is needed for this diagnosis. The stated future fallback—gating `UJALIGN` explicitly to `ST_S3_ZONE_WAIT`—would make the state condition more explicit, but it is redundant with the already demonstrated branch structure and would add code surface without resolving the currently acknowledged missing 09:45 evidence. 
+
+---
+
+## R1 — wording batches rider
+
+**CONFIRM**
+
+The G2 wording now has a single `RETEST_CORROBORATED` standard and explicitly defines the direction-letter schema, anchor containment, cascade/split-bar evidence routes, chronological correlation, failure naming, and retirement of the old `zoneTouch=1` demand. 
+
+The acceptance language correspondingly separates preserved BASE evidence from fixed-run hypotheses and names the relevant evidence required for each retake, including the `bankBar`/`fireBar` distinction and the R46/R54/R42 reconciliation. 
+
+The final rider itself is consistent with that structure: it asks only for page-level consistency, does not silently convert hypotheses into facts, and keeps disk verification separate from the council's textual ruling. 
+
+### R1 — Analytic A
+
+No blocking wording contradiction found.
+
+The one limitation is evidentiary rather than semantic: several R1 repairs are named as a batch rather than shown as individual old/new wording pairs. Thus I can confirm the **consistency of the wording now on the page**, but not independently attest to a mechanical text-diff for every historical wording change from this relay alone. The packet itself assigns that mechanical verification to the disk-side process. 
+
+### R1 — Analytic B
+
+No replacement mechanism recommended. The single-predicate G2 formulation is already preferable to maintaining separate “touch” and “retest” acceptance standards, because the packet gives one named predicate and then parameterizes its evidence by cascade versus split-bar route. 
+
+## Council result
+
+**Q1: CONFIRM**
+**Q2: CONFIRM**
+**R1: CONFIRM**
+
+This is a **page-level clearance of the three v327 questions only**. The packet remains draft; no build, tester run, commit, or live activation is authorized by these rulings. 
+
+## V327-IMPL2-12 END LUNA
