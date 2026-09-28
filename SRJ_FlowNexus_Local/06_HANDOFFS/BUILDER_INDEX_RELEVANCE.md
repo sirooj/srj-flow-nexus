@@ -13,7 +13,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 built 2026-09-27; alert-only stands; v12 packet drafts F11/G1/H against it, unbuilt).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v12 DRAFT 66CB6CA2/68936/433 (battery-green; untransported; build needs new Luna key + his run word, neither spent nor asked).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v325-IMPL2-10.md` A0B783BE/116633/990 (filed clean 2026-09-28; battery-green; untransported; three questions Q1/Q2a/Q2b/Q3).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v325-IMPL2-10.md` C3BB68DF/117163/990 (amended 2026-09-28: V324 priors corrected Q2b 1-2 per ledger 914; battery-green; untransported; three questions Q1/Q2a/Q2b/Q3).
 - Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_RECON72-V9-UJ.md` 2499FB87/10374/70 (A-SL1 PASS with S5.4/S3.3 audit clean; A-S2P UJ-NOADMIT+UJ-NOPROMO; A-POIV UJ-NOTOUCH+UJ-NOPROMO; A-FB UJ-NOADMIT correct sub-1R refusal; EU-pending).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
@@ -63,5 +63,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - `EA_STATE_REG.md`, `recovery_compile.ps1` (root debris, word owed).
 - `00_CURRENT_WORKING\RECON*_STATUS.txt` / `*_DONE.txt` / `launch_*.ps1` (run debris, kept until you say otherwise).
 - `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V*.md` (old handoffs, history).
+
+- 2026-09-28: V324 Luna/Sonnet/GLM re-filed whole 1x under V324-IMPL2-9 headers (ledger 914; corrected tallies Q1 2-1 / Q2a 1-2 / Q2b 1-2 / Q3 2-1 HALT-ALL); relay v325 amended C3BB68DF/117163/990.
 
 (End of file)

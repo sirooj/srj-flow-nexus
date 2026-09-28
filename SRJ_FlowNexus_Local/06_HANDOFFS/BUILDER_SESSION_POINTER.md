@@ -3,20 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V324 RE-FILED)
+## State (2026-09-28, V325 AMENDED)
 
-- V324 Luna/Sonnet/GLM re-filed whole 1x
-  from transcript bytes (triple-proofed).
-  Astra stands as committed record.
-- CORRECTED V324: Q1 2-1 / Q2a 1-2 /
-  Q2b 1-2 (was 2-1) / Q3 2-1 HALT-ALL.
+- Relay v325 now C3BB68DF/117163/990
+  (priors corrected Q2b 1-2, battery
+  green, twin diff-0, packet-lock kept).
+- V324 stands corrected HALT-ALL;
   v12 fold stands, nothing cleared.
-- v325 Priors stale on GLM-Q2b; memo
-  BLOCKED pending amendment + fresh word.
+- Memo owed on his fresh word only.
 
 ## Next (owed him)
 
-- Fresh word on amended v325 digest,
+- Fresh word on digest C3BB68DF,
   then the memo ships (three pastes).
 
 ## Resume order (exact)
