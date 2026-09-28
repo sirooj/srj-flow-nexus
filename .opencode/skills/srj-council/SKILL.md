@@ -242,3 +242,8 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - First question, first batch: does the transcript show an authoring call for these bytes? No transcript claim = UNEXPLAINED-FILE immediately, forensics later.
 - Staging-trail check: legitimate assemblies pass through Temp with hashes; a canonical-tree file with no staging trail and no record entry is foreign until proven otherwise.
 - Single-session assumption is never asserted: two sessions sharing one tree explains duplicate numbers, displaced tails, and transcript-vs-disk splits. On ghost-class evidence, his-eyes-only check (second window? Task Manager?) rides with the report, never as a second turn.
+
+## 29. Dropped-seat + mistally gates (2026-09-28 V324 re-file: four-seat paste, one seat filed, GLM-Q2b tallied against its own bytes)
+
+- Multi-seat completeness: every inbound paste files EVERY seat the same turn; the filing turn asserts per-seat OPEN markers 1x before any grade; a grade citing an unfiled seat is BLOCKED.
+- Tally-from-paste: every per-question tally quotes its deriving verdict lines from filed bytes; tallies re-proven against the files post-filing before any relay cites them; a tally no filed line supports is unwritten.

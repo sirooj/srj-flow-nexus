@@ -2341,3 +2341,83 @@ Reason: removing the SUB_1R abort here means a marginal candidate that used to b
 - **H2 (new-H2b block):** call `ArrayResize` once with a size derived from `iBars(_Symbol, PERIOD_D1)` (or a bar count probe) before the loop, then fill by index, instead of resizing by one inside the loop.
 
 ## V323-IMPL2-8 END SONNET
+
+## V324-IMPL2-9 OPEN SONNET (re-filed whole 1x this turn from pre-handoff transcript bytes, seat lines 167-241 of the 282-line 12:14 paste; byte-exact incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+# Seat verdicts on packet IMPL-2 v11
+
+**Q1: OBJECT** (P228, P236, P371 against P013, R58 and P031)
+
+**Q2a: OBJECT** (P249-P268 against P270)
+
+**Q2b: OBJECT** (P271 term 2, R32/R33)
+
+**Q3: CONFIRM**, with notes below
+
+---
+
+## Q1: F11
+
+**Defect 1: the carve-out's downstream gate is not on the page.**
+- A-S2P-RETAKE (P371) requires a CARVE hold at the 09:45 pass, which evaluates the 09:40 bar. P013 says that bar reads m15=+1.0, opposed to a SHORT.
+- R58 shows a UJALIGN_PASS row that prints m15 at the S4→S5 fire pass (bar 14:40, printed at the 14:45 pass). That row shows an M15-vs-direction check exists downstream of the invariant.
+- P031 says the only pre-S5 returns "sit on other branches" (UJALIGN_NOMATCH at EA-8826). But R58 proves a UJALIGN check runs on the S4 pass too, and its region is not among the pasted regions.
+- If that check compares m15 to direction on the evaluated bar, the CARVE hold at 09:45 keeps the candidate alive, and the fire pass then returns on NOMATCH. F11 would deliver no admission on the 6/5 venue.
+- The page cannot close this. It needs the UJALIGN region with its siting and predicate, and a statement of whether it fires on carve passes.
+
+**Defect 2: no falses-bound for F.**
+- The carve makes the invariant vacuous on any bar that passes IsConfirmationCandle. On such a bar, both the LTF and the 15m vote can oppose and the candidate still survives (P227-P228).
+- G1 states a falses-bound (P270) and F states none (P236). Please add the run-wide count of confirmation-passing bars that coincide with an invariant abort.
+
+**Defect 3: the hold is not fully separable from G1.** P236 says F and G1 are "scoped jointly in acceptance", but P375 has no joint leg for it.
+
+**Minor:** the P236 audit says "bool-to-int for the print field". Only `uj_hm15r ? 1 : 0` is cast, so it is fine. New-F indents at P221 and P234 differ from old-F, which matters only if STAGE-1 exact-diffs whitespace.
+
+---
+
+## Q2a: G1
+
+**Defect 1 (decisive): fence siting contradicts the prose.**
+- P270 says the cascade "sits after the HEADS-UP block close (EA 8811)". The v10 amendment made this move explicitly (P031, "G1 re-siting target").
+- But the old-G1 fence (P239-P247) ends at `LogState(prev, g_state);`, which is EA 8791. The new-G1 fence (P249-P268) inserts the cascade immediately after that line.
+- EA 8792-8812 (the S3-zone print and the HEADS-UP block) therefore still execute after `g_state` has already become S5. The log order is then CARRY, then S3-zone and HEADS-UP.
+- That is the stale ordering v11 withdrew (P003 "G1 siting before HEADS-UP"), and it contradicts "log order chronological: HEADS-UP then CARRY" (P270).
+- The no-return proof (P237, P270) covers 8791-8812, so it is consistent with either siting. The siting itself is what is wrong.
+- To match the prose, the anchor must be the HEADS-UP `if` close at EA 8811 (inside the arming branch, before the branch close at 8812). Alternatively the prose must be corrected to say "after LogState" and the log-order claim dropped.
+
+**Defect 2: the M15 condition at the cascade bar is unevidenced.**
+- The RETAKE (P372) requires m15 == +1.0 on the evaluated 14:35 bar.
+- The only 6/11 M15 rows are S2PROMOTE at the 14:30 bar (R38) and UJALIGN_PASS at 14:30 and 14:40 (P027, R58). There is no row for 14:35.
+- P013 shows the vote flipping at 09:20, 09:25, 09:30 and 09:40, which is mid-M15-candle. Bridging 14:30 to 14:40 by inference is therefore unsafe.
+- P372 does label this a hypothesis, but P270's "closed" claim does not carry it. If the vote at 14:35 is not +1.0, the cascade never fires on the venue it was built for.
+
+**Defect 3:** the shift-0 forming-bar cite (P270, "iTime(...,0)" in the CARRY print) only affects a print field, which is harmless. The P237 statement that "the cascade evaluates the arming bar, one bar earlier than BASE" is correct but is not carried into the falses-bound for EU same-candle takes. That risk is left to the grade battery (P374), which is acceptable if the blocking rule holds.
+
+---
+
+## Q2b: touch predicate
+
+**Term 2 is non-discriminating.**
+- P271 requires CONFIRMPOLL confirm=1 on the confirmation bar. R32 and R33 show confirm=1 at 6/5 09:15 while the actual predicate FAILED (`CONFIRM_PREBIND_FAIL term=A2_CLOSE_BREAK`). The row is also `shadow=true`.
+- So term 2 proves candle classification, not the verdict, and cannot separate a touch-corroborated pass from a fail.
+
+**Demanded predicate:** replace term 2 with the verdict evidence on the same bar. That means UJCONFIRMCARRY on cascade venues, or CONFIRM_PREBIND (or the S4→S5 edge) with no CONFIRM_STRUCT_FAIL on split-bar venues. Terms 1 and 3 stay as they are.
+
+**Wording note:** RETESTBOOK and RETESTDIAG intersect the anchor line with the bar OHLC (R62, R63). They prove a retest of the POI, not contact with the S3 FVG/OB zone (160.489-160.504). Please say that the predicate rules retest-as-touch, which is the rule question P186 promised to put to council visibly. The retired zoneTouch=1 demand, with its reason, is fine.
+
+---
+
+## Q3: H
+
+**CONFIRM.** H1 and the H2b siting, the DH/DL naming and the `UjDayKey` slicing (R54 shows the `YYYY.MM.DD` shape) all hold together. The check I ran is that at entry-open 160.059 the H1+H2 tuple gives R≈3.7, which matches his A2/A4 reading.
+
+**Notes** (Analytic A/B, not blockers):
+1. **Shadowed swept highs.** H2b elects the nearest day high in direction with no sweep filter (P309, P358 disclaim it). Take two day highs both above price where the later, higher one swept the earlier. The lower one still wins by distance, which is the swept-line behaviour his challenge (His words, "Swept-line challenge") rejects.
+   - **Mechanism:** while filling the arrays at P339, walk from most recent to oldest with a running maximum for LONG (minimum for SHORT). Store only days whose high exceeds every later day's high. This is one extra pass at the once-per-day refresh, and the pool string shrinks.
+   - **Effect on acceptance:** it does not change the 6/5 expectation. D20260430 is a record high after 30 April, given that the intervention made later highs lower.
+2. **Cached empty history.** `uj_histToday` is set at P324 before the D1 load. If the first tester call returns an unloaded D1 series, the day caches an empty array and never retries (P342).
+   - **Fix:** set `uj_histToday` only when `uj_dcount > 0`.
+3. **Unbounded print.** `uj_hpool` (P343-P349) lists every in-direction day high, so it could run to dozens of entries per fallback election. 
+
+## V324-IMPL2-9 END SONNET

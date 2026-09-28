@@ -12558,3 +12558,92 @@ That is more faithful to "any age" but also carries more regression surface, so 
 | **Q3 Fix H**         | **OBJECT**  | H2 is empty-election-only, which is not fully reconciled with the stated NEAREST-ANY-AGE rule; D1 day-boundary semantics also need explicit closure. |
 
 ## V323-IMPL2-8 END LUNA
+
+## V324-IMPL2-9 OPEN LUNA (re-filed whole 1x this turn from pre-handoff transcript bytes, seat lines 1-84 of the 282-line 12:14 paste; byte-exact incl. transport glyphs; see ledger)
+
+Luna:
+## Verdicts
+
+**Q1: CONFIRM**
+
+**Analytic A**
+
+* **P187 vs P228 is still textually inconsistent.** P187 retains the older rule that the candidate aborts when the 15m vote “also disagrees (or reads empty),” while P228 makes a passing `IsConfirmationCandle()` an independent carve-out. The operative code is clear, but the prose should explicitly say the F11 carve-out supersedes the older “or reads empty” sentence.
+* **P226-P228 broadens the carve-out to an unreadable M15 vote.** Because the condition is `(uj_hm15r && agree) || uj_hcarve`, `uj_hcarve=true` can hold even when `uj_hm15r=false`. That is consistent with the literal F11 sentence, but it is broader than the earlier F rule in P187 and should be explicitly acknowledged as intentional.
+* **P142-P143 remains only a containing-M15 time mapping.** `uj_m15src` is not evidence of the indicator's actual source timestamp; P367 acknowledges this, so it is a precision issue rather than an F11 closure defect.
+* **P228's `mode=CARVE` is telemetry-only classification, not an independent source of truth.** That is fine, but the acceptance language should continue treating it as evidence of which branch fired, not as proof that the confirmation predicate itself was valid.
+
+**Analytic B**
+
+* The cleanest mechanism is already essentially what v11 implements: one local boolean for the F11 allowance, e.g. “M15 agrees OR confirmation passes,” followed by the unchanged abort branch. A shared helper would reduce future drift, but P362 correctly identifies that as refactor churn rather than a necessary correctness change. No additional code change is required for this round.
+
+---
+
+**Q2a: CONFIRM**
+
+**Analytic A**
+
+* **The architectural closure is complete at P237-P270.** The cascade is after HEADS-UP, the arming branch has no intervening return, and the existing S4/S5 blocks remain reachable on the same pass.
+* **The state transition is internally consistent.** P264-P267 sets `g_confirmFromState` to the pre-transition `ST_S4_ARMED`, then moves to `ST_S5_GATE_CHECK`; that matches the downstream consumer cited at P031/P9053.
+* **The touch-state proof is sufficient for the stated design but narrowly worded.** P031/P237 establishes that `g_touchSeen` is not an S5/fire/admission predicate input. The one remaining precision point is that the packet does not reproduce the body of `IsConfirmationCandle()` at the cascade site, so the reader census is carrying that proof indirectly.
+* **P261 is the decisive gate.** Same-pass firing requires both the confirmation predicate and an agreeing M15 vote. Thus F11's confirmation carve-out does not itself force the G1 cascade.
+* **The EU preserve fence is appropriately externalized to grade time.** P372/P374-P375 explicitly treat same-candle EU entry-bar movement as a packet-blocking condition rather than silently assuming preservation.
+* **The “two promotions” acceptance is internally coherent with the singleton architecture.** The first promotion can survive through the earlier passes, the expected 09:25 abort frees the slot, and the later 09:30 promotion can occur.
+
+**Analytic B**
+
+* I do not see a materially better correctness mechanism than the current narrow insertion. Moving the cascade into a generic state-transition helper could reduce future duplication, but it would increase refactor surface without improving the specific proof target. The current site is preferable for this refinement round.
+
+---
+
+**Q2b: CONFIRM**
+
+The requested replacement is actually specified: P271 explicitly retires the `zoneTouch=1` demand, defines the replacement evidence tuple, states the split-bar correlation rule, and states that G1-cascade venues are expected to lack `UJTOUCHSEEN` corroboration.
+
+**Analytic A**
+
+* **The principal remaining imprecision is terminology, not closure.** P271 itself says R42 is “explicitly NOT touch evidence — found=0.” Therefore the four-term rule is better characterized as **retest/confirmation/zone corroboration** than literal physical-touch proof.
+* **P271's fourth term is a zone report, not a positive touch predicate.** The `LEGTOUCH` row supplies the zone bounds but does not prove an intersection in the cited 6/11 case. The page nevertheless defines the combined evidence as sufficient for the revised acceptance rule. That is internally explicit, but the word “touch” overstates what the evidence mechanically demonstrates.
+* **The same-bar/split-bar formulation should ideally be normalized as one timestamped relation.** P271 describes same-bar and split-bar cases correctly, but the predicate would be even tighter if it explicitly named `touchBar` and `confirmBar` as fields with the required temporal relation rather than switching prose between “on the confirmation bar” and “retest bar carries the hit.”
+* **P376 is consistent with the retirement.** `UJ-NOTOUCH` is retired and corroboration failures go to `UJ-NOEVID`, so there is no remaining hidden `zoneTouch=1` requirement elsewhere in the acceptance text.
+
+**Analytic B**
+
+* No code change is needed. The better mechanism is a schema/terminology tightening at **P271/P376**: call the result something like `RETEST_CORROBORATED` rather than “touch proven.” That preserves the exact existing evidence path without reopening the unreachable `zoneTouch=1` demand.
+
+---
+
+**Q3: CONFIRM**
+
+**Analytic A**
+
+* **H1 is closed.** P290-P308 removes the poll-time abort while retaining the poll calculation, telemetry, and memo write; P10415-P10446 keeps the actual admission verdict at FIRELOCAL/FIRE with the fire tuple. That matches the stated R-AT-OPEN rule.
+* **The fire-side 1R protection remains decisive.** P046-P055 and P272 establish that a poll-pass cannot certify a failing fire tuple because the fire-local `SrjUjAssert1R()` is independently evaluated.
+* **H2 correctly removes the dangerous mask-off session re-walk.** P309-P357 replaces it with age-2+-backward D1 high/low storage, so swept session lines are not resurrected through the old route.
+* **The side-awareness is explicit and correct.** P346-P350 use `DH` for LONG and `DL` for SHORT; this matches the requested directional hierarchy rather than treating “day high/low” as a single undifferentiated pool.
+* **The fallback scope is correctly empty-election-only.** P318 puts H2 strictly behind `if(!haveBest)`, while P357 ties it to the existing `ComputeNearestTpTarget` context.
+* **Pre-sizing is actually implemented, not merely promised.** P325-P340 first count available D1 history, resize all three arrays, then fill them by index.
+* **The acceptance closes the 6/5 target case without reopening 6/3.** P370/P373 explicitly fence the unchanged valid 6/3 path and make the historical 160.723 requirement grade-readable.
+
+**Analytic A — remaining precision points**
+
+* **Tie behavior is unspecified.** `TpTargetUpdateBest()` uses strict `<` at P2400/P2402, so equal-distance historical candidates resolve by iteration order. The hierarchy says “nearest wins regardless of age” but does not define an exact-price tie-break.
+* **“Age” is effectively trading-D1-shift age, not calendar-day age.** H2 starts at D1 shift 2. That is probably the intended union with the age-0/1 session pool, but the page should state that explicitly to eliminate weekend/holiday ambiguity.
+* **P309-P342 assumes tester history is static during a run.** The packet expressly scopes live-terminal history growth out, so this is not a closure defect under the stated acceptance environment.
+* **Source naming is deterministic but tied to the `YYYY-MM-DD` layout returned by `UjDayKey()`.** The helper contract is cited, so this is only a maintainability dependency, not a current correctness gap.
+* **The H2 hierarchy is implemented by control flow, not by an explicit hierarchy comparator.** That is acceptable because session/POI election happens first and historical lines only enter after `!haveBest`; it is nevertheless worth preserving this as an invariant against future refactors.
+
+**Analytic B**
+
+* The current array-based fallback is preferable to a broader union election because it keeps the historical mechanism isolated behind the empty-election gate. A fully unified pool would touch more election logic and materially increase regression surface. The only worthwhile hardening would be an explicit historical tie-break rule, which would touch **P317-P355** and the `TpTargetUpdateBest()` comparison at **EA 2379-2402**.
+
+## Final tally
+
+**Q1: CONFIRM**
+**Q2a: CONFIRM**
+**Q2b: CONFIRM**
+**Q3: CONFIRM**
+
+The only material wording weakness I would carry forward is **Q2b's use of “touch proven” for evidence that is mechanically a retest/confirmation/zone-corroboration predicate**, plus the stale F-rule sentence at **P187** that should explicitly acknowledge the F11 carve-out. Neither changes the four requested verdicts. No build/run/live-action clearance is implied. 
+
+## V324-IMPL2-9 END LUNA
