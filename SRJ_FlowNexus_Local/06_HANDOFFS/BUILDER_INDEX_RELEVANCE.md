@@ -13,7 +13,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 built 2026-09-27; alert-only stands; v12 packet drafts F11/G1/H against it, unbuilt).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v17 DRAFT F1CDF21C/83306/480 (V329-OBJECT fold answers; unruled, unbuilt; build needs new Luna key + his run word, neither spent nor asked).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v330-IMPL2-15.md` 8F577C5E/151601/1374 (battery-green, untransported; twin of v17 F1CDF21C; Q1 + R1 rider; transport on his word).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v331-IMPL2-16.md` C0692AA3/156038/1426 (battery-green, untransported; twin of v18 649B6A67; Q1 budget + R1 notes rider; transport on his word).
 - Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_V329-GRADE.md` BA30C89E/7297/45 (Q1 1-1 HALT / Q2 2-0 CLEAR / R1 2-0 CLEAR; v17 fold F1CDF21C drafted; NO build/run/key).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
@@ -67,5 +67,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - 2026-09-28: packet v16 6F337E27/80475/476 + relay v329 18AB411B/145668/1358 DRAFT GREEN (ledger 927; day-check + fail flag + wording; battery-green, untransported).
 - 2026-09-28: V329 graded (ledger 930; Q1 1-1 HALT / Q2+R1 2-0 CLEAR; 4 seats filed whole 1x) + packet v17 F1CDF21C/83306/480 DRAFT (fail-funnel + corrections, budget +153, battery-lite green); relay v330 + full battery next.
 - 2026-09-28: relay v330 8F577C5E/151601/1374 RELAY-READY (ledger 931; twin 480/480 diff-0, rows 39, regions 36, battery green two passes); transport word owed.
+- 2026-09-28: V330 graded (ledger 933; Q1 2-0 CLEAR / R1 1-1 HALT; 3 seats filed whole 1x) + packet v18 649B6A67/84376/485 DRAFT (budget +152, B1 literals, notes, battery-lite green) + relay v331 C0692AA3/156038/1426 RELAY-READY (ledger 934; twin 485/485 diff-0, rows 39, regions 37, battery green two passes); transport word owed.
 
 (End of file)

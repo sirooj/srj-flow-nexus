@@ -12972,3 +12972,45 @@ Analytic defects / imprecisions beyond the three verdict lines:
 Overall council result: **Q1 OBJECT; Q2 CONFIRM; R1 CONFIRM.** Q1 therefore remains the unresolved closure item; nothing in this verdict authorizes a build or run.
 
 ## V329-IMPL2-14 END LUNA
+
+## V330-IMPL2-15 OPEN LUNA (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, Luna text as received; byte-exact as received incl. transport glyphs; see ledger)
+
+Luna:
+Q1 verdict: **CONFIRM**
+R1 verdict: **CONFIRM**
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **Minor diagnostic imprecision: resize failure is class-named, not site-named.**
+   The three temporary-array resizes at P384–P386 all emit `reason="RSIZE"`, and the three commit resizes at P401–P403 all emit `reason="COMMIT"`. That closes the previously unnamed failure *class*, but a runtime row alone cannot distinguish `uj_tmpHi` vs `uj_tmpLo` vs `uj_tmpDay`, or the corresponding committed array. 
+   I treat this as a diagnostic precision issue, **not a Q1-blocking defect**, because the failure mechanism is now explicitly represented and fail-closed.
+
+2. **Cleanup resize return values remain unchecked.**
+   The failure cleanup at P412 clears the three arrays without checking the return value of those `ArrayResize(...,0)` calls. This does not appear to reopen the consult path because `uj_histToday` is not advanced on a failed refresh and the consult gate still requires `uj_histToday == uj_hdayt`; nevertheless, the cleanup operation itself is not fully failure-instrumented. 
+
+3. **The first-failure preservation is correctly implemented for the stated paths.**
+   The per-pass reset occurs before the CLOCK/DAY checks, and the WITNESS check uses `!uj_histFail`, so a later witness failure does not overwrite an earlier refresh failure. The resulting row publishes the retained reason. 
+
+4. **The consult gate itself remains unchanged in substance.**
+   Historical consultation still requires a current-day-valid store, valid yesterday/today witnesses, and the unchanged gate structure. That supports the packet's "no behavior change on prove windows" claim for Q1. 
+
+### Analytic B — better mechanism
+
+The current mechanism is adequate for the stated Q1 goal, so I would **not require another edit before grading**.
+
+For future hardening, the cleanest improvement would be distinct failure identifiers at the resize sites, e.g. `RSIZE_HI`, `RSIZE_LO`, `RSIZE_DAY` and `COMMIT_HI`, `COMMIT_LO`, `COMMIT_DAY`, directly at P384–P386 and P401–P403. That would eliminate the only material diagnostic ambiguity without changing the consult gate or historical-selection logic. 
+
+### R1
+
+**CONFIRM.** The current Status records Q2 as **1-1 HALT**, the current amendment count is **+153**, and the packet explicitly carries the label/name/span/display corrections named in the R1 question. The +149 figure remains only as historical v16 lineage; the current v17 total is +153, so there is no live internal contradiction in the correction bundle.   
+
+**Final seat output**
+
+```text
+Q1: CONFIRM
+R1: CONFIRM
+```
+
+No build/run clearance is implied by these verdicts; the packet itself keeps that gated separately. 
+
+## V330-IMPL2-15 END LUNA

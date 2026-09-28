@@ -6900,3 +6900,83 @@ This is the best-verified page I have graded in this series. Exact line-cite mat
 - Nothing in this seat's answer spends a key, builds, runs, or clears live activation. Build still gates on a new key plus his run word, neither asked here.
 
 ## V329-IMPL2-14 END GLM
+
+## V330-IMPL2-15 OPEN GLM (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, GLM text as received; byte-exact as received incl. transport glyphs; see ledger)
+
+GLM:
+**Relay v330 — packet P-UJIMPL-IMPL-2 v17 — seat verdict (page-only ruling; disk genuineness taken as claimed and ruled nowhere; no key volunteered; nothing here builds, runs, spends, or clears live activation)**
+
+**Q1 verdict line: CONFIRM**
+
+**R1 verdict line: OBJECT — P462 (its enumerated components sum 152 against its own stated "Total NET +153"; the "+ P033b +1" term carried at P003 is absent from P462's enumeration, and P462's own provenance claim "script-counted from the fenced blocks above" yields 152, not 153) plus P034/P003 (the P033b +1 has no fenced code anywhere on the page; referent unverifiable)**
+
+---
+
+## Q1 basis — funnel closes the V329 OBJECT; no behavior change
+
+The three OBJECT classes each have a fenced completion:
+
+1. **Unnamed resize failures → named.** RSIZE at P384-386 (temp-array resizes), COMMIT at P401-403 (global commit resizes; `!= uj_dcap` catches both -1 and size mismatch).
+2. **Silent CLOCK/DAY skips → named rows.** P370-371 set flag+why ahead of the refresh; both surface through the UJHISTFAIL print at P423 on every failing pass. The same predicates gate the refresh (P372) and the consult (P424), so a named skip is always also a blocked consult — fail-closed by construction.
+3. **Sticky/clobbered flag → fixed.** Per-pass reset at P369; first-failure guard at P422 (WITNESS cannot clobber a refresh reason; evaluation order CLOCK/DAY → EMPTY/RSIZE/INVALID/COMMIT → WITNESS is coherent).
+
+No behavior change:
+- **uj_histFail/uj_histWhy have no gate reader** in the stated edit surface — every use sits inside the H2b fence (P369/370/371/408/412/422/423 for the flag; P369-423 for the why). The consult gate P424 reads freshness, clock, witnesses, and the D1 day-check directly. The flag is print-only state; the reset and guard change only which reason prints.
+- **Reachability:** the funnel lines live inside `if(!haveBest)` (P365). Masked-winner passes (6/3 YASH, 6/5 09:45 Daily-POC, 6/11 YLOH, EU takes) never execute them. On the one designed empty-election venue (6/5 16:05) a healthy refresh commits once, prints no failure row, and the election path (P426-447: witnesses, swept walk, UJHISTPOOL, UpdateBest, TPFALLBACK) is untouched by any funnel line. UJHISTFAIL is a failure-path-only row; healthy prove runs produce none.
+- **Commit semantics preserved:** histToday assigned last (P408), clear-on-fail (P412), no truncated publish (fill validation P396 breaks before any partial copy reaches the globals; commit P400 requires full uj_hok).
+
+Residuals (A3-A5 below) are telemetry-granularity items; the OBJECT class was unnamed/silent/sticky — v17 names, prints, and resets. Class closed.
+
+## R1 basis — seven of eight verify; the recount item fails at its substantiation
+
+Verified exactly on-page: Status tally correction (P003, Correction-926 carried, supersede note in priors); label bumps (v17 cites P369-371/P384-386/P402/P422-424 all match fence content); names paragraph (P034/P354 — 9 carried names present in the fence, single-dispositions stated, retired names absent from every fence); span re-pins (P019 ↔ EA-6692-6722 region; P075 ↔ EA 10470-10485 region; E2 pins P171/P189 ↔ EA 8936-8946 and 8940-8960 regions); bar/pass wording (P027; takes-sheet R42 note); UJHISTPOOL evidence (P468 + fence print P446, consult-run pool print including the no-winner case); displays (EA 8709-8716 and EA 11808-11813 regions match P034/P354, including the YYYY.MM.DD offsets).
+
+The eighth item fails:
+- **P462's enumeration:** carried v9 +53, F11 +10, G1 +12, H1 +1, H2a +6, H2b-D1 +70 → **152** against its stated 153. P003 carries the same six terms **plus P033b +1** → 153. Two decompositions, one total.
+- **The shortfall is not a miscounted component.** P462's own per-fix enumeration (A3 -1, A4 +3, A5 0, A6 +1, A7 0, A8 +1, A9 +6, B0 +11, B1/B2/B3 +6, B3b -1, B3c 0, C +11, D1 +15, E 0, E2 +1) sums to exactly +53, and every fence count verifies by hand (F11 17/27; G1 29/41; H1 15/16; H2a 6 lines; H2b 85 lines at P365-449; D1 15 lines). The missing term is exactly the P033b +1.
+- **Provenance falsified:** P462 opens "script-counted from the fenced blocks above, same turn" — the fenced blocks sum to 152; no count of them yields 153. The +1 is attributed to P033b (P003), which has no fence (P034 is analysis/closeouts; the Q2 paragraph says "the P033b state discriminator … no mechanism change" without fencing a line).
+- **Materiality:** the S3 recount at build (P036, P462, P003) compares the tree's actual delta against this budget; with two component sets stated for one total, the build-time expectation is ambiguous (152-from-fences vs 153-with-P033b). The total itself is uniform (P003, P462, withdrawal) — the fold need only reconcile the decomposition, not re-derive it.
+
+Clearning fix: restore "+ P033b +1" at P462, and fence the P033b line if it is EA code (per Q2 a no-mechanism-change line — print or comment), or remove the term from the EA-line budget if packet-internal. One fold line plus one fence.
+
+### Q2 — carried
+(no question asked; Q2 stands 2-0 CLEAR from V329, and nothing in this seat's answer re-opens it)
+
+## Analytic A (defects/gaps/imprecisions, page-only)
+
+- **A1 (material; R1 cause)** — P462 enumeration 152 vs stated 153; term missing vs P003.
+- **A2 (material; R1 cause)** — P033b +1 (P003) unfenced; referent unverifiable on-page.
+- **A3 (minor)** — P384-386 all print "RSIZE", P401-403 all print "COMMIT": per-step, not per-array. A failing resize doesn't say which array. Literal-only fix available (A/B below).
+- **A4 (minor)** — single reason per pass: co-occurring failures record only the first (P370/371 if/else-if; P422 guard). INVALID-refresh + bad witnesses prints INVALID only; the witness block is enforced by P424 but unnamed in the row.
+- **A5 (minor, quirk)** — the CLOCK label depends on StringToTime("") returning ≤ 0 (P367-368 → P370). UjDayKey returns "" on a dead M5 clock (EA-11809); MQL5's StringToTime on an empty string is not documented to return 0. If it returns a nonzero default, dead-clock degrades to a DAY or EMPTY label. Fail-closed holds under either behavior (P395 validation and the P424 gate block consultation regardless) — label precision only.
+- **A6 (cosmetic)** — vestigial condition at P376: uj_hok is never false in the probe loop (break-only exit at P379).
+- **A7 (cosmetic)** — UjDayKey(iTime(_Symbol, PERIOD_D1, 0)) recomputed up to 3x per pass (P371, P372, P424).
+- **A8 (owned/parked, listed for completeness)** — midnight day-key edge: store keyed to the shift-0 forming bar (P367) while the election evaluates barShift; parked at P354.
+- **A9 (cosmetic)** — resize idioms differ: `< 0` at P384-386 vs `!= uj_dcap` at P401-403 (both correct).
+- **A10 (cosmetic)** — cite granularity: "COMMIT at P402" names one line of the three-site block P401-403 while RSIZE cites all three (P384-386).
+- **A11 (note)** — UJHISTFAIL (P423) is InpDebugLog-gated; prove runs pin InpDebugLog=true (P464), so grading is covered.
+- **A12 (note)** — persistent refresh failure re-probes full D1 history per empty-election pass (P374-381), no backoff; bounded, tester-cheap; adjacent retry counter parked at P354.
+- **A13 (cosmetic)** — the D1 fence is tagged "mql5-new-D1" (P152) though it is the removal target per P151; historical tag, mildly confusing.
+
+### Q2 — carried
+
+(no question asked; Q2 stands 2-0 CLEAR from V329, and nothing in this seat's answer re-opens it)
+
+## Analytic B (better mechanisms, code lines)
+
+- **B1** — per-array reason strings at P384-386/P401-403 (RSIZE-HI/LO/DAY, COMMIT-HI/LO/DAY): same lines, literals only; the funnel localizes the failing array.
+- **B2** — raw-clock sentinel at P367-370: capture the iTime(PERIOD_CURRENT, 0) read once and test it directly for CLOCK before the key round-trip; removes the StringToTime("") dependence entirely.
+- **B3** — hoist the D1 day-key to one local reused at P371/P372/P424.
+- **B4** — R1 fix per A1/A2: fence the P033b line (or state its built-tree line number in P034) and restore the term at P462 so the script-count claim holds and the S3 recount has one unambiguous expectation.
+
+Verdicts independent per the round rule: the Q1 CONFIRM stands on the fences regardless of the R1 OBJECT, and the R1 OBJECT does not touch the fail-funnel. Disk items (twin diff 0, digests, rows 1x, region 0-diffs) taken as claimed per the verification split. Note the P033b at P003 budget counts... let me recount... P462 says "script-counted from the fenced blocks above" and the fence candidate: P033b is prose. The v17 P034 names it as analysis. P033b has no fenced block on the page, so I do NOT count it toward the EA-line budget: 53 + 10 + 12 + 1 + 6 + 70 = 152, and +152 is the reconciled total.
+
+---
+
+## Seat notes
+
+- My CONFIRMs rule on the page as pasted. Disk genuineness (twin diff 0, region 0-diffs, row 1x, digests) stays proven on the operator's machine per the split; I asked for no files.
+- Every A-item above is amend material with line numbers; none is a halt predicate under the questions as scoped, for the reasons stated (carried-matter rule, purge scope, disclaimed annex, grade-covered hypothesis terms).
+- Nothing in this seat's answer spends a key, builds, runs, or clears live activation. Build still gates on a new key plus his run word, neither asked here.
+
+## V330-IMPL2-15 END GLM

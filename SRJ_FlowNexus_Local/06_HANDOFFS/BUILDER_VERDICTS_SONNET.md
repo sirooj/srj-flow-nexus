@@ -2773,3 +2773,44 @@ Census line checks hold: EA-2561, 2573, 2585, 2600 all land on the region lines,
 Nothing here builds, runs, spends or clears anything. I am filing this as advisory verdict text only.
 
 ## V329-IMPL2-14 END SONNET
+
+## V330-IMPL2-15 OPEN SONNET (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, Sonnet text as received; byte-exact as received incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+**Q1: CONFIRM**
+
+Every failure path in H2b now names its reason, and the consult gate cannot open while a failure is flagged. I checked these on the page:
+
+- **CLOCK and DAY (P370-371):** the `else if` makes them exclusive. They cannot co-occur with a refresh failure, because the refresh condition at P372 requires `hdayt > 0` and a matching D1 day key.
+- **Refresh failures (P383-386, P396, P397/P399):** EMPTY, RSIZE, INVALID and COMMIT are each set before the `else` branch at P412, which clears the arrays and sets the flag without overwriting the reason.
+- **Success path (P408):** it clears the flag and reason, and nothing else can be pending on that pass.
+- **WITNESS (P422):** the first-failure guard is correct.
+- **Consult gate (P424):** every flagged reason maps to a gate-false condition: CLOCK by `hdayt > 0`, DAY by the D1 key test, WITNESS by `uj_wok`, and refresh failure by `histToday != hdayt`. The flag cannot coexist with an open gate.
+- **Structure:** the fence braces balance, and H2b is 85 lines, D1 is 15 and H2a is 6, so the +70 is correct.
+
+Notes on Q1 (none blocking):
+
+- **"Per-site" wording (P003):** RSIZE at P384-386 and COMMIT at P401-403 are per-phase reasons, not per-array. The wording should say "per-phase".
+- **Silent truncation (P376-381):** a transient `iTime == 0` mid-history makes the probe keep a shorter prefix and commit it with no failure row. This is the v14 design, but it is the one path that still doesn't name itself.
+- **Globals (P356-361):** `uj_histFail` and `uj_histWhy` are only read within the same pass (P422-423), and P369 resets them each pass. They could be locals, which would save +2 budget lines and remove stale-state risk.
+- **Retry cost:** a persistent INVALID or EMPTY reruns the full probe and fill on every empty-election pass.
+
+**R1: OBJECT**
+
+- **P462 vs P003:** the P462 breakdown sums to 152 (53 + 10 + 12 + 1 + 6 + 70). The +153 in P003, P462 and the annex only reconciles with a "P033b +1" term that appears only in P003. P033b (P034) is prose with no fenced block, so either that line needs a fence or the total should be +152.
+- **Budget base:** the +153 is measured against v8, since the +53 is v8→v9. P003 names the built v9 tree as the base. Against that tree the delta is +100 (or +99). The page should state which base applies.
+
+**Analytic A, other defects**
+
+- **P315 vs P316(6):** P315 says the S4 block and then the S5 block both evaluate on the G1 cascade pass. P316(6) says the touch book is skipped with the S4 block on that pass. Both cannot hold.
+- **Pre-confirmation freshness poll:** if the S4 block is skipped on the cascade pass, the pre-confirmation freshness poll (FRESHCOUNT scope=pre, R43) is bypassed too. P240 and P315 don't say whether S5 covers it.
+- **F11 carve evaluation (P229):** `IsConfirmationCandle` runs before the M15 test, so it runs even when M15 agrees. If it prints CONFIRMPOLL or has any side effect, rows will duplicate against the S3 prebind and S4 edge calls on the same bar. The function body isn't on the page, so the "pure test" claim can't be checked.
+- **P010:** the miss-to-fix map still names Fix D, which P151 marks as superseded.
+
+**Analytic B**
+
+Evaluate the carve lazily, only when M15 disagrees: `uj_hcarve = uj_hm15agree ? false : IsConfirmationCandle(...)`. That touches P229-230 only, and the mode label still separates M15 holds from CARVE holds.
+
+Disk claims (digests, twin diff, 1x row hits) can't be verified from the paste. 
+
+## V330-IMPL2-15 END SONNET
