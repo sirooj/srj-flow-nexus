@@ -64,6 +64,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - `00_CURRENT_WORKING\RECON*_STATUS.txt` / `*_DONE.txt` / `launch_*.ps1` (run debris, kept until you say otherwise).
 - `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V*.md` (old handoffs, history).
 
-- 2026-09-28: V324 Luna/Sonnet/GLM re-filed whole 1x under V324-IMPL2-9 headers (ledger 914; corrected tallies Q1 2-1 / Q2a 1-2 / Q2b 1-2 / Q3 2-1 HALT-ALL); relay v325 amended C3BB68DF/117163/990.
+- 2026-09-28: V325 graded Q1 3-0 CLEAR / Q2a 3-0 CLEAR / Q2b 2-1 HALT / Q3 2-1 HALT (ledger 916; result 08FB8198; all four seats filed whole 1x, Sonnet advisory); v13 fold opens (G2 predicate + H2b hardening).
 
 (End of file)

@@ -2421,3 +2421,86 @@ Sonnet:
 3. **Unbounded print.** `uj_hpool` (P343-P349) lists every in-direction day high, so it could run to dozens of entries per fallback election. 
 
 ## V324-IMPL2-9 END SONNET
+
+## V325-IMPL2-10 OPEN SONNET (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, seat lines 175-252 of 332; byte-exact incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+# Seat verdicts on packet IMPL-2 v12
+
+**Q1: OBJECT** (P033, R58, P419)
+
+**Q2a: CONFIRM**, with notes
+
+**Q2b: CONFIRM**, with notes
+
+**Q3: OBJECT** (P353, P397, P414, P421)
+
+---
+
+## Q1: F11 closures
+
+The wording closures are consistent. P189 now carries the carve-out supersession, and P023 separates grading rule from implemented guard. The braces in new-F (P223-P236) balance against old-F (P204-P207). I still object on one point that decides whether the split-bar venue can fire.
+
+**Defect: the UJALIGN claim in P033 conflicts with R58.**
+- P033 says UJALIGN lives in the S3-unbound else branch, so "S4-held candidates skip it". That claim is what lets the 09:45 pass in A-S2P-RETAKE (P419) fire on a CARVE hold while M15 is +1.0, opposed to a SHORT.
+- But R58 is a UJALIGN_PASS for bar 14:40 printed at 14:45:05. R43 (FRESHCOUNT, same timestamp) shows `state=S4_ARMED` in that pass, and R41 (STRUCT_FAIL) is also from that pass.
+- So either a UJALIGN check runs on a candidate that was S4-armed in that pass, which contradicts P033, or a second S3 candidate produced R58, which contradicts the singleton exclusivity cited at P406.
+- If UJALIGN does run on S4 passes, it would return NOMATCH at the 09:45 pass (eval 09:40, m15 +1.0 against a SHORT). The CARVE hold would then keep the candidate alive but deliver no admission.
+- To close this, the page needs the region of EA 8813-8840 with its enclosing `if`/`else` structure, or the pass-level state at R58. The 8820-8828 else-tail alone doesn't show which state enters it.
+
+**Minor:**
+- P419 is still labelled "RETAKE-v11".
+- P423 still says "L-final v10".
+
+---
+
+## Q2a: G1 full-branch fence
+
+**CONFIRM.**
+- The new-G1 fence (P272-P312) now matches the prose. The cascade sits after the HEADS-UP `}` at P299 and before the branch close at P312. Old-G1 is 29 lines and new-G1 is 41, so the +12 holds.
+- Because the cascade runs after the S3-zone print and HEADS-UP, the log order is chronological. R64 and R60 both sit at 14:40:22.
+- The cascade path skips the UJALIGN else-branch, since that is the else of the arming `if`. It carries its own M15 test, so that is fine.
+
+**Notes:**
+- **M15 at eval 14:35 is still a hypothesis.** P420 labels it as one. The only M15 rows near 14:35 are R38 (14:30) and R58 (14:40). If the vote isn't +1.0 at 14:35, the cascade doesn't fire on this venue.
+- **P315 wording:** "v12 reinstates the zoneTouch=1 demand" should read v13.
+
+---
+
+## Q2b: exact predicate v2
+
+**CONFIRM.**
+- The verdict-evidence term (P315) replaces the CONFIRMPOLL term I objected to earlier. It now separates cascade venues (UJCONFIRMCARRY) from split-bar venues (S4→S5 edge with no STRUCT_FAIL).
+- R64 supplies the zone term from the arming print (160.489-160.504, matching R42 and R60).
+
+**Notes:**
+- R62 and R63 intersect the anchor line with the bar's OHLC. They prove a retest of the POI, not contact with the 160.489-160.504 zone. The state name RETEST_CORROBORATED (P315) says this honestly. The page should say outright that the ruling is retest-as-touch, since P188 promised that rule question to council.
+- R64 shows `src=XOB haveFvg=0`. That fits the FVG-dead reason for retiring zoneTouch=1.
+
+---
+
+## Q3: H2b
+
+The deltas themselves are fine:
+- The provenance daykey at P397 passes `uj_histDay[uj_hj]`.
+- The commit-only-on-count>0 guard at P378-P380 works.
+- The DH wording is fixed.
+- The budget arithmetic holds: H2b 41 minus D1 15 gives +26, and the +106 total checks.
+
+I object on one point.
+
+**Defect: without the swept-max filter, the A-FB expectation is not derivable.**
+- His 160.723 claim says April 30 is the *valid nearest* target. H2b (P391-P398) has no sweep filter, so it elects the nearest day high in direction regardless of sweep state.
+- Any age-2+ day high between 160.06 and 160.723 that was later exceeded (swept) would win by distance. That is exactly his swept-line challenge, and the pool would elect a line he has ruled out.
+- P421 tolerates this through the election-ref hypothesis term. So the acceptance would pass a swept line that isn't his 160.723, which defeats the purpose of the A-FB leg.
+- P414 says "v12 candidate" but no code is filed for it. Either adopt it or park it with cause, because the current wording is neither.
+- **Demanded fix:** at the refresh (P383-P387), walk from the most recent day to the oldest with a running maximum for LONG (minimum for SHORT). Store only record days. This costs one extra pass per day-change.
+- **Alternative:** if the filter is declined, P421 must state that a nearer swept high may legitimately be elected, and that this deviates from his swept-line challenge.
+
+**Other notes:**
+- P431 repeats the IMPL-2 v12 annex line twice.
+- P003 still carries stale v10/v11 tally text.
+- P423 still says "EU comparison graded on the sibling run", which contradicts the P422 August-window correction.
+- The `uj_hpool` print (P390-P396) is still unbounded. 
+
+## V325-IMPL2-10 END SONNET

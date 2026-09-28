@@ -12647,3 +12647,81 @@ The requested replacement is actually specified: P271 explicitly retires the `zo
 The only material wording weakness I would carry forward is **Q2b's use of “touch proven” for evidence that is mechanically a retest/confirmation/zone-corroboration predicate**, plus the stale F-rule sentence at **P187** that should explicitly acknowledge the F11 carve-out. Neither changes the four requested verdicts. No build/run/live-action clearance is implied. 
 
 ## V324-IMPL2-9 END LUNA
+
+## V325-IMPL2-10 OPEN LUNA (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, seat lines 5-77 of 332; byte-exact incl. transport glyphs; see ledger)
+
+Luna:
+## Council verdict
+
+**Q1: CONFIRM**
+The v12 wording now matches the operative F11 predicate: M15 agreement holds, and a passing confirmation predicate independently holds even when the M15 read is unavailable. The page also explicitly distinguishes the standing S5.4 grading rule from the implemented S3.3 invariant and states the carve-out supersession.  
+
+**Analytic A**
+
+* The remaining precision issue is that the phrase “reads empty without a passing confirmation” at L228 is broader prose than the raw Boolean expression only in presentation; the code itself is exact: `(M15 agrees) || confirmation`. The following sentence correctly resolves the distinction by stating that predicate-gated holds need no readable M15. 
+* The acceptance is appropriately per-venue and run-wide: A-S2P is one named venue, while L-final separately fences the four-run admission total. 
+* “S5.4” is now correctly presented as a grading rule rather than an EA guard; that removes the earlier implementation-vs-grading ambiguity. 
+
+**Analytic B**
+No materially better mechanism is required. The current two-term F11 predicate is the narrowest implementation matching the stated rule. A shared enabling-timeframe helper would reduce duplication but is correctly parked as refactor churn. 
+
+---
+
+**Q2a: CONFIRM**
+The G1 fence is now genuinely explicit as a whole-branch replacement: the old branch closes after HEADS-UP, while the new cascade is inserted afterward inside the same outer arming branch. The page also supplies the no-return path through S4 and S5.  
+
+**Analytic A**
+
+* The decisive condition is exact: confirmation predicate must pass **and** the M15 read must succeed and agree before the state is moved directly to `ST_S5_GATE_CHECK`. 
+* The former siting ambiguity is closed. HEADS-UP ends first, then the cascade executes, and there is no return between that insertion and the later S4/S5 blocks. 
+* `g_touchSeen` is reset before the cascade and the packet states that S5/fire/admission does not consume it, so skipping the touch book on a cascade pass cannot create stale touch state. 
+* The remaining weakness is evidentiary rather than logical: the full `IsConfirmationCandle()` body is not reproduced in the relay itself, only its established call shape and cited definition are carried. That does not prevent closure of this insertion because the helper is existing code, not newly modified code.
+* EU same-candle preservation remains correctly fenced as a **grade-time blocking condition**, rather than being assumed from the code change alone. 
+
+**Analytic B**
+The current insertion site is preferable to moving the cascade into a generic state-transition helper. A helper would increase regression surface without strengthening this specific proof. The current mechanism touches only the arming branch and uses the existing S5 path. 
+
+---
+
+**Q2b: CONFIRM**
+The old `zoneTouch=1` requirement is expressly retired and replaced by the named `RETEST_CORROBORATED` evidence path, with same-bar and split-bar handling and the G1 cascade-absence expectation.  
+
+**Analytic A**
+
+* The v12 predicate is materially tighter than v11: it requires the retest identity, confirmation-verdict evidence, anchor-line inclusion on the retest bar, the recorded zone, and S3-window correlation. 
+* The split-bar rule is explicitly stated: the retest bar carries the hit, while the confirmation bar carries the verdict, with direction and anchor held constant. 
+* The acceptance now binds the 11 June venue to the **R64 S3-zone arming print**, which closes the previously loose relationship between “zone report” and the actual arming event. 
+* The one residual wording imprecision is that the main G2 paragraph first describes the zone term through the R42 `LEGTOUCH` zone report, while the acceptance makes R64 the explicit arming-print evidence. The two carry the same zone values for the cited venue, so this is not a logic defect, but the definition would be cleaner if it named R64 directly.
+* `UJTOUCHSEEN` is correctly relegated to corroborating telemetry rather than being a hidden fourth/fifth behavioral gate. The packet explicitly retires the `zoneTouch=1` demand because that condition is unreachable in the relevant FVG-dead pattern. 
+
+**Analytic B**
+No code change is needed. The stronger mechanism would be terminological only: define the evidence state as `RETEST_CORROBORATED` everywhere and explicitly name `R64` as the arming-zone source. That would touch the G2 specification/acceptance text, not the EA logic.
+
+---
+
+**Q3: CONFIRM**
+The H2 changes close the v11 objections: historical highs/lows now carry their own day key into provenance, the history refresh does not commit on an empty history load, the acceptance explicitly expects `DH20260430`, and the EU preservation window is corrected to the August prove run.  
+
+**Analytic A**
+
+* H2 is correctly separated from the old mask-off session re-walk. The replacement begins only under `!haveBest`, preserving the empty-election-only scope. 
+* The provenance fix is real: `uj_histDay[uj_hj]` is passed directly to `TpTargetUpdateBest()` rather than borrowing the current fallback day key. That makes the eventual `wday/wage` fields describe the historical line itself. 
+* The refresh guard now places `uj_histToday = uj_hdayt` inside `uj_dcount > 0`, so an empty history read does not falsely mark the current day as successfully loaded. 
+* The side-aware identifiers are explicit: LONG selects `DHYYYYMMDD`, SHORT selects `DLYYYYMMDD`. 
+* The main remaining precision issue is wording around “successful load.” The code verifies a non-empty historical count before committing, but it does not check `ArrayResize()` return values or independently validate every second-pass array assignment. Under the packet's stated static-tester-history scope, this does not create a demonstrated correctness failure; it is a hardening gap.
+* The exact historical ordering remains nearest-by-price through the existing strict `<` comparison. Equal-distance ties remain resolved by iteration order, and the packet does not define a separate historical tie-break. This is another minor precision gap, not a contradiction with the stated nearest rule. 
+* The acceptance correctly makes the 160.723 case an explicit history-evidence requirement and separately distinguishes pool availability, post-zone eligibility, and actual election/fire provenance. 
+
+**Analytic B**
+The present H2 architecture is preferable to a unified all-pools election because it preserves the empty-election fence and limits regression surface. The only useful future hardening would be atomic refresh validation and an explicit historical tie-break, touching the H2 refresh block and `TpTargetUpdateBest()` rather than changing the overall architecture.
+
+## Final tally
+
+**Q1: CONFIRM**
+**Q2a: CONFIRM**
+**Q2b: CONFIRM**
+**Q3: CONFIRM**
+
+The v12 page closes the four requested objections. The residual items are wording/hardening points only: explicitly naming R64 in the G2 predicate, stronger atomic-load validation for H2, and an explicit equal-distance historical tie-break. None changes the four verdicts. 
+
+## V325-IMPL2-10 END LUNA

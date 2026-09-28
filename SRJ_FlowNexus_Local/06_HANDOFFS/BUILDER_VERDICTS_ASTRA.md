@@ -18416,3 +18416,103 @@ Analytic B:
 The surviving F11, G1, and H1 mechanisms need no wholesale redesign on this page. The required amendments are an unambiguous G1 insertion, reachable and synchronized touch evidence, correct historical provenance, and acceptance language that tests the behavior actually specified.
 
 ## V324-IMPL2-9 END ASTRA
+
+## V325-IMPL2-10 OPEN ASTRA (filed whole 1x this turn, novel inbound; 4-seat 28-Sep paste, seat lines 79-173 of 332; byte-exact incl. transport glyphs; see ledger)
+
+Astra:
+Q1: CONFIRM — P023, P224–P238, P419.  
+Q2a: CONFIRM — P240–P314, P422.  
+Q2b: OBJECT — P315 versus P420 and the Q2b question; P423–P424.  
+Q3: OBJECT — P353, P366–P398, P405–P406, P421.
+
+These are independent page-only verdicts. CONFIRM accepts the specified design or wording closure; it does not certify disk evidence or successful future acceptance. No key, build, run, expenditure, or live activation is authorized.
+
+**Q1 — The requested closures are sufficient.**
+
+P023 now correctly distinguishes S5.4 as a standing grading rule from an implemented guard. P419 distinguishes one admission in this venue’s window from four run-wide. P228–P235 unambiguously implements:
+
+- Hold when the M15 read succeeds and agrees, **or** the confirmation predicate passes.
+- Otherwise abort.
+- The enclosing `CheckLtfAlign` read-failure abort remains outside that exception.
+
+The two-promotion sequence, expected 09:25 abort, and 09:45 confirmation carve-out remain explicitly conditional predictions, not established outcomes.
+
+Analytic A:
+
+- **P189:** The sentence “the abort fires only when the 15m vote also disagrees, or reads empty without a passing confirmation” still permits an unintended grammatical reading: disagreement alone causes an abort. The subsequent supersession language and P238 resolve it, so this is not a blocker. Use: “With readable opposed LTF, abort only when M15 agreement is absent **and** the confirmation predicate fails.”
+- **P189/P238:** The implementation applies to all candidates reaching the S3–S5 invariant, including candidates originally promoted through LTF alignment. It does not track M15-promotion provenance. Accept this as the broad mechanism shown; do not describe its implementation scope as exclusively M15-promoted candidates.
+- **P238:** “Kill-relaxation adds admissions only” is not a preservation proof under the supplied singleton architecture. Longer retention can prevent a later candidate from seeding. The future EU preservation gate remains necessary.
+
+Analytic B: No replacement mechanism is required for this question. The Boolean rule at P229 is already direct. Correct the explanatory sentences without adding a promotion latch unless the intended scope changes.
+
+**Q2a — The full-branch fence resolves the siting objection.**
+
+P271–P313 preserves the arming assignments, zone diagnostic, and conditional HEADS-UP block, then inserts the cascade after that block. It now agrees with P314.
+
+On predicate success, `g_confirmFromState` receives `ST_S4_ARMED` before the state changes to S5. That matches the supplied DIV consumer. The no-return account supports reaching the later S5 block in the same pass, with the S4 block skipped because the state has already changed.
+
+Analytic A:
+
+- **P314:** HEADS-UP precedes CARRY **when HEADS-UP is emitted**. `InpAlertHeadsUp && !g_alertedArmed` makes HEADS-UP conditional; CARRY does not require a preceding HEADS-UP row.
+- **P033/P314/P419:** One BASE prebind success versus 28 failures does not bound the number of new cascade successes or false admissions. Those counts concern a different branch and the original candidate population. Keep them as background observations; the actual acceptance constraints are named venue identities, C-silence, duplicate checks, and preservation comparisons.
+- **P239/P314:** Assigning S4 origin proves routing through the shown S4-origin consumer, not equivalence of the resulting DIV or freshness verdicts. P239’s explicit earlier-input qualification correctly limits the claim.
+- **P314/P422:** EU same-candle preservation remains unproved and properly named as a future blocking test. This CONFIRM does not convert that remainder into a preservation result.
+- **P033/P238:** The complete `IsConfirmationCandle` body is not supplied. Its claimed purity remains a supplied premise; call sites and comments alone do not establish it. This does not reopen the corrected insertion fence.
+
+Analytic B: Retain the full-branch replacement. No additional control-flow mechanism is needed to correct the former placement error.
+
+**Q2b — The question and acceptance describe an amendment that P315 still does not contain.**
+
+The Q2b question requires an **arming-print zone term**. P420 adopts that term through R64. But P315 still requires “LEGTOUCH zone bounds as the zone report,” using R42. On the cascade pass, G1 skips the S4 touch-book route that supplies that report.
+
+R64 supplies an appropriate surviving arming-zone diagnostic, but adding the row and mentioning it in acceptance does not replace the contradictory operative predicate.
+
+Analytic A:
+
+- **P315 versus P420:** The mandatory zone evidence differs. A grader following P315 can reject a valid cascade for missing LEGTOUCH; a grader following P420 can accept it using the S3-zone row. Adopt one route-specific definition.
+- **P315:** The opening term requires a retest hit “on the confirmation bar,” while its split-bar sentence allows separate retest and confirmation bars. State the shared-bar condition only for cascade venues.
+- **P315:** “Zero touch prints at cascade-fired venues” overstates what the branch proves. The cascade skips the setters on that evaluation pass. It does not establish that no earlier pass in the candidate’s lifetime printed a touch row.
+- **P315/R64:** The S3-zone diagnostic contains wall time and bounds, but no explicit candidate direction, anchor, or evaluated-bar field. Its association must be established through the same-pass ordered transition and candidate trace. A matching wall timestamp alone is insufficient if the trace admits multiple possible associations.
+- **P315:** A RETESTDIAG anchor-line intersection plus a zone-bounds report does not independently prove candle intersection with the bound XOB/FVG zone. The replacement can be an explicitly ruled **anchor-retest corroboration** standard, named `RETEST_CORROBORATED`; it should not be represented as geometric equivalence to `zoneTouch=1`.
+- **P315 versus P423–P424:** Automatic reinstatement of `zoneTouch=1` on an OBJECT conflicts with the unconditional retirement language in acceptance and findings. This OBJECT requests correction of the corroboration contract. It does **not** request restoration of the setter-based demand.
+
+Analytic B — demanded predicate:
+
+1. Identify the candidate and its active window by direction, anchor, and the ordered candidate trace.
+2. Require a RETESTBOOK hit for that direction and anchor at `touchBar`.
+3. Require RETESTDIAG naming that anchor in `inside` at the same `touchBar`.
+4. Require positive confirmation-verdict evidence at `confirmBar`: candidate-correlated `UJCONFIRMCARRY` for the cascade route, or the candidate-correlated S4→S5 transition for the split-bar route. CONFIRMPOLL remains supporting evidence.
+5. For a cascade, require `touchBar == confirmBar` and a same-pass **S3-zone arming diagnostic** associated through the ordered trace. Do not require a skipped LEGTOUCH report.
+6. For a split-bar venue, identify the zone binding applicable to that candidate and demonstrate that it remains applicable through confirmation. If LEGTOUCH supplies the bounds, specify its candidate and evaluated-bar association.
+7. Expect no setter print from the skipped S4 book **on the cascade pass**. Earlier rows neither replace the required terms nor automatically invalidate the venue.
+8. Missing or ambiguous required evidence fails as `UJ-NOEVID`, naming the failed term.
+
+Replace P315 accordingly and make P420/P423/P424 reference that single predicate. No touch-print code change is necessary.
+
+**Q3 — Provenance and the EU window are corrected; the refresh and evidence closures remain incomplete.**
+
+P393/P397 correctly distinguish DH from DL and pass the historical line’s own day into winner provenance. P422 correctly separates the August EU proof from the June UJ proof. Neither resolves the following implementation and acceptance gaps.
+
+Analytic A:
+
+- **P378–P385 — refresh commits before successful load.** A positive probe count immediately assigns `uj_histToday`. Array resizing and filling occur afterward. No allocation result or fill-pass validity is checked. Therefore “refresh commits only on successful load” is stronger than the code.
+- **P366–P398 — unsuccessful refresh can consult stale arrays.** If a previous day populated the arrays and a later refresh produces zero count, the code leaves those arrays intact and still enters the consultation loop. Not updating `uj_histToday` allows a later retry, but does not prevent stale consultation on this call. Static tester history does not, by itself, establish that every series read succeeds.
+- **P353/P421 — availability, eligibility, and election are not separately evidenced.** `UJHISTPOOL` includes only in-direction entries and prints only when `haveBest` is true. Its absence cannot distinguish no loaded history from no in-direction candidates or all candidates rejected by the zone guard. `TPFALLBACK` proves the elected winner survived the helper; it does not separately establish eligibility for every other listed historical candidate.
+- **P421 — price/source binding is incomplete.** The pool row contains source identifiers and rounded distances, not each candidate’s absolute price. Requiring `DH20260430` in the pool and a fire source somewhere in the DH family does not require the specific proposed target `DH20260430 / 160.723` to win. If that target is mandatory, require its exact source and price in the election and fire records. If it is only a candidate hypothesis, explicitly permit and grade a different nearest eligible winner.
+- **P421 — the equality phrase compares unlike concepts.** “Election-ref==entry-open-nearest” should say that the **winner selected using the poll reference** is hypothesized to equal the **winner selected using the actual entry-open reference**. Require that comparison at grade; do not imply that the two reference prices are equal.
+- **P353 — “union = any age” remains too broad.** The added store supplies older daily extremes. It does not itself supply older session extremes that differ from their day’s extreme. The session-buffer declarations shown cover current and previous sessions. Either establish the older-session coverage through the existing pool or describe this edit specifically as historical daily-H/L fallback coverage.
+- **P405 — Assert1R is not intrinsically direction-aware.** The supplied function infers direction from TP and SL placement; it receives no intended trade direction. A below-entry TP fails for a LONG only if SL remains on the LONG risk side. Cite that separate invariant or qualify the claim; the arithmetic alone does not enforce intended direction.
+- **P406/P411 — singleton suppression is acknowledged, not eliminated.** The supplied Task-135 comment explicitly describes longer retention suppressing later candidates. It supports keeping the EU preservation battery, but does not support an “adds admissions only” characterization.
+
+The absence of historical swept-level filtering is explicitly disclosed at P405/P414. I do not treat that disclosed exclusion as a newly discovered implementation defect or silently expand this question to require it. The resulting verdict must nevertheless remain narrower than “all old targets are valid and unswept.”
+
+Analytic B:
+
+- **P366–P389:** Build and validate a fresh snapshot before publishing it. Check resize results, validate fill-pass time/high/low values, and assign `uj_histToday` last.
+- **P390–P398:** Consult only a successfully validated snapshot for the current requested day. A failed refresh must not silently use the old snapshot as current evidence.
+- **P399–P401/P421:** Add a refresh/evidence diagnostic that can distinguish load failure or empty history, loaded count, in-direction candidates, and post-zone eligibility even when no winner exists. Alternatively, narrow the acceptance claim to what the existing rows actually prove.
+- **P421:** State the winner-identity comparison across poll and entry references explicitly, and settle whether `DH20260430 / 160.723` is mandatory or hypothetical.
+
+Two filing corrections also remain: **P032** calls the prior response a “bare-OBJECT,” although the carried response includes explanations and alternatives; **P431** duplicates the v12 history entry. Neither changes these four independent verdicts. 
+
+## V325-IMPL2-10 END ASTRA
