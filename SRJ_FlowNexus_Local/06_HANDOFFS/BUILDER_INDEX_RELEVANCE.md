@@ -75,5 +75,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - 2026-09-28: V19-remainder BUILT (ledger 943: STAGE-1 green, F/G1/H1/H2a/H2b applied, FC41EE0D/671645/12127, 0/0 compile, ex5 rebuilt; adherence audit filed; key build spent, one UJ run remains).
 - 2026-09-28: RECON73-V10-UJ LAUNCHED (ledger 944: window + binary pre-proven, journal testing-of 2026.06.01-2026.06.13, Core 04 live; key fully spent; grade on completion signal).
 - 2026-09-29: RECON73 GRADED 1/4 (ledger 945: DONE=PASSED, 6/3 identical, three UJ-NOADMIT with death rows; result + 23-row extract; next zone/contention/detector via council).
+- 2026-09-29: EU-DECLINE + PINS (ledger 946: August run withdrawn on his word, EU-preserve goes code-fenced; goal DEATH-POINT-FIRST + council 32 pinned; relay-ready block open, no build/run/key).
 
 (End of file)

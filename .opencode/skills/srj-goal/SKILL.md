@@ -31,6 +31,7 @@ Role: every block of work answers to the deployment bar first. Process wins (cle
 - Read-only diagnosis is always authorized (segments, journals, code reads, counts). It never needs a token and never waits for a word.
 - Canonical edits still need council packets (AGENTS.md invariant 1, unchanged; council commit tokens abolished 2026-09-23, AGENTS.md 6.5). This skill does not route around it: the action it demands inside authority is diagnosis plus a named, estimated next packet - never an unbuilt build.
 - No question may contradict the deployment bar: any take-rate/floor/booking ask whose answer could shrink his valid set or move the kept 1R floor is D1 - re-read the strategy-skill settled pins (D1-V7) plus v141/v142 first; a question the pins answer is withdrawn, never asked. (2026-09-22 RECON52 lesson: the selectivity ask contradicted replicate-all plus KEEP.)
+- DEATH-POINT-FIRST (RECON73 2026-09-29: two builds scored identical 1/4 while every new gate proved firing - 23 promotions, 22 holds, 0 poll aborts, 55 pools - because all three venues died at gates the packet never touched): every fix packet names, per venue, the exact refusing row it flips (death-row-in/row-out) BEFORE designing; acceptance predicts the refusing row's disappearance, not only new telemetry's appearance. A grade where all new telemetry fires but takes don't move proves the packet scoped the wrong gate, never a regrade.
 
 ## 4. Halt conditions (stop only here)
 

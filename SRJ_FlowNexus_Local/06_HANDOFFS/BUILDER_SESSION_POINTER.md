@@ -3,18 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, RECON73 GRADED 1/4)
+## State (2026-09-29, RELAY-READY BLOCK OPEN)
 
-- V10 graded: sole 6/3 take identical,
-  three misses diagnosed to refusing rows
-  (zone-touch, squatter, no-seed). Key spent.
-- Next design via council with takes-fence.
-  EU August run still needs word + scope.
+- RECON73 graded 1/4, lessons pinned,
+  EU run withdrawn on his word; key spent.
+- Drafting packet v20 (zone + contention +
+  detector) with takes-fence, unattended.
 
 ## Next
 
-- Draft contention/zone/detector packet round
-  (builder-decided shape, council-ruled).
+- Relay-ready v333 + memo + commit; verdicts
+  owed after. No build/run/key this block.
 
 ## Resume order (exact)
 

@@ -255,3 +255,9 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 ## 31. Cited-pointer resolution (GLM-B3 V331: relay prose cited a budget line by a prior version's number across a fold that moved it)
 - Every P###/EA-#### cited in relay prose (question text, supersede notes, traceability, priors) must resolve to the claimed content class on the CURRENT twin/tree the same turn the relay assembles (grep the cite, read the resolved lines, state the match beside the prose); a cite matching only a prior version's numbering BLOCKS transport until re-pointed or version-qualified. Packet-internal historical cites carry their version tag (v16-P462), never a bare number. Packet operative prose carries the same hazard (P033b cited v16-frame P462 into v19; caught by whole-file P-number enumeration this turn): bare P-numbers in live packet prose resolve the same way, or carry their version tag.
+
+## 32. Stage-1 site-completeness + already-applied disposition (RECON73 build 2026-09-28: packet v19's A-E old-fences missed 0x on the v9 tree while their new shapes stood 1x - mid-series builds had applied them; a site-by-site apply would have halted at A3)
+
+- Census every edit site (old-hits + new-presence, both patterns) BEFORE any write; a packet whose assumed base differs from disk is diagnosed per site, never assumed drift and never force-applied.
+- Already-applied disposition needs old-0x AND new-1x (both directions); re-applying an applied site duplicates code (double-decl fails compile) so the skip is forced by disk, recorded per site with both counts, never a choice and never invention.
+- Open disposition needs old-1x AND new-0x; any other combination (1x/1x duplication, 0x/0x missing) halts the whole apply, never partially builds.
