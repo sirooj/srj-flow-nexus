@@ -3,19 +3,19 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V328 SHIPPED)
+## State (2026-09-28, V328 GRADED)
 
-- Memo shipped on his proceed word:
-  relay v328 to Luna + GLM + Sonnet,
-  identical text, whole file each
-  (Astra out, as announced).
-- Verdicts owed back whole per seat.
-- Nothing else asked; no build/run/key.
+- V328: Q1/Q2/R1 2-0 ALL CLEAR
+  (ledger 925, result B1A96D65;
+  3 seats filed 1x, Astra out).
+- v16 fold opens: sentinels + fail
+  flag + wording batches.
+- No build (dual-key out); no run/key.
 
-## Next (awaited carrier)
+## Next (builder, unattended)
 
-- His pasted V328 verdicts (whole
-  text per seat), then grade.
+- Draft packet IMPL-2 v16 (builder-owned
+  technical shape, council rules it).
 
 ## Resume order (exact)
 
