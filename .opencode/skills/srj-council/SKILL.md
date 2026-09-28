@@ -236,3 +236,9 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 - Script reads ALWAYS carry explicit -Encoding UTF8 (Get-Content default is ANSI on this box while WriteAllLines writes UTF-8: the asymmetric pair fabricates mojibake while every byte-compare stays green).
 - Every assembled relay ends with a non-ASCII census by file class (expected set named per assembly: twin carries the packet's non-ASCII; regions carry traced EA bytes; rows/head/tail ASCII-only or named); an unexpected shadow (Latin-1 fragments like U+00E2/U+00C3/U+2020) FAILS the file.
+
+## 28. Ghost-triage speed (2026-09-28: 115KB relay appeared with zero authoring calls; turns burned before the transcript question)
+
+- First question, first batch: does the transcript show an authoring call for these bytes? No transcript claim = UNEXPLAINED-FILE immediately, forensics later.
+- Staging-trail check: legitimate assemblies pass through Temp with hashes; a canonical-tree file with no staging trail and no record entry is foreign until proven otherwise.
+- Single-session assumption is never asserted: two sessions sharing one tree explains duplicate numbers, displaced tails, and transcript-vs-disk splits. On ghost-class evidence, his-eyes-only check (second window? Task Manager?) rides with the report, never as a second turn.

@@ -3,19 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V325 FILED GREEN)
+## State (2026-09-28, V325 TRANSPORT MEMO SHIPPED)
 
-- Squatter deleted on his word; clean v325
-  filed A0B783BE/116633/990, battery green.
-- Writer verdict: my writes all accounted;
-  status misreports owned (D13 both ways).
-- Runner unknown; second-session check is
-  his-eyes-only. Packet v12 stands ready.
+- Relay v325 A0B783BE shipped to Luna +
+  Astra + GLM (identical text). Triage
+  lesson filed (defect-5, council-28).
+- Key + word NOT asked (clearance first).
 
 ## Next (owed him)
 
-- Transport memo on his word (battery
-  numbers plus key + word asks, once).
+- Their verdicts, pasted whole back.
 
 ## Resume order (exact)
 

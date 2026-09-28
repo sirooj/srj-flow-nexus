@@ -59,3 +59,10 @@ Match the mistake to one class. If none fits, say so and stop — do not force a
 ## 4. Relay pre-send gates (MOVED 2026-09-19 - the full gate battery now lives in the srj-council skill; invoke it before any transport. The D14 audits above cite gate names - the gates themselves are defined there. Single source of truth.)
 
 - Twin, snippet, ellipsis, hash-freshness, P-sequence, completeness, verdict-intake, ledger-discipline, and the D14 self-check family: see srj-council section 3. A relay failing any gate there is BLOCKED, fixed, and re-verified, never sent.
+
+## 5. Builder addendum 2026-09-28 (ghost-vs-writer triage; his text above untouched)
+
+- DISCRIMINATOR (one batch, no forensics spiral): transcript shows an authoring call for these bytes? YES = D13 writer-misreport path (re-read state, repair to disk-truth, name the misreport). NO = UNEXPLAINED-FILE path (quarantine + record + report, never adopt, never overwrite). The 2026-09-28 ghost burned turns on glyph forensics before the transcript question was asked first.
+- FAST TRIAGE (single batch): git status (tracked? modified?) + file mtime vs own last tool call + hash vs known artifacts + transcript authoring-call check. Classification in one batch, not a reopened investigation.
+- HONEST LIMITS: no rule prevents an outside writer; the protocol guarantees detection speed (collision guards + existence checks before every write) and zero build-on-dispute (quarantine holds until his word). Never promise prevention of outside actors.
+- TEMP-STAGING RULE: assemblies land in Temp, verified byte-clean, then byte-copied to canonical names (no re-encoding reads in between). A finished file appearing in the data tree with no staging trail is itself the ghost signature.
