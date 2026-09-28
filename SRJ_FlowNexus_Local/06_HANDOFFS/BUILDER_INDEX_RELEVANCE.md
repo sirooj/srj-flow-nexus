@@ -13,7 +13,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 built 2026-09-27; alert-only stands; v12 packet drafts F11/G1/H against it, unbuilt).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v16 DRAFT 6F337E27/80475/476 (battery-green; untransported; build needs new Luna key + his run word, neither spent nor asked).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v329-IMPL2-14.md` 18AB411B/145668/1358 (battery-green; untransported; two questions Q1/Q2 plus rider R1).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v329-IMPL2-14.md` 18AB411B/148026/1358 (battery-green; untransported; two questions Q1/Q2 plus rider R1).
 - Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_RECON72-V9-UJ.md` 2499FB87/10374/70 (A-SL1 PASS with S5.4/S3.3 audit clean; A-S2P UJ-NOADMIT+UJ-NOPROMO; A-POIV UJ-NOTOUCH+UJ-NOPROMO; A-FB UJ-NOADMIT correct sub-1R refusal; EU-pending).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
