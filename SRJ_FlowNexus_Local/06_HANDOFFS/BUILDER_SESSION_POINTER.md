@@ -3,19 +3,21 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V329 GRADED + V17 DRAFTED)
+## State (2026-09-28, V330 RELAY-READY)
 
-- V329: Q1 1-1 HALT / Q2 2-0 CLEAR /
-  R1 2-0 CLEAR (4 seats filed 1x).
-- v17 DRAFT F1CDF21C/83306/480,
-  battery-lite green, unruled.
+- Relay v330 8F577C5E/151601/1374,
+  battery green (twin 480 diff-0,
+  rows 39, regions 36, no ellipsis).
+- v17 F1CDF21C + result BA30C89E
+  committed (ledger 930).
 - Tree quiescent; harness idle.
 
-## Next (builder work, no word needed)
+## Next (one word owed, then carry)
 
-- Draft relay v330 (twin of v17)
-  + full battery; transport only
-  on his word after green.
+1. Say the word for v330 (digest
+   8F577C5E); then paste the file
+   `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v330-IMPL2-15.md`
+   whole to Luna + GLM + Sonnet.
 
 ## Resume order (exact)
 
