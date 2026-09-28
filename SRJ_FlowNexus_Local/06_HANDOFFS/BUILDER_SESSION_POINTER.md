@@ -3,18 +3,18 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V19-REMAINDER BUILT)
+## State (2026-09-29, RECON73 GRADED 1/4)
 
-- V19 remainder built FC41EE0D/671645/12127
-  (0/0 compile, ex5 rebuilt); key spent
-  its one build, one UJ run remains.
-- UJ June 1-13 run next under CLOSE-FIRST
-  order; journal range proof at launch.
+- V10 graded: sole 6/3 take identical,
+  three misses diagnosed to refusing rows
+  (zone-touch, squatter, no-seed). Key spent.
+- Next design via council with takes-fence.
+  EU August run still needs word + scope.
 
 ## Next
 
-- Order terminal.ini [Tester] window, verify,
-  launch UJ run, prove range by journal line.
+- Draft contention/zone/detector packet round
+  (builder-decided shape, council-ruled).
 
 ## Resume order (exact)
 

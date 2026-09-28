@@ -73,5 +73,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - 2026-09-28: his credits word (ledger 939) + seats answer (ledger 940) + dual-key amendment (ledger 941: Luna+GLM CLEAR = build-clearable, Sonnet-advisory addressed; Opus+Astra parked/out rejoin on word/credits).
 - 2026-09-28: Luna KEY-IMPL2-V19 VALID + handoff POST-V333 (ledger 942: key filed whole 1x Luna 13110-13125, one build + one UJ-June run, unspent; run word banked for fresh session; pointer refreshed).
 - 2026-09-28: V19-remainder BUILT (ledger 943: STAGE-1 green, F/G1/H1/H2a/H2b applied, FC41EE0D/671645/12127, 0/0 compile, ex5 rebuilt; adherence audit filed; key build spent, one UJ run remains).
+- 2026-09-28: RECON73-V10-UJ LAUNCHED (ledger 944: window + binary pre-proven, journal testing-of 2026.06.01-2026.06.13, Core 04 live; key fully spent; grade on completion signal).
+- 2026-09-29: RECON73 GRADED 1/4 (ledger 945: DONE=PASSED, 6/3 identical, three UJ-NOADMIT with death rows; result + 23-row extract; next zone/contention/detector via council).
 
 (End of file)
