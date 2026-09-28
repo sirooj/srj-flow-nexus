@@ -2303,3 +2303,41 @@ The existing code already documents an asymmetry (C2395): booking keeps first-ar
 
 Those are the substantive gaps I'd want closed before treating this as build-ready: IE1's unscoped side effects, the IE6/IE7 staleness question, IE10B's join-key correctness, and the three-way tie re-verification. Want me to dig into any one of these against more of the actual source (e.g., the full `MtReset` body, or every call site of `ComputeNearestTpTarget`)?
 ## V312-UJIMPL-13 END SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+
+## V323-IMPL2-8 OPEN SONNET (advisory-only review, zero tally weight; seat parked 2026-09-24, filed whole 1x this turn, novel inbound)
+
+## Q1 verdict — FIX F
+**CONFIRM.**
+
+## Q2a verdict — FIX G1
+**CONFIRM.**
+
+## Q2b verdict — touch-evidence ruling
+**CONFIRM** (a documented reason is given: LEGTOUCH found=1×33 all fromFvg=false plus 0 zoneTouch=1 run-wide, i.e., the demand is empirically unreachable on this data; fallback to reinstating it in v11 is stated).
+
+## Q3 verdict — FIX H
+**OBJECT** — EA 7473–7487 (H1 site).
+
+Reason: removing the SUB_1R abort here means a marginal candidate that used to be culled at the 16:05-style poll now stays live in whatever state slot it occupies until the FIRE-time check, potentially many bars later. Nothing on the page shows that the state machine can hold more than one candidate at a time, so nothing on the page rules out a better candidate arriving during that extended hold being missed or blocked. The H acceptance section (around the A-FB-RETAKE proof) doesn't name this as a covered risk, and it's not in H's scope disclaimer either. This isn't a claim that the mechanism is wrong — it's that the "closed on the page" bar isn't met without either (a) a citation proving single-candidate exclusivity elsewhere in the pipeline, or (b) an explicit scope-disclaimer line naming this as accepted risk the way F and G1 each carry one.
+
+---
+
+## Analytic ask A — defects/gaps/imprecisions
+
+1. **F, EA 7245–7305:** `t79_aligned` stays `false` when the HELD branch fires (the code only skips the abort; it never flips the flag). If any code beyond line 7305 reads `t79_aligned`'s stored value rather than just relying on control flow having reached that point, a held-but-nominally-unaligned bar would be treated inconsistently there. Nothing on the page proves `t79_aligned` isn't read again downstream — this is a page-completeness gap, not a demonstrated bug (the `t79_`/`t81_` naming convention suggests it's block-local, which would make this moot, but that isn't shown).
+
+2. **G1, EA 8784–8792 vs. the new insert (P244–265):** the HEADS-UP print historically fires unconditionally right after arming. If the cascade fires, `g_state` has already advanced to `ST_S5_GATE_CHECK` by the time that print runs, so the log would show "armed, awaiting confirm" for a candidate that's already past confirmation. Cosmetic, but it corrupts any log-based grading that assumes HEADS-UP precedes CONFIRM chronologically — worth either suppressing HEADS-UP on the cascade path or annotating it.
+
+3. **G2 (touch-evidence ruling):** the replacement standard (retest + confirm + zone bounds on the anchor bar) is evidentially weaker than the retired geometric zoneTouch=1 proof — it's a price-action proxy, not a demonstrated intersection. The retirement reasoning is sound as *unreachability*, but the page doesn't separately flag that this changes the strength of what "touch" means going forward. Worth a standing note (not a code change) so future false-admit review knows this trade-off was made deliberately, not just that the old check never fired.
+
+4. **H2, new-H2b block (P322–P332):** the backward D1 scan (`for(int uj_dd = 2; ; uj_dd++)`) grows `uj_histHi/uj_histLo/uj_histDay` one element at a time via `ArrayResize(..., uj_n+1)` inside the loop. Runs once per day rollover (not per tick), so likely tolerable, but it's an O(n²) reallocation pattern for n days of history and has no stated cap — the doc names "no cap number" as a deliberate choice for the any-age rule, but doesn't address the resizing inefficiency specifically, which is a separate, purely mechanical concern.
+
+## Analytic ask B — alternative mechanisms
+
+- **F (EA 7245–7305):** if `t79_aligned` does get consumed elsewhere, set it (or a parallel `t79_effectiveAligned`) to `true` on the HELD path so any downstream reader sees consistent state rather than relying on control-flow-only correctness.
+- **G1 (EA 8791–8792, arming print site):** gate the HEADS-UP print on whether the same-pass cascade fired, or move it before the cascade check, so log order always matches state order.
+- **G2 (admission print, near the UJADMIT block at EA ~10437 / A7):** add a `touchClass` field (geometric vs. corroborating) to UJADMIT so a future audit can quantify how many admissions actually depended on the weaker standard, rather than only knowing it was retired in principle.
+- **H1 (EA 7473–7487) / candidate lifecycle:** add a diagnostic print wherever a new S2 candidate would begin evaluation if one is already pending fire (a "candidate slot occupied" telemetry line) — this would make the single-candidate assumption falsifiable on the next UJ run rather than only assumed from the page.
+- **H2 (new-H2b block):** call `ArrayResize` once with a size derived from `iBars(_Symbol, PERIOD_D1)` (or a bar count probe) before the loop, then fill by index, instead of resizing by one inside the loop.
+
+## V323-IMPL2-8 END SONNET

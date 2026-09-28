@@ -6386,3 +6386,99 @@ Scope of ruling: page only (packet P-lines, companion C-lines, rows R01-R25, log
 Both verdicts are page rulings only. Build stays gated on a new key plus his run word; neither is spent, asked, or cleared here.
 
 ## V322-IMPL2-7 END GLM (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V323-IMPL2-8 OPEN GLM (filed whole 1x this turn, novel inbound)
+
+Verdict lines first, derivations after, then the standing asks.
+
+```text
+Q1 verdict line:  OBJECT — P013/P016 vs P220-P229 vs P355.
+Q2a verdict line: OBJECT — P233/P253-P266 vs the elided EA 8793-8840 tail.
+Q2b verdict line: CONFIRM — P267 rules the replacement with reason; notes below.
+Q3 verdict line:  OBJECT — P305/P357 vs P337 (winner-source naming).
+```
+
+Nothing here builds, runs, spends, or clears live activation; no keys volunteered or demanded. Ruling on the page only throughout.
+
+---
+
+## Q1 — FIX F: OBJECT
+
+**Ground: the page's own authority rows make the A-S2P retake unachievable under F's predicate.**
+
+Pass/eval mapping (pinned by the rows): pass T evaluates bar T−5. R29 (S2PROMOTE bar=09:05, logged 09:10), R30 (bar=09:15, logged 09:20), R31 (bar=09:30, logged 09:35); R26/R27/R28 (ABORTs at passes 09:15/09:25/09:40 = evals 09:10/09:20/09:35).
+
+P013 (machine-checked UJPROBE series): m15=−1.0 at evals 09:05/09/10/09/15, **+1.0 opposed at 09:20/09:25**, −1.0 at 09:30/09:35, **+1.0 opposed at 09:40/09:45**; P016: "ltf is opposed at every 6/5am probe." F's hold (P223: `uj_hm15r && uj_hm15 == uj_hwant`) holds only on M15 agreement. Therefore in the fixed run:
+
+1. **The 09:25 pass cannot hold.** Pass 09:25 evaluates bar 09:20; m15(09:20)=+1.0 ≠ SHORT want −1.0 → the abort survives F. P355 expects "holds where ABORTs fired at the 09:15 + 09:25 + 09:40 passes" — the 09:25 member is impossible per P013.
+2. **Two promotions, not one.** Cycle 1 (promote pass 09:10) holds at 09:15 and 09:20 (m15 −1.0 at evals 09:10/09:15), dies at 09:25; the key re-promotes at bar 09:30 (pass 09:35). P355's "exactly one promotion for this key or fail UJ-NOPROMO" fails on the packet's own numbers — and note the BASE series P355 itself cites shows three promotions (09:05+09:15+09:30), so the pin matches neither BASE nor the F-predictable count.
+3. **The 09:45 fire pass aborts.** The surviving cycle reaches pass 09:45 in S3/S4; the invariant (EA 7245, first in the pass per the packet's own EA-7222 pin) evaluates bar 09:40: ltf=+1.0 (P016: every probe) → trigger; m15(09:40)=+1.0 → hold fails → ABORT LTF_MISALIGN before the prebind/S4-edge ever runs. No CONFIRMPOLL at 09:40, no UJADMIT at 09:45, window admission count 4 unreachable — and with it P359's exactly-four L-final bound fails no matter what else lands.
+
+So F as written fixes the 6/11 14:30 abort (holds at evals 14:25/14:30, m15 aligned — that half works and feeds G1) but does **not** rescue the 6/5 09:45 SHORT, which is one of its two named targets (P185). The page never reconciles P013's series with P355's predictions; the acceptance is internally contradicted, not merely risky.
+
+Fairness note: F's siting, MQL5 shapes (identical to the FIX-C block at EA 8226-8233), stateless re-read, scope disclaimer, and the takes-sheet preserve logic (6/3 carries 0 ABORT/LTFFLIP rows; kill-relaxation cannot remove existing admissions) are each closed on the page. The objection is that the mechanism contradicts the acceptance it exists to deliver, via the page's own probe data.
+
+## Q2a — FIX G1: OBJECT (narrow)
+
+The edit itself is closed: predicate, siting (after LogState at EA 8791, before HEADS-UP at EA 8792), four-arg `IsConfirmationCandle` shape (EA-8842/8991), `g_confirmFromState` assignment precedent (EA-8845/8994), shift-0 fireBar convention (EA-10458), new-name census, split-bar no-cascade proof (6/3 09:00 bar, confirm=0, no prebind row), falses-bounds rarity (CONFIRM_PREBIND 1x vs 28 FAILs), and the named EU same-candle remainder with the blocking rule are all on the page.
+
+The objection is the **same-pass fire — the fix's core claim and the load-bearing premise of P356 (fireBar=14:40, fill 14:40, entry 160.524) and of the four-admission L-final.** The cascade sets S5 at EA 8791 and must reach the S5/fire block below (DIV walk EA-9006-9054, fire EA-10415+) without an intervening return. The page's proof is the prebind precedent (P233, EA-8835 "no return: fall through to the ST_S5_GATE_CHECK block below") — but the prebind is a *different branch* of the S3 handling. The arming branch's tail, EA 8793-8840 (48 lines between the two shown regions), is elided, and the v9 rows cannot distinguish the two structures:
+
+- If the arming branch falls through to the block end, the mid-pass S5 set hits the state-gated S5 block and fires at pass 14:40 → entry 160.524. ✓
+- If the arming branch returns after HEADS-UP ("S3->S4 arming consumes the pass," P233, is equally explained by a return), the cascade's S5 set is stranded, the fire lands at pass 14:45 with entry ≈ the 14:45 open (~160.520), and the venue fails UJ-TIMEBASE against the pre-declared tuple. ✗
+
+The row pattern is compatible with both: no touch-setter rows at the arming pass (no UJTOUCHSEEN/LEGTOUCH key row at eval 14:35) is produced equally by a returning branch and by setters cased outside the fall-through path. Corroborating evidence that the flow around the site is nontrivial: R42 prints LEGTOUCH with zone 160.489-160.504 at pass 14:35:10 — before the 14:40 arming pass that the death chain says sets that zone — so either locals are in play or the machinery between the shown regions does work the page's pass model doesn't capture. demanded: show the arming branch's tail (or a control-flow statement that the cascade path reaches the S5 block with no intervening return), or restructure the cascade onto the prebind's proven fall-through. Fail-closed at grade catches a wrong assumption (UJ-TIMEBASE), but the packet's own standard — whole verbatim regions for load-bearing sites — is not met for the half of the mechanism that makes the venue land.
+
+## Q2b — touch-evidence ruling: CONFIRM
+
+P267 rules the replacement with reason, and the reason is on the page and machine-cited: the zoneTouch=1 demand is unreachable when FVG is dead (LEGTOUCH found=1 ×33 all fromFvg=false; 0 zoneTouch=1 run-wide; his A3 FVG-irrelevance post-flip; FindLegTouch's opposite-candle requirement at EA-6716 vs bullish confirmation bars — the EA 6692-6722 region shows the predicate directly). The replacement triple (RETESTBOOK + CONFIRMPOLL confirm + LEGTOUCH zone bounds on the anchor bar) maps to his VENUE-CORRECTION, the UJTOUCHSEEN prints stay corroborating-only, and the v11 fallback is stated. The ruling is also *required* by G1's architecture (the cascade bypasses the S4 touch book, so no UJTOUCHSEEN row can exist inside the 6/11 window in the fixed run) — coherent.
+
+Notes (non-blocking): (a) P360 still *defines* UJ-NOTOUCH with a zoneTouch qualifying term in the same paragraph that retires it — mark it RETIRED inline so no grader can invoke it; (b) P356's "RETESTBOOK hits=2" has no spliced backing row (the only spliced RETESTBOOK rows are 6/5 hits=0: R34/R35/R51) — label it grade-read or splice its BASE row; (c) "on the anchor bar" is ambiguous for split-bar venues (6/5 am: retest 09:35, confirm 09:40 — which bar carries the proof?); (d) state explicitly that under the G1 cascade the UJTOUCHSEEN corroboration will be absent at the 6/11 venue, so the battery expects zero touch prints there.
+
+## Q3 — FIX H: OBJECT
+
+H1 is clean and confirmed in substance: the abort-to-telemetry swap (P287-P302) supports the memo write and the fire order; the v8 IE7 comment-code defect (comment claims entry-open, code asserts poll ref — 16:05 ref 160.009 vs his 160.059) is honestly named and repaired; A4-order preservation matches the EA 10415-10446 region (FIRELOCAL asserts first, then liveness/identity); entry-side exclusion needs no code (Assert1R's direction gate at EA 11825-11826 fails a below-entry TP by arithmetic). H3-collapse and the exclusions are scoped with the non-covered items named.
+
+The objection is a positive prose-code contradiction in H2:
+
+- P305 specifies "winner source **DH-YYYYMMDD**"; P357 grades "fire wsrc in **DH-family**".
+- The H2b code (P337) emits `"D" + StringSubstr(day,0,4) + StringSubstr(day,5,2) + StringSubstr(day,8,2)` → **"D20260430"** — no "H", no hyphen, direction-neutral.
+
+A grader checking the pre-declared "DH-family" predicate against the emitted "D20260430" cannot match it literally (UJ-SRCMISM spuriously), and the prose's "H" is direction-specific while the code consults highs for LONG and lows for SHORT from the same source string. Under the packet's own "values pre-declared below must match" discipline this is not closed as stated. Demanded: one-line alignment — either the literal becomes side-aware (`"DH"`/`"DL"` per dir at P337) or P305/P357 say "D-YYYYMMDD". Everything else in H2 (empty-election scope with the 6/3 FBPOOL-0 unreachability proof, session-pool age 0-1 ownership, today-exclusion, UpdateBest zone/in-direction reuse, ArrayResize/iHigh/iLow shapes, +18 budget, S3-recount) is closed on the page.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (consolidated, with cites)
+
+1. **P013/P016 vs P355 (Q1 core)**: the m15/ltf series versus the retake's hold/pass set — the 09:25 hold impossible, two promotions forced, the 09:45 fire-pass abort undescribed. The page never runs this reconciliation.
+2. **P016 vs R32/P026**: "CONFIRMPOLL series confirm=0 … first-1 at eval-09:40" contradicts R32's confirm=1 at eval 09:15 unless "confirm" means the IsConfirmationCandle predicate in P016 and a candle-classification component in the row. Since G1 keys on IsConfirmationCandle, disambiguate which signal each label carries (P013, P016, P026, R32, P257); P355's "CONFIRMPOLL confirm=1 at 09:40 bar" should say "predicate PASS" for the same reason.
+3. **Elided EA 8793-8840** (Q2a core): load-bearing control flow between the cascade insert and the S5 block, not on the page.
+4. **R42's zone values at pass 14:35:10** (zone 160.489-160.504 before the 14:40 arming that the death chain says sets them): the S3 machinery between the shown regions is under-documented; name the LEGTOUCH call site and the zone source.
+5. **P305/P357 vs P337** (Q3 core): the DH naming mismatch.
+6. **P359/P360**: UJ-NOTOUCH defined (with a zoneTouch term) and retired in the same breath; and with it retired, name which finding covers a corroborating-touch failure (UJ-NOEVID presumably) so the battery is exhaustive.
+7. **P232/P350 "EU takes cannot be un-taken"** is over-strong: a relaxed kill (F) or retired abort (H1) keeps candidates alive longer, and the single-candidate state machine can shift a later candidate's S1→S5 timing (moved entry bars). The preserve battery fences it (A-EU-PRESERVE entry-bar compare + ENGINE-REFINE-KEEPS-VALID-TAKES blocking), but the claim should say "fenced at grade," not "cannot."
+8. **H2 D1-history depth**: "until history exhaustion" (P305, P322-P332) — the page never establishes that the replay configuration's D1 data reaches April 30 (day-age ~36 for 160.723). If the tester's D1 history truncates nearer, the pool-nearest changes and P357's tolerance clause ("mismatch tolerated ONLY iff elected == pool-nearest-above-entry-open") would pass a venue whose target contradicts his A2 expectation. Pin the 160.723 admission as the expected case and name the truncation case.
+9. **P305 StringToTime** (P317) is absent from the H2 established-shapes audit list; add it (standard builtin, compile-safe, but the audit claims completeness).
+10. **H2 swept-status asymmetry**: the D1 removal reason ("re-books swept lines the masked walk rejected") applies equally to back-day lines whose highs were swept long ago; the non-coverage is declared (P305/P349) but the page should say why it is acceptable for age-2+ lines under his NEAREST-ANY-AGE word.
+11. **P259/P266 telemetry order**: on a cascade pass the HEADS-UP "awaiting confirm" alert prints *after* the UJCONFIRMCARRY "firing same pass" row — stale/contradictory telemetry; suppress or reorder.
+12. **P261 g_confirmFromState**: set to the just-armed S4 but the page never names its consumer; if the S5/fire block branches on S3-origin vs S4-origin, verify the S4 value against that consumer.
+13. **P233/P266 S5-gate input shift**: under the cascade the DIV walk/freshness evaluate the arming bar (14:35), one bar earlier than BASE (14:40); "kills unchanged" is true of code, not of input — name the shift.
+14. **P266 EU remainder**: the M15-agree guard (P257) may itself block EU cascades — that is the preserve-safe direction and worth stating.
+15. **Fence rendering**: the old/new fences show an apparent +1-space indent offset versus the shown EA regions (P187-P203 vs the 7245-7305 region; P174-P183 vs 8936-8946; P235-P242 vs 8784-8791). Section 0 claims old-fence 0-diffs disk-side; if that is a paste artifact it is cosmetic, but the battery should re-verify before the key.
+16. **Q1's authority phrasing**: the "S3.3 refinement authority" for F is thin on the page — P185's settled audit covers S5.4-absence; state explicitly whether the EA 7245-7304 invariant is the S3.3 flip-kill implementation being refined, and that the refinement authority is STRUCTURAL-BIAS + Rulings-D.
+
+Budget arithmetic verified independently: A-series and carried +53 recomputed to 53; F +8 (17/25), G1 +12 (8/20), H1 +1 (15/16), H2a +4, H2b-D1 +18 (33/15) — total +96. P-sequence, digests, twin diff, row 1x counts: disk-side, his machine, not ruled here.
+
+## Analytic ask B — better mechanisms
+
+**Q1 (F)** — two defensible readings of his rule, pick one and re-pin P355 to match:
+- *Confirmation-bar carve-out* (minimal, touches only the F block at EA 7245-7304 / P220-P229): hold when M15 agrees **or** the evaluated bar passes `IsConfirmationCandle(barShift, g_anchorLine, g_dir, term)` — i.e., the kill never fires on the pass that evaluates the confirmation bar; if the downstream blocks fire, the state leaves the invariant's range (MT_MANAGING); if they don't, the next pass aborts. Effect: 6/5 holds at 09:15/09:20/09:40 and at the 09:45 fire pass (bar 09:40 is the confirmation bar), still aborts at 09:25 (eval 09:20 is not a confirmation bar) — venue lands via the 09:30-bar re-promotion; P355 must then pin **two** promotions (09:05 + 09:30) and holds at 09:15/09:20/09:40/09:45. 6/11 and 6/3 unaffected (6/11 holds already ride M15 agreement; 6/3 has no LTF opposition).
+- *Entry-candle-governed kill* (his rule read literally — "the 15m confirms at the entry candle"): pre-entry M15 opposition never kills; the M15-confirmed kill moves to the managed side post-admission. Delivers the single-promotion story P355 currently pins, but is a larger edit (invariant block + managed loop) and touches more surface than this packet's budget.
+
+**Q2a (G1)** — if the arming branch's tail returns, restructure rather than relocate: set a same-pass-armed latch inside the arming branch and run the cascade predicate at the prebind's position (EA 8841-88 63), reusing the prebind's proven no-return fall-through to the S5 block. Touches EA 8784-8792 and 8841-8863; preserves the UJCONFIRMCARRY row and the else-path byte-identity.
+
+**Q3 (H2)** — one line: `string uj_hsrc = (dir == DIR_LONG ? "DH" : "DL") + StringSubstr(...)...` at P337, matching P305/P357 as written; or leave the code and rewrite P305/P357 to "D-YYYYMMDD". Optionally add a battery probe that iHigh(PERIOD_D1, ~36) > 0 on the 6/5 replay date before the run is graded, so the history-depth assumption is evidenced rather than assumed.
+
+— End of seat verdict. No build, no run, no spend, no live activation, no keys. Disk items named above stay proven on his machine.
+
+## V323-IMPL2-8 END GLM

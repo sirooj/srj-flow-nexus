@@ -12355,3 +12355,206 @@ CLEARED for exactly one build of PACKET_P-UJIMPL-IMPL-2 v9 (packet code D511601D
 No additional build, tester run, commit, live activation, trade execution, money movement, or other action is cleared by this relay.
 
 ## KEY LUNA V322-IMPL2V9 END (nothing appended; HELD unspent, run word owed)
+
+## V323-IMPL2-8 OPEN LUNA (filed whole 1x this turn, novel inbound)
+
+## Q1 — FIX F
+
+**Q1 verdict: CONFIRM**
+
+The page closes Fix F sufficiently for an internal page-only ruling. The actual control-flow change is narrow, the M15 read uses an established buffer/call shape, the original abort remains for M15 disagreement or empty read, and the packet explicitly constrains the change to the post-S2 invariant. The downstream S3/S4/S5 gates are described as unchanged. 
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **Telemetry `m15src` is explicitly only a containing-M15 mapping, not proof of indicator-source timing.**
+   P139-P141 and P351 state that `m15src` is derived from the evaluated M5 bar time. The packet correctly discloses this, so it is not a closure failure, but the field name/meaning can be misread as the actual indicator source bar. P016/P351.
+
+2. **The Fix F predicate is duplicated rather than shared with Fix C.**
+   Fix C uses the same `FL_BUF_HTF_LOW` + `dir ? 1 : -1` convention at P134-P143, while Fix F repeats it at P220-P229. That creates future divergence risk even though the current logic is consistent.
+
+3. **No explicit page-level assertion proves `barShift` is always the same closed/evaluated bar convention at both sites.**
+   The packet relies on the established EA convention and cites existing usage, but the Fix F audit does not independently state the closed-bar invariant for this exact second read. P185, P220-P224.
+
+4. **The MQL5 audit is call-shape complete but not semantic-buffer complete.**
+   It proves `ReadFlow(FL_BUF_HTF_LOW,...)` is syntactically established, but the semantic statement "this buffer is the enabling 15-minute vote" is carried mostly from P013 rather than re-established at the Fix F site. This is adequate for CONFIRM, but worth preserving as a future audit dependency.
+
+### Analytic B — better mechanism
+
+A cleaner mechanism would be one shared helper for the enabling-timeframe test, used by both Fix C and Fix F, rather than repeating the value/sign logic.
+
+Affected sites:
+
+* Fix C: P134-P143 / EA 8219-8240.
+* Fix F: P220-P229 / EA 7245-7305.
+
+Conceptually:
+
+`UjEnablingTfAgrees(barShift, g_dir, valueOut, readOkOut)`
+
+That would make the "M15 enables; M5 opposition alone does not kill" rule single-sourced.
+
+---
+
+## Q2a — FIX G1 cascade
+
+**Q2a verdict: OBJECT — P249-P264, especially P249 and P257-P263; supporting context P8936-P8946 and P8990-P9002.**
+
+The same-pass state transition itself is coherent, but the page does **not fully close the touch-state invariant** after the cascade.
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **`g_touchSeen` is explicitly reset to false immediately before the same-pass cascade.**
+   P249 sets:
+
+   `g_touchSeen = false;`
+
+   Then P257-P263 can move directly from S4 armed to S5 gate-check in the same pass.
+
+2. **The page does not show the touch setter executing before S5 in the same-candle path.**
+   The normal touch setter is in P8936-P8946, but the G1 transition can jump directly to `ST_S5_GATE_CHECK`. The packet therefore needs an explicit proof that either:
+
+   * `IsConfirmationCandle()` itself supplies all touch state required by S5, or
+   * the same-bar retest/touch evidence is transferred into `g_touchSeen`/equivalent state before S5.
+
+   That proof is absent from the page.
+
+3. **The G1 predicate is stronger than the one-sentence change description.**
+   P257 requires both `IsConfirmationCandle(...)` **and** a readable, direction-matching M15 vote. The change sentence says a bar that "also passes the confirmation check fires the same pass." The extra M15 condition may be intended because the packet is M15-governed, but the acceptance language should state that explicitly as part of the cascade predicate.
+
+4. **The page proves `g_confirmFromState = ST_S4_ARMED`, but does not explicitly prove the downstream S5 logic requires that exact provenance for this route.**
+   P260-P263 mirrors the ordinary S4→S5 path, which is a good precedent, but the page should state the equivalence explicitly.
+
+5. **The EU preservation contract catches moved fills only at grade time, not structurally.**
+   P266 and P358-P359 correctly say a moved entry bar blocks the packet, but there is no code-side identity invariant preventing the cascade from moving a same-candle EU admission one pass earlier. That is acceptable as an acceptance guard, but it is a deliberate runtime risk.
+
+### Analytic B — better mechanism
+
+The safer implementation is to use a **single common confirmation-transition routine** for both the ordinary S4 path and the same-candle cascade, with the same touch-state contract.
+
+Affected areas:
+
+* G1 site: P245-P264 / EA 8784-8791.
+* Touch state: EA 8936-8946.
+* Ordinary confirmation edge: EA 8990-9002.
+
+That shared routine should make the invariant explicit:
+
+`same-bar retest/confirmation proof → touch state established → S5 state/provenance set → shared S5 gate`
+
+That removes the present ambiguity around P249's `g_touchSeen=false`.
+
+---
+
+## Q2b — touch-evidence ruling
+
+**Q2b verdict: OBJECT — P267, P356, P359-P360, and R42.**
+
+There is an explicit internal contradiction: P359 says `UJ-NOTOUCH` is retired, while P360 still defines `UJ-NOTOUCH` as an active failure predicate. P359 even says that retaining a NOTOUCH demand in the grade would itself be a format defect.
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **Direct contradiction in the findings map.**
+   P359: `UJ-NOTOUCH is RETIRED v10`.
+   P360: "touch unproven … UJ-NOTOUCH."
+   These cannot both be operative.
+
+2. **R42 does not show a successful geometric `LEGTOUCH`.**
+   R42 explicitly says:
+
+   `LEGTOUCH ... found=0 ... touchSeen=0`
+
+   Therefore P356's wording around "LEGTOUCH zone 160.489-160.504" is a zone-bound report, not successful touch evidence.
+
+3. **The proposed corroborating evidence is not defined as an exact predicate.**
+   P267 says retest hits + confirmation + zone bounds "constitute touch proof," but it does not specify the precise required identity relation between:
+
+   * retest hit bar,
+   * confirmation bar,
+   * anchor,
+   * direction,
+   * zone,
+   * S3 candidate window.
+
+   P353 says such fields exist for grade-time correlation, but the Q2b ruling should make the exact predicate explicit.
+
+4. **The acceptance currently relies on a future RETESTBOOK result that is not contained in the shown R26-R61 evidence splice.**
+   P356 predicts `RETESTBOOK hits=2`, but the page excerpt itself does not show that row. That is acceptable as a future HYPOTHESIS, but not sufficient to call the touch ruling fully self-defining.
+
+### Demanded predicate for closure
+
+A defensible replacement predicate should be:
+
+> **Touch is proven when, by the signal/confirmation bar, there is a RETESTBOOK hit for the same candidate `(direction, anchor)` on the anchor/confirmation bar, `CONFIRMPOLL confirm=1` on that same bar, and the hit candle's actual OHLC intersects the active zone.**
+
+The corresponding page locations needing reconciliation are **P267, P356, P359-P360, and the touch evidence contract around P353/P360**. R42 also needs to remain clearly classified as "no successful LEGTOUCH," not as proof of touch.
+
+---
+
+## Q3 — FIX H
+
+**Q3 verdict: OBJECT — P014, P146/P164, P305/P314-P346, P349, P357, and P363.**
+
+The poll-abort retirement is internally closed, and the historical pool is well specified mechanically, but the page has a substantive semantic gap around what "NEAREST-ANY-AGE" actually means.
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **H2 is not actually an all-age unified candidate pool.**
+   P305 describes the union as "any age," but the implementation begins at P314 with:
+
+   `if(!haveBest)`
+
+   and therefore only consults historical day highs/lows when the masked current election is empty.
+
+   P146 and P164 explicitly confirm this is **empty-election-only**.
+
+   That conflicts with the stronger doctrine carried at P014/P029: **NEAREST-ANY-AGE** / "pool never empty, book nearest, refuse ONLY below 1R."
+
+   As written, an existing current/session candidate can prevent a materially nearer historical daily high/low from even entering the race.
+
+2. **The page does not formally reconcile "empty-election-only" with "nearest-any-age."**
+   P350 and P357 treat empty-election scope as the intended refinement, but the rule hierarchy never explicitly says that "any age" is subordinate to "historical ages are only considered when the masked election is empty." That hierarchy needs one sentence.
+
+3. **The D1 day definition is not fully proven equivalent to the strategy's day definition.**
+   P316-P331 load `PERIOD_D1` highs/lows and then label them with `UjDayKey(iTime(...))`. The page proves D1 continuity, but does not prove that the broker's D1 bar boundary is exactly the strategy/session "day" boundary used by the existing session pools. This is a semantic, not syntactic, MQL5 gap.
+
+4. **Historical sweep status is explicitly outside scope.**
+   P349 says stale-swept historical day highs/lows are NON-COVERED. That is acceptable as a declared boundary, but it means the broader historical-target doctrine is not fully closed by H2. A swept old daily high can still re-enter through `uj_histHi[]` / `uj_histLo[]`.
+
+5. **The history arrays are only refreshed when the empty-election path is entered.**
+   P318-P333 refresh on day change, but if history availability changes later during the same day, the existing arrays are not re-expanded. This is probably benign under the stated tester configuration, but "until history exhaustion" is stronger wording than the implementation actually guarantees under dynamic history availability.
+
+6. **Repeated `ArrayResize(..., +1)` inside the history scan is needlessly expensive.**
+   P329-P331 performs three resizes per historical day. With a long history this can become O(n²)-ish allocation behavior. It is not a correctness blocker for the specified run, but it is the obvious implementation improvement.
+
+7. **H1 itself is internally sound, but its documentation should distinguish "poll 1R FAIL" from "memo accepted."**
+   P287-P302 correctly makes the poll failure telemetry-only, while P293 still computes the old poll-time R. The later fire gate is the actual verdict. This is logically correct, but the acceptance should make explicit that a `UJPOLLRISK FAIL` is expected and non-failing whenever the fire tuple passes.
+
+### Analytic B — better mechanism
+
+For the stronger **NEAREST-ANY-AGE** rule, the better mechanism is to make historical day H/L candidates a genuine candidate source rather than an empty-election-only fallback:
+
+* Preserve `TpSessionLevelFiltered()` so swept current/session lines remain excluded.
+* Add the historical D1 candidates to a separate allowed-candidate pool.
+* Run the same nearest-distance election across the union of:
+
+  * non-swept current session candidates,
+  * permitted historical day highs/lows,
+  * existing POI candidates.
+* Apply the 1R refusal at the fire tuple, as H1/A4 already does.
+
+The main touch points would be the D1 election region around **EA 2440-2532 / P146-P164**, plus the historical pool insertion at **P314-P346**. `TpTargetUpdateBest()` at **EA 2379-2402** can remain the single nearest-selection primitive.
+
+That is more faithful to "any age" but also carries more regression surface, so the packet's current empty-election-only design is the lower-cascade version.
+
+---
+
+### Council disposition
+
+| Question             | Verdict     | Main reason                                                                                                                                          |
+| -------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Q1 Fix F**         | **CONFIRM** | Logic, siting, and audit are internally coherent.                                                                                                    |
+| **Q2a Fix G1**       | **OBJECT** | Same-pass cascade resets `g_touchSeen` and does not prove the downstream touch-state invariant.                                                      |
+| **Q2b Touch ruling** | **OBJECT**  | P359/P360 directly contradict each other; R42 is not successful touch proof.                                                                         |
+| **Q3 Fix H**         | **OBJECT**  | H2 is empty-election-only, which is not fully reconciled with the stated NEAREST-ANY-AGE rule; D1 day-boundary semantics also need explicit closure. |
+
+## V323-IMPL2-8 END LUNA

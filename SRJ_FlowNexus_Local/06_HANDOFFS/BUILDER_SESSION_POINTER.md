@@ -3,11 +3,11 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, V10+V323 DRAFT GREEN)
+## State (2026-09-27, V11+V324 DRAFT GREEN)
 
-- Packet v10 6E627ADC + relay v323 DBA81FA6.
+- Packet v11 F8584916 + relay v324 DB316D1F.
   Battery green same turn (twin/rows/names).
-- Fixes F/G/H drafted for the 3 misses.
+- Every V323 OBJECT folded or parked.
   EU preserve + C-silence ride the run.
 
 ## Next (owed him)
