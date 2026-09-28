@@ -62,5 +62,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - `EA_STATE_REG.md`, `recovery_compile.ps1` (root debris, word owed).
 - `00_CURRENT_WORKING\RECON*_STATUS.txt` / `*_DONE.txt` / `launch_*.ps1` (run debris, kept until you say otherwise).
 - `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V*.md` (old handoffs, history).
+- `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v325-IMPL2-10.md` (MYSTERY file, quarantined 2026-09-28: unrecorded, lossy encoding shadows, never transport/grade/build; clean v325 staged in Temp pending YOUR deletion word for this name).
 
 (End of file)

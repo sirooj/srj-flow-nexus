@@ -231,3 +231,8 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 - Acceptance time-series predictions (confirm bars, vote series, first-evaluation claims about the FIXED run) carry their source: fixed-tree evidence or HYPOTHESIS label. A base-tree-derived series asserted as a must-match value is unwritten - the fix under test moves the series it predicts.
 - Grade-time mismatch against a hypothesis-labeled series is a UJ finding (failed proof with its finding), never a format defect and never a regrade.
+
+## 27. Encoding rule (mystery-relay incident 2026-09-28 - a 115KB relay appeared mid-turn twinning the packet with cp1252-mojibake shadows of two non-ASCII chars; twin diff-0 cannot detect uniform encoding mangle)
+
+- Script reads ALWAYS carry explicit -Encoding UTF8 (Get-Content default is ANSI on this box while WriteAllLines writes UTF-8: the asymmetric pair fabricates mojibake while every byte-compare stays green).
+- Every assembled relay ends with a non-ASCII census by file class (expected set named per assembly: twin carries the packet's non-ASCII; regions carry traced EA bytes; rows/head/tail ASCII-only or named); an unexpected shadow (Latin-1 fragments like U+00E2/U+00C3/U+2020) FAILS the file.

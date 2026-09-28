@@ -18331,3 +18331,88 @@ Analytic B — better mechanisms, optional future work:
 These are independent page-only verdicts. They authenticate no disk facts and provide no key, build/run authorization, money authority, or live-activation clearance.
 
 ## V322-IMPL2-7 END ASTRA (verbatim close; filed whole 1x this turn, novel inbound)
+
+## V324-IMPL2-9 OPEN ASTRA (filed whole 1x this turn, novel inbound; transport-glyph artifacts preserved as received, see ledger)
+
+Astra:
+Q1: OBJECT — P023, P187, P236, P371.
+Q2a: OBJECT — P238–P270.
+Q2b: OBJECT — P271, P372, P376.
+Q3: OBJECT — P309, P324–P350, P358–P359, P373–P374.
+
+These are independent page-only verdicts. I accept the supplied disk statements as reported evidence, without certifying their genuineness. No verdict grants a key or authorizes a build, run, expenditure, or live activation.
+
+**Q1 — F11: the Boolean mechanism is coherent; the settled-audit and acceptance text are not closed.**
+
+The code at P222–P233 implements the stated rule: hold when M15 agrees **or** `IsConfirmationCandle` passes; otherwise abort. The outer `CheckLtfAlign` read-failure abort remains intact. The revised two-promotion prediction and confirmation-bar carve-out remove the identified v10 logical conflict, subject to the expressly hypothetical confirmation and reseeding predicates.
+
+Analytic A:
+
+- **P023 versus P187/P236:** P023 says S5.4 pre-confirmation body-break checks "all run downstream … untouched." P187 instead says S5.4 has **no code path on this tree**, and P236 expressly lists it as absent. Those are incompatible descriptions of the settled audit. Amend P023 to distinguish a standing grading rule from an implemented guard. An absent guard cannot be cited as a downstream check preserved by this edit.
+- **P371 versus P375:** The A-S2P per-venue acceptance says "window admission count 4," while P375 requires exactly one matching admission per venue and four across the entire UJ run. State **one admission in this venue's window; four run-wide**.
+- **P187 versus P226–P227:** The carried explanation says the abort fires when M15 disagrees or reads empty. F11 additionally permits a hold in either case when confirmation passes. P236 gives the correct rule, but P187 remains operative explanatory text and needs the exception.
+- **P236:** F11 is not restricted to candidates actually promoted through the M15 edge. It applies throughout the outer S3–S5 invariant, including candidates originally admitted through LTF alignment. That matches the question's broad wording, but the "M15-promoted candidates" diagnosis should not imply narrower implementation scope.
+
+Analytic B: No replacement mechanism is necessary for the stated broad rule. Correct P023/P187/P371. If promotion-specific behavior is intended instead, it requires candidate provenance state and reset handling; the current stateless code does not provide that restriction.
+
+**Q2a — G1: the proposed execution path is supported, but the exact edit contradicts its siting instruction.**
+
+The supplied arming tail supports the no-return argument. Setting `g_confirmFromState` to S4 also reaches the shown S4-origin DIV consumer. I do not repeat the withdrawn objections about a downstream `t79_aligned` reader or an admission predicate directly reading `g_touchSeen`.
+
+Analytic A:
+
+- **P238–P269 versus P270:** The OLD/NEW replacement fence inserts the cascade immediately after `LogState(prev, g_state)`. The supplied EA region shows the S3-zone diagnostic and HEADS-UP block **after that line**. Applying the fence literally therefore puts CARRY before HEADS-UP. P270 instead requires insertion after the HEADS-UP block close. These are two different edits; the claimed re-siting is not represented by the exact fence.
+- **P237/P270:** Setting the same origin enum establishes the shown consumer's routing equivalence, not equality of outcomes. The earlier evaluated bar can change DIV and freshness inputs. P237 correctly acknowledges this; retain that qualification wherever "equivalence" is used.
+- **P270:** The BASE count of one `CONFIRM_PREBIND` versus 28 failures is contextual evidence, not a quantitative bound on the new arming-branch predicate. The new branch and F11 retention can change which candidates reach the test. C-silence, exact venue identities, and duplicate checks remain necessary future acceptance.
+- **P270/P374:** The EU entry-bar risk is explicitly acknowledged and remains unresolved. That is a legitimate future acceptance gate, not a completed preservation proof.
+
+Analytic B: Keep the mechanism and express it as **one insertion after EA 8811, before the arming branch's closing brace**, leaving EA 8784–8811 unchanged. Replace P238–P269 with an insertion fence and exact surrounding anchor. This resolves the siting conflict without changing the predicate.
+
+**Q2b — G2: retiring setter-based geometric proof is defensible, but the replacement demands evidence from the path the cascade skips.**
+
+R62 plus R63 supports an anchor-line retest interpretation. R42 with `found=0` supplies zone bounds only; it does not prove a geometric touch. R40 supplies confirmation telemetry, not the complete `IsConfirmationCandle` verdict.
+
+Analytic A:
+
+- **P271:** The mandatory fourth term is a `LEGTOUCH` zone report. The supplied region places `FindLegTouch` and its touch-book work inside the S4 route that G1 skips. The packet explains why `UJTOUCHSEEN` disappears, but supplies no surviving emission site for the required `LEGTOUCH` report on the cascade pass. A BASE report cannot establish the new candidate's zone in a future run.
+- **P271 versus P372:** P372's acceptance lists retest hits, confirmation telemetry, and LEGTOUCH bounds, but omits the required `RETESTDIAG inside=anchor-line` term. Its abbreviated predicate can pass evidence that P271 rejects.
+- **P271:** The split-bar rule assigns retest and confirmation to different bars, but does not explicitly assign the `inside` and zone-report terms. Their timestamps and candidate association must also be specified.
+- **P271:** "Zero touch prints at cascade-fired venues" is too broad unless restricted to the cascade evaluation. Skipping S4 proves no execution of its touch setters on that pass; it does not by itself prove absence of all earlier candidate-window touch rows.
+- **P376:** The retired predicate still mentions `zoneTouch` among failure conditions. State the replacement terms directly under `UJ-NOEVID`, so no reader can accidentally reinstate the retired requirement.
+
+Demanded predicate:
+
+1. A `RETESTBOOK` hit explicitly identifying the candidate's anchor and direction on the retest bar.
+2. `RETESTDIAG inside` containing that anchor on the **same retest bar**.
+3. Confirmation telemetry on the confirmation bar, with the actual confirmation predicate PASS evidenced separately by the successful transition/carry route.
+4. A zone report associated with that candidate's arming event, emitted on a path that survives the cascade.
+
+For same-bar cases, retest and confirmation timestamps coincide. For split-bar cases, both belong to the same evidenced candidate lifetime; repeated direction and anchor alone must not join across an intervening abort/reset.
+
+Analytic B: Use the existing post-arm S3-zone diagnostic shown at EA 8792 onward for zone bounds, with an explicit same-pass candidate join, or add those bounds to `UJCONFIRMCARRY` at P263. The first option avoids schema changes. Synchronize P271/P372/P376 and restrict the expected touch-print absence to the cascade pass. No restoration of a mandatory `zoneTouch=1` setter is needed for this anchor-retest interpretation.
+
+**Q3 — H: H1 is coherent, but H2 provenance and acceptance still disagree with the code.**
+
+H1 correctly removes the poll-reference abort while retaining telemetry and memo writes. The shown unconditional FIRE assertion remains before memo liveness/identity checks. H2 removes the old mask-off session re-walk and uses side-aware DH/DL names.
+
+Analytic A:
+
+- **P350 with P070–P071 and the supplied UpdateBest body:** Historical candidates pass `uj_dk` as their provenance day instead of `uj_histDay[uj_hj]`. UpdateBest copies that argument into `uj_winnerDayKey`, which A9 later snapshots and uses for age. Thus the source identifier can identify April 30 while `wday` and `wage` describe the election day. Naming the source correctly does not repair those separate provenance fields.
+- **P346 versus P373:** Code emits `DH20260430` for a long historical high; acceptance demands `D20260430`. The latter is not the emitted identifier. The prose at P309 also says `DH-YYYYMMDD`, whereas code has no hyphen. Choose one exact schema throughout.
+- **P349/P353 versus P373:** `UJHISTPOOL` records identifiers and rounded distances, not raw target prices. It also records candidates before UpdateBest's zone exclusion. Its presence cannot alone prove "160.723 admitted" or post-zone eligibility. Separate history availability, eligibility, and actual election evidence.
+- **P309:** The hierarchy sentence explicitly makes historical candidates fallback-only. That is internally clear, but it does not establish the operator's unrestricted "any previous day **or session** … no matter how old" rule. H2 adds old daily extrema; it does not enumerate old session extrema. The supplied page does not prove that the existing pool covers every required old session line. Describe the implemented coverage precisely and keep the broader rule's coverage unresolved.
+- **P324–P341:** The cache is marked current before loading succeeds; resize results are unchecked; fill reads are not revalidated. Static tester history does not itself establish successful allocation or successful series reads. A transient empty read can produce an empty cache retained for the day, and failed allocation can make indexed writes unsafe.
+- **P358 and the supplied Assert1R:** Assert1R infers direction from TP/SL geometry; it does not receive the candidate direction. A below-entry TP fails for a long only with the corresponding long-side SL invariant. If both sides were reversed, the helper could accept a coherent short tuple. Cite the independent direction guarantees rather than attributing candidate-direction validation to this helper.
+- **P359 and the supplied SINGLETON comment:** "Adds admissions only" is not a preservation proof. Longer retention can occupy the singleton and suppress later candidates—the cited comment explicitly says so. Task-135's scope is freshness retention, and it is cited beyond that scope here.
+- **P374 versus the takes sheet:** The named EU must-keeps are August/September venues, while the stated sibling population is June 1–13. As written, that run cannot directly verify those named historical entry identities. State the actual preserve-run coverage or identify the distinct role of the June sibling.
+
+Analytic B:
+
+- At **P350**, pass `uj_histDay[uj_hj]` as the historical winner's day key.
+- At **P373**, require the exact emitted DH identifier; verify the elected price through `TPFALLBACK` and the admitted fire tuple.
+- At **P324–P341**, check allocation/read success and commit `uj_histToday` only after a successful refresh. Keep failed loading distinguishable from genuine history exhaustion.
+- At **P309/P365**, retain empty-election scope if that is the intended bounded amendment, but do not label it complete implementation of unrestricted any-age daily-and-session consideration.
+
+The surviving F11, G1, and H1 mechanisms need no wholesale redesign on this page. The required amendments are an unambiguous G1 insertion, reachable and synchronized touch evidence, correct historical provenance, and acceptance language that tests the behavior actually specified.
+
+## V324-IMPL2-9 END ASTRA
