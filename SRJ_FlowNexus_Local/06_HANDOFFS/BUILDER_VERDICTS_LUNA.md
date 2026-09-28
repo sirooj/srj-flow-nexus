@@ -12868,3 +12868,64 @@ No replacement mechanism recommended. The single-predicate G2 formulation is alr
 This is a **page-level clearance of the three v327 questions only**. The packet remains draft; no build, tester run, commit, or live activation is authorized by these rulings. 
 
 ## V327-IMPL2-12 END LUNA
+
+## V328-IMPL2-13 OPEN LUNA (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, seat lines 1-56 of 152; byte-exact incl. transport glyphs; Astra out of credits, no gap; see ledger)
+
+Luna:
+## V328-IMPL2-13 Council Verdict — PACKET_P-UJIMPL-IMPL-2 v15
+
+### Q1 — H2b sentinels + census proof
+
+**CONFIRM.**
+
+The refresh is fenced by `uj_hdayt > 0` at the day-key refresh gate, and the consult is separately fenced by `uj_histToday == uj_hdayt && uj_hdayt > 0 && uj_wok`. That closes the dead-clock/readiness gap without opening the H2b path on a normal `haveBest` election.  
+
+The census proof is also code-adjacent: the census winner is a local variable, the loops only read candidate values and compare them with `best`, and the packet explicitly records zero gate reads outside the print. The A-FB venue is correctly declared `census-winner NONE expected`, with election proven through `TPFALLBACK`/fire provenance instead of the census string.  
+
+**Analytic A — defects/gaps/imprecision:**
+No material Q1 defect found on the page. The one limitation is evidentiary rather than logical: “no behavior change on prove windows” is a code-scope conclusion for this draft, not a new v15 execution result; the packet itself correctly treats the future run as the acceptance proof. 
+
+**Analytic B — better mechanism:**
+No better mechanism is needed. A shared `DayKeyReady()` helper could deduplicate the two sentinel predicates, but that would increase change surface without improving the stated proof; the explicit guards are easier to audit.
+
+---
+
+### Q2 — P033 wording + G2 prebind route
+
+**OBJECT — L359.**
+
+The P033 diagnosis itself is consistent: `s31_inPlay` is initialized, the BAR path can set it, the t133 path runs, and the later assignment `s31_inPlay = t133_inPlay` overwrites the earlier BAR-derived value.  
+
+The defect is the G2 prebind transition wording at **L359**: it says the prebind PASS is a **“transition S4-to-S5”**. The cited prebind code is explicitly the **S3 prebind** route: it captures `prevPB = g_state`, assigns `g_confirmFromState = prevPB`, then directly sets `g_state = ST_S5_GATE_CHECK`. There is no S4 transition in that route.  
+
+So the correct wording is **S3/prebind → S5**, whereas **S4 → S5** belongs to the ordinary armed confirmation route. The two routes are separately visible in the cited regions.  
+
+**Analytic A — defects/gaps/imprecision:**
+
+1. **L359:** prebind route mislabeled S4→S5; actual route is prior-S3-state → S5.
+2. The packet consequently conflates the G1 armed cascade and the G2 prebind route at that sentence, even though the underlying code regions distinguish them.  
+
+**Analytic B — better mechanism:**
+Documentation-only correction is sufficient: change the L359 route label to **“S3/prebind → ST_S5_GATE_CHECK.”** No code change is required. A future telemetry enhancement could print `prevPB` and `ST_S5_GATE_CHECK` explicitly at the existing `CONFIRM_PREBIND` print site, but that is optional rather than necessary for this round. 
+
+---
+
+### R1 — stale purge + labels + pins
+
+**CONFIRM.**
+
+The final acceptance text is labeled **L-final v15**, the remainder is explicitly identified as v15, and the historical setter-number retirement is isolated in the design-history sentence rather than presented as a current setter location.  
+
+The current setter pins themselves are consistent: the operative E2 wording uses EA 8940-8946, while the packet explicitly states that the older 8900/8920-region numbers are retired and that the 8940-8946 / 8961-8967 pins govern since v13.  
+
+### Council result
+
+| Item   | Verdict           |
+| ------ | ----------------- |
+| **Q1** | **CONFIRM**       |
+| **Q2** | **OBJECT — L359** |
+| **R1** | **CONFIRM**       |
+
+The packet therefore has **one narrow amend-only defect: correct the G2 prebind transition wording at L359.** No Q1 or R1 blocker is supported by the page.
+
+## V328-IMPL2-13 END LUNA

@@ -6747,3 +6747,68 @@ R1 verdict line: CONFIRM
 All three verdicts are check-form only. Nothing here builds, runs, spends, or clears live activation; build remains gated on a new key plus his run word. 
 
 ## V327-IMPL2-12 END GLM
+
+## V328-IMPL2-13 OPEN GLM (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, seat lines 93-152 of 152 (label with trailing space as received); byte-exact incl. transport glyphs; see ledger)
+
+GLM: 
+# RELAY v328 — packet P-UJIMPL-IMPL-2 v15 — council ruling (page only)
+
+Ruling basis: code lines, numbers, and logic on the page above. Disk genuineness (twin diff 0, region 0-diffs, row 1x, digests) is the builder/operator's side per the verification split; nothing here builds, runs, spends, or clears anything.
+
+## Q1 — H2b sentinel guards with census proof
+
+```text
+Q1 verdict line: CONFIRM
+```
+
+Guards verified in the mql5-new-H2b fence at both sites: refresh gate `if(uj_hdayt != uj_histToday && uj_hdayt > 0)`; consult gate `if(uj_histToday == uj_hdayt && uj_hdayt > 0 && uj_wok)`. Dead clock (hdayt==0) blocks both; initial state (histToday==0) cannot consult even on equality; failed refresh leaves histToday at the prior day, so the consult stays off fail-closed for that day. Census proof pins reconcile line-exactly with the pasted EA 2557-2610 region: `string winner = "NONE"` at EA-2561; sets at EA-2573 (session loop), EA-2585 (pool mirror), EA-2599-2600 (POI loop) — counted against the paste; no gate reads of `winner` anywhere in the region, assignment and print only; no D1 array appears in any census loop, so the A-FB census-NONE sentence (P460) is sound and the election is proved by TPFALLBACK + fire wsrc as stated. The v15 delta is behavior-neutral on prove windows: sentinels are pass-through on a live tester clock, the census proof is print-only prose, and H2b remains unreachable at every masked-winner take per the takes sheet.
+
+## Q2 — P033 t133 wording with G2 prebind route
+
+```text
+Q2 verdict line: CONFIRM
+```
+
+The three corrections are present and reconcile with the pasted regions. t133-commit wording: init false EA-8666 (pasted 8664-8670), hits guard EA-8755 and unconditional commit `s31_inPlay = t133_inPlay;` at EA-8758 (pasted 8740-8784), INPLAYCOMMIT print with `changed=` divergence flag at EA-8761-8782, arming-if at EA-8784 — all counted and matching. Cascade-vs-arming correction is structurally sound: G1's cascade sits inside the arming branch, UJALIGN sits in the else (EA-8820-8828, NOMATCH return at EA-8826), so the arming-if holding is the skip mechanism and the cascade is expressly not (P033). Prebind route: pasted EA 8841-8863 shows IsConfirmationCandle at EA-8842, g_confirmFromState at EA-8845, LogState at EA-8847, CONFIRM_PREBIND print at EA-8849-8852, FAIL return at EA-8862 — every pin in the G2 rider matches. Two wording imprecisions are named below (analytic A1, A3); neither inverts a claimed correction.
+
+## R1 — purge plus labels rider
+
+```text
+R1 verdict line: CONFIRM
+```
+
+Stale numbers purged: operative prose carries only current setter pins (EA 8940-8946 with print L8942/set L8943, EA 8961-8967, LEGTOUCH EA-8947-8960 — each reconciled against the pasted 8936-8946/8961-8967/8940-8960 regions); the retired 8900-series/8920-region numbers appear only in the one labeled-history annex sentence (P470). Labels read current: Status v15 (P001/P003), L-final v15 (P462), v15 remainder (P461), annex v15 line; origin labels (v10 preserve proof, v13 trajectory, v13 pin) correctly name their versions. Budget arithmetic reconciles both ways: +145 = carried 53 + F11 10 + G1 12 + H1 1 + H2a 4 + H2b-D1 65, and carried 80 + 65 (53+10+12+1+4 = 80); the H2b fence counts 80 lines and the D1 removal target 15 by direct count.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (with line numbers)
+
+A1. **P033, 09:45 sentence — citation vs the overwrite it just established.** The sentence cites "the BAR path (EA-8374) sets s31_inPlay," but the same paragraph's unconditional commit at EA-8758 overwrites the legacy BAR result; the operative post-commit setter is the t133 verdict's own BAR test, pinned EA-8715 — which lies in the unpasted span (~8670-8740) and is unverifiable on this page. The conclusion survives only because the t133 BAR mirrors the legacy test on the same evaluated bar and zone. The citation should name EA-8715 (or both). Imprecision, not an inverted claim.
+
+A2. **P033, 09:45 hypothesis — reachability is the load-bearing unproven.** The stated skip mechanism ("the arming-if holding skips UJALIGN") presumes the s31/arming block (EA-8365+, EA-8784) executes on the 09:45 pass while the candidate is S4-held from the 09:40 arming. No pasted region shows a state guard admitting S4-held passes into that block. The packet owns this ("row-proof... absent in BASE"; "haveFvg/haveXob persistence unproven"), so it is consistently labeled — but if the block does not re-run, UJALIGN is skipped by block reachability, not by the arming-if holding (same outcome, different named mechanism). Disk run proves it; the page cannot.
+
+A3. **P315, prebind-route sentence — transition label.** "same-bar-in-S3 takes that PASS the prebind confirmation (EA-8842) transition S4-to-S5" — the pasted EA-8842-8856 region and the E1 comment ("promote DIRECTLY to ST_S5_GATE_CHECK" from S3_ZONE_WAIT) show an S3-origin promotion, i.e., S3-to-S5. As written, "S4-to-S5" either mislabels the prebind's own transition or is a compressed reference to the split-bar edge these takes skip. The route's operative evidence pins (CONFIRM_PREBIND EA-8849-8852, LogState EA-8847) are correct; a grader reading "S4-to-S5" literally would look for a LogState S4→S5 that the prebind route does not produce for its stated population.
+
+A4. **Census-proof page-scope limit (not a defect).** The pasted region ends mid-PrintFormat, and "UJREELECT separate" is asserted, not shown. The zero-gate-reads claim is complete only disk-side; on the page it holds for everything shown.
+
+A5. **H2b fence, refresh probe loop — vestigial condition.** `for(int uj_dc = 2; uj_hok; uj_dc++)` never sets uj_hok false in-loop (exit is via `break` on `uj_dct <= 0`); the condition is dead weight. Cosmetic, zero behavior impact.
+
+A6. **P353 stratification.** Four version layers inline with retired-identifier lists (uj_dcount/uj_dd, uj_runM/uj_hasM/...). Cross-checked: no retired name appears in the live fence — consistent, but a reader must trust the "retired" labels; density is a standing readability risk for future folds.
+
+A7. **Pre-existing prefix wobble (not a v15 regression).** P021/P084 cite "companion (C2379-C2402)" for the UpdateBest body while the region paste header labels the same span "EA 2379-2402"; P353 says "EA-2379-2382 v9 pin (companion carried)." Self-acknowledged, unresolved in prose.
+
+A8. **Positive reconciliations supporting the CONFIRMs (auditable on page):** pins 8365/8375/8383/8411/8427 (init, BAR, SWING1, SWING2, SWINGLEG), 8666, 8755, 8758, 8761-8782, 8784, 8786-8788, 8791-8812, 8803-8811, 8820-8828, 8826, 8842/8845/8847/8849-8852, 8862, 8991/8994/8996, 8940-8946 (L8942/L8943), 8947-8960, 8961-8967, 2561/2573/2585/2600 all reconcile with the pasted regions by line count. Midnight day-key edge is already parked with cause (inert for prove windows).
+
+## Analytic ask B — better mechanisms
+
+B1. (Q1) Add the witness running-value (uj_cRun) or the yHi/tHi witness pair as fields on the UJHISTPOOL print. The A-FB ref-insensitivity term currently forces the grade to reconstruct line values from distPts at the election ref (160.009) before re-ranking at entry-open (160.059); a witness field makes the comparison direct. Print-only, touches one PrintFormat line in the H2b fence. Optional — the pool list is workable as-is.
+
+B2. (Q2) No code change offered. The packet's own stated fallback (gate UJALIGN to ST_S3_ZONE_WAIT) is the correct next-round lever if the 09:45 hypothesis fails at run time. The two fixes needed are wording-only: cite EA-8715 alongside EA-8374 in the 09:45 sentence, and correct or re-parse the "S4-to-S5" phrase in the prebind rider (S3-to-S5, or "skipping the S4-to-S5 edge").
+
+B3. (Cosmetic) Drop the vestigial uj_hok from the probe-loop condition in the H2b refresh.
+
+---
+
+All three verdicts are CONFIRM. The named imprecisions (A1, A3) are wording-level and do not invert any claimed correction; the reachability question (A2) is already owned as hypothesis with a stated fallback. Nothing here clears live activation; build remains gated on a new key plus his run word. 
+
+## V328-IMPL2-13 END GLM

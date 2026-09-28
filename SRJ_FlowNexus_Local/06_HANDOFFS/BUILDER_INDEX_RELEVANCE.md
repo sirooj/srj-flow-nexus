@@ -64,6 +64,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 - `00_CURRENT_WORKING\RECON*_STATUS.txt` / `*_DONE.txt` / `launch_*.ps1` (run debris, kept until you say otherwise).
 - `06_HANDOFFS\BUILDER_HANDOFF_NEWSESSION_POST-V*.md` (old handoffs, history).
 
-- 2026-09-28: V328 graded Q1/Q2/R1 2-0 ALL CLEAR (ledger 925; result B1A96D65; Luna+Sonnet+GLM filed whole 1x, Astra out; Sonnet checkables disk-verified); v16 fold opens (sentinels + fail flag + wording).
+- 2026-09-28: V328 corrected Q1 2-0 CLEAR / Q2 1-1 HALT / R1 2-0 CLEAR (ledger 926; phantom filing owned + re-filed + Q2 withdrawn; v16 adds L359 label).
 
 (End of file)

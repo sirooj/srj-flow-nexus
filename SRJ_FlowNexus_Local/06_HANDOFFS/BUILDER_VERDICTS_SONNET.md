@@ -2695,3 +2695,41 @@ I checked the budget arithmetic (H2b 80 lines minus the D1 fence's 15 gives +65;
 Analytic B for Q2 and R1 is none beyond the above. The bulk of the risk is in the P033 chain and the census/gate proof for DH winners; both are page-fixable with one region paste (the S3 outer guard and t133 init, plus the census/gate code) and one wording round. 
 
 ## V327-IMPL2-12 END SONNET
+
+## V328-IMPL2-13 OPEN SONNET (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, seat lines 59-91 of 152; byte-exact incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+**Q1 verdict: OBJECT (narrow, evidence only; the guard code itself is sound)**
+
+What holds: the guards do what they claim. When the clock is dead, `uj_hdayt` is 0, so the refresh at P366 is skipped, `uj_histToday` stays 0, and the consult gate at P416 (`uj_hdayt > 0`) blocks. Without the second guard, 0 == 0 would have consulted an empty store. The fence arithmetic also checks out: H2b is 80 lines (P362-P441), and the budget sums to 145.
+
+Objections:
+1. **"Zero gate reads" is not shown on the page.** The census region (EA 2557-2610) shows the declaration at 2561 and the sets at 2573, 2585 and 2600, and I verified those numbers. It cuts off mid-`PrintFormat` (after the `distPts=` argument) and shows neither the tail nor the end of the enclosing block. A later read of `winner` (UJREELECT is cited as "separate" with no region attached) can't be excluded from the page. The proof needs the full scope of the local, from declaration to block close.
+2. **"Census-NONE expected" (P460, P353) is stated as certain but is conditional.** The `winner` assignments fire whenever `haveBest && value == best` against the raw census values, including swept lines. NONE holds on A-FB because 160.723 equals none of PDH:65, NYH:253, PMH:23, YNYH:19 or YPMH:23. The sentence should say "NONE unless best equals an admitted census value."
+3. **`UjDayKey` and `UjDayDiff` bodies are not on the page** (only EA-11809/11815 are cited). That means "dead clock → `uj_hdayt` = 0" can't be ruled on. `iTime` returns 0, so `UjDayKey(0)` has to yield something `StringToTime` maps to ≤ 0. Please put the body in the companion.
+
+**Q2 verdict: OBJECT**
+1. **P033 contradicts itself on the BAR path.** It says the t133 commit at EA-8758 "unconditional[ly] overwrites BAR". It then concludes the 09:45 arming-if holds because "the BAR path (EA-8374) sets s31_inPlay". If the commit overwrites BAR, that conclusion needs a t133 swing hit (`t133_hits`, EA-8755, swing values only), not a bar-zone intersection. The two sentences can't both stand.
+2. **"Unconditional" and "guard cited" aren't supported by the region.** `s31_inPlay = t133_inPlay` (EA-8758) sits inside an enclosing block whose opening condition is not on the page (the gap between EA 8670 and 8740). The init at EA-8667 (`t133_legacy = s31_inPlay`) is shown, but no guard is. Show the enclosing condition, or drop "unconditional".
+3. **Cite list is inconsistent.** P033 lists "EA-8365/8375/8383/8411/8427" but also says BAR is at EA-8374. In the region, 8374 is the BAR set and 8375 is blank. 8383 is the `SWING1` via line, while the `inPlay` set is on the line above. Pick one convention (set line or via line) and apply it.
+4. **R58 conflicts with the "else-branch runs for S3 candidates" account.** R58 (`UJALIGN_PASS bar=14:40`, prefix 14:45:05) prints on the same pass as R41 (`CONFIRM_STRUCT_FAIL`, an S4-edge print). So the UJALIGN block (EA 8821-8827) ran on a candidate armed S4 at the 14:40 pass. No `CONFIRM_PREBIND_FAIL` row appears at 14:45, though EA 8862 would print one after UJALIGN in the same branch. P033 must reconcile this, whether by a guard placement I can't see or by a different reading of R58.
+
+What checks out: the prebind lines (EA-8842 test, 8847 `LogState`, 8849-8852 print, 8862 fail-return) and the S4 edge lines (8991, 8994, 8996) all match the region.
+
+**R1 verdict: OBJECT**
+1. **Setter pins still say v13.** P170 ("v13 pin: v9-tree setter sites…") and P188 ("v13 pin: E2 leg-setter…") were not bumped, though R1 promises current labels. P353 also still carries "v13 refresh semantics" and "v14 refresh semantics" as labels.
+2. **The name purge is incomplete and contradictory in P353.**
+   - `uj_dch` and `uj_dcl` are listed as new names but appear nowhere in the fence and are not retired.
+   - `uj_n` is listed as new in v12 and again in v13, then retired as "v13-only".
+   - The `uj_dcount`/`uj_dd` retirement sentence appears twice.
+   - The battery's "0 hits pre-edit" census can't be run cleanly against this list.
+3. **More than "one labeled-history sentence" survives in operative prose.** P016 keeps "v6 09:30 pin WITHDRAWN, owned second mispin", and P028 keeps the "correct refusal WITHDRAWN" stale-number history.
+
+**Analytic ask A (additional gaps)**
+- **Day alignment (P364, P410-P416):** the store is keyed by the M5 clock (`iTime(PERIOD_CURRENT,0)`), while the witnesses read D1 shifts 0 and 1. At a day rollover with the D1 bar lagging, shifts misalign by one day. Nothing checks that `iTime(D1,0)` falls on the `uj_hdayt` day. The sentinel guards don't cover this, and "midnight day-key parked" only covers prove windows.
+- **Retry cost (P366):** a failed refresh leaves `uj_histToday` unchanged, so the full D1 probe and fill reruns on every empty-election call.
+- **Forming D1 bar (P412):** `iHigh(D1,0)` is the forming D1 bar, so it can include ticks after the evaluated closed bar. For the sweep witness this is conservative, but say so.
+
+**Analytic ask B (better mechanism):** in H2b at P366, add `&& TimeToString(iTime(_Symbol,PERIOD_D1,0),TIME_DATE) == TimeToString(iTime(_Symbol,PERIOD_CURRENT,0),TIME_DATE)` (or the `UjDayKey` equivalent) to both the refresh and consult guards. Failing means consulting nothing, so prove-window behavior is unchanged and the misalignment gap closes.
+
+## V328-IMPL2-13 END SONNET

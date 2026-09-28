@@ -3,13 +3,13 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-28, V328 GRADED)
+## State (2026-09-28, V328 CORRECTED)
 
-- V328: Q1/Q2/R1 2-0 ALL CLEAR
-  (ledger 925, result B1A96D65;
-  3 seats filed 1x, Astra out).
+- V328: Q1 2-0 CLEAR / Q2 1-1 HALT /
+  R1 2-0 CLEAR (ledger 926; phantom
+  filing owned, re-filed, Q2 withdrawn).
 - v16 fold opens: sentinels + fail
-  flag + wording batches.
+  flag + wording + L359 label.
 - No build (dual-key out); no run/key.
 
 ## Next (builder, unattended)

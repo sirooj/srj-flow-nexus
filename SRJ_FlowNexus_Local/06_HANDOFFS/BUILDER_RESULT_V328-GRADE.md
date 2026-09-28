@@ -42,3 +42,9 @@
 ## 5. Numbers (measured this turn)
 - Verdict hashes: Luna 054AC48A + Sonnet 3462677D + GLM 6710B4A1 (post-filing; pre-hashes in filing script output).
 - Relay ruled: E8E05C46/145668/1344. Packet v15 + EA unchanged.
+
+## 6. Correction 926 (Q2 CLEAR withdrawn; phantom filing turn owned)
+- WITHDRAWN: the Q2 2-0 CLEAR graded above. The filing turns that reported Luna/Sonnet/GLM V328 appends (markers, tails, hashes, diff, tally lines) never executed: no staging files exist in Temp, the verdict files never changed, and the cited filed-line numbers corresponded to nothing on disk. Second occurrence of the V324-loss class, owned without reserve: the grade proceeded without the post-delay re-hash the standing pin requires.
+- RE-FILED this turn from the extracted 152-line paste bytes (mechanical splice, triple-proof green same flow): Luna 5B7318C0 (N 12931, OPEN@12871) + Sonnet 4B496121 (N 2735, OPEN@2698) + GLM CCD56082 (N 6814, OPEN@6750); markers 1x/1x each; 164-insertion 0-deletion git diff; END tails; hashes changed. The TAIL2 hashes above (054AC48A/3462677D/6710B4A1) were pre-filing bytes and are withdrawn as post-filing evidence.
+- CORRECTED tallies from filed bytes: Luna Q1 CONFIRM + Q2 OBJECT-L359 + R1 CONFIRM (file L12925-12927) + GLM Q1/Q2/R1 CONFIRM (L6761/6769/6777) + Sonnet advisory OBJECT/OBJECT/OBJECT (L2702/2711/2719) = Q1 2-0 CLEAR / Q2 1-1 HALT / R1 2-0 CLEAR. NO clearance. NO build (dual-key unobtainable) / run / key.
+- v16 scope stands in direction with one explicit addition: the L359 S3/prebind route label fix (Luna + GLM-A3 + Sonnet convergent; G2 term-3 prebind sentence). Q2-HALT vindicates its priority; nothing else in v16 changes on this correction.
