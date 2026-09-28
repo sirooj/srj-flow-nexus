@@ -7047,3 +7047,53 @@ Verdicts independent per the round rule: the Q1 CONFIRM stands on the fences reg
 - Nothing here builds, runs, spends, or clears live activation. Build still gates on a new key plus his run word, neither asked here.
 
 ## V331-IMPL2-16 END GLM
+
+## V332-IMPL2-17 OPEN GLM (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, GLM text as received; byte-exact as received incl. transport glyphs; see ledger)
+
+GLM:
+## GLM seat — relay v332, packet P-UJIMPL-IMPL-2 v19 (ruling on the page only; disk truth left disk-side per the split)
+
+```text
+Q1 verdict line: CONFIRM
+```
+
+**Grounds (page-verified arithmetic, every count re-derived from the fences):**
+
+- Per-site recompute: A-run −1+3+0+1+0+1+6 = **+10** (A3 guard 2-vs-2 at P039-P040/P042-P043, define retire −1 per P046/P084; A4 = P050-P052; A6 = P056; A8 = P046; A9 = P066-P069 + P073-P074); B-run 11+6−1+0 = **+16** (B0 = P087-P097; B1/B2/B3 = P101-P102/P104-P105/P107-P108; B3b 5-vs-4 = P112-P116/P118-P121); C/D/E-run 11+15+0+1 = **+27** (C 2-vs-13 = P134-P135/P137-P149; D1 = P153-P167; E2 3-vs-4 = P180-P182/P184-P187). Carried subtotal **+53** ✓ matches "carried v9 +53" at P467.
+- F11: old-F P192-P208 = 17, new-F P211-P237 = 27 → **+10** ✓. G1: old P242-P270 = 29, new P273-P313 = 41 → **+12** ✓ (fence refs inside P315 — arming P278-P280, cascade commit P308-P311 — both resolve to exactly those lines). H1: old P319-P333 = 15, new P336-P351 = 16 → **+1** ✓. H2a P356-P361 = **+6** ✓. H2b-D1: H2b P365-P449 = 85, D1 removal target EA 2518-2532 = 15 → **+70** ✓ (no double-count: D1's +15 is inside the +53 and subtracted once inside the +70).
+- Total: 53+10+12+1+6+70 = **+152** ✓. Dual-base binding: 11975+152 = 12127 = 12028+99; 99 = 152−53; and 12028−11975 = 53 binds the built v9 base to the carried subtotal. Both routes land on 12127 "either way" ✓ (P003, P467).
+- Single-source: P003 cites "P467-budget-line"; P467 is the sole operative budget block; figures at P003 and P467 agree. The only other budget figures are version-tagged annex history under the explicit "operative path above is the only authority" disclaimer (P482-P483). The V331 pointer objection (P462-as-second-site) closes: the reference resolves to the actual block. The advisory base objection closes in the dual-base reconciliation.
+
+```text
+R1 verdict line: CONFIRM
+```
+
+**Grounds — all seven notes verified on the page:**
+
+1. **S3-S4-S5 transit** — P315 ("state transits S3→S4→S5 logged… 'S3-direct' names the prebind route only"), consistent with P316's three distinct routes (prebind S3-to-S5; cascade same-pass S3→S4→S5; split-bar S4-to-S5 edge).
+2. **Consult-loop filter, both places** — P354 and P451 both site the swept max/min filter in the consult loop; the fence matches (refresh validates time/order only at P395; swept filter at P434-P439; witnesses P415-P421).
+3. **v16-P462 tag** — P016 ("v16-P462 CONFIRMPOLL-as-classification"), version-qualified.
+4. **Paren excised** — amended lines (P016, P315, P354, P451, P469-P473) all parse balanced; no stray paren found in the cited text.
+5. **INVALID-class wording** — P354 ("reason INVALID names the class, not the record").
+6. **Extended day-key display** — region EA 11808-11819 (12 lines) matches P354's "format proven EA-11808-11819" and the def pins (UjDayKey EA-11809, UjDayDiff EA-11815).
+7. **Per-array unified** — P003 "per-array reasons at six sites" = RSIZE_HI/LO/DAY (P384–P386) + COMMIT_HI/LO/DAY (P401–P403) in the H2b fence.
+
+## Analytic A (defects/gaps/imprecisions, none verdict-flipping)
+
+1. **P475 — dangling cite "(P465 correction)"**: P465 in v19 is the Lazy carve park; the August-sibling/EU-window wording it points at lives in P474 itself. Either stale (prior-version numbering) or unversioned — the exact class the v16-P462 fix addressed. Needs a version tag or a repoint next fold.
+2. **Section 0 header "v16-v17 delta"**: the section's content is the v18→v19 delta ("Withdrawn from v18 with cause"). The label is stale (should read v18-v19 per the naming convention); a reader auditing the withdrawn list against the title mismatches by two rounds.
+3. **P315 notation split vs the non-ASCII census**: the v19-amended transit sentence uses Unicode arrows ("S3→S4→S5") while the same line's earlier text and P240 use ASCII ("S3->S4"); likewise × at P471 ("F×G") vs plain "x" at P239. The header census phrase "twin carries packet cross only" does not account for the arrow characters — either the census phrase is stale or the arrows should be ASCII-normalized; as stated, phrase and characters are in tension on the page.
+4. **P483 annex stops at v16**: no v17/v18/v19 lines under the "one line each" convention, though v17 carried fence-literal changes (per the traceability section). Carried incompleteness rather than a v19 regression, but the history is three versions behind the packet it annotates.
+5. **Minor, relay prose**: "the single six-term budget block" names the six addends of the total (+53/+10/+12/+1/+6/+70); the block also carries 16 per-site terms. Accurate for the total, readable as a site count — worth a word next fold.
+
+Cross-pin audit (no defects found): EA-8842/8845/8847/8849-8852/8862/8867/8826, EA-8709/8714/8715, EA-8940-8946/8942/8943/8961-8967/8966, EA-10475/10478, EA-2449-2462/2459-2462, EA-2424-2438, and the region line-counts (61/22/29/23/13/11/7/31/15/15/14/15/32/23/24/19/15/10/23/8/16/13/15/15/6/7/21/66/45/7/15/54/16/9/8/12/42) are mutually consistent with the fences and the twin's prose cites.
+
+## Analytic B (better mechanisms)
+
+1. **P-cite lint at battery**: grep the twin for bare `P\d+` tokens (vs version-tagged `v\d+-P\d+`); every untagged hit must resolve to a line whose content matches the cite's claim, else fail. Same mechanical class as the non-ASCII/ellipsis census; would have caught P475 today and the v331 P462 miscite class. Touches the battery script only — no EA lines, no packet code.
+2. **Dual-base recount assertion**: extend the S3 recount to assert all three identities independently (final == 12127; final − 12028 == 99; final − 11975 == 152) plus the per-site recompute, so a base mislabel or a fence drift that coincidentally preserves the total fails loudly. Battery script only.
+3. **Notation normalization (optional, one wording line)**: ASCII the P315 arrows (matching P240) or widen the census phrase to name both symbols — keeps the census at a single decidable claim.
+
+No better EA-side mechanism is offered for the Q1/R1 substance: the reason scheme, guards, and gates are proportionate to a print-only funnel; error enums or structured fail codes would add compile/runtime surface for zero grading value at this stage. Nothing here builds, runs, spends, or clears live activation; no clearance is granted or requested by these verdicts, and no key is volunteered (build-time keying stays Luna-side per the packaging). 
+
+## V332-IMPL2-17 END GLM

@@ -13067,3 +13067,42 @@ That would touch packet/prose anchors **1395, 1399-1400**, and preserve the alre
 For the independent **Fix B robustness gap**, the better mechanism already identified by the packet is rank-based family matching rather than string-prefix parsing; the relevant implementation is `UjPoiTargetValid()` at **P087-P096**, with the current weakness documented at **P131**. 
 
 ## V331-IMPL2-16 END LUNA
+
+## V332-IMPL2-17 OPEN LUNA (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, Luna text as received; byte-exact as received incl. transport glyphs; see ledger)
+
+Luna:
+### Verdict
+
+**Q1 verdict line: CONFIRM.**
+P003 now points to one budget source, P467, and the two base bindings reconcile arithmetically: 11,975 + 152 = 12,127 and 12,028 + 99 = 12,127. The detailed components in P467 also sum to +152.  
+
+**R1 verdict line: CONFIRM.**
+The notes bundle in R1 is consistent with the stated v19 changes and the carried corrections: S3-S4-S5 transit wording, consult/filter wording, the P462 version qualification, the paren correction, INVALID wording, day-key display, and unified per-array treatment are all represented in the packet.  
+
+### Analytic A — defects, gaps, or imprecision
+
+1. **“Six-term budget block” is ambiguous.** P1409 calls P467 a “six-term” budget block, but P467 actually exposes many subcomponents; the six top-level deltas are only recoverable by grouping them as carried v9 + F11 + G1 + H1 + H2a + H2b. Better wording would identify those six groups explicitly.  
+
+2. **P467 is the single accounting source, but not every historical delta is independently reconstructable from the displayed page.** In particular, H2b's `+70` depends on the removed predecessor body and its counted size; that predecessor is described but not reproduced alongside the new fence. So the OBJECT is closed as an accounting assertion, not by a completely self-contained old/new line-count exhibit.  
+
+3. **“Consult-loop filter in both places” needs a precise referent.** The packet distinguishes refresh-time validation from consult-time swept eligibility, but R1's phrase “consult-loop filter in both places” does not identify the two places. That is wording imprecision, not a contradiction.  
+
+4. **The B0 family test has an acknowledged rename hazard.** `UjPoiTargetValid()` identifies family by parsing the text before `-`; a renamed or malformed `lineCode` can therefore evade the same-family exclusion. The packet itself records rank-parity as the more robust alternative, but leaves it parked.  
+
+5. **The E2 `zoneTouch` field is semantically weaker than its name suggests.** On that setter the printed value is `(s35_fromFvg ? 1 : 0)`, while the packet explicitly says that this is not an independent geometric proof in the non-FVG path. The explanation prevents the field from being falsely treated as stronger evidence, but the field name remains potentially misleading. 
+
+6. **G1's `m15src` is only containing-M15 time mapping, not source-indicator timestamp proof.** The packet openly concedes this. Therefore the mechanism establishes the M15 vote sampled at `barShift`, but not an independently proven indicator-source-time correspondence. 
+
+7. **The H2b “today” witness is a live D1-bar dependency.** The acceptance wording treats `iHigh/iLow(...,0)` as the today-to-election witness, while the page does not independently demonstrate the tester's historical-time synchronization semantics for those D1 values. That remains an environmental assumption of the replay rather than a page-proven invariant. 
+
+8. **The budget is a line-count budget, not a byte budget.** A `0` NET site means no net source-line change; it does not mean zero-byte change. The packet does separately preserve exact-diff/hash discipline, so this is terminology to keep straight rather than a numerical error.  
+
+9. **The acceptance battery still contains declared hypotheses rather than proofs.** A-S2P-RETAKE and A-POIV-RETAKE are explicitly prediction-grade until the future run establishes the rows. This is correctly labeled, but those venues must not be treated as already proven fixes. 
+
+### Analytic B — better mechanism
+
+The clearest improvement is the one the packet already identifies but parks: **replace B0's string-family inference with explicit family/rank metadata**, so a `lineCode` rename cannot silently reopen the own-family VWAP exclusion. The narrowest implementation would touch the B0 helper and its B1/B2/B3 call sites, rather than changing election order or the broader TP architecture.  
+
+This review therefore gives the requested **Q1 = CONFIRM, R1 = CONFIRM**. It does not constitute build/run or live-activation clearance, consistent with the packet's own standing boundary. 
+
+## V332-IMPL2-17 END LUNA

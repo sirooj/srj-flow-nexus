@@ -2879,3 +2879,41 @@ Evaluate the carve lazily, only when M15 disagrees: `uj_hcarve = uj_hm15agree ? 
 This is a page-only ruling. Disk genuineness (twin diff, digests, 1x rows) is not checked here. 
 
 ## V331-IMPL2-16 END SONNET
+
+## V332-IMPL2-17 OPEN SONNET (filed whole 1x this turn, novel inbound; 3-seat 28-Sep paste, Sonnet text as received; byte-exact as received incl. transport glyphs; advisory, zero weight; see ledger)
+
+Sonnet:
+**Q1 verdict: CONFIRM**
+
+I recounted the budget on the page and it closes the OBJECT.
+- **Carried v9 terms:** A3 −1, A4 +3, A5 0, A6 +1, A7 0, A8 +1, A9 +6, B0 +11, B1/B2/B3 +6, B3b −1, B3c 0, C +11, D1 +15, E 0 and E2 +1 sum to +53 (P467). That matches 12028 − 11975 = 53, the built v9 tree against v8.
+- **Six terms:** carried +53, F11 +10, G1 +12, H1 +1, H2a +6 and H2b-D1 +70 total +152 (P467).
+- **Fence line counts:** each fence has the count the budget claims.
+  - old-F 17 (P192–P208) and new-F 27 (P211–P237).
+  - old-G1 29 (P242–P270) and new-G1 41 (P273–P313).
+  - old-H1 15 (P319–P333) and new-H1 16 (P336–P351).
+  - H2a 6 (P356–P361).
+  - H2b 85 (P365–P449) against the 15-line D1 fence (P153–P167), which gives +70.
+- **Dual base:** 11975 + 152 = 12127 and 12028 + 99 = 12127, where 99 = 10 + 12 + 1 + 6 + 70 (P467).
+- **P003 agreement:** P003 states the same figures as P467. No second budget figure survives on the page.
+
+**R1 verdict: OBJECT**
+
+- **P354, "the fill still names any invalid record it touches (reason INVALID names the class, not the record)":** the two halves contradict each other. The H2b code (P395–396, P423) only sets `uj_histWhy = "INVALID"` and prints `reason=INVALID`. No print, field or variable carries the shift or the day of the offending record. The INVALID-class softening removed the wrong half. The sentence should read "the fill fails the refresh with reason INVALID (class only; the record is not named)."
+- **P354, "v13 refresh semantics (fence below): … record-day filter (recent-to-oldest running max/min) …":** this contradicts the consult-loop placement that R1 says is consistent in both places.
+  - The fence below places the swept filter in the consult loop (`uj_cRun`, P426–439).
+  - P451 and P461 also put the filter there, and the v14 sentence in P354 has swept eligibility per consult.
+  - The v13 sentence still says the refresh does the filtering, and it is tagged "fence below" against a fence that no longer does that.
+  - The "superseded" line covers name lists only, not semantics. The sentence should be struck or tagged "v13, superseded by v14: filter moved to consult".
+
+**Analytic A (defects and imprecisions)**
+- **Section 0 heading:** it reads "v16-v17 delta" but the body is the v18→v19 delta. Retitle it.
+- **Priors, "D6 pin":** "filing composition-drop owned with D6 pin" cites a pin that is defined nowhere on the page.
+- **P354 truncation versus no-truncation wording:** the truncation note says a mid-history zero-time read commits a shorter prefix silently. The v14 sentence says "(no truncated publish)". Both are true, because zero-time exhaustion truncates and an invalid available record fails the refresh. Qualify the v14 sentence so the two don't read as opposed.
+- **Rule traceability, "P462-budget":** the V330 row says "P462-budget" without the "v17" qualifier. In this packet P462 is the raw-clock sentinel park. The row context makes it readable, but a bare cite is what got withdrawn once already.
+- **P423 log noise:** `UJHISTFAIL` prints on every consult pass while the fail flag is set. Combined with the parked retry backoff (P466), a failed refresh retries and logs every pass. This is bounded and tester-cheap, but the row count will be large if a run hits it.
+
+**Analytic B (better mechanism)**
+Nothing better for the stated goal. If the P462 sentinel park is ever revisited, the cheapest option is to set `uj_hdayt = 0` when `uj_hdayk == ""`. That goes in H2b at P368–370 and removes the dependence on `StringToTime("")` behaviour, with no new builtins. 
+
+## V332-IMPL2-17 END SONNET
