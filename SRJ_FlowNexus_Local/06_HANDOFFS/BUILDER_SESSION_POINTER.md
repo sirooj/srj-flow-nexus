@@ -3,17 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-27, V11+V324 DRAFT GREEN)
+## State (2026-09-27, V324 TRANSPORTED)
 
-- Packet v11 F8584916 + relay v324 DB316D1F.
-  Battery green same turn (twin/rows/names).
-- Every V323 OBJECT folded or parked.
-  EU preserve + C-silence ride the run.
+- Relay v324 DB316D1F shipped to Luna +
+  Astra + GLM (identical text). Battery
+  green same turn, both greens numbered.
+- Key + word NOT asked (clearance first).
 
 ## Next (owed him)
 
-- Transport memo turn (battery numbers
-  plus key + word asks, one ask, once).
+- Their verdicts, pasted whole back.
 
 ## Resume order (exact)
 

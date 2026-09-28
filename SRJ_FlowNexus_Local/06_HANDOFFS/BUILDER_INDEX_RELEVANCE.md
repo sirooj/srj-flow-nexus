@@ -12,7 +12,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 built 2026-09-27; alert-only stands; v11 packet drafts F11/G1/H against it, unbuilt).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v11 DRAFT F8584916/63321/385 (battery-green draft, untransported; build needs new Luna key + his run word, neither spent nor asked).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (battery-green draft, untransported; three questions Q1/Q2a/Q2b/Q3).
+- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transport memo shipped this turn to Luna + Astra + GLM; verdicts owed).
 - Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
 - Latest grade: `06_HANDOFFS\BUILDER_RESULT_RECON72-V9-UJ.md` 2499FB87/10374/70 (A-SL1 PASS with S5.4/S3.3 audit clean; A-S2P UJ-NOADMIT+UJ-NOPROMO; A-POIV UJ-NOTOUCH+UJ-NOPROMO; A-FB UJ-NOADMIT correct sub-1R refusal; EU-pending).
 - Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
