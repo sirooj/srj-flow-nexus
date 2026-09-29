@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, RECON74 GRADED)
+## State (2026-09-29, V340 TRANSPORTED)
 
-- RECON74 graded ledger 965 (A-SL1 + A-S2P pass, A-FB late, 6/8 false, 6/11 miss diagnosed).
-  EU August word banked; own Luna key scope owed.
+- Relay v340 shipped ledger 966 (packet FIX-1 1A7BD398; EU aborted).
+  V340 verdicts owed back whole per seat (Q1/Q2/Q3).
 - Key spent; EU declined; D v23+.
   No build/run/key without his new word.
 
 ## Next
 
-- His EU key ruling (Luna, run-only scope) - memo below carries the ask.
+- His V340 verdict paste-back, whole per seat (Q1/Q2/Q3).
 
 ## Resume order (exact)
 

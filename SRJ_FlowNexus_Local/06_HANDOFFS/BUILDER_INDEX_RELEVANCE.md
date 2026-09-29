@@ -92,5 +92,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
  - 2026-09-29: V339 GRADED CLEAR (ledger 962: Q1 2-0 CLEAR / Q2 2-0 CLEAR, 3 seats filed whole; packet build-eligible; key + run word asked).
  - 2026-09-29: RECON74 LAUNCHED (ledger 964: v26 tree 8C6468F4, WMI 10412, terminal 7860, window proven, binary proof filed; grade on completion signal).
  - 2026-09-29: RECON74 GRADED (ledger 965: DONE=PASSED, A-SL1 + A-S2P pass, A-FB late, 6/8 false, 6/11 miss diagnosed; EU word banked, key scope owed).
+ - 2026-09-29: EU ABORTED + V340 RELAY-READY (ledger 966: his abort word, 3 diagnoses with rows, packet FIX-1 1A7BD398/87, relay DF353246/315, double battery green, memo shipped; verdicts owed).
 
 (End of file)
