@@ -7246,3 +7246,52 @@ Q1 CONFIRM, Q2 CONFIRM — each on its own line as asked; a NO on one was never 
 Nothing here builds, runs, spends, or clears live activation; disk-genuineness (digests, counts, row 1x, twin diff-0) is not answerable from chat and was not ruled. Live stays alerts-only; any future build needs a new key plus his run word, neither asked here.
 
 ## V335-IMPL2-20 END GLM
+
+## V336-IMPL2-21 OPEN GLM (filed whole 1x this turn, novel inbound; see ledger)
+
+**Q1 verdict: OBJECT** — one defect, and it sits inside the v23 delta itself. The zero-code-change half of the change-sentence verifies exact on the page, and six of the seven named repairs verify exact. The cites/namespace repair does not: its own locator cite does not resolve on this page. The fix is one prose token.
+
+## The defect (OBJECT ground)
+
+**P636** (the old-relay-R namespace sentence, Sonnet 4's adoption) reads: "P018 R23/R24/R25 + **P648** R53/R55/R54 cite retired relay pages."
+
+- The R53/R55/R54 (and R02) cites live in A-SL1-PRESERVE at **P657** — the sole carrier on this page ("R53 ALERT at the 09:10 pass + R55 MTSNAP bar=09:05"; "R54 wsrc=ASH on RECON72").
+- **P648** on this page is the swept-max-filter parked item (Sonnet-Q3 note 1, ADOPTED) and carries no R-cites.
+- P648 is A-SL1's **v22** position. Reconstruction from the filed counts: v22 = 666 lines (19A9F8B2/110797/666) → Parked P633–P645 (header + 12 items), blank P646, Acceptance head P647, A-SL1 P648. The v23 insertion (P633–P641: header + blank + 6 bullets + blank = 9 lines) shifts it **+9** to P657; the annex line P674 supplies the tenth line of growth and moves only the end marker (P666 → P676). Total growth 666 → 676 matches the filed digests, so this arithmetic is page-internal, not disk-dependent.
+- The fold's own claim required the re-base: **P638** lists "cites re-based for the +10 fold lines" as an executed repair, and every other locator in P638's list (P459, P624, P625, P626, P532, P628, P654, P676, P533) resolves on the current page. The one forward-pointing locator the fold actually had to re-base is P636's own — and it was left at the v22 number.
+- Note the correct re-base is **+9, not +10**: +10 is the total growth (9 section lines + 1 annex line) and applies only to the end marker. A mechanical +10 re-base would yield P658 (A-S2P-RETAKE), also wrong.
+- Consequence: a grade-time verifier reproducing "P648 R53/R55/R54" against this page fails to find the cites. The repair adopted to make cite labels exact ships with an unresolved cite — the same defect class V335's Q1 split turned on. The relay's takes-sheet mirror ("old-relay R cites in the packet S2-series and preserve lines are retired-page labels") is correct; the packet's locator is not.
+- **Fix:** P648 → P657 at P636. One token, prose-only, zero code, zero fence bytes, budget unchanged — foldable next round with no new design.
+
+## What verifies (confirm-side; keep whole on any fold)
+
+1. **Zero code change vs v22:** P639 is value-identical to P630 (Z 7 / S-a 4 (decl 4 + set 0) / S-comb 45 / Q2 19; NET +75 vs v10 12127; final tree 12202); P640 "no fence change"; the v23 section P633–P641 contains no fence; P001/P003/P674 all say zero code. The budget chain reconciles: 7 = 2+0+0+5 (P618/P605), 45 = 43+2, 19 = 21−2, 7+4+45+19 = 75, 12127+75 = 12202.
+2. **Proof sentence (P635, Luna 1):** P619 and P630 carry identical per-site fence budgets; the shared frozen tree FC41EE0D/671645/12127 is stated unbuilt for v21/v22/v23 alike (P003, Q1 file line). (The twin==EA byte proof is disk-side, not answerable from chat, and is not part of this ruling.)
+3. **Units (P624):** "+4 lines" + STAGE-1 churn note present; SaDeclSit old/new fences (P496–P515) are 6-vs-10 against region R-DECLTOP (EA 6873–6878, 6 lines, matching the old fence line-for-line), so +4 is the true unit; the 4sp-vs-3sp indent note is accurate.
+4. **Labels (P654):** "Historical v16 budget, not v22 (carried; operative budgets are P619/P630)" — both cites resolve.
+5. **Legend (P637, Sonnet 5):** verified against code and rows. Region R-Z prints `uj_readFail=%d` from `uj_rf`, set to 1 only when `ReadFlow` fails; R24 shows `uj_readFail=0` with `m15=1.0` (read OK, vote-opposed → NOMATCH); R18 shows `rf=1` on UJLTFHOLD (read OK); the S2PROMOTE fence (P146) and Z-bypass fence (P491) print `rf=%d` as (read?1:0). Both polarities are exactly as stated.
+6. **Namespace rule + generation labels (P636 rule text):** P018's R23/R24/R25/R15/R16, P016's R19–R22/R06/R14/R18/R29–R31, P027's R45/R46, and P657's R53/R55/R54/R02 are all retired-page labels colliding with current rows R01–R24 (current R23/R24 are the 6/12 ABORT and the 09:40 NOMATCH — different rows, as the parenthetical says); the annex jumps v16 (P670) → v20 (P671), matching "versions jump v16 to v20 with full annex."
+7. **SEG fix (P458/P459):** "SEG 14784" present and equal to spliced row R12 (SEG14784, the 14:40:22 SHORT ABORT); no "14077" survives anywhere on the page.
+8. **Remaining in-place repairs:** P625's cites resolve and quote truly (P605 "SaSet +0 (6-vs-6)"; P618 "SaSet same-line uj_saT (6-vs-6, +0)"; P619 "S-a 4 (decl 4 + set 0)"); P626's Q2 quote matches P582 verbatim ("l/h reused from the loop (no re-reads)"); P532's census pointer matches P626's return-census sentence field-for-field; P628 carries the conditional-dormant August sentence; P676 is "(End of embedded twin)".
+9. **Anchors named in Q1 reconcile with the regions:** SaDeclSit EA-6873–6878 = R-DECLTOP; guard EA-8917–8919 and bypass site EA-8925–8927 sit inside R-Z (EA 8912–8963) exactly as P466/P476 state (S3-waiting print ends EA-8916, IE2 comment opens EA-8917); S2-end EA-8324–8329 = R-S2END; S4 re-read EA-8980–8995 = R-REREAD; region spans sum 140 (52+13+6+29+18+6+16) and each span±1 equals its stated count.
+
+## Analytic A (standing — every defect/gap/imprecision I see, with lines)
+
+1. **P636 "P648"** — the OBJECT ground above.
+2. **P661 "(P465 correction)"** — dangling era-cite: P465 on this page is the closing fence line of mql5-new-Zins; the EU-window correction it names sat at that number in an earlier packet generation. Pre-existing carried text (not a v23 repair site), but the same class the namespace repair targets — and that repair covers old-relay **R**-cites only, not old-packet **P**-cites.
+3. **P030 "relay v323 P013 series vs P355 acceptance"** — P355 on this page opens the H2a fence, not an acceptance item; unmarked era-cite inside a recorded verdict (P013 resolves; P355 does not). The same line's "P359/P360" are Luna-verdict locators readable as relay lines only from context.
+4. **P034 "P471 carries S4-armed-at-09:40"** — P471 on this page is the mql5-new-Zrep fence open; era-cite from the v11-era numbering, unmarked.
+5. **Wrapper fold-audit bookkeeping:** the disposition list (15 items) never names the SEG fix even though Q1's change-sentence counts it among the seven and P638 executes it first; and the "14 presentation/prose repairs" count (P001/P003/P674) is not derivable from the page alone (on-page attributions show only Luna 1 / Sonnet 4 / Sonnet 5). Execution is fine; the count's derivation is not shown.
+6. **P638's parenthetical "(re-based +10 for this section + annex line)"** is ambiguous as written — the fold adds 9 section lines plus 1 annex line; only the end marker shifts +10. As phrased it invites a mechanical +10 re-base, wrong for every cite except one aimed at the end marker.
+7. **P459 "wouldPreempt=0 same tier (SEG 14763/14765/14766)":** the spliced row R16 (SEG14765) carries "higher=0 … action=HELD" and no wouldPreempt field; if the two unspliced SEGs don't carry it either, the phrase is paraphrase dressed as row text — mark it as a reading or splice the field.
+8. **Minor:** P636 "the standing census note covers relay-row-vs-census-counter only" is true of the twin-internal note (P027) but not of the takes-sheet note (which also covers old-relay cites); one word would pin which note is meant.
+
+## Analytic B (standing — better mechanism for the stated goal)
+
+The stated goal is presentation exactness across folds. Two zero-code additions retire the class rather than the instance: (i) one legend line beside P637 declaring that any P-cite not resolving on the current page is an era-cite and must be written era-marked (then mark the four: P648→P657 or "v22-P648"; "v12-era-P465"; "v323-P355"; "v11-P471"); (ii) a fold-battery assertion of the same class as the existing PSEQ/ellipsis checks: extract every P[0-9]{3} token from the twin and assert the cited line contains the claimed token (for P636: assert "R53" occurs on the cited line). Touches packet prose and the battery script only — no EA lines, no fence bytes, no budget change, no run.
+
+## Standing constraints acknowledged
+
+Page-ruling only; disk genuineness (digests, twin diff, region diffs, row splices) is proven on disk and not answerable from chat — no file requests made. Nothing here builds, runs, spends, or clears live activation; alert-only stands; any future build needs a new key plus his run word, neither asked here. Q2 stays carried-CLEAR from V335 (no fence change; not re-asked). The one-token fix is builder-side prose; per LOGIC-IS-BUILDER'S no mechanism question rides to him on it.
+
+## V336-IMPL2-21 END GLM

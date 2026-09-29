@@ -13512,3 +13512,77 @@ The only source-code line span that would be touched for the SaDecl presentation
 **Disposition:** **OBJECT / HALT on Q1 presentation closure.** The blocker is documentary/proof integrity, not a finding that v22 introduced behavioral code changes. No build/run/live clearance follows from this ruling.
 
 ## V335-IMPL2-20 END LUNA
+
+## V336-IMPL2-21 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+### Q1
+
+**Change sentence:** The v23 fold correctly records the seven presentation-repair categories and preserves zero EA-code-byte change versus v22, but the acceptance prose still contains an internally inconsistent F11 prediction at P658 and the “proof” wording at P635 is stronger than the evidence actually cited.
+
+**Verdict: OBJECT.**
+
+### Analytic A — defects, gaps, and imprecision
+
+**1. P658 contains a direct F11 contradiction.**
+P658 says:
+
+* `UJLTFHOLD` is expected in `mode=M15` at 09:15, **09:20**, and **09:40**.
+* It then says an **ABORT** is expected at the 09:25 pass, evaluating the **09:20** bar, because M15 is opposed and the confirmation predicate fails.
+
+Those cannot both be the expected F11 classification for the same 09:20 evaluated bar.
+
+More importantly, P013 explicitly declares the M15 series:
+
+* 09:15 = `-1.0` SHORT-aligned
+* 09:20 = `+1.0` opposed
+* 09:25 = `+1.0` opposed
+* 09:30 = `-1.0` SHORT-aligned
+* 09:35 = `-1.0` aligned
+* 09:40 = `+1.0` opposed
+* 09:45 = `+1.0` opposed
+
+For the SHORT candidate, the new F11 predicate at P230 is:
+
+```text
+(M15 readable AND M15 == SHORT) OR confirmation-candle carve
+```
+
+So an M15 value of `+1.0` cannot produce `mode=M15` at 09:20 or 09:40. At most it can produce `mode=CARVE` when `IsConfirmationCandle()` passes; otherwise it aborts. The code span is P225-P236, corresponding to EA 7379-7391.
+
+**Therefore P658's `mode=M15` labels at 09:20 and 09:40 are presentation/acceptance defects, not merely uncertain outcomes.**
+
+**2. P658 should not call the 09:20 abort merely “expected” while simultaneously prescribing an M15 hold there.**
+The acceptance text does label the abort as an expected row rather than a finding, which is appropriate in principle. The problem is the contradictory mode classification on the same evaluated bar. The corrected acceptance needs one deterministic classification.
+
+**3. P635's “proof sentence” is slightly over-claimed.**
+P635 says that v21 and v22 both target the frozen v10 tree `FC41EE0D/671645/12127`, then admits:
+
+> “No separate v21 source digest exists because neither version changed the tree.”
+
+That is a reasonable lineage statement, but without a v21 artifact/source digest on the page it is not a cryptographic proof that the v21 packet actually contained that exact tree. The wording should distinguish **declared lineage** from **digest-proven identity**.
+
+A more exact formulation would be: v21 and v22 both *declare* the frozen v10 tree, while the available digest proof establishes the current/v22 twin; the absence of a v21 digest prevents an independent byte-level v21↔v22 proof.
+
+**4. P666 and the Close use different runtime-cost baselines.**
+P666 gives approximately **48 minutes**, citing RECON72 `0:48:06`; the Close gives approximately **47 minutes**, citing RECON73 `0:46:49`. These are explainable because they are different historical runs, so this is not a behavioral defect, but the packet should explicitly designate one as the planning baseline. Otherwise two “measured” future-cost figures coexist.
+
+**5. The v23 zero-code claim itself is otherwise internally coherent.**
+P619/P630/P639 all preserve `+75` over v10 and final tree `12202`, and P633-P640 describe only prose/presentation changes. I do **not** see an additional hidden fence-byte contradiction in the displayed v23 old/new blocks. The `twin 676/676 diff 0` statement is also internally consistent with the packet's stated mechanical-splice model.
+
+### Analytic B — better mechanism
+
+For the **acceptance-proof goal**, the better mechanism is not another EA modification. Generate the expected F11 classification mechanically from the already-declared M15 series plus the actual predicate in EA 7379-7391:
+
+* M15 aligned → `mode=M15`
+* M15 opposed + confirmation pass → `mode=CARVE`
+* M15 opposed + confirmation fail → `ABORT_LTF_MISALIGN`
+
+That would eliminate hand-written prediction errors such as P658. **Code lines touched: none.** It is a grade/acceptance-generation mechanism, so changing the EA would only add refinement churn.
+
+For code cleanliness itself, the parked shared helper in P643 would be the obvious refactor target, touching the Fix C block around EA 8195-8240 and the Fix F invariant around EA 7245-7305. I would keep that parked for this round because it changes structure without adding required behavior.
+
+### Bottom line
+
+The **v23 presentation fold is not fully closed**. The principal remaining defect is **P658**, because its acceptance prediction contradicts both its own 09:20 abort statement and the M15 values declared at P013 under the actual F11 predicate at EA 7379-7391. P635 is a lesser proof-wording issue; P666/Close is a minor planning-number inconsistency. No additional code defect is exposed by the v23 presentation fold itself.
+
+## V336-IMPL2-21 END LUNA

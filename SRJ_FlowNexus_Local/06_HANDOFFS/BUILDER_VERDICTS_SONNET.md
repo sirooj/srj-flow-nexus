@@ -3160,3 +3160,55 @@ For A-3, either extend the census to 7392-7739 or apply the deferred abort at th
 **Recommendation:** CONFIRM Q1. Carry A-1 to A-3 as build-gate items alongside NO_MEMO before any key is spent. A-1 is the one that could change the 6/11 acceptance prediction.
 
 ## V335-IMPL2-20 END SONNET
+
+## V336-IMPL2-21 OPEN SONNET (filed whole 1x this turn, novel inbound, advisory only per seat-split; see ledger)
+
+# Q1 verdict: OBJECT (prose-only, narrow)
+
+The zero-code claim holds on the page. The OBJECT is against three prose defects in the v23 repairs themselves, all cheap to fix. Nothing here touches direction, fences, or live activation.
+
+## What I verified (page only)
+
+- **Line budgets:** P605 sums to 69, P619/P630/P639 sum to 75, and 12127 + 75 = 12202. Each fence I counted matches its stated NET: Z-ins 2 (P463-464), Zrep 2-vs-2, Zguard 3-vs-3, Zbypass 5 (P488-492), SaDeclSit 6→10, SaSet 6-vs-6, Scomb 45 (P535-579), Q2 19 (P584-602). Brace balance in Scomb holds.
+- **Twin-to-relay counts:** the region sizes (52/13/6/29/18/6/16) sum to 140.
+- **EA-line anchors:** they resolve inside the regions. R-Z line 6 is EA-8917, line 8 is 8919, line 14 is 8925, line 16 is 8927, and `IsConfirmationCandle` sits at 8941. R-DECLTOP puts `inWindow` at 6876. R-Q2LOOP puts the RETESTBOOK print at 2177-2180 with the close at 2181.
+- **Other repairs:** the P638 old-to-new items I could check resolve: SEG 14784 matches R12, "+4 lines" is in P624, and the P626 and P628 wording is in place. The P637 polarity legend matches the print formats and R24 (`uj_readFail=0`).
+- **P654 arithmetic:** carried +53 plus +99 gives +152, and 11975 + 152 = 12127.
+
+## Defects (P-lines)
+
+1. **P635 (the proof sentence) is wrong as worded.**
+   - "Fence bytes identical per P619/P630" cites budget lines, which prove line counts, not bytes.
+   - P630 says "no fence-byte delta vs v21", but P622/P624 record the SaDecl lone fence being retired for the SaDeclSit pair. That is a fence-form change between v21 and v22, code-neutral at +4 lines.
+   - "The v22 packet twin proves v22-packet == current-EA" fails twice. The twin on this page is v23 (676 lines), not v22 (666). Packet == EA cannot hold in any case, since the packet carries +75 unbuilt lines and P003 says the EA is unbuilt.
+   - The twin diff proves relay-copy == packet file, and the regions prove base spans == EA.
+   - Suggested repair: "line budgets identical (P619/P630); v22 changed only the SaDecl fence form (P624), same +4 lines; v21 and v22 target the same unbuilt tree."
+2. **P636 has a wrong cite and an incomplete list.**
+   - "P648 R53/R55/R54" points to the wrong line. Those R-cites are in P657 (P648 has none).
+   - Other old-page R-cites are unlisted: P016 (R19-R22, R06/R14/R18, R29-R32, R37/R38), P027 (R45/R46), P316 (R42, R62-R64), P659 (R38, R58, R64).
+   - The takes sheet says "S2-series and preserve lines", which disagrees with P636's two-cite list.
+   - Suggested repair: a blanket rule that R-cites resolve to this page only when they appear in P625/P631/P638-P640, and are retired labels everywhere else.
+3. **P616 has an over-inclusive range.** "R12/R14-R17" includes R15, which is the 6/3 UJADMIT row and belongs to trace (c). It should read R12/R14/R16/R17.
+
+Minor imprecisions:
+- P582 gives the ShadowRetestBook caller as EA-7964, while P608 says "shadow polls 7962".
+- P615 quotes GLM whole, but its "(P499)" cite now lands on a code line.
+- The "14 repairs" count in P001/P003 doesn't reconcile with the §0 fold audit, which lists 15 or more items.
+
+## Analytic A: one substantive code-adjacent finding
+
+P533, P608, and trace (b) at P616 lean on the S4 live re-read ("rebuild-iff-adoptable"). The on-page conjunction (R-REREAD line 3, EA-8982) has a third term on the old bounds:
+
+`(g_dir == DIR_LONG) ? (s35_zLo <= g_zoneLo + _Point*0.5) : (s35_zHi >= g_zoneHi - _Point*0.5)`
+
+Scomb resets `g_zoneHi = g_zoneLo = 0.0` (P552) and keeps the S4 state. For a transferred LONG (the 6/11 venue), `zLo <= 0.5*_Point` is false at ~160, so the re-read cannot rebuild the zone. For a transferred SHORT it always passes. The "rebuild" step in trace (b) is therefore likely a no-op for LONG, and the candidate reaches STRUCT with a 0/0 zone.
+
+This may be harmless, since the tree's fail-soft retention and the A3 FVG-irrelevance ruling might cover it. But the page should say so explicitly instead of implying a rebuild. It is not a Q1 blocker. I'd add a build-gate item: print `g_zoneLo/Hi` on the SIDE1C_YIELD pass and on the following S4 pass.
+
+## Analytic B
+
+A cite-resolver in the assembly script would catch defects 2, 3 and the P499 stale cite mechanically. For every `P###` and `R##` token, it would check that the target line exists and contains the expected anchor token, with R-cites restricted to the current-page namespace. No EA lines are touched.
+
+I can only rule on the page. Disk truth stays on his machine.
+
+## V336-IMPL2-21 END SONNET
