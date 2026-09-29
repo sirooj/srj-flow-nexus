@@ -3273,3 +3273,59 @@ This verdict rules on the page only. Disk digests and counts are not proven here
 Defect 1 is the only blocker. Items 2-4 are the same class of prose repair. Items 5-8 can ride as build-gate notes. Once P670 and P644 agree, I would CONFIRM.
 
 ## V337-IMPL2-22 END SONNET
+
+## V338-IMPL2-23 OPEN SONNET (filed whole 1x this turn, novel inbound, advisory only per seat-split; see ledger)
+
+**Q1 verdict: OBJECT.**
+
+The direction is fine. The objection is that the page contradicts itself on the fourth venue, and that the fold cannot be checked against the deltas it claims. What I could check, I checked: the fence arithmetic and the regions hold up.
+
+**Checked and holding**
+- Fence line counts match the labels: Z-ins 2, Z-rep 2-vs-2, Zguard 3-vs-3, Zbypass 5, SaDecl 6→10, SaSet 6-vs-6, Scomb P535-P579 = 45, Q2 P584-P602 = 19. The total is +75, so the +75 / 12202 claim is consistent (P605, P664).
+- Braces balance in Scomb, the apply block and the F11 fence.
+- The regions line up with the fences:
+  - R-Z gives guard EA 8917-8919 and bypass anchor 8925-8927.
+  - R-F11 old-else matches SaSet-old, including indents.
+  - R-S2END, R-Q2LOOP and R-DECLTOP match their anchors.
+  - The seven regions sum to 140 lines.
+- Rows R05 (R = 3.73) and R15 (R = 1.35) recompute correctly.
+
+**Defects**
+
+1. **Blocking: the route table contradicts L-final on the fourth venue (P681 vs P606, P686-P688).**
+   - The route table says 6/5 16:15 is "no-admission with Q2 terms" (P681). P609, P617 and the takes sheet say "not promised".
+   - P606 carries "exactly four UJ admissions" as a bound, and P683 repeats "four run-wide". P687 requires "three RETAKE legs, each exactly one matching admission", which includes A-FB, and P685 still asserts the fire-side terms for it.
+   - If the route table is followed, a correct fixed run yields three admissions and fails "exactly four". If P687 governs, the 16:15 "no-admission" route is meaningless.
+   - Also unspecified: an unpromised 16:15 admission. Is it fine, or UJ-EXTRA?
+   - Fix: restate the count as "exactly three promised, 16:15 optional and graded by its own terms" (or whichever he means), and bring P685/P687/P688 into line with P681.
+
+2. **The v25 delta doesn't supply what its header promises (P654 vs P656-P663).** The header says "each with old-to-new", but P656-P663 only name the categories. Two items can't be matched to new text:
+   - "Term-on-FAIL convention" is already P637 (v23 section).
+   - "S-b basis with segment counts" is P610 (v20 section).
+   - Add pointer lines (old P-number → new P-number, or "unchanged, already at Pxxx").
+
+3. **"No code-fence change vs v24" is declared, not proven.**
+   - v24 is not on the page. Twin == packet and regions == EA prove nothing about v24 identity, as P635 and P645 already admit.
+   - The Title, Status (P001/P003) and Q1 state it flatly. What I can attest is line counts and budget, not bytes. Carry the P635 "declared lineage / counts, not bytes" wording into P001/P003.
+
+4. **Era labels are still mixed for the same sites.** P661 claims cites are era-labeled, but:
+   - RETESTBOOK print: P316 cites EA-2171-2174, and its "row schema per EA-2167" points to a line that is `if(!ReadBuf1…)` in R-Q2LOOP. The print is at v10 EA 2177-2180 (P582, R-Q2LOOP lines 14-17). Those P316 numbers are v9 numbering, unlabeled.
+   - UJALIGN block: P033 says EA-8820-8828, unlabeled. P458 and R-Z put it at EA 8919-8927 (v10). That is a 99-line gap for the same block.
+   - F11 site: P239 says "v9-era pin unreconciled", but R-F11 already gives the v10 site (7379-7391; GoAbort/return at 7388-7389). Reconcile it from the page.
+   - Numeral collision: 7301-7304 means the v9 LTFDIAG/abort lines in P239 but the v10 comment in P495. Add a v9→v10 side-by-side.
+
+5. **Code-adjacent, not blocking Q1: S-b zero-zone vs the S4 re-read (P552, R-REREAD line 3, P533).**
+   - The transfer sets `g_zoneLo = g_zoneHi = 0.0` while keeping S4.
+   - The re-read's third clause is `LONG: s35_zLo <= g_zoneLo + 0.5pt`, which is false for any real zone when g_zoneLo = 0. For SHORT the clause (`s35_zHi >= g_zoneHi - 0.5pt`) is vacuously true.
+   - So for the 6/11 LONG venue the "rebuild-iff-adoptable" statement (P533) means "never rebuilds", and the fire depends on the truncated remainder of R-REREAD, which isn't on the page. LONG and SHORT transfers also behave asymmetrically.
+   - The page should say so, and state which guard accepts a 0/0 zone at the S4→S5 edge.
+
+6. **Minor.** Scomb has no old/new pair. Say "insert after EA-8327 (`}`), before EA-8329". The 7-space indent versus the 3-space `if` at function scope is cosmetic churn only.
+
+**Analytic B (better mechanism)**
+- For #5: seed the zone in the transfer from the contender's zone (the `ReadQualifyingZone` result), or drop the widening clause when the zone is 0/0. Both touch Scomb around P552 and R-REREAD line 3.
+- For #1: express the venue bound as an explicit expected set, so the route table and the count cannot diverge.
+
+The route table itself is a sound mechanism for the Analytic-B point. Defects 1 and 2 are the blockers; 3 and 4 are one-line repairs.
+
+## V338-IMPL2-23 END SONNET

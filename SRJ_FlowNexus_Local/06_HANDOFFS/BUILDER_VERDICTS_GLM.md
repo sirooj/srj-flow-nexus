@@ -7340,3 +7340,43 @@ Goal: one binding route per venue. Two prose options, zero code. **Option 1 (rou
 Rules on the page only; digests, counts, and battery results are disk truth, not answerable here. Nothing in this verdict builds, runs, commits, or moves money; live activation stays alert-only behind a separate relay plus his explicit word. Q2 stays carried-CLEAR from V336 (no fence change; not re-asked). No key and no run word asked or implied.
 
 ## V337-IMPL2-22 END GLM
+
+## V338-IMPL2-23 OPEN GLM (filed whole 1x this turn, novel inbound; see ledger)
+
+**Q1 verdict: OBJECT** — on one substantive acceptance contradiction (the 6/5 16:15 venue carries two live, opposite bindings) plus four change-log cite/wording defects. To be exact about what survives: **no code-fence defect is found** (the v25 delta section P654-P665 contains zero fences; the budget is identical across P619/P630/P639/P651/P664 — Z 7 / S-a 4 / S-comb 45 / Q2 19 = +75, final 12202; the line math closes: twin 703 = v24 689 + 13 delta-section lines + 1 annex line), and the route table, proof rule, labels, census, baseline, and reading all verify for the three built venues. The objection is prose-only and foldable with no fence change.
+
+## Defects
+
+**D1 (substantive — the 16:15 venue is double-bound).** The route table binds "6/5 16:15 no-admission with Q2 terms" (P681; P656), consistent with the takes sheet ("Not promised in v25: … 16:15 … D-design future"), the v20 Q2-venue leg ("NO admission promised on this venue in v20", P609), and the D-design deferrals (P617, P629). But the same acceptance still carries **A-FB-RETAKE (P685) as a live fire prediction** — "signal 16:10 bar, fill 16:15 bar (his entry 160.059) … fire wsrc in DH-family; entry-open R PASS on the fire tuple (grade reads src=FIRE)" — and **L-final (P687)** demands "three RETAKE legs (each exactly one matching admission per named venue)" plus "Exactly four UJ admissions in 6/1-6/13." On the v25 tree the venue cannot take (RECON73 death: S3 zone-miss 65pts at 16:10 with CONFIRMPOLL confirm=0 — rows R03/R04 plus the P460 chain; no v20-v25 fix touches it; D-design explicitly future). So a three-admission run **passes by P681/P609 and fails by P685/P687** (UJ-NOADMIT + exactly-four violated). The v25 re-points repaired A-S2P and A-POIV (P683/P684) and left A-FB-RETAKE/L-final unreconciled; the claim "one binding route per venue" (P656/P681) is therefore false for this venue. Note the root: the v20 acceptance (P606) carried "L-final venue bound (exactly four UJ admissions…)" forward knowingly while commissioning the Q2 detector instead — the contradiction dates to v20 and v25's route table sharpens it without resolving it.
+
+**D2 (P656 cite era).** "P670 re-pointed to the P607 evidence set; P671 re-pointed to the P608 evidence set" — on the assembled v25 page, P670/P671 are parked-item lines (candidate-slot telemetry; union-election). The re-pointed legs are **P683/P684**; the cited numbers are v24-page locations (v24 = 689 lines per the priors; its A-S2P/A-POIV sat at 670/671), unlabeled for era — contra the packet's own inline era-label practice (P030 "V323-era P355"; P034 "v11-era P471"; P687 "v16-era P465") and inconsistent within the same delta section, where P661 cites current-page numbers correctly (P682, P495, P533, P239). The change-sentence's "every … cite … resolves exact" fails here.
+
+**D3 (P661 vs P646).** "P646 supersedes P636 with refreshed lists" — P646's lists still carry v24-page numbers ("P669 carries R53/R55/R54/R02; old-page R-cites also at … P671"), which on this page resolve to parked items (correct targets: P682/P684). No v25 refresh landed; the item either restates v24's supersession as if it were a v25 fold (overclaim) or the refresh failed. Same class, pre-existing: P636's own cites ("P657 R53/R55/R54", "P659 (R38, R58, R64)") are v23-era and now collide with the v25 delta's own items at those numbers (P657 proof rule; P659 wording), unannotated.
+
+**D4 (P659 wording overclaim).** "Q1/title/Status/annex say 'no code-fence change' / 'acceptance/prose-only fold' throughout" — Status (P003) carries **neither** phrase (it reads "budget +75/12202 unchanged"); the phrases appear at P001, P664, P701, and the relay head/Q1 only.
+
+**D5 (P663 unlocatable fold items).** "spliced-bytes qualifier" (and secondarily "term-on-FAIL convention") — no labeled v25-added sentence is identifiable. Candidates: the P664 parenthetical (inferential) or pre-existing text (P630 "no spliced-code-byte delta vs v21"; P635 "counts, not bytes"; P637 term convention). Fold items mapping to pre-existing text should be disposed "already on page at P###" per the packet's own P627 precedent; as written the item is unverifiable as a v25 addition.
+
+## What verifies (fold scope — all CONFIRM-side)
+
+- Route table present and consistent for the three built venues (P681 preamble; P683 re-pointed to P607 with P033 arming-takes retired; P684 re-pointed to P608 with grade-read promotions and the v16-asymmetry note retired; takes sheet matches).
+- Proof rule (P681), replay baseline RECON71/72/73 (P681), sibling envelope (P686/P691), promotion contract via UJ-NOPROMO with hold/carve as mechanism evidence (P683 + P688).
+- Labels: Z-B1/SaDecl-B2/review-A4 prefixes (P493-region, P476) with legend (P661); era labels verified (P493-region "v10 EA-7321"; P533 "v10 EA-7395-7434"; P239 pin flagged "v9-era pin unreconciled with v10 numbering").
+- Census extension 7392-7739 with one S2-gated return (P532, riding P626); R-REREAD span-truncation disclosed (P533) and the spliced region indeed cuts mid-PrintFormat with the count matching (16 = EA 8980-8995).
+- Gap annotation (P695: "computed P679 governs — 3-line historical gap named"; 53+10+12+1+6+70 = 152 checks); S-b basis with segment counts (P610, P459, row R16).
+- Battery arithmetic: regions 140 = 52+13+6+29+18+6+16; 24 rows with distinct SEG IDs; row-prose cross-checks clean (R15↔P682 values; R18/R19/R24↔P458/P607; R05/R06/R07↔P460; R16/R12/R14↔P459; R20/R21↔P683); budget walk +69→+75 closes (P605→P619).
+- Old-fence ↔ region consistency: Z-rep/Z-guard old fences match R-Z (EA 8912-8963); SaDeclSit old matches R-DECLTOP (EA 6873-6878); SaSet old matches R-F11's else block (EA 7379-7391); Scomb reset list mirrors R-XFER (EA 7811-7839) plus the memo reset. No code-side defect.
+
+## Analytic A (complete list)
+
+D1-D5 above, plus minors: (a) P679 header "Historical v16 budget, not v22 (… operative budgets are P619/P630)" — era-stale at v25 (operative +75 budgets also at P639/P651/P664; no numeric harm; line self-declares historical); (b) P005 "fixes A-H below" — enumeration predates the v20+ fixes that also sit below (file-scope claim itself is correct); (c) structural root of D1: the v20 acceptance (P606-P611) and the operative acceptance (P681-P688) coexist partially merged — Z/S legs were folded into P683/P684, the Q2 leg was not folded into P685, and the "v19 acceptance superseded" sentence was never applied to the operative block; (d) observation, not a defect: v24==v25 fence identity is declared lineage — the on-page proofs cover twin==packet and spans==EA, as P635/P645 themselves distinguished; the claim is consistent with the delta's nature but is not page-provable, and D5's missing qualifier appears to be exactly this distinction left unstated for v25.
+
+## Analytic B
+
+For D1, the better mechanism is a sequencing sentence, not code: qualify P685/P687 in place (e.g., "A-FB-RETAKE fire predicates and the exactly-four bound bind the D-design run; the v25 run expects three admissions plus UJDTTERMS rows at 16:05/16:10") or re-point A-FB-RETAKE exactly as A-S2P/A-POIV were re-pointed. One prose line each; zero code lines. For D2-D5: add a P-cite era legend mirroring the R-cite legend at P636 ("P-cites name the current page unless era-labeled"), refresh or era-annotate P646/P656, and carry per-item fold dispositions ("added at P###" vs "already on page at P###"). No better code mechanism is warranted this round — no code change is asked, the route-table shape is the right grading instrument for the three built venues, and rank-parity stays parked per P131/P660.
+
+## Standing split
+
+Rules on the page only; digests, counts, and battery results are disk truth, not answerable here. Nothing in this verdict builds, runs, commits, or moves money; live activation stays alert-only behind a separate relay plus his explicit word. Q2 stays carried-CLEAR from V337 — no fence change, no re-asked. No key and no run word asked or implied.
+
+## V338-IMPL2-23 END GLM

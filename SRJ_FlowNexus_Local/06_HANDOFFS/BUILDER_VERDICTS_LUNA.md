@@ -13626,3 +13626,39 @@ For the strategy mechanism itself, the one stronger alternative already acknowle
 **Disposition:** `OBJECT — acceptance/prose repair required; no code fence change requested.` The object is to the precision of the v24 acceptance contract, not to the stated alert-only scope or to any live-activation authority.
 
 ## V337-IMPL2-22 END LUNA
+
+## V338-IMPL2-23 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+The packet is a design-only ruling request; it explicitly says nothing here builds, runs, commits, or clears live activation.
+
+CONFIRM
+
+Q1: CONFIRM. The v25 fold matches the specified v24→v25 change set as presented: the route table, proof rule, replay/envelope language, promotion contract, wording, citations/labels, census/truncation notes, gap/qualifier conventions, and S-b basis are prose/acceptance changes, while the packet states no code-fence change versus v24 and keeps the +75 / 12202 budget unchanged. P656-P665.
+
+The acceptance contract is internally coherent enough to serve as the future grade: one binding **grade route** is named for each June-UJ venue; hypothesis terms are expressly non-failing unless converted to named predicates; the per-venue record and finding map are defined; and the August EU comparison is kept as a separate sibling run rather than mixed into the June-UJ proof. P681-P688.
+
+The underlying edit fences also remain consistent with the stated v25 delta. In particular, FIX F11, G1, and H2 are carried as the operative code fences, while the v25 change section itself introduces no new code fence. The H2 implementation is explicitly gated to the empty-election branch and preserves the swept-history / witness checks described in the packet. P354-P364 and P365-P447.
+
+ANALYTIC A — defects / gaps / imprecisions
+
+1. **“One binding route per venue” should be read as a grade-route statement, not a runtime exclusivity statement.** P656/P681 use wording that can sound as though only one mechanism can execute in code, while G1, prebind, S4-edge, and related mechanisms remain present simultaneously. The acceptance contract does establish which route governs grading, but it does not create a code mutex between mechanisms. This is wording precision only, not a Q1 blocker. P656, P681; the G1 fence confirms multiple downstream mechanisms remain in the tree.
+
+2. **Promotion “count/order” is stronger than the named finding taxonomy.** P658 says promotion count/order is hard, but P688 defines UJ-NOPROMO as missing, duplicate, or wrong-bar promotion/confirmation; “wrong order” is not named explicitly. Add “wrong order” to that predicate language or state explicitly that order is part of the wrong-bar predicate. P658/P688.
+
+3. **The A-FB ref-insensitivity term is not directly evidenced by the printed pool alone.** P685 requires the poll-reference and entry-open reference to elect the same nearest source, but UJHISTPOOL is printed from the current election reference. The packet does not define a second reference-specific witness row or a deterministic grade-time recomputation rule that independently establishes the winner at 160.059. Because P685 explicitly marks this as a hypothesis rather than an independent failure predicate, this is a proof-strength gap, not a reason to change the Q1 verdict. P685.
+
+4. **The H2 pool print is pre-zone, while the acceptance language sometimes speaks of a “zone-eligible” winner.** The code builds `uj_hpool` from unswept, in-direction history before calling `TpTargetUpdateBest`; the actual zone filter is inside that later call. P442-P444. A single pool print therefore proves availability/in-direction membership, not zone eligibility for every printed candidate. The packet does separately require TPFALLBACK/fire-source evidence, which is why this remains a grade-method precision gap rather than a structural defect.
+
+ANALYTIC B — better mechanism
+
+For the A-FB ref-insensitivity check, the cleanest low-surface mechanism would be a **print-only dual-reference witness** at the H2 consult site: retain the normal election at the poll reference, then perform a read-only nearest-source comparison at the fixed entry-open reference and print both selected source/day keys. That would make the hypothesis directly gradeable without changing admission behavior. The touchpoint would be the H2 consult immediately around EA-442-447, with no new inputs, handles, or admission logic. P685 currently leaves this as a hypothesis.
+
+For the promotion taxonomy, no code change is needed: extend the prose predicate so UJ-NOPROMO explicitly covers missing, duplicate, wrong-bar, and wrong-order promotion. That is smaller than introducing a new finding code.
+
+Q2: carried CLEAR, not re-asked.
+
+No build, tester run, commit, or activation clearance is granted by this ruling.
+
+The only items I would carry forward are the four precision points above; none changes the Q1 **CONFIRM** on the v25 prose/acceptance fold itself.
+
+## V338-IMPL2-23 END LUNA

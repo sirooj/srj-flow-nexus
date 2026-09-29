@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V338 TRANSPORTED)
+## State (2026-09-29, V338 GRADED)
 
-- Relay v338 shipped ledger 957 (packet v25 17500311).
-  V338 verdicts owed back whole per seat.
+- V338 graded ledger 958 (Q1 1-1 HALT / Q2 2-0 CLEAR).
+  v26 folding (D1 sequencing + cites); verdicts answered.
 - Key spent; EU declined; D v23+.
   No build/run/key without his new word.
 
 ## Next
 
-- His V338 verdict paste-back, whole per seat.
+- v26 fold draft + relay-ready battery (builder-side).
 
 ## Resume order (exact)
 
