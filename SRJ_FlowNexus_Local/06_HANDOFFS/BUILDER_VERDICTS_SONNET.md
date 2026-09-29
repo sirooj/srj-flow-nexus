@@ -3563,3 +3563,71 @@ For Q1, the block-contains-entry check in Q1-1 is the smallest fix. The alternat
 I did not verify disk truth, and this ruling builds and clears nothing.
 
 ## V341-UJFIX2-2 END SONNET
+## V342-UJFIX2-3 OPEN SONNET (filed whole 1x this turn, novel inbound; see ledger)
+
+# Q1 verdict: OBJECT
+
+The old-to-new delta checks out, but the "one revision per trade instance" bound does not hold as written, and "zero new carriage" is not shown on the page. Sonnet-seat advisory; I checked only what the page shows and asserted nothing about disk.
+
+## Defect 1: the 600-bar cap breaks the once-per-instance bound (P053, P076, P080-P086, P092, P042)
+
+P042 revises a LONG when `uj_rtPx < tpRef`, and a SHORT when it is greater. The at-most-once claim therefore rests on the closed-run extreme being constant after the close. The 600-bar cap breaks that.
+
+- Once the run's oldest bars sit beyond `barShift+599`, the walk sees a truncated tail of the run. The loop exits on the cap, not on a session boundary.
+- P092 still passes whenever the admission bar sits in the retained newer portion. That is likely for late-session admissions like the 16:55 R-venue.
+- The partial-run extreme is at most the true extreme. For a LONG it is often strictly lower than the value already booked. P042 then fires again and revises the target to a lower level that is not the session high.
+- This is the same ratchet class the fold map (P145, A10) says containment removed. It needs a float of roughly 600 minus run-length bars (about two days at M5). The R-venue's Friday-to-Monday float is far shorter, so acceptance will not catch it.
+
+Minimal fix, +1 line:
+- Add `bool uj_ended = false;` before the loop.
+- Change P082 to `if(have) { uj_ended = true; break; }`.
+- Change P091 to `if(!have || !uj_ended || ext <= 0.0) return false;`
+
+A run cut by the cap, or by the `bk == 0` break at the start of history, then returns false. This fails closed and leaves the close-pass revision standing. RHELP becomes +36, the total +53, and the tree 12255.
+
+The bound also rests on the P042 strict-tighter comparison. The P037 comment and P053 should say so. They currently credit containment alone.
+
+## Defect 2: `t.uj_admitBarTime` carriage is contradictory and unpinned (P005, P053, P132)
+
+- P053 says "zero struct change", but the helper reads `t.uj_admitBarTime`, a member access on `SManagedTrade`.
+- P053 cites the D5 pins EA-226, EA-228 and EA-239 for the types. It does not cite the field's declaration or its reset (the analogue of EA-355).
+- The write "at admission EA-10647 beside sessionAtEntry EA-10627" is 20 lines from EA-10627, not beside it.
+- That write has no fence, no old/new pair, and no line in the P132 budget. Either the field already exists, and then it needs an EA line cite, or it is an unbudgeted struct-plus-write-plus-reset edit, and then P005's surface claim is false.
+
+The page also does not say which bar time EA-10627 evaluates. If `sessionAtEntry` is computed from the entry bar (R13: admit_bar 09:30, entry bar 09:35) and not from the admit bar, an admission on the last session bar gives a session mismatch. Containment would then reject silently and the retarget would never fire. UJ-NORETARGET would catch it, but only after a run.
+
+## Smaller imprecisions
+
+- **P053:** it calls EA-1889 the "Task-160 comment block". R-SESS shows EA-1889 is the `[P-RESQUAT-1 F-a]` comment. Task-160 is at EA-408 (R-ABORT).
+- **P005:** it still says "three modified print lines". After the A9 wording adoption (P144) it is one modified line (B3) and two new prints (UJRETARGET, UJSBTELEM).
+- **P144:** it says the "second-UJRETARGET predicate" was adopted, and P053/P144 refer to later-close divergence being pre-ruled. P139 has only UJ-NORETARGET, and no P-line carries either predicate. Add a UJ-RERETARGET predicate: more than one UJRETARGET row per trade instance. Add the divergence ruling too.
+- **P037:** an EA source comment cites "P053", a packet line that will not exist in the tree. Drop it.
+- **P053/P076:** the "covers intra-week closes" claim silently assumes M5, because the walk uses PERIOD_CURRENT. Pin the timeframe, or state that 600 bars is about 50h at M5 and about 10h at M1.
+- **CurrentTradingWindow:** the signature, argument time basis (bar open in server time?) and side-effect freedom are not on the page. R-SESS shows only its tail. Pin the declaration line.
+- **P037 placement:** the R block now sits between the existing "(b) TP ... only body-close break exits early" comment and the `tpBookedTouch` code that comment describes. This is cosmetic.
+
+## Checked clean on the page
+
+- **R-SESS:** lines EA-1881 to EA-1889 are 9 lines. EA-1887 is the function's closing brace, EA-1888 is the blank, and EA-1889 is the comment.
+- **RHELP fence:** old is 3 lines. New is `}`, 1 comment line, 34 helper lines (P062-P095), the blank (P096) and the comment, which is 38 lines. Net is +35, and the D4 blank is carried.
+- **R call fence:** old-R is 3 lines and new-R is 15, so +12. The R-TP region is 22 lines, and the old-R site starts at EA-11829, matching P053 and P131.
+- **UJRETARGET print:** 5 specifiers against 5 arguments.
+- **Budget arithmetic:** 12+35+3+0+2 = 52, giving 12254 (before Defect 1's +1 and any Defect 2 carriage).
+- **Helper logic:** it returns false while the current bar is in the entry session. The walk skips non-entry bars until the most recent entry-type run and stops at its boundary. Later-day same-type runs fail the P092 containment. The P042 comparison stops same-value repeats. The direction handling for LONG and SHORT is correct.
+## Ask B: better mechanism
+
+Alternatively, fire only on the transition bar, where the window of `barShift+1` equals `es` and the window of `barShift` does not. That makes it single-shot by construction and removes the walk-cap problem. It is fragile if that pass is ever skipped, whereas the current design self-heals. I prefer the `uj_ended` fix. The latch bool stays parked (P145), since it needs new carriage and his word.
+
+Q2 and Q3 stand as carried-CLEAR. I re-rule neither, and this OBJECT touches neither.
+
+## Summary (advisory, zero weight)
+
+| Q | Verdict | What decides it |
+|---|---|---|
+| Q1 | OBJECT | Q1-1 breaks the once-only, entry-session contract on multi-session floats; Q1-3 anchor mismatch; Q1-2 zero-R target |
+| Q2 | CONFIRM | Notes 1-5 |
+| Q3 | CONFIRM fence, DISCREPANCY on P122 | Add c1/o1/h1/l1 to the print |
+
+I did not verify disk truth, and this ruling builds and clears nothing.
+
+## V342-UJFIX2-3 END SONNET

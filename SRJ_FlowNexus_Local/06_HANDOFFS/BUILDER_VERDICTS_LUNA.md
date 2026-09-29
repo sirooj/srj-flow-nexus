@@ -13958,3 +13958,130 @@ Add an explicit `sbRead` field beside `sbL`, then grade the 14:35 row by exact t
 No build/run/key clearance follows from these design verdicts.
 
 ## V341-UJFIX2-2 END LUNA
+## V342-UJFIX2-3 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+**CONFIRM**
+
+Q1: the contained helper body matches the specified old-to-new delta. `UjClosedSessionTarget()` is admission-session/type scoped, reads the closed session extreme directly from price history, includes the admission bar, and rejects a later same-type session that does not contain `uj_admitBarTime` at EA-61–95. The type/session/unset guards are explicit at EA-65–70, the completed-session gate is EA-71, and the admission-instance containment check is EA-92.
+
+The actual **one-revision** property is jointly enforced by the caller, not by the helper alone: EA-41–42 requires a strictly tighter in-direction target before assignment, so repeated evaluations of the same closed session cannot rewrite the same `tpRef` again. A later same-type session is rejected by EA-92. Thus the stated instance containment is sound across helper + call site, with no new carriage beyond the existing admission timestamp/session fields described at P53 and P66–68.
+
+### Analytic A — defects / gaps / imprecisions
+
+1. **P53 slightly overstates what the helper itself proves.**
+   The helper can return `true` repeatedly during repeated evaluations of the *same* closed session. The one-time mutation is actually enforced by the caller's strict-improvement predicate at **EA-41–42**, not by EA-62–95 alone. So “revision fires at most once per trade instance” is correct for the combined mechanism, but imprecise if attributed solely to the helper.
+
+2. **P61/P53 call the history walk “closed entry-session-instance” without an explicit session-end boundary.**
+   **EA-71** establishes only that the current bar is outside the entry session, then **EA-76–90** walks backward until the preceding out-of-session boundary. This is correct under the established `CurrentTradingWindow()` semantics, but the proof is dependent on that function providing clean session segmentation. The page does not independently pin that contract here.
+
+3. **The 600-bar sufficiency claim at P53 is an environmental assumption, not a code invariant.**
+   **EA-76** hard-caps the walk at 600 bars. The helper is fail-closed if the admission bar is not encountered, but P53's statement that 600 “covers intra-week closes” is not proved by the supplied page for arbitrary symbol/session/data gaps. It is adequate for the stated June M5 replay only if the measured replay data establishes that bound.
+
+4. **P136's “strictly tighter closed in-direction extreme” is important and should remain explicit.**
+   The change sentence at P30 says the trade “revises its booked target to the ... high or low” without stating the tighter-only restriction, while the actual mechanism is **EA-42**. The prose is therefore broader than the implemented rule. The acceptance prose does pin the stricter predicate at P136, so this is an acceptance/spec wording imprecision rather than an implementation defect.
+
+5. **P61's “buffer-reset immune” claim is fair for the extreme value itself, but only because the helper uses price history.**
+   That claim should not be generalized to session identity: session identification still depends on `CurrentTradingWindow()` at **EA-71/80**.
+
+### Analytic B — better mechanism
+
+The present mechanism is already appropriately narrow. The only cleaner improvement I see is to make the **one-shot property explicit in state**, rather than relying on the combination of admission containment plus strict tightening:
+
+* Add a per-trade `sessionRetargetDone` flag at the managed-trade state/admission reset site, then gate the assignment at **EA-41–47** and set the flag on successful retarget.
+* Touch points would be the managed-trade field/reset sites identified around **EA-10627 / EA-10647 / EA-355**, plus **EA-41–47**.
+
+I would **not** require that change for this round: it introduces new carriage, whereas the current mechanism achieves the stated behavior without it. The meaningful page-level correction is simply to describe the one-shot guarantee as a **caller + helper property**, not as a property of the helper body alone.
+
+---
+## Q2 verdict — **CONFIRM**
+
+The B2 gate and B3 print delta are internally consistent.
+
+The promotion condition changes from:
+
+`uj_m15r && uj_m15b == uj_wantb`
+
+to:
+
+`uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0`
+
+at **P93-P99; EA-8339**.
+
+Given the packet's pinned value space `-1 / 1 / 0`, that means `-1` and `+1` permit the promotion path while `0` refuses it: **P109**.
+
+The refusal branch is placed exactly between the promotion block and the existing wait path, producing the intended three-way structure: promote / kill / wait: **P100-P105; EA-8343-to-EA-8344**.
+
+The new abort definition is also correctly isolated in the abort family: **P106-P108; EA-406-to-EA-408**.
+
+The B3 line change is exact in substance: it adds only `sb=%d` immediately before the existing `rf` fields, with `s1g_seedBiasAl` as the value source: **P111-P115; EA-8343**. That is consistent with the claimed zero-line behavioral change.
+
+### Q2 analytical issue
+
+The phrase **“every promotion row carries its gate input”** is broader than what the actual edit proves. The added field is on `S2PROMOTE_M15` specifically: **P110-P115**. The page itself says the aligned-path seedbias gate is parked for later: **P137**. So the precise claim should be:
+
+> Every **`S2PROMOTE_M15` fallback-promotion row** carries the seedbias gate input.
+
+That is a wording defect, not a code defect.
+
+Also, the “fail-closed kill” is specifically on the M15-fallback-aligned branch. If M15 is unreadable or wrong, the code falls to `S2WAIT` rather than emitting the new abort: **P102-P104**. That still prevents promotion, but it is worth distinguishing **“kill on refused seedbias”** from **“abort on every unavailable promotion prerequisite.”**
+
+### Q2 better mechanism
+
+A named predicate such as `SeedBiasAllowsPromotion(s1g_seedBiasAl)` would make the `-1/1/0` contract explicit and less dependent on raw integer semantics, but I would not introduce that abstraction inside this narrowly scoped FIX-2.
+
+---
+
+## Q3 verdict — **DISCREPANCY → CONFIRM v2-with-telemetry again**
+
+The **telemetry fence itself is correct** and appears behavior-neutral.
+
+The proposed print occurs after `uj_sbConfC` / `uj_sbConfH` are computed and before the transfer `if`: **P118-P121; EA-8351-8396, specifically after EA-8360/8361 and before EA-8362**.
+
+It reports:
+
+`have / sbDir / sbLine / confC / confH / sbL / termC / termH`
+
+without modifying the contender state: **P119-P120**. On the supplied code, that is a telemetry-only addition.
+
+However, the packet **does not contain the new `UJSBTELEM` rows from the future run**, so the 14:35 terminal term cannot yet be ruled from the evidence presently on the page.
+
+The existing 14:35 row is only:
+
+`CONFIRMPOLL ... oppCandle=0 bodyDir=0 ... touchAttr=1 confirm=0`
+
+at **R09**.
+
+That establishes `confirm=0`, but it does **not** establish which terminal test failed inside the actual `IsConfirmationCandle` path. The three relevant possibilities include `A_OPP`, `A2_CLOSE_BREAK`, `B_BODY`, and `C_TOUCH`, and the old row does not expose the new `sbL` or terminal term: **R09; P117-P122; EA-2294-2335**.
+
+Therefore I would **not adopt Luna's C_TOUCH one-liner yet**. The correct ruling is the already-described **v2-with-telemetry** path: add the telemetry, run the June replay, and rule the 14:35 term from the resulting `UJSBTELEM` row.
+
+That also preserves the stated EU fence: **P122**.
+
+### Q3 analytical issues
+
+1. **The claimed term ruling is ahead of the evidence.**
+   The packet says the term will be ruled from `UJSBTELEM`, but those rows are not present in the supplied record. **P122 vs R09** is the central evidence gap.
+
+2. **`sbL=0` can encode a read failure without saying so.**
+   At **P119**, failed `ReadBuf1` is converted to `uj_sbLineVal=0.0`, and **P120** prints only `sbL`. That makes telemetry less explicit than it could be. In FX, zero is not a valid price, so it is practically distinguishable, but an explicit `sbRead=0/1` would make the diagnostic contract unambiguous.
+
+3. **The Luna candidate is still correctly quarantined.**
+   The proposed same-confirmation-candle touch is a genuine behavior change at **P118-P122 / Luna candidate**, so it should remain unadopted until the telemetry identifies `C_TOUCH` as the actual failing terminal condition. The EU shared-function obligation remains relevant as a separate proof constraint.
+
+### Q3 better mechanism
+
+Add an explicit `sbRead` field beside `sbL`, then grade the 14:35 row by exact terminal term. That gives a mechanically distinguishable result between “no line/read failure” and an actual line value, without changing confirmation behavior.
+
+---
+
+## Council tally
+
+**Q1 — CONFIRM.** FIX-R matches the closed-session, in-direction retarget contract; only the “once-only” and caller-side close-transition claims are slightly stronger than the code itself proves.
+
+**Q2 — CONFIRM.** The seedbias gate, fail-closed refusal branch, abort define, and `sb=` print delta are coherent and correctly fenced.
+
+**Q3 — DISCREPANCY.** Telemetry is correctly implemented, but the **14:35 term is not yet ruleable from the supplied rows**. The proper disposition is **v2-with-telemetry again; do not adopt the C_TOUCH replacement yet**.
+
+No build/run/key clearance follows from these design verdicts.
+
+## V342-UJFIX2-3 END LUNA

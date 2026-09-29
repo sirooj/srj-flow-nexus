@@ -7585,3 +7585,68 @@ Term, as far as the rows go (R09 + R-CONFIRM EA-2323-2332):
 Three verdicts above, each on its own line. D1 is the only discrepancy obliging action this round (prose re-word + findings-map predicate, or a v2 latch under his word); D4-D5 should be pinned before the fold battery runs. Page-only; byte claims ride the battery; nothing built, run, or spent; nothing here clears live activation. Nothing else is asked.
 
 ## V341-UJFIX2-2 END GLM
+## V342-UJFIX2-3 OPEN GLM (filed whole 1x this turn, novel inbound; see ledger)
+
+**Seat: GLM. Page-only ruling per the verification split: fence-vs-disk byte-exactness, digests, and counts rest with the fold battery on his machine; nothing here builds, runs, spends, or clears live activation. No files asked.**
+
+Page arithmetic checked internally: region spans 22+22+46+42+9+5 = 146; fold budget 12+29+3+0+2 = +46 → 12248; twin 146/146. All consistent.
+
+## Verdicts
+
+- **Q1 verdict: CONFIRM, discrepancies attached (D1-D5).** The call block and helper body match their specified old-to-new deltas and implement the contract at the designed fire — closed whole-entry-session extreme, in-direction tightening only, once per entry-session instance, close transition exact. D1 refutes the once-only claim *as worded* (P053); none of D1-D5 overturn the three acceptance venues.
+- **Q2 verdict: CONFIRM.** The B3 mod is exactly the one-field delta; the carried gate kills refused seeds fail-closed on the m15-fallback path; the aligned-path gap stays parked-with-cause, unchanged.
+- **Q3 verdict: CONFIRM the telemetry fence; the 14:35 term is NOT ruleable from this page's rows — rule v2-with-telemetry again.** The rows narrow the LONG refusal to {A_OPP (flat 14:30), A2_CLOSE_BREAK (14:30 close below the Daily-POC value)} and exclude B_BODY and C_TOUCH. Luna's candidate edits C_TOUCH only and therefore cannot be the 14:35 fix on this page's own evidence.
+
+## Q1 detail
+
+Deltas (page-internal): 12 new lines (P037-P048) before EA-11829; fence tail (P049-P051) identical to old fence (P032-P034) and to R-TP EA-11829-11831 — matches "+12 (insert)". Helper = comment + 28 body lines = "+29" (P124); sited EA-1887→1889, definition precedes the EA-11829 caller, no prototype (P053). UJRETARGET arity 5=5 (P046). Guard chain fail-safe at every edge: dir (P064), es-type with NONE/-1 return false (P066 — the contract pin), bt==0 (P068), in-session (P069), bk==0 (P075), v<=0 (P082).
+
+Contract: the walk (P072-P084) skips leading non-es bars, accumulates the contiguous es run, breaks at its end — at the first post-close pass that run is the entire entry session (the 16:00-bar high 160.262 is inside it for the R-venue), and the forming bar is never es, so only closed bars count. In-direction and tightening-only: LONG highs / SHORT lows (P081) plus the strict inequality (P042) — never loosens, never re-fires on an equal extreme. Close transition exact: P069 refuses every in-session pass; the 19:00-pass row of P128 falls out as written. Same-bar touch on the revised target counts (the touch block re-reads tpRef), so branch (i) is reachable on the fire bar when price sits above the closed extreme — intended.
+
+Discrepancies:
+- **D1 (P037, P041-P042, P053, P069, P072-P084, P131).** The helper pins the session by TYPE + recency, not instance. Every pass with current-window ≠ es re-derives the most *recent* closed es-type run; after a later same-type session closes, that run is the later session, and the strict tightening inequality can fire again — a per-session ratchet. So (a) "fires at most once per trade" (P053) is refuted as worded — the immutability argument covers only the entry instance; (b) "older floats keep booked TP" (P053) is wrong — same-type sessions recur daily well inside the 600-bar cap, so every non-suppressed pass finds a recent run; (c) the findings map (P131) has no predicate for a second UJRETARGET row. If the 6/3 or 6/5-London trades float past the next same-type close in the replay, the grade sees unmapped rows. Minimum now: re-word P053 ("once per entry-session instance; later same-type closes can tighten again — pre-ruled divergence finding") plus the predicate; better: B1.
+- **D2 (P009 vs P066).** His standing rule reads venue-generally ("a session high/low that closes while a trade floats is a valid exit target"); the helper scopes to the entry-session type, so other-type closes are never targets. Defensible for the three venues, but state it as a narrowing.
+- **D3 (P041-P042).** No profit-side guard: an underwater LONG can retarget to a session high below entry (mirrored for SHORT), making the touch exit loss-taking. Plausible under his rule; unpinned — pin accept or guard.
+- **D4 (P054-P056 vs R-SESS EA-1887-1889).** The old-RHELP fence shows `}` and the P-RESQUAT comment adjacent; the R-SESS region shows a blank (EA-1888) between them on disk — the two page artifacts disagree about the same lines. The new fence (P058-P089) also renders no blank after the function while +29 implies the blank survives. Pin the blank's disposition; STAGE-1 fails closed on an old-fence mismatch, but the page should not ship the tension.
+- **D5 (P061, P138).** The helper site compiles only if SManagedTrade and the DIR enum are defined before ~EA-1888; neither definition line is shown (P138 asserts "file-scope type" without a cite). A miss is a loud compile failure — pin the lines for the record.
+
+## Q2 detail
+
+- B3 delta (P112→P115): exactly two changes — `ltf=%s` → `ltf=%s sb=%d` and `UjDbl(uj_ltfb),` → `UjDbl(uj_ltfb), s1g_seedBiasAl,`. Specifiers 10 = arguments 10, counted. 0 net lines.
+- Gate: EA-8339 gains `&& s1g_seedBiasAl != 0` (P097); kill branch (P102-P103) between end-EA-8343 and EA-8344 gives if / else-if / else — m15-aligned+sb≠0 promote; m15-aligned+sb=0 S2SEEDBIAS_KILL + GoAbort(ABORT_SEEDBIAS_REFUSED) + return (fail-closed, family pattern of EA-8333); otherwise S2WAIT verbatim. Value space −1/1/0 (EA-1151/EA-8133): −1 and 1 pass, 0 kills — exactly P109. Set EA-8133 precedes the edge in the same pass (R05/R06 same-bar). The B-venue acceptance row (P129) falls out as written.
+- Define at EA-407: col-32 claim checks arithmetically (8+22+1 space → col 32, matching 8+18+5 → col 32).
+- Carried, not new: the CheckLtfAlign-true path promotes with no seedbias read (parked, P137) and UJ-BIASDEFY is blind there (stated, P131). Keep it visible at grade.
+## Q3 detail
+
+Fence: 2-line insert after EA-8361 / before EA-8362 — the region line-count agrees with the packet's map (confC 8360, confH 8361, transfer if 8362). All uj_sb* locals in scope; g_hPoi settled; ReadBuf1 is a pure read, so zero behavior holds; arity 10=10, counted. The have= field also covers the one assumption in P026 (confC-ran-and-refused presumes have=1; if have=0, confC is false with no term — read that as a detector finding, not a term finding).
+
+Term, as far as the rows go (R09 + R-CONFIRM EA-2323-2332):
+- B_BODY excluded (EA-2327-2330): SHORT bodyDir=0 + doji=0 + body=3pts ⟹ c0>o0, which is the LONG bodyDir test, and the body clears the doji threshold.
+- C_TOUCH excluded (EA-2331-2332): the touch test has no direction term; R09's touchAttr=1 was computed on the same candle-1 (14:30) against the same Daily-POC line (row-labeled in R07/R08/R09/R10/R12), so the identical expression passes for the LONG contender. Assumptions stated: touchAttr is the EA-2331 result; the contender line equals the holder's line.
+- NO_ANCHOR/NO_DATA/NO_LINE excluded (EA-2298-2311) given have=1 and the poll's own computed fields.
+- Survivors: A_OPP (EA-2323-2324) if 14:30 is flat — R09's SHORT oppCandle=0 only bounds c1 ≤ o1 — or A2_CLOSE_BREAK (EA-2325-2326) if the 14:30 close is below the Daily-POC value. The discriminator (c1 vs o1; c1 vs sbL) is exactly what UJSBTELEM's sbL plus bar data deliver. Not on the page → v2-with-telemetry stands (V340 calibration branch, P013/P122/P130).
+- Expected 14:35 row for the grade: have=1, sbDir=LONG, confC=0, termC ∈ {A_OPP, A2_CLOSE_BREAK}, confH=0, termH=A_OPP (SHORT fails A_OPP per R09), sbL = the Daily-POC value. Pre-stating it makes the grade self-checking.
+- Luna candidate: edits EA-2331 (C_TOUCH) only — the excluded term — so it cannot be the 14:35 fix. Carried-never-adopted stands, now with page evidence. If the term lands A_OPP or A2_CLOSE_BREAK, the replacement text is NEW text and the EU proof obligation (P122) binds any term change exactly as it binds C_TOUCH: no adoption without the bar-for-bar EU Rule-vs-takes vs register A1-7.
+
+## Ask A (master; D1-D5 above plus)
+
+- **A6 (P128).** The day-exit reconciliation overstates branch (ii): under (ii) there is no exit change — the trade still exits Monday 00:50 POI_BODY_BREAK; only the revision is proven. The journal path (R03 h=160.177 at 17:00; R01 exit 160.226 below the target) makes (ii) the expected branch — say so plainly.
+- **A7 (P119-P120).** sbL prints 0.00000 for both have=0 and read-fail (ambiguous sentinel); a buffer EMPTY_VALUE prints as a huge double while termC reads NO_LINE. Cosmetic; normalize or document.
+- **A8 (R09).** `shadow=true` is unpinned on the page; if it encodes close-vs-line information it might discriminate the A2 candidate — state its semantics or leave it to the telemetry.
+- **A9 (P005, P013).** "Three modified print lines" — UJRETARGET and UJSBTELEM are new prints; only S2PROMOTE_M15 is modified (P124's accounting is the accurate one). P013's "gains one field" is relative to FIX-1's retired 9-field sketch, not to any live EA line.
+- **A10 (P046).** UJRETARGET carries no run-instance identity (found run's newest-bar time, or a fire ordinal) — one field would make ratchet rows (D1) self-identifying at grade.
+- **A11.** Pure inserts (B2KILL, S3TELEM, ABORT define, RHELP body) have no old-fence compare; indent/style has no automatic check — assert at battery or accept cosmetic drift. Process note; indent is not reliably countable from the page rendering.
+- **A12 (P026).** State the have=1 assumption in the acceptance so a have=0 outcome is graded as a detector finding, not a term finding.
+
+## Ask B
+
+- **B1 (for D1), exit-side only:** (a) per-trade latch — one bool in SManagedTrade, init at admission (EA-10627), checked at P041 — strict once-only, cost: one new carriage field (exceeds the P005/P030 surface; honest cost); (b) entry-instance containment — if SManagedTrade already carries an entry bar time, pass it (P061 signature, P041 call) and require the found es-run to contain the entry bar; zero struct change; (c) keep the code, rule the semantics — declare "trailing to the most recent closed entry-session-type extreme, tightening only" as the intended reading of Ruling-1's venue-general words, pre-rule extra UJRETARGET rows, add the P131 predicate. Recommend (b) if the time field exists; else (c) for this replay and (a) in v2 under his word.
+- **B2 (drift guard):** hoist `bool uj_m15ok = (uj_m15r && uj_m15b == uj_wantb);` at EA-8338 and gate both promote and kill branches on it — one local, both sites read one name, future edits cannot desynchronize the pair. Touches EA-8338-8345 only.
+- **B3 (for D3):** if he pins profit-side-only retargets, one condition at P041-P042 (rtPx on the profit side of entry, per direction).
+- **B4:** the price-history route over the parked session-buffer route (P137) is the right call — affirm; the helper is reset-immune as claimed.
+
+## Close
+
+Three verdicts above, each on its own line. D1 is the only discrepancy obliging action this round (prose re-word + findings-map predicate, or a v2 latch under his word); D4-D5 should be pinned before the fold battery runs. Page-only; byte claims ride the battery; nothing built, run, or spent; nothing here clears live activation. Nothing else is asked.
+
+## V342-UJFIX2-3 END GLM

@@ -97,5 +97,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
   - 2026-09-29: V341 RELAY-READY (ledger 971: packet FIX-2 C2C1E377/146, relay 8E589050/408, double battery green, memo shipped; verdicts owed).
   - 2026-09-29: V341 GRADED (ledger 978: Q1/Q2/Q3 all 2-0 CLEAR; 3 seats filed whole triple-proof; result A4CA05A6/5569/30; D4 blocks v1 build; fold v2 prose-only scoped).
   - 2026-09-29: V342 RELAY-READY (ledger 983: packet FIX-2v2 BDC5856A/154, relay AF910334/390, double battery green, memo shipped; verdicts owed).
+  - 2026-09-29: V342 GRADED (ledger 985: Q1/Q2/Q3 all 2-0 CLEAR; 3 seats filed whole git-proof; result B2167D9F/5880/31; uj_ended fold + v343 scoped).
 
 (End of file)
