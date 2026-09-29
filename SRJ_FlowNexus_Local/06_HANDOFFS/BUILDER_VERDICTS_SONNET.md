@@ -4108,3 +4108,43 @@ This is a page-only ruling. I did not check digests, counts, or disk, and nothin
 - **Sweep for other debug-gated writes.** B4 found one setter hidden behind `InpDebugLog`. Add a battery scan of every `InpDebugLog` guard (including `&& InpDebugLog` conditions) whose body assigns non-local state. That turns the purity re-affirm from a spot check into a census.
 
 ## V350-UJFIX2-11 END SONNET
+
+## V351-UJFIX2-12 OPEN SONNET
+
+# Sonnet seat: Q1 (advisory, zero weight per the seat split)
+
+**Q1: CONFIRM** on the page as specified. This is a page-only read. I can't check digests or disk from chat.
+
+What I checked on the page:
+- **B4 bytes:** the region text shows EA-8126 at 10 spaces and the print head at 12 spaces. P132/P135 (10) and P138/P141 (12) match. The new-B4P line is still a single multi-line statement after `if(InpDebugLog)`, so the trailing-comma continuation is legal.
+- **Anchor offsets:** the R-SEED, R-PROMO, R-SCOMB, R-TP, R-SESS and R-ABORT lines land on the EA numbers the packet cites, and every old-fence matches its region.
+  - R-SEED: 8126, 8133, 8134 and the 8140 close.
+  - R-PROMO: 8339, 8343, 8344.
+  - R-SCOMB: 8360-8362.
+  - R-TP: 11829-11831.
+  - R-SESS: 1887, 1889.
+  - R-ABORT: 406, 407, 408.
+- **Arithmetic:** the region total is 170. The RHELP delta is 42 minus 3, which gives +39, and 1888-1926 holds. The budget is 12202 + 57 = 12259.
+- **Prints:** the specifier and argument counts match (UJRETARGET 7/7, UJNORETARGET 8/8, UJSBTELEM 10/10, S2PROMOTE_M15 10/10, S2SEEDBIAS_KILL 3/3). The ABORT quote lands at column 32.
+- **Calendar:** June 5 is a Friday, June 8 a Monday, and June 11 a Thursday. R13's trade_seq=4 is consistent with 3 June plus 5 June x2 as the earlier admissions.
+
+## Analytic ask A: defects and imprecisions
+
+1. **"Zero logic change" is overstated (relay Q1 line, P130, P239).** It holds under the pinned InpDebugLog=true replay. In debug-off production, B4 is the behavior change: the setter now runs, and B2 then reads it. P122 and P255 say this honestly, but the Q1 verdict sentence does not. Suggest "zero logic change under the pinned config; debug-off behavior changes by design, gated by the post-B4 debug-off baseline."
+2. **Stale comments after this touch (P256/P268 park them for "the next behavior touch").** This fold is that touch.
+   - The EA-8133 trailing comment says "print-only file-scope", which is false once B2 reads `s1g_seedBiasAl` at EA-8339.
+   - The EA-8125 comment says the block "emits only on the bar the seed fires", but the block now also writes state.
+   - Both are same-line tail edits with NET 0. Either adopt them or state that the fence-vs-EA lint tolerates them.
+3. **S3TELEM read is unconditional (P146).** `ReadBuf1(g_hPoi, uj_sbLine, ...)` runs outside the debug gate. P150's "S3 prints only (zero behavior)" and the purity re-affirm at P255 pin CheckLtfAlign only, not ReadBuf1. Either extend the purity pin to ReadBuf1, or write `if(InpDebugLog && uj_sbHave && ...)` (same lines, NET 0).
+4. **Completion-site direction is inconsistent.** P244 and P254 name P254 as the retired-name completion site. P266 says "single completion site REFS (P244; REFS10 points at it)", which reverses that.
+5. **Stale history line (relay project brief).** It stops at "RECON74FIX-2v6", while the packet folds run through v11 (v7 through v10 are graded per P211-P250).
+6. **Undefined labels (takes sheet).** "B1/prebind" and "STRUCT route" have no definition on the page. "B1" appears only inside a "GLM B1(b)" cite.
+7. **`s1t_candDir` derives from `s1g_legDir` (EA-8130), not `g_dir`.** B2 compares against `g_dir`. If those ever differ at the seed pass, `sb=` describes the wrong direction. R05 shows they match on 8 June. P255's disk pin covers where legDir is captured, not the equality.
+8. **Kill order-dependence.** The B2 kill fires only when M15 aligns while LTF is unaligned. If LTF aligns first, the ungated aligned path promotes (P010). The lifecycle demo should count sb=0 candidates that later promote through the aligned path, not only UJ-KILLEXTRA rows.
+9. **Fill semantics when the retarget is behind the market (P042/P054, D3).** A LONG whose revised TP sits below the current high touches on the same pass. Whether MTEXIT then books at tpRef or at the bar price is not stated on the page. R-venue is fine, since 160.262 sits above the 160.226 exit, but the rule is undefined for the general case.
+
+## Analytic ask B: better mechanism
+
+**Identity-key the seedbias carriage.** This would replace the reset-at-abort/IDLE fix path that P122 and P256 park demo-first. At the setter (EA-8133) also store the seed's anchor line, direction and anchor bar time. That is the same identity triple the S-a deferral already uses (`uj_saA/uj_saD/uj_saT`, visible in the R-SCOMB region). At the B2 gate, treat a non-matching identity as -1 (pass). That removes the stale-value hazard without reset-at-abort/IDLE edits scattered across the machine. It also drops the verdict automatically after an S3 yield, because g_anchorBarTime changes there. It would touch the decl EA-1151, the setter EA-8133, and the B2 condition EA-8339. It is behavior, so it belongs in the separate lifecycle round, not this packet.
+
+## V351-UJFIX2-12 END SONNET

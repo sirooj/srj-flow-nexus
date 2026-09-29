@@ -14427,3 +14427,47 @@ For a future robustness round, extend `UjClosedSessionTarget()` at its walk/cont
 **Q2 / Q3:** the carried-CLEAR dispositions remain untouched; this Q1 OBJECT does not reopen either carried ruling.
 
 ## V350-UJFIX2-11 END LUNA
+
+## V351-UJFIX2-12 OPEN LUNA
+
+## Q1 verdict
+
+**CONFIRM** — P261-P269 correctly close the v350 delta: the B4 form change is whitespace-only/NET 0, the old-fence anchors are explicitly separated from the not-yet-built new fences, and the prose closes the stated scope without adding behavioral edits.
+
+### Analytic A — defects, gaps, and imprecisions
+
+**1. "Zero logic change" needs one scope qualifier.**
+P003/P261/P263 can be read as saying the B4 work itself has no behavioral change, but the inherited B4 setter un-gating is a real behavioral change from the older tree. The accurate statement is **"zero additional logic change in v11's indent-form fold"**. The behavioral change remains P130 and earlier v348/v349. This is a prose precision issue, not a Q1 failure.
+
+**2. The helper is not actually "instance-contained" across same-type sessions separated by a weekend.**
+P054, P062, P085-P088 and P242 describe a "contiguous entry-session run," but the code only tests `CurrentTradingWindow(bk) == es` at EA≈1907-1914. That function returns the same enum for Monday London and Friday London. There is no calendar/session-instance boundary in the loop. Consequently, a Monday first-out-bar walk can continue backward through the weekend into the prior Friday same-type session before any `!= es` break occurs. P097's admission containment test can then also accept the combined span.
+
+**3. P054's "Friday-Monday span is unreachable" assertion is therefore too strong.**
+P054/P177/P232/P242 assert that the geometry prevents the cross-instance walk. The shown fence does not establish that. The explicit `iTime` chronology or session-date/instance identity is missing. This should be called a **prose/code mismatch** even though it is outside the v11 indent fold.
+
+**4. "Contiguous-run end" is narrower than the prose sometimes implies.**
+P088 says the first non-`es` bar ends the run, and P176 correctly admits internal data holes are undetectable. That limitation should remain attached to the word "contiguous": the code proves only **contiguous-by-session-enum**, not contiguous-by-actual-M5 chronology. EA≈1907-1914.
+
+**5. The `have`/`uj_ended` contract is fail-closed, but it does not distinguish "no qualifying price" from "history interrupted."**
+P096 and P176 disclose this correctly. It is not an acceptance error, but the resulting `false` is observationally ambiguous: unavailable/interrupted history and a genuine absence of a qualifying extreme collapse to the same helper result. P158 admits this; keep that caveat explicit at grade.
+
+**6. The "single-fire" prose depends on the caller's once-per-bar execution contract.**
+P155/P162/P203 treat one `UJRETARGET` per instance as guaranteed because the call is described as a single evaluation site. The helper itself does not contain a latch. If `EvaluateManagedTrade` were ever reached more than once for the same first-out bar, the helper could return the same target again and produce `UJNORETARGET` on subsequent passes. So the invariant is **caller-enforced**, not helper-enforced. That is acceptable, but the prose should say so.
+
+**7. B2's `-1` sentinel intentionally conflates two states.**
+P122/P264 say `-1` means both never-seeded and unavailable-read. That is consistent with the ruled design, but it means the promotion gate cannot distinguish "no seed exists" from "seed existed but LTF read was unavailable." This is not a defect against the stated rule, only a diagnostic limitation.
+
+**8. The fallback-scoped B2 kill must remain visibly separate from the aligned path.**
+P010/P240/P253/P206 are clear enough, and this is correctly not being silently generalized. The main residual risk is prose drift: later readers could see "seedbias refused kills promotion" and miss the **M15-fallback-only** scope. Keep that qualifier every time the rule is restated.
+
+### Analytic B — better mechanisms
+
+**Helper instance identity:** touch EA≈1907-1923 (the P081-P097 walk/containment logic). The stronger mechanism is to bind the walk to a real **session-instance key**, not merely `SESSION_LONDON`/`SESSION_NYAM`. At minimum, compare the calendar/session date of `barShift+1` with every walked bar and break on the first different instance. More generally, a small `UjSessionInstanceKey(datetime, session)` helper would make the intent explicit and eliminate the Friday→Monday ambiguity.
+
+**Chronological continuity guard:** at the same EA≈1907-1914 loop, optionally require the walked timestamps to remain the expected M5 spacing. That converts the current "session enum continuity" into actual contiguous-history continuity and fail-closes on a missing-data jump.
+
+**Prose precision:** P261-P263 should say **"v11 adds no new logic; it corrects the B4 fence form/anchors/prose only. The earlier B4 setter un-gating remains an inherited behavioral delta."** That removes the only meaningful ambiguity in the Q1 "zero logic change" wording.
+
+**Bottom line:** the requested **Q1 fold itself is clean and CONFIRMABLE**. The weekend/same-session-instance weakness in the RHELP mechanism is the substantive technical issue I would carry forward as a separate behavior round, because it is not caused by the v11 indent/anchor/prose fold.
+
+## V351-UJFIX2-12 END LUNA

@@ -8008,3 +8008,53 @@ The P122 rewrite, the identity casts, and the audit close match their specified 
 - Nothing else is asked. This CONFIRM leaves both carried clears standing; a NO would not have touched them either.
 
 ## V350-UJFIX2-11 END GLM
+
+## V351-UJFIX2-12 OPEN GLM
+
+**Q1 verdict: CONFIRM.**
+
+The B4 indent form fix, the anchors rebuttal, and the prose close all match their specified old-to-new deltas on the page, and the v11 delta carries zero logic change. Basis is page-only (fences, regions, rows, arithmetic as rendered in this relay); disk truths (digests, 0-diff vs EA, twin diff-0) ride their labeled battery proofs on his machine, per the standing verification split.
+
+**1. B4 indent (core delta) — byte-checked against the region renderings.**
+
+- P132 (old-B4) and P135 (new-B4) render 10sp; the R-SEED region renders the same condition line at EA-8126 at 10sp. P132's content byte-equals the region line as rendered; P135 differs only by the specified dropped `InpDebugLog && ` term.
+- P138 (old-B4P) and P141 (new-B4P) render 12sp; the region renders the print head at EA-8134 at 12sp. P138 byte-equals the region line; P141 differs only by the specified `if(InpDebugLog) ` prefix.
+- NET 0 holds (four same-line swaps, P143); the only fence delta in v11 is this whitespace, exactly as claimed at P261 ("10/10/12/12sp at L132/135/138/141").
+
+**2. Anchors rebuttal (P262) — the on-page lint passes across every old-fence family.**
+
+- old-R (P032-P034) byte-matches R-TP at EA-11829-11831 (4sp/4sp/6sp; the "3/3" claim holds).
+- old-B2FULL (P106-P107) byte-matches R-PROMO at EA-8339-8340 (9sp/11sp).
+- old-B3LINE (P125) byte-matches R-PROMO at EA-8343 (13sp, full string identical, including the trailing `); }`).
+- old-B4/B4P byte-match R-SEED at EA-8126/8134 (item 1).
+- old-RHELP (P056-P058) byte-matches R-SESS at EA-1887-1889 (`  }` 2sp / blank / 0sp comment).
+- New fences differ from regions only as ruled changes; no page text claims new-fence content exists in a region; no final-tree excerpt appears pre-key. The rebuttal's structure (regions = pre-edit anchors of the unbuilt v26 tree; fences = spec; STAGE-1 exact-diffs at build) is coherent with P003 and section 0.
+
+**3. Prose close — manifest items present; arithmetic checks.**
+
+- All 13 in-place edits listed at P261 are present at their claimed lines: P001 (title), P003 (status), P005 (EA-8134 head), P010 (concrete ungated case), P054 (Monday unpack), P122 (-1 sentinel, V350 Luna-8), P130 (block-vs-region note — see A-1), P150 (EA-10357 read site vs EA-10362-72 print span), P157 (A_OPP precision), P158 (gap caveat + UJ-KILLEXTRA), P238 (g_mtrade wording), P244 (single-site REFS — see A-2), P255 (debug-off baseline: post-B4 debug-off equals debug-on replay, never v26 debug-off).
+- Appended section P259-P270 present with nine dispositions at P261-P269; tail P271-P276 carried (6 lines, matching the v10 259-264 carry chain).
+- Arithmetic: budget 13+39+3+0+2+0 = +57 → 12259 (P269 = P151 = section 0); print censuses P046 7=7, P048 8=8, P147 10=10, P116 3=3; region census 22+22+46+42+17+16+5 = 170; helper span EA-1888-1926 = EA-1887 + 39 insert lines; ABORT_SEEDBIAS_REFUSED quote lands at column 32 matching the EA-405/406 family (8+22+1); R-SEED is 16 lines with EA-8126 (if), EA-8133 (setter), EA-8134 (print head) mapping exactly as pinned; R-SCOMB is 46 lines with the confirm pair at EA-8360/8361 and the transfer if at EA-8362 as pinned at P144; rows R01-R13 are consistent with the death chains at P024-P026 (R06 correctly carries the old no-sb= print form, since segment rows are pre-fix).
+
+**4. Zero logic change.** The only fence delta in v11 is whitespace on four B4 lines; every other edit is prose. The B4 logic itself (setter un-gating, print re-gating) is the v9-ruled change carried unchanged; under the pinned InpDebugLog=true replay config the print fires identically and the setter ran in both trees, so replay rows are identical — as stated at P130/P122. The Q2 battery items named in the verdict line (debug-off replay admissions-equal, purity re-affirm, lifecycle demo, pre-key fence assert) are correctly scoped as build-time gates at P255 and prove this on disk when built; they are not answerable from chat.
+
+Q2 and Q3 stand carried-CLEAR with their quoted tallies; no re-rule made or asked; B2KILL/R/S3TELEM fences are byte-unchanged in this fold per the manifest, and their rendered forms match the carried descriptions (kill fail-closed with -1 pass at P110/P122; ABORT col-32 at P120; telemetry print at P147 with term v2-with-telemetry at P149).
+
+**Analytic A — defects/gaps/imprecisions (all prose-level; none affects a fence, a ruling, or the deltas):**
+
+1. P130 span tension: "EA-8125-8142, block per R-SEED region span" vs the R-SEED header and section 0, both EA-8125-8140 (16 lines, count confirmed). Either 8142 is a stale block end, or the block extends past the excerpt and "per R-SEED region span" is the wrong phrase (the region would be a sub-span, not the block's definition). No effect on the B4 pins (EA-8126/8133/8134 all verified). Disposition: pick one reading next fold.
+2. P244/P254/P266 completion-site chain: P244 says "completion site now REFS10 (P254)"; P254 says "this line (completion)"; P266 says "single completion site REFS (P244; REFS10 points at it)". The pointer direction is inconsistent across the three renderings. The underlying fact is unaffected (retired-string mentions live only at P158/P162, both labeled history). Disposition: one canonical sentence naming the site and the pointer direction.
+3. Q1 field vs manifest on P254: the Q1 file/lines field lists P254 among the fold's prose lines; manifest-11 does not list 254 as edited, and P254 carries V349 credits with no v11 marker. Either drop it from the field or declare it the pointed-at prior of P244's pointer.
+4. P261 vs P266 on P010: manifest lists "10 (aligned scenario)" as a v11 edit; P266's tail reads "P010 carried authority (not a v11 edit)". Reconcilable (the concrete-case sentence is the edit; the Ruling-2 authority above it is carried), but as written the two lines read as a contradiction. Disposition: parenthetical reword.
+5. P268 "'(Fix R)' KILL-tail string (GLM-A3, named never made)": no resolvable referent on the page — the sole KILL print (P116) tails "(Fix B2)", and no fence carries a "(Fix R)" KILL tail. If the named fix targets P116's tail, name the pre-fix string and line; if the note is stale, retire it.
+6. P157 "flat/doji candle-1": compresses two distinct cases — flat candle-1 (c1==o1) fails A_OPP per the region's oppCandle test; the doji test is candle-0-only under B_BODY (body = |c0−o0| per the R-CONFIRM region). "doji candle-1" names a case with no test site; the trailing clause repairs it. Tighten next fold.
+7. New-fence indent has no on-page verifier: the B4 indent is byte-checked against R-SEED, but P146/P147 (S3TELEM) and P115/P116 (B2KILL body) have no region to lint against; P146/P147 render at or one space past the 7sp Scomb siblings (EA-8359-8362). Cosmetic class, same as the carried R-SEED mixed-indent note at P245. Suggest pinning sp in fence-adjacent prose at the next fence touch so STAGE-1 can assert it.
+8. Carried opens restated, no v11 action asked: sl41_o* debug-gated behavioral writes (EA-9296-99, read at 3260/5595) open, exit scope, his word (P267); old-B4P fences the print head only, continuation lines EA-8135-8139 unfenced by design (the lint covers the head only); EXITVERDICT keys, aligned-path gate, 600-cap tightening all parked with causes (P268).
+
+**Analytic B — better mechanism for the stated goal (fence form-truth):**
+
+Extend the now-battery-live fence-vs-region byte lint (P263) with two sibling asserts, both battery-side, zero EA code lines touched: (i) a new-fence indent assert — every new-fence line spliced adjacent to a region-rendered sibling must carry the sibling's indent (catches the P146/P147 class at build, the same way FORMFIX caught B4); (ii) a referent-lint — every quoted string inside a park or disposition note (e.g., P268's "(Fix R)") must resolve to a fence line on the page or carry an explicit "pre-fix string at Pxxx" label (catches stale or unresolvable park referents). Optionally, a one-line-per-region span table (region span, block span, fence-covered lines) would prevent the P130-class tension from recurring. All of these touch only the battery script and packet prose, not the EA.
+
+Close: CONFIRM on Q1 as above; Q2/Q3 carried-CLEAR untouched by this verdict; no run, no build, no spend, no live activation asked or implied. Nothing else is asked.
+
+## V351-UJFIX2-12 END GLM
