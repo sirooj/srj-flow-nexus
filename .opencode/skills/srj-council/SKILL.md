@@ -275,3 +275,9 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - SIBLING-ENVELOPE: multi-window proofs state outright which runs belong to the single proof and which are separate sibling proofs (own word/key scope each).
 - CODE-FENCE WORDING: halt-round Q1/change sentences say "no code-fence change" / "acceptance/prose-only", never broad "zero code change", unless tree identity is proven on the page.
 - ANALYTIC-B DISPOSITION: every relay/packet answers the standing better-mechanism ask with one line (adopted-X, parked-Y, or none) - an unanswered standing ask is itself a defect.
+
+## 35. Multi-question rule (his 659 change 2026-09-23 - builder cited it stale 2026-09-29 and wrongly asked him to authorize multi per round; owned)
+
+- Multi-question relays are lawful by his standing word: numbered questions, each with its OWN verdict line, a NO on one never sinks the other.
+- Builder-decided per relay, never asked: bundle INDEPENDENT questions; single only when the next question depends on the answer (his 2026-09-29 confirmation of this exact line).
+- The "one-question default, multi on his per-round word" phrasing is WITHDRAWN as a working rule - it put his authorization burden on every round against his 659 word.
