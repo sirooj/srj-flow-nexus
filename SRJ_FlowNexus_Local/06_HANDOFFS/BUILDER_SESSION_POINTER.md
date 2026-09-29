@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V351 GRADED LEDGER 1005)
+## State (2026-09-30, RECON75 GRADED LEDGER 1007)
 
-- Q1 3-0 CLEAR (dual-key satisfied); STAGE-1 re-hash armed (EA 8C6468F4 + packet 71747E47 match).
-  Key + UJ run word owed (his carriers); EU own word+scope, never this key.
+- v27 ran June window DONE=PASSED (2 takes, 1 first retarget, 8-June invalid silent, 3 valid-misses diagnosed holder-veto).
+  Next packet named (holder-expiry + displace + seed audit + term fix, council route, new key + run word owed).
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- His key paste-back (whole reply, Luna seat) + his UJ run word.
+- His new key + run word for the FIX-2v12 round (fold drafts proceed-free).
 
 ## Resume order (exact)
 
