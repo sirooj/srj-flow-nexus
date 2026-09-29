@@ -14263,3 +14263,59 @@ The cleanest fix is to make the helper require that `barShift` be the **first ou
 The carried Q2/Q3 clears are unaffected by this Q1 objection, consistent with the packet’s own close rule.
 
 ## V347-UJFIX2-8 END LUNA
+
+## V348-UJFIX2-9 OPEN LUNA
+
+I read the packet as a design ruling only; nothing here authorizes a build, run, or activation.
+
+OBJECT
+
+The helper-boundary portion is correct: the first-out-bar pin requires the evaluated bar to be outside the entry-session window while `barShift+1` remains inside it, and the walk then stops at the first non-session bar. That closes the specific late-close cross-instance reuse path described in the packet.
+
+However, the claimed "audit-map close" is not fully closed.
+
+1. Audit-instance identity remains under-specified.
+
+P046's `UJRETARGET` row carries bar, direction, old TP, session, and new TP, but no `trade_seq` or `uj_admitBarTime`. The packet itself then says the grade must join `UJRETARGET` to `UJADMIT` because P046 carries no entry, while the stated instance mapping is keyed by admission timestamps.
+
+That is not a unique row-level identity when two trade instances share the same session and direction. The parked "bound/seq hardening" confirms that unique instance carriage was not added in this round.
+
+Required defect location:
+
+* Audit prose: P144, P173, P191.
+* Emission site: EA-11829 region, specifically the `UJRETARGET` print at the P046 fence.
+* Corresponding `UJNORETARGET` print should carry the same identity if it is intended to participate in instance-level grading.
+
+2. The seed-bias gate is behaviorally dependent on `InpDebugLog`.
+
+P122 explicitly states that the seed-bias setter at EA-8133 runs under `InpDebugLog`, and therefore the B2 gate input is valid only when debug logging is enabled.
+
+That makes a behavioral admission gate depend on a diagnostic input. The current replay acceptance pins `InpDebugLog=true`, but the prose "pre-confirmation promotion gated by design" is broader than what the code actually guarantees. The setter should be unconditional; only the diagnostic print should remain debug-gated.
+
+Required defect location:
+
+* Prose: P122.
+* Code: EA-8126/EA-8133 seed-bias setter path.
+* The promotion gate itself is EA-8339 / P110.
+
+3. The structural-bias scope is imprecise.
+
+P010 states the rule broadly as a bullish 5m flip refusing SHORT confirmation, but P192 later narrows the implemented kill to the M15-fallback path and explicitly says later aligned-path promotions remain ungated.
+
+If the intended rule is path-independent, the current implementation does not express that rule. If it is deliberately fallback-only, P010 and the Q1 change sentence should say so explicitly.
+
+4. "Fix the 11 June miss" overstates what v8 itself implements.
+
+The packet's 11 June change is telemetry-only: P131-P135 expose the contender evaluation, while the confirmation-term decision is explicitly deferred until after the run. The acceptance section likewise says the 6/11 absence is expected until the term fix.
+
+So v8 is a diagnostic/proof-preparation change for 11 June, not yet the behavioral fix. That should be described as such.
+
+Analytic B — better mechanism:
+
+For the audit map, emit a stable instance key directly on both retarget diagnostics, preferably existing `trade_seq` plus `uj_admitBarTime`, at the EA-11829 retarget print and its `UJNORETARGET` companion. Then `RETARGET-ABSENT`, `UJ-RERETARGET`, and retarget-distance grading can join directly and deterministically without reconstructing identity from session/date/time context.
+
+For the seed-bias gate, move the EA-8133 assignment out of the `InpDebugLog` conditional while leaving its print debug-gated. That makes the enforcement mechanism independent of diagnostics.
+
+The key ruling is therefore **OBJECT**: the boundary fix itself is sound, but the packet's stated audit-map closure is not yet complete.
+
+## V348-UJFIX2-9 END LUNA

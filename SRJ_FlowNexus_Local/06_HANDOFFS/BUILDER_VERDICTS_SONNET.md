@@ -3934,3 +3934,95 @@ The objection is narrow and confined to the audit layer. I have no objection to 
 Q2 and Q3 are carried-CLEAR and I re-rule neither. This objection does not touch them.
 
 ## V347-UJFIX2-8 END SONNET
+
+## V348-UJFIX2-9 OPEN SONNET
+
+# Q1 verdict: CONFIRM (code fence), with 6 prose discrepancies
+
+This is a page-only ruling. I did not and cannot check anything on disk.
+
+## What I checked on the page
+
+**RHELP fence (P062-P100)**
+- The logic matches the specified delta. The bar at barShift must be outside the entry session and the bar at barShift+1 inside it.
+- The walk starts at barShift+1 and breaks on the first non-es bar. It sets `uj_ended` only if a price was seen.
+- It returns false unless `have`, `uj_ended` and `ext>0`, and unless the admission time lies inside the walked run (P097).
+- The fail-closed exits (P066-P069, P071, P074, P096-P097) are intact.
+- Insert count is 39 lines (P062-P100). The retained blank and F-a anchor make the old and new fences line up, matching the RHELP +39 figure at P137.
+- The insert anchor is coherent: the R-SESS span shows `  }` at EA-1887, a blank line at EA-1888 and the F-a comment at EA-1889.
+
+**R fence (P037-P049)**
+- Specifier and argument counts match: UJRETARGET 5=5, UJNORETARGET 6=6.
+- The insert is 13 lines against 3 retained.
+
+**B2/B3**
+- The B3 line has 10 specifiers and 10 arguments (P128).
+- The promote / `else if` kill / wait chain is syntactically valid, because the promote block closes on the EA-8343 print line.
+
+**ABORT define**
+- `#define ABORT_SEEDBIAS_REFUSED "SEEDBIAS_REFUSED"` puts its opening quote at column 32, the same column as the neighbouring defines.
+- The 406/407 siting matches the R-ABORT span.
+
+**S3 telemetry**
+- The UJSBTELEM print has 10 specifiers and 10 arguments (P133).
+- The insertion point at EA-8360/8361 sits inside the S3/S4 block, per the R-SCOMB span.
+
+**Totals**
+- Region lines: 22+22+46+42+17+5 = 154.
+- Budget: 13+39+3+0+2 = 57, and 12202+57 = 12259.
+- The R-venue arithmetic checks out: 160.723-160.115 = 608, 160.262-160.115 = 147, 160.723-160.262 = 461.
+- R06 has the old B3 shape without `sb=`, as the old fence expects.
+
+## Analytic ask A: defects and imprecisions
+
+Items 1-3 are the ones I'd fold before the next touch. A council standard that treats a stale live claim contradicting the fence as blocking (as V347 did for map items) would turn these three into an OBJECT. I rate them prose-only.
+
+1. **P054 walk arithmetic is stale.**
+   - The 40-250 and 130-350 bar figures and "any intra-week post-close pass reaches the entry instance" describe the pre-fix walk.
+   - With the P073-P075 pins, the walk covers only the es run: at most about 60 M5 bars for NYAM and about 36 for London.
+   - The 600 cap never binds.
+   - The revision can fire only on the pass evaluating the first out-of-session bar (barShift+1 in es).
+   - P213 retires late-close reuse but does not retire this text.
+
+2. **P163 NOTE-A4 (v4) is stale in the same way.** It says a revision needs at least one pass in [close, next same-type start). The forfeit window is now one bar. A skipped pass, a restart or a catch-up pass with barShift>1 forfeits silently. Alone that is acceptable, since the pin also guarantees the retarget takes effect at the right bar, but the text should say so.
+
+3. **P141 and P148 describe echo rows the pin makes unreachable.**
+   - P141 "post-revision eq rows read as tpRef-carry evidence" and P148 "loose echoes recur per pass" no longer hold.
+   - The helper returns true only at the first-out bar, so there is at most one UJRETARGET or UJNORETARGET row per trade instance.
+   - The tpB= field on EXITVERDICT rows is the only carry evidence.
+   - This also makes UJ-RERETARGET (P144) near-vacuous, which P189 half-states.
+
+4. **Dangling cross-refs.**
+   - P144 ends "tag-anchoring per P145", but P145 is a blank line. The content is at P148.
+   - P144 says UJ-BIASDEFY is "greppable via P125". P125 is the old line with no `sb=`, so it should read P128.
+   - P217 claims the P-line refs were fixed, but neither of these was.
+   - P054 has a "D1(a) re-word below" that points at nothing.
+
+5. **Comment and prose imprecision inside the fence.**
+   - The P088 comment says "entry inside the run is guaranteed by the barShift+1 pin". The pin guarantees only that the walk starts inside an es run. Admission containment is the separate P097 test (see NOTE-S5).
+   - P213 says the `continue` is retired, but P093 still has one (`v<=0`). Only the non-es `continue` was retired.
+   - The `uj_newest` upper bound at P097 is now redundant, because newest is always the bar at barShift+1. It is harmless, but the "safe upper bound" reasoning at P159 no longer carries information.
+   - Indentation inside the fence is mixed between 4 and 5 spaces (P070-P076, P081-P088). It is cosmetic and not listed in P217.
+
+6. **Stale-seedbias hazard (carried Q2, build-gated, flagged for visibility).**
+   - P122 says there is no per-route reset of `s1g_seedBiasAl` and that the setter is debug-gated.
+   - A stale 0 from an earlier REJECT seed could kill a later B1/prebind promotion that never ran the setter. Conversely, a stale 1 would pass a candidate the current bar would reject.
+   - P122 defers this to the lifecycle-demo build-gate. It should name a reset at the abort/IDLE transition as the fix path if the demo shows the leak.
+   - The 5 June London SHORT (B1/prebind route, identical admission required) is the case most exposed to this.
+
+## Analytic ask B: better mechanisms
+
+1. **Blackout-tolerant variant (optional, not recommended now).**
+   - Replace the exact first-out-bar pin (P073-P075) with "latest es run ended within N bars of barShift".
+   - Once-only would then rest on the caller's strict-tighter check (P042) plus admission containment (P097), so no latch is needed.
+   - The catch is that bars between the close and the late evaluation are never checked against the revised TP. The retarget would then miss touches that should have exited earlier, which is exactly why the first-out-bar pin is semantically better. I'd keep the current design and just state the forfeit honestly (item 2).
+
+2. **Drop P097's upper-bound test and the 600 cap,** or cap the walk at about 80 bars. This shrinks the fence and removes stale-arithmetic surface. It touches P081 and P097 and needs its own round, so park it.
+
+3. **Aligned-path gate (design note only).** P192's fallback-scoped kill leaves a REJECT-seeded candidate free to promote later on the aligned path. That is defensible if the structure re-flips, and it is stated on the page. If his STRUCTURAL-BIAS rule is meant to hold on both paths, the gate would go at the aligned branch (EA-8329-8336) and would need his word.
+
+## Carried items
+
+I have no re-rule on Q2 or Q3. My items above don't touch either carried fence.
+
+## V348-UJFIX2-9 END SONNET
