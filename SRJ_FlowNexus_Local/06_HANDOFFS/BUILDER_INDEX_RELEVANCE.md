@@ -10,7 +10,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
-- Latest grade 2026-09-29: `06_HANDOFFS\BUILDER_RESULT_V347-GRADE.md` 3D89AB1E/7989/53 (Q1 0-2 OBJECT HALT, Q2/Q3 carried-CLEAR; V347-UJFIX2-8 verdicts 1x/1x Luna +31 / GLM +40 / Sonnet +76; fold v8 scoped prose + helper-boundary fence fix; ledger 997).
+- Latest relay-ready 2026-09-29: packet `01_TASKS\PACKET_P-RECON74FIX-2v8.md` 3B8F14F4/41353/226 + relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v348-UJFIX2-9.md` 8CF58D37/65634/470 (twin 226 diff-0, regions 154 0-diff, rows 13, double battery green; Q1 boundary fix + audit-map close, Q2/Q3 carried; ledger 998; V348 verdicts owed).
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` FC41EE0D/671645/12127 (v10 built 2026-09-28 from v19 remainder F/G1/H1/H2; 0/0 compile; alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v19 DRAFT 806B9ECD/84749/485 (V331-fold answers; Luna KEY-IMPL2-V19 granted + his run word banked ledger 942; build+run authorized fresh session).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
