@@ -3212,3 +3212,64 @@ A cite-resolver in the assembly script would catch defects 2, 3 and the P499 sta
 I can only rule on the page. Disk truth stays on his machine.
 
 ## V336-IMPL2-21 END SONNET
+
+## V337-IMPL2-22 OPEN SONNET (filed whole 1x this turn, novel inbound, advisory only per seat-split; see ledger)
+
+# Q1 verdict: OBJECT (narrow, prose-only)
+
+I confirm the fold's mechanical claims on the page. The one defect is that the operative acceptance text does not carry the F11 correction the delta says it made.
+
+## Confirmed on the page
+- **Budget:** Z 7 + S-a 4 + S-comb 45 + Q2 19 = 75 (P651). 12127 + 75 = 12202 (P003, P651). This matches P605/P619/P630/P639.
+- **Region sums:** 52 + 13 + 6 + 29 + 18 + 6 + 16 = 140. Each span matches its EA line range (8912-8963 = 52, 7379-7391 = 13, and so on).
+- **Repair count:** 9 in-place (P638: P459, P624, P625, P626, P532, P628, P666, P689, P533) + title + status + v23 section + annex + P629 = 14.
+- **Z anchors:** in R-Z, the "S3 waiting" print ends at 8916, the IE2 comment starts at 8917, `{` is at 8919, and the NOMATCH, PASS and `}` lines are 8925-8927. So Zins, the Zguard 3-vs-3 swap and the bypass `else` placement are consistent with P466, P476 and P494.
+- **Row arithmetic:** R05 risk 0.178 and reward 0.664 give R 3.73. R06 distPts 664 equals 160.723 − 160.059 in points. R07 pool DH20260430:664 agrees.
+- **F11 hold vs R18:** R18 (m15=1.0, SHORT want −1.0, mode=CARVE) agrees with the P230 predicate.
+- **B5 traces:** the ranges in P647 match the on-page rows. R15 sits in trace (c).
+- **Zero code change:** P651/P652 carry no fence-byte delta.
+
+## Defect (blocks CONFIRM)
+**1. The F11 acceptance fix (P644) does not match the operative acceptance (P670).**
+- P644 says "whether the 09:15 pass prints a row at all stays open, never assumed."
+- P670 asserts "UJLTFHOLD rows mode=M15 at the 09:15 pass and mode=CARVE at the 09:45 pass." It carries no "open" qualifier.
+- A grader reading P670 would fail the venue on a missing 09:15 row. A grader reading P644 would not.
+- P652 says the classification was "corrected above," so P670 is the text that must carry the correction.
+- **Repair:** either add "(09:15-pass row: hypothesis, absence not a finding)" to P670, or delete the hedge from P644. If the hedge is deleted, the prose should say the row is expected. Base rows P026 and P013 put the candidate in S3 with eval-09:10 m15 = −1.0 at that pass, and the hedge is inconsistent with that evidence.
+
+## Other defects (analytic ask A, non-blocking)
+2. **P670 M15-row enumeration is incomplete.**
+   - By the P013 vote series (m15 = −1.0 at evals 09:15 and 09:35) and P026, the fixed run should also print M15-mode UJLTFHOLD rows at the 09:20 pass (eval 09:15) and the 09:40 pass (eval 09:35). Neither appears in P670.
+   - As written, the acceptance reads as an exhaustive row set. State whether it is exhaustive.
+3. **P669 says "R02 is on no relay page," but R02 is on this page.**
+   - Current R02 is the ZONEPICK row (SEG5310). The P669 sentence means old-page R02, which is a retired-page label.
+   - P646 and P636 give the general rule, but this literal sentence contradicts the current rows. Reword it to "old-page R02 (current R02 is ZONEPICK, unrelated)."
+4. **P636 and P646 give contradictory cite lists with no supersession sentence.**
+   - P636 (unrepaired, P638 lists no fix to it) places old R-cites at P657 and P659. Neither line contains any R-cite (P657 is the slot-occupied park line, P659 the entry-candle park line).
+   - P646 places them at P669 and P671, which is correct.
+   - P646 should say it replaces the P636 cites, not just restate them.
+5. **The "B1/B2/A4" labels are overloaded.**
+   - "B1" is the Fix B Compute-loop call site (P100). It is also the Z-B1 guard swap (P476, P607 "B1 consequence").
+   - "B2" is a Fix B call site (P103) and also a review-item label (P495 "B2-conformant", P622).
+   - "A4" is the Fix A fire-1R gate (P049), a review item (P495 "A4 dissolved"), and his NEAREST-ANY-AGE pin (P354).
+   - Grade text that says "B1 consequence" is ambiguous. Prefix these with the fix name.
+6. **Some EA cites carry no tree era.**
+   - P239 pins F to v9 at EA 7301-7304. R-F11 shows GoAbort at 7388 on the v10 tree, a shift of about +85.
+   - P495 cites EA-7321 for the S3+ gate and EA-7301-7304 for the in-tree comment. P533 cites EA-7395-7434 for the freshness region. None of the three is era-labeled, and the P495 and P533 line ranges only make sense in one numbering.
+   - Label each cite v9 or v10.
+7. **The S-a return census leaves a gap.**
+   - P532 and P626 census returns for 7740-8330 only. The flag is set at about EA 7388 on the v10 tree, and the apply point is 8324.
+   - Lines 7392-7739, which include the freshness region P533 mentions, are not shown to be return-free or gated.
+   - A return there swallows the flag for that pass. The abort would re-fire next pass by the stateless re-read, so the risk is small. But P495's "cannot be swallowed" claim is unproven on the page for that stretch. State the census start point, or extend it.
+8. **R-REREAD ends mid-statement (16 lines, cut inside the ZONEMOVE PrintFormat).**
+   - The P533 claim "rebuild-iff-adoptable" rests only on the 8982 conjunction. The rebuild body itself is off-page. This is acceptable as tempered, but it should be labeled span-truncated.
+
+## Analytic ask B
+I see no better mechanism. This round has zero code change, and I have nothing to add on Q2, which carried CLEAR.
+
+## Scope
+This verdict rules on the page only. Disk digests and counts are not proven here.
+
+Defect 1 is the only blocker. Items 2-4 are the same class of prose repair. Items 5-8 can ride as build-gate notes. Once P670 and P644 agree, I would CONFIRM.
+
+## V337-IMPL2-22 END SONNET

@@ -13586,3 +13586,43 @@ For code cleanliness itself, the parked shared helper in P643 would be the obvio
 The **v23 presentation fold is not fully closed**. The principal remaining defect is **P658**, because its acceptance prediction contradicts both its own 09:20 abort statement and the M15 values declared at P013 under the actual F11 predicate at EA 7379-7391. P635 is a lesser proof-wording issue; P666/Close is a minor planning-number inconsistency. No additional code defect is exposed by the v23 presentation fold itself.
 
 ## V336-IMPL2-21 END LUNA
+
+## V337-IMPL2-22 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+### Q1 — OBJECT
+
+The v24 prose/acceptance fold is substantially aligned with the stated V336 repairs, but I would **not CONFIRM it as written**. The packet contains a few material imprecisions in the acceptance contract that should be repaired before treating the v24 acceptance text as exact. The underlying intent and the claimed zero-code-change fold are coherent, but the page does not yet make the proof boundary fully unambiguous.
+
+**Primary defects / gaps**
+
+1. **Replay-configuration citation is incomplete.**
+   P668 says the future UJ proof is pinned to the “same replay configuration as RECON63/71,” while the immediately operative evidence and acceptance lineage depend heavily on RECON72/73. Earlier text explicitly treats RECON72/73 as the relevant June-UJ proving runs. That leaves the configuration baseline ambiguous: P668 should name the actual operative replay baseline, not only the older pair.
+   **Repair:** P668 should explicitly name RECON71/72/73, or state the exact inherited replay tuple once and identify every referenced run against it.
+
+2. **The acceptance contract mixes “hypothesis,” “expected,” and hard failure predicates without one clean proof rule.**
+   P670–P672 correctly label several items as hypotheses, but some later phrases say that particular rows are “expected” while P675 says missing evidence rows are failures. The distinction is mostly present, but not mechanically uniform. In particular, P670 says the 09:25 ABORT is “expected” and “never a finding,” while other missing/wrong evidence can trigger a finding. The packet needs one explicit sentence saying that **hypothesis terms become grade assertions only where converted into a named acceptance predicate; otherwise they are observational expectations and cannot independently fail the venue.**
+
+3. **A-S2P retains an internally awkward promotion contract.**
+   P670 requires promotions exactly `{09:05, 09:30}` while simultaneously making the 09:15 M15-hold / 09:45 CARVE behavior hypothesis-driven. The document explains the distinction, but the grade contract should explicitly define whether promotion-count/order is hard, while the hold/carve rows are merely mechanism evidence. Otherwise a grader could treat an extra diagnostic promotion-like row as a promotion failure.
+
+4. **A-POIV's “no second promotion” statement is explicitly called “acceptance imprecision,” but remains in the operative acceptance.**
+   P671 itself says the asymmetry with the 6/5 pinned set is “acceptance imprecision.” That is an acknowledged defect that should not remain in a packet whose Q1 asks for exact acceptance/prose repairs. Either make the promotion requirement deliberately grade-read, or resolve the 14:25/14:30/14:35 promotion sequence before confirmation.
+
+5. **The EU preservation proof is not cleanly bounded to the same execution envelope.**
+   P673–P674 introduces a separate August EU proof window, while P713 frames the acceptance as a future UJ 6/1–6/13 run. P723 then explicitly says the EU sibling needs its own word/key scope. That is coherent operationally, but the acceptance section should state plainly that this is a **separate sibling proof**, not part of the single UJ proof. Otherwise the “future run” singular wording is misleading.
+
+6. **“Zero code change versus v23” is asserted, but the evidentiary statement is really “zero fence-byte change.”**
+   P642/P651 say the v24 delta is acceptance/prose-only and no fence-byte delta, while P635 carefully distinguishes declared lineage from actual digest proof. That distinction is good, but the Q1 sentence should use the narrower wording consistently: **“no code-fence change versus v23”** / **“acceptance/prose-only fold,”** rather than the broader “zero code change” unless the v23-to-v24 source-tree identity itself is directly proven on the page.
+
+7. **Analytic-B is answered by several parked alternatives, but the actual “better mechanism” is not stated as a single recommendation.**
+   P654–P665 lists alternatives and causes, but the packet does not clearly distinguish “no better mechanism” from “better mechanism considered but parked.” For a standing analytic ask that explicitly requests any better mechanism, a one-line disposition would remove ambiguity.
+
+### Analytic B
+
+The cleanest mechanism for the **acceptance layer**, without enlarging the strategy surface, is a compact **v23→v24 prose-delta manifest** with three columns: `item`, `old proof statement`, `new proof statement`, plus a fourth `code-fence delta = 0` field. It would touch **no EA code lines**; it would only replace the acceptance bookkeeping around **P642–P652**. That would make the claimed zero-code fold mechanically reviewable instead of depending on several narrative paragraphs.
+
+For the strategy mechanism itself, the one stronger alternative already acknowledged in the packet is the **rank-parity family test** instead of string-prefix matching in `UjPoiTargetValid()` (B0, P087–P097). The packet correctly identifies the present string test's rename vulnerability and deliberately parks the rank-parity version. I would leave that alternative parked in this refinement round rather than enlarge the code surface.
+
+**Disposition:** `OBJECT — acceptance/prose repair required; no code fence change requested.` The object is to the precision of the v24 acceptance contract, not to the stated alert-only scope or to any live-activation authority.
+
+## V337-IMPL2-22 END LUNA

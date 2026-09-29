@@ -7295,3 +7295,48 @@ The stated goal is presentation exactness across folds. Two zero-code additions 
 Page-ruling only; disk genuineness (digests, twin diff, region diffs, row splices) is proven on disk and not answerable from chat — no file requests made. Nothing here builds, runs, spends, or clears live activation; alert-only stands; any future build needs a new key plus his run word, neither asked here. Q2 stays carried-CLEAR from V335 (no fence change; not re-asked). The one-token fix is builder-side prose; per LOGIC-IS-BUILDER'S no mechanism question rides to him on it.
 
 ## V336-IMPL2-21 END GLM
+
+## V337-IMPL2-22 OPEN GLM (filed whole 1x this turn, novel inbound; see ledger)
+
+**Q1 verdict: OBJECT.**
+
+One sentence: the seven specified v24 repairs all landed and the fence set is identical to v23 (no fences in the v24 section; NET +75; final tree 12202), but the acceptance leg this fold claims to have repaired still carries route-level hypothesis terms that contradict the page's own committed path, its own BASE fencing, and the v20 venue legs — so the repaired acceptance does not cohere and can false-fail a correct run at grade.
+
+## What verifies (credited, so the next fold is narrow)
+
+1. **F11 classification (P644 → P670):** modes are now predicate-decided — mode=M15 at the 09:15 pass (m15 at eval-09:10 = −1.0 aligned, P013) and mode=CARVE at the 09:45 pass (m15 at eval-09:40 = +1.0 opposed + confirm=1; rows R18/R19); the P230 cite resolves to the F11 fence condition at P230 (`(uj_hm15r && uj_hm15 == uj_hwant) || uj_hcarve`), matching the built region R-F11; the 09:25 EXPECTED ABORT (eval 09:20: M15-oppose + confirm=0; row R20) now stands without contradiction. The V336 Luna-1+2 defect itself is repaired.
+2. **Proof sentence v2 (P645 → P635):** the budgets/form/lineage split is present (P619/P630 counts; P622/P624 named code-neutral; declared lineage distinguished from twin-diff-0/regions-0-diff).
+3. **Cites (P646):** P669 carries R53/R55/R54/R02; the old-page R-cites at P016/P018/P027/P316/P671 are all present as described; the P027 twin-internal census note stands.
+4. **Range (P647):** P616's grouping is R01/R02/R18/R19 (trace a) + R12/R14/R16/R17 (trace b) + R15 (trace c) — R15 (SEG159, the 6/3 admission) correctly sits in trace (c); the 14-count derives exactly (9 in-place at P638 + title + status + v23 section + annex + P629).
+5. **Era-marks (P648):** all four present — P674 (v16-era P465), P030 (V323-era P355 + V323-verdict P359/P360), P034 (v11-era P471), P615 (quoted-verdict P499).
+6. **Baseline (P649 → P678 + Close):** single ~50m planning figure per window; RECON72 0:48:06 + RECON73 0:46:49 both named.
+7. **Reading (P650 → P459):** wouldPreempt=0 carries the "builder reading" mark; the no-field note matches R16.
+8. **Zero code vs v23:** P642–P652 contains no fences; P651 repeats P639/P630 exactly (Z 7 = 2+0+0+5; S-a 4 = 4+0; S-comb 45 = 43+2; Q2 19 = 21−2; NET +75; 12127 → 12202); annex P687 says zero code. Verified at page level.
+
+## The defect (OBJECT grounds)
+
+- **P670, "S4 armed at the 09:40 pass":** contradicts three page elements at once. (i) The v24-fenced takes sheet commits this venue to the B1/prebind path ("BYPASS + PREBIND pass at the 09:40 confirmation bar … fire 09:45") — an S3-sitter route; an S4 arming at the 09:40 pass makes the 09:45 pass S4-held, and per P033b (carried at P610 and P608) an S4-held candidate takes the S4-to-S5 edge (EA-8990-9002) and never reaches the prebind — so P607's required "CONFIRM_PREBIND pass row at the 09:40-bar" could not print. P607 and P670 are mutually exclusive for one run. (ii) The on-page BASE fencing refutes the arming: R18 shows state=S3_ZONE_WAIT at the 09:45 pass (no 09:40-pass arming in the base tree), and R01/R02 show the 09:40 bar clear of the zone (bar 159.944–159.956 vs zone 159.878–159.916; inPlay=0, xobInPlay=0). (iii) No v20+ edit touches the arming branch (EA-8784-8812) or zone detection — Z/Z-B1 sit in the S3 else-branch (EA-8912-8963), S-a at the invariant and S2-end boundary, S-b at the Scomb site, Q2 in ShadowRetestBook — so the fixed run mirrors the base here. The sentence is a stale v11-era mechanism carry (hold → arming → S4-edge fire) that the v20 Z-fix superseded without reconciling.
+- **P670, final sentence** ("09:45 arming-takes hypothesis: P033 diagnosis governs (zone persists from 09:40 arming; row-proof absent in BASE)"): stale. "Row-proof absent" was true only of the RECON72-era base (P034's framing); the RECON73 rows now spliced here are row-proof and they refute the arming-takes (R01/R02/R18).
+- **P671 (A-POIV-RETAKE), "UJCONFIRMCARRY row (bankBar=14:35, fireBar=14:40 …) INSTEAD of CONFIRM_STRUCT_FAIL" plus "S3-zone arming print R64":** this is the G1-cascade route (UJCONFIRMCARRY prints only inside the G1 insert, fence P301–P312), contradicting P608 ("S4-held STRUCT fire at the 14:40:22 pass … G1 cascade N/A for S4-held per v19-P033b") and the takes sheet ("S-b YIELD transfer … STRUCT fire"). The transferred candidate never sits S3, so neither row can print on the committed route. Softer (P675 lists UJCONFIRMCARRY as evidence-never-failure) but the leg's flip sentence still misdirects the grade.
+- **P644 vs P670 (secondary):** the delta's openness clause ("whether the 09:15 pass prints a row at all stays open … never assumed") is not carried in the operative acceptance — P670 asserts "UJLTFHOLD rows mode=M15 at the 09:15 pass" unqualified. Mitigated by P675's telemetry carve-out; note also the hedge's rationale is doubtful on the page's own pins (given promotion 1 at the 09:10 pass, the candidate is S3, not S2-gated, at 09:15).
+
+All four are prose-only; no fence bytes move; budget stays +75.
+
+## Analytic A (standing ask — remaining items)
+
+5. **P636:** the blanket-rule cites "P657" and "P659" are v23-page numbering; in the current page both misland (parked-item lines). Current numbering exists only in the delta (P646: P669/P671). Refresh or era-mark them, as was done for old-page R-cites.
+6. **P682 (annex):** the v10–v16 budget labels (+96/+103/+106/+140/+145/+145/+149) do not reconcile with P666's computed +99-vs-built-v9 / +152-cumulative — a persistent 3-line gap at both ends, unnamed. Historical only (P666 is flagged; operative budgets P619/P630/P639/P651 are exact).
+7. The S-b surface on the 6/5 venue is unfenced: the 09:45 SHORT fire implicitly assumes no confirmed LONG contender at eval-09:35/09:40 (a transfer would displace the holder). No row-cited basis appears (the cited CONFIRMPOLL series covers the SHORT candidate only).
+8. **P630** "no fence-byte delta vs v21" coexists with P624/P635 "SaDecl fence form changed, code-neutral" — defensible if it means spliced code bytes, but unqualified on its face.
+9. R18's empty `term=` on a passing carve is consistent with term-set-on-fail-only (CONFIRM_PREBIND_FAIL prints it; CONFIRM_PREBIND does not), but the convention is nowhere stated.
+10. Nothing else found: row schemas match their fences (R18/R24 vs the F11/R-Z print shapes; R19 vs the EA-2244-2250 schema); R15 matches A-SL1 values; Q1-header anchors match the spliced regions; arithmetic checks pass.
+
+## Analytic B (standing ask — better mechanism)
+
+Goal: one binding route per venue. Two prose options, zero code. **Option 1 (route table):** a per-venue route table in the Acceptance preamble (6/3 STRUCT/preserve; 6/5 09:45 B1/prebind at S3; 6/11 14:40 S-b transfer + S4-edge STRUCT fire; 6/5 16:15 no-admission/Q2-terms), with P670's "S4 armed"/P033 carry re-pointed to P607's evidence set and P671's CARRY/R64 flip re-pointed to P608's (SIDE1C_YIELD + SUPPRESSED coexistence + absent holder ABORT rows + S4-edge fire rows). Kills the defect class (era-drift between leg sets). **Option 2 (blanket supersession):** keep the RETAKE legs as venue/admission bounds, add a blanket rule that their mechanism fragments are superseded by the v20+ legs (mirroring P636's R-cite blanket), plus the in-place strikes. Either way: carry the P644 openness clause inline into P670 (or drop the claim), and refresh/era-mark the P636 cites. Budget +75 unchanged; S3 recount unaffected.
+
+## Standing split
+
+Rules on the page only; digests, counts, and battery results are disk truth, not answerable here. Nothing in this verdict builds, runs, commits, or moves money; live activation stays alert-only behind a separate relay plus his explicit word. Q2 stays carried-CLEAR from V336 (no fence change; not re-asked). No key and no run word asked or implied.
+
+## V337-IMPL2-22 END GLM
