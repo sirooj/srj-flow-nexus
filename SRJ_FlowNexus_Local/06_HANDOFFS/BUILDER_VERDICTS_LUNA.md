@@ -13717,3 +13717,120 @@ No v26 code-fence defect found; the remaining issues are provenance/wording qual
 **No second run, no EU run, and no additional build are approved.** The packet itself separates the August EU proof as a sibling run and states that the June UJ run is the relevant proof window.
 
 ## KEY-IMPL2-V26 END LUNA
+## V340-UJFIX2-1 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+## Council ruling
+
+### Q1 — **OBJECT / DISCREPANCY**
+
+The **R delta is directionally correct**, and its placement before the existing booked-target touch check is correct: it changes only `g_mtrade.tpRef`, after which the existing TP-touch logic consumes the revised reference. The 5 June death chain also establishes exactly the defect this is intended to repair: NYH 160.262 closed at 19:00 while the trade was still floating, but `tpRef` remained 160.723.
+
+However, I cannot **CONFIRM the implementation fence as written**, because the crucial `UjClosedSessionTarget()` body is absent. The packet supplies only its contract. In particular, the contract's test `barTime session != entry session` does not itself prove that the function detects the **exact session-close transition**, nor that it selects the correct closed-session H/L buffer for every entry-session case.
+
+So:
+
+**Q1 verdict: OBJECT — helper body/proof is missing.**
+
+The required mechanism is sound, but the next packet/build must expose the helper body or an equivalent exact-diff proof establishing:
+
+`entry session → session actually closes → closed entry-session directional extreme → one monotone tpRef revision → existing touch exit`.
+
+The monotone condition in P040–P041 is good: LONG only moves TP downward and SHORT only upward, so it does not loosen the booked nearest target.
+
+---
+
+### Q2 — **CONFIRM**
+
+The B2 fence is logically correct.
+
+The defect is demonstrated cleanly: the 6 June London SHORT had a bullish LTF flip at 09:25; `SIDE1T_SEEDBIAS` recorded `biasAligned=0 / REJECT-BIAS-TIMING`, yet `S2PROMOTE_M15` still promoted the candidate.
+
+The proposed delta:
+
+```mql5
+if(uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0)
+```
+
+correctly blocks the `0 = REJECT` case while preserving the stated `-1 = never-seeded` pass case. The subsequent `else if` is also correctly positioned to catch exactly the refused-seed branch and abort fail-closed. The packet explicitly defines that intended state mapping.
+
+It also respects the stated scope fence: promotion edge only, with S3/S4/S5 untouched.
+
+**Q2 verdict: CONFIRM.**
+
+One implementation-time check remains: the built tree must demonstrate that `s1g_seedBiasAl` has the stated lifecycle (`-1` never-seeded, `0` refused, nonzero accepted) for the candidate being evaluated. The packet asserts that lifecycle, so I do not treat this as a current objection.
+
+---
+
+### Q3 — **OBJECT**
+
+The telemetry portion is correct and non-invasive. The proposed `UJSBTELEM` line exposes exactly the relevant state:
+
+`have / candidate direction / candidate line / ConfC / ConfH / termC / termH`
+
+without altering control flow.
+
+The **14:35 calibration is not yet correct**, though.
+
+The supplied `IsConfirmationCandle()` currently defines:
+
+```mql5
+bool touch = (h1 >= L - _Point && l1 <= L + _Point);
+```
+
+where `h1/l1` are explicitly the **previous candle** (`barShift + 1`). The current confirmation body, meanwhile, is evaluated from `o0/c0`, i.e. the current candle.
+
+That conflicts with the packet's own ruling that 11 June is a **14:35 same-candle retest-plus-confirmation**. The journal shows the underlying 14:35 Daily-POC/Daily-VWAP retest was actually seen, while the held SHORT confirmation path returned `confirm=0`.
+
+The narrow replacement I would rule is:
+
+```mql5
+// OLD
+bool touch = (h1 >= L - _Point && l1 <= L + _Point);
+
+// NEW
+bool touch = (iHigh(_Symbol, PERIOD_CURRENT, barShift) >= L - _Point &&
+              iLow(_Symbol, PERIOD_CURRENT, barShift) <= L + _Point);
+```
+
+That changes only the **C_TOUCH venue from prior-candle touch to same confirmation-candle touch**. I would retain the existing `A_OPP`, `A2_CLOSE_BREAK`, and `B_BODY` predicates unless separate evidence rules one of them out; the packet does not establish such a ruling.
+
+**Q3 verdict: OBJECT — telemetry is confirmed, but the confirm-term calibration must replace prior-bar touch with current-bar touch for the ruled same-candle venue.**
+
+---
+## Analytic A — defects / gaps / imprecision
+
+**1. Q1 helper body is absent.**
+P051 gives a contract, not executable proof. That is the main Q1 blocker.
+
+**2. Q1 session-close timing is underspecified.**
+`barTime session != entry session` is a plausible transition test, but the page does not prove whether the 19:00 pass is the first bar after closure or whether session labeling changes one bar later. Since the user's ruling is explicitly "once that session closes," the transition semantics should be exact.
+
+**3. Q1 source-buffer mapping is contractual rather than shown.**
+"Session buffers per EA-2477/2646" is cited, but the packet does not show the exact London/NY → high/low buffer selection inside `UjClosedSessionTarget()`.
+
+**4. Q2 delta is internally coherent.**
+I see no substantive logic defect in the shown old→new fence. The 6/8 failure is exactly explained by the missing read of `s1g_seedBiasAl`.
+
+**5. Q3 current touch predicate is inconsistent with the stated venue ruling.**
+The function checks `barShift+1` for touch while the current candle supplies the confirmation body. That is the concrete calibration defect.
+
+**6. Q3 telemetry does not itself repair the 11 June miss.**
+That is not a defect against the stated scope because P072 explicitly makes S3 zero-behavior telemetry; it is diagnostic instrumentation, not the contender-generation fix.
+
+### Analytic B — better mechanism
+
+For **Q1**, I would make the helper explicitly detect the **entry-session → next-session transition**, rather than relying solely on `current session != entry session`. It should return the already-closed entry-session directional extreme and nothing else. That gives an exact one-event trigger while preserving the monotone `tpRef` gate.
+
+For **Q3**, the narrow one-line current-candle touch replacement above is preferable to rewriting the whole confirmation predicate. It directly encodes the user's ruled 14:35 SAME-CANDLE/VENUE case while disturbing the fewest settled predicates.
+
+## Final ledger
+
+| Question                           | Verdict     | Disposition                                                                     |
+| ---------------------------------- | ----------- | ------------------------------------------------------------------------------- |
+| **Q1 Retarget**                    | **OBJECT**  | Valid design delta, but helper body / exact close semantics not proven          |
+| **Q2 Bias gate**                   | **CONFIRM** | Fence correctly kills `REJECT` seed before promotion                            |
+| **Q3 Observability + calibration** | **OBJECT**  | Telemetry good; `C_TOUCH` currently checks prior candle and must be same-candle |
+
+This remains a **design ruling only**; nothing here constitutes build/run/live clearance, consistent with the packet's stated scope.
+
+## V340-UJFIX2-1 END LUNA

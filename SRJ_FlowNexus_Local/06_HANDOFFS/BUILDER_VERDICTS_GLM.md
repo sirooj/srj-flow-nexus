@@ -7416,3 +7416,107 @@ The v26 repairs match the specified deltas on the page, with no code-fence chang
 **Scope:** nothing here builds, runs, spends, or clears live activation; live stays alerts-only. Any future build needs a new key plus his run word — neither asked nor spent here. Q2 stays carried-CLEAR from V338 — no fence change, no re-ask. Disk truth (twin diff 0, region 0-diff, digests, counts) is proven on his machine and not answerable from chat; this ruling is on the page only. The objection is confined to acceptance-contract coherence and change-log precision; every code claim on the page checked clean against the spliced regions.
 
 ## V339-IMPL2-24 END GLM
+## V340-UJFIX2-1 OPEN GLM (filed whole 1x this turn, novel inbound; see ledger)
+
+GLM SEAT VERDICT — packet P-RECON74FIX-1 v1 (page only; nothing built, run, or spent; no disk claims; no files requested; NEW session, new family, acknowledged)
+
+## VERDICT LINES
+
+- **Q1: CONFIRM** — the retarget fence matches its specified delta and exits floating trades on closed-session targets; the helper body is RULED to the contract below (exact identifiers fold at build; one build-gate named).
+- **Q2: CONFIRM** — the bias-gate fence matches its delta and kills refused seeds fail-closed; kill-vs-retain RULED kill; never-seeded RULED pass; one scope gap flagged, not halting.
+- **Q3: CONFIRM** the telemetry fence (zero behavior); part (b) RULED **v2-with-telemetry** — the refusing term is narrowed but not rule-able to exact code from this page.
+
+---
+
+## Q1 — session-close retarget
+
+**Delta check (passes).** Old fence P031–P033 = EA-11829–11831 (region R-TP lines 9–11). New fence P036–P049 = 11 inserted lines + the same 3 old lines; NET +11 matches P073; braces balanced (P037/P038 open, P045/P046 close). Insert lands after the TP comment (EA-11826–11828), before the first TP statement (EA-11829); the touch block EA-11832–11833 is unchanged and reads the revised tpRef on the same pass.
+
+**Logic check (passes).**
+- Tighten-only (P040–P041) is correct in both directions. A floating LONG cannot have a post-entry session high above tpRef (it would have touched at EA-11832 and exited), so the skipped cases are pre-entry extremes beyond the booked target — correctly no revision. The closed in-direction extreme can never be a losing target: the entry bar's own high/low bounds it (entry at bar open ⇒ session high ≥ entry for LONG, session low ≤ entry for SHORT).
+- Idempotence holds under the P051 contract: the entry session's closed extreme is fixed forever, so the strict inequality fires at most once — 0 or 1 UJRETARGET rows per trade. The P036 claim is correct **given** the contract.
+- Venue fit: booked 160.723 (R02 best, R03 tpB) vs closed NY high 160.262 (P023) → 147 pts vs 608 pts, revision fires at the first post-NY bar; exit on touch or the revised reference in later rows, both readable per P077.
+
+**Helper body — ruled to contract.** Exact code cannot be ruled from this page without inventing identifiers: three inputs are cited but not carried — (i) the trade's entry-session source (struct EA-250 not carried; `g_sessionAtEntry` at R-PROMO is the candidate's, not proven to be the managed trade's), (ii) the time→session map, (iii) the per-session/side FL_BUF index table (only FL_BUF_NY_HIGH (14) is named, P029). The ruled contract:
+
+```
+bool UjClosedSessionTarget(const SManagedTrade &t, const int barShift, double &px)
+{
+   px = 0.0;
+   if(t.dir != DIR_LONG && t.dir != DIR_SHORT) return false;
+   <es> = <entry session of t>;                       // carriage per EA-250/2477/2646
+   if(<es> == <NONE>) return false;                   // no session, no target
+   if(<session of iTime(_Symbol, PERIOD_CURRENT, barShift)> == <es>) return false;  // closed values only
+   int buf = (t.dir == DIR_LONG) ? <HIGH buf for es> : <LOW buf for es>;            // FL_BUF family, NY_HIGH=14
+   double v = 0.0;
+   if(!ReadFlow(buf, v, <read point>)) return false;  // false when none (see A14)
+   if(v == EMPTY_VALUE || v <= 0.0) return false;
+   px = v;                                            // the COMPLETED session extreme
+   return true;
+}
+```
+
+**Build-gate (the one thing that can silently kill this fix).** The read point must return the *completed* session's extreme. If the session buffers (EA-2477/2646) reset to EMPTY outside their session, the post-close read at `barShift` returns nothing and UJRETARGET never fires — a silent no-op caught only by UJ-NORETARGET at grade. Two valid implementations: (a) post-close read of a latched buffer (latch window must cover ≥1 bar past the close), or (b) read at the entry session's *final* bar (immune to reset semantics; needs the session-end boundary). The build battery picks per the actual shapes; the UJRETARGET row adjudicates.
+
+---
+
+## Q2 — seedbias promotion gate
+
+**Delta check (passes).** EA-8339 gains exactly ` && s1g_seedBiasAl != 0` (P058 vs P054), 0 net lines. Kill branch +2 (P063–P064) chains between the promotion block's close (end of EA-8343) and the S2WAIT else (EA-8344): promote / kill / wait — the else-if is exact (the kill fires iff the original condition holds and the gate fails, i.e. s1g_seedBiasAl == 0). The kill's `GoAbort(...); return;` is load-bearing: without the return, execution falls through to the promotion at EA-8347–8349. Present.
+
+**Kill-vs-retain: RULED kill (fail-closed).** (a) His Ruling-2 refuses the SHORT itself — the candidate is invalid, not merely early; (b) retain leaves a candidate that can never pass the gated path (the verdict is per-seed, P052) yet still exposes the unguarded aligned path (A6 below) — retain converts a certain death into a leak; (c) retain re-prints the kill row on every m15-aligned pass — row spam and an ambiguous grade.
+
+**Never-seeded: RULED pass (−1).** Fail-open on no-information is right for an observability-first draft; P078's admissions set {6/3, 6/5×2} + 6/11-conditional is the regression backstop — any over-kill of a required take fails the run.
+
+**Flags (not halting).** The gate covers only the m15-fallback branch. When `CheckLtfAlign` passes (EA-8334 block skipped), the candidate promotes at EA-8347–8349 with no seedbias read — in tension with the unqualified change-sentence "promotion requires a non-refused seedbias verdict." No refused-seed aligned promotion exists on the page's record (YIELD 0x run-wide; the only refused-seed promotion is R06's m15 path), so this is a scope pin for his word or v2, not an objection — but UJ-BIASDEFY (P080) greps only S2PROMOTE rows, so the aligned path is invisible to the findings map as worded.
+---
+
+## Q3 — contender observability + confirm-term calibration
+
+**(a) Telemetry fence: CONFIRM.** +1 line (P068–P070), inserted after the confirm pair (the fence's `uj_sbConfC`/`uj_sbConfH` lines, EA ~8360–8361 as carried), inside the S3/S4 Scomb block (EA-8352); every printed variable is declared and in scope at that point (`uj_sbHave/uj_sbDir/uj_sbLine` at the block top, `uj_sbTermC/uj_sbTermH` on the line between); InpDebugLog-gated; zero behavior. The 14:35 pass runs this block (state S4_ARMED, R10), so the row will exist. The instrument is correctly placed.
+
+**(b) Calibration: RULED v2-with-telemetry** (the packet's own stated branch, P071). Elimination from the page: for the LONG contender at barShift=14:35, line Daily-POC (R07 sline=0 scode=Daily-POC): **B_BODY passes** (R09 bodyDir=0 with body=3pts, doji=0 ⇒ the 14:35 body is bullish); **C_TOUCH passes if** R09's touchAttr ≡ the EA-2331 computation (same anchor line); **A_OPP passes iff** the 14:30 bar is bearish-not-flat (R09 oppCandle=0 for SHORT excludes bullish only). That leaves **A2_CLOSE_BREAK (EA-2326) as the prime suspect** — the 14:30 close vs the Daily-POC value appears nowhere on the page — with **A_OPP (EA-2324)** as the fallback if 14:30 is exactly flat. Two further blocks to ruling exact code now: (i) the page's own diagnosis (uj_sbConfC false with have=1) is an assertion — if `DetectPoiRetest` returned found=false at 14:35, the death is the detector, not the confirm term, and the telemetry's `have=` field is what tests this; (ii) his SAME-CANDLE/VENUE words — the semantic anchor for any replacement — are cited (P071) but not carried inline, and this family's own standard is inline attested content. Ruling replacement text on a paraphrase plus an unmeasured close-vs-line relation would invent.
+
+**Pre-registration for the v1 run** (makes v2 a one-term decision): the 14:35 UJSBTELEM row should read `have=1 sbDir=LONG confC=0 termC={A2_CLOSE_BREAK|A_OPP} confH=0 termH=A_OPP`. If it reads otherwise, the field-mapping assumption or the diagnosis is wrong — itself the finding. Decision tree pre-ruled at Ask B6.
+
+**Consequence:** with (b) on v2, the v1 build's 6/11 YIELD/entry absence at 14:40 is EXPECTED — P079/P080 need that carve-out or UJ-NOEVID mis-fires at grade.
+
+---
+
+## ASK A — defects, gaps, imprecisions (severity-ordered)
+
+1. **B-venue date contradiction (material to the acceptance).** Takes sheet, P024 header, P078 header say "6 June London SHORT 09:35 160.294"; his scope word ("the 8 June invalid take"), his Ruling-2 verbatim ("the 8 London short"), rows R04/R05/R06/R13 (all 2026.06.08; R13 entry=160.294), P018 ("6/8 false"), P052 ("6/8 class"), and P078's own admissions set (which excludes the 6/8 admit R13) all say **8 June**. The venue is 8 June; "6 June" is a drafting error in three places. P078's S2SEEDBIAS_KILL expectation must be dated 2026.06.08 09:25 or the grade greps the wrong day.
+2. **R-SCOMB count mismatch.** Banner claims EA 8351–8396 = 46 lines; the carried region is 45 (the S-a block closes at the carried 45th line). Head battery "regions 132" → 131 as received. R-TP 22, R-PROMO 22, R-SCOMB 45, R-CONFIRM 42 all verify. One line missing or the span is 8351–8395; does not move the S3 insert anchor (relative: "after the confirm pair").
+3. **Helper value-source semantics unpinned (Q1).** See the Q1 build-gate: if the session buffers reset rather than latch at the boundary, the retarget is a silent no-op. P029/P051 do not pin latch-vs-reset; EA-2477/2646 are cited, not carried.
+4. **Aligned-path seedbias leak (Q2).** EA-8347–8349 fallthrough promotes with no seedbias read; tension with the unqualified change-sentence; UJ-BIASDEFY (P080) blind there (watches S2PROMOTE rows only; the aligned path logs a STATE row, not S2PROMOTE).
+5. **Asserted-not-carried Q2 facts.** The {−1, 0, +1} value space (set site EA-8133 not carried) and P052's "the eval reads its own seed" (no staleness across IDLE-gated reseeds; whether the B1/prebind route sets it). P078's admissions set is the backstop; verify at build.
+6. **UJ-NORETARGET over-breadth (P080).** "No UJRETARGET row at a session close with a floating trade" false-fires when the closed in-direction extreme is not strictly tighter than tpRef, equals tpRef, or the trade has no session. Tighten to: at the close of the trade's entry session, while floating, when the closed in-direction extreme is strictly tighter than tpRef.
+7. **Deferred-Q3b carve-out missing.** With (b) on v2, P079/P080 must state the 6/11 YIELD absence is expected in the v1 build, or UJ-NOEVID mis-fires.
+8. **Fence/region whitespace skew.** Old-R (P031–P033) and new-R tail (P047–P049) carry EA-11829–11831 at +2 indent vs the R-TP region; old/new-B2FULL (P054/P058) carry EA-8339–8340 at +1 vs R-PROMO. Both claim 0-diff case-sensitive; at most one rendering is verbatim. STAGE-1 catches it at build; the page should carry one form.
+9. **ABORT define outside the budget.** P066's ABORT_SEEDBIAS_REFUSED is +1 line (a new identifier cannot share a line); P073's +14/12216 → +15/12217. "S3 recount governs" hedges it, but the stated number is off by one.
+10. **Print-tag mismatch.** P005 lists "UJSEEDBIAS_KILL"; the fence (P064) and acceptance (P078) use "S2SEEDBIAS_KILL". The fence governs; fix P005.
+11. **Placement cite off-by-one (P066).** The promotion block closes at the end of EA-8343 (the `}` rides the S2PROMOTE print line); EA-8344 is the `else`. The insert sits between them.
+12. **SAME-CANDLE/VENUE words not carried inline (P071, Ruling-3 rule line).** Attested content riding by reference, against the family's own full-form standard — the stronger reason (b) rides v2.
+13. **UJRETARGET print fields (P044).** Omits the prior tpRef and session id; P077's "revised 160.723 toward 160.262" needs the booking rows to reconstruct 160.723.
+14. **"EMPTY when none" (P051).** The contract returns bool with an out-param; read as "false, px untouched". The caller's `> 0.0` guard covers either reading. Wording nit.
+15. **Retarget scope pin.** P051 pins the entry session only; the standing RETARGET wording (P009 amended point) is not explicitly entry-session-limited, and the R-venue itself floated 6/5→6/8 with later session closes taking no retargets under this design. Pin with his word. Also no findings predicate for an extra/second retarget (under-firing only).
+16. **DirName(DIR_NONE) (P069).** uj_sbDir prints DIR_NONE whenever have=0; DirName's NONE handling is not on the page.
+17. **TP comment staleness (EA-11826–11828).** The insert lands after the "(b) TP: the BOOKED target" comment, which now describes tpRef semantics the preceding block amends (booked-then-revised); the comment should gain a line or the insert should sit before it.
+18. **R09's `shadow=true`** maps to nothing in the carried code; note for the grade reader.
+19. **Post-YIELD admission path uncarried.** How a 14:35 YIELD (latch reset at the Scomb yield lines) reaches a 14:40-open entry is not on the page; P079's "YIELD + LONG evidence at the 14:40 pass" is the proof — v2 must show it.
+20. **Clarification, not a defect:** takes sheet "entry 09:35" vs R13 admit_bar=09:30 is the admit-close → next-open pattern (same as 16:50→16:55 and 14:35→14:40); noting so it isn't misread as a contradiction.
+
+## ASK B — better mechanisms
+
+1. **Q1 print:** add `old=%s sess=%s` to P044 — one line, self-contained UJRETARGET row, session-keyed grep for the retarget proofs.
+2. **Q1:** keep stateless convergence; do NOT add a latch field — struct surface plus a reset path for no gain; convergence under a fixed closed value is provably once-only.
+3. **Q2:** add `sb=%d` to the existing S2PROMOTE_M15 print (EA-8343) — every promotion row carries its gate input; makes the −1-pass cases and any future aligned-path promotion visible without a new row family. One line inside an existing print.
+4. **Q2 (if his word extends the gate):** the minimal aligned-path gate is one condition before the EA-8347 state transition — but it breaks the scoped "zero other-path change"; ride it as v2 plus his word, not inside FIX-1.
+5. **Q3:** add `sbL=%s` (ReadBuf1 of uj_sbLine) to P069 — the row then answers the A2_CLOSE_BREAK question (c1 vs L) alone, no journal cross-reference.
+6. **Q3 v2 decision tree, pre-ruled:** termC=A2_CLOSE_BREAK → decide whether his SAME-CANDLE words move the close-side test to candle-0 (c0≥L) or accept a below-line prior close reclaimed by the confirmation candle (touches EA-2325–2326); termC=A_OPP → the flat/doji candle-1 handling (EA-2323–2324); termC=C_TOUCH → move the touch test to candle-0, same-candle touch (EA-2331–2332); have=0 → the target is DetectPoiRetest, not IsConfirmationCandle. Each branch names its exact EA lines.
+
+## CLOSE
+
+Three verdicts stand independently; all three are CONFIRM (Q3 on its stated v2 branch for part b). The packet-text corrections needed before any future grade run — the 8-June relabel (A1: takes sheet, P024, P078), the R-SCOMB count (A2), the budget +1 (A9), the tag name (A10) — are text fixes, not fence changes; none halts a verdict. Nothing here builds, runs, spends, or clears live activation; no key asked; EU and D-design untouched per his word and P012. Nothing else is asked.
+
+## V340-UJFIX2-1 END GLM

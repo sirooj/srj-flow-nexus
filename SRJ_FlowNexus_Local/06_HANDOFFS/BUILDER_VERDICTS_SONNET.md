@@ -3394,3 +3394,76 @@ This verdict rules on the page only. Disk digests and counts are not proven here
 Defect 1 is the only blocker. Items 2-4 are the same class of prose repair. Items 5-8 can ride as build-gate notes. Once P670 and P644 agree, I would CONFIRM.
 
 ## V339-IMPL2-24 END SONNET
+## V340-UJFIX2-1 OPEN SONNET (filed whole 1x this turn, novel inbound; see ledger)
+
+**Seat note:** I'm reviewing the page only. Nothing here is disk-verified, and the twin, digests and diff-0 claims are outside what I can answer from chat. If this is the Sonnet slot, the verdict lines below are advisory and carry zero weight.
+
+## Verdicts
+
+- **Q1:** CONFIRM the fence delta (P030-P050 against R-TP). I can't confirm the claim that floating trades exit on closed-session targets until the helper carries guards Q1-3 and Q1-4.
+- **Q2:** CONFIRM the delta and the fail-closed kill (kill is right, see Q2-5). There is one anchor error (Q2-1) and one unverifiable scope risk (Q2-3) that should be closed before build.
+- **Q3:** CONFIRM the telemetry fence. On Q3b I can't supply exact replacement text from the page, so I rule v2-with-telemetry. The rows narrow the refusing term to two candidates (see Q3-2).
+
+## Q1 (retarget)
+
+1. **`barShift` scope.** P040 and P044 use `barShift`, and `SManagedTrade` appears in the helper contract (P051). Neither is defined in the R-TP region (EA 11821-11842). Please confirm both are in scope inside EvaluateManagedTrade.
+2. **Whitespace.** As rendered, the old-R block (P031-P033) indents `bool tpBookedTouch` and `if` by 5 spaces. The R-TP region shows 4. A whitespace-exact STAGE-1 match would fail.
+3. **Ratchet risk.** The revision test is one-sided (`<` for LONG, `>` for SHORT, P041). If the helper reads the live NY-high buffer at `barShift` instead of the entry session's final value, any later lower reading (buffer roll or reset) ratchets `tpRef` down every bar. Add a floor: LONG requires `uj_rtPx > entry`, SHORT the mirror. The "fires once by construction" claim (P036) holds only if the helper's value is constant after close.
+4. **Entry session source.** `g_sessionAtEntry` is a global (used at the R-PROMO print). A trade that floats across a weekend, as 5 June did, can outlive the candidate that set it. The session should come from an entry time stored in the trade struct (EA-250).
+5. **Breadth.** P009 says "a session high/low that closes while a trade floats". P051 restricts this to the entry session only. Either state the narrowing or widen it.
+6. **No booked TP.** The P037 gate skips any trade with an empty `tpRef`.
+7. **Buffer contents after close** are not on the page. The helper returns EMPTY when the buffer is cleared, so the retarget would silently not fire (UJ-NORETARGET would catch it).
+8. **R-venue acceptance is loose.**
+   - R01 shows the exit at 160.226, below the closed NY high of 160.262, and R03 has no bars after 17:00. Nothing on the page shows a bar high of at least 160.262 between Friday 19:00 and Monday 00:50. If none exists, the retarget changes nothing and P077's "subsequent exit row" wording passes anyway.
+   - His words say "day exit". R01 says `POI_BODY_BREAK` and R03 has `vDAY=0`. Please reconcile, and name the expected exit bar and reason in P077.
+9. **Counter side effect.** R-TP line 21 (`g_n1_tpRecomputeSupp`) changes meaning once `tpRef` moves.
+
+## Q2 (bias gate)
+
+1. **Off-by-one anchor (P066).**
+   - By my count of the R-PROMO region, the promotion block closes at the end of EA-8343 (the S2PROMOTE print line).
+   - EA-8344 is the `else`.
+   - The kill branch must go between 8343 and 8344. Splicing "after EA-8344" gives `else else if`, which is a syntax error.
+2. **Print name mismatch.** P005 says `UJSEEDBIAS_KILL`. P064 and P078 say `S2SEEDBIAS_KILL`. The grader needs one name.
+3. **Carriage reset and route.**
+   - The page doesn't show where `s1g_seedBiasAl` (EA-1151, set at EA-8133) is reset, or whether the STRUCT and B1/prebind routes set it at all. A stale 0 from a previous candidate would wrongly kill a legitimate one.
+   - No seedbias row is on the page for the 3 June, 5 June London SHORT or 5 June NY LONG admissions. If any of them was promoted through `S2PROMOTE_M15` with a seedbias of 0, B2 kills a must-keep take.
+   - Pre-build disk check: pair every `S2PROMOTE_M15` row with its `SIDE1T_SEEDBIAS` row across the whole run, EU included.
+4. **Coverage.**
+   - B2 gates only the M15 promotion door.
+   - The `aligned == true` path (R-PROMO line 6) never reads the carriage.
+   - The carriage is a seed-time verdict, while his rule is about a flip before the confirm.
+   - A bearish-to-bullish flip after seed but before confirm is not caught.
+   - A SIDE1C_YIELD changes `g_dir` without touching the carriage.
+5. **Kill versus retain: kill is correct.** The carriage is set only at seed, so retaining would leave a permanent 0 squatting in the single-candidate state, the same mechanism that killed 11 June (IDLE-gated seeding, EA-8002). Expect reseed churn, since IDLE reseeds the same anchor next pass, gets REJECT again and kills again on each bar. Check `GoAbort` for any cooldown side effect.
+6. **Budget.** NET +2 excludes the new ABORT define and its name mapping. 12216 is a floor.
+## Q3 (observability and confirm term)
+
+1. **Telemetry fence.**
+   - The print has 9 specifiers and 9 arguments, and all variables are in scope at that point in R-SCOMB (after `uj_sbConfH`, before the YIELD `if`). It is clean.
+   - Optionally gate the print on `have || confC || confH` to limit log volume.
+2. **What the rows already narrow.**
+   - R07 decodes as: the LONG side has line 0 (Daily-POC) at rank 10, the SHORT side has none, and `sel=LONG`. That matches R08 `Daily-POC:r10:dL`.
+   - So the SHORT holder anchor and the LONG contender share one line.
+   - R09 (SHORT poll) shows `touchAttr=1`, `body=3pts`, `doji=0` and `bodyDir=0`. This means the 14:35 bar has c0 > o0, so LONG's B_BODY passes. C_TOUCH also passes if `touchAttr` is the same predicate.
+   - The refusing term for LONG is therefore either A_OPP (needs c1 < o1 strictly, so a flat bar fails) or A2_CLOSE_BREAK (needs c1 ≥ L with zero tolerance).
+   - Both are exact boundaries. R09 is a SHORT poll, so this is a deduction, not proof, and it is what the telemetry should settle.
+3. **Overfit warning.** Loosening a zero-tolerance term to fit one chart bar is the NO-OVERFIT trap (P024). Rule the term only after UJSBTELEM shows it.
+4. **Untested path.** YIELD fired 0x run-wide (P025), so the transfer path has never run live. The code between the YIELD reset (`g_touchSeen=false`, latch zeroed) and the entry latch isn't on the page. The "entry 160.524 conditional" claim (P079) can't be reviewed from it. Include the downstream S3/S4 latch block in v2.
+
+## Other imprecision
+
+- **Date error.** "6 June London SHORT" appears in P024, P078 and the Takes sheet. 6 June 2026 is a Saturday. The rows (R04-R06, R13) and P010 say 8 June, so those three references should read 8 June. A grader searching 06-06 will find nothing.
+
+## Ask B: better mechanism
+
+Add a live LTF-bias check at the admission or confirm pass. Read `FL_BUF_LTF_BIAS` at that bar and refuse when it opposes `dir`. This implements his rule literally (a bullish flip refuses SHORT confirmation) and covers seed-then-flip, the aligned path and YIELD contenders. Its risk is the routes that deliberately admit under LTF-opposed (S-a deferral), so it needs its own acceptance against the must-keep takes.
+
+## Checked and clean
+
+- Region line counts match their headers: 22, 22, 46 and 42.
+- Fence arithmetic is consistent: R 3→14 lines (+11), B2 +0 and +2, S3 +1, total +14, and 12202 + 14 = 12216.
+- The 608 and 147 point distances match R02 at 0.001 per point.
+- The else-if chain is syntactically valid once inserted per Q2-1.
+
+## V340-UJFIX2-1 END SONNET
