@@ -276,6 +276,13 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - CODE-FENCE WORDING: halt-round Q1/change sentences say "no code-fence change" / "acceptance/prose-only", never broad "zero code change", unless tree identity is proven on the page.
 - ANALYTIC-B DISPOSITION: every relay/packet answers the standing better-mechanism ask with one line (adopted-X, parked-Y, or none) - an unanswered standing ask is itself a defect.
 
+## 36. Throughput + cite-resolver (his 2026-09-29 throughput challenge: whole days of relaying buy one build+run; V339 ruled needs-no-revision same turn)
+
+- FLOOR: two of his trips per round is the irreducible minimum (carry out + carry back - he is the transport). Everything else runs same-block, unattended, across turns if needed.
+- ROUNDS, not questions, are the cost driver: halt-fold-relay loops on wording burn days while fences stand still. The cure is defects-per-draft, owned here: every seat-caught repeat class becomes a battery gate the same turn it lands.
+- Resolver: `06_HANDOFFS\cite_resolver_v1.ps1 <packet> [relay]` runs at every fold battery (P-token existence + target text in one read; R-token inventory; rows exact; ellipsis). It proves EXISTENCE, never semantic correctness - the anchor-content adjudication stays human, same turn. Proven on v26: 58 P-tokens 0 unresolved, 29 R-tokens inventoried, rows 24/24.
+- v339 precedent: a shipped-green relay with zero inbound and zero new findings needs NO revision - rule by hash + status (B86098AA intact, trees clean), say so outright, never re-open a green file to look busy.
+
 ## 35. Multi-question rule (his 659 change 2026-09-23 - builder cited it stale 2026-09-29 and wrongly asked him to authorize multi per round; owned)
 
 - Multi-question relays are lawful by his standing word: numbered questions, each with its OWN verdict line, a NO on one never sinks the other.
