@@ -89,5 +89,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
  - 2026-09-29: V338 RELAY-READY (ledger 957: packet v25 17500311/703, relay 19884213/943, double battery green, memo shipped; verdicts owed).
  - 2026-09-29: V338 GRADED (ledger 958: Q1 1-1 HALT / Q2 2-0 CLEAR, 3 seats filed whole; v26 fold: D1 sequencing + cites, zero code).
  - 2026-09-29: V339 RELAY-READY (ledger 959: packet v26 CB302766/715, relay B86098AA/955, double battery green, memo shipped; verdicts owed).
+ - 2026-09-29: V339 GRADED CLEAR (ledger 962: Q1 2-0 CLEAR / Q2 2-0 CLEAR, 3 seats filed whole; packet build-eligible; key + run word asked).
 
 (End of file)

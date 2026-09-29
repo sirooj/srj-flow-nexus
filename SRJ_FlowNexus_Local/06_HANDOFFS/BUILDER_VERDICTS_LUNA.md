@@ -13662,3 +13662,44 @@ No build, tester run, commit, or activation clearance is granted by this ruling.
 The only items I would carry forward are the four precision points above; none changes the Q1 **CONFIRM** on the v25 prose/acceptance fold itself.
 
 ## V338-IMPL2-23 END LUNA
+
+## V339-IMPL2-24 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+**CONFIRM.** I do not see a defect in v26 that contradicts the stated v26 delta or requires a code-fence change versus v25. The packet defines this round as the D1 sequencing/acceptance and documentation fold, explicitly states “no code-fence change,” and keeps the budget at +75 / 12,202.
+
+### Q1
+
+**CONFIRM** — the v26 change is consistent with the stated old/new boundary:
+
+* **D1 sequencing:** P669 binds the A-FB retake predicates to the D-design run, preserves the pre-D expectation of three admissions, keeps the 16:15 venue outside the pre-D admission set, and makes the pool-list/entry-open identity check a grade-time rule.
+* **Proof refinements:** P670 makes wrong-order/promotion-count hard predicates while retaining hold/carve rows as mechanism evidence.
+* **No fence mutation:** P675 explicitly reports the same +75 budget and unchanged final tree, with “no code-fence change vs v25.”
+* The packet’s embedded H2 implementation is consistent with the preceding design: the historical pool is consulted only in the empty-election branch, feeds `TpTargetUpdateBest`, and reports its source/day separately. **EA-2518–2532** is identified as the retired mask-off session re-walk; the replacement H2b fence is **EA-2440–2442 / EA-2379–2382** for the cited call shapes, with the active H2 body shown at the packet’s P365–P447.
+* Likewise, the G1 fence is internally coherent: the cascade only occurs when the same evaluated bar passes the confirmation predicate and the M15 read agrees, then moves directly to `ST_S5_GATE_CHECK`; the new block is explicitly an insertion into the existing arming branch rather than a replacement of the surrounding logic. **EA-8784–8812** is the stated site.
+
+### Analytic ask A — defects / gaps / imprecision
+
+I see **no outcome-changing defect**, but I would record these page-level qualifications:
+
+**1. “Every cite … resolves exact” is stronger than the page-proof actually establishes.**
+P41 says every cite/era/label/convention/basis resolves exact, but P003 explicitly says the **v25 byte-identity is declared, not page-proven**. The historical v23 proof language likewise distinguishes declared lineage from actual digest proof. So the correct characterization is “resolved and internally cited, with v25→v26 code identity declared rather than independently page-demonstrated.”
+
+**2. P669’s “three expected pre-D” wording is technically dependent on the route contract.**
+It is correct only because A-FB is explicitly unpromised pre-D and the four-valid bound applies to the eventual D-design run. That dependence is stated later at P696/P698, but P669 alone could be read as an unconditional count rather than a sequencing statement.
+
+**3. The H2 pool is evidence of availability, not by itself proof of final zone eligibility.**
+The code correctly calls `TpTargetUpdateBest(...)` after constructing the pre-zone in-direction list, and the packet later distinguishes pool availability from post-zone eligibility and fire election. That distinction should remain explicit because `UJHISTPOOL` alone does not establish that the selected level survived the zone predicate. **EA/P365–P447**, especially **EA-444–447**.
+
+**4. The “no code-fence change” conclusion is a provenance conclusion, not a semantic comparison of two displayed v25/v26 fences.**
+The packet gives the current twin→EA diff proof and says v25 identity is declared, but it does not display a second v25 code fence against which a reader can independently perform the comparison. This is a documentation limitation, not a reason to change the verdict.
+
+### Analytic ask B — better mechanism
+
+I do **not** see a necessary better mechanism for v26’s stated goal. The chosen mechanism is already narrow: make D1 a **grade-time sequencing layer**, rather than altering the EA, which honors the packet’s refinement constraint and the “no code-fence change” requirement.
+
+The one mechanism improvement I would reserve for a future round is a **single explicit machine-readable acceptance record for D1** containing `{venue, signal bar, fill bar, fire source, entry-open reference, elected source, admission count}` rather than making the grader reconstruct parts of that relationship from prose plus `UJHISTPOOL`. The packet already requires nearly all of these fields in P692, so this would be an acceptance-format consolidation, not an EA logic change.
+
+**Final Q1 line:** **CONFIRM.**
+No v26 code-fence defect found; the remaining issues are provenance/wording qualifications, not defects in the specified v26 repair.
+
+## V339-IMPL2-24 END LUNA

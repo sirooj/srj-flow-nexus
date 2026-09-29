@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V339 TRANSPORTED)
+## State (2026-09-29, V339 GRADED CLEAR)
 
-- Relay v339 shipped ledger 959 (packet v26 CB302766).
-  V339 verdicts owed back whole per seat.
+- V339 graded ledger 962 (Q1 2-0 CLEAR / Q2 2-0 CLEAR).
+  Packet v26 build-eligible; key + UJ run word owed.
 - Key spent; EU declined; D v23+.
   No build/run/key without his new word.
 
 ## Next
 
-- His V339 verdict paste-back, whole per seat.
+- His key ruling (Luna) + UJ run word — memo below carries both asks.
 
 ## Resume order (exact)
 

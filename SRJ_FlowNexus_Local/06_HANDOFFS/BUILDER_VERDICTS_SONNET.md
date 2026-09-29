@@ -3329,3 +3329,68 @@ The direction is fine. The objection is that the page contradicts itself on the 
 The route table itself is a sound mechanism for the Analytic-B point. Defects 1 and 2 are the blockers; 3 and 4 are one-line repairs.
 
 ## V338-IMPL2-23 END SONNET
+
+## V339-IMPL2-24 OPEN SONNET (filed whole 1x this turn, novel inbound, advisory only per seat-split; see ledger)
+
+**Q1 verdict: CONFIRM**, scoped to what the page can prove. The notes below are non-blocking. I am the Sonnet seat, so this is advisory with zero tally weight.
+
+## What I checked on the page
+
+**Fold audit.** Every V338 item has a landing site:
+- D1 sequencing: P696 and P698, with the fold summary at P669.
+- Wrong-order coverage: P699.
+- Hard-vs-evidence promotions and the retired asymmetry note: P694 and P695.
+- Declared lineage: P003.
+- v9-era marks: P316 (RETESTBOOK legend) and P033 (UJALIGN block).
+- F11 era-carry flag: P239.
+- S2-end siting: P533, EA-8327/8329, matched by R-S2END lines 8324-8329.
+- Census start at 7392: P495 and P532, matching the R-F11 end at 7391.
+- Span-truncation label: P533.
+- Gap annotation: P706.
+- Term convention: P637.
+
+**No-fence-change witness.** Line arithmetic is consistent with prose-only changes. v25 was 703 lines and v26 is 715, a delta of 12. That equals the v26 section P667-P677 (11 lines) plus the annex line P713 (1 line), so the fold added no fence lines. Byte identity of the fences against v25 is not on the page; that is the declared-lineage limit stated in P003, and your digest compare settles it.
+
+**Budget.** Z 7 (2+0+0+5), S-a 4, S-comb 45, Q2 19 sum to +75, and 12127 + 75 = 12202. I recounted the Scomb fence line by line and got 45 with balanced braces. The v20 to v26 walk (+69, then +5, +1, +0, +2, −2) also lands on +75.
+
+**Spans and anchors.** Region lines sum to 140 (52+13+6+29+18+6+16). These cites all hold against the regions:
+- Z-B1 guard swap at EA-8917-8919 and bypass anchor at 8925-8927.
+- F11 SaSet old fence at 7386-7391.
+- R-XFER mirror at 7813-7829.
+- R-Q2LOOP print at 2177-2180.
+- The Q2 predicate mirrors longHit/shortHit term for term.
+
+**Rows.** R01-R24 have unique SEG numbers. R05 and R06 arithmetic checks: 0.664/0.178 = 3.73, and 664 points equals 160.723 − 160.059.
+
+## Analytic A: defects and imprecisions (none needs a fence change)
+
+1. **P606 contradicts D1 sequencing.** It carries "exactly four UJ admissions" unqualified, and P609 in the same v20 section promises no 16:15 admission. P698 and P696 correctly say three pre-D. Suggested fix: a one-clause pointer in P606, "(as qualified at P698)". This is the one item I would upgrade to OBJECT if the council wants zero residual contradiction in acceptance text.
+
+2. **P696's election reference looks stale against RECON73.** The predicate names "election-ref (160.009)", but R05 to R07 show the 16:10-bar election at entry 160.059 (distPts 664). The 160.009 figure is a RECON72 base number. The grade-rule line (recompute the 160.059 nearest from the printed pool) is operative, but the first clause should name which pass the election binds.
+
+3. **Stale cite numbering in delta sections.** P656 cites "P670/P671", which are v24-era numbers for A-S2P and A-POIV; in current numbering they are v26's own bullets, and the targets are P694 and P695. P638 cites "P679" and "P703", which are v23-era; they are now P690 and P715. The P646 supersession names only P636, so these two stay unmarked.
+
+4. **P646's R-cite list omits P031.** P031 cites an old-page "R64" ("not R64-zone intersection") that is not in the P646 list.
+
+5. **P637 stretches the term convention.** "Term prints on FAIL rows only" is true of the CONFIRM_PREBIND pair: pass at EA-8948 has no term field, FAIL at EA-8957 does. R18, though, is a UJLTFHOLD row that carries `term=` and prints it empty on pass. So "R18's empty term is structural" rests on the IsConfirmationCandle out-param behaviour, which is off-page. A more accurate wording is "the value is populated only on FAIL; pass rows omit the field or print it empty".
+
+6. **P458 mislabels the guard.** "IE2 M15-agree return" describes a return on M15 mismatch: R24 shows m15=1.0 against a SHORT, i.e. NOMATCH. The label should be "M15-mismatch return".
+
+7. **P458's "0 hits over 189 swings" is not page-checkable.** R01 carries sw1/sw2 only, not a swing count. This is a disk-proof item on your side.
+
+8. **The 6/11 LONG venue's S4 zone re-read is direction-asymmetric.** S-b resets g_zoneHi/g_zoneLo to 0.0. The R-REREAD conjunction at EA-8982 adopts a re-read zone only if `s35_zLo <= g_zoneLo + 0.5pt` for LONG, or `s35_zHi >= g_zoneHi − 0.5pt` for SHORT. After a LONG transfer, g_zoneLo is 0, so the LONG arm is false for any real USDJPY zone and the zone stays 0/0. A SHORT transfer would adopt. The 6/11 venue is the only S-b venue and it is LONG. P533 tempers this correctly ("rebuild-iff-adoptable"), but B5 trace (b) at P616 lists "S4 live re-read" as if it rebuilds. Whether the zone-dependent S4 predicates (touch, freshness) tolerate 0/0 depends on off-page code. The S4-ZEROZONE-TELEMETRY build-gate item at P676 should print the direction and both zone bounds at the re-read.
+
+## Analytic B: better mechanism
+
+For item 8, the touched lines would be Scomb P552, where S-b resets the zone. Two options:
+- **Seed a sentinel open zone.** For LONG, set g_zoneLo above any real price so the re-read adopts. Other consumers of g_zoneLo could misread that value.
+- **Seed the zone at transfer.** Call the ReadQualifyingZone/ZoneAdoptable pair directly at the transfer site.
+
+Both are a fence change, so I would decide this at build-key time from the telemetry, not in v26.
+
+## Scope
+This verdict rules on the page only. Disk digests and counts are not proven here.
+
+Defect 1 is the only blocker. Items 2-4 are the same class of prose repair. Items 5-8 can ride as build-gate notes. Once P670 and P644 agree, I would CONFIRM.
+
+## V339-IMPL2-24 END SONNET
