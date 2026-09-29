@@ -95,5 +95,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
   - 2026-09-29: EU ABORTED + V340 RELAY-READY (ledger 966: his abort word, 3 diagnoses with rows, packet FIX-1 1A7BD398/87, relay DF353246/315, double battery green, memo shipped; verdicts owed).
   - 2026-09-29: V340 GRADED (ledger 967: Q1 1-1 SPLIT / Q2 2-0 CLEAR / Q3 telemetry CLEAR + calibration SPLIT; 3 seats filed whole triple-proof; result 4E12A877/7544/35; fold v2 scoped, nothing builds).
   - 2026-09-29: V341 RELAY-READY (ledger 971: packet FIX-2 C2C1E377/146, relay 8E589050/408, double battery green, memo shipped; verdicts owed).
+  - 2026-09-29: V341 GRADED (ledger 978: Q1/Q2/Q3 all 2-0 CLEAR; 3 seats filed whole triple-proof; result A4CA05A6/5569/30; D4 blocks v1 build; fold v2 prose-only scoped).
 
 (End of file)

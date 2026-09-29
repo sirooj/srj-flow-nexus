@@ -13834,3 +13834,127 @@ For **Q3**, the narrow one-line current-candle touch replacement above is prefer
 This remains a **design ruling only**; nothing here constitutes build/run/live clearance, consistent with the packet's stated scope.
 
 ## V340-UJFIX2-1 END LUNA
+## V341-UJFIX2-2 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+## Q1 verdict — **CONFIRM**
+
+The FIX-R call and helper match the stated retarget contract on the page.
+
+The call is placed before the existing booked-TP touch test, so a successful retarget changes `g_mtrade.tpRef` before the existing touch logic evaluates it: **P37-P50; EA-11826-11842**.
+
+The helper is correctly scoped to the managed trade's direction and entry session: **P61-P69**. It rejects invalid directions and `SESSION_NONE`, and refuses to retarget while the current bar is still in the entry session.
+
+It then walks historical bars and collects the complete contiguous entry-session extreme, using `iHigh` for LONG and `iLow` for SHORT: **P70-P87**. That gives the closed session extreme rather than relying on a post-close buffer value.
+
+The direction-tightening test is also correct: LONG only moves the target downward, SHORT only moves it upward: **P41-P46**. Once `tpRef` is revised, the unchanged existing booked-target touch test exits on that revised reference: **P49-P51; EA-11829 onward**.
+
+For the 5 June NY LONG specifically, the intended transition is coherent: the floating trade has `tpRef=160.723`, the NY session closes with high `160.262`, and FIX-R changes the booked target to `160.262`: **P24, P128**.
+
+### Q1 analytical issues
+
+1. **The “once-only” claim is slightly overstated.**
+   The mechanism is idempotent as long as `tpRef` remains monotone, because the strict inequality at **P41-P42** will stop a second rewrite once `tpRef` equals or is inside the session extreme. But there is no explicit retarget-latched state. If some later path widens/resets `tpRef` while the trade remains open, the helper could fire again. The page therefore proves **convergence**, not an unconditional one-shot event latch. See **P37-P46, P53**.
+
+2. **Exact close-transition detection is caller-dependent.**
+   The helper decides “session is closed” solely from `CurrentTradingWindow(bt) != es` at **P67-P69**. It does not itself assert that this is the *first* bar after the entry session closed, nor that `barShift` refers to a completed bar. The stated 19:00 pass therefore depends on the managed-trade evaluation cadence at the caller: **P67-P69, P128; EA-11829 call site**. That is acceptable under the supplied run contract, but it is an implicit precondition rather than something enforced by the helper.
+
+3. **The 600-bar cap is an explicit scope limitation.**
+   **P72-P75, P53** mean a session more than 600 bars back is not found and the booked target remains unchanged. The packet openly states this (“older floats keep booked TP”), so I do not treat it as a contradiction in FIX-2, but it is not an unbounded implementation of the general RETARGET wording.
+
+### Q1 better mechanism
+
+A stronger implementation would use an explicit `retargetSession`/`retargetDone` field on `SManagedTrade` and trigger only on the exact session transition, then compute the session extreme. That would make the “once-only” and “close transition” properties stateful rather than inferred from `tpRef` convergence. It would touch the managed-trade state definition, admission/reset, and the **EA-11826-11842 / EA-11829** exit path.
+
+---
+
+## Q2 verdict — **CONFIRM**
+
+The B2 gate and B3 print delta are internally consistent.
+
+The promotion condition changes from:
+
+`uj_m15r && uj_m15b == uj_wantb`
+
+to:
+
+`uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0`
+
+at **P93-P99; EA-8339**.
+
+Given the packet's pinned value space `-1 / 1 / 0`, that means `-1` and `+1` permit the promotion path while `0` refuses it: **P109**.
+
+The refusal branch is placed exactly between the promotion block and the existing wait path, producing the intended three-way structure: promote / kill / wait: **P100-P105; EA-8343-to-EA-8344**.
+
+The new abort definition is also correctly isolated in the abort family: **P106-P108; EA-406-to-EA-408**.
+
+The B3 line change is exact in substance: it adds only `sb=%d` immediately before the existing `rf` fields, with `s1g_seedBiasAl` as the value source: **P111-P115; EA-8343**. That is consistent with the claimed zero-line behavioral change.
+
+### Q2 analytical issue
+
+The phrase **“every promotion row carries its gate input”** is broader than what the actual edit proves. The added field is on `S2PROMOTE_M15` specifically: **P110-P115**. The page itself says the aligned-path seedbias gate is parked for later: **P137**. So the precise claim should be:
+
+> Every **`S2PROMOTE_M15` fallback-promotion row** carries the seedbias gate input.
+
+That is a wording defect, not a code defect.
+
+Also, the “fail-closed kill” is specifically on the M15-fallback-aligned branch. If M15 is unreadable or wrong, the code falls to `S2WAIT` rather than emitting the new abort: **P102-P104**. That still prevents promotion, but it is worth distinguishing **“kill on refused seedbias”** from **“abort on every unavailable promotion prerequisite.”**
+
+### Q2 better mechanism
+
+A named predicate such as `SeedBiasAllowsPromotion(s1g_seedBiasAl)` would make the `-1/1/0` contract explicit and less dependent on raw integer semantics, but I would not introduce that abstraction inside this narrowly scoped FIX-2.
+
+---
+## Q3 verdict — **DISCREPANCY → CONFIRM v2-with-telemetry again**
+
+The **telemetry fence itself is correct** and appears behavior-neutral.
+
+The proposed print occurs after `uj_sbConfC` / `uj_sbConfH` are computed and before the transfer `if`: **P118-P121; EA-8351-8396, specifically after EA-8360/8361 and before EA-8362**.
+
+It reports:
+
+`have / sbDir / sbLine / confC / confH / sbL / termC / termH`
+
+without modifying the contender state: **P119-P120**. On the supplied code, that is a telemetry-only addition.
+
+However, the packet **does not contain the new `UJSBTELEM` rows from the future run**, so the 14:35 terminal term cannot yet be ruled from the evidence presently on the page.
+
+The existing 14:35 row is only:
+
+`CONFIRMPOLL ... oppCandle=0 bodyDir=0 ... touchAttr=1 confirm=0`
+
+at **R09**.
+
+That establishes `confirm=0`, but it does **not** establish which terminal test failed inside the actual `IsConfirmationCandle` path. The three relevant possibilities include `A_OPP`, `A2_CLOSE_BREAK`, `B_BODY`, and `C_TOUCH`, and the old row does not expose the new `sbL` or terminal term: **R09; P117-P122; EA-2294-2335**.
+
+Therefore I would **not adopt Luna's C_TOUCH one-liner yet**. The correct ruling is the already-described **v2-with-telemetry** path: add the telemetry, run the June replay, and rule the 14:35 term from the resulting `UJSBTELEM` row.
+
+That also preserves the stated EU fence: **P122**.
+
+### Q3 analytical issues
+
+1. **The claimed term ruling is ahead of the evidence.**
+   The packet says the term will be ruled from `UJSBTELEM`, but those rows are not present in the supplied record. **P122 vs R09** is the central evidence gap.
+
+2. **`sbL=0` can encode a read failure without saying so.**
+   At **P119**, failed `ReadBuf1` is converted to `uj_sbLineVal=0.0`, and **P120** prints only `sbL`. That makes telemetry less explicit than it could be. In FX, zero is not a valid price, so it is practically distinguishable, but an explicit `sbRead=0/1` would make the diagnostic contract unambiguous.
+
+3. **The Luna candidate is still correctly quarantined.**
+   The proposed same-confirmation-candle touch is a genuine behavior change at **P118-P122 / Luna candidate**, so it should remain unadopted until the telemetry identifies `C_TOUCH` as the actual failing terminal condition. The EU shared-function obligation remains relevant as a separate proof constraint.
+
+### Q3 better mechanism
+
+Add an explicit `sbRead` field beside `sbL`, then grade the 14:35 row by exact terminal term. That gives a mechanically distinguishable result between “no line/read failure” and an actual line value, without changing confirmation behavior.
+
+---
+
+## Council tally
+
+**Q1 — CONFIRM.** FIX-R matches the closed-session, in-direction retarget contract; only the “once-only” and caller-side close-transition claims are slightly stronger than the code itself proves.
+
+**Q2 — CONFIRM.** The seedbias gate, fail-closed refusal branch, abort define, and `sb=` print delta are coherent and correctly fenced.
+
+**Q3 — DISCREPANCY.** Telemetry is correctly implemented, but the **14:35 term is not yet ruleable from the supplied rows**. The proper disposition is **v2-with-telemetry again; do not adopt the C_TOUCH replacement yet**.
+
+No build/run/key clearance follows from these design verdicts.
+
+## V341-UJFIX2-2 END LUNA

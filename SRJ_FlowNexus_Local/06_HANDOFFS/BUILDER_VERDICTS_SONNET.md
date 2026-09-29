@@ -3467,3 +3467,99 @@ Add a live LTF-bias check at the admission or confirm pass. Read `FL_BUF_LTF_BIA
 - The else-if chain is syntactically valid once inserted per Q2-1.
 
 ## V340-UJFIX2-1 END SONNET
+## V341-UJFIX2-2 OPEN SONNET (filed whole 1x this turn, novel inbound; see ledger)
+
+# Review: FIX-2 v1, Q1-Q3 (Sonnet seat, advisory, zero weight)
+
+I ruled on the page only. EA line numbers below are re-derived by counting the region blocks, not from disk. I did not verify any digests.
+
+## Q1: OBJECT
+
+**Q1-1 (blocking): the helper binds to the latest same-type session block, not the entry session's instance (P061-P088, P053).**
+- The walk (P072-P080) runs back from `barShift`, skips out-of-window bars until it finds the first `es`-window bar, then collects that contiguous block and breaks. It returns the most recent closed block of the entry session's type.
+- For a float spanning the first close, that block is the entry session. If the float also spans the next same-type close, the walk returns the newer block. Example: an NY LONG entered on day N that is still floating when NY closes on day N+1. That close is roughly 300 bars later, well inside the 600-bar cap.
+- If the day N+1 high is lower than the revised `tpRef`, P042 passes again and a second UJRETARGET fires onto a session the trade was not entered in.
+- This breaks the contract ("entry-session", "once-only"). P053's claim that "the closed bar set is immutable so the strict inequality fires at most once" holds only within one session block.
+- Fix: require the collected block to contain the trade's admission bar. Track the newest and oldest in-session bar times during the walk and return false unless the entry bar time falls between them.
+- SManagedTrade's field list is not on the page, so I can't name the admission-time field. If none exists, this needs one new carriage field. That contradicts P005's "no new" claim, and P005 should be restated.
+
+**Q1-2: no floor against the entry price.**
+- The entry bar is part of the session, so the closed high is at least the entry open. It can equal it, when the entry bar is the session high (high == open).
+- Then `uj_rtPx == entry` is a zero-R target, and the next touch scratches the trade. P042 only checks that the target is tighter than the old `tpRef`.
+- Add `uj_rtPx > entry` for LONG and `< entry` for SHORT (or a minimum distance).
+
+**Q1-3: old-RHELP will not byte-match disk (P055-P056).**
+- R-SESS shows a blank line at EA-1888 between `  }` (EA-1887) and the `[P-RESQUAT-1 F-a]` comment (EA-1889). P053 also says the site is "after EA-1887, before EA-1889".
+- P055-P056 present the two lines as adjacent. This is the same class as the retired old-R skew.
+- Either include the blank line in both old and new, or anchor on the comment line alone.
+
+**Q1-4 (page gaps and imprecisions):**
+- The retarget sits inside the `tpRef` valid guard (P038-P048). A trade with no booked TP is never retargeted. State that explicitly.
+- Only the 9-line tail of `CurrentTradingWindow` is on the page. R-SESS shows London tested before NYAM, so any window overlap would silently shrink the NY block relative to the producer's session high. The window bounds are not on the page, so this is unverifiable, not a defect.
+- P009 has "closed on the day exit", but P024/R01 show `POI_BODY_BREAK` at 6/8 00:50, and R03 shows `vDAY=0`. P128 reconciles this by prose.
+- Nothing on the page shows that 160.262 was touched after the 19:00 close. Acceptance branch (ii) can therefore pass with no exit at the session high, which proves the revision only. Before any build, add one disk-checked fact from the segment: the first post-19:00 bar with high ≥ 160.262, or "none".
+
+**Confirmed on the page:**
+- Brace balance in new-R (P038-P048).
+- Old-R bytes versus R-TP (4 spaces).
+- The UJRETARGET print has 5 specifiers and 5 arguments.
+- The helper is defined before its caller.
+- The +12 and +29 counts.
+- The only-tighter guard is idempotent within one block.
+- The retarget's own logic is sound.
+
+**Verdict-line discrepancy:** Q1 has two different verdict sentences. The section header says "helper body matches its contract... close transition exact". The trailing "Q1 verdict line" says "match their specified old-to-new deltas and exit floating trades". Under the second wording, the deltas match except Q1-3. Under the first, the contract fails on Q1-1. Pick one wording.
+
+## Q2: CONFIRM (advisory)
+
+- **B3 delta is exact.** Old is 9 specifiers and 9 arguments. New adds `sb=%d` with `s1g_seedBiasAl` (an int, per P025) in matching position: 10 and 10. The old block matches R-PROMO's EA-8343 line.
+- **Sites re-derive from R-PROMO.** Condition at EA-8339, print at EA-8343, else at EA-8344, promotion at EA-8347.
+- **Gate logic is exact.**
+  - The gate is a three-way promote / kill / wait.
+  - `sb==0` with M15 aligned reaches `GoAbort(...); return;`, which is fail-closed.
+  - `-1` and `1` promote.
+  - Unaligned M15 still waits.
+- **ABORT define.** `#define ` (8) + name (22) + one space places the quote at column 32, matching the family.
+
+Notes, none blocking:
+1. Acceptance should count `S2SEEDBIAS_KILL` rows, not just check that one exists. The kill goes to IDLE, and a seed that re-forms every bar under the same bullish flip would kill every bar.
+2. The page never shows that EA-8133 assigns `s1g_seedBiasAl` at every route into S2, and R-SCOMB's transfer never touches it. If some route inherits a stale 0, the gate could kill a must-keep. There are no `SEEDBIAS` rows for the 6/3 or 6/5 admissions on the page. Add their `sb` values from the segment before build.
+3. The aligned path still bypasses the gate (P137, parked and stated). The B-venue acceptance is scoped to the 09:25 pass, which is right.
+4. The ABORT define and S3TELEM have no old/new anchor pair, unlike R, RHELP, B2 and B3. For STAGE-1 exact-diff, give an anchored form, including where the insert sits relative to the blank EA-407.
+5. P003 and P005 call UJRETARGET and UJSBTELEM "modified print lines". Only S2PROMOTE_M15 is modified, and the others are new.
+
+## Q3: CONFIRM (advisory)
+
+- It is zero-behavior.
+- It has 10 specifiers and 10 arguments.
+- It sits between EA-8361 and EA-8362.
+- Its `ReadBuf1(..., barShift)` uses the same bar as the `L` in IsConfirmationCandle.
+- The A_OPP and C_TOUCH branches need o1, h1 and l1.
+- Add `c1`, `o1`, `h1`, `l1` (and `c0`, `o0`) to the print. They are plain iOpen/iHigh/iLow/iClose reads with no behavior change.
+- At about 50 minutes per UJ run, a print that cannot decide the term wastes the round.
+- Ruling: v2-with-telemetry again. Adopt no term change now.
+
+**Luna's C_TOUCH candidate looks unsupported by the page.** This is an inference from R09, and it depends on what CONFIRMPOLL fields mean. That definition is not on the page.
+- R09 shows, for the SHORT holder: `oppCandle=0`, `bodyDir=0`, `doji=0`, `body=3pts`. That implies c1 ≤ o1 and c0 > o0.
+- For the LONG contender on the same line, `bodyDir` is then true, so B_BODY passes. A_OPP passes unless c1 == o1.
+- If `touchAttr=1` equals the function's `touch` expression, C_TOUCH passes too. That leaves A2_CLOSE_BREAK, or a flat-c1 A_OPP, as the refusing terms.
+- Under that reading the candidate would not restore 14:35 and would loosen the shared EU pipeline for nothing.
+- Confirm the `touchAttr` definition on disk before the candidate is ever weighed.
+
+## Ask B: better mechanism
+
+For Q1, the block-contains-entry check in Q1-1 is the smallest fix. The alternative is a once-only latch bool on the trade, which is also a new carriage field. The buffer route stays parked as the packet says.
+
+## Summary (advisory, zero weight)
+
+| Q | Verdict | What decides it |
+|---|---|---|
+| Q1 | OBJECT | Q1-1 breaks the once-only, entry-session contract on multi-session floats; Q1-3 anchor mismatch; Q1-2 zero-R target |
+|---|---|---|
+| Q2 | CONFIRM | Notes 1-5 |
+|---|---|---|
+| Q3 | CONFIRM fence, DISCREPANCY on P122 | Add c1/o1/h1/l1 to the print |
+
+I did not verify disk truth, and this ruling builds and clears nothing.
+
+## V341-UJFIX2-2 END SONNET
