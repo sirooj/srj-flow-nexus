@@ -5,15 +5,39 @@ Source migrated from `.clinerules` (Cline IDE, 1770 lines, accepted 2026-09-08).
 `.clinerules` stays on disk as the full session-history archive — this file is the
 live rule set. If this file and a master's directive conflict, THE MASTER'S
 DIRECTIVE WINS — relay it verbatim.
+PORTFOLIO REFRAME (operator order 2026-09-29 — the project is no longer SRJ-only;
+HORC is the second strategy and the future pattern for more): this file governs
+ALL strategy automations. Workflow rules (relay protocol, invariants, tester
+discipline, filing discipline, plain-language memos) are STRATEGY-NEUTRAL and bind
+every strategy. Strategy CONTENT (rules memory, specs, journals, baselines,
+packets) is PER-STRATEGY and never crosses: SRJ rules never judge HORC takes,
+HORC notes never enter SRJ relays. Every work block declares its strategy first
+(STRATEGY-CONTEXT, §10); a block serving no declared strategy is out of order.
 
 ## 1. What this project is
 
+Strategy 1 — SRJ Flow Nexus (live since 2026-09-08):
 Operator rebuilding a personal EURUSD M5 trading strategy as MQL5:
 `SRJ_FlowLogic.mq5` (indicator: order-block / FVG / regime export buffers) plus
 `SRJ_FlowNexus_EA.mq5` (expert: candidate/hypothesis lifecycle consuming those buffers).
 Strategy intent: Revision 60 and the Part A Specification v4.2.
 KPI: STRUCTURAL AGREEMENT between documented strategy and code.
 Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says so.
+
+Strategy 2 — HORC / Hendray Opening Range Concept (learning phase since 2026-09-29):
+influencer-sourced concept the operator does not yet fully grasp. Phase order is
+fixed: learn (watch oldest-first, YouTube first) → extract (one note per video,
+Tier-1-rules-only) → glossary + spec (his correction before code) → manual replay
+gate (10-20 past days by hand) → alert-only helper (indicator draws, EA alerts,
+no orders) → backtest vs his hand-marked bars → demo-forward, then stop.
+Full auto-trading is OUT OF SCOPE until his explicit word. Learning vault:
+`C:\Users\winar\OneDrive\Documents\HORC\` (outside this tree; only finished
+`HORC_*` code ever lands here). Copyright guardrail: transcripts are private
+study notes; rules are rewritten in our own words; nothing of his republished.
+
+Future strategies follow the HORC pattern (learn → spec → his-gate → alert-only
+→ prove), never a fresh workflow. New strategy code takes a fresh `PREFIX_*`
+namespace; shared MQL5/terminal knowledge stays in `BUILDER_REF_MQL5-QUIRKS.md`.
 
 ## 2. Who is who
 
@@ -42,6 +66,12 @@ Mode: ALERT-ONLY. No execution. No live trading. Ever, until the operator says s
     fallback): Astra-sufficient for PRINT-ONLY packets (nothing builds
     that can move selection); dual-key stays mandatory for any
     selection change. First use: P-ORIGIN-1 builds on Astra-1 alone.
+- PER-STRATEGY AUTHORITY (operator order 2026-09-29 — portfolio reframe): council
+  packets, dual-key gates, and verdict filings bind CANONICAL CODE EDITS per
+  strategy (SRJ set in §6.1, HORC set when its code starts). Learning-phase work
+  (watch notes, transcripts, glossaries, draft specs, manual replay checklists)
+  needs NO packet, NO key, NO relay — it needs only his correction. A council
+  seat is never spent on learning notes.
 - Strategy-rule questions NOT answered by the spec go to THE OPERATOR.
   Answer from documented rules FIRST before framing operator questions.
   RECORD-FIRST QUESTION GATE (operator directive 2026-09-14, after the
@@ -192,8 +222,11 @@ same turn, never deferred; the protocol itself stays (dual-key + audit trail).
 
 ## 6. Hard invariants (violating these repeats known defect classes)
 
-1. NO canonical-file edit without a master-issued packet/token. Canonical = the EA,
-   the indicator, the fourteen `Include\SRJ\*.mqh`, and any file the master names.
+1. NO canonical-file edit without a master-issued packet/token. Canonical = PER
+   STRATEGY: the SRJ set (the EA, the indicator, the fourteen `Include\SRJ\*.mqh`,
+   and any file the master names) plus, from its Phase 7 onward, the HORC set
+   (`HORC_*` indicator/EA/includes — named when code starts). One strategy's
+   packet never authorizes another strategy's files.
 2. Every read/edit path LITERAL and ABSOLUTE. No globs, no -Recurse, no paths built
    from variables.
 3. DIGESTS ARE THE INSTRUMENT. Mtimes and .ex5 sizes are INADMISSIBLE as
@@ -442,6 +475,21 @@ scope - a uniqueness/count assert that reads the DISK file while the write
 targets a MEMORY index (or vice versa) proves nothing about the write; every
 scripted write asserts its post-condition on the WRITTEN artifact (re-read the
 index it wrote, compare the replaced span), never on a parallel source.
+37. TOOL-STACK RULE (2026-09-29 - builder-probed same turn: python/python3/py
+absent on this box; node v24.18.0 present; rg absent; PS 5.1. AMENDED same day:
+python 3.13.15 installed per-user on his order, proven by version + search test):
+discovery runs on dedicated tools first (Grep/Glob/Read); authoritative counts,
+censuses, TSV joins, and byte audits run as Temp-staged scripts (literal absolute
+paths, explicit utf8 on both sides, count-asserts beside every output) in node
+or python, never as PowerShell one-liners alone - Select-String/Get-Content traps
+are banked (backslash literals, 1-indexed vs 0-indexed, scalar unroll, ANSI-vs-UTF8,
+Measure-Object). Python runs by full literal path
+(C:\Users\winar\AppData\Local\Programs\Python\Python313\python.exe - bare python
+in fresh login shells; python3 absent on this box) and only as Temp-staged .py
+files, never inline -c with quotes (quoting layers strip them, proven same turn).
+PowerShell stays for the harness/compile/hash/git wrappers that already exist.
+Zero-counts still need two differently-formed patterns in ANY tool. Temp script
+names carry the lane prefix; scripts stay ASCII-only.
 
 ## 7. Automation rule (operator standing rules)
 
@@ -506,7 +554,8 @@ index it wrote, compare the replaced span), never on a parallel source.
 - DRAFT-SPLIT (operator order 2026-09-20 — rushed drafts burn council rounds):
   draft turns end with files plus pasted verification numbers, never a transport
   ask. Transport turns carry only battery-green drafts. The two are never mixed.
-  MEMO-COMPLETION (operator order 2026-09-28, amended same turn - the word-ask is removed: he always proceeds, asking was friction): a battery-green relay ships its transport memo the SAME block (memo text plus ledger plus pointer plus commit) with NO separate proceed-word ask - his standing proceed covers every relay-ready transport. The block ends memo-shipped-and-recorded, and stops there: the only lawful outstanding item is his verdict paste-back. Build/run/key words are NOT covered by this removal - code, runs, and keys still need his explicit word every time (unchanged). His veto on any transport is withholding the paste, never a builder-side wait.
+  MEMO-COMPLETION (operator order 2026-09-28, amended same turn - the word-ask is removed: he always proceeds, asking was friction): a battery-green relay ships its transport memo the SAME block (memo text plus ledger plus pointer plus commit) with NO separate proceed-word ask - his standing proceed covers every relay-ready transport. The block ends memo-shipped-and-recorded, and stops there: the only lawful outstanding item is his verdict paste-back. Build/run/key words are NOT covered by this removal - code, runs, and keys still need his explicit word every time (unchanged).   His veto on any transport is withholding the paste, never a builder-side wait.
+- PROCEED-FREE CONTINUATION (his order 2026-09-29 — "why wouldn't i say proceed either way", fourth friction-stop instance, owned as D15 repeat): grade blocks continue into fold-plus-relay-plus-battery-plus-memo unattended in the same block; "say proceed" / "next block on his proceed" endings are banned phrasing. Stops happen ONLY where he is the sole carrier or sole authority (verdict paste-backs, run words, money/goals, strategy rules) or at relay-ready memo-shipped. Awaiting his verdict paste-back is a his-carrier stop, never friction. Build/run/key words stay gated on his explicit word (unchanged).
 - RELAY-READY SCOPING (operator correction 2026-09-20 — the intake-stop defect):
   todo lists scope to the next relay-ready artifact (draft files plus verification
   numbers), never to an intake/accounting/report sub-step — a "report" terminal
@@ -516,7 +565,17 @@ index it wrote, compare the replaced span), never on a parallel source.
   builder-decided technical-shape work (veto-able on report) and never waits for
   his word. "Read-only intake" constrains build/run/commit/canonical writes only,
   never drafting. The block ends at battery-green draft files or a genuine
-  his-carrier block — never on a report.
+   his-carrier block — never on a report.
+- AGENTIC-CONTINUATION (operator order 2026-09-29 — learning lesson, his words:
+  do not stop unless his input or his action is owed; if nothing is owed back
+  to him, do not stop): his owed items NEVER gate independent work. Instance
+  owned same turn: the A02 caption-draft sat parked behind his owed image-saves
+  + Q-answers although all Section-A captions sit on disk needing nothing from
+  him. Every turn ends with all builder-side work advanced (next draft pulled,
+  next number derived, next file staged) PLUS his owed list stated — or a genuine
+  his-carrier block. "Waiting on him" covers ONLY the artifact his eyes/hands
+  alone can produce. A status ending of "once X lands I will Y" where Y needs
+  nothing from him is a friction-stop (D15), repaired by doing Y before reporting.
 
 ## 8. Tester harness
 
@@ -587,7 +646,8 @@ any conflict: current digests live in the pointer + latest result file)
 - Runs: `SRJ_FlowNexus_Local\00_CURRENT_WORKING\` (ini + STATUS/DONE + tabulate scripts).
 - Strategy of record: `00_CURRENT_WORKING\SRJ Flow Nexus — Part A Specification v4.2`
   + `GOAL_STATEMENT.md` + `CHARTER.md`. Read the spec before framing operator questions.
-- MQL5 quirks reference: `BUILDER_REF_MQL5-QUIRKS.md` (ordered 2026-09-27 — niche environment, little training data). Read whole before drafting any MQL5 code, packet edit, or relay row claim; every entry carries disk evidence, section 4 lists the unverified remainder.
+- MQL5 quirks reference: `BUILDER_REF_MQL5-QUIRKS.md` (ordered 2026-09-27 — niche environment, little training data). Read whole before drafting any MQL5 code, packet edit, or relay row claim; every entry carries disk evidence, section 4 lists the unverified remainder. STRATEGY-NEUTRAL: binds SRJ, HORC, and every future strategy; per-strategy domain quirks append as dated sections with evidence, never as edits to existing entries.
+- HORC learning vault (outside this tree, outside git): `C:\Users\winar\OneDrive\Documents\HORC\` — `00_WATCHLIST.md` (58 rows, Tier-1-first oldest-first) + `01_NOTES\` (one file per video + `CAPTIONS_A\`) + `02_PICTURES\`. Vault files are NEVER staged to this repo. HORC code, from its Phase 7 onward only: `Indicators\HORC_OpeningRange.mq5` + `Experts\HORC_Alert_EA.mq5` (+ `Include\HORC\` if needed) — new files only, zero SRJ touches.
 - Debris awaiting operator deletion word: `EA_STATE_REG.md`, `recovery_compile.ps1`.
 - Exactly ONE rules tree exists. MQL5 folder IS the data tree.
 
@@ -599,6 +659,10 @@ any conflict: current digests live in the pointer + latest result file)
 4. Full `.clinerules` history read NOT required — it is the archive; this file governs.
 5. Do nothing else until a directive or accepted decision memo is on the table,
    except the automation rule (§7) already authorizes continuous packet execution.
+- STRATEGY-CONTEXT (portfolio rule 2026-09-29): every block opens by naming its
+  strategy (SRJ, HORC, or new). SRJ blocks resume via pointer + latest result +
+  relay + verdicts; HORC learning blocks resume via the vault watchlist (next
+  unwatched row) + latest note. Cross-strategy evidence never mixes.
 6. ADHERENCE GATE (operator rule 2026-09-14 — digests prove IDENTITY, never
    ADHERENCE): before any build/run is requested or executed, confirm a filed
    adherence audit covers the CURRENT EA digest rule-by-rule against
@@ -618,12 +682,60 @@ any conflict: current digests live in the pointer + latest result file)
   read further (delegate-to-subagent and similar) never override this line.
   The two most relevant skills are re-read whole before each relay/packet/grade
   block, with counts; a block worked off memory of a skill is a scoping defect.
+  PER-STRATEGY MEMORY (portfolio rule 2026-09-29): srj-strategy binds SRJ ONLY —
+  it never judges another strategy's takes. HORC strategy memory lives in the
+  vault (`03_GLOSSARY.md` + `04_SPEC_HORC_PartA.md` when they land) and is
+  consulted the same way before HORC grades, questions, and relays.
 
 ## 11. Work ledger (living record — this section stays lean by rule)
 
-The running queue history lives in `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`
+The running queue history lives in `SRJ_FlowNexus_Local\06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`
 (moved 2026-09-16, operator order: AGENTS.md was bloated and cost focus; items 1-257 verbatim).
 New queue items append THERE with continuing numbers (last moved: 257). Nothing appends here, ever.
+RENAMED 2026-09-29 on his order (was BUILDER_LEDGER_QUEUE.md, the single-project name; now SRJ-named since a second automation project runs): byte-identical move, history kept, all live references re-pointed the same turn.
+PORTFOLIO LEDGER (operator order 2026-09-29; SUPERSEDED SAME DAY — the live 971
+collision proved one queue cannot serve two lanes): EACH STRATEGY OWNS ITS
+LEDGER. SRJ: `SRJ_FlowNexus_Local\06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`
+(continuing, SRJ lane only). HORC: vault `06_LEDGER_HORC.md` (from its #1;
+SRJ items 968-976 stand verbatim as cited prior history, never copied).
+Future strategies open their own ledger file at lane creation, same pattern.
+No session appends to another lane's ledger, ever. Cross-strategy evidence
+still never mixes (§10 STRATEGY-CONTEXT).
+
+## 11b. Multi-session coexistence (operator order 2026-09-29 — two lanes share
+one tree; he does not separate sessions, so this file separates them)
+
+- LANES AND OWNERSHIP. SRJ lane owns: `Experts\SRJ_*`, `Indicators\SRJ_*`,
+  `Include\SRJ\`, `SRJ_FlowNexus_Local\` (incl. pointer, ledger, packets,
+  results, relays, verdicts), SRJ tester runs. HORC lane owns: the vault
+  (`C:\Users\winar\OneDrive\Documents\HORC\` — notes, pictures, glossary, spec,
+  HORC ledger) plus, from its Phase 7, `HORC_*` code files only. A block writes
+  ONLY its declared lane's files (§10 STRATEGY-CONTEXT). HORC-lane blocks load
+  the `horc` skill (lane workflow, caption pipeline, operator-instruction
+  format) alongside this file; the SRJ lane never opens it.
+- SHARED FILES (read-mostly): `AGENTS.md`, skills, quirks ref, `opencode.json`.
+  A lane editing one announces it in its OWN ledger the same turn (file +
+  reason); edits never ride silently. Verify-by-re-read before editing (a
+  co-session may have moved the anchor minutes ago).
+- TEMP: scratch names carry lane prefixes (`A0x-`/`HORC-` vs `vNNN`/`srj-`/
+  `relay_`/`packet_`); an unprefixed Temp file is foreign until proven.
+- COMMITS: stage by lane path while two lanes are live (refines §6.5 sync
+  discipline for coexistence) — never bare `add -A` across lanes; each lane's
+  build/result commits carry only that lane's files. COMMIT AUTONOMY (his order
+  2026-09-29): each lane commits ONLY its own paths on the builder's call, no
+  per-commit word needed. HORC lane: `HORC_*` code (`Indicators\HORC_*`,
+  `Experts\HORC_*`, `Include\HORC\`) plus `horc` lane files
+  (`.opencode\skills\horc\`, `.opencode\skills\horc-handoff\`,
+  `.opencode\commands\horc-handoff.md`). SRJ lane: the SRJ set named in LANES
+  AND OWNERSHIP above plus `srj-*` lane files. Vault files are never staged
+  (outside the repo). Shared files (`AGENTS.md`, quirks, `opencode.json`) ride
+  with the lane that edited them, announced in its OWN ledger the same turn,
+  never mixed across lanes in one commit. Push stays gated on his word plus
+  credentials (§6.5 unchanged): verify via ls-remote, never force, never
+  automatic.
+- COLLISIONS: overlap artifacts (duplicate numbers, mid-file landings) are
+  documented with number + both owners + byte order, never reshuffled, never
+  renumbered. Ledger MAX+1 computes over the OWN lane file only.
 The ledger is NEVER required reading — resume runs pointer, then latest result + relay + verdicts.
 Open the ledger only for audits (ruling IDs, digests, dispute archaeology).
 
@@ -702,6 +814,10 @@ here and load every turn)
 - GOAL-JOIN after every run (srj-goal: scoreboard re-joined, misses diagnosed,
   next packet named); STRATEGY-CONSULT before grading, questions, and relays
   (srj-strategy: his words over code, always).
+  PER-STRATEGY (portfolio rule 2026-09-29): both fire against the block's
+  DECLARED strategy (§10 STRATEGY-CONTEXT) — SRJ blocks join the SRJ scoreboard
+  and consult srj-strategy; HORC blocks join the HORC gate checklist and consult
+  the vault glossary/spec. SRJ pins never grade HORC takes and vice versa.
 - SLIM-PAGES: smallest page that carries the ask (relay
   budget §5); one question per relay by DEFAULT, multi-question (Q1/Q2, separate verdicts)
   on his per-round word (2026-09-23 simplification order); draft and transport turns never mixed (§7).
@@ -747,3 +863,4 @@ here and load every turn)
 - UNEXPLAINED-FILE (2026-09-28 mystery-relay: a 115KB relay appeared mid-turn, unrecorded, twinning the packet with encoding shadows; runner unknown): quarantine on disk (never transport/grade/build from it, never overwrite, never delete without his word); record bytes + timeline + twin-diff in the ledger; the next relay ships only after his deletion word frees its name; a firing collision guard is itself the save - credit it. Triage in one batch (transcript authoring-call? staging trail? mtime vs own last call); Temp-stage all assemblies; his-eyes-only second-session check rides the report, never a second turn.
 - WRITE-TRIPLE-PROOF (2026-09-28 V324-verdict loss: appended texts verified 1x/1x then absent from disk with no commit between; markers plus tails alone are insufficient): high-value filings (verdicts, packets, relays) prove by hash-before plus hash-after plus git-diff the same turn, and re-hash after any delay before grading or building on them; a filing whose post-delay hash differs is REFILED, never diagnosed from memory.
 - HIS-FRAME-FIRST (operator order 2026-09-27 — the 160.028 answer: the builder validated an EA booking against a poll-ref computation while his R-AT-OPEN + swept-death rules contradicted it, owned D3 same turn): before ANY grade, take-attribution, or answer to him, write his frame first — entry/SL/target per his words at the bar with the rule pins named — then compare EA rows against it. An EA behavior presented as rule-conformant without the his-frame baseline is a D3, caught here before any relay, never by him after it. Fires pre-grade AND pre-answer-to-him.
+- NUMBER-RESERVE (his order 2026-09-29 - two live sessions filed 971x2 plus a 978 race on the same file; a distinct name cannot stop same-file races): the next ledger number is CLAIMED before it is filled - compute MAX via helper, append `N. RESERVED-<lane>-<date>` as its own line at EOF with tail proof, then fill by exact-anchor replace of that line the same block. A foreign RESERVED line is never reused, overwritten, or filled - the next claim takes MAX+1 above it. No block ends with its own RESERVED unfilled (fill it or strike it the same block).

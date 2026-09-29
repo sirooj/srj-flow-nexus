@@ -3823,3 +3823,38 @@ All are prose or grade-predicate items. None needs an EA change and none blocks 
 Both stand as carried-CLEAR from the prior round. No re-rule was asked, and my Q1 CONFIRM does not touch them.
 
 ## V345-UJFIX2-6 END SONNET
+
+## V346-UJFIX2-7 OPEN SONNET
+
+# Q1 verdict: CONFIRM
+
+The prose dispositions match their specified deltas, with zero fence change. I checked the following on the page only, and nothing here speaks to disk truth.
+
+- **ET hour (P054, P171, P179):** London 02:00-05:00 ET and NYAM 07:00-12:00 ET, plus the +7 offset, give London 09:00-12:00 server and NYAM 14:00-19:00 server. That agrees with the 12:05 SESSION_CLOSED abort (P026), the 19:00 close (P024, P138), and every takes-sheet entry time. No live 14:00-ET claim survives; P171 and P179 mention it only as retired.
+- **Quantization wording (P042, P048, P167, P180):** "NormalizeDouble both sides at _Digits" and the raw-equality-artifact sentence are consistent. P180 correctly admits that rounding-boundary crossers still normalize differently.
+- **Fence arithmetic (re-counted from the fences):**
+  - **Line nets:** R +13, RHELP +36, B2 +3, B3 +0, S3 +2, so +54 and 12202 + 54 = 12256.
+  - **Format arguments:** UJRETARGET 5=5, UJNORETARGET 6=6, UJSBTELEM 10=10, S2SEEDBIAS_KILL 3=3, and B3 10=10.
+  - **Regions and ABORT column:** the ABORT define lands at column 32, and the region lines sum to 146.
+
+## Analytic ask A: defects and imprecisions (none blocks CONFIRM)
+
+1. **P009, dangling reference.** "The Rule line above" points to nothing in the packet. The Rule lines live in the relay's His-words section, not in the twin. Either quote the Rule inline or write "the relay's Ruling-1 Rule line".
+2. **P009, scope wording.** Narrowing his unscoped rule ("a closed session high/low") to the entry session type is a scope decision, even though P054 already implements it. "No scope change proposed" undersells it. Say "scope narrowing disclosed, his word owed if he objects".
+3. **P182, dangling reference.** It cites "section 0 scope", but the packet has no section 0; only the relay does. Cite the relay explicitly or repeat the sentence in the packet.
+4. **P138, P170 and P181, relay-only row IDs.** R01, R03 and R13 resolve only against the relay's Rows section. If the packet file is the durable artifact, cite these rows by content or add "(relay Rows)".
+5. **P138, "touch ... on any later bar."** The retarget precedes the TP block in the same pass (P038 through P052). So a touch on the 19:00 bar itself, evaluated about 19:05, counts. Change "later bar" to "that bar or any later bar".
+6. **P139, garbled phrase.** "sb=-gated promotion rows run-wide" is unclear. State what the grade should see, for example "every S2PROMOTE_M15 row carries sb=, and none carries sb=0".
+7. **P141, BIASDEFY key.** Name the key explicitly as an S2PROMOTE_M15 row with sb=0 (P125 makes this greppable). Right now "on a seedbias-REJECT bar" needs a cross-join to SEEDBIAS rows.
+8. **P141 and P145, duplicated prose.** The "Loose echoes ... (GLM-3)" and "Grade greps anchor ... (GLM-4)" sentences appear near-verbatim in both places. That risks drift on the next edit. Keep one and cross-reference it.
+9. **P175, retired term still live.** "The tolerance edit" reuses the word P180 retires. Label lines such as MOD-TOL can stay as history, but the P175 sentence should read "the quantization edit".
+10. **P171, placement and duplication.** It sits under the "(v5)" heading but carries the v6 correction, and it duplicates P179. The header claim "numbering unchanged" is true of numbering, not content. Say "content edited in place" or restore P171 and let P179 carry the correction.
+11. **P167, missing exit outcomes.** It says the R-venue revision spans 461 points and that "no valid take moves". Entries are untouched, but the page never states the exit times of the 3 June London LONG or the 5 June London SHORT relative to the 12:00 server London close. If either was still floating then, FIX R can retarget it to the closed London extreme and change its outcome. Add one line per trade saying "exited before close" or "revised".
+12. **P139, "EU takes identical."** FIX R sits in the shared managed-exit path, so it also moves EU exits. An earlier exit can free the trade slot and change later admissions even though entry logic is untouched. The EU proof obligation (P132) covers only IsConfirmationCandle. Extend it to say the EU sibling check must also replay exits and later admissions bar-for-bar, or state why the exit path cannot couple to admission there.
+13. **P153, P168 and P169 vs P133, stale audit.** P133's settled-rules audit says exits are touched "only" and never states the exit-to-admission coupling that item 12 raises. Add one sentence.
+
+## Analytic ask B: better mechanism
+
+Nothing better for this packet. The only candidates are the ones already parked with cause: the latch bool and a single-writer capture (P147, P174), and normalize-at-assignment (P191). Their absence doesn't leave a defect, since the UJ-RERETARGET backstop stands.
+
+## V346-UJFIX2-7 END SONNET

@@ -14196,3 +14196,39 @@ A cleaner future hardening would be to make the comparison use one explicit norm
 **Final council form: `CONFIRM` — no Q1 blocker.** The two remaining concerns are wording/robustness qualifications, not a defect in the specified v5 tolerance delta. Q2 and Q3 therefore remain carried-CLEAR as instructed.
 
 ## V345-UJFIX2-6 END LUNA
+
+## V346-UJFIX2-7 OPEN LUNA
+
+## Q1 — CONFIRM
+
+**Change sentence:** The v6 prose dispositions correctly implement the V345 fold: the ET session-end wording is corrected to **12:00 ET / 19:00 server**, the tolerance language is replaced by `_Digits` decimal-normalization wording, and the remaining scope/evidence/terminology dispositions are folded without changing the fenced code regions or entry pipeline.
+
+The supporting anchors are internally consistent:
+
+* **P009/P010/P011:** the three standing rulings remain exactly aligned with the intended fixes: 5 June retarget, 8 June seed-bias structural refusal, 11 June missed LONG.
+* **P179:** the retired `14:00-ET` wording is correctly replaced by the `07:00–12:00 ET` NYAM window and `19:00` server close.
+* **P180–P190:** the tolerance, exemplar, session-scope, freed-window, `bar=`/`tpB=`, `uj_admitBarTime`, zero-row, `termC`, near-entry, fallback-scope, and session-instance wording all match the stated V345 dispositions.
+* **P138–P141:** the acceptance/finding prose consistently reflects those dispositions and does not introduce an entry-side modification into this prose-only round.
+* The packet explicitly records the six fenced regions as zero-diff against the measured v26 tree, while the v6 changes are prose-only.
+
+### Analytic A — defects / gaps / imprecisions
+
+**No blocking defect or disposition discrepancy found.**
+
+Two **non-blocking precision points** remain:
+
+1. **P171/P179 `+7` offset is replay-specific.** The page derives it correctly for this June/server configuration, but the prose could be read as a permanent ET→server invariant. It would be more exact to say explicitly that `+7` is the offset for the June replay configuration.
+
+2. **P138's “19:00 session-close pass” is shorthand.** Technically the evaluated M5 bar is the **19:00-open out-of-session bar**, processed around 19:05; P138 does subsequently state that precisely, so this is terminology only, not a grading defect.
+
+There is also a **known proof-boundary gap**, already disclosed rather than hidden: a missed `EvaluateManagedTrade` pass around the session close can forfeit the revision without distinguishing that condition from an internal retarget failure. P160 explicitly records that limitation, so it is not a v6 contradiction.
+
+### Analytic B — better mechanisms
+
+For future hardening, the cleaner mechanism would be an explicit **per-trade session-close edge/latch**: detect the first out-of-session evaluation after the entry session closes, capture that session instance once, and mark the trade instance as retarget-processed. That would make “exactly once at the close boundary” explicit rather than relying on session containment plus the strict-tighter `tpRef` comparison.
+
+That would touch the managed-exit insertion around **EA-11826–11842** and require a per-instance state field in `SManagedTrade` around **EA-239**, plus its admission/reset sites. The packet correctly leaves that mechanism parked because v6 is constrained to the existing carriage and no fence change.
+
+**Final ruling: CONFIRM.** No Q1 prose discrepancy warrants an OBJECT. Q2 and Q3 remain carried-CLEAR as stated.
+
+## V346-UJFIX2-7 END LUNA
