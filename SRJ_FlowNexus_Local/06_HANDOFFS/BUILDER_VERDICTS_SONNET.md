@@ -3716,3 +3716,67 @@ I did not re-rule them. My arithmetic spot-checks are consistent with the page:
 - The S3 telemetry site sits between EA-8361 and EA-8362.
 
 ## V343-UJFIX2-4 END SONNET
+
+## V344-UJFIX2-5 OPEN SONNET
+
+# Q1 verdict: CONFIRM
+
+The why+sess fields at P048 match the specified delta. The once-only claim holds jointly (P042 strict-tighter caller plus P072/P094 containment). This is a page-only verdict. I did not check digests, counts or disk, and I could not diff the old v3 line 48, because it is not on the page. What I verified is that the v4 line contains the described fields and that the description is consistent.
+
+## What I checked
+
+- **Format strings:**
+  - UJRETARGET (P046) has 5 specifiers and 5 arguments in matching order.
+  - UJNORETARGET (P048) has 6 specifiers and 6 arguments: bar, dir, tp, rt, why, sess.
+  - The other three prints also balance: UJSBTELEM 10/10 (P130), S2SEEDBIAS_KILL 3/3 (P113), and the S2PROMOTE_M15 line with sb (P125) 10/10.
+- **The `why` ternary is exhaustive.**
+  - The helper returns true only for LONG or SHORT (P066) and only with px > 0 (P093, P095).
+  - So "helper true and not strictly tighter" is exactly {rt == tpRef, rt looser}, and eq/loose covers both.
+  - When the helper is false, px stays 0.0 (P064), so no row prints. This matches P145.
+- **`sess` has the same source as UJRETARGET.** Both use `g_mtrade.sessionAtEntry` (P046, P048), as P153 says.
+- **Braces balance.**
+  - P039/P049 outer and P043/P047 inner balance.
+  - The `else if` at P048 binds to the P041 `if`.
+- **Once-only holds.**
+  - After a revision, tpRef equals rt exactly (P045), so P042 is false on every later pass.
+  - The helper reads closed history (P078-P092), so its value is stable for the instance.
+  - A later same-type session either returns false at P072 (still open) or fails containment at P094 (a different run).
+- **Budget arithmetic.**
+  - The R insert is P037-P049, which is 13 lines against 3 retained lines (P050-P052), so +13.
+  - RHELP is 39 new lines against 3 old, so +36.
+  - B2 is +3, B3 is +0 and S3 is +2, so the total is +54 and 12202 + 54 = 12256.
+  - The ABORT define puts its quote at column 32 against the R-ABORT region.
+
+## Analytic ask A: defects, gaps and imprecisions (none blocking Q1)
+
+1. **P153 old-fence cite.** It names "EA-11826-11842" as the old fence. The old-R fence (P032-P034) is 3 lines, which by R-TP region offset is EA-11829-11831. 11826-11842 is the whole (b) TP block. Separately, the insert lands after the "(b) TP: the BOOKED target" comment, so that comment now heads the retarget block. This is cosmetic.
+2. **Rows provenance conflict.** Section 0 says the rows are byte-carried from the v343 relay file. The Rows heading says v342. One of them is wrong.
+3. **Cross-references in the admit-time pins.**
+   - P146 says "P005/P132 stand" for admitBarTime pre-existence. P132 is the S3/EU-obligation paragraph and does not concern that. It may be a relay-line number.
+   - P054 says "zero struct change" while P156 and P146 say the member already exists at EA-264. Reword to "pre-existing member, no struct change by this packet".
+   - P054 also says the set site EA-10647 is "beside" EA-10627, which are 20 lines apart.
+4. **Exact double equality.** P042 (`rt < tpRef`, `rt > tpRef`) and P048 (`rt == tpRef`) use raw doubles. If a booked tpRef and iHigh/iLow differ by an ulp for the same nominal price, P042 fires a spurious UJRETARGET row with old and tp printing identically, and P048 mislabels eq as loose. Once revised, tpRef is bit-identical to rt, so the once-only claim is unaffected. Only the first-fire edge is exposed.
+5. **`sess=%d` is unreadable without a map.**
+   - The page never gives the numeric values of the session enum, and S2PROMOTE_M15 prints a name via SessionName.
+   - `sess` is also constant per trade, so it does not discriminate instances. P153's "self-identifies" is true of `why` only.
+   - Instance mapping in P141's UJ-RERETARGET predicate must come from UJADMIT (R13, trade_seq) or timestamps. Say so on the page.
+6. **Row volume and what eq means for grading.**
+   - After a revision, the eq rows repeat every pass until the next same-type session starts, and loose rows repeat the same way for the whole float. That is roughly 19-21h at 12 bars per hour, or about 230-250 rows per trade.
+   - P138 branch (ii) should name the eq rows as tpRef-carry evidence.
+   - An eq row with no prior UJRETARGET row in that instance means a coincidence or a pre-existing equal, not a revision proof. P141 has no predicate for that.
+7. **P138 overpromises.** It says the fixed tree "exits under Friday session discipline per branch (i)/(ii)". Fix R implements no Friday exit. In branch (ii) the trade floats to the Monday 00:50 break exactly as in R01.
+8. **No-booked-TP trades.** The whole R block sits inside the P038 `tpRef` validity guard. A trade with no booked TP gets no retarget and no diagnostic row, and the UJ-NORETARGET predicate (P141) would flag it without explanation.
+9. **Gap-over fill.** If price is already beyond rt on the revision pass, the same-pass touch books at rt, since MTEXIT consumes tpRef (P030). That is conservative for a LONG, but grade should treat it as expected, not as a fill defect.
+10. **Scope wording.** His scope word says to fix the 11 June miss. The packet delivers telemetry only (P132, P140). P140 states this, but the scope line in section 0 should say the 11 June term is not fixed by v4.
+11. **Take label.** "Changed-by-design ... identical admission required" for the 5 June London SHORT reads as contradictory. Clarify which side changed.
+
+## Analytic ask B: a better mechanism, carried and not re-ruled
+
+- **Gap.** B2 gates on the seed-time snapshot `s1g_seedBiasAl` (P107). His rule (Ruling-2) is about the live 5m flip. If the flip occurs after seeding but before the M15-fallback promotion, the snapshot stays 1 and the promotion still fires with ltf opposed. The same applies on the aligned path, which P141 already flags as invisible.
+- **Mechanism.** Also refuse when `uj_ltfOk && uj_ltfb` opposes `g_dir`. It would touch P107/P108, needing the ltf read hoisted above the condition, and P141's UJ-BIASDEFY predicate would extend to match.
+- **Status.** I am not asking to re-rule Q2. This is a candidate to park for a future touch.
+- **Tolerance fix for item 4.** Use `NormalizeDouble(x, _Digits)` on both sides, or a `_Point/2` tolerance, at P042 and P048. This is the same line count with no argument change.
+
+Q2 and Q3 stand as carried. I raise nothing against them.
+
+## V344-UJFIX2-5 END SONNET

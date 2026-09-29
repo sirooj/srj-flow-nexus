@@ -7691,3 +7691,46 @@ Q2 and Q3 stand carried-CLEAR per the V342 tallies as quoted in the packet (both
 — End of seat ruling. Genuineness vs disk (digests, byte-diffs, twin, future build) remains his to prove on his machine; this ruling construes the page only.
 
 ## V343-UJFIX2-4 END GLM
+
+## V344-UJFIX2-5 OPEN GLM
+
+**Q1 verdict: CONFIRM** — both legs (diagnostic-row fields at P048 match their specified delta; the once-only claim holds jointly as pinned).
+
+## Verification (page-only, twin + regions; no disk claims made)
+
+**Leg 1 — MOD-R48 (P153) field delta, exact:**
+- P048 carries `why=%s` with the exact specified ternary `(uj_rtPx == g_mtrade.tpRef ? "eq" : "loose")` and `sess=%d` with `g_mtrade.sessionAtEntry` — the same member, same source as UJRETARGET at P046. Specifier census re-counted: **6 = 6**, types aligned (five strings + one int; `sessionAtEntry` is int per the helper's own `int es = t.sessionAtEntry;` at P067).
+- Same-line edit: brace structure of the R fence unchanged and balanced (outer if P038/P049; inner if P041-42 opens P043, closes P047; the P048 else-if binds to P041). Retarget logic and entry pipeline untouched — the edit modifies only a PrintFormat argument list; P133's settled-rules audit holds.
+- Row scope is precise as worded at P145: the `uj_rtPx > 0.0` guard restricts the row to helper-true cases, because the helper zeroes `px` at entry (P065) and assigns it only on the true path (P095). Containment-blocked, truncation-blocked, in-session, wrong-session-type, and unset-admission reads produce no row — exactly the Luna-A3 scope.
+
+**Leg 2 — once-only, jointly:**
+- Containment (P094): eligibility only for the run containing `uj_admitBarTime`; once a newer same-type session closes before a pass, the walk's most-recent run no longer contains the admission bar → helper false → silent no-op (the NOTE-A4 forfeit window, P160, correctly pinned).
+- Strict-tighter caller (P041-42): after one revision, `tpRef` equals the instance extreme; equality fails both strict tests, so the same instance can never qualify again — and the v4 `why=eq` echo is precisely that blocked re-fire, now self-identified, so the grade counts conditions, not rows (P153). The strict inequalities at P042 and the eq/loose partition at P048 are complements — no unlabeled residue case exists.
+- UJ-RERETARGET (P141) stands as the pre-ruled divergence backstop. Stated caveat, not a defect: the joint proof assumes no second writer of `g_mtrade.tpRef` between passes; none exists on the page (P005 "managed only", P024 frozen-at-booking) — disk-truth class, correctly backstopped by the grade predicate.
+
+**Prose pins verified:** PROSE-L005 (P005 four-print census = P046/P048/P113/P130, plus the modified S2PROMOTE at P125 — re-counted, 10=10); PROSE-L054 (P054 P-RESQUAT label matches the R-SESS EA-1889 anchor and P058/P146; walk numbers 40-250 / 130-350 / 600-cap coherent with 288 bars/day); PIN-A3 (P094's bounds are safe under bar-open admission semantics; the EA-264/10647/6890/12181/12191 chain is stated, disk-side); NOTE-S4 exact against P087-091 (run-membership and price-read are separate; all-invalid run fails closed at P093); NOTE-S5/S6/A4 pinned; LUNA-A1/A4 relay-side wordings (section 0, P138); LUNA-A3 in place at P145. Budget recount re-derived independently: R +13 (P037-P049), RHELP +36 (P062-P097), B2 +3 (P107 0-net + P112-113 kill + P117 define), B3 +0, S3 +2 (P129-130) = **+54**; 12202 + 54 = 12256 ✓; per-print censuses 5=5 (P046), 6=6 (P048), 3=3 (P113), 10=10 (P130) all re-counted. Region cross-checks pass: R-TP is pre-edit v26 state matching the old-R fence; R-SESS ends at the EA-1889 P-RESQUAT anchor; R-ABORT shows Task-160 at EA-408, matching P115's insert-before claim; R-SCOMB names (uj_sbHave/Dir/Line/ConfC/ConfH/TermC/TermH) all resolve for P129-130.
+
+## Ask A — defects / gaps / imprecisions (all low severity; none rises to OBJECT)
+
+1. **Rows-source label mismatch:** section 0 says rows byte-carried from the **v343** relay file; the twin Rows header says **v342**. One link is stale; if the chain is byte-carried the bytes agree either way, but name one canonical source (or "v342 via v343") so audits single-count.
+2. **P048 indentation:** the else-if carries 11 leading spaces vs 7 on its if at P041 (closing brace P047 at 9). Cosmetic in MQL5, but flag it so the splice battery does not mis-file it as a v4 structural change; it is either carried from v3 or a paste artifact.
+3. **Loose-echo repetition undispositioned in prose:** P153/P145 self-identify the *equal* echo; the `why=loose` case recurs identically every pass in the same window (rows stop only when containment starts failing at the next same-type close) and is equally benign. The page implies but never states that loose echoes are also condition-counted. One sentence closes it. No grading hazard: UJ-NORETARGET (P141) keys on UJRETARGET *absence*, not on UJNORETARGET multiplicity.
+4. **Near-collision of names:** the finding predicate **UJ-NORETARGET** (P141) vs the print tag **UJNORETARGET** (P048) differ by one hyphen; grade greps should anchor on the bracketed tag form to avoid conflation.
+5. **ET/server offset never pinned:** the session map is quoted in ET (P054) while journal and acceptance times are server (19:00 close at P138; entries 09:10/09:35/09:45/16:55). The implied offset is inferable and everything reconciles under it, but the page should pin it once.
+6. **ABORT column pin (P115/P117):** as rendered, the family defines (R-ABORT, EA-405/406) and the new P117 define appear one column apart; relay whitespace cannot settle it. Battery asserts at build — keep the battery count as the ruling and re-count if the family differs. Q2-carried, no re-rule offered.
+7. **Task-160 double-listed:** section 0 ("already retired in the v3 packet, carried") and P155 (PROSE-L054) both carry the retirement; P155's "matches P146" reconciles them, but marking it "carried/re-pinned" would keep fold audits single-count.
+8. **Load-bearing guard unlabeled:** `uj_rtPx > 0.0` in P048's else-if is the helper-true discriminator (P065/P095); the parallel term at P041 is redundant-defensive. A one-word comment prevents a future "simplification" from deleting the wrong one.
+9. **EA anchors are v26 pre-insert coordinates by convention** (e.g., "the EA-11829 caller" at P054 names the anchor region, not the post-insert call line; TP block EA-11826-11842 = R-TP region lines 6-22, exact). The convention is implicit — state it once to prevent future mis-reads.
+10. **Single-writer assumption** (leg-2 caveat above) is disk-truth, not page-provable — no action beyond keeping UJ-RERETARGET in the findings map, which the page does.
+
+## Ask B — better mechanism
+
+- **No superior zero-carriage mechanism is visible.** The strict-superior enforcement of once-only — an instance latch field in SManagedTrade — needs new carriage plus his word and is already parked with cause (P147, P054); correctly so.
+- **Optional print-only hardening (not required for CONFIRM):** carry the closed-instance bound (`TimeToString(uj_newest)`) or a trade_seq on the UJRETARGET/UJNORETARGET rows, making the UJ-RERETARGET instance mapping mechanical instead of derivational from pass timestamps. Touches P046/P048 argument lists only (censuses become 6=6 and 7=7; same-line edits; R budget stays +13; zero behavior).
+- Suppression of the eq echo was rightly refused — condition-counting needs the echo; no change proposed.
+
+## Close
+
+CONFIRM filed on Q1 whole. Q2 and Q3 ride carried-CLEAR, byte-unchanged fences, untouched by this verdict. Nothing built, run, spent, or cleared toward live activation; the build remains gated on a new key plus his run word, neither asked here. No files requested; genuineness vs disk stays on his machine.
+
+## V344-UJFIX2-5 END GLM

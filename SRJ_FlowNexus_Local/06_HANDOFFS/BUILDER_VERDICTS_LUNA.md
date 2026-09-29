@@ -14117,3 +14117,45 @@ I would **not** add a latch bool or extra carriage for Q1. The current admission
 **Filed Q1: CONFIRM.**
 
 ## V343-UJFIX2-4 END LUNA
+
+## V344-UJFIX2-5 OPEN LUNA
+
+CONFIRM
+
+Q1: The diagnostic-row delta at **P048** is correctly implemented as specified: `why=%s` plus `sess=%d`, with `why` resolving to `"eq"` when `uj_rtPx == g_mtrade.tpRef` and `"loose"` otherwise; it is diagnostic-only and does not alter entry behavior. **P153-P156** also correctly carry the requested prose pins. The once-only mechanism is jointly supported by the admission-instance containment in **EA-11829 / helper EA-1887 onward** and the strict-tighter caller gate at **EA-11826-11842**.
+
+### A — defects, gaps, and imprecisions
+
+**1. Equality diagnosis is bit-exact, not price-equivalence.**
+**P048**, code at the UJNORETARGET print site.
+`uj_rtPx == g_mtrade.tpRef` can miss a semantic equal-price case if the two `double` values differ only by floating representation or upstream normalization. The row would then say `why=loose` even though the displayed `_Digits` prices are equal. This is a diagnostic-quality defect, not an entry/exit behavior defect.
+
+**2. “Once-only per trade instance” is slightly stronger than what the shown local code proves in isolation.**
+**P037, P042, P145-P146, P153, P158.**
+The shown mechanism proves: one retarget for the contained entry-session instance, because after the first change the same helper result is no longer strictly tighter. But that argument implicitly assumes `g_mtrade.tpRef` is not later raised/replaced elsewhere while the same managed-trade instance remains alive. The page does not present a complete write-site invariant for `tpRef`; therefore the prose is correct under the existing managed-trade lifecycle, but not completely self-contained as a local proof.
+
+**3. The helper’s truncation guarantee is boundary-only, exactly as acknowledged.**
+**EA-078-093, P159, P145-P161.**
+`uj_ended` proves that the walk reached a transition out of the first encountered matching session segment; it does **not** detect an internal missing-bar/data hole inside that segment. The page correctly admits this, so it is a documented limitation rather than an unowned defect.
+
+**4. The helper itself does not enforce “closed evaluation bar” semantics.**
+**EA-070-072 / EA-078-094.**
+It assumes the caller supplies a settled evaluation bar. The page establishes that caller context, but the helper has no intrinsic check preventing a forming-bar invocation. For this packet that is a caller-contract gap, not a demonstrated behavioral defect.
+
+**5. `sess=%d` is mechanically sufficient but not maximally self-describing.**
+**P046, P048, P153.**
+The field identifies the enum value, but a textual session name would make the diagnostic row independently readable. This is only a telemetry ergonomics point; it does not invalidate the requested delta.
+
+### B — better mechanisms
+
+The only materially better mechanism I see without changing the stated design is to make the equality classification price-aware at **EA-11829 / P048**:
+
+```mql5
+string uj_why = (MathAbs(uj_rtPx - g_mtrade.tpRef) <= _Point * 0.5) ? "eq" : "loose";
+```
+
+or equivalently compare `NormalizeDouble(..., _Digits)` values. That would make the `why` field faithfully represent equality at the instrument's price precision rather than IEEE floating-point identity, while preserving zero entry-pipeline change.
+
+For the once-only mechanism, I do **not** see a better no-carriage design than the current **instance containment + strict-tighter caller** combination. A dedicated per-trade retargeted-session key would make the invariant explicit, but it would introduce new state/carriage and is therefore inferior to the stated FIX-2 scope.
+
+## V344-UJFIX2-5 END LUNA
