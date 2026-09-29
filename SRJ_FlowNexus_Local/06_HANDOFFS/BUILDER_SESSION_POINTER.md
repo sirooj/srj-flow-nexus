@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V340 GRADED LEDGER 967)
+## State (2026-09-29, V341 RELAY-READY LEDGER 971)
 
-- V340 verdicts filed whole 1x + graded (Q1 1-1 SPLIT / Q2 2-0 CLEAR / Q3 telemetry CLEAR + calibration SPLIT).
-  Result `06_HANDOFFS\BUILDER_RESULT_V340-GRADE.md` 4E12A877/7544/35. Packet FIX-1 v1 halted, no build.
-- Key spent; EU declined. Fold v2 scoped (Q1 exact body + Q3b branch + text fixes); draft next.
+- Packet FIX-2 v1 C2C1E377 + relay v341 8E589050 drafted, double battery green, memo shipped.
+  V341 verdicts owed back whole per seat (Q1/Q2/Q3).
+- Key spent; EU declined. Packet FIX-1 v1 halted, superseded.
   No build/run/key without his new word.
 
 ## Next
 
-- Draft packet FIX-1 v2 (EA reads first), then relay v341 battery + memo.
+- His V341 verdict paste-back, whole per seat (Q1/Q2/Q3).
 
 ## Resume order (exact)
 
