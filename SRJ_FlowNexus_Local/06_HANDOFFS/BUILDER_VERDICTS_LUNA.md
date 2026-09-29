@@ -14232,3 +14232,34 @@ That would touch the managed-exit insertion around **EA-11826–11842** and requ
 **Final ruling: CONFIRM.** No Q1 prose discrepancy warrants an OBJECT. Q2 and Q3 remain carried-CLEAR as stated.
 
 ## V346-UJFIX2-7 END LUNA
+
+## V347-UJFIX2-8 OPEN LUNA
+
+OBJECT
+
+The audit-disposition fold is not internally clean enough for a CONFIRM.
+
+**1. P67’s “zero entry-pipeline change” is contradicted by the packet itself.**
+Q1 states the delta has “zero entry-pipeline change,” but P101/P107 and P112-P117 explicitly alter the S2 promotion edge with a seed-bias gate plus a new abort path. The packet itself calls these “entry-side fixes” in P19. That is an entry-pipeline behavior change, even though S5 election is untouched.
+
+**2. The RHELP implementation does not enforce the stated “session-close / entry-session-instance” boundary. This is the substantive code defect.**
+P054 says the helper is for the closed **entry-session instance** and that “other session types closing never retarget.” But the code at P070-P086 only requires the current bar to be outside the entry session, then keeps scanning backward through *all* non-entry-session bars until it eventually finds an `es` session. Because the loop continues while `CurrentTradingWindow(bk) != es` when `have` is false, a London trade can be evaluated at a later NYAM close (or another later out-of-session bar), walk backward through the intervening NYAM/non-session bars, recover the older London run, and return `true`.
+
+That means the implementation currently proves “an entry-session run exists somewhere behind this evaluation bar,” not “this evaluation is the close immediately following the entry-session instance.” The R-SESS map confirms London and NYAM are distinct windows, so this is a real cross-session case, not merely terminology.
+
+**3. The prose overstates what `uj_ended` proves.**
+P093-P094 treat `uj_ended` plus admission containment as sufficient for an entry-instance close, but `uj_ended` is only set after *some* matching session run has been found and then an older non-matching bar is encountered. It does not prove that the matching run is the session immediately preceding `barShift`. This is the same underlying boundary defect and should be corrected rather than merely carried as wording.
+
+**4. The `UJNORETARGET` terminology is still imprecise.**
+P141 calls `UJ-NORETARGET` the failed-retarget finding, while the actual emitted tag is `UJNORETARGET`; P145 acknowledges the spelling difference. More importantly, the emitted diagnostic only occurs when the helper returns a positive target that is not tighter. It does **not** occur when the helper fails because of containment or the 600-bar truncation guard. Therefore “no UJRETARGET row” and “UJNORETARGET” are not interchangeable predicates.
+
+**5. The London acceptance remains partly evidence-dependent, and the packet admits that gap.**
+P197 says the journal proves the 09:45-12:00 portion of the London-short run, while the 09:00-09:40 pre-admission lows are unproven in the cited journal rows. Since the helper intentionally scans the whole session instance, the eventual target can depend on those pre-admission bars. The packet correctly labels this an evidence gap, but it means the stated expected target is not fully established by the carried evidence alone.
+
+**Analytic B — better mechanism**
+
+The cleanest fix is to make the helper require that `barShift` be the **first out-of-session bar immediately following an `es` run**, then scan only that contiguous `es` run and apply the existing admission containment check. In this packet that means changing the helper introduced after EA-1887 / before EA-1889, around P062-P097: before the loop, require the prior bar (`barShift+1`) to be `es`; then stop the walk as soon as the contiguous `es` run ends. That makes a later NYAM close unable to reuse a prior London instance.
+
+The carried Q2/Q3 clears are unaffected by this Q1 objection, consistent with the packet’s own close rule.
+
+## V347-UJFIX2-8 END LUNA

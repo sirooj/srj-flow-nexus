@@ -3858,3 +3858,79 @@ The prose dispositions match their specified deltas, with zero fence change. I c
 Nothing better for this packet. The only candidates are the ones already parked with cause: the latch bool and a single-writer capture (P147, P174), and normalize-at-assignment (P191). Their absence doesn't leave a defect, since the UJ-RERETARGET backstop stands.
 
 ## V346-UJFIX2-7 END SONNET
+
+## V347-UJFIX2-8 OPEN SONNET
+
+# Q1 verdict: OBJECT
+
+The objection is narrow and confined to the audit layer. I have no objection to the code fences or the entry pipeline, and no fence change is proposed. The defects are in the prose, manifest and labels that were supposed to make the V346 dispositions traceable. I rule on the page only, and the disk digests are not something I can check.
+
+## What I checked and found correct
+
+- Region line counts are 22, 22, 46, 42, 17 and 5, which sum to 154. Each matches its declared EA span.
+- The anchors land where the page says:
+  - R-TP: line 6 is EA-11826, and the old-R fence at lines 9-11 is EA-11829-11831.
+  - R-PROMO: the `uj_m15r` test is EA-8339, the S2PROMOTE print is EA-8343, and the `else` is EA-8344.
+  - R-SCOMB: the confirm pair is EA-8360/8361 and the transfer `if` is EA-8362.
+  - R-SESS: the closing brace is EA-1887 and the F-a comment is EA-1889.
+- The ABORT define at P117 puts its quote at column 32 with one space, and it sits after the last define at EA-406.
+- The RHELP insert (P062-P097) is 36 lines. The budget of 13+36+3+0+2 = 54 gives 12202+54 = 12256.
+- Row values are internally consistent. R13's R of 3.47 matches (160.294-160.089)/(160.353-160.294), and 161.723-160.262 gives the 461-point span.
+
+## Defects, with P-lines
+
+**D1. P194 contradicts P196.** P194 says lines 1-198 are unchanged from v6. P196 says 1-193. v6 has 199 lines, so its Run-cost section (194-199) moved to 207-212. The earlier headers (P151 "1-149", P165 "1-164", P177 "1-176") each name the last blank line before the new section, so the correct value is 1-193.
+
+**D2. The manifest cites the wrong line for A7-VAR.** P196 lists 175 as touched, and P175 is the v5 budget recount. P203 (A7-VAR) says the variance acceptance sits "in REWORD-P054 tail", which is P185. P185 is not in the manifest, and its text shows no variance acceptance. Either 175 should be 185 and P185 needs the visible tail, or P203 is wrong.
+
+**D3. The manifest lists lines but not which disposition touched each.**
+- P138, P139 and P175 are listed as touched with no disposition ID in P197-P205.
+- P200 (A2-BAR) says "no edit" at P138, yet P138 is on the touched list.
+- GLM-A2 has no appended entry and lives only inline at P141.
+- GLM-A3 (R-SESS) has no P-line at all, because the span is carried in the relay and not in the twin. Every line the manifest claims byte-identical can be checked, but the touched lines can't be tied back to their dispositions.
+
+**D4. Seat labels collide across rounds.**
+- P204 parks "GLM-A2/A3/A4", copied from P191, where the labels meant V345 items.
+- In V346, GLM-A2 (UJ-CARRY, P141) and GLM-A3 (R-SESS) are adopted. P204 therefore reads as parking two dispositions the relay adopts.
+- The same collision applies to Luna-A1 through A4 (V344 at P167, V345 at P180, V346 at P199-P200) and to Sonnet-B and Luna-B. Every ID needs a round prefix.
+
+**D5. The Q1 scope list does not match the manifest.**
+- The relay's Q1 line names P167-P174 (only 167 is touched) and P194-P207 (207 is the Run-cost heading, and the appended section is 194-206).
+- It omits the touched lines P001, P003, P132, P133, P138, P139 and P179.
+
+**D6. Two line-reference namespaces are in use.** P198 says "L132/L133", and P141 and P162 say "L145". The answer form asks for P-lines, so these should be P132, P133 and P145.
+
+**D7. P138 branch (ii) contradicts itself.**
+- It says the Monday 00:50 exit is "graded as divergence finding vs R01", and later says the trade floats "exactly as R01". An identical outcome is not a divergence.
+- The page also never states whether any bar between Friday 19:00 and Monday 00:50 reaches 160.262.
+- If none does, branch (i) is unreachable and Fix R cannot change the R-venue outcome at all. That fact is on his machine, and the page should pre-declare it. It bears directly on Ruling-1.
+
+**D8. P197 overclaims for the 5 June London SHORT.**
+- The helper takes the extreme over the whole London instance, including the unproven 09:00-09:40 bars. The retarget fires only if every such low is above 159.900. Otherwise `uj_rtPx` is not tighter, and the result is UJNORETARGET with why=loose.
+- So "fires by rule" and "missing UJRETARGET = no-fire finding" must be conditional on that evidence.
+- "Exit earlier than 12:15" is also not guaranteed. The 12:15 bar touching 159.900 necessarily touches 159.908, so the exit is at or before 12:15. It is strictly earlier only if a 12:00-12:10 low reaches 159.908. The same phrase appears in the section 0 takes sheet.
+
+**D9. P138 and P181 conflict on UJADMIT.** P138 joins UJRETARGET to UJADMIT for retarget distance. P181 says no R-venue UJADMIT row exists. The page should say whether that refers to the RECON74 segment only or to the future run. If the R-venue route emits no UJADMIT row, the join has no key.
+
+**D10. P139 and P140 disagree on 6/11.** P139 says "6/11 conditional" and P140 says the 6/11 entry is absent in this build. The former should read "6/11 absent".
+
+**Minor:**
+- P115 says "before the Task-160 block EA-408", which is ambiguous about the blank at EA-407. It should say between EA-406 and EA-407.
+- P009 refers to "P009/P010/P011 below" from inside P009.
+- The RHELP new fence drops the blank between `}` and the helper comment, which is cosmetic.
+
+## Analytic ask A: further gaps on the page
+
+- **Offset derivation (P171/P179).** The +7 derivation rests on the 12:05 SESSION_CLOSED row, which only bounds the London end at or before 12:05. It doesn't fix it at 12:00. The R-SESS span shows the conversion only through `TC_ZoneToServer`, which is outside the span, so the span alone can't prove +7.
+- **Seedbias lifecycle (P101).** The page proves the value space (-1/1/0) and the setter (EA-8133), but not that every seed route resets or sets `s1g_seedBiasAl`. The takes sheet says the 5 June London SHORT moves to a B1/prebind route. If that route doesn't write the variable, a stale 0 could kill a legitimate promotion. The carried lifecycle demo build-gate should name the B1/prebind route explicitly.
+- **Log volume (P048).** UJNORETARGET (eq) repeats on every pass for the rest of the float, up to about 130+ rows over a weekend. This is stated as condition-counted, but the grade should cap or dedupe it.
+
+## Analytic ask B: better mechanism
+
+- **Generated manifest.** Have the assembly battery emit a table of touched line, old and new hash, and round-prefixed disposition IDs. It should assert that every touched line has at least one ID and every ID names at least one line. This closes D2, D3, D4 and D5 mechanically. It touches no EA lines.
+- **UJ-CARRY predicate (P141).** Define it as: for an EXITVERDICT row in a trade instance, tpB equals the booked TP before the first UJRETARGET and equals the latest UJRETARGET tp= after it. Any other value is a finding. The current tail names only the 160.262-versus-160.723 case, which is not a predicate.
+- **Pre-declared grade branches.** D7 and D8 can be settled from the segment's bar highs and lows before any run. The two questions are the maximum high from 6/5 19:00 to 6/8 00:50, and the minimum low from 6/5 09:00 to 09:40. Both should be stated in the acceptance section, proven on his machine.
+
+Q2 and Q3 are carried-CLEAR and I re-rule neither. This objection does not touch them.
+
+## V347-UJFIX2-8 END SONNET

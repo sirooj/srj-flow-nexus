@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V347 RELAY-READY LEDGER 996)
+## State (2026-09-29, V347 GRADED LEDGER 997)
 
-- Packet FIX-2v7 FE73CF26 + relay v347 75CC4D68 drafted, double battery green, memo shipped.
-  V347 verdicts owed back whole per seat (Q1 + carried Q2/Q3).
+- V347 verdicts filed whole 1x per seat (Luna+GLM+Sonnet 1x/1x); Q1 0-2 OBJECT HALT, Q2/Q3 carried-CLEAR.
+  Fold v8 scoped: prose + helper-boundary fence fix; result 3D89AB1E filed.
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- His V347 verdict paste-back, whole per seat (Q1 + carried Q2/Q3).
+- Fold v8 draft (packet FIX-2v8 + relay v348 + battery + memo), proceed-free.
 
 ## Resume order (exact)
 
