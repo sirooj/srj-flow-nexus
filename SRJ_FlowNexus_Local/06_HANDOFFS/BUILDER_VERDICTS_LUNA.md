@@ -14370,3 +14370,60 @@ For the **audit-map**, the better mechanism is simpler: make the fold battery as
 **Disposition:** Q1 remains **OBJECT** until P122 is reconciled with the actual B4 un-gating, and the broad P239 wording is narrowed. Q2/Q3 remain the carried-CLEAR priors exactly as the packet specifies; this objection does not re-open them.
 
 ## V349-UJFIX2-10 END LUNA
+
+## V350-UJFIX2-11 OPEN LUNA
+
+**Q1: OBJECT**
+
+**Change sentence:** The v10 page must splice the claimed final code into the supplied R-TP/R-PROMO/R-SCOMB/R-SEED/R-ABORT regions, because those regions still show the pre-v10 fences rather than the P122/cast/B2/S3/B4 edits the prose says are present.
+
+### Analytic A — defects / gaps / imprecision
+
+1. **R-TP is stale and directly contradicts the claimed P122/cast fold.**
+   P037-P049 show the new `UjClosedSessionTarget()` call, `UJRETARGET`, `UJNORETARGET`, and `(long)` casts. But the supplied **EA-11821-11842** R-TP region contains none of those edits and still begins with the old `tpBookedTouch` block. This is the clearest Q1 failure. P151 says R is **+13**, so a 22-line final R-TP region is incompatible with the stated fold.
+
+2. **The cast claim is not present in the supplied code fence.**
+   P252 says `(long)` is applied at P046/P048 and that the cast delta is identity-safe. The actual **EA-11821-11842** region still has no such cast-bearing print calls. That makes the cast assertion un-auditable from the twin as supplied.
+
+3. **R-PROMO is still the pre-B2 fence.**
+   P110 requires `&& s1g_seedBiasAl != 0`; P115-P116 add the `S2SEEDBIAS_KILL` branch. The supplied **EA-8329-8350** region still has only:
+   `if(uj_m15r && uj_m15b == uj_wantb)`
+   followed directly by the old `else`/`S2WAIT` path. Neither the new gate nor the kill branch is present. P151's B2 +3 includes the new abort define as well, so the promo region itself should be longer than the shown 22 lines.
+
+4. **R-ABORT is also stale.**
+   P119-P120 require `#define ABORT_SEEDBIAS_REFUSED "SEEDBIAS_REFUSED"`. The supplied **EA-404-408** region contains only the old two defines and the Task-160 heading. The claimed new abort code is absent.
+
+5. **R-SCOMB is stale against the S3 telemetry claim.**
+   P145-P147 add the `uj_sbLineVal` read and `UJSBTELEM` print. The supplied **EA-8351-8396** region contains the contender evaluation but no `UJSBTELEM` statement. P151 says S3 is **+2**, while the supplied region remains 46 lines.
+
+6. **R-SEED still shows the old debug-gated setter, contradicting B4.**
+   P134-P142 explicitly say the outer condition changes from `InpDebugLog && ...` to `...`, while the print alone becomes debug-gated. The supplied **EA-8125-8140** region still has:
+   `if(InpDebugLog && s1f_seedArmed ... )`
+   and an unwrapped `PrintFormat`. Therefore the claimed B4 fold is absent from the actual R-SEED excerpt.
+
+7. **The packet's "mechanical splice / diff 0" assertion therefore conflicts with its own displayed regions.**
+   P250/P255 claim every manifest entry changed as specified and that the battery proves it; P151 gives explicit net additions. Yet the affected regions reproduce the old shapes. The page cannot simultaneously be the final v10 mechanical twin and contain these pre-edit region bodies.
+
+8. **The `-1` seed-bias sentinel is semantically overloaded.**
+   P122 describes `-1` as "never-seeded." But the supplied R-SEED code assigns `s1g_seedBiasAl = -1` whenever `CheckLtfAlign(...)` returns false and `s1t_alOk` remains `"UNREAD"`. So `-1` can mean both "never seeded" and "seed evaluation unavailable." That is a real diagnostic/semantic imprecision even though the Q2 ruling explicitly carries `-1` as pass. The distinction is documented in prose, but the code value itself does not preserve it.
+
+9. **The helper's disclosed data-gap limitation remains material.**
+   P176 says internal data holes are undetectable. Consequently, absence of a qualifying price inside the walked session run can be indistinguishable from missing history. That weakens `RETARGET-ABSENT` as an audit finding even though the limitation is honestly disclosed.
+
+10. **The helper's exact final EA line span is not given.**
+    P054 identifies the helper as immediately after EA-1887 and before EA-1889, but does not give a complete exact EA range for the new function body. Given that this round is explicitly line-audited, that leaves part of the claimed code delta less mechanically verifiable than the other fences.
+
+### Analytic B — better mechanisms
+
+**1. Make the packet regions self-consistent with the claimed final tree.**
+The strongest improvement is assembly-side: derive each R-* excerpt from the final canonical EA text rather than carrying historical fence bodies and separately pasting old/new snippets. For this fold that means the final excerpts must contain the actual R insertion at **EA-11826-11842**, B2 at **EA-8329-8350**, S3 at **EA-8351-8396**, B4 at **EA-8125-8140**, and the abort define at **EA-404-408**. The current budget lines P151/P250 can then be checked against those emitted spans.
+
+**2. Give seed-bias states distinct meanings.**
+For a future behavior round, touch the setter at **EA-8133** and the promotion decision at **EA-8329-8350** so "never seeded," "unread/unavailable," "reject," and "aligned" are distinct states rather than overloading `-1`. That would prevent an unavailable seed read from being indistinguishable from no prior seed.
+
+**3. Add explicit session-walk data-gap detection.**
+For a future robustness round, extend `UjClosedSessionTarget()` at its walk/containment logic (the helper body described at P063-P100, with its placement immediately after EA-1887) to detect missing M5 timestamps and emit a distinct diagnostic instead of silently treating a hole as simply "no qualifying extreme." That would make the retarget audit distinguishable from incomplete history.
+
+**Q2 / Q3:** the carried-CLEAR dispositions remain untouched; this Q1 OBJECT does not reopen either carried ruling.
+
+## V350-UJFIX2-11 END LUNA

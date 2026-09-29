@@ -7950,3 +7950,61 @@ Nothing here builds, runs, spends, or clears live activation; the build stays ga
 Nothing here builds, runs, spends, or clears live activation; no files requested. The A-list is prose-owed debt for the next fold, not conditions on this CONFIRM. Q2/Q3 ride carried-CLEAR untouched. No re-rule given on either.
 
 ## V349-UJFIX2-10 END GLM
+
+## V350-UJFIX2-11 OPEN GLM
+
+# GLM seat — Q1 ruling, packet P-RECON74FIX-2v10 (EF881C27), relay v350-UJFIX2-11
+
+## Q1 verdict: CONFIRM
+
+The P122 rewrite, the identity casts, and the audit close match their specified old-to-new deltas on the page, and "zero other fence change" holds against every fence check runnable from the page. Five imprecisions plus two notes found (A1–A7 below); all are prose- or render-level, none touches a fence or the Q1 delta set, so they grade as dispositions, not objections (same class as the V342–V346 CLEAR-with-dispositions grades).
+
+## Basis (page-only; disk claims noted, not re-verified)
+
+1. **P122 post-B4 rewrite.** P122 now reads: setter EA-8133 un-gated (EA-8126 debug term dropped), SIDE1T_SEEDBIAS print debug-gated, replay rows identical under the pinned InpDebugLog=true config, fallback-path convergence only ("narrowed scope, not lifecycle-wide"), single-candidate reseed overwrite with the lifecycle-shadow/reset parks carried. This matches the B4 fences exactly — new-B4 (P135) drops InpDebugLog from the condition; new-B4P (P141) re-gates the print head — and matches P130/P239 plus the V349 dispositions STALEP122 (P251) and SCOPENARROW (P253). No dual-state text remains at P122; the V347 P232 "debug-gated setter" mention lives inside the carried historical V347 section (history label, never a live claim), so no conflict.
+
+2. **Casts — the only v10 fence edit.** `(long)g_mtrade.uj_tradeSeq` appears in the P046 (UJRETARGET) and P048 (UJNORETARGET) argument lists. Recounts: P046 specifiers bar/dir/old/sess/tp/seq/admit = 7, arguments = 7 (7=7); P048 specifiers bar/dir/tp/rt/why/sess/seq/admit = 8, arguments = 8 (8=8). Identity holds against the pinned type (long, struct EA-265, set EA-10648, printed via g_mtrade — P238/P252); a (long) cast on a long is a no-op at value level, so "identity-safe" is exact. NET 0, same-line.
+
+3. **Audit close.** P150 carries the B4-scope clause (S1 seed block only; CheckLtfAlign read-only EA-2371-2377, no globals/counters; consumer print-only; fallback-path convergence only; no S3/S4/S5 touch) plus S5-election-untouched and pre-confirmation-promotion-gated-by-design for R/RHELP and B2/B3, S3 prints-only. Fallback-scoped STRUCTURAL-BIAS kill stated at P010 (authority), P206, P240, P253. 11 June telemetry-only at P157 and the takes sheet. The V349 fold section P248–P258 carries all eight dispositions at P250–P257 with tail P259–P264 as the manifest describes.
+
+4. **Zero other fence change.** MANIFEST-10 (P250) lists the casts as the sole fence edit. Independent checks: the B4 fences are the v9 same-line swaps verbatim (P132–P135, P137–P142, NET 0); the B2 condition/kill (P110, P115–P116) and ABORT define (P120) sit at the pinned anchors (promote EA-8339, block end EA-8343, S2WAIT else EA-8344 per R-PROMO; define between EA-406 and the blank EA-407 per R-ABORT; quote column 32 re-counted against ABORT_DIV_FALLBACK — both quotes land at column 32); B3 (P128) holds sb=%d with s1g_seedBiasAl, 10=10; S3 (P146–P147) holds 10=10, decl + print, siting after EA-8360/8361 before EA-8362 per R-SCOMB; the R fence carries the v5 NormalizeDouble compares (P042, P048 ternary) and helper call (P041) unchanged. Promote/kill/wait logic re-derived: -1 and 1 pass (s1g_seedBiasAl != 0), 0 kills (fail-closed GoAbort+return, ungated on debug), misalignment waits — matching P122 and the Q2 carried tally.
+
+5. **Budget and geometry re-derived from the fences.** R +13 (insert P037–P049, retained 3), RHELP +39 (P062–P100 = comment + 38 code lines, retained 3), B2 +3 (0 + 2 + 1), B3 +0, S3 +2, B4 +0 → +57 vs 12202 → 12259 (P151/P257 agree). Helper internals re-checked: first-out-bar pin (P073–P075), contiguous-run break with uj_ended (P085–P089), containment [oldest,newest] vs uj_admitBarTime (P097; reads initialized values only because P096 returns first), LONG-high/SHORT-low selection (P092), fail-closed on no-price/no-edge (P096), 600-bar cap = k < barShift+601 (P081). Region census re-counted: 22+22+46+42+17+16+5 = 170 with per-span headers matching; old-R fence = EA-11829–11831 inside the EA-11826–11842 block (CITE-P153); RHELP siting EA-1887/1889; seed-block pins EA-8126/8133/8134 against R-SEED; session map EA-1873–1876 half-open [from,to) matching P054/P188. Rows R01–R13 each 1x, R07 x3-labeled; twin ends at P264; the v8→v9→v10 numbering chain (226→253→264 with the declared shifts) holds arithmetically.
+
+6. **Disk split.** Digests, twin diff-0, regions 0-diff vs EA, ASCII census, round-trip exactness are disk-proven per the standing split, not answerable from this seat; nothing on the page contradicts them.
+
+## Analytic ask A — defects, gaps, imprecisions (each non-blocking for Q1, reason given)
+
+**A1 (P005, v10-introduced).** "B4 seed-block condition/print-head mods (EA-8126/EA-8138)" — the print head is EA-8134, not EA-8138. R-SEED (EA 8125–8140) places the setter at EA-8133 (pinned at P025/P122/P130/P150/P239) with the PrintFormat head on the immediately following line (EA-8134); EA-8138 is the `s1t_alOk,` argument line. No coordinate system on the page (v26 pre-insert, or post-insert +40 from RHELP/ABORT) yields 8138 for the print head. One-token prose fix next fold; zero fence impact; not in the Q1 delta set.
+
+**A2 (P150/P025 vs P255, pin tension).** The s1g_seedBiasAl consumer is pinned at EA-10357 in P150 and P025 but "EA-10362-10372" in P255 (GATES). If both name the SIDE1R_RGATE print (head line vs statement span), the page never says so. Same class, smaller: P255's "s1g_legDir seed-captured EA-8057" vs the in-tree comment at EA-8130 ("EA:1038 decl, assigned 7609 this pass") — two line numbers for the same variable's assignment; if both sites exist, naming both closes it. Prose only; reconcile or unify.
+
+**A3 (P116, fence string, carried pre-v10).** The S2SEEDBIAS_KILL print tail reads "(Fix R)"; the branch belongs to FIX B2 (P104–P118, ABORT_SEEDBIAS_REFUSED) and should read "(Fix B2)". Cosmetic: grade predicates key on the bracketed [SRJ-EA] tag and row name (P158/P162 grep rule), never the parenthetical, so zero predicate and zero behavior impact. It predates v10, so no fence-delta breach. Disposition path: one-string correction riding the next fence touch per the standing P256 park, or a tagged NET-0 micro-fold; folding it inside this verdict would itself be a fence change, which is why it is named, not made.
+
+**A4 (P132/P138/P141 vs R-SEED; P106/P125 vs R-PROMO; render fidelity).** As rendered to this seat, the B4 fences show 12/14-space indent where the R-SEED region shows the same EA lines at 10/12 (EA-8126, EA-8134), and the B2/B3 fences sit +1 vs the R-PROMO renderings (EA-8339, EA-8343). At most one rendering of each line is EA-true; the page's own battery pins regions 0-diff vs EA (case-sensitive), making the fences the suspect side. Two resolutions: (i) real on disk — STAGE-1's exact-diff surfaces it at the gated build (the designed catcher), and the B4 "same-line NET 0" swap would then carry an indent byte-delta beyond the specified swap; (ii) chat-transport whitespace noise — void. Same disclosed class as "mixed indent noted, untouched" (P245). Carried from v8/v9, not a v10 fence change, hence non-blocking here.
+
+**A5 (P157, nano).** The pre-ruled-tree shorthand "A_OPP: flat/doji candle-1" is incomplete: A_OPP fails on a flat/doji candle-1 AND on a wrong-direction candle-1 (oppCandle is pure c1-vs-o1 direction, R-CONFIRM ~EA-2323, fail branch ~EA-2324), while the doji test in code rides candle-0 under B_BODY (~EA-2328–2330). R09's oppCandle=0/bodyDir=0 row shows term-family failures co-occurring on one bar. Precision only; UJSBTELEM rows decide the term regardless (P157's own read-order discipline covers it).
+
+**A6 (P054, wording, carried).** The walk-geometry parenthetical "a Monday evaluation walks the Friday NYAM run, never the older London instance, and fails containment for a London trade" packs three scenarios into one sentence and reads contradictory on first pass against the P073–P075 pin (with 24h June bars, a Monday evaluation returns false at the bp check before any walk; the Friday-NYAM Monday-walk case only arises if the broker's Friday bar run ends at the 19:00 close, making Monday's first bar the first out-bar). The operative claims (contiguous run only, first-out-bar only, cap vestigial, no second fire) all hold under the fence, and P155's Friday 19:05 fire is the governing reading for the June config. Suggest unpacking next prose fold; no fence impact.
+
+**A7 (note, not a defect).** The relay's Q1 prose list includes P010; MANIFEST-10 does not list 010 among changed lines. Consistent: P010's fallback-scope sentence is v9-carried (SCOPE3, P240) and SCOPENARROW (P253) cites it as authority, not as a v10 edit. Stating this so the grade does not count P010 as a manifest-assert line.
+
+## Analytic ask B — better mechanism
+
+**B1.** For this fold's stated goal (close the V349 dispositions with zero fence change), the chosen mechanism — same-line prose rewrites plus identity casts — is already minimal; no better mechanism on the page's own terms. The parked hardening items (single-writer latch, reset-at-abort/IDLE, bound/seq hardening, 600-cap tightening) keep their parked causes; nothing in v10 changes them.
+
+**B2.** To prevent the A1/A2/A4 classes at draft time instead of build time, two battery-only lints extending the standing ref-lint (P255, GLM-B2 rule), zero EA change: (i) an EA-pin lint — every "EA-nnnn" cited in prose must resolve by span arithmetic against a displayed region or the battery pin table, else flag (would have caught A1 at assembly); (ii) a fence-vs-region byte lint — every old-fence line naming an EA anchor must byte-equal the region's rendering of that line, else flag (moves A4 from a STAGE-1 catch to a draft catch).
+
+**B3.** For A3, the "(Fix B2)" correction rides the next fence touch per the P256 park; folding it now would violate the very "zero other fence change" this round asserts.
+
+## Carried (no re-rule, tallies quoted as carried)
+
+- **Q2 carried-CLEAR** (V342 tallies stand; V346/V347/V348/V349 no re-rule): gate kills refused seeds fail-closed; -1 passes; B3 sb= exact; ABORT col-32; build-gates: lifecycle demo, admissions backstop, EU pair check. The Q2-relevant fences are untouched by v10 (manifest's sole fence edit is the R-fence casts), and this seat's recounts stand as carried.
+- **Q3 carried-CLEAR** (V342 tallies stand; no re-rule): telemetry fence CONFIRM, term v2-with-telemetry, C_TOUCH parked; EU obligation binds any term change. The S3 fence is untouched by v10 and the telemetry-only wording is intact at P157 and the takes sheet.
+
+## Close
+
+- The Q1 battery items (debug-off replay admissions-equal, purity re-affirm, lifecycle demo, pre-key fence assert) are build-gate obligations under a future key plus his run word — neither asked nor spent here; nothing in this packet builds, runs, spends, or clears live activation.
+- Nothing else is asked. This CONFIRM leaves both carried clears standing; a NO would not have touched them either.
+
+## V350-UJFIX2-11 END GLM

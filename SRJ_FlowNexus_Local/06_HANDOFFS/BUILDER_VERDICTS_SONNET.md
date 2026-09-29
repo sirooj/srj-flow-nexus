@@ -4072,3 +4072,39 @@ I have no re-rule on Q2 or Q3. My items above don't touch either carried fence.
 Identity-key the seedbias carriage the same way you just keyed the prints. At the setter (EA-8133, R-SEED), also store the seed's `g_anchorLine`, `g_dir`, and `g_anchorBarTime` in file-scope shadows, declared beside EA-1151. At the gate (P110), treat a mismatch as -1 (pass). That closes the cross-route leak by construction, including the B1/prebind route, with no reset-timing question at GoAbort or IDLE. The cost is roughly +4 to +6 lines, and the same-pass check reads only values already in scope. The simpler fallback is `s1g_seedBiasAl = -1` at GoAbort and at the IDLE re-entry. I would hold either for a round only if the lifecycle demo shows the leak, as the page already plans (P122, P130).
 
 ## V349-UJFIX2-10 END SONNET
+
+## V350-UJFIX2-11 OPEN SONNET
+
+# Q1 verdict: CONFIRM, with prose discrepancies
+
+This is a page-only ruling. I did not check digests, counts, or disk, and nothing here builds or clears anything.
+
+**What checks out on the page**
+- **P122 vs B4 fence (P134-P142):** P122 matches the fence. The setter EA-8133 runs unconditionally under the un-gated condition at EA-8126. The SIDE1T_SEEDBIAS print is debug-gated as a single statement (new-B4P), and the R-SEED span 8125-8140 is 16 lines. The convergence claim is correctly narrowed to the fallback path. No dual-state text remains.
+- **Casts (P046/P048):** UJRETARGET has 7 specifiers and 7 arguments. UJNORETARGET has 8 and 8. B3 has 10 and 10, UJSBTELEM 10 and 10, and S2SEEDBIAS_KILL 3 and 3. `(long)` with `%I64d` is identity on a long member, so NET is 0.
+- **Budget (P151/P257):** the recount gives R +13 (16 new lines vs 3 old), RHELP +39, B2 +3, S3 +2, and B3/B4 +0. That is +57, so 12202 + 57 = 12259.
+- **Manifest:** P250-P257 accounts for the appended section, and P259-P264 is the carried tail (264 total).
+- **Siting and ABORT define:** P118's siting holds (EA-406 is the last define, 407 is blank, 408 is the Task-160 header). The new define puts the quote at column 32. Region R-PROMO puts the promotion print at EA-8343 and the S2WAIT else at 8344.
+
+**Discrepancies (all prose, no fence touched)**
+1. **P005 line ref:** it cites the B4 print-head mod at "EA-8138". In the R-SEED span the PrintFormat head is EA-8134, and 8138 is the `s1t_alOk,` argument line. P005 is in the manifest as edited this fold, so this ref should be fixed.
+2. **P238:** it says the prints carry "admit (t.uj_admitBarTime)". `t.` exists only inside the helper. The print sites P046/P048 use `g_mtrade.uj_admitBarTime`. P252 says the wording for seq was fixed but not this one.
+3. **P244 vs P254:** both claim to be the "this line" retired-name completion site, and P254 says "exactly P158, P162, this line". Neither line contains the literal string UJ-NORETARGET, so the ref-lint result depends on which one the battery treats as the site. Name one.
+4. **P150 vs P255:** P150 cites EA-10357 as the print-only consumer. P255 pins the print-only span at EA-10362-10372. State that 10357 is the read site and 10362-72 is the print.
+5. **P255 and relay Q1: "debug-off replay admissions-equal" has no baseline.** Pre-B4, a debug-off run never set the seed bias, so B2 could never kill. Post-B4, debug-off should equal the debug-on replay, not the v26 debug-off tree. State that comparison.
+6. **Two Q1 verdict lines differ:** the section-0 line carries the "(Q2 battery: ...)" parenthetical, and the closing "Q1 verdict line" section drops it. Use one wording.
+7. **Possible whitespace mismatch (low confidence, I count spaces by eye):** old-B4 at P132 and old-B4P at P138 look like one leading space wider than the R-SEED region lines (which show 10 and 12 spaces). Have the pre-key fence-in-EA assert compare leading whitespace exactly, not only trimmed text.
+
+## Analytic ask A: gaps and imprecisions
+
+- **P156/P158:** no finding covers an S2SEEDBIAS_KILL row at any bar other than 8 June 09:25. That row is exactly how a stale s1g_seedBiasAl leak from a previous route would show up. This matters most for the 5 June London SHORT admitted via B1/prebind, per P122. Add a finding, for example UJ-KILLEXTRA, with an expected count of 1 run-wide.
+- **P122/P130 vs takes sheet:** the changed-by-design 5 June admission is conditional on the lifecycle demo. The demo should be named as the gate for that row, not only "at build".
+- **P010/P240 (aligned path):** the ungated scenario is not stated concretely. It is a seed refused at the seed bar (sb=0), then LTF re-aligning before the S2 evaluation so the aligned path promotes. Stating it lets his word be sought on a specific case rather than in the abstract.
+- **P130 "EA-8125-8142" vs the region span 8125-8140:** this reads as block vs region, but say so.
+
+## Analytic ask B: better mechanism
+
+- **Identity-key the verdict instead of per-route resets.** Store the seed verdict together with (g_anchorLine, g_dir, g_anchorBarTime), the same identity S-a already uses at R-SCOMB. Then B2 at EA-8339 treats a key mismatch as -1 (pass). That removes the stale-value hazard without reset-at-abort/IDLE edits scattered across the machine. It also drops the verdict automatically after an S3 yield, because g_anchorBarTime changes there. It would touch the decl EA-1151, the setter EA-8133, and the B2 condition EA-8339. It is behavior, so it belongs in the separate lifecycle round, not this packet.
+- **Sweep for other debug-gated writes.** B4 found one setter hidden behind `InpDebugLog`. Add a battery scan of every `InpDebugLog` guard (including `&& InpDebugLog` conditions) whose body assigns non-local state. That turns the purity re-affirm from a spot check into a census.
+
+## V350-UJFIX2-11 END SONNET
