@@ -104,5 +104,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
   - 2026-09-29: V344 RELAY-READY (ledger 990: packet FIX-2v4 72F2C380/170, relay D82D3703/406, double battery green, memo shipped; verdicts owed).
   - 2026-09-29: V344 GRADED (ledger 991: Q1 2-0 CLEAR, Q2/Q3 carried-CLEAR, 3 seats filed whole; result 4E856B3B/41; fold v5 scoped; BUILD-BLOCKED).
   - 2026-09-29: V345 RELAY-READY (ledger 992: packet FIX-2v5 4F320D21/182, relay 49F5F432/419, double battery green, memo shipped; verdicts owed).
+  - 2026-09-29: V345 GRADED (ledger 993: Q1 2-0 CLEAR, Q2/Q3 carried-CLEAR, 3 seats filed whole; result 460C1573/46; fold v6 scoped prose-only; BUILD-BLOCKED).
+  - 2026-09-29: V346 RELAY-READY (ledger 994: packet FIX-2v6 9580C192/199, relay 1B8E96B8/435, double battery green, memo shipped; verdicts owed).
 
 (End of file)

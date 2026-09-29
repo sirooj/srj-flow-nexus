@@ -14159,3 +14159,40 @@ or equivalently compare `NormalizeDouble(..., _Digits)` values. That would make 
 For the once-only mechanism, I do **not** see a better no-carriage design than the current **instance containment + strict-tighter caller** combination. A dedicated per-trade retargeted-session key would make the invariant explicit, but it would introduce new state/carriage and is therefore inferior to the stated FIX-2 scope.
 
 ## V344-UJFIX2-5 END LUNA
+
+## V345-UJFIX2-6 OPEN LUNA
+
+## Q1 verdict: **CONFIRM**
+
+The v5 tolerance/disposition fold matches the stated behavior change. At the firing site, the strict-tighter comparison now normalizes both the candidate session target and booked `tpRef` to `_Digits`; the diagnostic at P048 uses the same normalization for its `eq` classification. That is consistent with the stated move from raw floating-point equality to displayed-price comparison, without changing the entry pipeline.
+
+The once-only claim also holds **under the mechanism as specified**: the helper identifies the entry-session instance using `uj_admitBarTime`, and the caller only writes a new `tpRef` when the normalized candidate is strictly tighter. After a successful retarget, an unchanged candidate cannot fire again. The page additionally carries `UJ-RERETARGET` as the explicit backstop predicate.
+
+The dispositions are internally consistent: the tolerance is confined to the R caller, while the accepted helper/containment wording and the parked latch/buffer alternatives remain separate. The packet also explicitly says no entry-side change is introduced.
+
+### Analytic A — defects / gaps / imprecisions
+
+**A1. “Tolerance” is technically imprecise.**
+P025/P063/P167 describe this as a tolerance, but the code is actually **decimal quantization/rounding to `_Digits`**, not an epsilon tolerance. It suppresses differences that normalize to the same displayed value; it does not mean “within N ulps” or “within a fixed numeric band.” This is a prose precision issue, not a Q1 code defect.
+
+**A2. “Bit-exact ulp fires retired” is too broad.**
+P167 supports retiring raw-equality artifacts that collapse to the same `_Digits` value, but not every possible bit-level floating-point difference. Two raw values can still normalize differently, depending on where they fall relative to a rounding boundary. “Raw floating-point equality artifacts at the displayed precision are suppressed” would be exact.
+
+**A3. The once-only guarantee is not an explicit latch.**
+The page correctly says the guarantee is jointly supplied by containment plus strict-tighter comparison, but that is a **derived invariant**, not persistent per-instance state. If historical OHLC values were ever revised between evaluation passes and the helper subsequently produced a newly tighter extreme for the same session instance, the strict-tighter condition could permit another retarget. The packet itself recognizes this distinction by parking the latch and retaining `UJ-RERETARGET` as a backstop.
+
+**A4. The 600-bar bound is an intentional coverage limit, not a universal session-history guarantee.**
+P054 explicitly says the cap fails closed after the stated evaluation gap. Therefore the mechanism is sound for the stated June replay geometry, but “session-close retarget” is not an unconditional guarantee for every possible live evaluation blackout. The packet already records this limitation at P160/P174, so this is a documented coverage constraint rather than an undisclosed defect.
+
+**A5. The page cannot independently prove the historical byte-delta from the displayed old fence.**
+The packet asserts the old/new tree digests and exact-diff battery, but the visible old-R block is only a small retained-context excerpt rather than the complete pre-change implementation. Under the packet's own verification split, that is correctly left as disk evidence rather than chat evidence. So this is a **review-scope limitation**, not an objection to the semantic delta.
+
+### Analytic B — better mechanisms
+
+For the stated goal, **no change is required** to clear Q1.
+
+A cleaner future hardening would be to make the comparison use one explicit normalized/integer price key and reuse it in both P042 and P048, rather than calling `NormalizeDouble` repeatedly. That would make the intended equivalence relation obvious and remove the prose ambiguity around “tolerance.” The only behavior-bearing site is the existing `EvaluateManagedTrade` comparison/diagnostic region around EA-11829; it does not require changing the helper. The present mechanism remains acceptable as written.
+
+**Final council form: `CONFIRM` — no Q1 blocker.** The two remaining concerns are wording/robustness qualifications, not a defect in the specified v5 tolerance delta. Q2 and Q3 therefore remain carried-CLEAR as instructed.
+
+## V345-UJFIX2-6 END LUNA

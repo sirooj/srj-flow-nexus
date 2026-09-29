@@ -3780,3 +3780,46 @@ The why+sess fields at P048 match the specified delta. The once-only claim holds
 Q2 and Q3 stand as carried. I raise nothing against them.
 
 ## V344-UJFIX2-5 END SONNET
+
+## V345-UJFIX2-6 OPEN SONNET
+
+# Q1 verdict: CONFIRM
+
+I rule on the page only. Disk truth (digests, logs, builds) stays with the operator's machine. Nothing here builds, runs, spends, or clears live activation.
+
+**What I checked on the page**
+- **P042:** LONG fires only when `NormalizeDouble(rt) < NormalizeDouble(tpRef)`, and SHORT only when `>`. Both are the strictly-tighter direction. The P038/P051 guard rules out `EMPTY_VALUE` and non-positive `tpRef`.
+- **P048:** the `else if` is reachable only when the helper returned true with `rt > 0`. It is the exact complement of P042, so `why` is `eq` or `loose` and nothing else. The helper zeroes `px` at P064 and assigns it only at P095, so the false paths give no row.
+- **Specifier counts:** UJRETARGET is 5=5 (P046) and UJNORETARGET is 6=6 (P048). Braces balance across P043-P049. Indent at P048 matches P041.
+- **Once-only claim:** it holds jointly. Admission containment (P094) lets exactly one run qualify. `uj_ended` (P084/P093) returns false for any run whose opening edge falls outside the 600-bar cap, so a partial walk can never produce a spuriously lower high. `ext` comes from the same `iHigh`/`iLow` values each pass, so the post-revision `tpRef` is bit-identical to `rt` and the tolerance never re-fires.
+- **Budget:** R +13 (16 new lines minus 3 retained), RHELP +36, B2 +3, B3 +0, S3 +2. That is 54 net, and 12202 + 54 = 12256, matching P134/P163/P175.
+- **ABORT define (P117):** the quote lands at column 32, matching the family at EA-405/406.
+- **Anchors:** the R-PROMO region reads 8339/8343/8344 as stated. The R-SESS region puts the function close at EA-1887 and the P-RESQUAT comment at EA-1889. The R-TP old fence is EA-11829-11831.
+- **Tolerance scope:** the tolerance is at `_Digits`, which is 3 on USDJPY. The page does not pin tick size equal to `_Point`. That is harmless for this symbol and only a caution for future ones.
+
+## Analytic ask A: defects, gaps, imprecisions
+
+All are prose or grade-predicate items. None needs an EA change and none blocks the CONFIRM.
+
+1. **P171 contradicts P054 and P138.** P171 says the 19:00 server close "coincides with the 14:00 ET NYAM-window end." P054 gives NYAM as 07:00-12:00 ET. The rows fit a +7 offset: London entries at 09:10/09:35/09:45 server are 02:10-02:45 ET, the 14:40 NY row is 07:40 ET, and 19:00 server is 12:00 ET. So P171 should read 12:00 ET.
+2. **P170 cites the wrong exemplar.** It says instance mapping rides "UJADMIT trade_seq at R13." R13 is the 8 June B-venue admit (`trade_seq=4`), which is the trade B2 removes. The Rows carry no R-venue UJADMIT row. With that trade gone, later `trade_seq` values may shift, so the grade should key on `admit_bar` timestamps, not `trade_seq`. State R13 as a format exemplar only.
+3. **P009 and Ruling-1 are broader than what P054 implements.** The "Rule:" line reads as any session high/low closing while floating. P054 implements entry-session-type only ("Other session types closing never retarget"). The narrowing is disclosed at P054 but not at P009 or in section 0. Add one scoping sentence there so the operator's compare-what-was-filed check sees it, or get his word on scope.
+4. **P139's admission prediction ignores the freed machine.** `{6/3, 6/5 x2}` assumes no new admissions. Killing the 8 June seed at 09:25 frees the state machine for 09:25-11:50, and the old squatter held it until 11:50. Any admission in that window should grade as a UJ-EXTRA candidate against the register and takes sheet, not as an automatic failure. P167's Rule-vs-takes note covers R, S, and EU but not this window.
+5. **P138 wording.** "19:00 session-close pass": the first out-of-session bar has open 19:00, but if `barShift` is the last closed bar it is evaluated at tick time about 19:05. Have the grade match on the `bar=` field. "tpRef-carry rows" is also unnamed. The evidence is the `tpB=` field on EXITVERDICT rows (R03 shape), so name it.
+6. **P054 wording is self-contradictory.** "zero struct change is retired - pre-existing member, no struct change by this packet." Reword to "no struct change; `uj_admitBarTime` pre-exists (EA-264)."
+7. **Vocabulary at P037, P141, and P167.** "One per trade instance" vs "map each row to its session instance." Containment admits exactly one run, so it is one revision per trade. UJ-RERETARGET should therefore be zero rows, and the per-session mapping step is vacuous. Say so once.
+8. **UJSBTELEM `termC`/`termH` can be empty and ambiguous (P130).** `IsConfirmationCandle` sets `failTerm=""` on success and on entry, and `termC` is never written when the contender is not evaluated (`have=0` or `sbDir==g_dir`). An empty term is therefore not a pass. Add a line to P140 saying to read `have`/`sbDir`/`confC` first.
+9. **Near-entry TP is accepted but invisible in the row (P054, P148).** A LONG's session high is at least the admit-bar high, roughly the entry price. Entering near the session extreme therefore retargets to near breakeven, and a spread-cost "TP" exit is possible. His literal rule governs, but the UJRETARGET row (P046) carries no entry, so the grade must join to UJADMIT to see retarget distance. Say that in P138.
+10. **B2 asymmetry (P141 admits part of it, Q2 carried, no re-rule).** `sb=0` kills on the m15-fallback path (P112), but a later aligned promotion is ungated. The page does not state why that asymmetry is intended, and UJ-BIASDEFY is blind on the aligned path.
+
+## Analytic ask B: better mechanisms
+
+- **Normalize at assignment.** Change P045 to `g_mtrade.tpRef = NormalizeDouble(uj_rtPx, _Digits);`. That puts carry rows and touch compares on the displayed grid. It is 0 net lines and optional, since `iHigh`/`iLow` are already on the grid.
+- **Aligned-path visibility for B2.** If UJ-BIASDEFY should cover the aligned path, add a `sb=%d` print at the aligned promotion edge (about EA-8346-8348, +1 to +2 lines). This is a future touch, not this packet.
+- **Latch or edge capture.** Both stay parked, with the same cause as P147.
+
+## Carried Q2 and Q3
+
+Both stand as carried-CLEAR from the prior round. No re-rule was asked, and my Q1 CONFIRM does not touch them.
+
+## V345-UJFIX2-6 END SONNET

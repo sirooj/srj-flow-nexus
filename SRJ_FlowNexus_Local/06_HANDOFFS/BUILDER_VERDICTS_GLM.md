@@ -7734,3 +7734,62 @@ Q2 and Q3 stand carried-CLEAR per the V342 tallies as quoted in the packet (both
 CONFIRM filed on Q1 whole. Q2 and Q3 ride carried-CLEAR, byte-unchanged fences, untouched by this verdict. Nothing built, run, spent, or cleared toward live activation; the build remains gated on a new key plus his run word, neither asked here. No files requested; genuineness vs disk stays on his machine.
 
 ## V344-UJFIX2-5 END GLM
+
+## V345-UJFIX2-6 OPEN GLM
+
+GLM seat - relay v345-UJFIX2-6, packet P-RECON74FIX-2v5, Q1 answer.
+
+## Q1 VERDICT: CONFIRM
+
+The tolerance (NormalizeDouble both sides at _Digits, P042 strict-tighter and P048 why-ternary) matches its specified MOD-TOL delta line for line; the once-only claim holds jointly (admission-time containment at the helper plus the strict-tighter caller at P042, with the UJ-RERETARGET backstop pre-ruled at P141); the dispositioned prose is carried in full. One disposition (PIN-ET, P171) carries an internally mis-stated hour that contradicts P054 - named as defect A1 below, prose-only, fold-owed, not verdict-blocking: it sits outside the ruled fence, moves no fence byte, no take, and no grade predicate. Nothing in this ruling builds, runs, spends, or clears live activation; disk items (digests, twin diff, region 0-diff, battery) stay his to prove under the standing split.
+
+## 1. Tolerance delta (MOD-TOL, P167) - verified
+
+- P042: both operands normalized at _Digits in both direction arms (LONG `<`, SHORT `>`); parenthesization is explicit A && B && (C || D) with correct `==`/`<`/`>` precedence inside each arm; no argument change. Strict-tighter semantics preserved in both directions: LONG retargets only toward a lower closed session high, SHORT only toward a higher closed session low - "tighter" reads as closer to entry from the profit side both ways, matching his RETARGET rule as amended at P009.
+- P048: the why ternary compares NormalizeDouble both sides. Given the branch fires only helper-true-and-not-stricter, the labels are exact in both directions (LONG: rt_norm >= tp_norm gives eq on equality, loose above; SHORT: rt_norm <= tp_norm gives eq on equality, loose below).
+- Spec census re-counted from the twin: UJNORETARGET 6=6 (P048), UJRETARGET 5=5 (P046), UJSBTELEM 10=10 (P130), S2SEEDBIAS_KILL 3=3 (P113), B3 S2PROMOTE 10=10 (P125).
+- Indent: P048 now sits at the same column as its P041 `if` in the twin; the GLM-2 indent defect is retired as claimed. Trailing helper-true-discriminator comment present (GLM-8).
+- Why the tolerance cannot move a valid take on this symbol: _Digits = 3 (point 0.001, confirmed by R02 distPts=608 over 160.723-160.115 and the 147-pt NYH pool), so distinct tick-aligned prices differ by at least 0.001, above the 0.0005 rounding band. NormalizeDouble equality therefore fires only on representation noise or true equality, and the strict-tighter direction loses no genuine tick-level tightening. The ruled R-venue revision spans 461 points (160.723 to 160.262; recomputed). B-venue runs no retarget path (killed pre-admission under B2; and in the unfixed tree it exited same-session at 11:50, never floating a close); S-venue has no trade until the term fix; EU entry and selection untouched. No valid take moves - confirmed.
+
+## 2. Once-only, jointly
+
+- Containment (P094): eligibility only for the run containing `uj_admitBarTime`; once a newer same-type session closes before a pass, the walk's most-recent run no longer contains the admission bar → helper false → silent no-op (the NOTE-A4 forfeit window, P160, correctly pinned).
+- Strict-tighter caller (P041-42): after one revision, `tpRef` equals the instance extreme; equality fails both strict tests, so the same instance can never qualify again — and the v4 `why=eq` echo is precisely that blocked re-fire, now self-identified, so the grade counts conditions, not rows (P153). The strict inequalities at P042 and the eq/loose partition at P048 are complements — no unlabeled residue case exists.
+- UJ-RERETARGET (P141) stands as the pre-ruled divergence backstop. Stated caveat, not a defect: the joint proof assumes no second writer of `g_mtrade.tpRef` between passes; none exists on the page (P005 "managed only", P024 frozen-at-booking) — disk-truth class, correctly backstopped by the grade predicate.
+- Branch-structure check: helper false leaves uj_rtPx at 0.0, so neither P041 nor P048 fires - containment-blocked and truncation-blocked reads produce no row, exactly as pinned (Luna-A3 at P145).
+- Time-invariance: the instance is closed history; iHigh/iLow over the same bars return the same extreme on every pass inside the 600-bar cap. The R-venue distances sit inside the stated bands (roughly 61 bars at the 19:00 pass; roughly 130-140 bars at the Monday 00:50 pass, matching the 130-350 Fri-Mon band at P054).
+- Backstop: UJ-RERETARGET (P141) pre-rules any second UJRETARGET row per instance as a divergence finding mapped to its session instance.
+
+## 3. Dispositions, delta-by-delta
+
+- MOD-TOL: verified in section 1; all claimed elements present in the twin and P167.
+- ROWS-SOURCE: the canonical chain "v342 via v343" appears once in the Rows heading and once at P168 - audits single-count.
+- CITE-P153: P169 states the fence/block distinction (EA-11829-11831 fence vs EA-11826-11842 region); P030 and the v4 P153 text read consistently with it as history labels.
+- PIN-ENUM: P170 pins NONE=0/LONDON=1/NYAM=2 at EA-228; the helper uses enum names only (P068) and the (int) casts at P072/P082 compare int to int - the pin is documentation-only as specified.
+- PIN-ET: present at P171 but carries defect A1 below.
+- MARK-T160: P172, reconciled by P146 plus P155; the R-SESS region comment and the P058/P099 anchors read P-RESQUAT consistently.
+- COORD: P173; the EA-11829 caller cite reads as the v26 pre-insert anchor-region cite, consistent with CITE-P153.
+- PARKED: P174, each with cause (latch-bool, drift-guard hoist, buffer route, sbRead + c1-fields, fire ordinal, transition-bar, Sonnet-B live-flip, GLM-B hardening, single-writer latch, GLM-6 ABORT).
+- Budget recount, recomputed independently: R +13 (P037-P049), RHELP +36 (P062 + P063-P097 = 35), B2 +3 (same-line condition 0 + kill branch 2 + define 1), B3 +0, S3 +2 (P129-130); total +54; 12202 + 54 = 12256. Holds.
+- Rows vs death chains cross-checked: R01-R03 (R-venue), R04-R06/R13 (B-venue), R07-R12 (S-venue) all consistent, including 608 pts, 147 pts, R=3.47, sb=-gating visibility at P125, and the ABORT define quote landing at column 32 (recounted from R-ABORT, EA-404-408).
+
+## 4. Analytic ask A - defects, gaps, imprecisions
+
+- A1 (real defect, prose-only, fold-owed): P171 (PIN-ET) states the 19:00 server close "coincides with the 14:00 ET NYAM-window end used on the page", but P054 quotes the map as "NYAM 07:00-12:00 ET". Both cannot be true (19:00 server is either 12:00 ET at +7 or 14:00 ET at +5 - not both window ends at once). The page's own evidence resolves against P171: the 11:05 London seed aborting at 12:05 SESSION_CLOSED (P026) pins the London end at 12:00 server; with P054's quotes that is a +7 offset, making NYAM 14:00-19:00 server and the 19:00 close = 12:00 ET. "14:00" matches the NYAM start in server time, not any ET end - the pin appears to have mislabeled the server-time window start as an ET end. Functional impact: none - every operative time on the page (journal rows, acceptance passes, helper reads via CurrentTradingWindow, takes-sheet entries, his ruling words) is server-side and no grade predicate converts ET. Fix owed at next fold: quote the window once from the EA-1865 constants and state the offset once. Not verdict-blocking.
+- A2 (nit, no action): P041's `uj_rtPx > 0.0` is implied by the helper contract (ext <= 0.0 returns false, so px > 0 on true). Harmless belt-and-braces mirroring the P048 discriminator idiom.
+- A3 (accepted edge, no action): the once-only bit-identity step at P167 rests on iHigh/iLow returning identical doubles across passes over unrevised history; a backfill or history rename between passes would break it, and the UJ-RERETARGET backstop catches that as divergence, never silent. Disk stability is a disk matter under the standing split; the phrase "on all seats' reads" does no operative work.
+- A4 (pre-existing, out of fold scope, name-only): in region R-PROMO (EA 8329-8350) the v26 uj_m15s/uj_m15src lines cast datetime to int for the 900-second bucket - safe through early 2038, brittle after. Byte-unchanged fence, not this round's edit, no action asked.
+
+## 5. Analytic ask B - better mechanisms
+
+- The equality mechanism itself: NormalizeDouble both sides at _Digits is the right idiom for displayed-price equality here. An epsilon band would be arbitrary; a tick-integer compare would break on references not tick-aligned at source. No better mechanism for the stated goal.
+- Optional hardening only (not required; adoption would need a new fold round): assign the normalized value at P055's sibling P045 (`g_mtrade.tpRef = NormalizeDouble(uj_rtPx, _Digits);`) so the stored reference is canonical at display precision and post-revision eq is exact by construction even under representation drift. Touches P045 only, same line, one wrap. This sits in the same optional class as the parked GLM-B bound/seq hardening (P174); with the UJ-RERETARGET backstop standing I do not ask for it.
+- Suppression of the eq echo was rightly refused — condition-counting needs the echo; no change proposed.
+
+## 6. Close
+
+Q2 and Q3 ride carried-CLEAR with their V342 tallies as quoted in the priors; no re-rule asked or given, and a NO on nothing here touches them. Scope held: design ruling only, no run proposed, build gated on a new key plus his run word, nothing spent, EU rides a future word plus key scope. No files requested; genuineness vs disk remains his to prove on his machine.
+
+Q1: CONFIRM, with defect A1 (PIN-ET hour, P171 vs P054) named and fold-owed.
+
+## V345-UJFIX2-6 END GLM
