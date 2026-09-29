@@ -404,6 +404,7 @@ void MtReset()
 //--- no gate reads an abort reason.
 #define ABORT_POI_REPLACED     "POI_REPLACED"
 #define ABORT_DIV_FALLBACK     "DIV_FALLBACK"
+#define ABORT_SEEDBIAS_REFUSED "SEEDBIAS_REFUSED"
 
 //====================== [Task 160] Migration data contracts ==========
 // Twelve data contracts as an INERT ARCHITECTURE SHELL. Types only.
@@ -1885,6 +1886,45 @@ ENUM_SRJ_SESSION CurrentTradingWindow(datetime barTimeServer)
      }
    return SESSION_NONE;
   }
+//--- [P-RECON74FIX-2 v2] closed entry-session-instance extreme from price history (his RETARGET rule; instance-contained; buffer-reset immune; 600-bar walk covers intra-week closes).
+bool UjClosedSessionTarget(const SManagedTrade &t, const int barShift, double &px)
+   {
+    px = 0.0;
+    if(t.dir != DIR_LONG && t.dir != DIR_SHORT) return false;
+    int es = t.sessionAtEntry;
+    if(es != SESSION_LONDON && es != SESSION_NYAM) return false;
+    if(t.uj_admitBarTime <= 0) return false;
+     datetime bt = iTime(_Symbol, PERIOD_CURRENT, barShift);
+     if(bt == 0) return false;
+     if((int)CurrentTradingWindow(bt) == es) return false;
+     datetime bp = iTime(_Symbol, PERIOD_CURRENT, barShift + 1);
+     if(bp == 0) return false;
+     if((int)CurrentTradingWindow(bp) != es) return false;  // first-out-bar pin (V347 Luna-2): barShift must be the first bar outside the entry-session run
+     double ext = 0.0;
+    bool have = false;
+    bool uj_ended = false;
+    datetime uj_newest = 0;
+    datetime uj_oldest = 0;
+     for(int k = barShift + 1; k < barShift + 601; k++)
+       {
+        datetime bk = iTime(_Symbol, PERIOD_CURRENT, k);
+        if(bk == 0) break;
+        if((int)CurrentTradingWindow(bk) != es)
+          {
+           if(have) uj_ended = true;
+           break;  // contiguous-run end (V347 Luna-2): the walk starts inside an es run by the barShift+1 pin; admission containment is the separate P097 test, so any non-es bar ends the walk - fail-closed when no price seen yet
+          }
+       if(uj_newest == 0) { uj_newest = bk; uj_oldest = bk; }
+       else uj_oldest = bk;
+       double v = (t.dir == DIR_LONG) ? iHigh(_Symbol, PERIOD_CURRENT, k) : iLow(_Symbol, PERIOD_CURRENT, k);
+       if(v <= 0.0) continue;
+       if(!have || (t.dir == DIR_LONG && v > ext) || (t.dir == DIR_SHORT && v < ext)) { ext = v; have = true; }
+      }
+    if(!have || !uj_ended || ext <= 0.0) return false;
+    if(t.uj_admitBarTime < uj_oldest || t.uj_admitBarTime > uj_newest) return false;
+    px = ext;
+    return true;
+   }
 
 //--- [P-RESQUAT-1 F-a] eviction-paired suppression SET (fire-or-expire):
 //--- 24-bit domain per session (bit = line*2 + dirIdx LONG=0/SHORT=1;
@@ -8123,7 +8163,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          //--- (pre-declared derivation). FORBIDDEN/ABSENT: any state/dir/latch/order/
           //--- stop/N1 write (documented guarantee, grade-verified).
           //--- Seed-gated per the s1f_seedThisBar idiom (EA:7664): emits only on the bar the seed fires.
-          if(InpDebugLog && s1f_seedArmed && g_state == ST_S1_REGIME && g_dir != DIR_NONE && g_anchorLine >= 0)
+          if(s1f_seedArmed && g_state == ST_S1_REGIME && g_dir != DIR_NONE && g_anchorLine >= 0)
            {
             bool s1t_aligned = false;
             string s1t_alOk = "UNREAD";
@@ -8131,7 +8171,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
              if(CheckLtfAlign(barShift, s1t_candDir, s1t_aligned))
                 s1t_alOk = s1t_aligned ? "1" : "0";
              s1g_seedBiasAl = ((s1t_alOk == "UNREAD") ? -1 : (s1t_aligned ? 1 : 0));   //--- [STAGE-D-S2-RGATE-001] seed-bias carriage (print-only file-scope; single-candidate machine + IDLE-gated reseed mean the eval reads its own seed; -1 guards never-seeded)
-            PrintFormat("[SRJ-EA] SIDE1T_SEEDBIAS bar=%s dir=%s biasAligned=%s verdict=%s",
+            if(InpDebugLog) PrintFormat("[SRJ-EA] SIDE1T_SEEDBIAS bar=%s dir=%s biasAligned=%s verdict=%s",
                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
                                      TIME_DATE|TIME_MINUTES),
                         DirName(s1t_candDir),
@@ -8336,11 +8376,13 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          double uj_m15b = 0.0;
          bool uj_m15r = ReadFlow(FL_BUF_HTF_LOW, uj_m15b, barShift);
          double uj_wantb = (g_dir == DIR_LONG ? 1.0 : -1.0);
-         if(uj_m15r && uj_m15b == uj_wantb)
+         if(uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0)
            { double uj_ltfb = 0.0; int uj_ltfOk = ReadFlow(FL_BUF_LTF_BIAS, uj_ltfb, barShift) ? 1 : 0;
              int uj_m15s = (int)iTime(_Symbol, PERIOD_CURRENT, barShift);
              datetime uj_m15src = (datetime)(uj_m15s - uj_m15s % 900);
-             if(InpDebugLog) PrintFormat("[SRJ-EA] S2PROMOTE_M15 bar=%s dir=%s poi=%s sess=%s m15=%s m15src=%s ltf=%s rf=%d/%d", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), SessionName(g_sessionAtEntry), DoubleToString(uj_m15b, 1), TimeToString(uj_m15src, TIME_DATE|TIME_MINUTES), UjDbl(uj_ltfb), (uj_m15r ? 1 : 0), uj_ltfOk); }
+             if(InpDebugLog) PrintFormat("[SRJ-EA] S2PROMOTE_M15 bar=%s dir=%s poi=%s sess=%s m15=%s m15src=%s ltf=%s sb=%d rf=%d/%d", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), SessionName(g_sessionAtEntry), DoubleToString(uj_m15b, 1), TimeToString(uj_m15src, TIME_DATE|TIME_MINUTES), UjDbl(uj_ltfb), s1g_seedBiasAl, (uj_m15r ? 1 : 0), uj_ltfOk); }
+         else if(uj_m15r && uj_m15b == uj_wantb)
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] S2SEEDBIAS_KILL bar=%s dir=%s poi=%s - seedbias refused, promotion killed (Fix B2)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr()); GoAbort(ABORT_SEEDBIAS_REFUSED, g_state); return; }
          else
            { if(InpDebugLog) PrintFormat("[SRJ-EA] S2WAIT bar=%s dir=%s poi=%s sess=%s - LTF bias unaligned, candidate RETAINED (Stage 3a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), SessionName(g_sessionAtEntry)); return; }
         }
@@ -8359,6 +8401,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
        string uj_sbTermC = "", uj_sbTermH = "";
        bool uj_sbConfC = (uj_sbHave && (uj_sbDir != g_dir)) ? IsConfirmationCandle(barShift, uj_sbLine, uj_sbDir, uj_sbTermC) : false;
        bool uj_sbConfH = IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_sbTermH);
+        double uj_sbLineVal = 0.0; if(uj_sbHave && uj_sbLine >= 0 && !ReadBuf1(g_hPoi, uj_sbLine, uj_sbLineVal, barShift)) uj_sbLineVal = 0.0;
+        if(InpDebugLog) PrintFormat("[SRJ-EA] UJSBTELEM bar=%s dir=%s have=%d sbDir=%s sbLine=%d confC=%d confH=%d sbL=%s termC=%s termH=%s - contender evaluation (Fix S3)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), (int)uj_sbHave, DirName(uj_sbDir), uj_sbLine, (int)uj_sbConfC, (int)uj_sbConfH, DoubleToString(uj_sbLineVal, _Digits), uj_sbTermC, uj_sbTermH);
        if(uj_sbConfC && !uj_sbConfH && (g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED))
          {
           int uj_sbFromLine = g_anchorLine; ENUM_SRJ_DIR uj_sbFromDir = g_dir;
@@ -11826,6 +11870,19 @@ bool   vSL = false, vTP = false, vBREAK = false, vHTF = false, vDAY = false;
     //--- (b) TP: the BOOKED target (tpRef) only, exit on TOUCH. Break-retest
     //--- rule 2026-09-20 (E4A85FD4): touch/retest of non-booked lines does
     //--- nothing once entered; only body-close break (E-c) exits early.
+    //--- [P-RECON74FIX-2 R] session-close retarget (his RETARGET rule; closed-session values only; instance-contained plus caller-strict-tighter jointly bound the revision to one per trade instance).
+    if(g_mtrade.tpRef != EMPTY_VALUE && g_mtrade.tpRef > 0.0)
+      {
+       double uj_rtPx = 0.0;
+       if(UjClosedSessionTarget(g_mtrade, barShift, uj_rtPx) && uj_rtPx > 0.0
+          && ((g_mtrade.dir == DIR_LONG && NormalizeDouble(uj_rtPx, _Digits) < NormalizeDouble(g_mtrade.tpRef, _Digits)) || (g_mtrade.dir == DIR_SHORT && NormalizeDouble(uj_rtPx, _Digits) > NormalizeDouble(g_mtrade.tpRef, _Digits))))
+         {
+          double uj_oldRef = g_mtrade.tpRef;
+          g_mtrade.tpRef = uj_rtPx;
+          if(InpDebugLog) PrintFormat("[SRJ-EA] UJRETARGET bar=%s dir=%s old=%s sess=%d tp=%s seq=%I64d admit=%s - session-close retarget (Fix R)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_mtrade.dir), DoubleToString(uj_oldRef, _Digits), g_mtrade.sessionAtEntry, DoubleToString(g_mtrade.tpRef, _Digits), (long)g_mtrade.uj_tradeSeq, TimeToString(g_mtrade.uj_admitBarTime, TIME_DATE|TIME_MINUTES));
+         }
+       else if(InpDebugLog && uj_rtPx > 0.0) PrintFormat("[SRJ-EA] UJNORETARGET bar=%s dir=%s tp=%s rt=%s why=%s sess=%d seq=%I64d admit=%s - helper true but not tighter (Fix R)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_mtrade.dir), DoubleToString(g_mtrade.tpRef, _Digits), DoubleToString(uj_rtPx, _Digits), (NormalizeDouble(uj_rtPx, _Digits) == NormalizeDouble(g_mtrade.tpRef, _Digits) ? "eq" : "loose"), g_mtrade.sessionAtEntry, (long)g_mtrade.uj_tradeSeq, TimeToString(g_mtrade.uj_admitBarTime, TIME_DATE|TIME_MINUTES)); // helper-true discriminator
+      }
     bool tpBookedTouch = false;
     if(g_mtrade.tpRef != EMPTY_VALUE && g_mtrade.tpRef > 0.0)
       {
