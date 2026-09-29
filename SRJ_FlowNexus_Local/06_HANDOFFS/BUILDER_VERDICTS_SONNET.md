@@ -4026,3 +4026,49 @@ Items 1-3 are the ones I'd fold before the next touch. A council standard that t
 I have no re-rule on Q2 or Q3. My items above don't touch either carried fence.
 
 ## V348-UJFIX2-9 END SONNET
+
+## V349-UJFIX2-10 OPEN SONNET
+
+## Q1 verdict
+
+**CONFIRM on the code: the instance-keyed prints and the B4 un-gating. DISCREPANCY on the audit-map close: three prose items, none touching a fence.** I do not OBJECT to the fences. Q2 and Q3 are not re-ruled. Everything below is a page ruling only, and disk truth is not answerable from chat.
+
+### Code checks that hold
+- **P046 UJRETARGET:** 7 specifiers (%s %s %s %d %s %I64d %s) against 7 arguments, in matching order.
+- **P048 UJNORETARGET:** 8 specifiers against 8 arguments, and the why/sess/seq/admit order matches the format.
+- **P039-P052 brace structure:** the outer `if` at P039 opens, the inner one at P043 closes at P047, the outer closes at P049, and the original `if` reopens at P051-P052. It is balanced.
+- **P132 to P135 (B4):** only the `InpDebugLog &&` term drops.
+- **P138 to P141 (B4P):** the print becomes `if(InpDebugLog) PrintFormat(...)`. It is still one statement inside the existing braces of the R-SEED span, so NET 0 holds.
+- **Budget:** 13+39+3+0+2+0 = 57, and 12202+57 = 12259.
+- **Ordering:** R05 and R06 carry the same 09:30:00 tick timestamp. So the seed block runs before the S2 evaluation on the same pass, which B2 needs.
+
+### Discrepancies (audit-map close, prose only)
+1. **P122 is stale against B4.** It still says the setter "runs inside the seed block under InpDebugLog (EA-8126), so the B2 gate input is valid only with InpDebugLog=true (acceptance pins it)". After P130-P143 and P239 that is false as a live claim. Label it "pre-B4" or rewrite it. The InpDebugLog=true pin in P153 now serves the prints, not the gate.
+2. **P158 cites "per P148", which is the closing fence of S3TELEM.** The tag-anchoring text lives at P162. P244's own convention says body refs carry current numbers, so this is the same +14-shift class the root-cause sweep targeted. It should read P162.
+3. **P244's line-scope claim is false.** It says the retired name "UJ-NORETARGET" appears "on this line and at P148 only". The retired name actually appears at P158 (name retired from UJ-NORETARGET), P162, and P244. If the battery assertion was written with the old numbers, it may pass vacuously. Re-derive it.
+4. **Minor:**
+   - P155 states the tpB= evidence sentence twice.
+   - P151 omits "B4 +0" (P246 has it).
+   - P238 says `t.uj_tradeSeq`, but the print sites use `g_mtrade.`.
+
+## Analytic ask A: gaps and imprecisions
+
+- **B4 "production converges" is unproven (P130, P239).** Every acceptance proof (P153) pins InpDebugLog=true, so nothing exercises the un-gated path.
+  - Risk: the un-gated block reads `s1f_seedArmed` and `s1g_legDir`, and R-SEED derives `s1t_candDir = (s1g_legDir > 0 ? LONG : SHORT)`. If the EA-7609 capture or the `s1f_seedArmed` assignment is itself debug-gated on disk, production would read a zero `legDir` and default to SHORT. A LONG seed would then get a spurious 0 and the now-live B2 kill would abort it.
+  - The page never shows those sites. I ask for a disk pin of EA-7609, EA-1038, and the `s1f_seedArmed` setter. I also ask for a build-gate: an InpDebugLog=false replay whose admissions list (seq, admit bars) equals the true replay. That needs zero fence change.
+- **CheckLtfAlign "read-only, no writes" (P130) is asserted without its body on the page.** Any counters it bumps now bump in production. Cite EA lines or add a region.
+- **Stale carriage and the takes sheet.**
+  - Nothing resets `s1g_seedBiasAl` between candidates (P122). The takes sheet says 5 June London SHORT admission is "identical", but that is conditional on the lifecycle demo. The B1/prebind route skips the seed block, so a stale 0 from an earlier REJECT would kill it.
+  - State that conditionality on the sheet.
+- **`uj_tradeSeq` type is not on the page (struct EA-265).** `%I64d` needs a 64-bit type, so pin it. If it is `int`, P046 and P048 mismatch.
+- **"Echoes unreachable" and "cannot recur" (P155, P162, P243) are absolute.** They actually rest on one evaluation per closed bar. P173 says the sole call is EA-12191, so this is likely true. Say it as "given one evaluation per bar" rather than by construction.
+- **Pre-admission bars count in the walk (P054, P097).** The retarget target can come from an extreme made before entry. P214 treats this only as an evidence gap for the 5 June expectation, not as a design pin. Add one sentence.
+- **"Below-entry extremes accepted" (P054) is imprecise.** If the entry bar is inside the walked run, a LONG session high is at least the entry, up to a spread-level difference. The real exposure is near-breakeven targets (P205).
+- **Stale code comment at EA-8133 (R-SEED) says "print-only".** After B2 and B4 the value is behavioral. It is a same-line comment edit, NET 0. The EA-1151 declaration comment is likely the same.
+- **UJ-BIASDEFY (P158) is fallback-scoped and now expects zero rows.** A row with sb=0 would signal a gate bug, so say so in the predicate.
+
+## Analytic ask B: better mechanism
+
+Identity-key the seedbias carriage the same way you just keyed the prints. At the setter (EA-8133, R-SEED), also store the seed's `g_anchorLine`, `g_dir`, and `g_anchorBarTime` in file-scope shadows, declared beside EA-1151. At the gate (P110), treat a mismatch as -1 (pass). That closes the cross-route leak by construction, including the B1/prebind route, with no reset-timing question at GoAbort or IDLE. The cost is roughly +4 to +6 lines, and the same-pass check reads only values already in scope. The simpler fallback is `s1g_seedBiasAl = -1` at GoAbort and at the IDLE re-entry. I would hold either for a round only if the lifecycle demo shows the leak, as the page already plans (P122, P130).
+
+## V349-UJFIX2-10 END SONNET

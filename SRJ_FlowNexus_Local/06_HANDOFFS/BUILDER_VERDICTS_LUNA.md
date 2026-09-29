@@ -14319,3 +14319,54 @@ For the seed-bias gate, move the EA-8133 assignment out of the `InpDebugLog` con
 The key ruling is therefore **OBJECT**: the boundary fix itself is sound, but the packet's stated audit-map closure is not yet complete.
 
 ## V348-UJFIX2-9 END LUNA
+
+## V349-UJFIX2-10 OPEN LUNA
+
+## Q1 verdict: OBJECT
+
+The three requested code deltas are materially aligned, but the **audit-map close is not closed** because the v9 body still contains a stale P122 statement that directly contradicts the v9 B4 change.
+
+### Why
+
+The requested B4 change is explicit: the `EA-8133` seed-bias assignment moves outside the `InpDebugLog` condition while only the print remains debug-gated at **P130-P143 / EA-8126–8140**.
+
+But **P122** still says:
+
+> "Setter EA-8133 runs inside the seed block under InpDebugLog…"
+
+That is the old behavior. At the same time, the v9 manifest at **P237** says P122 was updated to the "reset-path pin," and **P239** says the assignment is un-gated. Those three statements cannot all be current simultaneously.
+
+So:
+
+**OBJECT — audit-map/prose inconsistency at P122.**
+The code delta itself is coherent; the page-level audit closure is not yet exact.
+
+### Analytic A — defects / gaps / imprecision
+
+**1. P122 is stale and materially contradictory.**
+P122 says the setter remains debug-gated; P130/P135 and P239 say it is un-gated; P237 claims P122 was updated. This is the direct Q1 blocker.
+
+**2. P239 is slightly overbroad.**
+"Production converges to the accepted behavior" is too broad because the packet explicitly leaves the aligned-path promotion ungated and makes the seed-bias kill **fallback-scoped**. P010 and P240 contain the narrower scope. The safe wording is "the fallback path converges…" rather than "production converges…".
+
+**3. The stale-value hazard remains an acknowledged behavioral gap.**
+P122/P130/P245 say the file-scope seed-bias value can still require reset-at-abort/IDLE hardening and that this remains future/carried. That does not invalidate the requested B4 delta, but it means the packet should not describe the un-gating as fully lifecycle-safe.
+
+**4. The one-bar-forfeit limitation is real and correctly disclosed, not hidden.**
+The helper can silently forfeit retargeting if the first-out-of-session evaluation pass is missed; P242/P177 explicitly preserve that limitation. I would not treat this as a Q1 defect because the packet knowingly adopts the pin rather than pretending it is catch-up safe.
+
+### Analytic B — better mechanisms
+
+For the **seed-bias path**, the stronger mechanism is to make the verdict lifecycle-bound rather than relying on a persistent file-scope singleton:
+
+* keep the setter independent of `InpDebugLog` at **EA-8126–8140**;
+* explicitly clear `s1g_seedBiasAl` at the candidate lifecycle reset/abort/IDLE boundaries identified in the packet (**EA-374 / EA-10582**, plus the candidate lifecycle around **EA-8002 / EA-10357**);
+* treat the unset state as a distinct sentinel and only consume a value belonging to the current seed instance.
+
+That directly removes the stale-value cross-route hazard instead of merely making the existing singleton write unconditional. It would be a **separate behavior round**, not part of this Q1 fold.
+
+For the **audit-map**, the better mechanism is simpler: make the fold battery assert that every "in-place prose" entry named by the manifest actually changed to the claimed successor text. That would have caught the P237→P122 mismatch mechanically before the packet was presented.
+
+**Disposition:** Q1 remains **OBJECT** until P122 is reconciled with the actual B4 un-gating, and the broad P239 wording is narrowed. Q2/Q3 remain the carried-CLEAR priors exactly as the packet specifies; this objection does not re-open them.
+
+## V349-UJFIX2-10 END LUNA
