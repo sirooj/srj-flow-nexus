@@ -1,20 +1,23 @@
 # BUILDER SESSION POINTER — read this first, every session
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
-Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
+Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V341 GRADED LEDGER 978 + TOOL-STACK LEDGER 977)
+## State (2026-09-29, V342 RELAY-READY LEDGER 983 + HANDOFF-SPLIT 982)
 
-- Packet FIX-2 v1 C2C1E377 + relay v341 8E589050 graded (Q1/Q2/Q3 all 2-0 CLEAR; D1 prose action + D4 fence fix owed).
-  Result `06_HANDOFFS\BUILDER_RESULT_V341-GRADE.md` A4CA05A6/5569/30. Build blocked on v1 bytes (D4 fail-closed).
-- Key spent; EU declined. Fold FIX-2 v2 (prose-only) + relay v342 next.
+- Packet FIX-2v2 BDC5856A + relay v342 AF910334 drafted, double battery green, memo shipped.
+  V342 verdicts owed back whole per seat (Q1 + carried Q2/Q3).
+- Key spent; EU declined. Packet FIX-2 v1 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
-  Python absent on box, node-first. V341 owed unchanged.
+  Python 3.13.15 installed per-user + rule amended (ledger 979). Full-path python.
+  Helper `00_CURRENT_WORKING\srj_toolcheck.py` committed (next + hash, ledger 980).
+  Ledger renamed `06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md` + NUMBER-RESERVE live (981).
+  Handoff split: `/srj-flow-nexus-handoff` + shim + `/horc-handoff` (982).
 
 ## Next
 
-- Fold FIX-2 v2 (prose-only, admitTime check first) + relay v342 battery + memo.
+- His V342 verdict paste-back, whole per seat (Q1 + carried Q2/Q3).
 
 ## Resume order (exact)
 
