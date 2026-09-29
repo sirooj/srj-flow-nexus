@@ -2178,6 +2178,25 @@ void ShadowRetestBook(const int barShift)
                TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
                             TIME_DATE|TIME_MINUTES),
                nHits, hits);
+    string uj_dtTerms = "";
+    for(int uj_dtK = 0; uj_dtK < POI_NLINES; uj_dtK++)
+      {
+       double uj_dtL;
+       if(!ReadBuf1(g_hPoi, uj_dtK, uj_dtL, barShift)) continue;
+       if(uj_dtL == EMPTY_VALUE || uj_dtL <= 0.0)      continue;
+       string uj_dtLW = "", uj_dtSW = "";
+       if(!(l <= uj_dtL - P + EPS)) uj_dtLW = "no-penetration";
+       else if(!(bodyLo >= uj_dtL - EPS)) uj_dtLW = "body-below";
+       else uj_dtLW = "HIT";
+       if(!(h >= uj_dtL + P - EPS)) uj_dtSW = "no-penetration";
+       else if(!(bodyHi <= uj_dtL + EPS)) uj_dtSW = "body-above";
+       else uj_dtSW = "HIT";
+       uj_dtTerms += g_lineCode[uj_dtK] + "=L" + uj_dtLW + "/S" + uj_dtSW + " ";
+      }
+    PrintFormat("[SRJ-EA] UJDTTERMS bar=%s %s",
+                TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                             TIME_DATE|TIME_MINUTES),
+                uj_dtTerms);
   }
 //--- SEEDFIX-1 RETESTDIAG: nearest-line census, diagnostic only. Prints beside
 //--- every RETESTBOOK row, hit or miss: inside-range contacts, nearest above/below.
@@ -6874,6 +6893,10 @@ void EvaluateClosedBar(int barShift, datetime barTime)
    Side1p3Snap(barTime); //--- [SIDE1P3-HOOK] source-bar snapshot (reads only)
    ENUM_SRJ_SESSION sess = CurrentTradingWindow(barTime);
    bool inWindow = (sess != SESSION_NONE);
+    bool uj_saAbort = false;
+    int  uj_saA = -1;
+    int  uj_saD = -1;
+    datetime uj_saT = 0;
    //--- [P-SEL-1 E54] presence-bar hook: processed/session/upstream/CQD/
    //--- bias/carried-side at S1+S2 ONLY (read-only + line).
    if(InpDebugLog)
@@ -7385,8 +7408,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
             { if(InpDebugLog) PrintFormat("[SRJ-EA] UJLTFHOLD bar=%s dir=%s poi=%s state=%s m15=%s rf=%d mode=%s term=%s - LTF opposed, hold (Fix F11)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), StateName(g_state), DoubleToString(uj_hm15, 1), (uj_hm15r ? 1 : 0), ((uj_hm15r && uj_hm15 == uj_hwant) ? "M15" : "CARVE"), uj_hterm); }
           else
             {
-             GoAbort(ABORT_LTF_MISALIGN, g_state);
-             return;
+             uj_saAbort = true; uj_saA = g_anchorLine; uj_saD = (int)g_dir; uj_saT = g_anchorBarTime;
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJDEFERABORT bar=%s dir=%s poi=%s state=%s - LTF opposed, abort deferred past evaluation (Fix S-a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), StateName(g_state));
             }
          }
      }
@@ -8325,6 +8348,51 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       g_state = ST_S3_ZONE_WAIT;
       LogState(prev, g_state);
      }
+       //--- [v20 S-b] contender evaluation (self-contained; transfer shape mirrors EA-7813-7829, cited, not pasted).
+       if(g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED) {
+       bool uj_sbHave = false; ENUM_SRJ_DIR uj_sbDir = DIR_NONE; int uj_sbLine = -1;
+       {
+        PoiRetestResult uj_sbPr;
+        if(DetectPoiRetest(barShift, uj_sbPr) && uj_sbPr.found)
+          { uj_sbHave = true; uj_sbDir = uj_sbPr.isLong ? DIR_LONG : DIR_SHORT; uj_sbLine = uj_sbPr.topLine; }
+       }
+       string uj_sbTermC = "", uj_sbTermH = "";
+       bool uj_sbConfC = (uj_sbHave && (uj_sbDir != g_dir)) ? IsConfirmationCandle(barShift, uj_sbLine, uj_sbDir, uj_sbTermC) : false;
+       bool uj_sbConfH = IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_sbTermH);
+       if(uj_sbConfC && !uj_sbConfH && (g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED))
+         {
+          int uj_sbFromLine = g_anchorLine; ENUM_SRJ_DIR uj_sbFromDir = g_dir;
+          g_anchorLine = uj_sbLine; g_dir = uj_sbDir;
+          ReadBuf1(g_hPoi, uj_sbLine, g_anchorPrice, barShift);
+          g_anchorBarTime = barTime;
+          g_zoneHi = 0.0; g_zoneLo = 0.0; g_touchSeen = false;
+          g_touchBarHi = 0.0; g_touchBarLo = 0.0;
+          g_latchedEntry = 0.0; g_latchedSl = 0.0; g_latchedTp = 0.0; g_latchedR = 0.0;
+          g_latchBarTime = 0; g_confirmFromState = ST_IDLE;
+          uj_memo_valid = false;
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] SIDE1C_YIELD bar=%s from=%s fromDir=%s to=%s toDir=%s state=%s term=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                         g_lineCode[uj_sbFromLine], DirName(uj_sbFromDir),
+                         g_lineCode[uj_sbLine], DirName(uj_sbDir),
+                         StateName(g_state), uj_sbTermC);
+         }
+       }
+       //--- [v20 S-a] deferred-abort application (identity-keyed on anchor+dir+barTime; set in Fix F11 tail).
+       if(uj_saAbort)
+         {
+          if(uj_saA == g_anchorLine && uj_saD == (int)g_dir && uj_saT == g_anchorBarTime)
+            {
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJDEFERAPPLY bar=%s dir=%s poi=%s - deferred LTF abort applies, holder unchanged (Fix S-a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr());
+             GoAbort(ABORT_LTF_MISALIGN, g_state);
+             return;
+            }
+          else
+            {
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJDEFERDROP bar=%s dir=%s poi=%s - deferred LTF abort dropped, holder changed (Fix S-a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr());
+            }
+          uj_saAbort = false;
+         }
 
    if(g_state == ST_S3_ZONE_WAIT)
      {
@@ -8914,9 +8982,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           if(InpDebugLog)
              PrintFormat("[SRJ-EA] %s S3 waiting: no qualifying zone",
                          TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
+          string cfTermZ = "";
+          bool cfPassZ = IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermZ);
           //--- [P-UJIMPL-IMPL-1 v8 IE2] direction-alignment guard above design-E1
           //--- (buffer 21 = M15 confirmed vote; F251 preserved, changing it re-scopes).
-            {
+            if(!cfPassZ) {
              double uj_m15 = 0.0; int uj_rf = 0;
              string uj_bk = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
              if(!ReadFlow(FL_BUF_HTF_LOW, uj_m15, barShift)) uj_rf = 1;
@@ -8925,6 +8995,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                { PrintFormat("[SRJ-EA] UJALIGN_NOMATCH bar=%s dir=%s m15=%s uj_readFail=%d", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1), uj_rf); return; }
              PrintFormat("[SRJ-EA] UJALIGN_PASS bar=%s dir=%s m15=%s", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1));
             }
+            else
+             {
+              double uj_bm15 = 0.0; bool uj_bm15r = ReadFlow(FL_BUF_HTF_LOW, uj_bm15, barShift);
+              if(InpDebugLog) PrintFormat("[SRJ-EA] UJALIGN_BYPASS bar=%s dir=%s m15=%s rf=%d - M15 guard bypassed on confirmed bar (Fix Z-B1)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), DoubleToString(uj_bm15, 1), (uj_bm15r ? 1 : 0));
+             }
           //--- [P-CONFIRM-ANYSTATE E1 2026-09-11, operator ruling verbatim: "if
          //--- all my conditions are met, the trade is ON. The EA must take the
          //--- confirmation candle whenever it appears (even while its own prep
@@ -8937,8 +9012,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          //--- at S3). DECLARED: the pre-confirmation freshness poll cannot run
          //--- pre-binding (it tests the BOUND zone), so a pre-bind firing
          //--- proceeds without it; S2 candidates are OUTSIDE the ruled scope.
-         string cfTermPB = "";
-         if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermPB))
+          string cfTermPB = cfTermZ;
+          if(cfPassZ)
            {
             ENUM_SRJ_STATE prevPB = g_state;
             g_confirmFromState = prevPB;

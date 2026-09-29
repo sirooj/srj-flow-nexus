@@ -13703,3 +13703,17 @@ The one mechanism improvement I would reserve for a future round is a **single e
 No v26 code-fence defect found; the remaining issues are provenance/wording qualifications, not defects in the specified v26 repair.
 
 ## V339-IMPL2-24 END LUNA
+
+## KEY-IMPL2-V26 OPEN LUNA (filed whole 1x this turn, novel inbound; see ledger)
+
+**APPROVED — exactly one build and exactly one tester run.**
+
+**Build:** 1× EA build from **P-UJIMPL-IMPL-2 v26**, packet digest **CB302766**, 123,749 bytes / 715 lines. The packet states the v26 fold is acceptance/prose-only with **no code-fence change versus v25** and that the build must be gated by the new key.
+
+**Tester run:** 1× **USDJPY June 1–13** run only, using the pinned RECON71/72/73 replay configuration with `InpDebugLog=true`. The acceptance contract is explicitly for that June UJ window and requires the per-venue admission/identity/economic proofs described in the packet.
+
+**Execution envelope:** alert-only; probe/print-only; **no live trades and no funded money moves**. Nothing in this ruling authorizes live activation.
+
+**No second run, no EU run, and no additional build are approved.** The packet itself separates the August EU proof as a sibling run and states that the June UJ run is the relevant proof window.
+
+## KEY-IMPL2-V26 END LUNA
