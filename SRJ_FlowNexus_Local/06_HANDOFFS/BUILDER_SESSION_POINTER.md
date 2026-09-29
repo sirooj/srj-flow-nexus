@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\BUILDER_LEDGER_QUEUE.md`) is audit-only, never required reading.
 
-## State (2026-09-29, V339 GRADED CLEAR)
+## State (2026-09-29, RECON74 RUNNING)
 
-- V339 graded ledger 962 (Q1 2-0 CLEAR / Q2 2-0 CLEAR).
-  Packet v26 build-eligible; key + UJ run word owed.
+- RECON74-V11-UJ launched ledger 964 (v26 tree, WMI 10412, terminal 7860).
+  Grade ONLY on his run-completed signal; key fully spent.
 - Key spent; EU declined; D v23+.
   No build/run/key without his new word.
 
 ## Next
 
-- His key ruling (Luna) + UJ run word — memo below carries both asks.
+- His "run has completed" signal for RECON74, then grade vs v26 acceptance.
 
 ## Resume order (exact)
 

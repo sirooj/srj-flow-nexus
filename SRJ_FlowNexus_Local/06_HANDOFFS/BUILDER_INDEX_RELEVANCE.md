@@ -90,5 +90,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
  - 2026-09-29: V338 GRADED (ledger 958: Q1 1-1 HALT / Q2 2-0 CLEAR, 3 seats filed whole; v26 fold: D1 sequencing + cites, zero code).
  - 2026-09-29: V339 RELAY-READY (ledger 959: packet v26 CB302766/715, relay B86098AA/955, double battery green, memo shipped; verdicts owed).
  - 2026-09-29: V339 GRADED CLEAR (ledger 962: Q1 2-0 CLEAR / Q2 2-0 CLEAR, 3 seats filed whole; packet build-eligible; key + run word asked).
+ - 2026-09-29: RECON74 LAUNCHED (ledger 964: v26 tree 8C6468F4, WMI 10412, terminal 7860, window proven, binary proof filed; grade on completion signal).
 
 (End of file)

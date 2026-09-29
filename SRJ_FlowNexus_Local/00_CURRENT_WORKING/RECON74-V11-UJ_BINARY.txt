@@ -1,0 +1,7 @@
+RECON74-V11-UJ binary proof (key build leg; recorded pre-launch 2026-09-29, re-verify at grade before any take attribution):
+EA src: Experts\SRJ_FlowNexus_EA.mq5 digest 8C6468F4, 676326 bytes, 12202 lines (STAGE-1 applied 8 v26 sites onto frozen FC41EE0D).
+EA binary: Experts\SRJ_FlowNexus_EA.ex5 445694 bytes, rebuilt 2026-09-29 12:46:24 (compile V26 0 errors, 0 warnings, log 06_HANDOFFS\V26_UJIMPL_EACOMPILE.log).
+Run ini: USDJPY_DEMO_JUNE.ini (Expert SRJ_FlowNexus_EA, USDJPY M5, InpDebugLog=true, InpMode=1).
+Window: terminal.ini [Tester] DateFrom=1780272000 DateTo=1781308800 (June 1-13 2026 UTC, read with no terminal running).
+Launch: WMI PID 10412 RC=0 at 12:49:13; terminal PID 7860; STATUS pre-flight clean (TERMINAL_BUSY=False).
+Scope: one UJ June run under Luna KEY-IMPL2-V26 (build leg spent at compile). No EU run. Alert-only.
