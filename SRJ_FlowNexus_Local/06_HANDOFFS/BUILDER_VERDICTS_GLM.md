@@ -7650,3 +7650,44 @@ Term, as far as the rows go (R09 + R-CONFIRM EA-2323-2332):
 Three verdicts above, each on its own line. D1 is the only discrepancy obliging action this round (prose re-word + findings-map predicate, or a v2 latch under his word); D4-D5 should be pinned before the fold battery runs. Page-only; byte claims ride the battery; nothing built, run, or spent; nothing here clears live activation. Nothing else is asked.
 
 ## V342-UJFIX2-3 END GLM
+
+## V343-UJFIX2-4 OPEN GLM
+
+**SEAT RULING — packet P-RECON74FIX-2v3 (relay v343-UJFIX2-4). Q1 only; Q2/Q3 carried, no re-rule. Ruling on the page only; no files requested; nothing builds, runs, spends, or clears live activation here.**
+
+## Q1 verdict: CONFIRM
+
+The truncation guard plus diagnostic row match their specified old-to-new deltas, fail closed on truncated runs, and the revision is bounded to one per trade instance by admission-time containment with zero new carriage. Basis (P-lines = twin, EA-lines = pins carried on the page):
+
+1. **Guard, delta match.** The specified delta (uj_ended decl + two line-mods, per P145) appears exactly once each: decl P075; mod-1 at P084 — the only uj_ended setter, placed at the run's older edge (a non-entry-session bar following entry-session bars); mod-2 at P093 — the return gate now requires `!uj_ended` alongside `!have` and `ext <= 0.0`.
+2. **Guard, fail-closed.** Both truncation exits — the 600-bar cap (P078) and the history boundary (`bk == 0`, P081) — can only leave the loop before P084 fires, so uj_ended stays false and P093 returns false with px still at its P065 zero. A partial extreme cannot reach the caller.
+3. **Diagnostic row, delta match.** P048 is an else-if attached (braces P043/P047/P049) to the helper-and-strictly-tighter condition (P041-P042), so outcomes partition exactly: helper-true-and-tighter → revise (P044-P046); helper-true-not-tighter → row (P048); helper-false → no row, because P065 zeroes px before any return and P048's `uj_rtPx > 0.0` is then false. Containment-blocked and truncation-blocked reads both land in the no-row class, per the stated scope (P145).
+4. **Once per instance.** P072 requires the evaluation bar outside the entry session type; the walk locates the newest run of that type and records its span (P087-P088); P094 requires the admission bar inside it. First post-close pass: newest run = the entry instance → revise if strictly tighter. Later passes in the same window: all run bars are closed (k > barShift), so ext is immutable; after the first revision rtPx == tpRef, failing the strict test at P042 — no second UJRETARGET. After the next same-type session: P072 blocks during it; after its close the newest run no longer contains the admission bar → P094 false, no row. At most one revision per instance, by containment alone.
+5. **Zero new carriage.** Helper reads only t.dir, t.sessionAtEntry, t.uj_admitBarTime — the first two pre-existing (EA-10627/EA-355 per P030), the third pinned pre-existing (decl EA-264, set EA-10647, resets EA-374/10582, P146). No new field, global, input, handle, or buffer; no latch (correctly parked, P147). Caller adds locals only.
+6. **Siting and counts.** Old-anchor blocks match their regions: P032-P034 = R-TP EA-11829-11831 (insert precedes the TP touch block, so the revised tpRef feeds tpBookedTouch on the same pass); P056-P058 = R-SESS EA-1887-1889 (definition precedes the sole caller, no prototype — P054). Fold recount from the twin: R +13 (P037-P049), RHELP +36 (P062 + P063-P097), B2 +3, B3 +0, S3 +2 → +54, final 12256 (P134) — my recount matches. The Q1 delta touches no entry-pipeline line.
+7. **Cap sufficiency (replay).** Independent check of P054's arithmetic: worst legitimate walk (Friday NYAM close → Monday pre-open pass) ≈ 130-350 bars — well under 600; intra-week ≈ 40-250. The cap binds only past ~2 trading days without a pass, by which point a newer same-type session exists and containment, not the cap, produces the no-row. Fail-closed sacrifices no legitimate revision in the 6/1-6/13 window.
+
+## Analytic A — defects / gaps / imprecisions (all named, none defeat Q1)
+
+- **A1 (page-internal census defect, prose).** P005 says "three new prints (UJRETARGET/UJNORETARGET/UJSBTELEM)" but the edit set carries four new print sites — S2SEEDBIAS_KILL (P113) is unlisted. Fix before transport: either "four new prints (…/S2SEEDBIAS_KILL/…)" or an explicit clause bundling the kill print under the ABORT-code item. This touches the Q2 fence's *surface description* only; the fence blocks themselves (P101-P126) are byte-unchanged and I make no re-rule demand. The build-time S3 recount governs the true count; the page census should match it.
+- **A2 (spec-compliant verbosity).** After the first revision, every later pass in the same window prints UJNORETARGET with rt == tp (equal case): for the R-venue branch (ii) that is on the order of 60-80 bar-passes (6/5 19:05-00:55 plus 6/8 00:05-00:50; weekend empty; more if passes are per-tick). Diagnostic-only, no behavior change, no predicate keys on the row count — journal volume/noise only. Optional polish in Analytic B.
+- **A3 (missing one-line pin).** P094's upper bound assumes uj_admitBarTime is a bar-OPEN time. If the EA-10647 set-site ever assigns a tick timestamp, an admission on the session's final bar (tick > last bar open = uj_newest) false-rejects silently — no row — and at grade the UJ-NORETARGET predicate (P141) would misread it as a failed retarget. The page pins decl/set/reset lines (P146) but not the RHS semantics. All register venues are mid-session (R-venue 16:55 in a 14:00-19:00 server window), so the replay is unaffected; R13's admit_bar=09:30 at a 09:35:01 row timestamp suggests bar-open already holds. Pin it in prose; no code change.
+- **A4 (unstated residual, documentation).** The revision requires ≥1 EvaluateManagedTrade pass in [entry-session close, next same-type session start). A live-mode evaluation blackout spanning that window forfeits the revision permanently and silently (P072 blocks during the next session; P094 after). Replay-safe (every bar evaluated; 2880 bars proven). The transition-bar alternative was parked with cause (P147); the residual exposure deserves one stated sentence.
+- **A5 (live-only note).** Per-bar server-converted classification (EA-1865) could fragment a run whose window spans a US DST transition (March/November) → containment failure → silent no-retarget. June replay has no transitions; note for any future live scope only.
+- **A6 (cosmetic).** P054's "about 100 bars" is loose — a same-day late pass reaches a London close in ~180 bars. The binding claim (≪600; cap binds only past ~2 trading days) is correct; no ruling impact.
+- **A7 (cosmetic).** UJNORETARGET (P048) lacks the sess= field UJRETARGET carries (P046); and P048's indentation visually suggests attachment to the outer if — braces are correct, build-style check only.
+
+## Analytic B — better mechanisms
+
+- **B1 (affirmation, no replacement).** History-walk + admission-time containment is the right mechanism under the stated constraints (zero new carriage; buffer route and latch-bool both parked with cause, P147). I see no strictly better mechanism that does not add carriage; the design converges with the parked decisions.
+- **B2 (optional, one line, P048).** Add a why-field to UJNORETARGET — e.g. `why=%s` with `(uj_rtPx == g_mtrade.tpRef ? "eq" : "loose")` — so the post-retarget echo self-identifies and the grade counts distinct conditions instead of rows. Superior to suppressing the echo (`&& uj_rtPx != g_mtrade.tpRef`), which would delete the exact-equality diagnostic.
+- **B3 (optional, not required).** The truncation path is silent and indistinguishable from containment-blocked. Per the arithmetic it cannot fire in the June replay (max walk ~350 < 600), so nothing is required; if a future live scope wants it surfaced, a debug row at the P093 gate (e.g. UJWALKTRUNC when `have && !uj_ended`) separates the classes.
+- **B4 (for A3).** Prose pin only (EA-10647 RHS = iTime(barShift), bar open). A code alternative exists (P094 bound → `uj_newest + PeriodSeconds(PERIOD_CURRENT) - 1`) but the pin is cleaner and adds zero surface.
+
+## Carried fences
+
+Q2 and Q3 stand carried-CLEAR per the V342 tallies as quoted in the packet (both tallied seats CONFIRM each; Sonnet advisory; Luna+GLM tallied). No re-rule performed; the fence blocks ride presence-asserted and byte-unchanged in this twin. A1 touches their prose surface description only. A NO was not returned on Q1, so the carried clears are untouched regardless.
+
+— End of seat ruling. Genuineness vs disk (digests, byte-diffs, twin, future build) remains his to prove on his machine; this ruling construes the page only.
+
+## V343-UJFIX2-4 END GLM

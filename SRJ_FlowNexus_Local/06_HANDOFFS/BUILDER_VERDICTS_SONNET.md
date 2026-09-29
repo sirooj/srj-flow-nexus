@@ -3631,3 +3631,88 @@ Q2 and Q3 stand as carried-CLEAR. I re-rule neither, and this OBJECT touches nei
 I did not verify disk truth, and this ruling builds and clears nothing.
 
 ## V342-UJFIX2-3 END SONNET
+
+## V343-UJFIX2-4 OPEN SONNET
+
+# Q1 verdict: CONFIRM, with page-hygiene discrepancies
+
+I checked this on the page only, as instructed. I can't verify disk truth (the digests, or that EA-264 and EA-10647 exist as described) from chat.
+
+## Why the code claims hold
+
+**Truncation guard (P075-P078, P084, P093).** The walk runs newest to oldest, so the walk's only truncation risk is on the run's older edge.
+- `have` becomes true at the first in-session bar, and `uj_ended` becomes true only when an older out-of-session bar is then met (P084).
+- A cap exit at k = barShift+600 (P078), an `iTime == 0` break (P081), or the start of history leaves `uj_ended` false, so P093 returns false with `px = 0`. That fails closed.
+- The newer edge is closed by construction. P072 rejects a barShift bar that is in the session, and any bars between barShift and the first in-session bar are out of session.
+- Bar-open times use the half-open map at EA-1865, so this holds.
+
+**Containment (P094).** The span check works because the walk stops at the first out-of-session bar after the run begins. The bars between `uj_oldest` and `uj_newest` are therefore exactly one contiguous run. A later same-type instance can't contain the admission bar.
+
+**Diagnostic row (P046-P048).** The nesting parses. Because P063 zeroes `px` and only P095 sets it, `uj_rtPx > 0` means the helper returned true. The specifier counts match the argument counts: 5=5 on UJRETARGET, 4=4 on UJNORETARGET, and 10=10 on UJSBTELEM.
+
+**Splice mechanics.**
+- Old-R (P032-P034) matches the indentation of region R-TP lines 9-11, so its anchor is EA-11829-11831.
+- Old-RHELP (P056-P058) matches EA-1887-1889.
+- The ABORT define puts its quote at column 32, the same as EA-405/406.
+- The budget counts (+13, +36) match the fenced blocks.
+
+## Discrepancies and imprecisions
+
+Findings 1-3 are the ones worth fixing in the fold.
+
+1. **Stale Q1 wording contradicts the ask (page, non-twin tail).**
+   - The "Q1 verdict line" section and the "Close: Ask" line still ask about the "contained helper body... bounds revision to one per trade instance (admission-time containment)". That is the v2 question.
+   - The Q1 section above them asks about the truncation guard plus the diagnostic row.
+   - Per the fold delta, the once-only claim is now joint: containment plus the strict-tighter caller (P037), with UJ-RERETARGET as the divergence predicate (P141).
+   - Containment alone doesn't bound it. After the first revision, the helper still returns true on every pass in the same run, and only the strict-tighter test at P042 stops a second revision.
+   - Two different Q1 verdict lines with different scopes is a filing hazard for a seat-to-seat carry.
+
+2. **Task-160 mislabel not fully retired (P054).**
+   - P054 still says "before the EA-1888 blank and Task-160 comment block (EA-1889)".
+   - The fold delta and P146 say this was retired. Region R-SESS shows EA-1889 is the `P-RESQUAT-1 F-a` comment, and the old-RHELP anchor at P058 uses that label.
+   - Fix the prose in P054 to match.
+
+3. **UJNORETARGET also fires after a successful retarget (P048).**
+   - After UJRETARGET sets `tpRef = ext` (P045), every later pass in the same run has the helper true with `rt == tp`. The `else if` at P048 then prints a row on each of those passes.
+   - On the R-venue that means one row per bar from 19:05 Friday until the exit or the next same-type session. That is roughly 70 rows, given Friday's market close.
+   - This contradicts the stated purpose in P145 and P154 ("helper-true-not-tighter", diagnosing why a retarget did not happen). It also means a UJNORETARGET row doesn't distinguish "never tighter" from "already retargeted" without comparing rt to tp.
+   - One-token fix: guard the print with `uj_rtPx != g_mtrade.tpRef`. Alternatively, state in P141 or P154 that post-retarget equal rows are expected. The build fails no test either way, but the grade would read cleaner with the first option.
+
+4. **`have` conflates two meanings (P082-P091).**
+   - `have` means both "run entered" (P084) and "a valid price was seen" (P091). `uj_newest` and `uj_oldest` are set before the `v <= 0` skip at P090.
+   - If the first in-session bar had `v <= 0`, `have` would stay false. The walk would then treat the next out-of-session bar as a leading skip (P085) and continue into an older same-type run.
+   - The span at P094 would then straddle two instances and merge their extremes.
+   - This is practically unreachable, since a valid `iTime` implies a valid OHLC. It is still a latent flaw. A separate `inRun` bool set beside `uj_newest` would close it at zero behavior change otherwise.
+
+5. **Entry price is not proven to lie inside the run (P054, P069, P094).**
+   - Containment tests the admission bar. Per R13, the admit bar (09:30) precedes the entry bar (09:35 open).
+   - If admission is the final in-session bar, the entry price is a post-close open. A gap through the session extreme would put `uj_rtPx` on the loss side of entry. At the next pass the retarget would set TP below (LONG) or above (SHORT) entry and book a loss as a TP touch.
+   - The D3 "accept below-entry extremes" rationale (P054) implicitly relies on the entry bar being in the run. That premise isn't stated on the page.
+   - It's rare, but it should be named as an accepted edge or covered by a UJ-grade predicate, for example any UJRETARGET row where the new tp is on the wrong side of entry.
+
+6. **Naming and assumption.**
+   - `uj_ended` actually proves the run's older (opening) edge was reached, not its end. The name works but is easy to misread.
+   - The guard also assumes no data holes inside the run. A missing opening segment with older out-of-session bars present is undetectable.
+
+7. **Unverifiable from the page.**
+   - The type of `SManagedTrade.uj_admitBarTime` (EA-264) and its semantics (admit bar versus entry bar) aren't shown.
+   - The `<= 0` compare at P069 and the span compare at P094 assume datetime or integer. P146 cites the lines but not the text.
+
+8. **Side effect on N1 telemetry.**
+   - Once `tpRef` is retargeted, `tpRecomputeTouch && !tpBookedTouch` (R-TP line 21, `g_n1_tpRecomputeSupp++`) will count differently on post-retarget bars, so it won't be comparable to earlier runs.
+   - Worth a one-line grade note.
+
+9. **Cosmetic.** The inserted comment and block at P037-P049 sit between the existing "(b) TP: the BOOKED target..." comment (R-TP lines 6-8) and `bool tpBookedTouch` (EA-11829). The old comment now heads the retarget block, not the TP block. The `else if` at P048 has odd indentation. Also, `uj_rtPx > 0.0` at P041 is redundant.
+
+## Analytic ask B
+
+For finding 3, a one-time diagnostic is a stronger design than a per-pass print. Emit UJNORETARGET only on the first pass where the helper returns true for a given trade. Detecting that would need a latch (new carriage, already parked with cause), so the `!=` guard is the zero-carriage alternative. Keep it.
+
+## Carried Q2/Q3
+
+I did not re-rule them. My arithmetic spot-checks are consistent with the page:
+- B3's `sb=%d` (P125) is 10 specifiers to 10 arguments.
+- B2's kill branch sits between the promote block, which ends at EA-8343, and the `S2WAIT else` at EA-8344.
+- The S3 telemetry site sits between EA-8361 and EA-8362.
+
+## V343-UJFIX2-4 END SONNET

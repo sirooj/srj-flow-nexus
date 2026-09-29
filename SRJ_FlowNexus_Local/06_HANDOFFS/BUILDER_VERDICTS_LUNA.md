@@ -14085,3 +14085,35 @@ Add an explicit `sbRead` field beside `sbL`, then grade the 14:35 row by exact t
 No build/run/key clearance follows from these design verdicts.
 
 ## V342-UJFIX2-3 END LUNA
+
+## V343-UJFIX2-4 OPEN LUNA
+
+## Q1 verdict: CONFIRM
+
+The contained helper matches the stated truncation-guard delta and the one-instance containment mechanism.
+
+The critical fail-closed path is present at **P093**: `!uj_ended` returns false, so a walk that never reaches the older boundary of the entry-session run cannot publish a partial extreme. `iTime()==0` also breaks the walk at **P081**, followed by the same `!uj_ended` rejection at **P093**. The admission-time containment at **P094** prevents an extreme belonging to a later same-type session from being accepted.
+
+The caller then requires the returned value to be strictly tighter before changing `tpRef` at **P041-P048**. Once the entry-session extreme has been installed, the same value is not emitted as another `UJRETARGET`; a later same-type session is blocked by the **P094** admission-instance test.
+
+### Analytic A — defects / gaps / imprecision
+
+1. **P054/P062 describes the helper as "truncation-closed" somewhat more broadly than the code actually proves.** The implementation detects truncation caused by reaching `iTime()==0`, exhausting the 600-bar walk before finding the session boundary, or otherwise failing the containment/end tests. It does **not** detect an arbitrary missing-bar gap *inside* an otherwise traversed session. That is a robustness gap, not a defect in the stated 600-bar truncation guard.
+
+2. **P087-P094 establish a session run, but not explicit bar continuity.** `uj_newest` and `uj_oldest` are derived from whatever bars were returned, so the proof is "complete traversed session run under the available series", rather than "every expected M5 bar existed."
+
+3. **P145's wording "containment-blocked reads as no-row" is diagnostically imprecise.** `UJNORETARGET` is only printed when the helper returned a positive `uj_rtPx` but the caller's tighter test failed, whereas a containment failure makes the helper return false and therefore produces no `UJNORETARGET`. The packet does state this distinction elsewhere, but this sentence could be read too broadly.
+
+4. **P138 calls the Friday-to-Monday outcome "day-exit reconciliation" while the actual acceptance criterion is the session-retarget behavior.** The wording is understandable and attributed to the ruling, but the code itself implements the session-close retarget, not a separate generic "day exit" rule.
+
+I do **not** see a Q1 logic defect that warrants OBJECT.
+
+### Analytic B — better mechanism
+
+The only materially stronger mechanism I see is an explicit **session-continuity check** inside `UjClosedSessionTarget`: while walking the entry-session bars, verify that successive qualifying bars advance in exact 5-minute increments; otherwise fail closed. That would touch **EA/P078-P094**. It would turn the present "no truncation at the boundary" guarantee into a stronger "no missing internal bars" guarantee.
+
+I would **not** add a latch bool or extra carriage for Q1. The current admission-time containment plus strict-tighter caller check already gives the required one-instance behavior without new state.
+
+**Filed Q1: CONFIRM.**
+
+## V343-UJFIX2-4 END LUNA

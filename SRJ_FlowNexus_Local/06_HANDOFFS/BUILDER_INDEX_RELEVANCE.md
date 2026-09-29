@@ -98,6 +98,9 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
   - 2026-09-29: V341 GRADED (ledger 978: Q1/Q2/Q3 all 2-0 CLEAR; 3 seats filed whole triple-proof; result A4CA05A6/5569/30; D4 blocks v1 build; fold v2 prose-only scoped).
   - 2026-09-29: V342 RELAY-READY (ledger 983: packet FIX-2v2 BDC5856A/154, relay AF910334/390, double battery green, memo shipped; verdicts owed).
   - 2026-09-29: V342 GRADED (ledger 985: Q1/Q2/Q3 all 2-0 CLEAR; 3 seats filed whole git-proof; result B2167D9F/5880/31; uj_ended fold + v343 scoped).
-  - 2026-09-29: V343 RELAY-READY (ledger 987: packet FIX-2v3 4ABDEDCC/156, relay 467D9CB0/392, double battery green, memo shipped; verdicts owed).
+  - 2026-09-29: V343 RELAY-READY (ledger 987: packet FIX-2v3 38FFCE0D/156, relay 467D9CB0/392, double battery green, memo shipped; verdicts owed).
+  - 2026-09-29: DIGEST-REPAIR (ledger 988: 4ABDEDCC withdrawn, 38FFCE0D adopted for packet FIX-2v3; lock restored, verdicts still owed).
+  - 2026-09-29: V343 GRADED (ledger 989: Q1 2-0 CLEAR, Q2/Q3 carried-CLEAR, 3 seats filed whole; result E6EAD929/41; fold v4 scoped; BUILD-BLOCKED).
+  - 2026-09-29: V344 RELAY-READY (ledger 990: packet FIX-2v4 72F2C380/170, relay D82D3703/406, double battery green, memo shipped; verdicts owed).
 
 (End of file)
