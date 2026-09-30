@@ -3,12 +3,12 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, RECON77 graded, quiescent)
+## State (2026-09-30, v15 drafted, relay queued)
 
-- RECON77 DONE=PASSED: behavior-neutral PASS + lifecycle PROVEN (result filed).
-  His no-improvement CONFIRMED at take level, expected by design (telemetry only).
-- v29 tree 977B0FB5 committed 71f1e55; key both legs spent; EU excluded.
-  Take-moving round is v15 exemption (council route + new key + his word).
+- v15 packet PACKET_P-RECON74FIX-2v15 883A9D49/13385/100 (1-line exemption).
+  Draft verifies green (fence byte-match, ellipsis 0, single site).
+- Relay v358 + double battery + transport memo queued next (builder-side).
+  Nothing spent; no key/run asked; EU excluded.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
   Python 3.13.15 installed per-user + rule amended (ledger 979). Full-path python.
   Helper `00_CURRENT_WORKING\srj_toolcheck.py` committed (next + hash, ledger 980).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- Rest. Next builder block (unattended): v15 exemption draft via council route.
+- Next builder block (unattended): relay v358 + battery + memo for v15.
 
 ## Resume order (exact)
 
