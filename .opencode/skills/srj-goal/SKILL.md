@@ -7,6 +7,14 @@ description: Ultimate-goal guard for SRJ Flow Nexus. The EA must reproduce the o
 
 Role: every block of work answers to the deployment bar first. Process wins (clean relays, green batteries, passing probes) are not goal wins. A month of iterations that moves no goal metric is spin, and this skill exists to stop it (ordered 2026-09-20 after RECON48 graded instrument-PASS with the goal still unmet).
 
+## 0. Multi-strategy pattern (portfolio rule 2026-09-29 - one guard shape, one bar per strategy)
+
+- This skill's CONTRACT (§3: no run without novel goal evidence, every acceptance grades his rows, diagnosis before halts, read-only diagnosis always authorized) binds EVERY strategy automation. The SRJ scoreboard below (§2, §7) binds SRJ ONLY.
+- New strategies instantiate their own bar before any run is requested: named valid set + named invalid set + the join that grades them. No bar, no run - an unbarred run is spin by definition.
+- HORC instantiation (learning phase, no metrics invented): the helper must mark the same bars HE hand-marked in the vault manual-replay gate (Phase 5 checklist), for his reasons in the vault spec. The HORC valid/invalid sets are DEFINED at Phase 5, joined at Phase 8 backtest, never earlier. Until then this skill's HORC contribution is one sentence: the bar is unwritten, so no HORC run is requested.
+- ANTI-POLLUTION (operator order 2026-09-29 - SRJ and HORC lanes run simultaneously): lanes never cross-read. SRJ blocks do not open the vault glossary/spec/bar; HORC blocks do not open the SRJ scoreboards (§2, §7 below) - not even for reference. A join, grade, or relay citing the other lane's numbers is a D3. The vault HORC bar file (Phase 5) is the sole HORC goal source when it lands.
+- ROUTING (2026-09-29 - this file is SRJ memory with a universal contract): UNIVERSAL (every lane): this §0 plus the §3 action contract shape (no run without novel goal evidence, grade his rows, diagnose before halting, read-only diagnosis always authorized). SRJ-ONLY (never opened on HORC blocks): §§1, 2, 5, 7, 8 plus the §4 scoreboard close and the §6 run loop - his journal, his windows, his spec sections, his register. HORC learning blocks obey this §0 plus §4-HORC-halt plus §6-HORC-loop only; everything else here is unread on HORC blocks.
+
 ## 1. The goal (his words, never paraphrased into softer shape)
 
 - "The EA is working off SRJ Flow Logic but it is not up to my standard. I have a manual discretionary trading that I want to automate but the current EA does not take the same trades that I would take." (`00_CURRENT_WORKING\GOAL_STATEMENT.md` lines 4-6, recorded 2026-09-08)
@@ -38,6 +46,7 @@ Role: every block of work answers to the deployment bar first. Process wins (cle
 - His-carrier boundaries only: strategy rules, money and goals, his transports, token run-words, record verdicts. (Standing no-friction order, unchanged.)
 - Never halt on: a green battery, a filed result, a completed todo list, an unverified suspicion, or the end of a turn while goal work remains open.
 - A block ends with: scoreboard re-joined, misses diagnosed or named-undiagnosable with the exact missing evidence, ledger plus pointer current. Anything less is spin.
+- HORC-HALT (learning phase, SRJ §4 above does not apply): a HORC block ends with watchlist row advanced, latest note filed, vault HORC ledger current. Halt only at his-correction boundaries (his Q answers, his image saves, his spec corrections, his phase words). Never halt on an unfiled note, an unadvanced row, or the end of a turn while vault work remains open.
 
 ## 5. Standing limits
 
@@ -49,9 +58,10 @@ Role: every block of work answers to the deployment bar first. Process wins (cle
 
 - After every run: re-join the scoreboard, bank each new mismatch class with its bar and mechanism, retire fixed classes with the run ID that fixed them.
 - TAKES-TEACH-CONSTRAINTS (his order 2026-09-26): every audited valid take is banked as a must-keep regression cell (matrix + preservation battery), never as a pattern to copy. Three reasons, all standing: (a) the clean sample is thin (EU 7 on the register window; June blind 1 unrelated take) - too few to generalize from; (b) a row shows YOUR trade, never YOUR reason - reasons come from your rulings only, never induced from rows; (c) copying past takes is fitting, and blind windows punish fitting - only rules travel. Your trade lists + rulings are legitimate design input (you own them); tester output on unseen windows stays unseen until grade - never studied to design. Scoreboard honesty per this pin: EU register entries at-goal (7/7 valid, 0 invalid taken); the whole goal UNMET until full-journal reconciliation across all windows (June blind open with 3 misses).
-- REGISTER-READ (his order 2026-09-26): `06_HANDOFFS\BUILDER_REGISTER_VALID_TRADES.md` is read BEFORE every grade, every run plan, every relay draft, and every packet draft - before the ledger, before old logs. It holds your audited taken-valids (EU 7), your valid-misses (UJ 3), the false reference, and the quarantine annex. A take missing from it is never claimed; a row cited past it is never trusted. Updated the turn its contents change, never carried in chat alone.
+- REGISTER-READ (his order 2026-09-26): `06_HANDOFFS\BUILDER_REGISTER_VALID_TRADES.md` is read BEFORE every grade, every run plan, every relay draft, and every packet draft - before the ledger, before old logs. It holds your audited taken-valids (EU 7), your valid-misses (UJ 3), the false reference, and the quarantine annex. A take missing from it is never claimed; a row cited past it is never trusted. Updated the turn its contents change, never carried in chat alone. ENFORCEMENT (2026-09-30 v17/v360 violation, owned on his laziness charge: packet v17 + relay v360 drafted off skill-memory of his takes with no register re-read; content survived only via message-C frames already in skill - luck, never process): the draft turn prints the register line count beside the first take-frame cite, and the battery asserts every take-frame (entry/bar/line) against fresh register bytes; a draft whose frames were never joined against the register is unwritten.
 - After every operator correction: check whether these sections already covered it; if yes, cite the section in the report instead of adding text; if no, tighten here the same turn (D1-V6 pattern).
 - This file is the goal memory: update it the turn the goal picture changes, never carry goal lessons in chat alone.
+- HORC-LOOP (learning phase, SRJ run loop above does not apply): after every watch block, bank the Tier-1 rule candidates plus his words plus open questions in the note; retire answered questions with the video row that answered them. No metrics invented before Phase 5, no runs requested before the vault bar exists.
 
 ## 7. Scoreboard delta 2026-09-23 (RECON55 + his 9/1 ruling)
 
