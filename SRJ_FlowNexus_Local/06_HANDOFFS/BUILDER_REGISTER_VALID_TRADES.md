@@ -21,7 +21,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 
 | # | Date / session / pair / owed entry | Direction | Line | Refuse (decision rows) | Cause |
 |---|---|---|---|---|---|
-| 1 | 5 June London USDJPY, entry owed 09:40 open | SHORT | Daily-POC | 09:40 pass: SEED + RETESTBOOK hits=1 + CONFIRMPOLL confirm=0 bodyDir=0 [R63 DK/FF/LS] | B_BODY refusal at decision (A2 unresolved); HIS rule: 09:35 retest+confirmation |
+| 1 | 5 June London USDJPY, entry owed 09:45 open | SHORT | Daily-POC | dead seed on v28/v29 (no election off the 09:40 confirmation bar; 09:35-bar B_BODY bodyDir=0 is the pre-correction venue) [RECON76/77] | Amended per his message-C words 2026-09-26: 09:35 retest + 09:40 confirmation + 09:45 open entry (159.948 R2.00 on v26); the 09:40-open wording stands withdrawn as superseded |
 | 2 | 5 June New York USDJPY, entry owed 16:15 | LONG | Old high 160.723 (April-30th day high) [HIS] | 16:10 NO_TP_TARGET, 5 levels invalid [R63 QO] | Pool blind past 10 days; retarget rule commissioned [HIS: "i want your solution"] |
 | 3 | 11 June New York USDJPY, entry owed 14:40 open | LONG | Daily-POC (= anchor) [HIS A2 settled] | 14:40 pass confirm=1 [R63 FN] then FRESHCOUNT HOLD on fvgDead | FVG-hold refused a proven confirm; HIS rule: 14:35 retest+confirmation, FVG irrelevant post-flip |
 
