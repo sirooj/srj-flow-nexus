@@ -14840,3 +14840,69 @@ One bookkeeping discrepancy: the supplied page records its assembly digest as **
 
 Operator: Build and run for UJ permission granted.
 ## KEY-FIX2-V14 END LUNA
+## V358-UJEXEMPT-1 OPEN LUNA
+## Council ruling — v358-UJEXEMPT-1
+
+### Q1 — **CONFIRM**
+
+The one-line exemption correctly changes the B2 edge from:
+
+`uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0`
+
+to:
+
+`uj_m15r && uj_m15b == uj_wantb && (s1g_seedBiasAl != 0 || g_ujOpReseedBarTime != 0)`
+
+so a seed with the carried reseed provenance can reach `S2PROMOTE`, while the existing `else if(uj_m15r && uj_m15b == uj_wantb)` kill remains for the no-CARRY case. The page also explicitly carries the 8-June negative control and states that the CARRY lifecycle is already proven.
+
+The 5-June death chain is internally consistent with that rule: the seed is reseeded at 09:15, the old tree kills it because `seedBiasAl=0`, and v15's intended effect is to remove those kills while preserving the later confirmation gate.
+
+### Q1 — Analytic A: defects / gaps / imprecision
+
+**1. "Reseed-proven seed" is stronger wording than the literal predicate.**
+The code checks only `g_ujOpReseedBarTime != 0`; it does not independently bind that timestamp to the currently-held seed. The page relies on the prior CARRY lifecycle proof to make that equivalent. That dependency should remain explicit because the new line itself does not establish it.
+
+**2. The acceptance language mixes hypothesis and mechanism evidence.**
+`H-TAKE` is explicitly labeled hypothesis, while `P-KILLOUT`, `P-PROMOTE`, `P-KEEP`, etc. are binding. That is good, but the page could state even more sharply that a failure of the predicted 09:40 confirmation is a feed/term finding, not evidence that the exemption is wrong. The page does say this, so this is an imprecision rather than a logic defect.
+
+**3. The "watch" language can obscure that promotion itself is real behavior.**
+The 16:00 and 14:45 cases are described as watches, but v15 actually changes S2 behavior by allowing `S2PROMOTE_M15`; downstream gates merely determine whether that promotion becomes a take. That distinction matters for Q2.
+
+### Q1 — Analytic B: better mechanism
+
+The current one-line change is the smallest mechanism consistent with the stated CARRY lifecycle. A stronger implementation would bind the exemption to the current seed identity rather than relying on a nonzero global timestamp; however, that would be a larger state/fence change and is outside this one-line v15 scope. The page itself recognizes this as the direction-scoped/bigger-fence family.
+
+---
+
+## Q2 — **REQUIRE**
+
+The cross-direction exemption should be **direction-scoped**, not left direction-blind.
+
+The reason is in the code itself: `g_ujOpReseedBarTime != 0` has no direction term. Therefore a reseed recorded under one direction can satisfy the exemption while `g_dir` is the opposite direction. The page explicitly identifies exactly those two cases: the 16:00 LONG promotion from SHORT ancestry and the 14:45 SHORT promotion from LONG ancestry.
+
+Those are not merely telemetry observations; they are genuine `S2PROMOTE` state transitions before downstream admission. The `P-NOFALSE` constraint can catch an unwanted **take**, but it does not make the cross-direction **promotion** itself semantically correct.
+
+### Required fence shape
+
+Use a stored reseed direction alongside the existing reseed timestamp:
+
+* **SET:** at the reseed write currently at **EA-7899**, store `reseedDir = g_dir`.
+* **CLEAR:** wherever `g_ujOpReseedBarTime` is cleared, clear `reseedDir` at the same lifecycle point.
+* **Predicate:** replace the direction-blind CARRY alternative at **EA-8413** with the direction-matched form, conceptually:
+
+`(s1g_seedBiasAl != 0 || (g_ujOpReseedBarTime != 0 && g_ujOpReseedDir == g_dir))`
+
+The existing `s1g_seedBiasAl` branch remains untouched; only the CARRY exemption becomes direction-scoped. The relevant current predicate is EA-8413.
+
+### Q2 — Analytic A
+
+The principal defect is **direction blindness in the CARRY exemption**. The page already acknowledges this as a parked larger mechanism, but Q2 now asks whether it should remain parked; from the actual behavior described, it should not.
+
+### Q2 — Analytic B
+
+The better mechanism is precisely the page's own parked `reseedDir` design, now promoted from "parked" to required scope: direction-keyed SET/CLEAR plus a direction equality term at the exemption predicate. That gives the exemption the meaning its rule text claims: **the current seed is exempt because this current-direction seed was reseeded**, rather than merely because some reseed timestamp exists.
+
+**Final tallies:**
+**Q1: CONFIRM**
+**Q2: REQUIRE direction-scoping**
+## V358-UJEXEMPT-1 END LUNA

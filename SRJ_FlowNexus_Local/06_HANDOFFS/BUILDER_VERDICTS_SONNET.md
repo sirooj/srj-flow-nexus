@@ -4488,3 +4488,84 @@ I did not verify the following, and no model can from the page alone:
 The battery digests cover those.
 ## V356-UJFIX4-2 END SONNET
 
+## V358-UJEXEMPT-1 OPEN SONNET
+# Council seat verdict: v358-UJEXEMPT-1
+
+Ruled on the page only. Disk truth (digests, counts, the CLEAR site at EA-10727, the downstream readers of `s1g_seedBiasAl`) is not asserted here. Nothing is built, run, or spent.
+
+## Q1: OBJECT
+
+The one-line edit (P054 / EA-8413) is syntactically sound. The parentheses balance, the 9-space indent matches, and the `else if` at EA-8418 stays reachable only when both `sb==0` and CARRY==0. My objection is that the predicate does not implement the sentence Q1 puts to us.
+
+**D1 (blocking): CARRY is a global, not a seed property, so "reseed-proven seed" is false.**
+- The change sentence says "every never-reseeded seed still dies." The page's own rows contradict that.
+- R09 (EA-8412 print, P043): the 16:00 LONG seed carries `reseedBar=09:15`. That value was set seven hours earlier for a SHORT seed that R02 aborted via GoAbort (EA-8419). CARRY therefore survives seed death.
+- R13 (P044): the 14:45 SHORT seed carries a 10:35 LONG-ancestry value.
+- The five churn days (P045) also flip.
+- Count of lifted kills from the page: 09:05 (see D4), 09:15, 09:30, 09:35, 16:00, 14:45, plus five churn, which is about 10. The kills that persist are the five 8-June bars and R10, which is 6. The intended change was one venue.
+- The only reason 8 June and 6/9 09:50 keep their kills is that CARRY happens to be zero there (R08, and R10 per P042). That is a sample coincidence, not a rule.
+- The CLEAR trigger at EA-10727 is not quoted. Its behavior can only be inferred from R08/R10 versus R09/R13. Its trigger cannot be judged from the page, and the predicate's meaning depends entirely on it.
+
+**D2: the discriminator has no pin behind it, and it is close to sample-fit.**
+- R01 shows `al=0` at reseed and R03 shows `sb=0`. So 6/5's LTF-unaligned condition is the same condition B2 was built to kill.
+- The only thing separating 6/5 (restore) from 8 June (keep) in this design is that a reseed happened on one.
+- P013-P019 authorize the two outcomes. None of them authorizes the mechanism. P014 says "two instances, never a hierarchy rule," yet this predicate acts as one.
+- An 8-June-shaped setup that follows any reseed inside a live CARRY window will be exempted.
+- This sits against NO-OVERFIT (P016). The "8-June kept" claim rests on absence of a reseed in this window, not on a reason.
+
+**D3: P-CARRY (P041, P080) proves nothing about seed liveness.** The value persists past seed death (R09 shows it 7 hours later), so "PROV reseedBar=09:15 spanning 09:15-09:40" cannot show the seed is alive. Liveness needs S2PROMOTE followed by state rows, or the 09:40-bar CONFIRMPOLL.
+
+**D4: 09:05 is unsupported.**
+- P040-P041 and P-KILLOUT/P-PROMOTE name a 09:05 kill and promote. No 09:05 row is among R01-R14.
+- SET happens at 09:15 (R01, R03, EA-7899), so at 09:05 the predicate can only fire from stale carry left over from an earlier day.
+- R01 has `fromDir=LONG`, so a 09:05 kill would be on the LONG holder.
+- Either the 09:05 kill row must be quoted and its carry provenance shown, or 09:05 comes out of the binding predicates. As written, a binding predicate rests on a bar the page cannot support.
+
+**D5: internal contradiction between P-PARITY and the 16:00 watch.**
+- P080 binds "takes 6/3 + 6/5-16:55 row-identical." P043 and P064 say the 16:55 take is "watched same-vs-moved" as an observation.
+- If the 16:00 promotion moves the take, P-PARITY and P-NOFALSE both fail a round the text predicted as merely observed.
+- Pick one.
+
+**D6: P-KEEP evidence is only partly on the page.**
+- P028 and P042 assert "all unset-proven" for 8/6 09:25, 17:30, 17:35, 17:45, 18:00, and for R10.
+- Only R07 and R08 (09:25) and the R10 KILL row appear. No PROV row for R10 or for the four other 8-June kills is present.
+
+**D7: authority and audit gaps.**
+- P011 leans on V356's 2-0 CONFIRM. That ruling covered CARRY as observation-only telemetry. It did not rule on stale values as a gate input, and "stale" joins are in that very result.
+- The settled-rules audit (P023-P027) maps rules, but the census at P058 covers CARRY sites only. Exempted seeds enter S3/S5 with `s1g_seedBiasAl==0`. There is no census of downstream readers of `s1g_seedBiasAl`, so "carried, no fence" is asserted, not shown.
+- P090 says a blind v26 revert "returns the 8-June invalid winner," and P009 cites "T4." No row on the page shows either.
+
+**D8: the primary payoff may not occur.** P062 concedes an LTF_MISALIGN abort may end the 6/5 path before 09:45, and P081 withdraws H-TAKE without failing the round. A round could pass with the intended case unrealized while about 10 kills were lifted.
+
+**Minor imprecisions**
+- P056/P057: mid-word break "Evalu|ateClosedBar" inside a single sentence.
+- R14 is stamped 14:40:22 while every other row is :00, and it is the row cited at P044 for the 14:35 bar.
+- P-KILLOUT's "two-pattern vs PROV-at-bar" is undefined.
+
+## Q2: REQUIRE direction-scoping this round
+
+Watch-only is not adequate. P-NOFALSE counts takes, and a cross-direction promotion that is not a take trips no binding predicate. P043 and P044 only "predict" the 16:00 and 14:45 S2PROMOTE rows. Also, his bias reads (P014-P015) are direction-specific (1H bear plus 15m bear means short), so promoting a LONG seed on SHORT-ancestry provenance (R09) is not "reseed-proven" in any sense he has stated.
+
+Fence shape demanded:
+1. Add `int g_ujOpReseedDir = 0;` beside EA-303.
+2. At EA-7899, set `g_ujOpReseedDir` to +1 for LONG or -1 for SHORT from the current `g_dir`. P073 says dir-in-scope at EA-7899 is unproven. R01/R03 show `dir=SHORT` on the reseed pass, which suggests it is, but his machine must prove it on the compiled tree before build.
+3. Mirror the reset at the EA-10727 CLEAR.
+4. Predicate at EA-8413 becomes `(s1g_seedBiasAl != 0 || (g_ujOpReseedBarTime != 0 && g_ujOpReseedDir == (g_dir == DIR_LONG ? 1 : -1)))`.
+
+This breaks the NET +0 claim (P093, P005). Budget it as about +3 lines and a new state variable, and recount under S3.
+
+Direction-scoping is necessary but not sufficient. It does not fix same-direction stale-carry churn. Q1's remedy is the same fix from another angle.
+
+## Ask B: better mechanism
+
+Make CARRY mean "the current seed was reseeded" by clearing it wherever a seed ends or is replaced without a reseed, in addition to EA-10727.
+- Candidate sites: the GoAbort path used at EA-8419, and the non-reseed seed-birth site that sits alongside the EA-7894-7899 block.
+- Those lines are not quoted on the page and must be quoted before ruling.
+- After that, a nonzero value implies the current seed was reseeded, which makes the change sentence true.
+- R09 (16:00 LONG) would then see CARRY==0 and keep its kill.
+- Combine this with the direction term above if the clear cannot be shown to cover every path.
+
+Also replace P-CARRY with a liveness proof: S2PROMOTE rows followed by S3 state or CONFIRMPOLL rows at the 09:40 bar.
+
+Nothing in this ruling clears live activation, and no run is proposed.
+## V358-UJEXEMPT-1 END SONNET

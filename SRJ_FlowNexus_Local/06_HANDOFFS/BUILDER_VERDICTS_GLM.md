@@ -8243,3 +8243,86 @@ The chosen mechanism is right for this round: a standalone pre-chain print prese
 Close: nothing else ruled; nothing built, run, or spent; no live-activation word given or needed. Anchor uniqueness and digest genuineness remain disk-side per the standing split.
 ## V356-UJFIX4-2 END GLM
 
+## V358-UJEXEMPT-1 OPEN GLM
+Ruling on the page only (code lines, numbers, logic); disk facts cited by the packet are taken as proven on disk per the verification split. Nothing here builds, runs, spends, or moves anything toward live activation; no files requested. Q1 and Q2 answered independently per the packet's own rule.
+
+---
+
+## Q1 verdict: **OBJECT** (narrow and curable — the EA-8413 edit itself is sound; the defect is in the acceptance fence, fixable by text amendment with zero code change)
+
+**Defect 1 (primary — the battery fails on success).** P-PARITY (P080) pins "balance 10027.13" and "signals 2 same bars" as binding must-match terms ("any miss FAILS the round," P080), while P-NOFALSE (P080) places H-TAKE inside the allowed take set and P081 defines H-TAKE's fired branch (6/5 09:45 admission, TP 12:15 per the takes sheet). These are jointly unsatisfiable in the success branch: H-TAKE's P/L lands 6/5 12:15 — before the 16:55 entry and the 6/11 stop — so the fired-branch end balance is 10027.13 + H-TAKE P/L ≠ 10027.13, and the signal count is 3, not 2. If position sizing keys off balance, the 16:55 row's lot also shifts, breaking the row-identical term too. As fenced, the round can only grade PASS in the H-TAKE-withdrawn world (P081) — the battery certifies every outcome except the one the Rebuild order exists to restore. Cure: branch the balance conjunct (pin 10027.13 only in the withdrawn branch; in the fired branch pin "10027.13 + H-TAKE P/L" or drop the hard number and keep takes-row parity + P-NOFALSE) and rewrite the signals conjunct ("the two census signals fire at the same bars; H-TAKE's signal graded under H-TAKE").
+
+**Defect 2 (battery — under-evidenced binding term).** 09:05 appears in the predicted and binding enumerations (P041, P080: kill-out and promote 1x each at 6/5 09:05/09:15/09:30/09:35) and nowhere else: the takes-sheet B1 line and P040 list kills at 09:15/09:30/09:35; no spliced row covers 09:05 (R01-R06). The predicted 09:05 flip requires nonzero CARRY at the 09:05 pass — a carry predating the 09:15 reseed (R01) — which no row establishes (R03's reseedBar=09:15 is the post-reseed value read at the 09:15 pass). Spurious-fail modes: a baseline 09:05 kill with CARRY unset persists under the edit (P-KILLOUT miss); a baseline 09:05 with no kill and no stale carry yields no S2PROMOTE (P-PROMOTE miss). Cure: splice the 09:05 baseline rows or drop 09:05 from P-KILLOUT/P-PROMOTE — the B1 restore is fully pinned without it (09:15/09:30/09:35 + P-CARRY + H-TAKE).
+
+**Defect 3 (minor, same amendment).** "signals 2 same bars" (P080) is ambiguous as written (count vs. placement); see Defect 1's cure.
+
+**What I confirm underneath the OBJECT** (so the amendment is surgical, code untouched):
+
+- EA-8413 is sound as a line: the parentheses around `(s1g_seedBiasAl != 0 || g_ujOpReseedBarTime != 0)` (P054) are required and correct — without them, `&&`/`||` precedence parses as `(a && b && c) || d`, promoting on CARRY alone even at bias mismatch; with them, the promote branch still requires `uj_m15r && uj_m15b == uj_wantb` (EA-8410/8411) and only drops the seedBiasAl demand when CARRY is set.
+- Read-only edit: adds a read of g_ujOpReseedBarTime; no writes (write census P057/P058 matches R-DECL EA-303, R-SET EA-7899; writes remain EA-7899/EA-10727 only). NET +0 (P093) consistent with one modified line, zero added/deleted (P005).
+- Kill path intact at code level: EA-8418-8419 untouched; effective kill set monotonically shrinks to {bias-match, seedBiasAl==0, CARRY==0}; new kill set ⊆ old, so no bar anywhere can newly kill that did not kill before.
+- Keep-kill on unset, proven on-page: R08 shows reseedBar=1970.01.01 00:00 (= 0) at the 8-June 09:25 kill (R07), against the zero-init at EA-303 — the exemption cannot fire there, matching P-KEEP's negative controls (P080, P042).
+- Same-pass ordering (P057) is row-proven: R01/R02/R03/R12 share one tester timestamp (20:10:55.757), so the reseed SET (EA-7899) executes before the S2-edge read (EA-8412/EA-8413) within the pass — the 09:15 reseed exempts the 09:15 kill in the same pass, exactly as P041 predicts.
+- Rebuild order implemented for the two pinned instances: 5-June restore bound (P-KILLOUT/P-PROMOTE/P-CARRY + H-TAKE); 8-June keep bound (P-KEEP, R07/R08); the supersession carve-out (P010) is canon-consistent — his later word amends V354 Q1(a) for the reseed-proven path only, kill stands elsewhere.
+- Settled-rules audit (P021-P029) is page-consistent: a read-only edit cannot disable downstream S3/S5/term/booking mechanisms; P062 honestly carries the alternative outcome (promote-then-abort before the 09:45 pass), which is the correct way to fence H-TAKE as hypothesis.
+
+**Flip condition.** With Defect 1's terms amended and Defect 2's 09:05 term exhibited or dropped, this flips to CONFIRM with no code change; EA-8413 needs nothing.
+
+## Q1 — Analytic ask A (defects, gaps, imprecisions; all I see)
+
+1. P-PARITY balance/signals vs. H-TAKE fired branch — P080 vs. P080/P081 (Defect 1).
+2. 09:05 term under-evidenced — P041/P080 vs. takes-sheet B1 line, P040, R01-R06 (Defect 2).
+3. Change-sentence and title overstate the predicate — section 0 change-sentence, P001, P003 ("fresh-reseeded seeds"; "every never-reseeded seed still dies") vs. the actual mechanism (global CARRY-nonzero: identity-, direction-, staleness-blind). A never-reseeded seed with inherited nonzero CARRY survives — that is precisely the 16:00 and 14:45 cases (P043/P044). Honest sentence: "every seed with CARRY unset at its S2 edge still dies." The Q1 framing's own term ("CARRY-nonzero disjunct") is the accurate one; title and change-sentence should match it.
+4. 6/9 double-booked — P042 and P080 keep the 6/9 09:50 kill persisting (unset) while P045 lists 6/9 among churn promotions "all nonzero CARRY." If 6/9 holds other kills, the churn list should say so; if 09:50 is the only 6/9 kill, P045 contradicts P-KEEP. P-KEEP's set and the churn set are never stated disjoint.
+5. P049 says "9sp" for EA-8413; P051/P054 and R-S2EDGE EA-8413 render a deeper indent as transmitted (10 spaces). A one-space drift between splice old-line and tree line breaks a match-based apply at build. Verify at amendment.
+6. EA-10727 CLEAR is cited (P058) but never exhibited in any region. The CLEAR timing governs the entire stale-carry window — i.e., exactly the Q2 risk case. Disk-cited per the split; the amendment would do well to exhibit it.
+7. Key premises rest on unspliced rows — the 16:00 PROV showing reseedBar=09:15 (P043; R09's own line carries no reseedBar); the 10:35 reseed's direction (takes sheet "LONG-ancestry"; R13 proves the bar time only); the 8/6 17:30-18:00 kills' unset-ness (P042/P080); the 09:30-09:40 PROV rows P-CARRY spans (P080). All disk-cited; listed because the round's case is built on them.
+8. H-TAKE's narrative cites a v26-only pattern: "BYPASS" (P040/P081) has no exhibited v29 counterpart while PREBIND does (EA-9094-9116). The v26-sourced label (P081) is adequate, but BYPASS should be marked foreign-build too — whether v29's S3/S5 path reproduces the v26 admission is the open half of the hypothesis.
+9. P013's verbatim is a question ("how did the 5th build take it"); the SEED-CARRY expectation is derived from the v26 answer carried by P009, not stated in the quote. The pin chain holds in aggregate; "verbatim" overstates what the quote carries.
+10. P016's paraphrase ("valid losers taken, invalid winners rejected") goes beyond the literal quote; and the quote's example ("the 9/8 NY session") does not unambiguously match the 8-June London instance (R07 is a 09:25 London kill). The operative content (no overfitting) is unaffected; the mapping is loose. The 8-June keep is more directly pinned by P009's rule and P014's chart-read.
+11. P-NOFALSE's allowed set excludes the B3 owed-take (P080 vs. P082's route table): an incidental 6/11 14:40 LONG admission — a take he wants in his frame — would FAIL this round by design. Deliberate under one-behavior-per-round, but he should know his owed B3 take grades as a false here.
+12. P057's "(v14 SET/PROV lines already read/write it, 0/0)" — notation unexplained; P056/P057 split the function name mid-word ("Evalu / ateClosedBar"), making the anchor prose non-contiguous (harmless while anchoring is by EA-line; splice hygiene).
+13. P080's "two-pattern" (in P-KILLOUT) is unexplained on the page.
+14. Not a defect, for expectation-setting: P062 means a fully legitimate clean outcome is "promote rows present, H-TAKE withdrawn at the 09:40 bar (confirm=0 on tester values), parity elsewhere" — the exemption restoring the path without the take. P081's withdrawal branch handles it; it should be expected as live, not read as failure.
+
+## Q1 — Analytic ask B (better mechanism for the stated goal)
+
+- For this round's stated goal (minimal restore + keep-kill + binding falses), the one-line disjunct at EA-8413 is the right minimal mechanism. Every alternative adds state or writes; the risks here are fenced by predicates, not code. I would not replace it.
+- Free improvement, battery-only: add a named predicate P-XPROMOTE (S2PROMOTE_M15 1x at 6/5 16:00 and 6/11 14:45) so the cross-direction promotions are grade-asserted, not merely observed (see Q2 Ask B).
+- Escalation shapes, parked for rounds where evidence demands (lines each touches): (a) direction-scoped — `g_ujOpReseedDir` decl near EA-303, SET at EA-7899, CLEAR at EA-10727, predicate `(s1g_seedBiasAl != 0 || (g_ujOpReseedBarTime != 0 && g_ujOpReseedDir == g_dir))` at EA-8413 — eliminates the two cross-direction promotions, keeps same-direction churn; (b) identity-scoped (per-holder reseed stamp matched at the S2 edge) — the exact semantics of "reseed-proven," but a bigger fence. Note (a) does not fix same-direction stale-carry churn; only (b) does.
+
+---
+
+## Q2 verdict: **CONFIRM** (watch-only scope under binding P-NOFALSE)
+
+1. Containment is real: P-NOFALSE (P080) makes any take beyond {6/3, 6/5-16:55, H-TAKE} a round-FAIL, so a cross-direction take cannot pass silently; P-PARITY pins the 16:55 row; the EA is alert-only/probe-only (P003; standing brief) — a miss costs one ~50-minute run (P097) and returns a finding. Safe-fail, no money path.
+2. Authority: no pin demands direction-scoping. P014 keeps the direction question OPEN ("never a hierarchy rule; no gate here encodes it"); P073 parks the variant with cause (new stored var + SET/CLEAR writes; dir-in-scope at EA-7899 unproven). REQUIRING it now would encode a direction hierarchy no word of his supports — outside "rules on the page."
+3. Method: one behavior per round (P072). The watch is the evidence step — whether cross-direction promotions can take at all (downstream gates, term, session cap) is exactly what decides whether scoping is ever needed. Fencing first adds state against an unproven harm.
+4. The sharpest residual risk is on the page and watched: the 16:00 promotion may displace the 16:55 take via the session cap (P063/P064; takes sheet "same-vs-moved") — that is a P-PARITY/P-NOFALSE fail, i.e., the fence working, not a silent risk.
+
+Conditions attached:
+
+- This CONFIRM rides on P-NOFALSE and P-PARITY's takes-row term remaining binding after the Q1 amendment — the balance-term fix must not weaken the takes-row pin.
+- Trigger for the parked variant: any P-NOFALSE miss attributable to a cross-direction or churn promotion obliges the next round to adopt the direction-scoped fence (shape as Q1 Ask B (a): reseedDir decl + EA-7899 SET + EA-10727 CLEAR + conjoined term at EA-8413).
+- Advisory, not required: the promotion side of the watch is currently toothless — the predicted S2PROMOTE rows at 16:00/14:45 (P064/P065) are observational under P079, so a silent non-promotion (CARRY cleared earlier than believed) fails nothing. Binding P-XPROMOTE closes that for one battery line and zero code.
+
+## Q2 — Analytic ask A
+
+The master list under Q1 stands; Q2-specific additions:
+
+1. The 16:00 cross-direction premise (SHORT-ancestry 09:15 value at 16:00) rests entirely on the unspliced PROV row cited at P043. Disk-cited and fine under the split; it is nonetheless the single fact the whole 16:00 watch turns on.
+2. The 14:45 LONG-ancestry premise rests on the unspliced 10:35 reseed row's direction; R13 proves the bar time only.
+3. EA-10727 (the CLEAR) governs how long a stale carry can exempt unrelated seeds — and is the one CARRY site the page never exhibits (P058). The Q2 risk analysis is therefore a lifecycle argument carried from RECON77 (P034/P011), not an on-page audit.
+4. The 6/9 churn/keep double-booking (Q1 item 4) matters most here: the churn watch and P-KEEP make opposite predictions for 6/9 as written.
+
+## Q2 — Analytic ask B
+
+- Now, free: P-XPROMOTE as above — turns the watch from takes-only teeth into promotion-side teeth; if it ever misses, the finding is a CARRY-lifecycle fact, which is the fact Q2 actually needs.
+- If the trigger fires: the direction-scoped fence (Q1 Ask B (a)) is the right next fence — and its SET-site semantics look resolvable with rows already in hand: R01's UJRESEED prints dir=SHORT (the post-reseed direction), matching the S2-edge g_dir at R02/R03, which addresses P073's "dir-in-scope at EA-7899 unproven."
+- Limits: direction-scoping leaves same-direction stale-carry churn exempted (identity-blindness); if churn ever takes, direction-scoping alone is insufficient and the complete fence is identity-scoped provenance — more state, own round.
+- Declined: clearing CARRY at session boundaries would also kill the cross-direction case, but invents lifecycle behavior with no pin and adds a write site — worse than watching; blind v26-style kill removal is already refuted with cause (P090).
+
+---
+
+**Close.** Nothing here builds, runs, spends, or moves anything toward live activation; no files requested or needed. The Q1 OBJECT is a draft-amendment gate on the acceptance battery, not a rejection of the mechanism — with the two textual cures applied, the exemption stands CONFIRM-ready as fenced. Both verdicts stand independently per the packet's rule.
+## V358-UJEXEMPT-1 END GLM
