@@ -1655,3 +1655,161 @@ Current design is more conservative (temps insulate target arrays from partial f
 All three questions confirmed. Packet internally consistent. Analytic notes flag minor improvements, none blocking.
 
 ## V329-IMPL2-14 END OPUS
+## V355-UJFIX4-1 OPEN OPUS
+Opus:
+I need to carefully verify the four proposed telemetry insertions against the actual source, checking line numbers and surrounding context for each one to catch any discrepancies before giving my verdict on Q1. Starting with the CARRY-DECL insertion, I'm examining the declaration region to see whether the target line actually matches what's described.
+
+Now I'm checking the CARRY-SET insertion, comparing the old and new blocks around the `uj_memo_valid = false;` assignment to confirm the anchor line and indentation line up correctly.
+
+I notice a discrepancy: the closing brace's indentation shifted by one space between old and new blocks. Since the packet claims a pure-insert, zero-deletion splice, that whitespace change on an existing line technically violates the exact-match invariant even though it's compiler-harmless, so I'm flagging it as a discrepancy worth noting.
+
+I'm checking another line-indentation discrepancy: the original condition line had 9 leading spaces, but the new version shows 10 spaces plus an inserted debug-log line before it, confirming another whitespace-level splice defect.
+
+Beyond that formatting concern, I'm now questioning the actual placement logic of the CARRY-PROV print statement -- since it's unconditional relative to the S2 edge, it fires every pass through the region rather than only when the value genuinely changes, which conflicts with the claimed "fresh vs stale" semantics.
+
+But there's a more meaningful gap: without logging the state of `uj_m15r`/`uj_m15b` alongside this print, the UJRESEEDPROV row alone can't tell you whether a given pass hit the kill path, the promote path, or neither -- you'd need to cross-reference the adjacent S2PROMOTE_M15 and S2SEEDBIAS_KILL rows to reconstruct what happened.
+
+Also, the acceptance claim that the set is observed at H1 depends entirely on the S2-edge print firing, since there's no print at the SET site itself. I need to check whether the H1 branch that clears memo_valid is actually the same branch that emits the UJRESEED row -- that correspondence isn't guaranteed just because both happen at H1.
+
+Looking at region R-H1SET more closely, it shows g_latchedR, g_latchBarTime, g_confirmFromState, and uj_memo_valid being reset, which looks like a latch-clear block inside the H1 reseed path. But the packet's claim that "barTime is in scope per the neighboring anchor assignment" doesn't hold up -- the actual lines reference g_latchBarTime, not barTime, so that particular assertion is unverifiable from the given six-line span.
+
+By contrast, the CARRY-CLEAR region does show `g_mtrade.uj_admitBarTime = barTime;`, confirming barTime is genuinely in scope there. I'm also noting a separate gap: whether the SET site only fires on a successful reseed or also on failed overwrite attempts isn't determinable from the visible lines, which matters for whether provenance could get set without an actual reseed occurring.
+
+Checking P052's format string against its arguments, the four specifiers (bar, dir, reseedBar, seedBiasAl) line up correctly with the four args, and the %d usage with s1g_seedBiasAl matches the pattern already used elsewhere in R-S2EDGE, so that's consistent. The supporting values like DirName(g_dir), TimeToString, and barShift are all confirmed in scope from neighboring lines.
+
+Verifying the net line count now: adding 4 lines brings the total from 12291 to 12295, matching P080's claim, and the print statement itself is a single long line as expected.
+
+I'm also noting a minor naming inconsistency — the new variable g_ujOpReseedBarTime uses a "g_uj" prefix while neighboring file-scope variables use just "uj_", though this doesn't rise to the level of an actual defect. Its declaration placement is also slightly odd, sitting in the middle of the uj_memo_* block rather than after it.
+
+More importantly, there's a deeper staleness issue beyond what P064 acknowledges: the S2 kill path calls GoAbort and returns without clearing the variable, so on days where that path fires, the old reseed bar time carries over into the next session's prints. Since clearing only happens on ADMIT and admits are rare, this variable stays stale for nearly every print in the run, meaning you can't tell fresh from stale just by looking at the row alone — you'd need to cross-reference against UJRESEED rows.
+
+So P070's claim that "fresh vs stale barTimes" are visible is an overclaim — only the raw value is visible, freshness has to be derived externally. A better approach would be printing a monotonic reseed counter or bar-delta inline, or including the seed's identity so each row is self-describing, or clearing the variable exactly when the seed itself dies rather than maintaining a separate lifecycle.
+
+Actually, if `uj_memo_barTime` already exists in the decl region and gets updated on the H1 reseed path, provenance may already be derivable from existing fields — meaning the new global is redundant and a single print line could satisfy the goal without introducing new state or lifecycle management. I can't fully verify from the page whether that field is maintained correctly, though.
+
+I'm also weighing a log-volume concern: the P052 print is gated on InpDebugLog (which acceptance criteria set true), but unlike existing branch-gated prints, this one fires on every S2 pass across the whole June window — potentially adding thousands of rows to a segment that's already 6+ million bytes, which could materially affect grading throughput.
+
+I should note this as a defect with specific line references (P052, P070, P085), while being careful not to overstate the volume estimate since I'm not certain how often the S2 edge actually triggers. I'm also checking the exact insertion point relative to the existing ReadFlow and uj_wantb lines to confirm placement.
+
+Now I'm questioning whether the anchor line for the CARRY-SET pattern is actually unique across the file — the page claims each anchor is "spliced once by match" but doesn't provide per-anchor counts, and `uj_memo_valid = false;` likely recurs in multiple places (declaration, H1SET, abort/IDLE reset paths), so uniqueness isn't guaranteed.
+
+I'm also examining the CARRY-CLEAR placement, which sits right after the admission-tuple publish line, before the tradeSeq assignment — behaviorally fine, but I'm wondering whether clearing provenance at admission time (rather than after order confirmation) could leave things inconsistent if the order send later fails.
+
+Then I'm double-checking the region line counts one by one: R-CARRY-DECL, R-H1SET, and R-S2EDGE all match their claimed line ranges and listed contents.
+
+Continuing verification: R-ADMIT matches its 7-line range, total lines across all regions confirm the stated sum, and the twin/row/take counts all check out against their listed entries. The balance figures in the prose also align consistently with the takes sheet, though I'm noting a timestamp oddity in a couple of rows worth flagging.
+
+Checking the timestamps more closely, R01-R04 belong to the v26 REF run and R05-R06 to the v28 KILL run, and their wall-clock ordering is consistent since v26's earlier timestamp precedes v28's. I'm now cross-referencing R04's confirm bar timing against R01's admit bar and matching that against P023's stated confirm conditions.
+
+I also notice a discrepancy: P024 mentions kills at the 09:30/09:35 bars for the S2SEEDBIAS_KILL event, but only the 09:15 row (R06) actually appears among the carried rows, so that claim isn't fully supported by the data present.
+
+Additionally, P024 attributes "sb=0" to the kill row itself, but the actual kill print format only carries bar/dir/poi fields — the sb=0 is really an inference from the else-if branch logic, not something explicitly printed. That's a precision issue worth flagging separately from the reseed row claim, which checks out fine (single row, al=0 ok=1).
+
+I also want to verify the unset timestamp: TimeToString with those format flags in MQL5 returns "1970.01.01 00:00" for an unset value, which self-describes as never-reseeded — that checks out.
+
+Then there's a naming collision concern: the print tag "UJRESEEDPROV" shares a prefix with the existing "UJRESEED" tag, so any log parser matching on that prefix could accidentally sweep up both into the same counter, corrupting census/grading batteries. That's a real defect worth flagging, and I'd recommend renaming to something more distinct like "UJPROV" to avoid the collision.
+
+The claim that S5's election logic is untouched checks out fine with the insert-only pattern. But P005's "zero deleted lines" claim is only technically true — a brace/indentation change means a line was replaced, not literally deleted, so I'd call that a modified-line discrepancy worth noting. Similarly, the "mechanical splice, battery-verified diff 0" claim is undermined since the new-block anchors don't reproduce the old-block's whitespace exactly, even though the quoted regions themselves are 0-diff against the EA.
+
+I also realize the green battery check only verifies twin equals packet, not that the new-block edit itself is a pure insert against the old blocks — that's the meta-point the whitespace drift analysis exposes. And acceptance criteria seem to have gaps too: nothing bounds the UJRESEEDPROV row count, nothing checks that no other log row shifted, and there's no negative check ruling out the never-reseeded 1970-row value showing up on June 8th.
+
+I'm inclined toward objecting rather than confirming, given the two whitespace-modification discrepancies and the unverifiable in-scope staleness claim — the question specifically asks me to either confirm the decl/set/print/clear match their specified inserts with the stated limitation, or object with defects and line numbers.
+
+All four are behavior-neutral declaration/assignment/print operations, so behavior change isn't the concern. But two of the new blocks alter the preserved anchor line's indentation, which breaks the exact-insert discipline specified at P005/P027 — that's a narrow, mechanically-fixable defect worth flagging with line numbers rather than a full rejection. The barTime in-scope claim at the SET site is separately unverifiable from the carried regions, which I should note as a gap rather than a confirmed defect.
+
+Checking the R-S2EDGE barShift print statement, all referenced variables (barShift, g_dir, s1g_seedBiasAl) are in scope based on neighboring lines, and the insertion point before the if statement doesn't create any brace or dangling-else issues since the preceding if is self-contained.
+
+Actually, checking the preceding lines, they're declaration statements like `bool uj_m15r = ...;`, and declarations aren't valid as the sole body of a braceless if in C++/MQL5 — so the block must already be braced, confirming the insertion is safe.
+
+The CLEAR insertion and SET insertion similarly land in blocks with multiple assignment statements followed by a closing brace, so they're braced too. The DECL insertion is at file scope, so it's safe regardless.
+
+I also need to account for line-number drift: since the DECL and SET insertions add lines earlier in the file, the quoted region line numbers (7894, 8408, 10721) shift downward after edits — S2EDGE anchors move by +2 and ADMIT by +3 post-edit.
+
+Any future round citing EA-line numbers needs to state whether it's using pre- or post-edit line numbers, since the packet's citation of 12291→12295 doesn't specify that basis — that's worth flagging for Analytic ask A.
+
+For Analytic ask B on better mechanisms, I'm considering reusing the existing bar-time memo variable if it's maintained on the reseed path, which would need just one line and no separate lifecycle tracking — though I need to verify the reseed path actually updates it. Alternatively, adding a reseed sequence counter or printing seed identity captured at reseed time would make each row self-describing without needing a join.
+
+I'm also weighing whether to place the clear at the single choke point where the seed dies rather than where it's admitted, keeping GoAbort untouched — perhaps by printing both the reseed bar time and current bar for offline freshness comparison rather than clearing state directly, or self-invalidating at read time by checking the bar date, though that adds logic. Another option is emitting provenance separately inside the promote and kill branches so each row ties unambiguously to its outcome, trading off some log volume for clarity.
+
+The cheapest approach turns out to be appending the reseed bar field directly onto the two existing print calls at the decision points — zero new lines, zero new rows, no tag collisions, provenance right where it belongs — but this modifies existing lines and row formats, which risks breaking downstream parsers, so I want to flag that trade-off clearly when I write this up.
+
+Now I'm structuring the writeup: verdict first, then defects with line numbers, then the better mechanisms, keeping it thorough since they didn't ask for brevity on defects. I'm also double-checking the admit region assignment for file-wide uniqueness, since the same census gap could apply there, and noting the region's existing indentation inconsistency isn't something the new line needs to fix.
+
+Confirming the CLEAR and DECL blocks are clean inserts with no anchor drift, so any drift is confined to SET and PROV. I check the new declaration lines against the existing type-padding convention (columns aligned to 9 chars) and confirm they match, then move to writing up the final answer, flagging one more claim about the observed set that needs scrutiny.
+
+I realize the "set observed at H1" acceptance claim is actually unverifiable since nothing prints at the set site — but the existing UJRESEED row already logs the bar time at reseed, meaning the provenance value is already fully observable there. So the new global variable's only real purpose is to carry that value forward to the S2 edge, which an offline join between UJRESEED and S2 rows could accomplish just as well without adding new state.
+
+This weakens the round's justification: the claimed novel evidence ("no prior run carries reseed provenance") is arguably false, since joining the existing rows already demonstrates that provenance chain. The truly new evidence is only the in-EA lifecycle tracking, which is instrumentation about the instrument rather than actual strategy evidence — so I should flag that the stated goal may already be satisfiable offline, making the extra code and new global low-value unless the v15 exemption design needs to read provenance at runtime.
+
+My verdict is heading toward OBJECT, citing two splice-fidelity defects at P045 and P053, with everything else confirmed behavior-neutral aside from one unverified scope claim. I need to carefully verify the spacing discrepancy at those two lines, framing it as the preserved anchor line carrying one extra leading space relative to the EA region, which should be a reliable claim since the twin is ASCII.
+
+I'll hedge this though: the drift only matters if the packet's whitespace rendering is authoritative and claimed to round-trip exactly. Now let me write it up with that conditional stated clearly.
+
+## Q1 verdict: OBJECT
+
+Two of the four new-blocks do not reproduce their preserved anchor line byte-for-byte, so the edit set is not the pure-insert set claimed at P005 and P027. Behavior-neutrality itself holds — all four sites are declaration, assignment, or gated print — but the "all inserts, zero deleted lines" invariant is broken at two sites, and one scope claim is unverifiable from the carried regions.
+
+### Blocking defects
+
+**D1. CARRY-SET alters the preserved closing brace (P045 vs R-H1SET line 5, EA 7898).**
+The old-block trailing line is `                }` (16 leading spaces, per the 0-diff region). The new block re-emits it as `                 }` (17 spaces). That is a modified line, not an untouched one. Net line count is still +1, so P080 arithmetic survives, but the site is insert+modify and a strict exact-insert splice on the old-block text will not match on the way back out.
+
+**D2. CARRY-PROV alters the preserved `if` line (P053 vs R-S2EDGE line 3, EA 8410).**
+Old block P049 carries `         if(uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0)` at 9 leading spaces, matching the region. New block P053 re-emits the same line at 10 spaces. Same class as D1.
+
+Both are whitespace-only and carry zero compile or runtime consequence. I am flagging them because the GREEN battery cited in Status does not cover them: twin 85/85 diff 0 compares the twin to the packet, and the 4 region spans are 0-diff versus the EA, but nothing in that battery compares each *new*-block against its *old*-block. The one invariant the round most needs (pure insert) is the one the battery does not test. Fix: re-emit P045 and P053 byte-identical to their old-block form, and add an old-vs-new prefix-identity check to the battery.
+
+### Unverifiable claim (gap, not proven defect)
+
+**G1. `barTime` in scope at the CARRY-SET site (P037, P044).**
+P037 justifies scope "per the neighboring anchor assignment," but the carried region R-H1SET (EA 7894-7899) contains no `barTime` reference. The nearest assignment is `g_latchBarTime = 0;` — a literal, not `barTime`. So the page cannot support the scope claim at EA 7898. Contrast CARRY-CLEAR, where R-ADMIT line 3 does show `g_mtrade.uj_admitBarTime = barTime;` and scope is proven on the page. Fix: widen R-H1SET upward to the enclosing function signature or to the first `barTime` use.
+
+**G2. No per-anchor occurrence census.** P027 says "STAGE-1 censuses each," but no site states n=1. `uj_memo_valid = false;` is precisely the kind of string that recurs across clear paths (it already appears twice in the carried regions alone — EA 302 and EA 7897), and the CARRY-SET old-block disambiguates only by a following `}`. Publish the file-wide occurrence count for all four old-blocks before any build.
+
+### Verified clean
+
+- **Dangling-else / braceless-body hazard at CARRY-PROV: absent.** Inserting a statement immediately before an `if/else if` chain is the classic way to silently re-bind an enclosing braceless `if` body. Here R-S2EDGE lines 1-2 are declaration statements preceding the `if` in the same block, and a declaration cannot be the sole substatement of a braceless `if`, so the block is necessarily braced and the insert cannot steal a body. The inserted `if(InpDebugLog) PrintFormat(...);` is semicolon-terminated, so the `else if` at EA 8415 still binds to EA 8410. Same reasoning clears CARRY-SET and CARRY-CLEAR (both land in multi-statement blocks).
+- **Specifier/argument parity at P052:** 4 specifiers (`%s %s %s %d`), 4 arguments. `s1g_seedBiasAl` under `%d` matches its existing use in the S2PROMOTE_M15 call (R-S2EDGE line 7). `DirName`, `TimeToString`, `iTime`, `barShift`, `g_dir` all in scope per neighbors. P055 is correct that `TimeToString(0, ...)` renders `1970.01.01 00:00`.
+- **Declaration style at P035:** `datetime ` padding matches the block convention (EA 300-306). Good.
+- **Region and count arithmetic:** 7+6+9+7 = 29 lines in 4 spans, as claimed; twin P001-P085 = 85; rows R01-R08 = 8; budget 12291 +4 = 12295.
+- **Settled-rules audit (P065):** consistent with the four sites. No gate, predicate, promotion, exit, or booking surface is touched. S5 election untouched.
+
+### Analytic ask A — further defects and imprecisions
+
+**A1. Tag namespace collision (P052 vs R05).** The new tag `UJRESEEDPROV` contains the existing tag `UJRESEED` as a prefix. Any grader, census counter, or grep that matches `UJRESEED` by prefix will now absorb the new rows and inflate the reseed count. This directly threatens the census discipline the packet otherwise enforces. Rename to something non-prefixing, e.g. `UJPROV` or `S2PROV`.
+
+**A2. P070 claims an unobservable acceptance criterion.** "set observed at H1 passes" — there is no print at the CARRY-SET site (P044), so the set event is never directly observed. What the run will show is the value *as read at the S2 edge*, one or more passes later. Reword to "set inferred by joining UJRESEED rows to the next PROV row," or the criterion cannot be graded.
+
+**A3. P070 overclaims "fresh vs stale barTimes visible."** The row carries a raw datetime and nothing to date it against except the `bar=` field in the same row. Freshness is therefore *derived* by an external join to UJRESEED rows, not visible in the row. Given P064 (no clear on abort/IDLE) and only 2 admits in the whole window, the value will be stale on the overwhelming majority of prints — so the default reading of any PROV row is "unknown provenance until joined." State that plainly, or make the row self-dating (see B2).
+
+**A4. Log-volume growth is unbudgeted (P052, P084, P085).** The insert is placed *before* the `if`, so it fires on every S2-edge pass, whereas both existing prints are branch-gated. RECON76 came in at 32,026 rows / 6,162,087 bytes. I cannot estimate the new row count from the page — it depends on how many bars reach S2_LTF_ALIGN — but the packet should state an expected bound, because segment size feeds the grade battery and the census counters.
+
+**A5. PROV row cannot be attributed to an outcome.** The row omits `uj_m15r`, `uj_m15b`, and state, and it prints before the branch. Pairing a PROV row to promote-vs-kill-vs-neither requires joining on bar+dir to the adjacent row. Either add the branch inputs or move the print into the branches (B4).
+
+**A6. P024 attributes `sb=0` to the kill row; the kill row has no such field.** The S2SEEDBIAS_KILL format (R-S2EDGE line 9, EA-8416) prints `bar`, `dir`, `poi` only — confirmed by R06 and R07. `sb=0` is an inference from the else-if branch logic, not something explicitly printed. Label it as inference.
+
+**A7. P024 asserts "kills at 09:30/09:35 bars"; no such rows are carried.** The only 6/5 kill on the page is R06 at bar 09:15. Either splice the 09:30/09:35 rows or downgrade the claim to segment-resident-but-not-carried.
+
+**A8. EA line numbers are pre-edit and the page never says so.** After the DECL insert at EA 303, everything below shifts +1; after CARRY-SET, the S2 span shifts +2; ADMIT lands at +3. Any v15 packet citing EA-7868/8408/10721 must state the basis or the references will silently drift. Add a post-edit column to P080.
+
+**A9. Clear placement precedes order dispatch (P061-P062, EA 10723).** The clear fires at admission-tuple publication. If the send fails after that point, provenance is already gone and the failed admit has no reseed attribution in the log. Low impact given alert-only, but it makes the clear a publication event rather than a trade event.
+
+**A10. Declaration splits a coherent block (P035, EA 300-306).** The new global lands between `uj_memo_valid` and `uj_memo_anchor`, inside the `uj_memo_*` group, and uses a `g_uj` prefix while its neighbors use `uj_`. Cosmetic, but it makes the memo block look like it owns a field it does not.
+
+**A11. Acceptance has no negative checks (P069-P072).** Missing: expected `1970.01.01 00:00` rows before the first reseed of each day; an explicit expected-stale census for 8 June (the very limitation P064 admits); and a check that no *existing* row format or count changed. Without the last one, "byte-identical takes" does not prove "byte-identical log surface."
+
+**A12. Standing-brief consistency.** Nothing in the edit set touches gating, so the alert-only and no-live-activation posture is unaffected. Confirmed rather than assumed.
+
+### Analytic ask B — better mechanisms
+
+**B1. Test whether the new global is redundant before spending it.** R05 already prints `UJRESEED bar=2026.06.05 09:15`, which *is* the reseed bar time, and R06 prints the kill on the same pass. The set-side provenance is therefore already fully observable in RECON76's existing segment, and set-to-S2 carriage is reconstructible offline by joining on bar+dir. If the goal is lifecycle *evidence* for the v15 exemption design (P072), that evidence may already exist on disk at zero cost. The new global is only genuinely required if the v15 exemption predicate will *read* provenance at runtime — which the packet never states. Resolve that dependency first; it decides whether this round is needed at all. Lines touched: none (offline analysis of B802287F / FB7C37F9).
+
+**B2. Make the row self-dating instead of clearing it.** Add `int g_ujOpReseedSeq` beside P035, increment at P044, and print both seq and the bar delta at P052. Freshness then reads off a single row with no join and no reset discipline, which also retires the P064 limitation without touching GoAbort. Cost: +1 line at the decl site, +1 at the set site, 2 more specifiers at P052 — and it makes the admit-clear at P062 optional rather than load-bearing.
+
+**B3. Carry provenance on the existing decision rows (cheapest, zero new rows).** Append `reseedBar=%s` to the two PrintFormat calls already at the S2 edge (EA 8412 promote, EA 8414 kill). Provenance then appears exactly at both decisions, attribution is unambiguous, log volume does not grow, and the tag collision in A1 disappears. Tradeoff to weigh openly: this modifies two existing lines and changes two established row formats, which may break existing parsers — the opposite tradeoff from the current design, which adds lines but leaves formats frozen. If format stability is the higher value, keep the separate row but move it inside the branches (two inserts, +2 lines) for the same attribution benefit.
+
+**B4. Reuse `uj_memo_barTime` (EA 305) if the reseed path maintains it.** If it does, provenance needs only the print (+1 line total, not +4), with no new state and no lifecycle at all. I cannot settle this from the page — the CARRY-SET site sits in a block that sets `uj_memo_valid = false`, which suggests the memo is being invalidated there and its barTime may be stale or unwritten. Widening R-H1SET per G1 would answer it, and would also confirm whether the set fires on refused reseeds (`al=0` paths) as well as successful ones. If it does fire on refused attempts, the current design records provenance for a reseed that never happened.
+
+**Summary of what would flip this to CONFIRM:** re-emit P045 and P053 byte-identical to their old-block forms; widen R-H1SET to prove `barTime` scope and set-path conditionality; publish n=1 anchor censuses for all four old-blocks; rename the tag off the `UJRESEED` prefix; and reword P070 to match what the run can actually show. The four inserts themselves are behavior-neutral as written — that part holds.
+## V355-UJFIX4-1 END OPUS
+

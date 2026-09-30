@@ -14776,3 +14776,30 @@ This would make future grade decisions separate:
 No build, tester run, key spend, activation, or money action is authorized by this ruling.
 ## V354-UJFIX3-1 END LUNA
 
+## V355-UJFIX4-1 OPEN LUNA
+CONFIRM
+
+Q1 provenance telemetry matches the specified inserts as a telemetry-only change with the stated limitation.
+
+* The scope is correctly fenced as probe/print-only, with no live trades, no funded money movement, and no activation clearance from this ruling.
+* The claimed change is correctly limited to “reseed-provenance carriage (decl plus set plus S2-edge print plus admit clear)” with abort/IDLE staleness visible-by-design and S5-election untouched.
+* CARRY-DECL adds only the provenance storage field (`g_ujOpReseedBarTime`).
+* CARRY-SET records the reseed bar time after the existing reset path.
+* CARRY-PROV adds the S2-edge debug print before the existing S2 condition, exposing provenance without changing the predicate.
+* CARRY-CLEAR resets provenance on admission only.
+* The page explicitly states the limitation: abort/IDLE paths do not clear in this round, so stale values remain visible by design.
+* The settled-rules audit states the CARRY lines are declaration/assignment/print only and do not touch gates, predicates, promotion, exit, booking, S5 election, or other behavior.
+
+No OBJECT.
+
+A — Defect/gap:
+
+* Minor imprecision only: “zero behavior change” is supported as a page-level design claim, not proven by this chat. The page itself correctly fences disk/build truth as a future machine-side proof. The acceptance condition requires byte-identical takes/signals against RECON76.
+* Lifecycle coverage is intentionally incomplete: stale abort/IDLE clearing is deferred to a future round rather than included here. This is disclosed, not a defect in the telemetry-only scope.
+
+B — Better mechanism:
+
+* For the stated goal (provenance observability before any exemption design), the current mechanism is sufficient.
+* A later hardening round could add explicit lifecycle-state telemetry for abort/IDLE clears instead of relying on visible stale timestamps, but that belongs after this telemetry baseline, not inside this zero-behavior-change packet.
+## V355-UJFIX4-1 END LUNA
+

@@ -4372,3 +4372,55 @@ I can only judge from the rows on the page. I can't verify disk truth, and I don
 4. Adopt an explicit feed-tolerance policy for margins of 2pts or less, decided from his chart OHLC, rather than silently widening predicates.
 ## V354-UJFIX3-1 END SONNET
 
+## V355-UJFIX4-1 OPEN SONNET
+## Q1 verdict
+
+**CONFIRM on zero behavior change, with two discrepancies to correct before any build.** I rule on the page only, and EA line numbers below are derived from the region headers, assuming each region is contiguous as labeled.
+
+## What checks out
+
+- **CARRY-DECL** (after EA 302). A file-scope `datetime` initialized to 0 has no behavior effect. The anchor is visible at EA 302 in R-CARRY-DECL.
+- **CARRY-PROV** (before EA 8410).
+  - The format string has 4 specifiers (`%s %s %s %d`) and 4 arguments, so P055 is correct.
+  - `barShift`, `g_dir` and `s1g_seedBiasAl` are all visibly in scope (EA 8408-8414).
+  - The insert is a complete `if(InpDebugLog) PrintFormat(...);` statement placed before the `if ... else if` chain. That creates no dangling-else risk, and the region starts at a same-block declaration (8408).
+  - It sits ahead of both the promote branch (8410-8414) and the kill branch (8415-8416), so the kill path (`GoAbort` + `return`) is unchanged.
+  - `TimeToString(0)` renders 1970.01.01 00:00, as P055 says.
+- **CARRY-CLEAR** (after EA 10723). `barTime` is visibly in scope at 10723, and the clear is an assignment only.
+- **Neutrality.** No gate, predicate, promotion, exit or booking line is touched, and the +4 budget arithmetic (P080, 12291 to 12295) is right.
+
+## Discrepancies (fix before build)
+
+1. **Two anchor lines change bytes, contradicting P005 and P027 ("all inserts, zero deleted lines").**
+   - CARRY-SET: the old closing brace is 16 spaces (P040) and the new one is 18 (P045). This is the brace at EA 7898.
+   - CARRY-PROV: the old `if(uj_m15r ...` is 9 spaces (P049) and the new one is 10 (P053). This is the line at EA 8410.
+   - Both are whitespace-only, so behavior is unaffected. But an exact-insert census will show 2 changed lines instead of +4 with 0 deleted, and the CARRY-SET brace ends up misaligned against the 13-space outer brace at 7899.
+   - Fix: keep the original indentation on both retyped anchor lines.
+2. **CARRY-SET's `barTime` scope is not proven by the page (P037).**
+   - The cited "neighboring anchor assignment" is not in R-H1SET. Lines 7894-7896 assign `g_latchedR`, `g_latchBarTime = 0` and `g_confirmFromState`, none of which touch `barTime`.
+   - The scope claim is only proven for CARRY-CLEAR (EA 10723). A mismatch would fail at compile, which is safe but wasteful.
+   - There is also a semantic risk. R05 shows `bar=09:15` on a 09:20 pass, so the "bar" is the closed bar. Whichever expression the UJRESEED print at 7894-7899 uses for its `bar=` argument, use the same one in CARRY-SET. Otherwise `reseedBar` and the PROV row's `bar=` sit on different clocks, and the fresh-vs-stale comparison in P070 breaks.
+
+## Analytic ask A: gaps and imprecisions
+
+- **Anchor uniqueness for CARRY-SET is not shown.** `uj_memo_valid = false;` plus a 16-space `}` is a generic invalidation pattern, and the page only shows the rows spliced once, not the anchor census. Extend the old-anchor with the preceding line, `g_confirmFromState = ST_IDLE;` (EA 7896), so the match is unambiguous. Apply the same census to `g_mtrade.uj_admitBarTime = barTime;` (10723) in case another admission path assigns it.
+- **The clear is unobservable, which undercuts P070 and P072.**
+  - Nothing prints at the clear. It appears only as `1970.01.01 00:00` on a later S2-edge row, and only if one occurs after the admit and before another reseed.
+  - The set has the same weakness, but existing UJRESEED rows cover it. Nothing covers the clear, so "admit-clear observed on takes" (P070) is not guaranteed by these inserts.
+- **Fresh vs stale is not decidable from the PROV row alone (P070, P064).**
+  - There is no seed-birth time, anchor or state in the print. Because the variable is global and only overwritten at H1 or cleared at admit, a fresh seed inherits an old reseed's value.
+  - A row with `reseedBar` earlier than `bar` and `seedBiasAl=0` cannot say whether this seed was reseeded. It always needs an offline join to UJRESEED rows.
+- **"S2 edge" is a misnomer.** The print fires on every pass through the block, including when `uj_m15r` is false or the M15 direction does not match, so it is not edge-only. That is harmless for behavior but noisy. Include `uj_m15r` and `uj_m15b` in the row, or say "every S2 evaluation".
+- **Cosmetic.** CARRY-DECL splits the `uj_memo_*` block (EA 302 to 303), and CARRY-CLEAR splits the admission-tuple pair at 10723-10724.
+
+## Analytic ask B: better mechanism
+
+Keep the four inserts, but make the evidence self-sufficient:
+
+- Add a fifth line inside CARRY-CLEAR, before the zeroing at 10724: `if(InpDebugLog) PrintFormat("[SRJ-EA] UJRESEEDPROV_CLEAR admitBar=%s reseedBar=%s", ...)`. This gives a direct clear row and records whether the taken trade was reseed-derived, which the UJADMIT row (R01) does not carry. It costs +1 and keeps the tree at 12296.
+- Add `AnchorStr()` (existing) and `g_state` to the PROV print so a stale value can be tied to a different anchor or direction without a join.
+- For v15, replace the bare datetime with a tuple `{barTime, anchor, dir}` set at 7897 and cleared at seed birth, not only at admit. That removes the staleness limitation at its source rather than just displaying it.
+
+These are design suggestions only. Disk truth, digests and anchor counts are proven on your machine, not from chat.
+## V355-UJFIX4-1 END SONNET
+

@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, RECON74 PROVEN + V355 RELAY-READY LEDGER 1019 - rebuild referenced)
+## State (2026-09-30, V355 GRADED-ADOPTED + V356 RELAY-READY LEDGER 1021 - amendment re-ruled)
 
-- v26 took YOUR 09:45 short at 159.948 (rows prove it); v28 kill is the only delta.
-  Relay v355 65FDB974 carries the telemetry; 8 June stays dead by design.
+- V355 verdicts filed triple-proof this turn (Luna/Sonnet/Opus); 1020 anomaly closed by verification.
+  Relay v356 45016A1D carries amended v14; GLM re-asked with Luna and Sonnet.
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR V355 verdict paste-back whole per seat (Q1 provenance telemetry).
+- YOUR V356 verdict paste-back whole per seat (Q1 amended telemetry; Luna + GLM + Sonnet same text).
 
 ## Resume order (exact)
 
