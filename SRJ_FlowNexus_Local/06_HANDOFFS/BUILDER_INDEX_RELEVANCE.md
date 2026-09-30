@@ -10,7 +10,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
-- Latest correction 2026-09-30: his touch-or-break rule + 1H/15m reads banked (strategy s7; Daily-POC 160.523 named); bias read suspect (m15/LTF vs chart); engine bytes proven untouched; ledger 1018; scope word owed, no canonical edits. Prior join (superseded): chart numbers joined, no divergence (ledger 1017).
+- Latest relay-ready 2026-09-30: packet `01_TASKS\PACKET_P-RECON74FIX-2v14.md` 9E08F810/8756/85 + relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v355-UJFIX4-1.md` 65FDB974/21768/194 (twin 85 diff-0, regions 29/4 0-diff, rows 8 spliced, double battery green; Q1 provenance telemetry; ledger 1019; V355 verdicts owed). Prior correction (superseded): touch-or-break + chart reads banked (ledger 1018).
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` FC41EE0D/671645/12127 (v10 built 2026-09-28 from v19 remainder F/G1/H1/H2; 0/0 compile; alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v19 DRAFT 806B9ECD/84749/485 (V331-fold answers; Luna KEY-IMPL2-V19 granted + his run word banked ledger 942; build+run authorized fresh session).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
