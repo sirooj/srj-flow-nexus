@@ -299,3 +299,9 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 - Every digest typed into LEDGER/POINTER/INDEX/HANDOFF prose is machine-derived the same turn it is written (hash + bytes + lines pasted beside the write); digest-census (section 3 DIGEST-CENSUS) covers record files, never packet+relay alone.
 - A record digest with no deriving command beside it is unwritten; a record file quoting a digest the disk contradicts is corrected the same turn (withdrawn error named, surviving value kept), never carried into a resume brief.
+
+## 38. V352 fence gates (builder-owned battery gaps, 2026-09-30 - v12 shipped green with four fence defects all seats caught)
+
+- SCOPE-AT-USE: every identifier in a new fence is proven in-scope AT its use site (declaration lines plus block open/close lines cited, use line between them), never by file-wide identifier presence. A "present in file" battery assert without the scope triple is unwritten (v12 P190: s1c_fromLine/s1c_fromDir declared EA-7876/7877 in the sibling transfer block opening EA-7874, used at the H1 site closing EA-7873 - undeclared-identifier compile error shipped green).
+- FENCE-OVERLAP: old-fence anchor lines are pairwise checked for containment before any splice plan ships (each old block's first/last lines grepped against every other old block). An old anchor interior to another old block folds into one fence with pinned order, never two fences with undefined order (v12 old-H4 EA-7872 interior to old-H1 EA-7868-7873).
+- ASSERT-EXECUTION: every "battery asserts" sentence inside a packet ships with its deriving command output in the same-turn battery (the asserted column/count/lint quoted beside measured bytes). A packet-side assert with no battery output is itself a BLOCKED relay until executed (v12 P212 quote-column-32 assert vs P210 col-30 fence, FORMFIX class, never executed).

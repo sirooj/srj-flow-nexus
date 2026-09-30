@@ -14471,3 +14471,46 @@ P010/P240/P253/P206 are clear enough, and this is correctly not being silently g
 **Bottom line:** the requested **Q1 fold itself is clean and CONFIRMABLE**. The weekend/same-session-instance weakness in the RHELP mechanism is the substantive technical issue I would carry forward as a separate behavior round, because it is not caused by the v11 indent/anchor/prose fold.
 
 ## V351-UJFIX2-12 END LUNA
+## V352-UJFIX2-13 OPEN LUNA
+**Q1 — OBJECT**
+
+The inline H1 delta does **not** fully match its stated rule. The packet says op-reseed applies when an S1 holder is **unconfirmed**, but the reseed branch tests only `!t78_opConf`; it never requires `!t78_heldConf`. Thus an already-confirmed holder can be overwritten by an unconfirmed opposite retest.
+
+### Analytic A — defects / gaps
+
+1. **H1 missing held-confirmation guard — material logic defect.**
+   At the H1 reseed condition, the code has `!t78_opConf` but no `!t78_heldConf`. The stated rule is explicitly “S1 holds unconfirmed.” This should be `!t78_opConf && !t78_heldConf ...`.
+   **EA:** t78 S1 displacement region, anchored at **EA-7868–7894**.
+   **Packet:** P179-P192.
+
+2. **H1 emits `UJRESEED` twice for one reseed event.**
+   P181 prints the event before the overwrite, and P190 prints the same event again after the overwrite using the saved origin fields. Both are `[SRJ-EA] UJRESEED` records for the same action. The acceptance text speaks of the reseed row singularly, so this creates avoidable duplicate telemetry and can complicate row-count grading.
+   **EA:** same **EA-7868–7894** H1 region.
+   **Packet:** P181 and P190.
+
+3. **H2 calls the expiry “12 M5 bars” but implements elapsed time (`3600` seconds).**
+   Those are equivalent only while the evaluated M5 sequence is continuous. A data/session/weekend gap can make 3600 elapsed seconds occur without 12 evaluated M5 bars. This is primarily a specification imprecision unless the intended contract is explicitly elapsed-time expiry.
+   **EA:** **EA-8356–8357** anchor.
+   **Packet:** P201-P212.
+
+4. **H3 is narrower in name than in effect.**
+   The reclaim branch can pass with `o1 <= L` and `c0 >= o1` even where `c0 < L`; so the evaluated candle need only reclaim the prior open, not the POI line itself. The packet explicitly describes that as the recommended Alt-A, so I do **not** treat this as a defect against the stated rule; it is an audit-clarity point.
+
+5. **H4 telemetry itself is consistent with the stated print-only purpose.**
+   It adds observation of `opConf`, `heldConf`, and both fail terms without changing the displace predicate. I see no independent behavioral defect in that delta.
+
+### Analytic B — better mechanism
+
+The minimal repair is to make H1 explicitly encode the prose contract:
+
+```mql5
+if(!t78_opConf && !t78_heldConf
+   && !SessionAlreadyUsed(sess, barTime)
+   && (t78_pr.topLine != g_anchorLine || t78_dir != g_dir))
+```
+
+Then emit **one** `UJRESEED` row, after capturing `s1c_fromLine/s1c_fromDir` and before or after the state overwrite, but not both. That touches only the H1 t78 region, **EA-7868–7894**. The existing H2/H3/H4 fences can remain unchanged.
+
+**Disposition:** `OBJECT — amend H1 before any build/run clearance. Q2 and Q3 carried-CLEAR dispositions remain untouched by this Q1 objection.**
+## V352-UJFIX2-13 END LUNA
+

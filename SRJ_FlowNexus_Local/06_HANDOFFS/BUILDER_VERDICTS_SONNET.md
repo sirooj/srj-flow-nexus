@@ -4148,3 +4148,105 @@ What I checked on the page:
 **Identity-key the seedbias carriage.** This would replace the reset-at-abort/IDLE fix path that P122 and P256 park demo-first. At the setter (EA-8133) also store the seed's anchor line, direction and anchor bar time. That is the same identity triple the S-a deferral already uses (`uj_saA/uj_saD/uj_saT`, visible in the R-SCOMB region). At the B2 gate, treat a non-matching identity as -1 (pass). That removes the stale-value hazard without reset-at-abort/IDLE edits scattered across the machine. It also drops the verdict automatically after an S3 yield, because g_anchorBarTime changes there. It would touch the decl EA-1151, the setter EA-8133, and the B2 condition EA-8339. It is behavior, so it belongs in the separate lifecycle round, not this packet.
 
 ## V351-UJFIX2-12 END SONNET
+## V352-UJFIX2-13 OPEN SONNET
+# Q1 verdict: OBJECT
+
+The H1 fence as written does not compile, and two of its guards contradict the page's own prose. I ruled on the page only and did not check disk. The Q2/Q3 carried-CLEARs need no re-rule from me, and I checked nothing on them.
+
+## Blocking defects
+
+**D1. H1 uses an undeclared identifier (P190, EA-7868-7873 vs EA-7875-7877).**
+- `s1c_fromLine` and `s1c_fromDir` are declared inside the *later* transfer block, which the R-T78 region shows opening at EA-7875 and declaring at about EA-7876/7877. The H1 site closes at EA-7873.
+- In MQL5 that is an undeclared-identifier compile error. P194's "in scope per seed-block + transfer-block usage" is wrong. The transfer block is a sibling that starts after H1 ends, not an enclosing scope.
+- Even if it compiled, the P190 row would print the wrong "from" values. It runs after `g_anchorLine` and `g_dir` are overwritten, and it would show the fromLine/fromDir declared for the *later* block.
+
+**D2. UJRESEED prints twice per reseed (P181 and P190).**
+- P181 runs pre-mutation and is correct. P190 duplicates it post-mutation.
+- Every H1a grep expecting "a UJRESEED row" (P241) sees two rows per event.
+- Fix: delete P190. H1 then goes from +13 to +12, the total NET from +20 to +19, and the final tree from 12279 to 12278.
+
+**D3. H1 fires over a confirming holder (P179 vs P164 and P362).**
+- The prose says "S1 holds unconfirmed". The guard is only `!t78_opConf` and never tests `!t78_heldConf`. P178 computes `t78_heldConf` on the line above.
+- If the held candidate confirms on the same bar an opposite retest prints, H1 overwrites it.
+- Fix: add `&& !t78_heldConf`.
+
+**D4. ABORT2 quote column contradicts its own assertion (P210 vs P212, R-ABORT region).**
+- The family puts the quote at column 32. Counting on the region: `ABORT_SEEDBIAS_REFUSED` is 22 characters, and `#define ` is 8 plus a single space, which gives column 32. `ABORT_POI_REPLACED` uses 5 spaces.
+- `ABORT_HOLDER_EXPIRED` is 20 characters, so with one space (P210) the quote lands at column 30. It needs 3 spaces.
+- The battery assertion P212 promises will fail.
+- Siting note: in the region, `SEEDBIAS_REFUSED` is at EA-407. The insert therefore goes after 407, not "between 406 and 407" as the P127 wording carried into P212 would suggest.
+
+**D5. The B2 kill may reproduce the 09:05 death on the reseeded SHORT (P184, P241, P235, R75 rows `NN` and `HE`).**
+- The 09:05 SHORT seed had `sb=0` and was killed (row NN). The 09:10 LONG had `biasAligned=1` (row HE), so LTF was bullish at 09:05-09:10.
+- The v26 6/5 SHORT take that "returns" was presumably reached by promotion through the path B2 now refuses.
+- H1 computes `s1g_seedBiasAl` at reseed (P184). If LTF is still bullish at the SHORT reseed bar, `sb=0`, and the same pass's S2 fallback promotion hits `S2SEEDBIAS_KILL` (P125). The owed 09:45 take dies again.
+- The page never states the SHORT-side `sb` at the reseed bar. H1a and the takes sheet ("admission identical expected") are therefore not derivable.
+- The council needs the UJPROBE/LTF rows for 09:15-09:40, or an explicit ruling on which rule wins (B2 kill or op-reseed admit).
+
+## Other defects and gaps (non-blocking unless noted)
+
+**D6. H1 reseed timing contradicts the acceptance (P032 vs P241, P243).**
+- P032 says `t78_opp` is TRUE from 09:20 through 09:40. H1 fires at the *first* opposite retest, not "the 09:40 pass" that P241 expects.
+- The SHORT holder then runs confirm evaluation from roughly 09:25 onward. Entry could be earlier than 09:45, or fail on a different term.
+- "Entry 159.948 identical" (takes sheet, P241) is asserted, not derived. Grade should key on "first reseed bar", not on 09:40.
+
+**D7. Ping-pong and timer reset (P179, P187).**
+- The same POC line serves both directions, so a LONG retest against a SHORT holder reseeds back. There is no hysteresis and no per-session cap.
+- Each reseed sets `g_anchorBarTime = barTime` (P187), so the H2 12-bar backstop never fires during churn.
+- Suggest a per-session reseed cap of 1 or 2, or expiry keyed to the original seed time.
+
+**D8. H1 ignores tier (R75 row RM).**
+- Row RM shows `newTier=5 heldTier=5 wouldPreempt=0 wouldTierPassLegacy=0`. H1 bypasses that gate entirely.
+- A lower-tier opposite retest can overwrite a higher-tier holder. That is a real behavior expansion beyond the his-words basis, which is the confirmed-opposite rule quoted at EA-7866.
+
+**D9. Reseed resets less state than the transfer block (P183-P189 vs EA-7877-7889 and R-SCOMB yield).**
+- Transfer and yield clear `g_zoneHi/Lo`, `g_touchSeen`, `g_touchBarHi/Lo`, `g_latched*`, `g_latchBarTime`, `g_confirmFromState`, and `uj_memo_valid`.
+- H1 clears none of them. The page never proves they are clean in S1.
+- Either mirror the resets or add the proof.
+
+**D10. H3 Alt-A is nearly vacuous as written (P219, EA-2365).**
+- For LONG it reads `c1 >= L || (o1 <= L && c0 >= o1)`, and `oppCandle` has already forced `c1 < o1`.
+- A candle-1 that opens *and* closes below the line, followed by any `c0 >= o1` (which can still be below L), passes A2.
+- That is a bar entirely under the line, not a reclaim. Fail-through cases (`o1 > L`, a true close-break) still refuse.
+- P222's gloss ("evaluated close holding above prior open") does not match "no close back over the line".
+- A tighter reclaim is `c0 >= L` in place of `c0 >= o1` (SHORT: `c0 <= L`).
+
+**D11. H3 cannot be validated from the page, and it is global (P213, P243, row GD).**
+- The row gives `sbL=160.523` only. There are no `o1`, `c1`, or `c0` values, so no seat can show the 14:35 bar passes Alt-A.
+- The row also does not prove Alt-A yields an entry.
+- After a yield the transfer resets `g_touchSeen` and `g_confirmFromState` (R-SCOMB). The page does not show the machine reaching a 14:40 admission from there.
+- P243's "14:40 UJADMIT" conflates yield with admission.
+- `IsConfirmationCandle` is shared by EU, held polls, S4 confirms, and t78. Alt-A changes every entry, not just the contender. Contender-scoped siting or a wrapper is the safer form. Otherwise the EU obligation (P158) applies before adoption, and this contradicts his scope word "telemetry first, term fix after the run".
+- H3 also contradicts the recorded A2 grounding comment at EA-2352-2356 ([P-SLDEF-1 E14]), and the settled-rules audit P159 was not extended to H1-H4.
+
+**D12. H2 "no eviction" is unproven (P195, P362, R-ABORT comment at EA-404).**
+- The region comment says "no gate reads an abort reason", which suggests eviction marking may key on the abort event, not the reason. The page never shows the `GoAbort` body.
+- If eviction is unconditional, an expired holder's triple is blocked for that session and day, contradicting "expiry is not eviction".
+- The 3600 s constant has no empirical basis beyond one instance. P242's "no other zombie exceeds 12 bars" is asserted without a census of S1 holders in the 2880-bar run.
+- 3600 is hardcoded seconds while the prose says "12 M5 bars". It is only equal on M5.
+
+**D13. Stale and dual-state prose.**
+- P005 still carries "Status: v11 DRAFT" beside P003's v12.
+- P007 says "one new ABORT code" and "four new prints" and lists R/B2/B3/S3/B4 only. H2 adds a second ABORT code. H1/H2/H4 add three more prints (UJRESEED, UJHOLDEXPIRE, UJOPCONF).
+- P235's "6/11 absent" and P241/P243's admits coexist, though P232 labels the older one history.
+- Acceptance P241 expects "SHORT seed rows". H1 bypasses the seed block, so no `SIDE1T_SEEDBIAS` row exists, only UJRESEED.
+- H-block EA cites are v27 coordinates (EA-7868, EA-8356) while P131-P160 cite v26 (EA-8126/8133). I verified these are consistent by the +39 RHELP shift, but P162 should say so.
+- The redundant guard `(topLine != g_anchorLine || dir != g_dir)` (P179) is presumably implied by `t78_opp`. Keep it, but mark it redundant.
+- The old-H1 and old-H4 fences overlap. H4's anchor is a substring of H1's old block, so the splice order must be pinned.
+
+## What checks out
+- The 276+2+7+70+8+9 = 372 count holds.
+- The H1 +13 / H2 +6 / H3 0 / H4 +1 arithmetic holds against the fences as written. It changes only under D2.
+- Old-H1, old-H2, old-H3, and old-H4 indents match the regions byte for byte by eye.
+- The H3 site is EA-2365-2366.
+- R-A2 (2360-2370) lies inside R-CONFIRM, so the 315-line count double-counts the overlap, which is harmless.
+
+## Better mechanisms (Ask B)
+1. **H1:** reseed only when `!t78_opConf && !t78_heldConf`, the new triple differs, and a per-session reseed count is under a cap. Optionally require tier ≥ held tier (reuse the WOULDPREEMPT tier compare at EA-7866 vicinity). Drop the second print, and mirror the transfer resets by factoring them into one helper.
+2. **H2:** key expiry on the *original* seed time (a new `datetime`, or reuse `g_anchorBarTime` only when no reseed occurred). Require a `GoAbort` eviction trace before adoption.
+3. **H3:** in place of Alt-A, prefer telemetry-first, as his scope word says. Add `o1/c1/c0` to UJSBTELEM (P156), rule the term after a run, and site any change contender-scoped. Reclaim form if adopted: `c1 >= L || (o1 >= L ? false : c0 >= L)`.
+4. **D5 pre-check:** before any build key, read `sb` for the SHORT direction at 09:15-09:40 on 6/5 from existing UJPROBE rows, or state the intended rule explicitly.
+
+I cannot prove disk truth from chat. All of the above is page-only.
+## V352-UJFIX2-13 END SONNET
+

@@ -8058,3 +8058,59 @@ Extend the now-battery-live fence-vs-region byte lint (P263) with two sibling as
 Close: CONFIRM on Q1 as above; Q2/Q3 carried-CLEAR untouched by this verdict; no run, no build, no spend, no live activation asked or implied. Nothing else is asked.
 
 ## V351-UJFIX2-12 END GLM
+## V352-UJFIX2-13 OPEN GLM
+**GLM — packet P-RECON74FIX-2v12, Q1 verdict: OBJECT** (four fence defects, all fixable in-place; the term-calibration ruling is delivered below with a named substitute; Q2/Q3 stand carried-CLEAR and are untouched by this OBJECT; nothing here builds, runs, spends, or clears live activation).
+
+## OBJECT grounds
+
+**G1 — H1 compile blocker: out-of-scope identifiers (P190).** The second UJRESEED print reads `g_lineCode[s1c_fromLine]` / `DirName(s1c_fromDir)`. Per the R-T78 region render, `s1c_fromLine`/`s1c_fromDir` are declared *inside the following sibling transfer block* (`int s1c_fromLine = g_anchorLine;` within `if(t78_opp && (g_state == ST_S2_LTF_ALIGN || ...))`, EA-7877-7879 region). Block scope: they are undeclared at the use site. The fence cannot compile as written. The P194 parenthetical ("in scope per seed-block + transfer-block usage - battery asserts identifier presence") conflates file-wide identifier presence with scope-at-use — the battery cannot pass this. Fix: delete P190.
+
+**G2 — H1 duplicate telemetry (P181 + P190).** The block emits UJRESEED twice per event, same tag, same fields (the first pre-overwrite with correct from-values; the second post-overwrite, and broken per G1). Acceptance H1a (P241) expects a single row at the 09:40 pass; every reseed double-counts. Same fix as G1: delete P190 (new-H1 19→18 lines; H1 NET +12; round total +19, final tree 12278).
+
+**G3 — fence overlap H1×H4 (P225 interior to P166-P171).** Old-H4's single anchor line is the `t78_heldConf` line inside old-H1's six-line block. Splice order is undefined on the page: apply H4 first and old-H1's match breaks (the UJOPCONF print lands between the heldConf line and the closing brace); apply H1 first and H4 must re-match inside replaced text. Fix: fold the UJOPCONF print into new-H1 at the P178/P179 seam and retire the separate H4 fence (the +1 moves inside H1's +13; total stays +19/12278).
+
+**G4 — ABORT2 column form (P210).** `#define ABORT_HOLDER_EXPIRED "HOLDER_EXPIRED"` as rendered parks the quote at column 30 (20-char name + one space). The family aligns at column 32 (R-ABORT region: 22-char `ABORT_SEEDBIAS_REFUSED` + one space = 32; P212 itself asserts "quote column 32 - battery asserts"). 20-char name needs three padding spaces. The fence fails its own asserted lint — same form class the V350 FORMFIX round was convened to kill.
+
+## Term-calibration ruling (the H3 ask)
+
+**Goal: CONFIRMED. Siting: OBJECTED — substitute named (P222 permits).** The reclaim-aware reading matches his SAME-CANDLE/VENUE words and the GD row (termC=A2_CLOSE_BREAK, sbL=160.523). But Alt-A as fenced (P219, EA-2365-2366) edits the *shared* IsConfirmationCandle — every caller inherits the arm, and the page shows it:
+
+- Row ND (6/5 09:35 held-LONG CONFIRMPOLL): oppCandle=0, bodyDir=1, doji=0, touchAttr=1, confirm=0 — the refusal is A2, i.e. exactly the widened arm. A flip admits an unowed LONG at 09:40 against the owed 09:45 SHORT, survivable only if the t78 site precedes the poll site in pass order — unpinned on the page.
+- The 6/11 11:05 holder (P028) polls to 12:00 refusing — any flip admits an unowed 6/11 morning LONG.
+- H1's own branch selector `!t78_opConf` (P179) consumes the widened predicate — the 09:40 UJRESEED expectation depends on the op SHORT's A2 refusal at 09:35 remaining a refusal; no row on the page pins that.
+- The EU "RECON62 zero-delta re-proof" (P213) becomes empirical-only: the predicate itself changed, so zero-delta holds only if no EU-window bar hits the reclaim arm.
+
+**Substitute:** gate the reclaim arm to the Scomb contender call only — a default-off parameter on IsConfirmationCandle (signature EA-2334; the arm at EA-2365-2366 behind the flag; `true` passed only at the confC call, R-SCOMB EA-8394-8396 region) or a local reclaim-aware twin at that site. Every other caller stays byte-identical: EU zero-delta becomes structural, the ND/11:05/t78 flip risks confine to zero, and the 14:35 contender still gets the arm. If the packet will not resite this round: **Alt-B (keep)** per P243's own branch, with the A-6 fields added so the next round rules from rows. Either way the page cannot prove the arm admits the 14:35 bar — o1/c0/c1 are carried nowhere — so the run remains the decider, and P243 already covers both outcomes.
+
+## Analytic A (standing — defects, gaps, imprecisions)
+
+- **A-1 (P241, "SHORT seed rows"):** SIDE1T_SEEDBIAS is `s1f_seedArmed`-gated (R-SEED, EA-8165-8166); H1 never sets the flag, so no seed-bias row prints for the reseeded candidate. The acceptance expectation is unsatisfiable as written. Set the flag (better: it emits the CONSIDER/REJECT verdict at the event) or reword to RETESTBOOK/UJRESEED evidence.
+- **A-2 (P181):** UJRESEED omits the seedbias verdict computed at P182-P184 — the reseed's B2 input is invisible until S2PROMOTE_M15's `sb=`. Add `al=`/`ok=` fields or ride A-1.
+- **A-3 (P179-P192):** overwrite-set asymmetry — H1 resets anchor/dir/session/legDir/seedBiasAl but not zone/touch/latch/confirmFromState/uj_memo_valid, where both sibling transfers (SIDE1C_PREEMPT, R-T78; SIDE1C_YIELD, R-SCOMB) reset them. The page itself carries the reset-at-abort/IDLE gap ("5 June London SHORT most exposed", P131/P139). P194's "council may narrow the overwrite set" — I rule *widen* it to the transfer reset set (see B-3).
+- **A-4 (P179):** no `!t78_heldConf` guard — H1 can overwrite a holder on the very bar it confirms (opConf=0, heldConf=1). Reachability unpinned; one-clause guard is cheap.
+- **A-5 (P188):** `g_dir = S2ResolveLive(...)` where the sibling transfer assigns `g_dir = t78_dir` directly. S2ResolveLive's contract (direction-preserving? can it fail or return DIR_NONE?) is unpinned, and the P182 bias eval evaluates `t78_dir` while the assignment may resolve differently. Pin the contract or assign `t78_dir`.
+- **A-6 (P156):** UJSBTELEM cannot decompose a reclaim decision — no o1/c0/c1, no arm flag. A confC flip is unattributable (strict vs reclaim arm); a refusal is unattributable between arms. This is the "term ruled from the rows" instrument, and it is blind for its own case under any Alt-A siting.
+- **A-7 (P164/P241):** "op triple never equals the killed triple" is false on the page's own rows — the 09:05 kill and the 09:40 reseed are both Daily-POC/SHORT/London/6-5 (row NN + P032). It is also moot: H1's site never passes through the R-SEEDBR gate, so no RESEED_BLOCKED row can appear for *any* triple. Restate as site-based safety and disclose plainly that H1 deliberately bypasses the eviction-paired suppression — the resquat invariant now has a t78-site exception (desired on 6/5; still an invariant change that should be stated, not implied away by a false bit-difference claim).
+- **A-8 (P195/P206):** "WITHOUT eviction marking" is asserted while the fence calls plain `GoAbort`. No reason-gating at the resquat SET (EA-1889+) is shown. R75-2's own rows (FI kill at 16:00; OM same-triple seed proceeding at 16:45) suggest aborts do not auto-mark — pin the mechanism rather than rest on inference.
+- **A-9 (row CS vs P032):** the CS abort row reads 12:05:00 while P032's "2h50m" implies barTime 12:00 for the same event — one bar apart, and the H2 zero-row expectation for a late holder (11:05 anchor) turns on exactly this 55m-vs-60m boundary. Pin the ABORT row's timestamp semantics (pass time vs barTime) and the pass-order of SESSION_CLOSED vs the S1-wait head (EA-8356).
+- **A-10 (P195):** "expires after 12 M5 bars" — anchored at T, the timer fires when evaluating the T+3600 bar (the 13th); under the next-bar confirm cadence the candidate sees 11 confirm evaluations (T+5..T+55). State the intended opportunity count so the grade reads the timer as designed.
+- **A-11 (P244 vs P301):** the v12 takes-sheet line ("expected by rule") drops the pre-admission 09:00-09:40 low condition that P301 (EXIT-LONDON) still carries. A pre-entry wick low below the post-entry min makes the walked extreme looser → UJNORETARGET why=loose → correctly no fire; without the conditional on the sheet, a no-fire grades as a fence failure it should not be.
+- **A-12 (P358):** "V351-graded fold delta (v12; ledger 1007...)" — V351 graded v11 (ledger 1005); v12 is graded by this round; 1007 is the RECON75 run grade, not a council tally. The header breaks the V347→v8 / V350→v11 convention.
+- **A-13 (P241):** H1a has no fallback branch. The page carries no row proving the reseeded SHORT's 09:40-bar confirm passes the strict predicate — the owed take is his word, not a journal row. Add the P243-style branch: refusal + expiry/session-close = detector-grade finding, council rules next.
+- **A-14 (P244):** "preserved-or-better (reseed may advance it)" — with hits=0 16:05-16:40 (P033) no op retest exists before 16:45, and the machine is IDLE post-16:00-kill, so H1 cannot advance the 6/5-NY path; "or-better" is also undefined against the rule-vs-takes fence. Name the expected admission window or drop the clause.
+- **A-15 (P007):** the print census ("four new prints...") is the v2-round surface; v12 adds UJRESEED/UJHOLDEXPIRE/UJOPCONF and a second ABORT code. Update the census or scope it to its round.
+- **A-16 (P179):** no tier guard — the preempt machinery tracks tiers (WOULDPREEMPT wouldTierPassLegacy); H1 reseeds regardless of op tier vs holder tier. State that as intended so the grade does not read a low-tier reseed as a defect.
+- **A-17 (P243 + R-SCOMB):** the route from confC=1 to a 14:40 UJADMIT is rendered nowhere. The only rendered contender path (SIDE1C_YIELD) resets touch/latch/confirmFromState — which reads as a fresh cycle and an admission *later* than 14:40; no region shows the S3/S4 admit block that would latch same-pass. Pin the admit path — it matters for both Alt-A sitings and for owed-bar vs late-completion grading.
+
+## Analytic B (standing — better mechanisms)
+
+- **B-1:** the G1+G2+G3 package — delete P190, fold UJOPCONF into new-H1 at the P178/P179 seam, retire the H4 fence. One edit, +19/12278, kills three grounds.
+- **B-2:** the G5 substitute — contender-scoped reclaim arm (default-off parameter at EA-2334, arm at EA-2365-2366, `true` only at the R-SCOMB confC call). Pair with A-6's fields so the run decides the arm with evidence instead of a bare confC flip.
+- **B-3:** mirror the SIDE1C_YIELD reset set in H1 (zone/touch/latch/confirmFromState + uj_memo_valid). The reseed is a transfer; give it the transfer's hygiene. This kills the A-3 stale-ride class without waiting on the lifecycle demo.
+- **B-4 (small):** set `s1f_seedArmed` in H1 (or add the verdict fields to UJRESEED) so the reseed's bias verdict is observable at the event, not one state later.
+
+## Close
+
+Q2 and Q3 stand carried-CLEAR (V342 tallies, quoted in the packet; no re-rule asked or given); this OBJECT touches neither. All grounds above are page-internal — renders, rows, arithmetic; disk genuineness (digests, counts, regions-vs-EA) is proven on his machine and not answerable from chat, and no files are requested. Fix G1-G4, take a position on the H3 siting (substitute or Alt-B), and the round re-ruled clean; nothing here builds, runs, spends, or moves live activation.
+## V352-UJFIX2-13 END GLM
+
