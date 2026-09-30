@@ -15086,3 +15086,32 @@ There is a second gate-precision issue: unexpected takes are routed to `HOLD` an
 
 **Disposition:** Q1 OBJECT. Q2 OBJECT. Nothing in this verdict grants a build or tester run; the packet itself says no run is proposed and any future run requires a new key plus the stated run word.
 ## V361-UJEXEMPT-4 END LUNA
+## V362-UJEXEMPT-5 OPEN LUNA
+The page supports a substantive objection on both questions. The main defects are not disk-genuineness claims; they are the scope of the provenance state and the acceptance classifier.
+
+## Q1 — OBJECT
+
+The stated direction-matched rule is not sufficiently scoped to the holder being evaluated.
+
+The new exemption term at EA-8413 allows promotion when the current M15 direction matches `g_ujOpReseedDir` and `g_ujOpReseedBarTime != 0`. The provenance is written once at the reseed site and cleared only at admission.
+
+The packet itself concedes the consequence: same-direction stale churn remains exempt, and identity-scoped provenance is explicitly parked. That means the proof sentence claiming that a seed with a direction-matched reseed “promotes” is broader than the evidence actually establishes: it proves existence of a matching reseed provenance state, not that the provenance belongs to the current holder/anchor.
+
+There is also an as-built wording problem. The packet says the v29 tree is the built tree while the FIX-2v19 edits are still unbuilt, yet Q1 asks for confirmation of the fenced proof “as built.” The edited declaration/set/clear/condition are specified as future edits rather than demonstrated in the built tree.
+
+**Better mechanism:** bind the exemption to the current holder identity already represented by the anchor state, rather than only to a global last-reseed direction. The smallest stated-touch solution is to require the reseed provenance bar to match the current holder/anchor bar (`g_ujOpReseedBarTime == g_anchorBarTime`) together with the direction match, with the existing declaration/set/clear/term/print sites at EA-304, EA-7899/7901, EA-10727/10730, and EA-8413/8414. The packet’s parked “per-holder stamp” concern is exactly the missing fence.
+
+## Q2 — OBJECT
+
+The branch-complete battery is materially improved, but its top-level `PATH_CLASS` rule is not a safe binding gate as written.
+
+`DIVERGED` has precedence over `WITHDRAWN_TERM` and `FIRED` whenever there are no S2-edge rows at or after the designated divergence bar; `UNRESOLVED` is explicitly “never a round fail.” This creates a classification escape: absence of the very S2 evidence needed to establish the expected path can itself cause the case to be classified as `DIVERGED`, before the battery establishes why that path disappeared.
+
+The later predicates partly cure this for continuation misses—`miss-without-ADVANCE` is declared a FAIL—but that does not remove the first-entry ambiguity created by the precedence rule. The acceptance therefore needs an independent cause test for divergence rather than defining divergence primarily by absence of S2 rows.
+
+There is a second gate-precision issue: unexpected takes are routed to `HOLD` and expressly “never auto-FAIL.” That can be valid only if HOLD is explicitly terminal/non-passing for the gated run. The packet lists HOLD as a verdict class but does not state the required disposition of HOLD in the run-clearance contract. The binding gate should say plainly that `HOLD` cannot satisfy the run gate.
+
+**Better mechanism:** make `PATH_CLASS` causal rather than absence-first: first establish a positive, row-evidenced termination/divergence cause; otherwise a missing expected S2 edge is a binding FAIL, not DIVERGED. Then define `HOLD = no pass/no build-run clearance` explicitly. Keep the existing arming ledger, branch tables, H-terms, and parity checks underneath that classifier.
+
+**Disposition:** Q1 OBJECT. Q2 OBJECT. Nothing in this verdict grants a build or tester run; the packet itself says no run is proposed and any future run requires a new key plus the stated run word.
+## V362-UJEXEMPT-5 END LUNA

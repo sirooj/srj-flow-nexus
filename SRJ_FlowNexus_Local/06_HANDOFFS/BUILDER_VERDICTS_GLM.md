@@ -8511,3 +8511,73 @@ Confirmed sound, so the cure is wording not architecture: PATH_CLASS precedence 
 
 Close: Q1 CONFIRM (with the R13/R26 discrepancy riding the tally for disk verification); Q2 OBJECT narrow on the three named items, the rest of the battery confirmed. Nothing built, run, or spent on this verdict; live activation untouched; the gated run still needs the new key plus his explicit run word.
 ## V361-UJEXEMPT-4 END GLM
+## V362-UJEXEMPT-5 OPEN GLM
+Split acknowledged: ruling on the page only. Digests, counts, and the twin are disk facts proven on his machine; nothing below builds, runs, spends, or clears live activation, and the build gate (new key plus his run word) is untouched by this verdict.
+
+# Q1 verdict: CONFIRM
+
+Verification chain (code claims EA-numbered on the v29 tree, prose claims P-numbered):
+
+1. **Anchors**: all five old-blocks match the shown regions verbatim — DECL EA-303 (R-DECL), SET EA-7899 (R-H1HEAD), TERM EA-8413 and PRINT EA-8412 (R-S2EDGE), CLEAR EA-10727 (R-CLEAR2). Indents check: TERM 9sp (EA-8413), CLEAR 6sp (EA-10727), DECL 0sp (EA-303); SET 17sp is consistent with the house style if(N) / brace(N+2) / body(N+3) (EA-7876 at 14sp → body 17sp; cf. EA-8407-8409 at 6/8/9sp).
+2. **Shift arithmetic**: +1 at 304 → CARRY-SET EA-7900, DIR-SET EA-7901; +1 at 7901 → PROV-print EA-8414, TERM EA-8415 (old 8412/8413 +2); +1 at 10730 → admitBarTime EA-10728, CARRY-CLEAR EA-10729, DIR-CLEAR EA-10730. Matches the P088 census line-for-line; NET +3 → 12298 (P165); `g_ujOpReseedDir` written exactly 3x (EA-304/7901/10730, P088-P089). Regions 18+23+7+16+5+7+24 = 100; P001-P172 unbroken with end-marker.
+3. **Term logic (P078)**: parens balanced, disjunction explicit; the CARRY-nonzero conjunct is redundant by the write-adjacency invariant (pair set at EA-7899/new-7901, cleared at EA-10727/new-10730, joint init) — harmless as stated (P074). The DIR_NONE→-1 mapping is the pre-existing EA-8411 idiom class, disclosed (P074); the NONE hazard is fail-open in v29 already via the `!=0` disjunct and is not altered by the new disjunct (P026 class).
+4. **H1-order proof (P058)**: EA-7885 precedes EA-7899/7901 in-branch (R-H1HEAD), so the recorded value is the post-overwrite g_dir; same-pass set-then-read is row-evidenced (R03 reseed dir=SHORT at 09:15 vs R05 edge dir=SHORT reseedBar=09:15, same 09:20:00 pass). The S1C rewrite EA-7909 sits post-SET (R-SET2); any disagreement fails the comparator closed to kill — never a wrong-direction promotion from this site. The 2-1 keep of the g_dir form is safe on these exhibits plus the edge print audit (reseedDir=%d with dir=%s, P086).
+5. **Behavior mapping**: B1 flips — 09:05 (R01/R02: edge SHORT, arm 6/4 10:20 SHORT) and 09:15/09:30/09:35 (R04-R09: edge SHORT, arm 09:15 SHORT) all match → promote, per P118-P121 F. 8-June keeps — R12-R16 reseedBar=0 → no exemption → all five kills (R11, R25-R28) persist, per P123-P127 Ku. Direction keeps — R17/R18 (edge LONG vs 09:15-SHORT arm) and R22/R23 (edge SHORT vs 10:35-LONG arm) mismatch → kill, per P122/P140 Km. Unset keep — R19/R20, per P128 Ku. Counts reconcile: 22 flips = 9 first + 13 continuation, 12 keeps, 34 ledger rows, matching P044-P045 and the takes sheet.
+6. **Scope**: confirm predicate, booking, one-take cap, S5.4/S3.3 downstream, R2 renewal all untouched (P023-P028). The edit touches exactly the B2 exemption — his Rebuild order for the reseed-direction-matched path with the 8-June kill kept (P009/P011).
+7. **Censuses**: seedBiasAl 8 sites (P025: 1 decl + 2 producers + 3 edge + 2 observe) arithmetic holds and matches the shown regions; the -1 sentinel fail-open disclosed (P026); R13/R26 exoneration visible on the page (R13 17:30→17:35:00, R14 17:35→17:40:00 ordering with R25/R26 kills at 17:30/17:35).
+
+The compile/0-warning oracle remains a build-time fact (P088); this CONFIRM waives nothing at build.
+
+**Q1 Analytic ask A** (imprecisions, none defect-grade; listed for the record):
+- a. P094's list "6/4 11:20, 6/9 and 6/10 09:15 flips" — no 6/9 09:15 flip exists in the exhaustive 22+12 partition (P111/P112/P044: the 6/9 flips are 10:20+, and 6/9 09:50 is a keep). Read collectively ("the 6/9 flips") it is consistent; as written it collides with the binding tables and should name bars.
+- b. The UJRESEED print (EA-7879) reports `t78_dir` (pre-resolve) while the fence records post-resolve `g_dir` (EA-7885 → SET). If `S2ResolveLive` ever disagrees with `t78_dir`, the arming print and `reseedDir` diverge — fail-closed and gradable via the UJPROV print (P084-P086), but the divergence case is undisclosed.
+- c. The comparator inherits the EA-8411 idiom: with `g_dir == DIR_NONE` the RHS evaluates -1, so a live SHORT carry would compare equal. Unreachable per all 24 rows and pre-existing shape, not introduced by the fold — noting for the census.
+- d. P025 names the S1T producer (EA-8201) which arms seedBiasAl but writes no CARRY/DIR; the page never states this explicitly (the 3-site CARRY census implies it). One sentence would close it.
+- e. P087's "g_dir ... bracketing uses" is not an exhaustive g_dir-write census; the fail-closed argument is stated only for S1C. It generalizes (any post-SET writer that disagrees fails the comparator), but the page should say so.
+
+**Q1 Analytic ask B:** No better mechanism at this fence's scope. Recording `t78_pr.isLong` instead of post-overwrite `g_dir` would be strictly worse (desync under a resolve transform); the identity-scoped stamp — the real cure for stale churn — is correctly parked for its own round (P094/P102). Optional gradeability nicety, not demanded: one `InpDebugLog` line immediately after the DIR-SET insert (final EA-7901) logging the arming (barTime + recorded dir), so the arming side prints without cross-line joins; NET +1 against the round's budget discipline — fine to decline.
+
+---
+
+# Q2 verdict: OBJECT — narrow, curable with three sentences; everything else in the battery I confirm sound.
+
+The defect (the binding gate is not yet branch-complete against its own ledger):
+
+1. **P110's flip predicates are not conditioned on the H-B3TAKE sub-branch and contradict the ledger.** P-KILLOUT ("KILL rows at the 22 flip bars = 0x"), P-PROMOTE-FIRST ("S2PROMOTE 1x at … 6/11 16:05"), and P-PROMOTE-CONT bind unconditionally under "any miss FAILS the round" — but the ledger's own B3-fired cells (P138/P139: WF=Ku, FF=Ku at 6/11 16:05/16:25) predict kills at two of the 22 flip bars: a B3-fired run matching the ledger exactly would FAIL P-KILLOUT and miss P-PROMOTE-FIRST/CONT by the letter. The 14:40 admission clears CARRY (EA-10727/EA-10730 post-build), so 16:05/16:25 lose their arm and re-classify as unset-keeps. Cure: bind the flip predicates to the B3-withdrawn sub-branch, or re-derive the flip set from the resolved sub-branch's PROV rows.
+2. **P110's head ("any miss FAILS the round") contradicts its own tail** — P-NOFALSE's "routes to HOLD … never auto-FAIL" and P-PROMOTE-CONT's miss-with-ADVANCE divergence route. The exceptions must live in the rule head, not only in sub-predicates.
+3. **P111's ledger columns (WW/FW/WF/FF) are never defined on the page.** Two readings fit the cells shown ((B1-branch × B3-outcome) vs (H-TAKE × H-B3TAKE within the fired branch)); the predicates' conditioning depends on which is meant. One definition line cures it.
+
+Confirmed sound, so the cure is wording not architecture: PATH_CLASS precedence and the FIX-vs-divergence pre-class (P109); the 22/9/13 flip arithmetic and chain-break rule (P110 vs P112-P145 — 22 flips, 12 keeps, 9 first-flip, 13 continuation, all re-derived and consistent, including the 14:45 opposite-direction edge breaking the 6/11 LONG chain so 16:05 is first-flip); P-KEEP counts; P-DIRSCOPE with the fallback mismatch-proof bars; H-terms with identity/tolerance/withdrawal classes including the mid-chain block class (R-PREBIND evidences PREBIND_FAIL); P-CARRY's shadow=false pin; the WITHDRAWN/FIRED parity split; HOLD routing; the negative controls.
+
+---
+
+## Analytic ask A — every defect, gap, imprecision I see
+
+**Q1-scope:**
+- A1. The R13/R26 twin discrepancy above (rows R13, R26 vs P018, P042, section-0; exhibits R14, R25).
+- A2. Mixed numbering conventions: the Q1 header cites the term at EA-8413 (v29) but the print at "EA-8414 post-build"; P025's census is v29 (8412/8413/8417), P087/P088 are final-tree (8414/8415). The term's post-build line is 8415 — one convention or dual labels prevents a mis-anchor at build.
+- A3. P057 "sibling indent 17sp" — the sibling CARRY-set line is 18sp (R-SET2 EA-7899; the 17sp line is the closing brace EA-7900); the exhibited splice (P062-P063) is 18sp. Cosmetic, compiler-neutral.
+- A4. P055's `int g_ujOpReseedDir = 0;` ignores the R-DECL name-column alignment (`int      uj_memo_anchor = -1;` EA-304). Cosmetic.
+- A5. P010/P057 cite "same-pass R01/R03 agreement" — R01 (09:10 pass) and R03 (09:20 pass) are different passes; the same-pass exhibit in the splice is R03+R05 (both 09:20:00). Fix the citation.
+- A6. P088 counts the reseedDir declaration (EA-304) as a write but excludes CARRY's declaration (EA-303) from its writes — inconsistent convention; both invariants hold.
+- A7. P057 "S1C block EA-7902-7909" — the block's brace closes past 7909 (R-SET2 cuts mid-block); the label names head-through-g_dir-write, not the span.
+- A8. "DIR_NONE maps to -1 … safe at the edge" (P087) is asserted, not shown: no region exhibits a guard that g_dir != DIR_NONE at EA-8413; safety rides the pre-existing EA-8411 idiom and an unstated state invariant — cite the invariant at build.
+- A9. Pre-existing, unchanged, unnamed in the honest-sentence section (P090-P096): seedBiasAl = -1 (align-check failure sentinel, EA-7881) satisfies != 0 and promotes — fail-open on align-check failure is v29 semantics at EA-8413; the new disjunct doesn't alter it, but one disclosure line would close it.
+- A10. The overnight carry (arm 6/4 10:20 arming 6/5 09:05, P115) rides P014's v26-sourced expectation; the pin's wording does not state the day boundary either way, so the 09:05 promotion expectation rests on the v26 reference (P041) rather than a direct pin. P103's decline is noted; one sentence stating the boundary reading would pin it.
+- A11-A13. The three OBJECT items above (P110 vs P138/P139/P147; P110 head vs P-NOFALSE/P-PROMOTE-CONT; P111 columns).
+- A14. P-DIRSCOPE's "unset-keep form in fired branches" (P110) presumes H-TAKE fired; with H-TAKE withdrawn (confirm=0), the fired branch's 6/5 16:00 is the mismatch form (CARRY persists from the 09:15 reseed; R18 exhibits the withdrawn form). Count holds either way; the form sentence needs the same conditioning.
+- A15. P109 PATH_CLASS is per venue while the flip predicates are global; the venue owning the 6/2, 6/9, 6/10, 6/12 flip bars is unstated — a 6/9 promote-miss currently routes only via P-PROMOTE-CONT's divergence rule.
+- A16. "159.948 +-5pts" (P146): the pts convention (points vs pips on a 3-decimal JPY quote) is inherited from the EA prints (R10 "body=6pts") but never pinned.
+- A17. P109's DIVERGED class uses "the divergence bar" without defining it.
+- A18. The battery carries no N/N+1 pass-timing assert on the new run's edge rows (P018 pins the convention; no predicate checks it). One line — every S2-edge/CONFIRMPOLL row's log time = its bar time + one bar — would also have caught the R13/R26 class in a future run.
+
+## Analytic ask B — better mechanisms
+
+**Q1 (goal: restore the direction-matched reseed path, keep 8-June dead, minimal fence)**: the better long-form mechanism is the parked identity-scoped stamp (P102, Sonnet's anchorBarTime shape) — record the reseed direction on the holder, not file-scope, so same-direction stale carry (P094's 09:05 class) and cross-seed CARRY leakage (the 14:45 SHORT seed reading the 10:35 LONG reseed, R23) stop being exempt. Lines: same five sites plus the death-path clears (EA-10727/10730 post-build and the holder-death resets). A candidate home already on the page: the uj_memo_* family (EA-304-306; uj_memo_valid is reset in the H1 block at EA-7898) — if uj_memo_dir's write sites census to the holder lifecycle, the term at EA-8413/8415 could read a holder-scoped dir and the file-scope insert disappears (NET drops toward +0/+1). That census is not on the page, so it stays a candidate. Correctly parked for its own round; do not add it to this fold.
+
+**Q2 (goal: a binding gate that cannot mis-fail its own predictions)**: (a) the three-sentence cure (condition the flip predicates on the resolved sub-branch; move the exceptions into the P110 head; define the ledger columns); or (b) derive the flip set from the run's own PROV rows in the resolved branch (flip bars = bars with direction-matched PROV rows in that branch), making P-KILLOUT self-consistent by construction — the 22/9/13 counts become derived outputs and pre-registration survives by freezing the sub-branch rule rather than the bar list. Plus the A18 timing assert. All page-side; no code lines touched.
+
+---
+
+Close: Q1 CONFIRM (with the R13/R26 discrepancy riding the tally for disk verification); Q2 OBJECT narrow on the three named items, the rest of the battery confirmed. Nothing built, run, or spent on this verdict; live activation untouched; the gated run still needs the new key plus his explicit run word.
+## V362-UJEXEMPT-5 END GLM

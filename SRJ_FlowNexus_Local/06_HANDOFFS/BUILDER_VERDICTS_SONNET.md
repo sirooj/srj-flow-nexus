@@ -4768,3 +4768,87 @@ The defects are in the proof prose, and none of them changes an edit block.
 
 Nothing more is asked or ruled.
 ## V361-UJEXEMPT-4 END SONNET
+## V362-UJEXEMPT-5 OPEN SONNET
+# Seat ruling on V362 (page only)
+
+I rule only on the page text, code lines and logic. Disk truth is not claimed. Nothing here builds, runs, spends, or clears live activation.
+
+**Q1: CONFIRM**, with the wording corrections in section A below. None changes a code line.
+**Q2: OBJECT** on internal inconsistencies in the binding gate, listed in section B with the cure for each.
+
+## A. Q1 findings (none blocking)
+
+1. **Wrong row cited for the agreement proof.** P010, P041 and P057 cite R01 as the same-pass partner of R03. R01 is the 09:05 bar, stamped 09:10:00. R03 is stamped 09:20:00.
+   - The same-pass rows are R04 and R05, both 09:20:00. The relay takes sheet correctly cites R05.
+   - R05 also shows edge g_dir after any S1C rewrite. It does not show the value that DIR-SET writes.
+2. **S2ResolveLive is not on the page.**
+   - P057 records the post-EA-7885 g_dir. S2ResolveLive (EA-7885 pre) has no lines or return set exhibited, so nothing proves it returns the t78 direction.
+   - Fail-closed is safe, but a silent no-op on B1 is possible.
+   - Either put its return set on the page, or state this as an open dependency graded by the new reseedDir print at 6/4 11:20 (arm 6/4 10:20).
+3. **The single-frame census claim is false as written.**
+   - P087 mixes frames: EA-1062, 7885 and 7909 are pre-build. Post-build they are 1063, 7886 and 7910.
+   - EA-8414 names the pre-build PROMOTE block opener in P073 and the post-build PROV print in P087.
+   - The relay Q1 header mixes EA-8413 (pre) with EA-304, 7901 and 10730 (post).
+4. **The change-sentence omits the M15 scope.** Kill and promote exist only inside `!aligned` (EA-8407, 8413, 8418 pre). Where M15 disagrees, every seed gets S2WAIT-retain (EA-8420-8421 pre).
+5. **DIR_NONE is unsafe at the SET, not just at the edge.**
+   - P087 calls it safe at the edge. At P063, a DIR_NONE g_dir would record -1, which is a false SHORT provenance.
+6. **Minor items.**
+   - **Region tally:** the "100 lines" in the relay is a sum. R-H1HEAD (7876-7899) and R-SET2 (7894-7909) overlap on 6 lines, so 94 lines are unique.
+   - **Duplicated expression:** the exempt expression is duplicated between P078 and P085, which is a drift risk.
+   - **seedBiasAl census:** "seedBiasAl sites unchanged" (P088) holds by line but not by occurrence, because the print gains a second read.
+
+## B. Q2 objection: defects in the binding gate
+
+**B1. The N/N+1 assertion as worded fails rows the page calls normal.** P018 and P154 say the log time "equals" bar time plus one bar. R16 and R28 are 18:05:03 for bar 18:00, and R21 is 10:40:01 for bar 10:35, and R24 is 14:40:22 for bar 14:35. Cure: assert that floor(logTime, barPeriod) == barTime + barPeriod. Also say that a pass can land seconds into the bar.
+
+**B2. The class definitions disagree with the H-TAKE withdrawal.**
+- P111 defines WITHDRAWN_TERM only as a 09:40-bar confirm=0 row or a feed-join against.
+- P149 also withdraws H-TAKE on late-TP interference and on confirm=1 with no admission.
+- Those two cases fall to UNRESOLVED or FIRED-fail in P111.
+- Cure: one withdrawal list, used by both.
+
+**B3. Verdict classes do not close.**
+- P113 says a miss "FAILS the round", but P112's classes are only PASS, PASS-B1-unproven and HOLD.
+- FAIL is not a class, and PASS-B1-unproven has no defining condition.
+- UNRESOLVED ("never a round fail", P111) has no verdict mapping.
+- P-CARRY's binding 09:40 existence assert conflicts with UNRESOLVED never failing.
+- Cure: a table of class x condition -> verdict.
+
+**B4. The counts 22/9/13/12 are column-specific but unqualified.** P115-P148 show 16:05 and 16:25 flipping to Ku in WF/FF.
+- WW/FW: 22 flips (9 first, 13 continuation), 12 keeps.
+- WF/FF: 20 flips (8 first, 12 continuation), 14 keeps.
+- P113 lists 6/11 16:05 among the first-flip bars unconditionally.
+- Cure: per-column counts.
+
+**B5. No ledger column for DIVERGED or UNRESOLVED venues.** If B3 is not FIRED or WITHDRAWN, the expected action at 6/11 16:05 and 16:25 is indeterminate, because it is F in WW/FW and Ku in WF/FF. Cure: bars whose expected action differs across columns are declared ungraded for that venue. At 6/5 16:00 and 6/11 14:45 the action is KILL in every column, so only the evidence form differs.
+
+**B6. The divergence-bar definition is never used.** It is defined at P155 and listed at P160, but no predicate in P111-P113 consumes it. The ledger is a baseline-derived forecast. After a promotion at 6/5 09:05 replaces the baseline kill, the 09:15/09:30/09:35 rows (P119-P121) are not guaranteed to be reached. Cure: bars at or after a chain's divergence bar are graded conditionally, per the P-PROMOTE-CONT rule.
+
+**B7. Identity terms are contradictory or missing.**
+- P149 puts "TP by 12:15" in the H-TAKE identity and also calls the outcome observational.
+- The price tolerance of 5 points is 0.005 yen on a feed-dependent open, and a correct admission could fail it on feed alone.
+- H-B3TAKE (P150) has no identity terms at all, yet P111 says FIRED uses "identity terms below".
+- Cure: identity = date, session, direction and admission bar. Price and TP are observational, with a wider price band if graded.
+
+**B8. The 8-June keep is conditional, and the page does not say on what.**
+- In WW and WF, provenance armed at 6/5 09:15 is cleared only by the 6/5 16:55 admission. R17/R18 show the value still set at 16:00.
+- If that admission is displaced, 6/8 09:25 (SHORT, seedBiasAl=0, stale SHORT provenance) would be exempt.
+- The Takes sheet claim "all five kills persist in every branch" is therefore conditional.
+- Cure: make reseedBar=1970.01.01 at the five 8-June bars a binding assert in P-KEEP (the form R12-R16 show), and name the dependency in P043.
+
+**B9. Row order is not log order, and a tag collides.**
+- Code prints UJPROV (EA-8412) before the KILL (EA-8419), but the rows list KILL first (R01/R02, R04/R05, R06/R07, R08/R09, R17/R18, R19/R20, R22/R23).
+- R24 (14:40:22) is numbered after R22/R23 (14:50:00).
+- The print-order statement covers only reseed before kill. It should also say PROV before KILL, and that R-numbers are not log order.
+- R13 and R26 both carry the tag NN. If the tag is meant as a row identifier, that is a collision despite "dup 0". Define the tag column.
+
+**B10. Ledger bars without row exhibits.** The 6/10 15:45 and 17:10 and 6/12 10:55 and 18:10 keep bars (P044), and most flip bars, have no R-row on the page. Label them "disk-asserted", not page-exhibited.
+
+## C. Better mechanisms
+
+1. **Print-to-action join (battery only, no code change).** Add a mechanical binding check to the gate using the P086 fields. At every UJPROV row with the M15 gate satisfied, S2PROMOTE_M15 must exist on the same bar if and only if exempt=1, and S2SEEDBIAS_KILL if and only if exempt=0. Separately check that exempt equals the term recomputed from the printed seedBiasAl, reseedBar, reseedDir and dir. This makes branch-complete grading independent of the forecast ledger, and only the flip/keep forecast then relies on it.
+2. **Read-side day bound (parked candidate, needs his word).** Add a conjunct at EA-8413 requiring the reseedBar day to equal the bar day. It adds no write site, so P104's "extra write site" cause does not apply to it. It would remove the three cross-day first-flips (6/5 09:05, 6/10 09:15, 6/12 16:55) and the 8-June dependency in B8. It changes entry behavior, so it is his call and a separate round.
+
+With B1-B8 folded, I would flip Q2 to CONFIRM. B9-B10 are hygiene.
+
+## V362-UJEXEMPT-5 END SONNET
