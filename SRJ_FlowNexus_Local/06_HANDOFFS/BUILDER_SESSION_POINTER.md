@@ -3,12 +3,12 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, V356 GRADED CLEAR + V357 CORRECTED LEDGER 1024 - key/word owed)
+## State (2026-09-30, RECON77 graded, quiescent)
 
-- Q1 2-0 CONFIRM tallied (Luna+GLM); v357 carries corrected takes over identical evidence.
-  Key memo ships: one v28 build plus one UJ June run, nothing else.
-- Key spent; EU declined. Packet FIX-2v2 halted, superseded.
-  No build/run/key without his new word.
+- RECON77 DONE=PASSED: behavior-neutral PASS + lifecycle PROVEN (result filed).
+  His no-improvement CONFIRMED at take level, expected by design (telemetry only).
+- v29 tree 977B0FB5 committed 71f1e55; key both legs spent; EU excluded.
+  Take-moving round is v15 exemption (council route + new key + his word).
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
   Python 3.13.15 installed per-user + rule amended (ledger 979). Full-path python.
   Helper `00_CURRENT_WORKING\srj_toolcheck.py` committed (next + hash, ledger 980).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR Luna key paste (packet FIX-2v14, digest B748802C, exactly one build plus one tester run, nothing else) plus YOUR UJ June run word.
+- Rest. Next builder block (unattended): v15 exemption draft via council route.
 
 ## Resume order (exact)
 
