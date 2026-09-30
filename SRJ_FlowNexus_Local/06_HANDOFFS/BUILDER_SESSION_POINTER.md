@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, RULES REFINED LEDGER 1022 - prevention live, no gate without pin)
+## State (2026-09-30, V356 GRADED CLEAR + V357 CORRECTED LEDGER 1024 - key/word owed)
 
-- Strategy s8 canonical (touch-or-break, bias instances, bar mapping) + council s43 gates.
-  Live artifacts audited clean; B2 frozen unpinned pending YOUR word.
+- Q1 2-0 CONFIRM tallied (Luna+GLM); v357 carries corrected takes over identical evidence.
+  Key memo ships: one v28 build plus one UJ June run, nothing else.
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR V356 verdict paste-back whole per seat (Q1 amended telemetry; Luna + GLM + Sonnet same text from the last memo).
+- YOUR Luna key paste (packet FIX-2v14, digest B748802C, exactly one build plus one tester run, nothing else) plus YOUR UJ June run word.
 
 ## Resume order (exact)
 

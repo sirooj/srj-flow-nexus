@@ -1,6 +1,6 @@
 # BUILDER RELAY COUNCIL v356-UJFIX4-2 - packet P-RECON74FIX-2v14 amended (whitespace twins, tag UJPROV, scope-cite; draft, nothing spent)
 
-Status: DRAFT - assembled 2C1CD034, battery GREEN same turn (twin 85 diff-0, regions 29 0-diff, rows 8 spliced 1x, ellipsis 0, PSEQ-0, ASCII-only, round-trip exact); nothing spent.
+Status: DRAFT - assembled 2C1CD034, battery GREEN same turn (twin 85 diff-0, regions 29 0-diff, rows 9 spliced 1x, ellipsis 0, PSEQ-0, ASCII-only, round-trip exact); nothing spent.
 
 Project brief (standing - read first):
 - Money: probe/print-only. Alert-only EA. No live trades. No funded money moves on any verdict here. Live activation needs a separate relay plus his explicit word. Nothing in this packet clears it.
@@ -10,9 +10,9 @@ Project brief (standing - read first):
 
 ## 0. What this round is (read first) + scope (his explicit word)
 - CONTINUE previous council session (v356-UJFIX4-2 transported; V355 verdicts: Luna CONFIRM, Sonnet advisory fixes adopted in this amendment, Opus parked OBJECT, GLM re-asked on the amended page; delta form stated in section 0).
-- Scope word (his 2026-09-30 message, verbatim core: "Rebuild but refer to the older more correct build"). Entry-side behavior rides his word plus this council route, in that order; this round is telemetry-only (zero behavior) so the lifecycle evidence exists before any behavior exemption is proposed. The v26 reference behavior (T2 09:45 159.948 R2.00 via BYPASS+PREBIND, balance 10711.87) and the v28 kill chain (R01 reseed then R03 kill same pass) are both on the rows below.
+- Scope word (his 2026-09-30 message, verbatim core: "Rebuild but refer to the older more correct build"). Entry-side behavior rides his word plus this council route, in that order; this round is telemetry-only (zero behavior) so the lifecycle evidence exists before any behavior exemption is proposed. The v26 reference behavior (T2 09:45 159.948 R2.00 via BYPASS+PREBIND, balance 10711.87) and the v28 kill chain (R05 reseed then R06 kill same pass) are both on the rows below.
 - This relay asks ONE numbered question (Q1 provenance telemetry); carried Q2/Q3 and the parked behavior items (B2 exemption, E2 touch-or-break, anti-flip, wrapper) ask nothing this round. Same text to every seat. Nothing builds, runs, spends, or clears live activation here. No run is proposed in this round (design ruling only; any future build needs a new key plus his run word, neither asked here).
-- Disk numbers (measured inside the assembly run, same-turn as the draft): packet P-RECON74FIX-2v14 2C1CD034/9849/85; EA E516EBFF/684070/12291 (v28 tree built under key; FIX-2v14 edits unbuilt; alert-only stands); twin 85/85 diff 0; regions 29 lines in 4 spans (R-CARRY-DECL 7 + R-H1SET 6 + R-S2EDGE 9 + R-ADMIT 7, all 0-diff vs EA, case-sensitive); rows R01-R08 (reference + kill rows, each spliced once by match; dup 0); ellipsis 0; P-sequence unbroken; non-ASCII census: packet ASCII-only so twin ASCII-only; head/regions/rows ASCII-only; zero cp1252 shadows.
+- Disk numbers (measured inside the assembly run, same-turn as the draft): packet P-RECON74FIX-2v14 2C1CD034/9849/85; EA E516EBFF/684070/12291 (v28 tree built under key; FIX-2v14 edits unbuilt; alert-only stands); twin 85/85 diff 0; regions 29 lines in 4 spans (R-CARRY-DECL 7 + R-H1SET 6 + R-S2EDGE 9 + R-ADMIT 7, all 0-diff vs EA, case-sensitive); rows R01-R09 (reference + kill rows, each spliced once by match; dup 0); ellipsis 0; P-sequence unbroken; non-ASCII census: packet ASCII-only so twin ASCII-only; head/regions/rows ASCII-only; zero cp1252 shadows.
 - Fold delta vs FIX-2v13 (new instrument on his rebuild word, not a verdict fold): reseed-provenance carriage (decl + set + S2 print + admit clear, +4 lines); abort/IDLE staleness visible-by-design (no GoAbort touch); budget +4/12295 held.
 
 ## Priors (labeled, never as anyone's words)
@@ -30,7 +30,7 @@ Project brief (standing - read first):
 - EU run ABORTED standing; the EU check rides a future word + key scope, never this packet.
 
 ## Takes sheet (Rule-vs-takes, v28 reference + v14 telemetry; EU structural, stated openly)
-- Reference-take: 6/5 London SHORT 09:45 159.948 R2.00 (v26 T2 via BYPASS+PREBIND, TP_TOUCH 12:15; R01-R04 below; predicate live: R04 confirm=1 09:15-bar; miss specifically absent confirmation-bar poll + kill). Must flow again under a future exemption; nothing in v14 admits it (telemetry only).
+- Reference-take: 6/5 London SHORT 09:45 159.948 R2.00 (v26 T2 via BYPASS+PREBIND, TP_TOUCH 12:15; R01-R04 below; predicate live: R04 confirm=1 09:40-bar; miss specifically absent confirmation-bar poll + kill). Must flow again under a future exemption; nothing in v14 admits it (telemetry only).
 - Missed-owed-2 (11 June LONG 14:40 160.524): Daily-POC 160.523; strict c1>=L fails 160.522<160.523; reclaim o1<=L fails 160.525>160.523 (R09-row class, segment rows; sbLine reads as line-index per R12 labels, sbL carries the value).
 - Current takes identical (v28 RECON76): 6/3 + 6/5-16:55, balance 10027.13; v14 must reproduce byte-identically (behavior-neutral proof).
 - Must-never-take: 8 June SHORT silent (R07-R08: REJECT + kill + abort; sb=0 inferred from the else-if predicate; v14 touches no gate, stays silent).
@@ -64,7 +64,7 @@ P013:
 P014: ## Record-first trail (spec + restatement + findings + journal + segments searched before council)
 P015: 
 P016: - Spec Part A v4.2: confirmation geometry lives in his later words (strategy s7 touch-or-break); section references ride the E2 round, never this telemetry round.
-P017: - Findings: RECON76 result (R01 reseed then R03 kill same pass; 09:40-bar confirm=1 on v26 feed identical) + V353 dissent dispositions (sess scope EA-6934/8045, no-prototype, 13 callers, S1-implies-anchor) + V354 dissent dispositions (R07 relabeled, estimate corrected).
+P017: - Findings: RECON76 result (R05 reseed then R06 kill same pass; 09:40-bar confirm=1 on v26 feed identical) + V353 dissent dispositions (sess scope EA-6934/8045, no-prototype, 13 callers, S1-implies-anchor) + V354 dissent dispositions (R07 relabeled, estimate corrected).
 P018: - Segments: RECON74-V11-UJ (B802287F/7348717/37765; T2 route rows below) + RECON76-V28-UJ (FB7C37F9/6162087/32026; R01/R03 same-pass kill + 8/6 kill preserved).
 P019: - Journal: no new rows rule these venues (register B1-3 stand; UJ section turns to takes only through council-cleared packets).
 P020: 
@@ -181,7 +181,7 @@ R07 FS	0	14:28:30.104	Core 04	2026.06.08 09:30:00   [SRJ-EA] S2SEEDBIAS_KILL bar
 R08 OH	0	14:28:30.104	Core 04	2026.06.08 09:30:00   [SRJ-EA] 2026.06.08 09:30:00 ABORT reason=SEEDBIAS_REFUSED state=S2_LTF_ALIGN poi=Weekly-POC dir=SHORT
 R09 OK	0	14:50:36.320	Core 04	2026.06.11 14:40:22   [SRJ-EA] UJSBTELEM bar=2026.06.11 14:35 dir=SHORT have=1 sbDir=LONG sbLine=0 confC=0 confH=0 sbL=160.523 o1=160.525 c1=160.522 c0=160.526 arm=1 termC=A2_CLOSE_BREAK termH=A_OPP - contender evaluation (Fix S3)
 ## Takes sheet (Rule-vs-takes, v28 reference + v14 telemetry; EU structural, stated openly)
-- Reference-take: 6/5 London SHORT 09:45 159.948 R2.00 (v26 T2 via BYPASS+PREBIND, TP_TOUCH 12:15; R01-R04 below; predicate live: R04 confirm=1 09:15-bar; miss specifically absent confirmation-bar poll + kill). Must flow again under a future exemption; nothing in v14 admits it (telemetry only).
+- Reference-take: 6/5 London SHORT 09:45 159.948 R2.00 (v26 T2 via BYPASS+PREBIND, TP_TOUCH 12:15; R01-R04 below; predicate live: R04 confirm=1 09:40-bar; miss specifically absent confirmation-bar poll + kill). Must flow again under a future exemption; nothing in v14 admits it (telemetry only).
 - Missed-owed-2 (11 June LONG 14:40 160.524): Daily-POC 160.523; strict c1>=L fails 160.522<160.523; reclaim o1<=L fails 160.525>160.523 (R09-row class, segment rows; sbLine reads as line-index per R12 labels, sbL carries the value).
 - Current takes identical (v28 RECON76): 6/3 + 6/5-16:55, balance 10027.13; v14 must reproduce byte-identically (behavior-neutral proof).
 - Must-never-take: 8 June SHORT silent (R07-R08: REJECT + kill + abort; sb=0 inferred from the else-if predicate; v14 touches no gate, stays silent).

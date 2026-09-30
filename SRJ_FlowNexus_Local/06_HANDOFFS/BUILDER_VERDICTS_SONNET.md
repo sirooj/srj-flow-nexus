@@ -4424,3 +4424,67 @@ Keep the four inserts, but make the evidence self-sufficient:
 These are design suggestions only. Disk truth, digests and anchor counts are proven on your machine, not from chat.
 ## V355-UJFIX4-1 END SONNET
 
+## V356-UJFIX4-2 OPEN SONNET
+# Q1 verdict: CONFIRM (code), with page discrepancies to correct
+
+The four inserts match their specified anchors and add no behavior. Everything below is rule-on-the-page only; disk items are flagged as not answerable from chat.
+
+## What I checked
+
+- **DECL (P035, after EA 302).** A plain file-scope datetime with a zero initializer. Nothing reads it before the SET and PROV sites are added.
+- **SET (P044, after EA-7897).** An assignment inside the reseed reset block (EA-7894..7899). It sits at the same indentation as the neighboring resets (EA-7894..7897), so it is unconditional in that block. It has no gate effect.
+- **PROV (P052, before EA-8410).**
+  - The format string has 4 specifiers (`%s %s %s %d`) and 4 arguments, matching P055.
+  - `s1g_seedBiasAl` is already printed with `%d` at EA-8414, so its type is consistent.
+  - The inserted `if(InpDebugLog) PrintFormat(...);` is a complete statement, so the `if / else if` chain at EA-8410/8415 still binds as before.
+  - `TimeToString(0, ...)` reads 1970.01.01 00:00, as P055 says.
+- **CLEAR (P062, after EA-10723).** `barTime` is visibly in scope at 10723, and the clear is an assignment only.
+- **Budget (P080):** 4 inserts and +4 lines take 12291 to 12295. The shift claims also hold: +2 at the S2 span (DECL and SET precede it) and +3 at ADMIT (PROV also precedes it).
+- **Regions:** 7+6+9+7 = 29 lines, matching the stated span sizes.
+- **Hidden reads:** the only calls on the new path are `iTime`, `DirName` and `TimeToString`. These are already called in adjacent prints (EA-8414, 8416), so zero behavior change holds for the code as shown.
+
+## Discrepancies (prose, none change the code)
+
+- **D1, Takes sheet, reference-take line:** it says "R04 confirm=1 09:15-bar", but R04 reads `bar=2026.06.05 09:40`, and P023 and P017 say 09:40-bar. The 09:15 belongs to R05 (UJRESEED). This should read 09:40-bar.
+- **D2, Section 0 and header:** they say rows R01-R08 are spliced once. The Rows section and the Takes sheet census line carry R01-R09. Either R09 is outside the splice assertion or the count is stale.
+- **D3, "S2-edge print":** the print (P052, before EA-8410) sits before the promotion `if` and outside its condition. It fires on every S2 pass, as P070 says.
+  - It is not "before the B2 condition" (P047). The B2 branch is the `else if` at EA-8415.
+  - The change-sentence and P047 should say "S2-pass print".
+  - Whether EA-8408 executes on every S2 pass depends on enclosing context the region omits. That is a disk item.
+- **D4, P024 and P009:** "Delta vs REF-74-T2 = the B2 kill alone" is imprecise. The v28 run carries Fix H1 (R05, P037 "v13-new-H1"), and the v26 rows show no reseed. The H1 reseed also changes the seed identity (`fromDir=LONG` to `SHORT`, al=0), so B2 is not the only delta. This does not affect Q1 but matters for v15 design.
+- **D5, P037 and P070:** "SET <=> UJRESEED 1:1" and the g_anchorBarTime claim are not verifiable from the page. The region (EA-7894..7899) contains neither the UJRESEED print nor the g_anchorBarTime line. These are disk assertions: count the UJRESEED print sites, and count assignments to `g_ujOpReseedBarTime` (expect DECL init, SET, CLEAR).
+
+## Analytic ask A: gaps and imprecisions
+
+1. **CLEAR may never be exercised (P056, P070).**
+   - v14 has no exemption, and a reseed with al=0 is always killed (R05/R06). A SET followed by an admit therefore needs a reseed with `s1g_seedBiasAl != 0`, and the page does not say the June window contains one.
+   - P070 offers the clear as "observed on takes where a later S2 pass exists", but a zero at that later pass is indistinguishable from "never set".
+   - So P072's "set/clear/stale census" may have an empty clear column.
+2. **UJPROV has no seed identity (P052).**
+   - It prints bar, dir, reseedBar and seedBiasAl, but not poi, state or anchor bar.
+   - After an abort the value is stale (P064). A later fresh seed (the 09:30/09:35 kills in P024) would print reseedBar=09:15, and only a join to UJRESEED tells fresh from stale.
+   - The join can work, but it is fragile for a v15 runtime predicate.
+3. **The discriminator premise is unproven on the page.**
+   - The exemption idea is that provenance separates 6/5 (R05 shows a reseed) from 8 June. R07/R08 show no UJRESEED row for 8 June, but that is an absence in the spliced rows, not proof.
+   - Acceptance (P069-P071) should require explicit 8 June UJPROV rows.
+4. **Cosmetic and organizational nits.**
+   - The new print line is indented 18 spaces against 9 for its neighbor (P052).
+   - The provenance datetime is placed inside the uj_memo block (P035), but P077 refutes any memo relationship. Placing it after EA-306 would keep the memo block contiguous.
+5. **Minor:** the "Takes sheet" section appears twice in the relay body. Harmless, but easy to misread as two artifacts.
+
+## Analytic ask B: better mechanism
+
+- **B-1 (recommended, +0 lines):** append `anchorBar=%s` to the PROV print (`g_anchorBarTime`, if it is file-scope, which P037 implies). Then freshness is `reseedBar == anchorBar`, computed on the row itself. Add `poi=AnchorStr()` at the same time. This removes most of the join dependency and softens the staleness limitation without touching GoAbort. It adds two arguments and two specifiers to the same print, but no new line and no new state.
+- **B-2 (+1 line):** add a guarded clear print before EA-10723, such as `if(InpDebugLog && g_ujOpReseedBarTime != 0) PrintFormat("UJPROV_CLEAR ...")`. Budget would then be +5/12296, and the clear becomes observable whenever it matters (see gap 1).
+- **B-3 (v15, not now):** a natural reset home is seed birth rather than GoAbort. Where g_anchorBarTime is written for a non-reseed seed, reset provenance there. The v14 telemetry shows whether that is needed.
+
+## Not answerable from chat
+
+I did not verify the following, and no model can from the page alone:
+- that `barTime` is in scope at EA-7897 and EA-10723;
+- that the SET block is the reseed block;
+- that each old anchor is unique.
+
+The battery digests cover those.
+## V356-UJFIX4-2 END SONNET
+

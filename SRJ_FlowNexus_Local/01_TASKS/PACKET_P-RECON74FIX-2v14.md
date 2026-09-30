@@ -14,14 +14,14 @@ Canonical files: Experts\SRJ_FlowNexus_EA.mq5 ONLY (4 insert sites below; indica
 ## Record-first trail (spec + restatement + findings + journal + segments searched before council)
 
 - Spec Part A v4.2: confirmation geometry lives in his later words (strategy s7 touch-or-break); section references ride the E2 round, never this telemetry round.
-- Findings: RECON76 result (R01 reseed then R03 kill same pass; 09:40-bar confirm=1 on v26 feed identical) + V353 dissent dispositions (sess scope EA-6934/8045, no-prototype, 13 callers, S1-implies-anchor) + V354 dissent dispositions (R07 relabeled, estimate corrected).
-- Segments: RECON74-V11-UJ (B802287F/7348717/37765; T2 route rows below) + RECON76-V28-UJ (FB7C37F9/6162087/32026; R01/R03 same-pass kill + 8/6 kill preserved).
+- Findings: RECON76 result (R05 reseed then R06 kill same pass; 09:40-bar confirm=1 on v26 feed identical) + V353 dissent dispositions (sess scope EA-6934/8045, no-prototype, 13 callers, S1-implies-anchor) + V354 dissent dispositions (R07 relabeled, estimate corrected).
+- Segments: RECON74-V11-UJ (B802287F/7348717/37765; T2 route rows below) + RECON76-V28-UJ (FB7C37F9/6162087/32026; R05/R06 same-pass kill + 8/6 kill preserved).
 - Journal: no new rows rule these venues (register B1-3 stand; UJ section turns to takes only through council-cleared packets).
 
 ## Death chains (reference behavior, all on-segment)
 
 - REF-74-T2 (v26, 6/5 London SHORT 09:45 open 159.948 R2.00, TP_TOUCH 12:15): 09:05 REJECTed seed SURVIVED (S2SEEDBIAS_KILL 0x run-wide); S1->S2 via live promotion; 09:40-bar CONFIRM (oppCandle=1 bodyDir=1 body=7pts touchAttr=1 confirm=1); BYPASS 09:40 (m15=1.0) + PREBIND 09:40 -> ADMIT. Balance 10711.87.
-- KILL-76 (v28, same venue, missed): H1 reseed 09:15 (al=0 ok=1, single row) then S2SEEDBIAS_KILL same pass (sb=0 inferred from the else-if predicate; the kill row carries bar/dir/poi only); kills at 09:30/09:35 bars (segment-resident, unspliced in v355 rows); seed dead before the 09:45 pass so the 09:40-bar confirm never evaluates. Delta vs REF-74-T2 = the B2 kill alone (reads stable across builds: LTF-bullish both runs; indicator bytes untouched 956BF3E3).
+- KILL-76 (v28, same venue, missed): H1 reseed 09:15 (al=0 ok=1, single row) then S2SEEDBIAS_KILL same pass (sb=0 inferred from the else-if predicate; the kill row carries bar/dir/poi only); kills at 09:30/09:35 bars (segment-resident, unspliced in v356 rows R01-R09); seed dead before the 09:45 pass so the 09:40-bar confirm never evaluates. Delta vs REF-74-T2 = the B2 kill alone (reads stable across builds: LTF-bullish both runs; indicator bytes untouched 956BF3E3).
 - KEEP-76-68 (v28, 8 June SHORT silent): REJECT + S2SEEDBIAS_KILL 09:25 + ABORT SEEDBIAS_REFUSED (state S2_LTF_ALIGN). Must stay dead through every future round (NO-OVERFIT); v26's T4 invalid win (R3.47) never returns.
 
 ## Edit set (exact anchors; STAGE-1 censuses each; all inserts, zero deletions; convention: NET per site = added lines)
@@ -49,7 +49,7 @@ datetime g_ujOpReseedBarTime = 0;
          if(uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0)
 ```
 ```mql5-new-CARRY-PROV
-                  if(InpDebugLog) PrintFormat("[SRJ-EA] UJPROV bar=%s dir=%s reseedBar=%s seedBiasAl=%d - reseed provenance at S2 edge (Fix CARRY)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), TimeToString(g_ujOpReseedBarTime, TIME_DATE|TIME_MINUTES), s1g_seedBiasAl);
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJPROV bar=%s dir=%s reseedBar=%s seedBiasAl=%d - reseed provenance at S2 edge (Fix CARRY)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), TimeToString(g_ujOpReseedBarTime, TIME_DATE|TIME_MINUTES), s1g_seedBiasAl);
          if(uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0)
 ```
 (Specifiers 4 = arguments 4; unset reads 1970.01.01 00:00 = never-reseeded, self-describing.)

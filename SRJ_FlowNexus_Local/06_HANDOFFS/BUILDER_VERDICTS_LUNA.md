@@ -14803,3 +14803,27 @@ B — Better mechanism:
 * A later hardening round could add explicit lifecycle-state telemetry for abort/IDLE clears instead of relying on visible stale timestamps, but that belongs after this telemetry baseline, not inside this zero-behavior-change packet.
 ## V355-UJFIX4-1 END LUNA
 
+## V356-UJFIX4-2 OPEN LUNA
+Q1 verdict: **CONFIRM**
+
+The provenance carriage specification is internally consistent on the page:
+
+* **DECL:** The requested file-scope `datetime g_ujOpReseedBarTime = 0;` is described as a single declaration insert after `uj_memo_valid` in FIX CARRY-DECL. 
+* **SET:** The reseed bar time assignment is specified as `g_ujOpReseedBarTime = barTime;` at the H1 post-overwrite site. 
+* **PROV print:** The S2-edge provenance print is an observation-only `UJPROV` log before the existing S2 condition, with the stated four arguments and no predicate change shown. 
+* **CLEAR:** The admit path adds `g_ujOpReseedBarTime = 0;` after admission publication state, matching the stated admit-clear behavior. 
+* **Staleness limitation:** The page explicitly states abort/IDLE paths do not clear in this round and that stale values are intentionally visible until the later discipline round. 
+* **Zero-behavior scope:** The packet states the CARRY lines are declaration/assignment/print-only, with no gate, predicate, promotion, exit, or booking touch. 
+
+**No discrepancy found from the supplied page.**
+
+Analytic A defects/gaps observed:
+
+* **Gap:** The clear lifecycle is only partially observable because the acceptance text relies on “admit-clear observed on takes where a later S2 pass exists” and does not add a dedicated clear print. This is acknowledged in the packet itself, so it is a visibility limitation rather than a contradiction. 
+* **Gap:** Freshness is not directly encoded on the `UJPROV` row; the page says freshness is derived by joining to `UJRESEED` rows rather than carried as a standalone field. 
+
+Analytic B better mechanism:
+
+* A future lifecycle round could add an explicit provenance state transition telemetry (`SET`, `READ`, `CLEAR`, `STALE`) rather than relying on row joins, while keeping the current observation-only boundary. This would touch only the future telemetry layer, not the S2 gate or admission predicate described as protected here. 
+## V356-UJFIX4-2 END LUNA
+
