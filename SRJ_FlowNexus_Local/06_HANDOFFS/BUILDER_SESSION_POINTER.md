@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, V354 GRADED LEDGER 1016 - round closed, chart numbers owed)
+## State (2026-09-30, CHART JOINED LEDGER 1017 - no divergence, scope word owed)
 
-- V354 Q1 2-0 (a) CLEAR + Q2 union-(c) CLEAR (Luna+GLM tallied; Sol trial + Sonnet advisory dispositioned).
-  R07 relabeled retest-bar poll (owned); corrections ride the next relay visibly.
+- Tester equals YOUR chart on all prints (11 June 3/3, 09:35 direction agrees).
+  Blockers are YOUR rules vs machine rules; scope-word memo shipped.
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR chart numbers as plain numbers (5 June 09:35 candle direction, 11 June 14:30 open, 11 June 14:30 close, 11 June 14:35 close).
+- YOUR scope word on the three trade questions in the report (plain words, yes-or-no plus YOUR line).
 
 ## Resume order (exact)
 

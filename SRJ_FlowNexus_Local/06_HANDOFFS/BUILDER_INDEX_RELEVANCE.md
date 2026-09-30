@@ -10,7 +10,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
-- Latest grade 2026-09-30: V354 Q1 2-0 (a) + Q2 union-(c) CLEAR (result `06_HANDOFFS\BUILDER_RESULT_V354-GRADE.md` B827C0FE/2795/21 + findings `06_HANDOFFS\BUILDER_FINDING_V354-DISSENT-DISPOSITIONS.md` E77F61AE/5997/50; 4 seats filed whole 1x; R07 relabeled; round closed, no new relay). Sole outstanding: his chart numbers. Prior relay-ready (superseded): relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v354-UJFIX3-1.md` 330BEA9D/12935/90 (ledger 1015).
+- Latest join 2026-09-30: chart numbers joined (tester == chart 3/3 on 11 June, direction agrees 09:35; NO divergence; term-design sole blocker; ledger 1017; scope word owed). Prior grade (superseded): V354 Q1 2-0 (a) + Q2 union-(c) CLEAR (ledger 1016).
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` FC41EE0D/671645/12127 (v10 built 2026-09-28 from v19 remainder F/G1/H1/H2; 0/0 compile; alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v19 DRAFT 806B9ECD/84749/485 (V331-fold answers; Luna KEY-IMPL2-V19 granted + his run word banked ledger 942; build+run authorized fresh session).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
