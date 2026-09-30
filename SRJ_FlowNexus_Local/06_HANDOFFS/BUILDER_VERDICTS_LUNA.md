@@ -14827,3 +14827,16 @@ Analytic B better mechanism:
 * A future lifecycle round could add an explicit provenance state transition telemetry (`SET`, `READ`, `CLEAR`, `STALE`) rather than relying on row joins, while keeping the current observation-only boundary. This would touch only the future telemetry layer, not the S2 gate or admission predicate described as protected here. 
 ## V356-UJFIX4-2 END LUNA
 
+## KEY-FIX2-V14 OPEN LUNA
+**RULE: GRANT**
+
+Packet `PACKET_P-RECON74FIX-2v14`, digest **B748802C**, is granted scope for **exactly one build plus exactly one UJ June tester run, and nothing else**.
+
+Scope is limited to the packet's stated telemetry validation: future build/run only, with behavior-neutral acceptance and the pinned UJ June window.
+
+**No additional build, run, EU run, code change, live activation, or funded-money action is granted.** The packet itself states live activation requires a separate relay plus explicit word, and no live activation is cleared here.
+
+One bookkeeping discrepancy: the supplied page records its assembly digest as **2C1CD034**, while your ruling identifies the packet as **B748802C**.
+
+Operator: Build and run for UJ permission granted.
+## KEY-FIX2-V14 END LUNA

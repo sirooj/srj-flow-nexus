@@ -300,6 +300,7 @@ double   uj_memo_tp = 0.0;
 double   uj_memo_sl = 0.0;
 double   uj_memo_entry = 0.0;
 bool     uj_memo_valid = false;
+datetime g_ujOpReseedBarTime = 0;
 int      uj_memo_anchor = -1;
 int      uj_memo_dir = 0;
 datetime uj_memo_barTime = 0;
@@ -7895,6 +7896,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                  g_latchBarTime = 0;
                  g_confirmFromState = ST_IDLE;
                  uj_memo_valid = false;
+                 g_ujOpReseedBarTime = barTime;
                 }
              }
           if(t78_opp && (g_state == ST_S2_LTF_ALIGN || (g_state == ST_S1_REGIME && t78_opConf && !t78_heldConf)))
@@ -8407,6 +8409,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          double uj_m15b = 0.0;
          bool uj_m15r = ReadFlow(FL_BUF_HTF_LOW, uj_m15b, barShift);
          double uj_wantb = (g_dir == DIR_LONG ? 1.0 : -1.0);
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJPROV bar=%s dir=%s reseedBar=%s seedBiasAl=%d - reseed provenance at S2 edge (Fix CARRY)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), TimeToString(g_ujOpReseedBarTime, TIME_DATE|TIME_MINUTES), s1g_seedBiasAl);
          if(uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0)
            { double uj_ltfb = 0.0; int uj_ltfOk = ReadFlow(FL_BUF_LTF_BIAS, uj_ltfb, barShift) ? 1 : 0;
              int uj_m15s = (int)iTime(_Symbol, PERIOD_CURRENT, barShift);
@@ -10721,6 +10724,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- [P-UJIMPL-IMPL-1 v8 IE5c/IE9] authoritative admission tuple (first
       //--- publication of the admission key {uj_bar_key, tradeSeq} + poolGen chain).
       g_mtrade.uj_admitBarTime = barTime;
+      g_ujOpReseedBarTime = 0;
       g_mtrade.uj_tradeSeq = uj_tradeSeqNext; uj_tradeSeqNext++;
        uj_admitCount++;
          uj_fireWsrc = uj_winnerSource; uj_fireWday = uj_winnerDayKey;
