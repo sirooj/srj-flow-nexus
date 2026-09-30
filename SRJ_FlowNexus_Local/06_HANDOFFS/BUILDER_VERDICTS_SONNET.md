@@ -4250,3 +4250,85 @@ The H1 fence as written does not compile, and two of its guards contradict the p
 I cannot prove disk truth from chat. All of the above is page-only.
 ## V352-UJFIX2-13 END SONNET
 
+## V353-UJFIX2-14 OPEN SONNET
+# Q1 verdict: OBJECT
+
+The mechanical old-to-new deltas match. The old fences for H1, H2, H3, SIG, CALL and S3TELEM byte-match the v27 regions, and the arithmetic checks out (S3TELEM 14=14 and UJRESEED, UJOPCONF and UJHOLDEXPIRE specifier counts all agree; ABORT2 quote lands at col 32; budget +25/+6/+0/+1 = +32). The objection is on the H3 predicate, and on compile and scope pins that the page states but does not prove. I rule on the page only.
+
+## Objection items (blocking)
+
+1. **H3 reclaim arm is under-constrained (P238, spec P256).**
+   - For LONG, A_OPP has already forced c1<o1. The reclaim clause `o1 <= L` then puts candle-1 entirely below the line.
+   - `c0 >= o1` never requires c0 on the holding side of L, so c0 can still be under the line.
+   - The only remaining guards are B_BODY (c0 bullish) and C_TOUCH (candle-1's wick reached L). Together they admit a rejection-from-below shape as a LONG confirmation.
+   - The SHORT mirror has the same flaw.
+   - The code matches P256 literally, so this is a spec defect, not a transcription slip.
+   - The 11 June row (sbL 160.523, entry open 160.524) suggests c0 was above L. The predicate does not encode that.
+   - `arm=1` and the o1/c1/c0 fields make the passes observable after the fact, but they do not make them correct.
+
+2. **`sess` is unproven at the H1 site (P187, P197, P213).**
+   - P213 says sess/barTime are "in scope per t78-region usage", but R-T78 (EA 7866-7894) uses barTime only, never `sess`.
+   - This is the same class as the v12 D1 blocker (s1c_*), so it needs a declaration-line cite.
+
+3. **`g_lineCode[g_anchorLine]` is unguarded (P190).**
+   - H1 has no `g_anchorLine >= 0` check, while H2 has one (P222).
+   - A -1 index is a runtime array error that stops the EA.
+   - Add the guard, or use `AnchorStr()`.
+
+4. **H2's "no confirmation" is not what the code tests (P214, P222; R-S1X EA 8356-8369).**
+   - The check is a pure elapsed timer in S1. The S1 block advances to S2 as soon as the regime classifies, so a candidate can sit in S1 only while the regime is NONE.
+   - "Unconfirmed" in P171, P214 and P275 is conflated with "regime unclassified".
+   - The timer runs before ClassifyRegime, so at 3600 s a candidate whose regime has just classified is killed.
+
+5. **The no-eviction-marking claim is not proven for S1-state aborts (P214, P231, P405).**
+   - It rests on a comment (EA-404) and on rows FI/OM, which are S2-state SEEDBIAS aborts.
+   - HOLDER_EXPIRED aborts from S1, and the GoAbort body is not on the page (D12 exhibit parked).
+   - If marking depends on state rather than reason, the proof does not transfer.
+
+## Non-blocking defects and imprecisions
+
+6. **Stale refs and coordinates:**
+   - P165 says "Specifiers 10 = arguments 10" after the S3TELEM fence with 14 fields (P164 says 14).
+   - P165 cites EA-8360/8361/8362 for the confirm pair and transfer if. In v27 these are EA-8402/8403/8406; EA-8360-8362 are R-S1X lines.
+   - P213 says "P188 equivalent to sibling"; the g_dir line is P196 in v13, and P188 is a bare `{`.
+   - P262 says the "P178/P179 seam"; in v13 that is P185/P186 in new-H1, or P177/P178 in old-H1.
+   - P402 says a "29-line shape"; P181-P211 is 31 lines, and only 31 gives the stated +25.
+   - P402's "P190 deleted" is v12 numbering, but P190 is live in v13 (UJRESEED).
+
+7. **Double-splice risk (P040-P151).**
+   - The v26 old-fences for R, B2, B3 and B4 do not match the v27 regions, because those edits are already built in (R-TP, R-PROMO and R-SEED show the new forms; R-ABORT already carries EA-407).
+   - Label them applied-in-v27, not to be spliced.
+
+8. **Unproven anchors and scope:**
+   - `t78_opp` is not defined on the page. The H1 clause `topLine != g_anchorLine || dir != g_dir` (P187) is broader than P171's "opposite-direction" wording if t78_opp includes same-direction, different-line retests.
+   - The old-H2 anchor is a generic two-line pattern (P216-217), so the battery needs a count==1 assertion.
+   - Whether an unbuilt prototype exists for IsConfirmationCandle is not shown; a default parameter duplicated in a prototype would be a compile error.
+   - The "13 callers" count has no on-page enumeration, so it is disk-provable only.
+
+9. **Control flow after the H1 site is off-page (P171, P274).**
+   - R-T78 ends mid-print at EA-7894. R-S1X and R-PROMO show S1→S2→S3 falling through in one pass. A reseeded candidate whose regime classifies can therefore reach S2 (and the sb=0 kill) in the same pass as UJRESEED.
+   - "Confirms on the next bar" is then not guaranteed.
+   - "Exactly one UJRESEED row" (P274) holds only if the first reseed survives. A kill or expiry lets later retests reseed again, so grade on the first row.
+   - An earlier reseed (09:20-09:35) can complete before 09:45, which raises UJ-SIGNALBAR risk. P274 half-acknowledges this.
+
+10. **Reseeding with al=1 at ok=1 is not the problem, but reseeding with al=0 and ok=1 is (P187-P192).** It overwrites the holder with a candidate that the m15-fallback path will kill in the same pass (B2 rule-wins), so the holder is lost for nothing. This is by design under D5, but it should be stated explicitly.
+
+11. **Site asymmetry.**
+    - Only the contender call gets reclaim (P254). The holder's confH and the t78 opConf/heldConf calls stay strict (P177, P185, R-SCOMB confH).
+    - The same bar can therefore be "confirmed" at one site and not at another.
+    - IsConfirmationCandle also mutates the N1 globals (g_n1_*), so contender calls now shift those census counters. "EU zero-delta" needs to say the counters are excluded.
+
+12. **`arm=1` is a hard-coded literal (P161).** It does not reflect the call argument, so it is decorative. Attribution actually comes from the o1/c1/c0 and sbL fields. Fix the wording in P164 and P276.
+
+13. **Whitespace drift.** New-SIG and new-CALL add one leading space versus the region (P247-248, P254). It is harmless, but the byte-lint should be aware.
+
+## Better mechanism
+
+- **H3:** add `c0 >= L` (LONG) or `c0 <= L` (SHORT) to the reclaim clause (P238), and confirm with the operator whether `o1 <= L` is really his "open side". A false-break reclaim usually means o1 on the retest side, c1 through the line, and c0 back over it.
+- **H1:** skip the reseed when `t78_alOk && !t78_al` (P187), or make that outcome explicit. Also add `g_anchorLine >= 0`.
+- **H2:** move the timer into the `regime == REGIME_NONE` branch (R-S1X, EA 8361-8362) so it only expires candidates that are actually stuck. Rename "unconfirmed" to "regime-unclassified" in the prose.
+- **Attribution:** derive arm from the row fields offline (strict iff c1 >= sbL). Do not add a second IsConfirmationCandle call, since that double-counts the N1 counters.
+
+Q2 and Q3 carried-CLEAR are untouched by this objection.
+## V353-UJFIX2-14 END SONNET
+

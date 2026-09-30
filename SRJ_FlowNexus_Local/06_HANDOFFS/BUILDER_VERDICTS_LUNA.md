@@ -14514,3 +14514,60 @@ Then emit **one** `UJRESEED` row, after capturing `s1c_fromLine/s1c_fromDir` and
 **Disposition:** `OBJECT — amend H1 before any build/run clearance. Q2 and Q3 carried-CLEAR dispositions remain untouched by this Q1 objection.**
 ## V352-UJFIX2-13 END LUNA
 
+## V353-UJFIX2-14 OPEN LUNA
+## Q1 — Council verdict
+
+**Change sentence:** The page carries guarded single-print op-reseed with transfer hygiene and fresh seed-bias carriage, elapsed holder-expiry, a contender-scoped reclaim arm, attributable contender telemetry, and an unchanged S5-election scope, with pre-confirmation promotion gating explicitly limited to the stated B2 path.
+
+**Q1 verdict: CONFIRM.**
+
+The fenced old-to-new deltas are internally coherent and match the stated scope:
+
+* **H1:** P180-P212 / EA-7866 through the t78 site: `!t78_opConf && !t78_heldConf`, `SessionAlreadyUsed` guard, fresh `CheckLtfAlign`, `al/ok` carriage, one `UJRESEED` print, overwrite, and the transfer-state reset mirror are all present. The old H1 body is preserved at P172-P179. The subsequent legacy preempt edge cannot double-fire from the reseed because H1 requires `!t78_opConf`, while the legacy edge requires `t78_opConf`. P187-P210.
+* **H2:** P219-P230 / EA-8356 area: expiry is explicitly elapsed-time based, `>= 3600`, and exits through a dedicated `ABORT_HOLDER_EXPIRED`; it does not set an eviction bit. P222-P226 and P228-P231.
+* **H3:** P237-P255 / EA-2334 through EA-2375 plus the contender call at EA-8402: the new parameter defaults to strict behavior, while only the contender call passes `true`. The 13 other callers therefore remain strict by construction. P241-P256.
+* **S3 telemetry:** P159-P164 / EA-8351+: `o1/c1/c0/arm` are added without changing the contender decision path. The confirmation call itself is the scoped-`true` call at P254.
+* **ABORT2:** the new define is separately fenced and its placement is pinned to the existing abort family. P228-P231.
+* **Scope:** P166 explicitly leaves S5 election untouched; P403-P406 state the same delta and budget.
+
+I do **not** see a Q1 fence defect that warrants an OBJECT.
+
+### A — defects, gaps, and imprecisions
+
+1. **“Single-print” is potentially ambiguous.**
+   H1 now emits both `UJOPCONF` and `UJRESEED`; what is single is the `UJRESEED` event, not literally one print from the site. P186-P190. The page should preferably say **“single UJRESEED print”** rather than “single-print” wherever that distinction matters.
+
+2. **H2’s “with no confirmation” is an invariant, not an explicit predicate.**
+   The code tests `g_state == ST_S1_REGIME` plus elapsed time; it does not separately test a confirmation flag. P220-P226 / EA-8356+. That is acceptable if ST_S1 is the authoritative unconfirmed-holder state, but the prose should describe it as **state-based proof of non-confirmation**, not as an independently checked condition.
+
+3. **The exact expiry boundary should remain explicit.**
+   `>= 3600` means the holder expires on the bar where elapsed time reaches exactly 60 minutes, before any later-stage processing on that pass. P222-P226. The page already implies the intended 11 evaluations at T+5 through T+55, so this is consistent, but the boundary semantics should not be left implicit.
+
+4. **`arm=1` is diagnostically stronger-looking than it really is.**
+   P161-P164 says `arm=1 always`, while the telemetry block can print even when `uj_sbHave=0`. P159-P164 / EA-8351+. The actual reclaim call is scoped correctly at P254, but the telemetry field is not itself proof that a reclaim call occurred on every row. The existing grade correctly has `have/sbDir/confC` available, so this is a **telemetry-schema imprecision, not a behavioral defect**.
+
+5. **H3’s reclaim condition is broader than a simple “close back above the line” description.**
+   P238 permits LONG when `o1 <= L` and `c0 >= o1` even though `c1 < L`; the SHORT mirror applies symmetrically. P238-P239. That matches the stated Alt-A wording at P256, so it is not a mismatch with the adopted substitute, but the prose should keep describing it exactly as **prior-open-side + current-close-holds-relative-to-prior-open**, not as “current close holds above the POI line.”
+
+6. **The H1 acceptance wording leaves the exact reseed-bar timing intentionally conditional, but the takes-sheet wording can read more deterministically than the code.**
+   P274 says the entry may complete earlier than 09:45, while the takes sheet calls 09:45 the owed entry. That is reconcilable because 09:45 is the expected target under the recorded June chain, not a hard-coded admission timestamp. Still, “09:45 owed” and “may complete earlier” should remain visibly subordinate to the rule rather than read as two independent hard requirements. P274 and the takes-sheet section.
+
+7. **The packet does not itself prove the future H1/H3 behavioral outcome.**
+   P272-P278 correctly defer that to the future UJ run. The design ruling is therefore proven by the page; the claimed June admissions remain acceptance criteria, not current evidence. This is a **proof-stage limitation, not a Q1 defect**.
+
+8. **S3 telemetry is correctly diagnostic-only, but `termC` remains non-self-sufficient.**
+   P164/P269 correctly state that `termC=""` is not a pass and that `have/sbDir/confC` must be read first. That dependency is sound, but it means a downstream grader that keys only on `termC` would be wrong. The page should keep that ordering requirement prominent.
+
+### B — better mechanisms
+
+For the stated goal, I would not replace the adopted mechanisms. Two small hardenings are cleaner future-round candidates:
+
+**First:** make `arm` a derived telemetry value rather than a literal. At the S3 block around **EA-8351+**, report the actual call eligibility, e.g. conceptually `have && (sbDir != g_dir)` rather than unconditional `1`. That removes the `have=0, arm=1` ambiguity without touching behavior.
+
+**Second:** make the H2 invariant explicit at the state boundary around **EA-8356-8357** by documenting that `ST_S1_REGIME` is the authoritative “unconfirmed holder” state. That preserves the zero-behavior contract while making the `>=3600` expiry proof mechanically easier to audit.
+
+Those are audit/diagnostic improvements, not reasons to reopen Q1.
+
+**Carried Q2/Q3 remain CLEAR and are not altered by this Q1 ruling.**
+## V353-UJFIX2-14 END LUNA
+
