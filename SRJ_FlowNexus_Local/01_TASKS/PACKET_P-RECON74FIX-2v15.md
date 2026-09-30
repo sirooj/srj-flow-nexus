@@ -6,16 +6,16 @@ Canonical files: Experts\SRJ_FlowNexus_EA.mq5 ONLY (1 modified line below; indic
 
 ## Authority (his words verbatim + disk, no invention)
 
-- His Rebuild order (2026-09-30, verbatim: "Rebuild but refer to the older more correct build"). Amended point: restore the 09:45 admission path (v26 RECON74 T2: BYPASS+PREBIND at the 09:40-bar) while KEEPING the 8-June kill (T4 invalid winner stays dead per NO-OVERFIT). This packet is that order's first behavior round.
+- His Rebuild order (s7 REBUILD-ORDER, 2026-09-30, verbatim: "Rebuild but refer to the older more correct build"). Amended point: restore the 09:45 admission path (v26 RECON74 T2: BYPASS+PREBIND at the 09:40-bar) while KEEPING the 8-June kill (T4 invalid winner stays dead per NO-OVERFIT). This packet is that order's first behavior round.
 - V354 Q1(a) "kill-stands" SUPERSEDED on this point by canon order: his Rebuild order (2026-09-30) is later than the V354 ruling and amends it for the reseed-proven path only; the kill stands everywhere else (8-June class, never-reseeded class). Council prose never overruled; his later word governs.
 - V356 Q1 2-0 CONFIRM CLEAR (telemetry parent): the CARRY value this design reads was ruled and proven on RECON77 (60 UJPROV rows, lifecycle join in the result file).
 - Strategy pins (section plus verbatim, GATE-NEEDS-PIN satisfied; no pin = no gate, and every gate below quotes one):
   - SEED-CARRY EXPECTATION (s5, verbatim: "how did the 5th build take it"): seeds persist across unconfirmed bars to confirmation. Authorizes restoring the killed seed to the confirmation bar.
-  - BIAS-SOURCE-INSTANCES (s8): 5 June SHORT valid on 1H bear + 15m bear; 8 June SHORT invalid on 5m bullish flip during setup. Authorizes the 6/5 restore and the 8-June keep as two instances, never a hierarchy rule (hierarchy stays OPEN; no gate here encodes it).
+  - BIAS-SOURCE-INSTANCES (s8) with CHART-READS-6/5 verbatim (s7, verbatim: "The 1H is bearish [Image 1] and the 15m is also bearish [Image 2] hence the valid short"): 5 June SHORT valid on 1H bear + 15m bear; 8 June SHORT invalid on 5m bullish flip during setup. Authorizes the 6/5 restore and the 8-June keep as two instances, never a hierarchy rule (hierarchy stays OPEN; no gate here encodes it).
   - CHART-READS-6/5 (s7): his 1H+15m bear reads govern; the LTF-bullish-as-truth read is withdrawn as prime suspect. Authorizes not trusting the sb=0 kill as his bias.
   - NO-OVERFIT (s2, verbatim: "i am not trying to overfit this test window by having the best result or 100 percent winrate, i want you to apply my rules as is although it is a losing trade such as on the 9/8 NY session"): valid losers taken, invalid winners rejected. Authorizes keeping every kill the pins do not lift (8 June + never-reseeded).
   - CONFIRMATION-CANONICAL (s8, verbatim: "keep it either valid retest rouch or break with a candle body close"): the restored seed still passes confirmation geometry; this packet changes no confirm predicate.
-  - CONFIRM-ONCE + TIMING-N/N+1 (s2): 09:40 confirmation bar evaluates at the 09:45 pass, entry 09:45 open. Authorizes the predicted path endpoint.
+  - CONFIRM-ONCE + TIMING-N/N+1 (s2, verbatim: "the latest D POC retest is at 9:35 and then the confirmation candle is the 9:40 and the EA should enter at 9:45 open candle price"): 09:40 confirmation bar evaluates at the 09:45 pass, entry 09:45 open. Authorizes the predicted path endpoint.
   - BOOKING-INNOCENT (s2): booking never causes a selection miss. The predicted take books per standing rules; booking is untouched.
 
 ## Settled-rules audit (RULES-COMPLETENESS output; every mechanism touched maps to a pin, every pin on the path is dispositioned)
