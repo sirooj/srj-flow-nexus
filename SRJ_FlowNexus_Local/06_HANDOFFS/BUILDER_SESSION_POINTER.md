@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, V355 GRADED-ADOPTED + V356 RELAY-READY LEDGER 1021 - amendment re-ruled)
+## State (2026-09-30, RULES REFINED LEDGER 1022 - prevention live, no gate without pin)
 
-- V355 verdicts filed triple-proof this turn (Luna/Sonnet/Opus); 1020 anomaly closed by verification.
-  Relay v356 45016A1D carries amended v14; GLM re-asked with Luna and Sonnet.
+- Strategy s8 canonical (touch-or-break, bias instances, bar mapping) + council s43 gates.
+  Live artifacts audited clean; B2 frozen unpinned pending YOUR word.
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR V356 verdict paste-back whole per seat (Q1 amended telemetry; Luna + GLM + Sonnet same text).
+- YOUR V356 verdict paste-back whole per seat (Q1 amended telemetry; Luna + GLM + Sonnet same text from the last memo).
 
 ## Resume order (exact)
 
