@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, RECON75 GRADED LEDGER 1007)
+## State (2026-09-30, V352 RELAY-READY LEDGER 1008)
 
-- v27 ran June window DONE=PASSED (2 takes, 1 first retarget, 8-June invalid silent, 3 valid-misses diagnosed holder-veto).
-  Next packet named (holder-expiry + displace + seed audit + term fix, council route, new key + run word owed).
+- Packet FIX-2v12 15F5D034 + relay v352 37D89BA1 drafted, double battery green, memo shipped.
+  V352 verdicts owed back whole per seat (Q1 + carried Q2/Q3).
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- His new key + run word for the FIX-2v12 round (fold drafts proceed-free).
+- His V352 verdict paste-back, whole per seat (Q1 + carried Q2/Q3).
 
 ## Resume order (exact)
 
