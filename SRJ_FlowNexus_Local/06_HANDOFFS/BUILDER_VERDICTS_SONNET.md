@@ -4332,3 +4332,43 @@ The mechanical old-to-new deltas match. The old fences for H1, H2, H3, SIG, CALL
 Q2 and Q3 carried-CLEAR are untouched by this objection.
 ## V353-UJFIX2-14 END SONNET
 
+## V354-UJFIX3-1 OPEN SONNET
+# Sonnet seat: review-only analysis (verdict-slot line excused per the standing seat-split)
+
+I can only judge from the rows on the page. I can't verify disk truth, and I don't have the v28 source, so every reading of the code below is inferred from row fields. The page has no P-line numbers, so page claims cite section names.
+
+## Q1 (advisory lean, not tallied): (a) kill stands, with (c) for the LTF bias read
+
+1. **The reseed is outcome-neutral, and the kill is the binding gate.** B2 already killed the SHORT at 09:05 (R08), before any reseed. R01 (ok=1) and R03 (kill, same pass) then cancel each other, and R05/R06 kill it again at 09:35. Even with H1 perfect, the 09:45 SHORT could not survive B2. This is the cleanest explanation for "no difference from the last build": every H1/S3 change since RECON75 sits behind a gate that still kills the seed.
+2. **al=0 and ok=1.** R01 admits a displacement whose own bias input is 0, and R03 then kills the displacing seed in the same pass. The seed slot is spent with no replacement. An explicit handling would evaluate the bias predicate before the displace gate. If al=0, it should log a reseed-skipped-by-bias row and leave the holder untouched, rather than displace and then kill.
+3. **The B_BODY refusal is not shown by any 5 June row.** The takes sheet calls it B_BODY, but R07 carries no term field. Only R09 (11 June) names B_BODY, so the 5 June label is an inference from oppCandle/bodyDir/confirm.
+4. **R07 is not independent, and it may read the wrong bar.** R07 is keyed bar=09:35 at the 09:40:00 pass. On his words (9:35 retest, 9:40 confirmation, 9:45 open), that is the retest bar, not the confirmation bar. The confirmation bar is read at the 09:45 pass, which never runs because R06 kills the seed at 09:40. So no row exists for the bar his rule cares about. The takes-sheet phrase "09:40 pass on 09:35 bar" hides this.
+5. **Option (b) could not reproduce the owed trade on this evidence.** R04 shows confirm=1 (shadow) at 09:15 on a 1pt body. With B2 lifted and the poll live, the EA could enter around 09:20, not at his 09:45 open. Also, the 8 June must-never-take is described only as "kill path live", with no row. If that kill is B2, loosening B2 for 5 June puts 8 June at risk.
+6. **The bias read is unresolved.** B2 says LTF was bullish all morning (R05/R06/R08). His rule, as quoted, has no bias term. Whether B2 belongs in his rule, and whether the bias read matches his chart, needs his word and chart, plus an offline 8 June counterfactual.
+
+## Q2 (advisory lean): (c) both, feed-join first
+
+1. **The margins are sub-pip noise.** At 160.xxx, 1-2pts is 0.1-0.2 pip. Cross-feed OHLC differences that size are routine. I read c1 as the shift-1 (just-closed 14:35) bar close and c0 as the live price at pass time (14:40:22). That matches MQL5 indexing but is not stated on the page. On that reading, the 14:35 bar closed 160.522 against sbL 160.523 (R10), and his owed entry open is 160.524, exactly 2pts above. That is a checkable feed-offset hypothesis: is his chart's 14:35 close 160.523 or higher?
+2. **There is also a term question.** His 11 June rule is same-bar retest plus confirmation, while his 5 June words are N/N+1. One predicate has to serve both timings. Widening the margin to admit 11 June on N=1 would be curve-fitting and a regression risk. Do not change the predicate until the chart join lands.
+3. **Ordering (R10/R11).** The contender is evaluated with the SHORT squatter still present, and the abort is deferred past the evaluation. The contender is never re-evaluated after the squatter dies. It is worth checking whether that mattered on this pass.
+4. **The RERESEED predicate and the offline arm derivation cannot be confirmed from the page.** Neither is written out here, so I can't confirm them as grade procedure. The page needs their text, or a reference to it.
+
+## Analytic ask A: page defects
+
+- The two "change sentences" are questions, and each verdict line stacks three or more rulings, contradicting "one verdict". A partial ruling has no slot.
+- Sections "Takes sheet", "Q1 verdict line" and "Q2 verdict line" occurs twice, with different content. The second takes sheet is a summary that differs from the first.
+- "Regression" has no named reference build. RECON75 equals RECON76 byte-for-byte, so the page never says what he is comparing against.
+- R09/R10 omit the current bar's o/h/l and the strict and armed margin values. The "1pt / 2pts" figures are asserted, not shown.
+- CONFIRMPOLL does not say which bar is retest and which is confirmation.
+- R15 admits off a level 36 days old (wage=36, DH20260430). Was that intended? R13 retargets the target from 1.56R to about 0.47R, which needs a win rate above roughly 68% to break even. Both are worth a look for "fix the 5 June exit".
+- The tester tick model and bar source are not stated. Q2's feed-join needs them.
+- Rows are out of sim-time order (R08 is listed after R07), which is cosmetic.
+
+## Analytic ask B: better mechanism (design only, nothing built)
+
+1. Move the seedbias check ahead of the displace gate, emit one reason-coded row, and drop the reseed-then-kill churn (about R01/R03).
+2. Add o0/h0/l0, the retest-bar and confirmation-bar times, and the exact margin values to UJSBTELEM and CONFIRMPOLL, so arm margins are read directly instead of re-derived.
+3. Before any B2 change, run an offline counterfactual with B2 exempt for SHORT-on-POC retests. It should show 5 June, 8 June and the A1-7/B1-3 invalids together, with the poll bar corrected to N+1.
+4. Adopt an explicit feed-tolerance policy for margins of 2pts or less, decided from his chart OHLC, rather than silently widening predicates.
+## V354-UJFIX3-1 END SONNET
+

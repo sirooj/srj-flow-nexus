@@ -14577,3 +14577,202 @@ Those are audit/diagnostic improvements, not reasons to reopen Q1.
 Operator: Build and run for UJ granted
 ## KEY-FIX2-V13 END LUNA
 
+## V354-UJFIX3-1 OPEN LUNA
+## Council ruling — RECON76 grade: rule-wins + term/feed (design ruling only)
+
+### Q1 — Rule-wins
+
+**Change sentence ruled:** The owed 09:45 SHORT path is governed by the standing rule ordering: the B2 seedbias kill remains active when `sb=0`, while the op-reseed admission evidence is logged but does not override the kill; the separate B_BODY confirmation predicate is independently evaluated and rejects the 09:40 confirmation where `confirm=0`; `al=0` with `ok=1` is treated as a valid reseed state input, not as an admission override.
+
+**Q1 verdict: RULING (a) — kill-stands.**
+
+* **B2 seedbias kill:** CONFIRMED.
+
+  * R01 shows the op-reseed occurred with `al=0 ok=1`:
+
+    * `UJRESEED ... dir=SHORT ... al=0 ok=1`
+  * R02 shows the displace-gate state:
+
+    * `opConf=0 heldConf=0`
+  * R03 shows the decisive rule result:
+
+    * `S2SEEDBIAS_KILL ... dir=SHORT ... promotion killed`
+  * R06 repeats the same outcome on the 09:35 bar:
+
+    * `S2SEEDBIAS_KILL ... promotion killed`
+  * Therefore the reseed event is recognized, but the standing B2 veto still wins.
+
+* **Op-reseed admission:** CONFIRMED as an input path, NOT a winning path.
+
+  * R01 proves the reseed predicate fired.
+  * The defect condition is not “reseed missing”; it is whether reseed can bypass the seedbias rule. The rows show it cannot.
+
+* **B_BODY refusal:** CONFIRMED independent refusal.
+
+  * R07:
+
+    * `oppCandle=1`
+    * `bodyDir=0`
+    * `body=6pts`
+    * `confirm=0`
+  * Therefore the 09:40 confirmation pass does not satisfy the B_BODY term.
+  * R05 independently records:
+
+    * `biasAligned=0 verdict=REJECT-BIAS-TIMING`
+
+* **al=0 and ok=1 handling:** CONFIRMED.
+
+  * R01 demonstrates the state is not treated as malformed.
+  * It is a valid reseed observation followed by the separate B2 decision.
+
+**Q1 verdict line:**
+**RULING (a) — B2 kill stands; op-reseed admits only as a reseed event, not as a bypass; B_BODY refusal stands; al=0/ok=1 is valid handling. Evidence: R01-R07. No OBJECT.**
+
+---
+
+### Q1 analytic A — defects / gaps / imprecision
+
+1. **Terminology risk: “admission” can be misunderstood as execution authority.**
+
+   * R01 uses `UJRESEED`, but R03 immediately kills promotion.
+   * The page is correct operationally, but the wording “reseed admission” could be clearer that it means predicate recognition, not trade admission.
+   * Relevant rows: R01-R03.
+
+2. **The relationship between `ok=1` and eventual eligibility could be stated more explicitly.**
+
+   * Current rows prove:
+
+     * reseed recognized,
+     * promotion killed.
+   * A future page could explicitly define:
+
+     * `ok=1` = reseed validation passed,
+     * not = seedbias gate passed.
+   * Relevant rows: R01-R03.
+
+3. **B_BODY and B2 independence is correct but could be fenced more visibly.**
+
+   * R03 and R07 show separate failure mechanisms.
+   * A reader could incorrectly attribute the miss only to B_BODY or only to B2 unless the precedence chain is written beside the predicates.
+
+---
+
+### Q1 analytic B — better mechanism
+
+A cleaner mechanism would be a two-stage explicit verdict object:
+
+1. **Stage 1 — candidate formation**
+
+   * Reseed predicate:
+
+     * produces candidate state.
+   * Keep `al`, `ok`, and reseed provenance.
+
+2. **Stage 2 — admission gates**
+
+   * Apply:
+
+     * seedbias gate,
+     * confirmation term,
+     * opposition state.
+
+The code touch would conceptually be around the existing predicate boundaries:
+
+* H1 reseed area: **P172-P212**
+* B2 seedbias gate: **P125-equivalent**
+* B_BODY predicate: **P234-equivalent**
+
+No new behavior is required by the rows; this is a clarity/provenance improvement.
+
+---
+
+# Q2 — Term/feed
+
+**Change sentence ruled:** The 14:35 arm margins and the 09:35 direction read are separated into two causes: arm/term evaluation remains a predicate-design question when the computed term rejects, while OHLC/chart disagreement is a feed-join question; UJ-RERESEED plus offline arm derivation are accepted as grading procedures.
+
+**Q2 verdict: RULING (c) — both.**
+
+* **Feed-join component:** CONFIRMED.
+
+  * The 09:35 direction issue is not proven solely as a predicate defect from the rows.
+  * R05 records:
+
+    * `biasAligned=0`
+    * `REJECT-BIAS-TIMING`
+  * The page correctly identifies chart join/feed alignment as a separate verification axis.
+
+* **Term-design component:** CONFIRMED.
+
+  * R09/R10 show the term evaluation path:
+
+    * R09:
+
+      * `arm=1`
+      * `termC=B_BODY`
+    * R10:
+
+      * `arm=1`
+      * `termC=A2_CLOSE_BREAK`
+      * strict/armed reclaim conditions do not satisfy.
+  * The 1-2pt margins are therefore predicate outcomes, not automatically feed divergence.
+
+* **RERESEED predicate:** CONFIRMED as grade procedure.
+
+  * R01-R03 establish the reseed trace required for grade.
+
+* **Offline arm derivation:** CONFIRMED as grade procedure.
+
+  * R09-R10 expose the arm state and term evaluation inputs.
+
+**Q2 verdict line:**
+**RULING (c) — both feed-join and term-design are valid categories; RERESEED predicate and offline arm derivation confirmed as grade procedures. Evidence: R05, R09-R10. No OBJECT.**
+
+---
+
+## Q2 analytic A — defects / gaps / imprecision
+
+1. **The page should distinguish “term rejected” from “price unavailable.”**
+
+   * R10 shows an evaluated term:
+
+     * `A2_CLOSE_BREAK`
+   * That is different from missing feed data.
+
+2. **Arm derivation provenance could be printed alongside term selection.**
+
+   * R09/R10 provide arm and term, but the exact source chain for arm creation is not visible in these rows.
+
+3. **Feed-join diagnosis needs a chart reference artifact outside the EA rows.**
+
+   * The rows can show what the EA consumed.
+   * They cannot independently prove whether an external chart feed was different.
+
+---
+
+## Q2 analytic B — better mechanism
+
+Add a provenance tuple to the telemetry path:
+
+`{source_bar_time, joined_OHLC, derived_direction, arm_source, selected_term, reject_reason}`
+
+Touch area:
+
+* **H3 substitute:** P232-P256
+* **S3 telemetry:** P154-P165
+
+This would make future grade decisions separate:
+
+* “EA received different candles”
+  from
+* “EA received same candles but predicate rejected.”
+
+---
+
+# Final council disposition
+
+**Q1: CONFIRM — (a) kill-stands. No OBJECT.**
+**Q2: CONFIRM — (c) both feed-join and term-design remain valid categories. No OBJECT.**
+
+No build, tester run, key spend, activation, or money action is authorized by this ruling.
+## V354-UJFIX3-1 END LUNA
+

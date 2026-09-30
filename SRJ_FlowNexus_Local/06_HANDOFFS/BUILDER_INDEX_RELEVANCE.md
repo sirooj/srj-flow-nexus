@@ -10,7 +10,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
-- Latest relay-ready 2026-09-30: relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v354-UJFIX3-1.md` 330BEA9D/12935/90 (grade relay, no packet: Q1 rule-wins + Q2 term/feed, rows R01-R16 RECON76-spliced, double battery green; session NEW; ledger 1014 grade + 1015; V354 verdicts + chart numbers owed). Prior state (superseded): tree v28 built + RECON76 launched (ledger 1012+1013).
+- Latest grade 2026-09-30: V354 Q1 2-0 (a) + Q2 union-(c) CLEAR (result `06_HANDOFFS\BUILDER_RESULT_V354-GRADE.md` B827C0FE/2795/21 + findings `06_HANDOFFS\BUILDER_FINDING_V354-DISSENT-DISPOSITIONS.md` E77F61AE/5997/50; 4 seats filed whole 1x; R07 relabeled; round closed, no new relay). Sole outstanding: his chart numbers. Prior relay-ready (superseded): relay `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v354-UJFIX3-1.md` 330BEA9D/12935/90 (ledger 1015).
 - EA under test: `Experts\SRJ_FlowNexus_EA.mq5` FC41EE0D/671645/12127 (v10 built 2026-09-28 from v19 remainder F/G1/H1/H2; 0/0 compile; alert-only stands).
 - Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v19 DRAFT 806B9ECD/84749/485 (V331-fold answers; Luna KEY-IMPL2-V19 granted + his run word banked ledger 942; build+run authorized fresh session).
 - Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).

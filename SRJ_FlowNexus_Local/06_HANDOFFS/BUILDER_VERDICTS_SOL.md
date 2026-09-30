@@ -533,3 +533,46 @@ If adopted later, the struct mechanism would touch only:
 - **No changes to EA L9661–L9670 live selection/gate statements.**
 
 For v14, retain A/B/C and amend the specification defects above; do not alter the future selector, gate, or live path.
+## V354-UJFIX3-1 OPEN SOL
+Q1 verdict: OBJECT - rule precedence and the confirmation-bar mapping are not sufficiently specified to select (a), (b), or (c) as a complete ruling. R01-R08 establish a reseed followed by a kill and a separate shadow confirmation refusal; they do not establish which gate the operator's rule authorizes changing. Relevant page references: H1 P172-P212, B2 P125-equivalent, B_BODY P234-equivalent.
+
+Q2 verdict: OBJECT - feed divergence versus term design remains unresolved, and the UJ-RERESEED predicate and offline arm derivation are not stated sufficiently to confirm them as grade procedure. R09-R12 establish the logged contender refusals and retest availability, but not the chart comparison or the exact predicate calculation. Relevant page references: H3sub P232-P256 and S3TELEM P154-P165.
+
+These objections are independent. They concern the new questions' specification and evidentiary reach; they do not reopen the carried v13 rulings or authorize any build, run, key use, or money movement.
+
+Q1 change-sentence: Specify whether an operator-qualified reseed may survive a subsequent seedbias refusal, define the `al=0 && ok=1` disposition at each gate, and map the operator's retest and confirmation times to the actual bars before changing B_BODY.
+
+The row-level findings are:
+
+- R01-R03: H1 accepts a SHORT reseed with `al=0 ok=1`, then B2 kills promotion on that same pass. R01 therefore demonstrates reseed acceptance, not surviving admission. The meanings of `al` and `ok`, and their authority over B2, cannot be inferred from their names. At H1 P172-P212 and B2 P125-equivalent, explicit handling must distinguish permission to replace a holder from permission to promote or admit.
+- R05-R07: The 09:40 execution evaluates the bar labeled 09:35. Seedbias rejects it, B2 kills promotion, and the shadow poll reports `bodyDir=0 confirm=0`. This supports two recorded refusals. It does not prove that eliminating either refusal alone would produce the owed take.
+- R07 versus His words: The operator specifies a 09:35 retest, 09:40 confirmation, and 09:45 entry open. The packet calls the 09:40 pass on the 09:35 bar "his confirmation read." That equivalence needs an explicit timestamp convention. If his chart labels bars by opening time, the 09:40 confirmation bar would ordinarily finish at 09:45; R07 concerns the preceding bar. If his labels use another convention, state the mapping. B_BODY P234-equivalent cannot be ruled against the intended chart candle until that identity is established.
+- R02 versus R04: `opConf=0` with `opTerm=A2_CLOSE_BREAK` and a shadow `confirm=1` are different reported evaluations. They are not automatically contradictory. H1 P172-P212 and B_BODY P234-equivalent need a stated relationship between those predicates before either output can substitute for the other.
+- R08, R01-R03, and R05-R07 show refusals at selected bars. The Takes sheet's claim of rejection on every SHORT bar from 09:05 through 09:35 is a supplied segment summary, not something these selected rows independently demonstrate.
+
+B_BODY disposition: unresolved between term design, feed divergence, and a bar-mapping discrepancy. R07 establishes the implementation's reported result for its evaluated bar. It does not establish the operator chart's candle direction or prove that the predicate itself is wrong.
+
+Better mechanism: At H1 P172-P212, carry an explicit reseed qualification and its provenance into the subsequent decision. At B2 P125-equivalent, apply a named precedence rule to that qualification, rather than treating successful reseeding as an implicit override. Preserve the carried fail-closed rule unless this new specification explicitly defines an authorized exception. At B_BODY P234-equivalent, compare the exact intended closed candle with the operator's confirmation rule before proposing a direction-predicate change. This is a mechanism proposal, not an adopted exception.
+
+Q2 change-sentence: Grade the two disputed confirmations using matched chart and EA bars plus the exact frozen predicates, adopting a stated UJ-RERESEED predicate and a reproducible offline arm derivation before assigning feed divergence, term design, or both.
+
+The row-level findings are:
+
+- R09: The LONG contender exists, but its reported terminal reason is B_BODY. `arm=1` does not show that the arm branch was eligible or evaluated. The Takes sheet's "arm inapplicable" statement requires the branch-order rule at H3sub P232-P256; it is not established by the telemetry field alone.
+- R10: The LONG contender again exists and reports `termC=A2_CLOSE_BREAK`, with `confC=0`. The displayed prices are consistent with the packet's stated small-margin explanation, but the exact strict inequality, reclaim inequality, point unit, precision, and evaluation order are not supplied here. Consequently, the stated "1pt" and "2pts" failures cannot serve as a independently reproduced predicate proof.
+- R10 and S3TELEM P154-P165: `c0` needs a defined source and sampling instant. If it is a current-bar value sampled at 14:40:22, substituting a final chart close in an offline derivation would evaluate different information. The grade procedure must preserve the value available at the decision instant.
+- R11: The SHORT holder's abort is deferred past evaluation. This establishes the reported ordering, not that the LONG contender was otherwise admissible or that displacement occurred.
+- R12: Two LONG retests are recorded. This supports detector availability for the 11 June event, unlike the separately reported 5 June 16:15 detector gap. Retest availability alone does not establish confirmation or admission.
+- Q2's change-sentence and verdict requirement name a "UJ-RERESEED predicate," but no formula or precise carried reference identifying that predicate appears in this text. R01's `UJRESEED` event is not a definition of a rere-seed predicate. H1 P172-P212 and H3sub P232-P256 are the relevant cited ranges, but selecting a formula from them would be invention.
+- "Offline arm derivation" is likewise named without its algorithm or required inputs. Confirmation as a grade procedure requires the branch eligibility rule, exact inequalities, arm origin and lifetime, point handling, price precision, and sampled values.
+
+Better mechanism: Freeze the existing H3sub P232-P256 predicate, reproduce its decisions offline using decision-time inputs, and compare those inputs with the operator's chart after aligning symbol/feed, timezone, bar labels, line value, and precision. Classify a demonstrated input mismatch as feed divergence; classify a requested change to the reproduced predicate as term design; use "both" only when both are demonstrated. S3TELEM P154-P165 should expose any inputs needed for that reproduction that are currently absent, while remaining diagnostic-only under the carried fence.
+
+Two additional page defects remain:
+
+- The final Takes sheet says Q1/Q2 rule all three owed misses, but neither question specifies a remedy for the 5 June 16:15 detector gap. That miss remains outside the proposed H1/B2/B_BODY and H3sub decisions.
+- The Close estimates a future June window at "~50m" while citing a measured RECON76 duration of `1:12:30`. State whether these describe different workloads; as written, the cited measurement does not support the estimate.
+
+The provided record supports the reported take-level regression and identifies decision points worth resolving. It does not yet support a determinate override of B2, a B_BODY predicate change, or confirmation of the proposed Q2 grading procedures.
+## V354-UJFIX3-1 END SOL
+
