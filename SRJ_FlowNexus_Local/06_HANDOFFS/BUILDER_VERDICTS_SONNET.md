@@ -4634,3 +4634,45 @@ Nothing in this ruling clears live activation, and no run is proposed.
 **Ask B (Q2).** Replace "exhaustive 22 + 12" with a per-chain table (first bar, expected promote, later bars conditional). Add an exempt=1/0 field to the print at EA-8412 so grade is a single-pattern match.
 
 ## V359-UJEXEMPT-2 END SONNET
+## V360-UJEXEMPT-3 OPEN SONNET
+# Seat verdict on v360-UJEXEMPT-3 (page only, no disk claims)
+
+## Q1: CONFIRM
+
+The scoped fence as coded implements the reseed-direction-matched path. The defects below are cures and wording, not gates on the code.
+
+Checked on the page:
+- **Coordinates:** the post-build coordinates in P087 follow from the pre-build regions. CARRY-SET 7899 becomes 7900, DIR-SET is 7901, PROV/TERM 8412/8413 become 8414/8415, and CARRY-CLEAR 10727 becomes 10729 with DIR-CLEAR at 10730. NET is +3 and 12295 becomes 12298.
+- **Print arity:** the P085 print has 6 specifiers and 6 arguments.
+- **SET order:** the H1 overwrite at EA-7885 precedes the carry write at EA-7899 in R-H1HEAD.
+- **Same-pass visibility:** the reseed print at 7879 and the head run before the edge at 8412. R05 (reseedBar equals the bar itself) is consistent with that order.
+- **Term precedence:** `A && B && (C || (D && E))` reads correctly at P078.
+
+Defects and imprecisions (Ask A):
+1. **The change sentence overstates.** It says "a direction-matched reseed", but the code tests the direction of the most recent unconsumed reseed process-wide, not the seed's own reseed. R02 is the exhibit: the 6/5 09:05 bar promotes on a 6/4 10:20 carry across an overnight session boundary. P094 admits this, but P110 then binds that stale-carry promotion as P-PROMOTE-FIRST at 6/5 09:05. Reword the sentence to "same direction as the last unconsumed reseed".
+2. **The ternary maps DIR_NONE to -1.** `(g_dir == DIR_LONG ? 1 : -1)` at P063, P078 and P085 does this. uj_wantb at EA-8411 has the same property. Low risk if g_dir is always LONG or SHORT at the edge, but the page never states that. Reuse `(int)uj_wantb` or assert it.
+3. **`exempt=` is term-only.** The arg in P085 is not gated by the m15 read at EA-8413. A bar that falls to S2WAIT can print exempt=1, so a grader may misread it as promotion. Rename it or add the m15 conjunct.
+4. **The UJPROV tail changed.** `seedBiasAl=%d - reseed` becomes `... reseedDir=%d exempt=%d - reseed`. Any grade pattern anchored on the old tail will not match the new rows. State this.
+5. **P057's direction claim is unsupported.** It says the print at EA-7879 shows the same direction, but that print emits t78_dir. SET records g_dir from `S2ResolveLive(t78_pr.isLong ...)` at 7885. Equality is not on the page. It is harmless because SET and TERM both read g_dir, and the new print is the real proof.
+6. **P087 mixes frames.** Its parenthetical cites EA-7885 (pre-build) alongside post-build 304, 7901 and 10730. P057's 7902-7909 is also pre-build.
+7. **The 8-June keep is state-contingent, not rule-discriminated.** R11-R16 show seedBiasAl=0 on 8 June, just as R03 shows al=0 on 5 June. The only discriminator is whether an unconsumed reseed exists (reseedBar=1970 in R12-R16). If the 6/5 16:55 take were displaced and H-TAKE withdrawn, the SHORT carry from 6/5 09:15 would cross the weekend and exempt the 8-June bars. P042 discloses this, and P-KEEP would catch it after the fact, but it is a latent property of the fence.
+8. **Four kill rows are missing.** R13-R16 are PROV only. The 17:30, 17:35, 17:45 and 18:00 KILL rows are not spliced, though P042 and the takes sheet call them kills.
+
+Ask B: there is already a per-holder stamp on the page, so the fence could be identity-scoped with less code. EA-7884 writes `g_anchorBarTime = barTime` and EA-7899 writes the carry from the same `barTime`. The edge term could be `g_ujOpReseedBarTime != 0 && g_ujOpReseedBarTime == g_anchorBarTime`, touching only EA-8413. It needs no DIR decl, SET or CLEAR. It would subsume direction, since the S1C block rewrites anchorBarTime (7908) and g_dir (7909) together. It would also not need the death-path clears P102 assumes. It is conditional on a census of every g_anchorBarTime writer, which is not on the page. It would change the flip table (6/5 09:05 stops flipping while 09:15 still flips per R05), so it is its own round. I am not asking to swap it in now.
+
+## Q2: OBJECT
+
+The acceptance can fail a correct build. Cures 1 to 3 would turn this into a CONFIRM for me.
+
+1. **P-KILLOUT contradicts P-PROMOTE-CONT (P110).** The two-pattern needs PROV presence at all 22 flip bars. After a 09:05 promote the seed leaves S2, so EA-8405-8412 is not evaluated at 09:15, 09:30 or 09:35 and PROV is absent. P-PROMOTE-CONT allows that divergence, but P-KILLOUT would still fail it. Require PROV presence only at the 9 first-flip bars. At the 13 continuation bars, require KILL 0x only and flag it as vacuous.
+2. **Post-admission bars are not branched.** If H-B3TAKE fires (14:40 NY admission), the P093 cap and the SessionAlreadyUsed test at EA-7876 make the 14:45 SHORT seed and the 6/11 16:05 and 17:45 first-flip seeds unlikely to exist. P-KEEP at 6/11 14:45 and P-PROMOTE-FIRST at 6/11 16:05 and 17:45 are binding and unbranched, so they fail correct behavior. Make those bars observational with a divergence note in the H-B3TAKE-fired branch.
+3. **H-TAKE and H-B3TAKE identity includes outcome.** The definition carries TP by 12:15 and R2.00 (P113), while P-NOFALSE (P110) allows only takes inside that set. A 09:45 SHORT admission that stops out or hits TP later becomes a "false take" and a FAIL. Separate identity (date, session, direction, admission bar, entry with a stated tolerance) from outcome (TP and R, observational). The tolerance around 159.948 is also unspecified.
+4. **The fired-branch mismatch proof can be empty.** An unset-keep proves nothing about the second conjunct at EA-8415. The fallback 6/10 and 6/12 LONG bars have no rows on the page. H-B3TAKE's clear at 14:40 can also turn the 6/12 keeps from mismatch into unset. Add a rule: if no KILL row shows reseedDir nonzero and different from dir, DIRSCOPE-MISMATCH is UNPROVEN, not PASS.
+5. **The 09:40 CONFIRMPOLL existence assert can pass vacuously.** Both R10 and R24 carry shadow=true. P045 discloses only R24, and P041 uses R10 unlabeled. Pin the assert to a live-path row (shadow=false).
+6. **A round PASS does not deliver B1.** H-TAKE is withdrawable (P113), so the round can PASS with no 6/5 take. Name the verdict class, for example "PASS - B1 owed take unproven".
+7. **The chain definition is not reproducible.** P110 says "per date-direction chain", but P111 has 3 chains on 6/11 from 4 bars. That is only possible with alternating directions, and the tables list bars only. Add columns for dir, expected reseedBar and reseedDir, and fresh vs stale carry.
+8. **Row order differs from code order.** The relay rows list KILL before PROV, while the code prints PROV (EA-8412) before KILL (EA-8419). State that P111's print-order tie-break follows code order, not row order.
+
+Ask B for Q2: route any extra take in P-NOFALSE to "HOLD for his chart read" rather than a binary FAIL. Only he can separate an 8-June-type invalid take from a valid v26-type take (P015, P016). Alert-only stays safe either way.
+
+## V360-UJEXEMPT-3 END SONNET

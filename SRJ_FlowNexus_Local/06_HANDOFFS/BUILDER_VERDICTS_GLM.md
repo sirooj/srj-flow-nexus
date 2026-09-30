@@ -8378,3 +8378,64 @@ Three defects. The four edits as specified (P048–P078) are code-correct — te
 
 Scope close: nothing here builds, runs, spends, or clears live activation; no files requested; disk genuineness not answerable from chat. The fold to v17 is six page-level cures (D1–D6), one conditional siting question (D3), code otherwise untouched, scoping not re-opened.
 ## V359-UJEXEMPT-2 END GLM
+## V360-UJEXEMPT-3 OPEN GLM
+GLM seat — ruling on the page only (twin P-RECON74FIX-2v17 CC4DC5D4, regions, rows as spliced). Disk genuineness is proven on disk and not re-tried here. Nothing below builds, runs, spends, or clears live activation; no run word or key is requested.
+
+---
+
+# Q1 verdict: CONFIRM
+
+The scoped fence as built correctly implements his Rebuild order for the reseed-direction-matched path. Verification chain:
+
+1. **Term semantics (EA-8413 → P078).** The conjoined term yields exactly the stated change-sentence: promote on `s1g_seedBiasAl != 0` (old disjunct, untouched); promote on live direction-matched carry (new disjunct: `g_ujOpReseedBarTime != 0` conjunct + ±1 comparator); kill on unset or mismatched carry via the unchanged else-if at EA-8418-8419; S2WAIT at EA-8420-8421 untouched. Four cases, no fifth.
+2. **Arming order proof holds (P057, R-H1HEAD).** The SET insert sits after EA-7899, downstream of the `g_dir` overwrite at EA-7885 in the same straight-line branch — the recorded value is the post-resolve holder direction, so the fence stays correct even if `S2ResolveLive` transforms `t78_dir`. The same-pass reseed→edge order is independently evidenced by R03/R04/R05 (reseed, kill, and UJPROV all at bar 09:15 in one pass, reseed first).
+3. **S1C same-pass rewrite fails closed (P057, EA-7902-7909).** The comparator reads current `g_dir`, so a post-SET S1C rewrite either agrees (term matches) or disagrees (term false → kill at EA-8418-8419). No wrong-direction promotion path exists from this site.
+4. **Consumption mirrors CARRY (EA-10726-10728; P065-P072).** The clear is inserted after EA-10727 inside the authoritative admission tuple, so non-admission deaths leave the carry live — which is precisely what the stale-carry keeps and flips depend on (R12-R16's 1970 state is the post-6/5-16:55-admission cleared state, matching P042's data-contingent disclosure).
+5. **Redundant conjunct is harmless (P073).** DIR is written only alongside CARRY (0/0 at decl, barTime≠0 with ±1 at SET, 0/0 at CLEAR), so dir=0 iff barTime=0 by construction; the conjunct adds no behavior and removes no case.
+6. **Print fidelity (P085).** The `exempt=` expression in P085 is verbatim-identical to the term in P078; six specifiers, six args, suffix retained. The graded flag cannot diverge from the gated condition.
+7. **Census and budget arithmetic check.** NET +3 (P127): three inserts, two in-place replacements, zero deletions; 12295+3=12298. Post-build coordinates in P087 are internally consistent (decl insert → 304; 7899→7900/7901; 8412/8413→8414/8415; 10726/10727→10728/10729 with the clear insert at 10730). seedBiasAl 8-occurrence census (P025) counts out at 8 and matches the regions.
+8. **Row coherence with the fence's rule.** 6/5 09:05 rides the 6/4 10:20 SHORT carry (R02; P043) and 09:15/09:30/09:35 ride the fresh 09:15 SHORT reseed (R03/R05/R07/R09) — direction-matched, so the B1 path promotes through 09:35 and the 09:40 poll becomes reachable (R10's 09:35 poll stays shadow, correctly not counted as live-path evidence). 8-June kills persist unset (R12-R16). Mismatch keeps persist (R17/R18: SHORT carry vs LONG holder; R21→R22/R23: LONG carry vs SHORT holder). Unset keep persists (R19/R20). That is exactly his order: the 09:45 path restored at the S2 gate for direction-matched reseeds, the 8-June kill kept, mismatch and unset still dead.
+9. **Scope honesty.** The restoration is path-level only: confirm term parked with cause (P101, P115), H-TAKE conditional on the 09:40 read (P113), downstream guards carried (P023/P024/P027/P092/P093). The identity-blindness limit is disclosed, not hidden (P094, P042).
+
+**Q1 Analytic ask A** (imprecisions, none defect-grade; listed for the record):
+- a. P094's list "6/4 11:20, 6/9 and 6/10 09:15 flips" — no 6/9 09:15 flip exists in the exhaustive 22+12 partition (P111/P112/P044: the 6/9 flips are 10:20+, and 6/9 09:50 is a keep). Read collectively ("the 6/9 flips") it is consistent; as written it collides with the binding tables and should name bars.
+- b. The UJRESEED print (EA-7879) reports `t78_dir` (pre-resolve) while the fence records post-resolve `g_dir` (EA-7885 → SET). If `S2ResolveLive` ever disagrees with `t78_dir`, the arming print and `reseedDir` diverge — fail-closed and gradable via the UJPROV print (P084-P086), but the divergence case is undisclosed.
+- c. The comparator inherits the EA-8411 idiom: with `g_dir == DIR_NONE` the RHS evaluates -1, so a live SHORT carry would compare equal. Unreachable per all 24 rows and pre-existing shape, not introduced by the fold — noting for the census.
+- d. P025 names the S1T producer (EA-8201) which arms seedBiasAl but writes no CARRY/DIR; the page never states this explicitly (the 3-site CARRY census implies it). One sentence would close it.
+- e. P087's "g_dir ... bracketing uses" is not an exhaustive g_dir-write census; the fail-closed argument is stated only for S1C. It generalizes (any post-SET writer that disagrees fails the comparator), but the page should say so.
+
+**Q1 Analytic ask B:** No better mechanism at this fence's scope. Recording `t78_pr.isLong` instead of post-overwrite `g_dir` would be strictly worse (desync under a resolve transform); the identity-scoped stamp — the real cure for stale churn — is correctly parked for its own round (P094/P102). Optional gradeability nicety, not demanded: one `InpDebugLog` line immediately after the DIR-SET insert (final EA-7901) logging the arming (barTime + recorded dir), so the arming side prints without cross-line joins; NET +1 against the round's budget discipline — fine to decline.
+
+---
+
+# Q2 verdict: OBJECT
+
+**Defect: the binding kill/promote/keep tables are held fixed across the H-TAKE/H-B3TAKE fire/withdraw branches and across trajectory divergence, while the battery itself branches on exactly those outcomes elsewhere — so a permitted branch outcome deterministically fails the round with the fence innocent.**
+
+Demonstration, using only the page:
+
+1. P-KILLOUT asserts KILL 0x at all 22 flip bars, P-PROMOTE-FIRST asserts S2PROMOTE 1x at the 9 firsts including 6/11 16:05 and 6/11 17:45, P-KEEP asserts KILL 1x at the 12 keep bars (all P110; sets at P111/P112; exhaustive and branch-free per P109).
+2. The battery itself contemplates the fired branch: P-PARITY-WITHDRAWN vs P-PARITY-FIRED and P-DIRSCOPE's withdrawn/fired forms (P110), H-TAKE (P113), and H-B3TAKE with the 6/11 14:40 admission *permitted* (P114).
+3. In the fired-B3 branch: the 14:40 admission consumes the carry at the EA-10727 site (DIR clear per P065-P072), and same-session re-arming is capped (SessionAlreadyUsed at EA-7876; one-take-per-session at P027/P093). The 6/11 16:05/16:25/17:45 bars therefore cannot promote by the carry path the tables presuppose — their seedBiasAl is 0 at the edge (else they would not be v29 kill bars, since the `s1g_seedBiasAl != 0` disjunct pre-existed at EA-8413), the pre-14:40 carries (R21's 10:35 LONG, or any earlier same-direction carry) are cleared, and post-14:40 H1 reseeds are session-blocked. So at those bars the run either prints KILL (P-KILLOUT fails) or prints nothing (P-PROMOTE-FIRST fails at 16:05/17:45), unless an untabled post-14:40 seedBiasAl-path promotes at exactly those bars — itself a divergence the tables do not describe. The 6/12 16:55/17:00/17:05 flip bars and the 6/12 keep bars are equally branch-fragile depending on whether their arming is 6/12-local or rides 6/11 carries; the page is silent on every bar's arming event.
+4. The routing asymmetry: divergence routing exists for P-PROMOTE-CONT ("divergence finding, not a round fail") and for parity (FIX-vs-divergence pre-class), both P110 — but is not extended to P-KILLOUT, P-PROMOTE-FIRST, P-KEEP, or P-DIRSCOPE's kill-1x. A correct fence can therefore fail the round on machine divergence the battery elsewhere acknowledges.
+
+**Cure (page-only, no code):** annotate each of the 34 bars with its arming event (reseed bar + direction) and the upstream admissions that would clear it, then either (i) re-derive the flip/keep/promote sets per branch (H-TAKE withdrawn/fired × H-B3TAKE withdrawn/fired), or (ii) extend the FIX-vs-divergence pre-class to the four table predicates so a divergence-pattern miss lands as a named finding rather than a round fail. Option (i) is stronger; both close the false-fail class.
+
+For the tally record: the V359 acceptance defects are genuinely cured here — branched parity, labeled hypotheses, two-pattern defines, per-chain promotes, TP-by-12:15 pin, parity pre-class, honest data-contingency (P042). The objection is narrow and rests solely on the unconditioned tables.
+
+**Q2 Analytic ask A** (beyond the headline):
+- a. P110's header "any miss FAILS the round" contradicts its own parentheticals (P-PROMOTE-CONT "not a round fail"; P-CARRY "observational"; P-PARITY-FIRED "without hard pin") — split the list into binding vs routed-to-finding.
+- b. P-DIRSCOPE's two branch forms do not key each bar to its own consuming admission: 16:00's form flips on H-TAKE's 09:45 admission, 14:40's on H-B3TAKE's 14:40 admission; a mixed fire/withdraw outcome produces mixed forms the dichotomy doesn't describe. The KILL-1x + S2PROMOTE-0x assert is itself branch-invariant and safe — only the form labels need keying.
+- c. P-PROMOTE-CONT's carve-out names only miss-with-ADVANCE; miss-without-ADVANCE (silent death) is implicitly a fail — state it.
+- d. H-TAKE (P113) classifies confirm=0 (UJ finding) and late-TP (interference) but not confirm=1-with-no-admission (mid-chain block at PREBIND/S5/session cap, or the foreign-build BYPASS step being absent from this tree per P041's marking) — that outcome currently has no finding class.
+- e. H-TAKE pins entry/open and TP-by-12:15 but not the R multiple or SL (his frame: R2.00); a materially different R passes unflagged. One observational sentence would close it.
+- f. P-PROMOTE-FIRST's "date-direction chain" is under-defined: 6/11 yields three chains from four flips ({10:35}, {16:05, 16:25}, {17:45}) — the chain-break event is unnamed, and a pure date-direction grouping computes different firsts. Membership is derivable from firsts + bar order; the break definition should be stated.
+- g. P-PARITY-FIRED's interference rerouting lives in H-TAKE's clause (P113) and is not cross-referenced from P110 — a grader applying P110 alone fails parity on an interference-displaced 6/5-16:55 take that P113 routes to a finding.
+- h. P-NOFALSE's unexpected-take outcome has no finding class (the parity pre-class covers displacement, not appearance). The conservative ceiling is right; naming the finding class keeps the post-round journal clean.
+
+**Q2 Analytic ask B:** the arming ledger is the better mechanism — convert every table row from a bare bar-list into (bar, arming reseed, clearing admissions per branch, expected classification per branch). That makes all four table predicates branch-complete and eliminates the false-fail class structurally rather than by carve-out. Touches only the P110-P113 text; no EA lines.
+
+---
+
+Scope note: Q1 and Q2 ruled independently as instructed — the Q1 fence stands confirmed on its own mechanics; the Q2 objection concerns only the acceptance gate's branch-conditioning, curable on the page without touching the edit set. Nothing here authorizes a build, a run, or any live activation; those remain gated on a new key plus his explicit run word.
+## V360-UJEXEMPT-3 END GLM

@@ -14962,3 +14962,98 @@ The page lists all 22 flip bars and 11 keep bars, but only a subset have concret
 
 **Net:** **Q1 CONFIRM. Q2 OBJECT**, with the Q2 objection centered on the internally contradictory binding `P-NOFALSE` acceptance rule.
 ## V359-UJEXEMPT-2 END LUNA
+## V360-UJEXEMPT-3 OPEN LUNA
+## Council ruling
+
+### Q1 — **OBJECT**
+
+The direction fence is structurally close, but the page does **not yet prove that the stored provenance direction is the direction of the reseed event itself**.
+
+The critical edit records:
+
+> `g_ujOpReseedDir = (g_dir == DIR_LONG ? 1 : -1);`
+
+while the H1 reseed event is identified by `t78_dir`, and immediately beforehand the code assigns `g_dir = S2ResolveLive(...)`. The page itself also says a later S1C block may rewrite `g_dir` in the same pass.
+
+That means the page proves **ordering**, but not the stronger proposition Q1 asks to confirm: that the stamped value is specifically the **reseed-direction provenance**. The stated fence can therefore be correct only if `S2ResolveLive(t78_pr.isLong ? ...)` is guaranteed to preserve the H1 event direction, and that guarantee is not established on this page.
+
+The clean scoped repair is to stamp the event direction directly from `t78_dir` (or the equivalent `t78_pr.isLong`) at the H1 reseed site, rather than from the mutable `g_dir`. That would touch the proposed DIR-SET insertion alongside the existing H1 reseed block. The current page already identifies that location as the intended provenance write.
+
+### Q1 — Analytic A: defects / gaps / imprecisions
+
+**1. The change sentence is broader than the actual predicate.**
+Line 65 says every zero-seed-bias seed with missing or mismatched provenance dies, and nonzero/matched seeds promote. The actual gate is nested under `!aligned`, and only executes the kill/promote branch when the M15 read succeeds and equals the desired direction. When M15 is unreadable or mismatched, the code goes to `S2WAIT` instead.
+
+So the precise statement should be “at the unaligned S2 edge, when the M15 read is valid and direction-matched.”
+
+**2. The provenance value is not tied to the reseed event identity.**
+The page explicitly acknowledges that identity-scoped provenance is still parked. A bar-time-plus-direction stamp can therefore survive later same-direction churn and be reused by another candidate. The packet calls this the “identity-blindness limit.”
+
+That is acceptable as a stated scope limitation for this round, but it is still a real gap.
+
+**3. The debug proof is incomplete for the exact thing being proven.**
+The new print exposes `reseedDir`, but that value is derived from `g_dir`; it does not print the original `t78_dir`. Thus the telemetry repeats the same ambiguity as the predicate rather than independently proving the reseed event direction.
+
+**4. The integer encoding silently maps anything other than `DIR_LONG` to `-1`.**
+The proposed expression treats every non-LONG state as SHORT. The page does not establish an invariant at the write site that `g_dir` can only be LONG/SHORT there. That is probably true operationally, but it is not proven by this page.
+
+**5. The lifetime of the provenance is deliberately wider than the reseed event.**
+The direction stamp is cleared at admission, not at a new holder/anchor boundary or session boundary. The packet explicitly parks the session-boundary clear and identity-scoped holder stamp for later work.
+
+**6. The acceptance already exposes a concrete stale-provenance case.**
+The 6/5 09:05 row carries a prior 6/4 reseed timestamp with `seedBiasAl=0`; the packet nevertheless expects the new direction fence to allow promotion there. That is consistent with the current scope, but it demonstrates that the fence is not “fresh current reseed only.”
+
+### Q1 — Analytic B: better mechanism
+
+For this round, the smallest better mechanism is:
+
+`g_ujOpReseedDir = (t78_dir == DIR_LONG ? 1 : -1);`
+
+at the H1 reseed event, with the telemetry printing both the stored direction and the event direction. That makes the claimed provenance identity direct rather than inferred from mutable live state. The larger identity-scoped holder/epoch mechanism remains a separate future round, exactly as the packet presently scopes it.
+
+---
+
+## Q2 — **OBJECT**
+
+The acceptance is substantially improved, but one important part of the gate is **not deterministic enough to be a binding acceptance rule**.
+
+The problem is the withdrawn/fired branch in `P-PARITY-WITHDRAWN`. It says a displaced take becomes a FIX finding while a never-reached path becomes divergence, but the page does not define a concrete, machine-checkable predicate that determines which classification applies **before** the parity verdict is assigned.
+
+Because Q2 is expressly supposed to be a binding gate, “FIX finding” versus “divergence” cannot depend on an interpretive decision after seeing the result. The acceptance needs an explicit branch discriminator and precedence.
+
+### Q2 — Analytic A: defects / gaps / imprecisions
+
+**1. FIX-vs-divergence pre-class is named but not operationally defined.**
+This is the principal defect. The acceptance invokes it twice but gives no exact predicate such as “expected path was reached through X, therefore parity miss = FIX; expected path was never entered because Y, therefore divergence.”
+
+**2. P-CARRY is described as binding but its critical carriage assertion is partly observational.**
+The packet says carriage is proved by join persistence plus the 09:40 confirmation-poll existence assertion, yet it also says the result is observational per withdrawal. That does not cleanly specify what exact missing value constitutes FAIL.
+
+**3. The 09:40 endpoint is not actually present in the supplied evidence.**
+The current B1 rows stop with a 09:35 `CONFIRMPOLL`; the 09:40-bar evidence is explicitly described as absent run-wide. The future acceptance can require it, but the gate should state the exact required row/field combination rather than merely “existence.”
+
+**4. Hypothesis withdrawal and P-NOFALSE precedence are not fully specified.**
+`H-TAKE` and `H-B3TAKE` can be withdrawn conditionally, while `P-NOFALSE` simultaneously defines the permitted take set. The page should explicitly say that the allowed set is resolved **after** hypothesis status is determined, so a withdrawn hypothesis is not accidentally converted into a false-positive failure.
+
+**5. P-PROMOTE-CONT is observational while P-KILLOUT remains binding.**
+For the 13 non-first flip bars, absence of `S2PROMOTE_M15` is not itself a failure. That is workable, but the acceptance should explicitly distinguish “kill suppression proven” from “full continuation-path reachability proven,” otherwise the word “promotion” can be read as stronger than what is actually gated.
+
+**6. The 6/5 09:05 case shows the acceptance is testing stale-direction inheritance, not merely the new 09:15 reseed.**
+That is visible in the supplied rows and in the first-flip list. It is not necessarily wrong, but it should be consciously labeled as part of this round's scope rather than silently treated as evidence for the fresh 09:15 reseed restoration.
+
+### Q2 — Analytic B: better mechanism
+
+Replace the informal branch language with one explicit acceptance-state predicate, for example:
+
+`PATH_CLASS = FIRED | WITHDRAWN_TERM | DIVERGED`
+
+with a fixed precedence and exact evidence for each class. Then attach the parity predicate to the resolved class. Separately make P-CARRY an exact field assertion at the 09:40 decision point, including the required reseed bar, reseed direction, and exemption result. That removes post-hoc interpretation while preserving the existing branched battery.
+
+## Final tally
+
+**Q1: OBJECT** — provenance direction is derived from `g_dir`, so the page does not prove it is the actual reseed-event direction.
+
+**Q2: OBJECT** — the acceptance's FIX-vs-divergence branch is not defined deterministically enough to serve as a binding gate.
+
+The rest of the packet's stated scope remains intact: design-only, nothing built or run, and no live activation is cleared.
+## V360-UJEXEMPT-3 END LUNA
