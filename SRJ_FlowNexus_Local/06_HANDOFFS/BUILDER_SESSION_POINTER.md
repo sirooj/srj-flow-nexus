@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, V353 GRADED LEDGER 1011 - Q1 2-0 CONFIRM CLEAR, build-eligible)
+## State (2026-09-30, V28 BUILT + RECON76 RUNNING LEDGER 1013 - key fully spent)
 
-- Packet FIX-2v13 5B9E7651 ruled CLEAR tallied (Luna+GLM; Sonnet advisory OBJECT dispositioned with disk proof).
-  Luna key + run word owed for one v27 build + one UJ June run; EU needs its own word + scope.
+- Tree v28 E516EBFF/684070/12291 (budget exact); compile 0/0; ex5 fresh.
+  RECON76-V28-UJ running June window (journal-proven); EU excluded; key scope exhausted.
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR Luna key paste for packet FIX-2v13 5B9E7651 (one build + one UJ run) plus YOUR UJ run word.
+- The run completion signal (or YOUR DONE file check word) - grade follows with the decision rows.
 
 ## Resume order (exact)
 

@@ -14571,3 +14571,9 @@ Those are audit/diagnostic improvements, not reasons to reopen Q1.
 **Carried Q2/Q3 remain CLEAR and are not altered by this Q1 ruling.**
 ## V353-UJFIX2-14 END LUNA
 
+## KEY-FIX2-V13 OPEN LUNA
+**GRANTED:** PACKET_P-RECON74FIX-2v13, digest **5B9E7651**, is authorized for **exactly one build plus one tester run, and nothing else**.
+
+Operator: Build and run for UJ granted
+## KEY-FIX2-V13 END LUNA
+

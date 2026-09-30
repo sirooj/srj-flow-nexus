@@ -405,6 +405,7 @@ void MtReset()
 #define ABORT_POI_REPLACED     "POI_REPLACED"
 #define ABORT_DIV_FALLBACK     "DIV_FALLBACK"
 #define ABORT_SEEDBIAS_REFUSED "SEEDBIAS_REFUSED"
+#define ABORT_HOLDER_EXPIRED   "HOLDER_EXPIRED"
 
 //====================== [Task 160] Migration data contracts ==========
 // Twelve data contracts as an INERT ARCHITECTURE SHELL. Types only.
@@ -2331,8 +2332,8 @@ void ShadowConfirmPoll(const int barShift, const int anchorLine, const ENUM_SRJ_
 //---   C  the prior candle's range touched the anchor line (the CONFIRMPOLL
 //---      touchAttr test with its +/- 1 point guard).
 //--- failTerm names the FIRST failed term ("" = all terms passed).
-bool IsConfirmationCandle(const int barShift, const int anchorLine,
-                          const ENUM_SRJ_DIR dir, string &failTerm)
+ bool IsConfirmationCandle(const int barShift, const int anchorLine,
+                           const ENUM_SRJ_DIR dir, string &failTerm, const bool allowReclaim = false)
   {
    failTerm = "";
    if(anchorLine < 0 || dir == DIR_NONE) { failTerm = "NO_ANCHOR"; return false; }
@@ -2362,7 +2363,7 @@ bool IsConfirmationCandle(const int barShift, const int anchorLine,
       }
     bool oppCandle = (dir == DIR_LONG)  ? (c1 < o1) : (c1 > o1);
     if(!oppCandle)  { failTerm = "A_OPP"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
-    bool closeSideOk = (dir == DIR_LONG) ? (c1 >= L) : (c1 <= L);
+    bool closeSideOk = (dir == DIR_LONG) ? (c1 >= L || (allowReclaim && o1 <= L && c0 >= o1)) : (c1 <= L || (allowReclaim && o1 >= L && c0 <= o1));
     if(!closeSideOk) { failTerm = "A2_CLOSE_BREAK"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
     double body    = MathAbs(c0 - o0);
     bool   isDoji  = (body < _Point * 0.0001);
@@ -7870,7 +7871,32 @@ void EvaluateClosedBar(int barShift, datetime barTime)
              string t78_failOp = "", t78_failHeld = "";
              t78_opConf = IsConfirmationCandle(barShift, t78_pr.topLine, t78_dir, t78_failOp);
              t78_heldConf = IsConfirmationCandle(barShift, g_anchorLine, g_dir, t78_failHeld);
-            }
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJOPCONF bar=%s poi=%s dir=%s opConf=%d heldConf=%d opTerm=%s heldTerm=%s - displace-gate inputs (Fix H1)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_lineCode[t78_pr.topLine], DirName(t78_dir), (int)t78_opConf, (int)t78_heldConf, t78_failOp, t78_failHeld);
+              if(!t78_opConf && !t78_heldConf && !SessionAlreadyUsed(sess, barTime) && (t78_pr.topLine != g_anchorLine || t78_dir != g_dir))
+                {
+                 bool t78_al = false; bool t78_alOk = CheckLtfAlign(barShift, t78_dir, t78_al);
+                 if(InpDebugLog) PrintFormat("[SRJ-EA] UJRESEED bar=%s poi=%s dir=%s fromPoi=%s fromDir=%s al=%d ok=%d - op-retest reseeded over unconfirmed holder (Fix H1)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_lineCode[t78_pr.topLine], DirName(t78_dir), g_lineCode[g_anchorLine], DirName(g_dir), (t78_alOk ? (t78_al ? 1 : 0) : -1), (int)t78_alOk);
+                 s1g_legDir = t78_pr.isLong ? 1 : -1;
+                 s1g_seedBiasAl = (!t78_alOk ? -1 : (t78_al ? 1 : 0));
+                 g_anchorLine = t78_pr.topLine;
+                 ReadBuf1(g_hPoi, t78_pr.topLine, g_anchorPrice, barShift);
+                 g_anchorBarTime = barTime;
+                 g_dir = S2ResolveLive(t78_pr.isLong ? DIR_LONG : DIR_SHORT);
+                 g_sessionAtEntry = sess;
+                 g_zoneHi = 0.0;
+                 g_zoneLo = 0.0;
+                 g_touchSeen = false;
+                 g_touchBarHi = 0.0;
+                 g_touchBarLo = 0.0;
+                 g_latchedEntry = 0.0;
+                 g_latchedSl = 0.0;
+                 g_latchedTp = 0.0;
+                 g_latchedR = 0.0;
+                 g_latchBarTime = 0;
+                 g_confirmFromState = ST_IDLE;
+                 uj_memo_valid = false;
+                }
+             }
           if(t78_opp && (g_state == ST_S2_LTF_ALIGN || (g_state == ST_S1_REGIME && t78_opConf && !t78_heldConf)))
             {
              int s1c_fromLine     = g_anchorLine;
@@ -8355,6 +8381,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
 
      if(g_state == ST_S1_REGIME)
      {
+      if((barTime - g_anchorBarTime) >= 3600 && g_anchorLine >= 0)
+        {
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJHOLDEXPIRE bar=%s poi=%s dir=%s heldMin=%d - unconfirmed holder expired, no eviction (Fix H2)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), AnchorStr(), DirName(g_dir), (int)((barTime - g_anchorBarTime) / 60));
+         GoAbort(ABORT_HOLDER_EXPIRED, g_state); return;
+        }
       ENUM_SRJ_REGIME regime;
       if(!ClassifyRegime(barShift, g_dir, regime))
         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
@@ -8399,10 +8430,11 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           { uj_sbHave = true; uj_sbDir = uj_sbPr.isLong ? DIR_LONG : DIR_SHORT; uj_sbLine = uj_sbPr.topLine; }
        }
        string uj_sbTermC = "", uj_sbTermH = "";
-       bool uj_sbConfC = (uj_sbHave && (uj_sbDir != g_dir)) ? IsConfirmationCandle(barShift, uj_sbLine, uj_sbDir, uj_sbTermC) : false;
+        bool uj_sbConfC = (uj_sbHave && (uj_sbDir != g_dir)) ? IsConfirmationCandle(barShift, uj_sbLine, uj_sbDir, uj_sbTermC, true) : false;
        bool uj_sbConfH = IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_sbTermH);
         double uj_sbLineVal = 0.0; if(uj_sbHave && uj_sbLine >= 0 && !ReadBuf1(g_hPoi, uj_sbLine, uj_sbLineVal, barShift)) uj_sbLineVal = 0.0;
-        if(InpDebugLog) PrintFormat("[SRJ-EA] UJSBTELEM bar=%s dir=%s have=%d sbDir=%s sbLine=%d confC=%d confH=%d sbL=%s termC=%s termH=%s - contender evaluation (Fix S3)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), (int)uj_sbHave, DirName(uj_sbDir), uj_sbLine, (int)uj_sbConfC, (int)uj_sbConfH, DoubleToString(uj_sbLineVal, _Digits), uj_sbTermC, uj_sbTermH);
+        double uj_sbo1 = iOpen (_Symbol, PERIOD_CURRENT, barShift + 1); double uj_sbc1 = iClose(_Symbol, PERIOD_CURRENT, barShift + 1); double uj_sbc0 = iClose(_Symbol, PERIOD_CURRENT, barShift); int uj_sbarm = 1;
+        if(InpDebugLog) PrintFormat("[SRJ-EA] UJSBTELEM bar=%s dir=%s have=%d sbDir=%s sbLine=%d confC=%d confH=%d sbL=%s o1=%s c1=%s c0=%s arm=%d termC=%s termH=%s - contender evaluation (Fix S3)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), (int)uj_sbHave, DirName(uj_sbDir), uj_sbLine, (int)uj_sbConfC, (int)uj_sbConfH, DoubleToString(uj_sbLineVal, _Digits), DoubleToString(uj_sbo1, _Digits), DoubleToString(uj_sbc1, _Digits), DoubleToString(uj_sbc0, _Digits), uj_sbarm, uj_sbTermC, uj_sbTermH);
        if(uj_sbConfC && !uj_sbConfH && (g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED))
          {
           int uj_sbFromLine = g_anchorLine; ENUM_SRJ_DIR uj_sbFromDir = g_dir;
