@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, v361 relay-ready, memo shipped)
+## State (2026-09-30, v362 relay-ready, memo shipped)
 
-- Relay v361 0FC2DFAF/44325/365 + packet v18 F5B583A1 (branch-complete fold).
-  Q1 fenced proof + Q2 branch-complete acceptance; verdicts owed, sole outstanding.
+- Relay v362 C7E49897/47116/370 + packet v19 C072987C (causal fold).
+  Q1 standing proof + Q2 causal acceptance; verdicts owed, sole outstanding.
 - Nothing spent; no key/run asked; EU excluded.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
   Python 3.13.15 installed per-user + rule amended (ledger 979). Full-path python.
@@ -17,7 +17,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR verdict paste-backs for relay v361 (paste each seat whole, then rest).
+- YOUR verdict paste-backs for relay v362 (paste each seat whole, then rest).
 
 ## Resume order (exact)
 

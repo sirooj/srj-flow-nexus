@@ -4676,3 +4676,95 @@ The acceptance can fail a correct build. Cures 1 to 3 would turn this into a CON
 Ask B for Q2: route any extra take in P-NOFALSE to "HOLD for his chart read" rather than a binary FAIL. Only he can separate an 8-June-type invalid take from a valid v26-type take (P015, P016). Alert-only stays safe either way.
 
 ## V360-UJEXEMPT-3 END SONNET
+## V361-UJEXEMPT-4 OPEN SONNET
+# Council ruling on packet P-RECON74FIX-2v18
+
+This rules on the page only. Digests and disk truth are not assessed. Nothing here builds, runs or clears live activation. "pre" and "post" mark EA line numbers before and after the FIX edits.
+
+## Q1: CONFIRM the code, with wording cures that should gate the build key
+
+The five edit blocks (P050-P086) match the exhibited spans:
+- The old blocks match EA 303, 7899, 10727, 8413 and 8412 as printed.
+- The parentheses in P078 and P085 balance, and the PrintFormat has 6 specifiers for 6 arguments.
+- NET +3 gives 12298 (P160).
+- The logic reproduces the rows on the page: R18 and R23 come out Km, and R12-R16 come out Ku.
+- The 6/5 09:15 reseed and the R04/R05 chain come out as flips.
+
+The defects are in the proof prose, and none of them changes an edit block.
+
+1. **Wrong pass partner for the same-pass proof.**
+   - P010, P041 and P057 cite R01 as the same-pass partner of R03. R01 is the 09:05 bar, stamped 09:10:00. R03 is stamped 09:20:00.
+   - The same-pass rows are R04 and R05, both 09:20:00. The relay takes sheet correctly cites R05.
+   - R05 also shows edge g_dir after any S1C rewrite. It does not show the value that DIR-SET writes.
+2. **S2ResolveLive is not on the page.**
+   - P057 records the post-EA-7885 g_dir. S2ResolveLive (EA-7885 pre) has no lines or return set exhibited, so nothing proves it returns the t78 direction.
+   - Fail-closed is safe, but a silent no-op on B1 is possible.
+   - Either put its return set on the page, or state this as an open dependency graded by the new reseedDir print at 6/4 11:20 (arm 6/4 10:20).
+3. **The single-frame census claim is false as written.**
+   - P087 mixes frames: EA-1062, 7885 and 7909 are pre-build. Post-build they are 1063, 7886 and 7910.
+   - EA-8414 names the pre-build PROMOTE block opener in P073 and the post-build PROV print in P087.
+   - The relay Q1 header mixes EA-8413 (pre) with EA-304, 7901 and 10730 (post).
+4. **The change-sentence omits the M15 scope.** Kill and promote exist only inside `!aligned` when M15 agrees (EA-8407, 8413, 8418 pre). Where M15 disagrees, every seed gets S2WAIT-retain (EA-8420-8421 pre).
+5. **DIR_NONE is unsafe at the SET, not just at the edge.**
+   - P087 calls it safe at the edge. At P063, a DIR_NONE g_dir would record -1, which is a false SHORT provenance.
+6. **Minor items.**
+   - **Region tally:** the "100 lines" in the relay is a sum. R-H1HEAD (7876-7899) and R-SET2 (7894-7909) overlap on 6 lines, so 94 lines are unique.
+   - **Duplicated expression:** the exempt expression is duplicated between P078 and P085, which is a drift risk.
+   - **seedBiasAl census:** "seedBiasAl sites unchanged" (P088) holds by line but not by occurrence, because the print gains a second read.
+
+## Q2: OBJECT
+
+1. **P110 contradicts the ledger.**
+   - The relay claims branched tables, but P110 states flat counts: 22 flips, 9 first-flips and 12 keeps.
+   - In the WF and FF columns, 6/11 16:05 and 16:25 are Ku (P138, P139), and 14:45 is Ku (P137).
+   - In those branches P-PROMOTE-FIRST demands S2PROMOTE at 16:05 while P-KILLOUT demands 0 KILL there. A correct run would FAIL.
+   - The per-branch counts are 22/9/13/12 for WW and FW, and 20/8/12/14 for WF and FF.
+2. **Verdict classes are absent from the body.** P155 claims PASS, PASS-B1-unproven and HOLD were adopted. Nothing in P107-P151 maps PATH_CLASS and predicate results to those verdicts.
+3. **The DIVERGED predicate (P109) can swallow FIRED.**
+   - "Divergence bar" is undefined. A successful promotion also leaves no S2-edge rows after it.
+   - Since DIVERGED has precedence, a correct promoted chain could classify as DIVERGED.
+4. **WITHDRAWN_TERM has no shadow=false pin.** P-CARRY pins one, but WITHDRAWN_TERM does not. R10 and R24 are shadow=true polls, which the page itself says are not live-path evidence. "Feed-join against" is undefined.
+5. **H-B3TAKE (P147) has no identity terms.**
+   - It has no entry price and no tolerance, unlike H-TAKE at P146.
+   - It also has no mechanism. R24 and R22 show a SHORT candidate at 14:35, and the FIX touches no LONG path.
+   - The WF and FF columns therefore rest on an event the FIX cannot trace. They should be observational and route to HOLD.
+6. **H-TAKE contradicts itself (P146).** "TP by 12:15" sits in the identity terms, while "outcome (TP/R) observational" follows.
+7. **P-KEEP is fragile and asymmetric.**
+   - It demands KILL 1x at all 12 keep bars. Bars after an earlier promotion the same day (6/10 15:45 and 17:10, 6/12 10:55 and 18:10) may never reach an S2 edge.
+   - P-PROMOTE-CONT has an absent-with-ADVANCE allowance. P-KEEP has none.
+   - The ledger assumes S2 edges continue after an admission (P137-P139), so it needs an "absent" class.
+8. **The ledger notation is undefined.**
+   - P111 defines F, Ku and Km but not WW, FW, WF and FF. It is inferable as B1 status then B3 status.
+   - The arm column is baseline-only, yet FW and FF show Ku, which implies the arm was cleared.
+9. **Most of the ledger cannot be checked from the page.**
+   - Only 12 of the 34 ledger bars have R-rows: 6/5 ×5, 6/8 ×5, 6/9 09:50 and 6/11 14:45.
+   - The other 22 bars are not exhibited: 6/2 ×2, 6/4, 6/9 ×7, 6/10 ×3, 6/11 ×4 and 6/12 ×5.
+   - This is carry-compare territory for the operator. The ledger should at least add an R-ref column.
+10. **The 6/5 09:05 promotion uses stale provenance.**
+    - It rests on the 6/4 10:20 arm (R02). P-PROMOTE-FIRST turns the limit that P094 admitted into a must-match.
+    - Promoting SHORT at 09:05 may also erase the LONG holder that R03 (fromDir=LONG) shows at 09:15. Ledger rows 09:15, 09:30 and 09:35 are then baseline-path bars.
+    - Grade H-TAKE on admission bar and price only, not on chain ancestry.
+11. **Expectation for P-NOFALSE.**
+    - The FIX restores about 9 chains across 6 dates, not only B1. Any extra admission routes to HOLD.
+    - That routing is honest, but the operator should expect HOLD to be the likely outcome.
+
+## Ask B: better mechanisms
+
+1. **Three-way ternary at DIR-SET (zero extra lines):** `g_ujOpReseedDir = (g_dir == DIR_LONG ? 1 : (g_dir == DIR_SHORT ? -1 : 0));`
+   - This fails closed on DIR_NONE.
+   - It leaves P073's redundant-conjunct remark true in effect, because a zero direction never matches ±1.
+2. **Read `s1g_legDir` (EA-7880 pre), as an option only.** It is set from `t78_pr.isLong` in the same branch. It would sidestep the S2ResolveLive dependency at the same NET, but its other writers are not on the page. That is a candidate for the next round, not a demand.
+3. **Guard the duplicated expression.**
+   - The zero-code option is for the battery to assert that the P078 and P085 expressions are textually identical.
+   - The code option is a local `bool uj_exempt` after EA-8411 (pre), used by both the print and the `if`. That costs +1 NET, giving 12299.
+4. **Acceptance:**
+   - Replace flat P110 counts with one generated bar × branch table that expects one of PROMOTE, KILL or absent-ADVANCE.
+   - Add a three-row verdict table.
+   - Define "divergence bar" as the first bar where the baseline expects an S2 row and the tester shows neither PROV nor S2WAIT.
+5. **Design note (not blocking).**
+   - The fence separates B1 from 8-June by whether an H1 reseed occurred, not by trade validity.
+   - The 8-June invalid comes from a 5m bullish flip during setup (P015).
+   - The parked counterfactual (P156) could be answered from rows R11-R16 and R25-R28 alone: would S3.3 already reject it without B2?
+
+Nothing more is asked or ruled.
+## V361-UJEXEMPT-4 END SONNET
