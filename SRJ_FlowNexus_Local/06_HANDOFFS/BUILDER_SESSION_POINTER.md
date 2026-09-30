@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-09-30, CHART JOINED LEDGER 1017 - no divergence, scope word owed)
+## State (2026-09-30, CORRECTION BANKED LEDGER 1018 - rules adopted verbatim, scope word owed)
 
-- Tester equals YOUR chart on all prints (11 June 3/3, 09:35 direction agrees).
-  Blockers are YOUR rules vs machine rules; scope-word memo shipped.
+- YOUR touch-or-break rule + 1H/15m chart reads banked (strategy s7); bias read suspect proven.
+  Entry-read rebuild waits YOUR scope word; council route follows it, in that order.
 - Key spent; EU declined. Packet FIX-2v2 halted, superseded.
   No build/run/key without his new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
@@ -18,7 +18,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR scope word on the three trade questions in the report (plain words, yes-or-no plus YOUR line).
+- YOUR scope word: may the entry read be rebuilt to YOUR stated rules (bias from confirmed 1H+15m reads, confirmation as touch-or-body-close, zero margin)? Yes or no, in YOUR words.
 
 ## Resume order (exact)
 
