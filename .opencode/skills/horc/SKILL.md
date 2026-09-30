@@ -105,3 +105,9 @@ Learn (2024 oldest-first YT, then 2026) â†’ extract (Tier-1-rules-only notes) â†
   not capable. A hand-gate he said he cannot do is never shipped; his "I
   can't" parks the gate the same turn, his redirected direction is adopted,
   never re-asked, never reasoned with.
+- NO-DOCTRINE-ASKS (his words 2026-09-30, owned brain-ask defect): he said
+  plainly he does not understand a doctrine-reconciliation question - yet it
+  was sent despite his stated incapacity. Doctrine questions are NEVER sent
+  to him; re-read both sources first, because most dissolve on read (F16 IS
+  a practice format and A03 ALLOWS practice - no conflict ever existed).
+  An ask he cannot answer is a BUILDER DEFECT, caught here, never re-sent.
