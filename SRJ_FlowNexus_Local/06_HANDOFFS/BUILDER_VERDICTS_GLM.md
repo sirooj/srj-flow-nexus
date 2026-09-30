@@ -8326,3 +8326,55 @@ The master list under Q1 stands; Q2-specific additions:
 
 **Close.** Nothing here builds, runs, spends, or moves anything toward live activation; no files requested or needed. The Q1 OBJECT is a draft-amendment gate on the acceptance battery, not a rejection of the mechanism — with the two textual cures applied, the exemption stands CONFIRM-ready as fenced. Both verdicts stand independently per the packet's rule.
 ## V358-UJEXEMPT-1 END GLM
+## V359-UJEXEMPT-2 OPEN GLM
+**GLM seat — verdict on packet P-RECON74FIX-2v16 (E2814AF2), Q1 and Q2, page-only ruling**
+
+Posture note first, for tally hygiene: my V358 record was OBJECT(Q1)/CONFIRM(Q2-with-trigger). The trigger — the 2-1 direction-scoping adoption — is met, and the scoping **is** correctly built and correctly tabled in this fold: the term at EA-8413-new (P077) direction-scopes exactly as both demanding seats specified, and the 22/12 tables agree with it on every exhibited bar. Nothing below reverses the scoping. Both OBJECTs are on residual page defects, all code-untouched except one conditional siting question (D3).
+
+---
+
+## Q1 verdict: OBJECT
+
+Three defects. The four edits as specified (P048–P078) are code-correct — term boolean, paren balance, int-enum compare, decl-before-use (EA-303/304 before EA-7899 before EA-8413 before EA-10727), atomic SET/CLEAR adjacency, admission-side reset. The defects are in the page's description and verification of the fence.
+
+**D1 — the change-sentence still mis-states the kill boolean.** Claimed at the section-0 Q1 change line and P003 ("unset-or-mismatched seeds still die"); P111 claims the cure "change-sentence honest" was adopted. The term promotes iff `s1g_seedBiasAl != 0 || (g_ujOpReseedBarTime != 0 && g_ujOpReseedDir == dir(g_dir))` — kills iff `seedBiasAl == 0 && (reseedBar == 0 || reseedDir ≠ dir(g_dir))`. Read with CARRY = seedBiasAl, clause 1 ("every seed with CARRY unset or direction-mismatched … still dies") kills exactly the population clause 2 exempts, plus CARRY-set mismatched seeds the term promotes. Read with CARRY = the reseed carriage (EA-8412's "Fix CARRY"), it drops the `seedBiasAl != 0` disjunct and kills seeds promoted since v29. No reading is exact. Cure, one sentence: "every seed with seedBiasAl == 0 and either no reseed provenance or a direction-mismatched one still dies at its S2 edge; seeds with seedBiasAl != 0, or a direction-matched reseed, promote."
+
+**D2 — the post-build census is arithmetically wrong in any single frame.** Claimed at P080 and section 0 ("DIR decl EA-304 plus DIR SET EA-7900 plus DIR CLEAR EA-10728 post-build"), echoed in Q1's File/function/lines. With the three inserts placed per P048/P056/P064, the final 12298-line tree (P117's own count) carries: DECL at EA-304 (correct — no prior insert); CARRY set (v29 EA-7899) at EA-7900 and the SET insert at **EA-7901**; TERM (v29 EA-8413) at EA-8415; CARRY clear (v29 EA-10727) at EA-10729 and the CLEAR insert at **EA-10730**. The published 7900/10728 are per-insert anchor+1 numbers computed against the unshifted v29 tree — in the v29 frame the inserts don't exist as lines; in the final frame they sit at 7901/10730; no frame yields 304/7900/10728 together. "CARRY writes unchanged EA-7899/10727" is v29 coordinates inside a census declared "post-build lines". A grader literal-checking P080 against the built tree reads the CARRY set at EA-7900 and `g_mtrade.uj_admitBarTime` at EA-10728. Cure: republish in one frame (v29 anchors, or final-tree 304/7901/8415/10729/10730) and renumber or delabel the CARRY line.
+
+**D3 — the SET's direction value is asserted, not exhibited; the cited proof lies outside the exhibited region.** P056: "dir-in-scope proven: … bracketing uses EA-7874/EA-7885/EA-7905/EA-7909 in R-SET2." R-SET2 as exhibited spans EA-7894–7909 — EA-7874 and EA-7885 are not in it. The exhibited EA-7905/7909 pair belongs to the t78_opp block that *follows* the CARRY-set block in file order, so it cannot be the overwrite the SET relies on. Whether `g_dir` at EA-7899 holds the reseed's new direction (an overwrite above EA-7894 in the same branch) or the pre-reseed direction (overwrite only at EA-7909) is undecidable from the page — and on it hangs every same-pass flip: if the SET recorded the pre-overwrite direction, the 06.05 09:15 and 06.11 10:35 seeds mis-match at their own S2 edges and P-PROMOTE fails at exactly the bars P102 asserts. The v29 rows cannot disambiguate — R03/R05 prove the CARRY fired in the reseed pass, but reseedBar is direction-agnostic. Cure: exhibit the branch head (extend R-SET2 upward, or add EA-7870–7893). If exhibition falsifies "post-overwrite," the SET insert moves below the overwrite — a siting change, still NET +3.
+
+---
+
+## Q2 verdict: OBJECT
+
+**Confirmed in substance** (so the fold does not re-open the scoping): P102's 22 flips and P103's 12 keeps agree with the EA-8413-new term on every exhibited bar — flips 06.05 09:05/09:15/09:30/09:35 via matched provenance (R01–R09; the 09:05 stale 6/4 SHORT value per R02, the 09:15 fresh reseed per R03/R05, carriage per R07/R09); keeps 06.08 ×5 unset (R11–R16), 06.05 16:00 and 06.11 14:45 mismatch (R17/R18 vs R03; R22/R23 vs R21), 06.09 09:50 unset (R19/R20); P-DIRSCOPE's keep-proof; P-KILLOUT's two-pattern (defeats vacuous passes); P-CARRY's liveness-via-CONFIRMPOLL form; H-TAKE's withdrawal clause (P104); the branched P-PARITY (P101). The objections:
+
+**D4 — P086 cites a flip bar the exhaustive enumeration does not contain.** "6/4 11:20, 6/9 and 6/10 09:15 flips" — 06.09 09:15 appears in neither P102 nor P103 while P100 declares the 34 bars exhaustive over baseline kills. Either the cite is wrong or the enumeration is short a bar. Cure: one word — point it at the intended 06.09 bar from P102, or strike "6/9".
+
+**D5 — the takes sheet mis-classifies 06.04 11:20 as a persisting keep.** Takes sheet, "Direction keeps (scoping proof)": "6/4 11:20 SHORT kill on LONG value persists." This contradicts P044 ("stale LONG value vs SHORT seed? No: reseed 6/4 10:20 SHORT precedes; direction-matched"), P086 (a flip riding a stale same-direction value), P102 (flip bar, P-PROMOTE 1x binding), and R02 (the 06.04 10:20 SHORT value still carried at 06.05 09:05 — no LONG reseed can intervene before 11:20 without overwriting the carriage R02 shows). The operator-facing summary states the opposite of the binding table for a graded bar. Cure: reclassify as flip, or name the intended bar.
+
+**D6 — P-PARITY-FIRED carries an unstated precondition with no finding route.** The fired branch asserts row-parity for 6/5-16:55 while licensing the 6/5 09:45 SHORT — that holds only if the SHORT closes before 16:55 (his frame: TP 12:15) or position mechanics don't interfere. The baseline never held concurrent positions (6/3 closes 09:59; 16:55 opens flat), so netting-vs-hedging and any in-position admission lock are untested and unstated, and the TP time is not pinned into H-TAKE's terms (P104 stops at admission). A late-TP fill on an interfering mode fills the round on parity for a cause outside the ruled behavior, with no pre-agreed interpretation. Cure, acceptance-only: pin "TP by 12:15 per his frame" into H-TAKE's terms and route a later-close interference at 16:55 under a named finding.
+
+---
+
+## Analytic ask A — defects, gaps, imprecisions (D1–D6 above, plus)
+
+- **A7.** P-NOFALSE's designed fail (P101; section-0 B3 DISCLOSURE): honestly disclosed twice, consistent with one-behavior-per-round — but it makes the round's pass contingent on the B3-owned confirm term rejecting the 06.11 14:35 LONG poll, a term this round neither owns nor rules. See B3.
+- **A8.** `g_ujOpReseedDir` is never printed — UJPROV (EA-8412) carries reseedBar and seedBiasAl only. P-DIRSCOPE's behavioral proof suffices to grade, but a surprise at any flip/keep bar is undiscoverable from the log.
+- **A9.** P015 cites "P014's never-a-hierarchy-rule"; P014 as quoted states no hierarchy rule — the governing distinction rests on unquoted s5 text.
+- **A10.** The DECL insert (P054) uses single-space separation inside the column-aligned block at EA-300–306 (`int      uj_memo_anchor`). Cosmetic, zero function.
+- **A11.** P-CARRY's asymmetry is sound but unstated: the 09:40-bar CONFIRMPOLL's *existence* is an assert (absent → chain broke → fail) while its *result* is observational (confirm=0 → H-TAKE withdraws per P104). One sentence in P101 would pre-empt a mis-grade dispute.
+- **A12.** Q1's File/function/lines mixes v29-frame (EA-8413) with claimed-post-build numbers in one line — folded into D2's cure.
+
+## Analytic ask B — better mechanisms
+
+- **B1.** Type the provenance as the enum: `ENUM_SRJ_DIR g_ujOpReseedDir = DIR_NONE;` at EA-304, `= g_dir;` at SET, `== g_dir` at the term, `= DIR_NONE` at CLEAR. Removes both ternaries and closes the DIR_NONE-encodes-as-SHORT edge (EA-8411 already maps DIR_NONE to wantb −1.0, so the int form inherits that ambiguity). Same four sites, same NET +3.
+- **B2.** Print the direction (one token + one arg on EA-8412 or EA-8417): makes P-DIRSCOPE direct and every flip/keep bar diagnosable. Costs a fifth battery site; defensibly deferred.
+- **B3.** Convert the disclosed 06.11 14:40 admission into a named hypothesis (H-B3TAKE, allowed set + withdrawal clause): the fence's round then passes or fails on the fence; B3 is recorded for its own round instead of failing this one by design. Acceptance-only.
+- **B4.** D6's cure: TP-by-12:15 pin plus a named interference finding for the 16:55 row.
+- **B5.** Identity-scoped provenance (P094) remains the complete answer to same-direction stale carry (06.05 09:05 rides the 06.04 10:20 value; P086's class): per-holder stamp beside the uj_memo_* block, cleared at that holder's death or admission — the death-path sites are the cost, which is why parking it for its own round is correct.
+
+---
+
+Scope close: nothing here builds, runs, spends, or clears live activation; no files requested; disk genuineness not answerable from chat. The fold to v17 is six page-level cures (D1–D6), one conditional siting question (D3), code otherwise untouched, scoping not re-opened.
+## V359-UJEXEMPT-2 END GLM

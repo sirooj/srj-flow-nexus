@@ -14906,3 +14906,59 @@ The better mechanism is precisely the page's own parked `reseedDir` design, now 
 **Q1: CONFIRM**
 **Q2: REQUIRE direction-scoping**
 ## V358-UJEXEMPT-1 END LUNA
+## V359-UJEXEMPT-2 OPEN LUNA
+## Council ruling
+
+### Q1 — **CONFIRM**
+
+The direction-scoped fence matches the stated rule: the existing `seedBiasAl != 0` exemption remains, and the new branch additionally permits promotion only when a live reseed stamp exists and its direction matches the current `g_dir`; otherwise the existing kill path remains.
+
+The code expresses that structure directly at the S2 edge: the exemption is widened at EA-8413, while the mismatch/unset cases still fall through to `S2SEEDBIAS_KILL` at EA-8418/8419. The reseed direction is written and cleared at the specified state points.
+
+So, for the **direction-only scope actually requested in this round**, Q1 is confirmed. The packet also correctly preserves the 8-June keep and the cross-direction keeps as negatives.
+
+### Q2 — **OBJECT**
+
+The acceptance table is **not internally binding as written**.
+
+The packet declares `P-NOFALSE` a must-match predicate where any miss **FAILS the round**, requiring zero takes beyond the named allowed set.
+
+But the same acceptance definition explicitly says the incidental **6/11 14:40 LONG admission fails `P-NOFALSE` by design this round**.  That means the packet simultaneously defines the predicate as binding/fail-on-miss and pre-announces a miss. The “one-behavior-per-round” disclosure does not rewrite the stated pass rule.
+
+The H-TAKE branch also remains conditional rather than a fixed acceptance assertion: it may be withdrawn on a 09:40 confirm/feed finding.
+
+Therefore Q2 needs its acceptance logic repaired before it can be the binding gate for the run.
+
+## Analytic A — defects, gaps, and imprecisions
+
+**1. Known self-failing acceptance predicate — blocking for Q2.**
+P101 makes `P-NOFALSE` a hard FAIL predicate, while P057/P101 disclose a known 6/11 14:40 admission that violates it.
+
+**2. Provenance is direction-scoped, not holder-scoped.**
+`g_ujOpReseedBarTime` plus `g_ujOpReseedDir` is one global stamp, cleared on admission only. The packet itself admits the identity-blindness and parks identity-scoped provenance. That leaves the possibility that an old same-direction reseed can continue to authorize a later unrelated holder.
+
+**3. Direction capture occurs before a later `g_dir` write in the shown SET region.**
+The new direction is derived from `g_dir` at the reseed SET, while the same region later assigns `g_dir = t78_dir` at EA-7909. The page does not establish that both paths are mutually exclusive, so same-pass direction provenance is not fully demonstrated.
+
+**4. The packet mixes pre-build and post-build line claims.**
+P003 says the v16 edits are unbuilt, while P080 describes the census as “post-build lines.” Those coordinates are therefore planned post-edit positions, not verified post-build source positions on this page.
+
+**5. The “0-warning compile oracle” is still future evidence.**
+P079 treats compilation as the oracle, but no such build occurred in this round because the edits are explicitly unbuilt. That is correctly gated, but it should be phrased as an unverified future condition rather than a presently established property.
+
+**6. H-TAKE is not actually established behavior.**
+The packet labels it a v26-sourced hypothesis and says the BYPASS portion is from a foreign build; only PREBIND machinery is exhibited in the current tree.
+
+**7. The “all 34 baseline kills” claim is an acceptance enumeration, not exhibited evidence.**
+The page lists all 22 flip bars and 11 keep bars, but only a subset have concrete R-row evidence in this packet. That is fine as a future-run test matrix, but the wording should not blur the distinction between “enumerated acceptance cases” and “already evidenced cases.”
+
+## Analytic B — better mechanisms
+
+**For the direction fence:** capture the reseed direction from the **authoritative reseed event itself**, rather than indirectly from mutable `g_dir`. The natural touchpoints are the reseed SET around EA-7899 and the later `g_dir` mutation at EA-7909.
+
+**For the stale-carry problem:** replace the single direction/time stamp with a holder identity/provenance generation, carried with the candidate and invalidated whenever that holder is superseded or otherwise ceases to be the same seed. The packet already identifies this as the stronger parked mechanism.
+
+**For acceptance:** split the known 6/11 14:40 case out of `P-NOFALSE` explicitly, or redefine that predicate so the disclosure is an allowed exception rather than a known hard failure. Then make H-TAKE a separate conditional branch with a precise pass/fail rule instead of a hypothesis embedded inside a supposedly binding predicate set.
+
+**Net:** **Q1 CONFIRM. Q2 OBJECT**, with the Q2 objection centered on the internally contradictory binding `P-NOFALSE` acceptance rule.
+## V359-UJEXEMPT-2 END LUNA

@@ -4569,3 +4569,68 @@ Also replace P-CARRY with a liveness proof: S2PROMOTE rows followed by S3 state 
 
 Nothing in this ruling clears live activation, and no run is proposed.
 ## V358-UJEXEMPT-1 END SONNET
+## V359-UJEXEMPT-2 OPEN SONNET
+# V359 verdicts (page-only; nothing here is verified against disk)
+
+**Q1: CONFIRM on the logic of the edit set, with discrepancies D1-D3 to cure before any build.** The three cures are textual or exhibit-level, so code stays as written.
+**Q2: OBJECT.** Defects A-D below.
+
+## Q1 discrepancies and gaps
+
+**D1. Line-number convention is inconsistent (P080, Q1 header).**
+- Pre-build (v29 tree), the inserts go after 303, 7899 and 10727, and the term is EA-8413.
+- Post-build, each insert shifts later lines by +1. So decl = 304, SET = 7901, CLEAR = 10730, the term = 8415, and the CARRY write/clear move to 7900/10729.
+- P080 says the reseedDir writes are "exactly EA-304, EA-7900, EA-10728" and the CARRY writes are "unchanged EA-7899/10727". Post-build, EA-7900 is the CARRY write itself.
+- The build-time census would misfire on these numbers. Restate it by pattern (`g_ujOpReseedDir` = 3 occurrences of the write) or give both numberings.
+
+**D2. The direction-scoping premise is not exhibited (P056).**
+- P056 says g_dir is in scope with "bracketing uses EA-7874/7885/7905/7909 in R-SET2".
+- R-SET2 spans 7894-7909, so 7874 and 7885 are outside it. 7905 and 7909 belong to the S1C block that starts at 7902, not the H1 block that contains EA-7899.
+- The whole fence inverts if the SET captures the pre-overwrite direction (fromDir) instead of the new one. R03 prints dir=SHORT and fromDir=LONG, but the page never shows that print, or the g_dir overwrite, sits before EA-7899.
+- Cure: exhibit the H1 g_dir write and its order relative to EA-7899 (roughly 7870-7899) as a region.
+- Also state whether the S1C block at 7902-7909 can fire in the same pass. If it rewrites g_dir after the SET, the term fails closed (kill), which is safe but should be stated.
+
+**D3. Minor imprecisions.**
+- P005 says "zero deleted lines", but EXEMPT-TERM replaces a line.
+- The `g_ujOpReseedBarTime != 0` conjunct (P077) is redundant, since dir is 0 whenever the barTime is 0 and dir never equals +/-1 then. It is harmless; say so.
+- `g_dir == DIR_LONG ? 1 : -1` maps DIR_NONE to -1. That is safe at the S2 edge, and the existing uj_wantb has the same behaviour.
+
+**D4. Residual scope, to be disclosed rather than cured.**
+- On this segment the 8-June keep is data-contingent. Only the unset CARRY bars it (R12-R16), not direction, so P028/P042's "CARRY and direction both bar" overstates it.
+- The CARRY is unset on 6/8 only because the 6/5 16:55 admission cleared it (EA-10727). A stale SHORT carry with no intervening admission would exempt an 8-June-type take.
+- The 6/5 09:05 flip likewise rides the stale 6/4 10:20 value (R02), not a fresh reseed.
+
+## Q2 defects
+
+**A. The flip table is baseline-derived, not path-derived (P100-P102).**
+- The 22 bars are kill sites in RECON77, where each kill-abort re-seeded the S2 edge on the next bar. Once a seed is promoted at the first bar of a chain, the state advances past S2.
+- Later bars in the same chain (6/5 09:15/09:30/09:35; 6/9 x7) may never reach the S2 edge, or may hit promote-then-ABORT instead (P084).
+- "S2PROMOTE 1x at each flip bar" (P101) is only guaranteed for the first bar of each causal chain. Any-miss-FAILS on the rest is unsatisfiable.
+- Cure:
+  - P-KILLOUT stays unconditional.
+  - P-PROMOTE is required at the first flip bar per chain, plus at any bar whose PROV row shows the edge reached with a matching term.
+  - Not-reached bars are observational, with a path-divergence note.
+
+**B. CLEAR makes P-KEEP and P-DIRSCOPE branch-dependent.**
+- In the fired branch, the 09:45 admission clears CARRY/DIR at EA-10727+. By 6/5 16:00 the value is unset, so R17/R18's mismatch proof degrades to the unset-keep. The bar is still killed, but it no longer proves direction scoping.
+- The same applies to 6/11 14:45 if the 10:35 promotion leads to an admission.
+- Cure:
+  - Grade P-DIRSCOPE only on rows where the PROV line shows reseedBar set and reseedDir opposite (needs the D-ask print).
+  - Otherwise record it as "unset-keep, not a scoping proof".
+  - Name 6/10 15:45/17:10 and 6/12 10:55/18:10 as the fallback proof bars, and state their own same-day dependence.
+
+**C. The page contradicts itself on 6/4 11:20.**
+- Takes sheet, Direction keeps: "6/4 11:20 SHORT kill on LONG value persists".
+- P102 lists 06.04 11:20 as a flip bar, P044 calls it direction-matched, and P103 does not list it as a keep.
+- P102/P044 look intended, but the sheet line must be struck.
+- P044 also contains an unresolved self-question ("stale LONG value vs SHORT seed? No: ..."). It should be rewritten as a statement, and the 6/4 10:20 reseed has no exhibited row.
+
+**D. Exhibition is thin against "binding".**
+- R01-R24 cover about 7 of the 34 bars. Direction-match for the 6/2, 6/4, 6/9 x7, 6/10, 6/11 x3 and 6/12 x3 flips rests on unexhibited rows.
+- R10 and R24 print shadow=true. These are shadow polls on a just-killed seed, and R24 is a SHORT poll while B3's take is LONG.
+- They are not evidence of the live-path confirm result, and H-TAKE's withdrawal rule should say so.
+- P-PARITY-WITHDRAWN (takes identical, balance 10027.13) is a non-interference prediction. Promoted holders alive at 16:55 could displace the LONG take. A miss should be pre-classified as FIX finding versus path-divergence finding.
+
+**Ask B (Q2).** Replace "exhaustive 22 + 12" with a per-chain table (first bar, expected promote, later bars conditional). Add an exempt=1/0 field to the print at EA-8412 so grade is a single-pattern match.
+
+## V359-UJEXEMPT-2 END SONNET
