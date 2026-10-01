@@ -51,6 +51,11 @@ Each listen: exact link + exact span + the garbled caption text + WHY (which glo
   no listen ships with "reply with the word" alone - each carries what he says
   around it (caption words quoted) + the garbled candidate + WHY. The five
   parts above are a checklist, all five or unsent.
+- TIMESTAMP-READS (his standing offer 2026-09-30): bounded-stamp exact-word
+  reads are always askable - go to the stamp, type what he says, reply with
+  the words only. Garble-guesses never enter books unmarked
+  (TRANSCRIPT-UNCERTAIN + ask number); the read closes the mark, never a
+  reasoning round.
 
 ## 5. Ruling intake (his shots + words)
 
@@ -111,3 +116,9 @@ Learn (2024 oldest-first YT, then 2026) â†’ extract (Tier-1-rules-only notes) â†
   to him; re-read both sources first, because most dissolve on read (F16 IS
   a practice format and A03 ALLOWS practice - no conflict ever existed).
   An ask he cannot answer is a BUILDER DEFECT, caught here, never re-sent.
+- PLAIN-WITH-YOU (his correction 2026-09-30, owned code-talk defect): chat
+  with him uses plain names only - video title + link, word-list book,
+  rules book. Builder codes (F23, v2/v3, SHA, LINES, MAX, entry numbers)
+  never ship bare; each gets its plain name on first use every message.
+  Disk-proof numbers live in the ledger, never in chat; chat carries one
+  plain checked sentence. Second-person always (YOU/YOUR).
