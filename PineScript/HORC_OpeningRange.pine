@@ -36,6 +36,14 @@ var box   zbox   = na
 var box   dayBand = na
 var bool  zused  = false
 var array<box> zhist = array.new<box>()
+var int   ySig = 0
+var int   mSig = 0
+var int   wSig = 0
+var array<float> thi = array.new_float()
+var array<float> tlo = array.new_float()
+var array<line> thiL = array.new_line()
+var array<line> tloL = array.new_line()
+var label tgtL = na
 var bool  fSig   = false
 var bool  fDone  = false
 var bool  fUsed  = false
@@ -63,6 +71,17 @@ if newPeriod
     orhL  := line.new(bar_index, orh, bar_index + 1, orh, extend=extend.none, color=color.new(color.blue, 0), width=1)
     orlL  := line.new(bar_index, orl, bar_index + 1, orl, extend=extend.none, color=color.new(color.red, 0), width=1)
     dayBand := box.new(bar_index, orh, bar_index + 1, orl, bgcolor=color.new(color.gray, 93), border_color=color.new(color.gray, 93))
+    for i = 0 to array.size(thiL) - 1
+        line.delete(array.get(thiL, i))
+    for i = 0 to array.size(tloL) - 1
+        line.delete(array.get(tloL, i))
+    array.clear(thi)
+    array.clear(tlo)
+    array.clear(thiL)
+    array.clear(tloL)
+    if not na(tgtL)
+        label.delete(tgtL)
+        tgtL := na
 
 if not na(orhL)
     line.set_x2(orhL, bar_index + 1)
@@ -75,8 +94,47 @@ if not na(zbox)
 if not na(dayBand)
     box.set_right(dayBand, bar_index + 1)
 
+yOrh = request.security(syminfo.tickerid, "12M", high[1], lookahead=barmerge.lookahead_on)
+yOrl = request.security(syminfo.tickerid, "12M", low[1], lookahead=barmerge.lookahead_on)
+yOpen = request.security(syminfo.tickerid, "12M", time, lookahead=barmerge.lookahead_on)
+mOrh = request.security(syminfo.tickerid, "M", high[1], lookahead=barmerge.lookahead_on)
+mOrl = request.security(syminfo.tickerid, "M", low[1], lookahead=barmerge.lookahead_on)
+mOpen = request.security(syminfo.tickerid, "M", time, lookahead=barmerge.lookahead_on)
+wOrh = request.security(syminfo.tickerid, "W", high[1], lookahead=barmerge.lookahead_on)
+wOrl = request.security(syminfo.tickerid, "W", low[1], lookahead=barmerge.lookahead_on)
+wOpen = request.security(syminfo.tickerid, "W", time, lookahead=barmerge.lookahead_on)
+
 conf = barstate.isconfirmed
 raid = raidPts * pt
+
+if ta.change(yOpen) != 0
+    ySig := 0
+if ta.change(mOpen) != 0
+    mSig := 0
+if ta.change(wOpen) != 0
+    wSig := 0
+
+if conf and ySig == 0 and not na(yOrh)
+    if high >= yOrh and not (low <= yOrl)
+        ySig := 1
+        label.new(bar_index, low, "Y+", style=label.style_label_up, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
+    if low <= yOrl and not (high >= yOrh)
+        ySig := -1
+        label.new(bar_index, high, "Y-", style=label.style_label_down, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
+if conf and mSig == 0 and not na(mOrh)
+    if high >= mOrh and not (low <= mOrl)
+        mSig := 1
+        label.new(bar_index, low, "M+", style=label.style_label_up, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
+    if low <= mOrl and not (high >= mOrh)
+        mSig := -1
+        label.new(bar_index, high, "M-", style=label.style_label_down, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
+if conf and wSig == 0 and not na(wOrh)
+    if high >= wOrh and not (low <= wOrl)
+        wSig := 1
+        label.new(bar_index, low, "W+", style=label.style_label_up, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
+    if low <= wOrl and not (high >= wOrh)
+        wSig := -1
+        label.new(bar_index, high, "W-", style=label.style_label_down, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
 
 if conf and sig == 0
     up = high >= orh
@@ -85,12 +143,12 @@ if conf and sig == 0
         sig := 1
         fSig := true
         if showSig
-            label.new(bar_index, low, "B D+", style=label.style_label_up, color=color.lime, textcolor=color.black, size=size.small)
+            label.new(bar_index, low, "D+", style=label.style_label_up, color=color.new(color.red, 20), textcolor=color.white, size=size.small)
     if dn and not up
         sig := -1
         fSig := true
         if showSig
-            label.new(bar_index, high, "S D-", style=label.style_label_down, color=color.red, textcolor=color.white, size=size.small)
+            label.new(bar_index, high, "D-", style=label.style_label_down, color=color.new(color.red, 20), textcolor=color.white, size=size.small)
 
 if conf and sig == 1 and not leg1
     if high >= orh + raid
@@ -100,6 +158,7 @@ if conf and sig == 1 and not leg1
             ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.none, color=color.new(color.yellow, 0), width=2)
         if showZones
             zbox := box.new(bar_index, orh, bar_index + 1, ort, bgcolor=color.new(color.blue, 80), border_color=color.new(color.blue, 0), text="HORC passive demand", text_size=size.small)
+            label.new(bar_index, orh, "ENTRY", style=label.style_label_up, color=color.new(color.blue, 0), textcolor=color.white, size=size.small)
             array.push(zhist, zbox)
             if array.size(zhist) > maxZones
                 box.delete(array.shift(zhist))
@@ -112,9 +171,56 @@ if conf and sig == -1 and not leg1
             ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.none, color=color.new(color.yellow, 0), width=2)
         if showZones
             zbox := box.new(bar_index, ort, bar_index + 1, orl, bgcolor=color.new(color.maroon, 80), border_color=color.new(color.maroon, 0), text="HORC passive supply", text_size=size.small)
+            label.new(bar_index, orl, "ENTRY", style=label.style_label_down, color=color.new(color.maroon, 0), textcolor=color.white, size=size.small)
             array.push(zhist, zbox)
             if array.size(zhist) > maxZones
                 box.delete(array.shift(zhist))
+
+if conf and array.size(thi) < 3
+    if high >= orh + raid and (array.size(thi) == 0 or high >= array.get(thi, array.size(thi) - 1) + raid)
+        array.push(thi, high)
+        array.push(thiL, line.new(bar_index, high, bar_index + 1, high, extend=extend.none, color=color.new(color.orange, 0), width=1))
+if conf and array.size(tlo) < 3
+    if low <= orl - raid and (array.size(tlo) == 0 or low <= array.get(tlo, array.size(tlo) - 1) - raid)
+        array.push(tlo, low)
+        array.push(tloL, line.new(bar_index, low, bar_index + 1, low, extend=extend.none, color=color.new(color.orange, 0), width=1))
+if array.size(thiL) > 0
+    for i = 0 to array.size(thiL) - 1
+        line.set_x2(array.get(thiL, i), bar_index + 1)
+if array.size(tloL) > 0
+    for i = 0 to array.size(tloL) - 1
+        line.set_x2(array.get(tloL, i), bar_index + 1)
+
+if conf and sig == 1 and array.size(thi) > 0
+    bestHi = float(na)
+    for i = 0 to array.size(thi) - 1
+        v = array.get(thi, i)
+        if v > close and (na(bestHi) or v < bestHi)
+            bestHi := v
+    if not na(bestHi)
+        if na(tgtL)
+            tgtL := label.new(bar_index, bestHi, "TARGET", style=label.style_label_down, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+        else
+            label.set_xy(tgtL, bar_index, bestHi)
+    else
+        if not na(tgtL)
+            label.delete(tgtL)
+            tgtL := na
+if conf and sig == -1 and array.size(tlo) > 0
+    bestLo = float(na)
+    for i = 0 to array.size(tlo) - 1
+        v = array.get(tlo, i)
+        if v < close and (na(bestLo) or v > bestLo)
+            bestLo := v
+    if not na(bestLo)
+        if na(tgtL)
+            tgtL := label.new(bar_index, bestLo, "TARGET", style=label.style_label_up, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+        else
+            label.set_xy(tgtL, bar_index, bestLo)
+    else
+        if not na(tgtL)
+            label.delete(tgtL)
+            tgtL := na
 
 if conf and leg1 and not leg2
     if sig == 1 and low <= orl

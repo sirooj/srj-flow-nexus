@@ -10,8 +10,8 @@
 #property copyright "HORC lane, alert-only"
 #property version   "1.00"
 #property indicator_chart_window
-#property indicator_buffers 6
-#property indicator_plots   6
+#property indicator_buffers 12
+#property indicator_plots   12
 #property indicator_label1  "ORH"
 #property indicator_type1   DRAW_LINE
 #property indicator_color1  clrDodgerBlue
@@ -36,6 +36,30 @@
 #property indicator_type6   DRAW_ARROW
 #property indicator_color6  clrWhite
 #property indicator_width6  2
+#property indicator_label7  "TH1"
+#property indicator_type7   DRAW_LINE
+#property indicator_color7  clrOrange
+#property indicator_width7  1
+#property indicator_label8  "TH2"
+#property indicator_type8   DRAW_LINE
+#property indicator_color8  clrOrange
+#property indicator_width8  1
+#property indicator_label9  "TH3"
+#property indicator_type9   DRAW_LINE
+#property indicator_color9  clrOrange
+#property indicator_width9  1
+#property indicator_label10  "TL1"
+#property indicator_type10   DRAW_LINE
+#property indicator_color10  clrOrange
+#property indicator_width10  1
+#property indicator_label11  "TL2"
+#property indicator_type11   DRAW_LINE
+#property indicator_color11  clrOrange
+#property indicator_width11  1
+#property indicator_label12  "TL3"
+#property indicator_type12   DRAW_LINE
+#property indicator_color12  clrOrange
+#property indicator_width12  1
 
 enum HORC_RefPeriod
   {
@@ -56,6 +80,12 @@ double BufORT[];
 double BufSigB[];
 double BufSigS[];
 double BufDone[];
+double BufTH1[];
+double BufTH2[];
+double BufTH3[];
+double BufTL1[];
+double BufTL2[];
+double BufTL3[];
 
 string HORC_PREFIX = "HORC_";
 datetime HORC_NewClosed = 0;
@@ -84,19 +114,33 @@ int OnInit()
    SetIndexBuffer(3, BufSigB, INDICATOR_DATA);
    SetIndexBuffer(4, BufSigS, INDICATOR_DATA);
    SetIndexBuffer(5, BufDone, INDICATOR_DATA);
+   SetIndexBuffer(6, BufTH1, INDICATOR_DATA);
+   SetIndexBuffer(7, BufTH2, INDICATOR_DATA);
+   SetIndexBuffer(8, BufTH3, INDICATOR_DATA);
+   SetIndexBuffer(9, BufTL1, INDICATOR_DATA);
+   SetIndexBuffer(10, BufTL2, INDICATOR_DATA);
+   SetIndexBuffer(11, BufTL3, INDICATOR_DATA);
    ArraySetAsSeries(BufORH, true);
    ArraySetAsSeries(BufORL, true);
    ArraySetAsSeries(BufORT, true);
    ArraySetAsSeries(BufSigB, true);
    ArraySetAsSeries(BufSigS, true);
    ArraySetAsSeries(BufDone, true);
+   ArraySetAsSeries(BufTH1, true);
+   ArraySetAsSeries(BufTH2, true);
+   ArraySetAsSeries(BufTH3, true);
+   ArraySetAsSeries(BufTL1, true);
+   ArraySetAsSeries(BufTL2, true);
+   ArraySetAsSeries(BufTL3, true);
    PlotIndexSetInteger(3, PLOT_ARROW, 233);
    PlotIndexSetInteger(4, PLOT_ARROW, 234);
    PlotIndexSetInteger(5, PLOT_ARROW, 159);
    PlotIndexSetInteger(3, PLOT_ARROW_SHIFT, 0);
    PlotIndexSetInteger(4, PLOT_ARROW_SHIFT, 0);
    PlotIndexSetInteger(5, PLOT_ARROW_SHIFT, 0);
-   for(int p = 0; p < 6; p++)
+   for(int p = 6; p < 12; p++)
+      PlotIndexSetInteger(p, PLOT_LINE_STYLE, STYLE_DOT);
+   for(int p = 0; p < 12; p++)
       PlotIndexSetDouble(p, PLOT_EMPTY_VALUE, 0.0);
    IndicatorSetString(INDICATOR_SHORTNAME, "HORC Opening Range");
    return(INIT_SUCCEEDED);
@@ -190,6 +234,81 @@ void HORC_TrimZones()
   {
    HORC_TrimPrefix(HORC_PREFIX + "Z");
    HORC_TrimPrefix(HORC_PREFIX + "R");
+   HORC_TrimPrefix(HORC_PREFIX + "E");
+   HORC_TrimPrefix(HORC_PREFIX + "G");
+  }
+//+------------------------------------------------------------------+
+void HORC_OneTF(ENUM_TIMEFRAMES tf, bool yearly, const string tag)
+  {
+   double orh = 0.0, orl = 0.0;
+   datetime pOpen = 0;
+   if(yearly)
+     {
+      MqlDateTime nowS;
+      TimeToStruct(iTime(_Symbol, PERIOD_CURRENT, 0), nowS);
+      MqlDateTime yS;
+      yS.year = nowS.year;
+      yS.mon = 1;
+      yS.day = 1;
+      yS.hour = 0;
+      yS.min = 0;
+      yS.sec = 0;
+      pOpen = StructToTime(yS);
+      int mb = iBars(_Symbol, PERIOD_MN1);
+      for(int s = 1; s < mb; s++)
+        {
+         MqlDateTime ms;
+         TimeToStruct(iTime(_Symbol, PERIOD_MN1, s), ms);
+         if(ms.year != nowS.year - 1)
+            continue;
+         double h = iHigh(_Symbol, PERIOD_MN1, s);
+         double l = iLow(_Symbol, PERIOD_MN1, s);
+         if(h > orh)
+            orh = h;
+         if(orl <= 0.0 || l < orl)
+            orl = l;
+        }
+     }
+   else
+     {
+      if(iBars(_Symbol, tf) < 2)
+         return;
+      orh = iHigh(_Symbol, tf, 1);
+      orl = iLow(_Symbol, tf, 1);
+      pOpen = iTime(_Symbol, tf, 0);
+     }
+   if(orh <= 0.0 || orl <= 0.0 || pOpen <= 0)
+      return;
+   int iBeg = iBarShift(_Symbol, PERIOD_CURRENT, pOpen, false);
+   if(iBeg < 1)
+      return;
+   for(int i = iBeg; i >= 1; i--)
+     {
+      bool up = (iHigh(_Symbol, PERIOD_CURRENT, i) >= orh);
+      bool dn = (iLow(_Symbol, PERIOD_CURRENT, i) <= orl);
+      if(up && dn)
+         continue;
+      string nm = HORC_PREFIX + "T" + tag + IntegerToString((long)pOpen);
+      if(up)
+        {
+         HORC_Text(nm, iTime(_Symbol, PERIOD_CURRENT, i),
+                   iLow(_Symbol, PERIOD_CURRENT, i) - 40 * _Point, tag + "+", clrLime);
+         break;
+        }
+      if(dn)
+        {
+         HORC_Text(nm, iTime(_Symbol, PERIOD_CURRENT, i),
+                   iHigh(_Symbol, PERIOD_CURRENT, i) + 40 * _Point, tag + "-", clrRed);
+         break;
+        }
+     }
+  }
+//+------------------------------------------------------------------+
+void HORC_AllTF()
+  {
+   HORC_OneTF(PERIOD_MN1, true, "Y");
+   HORC_OneTF(PERIOD_MN1, false, "M");
+   HORC_OneTF(PERIOD_W1, false, "W");
   }
 //+------------------------------------------------------------------+
 void HORC_ProcessPeriod(int k)
@@ -237,6 +356,37 @@ void HORC_ProcessPeriod(int k)
    int lo = (iEnd > 1 ? iEnd : 1);
    double raid = InpRaidPoints * _Point;
    double off = 20 * _Point;
+   double thi[3]; int thb[3]; int cnth = 0;
+   double tlo[3]; int tlb[3]; int cntl = 0;
+   for(int i = iBeg; i >= lo; i--)
+     {
+      double h = iHigh(_Symbol, PERIOD_CURRENT, i);
+      double l = iLow(_Symbol, PERIOD_CURRENT, i);
+      if(h >= orh + raid && cnth < 3 && (cnth == 0 || h >= thi[cnth - 1] + raid))
+        {
+         thi[cnth] = h;
+         thb[cnth] = i;
+         cnth++;
+        }
+      if(l <= orl - raid && cntl < 3 && (cntl == 0 || l <= tlo[cntl - 1] - raid))
+        {
+         tlo[cntl] = l;
+         tlb[cntl] = i;
+         cntl++;
+        }
+     }
+   if(cnth > 0)
+      HORC_Fill(BufTH1, thb[0], iEnd, thi[0]);
+   if(cnth > 1)
+      HORC_Fill(BufTH2, thb[1], iEnd, thi[1]);
+   if(cnth > 2)
+      HORC_Fill(BufTH3, thb[2], iEnd, thi[2]);
+   if(cntl > 0)
+      HORC_Fill(BufTL1, tlb[0], iEnd, tlo[0]);
+   if(cntl > 1)
+      HORC_Fill(BufTL2, tlb[1], iEnd, tlo[1]);
+   if(cntl > 2)
+      HORC_Fill(BufTL3, tlb[2], iEnd, tlo[2]);
    int sig = 0, sigBar = -1;
    for(int i = iBeg; i >= lo; i--)
      {
@@ -295,6 +445,7 @@ void HORC_ProcessPeriod(int k)
          HORC_Fire("demand zone used", leg1);
         }
       HORC_Zone(zname, t1, orh, tEnd, ort, zc, zt);
+      HORC_Text(HORC_PREFIX + "E" + IntegerToString((long)pOpen), t1, orh, "ENTRY", clrAqua);
       int leg2 = -1;
       for(int i = leg1; i >= lo; i--)
          if(iLow(_Symbol, PERIOD_CURRENT, i) <= orl)
@@ -311,7 +462,20 @@ void HORC_ProcessPeriod(int k)
             HORC_Fire("cycle complete at ORT", i);
             break;
            }
-     }
+      if(sig == 1 && cnth > 0)
+        {
+         double tgt = 0.0;
+         double px = iClose(_Symbol, PERIOD_CURRENT, (iEnd > 1 ? iEnd : 1));
+         for(int t2 = 0; t2 < cnth; t2++)
+            if(thi[t2] > px && (tgt <= 0.0 || thi[t2] < tgt))
+               tgt = thi[t2];
+         string gname = HORC_PREFIX + "G" + IntegerToString((long)pOpen);
+         if(tgt > 0.0)
+            HORC_Text(gname, iTime(_Symbol, PERIOD_CURRENT, (iEnd > 1 ? iEnd : 1)), tgt, "TARGET", clrOrange);
+         else if(ObjectFind(0, gname) >= 0)
+            ObjectDelete(0, gname);
+        }
+      }
    else
      {
       BufSigS[sigBar] = iHigh(_Symbol, PERIOD_CURRENT, sigBar) + off;
@@ -347,6 +511,7 @@ void HORC_ProcessPeriod(int k)
          HORC_Fire("supply zone used", leg1);
         }
       HORC_Zone(zname, t1, ort, tEnd, orl, zc, zt);
+      HORC_Text(HORC_PREFIX + "E" + IntegerToString((long)pOpen), t1, orl, "ENTRY", clrAqua);
       int leg2 = -1;
       for(int i = leg1; i >= lo; i--)
          if(iHigh(_Symbol, PERIOD_CURRENT, i) >= orh)
@@ -363,8 +528,21 @@ void HORC_ProcessPeriod(int k)
             HORC_Fire("cycle complete at ORT", i);
             break;
            }
-     }
-  }
+      if(sig == -1 && cntl > 0)
+        {
+         double tgt = 0.0;
+         double px = iClose(_Symbol, PERIOD_CURRENT, (iEnd > 1 ? iEnd : 1));
+         for(int t2 = 0; t2 < cntl; t2++)
+            if(tlo[t2] < px && (tgt <= 0.0 || tlo[t2] > tgt))
+               tgt = tlo[t2];
+         string gname = HORC_PREFIX + "G" + IntegerToString((long)pOpen);
+         if(tgt > 0.0)
+            HORC_Text(gname, iTime(_Symbol, PERIOD_CURRENT, (iEnd > 1 ? iEnd : 1)), tgt, "TARGET", clrOrange);
+         else if(ObjectFind(0, gname) >= 0)
+            ObjectDelete(0, gname);
+        }
+      }
+   }
 //+------------------------------------------------------------------+
 void HORC_FullRebuild()
   {
@@ -374,6 +552,12 @@ void HORC_FullRebuild()
    ArrayInitialize(BufSigB, 0.0);
    ArrayInitialize(BufSigS, 0.0);
    ArrayInitialize(BufDone, 0.0);
+   ArrayInitialize(BufTH1, 0.0);
+   ArrayInitialize(BufTH2, 0.0);
+   ArrayInitialize(BufTH3, 0.0);
+   ArrayInitialize(BufTL1, 0.0);
+   ArrayInitialize(BufTL2, 0.0);
+   ArrayInitialize(BufTL3, 0.0);
    ObjectsDeleteAll(0, HORC_PREFIX);
    ENUM_TIMEFRAMES tf = HORC_RefTF();
    int refBars = iBars(_Symbol, tf);
@@ -403,11 +587,13 @@ int OnCalculate(const int rates_total,
       HORC_FullRebuild();
       sBuilt = cur;
       HORC_TrimZones();
+      HORC_AllTF();
      }
    else
      {
       HORC_ProcessPeriod(0);
       HORC_TrimZones();
+      HORC_AllTF();
      }
    return(rates_total);
   }
