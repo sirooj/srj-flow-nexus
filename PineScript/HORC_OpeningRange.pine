@@ -37,8 +37,53 @@ var box   dayBand = na
 var bool  zused  = false
 var array<box> zhist = array.new<box>()
 var int   ySig = 0
+var bool  yL1 = false
+var float yO = na
+var bool  yL2 = false
+var bool  yD = false
+var line  yHL = na
+var line  yLL = na
+var line  yOL = na
+var box   yZ = na
+var box   yB = na
+var bool  yU = false
+var array<float> yThi = array.new_float()
+var array<float> yTlo = array.new_float()
+var array<line> yThiL = array.new_line()
+var array<line> yTloL = array.new_line()
+var label yT = na
 var int   mSig = 0
+var bool  mL1 = false
+var float mO = na
+var bool  mL2 = false
+var bool  mD = false
+var line  mHL = na
+var line  mLL = na
+var line  mOL = na
+var box   mZ = na
+var box   mB = na
+var bool  mU = false
+var array<float> mThi = array.new_float()
+var array<float> mTlo = array.new_float()
+var array<line> mThiL = array.new_line()
+var array<line> mTloL = array.new_line()
+var label mT = na
 var int   wSig = 0
+var bool  wL1 = false
+var float wO = na
+var bool  wL2 = false
+var bool  wD = false
+var line  wHL = na
+var line  wLL = na
+var line  wOL = na
+var box   wZ = na
+var box   wB = na
+var bool  wU = false
+var array<float> wThi = array.new_float()
+var array<float> wTlo = array.new_float()
+var array<line> wThiL = array.new_line()
+var array<line> wTloL = array.new_line()
+var label wT = na
 var array<float> thi = array.new_float()
 var array<float> tlo = array.new_float()
 var array<line> thiL = array.new_line()
@@ -110,11 +155,112 @@ conf = barstate.isconfirmed
 raid = raidPts * pt
 
 if ta.change(yOpen) != 0
+    if not na(yHL)
+        line.set_x2(yHL, bar_index)
+    if not na(yLL)
+        line.set_x2(yLL, bar_index)
+    if not na(yOL)
+        line.set_x2(yOL, bar_index)
     ySig := 0
+    yL1 := false
+    yO := na
+    yL2 := false
+    yD := false
+    yZ := na
+    yU := false
+    yOL := na
+    if not na(yOrh)
+        yHL := line.new(bar_index, yOrh, bar_index + 1, yOrh, extend=extend.none, color=color.new(color.blue, 60), width=1)
+        yLL := line.new(bar_index, yOrl, bar_index + 1, yOrl, extend=extend.none, color=color.new(color.red, 60), width=1)
+        yB := box.new(bar_index, yOrh, bar_index + 1, yOrl, bgcolor=color.new(color.gray, 95), border_color=color.new(color.gray, 95))
+    if array.size(yThiL) > 0
+        for i = 0 to array.size(yThiL) - 1
+            line.delete(array.get(yThiL, i))
+    if array.size(yTloL) > 0
+        for i = 0 to array.size(yTloL) - 1
+            line.delete(array.get(yTloL, i))
+    array.clear(yThi)
+    array.clear(yTlo)
+    array.clear(yThiL)
+    array.clear(yTloL)
+    if not na(yT)
+        label.delete(yT)
+        yT := na
 if ta.change(mOpen) != 0
+    if not na(mHL)
+        line.set_x2(mHL, bar_index)
+    if not na(mLL)
+        line.set_x2(mLL, bar_index)
+    if not na(mOL)
+        line.set_x2(mOL, bar_index)
     mSig := 0
+    mL1 := false
+    mO := na
+    mL2 := false
+    mD := false
+    mZ := na
+    mU := false
+    mOL := na
+    if not na(mOrh)
+        mHL := line.new(bar_index, mOrh, bar_index + 1, mOrh, extend=extend.none, color=color.new(color.blue, 60), width=1)
+        mLL := line.new(bar_index, mOrl, bar_index + 1, mOrl, extend=extend.none, color=color.new(color.red, 60), width=1)
+        mB := box.new(bar_index, mOrh, bar_index + 1, mOrl, bgcolor=color.new(color.gray, 95), border_color=color.new(color.gray, 95))
+    if array.size(mThiL) > 0
+        for i = 0 to array.size(mThiL) - 1
+            line.delete(array.get(mThiL, i))
+    if array.size(mTloL) > 0
+        for i = 0 to array.size(mTloL) - 1
+            line.delete(array.get(mTloL, i))
+    array.clear(mThi)
+    array.clear(mTlo)
+    array.clear(mThiL)
+    array.clear(mTloL)
+    if not na(mT)
+        label.delete(mT)
+        mT := na
 if ta.change(wOpen) != 0
+    if not na(wHL)
+        line.set_x2(wHL, bar_index)
+    if not na(wLL)
+        line.set_x2(wLL, bar_index)
+    if not na(wOL)
+        line.set_x2(wOL, bar_index)
     wSig := 0
+    wL1 := false
+    wO := na
+    wL2 := false
+    wD := false
+    wZ := na
+    wU := false
+    wOL := na
+    if not na(wOrh)
+        wHL := line.new(bar_index, wOrh, bar_index + 1, wOrh, extend=extend.none, color=color.new(color.blue, 60), width=1)
+        wLL := line.new(bar_index, wOrl, bar_index + 1, wOrl, extend=extend.none, color=color.new(color.red, 60), width=1)
+        wB := box.new(bar_index, wOrh, bar_index + 1, wOrl, bgcolor=color.new(color.gray, 95), border_color=color.new(color.gray, 95))
+    if array.size(wThiL) > 0
+        for i = 0 to array.size(wThiL) - 1
+            line.delete(array.get(wThiL, i))
+    if array.size(wTloL) > 0
+        for i = 0 to array.size(wTloL) - 1
+            line.delete(array.get(wTloL, i))
+    array.clear(wThi)
+    array.clear(wTlo)
+    array.clear(wThiL)
+    array.clear(wTloL)
+    if not na(wT)
+        label.delete(wT)
+        wT := na
+
+if not na(yHL)
+    line.set_x2(yHL, bar_index + 1)
+if not na(yLL)
+    line.set_x2(yLL, bar_index + 1)
+if not na(yOL)
+    line.set_x2(yOL, bar_index + 1)
+if not na(yZ)
+    box.set_right(yZ, bar_index + 1)
+if not na(yB)
+    box.set_right(yB, bar_index + 1)
 
 if conf and ySig == 0 and not na(yOrh)
     if high >= yOrh and not (low <= yOrl)
@@ -123,6 +269,111 @@ if conf and ySig == 0 and not na(yOrh)
     if low <= yOrl and not (high >= yOrh)
         ySig := -1
         label.new(bar_index, high, "Y-", style=label.style_label_down, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
+
+if conf and ySig == 1 and not yL1 and not na(yOrh)
+    if high >= yOrh + raid
+        yL1 := true
+        yO := high
+        yOL := line.new(bar_index, yO, bar_index + 1, yO, extend=extend.none, color=color.new(color.yellow, 60), width=2)
+        yZ := box.new(bar_index, yOrh, bar_index + 1, yO, bgcolor=color.new(color.blue, 88), border_color=color.new(color.blue, 60), text="HORC passive demand [Y]", text_size=size.small)
+        label.new(bar_index, yOrh, "ENTRY [Y]", style=label.style_label_up, color=color.new(color.blue, 0), textcolor=color.white, size=size.small)
+
+if conf and ySig == -1 and not yL1 and not na(yOrh)
+    if low <= yOrl - raid
+        yL1 := true
+        yO := low
+        yOL := line.new(bar_index, yO, bar_index + 1, yO, extend=extend.none, color=color.new(color.yellow, 60), width=2)
+        yZ := box.new(bar_index, yO, bar_index + 1, yOrl, bgcolor=color.new(color.maroon, 88), border_color=color.new(color.maroon, 60), text="HORC passive supply [Y]", text_size=size.small)
+        label.new(bar_index, yOrl, "ENTRY [Y]", style=label.style_label_down, color=color.new(color.maroon, 0), textcolor=color.white, size=size.small)
+
+if conf and array.size(yThi) < 3 and not na(yOrh)
+    if high >= yOrh + raid
+        if array.size(yThi) == 0
+            array.push(yThi, high)
+            array.push(yThiL, line.new(bar_index, high, bar_index + 1, high, extend=extend.none, color=color.new(color.orange, 60), width=1))
+        else if high >= array.get(yThi, array.size(yThi) - 1) + raid
+            array.push(yThi, high)
+            array.push(yThiL, line.new(bar_index, high, bar_index + 1, high, extend=extend.none, color=color.new(color.orange, 60), width=1))
+if conf and array.size(yTlo) < 3 and not na(yOrh)
+    if low <= yOrl - raid
+        if array.size(yTlo) == 0
+            array.push(yTlo, low)
+            array.push(yTloL, line.new(bar_index, low, bar_index + 1, low, extend=extend.none, color=color.new(color.orange, 60), width=1))
+        else if low <= array.get(yTlo, array.size(yTlo) - 1) - raid
+            array.push(yTlo, low)
+            array.push(yTloL, line.new(bar_index, low, bar_index + 1, low, extend=extend.none, color=color.new(color.orange, 60), width=1))
+if array.size(yThiL) > 0
+    for i = 0 to array.size(yThiL) - 1
+        line.set_x2(array.get(yThiL, i), bar_index + 1)
+if array.size(yTloL) > 0
+    for i = 0 to array.size(yTloL) - 1
+        line.set_x2(array.get(yTloL, i), bar_index + 1)
+
+if conf and ySig == 1 and array.size(yThi) > 0
+    yBest = float(na)
+    for i = 0 to array.size(yThi) - 1
+        yv = array.get(yThi, i)
+        if yv > close and (na(yBest) or yv < yBest)
+            yBest := yv
+    if not na(yBest)
+        if na(yT)
+            yT := label.new(bar_index, yBest, "TARGET [Y]", style=label.style_label_down, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+        else
+            label.set_xy(yT, bar_index, yBest)
+    else
+        if not na(yT)
+            label.delete(yT)
+            yT := na
+if conf and ySig == -1 and array.size(yTlo) > 0
+    yBestL = float(na)
+    for i = 0 to array.size(yTlo) - 1
+        yv = array.get(yTlo, i)
+        if yv < close and (na(yBestL) or yv > yBestL)
+            yBestL := yv
+    if not na(yBestL)
+        if na(yT)
+            yT := label.new(bar_index, yBestL, "TARGET [Y]", style=label.style_label_up, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+        else
+            label.set_xy(yT, bar_index, yBestL)
+    else
+        if not na(yT)
+            label.delete(yT)
+            yT := na
+
+if conf and yL1 and not yL2 and not na(yOrh)
+    if ySig == 1 and low <= yOrl
+        yL2 := true
+    if ySig == -1 and high >= yOrh
+        yL2 := true
+
+if conf and yL1 and not na(yZ) and not yU
+    if ySig == 1 and close > yO
+        yU := true
+        box.set_bgcolor(yZ, color.new(color.gray, 80))
+        box.set_text(yZ, "HORC passive demand [Y] | used")
+    if ySig == -1 and close < yO
+        yU := true
+        box.set_bgcolor(yZ, color.new(color.gray, 80))
+        box.set_text(yZ, "HORC passive supply [Y] | used")
+
+if conf and yL2 and not yD and not na(yOrh)
+    if ySig == 1 and high >= yO
+        yD := true
+        label.new(bar_index, low, "ORT [Y]", style=label.style_label_up, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+    if ySig == -1 and low <= yO
+        yD := true
+        label.new(bar_index, high, "ORT [Y]", style=label.style_label_down, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+if not na(mHL)
+    line.set_x2(mHL, bar_index + 1)
+if not na(mLL)
+    line.set_x2(mLL, bar_index + 1)
+if not na(mOL)
+    line.set_x2(mOL, bar_index + 1)
+if not na(mZ)
+    box.set_right(mZ, bar_index + 1)
+if not na(mB)
+    box.set_right(mB, bar_index + 1)
+
 if conf and mSig == 0 and not na(mOrh)
     if high >= mOrh and not (low <= mOrl)
         mSig := 1
@@ -130,6 +381,111 @@ if conf and mSig == 0 and not na(mOrh)
     if low <= mOrl and not (high >= mOrh)
         mSig := -1
         label.new(bar_index, high, "M-", style=label.style_label_down, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
+
+if conf and mSig == 1 and not mL1 and not na(mOrh)
+    if high >= mOrh + raid
+        mL1 := true
+        mO := high
+        mOL := line.new(bar_index, mO, bar_index + 1, mO, extend=extend.none, color=color.new(color.yellow, 60), width=2)
+        mZ := box.new(bar_index, mOrh, bar_index + 1, mO, bgcolor=color.new(color.blue, 88), border_color=color.new(color.blue, 60), text="HORC passive demand [M]", text_size=size.small)
+        label.new(bar_index, mOrh, "ENTRY [M]", style=label.style_label_up, color=color.new(color.blue, 0), textcolor=color.white, size=size.small)
+
+if conf and mSig == -1 and not mL1 and not na(mOrh)
+    if low <= mOrl - raid
+        mL1 := true
+        mO := low
+        mOL := line.new(bar_index, mO, bar_index + 1, mO, extend=extend.none, color=color.new(color.yellow, 60), width=2)
+        mZ := box.new(bar_index, mO, bar_index + 1, mOrl, bgcolor=color.new(color.maroon, 88), border_color=color.new(color.maroon, 60), text="HORC passive supply [M]", text_size=size.small)
+        label.new(bar_index, mOrl, "ENTRY [M]", style=label.style_label_down, color=color.new(color.maroon, 0), textcolor=color.white, size=size.small)
+
+if conf and array.size(mThi) < 3 and not na(mOrh)
+    if high >= mOrh + raid
+        if array.size(mThi) == 0
+            array.push(mThi, high)
+            array.push(mThiL, line.new(bar_index, high, bar_index + 1, high, extend=extend.none, color=color.new(color.orange, 60), width=1))
+        else if high >= array.get(mThi, array.size(mThi) - 1) + raid
+            array.push(mThi, high)
+            array.push(mThiL, line.new(bar_index, high, bar_index + 1, high, extend=extend.none, color=color.new(color.orange, 60), width=1))
+if conf and array.size(mTlo) < 3 and not na(mOrh)
+    if low <= mOrl - raid
+        if array.size(mTlo) == 0
+            array.push(mTlo, low)
+            array.push(mTloL, line.new(bar_index, low, bar_index + 1, low, extend=extend.none, color=color.new(color.orange, 60), width=1))
+        else if low <= array.get(mTlo, array.size(mTlo) - 1) - raid
+            array.push(mTlo, low)
+            array.push(mTloL, line.new(bar_index, low, bar_index + 1, low, extend=extend.none, color=color.new(color.orange, 60), width=1))
+if array.size(mThiL) > 0
+    for i = 0 to array.size(mThiL) - 1
+        line.set_x2(array.get(mThiL, i), bar_index + 1)
+if array.size(mTloL) > 0
+    for i = 0 to array.size(mTloL) - 1
+        line.set_x2(array.get(mTloL, i), bar_index + 1)
+
+if conf and mSig == 1 and array.size(mThi) > 0
+    mBest = float(na)
+    for i = 0 to array.size(mThi) - 1
+        mv = array.get(mThi, i)
+        if mv > close and (na(mBest) or mv < mBest)
+            mBest := mv
+    if not na(mBest)
+        if na(mT)
+            mT := label.new(bar_index, mBest, "TARGET [M]", style=label.style_label_down, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+        else
+            label.set_xy(mT, bar_index, mBest)
+    else
+        if not na(mT)
+            label.delete(mT)
+            mT := na
+if conf and mSig == -1 and array.size(mTlo) > 0
+    mBestL = float(na)
+    for i = 0 to array.size(mTlo) - 1
+        mv = array.get(mTlo, i)
+        if mv < close and (na(mBestL) or mv > mBestL)
+            mBestL := mv
+    if not na(mBestL)
+        if na(mT)
+            mT := label.new(bar_index, mBestL, "TARGET [M]", style=label.style_label_up, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+        else
+            label.set_xy(mT, bar_index, mBestL)
+    else
+        if not na(mT)
+            label.delete(mT)
+            mT := na
+
+if conf and mL1 and not mL2 and not na(mOrh)
+    if mSig == 1 and low <= mOrl
+        mL2 := true
+    if mSig == -1 and high >= mOrh
+        mL2 := true
+
+if conf and mL1 and not na(mZ) and not mU
+    if mSig == 1 and close > mO
+        mU := true
+        box.set_bgcolor(mZ, color.new(color.gray, 80))
+        box.set_text(mZ, "HORC passive demand [M] | used")
+    if mSig == -1 and close < mO
+        mU := true
+        box.set_bgcolor(mZ, color.new(color.gray, 80))
+        box.set_text(mZ, "HORC passive supply [M] | used")
+
+if conf and mL2 and not mD and not na(mOrh)
+    if mSig == 1 and high >= mO
+        mD := true
+        label.new(bar_index, low, "ORT [M]", style=label.style_label_up, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+    if mSig == -1 and low <= mO
+        mD := true
+        label.new(bar_index, high, "ORT [M]", style=label.style_label_down, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+if not na(wHL)
+    line.set_x2(wHL, bar_index + 1)
+if not na(wLL)
+    line.set_x2(wLL, bar_index + 1)
+if not na(wOL)
+    line.set_x2(wOL, bar_index + 1)
+if not na(wZ)
+    box.set_right(wZ, bar_index + 1)
+if not na(wB)
+    box.set_right(wB, bar_index + 1)
+
 if conf and wSig == 0 and not na(wOrh)
     if high >= wOrh and not (low <= wOrl)
         wSig := 1
@@ -137,6 +493,100 @@ if conf and wSig == 0 and not na(wOrh)
     if low <= wOrl and not (high >= wOrh)
         wSig := -1
         label.new(bar_index, high, "W-", style=label.style_label_down, color=color.new(color.red, 20), textcolor=color.white, size=size.tiny)
+
+if conf and wSig == 1 and not wL1 and not na(wOrh)
+    if high >= wOrh + raid
+        wL1 := true
+        wO := high
+        wOL := line.new(bar_index, wO, bar_index + 1, wO, extend=extend.none, color=color.new(color.yellow, 60), width=2)
+        wZ := box.new(bar_index, wOrh, bar_index + 1, wO, bgcolor=color.new(color.blue, 88), border_color=color.new(color.blue, 60), text="HORC passive demand [W]", text_size=size.small)
+        label.new(bar_index, wOrh, "ENTRY [W]", style=label.style_label_up, color=color.new(color.blue, 0), textcolor=color.white, size=size.small)
+
+if conf and wSig == -1 and not wL1 and not na(wOrh)
+    if low <= wOrl - raid
+        wL1 := true
+        wO := low
+        wOL := line.new(bar_index, wO, bar_index + 1, wO, extend=extend.none, color=color.new(color.yellow, 60), width=2)
+        wZ := box.new(bar_index, wO, bar_index + 1, wOrl, bgcolor=color.new(color.maroon, 88), border_color=color.new(color.maroon, 60), text="HORC passive supply [W]", text_size=size.small)
+        label.new(bar_index, wOrl, "ENTRY [W]", style=label.style_label_down, color=color.new(color.maroon, 0), textcolor=color.white, size=size.small)
+
+if conf and array.size(wThi) < 3 and not na(wOrh)
+    if high >= wOrh + raid
+        if array.size(wThi) == 0
+            array.push(wThi, high)
+            array.push(wThiL, line.new(bar_index, high, bar_index + 1, high, extend=extend.none, color=color.new(color.orange, 60), width=1))
+        else if high >= array.get(wThi, array.size(wThi) - 1) + raid
+            array.push(wThi, high)
+            array.push(wThiL, line.new(bar_index, high, bar_index + 1, high, extend=extend.none, color=color.new(color.orange, 60), width=1))
+if conf and array.size(wTlo) < 3 and not na(wOrh)
+    if low <= wOrl - raid
+        if array.size(wTlo) == 0
+            array.push(wTlo, low)
+            array.push(wTloL, line.new(bar_index, low, bar_index + 1, low, extend=extend.none, color=color.new(color.orange, 60), width=1))
+        else if low <= array.get(wTlo, array.size(wTlo) - 1) - raid
+            array.push(wTlo, low)
+            array.push(wTloL, line.new(bar_index, low, bar_index + 1, low, extend=extend.none, color=color.new(color.orange, 60), width=1))
+if array.size(wThiL) > 0
+    for i = 0 to array.size(wThiL) - 1
+        line.set_x2(array.get(wThiL, i), bar_index + 1)
+if array.size(wTloL) > 0
+    for i = 0 to array.size(wTloL) - 1
+        line.set_x2(array.get(wTloL, i), bar_index + 1)
+
+if conf and wSig == 1 and array.size(wThi) > 0
+    wBest = float(na)
+    for i = 0 to array.size(wThi) - 1
+        wv = array.get(wThi, i)
+        if wv > close and (na(wBest) or wv < wBest)
+            wBest := wv
+    if not na(wBest)
+        if na(wT)
+            wT := label.new(bar_index, wBest, "TARGET [W]", style=label.style_label_down, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+        else
+            label.set_xy(wT, bar_index, wBest)
+    else
+        if not na(wT)
+            label.delete(wT)
+            wT := na
+if conf and wSig == -1 and array.size(wTlo) > 0
+    wBestL = float(na)
+    for i = 0 to array.size(wTlo) - 1
+        wv = array.get(wTlo, i)
+        if wv < close and (na(wBestL) or wv > wBestL)
+            wBestL := wv
+    if not na(wBestL)
+        if na(wT)
+            wT := label.new(bar_index, wBestL, "TARGET [W]", style=label.style_label_up, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+        else
+            label.set_xy(wT, bar_index, wBestL)
+    else
+        if not na(wT)
+            label.delete(wT)
+            wT := na
+
+if conf and wL1 and not wL2 and not na(wOrh)
+    if wSig == 1 and low <= wOrl
+        wL2 := true
+    if wSig == -1 and high >= wOrh
+        wL2 := true
+
+if conf and wL1 and not na(wZ) and not wU
+    if wSig == 1 and close > wO
+        wU := true
+        box.set_bgcolor(wZ, color.new(color.gray, 80))
+        box.set_text(wZ, "HORC passive demand [W] | used")
+    if wSig == -1 and close < wO
+        wU := true
+        box.set_bgcolor(wZ, color.new(color.gray, 80))
+        box.set_text(wZ, "HORC passive supply [W] | used")
+
+if conf and wL2 and not wD and not na(wOrh)
+    if wSig == 1 and high >= wO
+        wD := true
+        label.new(bar_index, low, "ORT [W]", style=label.style_label_up, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+    if wSig == -1 and low <= wO
+        wD := true
+        label.new(bar_index, high, "ORT [W]", style=label.style_label_down, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
 
 if conf and sig == 0
     up = high >= orh
@@ -159,8 +609,8 @@ if conf and sig == 1 and not leg1
         if showORT
             ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.none, color=color.new(color.yellow, 0), width=2)
         if showZones
-            zbox := box.new(bar_index, orh, bar_index + 1, ort, bgcolor=color.new(color.blue, 80), border_color=color.new(color.blue, 0), text="HORC passive demand", text_size=size.small)
-            label.new(bar_index, orh, "ENTRY", style=label.style_label_up, color=color.new(color.blue, 0), textcolor=color.white, size=size.small)
+            zbox := box.new(bar_index, orh, bar_index + 1, ort, bgcolor=color.new(color.blue, 80), border_color=color.new(color.blue, 0), text="HORC passive demand [D]", text_size=size.small)
+            label.new(bar_index, orh, "ENTRY [D]", style=label.style_label_up, color=color.new(color.blue, 0), textcolor=color.white, size=size.small)
             array.push(zhist, zbox)
             if array.size(zhist) > maxZones
                 box.delete(array.shift(zhist))
@@ -172,8 +622,8 @@ if conf and sig == -1 and not leg1
         if showORT
             ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.none, color=color.new(color.yellow, 0), width=2)
         if showZones
-            zbox := box.new(bar_index, ort, bar_index + 1, orl, bgcolor=color.new(color.maroon, 80), border_color=color.new(color.maroon, 0), text="HORC passive supply", text_size=size.small)
-            label.new(bar_index, orl, "ENTRY", style=label.style_label_down, color=color.new(color.maroon, 0), textcolor=color.white, size=size.small)
+            zbox := box.new(bar_index, ort, bar_index + 1, orl, bgcolor=color.new(color.maroon, 80), border_color=color.new(color.maroon, 0), text="HORC passive supply [D]", text_size=size.small)
+            label.new(bar_index, orl, "ENTRY [D]", style=label.style_label_down, color=color.new(color.maroon, 0), textcolor=color.white, size=size.small)
             array.push(zhist, zbox)
             if array.size(zhist) > maxZones
                 box.delete(array.shift(zhist))
@@ -209,7 +659,7 @@ if conf and sig == 1 and array.size(thi) > 0
             bestHi := v
     if not na(bestHi)
         if na(tgtL)
-            tgtL := label.new(bar_index, bestHi, "TARGET", style=label.style_label_down, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+            tgtL := label.new(bar_index, bestHi, "TARGET [D]", style=label.style_label_down, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
         else
             label.set_xy(tgtL, bar_index, bestHi)
     else
@@ -224,7 +674,7 @@ if conf and sig == -1 and array.size(tlo) > 0
             bestLo := v
     if not na(bestLo)
         if na(tgtL)
-            tgtL := label.new(bar_index, bestLo, "TARGET", style=label.style_label_up, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
+            tgtL := label.new(bar_index, bestLo, "TARGET [D]", style=label.style_label_up, color=color.new(color.orange, 0), textcolor=color.black, size=size.small)
         else
             label.set_xy(tgtL, bar_index, bestLo)
     else
@@ -243,22 +693,22 @@ if conf and leg1 and not na(zbox) and not zused
         zused := true
         fUsed := true
         box.set_bgcolor(zbox, color.new(color.gray, 80))
-        box.set_text(zbox, "HORC passive demand | used")
+        box.set_text(zbox, "HORC passive demand [D] | used")
     if sig == -1 and close < ort
         zused := true
         fUsed := true
         box.set_bgcolor(zbox, color.new(color.gray, 80))
-        box.set_text(zbox, "HORC passive supply | used")
+        box.set_text(zbox, "HORC passive supply [D] | used")
 
 if conf and leg2 and not done
     if sig == 1 and high >= ort
         done := true
         fDone := true
-        label.new(bar_index, low, "ORT", style=label.style_label_up, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+        label.new(bar_index, low, "ORT [D]", style=label.style_label_up, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
     if sig == -1 and low <= ort
         done := true
         fDone := true
-        label.new(bar_index, high, "ORT", style=label.style_label_down, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+        label.new(bar_index, high, "ORT [D]", style=label.style_label_down, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
 
 alertcondition(fSig, title="HORC signal", message="HORC signal on {{ticker}} {{interval}}")
 alertcondition(fDone, title="HORC cycle complete", message="HORC cycle complete at ORT on {{ticker}} {{interval}}")
