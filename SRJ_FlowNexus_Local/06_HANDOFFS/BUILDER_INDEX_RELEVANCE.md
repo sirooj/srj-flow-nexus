@@ -112,5 +112,6 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
   - 2026-10-01: V363 FILED+GRADE (ledger 1048: Luna+Sonnet+GLM whole 1x V363-UJEXEMPT-6 markers, Q1 2-1 CONFIRM, Q2 1-2 OBJECT; result BUILDER_RESULT_V363-GRADE.md; fold v21 opens acceptance/prose-only; BUILD-BLOCKED).
   - 2026-10-01: V364 RELAY-READY (ledger 1050: packet FIX-2v21 5DBAB7BC/184, relay 94F93870/382, double battery green, memo shipped; verdicts owed).
   - 2026-10-01: V364 FILED+GRADE (ledger 1051: Luna+Sonnet+GLM whole 1x V364-UJEXEMPT-7 markers, Q1 2-1 CONFIRM, Q2 1-2 OBJECT; result BUILDER_RESULT_V364-GRADE.md; fold v22 opens acceptance/prose-only; BUILD-BLOCKED).
+  - 2026-10-01: V365 RELAY-READY (ledger 1053: packet FIX-2v22 D7BA7D12/184, relay 5790839C/382, double battery green, memo shipped; verdicts owed).
 
 (End of file)

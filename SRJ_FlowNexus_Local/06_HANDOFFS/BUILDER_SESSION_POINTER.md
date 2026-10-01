@@ -3,10 +3,10 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-10-01, V364 filed+graded, v22 fold carrying)
+## State (2026-10-01, v365 relay-ready memo-shipped, V365 verdicts owed)
 
-- Disk truth: EA 977B0FB5 (v29 tree), packet FIX-2v21 5DBAB7BC, relay v364 94F93870.
-- V364 relay green + memo shipped (packet 5DBAB7BC, relay 94F93870, Q1+Q2 to all seats); D15 stop owned (ledger 1049). No key in hand; EU excluded.
+- Disk truth: EA 977B0FB5 (v29 tree), packet FIX-2v22 D7BA7D12, relay v365 5790839C.
+- V365 relay green + memo shipped (packet D7BA7D12, relay 5790839C, Q1+Q2 to all seats); D15 repeat owned (ledger 1052). No key in hand; EU excluded.
   No build/run without your new word.
 - Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
   Python 3.13.15 installed per-user + rule amended (ledger 979). Full-path python.
@@ -17,7 +17,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- Nothing owed from you. v22 fold + battery + memo runs unattended next.
+- YOUR V365 verdict paste-backs (paste each seat whole, then rest).
 
 ## Resume order (exact)
 
