@@ -71,10 +71,12 @@ if newPeriod
     orhL  := line.new(bar_index, orh, bar_index + 1, orh, extend=extend.none, color=color.new(color.blue, 0), width=1)
     orlL  := line.new(bar_index, orl, bar_index + 1, orl, extend=extend.none, color=color.new(color.red, 0), width=1)
     dayBand := box.new(bar_index, orh, bar_index + 1, orl, bgcolor=color.new(color.gray, 93), border_color=color.new(color.gray, 93))
-    for i = 0 to array.size(thiL) - 1
-        line.delete(array.get(thiL, i))
-    for i = 0 to array.size(tloL) - 1
-        line.delete(array.get(tloL, i))
+    if array.size(thiL) > 0
+        for i = 0 to array.size(thiL) - 1
+            line.delete(array.get(thiL, i))
+    if array.size(tloL) > 0
+        for i = 0 to array.size(tloL) - 1
+            line.delete(array.get(tloL, i))
     array.clear(thi)
     array.clear(tlo)
     array.clear(thiL)
