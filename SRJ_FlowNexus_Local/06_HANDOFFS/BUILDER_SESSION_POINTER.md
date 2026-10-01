@@ -3,7 +3,7 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-10-01, v364 relay-ready memo-shipped, V364 verdicts owed)
+## State (2026-10-01, V364 filed+graded, v22 fold carrying)
 
 - Disk truth: EA 977B0FB5 (v29 tree), packet FIX-2v21 5DBAB7BC, relay v364 94F93870.
 - V364 relay green + memo shipped (packet 5DBAB7BC, relay 94F93870, Q1+Q2 to all seats); D15 stop owned (ledger 1049). No key in hand; EU excluded.
@@ -17,7 +17,7 @@ Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required re
 
 ## Next
 
-- YOUR V364 verdict paste-backs (paste each seat whole, then rest).
+- Nothing owed from you. v22 fold + battery + memo runs unattended next.
 
 ## Resume order (exact)
 

@@ -4919,3 +4919,50 @@ The edit set implements his Rebuild order for the direction-matched path. I chec
 3. **Tester-derived arms (P128-P162).** Treat the ledger as a forecast. Grade each bar against the last UJRESEED row in the tester's own log (else inherited). This removes the baseline-arm counterfactual in D1 at no code cost.
 4. **Day-bound conjunct.** Parked rightly, but it is the only mechanism that makes the 8-June keep structural. It touches the EXEMPT-TERM (EA-8413 equivalent) plus a one-datetime compare, and needs his word and its own round.
 ## V363-UJEXEMPT-6 END SONNET
+## V364-UJEXEMPT-7 OPEN SONNET
+# Seat verdict, packet P-RECON74FIX-2v21 (page-only, no disk claims, no files requested)
+
+## Q1: CONFIRM
+
+The edit set implements his Rebuild order for the direction-matched path, with g_dir form kept 2-1. I re-derived these from the page:
+
+- **Post-build line map:** DECL 304, CARRY-SET 7900, DIR-SET 7901, PROV 8414, TERM 8415, admit 10728, CARRY-CLEAR 10729, DIR-CLEAR 10730. The map follows from the pre-build anchors, and 12295 + 3 = 12298.
+- **Syntax:** P080 and P087 are paren-balanced, and the P087 term text is identical to P080. The PRINT-DIR format has 6 args for 6 specifiers.
+- **Ledger counts:** 22 flips, 9 first-flip, 13 continuation and 12 keeps re-derive from P129-P162.
+- **Row pairing:** R03/R05, R13/R25, R14/R26, R15/R27 and R16/R28 pair on pass time and bar.
+
+Imprecisions, none of which changes the code:
+
+- **Q1-a, 8 June overclaim.** The relay takes sheet says the exemption "cannot fire" and the five kills "persist in every branch". P044 correctly says "data-contingent". CARRY clears only at admission (EA-10727 pre-build), with no death-path or session clear. The 8 June zero values (R12-R16, reseedBar=1970) exist only because an admission followed the 6/5 09:15 SHORT reseed. In any branch with no later admission, such as a DIVERGED branch that displaces the 16:55 take, the 6/8 SHORT kills carry reseedDir=-1 and exempt=1, and the pinned invalid take promotes. P-KEEP and P-NOFALSE would catch it on the run, but the takes sheet should say "in every branch where an admission follows the last reseed".
+- **Q1-b, change-sentence wording.** "A direction-matched reseed" really means direction-matched provenance, possibly from a prior holder or prior day. The exhibits are 6/5 09:05 on the 6/4 10:20 value (R02), 6/10 09:15 (P150) and 6/12 16:55 (P159). P096 discloses this, but the sentence he carries should say it too.
+- **Q1-c, frame mixing.** The P089 scope sentence gives reseedDir sites post-build but g_dir EA-1062, H1 EA-7885 and S1C EA-7909 pre-build. Post-build these are 1063, 7886 and 7911. Tag them. P171 cites "P057" for R03/R05 support, but P057 is a code line and the prose is P059.
+
+## Q2: OBJECT
+
+- **D1, P112 precedence.** The cause-test runs first, with trigger "a positive row-evidenced cause is present (post-admission ADVANCE rows...)".
+  - Every FIRED venue has advance rows and missing continuation S2 edges by construction (P119). On the plain reading, the 6/5 B1 venue is DIVERGED before FIRED is ever tested, so P-PARITY-FIRED and H-TAKE cannot attach.
+  - P113 says DIVERGED is "resolved at T" but gives no T rule, and does not say whether "no M assertion" counts as PASS in the gate.
+  - **Cure:** make DIVERGED a per-cell class, meaning a missing expected edge with a same-chain cause, as the chain-key sentence already implies. Make WITHDRAWN and FIRED per-venue take-state on axis T. State the M aggregation: DIVERGED cells are neutral, and M still needs every first-flip cell PASS (P118), which bounds vacuity.
+- **D2, P115 row ambiguity.** "Bar 09:40 + reseedDir SHORT + exempt=1" are UJPROV fields.
+  - UJPROV prints only at the S2 edge, inside `!aligned` (EA-8412, R-S2EDGE), and CONFIRMPOLL rows do not carry them (R10 format). If the 09:35 promote advances the chain, no 09:40 UJPROV exists, and a correct run would fail the assertion. P118 also calls 09:40 a "confirm-bar edge" without saying whether an S2 edge exists there.
+  - **Cure:** split the assertion into three predicates. reseedDir and exempt are asserted on the last chain UJPROV at or before promotion. shadow=false is asserted on CONFIRMPOLL 09:40. PREBIND is asserted at the 09:45 pass.
+- **D3, P126 R23 survival test is vacuous.** R23 shows dir=SHORT at 14:45 with reseedBar=10:35, and R24 shows dir=SHORT at the 14:40 pass. The 10:35 reseedBar persists because CARRY is not cleared on death. It shows provenance persistence, not LONG-chain life, and it would pass on baseline whatever happened. R24 also contradicts a LONG 14:40 admission on the current rows.
+  - **Cure:** the survival test should require a dir=LONG life row (UJPROV, CONFIRMPOLL or PREBIND) between 10:35 and 14:40. If none exists, H-B3TAKE is withdrawn. The WF/FF cells at P154-P156 depend on that admission.
+- **D4, 22-bar census vs 6/11 10:35.** P117/P118 define the 22 as v29-kill-derived, and P153 lists 10:35 as a flip. P128 admits there is no baseline KILL row at 10:35.
+  - Without a baseline kill, the unchanged m15 term gives S2WAIT or no edge, and the fix does not promote either. This is a membership problem, not a count problem. Mark 10:35 forecast-unknown, or the census is 21 kill-derived plus 1 forecast.
+- **D5, 8 June routes to HOLD.** P124 reads "unexpected take routes to HOLD", but an 8 June take is his pinned invalid (the chart-read rule, 8 June invalid on the 5m flip). It should be FAIL on both axes, not HOLD.
+- **D6, HOLD exit.** P113 gives HOLD-permanence for UNRESOLVED but no transition for an unexpected-take HOLD.
+  - State that his chart read converts it: valid becomes PASS with an added H row, invalid becomes FAIL.
+  - PASS-B1-unproven clears the gate with the owed 09:45 take undelivered. The verdict text should say so, so the clearing is not read as delivery.
+
+## Ask B: better mechanism
+
+A same-day conjunct on EA-8413 (pre-build), such as `g_ujOpReseedBarTime >= D1 open of barShift`:
+
+- **Effect on stale chains:** 6/5 09:05 (P132), 6/10 09:15 (P150) and 6/12 16:55-17:05 (P159-P161) become mismatch-keeps.
+- **Effect on 8 June and B1:** the 8-June guard becomes structural rather than admission-contingent. The B1 09:15 reseed chain is unaffected.
+- **Costs:** +1 conjunct, a ledger rework, and a possible loss of legitimately held overnight holders.
+- **Status:** P173 parks it as his call and needs his word. Q1 CONFIRM stands without it.
+
+The fuller alternative is a CARRY/DIR clear on the death path near EA-8419. That is the bigger fence parked at P104.
+## V364-UJEXEMPT-7 END SONNET

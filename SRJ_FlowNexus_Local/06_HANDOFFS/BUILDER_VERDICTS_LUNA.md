@@ -15168,3 +15168,128 @@ The packet already has most of the pieces needed: per-chain tables, an arming le
 
 Those are the defects I would require resolved before changing either verdict to CONFIRM.
 ## V363-UJEXEMPT-6 END LUNA
+## V364-UJEXEMPT-7 OPEN LUNA
+## Q1 — OBJECT
+
+The reseed-direction-matched exemption is close to the stated edit, but the page does **not** prove a strictly direction-matched, fail-closed implementation.
+
+### Q1-A — defects / gaps
+
+**1. `DIR_NONE` is collapsed into SHORT, so the comparator is not actually fail-closed.**
+P080 uses:
+
+`g_ujOpReseedDir == (g_dir == DIR_LONG ? 1 : -1)`
+
+and P089 explicitly says `DIR_NONE` maps to `-1` by the EA-8411 idiom. That means:
+
+* `g_dir == DIR_LONG` → `+1`
+* `g_dir == DIR_SHORT` → `-1`
+* `g_dir == DIR_NONE` → **also `-1`**
+
+Therefore a stored SHORT reseed (`g_ujOpReseedDir=-1`) can satisfy the exemption while the current `g_dir` is `DIR_NONE`, provided the m15 flow read is bearish. That is a real counterexample to the P059/P089 claim that a post-SET disagreement “fails closed” and to P075/P080's “direction-matched” wording. The relevant code is the P080 expression, with the source-side mapping exposed at EA-8411 and the `g_dir` source at EA-1062.
+
+**2. The provenance is direction-scoped, not seed/holder-scoped.**
+P096 openly calls this “identity-blindness,” and P104 parks identity-scoped provenance. The actual predicate in P080 checks only:
+
+`g_ujOpReseedBarTime != 0` + matching direction.
+
+It does **not** establish that the stored reseed belongs to the current holder/POI/seed. P067-P074 only clear it at admission. Thus a later candidate can inherit an earlier matching-direction reseed while the original holder has changed, unless some other unseen lifecycle writer clears it. The page does not prove such a clear. That is a causal gap, even though it is explicitly disclosed as parked.
+
+**3. `seedBiasAl == -1` remains an exemption path.**
+P027 and P075/P080 preserve the pre-existing `!= 0` rule. EA-7881 sets `seedBiasAl` to `-1` when the reseed-side alignment read fails. Consequently `-1 != 0` still permits promotion when the m15 gate matches. This is documented, not newly introduced, but it means the literal Q1 change sentence “every seed … promotes” includes a read-failure sentinel. Calling that a clean provenance proof is imprecise.
+
+**4. The Q1 sentence is stronger than the actual predicate.**
+P075/P080 correctly make promotion contingent on the m15 flow-bias match, while P080 otherwise describes the exemption as seedBias/reseed provenance. So the accurate rule is not simply “direction-matched reseed promotes”; it is “direction-matched reseed **and current m15 flow match** exempts the S2 kill.” P075 says this later, but the headline Q1 change sentence should encode that condition rather than state the broader rule.
+
+### Q1-B — better mechanism
+
+The immediate correction is to make direction equality explicit rather than using the ternary fallback:
+
+`(g_dir == DIR_LONG && g_ujOpReseedDir == 1) || (g_dir == DIR_SHORT && g_ujOpReseedDir == -1)`
+
+at the P080 / post-build EA-8415-equivalent term.
+
+That makes `DIR_NONE` fail closed instead of aliasing SHORT.
+
+For stronger causal provenance, the next round should bind the stamp to the actual holder/candidate identity and clear it on every holder-death/replacement path, not only admission. The relevant known lifecycle insertion/clear points are the P059/P067 sites (post-build EA-7901 and EA-10730), while the additional death/reset writer sites are not present on this page and therefore cannot honestly be assigned invented EA numbers.
+
+---
+
+## Q2 — OBJECT
+
+The causal battery is substantially better than v363, but the page still has several binding ambiguities that prevent me from treating it as fully branch-complete and causally closed.
+
+### Q2-A — defects / gaps
+
+**1. P115 widens the B1 causal identity too far.**
+P115 allows the expected 09:40 assertion to accept either:
+
+* `2026.06.04 10:20`, or
+* `2026.06.05 09:15`
+
+as `reseedBar`.
+
+But P127 itself labels the 6/5 09:05 state as **stale inheritance** from the 6/4 arm, while the stated B1 restoration path is specifically the 6/5 09:15 reseed. Accepting the earlier 6/4 arm permits a stale provenance chain to satisfy the B1 proof without proving that the 09:15 reseed actually carried through to 09:40.
+
+That is a direct weakness in the “causal acceptance” claim, even though the actual historical rows R03/R05 show the correct 09:15 reseed.
+
+**2. `S2WAIT` is missing from the defined chain-life row set.**
+P112 defines chain life as:
+
+`UJRESEED/UJPROV/S2PROMOTE/CONFIRMPOLL/PREBIND/ADMIT`
+
+but EA-8420-8421 explicitly says an unaligned bar goes to **S2WAIT retention**, not death.
+
+That creates an evidentiary hole: a candidate can remain alive through S2WAIT while the formal chain-life definition does not recognize the retention row as life evidence. P119 then uses chain life to distinguish a real continuation miss from silent death. The page therefore lacks a complete accounting identity for a retained candidate.
+
+This is especially relevant because P075/P094 explicitly rely on S2WAIT being a real non-death state.
+
+**3. H-branch selection and unexpected-take HOLD are not ordered unambiguously.**
+P114 says branch selection is determined solely by H-TAKE/H-B3TAKE status and selects exactly one of WW/FW/WF/FF.
+
+P124 separately says any unexpected take outside the allowed set routes to **HOLD**.
+
+The page does not specify which classification happens first when there is an unexpected admission that matches neither hypothesis. Such a case can leave both hypotheses “withdrawn,” suggesting WW under P114, while P124 says HOLD.
+
+The intended outcome is inferable, but the binding precedence should be explicit rather than inferred.
+
+**4. DIVERGED is not fully connected to the two-axis gate.**
+P112 says a positive-cause DIVERGED finding gets “no M assertion, resolved at T,” while P113 says the run gate requires `M=PASS` and `T∈{PASS,PASS-B1-unproven}`.
+
+That strongly implies DIVERGED cannot clear, but the page never states the exact terminal mapping:
+
+`DIVERGED => non-clearing regardless of T`
+
+Instead it relies on “no M assertion” plus the gate definition. For a binding acceptance battery, that should be an explicit class-to-gate rule.
+
+**5. “UNRESOLVED” is used both for genuinely missing evidence and for forecast rows that may legitimately not exist.**
+P116 says fired-branch cells whose rows may not exist route to `UNRESOLVED + HOLD-terminal`.
+
+P112 simultaneously says a missing expected S2 edge with no positive cause is a binding **FAIL**.
+
+The missing distinction is: when a branch-conditioned expectation is **not applicable**, versus when it is **applicable but absent**. Without that explicit applicability predicate, the battery can turn an actual missing-row failure into HOLD merely because the branch table predicted that the row “may not exist.”
+
+**6. The page/disk split is correctly disclosed, but several central causal joins remain forecast-only.**
+P128 says many arming rows are `disk-asserted` and unrulable from chat. That is acceptable for a future run, but it means the present page cannot itself establish the branch-complete causal chain for those rows. The correct statement is therefore “the battery is specified for future run adjudication,” not that the causal proof is already demonstrated.
+
+### Q2-B — better mechanism
+
+The strongest improvement is to make the acceptance machine explicitly state this precedence:
+
+`unexpected take -> HOLD` **before** H-column selection;
+`DIVERGED -> non-clearing terminal finding`;
+`UNRESOLVED -> HOLD-terminal`;
+only then evaluate `WITHDRAWN_TERM/FIRED` and branch parity.
+
+For the actual EA, the retention gap should be closed by making the S2WAIT path carry the same chain identity/provenance that P112 currently assigns only to UJRESEED/UJPROV/etc. The concrete code area is EA-8418 through EA-8421, especially the EA-8420-8421 S2WAIT return path.
+
+For B1 specifically, the acceptance should require the **6/5 09:15 SHORT reseed** for the 09:40 causal assertion, unless the tester supplies an explicit chain-continuation row proving why an earlier 6/4 arm legally remains the same chain.
+
+### Final council result
+
+**Q1: OBJECT** — concrete `DIR_NONE -> -1` aliasing plus non-identity-scoped provenance leave the “direction-matched/fail-closed” claim technically overstated.
+
+**Q2: OBJECT** — the causal battery is materially stronger, but B1 provenance is widened, S2WAIT is absent from chain-life identity, and the HOLD/DIVERGED/branch-selection precedence is not fully formalized.
+
+No build, tester run, or activation clearance follows from these rulings.
+## V364-UJEXEMPT-7 END LUNA

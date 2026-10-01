@@ -8648,3 +8648,63 @@ Ask-B:
 
 Fence: nothing here builds, runs, commits, or spends; no run is proposed; no live activation is cleared or addressed. The conditioned pins fold as text before any future keyed run, which itself needs his separate word.
 ## V363-UJEXEMPT-6 END GLM
+## V364-UJEXEMPT-7 OPEN GLM
+**GLM seat — v364-UJEXEMPT-7, packet P-RECON74FIX-2v21 (5DBAB7BC/29879/184).** Ruling on the page only; disk genuineness (digests, counts, 0-diff battery) is proven on disk and not answerable from chat. Nothing here builds, runs, commits, or moves money; no live activation is cleared or implied — the run gate still needs the gated run plus his word. No off-page fence shapes were demanded (priors: none adopted), so none are ruled.
+
+Mechanical page-internal claims I re-verified before ruling: span sums 18+23+7+16+5+7+24 = 100 with the R-SET2/R-H1HEAD overlap EA-7894-7899 (6 lines → 94 distinct); ledger 34 rows = 22 flips + 12 keeps; 9 first-flip bars match the P118 break rule; 13 page-exhibited + 21 disk-asserted; all 28 rows conform to the N/N+1 floor convention (incl. R16/R28 at 18:05:03, R24 at 14:40:22); post-build arithmetic 12295+3 = 12298 with EA-304/7900/7901/8414/8415/10728/10729/10730 all consistent with the three insert positions; P001-P184 unbroken.
+
+## Q1 — standing proof
+
+**Verdict: CONFIRM.**
+
+Basis (page-only):
+
+1. The edit set implements the change-sentence one-to-one at the exhibited edge. New TERM (P080) against R-S2EDGE: m15-read-fail or bias mismatch falls through EA-8418 to EA-8420-8421 S2WAIT (retention + return, not death); m15 match plus (seedBiasAl != 0 or direction-matched reseed) enters EA-8414-8417; m15 match with seedBiasAl == 0 and no match keeps EA-8418-8419 kill + GoAbort. The sentence's three outcomes are the code's three branches.
+2. H1-order proof holds on the exhibit: the SET insert (after EA-7899) executes after the g_dir overwrite at EA-7885 in the same branch (R-H1HEAD), so g_ujOpReseedDir records the post-overwrite value; R03/R05 evidence the same-pass agreement (reseed dir=SHORT, edge UJPROV dir=SHORT, one 09:20:00 pass; R01/R02 the cross-pass 09:05 event). The S1C block EA-7902-7909 (R-SET2) can rewrite g_dir post-SET; on disagreement the comparator fails closed to kill — disclosed at P059 — and the generalization is sound because reseedDir's only writers are the three fenced sites (P089-P090: EA-304/7901/10730, exactly 3x).
+3. Write-adjacency: DECL (P053-P057), SET (P061-P065), CLEAR (P069-P073) are the only writes of both symbols, so dir == 0 iff barTime == 0 and the CARRY-nonzero conjunct is redundant-but-harmless as stated (P075). The admission-side CLEAR (after EA-10727, R-CLEAR2) mirrors the reset; post-admission edges lose provenance and kill — exactly the ledger's Ku cells (P136 FW/FF; P154 WF/FF).
+4. Row agreement: 8-June kills persist (R11/R25-R28 with reseedBar=1970.01.01 → conjunct false → kill; P030/P044 negative controls); direction-keeps persist both ways (R17/R18 SHORT value vs LONG edge; R22/R23 LONG provenance vs SHORT edge — comparator mismatch); the 6/4 flip and the 6/5 stale-inheritance promote are the disclosed identity-blindness class (P096, P127). The B1 restoration is row-evidenced end-to-end (R01-R10) with the v26 reference labeled foreign-build (P043) and P115 pinning the 09:40 assertion with the widened reseedBar set. R13/R26 exoneration is page-consistent (distinct bars 17:30/17:35, both N/N+1-normal).
+5. The print (P087) duplicates the TERM expression in its exempt ternary — I verified P080 vs P087 character-identical — so exempt=1 ⟺ the promote branch, and the m15 conjunct makes S2WAIT bars print exempt=0 (P082). Arg counts and parenthesization in P087 check (6 specs, 6 args); the DIR_NONE→-1 idiom matches the pre-existing EA-8411 idiom (P075); the -1 sentinel's fail-open promote is pre-existing v29 semantics, disclosed (P027).
+6. g_dir form kept 2-1 per the standing tally with exhibited reasons (P011, P059, P174). The edit set correctly implements his Rebuild order for the reseed-direction-matched path: v26-referenced restoration, 8-June kill kept, everything else fenced or disclosed.
+
+### Q1-A — defects, gaps, imprecisions (none verdict-blocking)
+
+1. **P089 mis-cite**: "textually identical between P078-equivalent and P085-equivalent" — P078 and P085 are fence-closer lines in this packet; the term-bearing lines are P080 and P087. The identity itself holds (verified), but the cite points at wrong lines; looks like v20 numbering carried unrefreshed through the fold.
+2. **P015 dangling cite**: "rides P009's cited v26 answer" — P009 is blank in this packet; the v26 material sits at P037/P043. Same stale-numbering class.
+3. **P171 mis-cite**: "P057 R03/R05 support" — P057 is the DIR-DECL insert line; the support is at P059 (P172 cites P043/P059 correctly for the same content).
+4. **seedBiasAl census frame**: the 8-occurrence census (P022/P026) is pre-build; post-build the PRINT-DIR line reads s1g_seedBiasAl twice (format arg + exempt ternary), so post-build is 9 reads on 8 sites. P090's "sites unchanged" is site-true; the read-count restatement is missing.
+5. **g_dir writer census not exhibited**: P089 names EA-7885 and EA-7909 only. The fail-closed comparator covers any unlisted writer, but the page demanded (and got, P026) full closure for seedBiasAl; the same closure for g_dir writers is owed at the build round's S3.
+6. **P110 stale label**: "FIX-2v20 validation" — the packet is v21 (zero code delta makes it technically true; the label should say v21 or "the v20-identical edit set").
+7. (Cosmetic) Row-exhibit ordering is heterogeneous: R01-R24 pair KILL-before-PROV per pass while the appended R25-R28 land PROV-before-KILL (R13-before-R25 vs R01-before-R02). P172's "R-numbers not log order" covers it and the M-axis grades PROV-before-KILL, but the heterogeneity itself is unnamed.
+
+### Q1-B — better mechanism
+
+Within this round's +3 fence: none — the int + post-overwrite-g_dir form is the minimum satisfying the order, and every residual class is printed and diagnosable. The right better mechanism is the parked identity-scoped stamp (P104): uj_memo_dir already exists at EA-305; it would add a stamp write beside the SET (after EA-7899), a write or explicit fail-closed in S1C (EA-7902-7909), a clear beside EA-10727, swap the comparator operand at EA-8413, plus the owed death-path clear census (holder-expiry/abort sites, not on this page). That closes both disclosed residuals: S1C-disagreement fail-closed kills, and stale-agreement promotes (the second 6/11 LONG chain riding the 10:35 provenance at 16:05, P155). Correctly parked — one behavior per round.
+
+## Q2 — causal acceptance
+
+**Verdict: CONFIRM.**
+
+Basis:
+
+1. Causal binding is real: PATH_CLASS runs the cause-test FIRST with a closed positive-cause list and chain-keyed DIVERGED (P112) — an unrelated ADVANCE row can no longer convert an unexplained miss; the chain key (venue + date/session + direction chain + hypothesis branch) and chain life-rows are defined (P112). My V363 condition landed: P119 routes continuation-bar misses with life-rows to the divergence-finding class and makes miss-without-ADVANCE an explicit FAIL.
+2. Two-axis gate correctly shaped (P113): M=PASS and T in {PASS, PASS-B1-unproven}; M survives T=HOLD; PASS-B1-unproven explicitly T-clearing; HOLD never satisfies the gate; HOLD-permanence stated; class map routes every PATH_CLASS outcome.
+3. Branch-complete: the selection function is deterministic (P114, "no other input enters"); ledger columns defined (P116); the 34-row table (P129-P162) is internally consistent — I verified the branch-conditioned Km/Ku shifts against the admission-clear semantics (P136 WW=Km vs FW=Ku; P154; P155/P156) and the all-branch-identical keep cells (P137-P142, P151/P152, P158, P162). P116 covers the fired-branch no-row cells.
+4. H identity/outcome split with tolerances and withdrawal predicates (P125/P126); R23 survival test present (P126: R23 carries reseedBar=2026.06.11 10:35 at the 14:45 edge); P-CARRY pins the 09:40 assertion with binding UJPROV/exempt fields and the widened reseedBar set (P115); census scope for the 09:40 bar named (P118); page/disk labels on the ledger (P128).
+5. Fail-closed probes found no wrong-clearing path: unexpected takes → HOLD (P113/P124); vacuous KILL-absence flagged (P117); DIRSCOPE set+mismatch without a containing row with set+mismatched reseedBar/reseedDir means UNPROVEN, never PASS (P121); causeless misses FAIL (P112); N/N+1 assert and divergence-bar define close the timing ambiguities (P166/P167).
+
+### Q2-A — defects, gaps, imprecisions (none verdict-blocking; all fail-closed)
+
+1. **P126 withdrawal-predicate tension (sharpest)**: the iff-form ("withdrawn iff no admission rows AND (a confirm-term negative row OR no confirm evaluation rows after 14:40)") and the trailing flat clause ("withdrawn if no admission") disagree in the confirm=1-with-no-admission corner, and the "no confirm evaluation rows" arm binds neither direction nor scope — an R24-class foreign-direction shadow row after 14:40 satisfies "rows exist" and defeats the causal arm (or, read loosely, a SHORT confirm=0 poll wrongly counts as the LONG hypothesis's negative). Read strictly, the iff leaves H-B3TAKE neither fired nor withdrawn, stalling the P114 selection — fail-closed but ungraded. Fix: one sentence making the flat clause governing, demoting the causal predicate to evidence-class labeling, routing confirm=1-with-no-admission to the mid-chain-block finding class as P125 already does for H-TAKE.
+2. **P127 vs P129/P130 contradiction (6/2 arm)**: per-chain table cites arm 6/2 09:40; both 6/2 ledger rows say arm=06.02 10:40. Either one is wrong or the chain had two arms (09:40 then 10:40) and P127 under-specifies (contrast 6/9's "arms intra-day"). No binding predicate consumes the 6/2 arm, but the page contradicts itself; fix the cite or state the multi-arm structure.
+3. **P118 census-label imprecision**: "the 22-bar v29-kill-derived flip census" — P128 itself discloses 6/11 10:35 has no baseline KILL row and its membership is forecast (reseed-derived). At least one member is not kill-derived; the label should say so.
+4. **Miss-routing asymmetry (first-flip vs continuation)**: P119 gives continuation-bar misses a life-row divergence-finding escape; first-flip bars (P118) have none. A forecast first-flip miss without a listed cause grades binding FAIL — a ledger-forecast error priced as a mechanism error. Likeliest exposure is 6/11 10:35: the fixed run's 6/9-6/10 promotions change the holder state entering 6/11, and an aligned pass prints no S2PROMOTE at all (the promote print lives inside the !aligned branch, EA-8407-8417). Either extend P119's life-row rule to first-flip bars or state FAIL-as-designed expressly.
+4. **P112 cause list vs P165 watch**: UJHOLDEXPIRE / ABORT_HOLDER_EXPIRED rows are a fourth row-evidenced mechanism whose misses (no ADVANCE rows) route to the P112 blanket FAIL, not a named finding; P165 carries the two-pattern zero as a watch without stating the routing. State it (fail-closed FAIL as designed, or add expiry rows to the cause list).
+6. **P112 blanket vs P116 carve-out**: P112 says a missing expected edge with no positive cause is a binding FAIL; P116/P126 route the named cells (P154 WF/FF; P155/P156 WF/FF) to UNRESOLVED + HOLD-terminal. The carve-out is stated at P116 but P112 doesn't carry the exception — a grader applying P112's blanket to those cells FAILs where P116 holds. Add the cross-reference.
+7. **Evaluation order distributed**: the total order (H status → branch selection → per-venue PATH_CLASS → axes → parity/allowed-set) is spread across P114/P112/P113 and never sequenced in one sentence, though P112's chain key presupposes the branch P114 resolves. State the order once.
+
+### Q2-B — better mechanism
+
+The gate's shape (cause-test precedence + chain key + two axes + HOLD routing) is right; no structurally better battery. Two additions worth a fold: (i) a branch-invariant sub-battery — the 10 ledger cells identical across all four branches (P137-P142 all-Ku; P151/P152/P158/P162 all-Km) asserted before branch selection, giving M-axis signal even if H-status resolution stalls (the P126 corner) and catching run anomalies independent of hypothesis resolution; touches P112-P121 text only, no code. (ii) The P126 tiebreak sentence and the P119 first-flip extension, one clause each (Q2-A items 1 and 4).
+
+Both verdicts are page rulings on design and acceptance text only. They do not clear the build (new key + his run word still owed), do not clear the gated run, and do not touch live activation.
+## V364-UJEXEMPT-7 END GLM
