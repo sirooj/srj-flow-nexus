@@ -145,7 +145,21 @@ void HORC_Zone(const string name, datetime t1, double p1, datetime t2, double p2
    ObjectSetString(0, name, OBJPROP_TOOLTIP, text);
   }
 //+------------------------------------------------------------------+
-void HORC_TrimZones()
+void HORC_Text(const string name, datetime t, double p, const string text, color c)
+  {
+   if(ObjectFind(0, name) < 0)
+     {
+      ObjectCreate(0, name, OBJ_TEXT, 0, t, p);
+      ObjectSetInteger(0, name, OBJPROP_FONTSIZE, 8);
+      ObjectSetInteger(0, name, OBJPROP_SELECTABLE, false);
+      ObjectSetInteger(0, name, OBJPROP_BACK, false);
+     }
+   ObjectSetInteger(0, name, OBJPROP_COLOR, c);
+   ObjectSetString(0, name, OBJPROP_TEXT, text);
+   ObjectSetString(0, name, OBJPROP_TOOLTIP, text);
+  }
+//+------------------------------------------------------------------+
+void HORC_TrimPrefix(string prefix)
   {
    string names[];
    int n = 0;
@@ -153,7 +167,7 @@ void HORC_TrimZones()
    for(int i = 0; i < total; i++)
      {
       string nm = ObjectName(0, i);
-      if(StringFind(nm, HORC_PREFIX + "Z", 0) == 0)
+      if(StringFind(nm, prefix, 0) == 0)
         {
          ArrayResize(names, n + 1);
          names[n] = nm;
@@ -170,6 +184,12 @@ void HORC_TrimZones()
       names[oldest] = names[n - 1];
       n--;
      }
+  }
+//+------------------------------------------------------------------+
+void HORC_TrimZones()
+  {
+   HORC_TrimPrefix(HORC_PREFIX + "Z");
+   HORC_TrimPrefix(HORC_PREFIX + "R");
   }
 //+------------------------------------------------------------------+
 void HORC_ProcessPeriod(int k)
@@ -201,6 +221,19 @@ void HORC_ProcessPeriod(int k)
       return;
    HORC_Fill(BufORH, iBeg, iEnd, orh);
    HORC_Fill(BufORL, iBeg, iEnd, orl);
+   string rname = HORC_PREFIX + "R" + IntegerToString((long)pOpen);
+   if(ObjectFind(0, rname) < 0)
+     {
+      ObjectCreate(0, rname, OBJ_RECTANGLE, 0, pOpen, orl, tEnd, orh);
+      ObjectSetInteger(0, rname, OBJPROP_FILL, true);
+      ObjectSetInteger(0, rname, OBJPROP_BACK, true);
+      ObjectSetInteger(0, rname, OBJPROP_SELECTABLE, false);
+      ObjectSetInteger(0, rname, OBJPROP_COLOR, clrSlateGray);
+      ObjectSetString(0, rname, OBJPROP_TEXT, "HORC day range");
+      ObjectSetString(0, rname, OBJPROP_TOOLTIP, "HORC day range");
+     }
+   else
+      ObjectMove(0, rname, 1, tEnd, orh);
    int lo = (iEnd > 1 ? iEnd : 1);
    double raid = InpRaidPoints * _Point;
    double off = 20 * _Point;
@@ -231,6 +264,9 @@ void HORC_ProcessPeriod(int k)
      {
       BufSigB[sigBar] = iLow(_Symbol, PERIOD_CURRENT, sigBar) - off;
       HORC_Fire("buyer signal", sigBar);
+      HORC_Text(HORC_PREFIX + "D" + IntegerToString((long)pOpen),
+                iTime(_Symbol, PERIOD_CURRENT, sigBar),
+                iLow(_Symbol, PERIOD_CURRENT, sigBar) - 2 * off, "D+", clrLime);
       int leg1 = -1;
       for(int i = sigBar; i >= lo; i--)
          if(iHigh(_Symbol, PERIOD_CURRENT, i) >= orh + raid)
@@ -280,6 +316,9 @@ void HORC_ProcessPeriod(int k)
      {
       BufSigS[sigBar] = iHigh(_Symbol, PERIOD_CURRENT, sigBar) + off;
       HORC_Fire("seller signal", sigBar);
+      HORC_Text(HORC_PREFIX + "D" + IntegerToString((long)pOpen),
+                iTime(_Symbol, PERIOD_CURRENT, sigBar),
+                iHigh(_Symbol, PERIOD_CURRENT, sigBar) + 2 * off, "D-", clrRed);
       int leg1 = -1;
       for(int i = sigBar; i >= lo; i--)
          if(iLow(_Symbol, PERIOD_CURRENT, i) <= orl - raid)

@@ -33,6 +33,7 @@ var line  orhL   = na
 var line  orlL   = na
 var line  ortL   = na
 var box   zbox   = na
+var box   dayBand = na
 var bool  zused  = false
 var array<box> zhist = array.new<box>()
 var bool  fSig   = false
@@ -45,6 +46,12 @@ if barstate.isnew
     fUsed := false
 
 if newPeriod
+    if not na(orhL)
+        line.set_x2(orhL, bar_index)
+    if not na(orlL)
+        line.set_x2(orlL, bar_index)
+    if not na(ortL)
+        line.set_x2(ortL, bar_index)
     sig   := 0
     leg1  := false
     ort   := na
@@ -53,8 +60,9 @@ if newPeriod
     zbox  := na
     zused := false
     ortL  := na
-    orhL  := line.new(bar_index, orh, bar_index + 1, orh, extend=extend.right, color=color.new(color.blue, 0), width=1)
-    orlL  := line.new(bar_index, orl, bar_index + 1, orl, extend=extend.right, color=color.new(color.red, 0), width=1)
+    orhL  := line.new(bar_index, orh, bar_index + 1, orh, extend=extend.none, color=color.new(color.blue, 0), width=1)
+    orlL  := line.new(bar_index, orl, bar_index + 1, orl, extend=extend.none, color=color.new(color.red, 0), width=1)
+    dayBand := box.new(bar_index, orh, bar_index + 1, orl, bgcolor=color.new(color.gray, 93), border_color=color.new(color.gray, 93))
 
 if not na(orhL)
     line.set_x2(orhL, bar_index + 1)
@@ -64,6 +72,8 @@ if not na(ortL)
     line.set_x2(ortL, bar_index + 1)
 if not na(zbox)
     box.set_right(zbox, bar_index + 1)
+if not na(dayBand)
+    box.set_right(dayBand, bar_index + 1)
 
 conf = barstate.isconfirmed
 raid = raidPts * pt
@@ -75,19 +85,19 @@ if conf and sig == 0
         sig := 1
         fSig := true
         if showSig
-            label.new(bar_index, low, "B", style=label.style_label_up, color=color.lime, textcolor=color.black, size=size.small)
+            label.new(bar_index, low, "B D+", style=label.style_label_up, color=color.lime, textcolor=color.black, size=size.small)
     if dn and not up
         sig := -1
         fSig := true
         if showSig
-            label.new(bar_index, high, "S", style=label.style_label_down, color=color.red, textcolor=color.white, size=size.small)
+            label.new(bar_index, high, "S D-", style=label.style_label_down, color=color.red, textcolor=color.white, size=size.small)
 
 if conf and sig == 1 and not leg1
     if high >= orh + raid
         leg1 := true
         ort := high
         if showORT
-            ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.right, color=color.new(color.yellow, 0), width=2)
+            ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.none, color=color.new(color.yellow, 0), width=2)
         if showZones
             zbox := box.new(bar_index, orh, bar_index + 1, ort, bgcolor=color.new(color.blue, 80), border_color=color.new(color.blue, 0), text="HORC passive demand", text_size=size.small)
             array.push(zhist, zbox)
@@ -99,7 +109,7 @@ if conf and sig == -1 and not leg1
         leg1 := true
         ort := low
         if showORT
-            ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.right, color=color.new(color.yellow, 0), width=2)
+            ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.none, color=color.new(color.yellow, 0), width=2)
         if showZones
             zbox := box.new(bar_index, ort, bar_index + 1, orl, bgcolor=color.new(color.maroon, 80), border_color=color.new(color.maroon, 0), text="HORC passive supply", text_size=size.small)
             array.push(zhist, zbox)
