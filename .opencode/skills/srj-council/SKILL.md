@@ -361,3 +361,21 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - TIE-RULE: two-seat rounds grade any DISCREPANCY/OBJECT as amend; confirm needs YES+YES or better; a split with no OBJECT grades conditional-confirm with named conditions.
 - LINE-CONVENTION: every relay states its line convention (physical lines, blanks counted, title = line 1) beside the session line.
 - SHIPPED-EQUALITY: the builder hashes each seat text at intake and quotes the intake hash in the grade, so a carried text differing from the ruled text is caught the same turn.
+
+## 46. Closure-hardening gates (builder-owned gaps, 2026-10-01 - v368 shipped green with binary gaps; Luna Q/A/B plus Sonnet MUSTs converged on the workflow thread)
+
+- RANGE-HASH-CITES: cites into append-only transcripts carry the hash of the cited byte range plus file plus marker lines, never the file hash (the file hash changes every append and is inadmissible there).
+- GREEN-DEFINED: full-window green means the run canonical take list EQUALS the frozen-bar take list exactly (same ids, bars, lines, outcome classes). Golden promotion is impossible unless green is reached or the operator words it. Pre-bar interim gains do not promote - stated openly with golden-0 provisional (canonical takes of the next full-window run) guarding non-regression meanwhile.
+- COUNT-CONTINUITY: every count states total-now plus ruled-at plus this-draft, with the arithmetic shown; a carried count contradicted by landed files is corrected the same turn with the landing files named (v368: stale 81 corrected to 83 with V366-GRADE plus V367-GRADE named).
+- INTAKE-SCOPE: the intake hash proves intake-to-file fidelity plus grade-quote fidelity only; seat-original fidelity stays operator-eyes comparison. Any wider claim is withdrawn the same turn.
+- TIE-TABLE: two-seat mapping stated (YES+YES confirm; YES+DISCREPANCY conditional; any OBJECT-class pair amends); DISCREPANCY grades as OBJECT-class. Each question tallied and graded separately; the grader never parks a code question for a prose OBJECT.
+- AMEND-PREDECESSOR: the predecessor of an amend fold is the page being amended (OBJECT-graded pages included); the last-accepted record lives in the grade files, builder-written, commit-immutable.
+- FIXTURE-COVERAGE: one fault fixture per check plus one clean fold that must print LIGHT_PASS; mandatory set named (E0, C2, C3, C4, C5; C1 may print VACATED).
+- MANIFEST-PINNED: region manifest, boundary table, edit list, cite taxonomy, fixtures each ride a pinned file hash; any manifest change rides the full path; parser-found fence set must equal the manifest anchor-pair set. The edit list is independent (prior grade named deltas, frozen at that grade time), never builder-authored from its own diff.
+- LOCKED-WIDE: locked tokens cover digests, counts, verbatim quotes (even double-quote pairing per line), N-N tallies, verdict words, every take-bar and pin numeric.
+- GOLDEN-0: first golden derives once from a full-window run with slice-vs-full equivalence; slices compare, never rewrite; prior baseline immutable; canonical take list hashed, never raw logs.
+- MANIFEST-DAYS: slice days enumerated on the page (take days plus miss days plus second-window take day plus bounded invalid representatives, one per class); warmup costed once per stage; capture points named (manifest hash plus pre/post code-tree hash); proof keyed to manifest AND code hash.
+- GREEN-PREDICATE: slice takes superset golden with added takes in the frozen-bar list on the full canonical tuple (id, entry triple, line, outcome); misses are known gaps and may become takes; invalids emit no take and no alert. ADMISSION ONLY labeled; admission supplied where bar evidence is required fails the grade with a ledger fault.
+- ESCAPE-RATCHET: escapes are full-window ratchet failures (regression vs golden), never bar failures; every 6th slice-red gets a full audit run; horizon and rollback target stated (full-window-only, golden frozen).
+- SHADOW-DECLINE: a proposed advisory regime declined for a blocking gate carries its reason on the page (v368 shadow-mode: delays savings while the audit rule already observes false-reds), reversible on his word.
+- RENDERED-LIST: vote-free carried results print the human-readable changed-span list beside the checker record.

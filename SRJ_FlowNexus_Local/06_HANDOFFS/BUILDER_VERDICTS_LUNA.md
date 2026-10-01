@@ -15579,3 +15579,139 @@ The four-check light path is substantially specified, but E0 anchoring, C1 norma
 The slice funnel is correctly separated from the frozen-bar validation, but golden promotion, canonical hashing, manifest coverage, and the success/cost measurement need closure.
 
 ## V367-WORKFLOW END LUNA
+## V368-WORKFLOW OPEN LUNA
+## Q1 — **YES** [L19-L26, L43-L44]
+
+The light-path contract is now closed enough to treat as a binary transport rule.
+
+The material v367 gaps are addressed here: E0 derives regions by parser rather than builder declaration and locks attested tokens; C1 defines the paired objects and normalization plus an explicit `VACATED` state; C2 authenticates the predecessor; C3 constrains changed spans to the edit list; C4 defines the cite fields and target taxonomy; C5 is explicitly blocking; and the checker has a single-record grammar with mandatory-failure behavior and pre-use fault fixtures. [L20-L26]
+
+The remaining wording such as `declared edit list` and `boundary table rides the manifest` is implementation detail rather than an unresolved policy hole, because the page has made the transport contract manifest-driven and receiver-side. [L23-L26]
+
+**Q1: YES — [L19-L26, L43-L44].**
+
+## Q2 — **DISCREPANCY** [L31-L39, L45-L46]
+
+The ratchet architecture is substantially closed, but one material binary definition is still missing: **`full-window green` is used as a promotion condition without being defined on this page.** [L33]
+
+That matters because golden promotion is explicitly permitted on that condition, and the ratchet's safety depends on exactly what constitutes a successful full-window result. [L33]
+
+There is also a smaller arithmetic ambiguity in the feasibility rule: `per-day slice cost plus one warmup cost, times manifest days` does not make clear whether warmup is incurred once for the whole slice stage or once per day. [L38]
+
+The rest is concrete: the baseline is immutable, slices cannot rewrite goldens, hashing uses a canonical take object rather than logs, the manifest is fixed and hashed before execution, the slice is explicitly `ADMISSION ONLY`, process-only enforcement detects artifact drift, and escapes/false-reds have a six-round falsifiability horizon with a two-escape rollback. [L33-L39]
+
+**Q2: DISCREPANCY — [L31-L39, L45-L46].**
+
+## Analytic A — defects, gaps, imprecision
+
+**A1 — `369 plus 79 plus 81` versus `expected total now 531` needs a clearer state label.**
+[L14] The arithmetic itself is coherent only because 369 is presented as the current file count while 528 is explicitly the prior ruled total. The line should make that distinction machine-obvious, e.g. `529 files total / 528 previously ruled / 1 current draft`, rather than embedding three different states in one sentence.
+
+**A2 — “Verbatim Count objects ride the battery” is not tied to the stated battery cache key.**
+[L14-L15] The cache key is path plus digest, but the count-object provenance is not explicitly linked to that cached artifact.
+
+**A3 — Qualifying-run identity is still somewhat composite.**
+[L16] “completed, same window plus manifest plus tool generation” is good, but it does not say whether the two qualifying runs must also be based on the same EA/indicator/include hashes.
+
+**A4 — Trip timing is not fully defined.**
+[L17] The operator adds only a trip count, but the page does not define when a trip starts/ends or whether multiple stage actions within one visit count once or multiple times.
+
+**A5 — Round-cost aggregation mixes dimensions without a canonical scalar.**
+[L17] `sum of stage wall minutes plus trip count` combines unlike units. It is fine as a ledger tuple, but not as a literal arithmetic “round cost” unless the fields remain separate.
+
+**A6 — E0 “allowed prose ranges” still needs a canonical source.**
+[L20] The page removes builder-declared regions, which fixes the major v367 issue, but it does not explicitly say whether the parser itself computes the allowed prose ranges as the complement of all code-class regions or obtains them from the manifest.
+
+**A7 — E0 executable-region failure condition could be more explicit.**
+[L20] `fails E0 open` is understandable operationally, but the exact emitted state/reason code for an un-enclosed executable range is not named.
+
+**A8 — C1 `content hash ids` are named but the identity relation is not independently described.**
+[L21] The page says pairing is by content hash ids, but does not state whether a hash collision/duplicate-content situation is an ambiguity failure.
+
+**A9 — C1 normalization could state order of operations.**
+[L21] CRLF→LF and stripping one trailing empty element are binary enough, but sequencing would remove a minor implementation ambiguity.
+
+**A10 — C2 acceptance-id semantics depend on the external acceptance ledger.**
+[L22] The rule is clear conceptually, but the recorded last-accepted id is another stateful input whose storage/immutability is not described here.
+
+**A11 — C3 edit-list provenance is not explicit.**
+[L23] The changed span must map to the declared edit list, but the page does not say when that list is frozen relative to the incoming fold. That is the largest remaining light-path integrity detail.
+
+**A12 — C3 structural boundary taxonomy is delegated to the manifest without enumerating all classes.**
+[L23] It names whitespace, punctuation, endings, delimiters, and marker names, but not whether that list is exhaustive.
+
+**A13 — C5 “substring-disjoint both directions” is awkward terminology.**
+[L25] The intended rule appears to be “neither marker name is a substring of the other.” That should be stated directly for implementation clarity.
+
+**A14 — Fault-injection coverage is representative, not exhaustive.**
+[L26] Four required fixtures establish important failure paths, but there is no explicit fixture for predecessor mis-link, prose span outside edit list, malformed cite range, or executable-region discovery failure.
+
+**A15 — Advisory escalation creates an implicit policy threshold.**
+[L28] “same check fires on two consecutive folds” is binary, but “operator-filed fault record names the check” depends on human classification and can promote an advisory immediately.
+
+**A16 — “Same-fold double-fire means two consecutive folds” is terminologically contradictory.**
+[L28] The phrase “same-fold double-fire” normally suggests two fires within one fold, while the definition says two consecutive folds.
+
+**A17 — Estimate freshness does not say what “median beside” means for a two-run sample.**
+[L16, L29] The range is min-max, but the median is only mentioned as displayed beside it; its role is undefined.
+
+**A18 — Q2 golden promotion uses undefined `full-window green`.**
+[L33] This is the principal remaining Q2 closure defect.
+
+**A19 — Initial golden equivalence proof is a one-time statement whose invalidation condition is only partly explicit.**
+[L33, L35] The page says equivalence proof is filed once per manifest change, but does not explicitly say a golden becomes unusable whenever the manifest changes until that proof is refreshed.
+
+**A20 — The “subset ratchet” name does not exactly match the green predicate.**
+[L32, L45-L47] The stated relation is `slice takes superset of golden takes`, constrained to the frozen bar. The improvement mechanism is therefore an **allowed-subset-of-bar expansion**, not literally a subset ratchet relative to the golden.
+
+**A21 — `misses unchanged unless they become that window's takes` is semantically ambiguous.**
+[L32] It should identify whether the comparison is by day, canonical take id, or outcome record.
+
+**A22 — Invalid-class coverage is bounded but the representative days themselves are not enumerated here.**
+[L35] The page requires named days but does not actually name them.
+
+**A23 — Process-only enforcement assumes artifact hashes are available and trusted at both boundaries.**
+[L36] The condition is good, but the before/after capture points are not explicitly named.
+
+**A24 — `ADMISSION ONLY` is a label, not a hard type barrier.**
+[L37] The page does not specify a machine rejection if an admission result is later supplied where bar evidence is required.
+
+**A25 — Warmup arithmetic is ambiguous.**
+[L38] “one warmup cost, times manifest days” can be read as one warmup total or one warmup per day.
+
+**A26 — Six-round falsifiability horizon starts from what baseline is not stated.**
+[L39] It should say whether round 1 begins at adoption or at first green admission.
+
+**A27 — Two escapes cause rollback, but rollback target/state is not named.**
+[L39] Presumably full-window-only, as stated, but whether the golden remains or is frozen during rollback is unspecified.
+
+**A28 — Vote-free light-path proposal is not yet operative.**
+[L49] Correctly labeled “activation on his word,” but until that word exists the page's workflow still requires the full-seat verdict architecture. That makes the proposed path a design rule, not an active process rule.
+
+**A29 — The separation between transport result and council verdict could be made explicit in the checker grammar.**
+[L26, L49] `LIGHT_PASS` is a transport state; it should not itself be semantically equivalent to council confirmation.
+
+## Analytic B — better mechanism
+
+The cleanest next closure is a **typed state machine** touching **L20-L26 and L32-L39**:
+
+`E0 -> C1..C5 -> LIGHT_PASS / FULL_PATH`
+
+and separately:
+
+`SLICE_COMPARE -> ADMISSION_ONLY -> FULL_VALIDATE -> GOLDEN_PROMOTE`
+
+with explicit types for `N/A`, `PASS`, `FAIL`, and `BLOCKED`.
+
+For Q2 specifically, define **full-window green as the same canonical take-list equivalence predicate used to validate the frozen bar**, then make golden promotion impossible unless that state is reached. That removes the last substantive ambiguity at **L33**.
+
+I would also change the “subset ratchet” terminology at **L32** to reflect the actual rule: the slice may expand relative to the previous golden only when every added take is inside the immutable frozen-bar set. That better matches the improvement-aware design without changing its behavior.
+
+### Verdict ledger
+
+**Q1: YES — L19-L26, L43-L44.**
+
+**Q2: DISCREPANCY — L31-L39, L45-L46.**
+The remaining closure item is the binary definition of `full-window green`; the warmup-cost arithmetic is a secondary imprecision.
+
+## V368-WORKFLOW END LUNA

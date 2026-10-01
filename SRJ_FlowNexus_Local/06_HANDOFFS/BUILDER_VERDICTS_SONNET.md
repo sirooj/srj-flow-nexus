@@ -5066,3 +5066,63 @@ Smaller items on the same question:
 Nothing here builds, runs, or moves money.
 
 ## V367-WORKFLOW END SONNET
+## V368-WORKFLOW OPEN SONNET
+**Line convention:** physical lines of the page as received, blank lines counted, title = line 1 (Q1 = line 45, Q2 = line 48, A = line 55, B = line 57). Please carry this convention back with the ruling. Digests, sizes and counts (lines 8-9, 15) can't be checked from chat (line 59), so I take them as stated. The v367 verdicts quoted on line 3 match what I gave in this chat.
+
+This page folds most of my v367 points. The remaining gaps below are narrower, and each item marked MUST changes my verdict.
+
+## Q1: DISCREPANCY
+
+The structure is right. I would CONFIRM once the six MUST items are fixed, all of which are wording-level.
+
+1. **MUST: the manifest is the new control surface and nothing pins it (lines 21, 24, 27, 37).** Line 27 pins the checker script, but the region manifest, boundary table (line 24), edit list, cite taxonomy and fixtures have no author, hash or change rule. A builder who edits the manifest can widen "allowed prose ranges" and pass E0. Put manifest changes on the full path with a pinned hash, as line 27 does for the checker. Also cross-check: the parser-found fence set must equal the manifest's anchor-pair set (line 21), and any mismatch fails E0.
+2. **MUST: C3's edit list is builder-authored (line 24).** If the builder writes the list from its own diff, the check passes by construction. Take the list from an independent source: the named deltas in the prior grade (line 8 says amend-with-delta). The fold passes only if its diff equals that delta list.
+3. **MUST: the locked-token class is too narrow (lines 21, 9).** It covers digests, byte/line counts and quoted lines. It leaves out verdict tallies and verdict words ("0-2 OBJECT", line 8, is exactly the attestation class of the V364 failure), the take-bar numbers (7 takes, 4 valid, 1 takes, 3 miss, line 9), and strategy pins. Any of these can change inside plain prose and pass E0. Lock N-N tallies, verdict tokens, and every numeric token inside the take-bar and pin rows.
+4. **MUST: C5 and the fixtures don't test what they claim (lines 26, 27).** Disjoint marker names don't detect a rename, since a rename to another disjoint name passes. The pass condition must be marker set = predecessor set plus disjointness. Marker lines are already code-class under E0 (line 21), so the "marker renamed" fixture trips E0 first and never exercises C5. The four fixtures cover only E0 and C4. Add one per check (C1, C2, C3, C5 included), plus a clean fold that must print LIGHT_PASS so an always-FAIL checker is caught. "Mandatory FAIL" (line 27) is undefined, so list which checks are mandatory and which can print N/A.
+5. **MUST: C2 breaks on amend chains (line 23, line 8).** The predecessor of this page is v367, which was graded OBJECT, so it was never accepted. "Predecessor equals recorded last-accepted id" would fail for every amend fold. Define the predecessor as the page being amended, and say where the last-accepted record lives and who writes it.
+6. **MUST: C4 hashes the wrong object and the page fails its own C4 (lines 25, 3, 8).** Cites into append-only transcripts (line 3: LUNA 15403-15581, SONNET 5015-5068) can't use a file hash, because the file hash changes every append. Hash the cited range, not the file. Line 3's ranges and line 8's V367 grade carry no hash at all, so under line 25's taxonomy (history-label) they would fail.
+
+Smaller items:
+
+- **Line 22.** "Content hash ids" and "one trailing empty element" need naming (lines, bytes?). C1 VACATED needs a rule for deciding code-free, which should be parser-derived from zero fences, never claimed.
+- **Line 29.** Indent fidelity and row-label wording were named as advisories in v367 and are now unnamed. Name them, plus where the retained evidence lives and where the operator's fault record is filed.
+- **Line 21.** "Verbatim-quoted line" needs a parser rule (quote delimiter?) or it won't be binary.
+
+## Q2: DISCREPANCY
+
+1. **MUST: line 38 is ambiguous and may disable the gate.** "EA plus indicator plus includes hashes verified unchanged across the slice gate; any delta forces FULL_PATH." If the compared pair is golden-code vs current code, every code fix forces FULL_PATH, and the page itself says the code execution is the gap. If it is slice-run vs the following full run (same code tested), it makes sense. Name the pair.
+2. **MUST: line 34 contradicts itself on misses.** Clause 2 requires every new take to be in the frozen take list. Clause 3 lets a miss become that window's take. If misses are expected no-takes (line 9 reads that way), a take on a miss day is not in the list and must fail. If misses are known gaps, say so. "That window's takes" is also unclear. Membership should be on the full canonical tuple (line 36).
+3. **MUST: the promotion trigger can freeze or leak (line 35).** "Full-window green" is undefined. If it means the bar is met, the golden stays stale until the code is finished, so an interim gain can later be lost and still pass (golden never contained it). If it means non-regression vs golden on the full window, say so and define the improvement step.
+4. **MUST: the falsifiability metric is miscounted (line 41).**
+   - *Escape saturation.* "Slice-green then full-red" will fire on nearly every round while the bar is unmet, so rollback after 2 escapes triggers for reasons unrelated to slice quality. Define an escape as a full-window ratchet failure (a regression vs golden), not a bar failure.
+   - *Unobservable false-reds.* The gate blocks a full run after slice-red, so a false-red can never be observed. Add an audit rule: every Nth slice-red gets a full run, or the operator's word.
+   - *Undefined round.* Say whether it means any council round or only run-bearing rounds.
+5. **MUST: the equivalence proof is keyed to the manifest only (lines 35, 37).** The "once per manifest change" proof is not re-proven when code changes, but state-carry bugs are the likely class of defect here. Key the proof to the code hash as well. Line 37 also says "fixed count" and gives no number, and "7 take days" assumes seven distinct days, since the bar counts takes (line 9). State the count and the day mapping.
+6. **Line 36.** "Line" (price line or source line?) and "outcome class" (the set of classes?) need definitions, and the take id must be deterministic across runs.
+
+Smaller items: line 40 never gives window length or per-day cost, so the 15-minute target (an unbacked number) can't be sanity-checked. The three invalid classes (line 37) aren't cited to the register on line 9.
+
+## A: Other defects and imprecisions
+
+- **Line 7.** An intake hash only detects drift between the builder's intake and its later quotes. It cannot detect an operator-carried text that differs from what the seat wrote, because the seat has no hash to compare against (seats can't compute reliable hashes). "Caught the same turn" overclaims. State what the hash proves.
+- **Line 8.** The tie rule conflicts with itself. "Any DISCREPANCY/OBJECT forces amend" and "a split with no OBJECT grades conditional-confirm" overlap for YES + DISCREPANCY. The tally also reads "0-2 OBJECT" while seats ruled DISCREPANCY, so the mapping DISCREPANCY = OBJECT must be stated. The V367 grade has no hash or size, unlike the v366 grade in earlier pages.
+- **Line 15, arithmetic.** 370 + 79 + 81 = 530, +1 for v368 = 531, and 368 + 79 + 81 = 528, so the page's arithmetic is correct. The third count is unreconciled: V366-GRADE.md and V367-GRADE.md match `BUILDER_RESULT_V*.md` yet the count has stayed 81 across three pages. Either files were retired or the count is stale.
+- **Line 15 vs line 16.** "Verbatim Count objects ride the battery" can't hold, since the battery is cached by digest (line 16) while count outputs change each turn.
+- **Line 18.** The projected saving of one human trip depends on the vote-free path (line 51), which is only proposed and not active. Until his word, seats keep halt power and the trip count doesn't drop, so Q1 saves nothing yet. The page still contains no success metric for Q1, unlike Q2. Also, "round cost = minutes plus trips" mixes units, so report the pair.
+- **Line 17.** "Manifest" is overloaded (run, slice, region manifest), and the median of two runs is the midpoint.
+- **Line 43.** "Separate verdict lines already enforce it" is wrong. The V364 block came from the grader parking code questions, not from the verdict lines. State that each question is tallied and graded separately and the grader can't park a code question for a prose OBJECT.
+- **Line 51.** With vote-free, a builder-written edit list can include a meaning-reversing prose edit, and no one blocks it. Print the rendered edit list in the carried result so the operator can read it.
+- **Line 3.** Claims to fold every point, but the Luna ranges and my ranges still carry no hash or size.
+
+## B: Better mechanisms
+
+1. **Independent edit list (lines 24, 8).** C3 compares the fold diff to the delta list named in the prior grade, so the builder never authors its own allowance.
+2. **Pinned manifest plus parser cross-check (lines 21, 27).** One hashed manifest file, full path to change it, E0 fails if parser fences ≠ manifest fences.
+3. **Shadow-mode slice gate (lines 34, 41).** For the 6-round horizon, run slices advisory only alongside the full runs. This gives escape and false-red data without blocking anything, and removes the unobservable false-red problem.
+4. **Escape = full-window ratchet fail (line 41).** Plus a sampled audit full run after slice-red.
+5. **Rendered edit list for the operator (lines 24, 51).** One-word read in vote-free mode, so his word binds on what changed.
+6. **Tie table (line 8).** A small table of seat verdict pairs → grade, to remove the overlap.
+
+Nothing here builds, runs, or moves money.
+
+## V368-WORKFLOW END SONNET
