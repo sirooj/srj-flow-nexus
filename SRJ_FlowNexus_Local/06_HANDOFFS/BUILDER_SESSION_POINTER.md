@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-10-01, CODE THREAD LIVE; v373-UJEXEMPT-10 relay-ready with three-state + acceptance fold; V372 graded)
+## State (2026-10-01, V377 GRADED + V28/V378 RELAY-READY + COMMITTED; code thread live, V378 verdicts owed; skill tightened)
 
-- Disk truth: EA 977B0FB5 (v29 tree); entry packet FIX-2v23 8E76EC29/34914/184 (three-state encoding, same 5 sites, NET +3); relay v373-UJEXEMPT-10 34a9b614/60092 green (twin 184 diff-0, regions/rows carried, cites re-resolved, double battery green).
-- V372 verdicts filed whole + graded Q1 2-1 CONFIRM-conditional / Q2 1-2 OBJECT (ledger 1062); V373 markers 0x all seats (sole open round). Checks skill +S50 entry gates (447-to-454). Register + frozen bar unchanged. No key in hand; EU excluded.
-  No build/run without your new word.
+- Disk truth: EA 977B0FB5 (v29 tree); entry packet FIX-2v28 2AD2D267/47847/184 (prose-only, fences identical, compositional residue cured); relay v378-UJEXEMPT-15 DD483BAB/74723/391 green (twin 184 diff-0, regions 107/101 0-diff with R-LTFCHK, rows 28, resolver clean). Result `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RESULT_V377-GRADE.md` filed (Q1 1-2 / Q2 0-3 OBJECT, ledger 1068; stale-cite adjudication inside).
+- V377 verdicts filed whole + graded Q1 1-2 OBJECT / Q2 0-3 OBJECT unanimous (ledger 1068); V378 markers 0x all seats (sole open round). Tightening: skill +S55 filing/fold gates (481-to-488); no AGENTS change. Commit builder-called this block (his correction: commit is the builder's call, never council's). No key in hand; EU excluded.
+  No build/run without your word; push stays gated on your word plus credentials.
 - Tool-stack + python + handoff split + goal routing stand (ledgers 977-984, renamed ledger 981).
 
 ## Next
 
-- Code thread: paste `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RELAY_COUNCIL_v373-UJEXEMPT-10.md` whole to each council chat (same text every chat, no edits), then paste each whole reply back in one message (name the chat each came from) + vote-free GO or HOLD.
+- Code thread: paste `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RELAY_COUNCIL_v378-UJEXEMPT-15.md` whole to each council chat (same text every chat, no edits - if any seat quotes superseded packet text, flag it: the shipped hash is DD483BAB), then paste each whole reply back in one message (name the chat each came from) + vote-free GO or HOLD. Uncommitted files (if any remain) commit on the builder's call; push on YOUR word plus credentials.
 
 ## Resume order (exact)
 

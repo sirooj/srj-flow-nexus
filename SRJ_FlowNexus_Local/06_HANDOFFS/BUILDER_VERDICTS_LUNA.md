@@ -16650,3 +16650,608 @@ The packet does not provide the actual grader implementation source, so I cannot
 **Q2: OBJECT** — three acceptance-logic defects remain: contradictory H ordering, incomplete H-TAKE withdrawal totalization, and inconsistent definitions of a DIVERGED positive cause.
 
 ## V372-UJEXEMPT-9 END LUNA
+
+## V373-UJEXEMPT-10 OPEN LUNA
+## Q1 — CONFIRM
+
+The page-level edit set implements the stated restoration rule for the **reseed-direction-matched path**, with the retained `g_dir` form and the fail-closed behavior you specified.
+
+The operative predicate is correctly:
+
+* `seedBiasAl != 0` → promotes when the m15 flow-bias matches.
+* Otherwise, a stored nonzero reseed provenance can promote only when its stored direction equals the **current** `g_dir`.
+* Zero provenance never matches.
+* m15 mismatch remains `S2WAIT`, not kill.
+* The stored direction is consumed/reset at admission.
+
+That is exactly what P059-P080 specify, and the corresponding EA placement/order supports the intended same-pass comparison: H1 overwrite at **EA-7885**, provenance set immediately after the CARRY set at **EA-7901 in the proposed tree**, later `g_dir` writers are acknowledged, and the comparator uses the resulting current `g_dir`. The page also explicitly fences the writer census.
+
+### Q1 defects / gaps / imprecisions
+
+**1. The provenance source is slightly less direct than the rule describes.**
+P059/P065 say the stored reseed direction is derived from `g_dir`, while the original reseed direction is already explicitly available as `t78_dir` at EA-7876-EA-7885. The mechanism therefore proves direction through `g_dir`'s post-resolution state rather than directly stamping the event's source direction. Your fail-closed writer proof makes that acceptable for this round, so this is **not a Q1 blocker**, but it is the main precision weakness. A more direct mechanism would stamp `t78_dir` (or `t78_pr.isLong`) at the reseed site and then separately compare that stamp with the eventual edge direction.
+
+**2. P059 says the post-SET `g_dir` rewrite is safe because disagreement fails closed, but the safety argument is contingent on the current writer census remaining complete.**
+That is properly disclosed in P089/P090, so again it is a dependency rather than a defect in this page.
+
+**3. The `seedBiasAl == -1` path remains deliberately fail-open.**
+P027 is honest about it: `-1 != 0`, therefore it can promote. That is consistent with the literal change sentence at P075-P080, so I do **not** treat it as a contradiction. It is simply an inherited semantic that must remain intentionally accepted.
+
+**4. P080 is textually dense enough that the logical unit should ideally be named rather than duplicated.**
+P080/P087 duplicate the entire exemption expression. That is mechanically gradable and the battery asserts identity, so it is not a correctness failure. A helper predicate would reduce drift, but that would be a broader code-shape change and is not necessary here.
+
+### Q1 better mechanism
+
+The cleaner mechanism would be to capture the actual reseed event direction directly:
+
+* source: **EA-7879 / EA-7885 region**
+* stamp: `g_ujOpReseedDir = (t78_dir == DIR_LONG ? 1 : (t78_dir == DIR_SHORT ? -1 : 0));`
+* keep the existing current-`g_dir` comparison at the S2 edge.
+* leave EA-7891/S1C and later writers untouched.
+
+That separates **“what direction was reseeded”** from **“what direction does the sequence currently resolve to?”** It is conceptually stronger than snapshotting the latter and relying on the writer proof.
+
+---
+
+# Q2 — OBJECT
+
+The causal acceptance design is substantially more complete than v22, but the page still contains several internal contradictions/gaps that prevent me from giving it a clean CONFIRM as written.
+
+### Q2 defects / gaps / imprecisions
+
+**1. H-B3TAKE is not actually totalized. — P126**
+
+This is the clearest defect.
+
+P126 initially defines withdrawal as:
+
+> no admission **and** (`confirm-term negative` OR `no confirm evaluation`)
+
+But later P126 explicitly says:
+
+> `confirm=1-with-no-admission` routes to the mid-chain-block finding class.
+
+Those cannot both be the complete withdrawal rule.
+
+For the case:
+
+* confirm evaluation exists,
+* confirm = 1,
+* no admission,
+
+the first predicate is **false**, yet the later prose says the case must be routed.
+
+So H-B3 has an uncovered state in its supposedly total status machine.
+
+**Required closure:** explicitly add `confirm=1 + no admission` to the H-B3 withdrawal/finding partition, or define H-B3 status as a four-way totalization: fired / negative-confirm withdrawal / no-eval withdrawal / confirm-without-admission block.
+
+---
+
+**2. `NOT-APPLICABLE` and `UNRESOLVED` are routed inconsistently. — P112, P116**
+
+P116 first says fired-branch cells whose rows may not exist route:
+
+> `UNRESOLVED + HOLD-terminal`
+
+Then the same paragraph says such cells are:
+
+> `NOT-APPLICABLE`, routed `HOLD-terminal`, and distinctly different from `UNRESOLVED` missing evidence.
+
+Those are different classes.
+
+P112 also places `NA` as a distinct precedence slot after the cause test.
+
+Therefore the page needs one canonical rule:
+
+**NA must be a separate PATH_CLASS / disposition from UNRESOLVED**, with only the final verdict layer mapping both to HOLD, if that is the intended behavior.
+
+As written, the classification layer and verdict layer are partially conflated.
+
+---
+
+**3. P119 contradicts P112 on what constitutes a divergence cause. — P112, P119**
+
+P112 explicitly says:
+
+> life rows establish chain survival only, **never DIVERGED**.
+
+But P119 says a missed continuation bar with a later same-chain **life row** can route to the divergence finding.
+
+That is too broad.
+
+A later `CONFIRMPOLL`, `S2WAIT`, or other generic life row cannot automatically satisfy `CAUSE_ADVANCE` merely because it proves the chain survived.
+
+The causal rule needs to say:
+
+> only rows explicitly classified as `ADVANCE` by the single P112 `CAUSE_ADVANCE` definition can create DIVERGED.
+
+Generic life-row evidence can prove continuity, but not causation, unless the row is independently an `ADVANCE` row.
+
+This is a real acceptance ambiguity.
+
+---
+
+**4. `CAUSE_ADVANCE` uses chronologically awkward wording. — P112**
+
+P112 calls the qualifying set:
+
+> “post-admission ADVANCE rows”
+
+while enumerating `UJRESEED`, `UJPROV`, `S2PROMOTE`, `PREBIND`, and `ADMIT`.
+
+But `UJRESEED`, `UJPROV`, and `S2PROMOTE` are intrinsically pre-admission events on the exact B1 path being tested. P115 itself uses a pre-admission `UJPROV` as binding evidence.
+
+So “post-admission” cannot literally mean timestamp-after-admission for the entire enumerated set.
+
+This should be changed to something such as:
+
+> “row-evidenced ADVANCE events after the expected-edge point, regardless of whether the eventual admission occurs later.”
+
+Otherwise the formal cause predicate and its actual evidence examples disagree.
+
+---
+
+**5. The “mid-chain block finding” is not explicitly mapped into PATH_CLASS/verdict routing. — P112, P113, P125, P126**
+
+P125 and P126 both introduce a **mid-chain block finding class**, but P112's formal `PATH_CLASS` universe is only:
+
+* DIVERGED
+* WITHDRAWN_TERM
+* FIRED
+* UNRESOLVED
+
+P113 likewise maps those classes to the verdict framework.
+
+The page never explicitly states:
+
+> `MID_CHAIN_BLOCK -> UNRESOLVED/HOLD`
+
+or another canonical class mapping.
+
+That omission matters because the whole point of the refold is branch-complete adjudication.
+
+---
+
+**6. “Frozen-bar match” is not formally defined enough for the UNEXPECTED_TAKE precheck. — P112, P124, P125, P126**
+
+The precheck is conceptually correct, but the exact matching key is not centralized.
+
+For H-TAKE you have date/session/direction/admission bar/price tolerance in P125. For B3 you have admission timing and direction. For the baseline takes you refer to row-identical parity, but there is no single formal frozen-bar tuple stated for the unexpected-take classifier.
+
+That leaves an adjudicator to reconstruct the identity from several paragraphs.
+
+For a hard precheck, the key should be explicit:
+
+`{venue, date, session, direction, admission bar, admissible entry-price band, hypothesis branch}`
+
+or the exact narrower tuple you intend.
+
+---
+
+**7. P113's DIVERGED wording is internally muddy. — P112, P113**
+
+P113 says DIVERGED is:
+
+> non-clearing regardless of T
+
+but also that it is:
+
+> “resolved at T”
+
+while M aggregation says DIVERGED cells are neutral.
+
+That can be made coherent, but the page currently makes “resolved” ambiguous: does it mean classified for reporting, or adjudicated for pass/fail?
+
+For a gating document, those should be separate terms:
+
+* **classification** = DIVERGED
+* **gate effect** = non-clearing
+* **M-axis contribution** = neutral
+
+That would eliminate the ambiguity.
+
+---
+
+**8. The branch-completeness claim is stronger than the actual NA policy. — P116, P113**
+
+Because WF/FF cells that are structurally absent are intentionally routed to HOLD-terminal, those branches can never clear unless the relevant rows materialize.
+
+That may be exactly the conservative gating policy you want, but it is not the ordinary meaning of “branch-complete acceptance.” It is better described as:
+
+> branch-complete **coverage with non-clearing NA handling**
+
+rather than implying every branch is independently passable.
+
+---
+
+### Q2 better mechanism
+
+The cleanest mechanism is to make the acceptance engine explicitly layered:
+
+**Layer 1 — unexpected-take precheck**
+Classify every admission against a single formal frozen identity key. Special pinned 8-June invalid case → FAIL.
+
+**Layer 2 — hypothesis totalization**
+For each hypothesis produce exactly one of:
+
+`FIRED`, `WITHDRAWN_NEGATIVE`, `WITHDRAWN_NO_EVAL`, `BLOCKED_NO_ADMISSION`, `NOT_APPLICABLE`.
+
+**Layer 3 — causal predicate**
+`CAUSE_ADVANCE` accepts only explicitly tagged ADVANCE rows, never generic life rows.
+
+**Layer 4 — PATH_CLASS**
+`DIVERGED / WITHDRAWN_TERM / FIRED / UNRESOLVED / NA / BLOCKED`.
+
+**Layer 5 — verdict mapping**
+Map those classes once to `PASS / PASS-B1-unproven / HOLD-terminal / FAIL`.
+
+That would eliminate the present P112/P116/P119/P126 cross-dependencies without changing the underlying behavioral thesis.
+
+### Final ruling
+
+**Q1: CONFIRM.**
+The three-state provenance edit correctly implements the stated reseed-direction-matched restoration rule, with the disclosed `g_dir` writer/fail-closed dependency.
+
+**Q2: OBJECT.**
+The battery is materially improved, but **P126 is not total**, **P112↔P119 conflict on life-row causation**, **P112/P116 conflict on NA vs UNRESOLVED**, and the **mid-chain-block routing is not formally closed**. Those are page-level acceptance defects, not disk-truth questions.
+
+## V373-UJEXEMPT-10 END LUNA
+
+## V374-UJEXEMPT-11 OPEN LUNA
+## Q1 — **OBJECT**
+
+The proposed three-state direction provenance is internally coherent at the S2 edge, but it does **not fully establish the requested “8-June stays dead / only the correct current chain is restorable” behavior**.
+
+The edit itself is clear: `g_ujOpReseedDir` is stored as `+1/-1/0`, cleared on admission, and the exemption requires nonzero stored provenance matching the current `g_dir`; the same predicate is repeated in the diagnostic print. 
+
+The blocking defect is the **scope of that provenance**. The packet expressly accepts a global file-scope stamp, says stored provenance may come from a “prior holder or prior day,” and separately acknowledges that identity-scoped provenance and a session-boundary clear are parked.   That means a nonzero `g_ujOpReseedDir` can survive beyond the seed/chain that created it until admission clears it. A later seed with the same direction can therefore satisfy the new term without proving that the stored direction belongs to that seed's current chain. The packet itself calls this the “identity-blindness limit.” 
+
+That matters because the packet also states the 8-June invalid take is to remain dead, while its present proof of that fact is explicitly data-contingent on the observed zero/unset provenance rather than a structural fence.  
+
+So Q1 is **OBJECT on provenance identity/scope**, not on the ternary encoding itself.
+
+### Q1 analytic A — defects / gaps
+
+1. **Cross-chain / cross-day provenance**
+
+   * P059-P065: provenance is stored globally and only records direction plus time, not holder/chain identity. 
+   * P104-P105: the packet explicitly parks identity-scoped provenance and session-boundary clearing. 
+   * Effect: the new exemption can prove “some earlier reseed had this direction,” not “this seed's governing chain had this direction.”
+
+2. **The 8-June safety case is observational, not structural**
+
+   * The current rows show unset provenance and therefore preserve the 8-June kills. 
+   * But the mechanism itself does not encode the 8-June exclusion; the packet admits the negative control is data-contingent. 
+
+3. **`seedBiasAl == -1` remains fail-open**
+
+   * P027 says the pre-existing `-1` align-failure sentinel still satisfies `!= 0` and therefore promotes. 
+   * This is inherited rather than introduced by v24, so I would treat it as an analytic gap rather than the reason for the Q1 object.
+
+4. **The packet relies on a future build to verify the final writer ordering**
+
+   * P089 explicitly says the post-SET `g_dir` writer behavior is unverified until build. 
+   * That does not defeat the design review, but it prevents claiming code-level proof before the gated build.
+
+### Q1 analytic B — better mechanism
+
+The packet's own parked alternative is the right shape: make the provenance **holder/chain-scoped**, with a direction plus an identity/chain token, and clear it on every relevant death/chain break rather than only on admission. The minimum affected sites are the provenance set at **EA-7899**, the S2 exemption at **EA-8413**, and the admission clear at **EA-10727**; the packet also says a full death-path write-site census is required.  
+
+---
+
+## Q2 — **OBJECT**
+
+The causal battery is substantially more complete than the earlier version, but there is one binding specification inconsistency that must be removed before it can serve as a deterministic gate.
+
+P112 defines one precedence as:
+
+**UNEXPECTED_TAKE → cause-test → NA → WITHDRAWN → FIRED → UNRESOLVED**
+
+and explicitly says that this is the “same” ordered list as P114. 
+
+But P114 gives a different evaluation order:
+
+**UNEXPECTED_TAKE → H status → branch selection → PATH_CLASS → axes → parity/allowed-set.** 
+
+Those cannot both be the single authoritative order. In particular, P112 says the cause test precedes hypothesis/branch resolution, whereas P114 says hypothesis status and branch selection precede `PATH_CLASS`, where the cause test occurs. Because the packet makes PATH_CLASS and branch choice binding to the gate, this is not cosmetic wording. 
+
+The rest of Q2 is materially tightened: the H-B3TAKE four-way status is totalized, NA is explicitly separated from UNRESOLVED, CAUSE_ADVANCE is centralized, DIVERGED is chain-keyed, and HOLD is defined as non-clearing. 
+
+So the Q2 object is specifically for the **duplicate, contradictory precedence definition**.
+
+### Q2 analytic A — defects / gaps
+
+1. **Two incompatible precedence orders**
+
+   * P112 versus P114, as above. 
+
+2. **H-TAKE is less formally totalized than H-B3TAKE**
+
+   * H-B3TAKE has an explicit four-way partition. 
+   * H-TAKE mixes several withdrawal causes and the status-at-admission rule without the same explicit mutually-exclusive four-way declaration. 
+   * I would not call this a proven logical failure yet, but it is weaker than the B3 formulation.
+
+3. **Several acceptance cells are explicitly forecast rather than demonstrated**
+
+   * P128 says the disk-asserted bars are forecast and unrulable from chat; the future run is what rules them. 
+   * Therefore this packet can specify the gate, but cannot claim the future battery has already passed.
+
+4. **The 10:35 promotion is forecast, not a demonstrated baseline KILL-derived event**
+
+   * P118/P128 make that distinction explicitly.  
+
+### Q2 analytic B — better mechanism
+
+Make the grader have **one canonical dispatcher definition** and reference it everywhere:
+
+`UNEXPECTED_TAKE → H_STATUS → BRANCH → PATH_CLASS(cause/NA/withdrawn/fired/unresolved) → AXES → PARITY/ALLOWED_SET`
+
+Then state the PATH_CLASS *internal* precedence separately, rather than calling it “the same ordered list.” This is primarily a specification/grader fix; the packet does not provide a grader-code line range that would justify an EA code change.
+
+## Final disposition
+
+**Q1: OBJECT** — direction provenance is correctly encoded, but still identity-blind/global; the packet openly parks the scope fence needed to make the behavior structurally safe.
+
+**Q2: OBJECT** — the acceptance battery is much closer to deterministic, but P112 and P114 give contradictory authoritative evaluation orders.
+
+**No build/run clearance is granted by this ruling.** The packet itself states that this round proposes no run and that any future build requires a new key plus the user's run word.
+
+## V374-UJEXEMPT-11 END LUNA
+
+## V376-UJEXEMPT-13 OPEN LUNA
+## Q1 — **OBJECT**
+
+The **mechanism itself is direction-safe on the page**, but the requested Q1 package is not clean enough to CONFIRM because the stated one-sentence rule is broader than the actual gate.
+
+The decisive defect is at **P075/P080 versus P081**: the code only kills or promotes when the m15 flow-bias condition is true. When it is false, **EA-8418–EA-8421** route to `S2WAIT` retention rather than death. So the sentence at P049/Q1 — “every seed with `seedBiasAl == 0` … still dies at its S2 edge” — is not literally true without carrying the m15-match qualification into that sentence.
+
+The actual edited term at **EA-8413 / P080** is structurally sound:
+
+```text
+uj_m15r
+&& uj_m15b == uj_wantb
+&& (
+     s1g_seedBiasAl != 0
+     || (
+          g_ujOpReseedBarTime != 0
+          && g_ujOpReseedDir != 0
+          && g_ujOpReseedDir == current_direction_encoding
+        )
+   )
+```
+
+That gives the intended direction check, and the post-SET `g_dir` rewrite at **EA-7902–7909** does not create a wrong-direction promotion because the comparator uses the later/current `g_dir`; a disagreement falls out of the equality test. The SET/CLEAR placement at **EA-7899 / EA-10727** is also internally coherent.
+
+### Q1 analytic A — defects / gaps / imprecision
+
+**1. Over-broad change sentence — P049/P075/P081, EA-8413, EA-8420–8421.**
+The “still dies at its S2 edge” wording omits the explicit S2WAIT branch. The operative rule is actually:
+
+* m15 matches: eligible for kill or promotion;
+* m15 does not match: retain/wait;
+* within the matching case, `seedBiasAl != 0` promotes, otherwise only matching stored nonzero reseed direction promotes.
+
+That qualification belongs in the single change sentence.
+
+**2. Mechanical accounting contradiction — P177.**
+P177 says:
+
+> “DIR-DECL +1 / DIR-SET +1 / DIR-CLEAR +1 … Total NET +3”
+
+but then describes the final shape as:
+
+> “3 modified lines, zero added/removed lines.”
+
+Those two descriptions cannot both be literal line accounting. The edit specification at **P049–P074** is three insertions plus two replacements, and the stated tree count moves **12295 → 12298**. This does not alter the behavior, but it is a packet-integrity defect in a review whose purpose includes exact structural accounting.
+
+**3. The `-1` alignment sentinel remains deliberately fail-open — P027, EA-7881.**
+P027 explicitly confirms that `seedBiasAl == -1` satisfies `!= 0` and therefore takes the promotion path. That is consistent with the stated existing condition, but it is semantically important: an alignment-read failure is not distinguished from a positive/nonzero provenance value by the S2 term. It is a standing inherited behavior, not a new defect in FIX-2v26, but it should remain clearly labeled as such.
+
+**4. Page-rulability of the 5m fence is indirect — P024, EA-8405–8407.**
+The packet says the 5m-flip kill is enforced through `CheckLtfAlign`, but the supplied code region shows only the caller:
+
+* **EA-8405** `CheckLtfAlign(...)`
+* **EA-8407** `if(!aligned)`
+
+The implementation of `CheckLtfAlign` itself is not in the page. Therefore the specific proposition “this is the 5m structure-bias flip fence” is a carried assertion rather than a directly inspectable code proof in this packet. The run can still test it, but the page-only proof is indirect.
+
+### Q1 analytic B — better mechanism
+
+I would keep the three-state `int` design and make only the **rule sentence** precise rather than changing code.
+
+A tighter single-sentence formulation would be:
+
+> At the S2 edge, when m15 flow matches the current direction, `seedBiasAl == 0` kills unless stored nonzero reseed provenance matches the current post-writer direction, while `seedBiasAl != 0` promotes; when m15 flow does not match, the candidate is retained in `S2WAIT`.
+
+The code touch remains the existing **EA-8413** condition and **EA-8418–8421** wait/kill branches; no new state is necessary.
+
+For the structural 5m proof, the stronger evidence mechanism is to expose the relevant `CheckLtfAlign` implementation lines that establish the 5m-bias-flip predicate, while leaving **EA-8405–8407** unchanged.
+
+---
+
+## Q2 — **OBJECT**
+
+The causal battery contains **two material internal-definition contradictions** that prevent a clean CONFIRM.
+
+### Q2 analytic A — defects / gaps / imprecision
+
+**1. `CAUSE_ADVANCE` versus “life rows never cause” is internally contradictory — P112 and P119.**
+
+P112 defines `CAUSE_ADVANCE` as including post-promotion rows of:
+
+`UJRESEED / UJPROV / S2PROMOTE / PREBIND / ADMIT`
+
+but then separately defines chain life-rows as those same row classes and says:
+
+> “life rows establish chain survival only, never DIVERGED.”
+
+Those statements collide unless “life row” is explicitly qualified as **non-ADVANCE**.
+
+A later `UJPROV` or `S2PROMOTE` can therefore be classified both as:
+
+* a chain life row, and
+* a positive causal `ADVANCE` row.
+
+The packet needs an operational distinction, not merely temporal prose.
+
+**2. H-TAKE status totalization is contradictory — P114/P125.**
+
+P125 says the H-TAKE status is fixed into exactly one of five classes and lists:
+
+* `FIRED`
+* `WITHDRAWN_NEGATIVE`
+* `WITHDRAWN_NO_EVAL`
+* `WITHDRAWN_INTERFERENCE`
+* `BLOCKED_NO_ADMISSION`
+
+But `WITHDRAWN_INTERFERENCE` is defined as:
+
+> “admitted then late-TP interference”
+
+while P114 simultaneously says H-status is fixed at the admission bar, and P125 says the interference label is an **outcome observation, never a status change**.
+
+An admitted trade cannot literally be both `FIRED` and a withdrawal status. The text tries to solve that by saying interference is only an outcome label, but it still places that label inside the five-way **status** partition.
+
+This is the strongest Q2 blocker.
+
+**3. P125's five-way partition should therefore not be called a status partition as written.**
+Either:
+
+* `FIRED` remains the H-status and interference becomes a separate parity/outcome flag, or
+* “FIRED” and “WITHDRAWN_INTERFERENCE” need mutually exclusive definitions.
+
+As written, totality/exclusivity is not formally achieved.
+
+---
+
+**4. 5m causal proof remains partly assertion-backed rather than code-local — P024/P044/P112/P117.**
+The battery demands flip-row evidence, which is good, but the page does not itself show the implementation of the 5m flip predicate. The run is intended to supply the empirical row evidence. That is acceptable as an acceptance test, but it should not be conflated with page-only proof of the underlying predicate.
+
+**5. P177's line-accounting contradiction also affects the causal packet's mechanical audit trail.**
+It is not a causal-logic defect, but it remains an unresolved consistency issue in the same packet.
+
+### Q2 analytic B — better mechanism
+
+Make the state model strictly compositional:
+
+```text
+H_STATUS:
+  FIRED
+  WITHDRAWN_NEGATIVE
+  WITHDRAWN_NO_EVAL
+  BLOCKED_NO_ADMISSION
+
+PARITY_OUTCOME:
+  NONE
+  LATE_TP_INTERFERENCE
+```
+
+Then P114's dispatcher uses only `H_STATUS`; `LATE_TP_INTERFERENCE` is consulted later by the parity/outcome grader. That preserves the stated “status fixed at admission” rule and makes the partition genuinely exclusive.
+
+For the causal predicate, redefine it operationally as:
+
+```text
+CAUSE_ADVANCE(row) =
+    row is one of {UJRESEED,UJPROV,S2PROMOTE,PREBIND,ADMIT}
+    AND row occurs after the promotion anchor
+    AND row carries the same chain key
+    AND row is an ADVANCE instance for this chain
+```
+
+while **life-row** remains the broader survival namespace. Then “life rows never cause” becomes literally true unless the row independently satisfies `CAUSE_ADVANCE`.
+
+The natural code-side proof point remains the existing S2/confirmation path around **EA-8405–8422** and **EA-9097–9116**; the missing piece is the exact implementation evidence behind `CheckLtfAlign`.
+
+## Final ruling
+
+| Question | Verdict    | Decisive reason                                                                                                                                                  |
+| -------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Q1**   | **OBJECT** | Change sentence overstates kill behavior by omitting the m15-match → S2WAIT qualification; P177 also has contradictory line accounting.                          |
+| **Q2**   | **OBJECT** | P112 conflates life-row and causal-advance concepts, and P125 makes `WITHDRAWN_INTERFERENCE` both a withdrawal status and an admitted/fired outcome observation. |
+
+**No build, run, commit, or activation clearance follows from these rulings.**
+
+## V376-UJEXEMPT-13 END LUNA
+
+## V377-UJEXEMPT-14 OPEN LUNA
+## Q1 — CONFIRM
+
+The proposed three-state provenance fence does implement the stated **reseed-direction-matched Rebuild rule** as written.
+
+The operative new condition is correctly scoped to m15 agreement, and it has the intended two promotion routes:
+
+* `seedBiasAl != 0` continues to promote.
+* `seedBiasAl == 0` can now promote only when there is a nonzero stored provenance direction equal to the current `g_dir`, while zero/unset or opposite provenance still dies at the edge.
+
+That is exactly the behavior encoded in the new TERM at **P076-P081**, with the stored direction written after the H1 `g_dir` overwrite at **P059-P066 / EA-7899 onward**, and consumed/reset at admission at **P067-P074 / EA-10727 onward**. The print also exposes the new state without changing the decision predicate, **P082-P089**.
+
+### Q1 defects / gaps / imprecisions
+
+1. **Provenance remains identity-blind.**
+   A prior same-direction provenance stamp can authorize a later, different holder/seed because validation is only `(barTime != 0 && dir != 0 && dir == current g_dir)`. This is explicitly acknowledged at **P096, P104, P173**, and is therefore a known scope limitation rather than a reason to reject this round. The relevant runtime sites are **EA-7899/7901, EA-8413/8415, EA-10727/10730**.
+
+2. **The `seedBiasAl == -1` sentinel remains fail-open.**
+   The page explicitly admits that `-1` satisfies `!= 0` and therefore promotes at the edge, **P027**. That is mechanically consistent with the inherited rule, but it is still a permissive semantic edge.
+
+3. **The 5m-flip claim is broader than the locally exhibited S2 code.**
+   **P016/P024/P044** say any 5m structure-bias flip kills pre-confirmation, but the exhibited **EA-2413-2419** only proves an LTF-alignment test, while **EA-8418-8421** can retain the candidate in `S2WAIT` when m15 does not match. The packet does provide downstream kill/abort references and deliberately routes missing flip attribution to `UNPROVEN-attribution`, so this is an acceptance-proof limitation, not a defect in the requested reseed-direction fence.
+
+4. **The change sentence slightly overstates what “stored provenance” means.**
+   It can be carried from a prior day/holder by design, **P075/P096/P127**, so “stored nonzero provenance” should be read as a state stamp, not proof of identity continuity.
+
+Those do not defeat the specific Q1 question.
+**Q1 = CONFIRM.**
+
+---
+
+# Q2 — OBJECT
+
+The causal battery is substantially more complete than V376, but **the page is not yet internally deterministic enough to serve as the binding branch-complete gate**.
+
+### Q2 defects / gaps
+
+1. **P154-P156 have a direct NA-versus-gradeable contradiction.**
+   **P116** says the WF/FF cells for **P154/P155/P156** are **NOT-APPLICABLE** where the branch removes the edge by design and that those cells are excluded from the M denominator.
+   But the actual branch ledger at **P128 / P154-P156** assigns **`Ku`** to WF/FF, which means a real KILL row is expected and gradeable.
+   Both cannot be the authoritative branch state simultaneously. This affects denominator, branch resolution, and the final M/T gate.
+
+2. **The chain-break rule contradicts the carried-path join.**
+   **P118** defines a chain break as including **date change**.
+   Yet **P115** requires the 6/5 carried path to prove the *same chain* using the 6/4 10:20 SHORT arm, and **P127** explicitly treats that cross-day arm as the continuing 6/5 chain. **P128** separately calls cross-day carry an authorized exception.
+   The exception therefore needs to be part of the actual chain-key rule, not merely mentioned in the day-age audit. As written, the P115 continuation join can be invalidated by P118.
+
+3. **H-TAKE precedence is not fully totalized.**
+   **P125** defines five possible H-TAKE statuses, including `WITHDRAWN_FLIP_KILL` and `BLOCKED_NO_ADMISSION`, but only specifies that **BLOCKED beats NEGATIVE**.
+   It does not specify what happens when **BLOCKED_NO_ADMISSION and WITHDRAWN_FLIP_KILL overlap**. Since **P114** requires exactly one fixed H_STATUS, this is an actual unresolved precedence case.
+
+4. **H-B3TAKE is not fully totalized for the missing-chain-life case.**
+   **P126** says absent LONG-chain life causes H-B3TAKE to be withdrawn, but it does not say which of the four statuses owns that condition. The “four-way totalization” therefore has an unclassified subcase:
+   `no LONG life row` versus `confirm=0` versus `no confirm-evaluation`.
+   That matters because `WITHDRAWN_NEGATIVE` and `WITHDRAWN_NO_EVAL` have different evidentiary meanings.
+
+5. **`CAUSE_ADVANCE` deliberately excludes expiry, but the battery does not elevate that to an explicit causal class.**
+   **P165** says `UJHOLDEXPIRE / ABORT_HOLDER_EXPIRED` are outside the cause list and therefore a later missing continuation with no qualifying ADVANCE becomes blanket FAIL. That is a stated design choice, but for a causal battery it should be explicitly named as a **terminal non-causal failure mode**, otherwise the reader can mistake it for a divergence finding.
+
+6. **The “branch-conditioned” acceptance is not completely self-contained because several cells are described as forecast-only while others are treated as binding structural facts.**
+   **P128** correctly says disk-asserted cells are not chat-provable and will be ruled on the run, but the specification sometimes uses those same cells to define branch membership and chain structure. The distinction is mostly documented, but it needs to remain strictly “forecast input” rather than silently becoming proof.
+
+### Better mechanism for Q2
+
+No new runtime code fence is required to fix the main defects. The cleaner mechanism is a **single explicit chain/status decision table** with:
+
+* a chain key whose definition includes the authorized cross-day carry exception;
+* an explicit precedence such as `BLOCKED > FLIP_KILL > NEGATIVE > NO_EVAL` for H-TAKE;
+* an explicit H-B3TAKE mapping for “no qualifying LONG life row”;
+* one authoritative NA marker replacing the conflicting `Ku` entries for branch-removed edges.
+
+The runtime evidence already exposed by **EA-8405-8422** and **EA-9094-9116** can remain unchanged; the corrections are principally to **P116/P118/P125-P128**.
+
+## Final ruling
+
+**Q1: CONFIRM** — the reseed-direction-matched edit fence is coherent and matches the stated Rebuild rule.
+
+**Q2: OBJECT** — the acceptance battery still contains material specification contradictions that prevent a uniquely determined branch-complete grade, principally **P116 vs P128/P154-P156**, **P118 vs P115/P127**, and the incomplete H_STATUS totalization at **P125-P126**.
+
+**No build, run, commit, or activation clearance follows from these rulings.**
+
+## V377-UJEXEMPT-14 END LUNA

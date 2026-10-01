@@ -113,5 +113,20 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
   - 2026-10-01: V364 RELAY-READY (ledger 1050: packet FIX-2v21 5DBAB7BC/184, relay 94F93870/382, double battery green, memo shipped; verdicts owed).
   - 2026-10-01: V364 FILED+GRADE (ledger 1051: Luna+Sonnet+GLM whole 1x V364-UJEXEMPT-7 markers, Q1 2-1 CONFIRM, Q2 1-2 OBJECT; result BUILDER_RESULT_V364-GRADE.md; fold v22 opens acceptance/prose-only; BUILD-BLOCKED).
   - 2026-10-01: V365 RELAY-READY (ledger 1053: packet FIX-2v22 D7BA7D12/184, relay 5790839C/382, double battery green, memo shipped; verdicts owed).
+  - 2026-10-01: V366 FILED+GRADE (ledger 1054: Luna+Sonnet whole 1x, Q1 1-1 SPLIT / Q2 0-2 OBJECT; workflow thread).
+  - 2026-10-01: V367 FILED+GRADE (ledger 1055: Luna+Sonnet whole 1x, Q1/Q2 0-2 OBJECT; workflow thread).
+  - 2026-10-01: V368 FILED+GRADE (ledger 1056: Luna+Sonnet whole 1x, Q1 1-1 SPLIT / Q2 0-2 OBJECT; workflow thread).
+  - 2026-10-01: V369 FILED+GRADE (ledger 1057: Luna+Sonnet whole 1x, Q1/Q2 0-2 OBJECT; frozen-bar v1 B65FD542/4113/39 filed, 17 events).
+  - 2026-10-01: V370 FILED+GRADE (ledger 1058: Sonnet whole 1x + Luna replay adopted no-new-markers, Q1 AMEND / Q2 AMEND-WITH-HALT; workflow thread).
+  - 2026-10-01: V371 FILED+GRADE (ledger 1059: Luna+Sonnet whole 1x, Q1/Q2 0-2 OBJECT; workflow thread parked, no fold).
+  - 2026-10-01: CODE-THREAD RESUME (ledger 1060: entry thread resumes at v365-UJEXEMPT-8 on packet FIX-2v22; skill mapping repair).
+  - 2026-10-01: V372-UJEXEMPT-9 BATTERY REFRESH (ledger 1061: relay v372 9459bda9/57612 double battery GREEN; verdicts owed).
+  - 2026-10-01: V372 FILED+GRADE + V23/V373 FOLD (ledger 1062: Q1 2-1 CONFIRM-conditional + Q2 1-2 OBJECT; packet v23 8E76EC29/34914/184; relay v373 34a9b614/60092/382 relay-ready; BUILD-BLOCKED).
+  - 2026-10-01: HANDOFF POST-V374 + TIGHTENING (ledger 1063: AGENTS 870 + skill S51 460; pointer refreshed; no build/run/commit).
+  - 2026-10-01: V373 FILED+GRADE + V24/V374 FOLD (ledger 1064: Q1 3-0 CONFIRM unanimous + Q2 1-2 OBJECT; packet v24 257E303F/37414/184 prose-only; relay v374 CD91AD7A/62834/382 relay-ready; BUILD-BLOCKED).
+  - 2026-10-01: V374 FILED+GRADE + V25/V375 FOLD (ledger 1065: Q1 1-2 OBJECT + Q2 1-2 OBJECT; record-first trail filed; packet v25 094B6A62/41594/184 prose-only; relay v375 7A8BF4A3/67266/382 drafted-green superseded-untransported; BUILD-BLOCKED).
+  - 2026-10-01: HIS 5M-FLIP WORD + V26/V376 FOLD (ledger 1066: 5M-FLIP-KILL pinned, anti-flip unparked, 8-June structural; packet v26 732CAF7D/42947/184 prose-only; relay v376 995D07AF/69256/383 relay-ready; BUILD-BLOCKED).
+  - 2026-10-01: V376 FILED+GRADE + V27/V377 FOLD (ledger 1067: Q1 1-2 OBJECT + Q2 0-3 OBJECT unanimous; packet v27 92D23CC2/45263/184 prose-only; relay v377 1FA8EC7A/72295/391 relay-ready; BUILD-BLOCKED).
+  - 2026-10-01: V377 FILED+GRADE + V28/V378 FOLD (ledger 1068: Q1 1-2 OBJECT + Q2 0-3 OBJECT unanimous; packet v28 2AD2D267/47847/184 prose-only; relay v378 DD483BAB/74723/391 relay-ready; BUILD-BLOCKED; commit builder-called).
 
 (End of file)

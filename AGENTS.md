@@ -489,7 +489,9 @@ in fresh login shells; python3 absent on this box) and only as Temp-staged .py
 files, never inline -c with quotes (quoting layers strip them, proven same turn).
 PowerShell stays for the harness/compile/hash/git wrappers that already exist.
 Zero-counts still need two differently-formed patterns in ANY tool. Temp script
-names carry the lane prefix; scripts stay ASCII-only.
+names carry the lane prefix; scripts stay ASCII-only; python file writes carry
+newline="" (text-mode translates LF to CRLF on disk - v24 trip wrote 184/184 CRLF
+while the memory-string assert stayed green; post-write byte audit decides).
 
 ## 7. Automation rule (operator standing rules)
 
@@ -864,3 +866,7 @@ here and load every turn)
 - WRITE-TRIPLE-PROOF (2026-09-28 V324-verdict loss: appended texts verified 1x/1x then absent from disk with no commit between; markers plus tails alone are insufficient): high-value filings (verdicts, packets, relays) prove by hash-before plus hash-after plus git-diff the same turn, and re-hash after any delay before grading or building on them; a filing whose post-delay hash differs is REFILED, never diagnosed from memory.
 - HIS-FRAME-FIRST (operator order 2026-09-27 — the 160.028 answer: the builder validated an EA booking against a poll-ref computation while his R-AT-OPEN + swept-death rules contradicted it, owned D3 same turn): before ANY grade, take-attribution, or answer to him, write his frame first — entry/SL/target per his words at the bar with the rule pins named — then compare EA rows against it. An EA behavior presented as rule-conformant without the his-frame baseline is a D3, caught here before any relay, never by him after it. Fires pre-grade AND pre-answer-to-him.
 - NUMBER-RESERVE (his order 2026-09-29 - two live sessions filed 971x2 plus a 978 race on the same file; a distinct name cannot stop same-file races): the next ledger number is CLAIMED before it is filled - compute MAX via helper, append `N. RESERVED-<lane>-<date>` as its own line at EOF with tail proof, then fill by exact-anchor replace of that line the same block. A foreign RESERVED line is never reused, overwritten, or filled - the next claim takes MAX+1 above it. No block ends with its own RESERVED unfilled (fill it or strike it the same block).
+- FRESH-COUNTS (stale-81 class across V366-V371, four turns): every count is re-derived the same turn it is written, with landing-files named and arithmetic shown; a carried count contradicted by landed files is corrected with a retirement check (which files landed, none retired vs retired).
+- PAGE-ARITHMETIC (muddled totals across V366-V371, three turns): every arithmetic expression on a transport page is re-derived mechanically with both sides shown; count states are single timestamped states only (total-now, ruled-at, this-draft, expected).
+- MESSAGE-TRUE-PROBES (false alarms V370-V371, two turns): novelty and fidelity probe strings are read from the visible inbound message, never composed from planning vocabulary; a surprising zero stops the line for re-derivation instead of concluding defect or absence.
+- RACE-ADOPT (V372 verdict race, two live sessions same inbound): on marker-present races, verify filed content against fresh staging; adopt if byte-equal, never double-file; announce with both owners plus byte order; ask him for the second-session check in the report, never a second turn.

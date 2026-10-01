@@ -5376,3 +5376,240 @@ The v370 closures hold: C1 mandatory (L30), C0 added (L29), the tie table fixed 
 3. **Code-side alternative (parked-class).** Stamp a per-session or per-day key beside g_ujOpReseedDir (new write at EA-7901, clear at EA-10730). This closes stale inheritance, but it needs his word and its own round.
 
 ## V372-UJEXEMPT-9 END SONNET
+
+## V373-UJEXEMPT-10 OPEN SONNET
+# Rulings on the page (v23, rules on the page only)
+
+**Q1: CONFIRM**, with non-blocking discrepancies below.
+
+The edit set implements the reseed-direction-matched path coherently and fails closed. Checked on the page:
+- **Parentheses:** balanced in P080 (5 and 5) and P087 (A through F, 5 closes plus the ternary close and the PrintFormat close).
+- **Print arguments:** six format specifiers against six arguments.
+- **Post-build line frame (P089):** DECL 304, CARRY-SET 7900, DIR-SET 7901, PROV-print 8414, TERM 8415, CARRY-CLEAR 10729, DIR-CLEAR 10730 all follow from +1 and +2 shifts.
+- **Block structure:** the S2WAIT/kill/promote structure at EA-8413/8418-8421 matches P075.
+- **Ledger counts (P129-P162):**
+  - 22 F cells, 9 first-flip and 13 continuation.
+  - 12 keep cells, of which 10 are all-branch-identical.
+  - 13 page-exhibited plus 21 disk-asserted rows.
+  - 30 of 34 branch-invariant.
+- **N/N+1 (P019):** holds on every exhibited row, including R16/R28 (18:05:03) and R24 (14:40:22).
+
+Non-blocking defects:
+1. **P090 mixes line frames.** It labels PROMOTE-print EA-8417, comment EA-10436 and SIDE1R EA-10447 as post-build. Those are pre-build numbers (P026). Post-build they are 8419, 10438 and 10449. P089's frame is correct, so P090 should follow it.
+2. **P011 and P038 carry V364 text in a V372 fold.** They cite "V364 tallies (canon order)" and Sonnet "D1-D6". The tallies coincide numerically (2-1 and 1-2), which masks the stale label. P169-P172 are correct. Relabel or delete P011 and P038, since he compares carried text against filed text.
+3. **Transform-safety has no code behind it.**
+   - The stored value is the post-`S2ResolveLive` `g_dir` (EA-7885, P065). The UJRESEED print shows `t78_dir` (EA-7879).
+   - Same-pass agreement is exhibited for one pair only (R03/R05, SHORT). R21 (LONG) has no same-pass UJPROV row on the page.
+   - Fail-closed still holds on mismatch, so this is not blocking. But P121 grades only mismatch bars. Add an assert that the first same-bar UJPROV after each UJRESEED has `reseedDir` equal to the encoded UJRESEED dir, or a named finding.
+4. **The g_dir writer census is open** ("closes at S3", P090). Mismatch fails closed regardless. A holder that flips away and back still passes, which is the identity-blindness already disclosed at P096.
+5. **8-June protection rests on provenance being unset (P044).** The exemption's domain is exactly the `!aligned` bars (EA-8407), the 5m-misaligned class his chart read names. Provenance is a proxy for that. This is disclosed. P137-P141 are the only guard, and they are run-graded.
+
+**Q2: OBJECT**
+
+Several binding-gate rules contradict each other on the page. None is hard to cure.
+
+1. **P119 vs P112 on life rows.**
+   - P112 says life rows "establish chain survival only, never DIVERGED". P119's closing clause for first-flip bars says life-row-only advancement never qualifies.
+   - P119's first sentence routes a missed continuation bar with a later same-chain life row to the divergence class.
+   - So CAUSE_ADVANCE is not single. Cure: state whether life rows qualify for continuation bars, and fix P112 or P119 to match.
+2. **DIVERGED has no verdict class, and the aggregation is inconsistent.**
+   - P113 says DIVERGED is "neutral" in M, "non-clearing regardless of T", and that "M still needs every first-flip cell PASS". A DIVERGED first-flip cell is none of PASS, FAIL or HOLD.
+   - Cure: map DIVERGED to a named class (HOLD-terminal or DIVERGENCE-FINDING with an exit rule), and state whether first-flip cells can be DIVERGED.
+3. **Three names for the same cells, and WF/FF can never clear.**
+   - P154-P156 are routed as UNRESOLVED (P112 end, P116 first sentence, P126), as NOT-APPLICABLE "labeled distinctly from UNRESOLVED" (P116 second), and as the "absent-ADVANCE class" (P120, P126).
+   - Routing NA to HOLD-terminal on M cells makes WF and FF unclearable by construction, even if the code behaves perfectly.
+   - Cure: NA cells go neutral and are excluded from the denominator, with a coverage floor (every first-flip cell resolved or DIVERGED-with-cause). Use one status word.
+4. **P125 conflicts with P114 on H-TAKE status.** P114 says fired iff admission rows match identity. P125 adds "late-TP interference" as a withdrawal, which can only apply after admission. Cure: fix status at admission and grade interference as a P-PARITY-FIRED finding.
+5. **Evaluation order is stated three ways.**
+   - P112 sentence 1 gives cause-test, WITHDRAWN_TERM, FIRED. The P112 "Precedence" sentence inserts NA. P114 puts H status and branch selection before PATH_CLASS.
+   - H status uses the same WITHDRAWN/FIRED predicates PATH_CLASS later computes. Cure: one ordered list, with H status derived once and consumed by PATH_CLASS.
+6. **P113 says unexpected takes are "never auto-FAIL".** It omits the 8-June exception that P112 and P124 carry. Cure: carry the exception inline.
+7. **No print-order evidence on the page.**
+   - Eight same-pass pairs list KILL before UJPROV: R01/R02, R04/R05, R06/R07, R08/R09, R11/R12, R17/R18, R19/R20, R22/R23. The code prints UJPROV (EA-8412) before KILL (EA-8419).
+   - The row list is not chronological: R17/R18 are 6/5 rows listed after the 6/8 rows, and R24 (sim 14:40:22) is listed after R23 (14:50). Wall-clock ms values tie.
+   - So the P043 tie-break and the P113 "PROV/KILL print order" assertion rest on code order only. Cure: define the order key as journal line number within a pass, and say the R-list is not log order.
+8. **P115 field encodings.**
+   - P115 says "reseedDir SHORT", but the print emits -1 (P065, P087). Add a decode key.
+   - PREBIND prints bar as the confirm bar, 09:40, at the 09:45 pass (EA-9102-9105). Key predicate (3) on bar=09:40, pass-time 09:45.
+
+PASS-B1-unproven clearing with the owed 09:45 take undelivered is stated openly at P113, so I do not count it as a defect. It does mean the gate can clear without the take he asked for.
+
+**Ask B**
+- **Cell status:** one cell-status enum {PASS, FAIL, DIVERGED, NA, UNRESOLVED} with a single table mapping it to verdict class, replacing the prose spread across P112, P113, P116, P119, P120 and P126 (cures 1-3 and 5).
+- **Provenance write:** the stored-direction write stays at EA-7899 as is (g_dir form kept 2-1).
+- **Structural 8-June guard:** the parked day-bound conjunct or anti-flip guard would be the structural version if he later wants one. It needs his word and its own round, so I do not demand it here.
+
+**Verification note:** these rulings cover the page only. Disk digests and the "battery GREEN" claim are not checkable from chat.
+
+## V373-UJEXEMPT-10 END SONNET
+
+## V374-UJEXEMPT-11 OPEN SONNET
+# Seat ruling, V374 (page only; disk truth is not ruled here)
+
+**Q1: CONFIRM**, with non-blocking defects listed under Ask A. I traced the five fences: parentheses balance in P080 and P087, PrintFormat has 6 specifiers and 6 args, and P087's exempt expression is textually identical to P080's term. The pre- to post-build line shifts check out: +1 for the DECL, +2 after EA-7899, giving 7901, 8414, 8415, 8419, 10728/10729/10730. The page also holds up internally on counts: 22+12=34 ledger rows, 9+13=22 flip bars, 13 page-exhibited plus 21 disk-asserted, and all R-row N/N+1 stamps (R01 to R28) satisfy the floor rule.
+
+**Q2: OBJECT.** The causal battery has several internal contradictions and one gap that would make a grader's decision depend on reader choice. They are listed below. All are prose defects, none touch the code fences.
+
+## Ask A, Q1 (non-blocking)
+
+1. **P090 frame mix.** The list is headed "post-build lines", but it cites EA-8201 (the S1T producer). That is a pre-build number; post-build is EA-8203. Also, "8 sites" and "9 occurrences" use different units (lines vs occurrences). EA-8414 carries two occurrences on one line.
+2. **P075 "dir is 0 iff barTime is 0".** This is false. P065 writes 0 with a nonzero barTime when g_dir is DIR_NONE. Only barTime==0 ⇒ dir==0 holds. The term is still correct, but the stated reason is wrong.
+3. **P075 "DIR_NONE maps to -1 by the EA-8411 idiom on the live side".** This is stale from the two-state form. P080's live-side ternary maps DIR_NONE to 0, and EA-8411 only governs uj_wantb. The same paragraph then says a DIR_NONE edge encodes 0.
+4. **P059/P075 "LONG/SHORT row evidence".** The page exhibits same-pass agreement for SHORT only (R03/R05). The LONG reseed R21 has no same-pass edge row, and R22/R23 are old-format rows with no reseedDir. The stored value is the output of S2ResolveLive (EA-7885), whose body is not on the page. The comparator fails closed, so this is safe, but the LONG leg should be labeled disk-asserted.
+5. **Pins.** The P014 header says "verbatim", yet P015 (SEED-CARRY) has no quoted text, only "rides the v26 answer". P043 cites a "SETUP-DEFINED pin" that is not in P014-P020. R03 LONG-holder ruling (breaks nothing) needs a pin quote or a pointer to the banked rule.
+6. **Scope against the pin (his-word question, not a blocker).** SEED-CARRY says seeds persist across unconfirmed bars. Stored-nonzero also carries overnight: P127/P128 show 3 of the 9 first-flip chains (6/5 09:05, 6/10 09:15, 6/12 16:55) promoting on a prior-day arm. The 8-June keep rests on absence of provenance, not on his stated reason (the 5m flip, P017), and nothing bounds provenance lifetime. P044 says "data-contingent", and I agree it is.
+
+## Ask A, Q2 (these drive the OBJECT)
+
+1. **P125 vs P114.** P125 lists "late-TP interference" as a withdrawal condition. P114 and P125 itself say status is fixed at the admission bar and interference is "a parity observation, never a status change". A 16:55 event cannot both withdraw the status and not change it.
+2. **P126 four-way is not total, and its classes overlap.**
+   - WITHDRAWN_NEGATIVE and BLOCKED_NO_ADMISSION can both hold (a negative row at one bar, confirm=1 at another), with no precedence given.
+   - NO_EVAL says "no confirm evaluation rows after 14:40" with no direction or shadow qualifier. R24 is a confirm-evaluation row stamped 14:40:22. Read literally, it blocks NO_EVAL, and P126 says it is not a valid NEGATIVE, so the one observed baseline datum falls between classes. The qualifier "LONG, shadow=false" needs to be written into NO_EVAL.
+   - "After 14:40" is not defined as bar time or log time, and N/N+1 rows for bar 14:35 are stamped at or after 14:40:00.
+   - An admission with mismatched identity (wrong bar or price outside the band) is a fifth case that neither P125 nor P126 classifies for H status.
+3. **P124/P114 circularity.** The frozen key includes "hypothesis branch", but the precheck runs before H status and branch selection (P114). Either match against the union of all branches' identities, or drop the field from the key.
+4. **NA mapping is inconsistent in three places.**
+   - P116 says NA and UNRESOLVED both map to HOLD-terminal "per P113", but P113 never mentions NA.
+   - P112 excepts only P154/P155/P156 to UNRESOLVED, while P116 names P154-P157 and P159-P161 as NA.
+   - The ledger gives P154/P155/P156 WF/FF as Ku (a gradeable KILL row), and P120 says P155/P156 "join the keeps". P116 calls them NA, and P116's cap-HOLD list omits P154.
+   - A status word that is NA but non-clearing is not neutral. Either rename it (for example NOT-OBSERVABLE-HOLD) or make NA cells neutral.
+5. **P112 "post-promotion" has no anchor.** It lists UJRESEED, UJPROV and S2PROMOTE as post-promotion rows, but those are the promotion event and pre-promotion edge rows. Say "promotion of which row". The ordered list also puts the cause-test before NA, so the named cells need a separate exception clause.
+6. **P115 "explicit chain-continuation row".** No such row type exists in the EA's prints, and there is zero code delta. Define it as a grader-side join (for example UJPROV with reseedBar 06.04 10:20, then S2PROMOTE and CONFIRMPOLL for the same chain). Also, predicate (1) accepts exempt=1 with seedBiasAl!=0, so it can pass without exercising the new disjunct. Require seedBiasAl=0 there.
+7. **P113 DIVERGED wording.** "DIVERGED cells are neutral" conflicts with "M still needs every first-flip cell PASS" and "first-flip DIVERGED is never PASS". State outright that a DIVERGED first-flip cell blocks M, and a DIVERGED continuation cell is neutral.
+8. **P113 "10 all-branch-identical cells".** Those are keep cells only. By the ledger, 30 of 34 rows are branch-invariant, and the all-F rows are too. Relabel it "all-branch-identical keep cells".
+9. **P113 HOLD conversion.** Converting HOLD to PASS "with an added H row" after the data is seen is a post-hoc change to the allowed set. That sits uneasily with NO-OVERFIT. It should open a new round rather than pass inside this battery.
+10. **Open-position gap (question, not asserted).** P-lines on the takes sheet show the 6/5 NY LONG "stopped 6/11". If any one-open-position gate exists in S5, it could block admissions on 6/8-6/11 (including H-B3TAKE at 14:40) and make P-NOFALSE vacuous. The mid-chain-block class in P125 lists PREBIND, S5, session-cap and BYPASS but not that case.
+11. **Order key.** P043 uses "journal line number" as the tie-break. The R-rows carry only ms timestamps, and R01-R10 share one ms, so the key is not gradable from the page rows (disk only).
+
+## Ask B
+
+- **Free identity check for the provenance term.** H1 sets both g_anchorBarTime (EA-7884) and the CARRY stamp (EA-7899) to the same barTime. Adding `g_anchorBarTime == g_ujOpReseedBarTime` to the P080 conjunct would close the stale-churn exemption (P096) with no new state. It still needs the g_anchorBarTime writer census, and it would drop the 6/5 09:05 stale-arm promotion. Because S1C also stamps g_anchorBarTime=barTime (EA-7908), the stored dir stays necessary. This is the cheaper form of the parked P104 item.
+- **For Q2.** Replace the narrative precedence in P112-P114 with one ordered decision table (status, cell, outcome, M/T effect) that has an explicit "else". Most of the contradictions above would then be visible as a missing or doubled row.
+
+## V374-UJEXEMPT-11 END SONNET
+
+## V376-UJEXEMPT-13 OPEN SONNET
+# Seat ruling, v376-UJEXEMPT-13 (page only; nothing built, run or spent)
+
+**Q1: CONFIRM**, with the caveats below.
+**Q2: OBJECT** (items 1-3 below).
+
+## Q1: what I traced on the page
+
+- **Line arithmetic closes.** With the +1 (DECL) and +1 (SET) shifts, the census lines all follow: DIR-SET 7901, UJPROV 8414, TERM 8415, DIR-CLEAR 10730, PROMOTE-print 8419, comment 10438, SIDE1R 10449, g_dir decl 1063, H1 overwrite 7886 and S1C 7911. The seedBiasAl count of 8 sites and 9 occurrences also holds (P090).
+- **SET ordering is sound.** The H1 overwrite at EA-7885 precedes the SET after EA-7899 in R-H1HEAD. The comparator and the stored value both use g_dir, so the encoding is self-consistent even if S2ResolveLive (off-page) transforms the direction.
+- **Parentheses and arguments are balanced.** P080 and P087 each balance (5 open, 5 close in the term). The print has 6 specifiers and 6 arguments. The three-state encoding means a direction-mismatched or DIR_NONE edge cannot match, so the direction-matched path is fail-closed for wrong-direction promotion.
+- **Row and region arithmetic closes.** Regions are 100 span-lines (94 distinct, 6-line overlap at 7894-7899). The ledger has 22 F, 12 K and 9 first-flip bars. All 24 timed rows obey N/N+1.
+
+Caveats on Q1, none of which change the code verdict:
+
+- **P059/P089 overstate.** "Any post-SET writer that disagrees fails the comparator" covers only opposing-direction writers. S1C at EA-7902-7909 rewrites the anchor without touching provenance, so same-direction wrong-anchor promotion is possible. P096 discloses this generally, but P059 and P089 should say it.
+- **P090 leaves the writer census open.** The g_dir writer census "closes at S3", yet the fail-closed claim is already asserted.
+- **P027 fail-open (seedBiasAl == -1 promotes).** This is a pre-existing sentinel that becomes more awkward under the new 5m pin (see item 3).
+- **Stale-arm promotion.** B1's own 09:05 promotion rides a 6/4 arm (R02). It is authorized by the P015/P016 pins, but it is the stale-inheritance case and should be labeled that way in the Q1 sentence.
+
+## Q2: objection, with defects
+
+1. **The 8-June flip-row demand cannot be graded as written (P024, P044, P124, P016).**
+   - All ten exhibited 8-June rows (R11-R16, R25-R28) show death at S2SEEDBIAS_KILL (EA-8419) with unset provenance, and none shows a flip row.
+   - That chain never reaches EA-7386, EA-8466 or EA-2439, so no LTFFLIP/FRESHCOUNT row can appear.
+   - The row grammar for those types is off-page.
+   - The page never says what a silent 8-June with no flip rows grades as. If it is FAIL, a correct build fails forever. If it is PASS, the demand is decorative.
+   - Declaring "unset provenance corroborates only" inverts the observable mechanism: the only operative 8-June fence on the page is unset-keep.
+   - **Cure:** grade 8-June on KILL 1x at the five bars plus zero admission, with flip rows optional, or specify the row grammar and the bar at which they must appear.
+
+2. **P003 contradicts P010, P038 and P175.** P003 says "V375 verdicts still owed as the sole open round", while the others say V375 was superseded and no verdicts exist. It is stale text and should be corrected.
+
+3. **The 5m pin and the exemption collide on the page.**
+   - P024 cites the S2 CheckLtfAlign gate (EA-8405/8407) as enforcing 5M-FLIP-KILL. But EA-8407 `if(!aligned)` is the branch the new disjunct promotes out of.
+   - So for exactly the seeds this packet restores, enforcement rests only on off-page lines (EA-7386, EA-8466, EA-2439).
+   - B1's own reseed shows al=0 (R03, ok=1). The page cannot tell "unaligned/neutral" from "flipped opposite", and his word is about flips.
+   - A legitimate 5m-flip abort of B1 (P094) falls into WITHDRAWN_NO_EVAL (P125) and then clears as PASS-B1-unproven (P113), indicating the wrong outcome class for a killed hypothesis.
+   - **Cure:** add a typed withdrawal class (for example WITHDRAWN_FLIP_KILL) requiring the abort row plus the LTF value.
+
+Minor: R13 and R26 carry the same two-letter token "NN" (the second field in the row). The page never defines what that token is. If it is part of the anti-fake carry, the collision needs one line of explanation.
+
+## Ask B: better mechanisms
+
+- **Print the LTF bias in UJPROV.**
+  - Today uj_ltfb is read only inside the promote block (EA-8414 pre-build), so kill and WAIT bars never show it.
+  - Hoisting the ReadFlow(FL_BUF_LTF_BIAS) above EA-8412 and appending ltf= to PRINT-DIR (print-only, +1 line) would let every S2 bar grade flip versus unaligned. That is the one datum that separates B1 from 8-June under his own word.
+  - ReadFlow side effects are off-page, so verify at build.
+- **If he wants the pin enforced at the edge, not downstream:** add `&& !(uj_ltfOk && uj_ltfb == -uj_wantb)` to the provenance disjunct only (EA-8409-8415). This is a behavior change for its own round, and it could withdraw H-TAKE if the 5m bias was opposite at 09:05 or 09:15. That is his call, not a council default.
+
+Disk truth (digests, counts, whether the off-page lines behave as claimed) is not answerable from chat and I have not ruled on it.
+
+## V376-UJEXEMPT-13 END SONNET
+
+## V377-UJEXEMPT-14 OPEN SONNET
+# V377 seat verdict (page only; nothing built, run or spent; no files asked)
+
+**Q1: OBJECT.** This is narrow and prose-only. The five code fences are not the defect.
+
+**Q2: OBJECT.**
+
+## What I checked and found sound
+- **Offsets (P089, P090):** decl 304, CARRY-SET 7900, DIR-SET 7901, print 8414, term 8415, admit 10728, CARRY-CLEAR 10729, DIR-CLEAR 10730 and the 12298 total all follow from +1 at 303 and +1 at 7899. Occurrence count 9 against site count 8 also holds.
+- **Fence anchors:** the old-blocks match R-DECL 303, R-SET2 7899, R-CLEAR2 10727 and R-S2EDGE 8412-8413. Kill-versus-wait structure at 8418-8421 is unchanged.
+- **Ledger census (P117-P120, P129-P162):** 34 cells split 13 page-exhibited plus 21 disk-asserted. WW has 22 F cells (9 first-flip plus 13 continuation) and 12 keep cells. The 10 branch-invariant keeps are P137-P142 plus P151/P152/P158/P162.
+- **N/N+1 (P019, P166):** I checked all 28 rows (R-timestamp floor equals bar plus 5 minutes) and every one holds. R13/R26 are clean.
+
+## Q1 defects
+1. **P024 misattributes the 5m-flip enforcement to the S2 gate.**
+   - P024, P044 and P124 say 5M-FLIP-KILL is "enforced by S2 CheckLtfAlign gate (EA-8405/8407)".
+   - The newly exhibited R-LTFCHK (EA-2417) sets `aligned = round(bias) == ±1`, so a neutral 5m (0) and a flipped 5m (opposite sign) are indistinguishable.
+   - EA-8407 enters on `!aligned` for both, and the block then decides on m15 plus seedBiasAl plus provenance. Nothing at 8405-8421 tests for a flip.
+   - Both the old term and the new disjunct promote inside that `!aligned` region, so the edit widens promotion in exactly the region that includes an adverse 5m.
+   - The 8-June deaths R11/R25-R28 are B2 kills on unset provenance (seedBiasAl=0, reseedBar 1970), not flip kills.
+   - The whole flip fence therefore rests on EA-7386, 8466 and 2439, which are not on the page. Either exhibit them or reword P024/P044/P124 to say the edge gate does not enforce the pin.
+2. **P172 claims a label that P024 does not contain.** The fold map says the cited-not-exhibited lines were labeled run-graded with the P094 watch. P024 carries no such label, and P094 only mentions the SHADOW_EXPIRE precedent.
+3. **P003 contradicts itself.** It says "V376 verdicts owed as the sole open round" in the same line that says V376 was folded. It should read V377. P172 and the relay header claim this was corrected.
+4. **Cross-day authority is overstated (P015, P016, P075).**
+   - "No day bound on record" is not authorization, and the TREND-SWEEP quote concerns sweep requirement, not arm lifetime.
+   - Yet P016 says it "authorizes the 6/4-arm carry", and the Q1 sentence imports the 09:05 stale promotion on that basis.
+   - Say "not forbidden by any recorded pin" and mark the 09:05 stale-arm promotion as needing his explicit word.
+4. **The change sentence is not one plain sentence.**
+   - It runs about 110 words with a semicolon and a parenthetical.
+   - It omits that `seedBiasAl != 0` includes the -1 fail-open sentinel (P027) and the `barTime != 0` conjunct in P080.
+5. **Smaller items.**
+   - P026 calls EA-7885 the S2ResolveLive "body"; it is the call site.
+   - P110's header is still "FIX-2v24 validation" with lineage to v25.
+   - P044 says 8 June "dies by the 5m-structure-flip kill" while the page-proven predicate is a B2 kill, with attribution UNPROVEN. P044 itself concedes this; the opening claim should match.
+
+## Q2 defects
+1. **H_STATUS is not exclusive or total (P114, P125, P126).**
+   - Only BLOCKED over NEGATIVE is ordered.
+   - NO_EVAL and FLIP_KILL overlap whenever a flip kill precedes the confirm bar, and NEGATIVE and FLIP_KILL can overlap too.
+   - The outcomes differ: FLIP_KILL grades PASS with a finding (P113), while NO_EVAL leads toward HOLD.
+   - P126's four-way for B3 has no FLIP_KILL member, while P114 lists five members as "exactly one".
+2. **8-June routing is self-contradictory (P112, P113, P124).**
+   - P124 says only the London 09:25 SHORT is the FAIL carve-out and other 6/8 arms are HOLD "unless flip-killed, then FAIL".
+   - The same paragraph then says any 8-June take is FAIL "never HOLD".
+   - A take cannot be "flip-killed", since the kill precedes admission, so the exception clause is incoherent.
+3. **P112 conflicts with P116 and the ledger.**
+   - P116 makes P154 WF/FF, P155/P156, P157 and P159-P161 unconditionally NA, excepted from the cause-test.
+   - The P112 edge-existence partition says that if the edge is present, the ledger grade stands.
+   - The ledger still carries hard Ku and F grades in WF/FF (P154-P157, P159-P161).
+   - If the row exists at 14:45 WF, the grader cannot tell whether it is NA or Ku.
+4. **The success path cannot clear.**
+   - On the carried path P115 says 09:05 promotes and the 09:15 reseed is absent by design. After promotion, 09:15, 09:30 and 09:35 are no-edge-after-promotion cells with ADVANCE rows, which is DIVERGED under P112.
+   - P113 says DIVERGED is "non-clearing regardless of T" and also that continuation cells are "neutral" to M.
+   - The ledger still expects S2PROMOTE at P133-P135, and P127 says carried-path cells are read "by the join".
+   - As written, the intended outcome (promote at 09:05, reach confirm at 09:40, PREBIND at 09:45) generates DIVERGED cells and so cannot clear. Reconcile "non-clearing" with "neutral".
+5. **P116's last sentence mislabels cells.** It says P154/P155/P156 "read Ku in the WW baseline", but the ledger has them as Km, F and F.
+6. **The shadow=false pin is unexhibited (P115(2), P112 WITHDRAWN_TERM).** The only CONFIRMPOLL rows on the page are shadow=true (R10, R24), and the emitter code is off-page. The semantics of the live-path pin are asserted, not shown. Label them run-graded.
+7. **The axis map is incomplete (P113).**
+   - The M list omits P-PROMOTE-CONT, though the table maps P119 to M.
+   - P165 (H1-expiry "blanket FAIL"), P112 and P116 have no axis.
+8. **PASS-B1-unproven clears without the owed 09:45 take (P113).** It is disclosed, but it clears a run that delivers none of his Rebuild order's reference take. That should carry his explicit word, not just a council ruling.
+
+## Ask B: better mechanisms
+- **Edge-level flip test.**
+  - Hoist the `ReadFlow(FL_BUF_LTF_BIAS...)` read from EA-8414 above EA-8413.
+  - Add a non-adverse conjunct (`uj_ltfb != -uj_wantb`) to both the old and new promote terms.
+  - A flipped 5m would then die or wait at the edge, instead of relying on the off-page downstream aborts.
+  - This is the print-ltf hoist plus edge-conjunct already parked as his-call. It would change the Q1 object and needs a build verify, so I raise it, not demand it.
+- **H_STATUS precedence.** Use FLIP_KILL > BLOCKED > NEGATIVE > NO_EVAL for both hypotheses, and add FLIP_KILL to the B3 partition at P126. This is prose-only.
+- **DIVERGED.** Split "no-edge-after-promotion with the chain still advancing" into its own neutral class (EXPECTED_ADVANCE). Keep DIVERGED for an advance that breaks without cause.
+
+## V377-UJEXEMPT-14 END SONNET
