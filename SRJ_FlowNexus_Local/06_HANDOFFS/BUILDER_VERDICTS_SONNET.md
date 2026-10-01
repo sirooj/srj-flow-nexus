@@ -5126,3 +5126,55 @@ Smaller items: line 40 never gives window length or per-day cost, so the 15-minu
 Nothing here builds, runs, or moves money.
 
 ## V368-WORKFLOW END SONNET
+## V369-WORKFLOW OPEN SONNET
+# Rulings on v369-WORKFLOW
+
+Line numbers follow the stated convention: physical lines, blanks counted, title = line 1. I counted the page as received, so Q1 and Q2 sit at lines 45 and 48. Compare against your copy by eye. I rule on the page's rules only. I cannot check whether this page's own changes map to the frozen edit list, because that list is not on the page.
+
+**Q1: DISCREPANCY.** The design is sound, but the contract as written contradicts itself in the places below. Conditions to convert to YES:
+
+1. **Tie table (L8).** "DISCREPANCY grades as OBJECT-class" plus "any OBJECT = amend" makes "YES plus DISCREPANCY = conditional-confirm" unreachable. Either drop the mapping or drop the row. The tie table also lacks a "no" verdict mapping, although the answer forms (L46, L49) use yes/no/discrepancy.
+2. **Equality vs subset (L16 vs L22).** L16 says the fold passes only if its diff equals the edit list. C3 checks only that every change maps into the list, so an omitted edit passes C3. Add the converse: every list item must appear in the diff.
+3. **C2 (L21).** The predecessor is the amended page, even if OBJECT-graded, but the checker verifies it against the "last-accepted" record. An OBJECT-graded predecessor is not accepted, and this round amends a graded-OBJECT page. The record must store the last-graded id with its class.
+4. **Acceptance-record (L16 vs L21).** It is "grade files, commit-immutable", yet "any manifest change rides the full path". Every grade adds a file, which would force full path every round. State that appending grade files is exempt and that the hash is per file.
+5. **C1 status (L20 vs L25).** The mandatory set omits C1. Say whether a non-vacated C1 FAIL forces FULL_PATH (it must). Also define the LIGHT_PASS conjunction, and state that N/A or a checker crash on a mandatory check counts as FAIL. "N/A encoding fixed per check" never says what the encoding is.
+6. **"Fails E0 open" (L19).** Fail-open means pass, contradicting the fail-closed rule in the same line. Presumably "fails closed" is meant.
+7. **Off-page definitions (L3 vs L16, L19, L22, L23).** Line 3 says every operative definition rides inline. The boundary table, exhaustive non-word list, cite taxonomy definitions and fixtures are not inline. L22's "manifest table above" has no referent; the only table above is the tie table.
+8. **Fixtures (L25).** Nine are named, but none covers C1, the C5 substring case, odd quote count, or a locked-token change. No expected reason code is stated per fixture.
+9. **Pin verification (L16, L25).** No check in E0 or C1–C5 verifies the checker hash, manifest hashes, or boundary-table hash. "Pinned" is not mechanically enforced. Add a pins check (C0) to the mandatory set.
+
+**Q2: NO.** Blockers:
+
+1. **Take days (L9 vs L33).** The bar has 8 takes, but only 6 days carry takes. 5 Jun and 11 Jun are miss days in L9, yet L33 lists "8 take days". The count of "8 plus 3" is therefore wrong or mislabeled.
+2. **Misses (L31 vs L33).** L31 says misses are absent-as-takes, so a take list contains only TAKEN-valid and FALSE. "Same outcome classes" is then vacuous, or the list secretly contains MISS entries. L33 says misses "may become takes", but a converted miss is not a member of the frozen-bar take list. It would fail L33's membership clause and break L31 equality.
+3. **Warmup (L33).** One warmup prefix cannot serve 8 non-contiguous days across two windows (late Aug–Sep and Jun) with flat-state resets. That needs at least one warmup per window, or per day. The "costed ONCE" claim is unsupported.
+4. **Equivalence proof (L33 vs L35).** The proof is keyed to code hash, so every code change invalidates it. Refreshing it requires a full run, which is the 70–75 minute cost the gate is meant to avoid. Savings can only come from slice-red outcomes, and the audit rule gives some of those back. The page never says how the proof is produced.
+5. **Superset predicate (L33).** "Slice takes superset golden takes" is only satisfiable over slice days. Regressions and new FALSE takes on the other days of the window are invisible to the slice, so escapes (L35) will be frequent.
+6. **Metric (L35).** Escapes are defined as ratchet regressions only, so a slice-green followed by a full-run bar failure is not an escape. Saved-runs has no success threshold, so the second dimension is not falsifiable. The audit (every 6th red) fires at most once in a 6-round horizon, so it yields no usable false-red rate. "70–75 minute" is an unsourced figure on a page that claims no estimates (L29).
+7. **Golden (L31).** There is no rule for when golden advances, and golden-0 comes from the next full run of whatever code exists, which may already be red against the bar. The ratchet has no defined baseline until then.
+8. **Feasibility gate (L33).** "Under 15 minutes" constrains minutes only, leaving human trips unconstrained although L14 defines cost as a pair. No qualifying runs exist for per-day cost, and L29 freshness covers pages, not manifests.
+9. **Shadow-mode reason (L37).** The stated reason fails: the 6th-red audit observes almost nothing (point 6), while shadow mode would observe every slice result at no extra full-run cost. Blocking-from-start with up to five unaudited false-reds is the riskier choice.
+
+## Ask A: other defects and imprecisions
+
+- **L19 locked tokens:** the numeric thresholds in L33 and L35 (2 escapes, 6 rounds, 6th, 15 min, 70–75, the 8 plus 3 bound) are not "take-bar and pin rows". They are neither locked nor word-spans, so a fold can change them past both E0 and C3. Lock every numeric token on rule-bearing lines. Also, "rows" and "pin rows" are undefined on this page.
+- **L19:** how executable ranges are discovered without a fence (UNENCLOSED_EXEC) is undefined, and so is the pass criterion for its fixture. Quote pairing needs a codepoint set; paste noise turns U+0022 into curly quotes.
+- **L19/L22:** whitespace and punctuation are code-class, yet C3 maps only word-spans. On a code-free page (C1 vacated) nothing governs punctuation or whitespace edits, which can change meaning.
+- **L20:** "nothing else" in the normalization means any paste noise (trailing spaces, NBSP, Unicode form) becomes a FAIL with no way to tell noise from tampering. "Duplicate content = ambiguity failure" fails honestly repeated blocks.
+- **L23:** with a range hash instead of a file hash, "all four verified" is unclear. Line-count convention (wc -l vs split) is unstated, though C1 normalization implies split. Per-class rules for the four taxonomy labels are absent.
+- **L24:** "neither marker" assumes exactly two markers. Case sensitivity of the substring test is unstated.
+- **L27:** "promotion" does not say to what (mandatory?). "Fold" vs "round" vs "run" are used loosely.
+- **L39/L41 vs L25:** "LIGHT_PASS is transport only" conflicts with L41's "passes the fold", reconciled only by his word. The rendered span list is generated by the same checker it audits.
+- **L14:** the section is titled cost evidence but reports no (minutes, trips) pair. "79 plus 84 V/REG pairs" is ambiguous, and 79 is unexplained. "The battery" and the Count objects are off-page.
+- **L31:** timezone and session definition for the take id are unpinned, and entry time sits both in the id and in the entry triple.
+- **L33:** the three invalid classes are not named. "8/28 NY news bar" uses a different date format and has no time. "Remaining binary gaps" (L12) is unbounded.
+
+## Ask B: better mechanisms
+
+1. **Fail-fast full run instead of slice gate (touches L31, L33, L35, L37).** The full window is time-ordered. Abort the run at the first canonical take that diverges from golden or bar. Same code and same state mean no equivalence proof, no warmup question, no false-reds, and no audit rule. Reds cost only the elapsed minutes. Tradeoff: late-window divergences save little. Pair it with ordering the check against the earliest bar days.
+2. **Digest equality for green (L31).** Hash the sorted canonical take tuples and compare digests, printing a diff only on mismatch. This makes "equals exactly" mechanical.
+3. **C0 pins check (L16, L25).** One mandatory check covers the checker, region-manifest, slice-manifest, boundary table, non-word list and fixtures against hashes in the acceptance-record.
+4. **Independent diff (L39).** Print a raw diff produced by a standard tool, separate from the checker's span list, so a checker bug cannot hide in both.
+5. **If a slice gate survives:** run it in shadow mode, since it costs minutes and not full runs. Audit every red, set a numeric saved-minutes threshold, and restrict the superset predicate to slice days (L33, L35, L37).
+
+## V369-WORKFLOW END SONNET

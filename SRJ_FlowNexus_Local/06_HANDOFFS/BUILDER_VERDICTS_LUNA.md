@@ -15715,3 +15715,536 @@ I would also change the “subset ratchet” terminology at **L32** to reflect t
 The remaining closure item is the binary definition of `full-window green`; the warmup-cost arithmetic is a secondary imprecision.
 
 ## V368-WORKFLOW END LUNA
+## V369-WORKFLOW OPEN LUNA
+## Q1
+
+**DISCREPANCY — lines 18–25.**
+
+The decisive gap is at **L25**: the mandatory FULL_PATH set is `E0, C2, C3, C4, C5`; **C1 is omitted**, even though L18/L20 describe C1 as one of the binary contracts. Therefore the page does not establish that a C1 twin mismatch forces FULL_PATH. A code-bearing fold could, on the text as written, have E0/C2/C3/C4/C5 pass and still avoid a C1 failure being mandatory.
+
+There are also supporting imprecisions in the C1 contract itself, detailed below.
+
+## Q2
+
+**DISCREPANCY — lines 31–35.**
+
+The bar-equivalence definition is materially better, but the page still does not fully close the contract:
+
+* the **frozen-bar take list is not itself pinned, hashed, or given a canonical source/record** on this page;
+* the equality rule does not unambiguously require equality of the entire canonical take record, despite defining an entry triple;
+* **golden-0 can potentially ratchet from an unvalidated full-window run**, because L31 says it is simply the canonical takes of the next full-window run and does not explicitly condition creation/freezing on preservation of the already-accepted baseline;
+* the “falsifiable two-dimensional metric” is not actually defined as two explicit dimensions at L35;
+* the counting/reset semantics for `slice-red`, the six-round horizon, and the two-escape rollback are incomplete.
+
+---
+
+# Analytic A — defects, gaps, and imprecisions
+
+### 1. The page is not actually self-contained despite claiming that it is
+
+**L3 vs L16/L25.** L3 says every operative definition rides inline in this new session. But L16 says the boundary table, cite taxonomy, and fixtures are merely “pinned beside the region-manifest,” while L25 says N/A encoding is “fixed per check” without actually defining it.
+
+That leaves a fresh seat dependent on artifacts not reproduced on the page. For a “closed page” contract, those should either be inline or explicitly incorporated into the pinned control bundle with an exact artifact identity and schema.
+
+### 2. C1 is logically non-mandatory
+
+**L18-L25.**
+
+This is the principal Q1 defect.
+
+L20 defines C1 twin-equivalence; L25 excludes C1 from the mandatory FAIL set. “C1 may print VACATED” does not resolve what happens on **C1 FAIL** for a code-bearing page.
+
+The clean rule needs to be explicit:
+
+> For a non-code-free page, `C1 != PASS` is FULL_PATH; `C1 = VACATED` is permitted only when parser finds zero fences.
+
+### 3. C1 hash identity is underspecified
+
+**L20.**
+
+The page does not specify:
+
+* the hash algorithm;
+* whether the “content-hash id” is over raw bytes or normalized bytes;
+* the exact byte boundaries of “packet body” and “relay P-block”;
+* how the P-block is extracted;
+* whether duplicate-content ambiguity is checked only within the pair or across the whole relay set;
+* what constitutes a “collision” operationally.
+
+The normalization order is stated, but the **hash input after normalization** is not explicitly tied down.
+
+### 4. C1 normalization still has a boundary ambiguity
+
+**L20.**
+
+“strip one trailing empty element (lines)” needs an exact split model. For example, a file ending in two blank lines produces multiple trailing empty elements; the page says strip one, but does not define whether the normalized representation retains one final blank line or one empty element corresponding to the terminal newline. A byte-level canonicalization recipe would remove this ambiguity.
+
+### 5. E0’s “word / non-word” model is not fully defined
+
+**L19/L22.**
+
+The classifier depends on “word-span” and an “exhaustive non-word list,” but the exact lexical universe is not defined. In particular, the page does not specify treatment of:
+
+* digits;
+* underscores;
+* apostrophes;
+* hyphens;
+* Unicode letters;
+* combining characters;
+* tabs vs spaces;
+* punctuation adjoining words.
+
+This matters because C3 later maps **changed word-spans** against the edit list.
+
+### 6. E0 has an internal fail-closed ambiguity
+
+**L19.**
+
+The phrase “any unlisted class is code-class” is fail-closed, but the page never enumerates the positive **word-character class**. The implementation could therefore interpret the rule differently while both claiming conformance.
+
+For a binary classifier, define the partition explicitly: `WORD`, `NONWORD`, `FENCE`, `MARKER`, `DELIMITER`, etc., with precedence.
+
+### 7. Quoted-line handling is not operationally complete
+
+**L19.**
+
+“even double-quote pairing per line; odd count fails E0 open” is unusually precise in one direction but leaves unresolved:
+
+* escaped quotes;
+* single quotes;
+* quote characters inside code fences;
+* quotes spanning physical lines;
+* whether `""` is one empty quoted span or two quote tokens.
+
+The per-line rule also needs an explicit statement that quotes **cannot pair across lines**, if that is intended.
+
+### 8. Locked-token scope is partly undefined
+
+**L19.**
+
+“take-bar and pin rows” are not formally identified. The page should define exactly how a take-bar row and pin row are recognized, especially because every numeric token within them is locked.
+
+The same issue applies to “verbatim-quoted lines”: the page needs a deterministic recognizer for what counts as such a line.
+
+### 9. C2 lacks a complete acceptance-record schema
+
+**L21.**
+
+The authority concept is clear, but the record itself is not. It needs at least:
+
+`accepted_page_id`, `predecessor_id`, `grade_file_id`, `grade_hash`, `accepted_at/round`, and probably the accepted control-state/fold identifier.
+
+Otherwise “checker verifies predecessor id against that record” is conceptually specified but not mechanically reproducible.
+
+### 10. “Acceptance-record = grade files” is terminologically unstable
+
+**L16/L21.**
+
+The page says there are “three manifests, three names,” but then equates the acceptance-record with **grade files** in the plural. That makes the control surface ambiguous: is `acceptance-record` one immutable artifact, a class of artifacts, or the role of each grade file?
+
+A clean formulation would make the acceptance-record a single typed record that **points to** the immutable grade file.
+
+### 11. C3 edit-list provenance is insufficiently pinned
+
+**L16/L22.**
+
+“edit list comes from the prior grade’s named deltas” is not enough to establish exactly which deltas are in force. The page needs:
+
+* the predecessor grade identifier;
+* the exact delta-list identifier;
+* its hash;
+* the mapping algorithm from changed spans to delta entries.
+
+Otherwise a reviewer can agree conceptually but two checkers can select different edit lists.
+
+### 12. C3 does not define insertion/deletion boundary semantics
+
+**L22.**
+
+“every changed word-span” works naturally for replacements, but insertion-only and deletion-only edits can have no obvious word-span on one side. The page needs a canonical anchoring rule for insertions/deletions and whitespace-only edits.
+
+### 13. C4 hash semantics are incomplete
+
+**L23.**
+
+For ordinary files the cite requires “file plus hash plus line range plus key string,” while append-only transcripts use a range hash. It does not explicitly state whether:
+
+* ordinary-file cites carry the **whole-file hash**;
+* range hash is calculated on raw or normalized bytes;
+* line ranges are zero- or one-based beyond the stated physical-line convention;
+* the range includes terminating line endings.
+
+The page should make those cases mutually exclusive and exact.
+
+### 14. C4 “key string” matching is underspecified
+
+**L23.**
+
+It does not say whether the key string is exact-byte equality, exact-text equality after normalization, a substring, a whole-line match, or a token match.
+
+### 15. C5 marker extraction is not defined
+
+**L24.**
+
+The namespace rule is good in principle, but “marker name” itself is not defined syntactically. A checker needs an exact grammar for finding markers, including case sensitivity and allowable characters.
+
+### 16. “Marker set equals predecessor set” needs cardinality/duplicate semantics
+
+**L24.**
+
+It is implied that markers form a set, but duplicate markers are not addressed. A document can have the same marker twice and still have the same mathematical set. If duplicates are illegal, that needs to be explicit.
+
+### 17. Checker grammar is named but not actually specified
+
+**L25.**
+
+“One record per run with reason codes” needs a schema. At minimum the record should define:
+
+`run_id`, `fold_id`, input identities, each check status, reason-code list, observed values, checker hash, and final state.
+
+Without this, “one record” is structural prose rather than a deterministic output contract.
+
+### 18. N/A encoding is referenced but absent
+
+**L25.**
+
+“ N/A encoding fixed per check” is not a definition. The actual encodings need to be written or pinned.
+
+### 19. Fixtures lack exact expected outputs
+
+**L25.**
+
+The fixture *types* are listed, but there is no pinned fixture identifier, input artifact, expected reason code, expected final state, or fixture hash. “Trust fixtures before first use” therefore does not specify what constitutes a successful fixture validation.
+
+### 20. Advisory promotion has no target state
+
+**L27.**
+
+“Promotion on consecutive-fold recurrence” does not explicitly say **promotion to what**. Presumably the advisory becomes blocking, but that state transition should be named.
+
+The operator-fault route also needs the ledger artifact to be identified and pinned.
+
+### 21. Estimate rule uses an undefined authority phrase
+
+**L29.**
+
+“council rules weight” is not an operative definition. It should specify exactly how a PROVISIONAL sample affects a verdict.
+
+### 22. Full-window canonical equality is not fully canonicalized
+
+**L31.**
+
+The page defines a canonical take’s fields, but the equality sentence explicitly calls out only:
+
+* take id;
+* entry bars;
+* lines;
+* outcome classes.
+
+It does not explicitly require equality of the full **entry triple** (`evaluated bar`, `pass time`, `entry bar`). Since “EQUALS” is then immediately qualified by a parenthetical, this leaves room for inconsistent implementations.
+
+### 23. The canonical outcome taxonomy is ambiguous
+
+**L31.**
+
+The page says the canonical outcome class may be `TAKEN-valid, MISS, INVALID-silent, FALSE`, but simultaneously says:
+
+* misses are absent-as-takes;
+* invalids are silent.
+
+So it is unclear whether MISS/INVALID/FALSE are members of the “canonical take list” or are classes in a broader canonical **event list**.
+
+That should be separated explicitly, e.g. `canonical events` versus `taken list`.
+
+### 24. Canonical take-list ordering and duplicate handling are missing
+
+**L31/L33.**
+
+A “list equals” comparison requires a deterministic ordering or an explicit set/map semantics. The page has deterministic take IDs but does not state:
+
+* uniqueness invariant;
+* sorting key;
+* duplicate handling;
+* whether comparison is set equality or ordered-list equality.
+
+### 25. Take-id determinism is asserted but not defined
+
+**L31.**
+
+“date plus session plus pair plus direction plus entry time” is conceptually stable, but exact serialization and timezone are omitted. A canonical ID needs one exact representation.
+
+### 26. Frozen-bar authority is not pinned
+
+**L31/L33.**
+
+This is one of the largest remaining Q2 gaps.
+
+The page relies on a **frozen-bar take list** repeatedly, but gives no:
+
+* artifact path;
+* hash;
+* version;
+* producing grade;
+* canonical serialization.
+
+That means the key baseline is named but not itself on the control surface.
+
+### 27. Golden-0 can potentially ratchet backward
+
+**L31.**
+
+The stated purpose is non-regression, but “golden-0 = canonical takes of the next full-window run” does not say that this snapshot must first be proven non-regressive against the already accepted golden/frozen bar.
+
+Without that guard, a degraded full run can become the provisional reference and then protect the degradation.
+
+### 28. Golden freeze timing is not defined
+
+**L31.**
+
+“golden FROZEN” appears at rollback, but the exact transition into FROZEN state is not defined. There should be an explicit state sequence such as:
+
+`PROVISIONAL -> ACCEPTED/FROZEN` only by bar-equivalence or operator promotion.
+
+### 29. Slice superset semantics are too weak
+
+**L33.**
+
+A slice “takes superset golden takes” is not enough unless the membership relation is defined over the **full canonical tuple**.
+
+As written, a slice could potentially preserve the same take ID while changing another canonical field, such as evaluated bar or pass time, and still satisfy the stated predicate.
+
+### 30. Added-take validation needs a formal membership relation
+
+**L33.**
+
+“a member of the frozen-bar take list on the full canonical tuple” is directionally correct, but the exact tuple fields and serialization need to match the L31 canonical schema. The page should say that membership is by an exact canonical-record hash or exact normalized record equality.
+
+### 31. Invalid representatives are not class-defined
+
+**L33.**
+
+The page gives three representative events but says “one per invalid class” without actually naming the classes. A new seat cannot independently verify that the chosen three are one-per-class from this page.
+
+### 32. The slice warmup is not reproducibly bounded
+
+**L33.**
+
+“identical lookback bars” does not define the lookback length or the exact source/range. Since warmup is explicitly part of cost and equivalence, this needs to be pinned.
+
+### 33. “State reset to flat” does not define all mutable state
+
+**L33.**
+
+Flat position state is not necessarily the entire runtime state. The contract should define whether cached indicators, arrays, session state, counters, and prior-event state are also reset or reconstructed.
+
+### 34. Code-tree hash canonicalization is missing
+
+**L33.**
+
+“code-tree hash” is referred to as authoritative, but its scope and canonicalization are absent: file inclusion/exclusion rules, traversal ordering, normalization, and hash algorithm are not specified.
+
+### 35. The equivalence proof has no artifact schema
+
+**L33.**
+
+The page says proof is keyed to slice-manifest hash **and** code hash, but does not define where the proof is stored, what exactly it contains, or how it is checked.
+
+### 36. ADMISSION ONLY lacks a defined downstream state transition
+
+**L33.**
+
+The page correctly prevents admission evidence from masquerading as bar evidence, but does not formally state what an ADMISSION ONLY result is allowed to unlock, if anything. “fails the grade” is a consequence, not a complete consumer contract.
+
+### 37. The 15-minute feasibility statement does not line up cleanly with the cost-unit definition
+
+**L14/L33.**
+
+L14 says cost is a **pair** `(wall-clock minutes, human trips)`, “never summed.” L33 says feasibility is “under 15 wall-clock minutes with human wait plus machine runtime together.”
+
+That can be made consistent, but the current wording does not say whether 15 minutes is:
+
+* elapsed wall-clock including human waiting, or
+* machine runtime plus human waiting arithmetically summed.
+
+Those are different measurements.
+
+### 38. “Two-dimensional metric” is not actually defined
+
+**L35 and L48.**
+
+L48 calls it a “two-dimensional metric,” while L35 specifies escape counting, a 6th-red audit, a six-round horizon, and rollback at two escapes. The page never identifies the two dimensions formally.
+
+If the dimensions are intended to be, for example, **regression escapes** and **audit sampling of false-reds**, that needs to be stated.
+
+### 39. `slice-red` is not formally defined
+
+**L35.**
+
+It is inferable as failure of the slice-green predicate, but a binary contract should not rely on inference. Define exactly what status produces one `slice-red`.
+
+### 40. Escape comparison target is not fully specified
+
+**L35.**
+
+“full-window ratchet failures (regression vs golden)” needs the precise canonical comparison and the exact golden version/hash being used at each round.
+
+### 41. Six-round / sixth-red counters have no reset rules
+
+**L35.**
+
+The page defines a horizon but not:
+
+* whether the sixth-red counter starts at zero on promotion;
+* whether a full audit run advances the round counter;
+* whether a non-run-bearing council round is ignored;
+* whether counters reset after rollback;
+* whether two escapes must occur within the six-round horizon.
+
+### 42. Rollback trigger scope is ambiguous
+
+**L35.**
+
+“Rollback ... on 2 escapes” should explicitly say **within the defined six-round horizon**, and identify the state to which the system returns plus the golden identifier retained.
+
+### 43. Line 14's inventory wording is potentially confusing
+
+**L14.**
+
+“371 relay files total now, 370 ruled at v368, plus this v369 at file time, expected 372” is arithmetically interpretable, but the temporal reference is unclear enough that a reader could read it as contradictory. The file-count timestamp/state should be stated explicitly.
+
+This is not a pipeline-rule blocker, but it is a presentation precision issue.
+
+### 44. Predecessor applicability to this new page is implicit
+
+**L3/L21.**
+
+The session is called “NEW council session,” while C2 assumes “the page being amended.” It is strongly implied that v369 amends v368, but the predecessor relation should be explicit rather than inferred.
+
+### 45. The operator promotion trigger is not tokenized
+
+**L31/L41.**
+
+“the operator’s explicit word” is an authority rule, but there is no exact trigger token/phrase or recognition rule. That is relevant anywhere the text makes an explicit word a state-changing control.
+
+### 46. The “vote-free” state machine is incomplete
+
+**L41/L43/L45-L51.**
+
+The page establishes:
+
+`LIGHT_PASS` ≠ council confirmation
+
+and that activation is on operator word, which is good. But the actual state transitions between:
+
+`FULL_VERDICT -> LIGHT_PASS -> advisory-read-only`
+
+and back to full halt power are not formally represented. This becomes relevant once a fold passes the checker but the seats remain advisory-read-only.
+
+---
+
+# Analytic B — better mechanism
+
+I would replace the remaining prose-level ambiguity with a **single canonical control bundle + explicit state machine**, touching **L16–L25 and L31–L35**.
+
+### 1. Make every dependency a typed, hashed artifact
+
+Keep the three named roles, but define them as:
+
+`region-manifest`
+`slice-manifest`
+`acceptance-record`
+
+Then have the `acceptance-record` contain hashes/IDs for:
+
+* predecessor;
+* frozen-bar canonical event set;
+* current golden;
+* checker version/hash;
+* slice-manifest;
+* region-manifest;
+* code-tree hash;
+* edit-list hash.
+
+This removes the current ambiguity around the frozen-bar baseline and acceptance authority.
+
+### 2. Make C1 mandatory
+
+Change the checker invariant to:
+
+> `required = {E0,C1,C2,C3,C4,C5}` for code-bearing pages.
+> `C1=VACATED` is legal only when E0 proves zero code regions.
+> Any other non-PASS status on any required check => FULL_PATH.
+
+That directly fixes the Q1 blocker at L25.
+
+### 3. Canonicalize records before comparing them
+
+Define one deterministic serialization of a canonical event:
+
+`take_id | evaluated_bar | pass_time | entry_bar | line_name | outcome_class`
+
+with fixed ordering and duplicate rejection.
+
+Then:
+
+* frozen-bar comparison = exact canonical-record-set equality;
+* golden comparison = exact canonical-record-set equality;
+* slice-added membership = exact canonical-record equality, not merely take-ID membership.
+
+This fixes the L31/L33 ambiguity.
+
+### 4. Make golden-0 non-regressive by construction
+
+Use this state rule:
+
+`FROZEN_GOLDEN`
+→ current full run
+→ if exact equality: `GREEN`, may produce `PROVISIONAL_GOLDEN-0`
+→ otherwise: no new golden baseline
+→ explicit operator word may promote.
+
+Then `PROVISIONAL_GOLDEN-0` can **never silently become a degraded replacement baseline**.
+
+### 5. Define slice-red and escape as exact predicates
+
+For example:
+
+`SLICE_GREEN = exact superset of frozen canonical events, with every additional event exactly present in frozen-bar canonical events`
+
+`SLICE_RED = NOT SLICE_GREEN`
+
+`ESCAPE = full-run canonical set != FROZEN_GOLDEN canonical set`
+
+Then define the counters:
+
+* sixth `SLICE_RED` in the six-round horizon → mandatory audit full run;
+* two `ESCAPE`s within the six-round horizon → rollback;
+* audit run does not itself change the slice-red counter;
+* rollback resets the slice gate to full-window-only and freezes the last valid golden.
+
+That makes the “two-dimensional” mechanism genuinely falsifiable.
+
+### 6. Make feasibility a two-dimensional predicate rather than prose arithmetic
+
+Because L14 explicitly defines cost as the pair `(wall-clock minutes, human trips)`, keep those dimensions separate.
+
+For example:
+
+`FEASIBLE = elapsed_wall_clock <= 15 minutes AND human_trips <= N`
+
+where `elapsed_wall_clock` explicitly includes human waiting and machine runtime **as elapsed time, not as an arithmetic sum of separate cost components**.
+
+That removes the ambiguity between L14 and L33.
+
+---
+
+## Bottom line
+
+The page has substantially closed the conceptual gaps, especially the **bar-equivalence definition**, but I would not treat it as binary-clean yet.
+
+**Q1: DISCREPANCY — primarily because C1 is not mandatory at L25, plus the self-containedness/schema gaps.**
+**Q2: DISCREPANCY — primarily because the frozen-bar baseline and canonical equality are not fully pinned, and golden-0/escape semantics still permit ambiguity.**
+
+The highest-value edits are therefore **C1 mandatory status, pinned frozen-bar canonical artifact, exact canonical-record equality, guarded golden-0 creation, and an explicit slice-red/escape state machine**.
+
+## V369-WORKFLOW END LUNA

@@ -379,3 +379,19 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - ESCAPE-RATCHET: escapes are full-window ratchet failures (regression vs golden), never bar failures; every 6th slice-red gets a full audit run; horizon and rollback target stated (full-window-only, golden frozen).
 - SHADOW-DECLINE: a proposed advisory regime declined for a blocking gate carries its reason on the page (v368 shadow-mode: delays savings while the audit rule already observes false-reds), reversible on his word.
 - RENDERED-LIST: vote-free carried results print the human-readable changed-span list beside the checker record.
+
+## 47. Binary-closure gates (builder-owned gaps, 2026-10-01 - v369 shipped green with mandate/schema gaps; Luna 46-item A plus Sonnet MUSTs converged on the workflow thread)
+
+- C1-MANDATORY: required set is E0, C0, C1, C2, C3, C4, C5 for code-bearing pages; C1=VACATED legal only when E0 proves zero code regions; any other non-PASS on any required check forces FULL_PATH; crash or N/A on a mandatory check counts as FAIL.
+- FROZEN-ARTIFACT: the frozen baseline is a pinned file (path plus hash plus version plus producing grade), transcribed from his record with UNKNOWN where unknown; green compares against it by exact canonical-record-set equality, order-free, duplicates rejected.
+- CANONICAL-SERIAL: take_id|evaluated_bar|pass_time|entry_bar|line_name|outcome_class, fixed order, server-time strings, no conversion; take ids unique; digest equality over sorted records with diff on mismatch.
+- GOLDEN-GUARDED: golden-0 from the next full-window run only if proven non-regressive first; promotion on green or operator word; interim limitation stated; rollback keeps the golden frozen.
+- FAIL-FAST-PRIMARY: abort at first canonical divergence from golden-or-bar, earliest bar days first; reds cost elapsed minutes; superseded slice-gate lines named as withdrawn with reason; saved-minutes cumulative metric with threshold and horizon; runs cost 1 run word each.
+- TIE-FIXED: YES+YES confirm; YES+DISCREPANCY conditional; DISCREPANCY+DISCREPANCY amend; any OBJECT amend; any NO amend-with-halt. No mapping sentence may strand a table row. Each question tallied and graded separately.
+- C0-PINS: one mandatory check verifies checker, manifests, boundary, non-word, fixtures against acceptance-record hashes; manifest changes ride the full path; parser fences must equal manifest anchors.
+- INDEPENDENT-DIFF: a raw standard-tool diff prints beside checker spans; checker bugs cannot hide in both. Rendered human-readable span list rides carried results under vote-free.
+- WORD-CLASSES: WORD-CHAR is Unicode letter, digit, underscore; hyphen/apostrophe join between WORD-CHARs; all else NONWORD with FENCE/MARKER/DELIMITER precedence stated. U+0022 only for quotes; curly quotes fail as QUOTE-NOISE; quotes never pair across lines. Code-pattern scan fails UNENCLOSED_EXEC with that reason.
+- MARKER-GRAMMAR: ^## [A-Z0-9-]+ (OPEN|END) [A-Z]+$ case-sensitive ASCII; duplicates illegal; set must equal predecessor set.
+- COUNT-SINGLE-STATE: one timestamped count state per page (total-now, ruled-at, this-draft, expected); carried counts contradicted by landed files corrected with the landing files named plus a retirement check.
+- CONTRADICTION-OWNED: a page contradicting itself (mandatory-set omission, predicate tension, fail-open phrasing, wrong day counts) is owned as a builder defect with each withdrawn line named, never defended and never relitigated for line attribution.
+- RECORD-VOCABULARY: fold is one page revision; round is one transport-plus-grade cycle; run is one tester execution. Cost reports the pair (minutes, trips), never summed.
