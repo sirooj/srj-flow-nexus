@@ -5328,3 +5328,51 @@ The v370 closures hold: C1 mandatory (L30), C0 added (L29), the tie table fixed 
 7. **Vocabulary lint (L28, L30, L39, L19, L45).** Fail on bare "manifest" and on retired terms outside the retired-lines block.
 
 ## V371-WORKFLOW END SONNET
+## V372-UJEXEMPT-9 OPEN SONNET
+# Council seat ruling on v372-UJEXEMPT-9 (page only; disk truth not claimed)
+
+**Q1: CONFIRM.** The edit set implements his Rebuild order for the reseed-direction-matched path.
+- Both the P080 condition and the P087 print term balance their parentheses, and the two are textually identical.
+- The print has six specifiers and six arguments.
+- The post-build line frames reconcile: TERM 8413→8415, PROV-print 8412→8414, CARRY-set 7899→7900, DIR-SET 7901, CARRY-clear 10727→10729, DIR-CLEAR 10730. NET is +3 (P177), and 12295+3=12298.
+- The region span-lines add up to 100, with 94 distinct after the 7894-7899 overlap.
+- Both a disagreeing S1C rewrite (EA-7909) and a stale direction fail closed to the old kill, so there is no wrong-direction promotion from this path.
+- Both m15-match conditions (kill and promotion) and the S2WAIT retention (EA-8420-8421) are read correctly in P075.
+
+**Q2: OBJECT.** The causal machinery is sound in shape. The defects below touch binding predicates and census claims, and one of them (Q2-1) can make the headline P-CARRY check fail on a correct build.
+
+## Analytic ask A: defects
+
+**Q1 imprecisions (non-blocking)**
+1. **P090.** "Post-build reads are 9" is a count of occurrences, not reads. Reads are 6: print arg and ternary at the PRINT-DIR line, TERM, PROMOTE-print, comment 10436, SIDE1R-print 10447. The remaining 3 are the declaration at 1154 and the two producers at 7881 and 8201. Re-label it "9 occurrences (6 reads)".
+2. **Header lines.** "Relays v308 through v365 on disk" sits next to a v372 that supersedes v365. Relays v366-v371 are unaccounted for. Since his verbatim carry is the anti-fake check, state what happened to those numbers.
+3. **R03 vs P043.** R03 shows fromDir=LONG at 09:15. So a LONG holder existed between the 09:05 kill (R01) and the 09:15 reseed, and P043's narrative skips it. See Q2-5.
+
+**Q2 defects**
+- **Q2-1 (blocking): the P115 binding field is likely unreachable on the promoted path.**
+  - R01 shows the 09:05 seed as Daily-POC SHORT.
+  - The stale 6/4 stamp (R02) makes it exempt, and P132 forecasts it F.
+  - If it promotes and survives, the 09:15 reseed predicate at EA-7876, `(topLine != g_anchorLine || t78_dir != g_dir)`, is false. R03's POI and direction (Daily-POC SHORT) equal the held ones.
+  - So no UJRESEED row at 09:15, and reseedBar stays 6/4 10:20.
+  - That makes P115 "reseedBar 09:15 SHORT is the binding field" fail on the expected path.
+  - It leaves the 6/4 arm as an exception needing a continuation row.
+  - P133-P135, P136's arm column and P127 inherit the same problem.
+  - They are counterfactuals on the baseline trajectory, where the holder was LONG per R03.
+  - The outer H1 guard above EA-7876 is not on the page, so this holds only on the visible predicate.
+  - Cure: make the binding field either-or, with the expected path stated. State that an absent 09:15 UJRESEED is by design when 09:05 promotes. Re-label the later 6/5 arm cells for that path.
+- **Q2-2: P113 "10 all-branch-identical cells" undercounts.** That is the 6 Ku plus 4 Km keep cells. By the ledger, 30 of the 34 cells (P129-P162) are identical across all four columns. Only P136, P154, P155 and P156 differ. Say "10 keep cells" or assert all 30.
+- **Q2-3: P112 hard-codes the 09:40 bar.** WITHDRAWN_TERM is per venue but names the 09:40 CONFIRMPOLL with shadow=false. B3's analogue (14:35 bar, 14:40 entry) has no stated form.
+- **Q2-4: the P126 withdrawal predicate is under-keyed.**
+  - "A confirm-term negative row" has no direction, chain key or shadow=false pin.
+  - R24 (SHORT, shadow=true, stamped 14:40:22) satisfies it literally, though it is neither LONG nor live-path.
+  - The flat clause rescues the outcome, but the evidence labeling is wrong and inconsistent with P115 predicate (2).
+- **Q2-5: chain-break ambiguity.** P118 breaks a chain on a direction change. R03's interim LONG holder arguably breaks the 6/5 SHORT chain between 09:05 and 09:15. Then 09:15 becomes a first-flip bar (FAIL-as-designed on a miss), but P127 and P118 treat it as a continuation. Rule it explicitly.
+- **Q2-6 (minor): log order.** R22, R23 and R24 share wall stamp 20:28:43.871, but R24's sim time (14:40:22) precedes R22's (14:50:00). The P172 print-order checks (PROV before KILL) must key on sim time or pass sequence, not wall order. State it.
+
+## Analytic ask B: better mechanisms
+
+1. **P115 rewrite (no code).** Bind the post-advance assertion to the chain: last chain UJPROV has exempt=1 and reseedDir SHORT, CONFIRMPOLL 09:40 has shadow=false, and PREBIND at 09:45 follows. Accept reseedBar ∈ {6/5 09:15, 6/4 10:20 with the continuation row}.
+2. **Day-age audit (no code).** The UJPROV print already carries reseedBar and the bar time. Add a battery column "reseed date == bar date". That makes the 09:05 stale-inheritance class gradable now without the day-bound conjunct, which stays parked pending his word.
+3. **Code-side alternative (parked-class).** Stamp a per-session or per-day key beside g_ujOpReseedDir (new write at EA-7901, clear at EA-10730). This closes stale inheritance, but it needs his word and its own round.
+
+## V372-UJEXEMPT-9 END SONNET

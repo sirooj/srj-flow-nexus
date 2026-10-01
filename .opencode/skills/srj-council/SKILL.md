@@ -445,3 +445,10 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 
 - WORKFLOW-PARKED (his stop order 2026-10-01, option A): sections 45-48 slice/golden/escape/checker sentences are parked design law; they bind nothing until a code-thread decision revives them (fail-fast implementation needs his run word); code relays obey sections 1-44 plus section 49 code-carry gates. Withdrawn carry lines (v371 memo) are never transported while parked.
 - CODE-THREAD-RESUME (2026-10-01, ledger 1060): the entry thread resumes at its latest relay (v365-UJEXEMPT-8 on packet FIX-2v22, twin intact, V365 verdicts owed as the sole open round); intermediate rounds close record-only.
+
+## 50. Entry-round accuracy gates (builder-owned gaps, 2026-10-01 - v372 shipped green with page-checkable defects; Luna+Sonnet+GLM converged on the entry thread)
+
+- HEADER-THREAD-GAP: relay history lines enumerate every relay number across ALL threads (parked numbers named with their disposition, never skipped); a gap in the relay-number sequence without explanation fails the battery (Sonnet-v372 A-Q1-2: v366-v371 parked numbers unaccounted beside v372).
+- COUNT-OCCURRENCE-VS-READ: occurrence claims state occurrences AND reads separately with the member lists named; a bare count covering mixed classes (declarations, producers, reads) is rewritten before transport (Sonnet-v372 A-Q1-1: reads-are-9 was 9 occurrences with 6 reads).
+- NARRATIVE-ROW-PARITY: every row exhibiting holder-changing fields gets its narrative sentence in the death chains; a row the prose reasoning depends on but never names is added the same turn (Sonnet-v372 A-Q1-3: R03 LONG holder skipped in P043).
+- ACCEPTANCE-REACHABILITY: every acceptance-demanded row is proved reachable on the base trajectory including the promoted path; a demand no trajectory produces is withdrawn or re-scoped (either-or with design note) the same turn (Sonnet-v372 Q2-1: P115 binding field unreachable where 09:05 promotes).

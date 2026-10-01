@@ -16506,3 +16506,147 @@ For a negative event, the deadline must be defined by its relevant observation b
 The revision is materially closer than v370: **C1 mandatory, C0 introduced, manifests inline, fixtures inline, canonical equality strengthened, golden-0 guarded, and slice-gate machinery retired.** The remaining defects are concentrated and mechanically repairable rather than requiring another redesign.
 
 ## V371-WORKFLOW END LUNA
+## V372-UJEXEMPT-9 OPEN LUNA
+## Q1 — OBJECT
+
+The core reseed-direction-matched rule is represented correctly, but the edit set is not fully fail-closed as written.
+
+### Defects
+
+**1. `DIR_NONE`/invalid-direction collision defeats the claimed direction-match guarantee.**
+
+At the SET, the new provenance value is:
+
+> P065 / post-build EA-7901: `g_ujOpReseedDir = (g_dir == DIR_LONG ? 1 : -1);`
+
+At the exemption comparator, the live direction is encoded the same way:
+
+> P080 / post-build EA-8415: `g_dir == DIR_LONG ? 1 : -1`
+
+Therefore every non-`DIR_LONG` value maps to `-1`, not only `DIR_SHORT`. The packet itself acknowledges that `DIR_NONE` maps to `-1` at P075/P089. Consequently, `DIR_NONE` can compare equal to stored SHORT provenance and satisfy the exemption if the surrounding path ever permits `g_dir == DIR_NONE`.
+
+That is not genuinely fail-closed. The page does not prove that `g_dir` is impossible at this edge; it only shows the normal `CheckLtfAlign()` path at EA-8405 and the later overwrite mechanics. The safer form is an explicit three-state mapping, e.g. LONG=`1`, SHORT=`-1`, everything else=`0`, with `0` never matching provenance.
+
+**2. The wording “direction-matched provenance” is slightly stronger than what the code actually proves.**
+
+The stored provenance direction is the H1-overwrite snapshot at EA-7885/P065, but the exemption later compares it against the *current* `g_dir` at the S2 edge. The packet correctly says a later S1C disagreement fails closed (P059/P089), so this is conservative rather than a false promotion; nevertheless, the exact mechanism is “stored H1 direction equals current post-writer direction,” not simply “stored H1 direction matches the reseed direction.” This is an imprecision in the stated proof, not a separate behavioral defect.
+
+### What is otherwise sound
+
+The principal Boolean structure at P080 is faithful to the stated rule:
+
+`m15 match AND (seedBiasAl != 0 OR direction-matched reseed provenance)`
+
+and P081/P094/P095 correctly preserve S2WAIT on an m15 mismatch rather than converting that state into a kill. The 09:15 B1 same-pass evidence at R03/R05 also supports the intended provenance timing.
+
+### Better Q1 mechanism
+
+Use an explicit provenance direction state rather than a binary ternary:
+
+* SET at EA-7901: LONG→`1`, SHORT→`-1`, otherwise `0`.
+* Exemption at post-build EA-8415: require stored value to be nonzero and explicitly equal to the corresponding LONG/SHORT value of `g_dir`.
+* Keep the existing clear at EA-10730.
+
+That removes the sentinel collision without changing the five-site edit shape.
+
+---
+
+## Q2 — OBJECT
+
+The causal battery is substantially more rigorous than the prior version, but there are still binding-definition inconsistencies that can make branch selection or DIVERGED classification non-deterministic.
+
+### Defects
+
+**1. H-evaluation order contradicts the stated “HOLD-before-selection” order.**
+
+P114 says the evaluation order is:
+
+> H status → branch selection → PATH_CLASS → axes → parity/allowed-set.
+
+But P124 says:
+
+> “Unexpected takes route to HOLD before H-column selection.”
+
+Those cannot both be the complete evaluation order unless there is an unstated pre-H-status unexpected-take classifier.
+
+This matters because an unexpected take is itself evidence used to determine whether the venue is HOLD/FAIL, while H status is what determines the WW/FW/WF/FF column. The battery needs one deterministic order.
+
+**Required repair:** explicitly insert an initial `UNEXPECTED_TAKE` classification before H-status calculation, with the 8-June pinned-invalid exception routed directly to FAIL. Then H status → branch selection can remain deterministic.
+
+---
+
+**2. H-TAKE has an uncovered “no admission + no confirm evaluation” state.**
+
+P125 gives three withdrawal routes:
+
+* confirm=0;
+* late-TP interference;
+* confirm=1 with no admission.
+
+But it does **not** state what happens when H-TAKE has no admission and there is also no confirm evaluation row.
+
+P126 solves this for H-B3TAKE by explicitly including:
+
+> “no confirm evaluation rows after 14:40”
+
+but P125 does not.
+
+Therefore P114's claim that H-TAKE status is simply “fired iff admission, else withdrawn per its withdrawal predicate” does not yield a total function for every possible run trace. In that state, the battery cannot deterministically select WW/FW/WF/FF.
+
+**Required repair:** give H-TAKE the same total-status rule as B3, e.g. no admission + no confirm evaluation = withdrawn with a distinct causal label, or explicitly route it to HOLD-terminal.
+
+---
+
+**3. DIVERGED's positive-cause definition conflicts with the continuation-bar rule.**
+
+P112 defines DIVERGED using specific positive causes:
+
+* post-admission ADVANCE rows;
+* session-cap block rows;
+* explicit no-edge-after-promotion with ADVANCE rows.
+
+But P119 says a continuation-bar miss routes to DIVERGED when there is:
+
+> “row-evidenced advancement (chain life-row per P112: any later same-chain row)”
+
+P112's “life-row” set includes `UJRESEED`, `UJPROV`, `S2PROMOTE`, `CONFIRMPOLL`, `PREBIND`, `ADMIT`, and `S2WAIT`. Those are **not all ADVANCE rows**.
+
+So the battery has two different meanings of “cause”:
+
+`specific positive cause` in P112
+versus
+`any later same-chain life row` in P119.
+
+A later UJPROV or CONFIRMPOLL could therefore qualify under P119 while failing the P112 cause-test.
+
+**Required repair:** define one `CAUSE_ADVANCE` predicate and reuse it everywhere. A life row may establish chain survival, but only designated advancement/cap/block rows should establish DIVERGED unless the council intentionally broadens the cause set.
+
+---
+
+### What is otherwise sound
+
+The strongest part of Q2 is now the separation of:
+
+`CAUSE → PATH_CLASS → H status/branch → M/T → allowed set`
+
+together with explicit chain keys, shadow-false pinning, per-cell DIVERGED neutrality, and HOLD-terminal handling. P115's three-predicate 09:40 assertion is also materially tighter than the earlier formulation.
+
+The 8-June case is correctly distinguished from ordinary unexpected-take HOLD at P124: an actual 8-June take is a pinned invalid outcome and therefore FAIL rather than HOLD.
+
+### Better Q2 mechanism
+
+Make the grader a single total-state dispatcher with mutually exclusive stages:
+
+`Unexpected-take precheck → H-status totalization → branch selection → PATH_CLASS → M/T axes → allowed-set`
+
+and make `PATH_CLASS` consume a single chain-keyed `CauseKind` enum, rather than inferring cause from the broader life-row concept.
+
+The packet does not provide the actual grader implementation source, so I cannot honestly assign EA line numbers to those proposed Q2 changes. The relevant **EA behavior inputs** are the S2/provenance rows around EA-8405–8422 and the provenance lifecycle around EA-7876–7899 / EA-10724–10728; the Q2 defects themselves are in the acceptance logic at **P112–P126**, not in the shown EA tree.
+
+### Council disposition
+
+**Q1: OBJECT** — the direction encoding is not fully fail-closed because non-LONG values collapse to the SHORT sentinel.
+
+**Q2: OBJECT** — three acceptance-logic defects remain: contradictory H ordering, incomplete H-TAKE withdrawal totalization, and inconsistent definitions of a DIVERGED positive cause.
+
+## V372-UJEXEMPT-9 END LUNA
