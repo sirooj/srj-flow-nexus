@@ -109,5 +109,7 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
   - 2026-09-29: V346 RELAY-READY (ledger 994: packet FIX-2v6 9580C192/199, relay 1B8E96B8/435, double battery green, memo shipped; verdicts owed).
   - 2026-09-29: V346 GRADED (ledger 995: Q1 2-0 CLEAR, Q2/Q3 carried-CLEAR, 3 seats filed whole; result 6EA1768C/44; fold v7 scoped; BUILD-BLOCKED).
   - 2026-09-29: V347 RELAY-READY (ledger 996: packet FIX-2v7 FE73CF26/212, relay 75CC4D68/456, double battery green, memo shipped; verdicts owed).
+  - 2026-10-01: V363 FILED+GRADE (ledger 1048: Luna+Sonnet+GLM whole 1x V363-UJEXEMPT-6 markers, Q1 2-1 CONFIRM, Q2 1-2 OBJECT; result BUILDER_RESULT_V363-GRADE.md; fold v21 opens acceptance/prose-only; BUILD-BLOCKED).
+  - 2026-10-01: V364 RELAY-READY (ledger 1050: packet FIX-2v21 5DBAB7BC/184, relay 94F93870/382, double battery green, memo shipped; verdicts owed).
 
 (End of file)

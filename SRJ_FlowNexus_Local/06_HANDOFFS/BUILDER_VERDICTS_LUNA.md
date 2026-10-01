@@ -15115,3 +15115,56 @@ There is a second gate-precision issue: unexpected takes are routed to `HOLD` an
 
 **Disposition:** Q1 OBJECT. Q2 OBJECT. Nothing in this verdict grants a build or tester run; the packet itself says no run is proposed and any future run requires a new key plus the stated run word.
 ## V362-UJEXEMPT-5 END LUNA
+## V363-UJEXEMPT-6 OPEN LUNA
+Based on the packet as written, and ruling only on the page-level specification/code excerpts rather than the machine-side digests:
+
+## Q1 — OBJECT
+
+The proposed mechanism is directionally coherent, but the packet does **not establish that the implementation “as built” actually contains the fix**. The acceptance wording nevertheless asks for confirmation “as built,” while the actual R-S2EDGE code still shows the old gate requiring `s1g_seedBiasAl != 0`.
+
+There is also an internal code-region inconsistency: the prose describes a new `g_ujOpReseedDir` declaration and SET/CLEAR sites, but the displayed EA regions do not show those additions at the corresponding locations. The displayed declaration has `g_ujOpReseedBarTime` at EA303 followed by other existing variables, and the displayed SET/CLEAR regions likewise show the old structure.
+
+Even treating the proposed patch hypothetically, there is a substantive scope gap: the provenance is **direction-only and singleton-state based**. The packet explicitly acknowledges that same-direction stale churn remains exempt and calls this an “identity-blindness limit.”  That means the mechanism proves “some earlier reseed of this direction exists,” not “this S2 candidate is descended from the specific reseed that should restore it.”
+
+There is a smaller fail-open/imprecision issue in the proposed encoding: `g_ujOpReseedDir = (g_dir == DIR_LONG ? 1 : -1)` maps `DIR_NONE` to `-1`, rather than representing unknown/none explicitly. The packet argues this is safe because all observed edge rows have LONG/SHORT, but that is an empirical claim about the cited rows, not a structural invariant of the code.
+
+### Better mechanism for Q1
+
+The stronger mechanism is **identity-scoped provenance**, not merely direction-scoped provenance: record the reseed identity that is actually being carried, then require that identity to match at S2. The packet itself has already identified this as the parked alternative (`uj_memo_dir` / per-holder stamp) and says it was deferred to its own round.  The relevant touch points are the H1 reseed block around EA7876-EA7899, the S2 gate around EA8405-EA8422, and the admission/clear path around EA10724-EA10728.
+
+That would remove the acknowledged stale same-direction ambiguity instead of merely documenting it.
+
+---
+
+## Q2 — OBJECT
+
+The causal battery is substantially better specified than the earlier version, but I would **not confirm it as a complete binding gate yet**.
+
+The main defect is that the verdict taxonomy contains a potentially gate-ambiguous state: `PASS-B1-unproven` is described as “PASS with H-TAKE withdrawn,” while HOLD is explicitly non-clearing. The packet does not explicitly state whether `PASS-B1-unproven` is itself eligible to clear the future gated run.  That needs to be binary and explicit.
+
+Second, the causal `DIVERGED` definition is not sufficiently identity-scoped. It says DIVERGED is established by the presence of a positive cause such as an ADVANCE row, but it does not state that the cause must belong to the **same venue + date/session + direction chain + hypothesis branch** as the missing expected edge.  Without that join key, an unrelated ADVANCE row can theoretically convert an otherwise unexplained missing edge into DIVERGED rather than FAIL.
+
+Third, the branch-conditioned framework is specified at the WW/FW/WF/FF level, but the packet does not fully formalize the **selection rule for the resolved branch** independently of the hypothesis outcome terms. It says the forms are keyed from the arming ledger and that allowed-set resolution occurs after hypothesis status, but the exact deterministic mapping from observed evidence to one and only one branch is not written as a complete decision function.
+
+Fourth, `UNRESOLVED → HOLD-terminal` is honest, but the acceptance consequence needs one more explicit rule: whether repeated instrumentation ambiguity can leave a venue permanently non-clearing even when the underlying EA behavior may be correct. The packet says HOLD never satisfies the run gate, which means this is a deliberate hard stop; it should be stated as such in the acceptance contract rather than left implicit.
+
+### Better mechanism for Q2
+
+Make the causal classifier a strict tuple-based function:
+
+`(venue, date/session, chain-id, direction, branch) → {DIVERGED, WITHDRAWN, FIRED, FAIL, HOLD}`
+
+and require every positive cause, withdrawal term, admission row, and expected edge to carry the same chain key. Then explicitly declare:
+
+`PASS-B1-unproven = non-clearing diagnostic` **or** `PASS-B1-unproven = clearing`; there should be no interpretive middle ground.
+
+The packet already has most of the pieces needed: per-chain tables, an arming ledger, chain-break rules, hypothesis identity/outcome splits, and explicit divergence-bar definition.
+
+## Final rulings
+
+**Q1: OBJECT.** The intended direction-matched restoration rule is understandable, but the page does not prove that the stated fix is actually present in the built code, and the proposed provenance remains identity-blind.
+
+**Q2: OBJECT.** The causal framework is much closer to a rigorous acceptance gate, but the clearing status of `PASS-B1-unproven` and the identity-scope of positive causal evidence are not fully closed.
+
+Those are the defects I would require resolved before changing either verdict to CONFIRM.
+## V363-UJEXEMPT-6 END LUNA

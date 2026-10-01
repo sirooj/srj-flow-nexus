@@ -8581,3 +8581,70 @@ Confirmed sound, so the cure is wording not architecture: PATH_CLASS precedence 
 
 Close: Q1 CONFIRM (with the R13/R26 discrepancy riding the tally for disk verification); Q2 OBJECT narrow on the three named items, the rest of the battery confirmed. Nothing built, run, or spent on this verdict; live activation untouched; the gated run still needs the new key plus his explicit run word.
 ## V362-UJEXEMPT-5 END GLM
+## V363-UJEXEMPT-6 OPEN GLM
+Seat ruling, page-only. Verification split respected: twin/digest/0-diff genuineness is disk-proven and no part of this ruling rests on it; nothing below builds, runs, commits, spends, or clears live activation; no files requested.
+
+## Q1 - standing proof
+
+**Verdict: CONFIRM.**
+
+The change-sentence is accurate as far as it goes, with one elision (discrepancy 1 below): the term as written at P080 (EA-8413 pre-build, EA-8415 post-build) does what the sentence says, and the m15 conjunct it omits is carried everywhere it is load-bearing (P075, P080, P087, P115).
+
+Grounding, page-only:
+
+1. Anchors: all five edit sites match the exhibited regions - DECL insert after EA-303 (R-DECL), SET insert after EA-7899 (R-H1HEAD/R-SET2), CLEAR insert after EA-10727 (R-CLEAR2), TERM replace at EA-8413 and PRINT replace at EA-8412 (R-S2EDGE). Indent claims verify under the region format's colon-space calibration: 17sp sibling at EA-7899, 9sp at EA-8413, 6sp at EA-10727.
+2. Arithmetic: the DECL insert (+1) moves CARRY-SET to EA-7900 and DIR-SET to EA-7901; two inserts move the edge pair to EA-8414/8415 and the clear tuple to EA-10728/10729/10730; NET +3, 12295 -> 12298 (P089, P090, P177) - consistent throughout, single-frame census included.
+3. Write adjacency: CARRY and DIR are written only as adjacent pairs (decl EA-304; set EA-7900/7901; clear EA-10729/10730), so dir==0 iff barTime==0 and the kept barTime conjunct is redundant-harmless exactly as claimed (P075).
+4. H1 order and S1C: the SET reads g_dir after the overwrite EA-7885 in the same block; the only exhibited post-SET g_dir writer is S1C at EA-7909, disclosed at P059; on disagreement the edge comparator is false and the disjunct fails toward the EA-8418 kill - fail-closed for every post-SET writer, not only S1C, and never a wrong-direction promotion. The g_dir form kept 2-1 is safe on the page; the t78_dir re-stamp stays parked with cause (P174).
+5. Term vs rows: the 8-June bars (R11/R12, R25-R28: epoch reseedBar, dir 0, seedBiasAl 0) cannot satisfy the disjunct - all five kills persist; the mismatched keeps at 6/5 16:00 (R17/R18) and 6/11 14:45 (R22/R23) fail the comparator - kills persist; the unset keep at 6/9 09:50 (R19/R20) persists; the direction-matched chain flips to exempt, including the 09:05 stale-inheritance bar (P132) and the 09:15 reseed with same-pass edge agreement (R03/R05, both stamped 09:20:00). Restore-with-8-June-kept is what the term does.
+6. Print: the embedded exempt expression at P087 is textually identical to the term at P080 (checked on the page); six format specifiers match six args; parenthesization is precedence-safe; S2WAIT bars print exempt=0 (P082), so the flag cannot misread as promotion.
+7. seedBiasAl census (P026): eight sites, one predicate (EA-8413); the S1T producer EA-8201 writes no CARRY/DIR, so the new disjunct is unreachable from it - the delta is scoped to the reseed path.
+8. R13/R26: both rows are N/N+1 normal on the page (bar 17:30 stamped 17:35:00, bar 17:35 stamped 17:40:00); NN is a non-identifier (P172). The honest sentence is present (P044 data-contingency; P124 HOLD-likely disclosure).
+
+Discrepancies (Ask-A; none OBJECT-grade):
+
+1. The Q1 change-sentence omits the m15 conjunct (uj_m15r && uj_m15b == uj_wantb, EA-8413): kill and promotion are both conditioned on the m15 flow-bias match, and a non-matching bar is S2WAIT retention (EA-8420-8421), not death. Cure: one clause - "...when the m15 flow bias also matches; otherwise the bar waits."
+2. P059's "same-pass R01/R03 agreement": the same-pass exhibit is R03+R05 (reseed dir SHORT = edge dir SHORT, same stamp); R01 is the cross-pass 09:05 event-dir agreement. Name R03/R05 for the same-pass claim.
+3. P075's DIR_NONE note: the SET value at EA-7901 conflates SHORT with any non-LONG resolve because S2ResolveLive's output domain (EA-7885) is not pinned on the page; bounded by the m15 conjunct (EA-8411) and the 28-row LONG/SHORT evidence. Standing residual, owned by the parked identity-scoped round (P104).
+4. P027: the -1 sentinel is fail-open at the edge (EA-7881 -> EA-8413's != 0) - pre-existing v29 semantics, unaltered by the disjunct; the restore makes it reachable on the reseed path when the reseed-time align check fails. Disclosed; standing note, not this packet's delta.
+5. P096 + P165: provenance has no clear between EA-7901 and EA-10730 except admission, so it survives holder expiry; a post-expiry same-direction edge stays exempt. Inside the disclosed identity-blindness class; the UJHOLDEXPIRE watch (P165) is the detector; an expiry clear site is declined-with-cause territory (P105).
+6. Section 0's "regions 100 lines" counts span lines: R-SET2 (EA-7894-7909) and R-H1HEAD (EA-7876-7899) overlap on EA-7894-7899, so 94 distinct lines. The shared six lines are textually consistent across both spans (checked), so this is accounting only.
+7. The Q1 citation line mixes the v29 anchor (EA-8413) with final-tree numbers (EA-304/7901/10730/8414) in one sentence; each is labeled, but tag the 8413 cite "(pre-build)" for uniformity.
+8. EA-1154, EA-8201, EA-10436, EA-10447 are disk-cited, not region-exhibited - acceptable under the split; named so the next fold can splice them if they ever become load-bearing.
+
+Ask-B (better mechanisms):
+
+- Concur with declining the uj_exempt local (P107): the battery text-identity assert covers the drift at zero NET.
+- The enum-typed provenance (P106) remains the parked quoted alternative; its only live advantage is curing discrepancy 3 at the same sites and same NET - fold it into the parked identity-scoped round, not this one.
+- Optional auditability insert: a trailing comment on the SET line (post-build EA-7901) recording that the value is the reseed-time post-overwrite dir and that later disagreement fails closed at EA-8415 - costs +1 NET (P177 becomes 12299) and touches only the census lines P089/P090; offered with its cost, not demanded.
+
+## Q2 - causal acceptance
+
+**Verdict: CONFIRM, conditioned on the P119 wording pin (discrepancy 1) folding before any gated run. The pin changes no code and no table; it fixes the FAIL trigger's definition.**
+
+Grounding, page-only:
+
+1. Ledger arithmetic: 34 rows (P129-P162) = 22 flips + 12 keeps, matching P117/P120; 9 chain heads + 13 continuation bars, matching P118/P119; the P118 head list matches the P127 chain table bar-for-bar.
+2. Branch cells check against clear-at-admission semantics: P136 FW=Ku (a 09:45 admission clears the 09:15 provenance before the 16:00 edge), WF=Km (no 6/5 admission); P154 WF/FF=Ku (a 14:40 admission clears the 10:35 provenance before the 14:45 edge), FW=Km; P155/P156 WF/FF=Ku (New York session capped after a 14:40 admission); the 6/10 and 6/12 fallback bars (P151/P152/P158/P162) stay Km in every branch because their provenance either pre-dates the admissions (rows already printed) or re-arms after them (6/11 17:45). The per-branch predictions are consistent with the one-clear-site design.
+3. Chain-break rule applied consistently: date change at the 6/10 09:15 and 6/12 16:55 heads, opposite-direction edge at the 6/11 16:05 head, direction change at the 6/11 17:45 head; 6/9's intra-day same-direction reseeds stay one chain.
+4. PATH_CLASS precedence (P112) is coherent and cause-first; HOLD (P113) is terminal and never satisfies the gate; H precedence (P114) prevents withdrawn hypotheses from leaving phantom allowances; vacuity is flagged where passes would be empty (P117's continuation-bar flag, P121's MISMATCH-UNPROVEN).
+5. The 09:40 assertion (P115) is mechanism-supported: the same-pass S2-edge + CONFIRMPOLL pattern is exhibited (R08/R09/R10, all stamped 09:40:00), and the promote block writes no state (EA-8414-8417), consistent with the candidate staying at S2 while unconfirmed so the edge re-fires with the confirm poll in one pass.
+6. N/N+1 conforms on every exhibited row (R21 at 10:40:01, R16/R28 at 18:05:03, R24 at 14:40:22, R10 at 09:40:00).
+
+Discrepancies (Ask-A):
+
+1. P119's "ADVANCE rows" is undefined for pre-admission continuation bars; P112 defines them only as post-admission. If promotion advances state (a mechanism the page itself half-contemplates in P112's third cause, "explicit no-edge-after-promotion with ADVANCE rows"), bars like 09:15/09:30 (P133/P134) can be row-less in a healthy run, and a same-bar-only reading of ADVANCE false-FAILs them while P112's cause-test classifies the venue DIVERGED. The precedence between P119's per-bar FAIL and P112's per-venue cause-test is unpinned. Cure: one sentence - a missed continuation bar inside a venue with row-evidenced advancement (any later same-chain UJRESEED/UJPROV/S2PROMOTE/CONFIRMPOLL/PREBIND/ADMIT row before the next chain break) routes to the divergence-finding class; FAIL only on silent death, i.e., no life rows through the next break. Error direction today is fail-safe (blocks clearance, never grants it), which is why this is a pin and not an OBJECT.
+2. P115's reseedBar=09:15 term pins the 09:15 reseed firing post-promote; the reseed block's enclosing state gate (the lines above EA-7876) is in no region, so the prediction is inference. If the gate blocks, the 09:40 UJPROV carries reseedBar=2026.06.04 10:20 (still SHORT, still exempt=1, admission still proceeds) and the exact assertion false-FAILs a healthy run. Cure: splice the enclosing condition into R-H1HEAD next fold, or widen the assertion to reseedBar in {2026.06.04 10:20, 2026.06.05 09:15} with reseedDir SHORT and exempt=1 as the binding fields.
+3. Fired-branch cells that predict rows which may not exist (P154 WF/FF at 14:45 post-admission; P155/P156 WF/FF under the session cap) have no per-cell no-row disposition parallel to P121's MISMATCH-UNPROVEN. P112's UNRESOLVED plus P113's HOLD-terminal plausibly cover them; say so at P116.
+4. P117's "22" and P120's "12" are WW-census counts; under WF/FF the resolved sets shift per the ledger (P155/P156 leave the flip set and join the keeps). P121 already carries the per-branch form note for DIRSCOPE; mirror it at P117/P120.
+5. The confirm-bar S2 edge at bar 09:40 (expected by P115) sits outside the 22-bar flip census, which is v29-kill-derived; it is covered by P115/P125 - name the census scope once at P118.
+6. P115's "result observational per withdrawal" compresses two rules (UJPROV/exempt fields binding; confirm outcome observational on withdrawal) - split for grading clarity.
+
+Ask-B:
+
+- The P119 cure above is battery text only; it touches no code.
+- The R-H1HEAD extension (discrepancy 2) is a splice change only; no code delta.
+- A single "chain life-row" definition at P112-P119 (a chain's life rows = its UJRESEED/UJPROV/S2PROMOTE/CONFIRMPOLL/PREBIND/ADMIT rows between breaks) would cure discrepancies 1-3 at once and give the grader one handle; prose cost only.
+
+Fence: nothing here builds, runs, commits, or spends; no run is proposed; no live activation is cleared or addressed. The conditioned pins fold as text before any future keyed run, which itself needs his separate word.
+## V363-UJEXEMPT-6 END GLM

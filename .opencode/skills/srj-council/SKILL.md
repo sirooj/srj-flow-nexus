@@ -241,7 +241,7 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 ## 27. Encoding rule (mystery-relay incident 2026-09-28 - a 115KB relay appeared mid-turn twinning the packet with cp1252-mojibake shadows of two non-ASCII chars; twin diff-0 cannot detect uniform encoding mangle)
 
 - Script reads ALWAYS carry explicit -Encoding UTF8 (Get-Content default is ANSI on this box while WriteAllLines writes UTF-8: the asymmetric pair fabricates mojibake while every byte-compare stays green). Node Temp scripts carry explicit utf8 on read and write.
-- Every assembled relay ends with a non-ASCII census by file class (expected set named per assembly: twin carries the packet's non-ASCII; regions carry traced EA bytes; rows/head/tail ASCII-only or named); an unexpected shadow (Latin-1 fragments like U+00E2/U+00C3/U+2020) FAILS the file.
+- Every assembled relay ends with a non-ASCII census by file class (expected set named per assembly: twin carries the packet's non-ASCII; regions carry traced EA bytes; rows/head/tail ASCII-only or named); an unexpected shadow (Latin-1 fragments like U+00E2/U+00C3/U+2020) FAILS the file. SOURCE-ENDINGS (2026-10-01, ledger 1050: assembler hardcoded CRLF onto LF sources, plus-184/plus-382 mystery bytes): assembly scripts preserve each source file line-ending convention (measured per file, never assumed, never hardcoded); a post-write byte delta not explained by content change blocks the battery until reconciled.
 
 ## 28. Ghost-triage speed (2026-09-28: 115KB relay appeared with zero authoring calls; turns burned before the transcript question)
 

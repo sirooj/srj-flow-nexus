@@ -4852,3 +4852,70 @@ I rule only on the page text, code lines and logic. Disk truth is not claimed. N
 With B1-B8 folded, I would flip Q2 to CONFIRM. B9-B10 are hygiene.
 
 ## V362-UJEXEMPT-5 END SONNET
+## V363-UJEXEMPT-6 OPEN SONNET
+# Ruling: P-RECON74FIX-2v20 (page-only; disk truth not claimed)
+
+## Q1: CONFIRM
+
+The edit set implements his Rebuild order for the direction-matched path. I checked these on the page:
+
+- **Parentheses.** P080 balances, and the PRINT-DIR line in P087 balances with six specifiers against six arguments.
+- **Redundant conjunct.** The `g_ujOpReseedBarTime != 0` conjunct is truly redundant, because a dir of 0 never equals +/-1. The kept-harmlessly note at P075 is right.
+- **Write sites.** The three reseedDir writes follow from the R-DECL, R-SET2 and R-CLEAR2 adjacency (EA-304/7901/10730 post-build). The SET lands inside the H1 block (EA-7900/7901 are the closing braces).
+- **Net count.** +3 gives 12298.
+- **Fail-closed.** An S1C rewrite at EA-7909 of `g_dir` can only make the comparator disagree and kill. It cannot cause a wrong-direction promotion.
+- **N/N+1 timing.** The floor assert holds on all 28 rows, including R16/R28 (18:05:03), R21 (10:40:01) and R24 (14:40:22). R13/R25 and R14/R26 pair at identical stamps, so the R13/R26 exoneration stands.
+- **Print order.** The UJPROV print (EA-8412) precedes the KILL print (EA-8419), which matches P043.
+
+**Imprecisions (none blocks the edit set):**
+
+1. **Wrong R-ref.** P043 and the takes sheet say "R01 event dir=SHORT". R01 is the 09:05 kill. The reseed event is R03. The same-pass agreement proof is R03 against R05, not R01 (P059's "R01/R03" is half right).
+2. **Thin agreement evidence.** Same-pass `t78_dir`/`g_dir` agreement is exhibited once, SHORT at 6/5 09:15. R21 is a LONG reseed with no same-pass UJPROV row on the page. The fail-closed argument carries the LONG side, not the exhibit.
+3. **Overstated census.** P075's "g_dir is LONG/SHORT per all 28 rows" covers 13 of the 34 ledger bars. The other 21 are disk-asserted. The DIR_NONE safety rests on the code path into the edge, which includes `CheckLtfAlign(g_dir)` at EA-8405, not on the rows.
+4. **Region count.** "100 lines in 7 spans" double-counts the R-SET2/R-H1HEAD overlap at EA-7894-7899. Distinct lines are 94.
+5. **Mixed numbering.** P089 mixes pre-build numbers (EA-1062, 7885, 7909) with post-build numbers in one sentence. Post-build, `g_dir`'s decl is 1063.
+6. **Sonnet label.** It reads "CONFIRM/OBJECT" in section 0 and P011, but "COND-CONFIRM/OBJECT" in P038.
+7. **Day-crossing provenance.** 8-June stays dead only because the 6/5 16:55 admission cleared CARRY (P044 discloses this). The 6/5 09:05 flip runs on provenance from 6/4 10:20, which is the same identity-blindness limit, now crossing a day boundary. Parking the day-bound conjunct stands as his call, but the 09:05 bar is its first exhibit.
+
+## Q2: OBJECT
+
+**D1 (binding): P115 contradicts P118 and P133-P135.**
+- The ledger expects a 09:05 flip on stale 6/4 10:20 provenance (R02).
+- The 09:15 reseed (R03) has `fromDir=LONG`, a holder that exists only after the 09:05 abort killed the SHORT seed.
+- If 09:05 promotes, that LONG holder and the 09:15 reseed likely never occur.
+- The arm cells for 09:15/09:30/09:35 ("arm=06.05 09:15/SHORT") are therefore baseline-derived for a path the fix itself diverges.
+- P115 then demands `reseedBar 09:15` at bar 09:40, which the fixed run may not be able to produce.
+- The page cannot show what state EA-8417 leaves the machine in (the region ends at EA-8422, with no fall-through visible). It also cannot show that a UJPROV row at bar 09:40 is reachable after a promote.
+- If promotion advances state, the 09:40 UJPROV assertion is unsatisfiable. It then lands in DIVERGED, which makes the B1 proof vacuous exactly where it matters.
+
+**D2: PATH_CLASS does not map to verdict classes.**
+- P112 defines DIVERGED, WITHDRAWN_TERM, FIRED and UNRESOLVED. P113 defines PASS, PASS-B1-unproven, HOLD and FAIL. No table joins them.
+- It is unstated whether DIVERGED on 13 continuation bars plus an ADVANCE finding is PASS or HOLD.
+- It is unstated whether PASS-B1-unproven satisfies the gate. P113 says only that HOLD does not.
+
+**D3: HOLD can swallow the mechanism result.**
+- P124 admits that about 9 restored chains make HOLD likely.
+- One unexpected take on 6/2 or 6/4 voids every later cell. Those cells depend on the admission-clears-CARRY rule, and the ledger branches only on H-TAKE and H-B3TAKE.
+- P-KILLOUT, P-PROMOTE-FIRST and P-KEEP are then never graded, although they do not depend on takes.
+
+**D4: H-B3TAKE needs a causal path.**
+- The baseline holder at 14:35 is SHORT (R24). A 14:40 LONG admission requires the 10:35 LONG chain to survive promotion.
+- P126 gives no row-level test that the chain survived. It has only the "no admission rows" withdrawal clause.
+- WF/FF cells at 14:45 and 16:05 (P154-P156) presume a post-admission SHORT edge at 14:45. That is the absent-ADVANCE class, not Ku.
+
+**D5: the ledger's evidence base.**
+- 21 of 34 ledger bars are disk-asserted, so the verdict on them is unrulable from chat.
+- The R-ref for 6/11 10:35 (R21) evidences the arm only, not a baseline KILL at 10:35. No KILL row exists at that bar, yet it is counted as a flip bar in the 22.
+
+## Ask B: better mechanisms
+
+1. **Two-axis verdict (P113, P124).**
+   - Axis M grades the row mechanics: P-KILLOUT, P-PROMOTE-FIRST, P-KEEP, P-DIRSCOPE and the PROV/KILL print order.
+   - Axis T grades the take side: P-PARITY-*, P-NOFALSE and H-terms.
+   - M can pass while T is HOLD.
+   - The run gate requires M=PASS and T in {PASS, PASS-B1-unproven}.
+   - This makes D2 and D3 moot.
+2. **Reframe P-CARRY (P115) on rows that exist post-advance.** Chain the last UJPROV on the 6/5 chain (exempt=1, reseedDir SHORT) to CONFIRMPOLL bar 09:40 shadow=false, then CONFIRM_PREBIND at the 09:45 pass (R-PREBIND, EA-9098-9105), then the admission. Drop the "reseedBar 09:15" pin and accept whichever reseedBar the tester's own log shows.
+3. **Tester-derived arms (P128-P162).** Treat the ledger as a forecast. Grade each bar against the last UJRESEED row in the tester's own log (else inherited). This removes the baseline-arm counterfactual in D1 at no code cost.
+4. **Day-bound conjunct.** Parked rightly, but it is the only mechanism that makes the 8-June keep structural. It touches the EXEMPT-TERM (EA-8413 equivalent) plus a one-datetime compare, and needs his word and its own round.
+## V363-UJEXEMPT-6 END SONNET
