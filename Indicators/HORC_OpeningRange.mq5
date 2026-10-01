@@ -203,6 +203,26 @@ void HORC_Text(const string name, datetime t, double p, const string text, color
    ObjectSetString(0, name, OBJPROP_TOOLTIP, text);
   }
 //+------------------------------------------------------------------+
+void HORC_Seg(const string name, datetime t1, double p1, datetime t2, double p2,
+              color c, int width, int style)
+  {
+   if(ObjectFind(0, name) < 0)
+     {
+      ObjectCreate(0, name, OBJ_TREND, 0, t1, p1, t2, p2);
+      ObjectSetInteger(0, name, OBJPROP_RAY_RIGHT, false);
+      ObjectSetInteger(0, name, OBJPROP_SELECTABLE, false);
+      ObjectSetInteger(0, name, OBJPROP_BACK, true);
+     }
+   else
+     {
+      ObjectMove(0, name, 0, t1, p1);
+      ObjectMove(0, name, 1, t2, p2);
+     }
+   ObjectSetInteger(0, name, OBJPROP_COLOR, c);
+   ObjectSetInteger(0, name, OBJPROP_WIDTH, width);
+   ObjectSetInteger(0, name, OBJPROP_STYLE, style);
+  }
+//+------------------------------------------------------------------+
 void HORC_TrimPrefix(string prefix)
   {
    string names[];
@@ -282,25 +302,181 @@ void HORC_OneTF(ENUM_TIMEFRAMES tf, bool yearly, const string tag)
    int iBeg = iBarShift(_Symbol, PERIOD_CURRENT, pOpen, false);
    if(iBeg < 1)
       return;
+   datetime tEnd = iTime(_Symbol, PERIOD_CURRENT, 0) + PeriodSeconds();
+   string ot = IntegerToString((long)pOpen);
+   HORC_Seg(HORC_PREFIX + tag + "H" + ot, pOpen, orh, tEnd, orh, clrDodgerBlue, 1, STYLE_SOLID);
+   HORC_Seg(HORC_PREFIX + tag + "L" + ot, pOpen, orl, tEnd, orl, clrTomato, 1, STYLE_SOLID);
+   double raid = InpRaidPoints * _Point;
+   double off = 20 * _Point;
+   int sig = 0, sigBar = -1;
    for(int i = iBeg; i >= 1; i--)
      {
       bool up = (iHigh(_Symbol, PERIOD_CURRENT, i) >= orh);
       bool dn = (iLow(_Symbol, PERIOD_CURRENT, i) <= orl);
       if(up && dn)
          continue;
-      string nm = HORC_PREFIX + "T" + tag + IntegerToString((long)pOpen);
+      string nm = HORC_PREFIX + "T" + tag + ot;
       if(up)
         {
          HORC_Text(nm, iTime(_Symbol, PERIOD_CURRENT, i),
                    iLow(_Symbol, PERIOD_CURRENT, i) - 40 * _Point, tag + "+", clrLime);
+         sig = 1;
+         sigBar = i;
          break;
         }
       if(dn)
         {
          HORC_Text(nm, iTime(_Symbol, PERIOD_CURRENT, i),
                    iHigh(_Symbol, PERIOD_CURRENT, i) + 40 * _Point, tag + "-", clrRed);
+         sig = -1;
+         sigBar = i;
          break;
         }
+     }
+   if(sig == 0)
+      return;
+   double thi[3]; int thb[3]; int cnth = 0;
+   double tlo[3]; int tlb[3]; int cntl = 0;
+   for(int i = iBeg; i >= 1; i--)
+     {
+      double h = iHigh(_Symbol, PERIOD_CURRENT, i);
+      double l = iLow(_Symbol, PERIOD_CURRENT, i);
+      if(h >= orh + raid && cnth < 3 && (cnth == 0 || h >= thi[cnth - 1] + raid))
+        {
+         thi[cnth] = h;
+         thb[cnth] = i;
+         cnth++;
+        }
+      if(l <= orl - raid && cntl < 3 && (cntl == 0 || l <= tlo[cntl - 1] - raid))
+        {
+         tlo[cntl] = l;
+         tlb[cntl] = i;
+         cntl++;
+        }
+     }
+   for(int t2 = 0; t2 < cnth; t2++)
+      HORC_Seg(HORC_PREFIX + tag + "T" + IntegerToString(t2 + 1) + ot,
+               iTime(_Symbol, PERIOD_CURRENT, thb[t2]), thi[t2], tEnd, thi[t2],
+               clrOrange, 1, STYLE_DOT);
+   for(int t2 = 0; t2 < cntl; t2++)
+      HORC_Seg(HORC_PREFIX + tag + "S" + IntegerToString(t2 + 1) + ot,
+               iTime(_Symbol, PERIOD_CURRENT, tlb[t2]), tlo[t2], tEnd, tlo[t2],
+               clrOrange, 1, STYLE_DOT);
+   string zname = HORC_PREFIX + tag + "Z" + ot;
+   string ename = HORC_PREFIX + "E" + tag + ot;
+   string gname = HORC_PREFIX + "G" + tag;
+   double px = iClose(_Symbol, PERIOD_CURRENT, 1);
+   if(sig == 1)
+     {
+      int leg1 = -1;
+      for(int i = sigBar; i >= 1; i--)
+         if(iHigh(_Symbol, PERIOD_CURRENT, i) >= orh + raid)
+           {
+            leg1 = i;
+            break;
+           }
+      if(leg1 < 0)
+         return;
+      double ort = iHigh(_Symbol, PERIOD_CURRENT, leg1);
+      HORC_Seg(HORC_PREFIX + tag + "O" + ot,
+               iTime(_Symbol, PERIOD_CURRENT, leg1), ort, tEnd, ort, clrGold, 2, STYLE_SOLID);
+      datetime t1 = iTime(_Symbol, PERIOD_CURRENT, leg1);
+      bool used = false;
+      for(int i = leg1; i >= 1; i--)
+         if(iClose(_Symbol, PERIOD_CURRENT, i) > ort)
+           {
+            used = true;
+            break;
+           }
+      string zt = "HORC passive demand [" + tag + "]";
+      color zc = clrSteelBlue;
+      if(used)
+        {
+         zt = "HORC passive demand [" + tag + "] | used";
+         zc = clrDimGray;
+        }
+      HORC_Zone(zname, t1, orh, tEnd, ort, zc, zt);
+      HORC_Text(ename, t1, orh, "ENTRY [" + tag + "]", clrAqua);
+      double tgt = 0.0;
+      for(int t2 = 0; t2 < cnth; t2++)
+         if(thi[t2] > px && (tgt <= 0.0 || thi[t2] < tgt))
+            tgt = thi[t2];
+      if(tgt > 0.0)
+         HORC_Text(gname, iTime(_Symbol, PERIOD_CURRENT, 1), tgt, "TARGET [" + tag + "]", clrOrange);
+      else if(ObjectFind(0, gname) >= 0)
+         ObjectDelete(0, gname);
+      int leg2 = -1;
+      for(int i = leg1; i >= 1; i--)
+         if(iLow(_Symbol, PERIOD_CURRENT, i) <= orl)
+           {
+            leg2 = i;
+            break;
+           }
+      if(leg2 < 0)
+         return;
+      for(int i = leg2; i >= 1; i--)
+         if(iHigh(_Symbol, PERIOD_CURRENT, i) >= ort)
+           {
+            HORC_Text(HORC_PREFIX + "C" + tag + ot, iTime(_Symbol, PERIOD_CURRENT, i),
+                      iLow(_Symbol, PERIOD_CURRENT, i) - off, "ORT [" + tag + "]", clrWhite);
+            break;
+           }
+     }
+   else
+     {
+      int leg1 = -1;
+      for(int i = sigBar; i >= 1; i--)
+         if(iLow(_Symbol, PERIOD_CURRENT, i) <= orl - raid)
+           {
+            leg1 = i;
+            break;
+           }
+      if(leg1 < 0)
+         return;
+      double ort = iLow(_Symbol, PERIOD_CURRENT, leg1);
+      HORC_Seg(HORC_PREFIX + tag + "O" + ot,
+               iTime(_Symbol, PERIOD_CURRENT, leg1), ort, tEnd, ort, clrGold, 2, STYLE_SOLID);
+      datetime t1 = iTime(_Symbol, PERIOD_CURRENT, leg1);
+      bool used = false;
+      for(int i = leg1; i >= 1; i--)
+         if(iClose(_Symbol, PERIOD_CURRENT, i) < ort)
+           {
+            used = true;
+            break;
+           }
+      string zt = "HORC passive supply [" + tag + "]";
+      color zc = clrMaroon;
+      if(used)
+        {
+         zt = "HORC passive supply [" + tag + "] | used";
+         zc = clrDimGray;
+        }
+      HORC_Zone(zname, t1, ort, tEnd, orl, zc, zt);
+      HORC_Text(ename, t1, orl, "ENTRY [" + tag + "]", clrAqua);
+      double tgt = 0.0;
+      for(int t2 = 0; t2 < cntl; t2++)
+         if(tlo[t2] < px && (tgt <= 0.0 || tlo[t2] > tgt))
+            tgt = tlo[t2];
+      if(tgt > 0.0)
+         HORC_Text(gname, iTime(_Symbol, PERIOD_CURRENT, 1), tgt, "TARGET [" + tag + "]", clrOrange);
+      else if(ObjectFind(0, gname) >= 0)
+         ObjectDelete(0, gname);
+      int leg2 = -1;
+      for(int i = leg1; i >= 1; i--)
+         if(iHigh(_Symbol, PERIOD_CURRENT, i) >= orh)
+           {
+            leg2 = i;
+            break;
+           }
+      if(leg2 < 0)
+         return;
+      for(int i = leg2; i >= 1; i--)
+         if(iLow(_Symbol, PERIOD_CURRENT, i) <= ort)
+           {
+            HORC_Text(HORC_PREFIX + "C" + tag + ot, iTime(_Symbol, PERIOD_CURRENT, i),
+                      iHigh(_Symbol, PERIOD_CURRENT, i) + off, "ORT [" + tag + "]", clrWhite);
+            break;
+           }
      }
   }
 //+------------------------------------------------------------------+
