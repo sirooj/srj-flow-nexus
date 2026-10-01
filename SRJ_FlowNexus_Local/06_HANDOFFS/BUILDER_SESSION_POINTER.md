@@ -3,16 +3,16 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-10-01, CODE THREAD LIVE per his option A; workflow parked, skill repaired; V365 verdicts owed as sole open round)
+## State (2026-10-01, CODE THREAD LIVE; v372-UJEXEMPT-9 relay-ready with refreshed battery; v365 ask WITHDRAWN as superseded)
 
-- Disk truth: EA 977B0FB5 (v29 tree); entry packet FIX-2v22 D7BA7D12/32654 intact; relay v365-UJEXEMPT-8 5790839C/57236/382 intact, twin stands, ellipsis 0, Q1+Q2 with verdict lines and answer forms, V365 markers 0x all seats, V364 ruled.
-- Workflow parked: v371 carry WITHDRAWN (never transports while parked); Luna-replay question WITHDRAWN as moot (nothing depends on it parked; re-asked only if the thread resumes). Checks skill repaired (mapping retired, withdrawn token dropped, parked+resume banked 444-to-447). No key in hand; EU excluded.
+- Disk truth: EA 977B0FB5 (v29 tree); entry packet FIX-2v22 D7BA7D12/32654 intact; relay v372-UJEXEMPT-9 9459bda9/57612 green (twin 184 diff-0, regions 7/7 endpoints+content, rows 28, 6 prose fixes, entry-neutral carry, pins intact); V365 markers 0x all seats (v365 verdicts, if they arrive, file under V365 and grade against v365).
+- Workflow parked: v371 carry WITHDRAWN; Luna-replay question WITHDRAWN as moot. Checks skill 447 lines. No key in hand; EU excluded.
   No build/run without your new word.
 - Tool-stack + python + handoff split + goal routing stand (ledgers 977-984, renamed ledger 981).
 
 ## Next
 
-- Code thread: paste YOUR V365 entry verdicts (each whole seat, name the chat) + vote-free GO or HOLD, both in one message. File: `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RELAY_COUNCIL_v365-UJEXEMPT-8.md` — paste whole, same text every seat.
+- Code thread: paste `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RELAY_COUNCIL_v372-UJEXEMPT-9.md` whole to each council chat (same text every chat, no edits), then paste each whole reply back in one message (name the chat each came from) + vote-free GO or HOLD.
 
 ## Resume order (exact)
 
