@@ -395,3 +395,27 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - COUNT-SINGLE-STATE: one timestamped count state per page (total-now, ruled-at, this-draft, expected); carried counts contradicted by landed files corrected with the landing files named plus a retirement check.
 - CONTRADICTION-OWNED: a page contradicting itself (mandatory-set omission, predicate tension, fail-open phrasing, wrong day counts) is owned as a builder defect with each withdrawn line named, never defended and never relitigated for line attribution.
 - RECORD-VOCABULARY: fold is one page revision; round is one transport-plus-grade cycle; run is one tester execution. Cost reports the pair (minutes, trips), never summed.
+
+## 48. Intake-fidelity gates (builder-owned gaps, 2026-10-01 - v370 intake staged prior-round bytes; Sonnet-v370 fresh verdict plus Luna-V369-replay converged on the workflow thread)
+
+- STAGING-DISCRIMINATOR: every staged verdict proves itself against the visible inbound with message-unique discriminators (round ids, new phrases, new demands) before any filing; probes built from remembered phrases prove nothing and are restated message-true. A staging hash equal to any prior staging hash blocks filing pending replay adjudication, never patched by re-verification of the same bytes.
+- COMPOSITION-SOURCE: staged text is transcribed from the visible inbound message with the message open, section by section (headers, verdict lines, item counts, close); context-memory transcription of long inbound texts is a defect class (v370: Luna staging reproduced V369 bytes while Sonnet staged fresh from the same message). Structure checklists alone do not catch same-template staleness.
+- DUPLICATE-INTAKE: zero new-round tokens plus round-refs to a prior round plus byte-match with a filed region equals a stale paste (replay). Adopted once under the existing grade with no new markers; the grade proceeds on fresh seats alone with the replay noted; one confirmation question goes to him (fresh text pasted whole, or proceed on fresh seats alone).
+- KNOWN-FIELD-PROJECTION: green compares KNOWN fields only; UNKNOWN fields join an explicit operator-fill list on the page and never fail green nor pass as proven. Frozen-bar v2 bars on his fill, never on inference.
+- TAKE-DAY-COUNT: take days and takes counted separately with day mapping (8 takes over 6 take days plus 2 miss days here); a day count equal to a take count without the mapping is unwritten.
+- MISS-SEMANTICS: misses are known-gap events that may become takes through allowed-expansion on miss records (direction plus line plus day); membership on the full canonical tuple; invalids never expand.
+- PROCESS-PAIR-NAMED: the compared pair is named on both ends (slice-run code versus following full-run code, same code tested); an unnamed pair is unwritten.
+- WORD-TOKENS: operator state-changing words tokenized exact-match (GO enters advisory, HOLD remains full-verdict, PROMOTE-GOLDEN promotes golden, ACTIVATE-VOTEFREE activates vote-free), quoted verbatim from his message.
+- TIE-NO-ROW: the tie table carries YES, DISCREPANCY, OBJECT, NO rows; mapping sentences never strand a row; NO means amend-with-halt.
+- C3-CONVERSE: fold diff covers every list item AND contains nothing outside it; one direction alone fails C3.
+- APPEND-EXEMPT: grade-file appends exempt from the full-path rule; acceptance-record hash is per file; the record is the single latest grade file pointing backward.
+- FAIL-CLOSED-PHRASE: withdrawn tokens are dropped entirely from live pages, never quoted-as-withdrawn; a quoted withdrawn token fails the page on sight.
+- INLINE-ALL: boundary table, non-word list, cite taxonomy, fixtures, N/A encodings ride inline on NEW-session pages; prospective artifacts ride schema-defined with instantiation logged.
+- FIXTURE-CODES: one fixture per check with expected reason and final state, plus one clean fold each path; mandatory set named with N/A rules.
+- PIN-C0: one mandatory check verifies all pinned hashes against the acceptance-record; manifest changes ride the full path.
+- MARKER-TOKEN: substring test applies to the marker-name token, case-sensitive; one OPEN/END pair per seat per round; duplicates illegal.
+- OBJECT-GRADER-CLASS: seats answer yes/no/discrepancy; OBJECT and NO are grader classes with NO outranking DISCREPANCY.
+- COST-PAIR-REPORTED: cost reports the pair (minutes, trips) with the log path; the pair is never summed; stage entries land from the next run-bearing round.
+- TZ-PINNED: server-time strings, no conversion; session per his words; id/time dual role stated (index plus evidence).
+- INVALID-NAMED: invalid classes named with one representative each; undisclosed fields stated undisclosed, never filled.
+- BOUNDED-GAPS: open gaps counted with the number stated (0 open plus owed words named); an unbounded remaining-gaps phrase is unwritten.
