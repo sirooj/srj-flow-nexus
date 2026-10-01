@@ -3,21 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-10-01, v365 relay-ready memo-shipped, V365 verdicts owed)
+## State (2026-10-01, V366 workflow graded + v367 relay-ready; V365 entry verdicts still owed)
 
-- Disk truth: EA 977B0FB5 (v29 tree), packet FIX-2v22 D7BA7D12, relay v365 5790839C.
-- V365 relay green + memo shipped (packet D7BA7D12, relay 5790839C, Q1+Q2 to all seats); D15 repeat owned (ledger 1052). No key in hand; EU excluded.
+- Disk truth: EA 977B0FB5 (v29 tree), packet FIX-2v22 D7BA7D12, relay v365 5790839C (entry thread).
+- V366 workflow: Luna+Sonnet filed whole + graded Q1 1-1 SPLIT / Q2 0-2 OBJECT (ledger 1054); relay v367 9E87B652 green, memo ships Q1+Q2. No key in hand; EU excluded.
   No build/run without your new word.
-- Tool-stack filed 2026-09-29 (AGENTS 6.37 + defect + council; ledger 977).
-  Python 3.13.15 installed per-user + rule amended (ledger 979). Full-path python.
-  Helper `00_CURRENT_WORKING\srj_toolcheck.py` committed (next + hash, ledger 980).
-  Ledger renamed `06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md` + NUMBER-RESERVE live (981).
-  Handoff split: `/srj-flow-nexus-handoff` + `/horc-handoff` (982); shim deleted (986).
-  Goal refined: routing + HORC-halt + HORC-loop (984); rename race owned.
+- V365 entry verdicts still owed (unchanged).
+- Tool-stack + python + handoff split + goal routing stand (ledgers 977-984, renamed ledger 981).
 
 ## Next
 
-- YOUR V365 verdict paste-backs (paste each seat whole, then rest).
+- Carry the v367 workflow relay below (paste whole to each seat, paste replies back).
 
 ## Resume order (exact)
 

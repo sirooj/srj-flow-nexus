@@ -4966,3 +4966,49 @@ A same-day conjunct on EA-8413 (pre-build), such as `g_ujOpReseedBarTime >= D1 o
 
 The fuller alternative is a CARRY/DIR clear on the death path near EA-8419. That is the bigger fence parked at P104.
 ## V364-UJEXEMPT-7 END SONNET
+## V366-WORKFLOW OPEN SONNET
+**Line numbering:** physical lines of the request as received, blank lines counted, title = line 1. The page has no stated convention (line 28 and line 31 ask for line numbers), so please carry this one back with the ruling. Hashes and counts (lines 8-10, 16-18) are taken as stated, since they can't be checked from chat (line 37).
+
+## Q1: YES
+
+I rule yes on the four-check set (line 27), with these conditions attached:
+
+- **Entry condition.** Line 27 says "byte-proven" but not by whom or on which copy. The zero-fence-delta test must run mechanically on the carried bytes (receiver side), not on the builder's claim. Strictly this is a fifth gate, so count it as an entry condition and keep "exactly four" honest.
+- **Advisory outputs.** Parked checks must print in the same transport result the operator carries, so they are seen and not silent. Add an escalation rule: a parked check that fires on the same fold twice, or would have caught a real fault, gets promoted back to blocking.
+- **Tag-namespace (line 27, read with line 8).** Line 8 shows the V364 tally was region-scoped to marker pairs. If anything parses those markers, a namespace fault can corrupt the scope, so that check should stay blocking or fold into cite-resolution. If the markers are only read by eye, park it. The page doesn't say which.
+- **Undefined terms.** The page never defines prose-count parity, twin-equivalence, or "fresh against what" for hash-freshness (line 27). It also never lists the current full path, so "the light path is a strict subset" can't be checked from the page.
+
+## Q2: DISCREPANCY
+
+The intent is sound, but as written the gate can't bind. I would CONFIRM once points 1 to 4 are fixed.
+
+1. **Possible permanent block (line 9 vs line 30).** Line 9 says "Code execution is the gap," meaning the code doesn't yet reproduce the bar. If take-parity means parity with the 7 register takes, the gate is red until the work it gates succeeds, which blocks every proof run. It needs to be a ratchet: parity against the last accepted output (non-regression), or it activates only after the code first reaches the bar. This also undercuts "fixed regression anchor" (line 13), since nothing has regressed from a state never reached.
+2. **Possible circularity (line 18 vs line 30).** A full window costs 70 to 75 minutes. Is "take-parity on the frozen first window" measured on a slice covering the 7 take days, or on the window itself? If the latter, the gate costs as much as the run it guards. The page must state which days the slice covers and what the slice costs.
+3. **Coverage gap (line 9).** The gate names only the first window. The second window carries the miss and invalid rules (1 takes, 3 miss, invalids never progress), and that is where an execution gap is likely to hide. The slice set must include misses and invalids. Slice green must also be declared a pre-filter only and never count as bar evidence.
+4. **"Process only" is not self-enforcing (line 30).** Slice choice is a sampling decision. The manifest must be fixed and hashed before the run, never picked after seeing failures. A slice that starts mid-history also gives a stateful EA different warmup state than the full window, which could produce false fails or false passes. The slice must seed the same lookback.
+5. **No expected value.** The page gives no catch rate or failure history showing how often a slice would have saved a full run.
+
+## A: Defects, gaps, imprecisions
+
+- **Line 3 vs lines 8-10.** Line 3 says "no digest-only refs for attested content," but line 10 (the template) is digest-only. Line 9 summarizes the take bar without quoting it, so the bar can't be checked from the page. "Fixed per operator 2026-10-01" has no quote and carries the page's own date.
+- **Line 16.** It says "verbatim," but "368 plus 79 plus 81" is a summary. Measure-Object emits an object with a Count property, and the 528 total isn't stated. There's no date range or directory scope, and the glob patterns aren't shown to be disjoint. File counts also measure volume, not cost.
+- **Line 17 vs line 15.** Line 17 has no command, file, or hash, yet it sits under a "machine-counted this turn" header. Line 18 marks its figures as carried, but line 17 is neither marked nor evidenced.
+- **Line 18.** Q2 depends on this number. It is carried, not re-measured, with no sample size behind "70 to 75." "Floor 2 human trips" is undefined, and neither question changes that floor.
+- **Line 13.** The cost unit (minutes, trips, tokens, files) is never named. The evidence (368 files, 343-line battery) and the questions (Q1 per-fold checks, Q2 run minutes) don't line up, because neither question touches the 368, the 343, or the 2-trip floor.
+- **Lines 9, 13, 23 vs line 24.** "Bar" means both the take bar and, presumably, price bars. Line 24 ("Bar roles") is ambiguous as a result.
+- **Line 21 vs line 27.** Line 21 marks twin as N/A, while Q1 proposes twin-equivalence. It is probably a different object, but the page doesn't say so.
+- **Line 8.** "Prose blocked code the same round" is stated as the lesson, with no data on how often it happened. Q1 doesn't address that coupling.
+- **Lines 11 and 37.** These duplicate each other. That's harmless, but line 3 and line 37 also overlap with the "no digest-only" rule.
+- **Line 25.** I see no three-dot tokens anywhere on the page, consistent with the claim.
+
+## B: Better mechanisms
+
+1. **One checker, one line back (touches lines 27, 18).** Run the entry test, the four checks, and the advisories as a single script on his machine. It emits one PASS/FAIL line plus the advisory warnings. For light-path folds that could cut a human trip, if line 18's "trip" means what I assume.
+2. **Stage timing (touches lines 15-18).** Log wall time per stage per round, so cost is measured in minutes and trips. Then pick which question to ask by where the time goes, not by file counts.
+3. **Golden-hash ratchet (touches lines 30-31, 9).** Store hashes of the last accepted per-slice outputs and gate on non-regression. This fixes the permanent-red problem and keeps the 7-take bar as the target, not the gate.
+4. **Decouple prose and code verdicts (touches lines 8, 27-31).** If the prose Q is objected, don't let it hold the code Q for the same round.
+5. **Cache the battery by hash (touches line 17).** The 343-line read-back only needs re-reading when its digest changes.
+
+Nothing here builds, runs, or moves money.
+
+## V366-WORKFLOW END SONNET

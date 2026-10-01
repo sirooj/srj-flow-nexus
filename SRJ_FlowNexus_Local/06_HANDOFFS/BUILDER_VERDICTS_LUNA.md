@@ -15293,3 +15293,110 @@ For B1 specifically, the acceptance should require the **6/5 09:15 SHORT reseed*
 
 No build, tester run, or activation clearance follows from these rulings.
 ## V364-UJEXEMPT-7 END LUNA
+## V366-WORKFLOW OPEN LUNA
+## Q1 — **DISCREPANCY** [L27-L28]
+
+The proposed light path is directionally coherent, but I would not ratify **“exactly four checks”** as written.
+
+The main issue is that **“zero code-fence delta, byte-proven” is itself a gating proof but is not counted among the four checks**. That makes the stated four-check contract internally ambiguous. [L27]
+
+There are also three precision gaps in the four checks:
+
+* **Twin-equivalence** is not defined: the two objects being compared, comparison scope, and pass condition are unstated. This also needs reconciliation with the page's explicit N/A treatment of “Twin plus snippet plus P-sequence.” [L21, L27]
+* **Hash-freshness** needs a precise scope and freshness relation. A changed whole-file hash alone does not prove that only permitted prose bytes changed. [L27]
+* **Prose-count parity** is too weak by itself: equal line counts can still conceal replacement, reordering, duplication, or deletion. [L27]
+
+`cite-resolution` also needs to distinguish **“reference resolves”** from **“reference resolves to the intended content.”** [L27]
+
+The advisory treatment of **indent fidelity, tag namespace, and row-label wording** is acceptable only if those fields are genuinely non-semantic presentation metadata. If any downstream transport/parser uses them structurally, making their failure non-blocking creates a bypass around a substantive defect. [L27]
+
+**Rule:** a wording-only fold may use a light path, but the page needs an explicit, machine-checkable definition of the byte/code-region proof and each of the four checks before that becomes a closed transport rule. [L27]
+
+---
+
+## Q2 — **DISCREPANCY** [L30-L31]
+
+The proposed funnel is sensible: **cheap slice first, then frozen first-window take-parity, then the expensive full-window proof run**. [L30]
+
+The discrepancy is specification precision, not direction:
+
+* **“short-day slices”** is undefined: which dates/sessions constitute a slice, and how are they selected? [L30]
+* **“slice green”** has no explicit pass/fail predicate. [L30]
+* **“take-parity”** should state exactly what must reproduce from the frozen first window, including treatment of misses and invalids. [L30]
+* The page's fixed bar also contains a second-window result, while the pre-full-run gate names only the first window. It therefore needs an explicit statement that the first window is a **cheap admission gate**, not a replacement for the later full-window validation of the entire frozen bar. [L9, L30]
+
+**Rule:** use the slice → first-window parity → full-window sequence, but make the slice membership and “green” predicate deterministic and explicitly process-only. [L30]
+
+## Analytic A — defects, gaps, imprecisions
+
+**A1. Cost-count command is malformed as presented.**
+[L16] Only the first `Get-ChildItem` invocation is shown. The second and third semicolon-separated expressions begin with bare wildcard text rather than another `Get-ChildItem`. As written, this does not establish three valid PowerShell `Measure-Object` pipelines. That weakens the claimed `368 / 79 / 81` measurement.
+
+**A2. The count scope is unspecified.**
+[L16] There is no explicit current directory, recursion scope, exclusion rule, or filename disambiguation. Even with a corrected command, the measurement contract is underspecified.
+
+**A3. Cost basis is heterogeneous.**
+[L17-L18] Battery size is machine-counted, while run time and human-trip cost are explicitly carried rather than re-measured. That is transparent, but the page does not define whether those figures are historical medians, ranges, or single observations.
+
+**A4. N/A treatment and Q1 twin check need reconciliation.**
+[L21, L27] The page says the twin/snippet/P-sequence material is N/A, yet Q1 makes twin-equivalence a blocking check. The page needs to distinguish **code-free relay twin-equivalence** from whatever twin comparison Q1 intends.
+
+**A5. “Exactly four checks” has an uncounted prerequisite.**
+[L27] The wording-only classification and byte-proven zero-code delta appear to be prerequisites to transport, but are not clearly part of the four-check count.
+
+**A6. Check definitions are not executable specifications.**
+[L27] “Twin-equivalence,” “hash-freshness,” “prose-count parity,” and “citation resolution” lack explicit inputs and pass/fail criteria.
+
+**A7. Equal prose count is not structural parity.**
+[L27] Same count does not prove same wording structure or preservation.
+
+**A8. Citation resolution is weaker than citation correctness.**
+[L27] A citation can resolve successfully while pointing to the wrong line/range or wrong source object.
+
+**A9. Advisory boundaries may be unsafe if structural.**
+[L27] Indentation, tag namespace, and row-label wording are described as advisory without establishing that they cannot affect parsing, routing, or machine matching.
+
+**A10. Advisory failure handling is unspecified.**
+[L27] “Never block transport” says what they cannot do, but not what happens after an advisory failure. Without a recorded escalation/state, an advisory defect can become invisible operational debt.
+
+**A11. “Estimate freshness” lacks a freshness rule.**
+[L27] No age threshold, source-of-estimate definition, or stale-state indicator is specified.
+
+**A12. Slice contract is underspecified.**
+[L30] No deterministic slice membership, coverage rule, or fixed ordering is given.
+
+**A13. “Green” is undefined.**
+[L30] There is no explicit predicate for slice success.
+
+**A14. First-window gating versus whole-bar verification is not explicitly separated.**
+[L9, L30] The page identifies the first window as the gate, while the frozen bar also contains a second-window result. The role of the first window as an admission test should be stated explicitly.
+
+**A15. The verification split is correct but the evidentiary wording is slightly imprecise.**
+[L37] “Disk truth” can establish artifact contents/counts on the operator's machine; it does not by itself establish upstream provenance. The page separately identifies the operator carry as the anti-fake mechanism, so these two concepts should remain distinct.
+
+**A16. The cost-reduction objective is not tied to an acceptance metric.**
+[L13, L17-L18] The page states the goal and current costs, but does not define the target reduction or a criterion for deciding that the new pipeline actually achieved the intended saving.
+
+## Analytic B — better mechanism
+
+A stronger mechanism for the stated goal is a **deterministic transport router based on changed-byte regions** [L27], followed by the cheap regression gate [L30]:
+
+**Stage 0:** compute an exact changed-range map and prove that every changed byte lies inside declared prose-only regions; separately compare the code-fence byte ranges exactly. If any code-fence byte changes, automatically leave the light path.
+
+**Stage 1:** run the four transport checks, but define each as a binary contract: twin object/scope, expected predecessor/current hash relation, structural prose diff rather than count-only parity, and citation target correctness. [L27]
+
+**Stage 2:** run fixed short slices, with a declared slice manifest and a binary “green” predicate; then require frozen first-window take-parity before authorizing the 70–75 minute run. [L18, L30]
+
+This touches **L27-L30** primarily, with the cost measurement language at **L16-L18** needing the same deterministic manifest so that the claimed savings can be measured consistently.
+
+### Final ruling
+
+**Q1: DISCREPANCY — [L27-L28]**
+Light path is supportable, but the four-check contract is not yet precise enough to be closed.
+
+**Q2: DISCREPANCY — [L30-L31]**
+The slice-before-full-run gate is supportable, but “slice green” and slice composition must be deterministic.
+
+No rule change to the take bar is proposed by this ruling. [L9, L13, L23]
+
+## V366-WORKFLOW END LUNA
