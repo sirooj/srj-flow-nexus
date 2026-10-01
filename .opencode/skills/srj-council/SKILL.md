@@ -419,3 +419,26 @@ Role: the builder attacks its own draft as a reviewer BEFORE the operator carrie
 - TZ-PINNED: server-time strings, no conversion; session per his words; id/time dual role stated (index plus evidence).
 - INVALID-NAMED: invalid classes named with one representative each; undisclosed fields stated undisclosed, never filled.
 - BOUNDED-GAPS: open gaps counted with the number stated (0 open plus owed words named); an unbounded remaining-gaps phrase is unwritten.
+
+## 49. Thread-stop and code-carry gates (his stop order 2026-10-01 - six workflow rounds v366-v371, zero closes; V371 Luna+Sonnet converged on closure defects)
+
+- THREAD-STOP: on his explicit stop order the thread parks the same block (file plus grade close, verdicts owed cleared, NO fold opens, no transport ask). A graded-amend with a stopped thread is a closed block, never a friction defect. Parked dispositions ride as code-thread law with triggers named, never as a new relay.
+- MESSAGE-TRUE-PROBES: every novelty/fidelity probe string is read from the visible inbound message, never composed from planning vocabulary; a probe built from remembered phrases proves nothing and is restated message-true before any conclusion. Two false-defect alarms from this class owned same turn (v371: Known-field, PROMOTE-GOLDEN probes).
+- UNBUILT-MACHINE RULE (the bottleneck culprit, named): specifying an unbuilt verification machine in prose converges at most one definition layer per council round (checks, then manifests, then hashes, then records, then schemas, then tokens, then metrics) while each layer uncovers the next undefined term. A process thread past three rounds with zero closes and no built artifact is re-routed: either build the machine as code with fault-fixtures (code thread, his word) or cut scope to gates provable on disk today. Never spend a fourth round specifying.
+- KNOWN-FIELD-PROJECTION: green compares KNOWN fields only; UNKNOWN fields join an explicit operator-fill list and never fail green nor pass as proven. Frozen baselines version on his fill, never on inference.
+- TAKE-DAY-COUNT: take days and takes counted separately with day mapping; misses counted as miss days, never take days.
+- MISS-SEMANTICS: misses are known-gap events expandable through miss-record match (direction plus line plus day) with one use per record; membership on the full canonical tuple; invalids never expand.
+- IDENTITY-WITHOUT-ENTRY-TIME: take id excludes entry time (date, session, pair, direction, ordinal); entry time and bars compare as fields so CHANGED-EVENT stays reachable; MISS deadlines use session-end.
+- FILL-UNKNOWN-FIRST: green defined only on filled baselines; wildcard/masking rules retire when fills land.
+- THREE-OUTCOMES: RED (abort), BAR-REACHED (takes equal bar on known fields), GAIN (allowed-expansion superset, reported never promoted).
+- COMPLETE-PRE-BAR: pre-green runs log missing takes without aborting; abort on UNEXPECTED events or regression against golden only; early abort hiding later days is a defect in the gate, caught here.
+- VOLATILE-LINE: builder-written values (counts, digests, tallies on live pages) check against the battery, never against locks; violation means unmapped change versus predecessor.
+- CODE-REGION-HASH: region-manifest pins fenced content hashes compared against predecessor or edit list; twin-identical code edits fail here even when C1 passes.
+- VOCABULARY-LINT: fail on bare manifest, retired terms, and withdrawn tokens outside retired-lines blocks.
+- FAIL-FAST-PRIMARY: abort at first canonical divergence in calendar bar-day order; reds cost elapsed minutes; saved-minutes cumulative plus words per round with threshold and failure action; implementation rides the code thread on his run word.
+- DIGEST-EQUALITY-GREEN: hash sorted canonical records, compare digests, diff only on mismatch.
+- INDEPENDENT-DIFF: raw standard-tool diff beside checker spans; rendered human-readable span list rides carried results.
+- GREEN-STATES: PROVEN (all known, exact), UNPROVEN (projection holds, unknowns remain), RED (known mismatch); promotion on PROVEN only.
+- ESCAPE-DEFINED: full-run ratchet failures only; audit rule names its rate; horizon, counters, reset, rollback target all stated.
+- WORDS-CRITERION: every operator-word metric carries its threshold and decision use; a word without a criterion is decoration.
+- TIE-NO-ROW: YES, DISCREPANCY, OBJECT, NO rows all present; NO means amend-with-halt, outranking DISCREPANCY.

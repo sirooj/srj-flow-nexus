@@ -16248,3 +16248,261 @@ The page has substantially closed the conceptual gaps, especially the **bar-equi
 The highest-value edits are therefore **C1 mandatory status, pinned frozen-bar canonical artifact, exact canonical-record equality, guarded golden-0 creation, and an explicit slice-red/escape state machine**.
 
 ## V369-WORKFLOW END LUNA
+## V371-WORKFLOW OPEN LUNA
+## Q1 — **DISCREPANCY**
+
+v371 fixes the main v370 Q1 issue, but one control-surface gap remains, plus several binary-specification ambiguities.
+
+The strongest blocker is **C0 versus the acceptance-record schema**: C0 says it verifies the checker, manifests, boundary table, non-word rule, and fixtures “against acceptance-record hashes,” but the acceptance-record schema contains no `fixture_hash`, nor independent `boundary_table_hash` or `non_word_rule_hash`. The region-manifest contains the boundary table/non-word list, so those two can arguably be covered transitively, but the fixture bundle has no corresponding acceptance-record hash at all.
+
+A second concrete Q1 issue is the **C1 twin-pair exception**. C1 permits duplicate content “except manifest-declared twin pairs,” but the region-manifest schema does not contain any twin-pair declaration field. Thus the exception has no defined control-surface location.
+
+So:
+
+> **Q1 = DISCREPANCY.**
+
+---
+
+# Q2 — **DISCREPANCY**
+
+The v371 Q2 mechanism is substantially improved, but it contains a direct internal contradiction between the **known-field green rule**, the **promotion rule**, and the **fail-fast sandwich**.
+
+The clearest contradiction is here:
+
+* L41 says UNKNOWN fields are wildcards, so they “never fail green,” **but also never pass as proven**.
+* L43 says promotion occurs when **green is reached**.
+* Therefore the page has no distinct state for “green under UNKNOWN projection but not proven,” yet that intermediate state is explicitly contemplated.
+
+That is not merely wording: it affects whether an incompletely filled baseline can trigger promotion.
+
+There is a second, more structural Q2 contradiction:
+
+* L41 permits an added take on a MISS day when it matches the frozen MISS record on direction + line + day.
+* L45's sandwich says `run takes ⊆ bar taken list`.
+* L41 explicitly defines the bar taken list as the **8 TAKEN-valid** events, while MISS records are separate.
+* Therefore a newly admitted take derived from a MISS record can be permitted by L41 but simultaneously violate the L45 sandwich invariant.
+
+And the earlier fail-fast problem remains in narrower form: L45 can detect a missing **TAKEN-valid** event by deadline, but it does not define first-divergence handling for a missing `MISS` or `INVALID-silent` event, even though L41 says exact event-set equality is part of green.
+
+So:
+
+> **Q2 = DISCREPANCY.**
+
+---
+
+# Analytic A — defects, gaps, and imprecisions
+
+### Q1 / control-plane defects
+
+**1. Fixture hash missing from acceptance-record.**
+L24 requires fixture hashes and L29 says C0 checks them against acceptance-record hashes, but L20's schema has no `fixture_hash`.
+
+**2. Boundary-table and non-word-rule hashes are not explicitly represented.**
+They are embedded in the region-manifest schema at L18, so this is less severe than the fixture gap, but L29 describes them as independently pinned while L20 names only `region_manifest_hash`. The page should choose one exact model: either “covered by region_manifest_hash” or independent hashes in the acceptance-record.
+
+**3. Twin-pair exception has no manifest field.**
+L30 says duplicate content is ambiguous except for manifest-declared twin pairs, but L18 gives no `twin_pairs` schema component.
+
+**4. Boundary precedence contains an internal classification overlap.**
+L21 says `DELIMITER = line boundaries`; L22 puts `line breaks` inside the exhaustive NONWORD list; L21's precedence puts NONWORD before DELIMITER. As written, line breaks can therefore be classified as NONWORD before DELIMITER is ever reached.
+
+**5. “Packet labels” and “EA coords” are not defined grammars.**
+L28 makes them E0 code-pattern classes but never specifies the syntax that detects them. A fresh checker cannot derive a unique rule from the page.
+
+**6. MQL5 keyword matching is not specified as token matching.**
+L28 lists keywords such as `int`, `string`, `if`, `for`, etc., but does not state whether the matcher uses whole WORD tokens, substrings, or some lexer rule. In prose, words such as “if” or “return” can naturally occur.
+
+**7. “Rule-bearing line” is semantic rather than syntactically closed.**
+The locked-token rule applies to “any line stating a threshold, count, or metric.” “Stating” is not a deterministic parser predicate. Different seats/checkers could classify the same line differently.
+
+**8. C1 Unicode normalization is still not closed.**
+“Unicode form” is undefined. NFC/NFD/NFKC/NFKD are materially different byte sequences. Since C1 hashes normalized bytes, the normalization form must be named.
+
+**9. C2 last-graded record semantics are slightly ambiguous.**
+L20 says the acceptance-record is the “single latest grade file,” while L31 says it stores the last-graded id and class. It would be cleaner to define whether the grade file itself *is* the record or whether the record is a specific structured section/object within the grade file.
+
+**10. C3 file-edge rule only addresses insertions/deletions, not empty-file edge cases.**
+“Single existing side” works when at least one unchanged word-span exists, but the page does not state what happens if a file/region contains no unchanged WORD span at all.
+
+**11. C5 “marker-name token (second token)” should be tied explicitly to the grammar.**
+The grammar `^## [A-Z0-9-]+ (OPEN|END) [A-Z]+$` has multiple tokens; L34 says the second token is the marker-name token, which is correct under that grammar, but the OPEN/END-qualified identity being compared is not explicitly distinguished from the marker-name token being tested. The page should state both identities if both matter.
+
+**12. Duplicate handling is defined as a multiset, but exact comparison semantics deserve one sentence.**
+L34 correctly upgrades the predecessor comparison from a set to a multiset, but the exact identity tuple for a marker occurrence is not stated beyond the grammar.
+
+**13. “All mandatory” is clear, but the final checker-state mapping is still implicit.**
+L35 gives per-check states and final state, while L30 gives FULL_PATH conditions; the page does not explicitly state the final-state algorithm for all combinations, although it is strongly inferable. For a binary checker, that should be one closed predicate.
+
+---
+
+### Q2 / green-baseline defects
+
+**14. UNKNOWN creates an undefined third logical state.**
+L41 simultaneously defines exact equality, wildcard comparison, and “never pass as proven.” That produces at least:
+
+`GREEN-PROVEN`, `GREEN-BUT-UNKNOWN`, `NOT-GREEN`
+
+but only `green` versus not-green is formally named.
+
+**15. Promotion can therefore consume an unproven green.**
+L43 says “green reached” is a promotion trigger without restricting that trigger to `GREEN-PROVEN`. This directly conflicts with L41's “never pass as proven.”
+
+**16. Operator-fill list has no exact fill artifact/schema.**
+L42 names eight UNKNOWN items, but does not define the exact representation of the operator's supplied replacement values, their hash, or how an UNKNOWN becomes KNOWN.
+
+**17. “Frozen-bar v2 bars on his fill” introduces a baseline version without defining it.**
+L42 references “frozen-bar v2” even though L9 identifies the pinned baseline as version 1. The transition/versioning rule from v1 to v2 is absent.
+
+**18. Direction-plus-line-plus-day matching for MISS expansion is weaker than canonical equality.**
+L41's general green rule is exact canonical-record equality, but MISS-day expansion uses only three fields. The page never formally defines this as an intentional exception to canonical equality.
+
+**19. MISS-to-TAKEN transition changes outcome class.**
+A frozen MISS record has `outcome_class = MISS`; an admitted take is presumably `TAKEN-valid`. Therefore saying the take “matches a frozen MISS record” cannot mean canonical-record equality. The precise promotion/transformation operation is missing.
+
+**20. The sandwich invariant contradicts that same allowed expansion.**
+As above, `run takes ⊆ bar taken list` excludes a take originating from the separate MISS set.
+
+**21. “Golden takes subset of run takes” has no state qualification.**
+For PRE-GREEN there may be no accepted golden baseline yet; for PROVISIONAL there is one; for ACCEPTED there is another. L45 needs to specify which golden object is in force for each state, even though the baseline-selector sentence goes partway toward doing so.
+
+**22. Baseline selector and sandwich terminology are not perfectly aligned.**
+L45 says PRE-GREEN compares frozen-bar, GREEN/ACCEPTED compares frozen golden, PROVISIONAL compares provisional + bar-bound. But the sandwich sentence does not identify which sides of the sandwich correspond to those states.
+
+**23. Missing-event deadline is only defined for TAKEN-valid.**
+L45 says `MISSING-EVENT = frozen TAKEN-valid with no observed take by deadline`. Exact green, however, also includes the event set containing MISS and INVALID-silent. Consequently the fail-fast gate is not complete for the same event universe used by green.
+
+**24. INVALID-silent is in the green event set but has no fail-fast divergence rule.**
+L41 explicitly includes six INVALID-silent events; L45's three mismatch classes are not sufficient to detect a missing or altered invalid-silent event at first divergence.
+
+**25. “First canonical divergence” is therefore underspecified for negative evidence.**
+There is no deadline/order rule for determining that an expected MISS/INVALID event has failed to appear. The comparator is complete for observed takes but not for the full canonical event set.
+
+**26. Server-time serialization is still underspecified.**
+L41 says “server-time strings London/NY per his words, no conversion.” That leaves open exact timestamp grammar, precision, and timezone/DST representation. Since canonical equality is hash-based, those must be deterministic.
+
+**27. “London/NY per his words” is not a self-contained timezone rule.**
+The actual timezone identifier/offset rule is not written on the page. A fresh seat should not need an external recollection of the operator's words to serialize an event identically.
+
+**28. Golden-0 non-regression is still delegated to the sandwich, but the sandwich itself is not fully coherent.**
+L43 relies on L45 to establish golden-0 admissibility; because L45 conflicts with MISS expansion, the guard is not fully closed.
+
+---
+
+### State/metric defects
+
+**29. The vote-free state machine still does not connect to the new PROMOTE-GOLDEN token.**
+L43 adds `PROMOTE-GOLDEN`, while L50's state machine only defines `GO` and `HOLD`. The page now has two different operator-controlled transition vocabularies but no single integrated state machine.
+
+**30. “ACTIVATE-VOTEFREE” has no named transition from the state machine.**
+It is named as a distinct token at L43, but L50 does not specify what exact state transition it performs.
+
+**31. Operator words are said to be a metric but have no metric target.**
+L46 says “saved minutes cumulative ... plus operator words per round,” but the only success threshold is `saved minutes >= 70`. The second dimension has no defined threshold or decision use.
+
+**32. “Plus” obscures the previously established pair semantics.**
+The prior workflow explicitly used cost pairs; v371's metric combines saved minutes and operator words with a plus sign while treating them as different units. That is not mathematically defined.
+
+**33. “First fail-fast round” reset semantics are still absent.**
+The six-round horizon is defined, but not when the counter resets after success, rollback, or re-entry to full runs.
+
+**34. Failure action is named but its persistence is not.**
+“suspend to full runs plus council re-rules” does not say whether this suspension lasts one round, until a new confirmed page, until operator word, or indefinitely.
+
+**35. The page declares zero open gaps while containing unresolved definitions.**
+L3 says “Open gaps on this page: 0,” but the C0 fixture hash, twin-pair declaration, green/UNKNOWN state, MISS-expansion/sandwich contradiction, and fail-fast negative-event gap remain in the same page.
+
+---
+
+# Analytic B — better mechanism
+
+I would make **two structural corrections** rather than adding more exceptions.
+
+### A. Make the control bundle genuinely closed
+
+Touch **L17–L30**.
+
+Add to the acceptance-record:
+
+`boundary_table_hash`
+`non_word_rule_hash`
+`fixture_bundle_hash`
+`twin_pairs_hash`
+
+or, alternatively, explicitly state that `boundary_table_hash` and `non_word_rule_hash` are intentionally **covered by** `region_manifest_hash`, while adding only `fixture_bundle_hash` and `twin_pairs_hash`.
+
+Then make C0 a simple identity rule:
+
+> Every authority consumed by C0 has exactly one hash-bearing field in the acceptance-record.
+
+That removes the current indirect-reference problem.
+
+### B. Replace the Q2 “takes subset” sandwich with an **admissible-event envelope**
+
+Touch **L41–L46**.
+
+Define three immutable sets:
+
+`BAR_TAKES` = the eight frozen TAKEN-valid records.
+
+`BAR_MISSES` = the three frozen MISS records.
+
+`BAR_INVALIDS` = the six frozen INVALID-silent records.
+
+Then define an **admissible observed take**:
+
+* any record exactly matching `BAR_TAKES`; or
+* a controlled MISS-promotion record matching the designated MISS identity fields **plus the exact transformation rule**.
+
+The sandwich becomes:
+
+> `GOLDEN_TAKES ⊆ RUN_TAKES ⊆ ADMISSIBLE_BAR_TAKES`
+
+rather than `RUN_TAKES ⊆ BAR_TAKES`.
+
+That preserves the intended MISS-day expansion without contradicting the frozen TAKEN list.
+
+### C. Give UNKNOWN its own state
+
+Touch **L41–L43**.
+
+Use:
+
+`GREEN_PROVEN` — all required canonical fields known and exact.
+
+`GREEN_UNPROVEN` — projected equality holds but at least one frozen field remains UNKNOWN.
+
+`RED` — known-field mismatch.
+
+Then:
+
+> Only `GREEN_PROVEN` satisfies “green reached” for promotion.
+> `GREEN_UNPROVEN` cannot promote.
+
+That cleanly resolves the current L41/L43 contradiction.
+
+### D. Compare events, not merely takes, in fail-fast
+
+Touch **L45**.
+
+Define a canonical event deadline for **every event class**, not just TAKEN-valid. Then first divergence becomes exactly:
+
+`UNEXPECTED-EVENT`
+`MISSING-EVENT`
+`CHANGED-EVENT`
+
+over the complete frozen event stream.
+
+For a negative event, the deadline must be defined by its relevant observation boundary; otherwise it cannot be called fail-fast.
+
+---
+
+## Final ruling
+
+| Question | v371 verdict    | Principal reason                                                                                                                                                         |
+| -------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Q1**   | **DISCREPANCY** | C0's fixture/twin dependencies are not fully represented in the typed acceptance-record/control bundle.                                                                  |
+| **Q2**   | **DISCREPANCY** | UNKNOWN-field green has no separate state, MISS-day expansion contradicts the sandwich, and fail-fast still only defines missing-event detection for TAKEN-valid events. |
+
+The revision is materially closer than v370: **C1 mandatory, C0 introduced, manifests inline, fixtures inline, canonical equality strengthened, golden-0 guarded, and slice-gate machinery retired.** The remaining defects are concentrated and mechanically repairable rather than requiring another redesign.
+
+## V371-WORKFLOW END LUNA

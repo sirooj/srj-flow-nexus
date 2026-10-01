@@ -3,17 +3,17 @@
 **Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
 Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
 
-## State (2026-10-01, V370 workflow graded + v371 closed relay-ready + checks skill banked; V365 entry verdicts still owed)
+## State (2026-10-01, V371 workflow graded + THREAD PARKED per his stop order; code thread next, V365 entry verdicts still owed)
 
 - Disk truth: EA 977B0FB5 (v29 tree), packet FIX-2v22 D7BA7D12, relay v365 5790839C (entry thread).
-- V370 workflow: Sonnet filed whole + graded Q1 AMEND / Q2 AMEND-WITH-HALT single fresh seat (ledger 1058); Luna text byte-identical to filed V369 region, adopted as replay with no new markers. Relay v371 E2F2C04A green, memo ships Q1+Q2. Frozen bar v1 B65FD542 unchanged. Checks skill +S48 intake gates (397-to-421). No key in hand; EU excluded.
+- V371 workflow: Luna+Sonnet filed whole + graded Q1 0-2 OBJECT / Q2 0-2 OBJECT (ledger 1059); NO fold opens, thread parked, dispositions banked as code-thread law. Frozen bar v1 B65FD542 unchanged. Checks skill +S49 stop+carry gates (421-to-444). Culprit filed: unbuilt-machine specified in prose, 6 rounds zero closes. No key in hand; EU excluded.
   No build/run without your new word.
 - V365 entry verdicts still owed (unchanged).
 - Tool-stack + python + handoff split + goal routing stand (ledgers 977-984, renamed ledger 981).
 
 ## Next
 
-- Carry the v371 closed relay below (paste whole to each fresh seat, paste replies back) + YOUR one answer: fresh Luna-on-v370 text (paste whole) or Sonnet-only (say SONNET-ONLY) + vote-free GO or HOLD.
+- Code thread now: paste YOUR V365 entry verdicts (each whole seat, name the chat) + Luna replay answer (fresh text whole, or SONNET-ONLY) + vote-free GO or HOLD, all in one message.
 
 ## Resume order (exact)
 

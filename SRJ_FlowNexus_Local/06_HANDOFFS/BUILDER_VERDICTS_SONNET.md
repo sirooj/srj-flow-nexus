@@ -5234,3 +5234,97 @@ Line numbers follow the stated convention: physical lines, blanks counted, title
 Nothing here builds, runs, or moves money.
 
 ## V370-WORKFLOW END SONNET
+## V371-WORKFLOW OPEN SONNET
+# Rulings on v371-WORKFLOW
+
+Line numbers follow the stated convention: physical lines, blanks counted, title = line 1. By my count Q1 sits at L54 and Q2 at L57, so compare against your copy by eye. I rule on the page's rules only. I cannot check whether this fold's changes map to the V370 edit list, because that list and its hash are not on the page. L3 says "open gaps: 0"; the findings below contradict that.
+
+## Q1: DISCREPANCY
+
+The v370 closures hold: C1 mandatory (L30), C0 added (L29), the tie table fixed (L8), and the marker grammar (L34). These conditions would convert it to YES:
+
+1. **Locked tokens have no reference and no volatile-line path (L28, L15, L32).** "Zero locked-token violations" never says what a violation is compared to. L15's counts are locked numerics that change every fold, and a frozen edit list cannot name next fold's values, so every ordinary fold fails E0/C3 and goes to FULL_PATH. Declare a volatile-line class whose values are checked against the battery, or define violation as an unmapped change versus the predecessor. "Frozen-file event lines" (L28) live off-page. Verdict-word case sensitivity is unstated, and the page itself uses lowercase "no" throughout.
+2. **The code-pattern scan false-positives on this page (L28).** The keyword list includes if, for, string, class, input and return, and ordinary prose here uses them. A code-free page has no manifest code ranges, so E0 would fail its own page. "Packet labels" and "EA coords" are still undefined.
+3. **The "code byte changed" fixture is unreachable (L24 vs L28, L21, L18, L20).** E0's pass predicate has no code-byte comparison. FENCE outranks WORD in the partition, so C3 never sees fenced bytes. C1 passes if both twins change identically. `code_tree_hash` (L20) is verified by no check, and the region-manifest schema (L18) pins ranges, not content. Add a code-region hash to the region-manifest and compare it against the predecessor or the edit list.
+4. **C0 and C2 do not match the schema (L29, L31 vs L20).**
+   - No boundary-table, non-word-rule or fixture hash fields exist in the acceptance-record.
+   - `control_state` is undefined.
+   - `predecessor_class` is the class of the accepted page's predecessor, but C2 needs the class of the last-graded page.
+   - First manifests are pinned "at first use" (L18) with no ruling round for their content, and the grader writes the pins after the fold that C0 checks. Bootstrap is undefined.
+5. **Reason codes are inconsistent (L24, L28, L30).**
+   - NORMALIZE-NOISE is a C1 failure at L30 but an E0 failure in the fixtures.
+   - QUOTE-NOISE (L28) is QUOTE at L24.
+   - ATTEST serves two fixtures and is undefined.
+   - "All reasons closed" needs one enumerated set.
+   - Trailing spaces are legitimate in code, and no rule detects "Unicode form".
+6. **Fixtures are incomplete (L24).**
+   - The lead-in promises an expected final state for each, but none is given.
+   - "Clean code-bearing fold printing C1-PASS" names a check state, where a final state (LIGHT_PASS) is required.
+   - A crashed checker cannot print its own FAIL, so the crash fixture needs a wrapper definition.
+   - Missing fixtures: the C3 converse (list item absent from the diff), C2 right id but wrong class, C4 per-class cases, curly quotes, cross-line quotes, duplicate-content ambiguity, and the manifest-declared twin exception.
+   - That twin exception (L30) has no declaration field in the L18 schema.
+7. **LIGHT_PASS is no longer defined as transport-only.** I find no sentence saying so; v370 had one. L50's "passes the fold" now reads as confirmation. FULL_PATH is never defined, and the state machine (L50) has no FULL_PATH transition during ADVISORY. L43 adds ACTIVATE-VOTEFREE for the same step that L50 and L3 assign to GO. Pick one token.
+8. **C5 fails every legitimate pair (L34).** An OPEN/END pair shares its name token, so "neither name is a substring of the other" fails by equality. Say "across distinct names" and define marker identity as the full line.
+9. **OBJECT is unreachable (L8).** Seats answer yes/no/discrepancy, but OBJECT is "applied from those answers" with no rule. "Halt" is undefined.
+10. **Non-word edits on code-bearing pages are unmapped (L28 vs L32).** The line-granular rule sits inside E0 and is scoped to code-free pages.
+
+## Q2: NO
+
+1. **Green contradicts allowed-expansion (L41 vs L45).** Green needs the taken-set to equal the 8 bar takes exactly and the event-set to equal all 17. A run that catches a miss is allowed-expansion and continues, but it can never be green. Improvement is therefore unrewarded. Event-set equality also needs the run to emit MISS and INVALID-silent records, yet those are silent by rule.
+2. **The sandwich contradicts allowed-expansion (L45).** "Run takes ⊆ bar taken list" and "abort on any take outside the bar" conflict with "continue on takes matching miss records". The match key (direction plus line plus day, L41) lets any number of takes match one MISS record. Each record should be consumed once.
+3. **Wildcards break identity and mechanics (L41, L42, L43, L45).**
+   - On my reading of L42, six of the eight takes carry an UNKNOWN field.
+   - The take id contains entry time (L41), so the id is not deterministic for those takes.
+   - A hash cannot compare against a wildcard (digest equality, L41), so the masking rule is undefined.
+   - MISSING-EVENT's deadline (entry bar close plus one bar) is uncomputable for an unknown entry bar.
+   - "Never pass as proven" conflicts with "green reached" as a promotion trigger (L43). Green on wildcards would promote a golden unproven.
+4. **Bootstrap deadlock (L43, L45).** PRE-GREEN compares against the frozen bar, and MISSING-EVENT aborts. A pre-bar run lacks bar takes by definition, so it aborts early and never completes. No full run exists to become golden-0, and PROVISIONAL mode needs golden-0. The sandwich also needs a golden lower bound that does not exist yet. With only the upper bound, a zero-take run qualifies as "non-regressive". The page never states the current code's take list as a reference.
+5. **Time basis (L41).** "Server-time strings, London/NY per his words, no conversion" names two bases. Exact string equality works only if the frozen file and the run share one. The page does not say which.
+6. **Metric (L46, L43).**
+   - The 70-minute success threshold may be met by one early abort. Saved-runs has no success threshold, so the second dimension is not falsifiable. The audit (every 6th red) fires at most once in a 6-round horizon, so it yields no usable false-red rate. "70–75 minute" is an unsourced figure on a page that claims no estimates (L29).
+   - "Operator words per round" has no criterion.
+   - Implementation trips for harness support are not netted.
+   - v370's sentence saying harness support is required, with full runs unchanged until then, was dropped. The horizon's start ("first fail-fast round") now has no trigger.
+   - L43's "full-window-only" rollback has no referent now that the slice gate is retired.
+7. **Golden (L31).** There is no rule for when golden advances, and golden-0 comes from the next full run of whatever code exists, which may already be red against the bar. The ratchet has no defined baseline until then.
+8. **Feasibility gate (L33).** "Under 15 minutes" constrains minutes only, leaving human trips unconstrained although L14 defines cost as a pair. No qualifying runs exist for per-day cost, and L29 freshness covers pages, not manifests.
+9. **Shadow-mode reason (L37).** The stated reason fails: the 6th-red audit observes almost nothing (point 6), while shadow mode would observe every slice result at no extra full-run cost. Blocking-from-start with up to five unaudited false-reds is the riskier choice.
+
+## Ask A: other defects and imprecisions
+
+- **L15:** "371 ruled plus this v371 = 374" does not add as written (372 + 1 = 373). If 373 already includes v370, say so.
+- **L3, L8:**
+  - The "confirmation question owed" on the Luna V369 replay is never posed.
+  - V370 Luna has no marker lines or region hash, although L3 promises them.
+  - V370-GRADE has no hash, byte or line count, and neither does the edit list C3 depends on.
+  - Grade classes appear as AMEND and as amend. C2 compares a class string, so the vocabulary needs enumerating.
+- **L9, L41:**
+  - A FALSE-ALERT is an emitted alert, not silent. Outcome_class values are never enumerated.
+  - L9 mixes "8/28" and "28 Aug" date formats.
+  - Four representatives cover six invalid events, and the negative check (L41) tests only the representatives.
+- **L45:**
+  - CHANGED-EVENT is unreachable for entry shifts. Entry time is in the id, so a shift appears as UNEXPECTED plus MISSING.
+  - Register exhaustiveness is unstated, so a valid take on an unregistered day aborts the run.
+  - "No false-reds" is tautological, since any improvement outside the register is a red.
+  - "One warmup is moot" assumes one run spans the disjoint Jun and Aug–Sep windows without saying how state crosses the gap.
+  - Only some retired lines (feasibility gate, saved-runs threshold, per-day costing) get stated reasons.
+- **L41:** hash algorithm, sort key and separator escaping are unnamed.
+- **L28:** "rule-bearing lines" is a judgment call. Define it by parser section.
+- **Bare "manifest"** at L28, L30 and L39 is ambiguous across the three named artifacts. The slice-manifest, called retired at L19, persists in L20 and L29.
+- **L32:** EDGE-anchored is "recorded" with no field named.
+- **L37, L50:** "ledger" and "item number" are undefined, "advisories" overloads "ADVISORY", and ADVISORY names no grader.
+- **L14:** the section is titled cost evidence but reports no (minutes, trips) pair. "79 plus 84 V/REG pairs" is ambiguous, and 79 is unexplained. "The battery" and the Count objects are off-page.
+- **L31:** timezone and session definition for the take id are unpinned, and entry time sits both in the id and in the entry triple.
+- **L33:** the three invalid classes are not named. "8/28 NY news bar" uses a different date format and has no time. "Remaining binary gaps" (L12) is unbounded.
+
+## Ask B: better mechanisms
+
+1. **Identity without entry time (L41, L45).** Use take id = date, session, pair, direction and ordinal, and compare entry time and bar as fields. This removes UNKNOWN from ids and makes CHANGED-EVENT reachable. MISSING can then use a session-end deadline, which also works for unknown entry bars.
+2. **Fill the 8 UNKNOWNs first (L42, L41).** It costs one trip. Define green only on frozen-bar v2, and the wildcard, masking and promote-unproven problems disappear.
+3. **Three run outcomes (L41, L43, L45).** RED (abort), BAR-REACHED (takes equal the bar on known fields), and GAIN (allowed-expansion superset, reported and never promoted). This separates "reached the bar" from "exceeded it" and resolves blockers 1 and 2.
+4. **Complete pre-bar runs (L45).** In PRE-GREEN, log missing bar takes without aborting, and fail fast only on UNEXPECTED events or regression against golden. This removes the deadlock and preserves information, since an early abort hides every later day.
+5. **Volatile-line class for E0 (L15, L28, L32).** Builder-written values are checked against the battery instead of being locked.
+6. **Code-region hash in the region-manifest (L18, L24, L28).** This is the same fix I proposed in v370 and it is still needed.
+7. **Vocabulary lint (L28, L30, L39, L19, L45).** Fail on bare "manifest" and on retired terms outside the retired-lines block.
+
+## V371-WORKFLOW END SONNET
