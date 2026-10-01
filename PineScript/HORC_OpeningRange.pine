@@ -1,0 +1,139 @@
+//@version=5
+// HORC Opening Range - alert-only drawing indicator (TradingView twin of the MQL5 file).
+// Status UNRULED 2026-09-30 (books uncorrected; not his strategy).
+// Draws per reference period: ORH/ORL, touch-first signal, 3-move cycle legs,
+// ORT = leg-1 raid extreme (vault finding 07), passive zones + used marks.
+// Session opens + opposition logics deferred to v2. Alerts only, no orders.
+indicator("HORC Opening Range", shorttitle="HORC OR", overlay=true,
+     max_lines_count=500, max_boxes_count=500, max_labels_count=500)
+
+refTF     = input.timeframe("D", "Reference period")
+raidPts   = input.int(10, "Raid exceedance (points)", minval=0)
+maxZones  = input.int(5, "Max zones kept", minval=1)
+showZones = input.bool(true, "Draw passive zones")
+showORT   = input.bool(true, "Draw ORT")
+showSig   = input.bool(true, "Draw signals")
+
+tfSec = timeframe.in_seconds(refTF)
+if timeframe.in_seconds() >= tfSec
+    runtime.error("Attach to a lower timeframe than the reference period.")
+
+pt  = syminfo.mintick
+orh = request.security(syminfo.tickerid, refTF, high[1], lookahead=barmerge.lookahead_on)
+orl = request.security(syminfo.tickerid, refTF, low[1], lookahead=barmerge.lookahead_on)
+pOpen     = request.security(syminfo.tickerid, refTF, time, lookahead=barmerge.lookahead_on)
+newPeriod = ta.change(pOpen) != 0
+
+var int   sig    = 0
+var bool  leg1   = false
+var float ort    = na
+var bool  leg2   = false
+var bool  done   = false
+var line  orhL   = na
+var line  orlL   = na
+var line  ortL   = na
+var box   zbox   = na
+var bool  zused  = false
+var array<box> zhist = array.new<box>()
+var bool  fSig   = false
+var bool  fDone  = false
+var bool  fUsed  = false
+
+if barstate.isnew
+    fSig  := false
+    fDone := false
+    fUsed := false
+
+if newPeriod
+    sig   := 0
+    leg1  := false
+    ort   := na
+    leg2  := false
+    done  := false
+    zbox  := na
+    zused := false
+    ortL  := na
+    orhL  := line.new(bar_index, orh, bar_index + 1, orh, extend=extend.right, color=color.new(color.blue, 0), width=1)
+    orlL  := line.new(bar_index, orl, bar_index + 1, orl, extend=extend.right, color=color.new(color.red, 0), width=1)
+
+if not na(orhL)
+    line.set_x2(orhL, bar_index + 1)
+if not na(orlL)
+    line.set_x2(orlL, bar_index + 1)
+if not na(ortL)
+    line.set_x2(ortL, bar_index + 1)
+if not na(zbox)
+    box.set_right(zbox, bar_index + 1)
+
+conf = barstate.isconfirmed
+raid = raidPts * pt
+
+if conf and sig == 0
+    up = high >= orh
+    dn = low <= orl
+    if up and not dn
+        sig := 1
+        fSig := true
+        if showSig
+            label.new(bar_index, low, "B", style=label.style_label_up, color=color.lime, textcolor=color.black, size=size.small)
+    if dn and not up
+        sig := -1
+        fSig := true
+        if showSig
+            label.new(bar_index, high, "S", style=label.style_label_down, color=color.red, textcolor=color.white, size=size.small)
+
+if conf and sig == 1 and not leg1
+    if high >= orh + raid
+        leg1 := true
+        ort := high
+        if showORT
+            ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.right, color=color.new(color.yellow, 0), width=2)
+        if showZones
+            zbox := box.new(bar_index, orh, bar_index + 1, ort, bgcolor=color.new(color.blue, 80), border_color=color.new(color.blue, 0), text="HORC passive demand", text_size=size.small)
+            array.push(zhist, zbox)
+            if array.size(zhist) > maxZones
+                box.delete(array.shift(zhist))
+
+if conf and sig == -1 and not leg1
+    if low <= orl - raid
+        leg1 := true
+        ort := low
+        if showORT
+            ortL := line.new(bar_index, ort, bar_index + 1, ort, extend=extend.right, color=color.new(color.yellow, 0), width=2)
+        if showZones
+            zbox := box.new(bar_index, ort, bar_index + 1, orl, bgcolor=color.new(color.maroon, 80), border_color=color.new(color.maroon, 0), text="HORC passive supply", text_size=size.small)
+            array.push(zhist, zbox)
+            if array.size(zhist) > maxZones
+                box.delete(array.shift(zhist))
+
+if conf and leg1 and not leg2
+    if sig == 1 and low <= orl
+        leg2 := true
+    if sig == -1 and high >= orh
+        leg2 := true
+
+if conf and leg1 and not na(zbox) and not zused
+    if sig == 1 and close > ort
+        zused := true
+        fUsed := true
+        box.set_bgcolor(zbox, color.new(color.gray, 80))
+        box.set_text(zbox, "HORC passive demand | used")
+    if sig == -1 and close < ort
+        zused := true
+        fUsed := true
+        box.set_bgcolor(zbox, color.new(color.gray, 80))
+        box.set_text(zbox, "HORC passive supply | used")
+
+if conf and leg2 and not done
+    if sig == 1 and high >= ort
+        done := true
+        fDone := true
+        label.new(bar_index, low, "ORT", style=label.style_label_up, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+    if sig == -1 and low <= ort
+        done := true
+        fDone := true
+        label.new(bar_index, high, "ORT", style=label.style_label_down, color=color.new(color.yellow, 0), textcolor=color.black, size=size.small)
+
+alertcondition(fSig, title="HORC signal", message="HORC signal on {{ticker}} {{interval}}")
+alertcondition(fDone, title="HORC cycle complete", message="HORC cycle complete at ORT on {{ticker}} {{interval}}")
+alertcondition(fUsed, title="HORC zone used", message="HORC passive zone used on {{ticker}} {{interval}}")
