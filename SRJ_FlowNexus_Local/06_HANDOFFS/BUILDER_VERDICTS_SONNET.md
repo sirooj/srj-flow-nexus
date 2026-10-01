@@ -5012,3 +5012,57 @@ The intent is sound, but as written the gate can't bind. I would CONFIRM once po
 Nothing here builds, runs, or moves money.
 
 ## V366-WORKFLOW END SONNET
+## V367-WORKFLOW OPEN SONNET
+**Line convention:** physical lines of the page as received, blank lines counted, title = line 1 (Q1 = line 42, Q2 = line 45, A = line 50, B = line 52). Please carry this convention back with the ruling. Hashes, sizes and counts (lines 8, 9, 15-17) and the Luna lines named on line 3 can't be checked from chat (line 54), so I take them as stated. The v366 round as summarized on line 3 matches what I gave in this chat for Sonnet.
+
+## Q1: DISCREPANCY
+
+The shape is right. I would CONFIRM once these five items are fixed, all of which are wording-level.
+
+1. **C3 has no binary pass (line 24).** A word-level diff "proves preservation," but a wording fix changes words by definition, so preservation of what? Pass should be: every changed word-span maps to an entry in a declared edit list, and no span exists outside it. As written, the rule only says that counts are not proof.
+2. **C4 is not mechanical (line 25).** "Target content class matches the claim" is a semantic judgment, which puts a human or model inside a script that line 26 says emits one PASS/FAIL. Make it mechanical: each cite carries file, hash, line range and a key string, and the checker verifies the hash, the range and that the key string is present. Otherwise state that C4 is a judgment check and does not belong in the binary set.
+3. **E0's regions are "declared" (line 21).** If the builder declares what counts as prose, the builder can declare code as prose, which is the builder-claim problem E0 exists to avoid. Derive regions by parser: fences, marker lines (line 29) and fence delimiters are code-class by rule. Add a locked-token class where any change fails E0 even inside prose: 64-hex digests, byte and line counts, and verbatim-quoted lines (such as the V364 quote on line 8). A "wording fold" that edits an attested digest or a quoted tally is an attestation change.
+4. **The blocking set is larger than "four" (lines 21-31).** Blocking items are E0, C1-C4, tag-namespace (folded into C4, line 29) and estimate freshness (line 31, "a stale estimate blocks"). Line 31 also sits under the "Advisories" heading (line 28). Tag-namespace checks marker names while C4 checks cites, so folding them hides a fifth check. Name it C5 or put it in E0. Neither Q1 (line 42) nor Q2 (line 45) clearly adopts line 31, so it falls in a gap.
+5. **Line 31 contradicts line 17, and this page would block itself.** Line 17 carries 70-75 minutes labeled "not fresh proof." Line 31 says a stale estimate blocks. Say that estimate freshness binds only on run-bearing relays, and that re-derivation is from existing logs, not new runs.
+
+Smaller items on the same question:
+
+- **Escalation (line 30).** "Would-have-caught-a-real-fault" is retrospective and not binary. Define it as an operator-filed fault record naming the check. "Same-fold double-fire" is unclear: does a check fire twice within one fold, or on two consecutive folds?
+- **C1 (line 22).** "Identically-normalized" needs a named normalization (line endings, trailing whitespace). Where is the recorded vacate rule filed? The checker should print `C1 VACATED`, never a bare pass.
+- **Line 26.** One PASS/FAIL line needs a reason code on FAIL. The checker script is itself code, so changes to it should go to the full path, with its hash pinned.
+- **C2 (line 23).** It restates E0's changed-region proof, so it adds only the predecessor-hash link. That is fine, but count it honestly.
+
+## Q2: DISCREPANCY
+
+1. **The green predicate recreates the permanent red (line 36 vs lines 34, 37).** "Slice takes equal golden, zero new takes" fails every change that moves toward the bar. The code gap is that takes aren't reproduced, so any real fix adds takes and turns the slice red. The blocker has moved from the bar to the ratchet. Replace the predicate with set relations: slice takes ⊇ golden takes; every new take is a member of the frozen-bar take list; misses unchanged unless they become that window's takes; invalids emit no take or alert. Golden updates only on full-window green (or the operator's explicit word). Line 34 says "last-accepted" but names no promotion trigger.
+2. **Golden provenance and hash target (lines 34, 36).** Where does the first golden come from? If from slice runs, slice-vs-full equivalence is untested. Derive goldens once from a full-window run, and file a slice-vs-full equivalence proof on the same days. Line 34 says "golden hashes" but line 36 compares "takes," so name what is hashed (a canonical take list, not raw logs with timestamps).
+3. **Warmup (line 35).** "Identical lookback" does not equal identical state. Open positions, cooldowns, per-day counters and one-take-per-day rules can carry across days. Line 35 needs the equivalence proof from point 2, not an assertion.
+4. **Manifest scope contradicts the admission label (lines 35, 37).** Line 35 includes the 3 miss days from the second window, but line 37 calls the gate "first-window parity." It also omits the second window's 1 take day, so the predicate can't catch a regression there. "Invalid representatives" has no count or selection rule, which is the post-hoc sampling choice the manifest was meant to remove.
+5. **"Silent" (line 36) vs "never progress" (line 9).** The EA is probe/print-only, so silence can't mean no output. Define it as no take or alert emission, with reject prints allowed.
+6. **Feasibility is unproven (line 38).** The target is a slice stage under 15 minutes against 70-75. The page gives no window length, per-day cost or warmup cost. The manifest is at least 10 days plus invalids, and if each slice re-pays warmup, the slice may not fit. Give the arithmetic before adoption.
+7. **The success metric is unfalsifiable (line 38).** "Slice-red saved a full run" is a counterfactual that can't be proven without running the full window. The "or" lets either branch satisfy it, and there is no failure or rollback criterion. Count slice-green→full-red escapes (tolerance stated), slice-red→full-green false-reds, and minutes saved. Two rounds is too small, so state the horizon.
+
+## A: Other defects and imprecisions
+
+- **Line 15.** The arithmetic is muddled. 369+79+81 = 529, and with v367 filed it is 530. "528 ruled" is the stale v366 total. State the expected total. Also, counts retired as a cost metric (line 18), so line 15 is now volume-only. Measure-Object's Count output isn't shown verbatim.
+- **Line 3.** The filed LUNA and SONNET ranges have no hashes or sizes, unlike the files on lines 8-9. Line 8 calls a 4076 B file a "transcript," which is page-sized. It is unclear whether the council verdict text is on disk with a digest.
+- **Line 8.** A 1-1 split is graded, but the tie rule is never stated. V364's rule (single CONFIRM can't overturn two OBJECTs) doesn't cover two seats. Line 48 says every seat votes, so state the tie rule.
+- **Line 12.** The stated goal is that wording fixes stop halting working code. The V364 failure was a vote tally blocking code behind a prose fold, and nothing on this page says whether light-path folds still require a seat vote. Decoupling prose and code verdicts, which I proposed in v366, is neither adopted nor rejected. State it.
+- **Line 12 vs Q1.** Q1 has no success metric, unlike Q2 (line 38). Cost is claimed but no saved minutes or trips are projected for the light path, and the floor of 2 human trips (carried in v366) isn't mentioned.
+- **Line 16.** The battery digest used as the cache key is not given.
+- **Line 17.** The re-derivation from "the last two same-window runs" assumes timing logs exist in a form that predates the stage-timing log (line 18). The source needs to be named.
+- **Line 18.** The stage log has no location, format or writer. If the operator hand-records it, it adds a trip.
+- **Line 8.** A 1-1 split is graded, but the tie rule is never stated. V364's rule (single CONFIRM can't overturn two OBJECTs) doesn't cover two seats. Line 48 says every seat votes, so state the tie rule.
+
+## B: Better mechanisms
+
+1. **Make light folds vote-free (lines 12, 26, 42).** A light-path fold passes on checker PASS alone, with seats given an advisory read. Code relays keep their own verdict. This removes the V364 coupling directly.
+2. **Parser-derived regions plus a locked-token class (lines 21, 24).** This replaces declared regions with a mechanical map.
+3. **Anchor-bearing cites (lines 25, 29).** A cite carries file, hash, range and a key string. The checker verifies all four, which makes C4 binary.
+4. **Subset ratchet (lines 34-36).** The improvement-aware green predicate from Q2 point 1, with goldens extracted from one full run.
+5. **Fault-injection fixtures for the checker (line 26).** Before trusting it, run known-bad folds (one code byte changed, a digest edited, a cite to the wrong file, a marker renamed). All must print FAIL, and the checker's own hash is pinned.
+6. **Machine-written stage log (line 18).** The checker or runner appends `round|stage|start|end` lines, and the operator adds only trip counts.
+
+Nothing here builds, runs, or moves money.
+
+## V367-WORKFLOW END SONNET

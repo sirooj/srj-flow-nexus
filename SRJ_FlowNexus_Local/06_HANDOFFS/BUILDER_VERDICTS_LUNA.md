@@ -15400,3 +15400,182 @@ The slice-before-full-run gate is supportable, but “slice green” and slice c
 No rule change to the take bar is proposed by this ruling. [L9, L13, L23]
 
 ## V366-WORKFLOW END LUNA
+## V367-WORKFLOW OPEN LUNA
+## Q1 — **DISCREPANCY** [L21-L31, L42-L43]
+
+The page closes much of the ambiguity from v366, but the light-path contract is **not yet fully binary/closed**.
+
+The remaining blockers are:
+
+* **E0 is not fully self-defining.** “Declared prose-only regions” and “every code-fence byte range” need a fixed, machine-identifiable region manifest or anchoring rule. Otherwise the classifier can depend on what the builder declares to be prose. [L21]
+* **C1's comparison objects are underspecified.** “Future packet body vs relay P-block” does not define the exact corresponding byte ranges/identity relationship, and “identically-normalized” does not define the normalization function. [L22]
+* **C1 vacate behavior needs an explicit PASS state.** “Vacates” is clearer than silent skipping, but the resulting checker status should be explicitly recorded as `N/A-PASS` or equivalent so a missing P-block cannot be confused with an omitted check. [L22]
+* **C2 does not authenticate predecessor identity.** Naming predecessor and current hashes is insufficient unless the predecessor is itself verified as the last accepted artifact for that fold. [L23]
+* **C2 relies on the changed-region proof without defining its anchoring.** It needs a deterministic region manifest/reference, not merely a claim that “only prose regions moved.” [L23]
+* **C3's word-level diff does not actually “prove preservation.”** It proves textual change structure, but not that the changed wording is permitted or equivalent under the intended prose-only contract. [L24]
+* **C3 can miss non-word semantic changes.** Whitespace, punctuation, line-ending, delimiter, and some namespace/format changes are outside a pure word-level diff. Some are intentionally advisory, but the boundary needs to be explicit. [L24]
+* **C4 is still partly vocabulary rather than an executable contract.** “Content class matches the claim” and “version-qualified” each need a finite classification/lookup rule. [L25]
+* **The advisory escalation trigger is not binary.** “Same-fold double-fire” and especially “would-have-caught-a-real-fault” require interpretation after the fact. [L26]
+* **The one-checker line does not specify failure aggregation.** It says one PASS/FAIL line, but not whether a single mandatory failure is sufficient for FAIL, nor how C1=N/A is represented. [L26]
+
+So the page is materially improved, but **Q1 remains DISCREPANCY rather than YES** because the remaining defects are contract-definition defects, not merely prose preferences.
+
+---
+
+## Q2 — **DISCREPANCY** [L34-L38, L45-L46]
+
+The funnel itself is well formed:
+
+**slice → first-window parity admission → full-window validation**, while keeping the frozen take bar as the validation target. [L34, L37]
+
+The contract is nevertheless not closed enough to ratify as written.
+
+* **Golden-hash promotion is undefined.** The page says “last-accepted” golden hashes, but not exactly what event promotes a new slice result into the golden set. [L34]
+* **A ratchet needs an immutable provenance anchor.** Otherwise a previously accepted bad slice result could become the new baseline and mask regression. [L34]
+* **Golden hashes need canonicalized inputs.** Hashing raw slice outputs can make timestamps, ordering, incidental log text, or other nondeterminism appear as regressions. [L34]
+* **Manifest coverage is ambiguous.** It explicitly names 7 first-window take days and 3 miss days plus invalid representatives, but does not explicitly identify the second-window valid take represented in the frozen bar. [L35]
+* **“Invalid representatives” is not bounded.** Their identities/count/required coverage are unspecified. [L35]
+* **Green is asymmetric in wording.** “Invalids silent” establishes no take, but does not specify whether all expected miss/invalid classifications must remain exactly classified. [L36]
+* **The process-only boundary is asserted rather than mechanically enforced.** The page says the slice is pre-filter/process only, but does not specify an assertion that strategy artifacts/rules are unchanged during the slice gate. [L36-L37]
+* **The success metric does not actually require the stated <15-minute objective in every success path.** The second branch, “slice-green plus full-green first try,” can satisfy success without separately demonstrating the slice stage was under 15 minutes. [L38]
+* **“Saved a full run” needs a measurable definition.** The saved-run branch is not tied to a logged avoided 70–75 minute run or an equivalent cost record. [L38]
+* **Human-trip savings are named as a cost unit but omitted from the success criterion.** [L18, L38]
+
+Therefore **Q2 also remains DISCREPANCY**: the architecture is coherent, but the ratchet and measurement rules need one more deterministic closure pass.
+
+---
+
+## Analytic A — defects, gaps, and imprecision
+
+**A1 — Current-versus-ruled file count distinction needs tighter labeling.**
+[L15] The arithmetic itself is coherent only because 369 is presented as the current file count while 528 is explicitly the prior ruled total. The line should make that distinction machine-obvious, e.g. `529 files total / 528 previously ruled / 1 current draft`, rather than embedding three different states in one sentence.
+
+**A2 — Cost-count command does not itself define duplicate handling.**
+[L15] “Three disjoint globs” removes overlap between the patterns, but not whether duplicate/renamed artifacts or alternate extensions matter.
+
+**A3 — Battery cache invalidation is described informally.**
+[L16] “Re-read only when its digest changes” requires a durable mapping between battery source and digest. The page does not state the exact cache key.
+
+**A4 — Run-cost re-derivation trigger is incomplete.**
+[L17] “Last two same-window runs” needs a definition of qualifying runs: successful only, completed only, same manifest, same window, same tool/build generation, etc.
+
+**A5 — Cost unit does not define aggregation.**
+[L18] “Minutes plus human trips logged per stage per round” identifies units but not whether success uses sum, median, maximum, or avoided-run totals.
+
+**A6 — E0's prose-region declaration can become a trust boundary.**
+[L21] A receiver-side checker must have an independent region definition or an independently verified declaration. Otherwise the builder can potentially classify changed material as prose.
+
+**A7 — E0's code-fence scope can be incomplete.**
+[L21] “Every code-fence byte range” does not say how all executable/code-bearing regions are discovered or anchored.
+
+**A8 — C1 normalization is undefined.**
+[L22] “Identically-normalized” must specify exact normalization operations.
+
+**A9 — C1 pairing identity is undefined.**
+[L22] The checker needs exact identifiers/ranges for the “future packet body” and “relay P-block.”
+
+**A10 — N/A state semantics are not serialized.**
+[L22] “Vacates” needs a recorded, non-skippable status.
+
+**A11 — C2 predecessor trust is absent.**
+[L23] The checker must verify predecessor = last accepted predecessor, not merely that a hash string exists.
+
+**A12 — C2 region proof is not independently anchored.**
+[L23] “Changed-region proof” needs a deterministic manifest/schema.
+
+**A13 — C3 confuses diff with preservation.**
+[L24] A diff tells what changed; it does not establish that the resulting wording satisfies the allowed fold.
+
+**A14 — C3's granularity is still incomplete.**
+[L24] Word-level comparison does not cover every potentially material formatting/delimiter class.
+
+**A15 — C4 target-class taxonomy is absent.**
+[L25] “Content class” needs an enumerated vocabulary.
+
+**A16 — C4 version matching is underspecified.**
+[L25] It needs exact version identity rules and failure behavior for stale/ambiguous references.
+
+**A17 — One-checker output grammar is unspecified.**
+[L26] The required machine-readable PASS/FAIL state and N/A encoding are not fixed.
+
+**A18 — Advisory escalation is discretionary.**
+[L30] “Would-have-caught-a-real-fault” is retrospective judgment, not a binary predicate.
+
+**A19 — Advisory evidence retention is incomplete.**
+[L30] It says print in the carried result, but not the required fields needed to make the warning reproducible.
+
+**A20 — Estimate freshness lacks missing-data behavior.**
+[L31] The rule assumes two qualifying same-window runs exist. It does not specify what happens when fewer than two exist.
+
+**A21 — Estimate freshness criterion lacks formula.**
+[L31] “Re-derived” does not define how the 70–75-minute range is calculated.
+
+**A22 — Ratchet promotion rule is absent.**
+[L34] “Last-accepted” is referenced but acceptance authority/event is not defined.
+
+**A23 — Ratchet rollback/poisoning protection is absent.**
+[L34] There is no immutable prior baseline or rule preventing an incorrect accepted state from becoming the only reference.
+
+**A24 — Raw golden-hash target may be nondeterministic.**
+[L34] The hashed representation needs canonicalization.
+
+**A25 — Manifest behavior set is not completely explicit.**
+[L35] The second-window valid take is not expressly represented.
+
+**A26 — Invalid representative set is undefined.**
+[L35] No exact membership/count/coverage rule.
+
+**A27 — Green predicate could be made more exact.**
+[L36] “Invalids silent” is less explicit than `expected invalid => zero accepted takes and unchanged classification`.
+
+**A28 — Process-only assertion is not mechanically enforced.**
+[L36-L37] The boundary is stated but not coupled to an explicit unchanged-strategy artifact check.
+
+**A29 — Admission/validation separation is good but could be serialized.**
+[L37] The page should explicitly label the slice result as `ADMISSION ONLY`, so downstream users cannot mistake it for bar evidence.
+
+**A30 — Success metric is not tied to the cost unit.**
+[L38] It measures elapsed slice time and full-run outcome but omits the human-trip dimension established at L18.
+
+**A31 — “Saved a full run” is not numerically defined.**
+[L38] It should correspond to an explicitly avoided 70–75 minute proof run.
+
+**A32 — “Under 15 minutes” is not specified as wall-clock or compute time.**
+[L38] Human wait/interaction time versus machine runtime matters given the explicit human-trip cost model.
+
+**A33 — “Same text ships to every seat” is procedural, not a binary verification rule.**
+[L48] The anti-fake mechanism is described elsewhere, but this line does not state how equality of the shipped text is detected.
+
+---
+
+## Analytic B — better mechanism
+
+I would replace the remaining prose-defined portions with a **manifest-driven transport contract** touching **L21-L26 and L34-L38**.
+
+The manifest would contain immutable identifiers for:
+
+`allowed_prose_ranges`, `code_ranges`, `P_block_pair`, `predecessor_acceptance_id`, `cite_target_schema`, `slice_ids`, `golden_version`, and `admission/validation status`.
+
+Then the checker can emit one deterministic record such as:
+
+`LIGHT_PASS | E0=PASS C1=N/A C2=PASS C3=PASS C4=PASS | ADVISORY=0`
+
+or
+
+`FULL_PATH | E0=FAIL reason=CODE_RANGE_DELTA`
+
+For the ratchet, only a **full-window validated result** should be permitted to promote a new per-slice golden; slices can compare against the existing golden but cannot rewrite it. That directly closes the poisoning gap at **L34**.
+
+For the slice manifest, explicitly include every required behavioral class, including the **second-window take**, and hash the canonical manifest before execution at **L35**. The green result should compare canonical outcome records rather than raw logs at **L36**.
+
+Finally, make the success metric two-dimensional at **L38**: elapsed slice cost **and** avoided full-run cost/human trips. That makes the claimed pipeline saving measurable rather than merely procedural.
+
+### Verdict ledger
+
+**Q1: DISCREPANCY — L21-L31, L42-L43.**
+The four-check light path is substantially specified, but E0 anchoring, C1 normalization/pairing, C2 predecessor authentication, C4 taxonomy, and advisory escalation remain insufficiently binary.
+
+**Q2: DISCREPANCY — L34-L38, L45-L46.**
+The slice funnel is correctly separated from the frozen-bar validation, but golden promotion, canonical hashing, manifest coverage, and the success/cost measurement need closure.
+
+## V367-WORKFLOW END LUNA
