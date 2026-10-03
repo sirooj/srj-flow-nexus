@@ -1,0 +1,17 @@
+# TRANSPORT MEMO - relay v415-UJ-EXEC-36 (packet v26)
+
+1. **Carry this file:** `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RELAY_COUNCIL_v415-UJ-EXEC-36.md`, once each, the identical text, to **Sonnet**, to **GLM**, and to **Luna**. Three carries, one text. Bring back all three complete replies, pasted whole. Relay v414 is superseded and must not be carried; v411 through v414 and packets v22 through v25 stay on disk as history.
+
+2. **What the last round found, and it was about me again, not the rule.** All three seats returned DISCREPANCY on both questions against packet v25 and located the same two things: roughly twenty-five conditions Section 21 claimed and the page does not carry, plus four contract-text defects. The gate I built after the previous round caused the repeat - a whole-file probe is satisfied by the fold's own summary, and the probe list was hand-picked - so a "31 of 31 found" count coexisted with the absent edits.
+
+3. **So this fold is built under a rebuilt gate, then proved in cell.** Every probe is scoped to the cell it claims, the probe list derives from the fold's own prose, and the probe tables print on the page: sixty-nine anchored replacements, each old span 1-hit before and 0-after, each new span on its claimed cell line after, with a six-row and a forty-eight-row table plus a residue census in Section 22. **When you grade this page, grep it at the cell.** If a claim is not in its cell, that is the finding.
+
+4. **The four contract-text defects are fixed in cell, polarity first.** 15.5.5 and 21.4 now decide FOR consume-before-probe at EA 7454, and a file-wide sweep found the same inversion in four more decision sentences - all corrected. Row 2 excludes SYNC_FAILED from its nearer-than baseline while the model-touch reference retains the failed nearer revision per 17.4b, which is what produces the named model/broker split. 15.3.3 carries the single whole-evaluation latch scope. 15.4.5 names the migration destination.
+
+5. **The placement alternative is still named non-viable.** Under restored current order no entry stage is reached on the 14:35 pass and the 14:40 entry is lost, so a pass under that path is a **fail** for the registered June 11 entry. The contract remains consume-before-probe at EA 7454.
+
+6. **The file.** SHA-256 `39afc07129677ae00f3ff32e78d6e7578eb6c5982c64de651b9b5e413789e1cb`, 742074 bytes, 7904 lines. Packet `SRJ_FlowNexus_Local\01_TASKS\PACKET_P-RECON78-UJ-EXEC-1v26.md` SHA-256 `50bc6369ebeda3f11e49b91d6c721b8dd9cd6b8748574183b4436d39079b5057`, 680241 bytes, 7845 lines, carried as its exact twin: 7845 of 7845, zero non-whitespace body differences, P0001-P7845 distinct with zero gaps. Battery zero failures.
+
+7. **Settled and not re-derived.** The revision rule is unchanged: only the closed session's directional extreme revises a target, a still-running session can never be the object, a revision below 1R is exited not refused, the fill is exact. June 11 stands: 14:35 New York USDJPY Daily-POC LONG retest plus confirmation, entry at the 14:40 open exactly 160.524, 14:45 and later post-entry. Q2 stays closed. Four defects stay separate and open: June 5 target-touch management retirement, the RECON57 day-close model-versus-broker close, the day-close price reference, and the day-mark pilot window.
+
+8. **Nothing is asked of you this round.** Authority: no source edit, build, test, tester run, key request, live action, commit or push is authorised. RECON78's one-run authorisation stays consumed. SRJ stays alert-only and the dirty working tree is preserved.

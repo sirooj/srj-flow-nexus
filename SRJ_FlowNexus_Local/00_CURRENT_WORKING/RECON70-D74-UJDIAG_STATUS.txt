@@ -1,0 +1,40 @@
+﻿RUN=RECON70-D74-UJDIAG
+WRAPPER=V2
+CEILING_MIN=90
+WRAPPER_STARTED=2026-09-26 06:07:23
+INI=c:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\00_CURRENT_WORKING\USDJPY_DEMO_JUNE.ini
+INI_EXISTS=True
+TERM_EXISTS=True
+TERMINAL_BUSY=False
+JOURNAL=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\Tester\logs\20260926.log
+PRE_JOURNAL_LINES=73540
+PID=22964
+LAUNCHED_AT=2026-09-26 06:07:23
+STAGE=RUNNING (completion = the journal marker, NOT process exit)
+HEARTBEAT=06:07:33 terminal_alive=True journal_lines=73540
+HEARTBEAT=06:07:44 terminal_alive=True journal_lines=73540
+HEARTBEAT=06:07:54 terminal_alive=True journal_lines=73540
+HEARTBEAT=06:08:04 terminal_alive=True journal_lines=73540
+HEARTBEAT=06:08:14 terminal_alive=True journal_lines=73540
+HEARTBEAT=06:08:24 terminal_alive=True journal_lines=73555
+JOURNAL_LAST=QO	0	06:08:18.434	Tester	USDJPY,M5 (Dukascopy-demo-mt5-1): testing of Experts\SRJ_FlowNexus_EA.ex5 from 2026.06.01 00:00 to 2026.06.13 00:00
+HEARTBEAT=06:08:35 terminal_alive=True journal_lines=75586
+JOURNAL_LAST=ND	0	06:08:24.787	Core 04	2026.06.01 00:00:00   [SRJ][T155][OBPROV] code=8 id=0 bar=105043 flag=true
+HEARTBEAT=06:08:45 terminal_alive=True journal_lines=75586
+HEARTBEAT=06:08:55 terminal_alive=True journal_lines=75586
+HEARTBEAT=06:09:05 terminal_alive=True journal_lines=75586
+HEARTBEAT=06:09:16 terminal_alive=True journal_lines=75717
+JOURNAL_LAST=JK	0	06:09:07.581	Core 04	2026.06.01 01:35:12   [SRJ][T155][OBPROV] code=5 id=0 bar=105198 flag=true
+HEARTBEAT=06:09:26 terminal_alive=True journal_lines=75717
+HEARTBEAT=06:09:36 terminal_alive=True journal_lines=75717
+HEARTBEAT=06:09:46 terminal_alive=True journal_lines=75717
+HEARTBEAT=06:09:56 terminal_alive=True journal_lines=75717
+HEARTBEAT=06:10:07 terminal_alive=True journal_lines=75717
+HEARTBEAT=06:10:17 terminal_alive=True journal_lines=75717
+HEARTBEAT=06:10:27 terminal_alive=False journal_lines=75760
+JOURNAL_LAST=MG	0	06:10:18.761	Core 04	connection closed
+TERMINAL_ALIVE=False
+ARCHIVED_LINES=2220
+XOB_PROMOCENSUS_COUNT=252
+RESULT=UNDETERMINED
+DONE=2026-09-26 06:10:32

@@ -1,0 +1,17 @@
+# TRANSPORT MEMO - relay v413-UJ-EXEC-32 (packet v24)
+
+1. **Carry this file:** `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RELAY_COUNCIL_v413-UJ-EXEC-32.md`, once each, the identical text, to **Sonnet**, to **GLM**, and to **Luna**. Three carries, one text. Bring back all three complete replies, pasted whole. Relay v412 is superseded and must not be carried; v411, v412 and packets v22 and v23 stay on disk as history.
+
+2. **All three seats returned DISCREPANCY on both questions** - no CONFIRM, no OBJECT, no NO anywhere. That is the most convergent round you have had, and they are right about the same two things, both mine. The grade is `06_HANDOFFS\BUILDER_RESULT_V412-GRADE.md`.
+
+3. **First thing they caught: I struck a branch without sweeping for it.** v23 reversed the gapped-POC branch at nine cells and never looked for the sentences still carrying it. Nine survived, including 15.7 - the line a reviewer reads first to learn what Q1 grades. All are now struck or annotated in place, and 15.7 is added to the strike table so I cannot omit it again.
+
+4. **Second: I printed a verification sentence with false arithmetic.** The eviction census enumerated fourteen sites while its total said twelve, and section 18.3 printed "four plus four plus two plus four is twelve", which sums to fourteen. Three seats caught the same wrong sum. It is now a role table: fourteen distinct sites, sixteen class-assignments, because EA 9323 and EA 9325 each carry a clear and a set. The old twelve was only right under a classification I had already superseded. GLM is right that a false verification sentence is worse than none.
+
+5. **Two things were not page-clean and change behaviour.** The TP diff opened at June 5 London 12:05, which is the baseline's own retarget pass, so the first changed behaviour fell outside the window; it now opens at the firing pass - the first tick of the out-of-session bar, London 12:00 and New York 19:00. And the consume placement contradicted itself: 15.5.5 declared it decided while sections 18.6 and 19.6 declared it deliberately open. It is now decided against consume-before-probe at EA 7454, with the alternative named as the explicit alternative. That is my authority inside the two paths both seats accept - no decision of yours is involved and nothing is asked.
+
+6. **The file.** SHA-256 `06F84A613C772284B3D0D7F787361E1DF484E80D05C36E1AE1FA1A207644A444`, 713133 bytes, 7766 lines. It carries packet `SRJ_FlowNexus_Local\01_TASKS\PACKET_P-RECON78-UJ-EXEC-1v24.md` (SHA-256 `AFFD44E0F2FB0B0FAE691595DB6240C14CAD0051C0300B230F9459C235E3F585`, 651295 bytes, 7698 lines) as its exact twin, 7698 of 7698 with zero non-whitespace body differences. Battery: zero failures.
+
+7. **Settled and not re-derived.** The revision rule itself is confirmed single-sourced by GLM and unchallenged by all three: only the closed session's directional extreme revises a target, below 1R is exited not refused, the fill is exact. June 11 stands: 14:35 New York USDJPY Daily-POC LONG retest plus confirmation, entry at the 14:40 open exactly 160.524, 14:45 and later post-entry. Q2 stays closed. Four defects stay separate and open: June 5 target-touch management retirement, the RECON57 day-close model-versus-broker close, the day-close price reference, and the day-mark pilot window.
+
+8. **Authority.** Nothing in this relay or this memo authorises a source edit, build, test, tester run, key request, live action, commit or push. RECON78's one-run authorisation stays consumed. SRJ stays alert-only and the dirty working tree is preserved.

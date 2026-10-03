@@ -1,0 +1,24 @@
+# BUILDER RESULT V382 GRADE - packet v32; V383 page fold required
+
+## Intake and freshness
+
+- Live pointer requested V382-UJEXEMPT-19. Saved packet v32 SHA-256 E305C28AE8D54364561FB1C4343C02346E5BFFCFDADF880ABDB56106B1D0C40A / 33638 bytes / 184 lines; relay SHA-256 329240DA306C572970C1D5C78AA8ED3A216101CF99EB382E23BEFE5EE3A891D1 / 58816 bytes / 391 lines. Attachments were created after the relay: Sonnet SHA-256 283DC203C8EF42AEAC4C26461266213C9765BA23476A435E1E394423C7D90C54 / 5406 bytes / 38 lines; GLM SHA-256 DED250F1CD02CE1202A41A0CF29DBDD7E601FF9335F70ADB75C29E6E7EE445AE / 12237 bytes / 66 lines. Both name V382 and packet v32, contain Q1 and Q2, Ask A/B, and a close. Bodies filed byte-identically; V382 OPEN/END markers are each 1x in the correct seat file.
+- Relay contains an internal stale packet measurement: status header says E305C28A.../33638, while its scope paragraph says F71A2E17.../33381. Current disk packet matches E305.../33638. This is a builder-owned D14 relay inconsistency; it is carried as a specific correction and the next relay will inventory every digest occurrence after the final write. V382 was not transported further in this work.
+- No vote-free GO/HOLD was supplied by the user. Sonnet's seat-level advisory says HOLD on build/key; GLM explicitly infers no signal. These remain distinct from the ballots and do not supply the missing operator signal.
+
+## Q1 - CONFIRM, conditional
+
+- Sonnet: conditional CONFIRM. GLM: conditional CONFIRM. Combined: conditional CONFIRM, page-scoped; no council clearance for code work.
+- Both catch P026/P090 census errors. Disk check of the unchanged EA finds seedBiasAl on 9 distinct lines with 10 occurrences: EA-1154 declaration, EA-7881 and EA-8201 producers, EA-8412 twice, EA-8413 once, EA-8417 once, EA-10436 comment, EA-10443 print format, and EA-10447 print argument. The proposed PRINT-DIR adds one occurrence without a new line; the DIR-DECL insertion after EA-303 shifts the declaration to proposed EA-1155. Correct census is therefore 10 occurrences/9 lines pre-edit and 11/9 proposed, subject to the packet's named site categories. This replaces the packet's 9/8 claims and aligns P026 and P090.
+- Additional fold items: correct P026 to identify the baseline declaration at EA-1154 and keep the proposed declaration at EA-1155; separate M(1)'s S2-edge bars (09:05, 09:15, 09:30, 09:35) from T(1)'s 09:40 confirmation bar; reconcile stale v26/v27/v29 labels. Conditions P024/P094 (opposite vs neutral 5m), P027 sentinel monitoring, M(2)/T(1)/T(2) run evidence, and P166 N/N+1 remain run-graded. Ask B opposite-5m conjunct remains parked.
+
+## Q2 - OBJECT / AMEND-WITH-HALT
+
+- Sonnet: OBJECT. GLM: conditional CONFIRM with page precision issues. Under council section 47, the OBJECT controls: Q2 is OBJECT / AMEND-WITH-HALT. No clearance.
+- Fold findings: (1) 8-June must permit the invalid negative-control to clear only when no matching admission exists and unset-kill persistence is shown across the required bars; that outcome proves preserved-invalid behavior, not flip-versus-neutral attribution. If an admission fires, affirmative flip attribution remains mandatory; missing evidence holds. (2) distinguish absent-by-design as NA-EXCLUDED from present-but-unproven UNRESOLVED; NA does not count as PASS. (3) PATH_CLASS must not include FIRED, which belongs only to H_STATUS; define WITHDRAWN_TERM and keep outcome/status domains disjoint. (4) run the fired-admission flip check before edge-presence and parity. (5) name SESSION_CAP_BLOCK evidence and define the expected post-cap edge; “same bar whose KILL follows” means same evaluated bar. (6) reserve F for the not-fired column header and use P for promote-eligible cells; no token alone records a fire. (7) remove the unexplained P158/P162 branch forecast or keep it UNRESOLVED unless branch-specific arm evidence proves the mismatch/unset state. (8) correct 6/5 16:55 session identity to New York and bind identity to run-row session token; correct the 6/8 date label; align the arming-ledger schema with printed field order and direction; narrow P173's claim that all census defects were fixed.
+- GLM also flags its own carry note that independently measured the relay's stale F71/33381 scope digest against E305/33638 header and current packet.
+- Ask B code suggestions remain parked. No EA source edit, build, run, key request, commit, or push.
+
+## Gate and scope
+
+V382 replies are fresh and complete. Q1 is conditional CONFIRM; Q2 is OBJECT / AMEND-WITH-HALT. Page-only V383 fold and relay assembly are required. The operator vote-free GO/HOLD remains owed separately; no EA work is authorized by this grade. No build/run/key/commit/push occurred.

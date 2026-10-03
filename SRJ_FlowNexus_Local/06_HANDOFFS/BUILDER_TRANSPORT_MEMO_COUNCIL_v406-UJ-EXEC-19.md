@@ -1,0 +1,15 @@
+# TRANSPORT MEMO - relay v406-UJ-EXEC-19 (packet v17)
+
+1. **What to carry, and to whom.** The whole file `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RELAY_COUNCIL_v406-UJ-EXEC-19.md`, once each, the identical text, to **Sonnet**, to **GLM**, and to **Luna**. Three carries, one text. Bring back all three complete replies, pasted whole.
+
+2. **What the file is.** SHA-256 `AB3E7DD9F65145D64F8A50E2A0A68D8A06033AF5D85607FC7227B6279EF5F86C`, 610152 bytes, 7207 lines. It carries packet `PACKET_P-RECON78-UJ-EXEC-1v17.md` (SHA-256 `2D34A40633D3338F93A0C19AFC5D2A0B15195FCFD1C3DF36AEF6D04D0BC02509`, 552204 bytes, 7166 lines) as its exact twin, so a seat reads the whole packet inline and needs no memory of any earlier round.
+
+3. **Why this version exists.** The V405 round graded Q1 AMEND and Q3 AMEND, all three seats DISCREPANCY on both questions, no OBJECT and no NO. The worst defect was mine: packet v16 stated the retained prior-candle term backwards, so every pullback-shaped setup would have flipped from taken to refused and the 5 June London 09:45 control at 159.948 would have failed. That is corrected, with six further page defects, in this fold.
+
+4. **Battery, all measured this round.** Twin 7166 of 7166 P-lines equal to their packet lines, zero mismatches, 305 blank packet lines rendered label-only; P001 to P7166 unbroken, each exactly once, 7166 unique labels; four digests in the relay prose each equal a live file; zero three-dot sequences in the relay prose; the packet's 226 code fences balanced and its five declared three-dot sequences unchanged from v16 and all inside spliced regions.
+
+5. **The three gates this fold had to pass because the last battery did not.** Polarity: the retained term is proved against EA 2366-2367 on four cases plus the doji, and the inverted wording is zero hits in the saved packet. Forbidden-form: the prohibition no longer contains the endpoints of the form it sits beside. Acceptance: the Q1 acceptance is printed at 15.4.7 and its six additions at 15.5.7a, with twelve presence counts asserted against the saved file, plus EX-31 carrying the F11 block head whole.
+
+6. **What is settled and not re-derived.** June 11 stands: 14:35 New York USDJPY Daily-POC LONG retest plus confirmation, entry at the 14:40 open exactly 160.524, 14:45 and later post-entry. Q2 stays closed. Four defects stay separate and open: June 5 target-touch management retirement, the RECON57 day-close model-versus-broker close, the day-close price reference, the day-mark pilot window.
+
+7. **Authority.** Nothing in this relay authorizes a source edit, build, test, tester run, key request, live action, commit or push. RECON78's one-run authorization is consumed. SRJ stays alert-only and the dirty working tree is preserved. No seat is contacted by me and no order of any kind exists.

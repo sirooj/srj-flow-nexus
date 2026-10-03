@@ -1,0 +1,17 @@
+# TRANSPORT MEMO - relay v410-UJ-EXEC-27 (packet v21)
+
+1. **What to carry, and to whom.** The whole file `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RELAY_COUNCIL_v410-UJ-EXEC-27.md`, once each, the identical text, to **Sonnet**, to **GLM**, and to **Luna**. Three carries, one text. Bring back all three complete replies, pasted whole.
+
+2. **What the file is.** SHA-256 `8AC59AB0BD202A0DB44A034677C0ED4C44CBD3089C3B5C804B6CABC322B99A90`, 657127 bytes, 7472 lines. It carries packet `PACKET_P-RECON78-UJ-EXEC-1v21.md` (SHA-256 `8E8510A52012FF81D51DB7C6161D178DBC396A94D31423AFB7B55B6B9980B335`, 599784 bytes, 7435 lines) as its exact twin: 7435 of 7435 lines identical, zero mismatches.
+
+3. **Why this version exists.** V409 graded Q1 AMEND and Q3 CONDITIONAL CONFIRM (Luna CONFIRM, GLM CONFIRM, Sonnet DISCREPANCY) and returned twenty page-text conditions. Then the operator ruled that "gapped POC" is the point of control from the ANCHORED VOLUME PROFILE - **ALL SIX of its POC lines** (FOMC, Yearly, Quarterly, Monthly, Weekly, Daily POC), per his words "it's all of them 6", not session-limited - which REVERSES the v20 fold's UNSOURCED decision. This fold restores the detector as sourced and in scope, and answers all twenty conditions.
+
+4. **The reversal.** The gapped-POC detector is SOURCED from the existing anchored-volume-profile POC lines (EA 93-104, EX-34). The UNSOURCED and NOT GRADED declaration and Section 16.2's five strikes are WITHDRAWN, and the branch is restored to IN SCOPE and gradeable with its predicate re-derived. The error was mine, not the seats': 16.2 rested on a premise the operator never stated.
+
+5. **The twenty conditions** are answered at 17.4, one row each: the LATE clause carries ONE polarity in 15.4.7 and crosswalk row 6; the crosswalk rows that pointed at absent text are fixed; the bid/Ask distinction, EA 10732 placement, declared-loss row, alert-only scope, fire-clear labels, the set-site grep, EA 8240, the challenger row and the diff-class precedence are each corrected in place.
+
+6. **Battery, all measured on the saved files this round.** Twin 7435 of 7435, with the normalization named because a strict byte compare does not give zero: CR stripped and trailing whitespace trimmed on the packet side, an empty packet line carried as its bare P-prefix. Under that rule the non-whitespace body difference is 0 of 7435. A strict byte compare differs on 514 lines - 353 empty packet lines carried as the bare prefix, plus 161 packet lines whose trailing whitespace sits inside code fences (no prose line affected). P0001 to P7435 unbroken and unique; zero three-dot sequences in the prose; nothing after the P-block. What you carry is unchanged by this note: the relay file's bytes are identical.
+
+7. **What is settled and not re-derived.** June 11 stands: 14:35 New York USDJPY Daily-POC LONG retest plus confirmation, entry at the 14:40 open exactly 160.524, 14:45 and later post-entry. Q2 stays closed. Four defects stay separate and open: June 5 target-touch management retirement, the RECON57 day-close model-versus-broker close, the day-close price reference, and the day-mark pilot window.
+
+8. **Authority.** Nothing in this relay authorizes a source edit, build, test, tester run, key request, live action, commit or push. RECON78's one-run authorization is consumed. SRJ stays alert-only and the dirty working tree is preserved. No seat is contacted by me and no order of any kind exists.

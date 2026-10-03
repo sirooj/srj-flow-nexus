@@ -1,0 +1,10 @@
+# V401 transport memo - P-RECON78-UJ-EXEC-1 v13
+
+Date: 2026-10-03. Session: NEW council session, full form - the complete packet v13 rides inline in the relay, so no seat memory of V400 or any earlier round is needed.
+NEW vs CONTINUE: NEW. Fresh page, new packet version; nothing of V400 is re-transported.
+Packet: `SRJ_FlowNexus_Local/01_TASKS/PACKET_P-RECON78-UJ-EXEC-1v13.md` SHA-256 `DBA60AFF9BB268DDE4D23CD7CB5359A1B8FD4B96210FC3BEFEF4698F527CF79A` / 497878 bytes / 6382 physical lines.
+Relay: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RELAY_COUNCIL_v401-UJ-EXEC-11.md` SHA-256 `8AE8BFCF4E2893D5D0D6D3B4DC3823C812F24D282724B114AA446359AE20CBBB` / 550264 bytes / 6426 physical lines.
+Grade carried: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_V401-GRADE.md` SHA-256 `C2CA71FA01844C46643142093817793D771CD4F16422149C1FE9FD1324362F2D` / 20807 bytes / 151 lines. V401: Q1 AMEND, Q3 AMEND, Q2 closed, no seat movement, no OBJECT and no NO.
+Battery, all measured this round: packet build green with 48 regions spliced from disk and 3840 per-line byte checks; packet battery green; crosswalk closure green at 69 of 69 rows against the saved packet; relay twin 6382 of 6382 with zero line-by-line mismatches, P001-P6382 each exactly once, zero ellipsis in relay prose, 5 literal three-dot sequences inside spliced EA text only, fences balanced, every P-token and EA-token in relay prose in range, one section-15 header and zero stale ones.
+Carry: Sonnet, GLM and Luna, once each, the identical whole relay file. Q1 and Q3 receive separate verdicts; Q2 stays closed and is not re-asked. Return all three complete replies to the builder.
+Authority: council design review only. No code edit, build, test, tester run, key request, live action, commit or push is authorized. The RECON78 one-run authorization is consumed. SRJ stays alert-only. No message is sent on the operator's behalf.

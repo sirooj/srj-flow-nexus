@@ -1,0 +1,444 @@
+﻿RUN=RECON71-V8-UJ
+WRAPPER=V2
+CEILING_MIN=90
+WRAPPER_STARTED=2026-09-27 13:38:14
+INI=c:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\00_CURRENT_WORKING\USDJPY_DEMO_JUNE.ini
+INI_EXISTS=True
+TERM_EXISTS=True
+TERMINAL_BUSY=False
+JOURNAL=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\Tester\logs\20260927.log
+PRE_JOURNAL_LINES=0
+PID=15160
+LAUNCHED_AT=2026-09-27 13:38:14
+STAGE=RUNNING (completion = the journal marker, NOT process exit)
+HEARTBEAT=13:38:24 terminal_alive=True journal_lines=0
+HEARTBEAT=13:38:34 terminal_alive=True journal_lines=0
+HEARTBEAT=13:38:44 terminal_alive=True journal_lines=0
+HEARTBEAT=13:38:54 terminal_alive=True journal_lines=0
+HEARTBEAT=13:39:05 terminal_alive=True journal_lines=2044
+JOURNAL_LAST=HD	0	13:39:02.800	Core 04	2026.06.01 00:00:00   [SRJ][T155][OBPROV] code=8 id=0 bar=105043 flag=true
+HEARTBEAT=13:39:15 terminal_alive=True journal_lines=2172
+JOURNAL_LAST=DM	0	13:39:08.908	Core 04	2026.06.01 00:05:00   [SRJ-EA] UJPOOLSTATE dayKey=2026.06.01 publishedPoolState=2 refreshAttemptState=2 poolGen=2
+HEARTBEAT=13:39:25 terminal_alive=True journal_lines=2172
+HEARTBEAT=13:39:35 terminal_alive=True journal_lines=2172
+HEARTBEAT=13:39:45 terminal_alive=True journal_lines=2172
+HEARTBEAT=13:39:55 terminal_alive=True journal_lines=2250
+JOURNAL_LAST=EJ	0	13:39:51.680	Core 04	2026.06.01 02:10:03   [SRJ-EA] UJPROBE bar_key=2026.06.01 02:05 h4=1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=hidden readFail=0 empty=105202 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=24 ticktime=2026.06.01 02:10:03 lag=chartTime-1bar
+HEARTBEAT=13:40:05 terminal_alive=True journal_lines=2250
+HEARTBEAT=13:40:15 terminal_alive=True journal_lines=2250
+HEARTBEAT=13:40:25 terminal_alive=True journal_lines=2331
+JOURNAL_LAST=CD	0	13:40:16.095	Core 04	2026.06.01 04:00:00   [SRJ-EA] UJM15ROW bar_key=2026.06.01 03:55 m15time=2026.06.01 04:00 m15vote=-1.0
+HEARTBEAT=13:40:35 terminal_alive=True journal_lines=2331
+HEARTBEAT=13:40:45 terminal_alive=True journal_lines=2331
+HEARTBEAT=13:40:55 terminal_alive=True journal_lines=2409
+JOURNAL_LAST=MP	0	13:40:46.613	Core 04	2026.06.01 06:10:12   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=24 famRead=384 unavail=0 emptyValid=14 state=2 attempt=2 poolGen=2 cadence=no-rebuild
+HEARTBEAT=13:41:05 terminal_alive=True journal_lines=2409
+HEARTBEAT=13:41:15 terminal_alive=True journal_lines=2489
+JOURNAL_LAST=DK	0	13:41:11.028	Core 04	2026.06.01 08:05:02   [SRJ-EA] IDCHANGE bar=2026.06.01 08:00 inWin=0 state=IDLE dir=NONE xobId=1723->1742 fvgId=0->0 xobLo=159.485 xobHi=159.494 cumX=10 cumF=0 bars=98
+HEARTBEAT=13:41:25 terminal_alive=True journal_lines=2489
+HEARTBEAT=13:41:35 terminal_alive=True journal_lines=2579
+JOURNAL_LAST=HL	0	13:41:29.339	Core 04	2026.06.01 09:45:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=24 famRead=384 unavail=0 emptyValid=14 state=2 attempt=2 poolGen=2 cadence=no-rebuild
+HEARTBEAT=13:41:45 terminal_alive=True journal_lines=2579
+HEARTBEAT=13:41:55 terminal_alive=True journal_lines=2675
+JOURNAL_LAST=FE	0	13:41:47.649	Core 04	2026.06.01 11:00:00   [SRJ-EA] RETESTBOOK bar=2026.06.01 10:55 hits=0 
+HEARTBEAT=13:42:05 terminal_alive=True journal_lines=2675
+HEARTBEAT=13:42:15 terminal_alive=True journal_lines=2767
+JOURNAL_LAST=PF	0	13:42:05.960	Core 04	2026.06.01 12:30:00   [SRJ-EA] UJPROBE bar_key=2026.06.01 12:25 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=regular readFail=0 empty=105289 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=24 ticktime=2026.06.01 12:30:00 lag=chartTime-1bar
+HEARTBEAT=13:42:25 terminal_alive=True journal_lines=2852
+JOURNAL_LAST=HO	0	13:42:24.270	Core 04	2026.06.01 14:15:05   [SRJ-EA] RETESTDIAG bar=2026.06.01 14:10 inside=- nearAbove=-:-pts nearBelow=-:-pts
+HEARTBEAT=13:42:35 terminal_alive=True journal_lines=2852
+HEARTBEAT=13:42:45 terminal_alive=True journal_lines=2947
+JOURNAL_LAST=CH	0	13:42:42.580	Core 04	2026.06.01 15:45:00   [SRJ-EA] RETESTDIAG bar=2026.06.01 15:40 inside=- nearAbove=-:-pts nearBelow=-:-pts
+HEARTBEAT=13:42:55 terminal_alive=True journal_lines=2947
+HEARTBEAT=13:43:05 terminal_alive=True journal_lines=3046
+JOURNAL_LAST=RQ	0	13:43:00.891	Core 04	2026.06.01 17:10:00   [SRJ-EA] UJPROBE bar_key=2026.06.01 17:05 h4=1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=105335 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=24 ticktime=2026.06.01 17:10:00 lag=chartTime-1bar
+HEARTBEAT=13:43:15 terminal_alive=True journal_lines=3141
+JOURNAL_LAST=IS	0	13:43:13.097	Core 04	2026.06.01 18:35:00   [SRJ-EA] UJPROBE bar_key=2026.06.01 18:30 h4=1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=105346 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=24 ticktime=2026.06.01 18:35:00 lag=chartTime-1bar
+HEARTBEAT=13:43:25 terminal_alive=True journal_lines=3141
+HEARTBEAT=13:43:35 terminal_alive=True journal_lines=3141
+HEARTBEAT=13:43:45 terminal_alive=True journal_lines=3227
+JOURNAL_LAST=QQ	0	13:43:37.512	Core 04	2026.06.01 20:30:00   [SRJ][T155][OBPROV] code=4 id=1839 bar=105425 flag=true
+HEARTBEAT=13:43:55 terminal_alive=True journal_lines=3227
+HEARTBEAT=13:44:05 terminal_alive=True journal_lines=3315
+JOURNAL_LAST=QE	0	13:43:55.822	Core 04	2026.06.01 22:10:02   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=24 famRead=384 unavail=0 emptyValid=14 state=2 attempt=2 poolGen=2 cadence=no-rebuild
+HEARTBEAT=13:44:15 terminal_alive=True journal_lines=3394
+JOURNAL_LAST=CI	0	13:44:14.134	Core 04	2026.06.02 00:05:00   [SRJ-EA] IDCHANGE bar=2026.06.02 00:00 inWin=0 state=IDLE dir=NONE xobId=0->1869 fvgId=0->0 xobLo=159.662 xobHi=159.677 cumX=38 cumF=0 bars=290
+HEARTBEAT=13:44:25 terminal_alive=True journal_lines=3394
+HEARTBEAT=13:44:35 terminal_alive=True journal_lines=3394
+HEARTBEAT=13:44:45 terminal_alive=True journal_lines=3473
+JOURNAL_LAST=KO	0	13:44:38.548	Core 04	2026.06.02 02:00:00   [SRJ-EA] UJM15ROW bar_key=2026.06.02 01:55 m15time=2026.06.02 02:00 m15vote=-1.0
+HEARTBEAT=13:44:55 terminal_alive=True journal_lines=3473
+HEARTBEAT=13:45:05 terminal_alive=True journal_lines=3554
+JOURNAL_LAST=NR	0	13:44:56.858	Core 04	2026.06.02 03:55:00   [SRJ-EA] UJPROBE bar_key=2026.06.02 03:50 h4=1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=regular readFail=0 empty=105432 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=25 ticktime=2026.06.02 03:55:00 lag=chartTime-1bar
+HEARTBEAT=13:45:15 terminal_alive=True journal_lines=3636
+JOURNAL_LAST=GP	0	13:45:15.169	Core 04	2026.06.02 06:00:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=25 famRead=400 unavail=0 emptyValid=14 state=2 attempt=3 poolGen=3 cadence=no-rebuild
+HEARTBEAT=13:45:25 terminal_alive=True journal_lines=3636
+HEARTBEAT=13:45:35 terminal_alive=True journal_lines=3636
+HEARTBEAT=13:45:45 terminal_alive=True journal_lines=3716
+JOURNAL_LAST=GG	0	13:45:39.581	Core 04	2026.06.02 08:00:02   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=25 famRead=400 unavail=0 emptyValid=14 state=2 attempt=3 poolGen=3 cadence=no-rebuild
+HEARTBEAT=13:45:55 terminal_alive=True journal_lines=3716
+HEARTBEAT=13:46:05 terminal_alive=True journal_lines=3902
+JOURNAL_LAST=OI	0	13:46:03.995	Core 04	2026.06.02 10:10:04   [SRJ-EA] RETESTBOOK bar=2026.06.02 10:05 hits=1 Daily-POC:r10:dS
+HEARTBEAT=13:46:15 terminal_alive=True journal_lines=3997
+JOURNAL_LAST=LI	0	13:46:10.100	Core 04	2026.06.02 10:50:02   [SRJ-EA] REGIMECENSUS #18 bar=2026.06.02 10:45 dir=SHORT votes=1 trendOk=0 sweepTag=0 mrOk=0 cumMR=0
+HEARTBEAT=13:46:25 terminal_alive=True journal_lines=4085
+JOURNAL_LAST=PG	0	13:46:16.203	Core 04	2026.06.02 11:20:02   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=25 famRead=400 unavail=0 emptyValid=14 state=2 attempt=3 poolGen=3 cadence=no-rebuild
+HEARTBEAT=13:46:35 terminal_alive=True journal_lines=4168
+JOURNAL_LAST=EN	0	13:46:28.410	Core 04	2026.06.02 12:25:01   [SRJ-EA] UJPROBE bar_key=2026.06.02 12:20 h4=1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=regular readFail=0 empty=105512 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=25 ticktime=2026.06.02 12:25:01 lag=chartTime-1bar
+HEARTBEAT=13:46:45 terminal_alive=True journal_lines=4168
+HEARTBEAT=13:46:55 terminal_alive=True journal_lines=4342
+JOURNAL_LAST=CS	0	13:46:52.824	Core 04	2026.06.02 15:00:00   [SRJ-EA] UJM15ROW bar_key=2026.06.02 14:55 m15time=2026.06.02 15:00 m15vote=1.0
+HEARTBEAT=13:47:05 terminal_alive=True journal_lines=4342
+HEARTBEAT=13:47:15 terminal_alive=True journal_lines=4437
+JOURNAL_LAST=HK	0	13:47:11.134	Core 04	2026.06.02 16:25:00   [SRJ-EA] IDCHANGE bar=2026.06.02 16:20 inWin=1 state=IDLE dir=NONE xobId=1946->1969 fvgId=0->0 xobLo=159.749 xobHi=159.765 cumX=63 cumF=0 bars=486
+HEARTBEAT=13:47:26 terminal_alive=True journal_lines=4531
+JOURNAL_LAST=IQ	0	13:47:23.341	Core 04	2026.06.02 17:50:01   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.06.02 17:40 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=120 mism=0
+HEARTBEAT=13:47:36 terminal_alive=True journal_lines=4531
+HEARTBEAT=13:47:46 terminal_alive=True journal_lines=4625
+JOURNAL_LAST=RR	0	13:47:41.651	Core 04	2026.06.02 19:20:02   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=25 famRead=400 unavail=0 emptyValid=14 state=2 attempt=3 poolGen=3 cadence=no-rebuild
+HEARTBEAT=13:47:56 terminal_alive=True journal_lines=4625
+HEARTBEAT=13:48:06 terminal_alive=True journal_lines=4700
+JOURNAL_LAST=OK	0	13:48:06.066	Core 04	2026.06.02 21:35:10   [SRJ-EA] 2026.06.02 21:35:10 CQD DIV verdict=+1 shift=2 bar=2026.06.02 21:25
+HEARTBEAT=13:48:16 terminal_alive=True journal_lines=4700
+HEARTBEAT=13:48:26 terminal_alive=True journal_lines=4780
+JOURNAL_LAST=PP	0	13:48:24.376	Core 04	2026.06.02 23:20:10   [SRJ-EA] UJPROBE bar_key=2026.06.02 23:15 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=regular readFail=0 empty=105613 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=25 ticktime=2026.06.02 23:20:10 lag=chartTime-1bar
+HEARTBEAT=13:48:36 terminal_alive=True journal_lines=4780
+HEARTBEAT=13:48:46 terminal_alive=True journal_lines=4863
+JOURNAL_LAST=DJ	0	13:48:42.687	Core 04	2026.06.03 01:15:00   [SRJ][T155][OBPROV] code=7 id=0 bar=105770 flag=true
+HEARTBEAT=13:48:56 terminal_alive=True journal_lines=4863
+HEARTBEAT=13:49:06 terminal_alive=True journal_lines=4943
+JOURNAL_LAST=RP	0	13:49:00.997	Core 04	2026.06.03 03:10:04   [SRJ-EA] IDCHANGE bar=2026.06.03 03:05 inWin=0 state=IDLE dir=NONE xobId=2036->0 fvgId=0->0 xobLo=- xobHi=- cumX=79 cumF=0 bars=615
+HEARTBEAT=13:49:16 terminal_alive=True journal_lines=4943
+HEARTBEAT=13:49:26 terminal_alive=True journal_lines=5027
+JOURNAL_LAST=QJ	0	13:49:19.308	Core 04	2026.06.03 04:50:00   [SRJ-EA] UJPROBE bar_key=2026.06.03 04:45 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=hidden readFail=0 empty=105662 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=26 ticktime=2026.06.03 04:50:00 lag=chartTime-1bar
+HEARTBEAT=13:49:36 terminal_alive=True journal_lines=5027
+HEARTBEAT=13:49:46 terminal_alive=True journal_lines=5107
+JOURNAL_LAST=LS	0	13:49:43.722	Core 04	2026.06.03 06:45:00   [SRJ-EA] UJM15ROW bar_key=2026.06.03 06:40 m15time=2026.06.03 06:45 m15vote=-1.0
+HEARTBEAT=13:49:56 terminal_alive=True journal_lines=5107
+HEARTBEAT=13:50:06 terminal_alive=True journal_lines=5190
+JOURNAL_LAST=FN	0	13:50:02.033	Core 04	2026.06.03 08:30:00   [SRJ-EA] UJPROBE bar_key=2026.06.03 08:25 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=105691 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=26 ticktime=2026.06.03 08:30:00 lag=chartTime-1bar
+HEARTBEAT=13:50:16 terminal_alive=True journal_lines=5338
+JOURNAL_LAST=FD	0	13:50:08.137	Core 04	2026.06.03 09:10:00   [SRJ-EA] SLEXT1 fields=29 bar=2026.06.03 09:05 site=S5 dir=LONG ext1Defined=1 slExt1=159.889 ext1Slot=6 ext1BarTime=2026.06.03 08:35 ext1Imb=0 deltaExt1Pts=-16 outwardExt1Pts=16 deepestExt=49 todayXi=0 baseXi=6 nuanceXi=6 fracXi=6 fracNuXi=6 anchorXi=0 filedPx=- filedProv=- filedT=- residPts=0 barDiffBars=-999 verdict=NOLEVEL noneSlot=-1 noneT=- refSlotAgeBars=-1 rewardPts=54.00000 riskPts=24.00000 ext1RewardPts=54.00000 ext1RiskPts=40.00000
+HEARTBEAT=13:50:26 terminal_alive=True journal_lines=5521
+JOURNAL_LAST=GG	0	13:50:20.344	Core 04	2026.06.03 10:40:00   [SRJ-EA] RETESTDIAG bar=2026.06.03 10:35 inside=- nearAbove=Daily-VWAP:102.1pts nearBelow=-:-pts
+HEARTBEAT=13:50:36 terminal_alive=True journal_lines=5622
+JOURNAL_LAST=RN	0	13:50:32.552	Core 04	2026.06.03 11:45:00   [SRJ-EA] SIDE1C_SUPP bar=2026.06.03 11:40 dir=SHORT term=B_BODY
+HEARTBEAT=13:50:46 terminal_alive=True journal_lines=5622
+HEARTBEAT=13:50:56 terminal_alive=True journal_lines=5708
+JOURNAL_LAST=RO	0	13:50:50.862	Core 04	2026.06.03 13:25:00   [SRJ][T155][OBPROV] code=4 id=2110 bar=105916 flag=true
+HEARTBEAT=13:51:06 terminal_alive=True journal_lines=5800
+JOURNAL_LAST=GN	0	13:51:03.069	Core 04	2026.06.03 14:40:06   [SRJ-EA] S3INPLAY bar=2026.06.03 14:35 dir=LONG inPlay=0 via=none zoneLo=159.579 zoneHi=159.675 barLo=159.795 barHi=159.806 close=159.801 sw1=159.781@2 sw2=159.786@7
+HEARTBEAT=13:51:16 terminal_alive=True journal_lines=5882
+JOURNAL_LAST=DK	0	13:51:09.173	Core 04	2026.06.03 14:55:00   [SRJ-EA] LEGTOUCH bar=2026.06.03 14:50 dir=LONG found=1 atShift=1 atBar=2026.06.03 14:50 legBound=2026.06.03 14:35 zoneLo=159.579 zoneHi=159.675 touchSeen=1
+HEARTBEAT=13:51:26 terminal_alive=True journal_lines=6052
+JOURNAL_LAST=NJ	0	13:51:21.380	Core 04	2026.06.03 16:25:01   [SRJ-EA] RETESTBOOK bar=2026.06.03 16:20 hits=1 Daily-POC:r10:dL
+HEARTBEAT=13:51:36 terminal_alive=True journal_lines=6224
+JOURNAL_LAST=ID	0	13:51:33.586	Core 04	2026.06.03 17:35:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=26 famRead=416 unavail=0 emptyValid=15 state=2 attempt=4 poolGen=4 cadence=no-rebuild
+HEARTBEAT=13:51:46 terminal_alive=True journal_lines=6398
+JOURNAL_LAST=RE	0	13:51:45.793	Core 04	2026.06.03 18:45:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=26 famRead=416 unavail=0 emptyValid=15 state=2 attempt=4 poolGen=4 cadence=no-rebuild
+HEARTBEAT=13:51:56 terminal_alive=True journal_lines=6398
+HEARTBEAT=13:52:06 terminal_alive=True journal_lines=6488
+JOURNAL_LAST=LE	0	13:52:04.105	Core 04	2026.06.03 20:05:02   [SRJ-EA] CQDRECHECK shift=2 passA=2.0 passB=2.0 diff=0 bar=2026.06.03 19:55 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=196 mism=0
+HEARTBEAT=13:52:16 terminal_alive=True journal_lines=6488
+HEARTBEAT=13:52:26 terminal_alive=True journal_lines=6570
+JOURNAL_LAST=DI	0	13:52:22.415	Core 04	2026.06.03 21:45:02   [SRJ-EA] IDCHANGE bar=2026.06.03 21:40 inWin=0 state=IDLE dir=NONE xobId=2172->0 fvgId=0->0 xobLo=- xobHi=- cumX=114 cumF=0 bars=838
+HEARTBEAT=13:52:36 terminal_alive=True journal_lines=6570
+HEARTBEAT=13:52:46 terminal_alive=True journal_lines=6651
+JOURNAL_LAST=QS	0	13:52:40.725	Core 04	2026.06.03 23:50:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=26 famRead=416 unavail=0 emptyValid=15 state=2 attempt=4 poolGen=4 cadence=no-rebuild
+HEARTBEAT=13:52:56 terminal_alive=True journal_lines=6651
+HEARTBEAT=13:53:06 terminal_alive=True journal_lines=6730
+JOURNAL_LAST=IN	0	13:53:05.139	Core 04	2026.06.04 01:45:02   [SRJ-EA] UJM15ROW bar_key=2026.06.04 01:40 m15time=2026.06.04 01:45 m15vote=-1.0
+HEARTBEAT=13:53:16 terminal_alive=True journal_lines=6730
+HEARTBEAT=13:53:26 terminal_alive=True journal_lines=6812
+JOURNAL_LAST=NO	0	13:53:23.449	Core 04	2026.06.04 03:45:10   [SRJ][T155][OBPROV] code=4 id=2138 bar=106088 flag=true
+HEARTBEAT=13:53:36 terminal_alive=True journal_lines=6812
+HEARTBEAT=13:53:46 terminal_alive=True journal_lines=6890
+JOURNAL_LAST=QD	0	13:53:41.759	Core 04	2026.06.04 05:40:04   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=27 famRead=432 unavail=0 emptyValid=15 state=2 attempt=5 poolGen=5 cadence=no-rebuild
+HEARTBEAT=13:53:56 terminal_alive=True journal_lines=6890
+HEARTBEAT=13:54:06 terminal_alive=True journal_lines=6971
+JOURNAL_LAST=LF	0	13:54:06.173	Core 04	2026.06.04 07:30:11   [SRJ-EA] IDCHANGE bar=2026.06.04 07:25 inWin=0 state=IDLE dir=NONE xobId=2231->2250 fvgId=0->0 xobLo=159.961 xobHi=159.975 cumX=127 cumF=0 bars=955
+HEARTBEAT=13:54:16 terminal_alive=True journal_lines=6971
+HEARTBEAT=13:54:26 terminal_alive=True journal_lines=7144
+JOURNAL_LAST=CL	0	13:54:24.484	Core 04	2026.06.04 09:35:00   [SRJ-EA] ALERT SRJ HEADS-UP SHORT USDJPY M5 | Daily-POC | LONDON | zone 160.001-160.012 awaiting confirm
+HEARTBEAT=13:54:36 terminal_alive=True journal_lines=7315
+JOURNAL_LAST=DJ	0	13:54:36.692	Core 04	2026.06.04 10:25:00   [SRJ-EA] REGIMECENSUS #55 bar=2026.06.04 10:20 dir=LONG votes=0 trendOk=0 sweepTag=0 mrOk=0 cumMR=0
+HEARTBEAT=13:54:46 terminal_alive=True journal_lines=7412
+JOURNAL_LAST=HJ	0	13:54:42.795	Core 04	2026.06.04 11:10:29   [SRJ-EA] UJPROBE bar_key=2026.06.04 11:05 h4=-1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=ALIGNED kind=hidden readFail=0 empty=105935 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=27 ticktime=2026.06.04 11:10:29 lag=chartTime-1bar
+HEARTBEAT=13:54:56 terminal_alive=True journal_lines=7587
+JOURNAL_LAST=KE	0	13:54:55.002	Core 04	2026.06.04 12:35:04   [SRJ-EA] UJPROBE bar_key=2026.06.04 12:30 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=105946 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=27 ticktime=2026.06.04 12:35:04 lag=chartTime-1bar
+HEARTBEAT=13:55:06 terminal_alive=True journal_lines=7587
+HEARTBEAT=13:55:16 terminal_alive=True journal_lines=7673
+JOURNAL_LAST=CF	0	13:55:13.312	Core 04	2026.06.04 14:20:00   [SRJ][T155][OBPROV] code=7 id=0 bar=106215 flag=true
+HEARTBEAT=13:55:26 terminal_alive=True journal_lines=7673
+HEARTBEAT=13:55:37 terminal_alive=True journal_lines=7766
+JOURNAL_LAST=MQ	0	13:55:31.623	Core 04	2026.06.04 15:40:00   [SRJ-EA] RETESTBOOK bar=2026.06.04 15:35 hits=0 
+HEARTBEAT=13:55:47 terminal_alive=True journal_lines=7948
+JOURNAL_LAST=PH	0	13:55:43.829	Core 04	2026.06.04 16:55:03   [SRJ-EA] UJPROBE bar_key=2026.06.04 16:50 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=ALIGNED kind=regular readFail=0 empty=105984 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=27 ticktime=2026.06.04 16:55:03 lag=chartTime-1bar
+HEARTBEAT=13:55:57 terminal_alive=True journal_lines=8043
+JOURNAL_LAST=MG	0	13:55:49.933	Core 04	2026.06.04 17:45:17   [SRJ-EA] UJM15ROW bar_key=2026.06.04 17:40 m15time=2026.06.04 17:45 m15vote=1.0
+HEARTBEAT=13:56:07 terminal_alive=True journal_lines=8138
+JOURNAL_LAST=JS	0	13:56:02.139	Core 04	2026.06.04 18:40:00   [SRJ-EA] 2026.06.04 18:40:00 CQD DIV verdict=+2 shift=2 bar=2026.06.04 18:30
+HEARTBEAT=13:56:17 terminal_alive=True journal_lines=8227
+JOURNAL_LAST=HO	0	13:56:14.346	Core 04	2026.06.04 19:50:02   SRJ XOB-PROMOCENSUS t=2026.06.04 19:45 bar=106281 mode=nearest bias=bullish objId=2333 isValid=1 isActivated=1 obStart=106273 obStartT=2026.06.04 19:05 obVal=106279 obInval=-2147483648 boundary=106279 boundaryOk=0 oppInvalCount=0 promoBar=106281 promoT=2026.06.04 19:45
+HEARTBEAT=13:56:27 terminal_alive=True journal_lines=8227
+HEARTBEAT=13:56:37 terminal_alive=True journal_lines=8308
+JOURNAL_LAST=LK	0	13:56:32.657	Core 04	2026.06.04 21:35:02   [SRJ-EA] IDCHANGE bar=2026.06.04 21:30 inWin=0 state=IDLE dir=NONE xobId=2203->2335 fvgId=0->0 xobLo=159.952 xobHi=159.968 cumX=157 cumF=0 bars=1124
+HEARTBEAT=13:56:47 terminal_alive=True journal_lines=8308
+HEARTBEAT=13:56:57 terminal_alive=True journal_lines=8386
+JOURNAL_LAST=LS	0	13:56:50.967	Core 04	2026.06.04 23:30:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=27 famRead=432 unavail=0 emptyValid=15 state=2 attempt=5 poolGen=5 cadence=no-rebuild
+HEARTBEAT=13:57:07 terminal_alive=True journal_lines=8386
+HEARTBEAT=13:57:17 terminal_alive=True journal_lines=8468
+JOURNAL_LAST=QO	0	13:57:15.382	Core 04	2026.06.05 01:30:00   [SRJ-EA] UJPROBE bar_key=2026.06.05 01:25 h4=1.0 h1=-1.0 m15=1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106062 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=28 ticktime=2026.06.05 01:30:00 lag=chartTime-1bar
+HEARTBEAT=13:57:27 terminal_alive=True journal_lines=8468
+HEARTBEAT=13:57:37 terminal_alive=True journal_lines=8552
+JOURNAL_LAST=JM	0	13:57:33.693	Core 04	2026.06.05 03:15:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=28 famRead=448 unavail=0 emptyValid=15 state=2 attempt=6 poolGen=6 cadence=no-rebuild
+HEARTBEAT=13:57:47 terminal_alive=True journal_lines=8552
+HEARTBEAT=13:57:57 terminal_alive=True journal_lines=8631
+JOURNAL_LAST=KJ	0	13:57:52.004	Core 04	2026.06.05 05:05:14   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=28 famRead=448 unavail=0 emptyValid=15 state=2 attempt=6 poolGen=6 cadence=no-rebuild
+HEARTBEAT=13:58:07 terminal_alive=True journal_lines=8631
+HEARTBEAT=13:58:17 terminal_alive=True journal_lines=8711
+JOURNAL_LAST=OI	0	13:58:10.314	Core 04	2026.06.05 06:45:02   [SRJ-EA] UJM15ROW bar_key=2026.06.05 06:40 m15time=2026.06.05 06:45 m15vote=-1.0
+HEARTBEAT=13:58:27 terminal_alive=True journal_lines=8711
+HEARTBEAT=13:58:37 terminal_alive=True journal_lines=8876
+JOURNAL_LAST=IE	0	13:58:34.728	Core 04	2026.06.05 09:15:00   [SRJ-EA] SWINGPICK site=S3ARM dir=LONG barShift=1 close=159.961 haveHigh=1 SH=159.968 atShift=2 haveLow=1 SL=159.944 atShift=1
+HEARTBEAT=13:58:47 terminal_alive=True journal_lines=9099
+JOURNAL_LAST=QE	0	13:58:46.935	Core 04	2026.06.05 10:20:00   [SRJ-EA] RETESTDIAG bar=2026.06.05 10:15 inside=- nearAbove=Daily-VWAP:20.8pts nearBelow=-:-pts
+HEARTBEAT=13:58:57 terminal_alive=True journal_lines=9099
+HEARTBEAT=13:59:07 terminal_alive=True journal_lines=9193
+JOURNAL_LAST=IS	0	13:59:05.247	Core 04	2026.06.05 11:45:07   [SRJ-EA] UJM15ROW bar_key=2026.06.05 11:40 m15time=2026.06.05 11:45 m15vote=1.0
+HEARTBEAT=13:59:17 terminal_alive=True journal_lines=9193
+HEARTBEAT=13:59:27 terminal_alive=True journal_lines=9276
+JOURNAL_LAST=JH	0	13:59:23.557	Core 04	2026.06.05 13:45:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=28 famRead=448 unavail=0 emptyValid=15 state=2 attempt=6 poolGen=6 cadence=no-rebuild
+HEARTBEAT=13:59:37 terminal_alive=True journal_lines=9369
+JOURNAL_LAST=CP	0	13:59:35.764	Core 04	2026.06.05 15:05:01   [SRJ-EA] RETESTDIAG bar=2026.06.05 15:00 inside=- nearAbove=Daily-VWAP:70.0pts nearBelow=-:-pts
+HEARTBEAT=13:59:47 terminal_alive=True journal_lines=9369
+HEARTBEAT=13:59:57 terminal_alive=True journal_lines=9562
+JOURNAL_LAST=GI	0	13:59:54.075	Core 04	2026.06.05 16:55:00   SRJ XOB-PROMOCENSUS t=2026.06.05 16:50 bar=106534 mode=nearest bias=bearish objId=2482 isValid=1 isActivated=1 obStart=106531 obStartT=2026.06.05 16:35 obVal=106532 obInval=-2147483648 boundary=-2147483648 boundaryOk=1 oppInvalCount=0 promoBar=106534 promoT=2026.06.05 16:50
+HEARTBEAT=14:00:07 terminal_alive=True journal_lines=9562
+HEARTBEAT=14:00:17 terminal_alive=True journal_lines=9657
+JOURNAL_LAST=KH	0	14:00:12.386	Core 04	2026.06.05 18:15:00   [SRJ-EA] UJPROBE bar_key=2026.06.05 18:10 h4=1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106212 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=28 ticktime=2026.06.05 18:15:00 lag=chartTime-1bar
+HEARTBEAT=14:00:27 terminal_alive=True journal_lines=9657
+HEARTBEAT=14:00:37 terminal_alive=True journal_lines=9743
+JOURNAL_LAST=QO	0	14:00:30.695	Core 04	2026.06.05 20:00:00   [SRJ-EA] UJM15ROW bar_key=2026.06.05 19:55 m15time=2026.06.05 20:00 m15vote=-1.0
+HEARTBEAT=14:00:47 terminal_alive=True journal_lines=9743
+HEARTBEAT=14:00:57 terminal_alive=True journal_lines=9826
+JOURNAL_LAST=LS	0	14:00:49.006	Core 04	2026.06.05 21:45:01   [SRJ-EA] UJPROBE bar_key=2026.06.05 21:40 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106243 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=28 ticktime=2026.06.05 21:45:01 lag=chartTime-1bar
+HEARTBEAT=14:01:07 terminal_alive=True journal_lines=9905
+JOURNAL_LAST=GK	0	14:01:07.317	Core 04	2026.06.05 23:45:00   [SRJ-EA] UJM15ROW bar_key=2026.06.05 23:40 m15time=2026.06.05 23:45 m15vote=1.0
+HEARTBEAT=14:01:17 terminal_alive=True journal_lines=9905
+HEARTBEAT=14:01:27 terminal_alive=True journal_lines=9992
+JOURNAL_LAST=QQ	0	14:01:25.628	Core 04	2026.06.08 01:20:01   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=29 famRead=464 unavail=0 emptyValid=14 state=2 attempt=7 poolGen=7 cadence=no-rebuild
+HEARTBEAT=14:01:37 terminal_alive=True journal_lines=9992
+HEARTBEAT=14:01:47 terminal_alive=True journal_lines=10070
+JOURNAL_LAST=NJ	0	14:01:43.938	Core 04	2026.06.08 03:10:00   [SRJ-EA] UJPROBE bar_key=2026.06.08 03:05 h4=1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106294 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=29 ticktime=2026.06.08 03:10:00 lag=chartTime-1bar
+HEARTBEAT=14:01:58 terminal_alive=True journal_lines=10070
+HEARTBEAT=14:02:08 terminal_alive=True journal_lines=10070
+HEARTBEAT=14:02:18 terminal_alive=True journal_lines=10151
+JOURNAL_LAST=LK	0	14:02:08.352	Core 04	2026.06.08 05:10:00   [SRJ-EA] UJPROBE bar_key=2026.06.08 05:05 h4=1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106314 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=29 ticktime=2026.06.08 05:10:00 lag=chartTime-1bar
+HEARTBEAT=14:02:28 terminal_alive=True journal_lines=10231
+JOURNAL_LAST=GI	0	14:02:26.663	Core 04	2026.06.08 07:15:05   [SRJ][T155][OBPROV] code=4 id=2560 bar=106706 flag=true
+HEARTBEAT=14:02:38 terminal_alive=True journal_lines=10231
+HEARTBEAT=14:02:48 terminal_alive=True journal_lines=10231
+HEARTBEAT=14:02:58 terminal_alive=True journal_lines=10466
+JOURNAL_LAST=MQ	0	14:02:57.182	Core 04	2026.06.08 09:55:00   [SRJ-EA] SLMEMO bar=2026.06.08 09:50 site=S2POLL result=COMPUTE ok=1 slRef=160.342 mode=1 computes=40 hits=0 genID=40 wrSite=S2POLL wrOrigin=evalClose
+HEARTBEAT=14:03:08 terminal_alive=True journal_lines=10689
+JOURNAL_LAST=HS	0	14:03:03.286	Core 04	2026.06.08 10:35:00   [SRJ-EA] TPCENSUS #41 bar=2026.06.08 10:30 dir=SHORT ref=160.184 winner=YPML best=160.089 distPts=95 empties=8 admitted= PDL:458 LOL:35 NYL:458 PML:95 YLOH:212 YLOL:276 YNYL:458 YPML:95 LIVE:1129 LIVE:1381 PD:1129 PD:1381 LIVE:1203 LIVE:1396 LIVE:1441 LIVE:1826 PD:1441 PD:1826 LIVE:1401 LIVE:1519 PD:1401 PD:1519 LIVE:1156 LIVE:1327 LIVE:1040 LIVE:1182 LIVE:1226 LIVE:1573 LIVE:1103 LIVE:1376 LIVE:1083 LIVE:1346 LIVE:1083 LIVE:1313 LIVE:933 LIVE:1534 LIVE:1096 LIVE:1404 LIVE:1200 LIVE:1
+HEARTBEAT=14:03:18 terminal_alive=True journal_lines=10842
+JOURNAL_LAST=II	0	14:03:15.492	Core 04	2026.06.08 11:20:01   [SRJ-EA] UJPROBE bar_key=2026.06.08 11:15 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106368 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=29 ticktime=2026.06.08 11:20:01 lag=chartTime-1bar
+HEARTBEAT=14:03:28 terminal_alive=True journal_lines=10933
+JOURNAL_LAST=PG	0	14:03:27.700	Core 04	2026.06.08 12:55:00   [SRJ-EA] UJPROBE bar_key=2026.06.08 12:50 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106381 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=29 ticktime=2026.06.08 12:55:00 lag=chartTime-1bar
+HEARTBEAT=14:03:38 terminal_alive=True journal_lines=10933
+HEARTBEAT=14:03:48 terminal_alive=True journal_lines=11019
+JOURNAL_LAST=OE	0	14:03:46.011	Core 04	2026.06.08 14:30:00   [SRJ-EA] UJPROBE bar_key=2026.06.08 14:25 h4=-1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106397 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=29 ticktime=2026.06.08 14:30:00 lag=chartTime-1bar
+HEARTBEAT=14:03:58 terminal_alive=True journal_lines=11114
+JOURNAL_LAST=JM	0	14:03:58.218	Core 04	2026.06.08 15:50:00   [SRJ-EA] IDCHANGE bar=2026.06.08 15:45 inWin=1 state=IDLE dir=NONE xobId=2632->2640 fvgId=0->0 xobLo=159.959 xobHi=159.983 cumX=238 cumF=0 bars=1631
+HEARTBEAT=14:04:08 terminal_alive=True journal_lines=11114
+HEARTBEAT=14:04:18 terminal_alive=True journal_lines=11210
+JOURNAL_LAST=MH	0	14:04:16.528	Core 04	2026.06.08 17:10:01   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=29 famRead=464 unavail=0 emptyValid=14 state=2 attempt=7 poolGen=7 cadence=no-rebuild
+HEARTBEAT=14:04:28 terminal_alive=True journal_lines=11298
+JOURNAL_LAST=NE	0	14:04:22.631	Core 04	2026.06.08 17:45:02   [SRJ-EA] UJPROBE bar_key=2026.06.08 17:40 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106422 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=29 ticktime=2026.06.08 17:45:02 lag=chartTime-1bar
+HEARTBEAT=14:04:38 terminal_alive=True journal_lines=11378
+JOURNAL_LAST=DQ	0	14:04:28.734	Core 04	2026.06.08 18:15:00   [SRJ-EA] UJPROBE bar_key=2026.06.08 18:10 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=hidden readFail=0 empty=106427 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=29 ticktime=2026.06.08 18:15:00 lag=chartTime-1bar
+HEARTBEAT=14:04:48 terminal_alive=True journal_lines=11469
+JOURNAL_LAST=QD	0	14:04:40.940	Core 04	2026.06.08 19:50:06   [SRJ-EA] UJPROBE bar_key=2026.06.08 19:45 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=regular readFail=0 empty=106438 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=29 ticktime=2026.06.08 19:50:06 lag=chartTime-1bar
+HEARTBEAT=14:04:58 terminal_alive=True journal_lines=11469
+HEARTBEAT=14:05:08 terminal_alive=True journal_lines=11547
+JOURNAL_LAST=JL	0	14:05:05.355	Core 04	2026.06.08 21:50:00   [SRJ][T155][OBPROV] code=4 id=2615 bar=106881 flag=true
+HEARTBEAT=14:05:18 terminal_alive=True journal_lines=11547
+HEARTBEAT=14:05:28 terminal_alive=True journal_lines=11627
+JOURNAL_LAST=MD	0	14:05:23.668	Core 04	2026.06.08 23:35:09   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=29 famRead=464 unavail=0 emptyValid=14 state=2 attempt=7 poolGen=7 cadence=no-rebuild
+HEARTBEAT=14:05:38 terminal_alive=True journal_lines=11627
+HEARTBEAT=14:05:48 terminal_alive=True journal_lines=11709
+JOURNAL_LAST=PH	0	14:05:41.979	Core 04	2026.06.09 01:25:03   [SRJ-EA] UJPROBE bar_key=2026.06.09 01:20 h4=-1.0 h1=-1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=regular readFail=0 empty=106494 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=30 ticktime=2026.06.09 01:25:03 lag=chartTime-1bar
+HEARTBEAT=14:05:58 terminal_alive=True journal_lines=11709
+HEARTBEAT=14:06:08 terminal_alive=True journal_lines=11790
+JOURNAL_LAST=EN	0	14:06:00.289	Core 04	2026.06.09 03:15:00   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.06.09 03:05 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=424 mism=0
+HEARTBEAT=14:06:18 terminal_alive=True journal_lines=11790
+HEARTBEAT=14:06:28 terminal_alive=True journal_lines=11868
+JOURNAL_LAST=PK	0	14:06:24.703	Core 04	2026.06.09 05:15:02   [SRJ-EA] UJPROBE bar_key=2026.06.09 05:10 h4=-1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106534 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=30 ticktime=2026.06.09 05:15:02 lag=chartTime-1bar
+HEARTBEAT=14:06:38 terminal_alive=True journal_lines=11868
+HEARTBEAT=14:06:48 terminal_alive=True journal_lines=11949
+JOURNAL_LAST=OQ	0	14:06:43.013	Core 04	2026.06.09 07:00:01   [SRJ-EA] UJPROBE bar_key=2026.06.09 06:55 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106549 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=30 ticktime=2026.06.09 07:00:01 lag=chartTime-1bar
+HEARTBEAT=14:06:58 terminal_alive=True journal_lines=11949
+HEARTBEAT=14:07:08 terminal_alive=True journal_lines=12033
+JOURNAL_LAST=DP	0	14:07:01.323	Core 04	2026.06.09 08:50:00   [SRJ-EA] UJPROBE bar_key=2026.06.09 08:45 h4=-1.0 h1=-1.0 m15=1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106566 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=30 ticktime=2026.06.09 08:50:00 lag=chartTime-1bar
+HEARTBEAT=14:07:18 terminal_alive=True journal_lines=12203
+JOURNAL_LAST=KS	0	14:07:13.530	Core 04	2026.06.09 10:05:00   [SRJ-EA] SIDE1G_PROFILE bar=2026.06.09 10:00 opp=0 a2=1 body=0 touch=1 pre=PASS term=A_OPP t1term=A_OPP match=1
+HEARTBEAT=14:07:29 terminal_alive=True journal_lines=12297
+JOURNAL_LAST=IM	0	14:07:19.634	Core 04	2026.06.09 10:50:00   [SRJ-EA] SIDE1H_WOULDPREEMPT bar=2026.06.09 10:45 newPoi=Daily-VWAP newDir=SHORT heldPoi=Weekly-VWAP heldDir=LONG heldState=S1_REGIME newTier=5 heldTier=4 wouldPreempt=0 wouldTierPassLegacy=0
+HEARTBEAT=14:07:39 terminal_alive=True journal_lines=12481
+JOURNAL_LAST=CK	0	14:07:37.945	Core 04	2026.06.09 12:40:01   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=30 famRead=480 unavail=0 emptyValid=14 state=2 attempt=8 poolGen=8 cadence=no-rebuild
+HEARTBEAT=14:07:49 terminal_alive=True journal_lines=12481
+HEARTBEAT=14:07:59 terminal_alive=True journal_lines=12566
+JOURNAL_LAST=FN	0	14:07:56.256	Core 04	2026.06.09 14:20:04   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=30 famRead=480 unavail=0 emptyValid=14 state=2 attempt=8 poolGen=8 cadence=no-rebuild
+HEARTBEAT=14:08:09 terminal_alive=True journal_lines=12754
+JOURNAL_LAST=EK	0	14:08:08.463	Core 04	2026.06.09 15:30:00   [SRJ-EA] SLIMBWALK fields=27 bar=2026.06.09 15:25 site=S2POLL dir=SHORT branch=1SWING slToday=160.187 slBase=160.213 slNuance=160.213 deltaBasePts=26 deltaNuancePts=26 walkSteps=5 code2Seen=0 exhausted=0 skipShift=-1 skipVal=- skipFlag=- bodyExt=- extUpdatedByNonQual=0 code3Seen=0 sideViolations=0 todayEqBase=0 todayEqNuance=0 baseEqNuance=1 class=BASE_MOVED outwardBasePts=26 outwardNuancePts=26 skipShiftT=- startShiftT=2026.06.09 15:20
+HEARTBEAT=14:08:19 terminal_alive=True journal_lines=12831
+JOURNAL_LAST=NF	0	14:08:14.566	Core 04	2026.06.09 15:55:00   [SRJ-EA] SIDE1F_SHORT bar=2026.06.09 15:50 anchor=Daily-VWAP
+HEARTBEAT=14:08:29 terminal_alive=True journal_lines=13005
+JOURNAL_LAST=HO	0	14:08:26.774	Core 04	2026.06.09 16:55:03   [SRJ-EA] SLIMBWALKF fields=25 bar=2026.06.09 16:50 site=S2POLL dir=LONG branch=1SWING fracAnchorShift=1 fracAnchorFlag=1 slFractal=160.147 slFractalNuance=160.147 deltaFracPts=205 deltaFracNuancePts=205 fracSteps=0 fracCode2=0 fracExh=0 fracC3=0 fracExtNQ=0 fracClass=BASE_MOVED sideFracViolations=0 outwardFracPts=-205 outwardFracNuancePts=-205 fracAnchorRawShift=1 fracAnchorRawSide=PROTECTIVE fracAnchorGuardApplied=0 fracAnchorShiftT=2026.06.09 16:45 fracSkip=-1 fracSkipT=-
+HEARTBEAT=14:08:39 terminal_alive=True journal_lines=13262
+JOURNAL_LAST=DL	0	14:08:38.980	Core 04	2026.06.09 18:00:00   [SRJ-EA] IDCHANGE bar=2026.06.09 17:55 inWin=1 state=IDLE dir=NONE xobId=2648->2829 fvgId=0->0 xobLo=160.147 xobHi=160.220 cumX=282 cumF=0 bars=1945
+HEARTBEAT=14:08:49 terminal_alive=True journal_lines=13262
+HEARTBEAT=14:08:59 terminal_alive=True journal_lines=13355
+JOURNAL_LAST=EI	0	14:08:51.187	Core 04	2026.06.09 19:25:00   [SRJ-EA] 2026.06.09 19:25:00 CQD DIV verdict=-1 shift=2 bar=2026.06.09 19:15
+HEARTBEAT=14:09:09 terminal_alive=True journal_lines=13355
+HEARTBEAT=14:09:19 terminal_alive=True journal_lines=13438
+JOURNAL_LAST=FP	0	14:09:09.497	Core 04	2026.06.09 21:20:05   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=30 famRead=480 unavail=0 emptyValid=14 state=2 attempt=8 poolGen=8 cadence=no-rebuild
+HEARTBEAT=14:09:29 terminal_alive=True journal_lines=13438
+HEARTBEAT=14:09:39 terminal_alive=True journal_lines=13520
+JOURNAL_LAST=QI	0	14:09:33.911	Core 04	2026.06.09 23:10:30   [SRJ-EA] UJPROBE bar_key=2026.06.09 23:05 h4=1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106685 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=30 ticktime=2026.06.09 23:10:30 lag=chartTime-1bar
+HEARTBEAT=14:09:49 terminal_alive=True journal_lines=13520
+HEARTBEAT=14:09:59 terminal_alive=True journal_lines=13599
+JOURNAL_LAST=RI	0	14:09:52.221	Core 04	2026.06.10 01:10:01   [SRJ][T155][OBPROV] code=5 id=0 bar=107209 flag=true
+HEARTBEAT=14:10:09 terminal_alive=True journal_lines=13599
+HEARTBEAT=14:10:19 terminal_alive=True journal_lines=13678
+JOURNAL_LAST=GG	0	14:10:10.532	Core 04	2026.06.10 03:10:00   [SRJ-EA] UJPROBE bar_key=2026.06.10 03:05 h4=1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106726 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=31 ticktime=2026.06.10 03:10:00 lag=chartTime-1bar
+HEARTBEAT=14:10:29 terminal_alive=True journal_lines=13678
+HEARTBEAT=14:10:39 terminal_alive=True journal_lines=13756
+JOURNAL_LAST=PS	0	14:10:34.946	Core 04	2026.06.10 05:15:38   [SRJ][T155][OBPROV] code=3 id=2910 bar=107258 flag=false
+HEARTBEAT=14:10:49 terminal_alive=True journal_lines=13756
+HEARTBEAT=14:10:59 terminal_alive=True journal_lines=13839
+JOURNAL_LAST=CO	0	14:10:53.256	Core 04	2026.06.10 07:00:00   [SRJ-EA] UJPROBE bar_key=2026.06.10 06:55 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=hidden readFail=0 empty=106759 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=31 ticktime=2026.06.10 07:00:00 lag=chartTime-1bar
+HEARTBEAT=14:11:09 terminal_alive=True journal_lines=13839
+HEARTBEAT=14:11:19 terminal_alive=True journal_lines=14083
+JOURNAL_LAST=RR	0	14:11:17.671	Core 04	2026.06.10 09:40:06   [SRJ-EA] SIDE1G_PROFILE bar=2026.06.10 09:35 opp=1 a2=1 body=0 touch=1 pre=PASS term=B_BODY t1term=B_BODY match=1
+HEARTBEAT=14:11:29 terminal_alive=True journal_lines=14244
+JOURNAL_LAST=OM	0	14:11:23.774	Core 04	2026.06.10 10:00:00   [SRJ-EA] INPLAYCOMMIT bar=2026.06.10 09:55 dir=LONG zoneSrc=XOB zoneLo=160.325 zoneHi=160.344 promoT=2026.06.10 09:30 applied=1 bounded=1 scanned=11 swings=3 hits=2 firstShift=7 firstVal=160.330 commitVia=SWING legacy=1 legacyVia=SWING2 committed=1 changed=0 haveStop=1
+HEARTBEAT=14:11:39 terminal_alive=True journal_lines=14417
+JOURNAL_LAST=FK	0	14:11:35.981	Core 04	2026.06.10 11:25:00   [SRJ-EA] RETESTBOOK bar=2026.06.10 11:20 hits=0 
+HEARTBEAT=14:11:49 terminal_alive=True journal_lines=14417
+HEARTBEAT=14:11:59 terminal_alive=True journal_lines=14417
+HEARTBEAT=14:12:09 terminal_alive=True journal_lines=14501
+JOURNAL_LAST=OS	0	14:12:00.394	Core 04	2026.06.10 13:10:03   [SRJ-EA] 2026.06.10 13:10:03 CQD DIV verdict=+2 shift=2 bar=2026.06.10 13:00
+HEARTBEAT=14:12:19 terminal_alive=True journal_lines=14586
+JOURNAL_LAST=KS	0	14:12:12.601	Core 04	2026.06.10 14:50:04   [SRJ-EA] 2026.06.10 14:50:04 CQD DIV verdict=-1 shift=2 bar=2026.06.10 14:40
+HEARTBEAT=14:12:30 terminal_alive=True journal_lines=14686
+JOURNAL_LAST=KJ	0	14:12:24.808	Core 04	2026.06.10 15:50:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=31 famRead=496 unavail=0 emptyValid=15 state=2 attempt=9 poolGen=9 cadence=no-rebuild
+HEARTBEAT=14:12:40 terminal_alive=True journal_lines=14854
+JOURNAL_LAST=OH	0	14:12:37.016	Core 04	2026.06.10 16:45:00   [SRJ-EA] UJPROBE bar_key=2026.06.10 16:40 h4=1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=ALIGNED kind=regular readFail=0 empty=106846 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=31 ticktime=2026.06.10 16:45:00 lag=chartTime-1bar
+HEARTBEAT=14:12:50 terminal_alive=True journal_lines=15034
+JOURNAL_LAST=II	0	14:12:49.223	Core 04	2026.06.10 18:00:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=31 famRead=496 unavail=0 emptyValid=15 state=2 attempt=9 poolGen=9 cadence=no-rebuild
+HEARTBEAT=14:13:00 terminal_alive=True journal_lines=15121
+JOURNAL_LAST=NI	0	14:12:55.326	Core 04	2026.06.10 18:30:00   [SRJ-EA] UJPROBE bar_key=2026.06.10 18:25 h4=-1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106860 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=31 ticktime=2026.06.10 18:30:00 lag=chartTime-1bar
+HEARTBEAT=14:13:10 terminal_alive=True journal_lines=15121
+HEARTBEAT=14:13:20 terminal_alive=True journal_lines=15209
+JOURNAL_LAST=OR	0	14:13:13.636	Core 04	2026.06.10 20:20:06   [SRJ-EA] UJPROBE bar_key=2026.06.10 20:15 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106877 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=31 ticktime=2026.06.10 20:20:06 lag=chartTime-1bar
+HEARTBEAT=14:13:30 terminal_alive=True journal_lines=15209
+HEARTBEAT=14:13:40 terminal_alive=True journal_lines=15291
+JOURNAL_LAST=PI	0	14:13:31.946	Core 04	2026.06.10 22:20:06   [SRJ-EA] UJPROBE bar_key=2026.06.10 22:15 h4=-1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=regular readFail=0 empty=106895 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=31 ticktime=2026.06.10 22:20:06 lag=chartTime-1bar
+HEARTBEAT=14:13:50 terminal_alive=True journal_lines=15291
+HEARTBEAT=14:14:00 terminal_alive=True journal_lines=15367
+JOURNAL_LAST=MK	0	14:13:56.361	Core 04	2026.06.11 00:30:00   [SRJ-EA] UJPROBE bar_key=2026.06.11 00:25 h4=1.0 h1=-1.0 m15=1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106919 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=32 ticktime=2026.06.11 00:30:00 lag=chartTime-1bar
+HEARTBEAT=14:14:10 terminal_alive=True journal_lines=15367
+HEARTBEAT=14:14:20 terminal_alive=True journal_lines=15367
+HEARTBEAT=14:14:30 terminal_alive=True journal_lines=15445
+JOURNAL_LAST=GL	0	14:14:20.776	Core 04	2026.06.11 02:35:08   [SRJ-EA] UJPROBE bar_key=2026.06.11 02:30 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106941 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=32 ticktime=2026.06.11 02:35:08 lag=chartTime-1bar
+HEARTBEAT=14:14:40 terminal_alive=True journal_lines=15528
+JOURNAL_LAST=JL	0	14:14:39.087	Core 04	2026.06.11 04:25:05   [SRJ-EA] UJPROBE bar_key=2026.06.11 04:20 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106956 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=32 ticktime=2026.06.11 04:25:05 lag=chartTime-1bar
+HEARTBEAT=14:14:50 terminal_alive=True journal_lines=15528
+HEARTBEAT=14:15:00 terminal_alive=True journal_lines=15608
+JOURNAL_LAST=GD	0	14:14:57.398	Core 04	2026.06.11 06:30:05   [SRJ-EA] UJPROBE bar_key=2026.06.11 06:25 h4=1.0 h1=-1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=106975 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=32 ticktime=2026.06.11 06:30:05 lag=chartTime-1bar
+HEARTBEAT=14:15:10 terminal_alive=True journal_lines=15608
+HEARTBEAT=14:15:20 terminal_alive=True journal_lines=15608
+HEARTBEAT=14:15:30 terminal_alive=True journal_lines=15690
+JOURNAL_LAST=RF	0	14:15:21.812	Core 04	2026.06.11 08:20:09   [SRJ-EA] UJPROBE bar_key=2026.06.11 08:15 h4=1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=106989 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=32 ticktime=2026.06.11 08:20:09 lag=chartTime-1bar
+HEARTBEAT=14:15:40 terminal_alive=True journal_lines=15780
+JOURNAL_LAST=HH	0	14:15:34.020	Core 04	2026.06.11 09:55:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=32 famRead=512 unavail=0 emptyValid=15 state=2 attempt=10 poolGen=10 cadence=no-rebuild
+HEARTBEAT=14:15:50 terminal_alive=True journal_lines=15959
+JOURNAL_LAST=DQ	0	14:15:46.227	Core 04	2026.06.11 11:10:04   [SRJ-EA] A6TERM class=SELECTED bar=2026.06.11 11:05 shift=1 site=S3ARM dir=LONG mode=1SWING px=160.488 ok=1 slot=68
+HEARTBEAT=14:16:00 terminal_alive=True journal_lines=16136
+JOURNAL_LAST=RK	0	14:15:58.434	Core 04	2026.06.11 12:05:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=32 famRead=512 unavail=0 emptyValid=15 state=2 attempt=10 poolGen=10 cadence=no-rebuild
+HEARTBEAT=14:16:10 terminal_alive=True journal_lines=16136
+HEARTBEAT=14:16:20 terminal_alive=True journal_lines=16216
+JOURNAL_LAST=QO	0	14:16:16.745	Core 04	2026.06.11 14:00:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=32 famRead=512 unavail=0 emptyValid=15 state=2 attempt=10 poolGen=10 cadence=no-rebuild
+HEARTBEAT=14:16:30 terminal_alive=True journal_lines=16536
+JOURNAL_LAST=GF	0	14:16:28.952	Core 04	2026.06.11 15:05:00   [SRJ-EA] SLIMBWALKF fields=25 bar=2026.06.11 15:00 site=S3ARM dir=LONG branch=1SWING fracAnchorShift=6 fracAnchorFlag=0 slFractal=160.425 slFractalNuance=160.507 deltaFracPts=-73 deltaFracNuancePts=9 fracSteps=23 fracCode2=1 fracExh=0 fracC3=0 fracExtNQ=5 fracClass=CARVEOUT_FIRED sideFracViolations=0 outwardFracPts=73 outwardFracNuancePts=-9 fracAnchorRawShift=6 fracAnchorRawSide=PROTECTIVE fracAnchorGuardApplied=0 fracAnchorShiftT=2026.06.11 14:30 fracSkip=45 fracSkipT=2026.06.11 11:
+HEARTBEAT=14:16:40 terminal_alive=True journal_lines=16705
+JOURNAL_LAST=GE	0	14:16:35.055	Core 04	2026.06.11 15:45:00   [SRJ-EA] A6TERM class=SELECTED bar=2026.06.11 15:40 shift=1 site=S3ARM dir=LONG mode=2SWING px=160.525 ok=1 slot=5
+HEARTBEAT=14:16:51 terminal_alive=True journal_lines=16806
+JOURNAL_LAST=CN	0	14:16:47.262	Core 04	2026.06.11 16:30:00   [SRJ-EA] 2026.06.11 16:30:00 STATE S1_REGIME->S2_LTF_ALIGN dir=LONG poi=Daily-POC
+HEARTBEAT=14:17:01 terminal_alive=True journal_lines=17059
+JOURNAL_LAST=MN	0	14:16:59.470	Core 04	2026.06.11 17:50:01   [SRJ-EA] UJPROBE bar_key=2026.06.11 17:45 h4=-1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=regular readFail=0 empty=107081 zero=0 complete=1 latestNZ=-1 covReq=2026.04.29 covAch=2026.04.29 dayCount=32 ticktime=2026.06.11 17:50:01 lag=chartTime-1bar
+HEARTBEAT=14:17:11 terminal_alive=True journal_lines=17059
+HEARTBEAT=14:17:21 terminal_alive=True journal_lines=17152
+JOURNAL_LAST=IO	0	14:17:11.676	Core 04	2026.06.11 18:45:00   [SRJ-EA] RETESTBOOK bar=2026.06.11 18:40 hits=0 
+HEARTBEAT=14:17:31 terminal_alive=True journal_lines=17236
+JOURNAL_LAST=EL	0	14:17:23.883	Core 04	2026.06.11 20:25:01   [SRJ-EA] IDCHANGE bar=2026.06.11 20:20 inWin=0 state=IDLE dir=NONE xobId=2993->3123 fvgId=0->0 xobLo=160.530 xobHi=160.594 cumX=355 cumF=0 bars=2550
+HEARTBEAT=14:17:41 terminal_alive=True journal_lines=17236
+HEARTBEAT=14:17:51 terminal_alive=True journal_lines=17328
+JOURNAL_LAST=MS	0	14:17:42.195	Core 04	2026.06.11 22:00:00   SRJ XOB-PROMOCENSUS t=2026.06.11 21:55 bar=107747 mode=nearest bias=bearish objId=3156 isValid=1 isActivated=1 obStart=107733 obStartT=2026.06.11 20:45 obVal=107745 obInval=-2147483648 boundary=107745 boundaryOk=0 oppInvalCount=0 promoBar=107747 promoT=2026.06.11 21:55
+HEARTBEAT=14:18:01 terminal_alive=True journal_lines=17413
+JOURNAL_LAST=CD	0	14:18:00.506	Core 04	2026.06.11 23:45:01   [SRJ-EA] UJPROBE bar_key=2026.06.11 23:40 h4=-1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=107138 zero=0 complete=1 latestNZ=-2 covReq=2026.04.29 covAch=2026.04.29 dayCount=32 ticktime=2026.06.11 23:45:01 lag=chartTime-1bar
+HEARTBEAT=14:18:11 terminal_alive=True journal_lines=17413
+HEARTBEAT=14:18:21 terminal_alive=True journal_lines=17413
+HEARTBEAT=14:18:31 terminal_alive=True journal_lines=17489
+JOURNAL_LAST=LN	0	14:18:24.920	Core 04	2026.06.12 01:50:00   [SRJ-EA] UJPROBE bar_key=2026.06.12 01:45 h4=-1.0 h1=1.0 m15=-1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=107161 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=33 ticktime=2026.06.12 01:50:00 lag=chartTime-1bar
+HEARTBEAT=14:18:41 terminal_alive=True journal_lines=17489
+HEARTBEAT=14:18:51 terminal_alive=True journal_lines=17570
+JOURNAL_LAST=CS	0	14:18:43.229	Core 04	2026.06.12 03:45:00   [SRJ-EA] UJM15ROW bar_key=2026.06.12 03:40 m15time=2026.06.12 03:45 m15vote=1.0
+HEARTBEAT=14:19:01 terminal_alive=True journal_lines=17648
+JOURNAL_LAST=DF	0	14:19:01.540	Core 04	2026.06.12 05:40:02   [SRJ-EA] UJPROBE bar_key=2026.06.12 05:35 h4=1.0 h1=1.0 m15=1.0 confirmedFeed=1 ltf=1.0 div=OPPOSING kind=hidden readFail=0 empty=107197 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=33 ticktime=2026.06.12 05:40:02 lag=chartTime-1bar
+HEARTBEAT=14:19:11 terminal_alive=True journal_lines=17648
+HEARTBEAT=14:19:21 terminal_alive=True journal_lines=17648
+HEARTBEAT=14:19:31 terminal_alive=True journal_lines=17728
+JOURNAL_LAST=LE	0	14:19:25.954	Core 04	2026.06.12 07:40:27   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=33 famRead=528 unavail=0 emptyValid=15 state=2 attempt=11 poolGen=11 cadence=no-rebuild
+HEARTBEAT=14:19:41 terminal_alive=True journal_lines=17728
+HEARTBEAT=14:19:51 terminal_alive=True journal_lines=17809
+JOURNAL_LAST=NO	0	14:19:44.264	Core 04	2026.06.12 09:25:09   [SRJ-EA] CQDRECHECK shift=2 passA=1.0 passB=1.0 diff=0 bar=2026.06.12 09:15 state=IDLE dir=NONE divLatch=0 hit1=0 hit2=632 mism=0
+HEARTBEAT=14:20:01 terminal_alive=True journal_lines=17809
+HEARTBEAT=14:20:11 terminal_alive=True journal_lines=18067
+JOURNAL_LAST=JK	0	14:20:08.679	Core 04	2026.06.12 11:30:00   [SRJ-EA] UJPROBE bar_key=2026.06.12 11:25 h4=1.0 h1=-1.0 m15=1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=regular readFail=0 empty=107253 zero=0 complete=1 latestNZ=1 covReq=2026.04.29 covAch=2026.04.29 dayCount=33 ticktime=2026.06.12 11:30:00 lag=chartTime-1bar
+HEARTBEAT=14:20:21 terminal_alive=True journal_lines=18067
+HEARTBEAT=14:20:32 terminal_alive=True journal_lines=18154
+JOURNAL_LAST=IN	0	14:20:26.988	Core 04	2026.06.12 13:10:00   [SRJ-EA] UJPROBE bar_key=2026.06.12 13:05 h4=-1.0 h1=-1.0 m15=-1.0 confirmedFeed=1 ltf=-1.0 div=OPPOSING kind=hidden readFail=0 empty=107267 zero=0 complete=1 latestNZ=2 covReq=2026.04.29 covAch=2026.04.29 dayCount=33 ticktime=2026.06.12 13:10:00 lag=chartTime-1bar
+HEARTBEAT=14:20:42 terminal_alive=True journal_lines=18154
+HEARTBEAT=14:20:52 terminal_alive=True journal_lines=18337
+JOURNAL_LAST=EF	0	14:20:51.402	Core 04	2026.06.12 15:15:00   [SRJ-EA] S1WAIT bar=2026.06.12 15:10 dir=LONG poi=Weekly-POC sess=NYAM - regime unclassified, candidate RETAINED (Stage 3a)
+HEARTBEAT=14:21:02 terminal_alive=True journal_lines=18424
+JOURNAL_LAST=HK	0	14:20:57.506	Core 04	2026.06.12 15:50:00   [SRJ-EA] SLMEMO bar=2026.06.12 15:45 site=S3ARM result=COMPUTE ok=1 slRef=159.927 mode=1 computes=114 hits=3 genID=114 wrSite=S3ARM wrOrigin=evalClose
+HEARTBEAT=14:21:12 terminal_alive=True journal_lines=18596
+JOURNAL_LAST=RR	0	14:21:09.712	Core 04	2026.06.12 17:05:00   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=33 famRead=528 unavail=0 emptyValid=15 state=2 attempt=11 poolGen=11 cadence=no-rebuild
+HEARTBEAT=14:21:22 terminal_alive=True journal_lines=18851
+JOURNAL_LAST=NR	0	14:21:21.919	Core 04	2026.06.12 18:20:02   [SRJ-EA] A6TERM class=SELECTED bar=2026.06.12 18:15 shift=1 site=S2POLL dir=LONG mode=1SWING px=160.188 ok=1 slot=1
+HEARTBEAT=14:21:32 terminal_alive=True journal_lines=18947
+JOURNAL_LAST=RQ	0	14:21:28.023	Core 04	2026.06.12 19:00:00   SRJ XOB-PROMOCENSUS t=2026.06.12 18:55 bar=107999 mode=nearest bias=bullish objId=3327 isValid=1 isActivated=1 obStart=107990 obStartT=2026.06.12 18:10 obVal=107998 obInval=-2147483648 boundary=107997 boundaryOk=0 oppInvalCount=0 promoBar=107999 promoT=2026.06.12 18:55
+HEARTBEAT=14:21:42 terminal_alive=True journal_lines=18947
+HEARTBEAT=14:21:52 terminal_alive=True journal_lines=18947
+HEARTBEAT=14:22:02 terminal_alive=True journal_lines=19027
+JOURNAL_LAST=KG	0	14:21:52.437	Core 04	2026.06.12 20:50:00   [SRJ-EA] 2026.06.12 20:50:00 CQD DIV verdict=+1 shift=2 bar=2026.06.12 20:40
+HEARTBEAT=14:22:12 terminal_alive=True journal_lines=19110
+JOURNAL_LAST=RO	0	14:22:10.748	Core 04	2026.06.12 22:35:01   [SRJ-EA] UJPOOLCOV req=2026.04.29 ach=2026.04.29 days=33 famRead=528 unavail=0 emptyValid=15 state=2 attempt=11 poolGen=11 cadence=no-rebuild
+HEARTBEAT=14:22:22 terminal_alive=True journal_lines=22827
+JOURNAL_LAST=PG	0	14:22:20.419	Core 04	connection closed
+TERMINAL_ALIVE=True
+ARCHIVED_LINES=22827
+GATE: QE	0	13:50:08.137	Core 04	2026.06.03 09:10:00   [SRJ-EA] ALERT SRJ SIGNAL LONG USDJPY M5 | Daily-VWAP | LONDON | R=1.35 SL 159.889 TP 159.983 spr=3
+GATE: GS	0	14:22:20.408	Core 04	final balance 10000.00 USD
+GATE: RF	0	14:22:20.408	Core 04	2026.06.12 23:59:58   [SRJ-EA] BIASCENSUS_FINAL bars=2880 | sh1 neg=1187 zero=0 pos=1693 empty=0 other=0 fail=0 | sh2 neg=1188 zero=0 pos=1692 empty=0 other=0 fail=0
+GATE: FD	0	14:22:20.408	Core 04	2026.06.12 23:59:58   [SRJ-EA] ZONECENSUS_FINAL bars=2880 both=0 xobOnly=2526 fvgOnly=0 neither=354 | inWindow=960 xobInWin=860 fvgInWin=0 | samples=0
+GATE: EF	0	14:22:20.408	Core 04	2026.06.12 23:59:58   [SRJ-EA] WS161_CENSUS fields=21 loads=2880 stores=2880 changes=199 mismatch=0
+GATE: FM	0	14:22:20.408	Core 04	USDJPY,M5: 542258 ticks, 2880 bars generated. Environment synchronized in 0:00:00.029. Test passed in 0:43:23.895 (including ticks preprocessing 0:00:00.046).
+XOB_PROMOCENSUS_COUNT=472
+RESULT=PASSED
+DONE=2026-09-27 14:22:29

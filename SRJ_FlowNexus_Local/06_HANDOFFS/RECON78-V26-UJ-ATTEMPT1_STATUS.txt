@@ -1,0 +1,93 @@
+﻿RUN=RECON78-V26-UJ
+WRAPPER=V2
+CEILING_MIN=90
+WRAPPER_STARTED=2026-10-02 15:51:58
+INI=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\MQL5\SRJ_FlowNexus_Local\00_CURRENT_WORKING\USDJPY_DEMO_JUNE.ini
+INI_EXISTS=True
+TERM_EXISTS=True
+TERMINAL_BUSY=False
+JOURNAL=C:\Users\winar\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06\Tester\logs\20261002.log
+PRE_JOURNAL_LINES=0
+PID=4732
+LAUNCHED_AT=2026-10-02 15:51:58
+STAGE=RUNNING (completion = the journal marker, NOT process exit)
+HEARTBEAT=15:52:08 terminal_alive=True journal_lines=0
+HEARTBEAT=15:52:18 terminal_alive=True journal_lines=0
+HEARTBEAT=15:52:28 terminal_alive=True journal_lines=0
+HEARTBEAT=15:52:38 terminal_alive=True journal_lines=0
+HEARTBEAT=15:52:48 terminal_alive=True journal_lines=0
+HEARTBEAT=15:52:58 terminal_alive=True journal_lines=0
+HEARTBEAT=15:53:08 terminal_alive=True journal_lines=0
+HEARTBEAT=15:53:18 terminal_alive=True journal_lines=0
+HEARTBEAT=15:53:28 terminal_alive=True journal_lines=0
+HEARTBEAT=15:53:38 terminal_alive=True journal_lines=0
+HEARTBEAT=15:53:48 terminal_alive=True journal_lines=0
+HEARTBEAT=15:53:58 terminal_alive=True journal_lines=0
+HEARTBEAT=15:54:09 terminal_alive=True journal_lines=0
+HEARTBEAT=15:54:19 terminal_alive=True journal_lines=0
+HEARTBEAT=15:54:29 terminal_alive=True journal_lines=0
+HEARTBEAT=15:54:39 terminal_alive=True journal_lines=0
+HEARTBEAT=15:54:49 terminal_alive=True journal_lines=0
+HEARTBEAT=15:54:59 terminal_alive=True journal_lines=0
+HEARTBEAT=15:55:09 terminal_alive=True journal_lines=0
+HEARTBEAT=15:55:19 terminal_alive=True journal_lines=0
+HEARTBEAT=15:55:29 terminal_alive=True journal_lines=0
+HEARTBEAT=15:55:39 terminal_alive=True journal_lines=0
+HEARTBEAT=15:55:49 terminal_alive=True journal_lines=0
+HEARTBEAT=15:55:59 terminal_alive=True journal_lines=0
+HEARTBEAT=15:56:09 terminal_alive=True journal_lines=0
+HEARTBEAT=15:56:19 terminal_alive=True journal_lines=0
+HEARTBEAT=15:56:29 terminal_alive=True journal_lines=0
+HEARTBEAT=15:56:39 terminal_alive=True journal_lines=0
+HEARTBEAT=15:56:49 terminal_alive=True journal_lines=0
+HEARTBEAT=15:56:59 terminal_alive=True journal_lines=0
+HEARTBEAT=15:57:09 terminal_alive=True journal_lines=0
+HEARTBEAT=15:57:19 terminal_alive=True journal_lines=0
+HEARTBEAT=15:57:29 terminal_alive=True journal_lines=0
+HEARTBEAT=15:57:39 terminal_alive=True journal_lines=0
+HEARTBEAT=15:57:49 terminal_alive=True journal_lines=0
+HEARTBEAT=15:57:59 terminal_alive=True journal_lines=0
+HEARTBEAT=15:58:09 terminal_alive=True journal_lines=0
+HEARTBEAT=15:58:19 terminal_alive=True journal_lines=0
+HEARTBEAT=15:58:29 terminal_alive=True journal_lines=0
+HEARTBEAT=15:58:39 terminal_alive=True journal_lines=0
+HEARTBEAT=15:58:49 terminal_alive=True journal_lines=0
+HEARTBEAT=15:58:59 terminal_alive=True journal_lines=0
+HEARTBEAT=15:59:09 terminal_alive=True journal_lines=0
+HEARTBEAT=15:59:19 terminal_alive=True journal_lines=0
+HEARTBEAT=15:59:29 terminal_alive=True journal_lines=0
+HEARTBEAT=15:59:39 terminal_alive=True journal_lines=0
+HEARTBEAT=15:59:49 terminal_alive=True journal_lines=0
+HEARTBEAT=15:59:59 terminal_alive=True journal_lines=0
+HEARTBEAT=16:00:09 terminal_alive=True journal_lines=0
+HEARTBEAT=16:00:19 terminal_alive=True journal_lines=0
+HEARTBEAT=16:00:29 terminal_alive=True journal_lines=0
+HEARTBEAT=16:00:39 terminal_alive=True journal_lines=0
+HEARTBEAT=16:00:49 terminal_alive=True journal_lines=0
+HEARTBEAT=16:00:59 terminal_alive=True journal_lines=0
+HEARTBEAT=16:01:09 terminal_alive=True journal_lines=0
+HEARTBEAT=16:01:19 terminal_alive=True journal_lines=0
+HEARTBEAT=16:01:29 terminal_alive=True journal_lines=0
+HEARTBEAT=16:01:39 terminal_alive=True journal_lines=0
+HEARTBEAT=16:01:49 terminal_alive=True journal_lines=0
+HEARTBEAT=16:01:59 terminal_alive=True journal_lines=0
+HEARTBEAT=16:02:09 terminal_alive=True journal_lines=0
+HEARTBEAT=16:02:19 terminal_alive=True journal_lines=0
+HEARTBEAT=16:02:29 terminal_alive=True journal_lines=0
+HEARTBEAT=16:02:39 terminal_alive=True journal_lines=0
+HEARTBEAT=16:02:49 terminal_alive=True journal_lines=0
+HEARTBEAT=16:02:59 terminal_alive=True journal_lines=0
+HEARTBEAT=16:03:09 terminal_alive=True journal_lines=0
+HEARTBEAT=16:03:19 terminal_alive=True journal_lines=0
+HEARTBEAT=16:03:29 terminal_alive=True journal_lines=0
+HEARTBEAT=16:03:39 terminal_alive=True journal_lines=0
+HEARTBEAT=16:03:49 terminal_alive=True journal_lines=0
+HEARTBEAT=16:03:59 terminal_alive=True journal_lines=0
+HEARTBEAT=16:04:09 terminal_alive=True journal_lines=0
+HEARTBEAT=16:04:19 terminal_alive=True journal_lines=0
+HEARTBEAT=16:04:29 terminal_alive=False journal_lines=0
+TERMINAL_ALIVE=False
+NOTE=terminal exited BEFORE the journal completion marker - journal tail follows
+ARCHIVED_LINES=0
+RESULT=TERMINAL_EXITED_EARLY
+DONE=2026-10-02 16:05:34
