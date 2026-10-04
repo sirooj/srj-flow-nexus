@@ -62,4 +62,13 @@ E3 Config terminal.ini [Tester] restored to June (Symbol=USDJPY, 1780272000/1781
 - A3 content answer: today's HTFEngine does NOT differ from HEAD in content (hash-object equals f35b02bd; endings only).
 - Branch note: 4a20e5f + 59fd96e stay local-only on builder/B-11 / builder/B-10, unpushed; builder/B-13 was cut from f11a71a as listed. Merge or push on his word.
 
+## Addendum (his order 2026-10-04: builds that handle the simultaneous 15m-flip case, for the planner)
+
+His point, filed: even though the V8 run took 0 trades, later builds correctly execute your setups where the 15m flip lands on the confirmation candle itself. Recalled from record - all four postdate V8's guard:
+- UJALIGN_BYPASS (Fix Z-B1): "M15 guard bypassed on confirmed bar". Run-proven live in B-8 (BUILDER_RESULT_B8.md Step 6, k=3/4/5): 5 June 09:15 confirmed bar bypassed, SIGNAL 09:20 SHORT R=2.27 at 159.959. The guard steps aside on the confirmed bar instead of killing the setup.
+- v26 RECON74 (tree 8C6468F4): 5 June London 09:45 SHORT via BYPASS plus PREBIND at the 09:40 bar (skill REBUILD-ORDER pin; the older more-correct build).
+- E4b confirm-from-S2 (PACKET_P-USDJPY-1 v4-v7, council packets, stated exception): a passing confirmation while LTF-unaligned still promotes to S5 under his confirm-once rule + 2026-09-11 declaration, cost stated in the packet (S2 align gate advisory for confirm-bearing candidates); packet acceptance kept the 7 baseline EU takes bit-identical.
+- UJCONFIRMCARRY cascade (PACKET_P-UJIMPL-IMPL-2 P033, council packet): predicate + M15-agree cascade after HEADS-UP; S3->S4->S5 can transit one pass; 6/3 verified in-packet.
+For the planner: items 1-2 are run-proven, items 3-4 are packet-specified (council route, acceptance-gated). All four are refinements inside his phase order - each preserves validated takes with stated costs - the opposite class from V8's SUB_1R kill. Any B-14 rebuild should start from these mechanisms, not from removing the guard outright.
+
 (End of file)
