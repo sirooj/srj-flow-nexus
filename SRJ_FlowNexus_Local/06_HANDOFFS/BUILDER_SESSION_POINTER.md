@@ -1,25 +1,16 @@
-# BUILDER SESSION POINTER — read this first, every session
+# BUILDER SESSION POINTER - read this first, every session
 
-**Rule:** this file is the ONLY live memory (capped 35 lines). If chat says otherwise, this file wins.
-Ledger (`06_HANDOFFS\SRJ_FLOW_NEXUS_LEDGER.md`) is audit-only, never required reading.
+**Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State (2026-10-01, V377 GRADED + V28/V378 RELAY-READY + COMMITTED; code thread live, V378 verdicts owed; skill tightened)
-
-- Disk truth: EA 977B0FB5 (v29 tree); entry packet FIX-2v28 2AD2D267/47847/184 (prose-only, fences identical, compositional residue cured); relay v378-UJEXEMPT-15 DD483BAB/74723/391 green (twin 184 diff-0, regions 107/101 0-diff with R-LTFCHK, rows 28, resolver clean). Result `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RESULT_V377-GRADE.md` filed (Q1 1-2 / Q2 0-3 OBJECT, ledger 1068; stale-cite adjudication inside).
-- V377 verdicts filed whole + graded Q1 1-2 OBJECT / Q2 0-3 OBJECT unanimous (ledger 1068); V378 markers 0x all seats (sole open round). Tightening: skill +S55 filing/fold gates (481-to-488); no AGENTS change. Commit builder-called this block (his correction: commit is the builder's call, never council's). No key in hand; EU excluded.
-  No build/run without your word; push stays gated on your word plus credentials.
-- Tool-stack + python + handoff split + goal routing stand (ledgers 977-984, renamed ledger 981).
+## State (2026-10-04; B-SERIES LANE ACTIVE; latest result B-9)
+- B-series relay lane active (operator order 2026-10-04). Relay B-9 is the active task; for its scope it wins over older queue items. Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B9.md` (branch builder/B-9).
+- EA on disk: `Experts/SRJ_FlowNexus_EA.mq5` = `F04AF9C31D42B756F9DCAC62B2506D0D67D2EDA6231C571B6558D2B4B14C4582` (685444 B; B-7 kept build, uncommitted by relay order). Backups: `.preB7` = `E80FF0C24149AB0946EB6A4341C0503A79BFE82E9843867CEF0DBA89BF587BBC` (685026 B); `.preB8` = `F04AF9C31D42B756F9DCAC62B2506D0D67D2EDA6231C571B6558D2B4B14C4582` (685444 B, byte-identical to the EA).
+- EX5 on disk: `Experts/SRJ_FlowNexus_EA.ex5` = `0D78C1C876326FD76161B5CBF217487534114D2459F95A0DE426BEC0FBD0300A` (452482 B; B-8 trial build, does NOT match the EA source; any later run must compile first).
+- Relay lane files: `.opencode/skills/srj-relay/SKILL.md` (full source) + `.agents/skills/srj-relay/SKILL.md` (thin pointer); resume skill carries 1a (relay-first rule).
+- AGENTS.md C2 inserts BLOCKED on anchor miss (filed in B-9 C2/C5): the live concise contract (34 lines) has no sections 2/10; left unchanged, conflict listed, planner owes corrected anchors.
 
 ## Next
+- Relay B-10 from the planner (sole outstanding item; B-9 ends MEASURED with no carried build or run).
 
-- Code thread: paste `SRJ_FlowNexus_Local\06_HANDOFFS\BUILDER_RELAY_COUNCIL_v378-UJEXEMPT-15.md` whole to each council chat (same text every chat, no edits - if any seat quotes superseded packet text, flag it: the shipped hash is DD483BAB), then paste each whole reply back in one message (name the chat each came from) + vote-free GO or HOLD. Uncommitted files (if any remain) commit on the builder's call; push on YOUR word plus credentials.
-
-## Resume order (exact)
-
-1. This pointer. 2. AGENTS.md §10 checklist (hashes + git log/status, read-only).
-3. Latest result + relay + verdicts on disk. 4. Ledger ONLY for audits.
-5. Index 06_HANDOFFS\BUILDER_INDEX_RELEVANCE.md before ANY record search (relevance first).
-
-## Update rule
-
-- End of every block: refresh State + Next + date, keep under 35 lines, verify by read-back. A session that did not update it did not finish. Next always names ONE action or the exact trigger awaited — never "nothing owed" alone.
+## Resume order
+1. `BUILDER_HANDOFF_NEWSESSION_POST-V415.md`, then this pointer. 2. AGENTS.md and git state. 3. Handoff section 4, then the V414 grade plus verdict blocks in Luna 18738-18767, Sonnet 9309-9395, GLM 11752-11823. 4. Ledger for audit only. 5. Relevance index before record search.
