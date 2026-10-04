@@ -31,6 +31,7 @@ Trial discipline
 - Filed-trade table: one row per deal, dates first, before vs after, with totals.
 - Evaluate the STOP rules right after the filed-trade table. On a STOP, restore from .preB<n>, verify the SHA, and report anyway.
 - If two runs in a row fail to improve the same filed trade, stop local iteration and report to the planner. The builder already runs on Opus, so this no longer means a model switch.
+- File every edit so it can be re-applied exactly: report the edited source SHA-256, keep the edited copy as <file>.B<n><tag> (never committed), and paste the full diff against .preB<n> raw in the result file. A RESTORED trial must never lose its hunk text (B-19 had to rebuild B-15's lost skip).
 
 Rule-conflict check (before any edit)
 - If a relay's change touches a trading rule, first find his banked words on that rule in the strategy skill, the findings and the journal.
