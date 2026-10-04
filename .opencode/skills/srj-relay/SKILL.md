@@ -13,6 +13,7 @@ Roles
 Fresh sessions
 - Every relay is self-contained. A fresh session needs only three things: this skill, the previous BUILDER_RESULT_B<n-1>.md on branch builder/B-<n-1>, and the relay.
 - For its own scope, the relay wins over older queue items in the pointer.
+- Every relay opens with a Part 0 fresh-session start: the branch and commit to check out, the files to read in order, and every name the relay uses. A builder with no memory runs the relay from Part 0 alone.
 
 Authority
 - His paste of relay B-<n> is his word for the edits, compiles, runs and pushes that the relay lists, and for nothing more.
@@ -41,6 +42,7 @@ Result file
 - Write the steps in relay order: raw where raw is asked, trader words elsewhere. Explain every journal code in a few words.
 - End with the final disk state: which source is on disk with its SHA, and whether the EX5 matches it.
 - Put carried notes at the end, under "## Carried note".
+- When he answers a carried question, the next relay banks his words verbatim in the strategy skill, his trade journal and the ledger before anything else, so he never has to explain them twice.
 - Questions for him: trader words, exact dates, times and prices, asked only after the record-first search, with the sources listed.
 
 Reply line (exact shape)

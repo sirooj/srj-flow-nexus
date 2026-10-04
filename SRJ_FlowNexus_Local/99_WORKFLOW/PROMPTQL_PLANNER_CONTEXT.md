@@ -34,6 +34,7 @@ Definition: SRJ Flow Nexus is the operator's MQL5 trading EA (Expert Advisor) pr
 - Operator's trading rules: "his rules, never the code's", banked in .opencode/skills/srj-strategy/SKILL.md. Before any change, check it against his banked words.
 - REFINE-ONLY order (2026-09-25): every build first re-proves the EURUSD 26 Aug - 9 Sep regression window (RECON62). Nothing else is graded until that passes.
 - Repository access: if GitHub is not connected in the PromptQL project, read the public repo through unauthenticated GitHub API and raw-content calls. They need a User-Agent header and return 403 without it.
+- Trading rules copy: the full strategy skill is .opencode/skills/srj-strategy/SKILL.md. The .agents/skills/srj-strategy/SKILL.md copy is a short stub. Planners read and bank rules in the .opencode copy.
 
 ## 3. Wiki page: B-series relay lane
 Aliases: relay lane, B-series relay.
@@ -45,3 +46,4 @@ Definition: The B-series relay lane is the workflow used to build the SRJ Flow N
 - EA edits stay uncommitted unless both the relay and the operator say otherwise.
 - Starting a new planner session: on branch builder/B-<n>, read the pointer, then the result file (carried note first when told), then the srj-relay skill, then the srj-strategy skill; then write relay B-<n+1> and hand it to the operator as a text artifact.
 - Repo copy: this file (99_WORKFLOW/PROMPTQL_PLANNER_CONTEXT.md) is a backup of the PromptQL wiki; the wiki is primary. Only a planner relay refreshes it, and a relay adds a refresh step when these wiki pages change.
+- Questions to the operator: when a builder record-first search ends "no ruling found", the builder writes the question in trader words in the result file's carried note. The planner passes it to him as a chart call (date, time, price). When his answer decides the next edit, the planner waits for it before writing the next relay.
