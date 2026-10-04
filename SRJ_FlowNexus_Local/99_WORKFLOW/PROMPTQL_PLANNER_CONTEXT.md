@@ -23,6 +23,7 @@ Standing rules:
 - REFINE-ONLY: every build first re-proves the EURUSD 26 Aug - 9 Sep regression window (RECON62).
 - The operator does not code. Talk to him in trader words (dates, times, prices), and never ask him code questions.
 - The builder's EA edits stay uncommitted, so locate code by its text, never by line number.
+- Never ask the operator questions directly (his DEFECT word 2026-10-04). Every question goes into the relay as a record-first search by the builder; only a "no ruling found" result reaches him, in trader words.
 
 ## 2. Wiki page: SRJ Flow Nexus
 Aliases: SRJ Flow Nexus EA.
@@ -43,3 +44,4 @@ Definition: The B-series relay lane is the workflow used to build the SRJ Flow N
 - Reply format: "B-<n> is done, GitHub branch builder/B-<n>, commit <hash>, verdict KEPT|RESTORED|MEASURED". "Read the carried note first" means a note to the planner sits at the end of the result file.
 - EA edits stay uncommitted unless both the relay and the operator say otherwise.
 - Starting a new planner session: on branch builder/B-<n>, read the pointer, then the result file (carried note first when told), then the srj-relay skill, then the srj-strategy skill; then write relay B-<n+1> and hand it to the operator as a text artifact.
+- Repo copy: this file (99_WORKFLOW/PROMPTQL_PLANNER_CONTEXT.md) is a backup of the PromptQL wiki; the wiki is primary. Only a planner relay refreshes it, and a relay adds a refresh step when these wiki pages change.
