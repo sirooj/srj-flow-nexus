@@ -35,6 +35,7 @@ Definition: SRJ Flow Nexus is the operator's MQL5 trading EA (Expert Advisor) pr
 - REFINE-ONLY order (2026-09-25): every build first re-proves the EURUSD 26 Aug - 9 Sep regression window (RECON62). Nothing else is graded until that passes.
 - Repository access: if GitHub is not connected in the PromptQL project, read the public repo through unauthenticated GitHub API and raw-content calls. They need a User-Agent header and return 403 without it.
 - Trading rules copy: the full strategy skill is .opencode/skills/srj-strategy/SKILL.md. The .agents/skills/srj-strategy/SKILL.md copy is a short stub. Planners read and bank rules in the .opencode copy.
+- CQD divergence: on his EURUSD M5 chart, the CQD Tick pane (PERIOD_D1 reset) shows divergence lines; a blue solid line is a type 1 bullish divergence. An invalid CQD divergence is one of his reasons to reject a setup.
 
 ## 3. Wiki page: B-series relay lane
 Aliases: relay lane, B-series relay.
@@ -47,3 +48,7 @@ Definition: The B-series relay lane is the workflow used to build the SRJ Flow N
 - Starting a new planner session: on branch builder/B-<n>, read the pointer, then the result file (carried note first when told), then the srj-relay skill, then the srj-strategy skill; then write relay B-<n+1> and hand it to the operator as a text artifact.
 - Repo copy: this file (99_WORKFLOW/PROMPTQL_PLANNER_CONTEXT.md) is a backup of the PromptQL wiki; the wiki is primary. Only a planner relay refreshes it, and a relay adds a refresh step when these wiki pages change.
 - Questions to the operator: when a builder record-first search ends "no ruling found", the builder writes the question in trader words in the result file's carried note. The planner passes it to him as a chart call (date, time, price). When his answer decides the next edit, the planner waits for it before writing the next relay.
+- Fresh sessions: every relay opens with a Part 0 fresh-session start: the branch and commit to check out, the files to read in order, and every name the relay uses. A builder with no memory must be able to run the relay from Part 0 alone (operator order 2026-10-04).
+- Banking his answers: when the operator answers a carried question, the next relay banks his words verbatim first, in the strategy skill (a new numbered section), his trade journal and the ledger, so he never has to explain them twice (operator order 2026-10-04).
+- Screenshots: the builder cannot open PromptQL uploads. When the operator shares a chart screenshot, the planner writes a plain description of it into the relay.
+- Missing branch: if the reply's branch builder/B-<n> or its commit is not on GitHub, the push did not go through. The planner does not guess or fall back to an older branch; it gives the operator a one-line paste-in for the builder (push to origin, confirm on GitHub, repeat the reply line). origin/builder/B-<n> in the builder's repo is not proof; the planner checks the GitHub API, and if still missing asks for git remote -v and git ls-remote output.

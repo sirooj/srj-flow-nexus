@@ -48,3 +48,4 @@ Result file
 Reply line (exact shape)
 - B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED>
 - When a carried note exists, add: - read the carried note first
+- Before sending the reply line, run git ls-remote https://github.com/sirooj/srj-flow-nexus.git builder/B-<n> and confirm it returns the commit hash. origin/<branch> in the local repo is not proof the push reached GitHub.
