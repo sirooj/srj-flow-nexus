@@ -1,0 +1,66 @@
+# BUILDER RESULT B-26 - his gap answer banked, write-timing print capped out in ancient history, six marks hold; MEASURED (trial record)
+
+Trader summary: your words on the gap question are now banked word for word, and that question is closed - the 27 Aug Daily VWAP was no gap, it stays an ordinary target, and below 1R the trade stays skipped. The measurement run then kept all four of your good takes digit-identical, both refusals held, and the final number matched to the cent. The new write-timing print worked, but it used up all 40,000 rows on 2025 history during the warm-up pass, so it saw nothing of your window - the question of where a closed bar's value changes after the fact is still open, with the exact fix for the next try named below. Verdict MEASURED.
+
+## Part 0 - fresh-session start
+- 0.1 ls-remote GitHub builder/B-25 returns 73f7a94 (verified). Branch builder/B-26 cut from it. Dirty tree kept (98 lines), nothing reset, no git-config/remote change. GitHub remote = `backup`; origin never pushed.
+- 0.2 read in order: AGENTS.md, relay skill, strategy skill (sections 1/5/11, lines 23/25/87/94/137 verified), pointer, RESULT_B25 (carried first, C4/C5), RESULT_B24 P5, B25 CSV header.
+- 0.4 SHAs match, with two accounted deviations (no STOP-A): EA 964803F4 (688599 B); EX5 7C46B16C; HTFEngine D5FD5B06 (23026 B); FlowLogic.mq5 956BF3E3 (full); FlowLogic.ex5 27B5F272; strategy 2B76301A (52435 B); relay skill 507FAEF4 (diff vs C3F3AE85 is exactly his RAM-order DONE-signal sentence, operator-ordered 2026-10-05); AGENTS.md 73B39ED4 (4899 B, LF-only: pre-existing 35-line Codex contract rewrite in the dirty tree since before B-17 plus the same authorized sentence - the relay's 5AE36190/72588 B describes the retired OpenCode file); journal E7EDFD44 (145719 B - the relay's 144663 B figure is stale, SHA rules); ledger 7AEAC4B6 (1108737 B); pointer 4E3A95A0; CSV 295B1454; j8 77275 lines; terminal.ini June before the window was set.
+- 0.5 backups after Part P CLEAN, never committed: FlowLogic.mq5.preB26 956BF3E3; FlowLogic.ex5.preB26 27B5F272 (EA/EX5/HTFEngine untouched, no backup).
+
+## Part A - banked his words FIRST (verbatim, typos his)
+- A-Q1 (15:34) and A-Q2 (15:36) copied byte for byte as relayed (verified by the A4 counts below).
+- A1 strategy skill: section 12 appended at lines 143-148 (header 143, A-Q1 144, A-Q2 145, GAP-DEFINED 146, 8/27-NY-ORDINARY 147, EU-7-NO-GAP-PROBLEM 148) with the three pins exactly as worded. New SHA E238A9D69638ABE627D231DD74BB4E14BD65C30F46ADD2CCA0F368FD6B88DB48.
+- A2 journal row 305 (Date 8/27/26, Session NY, R2 ANSWERED comment with ""-escaped A-Q1/A-Q2 quotes, section 12 cite; 32-field layout machine-validated, all 1057 rows parse). New SHA 23329BCB141E67AC3799406A038839F335DD8AAE4A8B2D4BB73CC8AF34298B6D.
+- A3 ledger items 1165 (GAP-DEFINED + both quotes + line 146), 1166 (8/27-NY-ORDINARY, R2 CLOSED + line 147), 1167 (EU-7-NO-GAP-PROBLEM + line 148), each ending NO build/run/compile/commit/push. New SHA 03CC71B779023B6BEDAA9671737CED3D0E566C295F161A06632CC9BDDB0E066F.
+- A4 grep counts (each ≥1 in each file): A-Q2 sentence 1/1/1, A-Q1 fragment 1/1/1 across skill/journal/ledger.
+
+## Part P - pre-checks (read-only)
+- P1 write order, raw: `start = prevCalc - 1;` (984; clamped ≥2 at 986); `for(int i = start; i < rates_total; i++)` (993); `int target = i - 1;` (1072); h3/export lines (1197/1200); `SRJ_HTF_RunAll(inHtfLookbackBars,inHtfMaxTrackedObjects,` (1446, after the loop). ORDER=AFTER (RunAll runs after the bar loop in the same OnCalculate). TAIL_START=rates_total-1 (normal tick: prev_calculated == rates_total, so start covers the forming bar only; target = last closed).
+- P2 EA read path, raw: `#define FL_BUF_HTF_LOW 21` (EA 172-class line); `#define FLOW_SHIFT_OFFSET 1` (2003, with the settled-slot comment block 1994-2007: shift-2 reads land in settled slots never rewritten); `bool ReadBuf1(...)` whole function (1986-1992: CopyBuffer position shift); S3 guard `if(!ReadFlow(FL_BUF_HTF_LOW, uj_m15, barShift))` (9102) + BYPASS read (9110); S4 guard + PASS (9261-9265). EA_M15_SHIFT=2 (CopyBuffer position = barShift 1 + OFFSET 1). EA_M15_READS_BAR=two bars back from forming (the bar before the evaluated bar).
+- P3 ALL7 search: ALL7_RUN=RECON62-DAY2355-FULL (j1), 2026-09-25, F1/F2/F3/L-final PASS, 7/7 takes entries 1.16466/1.16024/1.16019/1.16138/1.16264/1.16205/1.16220 (result G1 + goal join; j1 A6FIRED rows re-verified on disk). ALL7_EA_SHA=A82F15E7 (633938 B, 11506 lines; RECON61 build commit d0589ef). ALL7_FLOWLOGIC_SHA=NOT_FOUND (no surviving copy; j1 SRJ BUILD stamp 2026.09.25 07:58:45; oldest disk copy 9/27). ALL7_ICUSTOM_6TH=false (measured in committed tree d0589ef: `PERIOD_H4, PERIOD_H1, PERIOD_M15, false, 60`). ALL7_EA_M15_SHIFT=same convention (FLOW_SHIFT_OFFSET 1 + ReadFlow evalShift+1, measured in the same tree). No checkout, no build (search only).
+- P4 CLEAN. Pins quoted: FIX-NOT-REPLACE ("fix it to be more accurate and robust, NOT replacing it"); CHART-READS-6/5 ("The 1H is bearish [Image 1] and the 15m is also bearish [Image 2]"); 15M-READS (W6 triple); NO-OVERFIT ("apply my rules as is although it is a losing trade..."). Hunk W is print-only (no value/branch/order change, no copy/handle/mirror, restored after) - a measurement of the engine FIX-NOT-REPLACE says to fix, not a fix.
+
+## Part B - one edit (Hunk W, print-only, FlowLogic only)
+- B1 spot pasted raw before editing (FlowLogic 1196-1205, real numbers, located by text).
+- B2 one line above `g_bufHtfHi[target]` (`double b26_old...`) + the print block below the HtfLo line, verbatim per relay (prevCalc/time in scope - verified at lines 984/852-param; compiled clean). Nothing else changed (one indent slip caught in the diff and repaired before compiling, B-19 class).
+- B3 diff .preB26-vs-edited: exactly one hunk (pure insertion, +15 lines), nothing else. Edited SHA AA1A19B72785B804866362AACDD1A927425144BFB1F0EC29E33E146474396A3A. Kept copy .B26W same SHA, never committed. Full diff: the b26_old line + the 13-line print block only.
+- B4 FlowLogic compiled only (not EA, not All), log waited: 0 errors, 0 warnings, 7238 ms (log B26W_FLCOMPILE.log, uncommitted). New FlowLogic.ex5 4A9039ECE81906A8A7ADB84DD220637301A464A722C44A53BD6EA637CA7C8F48. No STOP-B.
+
+## Part C - one run j11 (RECON62-B26W_JOURNAL.log, 117276 lines, 34.9 MB, local unpushed)
+- C0 hygiene: no terminal before launch; RECON62 window via RECON50_DEMO_USD.ini pattern (terminal.ini set directly); per his RAM order: launched, window verified within minutes (2026.08.26 bars), stopped, graded on DONE with no polling (DONEverified 52-min PASSED run). Ini restored to June USDJPY after exit, verified. Per his RAM order the launcher shell was killed right after verification (it re-reads the whole day log every 10s); the tester survived it; grading came straight from the tester day log (UTF-16 read - the earlier empty scans were a UTF-8 misread, owned).
+- j11: DONE PASSED, 0:51:57, 563338 ticks, 3168 bars (bench digit-identical), balance 10194.64 (== j8). B26W rows: 40000 total = CAP_HIT (last row tick=2026.08.26 00:00:00, target=2025.07.15 21:55); in-window targets: 0 (cap consumed by the initial full-history replay at i=40001 of rt=123050). No PRINTS_ABSENT (rows exist, all pre-window).
+- C1 six pass marks, j11 vs j8 (✓/✗ with lines): 1. 8/28 entry 1.16466 exit 1.16439 ✓ (j11:54046/54471). 2. 9/4 entry 1.16018 tp 1.16302 DAY_CLOSE 1.16093 ✓ (j11:85012/86743). 3. 9/7 entry 1.16261 TP_TOUCH 1.16315 ✓ (j11:91951/92093). 4. 9/8 entry 1.16220 tp 1.16114 SL 1.16274 ✓ (j11:100185/100378). 5. 8/27 no fire ✓ (ABORT TP_RR_FAIL j11:52081). 6. 9/1 refused ✓ (UJ5MENTRY_REFUSE j11:63803). A6FIRED set equals j8 (4 signals / 8 deals); balance equals 10194.64.
+- C2 vote identity j11-vs-j8: 3168 of 3168 identical (machine-compared). No STOP-N.
+- C3 STOP rules: no STOP-D (all marks hold, set equal, balance equal); no STOP-S (no take outside the four valids); no STOP-E (Part E SHAs). Verdict MEASURED.
+- C4 census → B26_M15_WRITE_ROWS.csv (n,tick,i,target,isLast,prev,rt,old,new,live,conf,in_window,j11_line), 40000 rows, SHA-256 DECCAFB3D318E998CA17BE10372CC455DBE1C9AD58E3BC5EB6E901D82C7AA7E4: a. isLast split: counted in file (tail pass vs history/full passes). b. REWRITE_CLOSED=0 in-window (no in-window rows exist to evaluate). c. offsets/minutes-after-close: not computable in-window (same reason). d. LAG_ONE_RUN: 0 rows (nothing to compare against B25 rows). e. WRITE_EXPLAINS=0 of 974 (no in-window write row attributes any EA-read change; the 974 j8 changes stand unexplained by this run).
+- C5 four bars (B26W rows per target: none in-window; EA vote j11 = j8 votes; his read): 9/1 17:35 vote -1 vs bull; 9/7 09:20 vote -1 vs bull; 9/8 10:10 vote +1 vs bear; 9/4 16:00 vote +1 vs bull. Trader lines: "the value the EA read at 17:35 was written before this run's print window and was not later changed on record"; same for 09:20 and 10:10; "the value at 16:00 was likewise unwatched by the new print".
+- C6 trader lines: where a closed bar's 15m value changes after the engine finished - unobserved this run (the print cap died in 2025 history; fix for next try: cap by tick time, not row count, or gate on the RECON62 window). Whether that lines up with the mid-candle flips - unknown from this run (no in-window rows).
+
+## Part D - restore (always)
+- D1 FlowLogic.mq5 + FlowLogic.ex5 restored from .preB26: 956BF3E3 / 27B5F272, empty diff vs backup. D2 .preB26 + .B26W kept on disk, uncommitted.
+
+## Part E - final disk state
+- Re-taken SHAs, all equal gate values (no STOP-E): EA 964803F4; EX5 7C46B16C (matches source); HTFEngine D5FD5B06; FlowLogic.mq5 956BF3E3; FlowLogic.ex5 27B5F272.
+- terminal.ini [Tester] June USDJPY (Symbol=USDJPY, 1780272000/1781308800), read after exit; no terminal running (idle leftover stopped).
+- Kept copies with SHAs: .preB26 FlowLogic.mq5 956BF3E3 / ex5 27B5F272; .B26W AA1A19B72785B804866362AACDD1A927425144BFB1F0EC29E33E146474396A3A. Each EX5 matches its source.
+
+### Glossary (every journal code cited, few words each)
+- A6FIRED: fire record. ALERT SRJ SIGNAL/EXIT: entry/exit alert. ENTRY_TICKET/MTSNAP/MTEXIT/MTCLOSE/MTLIFE: election, fill, exit, close, life records. TPCENSUS (winner/best/distPts/admitted): target census. UJ1R (POLL/FIRELOCAL/FIRE/PASS/FAIL): R check. SIDE1O_ELIGSTATE (slRef/rLive/livePass): eligibility. SLNONFIRE (RR_FAIL): no-fire. CONFIRMPOLL (confirm): confirmation terms. SUPPRESSED (HELD): holder kept. ANCHOR_ELECT (SEED): election. SIDE1T_SEEDBIAS: seed bias verdict. UJALIGN_PASS/NOMATCH/BYPASS (m15/rf): 15m guard. UJ5MENTRY_REFUSE/UNREAD: entry-bias refusal. UJPROBE (ltf/m15/div): per-bar bias/div probe. UJM15ROW: 15m vote at 15m ticks. UJTAKENSKIP/UJTAKENMISS: taken-line skip/miss. ABORT (TP_RR_FAIL/LTF_MISALIGN/MEMO_IDENTITY): abort + reason. A6REFUSED (predicate): refusal. SIDE1D_BOTHDIRS: direction selection. SRJ-FL-B26W (n/tick/i/target/isLast/prev/rt/old/new/live/conf): export-write record. SRJ BUILD: indicator build stamp. BIASCENSUS_FINAL/ZONECENSUS_FINAL/WS161_CENSUS: end censuses. UJPOOLCOV: pool coverage.
+
+## Part F - files, push
+- F1 this file. F2 pointer updated (B-26 MEASURED; SHAs unchanged; banking + CAP_HIT lines; Next = relay B-27).
+- F3 commit + push to builder/B-26 on GitHub ONLY: BUILDER_RESULT_B26.md, BUILDER_SESSION_POINTER.md, B26_M15_WRITE_ROWS.csv, .opencode/skills/srj-strategy/SKILL.md, OPERATOR_TRADE_JOURNAL.csv, SRJ_FLOW_NEXUS_LEDGER.md. EA/indicator/Include uncommitted.
+- F4 ls-remote check, pasted in the reply.
+
+## Carried note (for the planner; B-27 per its plan)
+- Gate/STOP status: A/B/C-clean (gate SHAs with two accounted doc deviations, 0 errors 0 warnings, run PASSED); no STOP-D/N/S/E. Verdict MEASURED, disk restored and verified.
+- R2=CLOSED (skill section 12 lines 143-148; journal row 305; ledger 1165-1167; A4 counts 1/1/1 in each file).
+- ORDER=AFTER (RunAll after the bar loop, FlowLogic 1446 vs loop 993-1444). TAIL_START=rates_total-1 (normal tick: start=prevCalc-1 covers forming bar only; target = last closed). EA_M15_SHIFT=2 (CopyBuffer position = barShift 1 + OFFSET 1). EA_M15_READS_BAR=two bars back from forming (the bar before the evaluated bar).
+- ALL7 lines: ALL7_RUN=RECON62-DAY2355-FULL (j1), 2026-09-25, 7/7 entries 1.16466/1.16024/1.16019/1.16138/1.16264/1.16205/1.16220; ALL7_EA_SHA=A82F15E7 (RECON61 build commit d0589ef); ALL7_FLOWLOGIC_SHA=NOT_FOUND (no surviving copy; j1 stamp 2026.09.25 07:58:45; oldest disk copy 9/27); ALL7_ICUSTOM_6TH=false (measured in d0589ef tree); ALL7_EA_M15_SHIFT=same convention (OFFSET 1, same tree).
+- REWRITE_CLOSED=0 in-window (unobservable: cap died in 2025). LAG_ONE_RUN=0 rows. WRITE_EXPLAINS=0 of 974.
+- C5 four trader lines as above (no B26W row watched any of them).
+- Anything NOT_FOUND: ALL7_FLOWLOGIC_SHA; EXTRACTIONS/ absent (59 files searched, zero hits); Part-A spec file absent.
+- Skill defects owned this turn: (1) DONE-signal ritual (demanding a second human signal after self-verifying DONE) - AGENTS.md + relay-skill reworded, 1 hit each verified. (2) UTF-8 misread of the UTF-16 tester day log (empty scans) - read UTF-16 for Tester\logs. (3) blind whole-file Symbol replace catching USDJPY_RAW - line-indexed ini edits only.
+
+(End of file)
