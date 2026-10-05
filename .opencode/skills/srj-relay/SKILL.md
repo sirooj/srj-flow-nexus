@@ -31,7 +31,9 @@ Trial discipline
 - Filed-trade table: one row per deal, dates first, before vs after, with totals.
 - Evaluate the STOP rules right after the filed-trade table. On a STOP, restore from .preB<n>, verify the SHA, and report anyway.
 - If two runs in a row fail to improve the same filed trade, stop local iteration and report to the planner. The builder already runs on Opus, so this no longer means a model switch.
+- Tester runs are launch-then-stop by default (his RAM order 2026-10-05): launch detached via the wrapper, verify the journal shows the right window within minutes, then kill the launcher shell itself (it re-reads the whole day log every 10s and burns ~1GB; the terminal + tester agent survive it) and end the turn. Grade straight from the tester day-log on completion (STATUS file keeps PRE_JOURNAL_LINES for the archive slice; no DONE file will exist). A verified DONE file IS the completion signal - grade, restore and file immediately on seeing it; never demand a second human signal after confirming DONE yourself (defect owned 2026-10-05). Start-Sleep auto-polling for completion only when he explicitly orders it (e.g. overnight sessions).
 - File every edit so it can be re-applied exactly: report the edited source SHA-256, keep the edited copy as <file>.B<n><tag> (never committed), and paste the full diff against .preB<n> raw in the result file. A RESTORED trial must never lose its hunk text (B-19 had to rebuild B-15's lost skip).
+- Launch from a script file (B-28 lesson, defect owned 2026-10-05): start the tester wrapper from a launch script file mirroring the known-good pattern, never an inline WMI command string (inline backslash-quote escaping silently breaks the wrapper command: WMI returns PID with RC=0 but no STATUS appears and no terminal starts).
 
 Rule-conflict check (before any edit)
 - If a relay's change touches a trading rule, first find his banked words on that rule in the strategy skill, the findings and the journal.
@@ -44,7 +46,9 @@ Result file
 - End with the final disk state: which source is on disk with its SHA, and whether the EX5 matches it.
 - Put carried notes at the end, under "## Carried note".
 - When he answers a carried question, the next relay banks his words verbatim in the strategy skill, his trade journal and the ledger before anything else, so he never has to explain them twice.
+- Before banking, grep for the section/row/item first: if the exact words are already present verbatim, verify counts + SHAs, cite the landing commit, and do not re-append (B-27 re-issued B-26's landed banking; silent re-application risks duplicates and a false record).
 - Questions for him: trader words, exact dates, times and prices, asked only after the record-first search, with the sources listed.
+- Grep before banking (B-27 lesson, operator order 2026-10-05): before appending any strategy-skill section, journal row or ledger item, grep the target file for it. Count 1 and verbatim: append nothing, cite the commit that landed it, and report ALREADY_BANKED <commit>. Count 0: append. Count 2 or more: append nothing and write a carried note.
 
 Reply line (exact shape)
 - B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED>

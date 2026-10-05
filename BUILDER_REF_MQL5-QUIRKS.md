@@ -16,6 +16,7 @@ Rule: every entry carries disk evidence (EA line, journal proof, or his filed wo
 - Indicator reads: CopyBuffer used directly (11 uses) beside ReadFlow/ReadBuf1 wrappers. EMPTY_VALUE (179 hits) means warmup/no-data - every buffer read fails open on it; a freshly attached indicator reads empty until fed (UpstreamReady gates).
 - Buffer discipline: SetIndexBuffer count MUST equal #property indicator_buffers in the same edit (FlowLogic: 48/48, SetIndexBuffer region EA-705 + property line). A shortfall compiles 0/0 and dies at bar one - see BUFFER-COUNT RULE.
 - Enums print via (int) cast (DirName + (int)g_dir pattern); enum-typed inputs (e.g. InpMode, EA-32) compare directly.
+- ICUSTOM-INPUT-GROUP-SHIFT (2026-10-05, relay B-28 j13 evidence): an `input group` line consumes one positional iCustom argument slot, shifting every later value one place. The EA passes (1, 3000, PERIOD_H4, PERIOD_H1, PERIOD_M15, true, 60) after the indicator name, but FlowLogic OnInit receives ctf=3000, lookback=16388 (=PERIOD_H4, not the requested 3000), htf1=16385 (=PERIOD_H1), htf2=15 (=PERIOD_M15), htf3=1 (the `true` read as 1, numerically == PERIOD_M1), conf=1 (the 60 read as true), maxobj=60 (default, no argument left). Evidence: j13 start-up print `SRJ-FL-B28IN ctf=3000 lookback=16388 htf1=16385 htf2=15 htf3=1 conf=1 maxobj=60 H4=16388 H1=16385 M15=15 M1=1` (RECON62-B28I_JOURNAL.log:92; day-log 20261005.log:683636). Consequence on record: the engine replays a 16388-bar window (B-25 copied=16388) and the all-7 build's `false` never reached the confirmed-selection bool (its 60 did, read as true).
 
 ## 2. Tester quirks (verified in harness runs + journal segments)
 
@@ -29,7 +30,7 @@ Rule: every entry carries disk evidence (EA line, journal proof, or his filed wo
 - Terminal hygiene: metatester64 orphans kill the next run on port conflict. Graceful-close first, enumerate agents pre-launch, never force through a lock.
 - Binary proof: the .ex5 sits beside the .mq5. Every grade re-verifies EA digest plus ex5 timestamp before attributing takes (RUN-BINARY-PROOF).
 
-## 3. Trading-domain quirks (HIS words via strategy skill - never code-derived)
+## 3. Trading-domain quirks (HIS words via strategy skill - never code-derived; SRJ-derived unless a dated entry says otherwise)
 
 - Sessions: London from 9:00 (8:55 earliest, 9:00 open executable). One valid take per pair per session; floating London never blocks NY.
 - Spread/swap: 7 Sep 00:00 spread printed 18 on his chart. Day-close exit at 23:55 opening price avoids swap plus new-day widened spread.
@@ -46,6 +47,7 @@ Rule: every entry carries disk evidence (EA line, journal proof, or his filed wo
 ## 5. Maintenance (his standing order: always upgrade from past mistakes)
 
 - Every defect caused by an MQL5/MT5 quirk appends a dated entry with evidence the same turn. Quirk pins own the mechanism wording; skill pins (§23-class) own the process - one never substitutes for the other.
+- PORTFOLIO (2026-09-29): sections 1-2 are strategy-neutral and bind every build. Section 3 entries carry their strategy (SRJ unless dated otherwise); HORC and future strategies append their own domain quirks as dated subsections with evidence, never by editing SRJ entries.
 - Re-verify EA line numbers after any rebuild (all EA-NNN cites drift per build); counts re-derived, never carried.
 
 (End of file)
