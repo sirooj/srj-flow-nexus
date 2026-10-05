@@ -16,6 +16,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 | 5 | 7 Sep New York EURUSD, entry 16:45 | LONG | W-POC (retest latest, his chart proof) | 1.16264 [HIS report] | TP 1.16315 [HIS report] | Proves D74FE972 over v7 (his slice); seed 14:55 stands before 16:40 confirm [R60] |
 | 6 | 8 Sep London EURUSD, entry 10:10 | SHORT | UNKNOWN (source-needed) | 1.16205 [HIS report] | TP 1.16102 [R60 G4] | SEP8 ruling VALID |
 | 7 | 8 Sep New York EURUSD, entry 17:00 | SHORT | UNKNOWN (source-needed) | 1.16220 [51 build; R53] | SL 1.16275 [R60 G4] | SEP8 ruling VALID; R0.68 16:40 correctly blocked under his 1R floor (no alert) |
+- CORRECTION 2026-10-06 (B-33 j17:53800/53804): row 3 exit is DAY_CLOSE Friday 9/4 23:55 at 1.16129 (EXECUTION PINNED 2026-09-25); the 1.16093 cell is the retired next-day-open fill.
 
 ## B. UJ VALID MISSED - his 3, NONE taken by the EA (blind window 1-13 June 2026)
 
@@ -23,7 +24,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 |---|---|---|---|---|---|
 | 1 | 5 June London USDJPY, entry owed 09:45 open | SHORT | Daily-POC | dead seed on v28/v29 (no election off the 09:40 confirmation bar; 09:35-bar B_BODY bodyDir=0 is the pre-correction venue) [RECON76/77] | Amended per his message-C words 2026-09-26: 09:35 retest + 09:40 confirmation + 09:45 open entry (159.948 R2.00 on v26); the 09:40-open wording stands withdrawn as superseded |
 | 2 | 5 June New York USDJPY, entry owed 16:15 | LONG | Old high 160.723 (April-30th day high) [HIS] | 16:10 NO_TP_TARGET, 5 levels invalid [R63 QO] | Pool blind past 10 days; retarget rule commissioned [HIS: "i want your solution"] |
-| 3 | 11 June New York USDJPY, entry owed 14:40 open | LONG | Daily-POC (= anchor) [HIS A2 settled] | 14:40 pass confirm=1 [R63 FN] then FRESHCOUNT HOLD on fvgDead | FVG-hold refused a proven confirm; HIS rule: 14:35 retest+confirmation, FVG irrelevant post-flip |
+| 3 | 11 June New York USDJPY, entry owed 14:40 open | LONG | Daily-POC (= anchor) [HIS A2 settled] | RECON78: LONG retests at eval bars 14:20/14:25/14:30/14:35 suppressed behind equal-tier opposite SHORT S4_ARMED holder; at pass 14:40:22 (eval 14:35) SHORT then LTF_MISALIGN-aborted | Current proximate blocker is same-session non-firing-holder veto. Prior-row correction: the later RECON63 refutation (BUILDER_FINDING_USDJPY-MISSES.md line 85) says zero freshness involvement; RECON71 later records a distinct VWAP 160.522 / R 0.11 rejection (line 123). Both are prior-run paths, not the RECON78 decision row. HIS rule: 14:35 retest+confirmation, FVG irrelevant post-flip |
 
 ## C. FALSE REFERENCE - never progress, never cited as takes (correct-vs-false for future builds)
 

@@ -1,0 +1,253 @@
+# BUILDER SLICE B-34 - raw rows behind P4, C1, C3, C4 (segment line numbers; payloads only)
+r78 = RECON78-V26-UJ_JOURNAL.log; j18 = JUNE-B34_JOURNAL.log
+
+## P4 r78 reference rows (ENTRY/MTEXIT/MTCLOSE/deal, all 12)
+7147 JO	0	16:28:37.431	Core 04	2026.06.03 09:10:00   deal #2 buy 3.71 USDJPY at 159.932 done (based on order #2)
+7152 [SRJ-EA] ENTRY_TICKET bar=2026.06.03 09:05 ticket=2 deal=2 pid=2 ppid=2 magic=773001
+7238 IG	0	16:28:49.665	Core 04	2026.06.03 09:59:40   deal #3 sell 3.71 USDJPY at 159.983 done (based on order #3)
+7250 [SRJ-EA] MTEXIT bar=2026.06.03 09:55 reason=TP_TOUCH line=- lineVal=- entry=159.929 exit=159.983
+13097 OF	0	16:41:34.132	Core 04	2026.06.05 09:45:00   deal #4 sell 6.74 USDJPY at 159.948 done (based on order #4)
+13102 [SRJ-EA] ENTRY_TICKET bar=2026.06.05 09:40 ticket=4 deal=4 pid=4 ppid=4 magic=773001
+13417 [SRJ-EA] MTEXIT bar=2026.06.05 12:10 reason=TP_TOUCH line=- lineVal=- entry=159.948 exit=159.908
+13421 OJ	0	16:42:10.830	Core 04	2026.06.05 12:19:21   deal #5 buy 6.74 USDJPY at 159.900 done (based on order #5)
+14059 CQ	0	16:43:24.215	Core 04	2026.06.05 16:55:00   deal #6 buy 0.41 USDJPY at 160.120 done (based on order #6)
+14064 [SRJ-EA] ENTRY_TICKET bar=2026.06.05 16:50 ticket=6 deal=6 pid=6 ppid=6 magic=773002
+14354 [SRJ-EA] MTEXIT bar=2026.06.05 19:15 reason=TP_TOUCH line=- lineVal=- entry=160.115 exit=160.298
+24024 JG	0	17:10:18.795	Core 04	2026.06.11 22:30:51   deal #7 sell 0.41 USDJPY at 159.725 done (based on order #7)
+
+## C1 j18 filed rows (all)
+12872 A6FIRED class=SELECTED state=FIRED bar=2026.06.03 09:05 dir=LONG tp=159.983 r=1.35 sl=159.889 mode=1SWING div=hidden
+12874 ALERT SRJ SIGNAL LONG USDJPY M5 | Daily-VWAP | LONDON | R=1.35 SL 159.889 TP 159.983 spr=3
+12883 QF	0	06:16:57.263	Core 04	2026.06.03 09:10:00   deal #2 buy 3.71 USDJPY at 159.932 done (based on order #2)
+
+12888 ENTRY_TICKET bar=2026.06.03 09:05 ticket=2 deal=2 pid=2 ppid=2 magic=773001
+12974 FO	0	06:16:57.263	Core 04	2026.06.03 09:59:40   deal #3 sell 3.71 USDJPY at 159.983 done (based on order #3)
+
+12986 MTEXIT bar=2026.06.03 09:55 reason=TP_TOUCH line=- lineVal=- entry=159.929 exit=159.983
+12988 ALERT SRJ EXIT NONE USDJPY M5 | - | NONE | TP_TOUCH at 159.983 (entry 159.929)
+17823 A6FIRED class=SELECTED state=FIRED bar=2026.06.04 09:50 dir=SHORT tp=159.368 r=9.62 sl=159.920 mode=1SWING div=hidden
+17825 ALERT SRJ SIGNAL SHORT USDJPY M5 | Daily-POC | LONDON | R=9.62 SL 159.920 TP 159.368 spr=5
+17834 RM	0	06:17:15.579	Core 04	2026.06.04 09:55:00   deal #4 sell 3.11 USDJPY at 159.868 done (based on order #4)
+
+17839 ENTRY_TICKET bar=2026.06.04 09:50 ticket=4 deal=4 pid=4 ppid=4 magic=773001
+17951 KJ	0	06:17:15.579	Core 04	2026.06.04 10:40:20   deal #5 buy 3.11 USDJPY at 159.920 done (based on order #5)
+
+17965 MTEXIT bar=2026.06.04 10:40 reason=SL line=- lineVal=- entry=159.868 exit=159.920
+17967 ALERT SRJ EXIT NONE USDJPY M5 | - | NONE | SL at 159.920 (entry 159.868)
+20688 UJ5MENTRY_REFUSE bar=2026.06.05 09:40 dir=SHORT anchor=Daily-POC ltf=1.0
+21715 A6FIRED class=SELECTED state=FIRED bar=2026.06.05 16:50 dir=LONG tp=160.723 r=1.56 sl=159.726 mode=1SWING div=regular
+21717 ALERT SRJ SIGNAL LONG USDJPY M5 | Daily-POC | NYAM | R=1.56 SL 159.726 TP 160.723 spr=5
+21726 DO	0	06:17:33.895	Core 04	2026.06.05 16:55:00   deal #6 buy 0.4 USDJPY at 160.120 done (based on order #6)
+
+21731 ENTRY_TICKET bar=2026.06.05 16:50 ticket=6 deal=6 pid=6 ppid=6 magic=773002
+21992 MTEXIT bar=2026.06.05 19:15 reason=TP_TOUCH line=- lineVal=- entry=160.115 exit=160.298
+21994 ALERT SRJ EXIT NONE USDJPY M5 | - | NONE | TP_TOUCH at 160.298 (entry 160.115)
+29710 A6FIRED class=SELECTED state=FIRED bar=2026.06.09 16:50 dir=LONG tp=160.278 r=1.31 sl=160.144 mode=1SWING div=regular
+29712 ALERT SRJ SIGNAL LONG USDJPY M5 | Weekly-VWAP | NYAM | R=1.31 SL 160.144 TP 160.278 spr=7
+29814 MTEXIT bar=2026.06.09 17:10 reason=POI_BODY_BREAK line=Weekly-POC lineVal=160.189 entry=160.202 exit=160.194
+29815 MTCLOSE bar=2026.06.09 17:10 leg=POI_BODY_BREAK ticket=0 pid=0 ref=160.194 action=NOTHING-TO-CLOSE
+29816 MTCLOSE_FAIL bar=2026.06.09 17:10 reason=POI_BODY_BREAK entryTicket=0 entryPid=0
+29818 ALERT SRJ EXIT NONE USDJPY M5 | - | NONE | POI_BODY_BREAK [Weekly-POC] at 160.194 (entry 160.202)
+43705 UJ5MENTRY_REFUSE bar=2026.06.11 16:00 dir=LONG anchor=Daily-POC ltf=-1.0
+47855 QK	0	06:18:34.959	Core 04	2026.06.11 22:30:51   deal #7 sell 0.4 USDJPY at 159.725 done (based on order #7)
+
+52918 UJ5MENTRY_REFUSE bar=2026.06.12 18:15 dir=LONG anchor=Weekly-POC ltf=-1.0
+
+## C3 decision rows (miss + new-fire windows)
+17457 [2026.06.04 09:45] [SRJ-EA] RETESTBOOK bar=2026.06.04 09:40 hits=0 
+17460 [2026.06.04 09:45] [SRJ-EA] CONFIRMPOLL bar=2026.06.04 09:40 anchor=Daily-POC dir=SHORT oppCandle=0 bodyDir=0 body=18pts doji=0 touchAttr=0 confirm=0 shadow=true
+17461 [2026.06.04 09:45] [SRJ-EA] REGIMECENSUS #30 bar=2026.06.04 09:40 dir=SHORT votes=1 trendOk=0 sweepTag=0 mrOk=0 cumMR=0
+17466 [2026.06.04 09:50] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.04 09:45 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+17467 [2026.06.04 09:50] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.04 09:45 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+17468 [2026.06.04 09:50] [SRJ-EA] SUPPRESSED bar=2026.06.04 09:45 poi=Daily-POC dir=SHORT opp=0 higher=0 heldPoi=Daily-POC heldDir=SHORT heldState=S1_REGIME cum_n=15 cum_opp=6 cum_hi=0 cum_both=0 action=HELD
+17469 [2026.06.04 09:50] [SRJ-EA] RETESTBOOK bar=2026.06.04 09:45 hits=1 Daily-POC:r10:dS
+17472 [2026.06.04 09:50] [SRJ-EA] CONFIRMPOLL bar=2026.06.04 09:45 anchor=Daily-POC dir=SHORT oppCandle=1 bodyDir=0 body=31pts doji=0 touchAttr=0 confirm=0 shadow=true
+17473 [2026.06.04 09:50] [SRJ-EA] REGIMECENSUS #31 bar=2026.06.04 09:45 dir=SHORT votes=2 trendOk=1 sweepTag=0 mrOk=0 cumMR=0
+17474 [2026.06.04 09:50] [SRJ-EA] 2026.06.04 09:50:00 STATE S1_REGIME->S2_LTF_ALIGN dir=SHORT poi=Daily-POC
+17475 [2026.06.04 09:50] [SRJ-EA] 2026.06.04 09:50:00 STATE S2_LTF_ALIGN->S3_ZONE_WAIT dir=SHORT poi=Daily-POC
+17476 [2026.06.04 09:50] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.04 09:45 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+17490 [2026.06.04 09:50] [SRJ-EA] SLIMBWALKF fields=25 bar=2026.06.04 09:45 site=S3ARM dir=SHORT branch=1SWING fracAnchorShift=5 fracAnchorFlag=0 slFractal=160.074 slFractalNuance=159.920 deltaFracPts=62 deltaFracNuancePts=-92 fracSteps=21 fracCode2=5 fracExh=0 fra
+17496 [2026.06.04 09:50] [SRJ-EA] 2026.06.04 09:50:00 STATE S3_ZONE_WAIT->S4_ARMED dir=SHORT poi=Daily-POC
+17498 [2026.06.04 09:50] [SRJ-EA] ALERT SRJ HEADS-UP SHORT USDJPY M5 | Daily-POC | LONDON | zone 160.001-160.012 awaiting confirm
+17502 [2026.06.04 09:50] [SRJ-EA] UJALIGN_PASS bar=2026.06.04 09:45 dir=SHORT m15=-1.0
+17622 [2026.06.04 09:55] [SRJ-EA] UJMEMO_STORE bar=2026.06.04 09:50 src=POLL anchor=0 dir=SHORT
+17625 [2026.06.04 09:55] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.04 09:50 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+17626 [2026.06.04 09:55] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.04 09:50 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+17627 [2026.06.04 09:55] [SRJ-EA] SUPPRESSED bar=2026.06.04 09:50 poi=Daily-POC dir=SHORT opp=0 higher=0 heldPoi=Daily-POC heldDir=SHORT heldState=S4_ARMED cum_n=16 cum_opp=6 cum_hi=0 cum_both=0 action=HELD
+17628 [2026.06.04 09:55] [SRJ-EA] RETESTBOOK bar=2026.06.04 09:50 hits=1 Daily-POC:r10:dS
+17631 [2026.06.04 09:55] [SRJ-EA] CONFIRMPOLL bar=2026.06.04 09:50 anchor=Daily-POC dir=SHORT oppCandle=1 bodyDir=1 body=16pts doji=0 touchAttr=1 confirm=1 shadow=true
+17632 [2026.06.04 09:55] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.04 09:50 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+17636 [2026.06.04 09:55] [SRJ-EA] UJALIGN_PASS bar=2026.06.04 09:50 dir=SHORT m15=-1.0
+17637 [2026.06.04 09:55] [SRJ-EA] 2026.06.04 09:55:00 STATE S4_ARMED->S5_GATE_CHECK dir=SHORT poi=Daily-POC
+17816 [2026.06.04 09:55] [SRJ-EA] SIDE1O_ELIGSTATE bar=2026.06.04 09:50 dir=SHORT sessUsed=0 divLatch=1 cqd=UNREAD confirm=S4_ARMED slRef=159.920 rLive=9.62 livePass=1
+17822 [2026.06.04 09:55] [SRJ-EA] 2026.06.04 09:55:00 SIGNAL dir=SHORT poi=Daily-POC regime=TREND div=hidden sess=LONDON tp_target=159.368 tp_R=9.62 sl_ref=159.920 sl_mode=1-swing spreadPts=5 bid=159.868 ask=159.873
+17823 [2026.06.04 09:55] [SRJ-EA] A6FIRED class=SELECTED state=FIRED bar=2026.06.04 09:50 dir=SHORT tp=159.368 r=9.62 sl=159.920 mode=1SWING div=hidden
+17824 [2026.06.04 09:55] [SRJ-EA] SIDE1F_WATCH bar=2026.06.04 09:50 dir=SHORT
+17825 [2026.06.04 09:55] [SRJ-EA] ALERT SRJ SIGNAL SHORT USDJPY M5 | Daily-POC | LONDON | R=9.62 SL 159.920 TP 159.368 spr=5
+17827 [2026.06.04 09:55] [SRJ-EA] UJMEMO_PASS bar=2026.06.04 09:50 admit_key=2026.06.04 09:50:2 entry=159.868 tp=159.368 sl=160.012 R=3.47 src=POLL wsrc=PDL wday=2026.06.04 wgen=-1
+17839 [2026.06.04 09:55] [SRJ-EA] ENTRY_TICKET bar=2026.06.04 09:50 ticket=4 deal=4 pid=4 ppid=4 magic=773001
+17840 [2026.06.04 09:55] [SRJ-EA] 2026.06.04 09:55:00 STATE S5_GATE_CHECK->SIGNAL dir=SHORT poi=Daily-POC
+19917 [2026.06.05 09:30] [SRJ-EA] UJLTFHOLD bar=2026.06.05 09:25 dir=SHORT poi=Daily-POC state=S3_ZONE_WAIT m15=-1.0 rf=1 mode=M15 term=A_OPP - LTF opposed, hold (Fix F11)
+19918 [2026.06.05 09:30] [SRJ-EA] FRESHSKIP bar=2026.06.05 09:25 dir=SHORT state=S3_ZONE_WAIT poi=Daily-POC reason=PRE_BINDING
+20040 [2026.06.05 09:30] [SRJ-EA] UJMEMO_STORE bar=2026.06.05 09:25 src=POLL anchor=0 dir=SHORT
+20041 [2026.06.05 09:30] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.05 09:25 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+20042 [2026.06.05 09:30] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.05 09:25 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+20043 [2026.06.05 09:30] [SRJ-EA] SUPPRESSED bar=2026.06.05 09:25 poi=Daily-POC dir=SHORT opp=0 higher=0 heldPoi=Daily-POC heldDir=SHORT heldState=S3_ZONE_WAIT cum_n=22 cum_opp=6 cum_hi=0 cum_both=0 action=HELD
+20044 [2026.06.05 09:30] [SRJ-EA] RETESTBOOK bar=2026.06.05 09:25 hits=1 Daily-POC:r10:dS
+20047 [2026.06.05 09:30] [SRJ-EA] CONFIRMPOLL bar=2026.06.05 09:25 anchor=Daily-POC dir=SHORT oppCandle=0 bodyDir=1 body=6pts doji=0 touchAttr=1 confirm=0 shadow=true
+20048 [2026.06.05 09:30] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.05 09:25 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+20063 [2026.06.05 09:30] [SRJ-EA] UJALIGN_PASS bar=2026.06.05 09:25 dir=SHORT m15=-1.0
+20070 [2026.06.05 09:35] [SRJ-EA] UJLTFHOLD bar=2026.06.05 09:30 dir=SHORT poi=Daily-POC state=S3_ZONE_WAIT m15=-1.0 rf=1 mode=M15 term=A_OPP - LTF opposed, hold (Fix F11)
+20071 [2026.06.05 09:35] [SRJ-EA] FRESHSKIP bar=2026.06.05 09:30 dir=SHORT state=S3_ZONE_WAIT poi=Daily-POC reason=PRE_BINDING
+20193 [2026.06.05 09:35] [SRJ-EA] UJMEMO_STORE bar=2026.06.05 09:30 src=POLL anchor=0 dir=SHORT
+20195 [2026.06.05 09:35] [SRJ-EA] RETESTBOOK bar=2026.06.05 09:30 hits=0 
+20198 [2026.06.05 09:35] [SRJ-EA] CONFIRMPOLL bar=2026.06.05 09:30 anchor=Daily-POC dir=SHORT oppCandle=0 bodyDir=0 body=2pts doji=0 touchAttr=1 confirm=0 shadow=true
+20213 [2026.06.05 09:35] [SRJ-EA] UJALIGN_PASS bar=2026.06.05 09:30 dir=SHORT m15=-1.0
+20220 [2026.06.05 09:40] [SRJ-EA] UJLTFHOLD bar=2026.06.05 09:35 dir=SHORT poi=Daily-POC state=S3_ZONE_WAIT m15=-1.0 rf=1 mode=M15 term=B_BODY - LTF opposed, hold (Fix F11)
+20221 [2026.06.05 09:40] [SRJ-EA] FRESHSKIP bar=2026.06.05 09:35 dir=SHORT state=S3_ZONE_WAIT poi=Daily-POC reason=PRE_BINDING
+20343 [2026.06.05 09:40] [SRJ-EA] UJMEMO_STORE bar=2026.06.05 09:35 src=POLL anchor=0 dir=SHORT
+20344 [2026.06.05 09:40] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.05 09:35 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+20345 [2026.06.05 09:40] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.05 09:35 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+20346 [2026.06.05 09:40] [SRJ-EA] SUPPRESSED bar=2026.06.05 09:35 poi=Daily-POC dir=SHORT opp=0 higher=0 heldPoi=Daily-POC heldDir=SHORT heldState=S3_ZONE_WAIT cum_n=23 cum_opp=6 cum_hi=0 cum_both=0 action=HELD
+20347 [2026.06.05 09:40] [SRJ-EA] RETESTBOOK bar=2026.06.05 09:35 hits=1 Daily-POC:r10:dS
+20350 [2026.06.05 09:40] [SRJ-EA] CONFIRMPOLL bar=2026.06.05 09:35 anchor=Daily-POC dir=SHORT oppCandle=1 bodyDir=0 body=6pts doji=0 touchAttr=1 confirm=0 shadow=true
+20351 [2026.06.05 09:40] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.05 09:35 bl=-1 br=2147483647 sl=0 sr=10 sel=SHORT sline=0 scode=Daily-POC lcode=-
+20366 [2026.06.05 09:40] [SRJ-EA] UJALIGN_PASS bar=2026.06.05 09:35 dir=SHORT m15=-1.0
+20373 [2026.06.05 09:45] [SRJ-EA] UJLTFHOLD bar=2026.06.05 09:40 dir=SHORT poi=Daily-POC state=S3_ZONE_WAIT m15=-1.0 rf=1 mode=M15 term= - LTF opposed, hold (Fix F11)
+20374 [2026.06.05 09:45] [SRJ-EA] FRESHSKIP bar=2026.06.05 09:40 dir=SHORT state=S3_ZONE_WAIT poi=Daily-POC reason=PRE_BINDING
+20490 [2026.06.05 09:45] [SRJ-EA] SLIMBWALKF fields=25 bar=2026.06.05 09:40 site=S2POLL dir=SHORT branch=2SWING fracAnchorShift=1 fracAnchorFlag=0 slFractal=159.991 slFractalNuance=159.962 deltaFracPts=19 deltaFracNuancePts=-10 fracSteps=7 fracCode2=0 fracExh=0 fra
+20496 [2026.06.05 09:45] [SRJ-EA] UJMEMO_STORE bar=2026.06.05 09:40 src=POLL anchor=0 dir=SHORT
+20497 [2026.06.05 09:45] [SRJ-EA] RETESTBOOK bar=2026.06.05 09:40 hits=0 
+20500 [2026.06.05 09:45] [SRJ-EA] CONFIRMPOLL bar=2026.06.05 09:40 anchor=Daily-POC dir=SHORT oppCandle=1 bodyDir=1 body=7pts doji=0 touchAttr=1 confirm=1 shadow=true
+20515 [2026.06.05 09:45] [SRJ-EA] UJALIGN_BYPASS bar=2026.06.05 09:40 dir=SHORT m15=-1.0 rf=1 - M15 guard bypassed on confirmed bar (Fix Z-B1)
+20516 [2026.06.05 09:45] [SRJ-EA] 2026.06.05 09:45:00 STATE S3_ZONE_WAIT->S5_GATE_CHECK dir=SHORT poi=Daily-POC
+20634 [2026.06.05 09:45] [SRJ-EA] SLIMBWALKF fields=25 bar=2026.06.05 09:40 site=S5 dir=SHORT branch=2SWING fracAnchorShift=1 fracAnchorFlag=0 slFractal=159.991 slFractalNuance=159.962 deltaFracPts=19 deltaFracNuancePts=-10 fracSteps=7 fracCode2=0 fracExh=0 fracC3=
+20639 [2026.06.05 09:45] [SRJ-EA] SLIMBR bar=2026.06.05 09:40 dir=SHORT entry=159.948 tp=159.899 slToday=159.972 rToday=2.04 dTodayPts=0 slBase=159.991 rBase=1.14 dBasePts=19 slNuance=159.991 rNuance=1.14 dNuancePts=19 slFractal=159.991 rFractal=1.14 dFracPts=19 sl
+20682 [2026.06.05 09:45] [SRJ-EA] SIDE1O_ELIGSTATE bar=2026.06.05 09:40 dir=SHORT sessUsed=0 divLatch=1 cqd=UNREAD confirm=S3_ZONE_WAIT slRef=159.972 rLive=2.04 livePass=1
+20688 [2026.06.05 09:45] [SRJ-EA] UJ5MENTRY_REFUSE bar=2026.06.05 09:40 dir=SHORT anchor=Daily-POC ltf=1.0
+20689 [2026.06.05 09:45] [SRJ-EA] 2026.06.05 09:45:00 ABORT reason=LTF_MISALIGN state=S5_GATE_CHECK poi=Daily-POC dir=SHORT
+20690 [2026.06.05 09:45] [SRJ-EA] A6REFUSED class=ABSENT_DECLINED bar=2026.06.05 09:45 state=S5_GATE_CHECK dir=SHORT predicate=LTF_MISALIGN
+20691 [2026.06.05 09:45] [SRJ-EA] 2026.06.05 09:45:00 STATE S5_GATE_CHECK->ABORT dir=SHORT poi=Daily-POC
+20694 [2026.06.05 09:50] [SRJ-EA] RETESTBOOK bar=2026.06.05 09:45 hits=0 
+21122 [2026.06.05 16:00] [SRJ-EA] RETESTBOOK bar=2026.06.05 15:55 hits=0 
+21134 [2026.06.05 16:05] [SRJ-EA] RETESTBOOK bar=2026.06.05 16:00 hits=2 Daily-POC:r10:dL Daily-VWAP:r11:dL
+21137 [2026.06.05 16:05] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.05 16:00 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+21138 [2026.06.05 16:05] [SRJ-EA] CONFIRMPOLL bar=2026.06.05 16:00 anchor=Daily-POC dir=LONG oppCandle=0 bodyDir=0 body=182pts doji=0 touchAttr=0 confirm=0 shadow=true
+21139 [2026.06.05 16:05] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.05 16:00 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+21140 [2026.06.05 16:05] [SRJ-EA] 2026.06.05 16:05:00 STATE IDLE->S1_REGIME dir=LONG poi=Daily-POC
+21141 [2026.06.05 16:05] [SRJ-EA] ANCHOR_ELECT bar=2026.06.05 16:00 action=SEED poi=Daily-POC rank=10 tier=5 dir=LONG
+21142 [2026.06.05 16:05] [SRJ-EA] SIDE1T_SEEDBIAS bar=2026.06.05 16:00 dir=LONG biasAligned=0 verdict=REJECT-BIAS-TIMING
+21143 [2026.06.05 16:05] [SRJ-EA] SIDE1V_BIRTH bar=2026.06.05 16:00 dir=SHORT tf=0 mr=0 confShort=A2_CLOSE_BREAK
+21144 [2026.06.05 16:05] [SRJ-EA] SIDE1F_VOTE bar=2026.06.05 16:00 dir=LONG t1term=A_OPP t1reject=1 hier=LONG conf=0
+21145 [2026.06.05 16:05] [SRJ-EA] SIDE1G_PROFILE bar=2026.06.05 16:00 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+21146 [2026.06.05 16:05] [SRJ-EA] SIDE1G_VOTE3 bar=2026.06.05 16:00 h4=1.0 h1=1.0 m15=1.0 l4=1 l1=1 lm=1 legDir=1 gdir=LONG agree=1
+21149 [2026.06.05 16:05] [SRJ-EA] REGIMECENSUS #45 bar=2026.06.05 16:00 dir=LONG votes=3 trendOk=1 sweepTag=0 mrOk=0 cumMR=0
+21150 [2026.06.05 16:05] [SRJ-EA] 2026.06.05 16:05:00 STATE S1_REGIME->S2_LTF_ALIGN dir=LONG poi=Daily-POC
+21152 [2026.06.05 16:05] [SRJ-EA] S2SEEDBIAS_KILL bar=2026.06.05 16:00 dir=LONG poi=Daily-POC - seedbias refused, promotion killed (Fix B2)
+21153 [2026.06.05 16:05] [SRJ-EA] 2026.06.05 16:05:00 ABORT reason=SEEDBIAS_REFUSED state=S2_LTF_ALIGN poi=Daily-POC dir=LONG
+21154 [2026.06.05 16:05] [SRJ-EA] A6REFUSED class=ABSENT_DECLINED bar=2026.06.05 16:05 state=S2_LTF_ALIGN dir=LONG predicate=SEEDBIAS_REFUSED
+21155 [2026.06.05 16:05] [SRJ-EA] 2026.06.05 16:05:00 STATE S2_LTF_ALIGN->ABORT dir=LONG poi=Daily-POC
+21166 [2026.06.05 16:10] [SRJ-EA] RETESTBOOK bar=2026.06.05 16:05 hits=0 
+21172 [2026.06.05 16:15] [SRJ-EA] RETESTBOOK bar=2026.06.05 16:10 hits=0 
+21177 [2026.06.05 16:20] [SRJ-EA] RETESTBOOK bar=2026.06.05 16:15 hits=0 
+29296 [2026.06.09 16:45] [SRJ-EA] RETESTBOOK bar=2026.06.09 16:40 hits=0 
+29304 [2026.06.09 16:50] [SRJ-EA] RETESTBOOK bar=2026.06.09 16:45 hits=1 Weekly-VWAP:r9:dL
+29307 [2026.06.09 16:50] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.09 16:45 bl=3 br=9 sl=-1 sr=2147483647 sel=LONG sline=3 scode=Weekly-VWAP lcode=-
+29308 [2026.06.09 16:50] [SRJ-EA] CONFIRMPOLL bar=2026.06.09 16:45 anchor=Weekly-VWAP dir=LONG oppCandle=0 bodyDir=0 body=45pts doji=0 touchAttr=0 confirm=0 shadow=true
+29309 [2026.06.09 16:50] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.09 16:45 bl=3 br=9 sl=-1 sr=2147483647 sel=LONG sline=3 scode=Weekly-VWAP lcode=-
+29310 [2026.06.09 16:50] [SRJ-EA] 2026.06.09 16:50:00 STATE IDLE->S1_REGIME dir=LONG poi=Weekly-VWAP
+29311 [2026.06.09 16:50] [SRJ-EA] ANCHOR_ELECT bar=2026.06.09 16:45 action=SEED poi=Weekly-VWAP rank=9 tier=4 dir=LONG
+29312 [2026.06.09 16:50] [SRJ-EA] SIDE1T_SEEDBIAS bar=2026.06.09 16:45 dir=LONG biasAligned=1 verdict=CONSIDER
+29313 [2026.06.09 16:50] [SRJ-EA] SIDE1V_BIRTH bar=2026.06.09 16:45 dir=SHORT tf=0 mr=0 confShort=A2_CLOSE_BREAK
+29314 [2026.06.09 16:50] [SRJ-EA] SIDE1F_VOTE bar=2026.06.09 16:45 dir=LONG t1term=A_OPP t1reject=1 hier=- conf=1
+29315 [2026.06.09 16:50] [SRJ-EA] SIDE1G_PROFILE bar=2026.06.09 16:45 opp=0 a2=1 body=0 touch=0 pre=PASS term=A_OPP t1term=A_OPP match=1
+29316 [2026.06.09 16:50] [SRJ-EA] SIDE1G_VOTE3 bar=2026.06.09 16:45 h4=1.0 h1=-1.0 m15=1.0 l4=1 l1=-1 lm=1 legDir=1 gdir=LONG agree=0
+29319 [2026.06.09 16:50] [SRJ-EA] REGIMECENSUS #99 bar=2026.06.09 16:45 dir=LONG votes=2 trendOk=1 sweepTag=0 mrOk=0 cumMR=0
+29320 [2026.06.09 16:50] [SRJ-EA] 2026.06.09 16:50:00 STATE S1_REGIME->S2_LTF_ALIGN dir=LONG poi=Weekly-VWAP
+29321 [2026.06.09 16:50] [SRJ-EA] 2026.06.09 16:50:00 STATE S2_LTF_ALIGN->S3_ZONE_WAIT dir=LONG poi=Weekly-VWAP
+29322 [2026.06.09 16:50] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.09 16:45 bl=3 br=9 sl=-1 sr=2147483647 sel=LONG sline=3 scode=Weekly-VWAP lcode=-
+29343 [2026.06.09 16:50] [SRJ-EA] UJALIGN_PASS bar=2026.06.09 16:45 dir=LONG m15=1.0
+29351 [2026.06.09 16:55] [SRJ-EA] FRESHSKIP bar=2026.06.09 16:50 dir=LONG state=S3_ZONE_WAIT poi=Weekly-VWAP reason=PRE_BINDING
+29495 [2026.06.09 16:55] [SRJ-EA] UJMEMO_STORE bar=2026.06.09 16:50 src=POLL anchor=3 dir=LONG
+29498 [2026.06.09 16:55] [SRJ-EA] RETESTBOOK bar=2026.06.09 16:50 hits=0 
+29501 [2026.06.09 16:55] [SRJ-EA] CONFIRMPOLL bar=2026.06.09 16:50 anchor=Weekly-VWAP dir=LONG oppCandle=1 bodyDir=1 body=30pts doji=0 touchAttr=1 confirm=1 shadow=true
+29515 [2026.06.09 16:55] [SRJ-EA] 2026.06.09 16:55:03 STATE S3_ZONE_WAIT->S4_ARMED dir=LONG poi=Weekly-VWAP
+29517 [2026.06.09 16:55] [SRJ-EA] ALERT SRJ HEADS-UP LONG USDJPY M5 | Weekly-VWAP | NYAM | zone 159.942-159.982 awaiting confirm
+29519 [2026.06.09 16:55] [SRJ-EA] 2026.06.09 16:55:03 STATE S4_ARMED->S5_GATE_CHECK dir=LONG poi=Weekly-VWAP
+29703 [2026.06.09 16:55] [SRJ-EA] SIDE1O_ELIGSTATE bar=2026.06.09 16:50 dir=LONG sessUsed=0 divLatch=1 cqd=UNREAD confirm=S4_ARMED slRef=160.144 rLive=1.31 livePass=1
+29709 [2026.06.09 16:55] [SRJ-EA] 2026.06.09 16:55:03 SIGNAL dir=LONG poi=Weekly-VWAP regime=TREND div=regular sess=NYAM tp_target=160.278 tp_R=1.31 sl_ref=160.144 sl_mode=1-swing spreadPts=7 bid=160.202 ask=160.209
+29710 [2026.06.09 16:55] [SRJ-EA] A6FIRED class=SELECTED state=FIRED bar=2026.06.09 16:50 dir=LONG tp=160.278 r=1.31 sl=160.144 mode=1SWING div=regular
+29711 [2026.06.09 16:55] [SRJ-EA] SIDE1F_WATCH bar=2026.06.09 16:50 dir=LONG
+29712 [2026.06.09 16:55] [SRJ-EA] ALERT SRJ SIGNAL LONG USDJPY M5 | Weekly-VWAP | NYAM | R=1.31 SL 160.144 TP 160.278 spr=7
+29714 [2026.06.09 16:55] [SRJ-EA] UJMEMO_PASS bar=2026.06.09 16:50 admit_key=2026.06.09 16:50:4 entry=160.202 tp=160.278 sl=159.942 R=0.29 src=POLL wsrc=ASH wday=2026.06.09 wgen=-1
+29718 [2026.06.09 16:55] [SRJ-EA] 2026.06.09 16:55:03 ABORT reason=CONCURRENCY_LIMIT state=S5_GATE_CHECK poi=Weekly-VWAP dir=LONG
+29719 [2026.06.09 16:55] [SRJ-EA] A6REFUSED class=ABSENT_DECLINED bar=2026.06.09 16:55 state=S5_GATE_CHECK dir=LONG predicate=CONCURRENCY_LIMIT
+29720 [2026.06.09 16:55] [SRJ-EA] 2026.06.09 16:55:03 STATE S5_GATE_CHECK->ABORT dir=LONG poi=Weekly-VWAP
+29725 [2026.06.09 17:00] [SRJ-EA] RETESTBOOK bar=2026.06.09 16:55 hits=0 
+29736 [2026.06.09 17:05] [SRJ-EA] RETESTBOOK bar=2026.06.09 17:00 hits=1 Weekly-VWAP:r9:dL
+29739 [2026.06.09 17:05] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.09 17:00 bl=3 br=9 sl=-1 sr=2147483647 sel=LONG sline=3 scode=Weekly-VWAP lcode=-
+29740 [2026.06.09 17:05] [SRJ-EA] CONFIRMPOLL bar=2026.06.09 17:00 anchor=Weekly-VWAP dir=LONG oppCandle=1 bodyDir=0 body=26pts doji=0 touchAttr=0 confirm=0 shadow=true
+29741 [2026.06.09 17:05] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.09 17:00 bl=3 br=9 sl=-1 sr=2147483647 sel=LONG sline=3 scode=Weekly-VWAP lcode=-
+29742 [2026.06.09 17:05] [SRJ-EA] 2026.06.09 17:05:00 STATE IDLE->S1_REGIME dir=LONG poi=Weekly-VWAP
+29743 [2026.06.09 17:05] [SRJ-EA] ANCHOR_ELECT bar=2026.06.09 17:00 action=SEED poi=Weekly-VWAP rank=9 tier=4 dir=LONG
+29744 [2026.06.09 17:05] [SRJ-EA] SIDE1T_SEEDBIAS bar=2026.06.09 17:00 dir=LONG biasAligned=1 verdict=CONSIDER
+29745 [2026.06.09 17:05] [SRJ-EA] SIDE1V_BIRTH bar=2026.06.09 17:00 dir=SHORT tf=0 mr=0 confShort=A_OPP
+29746 [2026.06.09 17:05] [SRJ-EA] SIDE1F_VOTE bar=2026.06.09 17:00 dir=LONG t1term=B_BODY t1reject=1 hier=- conf=1
+29747 [2026.06.09 17:05] [SRJ-EA] SIDE1G_PROFILE bar=2026.06.09 17:00 opp=1 a2=1 body=0 touch=0 pre=PASS term=B_BODY t1term=B_BODY match=1
+29748 [2026.06.09 17:05] [SRJ-EA] SIDE1G_VOTE3 bar=2026.06.09 17:00 h4=1.0 h1=-1.0 m15=1.0 l4=1 l1=-1 lm=1 legDir=1 gdir=LONG agree=0
+29752 [2026.06.09 17:05] [SRJ-EA] REGIMECENSUS #100 bar=2026.06.09 17:00 dir=LONG votes=2 trendOk=1 sweepTag=0 mrOk=0 cumMR=0
+29753 [2026.06.09 17:05] [SRJ-EA] 2026.06.09 17:05:00 STATE S1_REGIME->S2_LTF_ALIGN dir=LONG poi=Weekly-VWAP
+29754 [2026.06.09 17:05] [SRJ-EA] 2026.06.09 17:05:00 STATE S2_LTF_ALIGN->S3_ZONE_WAIT dir=LONG poi=Weekly-VWAP
+29755 [2026.06.09 17:05] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.09 17:00 bl=3 br=9 sl=-1 sr=2147483647 sel=LONG sline=3 scode=Weekly-VWAP lcode=-
+29775 [2026.06.09 17:05] [SRJ-EA] 2026.06.09 17:05:00 STATE S3_ZONE_WAIT->S4_ARMED dir=LONG poi=Weekly-VWAP
+29777 [2026.06.09 17:05] [SRJ-EA] ALERT SRJ HEADS-UP LONG USDJPY M5 | Weekly-VWAP | NYAM | zone 159.942-159.982 awaiting confirm
+29781 [2026.06.09 17:05] [SRJ-EA] UJALIGN_PASS bar=2026.06.09 17:00 dir=LONG m15=1.0
+29791 [2026.06.09 17:10] [SRJ-EA] FRESHCOUNT #42 bar=2026.06.09 17:05 state=S4_ARMED obDead=0 fvgDead=1 oppFvg=1 adverse=2 verdict=ABORT scope=pre cum1=14 cum2=5 cum3=0
+29792 [2026.06.09 17:10] [SRJ-EA] 2026.06.09 17:10:00 ABORT reason=FRESH_OPP_FVG state=S4_ARMED poi=Weekly-VWAP dir=LONG
+29793 [2026.06.09 17:10] [SRJ-EA] A6REFUSED class=ABSENT_DECLINED bar=2026.06.09 17:10 state=S4_ARMED dir=LONG predicate=FRESH_OPP_FVG
+29795 [2026.06.09 17:10] [SRJ-EA] 2026.06.09 17:10:00 STATE S4_ARMED->ABORT dir=LONG poi=Weekly-VWAP
+29806 [2026.06.09 17:15] [SRJ-EA] RETESTBOOK bar=2026.06.09 17:10 hits=0 
+40404 [2026.06.11 14:20] [SRJ-EA] RETESTBOOK bar=2026.06.11 14:15 hits=0 
+40407 [2026.06.11 14:20] [SRJ-EA] CONFIRMPOLL bar=2026.06.11 14:15 anchor=Daily-POC dir=SHORT oppCandle=0 bodyDir=0 body=2pts doji=0 touchAttr=0 confirm=0 shadow=true
+40408 [2026.06.11 14:20] [SRJ-EA] REGIMECENSUS #137 bar=2026.06.11 14:15 dir=SHORT votes=1 trendOk=0 sweepTag=0 mrOk=0 cumMR=0
+40413 [2026.06.11 14:25] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:20 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+40414 [2026.06.11 14:25] [SRJ-EA] SIDE1H_WOULDPREEMPT bar=2026.06.11 14:20 newPoi=Daily-POC newDir=LONG heldPoi=Daily-POC heldDir=SHORT heldState=S1_REGIME newTier=5 heldTier=5 wouldPreempt=0 wouldTierPassLegacy=0
+40417 [2026.06.11 14:25] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:20 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+40418 [2026.06.11 14:25] [SRJ-EA] SUPPRESSED bar=2026.06.11 14:20 poi=Daily-POC dir=LONG opp=0 higher=0 heldPoi=Daily-POC heldDir=LONG heldState=S1_REGIME cum_n=69 cum_opp=14 cum_hi=5 cum_both=1 action=HELD
+40419 [2026.06.11 14:25] [SRJ-EA] RETESTBOOK bar=2026.06.11 14:20 hits=2 Daily-POC:r10:dL Daily-VWAP:r11:dL
+40422 [2026.06.11 14:25] [SRJ-EA] CONFIRMPOLL bar=2026.06.11 14:20 anchor=Daily-POC dir=LONG oppCandle=0 bodyDir=1 body=1pts doji=0 touchAttr=1 confirm=0 shadow=true
+40423 [2026.06.11 14:25] [SRJ-EA] REGIMECENSUS #138 bar=2026.06.11 14:20 dir=LONG votes=2 trendOk=1 sweepTag=0 mrOk=0 cumMR=0
+40424 [2026.06.11 14:25] [SRJ-EA] 2026.06.11 14:25:21 STATE S1_REGIME->S2_LTF_ALIGN dir=LONG poi=Daily-POC
+40432 [2026.06.11 14:30] [SRJ-EA] FRESHSKIP bar=2026.06.11 14:25 dir=LONG state=S2_LTF_ALIGN poi=Daily-POC reason=PRE_BINDING
+40586 [2026.06.11 14:30] [SRJ-EA] UJMEMO_STORE bar=2026.06.11 14:25 src=POLL anchor=0 dir=LONG
+40587 [2026.06.11 14:30] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:25 bl=0 br=10 sl=0 sr=10 sel=LONG sline=0 scode=Daily-POC lcode=Daily-POC
+40588 [2026.06.11 14:30] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:25 bl=0 br=10 sl=0 sr=10 sel=LONG sline=0 scode=Daily-POC lcode=Daily-POC
+40589 [2026.06.11 14:30] [SRJ-EA] SUPPRESSED bar=2026.06.11 14:25 poi=Daily-POC dir=LONG opp=0 higher=0 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=70 cum_opp=14 cum_hi=5 cum_both=1 action=HELD
+40590 [2026.06.11 14:30] [SRJ-EA] RETESTBOOK bar=2026.06.11 14:25 hits=2 Daily-POC:r10:dL Daily-VWAP:r11:dL
+40593 [2026.06.11 14:30] [SRJ-EA] CONFIRMPOLL bar=2026.06.11 14:25 anchor=Daily-POC dir=LONG oppCandle=0 bodyDir=0 body=1pts doji=0 touchAttr=1 confirm=0 shadow=true
+40598 [2026.06.11 14:35] [SRJ-EA] FRESHSKIP bar=2026.06.11 14:30 dir=LONG state=S2_LTF_ALIGN poi=Daily-POC reason=PRE_BINDING
+40752 [2026.06.11 14:35] [SRJ-EA] UJMEMO_STORE bar=2026.06.11 14:30 src=POLL anchor=0 dir=LONG
+40753 [2026.06.11 14:35] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:30 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+40754 [2026.06.11 14:35] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:30 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+40755 [2026.06.11 14:35] [SRJ-EA] SUPPRESSED bar=2026.06.11 14:30 poi=Daily-POC dir=LONG opp=0 higher=0 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=71 cum_opp=14 cum_hi=5 cum_both=1 action=HELD
+40756 [2026.06.11 14:35] [SRJ-EA] RETESTBOOK bar=2026.06.11 14:30 hits=2 Daily-POC:r10:dL Daily-VWAP:r11:dL
+40759 [2026.06.11 14:35] [SRJ-EA] CONFIRMPOLL bar=2026.06.11 14:30 anchor=Daily-POC dir=LONG oppCandle=1 bodyDir=0 body=3pts doji=0 touchAttr=1 confirm=0 shadow=true
+40769 [2026.06.11 14:40] [SRJ-EA] FRESHSKIP bar=2026.06.11 14:35 dir=LONG state=S2_LTF_ALIGN poi=Daily-POC reason=PRE_BINDING
+40917 [2026.06.11 14:40] [SRJ-EA] SLIMBWALKF fields=25 bar=2026.06.11 14:35 site=S2POLL dir=LONG branch=1SWING fracAnchorShift=1 fracAnchorFlag=0 slFractal=160.425 slFractalNuance=160.507 deltaFracPts=-63 deltaFracNuancePts=19 fracSteps=23 fracCode2=1 fracExh=0 fra
+40923 [2026.06.11 14:40] [SRJ-EA] UJMEMO_STORE bar=2026.06.11 14:35 src=POLL anchor=0 dir=LONG
+40924 [2026.06.11 14:40] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:35 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+40925 [2026.06.11 14:40] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:35 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+40926 [2026.06.11 14:40] [SRJ-EA] SUPPRESSED bar=2026.06.11 14:35 poi=Daily-POC dir=LONG opp=0 higher=0 heldPoi=Daily-POC heldDir=LONG heldState=S2_LTF_ALIGN cum_n=72 cum_opp=14 cum_hi=5 cum_both=1 action=HELD
+40927 [2026.06.11 14:40] [SRJ-EA] RETESTBOOK bar=2026.06.11 14:35 hits=2 Daily-POC:r10:dL Daily-VWAP:r11:dL
+40930 [2026.06.11 14:40] [SRJ-EA] CONFIRMPOLL bar=2026.06.11 14:35 anchor=Daily-POC dir=LONG oppCandle=1 bodyDir=1 body=3pts doji=0 touchAttr=1 confirm=1 shadow=true
+40931 [2026.06.11 14:40] [SRJ-EA] 2026.06.11 14:40:22 STATE S2_LTF_ALIGN->S3_ZONE_WAIT dir=LONG poi=Daily-POC
+40932 [2026.06.11 14:40] [SRJ-EA] SIDE1D_BOTHDIRS bar=2026.06.11 14:35 bl=0 br=10 sl=-1 sr=2147483647 sel=LONG sline=0 scode=Daily-POC lcode=-
+40946 [2026.06.11 14:40] [SRJ-EA] 2026.06.11 14:40:22 STATE S3_ZONE_WAIT->S4_ARMED dir=LONG poi=Daily-POC
+40948 [2026.06.11 14:40] [SRJ-EA] ALERT SRJ HEADS-UP LONG USDJPY M5 | Daily-POC | NYAM | zone 160.489-160.504 awaiting confirm
+40952 [2026.06.11 14:40] [SRJ-EA] UJALIGN_NOMATCH bar=2026.06.11 14:35 dir=LONG m15=-1.0 uj_readFail=0 reportOnly=1
+40959 [2026.06.11 14:45] [SRJ-EA] FRESHCOUNT #75 bar=2026.06.11 14:40 state=S4_ARMED obDead=0 fvgDead=1 oppFvg=0 adverse=1 verdict=HOLD scope=pre cum1=24 cum2=8 cum3=0
+41107 [2026.06.11 14:45] [SRJ-EA] SLIMBWALKF fields=25 bar=2026.06.11 14:40 site=S2POLL dir=LONG branch=1SWING fracAnchorShift=2 fracAnchorFlag=0 slFractal=160.425 slFractalNuance=160.507 deltaFracPts=-73 deltaFracNuancePts=9 fracSteps=23 fracCode2=1 fracExh=0 frac
+41114 [2026.06.11 14:45] [SRJ-EA] UJMEMO_STORE bar=2026.06.11 14:40 src=POLL anchor=0 dir=LONG
+41117 [2026.06.11 14:45] [SRJ-EA] RETESTBOOK bar=2026.06.11 14:40 hits=0 
+41120 [2026.06.11 14:45] [SRJ-EA] CONFIRMPOLL bar=2026.06.11 14:40 anchor=Daily-POC dir=LONG oppCandle=0 bodyDir=0 body=3pts doji=0 touchAttr=1 confirm=0 shadow=true
+41126 [2026.06.11 14:45] [SRJ-EA] UJALIGN_NOMATCH bar=2026.06.11 14:40 dir=LONG m15=-1.0 uj_readFail=0 reportOnly=1
