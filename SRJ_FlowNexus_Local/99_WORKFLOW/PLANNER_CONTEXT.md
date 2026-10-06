@@ -2,7 +2,7 @@
 Written 2026-10-06 by relay B-52 (relay text said 2026-10-07 in error; operator clock was 2026-10-06). Replaces PROMPTQL_PLANNER_CONTEXT.md (audit-only). Only a planner relay edits this file; the builder never edits it on its own.
 
 ## 1. Roles
-- Planner: the SuperApp AI in the operator's dedicated SuperApp thread for this project. Read-only GitHub access through the SuperApp GitHub connector. No terminal, cannot push.
+- Planner: the AI planner session the operator opens (his SuperApp thread, or a PromptQL bot - used again from relay B-57). Read-only GitHub access. No terminal, cannot push.
 - Operator: pastes each relay whole into the terminal builder and pastes the builder's one-line reply back. He does not code; never ask him code questions.
 - Builder: the coding agent in his terminal; runs relays under .opencode/skills/srj-relay/SKILL.md.
 
@@ -42,3 +42,4 @@ Operator kickoff for any new thread:
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
+- 2026-10-07: planner session ran as a PromptQL bot for relay B-57; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
