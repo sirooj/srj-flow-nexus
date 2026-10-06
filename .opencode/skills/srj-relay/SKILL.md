@@ -1,12 +1,12 @@
 ---
 name: srj-relay
-description: Run an SRJ B-series relay from the planner (PromptQL bot) - start gate, trial discipline, result file, push, one-line reply. Load first whenever the inbound message is a relay "B-<n>".
+description: Run an SRJ B-series relay from the planner (SuperApp AI) - start gate, trial discipline, result file, push, one-line reply. Load first whenever the inbound message is a relay "B-<n>".
 ---
 
 # SRJ B-series relay lane (operator order 2026-10-04)
 
 Roles
-- Planner: the PromptQL bot. Reads this repo on GitHub and writes relays B-<n>. Has no terminal.
+- Planner: the SuperApp AI in the operator's SuperApp project thread (replaced the PromptQL bot 2026-10-07, relay B-52). Reads this repo on GitHub, read-only, and writes relays B-<n>. Has no terminal. Its context file is SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_CONTEXT.md.
 - Operator: pastes each relay whole into a builder session, and pastes the builder's one-line reply back to the planner. He does not code. Never ask him code questions.
 - Builder: you. Do exactly what the relay lists, measure, report.
 
@@ -23,6 +23,7 @@ Authority
 Start gate (every relay)
 - Run git log -1 and report the git status --short line count.
 - Take the SHA-256 of every file the relay names and compare it to the relay's expected prefix. On a mismatch, STOP and report.
+- Line-ending gate (B-48 lesson, defect owned 2026-10-06): this workstation writes CRLF and git stores LF, so a disk SHA and a GitHub-blob SHA of the same content never match on text files (journal: 1059 CRLF bytes; ledger: 11 CRLF bytes on appended lines). Before declaring a gate mismatch, LF-normalize the disk bytes (strip every CR) and re-hash: if the normalized SHA equals the expected blob SHA, the content is identical - record it as accounted and go on. A mismatch that survives normalization, or any non-empty `git diff <commit> -- <file>`, is a real STOP. Result files must carry both SHAs (disk + normalized) so the next session never stops on this class again.
 - Before any source edit, write a backup <file>.preB<n> and give its SHA-256.
 
 Trial discipline
@@ -41,6 +42,7 @@ Trial discipline
 - Second indicator copy (B-41 lesson, defect owned 2026-10-06): an iCustom with arguments identical to a live handle returns the same shared instance, so releasing it kills the live copy. A diagnostic second copy must differ in at least one input, or must never be released before the run ends.
 - Content copies before any terminal launch (B-42 lesson, defect owned 2026-10-06): the terminal re-saves chart files and config\terminal.ini on exit, so before any launch copy the CONTENT of every file in that scope to .preB<n> copies; fingerprints alone cannot restore. After the run, restore from the copies and verify the SHAs.
 - Leftover terminal (B-43 lesson, defect owned 2026-10-06): run inis carry no ShutdownTerminal, so a finished tester run can leave terminal64 open and the next launch is refused as busy; before every launch confirm no terminal64 is running, and stop any leftover by its PID.
+- YOLO mode (his standing order 2026-10-06): git commands run automated and every folder this lane touches is pre-allowed - opencode.json sets permission bash/edit/external_directory to allow, so the builder never stops for an approval prompt on commands, edits, or outside-workspace folders. If a prompt still appears, report its exact text instead of working around it.
 
 Rule-conflict check (before any edit)
 - If a relay's change touches a trading rule, first find his banked words on that rule in the strategy skill, the findings and the journal.

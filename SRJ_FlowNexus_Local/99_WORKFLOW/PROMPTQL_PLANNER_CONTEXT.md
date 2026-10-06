@@ -1,4 +1,5 @@
 # PROMPTQL_PLANNER_CONTEXT - SRJ Flow Nexus planner context for PromptQL bots
+SUPERSEDED 2026-10-07 by PLANNER_CONTEXT.md (planner moved from PromptQL to SuperApp, relay B-52). Audit-only; never used to resume.
 
 Mirror of the Flow Nexus PromptQL project wiki, written 2026-10-04 by relay B-10. The PromptQL wiki is primary. This copy lets a PromptQL bot in a new or empty project rebuild it. Only a planner relay refreshes this file; the builder never edits it on its own.
 

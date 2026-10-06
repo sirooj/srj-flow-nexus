@@ -1,6 +1,6 @@
 ---
 name: srj-relay
-description: Run an SRJ B-series relay from the planner (PromptQL bot). Load first whenever the inbound message is a relay "B-<n>".
+description: Run an SRJ B-series relay from the planner (SuperApp AI). Load first whenever the inbound message is a relay "B-<n>".
 ---
 
 # SRJ relay
