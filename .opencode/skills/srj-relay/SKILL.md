@@ -40,6 +40,7 @@ Trial discipline
 - Verify the watcher started (B-38 lesson, defect owned 2026-10-06): after launching watch_run.ps1, confirm its process exists by the PID the launch returned (never by a process query that matches your own command text) before the first DONE poll. If no PID exists, read the 64 KB day-log tail directly for the completion marker.
 - Second indicator copy (B-41 lesson, defect owned 2026-10-06): an iCustom with arguments identical to a live handle returns the same shared instance, so releasing it kills the live copy. A diagnostic second copy must differ in at least one input, or must never be released before the run ends.
 - Content copies before any terminal launch (B-42 lesson, defect owned 2026-10-06): the terminal re-saves chart files and config\terminal.ini on exit, so before any launch copy the CONTENT of every file in that scope to .preB<n> copies; fingerprints alone cannot restore. After the run, restore from the copies and verify the SHAs.
+- Leftover terminal (B-43 lesson, defect owned 2026-10-06): run inis carry no ShutdownTerminal, so a finished tester run can leave terminal64 open and the next launch is refused as busy; before every launch confirm no terminal64 is running, and stop any leftover by its PID.
 
 Rule-conflict check (before any edit)
 - If a relay's change touches a trading rule, first find his banked words on that rule in the strategy skill, the findings and the journal.
