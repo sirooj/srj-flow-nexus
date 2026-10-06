@@ -1,0 +1,5 @@
+symbol,date,dow,ticks,minutes,bars,src_m1_info,first_tick,last_tick,max_gap,verdict
+EURUSD_RAW,2026.09.07,Mon,0,0,0,1393,-,-,,EMPTY
+EURUSD_RAW,2026.09.08,Tue,0,0,0,1430,-,-,,EMPTY
+EURUSD_RAW,2026.09.09,Wed,0,0,0,1436,-,-,,EMPTY
+EURUSD_RAW,2026.09.10,Thu,0,0,0,1433,-,-,,EMPTY
