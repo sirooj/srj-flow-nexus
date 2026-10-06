@@ -165,3 +165,9 @@ Spec Part A v4.2 states the baseline; his later words amend it; council prose ne
 ## Ruling 2026-10-06 - 5 June New York long, entry POI (relay B-52)
 His words (verbatim, 2026-10-06 16:29 UTC): "5 June NY Long, the entry line POI was based of the M POC and M VWAP (the highest is Monthly but it also the W) at 16:00."
 Planner note (not his words): answers the B-51 carried-note chart call for NY0506 (entry 16:15 open, target 30 April high 160.723). B-51 had logged the 16:00 candle touching Daily-POC and Daily-VWAP only.
+
+## Ruling 2026-10-07 - 5m bearish bias flip invalidates formed setups, not a POI retest
+His words (verbatim, typos kept): "you have my correct record from the terminal agent. 16:00 flipped bearish and 16:05 flipped back bullish."
+His words (verbatim, typos kept): "what i mean by invalidating a setup is already forming setup not only candle POI lines retest."
+PARAPHRASE: A 5m bearish bias flip invalidates a setup that has already formed (5 June: the 15:25 setup off the 15:20 retest). A POI line retest on the flip candle itself is not invalidated; it stays a potential and can go on once the 5m bias is back with the trade (5 June: 16:00 retest, 5m bullish bias flip 16:05, confirmation 16:10, entry 16:15 open 160.059).
+Scope note (his clarification, verbatim: "i do not want my ruling to alter the behaviour of the EA."): this ruling confirms validity and correct behaviour; it does not order any change to the 5m flip machinery itself.
