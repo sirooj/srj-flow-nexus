@@ -43,3 +43,4 @@ Operator kickoff for any new thread:
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-57; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-07: planner back on SuperApp for relay B-59; this file stays the single planner context.
