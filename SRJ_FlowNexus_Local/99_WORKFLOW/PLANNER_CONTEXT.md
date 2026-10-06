@@ -1,5 +1,5 @@
 # PLANNER_CONTEXT - SRJ Flow Nexus planner (primary)
-Written 2026-10-07 by relay B-52. Replaces PROMPTQL_PLANNER_CONTEXT.md (audit-only). Only a planner relay edits this file; the builder never edits it on its own.
+Written 2026-10-06 by relay B-52 (relay text said 2026-10-07 in error; operator clock was 2026-10-06). Replaces PROMPTQL_PLANNER_CONTEXT.md (audit-only). Only a planner relay edits this file; the builder never edits it on its own.
 
 ## 1. Roles
 - Planner: the SuperApp AI in the operator's dedicated SuperApp thread for this project. Read-only GitHub access through the SuperApp GitHub connector. No terminal, cannot push.
@@ -36,7 +36,9 @@ Operator kickoff for any new thread:
 - Banking: when he answers, the next relay banks his words verbatim first (strategy skill new section, journal, ledger), grep-first; never re-order banking a prior relay landed.
 - Screenshots: the builder cannot open SuperApp uploads; the planner describes them in plain words inside the relay.
 - Optional transport: the planner may post a relay as a GitHub issue, with his confirmation per post; the builder reads it with gh issue view. Default is paste.
+- Start gate: committed text files are gated by "git diff <cut commit> -- <files>" empty; absolute SHAs only for uncommitted disk files (EA, includes, ex5, journals/logs, terminal.ini), copied from the latest result's final-state lines (B-52 lesson: B-50-era text SHAs went stale).
+- Every result names the run (journal file + EA SHA) behind every row it cites.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
-- 2026-10-07: planner moved to SuperApp (relay B-52).
+- 2026-10-06: planner moved to SuperApp (relay B-52).
