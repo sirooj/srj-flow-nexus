@@ -38,6 +38,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - 8 Sep 16:45: declined by him (never valid).
 - 8/28 New York news bar: false alert (A1 kill-all decline owns it, not EA defect).
 - 3 June London LONG (blind window, entry 09:10 open 159.929, TP_TOUCH 09:55 at 159.983): VALID-taken per his 4-valid word 2026-09-27 (packet P-UJIMPL-IMPL-2 line 10); RECON72 took it (fire R=1.35, +118.27 tester). The prior `unruled` label is SUPERSEDED, never quoted again.
+- 5 June London USDJPY SHORT, 09:45 open entry: NOT VALID by his words 2026-10-06 (strategy section 15, 0605LDN-SHORT-NOT-VALID); one 5m bearish bias flip at 8:10, none again until the valid one at 9:50; must stay silent (current build refuses at 09:40, correct).
 
 ## D. QUARANTINE ANNEX (his "do not use that" order - no conclusions drawn here)
 
