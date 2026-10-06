@@ -54,3 +54,9 @@ Definition: The B-series relay lane is the workflow used to build the SRJ Flow N
 - Screenshots: the builder cannot open PromptQL uploads. When the operator shares a chart screenshot, the planner writes a plain description of it into the relay.
 - Missing branch: if the reply's branch builder/B-<n> or its commit is not on GitHub, the push did not go through. The planner does not guess or fall back to an older branch; it gives the operator a one-line paste-in for the builder (push to origin, confirm on GitHub, repeat the reply line). origin/builder/B-<n> in the builder's repo is not proof; the planner checks the GitHub API, and if still missing asks for git remote -v and git ls-remote output.
 - Banking grep-first (B-28, after B-27 re-ordered banking B-26 had landed): before ordering a bank the planner checks the branch on GitHub, and a relay never re-orders banking that a prior relay landed. The builder greps first and, when the item is already present verbatim, cites the landing commit instead of re-appending.
+
+## 4. Wiki rebuild record (planner relay B-50)
+- 2026-10-06: the PromptQL project "17 SRJ Flow Nexus" wiki was rebuilt from sections 2 and 3 of this file. Pages now on the wiki: SRJ Flow Nexus, B-series relay lane, Carried Note, Builder Verdict, RECON62, RAW Chart, SRJ_TickAudit.
+- Builder verdicts: KEPT = the trial's change was kept; RESTORED = the change was undone from .preB<n>; MEASURED = read-only measurement, nothing changed.
+- RAW Chart: his USDJPY_RAW and EURUSD_RAW charts can miss candles or whole hours that his live charts have (for example USDJPY_RAW has no candles 07:59:58-09:00:00 on 5 June). Gaps are measured with the SRJ_TickAudit script (Files/SRJ_TickAudit_*_days.csv and _gaps.csv). EURUSD_RAW holds no ticks for 7-10 September and needs a re-import.
+- Section 1 (Domain Overview) is pasted into the guide page by the operator; bots cannot edit guide pages.
