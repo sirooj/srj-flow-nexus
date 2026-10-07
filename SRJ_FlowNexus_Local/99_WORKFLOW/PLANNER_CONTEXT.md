@@ -53,6 +53,7 @@ Operator kickoff for any new thread:
 - Entry line beside anchor (planner lesson 2026-10-07, B-76): before any target-step record, set his entry line (his banked words, then the confirmation candle's own retest row) beside the machine's entry line; the tier filter keys to the entry line, and B-75 R3 showed the 27 Aug short anchored on a 16:25 Weekly VWAP retest while his words put it off the Daily POC.
 - Caveat as reading (planner lesson 2026-10-07, B-77): a result caveat that flips a verdict (B-76 tier-key sensitivity turned 4 Sep back to his London high) is measured as its own reading, built only from his banked words, before any edit is drafted.
 - Whole-run grade (planner lesson 2026-10-07, B-78): a reading that separates on register rows goes to one kept-build trial graded on whole runs before it is called kept; B-77 graded the fourteen register passes only, and the kept June run also fires 27 May, 4 June London and the 5 June 16:55 long.
+- Refusals beside passes (planner lesson 2026-10-08, B-79): before any target-step trial, census every kept-build target-step refusal on both whole runs under the new reading, not only the fires and the register rows; B-78's own-source refusal turned the kept 4 Sep 15:35 refusal (Yearly POC 1.15987, R 0.18, a line of its own retest row) into a 15:40 fire ahead of his 16:00 entry.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -74,3 +75,4 @@ Operator kickoff for any new thread:
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-76; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-77; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-78; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-08: planner session ran as a PromptQL bot for relay B-79; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
