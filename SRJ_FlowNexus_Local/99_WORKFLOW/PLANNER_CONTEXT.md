@@ -43,6 +43,7 @@ Operator kickoff for any new thread:
 - Retests and chart calls (his standing instruction 2026-10-07, banked B-65): a POI line retest dies by a candle body close through its line before confirmation, never by a 5m bias flip; never use his 5m read to age a retest or kill a line. Quote his banked words, point at journal rows, never re-decide EA logic.
 - His journal check (planner lesson 2026-10-07, B-69): before calling any fire 'not in his journal', grep 00_CURRENT_WORKING/OPERATOR_TRADE_JOURNAL.csv by date and session and quote the row; B-67 and B-68 missed his 4 June London row 13.
 - Same-class words (planner lesson 2026-10-07, B-70): before carrying a chart call, apply his standing words for the same scenario class (s182); a journal 'invalid XOB' note = no setup (s178), as on 4 June London.
+- Spec first for XOB (planner lesson 2026-10-07, B-71): before carrying any XOB or zone chart call, read spec v4.2 §1.2, §3.5, §3.5.1, §3.6, §10 and XOBSUIT-1 §6; his 2026-09-09 preface says these answers are journaled in the specification file. The B-70 carried XOB call was withheld for this.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -56,3 +57,4 @@ Operator kickoff for any new thread:
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-68; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-69; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-70; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-07: planner session ran as a PromptQL bot for relay B-71; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
