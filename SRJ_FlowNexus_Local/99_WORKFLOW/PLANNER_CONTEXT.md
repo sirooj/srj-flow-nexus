@@ -38,6 +38,7 @@ Operator kickoff for any new thread:
 - Optional transport: the planner may post a relay as a GitHub issue, with his confirmation per post; the builder reads it with gh issue view. Default is paste.
 - Start gate: committed text files are gated by "git diff <cut commit> -- <files>" empty; absolute SHAs only for uncommitted disk files (EA, includes, ex5, journals/logs, terminal.ini), copied from the latest result's final-state lines (B-52 lesson: B-50-era text SHAs went stale).
 - Every result names the run (journal file + EA SHA) behind every row it cites.
+- Chart calls, record first (planner defect owned 2026-10-07, B-67): before passing on any carried chart call, the planner checks the register, the strategy skill hierarchy/target/retest sections and the kept-build rows itself; the B-65 4 Sep and 8 Sep target calls were answerable from his record.
 - Retests and chart calls (his standing instruction 2026-10-07, banked B-65): a POI line retest dies by a candle body close through its line before confirmation, never by a 5m bias flip; never use his 5m read to age a retest or kill a line. Quote his banked words, point at journal rows, never re-decide EA logic.
 
 ## 5. History
@@ -48,3 +49,4 @@ Operator kickoff for any new thread:
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-64; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-65; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-66; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-07: planner session ran as a PromptQL bot for relay B-67; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

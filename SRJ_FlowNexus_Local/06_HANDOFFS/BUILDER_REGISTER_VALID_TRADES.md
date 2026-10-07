@@ -17,6 +17,8 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 | 6 | 8 Sep London EURUSD, entry 10:10 | SHORT | UNKNOWN (source-needed) | 1.16205 [HIS report] | TP 1.16102 [R60 G4] | SEP8 ruling VALID |
 | 7 | 8 Sep New York EURUSD, entry 17:00 | SHORT | UNKNOWN (source-needed) | 1.16220 [51 build; R53] | SL 1.16275 [R60 G4] | SEP8 ruling VALID; R0.68 16:40 correctly blocked under his 1R floor (no alert) |
 - CORRECTION 2026-10-06 (B-33 j17:53800/53804): row 3 exit is DAY_CLOSE Friday 9/4 23:55 at 1.16129 (EXECUTION PINNED 2026-09-25); the 1.16093 cell is the retired next-day-open fill.
+- NOTE 2026-10-07 (B-67, his words): row 3 target at entry was the London session high 1.16302, closed by the day-close exit (strategy Ruling 2026-10-07 (B-67), 0904-NY-TARGET-LDNHIGH; journal row 312; ledger 1211).
+- NOTE 2026-10-07 (B-67, his words): row 7 target was the Yearly POC 1.16114 by POI hierarchy + nearest-target rule (strategy Ruling 2026-10-07 (B-67), 0908-NY-TARGET-YPOC; journal row 313; ledger 1211).
 
 ## B. UJ VALID MISSED - his 3, NONE taken by the EA (blind window 1-13 June 2026)
 
