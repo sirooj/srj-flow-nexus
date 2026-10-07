@@ -48,6 +48,7 @@ Operator kickoff for any new thread:
 - Cite only what the planner has seen (planner lesson 2026-10-07, B-73): every file, section or code name in a relay is one the planner read on the branch, or is marked 'locate on disk, report NOT FOUND'. B-70 cited .clinerules AVP-POC, XOB-SUITABILITY, XOB-VALIDITY and FindLegTouch entries that do not exist (both .clinerules copies and AGENTS.md grep 0).
 - Status from the packet (planner lesson 2026-10-07, B-73): a finding's DRAFT or NOT ISSUED line can be superseded. Read the packet's own status line and the later results before calling anything unissued. DIVCON-1 calls P-DIVCON-B and P-CQD-FLAGGATE drafts; both were issued and executed 2026-09-09.
 - Code-only needs the spec (planner lesson 2026-10-07, B-73): before anything is filed as code-only, check the spec v4.2 tables (§3.6, §8, §10). The B-70 XOB touch-optional verdict missed spec §3.6.
+- Later word governs on CQD (planner lesson 2026-10-07, B-74): his P-CQDRESTORE directive 2026-09-09 (01_TASKS/PACKET_P-CQDRESTORE.md §1, verbatim "this is a regression and i want you to refer the git version previously before change but only change the swing detection validity") restored the pre-change divergence gates; P-CQD-FLAGGATE E7/E8 (the per-anchor flag-gate) are superseded by it (161-R). No relay judges "flag-gate MET/NOT MET" as his live rule; B-73 R1.5/R3 carried it as open.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -64,3 +65,4 @@ Operator kickoff for any new thread:
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-71; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-72; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-73; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-07: planner session ran as a PromptQL bot for relay B-74; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
