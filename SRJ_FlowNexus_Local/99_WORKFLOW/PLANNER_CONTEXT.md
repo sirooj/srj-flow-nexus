@@ -54,6 +54,7 @@ Operator kickoff for any new thread:
 - Caveat as reading (planner lesson 2026-10-07, B-77): a result caveat that flips a verdict (B-76 tier-key sensitivity turned 4 Sep back to his London high) is measured as its own reading, built only from his banked words, before any edit is drafted.
 - Whole-run grade (planner lesson 2026-10-07, B-78): a reading that separates on register rows goes to one kept-build trial graded on whole runs before it is called kept; B-77 graded the fourteen register passes only, and the kept June run also fires 27 May, 4 June London and the 5 June 16:55 long.
 - Refusals beside passes (planner lesson 2026-10-08, B-79): before any target-step trial, census every kept-build target-step refusal on both whole runs under the new reading, not only the fires and the register rows; B-78's own-source refusal turned the kept 4 Sep 15:35 refusal (Yearly POC 1.15987, R 0.18, a line of its own retest row) into a 15:40 fire ahead of his 16:00 entry.
+- Line side in the row (planner lesson 2026-10-08, B-80): before any own-source, row-key or chart-call record, read each retest-row line's side tag (RETESTBOOK r<rank>:dL / dS) beside the trade direction; a line retested against the trade is never its source (spec §2 row 1, s94, spec "same-direction higher-tier POI touch"). B-78 hunk RK took the 4 Sep 15:35 Yearly POC (r2:dS, retested from below) as the long's own source, and the B-79 chart call on 15:35 was answerable from that tag: the Yearly POC was the nearest higher target, R 0.18, refused.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -76,3 +77,4 @@ Operator kickoff for any new thread:
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-77; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-78; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as a PromptQL bot for relay B-79; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-08: planner session ran as a PromptQL bot for relay B-80; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
