@@ -44,6 +44,10 @@ Operator kickoff for any new thread:
 - His journal check (planner lesson 2026-10-07, B-69): before calling any fire 'not in his journal', grep 00_CURRENT_WORKING/OPERATOR_TRADE_JOURNAL.csv by date and session and quote the row; B-67 and B-68 missed his 4 June London row 13.
 - Same-class words (planner lesson 2026-10-07, B-70): before carrying a chart call, apply his standing words for the same scenario class (s182); a journal 'invalid XOB' note = no setup (s178), as on 4 June London.
 - Spec first for XOB (planner lesson 2026-10-07, B-71): before carrying any XOB or zone chart call, read spec v4.2 §1.2, §3.5, §3.5.1, §3.6, §10 and XOBSUIT-1 §6; his 2026-09-09 preface says these answers are journaled in the specification file. The B-70 carried XOB call was withheld for this.
+- Spec and skill whole (planner lesson 2026-10-07, B-73): read spec v4.2 and the strategy skill whole before drafting every relay. B-70 to B-72 were drafted on partial reads: B-70 carried an XOB chart call the spec answers, and B-72 framed his settled 9 Sep divergence ruling as open.
+- Cite only what the planner has seen (planner lesson 2026-10-07, B-73): every file, section or code name in a relay is one the planner read on the branch, or is marked 'locate on disk, report NOT FOUND'. B-70 cited .clinerules AVP-POC, XOB-SUITABILITY, XOB-VALIDITY and FindLegTouch entries that do not exist (both .clinerules copies and AGENTS.md grep 0).
+- Status from the packet (planner lesson 2026-10-07, B-73): a finding's DRAFT or NOT ISSUED line can be superseded. Read the packet's own status line and the later results before calling anything unissued. DIVCON-1 calls P-DIVCON-B and P-CQD-FLAGGATE drafts; both were issued and executed 2026-09-09.
+- Code-only needs the spec (planner lesson 2026-10-07, B-73): before anything is filed as code-only, check the spec v4.2 tables (§3.6, §8, §10). The B-70 XOB touch-optional verdict missed spec §3.6.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -59,3 +63,4 @@ Operator kickoff for any new thread:
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-70; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-71; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-72; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-07: planner session ran as a PromptQL bot for relay B-73; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
