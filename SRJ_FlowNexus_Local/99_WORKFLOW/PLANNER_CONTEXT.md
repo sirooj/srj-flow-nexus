@@ -52,6 +52,7 @@ Operator kickoff for any new thread:
 - Operator zone first (planner lesson 2026-10-07, B-75): before filing or carrying any 'spec vs his valid take' record on the zone step, census every live trade-direction XOB at the confirmation candle, not only the machine's pick (spec §9.7: the machine's zone and his zone can differ), and report both in-play windows (from formation, spec §3.5 words; from promotion, the B-74 grading); never pick a window as his rule. B-74 R3.3 graded the machine's pick only, from promotion only.
 - Entry line beside anchor (planner lesson 2026-10-07, B-76): before any target-step record, set his entry line (his banked words, then the confirmation candle's own retest row) beside the machine's entry line; the tier filter keys to the entry line, and B-75 R3 showed the 27 Aug short anchored on a 16:25 Weekly VWAP retest while his words put it off the Daily POC.
 - Caveat as reading (planner lesson 2026-10-07, B-77): a result caveat that flips a verdict (B-76 tier-key sensitivity turned 4 Sep back to his London high) is measured as its own reading, built only from his banked words, before any edit is drafted.
+- Whole-run grade (planner lesson 2026-10-07, B-78): a reading that separates on register rows goes to one kept-build trial graded on whole runs before it is called kept; B-77 graded the fourteen register passes only, and the kept June run also fires 27 May, 4 June London and the 5 June 16:55 long.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -72,3 +73,4 @@ Operator kickoff for any new thread:
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-75; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-76; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-07: planner session ran as a PromptQL bot for relay B-77; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-07: planner session ran as a PromptQL bot for relay B-78; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
