@@ -84,6 +84,8 @@ Operator kickoff for any new thread:
 
 - B-100-XOB-RECALC-ID (planner lesson 2026-10-08, B-100): tested XOB composite identity across genuine fresh and incremental calculation paths without enabling a trading gate.
 
+- B-101-XOB-FULLWINDOW-CENSUS (planner lesson 2026-10-08, B-101): extended the proven diagnostic export across RECON62 and June windows with corrected row-derived counts; no trading gate was enabled.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).

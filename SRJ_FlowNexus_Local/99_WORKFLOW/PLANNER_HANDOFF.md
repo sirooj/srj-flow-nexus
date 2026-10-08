@@ -48,6 +48,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-100: tested the XOB composite identity across fresh and incremental calculation paths; no trading gate was enabled.
 
+- B-101: extended the proven XOB diagnostic across RECON62 and June windows; no trade grade or gate was performed.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
