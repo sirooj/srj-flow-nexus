@@ -68,6 +68,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-110: implemented and validated the raw upstream XOB payload; no gate or trade grade was performed.
 
+- B-111: reviewed the proven XOB payload against June and EU offline evidence; no gate or trade grade was performed.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

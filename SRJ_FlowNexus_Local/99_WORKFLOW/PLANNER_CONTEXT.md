@@ -104,6 +104,8 @@ Operator kickoff for any new thread:
 
 - B-110-XOB-PAYLOAD-IMPLEMENTATION (planner lesson 2026-10-08, B-110): implemented and validated the raw upstream XOB payload without enabling a trading gate.
 
+- B-111-XOB-PAYLOAD-OFFLINE-REVIEW (planner lesson 2026-10-08, B-111): reviewed the proven payload against June and EU offline XOB evidence without enabling a trading gate or generalizing the June separator.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
