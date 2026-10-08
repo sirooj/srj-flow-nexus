@@ -100,6 +100,8 @@ Operator kickoff for any new thread:
 
 - B-108-XOB-TOUCH-AUTHORITY-BUILDABILITY (planner lesson 2026-10-08, B-108): reviewed the offline June touch separator against banked XOB words, specification authority and live runtime inputs without enabling a gate.
 
+- B-109-XOB-EVIDENCE-PAYLOAD (planner lesson 2026-10-08, B-109): defined the raw upstream XOB evidence payload and acceptance checks without choosing a transport or enabling a gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
