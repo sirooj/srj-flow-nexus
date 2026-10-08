@@ -197,3 +197,9 @@ His words (verbatim, typos and punctuation his, 2026-10-07): "8 Sep: the TP targ
 ## Ruling 2026-10-07 (B-70) - 4 June London short, not his take
 His words (verbatim, 2026-10-07, B-70 veto message; veto not exercised): "at that candlestick there is not yet a valid bias for short, it is an invalid CQD divergence, and there is no retest of XOB in play."
 - 0604-LDN-NOT-HIS (amended point, paraphrase): the 4 June London USDJPY SHORT, 09:55 entry 159.868 (tester-only), is not his take. Reasons: no valid short bias at the candle (journal row 13: 4H bear, 1H bull, 15m bull, bias bullish); invalid CQD divergence; no retest of XOB in play. Same scenario class as 0602-NY-NO-SETUP (s185); the journal row 13 note 'invalid XOB' = no setup (s178). Register section C; ledger 1215.
+
+## Ruling 2026-10-08 (B-91) - retrace and in play; no cascade
+His words (verbatim, 2026-10-08): "what i meant by retrace and in play are the same thing."
+- RETRACE-IS-IN-PLAY (refinement pin, not a new rule): a retracement and in play are one thing; an XOB retracement IS the zone being in play. Amended point: no reading grades retracement and in-play as two conditions that can disagree; where B-88/B-89/B-90 graded them separately, that split is withdrawn as his misunderstanding call, regression class.
+His words (verbatim, 2026-10-08, standing order): "when i reexplain a rule, i do not want the other rule to cascade to be also wrong."
+- NO-CASCADE (refinement discipline, with section 6): each re-explanation is scoped to its own rule; every other settled rule stays fixed; every reading is graded on the full register (all rows, all sections) before anything is called done, so a fix aimed at one row can never silently wrong another.

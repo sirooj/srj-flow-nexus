@@ -28,6 +28,7 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 - B-88: measured why B-87 refused four valid takes, and whether his "XOB retracement or touch" words on the selected XOB at the counted candle reproduce the B-83 separation from EA-readable inputs; no edit or run.
 - B-89: re-read his "XOB retracement or touch" words on the trade-direction pick with in play by spec §3.5 (from formation and from promotion, neither picked) on all register rows and the 65 counted passes; buildability per window; no edit or run.
 - B-90: graded his XOBSUIT-1 answer 3 words (SL swing leg touched from the XOB projection) on the trade-direction pick at the counted candle, on all register rows (4 June London deciding: DIFFERENT from his words) and the 65 passes (11 diffs); checked the indicator pick rule on the four bias-differs candles (all DIFFERENT, A2-17:25 re-grade would flip R5 with same-candle edge); buildability NOT-BUILDABLE; no edit or run.
+- B-91: banked his "retrace and in play are the same thing" pin and his no-cascade order; withdrew the B-88 to B-90 retrace/in-play split; re-graded MACH, from-formation, from-promotion and stop-leg readings as one in-play condition on the full register (A, B, C) and the 65 passes; no edit or run.
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
