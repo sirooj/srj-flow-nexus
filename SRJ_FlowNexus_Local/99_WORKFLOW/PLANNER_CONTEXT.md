@@ -74,6 +74,8 @@ Operator kickoff for any new thread:
 
 - B-95-XOB-PERSISTENCE-PROVENANCE (planner lesson 2026-10-08, B-95): traced the internal XOB lifecycle and provenance without editing or reopening prior readings; the XOB path remains parked until historical multi-XOB persistence and record-level provenance are proven.
 
+- B-96-XOB-DIAGNOSTIC-EXPORT (planner lesson 2026-10-08, B-96): the first upstream diagnostic export attempt records whether internal multi-XOB history and run provenance can be exposed without enabling the trading gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
