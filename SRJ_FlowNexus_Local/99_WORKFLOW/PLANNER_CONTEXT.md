@@ -66,6 +66,8 @@ Operator kickoff for any new thread:
 - B-91-RETRACE-IS-IN-PLAY (planner lesson 2026-10-08, B-91): his words "what i meant by retrace and in play are the same thing." B-88 to B-90 graded retracement (against close + in play) and touch as separate conditions; that split is withdrawn, regression class. Every XOB reading is one in-play condition with relevance first. His standing order "when i reexplain a rule, i do not want the other rule to cascade to be also wrong." means each re-explanation changes only its own term, and every reading is graded on every register row in sections A, B and C before anything is called done.
 - B-89-TRADE-DIRECTION-PICK (planner lesson 2026-10-08, B-89): a pick read at a counted candle is checked against the trade direction before it is graded, and in play is read in the spec's words before the machine's verdict is used. B-88 R3 took the latest print at or before the candle, so the 1 Sep long and the 7 Sep 16:05 candle were graded on short-side XOBs (1.16081-1.16100, 1.16362-1.16377), and the machine's in-play check tests the current candle's range plus the swing leg to the stop, while spec §3.5 reads a penetration at any point in the leg.
 
+- B-92-XOB-PARKED-NONSEPARATOR (planner lesson 2026-10-08, B-92): B-91 found no separator across the four one-condition in-play readings on the full register and 65 passes; the XOB gate is parked as NOT BUILDABLE from current EA-readable inputs, with no source edit or run.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
