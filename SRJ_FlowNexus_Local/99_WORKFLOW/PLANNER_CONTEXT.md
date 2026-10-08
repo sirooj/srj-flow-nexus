@@ -92,6 +92,8 @@ Operator kickoff for any new thread:
 
 - B-104-OFFLINE-XOB-SEPARATOR (planner lesson 2026-10-08, B-104): measured full-population XOB retracement/touch evidence across the recovered EU counted candles without editing or enabling a gate.
 
+- B-105-JUNE-XOB-RULEDOUT-REVIEW (planner lesson 2026-10-08, B-105): reviewed existing June XOB evidence for the 2 June and 4 June ruled-out cases beside the 5 June valid case without editing or enabling a gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).

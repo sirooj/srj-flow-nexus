@@ -56,6 +56,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-104: measured one offline full-population XOB separator across the recovered EU counted candles; no gate or trade grade was performed.
 
+- B-105: reviewed existing June XOB rows for the 2 June and 4 June ruled-out cases beside 5 June valid; no gate or trade grade was performed.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
