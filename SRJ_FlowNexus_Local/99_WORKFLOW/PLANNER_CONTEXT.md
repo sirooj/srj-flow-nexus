@@ -70,6 +70,8 @@ Operator kickoff for any new thread:
 
 - B-93-XOB-EVIDENCE-INVENTORY (planner lesson 2026-10-08, B-93): inventoried existing upstream XOB evidence without reopening prior readings or editing the EA; the XOB path remains parked unless a complete readable live-XOB source is found.
 
+- B-94-XOB-EVIDENCE-CONTRACT (planner lesson 2026-10-08, B-94): inspected the indicator's internal XOB records without editing or reopening prior readings; the minimum upstream evidence contract is recorded, and the XOB path remains parked until its fields are proven available.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
