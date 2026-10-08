@@ -108,6 +108,8 @@ Operator kickoff for any new thread:
 
 - B-112-SCOPED-XOB-DIAGNOSTIC (planner lesson 2026-10-08, B-112): defined the pair/session-scoped XOB touch diagnostic boundary without generalizing the June result or enabling a gate.
 
+- B-113-XOB-RUNTIME-HANDOFF (planner lesson 2026-10-08, B-113): defined the runtime handoff boundary for the scoped XOB diagnostic without enabling a production gate or changing trading behavior.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
