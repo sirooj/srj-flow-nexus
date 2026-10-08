@@ -116,6 +116,8 @@ Operator kickoff for any new thread:
 
 - B-116-RETURN-TO-FULL-RANGE-FIDELITY (planner lesson 2026-10-08, B-116): closing an investigation lane never closes the SRJ project; every next relay returns to the unresolved full EU/UJ audited-range objective unless the operator redirects. Operator-stated trade times outrank machine times; machine mismatches are defects to explain.
 
+- B-117-JUNE-KEPT-BUILD-FIDELITY (planner lesson 2026-10-09): graded the unchanged kept build against the June register, including operator 16:15 versus machine timing, without editing the EA or enabling a gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).

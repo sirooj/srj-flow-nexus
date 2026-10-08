@@ -80,6 +80,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-116: XOB lane closed without a rule; project remains active. Next relay returns to full-range EA fidelity, including 2 June/4 June invalid UJ fires and the 5 June 16:15-versus-16:55 entry mismatch.
 
+- B-117: graded the unchanged kept build against the June register; no source edit or gate was performed.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
