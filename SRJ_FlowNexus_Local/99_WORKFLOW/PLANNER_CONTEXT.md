@@ -2,19 +2,19 @@
 Written 2026-10-06 by relay B-52 (relay text said 2026-10-07 in error; operator clock was 2026-10-06). Replaces PROMPTQL_PLANNER_CONTEXT.md (audit-only). Only a planner relay edits this file; the builder never edits it on its own.
 
 ## 1. Roles
-- Planner: ClickUp Brain (the AI in his ClickUp workspace) since relay B-81, with the ClickUp skill "SRJ Relay Planner" as its wiki (Relay Template, Planner Lessons, Handoff State). The SuperApp AI and the PromptQL bot are history only (section 5). Read-only GitHub access through ClickUp's GitHub connection. No terminal, cannot push.
+- Planner: any planner agent the operator opens (ClickUp Brain since relay B-81; earlier SuperApp AI and PromptQL bot, section 5). It starts from 99_WORKFLOW/PLANNER_BOOTSTRAP.md and may keep a local copy of the kit as a cache; the repo wins. Read-only GitHub access. No terminal, cannot push.
 - Operator: pastes each relay whole into the terminal builder and pastes the builder's one-line reply back. He does not code; never ask him code questions.
 - Builder: the coding agent in his terminal; runs relays under .opencode/skills/srj-relay/SKILL.md.
 
 ## 2. Session start
 Operator kickoff for any new thread:
   Planner session, SRJ Flow Nexus. Repo sirooj/srj-flow-nexus.
-  Load the SRJ Relay Planner skill, then read SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_CONTEXT.md and PLANNER_HANDOFF.md on the branch below and follow them.
-  B-<n> is done, GitHub branch builder/B-<n>, commit <hash>, verdict KEPT|RESTORED|MEASURED
+  Read SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_BOOTSTRAP.md on the branch below and follow it.
+  B-<n> is done, GitHub branch builder/B-<n>, commit <hash>, verdict KEPT|RESTORED|MEASURED|STOP
 1. Verify builder/B-<n> and <hash> on GitHub. Missing: never fall back to an older branch; give him a one-line paste-in for the builder (push to the GitHub remote, run git ls-remote, repeat the reply line). origin/<branch> in the builder's repo is not proof.
 2. On ref builder/B-<n> read in order: 06_HANDOFFS/BUILDER_SESSION_POINTER.md; 06_HANDOFFS/BUILDER_RESULT_B<n>.md (its "## Carried note" first when told); BUILDER_SLICE_B<n>.md for raw rows; .opencode/skills/srj-relay/SKILL.md; .opencode/skills/srj-strategy/SKILL.md (the .agents copy is a stub).
 3. Before trusting a result, check which build and which run produced its rows against earlier results (B-52 lesson: B-51 read rows from a pre-B-38 run).
-4. Write relay B-<n+1> with a full Part 0 and hand it to him as one text block, then refresh the Handoff State page of the ClickUp skill SRJ Relay Planner (planner-side; the builder never touches it).
+4. Write relay B-<n+1> with a full Part 0 and hand it to him as one text block. Repo-side state lands through the relay's Part X and Part F; any local Handoff State page is a cache the planner refreshes itself.
 
 ## 3. Project facts
 - SRJ Flow Nexus = his MQL5 trading EA. Repo sirooj/srj-flow-nexus (public). EA source Experts/SRJ_FlowNexus_EA.mq5; includes under Include/SRJ/.
@@ -30,7 +30,7 @@ Operator kickoff for any new thread:
 
 ## 4. Lane rules
 - Every relay opens with Part 0: branch and commit to cut from, files to read in order, every name used. A builder with no memory runs it from Part 0 alone.
-- Verdicts: KEPT = change kept; RESTORED = change undone from .preB<n>; MEASURED = read-only (text-record edits allowed).
+- Verdicts: KEPT = change kept; RESTORED = change undone from .preB<n>; MEASURED = read-only (text-record edits allowed); STOP = a STOP rule hit before the trial ran or finished, no source edit stands, text records allowed, reason in the result's first line (first used B-84, banked B-85).
 - No tolerance or wiggle rule, ever. Talk to him in trader words (dates, times, prices).
 - Questions: never ask him directly (his DEFECT word 2026-10-04). Each question goes into a relay as a record-first search; only "no ruling found" reaches him, as a chart call in the result's carried note, which the planner passes on. When his answer decides the next edit, wait for it.
 - Banking: when he answers, the next relay banks his words verbatim first (strategy skill new section, journal, ledger), grep-first; never re-order banking a prior relay landed.
@@ -58,6 +58,7 @@ Operator kickoff for any new thread:
 - Prediction is not a grade (planner note 2026-10-08, B-81): a census-predicted race outcome is graded on the trial's own rows; the B-80 census admitted list has no zone guard while booking keeps the Task-31 containment guard (B-80 R2).
 - Diagnostic before trial (planner note 2026-10-08, B-82): a hunk with a predicted must-never-take fire on record (hunk C: 2 June 15:35, B-77 R2 F1b) runs as an always-restored diagnostic on the kept build, never as a kept trial; its rows feed the separator relay.
 - Counted touch candle (planner lesson 2026-10-08, B-83): when his words name a candle ("a touch I do not count", 2 June 14:20), grade them at the candle the machine counts for the touch (B60C cSrc), not only at the confirmation candle; B-74/B-75 graded XOBs at confirmation only.
+- Result against commit (planner lesson 2026-10-08, B-85): every record a result claims landed is checked in the committed file before it is relied on; B-84 claimed X1/X2 in PLANNER_CONTEXT but the commit c1ef12b carried neither.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -84,3 +85,4 @@ Operator kickoff for any new thread:
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-81; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-82; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-83; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-08: relay B-85 moved the planner workflow into a profile-neutral kit (PK-1, PLANNER_BOOTSTRAP.md); any planner agent starts there; this file stays the single planner context.

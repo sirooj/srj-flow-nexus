@@ -1,12 +1,11 @@
 # PLANNER_HANDOFF - cold start for a new planner session
-Written 2026-10-08 by relay B-84 (planner ClickUp Brain). Stable page: how to start and where things are. Live state is 06_HANDOFFS/BUILDER_SESSION_POINTER.md on the newest builder/B-<n> branch; planner lessons are PLANNER_CONTEXT.md section 4; the ClickUp skill "SRJ Relay Planner" mirrors them with a Handoff State page.
+Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page: where things are and the arc. Entry for any new planner agent, profile or workspace is PLANNER_BOOTSTRAP.md. Live state is 06_HANDOFFS/BUILDER_SESSION_POINTER.md on the newest builder/B-<n> branch; lessons are PLANNER_CONTEXT.md section 4.
 
 ## 1. Start
-1. Operator pastes the kickoff (PLANNER_CONTEXT section 2) ending with the builder's latest reply line.
-2. Planner loads the ClickUp skill SRJ Relay Planner.
-3. Planner verifies builder/B-<n> head = the reported commit on GitHub; missing = one-line push/ls-remote paste for the builder, never an older branch.
-4. On that ref read: pointer; BUILDER_RESULT_B<n>.md (carried note first); BUILDER_SLICE_B<n>.md (when huge, have the builder quote it); PLANNER_CONTEXT.md whole; both .opencode skills whole; spec v4.2 whole; register whole.
-5. Draft relay B-<n+1> from the skill's Relay Template; hand it over as one text block.
+1. Operator pastes the kickoff (PLANNER_BOOTSTRAP section 0) ending with the builder's latest reply line.
+2. Planner runs PLANNER_BOOTSTRAP sections 1 to 3 (read access, entry check, install when needed).
+3. Planner verifies builder/B-<n> head = the reported commit; missing = one-line push/ls-remote paste for the builder, never an older branch.
+4. Planner runs the loop in PLANNER_SKILL.md and drafts from PLANNER_RELAY_TEMPLATE.md.
 
 ## 2. Where things are (on builder/B-<n>)
 - Spec: SRJ_FlowNexus_Local/00_CURRENT_WORKING/SRJ Flow Nexus — Part A Specification v4.2 (em dash in the name).
@@ -23,9 +22,11 @@ Written 2026-10-08 by relay B-84 (planner ClickUp Brain). Stable page: how to st
 - B-82: hunk C on the RKD build, diagnostic: 27 Aug out, 5 June 16:15 in, 2 June 15:35 still in. Restored.
 - B-83: his "touch I do not count" words graded at the counted touch candle: machine and from-formation in-play readings separate; 2 June 14:20 has no XOB touch or retracement.
 - B-84: kept trial of hunk C + the touch-candle XOB term; workflow moved to ClickUp.
+- B-85: workflow refine: profile-neutral planner kit PK-1 in the repo; STOP banked as a verdict. Project work resumes B-86 with the XOB-term redesign.
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
 - Add a tolerance, buffer or number to any rule.
 - Fall back to an older branch when a reply's branch is missing.
+- Write a local workspace ID, URL, profile name or email into any repo file.

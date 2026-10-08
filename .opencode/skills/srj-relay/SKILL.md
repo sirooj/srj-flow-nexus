@@ -1,12 +1,12 @@
 ---
 name: srj-relay
-description: Run an SRJ B-series relay from the planner (ClickUp Brain) - start gate, trial discipline, result file, push, one-line reply. Load first whenever the inbound message is a relay "B-<n>".
+description: Run an SRJ B-series relay from the planner agent - start gate, trial discipline, result file, push, one-line reply. Load first whenever the inbound message is a relay "B-<n>".
 ---
 
 # SRJ B-series relay lane (operator order 2026-10-04)
 
 Roles
-- Planner: ClickUp Brain, the AI in the operator's ClickUp workspace (planner from relay B-81; the SuperApp AI and the PromptQL bot are history). Reads this repo on GitHub, read-only, and writes relays B-<n>. Has no terminal and cannot push. Its context file is SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_CONTEXT.md; its cold-start page is SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_HANDOFF.md; its ClickUp-side wiki is the ClickUp skill "SRJ Relay Planner".
+- Planner: the planner agent the operator opens (ClickUp Brain since relay B-81; any profile or workspace). Reads this repo on GitHub, read-only, and writes relays B-<n>. Has no terminal and cannot push. Entry page SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_BOOTSTRAP.md; context SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_CONTEXT.md.
 - Operator: pastes each relay whole into a builder session, and pastes the builder's one-line reply back to the planner. He does not code. Never ask him code questions.
 - Builder: you. Do exactly what the relay lists, measure, report.
 
@@ -60,7 +60,8 @@ Result file
 - Grep before banking (B-27 lesson, operator order 2026-10-05): before appending any strategy-skill section, journal row or ledger item, grep the target file for it. Count 1 and verbatim: append nothing, cite the commit that landed it, and report ALREADY_BANKED <commit>. Count 0: append. Count 2 or more: append nothing and write a carried note.
 
 Reply line (exact shape)
-- B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED>
+- B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED | STOP>
+- STOP = a STOP rule hit before the trial ran or finished; no source edit stands; the reason is the result's first line (B-84 first use, planner ruling B-85).
 - When a carried note exists, add: - read the carried note first
 - Before sending the reply line, run git ls-remote https://github.com/sirooj/srj-flow-nexus.git builder/B-<n> and confirm it returns the commit hash. origin/<branch> in the local repo is not proof the push reached GitHub.
 - The ls-remote output travels in the reply line only. The result file need not contain its bytes, and a pushed branch is never amended or force-pushed to add them (planner ruling B-29, answering the B-28 question).
