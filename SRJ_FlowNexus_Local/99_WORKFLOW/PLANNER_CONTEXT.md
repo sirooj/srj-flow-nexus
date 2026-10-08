@@ -82,6 +82,8 @@ Operator kickoff for any new thread:
 
 - B-99-XOB-CROSSRUN-PROVENANCE (planner lesson 2026-10-08, B-99): compared existing diagnostic artifacts for cross-run XOB identity and provenance without reopening readings or enabling a gate.
 
+- B-100-XOB-RECALC-ID (planner lesson 2026-10-08, B-100): tested XOB composite identity across genuine fresh and incremental calculation paths without enabling a trading gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
