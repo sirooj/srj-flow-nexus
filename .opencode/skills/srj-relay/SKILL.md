@@ -1,12 +1,12 @@
 ---
 name: srj-relay
-description: Run an SRJ B-series relay from the planner (SuperApp AI) - start gate, trial discipline, result file, push, one-line reply. Load first whenever the inbound message is a relay "B-<n>".
+description: Run an SRJ B-series relay from the planner (ClickUp Brain) - start gate, trial discipline, result file, push, one-line reply. Load first whenever the inbound message is a relay "B-<n>".
 ---
 
 # SRJ B-series relay lane (operator order 2026-10-04)
 
 Roles
-- Planner: the SuperApp AI in the operator's SuperApp project thread (replaced the PromptQL bot 2026-10-07, relay B-52). Reads this repo on GitHub, read-only, and writes relays B-<n>. Has no terminal. Its context file is SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_CONTEXT.md.
+- Planner: ClickUp Brain, the AI in the operator's ClickUp workspace (planner from relay B-81; the SuperApp AI and the PromptQL bot are history). Reads this repo on GitHub, read-only, and writes relays B-<n>. Has no terminal and cannot push. Its context file is SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_CONTEXT.md; its cold-start page is SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_HANDOFF.md; its ClickUp-side wiki is the ClickUp skill "SRJ Relay Planner".
 - Operator: pastes each relay whole into a builder session, and pastes the builder's one-line reply back to the planner. He does not code. Never ask him code questions.
 - Builder: you. Do exactly what the relay lists, measure, report.
 
