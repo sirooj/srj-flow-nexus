@@ -56,6 +56,8 @@ Operator kickoff for any new thread:
 - Refusals beside passes (planner lesson 2026-10-08, B-79): before any target-step trial, census every kept-build target-step refusal on both whole runs under the new reading, not only the fires and the register rows; B-78's own-source refusal turned the kept 4 Sep 15:35 refusal (Yearly POC 1.15987, R 0.18, a line of its own retest row) into a 15:40 fire ahead of his 16:00 entry.
 - Line side in the row (planner lesson 2026-10-08, B-80): before any own-source, row-key or chart-call record, read each retest-row line's side tag (RETESTBOOK r<rank>:dL / dS) beside the trade direction; a line retested against the trade is never its source (spec §2 row 1, s94, spec "same-direction higher-tier POI touch"). B-78 hunk RK took the 4 Sep 15:35 Yearly POC (r2:dS, retested from below) as the long's own source, and the B-79 chart call on 15:35 was answerable from that tag: the Yearly POC was the nearest higher target, R 0.18, refused.
 - Prediction is not a grade (planner note 2026-10-08, B-81): a census-predicted race outcome is graded on the trial's own rows; the B-80 census admitted list has no zone guard while booking keeps the Task-31 containment guard (B-80 R2).
+- Diagnostic before trial (planner note 2026-10-08, B-82): a hunk with a predicted must-never-take fire on record (hunk C: 2 June 15:35, B-77 R2 F1b) runs as an always-restored diagnostic on the kept build, never as a kept trial; its rows feed the separator relay.
+- Counted touch candle (planner lesson 2026-10-08, B-83): when his words name a candle ("a touch I do not count", 2 June 14:20), grade them at the candle the machine counts for the touch (B60C cSrc), not only at the confirmation candle; B-74/B-75 graded XOBs at confirmation only.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -81,3 +83,4 @@ Operator kickoff for any new thread:
 - 2026-10-08: planner session ran as a PromptQL bot for relay B-80; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-81; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-82; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-08: planner session ran as ClickUp Brain for relay B-83; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

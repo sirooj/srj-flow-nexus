@@ -1,0 +1,2296 @@
+# BUILDER SLICE B-83 - R1 quotes raw, R2 table, R3 per-XOB cells, R4 population table ("a touch I do not count", MEASURED)
+
+Conventions: j45 = RECON62-B82_JOURNAL.log BF03B8A2 (diag EU, EA 55D91C7E); j46 = JUNE0525-B82_JOURNAL.log 9B2F44B6 (diag June); j43 8EDD1254 / j44 113541CF (kept RKD). Counted touch candle = B60C rBar when cSrc=RETEST; the candle just before confirmation when PRIOR; both when BOTH. T TOUCH = candle range overlaps zone + promoted at/before + not killed before (one-point overlap counts, zero tolerance). P per window, none picked: W-P penetrated after promotion, W-F after formation (obStartT), machine = latest pick zone equality. X-touch = any T MET; X-retrace = candle closes AGAINST + any P MET under window; X = OR. (Note: em/rest dashes in journal rows render as ? below; bytes verified on disk by length: row 13 = 368 chars, row 310 = 1192 chars, row 314 = 419 chars.)
+
+## R1 QUOTES RAW (OPERATOR-VERBATIM / SPEC-TEXT)
+
+s177-178 (his B-65 answer, verbatim): "1. 2 June — NOT a trade, and the question itself repeats an old mistake. That 14:20 candle is annotated in my journal: there is no valid XOB retracement or touch there, so no setup ever forms for me. The machine buying at 15:35 (159.774, aiming at the 30 April high) is answering a touch I do not count."
+s185 0602-NY-NO-SETUP (paraphrase): no valid XOB retracement or touch at 14:20, no setup; the 15:35 buy at 159.774 is INVALID.
+Ruling 2026-10-07 (B-70) 4 June (his veto message, verbatim): "at that candlestick there is not yet a valid bias for short, it is an invalid CQD divergence, and there is no retest of XOB in play." (skill:198; veto not exercised; s199-200 same class as 0602-NY-NO-SETUP, journal row 13 'invalid XOB' = no setup.)
+Journal row 310 whole (file line 1062, 1192 chars):
+310,6/2/26,NY,,,,,,,,,,,,,,,,"INVALID 15:35 LONG off Monthly POC 159.717; no valid XOB retracement or touch at 14:20 so no setup (0602-NY-NO-SETUP, skill Ruling 2026-10-07 (B-65)); EA j34/j36 fired this as deal #4 buy at 159.774 aiming 160.723; his words 2026-10-07 (ANSWER 6/2): ""1. 2 June — NOT a trade, and the question itself repeats an old mistake. That 14:20 candle is annotated in my journal: there is no valid XOB retracement or touch there, so no setup ever forms for me. The machine buying at 15:35 (159.774, aiming at the 30 April high) is answering a touch I do not count. And a correction to how the question was framed: what do you mean by ""my 5m view is against it"" — the 5m structure? A POI line retest does not go stale, and it is not invalidated, by a five-minute bias flip. This is the same misunderstanding as the previous planner mistake that took the B-61 ruling to fix: a retest on the flip candle stays a potential and is judged at the confirmation candle. Never use my 5m read to age a retest or to kill a line. The 5m flip rule kills a formed setup before confirmation — it does not touch retest validity.""",,,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,
+Journal row 13 whole (file line 14, 368 chars):
+13,6/4/26,LDN,TF,Bear,Bull,Bull,dY?,,,D AVP,?O,VWAP,https://www.tradingview.com/x/mrA9VMWz/,https://www.tradingview.com/x/U8XXA9Uh/,https://www.tradingview.com/x/VipTfjp2/,https://t.me/c/2726392668/16833/17546,https://t.me/c/2726392668/16833/17545,,invalid XOB https://www.tradingview.com/x/Btz1Q1eb/ ,Largest Gain:,3.15,,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00
+Journal row 314 whole (file line 1066, 419 chars):
+314,6/4/26,LDN,,,,,,,,,,,,,,,,"NOT HIS TAKE 09:55 SHORT 159.868 (tester-only) off Daily POC; his words 2026-10-07 (B-70 veto message, veto not exercised): ""at that candlestick there is not yet a valid bias for short, it is an invalid CQD divergence, and there is no retest of XOB in play.""; journal row 13 holds no take ('invalid XOB'); skill Ruling 2026-10-07 (B-70)",,,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,
+XOBSUIT-1 §6 answers verbatim: 1. TOUCH/CONSUMPTION: "no, only invalidation just like ordinary OB that got invalidated with a candle body closure beyond the midline." 2. SESSION/ROLL: "no, the XOB creation does not matter". 3. FRESHNESS: "no, as long as the SL swing leg is touched or in play from the XOB projection price level that is still valid".
+Spec §1.2 (SPEC-TEXT): "An order block is relevant when it has been promoted to XOB. Not on validation, not on activation."
+Spec §3.5 (SPEC-TEXT): in-play carries no recency and no bar-count limit; "There is no recency requirement and no bar-count limit."; in play = zone penetrated by a bar's range or a confirmed protective-side swing at any point within the current structural leg, XOB not invalidated.
+Spec §3.5.1 (SPEC-TEXT): "Relevance must precede retracement" (REQUIRED); "Required order: relevance → retracement or opposing candle → confirmation candle."; "If promoted later, a fresh retracement and a fresh confirmation are required."
+Spec §3.6 (SPEC-TEXT): "A retracement candle (equivalently, an opposing candle) closes against the trade direction."; XOB opposing-candle touch permitted, never disqualifying ("Not required. A touch is permitted and is never disqualifying."); entry need not be inside the zone.
+Spec §10 table (SPEC-TEXT): Required/must = test, reject on failure; Permitted/need not = accept either way, never rejects; Prohibited/must not = reject on presence. XOB touch = permitted; FVG touch = required; relevance-before-retracement = required.
+Record only, no reading.
+
+## R2 NOTES
+
+A3 anchor value: Yearly POC prints on no row at 15:40/15:50 (NO ROW there); nearest printed value 1.15987 (15:35 TPCENSUS best). Close direction needs no anchor value. Must-keep journal rows cited whole in R1 (13/310/314) plus 279/280 (A3 "Y AVP"), 257 (A1 D-VWAP), 301 (A2 VALID), 312 (A3 London-high target), 313 (A7 Y-POC target), row 9 (6/3), row 33 (6/11); grep-verified this turn.
+## R2 COUNTED-TOUCH TABLE (from j45/j46 B60C; kept CONFIRMPOLL beside from j43/j44)
+| row | conf bar | dir | cSrc | counted candle(s): o/h/l/c + anchor + close | kept confirm |
+|---|---|---|---|---|---|
+| A1 | 2026.08.28 10:00 | SHORT | BOTH | 2026.08.28 09:55 o=1.16473 h=1.16491 l=1.16473 c=1.16482 anchor=Daily-VWAP@1.16490 close=AGAINST | j43 anchor=Daily-VWAP confirm=1 |
+| A2 | 2026.09.01 17:30 | LONG | BOTH | 2026.09.01 16:45 o=1.16013 h=1.16013 l=1.15975 c=1.15990 anchor=Monthly-VWAP@1.16006 close=AGAINST | 2026.09.01 17:25 o=1.16064 h=1.16066 l=1.16009 c=1.16011 anchor=Monthly-VWAP@1.16009 close=AGAINST | j43 anchor=Monthly-VWAP confirm=1 |
+| A3 | 2026.09.04 15:55 | LONG | BOTH | 2026.09.04 15:40 o=1.15964 h=1.16006 l=1.15920 c=1.15990 anchor=Yearly-POC@ close=WITH | 2026.09.04 15:50 o=1.16007 h=1.16044 l=1.15978 c=1.15996 anchor=Yearly-POC@ close=AGAINST | j43 anchor=Yearly-POC confirm=1 |
+| A4 | 2026.09.07 09:15 | LONG | BOTH | 2026.09.07 09:00 o=1.16143 h=1.16143 l=1.16103 c=1.16116 anchor=Weekly-POC@1.16105 close=AGAINST | 2026.09.07 09:10 o=1.16116 h=1.16119 l=1.16102 c=1.16114 anchor=Weekly-POC@1.16105 close=AGAINST | j43 anchor=Weekly-POC confirm=1 |
+| A5 | 2026.09.07 16:40 | LONG | BOTH | 2026.09.07 16:05 o=1.16247 h=1.16251 l=1.16238 c=1.16245 anchor=Weekly-POC@1.16249 close=AGAINST | 2026.09.07 16:35 o=1.16261 h=1.16263 l=1.16246 c=1.16250 anchor=Weekly-POC@1.16249 close=AGAINST | j43 anchor=Weekly-POC confirm=1 |
+| A6 | 2026.09.08 10:05 | SHORT | PRIOR | 2026.09.08 10:00 o=1.16210 h=1.16229 l=1.16198 c=1.16223 anchor=Monthly-POC@1.16229 close=AGAINST | j43 anchor=Monthly-POC confirm=1 |
+| A7 | 2026.09.08 16:55 | SHORT | PRIOR | 2026.09.08 16:50 o=1.16218 h=1.16233 l=1.16208 c=1.16225 anchor=Monthly-POC@1.16229 close=AGAINST | j43 anchor=Monthly-POC confirm=1 |
+| B3 | 2026.06.11 14:35 | LONG | BOTH | 2026.06.11 14:05 o=160.515 h=160.534 l=160.514 c=160.527 anchor=Daily-POC@160.532 close=WITH | 2026.06.11 14:30 o=160.525 h=160.528 l=160.507 c=160.522 anchor=Daily-POC@160.523 close=AGAINST | j44 anchor=Daily-POC confirm=1 |
+| C3 | 2026.06.03 09:05 | LONG | BOTH | 2026.06.03 09:00 o=159.927 h=159.927 l=159.905 c=159.910 anchor=Daily-VWAP@159.907 close=AGAINST | j44 anchor=Daily-VWAP confirm=1 |
+| B2 | 2026.06.05 16:10 | LONG | RETEST | 2026.06.05 16:00 o=160.216 h=160.262 l=159.726 c=160.034 anchor=Monthly-POC@159.885 close=AGAINST | j44 NO SEED (B2 owed, no kept pass) |
+| F1 | 2026.06.02 15:30 | LONG | RETEST | 2026.06.02 14:20 o=159.721 h=159.727 l=159.716 c=159.727 anchor=Monthly-POC@159.717 close=WITH | j44 anchor=Monthly-POC confirm=0 |
+| F2 | 2026.08.27 17:00 | SHORT | RETEST | 2026.08.27 16:25 o=1.16577 h=1.16598 l=1.16561 c=1.16583 anchor=Weekly-VWAP@1.16566 close=AGAINST | j43 anchor=Weekly-VWAP confirm=0 (PREBIND C_TOUCH) |
+| F3 | 2026.06.04 09:50 | SHORT | BOTH | 2026.06.04 09:10 o=159.876 h=159.888 l=159.866 c=159.879 anchor=Daily-POC@159.884 close=AGAINST | 2026.06.04 09:45 o=159.853 h=159.895 l=159.850 c=159.884 anchor=Daily-POC@159.884 close=AGAINST | j44 anchor=Daily-POC confirm=1 |
+| F4 | 2026.06.10 16:05 | LONG | RETEST | 2026.06.10 15:30 o=160.421 h=160.468 l=160.333 c=160.392 anchor=Daily-POC@160.354 close=AGAINST | j44 anchor=Daily-POC confirm=0 |
+
+## R3 PER-XOB CELLS (T + P per window; 2004 cells)
+| run | row | candle | id | zone lo-hi | promoT | T | P-WP | P-WF | P-MACH |
+|---|---|---|---|---|---|---|---|---|---|
+| EU | A1 | 2026.08.28 09:55 | 42 | UNZONED | 2026.08.11 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 89 | UNZONED | 2026.08.12 02:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 101 | UNZONED | 2026.08.12 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 111 | UNZONED | 2026.08.12 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 168 | UNZONED | 2026.08.12 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 263 | UNZONED | 2026.08.13 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 309 | UNZONED | 2026.08.13 11:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 330 | UNZONED | 2026.08.13 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 336 | UNZONED | 2026.08.13 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 339 | UNZONED | 2026.08.13 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 347 | UNZONED | 2026.08.13 16:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 370 | UNZONED | 2026.08.13 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 395 | UNZONED | 2026.08.13 23:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 442 | UNZONED | 2026.08.14 05:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 490 | UNZONED | 2026.08.14 12:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 515 | UNZONED | 2026.08.14 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 557 | UNZONED | 2026.08.14 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 709 | UNZONED | 2026.08.17 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 752 | UNZONED | 2026.08.18 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 850 | UNZONED | 2026.08.18 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 871 | UNZONED | 2026.08.18 14:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 875 | UNZONED | 2026.08.18 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 996 | UNZONED | 2026.08.19 07:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1072 | UNZONED | 2026.08.26 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1081 | UNZONED | 2026.08.19 18:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1099 | UNZONED | 2026.08.19 21:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1127 | UNZONED | 2026.08.20 02:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1248 | UNZONED | 2026.08.20 17:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1258 | UNZONED | 2026.08.20 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1320 | UNZONED | 2026.08.21 16:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1352 | UNZONED | 2026.08.21 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1369 | UNZONED | 2026.08.21 10:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1389 | UNZONED | 2026.08.21 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1401 | UNZONED | 2026.08.21 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1403 | UNZONED | 2026.08.21 15:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1481 | UNZONED | 2026.08.24 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1484 | UNZONED | 2026.08.24 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1495 | UNZONED | 2026.08.24 05:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1506 | UNZONED | 2026.08.24 07:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1508 | UNZONED | 2026.08.24 09:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1516 | UNZONED | 2026.08.24 08:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1552 | UNZONED | 2026.08.24 14:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1589 | UNZONED | 2026.08.24 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1591 | UNZONED | 2026.08.24 20:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1594 | UNZONED | 2026.08.24 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1626 | UNZONED | 2026.08.25 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1644 | UNZONED | 2026.08.25 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1660 | UNZONED | 2026.08.25 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1704 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A1 | 2026.08.28 09:55 | 1728 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A1 | 2026.08.28 09:55 | 1765 | UNZONED | 2026.08.25 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1768 | UNZONED | 2026.08.25 22:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1784 | UNZONED | 2026.08.25 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1881 | UNZONED | 2026.08.26 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 1891 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A1 | 2026.08.28 09:55 | 1937 | UNZONED | 2026.08.27 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 2109 | UNZONED | 2026.08.28 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 2136 | UNZONED | 2026.08.28 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A1 | 2026.08.28 09:55 | 2149 | 1.16492-1.16507 | 2026.08.28 06:40 | NOT MET | NOT MET | MET | MET |
+| EU | A1 | 2026.08.28 09:55 | 2162 | UNZONED | 2026.08.28 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 15 | UNZONED | 2026.08.11 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 158 | UNZONED | 2026.08.12 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 189 | UNZONED | 2026.08.14 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 202 | UNZONED | 2026.08.13 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 264 | UNZONED | 2026.08.13 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 303 | UNZONED | 2026.08.13 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 305 | UNZONED | 2026.08.13 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 358 | UNZONED | 2026.08.13 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 390 | UNZONED | 2026.08.13 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 405 | UNZONED | 2026.08.14 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 435 | UNZONED | 2026.08.14 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 447 | UNZONED | 2026.08.14 06:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 461 | UNZONED | 2026.08.14 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 463 | UNZONED | 2026.08.14 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 469 | UNZONED | 2026.08.14 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 474 | UNZONED | 2026.08.14 11:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 475 | UNZONED | 2026.08.14 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 484 | UNZONED | 2026.08.14 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 494 | UNZONED | 2026.08.14 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 499 | UNZONED | 2026.08.14 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 618 | UNZONED | 2026.08.17 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 714 | UNZONED | 2026.08.17 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 786 | UNZONED | 2026.08.18 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 868 | UNZONED | 2026.08.18 15:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 918 | UNZONED | 2026.08.18 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 929 | UNZONED | 2026.08.18 22:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 975 | UNZONED | 2026.08.19 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 994 | UNZONED | 2026.08.19 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1075 | UNZONED | 2026.08.19 17:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1128 | UNZONED | 2026.08.20 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1134 | UNZONED | 2026.08.20 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1141 | UNZONED | 2026.08.20 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1284 | UNZONED | 2026.08.20 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1330 | UNZONED | 2026.08.21 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1379 | UNZONED | 2026.08.21 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1393 | UNZONED | 2026.08.21 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1547 | UNZONED | 2026.08.24 12:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1561 | UNZONED | 2026.08.24 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1570 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1572 | UNZONED | 2026.08.24 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1573 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1624 | UNZONED | 2026.08.24 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1653 | UNZONED | 2026.08.25 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1654 | UNZONED | 2026.08.25 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1753 | UNZONED | 2026.08.25 22:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1801 | UNZONED | 2026.08.26 01:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1838 | UNZONED | 2026.08.26 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1926 | UNZONED | 2026.08.26 21:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1987 | UNZONED | 2026.08.27 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 1995 | 1.16519-1.16543 | 2026.08.27 09:30 | NOT MET | MET | MET | NOT MET |
+| EU | A2 | 2026.09.01 16:45 | 2196 | UNZONED | 2026.08.28 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2207 | UNZONED | 2026.08.28 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2258 | UNZONED | 2026.08.28 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2275 | UNZONED | 2026.08.31 00:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2281 | UNZONED | 2026.08.31 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2286 | UNZONED | 2026.08.31 02:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2289 | 1.15855-1.15862 | 2026.08.31 02:35 | NOT MET | MET | MET | NOT MET |
+| EU | A2 | 2026.09.01 16:45 | 2461 | UNZONED | 2026.09.01 03:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2486 | UNZONED | 2026.09.01 08:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2501 | UNZONED | 2026.09.01 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 16:45 | 2545 | UNZONED | 2026.09.01 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 15 | UNZONED | 2026.08.11 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 158 | UNZONED | 2026.08.12 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 189 | UNZONED | 2026.08.14 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 202 | UNZONED | 2026.08.13 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 264 | UNZONED | 2026.08.13 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 303 | UNZONED | 2026.08.13 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 305 | UNZONED | 2026.08.13 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 358 | UNZONED | 2026.08.13 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 390 | UNZONED | 2026.08.13 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 405 | UNZONED | 2026.08.14 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 435 | UNZONED | 2026.08.14 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 447 | UNZONED | 2026.08.14 06:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 461 | UNZONED | 2026.08.14 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 463 | UNZONED | 2026.08.14 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 469 | UNZONED | 2026.08.14 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 474 | UNZONED | 2026.08.14 11:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 475 | UNZONED | 2026.08.14 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 484 | UNZONED | 2026.08.14 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 494 | UNZONED | 2026.08.14 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 499 | UNZONED | 2026.08.14 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 618 | UNZONED | 2026.08.17 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 714 | UNZONED | 2026.08.17 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 786 | UNZONED | 2026.08.18 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 868 | UNZONED | 2026.08.18 15:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 918 | UNZONED | 2026.08.18 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 929 | UNZONED | 2026.08.18 22:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 975 | UNZONED | 2026.08.19 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 994 | UNZONED | 2026.08.19 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1075 | UNZONED | 2026.08.19 17:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1128 | UNZONED | 2026.08.20 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1134 | UNZONED | 2026.08.20 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1141 | UNZONED | 2026.08.20 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1284 | UNZONED | 2026.08.20 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1330 | UNZONED | 2026.08.21 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1379 | UNZONED | 2026.08.21 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1393 | UNZONED | 2026.08.21 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1547 | UNZONED | 2026.08.24 12:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1561 | UNZONED | 2026.08.24 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1570 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1572 | UNZONED | 2026.08.24 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1573 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1624 | UNZONED | 2026.08.24 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1653 | UNZONED | 2026.08.25 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1654 | UNZONED | 2026.08.25 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1753 | UNZONED | 2026.08.25 22:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1801 | UNZONED | 2026.08.26 01:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1838 | UNZONED | 2026.08.26 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1926 | UNZONED | 2026.08.26 21:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1987 | UNZONED | 2026.08.27 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 1995 | 1.16519-1.16543 | 2026.08.27 09:30 | NOT MET | MET | MET | NOT MET |
+| EU | A2 | 2026.09.01 17:25 | 2196 | UNZONED | 2026.08.28 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2207 | UNZONED | 2026.08.28 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2258 | UNZONED | 2026.08.28 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2275 | UNZONED | 2026.08.31 00:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2281 | UNZONED | 2026.08.31 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2286 | UNZONED | 2026.08.31 02:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2289 | 1.15855-1.15862 | 2026.08.31 02:35 | NOT MET | MET | MET | NOT MET |
+| EU | A2 | 2026.09.01 17:25 | 2461 | UNZONED | 2026.09.01 03:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2486 | UNZONED | 2026.09.01 08:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2501 | UNZONED | 2026.09.01 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2544 | UNZONED | 2026.09.01 17:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2545 | UNZONED | 2026.09.01 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A2 | 2026.09.01 17:25 | 2549 | 1.15975-1.16013 | 2026.09.01 17:25 | MET | NOT MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:40 | 15 | UNZONED | 2026.08.11 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 158 | UNZONED | 2026.08.12 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 189 | UNZONED | 2026.08.14 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 202 | UNZONED | 2026.08.13 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 264 | UNZONED | 2026.08.13 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 303 | UNZONED | 2026.08.13 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 305 | UNZONED | 2026.08.13 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 358 | UNZONED | 2026.08.13 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 390 | UNZONED | 2026.08.13 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 405 | UNZONED | 2026.08.14 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 435 | UNZONED | 2026.08.14 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 447 | UNZONED | 2026.08.14 06:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 461 | UNZONED | 2026.08.14 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 463 | UNZONED | 2026.08.14 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 469 | UNZONED | 2026.08.14 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 474 | UNZONED | 2026.08.14 11:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 475 | UNZONED | 2026.08.14 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 484 | UNZONED | 2026.08.14 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 494 | UNZONED | 2026.08.14 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 499 | UNZONED | 2026.08.14 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 618 | UNZONED | 2026.08.17 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 714 | UNZONED | 2026.08.17 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 786 | UNZONED | 2026.08.18 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 868 | UNZONED | 2026.08.18 15:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 918 | UNZONED | 2026.08.18 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 929 | UNZONED | 2026.08.18 22:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 994 | UNZONED | 2026.08.19 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1075 | UNZONED | 2026.08.19 17:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1128 | UNZONED | 2026.08.20 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1134 | UNZONED | 2026.08.20 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1141 | UNZONED | 2026.08.20 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1284 | UNZONED | 2026.08.20 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1330 | UNZONED | 2026.08.21 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1379 | UNZONED | 2026.08.21 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1393 | UNZONED | 2026.08.21 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1547 | UNZONED | 2026.08.24 12:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1561 | UNZONED | 2026.08.24 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1570 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1572 | UNZONED | 2026.08.24 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1573 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1624 | UNZONED | 2026.08.24 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1653 | UNZONED | 2026.08.25 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1654 | UNZONED | 2026.08.25 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1753 | UNZONED | 2026.08.25 22:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1801 | UNZONED | 2026.08.26 01:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1838 | UNZONED | 2026.08.26 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1926 | UNZONED | 2026.08.26 21:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1987 | UNZONED | 2026.08.27 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 1995 | 1.16519-1.16543 | 2026.08.27 09:30 | NOT MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:40 | 2196 | UNZONED | 2026.08.28 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2207 | UNZONED | 2026.08.28 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2258 | UNZONED | 2026.08.28 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2461 | UNZONED | 2026.09.01 03:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2486 | UNZONED | 2026.09.01 08:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2501 | UNZONED | 2026.09.01 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2549 | 1.15975-1.16013 | 2026.09.01 17:25 | MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:40 | 2673 | 1.15784-1.15801 | 2026.09.02 11:40 | NOT MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:40 | 2698 | UNZONED | 2026.09.02 15:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2706 | 1.15781-1.15811 | 2026.09.02 16:20 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:40 | 2722 | UNZONED | 2026.09.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2752 | UNZONED | 2026.09.02 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2764 | UNZONED | 2026.09.03 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2780 | UNZONED | 2026.09.03 04:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2787 | UNZONED | 2026.09.03 05:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2792 | UNZONED | 2026.09.03 06:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2793 | 1.15907-1.15933 | 2026.09.03 06:10 | MET | MET | MET | MET |
+| EU | A3 | 2026.09.04 15:40 | 2823 | UNZONED | 2026.09.03 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2832 | UNZONED | 2026.09.03 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2850 | UNZONED | 2026.09.03 14:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2861 | 1.16114-1.16153 | 2026.09.03 16:45 | NOT MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:40 | 2912 | UNZONED | 2026.09.03 22:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2945 | UNZONED | 2026.09.04 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2963 | UNZONED | 2026.09.04 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2979 | UNZONED | 2026.09.04 08:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:40 | 2982 | 1.16249-1.16269 | 2026.09.04 09:05 | NOT MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:40 | 3006 | UNZONED | 2026.09.04 13:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 15 | UNZONED | 2026.08.11 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 158 | UNZONED | 2026.08.12 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 189 | UNZONED | 2026.08.14 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 202 | UNZONED | 2026.08.13 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 264 | UNZONED | 2026.08.13 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 303 | UNZONED | 2026.08.13 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 305 | UNZONED | 2026.08.13 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 358 | UNZONED | 2026.08.13 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 390 | UNZONED | 2026.08.13 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 405 | UNZONED | 2026.08.14 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 435 | UNZONED | 2026.08.14 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 447 | UNZONED | 2026.08.14 06:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 461 | UNZONED | 2026.08.14 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 463 | UNZONED | 2026.08.14 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 469 | UNZONED | 2026.08.14 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 474 | UNZONED | 2026.08.14 11:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 475 | UNZONED | 2026.08.14 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 484 | UNZONED | 2026.08.14 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 494 | UNZONED | 2026.08.14 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 499 | UNZONED | 2026.08.14 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 618 | UNZONED | 2026.08.17 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 714 | UNZONED | 2026.08.17 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 786 | UNZONED | 2026.08.18 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 868 | UNZONED | 2026.08.18 15:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 918 | UNZONED | 2026.08.18 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 929 | UNZONED | 2026.08.18 22:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 994 | UNZONED | 2026.08.19 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1075 | UNZONED | 2026.08.19 17:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1128 | UNZONED | 2026.08.20 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1134 | UNZONED | 2026.08.20 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1141 | UNZONED | 2026.08.20 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1284 | UNZONED | 2026.08.20 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1330 | UNZONED | 2026.08.21 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1379 | UNZONED | 2026.08.21 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1393 | UNZONED | 2026.08.21 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1547 | UNZONED | 2026.08.24 12:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1561 | UNZONED | 2026.08.24 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1570 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1572 | UNZONED | 2026.08.24 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1573 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1624 | UNZONED | 2026.08.24 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1653 | UNZONED | 2026.08.25 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1654 | UNZONED | 2026.08.25 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1753 | UNZONED | 2026.08.25 22:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1801 | UNZONED | 2026.08.26 01:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1838 | UNZONED | 2026.08.26 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1926 | UNZONED | 2026.08.26 21:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1987 | UNZONED | 2026.08.27 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 1995 | 1.16519-1.16543 | 2026.08.27 09:30 | NOT MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:50 | 2196 | UNZONED | 2026.08.28 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2207 | UNZONED | 2026.08.28 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2258 | UNZONED | 2026.08.28 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2461 | UNZONED | 2026.09.01 03:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2486 | UNZONED | 2026.09.01 08:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2501 | UNZONED | 2026.09.01 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2549 | 1.15975-1.16013 | 2026.09.01 17:25 | MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:50 | 2673 | 1.15784-1.15801 | 2026.09.02 11:40 | NOT MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:50 | 2698 | UNZONED | 2026.09.02 15:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2706 | 1.15781-1.15811 | 2026.09.02 16:20 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:50 | 2722 | UNZONED | 2026.09.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2752 | UNZONED | 2026.09.02 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2764 | UNZONED | 2026.09.03 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2780 | UNZONED | 2026.09.03 04:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2787 | UNZONED | 2026.09.03 05:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2792 | UNZONED | 2026.09.03 06:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2793 | 1.15907-1.15933 | 2026.09.03 06:10 | NOT MET | MET | MET | MET |
+| EU | A3 | 2026.09.04 15:50 | 2823 | UNZONED | 2026.09.03 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2832 | UNZONED | 2026.09.03 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2850 | UNZONED | 2026.09.03 14:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2861 | 1.16114-1.16153 | 2026.09.03 16:45 | NOT MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:50 | 2912 | UNZONED | 2026.09.03 22:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2945 | UNZONED | 2026.09.04 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2963 | UNZONED | 2026.09.04 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2979 | UNZONED | 2026.09.04 08:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A3 | 2026.09.04 15:50 | 2982 | 1.16249-1.16269 | 2026.09.04 09:05 | NOT MET | MET | MET | NOT MET |
+| EU | A3 | 2026.09.04 15:50 | 3006 | UNZONED | 2026.09.04 13:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 15 | UNZONED | 2026.08.11 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 158 | UNZONED | 2026.08.12 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 189 | UNZONED | 2026.08.14 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 202 | UNZONED | 2026.08.13 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 264 | UNZONED | 2026.08.13 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 303 | UNZONED | 2026.08.13 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 305 | UNZONED | 2026.08.13 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 358 | UNZONED | 2026.08.13 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 390 | UNZONED | 2026.08.13 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 405 | UNZONED | 2026.08.14 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 435 | UNZONED | 2026.08.14 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 447 | UNZONED | 2026.08.14 06:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 461 | UNZONED | 2026.08.14 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 463 | UNZONED | 2026.08.14 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 469 | UNZONED | 2026.08.14 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 474 | UNZONED | 2026.08.14 11:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 475 | UNZONED | 2026.08.14 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 484 | UNZONED | 2026.08.14 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 494 | UNZONED | 2026.08.14 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 499 | UNZONED | 2026.08.14 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 618 | UNZONED | 2026.08.17 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 714 | UNZONED | 2026.08.17 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 786 | UNZONED | 2026.08.18 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 868 | UNZONED | 2026.08.18 15:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 918 | UNZONED | 2026.08.18 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 929 | UNZONED | 2026.08.18 22:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 994 | UNZONED | 2026.08.19 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1075 | UNZONED | 2026.08.19 17:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1128 | UNZONED | 2026.08.20 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1134 | UNZONED | 2026.08.20 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1141 | UNZONED | 2026.08.20 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1284 | UNZONED | 2026.08.20 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1330 | UNZONED | 2026.08.21 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1379 | UNZONED | 2026.08.21 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1393 | UNZONED | 2026.08.21 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1547 | UNZONED | 2026.08.24 12:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1561 | UNZONED | 2026.08.24 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1570 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1572 | UNZONED | 2026.08.24 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1573 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1624 | UNZONED | 2026.08.24 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1653 | UNZONED | 2026.08.25 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1654 | UNZONED | 2026.08.25 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1753 | UNZONED | 2026.08.25 22:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1801 | UNZONED | 2026.08.26 01:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1838 | UNZONED | 2026.08.26 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1926 | UNZONED | 2026.08.26 21:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1987 | UNZONED | 2026.08.27 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 1995 | 1.16519-1.16543 | 2026.08.27 09:30 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:00 | 2196 | UNZONED | 2026.08.28 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2207 | UNZONED | 2026.08.28 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2258 | UNZONED | 2026.08.28 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2461 | UNZONED | 2026.09.01 03:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2486 | UNZONED | 2026.09.01 08:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2501 | UNZONED | 2026.09.01 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2549 | 1.15975-1.16013 | 2026.09.01 17:25 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:00 | 2673 | 1.15784-1.15801 | 2026.09.02 11:40 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:00 | 2698 | UNZONED | 2026.09.02 15:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2706 | 1.15781-1.15811 | 2026.09.02 16:20 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:00 | 2722 | UNZONED | 2026.09.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2752 | UNZONED | 2026.09.02 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2764 | UNZONED | 2026.09.03 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2780 | UNZONED | 2026.09.03 04:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2787 | UNZONED | 2026.09.03 05:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2792 | UNZONED | 2026.09.03 06:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2793 | 1.15907-1.15933 | 2026.09.03 06:10 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:00 | 2823 | UNZONED | 2026.09.03 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2832 | UNZONED | 2026.09.03 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2850 | UNZONED | 2026.09.03 14:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2861 | 1.16114-1.16153 | 2026.09.03 16:45 | MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:00 | 2912 | UNZONED | 2026.09.03 22:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2945 | UNZONED | 2026.09.04 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2963 | UNZONED | 2026.09.04 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2979 | UNZONED | 2026.09.04 08:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 2982 | 1.16249-1.16269 | 2026.09.04 09:05 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:00 | 3006 | UNZONED | 2026.09.04 13:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 3025 | UNZONED | 2026.09.04 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 3098 | UNZONED | 2026.09.07 04:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:00 | 3126 | 1.16098-1.16109 | 2026.09.07 08:55 | MET | MET | MET | MET |
+| EU | A4 | 2026.09.07 09:00 | 3130 | 1.16098-1.16109 | 2026.09.07 08:55 | MET | MET | MET | MET |
+| EU | A4 | 2026.09.07 09:10 | 15 | UNZONED | 2026.08.11 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 158 | UNZONED | 2026.08.12 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 189 | UNZONED | 2026.08.14 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 202 | UNZONED | 2026.08.13 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 264 | UNZONED | 2026.08.13 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 303 | UNZONED | 2026.08.13 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 305 | UNZONED | 2026.08.13 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 358 | UNZONED | 2026.08.13 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 390 | UNZONED | 2026.08.13 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 405 | UNZONED | 2026.08.14 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 435 | UNZONED | 2026.08.14 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 447 | UNZONED | 2026.08.14 06:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 461 | UNZONED | 2026.08.14 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 463 | UNZONED | 2026.08.14 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 469 | UNZONED | 2026.08.14 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 474 | UNZONED | 2026.08.14 11:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 475 | UNZONED | 2026.08.14 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 484 | UNZONED | 2026.08.14 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 494 | UNZONED | 2026.08.14 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 499 | UNZONED | 2026.08.14 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 618 | UNZONED | 2026.08.17 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 714 | UNZONED | 2026.08.17 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 786 | UNZONED | 2026.08.18 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 868 | UNZONED | 2026.08.18 15:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 918 | UNZONED | 2026.08.18 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 929 | UNZONED | 2026.08.18 22:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 994 | UNZONED | 2026.08.19 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1075 | UNZONED | 2026.08.19 17:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1128 | UNZONED | 2026.08.20 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1134 | UNZONED | 2026.08.20 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1141 | UNZONED | 2026.08.20 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1284 | UNZONED | 2026.08.20 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1330 | UNZONED | 2026.08.21 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1379 | UNZONED | 2026.08.21 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1393 | UNZONED | 2026.08.21 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1547 | UNZONED | 2026.08.24 12:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1561 | UNZONED | 2026.08.24 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1570 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1572 | UNZONED | 2026.08.24 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1573 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1624 | UNZONED | 2026.08.24 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1653 | UNZONED | 2026.08.25 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1654 | UNZONED | 2026.08.25 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1753 | UNZONED | 2026.08.25 22:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1801 | UNZONED | 2026.08.26 01:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1838 | UNZONED | 2026.08.26 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1926 | UNZONED | 2026.08.26 21:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1987 | UNZONED | 2026.08.27 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 1995 | 1.16519-1.16543 | 2026.08.27 09:30 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:10 | 2196 | UNZONED | 2026.08.28 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2207 | UNZONED | 2026.08.28 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2258 | UNZONED | 2026.08.28 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2461 | UNZONED | 2026.09.01 03:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2486 | UNZONED | 2026.09.01 08:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2501 | UNZONED | 2026.09.01 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2549 | 1.15975-1.16013 | 2026.09.01 17:25 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:10 | 2673 | 1.15784-1.15801 | 2026.09.02 11:40 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:10 | 2698 | UNZONED | 2026.09.02 15:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2706 | 1.15781-1.15811 | 2026.09.02 16:20 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:10 | 2722 | UNZONED | 2026.09.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2752 | UNZONED | 2026.09.02 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2764 | UNZONED | 2026.09.03 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2780 | UNZONED | 2026.09.03 04:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2787 | UNZONED | 2026.09.03 05:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2792 | UNZONED | 2026.09.03 06:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2793 | 1.15907-1.15933 | 2026.09.03 06:10 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:10 | 2823 | UNZONED | 2026.09.03 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2832 | UNZONED | 2026.09.03 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2850 | UNZONED | 2026.09.03 14:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2861 | 1.16114-1.16153 | 2026.09.03 16:45 | MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:10 | 2912 | UNZONED | 2026.09.03 22:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2945 | UNZONED | 2026.09.04 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2963 | UNZONED | 2026.09.04 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2979 | UNZONED | 2026.09.04 08:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 2982 | 1.16249-1.16269 | 2026.09.04 09:05 | NOT MET | MET | MET | NOT MET |
+| EU | A4 | 2026.09.07 09:10 | 3006 | UNZONED | 2026.09.04 13:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 3025 | UNZONED | 2026.09.04 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 3098 | UNZONED | 2026.09.07 04:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A4 | 2026.09.07 09:10 | 3126 | 1.16098-1.16109 | 2026.09.07 08:55 | MET | MET | MET | MET |
+| EU | A4 | 2026.09.07 09:10 | 3130 | 1.16098-1.16109 | 2026.09.07 08:55 | MET | MET | MET | MET |
+| EU | A5 | 2026.09.07 16:05 | 15 | UNZONED | 2026.08.11 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 158 | UNZONED | 2026.08.12 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 189 | UNZONED | 2026.08.14 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 202 | UNZONED | 2026.08.13 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 264 | UNZONED | 2026.08.13 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 303 | UNZONED | 2026.08.13 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 305 | UNZONED | 2026.08.13 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 358 | UNZONED | 2026.08.13 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 390 | UNZONED | 2026.08.13 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 405 | UNZONED | 2026.08.14 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 435 | UNZONED | 2026.08.14 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 447 | UNZONED | 2026.08.14 06:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 461 | UNZONED | 2026.08.14 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 463 | UNZONED | 2026.08.14 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 469 | UNZONED | 2026.08.14 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 474 | UNZONED | 2026.08.14 11:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 475 | UNZONED | 2026.08.14 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 484 | UNZONED | 2026.08.14 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 494 | UNZONED | 2026.08.14 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 499 | UNZONED | 2026.08.14 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 618 | UNZONED | 2026.08.17 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 714 | UNZONED | 2026.08.17 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 786 | UNZONED | 2026.08.18 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 868 | UNZONED | 2026.08.18 15:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 918 | UNZONED | 2026.08.18 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 929 | UNZONED | 2026.08.18 22:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 994 | UNZONED | 2026.08.19 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1075 | UNZONED | 2026.08.19 17:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1128 | UNZONED | 2026.08.20 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1134 | UNZONED | 2026.08.20 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1141 | UNZONED | 2026.08.20 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1284 | UNZONED | 2026.08.20 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1330 | UNZONED | 2026.08.21 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1379 | UNZONED | 2026.08.21 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1393 | UNZONED | 2026.08.21 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1547 | UNZONED | 2026.08.24 12:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1561 | UNZONED | 2026.08.24 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1570 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1572 | UNZONED | 2026.08.24 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1573 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1624 | UNZONED | 2026.08.24 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1653 | UNZONED | 2026.08.25 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1654 | UNZONED | 2026.08.25 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1753 | UNZONED | 2026.08.25 22:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1801 | UNZONED | 2026.08.26 01:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1838 | UNZONED | 2026.08.26 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1926 | UNZONED | 2026.08.26 21:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1987 | UNZONED | 2026.08.27 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 1995 | 1.16519-1.16543 | 2026.08.27 09:30 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 2196 | UNZONED | 2026.08.28 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2207 | UNZONED | 2026.08.28 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2258 | UNZONED | 2026.08.28 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2461 | UNZONED | 2026.09.01 03:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2486 | UNZONED | 2026.09.01 08:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2501 | UNZONED | 2026.09.01 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2549 | 1.15975-1.16013 | 2026.09.01 17:25 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 2673 | 1.15784-1.15801 | 2026.09.02 11:40 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 2698 | UNZONED | 2026.09.02 15:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2706 | 1.15781-1.15811 | 2026.09.02 16:20 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 2722 | UNZONED | 2026.09.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2752 | UNZONED | 2026.09.02 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2764 | UNZONED | 2026.09.03 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2780 | UNZONED | 2026.09.03 04:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2787 | UNZONED | 2026.09.03 05:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2792 | UNZONED | 2026.09.03 06:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2793 | 1.15907-1.15933 | 2026.09.03 06:10 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 2823 | UNZONED | 2026.09.03 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2832 | UNZONED | 2026.09.03 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2850 | UNZONED | 2026.09.03 14:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2861 | 1.16114-1.16153 | 2026.09.03 16:45 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 2912 | UNZONED | 2026.09.03 22:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2945 | UNZONED | 2026.09.04 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2963 | UNZONED | 2026.09.04 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2979 | UNZONED | 2026.09.04 08:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 2982 | 1.16249-1.16269 | 2026.09.04 09:05 | MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 3006 | UNZONED | 2026.09.04 13:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 3022 | UNZONED | 2026.09.07 11:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 3025 | UNZONED | 2026.09.04 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 3098 | UNZONED | 2026.09.07 04:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 3126 | 1.16098-1.16109 | 2026.09.07 08:55 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 3130 | 1.16098-1.16109 | 2026.09.07 08:55 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:05 | 3132 | UNZONED | 2026.09.07 09:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 3139 | UNZONED | 2026.09.07 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 3145 | UNZONED | 2026.09.07 11:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 3158 | UNZONED | 2026.09.07 12:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:05 | 3178 | 1.16229-1.16253 | 2026.09.07 15:30 | MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 15 | UNZONED | 2026.08.11 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 158 | UNZONED | 2026.08.12 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 189 | UNZONED | 2026.08.14 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 202 | UNZONED | 2026.08.13 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 264 | UNZONED | 2026.08.13 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 303 | UNZONED | 2026.08.13 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 305 | UNZONED | 2026.08.13 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 358 | UNZONED | 2026.08.13 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 390 | UNZONED | 2026.08.13 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 405 | UNZONED | 2026.08.14 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 435 | UNZONED | 2026.08.14 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 447 | UNZONED | 2026.08.14 06:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 461 | UNZONED | 2026.08.14 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 463 | UNZONED | 2026.08.14 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 469 | UNZONED | 2026.08.14 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 474 | UNZONED | 2026.08.14 11:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 475 | UNZONED | 2026.08.14 10:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 484 | UNZONED | 2026.08.14 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 494 | UNZONED | 2026.08.14 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 499 | UNZONED | 2026.08.14 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 618 | UNZONED | 2026.08.17 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 714 | UNZONED | 2026.08.17 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 786 | UNZONED | 2026.08.18 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 868 | UNZONED | 2026.08.18 15:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 918 | UNZONED | 2026.08.18 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 929 | UNZONED | 2026.08.18 22:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 994 | UNZONED | 2026.08.19 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1075 | UNZONED | 2026.08.19 17:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1128 | UNZONED | 2026.08.20 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1134 | UNZONED | 2026.08.20 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1141 | UNZONED | 2026.08.20 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1284 | UNZONED | 2026.08.20 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1330 | UNZONED | 2026.08.21 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1379 | UNZONED | 2026.08.21 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1393 | UNZONED | 2026.08.21 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1547 | UNZONED | 2026.08.24 12:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1561 | UNZONED | 2026.08.24 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1570 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1572 | UNZONED | 2026.08.24 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1573 | UNZONED | 2026.08.24 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1624 | UNZONED | 2026.08.24 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1653 | UNZONED | 2026.08.25 12:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1654 | UNZONED | 2026.08.25 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1753 | UNZONED | 2026.08.25 22:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1801 | UNZONED | 2026.08.26 01:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1838 | UNZONED | 2026.08.26 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1926 | UNZONED | 2026.08.26 21:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1987 | UNZONED | 2026.08.27 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 1995 | 1.16519-1.16543 | 2026.08.27 09:30 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 2196 | UNZONED | 2026.08.28 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2207 | UNZONED | 2026.08.28 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2258 | UNZONED | 2026.08.28 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2461 | UNZONED | 2026.09.01 03:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2486 | UNZONED | 2026.09.01 08:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2501 | UNZONED | 2026.09.01 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2549 | 1.15975-1.16013 | 2026.09.01 17:25 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 2673 | 1.15784-1.15801 | 2026.09.02 11:40 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 2698 | UNZONED | 2026.09.02 15:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2706 | 1.15781-1.15811 | 2026.09.02 16:20 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 2722 | UNZONED | 2026.09.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2752 | UNZONED | 2026.09.02 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2764 | UNZONED | 2026.09.03 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2780 | UNZONED | 2026.09.03 04:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2787 | UNZONED | 2026.09.03 05:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2792 | UNZONED | 2026.09.03 06:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2793 | 1.15907-1.15933 | 2026.09.03 06:10 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 2823 | UNZONED | 2026.09.03 14:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2832 | UNZONED | 2026.09.03 11:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2850 | UNZONED | 2026.09.03 14:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2861 | 1.16114-1.16153 | 2026.09.03 16:45 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 2912 | UNZONED | 2026.09.03 22:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2945 | UNZONED | 2026.09.04 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2963 | UNZONED | 2026.09.04 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2979 | UNZONED | 2026.09.04 08:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 2982 | 1.16249-1.16269 | 2026.09.04 09:05 | MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 3006 | UNZONED | 2026.09.04 13:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 3022 | UNZONED | 2026.09.07 11:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 3025 | UNZONED | 2026.09.04 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 3098 | UNZONED | 2026.09.07 04:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 3126 | 1.16098-1.16109 | 2026.09.07 08:55 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 3130 | 1.16098-1.16109 | 2026.09.07 08:55 | NOT MET | MET | MET | NOT MET |
+| EU | A5 | 2026.09.07 16:35 | 3132 | UNZONED | 2026.09.07 09:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 3139 | UNZONED | 2026.09.07 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 3145 | UNZONED | 2026.09.07 11:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 3158 | UNZONED | 2026.09.07 12:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A5 | 2026.09.07 16:35 | 3178 | 1.16229-1.16253 | 2026.09.07 15:30 | MET | MET | MET | MET |
+| EU | A6 | 2026.09.08 10:00 | 42 | UNZONED | 2026.08.11 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 89 | UNZONED | 2026.08.12 02:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 101 | UNZONED | 2026.08.12 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 111 | UNZONED | 2026.08.12 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 168 | UNZONED | 2026.08.12 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 263 | UNZONED | 2026.08.13 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 309 | UNZONED | 2026.08.13 11:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 330 | UNZONED | 2026.08.13 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 336 | UNZONED | 2026.08.13 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 339 | UNZONED | 2026.08.13 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 347 | UNZONED | 2026.08.13 16:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 370 | UNZONED | 2026.08.13 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 395 | UNZONED | 2026.08.13 23:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 442 | UNZONED | 2026.08.14 05:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 490 | UNZONED | 2026.08.14 12:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 515 | UNZONED | 2026.08.14 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 557 | UNZONED | 2026.08.14 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 709 | UNZONED | 2026.08.17 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 752 | UNZONED | 2026.08.18 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 850 | UNZONED | 2026.08.18 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 871 | UNZONED | 2026.08.18 14:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 875 | UNZONED | 2026.08.18 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 996 | UNZONED | 2026.08.19 07:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1072 | UNZONED | 2026.08.26 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1081 | UNZONED | 2026.08.19 18:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1099 | UNZONED | 2026.08.19 21:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1127 | UNZONED | 2026.08.20 02:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1248 | UNZONED | 2026.08.20 17:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1258 | UNZONED | 2026.08.20 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1320 | UNZONED | 2026.08.21 16:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1352 | UNZONED | 2026.08.21 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1369 | UNZONED | 2026.08.21 10:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1389 | UNZONED | 2026.08.21 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1401 | UNZONED | 2026.08.21 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1403 | UNZONED | 2026.08.21 15:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1481 | UNZONED | 2026.08.24 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1484 | UNZONED | 2026.08.24 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1495 | UNZONED | 2026.08.24 05:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1506 | UNZONED | 2026.08.24 07:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1508 | UNZONED | 2026.08.24 09:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1516 | UNZONED | 2026.08.24 08:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1552 | UNZONED | 2026.08.24 14:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1589 | UNZONED | 2026.08.24 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1591 | UNZONED | 2026.08.24 20:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1594 | UNZONED | 2026.08.24 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1626 | UNZONED | 2026.08.25 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1644 | UNZONED | 2026.08.25 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1660 | UNZONED | 2026.08.25 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1704 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 1728 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 1765 | UNZONED | 2026.08.25 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1768 | UNZONED | 2026.08.25 22:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1784 | UNZONED | 2026.08.25 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1881 | UNZONED | 2026.08.26 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 1891 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 1937 | UNZONED | 2026.08.27 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2109 | UNZONED | 2026.08.28 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2136 | UNZONED | 2026.08.28 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2149 | 1.16492-1.16507 | 2026.08.28 06:40 | NOT MET | MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 2162 | UNZONED | 2026.08.28 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2166 | UNZONED | 2026.08.28 10:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2217 | 1.16415-1.16436 | 2026.08.28 17:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 2250 | UNZONED | 2026.08.28 21:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2333 | UNZONED | 2026.08.31 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2395 | UNZONED | 2026.09.01 09:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2435 | UNZONED | 2026.09.01 01:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2451 | UNZONED | 2026.09.01 02:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2470 | 1.161-1.16129 | 2026.09.01 07:30 | NOT MET | MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 2494 | UNZONED | 2026.09.01 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2495 | 1.16081-1.161 | 2026.09.01 09:15 | NOT MET | MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 2510 | UNZONED | 2026.09.01 11:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2529 | UNZONED | 2026.09.01 15:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2554 | UNZONED | 2026.09.01 18:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2559 | UNZONED | 2026.09.01 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2593 | UNZONED | 2026.09.02 03:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2640 | UNZONED | 2026.09.02 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2674 | 1.15788-1.15818 | 2026.09.02 11:55 | NOT MET | MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 2697 | UNZONED | 2026.09.02 15:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2825 | 1.16044-1.16063 | 2026.09.03 10:45 | NOT MET | MET | MET | NOT MET |
+| EU | A6 | 2026.09.08 10:00 | 2845 | UNZONED | 2026.09.03 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2868 | UNZONED | 2026.09.03 16:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2896 | UNZONED | 2026.09.03 20:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2898 | 1.16362-1.16377 | 2026.09.03 21:35 | NOT MET | NOT MET | MET | MET |
+| EU | A6 | 2026.09.08 10:00 | 2920 | UNZONED | 2026.09.04 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2939 | UNZONED | 2026.09.04 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 2971 | UNZONED | 2026.09.04 11:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 3079 | UNZONED | 2026.09.07 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 3096 | UNZONED | 2026.09.07 02:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 3173 | UNZONED | 2026.09.07 14:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 3195 | UNZONED | 2026.09.07 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 3199 | UNZONED | 2026.09.07 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 3226 | UNZONED | 2026.09.08 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A6 | 2026.09.08 10:00 | 3293 | UNZONED | 2026.09.08 09:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 42 | UNZONED | 2026.08.11 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 89 | UNZONED | 2026.08.12 02:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 101 | UNZONED | 2026.08.12 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 111 | UNZONED | 2026.08.12 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 168 | UNZONED | 2026.08.12 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 263 | UNZONED | 2026.08.13 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 309 | UNZONED | 2026.08.13 11:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 330 | UNZONED | 2026.08.13 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 336 | UNZONED | 2026.08.13 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 339 | UNZONED | 2026.08.13 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 347 | UNZONED | 2026.08.13 16:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 370 | UNZONED | 2026.08.13 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 395 | UNZONED | 2026.08.13 23:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 442 | UNZONED | 2026.08.14 05:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 490 | UNZONED | 2026.08.14 12:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 515 | UNZONED | 2026.08.14 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 557 | UNZONED | 2026.08.14 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 709 | UNZONED | 2026.08.17 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 752 | UNZONED | 2026.08.18 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 850 | UNZONED | 2026.08.18 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 871 | UNZONED | 2026.08.18 14:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 875 | UNZONED | 2026.08.18 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 996 | UNZONED | 2026.08.19 07:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1072 | UNZONED | 2026.08.26 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1081 | UNZONED | 2026.08.19 18:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1099 | UNZONED | 2026.08.19 21:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1127 | UNZONED | 2026.08.20 02:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1248 | UNZONED | 2026.08.20 17:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1258 | UNZONED | 2026.08.20 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1320 | UNZONED | 2026.08.21 16:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1352 | UNZONED | 2026.08.21 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1369 | UNZONED | 2026.08.21 10:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1389 | UNZONED | 2026.08.21 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1401 | UNZONED | 2026.08.21 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1403 | UNZONED | 2026.08.21 15:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1481 | UNZONED | 2026.08.24 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1484 | UNZONED | 2026.08.24 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1495 | UNZONED | 2026.08.24 05:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1506 | UNZONED | 2026.08.24 07:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1508 | UNZONED | 2026.08.24 09:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1516 | UNZONED | 2026.08.24 08:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1552 | UNZONED | 2026.08.24 14:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1589 | UNZONED | 2026.08.24 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1591 | UNZONED | 2026.08.24 20:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1594 | UNZONED | 2026.08.24 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1626 | UNZONED | 2026.08.25 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1644 | UNZONED | 2026.08.25 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1660 | UNZONED | 2026.08.25 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1704 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 1728 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 1765 | UNZONED | 2026.08.25 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1768 | UNZONED | 2026.08.25 22:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1784 | UNZONED | 2026.08.25 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1881 | UNZONED | 2026.08.26 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 1891 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 1937 | UNZONED | 2026.08.27 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2109 | UNZONED | 2026.08.28 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2136 | UNZONED | 2026.08.28 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2149 | 1.16492-1.16507 | 2026.08.28 06:40 | NOT MET | MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 2162 | UNZONED | 2026.08.28 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2166 | UNZONED | 2026.08.28 10:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2217 | 1.16415-1.16436 | 2026.08.28 17:00 | NOT MET | NOT MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 2250 | UNZONED | 2026.08.28 21:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2333 | UNZONED | 2026.08.31 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2395 | UNZONED | 2026.09.01 09:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2435 | UNZONED | 2026.09.01 01:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2451 | UNZONED | 2026.09.01 02:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2470 | 1.161-1.16129 | 2026.09.01 07:30 | NOT MET | MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 2494 | UNZONED | 2026.09.01 10:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2495 | 1.16081-1.161 | 2026.09.01 09:15 | NOT MET | MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 2510 | UNZONED | 2026.09.01 11:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2529 | UNZONED | 2026.09.01 15:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2554 | UNZONED | 2026.09.01 18:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2559 | UNZONED | 2026.09.01 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2593 | UNZONED | 2026.09.02 03:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2640 | UNZONED | 2026.09.02 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2674 | 1.15788-1.15818 | 2026.09.02 11:55 | NOT MET | MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 2697 | UNZONED | 2026.09.02 15:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2825 | 1.16044-1.16063 | 2026.09.03 10:45 | NOT MET | MET | MET | NOT MET |
+| EU | A7 | 2026.09.08 16:50 | 2845 | UNZONED | 2026.09.03 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2868 | UNZONED | 2026.09.03 16:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2896 | UNZONED | 2026.09.03 20:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2898 | 1.16362-1.16377 | 2026.09.03 21:35 | NOT MET | NOT MET | MET | MET |
+| EU | A7 | 2026.09.08 16:50 | 2920 | UNZONED | 2026.09.04 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2939 | UNZONED | 2026.09.04 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 2971 | UNZONED | 2026.09.04 11:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 3079 | UNZONED | 2026.09.07 00:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 3096 | UNZONED | 2026.09.07 02:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 3173 | UNZONED | 2026.09.07 14:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 3195 | UNZONED | 2026.09.07 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 3199 | UNZONED | 2026.09.07 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 3226 | UNZONED | 2026.09.08 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 3293 | UNZONED | 2026.09.08 09:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | A7 | 2026.09.08 16:50 | 3324 | UNZONED | 2026.09.08 14:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 42 | UNZONED | 2026.08.11 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 89 | UNZONED | 2026.08.12 02:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 101 | UNZONED | 2026.08.12 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 111 | UNZONED | 2026.08.12 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 168 | UNZONED | 2026.08.12 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 263 | UNZONED | 2026.08.13 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 309 | UNZONED | 2026.08.13 11:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 330 | UNZONED | 2026.08.13 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 336 | UNZONED | 2026.08.13 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 339 | UNZONED | 2026.08.13 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 347 | UNZONED | 2026.08.13 16:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 370 | UNZONED | 2026.08.13 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 395 | UNZONED | 2026.08.13 23:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 442 | UNZONED | 2026.08.14 05:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 490 | UNZONED | 2026.08.14 12:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 515 | UNZONED | 2026.08.14 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 557 | UNZONED | 2026.08.14 21:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 709 | UNZONED | 2026.08.17 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 752 | UNZONED | 2026.08.18 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 850 | UNZONED | 2026.08.18 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 871 | UNZONED | 2026.08.18 14:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 875 | UNZONED | 2026.08.18 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 996 | UNZONED | 2026.08.19 07:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1072 | UNZONED | 2026.08.26 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1081 | UNZONED | 2026.08.19 18:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1099 | UNZONED | 2026.08.19 21:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1127 | UNZONED | 2026.08.20 02:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1248 | UNZONED | 2026.08.20 17:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1258 | UNZONED | 2026.08.20 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1320 | UNZONED | 2026.08.21 16:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1352 | UNZONED | 2026.08.21 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1369 | UNZONED | 2026.08.21 10:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1389 | UNZONED | 2026.08.21 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1401 | UNZONED | 2026.08.21 15:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1403 | UNZONED | 2026.08.21 15:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1481 | UNZONED | 2026.08.24 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1484 | UNZONED | 2026.08.24 04:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1495 | UNZONED | 2026.08.24 05:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1506 | UNZONED | 2026.08.24 07:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1508 | UNZONED | 2026.08.24 09:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1516 | UNZONED | 2026.08.24 08:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1552 | UNZONED | 2026.08.24 14:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1589 | UNZONED | 2026.08.24 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1591 | UNZONED | 2026.08.24 20:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1594 | UNZONED | 2026.08.24 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1626 | UNZONED | 2026.08.25 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1644 | UNZONED | 2026.08.25 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1660 | UNZONED | 2026.08.25 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1704 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | MET |
+| EU | F2 | 2026.08.27 16:25 | 1728 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | MET |
+| EU | F2 | 2026.08.27 16:25 | 1765 | UNZONED | 2026.08.25 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1768 | UNZONED | 2026.08.25 22:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1784 | UNZONED | 2026.08.25 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1881 | UNZONED | 2026.08.26 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| EU | F2 | 2026.08.27 16:25 | 1891 | 1.16612-1.1664 | 2026.08.26 16:00 | NOT MET | NOT MET | MET | MET |
+| EU | F2 | 2026.08.27 16:25 | 1937 | UNZONED | 2026.08.27 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 40 | UNZONED | 2026.05.08 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 58 | UNZONED | 2026.05.08 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 65 | UNZONED | 2026.05.11 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 78 | UNZONED | 2026.05.11 00:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 172 | UNZONED | 2026.05.11 14:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 181 | UNZONED | 2026.05.11 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 212 | UNZONED | 2026.05.11 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 256 | UNZONED | 2026.05.12 01:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 261 | UNZONED | 2026.05.12 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 302 | UNZONED | 2026.05.12 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 313 | UNZONED | 2026.05.12 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 327 | UNZONED | 2026.05.12 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 352 | UNZONED | 2026.05.12 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 354 | UNZONED | 2026.05.12 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 414 | UNZONED | 2026.05.13 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 424 | UNZONED | 2026.05.13 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 440 | UNZONED | 2026.05.13 03:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 445 | UNZONED | 2026.05.13 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 447 | UNZONED | 2026.05.13 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 449 | UNZONED | 2026.05.13 05:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 460 | UNZONED | 2026.05.13 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 463 | UNZONED | 2026.05.13 07:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 474 | UNZONED | 2026.05.13 09:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 492 | UNZONED | 2026.05.13 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 502 | UNZONED | 2026.05.13 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 513 | UNZONED | 2026.05.13 15:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 559 | UNZONED | 2026.05.13 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 566 | UNZONED | 2026.05.13 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 594 | UNZONED | 2026.05.14 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 637 | UNZONED | 2026.05.14 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 660 | UNZONED | 2026.05.14 11:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 673 | UNZONED | 2026.05.14 13:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 676 | UNZONED | 2026.05.14 14:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 696 | UNZONED | 2026.05.14 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 698 | UNZONED | 2026.05.14 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 701 | UNZONED | 2026.05.14 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 706 | UNZONED | 2026.05.14 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 714 | UNZONED | 2026.05.14 19:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 724 | UNZONED | 2026.05.14 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 731 | UNZONED | 2026.05.14 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 753 | UNZONED | 2026.05.15 02:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 775 | UNZONED | 2026.05.15 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 802 | UNZONED | 2026.05.15 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 820 | UNZONED | 2026.05.15 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 841 | UNZONED | 2026.05.15 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 851 | UNZONED | 2026.05.15 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 878 | UNZONED | 2026.05.15 18:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 881 | UNZONED | 2026.05.15 21:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 888 | UNZONED | 2026.05.15 21:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 908 | UNZONED | 2026.05.15 23:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 913 | UNZONED | 2026.05.15 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 923 | UNZONED | 2026.05.18 00:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 936 | UNZONED | 2026.05.18 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 945 | UNZONED | 2026.05.18 03:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 954 | UNZONED | 2026.05.18 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 980 | UNZONED | 2026.05.18 21:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 991 | UNZONED | 2026.05.18 10:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 993 | UNZONED | 2026.05.18 10:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1013 | UNZONED | 2026.05.18 12:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1038 | UNZONED | 2026.05.18 16:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1047 | UNZONED | 2026.05.18 17:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1055 | UNZONED | 2026.05.18 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1081 | UNZONED | 2026.05.18 21:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1103 | UNZONED | 2026.05.19 01:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1116 | UNZONED | 2026.05.19 02:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1154 | UNZONED | 2026.05.19 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1167 | UNZONED | 2026.05.19 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1188 | UNZONED | 2026.05.19 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1192 | UNZONED | 2026.05.19 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1208 | UNZONED | 2026.05.19 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1263 | UNZONED | 2026.05.19 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1336 | UNZONED | 2026.05.20 09:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1353 | UNZONED | 2026.05.20 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1382 | UNZONED | 2026.05.20 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1387 | UNZONED | 2026.05.20 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1397 | UNZONED | 2026.05.20 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1405 | UNZONED | 2026.05.20 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1465 | UNZONED | 2026.05.21 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1543 | UNZONED | 2026.05.21 15:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1548 | UNZONED | 2026.05.21 16:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1575 | UNZONED | 2026.05.22 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1641 | UNZONED | 2026.05.22 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1669 | UNZONED | 2026.05.22 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1679 | UNZONED | 2026.05.22 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1691 | UNZONED | 2026.05.22 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1769 | UNZONED | 2026.05.25 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1779 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1780 | UNZONED | 2026.05.25 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1785 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1794 | UNZONED | 2026.05.25 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1857 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1863 | UNZONED | 2026.05.25 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1865 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1874 | UNZONED | 2026.05.25 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1905 | UNZONED | 2026.05.26 02:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1935 | UNZONED | 2026.05.26 05:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1949 | UNZONED | 2026.05.26 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1958 | UNZONED | 2026.05.26 09:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 1965 | UNZONED | 2026.05.26 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2014 | UNZONED | 2026.05.26 18:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2050 | UNZONED | 2026.05.26 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2083 | UNZONED | 2026.05.27 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2094 | 159.19-159.208 | 2026.05.27 06:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 2120 | UNZONED | 2026.05.27 10:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2125 | UNZONED | 2026.05.27 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2319 | UNZONED | 2026.05.28 14:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2330 | UNZONED | 2026.05.28 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2334 | UNZONED | 2026.05.28 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2376 | UNZONED | 2026.05.28 23:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2398 | UNZONED | 2026.05.29 02:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2466 | UNZONED | 2026.05.29 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2493 | 159.252-159.275 | 2026.05.29 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 2501 | UNZONED | 2026.05.29 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2509 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2510 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2516 | UNZONED | 2026.05.29 20:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2523 | UNZONED | 2026.05.29 20:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2530 | UNZONED | 2026.05.29 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2561 | UNZONED | 2026.06.01 01:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2566 | 159.382-159.407 | 2026.06.01 03:15 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 2617 | 159.443-159.462 | 2026.06.01 10:45 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 2634 | UNZONED | 2026.06.01 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2648 | UNZONED | 2026.06.01 16:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2720 | 159.586-159.605 | 2026.06.02 01:05 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 2786 | UNZONED | 2026.06.02 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2815 | UNZONED | 2026.06.02 16:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2820 | UNZONED | 2026.06.02 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2856 | UNZONED | 2026.06.03 02:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2868 | UNZONED | 2026.06.02 22:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2925 | UNZONED | 2026.06.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2928 | UNZONED | 2026.06.03 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 2930 | 159.906-159.913 | 2026.06.03 09:00 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 2945 | 159.579-159.675 | 2026.06.03 11:15 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 2976 | 159.806-159.855 | 2026.06.03 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 3025 | UNZONED | 2026.06.03 22:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3061 | UNZONED | 2026.06.04 06:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3074 | UNZONED | 2026.06.04 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3093 | UNZONED | 2026.06.04 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3108 | UNZONED | 2026.06.04 09:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3150 | 159.82-159.853 | 2026.06.04 16:05 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 3173 | UNZONED | 2026.06.04 20:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3201 | UNZONED | 2026.06.04 23:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3243 | UNZONED | 2026.06.05 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3281 | UNZONED | 2026.06.05 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3308 | 159.881-159.916 | 2026.06.05 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 3321 | UNZONED | 2026.06.05 18:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3329 | UNZONED | 2026.06.05 17:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3367 | UNZONED | 2026.06.05 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3371 | UNZONED | 2026.06.08 00:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3389 | UNZONED | 2026.06.08 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3393 | UNZONED | 2026.06.08 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3416 | UNZONED | 2026.06.09 19:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3426 | UNZONED | 2026.06.08 07:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3464 | UNZONED | 2026.06.08 13:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3465 | UNZONED | 2026.06.08 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3468 | UNZONED | 2026.06.08 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3486 | UNZONED | 2026.06.08 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3491 | 159.942-159.982 | 2026.06.08 16:50 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 3571 | UNZONED | 2026.06.09 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3599 | UNZONED | 2026.06.09 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3633 | UNZONED | 2026.06.09 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3645 | UNZONED | 2026.06.09 13:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3668 | UNZONED | 2026.06.09 16:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3672 | UNZONED | 2026.06.09 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3686 | UNZONED | 2026.06.09 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3705 | 160.299-160.316 | 2026.06.09 22:05 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 3753 | UNZONED | 2026.06.10 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3780 | 160.325-160.344 | 2026.06.10 09:30 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:05 | 3785 | UNZONED | 2026.06.10 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3816 | UNZONED | 2026.06.10 14:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3833 | UNZONED | 2026.06.10 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3834 | UNZONED | 2026.06.10 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3836 | UNZONED | 2026.06.10 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3865 | UNZONED | 2026.06.10 23:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:05 | 3913 | 160.489-160.504 | 2026.06.11 08:30 | NOT MET | MET | MET | MET |
+| UJ | B3 | 2026.06.11 14:30 | 40 | UNZONED | 2026.05.08 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 58 | UNZONED | 2026.05.08 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 65 | UNZONED | 2026.05.11 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 78 | UNZONED | 2026.05.11 00:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 172 | UNZONED | 2026.05.11 14:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 181 | UNZONED | 2026.05.11 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 212 | UNZONED | 2026.05.11 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 256 | UNZONED | 2026.05.12 01:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 261 | UNZONED | 2026.05.12 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 302 | UNZONED | 2026.05.12 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 313 | UNZONED | 2026.05.12 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 327 | UNZONED | 2026.05.12 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 352 | UNZONED | 2026.05.12 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 354 | UNZONED | 2026.05.12 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 414 | UNZONED | 2026.05.13 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 424 | UNZONED | 2026.05.13 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 440 | UNZONED | 2026.05.13 03:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 445 | UNZONED | 2026.05.13 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 447 | UNZONED | 2026.05.13 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 449 | UNZONED | 2026.05.13 05:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 460 | UNZONED | 2026.05.13 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 463 | UNZONED | 2026.05.13 07:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 474 | UNZONED | 2026.05.13 09:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 492 | UNZONED | 2026.05.13 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 502 | UNZONED | 2026.05.13 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 513 | UNZONED | 2026.05.13 15:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 559 | UNZONED | 2026.05.13 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 566 | UNZONED | 2026.05.13 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 594 | UNZONED | 2026.05.14 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 637 | UNZONED | 2026.05.14 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 660 | UNZONED | 2026.05.14 11:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 673 | UNZONED | 2026.05.14 13:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 676 | UNZONED | 2026.05.14 14:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 696 | UNZONED | 2026.05.14 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 698 | UNZONED | 2026.05.14 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 701 | UNZONED | 2026.05.14 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 706 | UNZONED | 2026.05.14 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 714 | UNZONED | 2026.05.14 19:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 724 | UNZONED | 2026.05.14 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 731 | UNZONED | 2026.05.14 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 753 | UNZONED | 2026.05.15 02:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 775 | UNZONED | 2026.05.15 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 802 | UNZONED | 2026.05.15 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 820 | UNZONED | 2026.05.15 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 841 | UNZONED | 2026.05.15 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 851 | UNZONED | 2026.05.15 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 878 | UNZONED | 2026.05.15 18:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 881 | UNZONED | 2026.05.15 21:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 888 | UNZONED | 2026.05.15 21:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 908 | UNZONED | 2026.05.15 23:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 913 | UNZONED | 2026.05.15 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 923 | UNZONED | 2026.05.18 00:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 936 | UNZONED | 2026.05.18 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 945 | UNZONED | 2026.05.18 03:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 954 | UNZONED | 2026.05.18 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 980 | UNZONED | 2026.05.18 21:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 991 | UNZONED | 2026.05.18 10:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 993 | UNZONED | 2026.05.18 10:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1013 | UNZONED | 2026.05.18 12:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1038 | UNZONED | 2026.05.18 16:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1047 | UNZONED | 2026.05.18 17:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1055 | UNZONED | 2026.05.18 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1081 | UNZONED | 2026.05.18 21:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1103 | UNZONED | 2026.05.19 01:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1116 | UNZONED | 2026.05.19 02:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1154 | UNZONED | 2026.05.19 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1167 | UNZONED | 2026.05.19 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1188 | UNZONED | 2026.05.19 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1192 | UNZONED | 2026.05.19 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1208 | UNZONED | 2026.05.19 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1263 | UNZONED | 2026.05.19 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1336 | UNZONED | 2026.05.20 09:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1353 | UNZONED | 2026.05.20 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1382 | UNZONED | 2026.05.20 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1387 | UNZONED | 2026.05.20 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1397 | UNZONED | 2026.05.20 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1405 | UNZONED | 2026.05.20 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1465 | UNZONED | 2026.05.21 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1543 | UNZONED | 2026.05.21 15:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1548 | UNZONED | 2026.05.21 16:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1575 | UNZONED | 2026.05.22 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1641 | UNZONED | 2026.05.22 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1669 | UNZONED | 2026.05.22 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1679 | UNZONED | 2026.05.22 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1691 | UNZONED | 2026.05.22 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1769 | UNZONED | 2026.05.25 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1779 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1780 | UNZONED | 2026.05.25 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1785 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1794 | UNZONED | 2026.05.25 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1857 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1863 | UNZONED | 2026.05.25 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1865 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1874 | UNZONED | 2026.05.25 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1905 | UNZONED | 2026.05.26 02:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1935 | UNZONED | 2026.05.26 05:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1949 | UNZONED | 2026.05.26 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1958 | UNZONED | 2026.05.26 09:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 1965 | UNZONED | 2026.05.26 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2014 | UNZONED | 2026.05.26 18:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2050 | UNZONED | 2026.05.26 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2083 | UNZONED | 2026.05.27 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2094 | 159.19-159.208 | 2026.05.27 06:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 2120 | UNZONED | 2026.05.27 10:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2125 | UNZONED | 2026.05.27 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2319 | UNZONED | 2026.05.28 14:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2330 | UNZONED | 2026.05.28 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2334 | UNZONED | 2026.05.28 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2376 | UNZONED | 2026.05.28 23:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2398 | UNZONED | 2026.05.29 02:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2466 | UNZONED | 2026.05.29 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2493 | 159.252-159.275 | 2026.05.29 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 2501 | UNZONED | 2026.05.29 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2509 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2510 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2516 | UNZONED | 2026.05.29 20:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2523 | UNZONED | 2026.05.29 20:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2530 | UNZONED | 2026.05.29 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2561 | UNZONED | 2026.06.01 01:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2566 | 159.382-159.407 | 2026.06.01 03:15 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 2617 | 159.443-159.462 | 2026.06.01 10:45 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 2634 | UNZONED | 2026.06.01 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2648 | UNZONED | 2026.06.01 16:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2720 | 159.586-159.605 | 2026.06.02 01:05 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 2786 | UNZONED | 2026.06.02 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2815 | UNZONED | 2026.06.02 16:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2820 | UNZONED | 2026.06.02 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2856 | UNZONED | 2026.06.03 02:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2868 | UNZONED | 2026.06.02 22:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2925 | UNZONED | 2026.06.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2928 | UNZONED | 2026.06.03 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 2930 | 159.906-159.913 | 2026.06.03 09:00 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 2945 | 159.579-159.675 | 2026.06.03 11:15 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 2976 | 159.806-159.855 | 2026.06.03 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 3025 | UNZONED | 2026.06.03 22:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3061 | UNZONED | 2026.06.04 06:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3074 | UNZONED | 2026.06.04 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3093 | UNZONED | 2026.06.04 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3108 | UNZONED | 2026.06.04 09:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3150 | 159.82-159.853 | 2026.06.04 16:05 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 3173 | UNZONED | 2026.06.04 20:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3201 | UNZONED | 2026.06.04 23:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3243 | UNZONED | 2026.06.05 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3281 | UNZONED | 2026.06.05 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3308 | 159.881-159.916 | 2026.06.05 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 3321 | UNZONED | 2026.06.05 18:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3329 | UNZONED | 2026.06.05 17:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3367 | UNZONED | 2026.06.05 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3371 | UNZONED | 2026.06.08 00:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3389 | UNZONED | 2026.06.08 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3393 | UNZONED | 2026.06.08 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3416 | UNZONED | 2026.06.09 19:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3426 | UNZONED | 2026.06.08 07:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3464 | UNZONED | 2026.06.08 13:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3465 | UNZONED | 2026.06.08 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3468 | UNZONED | 2026.06.08 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3486 | UNZONED | 2026.06.08 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3491 | 159.942-159.982 | 2026.06.08 16:50 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 3571 | UNZONED | 2026.06.09 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3599 | UNZONED | 2026.06.09 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3633 | UNZONED | 2026.06.09 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3645 | UNZONED | 2026.06.09 13:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3668 | UNZONED | 2026.06.09 16:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3672 | UNZONED | 2026.06.09 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3686 | UNZONED | 2026.06.09 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3705 | 160.299-160.316 | 2026.06.09 22:05 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 3753 | UNZONED | 2026.06.10 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3780 | 160.325-160.344 | 2026.06.10 09:30 | NOT MET | MET | MET | NOT MET |
+| UJ | B3 | 2026.06.11 14:30 | 3785 | UNZONED | 2026.06.10 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3816 | UNZONED | 2026.06.10 14:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3833 | UNZONED | 2026.06.10 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3834 | UNZONED | 2026.06.10 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3836 | UNZONED | 2026.06.10 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3865 | UNZONED | 2026.06.10 23:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B3 | 2026.06.11 14:30 | 3913 | 160.489-160.504 | 2026.06.11 08:30 | NOT MET | MET | MET | MET |
+| UJ | C3 | 2026.06.03 09:00 | 40 | UNZONED | 2026.05.08 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 58 | UNZONED | 2026.05.08 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 65 | UNZONED | 2026.05.11 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 78 | UNZONED | 2026.05.11 00:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 172 | UNZONED | 2026.05.11 14:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 181 | UNZONED | 2026.05.11 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 212 | UNZONED | 2026.05.11 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 256 | UNZONED | 2026.05.12 01:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 261 | UNZONED | 2026.05.12 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 302 | UNZONED | 2026.05.12 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 313 | UNZONED | 2026.05.12 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 327 | UNZONED | 2026.05.12 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 352 | UNZONED | 2026.05.12 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 354 | UNZONED | 2026.05.12 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 414 | UNZONED | 2026.05.13 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 424 | UNZONED | 2026.05.13 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 440 | UNZONED | 2026.05.13 03:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 445 | UNZONED | 2026.05.13 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 447 | UNZONED | 2026.05.13 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 449 | UNZONED | 2026.05.13 05:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 460 | UNZONED | 2026.05.13 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 463 | UNZONED | 2026.05.13 07:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 474 | UNZONED | 2026.05.13 09:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 492 | UNZONED | 2026.05.13 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 502 | UNZONED | 2026.05.13 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 513 | UNZONED | 2026.05.13 15:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 559 | UNZONED | 2026.05.13 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 566 | UNZONED | 2026.05.13 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 594 | UNZONED | 2026.05.14 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 637 | UNZONED | 2026.05.14 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 660 | UNZONED | 2026.05.14 11:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 673 | UNZONED | 2026.05.14 13:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 676 | UNZONED | 2026.05.14 14:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 696 | UNZONED | 2026.05.14 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 698 | UNZONED | 2026.05.14 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 701 | UNZONED | 2026.05.14 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 706 | UNZONED | 2026.05.14 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 714 | UNZONED | 2026.05.14 19:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 724 | UNZONED | 2026.05.14 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 731 | UNZONED | 2026.05.14 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 753 | UNZONED | 2026.05.15 02:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 775 | UNZONED | 2026.05.15 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 802 | UNZONED | 2026.05.15 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 820 | UNZONED | 2026.05.15 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 841 | UNZONED | 2026.05.15 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 851 | UNZONED | 2026.05.15 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 878 | UNZONED | 2026.05.15 18:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 881 | UNZONED | 2026.05.15 21:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 888 | UNZONED | 2026.05.15 21:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 908 | UNZONED | 2026.05.15 23:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 913 | UNZONED | 2026.05.15 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 923 | UNZONED | 2026.05.18 00:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 936 | UNZONED | 2026.05.18 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 945 | UNZONED | 2026.05.18 03:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 954 | UNZONED | 2026.05.18 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 980 | UNZONED | 2026.05.18 21:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 991 | UNZONED | 2026.05.18 10:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 993 | UNZONED | 2026.05.18 10:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1013 | UNZONED | 2026.05.18 12:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1038 | UNZONED | 2026.05.18 16:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1047 | UNZONED | 2026.05.18 17:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1055 | UNZONED | 2026.05.18 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1081 | UNZONED | 2026.05.18 21:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1103 | UNZONED | 2026.05.19 01:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1116 | UNZONED | 2026.05.19 02:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1154 | UNZONED | 2026.05.19 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1167 | UNZONED | 2026.05.19 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1188 | UNZONED | 2026.05.19 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1192 | UNZONED | 2026.05.19 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1208 | UNZONED | 2026.05.19 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1263 | UNZONED | 2026.05.19 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1336 | UNZONED | 2026.05.20 09:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1353 | UNZONED | 2026.05.20 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1382 | UNZONED | 2026.05.20 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1387 | UNZONED | 2026.05.20 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1397 | UNZONED | 2026.05.20 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1405 | UNZONED | 2026.05.20 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1465 | UNZONED | 2026.05.21 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1543 | UNZONED | 2026.05.21 15:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1548 | UNZONED | 2026.05.21 16:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1575 | UNZONED | 2026.05.22 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1641 | UNZONED | 2026.05.22 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1669 | UNZONED | 2026.05.22 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1679 | UNZONED | 2026.05.22 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1691 | UNZONED | 2026.05.22 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1769 | UNZONED | 2026.05.25 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1779 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1780 | UNZONED | 2026.05.25 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1785 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1794 | UNZONED | 2026.05.25 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1857 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1863 | UNZONED | 2026.05.25 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1865 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1874 | UNZONED | 2026.05.25 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1905 | UNZONED | 2026.05.26 02:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1935 | UNZONED | 2026.05.26 05:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1949 | UNZONED | 2026.05.26 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1958 | UNZONED | 2026.05.26 09:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 1965 | UNZONED | 2026.05.26 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2014 | UNZONED | 2026.05.26 18:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2050 | UNZONED | 2026.05.26 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2083 | UNZONED | 2026.05.27 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2094 | 159.19-159.208 | 2026.05.27 06:40 | NOT MET | MET | MET | NOT MET |
+| UJ | C3 | 2026.06.03 09:00 | 2120 | UNZONED | 2026.05.27 10:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2125 | UNZONED | 2026.05.27 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2319 | UNZONED | 2026.05.28 14:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2330 | UNZONED | 2026.05.28 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2334 | UNZONED | 2026.05.28 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2376 | UNZONED | 2026.05.28 23:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2398 | UNZONED | 2026.05.29 02:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2466 | UNZONED | 2026.05.29 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2493 | 159.252-159.275 | 2026.05.29 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | C3 | 2026.06.03 09:00 | 2501 | UNZONED | 2026.05.29 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2509 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2510 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2516 | UNZONED | 2026.05.29 20:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2523 | UNZONED | 2026.05.29 20:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2530 | UNZONED | 2026.05.29 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2561 | UNZONED | 2026.06.01 01:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2566 | 159.382-159.407 | 2026.06.01 03:15 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | C3 | 2026.06.03 09:00 | 2617 | 159.443-159.462 | 2026.06.01 10:45 | NOT MET | MET | MET | NOT MET |
+| UJ | C3 | 2026.06.03 09:00 | 2634 | UNZONED | 2026.06.01 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2648 | UNZONED | 2026.06.01 16:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2720 | 159.586-159.605 | 2026.06.02 01:05 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | C3 | 2026.06.03 09:00 | 2786 | UNZONED | 2026.06.02 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2789 | 159.679-159.694 | 2026.06.02 11:30 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | C3 | 2026.06.03 09:00 | 2812 | UNZONED | 2026.06.02 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2815 | UNZONED | 2026.06.02 16:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2820 | UNZONED | 2026.06.02 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2856 | UNZONED | 2026.06.03 02:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2868 | UNZONED | 2026.06.02 22:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2925 | UNZONED | 2026.06.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2928 | UNZONED | 2026.06.03 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | C3 | 2026.06.03 09:00 | 2930 | 159.906-159.913 | 2026.06.03 09:00 | MET | NOT MET | MET | MET |
+| UJ | B2 | 2026.06.05 16:00 | 40 | UNZONED | 2026.05.08 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 58 | UNZONED | 2026.05.08 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 65 | UNZONED | 2026.05.11 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 78 | UNZONED | 2026.05.11 00:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 172 | UNZONED | 2026.05.11 14:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 181 | UNZONED | 2026.05.11 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 212 | UNZONED | 2026.05.11 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 256 | UNZONED | 2026.05.12 01:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 261 | UNZONED | 2026.05.12 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 302 | UNZONED | 2026.05.12 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 313 | UNZONED | 2026.05.12 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 327 | UNZONED | 2026.05.12 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 352 | UNZONED | 2026.05.12 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 354 | UNZONED | 2026.05.12 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 414 | UNZONED | 2026.05.13 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 424 | UNZONED | 2026.05.13 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 440 | UNZONED | 2026.05.13 03:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 445 | UNZONED | 2026.05.13 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 447 | UNZONED | 2026.05.13 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 449 | UNZONED | 2026.05.13 05:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 460 | UNZONED | 2026.05.13 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 463 | UNZONED | 2026.05.13 07:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 474 | UNZONED | 2026.05.13 09:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 492 | UNZONED | 2026.05.13 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 502 | UNZONED | 2026.05.13 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 513 | UNZONED | 2026.05.13 15:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 559 | UNZONED | 2026.05.13 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 566 | UNZONED | 2026.05.13 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 594 | UNZONED | 2026.05.14 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 637 | UNZONED | 2026.05.14 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 660 | UNZONED | 2026.05.14 11:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 673 | UNZONED | 2026.05.14 13:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 676 | UNZONED | 2026.05.14 14:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 696 | UNZONED | 2026.05.14 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 698 | UNZONED | 2026.05.14 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 701 | UNZONED | 2026.05.14 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 706 | UNZONED | 2026.05.14 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 714 | UNZONED | 2026.05.14 19:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 724 | UNZONED | 2026.05.14 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 731 | UNZONED | 2026.05.14 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 753 | UNZONED | 2026.05.15 02:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 775 | UNZONED | 2026.05.15 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 802 | UNZONED | 2026.05.15 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 820 | UNZONED | 2026.05.15 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 841 | UNZONED | 2026.05.15 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 851 | UNZONED | 2026.05.15 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 878 | UNZONED | 2026.05.15 18:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 881 | UNZONED | 2026.05.15 21:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 888 | UNZONED | 2026.05.15 21:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 908 | UNZONED | 2026.05.15 23:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 913 | UNZONED | 2026.05.15 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 923 | UNZONED | 2026.05.18 00:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 936 | UNZONED | 2026.05.18 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 945 | UNZONED | 2026.05.18 03:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 954 | UNZONED | 2026.05.18 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 980 | UNZONED | 2026.05.18 21:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 991 | UNZONED | 2026.05.18 10:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 993 | UNZONED | 2026.05.18 10:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1013 | UNZONED | 2026.05.18 12:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1038 | UNZONED | 2026.05.18 16:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1047 | UNZONED | 2026.05.18 17:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1055 | UNZONED | 2026.05.18 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1081 | UNZONED | 2026.05.18 21:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1103 | UNZONED | 2026.05.19 01:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1116 | UNZONED | 2026.05.19 02:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1154 | UNZONED | 2026.05.19 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1167 | UNZONED | 2026.05.19 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1188 | UNZONED | 2026.05.19 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1192 | UNZONED | 2026.05.19 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1208 | UNZONED | 2026.05.19 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1263 | UNZONED | 2026.05.19 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1336 | UNZONED | 2026.05.20 09:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1353 | UNZONED | 2026.05.20 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1382 | UNZONED | 2026.05.20 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1387 | UNZONED | 2026.05.20 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1397 | UNZONED | 2026.05.20 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1405 | UNZONED | 2026.05.20 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1465 | UNZONED | 2026.05.21 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1543 | UNZONED | 2026.05.21 15:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1548 | UNZONED | 2026.05.21 16:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1575 | UNZONED | 2026.05.22 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1641 | UNZONED | 2026.05.22 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1669 | UNZONED | 2026.05.22 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1679 | UNZONED | 2026.05.22 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1691 | UNZONED | 2026.05.22 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1769 | UNZONED | 2026.05.25 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1779 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1780 | UNZONED | 2026.05.25 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1785 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1794 | UNZONED | 2026.05.25 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1857 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1863 | UNZONED | 2026.05.25 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1865 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1874 | UNZONED | 2026.05.25 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1905 | UNZONED | 2026.05.26 02:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1935 | UNZONED | 2026.05.26 05:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1949 | UNZONED | 2026.05.26 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1958 | UNZONED | 2026.05.26 09:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 1965 | UNZONED | 2026.05.26 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2014 | UNZONED | 2026.05.26 18:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2050 | UNZONED | 2026.05.26 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2083 | UNZONED | 2026.05.27 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2094 | 159.19-159.208 | 2026.05.27 06:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 2120 | UNZONED | 2026.05.27 10:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2125 | UNZONED | 2026.05.27 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2319 | UNZONED | 2026.05.28 14:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2330 | UNZONED | 2026.05.28 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2334 | UNZONED | 2026.05.28 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2376 | UNZONED | 2026.05.28 23:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2398 | UNZONED | 2026.05.29 02:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2466 | UNZONED | 2026.05.29 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2493 | 159.252-159.275 | 2026.05.29 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 2501 | UNZONED | 2026.05.29 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2509 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2510 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2516 | UNZONED | 2026.05.29 20:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2523 | UNZONED | 2026.05.29 20:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2530 | UNZONED | 2026.05.29 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2561 | UNZONED | 2026.06.01 01:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2566 | 159.382-159.407 | 2026.06.01 03:15 | NOT MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 2617 | 159.443-159.462 | 2026.06.01 10:45 | NOT MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 2634 | UNZONED | 2026.06.01 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2648 | UNZONED | 2026.06.01 16:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2720 | 159.586-159.605 | 2026.06.02 01:05 | NOT MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 2786 | UNZONED | 2026.06.02 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2815 | UNZONED | 2026.06.02 16:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2820 | UNZONED | 2026.06.02 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2856 | UNZONED | 2026.06.03 02:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2868 | UNZONED | 2026.06.02 22:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2925 | UNZONED | 2026.06.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2928 | UNZONED | 2026.06.03 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 2930 | 159.906-159.913 | 2026.06.03 09:00 | MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 2945 | 159.579-159.675 | 2026.06.03 11:15 | NOT MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 2976 | 159.806-159.855 | 2026.06.03 15:40 | MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 3025 | UNZONED | 2026.06.03 22:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3061 | UNZONED | 2026.06.04 06:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3074 | UNZONED | 2026.06.04 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3093 | UNZONED | 2026.06.04 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3108 | UNZONED | 2026.06.04 09:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3150 | 159.82-159.853 | 2026.06.04 16:05 | MET | MET | MET | NOT MET |
+| UJ | B2 | 2026.06.05 16:00 | 3173 | UNZONED | 2026.06.04 20:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3201 | UNZONED | 2026.06.04 23:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3243 | UNZONED | 2026.06.05 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3281 | UNZONED | 2026.06.05 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | B2 | 2026.06.05 16:00 | 3308 | 159.881-159.916 | 2026.06.05 15:40 | MET | MET | MET | MET |
+| UJ | F1 | 2026.06.02 14:20 | 40 | UNZONED | 2026.05.08 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 58 | UNZONED | 2026.05.08 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 65 | UNZONED | 2026.05.11 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 78 | UNZONED | 2026.05.11 00:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 172 | UNZONED | 2026.05.11 14:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 181 | UNZONED | 2026.05.11 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 212 | UNZONED | 2026.05.11 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 256 | UNZONED | 2026.05.12 01:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 261 | UNZONED | 2026.05.12 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 302 | UNZONED | 2026.05.12 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 313 | UNZONED | 2026.05.12 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 327 | UNZONED | 2026.05.12 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 352 | UNZONED | 2026.05.12 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 354 | UNZONED | 2026.05.12 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 414 | UNZONED | 2026.05.13 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 424 | UNZONED | 2026.05.13 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 440 | UNZONED | 2026.05.13 03:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 445 | UNZONED | 2026.05.13 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 447 | UNZONED | 2026.05.13 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 449 | UNZONED | 2026.05.13 05:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 460 | UNZONED | 2026.05.13 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 463 | UNZONED | 2026.05.13 07:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 474 | UNZONED | 2026.05.13 09:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 492 | UNZONED | 2026.05.13 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 502 | UNZONED | 2026.05.13 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 513 | UNZONED | 2026.05.13 15:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 559 | UNZONED | 2026.05.13 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 566 | UNZONED | 2026.05.13 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 594 | UNZONED | 2026.05.14 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 637 | UNZONED | 2026.05.14 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 660 | UNZONED | 2026.05.14 11:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 673 | UNZONED | 2026.05.14 13:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 676 | UNZONED | 2026.05.14 14:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 696 | UNZONED | 2026.05.14 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 698 | UNZONED | 2026.05.14 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 701 | UNZONED | 2026.05.14 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 706 | UNZONED | 2026.05.14 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 714 | UNZONED | 2026.05.14 19:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 724 | UNZONED | 2026.05.14 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 731 | UNZONED | 2026.05.14 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 753 | UNZONED | 2026.05.15 02:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 775 | UNZONED | 2026.05.15 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 802 | UNZONED | 2026.05.15 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 820 | UNZONED | 2026.05.15 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 841 | UNZONED | 2026.05.15 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 851 | UNZONED | 2026.05.15 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 878 | UNZONED | 2026.05.15 18:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 881 | UNZONED | 2026.05.15 21:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 888 | UNZONED | 2026.05.15 21:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 908 | UNZONED | 2026.05.15 23:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 913 | UNZONED | 2026.05.15 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 923 | UNZONED | 2026.05.18 00:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 936 | UNZONED | 2026.05.18 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 945 | UNZONED | 2026.05.18 03:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 954 | UNZONED | 2026.05.18 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 980 | UNZONED | 2026.05.18 21:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 991 | UNZONED | 2026.05.18 10:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 993 | UNZONED | 2026.05.18 10:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1013 | UNZONED | 2026.05.18 12:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1038 | UNZONED | 2026.05.18 16:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1047 | UNZONED | 2026.05.18 17:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1055 | UNZONED | 2026.05.18 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1081 | UNZONED | 2026.05.18 21:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1103 | UNZONED | 2026.05.19 01:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1116 | UNZONED | 2026.05.19 02:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1154 | UNZONED | 2026.05.19 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1167 | UNZONED | 2026.05.19 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1188 | UNZONED | 2026.05.19 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1192 | UNZONED | 2026.05.19 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1208 | UNZONED | 2026.05.19 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1263 | UNZONED | 2026.05.19 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1336 | UNZONED | 2026.05.20 09:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1353 | UNZONED | 2026.05.20 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1382 | UNZONED | 2026.05.20 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1387 | UNZONED | 2026.05.20 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1397 | UNZONED | 2026.05.20 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1405 | UNZONED | 2026.05.20 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1465 | UNZONED | 2026.05.21 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1543 | UNZONED | 2026.05.21 15:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1548 | UNZONED | 2026.05.21 16:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1575 | UNZONED | 2026.05.22 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1641 | UNZONED | 2026.05.22 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1669 | UNZONED | 2026.05.22 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1679 | UNZONED | 2026.05.22 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1691 | UNZONED | 2026.05.22 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1769 | UNZONED | 2026.05.25 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1779 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1780 | UNZONED | 2026.05.25 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1785 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1794 | UNZONED | 2026.05.25 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1857 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1863 | UNZONED | 2026.05.25 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1865 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1874 | UNZONED | 2026.05.25 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1905 | UNZONED | 2026.05.26 02:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1935 | UNZONED | 2026.05.26 05:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1949 | UNZONED | 2026.05.26 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1958 | UNZONED | 2026.05.26 09:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 1965 | UNZONED | 2026.05.26 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2014 | UNZONED | 2026.05.26 18:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2050 | UNZONED | 2026.05.26 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2083 | UNZONED | 2026.05.27 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2094 | 159.19-159.208 | 2026.05.27 06:40 | NOT MET | MET | MET | NOT MET |
+| UJ | F1 | 2026.06.02 14:20 | 2120 | UNZONED | 2026.05.27 10:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2125 | UNZONED | 2026.05.27 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2319 | UNZONED | 2026.05.28 14:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2330 | UNZONED | 2026.05.28 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2334 | UNZONED | 2026.05.28 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2376 | UNZONED | 2026.05.28 23:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2398 | UNZONED | 2026.05.29 02:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2466 | UNZONED | 2026.05.29 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2493 | 159.252-159.275 | 2026.05.29 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | F1 | 2026.06.02 14:20 | 2501 | UNZONED | 2026.05.29 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2509 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2510 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2516 | UNZONED | 2026.05.29 20:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2523 | UNZONED | 2026.05.29 20:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2530 | UNZONED | 2026.05.29 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2561 | UNZONED | 2026.06.01 01:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2566 | 159.382-159.407 | 2026.06.01 03:15 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | F1 | 2026.06.02 14:20 | 2617 | 159.443-159.462 | 2026.06.01 10:45 | NOT MET | MET | MET | NOT MET |
+| UJ | F1 | 2026.06.02 14:20 | 2634 | UNZONED | 2026.06.01 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2648 | UNZONED | 2026.06.01 16:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2720 | 159.586-159.605 | 2026.06.02 01:05 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | F1 | 2026.06.02 14:20 | 2786 | UNZONED | 2026.06.02 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F1 | 2026.06.02 14:20 | 2789 | 159.679-159.694 | 2026.06.02 11:30 | NOT MET | NOT MET | MET | MET |
+| UJ | F3 | 2026.06.04 09:10 | 105 | UNZONED | 2026.05.11 09:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 125 | UNZONED | 2026.05.11 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 192 | UNZONED | 2026.05.11 16:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 222 | UNZONED | 2026.05.11 20:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 251 | UNZONED | 2026.05.12 01:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 334 | UNZONED | 2026.05.12 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 359 | UNZONED | 2026.05.12 22:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 370 | UNZONED | 2026.05.12 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 380 | UNZONED | 2026.05.12 20:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 394 | UNZONED | 2026.05.12 22:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 404 | UNZONED | 2026.05.13 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 458 | UNZONED | 2026.05.13 06:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 487 | UNZONED | 2026.05.13 11:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 493 | UNZONED | 2026.05.13 13:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 522 | UNZONED | 2026.05.13 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 529 | UNZONED | 2026.05.13 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 562 | UNZONED | 2026.05.13 23:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 567 | UNZONED | 2026.05.14 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 584 | UNZONED | 2026.05.14 01:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 586 | UNZONED | 2026.05.14 02:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 602 | UNZONED | 2026.05.14 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 671 | UNZONED | 2026.05.14 12:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 748 | UNZONED | 2026.05.15 00:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 754 | UNZONED | 2026.05.15 02:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 756 | UNZONED | 2026.05.15 01:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 811 | UNZONED | 2026.05.15 10:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 821 | UNZONED | 2026.05.15 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 867 | UNZONED | 2026.05.15 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 894 | UNZONED | 2026.05.15 22:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 928 | UNZONED | 2026.05.18 15:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 996 | UNZONED | 2026.05.18 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1041 | UNZONED | 2026.05.18 16:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1049 | UNZONED | 2026.05.18 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1143 | UNZONED | 2026.05.19 05:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1248 | UNZONED | 2026.05.19 20:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1296 | UNZONED | 2026.05.20 02:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1305 | UNZONED | 2026.05.20 03:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1324 | UNZONED | 2026.05.20 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1425 | UNZONED | 2026.05.20 21:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1436 | UNZONED | 2026.05.21 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1561 | UNZONED | 2026.05.21 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1583 | UNZONED | 2026.05.21 20:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1616 | UNZONED | 2026.05.25 03:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1651 | UNZONED | 2026.05.22 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1666 | UNZONED | 2026.05.22 09:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1685 | UNZONED | 2026.05.22 13:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1712 | UNZONED | 2026.05.22 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1714 | UNZONED | 2026.05.22 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1730 | UNZONED | 2026.05.22 20:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1744 | UNZONED | 2026.05.22 22:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1809 | UNZONED | 2026.05.26 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1834 | UNZONED | 2026.05.25 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1835 | UNZONED | 2026.05.25 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1854 | UNZONED | 2026.05.25 15:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1886 | UNZONED | 2026.05.25 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1888 | UNZONED | 2026.05.25 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 1988 | UNZONED | 2026.05.26 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2071 | UNZONED | 2026.05.27 03:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2203 | UNZONED | 2026.05.27 21:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2243 | UNZONED | 2026.05.28 04:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2294 | UNZONED | 2026.05.28 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2310 | UNZONED | 2026.05.28 13:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2341 | UNZONED | 2026.05.28 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2436 | UNZONED | 2026.05.29 08:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2443 | 159.304-159.33 | 2026.05.29 09:45 | NOT MET | MET | MET | NOT MET |
+| UJ | F3 | 2026.06.04 09:10 | 2485 | UNZONED | 2026.05.29 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2504 | UNZONED | 2026.05.29 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2534 | UNZONED | 2026.05.29 21:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2571 | UNZONED | 2026.06.01 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2643 | UNZONED | 2026.06.01 15:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2697 | UNZONED | 2026.06.02 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2755 | UNZONED | 2026.06.02 06:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2796 | UNZONED | 2026.06.02 12:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2880 | UNZONED | 2026.06.03 03:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2916 | UNZONED | 2026.06.03 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 2990 | UNZONED | 2026.06.03 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 3008 | UNZONED | 2026.06.03 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 3038 | UNZONED | 2026.06.04 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:10 | 3046 | 160.001-160.012 | 2026.06.04 04:50 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | F3 | 2026.06.04 09:10 | 3052 | 160.001-160.012 | 2026.06.04 04:50 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | F3 | 2026.06.04 09:10 | 3068 | 160.001-160.012 | 2026.06.04 04:50 | NOT MET | NOT MET | NOT MET | NOT MET |
+| UJ | F3 | 2026.06.04 09:10 | 3107 | UNZONED | 2026.06.04 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 105 | UNZONED | 2026.05.11 09:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 125 | UNZONED | 2026.05.11 08:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 192 | UNZONED | 2026.05.11 16:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 222 | UNZONED | 2026.05.11 20:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 251 | UNZONED | 2026.05.12 01:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 334 | UNZONED | 2026.05.12 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 359 | UNZONED | 2026.05.12 22:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 370 | UNZONED | 2026.05.12 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 380 | UNZONED | 2026.05.12 20:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 394 | UNZONED | 2026.05.12 22:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 404 | UNZONED | 2026.05.13 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 458 | UNZONED | 2026.05.13 06:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 487 | UNZONED | 2026.05.13 11:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 493 | UNZONED | 2026.05.13 13:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 522 | UNZONED | 2026.05.13 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 529 | UNZONED | 2026.05.13 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 562 | UNZONED | 2026.05.13 23:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 567 | UNZONED | 2026.05.14 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 584 | UNZONED | 2026.05.14 01:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 586 | UNZONED | 2026.05.14 02:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 602 | UNZONED | 2026.05.14 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 671 | UNZONED | 2026.05.14 12:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 748 | UNZONED | 2026.05.15 00:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 754 | UNZONED | 2026.05.15 02:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 756 | UNZONED | 2026.05.15 01:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 811 | UNZONED | 2026.05.15 10:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 821 | UNZONED | 2026.05.15 13:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 867 | UNZONED | 2026.05.15 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 894 | UNZONED | 2026.05.15 22:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 928 | UNZONED | 2026.05.18 15:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 996 | UNZONED | 2026.05.18 10:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1041 | UNZONED | 2026.05.18 16:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1049 | UNZONED | 2026.05.18 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1143 | UNZONED | 2026.05.19 05:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1248 | UNZONED | 2026.05.19 20:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1296 | UNZONED | 2026.05.20 02:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1305 | UNZONED | 2026.05.20 03:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1324 | UNZONED | 2026.05.20 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1425 | UNZONED | 2026.05.20 21:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1436 | UNZONED | 2026.05.21 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1561 | UNZONED | 2026.05.21 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1583 | UNZONED | 2026.05.21 20:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1616 | UNZONED | 2026.05.25 03:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1651 | UNZONED | 2026.05.22 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1666 | UNZONED | 2026.05.22 09:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1685 | UNZONED | 2026.05.22 13:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1712 | UNZONED | 2026.05.22 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1714 | UNZONED | 2026.05.22 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1730 | UNZONED | 2026.05.22 20:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1744 | UNZONED | 2026.05.22 22:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1809 | UNZONED | 2026.05.26 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1834 | UNZONED | 2026.05.25 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1835 | UNZONED | 2026.05.25 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1854 | UNZONED | 2026.05.25 15:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1886 | UNZONED | 2026.05.25 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1888 | UNZONED | 2026.05.25 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 1988 | UNZONED | 2026.05.26 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2071 | UNZONED | 2026.05.27 03:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2203 | UNZONED | 2026.05.27 21:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2243 | UNZONED | 2026.05.28 04:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2294 | UNZONED | 2026.05.28 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2310 | UNZONED | 2026.05.28 13:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2341 | UNZONED | 2026.05.28 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2436 | UNZONED | 2026.05.29 08:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2443 | 159.304-159.33 | 2026.05.29 09:45 | NOT MET | MET | MET | NOT MET |
+| UJ | F3 | 2026.06.04 09:45 | 2485 | UNZONED | 2026.05.29 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2504 | UNZONED | 2026.05.29 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2534 | UNZONED | 2026.05.29 21:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2571 | UNZONED | 2026.06.01 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2643 | UNZONED | 2026.06.01 15:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2697 | UNZONED | 2026.06.02 00:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2755 | UNZONED | 2026.06.02 06:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2796 | UNZONED | 2026.06.02 12:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2880 | UNZONED | 2026.06.03 03:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2916 | UNZONED | 2026.06.03 07:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 2990 | UNZONED | 2026.06.03 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 3008 | UNZONED | 2026.06.03 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 3038 | UNZONED | 2026.06.04 00:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F3 | 2026.06.04 09:45 | 3046 | 160.001-160.012 | 2026.06.04 04:50 | NOT MET | NOT MET | MET | MET |
+| UJ | F3 | 2026.06.04 09:45 | 3052 | 160.001-160.012 | 2026.06.04 04:50 | NOT MET | NOT MET | MET | MET |
+| UJ | F3 | 2026.06.04 09:45 | 3068 | 160.001-160.012 | 2026.06.04 04:50 | NOT MET | NOT MET | NOT MET | MET |
+| UJ | F3 | 2026.06.04 09:45 | 3107 | UNZONED | 2026.06.04 09:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 40 | UNZONED | 2026.05.08 20:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 58 | UNZONED | 2026.05.08 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 65 | UNZONED | 2026.05.11 04:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 78 | UNZONED | 2026.05.11 00:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 172 | UNZONED | 2026.05.11 14:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 181 | UNZONED | 2026.05.11 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 212 | UNZONED | 2026.05.11 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 256 | UNZONED | 2026.05.12 01:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 261 | UNZONED | 2026.05.12 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 302 | UNZONED | 2026.05.12 08:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 313 | UNZONED | 2026.05.12 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 327 | UNZONED | 2026.05.12 12:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 352 | UNZONED | 2026.05.12 16:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 354 | UNZONED | 2026.05.12 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 414 | UNZONED | 2026.05.13 01:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 424 | UNZONED | 2026.05.13 01:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 440 | UNZONED | 2026.05.13 03:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 445 | UNZONED | 2026.05.13 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 447 | UNZONED | 2026.05.13 06:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 449 | UNZONED | 2026.05.13 05:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 460 | UNZONED | 2026.05.13 07:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 463 | UNZONED | 2026.05.13 07:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 474 | UNZONED | 2026.05.13 09:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 492 | UNZONED | 2026.05.13 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 502 | UNZONED | 2026.05.13 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 513 | UNZONED | 2026.05.13 15:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 559 | UNZONED | 2026.05.13 22:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 566 | UNZONED | 2026.05.13 23:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 594 | UNZONED | 2026.05.14 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 637 | UNZONED | 2026.05.14 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 660 | UNZONED | 2026.05.14 11:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 673 | UNZONED | 2026.05.14 13:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 676 | UNZONED | 2026.05.14 14:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 696 | UNZONED | 2026.05.14 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 698 | UNZONED | 2026.05.14 19:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 701 | UNZONED | 2026.05.14 18:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 706 | UNZONED | 2026.05.14 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 714 | UNZONED | 2026.05.14 19:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 724 | UNZONED | 2026.05.14 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 731 | UNZONED | 2026.05.14 22:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 753 | UNZONED | 2026.05.15 02:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 775 | UNZONED | 2026.05.15 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 802 | UNZONED | 2026.05.15 09:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 820 | UNZONED | 2026.05.15 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 841 | UNZONED | 2026.05.15 14:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 851 | UNZONED | 2026.05.15 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 878 | UNZONED | 2026.05.15 18:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 881 | UNZONED | 2026.05.15 21:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 888 | UNZONED | 2026.05.15 21:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 908 | UNZONED | 2026.05.15 23:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 913 | UNZONED | 2026.05.15 23:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 923 | UNZONED | 2026.05.18 00:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 936 | UNZONED | 2026.05.18 02:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 945 | UNZONED | 2026.05.18 03:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 954 | UNZONED | 2026.05.18 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 980 | UNZONED | 2026.05.18 21:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 991 | UNZONED | 2026.05.18 10:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 993 | UNZONED | 2026.05.18 10:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1013 | UNZONED | 2026.05.18 12:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1038 | UNZONED | 2026.05.18 16:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1047 | UNZONED | 2026.05.18 17:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1055 | UNZONED | 2026.05.18 19:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1081 | UNZONED | 2026.05.18 21:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1103 | UNZONED | 2026.05.19 01:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1116 | UNZONED | 2026.05.19 02:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1154 | UNZONED | 2026.05.19 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1167 | UNZONED | 2026.05.19 08:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1188 | UNZONED | 2026.05.19 15:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1192 | UNZONED | 2026.05.19 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1208 | UNZONED | 2026.05.19 13:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1263 | UNZONED | 2026.05.19 22:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1336 | UNZONED | 2026.05.20 09:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1353 | UNZONED | 2026.05.20 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1382 | UNZONED | 2026.05.20 16:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1387 | UNZONED | 2026.05.20 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1397 | UNZONED | 2026.05.20 18:15 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1405 | UNZONED | 2026.05.20 19:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1465 | UNZONED | 2026.05.21 03:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1543 | UNZONED | 2026.05.21 15:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1548 | UNZONED | 2026.05.21 16:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1575 | UNZONED | 2026.05.22 18:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1641 | UNZONED | 2026.05.22 05:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1669 | UNZONED | 2026.05.22 10:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1679 | UNZONED | 2026.05.22 12:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1691 | UNZONED | 2026.05.22 13:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1769 | UNZONED | 2026.05.25 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1779 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1780 | UNZONED | 2026.05.25 04:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1785 | UNZONED | 2026.05.25 06:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1794 | UNZONED | 2026.05.25 06:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1857 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1863 | UNZONED | 2026.05.25 16:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1865 | UNZONED | 2026.05.25 18:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1874 | UNZONED | 2026.05.25 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1905 | UNZONED | 2026.05.26 02:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1935 | UNZONED | 2026.05.26 05:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1949 | UNZONED | 2026.05.26 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1958 | UNZONED | 2026.05.26 09:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 1965 | UNZONED | 2026.05.26 10:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2014 | UNZONED | 2026.05.26 18:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2050 | UNZONED | 2026.05.26 23:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2083 | UNZONED | 2026.05.27 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2094 | 159.19-159.208 | 2026.05.27 06:40 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 2120 | UNZONED | 2026.05.27 10:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2125 | UNZONED | 2026.05.27 11:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2319 | UNZONED | 2026.05.28 14:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2330 | UNZONED | 2026.05.28 16:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2334 | UNZONED | 2026.05.28 17:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2376 | UNZONED | 2026.05.28 23:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2398 | UNZONED | 2026.05.29 02:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2466 | UNZONED | 2026.05.29 12:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2493 | 159.252-159.275 | 2026.05.29 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 2501 | UNZONED | 2026.05.29 17:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2509 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2510 | UNZONED | 2026.05.29 19:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2516 | UNZONED | 2026.05.29 20:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2523 | UNZONED | 2026.05.29 20:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2530 | UNZONED | 2026.05.29 21:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2561 | UNZONED | 2026.06.01 01:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2566 | 159.382-159.407 | 2026.06.01 03:15 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 2617 | 159.443-159.462 | 2026.06.01 10:45 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 2634 | UNZONED | 2026.06.01 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2648 | UNZONED | 2026.06.01 16:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2720 | 159.586-159.605 | 2026.06.02 01:05 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 2786 | UNZONED | 2026.06.02 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2815 | UNZONED | 2026.06.02 16:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2820 | UNZONED | 2026.06.02 17:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2856 | UNZONED | 2026.06.03 02:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2868 | UNZONED | 2026.06.02 22:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2925 | UNZONED | 2026.06.03 08:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2928 | UNZONED | 2026.06.03 08:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 2930 | 159.906-159.913 | 2026.06.03 09:00 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 2945 | 159.579-159.675 | 2026.06.03 11:15 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 2976 | 159.806-159.855 | 2026.06.03 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 3025 | UNZONED | 2026.06.03 22:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3061 | UNZONED | 2026.06.04 06:40 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3074 | UNZONED | 2026.06.04 05:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3093 | UNZONED | 2026.06.04 07:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3108 | UNZONED | 2026.06.04 09:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3150 | 159.82-159.853 | 2026.06.04 16:05 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 3173 | UNZONED | 2026.06.04 20:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3201 | UNZONED | 2026.06.04 23:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3243 | UNZONED | 2026.06.05 05:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3281 | UNZONED | 2026.06.05 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3308 | 159.881-159.916 | 2026.06.05 15:40 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 3321 | UNZONED | 2026.06.05 18:35 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3329 | UNZONED | 2026.06.05 17:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3367 | UNZONED | 2026.06.05 23:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3371 | UNZONED | 2026.06.08 00:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3389 | UNZONED | 2026.06.08 02:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3393 | UNZONED | 2026.06.08 03:00 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3416 | UNZONED | 2026.06.09 19:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3426 | UNZONED | 2026.06.08 07:50 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3464 | UNZONED | 2026.06.08 13:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3465 | UNZONED | 2026.06.08 13:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3468 | UNZONED | 2026.06.08 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3486 | UNZONED | 2026.06.08 16:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3491 | 159.942-159.982 | 2026.06.08 16:50 | NOT MET | NOT MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 3571 | UNZONED | 2026.06.09 02:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3599 | UNZONED | 2026.06.09 06:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3633 | UNZONED | 2026.06.09 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3645 | UNZONED | 2026.06.09 13:10 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3668 | UNZONED | 2026.06.09 16:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3672 | UNZONED | 2026.06.09 17:55 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3686 | UNZONED | 2026.06.09 19:20 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3705 | 160.299-160.316 | 2026.06.09 22:05 | NOT MET | MET | MET | NOT MET |
+| UJ | F4 | 2026.06.10 15:30 | 3753 | UNZONED | 2026.06.10 04:30 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3780 | 160.325-160.344 | 2026.06.10 09:30 | MET | MET | MET | MET |
+| UJ | F4 | 2026.06.10 15:30 | 3785 | UNZONED | 2026.06.10 10:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3793 | UNZONED | 2026.06.10 11:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3799 | UNZONED | 2026.06.10 12:05 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3803 | UNZONED | 2026.06.10 12:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3808 | UNZONED | 2026.06.10 13:25 | NO ROW | NO ROW | NO ROW | NO ROW |
+| UJ | F4 | 2026.06.10 15:30 | 3816 | UNZONED | 2026.06.10 14:45 | NO ROW | NO ROW | NO ROW | NO ROW |
+
+## R3 ROW ROLLUP PER WINDOW
+| run | row | win | X-touch | X-retrace | X |
+|---|---|---|---|---|---|
+| EU | A1 | MACH | NOT MET | MET | MET |
+| EU | A1 | WF | NOT MET | MET | MET |
+| EU | A1 | WP | NOT MET | NOT MET | NOT MET |
+| EU | A2 | MACH | MET | NOT MET | MET |
+| EU | A2 | WF | MET | MET | MET |
+| EU | A2 | WP | MET | MET | MET |
+| EU | A3 | MACH | MET | MET | MET |
+| EU | A3 | WF | MET | MET | MET |
+| EU | A3 | WP | MET | MET | MET |
+| EU | A4 | MACH | MET | MET | MET |
+| EU | A4 | WF | MET | MET | MET |
+| EU | A4 | WP | MET | MET | MET |
+| EU | A5 | MACH | MET | MET | MET |
+| EU | A5 | WF | MET | MET | MET |
+| EU | A5 | WP | MET | MET | MET |
+| EU | A6 | MACH | NOT MET | MET | MET |
+| EU | A6 | WF | NOT MET | MET | MET |
+| EU | A6 | WP | NOT MET | MET | MET |
+| EU | A7 | MACH | NOT MET | MET | MET |
+| EU | A7 | WF | NOT MET | MET | MET |
+| EU | A7 | WP | NOT MET | MET | MET |
+| EU | F2 | MACH | NOT MET | MET | MET |
+| EU | F2 | WF | NOT MET | MET | MET |
+| EU | F2 | WP | NOT MET | NOT MET | NOT MET |
+| UJ | B2 | MACH | MET | MET | MET |
+| UJ | B2 | WF | MET | MET | MET |
+| UJ | B2 | WP | MET | MET | MET |
+| UJ | B3 | MACH | NOT MET | MET | MET |
+| UJ | B3 | WF | NOT MET | MET | MET |
+| UJ | B3 | WP | NOT MET | MET | MET |
+| UJ | C3 | MACH | MET | MET | MET |
+| UJ | C3 | WF | MET | MET | MET |
+| UJ | C3 | WP | MET | MET | MET |
+| UJ | F1 | MACH | NOT MET | NOT MET | NOT MET |
+| UJ | F1 | WF | NOT MET | NOT MET | NOT MET |
+| UJ | F1 | WP | NOT MET | NOT MET | NOT MET |
+| UJ | F3 | MACH | NOT MET | MET | MET |
+| UJ | F3 | WF | NOT MET | MET | MET |
+| UJ | F3 | WP | NOT MET | MET | MET |
+| UJ | F4 | MACH | MET | MET | MET |
+| UJ | F4 | WF | MET | MET | MET |
+| UJ | F4 | WP | MET | MET | MET |
+
+## R4 POPULATION TABLE (every B60C pass; X per window; deciding row)
+| run | bar | dir | anchor | cSrc | candles | win | Xtouch | Xretrace | X | deciding row | fired |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| EU | 2026.08.26 09:10 | SHORT | Weekly-POC | RETEST | 2026.08.26 09:10 | WP | NOT MET | NOT MET | NOT MET | NO-DECIDER | False |
+| EU | 2026.08.26 09:10 | SHORT | Weekly-POC | RETEST | 2026.08.26 09:10 | WF | NOT MET | NOT MET | NOT MET | NO-DECIDER | False |
+| EU | 2026.08.26 09:10 | SHORT | Weekly-POC | RETEST | 2026.08.26 09:10 | MACH | NOT MET | NOT MET | NOT MET | NO-DECIDER | False |
+| EU | 2026.08.26 15:10 | LONG | Weekly-POC | RETEST | 2026.08.26 14:35 | WP | NOT MET | MET | MET | POLL R=0.26 FAIL | False |
+| EU | 2026.08.26 15:10 | LONG | Weekly-POC | RETEST | 2026.08.26 14:35 | WF | NOT MET | MET | MET | POLL R=0.26 FAIL | False |
+| EU | 2026.08.26 15:10 | LONG | Weekly-POC | RETEST | 2026.08.26 14:35 | MACH | NOT MET | MET | MET | POLL R=0.26 FAIL | False |
+| EU | 2026.08.26 16:20 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | WP | NO ROW | NOT MET | NO ROW | POLL R=0.78 FAIL | False |
+| EU | 2026.08.26 16:20 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | WF | NO ROW | NOT MET | NO ROW | POLL R=0.78 FAIL | False |
+| EU | 2026.08.26 16:20 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | MACH | NO ROW | NOT MET | NO ROW | POLL R=0.78 FAIL | False |
+| EU | 2026.08.26 16:50 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | WP | NO ROW | NOT MET | NO ROW | POLL R=0.45 FAIL | False |
+| EU | 2026.08.26 16:50 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | WF | NO ROW | NOT MET | NO ROW | POLL R=0.45 FAIL | False |
+| EU | 2026.08.26 16:50 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | MACH | NO ROW | NOT MET | NO ROW | POLL R=0.45 FAIL | False |
+| EU | 2026.08.26 17:40 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | WP | NO ROW | NOT MET | NO ROW | POLL R=0.92 FAIL | False |
+| EU | 2026.08.26 17:40 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | WF | NO ROW | NOT MET | NO ROW | POLL R=0.92 FAIL | False |
+| EU | 2026.08.26 17:40 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | MACH | NO ROW | NOT MET | NO ROW | POLL R=0.92 FAIL | False |
+| EU | 2026.08.26 17:55 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | WP | NO ROW | NOT MET | NO ROW | POLL R=0.63 FAIL | False |
+| EU | 2026.08.26 17:55 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | WF | NO ROW | NOT MET | NO ROW | POLL R=0.63 FAIL | False |
+| EU | 2026.08.26 17:55 | SHORT | Weekly-POC | RETEST | 2026.08.26 15:50 | MACH | NO ROW | NOT MET | NO ROW | POLL R=0.63 FAIL | False |
+| EU | 2026.08.27 11:45 | SHORT | Weekly-POC | RETEST | 2026.08.27 10:45 | WP | MET | NOT MET | MET | POLL R=0.52 FAIL | False |
+| EU | 2026.08.27 11:45 | SHORT | Weekly-POC | RETEST | 2026.08.27 10:45 | WF | MET | NOT MET | MET | POLL R=0.52 FAIL | False |
+| EU | 2026.08.27 11:45 | SHORT | Weekly-POC | RETEST | 2026.08.27 10:45 | MACH | MET | NOT MET | MET | POLL R=0.52 FAIL | False |
+| EU | 2026.08.27 11:55 | SHORT | Weekly-POC | RETEST | 2026.08.27 10:45 | WP | MET | NOT MET | MET | POLL R=0.36 FAIL | False |
+| EU | 2026.08.27 11:55 | SHORT | Weekly-POC | RETEST | 2026.08.27 10:45 | WF | MET | NOT MET | MET | POLL R=0.36 FAIL | False |
+| EU | 2026.08.27 11:55 | SHORT | Weekly-POC | RETEST | 2026.08.27 10:45 | MACH | MET | NOT MET | MET | POLL R=0.36 FAIL | False |
+| EU | 2026.08.27 17:00 | SHORT | Weekly-VWAP | RETEST | 2026.08.27 16:25 | WP | NOT MET | NOT MET | NOT MET | POLL R=0.20 FAIL | False |
+| EU | 2026.08.27 17:00 | SHORT | Weekly-VWAP | RETEST | 2026.08.27 16:25 | WF | NOT MET | MET | MET | POLL R=0.20 FAIL | False |
+| EU | 2026.08.27 17:00 | SHORT | Weekly-VWAP | RETEST | 2026.08.27 16:25 | MACH | NOT MET | MET | MET | POLL R=0.20 FAIL | False |
+| EU | 2026.08.27 17:10 | SHORT | Weekly-VWAP | BOTH | 2026.08.27 17:05 | WP | NOT MET | NOT MET | NOT MET | POLL R=1.38 PASS | False |
+| EU | 2026.08.27 17:10 | SHORT | Weekly-VWAP | BOTH | 2026.08.27 17:05 | WF | NOT MET | MET | MET | POLL R=1.38 PASS | False |
+| EU | 2026.08.27 17:10 | SHORT | Weekly-VWAP | BOTH | 2026.08.27 17:05 | MACH | NOT MET | MET | MET | POLL R=1.38 PASS | False |
+| EU | 2026.08.27 17:20 | SHORT | Weekly-VWAP | RETEST | 2026.08.27 17:05 | WP | NOT MET | NOT MET | NOT MET | POLL R=1.05 PASS | False |
+| EU | 2026.08.27 17:20 | SHORT | Weekly-VWAP | RETEST | 2026.08.27 17:05 | WF | NOT MET | MET | MET | POLL R=1.05 PASS | False |
+| EU | 2026.08.27 17:20 | SHORT | Weekly-VWAP | RETEST | 2026.08.27 17:05 | MACH | NOT MET | MET | MET | POLL R=1.05 PASS | False |
+| EU | 2026.08.28 10:00 | SHORT | Daily-VWAP | BOTH | 2026.08.28 09:55 | WP | NOT MET | NOT MET | NOT MET | FIRED tp=1.16364 r=2.43 | True |
+| EU | 2026.08.28 10:00 | SHORT | Daily-VWAP | BOTH | 2026.08.28 09:55 | WF | NOT MET | MET | MET | FIRED tp=1.16364 r=2.43 | True |
+| EU | 2026.08.28 10:00 | SHORT | Daily-VWAP | BOTH | 2026.08.28 09:55 | MACH | NOT MET | MET | MET | FIRED tp=1.16364 r=2.43 | True |
+| EU | 2026.08.28 16:20 | SHORT | Daily-POC | BOTH | 2026.08.28 16:05 + 2026.08.28 16:15 | WP | NOT MET | MET | MET | POLL R=0.85 FAIL | False |
+| EU | 2026.08.28 16:20 | SHORT | Daily-POC | BOTH | 2026.08.28 16:05 + 2026.08.28 16:15 | WF | NOT MET | MET | MET | POLL R=0.85 FAIL | False |
+| EU | 2026.08.28 16:20 | SHORT | Daily-POC | BOTH | 2026.08.28 16:05 + 2026.08.28 16:15 | MACH | NOT MET | MET | MET | POLL R=0.85 FAIL | False |
+| EU | 2026.08.28 16:55 | SHORT | Daily-POC | RETEST | 2026.08.28 16:55 | WP | NOT MET | NOT MET | NOT MET | ELECT R=0.10 | False |
+| EU | 2026.08.28 16:55 | SHORT | Daily-POC | RETEST | 2026.08.28 16:55 | WF | NOT MET | NOT MET | NOT MET | ELECT R=0.10 | False |
+| EU | 2026.08.28 16:55 | SHORT | Daily-POC | RETEST | 2026.08.28 16:55 | MACH | NOT MET | NOT MET | NOT MET | ELECT R=0.10 | False |
+| EU | 2026.08.28 18:45 | SHORT | Yearly-POC | RETEST | 2026.08.28 18:05 | WP | NOT MET | NOT MET | NOT MET | POLL R=0.75 FAIL | False |
+| EU | 2026.08.28 18:45 | SHORT | Yearly-POC | RETEST | 2026.08.28 18:05 | WF | NOT MET | NOT MET | NOT MET | POLL R=0.75 FAIL | False |
+| EU | 2026.08.28 18:45 | SHORT | Yearly-POC | RETEST | 2026.08.28 18:05 | MACH | NOT MET | NOT MET | NOT MET | POLL R=0.75 FAIL | False |
+| EU | 2026.08.31 10:30 | LONG | Monthly-VWAP | RETEST | 2026.08.31 10:10 | WP | NOT MET | NOT MET | NOT MET | POLL R=1.01 PASS | False |
+| EU | 2026.08.31 10:30 | LONG | Monthly-VWAP | RETEST | 2026.08.31 10:10 | WF | NOT MET | NOT MET | NOT MET | POLL R=1.01 PASS | False |
+| EU | 2026.08.31 10:30 | LONG | Monthly-VWAP | RETEST | 2026.08.31 10:10 | MACH | NOT MET | NOT MET | NOT MET | POLL R=1.01 PASS | False |
+| EU | 2026.08.31 16:35 | LONG | Yearly-POC | PRIOR | 2026.08.31 15:25 + 2026.08.31 16:30 | WP | NOT MET | MET | MET | POLL R=0.39 FAIL | False |
+| EU | 2026.08.31 16:35 | LONG | Yearly-POC | PRIOR | 2026.08.31 15:25 + 2026.08.31 16:30 | WF | NOT MET | MET | MET | POLL R=0.39 FAIL | False |
+| EU | 2026.08.31 16:35 | LONG | Yearly-POC | PRIOR | 2026.08.31 15:25 + 2026.08.31 16:30 | MACH | NOT MET | MET | MET | POLL R=0.39 FAIL | False |
+| EU | 2026.09.01 09:10 | SHORT | Monthly-POC | BOTH | 2026.09.01 09:05 | WP | NOT MET | MET | MET | POLL R=0.17 FAIL | False |
+| EU | 2026.09.01 09:10 | SHORT | Monthly-POC | BOTH | 2026.09.01 09:05 | WF | NOT MET | MET | MET | POLL R=0.17 FAIL | False |
+| EU | 2026.09.01 09:10 | SHORT | Monthly-POC | BOTH | 2026.09.01 09:05 | MACH | NOT MET | MET | MET | POLL R=0.17 FAIL | False |
+| EU | 2026.09.01 09:45 | SHORT | Yearly-POC | RETEST | 2026.09.01 09:15 | WP | MET | NOT MET | MET | POLL R=1.36 PASS | False |
+| EU | 2026.09.01 09:45 | SHORT | Yearly-POC | RETEST | 2026.09.01 09:15 | WF | MET | NOT MET | MET | POLL R=1.36 PASS | False |
+| EU | 2026.09.01 09:45 | SHORT | Yearly-POC | RETEST | 2026.09.01 09:15 | MACH | MET | NOT MET | MET | POLL R=1.36 PASS | False |
+| EU | 2026.09.01 15:25 | SHORT | Monthly-POC | RETEST | 2026.09.01 15:25 | WP | NOT MET | NOT MET | NOT MET | ELECT R=1.19 | False |
+| EU | 2026.09.01 15:25 | SHORT | Monthly-POC | RETEST | 2026.09.01 15:25 | WF | NOT MET | NOT MET | NOT MET | ELECT R=1.19 | False |
+| EU | 2026.09.01 15:25 | SHORT | Monthly-POC | RETEST | 2026.09.01 15:25 | MACH | NOT MET | NOT MET | NOT MET | ELECT R=1.19 | False |
+| EU | 2026.09.01 16:00 | SHORT | Monthly-POC | BOTH | 2026.09.01 15:55 | WP | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| EU | 2026.09.01 16:00 | SHORT | Monthly-POC | BOTH | 2026.09.01 15:55 | WF | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| EU | 2026.09.01 16:00 | SHORT | Monthly-POC | BOTH | 2026.09.01 15:55 | MACH | NOT MET | NOT MET | NOT MET | REFUSED LTF_MISALIGN | False |
+| EU | 2026.09.01 16:10 | SHORT | Weekly-POC | BOTH | 2026.09.01 16:05 | WP | NOT MET | MET | MET | POLL R=0.15 FAIL | False |
+| EU | 2026.09.01 16:10 | SHORT | Weekly-POC | BOTH | 2026.09.01 16:05 | WF | NOT MET | MET | MET | POLL R=0.15 FAIL | False |
+| EU | 2026.09.01 16:10 | SHORT | Weekly-POC | BOTH | 2026.09.01 16:05 | MACH | NOT MET | MET | MET | POLL R=0.15 FAIL | False |
+| EU | 2026.09.01 17:30 | LONG | Monthly-VWAP | BOTH | 2026.09.01 16:45 + 2026.09.01 17:25 | WP | MET | MET | MET | FIRED tp=1.16077 r=1.17 | True |
+| EU | 2026.09.01 17:30 | LONG | Monthly-VWAP | BOTH | 2026.09.01 16:45 + 2026.09.01 17:25 | WF | MET | MET | MET | FIRED tp=1.16077 r=1.17 | True |
+| EU | 2026.09.01 17:30 | LONG | Monthly-VWAP | BOTH | 2026.09.01 16:45 + 2026.09.01 17:25 | MACH | MET | NOT MET | MET | FIRED tp=1.16077 r=1.17 | True |
+| EU | 2026.09.02 14:40 | SHORT | Daily-VWAP | PRIOR | 2026.09.02 14:00 + 2026.09.02 14:35 | WP | MET | MET | MET | POLL R=0.38 FAIL | False |
+| EU | 2026.09.02 14:40 | SHORT | Daily-VWAP | PRIOR | 2026.09.02 14:00 + 2026.09.02 14:35 | WF | MET | MET | MET | POLL R=0.38 FAIL | False |
+| EU | 2026.09.02 14:40 | SHORT | Daily-VWAP | PRIOR | 2026.09.02 14:00 + 2026.09.02 14:35 | MACH | MET | NOT MET | MET | POLL R=0.38 FAIL | False |
+| EU | 2026.09.02 16:30 | SHORT | Yearly-POC | BOTH | 2026.09.02 16:25 | WP | MET | MET | MET | POLL R=2.38 PASS | False |
+| EU | 2026.09.02 16:30 | SHORT | Yearly-POC | BOTH | 2026.09.02 16:25 | WF | MET | MET | MET | POLL R=2.38 PASS | False |
+| EU | 2026.09.02 16:30 | SHORT | Yearly-POC | BOTH | 2026.09.02 16:25 | MACH | MET | NOT MET | MET | POLL R=2.38 PASS | False |
+| EU | 2026.09.02 17:45 | LONG | Monthly-VWAP | BOTH | 2026.09.02 17:40 | WP | NOT MET | MET | MET | ELECT R=0.88 | False |
+| EU | 2026.09.02 17:45 | LONG | Monthly-VWAP | BOTH | 2026.09.02 17:40 | WF | NOT MET | MET | MET | ELECT R=0.88 | False |
+| EU | 2026.09.02 17:45 | LONG | Monthly-VWAP | BOTH | 2026.09.02 17:40 | MACH | NOT MET | NOT MET | NOT MET | ELECT R=0.88 | False |
+| EU | 2026.09.03 10:55 | SHORT | Daily-POC | RETEST | 2026.09.03 10:55 | WP | MET | NOT MET | MET | NO-DECIDER | False |
+| EU | 2026.09.03 10:55 | SHORT | Daily-POC | RETEST | 2026.09.03 10:55 | WF | MET | NOT MET | MET | NO-DECIDER | False |
+| EU | 2026.09.03 10:55 | SHORT | Daily-POC | RETEST | 2026.09.03 10:55 | MACH | MET | NOT MET | MET | NO-DECIDER | False |
+| EU | 2026.09.03 14:05 | LONG | Daily-POC | BOTH | 2026.09.03 14:05 + 2026.09.03 14:00 | WP | NOT MET | MET | MET | NO-DECIDER | False |
+| EU | 2026.09.03 14:05 | LONG | Daily-POC | BOTH | 2026.09.03 14:05 + 2026.09.03 14:00 | WF | NOT MET | MET | MET | NO-DECIDER | False |
+| EU | 2026.09.03 14:05 | LONG | Daily-POC | BOTH | 2026.09.03 14:05 + 2026.09.03 14:00 | MACH | NOT MET | NOT MET | NOT MET | NO-DECIDER | False |
+| EU | 2026.09.03 18:25 | LONG | Daily-POC | BOTH | 2026.09.03 18:20 | WP | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| EU | 2026.09.03 18:25 | LONG | Daily-POC | BOTH | 2026.09.03 18:20 | WF | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| EU | 2026.09.03 18:25 | LONG | Daily-POC | BOTH | 2026.09.03 18:20 | MACH | NOT MET | NOT MET | NOT MET | REFUSED LTF_MISALIGN | False |
+| EU | 2026.09.04 09:25 | LONG | Daily-POC | BOTH | 2026.09.04 09:15 + 2026.09.04 09:20 | WP | NOT MET | MET | MET | POLL R=0.63 FAIL | False |
+| EU | 2026.09.04 09:25 | LONG | Daily-POC | BOTH | 2026.09.04 09:15 + 2026.09.04 09:20 | WF | NOT MET | MET | MET | POLL R=0.63 FAIL | False |
+| EU | 2026.09.04 09:25 | LONG | Daily-POC | BOTH | 2026.09.04 09:15 + 2026.09.04 09:20 | MACH | NOT MET | MET | MET | POLL R=0.63 FAIL | False |
+| EU | 2026.09.04 09:40 | LONG | Daily-POC | BOTH | 2026.09.04 09:40 + 2026.09.04 09:35 | WP | NOT MET | MET | MET | REFUSED FRESH_OB_DEAD | False |
+| EU | 2026.09.04 09:40 | LONG | Daily-POC | BOTH | 2026.09.04 09:40 + 2026.09.04 09:35 | WF | NOT MET | MET | MET | REFUSED FRESH_OB_DEAD | False |
+| EU | 2026.09.04 09:40 | LONG | Daily-POC | BOTH | 2026.09.04 09:40 + 2026.09.04 09:35 | MACH | NOT MET | MET | MET | REFUSED FRESH_OB_DEAD | False |
+| EU | 2026.09.04 11:05 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | WP | NOT MET | NOT MET | NOT MET | POLL R=2.42 PASS | False |
+| EU | 2026.09.04 11:05 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | WF | NOT MET | NOT MET | NOT MET | POLL R=2.42 PASS | False |
+| EU | 2026.09.04 11:05 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | MACH | NOT MET | NOT MET | NOT MET | POLL R=2.42 PASS | False |
+| EU | 2026.09.04 11:20 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | WP | NOT MET | NOT MET | NOT MET | POLL R=2.56 PASS | False |
+| EU | 2026.09.04 11:20 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | WF | NOT MET | NOT MET | NOT MET | POLL R=2.56 PASS | False |
+| EU | 2026.09.04 11:20 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | MACH | NOT MET | NOT MET | NOT MET | POLL R=2.56 PASS | False |
+| EU | 2026.09.04 11:30 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | WP | NOT MET | NOT MET | NOT MET | POLL R=3.83 PASS | False |
+| EU | 2026.09.04 11:30 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | WF | NOT MET | NOT MET | NOT MET | POLL R=3.83 PASS | False |
+| EU | 2026.09.04 11:30 | SHORT | Daily-POC | RETEST | 2026.09.04 10:10 | MACH | NOT MET | NOT MET | NOT MET | POLL R=3.83 PASS | False |
+| EU | 2026.09.04 15:35 | LONG | Monthly-POC | BOTH | 2026.09.04 15:30 | WP | MET | MET | MET | POLL R=0.40 FAIL | False |
+| EU | 2026.09.04 15:35 | LONG | Monthly-POC | BOTH | 2026.09.04 15:30 | WF | MET | MET | MET | POLL R=0.40 FAIL | False |
+| EU | 2026.09.04 15:35 | LONG | Monthly-POC | BOTH | 2026.09.04 15:30 | MACH | MET | NOT MET | MET | POLL R=0.40 FAIL | False |
+| EU | 2026.09.04 15:55 | LONG | Yearly-POC | BOTH | 2026.09.04 15:40 + 2026.09.04 15:50 | WP | MET | MET | MET | FIRED tp=1.16302 r=1.66 | True |
+| EU | 2026.09.04 15:55 | LONG | Yearly-POC | BOTH | 2026.09.04 15:40 + 2026.09.04 15:50 | WF | MET | MET | MET | FIRED tp=1.16302 r=1.66 | True |
+| EU | 2026.09.04 15:55 | LONG | Yearly-POC | BOTH | 2026.09.04 15:40 + 2026.09.04 15:50 | MACH | MET | MET | MET | FIRED tp=1.16302 r=1.66 | True |
+| EU | 2026.09.07 09:15 | LONG | Weekly-POC | BOTH | 2026.09.07 09:00 + 2026.09.07 09:10 | WP | MET | MET | MET | FIRED tp=1.16200 r=1.76 | True |
+| EU | 2026.09.07 09:15 | LONG | Weekly-POC | BOTH | 2026.09.07 09:00 + 2026.09.07 09:10 | WF | MET | MET | MET | FIRED tp=1.16200 r=1.76 | True |
+| EU | 2026.09.07 09:15 | LONG | Weekly-POC | BOTH | 2026.09.07 09:00 + 2026.09.07 09:10 | MACH | MET | MET | MET | FIRED tp=1.16200 r=1.76 | True |
+| EU | 2026.09.07 16:40 | LONG | Weekly-POC | BOTH | 2026.09.07 16:05 + 2026.09.07 16:35 | WP | MET | MET | MET | FIRED tp=1.16315 r=2.34 | True |
+| EU | 2026.09.07 16:40 | LONG | Weekly-POC | BOTH | 2026.09.07 16:05 + 2026.09.07 16:35 | WF | MET | MET | MET | FIRED tp=1.16315 r=2.34 | True |
+| EU | 2026.09.07 16:40 | LONG | Weekly-POC | BOTH | 2026.09.07 16:05 + 2026.09.07 16:35 | MACH | MET | MET | MET | FIRED tp=1.16315 r=2.34 | True |
+| EU | 2026.09.08 09:35 | LONG | Monthly-POC | BOTH | 2026.09.08 09:30 | WP | MET | MET | MET | ELECT R=12.10 | False |
+| EU | 2026.09.08 09:35 | LONG | Monthly-POC | BOTH | 2026.09.08 09:30 | WF | MET | MET | MET | ELECT R=12.10 | False |
+| EU | 2026.09.08 09:35 | LONG | Monthly-POC | BOTH | 2026.09.08 09:30 | MACH | MET | NOT MET | MET | ELECT R=12.10 | False |
+| EU | 2026.09.08 10:05 | SHORT | Monthly-POC | PRIOR | 2026.09.08 09:40 + 2026.09.08 10:00 | WP | NOT MET | MET | MET | FIRED tp=1.16102 r=1.94 | True |
+| EU | 2026.09.08 10:05 | SHORT | Monthly-POC | PRIOR | 2026.09.08 09:40 + 2026.09.08 10:00 | WF | NOT MET | MET | MET | FIRED tp=1.16102 r=1.94 | True |
+| EU | 2026.09.08 10:05 | SHORT | Monthly-POC | PRIOR | 2026.09.08 09:40 + 2026.09.08 10:00 | MACH | NOT MET | MET | MET | FIRED tp=1.16102 r=1.94 | True |
+| EU | 2026.09.08 16:20 | LONG | Monthly-POC | BOTH | 2026.09.08 16:05 + 2026.09.08 16:15 | WP | MET | MET | MET | POLL R=0.36 FAIL | False |
+| EU | 2026.09.08 16:20 | LONG | Monthly-POC | BOTH | 2026.09.08 16:05 + 2026.09.08 16:15 | WF | MET | MET | MET | POLL R=0.36 FAIL | False |
+| EU | 2026.09.08 16:20 | LONG | Monthly-POC | BOTH | 2026.09.08 16:05 + 2026.09.08 16:15 | MACH | MET | MET | MET | POLL R=0.36 FAIL | False |
+| EU | 2026.09.08 16:40 | SHORT | Monthly-POC | BOTH | 2026.09.08 16:30 + 2026.09.08 16:35 | WP | NOT MET | MET | MET | POLL R=0.60 FAIL | False |
+| EU | 2026.09.08 16:40 | SHORT | Monthly-POC | BOTH | 2026.09.08 16:30 + 2026.09.08 16:35 | WF | NOT MET | MET | MET | POLL R=0.60 FAIL | False |
+| EU | 2026.09.08 16:40 | SHORT | Monthly-POC | BOTH | 2026.09.08 16:30 + 2026.09.08 16:35 | MACH | NOT MET | MET | MET | POLL R=0.60 FAIL | False |
+| EU | 2026.09.08 16:55 | SHORT | Monthly-POC | PRIOR | 2026.09.08 16:45 + 2026.09.08 16:50 | WP | NOT MET | MET | MET | FIRED tp=1.16114 r=1.96 | True |
+| EU | 2026.09.08 16:55 | SHORT | Monthly-POC | PRIOR | 2026.09.08 16:45 + 2026.09.08 16:50 | WF | NOT MET | MET | MET | FIRED tp=1.16114 r=1.96 | True |
+| EU | 2026.09.08 16:55 | SHORT | Monthly-POC | PRIOR | 2026.09.08 16:45 + 2026.09.08 16:50 | MACH | NOT MET | MET | MET | FIRED tp=1.16114 r=1.96 | True |
+| UJ | 2026.05.27 15:30 | LONG | Daily-POC | BOTH | 2026.05.27 15:25 | WP | NOT MET | MET | MET | FIRED tp=160.723 r=9.67 | True |
+| UJ | 2026.05.27 15:30 | LONG | Daily-POC | BOTH | 2026.05.27 15:25 | WF | NOT MET | MET | MET | FIRED tp=160.723 r=9.67 | True |
+| UJ | 2026.05.27 15:30 | LONG | Daily-POC | BOTH | 2026.05.27 15:25 | MACH | NOT MET | MET | MET | FIRED tp=160.723 r=9.67 | True |
+| UJ | 2026.05.29 10:45 | LONG | Daily-VWAP | RETEST | 2026.05.29 10:45 | WP | NOT MET | NOT MET | NOT MET | NO-DECIDER | False |
+| UJ | 2026.05.29 10:45 | LONG | Daily-VWAP | RETEST | 2026.05.29 10:45 | WF | NOT MET | NOT MET | NOT MET | NO-DECIDER | False |
+| UJ | 2026.05.29 10:45 | LONG | Daily-VWAP | RETEST | 2026.05.29 10:45 | MACH | NOT MET | NOT MET | NOT MET | NO-DECIDER | False |
+| UJ | 2026.05.29 14:05 | LONG | Daily-VWAP | BOTH | 2026.05.29 14:00 | WP | MET | MET | MET | POLL R=0.17 FAIL | False |
+| UJ | 2026.05.29 14:05 | LONG | Daily-VWAP | BOTH | 2026.05.29 14:00 | WF | MET | MET | MET | POLL R=0.17 FAIL | False |
+| UJ | 2026.05.29 14:05 | LONG | Daily-VWAP | BOTH | 2026.05.29 14:00 | MACH | MET | MET | MET | POLL R=0.17 FAIL | False |
+| UJ | 2026.05.29 15:05 | SHORT | Daily-VWAP | BOTH | 2026.05.29 14:50 + 2026.05.29 15:00 | WP | NOT MET | MET | MET | POLL R=0.93 FAIL | False |
+| UJ | 2026.05.29 15:05 | SHORT | Daily-VWAP | BOTH | 2026.05.29 14:50 + 2026.05.29 15:00 | WF | NOT MET | MET | MET | POLL R=0.93 FAIL | False |
+| UJ | 2026.05.29 15:05 | SHORT | Daily-VWAP | BOTH | 2026.05.29 14:50 + 2026.05.29 15:00 | MACH | NOT MET | MET | MET | POLL R=0.93 FAIL | False |
+| UJ | 2026.06.01 10:40 | LONG | Monthly-VWAP | RETEST | 2026.06.01 10:05 | WP | NOT MET | MET | MET | POLL R=0.29 FAIL | False |
+| UJ | 2026.06.01 10:40 | LONG | Monthly-VWAP | RETEST | 2026.06.01 10:05 | WF | NOT MET | MET | MET | POLL R=0.29 FAIL | False |
+| UJ | 2026.06.01 10:40 | LONG | Monthly-VWAP | RETEST | 2026.06.01 10:05 | MACH | NOT MET | MET | MET | POLL R=0.29 FAIL | False |
+| UJ | 2026.06.01 11:05 | SHORT | Monthly-POC | BOTH | 2026.06.01 10:45 + 2026.06.01 11:00 | WP | NOT MET | MET | MET | POLL R=2.86 PASS | False |
+| UJ | 2026.06.01 11:05 | SHORT | Monthly-POC | BOTH | 2026.06.01 10:45 + 2026.06.01 11:00 | WF | NOT MET | MET | MET | POLL R=2.86 PASS | False |
+| UJ | 2026.06.01 11:05 | SHORT | Monthly-POC | BOTH | 2026.06.01 10:45 + 2026.06.01 11:00 | MACH | NOT MET | NOT MET | NOT MET | POLL R=2.86 PASS | False |
+| UJ | 2026.06.01 15:00 | LONG | Monthly-POC | RETEST | 2026.06.01 14:05 | WP | MET | NOT MET | MET | POLL R=0.09 FAIL | False |
+| UJ | 2026.06.01 15:00 | LONG | Monthly-POC | RETEST | 2026.06.01 14:05 | WF | MET | NOT MET | MET | POLL R=0.09 FAIL | False |
+| UJ | 2026.06.01 15:00 | LONG | Monthly-POC | RETEST | 2026.06.01 14:05 | MACH | MET | NOT MET | MET | POLL R=0.09 FAIL | False |
+| UJ | 2026.06.02 15:30 | LONG | Monthly-POC | RETEST | 2026.06.02 14:20 | WP | NOT MET | NOT MET | NOT MET | FIRED tp=160.723 r=25.73 | True |
+| UJ | 2026.06.02 15:30 | LONG | Monthly-POC | RETEST | 2026.06.02 14:20 | WF | NOT MET | NOT MET | NOT MET | FIRED tp=160.723 r=25.73 | True |
+| UJ | 2026.06.02 15:30 | LONG | Monthly-POC | RETEST | 2026.06.02 14:20 | MACH | NOT MET | NOT MET | NOT MET | FIRED tp=160.723 r=25.73 | True |
+| UJ | 2026.06.03 09:05 | LONG | Daily-VWAP | BOTH | 2026.06.03 09:00 | WP | MET | MET | MET | FIRED tp=159.983 r=1.35 | True |
+| UJ | 2026.06.03 09:05 | LONG | Daily-VWAP | BOTH | 2026.06.03 09:00 | WF | MET | MET | MET | FIRED tp=159.983 r=1.35 | True |
+| UJ | 2026.06.03 09:05 | LONG | Daily-VWAP | BOTH | 2026.06.03 09:00 | MACH | MET | MET | MET | FIRED tp=159.983 r=1.35 | True |
+| UJ | 2026.06.03 14:55 | LONG | Daily-VWAP | BOTH | 2026.06.03 14:50 | WP | NOT MET | MET | MET | POLL R=0.59 FAIL | False |
+| UJ | 2026.06.03 14:55 | LONG | Daily-VWAP | BOTH | 2026.06.03 14:50 | WF | NOT MET | MET | MET | POLL R=0.59 FAIL | False |
+| UJ | 2026.06.03 14:55 | LONG | Daily-VWAP | BOTH | 2026.06.03 14:50 | MACH | NOT MET | MET | MET | POLL R=0.59 FAIL | False |
+| UJ | 2026.06.03 16:05 | LONG | Daily-POC | RETEST | 2026.06.03 15:50 | WP | MET | NOT MET | MET | POLL R=1.48 PASS | False |
+| UJ | 2026.06.03 16:05 | LONG | Daily-POC | RETEST | 2026.06.03 15:50 | WF | MET | NOT MET | MET | POLL R=1.48 PASS | False |
+| UJ | 2026.06.03 16:05 | LONG | Daily-POC | RETEST | 2026.06.03 15:50 | MACH | MET | NOT MET | MET | POLL R=1.48 PASS | False |
+| UJ | 2026.06.04 09:50 | SHORT | Daily-POC | BOTH | 2026.06.04 09:10 + 2026.06.04 09:45 | WP | NOT MET | MET | MET | FIRED tp=159.748 r=2.31 | True |
+| UJ | 2026.06.04 09:50 | SHORT | Daily-POC | BOTH | 2026.06.04 09:10 + 2026.06.04 09:45 | WF | NOT MET | MET | MET | FIRED tp=159.748 r=2.31 | True |
+| UJ | 2026.06.04 09:50 | SHORT | Daily-POC | BOTH | 2026.06.04 09:10 + 2026.06.04 09:45 | MACH | NOT MET | MET | MET | FIRED tp=159.748 r=2.31 | True |
+| UJ | 2026.06.04 17:05 | LONG | Monthly-POC | BOTH | 2026.06.04 16:25 + 2026.06.04 17:00 | WP | MET | MET | MET | POLL R=0.15 FAIL | False |
+| UJ | 2026.06.04 17:05 | LONG | Monthly-POC | BOTH | 2026.06.04 16:25 + 2026.06.04 17:00 | WF | MET | MET | MET | POLL R=0.15 FAIL | False |
+| UJ | 2026.06.04 17:05 | LONG | Monthly-POC | BOTH | 2026.06.04 16:25 + 2026.06.04 17:00 | MACH | MET | MET | MET | POLL R=0.15 FAIL | False |
+| UJ | 2026.06.05 09:15 | SHORT | Daily-POC | BOTH | 2026.06.05 09:10 | WP | NOT MET | MET | MET | ELECT R=2.31 | False |
+| UJ | 2026.06.05 09:15 | SHORT | Daily-POC | BOTH | 2026.06.05 09:10 | WF | NOT MET | MET | MET | ELECT R=2.31 | False |
+| UJ | 2026.06.05 09:15 | SHORT | Daily-POC | BOTH | 2026.06.05 09:10 | MACH | NOT MET | NOT MET | NOT MET | ELECT R=2.31 | False |
+| UJ | 2026.06.05 16:10 | LONG | Monthly-POC | RETEST | 2026.06.05 16:00 | WP | MET | MET | MET | FIRED tp=160.723 r=1.44 | True |
+| UJ | 2026.06.05 16:10 | LONG | Monthly-POC | RETEST | 2026.06.05 16:00 | WF | MET | MET | MET | FIRED tp=160.723 r=1.44 | True |
+| UJ | 2026.06.05 16:10 | LONG | Monthly-POC | RETEST | 2026.06.05 16:00 | MACH | MET | MET | MET | FIRED tp=160.723 r=1.44 | True |
+| UJ | 2026.06.09 15:20 | SHORT | Daily-VWAP | BOTH | 2026.06.09 15:15 | WP | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| UJ | 2026.06.09 15:20 | SHORT | Daily-VWAP | BOTH | 2026.06.09 15:15 | WF | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| UJ | 2026.06.09 15:20 | SHORT | Daily-VWAP | BOTH | 2026.06.09 15:15 | MACH | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| UJ | 2026.06.09 17:55 | LONG | Weekly-POC | RETEST | 2026.06.09 17:30 | WP | NOT MET | MET | MET | POLL R=0.26 FAIL | False |
+| UJ | 2026.06.09 17:55 | LONG | Weekly-POC | RETEST | 2026.06.09 17:30 | WF | NOT MET | MET | MET | POLL R=0.26 FAIL | False |
+| UJ | 2026.06.09 17:55 | LONG | Weekly-POC | RETEST | 2026.06.09 17:30 | MACH | NOT MET | MET | MET | POLL R=0.26 FAIL | False |
+| UJ | 2026.06.10 09:55 | LONG | Daily-VWAP | PRIOR | 2026.06.10 09:15 + 2026.06.10 09:50 | WP | NOT MET | MET | MET | POLL R=0.96 FAIL | False |
+| UJ | 2026.06.10 09:55 | LONG | Daily-VWAP | PRIOR | 2026.06.10 09:15 + 2026.06.10 09:50 | WF | NOT MET | MET | MET | POLL R=0.96 FAIL | False |
+| UJ | 2026.06.10 09:55 | LONG | Daily-VWAP | PRIOR | 2026.06.10 09:15 + 2026.06.10 09:50 | MACH | NOT MET | MET | MET | POLL R=0.96 FAIL | False |
+| UJ | 2026.06.10 10:25 | LONG | Daily-POC | BOTH | 2026.06.10 10:20 | WP | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| UJ | 2026.06.10 10:25 | LONG | Daily-POC | BOTH | 2026.06.10 10:20 | WF | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| UJ | 2026.06.10 10:25 | LONG | Daily-POC | BOTH | 2026.06.10 10:20 | MACH | NOT MET | MET | MET | REFUSED LTF_MISALIGN | False |
+| UJ | 2026.06.10 16:05 | LONG | Daily-POC | RETEST | 2026.06.10 15:30 | WP | MET | MET | MET | POLL R=2.72 PASS | False |
+| UJ | 2026.06.10 16:05 | LONG | Daily-POC | RETEST | 2026.06.10 15:30 | WF | MET | MET | MET | POLL R=2.72 PASS | False |
+| UJ | 2026.06.10 16:05 | LONG | Daily-POC | RETEST | 2026.06.10 15:30 | MACH | MET | MET | MET | POLL R=2.72 PASS | False |
+| UJ | 2026.06.11 11:20 | LONG | Daily-POC | BOTH | 2026.06.11 11:05 + 2026.06.11 11:15 | WP | MET | MET | MET | POLL R=0.40 FAIL | False |
+| UJ | 2026.06.11 11:20 | LONG | Daily-POC | BOTH | 2026.06.11 11:05 + 2026.06.11 11:15 | WF | MET | MET | MET | POLL R=0.40 FAIL | False |
+| UJ | 2026.06.11 11:20 | LONG | Daily-POC | BOTH | 2026.06.11 11:05 + 2026.06.11 11:15 | MACH | MET | MET | MET | POLL R=0.40 FAIL | False |
+| UJ | 2026.06.11 14:35 | LONG | Daily-POC | BOTH | 2026.06.11 14:05 + 2026.06.11 14:30 | WP | NOT MET | MET | MET | FIRED tp=160.587 r=2.74 | True |
+| UJ | 2026.06.11 14:35 | LONG | Daily-POC | BOTH | 2026.06.11 14:05 + 2026.06.11 14:30 | WF | NOT MET | MET | MET | FIRED tp=160.587 r=2.74 | True |
+| UJ | 2026.06.11 14:35 | LONG | Daily-POC | BOTH | 2026.06.11 14:05 + 2026.06.11 14:30 | MACH | NOT MET | MET | MET | FIRED tp=160.587 r=2.74 | True |
