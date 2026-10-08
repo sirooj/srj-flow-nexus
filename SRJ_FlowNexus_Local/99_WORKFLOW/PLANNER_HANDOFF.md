@@ -36,6 +36,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-94: inspected the indicator's internal XOB records and defined the minimum evidence contract; no source edit or run.
 
+- B-95: traced internal XOB persistence and run provenance without source edits or runs; the separator remains parked pending proof of both.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
