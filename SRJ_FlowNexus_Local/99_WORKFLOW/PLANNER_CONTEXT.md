@@ -96,6 +96,8 @@ Operator kickoff for any new thread:
 
 - B-106-JUNE-XOB-ROWS-RECOVERY (planner lesson 2026-10-08, B-106): recovered the deleted June XOB row populations for the 2 June, 4 June and 5 June cases without enabling a trading gate.
 
+- B-107-JUNE-XOB-SEPARATOR-CLASSIFICATION (planner lesson 2026-10-08, B-107): classified the recovered June XOB rows at the counted retest and kept confirmation/entry context separate without enabling a gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
