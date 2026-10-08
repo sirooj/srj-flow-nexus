@@ -42,6 +42,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-97: repaired the diagnostic provenance formatting defect and repeated the same XOB export run; no trading gate was enabled.
 
+- B-98: reviewed B-97's proven diagnostic export against the XOB specification; no trading gate was enabled.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
