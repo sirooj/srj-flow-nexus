@@ -68,6 +68,8 @@ Operator kickoff for any new thread:
 
 - B-92-XOB-PARKED-NONSEPARATOR (planner lesson 2026-10-08, B-92): B-91 found no separator across the four one-condition in-play readings on the full register and 65 passes; the XOB gate is parked as NOT BUILDABLE from current EA-readable inputs, with no source edit or run.
 
+- B-93-XOB-EVIDENCE-INVENTORY (planner lesson 2026-10-08, B-93): inventoried existing upstream XOB evidence without reopening prior readings or editing the EA; the XOB path remains parked unless a complete readable live-XOB source is found.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
