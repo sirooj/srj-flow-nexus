@@ -122,6 +122,8 @@ Operator kickoff for any new thread:
 
 - B119-4JUN-THREE-REASONS (planner lesson 2026-10-09): when a narrow block holds its bar but the same candidate fires a bar later, measure each of his separate reasons on the machine's own rows across the whole register before drafting another edit; B-118 blocked one in-play read and the fire re-armed on the next.
 
+- B120-REGIME-AT-RETEST (planner lesson 2026-10-09): grade a bias reason at the retest candle his words name, with both regime branches (trend majority and fresh same-session sweep) beside his journal setup class; B-119 graded the HTF majority at confirmation only and read 1 Sep, a '++' row, as a trend-only breaker.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -153,3 +155,4 @@ Operator kickoff for any new thread:
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-90; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-91; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-119; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-120; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

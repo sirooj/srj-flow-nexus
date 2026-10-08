@@ -86,6 +86,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-119: measured his three 4 June reasons (bias, CQD, XOB in play) on the machine's rows across the full register; no source edit or run.
 
+- B-120: measured the regime at the retest candle and the unclassified-retain path against spec 3.2 on the full register; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
