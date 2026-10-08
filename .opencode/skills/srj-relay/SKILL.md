@@ -65,3 +65,9 @@ Reply line (exact shape)
 - When a carried note exists, add: - read the carried note first
 - Before sending the reply line, run git ls-remote https://github.com/sirooj/srj-flow-nexus.git builder/B-<n> and confirm it returns the commit hash. origin/<branch> in the local repo is not proof the push reached GitHub.
 - The ls-remote output travels in the reply line only. The result file need not contain its bytes, and a pushed branch is never amended or force-pushed to add them (planner ruling B-29, answering the B-28 question).
+
+Lane close is not project completion (operator workflow correction, banked B-116)
+- A closed investigation lane is not project completion. The SRJ project remains ongoing until the full audited EU and UJ range is reconciled against the objective; closing one lane never means the project goal is met.
+- Every relay preserves the top-level objective and produces the next relay toward unresolved full-range fidelity unless the operator explicitly redirects. When a lane closes, the next relay must not stop; it must state the lane result and return to the project objective.
+- Record-first investigation must explain invalid machine fires and entry mismatches from the code and records before asking the operator anything. Inventing why a machine time happened before checking the records is forbidden.
+- The operator's stated trade time is authoritative when it conflicts with a machine time; the machine time is a defect to diagnose, never a replacement fact (e.g. his 5 June UJ entry is 16:15; a machine 16:55 entry is an EA defect to explain).
