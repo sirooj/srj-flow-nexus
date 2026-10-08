@@ -102,6 +102,8 @@ Operator kickoff for any new thread:
 
 - B-109-XOB-EVIDENCE-PAYLOAD (planner lesson 2026-10-08, B-109): defined the raw upstream XOB evidence payload and acceptance checks without choosing a transport or enabling a gate.
 
+- B-110-XOB-PAYLOAD-IMPLEMENTATION (planner lesson 2026-10-08, B-110): implemented and validated the raw upstream XOB payload without enabling a trading gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
