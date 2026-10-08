@@ -88,6 +88,8 @@ Operator kickoff for any new thread:
 
 - B-102-RECON62-COVERAGE-HASHES (planner lesson 2026-10-08, B-102): recovered RECON62 counted-candle XOB rows and exact diagnostic artifact hashes without enabling a trading gate.
 
+- B-103-EU-XOB-RECORD-REVIEW (planner lesson 2026-10-08, B-103): reviewed the recovered RECON62 EU XOB rows at all 13 counted candles without choosing a gate or grading trades.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
