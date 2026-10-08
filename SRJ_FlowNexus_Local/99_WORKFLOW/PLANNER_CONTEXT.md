@@ -61,6 +61,7 @@ Operator kickoff for any new thread:
 - Result against commit (planner lesson 2026-10-08, B-85): every record a result claims landed is checked in the committed file before it is relied on; B-84 claimed X1/X2 in PLANNER_CONTEXT but the commit c1ef12b carried neither.
 - B-86-XOB-READABLE-DIAG (planner lesson 2026-10-08, B-86): B-86 measured only the selected-XOB readable path. The full live-XOB map remains not readable by the EA. XOB opposing-candle touch is permitted and never disqualifying, so the diagnostic must not reject touching rows.
 - B-87-PICK-XOB-INPLAY-DIAG (planner lesson 2026-10-08, B-87): B-87 tested selected-XOB in-play at the counted touch candle as an always-restored diagnostic. The diagnostic never used the full live-XOB map. XOB opposing-candle touch remained optional and never disqualifying.
+- B-88-GATE-MATCHES-READING (planner lesson 2026-10-08, B-88): a diagnostic gate reproduces the separating reading's own test, candle and build before it runs. B-87 gated "selected XOB in play" at the kept seed candle without hunk C, while B-83 separated on his "XOB retracement or touch" words at the B60C counted candle on the hunk C build; the gate refused 4 of his 7 EURUSD takes. B-86 graded that reading on two June rows only; every reading is graded on all register rows (sections A, B, C) before a gate is drafted from it.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -88,3 +89,4 @@ Operator kickoff for any new thread:
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-82; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-83; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: relay B-85 moved the planner workflow into a profile-neutral kit (PK-1, PLANNER_BOOTSTRAP.md); any planner agent starts there; this file stays the single planner context.
+- 2026-10-08: planner session ran as ClickUp Brain for relay B-88; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
