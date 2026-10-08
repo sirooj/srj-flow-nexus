@@ -120,6 +120,8 @@ Operator kickoff for any new thread:
 
 - B118-4JUN-SHORT-FALSE-FIRE (planner lesson 2026-10-09): tested one narrow pre-entry suppression of the 4 June false SHORT; 5 June 16:15 timing remains a separate unresolved defect.
 
+- B119-4JUN-THREE-REASONS (planner lesson 2026-10-09): when a narrow block holds its bar but the same candidate fires a bar later, measure each of his separate reasons on the machine's own rows across the whole register before drafting another edit; B-118 blocked one in-play read and the fire re-armed on the next.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -150,3 +152,4 @@ Operator kickoff for any new thread:
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-89; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-90; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-91; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-119; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
