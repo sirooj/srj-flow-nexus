@@ -74,6 +74,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-113: defined the runtime handoff boundary for the scoped XOB diagnostic; no source edit or gate was performed.
 
+- B-114: reviewed scoped XOB touch coverage across known audited June cases; no source edit, gate or trade grade was performed.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
