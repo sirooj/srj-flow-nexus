@@ -70,6 +70,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-111: reviewed the proven XOB payload against June and EU offline evidence; no gate or trade grade was performed.
 
+- B-112: defined a pair/session-scoped XOB diagnostic boundary; no source edit, gate or trade grade was performed.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
