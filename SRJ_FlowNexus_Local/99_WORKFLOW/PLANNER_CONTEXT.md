@@ -112,6 +112,8 @@ Operator kickoff for any new thread:
 
 - B-114-JUNE-SCOPED-COVERAGE (planner lesson 2026-10-08, B-114): reviewed the known audited June cases under the scoped XOB touch lens without generalizing it or enabling a gate.
 
+- B-115-XOB-EVIDENCE-CLOSED (planner lesson 2026-10-08, B-115): closed the XOB touch evidence lane without a new rule or gate because valid June cases disagree and EU remains a separate non-touching population.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).

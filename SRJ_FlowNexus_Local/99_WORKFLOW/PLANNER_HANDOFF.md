@@ -76,6 +76,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-114: reviewed scoped XOB touch coverage across known audited June cases; no source edit, gate or trade grade was performed.
 
+- B-115: closed the XOB touch evidence lane with no new rule, source edit or gate; project goal remains incomplete.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
