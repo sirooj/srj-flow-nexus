@@ -1,0 +1,57 @@
+# BUILDER RESULT B-82 - hunk C (retest-candle touch) on the RKD kept build, diagnostic, RESTORED
+
+Trader summary: the retest-candle touch works on the kept build and the target race you banked still refuses your 27 Aug short. The 27 Aug candle confirms off the 16:25 retest but the Daily VWAP books below 1R, so no 17:05 fire - where the old test build fired it by hiding that line. Your 5 June long fires at the 16:15 open aiming at your 30 April high and the machine's late long is gone, both exactly as your words say. All seven EU takes and the 11 June and 3 June takes are untouched. The 2 June buy still fires and stays your ruled-out trade for the separator relay. Everything was put back: the disk runs the kept build.
+
+## Part 0 - fresh-session start
+
+- 0.1 Relay skill loaded whole first (disk copy governs, 66 lines), then strategy skill whole (199 lines; .agents copy stub, never opened). TERMS-HIS, QUOTE-WORDS-POINT-AT-ROWS, ASK-THE-CODE, RECORD-FIRST NO DIRECT QUESTIONS, LOGIC-IS-BUILDER'S.
+- 0.2 git ls-remote backup builder/B-81 returns `3298f82bf51bf40bc0771e0ae60c53340b78d973` (verified). Cut builder/B-82 at it. Dirty tree kept (339 lines at cut, count only). No git config/remote change. Push via `backup` (never `origin`).
+- 0.3 Read in order on builder/B-81: pointer (23 lines); RESULT_B81 whole (58 lines, no carried note); SLICE_B81 whole (417 lines: K3 spots, RKD diffs, T1/T2 tables, R-a..R-f); RESULT_B69 + SLICE_B69 whole (50 + 176 lines: D4 hunk-C diff = port source, j39/j40 tables, R2 paper, R3 rows); RESULT_B77 R1/R2 (T3 definition + target table incl. F1b/F2/F2k predictions); RESULT_B74 R1 (in-play copies + PREBIND path); spec v4.2 whole via fresh temp copy (SHA F2F4CDDE; focus §2 row 1, §2.3, §3.4 same-direction line, §3.7, §6, §10); register whole (65 lines); PLANNER_CONTEXT whole (82 lines); journal CSV by grep only (1066 lines; rows 13/310/314 + 5 June rows 306/309 verified); ledger/AGENTS/.clinerules by grep only.
+- 0.4 Names per relay (kept EA 137076D9 695359 B LF-only; .B81RKD same; .preB81 6CFE8F8B; ex5 FA4C9249 465572 B; terminal.ini 88a0deb1; CQD/FlowLogic/includes/MARKER SHAs as listed; hunk C = SLICE_B69 D4 + one RK seam; .B69DIAG 4C6D560E FOUND 692878 B + ex5 D2EDDA28 FOUND, never used as base; baselines j43 8EDD1254 71653 lines / j44 113541CF 71396 lines; j39 408E5073 / j40 1D968931 located; new .preB82 backups, .B82C 55D91C7E 699555 B + ex5.B82DIAG 368FE7D7 468050 B kept uncommitted, j45 BF03B8A2 69400 lines, j46 9B2F44B6 61224 lines, b82 launch scripts copied from b81 pair; codes/ranks/register rows as listed).
+- 0.5 Start gate: git log -1 = 3298f82. git diff 3298f82 EMPTY on every 0.3 committed text file + ledger + spec + journal CSV. Ledger `^1226.` = 1, `^1227.` = 0, `B82-` = 0. Journal CSV 1066 lines. Every 0.4 disk SHA = RESULT_B81 final state (EA/ex5/.B81RKD/terminal.ini/CQD/FlowLogic/includes/MARKER/j43/j44/j39/j40 verified). No terminal64 running. No STOP.
+- 0.6 Scope: one EA edit (hunk C + the one RK seam in K4), one compile, two tester runs, ALWAYS restored. EA edit uncommitted/unpushed. No include/indicator/skill/journal/register/spec edit. No ini change beyond tester dates. No proposal, no chart call.
+
+## Part B - banking (grep-first)
+
+- B1 Skill grep "not yet a valid bias for short" = 1 -> ALREADY_BANKED 79ddb11, append nothing. His last message carried the B-81 reply line only: no new words.
+
+## Part K - rule check, backups, one edit, one compile
+
+- K1 RULE-CONFLICT CHECK (verbatim from disk): s107 SAME-CANDLE-PERMITTED ("each step can be a seperate candle that made the retest such as the 9:35 candle and the the cofirmation candle at 9:40"); s112 CONFIRMATION-CANONICAL (touch-or-break, zero tolerance); s151 JUN05NY-ENTRY-1615 ("5 June New York long entry is the 16:15 candle open."); s166 ("the entry line POI was based of the M POC and M VWAP ... at 16:00."); s169-174 (16:00 retest, 16:05 bullish flip, 16:10 confirmation, 16:15 open 160.059; flip kills formed setups only); s177-178 + s185 0602-NY-NO-SETUP + journal row 310 whole (14:20 no valid XOB retracement, no setup). Against-touch greps: skill "retest candle" only s95 (ENTRY-BAR READ-BACK, no forbid); forbid/prior-candle readings only s86 (prior CLOSE irrelevant), s88, s105, s112, s127 (no touch-source ban); findings 0; journal 0 mechanism bans (2-June/10-June rows concern retest death, not touch source). No word forbids the retest-candle touch. The expected 2 June fire is not a conflict (diagnostic reason). Diagnostic authorized.
+- K2 BACKUPS: EA.preB82 137076D9 ✓, ex5.preB82 FA4C9249 ✓, terminal.ini.preB82 88a0deb1 ✓. Chart content copies: 40 files with per-file SHA manifest (relay's "38 at B-81" + chart20/21 = 40 on disk).
+- K3 RAW SPOTS in kept EA (all FOUND): decl :1111; signature :2481-2482 + touch :2532; ResetSequence :6855; seed site :8437-8445 (anchorLine + RK clear+plant + anchorBarTime + S54Snap); UJDEFERAPPLY GoAbort :8756; call sites :9340 (uj_carryTerm) / :9360 (cfTermZ) / :9548 (cfTerm). Raws in slice.
+- K4 EDIT = hunk C exactly as SLICE_B69 D4 (C2 stamp decl + signature retestShift + C2/C3 touch + C4 B60C print + ResetSequence clear + seed stamp + C1 B60POT reseed + 3 call sites) plus ONE RK seam (C1 `g_anchorLine = uj60_pr.topLine;` followed by `SrjRowkeyClear(); SrjRowkeyUpdate(barShift);`, comment [B-82]). Untouched: hunk S, hunk RKD, target race, session/pool, validity, 1R, entry, stop, exits. Builder's call: seam placement mirrors every other anchor-set site; D4 text otherwise character-faithful (one mis-aimed ResetSequence edit caught by diff review and reverted byte-clean before compile). Full diff vs .preB82 raw in slice (+63/-8, 9 hunks).
+- K5 COMPILE once (plus one whitespace-identical recompile after the revert, both 0/0): final 0 errors, 0 warnings, 7018 ms, binary_fresh. .B82C 55D91C7E (699555 B, LF-only, frozen uncommitted). New ex5 368FE7D7 (468050 B) + ex5.B82DIAG same SHA.
+
+## Part T - two runs, graded on whole runs
+
+- T1 j45 RECON62 EURUSD (RECON50_DEMO_USD.ini; dates 1787702400/1788998400 written + read back; no terminal64 before launch; WMI launch PID 4764 RC=0 from launch_recon62_b82_run.ps1; window verified on day log (8/26 bars, 2026.08.26->2026.09.10); wrapper shell gone at verify; completion marker on day log 07:02:19 Test passed 0:03:09 (DONE file never written - watcher never started, graded straight from the marker per skill); leftover terminal 25368 killed by PID; agent-3003 journal split at run boundary 212560..281959, archived as j45 BF03B8A2 69400 lines). Ticks/bars 563338/3168 = j43. Filed table vs j43 (+ j39) in slice: 7/7 deal-identical (FIRED/MTEXIT/ENTRY identical; TP_ELECT 19 vs 18: +2 j45-only non-fire elections incl. 17:00 R0.35, -1 j43-only 09:50 LONG election; A6REFUSED 72 vs 68). Balance 10474.64 = j43 (j39 10484.57 with the extra deal). New vs j43: none. Lost: none. S54KILL 0.
+- T2 j46 June USDJPY (USDJPY_DEMO_JUNE.ini; dates 1779667200/1781308800 written + read back; no terminal64 before launch; WMI launch PID 8520 RC=0 from launch_june_b82_run.ps1; window verified (5/26 bars, 2026.05.25->2026.06.13); watcher started (PIDs 22384+2608 double-launch, both confirmed) + short DONE polls; DONE RESULT=PASSED 07:10:52 (~5 min); leftover terminal 12360 killed by PID; agent-3004 journal (this run's agent) lines 1..132623 archived as j46 9B2F44B6 61224 lines). Ticks/bars 740873/4320 = j44. Filed table vs j44 (+ j40) in slice: 5/27, C3, 6/4, B3 deal-identical; NEW 6/5 16:10->16:15 LONG ref 160.059 R1.44 (B2, j40-identical economics); LOST 6/5 16:50 machine long; extra 6/2 15:35 LONG (j40 deal #4); 10 June S54KILL no fire. Balance 10725.58 = j40 to the cent. S54KILL 3 rows (6/1 x2 + 6/10).
+- T3 rows (journal + EA SHA, raw in slice): R1 path split (kept PREBIND C_TOUCH + TPCENSUS #71 ran R0.20 refused = did NOT stop before target; j39 B60C rt=16:25 fired 17:05 tp=1.16322 R2.73); R2 B2 rows (16:00 all-dL row, B60POT ltf=-1.0, ROWKEY key M-POC own all-six, B60C 16:10 rt=16:00 cSrc=RETEST, CONFIRMPOLL shadow confirm=0, TP_ELECT ref 160.059 R1.44, FIRED 16:10, ENTRY 16:10 = 16:15 open, MTEXIT 19:15 160.298; no 16:00 dS line); R3 populations (j45 20/22/5 vs j39 19/21/5, diff = j45-only 17:10 + 17:20 SHORT; j46 = j40 8/14/1 zero diffs); R4 2-June vs 5-June records (closes above anchors throughout; ANCHOR_ELECT 14:20 M-POC vs NO ROW at 16:00 (B60POT seeds); XOB rows NO ROW at both rts; ROWKEY/target/R for both; s177-178/row 310/s151/s166/s169-174 quoted beside).
+- T4 VERDICT: RESTORED, always. EA + ex5 restored from .preB82, verified 137076D9 / FA4C9249. terminal.ini + 40 chart files restored from content copies, verified (88a0deb1; 40/40 match; 2 terminal-created chart22/23.chr left in place with SHAs, never staged). No terminal64 running. Kept: .B82C 55D91C7E + ex5.B82DIAG 368FE7D7 + the diff, uncommitted, never pushed. Prediction rows: T1 7/7 MATCHES; 27 Aug stays out MATCHES (on the target row); B2 fires MATCHES; B3/C3 MATCHES; 6/2 still fires MATCHES; 10 June S54KILL MATCHES; 6/4 unchanged MATCHES.
+
+## Part X - records (text only, grep-first)
+
+- X1 Section 4: R1 DENIES the stated condition on rows (kept 17:00 ran TPCENSUS #71 + POLL before failing PREBIND - it did not stop before the target step) -> append NOTHING, reported here. ("Trial path, not kept path" not filed.)
+- X2 Section 5: grep "relay B-82" = 0 -> appended the exact ClickUp Brain history line (verified count 1).
+- X3 Ledger item 1227, tag B82-HUNKC-RKD-DIAG, verdict RESTORED (banking; K1; K5 SHAs; T1/T2 tables; R1-R4 outcomes; prediction MATCHES list; X1 denial + X2 landed).
+- X4 No edit to the strategy skill, journal CSV, register, spec, includes or indicators.
+
+## Part F - file, push, reply
+
+- F1 this result (trader summary first; relay order; final disk state below; no carried note - no K1 conflict, banking count 1).
+- F2 slice BUILDER_SLICE_B82.md (K3 raw spots, full diff, both filed-trade tables, raw R1-R4 rows).
+- F3 ledger 1227.
+- F4 pointer (35-line cap): latest B-82 RESTORED; kept build unchanged EA 137076D9 / ex5 FA4C9249; .B82C kept uncommitted; j45 BF03B8A2 bal 10474.64 + j46 9B2F44B6 bal 10725.58; G6 one-liners; planner ClickUp Brain B-82; next relay B-83.
+- F5 stage explicit paths only: result, slice, ledger, pointer, PLANNER_CONTEXT.md. Never EA, includes, indicators, ex5, journals, logs, inis or backups. Commit + push builder/B-82 via `backup`.
+- F6 ls-remote builder/B-82 must return the commit. Reply: B-82 is done, GitHub branch builder/B-82, commit <short>, verdict RESTORED
+
+## Final disk state (RESTORED turn; kept RKD build on disk, uncommitted; disk + LF-normalized SHAs for gated text files)
+
+- EA Experts/SRJ_FlowNexus_EA.mq5 137076D9 (695359 B, LF-only: kept + hunk S + hunk RKD) + .B82C 55D91C7E (frozen, kept, uncommitted, never pushed) + .preB82 kept; EA.ex5 FA4C9249 (465572 B, restored bytes matching the kept source); terminal.ini restored 88a0deb1 (verified); 40 chart files restored from content copies and verified (40/40 match + 2 terminal-created chart22/23.chr left in place with SHAs, never staged); no terminal64 running.
+- CQD BE6FD84F + ex5 90D3EF87 (untouched; record only). j45 BF03B8A2 (69400 lines) / j46 9B2F44B6 (61224 lines) (new journals, uncommitted, never pushed; record only).
+- Gated text files: ledger +1227, pointer, PLANNER_CONTEXT.md +X2 (disk SHAs in F5 commit; X1 appended nothing per its condition).
+
+No carried note (no K1 conflict; banking count 1).
+
+(End of file)
