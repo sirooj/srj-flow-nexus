@@ -82,6 +82,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-117: graded the unchanged kept build against the June register; no source edit or gate was performed.
 
+- B-118: targeted the 4 June false SHORT; 5 June 16:15-versus-16:55 remains a separate unresolved fidelity defect.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

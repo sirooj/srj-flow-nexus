@@ -118,6 +118,8 @@ Operator kickoff for any new thread:
 
 - B-117-JUNE-KEPT-BUILD-FIDELITY (planner lesson 2026-10-09): graded the unchanged kept build against the June register, including operator 16:15 versus machine timing, without editing the EA or enabling a gate.
 
+- B118-4JUN-SHORT-FALSE-FIRE (planner lesson 2026-10-09): tested one narrow pre-entry suppression of the 4 June false SHORT; 5 June 16:15 timing remains a separate unresolved defect.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
