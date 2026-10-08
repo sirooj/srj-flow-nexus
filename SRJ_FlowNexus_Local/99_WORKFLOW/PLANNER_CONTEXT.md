@@ -86,6 +86,8 @@ Operator kickoff for any new thread:
 
 - B-101-XOB-FULLWINDOW-CENSUS (planner lesson 2026-10-08, B-101): extended the proven diagnostic export across RECON62 and June windows with corrected row-derived counts; no trading gate was enabled.
 
+- B-102-RECON62-COVERAGE-HASHES (planner lesson 2026-10-08, B-102): recovered RECON62 counted-candle XOB rows and exact diagnostic artifact hashes without enabling a trading gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
