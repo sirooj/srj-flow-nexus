@@ -23,6 +23,7 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 - B-83: his "touch I do not count" words graded at the counted touch candle: machine and from-formation in-play readings separate; 2 June 14:20 has no XOB touch or retracement.
 - B-84: kept trial of hunk C + the touch-candle XOB term; workflow moved to ClickUp.
 - B-85: workflow refine: profile-neutral planner kit PK-1 in the repo; STOP banked as a verdict. Project work resumes B-86 with the XOB-term redesign.
+- B-86: measured the readable selected-XOB path; full live-XOB map remains NOT READABLE; no source edit or run. Next relay depends on the diagnostic result.
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.

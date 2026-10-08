@@ -59,6 +59,7 @@ Operator kickoff for any new thread:
 - Diagnostic before trial (planner note 2026-10-08, B-82): a hunk with a predicted must-never-take fire on record (hunk C: 2 June 15:35, B-77 R2 F1b) runs as an always-restored diagnostic on the kept build, never as a kept trial; its rows feed the separator relay.
 - Counted touch candle (planner lesson 2026-10-08, B-83): when his words name a candle ("a touch I do not count", 2 June 14:20), grade them at the candle the machine counts for the touch (B60C cSrc), not only at the confirmation candle; B-74/B-75 graded XOBs at confirmation only.
 - Result against commit (planner lesson 2026-10-08, B-85): every record a result claims landed is checked in the committed file before it is relied on; B-84 claimed X1/X2 in PLANNER_CONTEXT but the commit c1ef12b carried neither.
+- B-86-XOB-READABLE-DIAG (planner lesson 2026-10-08, B-86): B-86 measured only the selected-XOB readable path. The full live-XOB map remains not readable by the EA. XOB opposing-candle touch is permitted and never disqualifying, so the diagnostic must not reject touching rows.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
