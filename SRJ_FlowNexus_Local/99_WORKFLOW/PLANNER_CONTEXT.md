@@ -98,6 +98,8 @@ Operator kickoff for any new thread:
 
 - B-107-JUNE-XOB-SEPARATOR-CLASSIFICATION (planner lesson 2026-10-08, B-107): classified the recovered June XOB rows at the counted retest and kept confirmation/entry context separate without enabling a gate.
 
+- B-108-XOB-TOUCH-AUTHORITY-BUILDABILITY (planner lesson 2026-10-08, B-108): reviewed the offline June touch separator against banked XOB words, specification authority and live runtime inputs without enabling a gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
