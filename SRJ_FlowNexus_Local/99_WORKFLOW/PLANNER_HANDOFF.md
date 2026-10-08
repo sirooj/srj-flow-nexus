@@ -26,6 +26,7 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 - B-86: measured the readable selected-XOB path; full live-XOB map remains NOT READABLE; no source edit or run. Next relay depends on the diagnostic result.
 - B-87: always-restored selected-XOB in-play diagnostic; full live-XOB map remains NOT READABLE; next relay follows the whole-run grade.
 - B-88: measured why B-87 refused four valid takes, and whether his "XOB retracement or touch" words on the selected XOB at the counted candle reproduce the B-83 separation from EA-readable inputs; no edit or run.
+- B-89: re-read his "XOB retracement or touch" words on the trade-direction pick with in play by spec §3.5 (from formation and from promotion, neither picked) on all register rows and the 65 counted passes; buildability per window; no edit or run.
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.

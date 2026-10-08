@@ -62,6 +62,7 @@ Operator kickoff for any new thread:
 - B-86-XOB-READABLE-DIAG (planner lesson 2026-10-08, B-86): B-86 measured only the selected-XOB readable path. The full live-XOB map remains not readable by the EA. XOB opposing-candle touch is permitted and never disqualifying, so the diagnostic must not reject touching rows.
 - B-87-PICK-XOB-INPLAY-DIAG (planner lesson 2026-10-08, B-87): B-87 tested selected-XOB in-play at the counted touch candle as an always-restored diagnostic. The diagnostic never used the full live-XOB map. XOB opposing-candle touch remained optional and never disqualifying.
 - B-88-GATE-MATCHES-READING (planner lesson 2026-10-08, B-88): a diagnostic gate reproduces the separating reading's own test, candle and build before it runs. B-87 gated "selected XOB in play" at the kept seed candle without hunk C, while B-83 separated on his "XOB retracement or touch" words at the B60C counted candle on the hunk C build; the gate refused 4 of his 7 EURUSD takes. B-86 graded that reading on two June rows only; every reading is graded on all register rows (sections A, B, C) before a gate is drafted from it.
+- B-89-TRADE-DIRECTION-PICK (planner lesson 2026-10-08, B-89): a pick read at a counted candle is checked against the trade direction before it is graded, and in play is read in the spec's words before the machine's verdict is used. B-88 R3 took the latest print at or before the candle, so the 1 Sep long and the 7 Sep 16:05 candle were graded on short-side XOBs (1.16081-1.16100, 1.16362-1.16377), and the machine's in-play check tests the current candle's range plus the swing leg to the stop, while spec §3.5 reads a penetration at any point in the leg.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -90,3 +91,4 @@ Operator kickoff for any new thread:
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-83; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-08: relay B-85 moved the planner workflow into a profile-neutral kit (PK-1, PLANNER_BOOTSTRAP.md); any planner agent starts there; this file stays the single planner context.
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-88; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-08: planner session ran as ClickUp Brain for relay B-89; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
