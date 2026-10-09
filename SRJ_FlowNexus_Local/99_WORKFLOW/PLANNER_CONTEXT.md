@@ -156,6 +156,8 @@ Operator kickoff for any new thread:
 
 - B137-VOLUME-IS-NOT-A-TAKE (planner lesson 2026-10-09): a must-keep deal is its side, date, time and price (register section E: 'all section-A takes reproduce (entry/bar)'); lot size follows the account value, and spec section 7 puts sizing out of scope. A moved exit re-sizes later entries by balance, so volume drift is accounted from the sizer on each run's own account value and is never a STOP by itself. B-136 R-a restored a trial whose entries and his two owed exits all hit; the planner's relay owned that over-specification.
 
+- B138-SIGNAL-BEFORE-FILL (planner lesson 2026-10-09): with every register take and his two owed exits reproduced (B-137 KEPT), the next fidelity gap is price. Each kept deal is graded first on the machine's own signal price (entry ref, MTEXIT exit) against his price and the candle open or booked target. The fill is graded second, and its spread and lag gaps are classed from rows (his EXACT-PRICE-NO-LENIENCY L34), never tolerated and never mixed with a signal defect.
+
 - B136-OWNBODY-ON-HIS-EXITS (planner lesson 2026-10-09): an exit term goes to trial only after its separator is graded on his owed exits (B-135 R5); it is OR'd onto the kept break test, with the fill left at the next open. B-134 S0 alone would have guarded the machine's 28 Aug 11:40 time. B-136 trialed the own-body break (side by the candle's own open, through by its own close) on the kept build: 28 Aug owed out at the 11:35 open, 1 Sep owed out at the 17:50 open, every other deal a change detector.
 
 ## 5. History
@@ -209,3 +211,5 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-136 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-137 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-138 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

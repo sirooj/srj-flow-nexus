@@ -122,6 +122,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-137: accounted the B-136 lot-size drift from the sizer on each run's account value, re-applied hunk BRK-OWNBODY byte-for-byte, graded RECON62 (fresh T1b run) and June fully identical; verdict KEPT.
 
+- B-138: price fidelity census on the B-137 kept build: his price vs machine signal price vs fill on every kept deal, gaps classed EXACT / SPREAD / LAG / SIGNAL-DIFFERENT from rows; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
