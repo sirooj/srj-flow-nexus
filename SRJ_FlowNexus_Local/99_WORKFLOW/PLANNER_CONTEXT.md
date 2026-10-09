@@ -171,6 +171,7 @@ Operator kickoff for any new thread:
 - B143-HIS-ZONE-NOT-PICK (planner note 2026-10-09): his in-play XOB for 8 Sep New York is the 9:20 XOB, not the machine's 3 Sep pick; any XOB rule is graded on his zone and on the pick side by side, on every register row, before a veto is drafted.
 - B144-STAMP-BEFORE-CANDLE (planner lesson 2026-10-10): read an export stamp in its writer's own time convention before naming a candle, and grade a his-zone reading on each register row's own zone. B-143 R1 explained XOB 3293's invalT 09:40 with the 09:40 candle while the record already carried it at barT 09:35, and B-143 R4 graded A7's 8 Sep zone on rows from 26 Aug to 11 June (cross-symbol for June), so its DOES NOT SEPARATE verdicts carry no separator weight.
 - B145-STAMP-CORRECTED (planner correction 2026-10-10): an XOBDIAG row stamped barT holds the state after the next candle's passes (B97PROV:890 and 1153, target = i - 1), so B-143's 09:40 kill candle for XOB 3293 stood and the first half of B144-STAMP-BEFORE-CANDLE was a planner false alarm; its second half (grade each register row on its own zone) stands. When his word that a zone is in play meets a kill on the tester's candles and his own candles are absent, the gap is a feed question first (spec 9.1): read the colour and draw state and his record before any chart call.
+- B146-NEW-WORD-BEFORE-CALL (planner lesson 2026-10-10): a carried chart call is checked against every word of his given with the relay before it is passed. The B-145 call presumed the exact-middle kill while his same-session words say the kill level is not always the middle, so it was withheld (B-79 class) and his words are banked and graded first.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -239,3 +240,5 @@ Operator kickoff for any new thread:
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-144 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-145 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-10: planner session ran as ClickUp Brain for relay B-146 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
