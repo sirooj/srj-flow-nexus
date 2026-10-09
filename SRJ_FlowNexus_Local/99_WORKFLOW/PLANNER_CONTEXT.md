@@ -124,6 +124,8 @@ Operator kickoff for any new thread:
 
 - B120-REGIME-AT-RETEST (planner lesson 2026-10-09): grade a bias reason at the retest candle his words name, with both regime branches (trend majority and fresh same-session sweep) beside his journal setup class; B-119 graded the HTF majority at confirmation only and read 1 Sep, a '++' row, as a trend-only breaker.
 
+- B121-FIX-NOT-REPLACE-READS (planner lesson 2026-10-09): a machine-vs-chart HTF read split at a bar is a read error under FIX-NOT-REPLACE (strategy line 93) and 15M-READS (line 141), never a breaker or a strategy fact; measure it per timeframe at the candle his words name, rule out feed divergence (spec 9.1) first, and refine inside the indicator only, proven by the unchanged 7 EU takes (line 92). B-119 R1 called the 1 Sep long a breaker on a known read split.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -156,3 +158,4 @@ Operator kickoff for any new thread:
 - 2026-10-08: planner session ran as ClickUp Brain for relay B-91; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-119; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-120; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-121; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

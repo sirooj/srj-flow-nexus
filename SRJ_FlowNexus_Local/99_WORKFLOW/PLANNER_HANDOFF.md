@@ -88,6 +88,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-120: measured the regime at the retest candle and the unclassified-retain path against spec 3.2 on the full register; no source edit or run.
 
+- B-121: measured the machine's 4H/1H/15m reads against his chart reads at the named candles on the full register, and the history of his FIX-NOT-REPLACE order; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
