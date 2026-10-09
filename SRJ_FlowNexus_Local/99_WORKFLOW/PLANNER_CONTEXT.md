@@ -166,6 +166,8 @@ Operator kickoff for any new thread:
 
 - B136-OWNBODY-ON-HIS-EXITS (planner lesson 2026-10-09): an exit term goes to trial only after its separator is graded on his owed exits (B-135 R5); it is OR'd onto the kept break test, with the fill left at the next open. B-134 S0 alone would have guarded the machine's 28 Aug 11:40 time. B-136 trialed the own-body break (side by the candle's own open, through by its own close) on the kept build: 28 Aug owed out at the 11:35 open, 1 Sep owed out at the 17:50 open, every other deal a change detector.
 
+- B142-PICK-SHAPE-SHARED (planner note 2026-10-09): before drafting any XOB veto for the 4 June 09:55 short, set its kept-build zone rows beside his valid 8 Sep NY short; both arm on a machine pick printed out of play at the arming bar (ZONEPICK xobInPlay=0, INPLAYCOMMIT legacy=0) and committed only by an old swing (changed=1; 4 June firstShift=95 on XOB 3052 promoted 04:50, JUNE0525-B137 pack 1390/1391; 8 Sep firstShift=809 on XOB 2898 promoted 3 Sep 21:35, RECON62-B137 pack 3391/3392), so a veto on that shape costs A7; B-142 grades every spec and his-word reading on the live pick and censuses the full XOB map at both confirmation candles.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -225,3 +227,5 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-140 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-141 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-142 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
