@@ -142,6 +142,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-147: searched the record for his old XOB invalidation level and re-graded his 8 Sep 9:20 XOB on it; graded back-to-it-after-promotion on every register row (Part S); B-146 chart call withheld; no source edit or run.
 
+- B-148: parked XOB-0604 at 6 of 6 (PROMO-RETURN separates, not buildable live; reopen key filed); STOP-BASIS 2 of 6 located the 2xOB input and, where exported, printed it beside every kept stop on an always-restored diagnostic; verdict MEASURED.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
