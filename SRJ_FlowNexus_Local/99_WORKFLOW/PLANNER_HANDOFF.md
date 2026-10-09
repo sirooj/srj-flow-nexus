@@ -114,6 +114,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-133: cut entry-to-exit packs for every kept trade; named the cause of the 1 Sep 17:45 non-exit; graded his higher-line break-exit words on every kept exit (Part S); no source edit or run.
 
+- B-134: kept-build trial of the break exit judged on the candle's own body (1 Sep 17:45 Yearly POC) stopped at the S0 separator (A1 11:30 also qualifies, kept 11:40 exit would move); no source edit, compile or run; verdict STOP.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
