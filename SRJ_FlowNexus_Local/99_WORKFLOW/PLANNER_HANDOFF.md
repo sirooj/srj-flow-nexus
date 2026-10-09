@@ -112,6 +112,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-132: banked his 4 June CQD answer (CQD withdrawn, XOB + HTF reasons stand); parked the 4 June lane at 6 of 6 as a known open fire; per-day row packs with exits; exit census on every kept trade; no source edit or run.
 
+- B-133: cut entry-to-exit packs for every kept trade; named the cause of the 1 Sep 17:45 non-exit; graded his higher-line break-exit words on every kept exit (Part S); no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
