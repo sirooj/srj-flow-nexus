@@ -116,6 +116,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-134: kept-build trial of the break exit judged on the candle's own body (1 Sep 17:45 Yearly POC) stopped at the S0 separator (A1 11:30 also qualifies, kept 11:40 exit would move); no source edit, compile or run; verdict STOP.
 
+- B-135: pinned his 28 Aug London exit from the record (11:35 against the machine's 11:40) and re-graded the own-body break on his exits; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

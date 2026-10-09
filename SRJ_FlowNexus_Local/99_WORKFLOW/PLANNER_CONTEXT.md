@@ -152,6 +152,8 @@ Operator kickoff for any new thread:
 
 - B133-EXIT-ROWS-FIRST (planner lesson 2026-10-09): an exit lane grades from every row between entry and exit, never from the MTEXIT row alone; the B-132 day packs carry the 1 Sep 17:35 deal, 17:51 stop and MTEXIT but no per-candle exit rows, so the 17:45 Yearly POC break could not be read from the pack; B-133 cut whole entry-to-exit packs for every kept trade.
 
+- B135-OWED-EXIT-NOT-MACHINE-EXIT (planner lesson 2026-10-09): a must-keep exit is his exit, never the machine's; B-134 pinned A1 at the machine's 11:40 while his 28 Aug words say 'hence the exit at 11:35' and his 2026-09-22 ruling calls that exit mechanism flawed, so the S0 stop guarded a machine time. Every 'must keep' exit is checked HIS vs MACHINE against the register proof key before a trial is drafted.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -197,3 +199,5 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-131 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-132 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-133 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-09: planner session ran as ClickUp Brain for relays B-133 to B-135 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
