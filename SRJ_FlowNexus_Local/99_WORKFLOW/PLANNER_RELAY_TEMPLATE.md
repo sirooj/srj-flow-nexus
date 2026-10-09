@@ -1,4 +1,4 @@
-# PLANNER_RELAY_TEMPLATE - relay skeleton (kit PK-1)
+# PLANNER_RELAY_TEMPLATE - relay skeleton (kit PK-2)
 One fenced text block. Plain text inside, no nested code fences. New file text goes between "=== BEGIN FILE <path> ===" and "=== END FILE ===" markers.
 
 RELAY B-<n> - <short title>
@@ -15,11 +15,13 @@ Trader summary: two or three sentences in his words.
 ## Part B - banking (grep-first; his new words verbatim, or "no new rule words")
 ## Part W - workflow edits (only when he ordered them; exact before -> after text)
 ## Part K - kept-build edit (rule-conflict check; backups .preB<n> with SHAs; raw spots located by text; one edit; one compile) or Part R - reading (read-only measurement on named journals)
+## Part S - separator table (required before any Part K trial; from committed pack lines; one row per register row A, B, C; columns: pack lines, reading verdict, SEPARATES / DOES NOT SEPARATE / OTHER-GATE)
 ## Part T - runs (RECON62 first, then June; filed-trade table; STOP rules right after the table; restore on STOP)
 ## Part X - records (PLANNER_CONTEXT lesson and history lines, PLANNER_HANDOFF section 3 arc line, ledger item; each grep-first)
 ## Part F - file, push, reply
 F1 result BUILDER_RESULT_B<n>.md (trader summary first; relay order; final disk state; carried note last if any).
 F2 slice BUILDER_SLICE_B<n>.md (raw rows; under 600 lines).
+F2b On KEPT: row packs per srj-relay "Row pack" plus ROWPACK/INDEX_B<n>.md.
 F3 ledger item. F4 pointer (35-line cap).
 F5 stage explicit paths only; never EA, includes, indicators, ex5, journals, logs, inis or backups unless the relay says commit AND he has said so.
 F6 commit, push via backup, git ls-remote https://github.com/sirooj/srj-flow-nexus.git builder/B-<n> must return the commit.
@@ -32,3 +34,6 @@ Reply line: B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, ver
 - No question to him that his record answers; no code question to him at all.
 - Every input a trial term needs is EA-readable at runtime (B-84).
 - Every result claim relied on is in the committed file (B-84 X1/X2).
+- A Part K trial cites a committed Part S table that SEPARATES (PK-2).
+- The pointer's Lane line is read; a lane at its limit is parked, not extended (PK-2).
+- Every pin cited has skill line numbers; every row has run + EA SHA + file:line or pack line (PK-2).

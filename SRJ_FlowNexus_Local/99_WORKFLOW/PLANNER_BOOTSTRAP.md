@@ -1,5 +1,5 @@
 # PLANNER_BOOTSTRAP - start here: any planner agent, any profile, any workspace
-Planner kit PK-1 (relay B-85). The repo is the only canonical memory. Anything an agent keeps in its own workspace (skill, memory, notes) is a copy and loses to the repo on the newest builder/B-<n> branch.
+Planner kit PK-2 (relay B-131). The repo is the only canonical memory. Anything an agent keeps in its own workspace (skill, memory, notes) is a copy and loses to the repo on the newest builder/B-<n> branch.
 
 ## 0. Kickoff (the operator pastes this to any new planner session)
   Planner session, SRJ Flow Nexus. Repo sirooj/srj-flow-nexus.

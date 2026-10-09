@@ -59,6 +59,14 @@ Result file
 - Questions for him: trader words, exact dates, times and prices, asked only after the record-first search, with the sources listed.
 - Grep before banking (B-27 lesson, operator order 2026-10-05): before appending any strategy-skill section, journal row or ledger item, grep the target file for it. Count 1 and verbatim: append nothing, cite the commit that landed it, and report ALREADY_BANKED <commit>. Count 0: append. Count 2 or more: append nothing and write a carried note.
 
+Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
+- On every KEPT verdict, commit SRJ_FlowNexus_Local/06_HANDOFFS/ROWPACK/ROWPACK_<run>.csv for each run the verdict rests on (RECON62 and June) plus DEALS_<run>.csv, and ROWPACK/INDEX_B<n>.md.
+- ROWPACK columns: pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw. raw is the journal row byte-for-byte, CSV-quoted. Rows: every row whose tag is in the relay's tag list, inside the session windows (server 09:00-12:00 and 14:00-19:00), plus every deal row.
+- DEALS columns: deal,side,date,time,price,volume,register_row (A1-A7, B1-B3, C-<date>, or NONE).
+- INDEX_B<n>.md: for each register row, the pack lines of its seed, its confirmation decision, its divergence latch and its entry (NONE where absent).
+- A file over 900 KB is split by week (_W1, _W2, ...) so it stays readable on GitHub.
+- Packs are text records, staged by explicit path. The pointer carries one Lane line: open item, first relay, relay count.
+
 Reply line (exact shape)
 - B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED | STOP>
 - STOP = a STOP rule hit before the trial ran or finished; no source edit stands; the reason is the result's first line (B-84 first use, planner ruling B-85).

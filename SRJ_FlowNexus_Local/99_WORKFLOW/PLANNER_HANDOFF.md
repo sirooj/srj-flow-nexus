@@ -108,6 +108,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-130: banked his divergence words (never stale, only renewed; the latest is the valid one) and named, on the kept build's rows, the divergence each kept fire latched, 4 June 09:55 first; no gate or source edit kept.
 
+- B-131: workflow kit PK-2 (row packs, separator gate, lane limit 6, quote discipline); divergence latch print kept if deals identical; first row packs; 4 June CQD separator table.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

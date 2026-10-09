@@ -146,6 +146,8 @@ Operator kickoff for any new thread:
 
 - B130-NAME-THE-LATCHED-VERDICT (planner lesson 2026-10-09): before any CQD claim or gate, quote the kept build's own firing-path row naming the latched divergence (value, bar, kind); eligibility-census rows are not the firing path, a row from another build is never graded, and one date's chart words never describe another date. The 4 June CQD claim rode j38-era SIDE1O_ELIGSTATE / SIDE1Q_CQDKILL UNREAD rows (register section C), and the B-129 builder brief set 1 Sep's blue-solid words beside 4 June.
 
+- B131-ROWS-BEFORE-RELAYS (operator order 2026-10-09, carried core: "Refine the workflow pipeline so it provides more context and does not waste another hundred releases"): kit PK-2. Kept builds commit row packs; trials need a committed separator table; a lane parks at 6 relays with no separator; quotes carry line numbers and rows carry run + SHA. Cost case: thirty XOB relays (B-86 to B-115) closed with no rule; B-129 is the positive case (XT-TOUCH separated on rows, the trial reproduced it).
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -188,3 +190,4 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-128; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-129; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-130; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-131 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
