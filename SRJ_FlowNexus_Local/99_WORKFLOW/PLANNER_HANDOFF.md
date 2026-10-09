@@ -94,6 +94,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-123: measured which HTF read his chart panel shows and whether each machine-vs-chart split is a one-candle lag of the confirmed read; no source edit or run.
 
+- B-124: trial removing the late regime latch (a seed with no regime at its retest candle is released, not held for a later bar), graded on RECON62 and June.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

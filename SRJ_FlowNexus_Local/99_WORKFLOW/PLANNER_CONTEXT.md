@@ -130,6 +130,10 @@ Operator kickoff for any new thread:
 
 - B123-HTF-STALENESS (planner lesson 2026-10-09): settle which flavor his chart panel shows before calling a machine HTF read inaccurate, and class each split as a one-candle lag or a persisting read on the rows; FIX-NOT-REPLACE defines accurate against his chart read at the bar.
 
+- B123-HTF-LANE-PARKED (planner lesson 2026-10-09): B-121 to B-123 found the EA already reads the confirmed HTF candle; of nine machine-vs-chart splits one is a one-candle lag that moves no trade and eight persist past the close, mostly against session-level journal cells and inside the spec 9.1 feed bound; equalizing to his chart threatens B3 and C3. The HTF read lane is parked with no edit; reopen only on new bar-named reads of his.
+
+- B124-NO-LATE-LATCH (planner lesson 2026-10-09): grade a necessary-condition reading by whether every valid take passes and the ruled-out fire fails, not by whether ruled-out rows that other gates already silence also fail; B-120 RA was read as DOES NOT SEPARATE on 2 June, 10 June and 5 June London, which stay silent by other gates.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -165,3 +169,4 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-121; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-122; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-123; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-124; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
