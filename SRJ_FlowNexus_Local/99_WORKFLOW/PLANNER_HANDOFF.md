@@ -126,6 +126,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-139: graded every kept deal's fill against his own fill basis, his words on spread and quote side, and every entry fill's time against the candle open; no source edit or run.
 
+- B-140: graded every kept exit (and the 8 Sep NY entry) against his own banked rule words, 5 June NY 19:16 retarget first; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

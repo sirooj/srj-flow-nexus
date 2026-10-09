@@ -160,6 +160,8 @@ Operator kickoff for any new thread:
 
 - B139-HIS-FILL-FIRST (planner lesson 2026-10-09): a fill is graded against his own fill basis before any spread or lag gap is called a defect. B-138 classed four EURUSD entries SPREAD against the bid open (1 Sep 1.16024, 4 Sep 1.16019, 7 Sep 1.16138, 7 Sep 1.16264), while the register A rows 2-5 cells marked HIS report equal the machine's ask fill to the point. Entry timing is graded to the second, because his L34 concern is the automation matching the open.
 
+- B140-RULE-BASIS-BEFORE-UNKNOWN (planner lesson 2026-10-09): before any row's basis is typed UNKNOWN or MACHINE, his banked words for that scenario class are grepped and quoted; B-139 typed the 5 June NY exit UNKNOWN though RETARGET-CLOSED-AM and the section 9 restatement name his closed-session-high exit for that trade, and typed the 7 Sep London exit MACHINE though his AS.H rule-choice names it.
+
 - B136-OWNBODY-ON-HIS-EXITS (planner lesson 2026-10-09): an exit term goes to trial only after its separator is graded on his owed exits (B-135 R5); it is OR'd onto the kept break test, with the fill left at the next open. B-134 S0 alone would have guarded the machine's 28 Aug 11:40 time. B-136 trialed the own-body break (side by the candle's own open, through by its own close) on the kept build: 28 Aug owed out at the 11:35 open, 1 Sep owed out at the 17:50 open, every other deal a change detector.
 
 ## 5. History
@@ -217,3 +219,5 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-138 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-139 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-140 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
