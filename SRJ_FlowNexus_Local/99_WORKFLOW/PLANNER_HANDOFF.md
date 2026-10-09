@@ -104,6 +104,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-128: measured his 2 June words ("no valid XOB retracement or touch there") on the retest-carried confirmation path only: retest-candle XOB touch and in play on every hunk-C cSrc=RETEST row, deciding rows 5 June 16:10 and 2 June 15:30; no source edit or run.
 
+- B-129: kept-build trial of hunk C with the retest-carried touch counted only when the retest candle reaches its promoted XOB (his 2 June words), kept prior-candle touch untouched; graded RECON62 then June (5 June 16:15 owed, 2 June 15:35 must stay out).
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
