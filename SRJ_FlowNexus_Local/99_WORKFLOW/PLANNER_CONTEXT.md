@@ -138,6 +138,8 @@ Operator kickoff for any new thread:
 
 - B126-NAME-THE-DEAD-CANDIDATE (planner lesson 2026-10-09): before drafting a fix for a missed take, name the candidate that died by seed time, line and kill row on the kept rows, not by an earlier result's shorthand; B-117 named the 5 June 16:05 death a seed-bias refusal of his 16:00 retest, but B-125 rows show the 15:20 Monthly POC long's deferred 5m abort, with his 16:00 retest held behind it and never seeded.
 
+- B127-WHOLE-PATH-BEFORE-HUNK (planner lesson 2026-10-09): when an earlier hunk reached a missed take through more than one change, measure every step of that path on the rows before trialing one part; B-126 built hunk C's reseed half alone, and the reseeded 5 June 16:00 long died at the 16:10 confirmation on touchAttr=0, the step hunk C's retest-candle touch carried (B-125 R2 f).
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -176,3 +178,4 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-124; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-125; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-126; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-127; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

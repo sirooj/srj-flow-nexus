@@ -100,6 +100,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-126: kept-build trial letting the flip-candle retest live on as its own potential after the 5m flip kills the formed setup (5 June 16:00 retest, 16:10 confirmation, 16:15 entry), graded on RECON62 then June.
 
+- B-127: measured the 5 June 16:10 confirmation candle line by line against his entry lines and the 16:00 retest-candle touch, graded on every register row and every kept confirmation refusal; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
