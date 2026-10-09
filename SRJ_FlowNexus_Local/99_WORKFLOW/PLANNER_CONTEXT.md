@@ -154,6 +154,8 @@ Operator kickoff for any new thread:
 
 - B135-OWED-EXIT-NOT-MACHINE-EXIT (planner lesson 2026-10-09): a must-keep exit is his exit, never the machine's; B-134 pinned A1 at the machine's 11:40 while his 28 Aug words say 'hence the exit at 11:35' and his 2026-09-22 ruling calls that exit mechanism flawed, so the S0 stop guarded a machine time. Every 'must keep' exit is checked HIS vs MACHINE against the register proof key before a trial is drafted.
 
+- B136-OWNBODY-ON-HIS-EXITS (planner lesson 2026-10-09): an exit term goes to trial only after its separator is graded on his owed exits (B-135 R5); it is OR'd onto the kept break test, with the fill left at the next open. B-134 S0 alone would have guarded the machine's 28 Aug 11:40 time. B-136 trialed the own-body break (side by the candle's own open, through by its own close) on the kept build: 28 Aug owed out at the 11:35 open, 1 Sep owed out at the 17:50 open, every other deal a change detector.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -201,3 +203,5 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-133 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-09: planner session ran as ClickUp Brain for relays B-133 to B-135 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-136 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

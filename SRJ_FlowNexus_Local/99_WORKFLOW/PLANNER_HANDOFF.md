@@ -118,6 +118,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-135: pinned his 28 Aug London exit from the record (11:35 against the machine's 11:40) and re-graded the own-body break on his exits; no source edit or run.
 
+- B-136: kept-build trial of the own-body break exit OR'd onto the kept next-open break (28 Aug out at the 11:35 open, 1 Sep out at the 17:50 open), graded RECON62 (June skipped on R-a volume drift); verdict RESTORED.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
