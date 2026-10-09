@@ -136,6 +136,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-144: measured the promotion and kill candle of XOB 3293 (his 8 Sep 9:20 XOB), his midline rule on machine and live candles, the feed, and the Flow Logic draw state at 16:55; no source edit or run.
 
+- B-145: read the live and dead XOB colours, his saved chart inputs, his record for the 8 Sep 9:20 XOB and the live XOB census at the A7 and 4 June confirmation candles; one chart call if the record is silent; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
