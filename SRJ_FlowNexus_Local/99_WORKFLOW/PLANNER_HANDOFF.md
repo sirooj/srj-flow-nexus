@@ -110,6 +110,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-131: workflow kit PK-2 (row packs, separator gate, lane limit 6, quote discipline); divergence latch print kept if deals identical; first row packs; 4 June CQD separator table.
 
+- B-132: banked his 4 June CQD answer (CQD withdrawn, XOB + HTF reasons stand); parked the 4 June lane at 6 of 6 as a known open fire; per-day row packs with exits; exit census on every kept trade; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

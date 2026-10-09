@@ -148,6 +148,8 @@ Operator kickoff for any new thread:
 
 - B131-ROWS-BEFORE-RELAYS (operator order 2026-10-09, carried core: "Refine the workflow pipeline so it provides more context and does not waste another hundred releases"): kit PK-2. Kept builds commit row packs; trials need a committed separator table; a lane parks at 6 relays with no separator; quotes carry line numbers and rows carry run + SHA. Cost case: thirty XOB relays (B-86 to B-115) closed with no rule; B-129 is the positive case (XT-TOUCH separated on rows, the trial reproduced it).
 
+- B132-4JUN-PARKED (planner lesson 2026-10-09): a lane whose remaining reasons all sit in already-parked lanes is parked at its limit, never re-run; 4 June 09:55 parked at 6 of 6 after his word withdrew CQD; it stays a known open fire on the kept build and reopens only on a new bar-named HTF read of his or a readable live-XOB source. Row packs are cut per day with exits included, because a 670 KB window pack is too large for the planner to read.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -191,3 +193,4 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-129; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-130; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-131 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-132 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

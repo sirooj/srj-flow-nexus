@@ -65,6 +65,8 @@ Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
 - DEALS columns: deal,side,date,time,price,volume,register_row (A1-A7, B1-B3, C-<date>, or NONE).
 - INDEX_B<n>.md: for each register row, the pack lines of its seed, its confirmation decision, its divergence latch and its entry (NONE where absent).
 - A file over 900 KB is split by week (_W1, _W2, ...) so it stays readable on GitHub.
+- Also write one file per trading day, ROWPACK/<run>/<YYYY-MM-DD>.csv (same columns), so the planner reads one day at a time (PK-2, relay B-132).
+- Rows of an open trade are kept from entry to exit even outside the session windows (MTEXIT, exit, day-close and deal rows), so every exit is in the pack.
 - Packs are text records, staged by explicit path. The pointer carries one Lane line: open item, first relay, relay count.
 
 Reply line (exact shape)
