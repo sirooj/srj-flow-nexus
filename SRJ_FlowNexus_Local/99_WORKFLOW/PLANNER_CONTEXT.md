@@ -126,6 +126,10 @@ Operator kickoff for any new thread:
 
 - B121-FIX-NOT-REPLACE-READS (planner lesson 2026-10-09): a machine-vs-chart HTF read split at a bar is a read error under FIX-NOT-REPLACE (strategy line 93) and 15M-READS (line 141), never a breaker or a strategy fact; measure it per timeframe at the candle his words name, rule out feed divergence (spec 9.1) first, and refine inside the indicator only, proven by the unchanged 7 EU takes (line 92). B-119 R1 called the 1 Sep long a breaker on a known read split.
 
+- B122-LIVE-HANDLE-FIRST (planner lesson 2026-10-09): before drafting any indicator switch or input edit, read the EA's live iCustom call and the run rows' own flags (confirmedFeed); an indicator default is dead when the EA passes the value. B-121 R6 read the default as live and B-122 stopped before a no-op edit.
+
+- B123-HTF-STALENESS (planner lesson 2026-10-09): settle which flavor his chart panel shows before calling a machine HTF read inaccurate, and class each split as a one-candle lag or a persisting read on the rows; FIX-NOT-REPLACE defines accurate against his chart read at the bar.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -160,3 +164,4 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-120; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-121; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-122; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-123; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

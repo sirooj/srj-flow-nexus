@@ -90,6 +90,10 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-121: measured the machine's 4H/1H/15m reads against his chart reads at the named candles on the full register, and the history of his FIX-NOT-REPLACE order; no source edit or run.
 
+- B-122: STOP before edit; the confirmed HTF switch is already live at the EA handle, so the indicator default flip was a no-op; no edit or run.
+
+- B-123: measured which HTF read his chart panel shows and whether each machine-vs-chart split is a one-candle lag of the confirmed read; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
