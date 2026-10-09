@@ -140,6 +140,8 @@ Operator kickoff for any new thread:
 
 - B127-WHOLE-PATH-BEFORE-HUNK (planner lesson 2026-10-09): when an earlier hunk reached a missed take through more than one change, measure every step of that path on the rows before trialing one part; B-126 built hunk C's reseed half alone, and the reseeded 5 June 16:00 long died at the 16:10 confirmation on touchAttr=0, the step hunk C's retest-candle touch carried (B-125 R2 f).
 
+- B128-ADDED-ROWS-ONLY (planner lesson 2026-10-09): a term that only adds confirmations is graded on the rows it adds (kept confirm=0 turned 1) and the fires those rows produce, never on kept fires; B-127 counted the 4 June 09:50 kept same-bar confirmation as a CF-C breaker and graded 2 June 15:30 CF-A PASS though the kept prior-candle test refused it (C_TOUCH), which left 2 June as the only real breaker of the retest-carried touch.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -179,3 +181,4 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-125; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-126; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-127; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-128; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
