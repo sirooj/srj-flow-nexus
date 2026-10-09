@@ -11,11 +11,15 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 |---|---|---|---|---|---|---|---|
 | 1 | 28 Aug London EURUSD, entry 10:05 open | SHORT | D-VWAP (HIS anchor-rank ruling: lower line, higher POC breaks exit) | 1.16466 [HIS report] | 11:40 BREAK D-POC 1.16439 [matrix; R51]; R60 prints 11:45 fill 1.16440 [R60 G4] | R67-proved path; exit leg diverged by rule across builds, settled by his break-retest words |
 - NOTE 2026-10-09 (B-135): his exit per FINDING EXIT-BREAK-RETEST section 1 is the 11:35 open after the 11:30 close-through (early exit 1.16464 at the 11:35 open, his verbatim 2026-09-11 correction); the 11:40 cell is a machine time (matrix/R51).
+- NOTE 2026-10-09 (B-137 KEPT, EA 585093BF): exit 11:35 open 1.16464 by the 11:30 Daily-POC close-through (his exit); the 11:40 cell is a retired machine time.
 | 2 | 1 Sep New York EURUSD, entry 17:35 open | LONG | Monthly-VWAP [R60 ANCHOR_ELECT 17:00 row] | 1.16024 [HIS report; R60 G2 chain] | SL chain 17:50 [R60 MTEXIT/MTLIFE] | First 9/1 take on suppressed tree (R60 G2); journal row 301 "++" VALID-taken-not-taken-by-him [HIS 2026-09-23 ruling]; HIS timing rule: 17:30 retest+confirmation bar, entry 17:35 open [HIS words, row-shape unverified] |
 - NOTE 2026-10-09 (B-121 B2, planner): the "++" in row 2 has no verbatim source; his 2026-09-23 words put "++" on 9/4 only (strategy line 79) and leave the 9/1 setup class for him (line 77). Cell left as written; nothing inferred.
+- NOTE 2026-10-09 (B-137 KEPT, EA 585093BF): exit 17:50 open 1.15987 by the 17:45 Yearly-POC close-through (his s78 exit); the SL 17:50 cell is retired.
 | 3 | 4 Sep New York EURUSD, entry 16:00 | LONG | UNKNOWN (source-needed) | 1.16019 [HIS report] | Day-close flatten 1.16093 [R60 G4] | Journal rows 277/279 W=1; 0.84 retired flawed [HIS]; BOTH-TRUE trend+meanrev [HIS] |
 | 4 | 7 Sep London EURUSD, entry 09:20 open | LONG | AS.H booked nearest [HIS rule-choice] | 1.16138 [HIS report] | TP 1.16201 [R60 G4]; booked exit 11:15 at 1.16315 [R51] | Journal row 281; sweep-then-retest valid with his chart proof |
+- NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
 | 5 | 7 Sep New York EURUSD, entry 16:45 | LONG | W-POC (retest latest, his chart proof) | 1.16264 [HIS report] | TP 1.16315 [HIS report] | Proves D74FE972 over v7 (his slice); seed 14:55 stands before 16:40 confirm [R60] |
+- NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
 | 6 | 8 Sep London EURUSD, entry 10:10 | SHORT | UNKNOWN (source-needed) | 1.16205 [HIS report] | TP 1.16102 [R60 G4] | SEP8 ruling VALID |
 | 7 | 8 Sep New York EURUSD, entry 17:00 | SHORT | UNKNOWN (source-needed) | 1.16220 [51 build; R53] | SL 1.16275 [R60 G4] | SEP8 ruling VALID; R0.68 16:40 correctly blocked under his 1R floor (no alert) |
 - CORRECTION 2026-10-06 (B-33 j17:53800/53804): row 3 exit is DAY_CLOSE Friday 9/4 23:55 at 1.16129 (EXECUTION PINNED 2026-09-25); the 1.16093 cell is the retired next-day-open fill.
