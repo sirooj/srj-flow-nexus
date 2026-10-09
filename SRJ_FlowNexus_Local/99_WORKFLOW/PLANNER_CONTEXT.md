@@ -158,6 +158,8 @@ Operator kickoff for any new thread:
 
 - B138-SIGNAL-BEFORE-FILL (planner lesson 2026-10-09): with every register take and his two owed exits reproduced (B-137 KEPT), the next fidelity gap is price. Each kept deal is graded first on the machine's own signal price (entry ref, MTEXIT exit) against his price and the candle open or booked target. The fill is graded second, and its spread and lag gaps are classed from rows (his EXACT-PRICE-NO-LENIENCY L34), never tolerated and never mixed with a signal defect.
 
+- B139-HIS-FILL-FIRST (planner lesson 2026-10-09): a fill is graded against his own fill basis before any spread or lag gap is called a defect. B-138 classed four EURUSD entries SPREAD against the bid open (1 Sep 1.16024, 4 Sep 1.16019, 7 Sep 1.16138, 7 Sep 1.16264), while the register A rows 2-5 cells marked HIS report equal the machine's ask fill to the point. Entry timing is graded to the second, because his L34 concern is the automation matching the open.
+
 - B136-OWNBODY-ON-HIS-EXITS (planner lesson 2026-10-09): an exit term goes to trial only after its separator is graded on his owed exits (B-135 R5); it is OR'd onto the kept break test, with the fill left at the next open. B-134 S0 alone would have guarded the machine's 28 Aug 11:40 time. B-136 trialed the own-body break (side by the candle's own open, through by its own close) on the kept build: 28 Aug owed out at the 11:35 open, 1 Sep owed out at the 17:50 open, every other deal a change detector.
 
 ## 5. History
@@ -213,3 +215,5 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-137 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-138 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-139 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
