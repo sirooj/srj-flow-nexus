@@ -144,6 +144,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-148: parked XOB-0604 at 6 of 6 (PROMO-RETURN separates, not buildable live; reopen key filed); STOP-BASIS 2 of 6 located the 2xOB input and, where exported, printed it beside every kept stop on an always-restored diagnostic; verdict MEASURED.
 
+- B-149: printed the 2xOB panel state from the indicator on an always-restored run of both windows (deals required identical) and graded every kept stop on the spec 3.7 branch; verdict RESTORED.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
