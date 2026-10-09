@@ -162,6 +162,8 @@ Operator kickoff for any new thread:
 
 - B140-RULE-BASIS-BEFORE-UNKNOWN (planner lesson 2026-10-09): before any row's basis is typed UNKNOWN or MACHINE, his banked words for that scenario class are grepped and quoted; B-139 typed the 5 June NY exit UNKNOWN though RETARGET-CLOSED-AM and the section 9 restatement name his closed-session-high exit for that trade, and typed the 7 Sep London exit MACHINE though his AS.H rule-choice names it.
 
+- B141-STOP-SETS-R (planner note 2026-10-09): with entries, prices and exits reproduced on his rules (B-137 to B-140), the stop reference is the untested part of every deal; it sets R at admission (8 Sep 16:40 refused at R 0.68 off his 1.16359 two-swing high) and spec 8 names the branch selector wrong on a named instance, so each kept stop is graded against spec 3.7 on printed rows before any R claim is relied on; B-140 R6 could not name the swing behind the 8 Sep NY 1.16274 stop.
+
 - B136-OWNBODY-ON-HIS-EXITS (planner lesson 2026-10-09): an exit term goes to trial only after its separator is graded on his owed exits (B-135 R5); it is OR'd onto the kept break test, with the fill left at the next open. B-134 S0 alone would have guarded the machine's 28 Aug 11:40 time. B-136 trialed the own-body break (side by the candle's own open, through by its own close) on the kept build: 28 Aug owed out at the 11:35 open, 1 Sep owed out at the 17:50 open, every other deal a change detector.
 
 ## 5. History
@@ -221,3 +223,5 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-139 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-140 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-141 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

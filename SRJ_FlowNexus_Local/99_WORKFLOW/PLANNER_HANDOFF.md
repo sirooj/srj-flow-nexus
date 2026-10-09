@@ -128,6 +128,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-140: graded every kept exit (and the 8 Sep NY entry) against his own banked rule words, 5 June NY 19:16 retarget first; no source edit or run.
 
+- B-141: graded every kept stop against spec 3.7 (swing, branch, protective side) and his 8 Sep stop words on printed rows, 8 Sep NY 1.16274 first; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

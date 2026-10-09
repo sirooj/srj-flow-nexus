@@ -2,13 +2,14 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State (2026-10-09; B-SERIES LANE ACTIVE; latest result B-140)
-- B-series relay lane active (operator order 2026-10-04). Relay B-140 is the active task; for its scope it wins over older queue items. Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B140.md` (branch builder/B-140; exit basis, MEASURED).
+## State (2026-10-09; B-SERIES LANE ACTIVE; latest result B-141)
+- B-series relay lane active (operator order 2026-10-04). Relay B-141 is the active task; for its scope it wins over older queue items. Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B141.md` (branch builder/B-141; stop basis, MEASURED).
 - Planner entry: kit PK-2. Any planner agent starts from 99_WORKFLOW/PLANNER_BOOTSTRAP.md (kit PK-2); context 99_WORKFLOW/PLANNER_CONTEXT.md; cold start 99_WORKFLOW/PLANNER_HANDOFF.md.
 - EA on disk (B-137 KEPT BUILD): `Experts/SRJ_FlowNexus_EA.mq5` = `585093BF576B922A241E21779C72C62236B4F57746F778E25A772E493CC3D9C6` + EX5 AB159DE742F8EE9CF3FD2C1A4AE7A08A6CEE744728206B5325004FFCCBFB6FE9. FlowLogic 956BF3E3/ex5 27B5F272; includes at gate SHAs; MARKER 79859EDC/f0890c0b untouched.
 - R2=CLOSED (section 12); ALL7 guard absent, ALL7 passed false; WRITE_EXPLAINS 972/974. Slots fixed on disk (lookback 3000). June standard window 5/25 start, graded 6/01-6/12 (terminal.ini 4082A94F + Profiles 131/131; preB87/preB84 kept).
-- Ledger last item 1285 (B140-EXIT-BASIS, MEASURED); skill/journal/register/spec/FINDING/kit files untouched; journal 1068 lines.
-- Lane: EXIT-BASIS (closed at 1 of 6). R7: BUILDABLE-PICK-ONLY + NOT-BUILDABLE-FULL-XOB-MAP; BLOCKED none.
+- Ledger last item 1286 (B141-STOP-BASIS, MEASURED); skill/journal/spec/FINDING/kit files untouched; register last touched B-140 (section B NOTE); journal 1068 lines.
+- Lane: STOP-BASIS (first B-141, 1 of 6). R7: BUILDABLE-PICK-ONLY + NOT-BUILDABLE-FULL-XOB-MAP; BLOCKED none.
+- B-141: every kept stop triple-tested (9/10 swing-proven, A1's 1.16508 unprinted); 2xOB state never printed (spec §8: new export needed); A7 swing = 16:20 high; 16:40 refusal carries his 1.16359 at R 0.68; Rs all pass, zero flips; lane stays open.
 - B-140: every kept exit on his rule (R8 7/0/0: B2 19:16 retarget, B3 LOH hold, A4 AS.H, A6 YLOL nearest, A7e his bar + A7x loser-kept, C-06-03 ASH); exit basis closes.
 - B-139: fills graded vs his own basis — 24 rows ACCOUNTED, 0 DEFECT-NAMED, 0 NO-RULING (11 entries AT-OPEN, B3 LATE-SAME-PRICE bid=open; his buys show ask fills; +1 broker exits = venue movement, no EA spot).
 - B-138: price census on kept 585093BF — R4 9 EXACT / 8 SPREAD / 3 LAG / 0 SIGNAL-DIFFERENT / 0 UNKNOWN (20 graded); machine signals always name his price or the candle open/target; fills exact or spread/lag classed.
@@ -18,7 +19,7 @@
 - S4 SUPERSEDED by R5 above (B-134's S0-vs-S1 difference was a machine-exit artifact; on his exits the own-body test separates).
 - 4 June parked (known open fire). 5 June TAKEN. 2 June silent. A2 exit owed: 17:50 open 1.15987 by the 17:45 Yearly POC close-through, hit on the kept build (B-137 KEPT).
 - SILENT6 parked (not in register; logs complete; ends UNKNOWN).
-- S54 + hunk C/XT + latch print + BRK-OWNBODY live as kept. B-140: MEASURED (no edit/compile/run).
+- S54 + hunk C/XT + latch print + BRK-OWNBODY live as kept. B-141: MEASURED (no edit/compile/run).
 - B-79 chart call WITHHELD by planner (never reaches him). Record answer: 15:35 Y-POC r2:dS nearest higher target 1.15987 R0.18 refused; entry line Y-POC long side 15:45 dL confirm=0, 15:55 dL confirm=1, 16:00 open 1.16018.
 
 ## Next
