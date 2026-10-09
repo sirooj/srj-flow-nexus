@@ -144,6 +144,8 @@ Operator kickoff for any new thread:
 
 - B129-KEEP-THE-KEPT-TERM (planner lesson 2026-10-09): an added confirmation term is OR'd onto the kept test, never written over it; .B82C replaced the kept guarded prior-candle touch (EA:2532) with an exact one inside "touch = (uj60_tR || uj60_tP)", so B-128's "kept path byte-for-byte unchanged" held for the new branch only, and the trial gate reads the same ZONEPICK zone at the confirmation candle that the B-128 reading graded.
 
+- B130-NAME-THE-LATCHED-VERDICT (planner lesson 2026-10-09): before any CQD claim or gate, quote the kept build's own firing-path row naming the latched divergence (value, bar, kind); eligibility-census rows are not the firing path, a row from another build is never graded, and one date's chart words never describe another date. The 4 June CQD claim rode j38-era SIDE1O_ELIGSTATE / SIDE1Q_CQDKILL UNREAD rows (register section C), and the B-129 builder brief set 1 Sep's blue-solid words beside 4 June.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -185,3 +187,4 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-127; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-128; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-129; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-130; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

@@ -106,6 +106,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-129: kept-build trial of hunk C with the retest-carried touch counted only when the retest candle reaches its promoted XOB (his 2 June words), kept prior-candle touch untouched; graded RECON62 then June (5 June 16:15 owed, 2 June 15:35 must stay out).
 
+- B-130: banked his divergence words (never stale, only renewed; the latest is the valid one) and named, on the kept build's rows, the divergence each kept fire latched, 4 June 09:55 first; no gate or source edit kept.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
