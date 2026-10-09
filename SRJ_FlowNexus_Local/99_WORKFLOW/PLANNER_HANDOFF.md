@@ -96,6 +96,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-124: trial removing the late regime latch (a seed with no regime at its retest candle is released, not held for a later bar), graded on RECON62 and June.
 
+- B-125: measured which candidate the 5 June New York 16:05 abort killed and graded his flip-candle retest words on every register row and every kept 5m kill on both whole runs; one unchanged kept RECON62 run, no source edit.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

@@ -134,6 +134,8 @@ Operator kickoff for any new thread:
 
 - B124-NO-LATE-LATCH (planner lesson 2026-10-09): grade a necessary-condition reading by whether every valid take passes and the ruled-out fire fails, not by whether ruled-out rows that other gates already silence also fail; B-120 RA was read as DOES NOT SEPARATE on 2 June, 10 June and 5 June London, which stay silent by other gates.
 
+- B125-PATH-PER-TAKE (planner lesson 2026-10-09): before any edit to a seed hold, release or kill, name the path each valid take fires through (same-pass, retained, update, preempt, yield, prebind) on both kept runs; B-124 released no-regime seeds and lost the 1 Sep long, whose kept fire rides a 17:30 preempt transfer off the held short candidate and never passes a regime check, and B-124 K2(b) predicted it held.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -170,3 +172,4 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-122; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-123; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-124; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-09: planner session ran as ClickUp Brain for relay B-125; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
