@@ -169,6 +169,7 @@ Operator kickoff for any new thread:
 - B142-PICK-SHAPE-SHARED (planner note 2026-10-09): before drafting any XOB veto for the 4 June 09:55 short, set its kept-build zone rows beside his valid 8 Sep NY short; both arm on a machine pick printed out of play at the arming bar (ZONEPICK xobInPlay=0, INPLAYCOMMIT legacy=0) and committed only by an old swing (changed=1; 4 June firstShift=95 on XOB 3052 promoted 04:50, JUNE0525-B137 pack 1390/1391; 8 Sep firstShift=809 on XOB 2898 promoted 3 Sep 21:35, RECON62-B137 pack 3391/3392), so a veto on that shape costs A7; B-142 grades every spec and his-word reading on the live pick and censuses the full XOB map at both confirmation candles.
 
 - B143-HIS-ZONE-NOT-PICK (planner note 2026-10-09): his in-play XOB for 8 Sep New York is the 9:20 XOB, not the machine's 3 Sep pick; any XOB rule is graded on his zone and on the pick side by side, on every register row, before a veto is drafted.
+- B144-STAMP-BEFORE-CANDLE (planner lesson 2026-10-10): read an export stamp in its writer's own time convention before naming a candle, and grade a his-zone reading on each register row's own zone. B-143 R1 explained XOB 3293's invalT 09:40 with the 09:40 candle while the record already carried it at barT 09:35, and B-143 R4 graded A7's 8 Sep zone on rows from 26 Aug to 11 June (cross-symbol for June), so its DOES NOT SEPARATE verdicts carry no separator weight.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -233,3 +234,5 @@ Operator kickoff for any new thread:
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-142 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-09: planner session ran as ClickUp Brain for relay B-143 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+
+- 2026-10-10: planner session ran as ClickUp Brain for relay B-144 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

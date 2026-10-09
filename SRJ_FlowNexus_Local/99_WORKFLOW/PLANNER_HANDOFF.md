@@ -134,6 +134,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-143: his 8 Sep NY in-play XOB = 9:20 (his words banked); in-play census on his zone vs the pick on all register rows; no source edit or run.
 
+- B-144: measured the promotion and kill candle of XOB 3293 (his 8 Sep 9:20 XOB), his midline rule on machine and live candles, the feed, and the Flow Logic draw state at 16:55; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
