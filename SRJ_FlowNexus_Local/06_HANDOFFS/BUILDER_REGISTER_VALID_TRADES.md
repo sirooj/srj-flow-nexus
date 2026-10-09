@@ -59,6 +59,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - CORRECTION 2026-10-09 (B-130, planner): the 'machine rows agree no valid CQD (j38 SIDE1O_ELIGSTATE cqd=UNREAD, SIDE1Q_CQDKILL cqdDiv=UNREAD)' cell is withdrawn as firing-path evidence: those are eligibility-census rows from build 63B18C1F6FEAE62B8AAB77C5D352E4DC6D463B808458B59F6C6B3F377A37E928. On EA EECDF0BC the 4 June 09:55 short latched -2 hidden bearish @ 09:45 (JUNE0525-B130D). His words stand: invalid CQD divergence.
 - NOTE 2026-10-09 (B-132, his words): CQD reason withdrawn for 4 June (strategy Ruling 2026-10-09 (B-132)); refused on no XOB in play + no HTF alignment for a trend short. KNOWN OPEN FIRE: the kept build still sells the 09:55 open; lane 4JUN-0955 parked B-132.
 - NOTE 2026-10-09 (B-142, his words as filed in the B-141 NOTE): HTF reason withdrawn; refused on no retest of XOB in play alone. KNOWN OPEN FIRE stands (kept EA 585093BF, JUNE0525-B137 deal #6 sell 09:55 159.868).
+- NOTE 2026-10-09 (B-143, his words verbatim): A7 in-play XOB = the 9:20 8 Sep XOB (his); machine pick 1.16362-1.16377 is not his zone. Zone rows graded in B-143 only.
 
 ## D. QUARANTINE ANNEX (his "do not use that" order - no conclusions drawn here)
 

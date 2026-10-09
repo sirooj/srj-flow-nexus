@@ -1,0 +1,43 @@
+# BUILDER SLICE B-143 - raw R1 zone rows + R3 pick rows (kept 585093BF)
+
+## R1 his zone: id 3293 rows (XOBDIAG_RECON62_INCREMENTAL.csv; barT|id|dir|hi|lo|startT|createT|promoT|valid|active|promoted|invalT)
+1788859500|3293|S|1.16256000|1.16230000|1788859200|1788859800|NA|1|1|0|NA
+1788859800|3293|S|1.16256000|1.16230000|1788859200|1788859800|NA|1|1|0|NA
+1788860100|3293|S|1.16256000|1.16230000|1788859200|1788859800|1788860400|0|1|1|1788860400
+1788860400|3293|S|1.16256000|1.16230000|1788859200|1788859800|1788860400|0|1|1|1788860400
+1788860700|3293|S|1.16256000|1.16230000|1788859200|1788859800|1788860400|0|1|1|1788860400
+1788861000|3293|S|1.16256000|1.16230000|1788859200|1788859800|1788860400|0|1|1|1788860400
+1788861300|3293|S|1.16256000|1.16230000|1788859200|1788859800|1788860400|0|1|1|1788860400
+(Epochs = server UTC: startT 1788859200 = 8 Sep 09:20 formation; createT 1788859800 = 09:30; promoT/invalT 1788860400 = 09:40. srcFile XOBDIAG_RECON62_INCREMENTAL.csv build 2026.10.08 20:34:34 calcPath INCREMENTAL runPass 2. TARGETS file carries 3293 only via other barTs: 10:00-group id 3296 S 1.16258-1.16230 startT 09:40 unpromoted; 16:50-group id 3334 S 1.16250-1.16219 unpromoted.)
+
+## R1 EA live-map search (RECON62-B137/2026-09-08.csv; 3293 absent from all pick rows)
+ZONEPICK xob bounds printed 8 Sep (pack|time|bounds):
+3161 09:40 1.16362-1.16377 | 3183 10:05 1.16362-1.16377 | 3191 10:10 1.16362-1.16377 | 3345 16:20 1.16079-1.16140 | 3367 16:35 1.16362-1.16377 | 3391 16:55 1.16362-1.16377
+ZONEID xobIds printed 8 Sep (pack|time|id):
+3159 09:40 2898 | 3181 10:05 2898 | 3186 10:05 2898 | 3189 10:10 2898 | 3343 16:20 3326 | 3348 16:20 3326 | 3350 16:25 3326 | 3365 16:35 2898 | 3370 16:35 2898 | 3372 16:40 2898 | 3374 16:45 2898 | 3389 16:55 2898 | 3394 16:55 2898 | 3396 17:00 2898
+3293-coincidence rows (POI lines, NOT XOB picks):
+3166|09:40|TP_ELECT|JO	0	19:49:45.329	Core 04	2026.09.08 09:40:00   [SRJ-EA] TP_ELECT shadow=true entry=1.16230 sl=1.16223 tp=1.16315 R=12.10 bar=2026.09.08 09:35 latchBar=2026.09.08 09:40
+3229|10:25|EXITCENSUS|RQ	0	19:49:45.329	Core 04	2026.09.08 10:25:00   [SRJ-EA] EXITCENSUS bar=2026.09.08 10:20 dir=SHORT line=Weekly-VWAP val=1.16230 side=behind trigger=0 bodyLo=1.16142 bodyHi=1.16176 verdict=ok ownO=1.16176 ownC=1.16142 ownBrk=0
+3276|10:45|EXITCENSUS|MS	0	19:49:45.329	Core 04	2026.09.08 10:45:00   [SRJ-EA] EXITCENSUS bar=2026.09.08 10:40 dir=SHORT line=Daily-VWAP val=1.16256 side=behind trigger=0 bodyLo=1.16122 bodyHi=1.16125 verdict=ok ownO=1.16122 ownC=1.16124 ownBrk=0
+
+## R2 confirmation-candle ranges (Tester/logs/20261009.log UJBARMAP; zone 3293 = 1.16230-1.16256)
+09:40 8 Sep o=1.16230 h=1.16258 l=1.16230 c=1.16248 (touches; closes beyond midline 1.16243)
+10:00 8/28 o=1.16482 h=1.16486 l=1.16462 (A1, no touch)
+17:30 9/1 o=1.16010 h=1.16031 l=1.16002 (A2, no touch)
+15:55 9/4 o=1.15997 h=1.16023 l=1.15964 (A3, no touch)
+09:15 9/7 o=1.16113 h=1.16137 l=1.16107 (A4, no touch)
+16:40 9/7 o=1.16249 h=1.16266 l=1.16249 (A5, low inside zone)
+10:05 9/8 o=1.16222 h=1.16232 l=1.16206 (A6, high inside zone)
+16:55 9/8 o=1.16226 h=1.16230 l=1.16210 (A7, high = zone lo, touch counts)
+16:10 6/5 o=160.009 h=160.062 l=159.981 (B2 UJ, cross-symbol)
+14:35 6/11 o=160.523 h=160.528 l=160.513 (B3 UJ, cross-symbol)
+09:05 6/3 o=159.911 h=159.929 l=159.905 (C-06-03 UJ, cross-symbol)
+09:50 6/4 o=159.884 h=159.886 l=159.860 (C-06-04 UJ, cross-symbol)
+
+## R3 machine-pick planner lines (verified SAME)
+3391|16:55|ZONEPICK|CN	0	19:49:51.437	Core 04	2026.09.08 16:55:00   [SRJ-EA] ZONEPICK bar=2026.09.08 16:50 dir=SHORT haveFvg=0 fvgInPlay=0 haveXob=1 xobInPlay=0 downgraded=0 fvg=--- xob=1.16362-1.16377
+3392|16:55|INPLAYCOMMIT|RQ	0	19:49:51.437	Core 04	2026.09.08 16:55:00   [SRJ-EA] INPLAYCOMMIT bar=2026.09.08 16:50 dir=SHORT zoneSrc=XOB zoneLo=1.16362 zoneHi=1.16377 promoT=2026.09.03 21:35 applied=1 bounded=1 scanned=819 swings=149 hits=1 firstShift=809 firstVal=1.16364 commitVia=SWING legacy=0 legacyVia=none committed=1 changed=1 haveStop=1
+1390|09:50|ZONEPICK|ND	0	19:54:05.225	Core 04	2026.06.04 09:50:00   [SRJ-EA] ZONEPICK bar=2026.06.04 09:45 dir=SHORT haveFvg=0 fvgInPlay=0 haveXob=1 xobInPlay=0 downgraded=0 fvg=--- xob=160.001-160.012
+1391|09:50|INPLAYCOMMIT|GI	0	19:54:05.225	Core 04	2026.06.04 09:50:00   [SRJ-EA] INPLAYCOMMIT bar=2026.06.04 09:45 dir=SHORT zoneSrc=XOB zoneLo=160.001 zoneHi=160.012 promoT=2026.06.04 04:50 applied=1 bounded=1 scanned=97 swings=20 hits=2 firstShift=95 firstVal=160.011 commitVia=SWING legacy=0 legacyVia=none committed=1 changed=1 haveStop=1
+
+(End of slice)
