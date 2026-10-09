@@ -1,0 +1,63 @@
+# BUILDER RESULT B-122 - STOP: the confirmed-read switch is already live on the EA handle; the default edit is a no-op
+
+Trader summary: stop — no edit, no runs, and here is why that is good news for your order. Your FIX-NOT-REPLACE order is already running in the kept build: the EA passes "confirmed" to the indicator on every launch, so the machine has been reading the closed-candle HTF values all along, not the open-instant ones. Flipping the indicator's default word, as this relay asked, would change nothing on any run — the EA never uses that default. That also corrects something I wrote in B-121: when I said the machine "consumes open-instant reads", I was reading the indicator's default, not the live handle. Your 15m splits need a new explanation now, because they persist under confirmed reads: the confirmed value is still frozen for the whole higher-timeframe candle (last closed bar), so at 1 September 17:30 the machine holds the 17:15 bar's read while your chart already shows the developing 17:30 bar. That one-bar staleness is measured from your rows, not concluded — the next relay can test it. All four builds on disk are byte-identical to the gate. Nothing was edited, compiled, run or restored because nothing was touched.
+
+## Relay order (B-122, diagnostic stopped before edit)
+
+- Part 0 fresh start on builder/B-121 at 0a3ab89739261319104b630f678d567fc04b299f, both skills loaded whole first (relay skill 73 lines; strategy skill 69755 B identical-bytes, terms per 0.1 + BIAS-WORDS/NO-CASCADE verified on record).
+- Part B banking (no new rule words; 1-Sep ++ per B-121 B2, bank nothing). Part K authority + spot check (K1 no contradiction; K2 FOUND the relay's assumption false — STOP, no edit). Part T not run. Part X adjusted records (ledger 1267; X1/X3 exact texts describe runs that did not happen, so they are NOT appended — reason filed below; X2 appended). Part F file + push builder/B-122 via backup.
+- Verdict STOP (STOP rule: the K4 edit cannot change any run; reason in this first line per B-84/B-85). No source edit stands (none made); no restore needed (nothing touched); text records filed.
+
+## Part 0 - fresh-session start
+
+- 0.1 Skills loaded whole first/second as ordered.
+- 0.2 `git ls-remote backup builder/B-121` = `0a3ab89739261319104b630f678d567fc04b299f` (verified exact). Cut `builder/B-122` at it (log -1 = 0a3ab89). Dirty tree kept (count only). Push via `backup`, never `origin`.
+- 0.3 Read on builder/B-121 in order: pointer (20 lines, B-121 MEASURED); RESULT_B121 whole (78 lines; R3/R4/R5/R6 are the base); SLICE_B121 whole (73 lines); RESULT_B120 R3 table (from the B-120 turn, committed bytes verified by the EMPTY six-file diff); spec v4.2 whole via fresh temp copy (35807 B identical; cited 1.1 structural bias, 3.2 regime, 3.3 LTF live, 5.6 HTF-flip exit trend-scoped, 9.1 feed bound, 9.6 replay defect); register whole (65 lines, 9E0C6295, disk = HEAD); PLANNER_CONTEXT (26436 B, §4 B-121 lesson + §5 B-121 history verified present); PLANNER_HANDOFF (8106 B, §3 B-121 verified present); HTFAUDIT-1 P-HTFCONF section whole (lines 107-118: P-HTFLOG + P-HTFCONF NOT ISSUED; P-HTFCONF = flip binding false→true, NOT identity-safe, admission votes change); journal grep-only (1066 lines); ledger 849/850 verified raw (order + v7/v305 DRAFTs, NO build/run/keys).
+- 0.4 Names per relay (all verified where stated): kept EA/EX5 + trial SHAs + day log + code spots (relocated by text, numbers confirmed); indicator path Indicators/SRJ_FlowLogic.mq5; j43 RECON62-B81 STATUS located (RUN + window only, no probe prints — not usable, as B-121); baselines j43 (bal 10474.64) + j44 (bal 10395.28) cited from relay (balances not re-verified: no runs in this relay); inis named (not launched); tag B122-HTF-CONFIRMED-DIAG; ledger 1267.
+- 0.5 Start gate: log -1 = 0a3ab89; status count 454 (kept, untouched). Seven-file diff vs 0a3ab89 EMPTY (six relay files + register). Ledger `^1266.` = 1, `^1267.` = 0, `B122-` = 0. Journal 1066 lines. SHAs (all PASS, re-verified at close): EA 137076D9CF85, EX5 FA4C924978F6, indicator 956BF3E3ADB7, indicator ex5 27B5F272DCFA. terminal64: NONE running at gate (he closed PID 7668 before paste — verified empty, so the 0.5 STOP did not fire). No other mismatch.
+- 0.6 Scope: diagnostic ALWAYS RESTORED observed as STOP-before-edit (K4 would be a no-op; T not run; T5 = verify-unchanged, below).
+
+## Part B - banking (grep-first)
+
+- B1 No new rule words in the current operator message (verification note + paste instructions, no rule). Record `no new rule words`; appended nothing.
+- B2 1 Sep "++" per B-121 B2 (verbatim "++" on 1 Sep NOT FOUND; register cell listed for planner banking review). Bank nothing. Register note is X5 (appended).
+
+## Part K - authority, spots, and the STOP
+
+- K1 Authority, quoted raw: FIX-NOT-REPLACE line 93 ("I said the HTF engine of the SRJ Flow Logic is sometimes not accurate that means i want you to fix it to be more accurate and robust, NOT replacing it." + accurate = confirmed read equals his chart read at the bar + robust = no open-instant repaint, firing flip signal); ENGINE-REFINE-KEEPS-VALID-TAKES line 92 (7 EU takes unchanged battery); HTFAUDIT-1 P-HTFCONF shape (flip binding false→true; engine's own confirmed read, no copy, no mirror). No banked word contradicts the shape — but the shape is ALREADY LIVE (K2), so there is nothing to authorize doing. No carried note needed; STOP reason below instead.
+- K2 Raw spots (kept builds, numbers verified by text search):
+  - Indicator line 252: `input bool            inUseConfirmedHTFOnly = false;` (default).
+  - Indicator inputs 246-253 in order: group-string, inChartTradingTF, inHtfLookbackBars, inHtf1/2/3_manual, inUseConfirmedHTFOnly, inHtfMaxTrackedObjects.
+  - EA:11486-11491 (the live handle): `g_hFlow = iCustom(_Symbol, PERIOD_CURRENT, InpFlowLogicName, "", 1, InpFL_HtfLookbackBars, PERIOD_H4, PERIOD_H1, PERIOD_M15, true, 60);` with the B-29 group-slot comment + the V8 IE1 "confirmed selection" comment naming F252/inUseConfirmedHTFOnly. Eight positional args map 1:1 onto the eight indicator inputs with exact type alignment (string→group, 1→CTF enum, int→lookback, 3× timeframe→manuals, `true`→inUseConfirmedHTFOnly, 60→maxObjects=60 default). Single FlowLogic handle in the EA (only iCustom for it: EA:11486; others are POI/CQD/fractal handles).
+  - FlowLogic ternary EA-consumption site lines 1195-1197 + GetOutputs 1454-1456; HTFEngine outBias set line 507, outCBias closed-bar-only lines 512-516, RunOne gate 545-551 (RunAll at 1446-1447 receives the flag but ignores it for computation — outputs only).
+  - K2 scope check: the three EA buffers g_bufHtfHi/Mid/Lo write ONLY from h1_b/h2_b/h3_b (bias strings, lines 1198-1200); h1_2/h1_3/h1_o (2OB/line3/opp confirmed variants) reach display panels only (MTFBox 1463-1465). No 5m LTF, OB, FVG, sweep, CQD or other buffer is on this path. The switch is buffer-clean — AND dead: with the EA passing `true`, the default-flip changes no handle, no buffer, no run.
+  - Corroboration on the rows: every UJPROBE row in both cited windows prints `confirmedFeed=1` — the runs already consumed the confirmed feed.
+  - STOP with no edit: the K4 edit (default false→true) cannot alter the EA handle's reads, so the planned j47/j48 would reproduce kept rows exactly and filing them as a "confirmed-read diagnostic" would misrepresent a no-op as a measurement. T/K6-adjacent discipline (no second attempt, no theater runs) + his NO-OVERFIT/REFINE-ONLY: STOP before touching anything.
+- K3/K4/K5: not executed (STOP before edit). No .preB122 written (nothing to back up for); no .B122CONF (no edited bytes exist); no compile (0 errors required — vacuous). EA EX5 still FA4C924978F6 (untouched, re-verified).
+- B-121 correction (owned): B-121 R1/R6 described the indicator DEFAULT (false → outBias) as the live behavior. The live handle passes true, so on current rows the engine exports outCBias. The UJPROBE splits stand as row evidence, but their open-instant mechanism attribution from B-121/HTFAUDIT (measured on the 2026-09-09 build) does NOT transfer to current rows — under confirmed reads the splits need the staleness frame: outCBias updates only at bar close and freezes the whole HTF bar, so at 1 Sep 17:30 the machine holds the closed [17:15,17:30) read while his chart shows the forming [17:30,17:45). Measured (code + rows), offered as the next hypothesis, never concluded. The V8 IE1 comment ("confirmed selection ... EU preservation sibling row grades the global effect") suggests the flip predates the kept build; dating it exactly is a ledger-grep task for the next relay, not asserted here.
+
+## Part T - not run (STOP before trial)
+
+- T1/T2 j47/j48: NOT LAUNCHED (a no-op edit's runs would prove nothing). Baselines j43/j44 cited from the relay only.
+- T3 reads table: none (no new rows exist).
+- T4 verdict lines: (a)-(e) ungraded — always-RESTORED holds vacuously (nothing changed). Verdict STOP, not RESTORED (nothing to restore).
+- T5 verify-unchanged (in place of restore): indicator src 956BF3E3ADB7 + ex5 27B5F272DCFA re-verified after the STOP decision; EA src/EX5 re-verified (gate SHAs); terminal.ini + charts never touched (no launch); no terminal64 started by us (none running at close — verified empty); no .preB122 content copies (no launch scope entered).
+
+## Part X - text records (grep-first; adjusted where the relay text presupposes runs)
+
+- X1 §4 grep `B122-HTF-CONFIRMED-DIAG` = 0 → NOT appended: the relay's exact lesson text describes a diagnostic that ran ("runs first as one always-restored diagnostic on both windows, graded ... by the run's own rows") — appending it would file a false run. Reason filed here + ledger 1267 instead. (Deviation documented; truthfulness over verbatim.)
+- X2 §5 grep `relay B-122` = 0 → appended `- 2026-10-09: planner session ran as ClickUp Brain for relay B-122; this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).` (verify 1).
+- X3 §3 grep `B-122` = 0 → NOT appended: same reason (exact text claims RECON62+June diagnostic rows that do not exist). Reason filed here + ledger instead. (Deviation documented.)
+- X4 ledger item 1267 (grep `B122-HTF-CONFIRMED-DIAG` = 0 and `^1267.` = 0; verify both 1, `^1266.` = 1 beside): K STOP finding with raw spots, SHAs verified-unchanged, no-run statement, B-121 correction, X1/X3 deviation reasons, no rule invention.
+- X5 register section A, grep `B-121 B2` = 0 → appended under the row-2 block: `- NOTE 2026-10-09 (B-121 B2, planner): the "++" in row 2 has no verbatim source; his 2026-09-23 words put "++" on 9/4 only (strategy line 79) and leave the 9/1 setup class for him (line 77). Cell left as written; nothing inferred.` (verify 1).
+- X6 pointer (35-line cap): latest B-122 STOP (switch already live); EA-handle evidence; indicator restored-vacuous (never touched); edited copy: none exists; 4 June short and 5 June 16:15-vs-16:55 still open; project goal open.
+
+## Part F - file, push, reply
+
+- F1 this result. F2 slice (raw spots, no diff — none exists; under 600 lines). F3 ledger. F4 pointer. F5 stages result, slice, ledger, pointer, PLANNER_CONTEXT.md (X2), register (X5) — handoff NOT staged (no X3 append; nothing changed there). Never EA/indicator/includes/ex5/journals/logs/inis/backups (none created). F6 commit + push via backup + ls-remote check. Reply STOP with reason (relay template says RESTORED; the lane's legal verdicts include STOP and this turn earned it — template deviation documented here).
+
+## Final disk state (STOP turn; nothing touched, verified)
+
+- EA 137076D9CF85160AB8CD8379575AFD4801E71098CE97C0B10D88A42C7BF59671 (695359 B) + EX5 FA4C924978F6A1D5C57B725F2AB530BBB5DC5B1E0D1D0B51FB0172E80D8C41B5, re-verified. Indicator src 956BF3E3ADB7 (70308 B) + ex5 27B5F272DCFA (236500 B), re-verified, never opened for edit. HTFEngine D5FD5B063E75628745B27E57133E58ACD19F470D4036DC4B2567CE1BE5053755 (same prefix as the B-16 era, untouched). Working-tree diffs vs HEAD are pre-existing only (kept EA uncommitted over an older blob, plus transition-work text files — all preserved, none staged); indicator/EX5/HTFEngine show no diff flag and match gate SHAs byte-identical. Strategy skill, journal CSV (1066 lines), spec, tasks, findings untouched (read-only; greps only). No terminal64 at close. No edit, no backup, no artifact stands beyond the relay's text records.
+
+(No carried note: no question asked, none needed. His FIX-NOT-REPLACE order is already live at the EA handle — the planner's next relay should start from that measured fact, not from flipping the default.)
