@@ -98,6 +98,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-125: measured which candidate the 5 June New York 16:05 abort killed and graded his flip-candle retest words on every register row and every kept 5m kill on both whole runs; one unchanged kept RECON62 run, no source edit.
 
+- B-126: kept-build trial letting the flip-candle retest live on as its own potential after the 5m flip kills the formed setup (5 June 16:00 retest, 16:10 confirmation, 16:15 entry), graded on RECON62 then June.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.
