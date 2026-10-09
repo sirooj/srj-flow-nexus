@@ -140,6 +140,8 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 
 - B-146: banked his XOB kill-level words; re-graded his 8 Sep 9:20 XOB and the A7 and 4 June short XOBs on his level; B-145 chart call withheld; no source edit or run.
 
+- B-147: searched the record for his old XOB invalidation level and re-graded his 8 Sep 9:20 XOB on it; graded back-to-it-after-promotion on every register row (Part S); B-146 chart call withheld; no source edit or run.
+
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
 - Use his 5m read to age a retest or kill a line.

@@ -2,13 +2,13 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State (2026-10-10; B-SERIES LANE ACTIVE; latest result B-146)
-- B-series relay lane active (operator order 2026-10-04). Relay B-146 is the active task; for its scope it wins over older queue items. Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B146.md` (branch builder/B-146; XOB-0604 5 of 6, MEASURED).
+## State (2026-10-10; B-SERIES LANE ACTIVE; latest result B-147)
+- B-series relay lane active (operator order 2026-10-04). Relay B-147 is the active task; for its scope it wins over older queue items. Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B147.md` (branch builder/B-147; XOB-0604 6 of 6, MEASURED).
 - Planner entry: kit PK-2. Any planner agent starts from 99_WORKFLOW/PLANNER_BOOTSTRAP.md (kit PK-2); context 99_WORKFLOW/PLANNER_CONTEXT.md; cold start 99_WORKFLOW/PLANNER_HANDOFF.md.
 - EA on disk (B-137 KEPT BUILD): `Experts/SRJ_FlowNexus_EA.mq5` = `585093BF576B922A241E21779C72C62236B4F57746F778E25A772E493CC3D9C6` + EX5 AB159DE742F8EE9CF3FD2C1A4AE7A08A6CEE744728206B5325004FFCCBFB6FE9. FlowLogic 956BF3E3/ex5 27B5F272; includes at gate SHAs; MARKER 79859EDC/f0890c0b untouched.
 - R2=CLOSED (section 12); ALL7 guard absent, ALL7 passed false; WRITE_EXPLAINS 972/974. Slots fixed on disk (lookback 3000). June standard window 5/25 start, graded 6/01-6/12 (terminal.ini 4082A94F + Profiles 131/131; preB87/preB84 kept).
-- Ledger last item 1291 (B146-HIS-LEVEL, MEASURED); skill Ruling B-146 + journal row 319 banked; journal 1071 lines.
-- Lane: XOB-0604 (5 of 6). R4: UNKNOWN (his level fixes no price; 4 June line 3038/3046/3052 form-touched). R5 UNKNOWN-shape call carried; B-145 chart call WITHHELD by planner. STOP-BASIS paused at 1 of 6 (needs the 2xOB print, spec 8).
+- Ledger last item 1292 (B147-OLDLEVEL-PROMORETURN, MEASURED); no banking (Part B); journal 1071 lines.
+- Lane: XOB-0604 (6 of 6). R3: PROMO-RETURN SEPARATES on MACH and OLD (all valid MET, C-06-04 NOT MET); NOT BUILDABLE (full map unreadable live). Lane at limit: next relay parks XOB-0604. STOP-BASIS paused at 1 of 6 (needs the 2xOB print, spec 8).
 - B-142: HTF acceptance banked, XOB absence ranked first; no Part-S reading separates (S-a A1+A7 NOT MET; S-b NOT-A-RULE; S-c commit pre-promo on A2/A4/A6/A7; S-d commit pre-stop on A6/A7/C-06-04; S-e flips on A6/A7/B3/C-06-04); exact-candle XOB census NOT FOUND in artifacts; one chart call carried (8 Sep NY XOB). Goal open.
 - B-140: every kept exit on his rule (R8 7/0/0: B2 19:16 retarget, B3 LOH hold, A4 AS.H, A6 YLOL nearest, A7e his bar + A7x loser-kept, C-06-03 ASH); exit basis closes.
 - B-139: fills graded vs his own basis — 24 rows ACCOUNTED, 0 DEFECT-NAMED, 0 NO-RULING (11 entries AT-OPEN, B3 LATE-SAME-PRICE bid=open; his buys show ask fills; +1 broker exits = venue movement, no EA spot).
@@ -19,7 +19,7 @@
 - S4 SUPERSEDED by R5 above (B-134's S0-vs-S1 difference was a machine-exit artifact; on his exits the own-body test separates).
 - 4 June parked (known open fire). 5 June TAKEN. 2 June silent. A2 exit owed: 17:50 open 1.15987 by the 17:45 Yearly POC close-through, hit on the kept build (B-137 KEPT).
 - SILENT6 parked (not in register; logs complete; ends UNKNOWN).
-- S54 + hunk C/XT + latch print + BRK-OWNBODY live as kept. B-146: MEASURED (no edit/compile/run). 4 June stays a known open fire. Goal open.
+- S54 + hunk C/XT + latch print + BRK-OWNBODY live as kept. B-147: MEASURED (no edit/compile/run). 4 June stays a known open fire. Goal open.
 - B-79 chart call WITHHELD by planner (never reaches him). Record answer: 15:35 Y-POC r2:dS nearest higher target 1.15987 R0.18 refused; entry line Y-POC long side 15:45 dL confirm=0, 15:55 dL confirm=1, 16:00 open 1.16018.
 
 ## Next
