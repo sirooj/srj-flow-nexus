@@ -64,6 +64,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - NOTE 2026-10-10 (B-150 RESTORED): KILL-0604 stage-1 trial K4 id-set mismatch (verdicts 12/12 match, sets 1/12 exact); known open fire stands (kept EA 585093BF, JUNE0525-B137 deal #6 sell 09:55 159.868).
 - NOTE 2026-10-10 (B-151 STOP): KILL-0604 trial R2 (2510-class extras lack any post-promo touch on kept rows); known open fire stands (kept EA 585093BF, JUNE0525-B137 deal #6 sell 09:55 159.868).
 - NOTE 2026-10-10 (B-152 RESTORED): KILL-0604 K1c (B152PR halted the indicator, 0 deals); known open fire stands (kept EA 585093BF, JUNE0525-B137 deal #6 sell 09:55 159.868).
+- NOTE 2026-10-10 (B-153 KEPT, EA 5A5BD1F0C97F0B9F3F8357A3290EE17E720660278454DE7AC1C372B46184D2B2, indicator 78D3BFB1767AEC819A6C9A35B6342FEB199E606DEE762BD29A130CB620526938): 4 June 09:55 short refused at the 09:50 confirmation by PROMO_RETURN_NONE (no promoted live short XOB price came back to after promotion); known open fire CLOSED.
 
 ## D. QUARANTINE ANNEX (his "do not use that" order - no conclusions drawn here)
 

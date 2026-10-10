@@ -56,3 +56,12 @@ side + anchor are one candidate (their pack lines merge into source_pack_lines).
 ## Rules
 - Every cell comes from a named pack line. A value no print carries is NOT PRINTED,
   never inferred. Manual register rows (no B60C) carry their kill row only.
+
+## B153 addendum (relay B-153, KEPT trial)
+- SETUPS_RECON62-B153.csv (28 rows, 7 EXECUTED) + SETUPS_JUNE0525-B153.csv (20 rows,
+  4 EXECUTED) render from the B153 row packs (EA 5A5BD1F0) per the same rules.
+- promo_return now printed: MET (B150GATE value 1.0), NOT MET (0.0, refused with
+  PROMO_RETURN_NONE), NOT PRINTED (no gate row). C-06-04 reads REJECTED / NOT MET /
+  ABORT PROMO_RETURN_NONE; the 4 June 11:00 SHORT reads the same (register NONE).
+- New tags read: B152PR (verdict + per-zone proof segments), B150GATE (gate value,
+  bar, side, zone src), PROMO_RETURN_NONE (ABORT reason + A6REFUSED predicate).

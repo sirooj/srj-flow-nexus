@@ -156,3 +156,4 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 - PENDING (his O3 2026-10-10): human report + live website + PDF; not built until he opens it.
 - B-151: re-proved PROMO-RETURN on verdicts 12/12 from B-150 rows (no rerun); R2 STOP (2510-class extras lack any post-promo touch on kept rows) before any re-apply or EA trial; verdict STOP.
 - B-152: read the B150K export for a touch-before-promotion leak (none found), built the self-proving B152PR print, but it halted the indicator mid-run (array out of range) leaving 0 deals; restored; verdict RESTORED.
+- B-153: checked the B152K flag store for leftover values in grown slots, cleaned it (new slots untouched, comeback saved as time and prices), re-proved PROMO-RETURN from scratch on the run's own rows, then trialed the EA refusal PROMO_RETURN_NONE; verdict KEPT.
