@@ -61,7 +61,7 @@ Result file
 
 Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
 - On every KEPT verdict, commit SRJ_FlowNexus_Local/06_HANDOFFS/ROWPACK/ROWPACK_<run>.csv for each run the verdict rests on (RECON62 and June) plus DEALS_<run>.csv, and ROWPACK/INDEX_B<n>.md.
-- ROWPACK columns: pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw. raw is the journal row byte-for-byte, CSV-quoted. Rows: every row whose tag is in the relay's tag list, inside the session windows (server 09:00-12:00 and 14:00-19:00), plus every deal row.
+- ROWPACK columns: pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw. raw is the journal row byte-for-byte, CSV-quoted. Rows: every row whose tag is in the relay's tag list (from B-162 the tag list includes B162ORIGIN, the most-recent in-play XOB per side), inside the session windows (server 09:00-12:00 and 14:00-19:00), plus every deal row.
 - DEALS columns: deal,side,date,time,price,volume,register_row (A1-A7, B1-B3, C-<date>, or NONE).
 - INDEX_B<n>.md: for each register row, the pack lines of its seed, its confirmation decision, its divergence latch and its entry (NONE where absent).
 - A file over 900 KB is split by week (_W1, _W2, ...) so it stays readable on GitHub.
@@ -71,7 +71,8 @@ Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
 
 Setup report (his order O2 2026-10-10, relay B-150)
 - On every KEPT verdict, and for any run a relay names, render SRJ_FlowNexus_Local/06_HANDOFFS/REPORT/SETUPS_<run>.csv offline from that run's committed row packs (no EA print is added for it). One row per candidate inside the session windows, keyed by window + direction + anchor line (spec 6), with its last state.
-- Columns: run,ea_sha,pair,session,date,side,verdict(EXECUTED|REJECTED),register_row,retest_bar,retest_line,retest_side_tag,confirm_bar,confirm_src,entry_bar,entry_ref,fill,sl,sl_swing_bar,sl_branch_printed,tp_name,tp_price,r_at_open,htf_4h,htf_1h,htf_15m,ltf_5m,zone_src(XOB|FVG|NONE),xob_id,xob_range,xob_promoT,xob_inplay_printed,commit_via,promo_return,div_kind,div_bar,div_type_his,exit_bar,exit_price,exit_src,r_result,reject_tag,reject_reason,reject_pack_line,source_pack_lines.
+- Columns: run,ea_sha,pair,session,date,side,verdict(EXECUTED|REJECTED),register_row,retest_bar,retest_line,retest_side_tag,confirm_bar,confirm_src,entry_bar,entry_ref,fill,sl,sl_swing_bar,sl_branch_printed,tp_name,tp_price,r_at_open,htf_4h,htf_1h,htf_15m,ltf_5m,zone_src(XOB|FVG|NONE),xob_id,xob_range,xob_promoT,xob_inplay_printed,xob_origin_id,xob_origin_range,xob_origin_formT,commit_via,promo_return,div_kind,div_bar,div_type_his,exit_bar,exit_price,exit_src,r_result,reject_tag,reject_reason,reject_pack_line,source_pack_lines.
+- xob_id stays the machine's pick; xob_origin_* is his documentation tag (most recent in-play XOB, his words 2026-10-10, B-160a), read from the trade-side B162ORIGIN row at the confirmation candle; never a trade gate.
 - Every cell comes from a named pack line (source_pack_lines lists them). A value no print carries is NOT PRINTED, never inferred. div_kind uses the machine's words (regular/hidden, bullish/bearish); div_type_his is filled only where his record maps a number (e.g. his W2 "blue solid which is type 1 bullish"), else UNMAPPED. Rejected rows name the killing row (ABORT reason, A6REFUSED predicate, CONFIRMPOLL confirm=0 with touchAttr, S54KILL, TP_RR_FAIL with R, PROMO_RETURN_NONE).
 - REPORT/README.md holds the column dictionary and the tag each column reads. Files over 900 KB split by week.
 

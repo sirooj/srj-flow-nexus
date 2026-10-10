@@ -191,6 +191,7 @@ Operator kickoff for any new thread:
 - B160-RECORD-LINE-OVER-LITERAL (planner note 2026-10-10): his kill-level words fix the direction (above the middle on his bearish 8 Sep 9:20 XOB) and the record's old line fixes the number (the higher of the middle and the order-block candle's open, parent 9861414 :39); the planner's literal close reading lost 28 Aug, the 7 Sep stop branch, 5 June NY, 11 June and 27 May, fired the ruled-out 2 June long and broke his 8:10, 9:50, 16:00 and 1 Sep flips (B-159 E2), so a literal reading is graded beside the record's line on whole runs and his named flips, and dropped when it breaks them.
 - B160a-TAG-IS-MOST-RECENT (planner lesson 2026-10-10): the origin tag names the most recent in-play XOB because several XOBs and FVGs can be in play at once (spec 3.5); a selector that ranks promoted but not in-play zones can tag a zone the setup no longer uses; the tag is documentation unless a census separates it.
 - B161-ORIGIN-IS-DOCUMENTATION (planner lesson 2026-10-10, B-161): his most-recent-XOB tag (skill L241-244) is documentation, never a trade gate, so it is graded as an identity print (live set and origin equal the committed ZONES rows, deals identical), not by a separator; B-160a R5 graded it as a change to which zone the machine picks.
+- B162-TAG-WHERE-THE-DATA-LIVES (planner lesson 2026-10-10, B-162): a documentation print is placed where its inputs already live; B-161 placed the origin tag in the EA, which sees only the selected pick, while formation, promotion and comeback per zone live only in the indicator's zone loop.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -280,3 +281,4 @@ Operator kickoff for any new thread:
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-160 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-160a (kit PK-2).
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-161 (kit PK-2).
+- 2026-10-10: planner session ran as ClickUp Brain for relay B-162 (kit PK-2).
