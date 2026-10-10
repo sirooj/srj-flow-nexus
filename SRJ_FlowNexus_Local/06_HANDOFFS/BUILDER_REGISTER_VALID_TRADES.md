@@ -20,6 +20,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
 | 5 | 7 Sep New York EURUSD, entry 16:45 | LONG | W-POC (retest latest, his chart proof) | 1.16264 [HIS report] | TP 1.16315 [HIS report] | Proves D74FE972 over v7 (his slice); seed 14:55 stands before 16:40 confirm [R60] |
 - NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
+- NOTE 2026-10-10 (B-157 KEPT, EA 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207): stop 16:15 low 1.16239 (his SEP7 two-swing stop, outward walk); kept B-153 1.16238 at 16:05 retired; entry and exit unchanged.
 | 6 | 8 Sep London EURUSD, entry 10:10 | SHORT | UNKNOWN (source-needed) | 1.16205 [HIS report] | TP 1.16102 [R60 G4] | SEP8 ruling VALID |
 | 7 | 8 Sep New York EURUSD, entry 17:00 | SHORT | UNKNOWN (source-needed) | 1.16220 [51 build; R53] | SL 1.16275 [R60 G4] | SEP8 ruling VALID; R0.68 16:40 correctly blocked under his 1R floor (no alert) |
 - CORRECTION 2026-10-06 (B-33 j17:53800/53804): row 3 exit is DAY_CLOSE Friday 9/4 23:55 at 1.16129 (EXECUTION PINNED 2026-09-25); the 1.16093 cell is the retired next-day-open fill.
