@@ -62,6 +62,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - NOTE 2026-10-09 (B-143, his words verbatim): A7 in-play XOB = the 9:20 8 Sep XOB (his); machine pick 1.16362-1.16377 is not his zone. Zone rows graded in B-143 only.
 - NOTE 2026-10-10 (B-148, planner): lane XOB-0604 parked at 6 of 6; B-147 R3 PROMO-RETURN separates 4 June 09:55 from every valid take but is not buildable live. KNOWN OPEN FIRE stands (kept EA 585093BF, JUNE0525-B137 deal #6 sell 09:55 159.868).
 - NOTE 2026-10-10 (B-150 RESTORED): KILL-0604 stage-1 trial K4 id-set mismatch (verdicts 12/12 match, sets 1/12 exact); known open fire stands (kept EA 585093BF, JUNE0525-B137 deal #6 sell 09:55 159.868).
+- NOTE 2026-10-10 (B-151 STOP): KILL-0604 trial R2 (2510-class extras lack any post-promo touch on kept rows); known open fire stands (kept EA 585093BF, JUNE0525-B137 deal #6 sell 09:55 159.868).
 
 ## D. QUARANTINE ANNEX (his "do not use that" order - no conclusions drawn here)
 

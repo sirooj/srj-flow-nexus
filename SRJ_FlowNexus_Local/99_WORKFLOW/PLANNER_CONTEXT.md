@@ -179,6 +179,7 @@ Operator kickoff for any new thread:
 - B149-PANEL-STATE-PRINT (planner note 2026-10-10): a rule input that lives only on his panel (B-148 R2: 2xOB drawn, never exported) is first read by a print-only indicator line on an always-restored run with every deal required identical, never by a new buffer or an EA edit; a buffer is drafted only after the printed rows separate.
 - B150-KILL-BY-HIS-RULE (planner note 2026-10-10): his KILL-FIRST order removes the 4 June 09:55 short only through a rule that already SEPARATES on committed rows (B-147 R3 PROMO-RETURN), made EA-readable by an additive indicator export that must first reproduce the offline table verdict for verdict and id for id; a date, price or pick-shape block is never used (NO-OVERFIT; B142-PICK-SHAPE-SHARED).
 - B150-STOPBASIS-HIS-SWINGS-FIRST (planner lesson 2026-10-10): before any Part S on the stop branch, the builder's two-swing count is checked against his own named stops; B-149 R3 graded A3 (his 15:30 swing low 1.15847, SEP7/SLDEF5) and A6 (his "two swings away at 09:40 high 1.16258", SEP8_1010-LEVELS) DIFFERENT, so its walk does not count swings the way he does. STOP-BASIS resumes by calibrating the count on his instances, never by drafting an edit from the 7 DIFFERENT rows.
+- B151-VERDICT-NOT-IDS (planner lesson 2026-10-10, defect owned): a re-proof gate grades the separator's verdicts on every register row; differences in the zones behind a verdict are accounted as their own reading (history window, lifecycle row), never a STOP by themselves. B-150 K4 demanded id-set equality while the kept build's full-history replay sees older live zones the offline scan never had (spec 9.9: age never disqualifies), and stopped a trial whose verdicts were 12 for 12 (B-136 over-specification class).
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -256,3 +257,4 @@ Operator kickoff for any new thread:
 
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-149 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-150 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-10: planner session ran as ClickUp Brain for relay B-151 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

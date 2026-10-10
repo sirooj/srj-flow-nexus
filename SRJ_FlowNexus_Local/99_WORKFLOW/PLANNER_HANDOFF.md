@@ -154,3 +154,4 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 - Write a local workspace ID, URL, profile name or email into any repo file.
 - B-150: banked his O1-O4 (kill 4 June first; planner CSV report; human report parked; logic not enforced tightly); setup report specified and rendered; kept-build trial of PROMO-RETURN (indicator export re-proving B-147 R3, then EA refusal) graded RECON62 then June; verdict RESTORED.
 - PENDING (his O3 2026-10-10): human report + live website + PDF; not built until he opens it.
+- B-151: re-proved PROMO-RETURN on verdicts 12/12 from B-150 rows (no rerun); R2 STOP (2510-class extras lack any post-promo touch on kept rows) before any re-apply or EA trial; verdict STOP.
