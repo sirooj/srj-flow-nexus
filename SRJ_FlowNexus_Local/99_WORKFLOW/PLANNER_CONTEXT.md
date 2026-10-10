@@ -192,6 +192,7 @@ Operator kickoff for any new thread:
 - B160a-TAG-IS-MOST-RECENT (planner lesson 2026-10-10): the origin tag names the most recent in-play XOB because several XOBs and FVGs can be in play at once (spec 3.5); a selector that ranks promoted but not in-play zones can tag a zone the setup no longer uses; the tag is documentation unless a census separates it.
 - B161-ORIGIN-IS-DOCUMENTATION (planner lesson 2026-10-10, B-161): his most-recent-XOB tag (skill L241-244) is documentation, never a trade gate, so it is graded as an identity print (live set and origin equal the committed ZONES rows, deals identical), not by a separator; B-160a R5 graded it as a change to which zone the machine picks.
 - B162-TAG-WHERE-THE-DATA-LIVES (planner lesson 2026-10-10, B-162): a documentation print is placed where its inputs already live; B-161 placed the origin tag in the EA, which sees only the selected pick, while formation, promotion and comeback per zone live only in the indicator's zone loop.
+- B163-CENSUS-BEFORE-LANE (planner lesson 2026-10-11, B-163): when a lane closes KEPT, the next relay grades every register cell and every executed deal on the kept build's committed packs against his record before a new lane opens; the next lane comes from that ranked table, never from the pointer's Next line alone.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).

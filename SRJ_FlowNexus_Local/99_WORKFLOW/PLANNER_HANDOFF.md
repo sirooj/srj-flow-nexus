@@ -167,3 +167,4 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 - B-160a: XOB-DETECT-920 addendum: census of in-play zones, origin per executed setup (8 Sep 17:00 short = 9:20 XOB); selector change only if census separates; verdict MEASURED.
 - B-161: XOB-DETECT-920 2 of 6: located the EA-readable in-play set and formation time, then a print-only origin tag (most recent in-play XOB) beside the PROMO-RETURN check, graded RECON62 then June, deals identical required; verdict STOP.
 - B-162: XOB-DETECT-920 3 of 6: print-only origin tag (most recent in-play XOB by formation candle) from the indicator's own zone loop, graded RECON62 then June on deals identical and the B-161 Part S identity table; verdict KEPT.
+- B-163: fidelity census on the B-162 kept build (every register cell and every executed deal against his record), record search on the 27 May NY long, setup-report completeness; no source edit or run; verdict MEASURED.
