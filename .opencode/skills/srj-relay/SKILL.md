@@ -69,6 +69,12 @@ Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
 - Rows of an open trade are kept from entry to exit even outside the session windows (MTEXIT, exit, day-close and deal rows), so every exit is in the pack.
 - Packs are text records, staged by explicit path. The pointer carries one Lane line: open item, first relay, relay count.
 
+Setup report (his order O2 2026-10-10, relay B-150)
+- On every KEPT verdict, and for any run a relay names, render SRJ_FlowNexus_Local/06_HANDOFFS/REPORT/SETUPS_<run>.csv offline from that run's committed row packs (no EA print is added for it). One row per candidate inside the session windows, keyed by window + direction + anchor line (spec 6), with its last state.
+- Columns: run,ea_sha,pair,session,date,side,verdict(EXECUTED|REJECTED),register_row,retest_bar,retest_line,retest_side_tag,confirm_bar,confirm_src,entry_bar,entry_ref,fill,sl,sl_swing_bar,sl_branch_printed,tp_name,tp_price,r_at_open,htf_4h,htf_1h,htf_15m,ltf_5m,zone_src(XOB|FVG|NONE),xob_id,xob_range,xob_promoT,xob_inplay_printed,commit_via,promo_return,div_kind,div_bar,div_type_his,exit_bar,exit_price,exit_src,r_result,reject_tag,reject_reason,reject_pack_line,source_pack_lines.
+- Every cell comes from a named pack line (source_pack_lines lists them). A value no print carries is NOT PRINTED, never inferred. div_kind uses the machine's words (regular/hidden, bullish/bearish); div_type_his is filled only where his record maps a number (e.g. his W2 "blue solid which is type 1 bullish"), else UNMAPPED. Rejected rows name the killing row (ABORT reason, A6REFUSED predicate, CONFIRMPOLL confirm=0 with touchAttr, S54KILL, TP_RR_FAIL with R, PROMO_RETURN_NONE).
+- REPORT/README.md holds the column dictionary and the tag each column reads. Files over 900 KB split by week.
+
 Reply line (exact shape)
 - B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED | STOP>
 - STOP = a STOP rule hit before the trial ran or finished; no source edit stands; the reason is the result's first line (B-84 first use, planner ruling B-85).

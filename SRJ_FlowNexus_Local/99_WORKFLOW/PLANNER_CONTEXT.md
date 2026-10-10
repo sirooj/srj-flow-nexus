@@ -177,6 +177,8 @@ Operator kickoff for any new thread:
 - B148-STOP-BRANCH-INPUT (planner note 2026-10-10): STOP-BASIS resumes at 2 of 6 by locating the spec 3.7 branch input (the 2xOB state on his bias panel) in code before any print or grade; a print-only diagnostic runs only on a state the indicator already exports, is always restored, and stops on any moved deal.
 - B149-BRANCH-FROM-DISK (planner lesson 2026-10-10): every relay checks the builder's current branch from disk, never from the checkout's printed message: git rev-parse --abbrev-ref HEAD and git rev-parse HEAD right after the cut and again right before the commit; B-148's checkout printed success, did not take effect, and its commit landed on local builder/B-147 (repaired B-148 without history rewrite; local builder/B-147 re-made from backup in B-149 Part 0).
 - B149-PANEL-STATE-PRINT (planner note 2026-10-10): a rule input that lives only on his panel (B-148 R2: 2xOB drawn, never exported) is first read by a print-only indicator line on an always-restored run with every deal required identical, never by a new buffer or an EA edit; a buffer is drafted only after the printed rows separate.
+- B150-KILL-BY-HIS-RULE (planner note 2026-10-10): his KILL-FIRST order removes the 4 June 09:55 short only through a rule that already SEPARATES on committed rows (B-147 R3 PROMO-RETURN), made EA-readable by an additive indicator export that must first reproduce the offline table verdict for verdict and id for id; a date, price or pick-shape block is never used (NO-OVERFIT; B142-PICK-SHAPE-SHARED).
+- B150-STOPBASIS-HIS-SWINGS-FIRST (planner lesson 2026-10-10): before any Part S on the stop branch, the builder's two-swing count is checked against his own named stops; B-149 R3 graded A3 (his 15:30 swing low 1.15847, SEP7/SLDEF5) and A6 (his "two swings away at 09:40 high 1.16258", SEP8_1010-LEVELS) DIFFERENT, so its walk does not count swings the way he does. STOP-BASIS resumes by calibrating the count on his instances, never by drafting an edit from the 7 DIFFERENT rows.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -253,3 +255,4 @@ Operator kickoff for any new thread:
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-148 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
 
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-149 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).
+- 2026-10-10: planner session ran as ClickUp Brain for relay B-150 (kit PK-2); this file stays the single planner context (PROMPTQL_PLANNER_CONTEXT.md stays audit-only).

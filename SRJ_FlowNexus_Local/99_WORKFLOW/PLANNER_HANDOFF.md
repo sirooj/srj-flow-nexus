@@ -152,3 +152,5 @@ Written 2026-10-08 by relay B-84, refined by relay B-85 (kit PK-1). Stable page:
 - Add a tolerance, buffer or number to any rule.
 - Fall back to an older branch when a reply's branch is missing.
 - Write a local workspace ID, URL, profile name or email into any repo file.
+- B-150: banked his O1-O4 (kill 4 June first; planner CSV report; human report parked; logic not enforced tightly); setup report specified and rendered; kept-build trial of PROMO-RETURN (indicator export re-proving B-147 R3, then EA refusal) graded RECON62 then June; verdict RESTORED.
+- PENDING (his O3 2026-10-10): human report + live website + PDF; not built until he opens it.
