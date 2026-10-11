@@ -428,4 +428,5 @@ index 3ca9b8b..169c027 100644
 ## T3 restore proof
 - EA src 794DD4B8 + ex5 3A55C566; ind src 7842A02E + ex5 10880847; ini CF80083C; Profiles 23 files; no terminal64. Kept pair live.
 
+- Full diffs raw (K3, B-153 precedent: filed as work files, summaries above): 00_CURRENT_WORKING/work_b177_diff_ind.txt (312 lines, indicator) + work_b177_diff_ea.txt (82 lines, EA); trial re-appliable from .B177HZ copies (ind A22067AD, EA EB18717E).
 (End of slice)
