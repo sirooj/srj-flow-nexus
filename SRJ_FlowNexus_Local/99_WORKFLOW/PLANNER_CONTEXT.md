@@ -202,6 +202,7 @@ Operator kickoff for any new thread:
 - B169-NO-ZONE-NO-TRADE (planner lesson 2026-10-11, B-169): a trade whose zone passes in play only through a far swing touch while the direct check says not in play is graded against his in-play words before it is called valid; his 2 July ruling found it.
 - B170-WINDOW-ENTRY-LINE (planner lesson 2026-10-11, B-170): every line he retested on the trade side between the first counted retest and confirmation, still alive at confirmation, is an entry line; its body break never exits. A paper SEPARATES resting on unprinted windows is proved on the trial's own prints with STOP rules, not on a separate diagnostic.
 - B171-DIRECT-INPLAY-FINAL (planner lesson 2026-10-11, B-171): a check that says a zone is not in play is final; a later path may confirm a live zone but never revive a dead one. His 2 July ruling found the overwrite.
+- B172-CHECK-THE-ROAD (planner lesson 2026-10-11, B-172): before a trial fixes a verdict, trace every road the state machine can take to the gate and list which deals use each; B-171 made the in-play verdict final on a road the 2 July long never took, and your 28 Aug short shares that road.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
