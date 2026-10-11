@@ -195,6 +195,7 @@ Operator kickoff for any new thread:
 - B163-CENSUS-BEFORE-LANE (planner lesson 2026-10-11, B-163): when a lane closes KEPT, the next relay grades every register cell and every executed deal on the kept build's committed packs against his record before a new lane opens; the next lane comes from that ranked table, never from the pointer's Next line alone.
 - B164-0527-RECORD-RECHECK (planner lesson 2026-10-11, B-164): before a carried chart call reaches him, the planner re-proves the result's zero searches one fixed pattern at a time (ZERO-COUNT RELAPSE) and grades the deal on his same-class words beside every register row; B-163 carried 27 May on alternation-pattern zeros with its XOB printed inp 0.
 - B-165-PACK-EXIT-COMPLETE (planner lesson 2026-10-11, B-165): a pack exit gap is a cutter defect against the srj-relay entry-to-exit rule, never renderer-correct; B-163 R3 filed the 5 June and 27 May MTEXIT misses as pack scope, and B-165 re-cut both runs from the same day log as -B165R with the B-162 packs kept as cited.
+- B-166-WARMUP-NEVER-GRADED (planner lesson 2026-10-11, B-166): a deal before his journal's first date is warm-up; it is listed, never graded and never carried as a chart call (his 27 May words, 2026-10-11). A blind test keeps the machine's trade list sealed from the result summary until his own list is in.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).

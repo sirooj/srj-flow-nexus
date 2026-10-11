@@ -48,6 +48,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - CORRECTION 2026-10-07 (B-57, planner): Fix F11 hold removed (no pin; GATE-AUTHORIZATION). On EA 958D5AA1 (j27, start 2026.05.25): B1 SAME (no fire 09:40-09:50, stays out), B2 SAME (NO_FIRE: the 5 June Monthly-POC long ends at 16:05 by the deferred abort, never fired, still owed), B3 SAME (fire deal #10/#11, MTEXIT 15:20 160.524->160.587), C-3June SAME (deal #4 buy 09:10 159.932). A1-A7 SAME on j26.
 - CORRECTION 2026-10-09 (B-129, planner): row 2 TAKEN on EA EECDF0BC (JUNE0525-B129): 16:00 retest, 16:10 confirmation, 16:15 open entry 160.059, target 160.723; machine 16:55 long gone.
 - NOTE 2026-10-09 (B-140, kept EA 585093BF): row 2 exit 19:16 160.298 = the closed NY AM session high (UJRETARGET tp=160.298, bar 19:00, sess=2), per RETARGET-CLOSED-AM (strategy line 33); JUNE0525-B137 pack506 (MTEXIT bar=19:15 TP exit=160.298; UJRETARGET pack466).
+- NOTE 2026-10-11 (B-166, his words): the 27 May New York USDJPY long (15:35 open 159.344, out 20:08 159.535, kept build B-162) is a warm-up deal before his journal opens on 6/1/26; his words: "i don't have a journal that reaches before june so i can't verify that and there is no replay feature on MT5." Never graded, never a must-keep or must-never.
 
 ## C. FALSE REFERENCE - never progress, never cited as takes (correct-vs-false for future builds)
 
