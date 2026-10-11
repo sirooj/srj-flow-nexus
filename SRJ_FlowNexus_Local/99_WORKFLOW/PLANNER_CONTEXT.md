@@ -204,6 +204,7 @@ Operator kickoff for any new thread:
 - B171-DIRECT-INPLAY-FINAL (planner lesson 2026-10-11, B-171): a check that says a zone is not in play is final; a later path may confirm a live zone but never revive a dead one. His 2 July ruling found the overwrite.
 - B172-CHECK-THE-ROAD (planner lesson 2026-10-11, B-172): before a trial fixes a verdict, trace every road the state machine can take to the gate and list which deals use each; B-171 made the in-play verdict final on a road the 2 July long never took, and your 28 Aug short shares that road.
 - B173-NAME-THE-PICK (planner lesson 2026-10-11, B-173): before any zone reading on a jump fire, the machine's pick is matched to the indicator's zone store by range and promotion time and every live zone at the confirmation candle is censused; the PREBIND jump is the no-qualifying-zone branch, so his valid 28 Aug and 5 June NY takes reach entry without the machine's zone check.
+- B174-TOUCH-AFTER-PROMOTION (planner lesson 2026-10-11, B-174): a zone's in-play touch is checked against its promotion candle before any commit or comeback is relied on, and a jump fire is graded on the setup's latest trade-side XOB, the one his words name (2 July: 16:20, dead at the 17:40 close); B-173 R4 read the 2 July commit's firstShift 06:45 as a PROMO-RETURN comeback although it is the pick's own range candle, fifteen minutes before its 07:00 promotion (spec 3.5.1).
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
