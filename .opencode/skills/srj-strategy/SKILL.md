@@ -246,3 +246,8 @@ His words, verbatim (given 2026-10-10 with the B-160 relay, typos his): "It look
 ## 27 May NY long UNVERIFIABLE (his words 2026-10-11, B-166)
 His words, verbatim: "i don't have a journal that reaches before june so i can't verify that and there is no replay feature on MT5."
 Consequence: the 27 May 2026 New York USDJPY long (15:35 open 159.344, out 20:08 159.535) sits in the warm-up week before his journal opens (6/1/26); it is never graded valid or invalid, never a must-keep and never a must-never, and no chart call on it is carried again. Warm-up deals on any blind window are listed, never graded.
+
+## GBPUSD blind 6-17 July: his grading words (2026-10-11, B-168)
+- B1, his words, verbatim: "7 July, Why did the EA disregarded the W POC also for the entry? it should not early exit there."
+- B2, his words, verbatim: "2 July, DO NOT SIMPLIFY THE REPORT FROM THE SCV. What is the POI entry, 5m XOB or FVG, Trend following or mean reversal setups, what is the 4H 1H 15m biases, if mean reversal from where did it sweep. type of CQD divergence. for my grading, what is the 5m XOB or FVG? if it's XOB from 16:20 why didn't it invalidated with the 17:40 candle closure over the midline invalidation, if its from the imbalance then it should not be valid since it is not an FVG."
+- B3, his words, verbatim: "there are still many setups missed, fix this then i will grade another run. i will not spoil my actual CORRECT manual trades."

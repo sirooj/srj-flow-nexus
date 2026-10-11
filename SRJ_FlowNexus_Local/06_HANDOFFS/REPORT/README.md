@@ -68,3 +68,8 @@ side + anchor are one candidate (their pack lines merge into source_pack_lines).
 
 ## B165R addendum (relay B-165, MEASURED re-cut)
 - SETUPS_RECON62-B165R.csv (28 rows, 7 EXECUTED) + SETUPS_JUNE0525-B165R.csv (20 rows, 4 EXECUTED) render from the re-cut -B165R packs: trade spans run entry DEAL to the first server pass after both the exit DEAL and the trade's MTEXIT row, so the 5 June (19:15 bar) and 27 May (20:05 bar) MTEXITs are packed and their exit cells filled; new tags SLSRC/SWINGPICK/SL_REF (stop values/branch, no swing-bar-time field — sl_swing_bar stays NOT PRINTED).
+
+## B168F addendum (relay B-168, MEASURED full report, his never-simplify order)
+- SETUPS_GBP0629-B168F.csv (15 rows, 2 EXECUTED) renders from ROWPACK_GBP0629-B168F_W1/W2/W3.csv (superset of the B-162 GBP packs: every old row byte-for-byte present) + day files + INDEX_GBP0629-B168F.md; GBPUSD_0629-0717_FULL.md carries every column as "column: value (pack line)".
+- New columns: setup_class (REGIMECENSUS trendOk/mrOk at confirm bar), sweep_src_level/sweep_src_bar (NOT PRINTED: no row names a swept level/candle for these setups), poi_zone_kind (ZONEPICK haveXob/haveFvg), poi_zone_id (XOBPROMO xobId), poi_zone_range (ZONEPICK xob), poi_zone_formT (B162ORIGIN formT where the used zone is headed, else NOT PRINTED), poi_zone_promoT (XOBPROMO promoT), poi_zone_midline (NOT PRINTED: no row prints it), poi_zone_kill_state_at_confirm (XOBINPLAY hits + INPLAYCOMMIT applied/commitVia), retest_lines_all (RETESTBOOK hits at retest bar), anchor_elected (ANCHOR_ELECT action/poi/rank/tier), htf_4h/htf_1h/htf_15m/ltf_5m (UJPROBE h4/h1/m15/ltf, filled now).
+- div_type_his stays UNMAPPED on GBPUSD (his only mapped number is W2 "blue solid = type 1 bullish" on 1 Sep London).

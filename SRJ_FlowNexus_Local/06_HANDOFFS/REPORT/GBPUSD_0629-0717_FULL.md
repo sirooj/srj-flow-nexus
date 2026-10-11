@@ -1,0 +1,934 @@
+# GBPUSD 29 June - 17 July FULL setup sheet (-B168F, relay B-168 R1)
+
+Every cell from a named pack line or NOT PRINTED with the carrier tag named. No validity word. Executed setups first, then rejected by date.
+
+## 2026-07-02 NY LONG EXECUTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-02
+- side: LONG
+- verdict: EXECUTED (ROWPACK_GBP0629-B168F_W1.csv:6975 / no-row)
+- register_row: NONE
+- retest_bar: 2026-07-02 18:10 (ROWPACK_GBP0629-B168F_W1.csv:6951)
+- retest_line: Daily-POC (ROWPACK_GBP0629-B168F_W1.csv:6951)
+- retest_side_tag: dL (ROWPACK_GBP0629-B168F_W1.csv:6931)
+- confirm_bar: 2026-07-02 18:10 (ROWPACK_GBP0629-B168F_W1.csv:6951)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W1.csv:6951)
+- entry_bar: 2026-07-02 18:15 (ROWPACK_GBP0629-B168F_W1.csv:6975)
+- entry_ref: 1.33710 (ROWPACK_GBP0629-B168F_W1.csv:6970)
+- fill: 1.33716 (ROWPACK_GBP0629-B168F_W1.csv:6975)
+- sl: 1.33564 (ROWPACK_GBP0629-B168F_W1.csv:6970)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: 1SWING (ROWPACK_GBP0629-B168F_W1.csv:6971)
+- tp_name: NOT PRINTED
+- tp_price: 1.34032 (ROWPACK_GBP0629-B168F_W1.csv:6970)
+- r_at_open: 2.21 (ROWPACK_GBP0629-B168F_W1.csv:6970)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:6928)
+- htf_1h: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:6928)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:6928)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:6928)
+- zone_src: XOB (ROWPACK_GBP0629-B168F_W1.csv:6942)
+- xob_id: 2405 (ROWPACK_GBP0629-B168F_W1.csv:6941)
+- xob_range: 1.32815-1.32832 (ROWPACK_GBP0629-B168F_W1.csv:6942)
+- xob_promoT: 2026-07-02 07:00 (ROWPACK_GBP0629-B168F_W1.csv:6951 / ROWPACK_GBP0629-B168F_W1.csv:6941)
+- xob_inplay_printed: 0 (ROWPACK_GBP0629-B168F_W1.csv:6942)
+- xob_origin_id: 2367 (ROWPACK_GBP0629-B168F_W1.csv:6926)
+- xob_origin_range: 1.32677-1.32799 (ROWPACK_GBP0629-B168F_W1.csv:6926)
+- xob_origin_formT: 2026.07.02 00:55 (ROWPACK_GBP0629-B168F_W1.csv:6926)
+- commit_via: SWING (ROWPACK_GBP0629-B168F_W1.csv:6949)
+- promo_return: MET (ROWPACK_GBP0629-B168F_W1.csv:6954)
+- div_kind: hidden bullish (ROWPACK_GBP0629-B168F_W1.csv:6971)
+- div_bar: 2026-07-02 18:05 (ROWPACK_GBP0629-B168F_W1.csv:6953)
+- div_type_his: UNMAPPED
+- exit_bar: 2026-07-02 19:05 (ROWPACK_GBP0629-B168F_W1.csv:7226)
+- exit_price: 1.33564 (ROWPACK_GBP0629-B168F_W1.csv:7226)
+- exit_src: SL (ROWPACK_GBP0629-B168F_W1.csv:7226)
+- r_result: NOT PRINTED
+- reject_tag: NONE (no-row)
+- reject_reason: NONE (no-row)
+- reject_pack_line: NONE
+- source_pack_lines: ROWPACK_GBP0629-B168F_W1.csv:6951;ROWPACK_GBP0629-B168F_W1.csv:6942;ROWPACK_GBP0629-B168F_W1.csv:6941;ROWPACK_GBP0629-B168F_W1.csv:6949;ROWPACK_GBP0629-B168F_W1.csv:6953;ROWPACK_GBP0629-B168F_W1.csv:6954;ROWPACK_GBP0629-B168F_W1.csv:6970;ROWPACK_GBP0629-B168F_W1.csv:6971;ROWPACK_GBP0629-B168F_W1.csv:6975;ROWPACK_GBP0629-B168F_W1.csv:7226;ROWPACK_GBP0629-B168F_W1.csv:3805;ROWPACK_GBP0629-B168F_W1.csv:6926;ROWPACK_GBP0629-B168F_W1.csv:6936;ROWPACK_GBP0629-B168F_W1.csv:6928;ROWPACK_GBP0629-B168F_W1.csv:6943;ROWPACK_GBP0629-B168F_W1.csv:6931;ROWPACK_GBP0629-B168F_W1.csv:6934
+- setup_class: TREND (ROWPACK_GBP0629-B168F_W1.csv:6936)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (ROWPACK_GBP0629-B168F_W1.csv:6942)
+- poi_zone_id: 2405 (ROWPACK_GBP0629-B168F_W1.csv:6941)
+- poi_zone_range: 1.32815-1.32832 (ROWPACK_GBP0629-B168F_W1.csv:6942)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone 2405 at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W1.csv:6926)
+- poi_zone_promoT: 2026-07-02 07:00 (ROWPACK_GBP0629-B168F_W1.csv:6941)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: XOBINPLAY hits=0 scanned=135 swings=24; INPLAYCOMMIT applied=1 commitVia=SWING (ROWPACK_GBP0629-B168F_W1.csv:6943 / ROWPACK_GBP0629-B168F_W1.csv:6949)
+- retest_lines_all: Daily-POC:r10:dL (ROWPACK_GBP0629-B168F_W1.csv:6931)
+- anchor_elected: action=SEED poi=Daily-POC rank=10 tier=5 (ROWPACK_GBP0629-B168F_W1.csv:6934)
+
+## 2026-07-07 NY SHORT EXECUTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-07
+- side: SHORT
+- verdict: EXECUTED (ROWPACK_GBP0629-B168F_W2.csv:3748 / no-row)
+- register_row: NONE
+- retest_bar: 2026-07-07 14:40 (ROWPACK_GBP0629-B168F_W2.csv:3724)
+- retest_line: Daily-POC (ROWPACK_GBP0629-B168F_W2.csv:3724)
+- retest_side_tag: dS (ROWPACK_GBP0629-B168F_W2.csv:3704)
+- confirm_bar: 2026-07-07 14:40 (ROWPACK_GBP0629-B168F_W2.csv:3724)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W2.csv:3724)
+- entry_bar: 2026-07-07 14:45 (ROWPACK_GBP0629-B168F_W2.csv:3748)
+- entry_ref: 1.33863 (ROWPACK_GBP0629-B168F_W2.csv:3743)
+- fill: 1.33863 (ROWPACK_GBP0629-B168F_W2.csv:3748)
+- sl: 1.33940 (ROWPACK_GBP0629-B168F_W2.csv:3743)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: 1SWING (ROWPACK_GBP0629-B168F_W2.csv:3744)
+- tp_name: NOT PRINTED
+- tp_price: 1.33747 (ROWPACK_GBP0629-B168F_W2.csv:3743)
+- r_at_open: 1.51 (ROWPACK_GBP0629-B168F_W2.csv:3743)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:3703)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:3703)
+- htf_15m: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:3703)
+- ltf_5m: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:3703)
+- zone_src: XOB (ROWPACK_GBP0629-B168F_W2.csv:3715)
+- xob_id: 2974 (ROWPACK_GBP0629-B168F_W2.csv:3714)
+- xob_range: 1.33862-1.33936 (ROWPACK_GBP0629-B168F_W2.csv:3715)
+- xob_promoT: 2026-07-07 12:25 (ROWPACK_GBP0629-B168F_W2.csv:3724 / ROWPACK_GBP0629-B168F_W2.csv:3714)
+- xob_inplay_printed: 1 (ROWPACK_GBP0629-B168F_W2.csv:3715)
+- xob_origin_id: 2974 (ROWPACK_GBP0629-B168F_W2.csv:3702)
+- xob_origin_range: 1.33862-1.33936 (ROWPACK_GBP0629-B168F_W2.csv:3702)
+- xob_origin_formT: 2026.07.07 11:45 (ROWPACK_GBP0629-B168F_W2.csv:3702)
+- commit_via: BAR (ROWPACK_GBP0629-B168F_W2.csv:3722)
+- promo_return: MET (ROWPACK_GBP0629-B168F_W2.csv:3727)
+- div_kind: regular bearish (ROWPACK_GBP0629-B168F_W2.csv:3744)
+- div_bar: 2026-07-07 14:20 (ROWPACK_GBP0629-B168F_W2.csv:3726)
+- div_type_his: UNMAPPED
+- exit_bar: 2026-07-07 15:30 (ROWPACK_GBP0629-B168F_W2.csv:4031)
+- exit_price: 1.33895 (ROWPACK_GBP0629-B168F_W2.csv:4031)
+- exit_src: POI_BODY_BREAK (ROWPACK_GBP0629-B168F_W2.csv:4031)
+- r_result: NOT PRINTED
+- reject_tag: NONE (no-row)
+- reject_reason: NONE (no-row)
+- reject_pack_line: NONE
+- source_pack_lines: ROWPACK_GBP0629-B168F_W2.csv:3724;ROWPACK_GBP0629-B168F_W2.csv:3715;ROWPACK_GBP0629-B168F_W2.csv:3714;ROWPACK_GBP0629-B168F_W2.csv:3722;ROWPACK_GBP0629-B168F_W2.csv:3726;ROWPACK_GBP0629-B168F_W2.csv:3727;ROWPACK_GBP0629-B168F_W2.csv:3743;ROWPACK_GBP0629-B168F_W2.csv:3744;ROWPACK_GBP0629-B168F_W2.csv:3748;ROWPACK_GBP0629-B168F_W2.csv:4031;ROWPACK_GBP0629-B168F_W2.csv:3702;ROWPACK_GBP0629-B168F_W2.csv:3709;ROWPACK_GBP0629-B168F_W2.csv:3703;ROWPACK_GBP0629-B168F_W2.csv:3716;ROWPACK_GBP0629-B168F_W2.csv:3704;ROWPACK_GBP0629-B168F_W2.csv:3707
+- setup_class: TREND (ROWPACK_GBP0629-B168F_W2.csv:3709)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (ROWPACK_GBP0629-B168F_W2.csv:3715)
+- poi_zone_id: 2974 (ROWPACK_GBP0629-B168F_W2.csv:3714)
+- poi_zone_range: 1.33862-1.33936 (ROWPACK_GBP0629-B168F_W2.csv:3715)
+- poi_zone_formT: 2026.07.07 11:45 (ROWPACK_GBP0629-B168F_W2.csv:3702)
+- poi_zone_promoT: 2026-07-07 12:25 (ROWPACK_GBP0629-B168F_W2.csv:3714)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: XOBINPLAY hits=3 scanned=28 swings=7; INPLAYCOMMIT applied=1 commitVia=BAR (ROWPACK_GBP0629-B168F_W2.csv:3716 / ROWPACK_GBP0629-B168F_W2.csv:3722)
+- retest_lines_all: Daily-POC:r10:dS (ROWPACK_GBP0629-B168F_W2.csv:3704)
+- anchor_elected: action=SEED poi=Daily-POC rank=10 tier=5 (ROWPACK_GBP0629-B168F_W2.csv:3707)
+
+## 2026-07-01 LDN LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: LDN
+- date: 2026-07-01
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W1.csv:3848)
+- register_row: NONE
+- retest_bar: 2026-07-01 10:50 (ROWPACK_GBP0629-B168F_W1.csv:3828)
+- retest_line: Quarterly-POC (ROWPACK_GBP0629-B168F_W1.csv:3828)
+- retest_side_tag: dL (ROWPACK_GBP0629-B168F_W1.csv:3819)
+- confirm_bar: 2026-07-01 11:05 (ROWPACK_GBP0629-B168F_W1.csv:3828)
+- confirm_src: RETEST (ROWPACK_GBP0629-B168F_W1.csv:3828)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: 1.32419 (ROWPACK_GBP0629-B168F_W1.csv:3846)
+- fill: NOT PRINTED (no-row)
+- sl: 1.32287 (ROWPACK_GBP0629-B168F_W1.csv:3846)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: 1.32513 (ROWPACK_GBP0629-B168F_W1.csv:3846)
+- r_at_open: 0.71 (ROWPACK_GBP0629-B168F_W1.csv:3846)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:3807)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W1.csv:3807)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:3807)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:3807)
+- zone_src: XOB (ROWPACK_GBP0629-B168F_W1.csv:3824)
+- xob_id: 1943 (ROWPACK_GBP0629-B168F_W1.csv:3823)
+- xob_range: 1.32097-1.32138 (ROWPACK_GBP0629-B168F_W1.csv:3824)
+- xob_promoT: 2026-06-29 13:55 (ROWPACK_GBP0629-B168F_W1.csv:3828 / ROWPACK_GBP0629-B168F_W1.csv:3823)
+- xob_inplay_printed: 0 (ROWPACK_GBP0629-B168F_W1.csv:3824)
+- xob_origin_id: 1943 (ROWPACK_GBP0629-B168F_W1.csv:3805)
+- xob_origin_range: 1.32097-1.32138 (ROWPACK_GBP0629-B168F_W1.csv:3805)
+- xob_origin_formT: 2026.06.29 13:30 (ROWPACK_GBP0629-B168F_W1.csv:3805)
+- commit_via: none (ROWPACK_GBP0629-B168F_W1.csv:3827)
+- promo_return: MET (ROWPACK_GBP0629-B168F_W1.csv:3831)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-01 09:20 (ROWPACK_GBP0629-B168F_W1.csv:3830)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W1.csv:3848)
+- reject_reason: TP_RR_FAIL (ROWPACK_GBP0629-B168F_W1.csv:3848)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W1.csv:3848
+- source_pack_lines: ROWPACK_GBP0629-B168F_W1.csv:3828;ROWPACK_GBP0629-B168F_W1.csv:3824;ROWPACK_GBP0629-B168F_W1.csv:3823;ROWPACK_GBP0629-B168F_W1.csv:3827;ROWPACK_GBP0629-B168F_W1.csv:3830;ROWPACK_GBP0629-B168F_W1.csv:3831;ROWPACK_GBP0629-B168F_W1.csv:3846;ROWPACK_GBP0629-B168F_W1.csv:3848;ROWPACK_GBP0629-B168F_W1.csv:3805;ROWPACK_GBP0629-B168F_W1.csv:3807;ROWPACK_GBP0629-B168F_W1.csv:3825;ROWPACK_GBP0629-B168F_W1.csv:3819
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (ROWPACK_GBP0629-B168F_W1.csv:3824)
+- poi_zone_id: 1943 (ROWPACK_GBP0629-B168F_W1.csv:3823)
+- poi_zone_range: 1.32097-1.32138 (ROWPACK_GBP0629-B168F_W1.csv:3824)
+- poi_zone_formT: 2026.06.29 13:30 (ROWPACK_GBP0629-B168F_W1.csv:3805)
+- poi_zone_promoT: 2026-06-29 13:55 (ROWPACK_GBP0629-B168F_W1.csv:3823)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: XOBINPLAY hits=2 scanned=501 swings=114; INPLAYCOMMIT applied=1 commitVia=none (ROWPACK_GBP0629-B168F_W1.csv:3825 / ROWPACK_GBP0629-B168F_W1.csv:3827)
+- retest_lines_all: Daily-POC:r10:dL (ROWPACK_GBP0629-B168F_W1.csv:3819)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-03 LDN SHORT REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: LDN
+- date: 2026-07-03
+- side: SHORT
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W1.csv:7889)
+- register_row: NONE
+- retest_bar: 2026-07-03 11:30 (ROWPACK_GBP0629-B168F_W1.csv:7884)
+- retest_line: Quarterly-POC (ROWPACK_GBP0629-B168F_W1.csv:7884)
+- retest_side_tag: NOT PRINTED (ROWPACK_GBP0629-B168F_W1.csv:7878)
+- confirm_bar: 2026-07-03 11:45 (ROWPACK_GBP0629-B168F_W1.csv:7884)
+- confirm_src: RETEST (ROWPACK_GBP0629-B168F_W1.csv:7884)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: NOT PRINTED (no-row)
+- fill: NOT PRINTED (no-row)
+- sl: NOT PRINTED (no-row)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: NOT PRINTED (no-row)
+- r_at_open: NOT PRINTED (no-row)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:7865)
+- htf_1h: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:7865)
+- htf_15m: -1.0 (ROWPACK_GBP0629-B168F_W1.csv:7865)
+- ltf_5m: -1.0 (ROWPACK_GBP0629-B168F_W1.csv:7865)
+- zone_src: XOB (no-row)
+- xob_id: 2616 (no-row)
+- xob_range: 1.33663-1.33722 (no-row)
+- xob_promoT: 2026-07-03 11:25 (ROWPACK_GBP0629-B168F_W1.csv:7884 / no-row)
+- xob_inplay_printed: 1 (no-row)
+- xob_origin_id: 2616 (ROWPACK_GBP0629-B168F_W1.csv:7864)
+- xob_origin_range: 1.33663-1.33722 (ROWPACK_GBP0629-B168F_W1.csv:7864)
+- xob_origin_formT: 2026.07.03 10:50 (ROWPACK_GBP0629-B168F_W1.csv:7864)
+- commit_via: SWING (no-row)
+- promo_return: NOT PRINTED (no-row)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-03 11:30 (ROWPACK_GBP0629-B168F_W1.csv:7886)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W1.csv:7889)
+- reject_reason: DIV_FALLBACK (ROWPACK_GBP0629-B168F_W1.csv:7889)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W1.csv:7889
+- source_pack_lines: ROWPACK_GBP0629-B168F_W1.csv:7884;ROWPACK_GBP0629-B168F_W1.csv:7805;ROWPACK_GBP0629-B168F_W1.csv:7804;ROWPACK_GBP0629-B168F_W1.csv:7812;ROWPACK_GBP0629-B168F_W1.csv:7886;ROWPACK_GBP0629-B168F_W1.csv:7889;ROWPACK_GBP0629-B168F_W1.csv:7864;ROWPACK_GBP0629-B168F_W1.csv:7865;ROWPACK_GBP0629-B168F_W1.csv:7878
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (no-row)
+- poi_zone_id: 2616 (no-row)
+- poi_zone_range: 1.33663-1.33722 (no-row)
+- poi_zone_formT: 2026.07.03 10:50 (ROWPACK_GBP0629-B168F_W1.csv:7864)
+- poi_zone_promoT: 2026-07-03 11:25 (no-row)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: NOT PRINTED; INPLAYCOMMIT applied=1 commitVia=SWING (no-row / no-row)
+- retest_lines_all:  (ROWPACK_GBP0629-B168F_W1.csv:7878)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-03 NY LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-03
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W1.csv:8053)
+- register_row: NONE
+- retest_bar: 2026-07-03 14:20 (ROWPACK_GBP0629-B168F_W1.csv:8048)
+- retest_line: Daily-VWAP (ROWPACK_GBP0629-B168F_W1.csv:8048)
+- retest_side_tag: dL (ROWPACK_GBP0629-B168F_W1.csv:8028)
+- confirm_bar: 2026-07-03 14:20 (ROWPACK_GBP0629-B168F_W1.csv:8048)
+- confirm_src: RETEST (ROWPACK_GBP0629-B168F_W1.csv:8048)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: NOT PRINTED (no-row)
+- fill: NOT PRINTED (no-row)
+- sl: NOT PRINTED (no-row)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: NOT PRINTED (no-row)
+- r_at_open: NOT PRINTED (no-row)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:8027)
+- htf_1h: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:8027)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:8027)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W1.csv:8027)
+- zone_src: XOB (ROWPACK_GBP0629-B168F_W1.csv:8039)
+- xob_id: 2642 (ROWPACK_GBP0629-B168F_W1.csv:8038)
+- xob_range: 1.33553-1.33603 (ROWPACK_GBP0629-B168F_W1.csv:8039)
+- xob_promoT: 2026-07-03 14:15 (ROWPACK_GBP0629-B168F_W1.csv:8048 / ROWPACK_GBP0629-B168F_W1.csv:8038)
+- xob_inplay_printed: 1 (ROWPACK_GBP0629-B168F_W1.csv:8039)
+- xob_origin_id: 2642 (ROWPACK_GBP0629-B168F_W1.csv:8025)
+- xob_origin_range: 1.33553-1.33603 (ROWPACK_GBP0629-B168F_W1.csv:8025)
+- xob_origin_formT: 2026.07.03 13:55 (ROWPACK_GBP0629-B168F_W1.csv:8025)
+- commit_via: BAR (ROWPACK_GBP0629-B168F_W1.csv:8046)
+- promo_return: NOT PRINTED (no-row)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-03 14:10 (ROWPACK_GBP0629-B168F_W1.csv:8050)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W1.csv:8053)
+- reject_reason: DIV_FALLBACK (ROWPACK_GBP0629-B168F_W1.csv:8053)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W1.csv:8053
+- source_pack_lines: ROWPACK_GBP0629-B168F_W1.csv:8048;ROWPACK_GBP0629-B168F_W1.csv:8039;ROWPACK_GBP0629-B168F_W1.csv:8038;ROWPACK_GBP0629-B168F_W1.csv:8046;ROWPACK_GBP0629-B168F_W1.csv:8050;ROWPACK_GBP0629-B168F_W1.csv:7864;ROWPACK_GBP0629-B168F_W1.csv:8053;ROWPACK_GBP0629-B168F_W1.csv:8025;ROWPACK_GBP0629-B168F_W1.csv:8033;ROWPACK_GBP0629-B168F_W1.csv:8027;ROWPACK_GBP0629-B168F_W1.csv:8040;ROWPACK_GBP0629-B168F_W1.csv:8028;ROWPACK_GBP0629-B168F_W1.csv:8031
+- setup_class: TREND (ROWPACK_GBP0629-B168F_W1.csv:8033)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (ROWPACK_GBP0629-B168F_W1.csv:8039)
+- poi_zone_id: 2642 (ROWPACK_GBP0629-B168F_W1.csv:8038)
+- poi_zone_range: 1.33553-1.33603 (ROWPACK_GBP0629-B168F_W1.csv:8039)
+- poi_zone_formT: 2026.07.03 13:55 (ROWPACK_GBP0629-B168F_W1.csv:8025)
+- poi_zone_promoT: 2026-07-03 14:15 (ROWPACK_GBP0629-B168F_W1.csv:8038)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: XOBINPLAY hits=0 scanned=2 swings=0; INPLAYCOMMIT applied=1 commitVia=BAR (ROWPACK_GBP0629-B168F_W1.csv:8040 / ROWPACK_GBP0629-B168F_W1.csv:8046)
+- retest_lines_all: Daily-VWAP:r11:dL (ROWPACK_GBP0629-B168F_W1.csv:8028)
+- anchor_elected: action=SEED poi=Daily-VWAP rank=11 tier=5 (ROWPACK_GBP0629-B168F_W1.csv:8031)
+
+## 2026-07-06 LDN LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: LDN
+- date: 2026-07-06
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W2.csv:663)
+- register_row: NONE
+- retest_bar: 2026-07-06 10:50 (ROWPACK_GBP0629-B168F_W2.csv:642)
+- retest_line: Weekly-VWAP (ROWPACK_GBP0629-B168F_W2.csv:642)
+- retest_side_tag: NOT PRINTED (ROWPACK_GBP0629-B168F_W2.csv:636)
+- confirm_bar: 2026-07-06 10:55 (ROWPACK_GBP0629-B168F_W2.csv:642)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W2.csv:642)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: 1.33484 (ROWPACK_GBP0629-B168F_W2.csv:661)
+- fill: NOT PRINTED (no-row)
+- sl: 1.33367 (ROWPACK_GBP0629-B168F_W2.csv:661)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: 1.33542 (ROWPACK_GBP0629-B168F_W2.csv:661)
+- r_at_open: 0.50 (ROWPACK_GBP0629-B168F_W2.csv:661)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:621)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:621)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:621)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:621)
+- zone_src: XOB (no-row)
+- xob_id: 2774 (no-row)
+- xob_range: 1.33344-1.33425 (no-row)
+- xob_promoT: 2026-07-06 10:45 (ROWPACK_GBP0629-B168F_W2.csv:642 / no-row)
+- xob_inplay_printed: 1 (no-row)
+- xob_origin_id: 2367 (ROWPACK_GBP0629-B168F_W2.csv:619)
+- xob_origin_range: 1.32677-1.32799 (ROWPACK_GBP0629-B168F_W2.csv:619)
+- xob_origin_formT: 2026.07.02 00:55 (ROWPACK_GBP0629-B168F_W2.csv:619)
+- commit_via: SWING (no-row)
+- promo_return: MET (ROWPACK_GBP0629-B168F_W2.csv:645)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: NOT PRINTED (ROWPACK_GBP0629-B168F_W2.csv:644)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W2.csv:663)
+- reject_reason: TP_RR_FAIL (ROWPACK_GBP0629-B168F_W2.csv:663)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W2.csv:663
+- source_pack_lines: ROWPACK_GBP0629-B168F_W2.csv:642;ROWPACK_GBP0629-B168F_W2.csv:587;ROWPACK_GBP0629-B168F_W2.csv:586;ROWPACK_GBP0629-B168F_W2.csv:594;ROWPACK_GBP0629-B168F_W2.csv:645;ROWPACK_GBP0629-B168F_W2.csv:661;ROWPACK_GBP0629-B168F_W1.csv:8025;ROWPACK_GBP0629-B168F_W2.csv:663;ROWPACK_GBP0629-B168F_W2.csv:619;ROWPACK_GBP0629-B168F_W2.csv:621;ROWPACK_GBP0629-B168F_W2.csv:636
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (no-row)
+- poi_zone_id: 2774 (no-row)
+- poi_zone_range: 1.33344-1.33425 (no-row)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone 2774 at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W2.csv:619)
+- poi_zone_promoT: 2026-07-06 10:45 (no-row)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: NOT PRINTED; INPLAYCOMMIT applied=1 commitVia=SWING (no-row / no-row)
+- retest_lines_all:  (ROWPACK_GBP0629-B168F_W2.csv:636)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-06 NY LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-06
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W2.csv:2343)
+- register_row: NONE
+- retest_bar: 2026-07-06 17:15 (ROWPACK_GBP0629-B168F_W2.csv:2338)
+- retest_line: Quarterly-POC (ROWPACK_GBP0629-B168F_W2.csv:2338)
+- retest_side_tag: dL (ROWPACK_GBP0629-B168F_W2.csv:2332)
+- confirm_bar: 2026-07-06 17:30 (ROWPACK_GBP0629-B168F_W2.csv:2338)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W2.csv:2338)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: NOT PRINTED (no-row)
+- fill: NOT PRINTED (no-row)
+- sl: NOT PRINTED (no-row)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: NOT PRINTED (no-row)
+- r_at_open: NOT PRINTED (no-row)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:2319)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:2319)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:2319)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:2319)
+- zone_src: XOB (no-row)
+- xob_id: 2405 (no-row)
+- xob_range: 1.32815-1.32832 (no-row)
+- xob_promoT: 2026-07-02 07:00 (ROWPACK_GBP0629-B168F_W2.csv:2338 / no-row)
+- xob_inplay_printed: 0 (no-row)
+- xob_origin_id: 2367 (ROWPACK_GBP0629-B168F_W2.csv:2317)
+- xob_origin_range: 1.32677-1.32799 (ROWPACK_GBP0629-B168F_W2.csv:2317)
+- xob_origin_formT: 2026.07.02 00:55 (ROWPACK_GBP0629-B168F_W2.csv:2317)
+- commit_via: SWING (no-row)
+- promo_return: NOT PRINTED (no-row)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-06 17:10 (ROWPACK_GBP0629-B168F_W2.csv:2340)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W2.csv:2343)
+- reject_reason: DIV_FALLBACK (ROWPACK_GBP0629-B168F_W2.csv:2343)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W2.csv:2343
+- source_pack_lines: ROWPACK_GBP0629-B168F_W2.csv:2338;ROWPACK_GBP0629-B168F_W2.csv:2220;ROWPACK_GBP0629-B168F_W2.csv:2219;ROWPACK_GBP0629-B168F_W2.csv:2227;ROWPACK_GBP0629-B168F_W2.csv:2340;ROWPACK_GBP0629-B168F_W2.csv:1485;ROWPACK_GBP0629-B168F_W2.csv:2343;ROWPACK_GBP0629-B168F_W2.csv:2317;ROWPACK_GBP0629-B168F_W2.csv:2319;ROWPACK_GBP0629-B168F_W2.csv:2332
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (no-row)
+- poi_zone_id: 2405 (no-row)
+- poi_zone_range: 1.32815-1.32832 (no-row)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone 2405 at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W2.csv:2317)
+- poi_zone_promoT: 2026-07-02 07:00 (no-row)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: NOT PRINTED; INPLAYCOMMIT applied=1 commitVia=SWING (no-row / no-row)
+- retest_lines_all: Monthly-POC:r6:dL (ROWPACK_GBP0629-B168F_W2.csv:2332)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-06 NY LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-06
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W2.csv:1346)
+- register_row: NONE
+- retest_bar: 2026-07-06 14:10 (ROWPACK_GBP0629-B168F_W2.csv:1325)
+- retest_line: Weekly-VWAP (ROWPACK_GBP0629-B168F_W2.csv:1325)
+- retest_side_tag: dS (ROWPACK_GBP0629-B168F_W2.csv:1319)
+- confirm_bar: 2026-07-06 14:40 (ROWPACK_GBP0629-B168F_W2.csv:1325)
+- confirm_src: PRIOR (ROWPACK_GBP0629-B168F_W2.csv:1325)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: 1.33428 (ROWPACK_GBP0629-B168F_W2.csv:1344)
+- fill: NOT PRINTED (no-row)
+- sl: 1.33359 (ROWPACK_GBP0629-B168F_W2.csv:1344)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: 1.33430 (ROWPACK_GBP0629-B168F_W2.csv:1344)
+- r_at_open: 0.03 (ROWPACK_GBP0629-B168F_W2.csv:1344)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:1303)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:1303)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:1303)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:1303)
+- zone_src: XOB (no-row)
+- xob_id: 2815 (no-row)
+- xob_range: 1.33369-1.33408 (no-row)
+- xob_promoT: 2026-07-06 14:30 (ROWPACK_GBP0629-B168F_W2.csv:1325 / no-row)
+- xob_inplay_printed: 1 (no-row)
+- xob_origin_id: 2367 (ROWPACK_GBP0629-B168F_W2.csv:1301)
+- xob_origin_range: 1.32677-1.32799 (ROWPACK_GBP0629-B168F_W2.csv:1301)
+- xob_origin_formT: 2026.07.02 00:55 (ROWPACK_GBP0629-B168F_W2.csv:1301)
+- commit_via: SWING (no-row)
+- promo_return: MET (ROWPACK_GBP0629-B168F_W2.csv:1328)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: NOT PRINTED (ROWPACK_GBP0629-B168F_W2.csv:1327)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W2.csv:1346)
+- reject_reason: TP_RR_FAIL (ROWPACK_GBP0629-B168F_W2.csv:1346)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W2.csv:1346
+- source_pack_lines: ROWPACK_GBP0629-B168F_W2.csv:1325;ROWPACK_GBP0629-B168F_W2.csv:1268;ROWPACK_GBP0629-B168F_W2.csv:1267;ROWPACK_GBP0629-B168F_W2.csv:1275;ROWPACK_GBP0629-B168F_W2.csv:1328;ROWPACK_GBP0629-B168F_W2.csv:1344;ROWPACK_GBP0629-B168F_W2.csv:1346;ROWPACK_GBP0629-B168F_W2.csv:1301;ROWPACK_GBP0629-B168F_W2.csv:1303;ROWPACK_GBP0629-B168F_W2.csv:1319
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (no-row)
+- poi_zone_id: 2815 (no-row)
+- poi_zone_range: 1.33369-1.33408 (no-row)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone 2815 at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W2.csv:1301)
+- poi_zone_promoT: 2026-07-06 14:30 (no-row)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: NOT PRINTED; INPLAYCOMMIT applied=1 commitVia=SWING (no-row / no-row)
+- retest_lines_all: Daily-POC:r10:dS (ROWPACK_GBP0629-B168F_W2.csv:1319)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-06 NY LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-06
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W2.csv:1527)
+- register_row: NONE
+- retest_bar: 2026-07-06 14:45 (ROWPACK_GBP0629-B168F_W2.csv:1506)
+- retest_line: Weekly-VWAP (ROWPACK_GBP0629-B168F_W2.csv:1506)
+- retest_side_tag: NOT PRINTED (ROWPACK_GBP0629-B168F_W2.csv:1500)
+- confirm_bar: 2026-07-06 15:00 (ROWPACK_GBP0629-B168F_W2.csv:1506)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W2.csv:1506)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: 1.33507 (ROWPACK_GBP0629-B168F_W2.csv:1525)
+- fill: NOT PRINTED (no-row)
+- sl: 1.33369 (ROWPACK_GBP0629-B168F_W2.csv:1525)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: 1.33542 (ROWPACK_GBP0629-B168F_W2.csv:1525)
+- r_at_open: 0.25 (ROWPACK_GBP0629-B168F_W2.csv:1525)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:1487)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:1487)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:1487)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:1487)
+- zone_src: XOB (no-row)
+- xob_id: 2815 (no-row)
+- xob_range: 1.33369-1.33408 (no-row)
+- xob_promoT: 2026-07-06 14:30 (ROWPACK_GBP0629-B168F_W2.csv:1506 / no-row)
+- xob_inplay_printed: 1 (no-row)
+- xob_origin_id: 2815 (ROWPACK_GBP0629-B168F_W2.csv:1485)
+- xob_origin_range: 1.33369-1.33408 (ROWPACK_GBP0629-B168F_W2.csv:1485)
+- xob_origin_formT: 2026.07.06 14:15 (ROWPACK_GBP0629-B168F_W2.csv:1485)
+- commit_via: BAR (no-row)
+- promo_return: MET (ROWPACK_GBP0629-B168F_W2.csv:1509)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: NOT PRINTED (ROWPACK_GBP0629-B168F_W2.csv:1508)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W2.csv:1527)
+- reject_reason: TP_RR_FAIL (ROWPACK_GBP0629-B168F_W2.csv:1527)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W2.csv:1527
+- source_pack_lines: ROWPACK_GBP0629-B168F_W2.csv:1506;ROWPACK_GBP0629-B168F_W2.csv:1408;ROWPACK_GBP0629-B168F_W2.csv:1407;ROWPACK_GBP0629-B168F_W2.csv:1415;ROWPACK_GBP0629-B168F_W2.csv:1509;ROWPACK_GBP0629-B168F_W2.csv:1525;ROWPACK_GBP0629-B168F_W2.csv:1527;ROWPACK_GBP0629-B168F_W2.csv:1485;ROWPACK_GBP0629-B168F_W2.csv:1487;ROWPACK_GBP0629-B168F_W2.csv:1500
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (no-row)
+- poi_zone_id: 2815 (no-row)
+- poi_zone_range: 1.33369-1.33408 (no-row)
+- poi_zone_formT: 2026.07.06 14:15 (ROWPACK_GBP0629-B168F_W2.csv:1485)
+- poi_zone_promoT: 2026-07-06 14:30 (no-row)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: NOT PRINTED; INPLAYCOMMIT applied=1 commitVia=BAR (no-row / no-row)
+- retest_lines_all:  (ROWPACK_GBP0629-B168F_W2.csv:1500)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-08 NY LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-08
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W2.csv:5924)
+- register_row: NONE
+- retest_bar: 2026-07-08 14:55 (ROWPACK_GBP0629-B168F_W2.csv:5891)
+- retest_line: Quarterly-VWAP (ROWPACK_GBP0629-B168F_W2.csv:5891)
+- retest_side_tag: dL (ROWPACK_GBP0629-B168F_W2.csv:5882)
+- confirm_bar: 2026-07-08 15:00 (ROWPACK_GBP0629-B168F_W2.csv:5891)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W2.csv:5891)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: NOT PRINTED (no-row)
+- fill: NOT PRINTED (no-row)
+- sl: NOT PRINTED (no-row)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: NOT PRINTED (no-row)
+- r_at_open: NOT PRINTED (no-row)
+- htf_4h: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:5870)
+- htf_1h: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:5870)
+- htf_15m: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:5870)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:5870)
+- zone_src: XOB (ROWPACK_GBP0629-B168F_W2.csv:5887)
+- xob_id: 2405 (ROWPACK_GBP0629-B168F_W2.csv:5886)
+- xob_range: 1.32815-1.32832 (ROWPACK_GBP0629-B168F_W2.csv:5887)
+- xob_promoT: 2026-07-02 07:00 (ROWPACK_GBP0629-B168F_W2.csv:5891 / ROWPACK_GBP0629-B168F_W2.csv:5886)
+- xob_inplay_printed: 0 (ROWPACK_GBP0629-B168F_W2.csv:5887)
+- xob_origin_id: 2367 (ROWPACK_GBP0629-B168F_W2.csv:5868)
+- xob_origin_range: 1.32677-1.32799 (ROWPACK_GBP0629-B168F_W2.csv:5868)
+- xob_origin_formT: 2026.07.02 00:55 (ROWPACK_GBP0629-B168F_W2.csv:5868)
+- commit_via: none (ROWPACK_GBP0629-B168F_W2.csv:5890)
+- promo_return: NOT PRINTED (no-row)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-08 14:40 (ROWPACK_GBP0629-B168F_W2.csv:5893)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: CONFIRMPOLL (ROWPACK_GBP0629-B168F_W2.csv:5924)
+- reject_reason: confirm=0 touchAttr=1 (ROWPACK_GBP0629-B168F_W2.csv:5924)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W2.csv:5924
+- source_pack_lines: ROWPACK_GBP0629-B168F_W2.csv:5891;ROWPACK_GBP0629-B168F_W2.csv:5887;ROWPACK_GBP0629-B168F_W2.csv:5886;ROWPACK_GBP0629-B168F_W2.csv:5890;ROWPACK_GBP0629-B168F_W2.csv:5893;ROWPACK_GBP0629-B168F_W2.csv:3702;ROWPACK_GBP0629-B168F_W2.csv:5924;ROWPACK_GBP0629-B168F_W2.csv:5868;ROWPACK_GBP0629-B168F_W2.csv:5870;ROWPACK_GBP0629-B168F_W2.csv:5888;ROWPACK_GBP0629-B168F_W2.csv:5882
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (ROWPACK_GBP0629-B168F_W2.csv:5887)
+- poi_zone_id: 2405 (ROWPACK_GBP0629-B168F_W2.csv:5886)
+- poi_zone_range: 1.32815-1.32832 (ROWPACK_GBP0629-B168F_W2.csv:5887)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone 2405 at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W2.csv:5868)
+- poi_zone_promoT: 2026-07-02 07:00 (ROWPACK_GBP0629-B168F_W2.csv:5886)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: XOBINPLAY hits=0 scanned=501 swings=105; INPLAYCOMMIT applied=1 commitVia=none (ROWPACK_GBP0629-B168F_W2.csv:5888 / ROWPACK_GBP0629-B168F_W2.csv:5890)
+- retest_lines_all: Monthly-VWAP:r7:dL (ROWPACK_GBP0629-B168F_W2.csv:5882)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-08 NY SHORT REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-08
+- side: SHORT
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W2.csv:6129)
+- register_row: NONE
+- retest_bar: 2026-07-08 14:55 (ROWPACK_GBP0629-B168F_W2.csv:6108)
+- retest_line: Quarterly-POC (ROWPACK_GBP0629-B168F_W2.csv:6108)
+- retest_side_tag: dS (ROWPACK_GBP0629-B168F_W2.csv:6100)
+- confirm_bar: 2026-07-08 15:30 (ROWPACK_GBP0629-B168F_W2.csv:6108)
+- confirm_src: PRIOR (ROWPACK_GBP0629-B168F_W2.csv:6108)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: 1.33491 (ROWPACK_GBP0629-B168F_W2.csv:6127)
+- fill: NOT PRINTED (no-row)
+- sl: 1.33569 (ROWPACK_GBP0629-B168F_W2.csv:6127)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: 1.33347 (ROWPACK_GBP0629-B168F_W2.csv:6127)
+- r_at_open: 1.85 (ROWPACK_GBP0629-B168F_W2.csv:6127)
+- htf_4h: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:6087)
+- htf_1h: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:6087)
+- htf_15m: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:6087)
+- ltf_5m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:6087)
+- zone_src: XOB (no-row)
+- xob_id: NOT PRINTED (no-row)
+- xob_range: 1.32815-1.32832 (no-row)
+- xob_promoT: 2026-07-02 07:00 (ROWPACK_GBP0629-B168F_W2.csv:6108 / no-row)
+- xob_inplay_printed: NOT PRINTED (no-row)
+- xob_origin_id: 3019 (ROWPACK_GBP0629-B168F_W2.csv:6086)
+- xob_origin_range: 1.33755-1.33804 (ROWPACK_GBP0629-B168F_W2.csv:6086)
+- xob_origin_formT: 2026.07.07 18:05 (ROWPACK_GBP0629-B168F_W2.csv:6086)
+- commit_via: NOT PRINTED (no-row)
+- promo_return: MET (ROWPACK_GBP0629-B168F_W2.csv:6111)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-08 15:15 (ROWPACK_GBP0629-B168F_W2.csv:6110)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W2.csv:6129)
+- reject_reason: LTF_MISALIGN (ROWPACK_GBP0629-B168F_W2.csv:6129)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W2.csv:6129
+- source_pack_lines: ROWPACK_GBP0629-B168F_W2.csv:6108;ROWPACK_GBP0629-B168F_W2.csv:6110;ROWPACK_GBP0629-B168F_W2.csv:6111;ROWPACK_GBP0629-B168F_W2.csv:6127;ROWPACK_GBP0629-B168F_W2.csv:6129;ROWPACK_GBP0629-B168F_W2.csv:6086;ROWPACK_GBP0629-B168F_W2.csv:6087;ROWPACK_GBP0629-B168F_W2.csv:6100
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: NOT PRINTED (no ZONEPICK row at confirm bar) (no-row)
+- poi_zone_id: NOT PRINTED (no-row)
+- poi_zone_range: 1.32815-1.32832 (no-row)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone NOT PRINTED at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W2.csv:6086)
+- poi_zone_promoT: 2026-07-02 07:00 (no-row)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: NOT PRINTED (no-row / no-row)
+- retest_lines_all: Monthly-POC:r6:dS (ROWPACK_GBP0629-B168F_W2.csv:6100)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-09 NY LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-09
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W2.csv:9090)
+- register_row: NONE
+- retest_bar: 2026-07-09 17:15 (ROWPACK_GBP0629-B168F_W2.csv:9044)
+- retest_line: Daily-POC (ROWPACK_GBP0629-B168F_W2.csv:9044)
+- retest_side_tag: dS (ROWPACK_GBP0629-B168F_W2.csv:9028)
+- confirm_bar: 2026-07-09 17:20 (ROWPACK_GBP0629-B168F_W2.csv:9044)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W2.csv:9044)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: NOT PRINTED (no-row)
+- fill: NOT PRINTED (no-row)
+- sl: NOT PRINTED (no-row)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: NOT PRINTED (no-row)
+- r_at_open: NOT PRINTED (no-row)
+- htf_4h: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:9027)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:9027)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W2.csv:9027)
+- ltf_5m: -1.0 (ROWPACK_GBP0629-B168F_W2.csv:9027)
+- zone_src: XOB (ROWPACK_GBP0629-B168F_W2.csv:9036)
+- xob_id: 3316 (ROWPACK_GBP0629-B168F_W2.csv:9035)
+- xob_range: 1.34127-1.34167 (ROWPACK_GBP0629-B168F_W2.csv:9036)
+- xob_promoT: 2026-07-09 13:05 (ROWPACK_GBP0629-B168F_W2.csv:9044 / ROWPACK_GBP0629-B168F_W2.csv:9035)
+- xob_inplay_printed: 0 (ROWPACK_GBP0629-B168F_W2.csv:9036)
+- xob_origin_id: 3195 (ROWPACK_GBP0629-B168F_W2.csv:9025)
+- xob_origin_range: 1.33809-1.33856 (ROWPACK_GBP0629-B168F_W2.csv:9025)
+- xob_origin_formT: 2026.07.08 19:45 (ROWPACK_GBP0629-B168F_W2.csv:9025)
+- commit_via: none (ROWPACK_GBP0629-B168F_W2.csv:9043)
+- promo_return: NOT PRINTED (no-row)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-09 17:00 (ROWPACK_GBP0629-B168F_W2.csv:9046)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W2.csv:9090)
+- reject_reason: LTF_MISALIGN (ROWPACK_GBP0629-B168F_W2.csv:9090)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W2.csv:9090
+- source_pack_lines: ROWPACK_GBP0629-B168F_W2.csv:9044;ROWPACK_GBP0629-B168F_W2.csv:9036;ROWPACK_GBP0629-B168F_W2.csv:9035;ROWPACK_GBP0629-B168F_W2.csv:9043;ROWPACK_GBP0629-B168F_W2.csv:9046;ROWPACK_GBP0629-B168F_W2.csv:9090;ROWPACK_GBP0629-B168F_W2.csv:9025;ROWPACK_GBP0629-B168F_W2.csv:9030;ROWPACK_GBP0629-B168F_W2.csv:9027;ROWPACK_GBP0629-B168F_W2.csv:9037;ROWPACK_GBP0629-B168F_W2.csv:9028
+- setup_class: TREND (ROWPACK_GBP0629-B168F_W2.csv:9030)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (ROWPACK_GBP0629-B168F_W2.csv:9036)
+- poi_zone_id: 3316 (ROWPACK_GBP0629-B168F_W2.csv:9035)
+- poi_zone_range: 1.34127-1.34167 (ROWPACK_GBP0629-B168F_W2.csv:9036)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone 3316 at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W2.csv:9025)
+- poi_zone_promoT: 2026-07-09 13:05 (ROWPACK_GBP0629-B168F_W2.csv:9035)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: XOBINPLAY hits=0 scanned=52 swings=13; INPLAYCOMMIT applied=1 commitVia=none (ROWPACK_GBP0629-B168F_W2.csv:9037 / ROWPACK_GBP0629-B168F_W2.csv:9043)
+- retest_lines_all: Daily-VWAP:r11:dS (ROWPACK_GBP0629-B168F_W2.csv:9028)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-13 NY SHORT REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: NY
+- date: 2026-07-13
+- side: SHORT
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W3.csv:2097)
+- register_row: NONE
+- retest_bar: 2026-07-13 17:00 (ROWPACK_GBP0629-B168F_W3.csv:2055)
+- retest_line: Weekly-POC (ROWPACK_GBP0629-B168F_W3.csv:2055)
+- retest_side_tag: NOT PRINTED (ROWPACK_GBP0629-B168F_W3.csv:2046)
+- confirm_bar: 2026-07-13 17:50 (ROWPACK_GBP0629-B168F_W3.csv:2055)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W3.csv:2055)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: NOT PRINTED (no-row)
+- fill: NOT PRINTED (no-row)
+- sl: NOT PRINTED (no-row)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: NOT PRINTED (no-row)
+- r_at_open: NOT PRINTED (no-row)
+- htf_4h: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:2033)
+- htf_1h: 1.0 (ROWPACK_GBP0629-B168F_W3.csv:2033)
+- htf_15m: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:2033)
+- ltf_5m: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:2033)
+- zone_src: XOB (ROWPACK_GBP0629-B168F_W3.csv:2051)
+- xob_id: 3700 (ROWPACK_GBP0629-B168F_W3.csv:2050)
+- xob_range: 1.33834-1.33893 (ROWPACK_GBP0629-B168F_W3.csv:2051)
+- xob_promoT: 2026-07-13 17:10 (ROWPACK_GBP0629-B168F_W3.csv:2055 / ROWPACK_GBP0629-B168F_W3.csv:2050)
+- xob_inplay_printed: 0 (ROWPACK_GBP0629-B168F_W3.csv:2051)
+- xob_origin_id: 3693 (ROWPACK_GBP0629-B168F_W3.csv:2032)
+- xob_origin_range: 1.33922-1.33989 (ROWPACK_GBP0629-B168F_W3.csv:2032)
+- xob_origin_formT: 2026.07.13 15:55 (ROWPACK_GBP0629-B168F_W3.csv:2032)
+- commit_via: none (ROWPACK_GBP0629-B168F_W3.csv:2054)
+- promo_return: NOT PRINTED (no-row)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-13 17:40 (ROWPACK_GBP0629-B168F_W3.csv:2057)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W3.csv:2097)
+- reject_reason: LTF_MISALIGN (ROWPACK_GBP0629-B168F_W3.csv:2097)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W3.csv:2097
+- source_pack_lines: ROWPACK_GBP0629-B168F_W3.csv:2055;ROWPACK_GBP0629-B168F_W3.csv:2051;ROWPACK_GBP0629-B168F_W3.csv:2050;ROWPACK_GBP0629-B168F_W3.csv:2054;ROWPACK_GBP0629-B168F_W3.csv:2057;ROWPACK_GBP0629-B168F_W3.csv:2097;ROWPACK_GBP0629-B168F_W3.csv:2032;ROWPACK_GBP0629-B168F_W3.csv:2033;ROWPACK_GBP0629-B168F_W3.csv:2052;ROWPACK_GBP0629-B168F_W3.csv:2046
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (ROWPACK_GBP0629-B168F_W3.csv:2051)
+- poi_zone_id: 3700 (ROWPACK_GBP0629-B168F_W3.csv:2050)
+- poi_zone_range: 1.33834-1.33893 (ROWPACK_GBP0629-B168F_W3.csv:2051)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone 3700 at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W3.csv:2032)
+- poi_zone_promoT: 2026-07-13 17:10 (ROWPACK_GBP0629-B168F_W3.csv:2050)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: XOBINPLAY hits=0 scanned=9 swings=2; INPLAYCOMMIT applied=1 commitVia=none (ROWPACK_GBP0629-B168F_W3.csv:2052 / ROWPACK_GBP0629-B168F_W3.csv:2054)
+- retest_lines_all:  (ROWPACK_GBP0629-B168F_W3.csv:2046)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-14 LDN LONG REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: LDN
+- date: 2026-07-14
+- side: LONG
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W3.csv:2688)
+- register_row: NONE
+- retest_bar: 2026-07-14 09:10 (ROWPACK_GBP0629-B168F_W3.csv:2683)
+- retest_line: Quarterly-POC (ROWPACK_GBP0629-B168F_W3.csv:2683)
+- retest_side_tag: dS (ROWPACK_GBP0629-B168F_W3.csv:2676)
+- confirm_bar: 2026-07-14 09:30 (ROWPACK_GBP0629-B168F_W3.csv:2683)
+- confirm_src: PRIOR (ROWPACK_GBP0629-B168F_W3.csv:2683)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: NOT PRINTED (no-row)
+- fill: NOT PRINTED (no-row)
+- sl: NOT PRINTED (no-row)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: NOT PRINTED (no-row)
+- r_at_open: NOT PRINTED (no-row)
+- htf_4h: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:2662)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:2662)
+- htf_15m: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:2662)
+- ltf_5m: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:2662)
+- zone_src: XOB (no-row)
+- xob_id: NOT PRINTED (no-row)
+- xob_range: 1.33666-1.33785 (no-row)
+- xob_promoT: 2026-07-13 19:35 (ROWPACK_GBP0629-B168F_W3.csv:2683 / no-row)
+- xob_inplay_printed: NOT PRINTED (no-row)
+- xob_origin_id: 3786 (ROWPACK_GBP0629-B168F_W3.csv:2660)
+- xob_origin_range: 1.33501-1.33531 (ROWPACK_GBP0629-B168F_W3.csv:2660)
+- xob_origin_formT: 2026.07.14 04:35 (ROWPACK_GBP0629-B168F_W3.csv:2660)
+- commit_via: NOT PRINTED (no-row)
+- promo_return: NOT PRINTED (no-row)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-14 08:35 (ROWPACK_GBP0629-B168F_W3.csv:2685)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W3.csv:2688)
+- reject_reason: DIV_FALLBACK (ROWPACK_GBP0629-B168F_W3.csv:2688)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W3.csv:2688
+- source_pack_lines: ROWPACK_GBP0629-B168F_W3.csv:2683;ROWPACK_GBP0629-B168F_W3.csv:2685;ROWPACK_GBP0629-B168F_W3.csv:2688;ROWPACK_GBP0629-B168F_W3.csv:2660;ROWPACK_GBP0629-B168F_W3.csv:2662;ROWPACK_GBP0629-B168F_W3.csv:2676
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: NOT PRINTED (no ZONEPICK row at confirm bar) (no-row)
+- poi_zone_id: NOT PRINTED (no-row)
+- poi_zone_range: 1.33666-1.33785 (no-row)
+- poi_zone_formT: NOT PRINTED (no B162ORIGIN row heads zone NOT PRINTED at the confirm bar; carrier B162ORIGIN) (ROWPACK_GBP0629-B168F_W3.csv:2660)
+- poi_zone_promoT: 2026-07-13 19:35 (no-row)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: NOT PRINTED (no-row / no-row)
+- retest_lines_all: Daily-POC:r10:dS (ROWPACK_GBP0629-B168F_W3.csv:2676)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+
+## 2026-07-14 LDN SHORT REJECTED
+
+- run: GBP0629-B168F
+- ea_sha: 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207
+- pair: GBPUSD
+- session: LDN
+- date: 2026-07-14
+- side: SHORT
+- verdict: REJECTED (no-row / ROWPACK_GBP0629-B168F_W3.csv:3353)
+- register_row: NONE
+- retest_bar: 2026-07-14 10:30 (ROWPACK_GBP0629-B168F_W3.csv:3348)
+- retest_line: Quarterly-VWAP (ROWPACK_GBP0629-B168F_W3.csv:3348)
+- retest_side_tag: dS (ROWPACK_GBP0629-B168F_W3.csv:3333)
+- confirm_bar: 2026-07-14 11:15 (ROWPACK_GBP0629-B168F_W3.csv:3348)
+- confirm_src: BOTH (ROWPACK_GBP0629-B168F_W3.csv:3348)
+- entry_bar: NOT PRINTED (no-row)
+- entry_ref: NOT PRINTED (no-row)
+- fill: NOT PRINTED (no-row)
+- sl: NOT PRINTED (no-row)
+- sl_swing_bar: NOT PRINTED
+- sl_branch_printed: NOT PRINTED (no-row)
+- tp_name: NOT PRINTED
+- tp_price: NOT PRINTED (no-row)
+- r_at_open: NOT PRINTED (no-row)
+- htf_4h: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:3320)
+- htf_1h: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:3320)
+- htf_15m: 1.0 (ROWPACK_GBP0629-B168F_W3.csv:3320)
+- ltf_5m: -1.0 (ROWPACK_GBP0629-B168F_W3.csv:3320)
+- zone_src: XOB (ROWPACK_GBP0629-B168F_W3.csv:3339)
+- xob_id: 3709 (ROWPACK_GBP0629-B168F_W3.csv:3338)
+- xob_range: 1.33666-1.33785 (ROWPACK_GBP0629-B168F_W3.csv:3339)
+- xob_promoT: 2026-07-13 19:35 (ROWPACK_GBP0629-B168F_W3.csv:3348 / ROWPACK_GBP0629-B168F_W3.csv:3338)
+- xob_inplay_printed: 1 (ROWPACK_GBP0629-B168F_W3.csv:3339)
+- xob_origin_id: 3709 (ROWPACK_GBP0629-B168F_W3.csv:3319)
+- xob_origin_range: 1.33666-1.33785 (ROWPACK_GBP0629-B168F_W3.csv:3319)
+- xob_origin_formT: 2026.07.13 17:55 (ROWPACK_GBP0629-B168F_W3.csv:3319)
+- commit_via: SWING (ROWPACK_GBP0629-B168F_W3.csv:3342)
+- promo_return: NOT PRINTED (no-row)
+- div_kind: NOT PRINTED (no-row)
+- div_bar: 2026-07-14 11:00 (ROWPACK_GBP0629-B168F_W3.csv:3350)
+- div_type_his: UNMAPPED
+- exit_bar: NOT PRINTED (no-row)
+- exit_price: NOT PRINTED (no-row)
+- exit_src: NOT PRINTED (no-row)
+- r_result: NOT PRINTED
+- reject_tag: A6REFUSED (ROWPACK_GBP0629-B168F_W3.csv:3353)
+- reject_reason: DIV_FALLBACK (ROWPACK_GBP0629-B168F_W3.csv:3353)
+- reject_pack_line: ROWPACK_GBP0629-B168F_W3.csv:3353
+- source_pack_lines: ROWPACK_GBP0629-B168F_W3.csv:3344;ROWPACK_GBP0629-B168F_W3.csv:3339;ROWPACK_GBP0629-B168F_W3.csv:3338;ROWPACK_GBP0629-B168F_W3.csv:3342;ROWPACK_GBP0629-B168F_W3.csv:3350;ROWPACK_GBP0629-B168F_W3.csv:3353;ROWPACK_GBP0629-B168F_W3.csv:3319;ROWPACK_GBP0629-B168F_W3.csv:3320;ROWPACK_GBP0629-B168F_W3.csv:3340;ROWPACK_GBP0629-B168F_W3.csv:3333
+- setup_class: NOT PRINTED (no REGIMECENSUS row at confirm bar) (no-row)
+- sweep_src_level: NOT PRINTED (no row names a swept level for this setup)
+- sweep_src_bar: NOT PRINTED (no row names a sweep candle for this setup)
+- poi_zone_kind: XOB (ROWPACK_GBP0629-B168F_W3.csv:3339)
+- poi_zone_id: 3709 (ROWPACK_GBP0629-B168F_W3.csv:3338)
+- poi_zone_range: 1.33666-1.33785 (ROWPACK_GBP0629-B168F_W3.csv:3339)
+- poi_zone_formT: 2026.07.13 17:55 (ROWPACK_GBP0629-B168F_W3.csv:3319)
+- poi_zone_promoT: 2026-07-13 19:35 (ROWPACK_GBP0629-B168F_W3.csv:3338)
+- poi_zone_midline: NOT PRINTED (no row prints a zone midline; XOBPROMO/ZONEPICK carry range only)
+- poi_zone_kill_state_at_confirm: XOBINPLAY hits=2 scanned=189 swings=44; INPLAYCOMMIT applied=1 commitVia=SWING (ROWPACK_GBP0629-B168F_W3.csv:3340 / ROWPACK_GBP0629-B168F_W3.csv:3342)
+- retest_lines_all: Daily-POC:r10:dS (ROWPACK_GBP0629-B168F_W3.csv:3333)
+- anchor_elected: NOT PRINTED (no ANCHOR_ELECT row at confirm bar) (no-row)
+

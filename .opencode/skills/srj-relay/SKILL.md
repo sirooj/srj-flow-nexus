@@ -75,6 +75,7 @@ Setup report (his order O2 2026-10-10, relay B-150)
 - xob_id stays the machine's pick; xob_origin_* is his documentation tag (most recent in-play XOB, his words 2026-10-10, B-160a), read from the trade-side B162ORIGIN row at the confirmation candle; never a trade gate.
 - Every cell comes from a named pack line (source_pack_lines lists them). A value no print carries is NOT PRINTED, never inferred. div_kind uses the machine's words (regular/hidden, bullish/bearish); div_type_his is filled only where his record maps a number (e.g. his W2 "blue solid which is type 1 bullish"), else UNMAPPED. Rejected rows name the killing row (ABORT reason, A6REFUSED predicate, CONFIRMPOLL confirm=0 with touchAttr, S54KILL, TP_RR_FAIL with R, PROMO_RETURN_NONE).
 - REPORT/README.md holds the column dictionary and the tag each column reads. Files over 900 KB split by week.
+- Never simplify the report from the CSV (his words 2026-10-11, B-168): every report he reads carries, per setup, the POI entry zone (5m XOB or FVG, with its id, range, formation and promotion candle, midline, and kill state at the confirmation candle), the setup class (trend following or mean reversal), the 4H, 1H and 15m bias, the sweep source for mean reversal, and the CQD divergence type, each from a named row or NOT PRINTED with the tag that would carry it.
 
 Blind test (his words 2026-10-11, relay B-167)
 - A blind test means he keeps his own journal for the window private and checks the machine's trades himself in MT5. The builder never asks for, reads or grades his journal for a blind window.
