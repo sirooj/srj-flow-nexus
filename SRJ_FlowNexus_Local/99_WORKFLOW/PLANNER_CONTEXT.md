@@ -201,6 +201,7 @@ Operator kickoff for any new thread:
 - B169-5M-TIMING-BEFORE-FORM (planner lesson 2026-10-11, B-169): a refusal that matches his words in form is still graded on the candle his words name; a pre-confirmation 5m kill is checked against his confirmation-candle and retest-death words before it is called his rule. Blind windows are graded on his words and the register only.
 - B169-NO-ZONE-NO-TRADE (planner lesson 2026-10-11, B-169): a trade whose zone passes in play only through a far swing touch while the direct check says not in play is graded against his in-play words before it is called valid; his 2 July ruling found it.
 - B170-WINDOW-ENTRY-LINE (planner lesson 2026-10-11, B-170): every line he retested on the trade side between the first counted retest and confirmation, still alive at confirmation, is an entry line; its body break never exits. A paper SEPARATES resting on unprinted windows is proved on the trial's own prints with STOP rules, not on a separate diagnostic.
+- B171-DIRECT-INPLAY-FINAL (planner lesson 2026-10-11, B-171): a check that says a zone is not in play is final; a later path may confirm a live zone but never revive a dead one. His 2 July ruling found the overwrite.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
