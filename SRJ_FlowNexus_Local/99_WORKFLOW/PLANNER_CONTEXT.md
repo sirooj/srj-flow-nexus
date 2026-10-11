@@ -208,6 +208,7 @@ Operator kickoff for any new thread:
 - B175-HIS-ZONE-BY-CANDLE (planner lesson 2026-10-11, B-175): his zone for a trade is taken from his words by candle time before any machine zone is graded, and every message to him names candles and prices, never machine ids or log references (his order 2026-10-11); B-172 to B-174 graded 28 Aug London on an XOB documentation tag while his zone is the 06:30-06:40 FVG, and the machine reads no FVG on any deal (B-174 R3).
 - B176-BOTH-HALVES-ONE-PRINT (planner lesson 2026-10-11, B-176): a SEPARATES reading whose halves are both unreadable by the EA is printed whole in one always-restored run, never one half per relay, so the lane can still reach its trial inside the limit; B-175 R5 queued the gap print and the per-zone census as two relays with the lane at 4 of 6.
 - B177-GATE-WHERE-ROADS-MEET (planner lesson 2026-10-11, B-177): a gate built from a separator sits at the one step every road to the order passes and where all its inputs exist as values; B-176 R1 found that step is the confirmation-divergence pass, while B-171 put its check on one road only and the 2 July long fired past it.
+- B178-STANDING-AT-CONFIRMATION (planner lesson 2026-10-11, B-178): an XOB half is graded on spec 3.5 whole, a reach after the zone's own promotion by a zone still standing at the confirmation candle; B-177's export latched any reach since the latest trade-side promotion and never re-read the reached zone at confirmation, and B-176's "no long reach 17:15-18:10" beside B-177's 17:20-17:35 reach rows was one object with two answers (B158), reconciled before the print.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -298,3 +299,4 @@ Operator kickoff for any new thread:
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-160a (kit PK-2).
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-161 (kit PK-2).
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-162 (kit PK-2).
+- 2026-10-11: planner session ran as ClickUp Brain for relay B-178 (kit PK-2).
