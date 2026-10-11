@@ -1,4 +1,4 @@
-# SEALED - his own GBPUSD 6-17 July takes are written first; open after.
+# GBPUSD blind test 6-17 July - machine trades for his own check (his words 2026-10-11, B-167)
 
 Machine trades of the blind run GBP0629-B162 (kept build B-162, unchanged; GBPUSD M5, warm-up from 29 June, graded 6-17 July). From the report rows only. No validity word anywhere on this sheet.
 

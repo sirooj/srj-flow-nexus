@@ -76,6 +76,12 @@ Setup report (his order O2 2026-10-10, relay B-150)
 - Every cell comes from a named pack line (source_pack_lines lists them). A value no print carries is NOT PRINTED, never inferred. div_kind uses the machine's words (regular/hidden, bullish/bearish); div_type_his is filled only where his record maps a number (e.g. his W2 "blue solid which is type 1 bullish"), else UNMAPPED. Rejected rows name the killing row (ABORT reason, A6REFUSED predicate, CONFIRMPOLL confirm=0 with touchAttr, S54KILL, TP_RR_FAIL with R, PROMO_RETURN_NONE).
 - REPORT/README.md holds the column dictionary and the tag each column reads. Files over 900 KB split by week.
 
+Blind test (his words 2026-10-11, relay B-167)
+- A blind test means he keeps his own journal for the window private and checks the machine's trades himself in MT5. The builder never asks for, reads or grades his journal for a blind window.
+- The machine's trade list goes to him unsealed: trader-words sheet in REPORT/ plus MT5's own tester report (Report= key in the run ini), copied into REPORT/.
+- A blind run leaves the terminal open on the finished test so he can open the trade chart (Strategy Tester, Backtest tab, right-click, Open Chart). The launcher shell is still killed; terminal64 is not. The next relay's start gate records it as ACCOUNTED, stops it only after he has closed it or says so, and restores the .preB copies then.
+- He reports his comparison in his own words; only then does a relay bank it and grade.
+
 Reply line (exact shape)
 - B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED | STOP>
 - STOP = a STOP rule hit before the trial ran or finished; no source edit stands; the reason is the result's first line (B-84 first use, planner ruling B-85).
