@@ -59,6 +59,7 @@ Result file
 - Before banking, grep for the section/row/item first: if the exact words are already present verbatim, verify counts + SHAs, cite the landing commit, and do not re-append (B-27 re-issued B-26's landed banking; silent re-application risks duplicates and a false record).
 - Questions for him: trader words, exact dates, times and prices, asked only after the record-first search, with the sources listed.
 - Grep before banking (B-27 lesson, operator order 2026-10-05): before appending any strategy-skill section, journal row or ledger item, grep the target file for it. Count 1 and verbatim: append nothing, cite the commit that landed it, and report ALREADY_BANKED <commit>. Count 0: append. Count 2 or more: append nothing and write a carried note.
+- Trader summaries and carried notes name zones and events by candle time, price and session only, never by machine zone numbers, tags or log references (his words 2026-10-11, B-175).
 
 Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
 - On every KEPT verdict, commit SRJ_FlowNexus_Local/06_HANDOFFS/ROWPACK/ROWPACK_<run>.csv for each run the verdict rests on (RECON62 and June) plus DEALS_<run>.csv, and ROWPACK/INDEX_B<n>.md.
@@ -69,6 +70,12 @@ Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
 - Also write one file per trading day, ROWPACK/<run>/<YYYY-MM-DD>.csv (same columns), so the planner reads one day at a time (PK-2, relay B-132).
 - Rows of an open trade are kept from entry to exit even outside the session windows (MTEXIT, exit, day-close and deal rows), so every exit is in the pack.
 - Packs are text records, staged by explicit path. The pointer carries one Lane line: open item, first relay, relay count.
+
+Day-log parsing (his order 2026-10-11, measured B-170: parse Tester day logs in Python, never PowerShell)
+- PowerShell Get-Content loads the whole log as .NET strings: on the 1.1 GB day log the cutter thrashed 45+ minutes at 1.7 GB RAM and was killed unfinished. The same cut in Python (C:\Users\winar\AppData\Local\Programs\Python\Python313\python.exe) took ~2 minutes at ~95 MB.
+- Rule: any script that scans Tester/logs/*.log end to end (pack cutters, span scans, multi-pattern greps) is Python: open(encoding='utf-16') streamed line by line, compiled re patterns, one pass per job (cut all runs' segments in the single pass; spans first, rows second). Never Get-Content/Select-String over the whole log, never one scan per date/tag.
+- Parity gates (same as the run they replace): identical columns, CRLF line endings, CSV quoting (double internal quotes); journal_line = the log's 1-based line number; week/day splits and session-window/span rules unchanged. Verify row counts per file plus the superset check (every old (journal_line, tag, raw) present) before filing.
+- PowerShell stays for: terminal launches (WMI pattern), git, STATUS/DONE polling, small-file greps (packs, CSVs, sources), SHAs. Python stays out of: launches, terminal control, commits.
 
 Setup report (his order O2 2026-10-10, relay B-150)
 - On every KEPT verdict, and for any run a relay names, render SRJ_FlowNexus_Local/06_HANDOFFS/REPORT/SETUPS_<run>.csv offline from that run's committed row packs (no EA print is added for it). One row per candidate inside the session windows, keyed by window + direction + anchor line (spec 6), with its last state.
