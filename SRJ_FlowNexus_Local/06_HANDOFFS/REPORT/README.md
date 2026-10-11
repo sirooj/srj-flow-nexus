@@ -65,3 +65,6 @@ side + anchor are one candidate (their pack lines merge into source_pack_lines).
   ABORT PROMO_RETURN_NONE; the 4 June 11:00 SHORT reads the same (register NONE).
 - New tags read: B152PR (verdict + per-zone proof segments), B150GATE (gate value,
   bar, side, zone src), PROMO_RETURN_NONE (ABORT reason + A6REFUSED predicate).
+
+## B165R addendum (relay B-165, MEASURED re-cut)
+- SETUPS_RECON62-B165R.csv (28 rows, 7 EXECUTED) + SETUPS_JUNE0525-B165R.csv (20 rows, 4 EXECUTED) render from the re-cut -B165R packs: trade spans run entry DEAL to the first server pass after both the exit DEAL and the trade's MTEXIT row, so the 5 June (19:15 bar) and 27 May (20:05 bar) MTEXITs are packed and their exit cells filled; new tags SLSRC/SWINGPICK/SL_REF (stop values/branch, no swing-bar-time field — sl_swing_bar stays NOT PRINTED).
