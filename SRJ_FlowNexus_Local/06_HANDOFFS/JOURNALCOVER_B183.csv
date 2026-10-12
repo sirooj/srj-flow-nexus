@@ -1,0 +1,8 @@
+date,pair,session,direction,journal_row,setup_class,W,L
+6/18/26,USDJPY (pair-block: June journal block; register B window 1-13 June),LDN,NOT PRINTED (no direction column in journal; never inferred),53,TF,1.00,0.00
+6/19/26,USDJPY (pair-block: June journal block; register B window 1-13 June),NY,NOT PRINTED (no direction column in journal; never inferred),59,TF,1.00,0.00
+6/25/26,USDJPY (pair-block: June journal block; register B window 1-13 June),NY,NOT PRINTED (no direction column in journal; never inferred),75,TF,1.00,0.00
+8/12/26,EURUSD (pair-block: Aug-Sep journal block; register A window 26 Aug-10 Sep),LDN,NOT PRINTED (no direction column in journal; never inferred),210,MR,1.00,0.00
+8/17/26,EURUSD (pair-block: Aug-Sep journal block; register A window 26 Aug-10 Sep),NY,NOT PRINTED (no direction column in journal; never inferred),223,TF,1.00,0.00
+8/20/26,EURUSD (pair-block: Aug-Sep journal block; register A window 26 Aug-10 Sep),LDN,NOT PRINTED (no direction column in journal; never inferred),233,TF,1.00,0.00
+8/25/26,EURUSD (pair-block: Aug-Sep journal block; register A window 26 Aug-10 Sep),NY,NOT PRINTED (no direction column in journal; never inferred),247,TF,1.00,0.00

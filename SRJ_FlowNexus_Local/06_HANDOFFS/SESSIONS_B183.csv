@@ -1,0 +1,25 @@
+date,session,seeds_formed,confirm1_polls,refusals_by_gate,takes,first_stop_note
+2026-07-06,LDN,4,2,FRESH_OB_DEAD x1; LTF_MISALIGN x2; TP_RR_FAIL x1,0,seeds present
+2026-07-06,NY,6,5,DIV_FALLBACK x1; FRESH_OPP_FVG x1; LTF_MISALIGN x2; TP_RR_FAIL x2,0,seeds present
+2026-07-07,LDN,1,1,none,0,seeds present
+2026-07-07,NY,5,3,SEEDBIAS_REFUSED x4,5,seeds present
+2026-07-08,LDN,3,2,LTF_MISALIGN x1; SEEDBIAS_REFUSED x1,0,seeds present
+2026-07-08,NY,3,3,FRESH_OPP_FVG x1; HISZONE_NONE x1,0,seeds present
+2026-07-09,LDN,0,0,none,0,"SILENT: 953 rows in session but no ANCHOR_ELECT seed, no CONFIRMPOLL, no ABORT/A6REFUSED/B182DEC; no REGIMECENSUS and no RETESTBOOK rows print (tags absent); UJPROBE ltf 1.0x20/-1.0x16 quoted from rows. First stop NO-PIN by M1 terms (no pin authorizes seed-formation absence)"
+2026-07-09,NY,5,4,FRESH_OB_DEAD x1; LTF_MISALIGN x3; SEEDBIAS_REFUSED x1,0,seeds present
+2026-07-10,LDN,4,4,FRESH_OB_DEAD x1; HOLDER_EXPIRED x1; LTF_MISALIGN x1,0,seeds present
+2026-07-10,NY,4,2,FRESH_OPP_FVG x1; LTF_MISALIGN x2,0,seeds present
+2026-07-11,LDN,NO FILE (weekend; no rows),,,,
+2026-07-11,NY,NO FILE (weekend; no rows),,,,
+2026-07-12,LDN,NO FILE (weekend; no rows),,,,
+2026-07-12,NY,NO FILE (weekend; no rows),,,,
+2026-07-13,LDN,2,1,HOLDER_EXPIRED x1; LTF_MISALIGN x1,0,seeds present
+2026-07-13,NY,5,3,LTF_MISALIGN x3; SEEDBIAS_REFUSED x1,0,seeds present
+2026-07-14,LDN,5,2,DIV_FALLBACK x2; FRESH_OPP_FVG x1; LTF_MISALIGN x1,0,seeds present
+2026-07-14,NY,2,1,FRESH_OB_DEAD x1,0,seeds present
+2026-07-15,LDN,3,1,FRESH_OB_DEAD x1; FRESH_OPP_FVG x1; SEEDBIAS_REFUSED x1,0,seeds present
+2026-07-15,NY,1,0,FRESH_OB_DEAD x1,0,seeds present
+2026-07-16,LDN,4,3,LTF_MISALIGN x5,0,seeds present
+2026-07-16,NY,0,0,none,0,"SILENT: 1217 rows in session but no ANCHOR_ELECT seed, no CONFIRMPOLL, no ABORT/A6REFUSED/B182DEC; no REGIMECENSUS and no RETESTBOOK rows print (tags absent); UJPROBE ltf -1.0x32/1.0x28 quoted from rows. First stop NO-PIN by M1 terms (no pin authorizes seed-formation absence)"
+2026-07-17,LDN,2,2,LTF_MISALIGN x2,0,seeds present
+2026-07-17,NY,1,0,FRESH_OB_DEAD x1,0,seeds present
