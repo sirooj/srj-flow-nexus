@@ -1,0 +1,58 @@
+# BUILDER RESULT B-187 - June ticks loaded, Yearly POC live on the pound: your 10 July 14:15 retest is valid, the machine holds it at the regime gate
+
+Trader summary: your 10 July short can now be tested - the machine has your Yearly POC at 1.34296 all day, and your 14:15 candle (open 1.34293, high 1.34300, low 1.34260, close 1.34286) is a valid retest of it: the wick runs 4 points through with the body holding below. The machine seeded your short at 14:15 but never classified it - no trend with it and no fresh sweep behind it at any pass from 14:15 to 15:45 - so it sat waiting, armed near 15:50, and the freshness rule killed it at 15:55. That freshness kill is by your pre-confirmation-only words, and the confirmation itself never came live. So the machine still does not take your trade, and the first thing in its way is the regime gate, not the confirmation or the target. The London-high sweep rows are unchanged (13:55 and 14:00 tags, values unprinted), and whether your sweep candle makes it fresh is still open since the candle is not on record. Your 7 July short is byte-identical (entry 14:45 at 1.33863, out 16:54 at 1.33747); its booked line is the bottom of the small evening zone from 20:30 the night before, and no yearly line books nearer (yours sits above the entry). Nothing else moved: all pound, euro and June takes stand as kept. The new pound run is the baseline now. Nothing is asked.
+
+## Relay order (B-187 MISSED-GBP0706 5 of 6 -> KEPT)
+- Part 0 on builder/B-186 at b4823d7 (backup ls-remote exact; no remote builder/B-187 before push; builder/B-187 cut here; rev-parse HEAD = b4823d7 + branch builder/B-187 after cut, re-checked before commit below). Push via backup, never origin.
+- Skills loaded whole in order (srj-relay 116 lines; srj-strategy whole per B-186 load + EXIT-JOURNAL-THOROUGH, diff EMPTY since). .agents stub never opened.
+- Reads in order: pointer (25 lines); RESULT_B186 (STOP reason) + SLICE_B186; SEED_B186 (seeder/probe/ckpt/blockers); REGISTER C + F (F1-F4 + B-185/B-186a notes); spec v4.2 (2 L66-82, 3.2 L94-101, 3.5 L124-141, 3.6 L158-181, 3.7 L183-214, 3.8 L216-220); LIVETERM_B186 + TPPOOL_0707_B186 (filed B-186, planner-unopened); DEALS B-182 + B185D (2/14/8). Grep-only: ledger, AGENTS.md, .clinerules, journal.
+- Names per relay: kit PK-2; lane 5 of 6. Kept pair on disk, never edited/compiled: EA 67021D84 + ex5 7601D51A; indicator F0924613 + ex5 717099E9. Seeds (common): GBPUSD 0f67b6ed + ckpt 5954bc9d; EUR 617ff927; USDJPY 9f2d33cc. terminal.ini 78d143fa (T1 GBP window as-run). Runs T0 (6/09-6/29 warm-up) + T1 GBP0629-B187 (standard window). Ledger 1332 -> 1333 tag B187-GBPTICKS. Python 3.13.16 canonical (py launcher absent, disclosed); one script per job.
+- Start gate: log-1 = b4823d7; status 721 lines (journal 325-327 UNSTAGED expected, ACCOUNTED). git diff b4823d7 EMPTY on pointer/CONTEXT/HANDOFF/register/skills/RESULT_B186/SLICE_B186/SEED_B186. Disk SHAs EA/ex5/indicator/ex5 + 3 seeds + ckpt + terminal.ini all as named (seed SHAs re-verified after runs per verdict section). No terminal64 at gate or any launch (leftovers stopped by PID). Counts before: ^1333.=0, B187-=0, "- B-187:"=0. Python first (canonical path; py absent).
+- Scope kept: two tester runs of the unchanged kept pair (T0+T1) with dates written/read back; .preB187 copies before first launch (seeds/ckpt MATCH, ini, Charts 19 files 0 mismatch); offline cuts/grades; text records. No EA/include/indicator/ex5 edit or compile; no seed/ckpt write; no new rule/number/tolerance; no question. Candle/prices only in trader text. Verdict KEPT.
+- Timing table: gate/reads/SHAs ~20 min; R + S1 + T0 prep ~25 min; T0 run 0:03:44 + grade ~10 min; T1 prep + run 0:04:02 + verify ~12 min; cuts (lean pass + full-tag recut) ~10 min; G grades + SETUPS render + records ~50 min; push follows.
+
+## Part B - banking
+- No new rule words this relay (his exit-journal order + B186a quotes stand banked B-186).
+
+## Part R - offline reads (one script job_r_b187.py)
+- R1 CONFIRMED from rows, quoted raw: GBP SEEDFILE/PARSED/COMPATIBLE/REFUSED SEAM_UNREACHABLE/FINAL accepted=NO seam 2026.06.09 measuredDepth=0 (day log 8874443-8874447) vs EURUSD PARSED/COMPATIBLE/SEAM_REACHABLE/FINAL accepted=YES seam 2026.06.26 measuredDepth=2026.06.01 (6853390-6853394) + SEED_SLOT rows (Y adopted on EU). Planner reading CONFIRMED: the seed file is fine; the tester lacks GBPUSD ticks before 29 June while holding euro ticks from June (RECON62 starts 26 Aug all the same).
+- R2 FOUND (no STOP): GBP window 1782691200/1784332800 per RESULT_B182 L9/L58 (terminal.ini as-run); run ini GBP0629-B182.ini carries EU leftover FromDate/ToDate (disclosed; terminal.ini governs per B-38).
+- R3 June seed verdict, reported only: USDJPY PARSED/COMPATIBLE/REFUSED SEAM_UNREACHABLE/FINAL accepted=NO, same 06.09 seam (day log 7903582-7903586). No action (June takes graded without it; X4 carries it open).
+
+## Part T - runs (S-A clear, no STOP)
+- S1 .preB187 verified (4 Common seeds/ckpt MATCH; ini 78d143fa; Charts 19/19 0 mismatch).
+- T0 warm-up 6/09-6/29 (1780963200/1782691200, relay's minus-20d): passed 0:03:44, 1285801 ticks; seed rows same refusal (information, expected); first replay row 2026.06.09 00:00 (STOP check passes: not later than 06.11); deals NONE (warm-up, listed never graded B-166).
+- T1 GBP0629-B187 (1782691200/1784332800): window verified (tester line 2026.06.29-2026.07.18); SEEDFILE/PARSED/COMPATIBLE/SEAM_REACHABLE/FINAL accepted=YES seam 2026.06.09 measuredDepth=2026.06.09 (day log 13667830-13667834); SEED_SLOT Y adopted=YES foldFrom 2026.06.09 (13667839; M+Q adopted, D/W/FOMC not, CKPT Y active 229561 rows 13667852); passed 0:04:02, 1386092/4320 identical. Launcher shells killed post-verify; watchers started (DONE absent both runs, B-183 R5 class); leftover terminals stopped by PID (3488/9888/14728-class).
+- T1 STOP rules: S-A clear (accepted=YES quoted); S-B clear (2 deals, both 7/07, no must-never); S-C clear (F2 present #2). Filed-trade table: 2/2 SAME (7/07 14:45 sell 1.33863 + 16:54 buy 1.33747; stop/target/exit per B-182 cells, unchanged).
+- T2 cut job_cut_b187.py (rev2: full-row raw + pack_line numbering + DEAL/ABORT prefix-less patterns + full B-182 tag set + RETESTDIAG/UJDTTERMS/CONFIRM_STRUCT_FAIL/UJOPCONF/SIDE1C_SUPP/S1C): GBP0629-B187 46426 rows / 15 days. DEALS_GBP0629-B187.csv (2 deals, 0 unmapped).
+
+## Part G - grades (each cell names its pack/log line)
+- G1 seed proof: SEEDFILE/PARSED/COMPATIBLE/ACCEPTED/FINAL + SEED_SLOT Y adopted + CKPT Y active rows quoted (T1 above). Yearly POC 1.34296 all 7/10 (WINLINE, e.g. 14:15 pack 1524); 7/13 values: RETESTDIAG distances only (nearAbove Yearly-POC 275-307pts 16:00-16:10 packs 2086-2141; value NOT PRINTED, line never anchored - inside=-, no penetration).
+- G2 F3 on B-187 rows (register F3 words + skill lines: GU-TRADES-PINNED B-184 section; TOUCH-OR-BREAK L105; spec 2 row 1 L72): (a) 14:15 VALID RETEST (o 1.34293 h 1.34300 l 1.34260 c 1.34286 vs 1.34296: 4pt wick-through, body below; B176HZ pack 1305) + earlier NY touch 14:10 (poll pack 168, oppCandle=0, no confirm). (b) Sweep: LD.H 13:55 (pack 1407) + pLD.H 14:00 (pack 1435) rows; LD.H value NOT PRINTED; p-meaning NOT PRINTED; first NY candle strictly above it ungradeable (needs the value); sweepTag=0/mrOk=0 every NY pass; his sweep candle NOT GIVEN (question withdrawn B-79) -> freshness ungradeable. (c) Path: SEED Yearly-POC SHORT 14:15 (pack 1525, rank=2 tier=1); REGIME NONE every NY pass 14:15-15:45 (packs 1526-2050; TREND only 15:50 pack 2078); shadow confirms 14:20 (pack 171, bar 14:15) + 15:20 (pack 214); live NEVER (zero B60C rows); S1 hold to ~15:50, arm, FRESH_OPP_FVG kill 15:55 S4 (pack 2110, armed-state, pinned L57); 07:10 XOB stands all day (HZB first-carrier every pass 09:10-16:10); SL elected 1.34374 S3ARM 15:50 (packs 2082-2083; his 14:00 price NOT GIVEN); TP none elected (no SHORT TP_ELECT); DIV hidden dbar=15:30 (pack 2112; D130 verdict NOT PRINTED; his type-2-bearish mapping open). NOT TAKEN. First stopping gate: CLASS-REFUSED (regime NONE at S1). Defect class if still refused: CLASS-REFUSED.
+- G3 F2: (a) entry taken identical (DEAL #2); TP_ELECT identical (1.33747 R1.51); Yearly-POC 1.34296 + Y-VWAP 1.34401 behind (EXITCENSUS) - no Yearly line books nearer. (b) pool-source candidate: EA windows from code (MtNearestTpTarget :12343 sessbufs 18 + uj_pool); PM window (19:00-24:00 server) contains 6 July 20:30; PM low from committed KILL/GAP rows <= 1.33649 (19:00-19:50 coverage) != 1.33747 -> NOT A SESSION LOW; uj_pool path NOT PRINTED (B-187 proof print waits next relay). (c) exit identical (MTEXIT 16:50 TP_TOUCH + DEAL 16:54:59); 26 W-VWAP EXITCENSUS rows same (thorough per EXIT-JOURNAL-THOROUGH).
+- G4 SETUPS_GBP0629-B187.csv (9 rows, 55 cols): 7 carried re-verified (7/02 HISZONE + 3x TP_RR_FAIL + 7/08 HISZONE identical on B-187; 7/01 + 7/07 carried) + 7/10 LDN SHORT Yearly-POC (SESSION_CLOSED 12:05) + 7/10 NY SHORT Yearly-POC F3 (FRESH_OPP_FVG 15:55; register F3). LONG Yearly seeds (09:20/09:35/09:40 FRESH/LTF kills) listed here, not graded as his (wrong side).
+
+## Verdict: KEPT
+- S-A clear (accepted=YES quoted), no MUST-KEEP-MOVED (2/2 identical), no MUST-NEVER-FIRED (deal list = 2 same; F-TAKE not required). GBP0629-B187 becomes the pound baseline (packs + DEALS + INDEX_B187 committed). EU/June runs not repeated (no code change; seeds SHA-identical before/after: EUR 617ff927 + USDJPY 9f2d33cc re-verified after T1 - see final disk state).
+
+## Part X - records (grep-first: 0 before, 1 after each, disclosed)
+- X1 CONTEXT section 4 +1 (B187-PROVE-THE-STOP-REASON verbatim); X1b section 5 +1 (Brain B-187).
+- X2 HANDOFF section 3 +1 (B-187 KEPT arc).
+- X3 ledger 1333 tag B187-GBPTICKS (R/T/G/verdict/timing). "^1333." = 1.
+- X4 pointer rewritten (31 lines): latest B-187 KEPT; Lane 5 of 6; R3 June seed verdict open, unacted; Next from G1 first stopping gate (CLASS-REFUSED: sweep-tag detection / trend read; TP-POOL proof print for 1.33747).
+- X5 register: no edit.
+
+## Part F - file, push, reply
+- F1 this result. F2 slice (raw rows, under 600 lines).
+- F2b ROWPACK/GBP0629-B187 (15 day files) + DEALS_GBP0629-B187.csv + ROWPACK/INDEX_B187.md + REPORT/SETUPS_GBP0629-B187.csv.
+- F3 ledger 1333. F4 pointer.
+- F5 stages result, slice, packs/report (KEPT), ledger, pointer, PLANNER_CONTEXT.md, PLANNER_HANDOFF.md. Never EA, includes, indicators, ex5, seeds, ckpt, journals, logs, inis, presets or backups.
+- F6 rev-parse checks, commit, push via backup; ls-remote builder/B-187 must return the commit.
+- Reply line: B-187 is done, GitHub branch builder/B-187, commit <short hash>, verdict KEPT
+
+## Final disk state (KEPT baseline; terminal closed)
+- Kept pair on disk, untouched, never compiled: EA 67021D84 + ex5 7601D51A; indicator F0924613 + ex5 717099E9. Seeds + ckpt byte-identical (GBPUSD 0f67b6ed + ckpt 5954bc9d; EUR 617ff927; USDJPY 9f2d33cc). terminal.ini holds T1 GBP window (1782691200/1784332800, as-run); Charts as left by runs. terminal64 closed. Python 3.13.16 kept. CONTEXT +2; HANDOFF +1; ledger +1 (1333); pointer rewritten; result + slice + LIVETERM/TPPOOL already filed B-186 + B187 packs + deals + index + SETUPS new. No source/ex5/seed committed.
+
+## Carried note
+- Disk move carried (unchanged): no MQL5 folder moved (test runs only; move needs its own relay).
+- Next from the G1 first stopping gate: CLASS-REFUSED (regime NONE) on F3's Yearly-POC seed - sweep-tag detection (what pLD.H-14:00 means; LD.H value) or trend-read first; TP-POOL proof print (session-winner print) for 1.33747. R3 June seed verdict stays an open data item (June takes graded without it).
