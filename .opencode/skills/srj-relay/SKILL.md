@@ -114,3 +114,6 @@ Lane close is not project completion (operator workflow correction, banked B-116
 - Every relay preserves the top-level objective and produces the next relay toward unresolved full-range fidelity unless the operator explicitly redirects. When a lane closes, the next relay must not stop; it must state the lane result and return to the project objective.
 - Record-first investigation must explain invalid machine fires and entry mismatches from the code and records before asking the operator anything. Inventing why a machine time happened before checking the records is forbidden.
 - The operator's stated trade time is authoritative when it conflicts with a machine time; the machine time is a defect to diagnose, never a replacement fact (e.g. his 5 June UJ entry is 16:15; a machine 16:55 entry is an EA defect to explain).
+
+Session-window record order (B-188 lesson, defect owned 2026-10-12)
+- SESSION-WINDOW-RECORD-ORDER: relay record searches answer session-window/clock questions from the code session section (Include/SRJ/SRJ_Sessions.mqh) and spec section 3.0 first; the strategy skill and journal are consulted only for his sweep/session words. Searching memory for clock numbers never banked there is a record-first failure.

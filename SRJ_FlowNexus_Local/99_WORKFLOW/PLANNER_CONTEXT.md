@@ -223,6 +223,7 @@ Operator kickoff for any new thread:
 - B186-DATA-BEFORE-RULE (planner lesson 2026-10-12, B-186): when a trade he calls valid needs a line the machine never had (B-185: Yearly POC on the pound, seed refused SEAM_UNREACHABLE), fix the data and rerun the unchanged EA before grading any gate; a confirmation or class refusal measured on the wrong anchor says nothing about his trade.
 - B186-NAME-THE-NEAREST (planner lesson 2026-10-12, B-186a): a booked target that obeys NEAREST-ONLY-TP is not proven right until the line itself is named and passes his target words; a price-only TP row is not an answer to him. B-185 classed 7 July TP-NOT-WVWAP without naming the 1.33747 line.
 - B187-PROVE-THE-STOP-REASON (planner lesson 2026-10-12, B-187): a STOP reason is checked against the source and the platform's own documentation before it parks a lane. B-186 stopped on "no headless script path", but MT5's [StartUp] config (Script=, ScriptParameters=, Symbol=, Period=, ShutdownTerminal=1) runs a chart script at terminal start. It also stopped on "the AUTO seam needs the in-tester probe", but the seeder measures depth in its own OnStart on the live terminal. The refusal's cause is the tester's GBPUSD tick base, not the seed: the euro seed passed with a seam months before its run start because the tester already held those ticks.
+- B188-SWEEP-FROM-CANDLES (planner lesson 2026-10-12, B-188): when his valid retest dies at the regime step and his words name a mean-reversion sweep, the prior-session extreme and the sweeping candle are taken from committed candle rows first and set beside the machine's sweep tag and its code condition, before any detector edit or question; B-187 left 10 July at regime NONE with the London high value and the meaning of its 13:55 and 14:00 sweep tags unprinted.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -323,3 +324,4 @@ Operator kickoff for any new thread:
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-185 (kit PK-2); relay revised after his RAW-chart correction.
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-186 (kit PK-2).
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-187 (kit PK-2).
+- 2026-10-12: planner session ran as ClickUp Brain for relay B-188 (kit PK-2).
