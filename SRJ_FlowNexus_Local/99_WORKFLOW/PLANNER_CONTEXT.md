@@ -226,6 +226,7 @@ Operator kickoff for any new thread:
 - B188-SWEEP-FROM-CANDLES (planner lesson 2026-10-12, B-188): when his valid retest dies at the regime step and his words name a mean-reversion sweep, the prior-session extreme and the sweeping candle are taken from committed candle rows first and set beside the machine's sweep tag and its code condition, before any detector edit or question; B-187 left 10 July at regime NONE with the London high value and the meaning of its 13:55 and 14:00 sweep tags unprinted.
 - B189-SAME-SWEEP-ONE-TAG (planner lesson 2026-10-12, B-189): a sweep the indicator re-tags under a cached name (pLD.H at the 14:00 New York open, after LD.H at 13:55 on the same London high) is the same sweep of his. Before any regime reading, the cached tag is mapped to its session's value only where that cache holds the immediately prior session's level. B-187 and B-188 found 10 July regime NONE on a fresh London-high sweep because the cached tag read 0.
 - B190-SWEPT-ON-EVERY-CANDLE (planner lesson 2026-10-12, B-190): a target's swept verdict is read on every candle between the level and the decision, strictly beyond, never from sweep tags or session-window rows alone; B-189 R5 called the 7 July 1.33747 London low untaken from tags and window candles while 12:00-13:55 stayed unread, and carried a chart call his standing TAKEN-LINE pin answers ('not a new issue').
+- B191-NOT-NEW-MEANS-ENFORCE (planner lesson 2026-10-12, B-191): when he calls a rule 'not new', it already binds the EA and a fix that enforces it is refinement, never new scope; his veto names its own object (here the 7 July exit price) and never voids a fix that met every STOP rule unless his words say so. B-190 read 'THAT WAS NOT A NEW RULE!' as no change and restored the swept-target fix; it also re-carried a chart call his same-relay words answered.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -329,3 +330,4 @@ Operator kickoff for any new thread:
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-188 (kit PK-2).
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-189 (kit PK-2).
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-190 (kit PK-2).
+- 2026-10-12: planner session ran as ClickUp Brain for relay B-191 (kit PK-2).
