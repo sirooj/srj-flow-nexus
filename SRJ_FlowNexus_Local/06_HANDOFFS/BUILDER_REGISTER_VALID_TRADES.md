@@ -76,6 +76,8 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - NOTE 2026-10-10 (B-152 RESTORED): KILL-0604 K1c (B152PR halted the indicator, 0 deals); known open fire stands (kept EA 585093BF, JUNE0525-B137 deal #6 sell 09:55 159.868).
 - NOTE 2026-10-10 (B-153 KEPT, EA 5A5BD1F0C97F0B9F3F8357A3290EE17E720660278454DE7AC1C372B46184D2B2, indicator 78D3BFB1767AEC819A6C9A35B6342FEB199E606DEE762BD29A130CB620526938): 4 June 09:55 short refused at the 09:50 confirmation by PROMO_RETURN_NONE (no promoted live short XOB price came back to after promotion); known open fire CLOSED.
 - NOTE 2026-10-12 (B-179 KEPT, EA EB18717E2F4B8047C495E6B7CADF0B033F589A0363DCDB1FB92C6ED996B3A58D, indicator 417728FDA2918F0F9A3ECF7A369F0D29500472E26BFB4FF0F1CD92D3F6AEA114): 2 July GBPUSD long (18:10 confirmation, 18:15 entry 1.33716, blind window, his W2/B4 must-never) refused HISZONE_NONE (no standing long zone at the confirmation, no gap touched by the opposing candle).
+- F1 6 July NY long Weekly-POC -> INVALID, live chart (his words 2026-10-12, B-185: "July 6 14:45 = it is only invalid on the RAW chart because the W VWAP was near to the W POC (INVALID, was valid on the raw chart)"). Context: his manual backtest used the RAW chart; on the live chart the machine reads, the Weekly VWAP sat near the Weekly POC. Machine unfired on B-182 and B-185D (2-deal lists prove).
+- F4 13 July NY short Yearly-VWAP -> INVALID, live chart (his words 2026-10-12, B-185: "July 13 16:30: The EA is right, on the correct chart there is no Y VWAP value there."). Machine has zero Yearly rows on the pound run (B-184 AP4, YPOC_B185 seed-refusal proof). Unfired both builds.
 
 ## D. QUARANTINE ANNEX (his "do not use that" order - no conclusions drawn here)
 
@@ -88,9 +90,10 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 | # | Date / session / pair / entry | Direction | Entry line (anchor) | Entry price | Exit | Source |
 |---|---|---|---|---|---|---|
 | F1 | 6 July New York GBPUSD, entry candle UNKNOWN | LONG | Weekly POC [HIS] | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
-| F2 | 7 July New York GBPUSD, entry candle UNKNOWN | SHORT | Weekly POC [HIS] | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
-| F3 | 10 July New York GBPUSD, entry candle UNKNOWN | SHORT | UNKNOWN (line not named) | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
+| F2 | 7 July New York GBPUSD, entry candle UNKNOWN | SHORT | Weekly POC [HIS] | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum); B-185: entry valid as taken (machine 14:45 Daily-POC SHORT 1.33863, his line differs), exit defect open (his Weekly-VWAP exit; machine exited 16:50 at booked 1.33747, Weekly VWAP never touched on rows) |
+| F3 | 10 July New York GBPUSD, entry candle UNKNOWN | SHORT | UNKNOWN (line not named) | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum); B-185 his full setup words verbatim: "July 10 14:55: Mean reversal LD.H sweep, Y POC, 7:10 5m XOB POI, 14:00 swing high SL, TP at LD.L at 11:50 swing low, type 2 normal bearish CQD divergence."; context: his manual backtest used the RAW chart (prices/POI differ from the live chart the EA reads) |
 | F4 | 13 July New York GBPUSD, entry candle UNKNOWN | SHORT | Yearly VWAP [HIS] | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
+- NOTE 2026-10-12 (B-185, his words verbatim): "The defects of the EA is only on the July 7 exit TP reason logic and July 10 valid setup." (scoped defect list: F2 exit + F3 take; F1/F4 invalid per his live-chart words above).
 
 ## E. HOW FUTURE BUILDS USE THIS FILE
 

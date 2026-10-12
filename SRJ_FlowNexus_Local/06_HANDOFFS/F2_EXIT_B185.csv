@@ -1,0 +1,9 @@
+part,row
+entry,"SIGNAL 14:45 pack 1307 (Daily-POC, TREND, div regular, tp 1.33747 R1.51 sl 1.33940) + DEAL #2 sell 14:45 1.33863 pack 1312 + ENTRY_TICKET pack 1313; entry correct per his words"
+tp_elect,TP_ELECT 14:45 pack 1306: entry 1.33863 sl 1.33940 tp 1.33747 R 1.51 (price only; tpName NOT PRINTED; weighed candidates + refusals NOT PRINTED - no tag prints the pool)
+wvwap_per_bar,"26 EXITCENSUS Weekly-VWAP rows 14:45-16:55; first 14:50 pack 1344 val=1.33630, last 16:55 pack 2128 val=1.33648; every verdict=ok trigger=0 (bodies 1.33738-1.33895 never touched the line)"
+first_wv_touch,NONE before 16:50 on rows (nearest body low 1.33738 vs line <=1.33648; ~90pts apart all session)
+exit_row,MTEXIT 16:50 pack 2133 reason=TP_TOUCH entry=1.33863 exit=1.33747 + DEAL #3 buy 16:54:59 1.33747 pack 2102
+exit_code,EA :12857-12874 (priority SL>TP>BREAK>HTF>DAY; vTP -> MT_EXIT_TP_TOUCH at tpRef :12863); EXITVERDICT print :12844-12855; nearest-TP election MtNearestTpTarget :12343
+spec,spec 2.2 (take-profit POI exits on touch) + NEAREST-ONLY-TP L89 (nearest valid booked; 1.33747 nearer than 1.33630 W-VWAP) + MANAGE-NEAREST L32
+class,"TP-NOT-WVWAP (booked target touched 16:50; Weekly VWAP never touched on rows, never in any TP row; his exit premise needs live-chart values - RAW-vs-live correction applies)"
