@@ -220,6 +220,8 @@ Operator kickoff for any new thread:
 - B185-SHADOW-IS-NOT-THE-GATE (planner lesson 2026-10-12, B-185): CONFIRMPOLL is a shadow print that gates nothing, so a confirm=1 shadow row never proves the live gate confirmed; a kill after a shadow confirm is post-confirmation only when the live gate's own row says so. B-184 read the 10 July New York 15:55 freshness kill as post-confirmation while the setup never left the armed state.
 - B185-SPEC33-PINS-THE-5M-LEVEL (planner lesson 2026-10-12, B-185): spec 3.3 says the 5-minute state must agree with the direction and L139 bars entry against it, so a level-misalignment kill is pinned; when it kills a trade he calls valid, the machine's 5m read is graded against his chart first (FIX-NOT-REPLACE), never lifted as a rule. B-184 S-5MLEVEL called it NO PIN.
 - B185-LIVE-CHART-IS-THE-REFERENCE (trader correction 2026-10-12, B-185): his July pound manual backtest used the RAW chart, whose prices and POI values differ from the normal live chart the EA reads; on the live chart 6 July 14:45 long (Weekly VWAP near Weekly POC) and 13 July 16:30 short (no Yearly VWAP) are invalid and the machine was right. Before grading a missed trade, ask whether his values came from the live chart; a RAW-chart-only take is never a missed trade.
+- B186-DATA-BEFORE-RULE (planner lesson 2026-10-12, B-186): when a trade he calls valid needs a line the machine never had (B-185: Yearly POC on the pound, seed refused SEAM_UNREACHABLE), fix the data and rerun the unchanged EA before grading any gate; a confirmation or class refusal measured on the wrong anchor says nothing about his trade.
+- B186-NAME-THE-NEAREST (planner lesson 2026-10-12, B-186a): a booked target that obeys NEAREST-ONLY-TP is not proven right until the line itself is named and passes his target words; a price-only TP row is not an answer to him. B-185 classed 7 July TP-NOT-WVWAP without naming the 1.33747 line.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -318,3 +320,4 @@ Operator kickoff for any new thread:
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-183 (kit PK-2).
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-184 (kit PK-2).
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-185 (kit PK-2); relay revised after his RAW-chart correction.
+- 2026-10-12: planner session ran as ClickUp Brain for relay B-186 (kit PK-2).
