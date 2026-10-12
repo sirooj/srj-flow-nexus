@@ -230,6 +230,8 @@ Operator kickoff for any new thread:
 - B193-RUN-THE-FIX-WHOLE (planner lesson 2026-10-13, B-193): a fix that gives one of his valid takes and also adds a fire his record has not ruled runs whole as an always-restored diagnostic on every window, with the new fire graded on his journal and rules first; B-189 stopped at the euro run, so the pound take the fix was built for was never seen.
 - B192-TAG-THE-BUILD (planner lesson 2026-10-12, B-192): a trial row is citable only when its segment carries the build's own tag line and its run name carries the relay number, with the ex5 SHA checked before and after every run; B-191 built its trial from the kept file without the re-applied swept-line fix, reused B-190 run names, and graded rows whose build could not be named.
 - B192-FILL-IS-THE-ORDER (planner lesson 2026-10-12, B-192): an exit change is graded on the position's own target and stop, never on the machine's exit row alone; on the 7 July short the fill came from the take-profit set at entry, so B-191's live-line touch changed the MTEXIT row and could never move his fill.
+- B194-MOVED-TAKE-IS-A-BREAKER (planner lesson 2026-10-13, B-194): a diagnostic that moves a must-keep take off his entry is graded BREAKS on that take, never UNDECIDED, and the move is traced to its first differing row before any new fire's call is weighed; B-193 G3a filed the 5 June New York long (kept 16:15 open 160.059, B193D 16:55 open 160.120) as UNDECIDED, though register section E blocks a hunk that loses a take whatever his answer on 2 September.
+- B194-CALL-CARRIES-HIS-FIELDS (planner lesson 2026-10-13, B-194): a chart call reaches him only with his grading fields filled from committed rows (zone with its candles and in-play road, setup class, 4H/1H/15m, sweep source, CQD type); the B-193 2 September call carried none of the zone, biases or CQD type, rode an XOB promoted 14 Aug with no in-play road read, and cited a pack cut never committed, so the planner withheld it.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -336,3 +338,4 @@ Operator kickoff for any new thread:
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-191 (kit PK-2).
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-192 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-193 (kit PK-2).
+- 2026-10-13: planner session ran as ClickUp Brain for relay B-194 (kit PK-2).
