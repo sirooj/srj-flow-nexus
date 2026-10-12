@@ -83,6 +83,7 @@ Day-log parsing (his order 2026-10-11, measured B-170: parse Tester day logs in 
 - Overlap the waits: while a tester run is going, do the offline work that does not need it (the previous run's cut and grade, table drafts, record greps, result text); never sit idle in a poll loop.
 - Print lean: a print line that fires every candle carries counts and one object, never an open list (B-178 ALIVE lists hit the ~255-character journal cap and cost log size for nothing).
 - Timing table: every result ends its relay order with wall time per step (gate, edits + compiles, each run, cut, grade, records, push).
+- Disk layout (his order 2026-10-12, builder cleanup after B-182): Tester/logs and MQL5/logs are NTFS junctions to D:\SRJ Venture\Tester-logs\ and D:\SRJ Venture\MQL5-logs\. Read and write through the C: paths (transparent to the terminal, the cutter and git); never move, delete or resolve the link itself. Untracked work files live at D:\SRJ Venture\work-archive\ (manifest MOVE_MANIFEST_B182.txt); the shared runners (run_tester_v2.ps1, watch_run.ps1), run inis, STATUS/DONE and the .preB restore chain stay in 00_CURRENT_WORKING.
 
 Setup report (his order O2 2026-10-10, relay B-150)
 - On every KEPT verdict, and for any run a relay names, render SRJ_FlowNexus_Local/06_HANDOFFS/REPORT/SETUPS_<run>.csv offline from that run's committed row packs (no EA print is added for it). One row per candidate inside the session windows, keyed by window + direction + anchor line (spec 6), with its last state.
