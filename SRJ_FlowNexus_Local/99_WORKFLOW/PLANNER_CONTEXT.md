@@ -209,6 +209,7 @@ Operator kickoff for any new thread:
 - B176-BOTH-HALVES-ONE-PRINT (planner lesson 2026-10-11, B-176): a SEPARATES reading whose halves are both unreadable by the EA is printed whole in one always-restored run, never one half per relay, so the lane can still reach its trial inside the limit; B-175 R5 queued the gap print and the per-zone census as two relays with the lane at 4 of 6.
 - B177-GATE-WHERE-ROADS-MEET (planner lesson 2026-10-11, B-177): a gate built from a separator sits at the one step every road to the order passes and where all its inputs exist as values; B-176 R1 found that step is the confirmation-divergence pass, while B-171 put its check on one road only and the 2 July long fired past it.
 - B178-STANDING-AT-CONFIRMATION (planner lesson 2026-10-11, B-178): an XOB half is graded on spec 3.5 whole, a reach after the zone's own promotion by a zone still standing at the confirmation candle; B-177's export latched any reach since the latest trade-side promotion and never re-read the reached zone at confirmation, and B-176's "no long reach 17:15-18:10" beside B-177's 17:20-17:35 reach rows was one object with two answers (B158), reconciled before the print.
+- B180-CARRIER-PROVES-ORDER (planner lesson 2026-10-12, B-180): a kept gate's proof table is read carrier by carrier, not verdict by verdict; B-179 T3 graded 13/13 SAME while its 5 June New York carrier printed a reach (16:00) before its own promotion (16:05) and its 7 Sep New York carrier a formation (15:30) after its promotion (11:10), and the 1 July 11:05 long stopped earlier on an unchanged EA; every MET row is re-proven on a carrier that obeys spec 3.5.1, and every moved non-deal is checked for cascade, before the build is relied on.
 - B179-SPEED-IS-WORKFLOW (operator order 2026-10-12, B-179): a relay's wall time is part of its fidelity; every relay runs Python first (reinstalled when missing), one script per job graded from the cut, offline work overlapped with tester runs, lean prints, and a timing table; B-177 and B-178 ran with Python missing and B-178 took over an hour.
 
 ## 5. History
@@ -302,3 +303,4 @@ Operator kickoff for any new thread:
 - 2026-10-10: planner session ran as ClickUp Brain for relay B-162 (kit PK-2).
 - 2026-10-11: planner session ran as ClickUp Brain for relay B-178 (kit PK-2).
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-179 (kit PK-2).
+- 2026-10-12: planner session ran as ClickUp Brain for relay B-180 (kit PK-2).
