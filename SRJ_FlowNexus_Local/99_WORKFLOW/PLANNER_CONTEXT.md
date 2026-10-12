@@ -232,6 +232,7 @@ Operator kickoff for any new thread:
 - B192-FILL-IS-THE-ORDER (planner lesson 2026-10-12, B-192): an exit change is graded on the position's own target and stop, never on the machine's exit row alone; on the 7 July short the fill came from the take-profit set at entry, so B-191's live-line touch changed the MTEXIT row and could never move his fill.
 - B194-MOVED-TAKE-IS-A-BREAKER (planner lesson 2026-10-13, B-194): a diagnostic that moves a must-keep take off his entry is graded BREAKS on that take, never UNDECIDED, and the move is traced to its first differing row before any new fire's call is weighed; B-193 G3a filed the 5 June New York long (kept 16:15 open 160.059, B193D 16:55 open 160.120) as UNDECIDED, though register section E blocks a hunk that loses a take whatever his answer on 2 September.
 - B194-CALL-CARRIES-HIS-FIELDS (planner lesson 2026-10-13, B-194): a chart call reaches him only with his grading fields filled from committed rows (zone with its candles and in-play road, setup class, 4H/1H/15m, sweep source, CQD type); the B-193 2 September call carried none of the zone, biases or CQD type, rode an XOB promoted 14 Aug with no in-play road read, and cited a pack cut never committed, so the planner withheld it.
+- B195-HIS-READ-EQUALS-MACHINE (planner lesson 2026-10-13, B-195): when his answer to a 5m chart call equals the machine's read to the candle, the read lane closes and the defect is the step after the read; B-194 carried the 10 July 5m call while the alignment hold's release path stayed unread, and his answer (bearish from the 14:30 open) matched the machine's 14:25-candle flip exactly.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -339,3 +340,4 @@ Operator kickoff for any new thread:
 - 2026-10-12: planner session ran as ClickUp Brain for relay B-192 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-193 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-194 (kit PK-2).
+- 2026-10-13: planner session ran as ClickUp Brain for relay B-195 (kit PK-2).
