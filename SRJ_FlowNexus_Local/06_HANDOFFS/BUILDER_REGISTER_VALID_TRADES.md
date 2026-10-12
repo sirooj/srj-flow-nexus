@@ -83,9 +83,19 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - Open with the quarantine: (a) 9/1-vs-6/5 separator yes/no (asked, owed); (b) which runs count as proven.
 - Candidate readings on file, unconcluded: (A) false = v5/E6 tree (reverted ledger 790) so R67 rows are the forbidden ones; (B) false = whatever binary ran R60. He decides; builder asserts neither.
 
+## F. GBP VALID TAKEN BY HIM - his 4 (window 6-17 July 2026, his words 2026-10-12)
+
+| # | Date / session / pair / entry | Direction | Entry line (anchor) | Entry price | Exit | Source |
+|---|---|---|---|---|---|---|
+| F1 | 6 July New York GBPUSD, entry candle UNKNOWN | LONG | Weekly POC [HIS] | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
+| F2 | 7 July New York GBPUSD, entry candle UNKNOWN | SHORT | Weekly POC [HIS] | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
+| F3 | 10 July New York GBPUSD, entry candle UNKNOWN | SHORT | UNKNOWN (line not named) | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
+| F4 | 13 July New York GBPUSD, entry candle UNKNOWN | SHORT | Yearly VWAP [HIS] | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
+
 ## E. HOW FUTURE BUILDS USE THIS FILE
 
 - Must-keep: all section-A takes reproduce (entry/bar); any take lost = BLOCKED packet (Rule-vs-takes gate).
+- Must-keep: section F takes reproduce once their entry candle is on record; until then graded by date, session, direction and line.
 - Must-never-take: every section-C row stays silent/absent.
 - Reasons come from HIS rulings (strategy skill), never induced from these rows (NO-OVERFIT).
 - UJ section-B turns to takes only through council-cleared packets on his answers, never by copying.

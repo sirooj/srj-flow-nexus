@@ -266,3 +266,8 @@ Consequence: the 27 May 2026 New York USDJPY long (15:35 open 159.344, out 20:08
 ## His words 2026-10-12 (B-183 addendum) - progress is valid trades taken
 - B3, his words, verbatim, typos his: "My valid trades are still missing; the valid setups that I executed manually have not been detected or executed by the EA. When is that task coming up next? I see that we are still figuring out the path, but what matters to me as a trader is judging progress by the valid trades taken by the EA."
 - PROGRESS-IS-TAKES (amended point, paraphrase, marked so): progress is graded by his valid setups the EA takes; report and bookkeeping work rides inside a relay that adds or protects takes, never as its own lane. Lane MISSED-GBP0706 opened 1 of 6 by this order; BLIND-GBP0706 stays parked as filed.
+
+## His words 2026-10-12 (B-184 addendum) - GBPUSD July trades, blind test ended
+- AB1a, his words, verbatim: "I'm tired of this blind test phase. Here are the actual manual trades that I took personally, which are correct."
+- AB1b, his words, verbatim: "On July 6th, there was a long setup in New York from the weekly POC. On July 7th, there was another valid short setup in New York from the weekly POC. On July 10th, there was another short setup in New York. Finally, on July 13th, there was a short setup in New York from the yearly VWAP."
+- GU-TRADES-PINNED (amended point, paraphrase, marked so): GU-0706-NY-LONG-WPOC, GU-0707-NY-SHORT-WPOC, GU-0710-NY-SHORT (line not named), GU-0713-NY-SHORT-YVWAP; candle times, entry prices, stops and targets NOT GIVEN, never inferred; whether this is every trade he took 6-17 July is NOT STATED.

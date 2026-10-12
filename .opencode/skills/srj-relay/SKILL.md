@@ -100,6 +100,7 @@ Blind test (his words 2026-10-11, relay B-167)
 - The machine's trade list goes to him unsealed: trader-words sheet in REPORT/ plus MT5's own tester report (Report= key in the run ini), copied into REPORT/.
 - A blind run leaves the terminal open on the finished test so he can open the trade chart (Strategy Tester, Backtest tab, right-click, Open Chart). The launcher shell is still killed; terminal64 is not. The next relay's start gate records it as ACCOUNTED, stops it only after he has closed it or says so, and restores the .preB copies then.
 - He reports his comparison in his own words; only then does a relay bank it and grade.
+- A blind window ends when he gives his trades for it (his words 2026-10-12, B-184); from then his trades are register rows and the window is graded like RECON62 and June. His journal's July rows are still not read as his pound record unless a row names the pair (B-167 correction).
 
 Reply line (exact shape)
 - B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED | STOP>
