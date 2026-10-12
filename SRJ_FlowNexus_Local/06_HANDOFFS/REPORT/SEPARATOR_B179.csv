@@ -1,0 +1,23 @@
+register_row,run,confirm_candle,b178_expect,b177hz_row,b179hzb_row,match
+A1,RECON62-B179,2026.08.28 10:00,MET (gap_half),"B177HZ bar=10:00 dir=SHORT rt=09:55 gapTouch=1.0 xobWin=0.0 verdict=PASS","B179HZB side=S bar=10:00 latest=07:35 win=0 first=-",SAME
+A2,RECON62-B179,2026.09.01 17:30,MET,"B177HZ bar=17:30 dir=LONG rt=16:45 gapTouch=1.0 xobWin=1.0 verdict=PASS","B179HZB side=B bar=17:30 latest=17:25 win=1 first=16:45/17:25/1.15975-1.16013/17:30",SAME
+A3,RECON62-B179,2026.09.04 15:55,MET,"B177HZ bar=15:55 dir=LONG rt=15:40 gapTouch=0.0 xobWin=1.0 verdict=PASS","B179HZB side=B bar=15:55 latest=13:50 win=1 first=05:05/05:25/1.15864-1.15873/15:30",SAME
+A4,RECON62-B179,2026.09.07 09:15,MET (B-178 CSV cell 2026.09.04 09:15 corrected: register A4 is 7 Sep London; B-176 W3:504-521 + B-177 log 8789920 both 09.07; verdicts unaffected),"B177HZ bar=09:15 dir=LONG rt=09:00 gapTouch=0.0 xobWin=1.0 verdict=PASS (identical to B-177 log 8789920)","B179HZB side=B bar=09:15 latest=08:55 win=1 first=08:05/08:55/1.16098-1.16116/09:15",SAME
+A5,RECON62-B179,2026.09.07 16:40,MET,"B177HZ bar=16:40 dir=LONG rt=16:05 gapTouch=1.0 xobWin=1.0 verdict=PASS","B179HZB side=B bar=16:40 latest=15:30 win=1 first=15:30/11:10/1.15847-1.16260/16:40",SAME
+A6,RECON62-B179,2026.09.08 10:05,MET,"B177HZ bar=10:05 dir=SHORT rt=09:40 gapTouch=1.0 xobWin=1.0 verdict=PASS","B179HZB side=S bar=10:05 latest=09:40 win=1 first=09:20/09:40/1.16230-1.16256/10:05",SAME
+A7,RECON62-B179,2026.09.08 16:55,MET,"B177HZ bar=16:55 dir=SHORT rt=16:45 gapTouch=0.0 xobWin=1.0 verdict=PASS","B179HZB side=S bar=16:55 latest=14:50 win=1 first=09:20/09:40/1.16230-1.16256/16:55",SAME
+B1,JUNE0525-B179,,OTHER-GATE (his NOT VALID),silenced-silenced,SAME
+B2,JUNE0525-B179,2026.06.05 16:10,MET,"B177HZ bar=16:10 dir=LONG rt=16:00 gapTouch=0.0 xobWin=1.0 verdict=PASS","B179HZB side=B bar=16:10 latest=15:40 win=1 first=15:50/16:05/159.820-159.853/16:00",SAME
+B3,JUNE0525-B179,2026.06.11 14:35,MET,"B177HZ bar=14:35 dir=LONG rt=14:05 gapTouch=0.0 xobWin=1.0 verdict=PASS","B179HZB side=B bar=14:35 latest=08:30 win=1 first=05:05/08:30/160.494-160.510/14:30",SAME
+C-05-27,JUNE0525-B179,2026.05.27 15:30,MET-listed,"B177HZ bar=15:30 dir=LONG rt=15:25 gapTouch=0.0 xobWin=1.0 verdict=PASS","B179HZB side=B bar=15:30 latest=14:55 win=1 first=05:30/08:40/159.264-159.290/15:25",SAME
+C-06-02,JUNE0525-B179,,OTHER-GATE (his INVALID),silenced-silenced,SAME
+C-06-03,JUNE0525-B179,2026.06.03 09:05,MET,"B177HZ bar=09:05 dir=LONG rt=09:00 gapTouch=1.0 xobWin=1.0 verdict=PASS","B179HZB side=B bar=09:05 latest=09:00 win=1 first=08:30/08:50/159.894-159.912/09:05",SAME
+C-06-04,JUNE0525-B179,,OTHER-GATE (refused PROMO_RETURN_NONE),silenced-silenced,SAME
+C-06-10,JUNE0525-B179,,OTHER-GATE (his INVALID),silenced-silenced,SAME
+C-08-27,RECON62-B179,,OTHER-GATE (his INVALID),silenced-silenced,SAME
+C-09-01-1530,RECON62-B179,,OTHER-GATE (refused at-confirm 5m),"consistent: B177HZ bar=15:25 dir=SHORT rt=15:25 gapTouch=0.0 xobWin=0.0 verdict=HISZONE_NONE (kept refuses it at-confirm 5m; still refused)",SAME
+C-09-04-1040,RECON62-B179,,OTHER-GATE (refused confirm=0),silenced-silenced,SAME
+C-08-28-1625,RECON62-B179,,OTHER-GATE (refused TP_RR_FAIL),silenced-silenced,SAME
+C-09-08-1645,RECON62-B179,,OTHER-GATE (refused TP_RR_FAIL),silenced-silenced,SAME
+T0702,GBP0629-B179,2026.07.02 18:10,NOT (must-never),"B177HZ bar=18:10 dir=LONG rt=18:10 gapTouch=0.0 xobWin=0.0 verdict=HISZONE_NONE","B179HZB side=B bar=18:10 latest=17:15 win=0 first=-",SAME
+T0707,GBP0629-B179,2026.07.07 14:40,MET (change detector),"B177HZ bar=14:40 dir=SHORT rt=14:40 gapTouch=1.0 xobWin=1.0 verdict=PASS","B179HZB side=S bar=14:40 latest=13:05 win=1 first=11:45/12:25/1.33862-1.33936/14:40",SAME
