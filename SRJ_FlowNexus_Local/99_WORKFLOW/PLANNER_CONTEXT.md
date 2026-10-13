@@ -242,6 +242,8 @@ Operator kickoff for any new thread:
 - B199A-ONE-EXECUTED-AT-THE-ORDER (operator order 2026-10-13, B-199A): his ONE-TAKE means many potentials are considered and only one is executed; a potential ends only by his rules, never because another potential appeared or a machine timer ran out; the one-take choice lives at the order step every road passes. Robustness edits to an existing rule still need a committed Part S table (PK-2).
 - B200-EVERY-GATE-ON-THE-END-CANDLE (planner note 2026-10-13, B-200): a rejected setup's journal row prints every gate's verdict and values on the candle it ended, mapped to his rule name and skill line, and MACHINE-ONLY where no banked line exists; the machine's first failing gate is not his reason (10 July: the machine stops at the touch, his reason is the divergence), so the cause is read, never guessed.
 
+- B201-ALIVE-IS-NOT-ENDED (planner lesson 2026-10-13, B-201, defect owned): a proof check never demands an end row where his rules keep the setup alive; B-200 P3 asked for a 10 July end at 14:50 while his regime rule holds the seed there, so the journal proves an unconfirmed setup by its last-poll verdicts on a session-close discard row, and every row carries its origin fields filled or NOT REACHED with the gate.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -354,3 +356,4 @@ Operator kickoff for any new thread:
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-198 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-199 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-200 (kit PK-2).
+- 2026-10-13: planner session ran as ClickUp Brain for relay B-201 (kit PK-2).
