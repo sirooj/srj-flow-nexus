@@ -236,6 +236,8 @@ Operator kickoff for any new thread:
 - B196-CANDLES-BEFORE-BANKING (planner lesson 2026-10-13, B-196): an amended point that names his entry or confirmation candle is checked against his earlier times and the committed candle rows before it is banked; B-195 banked 'confirmation 14:45, entry 14:50 open' over his B-185 '14:55' while the 14:45 candle closes up and the 14:50 closes down.
 - B197-PROVE-THE-LINE (planner lesson 2026-10-13, B-197): before a sweep map or a renewal void is graded on takes, every level it reads is proven on the session candles (whose session, still live, traded strictly beyond); B-194 to B-196 graded the map's effects while the line that voided the 10 July short at 14:20 (1.34278) equals the 14:10 candle low and London had already traded to 1.34082 at 11:50.
 - B197A-ONE-LIQUIDITY-CHECK (planner lesson 2026-10-13, B-197A): his stale-liquidity rule binds every reader of session liquidity (target booking, retarget, retest-renewal void, cached-sweep map), and all read the one swept-on-every-candle answer; B-192 fixed the booking reader only, so the renewal void kept its own unswept flags and voided his 10 July 14:15 retest on 1.34278 after London had traded to 1.34082.
+- B198-EDGE-CANDLE-FIRST (planner lesson 2026-10-13, B-198): when a stale-liquidity check refuses a cached level, the candle that took it is named before any further map reading; on B-197 every cached level was taken by a hairline before its session, and his 10 July London-high sweep sits on the 13:55 candle the machine's clock places in no session.
+- B198-MRSWEEP-PARKED (planner note 2026-10-13): lane MR-SWEEP-0710 parked 6 of 6 with no separator; stops that held for 10 July: REGIME (kept; 13:55 sweep in no session, stale), SLOT (under planner-reading SESSION-EDGE; 14:25 Daily long displaces the Yearly short, TIER-HOLDS all SAME), TOUCH (at 14:50; prior untouched, retest-carried needs the picked-zone reach, his 7:10 zone unreached by the 14:15 retest), CQD (at 14:50; machine latest regular-bullish on 14:15, his type-2-bearish unmapped and renewed under his own rule).
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -346,3 +348,4 @@ Operator kickoff for any new thread:
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-195 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-196 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-197 (kit PK-2).
+- 2026-10-13: planner session ran as ClickUp Brain for relay B-198 (kit PK-2).
