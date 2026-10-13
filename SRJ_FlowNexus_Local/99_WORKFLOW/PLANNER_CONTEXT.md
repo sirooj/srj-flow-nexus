@@ -240,6 +240,7 @@ Operator kickoff for any new thread:
 - B198-MRSWEEP-PARKED (planner note 2026-10-13): lane MR-SWEEP-0710 parked 6 of 6 with no separator; stops that held for 10 July: REGIME (kept; 13:55 sweep in no session, stale), SLOT (under planner-reading SESSION-EDGE; 14:25 Daily long displaces the Yearly short, TIER-HOLDS all SAME), TOUCH (at 14:50; prior untouched, retest-carried needs the picked-zone reach, his 7:10 zone unreached by the 14:15 retest), CQD (at 14:50; machine latest regular-bullish on 14:15, his type-2-bearish unmapped and renewed under his own rule).
 - B199-PARK-THEN-CENSUS (planner note 2026-10-13, B-199): when a lane parks, work returns to the paused lane with a whole census on the newest kept build's committed packs (deals, register rows, fills, open items) before any new lane opens; a carried chart call whose answer moves no deal is withheld by the planner (same-class words first, B-70).
 - B199A-ONE-EXECUTED-AT-THE-ORDER (operator order 2026-10-13, B-199A): his ONE-TAKE means many potentials are considered and only one is executed; a potential ends only by his rules, never because another potential appeared or a machine timer ran out; the one-take choice lives at the order step every road passes. Robustness edits to an existing rule still need a committed Part S table (PK-2).
+- B200-EVERY-GATE-ON-THE-END-CANDLE (planner note 2026-10-13, B-200): a rejected setup's journal row prints every gate's verdict and values on the candle it ended, mapped to his rule name and skill line, and MACHINE-ONLY where no banked line exists; the machine's first failing gate is not his reason (10 July: the machine stops at the touch, his reason is the divergence), so the cause is read, never guessed.
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -352,3 +353,4 @@ Operator kickoff for any new thread:
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-197 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-198 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-199 (kit PK-2).
+- 2026-10-13: planner session ran as ClickUp Brain for relay B-200 (kit PK-2).
