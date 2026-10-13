@@ -246,6 +246,8 @@ Operator kickoff for any new thread:
 
 - B202-RESUME-PLUS-END (planner defect owned 2026-10-13 (B-202)): A proof check names what his rule owes, never a predicted row: B-201 P3 demanded a session-close discard for the 10 July 14:10 short, which his freshness rule ends at 15:55; the check is resume plus end.
 
+- B203-LONGER-START-IS-ITS-OWN-CHECK (B-203): "A longer start is its own build check: on the 25 May start the euro register window lost A3 and moved the A2 and A5 exits (B-202 G2); no year-start run until the cause is on rows and he has reviewed the takes."
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -360,3 +362,4 @@ Operator kickoff for any new thread:
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-200 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-201 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-202 (kit PK-2).
+- 2026-10-14: planner session ran as ClickUp Brain for relay B-203 (kit PK-2).
