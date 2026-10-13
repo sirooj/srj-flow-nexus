@@ -1,0 +1,43 @@
+# INDEX_B202 - register rows to pack lines (seed, confirmation, divergence latch, entry; NONE where absent)
+- A1 (RECON62-B202 2026-08-28 SHORT 1.16466): seed 7773, confirmation 7821, divergence 7831, entry 7834
+- A2 (RECON62-B202 2026-09-01 LONG 1.16024): seed 17978, confirmation 22120, divergence 18002, entry NONE
+- A3 (RECON62-B202 2026-09-04 LONG 1.16019): seed 28215, confirmation 28355, divergence 28366, entry NONE
+- A4 (RECON62-B202 2026-09-07 LONG 1.16138): seed 35018, confirmation 36767, divergence 36041, entry NONE
+- A5 (RECON62-B202 2026-09-07 LONG 1.16264): seed 35018, confirmation 36767, divergence 36041, entry NONE
+- A6 (RECON62-B202 2026-09-08 SHORT 1.16205): seed 37702, confirmation 37941, divergence 37952, entry 37957
+- A7 (RECON62-B202 2026-09-08 SHORT 1.16220): seed 40398, confirmation 40454, divergence 40465, entry 40468
+- B2 (JUNE0525-B202 2026-06-05 LONG 160.065): seed 35302, confirmation 35796, divergence 35807, entry NONE
+- B3 (JUNE0525-B202 2026-06-11 LONG 160.530): seed 53144, confirmation 54211, divergence 53328, entry NONE
+- C-06-03 (JUNE0525-B202 2026-06-03 LONG 159.932): seed 28727, confirmation 28651, divergence 28780, entry NONE
+- F2 (GBP0629-B202 2026-07-07 SHORT 1.33863): seed 17804, confirmation 17812, divergence 17823, entry 17827
+- B1 (JUNE0525-B202 2026-06-05 SHORT ): seed 33225, confirmation 35796, divergence 35807, entry NONE
+- C-0602 (JUNE0525-B202 2026-06-02 LONG ): seed 22785, confirmation 22325, divergence 24324, entry NONE
+- C-0610 (JUNE0525-B202 2026-06-10 LONG ): seed 49981, confirmation 50027, divergence 51039, entry NONE
+- C-0604 (JUNE0525-B202 2026-06-04 SHORT ): seed 31622, confirmation 33431, divergence 31979, entry NONE
+- F1 (GBP0629-B202 2026-07-06 LONG ): seed 16209, confirmation 15873, divergence 16251, entry NONE
+- F3 (GBP0629-B202 2026-07-10 SHORT ): seed 28587, confirmation 28615, divergence 27638, entry NONE
+- F4 (GBP0629-B202 2026-07-13 SHORT ): seed 31748, confirmation 32935, divergence 31800, entry NONE
+- 9JUN (JUNE0525-B202 2026-06-09 LONG ): seed 45594, confirmation 45122, divergence 46261, entry NONE
+- 2SEP (RECON62-B202 2026-09-02 LONG ): seed 22230, confirmation 22598, divergence 22133, entry NONE
+
+- EU0525TD-B202 per-day packs (ROWPACK/EU0525TD-B202/, not staged):
+  - 2026-05: 5 days, 6370326 bytes
+  - 2026-06: 22 days, 30764039 bytes
+  - 2026-07: 23 days, 34172478 bytes
+  - 2026-08: 21 days, 35251764 bytes
+  - 2026-09: 22 days, 37573158 bytes
+  - 2026-10: 8 days, 14303118 bytes
+- GU0525TD-B202 per-day packs (ROWPACK/GU0525TD-B202/, not staged):
+  - 2026-05: 5 days, 5281533 bytes
+  - 2026-06: 22 days, 22560713 bytes
+  - 2026-07: 23 days, 28392916 bytes
+  - 2026-08: 21 days, 29038931 bytes
+  - 2026-09: 22 days, 33526233 bytes
+  - 2026-10: 8 days, 11412212 bytes
+- UJ0525TD-B202 per-day packs (ROWPACK/UJ0525TD-B202/, not staged):
+  - 2026-05: 5 days, 5563979 bytes
+  - 2026-06: 22 days, 34125195 bytes
+  - 2026-07: 23 days, 40838777 bytes
+  - 2026-08: 21 days, 20597964 bytes
+  - 2026-09: 22 days, 25390923 bytes
+  - 2026-10: 8 days, 8540305 bytes

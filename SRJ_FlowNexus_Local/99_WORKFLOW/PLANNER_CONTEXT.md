@@ -244,6 +244,8 @@ Operator kickoff for any new thread:
 
 - B201-ALIVE-IS-NOT-ENDED (planner lesson 2026-10-13, B-201, defect owned): a proof check never demands an end row where his rules keep the setup alive; B-200 P3 asked for a 10 July end at 14:50 while his regime rule holds the seed there, so the journal proves an unconfirmed setup by its last-poll verdicts on a session-close discard row, and every row carries its origin fields filled or NOT REACHED with the gate.
 
+- B202-RESUME-PLUS-END (planner defect owned 2026-10-13 (B-202)): A proof check names what his rule owes, never a predicted row: B-201 P3 demanded a session-close discard for the 10 July 14:10 short, which his freshness rule ends at 15:55; the check is resume plus end.
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -357,3 +359,4 @@ Operator kickoff for any new thread:
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-199 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-200 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-201 (kit PK-2).
+- 2026-10-13: planner session ran as ClickUp Brain for relay B-202 (kit PK-2).
