@@ -248,6 +248,9 @@ Operator kickoff for any new thread:
 
 - B203-LONGER-START-IS-ITS-OWN-CHECK (B-203): "A longer start is its own build check: on the 25 May start the euro register window lost A3 and moved the A2 and A5 exits (B-202 G2); no year-start run until the cause is on rows and he has reviewed the takes."
 
+- B204-CAUSE-NOT-LABELS (planner defect owned 2026-10-14 (B-204)): "A review sheet carries cause, not labels: B-203 R5 gave line names without prices, prices under the bias column and a default setup class, so he could not check a single take. Every field reads from the print that carries it or says NOT PRINTED."
+- B204-REGISTER-PASSING-IS-NOT-HOLDING (planner lesson 2026-10-14, B-204): "Register windows passing is not his rules holding: the 25 May start produced takes outside the register that break his OB/FVG, divergence and zone rules (B-204 R2)."
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -363,3 +366,4 @@ Operator kickoff for any new thread:
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-201 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-202 (kit PK-2).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-203 (kit PK-2).
+- 2026-10-14: planner session ran as ClickUp Brain for relay B-204 (kit PK-2).
