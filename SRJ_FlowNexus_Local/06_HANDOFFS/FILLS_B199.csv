@@ -1,0 +1,25 @@
+deal,run,side,date,signal_price,signal_pack,fill_time,fill_price,his_basis,gap_pts,gap_class,mechanism,note
+2,GBP0629-B196,sell,2026-07-07,1.33863,GBP0629-B196/2026-07-07 pack 1390 TP_ELECT entry,14:45:00,1.33863,UNKNOWN (never priced),0,,exact at open,F2 entry; his line differs (FIDELITY)
+3,GBP0629-B196,buy,2026-07-07,1.33649,GBP0629-B196/2026-07-07 pack 2439 MTEXIT 17:00,17:03:51,1.33649,W-VWAP value unpriced (B-190),0,,TP exit exact vs MTEXIT,F2 exit; grade pending
+2,JUNE0525-B196,buy,2026-05-27,159.340,JUNE0525-B196/pack 1832 TP_ELECT,15:35:00,159.344,WARM-UP (B-166),+4,,listed never graded,warm-up
+3,JUNE0525-B196,sell,2026-05-27,-,-,20:08:14,159.535,WARM-UP (B-166),-,,listed never graded,warm-up
+4,JUNE0525-B196,buy,2026-06-03,159.929,JUNE0525-B196/pack 129 TP_ELECT entry=open,09:10:00,159.932,his 159.929 (4-valid word),+3,,"measured, no class row",signal=open exact; fill +3
+5,JUNE0525-B196,sell,2026-06-03,159.983,JUNE0525-B196/pack 522 MTEXIT 09:55,09:59:40,159.983,his 09:55 159.983,0,,TP exit exact vs MTEXIT,"fill +4.5min same price (note, no LAG row)"
+6,JUNE0525-B196,buy,2026-06-05,160.059,JUNE0525-B196/pack 2797 TP_ELECT entry=open,16:15:00,160.065,"his 160.059 (16:15 open, B-129)",+6,,"measured, no class row",B2 must-keep; signal=open exact
+7,JUNE0525-B196,sell,2026-06-05,160.298,no MTEXIT on B196 (B137 MTEXIT 19:15 pack506 cited),19:16:32,160.298,his closed NY high 160.298 (B-140),0,,retarget TP per B-140,B2 exit; price SAME
+8,JUNE0525-B196,buy,2026-06-11,160.524,JUNE0525-B196/pack 2250 TP_ELECT entry=open,14:40:22,160.530,"his 160.524 (14:40 open, B-52)",+6,,"measured, no class row",B3 must-keep; signal=open exact
+9,JUNE0525-B196,sell,2026-06-11,160.587,JUNE0525-B196/pack 2751 MTEXIT 15:20,15:23:06,160.588,UNKNOWN (never named),+1,,TP-ORDER (B-192 T4),B3 exit; his exit unnamed
+2,RECON62-B196,sell,2026-08-28,1.16466,RECON62-B196/pack 498 TP_ELECT entry=open,10:05:00,1.16466,his 1.16466 (report),0,,exact at open,A1 entry
+3,RECON62-B196,buy,2026-08-28,1.16464,RECON62-B196/pack 1331 MTEXIT 11:30 BREAK,11:35:00,1.16467,his 11:35 open 1.16464 (B-137),+3,,MARKET BREAK leg (B-192 T4),A1 exit; fill at open +3
+4,RECON62-B196,buy,2026-09-01,1.16022,RECON62-B196/pack 2949 TP_ELECT entry=open,17:35:01,1.16024,"his 1.16024 (report = ask, B139)",0,,fill = his report; +2 signal-vs-fill rule-consistent,A2 entry
+5,RECON62-B196,sell,2026-09-01,1.15987,RECON62-B196/pack 3105 MTEXIT 17:45 BREAK,17:50:00,1.15987,his 17:50 1.15987 (B-137),0,,exact vs MTEXIT,A2 exit
+6,RECON62-B196,buy,2026-09-04,1.16018,RECON62-B196/pack 2278 TP_ELECT entry=open,16:00:00,1.16019,"his 1.16019 (report = ask, B139)",0,,fill = his report; +1 rule-consistent,A3 entry
+7,RECON62-B196,sell,2026-09-04,1.16129,RECON62-B196/pack 6633 MTEXIT 23:50 DAY_CLOSE,23:55:00,1.16129,his 23:55 1.16129 (B-33),0,,exact vs MTEXIT,A3 exit
+8,RECON62-B196,buy,2026-09-07,1.16135,RECON62-B196/pack 238 TP_ELECT entry=open,09:20:00,1.16138,"his 1.16138 (report = ask, B139)",0,,fill = his report; +3 rule-consistent,A4 entry
+9,RECON62-B196,sell,2026-09-07,1.16200,RECON62-B196/pack 1251 MTEXIT 10:50,10:53:07,1.16201,his AS.H 1.16200 (rule-choice),+1,,TP-ORDER tp 1.16200 (B-192 T4),A4 exit; fill = R60 1.16201
+10,RECON62-B196,buy,2026-09-07,1.16261,RECON62-B196/pack 3223 TP_ELECT entry=open,16:45:00,1.16264,"his 1.16264 (report = ask, B139)",0,,fill = his report; +3 rule-consistent,A5 entry
+11,RECON62-B196,sell,2026-09-07,1.16315,RECON62-B196/pack 3534 MTEXIT 17:10,17:13:30,1.16315,his 1.16315 (report),0,,exact vs MTEXIT,A5 exit
+12,RECON62-B196,sell,2026-09-08,1.16205,RECON62-B196/pack 719 TP_ELECT entry=open,10:10:00,1.16205,his 1.16205 (report),0,,exact at open,A6 entry
+13,RECON62-B196,buy,2026-09-08,1.16102,RECON62-B196/pack 1103 MTEXIT 10:40,10:42:46,1.16102,his 1.16102 (report),0,,exact vs MTEXIT,A6 exit
+14,RECON62-B196,sell,2026-09-08,1.16220,RECON62-B196/pack 3179 TP_ELECT entry=open,17:00:00,1.16220,his 1.16220 (51 build),0,,exact at open,A7 entry
+15,RECON62-B196,buy,2026-09-08,1.16274,RECON62-B196/pack 3539 MTEXIT 17:30 SL,17:26:29,1.16275,R60 1.16275 quarantined (B-181),+1,,SL-ORDER sl 1.16274 (B-192 T4),A7 exit; his basis NOT-HIS

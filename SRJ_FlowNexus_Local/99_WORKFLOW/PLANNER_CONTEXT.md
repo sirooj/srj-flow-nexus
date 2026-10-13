@@ -238,6 +238,8 @@ Operator kickoff for any new thread:
 - B197A-ONE-LIQUIDITY-CHECK (planner lesson 2026-10-13, B-197A): his stale-liquidity rule binds every reader of session liquidity (target booking, retarget, retest-renewal void, cached-sweep map), and all read the one swept-on-every-candle answer; B-192 fixed the booking reader only, so the renewal void kept its own unswept flags and voided his 10 July 14:15 retest on 1.34278 after London had traded to 1.34082.
 - B198-EDGE-CANDLE-FIRST (planner lesson 2026-10-13, B-198): when a stale-liquidity check refuses a cached level, the candle that took it is named before any further map reading; on B-197 every cached level was taken by a hairline before its session, and his 10 July London-high sweep sits on the 13:55 candle the machine's clock places in no session.
 - B198-MRSWEEP-PARKED (planner note 2026-10-13): lane MR-SWEEP-0710 parked 6 of 6 with no separator; stops that held for 10 July: REGIME (kept; 13:55 sweep in no session, stale), SLOT (under planner-reading SESSION-EDGE; 14:25 Daily long displaces the Yearly short, TIER-HOLDS all SAME), TOUCH (at 14:50; prior untouched, retest-carried needs the picked-zone reach, his 7:10 zone unreached by the 14:15 retest), CQD (at 14:50; machine latest regular-bullish on 14:15, his type-2-bearish unmapped and renewed under his own rule).
+- B199-PARK-THEN-CENSUS (planner note 2026-10-13, B-199): when a lane parks, work returns to the paused lane with a whole census on the newest kept build's committed packs (deals, register rows, fills, open items) before any new lane opens; a carried chart call whose answer moves no deal is withheld by the planner (same-class words first, B-70).
+- B199A-ONE-EXECUTED-AT-THE-ORDER (operator order 2026-10-13, B-199A): his ONE-TAKE means many potentials are considered and only one is executed; a potential ends only by his rules, never because another potential appeared or a machine timer ran out; the one-take choice lives at the order step every road passes. Robustness edits to an existing rule still need a committed Part S table (PK-2).
 
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
@@ -349,3 +351,4 @@ Operator kickoff for any new thread:
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-196 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-197 (kit PK-2).
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-198 (kit PK-2).
+- 2026-10-13: planner session ran as ClickUp Brain for relay B-199 (kit PK-2).

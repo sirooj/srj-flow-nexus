@@ -1,0 +1,88 @@
+window,run,ea_sha,register_row,side,aspect,his_value,machine_value,verdict,evidence
+RECON62,RECON62-B196,986a7dba,A1,SHORT,entry-candle,10:05 open (HIS report),"10:05 open (BAR o=1.16466, pack 502)",SAME,register A1 + B196BAR
+RECON62,RECON62-B196,986a7dba,A1,SHORT,entry-price-signal,1.16466 (HIS report),"1.16466 (TP_ELECT entry, pack 498)",SAME,register A1 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A1,SHORT,entry-line,D-VWAP (anchor-rank ruling),"Daily-VWAP (B60C poi, pack 489)",SAME,register A1 + B60C
+RECON62,RECON62-B196,986a7dba,A1,SHORT,stop,UNKNOWN (no banked stop),"1.16508 2SWING (TP_ELECT, pack 498)",UNKNOWN,register silent
+RECON62,RECON62-B196,986a7dba,A1,SHORT,target,"UNKNOWN (break trade, no TP named)",1.16364 PDL first=NONE (TP_ELECT; B-192 R3 pack 465),UNKNOWN,B-192 R3 BB-2
+RECON62,RECON62-B196,986a7dba,A1,SHORT,exit-candle,11:35 open (B-135/B-137; 11:40 retired),11:30 bar BREAK D-POC (MTEXIT pack 1331),SAME,B-135 note + MTEXIT (exit Vince next-open)
+RECON62,RECON62-B196,986a7dba,A1,SHORT,exit-price,1.16464 (B-137),"1.16464 (MTEXIT exit, pack 1331)",SAME,B-137 + MTEXIT
+RECON62,RECON62-B196,986a7dba,A2,LONG,entry-candle,17:35 open (HIS),"17:35 open (BAR o=1.16022, pack 2955)",SAME,register A2 + BAR
+RECON62,RECON62-B196,986a7dba,A2,LONG,entry-price-signal,"1.16024 (HIS report = ask fill, B139)","1.16022 (TP_ELECT entry=open, pack 2949)",DIFFERENT,"+2pts signal-vs-report; open signal rule-correct, ask fill per B139"
+RECON62,RECON62-B196,986a7dba,A2,LONG,entry-line,Monthly-VWAP (R60 ANCHOR_ELECT),"Monthly-VWAP (B60C poi, pack 2939)",SAME,register A2 + B60C
+RECON62,RECON62-B196,986a7dba,A2,LONG,stop,UNKNOWN (SL chain 17:50 machine),"1.15975 1SWING (TP_ELECT, pack 2949)",UNKNOWN,register silent
+RECON62,RECON62-B196,986a7dba,A2,LONG,target,UNKNOWN (never named),1.16077 M-VWAP (TP_ELECT; B-192 R2 static),UNKNOWN,B-192 R2
+RECON62,RECON62-B196,986a7dba,A2,LONG,exit-candle,17:50 open (B-137; 17:45 Y-POC close-through),17:45 bar BREAK Y-POC (MTEXIT pack 3105),SAME,B-137 + MTEXIT
+RECON62,RECON62-B196,986a7dba,A2,LONG,exit-price,1.15987 (B-137),"1.15987 (MTEXIT exit, pack 3105)",SAME,B-137 + MTEXIT
+RECON62,RECON62-B196,986a7dba,A3,LONG,entry-candle,16:00 open (HIS),"16:00 open (BAR o=1.16018, pack 2284)",SAME,register A3 + BAR
+RECON62,RECON62-B196,986a7dba,A3,LONG,entry-price-signal,"1.16019 (HIS = ask fill, B139)","1.16018 (TP_ELECT entry=open, pack 2278)",DIFFERENT,+1pt signal-vs-report; rule-consistent per B139
+RECON62,RECON62-B196,986a7dba,A3,LONG,entry-line,UNKNOWN (source-needed),"Yearly-POC (B60C poi, pack 2268)",UNKNOWN,register A3
+RECON62,RECON62-B196,986a7dba,A3,LONG,stop,1.15847 (B-67 0904),"1.15847 2SWING (TP_ELECT, pack 2278)",SAME,B-67 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A3,LONG,target,1.16302 London session high (B-67 0904),"1.16302 (TP_ELECT tp, pack 2278)",SAME,B-67 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A3,LONG,exit-candle,Friday 23:55 (B-33 day-close correction),23:50 bar DAY_CLOSE (MTEXIT pack 6633),SAME,B-33 + MTEXIT
+RECON62,RECON62-B196,986a7dba,A3,LONG,exit-price,1.16129 (B-33),"1.16129 (MTEXIT exit, pack 6633)",SAME,B-33 + MTEXIT
+RECON62,RECON62-B196,986a7dba,A4,LONG,entry-candle,09:20 open (HIS),"09:20 open (BAR o=1.16135, pack 243)",SAME,register A4 + BAR
+RECON62,RECON62-B196,986a7dba,A4,LONG,entry-price-signal,"1.16138 (HIS = ask fill, B139)","1.16135 (TP_ELECT entry=open, pack 238)",DIFFERENT,+3pts signal-vs-report; rule-consistent per B139
+RECON62,RECON62-B196,986a7dba,A4,LONG,entry-line,UNKNOWN (source-needed),"Weekly-POC (B60C poi, pack 228)",UNKNOWN,register A4
+RECON62,RECON62-B196,986a7dba,A4,LONG,stop,UNKNOWN,"1.16098 2SWING (TP_ELECT, pack 238)",UNKNOWN,register silent
+RECON62,RECON62-B196,986a7dba,A4,LONG,target,1.16200 AS.H nearest (rule-choice B-67),"1.16200 (TP_ELECT tp, pack 238)",SAME,B-67 + TP_ELECT (line+price)
+RECON62,RECON62-B196,986a7dba,A4,LONG,exit-candle,UNKNOWN (price only),10:50 bar TP_TOUCH (MTEXIT pack 1251),UNKNOWN,HIS report price only
+RECON62,RECON62-B196,986a7dba,A4,LONG,exit-price,1.16200 AS.H touch (rule-choice; R60 1.16201 quarantined),"1.16200 (MTEXIT exit, pack 1251)",SAME,his line touch = machine exit; R60 cell UNCONFIRMED per annex
+RECON62,RECON62-B196,986a7dba,A5,LONG,entry-candle,16:45 open (HIS),"16:45 open (BAR o=1.16261, pack 3228)",SAME,register A5 + BAR
+RECON62,RECON62-B196,986a7dba,A5,LONG,entry-price-signal,"1.16264 (HIS = ask fill, B139)","1.16261 (TP_ELECT entry=open, pack 3223)",DIFFERENT,+3pts signal-vs-report; rule-consistent per B139
+RECON62,RECON62-B196,986a7dba,A5,LONG,entry-line,W-POC retest latest (chart proof),"Weekly-POC (B60C poi, pack 3213)",SAME,register A5 + B60C
+RECON62,RECON62-B196,986a7dba,A5,LONG,stop,1.16239 16:15 low (B-157 SEP7 two-swing),"1.16239 2SWING (TP_ELECT, pack 3223)",SAME,B-157 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A5,LONG,target,1.16315 (HIS report),"1.16315 (TP_ELECT tp, pack 3223)",SAME,register A5 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A5,LONG,exit-candle,UNKNOWN (price only),17:10 bar TP_TOUCH (MTEXIT pack 3534),UNKNOWN,HIS report price only
+RECON62,RECON62-B196,986a7dba,A5,LONG,exit-price,1.16315 (HIS report),"1.16315 (MTEXIT exit, pack 3534)",SAME,register A5 + MTEXIT
+RECON62,RECON62-B196,986a7dba,A6,SHORT,entry-candle,10:10 open (HIS),"10:10 open (BAR o=1.16205, pack 725)",SAME,register A6 + BAR
+RECON62,RECON62-B196,986a7dba,A6,SHORT,entry-price-signal,1.16205 (HIS report),"1.16205 (TP_ELECT entry, pack 719)",SAME,register A6 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A6,SHORT,entry-line,UNKNOWN (source-needed),"Monthly-POC (B60C poi, pack 709)",UNKNOWN,register A6
+RECON62,RECON62-B196,986a7dba,A6,SHORT,stop,1.16258 two-swings-away 09:40 high (B-150; method DIFFERENT),"1.16258 2SWING (TP_ELECT, pack 719)",SAME,price equal; B-150 method note
+RECON62,RECON62-B196,986a7dba,A6,SHORT,target,1.16102 (HIS report),"1.16102 (TP_ELECT tp, pack 719)",SAME,register A6 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A6,SHORT,exit-candle,UNKNOWN (price only),10:40 bar TP_TOUCH (MTEXIT pack 1103),UNKNOWN,HIS report price only
+RECON62,RECON62-B196,986a7dba,A6,SHORT,exit-price,1.16102 (HIS report),"1.16102 (MTEXIT exit, pack 1103)",SAME,register A6 + MTEXIT
+RECON62,RECON62-B196,986a7dba,A7,SHORT,entry-candle,17:00 open (51 build),"17:00 open (BAR o=1.16220, pack 3183)",SAME,register A7 + BAR
+RECON62,RECON62-B196,986a7dba,A7,SHORT,entry-price-signal,1.16220 (51 build),"1.16220 (TP_ELECT entry, pack 3179)",SAME,register A7 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A7,SHORT,entry-line,UNKNOWN (source-needed),"Monthly-POC (B60C poi, pack 3169)",UNKNOWN,register A7
+RECON62,RECON62-B196,986a7dba,A7,SHORT,stop,UNKNOWN (no banked stop; R60 1.16275 cell NOT-HIS per B-181),"1.16274 2SWING (TP_ELECT, pack 3179)",UNKNOWN,"B-181: R60 cell quarantined, not his words"
+RECON62,RECON62-B196,986a7dba,A7,SHORT,target,1.16114 Yearly POC (B-67 0908),"1.16114 (TP_ELECT tp, pack 3179)",SAME,B-67 + TP_ELECT
+RECON62,RECON62-B196,986a7dba,A7,SHORT,exit-candle,"stop hit (unstopped trade, unpriced)",17:30 bar SL (MTEXIT pack 3539),UNKNOWN,no banked exit candle; R60 cell quarantined
+RECON62,RECON62-B196,986a7dba,A7,SHORT,exit-price,UNKNOWN (unpriced; R60 1.16275 quarantined),"1.16274 (MTEXIT exit, pack 3539)",UNKNOWN,B-181: R60 cell not his words
+JUNE0525,JUNE0525-B196,986a7dba,B2,LONG,entry-candle,16:15 open (HIS verbatim B-35),"16:15 open (BAR o=160.059, pack 2806)",SAME,B-35 + BAR
+JUNE0525,JUNE0525-B196,986a7dba,B2,LONG,entry-price-signal,"160.059 (16:15 open, B-129)","160.059 (TP_ELECT entry=open, pack 2797)",SAME,B-129 + TP_ELECT
+JUNE0525,JUNE0525-B196,986a7dba,B2,LONG,entry-line,UNKNOWN (B-51; machine 16:00 seed Daily-POC),"Monthly-POC (B60C poi, pack 2787)",UNKNOWN,B-51 correction
+JUNE0525,JUNE0525-B196,986a7dba,B2,LONG,stop,UNKNOWN,"159.598 2SWING (TP_ELECT, pack 2797)",UNKNOWN,register silent
+JUNE0525,JUNE0525-B196,986a7dba,B2,LONG,target,160.723 old high 30 Apr (HIS B-51),"160.723 (TP_ELECT tp, pack 2797)",SAME,B-51 + TP_ELECT
+JUNE0525,JUNE0525-B196,986a7dba,B2,LONG,exit-candle,session high closed 19:00 (RETARGET-CLOSED-AM),19:16 deal (pack 4439; no MTEXIT on B196; B137 MTEXIT 19:15 pack506 cited),SAME,his session-close vs 19:16 deal; B-140
+JUNE0525,JUNE0525-B196,986a7dba,B2,LONG,exit-price,160.298 closed NY high (B-140),160.298 (DEAL pack 4439),SAME,B-140 + DEAL
+JUNE0525,JUNE0525-B196,986a7dba,B3,LONG,entry-candle,14:40 open (HIS TIMING),"14:40 open (BAR o=160.524, pack 2255)",SAME,TIMING-N/N+1 + BAR
+JUNE0525,JUNE0525-B196,986a7dba,B3,LONG,entry-price-signal,"160.524 (14:40 open, ENTRY-BAR READ-BACK)","160.524 (TP_ELECT entry=open, pack 2250)",SAME,B-52 + TP_ELECT
+JUNE0525,JUNE0525-B196,986a7dba,B3,LONG,entry-line,Daily-POC anchor (HIS A2 settled),"Daily-POC (B60C poi, pack 2239)",SAME,B-52 + B60C
+JUNE0525,JUNE0525-B196,986a7dba,B3,LONG,stop,UNKNOWN,"160.501 1SWING (TP_ELECT, pack 2250)",UNKNOWN,register silent
+JUNE0525,JUNE0525-B196,986a7dba,B3,LONG,target,UNKNOWN (never named),160.587 London high (TP_ELECT; B-192 R3 LOH),UNKNOWN,B-192 R3
+JUNE0525,JUNE0525-B196,986a7dba,B3,LONG,exit-candle,UNKNOWN (never named),15:20 bar TP_TOUCH (MTEXIT pack 2751),UNKNOWN,register silent
+JUNE0525,JUNE0525-B196,986a7dba,B3,LONG,exit-price,UNKNOWN (never named),"160.587 (MTEXIT exit, pack 2751)",UNKNOWN,register silent
+JUNE0525,JUNE0525-B196,986a7dba,C-06-03,LONG,entry-candle,09:10 open (4-valid word),"09:10 open (BAR o=159.929, pack 133)",SAME,P-UJIMPL-IMPL-2 + BAR
+JUNE0525,JUNE0525-B196,986a7dba,C-06-03,LONG,entry-price-signal,159.929 (4-valid word),"159.929 (TP_ELECT entry=open, pack 129)",SAME,4-valid word + TP_ELECT
+JUNE0525,JUNE0525-B196,986a7dba,C-06-03,LONG,stop,UNKNOWN,"159.889 1SWING (TP_ELECT, pack 129)",UNKNOWN,register silent
+JUNE0525,JUNE0525-B196,986a7dba,C-06-03,LONG,target,UNKNOWN (line unnamed),159.983 Asia high (TP_ELECT; B-192 R3 ASH),UNKNOWN,B-192 R3
+JUNE0525,JUNE0525-B196,986a7dba,C-06-03,LONG,exit-candle,09:55 (register TP_TOUCH),09:55 bar TP_TOUCH (MTEXIT pack 522),SAME,register + MTEXIT
+JUNE0525,JUNE0525-B196,986a7dba,C-06-03,LONG,exit-price,159.983 (register),"159.983 (MTEXIT exit, pack 522)",SAME,register + MTEXIT
+GBP0629,GBP0629-B196,986a7dba,F2,SHORT,entry-candle,UNKNOWN (never priced),"14:45 open (BAR o=1.33863, pack 1395)",UNKNOWN,B-184: candle UNKNOWN
+GBP0629,GBP0629-B196,986a7dba,F2,SHORT,entry-price-signal,UNKNOWN (never priced),"1.33863 (TP_ELECT entry, pack 1390)",UNKNOWN,B-184: price UNKNOWN
+GBP0629,GBP0629-B196,986a7dba,F2,SHORT,entry-line,"Weekly POC (HIS; B-185 valid-as-taken, line differs)","Daily-POC (B60C poi, pack 1380)",DIFFERENT,B-185: his line differs
+GBP0629,GBP0629-B196,986a7dba,F2,SHORT,stop,UNKNOWN,"1.33940 1SWING (TP_ELECT, pack 1390)",UNKNOWN,register silent
+GBP0629,GBP0629-B196,986a7dba,F2,SHORT,target,"Weekly VWAP value (B-190 correction, unpriced)","1.33630 W-VWAP booked (TP_ELECT, pack 1390)",UNKNOWN,his value unpriced; line SAME (W-VWAP both)
+GBP0629,GBP0629-B196,986a7dba,F2,SHORT,exit-candle,UNKNOWN (never named),17:00 bar TP_TOUCH (MTEXIT pack 2439),UNKNOWN,B-190 close-attribution withdrawn
+GBP0629,GBP0629-B196,986a7dba,F2,SHORT,exit-price,"W-VWAP value (B-190 correction, unpriced)","1.33649 = live W-VWAP 17:00 (MTEXIT, pack 2439; EXITCENSUS)",UNKNOWN,line SAME; value unpriced; grade pending
+JUNE0525,JUNE0525-B196,986a7dba,B1,SHORT,overall,-,-,SAME-silent,NOT VALID B-46; audit row; machine silent (no 09:40-09:50 fire)
+JUNE0525,JUNE0525-B196,986a7dba,C-0605LDN,SHORT,overall,-,-,SAME-silent,same audit row as B1
+JUNE0525,JUNE0525-B196,986a7dba,C-0602,LONG,overall,-,-,SAME-silent,NOT VALID 0602-NY-NO-SETUP; machine silent (no 15:35 fire on kept)
+JUNE0525,JUNE0525-B196,986a7dba,C-0610,LONG,overall,-,-,SAME-absent,"INVALID 0610-NY-INVALID; machine absent (16:05 touch passes, dies later)"
+JUNE0525,JUNE0525-B196,986a7dba,C-0604,SHORT,overall,-,-,SAME-refused,not his 0604-LDN-NOT-HIS; refused PROMO_RETURN_NONE (B-153); journal row 13 quoted in relay
+JUNE0525,JUNE0525-B196,986a7dba,9JUN,LONG,overall,-,-,SAME-silent,his declined long journal L26; must-never; machine silent on kept
+JUNE0525,JUNE0525-B196,986a7dba,W27MAY,LONG,overall,-,-,WARM-UP,"B-166: 27 May deals listed, never graded (deals #2/#3: 15:35 159.344 -> 20:08 159.535)"
+RECON62,RECON62-B196,986a7dba,2SEP,-,overall,-,-,SAME-silent,journal SILENT L270; machine silent on kept; 2 Sep call WITHHELD (B-194)
+GBP0629,GBP0629-B196,986a7dba,F1,LONG,overall,-,-,SAME-absent,INVALID live chart B-185 (W VWAP near W POC); machine unfired (correct absence)
+GBP0629,GBP0629-B196,986a7dba,F3,SHORT,overall,-,-,SAME-absent,"INVALID live chart by CQD (his words 2026-10-13 B-199B: latest divergence by 14:50 bullish, no valid bearish; RAW claim withdrawn); machine absent = correct; planner R4 guess confirmed"
+GBP0629,GBP0629-B196,986a7dba,F4,SHORT,overall,-,-,SAME-absent,INVALID live chart B-185 (no Y VWAP); machine unfired (correct absence)

@@ -1,0 +1,22 @@
+register_row,pack_lines,potentials_on_path,machine_only_end,verdict,separator
+A1,RECON62-B196/2026-08-28 B60C 10:00; TP_ELECT 498; FIRE 499; DEAL #2,"D-VWAP SHORT (retained, no transfer)",no,take stands 10:05 1.16466,DOES NOT SEPARATE
+A2,RECON62-B196/2026-09-01 B60C 17:30; PREEMPT-S1 (S2X? no: S1-confirmed preempt 17:30 pack 2928); FIRE 2950; DEAL #4,M-VWAP LONG via S1-confirmed preempt over SHORT (HIS L51),no (S1-confirmed = HIS-RULE),take stands 17:35 1.16024,DOES NOT SEPARATE
+A3,RECON62-B196/2026-09-04 B60C 15:55; FIRE 16:00 Y-POC; DEAL #6,Y-POC LONG (retained),no,take stands 16:00 1.16019,DOES NOT SEPARATE
+A4,RECON62-B196/2026-09-07 B60C 09:15; FIRE 09:20 W-POC; DEAL #8,W-POC LONG (retained),no,take stands 09:20 1.16138,DOES NOT SEPARATE
+A5,RECON62-B196/2026-09-07 B60C 16:40 LONG; RESEED-H1 16:20 pl=2970 (SHORT W-POC oB=16:05 -> LONG); FIRE 16:45; DEAL #10,W-POC LONG (new) + W-POC SHORT oB=16:05 (old),yes (old SHORT displaced H1),take stands 16:45 1.16264; old SHORT dead-by-REGIME (REGIMECENSUS 16:05/16:10 votes=0 trendOk=0 sweepTag=0 mrOk=0),DOES NOT SEPARATE
+A6,RECON62-B196/2026-09-08 B60C 10:05; FIRE 10:10 M-POC; DEAL #12 (B3-upgraded lineage),"M-POC SHORT (B3 re-point lineage, persists)","no end (B3 re-points, excluded by must-hold)",take stands 10:10 1.16205,DOES NOT SEPARATE
+A7,RECON62-B196/2026-09-08 B60C 16:55 SHORT; RESEED-H1 16:55 pl=3115 (LONG W-VWAP oB=16:45 -> SHORT); FIRE 17:00; DEAL #14,M-POC SHORT (new) + W-VWAP LONG oB=16:45 (old),yes (old LONG displaced H1),take stands 17:00 1.16220; old LONG dead-by-REGIME (REGIMECENSUS 16:45 votes=1 trendOk=0 sweepTag=0 mrOk=0),DOES NOT SEPARATE
+B1,no fire (0605LDN-SHORT-NOT-VALID); SEEDBIAS_REFUSED 09:40 rows (JUNE0525-B196/2026-06-05 pl=411),D-POC SHORT (never seeded past S2),no (5m gate = HIS L139),"stays silent (audit, NOT VALID)",DOES NOT SEPARATE
+B2,JUNE0525-B196/2026-06-05 B60C 16:10; FIRE 16:15 M-POC; DEAL #6 (zero transfers 15:20-16:15),M-POC LONG (retained),no,take stands 16:15 160.059,DOES NOT SEPARATE
+B3,JUNE0525-B196/2026-06-11 B60C 14:35 LONG; RESEED-H1 14:25 pl=2071 (SHORT D-POC oB=14:05 -> LONG); FIRE 14:40; DEAL #8,D-POC LONG (new) + D-POC SHORT oB=14:05 (old),yes (old SHORT displaced H1),take stands 14:40 160.530; old SHORT dead-by-REGIME (REGIMECENSUS 14:05/14:10/14:15 votes=1 trendOk=0 sweepTag=0 mrOk=0),DOES NOT SEPARATE
+C-06-03,JUNE0525-B196/2026-06-03 B60C 09:05; FIRE 09:10 D-VWAP; DEAL #4,D-VWAP LONG (retained),no,take stands 09:10 159.932,DOES NOT SEPARATE
+C-0605LDN,same audit row as B1,-,no,stays silent,DOES NOT SEPARATE
+C-0602,no live B60C (shadow only); no setup per 0602-NY-NO-SETUP,-,no,stays silent,DOES NOT SEPARATE
+C-0610,JUNE0525-B196/2026-06-10 B60C 16:05 touch passed; dies DIV_FALLBACK (kept rows),D-POC LONG,no (dies HIS CQD gate),stays absent (INVALID),DOES NOT SEPARATE
+C-0604,JUNE0525-B196/2026-06-04 refusal PROMO_RETURN_NONE (B-153); S2X PREEMPT 11:05 pl=1074 on path,D-POC SHORT (+re-pointed LONG D-POC),yes (S2X re-point) but refusal at zone gate first,stays refused (zone gate untouched by reading),DOES NOT SEPARATE
+F1,no deal (INVALID live B-185); machine unfired,-,no,stays absent (machine-right),DOES NOT SEPARATE
+F2,GBP0629-B196/2026-07-07 B60C 14:40 BOTH; FIRE 14:45 D-POC; DEAL #2 (retained),D-POC SHORT (retained),no,take stands 14:45 1.33863,DOES NOT SEPARATE
+F3,GBP0629-B196/2026-07-10 RESEED-H1 14:25 pl=1422 (SHORT Y-POC oB=14:10 -> LONG); old SHORT S1 regime-NONE pulls,"Y-POC SHORT oB=14:10 (old) + D-POC LONG (new, aborts 14:30)",yes (old SHORT displaced H1),"OTHER-GATE (expected, B-81: survives slot under reading, meets 14:50 touch C_TOUCH + CQD his-INVALID B-199B)",OTHER-GATE
+F4,"no deal (INVALID live B-185, no Y VWAP); machine unfired",-,no,stays absent (machine-right),DOES NOT SEPARATE
+9JUN,JUNE0525-B196/2026-06-09 LONG seeds die LTF_MISALIGN/FRESH_* (B182DEC ABORTs); no B60C-RETEST; journal L26 decline,W-POC LONG seeds,no (die HIS gates),"stays silent (must-never; none added, named first)",DOES NOT SEPARATE
+2SEP,RECON62-B196/2026-09-02 FOMC LONG never live-touches; SHORTs die TP_RR_FAIL (B182DEC),FOMC LONG + D-POC SHORTs,no (die HIS gates),stays silent (call WITHHELD),DOES NOT SEPARATE
