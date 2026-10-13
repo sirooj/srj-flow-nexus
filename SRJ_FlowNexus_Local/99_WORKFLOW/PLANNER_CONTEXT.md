@@ -251,6 +251,8 @@ Operator kickoff for any new thread:
 - B204-CAUSE-NOT-LABELS (planner defect owned 2026-10-14 (B-204)): "A review sheet carries cause, not labels: B-203 R5 gave line names without prices, prices under the bias column and a default setup class, so he could not check a single take. Every field reads from the print that carries it or says NOT PRINTED."
 - B204-REGISTER-PASSING-IS-NOT-HOLDING (planner lesson 2026-10-14, B-204): "Register windows passing is not his rules holding: the 25 May start produced takes outside the register that break his OB/FVG, divergence and zone rules (B-204 R2)."
 
+- B205-LINEMAP-IDENTITY-FIRST (planner lesson 2026-10-14, B-205): "A line-map input fix is graded by deal identity on his register and his named candle, not by a separator table; single-anchor inputs hide every line before their anchor on long runs (B-204 D6)."
+
 ## 5. History
 - Up to relay B-51: planner was a PromptQL bot (wiki mirror kept in PROMPTQL_PLANNER_CONTEXT.md, audit-only).
 - 2026-10-06: planner moved to SuperApp (relay B-52).
@@ -367,3 +369,4 @@ Operator kickoff for any new thread:
 - 2026-10-13: planner session ran as ClickUp Brain for relay B-202 (kit PK-2).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-203 (kit PK-2).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-204 (kit PK-2).
+- 2026-10-14: planner session ran as ClickUp Brain for relay B-205 (kit PK-2).
