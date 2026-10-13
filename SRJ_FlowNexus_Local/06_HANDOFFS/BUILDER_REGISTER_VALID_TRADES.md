@@ -96,6 +96,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 | F4 | 13 July New York GBPUSD, entry candle UNKNOWN | SHORT | Yearly VWAP [HIS] | UNKNOWN | UNKNOWN | HIS words 2026-10-12 (B-184 addendum) |
 - NOTE 2026-10-12 (B-185, his words verbatim): "The defects of the EA is only on the July 7 exit TP reason logic and July 10 valid setup." (scoped defect list: F2 exit + F3 take; F1/F4 invalid per his live-chart words above).
 - NOTE 2026-10-13 (B-195): his entry is the 14:50 open (HIS); his latest Y POC retest is the 14:15 candle (HIS); his 5m read equals the machine's (bearish from the 14:30 open; FIX-NOT-REPLACE met, no 5m read defect).
+- NOTE 2026-10-13 (B-196, planner correction, veto-able by him): 14:45 opposing candle (closes up o 1.34218 c 1.34238, pack 29638), 14:50 confirmation candle (closes down nonzero body o 1.34239 c 1.34235, packs 29665/29666), 14:55 open entry; fits spec 3.6 and both his words (B-185 '14:55', B-195 'my entry is at the 14:50').
 
 ## E. HOW FUTURE BUILDS USE THIS FILE
 
