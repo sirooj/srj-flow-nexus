@@ -94,6 +94,7 @@ Run economy (his order 2026-10-12, B-191B addendum; banked B-192)
 - Disk: report D: free GB before the first launch and after the last run. Never copy the day log. Delete nothing (packs, cuts, logs, backups) without his word.
 - Timing table per run: WMI launch time, terminal process start, first replay line time, pass time (completion line), cut time, grade time. Slow starts stay visible.
 - Fill table on every trial: per deal, the fill beside the machine's reference (entry: next-candle open; exit: MTEXIT exit), the booked value, the live line value at the exit candle, the candle o/h/l/c, and how the platform closed it (take-profit order, stop order, or EA market close) with the order's own price. Any fill different from its reference is filed as a measured deviation with the candle, never smoothed, never given a tolerance; his spread-drift words (strategy line 34) are the only admitted cause class.
+- Housekeeping (his order 2026-10-14, B-207): After a relay's push verifies, its CUTs and day logs stay only while they are the current kept baseline or the current trial; the previous ones are deleted with a manifest line in the result. Never delete tick history, checkpoints, run inis, the shared runners, the record files, the kept sources, .B<n>K of the kept build, or one .preB rollback step.
 
 Setup report (his order O2 2026-10-10, relay B-150)
 - On every KEPT verdict, and for any run a relay names, render SRJ_FlowNexus_Local/06_HANDOFFS/REPORT/SETUPS_<run>.csv offline from that run's committed row packs (no EA print is added for it). One row per candidate inside the session windows, keyed by window + direction + anchor line (spec 6), with its last state.
@@ -128,3 +129,6 @@ Lane close is not project completion (operator workflow correction, banked B-116
 
 Session-window record order (B-188 lesson, defect owned 2026-10-12)
 - SESSION-WINDOW-RECORD-ORDER: relay record searches answer session-window/clock questions from the code session section (Include/SRJ/SRJ_Sessions.mqh) and spec section 3.0 first; the strategy skill and journal are consulted only for his sweep/session words. Searching memory for clock numbers never banked there is a record-first failure.
+
+Standing scope (his order 2026-10-14, B-207)
+- EURUSD only until he opens pound and yen. Every relay runs RECON62 (EURUSD 26 Aug-9 Sep) and, when a change is kept, EU0525TD (EURUSD 25 May to date). JUNE0525 and GBP0629 are not run; register B and F rows are held, never graded. The fix order is 06_HANDOFFS/EU_FIX_PLAN.md.

@@ -24,6 +24,7 @@
 - Open data: June yen seed refusal (SEAM_UNREACHABLE); R3 June seed verdict open. R5 chart call WITHHELD (B-191 B2).
 - Carry: D4 graded at the machine's retest candle; A2's own retest is 17:30, so D4 is re-graded at his candle first.
 - Carry: P3 18-June NOT FIRED is carried by the planner as a chart call (trial arms FOMC-VWAP long, kills 09:40, never enters).
+- Fix order: 06_HANDOFFS/EU_FIX_PLAN.md (EURUSD only).
 
 ## Next
 - Next = re-drafted separator readings (none separates; S1/S3 break A1, S2 refuses nothing), then P3 chart call, then his euro review, then held pound/yen on his word, then J2D D3/D1/D2/D5/D4. No year-start work until he reviews.
