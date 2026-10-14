@@ -68,7 +68,6 @@ B161-ORIGIN-IS-DOCUMENTATION (B-161): his most-recent-XOB tag (skill L241-244) i
 B162-TAG-WHERE-THE-DATA-LIVES (B-162): a documentation print is placed where its inputs already live; B-161... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L194
 B163-CENSUS-BEFORE-LANE (B-163): when a lane closes KEPT, the next relay grades every register cell and... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L195
 B164-0527-RECORD-RECHECK (B-164): before a carried chart call reaches him, the planner re-proves the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L196
-B-166-WARMUP-NEVER-GRADED (B-166-WARMUP-NEVER-GRADED): a deal before his journal's first date is warm-up; it... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L198
 B-167-BLIND-MEANS-HIS-JOURNAL-PRIVATE (B-167-BLIND-MEANS-HIS-JOURNAL-PRIVATE): withdraws the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L199
 B-168-REPORT-NEVER-SIMPLIFIED (B-168-REPORT-NEVER-SIMPLIFIED): his grading needs the POI zone (5m XOB or FVG... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L200
 B169-5M-TIMING-BEFORE-FORM (B-169): a refusal that matches his words in form is still graded on the candle... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L201
@@ -127,3 +126,4 @@ B-213-READ-THE-PAINT-THE-EA-READS (B-213): a panel bar can paint twice; grade th
 B-214-COUNT-IS-NOT-THE-GATE (B-214): a count that separates proves nothing until the road from count to FIRE is named; 10 June fired at count 2.
 B-215-CONFIRM-IS-PRE (B-215): his words grade the panel at the confirmation candle; the 2-of-3 kill acts through that pass, never at the S5 move or entry.
 B-216-WHOLE-HUNK (B-215): a relay hunk is applied whole or the relay STOPs before compile; a partial hunk is not a trial.
+B-219-KILL-ENDS-HOLDER (B-218): a candidate whose anchor line has a KILL row is dead from that pass; a later ALIVE row is the defect, never proof (rules/18 L6).
