@@ -1,6 +1,5 @@
 # LESSONS - standing planner rules (B-209 compact-records; one line each, <=160 chars)
 
-Spec first for XOB (B-71): before carrying any XOB or zone chart call, read spec v4.2 §1.2, §3.5, §3.5.1,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L46
 Spec and skill whole (B-73): read spec v4.2 and the strategy skill whole before drafting every relay. B-70 to... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L47
 Cite only what the planner has seen (B-73): every file, section or code name in a relay is one the planner... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L48
 Status from the packet (B-73): a finding's DRAFT or NOT ISSUED line can be superseded. Read the packet's own... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L49
@@ -127,3 +126,4 @@ B-221-SEPARATE-FIRST (B-221): a release rule reaches trial only with zero pre-en
 B-222-GRADE-BY-ROW-CLASS (B-221): separators fail only on his takes; a released never-take is wanted; machine-only changes are named for his review.
 B-222A-NO-SEED-HIS-NEVER (B-222A): a release that seeds a candidate he ruled no-setup is graded on it first; it must never reach entry.
 B-223-ANY-HIS-KILL (B-222): a GONE machine take passes when any of his kill rules ends it on a named row; a gate never names just one rule.
+B-224-NEVER-REACHED-RIDES (B-224): kept takes can ride zones price never re-enters promoT-to-confirm; grade reach per candle before any gate.

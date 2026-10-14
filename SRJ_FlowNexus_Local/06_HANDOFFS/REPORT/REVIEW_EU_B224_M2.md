@@ -1,0 +1,110 @@
+# REVIEW_EU_B224_M2 (machine takes) (EU0525TD-B222K kept b4db21c5/61829f05; review sheet a-h per take)
+Takes: 2026-05-26 15:50 SHORT@1.16336 (MACHINE); 2026-05-28 11:50 LONG@1.16134 (MACHINE); 2026-06-04 10:05 LONG@1.16117 (MACHINE); 2026-06-29 16:15 LONG@1.14039 (MACHINE); 2026-07-08 14:50 SHORT@1.14002 (MACHINE); 2026-07-15 10:35 LONG@1.14227 (MACHINE); 2026-08-05 11:20 LONG@1.15409 (MACHINE); 2026-08-17 15:55 LONG@1.15947 (MACHINE); 2026-09-02 14:45 SHORT@1.15747 (MACHINE); 2026-09-04 09:30 LONG@1.16296 (MACHINE); 2026-09-22 19:00 SHORT@1.14314 (MACHINE); 2026-10-08 11:35 SHORT@1.11884 (MACHINE)
+
+## Take 2026-05-26 15:50 SHORT entry 1.16336 (MACHINE)
+(a) entry line Daily-POC px 1.16349 at retest 2026.05.26 15:40 (BORN JL 10513200); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BULL/BEAR/BEAR; 5m BEAR (BORN JL 10513200)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.16479-1.16505 reach NEVER-REACHED  kill STANDING vs-stop BEYOND-STOP
+(e) OB/FVG NOT PRINTED (FRESHCOUNT)
+(f) div -1 kind regular dbar 2026.05.26 15:30 latch 0 (B182DEC JL 10513698)
+(g) exit 16:51 1.16238; MTEXIT TP_TOUCH line - val - entry 1.16336 exit 1.16239 (JL 10514283); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-05-28 11:50 LONG entry 1.16134 (MACHINE)
+(a) entry line Daily-VWAP px 1.16089 at retest 2026.05.28 11:15 (BORN JL 10538322); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BEAR/BEAR/BEAR; 5m BEAR (BORN JL 10538322)
+(c) setup class MEANREV; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.16058-1.16089 reach REACHED 2026-05-28 11:15 kill STANDING vs-stop NO
+(e) OB/FVG NOT PRINTED (FRESHCOUNT)
+(f) div 2 kind hidden dbar 2026.05.28 11:25 latch 1 (B182DEC JL 10539557)
+(g) exit 12:12 1.16177; MTEXIT TP_TOUCH line - val - entry 1.16132 exit 1.16177 (JL 10539822); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-06-04 10:05 LONG entry 1.16117 (MACHINE)
+(a) entry line Daily-POC px 1.16089 at retest 2026.06.04 09:55 (BORN JL 10607043); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BEAR/BULL/BULL; 5m BULL (BORN JL 10607043)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.15967-1.15972 reach NEVER-REACHED  kill STANDING vs-stop BEYOND-STOP
+(e) OB/FVG at 2026.06.04 10:00: obDead=0 fvgDead=1 oppFvg=0 (FRESHCOUNT JL 10607537)
+(f) div 2 kind hidden dbar 2026.06.04 09:55 latch 1 (B182DEC JL 10607525)
+(g) exit 10:21 1.16069; MTEXIT SL line - val - entry 1.16113 exit 1.16069 (JL 10607757); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-06-29 16:15 LONG entry 1.14039 (MACHINE)
+(a) entry line Weekly-POC px 1.14031 at retest 2026.06.29 16:10 (BORN JL 10903091); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BEAR/BULL/BULL; 5m BULL (BORN JL 10903091)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.13928-1.13952 reach REACHED 2026-06-29 11:50 kill STANDING vs-stop BEYOND-STOP
+(e) OB/FVG NOT PRINTED (FRESHCOUNT)
+(f) div 2 kind hidden dbar 2026.06.29 15:50 latch 0 (B182DEC JL 10903599)
+(g) exit 17:19 1.14152; MTEXIT TP_TOUCH line - val - entry 1.14035 exit 1.14149 (JL 10904423); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-07-08 14:50 SHORT entry 1.14002 (MACHINE)
+(a) entry line Daily-POC px 1.14057 at retest 2026.07.08 14:40 (BORN JL 11040208); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BEAR/BEAR/BEAR; 5m BEAR (BORN JL 11040208)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.14065-1.14095 reach REACHED 2026-07-08 14:40 kill STANDING vs-stop NO
+(e) OB/FVG NOT PRINTED (FRESHCOUNT)
+(f) div -2 kind hidden dbar 2026.07.08 14:40 latch 1 (B182DEC JL 11041051)
+(g) exit 16:32 1.14095; MTEXIT SL line - val - entry 1.14002 exit 1.14095 (JL 11042276); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-07-15 10:35 LONG entry 1.14227 (MACHINE)
+(a) entry line FOMC-VWAP px 1.14210 at retest 2026.07.15 10:25 (BORN JL 11136047); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BULL/BULL/BEAR; 5m BEAR (BORN JL 11136047)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.14042-1.14070 reach NEVER-REACHED  kill STANDING vs-stop BEYOND-STOP
+(e) OB/FVG NOT PRINTED (FRESHCOUNT)
+(f) div 2 kind hidden dbar 2026.07.15 10:20 latch 0 (B182DEC JL 11137031)
+(g) exit 12:32 1.14189; MTEXIT SL line - val - entry 1.14223 exit 1.14190 (JL 11138374); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-08-05 11:20 LONG entry 1.15409 (MACHINE)
+(a) entry line Daily-POC px 1.15363 at retest 2026.08.05 11:05 (BORN JL 11494466); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BULL/BULL/BEAR; 5m BULL (BORN JL 11494466)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.15318-1.15360 reach REACHED 2026-08-05 09:00 kill STANDING vs-stop NO
+(e) OB/FVG at 2026.08.05 11:15: obDead=0 fvgDead=1 oppFvg=0 (FRESHCOUNT JL 11496401)
+(f) div 2 kind hidden dbar 2026.08.05 11:10 latch 1 (B182DEC JL 11496388)
+(g) exit 11:41 1.15346; MTEXIT SL line - val - entry 1.15405 exit 1.15346 (JL 11496736); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-08-17 15:55 LONG entry 1.15947 (MACHINE)
+(a) entry line Weekly-VWAP px 1.15917 at retest 2026.08.17 15:00 (BORN JL 11697939); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BULL/BEAR/BEAR; 5m BULL (BORN JL 11697939)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.15784-1.15796 reach NEVER-REACHED  kill STANDING vs-stop BEYOND-STOP
+(e) OB/FVG at 2026.08.17 15:50: obDead=0 fvgDead=1 oppFvg=0 (FRESHCOUNT JL 11700575)
+(f) div 2 kind hidden dbar 2026.08.17 15:45 latch 1 (B182DEC JL 11700562)
+(g) exit 17:15 1.15961; MTEXIT POI_BODY_BREAK line Weekly-POC val 1.15957 entry 1.15946 exit 1.15961 (JL 11701649); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-09-02 14:45 SHORT entry 1.15747 (MACHINE)
+(a) entry line Daily-VWAP px 1.15785 at retest 2026.09.02 14:35 (BORN JL 12076365); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BEAR/BEAR/BULL; 5m BULL (BORN JL 12076365)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.15788-1.15818 reach REACHED 2026-09-02 14:35 kill STANDING vs-stop NO
+(e) OB/FVG NOT PRINTED (FRESHCOUNT)
+(f) div -1 kind regular dbar 2026.09.02 14:35 latch 1 (B182DEC JL 12077974)
+(g) exit 15:20 1.15822; MTEXIT SL line - val - entry 1.15747 exit 1.15822 (JL 12078562); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-09-04 09:30 LONG entry 1.16296 (MACHINE)
+(a) entry line Daily-POC px 1.16283 at retest 2026.09.04 09:15 (BORN JL 12127596); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BULL/BEAR/BULL; 5m BULL (BORN JL 12127596)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.16249-1.16269 reach NEVER-REACHED  kill STANDING vs-stop NO
+(e) OB/FVG at 2026.09.04 09:25: obDead=0 fvgDead=1 oppFvg=0 (FRESHCOUNT JL 12130076)
+(f) div 2 kind hidden dbar 2026.09.04 09:15 latch 1 (B182DEC JL 12130064)
+(g) exit 10:51 1.16249; MTEXIT SL line - val - entry 1.16290 exit 1.16249 (JL 12131252); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-09-22 19:00 SHORT entry 1.14314 (MACHINE)
+(a) entry line Quarterly-POC px 1.14334 at retest 2026.09.22 18:45 (BORN JL 12490818); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BEAR/BEAR/BEAR; 5m BEAR (BORN JL 12490818)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.14555-1.14602 reach REACHED 2026-09-22 16:30 kill STANDING vs-stop BEYOND-STOP
+(e) OB/FVG NOT PRINTED (FRESHCOUNT)
+(f) div -1 kind regular dbar 2026.09.22 18:20 latch 0 (B182DEC JL 12493618)
+(g) exit 19:13 1.14306; MTEXIT TP_TOUCH line - val - entry 1.14314 exit 1.14307 (JL 12493712); (h) open fields NOT PRINTED as labeled
+
+## Take 2026-10-08 11:35 SHORT entry 1.11884 (MACHINE)
+(a) entry line Daily-VWAP px 1.11975 at retest 2026.10.08 11:20 (BORN JL 12896474); side tag NOT PRINTED (RETESTBOOK)
+(b) 4H/1H/15m BEAR/BEAR/BEAR; 5m BEAR (BORN JL 12896474)
+(c) setup class TREND; sweep NOT PRINTED (B182SWEEP)
+(d) zone XOB 1.12058-1.12075 reach NEVER-REACHED  kill STANDING vs-stop BEYOND-STOP
+(e) OB/FVG at 2026.10.08 11:30: obDead=0 fvgDead=1 oppFvg=0 (FRESHCOUNT JL 12899667)
+(f) div -1 kind regular dbar 2026.10.08 11:15 latch 0 (B182DEC JL 12899655)
+(g) exit 12:13 1.11819; MTEXIT TP_TOUCH line - val - entry 1.11884 exit 1.11819 (JL 12900248); (h) open fields NOT PRINTED as labeled

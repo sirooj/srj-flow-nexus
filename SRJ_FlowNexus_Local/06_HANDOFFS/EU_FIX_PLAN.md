@@ -73,6 +73,7 @@ F8 18-JUNE - FOMC VWAP line kill at 09:40 drops the 09:45 long. Waits on his cha
 - State B-221: MEASURED no trial (R1 104 CLOSE / 407 ABSENT of 511; S V1 fails A5/10Jun/28Jul/22Sep/8Oct, V2 fails 13 kept; R3 kill record FOUND moot; rows in BUILDER_SLICE_B221.md).
 - State B-222: RESTORED V1 trial b4db21c5/61829f05 (RECON 16/16 SAME; EU 44 deals: NEW 18Jun pair only, GONE 28Jul flip-death 10:10 LTF_MISALIGN; A1-A7 identical incl A2/A5; 7Sep short no FIRE/entry; rows in BUILDER_SLICE_B222.md).
 - State B-223: DONE KEPT (18 Jun fires; 28 Jul removed by his 5m flip rule).
+- State B-224 (MEASURED): T-REACH on kept rows; HIS-KEEP 10/13 PASS; F3-NAMED 6/6 FAIL beyond-stop; next trials the gate.
 F9 REPORT-COMPLETE - print-only additions, deals identical: target name in TP_ELECT, zone formation candle, sweep source, the exit rows missing from 9 takes (B-204 R3). Any time a fix relay has spare room.
 
 ## 4. Where to look (symptom -> first rows)
