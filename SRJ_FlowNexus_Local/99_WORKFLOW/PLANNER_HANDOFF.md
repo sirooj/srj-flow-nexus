@@ -22,6 +22,7 @@
 | FOMC-MULTI | B-205-B-206 | closed KEPT euro B-206 | BUILDER_RESULT_B206.md |
 | J2D-DEFECTS | B-204-B-211 | PARKED 6 of 6 (S8 panel-leg DOES NOT SEPARATE: A1,A2,A3,A5,A6,A7 break; must-nevers refuse; exit-fill measured) | SEPARATOR_B211.csv |
 | F1-CONFIRM-KILL | B-212-B-217 | PARKED 6 of 6 (B-217 K0 R-OTHER-25JUN-S4-REVIVE-FIRSTPAINT, no edit, MEASURED; negative evidence: H1+H2+H3 kill 10Jun/22Jul, A kept, 25Jun S4/revival/first-paint blocks; F1 parks, next P3) | BUILDER_SLICE_B217.md |
+| P3-0618 | B-218 | open 1 of 6 (D3 HIS-EYES chart call) | BUILDER_RESULT_B218.md |
 | BACKTEST-J2D | B-202-B-203 | open 2 of 6 MEASURED | BUILDER_RESULT_B203.md |
 | FIDELITY-B179 | B-199 paused | 5 of 6 paused | BUILDER_RESULT_B199.md |
 | MR-SWEEP-0710 | B-193-B-198 | PARKED 6 of 6 | BUILDER_RESULT_B198.md |
@@ -35,8 +36,6 @@
 | XOB-DETECT-920 | B-160a-B-162 | closed KEPT (origin tag B-162) | BUILDER_RESULT_B162.md |
 
 ### (b) Last 10 arc lines (verbatim)
-- B-207: J2D-DEFECTS 2 euro MEASURED (S1 refuses 10Jun+A1, S2 refuses nothing, S3 refuses 10Jun+A1, S4 refuses 10Jun+A1; no reading separates; 25Jun/22Jul pass all; log writer = live+tester indicator prints, no toggle; EU-FIRST banked; verdict MEASURED).
-- B-208: J2D-DEFECTS 3 euro MEASURED (print-only OB/FVG diagnostic, always restored; 16/16 + 44/44 deals identical; P1 pieces: A1-FVG found wick-dead vs machine OB 2170, 25Jun OB not found, 22Jul/A6-A7 found; P2 5097 killed/6316 skipped/265 never; P4 separates his way; blessedB208 re-blessed+T1-proven; verdict MEASURED).
 - B-209: J2D-DEFECTS 4 euro MEASURED (machine pieces, S1/S2/S3 DOES NOT SEPARATE break A1+22Jul, 22Jul gap filed, PK-3; verdict MEASURED).
 - B-210: J2D-DEFECTS 5 euro MEASURED (zone flags, R2 3238 reg kills, R3 several, R4/R5 NOT FOUND, S4-S7 DOES NOT SEPARATE, charts; verdict MEASURED).
 - B-211: J2D-DEFECTS 6 euro MEASURED (panel-leg print-only, S8 DOES NOT SEPARATE A-breaks, exit-fill spread+3, lane PARKED; verdict MEASURED).
@@ -46,6 +45,7 @@
 - B-215: F1-CONFIRM-KILL 4 euro RESTORED (S3 trial H1 persist + H2 fvg + H3 kill; 25Jun still fires first-close missing, 10Jun/22Jul silent, 17Aug other removed; verdict RESTORED).
 - B-216: F1-CONFIRM-KILL 5 euro RESTORED (complete H1 H1b+H1c, STOP 25Jun fvg timing, 10Jun/22Jul silent, 17Aug removed; verdict RESTORED).
 - B-217: F1-CONFIRM-KILL 6 euro MEASURED park (K0 R-OTHER S4/revival/first-paint, no H4, no trial; F1 PARKED 6 of 6).
+- B-218: P3-0618 1 euro MEASURED (kept identity RECON62 16/16 + EU0525TD 44/44; R3 KILL-HIS-RULE; R4 SUPPRESSION-ENDS-AT-KILL; R8 D3 HIS-EYES chart call; verdict MEASURED).
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.

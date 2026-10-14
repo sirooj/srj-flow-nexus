@@ -66,6 +66,7 @@ F6 LINE-REACH - the entry line not touched by the retest candle.
 F7 REGIME - trend following with too few HTF votes.
 - Shows on: takes fired TREND with seed votes 0 or 1 (B-204 D5). A2 (1 Sep) is among them and its class is his to rule (register NOTE B-121): measure only, never gate before his word.
 F8 18-JUNE - FOMC VWAP line kill at 09:40 drops the 09:45 long. Waits on his chart call (planner carries it).
+- State B-218: R3 KILL-HIS-RULE (09:35 o1.15275 c1.15224 through 1.15233 before 09:45 confirm), R4 SUPPRESSION-ENDS-AT-KILL (Daily-POC held for alive FOMC-VWAP to 10:00 END), R8 D3 HIS-EYES chart call (rows in BUILDER_SLICE_B218.md).
 F9 REPORT-COMPLETE - print-only additions, deals identical: target name in TP_ELECT, zone formation candle, sweep source, the exit rows missing from 9 takes (B-204 R3). Any time a fix relay has spare room.
 
 ## 4. Where to look (symptom -> first rows)
