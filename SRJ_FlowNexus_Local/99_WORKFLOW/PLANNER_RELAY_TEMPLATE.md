@@ -17,7 +17,7 @@ Trader summary: two or three sentences in his words.
 ## Part K - kept-build edit (rule-conflict check; backups .preB<n> with SHAs; raw spots located by text; one edit; one compile) or Part R - reading (read-only measurement on named journals)
 ## Part S - separator table (required before any Part K trial; from committed pack lines; one row per register row A, B, C; columns: pack lines, reading verdict, SEPARATES / DOES NOT SEPARATE / OTHER-GATE)
 ## Part T - runs (RECON62 first, then June; filed-trade table; STOP rules right after the table; restore on STOP)
-## Part X - records (PLANNER_CONTEXT lesson and history lines, PLANNER_HANDOFF section 3 arc line, ledger item; each grep-first)
+## Part X - records (LESSONS.md one line <= 160 chars only for a standing lesson; PLANNER_HANDOFF section 3 arc line <= 200 chars; ledger item; each grep-first; then the Part F size gate)
 ## Part F - file, push, reply
 F1 result BUILDER_RESULT_B<n>.md (trader summary first; relay order; final disk state; carried note last if any).
 F2 slice BUILDER_SLICE_B<n>.md (raw rows; under 600 lines).

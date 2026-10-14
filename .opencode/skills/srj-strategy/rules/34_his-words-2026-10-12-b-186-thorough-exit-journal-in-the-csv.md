@@ -1,0 +1,4 @@
+## His words 2026-10-12 (B-186) - thorough exit journal in the CSV
+- EXIT-JOURNAL-THOROUGH, his words, verbatim: "also regarding the 7 July, why can't you name the exit? i said to make the csv to document or journal every relevant point such as the exit. i assume you only journal or log the price but not the reason such as the W VWAP. refine the csv journal to be more thorough to be reviewed by a human trader logic."
+- Amended point (paraphrase, marked so): every CSV journal documents every relevant point of a setup including the exit - the exit reason and the evidence for it (which line, touched or not, with its candles and prices), never the price alone; the sheet must read clean to a human trader. Extends his B2 never-simplify order (section 11/line 252) into exits: exits carry reasons with rows, the same way entries carry POI, class, biases, sweep and CQD type.
+

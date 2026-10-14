@@ -1,0 +1,3 @@
+## Session-clock source pointer (builder correction 2026-10-12, B-188 - not his words, no rule changed)
+- SESSION-CLOCK-SOURCE: session clock times are NOT banked in this file. London 09:00-12:00 / New York 14:00-19:00 server (ET 02:00-05:00 / 07:00-12:00) live in spec v4.2 section 3.0 and Indicators/SRJ_FlowLogic.mq5 inputs inLondonSession/inNYSession, mapped per bar by Include/SRJ/SRJ_Sessions.mqh SRJ_GetSessionId (gap bars, e.g. 13:55 server, return no session). Record-first searches for session-window/clock questions start there; this file is consulted only for his sweep/session words (FRESH-SWEEP, ONE-TAKE-PER-SESSION). Owned defect: B-188 R4 searched this file for clock text never banked here.
+

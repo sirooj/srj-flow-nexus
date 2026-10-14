@@ -1,0 +1,134 @@
+---
+name: srj-relay
+description: Run an SRJ B-series relay from the planner agent - start gate, trial discipline, result file, push, one-line reply. Load first whenever the inbound message is a relay "B-<n>".
+---
+
+# SRJ B-series relay lane (operator order 2026-10-04)
+
+Roles
+- Planner: the planner agent the operator opens (ClickUp Brain since relay B-81; any profile or workspace). Reads this repo on GitHub, read-only, and writes relays B-<n>. Has no terminal and cannot push. Entry page SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_BOOTSTRAP.md; context SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_CONTEXT.md.
+- Operator: pastes each relay whole into a builder session, and pastes the builder's one-line reply back to the planner. He does not code. Never ask him code questions.
+- Builder: you. Do exactly what the relay lists, measure, report.
+
+Fresh sessions
+- Every relay is self-contained. A fresh session needs only three things: this skill, the previous BUILDER_RESULT_B<n-1>.md on branch builder/B-<n-1>, and the relay.
+- For its own scope, the relay wins over older queue items in the pointer.
+- Every relay opens with a Part 0 fresh-session start: the branch and commit to check out, the files to read in order, and every name the relay uses. A builder with no memory runs the relay from Part 0 alone.
+
+Authority
+- His paste of relay B-<n> is his word for the edits, compiles, runs and pushes that the relay lists, and for nothing more.
+- EA, indicator and Include/SRJ edits stay uncommitted and unpushed unless the relay says to commit AND he has said so.
+- Push only the files the relay names, to branch builder/B-<n>.
+
+Start gate (every relay)
+- Run git log -1 and report the git status --short line count.
+- Take the SHA-256 of every file the relay names and compare it to the relay's expected prefix. On a mismatch, STOP and report.
+- Line-ending gate (B-48 lesson, defect owned 2026-10-06): this workstation writes CRLF and git stores LF, so a disk SHA and a GitHub-blob SHA of the same content never match on text files (journal: 1059 CRLF bytes; ledger: 11 CRLF bytes on appended lines). Before declaring a gate mismatch, LF-normalize the disk bytes (strip every CR) and re-hash: if the normalized SHA equals the expected blob SHA, the content is identical - record it as accounted and go on. A mismatch that survives normalization, or any non-empty `git diff <commit> -- <file>`, is a real STOP. Result files must carry both SHAs (disk + normalized) so the next session never stops on this class again.
+- Before any source edit, write a backup <file>.preB<n> and give its SHA-256.
+
+Trial discipline
+- One edit, one compile and one tester run, unless the relay says otherwise. No second attempt.
+- Locate edit points by their text, never by line number alone. Paste the spot raw, with real line numbers, before editing.
+- Filed-trade table: one row per deal, dates first, before vs after, with totals.
+- Evaluate the STOP rules right after the filed-trade table. On a STOP, restore from .preB<n>, verify the SHA, and report anyway.
+- If two runs in a row fail to improve the same filed trade, stop local iteration and report to the planner. The builder already runs on Opus, so this no longer means a model switch.
+- Tester runs are launch-then-stop by default (his RAM order 2026-10-05): launch detached via the wrapper, verify the journal shows the right window within minutes, then kill the launcher shell itself (it re-reads the whole day log every 10s and burns ~1GB; the terminal + tester agent survive it) and end the turn. Grade straight from the tester day-log on completion (STATUS file keeps PRE_JOURNAL_LINES for the archive slice; no DONE file will exist). A verified DONE file IS the completion signal - grade, restore and file immediately on seeing it; never demand a second human signal after confirming DONE yourself (defect owned 2026-10-05). Start-Sleep auto-polling for completion only when he explicitly orders it (e.g. overnight sessions).
+- File every edit so it can be re-applied exactly: report the edited source SHA-256, keep the edited copy as <file>.B<n><tag> (never committed), and paste the full diff against .preB<n> raw in the result file. A RESTORED trial must never lose its hunk text (B-19 had to rebuild B-15's lost skip).
+- Save the trial keep before any restore (B-201 lesson, defect owned 2026-10-13: the builder restored Experts from .preB201 before saving .B201K source, losing trial src 7c392767; trial ex5 survived as ex5.preB201 only): copy Experts source to <file>.B<n>K and verify its SHA equals the post-compile/pre-launch SHA before overwriting Experts with .preB<n>; never restore before the keep exists and verifies.
+- Verify the edit application before compiling (B-170 lesson, defect owned 2026-10-11: a gate edit duplicated its own block, +1 brace, 29 cascading errors): after any EA edit, brace-balance the file against .preB<n> (equal or the hunk's own delta) and confirm the hunk appears exactly once (one [B-<n> TAG] marker set) before the compile call.
+- Launch from a script file (B-28 lesson, defect owned 2026-10-05): start the tester wrapper from a launch script file mirroring the known-good pattern, never an inline WMI command string (inline backslash-quote escaping silently breaks the wrapper command: WMI returns PID with RC=0 but no STATUS appears and no terminal starts).
+- Keep regression runs fast (his standing order 2026-10-05: runs must stay under 5 minutes): a run's wall time follows the history window the indicator actually replays. With the slot fix live (lookback 3000) the full RECON62 window (563338 ticks, 3168 bars) grades in ~4 minutes (j14 0:04:06, j15 0:04:00); with the input-group shift live (lookback 16388) the same window takes ~50-58 minutes (j12 0:51:57, j13 0:58:34). Keep the slot fix live for every regression run; a ~50-minute RECON62 run means the shift is back. Do not re-verify speed with extra runs - the window print and the elapsed time on the completion line are the proof.
+- Auto-detect completion on fast runs (his standing order 2026-10-06: with runs under 5 minutes he prefers automatic detection over end-the-turn waiting): after the launch-then-stop verification, start the tail watcher (`00_CURRENT_WORKING/watch_run.ps1`, detached via WMI: it reads only the last 64 KB of the day log every 25 s and writes the DONE file on the completion marker, then exits) and poll for DONE with short cycles only (single Test-Path checks with sleeps of 60 s or less per tool call, so every call returns visible progress - never one long Start-Sleep block, which looks stuck and gets aborted). The moment DONE verifies, grade, restore and file at once. The wrapper-shell kill still applies during the run. (B-34 lesson, defect owned 2026-10-06: a 180 s blocking sleep hid a finished run; the watcher + short cycles replace it.)
+- Set the tester window before every run (B-38 lesson, defect owned 2026-10-06): the tester dates live in config\terminal.ini [Tester] DateFrom/DateTo as epoch seconds; run inis carry Symbol and inputs only. Before EVERY launch, write that run's DateFrom/DateTo and read them back; never assume the prior run's dates. RECON62 EURUSD = 1787702400/1788998400; June USDJPY = 1779667200/1781308800 (5/25 start, graded 6/01-6/12; measured B-63 D3).
+- Verify the watcher started (B-38 lesson, defect owned 2026-10-06): after launching watch_run.ps1, confirm its process exists by the PID the launch returned (never by a process query that matches your own command text) before the first DONE poll. If no PID exists, read the 64 KB day-log tail directly for the completion marker.
+- Second indicator copy (B-41 lesson, defect owned 2026-10-06): an iCustom with arguments identical to a live handle returns the same shared instance, so releasing it kills the live copy. A diagnostic second copy must differ in at least one input, or must never be released before the run ends.
+- Content copies before any terminal launch (B-42 lesson, defect owned 2026-10-06): the terminal re-saves chart files and config\terminal.ini on exit, so before any launch copy the CONTENT of every file in that scope to .preB<n> copies; fingerprints alone cannot restore. After the run, restore from the copies and verify the SHAs.
+- Leftover terminal (B-43 lesson, defect owned 2026-10-06): run inis carry no ShutdownTerminal, so a finished tester run can leave terminal64 open and the next launch is refused as busy; before every launch confirm no terminal64 is running, and stop any leftover by its PID.
+- YOLO mode (his standing order 2026-10-06): git commands run automated and every folder this lane touches is pre-allowed - opencode.json sets permission bash/edit/external_directory to allow, so the builder never stops for an approval prompt on commands, edits, or outside-workspace folders. If a prompt still appears, report its exact text instead of working around it.
+
+Rule-conflict check (before any edit)
+- If a relay's change touches a trading rule, first find his banked words on that rule in the strategy skill, the findings and the journal.
+- If the change contradicts them, do not edit. Write a carried note quoting his words and stop for the planner.
+- Example, B-8: a 1-point A2 allowance contradicted his 2026-09-23 no-tolerance rule.
+
+Result file
+- Path: SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B<n>.md.
+- Write the steps in relay order: raw where raw is asked, trader words elsewhere. Explain every journal code in a few words.
+- End with the final disk state: which source is on disk with its SHA, and whether the EX5 matches it.
+- Put carried notes at the end, under "## Carried note".
+- When he answers a carried question, the next relay banks his words verbatim in the strategy skill, his trade journal and the ledger before anything else, so he never has to explain them twice.
+- Before banking, grep for the section/row/item first: if the exact words are already present verbatim, verify counts + SHAs, cite the landing commit, and do not re-append (B-27 re-issued B-26's landed banking; silent re-application risks duplicates and a false record).
+- Questions for him: trader words, exact dates, times and prices, asked only after the record-first search, with the sources listed.
+- Grep before banking (B-27 lesson, operator order 2026-10-05): before appending any strategy-skill section, journal row or ledger item, grep the target file for it. Count 1 and verbatim: append nothing, cite the commit that landed it, and report ALREADY_BANKED <commit>. Count 0: append. Count 2 or more: append nothing and write a carried note.
+- Trader summaries and carried notes name zones and events by candle time, price and session only, never by machine zone numbers, tags or log references (his words 2026-10-11, B-175).
+
+Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
+- On every KEPT verdict, commit SRJ_FlowNexus_Local/06_HANDOFFS/ROWPACK/ROWPACK_<run>.csv for each run the verdict rests on (RECON62 and June) plus DEALS_<run>.csv, and ROWPACK/INDEX_B<n>.md.
+- ROWPACK columns: pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw. raw is the journal row byte-for-byte, CSV-quoted. Rows: every row whose tag is in the relay's tag list (from B-162 the tag list includes B162ORIGIN, the most-recent in-play XOB per side), inside the session windows (server 09:00-12:00 and 14:00-19:00), plus every deal row.
+- DEALS columns: deal,side,date,time,price,volume,register_row (A1-A7, B1-B3, C-<date>, or NONE).
+- INDEX_B<n>.md: for each register row, the pack lines of its seed, its confirmation decision, its divergence latch and its entry (NONE where absent).
+- A file over 900 KB is split by week (_W1, _W2, ...) so it stays readable on GitHub.
+- Also write one file per trading day, ROWPACK/<run>/<YYYY-MM-DD>.csv (same columns), so the planner reads one day at a time (PK-2, relay B-132).
+- Rows of an open trade are kept from entry to exit even outside the session windows (MTEXIT, exit, day-close and deal rows), so every exit is in the pack.
+- Packs are text records, staged by explicit path. The pointer carries one Lane line: open item, first relay, relay count.
+
+Day-log parsing (his order 2026-10-11, measured B-170: parse Tester day logs in Python, never PowerShell)
+- PowerShell Get-Content loads the whole log as .NET strings: on the 1.1 GB day log the cutter thrashed 45+ minutes at 1.7 GB RAM and was killed unfinished. The same cut in Python (C:\Users\winar\AppData\Local\Programs\Python\Python313\python.exe) took ~2 minutes at ~95 MB.
+- Rule: any script that scans Tester/logs/*.log end to end (pack cutters, span scans, multi-pattern greps) is Python: open(encoding='utf-16') streamed line by line, compiled re patterns, one pass per job (cut all runs' segments in the single pass; spans first, rows second). Never Get-Content/Select-String over the whole log, never one scan per date/tag.
+- Parity gates (same as the run they replace): identical columns, CRLF line endings, CSV quoting (double internal quotes); journal_line = the log's 1-based line number; week/day splits and session-window/span rules unchanged. Verify row counts per file plus the superset check (every old (journal_line, tag, raw) present) before filing.
+- PowerShell stays for: terminal launches (WMI pattern), git, STATUS/DONE polling, small-file greps (packs, CSVs, sources), SHAs. Python stays out of: launches, terminal control, commits.
+- Speed order (his words 2026-10-12, verbatim: "please also tell the terminal agent how to do it the most efficient way such as using phyton compared to powershell commands because it took it over 1 hour to finish this"). B-177 and B-178 ran with Python missing and B-178 took over an hour.
+- Python first, every relay: Part 0 tests the interpreter path above, then py -3 --version. Missing: reinstall once with winget install --id Python.Python.3.13 -e --scope user --silent --accept-package-agreements --accept-source-agreements, re-test, record the new path in the result. Only if that fails: the bounded forward-only stream (switch -File or StreamReader, never Get-Content on a whole log), disclosed with timings.
+- One script per job: every scan, cut or grade is written once as a Python script file and run once, all runs' spans in one pass; never a chain of one-off interactive greps over the day log.
+- Grade from the cut: after the one cut pass, every grade reads the small cut files, never the day log again.
+- Overlap the waits: while a tester run is going, do the offline work that does not need it (the previous run's cut and grade, table drafts, record greps, result text); never sit idle in a poll loop.
+- Print lean: a print line that fires every candle carries counts and one object, never an open list (B-178 ALIVE lists hit the ~255-character journal cap and cost log size for nothing).
+- Timing table: every result ends its relay order with wall time per step (gate, edits + compiles, each run, cut, grade, records, push).
+- Disk layout (his order 2026-10-12, builder cleanup after B-182): Tester/logs and MQL5/logs are NTFS junctions to D:\SRJ Venture\Tester-logs\ and D:\SRJ Venture\MQL5-logs\. Read and write through the C: paths (transparent to the terminal, the cutter and git); never move, delete or resolve the link itself. Untracked work files live at D:\SRJ Venture\work-archive\ (manifest MOVE_MANIFEST_B182.txt); the shared runners (run_tester_v2.ps1, watch_run.ps1), run inis, STATUS/DONE and the .preB restore chain stay in 00_CURRENT_WORKING.
+
+Run economy (his order 2026-10-12, B-191B addendum; banked B-192)
+- One cut per run batch: after the batch's last run, one Python pass cuts every run's segment. Before each launch, write into that run's STATUS file the day log's path, its byte length and PRE_JOURNAL_LINES. The cutter opens the log in binary, seeks to the first run's byte offset, decodes UTF-16-LE from there, numbers lines from that run's PRE_JOURNAL_LINES + 1, and splits segments at the later runs' offsets. Never a full-log line count, never one pass per run, never a recount to check a count (the cut files' own counts are the check). A run that crosses the day-log rollover continues in the next day's log from its first line.
+- Run names carry the relay number (RECON62-B<n>, JUNE0525-B<n>, GBP0629-B<n>) and are never reused. A segment is cited only when its rows carry the build's own tag line (B-191 lesson).
+- Binary proof: SHA-256 of the compiled ex5 in MQL5/Experts right after the compile, right before each launch and right after each run. Any change = STOP.
+- One terminal session per relay: launch, verify the window, run the relay's runs back to back, stop at the end. If a launch is refused busy, stop the leftover by PID (B-43), launch, and record it with times; no second warm hand-off attempt in the same relay. Launcher shells are still killed after the window verify.
+- Disk: report D: free GB before the first launch and after the last run. Never copy the day log. Delete nothing (packs, cuts, logs, backups) without his word.
+- Timing table per run: WMI launch time, terminal process start, first replay line time, pass time (completion line), cut time, grade time. Slow starts stay visible.
+- Fill table on every trial: per deal, the fill beside the machine's reference (entry: next-candle open; exit: MTEXIT exit), the booked value, the live line value at the exit candle, the candle o/h/l/c, and how the platform closed it (take-profit order, stop order, or EA market close) with the order's own price. Any fill different from its reference is filed as a measured deviation with the candle, never smoothed, never given a tolerance; his spread-drift words (strategy line 34) are the only admitted cause class.
+- Housekeeping (his order 2026-10-14, B-207): After a relay's push verifies, its CUTs and day logs stay only while they are the current kept baseline or the current trial; the previous ones are deleted with a manifest line in the result. Never delete tick history, checkpoints, run inis, the shared runners, the record files, the kept sources, .B<n>K of the kept build, or one .preB rollback step. The blessed terminal.ini copy (terminal.ini.blessed<B>) is never zipped, moved or deleted; a cleanup pattern that matches it skips it.
+
+Setup report (his order O2 2026-10-10, relay B-150)
+- On every KEPT verdict, and for any run a relay names, render SRJ_FlowNexus_Local/06_HANDOFFS/REPORT/SETUPS_<run>.csv offline from that run's committed row packs (no EA print is added for it). One row per candidate inside the session windows, keyed by window + direction + anchor line (spec 6), with its last state.
+- Columns: run,ea_sha,pair,session,date,side,verdict(EXECUTED|REJECTED),register_row,retest_bar,retest_line,retest_side_tag,confirm_bar,confirm_src,entry_bar,entry_ref,fill,sl,sl_swing_bar,sl_branch_printed,tp_name,tp_price,r_at_open,htf_4h,htf_1h,htf_15m,ltf_5m,setup_class(TREND|MEANREV|BOTH|NONE),sweep_src,sweep_candle,zone_src(XOB|FVG|NONE),xob_id,xob_range,xob_promoT,xob_formT,xob_mid,xob_kill_level,xob_state_at_confirm,xob_inplay_printed,xob_origin_id,xob_origin_range,xob_origin_formT,commit_via,promo_return,div_kind,div_bar,div_type_his,exit_bar,exit_price,exit_src,r_result,reject_tag,reject_reason,reject_pack_line,source_pack_lines.
+- xob_id stays the machine's pick; xob_origin_* is his documentation tag (most recent in-play XOB, his words 2026-10-10, B-160a), read from the trade-side B162ORIGIN row at the confirmation candle; never a trade gate.
+- setup_class is the machine's own regime verdict at the candidate's decision pass (spec 3.2: trend = retest direction with the 4H/1H/15m majority; mean reversal = fresh same-session sweep of the prior session's liquidity; both may hold), and sweep_src names the swept level, its session and the sweeping candle; each from a named pack line, else NOT PRINTED with the tag that would carry it (his B2 words 2026-10-11).
+- xob_formT, xob_mid and xob_kill_level come from the indicator's own zone record at promotion (B182MID), matched to the pick by range and promotion time; xob_state_at_confirm is STANDING or KILLED <candle> from the B178ZL kill row; sweep_candle is the candle the indicator set the fresh-sweep tag on (B182SWEEP); each else NOT PRINTED with the tag that would carry it.
+- Every cell comes from a named pack line (source_pack_lines lists them). A value no print carries is NOT PRINTED, never inferred. div_kind uses the machine's words (regular/hidden, bullish/bearish); div_type_his is filled only where his record maps a number (e.g. his W2 "blue solid which is type 1 bullish"), else UNMAPPED. Rejected rows name the killing row (ABORT reason, A6REFUSED predicate, CONFIRMPOLL confirm=0 with touchAttr, S54KILL, TP_RR_FAIL with R, PROMO_RETURN_NONE).
+- REPORT/README.md holds the column dictionary and the tag each column reads. Files over 900 KB split by week.
+- Never simplify the report from the CSV (his words 2026-10-11, B-168): every report he reads carries, per setup, the POI entry zone (5m XOB or FVG, with its id, range, formation and promotion candle, midline, and kill state at the confirmation candle), the setup class (trend following or mean reversal), the 4H, 1H and 15m bias, the sweep source for mean reversal, and the CQD divergence type, each from a named row or NOT PRINTED with the tag that would carry it.
+- Review sheet (his order 2026-10-14, B-204): every take block carries (a) entry line name, the line's price at the retest candle, the retest candle o/h/l/c and the line side tag; (b) 4H/1H/15m/5m as BULL/BEAR/NEUTRAL from B201FROM ht, never a price; (c) setup class with its reason (regime votes, sweep level + candle or NONE), never a default; (d) zone kind (XOB/FVG), its formation candle(s), range, promotion candle, the candle it came into play, and its side against the stop; (e) the 5m in-bias OB and FVG at confirmation and entry: candle, state LIVE/INVALIDATED + invalidating candle; opposite FVG validated yes/no + candle; (f) every divergence printed from seed to entry with kind and candles, and which one the machine latched; (g) exit: rule, the line broken and its candle; (h) any field no print carries says NOT PRINTED plus the tag that would carry it.
+
+Blind test (his words 2026-10-11, relay B-167)
+- A blind test means he keeps his own journal for the window private and checks the machine's trades himself in MT5. The builder never asks for, reads or grades his journal for a blind window.
+- The machine's trade list goes to him unsealed: trader-words sheet in REPORT/ plus MT5's own tester report (Report= key in the run ini), copied into REPORT/.
+- A blind run leaves the terminal open on the finished test so he can open the trade chart (Strategy Tester, Backtest tab, right-click, Open Chart). The launcher shell is still killed; terminal64 is not. The next relay's start gate records it as ACCOUNTED, stops it only after he has closed it or says so, and restores the .preB copies then.
+- He reports his comparison in his own words; only then does a relay bank it and grade.
+- A blind window ends when he gives his trades for it (his words 2026-10-12, B-184); from then his trades are register rows and the window is graded like RECON62 and June. His journal's July rows are still not read as his pound record unless a row names the pair (B-167 correction).
+
+Reply line (exact shape)
+- B-<n> is done, GitHub branch builder/B-<n>, commit <short hash>, verdict <KEPT | RESTORED | MEASURED | STOP>
+- STOP = a STOP rule hit before the trial ran or finished; no source edit stands; the reason is the result's first line (B-84 first use, planner ruling B-85).
+- When a carried note exists, add: - read the carried note first
+- Before sending the reply line, run git ls-remote https://github.com/sirooj/srj-flow-nexus.git builder/B-<n> and confirm it returns the commit hash. origin/<branch> in the local repo is not proof the push reached GitHub.
+- The ls-remote output travels in the reply line only. The result file need not contain its bytes, and a pushed branch is never amended or force-pushed to add them (planner ruling B-29, answering the B-28 question).
+
+Lane close is not project completion (operator workflow correction, banked B-116)
+- A closed investigation lane is not project completion. The SRJ project remains ongoing until the full audited EU and UJ range is reconciled against the objective; closing one lane never means the project goal is met.
+- Every relay preserves the top-level objective and produces the next relay toward unresolved full-range fidelity unless the operator explicitly redirects. When a lane closes, the next relay must not stop; it must state the lane result and return to the project objective.
+- Record-first investigation must explain invalid machine fires and entry mismatches from the code and records before asking the operator anything. Inventing why a machine time happened before checking the records is forbidden.
+- The operator's stated trade time is authoritative when it conflicts with a machine time; the machine time is a defect to diagnose, never a replacement fact (e.g. his 5 June UJ entry is 16:15; a machine 16:55 entry is an EA defect to explain).
+
+Session-window record order (B-188 lesson, defect owned 2026-10-12)
+- SESSION-WINDOW-RECORD-ORDER: relay record searches answer session-window/clock questions from the code session section (Include/SRJ/SRJ_Sessions.mqh) and spec section 3.0 first; the strategy skill and journal are consulted only for his sweep/session words. Searching memory for clock numbers never banked there is a record-first failure.
+
+Standing scope (his order 2026-10-14, B-207)
+- EURUSD only until he opens pound and yen. Every relay runs RECON62 (EURUSD 26 Aug-9 Sep) and, when a change is kept, EU0525TD (EURUSD 25 May to date). JUNE0525 and GBP0629 are not run; register B and F rows are held, never graded. The fix order is 06_HANDOFFS/EU_FIX_PLAN.md.

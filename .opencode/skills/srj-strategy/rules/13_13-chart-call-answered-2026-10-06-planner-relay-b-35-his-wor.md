@@ -1,0 +1,3 @@
+## 13. Chart call answered 2026-10-06 (planner relay B-35; his words verbatim)
+- JUN05NY-ENTRY-1615 (his words 2026-10-06, answering the B-34 carried question "5 June New York long off the old high: is your entry the 16:15 open or the 16:55 open?", verbatim: "5 June New York long entry is the 16:15 candle open."). Amended point: his 5 June New York USDJPY LONG off the old high (160.723, the 30 April day high; register B row 2) enters at the 16:15 candle open. The 16:55 fill at 160.120 (r78 and j18 deal #6, ENTRY bar 16:50) is the machine's trade, never his entry. Closes B-34 P2 JUN05NY_ENTRY = NO_RULING_FOUND. How this sits with 6/5-TIMING (section 8) and 5M-BIAS-AT-ENTRY (section 11) is checked by relay B-35 Part P1; nothing in those pins is amended by this line.
+
