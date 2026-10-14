@@ -2,16 +2,16 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State (2026-10-14; B-SERIES LANE ACTIVE; latest result B-213 MEASURED euro)
-- B-series relay lane active (operator order 2026-10-04). Relay B-213 filed EURUSD-only per EU-FIRST (branch builder/B-213, verdict MEASURED: OB-dead print-only, S10b separates, no trial). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B213.md`.
+## State (2026-10-14; B-SERIES LANE ACTIVE; latest result B-214 MEASURED euro)
+- B-series relay lane active (operator order 2026-10-04). Relay B-214 filed EURUSD-only per EU-FIRST (branch builder/B-214, verdict MEASURED: K0 road census, STOP no trial). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B214.md`.
 - His EURUSD-first order stands active + banked. Euro alone until he opens pound and yen (held, retained locally).
 - Goal map (his words): 1 journal + detection robust (DONE KEPT B-202); 2 CSV/website/PDF O3 (all euro reports filed; website/PDF pending until he opens); 3 blind test (pending); 4 June to date (euro measured; P4 separates on his named pieces only; machine-only S1-S3 do not (B-209)); 5 year to date (HELD by his B-203 words until he reviews).
 - Planner entry: kit PK-3. Any planner agent starts from 99_WORKFLOW/PLANNER_BOOTSTRAP.md (kit PK-3); context 99_WORKFLOW/PLANNER_CONTEXT.md; cold start 99_WORKFLOW/PLANNER_HANDOFF.md.
-- Kept build on disk, diagnostics restored (EA src `7c392767...` byte-identical; EA ex5 `83ac8bde...` kept of record (T1 16/16 + T2 44/44); POI `5AF5E035...`/`E5CBE1A2...`; flow src+ex5 `a8201128...`/`c82f175e...` byte-identical; Sessions 16573a5b; .B213D + .preB213 unstaged). No terminal64 running. No trading change stands.
+- Kept build on disk, diagnostics restored (EA src `7c392767...` byte-identical; EA ex5 `83ac8bde...` kept of record (B-213 16/16 + 44/44); POI `5AF5E035...`/`E5CBE1A2...`; flow src+ex5 `a8201128...`/`c82f175e...` byte-identical; Sessions 16573a5b; no .preB214/.B214K (correct, K0 STOP no edit)). No terminal64 running. No trading change stands.
 - Blessed terminal.ini = terminal.ini.blessedB208 (c725e437, work + archive copies); config terminal.ini identical, verified. Lost a5834591 stands (addendum STOP).
 - Identity reference: T1 euro baseline deals (B-206). B-202 deal files stay as history. Slots fixed (lookback 3000).
-- Ledger last item 1360 (B213-EU-OBDEAD, MEASURED euro; 1359 = B212-EU-PANELCOLOR). B213 lesson in LESSONS.md.
-- Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. F1-CONFIRM-KILL 2 of 6 MEASURED euro (S10a DOES NOT SEPARATE 22Jul repaint; S10b SEPARATES; R5 wrapper RAM-kill/watcher fast-only/rotation orphan; B-214 H1+H2). BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
+- Ledger last item 1361 (B214-EU-F1TRIAL, MEASURED euro K0 STOP; 1360 = B213-EU-OBDEAD). B214 lesson in LESSONS.md.
+- Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. F1-CONFIRM-KILL 3 of 6 MEASURED euro (B-214 K0 STOP: H3 after 16:10 close + ren unexported, no trial; B-214 trial awaits ruling/road). BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
 - His B-204 words stand: 10 June / 25 June / 22 July INVALID must-never (P4 refuses all three his way). F2 pending. HOLD-YTD stands.
 - R0 depth: tester walks from 25 May, Yearly folds from 26 June off checkpoint; his chart starts 1 January.
 - terminal.ini = blessedB208. Profiles 581 gap carried (deletion forbidden). Seeds/ckpt byte-identical. Fix order: 06_HANDOFFS/EU_FIX_PLAN.md (EURUSD only; F0 first, F1/F2 after F0).
@@ -27,7 +27,7 @@
 - Carry: P3 18-June NOT FIRED with the planner as a chart call.
 
 ## Next
-- Next = B-214 F1 trial H1 OB-leg dead + H2 fvgExists export (S10b set), RECON62 then EU0525TD, A1-A7 identical, 3 must-nevers silent, others named. Then P3 chart call, his euro review, held pound/yen, J2D D3/D1/D2/D5/D4.
+- Next = planner ruling or F1-relay-4 pre-confirmation road (unskip S4 poll / export ren / veto H3), then B-214-style trial H1+H2+H3, RECON62 then EU0525TD, A1-A7 identical, 3 must-nevers silent. Then P3 chart call, his euro review, held pound/yen.
 - Queued, not opened: His F2 grade pending. GU 28 Aug gap UNRECONCILED. B-202 file-defect queue (read-only, fix needs his word).
 - PENDING (his O3 2026-10-10): website + PDF; not built until he opens it
 

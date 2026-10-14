@@ -126,3 +126,4 @@ B-211-PANEL-IS-THE-FLAG (B-211): his 2-of-3 flags are his panel leg OB/FVG state
 B-212-SEED-NOT-SESSION (B-212): a pre-confirmation count is graded seed to confirmation, never from session start; print fallbacks are not machine flags.
 B-212-EX5-BESIDE-SOURCE (B-211 defect): back up every .ex5 a compile overwrites beside its .preB source, SHA given, before the first compile.
 B-213-READ-THE-PAINT-THE-EA-READS (B-213): a panel bar can paint twice; grade the paint the EA's count consumes, and name the writer that repaints it.
+B-214-COUNT-IS-NOT-THE-GATE (B-214): a count that separates proves nothing until the road from count to FIRE is named; 10 June fired at count 2.
