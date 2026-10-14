@@ -68,6 +68,7 @@ F7 REGIME - trend following with too few HTF votes.
 F8 18-JUNE - FOMC VWAP line kill at 09:40 drops the 09:45 long. Waits on his chart call (planner carries it).
 - State B-218: R3 KILL-HIS-RULE (09:35 o1.15275 c1.15224 through 1.15233 before 09:45 confirm), R4 SUPPRESSION-ENDS-AT-KILL (Daily-POC held for alive FOMC-VWAP to 10:00 END), R8 D3 HIS-EYES chart call (rows in BUILDER_SLICE_B218.md).
 - State B-219: R1 HOLDER-DEAD-STILL-SUPPRESSES (09:40 order SUPPRESSED/ALIVE/ADD/KILL; 1317/1922 name killed FOMC-VWAP; ALIVE rows L6 defect), S E2 (A5/C27/C28 touched, R6 NO); B-218 chart call withheld (rows in BUILDER_SLICE_B219.md).
+- State B-220: G2 NARROW-NEXT RESTORED (18Jun FIRES 09:45 1.15256 exit 10:00 1.15195 SAME; A2 1Sep GONE on EU via reset-wiped rt/latch, 28Jul likewise; C silent; rows in BUILDER_SLICE_B220.md).
 F9 REPORT-COMPLETE - print-only additions, deals identical: target name in TP_ELECT, zone formation candle, sweep source, the exit rows missing from 9 takes (B-204 R3). Any time a fix relay has spare room.
 
 ## 4. Where to look (symptom -> first rows)
