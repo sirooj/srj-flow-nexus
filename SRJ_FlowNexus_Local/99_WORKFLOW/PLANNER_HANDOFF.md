@@ -34,7 +34,6 @@
 | XOB-DETECT-920 | B-160a-B-162 | closed KEPT (origin tag B-162) | BUILDER_RESULT_B162.md |
 
 ### (b) Last 10 arc lines (verbatim)
-- B-200: JOURNAL-REASON 1 + ONE-EXEC 2: banked his goal map; reason map of every end site; ONE-EXEC kept-build trial (no-cap potential list, machine-only ends removed, one-take at the order step) with B200POT/B200SESS reason rows on GBP0629, RECON62 and June, deals identical required; verdict RESTORED.
 - B-201: JOURNAL-REASON 2 + ONE-EXEC 3: banked his step-1 definition (from and to on every setup) and next step June to date; re-applied B-200 with the parked-resume fix, FROM-TO fields and session-close discard rows; human journal per window; deals identical required; verdict RESTORED.
 - B-202: JOURNAL-REASON 3 + ONE-EXEC 4 + BACKTEST-J2D 1: banked his June-to-date order; rebuilt the B-201 journal edit byte-identical (src 7c392767); 10 July resume+end proven; standards deals identical; June-to-date EU 21/GU 8/UJ 9 takes to 12 Oct measured; verdict KEPT.
 - B-203: BACKTEST-J2D 2: banked his hold on the year-start run; measured the 4 euro differences on rows (5m seedbias, target race, break-miss, booked-tp-miss; Yearly unmeasured); 38-take review sheet filed; verdict MEASURED.
@@ -44,6 +43,7 @@
 - B-207: J2D-DEFECTS 2 euro MEASURED (S1 refuses 10Jun+A1, S2 refuses nothing, S3 refuses 10Jun+A1, S4 refuses 10Jun+A1; no reading separates; 25Jun/22Jul pass all; log writer = live+tester indicator prints, no toggle; EU-FIRST banked; verdict MEASURED).
 - B-208: J2D-DEFECTS 3 euro MEASURED (print-only OB/FVG diagnostic, always restored; 16/16 + 44/44 deals identical; P1 pieces: A1-FVG found wick-dead vs machine OB 2170, 25Jun OB not found, 22Jul/A6-A7 found; P2 5097 killed/6316 skipped/265 never; P4 separates his way; blessedB208 re-blessed+T1-proven; verdict MEASURED).
 - B-209: J2D-DEFECTS 4 euro MEASURED (machine pieces, S1/S2/S3 DOES NOT SEPARATE break A1+22Jul, 22Jul gap filed, PK-3; verdict MEASURED).
+- B-210: J2D-DEFECTS 5 euro MEASURED (zone flags, R2 3238 reg kills, R3 several, R4/R5 NOT FOUND, S4-S7 DOES NOT SEPARATE, charts; verdict MEASURED).
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.

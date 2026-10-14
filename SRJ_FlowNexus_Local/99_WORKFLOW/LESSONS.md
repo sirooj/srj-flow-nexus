@@ -125,3 +125,4 @@ B203-LONGER-START-IS-ITS-OWN-CHECK (B-203): "A longer start is its own build che
 B204-CAUSE-NOT-LABELS (B-204): "A review sheet carries cause, not labels: B-203 R5 gave line names without... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L251
 B205-LINEMAP-IDENTITY-FIRST (B-205): "A line-map input fix is graded by deal identity on his register and... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L254
 B-209-BUILDABLE-COUNT (B-209): named pieces are checks, not gates; trials use machine objects + his kills. Full: BUILDER_RESULT_B209.md
+B-210-SPEC-OPEN-FIRST (B-210): before a piece mismatch, read the spec open box; 3.4 named global-vs-zone as largest miss cause. Full: BUILDER_RESULT_B210.md

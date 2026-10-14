@@ -1,0 +1,29 @@
+take,S4_count,S4_verdict,S5_count,S5_verdict,S6_count,S6_verdict,S7_count,S7_verdict,changed,notes
+A1-28Aug-SHORT keep,"0 (zone XOB alive, no FVG, opp0)",KEEP,0,KEEP,0,KEEP,2 (global+R2),REFUSE-BREAKS-KEEP,"S4-S6 keep, S7 breaks",Your 10:05 short: zone XOB 1.16492-1.16507 alive + no gap + opp0 =0. Global 2. FLAGS #915/#914; #5513
+A2-1Sep-LONG keep,UNKNOWN,UNKNOWN-BREAKS,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,1 (global),KEEP,Zone UNKNOWN,Monthly-VWAP; global 1
+A3-4Sep-LONG keep,UNKNOWN,UNKNOWN-BREAKS,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,0-1,KEEP,Zone UNKNOWN,Global 0-1
+A4-7Sep-LDN-LONG keep,UNKNOWN,UNKNOWN-BREAKS,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,0-1,KEEP,Zone UNKNOWN,Global adv1
+A5-7Sep-NY-LONG keep,UNKNOWN,UNKNOWN-BREAKS,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,0-1,KEEP,Zone UNKNOWN,Global adv1
+A6-8Sep-LDN-SHORT keep,0? (9:20 alive),KEEP-DERIVED,0,KEEP,0?,KEEP?,0-1,KEEP,Zone alive DERIVED,9:20 XOB 1.16230-1.16256 killed 17:25 post; global adv1
+A7-8Sep-NY-SHORT keep,0? (same),KEEP-DERIVED,0,KEEP,0?,KEEP?,0-1,KEEP,Zone alive,Same 9:20; global adv1
+10Jun-LONG refuse,UNKNOWN (XOB kill UNKNOWN; 1 if alive),PASSES-BREAKS/UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,2 (global+R2),REFUSE-GOOD,Zone loses/UNKNOWN,"Zone XOB 1.15361-1.15401 inPlay0, opp1. Kill UNKNOWN. Global 2. #3375; #812"
+25Jun-SHORT refuse,1 (alive+dead+opp0 INFO),PASSES-BREAKS,2 (R2 code kill),REFUSE-GOOD,1 (his NOT STATED),PASSES-BREAKS,2 (global+R2),REFUSE-GOOD S5/S7,S4->S5 OB 0->1 via R2 code; S6 his NOT STATED; OPP INFO (R4 NOT FOUND),"Block 5747 alive conf, R2 10:05 1.13574>1.13556 code kill. #1298/#966/#1733; R2 3238/11678"
+22Jul-SHORT refuse,0 (zone old alive),PASSES-BREAKS,0,PASSES-BREAKS,0,PASSES-BREAKS,1 (global+R2 no move),PASSES-BREAKS,No move,Zone 8925 old; R3 9081 alive +9076 dead +8925 alive => several. #2690; #3434
+26May other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+28May other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+4Jun-10:05 LONG other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+29Jun-16:15 LONG other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+8Jul-14:50 SHORT other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+15Jul-10:35 LONG other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+28Jul-10:45 SHORT other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+5Aug-11:20 BUY other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+17Aug-15:55 BUY other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+2Sep-14:45 SELL other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+4Sep-09:30 other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+22Sep-19:00 SHORT other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+8Oct-11:35 SHORT other,global B209,INFO,same+R2?,INFO,same,INFO,global+R2,INFO,no/unknown,Packs/CUT; R2 INFO; zone UNKNOWN
+C-4Sep-10:40 SHORT INVALID,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,Earlier gate silences
+C-27Aug,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,Earlier gate silences
+C-1Sep-15:30,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,Earlier gate silences
+C-28Aug-16:25,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,Earlier gate silences
+C-8Sep-16:45,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,-,Earlier gate silences

@@ -1,0 +1,16 @@
+# BUILDER RESULT B-210 - MEASURED (EURUSD): zone flags + registration kills measured; no separator, chart calls carried
+Trader summary: Your spec names it: the machine watches every block anywhere, your words say the block behind the zone. On your pieces behind the zone, 28 August keeps (0), 25 June passes (1), 22 July passes (0). Adding the 10:05 registration kill refuses 25 June, but 22 July still passes and 10 June goes unknown. No version keeps all 7 while refusing all three.
+Open question unanswered (zone vs any block) + 22 July has three candidates, so no trial. Next relay carries two yes/no questions.
+## Relay order (B-210 J2D-DEFECTS 5 of 6 euro, read-only)
+- Part 0 on builder/B-209 at 07b3746 (backup exact; B-210 cut here). Python embed. Reads per READ_MAP (pointer, RESULT/SLICE_B209, PIECES report/CSVs, LESSONS, FIXPLAN F0-F3, REGISTER A/C, SPEC 3 whole, linemap; pins FVG-validity rules/02 L4, B-146 rules/26 L2-3, B-175 rules/31, B-204 rules/43). Gate: log-1 07b3746, diff EMPTY, SHAs match, CUTs 156M/586M, no terminal64.
+- Part B: no new words. B-204 never-takes once each (rules/43 L15-17); B-209 AB1 once (relay rules/01b L24); cited 07b3746.
+- Part R: R1 zones in FLAGS_B210.csv (machine ZONEPICK/B162ORIGIN/XOBPROMO + his zones; kills per his wick/body + body-close words). R2 11,678 blocks: 3,238 code registration kills (5747 incl: 10:05 1.13574>1.13556); his NOT STATED (B-146 XOB-only, NO-CASCADE); replay silent via activation gate (low not under low). R3 22 Jul: one new bearish (14:45 alive) + London dead 14:35 + old zone alive => several, chart picks. R4 OPP no-clear NOT FOUND (spec 3.4 quoted; strategy/findings 0/3 unrelated); B-209 OPP fix INFO only. R5 spec open NOT FOUND (strategy/findings/register/journal 0); chart below.
+- Part S: S4 zone (code) DOES NOT SEPARATE (break 10Jun UNKNOWN, 25Jun, 22Jul, A2-A5 UNKNOWN). S5 zone+R2 code DOES NOT SEPARATE (break 22Jul, 10Jun UNKNOWN, A2-A5 UNKNOWN; 25Jun fixed). S6 zone+R2 his DOES NOT SEPARATE (his NOT STATED, same as S4). S7 global+R2 DOES NOT SEPARATE (break A1, 22Jul; R2 moves 25Jun only). No S separates; R5 open anyway. No B-211 trial from counts.
+- Part X: LESSONS +1 B-210-SPEC-OPEN-FIRST; HANDOFF 3b +1 B-210 (keep 10); CONTEXT Brain B-210; ledger 1357; pointer lane 5 of 6 + goal-map fix; READ_MAP rewritten; size gate in slice.
+## Final disk state
+- Kept build unchanged (EA 7c392767/B2EF6E4C, POI 5AF5E035/E5CBE1A2, flow a8201128/c82f175e, SESS 16573a5b, OB 8bbf936b, FVG 568f4ce9, tini c725e437). .B208D/.preB208 unstaged. No terminal64. Journal 166767 (339-340 ACCOUNTED). CUTs stay. No edit, no run.
+## Carried note (B-211 lane 6th carries these; planner checks first)
+- Next = two chart calls, no trial. Then P3 18-Jun, euro review, held pound/yen, D3/D1/D2/D5/D4.
+- Chart 1 (R3 several): 22 July New York short, 14:50 confirmation for 14:55 entry: three bearish blocks — 14:45 (1.14037-1.14073, alive), 13:45 (1.14046-1.14061, closed through 14:35 at 1.14064), old zone 21 July (1.14146-1.14194, alive). Which one was in-bias for you, if any?
+- Chart 2 (R5 NOT FOUND): 28 August London, your 10:05 short off the 06:30-06:40 gap: a bearish block formed at 09:25 (1.16446-1.16479) and closed through at 09:40 (1.16475). Did that block count against your setup?
+- Pound/yen held, FIDELITY paused, HOLD-YTD, F2/O3 pending, GU gap unreconciled.
