@@ -40,6 +40,7 @@ Operator kickoff for any new thread:
 - Every result names the run (journal file + EA SHA) behind every row it cites.
 
 J2D-DEFECTS parked B-211 at 6 of 6: S1-S8 no separator; S8 counted from session start with a print fallback FVG; panel colour count untested until B-212.
+- F1 negative evidence B-217 (parked 6 of 6, R-OTHER): H1+H2+H3 kill 10 June (B215F1 15:05/15:20/15:55) and 22 July (B215F1 14:50, H1 persist code4 kept-dead ren0) and keep A1-A7 (T1 16/16, T2 A identical, C silent); 25 June blocked by R-OTHER-25JUN-S4-REVIVE-FIRSTPAINT (S4 passes H3 S3-only misses; code6 renewal revival despite export ren0 H1c KeepDead false at write; S3 10:30 first-paint fvg alive; no B215F1 25Jun; B216H1 10:05 id5747 fires).
 ## 5. History
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-208 (kit PK-2).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-209 (kit PK-3).
@@ -50,3 +51,5 @@ J2D-DEFECTS parked B-211 at 6 of 6: S1-S8 no separator; S8 counted from session 
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-214 (kit PK-3).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-215 (kit PK-3).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-216 (kit PK-3).
+- 2026-10-14: planner session ran as ClickUp Brain for relay B-217 (kit PK-3).
+
