@@ -48,7 +48,6 @@ B141-STOP-SETS-R (B-137): with entries, prices and exits reproduced on his rules
 B136-OWNBODY-ON-HIS-EXITS (B-135): an exit term goes to trial only after its separator is graded on his owed... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L167
 B142-PICK-SHAPE-SHARED (B-142): before drafting any XOB veto for the 4 June 09:55 short, set its kept-build... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L169
 B143-HIS-ZONE-NOT-PICK (B-??): his in-play XOB for 8 Sep New York is the 9:20 XOB, not the machine's 3 Sep... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L171
-B145-STAMP-CORRECTED (B-143): an XOBDIAG row stamped barT holds the state after the next candle's passes... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L173
 B146-NEW-WORD-BEFORE-CALL (B-145): a carried chart call is checked against every word of his given with the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L174
 B147-HIS-RULES-MEANS-RECORD (B-146): when his words point at his rules ("Just look at my rules"), the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L175
 B148-SEPARATES-NOT-BUILDABLE (B-0604): a lane that reaches its limit with a SEPARATES table whose inputs the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L176
@@ -125,3 +124,5 @@ B205-LINEMAP-IDENTITY-FIRST (B-205): "A line-map input fix is graded by deal ide
 B-209-BUILDABLE-COUNT (B-209): named pieces are checks, not gates; trials use machine objects + his kills. Full: BUILDER_RESULT_B209.md
 B-210-SPEC-OPEN-FIRST (B-210): before a piece mismatch, read the spec open box; 3.4 named global-vs-zone as largest miss cause. Full: BUILDER_RESULT_B210.md
 B-211-PANEL-IS-THE-FLAG (B-211): his 2-of-3 flags are his panel leg OB/FVG states, dead until renewal; read panel first. Full: BUILDER_RESULT_B211.md
+B-212-SEED-NOT-SESSION (B-212): a pre-confirmation count is graded seed to confirmation, never from session start; print fallbacks are not machine flags.
+B-212-EX5-BESIDE-SOURCE (B-211 defect): back up every .ex5 a compile overwrites beside its .preB source, SHA given, before the first compile.

@@ -39,8 +39,10 @@ Operator kickoff for any new thread:
 - Start gate: committed text files are gated by "git diff <cut commit> -- <files>" empty; absolute SHAs only for uncommitted disk files (EA, includes, ex5, journals/logs, terminal.ini), copied from the latest result's final-state lines (B-52 lesson: B-50-era text SHAs went stale).
 - Every result names the run (journal file + EA SHA) behind every row it cites.
 
+J2D-DEFECTS parked B-211 at 6 of 6: S1-S8 no separator; S8 counted from session start with a print fallback FVG; panel colour count untested until B-212.
 ## 5. History
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-208 (kit PK-2).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-209 (kit PK-3).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-210 (kit PK-3).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-211 (kit PK-3).
+- 2026-10-14: planner session ran as ClickUp Brain for relay B-212 (kit PK-3).

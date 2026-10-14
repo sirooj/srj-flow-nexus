@@ -1,0 +1,29 @@
+take,S9a_count,S9a_verdict,S9b_count,S9b_verdict,notes
+A1,1,KEEP,1,KEEP,
+A2,1,KEEP,1,KEEP,
+A3,0,KEEP,0,KEEP,
+A4,1,KEEP,1,KEEP,
+A5,1,KEEP,1,KEEP,
+A6,1,KEEP,1,KEEP,
+A7,0,KEEP,0,KEEP,
+10Jun,2,REFUSE-GOOD,2,REFUSE-GOOD,
+25Jun,1,PASSES-BREAKS-MUST-NEVER,1,PASSES-BREAKS-MUST-NEVER,
+22Jul,2,REFUSE-GOOD,2,REFUSE-GOOD,22Jul S9b forces OB dead per rules/46 (no machine renewal before entry)
+C-4Sep-10:40 SHORT INVALID,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+C-27Aug,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+C-1Sep-15:30,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+C-28Aug-16:25,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+C-8Sep-16:45,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+26May 15:50 sell other,0,INFO,0,INFO,"changed vs S1 0: no; kept out, same as machine count"
+28May 11:50 buy other,1,INFO,1,INFO,"changed vs S1 0: yes; kept out, same as machine count"
+4Jun 10:05 buy other,1,INFO,1,INFO,"changed vs S1 1: no; kept out, same as machine count"
+29Jun 16:15 buy other,0,INFO,0,INFO,"changed vs S1 0: no; kept out, same as machine count"
+8Jul 14:50 sell other,0,INFO,0,INFO,changed vs S1 0: no; kept out; your latest at entry is hidden bullish 14:00-14:20
+15Jul 10:35 buy other,0,INFO,0,INFO,changed vs S1 0: no; kept out; mean-reversal not valid by your word
+28Jul 10:45 sell other,2,INFO,2,INFO,changed vs S1 0: yes; refused by colour too; you see no valid zone there
+5Aug 11:20 buy other,0,INFO,0,INFO,changed vs S1 1: yes; kept out
+17Aug 15:55 buy other,1,INFO,1,INFO,changed vs S1 1: no; kept out
+2Sep 14:45 sell other,0,INFO,0,INFO,changed vs S1 0: no; kept out
+4Sep 09:30 buy other,1,INFO,1,INFO,changed vs S1 1: no; kept out
+22Sep 19:00 sell other,0,INFO,0,INFO,changed vs S1 0: no; kept out
+8Oct 11:35 sell other,0,INFO,0,INFO,changed vs S1 1: yes; kept out

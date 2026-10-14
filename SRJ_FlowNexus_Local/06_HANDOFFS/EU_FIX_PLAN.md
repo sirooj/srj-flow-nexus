@@ -25,7 +25,7 @@
 - A fix is kept only if A1-A7 stay identical, no C row fires, and every changed take is named in trader words for his review.
 
 ## 3. Fix queue (in this order; each item is one lane, limit 6 relays)
-F0 OBJECTS - the machine's in-bias OB and FVG are not his. 28 Aug: his zone is the 06:30-06:40 FVG (register A1 NOTE B-175); the machine never printed a gap there (B-183 R2) and counts its own OB and FVG dead at confirmation (B-207 R3). 141 euro days: zero OB invalidation events (B-207 R2). F1 (confirmation kill) and F2 (block dead) wait on F0: fix detection and the kill first, then re-grade the 2-of-3 count.
+F0 OBJECTS - the machine's in-bias OB and FVG are not his. 28 Aug: his zone is the 06:30-06:40 FVG (register A1 NOTE B-175); the machine never printed a gap there (B-183 R2) and counts its own OB and FVG dead at confirmation (B-207 R3). 141 euro days: zero OB invalidation events (B-207 R2). F1 (confirmation kill) and F2 (block dead) wait on F0: fix detection and the kill first, then re-grade the 2-of-3 count. Parked B-211 (J2D-DEFECTS 6/6); count definition carried into F1 by his rules/46 words.
 F1 CONFIRM-KILL (after F0) - his 2-of-3 freshness kill skipped at the confirmation candle.
 - Shows on: 10 June NY long 16:15 1.15551. The machine itself counted 2 adverse (in-bias FVG dead + opposite FVG validated) at 16:00, 16:05 and 16:10, printed HOLD at the 16:10 confirmation, and fired.
 - Look at: the freshness check (B-204: "CheckFreshness", EA ~2770-2780; the confirmation pass prints diagnostic only). Tags FRESHCOUNT, S5 HOLD, FIRE.

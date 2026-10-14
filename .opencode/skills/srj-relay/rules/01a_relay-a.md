@@ -38,6 +38,7 @@ Trial discipline
 - Content copies before any terminal launch (B-42 lesson, defect owned 2026-10-06): the terminal re-saves chart files and config\terminal.ini on exit, so before any launch copy the CONTENT of every file in that scope to .preB<n> copies; fingerprints alone cannot restore. After the run, restore from the copies and verify the SHAs.
 - Leftover terminal (B-43 lesson, defect owned 2026-10-06): run inis carry no ShutdownTerminal, so a finished tester run can leave terminal64 open and the next launch is refused as busy; before every launch confirm no terminal64 is running, and stop any leftover by its PID.
 - YOLO mode (his standing order 2026-10-06): git commands run automated and every folder this lane touches is pre-allowed - opencode.json sets permission bash/edit/external_directory to allow, so the builder never stops for an approval prompt on commands, edits, or outside-workspace folders. If a prompt still appears, report its exact text instead of working around it.
+- B-212-EX5-BESIDE-SOURCE (builder defect owned 2026-10-14, B-211): back up every .ex5 a compile overwrites beside its .preB source, SHA given, before the first compile.
 
 Rule-conflict check (before any edit)
 - If a relay's change touches a trading rule, first find his banked words on that rule in the strategy skill, the findings and the journal.
