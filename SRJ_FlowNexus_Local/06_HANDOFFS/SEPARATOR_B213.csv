@@ -1,0 +1,29 @@
+take,S9a_count,S9a_verdict,S10a_count,S10a_verdict,S10b_count,S10b_verdict,notes
+A1,1,KEEP,1,KEEP,1,KEEP,"13650 dead already, changed no"
+A2,1,KEEP,1,KEEP,1,KEEP,"renewal alive, opp 0->1 second paint, changed no (OB alive)"
+A3,0,KEEP,0,KEEP,0,KEEP,"flip alive, changed no"
+A4,1,KEEP,1,KEEP,1,KEEP,"renewal alive, changed no"
+A5,1,KEEP,1,KEEP,1,KEEP,"renewal alive, changed no"
+A6,1,KEEP,1,KEEP,1,KEEP,"renewal alive, changed no"
+A7,0,KEEP,0,KEEP,0,KEEP,"flip alive, changed no"
+10Jun,2,REFUSE-GOOD,2,REFUSE-GOOD,2,REFUSE-GOOD,"FVG+opp, OB alive, changed no"
+25Jun,1,PASSES-BREAKS-MUST-NEVER,2,REFUSE-GOOD,2,REFUSE-GOOD,"5747 10:05 close beyond, activation-skipped; S10a forces dead, changed yes tick 1->0"
+22Jul,2/1 (first/second paint),REFUSE-GOOD on first only,2/1,DOES NOT SEPARATE (second paint 1),2/2,REFUSE-GOOD,"9076 dead first, 9080 alive second ren0; S10b forces dead until renewed, changed yes second paint tick 1->0"
+C-4Sep-10:40 SHORT INVALID,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+C-27Aug,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+C-1Sep-15:30,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+C-28Aug-16:25,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+C-8Sep-16:45,-,OTHER-GATE,-,OTHER-GATE,-,OTHER-GATE,earlier gate silences
+26May 15:50 sell other,0,INFO,0,INFO,0,INFO,"changed no; kept out, same as machine count"
+28May 11:50 buy other,1,INFO,1,INFO,1,INFO,"changed no; kept out, same as machine count"
+4Jun 10:05 buy other,1,INFO,1,INFO,1,INFO,"changed no; kept out, same as machine count"
+29Jun 16:15 buy other,0,INFO,0,INFO,0,INFO,"changed no; kept out, same as machine count"
+8Jul 14:50 sell other,0,INFO,0,INFO,0,INFO,changed no; kept out; your latest at entry is hidden bullish 14:00-14:20
+15Jul 10:35 buy other,0,INFO,0,INFO,0,INFO,changed no; kept out; mean-reversal not valid by your word
+28Jul 10:45 sell other,2,INFO,2,INFO,2,INFO,changed no; refused by colour too; you see no valid zone there
+5Aug 11:20 buy other,0,INFO,0,INFO,0,INFO,changed no; kept out
+17Aug 15:55 buy other,1,INFO,1,INFO,1,INFO,changed no; kept out
+2Sep 14:45 sell other,0,INFO,0,INFO,0,INFO,changed no; kept out
+4Sep 09:30 buy other,1,INFO,1,INFO,1,INFO,changed no; kept out
+22Sep 19:00 sell other,0,INFO,0,INFO,0,INFO,changed no; kept out
+8Oct 11:35 sell other,0,INFO,0,INFO,0,INFO,changed no; kept out

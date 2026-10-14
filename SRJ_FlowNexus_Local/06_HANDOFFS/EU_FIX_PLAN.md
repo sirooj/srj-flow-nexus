@@ -33,7 +33,7 @@ F1 CONFIRM-KILL (after F0) - his 2-of-3 freshness kill skipped at the confirmati
 - Measure: the count on every pass, seed to entry, for A1-A7 and every euro take.
 - Done when: 10 June is refused, A1-A7 identical.
 F2 BLOCK-DEAD (after F0) - his invalidated in-bias block still read alive.
-- Shows on: 25 June London 10:00 bearish OB (and FVG 10:05-10:15) before the 10:45 short; 22 July NY 5m in-bias OB before the 14:55 short. The machine prints block-dead 0, so the count never reaches 2.
+- Shows on: 25 June London 10:00 bearish OB 1.13524-1.13587 lvl 1.13556 (10:05 close 1.13574 beyond, activation-skipped) + FVG 10:05-10:15 before the 10:45 short 1.13540; 22 July NY 13:45 bearish OB 1.14046-1.14061 lvl 1.14054 (14:35 close 1.14064 dead, 14:50 repaint alive ren0, EA reads alive) before the 14:55 short 1.14048. The machine prints block-dead 0, so the count never reaches 2.
 - Look at: where the block-dead flag is set (indicator or EA; locate by the flag name the FRESHCOUNT row prints). Compare with his OB invalidation words (strategy skill; spec 3.4).
 - Measure: every candle from the block's formation to the entry, o/h/l/c, the first candle that meets his kill words, the machine's flag on each pass.
 - Done when: 25 June and 22 July are refused, A1-A7 identical.

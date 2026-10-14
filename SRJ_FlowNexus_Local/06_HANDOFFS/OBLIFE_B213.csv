@@ -1,0 +1,24 @@
+take,pass,paint,ob,lvl,act,first_close,skipped,tick,writer,ren,s9a,s10a,s10b,cut
+A1,10:00,1,09:25 1.16446-1.16479,1.16463,1,09:40 (inv 123742),0 code3,0,live in-bias kill code3 id13650 flag=false,0,1,1,1,3356819/3356820
+A1,10:00,2,09:25 1.16446-1.16479,1.16463,1,09:40 (inv 123742),0 code3,0,live in-bias kill code3 id13650 flag=false,0,1,1,1,3356870/3356871
+A2,17:30,1,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 flag=true,0,0,0,0,3438396/3438397
+A2,17:30,2,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 flag=true (opp validated),0,1,1,1,3439134/3439135
+A3,15:45,1,none (flip id0),-,-1,-,-1 code8,1,decision flip code8 id0 flag=true,0,0,0,0,3514093/3514094
+A3,15:50,1,none (flip id0),-,-1,-,-1 code8,1,decision flip code8 id0 flag=true,0,0,0,0,3514198/3514199
+A3,15:55,1,none (flip id0),-,-1,-,-1 code8,1,decision flip code8 id0 flag=true,0,0,0,0,3515016/3515017
+A4,09:05,1,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 flag=true,0,1,1,1,3528833/3528834
+A4,09:10,1,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 flag=true,0,1,1,1,3528943/3528944
+A4,09:15,1,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 flag=true,0,1,1,1,3529769/3529770
+A5,16:35,1,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 flag=true,0,1,1,1,3551020/3551021
+A5,16:40,1,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 flag=true,0,1,1,1,3551846/3551847
+A6,10:05,1,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 flag=true,0,1,1,1,3567854/3567855
+A7,16:55,1,none (flip id0),-,-1,-,-1 code8,1,decision flip code8 id0 flag=true,0,0,0,0,3579484/3579485
+10Jun,15:50,1,none (renewal id0),-,-1,-,-1 code7,1,"decision renewal code7 id0 (fvg 1->0 between paints, ImbalanceMgr TickValid recompute)",0,0,0,0,B212 3971016 (B213 EU 10:50? see slice)
+10Jun,15:50,2,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0 (fvg dead),0,1,1,1,B212 3971054
+10Jun,15:55,1,none (renewal id0),-,-1,-,-1 code7,1,decision renewal code7 id0,0,1,1,1,B212 3971095
+10Jun,15:55,2,none (renewal id0),-,-1,-,-1 code7,1,"decision renewal code7 id0 (opp 0->1, hasPersistedOpposingFVG=true)",0,2,2,2,B212 3971321 / B213 2011685/2011686 (16:10 n=2)
+25Jun,10:35,1,10:00 1.13524-1.13587,1.13556,0,"10:05 close 1.13574 (reg window incl, reg 10:15)",1 activation-gate (barLow<ob.low false; 10:05 low 1.13567>1.13524),1,none for 5747 (never wrote; last setter renewal code6 id0 FVG renewal reset),0,0,1,1,B212 4177855 / B213 2219444/2219445 id0 code6
+25Jun,10:35,2,10:00 1.13524-1.13587,1.13556,0,10:05 close 1.13574,1 activation-gate,1,"none for 5747; setter renewal code6 (fvg 1->0 between paints, TickValid recompute)",0,1,2,2,B212 4178173 / B213 2219763/2219764 id0 code6
+25Jun,10:40,1,10:00 1.13524-1.13587,1.13556,0,10:05 close 1.13574,1 activation-gate,1,none for 5747; setter renewal code6,0,1,2,2,B213 2219807/2219808 id0 code6
+22Jul,14:50,1,13:45 1.14046-1.14061,1.14054,1,14:35 close 1.14064 code3,0 code3,0,live in-bias kill code3 id9076 flag=false (OrderblockMgr live),0,2,2,2,B212 4556057 / B213 2601348/2601349 id9076 code3
+22Jul,14:50,2,14:?? 1.14033-1.14065 (9080 opposite),1.14049,1,"- (opposite, code4 skip)",0 code4,1,live opposite skip code4 id9080 flag=true (last-write overwrites 9076 dead; no renewal),0,1,1,2,B212 4556107 / B213 2601399/2601400 id9080 code4

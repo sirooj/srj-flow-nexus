@@ -21,7 +21,6 @@ Prediction is not a grade (B-81): a census-predicted race outcome is graded on t
 Diagnostic before trial (B-82): a hunk with a predicted must-never-take fire on record (hunk C: 2 June 15:35,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L59
 Counted touch candle (B-83): when his words name a candle ("a touch I do not count", 2 June 14:20), grade... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L60
 Result against commit (B-85): every record a result claims landed is checked in the committed file before it... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L61
-B-91-RETRACE-IS-IN-PLAY (B-91-RETRACE-IS-IN-PLAY): his words "what i meant by retrace and in play are the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L66
 B-116-RETURN-TO-FULL-RANGE-FIDELITY (B-116-RETURN-TO-FULL-RANGE-FIDELITY): closing an investigation lane... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L117
 B119-4JUN-THREE-REASONS (B-118): when a narrow block holds its bar but the same candidate fires a bar later,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L123
 B120-REGIME-AT-RETEST (B-119): grade a bias reason at the retest candle his words name, with both regime... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L125
@@ -126,3 +125,4 @@ B-210-SPEC-OPEN-FIRST (B-210): before a piece mismatch, read the spec open box; 
 B-211-PANEL-IS-THE-FLAG (B-211): his 2-of-3 flags are his panel leg OB/FVG states, dead until renewal; read panel first. Full: BUILDER_RESULT_B211.md
 B-212-SEED-NOT-SESSION (B-212): a pre-confirmation count is graded seed to confirmation, never from session start; print fallbacks are not machine flags.
 B-212-EX5-BESIDE-SOURCE (B-211 defect): back up every .ex5 a compile overwrites beside its .preB source, SHA given, before the first compile.
+B-213-READ-THE-PAINT-THE-EA-READS (B-213): a panel bar can paint twice; grade the paint the EA's count consumes, and name the writer that repaints it.
