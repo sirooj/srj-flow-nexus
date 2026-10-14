@@ -15,6 +15,7 @@
 - Never grade from the day log twice; one Python cut per batch, then grade from the cut (B-170, B-191B).
 - Never compare a trial with an old baseline after the tester history changed; run a same-day baseline (B-205, B-206).
 - Never run a prior relay's ledger or record job (B-206).
+- Never order a long euro run before RECON62 has passed his A rows on the same build (his words 2026-10-15).
 
 ## 2. Work fast (do these every time)
 - Python 3.13.16 at C:/Users/winar/AppData/Local/Programs/Python/Python313/python.exe for every scan, cut and grade; one script per job; stream logs line by line.
@@ -70,6 +71,7 @@ F8 18-JUNE - FOMC VWAP line kill at 09:40 drops the 09:45 long. Waits on his cha
 - State B-219: R1 HOLDER-DEAD-STILL-SUPPRESSES (09:40 order SUPPRESSED/ALIVE/ADD/KILL; 1317/1922 name killed FOMC-VWAP; ALIVE rows L6 defect), S E2 (A5/C27/C28 touched, R6 NO); B-218 chart call withheld (rows in BUILDER_SLICE_B219.md).
 - State B-220: G2 NARROW-NEXT RESTORED (18Jun FIRES 09:45 1.15256 exit 10:00 1.15195 SAME; A2 1Sep GONE on EU via reset-wiped rt/latch, 28Jul likewise; C silent; rows in BUILDER_SLICE_B220.md).
 - State B-221: MEASURED no trial (R1 104 CLOSE / 407 ABSENT of 511; S V1 fails A5/10Jun/28Jul/22Sep/8Oct, V2 fails 13 kept; R3 kill record FOUND moot; rows in BUILDER_SLICE_B221.md).
+- State B-222: RESTORED V1 trial b4db21c5/61829f05 (RECON 16/16 SAME; EU 44 deals: NEW 18Jun pair only, GONE 28Jul flip-death 10:10 LTF_MISALIGN; A1-A7 identical incl A2/A5; 7Sep short no FIRE/entry; rows in BUILDER_SLICE_B222.md).
 F9 REPORT-COMPLETE - print-only additions, deals identical: target name in TP_ELECT, zone formation candle, sweep source, the exit rows missing from 9 takes (B-204 R3). Any time a fix relay has spare room.
 
 ## 4. Where to look (symptom -> first rows)
