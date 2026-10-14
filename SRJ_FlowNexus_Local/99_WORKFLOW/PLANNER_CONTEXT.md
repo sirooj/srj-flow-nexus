@@ -372,3 +372,5 @@ Operator kickoff for any new thread:
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-205 (kit PK-2).
 - B206-SAME-DAY-BASELINE (planner lesson 2026-10-14, B-206): "Identity is graded against a same-day baseline of the kept build: long runs deepen the tester's tick history and move tick-built lines on later short runs (B-205: Yearly VWAP 1.16315 -> 1.16318, walk start 1 June -> 25 May)."
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-206 (kit PK-2).
+- B207-MUST-NEVER-LIVE (planner lesson 2026-10-14, B-207): "A must-never filed on the register is still a live fire until a kept build refuses it: B-204 filed 10 June, 25 June and 22 July; B-206 still fires all three."
+- 2026-10-14: planner session ran as ClickUp Brain for relay B-207 (kit PK-2).

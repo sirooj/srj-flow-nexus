@@ -347,3 +347,7 @@ do you want me to keep going? cause right now the EA result is broken and can't 
 - 0715-EU-MR-NOT-VALID (amended point, paraphrase, marked so): on the 15 July long the mean-reversal setup is not valid.
 - FOMC-MULTI-ANCHOR (his order, paraphrase, marked so): the FOMC anchor becomes a multi-anchor source: every FOMC decision day anchors its own fresh FOMC VWAP and FOMC POC, not only the latest decision day.
 - QUESTIONS-NOT-RULINGS (amended point, paraphrase, marked so): his 4 June entry-line cause, 29 June entry line, and 28 July 5-minute entry zone are questions answered from rows in the B-204 review; they are never filed as rulings.
+
+## His words 2026-10-14 (B-206 reply, B-207 B1)
+His words, verbatim, typos his: "i ordered for only EU june till date run to not waste another hour for it to run and grade on another pairs"
+- EU-FIRST (amended point, paraphrase, marked so): euro alone is run and graded until he opens pound and yen.
