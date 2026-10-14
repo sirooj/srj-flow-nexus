@@ -1,6 +1,5 @@
 # LESSONS - standing planner rules (B-209 compact-records; one line each, <=160 chars)
 
-Retest-death relays (B-68): read strategy lines 53-55 and 86-88 (his 11 June 14:35 retest + confirmation and... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L42
 Retests and chart calls (B-65): a POI line retest dies by a candle body close through its line before... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L43
 His journal check (B-69): before calling any fire 'not in his journal', grep... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L44
 Same-class words (B-70): before carrying a chart call, apply his standing words for the same scenario class... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L45
@@ -127,3 +126,4 @@ B-215-CONFIRM-IS-PRE (B-215): his words grade the panel at the confirmation cand
 B-216-WHOLE-HUNK (B-215): a relay hunk is applied whole or the relay STOPs before compile; a partial hunk is not a trial.
 B-219-KILL-ENDS-HOLDER (B-218): a candidate whose anchor line has a KILL row is dead from that pass; a later ALIVE row is the defect, never proof (rules/18 L6).
 B-220-RESET-WIPES-PROVENANCE (B-220): a diagnostic ResetSequence clears retest-time/div-latch/rowkeys that later gates read; carry them over or takes break.
+B-221-SEPARATE-FIRST (B-221): a release rule reaches trial only with zero pre-entry releases on kept rows; close-through alone fails kept takes.

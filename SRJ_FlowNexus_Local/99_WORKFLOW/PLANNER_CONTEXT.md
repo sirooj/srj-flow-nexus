@@ -43,6 +43,7 @@ J2D-DEFECTS parked B-211 at 6 of 6: S1-S8 no separator; S8 counted from session 
 - F1 negative evidence B-217 (parked 6 of 6, R-OTHER): H1+H2+H3 kill 10 June (B215F1 15:05/15:20/15:55) and 22 July (B215F1 14:50, H1 persist code4 kept-dead ren0) and keep A1-A7 (T1 16/16, T2 A identical, C silent); 25 June blocked by R-OTHER-25JUN-S4-REVIVE-FIRSTPAINT (S4 passes H3 S3-only misses; code6 renewal revival despite export ren0 H1c KeepDead false at write; S3 10:30 first-paint fvg alive; no B215F1 25Jun; B216H1 10:05 id5747 fires).
 - P3-0618 B-219: B-218 chart call WITHHELD by planner (09:35 candle is also a Daily POC retest suppressed under a killed holder); E2 DIAG-NEXT (A5 + C 27Aug/28Aug TOUCHED, R6 NO).
 - P3-0618 B-220: G2 NARROW-NEXT (R1 RECON 23 DEAD2/21 REVIVED EU 282/202; T4 RECON 16/16 SAME EU 42 vs 44; 18Jun long FIRES 09:45 1.15256 exit 10:00 1.15195; A2 1Sep GONE on EU; C silent).
+- P3-0618 B-221: MEASURED no trial (R1 511 releases: 104 CLOSE rest ABSENT; S V1 fails A5/10Jun/28Jul/22Sep/8Oct, V2 fails 13 kept sessions; R3 kill record FOUND moot).
 ## 5. History
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-208 (kit PK-2).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-209 (kit PK-3).
@@ -57,3 +58,4 @@ J2D-DEFECTS parked B-211 at 6 of 6: S1-S8 no separator; S8 counted from session 
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-218 (kit PK-3).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-219 (kit PK-3).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-220 (kit PK-3).
+- 2026-10-15: planner session ran as ClickUp Brain for relay B-221 (kit PK-3).

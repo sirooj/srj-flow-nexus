@@ -23,4 +23,20 @@ V1: P3 PASS (09:40 FOMC-VWAP/LONG c=1.15224 L=1.15233 WINLINE JL 2881023). Kept 
 V2: P3 PASS (same row via=CLOSE). Kept FAILS: all V1 fails plus A6 both (09:40 Monthly-POC KILLED JL 1017868/4306680), A7 both (RECON 15:20 Yearly-POC KILLED JL 1021509; EU 14:50 Daily-POC KILLED JL 4312874), 26May (15:05 Daily-POC KILLED JL 2617088), 5Aug (10:40 Daily-POC KILLED JL 3606306), 17Aug (15:50 Weekly-VWAP KILLED JL 3814118). C-only OPEN on 27Aug (18:25 KILLED JL 4089487), 28Aug1625 (15:05 KILLED JL 4108849), 8Sep1645 (14:50 KILLED JL 4312874); 4Sep1040 + 1Sep1530 PASS. -> V2 does NOT separate (R3 FOUND moot).
 PICK: V1 no; V2 no (despite R3 FOUND). No trial. Verdict MEASURED. Blocking rows in trader words in the carried note.
 ```
-(End of slice Part S; X + F follow in the final commit)
+PICK: V1 no; V2 no (despite R3 FOUND). No trial. Verdict MEASURED. Blocking rows in trader words in the carried note.
+```
+## Part X records
+```
+CONTEXT sec5 +1 B-221 (2026-10-15 PK-3), sec4 P3-0618 B-221 MEASURED. HANDOFF 3a B-218-B-221 open 4 of 6 + 3b drop oldest dup add B-221 keep10 (B-212..B-221; B-221 line 101 chars). FIXPLAN F8 State B-221. Ledger 1368 B221-EU-P3-CLOSEKILL (^1368=1). Pointer latest B-221, P3 4 of 6, Next planner direction (4638 B/35 lines). LESSONS +1 B-221-SEPARATE-FIRST (144 chars), B-68 folded to ARCHIVE/LESSONS_ARCHIVE_B220.md (19900 B).
+```
+## Size gate (READ_MAP files; caps pointer 6000/35, result 12000, slice 20000/600)
+```
+pointer 4638/35 PASS; result 5122/15 PASS; slice 7313/42 PASS (this file); CONTEXT 7516 PASS; HANDOFF 4934 PASS; LESSONS 19900 PASS (fold applied); FIXPLAN 11731 PASS; SEPARATOR_B221 4031 PASS; RELEASEHALF_B221 67787 (pack-exempt REPORT, filed interim) PASS; READ_MAP rewritten. Strategy max + relay + READ max per READ_MAP.
+```
+## Timing + final disk + housekeeping
+```
+Wall: gate+reads ~15m est (0.1-0.5 + B + R0 pins + spec/register/lines); R scripts ~15m (CUT_B218 2-pass index + CUT_B220D pass + 3 script fixes with recounts); S script ~10m (full CUT_B218 rescan + HPRICE fallback + kept-count fix); interim commit + push (8100c92, ls-remote verified); X records ~10m est; final commit + push follow.
+Final disk: no edit, no runs (EA 7c392767/83ac8bde; Panels 4335f703; flow a8201128/c82f175e; OB 8bbf936b; Imbalance 568f4ce9; Bias 3b1d9d3d; State 80a466ac; POI 5AF5E035/E5CBE1A2; SESS 16573a5b; tini c725e437; Charts 25 files). .B220K on disk unstaged (6f51bfcd/51b63926). CUT_B218 + CUT_B220D pair in 00_CURRENT_WORKING (unstaged; current trial). No terminal64. No trading change stands.
+Housekeeping: keep CUT_B218 (kept baseline) + CUT_B220D pair (current trial); nothing to delete (no B-221 runs, no new cuts).
+```
+(End of slice)
