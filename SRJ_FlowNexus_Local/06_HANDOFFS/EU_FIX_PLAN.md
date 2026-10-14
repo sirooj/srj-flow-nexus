@@ -33,12 +33,14 @@ F1 CONFIRM-KILL (after F0) - his 2-of-3 freshness kill skipped at the confirmati
 - Measure: the count on every pass, seed to entry, for A1-A7 and every euro take.
 - Done when: 10 June is refused, A1-A7 identical.
 - State B-214 (K0 STOP MEASURED, no trial): 10 June counts 2 at S3 15:55-16:10 (ABORT pre, PRE_BINDING skip, B200POT ALIVE) but state never leaves S3, jumps S3->S5 16:15 -> B182DEC FIRE; shared step after 16:10 close, so H3 refused as spec-forbidden; ren unexported.
+- State B-215 (trial H1+H2+H3 at S3 pre, RESTORED): H3 S3 kills 10Jun 15:05/15:20/15:55 + 22Jul 14:50 (B215F1 adv2) + 17Aug other 15:35/15:50; 25Jun no B215F1 (H1 first-close kill missing, ob alive adv1); A1-A7 identical, C silent.
 F2 BLOCK-DEAD (after F0) - his invalidated in-bias block still read alive.
 - Shows on: 25 June London 10:00 bearish OB 1.13524-1.13587 lvl 1.13556 (10:05 close 1.13574 beyond, activation-skipped) + FVG 10:05-10:15 before the 10:45 short 1.13540; 22 July NY 13:45 bearish OB 1.14046-1.14061 lvl 1.14054 (14:35 close 1.14064 dead, 14:50 repaint alive ren0, EA reads alive) before the 14:55 short 1.14048. The machine prints block-dead 0, so the count never reaches 2.
 - Look at: where the block-dead flag is set (indicator or EA; locate by the flag name the FRESHCOUNT row prints). Compare with his OB invalidation words (strategy skill; spec 3.4).
 - Measure: every candle from the block's formation to the entry, o/h/l/c, the first candle that meets his kill words, the machine's flag on each pass.
 - Done when: 25 June and 22 July are refused, A1-A7 identical.
 - State B-214 (K0 STOP, H1/H2 not applied): 25 June 10:05 kill + 22 July 14:35 kill + repaint ren0 stand per B-213 S10b (SEPARATES on rows); H1 dead-until-renewed + H2 fvgExists export await pre-confirmation road or ruling (ren unexported).
+- State B-215 (RESTORED): H1 persist blocks 22Jul 9080 revival (code4 kept-dead, ren0) -> 22Jul silent; H2 clears A1 false FVG (fvgEx0 -> alive) -> A1 kept; H1 first-close kill missing -> 25Jun still fires (ob alive); 25Jun kill remains the row.
 F3 IN-PLAY - a zone the stop leg never reached is accepted.
 - Shows on: 4 June 10:05 long, 29 June 16:15 long, 15 July 10:35 long, 22 July 14:55 short, 28 July 10:45 short, 17 August 15:55 long, 22 September 19:00 short, 8 October 11:35 short (zone on the far side of the stop). None of A1-A7.
 - Look at: the zone gate (B-204: B177HZ / HISZONE, EA ~10452-10480). It tests gap-touch at the retest candle OR in-play window at the confirmation candle - a presence test. It does not test standing (never reads the kill state) and never tests the zone side against the stop.

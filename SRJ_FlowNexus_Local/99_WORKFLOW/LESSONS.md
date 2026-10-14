@@ -21,7 +21,6 @@ Prediction is not a grade (B-81): a census-predicted race outcome is graded on t
 Diagnostic before trial (B-82): a hunk with a predicted must-never-take fire on record (hunk C: 2 June 15:35,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L59
 Counted touch candle (B-83): when his words name a candle ("a touch I do not count", 2 June 14:20), grade... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L60
 Result against commit (B-85): every record a result claims landed is checked in the committed file before it... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L61
-B-116-RETURN-TO-FULL-RANGE-FIDELITY (B-116-RETURN-TO-FULL-RANGE-FIDELITY): closing an investigation lane... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L117
 B119-4JUN-THREE-REASONS (B-118): when a narrow block holds its bar but the same candidate fires a bar later,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L123
 B120-REGIME-AT-RETEST (B-119): grade a bias reason at the retest candle his words name, with both regime... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L125
 B121-FIX-NOT-REPLACE-READS (B-119): a machine-vs-chart HTF read split at a bar is a read error under... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L127
@@ -127,3 +126,4 @@ B-212-SEED-NOT-SESSION (B-212): a pre-confirmation count is graded seed to confi
 B-212-EX5-BESIDE-SOURCE (B-211 defect): back up every .ex5 a compile overwrites beside its .preB source, SHA given, before the first compile.
 B-213-READ-THE-PAINT-THE-EA-READS (B-213): a panel bar can paint twice; grade the paint the EA's count consumes, and name the writer that repaints it.
 B-214-COUNT-IS-NOT-THE-GATE (B-214): a count that separates proves nothing until the road from count to FIRE is named; 10 June fired at count 2.
+B-215-CONFIRM-IS-PRE (B-215): his words grade the panel at the confirmation candle; the 2-of-3 kill acts through that pass, never at the S5 move or entry.
