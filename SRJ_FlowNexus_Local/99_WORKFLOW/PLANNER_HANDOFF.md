@@ -20,7 +20,7 @@
 | JOURNAL-REASON | B-200-B-202 | closed KEPT B-202 | BUILDER_RESULT_B202.md |
 | ONE-EXEC | B-199A-B-201 | open (robustness) | BUILDER_RESULT_B201.md |
 | FOMC-MULTI | B-205-B-206 | closed KEPT euro B-206 | BUILDER_RESULT_B206.md |
-| J2D-DEFECTS | B-204-B-209 | open 4 of 6 MEASURED (P4 separates his way; P1-P3 measured) | REPORT/OBJECTS_EU_B208.md; PIECES_B209.csv |
+| J2D-DEFECTS | B-204-B-211 | PARKED 6 of 6 (S8 panel-leg DOES NOT SEPARATE: A1,A2,A3,A5,A6,A7 break; must-nevers refuse; exit-fill measured) | SEPARATOR_B211.csv |
 | BACKTEST-J2D | B-202-B-203 | open 2 of 6 MEASURED | BUILDER_RESULT_B203.md |
 | FIDELITY-B179 | B-199 paused | 5 of 6 paused | BUILDER_RESULT_B199.md |
 | MR-SWEEP-0710 | B-193-B-198 | PARKED 6 of 6 | BUILDER_RESULT_B198.md |
@@ -34,7 +34,6 @@
 | XOB-DETECT-920 | B-160a-B-162 | closed KEPT (origin tag B-162) | BUILDER_RESULT_B162.md |
 
 ### (b) Last 10 arc lines (verbatim)
-- B-201: JOURNAL-REASON 2 + ONE-EXEC 3: banked his step-1 definition (from and to on every setup) and next step June to date; re-applied B-200 with the parked-resume fix, FROM-TO fields and session-close discard rows; human journal per window; deals identical required; verdict RESTORED.
 - B-202: JOURNAL-REASON 3 + ONE-EXEC 4 + BACKTEST-J2D 1: banked his June-to-date order; rebuilt the B-201 journal edit byte-identical (src 7c392767); 10 July resume+end proven; standards deals identical; June-to-date EU 21/GU 8/UJ 9 takes to 12 Oct measured; verdict KEPT.
 - B-203: BACKTEST-J2D 2: banked his hold on the year-start run; measured the 4 euro differences on rows (5m seedbias, target race, break-miss, booked-tp-miss; Yearly unmeasured); 38-take review sheet filed; verdict MEASURED.
 - B-204: J2D-DEFECTS 1: banked his 9-trade review (3 invalid rulings filed must-never, FOMC multi-anchor ordered); rebuilt the review sheet per his cause-not-labels order (38 takes, every field from its print or NOT PRINTED); measured 6 defect classes on rows (D1 10 June confirmed adverse=2 passed at S5-diagnostic, D2 latched=latest on rows with an 8 July read split, D3 11 far-side zones no register row hit, D4 8 unreached lines marking A2/A7, D5 all trend with one MR verdict on 25 Aug pound, D6 single 29 July anchor with zero FOMC prints before 30 July); verdict MEASURED.
@@ -44,6 +43,7 @@
 - B-208: J2D-DEFECTS 3 euro MEASURED (print-only OB/FVG diagnostic, always restored; 16/16 + 44/44 deals identical; P1 pieces: A1-FVG found wick-dead vs machine OB 2170, 25Jun OB not found, 22Jul/A6-A7 found; P2 5097 killed/6316 skipped/265 never; P4 separates his way; blessedB208 re-blessed+T1-proven; verdict MEASURED).
 - B-209: J2D-DEFECTS 4 euro MEASURED (machine pieces, S1/S2/S3 DOES NOT SEPARATE break A1+22Jul, 22Jul gap filed, PK-3; verdict MEASURED).
 - B-210: J2D-DEFECTS 5 euro MEASURED (zone flags, R2 3238 reg kills, R3 several, R4/R5 NOT FOUND, S4-S7 DOES NOT SEPARATE, charts; verdict MEASURED).
+- B-211: J2D-DEFECTS 6 euro MEASURED (panel-leg print-only, S8 DOES NOT SEPARATE A-breaks, exit-fill spread+3, lane PARKED; verdict MEASURED).
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.

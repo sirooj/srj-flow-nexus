@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 93ee05f1; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 91608edd; the register governs.
 
 ## A. EU VALID TAKEN - his 7, all taken by the EA (register window 26 Aug - 10 Sep 2026)
 
@@ -10,6 +10,7 @@ Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 93ee05f1; the register governs
 - NOTE 2026-10-10 (B-162 KEPT, indicator ex5 10880847EE593CB7E4D99E2FAE38F7F9DDEB519C23B373145CF7BACFC6292B21): origin (most recent in-play XOB, documentation) = 2109 (1.16505-1.16537, formed 28 Aug 01:00); machine pick 2149 unchanged; entry, stop and exit unchanged.
 - NOTE 2026-10-11 (B-175, his words): no valid XOB; his zone is the FVG at the 06:30 to 06:40 candles (strategy section 'His words 2026-10-11 (B-175)'); the B-162 origin note is a machine documentation tag only.
 - NOTE 2026-10-12 (B-183 R2, DIFFERENT 0->1): the machine's 28 Aug carrying gap is NOT his 06:30-06:40 FVG: no side-S or side-B B176HZ GAP_FORM prints t1 in 06:30-06:40 on 2026-08-28, and the gate pass (B177HZ bar=10:00 dir=SHORT gapTouch=1.0 xobWin=0.0, RECON62-B182/2026-08-28 pack 481) rode the pre-window short gap (latest touch t=09:55 o=1.16473 h=1.16491 l=1.16473 c=1.16482 remnant 1.16482-1.16486, pack 422; formation candles NOT PRINTED, formed pre-window); his FVG price range is NOT PRINTED (he gave candles only). Entry, stop and exit unchanged.
+- NOTE 2026-10-14 (B-211, his words): panel one flag at 10:00 (only in-bias OB dead); exit owed 11:35 open 1.16464 (rules/46 PANEL-LEG-STATE, 0828-ONE-FLAG, 0828-EXIT-FILL).
 | 2 | 1 Sep New York EURUSD, entry 17:35 open | LONG | Monthly-VWAP [R60 ANCHOR_ELECT 17:00 row] | 1.16024 [HIS report; R60 G2 chain] | SL chain 17:50 [R60 MTEXIT/MTLIFE] | First 9/1 take on suppressed tree (R60 G2); journal row 301 "++" VALID-taken-not-taken-by-him [HIS 2026-09-23 ruling]; HIS timing rule: 17:30 retest+confirmation bar, entry 17:35 open [HIS words, row-shape unverified] |
 - NOTE 2026-10-09 (B-121 B2, planner): the "++" in row 2 has no verbatim source; his 2026-09-23 words put "++" on 9/4 only (strategy line 79) and leave the 9/1 setup class for him (line 77). Cell left as written; nothing inferred.
 - NOTE 2026-10-09 (B-137 KEPT, EA 585093BF): exit 17:50 open 1.15987 by the 17:45 Yearly-POC close-through (his s78 exit); the SL 17:50 cell is retired.

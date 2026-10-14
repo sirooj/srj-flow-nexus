@@ -1,0 +1,16 @@
+take,S8_count,S8_verdict,notes
+A1,2,REFUSE-BREAKS-KEEP,highest B211PANEL n session-start..conf (superset of seed window)
+A2,2,REFUSE-BREAKS-KEEP,highest B211PANEL n session-start..conf (superset of seed window)
+A3,2,REFUSE-BREAKS-KEEP,highest B211PANEL n session-start..conf (superset of seed window)
+A4,1,KEEP,highest B211PANEL n session-start..conf (superset of seed window)
+A5,2,REFUSE-BREAKS-KEEP,highest B211PANEL n session-start..conf (superset of seed window)
+A6,2,REFUSE-BREAKS-KEEP,highest B211PANEL n session-start..conf (superset of seed window)
+A7,2,REFUSE-BREAKS-KEEP,highest B211PANEL n session-start..conf (superset of seed window)
+10Jun,2,REFUSE-GOOD,highest B211PANEL n session-start..conf (superset of seed window)
+25Jun,2,REFUSE-GOOD,highest B211PANEL n session-start..conf (superset of seed window)
+22Jul,2,REFUSE-GOOD,highest B211PANEL n session-start..conf (superset of seed window)
+C-4Sep-10:40 SHORT INVALID,-,OTHER-GATE,earlier gate silences
+C-27Aug,-,OTHER-GATE,earlier gate silences
+C-1Sep-15:30,-,OTHER-GATE,earlier gate silences
+C-28Aug-16:25,-,OTHER-GATE,earlier gate silences
+C-8Sep-16:45,-,OTHER-GATE,earlier gate silences

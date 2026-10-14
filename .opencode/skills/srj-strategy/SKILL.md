@@ -65,5 +65,6 @@ Spec Part A v4.2 states the baseline; his later words amend it; council prose ne
 - rules/43_his-words-2026-10-14-b-203-review.md: ## His words 2026-10-14 (B-203 review) (3832 bytes)
 - rules/44_his-words-2026-10-14-b-206-reply-b-207-b1.md: ## His words 2026-10-14 (B-206 reply, B-207 B1) (305 bytes)
 - rules/45_his-words-2026-10-14-b-207-addendum-b2-next-to-b1.md: ## His words 2026-10-14 (B-207 addendum B2, next to B1) (707 bytes)
+- rules/46_his-words-2026-10-14-b-211-panel-leg-state.md: ## His words 2026-10-14 (B-211) - panel leg state; 22 July 13:45 OB; 28 Aug exit fill (2565 bytes)
 
 Load this file and every file in the index, in index order.

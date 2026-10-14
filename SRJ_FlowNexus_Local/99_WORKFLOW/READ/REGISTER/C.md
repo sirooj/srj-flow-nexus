@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 93ee05f1; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 91608edd; the register governs.
 
 ## C. FALSE REFERENCE - never progress, never cited as takes (correct-vs-false for future builds)
 
@@ -28,4 +28,5 @@ Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 93ee05f1; the register governs
 - 10 June New York EURUSD LONG, 16:15 entry 1.15551 (tester-only): INVALID by his words 2026-10-14 (strategy His words 2026-10-14 (B-203 review), 0610-EU-INVALID, skill lines 328-342): in-bias FVG invalidated + opposite FVG validated before confirmation. Machine rows agree adverse=2 on the run (FRESHCOUNT obDead=0 fvgDead=1 oppFvg=1, CUT JL 24775588/24775851/24776116); the S5 poll held diagnostic-only (JL 24776523/24776525) then B182DEC fired (JL 24776511). Must-never from here on.
 - 25 June London EURUSD SHORT, 10:45 entry 1.13540 (tester-only): INVALID by his words 2026-10-14 (0625-EU-INVALID, skill lines 328-343): in-bias bearish OB at the 10:00 candle and in-bias FVG of 10:05-10:15 invalidated before the entry; latest divergence at entry hidden bullish (machine latched regular-bearish 10:05, B182DEC JL 24969068). Must-never from here on.
 - 22 July New York EURUSD SHORT, 14:55 entry 1.14048 (tester-only): INVALID by his words 2026-10-14 (0722-EU-INVALID, skill lines 328-344): in-bias 5m OB and FVG invalidated (machine rows carry adverse=1 fvgDead only, FRESHCOUNT JL 25344506/25345038/25345040; obDead=0 on rows). Must-never from here on.
+- NOTE 2026-10-14 (B-211, his words): 13:45 OB dead from 14:35, not renewed by 14:50 confirmation (rules/46 DEAD-UNTIL-RENEWED).
 

@@ -22,7 +22,6 @@ Diagnostic before trial (B-82): a hunk with a predicted must-never-take fire on 
 Counted touch candle (B-83): when his words name a candle ("a touch I do not count", 2 June 14:20), grade... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L60
 Result against commit (B-85): every record a result claims landed is checked in the committed file before it... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L61
 B-91-RETRACE-IS-IN-PLAY (B-91-RETRACE-IS-IN-PLAY): his words "what i meant by retrace and in play are the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L66
-B-101-XOB-FULLWINDOW-CENSUS (B-101-XOB-FULLWINDOW-CENSUS): extended the proven diagnostic export across... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L87
 B-116-RETURN-TO-FULL-RANGE-FIDELITY (B-116-RETURN-TO-FULL-RANGE-FIDELITY): closing an investigation lane... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L117
 B119-4JUN-THREE-REASONS (B-118): when a narrow block holds its bar but the same candidate fires a bar later,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L123
 B120-REGIME-AT-RETEST (B-119): grade a bias reason at the retest candle his words name, with both regime... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L125
@@ -49,7 +48,6 @@ B141-STOP-SETS-R (B-137): with entries, prices and exits reproduced on his rules
 B136-OWNBODY-ON-HIS-EXITS (B-135): an exit term goes to trial only after its separator is graded on his owed... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L167
 B142-PICK-SHAPE-SHARED (B-142): before drafting any XOB veto for the 4 June 09:55 short, set its kept-build... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L169
 B143-HIS-ZONE-NOT-PICK (B-??): his in-play XOB for 8 Sep New York is the 9:20 XOB, not the machine's 3 Sep... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L171
-B144-STAMP-BEFORE-CANDLE (B-143): read an export stamp in its writer's own time convention before naming a... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L172
 B145-STAMP-CORRECTED (B-143): an XOBDIAG row stamped barT holds the state after the next candle's passes... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L173
 B146-NEW-WORD-BEFORE-CALL (B-145): a carried chart call is checked against every word of his given with the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L174
 B147-HIS-RULES-MEANS-RECORD (B-146): when his words point at his rules ("Just look at my rules"), the... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L175
@@ -126,3 +124,4 @@ B204-CAUSE-NOT-LABELS (B-204): "A review sheet carries cause, not labels: B-203 
 B205-LINEMAP-IDENTITY-FIRST (B-205): "A line-map input fix is graded by deal identity on his register and... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L254
 B-209-BUILDABLE-COUNT (B-209): named pieces are checks, not gates; trials use machine objects + his kills. Full: BUILDER_RESULT_B209.md
 B-210-SPEC-OPEN-FIRST (B-210): before a piece mismatch, read the spec open box; 3.4 named global-vs-zone as largest miss cause. Full: BUILDER_RESULT_B210.md
+B-211-PANEL-IS-THE-FLAG (B-211): his 2-of-3 flags are his panel leg OB/FVG states, dead until renewal; read panel first. Full: BUILDER_RESULT_B211.md
