@@ -1,0 +1,30 @@
+take,pass,writer,ren,ob_fvg_opp,count,verdict,cut
+A1,10:00,"code3 13650 kill (H1 persist, no revival; H2 fvg alive)",0,1/0/0,1,KEEP,B213 3356819/3356820; B215 T1 kept (16/16)
+A2,17:30,code7 renewal alive (opp validated second paint),0,0/0/1(max),1,KEEP,B213 3438396/3438397 + 3439134/3439135; B215 kept
+A3,15:45-15:55,code8 flip alive,0,0/0/0,0,KEEP,B213 3514093/3514198/3515016; B215 kept
+A4,09:05-09:15,code7 renewal alive,0,0/1/0(max),1,KEEP,B213 3528833/3528943/3529769; B215 kept
+A5,16:35-16:40,code7 renewal alive (16:30 ren1),0,0/1/0(max),1,KEEP,B213 3551020/3551846; B215 kept
+A6,10:05,code7 renewal alive (code4 14643 alive second paint),0,0/1/0(max),1,KEEP,B213 3567854/3567897; B215 kept
+A7,16:55,code8 flip alive,0,0/0/0,0,KEEP,B213 3579484; B215 kept
+10Jun,15:55 (pre),code7 renewal alive OB + TickValid fvg dead + opp validated; H3 KILL_S3,0,0/1/1,2,REFUSE-GOOD,B213 3971095/3971321 + B213OB 2011685/2011686; B215F1 6487414 15:55 adv2 KILL_S3; T2 absent
+25Jun,10:35 (pre),5747 never wrote (activation-skipped); setter code6 renewal alive; H1b first-close 10:05 kill (new); H2 fvg?; H3 KILL_S3,0,1/1/0 (S10c),2,REFUSE-GOOD,B213 R1 10:05 close beyond + B213OB id0 code6; B215 no B215F1 25Jun (H1b missing -> STOP B-215); S10c predicts 2 via H1b
+22Jul,14:50 paint1,code3 9076 kill (H1 persist; H1c blocks code4),0,1/1/0,2,REFUSE-GOOD,B213 2601348/2601349 + B212 4556057; B215F1 7053037 14:50 adv2 KILL_S3; T2 absent B-215 (H1 persist worked)
+22Jul-paint2,14:50 paint2,code4 9080 alive -> H1/H1c kept-dead (ren0),0,"1/1/0 (S10c, forced dead)",2,REFUSE-GOOD,"B213 2601399/2601400 + B212 4556107; S10b second paint 1, S10c 2"
+C-4Sep-10:40 SHORT INVALID,-,-,-,-/-/-,-,OTHER-GATE,earlier gate silences
+C-27Aug,-,-,-,-/-/-,-,OTHER-GATE,earlier gate silences
+C-1Sep-15:30,-,-,-,-/-/-,-,OTHER-GATE,earlier gate silences
+C-28Aug-16:25,-,-,-,-/-/-,-,OTHER-GATE,earlier gate silences
+C-8Sep-16:45,-,-,-,-/-/-,-,OTHER-GATE,earlier gate silences
+26May 15:50 sell other,15:50,code8 renewal alive,0,0/0/0,0,INFO,B215 kept (present T2); changed no
+28May 11:50 buy other,11:50,code8/code5 renewal alive,1(max),0/0/0,0-1,INFO,B215 kept; changed no (S10c = S10b)
+4Jun 10:05 buy other,10:05,code7 renewal alive,0,0/1/0,1,INFO,B215 kept; changed no
+29Jun 16:15 buy other,16:15,code8 renewal alive,0,0/0-1/0,0-1,INFO,B215 kept; changed no
+8Jul 14:50 sell other,14:50,code4 6621 alive,0,0/0/0,0,INFO,B215 kept; your latest hidden bullish 14:00-14:20; changed no
+15Jul 10:35 buy other,10:35,code8 flip alive,0,0/0/0,0,INFO,B215 kept; mean-reversal not valid; changed no
+28Jul 10:45 sell other,10:45,code8/code6 renewal alive,1(max),0/0/0-?,2 (S10b max),INFO,refused by colour too; you see no valid zone; B215 kept? (present? got includes 07-28 yes present) changed no
+5Aug 11:20 buy other,11:20,code4 10782 alive / code5 renewal,1(max),0/0/0,0,INFO,B215 kept; changed no
+17Aug 15:55 buy other,15:35/15:50 (pre),OB dead (code? UNKNOWN full paint - no o/h/l/c in cuts for first-close instance beyond 25Jun; FVG dead TickValid) + H3 KILL_S3; S10b conf 1 vs S10c/trial 2,0,1/1/0,2,"INFO (removed T2 B-215, for review)","B215F1 7512266 15:35 + 7512463 15:50 adv2 KILL_S3; OBPROV writer UNKNOWN (no bar rows; first-close instances beyond 25Jun marked UNKNOWN per S2); S4: 15:35/15:50 S3 pre adv2 while S10b conf 15:55 n=1 - earlier-pass kill vs conf paint; trader words: 17 August New York long entry 15:55 1.15947 exit 17:15 1.15961 removed by early kill, for review"
+2Sep 14:45 sell other,14:45,code8 flip alive,0,0/0/0,0,INFO,B215 kept; changed no
+4Sep 09:30 buy other,09:30,code5 renewal alive,0,0/1/0,1,INFO,B215 kept; changed no
+22Sep 19:00 sell other,19:00,code4 16473 alive,0,0/0/0,0,INFO,B215 kept; changed no
+8Oct 11:35 sell other,11:35,code8/code6 renewal alive,1(max),0/0/0,0,INFO,B215 kept; changed no

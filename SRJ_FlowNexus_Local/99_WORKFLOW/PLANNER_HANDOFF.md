@@ -21,7 +21,7 @@
 | ONE-EXEC | B-199A-B-201 | open (robustness) | BUILDER_RESULT_B201.md |
 | FOMC-MULTI | B-205-B-206 | closed KEPT euro B-206 | BUILDER_RESULT_B206.md |
 | J2D-DEFECTS | B-204-B-211 | PARKED 6 of 6 (S8 panel-leg DOES NOT SEPARATE: A1,A2,A3,A5,A6,A7 break; must-nevers refuse; exit-fill measured) | SEPARATOR_B211.csv |
-| F1-CONFIRM-KILL | B-212-B-215 | open 4 of 6 (B-215 trial H1+H2+H3 at S3 pre, STOP 25Jun still fires (H1 first-close missing), 10Jun/22Jul silent, A identical, 17Aug other removed named; verdict RESTORED) | BUILDER_SLICE_B215.md |
+| F1-CONFIRM-KILL | B-212-B-216 | open 5 of 6 (B-216 complete H1 trial H1b+H1c on .B215K, STOP 25Jun fvg timing (H1b fires, S3 first paint fvg alive), 10Jun/22Jul silent, A identical, 17Aug other removed; verdict RESTORED; 6th no-KEPT parks F1) | BUILDER_SLICE_B216.md |
 | BACKTEST-J2D | B-202-B-203 | open 2 of 6 MEASURED | BUILDER_RESULT_B203.md |
 | FIDELITY-B179 | B-199 paused | 5 of 6 paused | BUILDER_RESULT_B199.md |
 | MR-SWEEP-0710 | B-193-B-198 | PARKED 6 of 6 | BUILDER_RESULT_B198.md |
@@ -45,6 +45,7 @@
 - B-213: F1-CONFIRM-KILL 2 euro MEASURED (OB-dead print-only, S10a DOES NOT SEPARATE 22Jul repaint, S10b SEPARATES, B-214 trial H1+H2; verdict MEASURED).
 - B-214: F1-CONFIRM-KILL 3 euro MEASURED (K0 road S3->S5/B182DEC after 16:10 close + ren unexported, STOP no trial; verdict MEASURED).
 - B-215: F1-CONFIRM-KILL 4 euro RESTORED (S3 trial H1 persist + H2 fvg + H3 kill; 25Jun still fires first-close missing, 10Jun/22Jul silent, 17Aug other removed; verdict RESTORED).
+- B-216: F1-CONFIRM-KILL 5 euro RESTORED (complete H1 H1b+H1c, STOP 25Jun fvg timing, 10Jun/22Jul silent, 17Aug removed; verdict RESTORED).
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.
