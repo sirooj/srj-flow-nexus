@@ -374,3 +374,6 @@ Operator kickoff for any new thread:
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-206 (kit PK-2).
 - B207-MUST-NEVER-LIVE (planner lesson 2026-10-14, B-207): "A must-never filed on the register is still a live fire until a kept build refuses it: B-204 filed 10 June, 25 June and 22 July; B-206 still fires all three."
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-207 (kit PK-2).
+- B208-KEEP-WINS (planner defect owned 2026-10-14, B-208): "A cleanup keep list wins over every delete pattern in the same order: the B-207 addendum kept the blessed terminal.ini but also zipped every old .preB copy in the same folder, and the copy was lost."
+- B208-PIECES-BEFORE-GATE (planner lesson 2026-10-14, B-208): "When a count gate fails on his valid take, grade the pieces it counts before the gate: B-207 S1 broke on A1 because the machine counted its own OB and FVG, not his 06:30-06:40 FVG."
+- 2026-10-14: planner session ran as ClickUp Brain for relay B-208 (kit PK-2).

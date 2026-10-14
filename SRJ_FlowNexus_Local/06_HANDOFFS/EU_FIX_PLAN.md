@@ -25,13 +25,14 @@
 - A fix is kept only if A1-A7 stay identical, no C row fires, and every changed take is named in trader words for his review.
 
 ## 3. Fix queue (in this order; each item is one lane, limit 6 relays)
-F1 CONFIRM-KILL - his 2-of-3 freshness kill skipped at the confirmation candle.
+F0 OBJECTS - the machine's in-bias OB and FVG are not his. 28 Aug: his zone is the 06:30-06:40 FVG (register A1 NOTE B-175); the machine never printed a gap there (B-183 R2) and counts its own OB and FVG dead at confirmation (B-207 R3). 141 euro days: zero OB invalidation events (B-207 R2). F1 (confirmation kill) and F2 (block dead) wait on F0: fix detection and the kill first, then re-grade the 2-of-3 count.
+F1 CONFIRM-KILL (after F0) - his 2-of-3 freshness kill skipped at the confirmation candle.
 - Shows on: 10 June NY long 16:15 1.15551. The machine itself counted 2 adverse (in-bias FVG dead + opposite FVG validated) at 16:00, 16:05 and 16:10, printed HOLD at the 16:10 confirmation, and fired.
 - Look at: the freshness check (B-204: "CheckFreshness", EA ~2770-2780; the confirmation pass prints diagnostic only). Tags FRESHCOUNT, S5 HOLD, FIRE.
 - His words: the freshness 2-of-3 section of the strategy skill; register C 4 Sep 10:40 ("in-bias FVG invalidated + OPP validated").
 - Measure: the count on every pass, seed to entry, for A1-A7 and every euro take.
 - Done when: 10 June is refused, A1-A7 identical.
-F2 BLOCK-DEAD - his invalidated in-bias block still read alive.
+F2 BLOCK-DEAD (after F0) - his invalidated in-bias block still read alive.
 - Shows on: 25 June London 10:00 bearish OB (and FVG 10:05-10:15) before the 10:45 short; 22 July NY 5m in-bias OB before the 14:55 short. The machine prints block-dead 0, so the count never reaches 2.
 - Look at: where the block-dead flag is set (indicator or EA; locate by the flag name the FRESHCOUNT row prints). Compare with his OB invalidation words (strategy skill; spec 3.4).
 - Measure: every candle from the block's formation to the entry, o/h/l/c, the first candle that meets his kill words, the machine's flag on each pass.
