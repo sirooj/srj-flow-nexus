@@ -47,7 +47,7 @@ F2 BLOCK-DEAD (after F0) - his invalidated in-bias block still read alive.
 - State B-216 (RESTORED): H1b first-close kill fires (code10 10:05 5747) + H1c blocks codes 2/4/5/6/7 revival unless ren (22Jul persist works, 22Jul silent); H2 keeps A1 (fvgEx0 alive); 25Jun S3 first paint fvg alive -> adv1 -> H3 no kill -> 25Jun still fires; fvg second-paint road remains (S3 second paint fvg dead adv2).
 - State B-217 (park): H1b/H1c persist + H2 + H3 stand per B-215/B-216 (10Jun/22Jul silent, A kept); 25Jun fvg second-paint + S4 + revival roads remain open (no trial); F1 PARKED 6 of 6.
 F3 IN-PLAY - a zone the stop leg never reached is accepted.
-- Shows on: 4 June 10:05 long, 29 June 16:15 long, 15 July 10:35 long, 22 July 14:55 short, 28 July 10:45 short, 17 August 15:55 long, 22 September 19:00 short, 8 October 11:35 short (zone on the far side of the stop). None of A1-A7.
+- Shows on: 4 June 10:05 long, 29 June 16:15 long, 15 July 10:35 long, 22 July 14:55 short, 28 July 10:45 short (removed B-223, 5m flip at 10:10), 17 August 15:55 long, 22 September 19:00 short, 8 October 11:35 short (zone on the far side of the stop). None of A1-A7.
 - Look at: the zone gate (B-204: B177HZ / HISZONE, EA ~10452-10480). It tests gap-touch at the retest candle OR in-play window at the confirmation candle - a presence test. It does not test standing (never reads the kill state) and never tests the zone side against the stop.
 - His words: spec 3.5 (in play = a penetration of the XOB in the swing leg), B-91 pin ("retrace and in play are the same thing"), 4 June ("there is no retest of XOB in play"), 28 July ("i do not see valid XOB or FVG to be in play").
 - Measure: for every take, the leg from the zone's promotion to the confirmation candle and whether any candle reached into the zone.
@@ -72,6 +72,7 @@ F8 18-JUNE - FOMC VWAP line kill at 09:40 drops the 09:45 long. Waits on his cha
 - State B-220: G2 NARROW-NEXT RESTORED (18Jun FIRES 09:45 1.15256 exit 10:00 1.15195 SAME; A2 1Sep GONE on EU via reset-wiped rt/latch, 28Jul likewise; C silent; rows in BUILDER_SLICE_B220.md).
 - State B-221: MEASURED no trial (R1 104 CLOSE / 407 ABSENT of 511; S V1 fails A5/10Jun/28Jul/22Sep/8Oct, V2 fails 13 kept; R3 kill record FOUND moot; rows in BUILDER_SLICE_B221.md).
 - State B-222: RESTORED V1 trial b4db21c5/61829f05 (RECON 16/16 SAME; EU 44 deals: NEW 18Jun pair only, GONE 28Jul flip-death 10:10 LTF_MISALIGN; A1-A7 identical incl A2/A5; 7Sep short no FIRE/entry; rows in BUILDER_SLICE_B222.md).
+- State B-223: DONE KEPT (18 Jun fires; 28 Jul removed by his 5m flip rule).
 F9 REPORT-COMPLETE - print-only additions, deals identical: target name in TP_ELECT, zone formation candle, sweep source, the exit rows missing from 9 takes (B-204 R3). Any time a fix relay has spare room.
 
 ## 4. Where to look (symptom -> first rows)

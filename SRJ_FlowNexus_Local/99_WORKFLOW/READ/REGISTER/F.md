@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 91608edd; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 1440933b; the register governs.
 
 ## F. GBP VALID TAKEN BY HIM - his 4 (window 6-17 July 2026, his words 2026-10-12)
 

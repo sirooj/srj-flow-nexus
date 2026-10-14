@@ -1,6 +1,5 @@
 # LESSONS - standing planner rules (B-209 compact-records; one line each, <=160 chars)
 
-Same-class words (B-70): before carrying a chart call, apply his standing words for the same scenario class... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L45
 Spec first for XOB (B-71): before carrying any XOB or zone chart call, read spec v4.2 §1.2, §3.5, §3.5.1,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L46
 Spec and skill whole (B-73): read spec v4.2 and the strategy skill whole before drafting every relay. B-70 to... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L47
 Cite only what the planner has seen (B-73): every file, section or code name in a relay is one the planner... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L48
@@ -127,3 +126,4 @@ B-220-RESET-WIPES-PROVENANCE (B-220): a diagnostic ResetSequence clears retest-t
 B-221-SEPARATE-FIRST (B-221): a release rule reaches trial only with zero pre-entry releases on kept rows; close-through alone fails kept takes.
 B-222-GRADE-BY-ROW-CLASS (B-221): separators fail only on his takes; a released never-take is wanted; machine-only changes are named for his review.
 B-222A-NO-SEED-HIS-NEVER (B-222A): a release that seeds a candidate he ruled no-setup is graded on it first; it must never reach entry.
+B-223-ANY-HIS-KILL (B-222): a GONE machine take passes when any of his kill rules ends it on a named row; a gate never names just one rule.
