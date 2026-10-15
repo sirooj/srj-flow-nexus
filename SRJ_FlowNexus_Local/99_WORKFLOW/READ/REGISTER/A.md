@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 1440933b; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs.
 
 ## A. EU VALID TAKEN - his 7, all taken by the EA (register window 26 Aug - 10 Sep 2026)
 
@@ -15,6 +15,7 @@ Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 1440933b; the register governs
 - NOTE 2026-10-09 (B-121 B2, planner): the "++" in row 2 has no verbatim source; his 2026-09-23 words put "++" on 9/4 only (strategy line 79) and leave the 9/1 setup class for him (line 77). Cell left as written; nothing inferred.
 - NOTE 2026-10-09 (B-137 KEPT, EA 585093BF): exit 17:50 open 1.15987 by the 17:45 Yearly-POC close-through (his s78 exit); the SL 17:50 cell is retired.
 | 3 | 4 Sep New York EURUSD, entry 16:00 | LONG | UNKNOWN (source-needed) | 1.16019 [HIS report] | Day-close flatten 1.16093 [R60 G4] | Journal rows 277/279 W=1; 0.84 retired flawed [HIS]; BOTH-TRUE trend+meanrev [HIS] |
+- NOTE 2026-10-15 (B-226, DEALS_EU0525TD-B218K/-B222K): not taken on the long euro run (no 4 Sep 16:00 deal); RECON62 takes it; cause per BUILDER_RESULT_B226 R3.
 | 4 | 7 Sep London EURUSD, entry 09:20 open | LONG | AS.H booked nearest [HIS rule-choice] | 1.16138 [HIS report] | TP 1.16201 [R60 G4]; booked exit 11:15 at 1.16315 [R51] | Journal row 281; sweep-then-retest valid with his chart proof |
 - NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
 | 5 | 7 Sep New York EURUSD, entry 16:45 | LONG | W-POC (retest latest, his chart proof) | 1.16264 [HIS report] | TP 1.16315 [HIS report] | Proves D74FE972 over v7 (his slice); seed 14:55 stands before 16:40 confirm [R60] |

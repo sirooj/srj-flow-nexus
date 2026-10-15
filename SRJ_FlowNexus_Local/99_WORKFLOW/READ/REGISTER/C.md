@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 1440933b; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs.
 
 ## C. FALSE REFERENCE - never progress, never cited as takes (correct-vs-false for future builds)
 

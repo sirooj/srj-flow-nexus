@@ -1,0 +1,144 @@
+run,candle,tag,detail,jl
+RECON62-B222K,2026.09.01 17:30,XOBPROMO,id=2549 promoT=2026.09.01 17:25,9627349
+RECON62-B222K,2026.09.01 17:30,ZONEPICK,fvg=--- xob=1.15975-1.16013,9627350
+RECON62-B222K,2026.09.01 17:30,INPLAYCOMMIT,1.15975-1.16013 promo=2026.09.01 17:25,9627365
+RECON62-B222K,2026.09.01 17:30,B177HZ,rt=2026.09.01 16:45 gapTouch=1.0 xobWin=1.0 PASS,9627375
+RECON62-B222K,2026.09.01 16:20,B182MID-form,1.15902-1.15926,9626513
+RECON62-B222K,2026.09.01 16:40,B182MID-promo,1.15902-1.15926,9626513
+RECON62-B222K,2026.09.01 16:00,B182MID-form,1.15895-1.15931,9626700
+RECON62-B222K,2026.09.01 17:00,B182MID-promo,1.15895-1.15931,9626700
+RECON62-B222K,2026.09.01 16:45,B182MID-form,1.15975-1.16013,9627048
+RECON62-B222K,2026.09.01 17:25,B182MID-promo,1.15975-1.16013,9627048
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 15:55 Daily-POC=Lbody-below/SHIT Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lbody-below/SHIT Weekly-VWAP=Lbody-below/Sno-penetratio,9625932
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:00 Daily-POC=Lbody-below/Sno-penetration Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lbody-below/Sbody-above Weekly-VWAP=Lbody-be,9625989
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:05 Daily-POC=Lbody-below/Sno-penetration Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lbody-below/SHIT Weekly-VWAP=Lbody-below/Sno,9626071
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:10 Daily-POC=Lbody-below/Sno-penetration Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lbody-below/Sno-penetration Weekly-VWAP=Lbod,9626271
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:15 Daily-POC=Lbody-below/Sno-penetration Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lbody-below/Sbody-above Weekly-VWAP=Lbody-be,9626330
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:20 Daily-POC=Lbody-below/Sno-penetration Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lbody-below/Sbody-above Weekly-VWAP=Lbody-be,9626364
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:25 Daily-POC=Lbody-below/Sno-penetration Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lbody-below/Sbody-above Weekly-VWAP=Lbody-be,9626398
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:30 Daily-POC=Lbody-below/Sbody-above Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbody-be,9626439
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:35 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbod,9626480
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:40 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbody-be,9626524
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 16:40 inside=Daily-VWAP Weekly-VWAP Monthly-VWAP nearAbove=Yearly-POC:60.0pts nearBelow=Daily-POC:50.0pts,9626525
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTBOOK bar=2026.09.01 16:45 hits=1 Yearly-POC:r2:dL,9626560
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:45 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbody-be,9626561
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 16:45 inside=Daily-VWAP Weekly-VWAP Monthly-VWAP Yearly-POC nearAbove=Yearly-VWAP:309.2pts nearBelow=Daily-POC:44.0pts,9626562
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1D_BOTHDIRS bar=2026.09.01 16:45 bl=8 br=2 sl=-1 sr=2147483647 sel=LONG sline=8 scode=Yearly-POC lcode=-,9626563
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 16:45 anchor=Yearly-POC dir=LONG oppCandle=0 bodyDir=0 body=23pts doji=0 touchAttr=1 confirm=0 shadow=true,9626564
+RECON62-B222K,2026.09.01 YRLY,Yearly,LINE bar=2026.09.01 16:45 dir=LONG action=OPEN line=Yearly-POC val=1.15982,9626566
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1D_BOTHDIRS bar=2026.09.01 16:45 bl=8 br=2 sl=-1 sr=2147483647 sel=LONG sline=8 scode=Yearly-POC lcode=-,9626567
+RECON62-B222K,2026.09.01 YRLY,Yearly,6.09.01 16:50:00 STATE IDLE->S1_REGIME dir=LONG poi=Yearly-POC,9626568
+RECON62-B222K,2026.09.01 YRLY,Yearly,HOR_ELECT bar=2026.09.01 16:45 action=SEED poi=Yearly-POC rank=2 tier=1 dir=LONG,9626569
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1F_SHORT bar=2026.09.01 16:45 anchor=Yearly-POC,9626574
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 16:45 dir=LONG poi=Yearly-POC sess=NYAM - regime unclassified, candidate RETAINED (Stage 3a)",9626580
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1H_WOULDPREEMPT bar=2026.09.01 16:50 newPoi=Weekly-VWAP newDir=SHORT heldPoi=Yearly-POC heldDir=LONG heldState=S1_REGIME newTier=4 heldTier=1 wouldPreempt=0 wo,9626612
+RECON62-B222K,2026.09.01 YRLY,Yearly,PRESSED bar=2026.09.01 16:50 poi=Weekly-VWAP dir=SHORT opp=1 higher=0 heldPoi=Yearly-POC heldDir=LONG heldState=S1_REGIME cum_n=63 cum_opp=8 cum_hi=2 cum_both=2,9626615
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:50 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbod,9626617
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 16:50 inside=Weekly-VWAP nearAbove=Daily-VWAP:0.3pts nearBelow=Yearly-POC:4.0pts,9626618
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 16:50 anchor=Yearly-POC dir=LONG oppCandle=1 bodyDir=1 body=6pts doji=0 touchAttr=1 confirm=1 shadow=true,9626619
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 16:50 dir=LONG poi=Yearly-POC sess=NYAM - regime unclassified, candidate RETAINED (Stage 3a)",9626624
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1D_BOTHDIRS bar=2026.09.01 16:55 bl=8 br=2 sl=-1 sr=2147483647 sel=LONG sline=8 scode=Yearly-POC lcode=-,9626659
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1D_BOTHDIRS bar=2026.09.01 16:55 bl=8 br=2 sl=-1 sr=2147483647 sel=LONG sline=8 scode=Yearly-POC lcode=-,9626660
+RECON62-B222K,2026.09.01 YRLY,Yearly,PRESSED bar=2026.09.01 16:55 poi=Yearly-POC dir=LONG opp=0 higher=0 heldPoi=Yearly-POC heldDir=LONG heldState=S1_REGIME cum_n=64 cum_opp=8 cum_hi=2 cum_both=2 a,9626661
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTBOOK bar=2026.09.01 16:55 hits=1 Yearly-POC:r2:dL,9626662
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 16:55 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbody-be,9626663
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 16:55 inside=Daily-VWAP Weekly-VWAP Monthly-VWAP Yearly-POC nearAbove=Yearly-VWAP:300.2pts nearBelow=Daily-POC:49.0pts,9626664
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 16:55 anchor=Yearly-POC dir=LONG oppCandle=0 bodyDir=1 body=13pts doji=0 touchAttr=0 confirm=0 shadow=true,9626665
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 16:55 dir=LONG poi=Yearly-POC sess=NYAM - regime unclassified, candidate RETAINED (Stage 3a)",9626670
+RECON62-B222K,2026.09.01 YRLY,Yearly,PRESSED bar=2026.09.01 17:00 poi=Monthly-VWAP dir=LONG opp=0 higher=0 heldPoi=Yearly-POC heldDir=LONG heldState=S1_REGIME cum_n=65 cum_opp=8 cum_hi=2 cum_both=2,9626710
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:00 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=LHIT/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=LHIT/Sbody-abov,9626712
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:00 inside=Daily-VWAP Weekly-VWAP Monthly-VWAP nearAbove=Yearly-VWAP:278.1pts nearBelow=Yearly-POC:7.0pts,9626713
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 17:00 anchor=Yearly-POC dir=LONG oppCandle=0 bodyDir=1 body=2pts doji=0 touchAttr=1 confirm=0 shadow=true,9626714
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 17:00 dir=LONG poi=Yearly-POC sess=NYAM - regime unclassified, candidate RETAINED (Stage 3a)",9626721
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:05 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lno-penetration/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lno-,9626755
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:05 inside=- nearAbove=Yearly-VWAP:264.1pts nearBelow=Daily-VWAP:4.0pts,9626756
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 17:05 anchor=Yearly-POC dir=LONG oppCandle=0 bodyDir=1 body=38pts doji=0 touchAttr=0 confirm=0 shadow=true,9626757
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 17:05 dir=LONG poi=Yearly-POC sess=NYAM - regime unclassified, candidate RETAINED (Stage 3a)",9626761
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:10 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lno-penetration/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lno-,9626797
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:10 inside=- nearAbove=Yearly-VWAP:241.1pts nearBelow=Daily-VWAP:36.2pts,9626798
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 17:10 anchor=Yearly-POC dir=LONG oppCandle=0 bodyDir=1 body=22pts doji=0 touchAttr=0 confirm=0 shadow=true,9626799
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 17:10 dir=LONG poi=Yearly-POC sess=NYAM - regime unclassified, candidate RETAINED (Stage 3a)",9626803
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1D_BOTHDIRS bar=2026.09.01 17:15 bl=-1 br=2147483647 sl=8 sr=2 sel=SHORT sline=8 scode=Yearly-POC lcode=-,9626837
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1H_WOULDPREEMPT bar=2026.09.01 17:15 newPoi=Yearly-POC newDir=SHORT heldPoi=Yearly-POC heldDir=LONG heldState=S1_REGIME newTier=1 heldTier=1 wouldPreempt=0 wou,9626838
+RECON62-B222K,2026.09.01 YRLY,Yearly,PCONF bar=2026.09.01 17:15 poi=Yearly-POC dir=SHORT opConf=1 heldConf=0 opTerm= heldTerm=A_OPP - displace-gate inputs (Fix H1),9626839
+RECON62-B222K,2026.09.01 YRLY,Yearly,0POT bar=2026.09.01 17:15 slot=0 ev=END class=HIS-RULE rule=SETUP-DEFINED|51 line=Yearly-POC side=LONG st=S1_REGIME reg=NONE ltf=ALIGN fresh= touch=A_OPP div=re,9626840
+RECON62-B222K,2026.09.01 YRLY,Yearly,1FROM bar=2026.09.01 17:15 id=0 sd=2026.09.01 16:45 sw=NOTREACHED zn=1.15902-1.15926|2026.09.01 16:40|NR|ST el=Yearly-POC|LONG|1.15982|2026.09.01 16:45 ht=-1/-1,9626841
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1C_PREEMPT bar=2026.09.01 17:15 from=Yearly-POC fromDir=LONG to=Yearly-POC toDir=SHORT state=S1_REGIME,9626844
+RECON62-B222K,2026.09.01 YRLY,Yearly,6SLOT bar=2026.09.01 17:15 ev=PREEMPT src=S2X oD=LONG oL=Yearly-POC oB=2026.09.01 17:15 oS=S1_REGIME nD=SHORT nL=Yearly-POC,9626845
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1D_BOTHDIRS bar=2026.09.01 17:15 bl=-1 br=2147483647 sl=8 sr=2 sel=SHORT sline=8 scode=Yearly-POC lcode=-,9626846
+RECON62-B222K,2026.09.01 YRLY,Yearly,PRESSED bar=2026.09.01 17:15 poi=Yearly-POC dir=SHORT opp=0 higher=0 heldPoi=Yearly-POC heldDir=SHORT heldState=S1_REGIME cum_n=66 cum_opp=8 cum_hi=2 cum_both=2,9626847
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTBOOK bar=2026.09.01 17:15 hits=1 Yearly-POC:r2:dS,9626848
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:15 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lno-penetration/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lno-,9626849
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:15 inside=Yearly-POC nearAbove=Yearly-VWAP:244.1pts nearBelow=Daily-VWAP:21.7pts,9626850
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 17:15 anchor=Yearly-POC dir=SHORT oppCandle=1 bodyDir=1 body=21pts doji=0 touchAttr=1 confirm=1 shadow=true,9626851
+RECON62-B222K,2026.09.01 YRLY,Yearly,LINE bar=2026.09.01 17:15 dir=LONG action=KILL line=Yearly-POC val=1.16077,9626854
+RECON62-B222K,2026.09.01 YRLY,Yearly,LINE bar=2026.09.01 17:15 dir=SHORT action=ADD line=Yearly-POC val=1.16077,9626855
+RECON62-B222K,2026.09.01 YRLY,Yearly,6.09.01 17:20:05 STATE S1_REGIME->S2_LTF_ALIGN dir=SHORT poi=Yearly-POC,9626857
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 17:15 dir=SHORT poi=Yearly-POC sess=NYAM - LTF bias unaligned, candidate RETAINED (Stage 3a)",9626859
+RECON62-B222K,2026.09.01 YRLY,Yearly,SHSKIP bar=2026.09.01 17:20 dir=SHORT state=S2_LTF_ALIGN poi=Yearly-POC reason=PRE_BINDING,9626894
+RECON62-B222K,2026.09.01 YRLY,Yearly,KEY bar=2026.09.01 17:20 row=2026.09.01 17:15 dir=SHORT lines=Yearly-POC:2:dS key=Yearly-POC tier=1 own=Yearly-POC fallback=0,9626896
+RECON62-B222K,2026.09.01 YRLY,Yearly,OISKIP bar=2026.09.01 17:20 line=Yearly-POC anchor=Yearly-POC,9626994
+RECON62-B222K,2026.09.01 YRLY,Yearly,OISKIP bar=2026.09.01 17:20 line=Yearly-POC anchor=Yearly-POC,9626995
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:20 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lno-penetration/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lno-,9627012
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:20 inside=- nearAbove=Yearly-POC:8.0pts nearBelow=Daily-VWAP:36.2pts,9627013
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 17:20 anchor=Yearly-POC dir=SHORT oppCandle=0 bodyDir=0 body=12pts doji=0 touchAttr=1 confirm=0 shadow=true,9627014
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 17:20 dir=SHORT poi=Yearly-POC sess=NYAM - LTF bias unaligned, candidate RETAINED (Stage 3a)",9627018
+RECON62-B222K,2026.09.01 YRLY,Yearly,SHSKIP bar=2026.09.01 17:25 dir=SHORT state=S2_LTF_ALIGN poi=Yearly-POC reason=PRE_BINDING,9627056
+RECON62-B222K,2026.09.01 YRLY,Yearly,KEY bar=2026.09.01 17:25 row=2026.09.01 17:15 dir=SHORT lines=Yearly-POC:2:dS key=Yearly-POC tier=1 own=Yearly-POC fallback=0,9627058
+RECON62-B222K,2026.09.01 YRLY,Yearly,OISKIP bar=2026.09.01 17:25 line=Yearly-POC anchor=Yearly-POC,9627156
+RECON62-B222K,2026.09.01 YRLY,Yearly,OISKIP bar=2026.09.01 17:25 line=Yearly-POC anchor=Yearly-POC,9627157
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:25 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lno-penetration/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lno-,9627173
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:25 inside=Daily-VWAP Monthly-VWAP nearAbove=Yearly-POC:11.0pts nearBelow=Weekly-VWAP:7.6pts,9627174
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 17:25 anchor=Yearly-POC dir=SHORT oppCandle=1 bodyDir=1 body=53pts doji=0 touchAttr=0 confirm=0 shadow=true,9627175
+RECON62-B222K,2026.09.01 YRLY,Yearly,"AIT bar=2026.09.01 17:25 dir=SHORT poi=Yearly-POC sess=NYAM - LTF bias unaligned, candidate RETAINED (Stage 3a)",9627179
+RECON62-B222K,2026.09.01 YRLY,Yearly,SHSKIP bar=2026.09.01 17:30 dir=SHORT state=S2_LTF_ALIGN poi=Yearly-POC reason=PRE_BINDING,9627215
+RECON62-B222K,2026.09.01 YRLY,Yearly,"KEY bar=2026.09.01 17:30 row=2026.09.01 17:30 dir=SHORT lines=Daily-VWAP:11:dL,Monthly-VWAP:7:dL key=Yearly-POC tier=1 own= fallback=1",9627217
+RECON62-B222K,2026.09.01 YRLY,Yearly,OISKIP bar=2026.09.01 17:30 line=Yearly-POC anchor=Yearly-POC,9627315
+RECON62-B222K,2026.09.01 YRLY,Yearly,OISKIP bar=2026.09.01 17:30 line=Yearly-POC anchor=Yearly-POC,9627316
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1H_WOULDPREEMPT bar=2026.09.01 17:30 newPoi=Monthly-VWAP newDir=LONG heldPoi=Yearly-POC heldDir=SHORT heldState=S2_LTF_ALIGN newTier=3 heldTier=1 wouldPreempt=,9627332
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1C_PREEMPT bar=2026.09.01 17:30 from=Yearly-POC fromDir=SHORT to=Monthly-VWAP toDir=LONG state=S2_LTF_ALIGN,9627334
+RECON62-B222K,2026.09.01 YRLY,Yearly,6SLOT bar=2026.09.01 17:30 ev=PREEMPT src=S2X oD=SHORT oL=Yearly-POC oB=2026.09.01 17:30 oS=S2_LTF_ALIGN nD=LONG nL=Monthly-VWAP,9627335
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:30 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=LHIT/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lno-penetration,9627339
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:30 inside=Daily-VWAP Monthly-VWAP nearAbove=Yearly-POC:46.0pts nearBelow=Weekly-VWAP:0.5pts,9627340
+RECON62-B222K,2026.09.01 YRLY,Yearly,ENSUS #144 bar=2026.09.01 17:30 dir=LONG ref=1.16022 winner=Yearly-POC best=1.16077 distPts=55 empties=0 admitted= PDH:184 ASH:222 ASL:33 LOH:64 NYH:59 PMH:161 ,9627477
+RECON62-B222K,2026.09.01 YRLY,Yearly,EMO_PASS bar=2026.09.01 17:30 admit_key=2026.09.01 17:30:2 entry=1.16022 tp=1.16077 sl=1.15975 R=1.17 src=FIRELOCAL wsrc=Yearly-POC wday=2026.09.01 wgen=-1,9627523
+RECON62-B222K,2026.09.01 YRLY,Yearly,DMIT bar_key=2026.09.01 17:30 trade_seq=2 admit_bar=2026.09.01 17:30 entry=1.16022 sl=1.15975 tp=1.16077 R=1.17 poolGen=-1 wsrc=Yearly-POC wday=2026.09.01 wage=,9627528
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:35 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=LHIT/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lno-penetration,9627583
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:35 inside=Daily-VWAP Monthly-VWAP nearAbove=Yearly-POC:47.0pts nearBelow=Weekly-VWAP:6.5pts,9627584
+RECON62-B222K,2026.09.01 YRLY,Yearly,TCENSUS bar=2026.09.01 17:35 dir=LONG line=Yearly-POC val=1.16077 side=ahead trigger=1 bodyLo=1.16015 bodyHi=1.16022 verdict=ok ownO=1.16022 ownC=1.16013 ownBrk,9627597
+RECON62-B222K,2026.09.01 YRLY,Yearly,TCENSUS bar=2026.09.01 17:35 dir=LONG line=Yearly-VWAP val=1.16322 side=ahead trigger=0 bodyLo=1.16015 bodyHi=1.16022 verdict=ok ownO=1.16022 ownC=1.16013 ownBr,9627598
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:40 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/Sbody-above Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=LHIT/Sbo,9627637
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:40 inside=Daily-VWAP Weekly-VWAP Monthly-VWAP nearAbove=Yearly-POC:58.0pts nearBelow=Daily-POC:64.0pts,9627638
+RECON62-B222K,2026.09.01 YRLY,Yearly,TCENSUS bar=2026.09.01 17:40 dir=LONG line=Yearly-POC val=1.16077 side=ahead trigger=1 bodyLo=1.16002 bodyHi=1.16015 verdict=ok ownO=1.16015 ownC=1.16001 ownBrk,9627652
+RECON62-B222K,2026.09.01 YRLY,Yearly,TCENSUS bar=2026.09.01 17:40 dir=LONG line=Yearly-VWAP val=1.16322 side=ahead trigger=0 bodyLo=1.16002 bodyHi=1.16015 verdict=ok ownO=1.16015 ownC=1.16001 ownBr,9627653
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTBOOK bar=2026.09.01 17:45 hits=3 Daily-VWAP:r11:dS Monthly-VWAP:r7:dS Yearly-POC:r2:dL,9627692
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:45 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/SHIT Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbody-below/Sbo,9627693
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:45 inside=Daily-VWAP Weekly-VWAP Monthly-VWAP Yearly-POC nearAbove=Yearly-VWAP:304.1pts nearBelow=Daily-POC:53.0pts,9627694
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1D_BOTHDIRS bar=2026.09.01 17:45 bl=8 br=2 sl=5 sr=7 sel=LONG sline=8 scode=Yearly-POC lcode=Monthly-VWAP,9627695
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 17:45 anchor=Yearly-POC dir=LONG oppCandle=1 bodyDir=0 body=17pts doji=0 touchAttr=0 confirm=0 shadow=true,9627696
+RECON62-B222K,2026.09.01 YRLY,Yearly,LINE bar=2026.09.01 17:45 dir=LONG action=ADD line=Yearly-POC val=1.15987,9627701
+RECON62-B222K,2026.09.01 YRLY,Yearly,2TF bar=2026.09.01 17:50 t=2026.09.01 17:50:00 dir=L line=Yearly-POC old=1.16077 new=1.15987 px=1.15987,9627704
+RECON62-B222K,2026.09.01 YRLY,Yearly,TCENSUS bar=2026.09.01 17:45 dir=LONG line=Yearly-POC val=1.15987 side=ahead trigger=1 bodyLo=1.15987 bodyHi=1.16002 verdict=BREAK ownO=1.16002 ownC=1.15985 own,9627713
+RECON62-B222K,2026.09.01 YRLY,Yearly,TCENSUS bar=2026.09.01 17:45 dir=LONG line=Yearly-VWAP val=1.16322 side=ahead trigger=0 bodyLo=1.15987 bodyHi=1.16002 verdict=ok ownO=1.16002 ownC=1.15985 ownBr,9627714
+RECON62-B222K,2026.09.01 YRLY,Yearly,TVERDICT bar=2026.09.01 17:45 dir=LONG entry=1.16022 curTp=1.15987 vSL=0 vTP=0 vBREAK=Yearly-POC vHTF=0 vDAY=0 scope=1 htfH=0 htfM=0 htfL=0 want=0 anti=-1 tpB=1,9627717
+RECON62-B222K,2026.09.01 YRLY,Yearly,XIT bar=2026.09.01 17:45 reason=POI_BODY_BREAK line=Yearly-POC lineVal=1.15987 entry=1.16022 exit=1.15987 src=OWNBODY,9627718
+RECON62-B222K,2026.09.01 YRLY,Yearly,RT SRJ EXIT NONE EURUSD M5 | - | NONE | POI_BODY_BREAK [Yearly-POC] at 1.15987 (entry 1.16022),9627726
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:50 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbod,9627760
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:50 inside=Weekly-VWAP Yearly-POC nearAbove=Daily-VWAP:6.8pts nearBelow=Daily-POC:41.0pts,9627761
+RECON62-B222K,2026.09.01 YRLY,Yearly,LINE bar=2026.09.01 17:50 dir=LONG action=KILL line=Yearly-POC val=1.15982,9627763
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTBOOK bar=2026.09.01 17:55 hits=1 Yearly-POC:r2:dS,9627802
+RECON62-B222K,2026.09.01 YRLY,Yearly,TTERMS bar=2026.09.01 17:55 Daily-POC=Lno-penetration/Sbody-above Daily-VWAP=Lbody-below/Sno-penetration Weekly-POC=Lno-penetration/Sbody-above Weekly-VWAP=Lbod,9627803
+RECON62-B222K,2026.09.01 YRLY,Yearly,ESTDIAG bar=2026.09.01 17:55 inside=Yearly-POC nearAbove=Weekly-VWAP:15.3pts nearBelow=Daily-POC:14.0pts,9627804
+RECON62-B222K,2026.09.01 YRLY,Yearly,E1D_BOTHDIRS bar=2026.09.01 17:55 bl=-1 br=2147483647 sl=8 sr=2 sel=SHORT sline=8 scode=Yearly-POC lcode=-,9627805
+RECON62-B222K,2026.09.01 YRLY,Yearly,FIRMPOLL bar=2026.09.01 17:55 anchor=Yearly-POC dir=SHORT oppCandle=0 bodyDir=1 body=11pts doji=0 touchAttr=1 confirm=0 shadow=true,9627806
+RECON62-B222K,2026.09.01 YRLY,Yearly,1FROM bar=2026.09.01 19:05:02 id=15 sd=2026.09.01 17:15 sw=NOTREACHED zn=1.15956-1.15986|2026.09.01 18:20|NR|ST el=Yearly-POC|SHORT|1.16077|2026.09.01 16:45 ht=,9628353
+EU0525TD-B222K,2026.09.01 17:00,XOBPROMO,id=14025 promoT=2026.09.01 16:40,12057404
+EU0525TD-B222K,2026.09.01 17:00,ZONEPICK,fvg=--- xob=1.15902-1.15926,12057405
+EU0525TD-B222K,2026.09.01 17:00,INPLAYCOMMIT,1.15902-1.15926 promo=2026.09.01 16:40,12057419
+EU0525TD-B222K,2026.09.01 17:30,B177HZ,rt=2026.09.01 16:50 gapTouch=0.0 xobWin=1.0 PASS,12062129
+EU0525TD-B222K,2026.09.01 16:20,B182MID-form,1.15902-1.15926,12055693
+EU0525TD-B222K,2026.09.01 16:40,B182MID-promo,1.15902-1.15926,12055693
+EU0525TD-B222K,2026.09.01 16:00,B182MID-form,1.15895-1.15931,12056655
+EU0525TD-B222K,2026.09.01 17:00,B182MID-promo,1.15895-1.15931,12056655
+EU0525TD-B222K,2026.09.01 16:45,B182MID-form,1.15975-1.16013,12060599
+EU0525TD-B222K,2026.09.01 17:25,B182MID-promo,1.15975-1.16013,12060599

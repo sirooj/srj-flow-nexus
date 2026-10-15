@@ -48,6 +48,7 @@ J2D-DEFECTS parked B-211 at 6 of 6: S1-S8 no separator; S8 counted from session 
 - P3-0618 B-223: KEPT (28Jul dies 10:10 flip pre-entry per his rules; 18Jun added; A1-A7 identical; build b4db21c5/61829f05 installed).
 - F3-INPLAY B-224: MEASURED (T-REACH on kept rows; HIS-KEEP 10/13 PASS; F3-NAMED 6/6 FAIL beyond-stop; next trials the gate).
 - F3-INPLAY B-225: MEASURED (one zone per take; A2 split pick-missing EU; his 28Aug gap printed never picked; stop-side NO RULING chart call; exits censused; DOES NOT SEPARATE).
+- F3-INPLAY B-226: MEASURED (T-LEG DOES NOT SEPARATE; A1/P3/A3/A7 legs ended, A7 conflicts his words; A2-EU pick defect; k4 A3 long-run loss on record, B-223 A3 EU row false).
 ## 5. History
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-208 (kit PK-2).
 - 2026-10-14: planner session ran as ClickUp Brain for relay B-209 (kit PK-3).
@@ -67,3 +68,4 @@ J2D-DEFECTS parked B-211 at 6 of 6: S1-S8 no separator; S8 counted from session 
 - 2026-10-15: planner session ran as ClickUp Brain for relay B-223 (kit PK-3).
 - 2026-10-15: planner session ran as ClickUp Brain for relay B-224 (kit PK-3).
 - 2026-10-15: planner session ran as ClickUp Brain for relay B-225 (kit PK-3).
+- 2026-10-15: planner session ran as ClickUp Brain for relay B-226 (kit PK-3).
