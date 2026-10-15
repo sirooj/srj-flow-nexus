@@ -91,6 +91,7 @@ F10 RETEST-EQUAL - a line touched only equal (wick or body edge at the same pric
 - State B-236 (RESTORED D3): next-open-equal after the confirmation candle; RECON GRADE RECON62-B236D: KEEP entries exact 7/7; KEEP exits exact 6/7; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B236D: KEEP entries exact 13/13; KEEP exits exact 12/13; NEVER fires 7; MACHINE-ONLY ungraded 0; trades 20; N22SEP FIRES; .B236K dc6c2b59/7f94ca81 on disk.
 - State B-237 (RESTORED D1): touch test at chart price precision; RECON GRADE RECON62-B237D: KEEP entries exact 7/7; KEEP exits exact 6/7; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B237D: KEEP entries exact 13/13; KEEP exits exact 12/13; NEVER fires 6; MACHINE-ONLY ungraded 0; trades 19; N22SEP silent; .B237K a62194f8/a975ea27 on disk.
 - State B-238 (KEPT): F10 touch-digits installed (a62194f8/a975ea27); RECON GRADE RECON62-B238K: KEEP entries exact 7/7; KEEP exits exact 6/7; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B237D: KEEP entries exact 13/13; KEEP exits exact 12/13; NEVER fires 6; MACHINE-ONLY ungraded 0; trades 19; N17AUG, A5 and N22SEP silent.
+- State B-239 (MEASURED K0 STOP): any-reach list not buildable in EA (FVG births GAP_FORM + XOB promotion state live in FlowLogic indicator; EA reads picked-zone buffers only, P16 forbids index); no edit, no runs.
 
 ## 4. Where to look (symptom -> first rows)
 - Fired although his never-take: FIRE, then FRESHCOUNT on each pass, then B177HZ, then CONFIRMPOLL.
