@@ -22,10 +22,10 @@
 - Locate code by text, never by line number. Line numbers below are where B-204 found them; re-find by the quoted text.
 - A long euro run takes about 26 minutes; RECON62 about 4 minutes. Do offline grading while a run goes.
 - Same-day baseline needed? Compare the tick history folder (file sizes and modified times) with the last kept baseline's record. Unchanged: grade the trial against the last kept cut. Changed: run the kept build first.
-- Grade each fix on its own rows first (Part R), then the separator table (Part S, committed pack lines), then one trial (Part K), then runs (RECON62, then EU0525TD only when RECON62 passes).
-- A fix is kept only if A1-A7 stay identical, no C row fires, and every changed take is named in trader words for his review.
+- Grade each fix with the grader on whole runs: at most 2 readings, then one always-restored diagnostic trial (RECON62, then EU0525TD only when RECON62 passes); a Part S table only before the kept trial (PK-4).
+- A fix is kept only if the grader shows no KEEP row worse and no new NEVER fire on both runs and one scoreboard number better; every changed take goes into his review batch.
 
-## 3. Fix queue (in this order; each item is one lane, limit 6 relays)
+## 3. Fix queue (PK-4 order: F5 first, then F3, F1/F2, F0, F4, F6, F7, F9; each lane gets 2 readings then a diagnostic trial). F5 goes first: the long euro run prints no Yearly line at all, which drops the 4 Sep New York long, moves the 1 Sep and 7 Sep New York exits and the 8 Sep New York target (B-225 R4, B-226 R3); it needs no new ruling (his chart starts 1 January).
 F0 OBJECTS - the machine's in-bias OB and FVG are not his. 28 Aug: his zone is the 06:30-06:40 FVG (register A1 NOTE B-175); the machine never printed a gap there (B-183 R2) and counts its own OB and FVG dead at confirmation (B-207 R3). 141 euro days: zero OB invalidation events (B-207 R2). F1 (confirmation kill) and F2 (block dead) wait on F0: fix detection and the kill first, then re-grade the 2-of-3 count. Parked B-211 (J2D-DEFECTS 6/6); count definition carried into F1 by his rules/46 words.
 F1 CONFIRM-KILL (after F0) - his 2-of-3 freshness kill skipped at the confirmation candle.
 - Shows on: 10 June NY long 16:15 1.15551. The machine itself counted 2 adverse (in-bias FVG dead + opposite FVG validated) at 16:00, 16:05 and 16:10, printed HOLD at the 16:10 confirmation, and fired.

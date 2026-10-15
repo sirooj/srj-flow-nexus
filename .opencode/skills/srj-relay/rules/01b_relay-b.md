@@ -65,3 +65,12 @@ Session-window record order (B-188 lesson, defect owned 2026-10-12)
 
 Standing scope (his order 2026-10-14, B-207)
 - EURUSD only until he opens pound and yen. Every relay runs RECON62 (EURUSD 26 Aug-9 Sep) and, when a change is kept, EU0525TD (EURUSD 25 May to date). JUNE0525 and GBP0629 are not run; register B and F rows are held, never graded. The fix order is 06_HANDOFFS/EU_FIX_PLAN.md.
+
+Scoreboard and workflow reset (his order 2026-10-15, B-227W)
+- His words, verbatim: "after hundreds of relays, this project does not met the goal yet. what is wrong with the workflow? GIVE THOROUGH PLAN SO THAT THE BUILDER AGENT CAN JUST SIMPLY FIND AND REPLACE"
+- One grader: SRJ_FlowNexus_Local/99_WORKFLOW/TOOLS/grade_register.py is committed and is the only grade of record. After every run (and every relay, on the kept build's committed DEALS), run it and paste its output raw. Never re-implement the grade in a per-relay script; never hand-copy a verdict.
+- One truth file: SRJ_FlowNexus_Local/06_HANDOFFS/REGISTER_TRUTH.csv holds every KEEP, NEVER and WATCH row with its source. A register change or a banked answer of his updates it in the same relay.
+- Trials early: 2 readings per idea at most, then an always-restored diagnostic trial graded by the grader.
+- Review batch: every KEPT or diagnostic relay files REPORT/REVIEW_BATCH_B<n>.md (machine-only takes + open rule questions in trader words).
+- Records: per relay update only the result, slice, pointer, ledger, one EU_FIX_PLAN State line and REGISTER_TRUTH.csv when it changes.
+- Job scripts that grade or cut go in SRJ_FlowNexus_Local/99_WORKFLOW/TOOLS/ and are committed and reused.

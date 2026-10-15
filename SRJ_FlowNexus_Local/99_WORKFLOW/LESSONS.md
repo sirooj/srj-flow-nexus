@@ -1,6 +1,5 @@
 # LESSONS - standing planner rules (B-209 compact-records; one line each, <=160 chars)
 
-Cite only what the planner has seen (B-73): every file, section or code name in a relay is one the planner... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L48
 Status from the packet (B-73): a finding's DRAFT or NOT ISSUED line can be superseded. Read the packet's own... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L49
 Code-only needs the spec (B-73): before anything is filed as code-only, check the spec v4.2 tables (§3.6, §8,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L50
 Later word governs on CQD (B-74): his P-CQDRESTORE directive 2026-09-09 (01_TASKS/PACKET_P-CQDRESTORE.md §1,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L51
@@ -128,3 +127,4 @@ B-223-ANY-HIS-KILL (B-222): a GONE machine take passes when any of his kill rule
 B-224-NEVER-REACHED-RIDES (B-224): kept takes can ride zones price never re-enters promoT-to-confirm; grade reach per candle before any gate.
 B225-PROMO-NOT-PICK (B-225): a promoted zone is not a picked zone; grade the gate on commit/pick rows, never promotion rows.
 B226-LEG-READ-WRONG (B-226): a leg-end reading that ends a zone he named in play is read wrong; his take stands, the reading is reworked.
+B227W-SCOREBOARD (B-227W): one committed grader is the only grade of record; hand tables hid a lost take for 4 relays.

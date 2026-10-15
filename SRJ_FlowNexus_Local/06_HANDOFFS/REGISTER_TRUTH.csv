@@ -1,0 +1,19 @@
+id,class,date,side,session,entry_time,entry_price,exit_time,exit_price,source
+A1,KEEP,2026-08-28,sell,LONDON,10:05,1.16466,11:35,1.16464,register A row 1 + NOTE B-137 (his exit 11:35 open)
+A2,KEEP,2026-09-01,buy,NY,17:35,1.16024,17:50,1.15987,register A row 2 + NOTE B-137 (17:45 Yearly-POC close-through)
+A3,KEEP,2026-09-04,buy,NY,16:00,1.16019,23:55,1.16129,register A row 3 + CORRECTION B-33 (day close)
+A4,KEEP,2026-09-07,buy,LONDON,09:20,1.16138,,1.16201,register A row 4 (TP 1.16201)
+A5,KEEP,2026-09-07,buy,NY,16:45,1.16264,,1.16315,register A row 5 (TP 1.16315 his report)
+A6,KEEP,2026-09-08,sell,LONDON,10:10,1.16205,,1.16102,register A row 6 (TP 1.16102)
+A7,KEEP,2026-09-08,sell,NY,17:00,1.16220,,1.16275,register A row 7 (SL 1.16275)
+P3,KEEP,2026-06-18,buy,LONDON,09:45,1.15256,10:00,1.15195,rules/43 0618-EU-FOMC-EXIT; B-223 KEPT
+N10JUN,NEVER,2026-06-10,buy,NY,16:15,1.15551,,,register C 0610-EU-INVALID
+N25JUN,NEVER,2026-06-25,sell,LONDON,10:45,1.13540,,,register C 0625-EU-INVALID
+N22JUL,NEVER,2026-07-22,sell,NY,14:55,1.14048,,,register C 0722-EU-INVALID
+N4SEP1040,NEVER,2026-09-04,sell,LONDON,10:40,,,,register C 4 Sep 10:40 short
+N1SEP1530,NEVER,2026-09-01,,NY,15:30,,,,register C 1 Sep 15:30 take
+N27AUG,NEVER,2026-08-27,,NY,,,,,register C 27 Aug take (any NY entry that day)
+N28AUG1625,NEVER,2026-08-28,,NY,16:25,,,,register C 28 Aug 16:25
+N8SEP1645,NEVER,2026-09-08,,NY,16:45,,,,register C 8 Sep 16:45
+N7SEPSHORT,NEVER,2026-09-07,sell,NY,,,,,rules/47 0907-NY-SHORT-INVALID
+W28JUL,WATCH,2026-07-28,sell,LONDON,10:45,1.13689,,,rules/43 question (not a ruling); register C NOTE B-223

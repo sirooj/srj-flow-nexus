@@ -32,7 +32,7 @@ Operator kickoff for any new thread:
 - Every relay opens with Part 0: branch and commit to cut from, files to read in order, every name used. A builder with no memory runs it from Part 0 alone.
 - Verdicts: KEPT = change kept; RESTORED = change undone from .preB<n>; MEASURED = read-only (text-record edits allowed); STOP = a STOP rule hit before the trial ran or finished, no source edit stands, text records allowed, reason in the result's first line (first used B-84, banked B-85).
 - No tolerance or wiggle rule, ever. Talk to him in trader words (dates, times, prices).
-- Questions: never ask him directly (his DEFECT word 2026-10-04). Each question goes into a relay as a record-first search; only "no ruling found" reaches him, as a chart call in the result's carried note, which the planner passes on. When his answer decides the next edit, wait for it.
+- Questions: take grades and open rule questions reach him as the review batch (PK-4, his order 2026-10-15, replacing his 2026-10-04 last-resort rule for take grades); record-first search done before any line enters the batch; never a code or mechanism question. When his answer decides the next edit, the lane waits and work moves to the next fix item.
 - Banking: when he answers, the next relay banks his words verbatim first (strategy skill new section, journal, ledger), grep-first; never re-order banking a prior relay landed.
 - Screenshots: the builder cannot open uploads he makes in the ClickUp chat; the planner describes them in plain words inside the relay.
 - Optional transport: the planner may post a relay as a GitHub issue, with his confirmation per post; the builder reads it with gh issue view. Default is paste.

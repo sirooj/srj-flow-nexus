@@ -2,7 +2,7 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State (2026-10-15; B-SERIES LANE ACTIVE; latest result B-226 MEASURED euro)
+## State (2026-10-15; B-SERIES LANE ACTIVE; latest result B-227W MEASURED (workflow PK-4))
 - B-series relay lane active (operator order 2026-10-04). Relay B-226 filed EURUSD-only per EU-FIRST (branch builder/B-226, verdict MEASURED: F3 current-leg test, no runs). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B226.md`.
 - His EURUSD-first order stands active + banked. Euro alone until he opens pound and yen (held, retained locally).
 - Goal map (his words): 1 journal + detection robust (DONE KEPT B-202); 2 CSV/website/PDF O3 (all euro reports filed; website/PDF pending until he opens); 3 blind test (pending); 4 June to date (euro measured; P4 separates on his named pieces only; machine-only S1-S3 do not (B-209)); 5 year to date (HELD by his B-203 words until he reviews).
@@ -10,7 +10,7 @@
 - Kept build on disk, V1 close-kill trial installed (EA src `b4db21c5...`, ex5 `61829f05...` kept of record: RECON62-B222K 16/16 + EU0525TD-B222K 44 kept + 18Jun pair - 28Jul pair; CUT_*-B222K kept baseline). No terminal64 running. No trading change stands.
 - Blessed terminal.ini = terminal.ini.blessedB208 (c725e437, work + archive copies); config terminal.ini identical, verified. Lost a5834591 stands (addendum STOP).
 - Identity reference: T1 euro baseline deals (B-206). B-202 deal files stay as history. Slots fixed (lookback 3000).
-- Ledger last item 1373 (B226-EU-F3-LEG-TEST, MEASURED current-leg test; 1372 = B225-EU-F3-ZONE-ONE-ANSWER). B226 lesson in LESSONS.md.
+- Ledger last item 1374 (B227W-WORKFLOW-PK4, MEASURED workflow reset; 1373 = B226-EU-F3-LEG-TEST). B227W lesson in LESSONS.md.
 - Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. F1-CONFIRM-KILL PARKED 6 of 6 (B-217 R-OTHER). P3-0618 closed KEPT B-223. F3-INPLAY open 3 of 6 (B-226 MEASURED: current-leg test, DOES NOT SEPARATE T-LEG). BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
 - His B-204 words stand: 10 June / 25 June / 22 July INVALID must-never (P4 refuses all three his way). F2 pending. HOLD-YTD stands.
 - R0 depth: tester walks from 25 May, Yearly folds from 26 June off checkpoint; his chart starts 1 January.
@@ -24,12 +24,12 @@
 - 2 Sep call WITHHELD (B-194). 2 Sep zone print queued.
 - Open data: June yen seed refusal (SEAM_UNREACHABLE); R3 June seed verdict open. R5 chart call WITHHELD (B-191 B2).
 - Carry: D4 graded at the machine's retest candle; A2's own retest is 17:30, so D4 is re-graded at his candle first. A3 not taken on the long euro run since at least B-218 (k4); F5 owns it.
-- Lane: F3-INPLAY, first B-224, 3 of 6. Next per SEPARATOR_B226 (trial only if SEPARATES and buildable).
+- Lane: F5-YEARLY-DEPTH, first B-228, 0 of 3 (PK-4: 2 readings then a diagnostic trial). F3-INPLAY held at 3 of 6 (B-226), resumes after F5.
 
 ## Next
-- Next = EU_FIX_PLAN F3 INPLAY stop-side half after his chart-call answer (B163-CENSUS-BEFORE-LANE: grade every register cell first).
-- Queued, not opened: His F2 grade pending. GU 28 Aug gap UNRECONCILED. B-202 file-defect queue (read-only, fix needs his word).
-- PENDING (his O3 2026-10-10): website + PDF; not built until he opens it
+- Scoreboard (grader, kept b4db21c5/61829f05): RECON62 entries 7/7, exits 5/7, never 0, machine-only 1; EU0525TD entries 7/8, exits 4/8, never 3, machine-only 12.
+- Next = F5 YEARLY-DEPTH (EU_FIX_PLAN F5): 2 readings max, then an always-restored diagnostic trial graded by the grader. His review batch: REPORT/REVIEW_BATCH_B227W.md (answers bank into REGISTER_TRUTH.csv first).
+- PENDING (his O3 2026-10-10): website + PDF; not built until he opens it.
 
 ## Resume order
 - Resume order: the latest planner relay's Part 0, then this pointer. Older handoffs are audit-only.
