@@ -2,17 +2,17 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State B-237 (2026-10-15; B-SERIES LANE ACTIVE; latest result B-237 RESTORED (touch-digits D1 gain))
-- Relay B-237 (F10 RETEST-EQUAL 6 of 6 diagnostic 3) filed EURUSD-only per EU-FIRST (branch builder/B-237, verdict RESTORED D1: 22 Sep refused at chart precision, install next). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B237.md`.
+## State B-238 (2026-10-15; B-SERIES LANE ACTIVE; latest result B-238 KEPT (F10 closed, touch-digits installed))
+- Relay B-238 (F10 RETEST-EQUAL install) filed EURUSD-only per EU-FIRST (branch builder/B-238, verdict KEPT: B237D build installed, RECON62 re-proved deal for deal). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B238.md`.
 - B-series relay lane active (operator order 2026-10-04).
 - His EURUSD-first order stands active + banked. Euro alone until he opens pound and yen (held, retained locally).
 - Goal map (his words): 1 journal + detection robust (DONE KEPT B-202); 2 CSV/website/PDF O3 (all euro reports filed; website/PDF pending until he opens); 3 blind test (pending); 4 June to date (euro measured; P4 separates on his named pieces only; machine-only S1-S3 do not (B-209)); 5 year to date (HELD by his B-203 words until he reviews).
 - Planner entry: kit PK-4. Any planner agent starts from 99_WORKFLOW/PLANNER_BOOTSTRAP.md (kit PK-4); context 99_WORKFLOW/PLANNER_CONTEXT.md; cold start 99_WORKFLOW/PLANNER_HANDOFF.md.
-- Kept build: EA 35f0c73f/a6d765f0 (open-equal refusal) + POI d47a0e68/04fcd8a5 (tester-only seam gate); kept runs RECON62-B235K (14 identical) + EU0525TD-B234D (A3 taken, A2 exit matches RECON62).
+- Kept build: EA a62194f8/a975ea27 (touch-digits refusal) + POI d47a0e68/04fcd8a5 (tester-only seam gate); kept runs RECON62-B238K (14 identical) + EU0525TD-B237D (A3 taken, A2 exit matches RECON62).
 - terminal.ini on disk a512582a (touch-class, [Tester] and [TickLoad] intact, dates per run); blessedB208 copy kept. Lost a5834591 stands (addendum STOP).
 - Identity reference: T1 euro baseline deals (B-206). B-202 deal files stay as history. Slots fixed (lookback 3000).
-- Ledger last item 1384 (B237-EU-F10-TOUCHDIGITS, RESTORED D1; 1383 = B236-EU-F10-NEXTOPENWALK). Lesson B-237-CUT-LINES banked (folded B-75).
-- Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. F1-CONFIRM-KILL PARKED 6 of 6 (B-217 R-OTHER). P3-0618 closed KEPT B-223. F3-INPLAY paused 4 of 6 (B-233 MEASURED: any-reach not buildable, needs zone-list export). F10 RETEST-EQUAL open 6 of 6 (B-237 RESTORED D1). BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
+- Ledger last item 1385 (B238-EU-F10-INSTALL, KEPT; 1384 = B237-EU-F10-TOUCHDIGITS). No new lesson.
+- Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. F1-CONFIRM-KILL PARKED 6 of 6 (B-217 R-OTHER). P3-0618 closed KEPT B-223. F3-INPLAY paused 4 of 6 (B-233 MEASURED: any-reach not buildable, needs zone-list export). F10 RETEST-EQUAL closed KEPT B-238. BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
 - His B-204 words stand: 10 June / 25 June / 22 July INVALID must-never (P4 refuses all three his way). F2 pending. HOLD-YTD stands.
 - R0 depth: tester walks from 25 May, Yearly folds from 26 June off checkpoint; his chart starts 1 January.
 - terminal.ini = blessedB208. Profiles 581 gap carried (deletion forbidden). Seeds/ckpt byte-identical. Fix order: EU_FIX_PLAN section 3 (PK-4: F5 done, F3, F1/F2, F0, F4, F6, F7, F9; RETEST-EQUAL open).
@@ -25,10 +25,10 @@
 - 2 Sep call WITHHELD (B-194). 2 Sep zone print queued.
 - Open data: June yen seed refusal (SEAM_UNREACHABLE); R3 June seed verdict open. R5 chart call WITHHELD (B-191 B2).
 - Carry: D4 graded at the machine's retest candle; A2's own retest is 17:30, so D4 is re-graded at his candle first. A3 not taken on the long euro run since at least B-218 (k4); F5 owns it.
-- Lane: F10 RETEST-EQUAL, first B-231, 6 of 6 (diagnostic 3 D1: touch at chart precision refuses 22 Sep).
+- Lane: F3-INPLAY, first B-224, 4 of 6 (needs zone-list export road, B-233).
 
 ## Next
-- Next = install relay (KEPT trial with Part S) per D1 GAIN; review batch B-237 no new items.
+- Next = F3 reading/export road per EU_FIX_PLAN section 3.
 - PENDING (his O3 2026-10-10): website + PDF; not built until he opens it.
 
 ## Resume order
