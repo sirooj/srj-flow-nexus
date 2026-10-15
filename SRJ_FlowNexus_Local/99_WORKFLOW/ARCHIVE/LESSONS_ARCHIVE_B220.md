@@ -8,3 +8,5 @@ Folded B-224 (LESSONS.md L3): Spec first for XOB (B-71): before carrying any XOB
 Folded B-226 (LESSONS.md L3): Spec and skill whole (B-73): read spec v4.2 and the strategy skill whole before drafting every relay. B-70 to... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L47
 Folded B-227W (LESSONS.md L3): Cite only what the planner has seen (B-73): every file, section or code name in a relay is one the planner... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L48
 Folded B-228 (LESSONS.md L3): Status from the packet (B-73): a finding's DRAFT or NOT ISSUED line can be superseded. Read the packet's own... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L49
+Folded B-231 (LESSONS.md L3): Code-only needs the spec (B-73): before anything is filed as code-only, check the spec v4.2 tables (§3.6, §8,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L50
+Folded B-231 (LESSONS.md L3): Later word governs on CQD (B-74): his P-CQDRESTORE directive 2026-09-09 (01_TASKS/PACKET_P-CQDRESTORE.md §1,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L51
