@@ -85,7 +85,8 @@ F9 REPORT-COMPLETE - print-only additions, deals identical: target name in TP_EL
 F10 RETEST-EQUAL - a line touched only equal (wick or body edge at the same price, nothing beyond) is not his retest (his 22 Sep words rules/48: "the Q POC is at the same price value so not a valid retest with candle wick only"; his 17 Aug words: "the W VWAP with the candle body is the same value. invalid retest").
 - Shows on: 22 Sep NY 19:00 short (Quarterly-POC) and 17 Aug NY 15:55 long (Weekly-VWAP), both firing on the kept build.
 - State B-231 (MEASURED): retest census on B229D/B230K cuts; counted retests penetrate 1-2pt under spec 2 row 1, so T-ANY DOES NOT SEPARATE; no diagnostic.
-- State B-232 (MEASURED): setups rebound to own-session FROM (B231 cross-day carriers were census binding errors); EQ-A/EQ-B/EQ-AB all DOES NOT SEPARATE (keeps pass, 17 Aug no equality candle, 22 Sep 1pt wick + open-touch); no diagnostic; batch B-232 asks the two takes with exact candles.
+- State B-232 (MEASURED): setups rebound to own-session FROM (B231 cross-day carriers were census binding errors); EQ-A/EQ-B/EQ-AB all DOES NOT SEPARATE (keeps pass, 17 Aug no equality candle, 22 Sep 1pt wick + open-touch); no diagnostic; batch B-232
+- State B-234 (RESTORED diagnostic): H2 NARROW-NEXT (A5 refused, N22SEP still fires); RECON GRADE RECON62-B234D: KEEP entries exact 7/8; KEEP exits exact 6/8; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B234D: KEEP entries exact 13/14; KEEP exits exact 12/14; NEVER fires 7; MACHINE-ONLY ungraded 0; trades 20; R0 corrected B-232 17 Aug line value (1.15924 was the 17:30 KILL row; per-candle values 1.15917-1.15918, buffer 1.15918 at 15:50). asks the two takes with exact candles.
 
 ## 4. Where to look (symptom -> first rows)
 - Fired although his never-take: FIRE, then FRESHCOUNT on each pass, then B177HZ, then CONFIRMPOLL.

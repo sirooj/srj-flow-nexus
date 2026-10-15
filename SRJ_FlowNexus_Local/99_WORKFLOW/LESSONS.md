@@ -127,3 +127,4 @@ B226-LEG-READ-WRONG (B-226): a leg-end reading that ends a zone he named in play
 B227W-SCOREBOARD (B-227W): one committed grader is the only grade of record; hand tables hid a lost take for 4 relays.
 B228-SEAM-AHEAD (B-228): a seed whose seam lies ahead of the walk is refused at init; the tester serves ticks only up to the walk.
 B-231-RECORD-CHECKLIST: every Part X/X0 item is grep-verified in the staged file before commit; the result lists each FOUND/MISSING.
+B-234-LINE-PER-CANDLE (B-232): an equality or touch test reads the line value at that candle, never one value carried across a window.
