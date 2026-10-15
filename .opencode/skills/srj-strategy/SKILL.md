@@ -69,5 +69,6 @@ Spec Part A v4.2 states the baseline; his later words amend it; council prose ne
 - rules/47_his-words-2026-10-15-b-222a-7-sep-ny-short-invalid.md: ## His words 2026-10-15 (B-222A) - 7 Sep New York short invalid; run economy (1595 bytes)
 - rules/48_his-words-2026-10-15-b-229-review.md: ## His words 2026-10-15 (B-229 review batch) - banked answers and open questions (2644 bytes)
 - rules/49_his-words-2026-10-15-b-230-no-repeat.md: ## His words 2026-10-15 (B-231) - no repeated questions or mistakes (540 bytes)
+- rules/50_his-words-2026-10-15-b-231-review-grades.md: ## His words 2026-10-15 (B-231 review grades) - zone not reached is not in play; 5 Aug valid (1344 bytes)
 
 Load this file and every file in the index, in index order.

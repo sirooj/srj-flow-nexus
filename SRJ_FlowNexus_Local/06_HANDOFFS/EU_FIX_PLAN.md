@@ -48,7 +48,7 @@ F2 BLOCK-DEAD (after F0) - his invalidated in-bias block still read alive.
 - State B-217 (park): H1b/H1c persist + H2 + H3 stand per B-215/B-216 (10Jun/22Jul silent, A kept); 25Jun fvg second-paint + S4 + revival roads remain open (no trial); F1 PARKED 6 of 6.
 F3 IN-PLAY - a zone the stop leg never reached is accepted.
 - Shows on: 4 June 10:05 long, 29 June 16:15 long, 15 July 10:35 long, 22 July 14:55 short, 28 July 10:45 short (removed B-223, 5m flip at 10:10), 17 August 15:55 long, 22 September 19:00 short, 8 October 11:35 short (zone on the far side of the stop). None of A1-A7.
-- Shows on (B-231 re-scope with today's truth: 29 Jun VALID V29JUN and 8 Oct VALID K8OCT leave the refuse set; 22 Sep INVALID N22SEP and 17 Aug INVALID N17AUG carry his own retest reasons): 4 June 10:05 long and 15 July 10:35 long remain refused-for-review (22 July is his must-never, 28 July removed B-223).
+- Shows on (B-232 re-scope with today's truth: 4 Jun NEVER N4JUN1005 and 15 Jul NEVER N15JUL1035 banked with his zone reasons): no machine-only take is left to refuse (29 Jun + 8 Oct his VALID; 22 Sep + 17 Aug + 4 Jun + 15 Jul his INVALID with reasons; 22 Jul his must-never; 28 Jul removed B-223). F3 lane holds no remaining refuse set.
 - Look at: the zone gate (B-204: B177HZ / HISZONE, EA ~10452-10480). It tests gap-touch at the retest candle OR in-play window at the confirmation candle - a presence test. It does not test standing (never reads the kill state) and never tests the zone side against the stop.
 - His words: spec 3.5 (in play = a penetration of the XOB in the swing leg), B-91 pin ("retrace and in play are the same thing"), 4 June ("there is no retest of XOB in play"), 28 July ("i do not see valid XOB or FVG to be in play").
 - Measure: for every take, the leg from the zone's promotion to the confirmation candle and whether any candle reached into the zone.
@@ -85,6 +85,7 @@ F9 REPORT-COMPLETE - print-only additions, deals identical: target name in TP_EL
 F10 RETEST-EQUAL - a line touched only equal (wick or body edge at the same price, nothing beyond) is not his retest (his 22 Sep words rules/48: "the Q POC is at the same price value so not a valid retest with candle wick only"; his 17 Aug words: "the W VWAP with the candle body is the same value. invalid retest").
 - Shows on: 22 Sep NY 19:00 short (Quarterly-POC) and 17 Aug NY 15:55 long (Weekly-VWAP), both firing on the kept build.
 - State B-231 (MEASURED): retest census on B229D/B230K cuts; counted retests penetrate 1-2pt under spec 2 row 1, so T-ANY DOES NOT SEPARATE; no diagnostic.
+- State B-232 (MEASURED): setups rebound to own-session FROM (B231 cross-day carriers were census binding errors); EQ-A/EQ-B/EQ-AB all DOES NOT SEPARATE (keeps pass, 17 Aug no equality candle, 22 Sep 1pt wick + open-touch); no diagnostic; batch B-232 asks the two takes with exact candles.
 
 ## 4. Where to look (symptom -> first rows)
 - Fired although his never-take: FIRE, then FRESHCOUNT on each pass, then B177HZ, then CONFIRMPOLL.

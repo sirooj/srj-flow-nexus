@@ -2,8 +2,8 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State (2026-10-15; B-SERIES LANE ACTIVE; Relay B-231 RETEST-EQUAL 1 of 3, latest result BUILDER_RESULT_B231.md)
-- Relay B-231 (RETEST-EQUAL 1 of 3 + B-230 record repairs) filed EURUSD-only per EU-FIRST (branch builder/B-231, verdict MEASURED: retest census, no runs). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B231.md`.
+## State (2026-10-15; B-SERIES LANE ACTIVE; Relay B-232 RETEST-EQUAL 2 of 3, latest result BUILDER_RESULT_B232.md)
+- Relay B-232 (RETEST-EQUAL 2 of 3 + B-231 grades addendum) filed EURUSD-only per EU-FIRST (branch builder/B-232, verdict MEASURED: setup rebind, no runs). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B231.md`.
 - B-series relay lane active (operator order 2026-10-04). Relay B-226 filed EURUSD-only per EU-FIRST (branch builder/B-226, verdict MEASURED: F3 current-leg test, no runs). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B226.md`.
 - His EURUSD-first order stands active + banked. Euro alone until he opens pound and yen (held, retained locally).
 - Goal map (his words): 1 journal + detection robust (DONE KEPT B-202); 2 CSV/website/PDF O3 (all euro reports filed; website/PDF pending until he opens); 3 blind test (pending); 4 June to date (euro measured; P4 separates on his named pieces only; machine-only S1-S3 do not (B-209)); 5 year to date (HELD by his B-203 words until he reviews).
@@ -11,7 +11,7 @@
 - Kept build: EA b4db21c5/61829f05 + POI d47a0e68/04fcd8a5 (tester-only seam gate); kept runs RECON62-B230K (16 identical) + EU0525TD-B229D (A3 taken, A2/A5 exits match RECON62).
 - terminal.ini on disk c291791f (his chart line; [Tester] intact); blessedB208 c725e437 kept as copy. Lost a5834591 stands (addendum STOP).
 - Identity reference: T1 euro baseline deals (B-206). B-202 deal files stay as history. Slots fixed (lookback 3000).
-- Ledger last item 1378 (B231-EU-RETEST-EQUAL, MEASURED retest census; 1377 = B230-EU-SEAM-KEPT). B231 lesson in LESSONS.md.
+- Ledger last item 1379 (B232-EU-RETEST-REBIND, MEASURED setup rebind; 1378 = B231-EU-RETEST-EQUAL). No new lesson.
 - Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. F1-CONFIRM-KILL PARKED 6 of 6 (B-217 R-OTHER). P3-0618 closed KEPT B-223. F3-INPLAY open 3 of 6 (B-226 MEASURED: current-leg test, DOES NOT SEPARATE T-LEG). BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
 - His B-204 words stand: 10 June / 25 June / 22 July INVALID must-never (P4 refuses all three his way). F2 pending. HOLD-YTD stands.
 - R0 depth: tester walks from 25 May, Yearly folds from 26 June off checkpoint; his chart starts 1 January.
@@ -25,10 +25,10 @@
 - 2 Sep call WITHHELD (B-194). 2 Sep zone print queued.
 - Open data: June yen seed refusal (SEAM_UNREACHABLE); R3 June seed verdict open. R5 chart call WITHHELD (B-191 B2).
 - Carry: D4 graded at the machine's retest candle; A2's own retest is 17:30, so D4 is re-graded at his candle first. A3 not taken on the long euro run since at least B-218 (k4); F5 owns it.
-- Lane: RETEST-EQUAL, first B-231, 1 of 3. F3-INPLAY open 3 of 6 resumes after.
+- Lane: RETEST-EQUAL, first B-231, 2 of 3. F3-INPLAY open 3 of 6 resumes after.
 
 ## Next
-- Next = RETEST-EQUAL 2 of 3 only with a separating reading; F3-INPLAY 3 of 6 otherwise. Review batch items 1, 3, 6, 7 open (never re-asked answered items).
+- Next = F3-INPLAY 3 of 6 (B-224/B-225 readings stand; B-231 addendum evidence filed). Review batch items 1, 3, 6, 7 answered (never re-asked); batch B-232 carries the two retest takes.
 - PENDING (his O3 2026-10-10): website + PDF; not built until he opens it.
 
 ## Resume order
