@@ -59,6 +59,7 @@ F4 DIV-READ - the machine's CQD divergence differs from his live chart.
 - Measure first that the machine's pane equals his pane on the same candles; a latch fix waits until the reads match.
 F5 YEARLY-DEPTH - Yearly lines on the tester do not start 1 January.
 - Shows on: B-206 R0: the walk starts 25 May and the Yearly line folds from 26 June off a checkpoint; his chart starts 1 January. Moves the A5 7 Sep target (1.16315 -> 1.16319) and holds the 1 Sep Yearly-POC break (A2 exit) hostage to history depth.
+- Shows on (B-225 R4): A5 short-run exit 17:13 1.16319 vs owed TP 1.16315 (YEARLY-DEPTH, F5 target move; MTEXIT TP 17:10 1.16318 JL 9682416; euro-run stopped 21:25 1.16239, target 1.16358 unreached, no Yearly rows on EU run).
 - Look at: the POI marker's Yearly slot start and checkpoint (SRJ_POI_Marker.mq5); the tick history holds EURUSD monthly files back to 2023-09 (B-206 inventory).
 - Measure: whether the Yearly fold can start at 1 January from that history, and the Yearly POC/VWAP it gives on 1 Sep and 7 Sep.
 F6 LINE-REACH - the entry line not touched by the retest candle.
@@ -74,7 +75,9 @@ F8 18-JUNE - FOMC VWAP line kill at 09:40 drops the 09:45 long. Waits on his cha
 - State B-222: RESTORED V1 trial b4db21c5/61829f05 (RECON 16/16 SAME; EU 44 deals: NEW 18Jun pair only, GONE 28Jul flip-death 10:10 LTF_MISALIGN; A1-A7 identical incl A2/A5; 7Sep short no FIRE/entry; rows in BUILDER_SLICE_B222.md).
 - State B-223: DONE KEPT (18 Jun fires; 28 Jul removed by his 5m flip rule).
 - State B-224 (MEASURED): T-REACH on kept rows; HIS-KEEP 10/13 PASS; F3-NAMED 6/6 FAIL beyond-stop; next trials the gate.
+- State B-225 (MEASURED): one zone per take; A2 split (17:25 promo both, 17:30 pick short-run only); his 28Aug gap printed never picked; stop-side NO RULING; exits censused; DOES NOT SEPARATE reach+standing, no trial.
 F9 REPORT-COMPLETE - print-only additions, deals identical: target name in TP_ELECT, zone formation candle, sweep source, the exit rows missing from 9 takes (B-204 R3). Any time a fix relay has spare room.
+- B-225 gaps: A6 8 Sep London retest + HTF NOT PRINTED (no BORN row); A2 1 Sep 17:30 line value NOT PRINTED (WINLINE).
 
 ## 4. Where to look (symptom -> first rows)
 - Fired although his never-take: FIRE, then FRESHCOUNT on each pass, then B177HZ, then CONFIRMPOLL.

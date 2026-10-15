@@ -23,7 +23,7 @@
 | J2D-DEFECTS | B-204-B-211 | PARKED 6 of 6 (S8 panel-leg DOES NOT SEPARATE: A1,A2,A3,A5,A6,A7 break; must-nevers refuse; exit-fill measured) | SEPARATOR_B211.csv |
 | F1-CONFIRM-KILL | B-212-B-217 | PARKED 6 of 6 (B-217 K0 R-OTHER-25JUN-S4-REVIVE-FIRSTPAINT, no edit, MEASURED; negative evidence: H1+H2+H3 kill 10Jun/22Jul, A kept, 25Jun S4/revival/first-paint blocks; F1 parks, next P3) | BUILDER_SLICE_B217.md |
 | P3-0618 | B-218-B-223 | closed KEPT B-223 (V1 close-kill build b4db21c5/61829f05; 18Jun added, 28Jul flip-removed) | REPORT/SEPARATOR_B223.csv |
-| F3-INPLAY | B-224 | open 1 of 6 MEASURED | REPORT/SEPARATOR_B224.csv |
+| F3-INPLAY | B-224-B-225 | open 2 of 6 MEASURED | REPORT/SEPARATOR_B225.csv |
 | BACKTEST-J2D | B-202-B-203 | open 2 of 6 MEASURED | BUILDER_RESULT_B203.md |
 | FIDELITY-B179 | B-199 paused | 5 of 6 paused | BUILDER_RESULT_B199.md |
 | MR-SWEEP-0710 | B-193-B-198 | PARKED 6 of 6 | BUILDER_RESULT_B198.md |
@@ -37,7 +37,6 @@
 | XOB-DETECT-920 | B-160a-B-162 | closed KEPT (origin tag B-162) | BUILDER_RESULT_B162.md |
 
 ### (b) Last 10 arc lines (verbatim)
-- B-215: F1-CONFIRM-KILL 4 euro RESTORED (S3 trial H1 persist + H2 fvg + H3 kill; 25Jun still fires first-close missing, 10Jun/22Jul silent, 17Aug other removed; verdict RESTORED).
 - B-216: F1-CONFIRM-KILL 5 euro RESTORED (complete H1 H1b+H1c, STOP 25Jun fvg timing, 10Jun/22Jul silent, 17Aug removed; verdict RESTORED).
 - B-217: F1-CONFIRM-KILL 6 euro MEASURED park (K0 R-OTHER S4/revival/first-paint, no H4, no trial; F1 PARKED 6 of 6).
 - B-218: P3-0618 1 euro MEASURED (kept identity RECON62 16/16 + EU0525TD 44/44; R3 KILL-HIS-RULE; R4 SUPPRESSION-ENDS-AT-KILL; R8 D3 HIS-EYES chart call; verdict MEASURED).
@@ -47,6 +46,7 @@
 - B-222: P3-0618 5 euro RESTORED (V1 trial 18Jun NEW A5 kept short silent 28Jul GONE).
 - B-223: P3-0618 6 euro KEPT (28Jul flip-death proved on trial rows; 18Jun added; A1-A7 identical; build b4db21c5/61829f05).
 - B-224: F3-INPLAY 1 euro MEASURED (T-REACH on kept rows; HIS-KEEP 10/13; F3 6/6 beyond-stop; next trials gate).
+- B-225: F3-INPLAY 2 euro MEASURED (one zone per take; A2 split pick-missing EU; his 28Aug gap printed+picked-never; stop-side NO RULING chart call; exits censused; DOES NOT SEPARATE reach+standing).
 
 ## 4. Never
 - Ask him code or mechanism questions, or any question his record answers.

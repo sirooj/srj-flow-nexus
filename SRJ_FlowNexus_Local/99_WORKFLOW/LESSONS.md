@@ -127,3 +127,4 @@ B-222-GRADE-BY-ROW-CLASS (B-221): separators fail only on his takes; a released 
 B-222A-NO-SEED-HIS-NEVER (B-222A): a release that seeds a candidate he ruled no-setup is graded on it first; it must never reach entry.
 B-223-ANY-HIS-KILL (B-222): a GONE machine take passes when any of his kill rules ends it on a named row; a gate never names just one rule.
 B-224-NEVER-REACHED-RIDES (B-224): kept takes can ride zones price never re-enters promoT-to-confirm; grade reach per candle before any gate.
+B225-PROMO-NOT-PICK (B-225): a promoted zone is not a picked zone; grade the gate on commit/pick rows, never promotion rows.
