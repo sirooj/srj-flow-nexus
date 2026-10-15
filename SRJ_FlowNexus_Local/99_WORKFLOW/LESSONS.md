@@ -1,6 +1,5 @@
 # LESSONS - standing planner rules (B-209 compact-records; one line each, <=160 chars)
 
-Operator zone first (B-75): before filing or carrying any 'spec vs his valid take' record on the zone step,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L52
 Entry line beside anchor (B-76): before any target-step record, set his entry line (his banked words, then... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L53
 Caveat as reading (B-77): a result caveat that flips a verdict (B-76 tier-key sensitivity turned 4 Sep back... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L54
 Whole-run grade (B-78): a reading that separates on register rows goes to one kept-build trial graded on... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L55
@@ -129,3 +128,4 @@ B228-SEAM-AHEAD (B-228): a seed whose seam lies ahead of the walk is refused at 
 B-231-RECORD-CHECKLIST: every Part X/X0 item is grep-verified in the staged file before commit; the result lists each FOUND/MISSING.
 B-234-LINE-PER-CANDLE (B-232): an equality or touch test reads the line value at that candle, never one value carried across a window.
 B-235-RETRUTH-REGRADE: when his ruling changes a register row, re-grade committed DEALS before any new run; a restored hunk can become the keep.
+B-237-CUT-LINES: day-log lines carry no per-line numbers (2-letter code first); number cut rows by PRE_JOURNAL_LINES plus cut-relative offset.

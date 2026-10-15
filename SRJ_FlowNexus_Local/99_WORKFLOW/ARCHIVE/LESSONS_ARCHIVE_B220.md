@@ -10,3 +10,4 @@ Folded B-227W (LESSONS.md L3): Cite only what the planner has seen (B-73): every
 Folded B-228 (LESSONS.md L3): Status from the packet (B-73): a finding's DRAFT or NOT ISSUED line can be superseded. Read the packet's own... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L49
 Folded B-231 (LESSONS.md L3): Code-only needs the spec (B-73): before anything is filed as code-only, check the spec v4.2 tables (§3.6, §8,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L50
 Folded B-231 (LESSONS.md L3): Later word governs on CQD (B-74): his P-CQDRESTORE directive 2026-09-09 (01_TASKS/PACKET_P-CQDRESTORE.md §1,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L51
+Folded B-237 (LESSONS.md L3): Operator zone first (B-75): before filing or carrying any 'spec vs his valid take' record on the zone step,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L52
