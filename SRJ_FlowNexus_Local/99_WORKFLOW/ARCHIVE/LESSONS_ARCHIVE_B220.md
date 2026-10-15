@@ -7,3 +7,4 @@ Folded B-223 (LESSONS.md L3): Same-class words (B-70): before carrying a chart c
 Folded B-224 (LESSONS.md L3): Spec first for XOB (B-71): before carrying any XOB or zone chart call, read spec v4.2 §1.2, §3.5, §3.5.1,... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L46
 Folded B-226 (LESSONS.md L3): Spec and skill whole (B-73): read spec v4.2 and the strategy skill whole before drafting every relay. B-70 to... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L47
 Folded B-227W (LESSONS.md L3): Cite only what the planner has seen (B-73): every file, section or code name in a relay is one the planner... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L48
+Folded B-228 (LESSONS.md L3): Status from the packet (B-73): a finding's DRAFT or NOT ISSUED line can be superseded. Read the packet's own... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L49
