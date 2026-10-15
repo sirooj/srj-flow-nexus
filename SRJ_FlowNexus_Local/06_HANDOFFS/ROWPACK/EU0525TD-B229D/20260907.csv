@@ -1,0 +1,5 @@
+pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw
+15,EU0525TD-B229D,61829f05,daylog,18479049,2026-09-07,09:20,DEAL,QE	0	14:11:05.202	Core 04	2026.09.07 09:20:00   deal #34 buy 2.41 EURUSD at 1.16138 done (based on order #34)
+16,EU0525TD-B229D,61829f05,daylog,18480418,2026-09-07,10:53,DEAL,EN	0	14:11:05.202	Core 04	2026.09.07 10:53:07   deal #35 sell 2.41 EURUSD at 1.16201 done (based on order #35)
+19,EU0525TD-B229D,61829f05,daylog,18499421,2026-09-07,16:45,DEAL,RR	0	14:11:11.329	Core 04	2026.09.07 16:45:00   deal #36 buy 3.92 EURUSD at 1.16264 done (based on order #36)
+20,EU0525TD-B229D,61829f05,daylog,18499791,2026-09-07,17:13,DEAL,RR	0	14:11:11.329	Core 04	2026.09.07 17:13:45   deal #37 sell 3.92 EURUSD at 1.16319 done (based on order #37)

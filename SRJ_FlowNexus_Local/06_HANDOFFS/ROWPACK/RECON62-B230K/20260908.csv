@@ -1,0 +1,5 @@
+pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw
+21,RECON62-B230K,61829f05,daylog,20360888,2026-09-08,10:10,DEAL,HM	0	14:31:18.569	Core 04	2026.09.08 10:10:00   deal #14 sell 1.93 EURUSD at 1.16205 done (based on order #14)
+22,RECON62-B230K,61829f05,daylog,20361264,2026-09-08,10:42,DEAL,IP	0	14:31:18.569	Core 04	2026.09.08 10:42:46   deal #15 buy 1.93 EURUSD at 1.16102 done (based on order #15)
+25,RECON62-B230K,61829f05,daylog,20366085,2026-09-08,17:00,DEAL,LL	0	14:31:24.662	Core 04	2026.09.08 17:00:00   deal #16 sell 1.93 EURUSD at 1.16220 done (based on order #16)
+26,RECON62-B230K,61829f05,daylog,20366396,2026-09-08,17:26,DEAL,EI	0	14:31:24.662	Core 04	2026.09.08 17:26:29   deal #17 buy 1.93 EURUSD at 1.16275 done (based on order #17)
