@@ -17,3 +17,10 @@ N28AUG1625,NEVER,2026-08-28,,NY,16:25,,,,register C 28 Aug 16:25
 N8SEP1645,NEVER,2026-09-08,,NY,16:45,,,,register C 8 Sep 16:45
 N7SEPSHORT,NEVER,2026-09-07,sell,NY,,,,,rules/47 0907-NY-SHORT-INVALID
 W28JUL,WATCH,2026-07-28,sell,LONDON,10:45,1.13689,,,rules/43 question (not a ruling); register C NOTE B-223
+V29JUN,KEEP,2026-06-29,buy,NY,16:15,1.14039,,1.14152,his words 2026-10-15 review batch item 4 (verbatim)
+N22SEP,NEVER,2026-09-22,sell,NY,19:00,1.14314,,,his words 2026-10-15 review batch item 11 (verbatim)
+K28MAY,KEEP,2026-05-28,buy,LONDON,11:50,1.16134,12:12,1.16177,his words 2026-10-15 review batch item 2 (verbatim valid loss)
+K8JUL,KEEP,2026-07-08,sell,NY,14:50,1.14002,,1.14095,his words 2026-10-15 review batch item 5 (verbatim)
+K2SEP,KEEP,2026-09-02,sell,NY,14:45,1.15747,,1.15822,his words 2026-10-15 review batch item 9 (verbatim)
+K8OCT,KEEP,2026-10-08,sell,LONDON,11:35,1.11884,,1.11819,his words 2026-10-15 review batch item 12 (verbatim)
+N17AUG,NEVER,2026-08-17,buy,NY,15:55,1.15947,,,his words 2026-10-15 review batch item 8 (verbatim)

@@ -63,7 +63,7 @@ F5 YEARLY-DEPTH - Yearly lines on the tester do not start 1 January.
 - Shows on (B-226 R3/R4): 4 Sep NY long not taken on EU0525TD (B218K, B222K, B206T: no 16:00 deal; 16:00 Monthly-POC candidate ABORT TP_RR_FAIL JL 12138603; no Yearly line printed 14:00-17:00); 1 Sep long exits at the stop 17:51 1.15975 instead of the 17:45 Yearly-POC break; 7 Sep NY long target 1.16358 on the long run vs 1.16318 on RECON62, stopped 21:25 1.16239; 8 Sep NY target 1.16077 vs 1.16114 (EXITS_B225).
 - Look at: the POI marker's Yearly slot start and checkpoint (SRJ_POI_Marker.mq5); the tick history holds EURUSD monthly files back to 2023-09 (B-206 inventory).
 - Measure: whether the Yearly fold can start at 1 January from that history, and the Yearly POC/VWAP it gives on 1 Sep and 7 Sep.
-- State B-228 (RESTORED): EU seed refused at init (walk 25.05 precedes seam 26.06, no ticks served); probe BARS-ONLY both runs; next Y2 diagnostic (tester-gated seam refusal).
+- State B-229 (RESTORED): tester-gated seam refusal; EU adopts slot Y (254041 records), A3 entry + A2/A5 exits as predicted, 4 Sep London take gone; RECON unchanged; next B-230 keep-or-drop.
 F6 LINE-REACH - the entry line not touched by the retest candle.
 - Shows on: 15 July 10:35 long (Quarterly-VWAP 72 points away from the 09:55 candle), 22 Sep 19:00 short (255 points). Marginal: 1 Sep (A2) and 8 Sep NY (A7) at the machine's candle.
 - Grade at HIS retest candle first (A2: his 17:30 retest + confirmation, register row 2). No gate until A2 and A7 pass at his candles.

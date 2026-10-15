@@ -1,0 +1,13 @@
+## His words 2026-10-15 (B-229 review batch) - banked answers and open questions
+His words, verbatim, typos his, given 2026-10-15 with the B-227W review batch replies.
+"29 june, yes it is valid." (review batch item 4, 29 June New York long 16:15 1.14039) -> REGISTER_TRUTH V29JUN KEEP.
+"22 Sep, no it does not valid. the Q POC is at the same price value so not a valid retest with candle wick only." (review batch item 11, 22 September New York short 19:00 1.14314) -> REGISTER_TRUTH N22SEP NEVER. His 22 Sep wording is quoted, never paraphrased (B2e).
+"28 May: it is a valid loss" (review batch item 2, 28 May London long 11:50 1.16134, exit 12:12 1.16177) -> REGISTER_TRUTH K28MAY KEEP; the loss stays in the record.
+"8 Jul, valid" (review batch item 5, 8 July New York short 14:50 1.14002) -> REGISTER_TRUTH K8JUL KEEP.
+"2 Sept, valid" (review batch item 9, 2 September New York short 14:45 1.15747) -> REGISTER_TRUTH K2SEP KEEP.
+"8 Oct, Valid" (review batch item 12, 8 October London short 11:35 1.11884) -> REGISTER_TRUTH K8OCT KEEP.
+"17 Aug, the W VWAP with the candle body is the same value. invalid retest" (review batch item 8, 17 August New York long 15:55 1.15947) -> REGISTER_TRUTH N17AUG NEVER.
+HELD 4 Sep (B2c): "4 Sept, invalid. there is Y VWAP that makes the TP less than 1R". Register row 3 (4 Sep New York 16:00 long) is his valid take and review item 10 is the 4 Sep London 09:30 long: no row written until he picks which trade; the pick and reason bank verbatim then.
+OPEN zone questions, not rulings (B2d): 26 May NY (item 1), 4 Jun (item 3), 15 Jul (item 6), 5 Aug (item 7): "what is the 5m POI XOB or FVG?" and "what is the 5m POI cause". Record-first answers from committed rows: 26 May XOB 1.16479-1.16505 (INPLAY_B224); 4 Jun XOB 1.15967-1.15972 (ZONE1_B225); 15 Jul XOB 1.14042-1.14070 (ZONE1_B225); 5 Aug XOB 1.15318-1.15360 (INPLAY_B224). No chart call: the ruling (zone identity) is found on record.
+V1 validity-assumption check (spec 3.2: trend = retest direction with the 4H/1H/15m majority; mean reversal = fresh sweep of prior-session liquidity; SETUPS_EU0525TD-B222K committed rows): 28 May LONG votes NEUTRAL/BEAR/BEAR = no majority, sweep NOT PRINTED -> FAIL; 29 Jun LONG votes NEUTRAL/BEAR/BULL = no majority, sweep NOT PRINTED -> FAIL; 8 Jul SHORT votes NEUTRAL/BEAR/BEAR = majority SHORT -> HOLD (class cell NOT PRINTED); 2 Sep SHORT same -> HOLD; 8 Oct SHORT same -> HOLD.
+V2: 28 May and 29 Jun fail V1 and go to the review batch as setup-class questions (his VALID rulings stand; the questions ask trend-or-mean-reversal with HTF votes, never validity). Neither reaches an edit by itself.

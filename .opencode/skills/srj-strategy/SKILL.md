@@ -67,5 +67,6 @@ Spec Part A v4.2 states the baseline; his later words amend it; council prose ne
 - rules/45_his-words-2026-10-14-b-207-addendum-b2-next-to-b1.md: ## His words 2026-10-14 (B-207 addendum B2, next to B1) (707 bytes)
 - rules/46_his-words-2026-10-14-b-211-panel-leg-state.md: ## His words 2026-10-14 (B-211) - panel leg state; 22 July 13:45 OB; 28 Aug exit fill (2565 bytes)
 - rules/47_his-words-2026-10-15-b-222a-7-sep-ny-short-invalid.md: ## His words 2026-10-15 (B-222A) - 7 Sep New York short invalid; run economy (1595 bytes)
+- rules/48_his-words-2026-10-15-b-229-review.md: ## His words 2026-10-15 (B-229 review batch) - banked answers and open questions (2644 bytes)
 
 Load this file and every file in the index, in index order.

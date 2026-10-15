@@ -1,15 +1,15 @@
-# READ_MAP - planner read order (B-228 PK-4)
-SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_SESSION_POINTER.md 4466 1b975e44 live memory 35 lines
-SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B228.md 6149 de2fcca0 grader scoreboard first
-SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_SLICE_B228.md 7825 917fc05c raw rows proofs
-SRJ_FlowNexus_Local/06_HANDOFFS/REGISTER_TRUTH.csv 1600 10336368 keep/never/watch truth
+# READ_MAP - planner read order (B-229 PK-4)
+SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_SESSION_POINTER.md 4464 15d7dfb5 live memory 35 lines
+SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B229.md 5602 561e98bf grader scoreboard first
+SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_SLICE_B229.md 5348 713ed656 raw rows proofs
+SRJ_FlowNexus_Local/06_HANDOFFS/REGISTER_TRUTH.csv 2376 e2fd96f3 keep/never/watch truth
+SRJ_FlowNexus_Local/06_HANDOFFS/REPORT/REVIEW_BATCH_B229.md 1145 2496bf80 open items
 SRJ_FlowNexus_Local/99_WORKFLOW/TOOLS/grade_register.py 3687 6b660972 the only grade of record
-SRJ_FlowNexus_Local/99_WORKFLOW/TOOLS/job_f5_yearly.py 5626 3280d7c2 yearly census job
-SRJ_FlowNexus_Local/06_HANDOFFS/REPORT/YEARLY_B228.csv 1195795 11693e9f yearly rows data
-SRJ_FlowNexus_Local/06_HANDOFFS/ROWPACK/DEALS_RECON62-B228P.csv 721 fedbc5e6 probe deals
-SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_MEMORY.md 604 5ff4aada planner memory PK-4
+SRJ_FlowNexus_Local/06_HANDOFFS/ROWPACK/DEALS_RECON62-B229D.csv 721 fedbc5e6 diagnostic deals
+SRJ_FlowNexus_Local/06_HANDOFFS/ROWPACK/DEALS_EU0525TD-B229D.csv 1939 fe7ab21b diagnostic deals
 SRJ_FlowNexus_Local/99_WORKFLOW/PLANNER_CONTEXT.md 8743 78258b0d roles facts PK-4
-SRJ_FlowNexus_Local/06_HANDOFFS/EU_FIX_PLAN.md 14034 10eeee52 euro fix queue F5-first
+SRJ_FlowNexus_Local/06_HANDOFFS/EU_FIX_PLAN.md 14049 6882ab35 euro fix queue F5-first
 SRJ_FlowNexus_Local/99_WORKFLOW/LESSONS.md 20038 7ddd37ea standing rules one-line
-.opencode/skills/srj-relay/rules/01b_relay-b.md 16571 1ba7dadf relay parts + scoreboard block
+.opencode/skills/srj-strategy/SKILL.md 9430 7065bb22 strategy index load
+.opencode/skills/srj-strategy/rules/48_his-words-2026-10-15-b-229-review.md 2644 ada6eb11 B-229 answers
 Archive (grep-only): ARCHIVE/*
