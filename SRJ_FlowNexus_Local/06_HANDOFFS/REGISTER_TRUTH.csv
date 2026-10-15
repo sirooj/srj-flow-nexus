@@ -3,7 +3,7 @@ A1,KEEP,2026-08-28,sell,LONDON,10:05,1.16466,11:35,1.16464,register A row 1 + NO
 A2,KEEP,2026-09-01,buy,NY,17:35,1.16024,17:50,1.15987,register A row 2 + NOTE B-137 (17:45 Yearly-POC close-through)
 A3,KEEP,2026-09-04,buy,NY,16:00,1.16019,23:55,1.16129,register A row 3 + CORRECTION B-33 (day close)
 A4,KEEP,2026-09-07,buy,LONDON,09:20,1.16138,,1.16201,register A row 4 (TP 1.16201)
-A5,KEEP,2026-09-07,buy,NY,16:45,1.16264,,1.16315,register A row 5 (TP 1.16315 his report)
+A5,NEVER,2026-09-07,buy,NY,16:45,1.16264,,,his words 2026-10-15 B-235 addendum (verbatim; 16:35 valid retest by close, 16:40 open equals Weekly POC 1.16249, invalid)
 A6,KEEP,2026-09-08,sell,LONDON,10:10,1.16205,,1.16102,register A row 6 (TP 1.16102)
 A7,KEEP,2026-09-08,sell,NY,17:00,1.16220,,1.16275,register A row 7 (SL 1.16275)
 P3,KEEP,2026-06-18,buy,LONDON,09:45,1.15256,10:00,1.15195,rules/43 0618-EU-FOMC-EXIT; B-223 KEPT

@@ -1,0 +1,4 @@
+pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw
+1,RECON62-B235K,a6d765f0,20261015.log,25740006,2026-09-02,14:35,B234EQ,GD	0	18:58:42.056	Core 04	2026.09.02 14:45:01   [SRJ-EA] [B234EQ] bar=2026.09.02 14:35 dir=SHORT line=Daily-VWAP val=1.15785 o=1.15759 out=PASS
+2,RECON62-B235K,a6d765f0,20261015.log,25740024,2026-09-02,14:45,DEAL,OK	0	18:58:42.056	Core 04	2026.09.02 14:45:01   deal #6 sell 1.32 EURUSD at 1.15747 done (based on order #6)
+3,RECON62-B235K,a6d765f0,20261015.log,25740411,2026-09-02,15:20,DEAL,MH	0	18:58:42.056	Core 04	2026.09.02 15:20:50   deal #7 buy 1.32 EURUSD at 1.15822 done (based on order #7)

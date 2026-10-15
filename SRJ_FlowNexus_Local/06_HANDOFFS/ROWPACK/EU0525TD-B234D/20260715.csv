@@ -1,0 +1,4 @@
+pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw
+1,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-07-15,10:25,B234EQ,LG	0	17:25:31.750	Core 04	2026.07.15 10:35:01   [SRJ-EA] [B234EQ] bar=2026.07.15 10:25 dir=LONG line=FOMC-VWAP val=1.14210 o=1.14236 out=PASS
+2,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-07-15,10:35,DEAL,QE	0	17:25:31.750	Core 04	2026.07.15 10:35:01   deal #18 buy 2.72 EURUSD at 1.14227 done (based on order #18)
+3,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-07-15,12:32,DEAL,IJ	0	17:25:37.874	Core 04	2026.07.15 12:32:51   deal #19 sell 2.72 EURUSD at 1.14189 done (based on order #19)

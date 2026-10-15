@@ -3,7 +3,7 @@
 ## 0. Goal and done line
 - Euro only (his words 2026-10-14, B-207 B2). Pound and yen wait for his word.
 - DONE when all three hold on one kept build:
-  (a) RECON62 (EURUSD 26 Aug-9 Sep): A1-A7 taken as the register says (entry; exit per the register NOTE lines), every euro C row silent.
+  (a) RECON62 (EURUSD 26 Aug-9 Sep): A1-A4, A6, A7 taken as the register says (entry; exit per the register NOTE lines) and A5 (7 Sep NY long) silent by his words 2026-10-15 (B-235), every euro C row silent.
   (b) EU0525TD (25 May to date): his three never-takes stay silent (10 June 16:15 long 1.15551; 25 June 10:45 short 1.13540; 22 July 14:55 short 1.14048), and he passes every take on the review sheet.
   (c) The review sheet (srj-relay "Review sheet") has no NOT PRINTED on a field that decides a take: entry line + price + retest candle, 4H/1H/15m/5m, setup class + reason, zone + formation + in-play candle, in-bias OB/FVG state, opposite FVG, divergences + latched one, stop, target name + price, exit rule + line + candle.
 
@@ -86,7 +86,8 @@ F10 RETEST-EQUAL - a line touched only equal (wick or body edge at the same pric
 - Shows on: 22 Sep NY 19:00 short (Quarterly-POC) and 17 Aug NY 15:55 long (Weekly-VWAP), both firing on the kept build.
 - State B-231 (MEASURED): retest census on B229D/B230K cuts; counted retests penetrate 1-2pt under spec 2 row 1, so T-ANY DOES NOT SEPARATE; no diagnostic.
 - State B-232 (MEASURED): setups rebound to own-session FROM (B231 cross-day carriers were census binding errors); EQ-A/EQ-B/EQ-AB all DOES NOT SEPARATE (keeps pass, 17 Aug no equality candle, 22 Sep 1pt wick + open-touch); no diagnostic; batch B-232
-- State B-234 (RESTORED diagnostic): H2 NARROW-NEXT (A5 refused, N22SEP still fires); RECON GRADE RECON62-B234D: KEEP entries exact 7/8; KEEP exits exact 6/8; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B234D: KEEP entries exact 13/14; KEEP exits exact 12/14; NEVER fires 7; MACHINE-ONLY ungraded 0; trades 20; R0 corrected B-232 17 Aug line value (1.15924 was the 17:30 KILL row; per-candle values 1.15917-1.15918, buffer 1.15918 at 15:50). asks the two takes with exact candles.
+- State B-234 (RESTORED diagnostic): H2 NARROW-NEXT (A5 refused, N22SEP still fires); RECON GRADE RECON62-B234D: KEEP entries exact 7/8; KEEP exits exact 6/8; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B234D: KEEP entries exact 13/14; KEEP exits exact 12/14; NEVER fires 7; MACHINE-ONLY ungraded 0; trades 20; R0 corrected B-232 17 Aug line value (1.15924 was the 17:30 KILL row; per-candle values 1.15917-1.15918, buffer 1.15918 at 15:50).
+- State B-235 (KEPT): his NEXT-OPEN-EQUAL words banked (rules/52); A5 to NEVER; B-234 open-equal refusal installed (35f0c73f/a6d765f0); RECON GRADE RECON62-B235K: KEEP entries exact 7/7; KEEP exits exact 6/7; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B234D: KEEP entries exact 13/13; KEEP exits exact 12/13; NEVER fires 7; MACHINE-ONLY ungraded 0; trades 20; N17AUG and A5 silent; N22SEP fires (18:55 open on the Quarterly POC unchecked by the latest-touch walk).
 
 ## 4. Where to look (symptom -> first rows)
 - Fired although his never-take: FIRE, then FRESHCOUNT on each pass, then B177HZ, then CONFIRMPOLL.

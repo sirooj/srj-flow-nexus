@@ -1,0 +1,4 @@
+pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw
+1,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-06-29,16:10,B234EQ,EM	0	17:22:28.339	Core 04	2026.06.29 16:15:00   [SRJ-EA] [B234EQ] bar=2026.06.29 16:10 dir=LONG line=Weekly-POC val=1.14031 o=1.14033 out=PASS
+2,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-06-29,16:15,DEAL,OD	0	17:22:28.339	Core 04	2026.06.29 16:15:00   deal #14 buy 2.25 EURUSD at 1.14039 done (based on order #14)
+3,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-06-29,17:19,DEAL,PG	0	17:22:34.452	Core 04	2026.06.29 17:19:49   deal #15 sell 2.25 EURUSD at 1.14152 done (based on order #15)

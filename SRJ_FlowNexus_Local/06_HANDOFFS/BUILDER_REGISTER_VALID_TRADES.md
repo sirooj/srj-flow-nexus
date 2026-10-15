@@ -25,6 +25,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
 | 5 | 7 Sep New York EURUSD, entry 16:45 | LONG | W-POC (retest latest, his chart proof) | 1.16264 [HIS report] | TP 1.16315 [HIS report] | Proves D74FE972 over v7 (his slice); seed 14:55 stands before 16:40 confirm [R60] |
 - NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
+- NOTE 2026-10-15 (B-235, his words): INVALID by NEXT-OPEN-EQUAL (rules/52): 16:35 retest valid at its close, 16:40 opens at the Weekly POC 1.16249; must-never from here on; row kept for audit.
 - NOTE 2026-10-10 (B-157 KEPT, EA 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207): stop 16:15 low 1.16239 (his SEP7 two-swing stop, outward walk); kept B-153 1.16238 at 16:05 retired; entry and exit unchanged.
 | 6 | 8 Sep London EURUSD, entry 10:10 | SHORT | UNKNOWN (source-needed) | 1.16205 [HIS report] | TP 1.16102 [R60 G4] | SEP8 ruling VALID |
 - NOTE 2026-10-10 (B-160 KEPT): machine zone at the 10:05 confirmation = the 8 Sep 9:20 XOB (1.16230-1.16256); his zone for this trade is UNKNOWN on record (never inferred); entry, stop and exit unchanged.
@@ -86,6 +87,7 @@ R67 = RECON67 segment (v5 tree, superseded by revert) / R63 = RECON63 blind segm
 - 22 July New York EURUSD SHORT, 14:55 entry 1.14048 (tester-only): INVALID by his words 2026-10-14 (0722-EU-INVALID, skill lines 328-344): in-bias 5m OB and FVG invalidated (machine rows carry adverse=1 fvgDead only, FRESHCOUNT JL 25344506/25345038/25345040; obDead=0 on rows). Must-never from here on.
 - NOTE 2026-10-14 (B-211, his words): 13:45 OB dead from 14:35, not renewed by 14:50 confirmation (rules/46 DEAD-UNTIL-RENEWED).
 - NOTE 2026-10-15 (B-223 KEPT, EA ex5 61829f05): 28 July London short 10:45 1.13689 no longer fires; setup killed by the 5m flip at 10:10 before confirmation.
+- 7 Sep New York EURUSD LONG, 16:45 entry 1.16264: INVALID by his words 2026-10-15 (B-235 addendum, rules/52 NEXT-OPEN-EQUAL). Must-never from here on.
 
 ## D. QUARANTINE ANNEX (his "do not use that" order - no conclusions drawn here)
 

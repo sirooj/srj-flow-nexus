@@ -128,3 +128,4 @@ B227W-SCOREBOARD (B-227W): one committed grader is the only grade of record; han
 B228-SEAM-AHEAD (B-228): a seed whose seam lies ahead of the walk is refused at init; the tester serves ticks only up to the walk.
 B-231-RECORD-CHECKLIST: every Part X/X0 item is grep-verified in the staged file before commit; the result lists each FOUND/MISSING.
 B-234-LINE-PER-CANDLE (B-232): an equality or touch test reads the line value at that candle, never one value carried across a window.
+B-235-RETRUTH-REGRADE: when his ruling changes a register row, re-grade committed DEALS before any new run; a restored hunk can become the keep.

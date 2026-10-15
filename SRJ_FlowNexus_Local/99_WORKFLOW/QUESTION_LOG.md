@@ -12,4 +12,5 @@ date+session | first asked | answered / OPEN
 2026-09-04 London long | B-227W item 10 | ANSWERED B-230 (London 09:30 invalid, N4SEP0930; NY 16:00 stays valid A3)
 2026-09-22 NY short | B-227W item 11 | ANSWERED B-229 (invalid, N22SEP); B-233 addendum retest-open (22 Sep open == Q-POC, high equal)
 2026-10-08 London short | B-227W item 12 | ANSWERED B-229 (valid, K8OCT)
+2026-09-07 NY long | B-235 draft (planner) | ANSWERED B-235 addendum (invalid, 16:40 open equals Weekly POC)
 zone-past-stop rule (29 Jun + 22 Sep) | B-227W item 13 | OPEN (no ruling found B-225 R3; 29 Jun answered VALID as a take, rule itself unanswered)

@@ -1,0 +1,4 @@
+pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw
+1,RECON62-B235K,a6d765f0,20261015.log,25767783,2026-09-04,15:55,B234EQ,GP	0	18:59:12.597	Core 04	2026.09.04 16:00:00   [SRJ-EA] [B234EQ] bar=2026.09.04 15:55 dir=LONG line=Yearly-POC val=1.15987 o=1.15997 out=PASS
+2,RECON62-B235K,a6d765f0,20261015.log,25767805,2026-09-04,16:00,DEAL,HL	0	18:59:12.597	Core 04	2026.09.04 16:00:00   deal #8 buy 0.57 EURUSD at 1.16019 done (based on order #8)
+3,RECON62-B235K,a6d765f0,20261015.log,25772614,2026-09-04,23:55,DEAL,OR	0	18:59:18.714	Core 04	2026.09.04 23:55:00   deal #9 sell 0.57 EURUSD at 1.16129 done (based on order #9)

@@ -1,0 +1,4 @@
+pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw
+1,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-10-08,11:30,B234EQ,FN	0	17:41:25.903	Core 04	2026.10.08 11:35:00   [SRJ-EA] [B234EQ] bar=2026.10.08 11:30 dir=SHORT line=Daily-VWAP val=1.11974 o=1.11967 out=PASS
+2,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-10-08,11:35,DEAL,FM	0	17:41:25.903	Core 04	2026.10.08 11:35:00   deal #40 sell 0.63 EURUSD at 1.11884 done (based on order #40)
+3,EU0525TD-B234D,a6d765f0,20261015.log,-1,2026-10-08,12:13,DEAL,JJ	0	17:41:25.903	Core 04	2026.10.08 12:13:09   deal #41 buy 0.63 EURUSD at 1.11819 done (based on order #41)
