@@ -103,6 +103,9 @@ write_deals(os.path.join(RP, 'DEALS_RECON62-B235K.csv'), deals, RECON_MAP)
 byday_k = write_daypacks('RECON62-B235K', rows)
 
 # --- 2. EU B234D packs from its committed cut (dates already packed full-tag in B-234 are kept) ---
+# The cut holds verbatim segment lines starting at journal EU_PRE+1, so cut-relative
+# line i maps to journal EU_PRE+i (the day log carries no per-line numbers).
+EU_PRE = 21446649
 eu_have = set()
 eudir = os.path.join(RP, 'EU0525TD-B234D')
 for f in glob.glob(os.path.join(eudir, '*.csv')):
@@ -111,10 +114,9 @@ for f in glob.glob(os.path.join(eudir, '*.csv')):
 print('EU dates already packed (kept as-is): %s' % sorted(eu_have))
 eu_rows = []
 with open(os.path.join(WORK, 'CUT_EU0525TD-B234D.log'), encoding='utf-8', errors='replace') as f:
-    for line in f:
-        jl = line.split('\t', 1)[0]
+    for i, line in enumerate(f, 1):
         raw = line.rstrip('\r\n')
-        pr = packrow('EU0525TD-B234D', raw, int(jl) if jl.strip().isdigit() else -1, True)
+        pr = packrow('EU0525TD-B234D', raw, EU_PRE + i, True)
         if pr and pr[0] not in eu_have:
             eu_rows.append((pr[0], pr[1], pr[2], pr[3], pr[4]))
 byday_e = write_daypacks('EU0525TD-B234D', eu_rows)

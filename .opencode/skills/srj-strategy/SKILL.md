@@ -71,6 +71,6 @@ Spec Part A v4.2 states the baseline; his later words amend it; council prose ne
 - rules/49_his-words-2026-10-15-b-230-no-repeat.md: ## His words 2026-10-15 (B-231) - no repeated questions or mistakes (540 bytes)
 - rules/50_his-words-2026-10-15-b-231-review-grades.md: ## His words 2026-10-15 (B-231 review grades) - zone not reached is not in play; 5 Aug valid (1344 bytes)
 - rules/51_his-words-2026-10-15-b-233-retest-open.md: ## His words 2026-10-15 (B-233 addendum) - retest open equals line; live candle is truth (1088 bytes)
-- rules/52_his-words-2026-10-15-b-235-next-open-equal.md: ## His words 2026-10-15 (B-235 addendum) - next candle open equal to the line invalidates; 7 Sep NY long invalid (2157 bytes)
+- rules/52_his-words-2026-10-15-b-235-next-open-equal.md: ## His words 2026-10-15 (B-235 addendum) - next candle open equal to the line invalidates; 7 Sep NY long invalid (2165 bytes)
 
 Load this file and every file in the index, in index order.
