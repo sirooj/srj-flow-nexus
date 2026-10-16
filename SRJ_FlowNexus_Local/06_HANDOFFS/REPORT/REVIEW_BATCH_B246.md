@@ -1,0 +1,4 @@
+# REVIEW BATCH B-246 - machine-only takes on the diagnostic run (KS + leg-scope D2)
+No MACHINE-ONLY rows on RECON62-B246D (grader: MACHINE-ONLY ungraded 0). No EU run (T3 gate).
+Carried forward unchanged from REVIEW_BATCH_B245.md until he answers (not re-asked as new):
+1. 10 June New York buy (machine-only, entry 18:55 at 1.15490, exit 01:01 at 1.15331): his words 2026-10-16 (banked rules/53): the 5m chart as is is valid; open question trend following or mean reversal. Machine reads: (b) 4H BULL, 1H BULL, 15m BEAR from B201FROM ht=1/1/-1 at the 18:50 bar, 5m BULL from ltf=ALIGN on the S1-to-S2 row; (c) TREND from SIGNAL reg=TREND with REGIMECENSUS votes=2 trendOk=1, sweepTag=0 and no sweep row so the swept level is NOT PRINTED; divergence hidden-bull 18:15 latched (B196DIV). No register row until he rules the setup - VALID / INVALID, reason:
