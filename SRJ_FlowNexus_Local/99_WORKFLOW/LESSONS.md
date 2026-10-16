@@ -129,3 +129,4 @@ B-231-RECORD-CHECKLIST: every Part X/X0 item is grep-verified in the staged file
 B-234-LINE-PER-CANDLE (B-232): an equality or touch test reads the line value at that candle, never one value carried across a window.
 B-235-RETRUTH-REGRADE: when his ruling changes a register row, re-grade committed DEALS before any new run; a restored hunk can become the keep.
 B-237-CUT-LINES: day-log lines carry no per-line numbers (2-letter code first); number cut rows by PRE_JOURNAL_LINES plus cut-relative offset.
+B-245: a missing input or code defect is built through in the same relay; never a STOP or a question to him.

@@ -32,6 +32,7 @@ Operator kickoff for any new thread:
 - Every relay opens with Part 0: branch and commit to cut from, files to read in order, every name used. A builder with no memory runs it from Part 0 alone.
 - Verdicts: KEPT = change kept; RESTORED = change undone from .preB<n>; MEASURED = read-only (text-record edits allowed); STOP = a STOP rule hit before the trial ran or finished, no source edit stands, text records allowed, reason in the result's first line (first used B-84, banked B-85).
 - No tolerance or wiggle rule, ever. Talk to him in trader words (dates, times, prices).
+- No code STOP (his order 2026-10-16, B-245): code-side blockers are built through by the builder in the same relay; never a STOP, never a question to him. Check builder/B-<n+1> does not already exist before drafting.
 - Questions: take grades and open rule questions reach him as the review batch (PK-4, his order 2026-10-15, replacing his 2026-10-04 last-resort rule for take grades); record-first search done before any line enters the batch; never a code or mechanism question. When his answer decides the next edit, the lane waits and work moves to the next fix item.
 - No-repeat (his words 2026-10-15, B-231): before any batch item, grep REGISTER_TRUTH, strategy rules and every earlier REVIEW_BATCH for its date + session; answered = never re-asked; a re-asked item names the new fact his earlier answer lacks.
 - Banking: when he answers, the next relay banks his words verbatim first (strategy skill new section, journal, ledger), grep-first; never re-order banking a prior relay landed.

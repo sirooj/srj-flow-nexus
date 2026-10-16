@@ -44,6 +44,11 @@ Rule-conflict check (before any edit)
 - If a relay's change touches a trading rule, first find his banked words on that rule in the strategy skill, the findings and the journal.
 - If the change contradicts them, do not edit. Write a carried note quoting his words and stop for the planner.
 - Example, B-8: a 1-point A2 allowance contradicted his 2026-09-23 no-tolerance rule.
+No code STOP (his order 2026-10-16, B-245)
+- A missing input, an unexported value, an unnamed variable, a zone list the EA cannot see, a missing per-object mark, or a code defect found in a K0 map is never a STOP and never a question to him. The builder designs the export (indicator buffer, EA read, or print) or the code fix itself in the same relay and runs it as an always-restored diagnostic graded by the grader.
+- STOP stays only for: a start-gate mismatch that survives LF-normalize; a compile still failing after one corrected re-compile of the relay's own hunk; an ex5 SHA change during a run; a change that contradicts his banked words (quoted with line numbers).
+- Questions reach him only when his record holds no ruling on a trading-rule point, after the record-first search. Code words never reach him.
+- One builder session per relay chain: before cutting, git ls-remote backup the next branch; if it exists or untracked B-<n> records exist on disk, file those first and report, never overwrite.
 
 Result file
 - Path: SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B<n>.md.

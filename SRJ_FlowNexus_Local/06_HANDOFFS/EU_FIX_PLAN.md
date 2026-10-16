@@ -6,6 +6,7 @@
   (a) RECON62 (EURUSD 26 Aug-9 Sep): A1-A4, A6, A7 taken as the register says (entry; exit per the register NOTE lines) and A5 (7 Sep NY long) silent by his words 2026-10-15 (B-235), every euro C row silent.
   (b) EU0525TD (25 May to date): his three never-takes stay silent (10 June 16:15 long 1.15551; 25 June 10:45 short 1.13540; 22 July 14:55 short 1.14048), and he passes every take on the review sheet.
   (c) The review sheet (srj-relay "Review sheet") has no NOT PRINTED on a field that decides a take: entry line + price + retest candle, 4H/1H/15m/5m, setup class + reason, zone + formation + in-play candle, in-bias OB/FVG state, opposite FVG, divergences + latched one, stop, target name + price, exit rule + line + candle.
+- After DONE (his words 2026-10-16, B-245): GBPUSD and USDJPY testing opens.
 
 ## 1. Never (each one has cost relays before)
 - No tolerance, buffer, pip margin or new number in any rule. No bar count, distance or size as a separator.
@@ -50,6 +51,7 @@ F2 BLOCK-DEAD (after F0) - his invalidated in-bias block still read alive.
 - State B-217 (park): H1b/H1c persist + H2 + H3 stand per B-215/B-216 (10Jun/22Jul silent, A kept); 25Jun fvg second-paint + S4 + revival roads remain open (no trial); F1 PARKED 6 of 6.
 - State B-242 (F2: 22 July done, 25 June open): 22 Jul silent on the kept build; 25 Jun open roads per B-217 (fvg second-paint / S4 / revival).
 - State B-244 (RESTORED D3): dead-block revival guard (renewal-OB isValid); RECON GRADE RECON62-B244D: KEEP entries exact 7/7; KEEP exits exact 6/7; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B244D: KEEP entries exact 13/13; KEEP exits exact 12/13; NEVER fires 4; MACHINE-ONLY ungraded 1; trades 18; 25 Jun fires (5747 unmarked), machine 10 Jun 18:55; .B244K EA 3a365eff/1683655e + Flow 662ebe05 + Imb fc4408f1 on disk.
+- State B-245 (RESTORED D12): KM per-block kill mark + ZS 55/56 reach-standing + ZG gate; RECON GRADE RECON62-B245D12: KEEP entries exact 7/7; KEEP exits exact 6/7; NEVER fires 0; MACHINE-ONLY ungraded 0; trades 7; EU GRADE EU0525TD-B245D12: KEEP entries exact 13/13; KEEP exits exact 12/13; NEVER fires 4; MACHINE-ONLY ungraded 1; trades 18; KM wiped by re-activation (5747 valid 10:20); zone carriers 26May-bear39 4Jun-bull10 15Jul-bull13; next K4 leg-scope + KM-survive.
 - State B-243 (MEASURED K0 STOP): H4a placeable at S4 pre but H4b unbuildable (code6 write-time ren = structureConfirmedThisBar, no separately-named exported ren in code: no ren buffer, no panel renewal, renewal trigger unexported per B-212); no edit, no runs.
 F3 IN-PLAY - a zone the stop leg never reached is accepted.
 - Shows on: 4 June 10:05 long, 29 June 16:15 long, 15 July 10:35 long, 22 July 14:55 short, 28 July 10:45 short (removed B-223, 5m flip at 10:10), 17 August 15:55 long, 22 September 19:00 short, 8 October 11:35 short (zone on the far side of the stop). None of A1-A7.
@@ -58,6 +60,7 @@ F3 IN-PLAY - a zone the stop leg never reached is accepted.
 - His words: spec 3.5 (in play = a penetration of the XOB in the swing leg), B-91 pin ("retrace and in play are the same thing"), 4 June ("there is no retest of XOB in play"), 28 July ("i do not see valid XOB or FVG to be in play").
 - Measure: for every take, the leg from the zone's promotion to the confirmation candle and whether any candle reached into the zone.
 - Done when: the never-reached takes are refused, A1-A7 identical.
+- State B-245 (RESTORED D12): ZS 55/56 + ZG gate live, keeps exact both windows; carriers 26May-bear39 (newest FVG 14:15 1.16420-1.16421), 4Jun-bull10 (newest FVG 07:20 1.16055-1.16058), 15Jul-bull13 (newest XOB 07-14 22:30 1.14210-1.14243); 25Jun-bear68 carried by re-armed 5747; next K4 leg-scope.
 F4 DIV-READ - the machine's CQD divergence differs from his live chart.
 - Shows on: 25 June (he reads hidden bullish as the latest at entry and a late bearish 10:20-10:50; the machine prints regular bearish 10:05, nothing bullish after 09:35, nothing bearish 10:20-10:50); 8 July (he reads hidden bullish 14:00-14:20; the machine prints hidden bearish through 14:25 and latches hidden bearish 14:40).
 - Look at: the CQD indicator inputs the EA loads against his saved chart (Profiles/templates: D1 reset, tick source, swing settings); the latch walk (B-204: D130, EA ~10334-10343). "Late divergence" logic: NOT FOUND in B-204.
