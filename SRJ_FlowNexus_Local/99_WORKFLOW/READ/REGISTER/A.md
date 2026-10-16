@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 25d7d082; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha a82d2144; the register governs.
 
 ## A. EU VALID TAKEN - his 7, all taken by the EA (register window 26 Aug - 10 Sep 2026)
 

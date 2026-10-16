@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES_HELD.md sha cab9cf30; the register governs.
 
 ## B. UJ VALID MISSED - his 3, NONE taken by the EA (blind window 1-13 June 2026)
 

@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 25d7d082; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha a82d2144; the register governs.
 
 ## D. QUARANTINE ANNEX (his "do not use that" order - no conclusions drawn here)
 

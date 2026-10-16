@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 25d7d082; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha a82d2144; the register governs.
 
 ## E. HOW FUTURE BUILDS USE THIS FILE
 
@@ -9,3 +9,4 @@ Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 25d7d082; the register governs
 - UJ section-B turns to takes only through council-cleared packets on his answers, never by copying.
 
 (End of file)
+

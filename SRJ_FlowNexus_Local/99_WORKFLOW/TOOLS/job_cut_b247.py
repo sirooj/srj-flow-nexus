@@ -32,7 +32,7 @@ rx_h1 = re.compile(r'B216H1 date=(\S+ \S+) bar=(\d+) id=(\S+) close=(\S+) lvl=(\
 rx_s4 = re.compile(r'\[B244S4\] date=(\S+) bar=(\S+ \S+) state=(\S+) ob=(\S+) fvg=(\S+) opp=(\S+) adverse=(\S+) action=(\S+)')
 rx_rv = re.compile(r'\[B244RV\] bar=(\S+ \S+) dir=(\S+) id=(\S+) dead=(\S+)')
 rx_zg = re.compile(r'\[B245ZG\] bar=(\S+ \S+) dir=(\S+) v=(\S+) out=(\S+)')
-rx_ks = re.compile(r'\[(B246KS|B249E)\] bar=(\S+ \S+) id=(\S+) site=(\S+)')
+rx_ks = re.compile(r'\[(B246KS|B249E|B250G|B250H)\] bar=(\S+ \S+) id=(\S+) site=(\S+)')
 rx_zs = re.compile(r'\[B246ZS\] bar=(\S+ \S+) side=(\S+) legStart=(\S+(?: \S+)?) count=(\S+) newest=(.*)$')
 rx_48c = re.compile(r'\[B248C\] bar=(\S+ \S+) side=(\S+) cfvg=(\S+) cxob=(\S+) first=(.*)$')
 rx_flip = re.compile(r'OBPROV\] code=8 id=\d+ bar=(\d+)')
