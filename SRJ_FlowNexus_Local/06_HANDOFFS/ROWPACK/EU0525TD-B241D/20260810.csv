@@ -1,0 +1,2 @@
+pack_line,run,ea_sha,journal_file,journal_line,server_date,server_time,tag,raw
+1,EU0525TD-B241D,d85cf7d2,20261016.log,4884243,2026-08-10,16:00,B216H1,CH	0	09:51:52.983	Core 04	2026.08.10 16:00:00   [SRJ-IND] B216H1 date=2026.08.10 15:50 bar=119784 id=11330 close=1.15470 lvl=1.15469
