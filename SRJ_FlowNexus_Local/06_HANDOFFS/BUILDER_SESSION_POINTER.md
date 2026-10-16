@@ -2,8 +2,8 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State B-248B (2026-10-16; B-SERIES LANE ACTIVE; latest result B-248B MEASURED (banking))
-- Relay B-248B (addendum) filed EURUSD-only per EU-FIRST (branch builder/B-248B, verdict MEASURED: 10 Jun VALID class OPEN banked, swing-confirm timing banked). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B248B.md`.
+## State B-249 (2026-10-17; B-SERIES LANE ACTIVE; latest result B-249 RESTORED (EU-CLEAN E+F))
+- Relay B-249 (EU-CLEAN 5 of 6) filed EURUSD-only per EU-FIRST (branch builder/B-249, verdict RESTORED: E keeps 25 Jun silent but not 8 Oct, F gated by kept-code crash). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B249.md`.
 - B-series relay lane active (operator order 2026-10-04).
 - His EURUSD-first order stands active + banked. Euro alone until he opens pound and yen (held, retained locally). His 2026-10-16 words: GU and UJ next once EU windows clean.
 - Goal map (his words): 1 journal + detection robust (DONE KEPT B-202); 2 CSV/website/PDF O3 (all euro reports filed; website/PDF pending until he opens); 3 blind test (pending); 4 June to date (euro measured; P4 separates on his named pieces only; machine-only S1-S3 do not (B-209)); 5 year to date (HELD by his B-203 words until he reviews).
@@ -11,7 +11,7 @@
 - Kept build: EA 18a1d49b/d85cf7d2 (early kill) + Flow 61177aa5 + 5 includes (.B241K) + POI d47a0e68/04fcd8a5; kept runs RECON62-B242K (14 identical) + EU0525TD-B241D (A3 taken, 10 Jun + 22 Jul silent).
 - terminal.ini on disk ff1dfcdf (touch-class of b64523fc, [Tester] RECON dates + Symbol intact, [TickLoad] intact, dates per run); blessedB208 copy kept. Lost a5834591 stands (addendum STOP).
 - Identity reference: T1 euro baseline deals (B-206). B-202 deal files stay as history. Slots fixed (lookback 3000).
-- Ledger last item 1396 (B248-EU-CLEAN-INBIAS, RESTORED; 1395 = B248A-EU-BANK-19JUN). His 19 Jun + 10 Jun words banked (rules/54-55); truth K19JUN + K10JUN; F4a/F4b open.
+- Ledger last item 1398 (B249-EU-CLEAN-FLIPRENEW, RESTORED; 1397 = B248B-EU-BANK-SWINGCONFIRM). His 19 Jun + 10 Jun words banked (rules/54-55); truth K19JUN + K10JUN; F4a/F4b open.
 - Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. EU-CLEAN 4 of 6 (B-248 RESTORED). P3-0618 closed KEPT B-223. F3-INPLAY PARKED 6 of 6 (B-240). F10 RETEST-EQUAL closed KEPT B-238. BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
 - His B-204 words stand: 10 June / 25 June / 22 July INVALID must-never (P4 refuses all three his way). F2 pending. HOLD-YTD stands.
 - R0 depth: tester walks from 25 May, Yearly folds from 26 June off checkpoint; his chart starts 1 January.
@@ -25,7 +25,7 @@
 - 2 Sep call WITHHELD (B-194). 2 Sep zone print queued.
 - Open data: June yen seed refusal (SEAM_UNREACHABLE); R3 June seed verdict open. R5 chart call WITHHELD (B-191 B2).
 - Carry: D4 graded at the machine's retest candle; A2's own retest is 17:30, so D4 is re-graded at his candle first. A3 not taken on the long euro run since at least B-218 (k4); F5 owns it.
-- Lane: EU-CLEAN (F2 25 Jun kill mark + F3 reach-standing), first B-245, 4 of 6 (D in-bias scope no-op on K8OCT, C per-kind reach no-op on NEVERs).
+- Lane: EU-CLEAN (F2 25 Jun kill mark + F3 reach-standing), first B-245, 5 of 6 (E flip-is-renewal: RESTORED, K8OCT still missing); F4a DIV-LATE-VALIDATION, first B-248A, 3 of 6 (F diagnostic 1: RESTORED gate-fail, 19 Jun entry unmeasured).
 
 ## Next
 - Next = planner decides on the record (F4a now measures the confirm-at-next-close rule; flip-cascade starvation for K8OCT-class blocks; swing-leg or zone-identity scope for NEVERs; never a question to him).

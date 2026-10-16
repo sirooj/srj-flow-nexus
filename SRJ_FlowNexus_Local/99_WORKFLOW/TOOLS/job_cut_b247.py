@@ -20,7 +20,7 @@ MQL5 = os.path.join(BASE, '..', '..', '..')
 WORK = os.path.join(MQL5, 'SRJ_FlowNexus_Local', '00_CURRENT_WORKING')
 HAND = os.path.join(MQL5, 'SRJ_FlowNexus_Local', '06_HANDOFFS')
 RP = os.path.join(HAND, 'ROWPACK')
-DAYLOG = os.path.join(MQL5, '..', 'Tester', 'logs', '20261016.log')
+DAYLOG = os.path.join(MQL5, '..', 'Tester', 'logs', '20261017.log')
 
 RUN = sys.argv[1]
 PRE = int(sys.argv[2])
@@ -32,7 +32,7 @@ rx_h1 = re.compile(r'B216H1 date=(\S+ \S+) bar=(\d+) id=(\S+) close=(\S+) lvl=(\
 rx_s4 = re.compile(r'\[B244S4\] date=(\S+) bar=(\S+ \S+) state=(\S+) ob=(\S+) fvg=(\S+) opp=(\S+) adverse=(\S+) action=(\S+)')
 rx_rv = re.compile(r'\[B244RV\] bar=(\S+ \S+) dir=(\S+) id=(\S+) dead=(\S+)')
 rx_zg = re.compile(r'\[B245ZG\] bar=(\S+ \S+) dir=(\S+) v=(\S+) out=(\S+)')
-rx_ks = re.compile(r'\[B246KS\] bar=(\S+ \S+) id=(\S+) site=(\S+)')
+rx_ks = re.compile(r'\[(B246KS|B249E)\] bar=(\S+ \S+) id=(\S+) site=(\S+)')
 rx_zs = re.compile(r'\[B246ZS\] bar=(\S+ \S+) side=(\S+) legStart=(\S+(?: \S+)?) count=(\S+) newest=(.*)$')
 rx_48c = re.compile(r'\[B248C\] bar=(\S+ \S+) side=(\S+) cfvg=(\S+) cxob=(\S+) first=(.*)$')
 rx_flip = re.compile(r'OBPROV\] code=8 id=\d+ bar=(\d+)')
@@ -114,10 +114,10 @@ with open(DAYLOG, encoding='utf-16', errors='replace') as f:
             continue
         m8 = rx_ks.search(raw)
         if m8:
-            b = m8.group(1)
+            b = m8.group(2)
             s4s.append({'run': RUN, 'date': b[:10].replace('.', '-'), 'time': b[11:16],
-                        'code': 'id%s/%s' % (m8.group(2), m8.group(3)),
-                        'kind': 'B246KS', 'jl': n})
+                        'code': 'id%s/%s' % (m8.group(3), m8.group(4)),
+                        'kind': m8.group(1), 'jl': n})
             continue
         m9 = rx_zs.search(raw)
         if m9:
