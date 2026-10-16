@@ -2,8 +2,8 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State B-248 (2026-10-16; B-SERIES LANE ACTIVE; latest result B-248 RESTORED (EU-CLEAN D+C))
-- Relay B-248 (EU-CLEAN 4 of 6) filed EURUSD-only per EU-FIRST (branch builder/B-248, verdict RESTORED: D keeps in-bias scope but loses K8OCT, C per-kind reach keeps all but refuses no NEVER). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B248.md`.
+## State B-248B (2026-10-16; B-SERIES LANE ACTIVE; latest result B-248B MEASURED (banking))
+- Relay B-248B (addendum) filed EURUSD-only per EU-FIRST (branch builder/B-248B, verdict MEASURED: 10 Jun VALID class OPEN banked, swing-confirm timing banked). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B248B.md`.
 - B-series relay lane active (operator order 2026-10-04).
 - His EURUSD-first order stands active + banked. Euro alone until he opens pound and yen (held, retained locally). His 2026-10-16 words: GU and UJ next once EU windows clean.
 - Goal map (his words): 1 journal + detection robust (DONE KEPT B-202); 2 CSV/website/PDF O3 (all euro reports filed; website/PDF pending until he opens); 3 blind test (pending); 4 June to date (euro measured; P4 separates on his named pieces only; machine-only S1-S3 do not (B-209)); 5 year to date (HELD by his B-203 words until he reviews).
@@ -28,7 +28,7 @@
 - Lane: EU-CLEAN (F2 25 Jun kill mark + F3 reach-standing), first B-245, 4 of 6 (D in-bias scope no-op on K8OCT, C per-kind reach no-op on NEVERs).
 
 ## Next
-- Next = planner decides on the record (flip-cascade starvation for K8OCT-class blocks; swing-leg or zone-identity road for NEVERs; F4a/F4b open; never a question to him).
+- Next = planner decides on the record (F4a now measures the confirm-at-next-close rule; flip-cascade starvation for K8OCT-class blocks; swing-leg or zone-identity scope for NEVERs; never a question to him).
 - PENDING (his O3 2026-10-10): website + PDF; not built until he opens it.
 
 ## Resume order
