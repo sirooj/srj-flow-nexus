@@ -2,8 +2,8 @@
 
 **Rule:** this file is the ONLY live memory (capped 35 lines). Old queue/state documents are audit-only.
 
-## State B-243 (2026-10-16; B-SERIES LANE ACTIVE; latest result B-243 MEASURED (H4b unbuildable))
-- Relay B-243 (F1/F2 25 June 3 of 6) filed EURUSD-only per EU-FIRST (branch builder/B-243, verdict MEASURED K0 STOP: no separately-named exported ren). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B243.md`.
+## State B-244 (2026-10-16; B-SERIES LANE ACTIVE; latest result B-244 RESTORED (dead-revival guard D3))
+- Relay B-244 (F1/F2 25 June 4 of 6) filed EURUSD-only per EU-FIRST (branch builder/B-244, verdict RESTORED D3: 5747 carries no dead mark, revival proceeds). Latest result: `SRJ_FlowNexus_Local/06_HANDOFFS/BUILDER_RESULT_B244.md`.
 - B-series relay lane active (operator order 2026-10-04).
 - His EURUSD-first order stands active + banked. Euro alone until he opens pound and yen (held, retained locally).
 - Goal map (his words): 1 journal + detection robust (DONE KEPT B-202); 2 CSV/website/PDF O3 (all euro reports filed; website/PDF pending until he opens); 3 blind test (pending); 4 June to date (euro measured; P4 separates on his named pieces only; machine-only S1-S3 do not (B-209)); 5 year to date (HELD by his B-203 words until he reviews).
@@ -11,8 +11,8 @@
 - Kept build: EA 18a1d49b/d85cf7d2 (early kill) + Flow 61177aa5 + 5 includes (.B241K) + POI d47a0e68/04fcd8a5; kept runs RECON62-B242K (14 identical) + EU0525TD-B241D (A3 taken, 10 Jun + 22 Jul silent).
 - terminal.ini on disk a512582a (touch-class, [Tester] and [TickLoad] intact, dates per run); blessedB208 copy kept. Lost a5834591 stands (addendum STOP).
 - Identity reference: T1 euro baseline deals (B-206). B-202 deal files stay as history. Slots fixed (lookback 3000).
-- Ledger last item 1390 (B243-EU-F2-25JUN, MEASURED K0 STOP; 1389 = B242-EU-F1F2-INSTALL). No new lesson.
-- Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. F1F2-REGRADE 3 of 6 (B-243 MEASURED K0 STOP), 25 Jun open. P3-0618 closed KEPT B-223. F3-INPLAY PARKED 6 of 6 (B-240). F10 RETEST-EQUAL closed KEPT B-238. BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
+- Ledger last item 1391 (B244-EU-F2-NODEADREVIVE, RESTORED D3; 1390 = B243-EU-F2-25JUN). No new lesson.
+- Lanes: JOURNAL-REASON closed KEPT B-202. ONE-EXEC closed KEPT B-202. FOMC-MULTI closed KEPT euro. J2D-DEFECTS 6 of 6 PARKED euro. F1F2-REGRADE 4 of 6 (B-244 RESTORED D3). P3-0618 closed KEPT B-223. F3-INPLAY PARKED 6 of 6 (B-240). F10 RETEST-EQUAL closed KEPT B-238. BACKTEST-J2D 2 of 6 MEASURED (holds year-start). FIDELITY-B179 stays 5 of 6 (paused). MR-SWEEP-0710 stays PARKED 6 of 6. TAKEN-TARGET closed KEPT. MISSED-GBP0706 CLOSED. INPLAY-JUMP-0702 CLOSED KEPT. BLIND-GBP0706 closed 2026-10-12.
 - His B-204 words stand: 10 June / 25 June / 22 July INVALID must-never (P4 refuses all three his way). F2 pending. HOLD-YTD stands.
 - R0 depth: tester walks from 25 May, Yearly folds from 26 June off checkpoint; his chart starts 1 January.
 - terminal.ini = blessedB208. Profiles 581 gap carried (deletion forbidden). Seeds/ckpt byte-identical. Fix order: EU_FIX_PLAN section 3 (PK-4: F5 done, F3, F1/F2, F0, F4, F6, F7, F9; RETEST-EQUAL open).
@@ -25,10 +25,10 @@
 - 2 Sep call WITHHELD (B-194). 2 Sep zone print queued.
 - Open data: June yen seed refusal (SEAM_UNREACHABLE); R3 June seed verdict open. R5 chart call WITHHELD (B-191 B2).
 - Carry: D4 graded at the machine's retest candle; A2's own retest is 17:30, so D4 is re-graded at his candle first. A3 not taken on the long euro run since at least B-218 (k4); F5 owns it.
-- Lane: F1F2-REGRADE, first B-241, 3 of 6 (diagnostic K0 STOP: exported ren unnameable).
+- Lane: F1F2-REGRADE, first B-241, 4 of 6 (diagnostic D3: 5747 unmarked).
 
 ## Next
-- Next = planner decides on the record (25 June road needs an exported renewal signal, or next EU_FIX_PLAN item F0).
+- Next = planner decides on the record (per-block kill mark for H1b kills, or next EU_FIX_PLAN item F0).
 - PENDING (his O3 2026-10-10): website + PDF; not built until he opens it.
 
 ## Resume order
