@@ -29,3 +29,5 @@ N26MAY,NEVER,2026-05-26,sell,NY,15:50,1.16336,,,his words 2026-10-15 review item
 N4JUN1005,NEVER,2026-06-04,buy,LONDON,10:05,1.16117,,,his words 2026-10-15 review item 3 (verbatim; not in play)
 N15JUL1035,NEVER,2026-07-15,buy,LONDON,10:35,1.14227,,,his words 2026-10-15 review item 6 (verbatim; not in play)
 K5AUG,KEEP,2026-08-05,buy,LONDON,11:20,1.15409,,1.15346,his words 2026-10-15 review item 7 (verbatim valid; setup class under check)
+K19JUN,KEEP,2026-06-19,buy,NY,15:45,1.14644,,,his words 2026-10-16 B-248A rules/54 (valid; entry 15:45 open)
+K10JUN,KEEP,2026-06-10,buy,NY,18:55,1.15490,01:01,1.15331,his words 2026-10-16 B-248B rules/55 (valid); exit 01:01 1.15331 from the machine deal, marked as machine exit not his (exit field pending his word)

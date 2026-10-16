@@ -1,6 +1,5 @@
 # LESSONS - standing planner rules (B-209 compact-records; one line each, <=160 chars)
 
-Whole-run grade (B-78): a reading that separates on register rows goes to one kept-build trial graded on... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L55
 Refusals beside passes (B-79): before any target-step trial, census every kept-build target-step refusal on... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L56
 Line side in the row (B-80): before any own-source, row-key or chart-call record, read each retest-row line's... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L57
 Prediction is not a grade (B-81): a census-predicted race outcome is graded on the trial's own rows; the B-80... Full: ARCHIVE/PLANNER_CONTEXT_FULL_B208.md L58
@@ -129,3 +128,4 @@ B-235-RETRUTH-REGRADE: when his ruling changes a register row, re-grade committe
 B-237-CUT-LINES: day-log lines carry no per-line numbers (2-letter code first); number cut rows by PRE_JOURNAL_LINES plus cut-relative offset.
 B-245: a missing input or code defect is built through in the same relay; never a STOP or a question to him.
 B-246-LEG-NOT-RENEWAL: a fresh gap or block never restarts his leg (8 Sep 9:20 XOB in play at 17:00); only a 5m flip can.
+B248B-CONFIRM-NEXT-CLOSE (B-248B): a swing counts only after the candle after its middle closes.

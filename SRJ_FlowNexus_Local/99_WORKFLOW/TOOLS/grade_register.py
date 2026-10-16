@@ -34,10 +34,10 @@ def main():
             if not m:
                 out.append(f"{r['id']},KEEP,MISSING,{r['date']} {r['side']} {r['entry_time']} {r['entry_price']},-,{r['source']}"); continue
             t = m[0]; t["used"] = True
-            ent = "EXACT" if float(t["price"]) == float(r["entry_price"]) else f"DIFF {pts(t['price'], r['entry_price']):+d}pt"
+            ent = "EXACT" if (not r["entry_price"]) or float(t["price"]) == float(r["entry_price"]) else f"DIFF {pts(t['price'], r['entry_price']):+d}pt"
             if ent == "EXACT": keep_ok += 1
             xt_ok = (not r["exit_time"]) or t["xtime"] == r["exit_time"]
-            xp_ok = t["xprice"] != "" and float(t["xprice"]) == float(r["exit_price"])
+            xp_ok = (not r["exit_price"]) or (t["xprice"] != "" and float(t["xprice"]) == float(r["exit_price"]))
             if xt_ok and xp_ok: exitv = "EXIT EXACT"; exit_ok += 1
             else:
                 d = f"{pts(t['xprice'], r['exit_price']):+d}pt" if t["xprice"] else "n/a"

@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 25d7d082; the register governs.
 
 ## C. FALSE REFERENCE - never progress, never cited as takes (correct-vs-false for future builds)
 
@@ -30,4 +30,7 @@ Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs
 - 22 July New York EURUSD SHORT, 14:55 entry 1.14048 (tester-only): INVALID by his words 2026-10-14 (0722-EU-INVALID, skill lines 328-344): in-bias 5m OB and FVG invalidated (machine rows carry adverse=1 fvgDead only, FRESHCOUNT JL 25344506/25345038/25345040; obDead=0 on rows). Must-never from here on.
 - NOTE 2026-10-14 (B-211, his words): 13:45 OB dead from 14:35, not renewed by 14:50 confirmation (rules/46 DEAD-UNTIL-RENEWED).
 - NOTE 2026-10-15 (B-223 KEPT, EA ex5 61829f05): 28 July London short 10:45 1.13689 no longer fires; setup killed by the 5m flip at 10:10 before confirmation.
+- 7 Sep New York EURUSD LONG, 16:45 entry 1.16264: INVALID by his words 2026-10-15 (B-235 addendum, rules/52 NEXT-OPEN-EQUAL). Must-never from here on.
+- NOTE 2026-10-16 (B-248A, his words rules/54): 19 June New York long VALID; correct entry 15:45 open (divergence 15:00-15:35 swing lows); machine 15:50 open 1.14654 is one candle late.
+- NOTE 2026-10-16 (B-248B, his words rules/55): 10 June 18:55 long VALID; 19 June NY long valid, entry 15:45 open (swing 15:35 confirmed at the 15:40 close); machine 15:50 open is one candle after.
 

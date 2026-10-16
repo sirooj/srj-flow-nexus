@@ -1,0 +1,13 @@
+tag,bar,fields,cut_line
+B201FROM,2026.06.10 18:50,ht=1/1/-1 4H-BULL 1H-BULL 15m-BEAR sd=2026.06.10 18:45 zn=1.15361-1.15401|2026.06.10 15:35|NR|ST el=Monthly-POC|LONG|1.15389|2026.06.10 15:05,-
+HTF-CANDLE-4H,2026.06.10 18:50,NOT PRINTED (no tag carries HTF candle o/h/l/c at the read bar; verdict only via B201FROM ht),-
+HTF-CANDLE-1H,2026.06.10 18:50,NOT PRINTED (same as 4H),-
+HTF-CANDLE-15M,2026.06.10 18:50,NOT PRINTED (same as 4H),-
+LTF-5M,2026.06.10 18:50,BULL (ltf=ALIGN on S1-to-S2 row; S1 FRESHCOUNT ltf field),-
+SESS-LEVELS,2026.06.10 14:00,London high 1.15585 low 1.15465 (B196SESS pLH/pLL),-
+SWEEP-HIGH,2026.06.10 15:40,first candle beyond London high 1.15585: 15:40 high 1.15593 (B196BAR o/h/l/c scan 14:00-18:50),-
+SWEEP-LOW,2026.06.10 14:00,first candle beyond London low 1.15465: 14:00 low 1.15361 (same scan); B182SWEEP tag=pLD.L at 14:00 is prior-day London low, not this sweep,-
+MACHINE-SWEEP,2026.06.10 18:45,sweepTag=0 mrOk=0 (REGIMECENSUS #372; machine counts no fresh sweep for the 18:55 take),-
+REGIME,2026.06.10 18:50,TREND votes=2 trendOk=1 (REGIMECENSUS #372),-
+DIVERGENCE,2026.06.10 18:50,hidden-bull dbar 2026.06.10 18:15 latched (B196DIV latch=1; B182DEC 18:55 FIRE reg=TREND latch=1 div=2),-
+ENTRY,2026.06.10 18:55,LONG Monthly-POC entry 18:55 open 1.15490 (DEALS row; SIGNAL reg=TREND),-

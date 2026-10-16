@@ -34,6 +34,7 @@ rx_rv = re.compile(r'\[B244RV\] bar=(\S+ \S+) dir=(\S+) id=(\S+) dead=(\S+)')
 rx_zg = re.compile(r'\[B245ZG\] bar=(\S+ \S+) dir=(\S+) v=(\S+) out=(\S+)')
 rx_ks = re.compile(r'\[B246KS\] bar=(\S+ \S+) id=(\S+) site=(\S+)')
 rx_zs = re.compile(r'\[B246ZS\] bar=(\S+ \S+) side=(\S+) legStart=(\S+(?: \S+)?) count=(\S+) newest=(.*)$')
+rx_48c = re.compile(r'\[B248C\] bar=(\S+ \S+) side=(\S+) cfvg=(\S+) cxob=(\S+) first=(.*)$')
 rx_flip = re.compile(r'OBPROV\] code=8 id=\d+ bar=(\d+)')
 rx_ren = re.compile(r'kind=fvgRenewal.*?\bbias=(\S+?)[,\s]')
 rx_ren2 = re.compile(r'kind=fvgRenewal')
@@ -124,6 +125,13 @@ with open(DAYLOG, encoding='utf-16', errors='replace') as f:
             s4s.append({'run': RUN, 'date': b[:10].replace('.', '-'), 'time': b[11:16],
                         'code': 'side%s/leg%s/count%s' % (m9.group(2), m9.group(3), m9.group(4)),
                         'kind': 'B246ZS', 'jl': n})
+            continue
+        m10 = rx_48c.search(raw)
+        if m10:
+            b = m10.group(1)
+            s4s.append({'run': RUN, 'date': b[:10].replace('.', '-'), 'time': b[11:16],
+                        'code': 'side%s/cfvg%s/cxob%s' % (m10.group(2), m10.group(3), m10.group(4)),
+                        'kind': 'B248C', 'jl': n})
 cut.close()
 print('scanned %d; deals %d; KILL rows %d; S4/RV/ZG/KS/ZS rows %d' % (n, len(deals), len(kills), len(s4s)))
 print('flip bars %d; renewal bars %d' % (len(flip_bars), len(ren_bars)))

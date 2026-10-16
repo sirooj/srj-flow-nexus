@@ -1,0 +1,8 @@
+candle,o,h,l,c,swing_mark,confirm_candle,latch,pass_row,entry_row,jl
+2026.06.19 15:20,1.14665,1.14673,1.14643,1.14649,SWINGPICK SL none stored,-,-,-,-,-
+2026.06.19 15:25,1.14649,1.14669,1.14638,1.14641,not a swing (15:30 equal low 1.14638; rules/54-55),-,-,-,-,-
+2026.06.19 15:30,1.14641,1.14661,1.14638,1.14655,not a swing (equal low with 15:25),-,-,-,-,-
+2026.06.19 15:35,1.14655,1.14661,1.14620,1.14656,SL=1.14620 stored from the 15:40 bar (SWINGPICK atShift=1),15:40 close per his rules/55,divLatch=1 first at 15:45 CQDRECHECK (B196DIV hidden dbar 15:35),B245ZG 15:45 LONG v4 PASS,-,-
+2026.06.19 15:40,1.14655,1.14660,1.14634,1.14646,-,confirms the 15:35 swing per his words (close after middle),-,-,-,-
+2026.06.19 15:45,1.14644,1.14655,1.14643,1.14649,-,-,B196DIV hidden dbar 15:35 latch=1; B182DEC 15:50 FIRE latch=1 div=2,Owed entry 15:45 open 1.14644 (B196BAR jl 22285746 on B247B cut),-
+2026.06.19 15:50,1.14649,1.14748,1.14648,1.14724,-,-,-,Machine entry 15:50 open 1.14654 deal #12 (A6FIRED bar=15:45; one candle after owed),-

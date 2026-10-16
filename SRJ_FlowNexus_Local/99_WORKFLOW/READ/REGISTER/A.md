@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 25d7d082; the register governs.
 
 ## A. EU VALID TAKEN - his 7, all taken by the EA (register window 26 Aug - 10 Sep 2026)
 
@@ -20,6 +20,7 @@ Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs
 - NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
 | 5 | 7 Sep New York EURUSD, entry 16:45 | LONG | W-POC (retest latest, his chart proof) | 1.16264 [HIS report] | TP 1.16315 [HIS report] | Proves D74FE972 over v7 (his slice); seed 14:55 stands before 16:40 confirm [R60] |
 - NOTE 2026-10-09 (B-137 KEPT): entry and exit side/date/time/price unchanged; lot size re-sized by account value (R2 ACCOUNTED).
+- NOTE 2026-10-15 (B-235, his words): INVALID by NEXT-OPEN-EQUAL (rules/52): 16:35 retest valid at its close, 16:40 opens at the Weekly POC 1.16249; must-never from here on; row kept for audit.
 - NOTE 2026-10-10 (B-157 KEPT, EA 1617DC1ACCE6B50ED2D1359582A70A8B8503C569623EE90C18C6B33542796207): stop 16:15 low 1.16239 (his SEP7 two-swing stop, outward walk); kept B-153 1.16238 at 16:05 retired; entry and exit unchanged.
 | 6 | 8 Sep London EURUSD, entry 10:10 | SHORT | UNKNOWN (source-needed) | 1.16205 [HIS report] | TP 1.16102 [R60 G4] | SEP8 ruling VALID |
 - NOTE 2026-10-10 (B-160 KEPT): machine zone at the 10:05 confirmation = the 8 Sep 9:20 XOB (1.16230-1.16256); his zone for this trade is UNKNOWN on record (never inferred); entry, stop and exit unchanged.
@@ -31,4 +32,6 @@ Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs
 - CORRECTION 2026-10-06 (B-33 j17:53800/53804): row 3 exit is DAY_CLOSE Friday 9/4 23:55 at 1.16129 (EXECUTION PINNED 2026-09-25); the 1.16093 cell is the retired next-day-open fill.
 - NOTE 2026-10-07 (B-67, his words): row 3 target at entry was the London session high 1.16302, closed by the day-close exit (strategy Ruling 2026-10-07 (B-67), 0904-NY-TARGET-LDNHIGH; journal row 312; ledger 1211).
 - NOTE 2026-10-07 (B-67, his words): row 7 target was the Yearly POC 1.16114 by POI hierarchy + nearest-target rule (strategy Ruling 2026-10-07 (B-67), 0908-NY-TARGET-YPOC; journal row 313; ledger 1211).
+
+- HELD (B-236 fold, size gate): section B (UJ VALID MISSED) moved verbatim to BUILDER_REGISTER_VALID_TRADES_HELD.md; held, never deleted.
 

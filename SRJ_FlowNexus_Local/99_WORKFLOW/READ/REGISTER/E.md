@@ -1,4 +1,4 @@
-Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 3f79224b; the register governs.
+Read copy of BUILDER_REGISTER_VALID_TRADES.md sha 25d7d082; the register governs.
 
 ## E. HOW FUTURE BUILDS USE THIS FILE
 

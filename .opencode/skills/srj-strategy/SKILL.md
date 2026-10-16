@@ -73,5 +73,7 @@ Spec Part A v4.2 states the baseline; his later words amend it; council prose ne
 - rules/51_his-words-2026-10-15-b-233-retest-open.md: ## His words 2026-10-15 (B-233 addendum) - retest open equals line; live candle is truth (1088 bytes)
 - rules/52_his-words-2026-10-15-b-235-next-open-equal.md: ## His words 2026-10-15 (B-235 addendum) - next candle open equal to the line invalidates; 7 Sep NY long invalid (2165 bytes)
 - rules/53_his-words-2026-10-16-b-245-no-code-stop.md: ## His words 2026-10-16 (B-245) - no code stop; GU and UJ next; 10 Jun setup class
+- rules/54_his-words-2026-10-16-b-248a-19-jun-valid-late-div.md: ## His words 2026-10-16 (B-248A) - 10 June setup class pending; 19 June valid, entry 15:45; later divergence validation; CQD equal-low swing
+- rules/55_his-words-2026-10-16-b-248b-10-jun-valid-swing-confirm.md: ## His words 2026-10-16 (B-248B) - 10 June valid; 19 June swing confirmed at the 15:40 close, entry 15:45
 
 Load this file and every file in the index, in index order.
