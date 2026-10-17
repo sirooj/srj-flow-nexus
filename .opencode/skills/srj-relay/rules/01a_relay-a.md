@@ -70,3 +70,4 @@ Row pack (kit PK-2, operator order 2026-10-09, relay B-131)
 - Also write one file per trading day, ROWPACK/<run>/<YYYY-MM-DD>.csv (same columns), so the planner reads one day at a time (PK-2, relay B-132).
 - Rows of an open trade are kept from entry to exit even outside the session windows (MTEXIT, exit, day-close and deal rows), so every exit is in the pack.
 - Packs are text records, staged by explicit path. The pointer carries one Lane line: open item, first relay, relay count.
+- Stacked builds: the base named for the gate outcome is used as written; a failed RECON62 gate never runs EU0525TD (B-250 D1/D2).

@@ -10,17 +10,12 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
 
 ## LIVE NOW (measured this turn - these numbers win over any older cite)
 
-- Latest state 2026-09-30: V356 Q1 2-0 CLEAR + v357 corrected record 21AE25E4 (ledger 1023 grade adopted + 1024; key + run word owed, nothing builds/runs). Prior memory (superseded): strategy s8 + council s43 rules-first (ledger 1022).
-- EA under test: `Experts\SRJ_FlowNexus_EA.mq5` FC41EE0D/671645/12127 (v10 built 2026-09-28 from v19 remainder F/G1/H1/H2; 0/0 compile; alert-only stands).
-- Open packet: `01_TASKS\PACKET_P-UJIMPL-IMPL-2.md` v19 DRAFT 806B9ECD/84749/485 (V331-fold answers; Luna KEY-IMPL2-V19 granted + his run word banked ledger 942; build+run authorized fresh session).
-- Prior relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v324-IMPL2-9.md` DB316D1F/108428/918 (transported + graded HALT-ALL V324; superseded by the open v325 line below).
-- Open relay: `06_HANDOFFS\BUILDER_RELAY_COUNCIL_v332-IMPL2-17.md` 744768F4/157676/1437 (transported + graded ALL CLEAR ledger 938; twin of v19 806B9ECD).
-- Built + graded tree: `Experts\SRJ_FlowNexus_EA.mq5` 48EDC504/664981/12028 (v9 build 2026-09-27 21:49; RECON72 DONE=PASSED 22:42:43, graded 1/4 UJ venues: 6/3 TP win, 3 misses with death rows; key fully spent; alert-only stands).
-- Latest grade: `06_HANDOFFS\BUILDER_RESULT_V332-GRADE.md` A3BD6334/7000/47 (Q1 2-0 CLEAR / R1 2-0 CLEAR; authorizes no build; wordlist pending).
-- Take inventory: `06_HANDOFFS\BUILDER_MATRIX_TREETAKES.md` (which build took what, rows cited, UNKNOWN where unknown).
-- Your journal: `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (your data - never committed, never edited by builder).
-- Your UJ answers (filed whole): `06_HANDOFFS\BUILDER_FINDING_USDJPY-MISSES.md` lines 48-54 + correction section at end.
-- Your chart rulings: `06_HANDOFFS\BUILDER_FINDING_RETEST-INVALIDATION-V1.md` section 6 (Ruling 3 for 27 Aug + Ruling 4 for 1 Sep).
+- Latest state 2026-10-17: relay B-251 (SRJ euro lane, F4a diagnostic 3 = I) closed RESTORED; ledger 1409. I never fired (zero trigger prints, 19 weeks); pure-base control byte-identical to hunked run; K19JUN still owed (machine fills 19 June 15:50 one candle late).
+- B-251-3 compile-chain finding (OPEN, builder methodology): same source + same .B248DK-species includes = different ex5 species per compile; per-binary replay deterministic; cross-compile EU grades not same-source-attributable. Same-binary control discipline floated for his word - never self-adopted.
+- B-251 keep: `.B251IK` 9-file pair set unstaged (EA 9556d0ab/768995, ex5 6ebb8fd4/521028); live tree restored .preB251 10/10 SHA MATCH (EA 18A1D49B/764253 merged-era kept bytes; ex5 D85CF7D2; terminal 2862B31F; charts 37/37).
+- Result: `06_HANDOFFS\BUILDER_RESULT_B251.md`; slice: `BUILDER_SLICE_B251.md`; batch: `REPORT\REVIEW_BATCH_B251.md` (all 6 machine takes repeat the B-250 batch; no new class); cuts: CUT_RECON62-B251I/RECON62-B251ICT/EU0525TD-B251I/EU0525TD-B251ICT + ROWPACK deals ×4.
+- Run counts this day: 4 runs (RECON62-B251I, EU0525TD-B251I, RECON62-B251ICT replay-probe, EU0525TD-B251ICT control) - all DONE=PASSED, all graded, windows journal-proven.
+- Fixtures (always live): take inventory `BUILDER_MATRIX_TREETAKES.md`; your journal `00_CURRENT_WORKING\OPERATOR_TRADE_JOURNAL.csv` (never committed, never edited); your UJ answers `BUILDER_FINDING_USDJPY-MISSES.md` + chart rulings `BUILDER_FINDING_RETEST-INVALIDATION-V1.md` (sections re-linked on read).
 - Law of the land: `00_CURRENT_WORKING\SRJ Flow Nexus — Part A Specification v4.2` + `GOAL_STATEMENT.md` + `CHARTER.md`.
 
 ## QUARANTINED ON YOUR ORDER (genuine files - row-level use BLOCKED until you bless which binary ran them)
@@ -128,5 +123,23 @@ Rule: read this file BEFORE any record search. Told files are history only - nev
   - 2026-10-01: HIS 5M-FLIP WORD + V26/V376 FOLD (ledger 1066: 5M-FLIP-KILL pinned, anti-flip unparked, 8-June structural; packet v26 732CAF7D/42947/184 prose-only; relay v376 995D07AF/69256/383 relay-ready; BUILD-BLOCKED).
   - 2026-10-01: V376 FILED+GRADE + V27/V377 FOLD (ledger 1067: Q1 1-2 OBJECT + Q2 0-3 OBJECT unanimous; packet v27 92D23CC2/45263/184 prose-only; relay v377 1FA8EC7A/72295/391 relay-ready; BUILD-BLOCKED).
   - 2026-10-01: V377 FILED+GRADE + V28/V378 FOLD (ledger 1068: Q1 1-2 OBJECT + Q2 0-3 OBJECT unanimous; packet v28 2AD2D267/47847/184 prose-only; relay v378 DD483BAB/74723/391 relay-ready; BUILD-BLOCKED; commit builder-called).
+  - 2026-10-02: SKILL HARDENING (ledger 1097: MEMO-DIGEST-BIND + mechanical pointer binding + portability; council skill + handoff command).
+  - 2026-10-02: V391 FILED+GRADE + V3/V392 FOLD (ledger 1098: Q1 CONFIRM + Q2 SPLIT + Q3 CONFIRM-narrowed; packet v3 67D02A4F/18144/131; relay v392 AD6083D1 relay-ready; BUILD-BLOCKED).
+  - 2026-10-02: V392 FILED+GRADE + STUDY (ledger 1099: Q1 1-2 DISCREPANCY + Q2 3-0 CONFIRM + Q3 1-2 DISCREPANCY; form-b settled; SELF-CONTAINMENT pin; v4 spec owed; BUILD-BLOCKED).
+  - 2026-10-02: ROUTING REPAIR (ledger 1100: O1/O6/O7 withdrawn to council v4; Ask-routing pin; per-mistake dispositions).
+  - 2026-10-02: O2/O3/O4 PINNED (ledger 1101: SYMMETRY/6-5-TIMING/VETO; O3 record-first + O5 which-trade defects owned).
+  - 2026-10-02: O4 CONSTRAINT + O5 RE-ASK (ledger 1102: LIVE-TRADE-BLOCKS-ALL; O5 second defect owned).
+  - 2026-10-02: O5 EXACT + RECORD FAILURE (ledger 1103: NO-TOLERANCE pinned since 2026-09-23; D1 owned; O5 withdrawn).
+  - 2026-10-02: D14 FILED (ledger 1104: V392 cited-without-spliced; bypassed-not-missing; CITED-EXHIBIT pin; v4 correction).
+  - 2026-10-02: LEARNING AUDIT (ledger 1105: all pins verified 1x by grep; MISSING-VS-BYPASSED pin; CR-census pending v4).
+  - 2026-10-02: V4/V393 RELAY-READY (ledger 1106: packet v4 2D24202E/32745/292; relay v393 AF64654B/37453/321; twin 292/292; CR-zero; cite-gate fired once; verdicts + register word owed; BUILD-BLOCKED).
+  - 2026-10-02: V393 FILED/GRADED (ledger 1107: Luna 3xDISC, Sonnet Q1-DISC/Q2-CONF/Q3-DISC, GLM 3xCONF-cond; O1/O6 ruled; form-b re-sited).
+  - 2026-10-02: V5/V394 RELAY-READY (ledger 1108: packet v5 0457B33D/39238/361; relay v394 76BC456F/43583/390; twin 361/361; CR-zero in-packet; verdicts + register word owed; BUILD-BLOCKED).
+  - 2026-10-02: HASH-SCARE AUDIT (ledger 1109: false mismatch owned; all memos bind; V394 line added to pointer).
+  - 2026-10-02: V394 FILED + FROZEN (ledger 1110: Q1 0-3 DISC, Q2 2-1 CONF, Q3 1-2 DISC; no build clearance; no v6; operator quit).
+  - 2026-10-02: V395 RELAY-READY (ledger 1111: packet v7 + relay v395 + digest-bound memo; twin 519/519; 18 source spans + 28 journal rows exact; two GREEN batteries; Q1/Q3 open, Q2 closed; operator carry to Sonnet/GLM owed).
+  - 2026-10-02: V395 GRADED (ledger 1112: Sonnet and GLM replies filed; Q1/Q3 each 1-1 split DISCREPANCY; Q2 closed-confirm; no build clearance; focused v8 design page is next).
 
+  - 2026-10-03: V396 RELAY-READY (ledger 1113: v8 packet BAFC5565/148563/1968; relay F766F31C/162959/1977; twin 1968/1968, 1562 EA rows + 28 SEG rows exact; memo 26A8A999/1074/14; Q1/Q3 consolidated Sonnet+GLM carry, Q2 closed; no build/run authority).
+  - 2026-10-03: V396 FILED+GRADED (ledger 1114: Sonnet+GLM complete replies; Q1/Q3 each CONFIRM + DISCREPANCY -> CONDITIONAL-CONFIRM under TIE-FIXED; Q2 closed; grade 4FA60380/10694/64; Q3 telemetry/build-provenance reconciliation remains required; no build/run authority).
 (End of file)
