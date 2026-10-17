@@ -207,6 +207,16 @@ MT_EXIT_DAY_CLOSE   = 8
 #define FL_BUF_XOB_ZONE_LOW      23
 #define FL_BUF_FVG_LEG_ZONE_HIGH 24
 #define FL_BUF_FVG_LEG_ZONE_LOW 25
+//--- [B153K] PROMO-RETURN verdicts (relay B-153 K4; additive, next free indices).
+#define FL_BUF_B150_BULL         48
+#define FL_BUF_B150_BEAR         49
+//--- [B157K] 5m 2xOB flag export (relay B-156 K1, re-applied B-157; next free index).
+#define FL_BUF_B156_2XOB         50
+//--- [B177HZ] His-zone export values (relay B-177 K2; additive, next free indices).
+#define FL_BUF_HZ_GAP_BULL       51
+#define FL_BUF_HZ_GAP_BEAR       52
+#define FL_BUF_HZ_WIN_BULL       53
+#define FL_BUF_HZ_WIN_BEAR       54
 
 #define SWEEP_NONE        0
 #define SWEEP_ASIA_HIGH   1
@@ -248,6 +258,7 @@ struct SManagedTrade
    double       entryPrice;        // the S5 next-open reference = the fill level
    double       slRef;             // the latched two-branch stop
    double       tpRef;             // the admission TP figure (provenance)
+   int          tpPoi;             // booked POI line index (-1 = session/pool)
    int          regimeAtAdmission; // ENUM_SRJ_REGIME as int (drives the 5.6 scope)
    datetime     fillBarTime;       // the fill candle's OPEN time (the next candle)
    datetime     signalBarTime;     // the confirming candle's open time
@@ -301,6 +312,14 @@ double   uj_memo_sl = 0.0;
 double   uj_memo_entry = 0.0;
 bool     uj_memo_valid = false;
 datetime g_ujOpReseedBarTime = 0;
+int      g_ujOpReseedDir = 0;
+//--- [B-68 hunk S] seed-pointing snapshot for the retrospective death check:
+//--- the bar time, anchor line and direction of the latest seed or opposite
+//--- re-point (DetectPoiRetest seed, UJRESEED, SIDE1C_PREEMPT). B3 supersession
+//--- never writes these (anchor-label moves only; the retest event stands).
+datetime g_s54SeedTime = 0;
+int      g_s54SeedLine = -1;
+int      g_s54SeedDir = 0;
 int      uj_memo_anchor = -1;
 int      uj_memo_dir = 0;
 datetime uj_memo_barTime = 0;
@@ -401,12 +420,19 @@ void MtReset()
 #define ABORT_SUB_1R           "SUB_1R"
 #define ABORT_NO_MEMO_AT_FIRE  "NO_MEMO_AT_FIRE"
 #define ABORT_MEMO_IDENTITY  "MEMO_IDENTITY"
+//--- [B-68 hunk S] pre-confirmation POI body-break death (spec S5.4, his Ruling 1).
+//--- Diagnostic string only, like the fire-path reasons above.
+#define ABORT_S54_POI_BREAK    "S54_POI_BREAK"
 //--- [Task 78] Part A Step 8 / D-3 / G-2 replacement. Diagnostic string only;
 //--- no gate reads an abort reason.
 #define ABORT_POI_REPLACED     "POI_REPLACED"
 #define ABORT_DIV_FALLBACK     "DIV_FALLBACK"
 #define ABORT_SEEDBIAS_REFUSED "SEEDBIAS_REFUSED"
 #define ABORT_HOLDER_EXPIRED   "HOLDER_EXPIRED"
+//--- [B153K] PROMO-RETURN refusal (relay B-153 K4; additive diagnostic string only).
+#define ABORT_PROMO_RETURN_NONE "PROMO_RETURN_NONE"
+//--- [B177HZ] His-zone refusal (relay B-177 K3; additive diagnostic string only).
+#define ABORT_HISZONE_NONE "HISZONE_NONE"
 
 //====================== [Task 160] Migration data contracts ==========
 // Twelve data contracts as an INERT ARCHITECTURE SHELL. Types only.
@@ -1098,6 +1124,9 @@ datetime         g_latchBarTime   = 0;
 //--- CONFIRM_DIV_WAIT rollback. Cleared in ResetSequence() and therefore a
 //--- working-set member (field 20, the membership rule).
 ENUM_SRJ_STATE   g_confirmFromState = ST_IDLE;
+//--- [B-61 C2] retest-candle OPEN TIME for term C: stamped at seed, converted
+//--- to a shift at the live confirmation gate (shifts go stale a pass later).
+datetime         g_b61RetestTime = 0;
 //--- [P-FRESH-S5OPP E1-K4 2026-09-18] S4 FRESH-OPP-abort veto, consume-on-fire:
 //--- stamped on abort, refuses at most one latch, zeroed as it refuses. BOUND/DAY
 //--- release (S4) and at the latch (E1d). ResetSequence-EXEMPT +
@@ -1810,6 +1839,8 @@ void LogState(ENUM_SRJ_STATE from, ENUM_SRJ_STATE to)
                StateName(from), StateName(to), DirName(g_dir), AnchorStr());
   }
 
+//--- B182P prototype (definition with the marker sits before GoAbort).
+void B182DecPrint(const string outcome);
 void LogAbort(const string reason, ENUM_SRJ_STATE atState)
   {
    PrintFormat("[SRJ-EA] %s ABORT reason=%s state=%s poi=%s dir=%s",
@@ -1838,6 +1869,8 @@ void LogSignal(double tpTarget, double tpR, double slRef,
                (int)SymbolInfoInteger(_Symbol, SYMBOL_SPREAD),
                DoubleToString(SymbolInfoDouble(_Symbol, SYMBOL_BID), _Digits),
                DoubleToString(SymbolInfoDouble(_Symbol, SYMBOL_ASK), _Digits));
+    // B182P decision census (print-only; the firing pass).
+    B182DecPrint("FIRE");
   }
 
 //--- TASK 14c: alert emitter. Builds a short line for push/popup
@@ -2178,7 +2211,259 @@ int B3_ElectAnchor(int barShift, ENUM_SRJ_DIR dir)
       if(tr < bestTier || (tr == bestTier && rk < bestRank))
         { bestTier = tr; bestRank = rk; bestLine = k; }
      }
-   return bestLine;
+    return bestLine;
+   }
+
+//--- [B-68 hunk S] snapshot writer: records the pointing bar time, the anchor
+//--- line and the direction. Called at the seed site, UJRESEED and
+//--- SIDE1C_PREEMPT only. Read-only; writes the 3 statics.
+void SrjS54Snap(int snapShift, ENUM_SRJ_DIR snapDir)
+  {
+   g_s54SeedTime = iTime(_Symbol, PERIOD_CURRENT, snapShift);
+   g_s54SeedLine = g_anchorLine;
+   g_s54SeedDir  = (snapDir == DIR_LONG ? 1 : (snapDir == DIR_SHORT ? -1 : 0));
+  }
+//--- [B-68 hunk S] same-side touch test, B3_ElectAnchor inequalities
+//--- (EA:2171-2174), read-only. Equal-open counts as on-side: his explicit
+//--- "valid retest" verdict on the equal-open 14:35 bar (s86) governs the hairline.
+bool SrjS54Touched(int sh, int line, ENUM_SRJ_DIR dir)
+  {
+   double L;
+   if(line < 0 || line >= POI_NLINES) return false;
+   if(sh < 1) return false;
+   if(!ReadBuf1(g_hPoi, line, L, sh)) return false;
+   if(L == EMPTY_VALUE || L <= 0.0) return false;
+   double o = iOpen(_Symbol, PERIOD_CURRENT, sh);
+   double h = iHigh(_Symbol, PERIOD_CURRENT, sh);
+   double l = iLow(_Symbol, PERIOD_CURRENT, sh);
+   if(o <= 0.0 || h <= 0.0 || l <= 0.0) return false;
+   double cNext = iOpen(_Symbol, PERIOD_CURRENT, sh - 1);
+   if(cNext <= 0.0) cNext = iClose(_Symbol, PERIOD_CURRENT, sh);
+   double P = _Point, EPS = P * 0.001;
+   double bodyLo = MathMin(o, cNext), bodyHi = MathMax(o, cNext);
+   if(dir == DIR_LONG) return (l <= L - P + EPS && bodyLo >= L - EPS);
+   if(dir == DIR_SHORT) return (h >= L + P - EPS && bodyHi <= L + EPS);
+   return false;
+  }
+//--- [B-68 hunk S] retrospective death check at confirm-commit (spec S5.4).
+//--- Judged retest = latest bar in [seed, confirm] with a same-side touch of
+//--- the snapshot line (s86: earlier closes go moot with a later valid retest).
+//--- Any strict body close through the line, against the trade direction, in
+//--- (judged, confirm] kills: S54KILL prints, GoAbort fires, true returns and
+//--- the caller must NOT advance to S5. Zero tolerance. Live line values
+//--- (same source as UJDTTERMS; moot on all banked instances). Read-only
+//--- except the kill path.
+bool SrjS54DeadAtConfirm(int confirmShift)
+  {
+   if(g_s54SeedTime <= 0 || g_s54SeedLine < 0 || g_s54SeedLine >= POI_NLINES) return false;
+   int wantDir = (g_dir == DIR_LONG ? 1 : (g_dir == DIR_SHORT ? -1 : 0));
+   if(wantDir == 0 || wantDir != g_s54SeedDir) return false;
+   int seedShift = iBarShift(_Symbol, PERIOD_CURRENT, g_s54SeedTime, true);
+   if(seedShift < 0 || confirmShift < 1 || seedShift < confirmShift) return false;
+   int judgedShift = -1;
+   for(int sh = confirmShift; sh <= seedShift; sh++)
+     {
+      if(SrjS54Touched(sh, g_s54SeedLine, g_dir)) { judgedShift = sh; break; }
+     }
+   if(judgedShift < 0) judgedShift = seedShift;
+   for(int b = judgedShift - 1; b >= confirmShift; b--)
+     {
+      double L;
+      if(!ReadBuf1(g_hPoi, g_s54SeedLine, L, b)) continue;
+      if(L == EMPTY_VALUE || L <= 0.0) continue;
+      double bo = iOpen(_Symbol, PERIOD_CURRENT, b);
+      double bc = iClose(_Symbol, PERIOD_CURRENT, b);
+      if(bo <= 0.0 || bc <= 0.0) continue;
+      bool broke = (g_dir == DIR_LONG) ? (bc < L) : (bc > L);
+      if(broke)
+        {
+         PrintFormat("[SRJ-EA] S54KILL bar=%s line=%s lineVal=%s o=%s c=%s rt=%s - pre-confirmation POI body-break death ([B-68 hunk S])",
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT, b), TIME_DATE|TIME_MINUTES),
+                     g_lineCode[g_s54SeedLine], DoubleToString(L, _Digits),
+                     DoubleToString(bo, _Digits), DoubleToString(bc, _Digits),
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT, judgedShift), TIME_DATE|TIME_MINUTES));
+         GoAbort(ABORT_S54_POI_BREAK, g_state);
+         return true;
+        }
+     }
+   return false;
+  }
+
+//====================== [B-78 hunk RK] row-keyed target race =====================
+//--- His words: the target race keys off the strongest line in the latest
+//--- retest candle (s65 family ranks + s87 POC-SUPREMACY), and a trade never
+//--- aims at any line it was retested from (s94 OWN-SOURCE-EXCLUSION; s53/s51/s46
+//--- latest-retest-governs). Per live seed, hold the line list of the latest
+//--- RETESTBOOK row with hits >= 1 from the seed bar up to the current bar.
+//--- Target logic only: session/pool, validity, nearest-wins, 1R floor, entry,
+//--- stop, exits, hunk S and every non-target use of g_anchorLine untouched.
+int      g_rkLines[POI_NLINES];
+int      g_rkSide[POI_NLINES];   //--- [B-81 hunk RKD] hit side parallel to g_rkLines: 1 = long-side hit, 0 = short-side hit (same longHit tag as RETESTBOOK dL/dS)
+int      g_rkCount = 0;
+datetime g_rkRowTime = 0;
+//--- [B-170 WINLINE] held entry-line set per session+direction (his B1 + L36(a)
+//--- widened from the entry-anchor line to every trade-side retested line alive
+//--- at confirmation; L36(b) untouched). Same hit inequalities as RETESTBOOK;
+//--- death = body close through the line (his retest-death words); clears on
+//--- session change only, never on reseed, never on a 5m flip.
+int      g_wlLong[2][POI_NLINES];
+int      g_wlLongN[2];
+int      g_wlShort[2][POI_NLINES];
+int      g_wlShortN[2];
+datetime g_wlDay[2];
+int      g_wlFrozen[POI_NLINES];
+int      g_wlFrozenN = 0;
+int WlSessIdx(const ENUM_SRJ_SESSION s)
+  {
+   if(s == SESSION_LONDON) return 0;
+   if(s == SESSION_NYAM)   return 1;
+   return -1;
+  }
+void WinlineUpdate(const int barShift, const datetime barTime, const ENUM_SRJ_SESSION sess)
+  {
+   int si = WlSessIdx(sess);
+   if(si < 0) return;
+   datetime ds = TC_DayStart(barTime);
+   if(g_wlDay[si] != ds)
+     { g_wlLongN[si] = 0; g_wlShortN[si] = 0; g_wlDay[si] = ds; }
+   double o = iOpen(_Symbol, PERIOD_CURRENT, barShift);
+   double h = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+   double l = iLow (_Symbol, PERIOD_CURRENT, barShift);
+   double c = iClose(_Symbol, PERIOD_CURRENT, barShift);
+   if(h <= 0.0 || l <= 0.0) return;
+   double cNext = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+   if(cNext <= 0.0) cNext = c;
+   double bodyHi = MathMax(o, cNext);
+   double bodyLo = MathMin(o, cNext);
+   double P   = _Point;
+   double EPS = P * 0.001;
+   string bt = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
+   for(int k = 0; k < POI_NLINES; k++)
+     {
+      double L;
+      if(!ReadBuf1(g_hPoi, k, L, barShift)) continue;
+      if(L == EMPTY_VALUE || L <= 0.0)      continue;
+      bool longHit  = (l <= L - P + EPS && bodyLo >= L - EPS);
+      bool shortHit = (h >= L + P - EPS && bodyHi <= L + EPS);
+      if(longHit)
+        {
+         bool has = false;
+         for(int i = 0; i < g_wlLongN[si]; i++) { if(g_wlLong[si][i] == k) { has = true; break; } }
+         if(!has && g_wlLongN[si] < POI_NLINES)
+           {
+            bool wasEmpty = (g_wlLongN[si] == 0 && g_wlShortN[si] == 0);
+            g_wlLong[si][g_wlLongN[si]] = k; g_wlLongN[si]++;
+            if(InpDebugLog) PrintFormat("[SRJ-EA] WINLINE bar=%s dir=LONG action=%s line=%s val=%s", bt, (wasEmpty ? "OPEN" : "ADD"), g_lineCode[k], DoubleToString(L, _Digits));
+           }
+        }
+      else
+        {
+         for(int i = 0; i < g_wlLongN[si]; i++)
+           {
+            if(g_wlLong[si][i] == k && c < L - EPS)
+              {
+               for(int j = i; j < g_wlLongN[si] - 1; j++) g_wlLong[si][j] = g_wlLong[si][j + 1];
+               g_wlLongN[si]--;
+               if(InpDebugLog) PrintFormat("[SRJ-EA] WINLINE bar=%s dir=LONG action=KILL line=%s val=%s", bt, g_lineCode[k], DoubleToString(L, _Digits));
+               break;
+              }
+           }
+        }
+      if(shortHit)
+        {
+         bool has = false;
+         for(int i = 0; i < g_wlShortN[si]; i++) { if(g_wlShort[si][i] == k) { has = true; break; } }
+         if(!has && g_wlShortN[si] < POI_NLINES)
+           {
+            bool wasEmpty = (g_wlLongN[si] == 0 && g_wlShortN[si] == 0);
+            g_wlShort[si][g_wlShortN[si]] = k; g_wlShortN[si]++;
+            if(InpDebugLog) PrintFormat("[SRJ-EA] WINLINE bar=%s dir=SHORT action=%s line=%s val=%s", bt, (wasEmpty ? "OPEN" : "ADD"), g_lineCode[k], DoubleToString(L, _Digits));
+           }
+        }
+      else
+        {
+         for(int i = 0; i < g_wlShortN[si]; i++)
+           {
+            if(g_wlShort[si][i] == k && c > L + EPS)
+              {
+               for(int j = i; j < g_wlShortN[si] - 1; j++) g_wlShort[si][j] = g_wlShort[si][j + 1];
+               g_wlShortN[si]--;
+               if(InpDebugLog) PrintFormat("[SRJ-EA] WINLINE bar=%s dir=SHORT action=KILL line=%s val=%s", bt, g_lineCode[k], DoubleToString(L, _Digits));
+               break;
+              }
+           }
+        }
+     }
+  }
+void WinlineFreeze(const ENUM_SRJ_DIR dir, const int si, const datetime barTime)
+  {
+   g_wlFrozenN = 0;
+   string bt = TimeToString(barTime, TIME_DATE|TIME_MINUTES);
+   if(si >= 0)
+     {
+      if(dir == DIR_LONG)
+        { for(int i = 0; i < g_wlLongN[si]; i++) { g_wlFrozen[g_wlFrozenN] = g_wlLong[si][i]; g_wlFrozenN++; } }
+      else if(dir == DIR_SHORT)
+        { for(int i = 0; i < g_wlShortN[si]; i++) { g_wlFrozen[g_wlFrozenN] = g_wlShort[si][i]; g_wlFrozenN++; } }
+     }
+   if(InpDebugLog)
+     {
+      if(g_wlFrozenN <= 0)
+         PrintFormat("[SRJ-EA] WINLINE bar=%s dir=%s action=FREEZE line=none val=-", bt, DirName(dir));
+      for(int i = 0; i < g_wlFrozenN; i++)
+         PrintFormat("[SRJ-EA] WINLINE bar=%s dir=%s action=FREEZE line=%s val=-", bt, DirName(dir), g_lineCode[g_wlFrozen[i]]);
+     }
+  }
+bool WinlineFrozenExempt(const int k)
+  {
+   for(int i = 0; i < g_wlFrozenN; i++) { if(g_wlFrozen[i] == k) return true; }
+   return false;
+  }
+void SrjRowkeyClear()
+  {
+   g_rkCount = 0; g_rkRowTime = 0;
+  }
+void SrjRowkeyUpdate(const int barShift)
+  {
+   if(g_anchorLine < 0) return;
+   double o = iOpen(_Symbol, PERIOD_CURRENT, barShift);
+   double h = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+   double l = iLow (_Symbol, PERIOD_CURRENT, barShift);
+   double c = iClose(_Symbol, PERIOD_CURRENT, barShift);
+   if(h <= 0.0 || l <= 0.0) return;
+   double cNext = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+   if(cNext <= 0.0) cNext = c;
+   double bodyHi = MathMax(o, cNext);
+   double bodyLo = MathMin(o, cNext);
+   double P   = _Point;
+   double EPS = P * 0.001;
+   int lines[POI_NLINES]; int sides[POI_NLINES]; int n = 0;
+   for(int k = 0; k < POI_NLINES; k++)
+     {
+      double L;
+      if(!ReadBuf1(g_hPoi, k, L, barShift)) continue;
+      if(L == EMPTY_VALUE || L <= 0.0)      continue;
+      bool longHit  = (l <= L - P + EPS && bodyLo >= L - EPS);
+      bool shortHit = (h >= L + P - EPS && bodyHi <= L + EPS);
+      if(!longHit && !shortHit) continue;
+      if(n < POI_NLINES) { lines[n] = k; sides[n] = (longHit ? 1 : 0); n++; }   //--- [B-81 hunk RKD] keep the hit side beside the index, same longHit tag as RETESTBOOK dL/dS
+     }
+   if(n <= 0) return;
+   for(int i = 0; i < n; i++) { g_rkLines[i] = lines[i]; g_rkSide[i] = sides[i]; }
+   g_rkCount = n;
+   g_rkRowTime = iTime(_Symbol, PERIOD_CURRENT, barShift);
+  }
+bool RkHeldRefused(const int k, const ENUM_SRJ_DIR dir)
+  {
+   if(g_rkCount <= 0) return false;
+   for(int i = 0; i < g_rkCount; i++)
+     {
+      if(g_rkLines[i] != k) continue;
+      if(dir == DIR_LONG) return (g_rkSide[i] == 1);   //--- [B-81 hunk RKD] refuse only the side-matched held lines
+      if(dir == DIR_SHORT) return (g_rkSide[i] == 0);
+      return false;
+     }
+   return false;
   }
 
 //====================== [P-CONFIRM-SHADOW] log-only instruments ======================
@@ -2333,8 +2618,9 @@ void ShadowConfirmPoll(const int barShift, const int anchorLine, const ENUM_SRJ_
 //---   C  the prior candle's range touched the anchor line (the CONFIRMPOLL
 //---      touchAttr test with its +/- 1 point guard).
 //--- failTerm names the FIRST failed term ("" = all terms passed).
- bool IsConfirmationCandle(const int barShift, const int anchorLine,
-                           const ENUM_SRJ_DIR dir, string &failTerm, const bool allowReclaim = false)
+   bool IsConfirmationCandle(const int barShift, const int anchorLine,
+                           const ENUM_SRJ_DIR dir, string &failTerm, const bool allowReclaim = false,
+                           const int retestShift = -1)
   {
    failTerm = "";
    if(anchorLine < 0 || dir == DIR_NONE) { failTerm = "NO_ANCHOR"; return false; }
@@ -2364,15 +2650,68 @@ void ShadowConfirmPoll(const int barShift, const int anchorLine, const ENUM_SRJ_
       }
     bool oppCandle = (dir == DIR_LONG)  ? (c1 < o1) : (c1 > o1);
     if(!oppCandle)  { failTerm = "A_OPP"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
+    //--- [B38 A2-RECLAIM] his PRIOR-CLOSE-IRRELEVANT (2026-09-25) + CONFIRMATION-CANONICAL
+    //--- (2026-09-30): the bar before the retest never judges. A prior close through the
+    //--- line is break-then-reclaim when the current candle OPENS on the setup side and
+    //--- CLOSES holding on it (LONG o0 >= L && c0 >= L; SHORT o0 <= L && c0 <= L). Zero margin.
     bool closeSideOk = (dir == DIR_LONG) ? (c1 >= L || (allowReclaim && o1 <= L && c0 >= o1)) : (c1 <= L || (allowReclaim && o1 >= L && c0 <= o1));
+    bool b38Reclaim  = (dir == DIR_LONG) ? (c1 < L && o0 >= L && c0 >= L) : (c1 > L && o0 <= L && c0 <= L);
+    if(!closeSideOk && b38Reclaim)
+      {
+       closeSideOk = true;
+       if(InpDebugLog) PrintFormat("[SRJ-EA] A2RECLAIM bar=%s anchor=%s dir=%s c1=%s L=%s o0=%s c0=%s - prior close irrelevant (B38)",
+                                   TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                                   g_lineCode[anchorLine], DirName(dir),
+                                   DoubleToString(c1, _Digits), DoubleToString(L, _Digits),
+                                   DoubleToString(o0, _Digits), DoubleToString(c0, _Digits));
+      }
     if(!closeSideOk) { failTerm = "A2_CLOSE_BREAK"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
     double body    = MathAbs(c0 - o0);
     bool   isDoji  = (body < _Point * 0.0001);
     bool   bodyDir = (dir == DIR_LONG)  ? (c0 > o0) : (c0 < o0);
     if(isDoji || !bodyDir) { failTerm = "B_BODY"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
     bool touch = (h1 >= L - _Point && l1 <= L + _Point);
+    //--- [B-61 C2/C3] touch met by the potential's retest candle OR the candle just
+    //--- before the confirmation candle; exact touch, no guard (s7, s10, s5 no-tolerance).
+    //--- retestShift arrives via iBarShift on the stamped retest OPEN TIME (B-60 defect:
+    //--- a stored shift goes stale a pass later since shifts count from the forming bar).
+    double uj60_hR = h1, uj60_lR = l1;
+    if(retestShift >= 0 && retestShift != barShift + 1)
+      { uj60_hR = iHigh(_Symbol, PERIOD_CURRENT, retestShift); uj60_lR = iLow(_Symbol, PERIOD_CURRENT, retestShift); }
+    bool uj60_tR = (uj60_hR > 0.0 && uj60_hR >= L && uj60_lR <= L);
+    bool uj60_tP = (h1 >= L && l1 <= L);
+    //--- [B-129 XT] the retest-carried touch counts only when the retest candle also
+    //--- reaches the picked XOB, promoted before the retest candle's open (his 2 June
+    //--- words; spec 3.5.1 order). Zone + promotion read from the same source the
+    //--- ZONEPICK row prints, at this confirmation candle (barShift). The kept
+    //--- prior-candle line above is untouched; this term only adds confirmations.
+    double uj129_zHi = 0.0, uj129_zLo = 0.0, uj129_promo = 0.0;
+    bool uj129_haveZone = (ReadFlow(FL_BUF_XOB_ZONE_HIGH, uj129_zHi, barShift) && uj129_zHi != EMPTY_VALUE && uj129_zHi > 0.0
+                        && ReadFlow(FL_BUF_XOB_ZONE_LOW, uj129_zLo, barShift) && uj129_zLo != EMPTY_VALUE && uj129_zLo > 0.0
+                        && ReadFlow(FL_BUF_XOB_PROMO_TIME, uj129_promo, barShift) && uj129_promo != EMPTY_VALUE && uj129_promo > 0.0);
+    bool uj129_xt = false;
+    int uj129_xtPr = -1;
+    if(retestShift >= 0 && uj129_haveZone)
+      {
+       uj129_xt = ((datetime)uj129_promo < g_b61RetestTime && uj60_hR >= uj129_zLo && uj60_lR <= uj129_zHi);
+       uj129_xtPr = (uj129_xt ? 1 : 0);
+      }
+    touch = (touch || (uj60_tR && uj129_xt));
+    string uj60_cSrc = (uj60_tR && uj60_tP) ? "BOTH" : (uj60_tR ? "RETEST" : "PRIOR");
     if(!touch)      { failTerm = "C_TOUCH"; if(n1_vw) g_n1_vwapInv++; if(n1_poc) g_n1_pocInv++; return false; }
     if(n1_vw) g_n1_vwapSurv++; if(n1_poc) g_n1_pocSurv++;
+    //--- [B-61 C4] which candle satisfied C: retest time, computed shift, bar at shift, source.
+    if(InpDebugLog && retestShift >= 0)
+       PrintFormat("[SRJ-EA] B60C bar=%s dir=%s poi=%s rt=%s rSh=%d rBar=%s cSrc=%s xt=%s zxob=%s-%s xpromo=%s - C satisfied by %s ([B-61 C2][B-129 XT])",
+                   TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                   DirName(dir), g_lineCode[anchorLine],
+                   TimeToString(g_b61RetestTime, TIME_DATE|TIME_MINUTES), retestShift,
+                   TimeToString(iTime(_Symbol, PERIOD_CURRENT, retestShift), TIME_DATE|TIME_MINUTES), uj60_cSrc,
+                   (uj129_xtPr < 0 ? "NA" : IntegerToString(uj129_xtPr)),
+                   (uj129_haveZone ? DoubleToString(uj129_zLo, _Digits) : "-"),
+                   (uj129_haveZone ? DoubleToString(uj129_zHi, _Digits) : "-"),
+                   (uj129_haveZone ? TimeToString((datetime)uj129_promo, TIME_DATE|TIME_MINUTES) : "unset"),
+                   (uj60_cSrc == "BOTH" ? "retest and prior candles" : (uj60_cSrc == "RETEST" ? "the retest candle" : "the prior candle")));
     return true;
   }
 
@@ -2476,7 +2815,6 @@ bool UjPoiTargetValid(int k, int anchor)
    int ap = StringFind(ak, "-"), cp = StringFind(ck, "-");
    if(ap < 0 || cp < 0) return true;
    if(StringSubstr(ak, 0, ap) != StringSubstr(ck, 0, cp)) return true;
-   if(StringSubstr(ak, ap + 1) == "POC" && StringSubstr(ck, cp + 1) == "VWAP") return false;
    return true;
   }
 //--- TASK 39 (EA-26 + EA-51): decode FlowLogic buffer 29 for one session/PD TP
@@ -2501,6 +2839,39 @@ bool TpSessionLevelFiltered(int sessIdx, double mask)
    else if(sessIdx == 6 || sessIdx == 7) liveBit = 12;     // NY
    else if(sessIdx == 8 || sessIdx == 9) liveBit = 13;     // PM
    if(liveBit >= 0 && (m & (1 << liveBit)) != 0) return true; // EA-51: session live
+   return false;
+  }
+
+//--- [B190TK] taken-on-candles (B-190 trial; OR'd onto the kept verdict above, kept test untouched)
+bool B190TakenBad(const int b190_idx, const double b190_v, const ENUM_SRJ_DIR b190_dir, const int b190_shift)
+  {
+   datetime b190_barT = iTime(_Symbol, PERIOD_CURRENT, b190_shift);
+   if(b190_barT <= 0 || b190_v == EMPTY_VALUE || b190_v <= 0.0) return false;
+   if(b190_dir != DIR_LONG && b190_dir != DIR_SHORT) return false;
+   bool b190_hi = (b190_idx % 2 == 0);
+   if(b190_dir == DIR_LONG && !b190_hi) return false;
+   if(b190_dir == DIR_SHORT && b190_hi) return false;
+   datetime b190_day = StringToTime(TimeToString(b190_barT, TIME_DATE));
+   datetime b190_floor = (b190_day > 0 ? b190_day - 86400 : 0);
+   int b190_max = Bars(_Symbol, PERIOD_CURRENT);
+   int b190_set = -1;
+   for(int b190_s = b190_shift; b190_s < b190_max; b190_s++)
+     {
+      datetime b190_st = iTime(_Symbol, PERIOD_CURRENT, b190_s);
+      if(b190_st <= 0 || (b190_floor > 0 && b190_st < b190_floor)) break;
+      if(b190_hi && iHigh(_Symbol, PERIOD_CURRENT, b190_s) == b190_v) { b190_set = b190_s; break; }
+      if(!b190_hi && iLow(_Symbol, PERIOD_CURRENT, b190_s) == b190_v) { b190_set = b190_s; break; }
+     }
+   int b190_fsh = (b190_floor > 0 ? iBarShift(_Symbol, PERIOD_CURRENT, b190_floor, false) : -1);
+   int b190_from = (b190_set >= 0 ? b190_set - 1 : b190_fsh);
+   if(b190_from >= b190_max) b190_from = b190_max - 1;
+   for(int b190_c = b190_from; b190_c >= b190_shift; b190_c--)
+     {
+      double b190_ch = iHigh(_Symbol, PERIOD_CURRENT, b190_c);
+      double b190_cl = iLow(_Symbol, PERIOD_CURRENT, b190_c);
+      if(b190_hi && b190_ch > 0.0 && b190_ch > b190_v) return true;
+      if(!b190_hi && b190_cl > 0.0 && b190_cl < b190_v) return true;
+     }
    return false;
   }
 
@@ -2559,24 +2930,98 @@ bool ComputeNearestTpTarget(int barShift, ENUM_SRJ_DIR dir,
 
 //--- [P-EXITMODEL-2 F1 2026-09-21, his nearest-booking word: the booked TP is the nearest valid target; family/category disregarded (amends the 2026-09-17 POI-FIRST fork). Single unified race: the 18 session/PD levels and the eligible POI lines compete by nearest distance through TpTargetUpdateBest. Validity kept per P15: direction and in-zone guard (Task 31) both pools; tier-rank filter POI lines only; swept/live mask (EA-26/EA-51) session/PD lines only; anchor admitted. Session fallback-only deleted; TPCENSUS names the winner unchanged. Tie-break: session pool evaluates first; exact price ties resolve to the session line (TpTargetUpdateBest strict-less-than keeps first-arrived, EA L2246); booked value unaffected, census tie-naming does NOT follow the booking order (disk-proved: census walks session-then-POI per L2391/L2402 but names LAST-equal via POI overwrite at L2413, while booking keeps FIRST-equal per L2246; exact cross-pool ties name POI in census vs session in booking - G2 grades winner==booked by VALUE, tie-name divergence recorded-not-failed). Swept/live (EA-26/EA-51) applies to session/PD candidates only (mask call sits in the session loop, never in any POI loop - unchanged from the old fork); POI candidates carry direction/in-zone/tier-rank. winner==booked proof covers non-anchor bookings via TPCENSUS; anchor-wins, if any, are proved by admission-time rows (MTSNAP/TP_ELECT), since the recompute skips anchor. BOOKCENSUS parked.]
 int anchorRank = (g_anchorLine >= 0) ? g_authorityRank[g_anchorLine] : INT_MAX;
+//--- [B-78 hunk RK] row key replaces the seed-anchor rank: lowest rank in the
+//--- held latest-retest row; empty held list keeps present behaviour (fallback).
+//--- [B-81 hunk RKD] side match: only held lines retested from the race direction
+//--- count as key and own-source; a line retested against the trade is never its
+//--- source (spec S2 row 1 side tag, s94). No side match keeps the kept anchor rank.
+   SrjRowkeyUpdate(barShift);
+   int rkKeyRank = (g_anchorLine >= 0) ? g_authorityRank[g_anchorLine] : INT_MAX;
+   int rkKeyLine = g_anchorLine;
+   int rkFallback = (g_rkCount > 0 ? 0 : 1);
+   if(g_rkCount > 0)
+     {
+      rkKeyRank = INT_MAX; rkKeyLine = -1;
+      int rkMatch = 0;
+      for(int rki = 0; rki < g_rkCount; rki++)
+        {
+         bool rkSideOk = ((dir == DIR_LONG) ? (g_rkSide[rki] == 1) : ((dir == DIR_SHORT) ? (g_rkSide[rki] == 0) : false));
+         if(!rkSideOk) continue;
+         rkMatch++;
+         int rr = g_authorityRank[g_rkLines[rki]];
+         if(rr < rkKeyRank) { rkKeyRank = rr; rkKeyLine = g_rkLines[rki]; }
+        }
+      if(rkMatch > 0) { anchorRank = rkKeyRank; rkFallback = 0; }
+      else { rkKeyRank = (g_anchorLine >= 0) ? g_authorityRank[g_anchorLine] : INT_MAX; rkKeyLine = g_anchorLine; rkFallback = 1; }
+     }
+   if(InpDebugLog)
+     {
+      string rkLines = "", rkOwn = "";
+      for(int rki2 = 0; rki2 < g_rkCount; rki2++)
+        {
+         bool rkTagLong = (g_rkSide[rki2] == 1);
+         bool rkTagOk = ((dir == DIR_LONG) ? rkTagLong : ((dir == DIR_SHORT) ? !rkTagLong : false));
+         if(rki2 > 0) { rkLines += ","; }
+         rkLines += g_lineCode[g_rkLines[rki2]] + ":" + IntegerToString(g_authorityRank[g_rkLines[rki2]]) + ":d" + (rkTagLong ? "L" : "S");
+         if(rkTagOk) { if(rkOwn != "") rkOwn += ","; rkOwn += g_lineCode[g_rkLines[rki2]]; }
+        }
+      PrintFormat("[SRJ-EA] ROWKEY bar=%s row=%s dir=%s lines=%s key=%s tier=%d own=%s fallback=%d",
+                  TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                  (g_rkCount > 0) ? TimeToString(g_rkRowTime, TIME_DATE|TIME_MINUTES) : "none",
+                  DirName(dir),
+                  rkLines, (rkKeyLine >= 0 ? g_lineCode[rkKeyLine] : "none"),
+                  (rkKeyRank >= INT_MAX/2) ? -1 : (rkKeyRank / 2),
+                  rkOwn, rkFallback);
+     }
 for(int i = 0; i < ArraySize(sessbufs); i++)
   {
    double v;
-   if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask))
+   if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask) && !B190TakenBad(i, v, dir, barShift))
       TpTargetUpdateBest(v, dir, currentPrice, best, haveBest, sname[i], uj_dk, -1);
   }
 //--- [P-UJIMPL-IMPL-1 v8 IE5] third candidate loop: published history pool,
 //--- consumable only when READY for the election day; tie order session > pool > POI.
+//--- [B-20 Hunk S'] his rule, strategy skill section 10 TAKEN-LINE-NOT-A-TARGET (spec 3.7 L187): a session high/low already taken before the decision bar is never a booking target. The closure bar is the 5m bar containing the row's closure time; the scan starts at the bar after it through the decision bar. Strict wick test only: high side taken iff the highest wick high in the scan is strictly above the level; low side iff the lowest wick low is strictly below. An exact equal touch is not taken. No buffer, no points allowance (SWEEP-TEST-STRICT).
 if(SrjUjPoolConsumable(uj_dk))
   {
    for(int uji = 0; uji < ArraySize(uj_pool); uji++)
+     {
+      bool uj_taken = false;
+      datetime uj_takeT = 0;
+      double uj_takeW = 0.0;
+      int uj_cb = iBarShift(_Symbol, PERIOD_CURRENT, uj_pool[uji].closure, false);
+      if(uj_cb < 0)
+        {
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJTAKENMISS bar=%s src=%s level=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), uj_pool[uji].source, DoubleToString(uj_pool[uji].value, _Digits));
+        }
+      else if(uj_cb > barShift)
+        {
+         int uj_n = uj_cb - barShift;
+         if(uj_pool[uji].side == 0)
+           {
+            int uj_hb = iHighest(_Symbol, PERIOD_CURRENT, MODE_HIGH, uj_n, barShift);
+            if(uj_hb >= 0 && iHigh(_Symbol, PERIOD_CURRENT, uj_hb) > uj_pool[uji].value) { uj_taken = true; uj_takeT = iTime(_Symbol, PERIOD_CURRENT, uj_hb); uj_takeW = iHigh(_Symbol, PERIOD_CURRENT, uj_hb); }
+           }
+         else
+           {
+            int uj_lb = iLowest(_Symbol, PERIOD_CURRENT, MODE_LOW, uj_n, barShift);
+            if(uj_lb >= 0 && iLow(_Symbol, PERIOD_CURRENT, uj_lb) < uj_pool[uji].value) { uj_taken = true; uj_takeT = iTime(_Symbol, PERIOD_CURRENT, uj_lb); uj_takeW = iLow(_Symbol, PERIOD_CURRENT, uj_lb); }
+           }
+        }
+      if(uj_taken)
+        {
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJTAKENSKIP bar=%s src=%s side=%d level=%s closeBar=%s takenBy=%s wick=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), uj_pool[uji].source, uj_pool[uji].side, DoubleToString(uj_pool[uji].value, _Digits), TimeToString(iTime(_Symbol, PERIOD_CURRENT, uj_cb), TIME_DATE|TIME_MINUTES), TimeToString(uj_takeT, TIME_DATE|TIME_MINUTES), DoubleToString(uj_takeW, _Digits));
+         continue;
+        }
       TpTargetUpdateBest(uj_pool[uji].value, dir, currentPrice, best, haveBest,
                          uj_pool[uji].source, uj_pool[uji].dayKey, uj_pool[uji].poolGen);
+     }
   }
 for(int kf = 0; kf < POI_NLINES; kf++)
   {
    if(!UjPoiTargetValid(kf, g_anchorLine))
      { if(InpDebugLog) PrintFormat("[SRJ-EA] UJPOISKIP bar=%s line=%s anchor=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_lineCode[kf], (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none")); continue; }
+   if(RkHeldRefused(kf, dir)) continue;   //--- [B-78 hunk RK] own-source = held retest-row lines (silent, like the tier skip; ROWKEY carries the list) //--- [B-81 hunk RKD] side-matched only
    if((g_authorityRank[kf] / 2) > (anchorRank / 2)) continue;
    double vf;
    if(!ReadBuf1(g_hPoi, kf, vf, barShift)) continue;
@@ -2725,6 +3170,7 @@ if(!haveBest)
             {
    if(!UjPoiTargetValid(k2, g_anchorLine))
      { if(InpDebugLog) PrintFormat("[SRJ-EA] UJPOISKIP bar=%s line=%s anchor=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_lineCode[k2], (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none")); continue; }
+              if(RkHeldRefused(k2, dir)) continue;   //--- [B-78 hunk RK] census mirror follows the same own-source list //--- [B-81 hunk RKD] side-matched only
              if((g_authorityRank[k2] / 2) > (anchorRank / 2)) continue;
             double pv;
             if(!ReadBuf1(g_hPoi, k2, pv, barShift)) continue;
@@ -2771,6 +3217,44 @@ bool FindNearestSwing(int bufIdx, int evalShift, double &outVal, int &foundShift
       if(v == EMPTY_VALUE || v <= 0.0) continue;
       outVal        = v;
       foundShiftOut = s;
+      return true;
+     }
+   return false;
+  }
+
+//--- [B157K] outward two-swing walk on finished chart swings (relay B-157 K2; same walk as B-156 K2).
+//--- Origin = confirmation candle close (confShift, chart frame). A middle bar M
+//--- is finished iff its right neighbour (M-1) closed at or before the conf
+//--- close, i.e. M >= confShift+1 (the conf bar itself is never a middle).
+//--- Strict three-candle swings only; equal is not a swing. Protective side of
+//--- entryPx (strict). First = nearest finished protective swing; each next one
+//--- counts only when strictly beyond the last; stop = second counted.
+//--- 500-slot safety bound (spec section 0). Reads chart highs/lows, never a
+//--- swing-buffer slot. Returns false when no second swing sits inside the bound.
+bool SrjWalkOutward2Swing(const int confShift, const ENUM_SRJ_DIR dir, const double entryPx,
+                          datetime &firstBT, double &firstPx, datetime &stopBT, double &stopPx)
+  {
+   firstBT = 0; firstPx = 0.0; stopBT = 0; stopPx = 0.0;
+   int counted = 0;
+   double last = 0.0;
+   for(int m = confShift + 1; m <= confShift + 500; m++)
+     {
+      double pL = (dir == DIR_LONG) ? iLow(_Symbol, PERIOD_CURRENT, m - 1) : iHigh(_Symbol, PERIOD_CURRENT, m - 1);
+      double pM = (dir == DIR_LONG) ? iLow(_Symbol, PERIOD_CURRENT, m) : iHigh(_Symbol, PERIOD_CURRENT, m);
+      double pR = (dir == DIR_LONG) ? iLow(_Symbol, PERIOD_CURRENT, m + 1) : iHigh(_Symbol, PERIOD_CURRENT, m + 1);
+      if(pL <= 0.0 || pM <= 0.0 || pR <= 0.0) break;
+      bool strict = (dir == DIR_LONG) ? (pM < pL && pM < pR) : (pM > pL && pM > pR);
+      if(!strict) continue;
+      bool prot = (dir == DIR_LONG) ? (pM < entryPx) : (pM > entryPx);
+      if(!prot) continue;
+      if(counted == 0)
+        {
+         firstBT = iTime(_Symbol, PERIOD_CURRENT, m); firstPx = pM; last = pM; counted = 1;
+         continue;
+        }
+      bool beyond = (dir == DIR_LONG) ? (pM < last) : (pM > last);
+      if(!beyond) continue;
+      stopBT = iTime(_Symbol, PERIOD_CURRENT, m); stopPx = pM;
       return true;
      }
    return false;
@@ -6567,6 +7051,11 @@ bool UpdateDivergenceLatch(int barShift, ENUM_SRJ_DIR dir, string &kindOut)
   }
 
 //====================== Sequence reset / abort ========================
+//--- [B-78 hunk RK] prototypes: definitions sit with the shadow instruments;
+//--- ResetSequence below is their first caller in file order.
+void SrjRowkeyClear();
+void SrjRowkeyUpdate(const int barShift);
+bool RkHeldRefused(const int k, const ENUM_SRJ_DIR dir);   //--- [B-81 hunk RKD] side-matched refusal
 void ResetSequence()
   {
    g_state          = ST_IDLE;
@@ -6575,6 +7064,7 @@ void ResetSequence()
    g_regime         = REGIME_NONE;
    g_sessionAtEntry = SESSION_NONE;
    g_anchorLine     = -1;
+   SrjRowkeyClear();   //--- [B-78 hunk RK] reset clears the held row list
    g_anchorPrice    = 0.0;
    g_anchorBarTime  = 0;
    g_divLatch       = false;
@@ -6590,15 +7080,40 @@ void ResetSequence()
    g_latchedTp      = 0.0;
    g_latchedR       = 0.0;
    g_latchBarTime   = 0;
-   g_confirmFromState = ST_IDLE;
-   //--- [P-BUILD3 E5] no new working-set field: the re-bind assigns anchor,
+    g_confirmFromState = ST_IDLE;
+    g_b61RetestTime = 0;   //--- [B-61 C2] no live potential, no retest time
+    //--- [P-BUILD3 E5] no new working-set field: the re-bind assigns anchor,
    //--- price, time, zone, touch, state, latch + confirmFrom only — all are
    //--- existing members (fields 4/5/6, 11/12, 8/9/10, 0, 15-19, 20).
   }
 
+//--- [B-182 B182P] print-only decision census (relay B-182; reads held state + the CQD verdict buffer, no gate touched).
+void B182DecPrint(const string outcome)
+  {
+   if(!InpDebugLog) return;
+   int b182v = 0; int b182s = -1;
+   int b182max = Bars(_Symbol, PERIOD_CURRENT) - 1;
+   for(int s = 1; s <= b182max; s++)
+     {
+      double w = 0.0;
+      if(!ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, w, s)) continue;
+      if(w == EMPTY_VALUE) continue;
+      int v = (int)MathRound(w);
+      if(v == 0) continue;
+      b182v = v; b182s = s; break;
+     }
+   string b182kind = (b182v == 0) ? "NOT_HELD" : ((MathAbs(b182v) == 1) ? "regular" : "hidden");
+   string b182dbar = (b182s < 0) ? "NOT_HELD" : TimeToString(iTime(_Symbol, PERIOD_CURRENT, b182s), TIME_DATE|TIME_MINUTES);
+   PrintFormat("[SRJ-EA] B182DEC bar=%s dir=%s anc=%s out=%s reg=%s latch=%d div=%d kind=%s dbar=%s",
+               TimeToString(TimeCurrent(), TIME_DATE|TIME_MINUTES),
+               DirName(g_dir), AnchorStr(), outcome, RegimeName(g_regime),
+               (g_divLatch ? 1 : 0), b182v, b182kind, b182dbar);
+  }
 void GoAbort(const string reason, ENUM_SRJ_STATE atState)
   {
    LogAbort(reason, atState);
+   //--- [B-196 PRINT] slot event (print-only: pre-reset read, no state, no gate)
+   if(InpDebugLog) PrintFormat("[SRJ-EA] B196SLOT bar=%s ev=ABORT src=%s oD=%s oL=%s oB=%s oS=%s nD=- nL=-", TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS), reason, (g_dir == DIR_NONE ? "-" : DirName(g_dir)), (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "-"), (g_anchorBarTime > 0 ? TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES) : "-"), StateName(atState));
    if(InpDebugLog && g_dir != DIR_NONE)
      {
       string a6rBT = TimeToString(TimeCurrent(), TIME_DATE|TIME_MINUTES);
@@ -6606,6 +7121,24 @@ void GoAbort(const string reason, ENUM_SRJ_STATE atState)
                                   a6rBT, StateName(atState), DirName(g_dir), reason);
       A6Emit("REF" + a6rBT + reason + StateName(atState), a6rLn);
      }   //--- [A6-HOOK] (ii) refused decision row (candidate alive => born+rejected)
+    // B182P decision census (print-only; held state read before ResetSequence clears it).
+    if(g_dir != DIR_NONE)
+       B182DecPrint("ABORT " + reason + " A6REFUSED " + reason);
+    else
+       B182DecPrint("ABORT " + reason);
+   //--- [B200POT] end row for every abort (probes read-only; N1 restored inside; tpslR on TP_ELECT rows)
+   if(InpDebugLog && g_dir != DIR_NONE && g_anchorLine >= 0)
+     {
+      string b200cls = "", b200rule = "";
+      B200RuleFor(reason, b200cls, b200rule);
+      B200PrintPot(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), 0, "END", b200cls, b200rule,
+                   g_anchorLine, g_dir, atState, g_b200Shift, "ON-FILE", g_regime);
+       B201PrintFrom(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), 0, g_anchorBarTime, g_anchorLine, g_dir, g_anchorPrice, g_b61RetestTime, g_b200Shift, atState);
+       B201PrintTo(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), 0, "END", TimeToString(g_b200BarTime,TIME_DATE|TIME_MINUTES)+"|"+reason, b200rule, g_b200Shift, g_anchorLine, g_dir, atState);
+      if(b200cls == "HIS-RULE") g_b200EndHis++;
+      else if(b200cls == "MACHINE-ONLY") g_b200EndMo++;
+      else g_b200EndOneTake++;
+     }
    //--- TASK 19c: count NO_REGIME aborts so the census can be read against
    //--- them directly. Measurement only.
    if(InpDebugLog && reason == ABORT_NO_REGIME) g_ea19_noRegimeAborts++;
@@ -6929,12 +7462,313 @@ bool ZoneInPlay(int barShift, double zHi, double zLo,
    return false;
   }
 
+//====================== [B-200 ONEEXEC] ======================
+//--- [B200STORE] no-cap potential list + print plumbing. Globals below are
+//--- read by B200 prints only; no gate reads them. Snapshot/restore covers
+//--- every per-potential field (ResetSequence list + seed/re-point writes);
+//--- session/day ledgers, memo (recomputed), rowkey/sidenotes (diagnostic)
+//--- and working-set mirrors are intentionally not snapshotted (disclosed).
+#define ABORT_ONE_TAKE_LOST "ONE_TAKE_LOST"
+struct SOnePot
+  {
+   ENUM_SRJ_STATE   st;
+   ENUM_SRJ_DIR     dir;
+   ENUM_SRJ_REGIME  regime;
+   ENUM_SRJ_SESSION sess;
+   int              line;
+   double           price;
+   datetime         anchorBar;
+   datetime         retestBar;
+   datetime         seedBar;
+   int              seedShift;
+   datetime         seedDay;
+   bool             divLatch;
+   bool             touchSeen;
+   double           touchHi;
+   double           touchLo;
+   double           zoneHi;
+   double           zoneLo;
+   bool             alertArmed;
+   bool             alertSig;
+   double           latE;
+   double           latSl;
+   double           latTp;
+   double           latR;
+   datetime         latchBar;
+   ENUM_SRJ_STATE   confFrom;
+   int              legDir;
+   int              seedBiasAl;
+   int              seedShift2;
+   datetime         reseedBar;
+   int              reseedDir;
+   datetime         s54Time;
+   int              s54Line;
+   datetime         freshVetoBar;
+   int              potId;
+   datetime         bornBar;
+   int              lastShift;   //--- [B201LAST] last evaluated shift for session-close discard probe (K4)
+   datetime         lastBar;
+  };
+SOnePot g_pots[];
+int      g_b200PotSeq = 0;
+int      g_b200Shift = -1;
+datetime g_b200BarTime = 0;
+ENUM_SRJ_SESSION g_b200PrevSess = SESSION_NONE;
+datetime g_b200PrevDay = 0;
+int      g_b200Born = 0;
+int      g_b200EndHis = 0;
+int      g_b200EndMo = 0;
+int      g_b200EndOneTake = 0;
+int      g_b200EndOrder = 0;
+int      g_b200RefNowindow = 0;
+int      g_b200RefSesslimit = 0;
+int      g_b200RefNoretest = 0;
+void B200PotClean(SOnePot &p)
+  {
+   p.st = ST_IDLE; p.dir = DIR_NONE; p.regime = REGIME_NONE; p.sess = SESSION_NONE;
+   p.line = -1; p.price = 0.0; p.anchorBar = 0; p.retestBar = 0;
+   p.seedBar = 0; p.seedShift = -1; p.seedDay = 0;
+   p.divLatch = false; p.touchSeen = false; p.touchHi = 0.0; p.touchLo = 0.0;
+   p.zoneHi = 0.0; p.zoneLo = 0.0; p.alertArmed = false; p.alertSig = false;
+   p.latE = 0.0; p.latSl = 0.0; p.latTp = 0.0; p.latR = 0.0; p.latchBar = 0; p.confFrom = ST_IDLE;
+   p.legDir = 0; p.seedBiasAl = -1; p.seedShift2 = -1;
+   p.reseedBar = 0; p.reseedDir = 0;
+   p.s54Time = 0; p.s54Line = -1; p.freshVetoBar = 0;
+   p.potId = -1; p.bornBar = 0; p.lastShift = -1; p.lastBar = 0;
+  }
+void B200SnapOld(SOnePot &p)
+  {
+   p.st = g_state; p.dir = g_dir; p.regime = g_regime; p.sess = g_sessionAtEntry;
+   p.line = g_anchorLine; p.price = g_anchorPrice; p.anchorBar = g_anchorBarTime; p.retestBar = g_b61RetestTime;
+   p.seedBar = g_anchorBarTime; p.seedShift = -1; p.seedDay = (g_anchorBarTime > 0 ? TC_DayStart(g_anchorBarTime) : 0);
+   p.divLatch = g_divLatch; p.touchSeen = g_touchSeen; p.touchHi = g_touchBarHi; p.touchLo = g_touchBarLo;
+   p.zoneHi = g_zoneHi; p.zoneLo = g_zoneLo; p.alertArmed = g_alertedArmed; p.alertSig = g_alertedSignal;
+   p.latE = g_latchedEntry; p.latSl = g_latchedSl; p.latTp = g_latchedTp; p.latR = g_latchedR; p.latchBar = g_latchBarTime; p.confFrom = g_confirmFromState;
+   p.legDir = s1g_legDir; p.seedBiasAl = s1g_seedBiasAl; p.seedShift2 = g_s2_seedShift;
+   p.reseedBar = g_ujOpReseedBarTime; p.reseedDir = g_ujOpReseedDir;
+   p.s54Time = g_s54SeedTime; p.s54Line = g_s54SeedLine; p.freshVetoBar = g_freshVetoBar; p.lastShift = g_b200Shift; p.lastBar = g_b200BarTime;
+  }
+void B200Restore(const SOnePot &p)
+  {
+   g_state = p.st; g_dir = p.dir; g_regime = p.regime; g_sessionAtEntry = p.sess;
+   g_anchorLine = p.line; g_anchorPrice = p.price; g_anchorBarTime = p.anchorBar; g_b61RetestTime = p.retestBar;
+   g_divLatch = p.divLatch; g_touchSeen = p.touchSeen; g_touchBarHi = p.touchHi; g_touchBarLo = p.touchLo;
+   g_zoneHi = p.zoneHi; g_zoneLo = p.zoneLo; g_alertedArmed = p.alertArmed; g_alertedSignal = p.alertSig;
+   g_latchedEntry = p.latE; g_latchedSl = p.latSl; g_latchedTp = p.latTp; g_latchedR = p.latR; g_latchBarTime = p.latchBar; g_confirmFromState = p.confFrom;
+   s1g_legDir = p.legDir; s1g_seedBiasAl = p.seedBiasAl; g_s2_seedShift = p.seedShift2;
+   g_ujOpReseedBarTime = p.reseedBar; g_ujOpReseedDir = p.reseedDir;
+   g_s54SeedTime = p.s54Time; g_s54SeedLine = p.s54Line; g_freshVetoBar = p.freshVetoBar;
+   uj_memo_valid = false;
+  }
+void B200ParkOld()
+  {
+   int n = ArraySize(g_pots);
+   ArrayResize(g_pots, n + 1);
+   B200PotClean(g_pots[n]);
+   B200SnapOld(g_pots[n]);
+   g_pots[n].potId = g_b200PotSeq++;
+   g_pots[n].bornBar = g_b200BarTime;
+  }
+void B200RemovePot(int k)
+  {
+   int n = ArraySize(g_pots);
+   if(k < 0 || k >= n) return;
+   for(int j = k; j < n - 1; j++) g_pots[j] = g_pots[j + 1];
+   ArrayResize(g_pots, n - 1);
+  }
+void B200RuleFor(const string reason, string &cls, string &rule)
+  {
+   cls = "MACHINE-ONLY"; rule = "UNMAPPED|-";
+   if(reason == "SEEDBIAS_REFUSED") { cls = "HIS-RULE"; rule = "5M-BIAS-AT-ENTRY|139"; }
+   else if(reason == "LTF_MISALIGN") { cls = "HIS-RULE"; rule = "5M-FLIP-KILL|116"; }
+   else if(reason == "FRESH_OB_DEAD" || reason == "FRESH_OPP_FVG" || reason == "FRESH_VETO") { cls = "HIS-RULE"; rule = "Q4-2OF3-PRE|57"; }
+   else if(reason == "DIV_FALLBACK") { cls = "HIS-RULE"; rule = "DIVERGENCE-RENEWED-ONLY|210"; }
+   else if(reason == "TP_RR_FAIL" || reason == "SUB_1R") { cls = "HIS-RULE"; rule = "1R-FLOOR|61"; }
+   else if(reason == "NO_TP_TARGET") { cls = "HIS-RULE"; rule = "NEAREST-ONLY-TP|89"; }
+   else if(reason == "HISZONE_NONE") { cls = "HIS-RULE"; rule = "NO-XOB-IN-PLAY|199"; }
+   else if(reason == "PROMO_RETURN_NONE") { cls = "HIS-RULE"; rule = "RELEVANCE-FIRST|spec3.5.1"; }
+   else if(reason == "S54_POI_BREAK") { cls = "HIS-RULE"; rule = "RETEST-DIES-BODY-CLOSE|187"; }
+   else if(reason == "SESSION_LIMIT" || reason == "SESSION_CLOSED") { cls = "HIS-RULE"; rule = "ONE-TAKE|84"; }
+   else if(reason == "CONCURRENCY_LIMIT") { cls = "HIS-RULE"; rule = "LIVE-TRADE-BLOCKS-ALL|117"; }
+   else if(reason == "HOLDER_EXPIRED") { cls = "MACHINE-ONLY"; rule = "60MIN-NO-PIN|-"; }
+   else if(reason == ABORT_ONE_TAKE_LOST) { cls = "ONE_TAKE_LOST"; rule = "ONE-TAKE|84"; }
+   else if(reason == "NO_REGIME" || reason == "UPSTREAM_UNREADY" || reason == "NO_SL_REF" || reason == "NO_MEMO_AT_FIRE" || reason == "MEMO_IDENTITY" || reason == "POI_REPLACED") { cls = "MACHINE-ONLY"; rule = "UPSTREAM-OR-MEMO|-"; }
+   else if(reason == "LOT_TOO_SMALL" || reason == "BELOW_STOPS" || reason == "DEMO_GUARD") { cls = "MACHINE-ONLY"; rule = "BROKER-CONSTRAINT|-"; }
+  }
+//--- [B200POT] gate-verdict probes (read-only; N1 six saved/restored per
+//--- birth-probe precedent; CheckFreshness diagnostic rows may duplicate,
+//--- disclosed; CQD walk is per-shift newest-first, never a range copy).
+void B200GateProbe(int sh, int line, ENUM_SRJ_DIR dir, ENUM_SRJ_STATE st,
+  string &oLtf, string &oFresh, string &oTouch, string &oDiv, string &oDbar, string &oZone, string &oPromo)
+  {
+   bool al = false;
+   oLtf = (CheckLtfAlign(sh, dir, al) ? (al ? "ALIGN" : "MISALIGN") : "UNREAD");
+   oFresh = CheckFreshness(sh, st != ST_S5_GATE_CHECK);
+   int wEq = g_n1_vwapEq, pEq = g_n1_pocEq, wIv = g_n1_vwapInv, pIv = g_n1_pocInv, wSv = g_n1_vwapSurv, pSv = g_n1_pocSurv;
+   string term = "";
+   bool ok = IsConfirmationCandle(sh, line, dir, term);
+   g_n1_vwapEq = wEq; g_n1_pocEq = pEq; g_n1_vwapInv = wIv; g_n1_pocInv = pIv; g_n1_vwapSurv = wSv; g_n1_pocSurv = pSv;
+   oTouch = (ok ? "PASS" : term);
+   int v = 0, vs = -1;
+   int lim = Bars(_Symbol, PERIOD_CURRENT) - 1;
+   for(int s = sh; s <= lim; s++)
+     {
+      double w = 0.0;
+      if(!ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, w, s)) continue;
+      if(w == EMPTY_VALUE) continue;
+      int vi = (int)MathRound(w);
+      if(vi == 0) continue;
+      v = vi; vs = s; break;
+     }
+   oDiv = (v == 0 ? "none" : (((v == 1 || v == -1) ? "regular" : "hidden")));
+   if(v != 0) oDiv = oDiv + ((v > 0) ? "-bull" : "-bear");
+   oDbar = (vs < 0 ? "NA" : TimeToString(iTime(_Symbol, PERIOD_CURRENT, vs), TIME_DATE | TIME_MINUTES));
+   double zHi = 0.0, zLo = 0.0, pr = 0.0;
+   bool hz = (ReadFlow(FL_BUF_XOB_ZONE_HIGH, zHi, sh) && zHi != EMPTY_VALUE && zHi > 0.0
+           && ReadFlow(FL_BUF_XOB_ZONE_LOW, zLo, sh) && zLo != EMPTY_VALUE && zLo > 0.0
+           && ReadFlow(FL_BUF_XOB_PROMO_TIME, pr, sh) && pr != EMPTY_VALUE && pr > 0.0);
+   oZone = (!hz ? "-" : (DoubleToString(zLo, _Digits) + "-" + DoubleToString(zHi, _Digits)));
+   oPromo = (!hz ? "-" : TimeToString((datetime)pr, TIME_DATE | TIME_MINUTES));
+  }
+void B200PrintPot(string barT, int slot, string ev, string cls, string rule, int line, ENUM_SRJ_DIR dir, ENUM_SRJ_STATE st, int sh, string tpslR, ENUM_SRJ_REGIME reg)
+  {
+   string oLtf = "-", oFresh = "-", oTouch = "-", oDiv = "-", oDbar = "-", oZone = "-", oPromo = "-";
+   if(line >= 0 && dir != DIR_NONE && sh >= 0)
+      B200GateProbe(sh, line, dir, st, oLtf, oFresh, oTouch, oDiv, oDbar, oZone, oPromo);
+   PrintFormat("[SRJ-EA] B200POT bar=%s slot=%d ev=%s class=%s rule=%s line=%s side=%s st=%s reg=%s ltf=%s fresh=%s touch=%s div=%s dbar=%s zone=%s promo=%s tpslR=%s",
+               barT, slot, ev, cls, rule, (line < 0 ? "-" : g_lineCode[line]), DirName(dir), StateName(st), RegimeName(reg),
+               oLtf, oFresh, oTouch, oDiv, oDbar, oZone, oPromo, tpslR);
+  }
+//--- [B201FROMTO] from-fields for every END/ORDER/discard (K3: seed, sweep NOTREACHED, zone, entry, HTF/5m; never PENDING)
+void B201PrintFrom(string barT, int potId, datetime seedBar, int line, ENUM_SRJ_DIR dir, double px, datetime retestBar, int sh, ENUM_SRJ_STATE st)
+  {
+   string oLtf="-", oFresh="-", oTouch="-", oDiv="-", oDbar="-", oZone="-", oPromo="-";
+   if(line>=0 && dir!=DIR_NONE && sh>=0)
+      B200GateProbe(sh, line, dir, st, oLtf, oFresh, oTouch, oDiv, oDbar, oZone, oPromo);
+   double h1=0.0, h2=0.0, h3=0.0, lf=EMPTY_VALUE;
+   string sH="0", sM="0", sL="0", sLtf="NA";
+   if(sh>=0)
+     {
+      if(ReadFlow(FL_BUF_HTF_HIGH, h1, sh)) sH=IntegerToString((int)MathRound(h1));
+      if(ReadFlow(FL_BUF_HTF_MID, h2, sh)) sM=IntegerToString((int)MathRound(h2));
+      if(ReadFlow(FL_BUF_HTF_LOW, h3, sh)) sL=IntegerToString((int)MathRound(h3));
+      if(ReadFlow(FL_BUF_LTF_BIAS, lf, sh) && lf!=EMPTY_VALUE) sLtf=DoubleToString(lf,1);
+     }
+   string sd=(seedBar<=0 ? "NOTREACHED" : TimeToString(seedBar,TIME_DATE|TIME_MINUTES));
+   string lc=(line<0 ? "NOTREACHED" : g_lineCode[line]);
+   string pxs=(line<0 ? "NOTREACHED" : DoubleToString(px,_Digits));
+   string rt=(retestBar<=0 ? "NOTREACHED" : TimeToString(retestBar,TIME_DATE|TIME_MINUTES));
+   string zn=oZone+"|"+oPromo+"|NR|ST";
+   PrintFormat("[SRJ-EA] B201FROM bar=%s id=%d sd=%s sw=NOTREACHED zn=%s el=%s|%s|%s|%s ht=%s/%s/%s|%s",
+               barT, potId, sd, zn, lc, DirName(dir), pxs, rt, sH, sM, sL, sLtf);
+  }
+//--- [B201TO] to-fields for every END/ORDER/discard (K3: ORDER entry/sl/tp/R or END candle/rule/verdicts)
+void B201PrintTo(string barT, int potId, string ev, string toX, string rule, int sh, int line, ENUM_SRJ_DIR dir, ENUM_SRJ_STATE st)
+  {
+   string oLtf="-", oFresh="-", oTouch="-", oDiv="-", oDbar="-", oZone="-", oPromo="-";
+   if(line>=0 && dir!=DIR_NONE && sh>=0)
+      B200GateProbe(sh, line, dir, st, oLtf, oFresh, oTouch, oDiv, oDbar, oZone, oPromo);
+   PrintFormat("[SRJ-EA] B201TO bar=%s id=%d ev=%s to=%s rl=%s dv=%s|%s tc=%s fr=%s lt=%s",
+               barT, potId, ev, toX, rule, oDiv, oDbar, oTouch, oFresh, oLtf);
+  }
+void B200PrintBorn(string barT, int slot, ENUM_SRJ_DIR dir, ENUM_SRJ_SESSION sess, datetime seedBar, int line, double px, int sh)
+  {
+   double h1 = 0.0, h2 = 0.0, h3 = 0.0, lf = EMPTY_VALUE;
+   string sH = "0", sM = "0", sL = "0", sLtf = "NA";
+   double b = 0.0;
+   if(ReadFlow(FL_BUF_HTF_HIGH, h1, sh)) sH = IntegerToString((int)MathRound(h1));
+   if(ReadFlow(FL_BUF_HTF_MID, h2, sh)) sM = IntegerToString((int)MathRound(h2));
+   if(ReadFlow(FL_BUF_HTF_LOW, h3, sh)) sL = IntegerToString((int)MathRound(h3));
+   if(ReadFlow(FL_BUF_LTF_BIAS, lf, sh) && lf != EMPTY_VALUE) sLtf = DoubleToString(lf, 1);
+   PrintFormat("[SRJ-EA] B200POT bar=%s slot=%d ev=BORN side=%s sess=%s seed=%s line=%s px=%s zone=- promo=- sweep=PENDING h4=%s h1=%s m15=%s ltf=%s",
+               barT, slot, DirName(dir), SessionName(sess), TimeToString(seedBar, TIME_DATE | TIME_MINUTES),
+               (line < 0 ? "-" : g_lineCode[line]), DoubleToString(px, _Digits), sH, sM, sL, sLtf);
+  }
 void EvaluateClosedBar(int barShift, datetime barTime)
   {
+   //--- [B-58 DIAG-BAR] print-only bar map: closed-bar o/h/l/c plus the six
+   //--- POI line prices (same ReadBuf1 read as UJDTTERMS) plus the 5m read
+   //--- (same ReadFlow read as UJPROBE). Locals only; nothing else reads them.
+   if(InpDebugLog)
+     {
+      double uj_dbO = iOpen(_Symbol, PERIOD_CURRENT, barShift);
+      double uj_dbH = iHigh(_Symbol, PERIOD_CURRENT, barShift);
+      double uj_dbL = iLow(_Symbol, PERIOD_CURRENT, barShift);
+      double uj_dbC = iClose(_Symbol, PERIOD_CURRENT, barShift);
+      double uj_dbMP = EMPTY_VALUE;
+      double uj_dbMV = EMPTY_VALUE;
+      double uj_dbWP = EMPTY_VALUE;
+      double uj_dbWV = EMPTY_VALUE;
+      double uj_dbDP = EMPTY_VALUE;
+      double uj_dbDV = EMPTY_VALUE;
+      ReadBuf1(g_hPoi, POI_BUF_M_POC, uj_dbMP, barShift);
+      ReadBuf1(g_hPoi, POI_BUF_M_VWAP, uj_dbMV, barShift);
+      ReadBuf1(g_hPoi, POI_BUF_W_POC, uj_dbWP, barShift);
+      ReadBuf1(g_hPoi, POI_BUF_W_VWAP, uj_dbWV, barShift);
+      ReadBuf1(g_hPoi, POI_BUF_D_POC, uj_dbDP, barShift);
+      ReadBuf1(g_hPoi, POI_BUF_D_VWAP, uj_dbDV, barShift);
+      double uj_dbLtf = EMPTY_VALUE;
+      ReadFlow(FL_BUF_LTF_BIAS, uj_dbLtf, barShift);
+      PrintFormat("[SRJ-EA] UJBARMAP bar=%s o=%s h=%s l=%s c=%s mpoc=%s mvwap=%s wpoc=%s wvwap=%s dpoc=%s dvwap=%s ltf=%s", // [B-58 DIAG-BAR] print-only
+                  TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                  (uj_dbO <= 0.0 ? "NA" : DoubleToString(uj_dbO, _Digits)),
+                  (uj_dbH <= 0.0 ? "NA" : DoubleToString(uj_dbH, _Digits)),
+                  (uj_dbL <= 0.0 ? "NA" : DoubleToString(uj_dbL, _Digits)),
+                  (uj_dbC <= 0.0 ? "NA" : DoubleToString(uj_dbC, _Digits)),
+                  (uj_dbMP == EMPTY_VALUE || uj_dbMP <= 0.0 ? "NA" : DoubleToString(uj_dbMP, _Digits)),
+                  (uj_dbMV == EMPTY_VALUE || uj_dbMV <= 0.0 ? "NA" : DoubleToString(uj_dbMV, _Digits)),
+                  (uj_dbWP == EMPTY_VALUE || uj_dbWP <= 0.0 ? "NA" : DoubleToString(uj_dbWP, _Digits)),
+                  (uj_dbWV == EMPTY_VALUE || uj_dbWV <= 0.0 ? "NA" : DoubleToString(uj_dbWV, _Digits)),
+                  (uj_dbDP == EMPTY_VALUE || uj_dbDP <= 0.0 ? "NA" : DoubleToString(uj_dbDP, _Digits)),
+                  (uj_dbDV == EMPTY_VALUE || uj_dbDV <= 0.0 ? "NA" : DoubleToString(uj_dbDV, _Digits)),
+                  (uj_dbLtf == EMPTY_VALUE ? "NA" : DoubleToString(uj_dbLtf, 1)));
+     }
    Side1p2Snap(barTime); //--- [SIDE1P2-HOOK] top-entry snapshot (reads only)
    Side1p3Snap(barTime); //--- [SIDE1P3-HOOK] source-bar snapshot (reads only)
    ENUM_SRJ_SESSION sess = CurrentTradingWindow(barTime);
    bool inWindow = (sess != SESSION_NONE);
+   //--- [B200STORE] print-plumbing candle address (B200 prints only; no gate reads it)
+   g_b200Shift = barShift;
+   g_b200BarTime = barTime;
+   //--- [B200SESS] session-close summary (report-only; live potentials persist per ONE-TAKE cross-session L84)
+   if(InpDebugLog && g_b200PrevSess != SESSION_NONE && (sess != g_b200PrevSess || TC_DayStart(barTime) != g_b200PrevDay))
+     {
+      datetime b200lb = iTime(_Symbol, PERIOD_CURRENT, barShift + 1);
+      string b200live = ((g_state == ST_IDLE || g_anchorLine < 0) ? "NONE" : (g_lineCode[g_anchorLine] + "/" + DirName(g_dir) + "/" + StateName(g_state)));
+      int b200parked = ArraySize(g_pots);
+      PrintFormat("[SRJ-EA] B200SESS day=%s sess=%s born=%d endHis=%d endMo=%d endOneTake=%d endOrder=%d refWin=%d refSess=%d refRetest=%d live=%s parked=%d lastBar=%s o=%s h=%s l=%s c=%s",
+                  TimeToString(g_b200PrevDay, TIME_DATE), SessionName(g_b200PrevSess),
+                  g_b200Born, g_b200EndHis, g_b200EndMo, g_b200EndOneTake, g_b200EndOrder,
+                  g_b200RefNowindow, g_b200RefSesslimit, g_b200RefNoretest,
+                  b200live, b200parked, TimeToString(b200lb, TIME_DATE | TIME_MINUTES),
+                  DoubleToString(iOpen(_Symbol, PERIOD_CURRENT, barShift + 1), _Digits),
+                  DoubleToString(iHigh(_Symbol, PERIOD_CURRENT, barShift + 1), _Digits),
+                  DoubleToString(iLow(_Symbol, PERIOD_CURRENT, barShift + 1), _Digits),
+                  DoubleToString(iClose(_Symbol, PERIOD_CURRENT, barShift + 1), _Digits));
+      for(int b200k = ArraySize(g_pots) - 1; b200k >= 0; b200k--)
+        {
+         B200PrintPot(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), g_pots[b200k].potId, "END", "ONE_TAKE_LOST", "ONE-TAKE|84",
+                      g_pots[b200k].line, g_pots[b200k].dir, g_pots[b200k].st, g_pots[b200k].lastShift, "ON-FILE", g_pots[b200k].regime);
+          B201PrintFrom(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), g_pots[b200k].potId, g_pots[b200k].seedBar, g_pots[b200k].line, g_pots[b200k].dir, g_pots[b200k].price, g_pots[b200k].retestBar, g_pots[b200k].lastShift, g_pots[b200k].st);
+          B201PrintTo(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), g_pots[b200k].potId, "END", TimeToString(TimeCurrent(),TIME_DATE|TIME_MINUTES)+"|ONE_TAKE_LOST", "ONE-TAKE|84", g_pots[b200k].lastShift, g_pots[b200k].line, g_pots[b200k].dir, g_pots[b200k].st);
+         g_b200EndOneTake++;
+         B200RemovePot(b200k);
+        }
+             //--- [B201DISCARD] live unconfirmed at session close prints never-confirmed discard (K4: last-poll verdicts, 10 July alive-14:50 case)
+       if(g_state != ST_IDLE && g_state != ST_SIGNAL && g_state != ST_ABORT && g_anchorLine >= 0 && g_dir != DIR_NONE)
+         {
+          B200PrintPot(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), 0, "END", "HIS-RULE", "SESSION-CLOSED|84",
+                       g_anchorLine, g_dir, g_state, barShift+1, "ON-FILE", g_regime);
+          B201PrintFrom(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), 0, g_anchorBarTime, g_anchorLine, g_dir, g_anchorPrice, g_b61RetestTime, barShift+1, g_state);
+          B201PrintTo(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), 0, "END", TimeToString(b200lb,TIME_DATE|TIME_MINUTES)+"|SESSION_CLOSED", "SESSION-CLOSED|84", barShift+1, g_anchorLine, g_dir, g_state);
+          g_b200EndHis++;
+          ResetSequence();
+         }
+       g_b200Born = 0; g_b200EndHis = 0; g_b200EndMo = 0; g_b200EndOneTake = 0; g_b200EndOrder = 0;
+      g_b200RefNowindow = 0; g_b200RefSesslimit = 0; g_b200RefNoretest = 0;
+     }
+   g_b200PrevSess = sess;
+   g_b200PrevDay = TC_DayStart(barTime);
     bool uj_saAbort = false;
     int  uj_saA = -1;
     int  uj_saD = -1;
@@ -7446,7 +8280,9 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           double uj_hwant = (g_dir == DIR_LONG ? 1.0 : -1.0);
           string uj_hterm = "";
           bool uj_hcarve = IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_hterm);
-          if((uj_hm15r && uj_hm15 == uj_hwant) || uj_hcarve)
+          const bool uj_f11HoldOn = false; // [B-57 F11-OFF] no pin authorizes holding against the 5m (GATE-AUTHORIZATION, 5M-FLIP-KILL; B-56 F11_PIN=NONE)
+          // Original: if((uj_hm15r && uj_hm15 == uj_hwant) || uj_hcarve)
+          if(uj_f11HoldOn && ((uj_hm15r && uj_hm15 == uj_hwant) || uj_hcarve))
             { if(InpDebugLog) PrintFormat("[SRJ-EA] UJLTFHOLD bar=%s dir=%s poi=%s state=%s m15=%s rf=%d mode=%s term=%s - LTF opposed, hold (Fix F11)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), StateName(g_state), DoubleToString(uj_hm15, 1), (uj_hm15r ? 1 : 0), ((uj_hm15r && uj_hm15 == uj_hwant) ? "M15" : "CARVE"), uj_hterm); }
           else
             {
@@ -7634,6 +8470,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          uj_memo_anchor = g_anchorLine; uj_memo_dir = (int)g_dir; uj_memo_barTime = barTime;
          uj_memo_risk = uj_risk; uj_memo_reward = uj_reward; uj_memo_R = uj_R;
          uj_memo_src = "POLL";
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_STORE bar=%s src=%s anchor=%d dir=%s", TimeToString(barTime, TIME_DATE|TIME_MINUTES), uj_memo_src, uj_memo_anchor, DirName((ENUM_SRJ_DIR)uj_memo_dir));
          uj_memo_wsrc = uj_winnerSource; uj_memo_wday = uj_winnerDayKey;
          uj_memo_wgen = uj_winnerPoolGen; uj_memo_wage = UjDayDiff(barTime, uj_winnerDayKey);
         }
@@ -7877,9 +8714,17 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                 {
                  bool t78_al = false; bool t78_alOk = CheckLtfAlign(barShift, t78_dir, t78_al);
                  if(InpDebugLog) PrintFormat("[SRJ-EA] UJRESEED bar=%s poi=%s dir=%s fromPoi=%s fromDir=%s al=%d ok=%d - op-retest reseeded over unconfirmed holder (Fix H1)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_lineCode[t78_pr.topLine], DirName(t78_dir), g_lineCode[g_anchorLine], DirName(g_dir), (t78_alOk ? (t78_al ? 1 : 0) : -1), (int)t78_alOk);
+                 //--- [B-196 PRINT] slot event (print-only: pre-write read, no state, no gate)
+                 if(InpDebugLog) PrintFormat("[SRJ-EA] B196SLOT bar=%s ev=RESEED src=H1 oD=%s oL=%s oB=%s oS=%s nD=%s nL=%s opC=%d heldC=%d", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), g_lineCode[g_anchorLine], (g_anchorBarTime > 0 ? TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES) : "-"), StateName(g_state), DirName(t78_dir), g_lineCode[t78_pr.topLine], (int)t78_opConf, (int)t78_heldConf);
+                 //--- [B200PARK] park the displaced holder (snapshot; kept prints above untouched), then born-row the new potential
+                 B200ParkOld();
+                 g_b200Born++;
+                 { double b200px = 0.0; ReadBuf1(g_hPoi, t78_pr.topLine, b200px, barShift);
+                   B200PrintBorn(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, t78_dir, sess, barTime, t78_pr.topLine, b200px, barShift); }
                  s1g_legDir = t78_pr.isLong ? 1 : -1;
                  s1g_seedBiasAl = (!t78_alOk ? -1 : (t78_al ? 1 : 0));
                  g_anchorLine = t78_pr.topLine;
+                 SrjRowkeyClear(); SrjRowkeyUpdate(barShift);   //--- [B-78 hunk RK] reseed clears + plants bar row
                  ReadBuf1(g_hPoi, t78_pr.topLine, g_anchorPrice, barShift);
                  g_anchorBarTime = barTime;
                  g_dir = S2ResolveLive(t78_pr.isLong ? DIR_LONG : DIR_SHORT);
@@ -7897,13 +8742,40 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                  g_confirmFromState = ST_IDLE;
                  uj_memo_valid = false;
                  g_ujOpReseedBarTime = barTime;
+                 g_ujOpReseedDir = (g_dir == DIR_LONG ? 1 : (g_dir == DIR_SHORT ? -1 : 0));
+                 SrjS54Snap(barShift, g_dir);   //--- [B-68 hunk S] re-point re-snapshots
                 }
              }
-          if(t78_opp && (g_state == ST_S2_LTF_ALIGN || (g_state == ST_S1_REGIME && t78_opConf && !t78_heldConf)))
+          //--- [B200PARK] split S1-confirmed preempt (kept end, HIS L51) from S2X re-point (park old)
+          bool b200_s1pre = (t78_opp && (g_state == ST_S1_REGIME && t78_opConf && !t78_heldConf));
+          bool b200_s2x = (t78_opp && (g_state == ST_S2_LTF_ALIGN));
+          if(b200_s1pre || b200_s2x)
             {
              int s1c_fromLine     = g_anchorLine;
              ENUM_SRJ_DIR s1c_fromDir = g_dir;
+             if(InpDebugLog)
+               {
+                if(b200_s2x)
+                  {
+                   B200ParkOld();
+                   g_b200Born++;
+                   double b200px = 0.0; ReadBuf1(g_hPoi, t78_pr.topLine, b200px, barShift);
+                   B200PrintBorn(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, t78_dir, sess, barTime, t78_pr.topLine, b200px, barShift);
+                  }
+                else
+                  {
+                   B200PrintPot(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, "END", "HIS-RULE", "SETUP-DEFINED|51",
+                                s1c_fromLine, s1c_fromDir, g_state, barShift, "ON-FILE", g_regime);
+                    B201PrintFrom(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, g_anchorBarTime, s1c_fromLine, s1c_fromDir, g_anchorPrice, g_b61RetestTime, barShift, g_state);
+                    B201PrintTo(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, "END", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),TIME_DATE|TIME_MINUTES)+"|SETUP-DEFINED", "SETUP-DEFINED|51", barShift, s1c_fromLine, s1c_fromDir, g_state);
+                   g_b200EndHis++;
+                   double b200px = 0.0; ReadBuf1(g_hPoi, t78_pr.topLine, b200px, barShift);
+                   B200PrintBorn(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, t78_dir, sess, barTime, t78_pr.topLine, b200px, barShift);
+                   g_b200Born++;
+                  }
+               }
              g_anchorLine    = t78_pr.topLine;
+             SrjRowkeyClear(); SrjRowkeyUpdate(barShift);   //--- [B-78 hunk RK] reseed clears + plants bar row
              ReadBuf1(g_hPoi, t78_pr.topLine, g_anchorPrice, barShift);
              g_anchorBarTime = barTime;
              g_dir           = t78_dir;
@@ -7925,7 +8797,10 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                             g_lineCode[s1c_fromLine], DirName(s1c_fromDir),
                             g_lineCode[t78_pr.topLine], DirName(t78_dir),
                             StateName(g_state));
-            }
+             //--- [B-196 PRINT] slot event (print-only: pre-write read, no state, no gate)
+             if(InpDebugLog) PrintFormat("[SRJ-EA] B196SLOT bar=%s ev=PREEMPT src=S2X oD=%s oL=%s oB=%s oS=%s nD=%s nL=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(s1c_fromDir), g_lineCode[s1c_fromLine], (g_anchorBarTime > 0 ? TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES) : "-"), StateName(g_state), DirName(t78_dir), g_lineCode[t78_pr.topLine]);
+              SrjS54Snap(barShift, g_dir);   //--- [B-68 hunk S] re-point re-snapshots
+             }
          }
       }
 
@@ -7956,6 +8831,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          int b3_toTier    = B3_AnchorTier(b3_cand);
          ENUM_SRJ_STATE b3_prevState = g_state;
          g_anchorLine    = b3_cand;
+         SrjRowkeyClear(); SrjRowkeyUpdate(barShift);   //--- [B-78 hunk RK] anchor swap clears + plants bar row
          ReadBuf1(g_hPoi, b3_cand, g_anchorPrice, barShift);
          g_anchorBarTime = barTime;
          g_zoneHi        = 0.0;
@@ -8020,6 +8896,31 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       PoiRetestResult t73_pr;
       if(DetectPoiRetest(barShift, t73_pr) && t73_pr.found)
         {
+         //--- [B222DH] close-kill release (kept trial): a setup whose anchor line
+         //--- died by a body close through it stops blocking a fresh retest. Death =
+         //--- the exact WINLINE KILL expression on the judged bar only. No tolerance, no number.
+         bool b222_dead = false;
+         double b222_L = 0.0;
+         double b222_c = iClose(_Symbol, PERIOD_CURRENT, barShift);
+         double b222_EPS = _Point * 0.001;
+         int b222_k = g_anchorLine;
+         if(b222_k >= 0 && b222_c > 0.0 && ReadBuf1(g_hPoi, b222_k, b222_L, barShift) && b222_L != EMPTY_VALUE && b222_L > 0.0)
+           {
+            if(g_dir == DIR_LONG && b222_c < b222_L - b222_EPS) b222_dead = true;
+            if(g_dir == DIR_SHORT && b222_c > b222_L + b222_EPS) b222_dead = true;
+           }
+         if(b222_dead)
+           {
+            if(InpDebugLog)
+               PrintFormat("[B222DH] bar=%s sup=%s/%s holder=%s/%s lineVal=%s close=%s via=CLOSE released=1",
+                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                           DirName(t73_pr.isLong ? DIR_LONG : DIR_SHORT), g_lineCode[t73_pr.topLine],
+                           DirName(g_dir), g_lineCode[b222_k],
+                           DoubleToString(b222_L, _Digits), DoubleToString(b222_c, _Digits));
+            ResetSequence();
+           }
+         else
+           {
          s_t73_n++;
          ENUM_SRJ_DIR t73_dir    = t73_pr.isLong ? DIR_LONG : DIR_SHORT;
          bool         t73_isOpp  = (t73_dir != g_dir);
@@ -8038,6 +8939,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      g_lineCode[g_anchorLine], DirName(g_dir), StateName(g_state),
                      s_t73_n, s_t73_opp, s_t73_higher, s_t73_both,
                      b3_superseded ? "SUPERSEDED" : "HELD");
+           }
         }
       if((s_t73_bars % 500) == 0)
          PrintFormat("[SRJ-EA] SUPPRESSED_PROGRESS heldBars=%d n=%d opp=%d "
@@ -8064,12 +8966,41 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                               sh_pr.isLong ? DIR_LONG : DIR_SHORT);
         }
       }
+   //--- [B-196 PRINT] bar census (print-only: reads bar + holder, no state, no gate)
+   if(InpDebugLog && inWindow)
+     {
+      double b196_ltf = EMPTY_VALUE; ReadFlow(FL_BUF_LTF_BIAS, b196_ltf, barShift);
+      double b196_ypoc = EMPTY_VALUE; ReadBuf1(g_hPoi, POI_BUF_Y_POC, b196_ypoc, barShift);
+      int b196_nH = ((g_anchorLine >= 0 && g_dir != DIR_NONE) ? 1 : 0);
+      PrintFormat("[SRJ-EA] B196BAR bar=%s o=%s h=%s l=%s c=%s ltf=%s ypoc=%s nH=%d hDir=%s hLine=%s hPx=%s",
+                  TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                  DoubleToString(iOpen(_Symbol, PERIOD_CURRENT, barShift), _Digits),
+                  DoubleToString(iHigh(_Symbol, PERIOD_CURRENT, barShift), _Digits),
+                  DoubleToString(iLow(_Symbol, PERIOD_CURRENT, barShift), _Digits),
+                  DoubleToString(iClose(_Symbol, PERIOD_CURRENT, barShift), _Digits),
+                  (b196_ltf == EMPTY_VALUE ? "NA" : DoubleToString(b196_ltf, 1)),
+                  (b196_ypoc == EMPTY_VALUE ? "NA" : DoubleToString(b196_ypoc, _Digits)),
+                  b196_nH, (b196_nH == 0 ? "-" : DirName(g_dir)),
+                  (b196_nH == 0 ? "-" : g_lineCode[g_anchorLine]),
+                  (b196_nH == 0 ? "-" : DoubleToString(g_anchorPrice, _Digits)));
+     }
+
+   //--- [B200POT] alive row for the foreground live potential (gate verdicts on this candle; parked potentials print born/end only)
+   if(InpDebugLog && inWindow && g_state != ST_IDLE && g_anchorLine >= 0 && g_dir != DIR_NONE)
+     {
+      string b200cls = "ALIVE", b200rule = "-";
+      B200PrintPot(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, "ALIVE", b200cls, b200rule,
+                   g_anchorLine, g_dir, g_state, barShift, "ON-FILE", g_regime);
+     }
+
+    if(inWindow) SrjRowkeyUpdate(barShift);   //--- [B-78 hunk RK] track latest hits row per live seed
+    if(inWindow) WinlineUpdate(barShift, barTime, sess);   //--- [B-170 WINLINE] hold session+direction entry-line set
 
     bool s1f_seedArmed = (g_state == ST_IDLE);   //--- [SIDE1F] (i) seed-bar exactness flag (new local only)
 
     if(g_state == ST_IDLE)
       {
-       if(!inWindow) { if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00") PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=WINDOW inWin=0 sess=%s retestFound=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), -1); return; }
+       if(!inWindow) { if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00") PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=WINDOW inWin=0 sess=%s retestFound=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), -1); g_b200RefNowindow++; return; }
       if(SessionAlreadyUsed(sess, barTime))
         {
          static datetime s_limitDay  = 0;
@@ -8085,10 +9016,37 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                         SessionName(sess));
            }
          if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00") PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=SESSION inWin=1 sess=%s retestFound=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), -1);
+         g_b200RefSesslimit++;
          return;
         }
         PoiRetestResult pr;
-        if(!DetectPoiRetest(barShift, pr) || !pr.found) { if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00") PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=RETEST inWin=1 sess=%s retestFound=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), (pr.found ? 1 : 0)); return; }
+        if(!DetectPoiRetest(barShift, pr) || !pr.found) { if(InpDebugLog && TimeToString(barTime, TIME_MINUTES) == "17:00") PrintFormat("[SRJ-EA] SEEDDIAG bar=%s branch=RETEST inWin=1 sess=%s retestFound=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), SessionName(sess), (pr.found ? 1 : 0)); g_b200RefNoretest++;
+          //--- [B201PROMOTE] parked resume in no-retest path (K2 fix, moved from B200PROMOTE after IDLE: IDLE+no-retest falls through to resume)
+          if(ArraySize(g_pots) > 0)
+            {
+             datetime b201day = TC_DayStart(barTime);
+             for(int b201k = 0; b201k < ArraySize(g_pots); b201k++)
+               {
+                if(g_pots[b201k].sess == sess && TC_DayStart(g_pots[b201k].seedBar) == b201day)
+                  {
+                   if(SessionAlreadyUsed(sess, barTime))
+                     {
+                      B200PrintPot(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_pots[b201k].potId, "END", "ONE_TAKE_LOST", "ONE-TAKE|84",
+                                   g_pots[b201k].line, g_pots[b201k].dir, g_pots[b201k].st, g_pots[b201k].lastShift, "ON-FILE", g_pots[b201k].regime);
+                      B201PrintFrom(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_pots[b201k].potId, g_pots[b201k].seedBar, g_pots[b201k].line, g_pots[b201k].dir, g_pots[b201k].price, g_pots[b201k].retestBar, g_pots[b201k].lastShift, g_pots[b201k].st);
+                      B201PrintTo(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_pots[b201k].potId, "END", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),TIME_DATE|TIME_MINUTES)+"|ONE_TAKE_LOST", "ONE-TAKE|84", g_pots[b201k].lastShift, g_pots[b201k].line, g_pots[b201k].dir, g_pots[b201k].st);
+                      g_b200EndOneTake++;
+                      B200RemovePot(b201k);
+                      b201k--;
+                      continue;
+                     }
+                   B200Restore(g_pots[b201k]);
+                   B200RemovePot(b201k);
+                   break;
+                  }
+               }
+            }
+          return; }
         //--- [P-RESQUAT-1 F-a] eviction-paired read gate: a candidate identical to
         //--- one its own abort just evicted (same line, same dir, same session,
         //--- same day) may not re-seed into the slot; the slot stays free so the
@@ -8114,26 +9072,23 @@ void EvaluateClosedBar(int barShift, datetime barTime)
            if(rsq_day != g_evictDayNY) g_evictBitsNY = 0;
            else if(rsq_bit >= 0 && (g_evictBitsNY & (1 << rsq_bit)) != 0) rsq_blocked = true;
           }
-        if(rsq_blocked)
-          {
-           PrintFormat("[SRJ-EA] RESEED_BLOCKED bar=%s poi=%s dir=%s sess=%s evictedDay=%s action=SKIP",
-                       TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
-                       g_lineCode[pr.topLine], DirName(rsq_dir), SessionName(sess),
-                       TimeToString(rsq_day, TIME_DATE));
-           return;
-          }
+        //--- [B200KEEP] RESEED_BLOCKED removed (MACHINE-ONLY same-line+dir+session+day bit): the candidate
+        //--- proceeds to seed below; eviction bits still update for readers, no gate reads them here.
         s1g_legDir = pr.isLong ? 1 : -1;   //--- [SIDE1G] (0) independent legDir capture (new local only)
         g_s2_seedShift = barShift;   //--- [STAGE-C E-C05] exact-seed bar carriage for the live vote
          g_anchorLine    = pr.topLine;
+         SrjRowkeyClear(); SrjRowkeyUpdate(barShift);   //--- [B-78 hunk RK] new seed clears + plants seed-bar row
        //--- [FP-LIMBSEAT-1 S2-3] F3 owns the carried-side write (single
        //--- writer). Live rows carry no declared class -> ABSTAIN
        //--- pass-through of the legacy value (D3 holds by construction);
        //--- legacy output stays the compared label, fire-log identical.
        g_dir           = S2ResolveLive(pr.isLong ? DIR_LONG : DIR_SHORT);
         SrjSideNote("DetectPoiRetest", g_dir);
-      g_anchorBarTime = barTime;
-      ReadBuf1(g_hPoi, pr.topLine, g_anchorPrice, barShift);
-      g_sessionAtEntry = sess;
+       g_anchorBarTime = barTime;
+       g_b61RetestTime = barTime;   //--- [B-61 C2] the potential's retest candle OPEN TIME for term C
+       ReadBuf1(g_hPoi, pr.topLine, g_anchorPrice, barShift);
+       SrjS54Snap(barShift, g_dir);   //--- [B-68 hunk S] seed snapshots
+       g_sessionAtEntry = sess;
       g_divLatch = false;
       ENUM_SRJ_STATE prev = g_state;
       g_state = ST_S1_REGIME;
@@ -8147,7 +9102,39 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                                   TIME_DATE|TIME_MINUTES),
                      AnchorStr(), g_authorityRank[g_anchorLine],
                       B3_AnchorTier(g_anchorLine), DirName(g_dir));
+         //--- [B200POT] born row for the foreground seed (zone/promo unpicked at seed; sweep pending S1)
+         if(InpDebugLog)
+           {
+            double b200px = 0.0; ReadBuf1(g_hPoi, g_anchorLine, b200px, barShift);
+            B200PrintBorn(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, g_dir, sess, barTime, g_anchorLine, b200px, barShift);
+            g_b200Born++;
+           }
          }
+         //--- [B200PROMOTE] oldest same-session unused parked promotes when the slot is free (seed-first kept parity: fresh retests seeded above take precedence; no reordering of live evaluation)
+         if(g_state == ST_IDLE && ArraySize(g_pots) > 0)
+           {
+            datetime b200day = TC_DayStart(barTime);
+            for(int b200k = 0; b200k < ArraySize(g_pots); b200k++)
+              {
+               if(g_pots[b200k].sess == sess && TC_DayStart(g_pots[b200k].seedBar) == b200day)
+                 {
+                  if(SessionAlreadyUsed(sess, barTime))
+                    {
+                     B200PrintPot(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_pots[b200k].potId, "END", "ONE_TAKE_LOST", "ONE-TAKE|84",
+                                  g_pots[b200k].line, g_pots[b200k].dir, g_pots[b200k].st, g_pots[b200k].lastShift, "ON-FILE", g_pots[b200k].regime);
+          B201PrintFrom(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), g_pots[b200k].potId, g_pots[b200k].seedBar, g_pots[b200k].line, g_pots[b200k].dir, g_pots[b200k].price, g_pots[b200k].retestBar, g_pots[b200k].lastShift, g_pots[b200k].st);
+          B201PrintTo(TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS), g_pots[b200k].potId, "END", TimeToString(TimeCurrent(),TIME_DATE|TIME_MINUTES)+"|ONE_TAKE_LOST", "ONE-TAKE|84", g_pots[b200k].lastShift, g_pots[b200k].line, g_pots[b200k].dir, g_pots[b200k].st);
+                     g_b200EndOneTake++;
+                     B200RemovePot(b200k);
+                     b200k--;
+                     continue;
+                    }
+                  B200Restore(g_pots[b200k]);
+                  B200RemovePot(b200k);
+                  break;
+                 }
+              }
+           }
 
     //--- [P-VALIDITY-1 R2 2026-09-22, his renewal word: a held pre-confirmation seed dies on a session-liquidity touch, retest bar included; entry then needs a fresh POC/VWAP retest. Placed after the per-bar seed block: single pass per bar blocks same-bar re-admission. Fires ST_S1..ST_S4 named set only; S5+ committed; runs before the state-machine body; touch test reads pre-bar line state so extension bars don't false-fire; pre-bar swept-mask exclusion (Luna-2): R-POOL indices already swept as of barShift+1 skipped via disk-derived map, current-bar sweep still counts; tri-state (Luna-B): valid mask excludes, unavailable-or-invalid mask = R2SKIP hold with row; eval counter proves cadence.]
     if(g_state > ST_IDLE && g_state < ST_S5_GATE_CHECK && g_anchorBarTime > 0)
@@ -8175,14 +9162,16 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          }
       if(r2_touch && g_regime == REGIME_MEANREV)
         {
+         //--- [B-196 PRINT] slot event (print-only: pre-clear read, no state, no gate)
+         if(InpDebugLog) PrintFormat("[SRJ-EA] B196SLOT bar=%s ev=VOID src=R2 oD=%s oL=%s oB=%s oS=%s nD=- nL=- buf=%d", TimeToString(barTime, TIME_DATE|TIME_MINUTES), DirName(g_dir), g_lineCode[g_anchorLine], TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES), StateName(g_state), r2_buf);
          ENUM_SRJ_STATE r2_prev = g_state;
          g_state = ST_IDLE;
          g_anchorLine = -1;
          g_anchorBarTime = 0;
          LogState(r2_prev, g_state);
          if(InpDebugLog) PrintFormat("[SRJ-EA] SEEDVOID bar=%s dir=%s buf=%d line=%s evals=%d hi=%s lo=%s", TimeToString(barTime, TIME_DATE|TIME_MINUTES), DirName(g_dir), r2_buf, DoubleToString(r2_val, _Digits), r2_evals, DoubleToString(r2_hi, _Digits), DoubleToString(r2_lo, _Digits));
-        }
-     }
+         }
+      }
          //--- [S2-TIMING-SHADOW-001] seed-bias recorder (Luna V94 F1, cleared BY NAME
          //--- print-only). Record-only: locals + print. Reuses CheckLtfAlign — the SAME
          //--- pure helper the S2 path calls (EA:7787), same buffer/semantics; NO new bias
@@ -8383,11 +9372,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
 
      if(g_state == ST_S1_REGIME)
      {
-      if((barTime - g_anchorBarTime) >= 3600 && g_anchorLine >= 0)
-        {
-         if(InpDebugLog) PrintFormat("[SRJ-EA] UJHOLDEXPIRE bar=%s poi=%s dir=%s heldMin=%d - unconfirmed holder expired, no eviction (Fix H2)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), AnchorStr(), DirName(g_dir), (int)((barTime - g_anchorBarTime) / 60));
-         GoAbort(ABORT_HOLDER_EXPIRED, g_state); return;
-        }
+      //--- [B200KEEP] HOLDER_EXPIRED-60min removed (MACHINE-ONLY 3600, no banked number; vs SEED-CARRY skill:81):
+      //--- the unconfirmed holder persists (S1WAIT below retains); no abort, no eviction.
       ENUM_SRJ_REGIME regime;
       if(!ClassifyRegime(barShift, g_dir, regime))
         { GoAbort(ABORT_UPSTREAM_UNREADY, g_state); return; }
@@ -8409,8 +9395,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          double uj_m15b = 0.0;
          bool uj_m15r = ReadFlow(FL_BUF_HTF_LOW, uj_m15b, barShift);
          double uj_wantb = (g_dir == DIR_LONG ? 1.0 : -1.0);
-         if(InpDebugLog) PrintFormat("[SRJ-EA] UJPROV bar=%s dir=%s reseedBar=%s seedBiasAl=%d - reseed provenance at S2 edge (Fix CARRY)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), TimeToString(g_ujOpReseedBarTime, TIME_DATE|TIME_MINUTES), s1g_seedBiasAl);
-         if(uj_m15r && uj_m15b == uj_wantb && s1g_seedBiasAl != 0)
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJPROV bar=%s dir=%s reseedBar=%s seedBiasAl=%d reseedDir=%d exempt=%d - reseed provenance at S2 edge (Fix CARRY)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), TimeToString(g_ujOpReseedBarTime, TIME_DATE|TIME_MINUTES), s1g_seedBiasAl, g_ujOpReseedDir, ((uj_m15r && uj_m15b == uj_wantb && (s1g_seedBiasAl != 0 || (g_ujOpReseedBarTime != 0 && g_ujOpReseedDir != 0 && g_ujOpReseedDir == (g_dir == DIR_LONG ? 1 : (g_dir == DIR_SHORT ? -1 : 0))))) ? 1 : 0));
+         if(uj_m15r && uj_m15b == uj_wantb && (s1g_seedBiasAl != 0 || (g_ujOpReseedBarTime != 0 && g_ujOpReseedDir != 0 && g_ujOpReseedDir == (g_dir == DIR_LONG ? 1 : (g_dir == DIR_SHORT ? -1 : 0)))))
            { double uj_ltfb = 0.0; int uj_ltfOk = ReadFlow(FL_BUF_LTF_BIAS, uj_ltfb, barShift) ? 1 : 0;
              int uj_m15s = (int)iTime(_Symbol, PERIOD_CURRENT, barShift);
              datetime uj_m15src = (datetime)(uj_m15s - uj_m15s % 900);
@@ -8441,7 +9427,16 @@ void EvaluateClosedBar(int barShift, datetime barTime)
        if(uj_sbConfC && !uj_sbConfH && (g_state == ST_S3_ZONE_WAIT || g_state == ST_S4_ARMED))
          {
           int uj_sbFromLine = g_anchorLine; ENUM_SRJ_DIR uj_sbFromDir = g_dir;
+          //--- [B200PARK] park the yielding holder (snapshot), then born-row the contender; kept swap below untouched
+          if(InpDebugLog)
+            {
+             B200ParkOld();
+             g_b200Born++;
+             double b200px = 0.0; ReadBuf1(g_hPoi, uj_sbLine, b200px, barShift);
+             B200PrintBorn(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, uj_sbDir, sess, barTime, uj_sbLine, b200px, barShift);
+            }
           g_anchorLine = uj_sbLine; g_dir = uj_sbDir;
+          SrjRowkeyClear(); SrjRowkeyUpdate(barShift);   //--- [B-78 hunk RK] contender swap clears + plants bar row
           ReadBuf1(g_hPoi, uj_sbLine, g_anchorPrice, barShift);
           g_anchorBarTime = barTime;
           g_zoneHi = 0.0; g_zoneLo = 0.0; g_touchSeen = false;
@@ -8455,6 +9450,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                          g_lineCode[uj_sbFromLine], DirName(uj_sbFromDir),
                          g_lineCode[uj_sbLine], DirName(uj_sbDir),
                          StateName(g_state), uj_sbTermC);
+            //--- [B-196 PRINT] slot event (print-only: pre-write read, no state, no gate)
+            if(InpDebugLog) PrintFormat("[SRJ-EA] B196SLOT bar=%s ev=YIELD src=S3Y oD=%s oL=%s oB=%s oS=%s nD=%s nL=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(uj_sbFromDir), g_lineCode[uj_sbFromLine], (g_anchorBarTime > 0 ? TimeToString(g_anchorBarTime, TIME_DATE|TIME_MINUTES) : "-"), StateName(g_state), DirName(uj_sbDir), g_lineCode[uj_sbLine]);
          }
        }
        //--- [v20 S-a] deferred-abort application (identity-keyed on anchor+dir+barTime; set in Fix F11 tail).
@@ -8463,8 +9460,35 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           if(uj_saA == g_anchorLine && uj_saD == (int)g_dir && uj_saT == g_anchorBarTime)
             {
              if(InpDebugLog) PrintFormat("[SRJ-EA] UJDEFERAPPLY bar=%s dir=%s poi=%s - deferred LTF abort applies, holder unchanged (Fix S-a)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr());
-             GoAbort(ABORT_LTF_MISALIGN, g_state);
-             return;
+              GoAbort(ABORT_LTF_MISALIGN, g_state);
+             //--- [B-61 C1] the formed setup is dead (row above; stamp cleared in
+             //--- ResetSequence). A fresh POI retest on this bar is NOT dropped
+             //--- with it: seed it as a new potential in the same pass (his
+             //--- 2026-10-07 ruling; the 5m read is checked at confirmation
+             //--- close per s11, never here).
+             PoiRetestResult uj60_pr;
+             bool uj60_found = DetectPoiRetest(barShift, uj60_pr) && uj60_pr.found;
+             if(uj60_found)
+               {
+                double uj60_ltfB = EMPTY_VALUE;
+                ReadFlow(FL_BUF_LTF_BIAS, uj60_ltfB, barShift);
+                if(InpDebugLog) PrintFormat("[SRJ-EA] B60POT bar=%s dir=%s poi=%s ltf=%s - fresh retest kept as potential despite 5m read ([B-61 C1])", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), (uj60_pr.isLong ? "LONG" : "SHORT"), g_lineCode[uj60_pr.topLine], (uj60_ltfB == EMPTY_VALUE ? "NA" : DoubleToString(uj60_ltfB, 1)));
+                s1g_legDir = uj60_pr.isLong ? 1 : -1;
+                g_s2_seedShift = barShift;
+                g_anchorLine = uj60_pr.topLine;
+                SrjRowkeyClear(); SrjRowkeyUpdate(barShift);   //--- [B-82] C1 reseed clears + plants bar row, same as the RKD reseed sites
+                g_dir = S2ResolveLive(uj60_pr.isLong ? DIR_LONG : DIR_SHORT);
+                SrjSideNote("DetectPoiRetest", g_dir);
+                g_anchorBarTime = barTime;
+                g_b61RetestTime = barTime;
+                ReadBuf1(g_hPoi, uj60_pr.topLine, g_anchorPrice, barShift);
+                g_sessionAtEntry = sess;
+                g_divLatch = false;
+                g_state = ST_S1_REGIME;
+                LogState(ST_ABORT, g_state);
+               }
+               return;
+              return;
             }
           else
             {
@@ -8475,6 +9499,28 @@ void EvaluateClosedBar(int barShift, datetime barTime)
 
    if(g_state == ST_S3_ZONE_WAIT)
      {
+      // [B215H3] S3 pre-pass 2-of-3 kill (same refusal S4 applies; PRE_BINDING still skips everything else; never at S5/B182DEC/entry/after).
+      if(g_state == ST_S3_ZONE_WAIT)
+        {
+         string b215_fail = CheckFreshness(barShift, true);
+         if(b215_fail != "")
+           {
+            double b215_ob = 0.0, b215_fv = 0.0, b215_op = 0.0;
+            bool b215_ro = ReadFlow(FL_BUF_LTF_OB_VALID, b215_ob, barShift);
+            bool b215_rf = ReadFlow(FL_BUF_LTF_FVG_VALID, b215_fv, barShift);
+            bool b215_rp = ReadFlow(FL_BUF_LTF_OPP_FVG, b215_op, barShift);
+            int b215_a1 = (b215_ro && (int)MathRound(b215_ob) == 0) ? 1 : 0;
+            int b215_a2 = (b215_rf && (int)MathRound(b215_fv) == 0) ? 1 : 0;
+            int b215_a3 = (b215_rp && (int)MathRound(b215_op) == 1) ? 1 : 0;
+            int b215_n = b215_a1 + b215_a2 + b215_a3;
+            if(InpDebugLog)
+               PrintFormat("[SRJ-EA] B215F1 date=%s bar=%s state=%s ob=%d fvg=%d opp=%d adverse=%d action=KILL_S3",
+                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE),
+                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                           StateName(g_state), b215_a1, b215_a2, b215_a3, b215_n);
+            GoAbort(b215_fail, g_state); return;
+           }
+        }
       double xobHi, xobLo, fvgHi, fvgLo;
 
       // [Task 105] Identity census at the S3 arming site. Same rationale as the
@@ -9046,23 +10092,30 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           string uj_carryTerm = "";
           double uj_carryM15 = 0.0;
           bool uj_carryR = ReadFlow(FL_BUF_HTF_LOW, uj_carryM15, barShift);
-          double uj_carryWant = (g_dir == DIR_LONG ? 1.0 : -1.0);
-          if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_carryTerm) && uj_carryR && uj_carryM15 == uj_carryWant)
-            {
-             if(InpDebugLog) PrintFormat("[SRJ-EA] UJCONFIRMCARRY bankBar=%s fireBar=%s dir=%s poi=%s term=%s m15=%s - same-bar retest+confirm, S4 armed and firing same pass (Fix G1)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), TimeToString(iTime(_Symbol, PERIOD_CURRENT, 0), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), uj_carryTerm, DoubleToString(uj_carryM15, 1));
-             ENUM_SRJ_STATE uj_cprev = g_state;
-             g_confirmFromState = uj_cprev;
-             g_state = ST_S5_GATE_CHECK;
-             LogState(uj_cprev, g_state);
-            }
+           double uj_carryWant = (g_dir == DIR_LONG ? 1.0 : -1.0);
+            int uj60_carryRSh = (g_b61RetestTime > 0 ? iBarShift(_Symbol, PERIOD_CURRENT, g_b61RetestTime, true) : -1);
+            if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, uj_carryTerm, false, uj60_carryRSh) && uj_carryR && uj_carryM15 == uj_carryWant)
+             {
+              if(SrjS54DeadAtConfirm(barShift))
+                { /* [B-68 hunk S] dead retest: S54KILL printed + aborted inside; S5 not entered */ }
+              else
+               {
+              if(InpDebugLog) PrintFormat("[SRJ-EA] UJCONFIRMCARRY bankBar=%s fireBar=%s dir=%s poi=%s term=%s m15=%s - same-bar retest+confirm, S4 armed and firing same pass (Fix G1)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), TimeToString(iTime(_Symbol, PERIOD_CURRENT, 0), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), uj_carryTerm, DoubleToString(uj_carryM15, 1));
+              ENUM_SRJ_STATE uj_cprev = g_state;
+              g_confirmFromState = uj_cprev;
+              g_state = ST_S5_GATE_CHECK;
+              LogState(uj_cprev, g_state);
+               }
+             }
         }
       else
         {
           if(InpDebugLog)
              PrintFormat("[SRJ-EA] %s S3 waiting: no qualifying zone",
                          TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS));
-          string cfTermZ = "";
-          bool cfPassZ = IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermZ);
+           string cfTermZ = "";
+           int uj60_preRSh = (g_b61RetestTime > 0 ? iBarShift(_Symbol, PERIOD_CURRENT, g_b61RetestTime, true) : -1);
+           bool cfPassZ = IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTermZ, false, uj60_preRSh);
           //--- [P-UJIMPL-IMPL-1 v8 IE2] direction-alignment guard above design-E1
           //--- (buffer 21 = M15 confirmed vote; F251 preserved, changing it re-scopes).
             if(!cfPassZ) {
@@ -9071,7 +10124,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
              if(!ReadFlow(FL_BUF_HTF_LOW, uj_m15, barShift)) uj_rf = 1;
              double uj_want = (g_dir == DIR_LONG ? 1.0 : -1.0);
              if(uj_rf == 1 || uj_m15 != uj_want)
-               { PrintFormat("[SRJ-EA] UJALIGN_NOMATCH bar=%s dir=%s m15=%s uj_readFail=%d", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1), uj_rf); return; }
+               { PrintFormat("[SRJ-EA] UJALIGN_NOMATCH bar=%s dir=%s m15=%s uj_readFail=%d reportOnly=1", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1), uj_rf); }   // B-31: report only - no banked pin (GATE-AUTHORIZATION), absent from the 7-take build d0589ef
+             else
              PrintFormat("[SRJ-EA] UJALIGN_PASS bar=%s dir=%s m15=%s", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1));
             }
             else
@@ -9094,16 +10148,21 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           string cfTermPB = cfTermZ;
           if(cfPassZ)
            {
-            ENUM_SRJ_STATE prevPB = g_state;
-            g_confirmFromState = prevPB;
-            g_state = ST_S5_GATE_CHECK;
-            LogState(prevPB, g_state);
-            if(InpDebugLog)
-               PrintFormat("[SRJ-EA] CONFIRM_PREBIND bar=%s dir=%s poi=%s",
-                           TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
-                                        TIME_DATE|TIME_MINUTES),
-                           DirName(g_dir), AnchorStr());
-            //--- no return: fall through to the ST_S5_GATE_CHECK block below
+            if(SrjS54DeadAtConfirm(barShift))
+              { /* [B-68 hunk S] dead retest: S54KILL printed + aborted inside; S5 not entered */ }
+            else
+             {
+             ENUM_SRJ_STATE prevPB = g_state;
+             g_confirmFromState = prevPB;
+             g_state = ST_S5_GATE_CHECK;
+             LogState(prevPB, g_state);
+             if(InpDebugLog)
+                PrintFormat("[SRJ-EA] CONFIRM_PREBIND bar=%s dir=%s poi=%s",
+                            TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
+                                         TIME_DATE|TIME_MINUTES),
+                            DirName(g_dir), AnchorStr());
+             //--- no return: fall through to the ST_S5_GATE_CHECK block below
+             }
            }
          else
            {
@@ -9211,6 +10270,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
                      DoubleToString(g_zoneLo, _Digits),
                      DoubleToString(g_zoneHi, _Digits),
                      (int)g_touchSeen);
+      bool uj_touchWasSeen = g_touchSeen;  //--- [B-7] touch state on entry to the gate (trial)
       if(!g_touchSeen)
         {
          bool oppositeDir = (g_dir == DIR_LONG) ? (c < o) : (c > o);
@@ -9218,7 +10278,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          if(oppositeDir && (!s35_fromFvg || touchesZone))
            { if(InpDebugLog) PrintFormat("[SRJ-EA] UJTOUCHSEEN evalBar=%s touchBar=%s dir=%s anchor=%s zoneTouch=%d", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), (g_anchorLine >= 0 ? g_lineCode[g_anchorLine] : "none"), (touchesZone ? 1 : 0)); g_touchSeen = true; g_touchBarHi = h; g_touchBarLo = l; }
         }
-      else
+      if(uj_touchWasSeen || !g_touchSeen)
+          if(!uj_touchWasSeen && !g_touchSeen) PrintFormat("[SRJ-EA] UJNOTOUCHCONFIRM bar=%s dir=%s zoneLo=%s zoneHi=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir), DoubleToString(g_zoneLo, _Digits), DoubleToString(g_zoneHi, _Digits));
         {
          //--- [P-UJIMPL-IMPL-1 v8 IE3] direction-alignment guard above design-E2
          //--- (touch book at 8786-8793 runs before it, no shadow).
@@ -9228,7 +10289,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
             if(!ReadFlow(FL_BUF_HTF_LOW, uj_m15, barShift)) uj_rf = 1;
             double uj_want = (g_dir == DIR_LONG ? 1.0 : -1.0);
             if(uj_rf == 1 || uj_m15 != uj_want)
-              { PrintFormat("[SRJ-EA] UJALIGN_NOMATCH bar=%s dir=%s m15=%s uj_readFail=%d", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1), uj_rf); return; }
+              { PrintFormat("[SRJ-EA] UJALIGN_NOMATCH bar=%s dir=%s m15=%s uj_readFail=%d reportOnly=1", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1), uj_rf); }   // B-31: report only - no banked pin (GATE-AUTHORIZATION), absent from the 7-take build d0589ef
+            else
             PrintFormat("[SRJ-EA] UJALIGN_PASS bar=%s dir=%s m15=%s", uj_bk, DirName(g_dir), DoubleToString(uj_m15, 1));
            }
          //--- [P-CONFIRM-GATE E2] the S4->S5 edge IS the confirmation predicate
@@ -9240,13 +10302,19 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          //--- later bar can present a fresh confirmation while the candidate is
          //--- alive and in-window. The touch fallback above STAYS (it sets
          //--- g_touchSeen - the retracement detection; unchanged).
-         string cfTerm = "";
-         if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTerm))
+          string cfTerm = "";
+          int uj60_s4RSh = (g_b61RetestTime > 0 ? iBarShift(_Symbol, PERIOD_CURRENT, g_b61RetestTime, true) : -1);
+          if(IsConfirmationCandle(barShift, g_anchorLine, g_dir, cfTerm, false, uj60_s4RSh))
            {
-            ENUM_SRJ_STATE prev = g_state;
-            g_confirmFromState = prev;
-            g_state = ST_S5_GATE_CHECK;
-            LogState(prev, g_state);
+            if(SrjS54DeadAtConfirm(barShift))
+              { /* [B-68 hunk S] dead retest: S54KILL printed + aborted inside; S5 not entered */ }
+            else
+             {
+             ENUM_SRJ_STATE prev = g_state;
+             g_confirmFromState = prev;
+             g_state = ST_S5_GATE_CHECK;
+             LogState(prev, g_state);
+             }
            }
          else if(InpDebugLog)
             PrintFormat("[SRJ-EA] CONFIRM_STRUCT_FAIL bar=%s dir=%s term=%s",
@@ -9287,6 +10355,58 @@ void EvaluateClosedBar(int barShift, datetime barTime)
           break;
          }
       }
+
+       //--- [B-130 DIAG] print-only latch census (locals + one print; no branch,
+       //--- assignment, return or call in the decision path is touched). Re-runs the
+       //--- identical newest-first walk into locals: decider = first nonzero verdict
+       //--- (matches divVal by construction); oppPassed = first opposite-direction
+       //--- nonzero after the latch shift (NA when the walk cannot pass one).
+       if(InpDebugLog)
+         {
+          int d130_d = 0, d130_ds = -1, d130_o = 0, d130_os = -1;
+          for(int d130_s = barShift; d130_s <= Bars(_Symbol, PERIOD_CURRENT) - 1; d130_s++)
+            {
+             double d130_w;
+             if(!ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, d130_w, d130_s)) continue;
+             if(d130_w == EMPTY_VALUE) continue;
+             int d130_vi = (int)MathRound(d130_w);
+             if(d130_vi == 0) continue;
+             d130_d = d130_vi; d130_ds = d130_s;
+             break;
+            }
+          if(d130_d != 0)
+            {
+             bool d130_dWith = ((g_dir == DIR_LONG && (d130_d == 1 || d130_d == 2)) || (g_dir == DIR_SHORT && (d130_d == -1 || d130_d == -2)));
+             if(d130_dWith)
+               {
+                for(int d130_s2 = d130_ds + 1; d130_s2 <= Bars(_Symbol, PERIOD_CURRENT) - 1; d130_s2++)
+                  {
+                   double d130_w2;
+                   if(!ReadBuf1(g_hCqd, CQD_BUF_DIVVERDICT, d130_w2, d130_s2)) continue;
+                   if(d130_w2 == EMPTY_VALUE) continue;
+                   int d130_v2 = (int)MathRound(d130_w2);
+                   if(d130_v2 == 0) continue;
+                   bool d130_w2With = ((g_dir == DIR_LONG && (d130_v2 == 1 || d130_v2 == 2)) || (g_dir == DIR_SHORT && (d130_v2 == -1 || d130_v2 == -2)));
+                   if(!d130_w2With) { d130_o = d130_v2; d130_os = d130_s2; break; }
+                  }
+               }
+            }
+          PrintFormat("[SRJ-EA] D130LATCH pass=%s confBar=%s dir=%s verdict=%d verdictBar=%s walkShift=%d oppPassed=%s oppBar=%s",
+                      TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS),
+                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                      DirName(g_dir), d130_d,
+                      (d130_ds >= 0 ? TimeToString(iTime(_Symbol, PERIOD_CURRENT, d130_ds), TIME_DATE|TIME_MINUTES) : "NA"),
+                      d130_ds,
+                      (d130_o != 0 ? IntegerToString(d130_o) : "NA"),
+                      (d130_os >= 0 ? TimeToString(iTime(_Symbol, PERIOD_CURRENT, d130_os), TIME_DATE|TIME_MINUTES) : "NA"));
+          //--- [B-196 PRINT] divergence census (print-only: reuses S5/D130 locals, no branch touched)
+          PrintFormat("[SRJ-EA] B196DIV bar=%s dir=%s kind=%s side=%s dbar=%s latch=%d",
+                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                      DirName(g_dir), divKind,
+                      ((divVal > 0) ? "bull" : ((divVal < 0) ? "bear" : "none")),
+                      (d130_ds >= 0 ? TimeToString(iTime(_Symbol, PERIOD_CURRENT, d130_ds), TIME_DATE|TIME_MINUTES) : "NA"),
+                      (int)g_divLatch);
+         }
        //--- [P-EVICT-1] divergence-miss disposition: refused S4-origin holders
        //--- ABORT (DIV_FALLBACK); S3 pre-bind rollback kept; other origins keep
        //--- today's behavior with unconditional census. LogAbort unconditional;
@@ -9344,6 +10464,68 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          LogState(prevDiv, ST_S4_ARMED);
          return;
         }
+
+       //--- [B153K] PROMO-RETURN gate (relay B-153 K4; additive, OR'd onto nothing).
+       //--- At the confirmation decision (S5, div decided above), read the
+       //--- trade-direction PROMO-RETURN value at the confirmation candle's closed
+       //--- bar via ReadFlow (settled-slot convention, same as buffers 22/23/33:
+       //--- the slot describes the bar under evaluation). Zone source reuses the
+       //--- EA's own idiom (XOBINPLAY line: haveFvg?"FVG":haveXob?"XOB":"none");
+       //--- an FVG-sourced confirmation needs no promotion (spec 3.5), so only an
+       //--- XOB-sourced confirmation with value 0 is refused. Every kept test below
+       //--- stays byte-identical (B129-KEEP-THE-KEPT-TERM).
+         {
+          double b153pr = 0.0;
+          int b153buf = (g_dir == DIR_LONG) ? FL_BUF_B150_BULL : FL_BUF_B150_BEAR;
+          double b153zHi = 0.0, b153zLo = 0.0, b153fHi = 0.0, b153fLo = 0.0;
+          bool b153haveXob = (ReadFlow(FL_BUF_XOB_ZONE_HIGH, b153zHi, barShift) && b153zHi != EMPTY_VALUE
+                           && ReadFlow(FL_BUF_XOB_ZONE_LOW, b153zLo, barShift) && b153zLo != EMPTY_VALUE);
+          bool b153haveFvg = (ReadFlow(FL_BUF_FVG_LEG_ZONE_HIGH, b153fHi, barShift) && b153fHi != EMPTY_VALUE
+                           && ReadFlow(FL_BUF_FVG_LEG_ZONE_LOW, b153fLo, barShift) && b153fLo != EMPTY_VALUE);
+          string b153zsrc = b153haveFvg ? "FVG" : (b153haveXob ? "XOB" : "none");
+          bool b153ok = ReadFlow(b153buf, b153pr, barShift);
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] B150GATE bar=%s dir=%s value=%s src=%s forbar=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                         DirName(g_dir),
+                         (b153ok ? DoubleToString(b153pr, 1) : "READFAIL"),
+                         b153zsrc,
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES));
+           if(b153zsrc == "XOB" && b153ok && b153pr < 0.5)
+             {
+              GoAbort(ABORT_PROMO_RETURN_NONE, g_state); return;
+             }
+          }
+
+        //--- [B-177 B177HZ] His-zone gate (relay B-177 K3; additive, OR'd onto nothing).
+        //--- At the confirmation decision (S5, div decided above, beside B153K):
+        //--- read the trade-side GAPTOUCH at the opposing candle's bar (B60C rt via
+        //--- g_b61RetestTime with the iBarShift idiom) and the trade-side XOBWIN at
+        //--- the confirmation bar via ReadFlow on the live handle only (settled-slot
+        //--- convention, same as B153K). Refuse when both read 0. Every pass prints
+        //--- one row. Both roads (S4-arm EA:9795 and PREBIND-jump EA:9637 fall-through)
+        //--- reach this S5-div block before any order.
+          {
+           double b177gt = 0.0, b177xw = 0.0;
+           int b177gtBuf = (g_dir == DIR_LONG) ? FL_BUF_HZ_GAP_BULL : FL_BUF_HZ_GAP_BEAR;
+           int b177xwBuf = (g_dir == DIR_LONG) ? FL_BUF_HZ_WIN_BULL : FL_BUF_HZ_WIN_BEAR;
+           int b177rtSh = (g_b61RetestTime > 0 ? iBarShift(_Symbol, PERIOD_CURRENT, g_b61RetestTime, true) : -1);
+           bool b177gtOk = (b177rtSh >= 0 && ReadFlow(b177gtBuf, b177gt, b177rtSh));
+           bool b177xwOk = ReadFlow(b177xwBuf, b177xw, barShift);
+           string b177rtS = (g_b61RetestTime > 0 ? TimeToString(g_b61RetestTime, TIME_DATE|TIME_MINUTES) : "-");
+           string b177verdict = ((b177gtOk && b177gt >= 0.5) || (b177xwOk && b177xw >= 0.5)) ? "PASS" : "HISZONE_NONE";
+           if(InpDebugLog)
+              PrintFormat("[SRJ-EA] B177HZ bar=%s dir=%s rt=%s gapTouch=%s xobWin=%s verdict=%s",
+                          TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                          DirName(g_dir), b177rtS,
+                          (b177gtOk ? DoubleToString(b177gt, 1) : "READFAIL"),
+                          (b177xwOk ? DoubleToString(b177xw, 1) : "READFAIL"),
+                          b177verdict);
+           if(b177verdict == "HISZONE_NONE")
+             {
+              GoAbort(ABORT_HISZONE_NONE, g_state); return;
+             }
+          }
 
       //--- [P-NEXTOPEN 2026-09-09, operator directive] The entry reference is
       //--- the NEXT candle's OPEN (the forming bar's open at this evaluation
@@ -10274,6 +11456,55 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          probe_sel = s1x_sel; probe_slLive = slRef; probe_s0slot = s1x_s0slot; probe_s0imb = s1x_s0imb; probe_s1slot = s1x_s1slot; probe_s1imb = s1x_s1imb; probe_s0px = s1x_s0px; probe_s1px = s1x_s1px; probe_bSaved = true;
         }
 
+       //--- [B157K] outward two-swing stop as the last word (relay B-157 K2, reopen key of B-156).
+       //--- S1-LIVE-STOPFIX-001 above reselects slRef at S5; this block runs after it, before the R gate,
+       //--- so on the two-swing branch the outward stop is what the R gate and the order read. S1X itself
+       //--- is untouched. Two-swing branch = 2xOB 1 AND imbalance invalid/absent (B-149 R2, spec 3.7).
+       //--- Only there slRef/slMode are replaced (NO_SECOND keeps the S1X value). Everything else kept.
+         {
+          double b157_2x = 0.0, b157_fvg = 0.0;
+          bool b157_2xOk = ReadFlow(FL_BUF_B156_2XOB, b157_2x, barShift);
+          bool b157_fvgOk = ReadFlow(FL_BUF_LTF_FVG_VALID, b157_fvg, barShift);
+          bool b157_two = (b157_2xOk && b157_2x == 1.0 && b157_fvgOk && b157_fvg < 0.5);
+          double b157_keptStop = slRef;
+          string b157_branch = b157_two ? "TWO" : "ONE_OR_NEITHER";
+          string b157_reason = "KEPT_PATH";
+          string b157_firstBTS = "-", b157_stopBTS = "-";
+          double b157_firstPx = 0.0, b157_stopPx = 0.0, b157_r = -1.0;
+          datetime b157_fBT = 0, b157_sBT = 0;
+          double b157_fPx = 0.0, b157_sPx = 0.0;
+          if(b157_two)
+            {
+             double b157_entry = (barShift >= 1) ? iOpen(_Symbol, PERIOD_CURRENT, barShift - 1) : 0.0;
+             if(b157_entry <= 0.0) b157_entry = iClose(_Symbol, PERIOD_CURRENT, barShift);
+             if(SrjWalkOutward2Swing(barShift, g_dir, b157_entry, b157_fBT, b157_fPx, b157_sBT, b157_sPx))
+               {
+                slRef = b157_sPx; slMode = SL_MODE_2SWING;
+                b157_reason = "TWO_WO";
+               }
+             else b157_reason = "NO_SECOND";
+             if(b157_fBT > 0)
+               { b157_firstBTS = TimeToString(b157_fBT, TIME_DATE|TIME_MINUTES); b157_firstPx = b157_fPx; }
+             if(b157_sBT > 0)
+               { b157_stopBTS = TimeToString(b157_sBT, TIME_DATE|TIME_MINUTES); b157_stopPx = b157_sPx; }
+            }
+          double b157_booked = slRef;
+          double b157_risk = (g_dir == DIR_LONG) ? (currentPrice - b157_booked) : (b157_booked - currentPrice);
+          double b157_rew = (g_dir == DIR_LONG) ? (tpTarget - currentPrice) : (currentPrice - tpTarget);
+          if(tpTarget > 0.0 && b157_risk > 0.0) b157_r = b157_rew / b157_risk;
+          if(InpDebugLog)
+             PrintFormat("[SRJ-EA] B157SL bar=%s side=%s flag2xOB=%s fvgValid=%s branch=%s first_bar=%s first_px=%s wo_stop_px=%s kept_stop_px=%s booked_stop_px=%s R_at_open=%.2f reason=%s",
+                         TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                         DirName(g_dir),
+                         (b157_2xOk ? DoubleToString(b157_2x, 1) : "READFAIL"),
+                         (b157_fvgOk ? DoubleToString(b157_fvg, 1) : "READFAIL"),
+                         b157_branch, b157_firstBTS,
+                         (b157_fBT > 0 ? DoubleToString(b157_firstPx, _Digits) : "-"),
+                         (b157_sBT > 0 ? DoubleToString(b157_sPx, _Digits) : "-"),
+                         DoubleToString(b157_keptStop, _Digits),
+                         DoubleToString(b157_booked, _Digits), b157_r, b157_reason);
+         }
+
        double slDist = MathAbs(currentPrice - slRef);
        double tpDist = MathAbs(tpTarget - currentPrice);
        bool tpOk = (slDist > 0.0 && (tpDist / slDist) >= InpMinRewardRisk);
@@ -10613,6 +11844,54 @@ void EvaluateClosedBar(int barShift, datetime barTime)
              Print(psLine);
             }
          }
+       //--- [B-18 5M-BIAS-AT-ENTRY] his rule, strategy skill section 11, W3 + W5 (2026-10-04): no entry against the 5m structure bias at the entry open; a flip counts from the breaking candle's close = next open.
+       {
+        bool al5 = false;
+        double al5ltf = EMPTY_VALUE;
+        bool al5ok = ReadFlow(FL_BUF_LTF_BIAS, al5ltf, 1) && CheckLtfAlign(1, g_dir, al5);
+        if(al5ok && !al5)
+          {
+           if(InpDebugLog) PrintFormat("[SRJ-EA] UJ5MENTRY_REFUSE bar=%s dir=%s anchor=%s ltf=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, 1), TIME_DATE|TIME_MINUTES), DirName(g_dir), AnchorStr(), DoubleToString(al5ltf, 1));
+           GoAbort(ABORT_LTF_MISALIGN, g_state);
+           return;
+          }
+        if(!al5ok && InpDebugLog) PrintFormat("[SRJ-EA] UJ5MENTRY_UNREAD bar=%s dir=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, 1), TIME_DATE|TIME_MINUTES), DirName(g_dir));
+       }
+        //--- B234EQ diagnostic (always restored, rules/51 L7): refuse when the latest touching candle opens on the anchor line
+        {
+         int b234ConfSh = barShift;
+         int b234RetSh = (g_b61RetestTime > 0 ? iBarShift(_Symbol, PERIOD_CURRENT, g_b61RetestTime, true) : -1);
+         int b234Sh = -1;
+         double b234Val = 0.0;
+         if(g_anchorLine >= 0 && b234RetSh >= b234ConfSh && b234RetSh >= 0)
+           {
+            for(int s = b234ConfSh; s <= b234RetSh; s++)
+              {
+               double b234L = 0.0;
+               if(!ReadBuf1(g_hPoi, g_anchorLine, b234L, s)) continue;
+               if(b234L == EMPTY_VALUE || b234L <= 0.0) continue;
+               bool b234Touch = false;
+               if(g_dir == DIR_LONG) b234Touch = (NormalizeDouble(iLow(_Symbol, PERIOD_CURRENT, s), _Digits) <= NormalizeDouble(b234L, _Digits));
+               else if(g_dir == DIR_SHORT) b234Touch = (NormalizeDouble(iHigh(_Symbol, PERIOD_CURRENT, s), _Digits) >= NormalizeDouble(b234L, _Digits));
+               if(InpDebugLog) PrintFormat("[SRJ-EA] [B237TD] bar=%s dir=%d raw=%.10f val=%s hi=%s lo=%s o=%s touch=%d", TimeToString(iTime(_Symbol,PERIOD_CURRENT,s)), g_dir, b234L, DoubleToString(b234L,_Digits), DoubleToString(iHigh(_Symbol,PERIOD_CURRENT,s),_Digits), DoubleToString(iLow(_Symbol,PERIOD_CURRENT,s),_Digits), DoubleToString(iOpen(_Symbol,PERIOD_CURRENT,s),_Digits), (b234Touch ? 1 : 0));
+               if(b234Touch) { b234Sh = s; b234Val = b234L; break; }
+              }
+           }
+         string b234Out = "PASS";
+         string b234Bar = TimeToString(iTime(_Symbol, PERIOD_CURRENT, b234ConfSh), TIME_DATE|TIME_MINUTES);
+         string b234Vs = "-";
+         string b234Os = "-";
+         if(b234Sh >= 0)
+           {
+            double b234Op = iOpen(_Symbol, PERIOD_CURRENT, b234Sh);
+            b234Bar = TimeToString(iTime(_Symbol, PERIOD_CURRENT, b234Sh), TIME_DATE|TIME_MINUTES);
+            b234Vs = DoubleToString(b234Val, _Digits);
+            b234Os = DoubleToString(b234Op, _Digits);
+            if(NormalizeDouble(b234Op, _Digits) == NormalizeDouble(b234Val, _Digits)) b234Out = "REFUSE";
+           }
+         if(InpDebugLog) PrintFormat("[SRJ-EA] [B234EQ] bar=%s dir=%s line=%s val=%s o=%s out=%s", b234Bar, DirName(g_dir), AnchorStr(), b234Vs, b234Os, b234Out);
+         if(b234Out == "REFUSE") { GoAbort("RETEST_OPEN_EQ", g_state); return; }
+        }
         LogSignal(tpTarget, tpR, slRef, slMode, divKind);
         if(InpDebugLog) A6Fired(barShift, tpTarget, tpR, slRef, slMode, divKind);   //--- [A6-HOOK] (ii)
         if(InpDebugLog) PrintFormat("[SRJ-EA] SIDE1F_WATCH bar=%s dir=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_dir));   //--- [SIDE1F] (iii) fire watch (read-only)
@@ -10665,7 +11944,8 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- (TP from the 8918 election, SL from the fire block slRef local pinned
       //--- here at the fire approach so post-election SL mutations are captured;
       //--- never a persistent global, never stale cross-pass).
-      if(!uj_memo_valid || uj_memo_barTime != barTime)
+      //--- [B-32 Hunk F] a memo written by another setup (other anchor line or direction) is absent for this pass: refill from the fire-local election.
+      if(!uj_memo_valid || uj_memo_barTime != barTime || uj_memo_anchor != g_anchorLine || uj_memo_dir != (int)g_dir)
         {
          double uj_fr = 0.0, uj_fw = 0.0, uj_fR = 0.0;
          string uj_fbk = TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES);
@@ -10676,6 +11956,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          uj_memo_anchor = g_anchorLine; uj_memo_dir = (int)g_dir; uj_memo_barTime = barTime;
          uj_memo_risk = uj_fr; uj_memo_reward = uj_fw; uj_memo_R = uj_fR;
          uj_memo_src = "FIRELOCAL";
+         if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_STORE bar=%s src=%s anchor=%d dir=%s", TimeToString(barTime, TIME_DATE|TIME_MINUTES), uj_memo_src, uj_memo_anchor, DirName((ENUM_SRJ_DIR)uj_memo_dir));
          uj_memo_wsrc = uj_winnerSource; uj_memo_wday = uj_winnerDayKey;
          uj_memo_wgen = uj_winnerPoolGen; uj_memo_wage = UjDayDiff(barTime, uj_winnerDayKey);
         }
@@ -10694,7 +11975,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          if(!uj_memo_valid || uj_memo_barTime != barTime || uj_memo_tp <= 0.0 || uj_memo_sl <= 0.0)
            { if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_FAIL bar=%s reason=NO_MEMO_AT_FIRE src=%s", uj_bk9, uj_memo_src); GoAbort(ABORT_NO_MEMO_AT_FIRE, g_state); return; }
          if(uj_memo_anchor != g_anchorLine || uj_memo_dir != (int)g_dir)
-           { if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_FAIL bar=%s reason=IDENTITY src=%s", uj_bk9, uj_memo_src); GoAbort(ABORT_MEMO_IDENTITY, g_state); return; }
+           { if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_FAIL bar=%s reason=IDENTITY src=%s memoAnchor=%d memoDir=%s liveAnchor=%d liveDir=%s memoBar=%s", uj_bk9, uj_memo_src, uj_memo_anchor, DirName((ENUM_SRJ_DIR)uj_memo_dir), g_anchorLine, DirName(g_dir), TimeToString(uj_memo_barTime, TIME_DATE|TIME_MINUTES)); GoAbort(ABORT_MEMO_IDENTITY, g_state); return; }
          if(InpDebugLog) PrintFormat("[SRJ-EA] UJMEMO_PASS bar=%s admit_key=%s:%I64d entry=%s tp=%s sl=%s R=%.2f src=%s wsrc=%s wday=%s wgen=%d", uj_bk9, uj_bk9, uj_tradeSeqNext, DoubleToString(uj_memo_entry, _Digits), DoubleToString(uj_memo_tp, _Digits), DoubleToString(uj_memo_sl, _Digits), uj_memo_R, uj_memo_src, uj_memo_wsrc, uj_memo_wday, uj_memo_wgen);
         }
       g_mtrade.active            = true;
@@ -10707,10 +11988,15 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       g_mtrade.entryPrice        = currentPrice;
       g_mtrade.slRef             = slRef;
       g_mtrade.tpRef             = tpTarget;
+      g_mtrade.tpPoi             = -1;
+      for(int b191_li = 0; b191_li < POI_NLINES; b191_li++)
+        { if(g_lineCode[b191_li] == uj_winnerSource) { g_mtrade.tpPoi = b191_li; break; } }
       g_mtrade.regimeAtAdmission = (int)g_regime;
       g_mtrade.fillBarTime       = iTime(_Symbol, PERIOD_CURRENT, 0);
       g_mtrade.signalBarTime     = iTime(_Symbol, PERIOD_CURRENT, barShift);
       g_mtrade.exitReason        = MT_EXIT_NONE;
+      //--- [B-170 WINLINE] freeze the session+direction held set as the trade's entry lines.
+      WinlineFreeze(g_dir, WlSessIdx(g_sessionAtEntry), barTime);
       if(InpDebugLog)
          PrintFormat("[SRJ-EA] MTSNAP bar=%s dir=%s anchor=%s entry=%s sl=%s tp=%s regime=%d",
                      TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift),
@@ -10725,6 +12011,7 @@ void EvaluateClosedBar(int barShift, datetime barTime)
       //--- publication of the admission key {uj_bar_key, tradeSeq} + poolGen chain).
       g_mtrade.uj_admitBarTime = barTime;
       g_ujOpReseedBarTime = 0;
+      g_ujOpReseedDir = 0;
       g_mtrade.uj_tradeSeq = uj_tradeSeqNext; uj_tradeSeqNext++;
        uj_admitCount++;
          uj_fireWsrc = uj_winnerSource; uj_fireWday = uj_winnerDayKey;
@@ -10734,6 +12021,27 @@ void EvaluateClosedBar(int barShift, datetime barTime)
          PrintFormat("[SRJ-EA] UJADMIT bar_key=%s trade_seq=%I64d admit_bar=%s entry=%s sl=%s tp=%s R=%.2f poolGen=%d wsrc=%s wday=%s wage=%d", uj_abk, g_mtrade.uj_tradeSeq, TimeToString(barTime, TIME_DATE|TIME_MINUTES), DoubleToString(currentPrice, _Digits), DoubleToString(slRef, _Digits), DoubleToString(tpTarget, _Digits), uj_fireR, uj_fireWgen, uj_fireWsrc, uj_fireWday, uj_fireWage);
         }
 
+      //--- [B200GUARD] one-take choice at the order step (B177; after last write EA:11534): a second
+      //--- signal in an already-used session is refused and the loser printed; the first signal passes untouched
+      if(SessionAlreadyUsed(g_sessionAtEntry, barTime))
+        {
+         if(InpDebugLog)
+            B200PrintPot(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, "END", "ONE_TAKE_LOST", "ONE-TAKE|84",
+                         g_anchorLine, g_dir, g_state, barShift, "ON-FILE", g_regime);
+         g_b200EndOneTake++;
+         GoAbort(ABORT_ONE_TAKE_LOST, g_state); return;
+        }
+      //--- [B200POT] ORDER row for the passing take (latched signal values; gates per B60C/TP_ELECT/D130 on file)
+      if(InpDebugLog)
+         PrintFormat("[SRJ-EA] B200POT bar=%s slot=0 ev=ORDER class=ORDER rule=SETUP-DEFINED|53 side=%s line=%s entry=%s sl=%s tp=%s R=%s reg=%s divLatch=%d",
+                     TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                     DirName(g_dir), (g_anchorLine < 0 ? "-" : g_lineCode[g_anchorLine]),
+                     DoubleToString(g_latchedEntry, _Digits), DoubleToString(g_latchedSl, _Digits),
+                     DoubleToString(g_latchedTp, _Digits), DoubleToString(g_latchedR, 2),
+                     RegimeName(g_regime), (g_divLatch ? 1 : 0));
+       B201PrintFrom(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, g_anchorBarTime, g_anchorLine, g_dir, g_anchorPrice, g_b61RetestTime, barShift, g_state);
+       B201PrintTo(TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), 0, "ORDER", DoubleToString(g_latchedEntry,_Digits)+"|"+DoubleToString(g_latchedSl,_Digits)+"|"+DoubleToString(g_latchedTp,_Digits)+"|"+DoubleToString(g_latchedR,2), "SETUP-DEFINED|53", barShift, g_anchorLine, g_dir, g_state);
+      g_b200EndOrder++;
       if(InpMode == MODE_ALERT_ONLY)
         {
          PrintFormat("[SRJ-EA] ALERT_ONLY mode - no order sent. Session %s marked used.",
@@ -11106,6 +12414,7 @@ void SrjNewsOnBar(const datetime barTime)
 int OnInit()
   {
    InitAuthorityTable();
+   PrintFormat("[SRJ-EA] B192TAG build=B192K tk=1 lx=1 tf=1"); //--- [B192TAG] build tag (print-only)
 
    if(!(bool)MQLInfoInteger(MQL_TESTER)) TC_DetectServerOffset();
    TC_DetectServerOffsetNow();
@@ -11159,7 +12468,7 @@ int OnInit()
    PrintFormat("[SRJ-EA] CQD handle=%d err=%d", g_hCqd, GetLastError());
    ResetLastError();
    g_hFlow = iCustom(_Symbol, PERIOD_CURRENT, InpFlowLogicName,
-                     1, InpFL_HtfLookbackBars,
+                     "", 1, InpFL_HtfLookbackBars,   // B-29: "" fills the FlowLogic input group "HTF Automation" slot
                      //--- [P-UJIMPL-IMPL-1 v8 IE1] confirmed selection (F252
                      //--- inUseConfirmedHTFOnly; EU preservation sibling row
                      //--- grades the global effect).
@@ -11650,7 +12959,7 @@ bool MtNearestTpTarget(const int barShift, const ENUM_SRJ_DIR dir,
    for(int i = 0; i < ArraySize(sessbufs); i++)
      {
       double v;
-      if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask))
+      if(ReadFlow(sessbufs[i], v, barShift) && !TpSessionLevelFiltered(i, s39_mask) && !B190TakenBad(i, v, dir, barShift))
          TpTargetUpdateBest(v, dir, currentPrice, best, haveBest, uj_sname[i], uj_dk, -1);
      }
    //--- [P-UJIMPL-IMPL-1 v8 IE5b] managed-side pool loop (same cache + entry;
@@ -11893,6 +13202,7 @@ void EvaluateManagedTrade(const int barShift)
 
    //--- ALL verdicts computed first (instrumentation-first)
 bool   vSL = false, vTP = false, vBREAK = false, vHTF = false, vDAY = false;
+   bool   brkKeptSrc = false, brkOwnSrc = false;   //--- [B-136 BRK-OWNBODY] which break test fired this pass
    double curTp = 0.0;
    bool   haveTp = MtNearestTpTarget(barShift, g_mtrade.dir, nextOpenPx, curTp);
    double breakLineVal = 0.0;
@@ -11915,15 +13225,91 @@ bool   vSL = false, vTP = false, vBREAK = false, vHTF = false, vDAY = false;
          {
           double uj_oldRef = g_mtrade.tpRef;
           g_mtrade.tpRef = uj_rtPx;
+           g_mtrade.tpPoi = -1; //--- POI memo cleared on session retarget (B-192, REVISION-SOURCE-ONLY)
+          //--- [B-37 BROKER-RETARGET] his RETARGET (strategy s9 line 121) + EXACT-PRICE-NO-LENIENCY (s5 line 78):
+          //--- the revised target is the exit price, and SL/TP are broker-owned (P-EXITEXEC-1), so the broker TP
+          //--- moves with the retarget. Same send policy as MtCloseBrokerPosition (tester EXECUTE only).
+          if(InpMode != MODE_EXECUTE || MQLInfoInteger(MQL_TESTER) == 0)
+            {
+             if(InpDebugLog) PrintFormat("[SRJ-EA] UJRETARGET_BROKER bar=%s action=SKIP-NO-SEND mode=%d tester=%d newTp=%s",
+                TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES),
+                (int)InpMode, (int)MQLInfoInteger(MQL_TESTER), DoubleToString(g_mtrade.tpRef, _Digits));
+            }
+          else
+            {
+             ulong uj_rbT = MtPidToTicket(g_mtrade.entryPid);
+             if(uj_rbT == 0 || !PositionSelectByTicket(uj_rbT))
+                PrintFormat("[SRJ-EA] UJRETARGET_BROKER bar=%s action=NO_TICKET pid=%I64d",
+                   TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), g_mtrade.entryPid);
+             else
+               {
+                double uj_rbSl  = PositionGetDouble(POSITION_SL);
+                double uj_rbOld = PositionGetDouble(POSITION_TP);
+                double uj_rbNew = NormalizeDouble(g_mtrade.tpRef, _Digits);
+                bool   uj_rbOk  = g_trade.PositionModify(uj_rbT, uj_rbSl, uj_rbNew);
+                uint   uj_rbRc  = g_trade.ResultRetcode();
+                PrintFormat("[SRJ-EA] UJRETARGET_BROKER bar=%s ticket=%I64u oldTp=%s newTp=%s sl=%s ok=%d rc=%u action=%s",
+                   TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), uj_rbT,
+                   DoubleToString(uj_rbOld, _Digits), DoubleToString(uj_rbNew, _Digits), DoubleToString(uj_rbSl, _Digits),
+                   (int)uj_rbOk, uj_rbRc, ((uj_rbOk && uj_rbRc == TRADE_RETCODE_DONE) ? "SENT" : "MODIFY_FAIL"));
+               }
+            }
           if(InpDebugLog) PrintFormat("[SRJ-EA] UJRETARGET bar=%s dir=%s old=%s sess=%d tp=%s seq=%I64d admit=%s - session-close retarget (Fix R)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_mtrade.dir), DoubleToString(uj_oldRef, _Digits), g_mtrade.sessionAtEntry, DoubleToString(g_mtrade.tpRef, _Digits), (long)g_mtrade.uj_tradeSeq, TimeToString(g_mtrade.uj_admitBarTime, TIME_DATE|TIME_MINUTES));
          }
        else if(InpDebugLog && uj_rtPx > 0.0) PrintFormat("[SRJ-EA] UJNORETARGET bar=%s dir=%s tp=%s rt=%s why=%s sess=%d seq=%I64d admit=%s - helper true but not tighter (Fix R)", TimeToString(iTime(_Symbol, PERIOD_CURRENT, barShift), TIME_DATE|TIME_MINUTES), DirName(g_mtrade.dir), DoubleToString(g_mtrade.tpRef, _Digits), DoubleToString(uj_rtPx, _Digits), (NormalizeDouble(uj_rtPx, _Digits) == NormalizeDouble(g_mtrade.tpRef, _Digits) ? "eq" : "loose"), g_mtrade.sessionAtEntry, (long)g_mtrade.uj_tradeSeq, TimeToString(g_mtrade.uj_admitBarTime, TIME_DATE|TIME_MINUTES)); // helper-true discriminator
       }
+    //--- [B192TF] take-profit follows the booked POI line while floating (B-192; R1c BROKER-TP: the fill comes from the broker TP set at entry, so the live line must move it; session/pool/retarget bookings tpPoi=-1 untouched; stop never touched; a line's own move never exits Q3/5.2)
+    if(g_mtrade.tpPoi >= 0 && g_mtrade.tpPoi < POI_NLINES)
+      {
+       double b192_v = EMPTY_VALUE;
+       if(ReadBuf1(g_hPoi, g_mtrade.tpPoi, b192_v, 0) && b192_v != EMPTY_VALUE && b192_v > 0.0)
+         {
+          double b192_cur0 = iOpen(_Symbol, PERIOD_CURRENT, 0);
+          bool b192_ahead0 = (g_mtrade.dir == DIR_LONG) ? (b192_v > b192_cur0) : (b192_v < b192_cur0);
+          double b192_px = (g_mtrade.dir == DIR_LONG) ? SymbolInfoDouble(_Symbol, SYMBOL_BID) : SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+          bool b192_aheadPx = (g_mtrade.dir == DIR_LONG) ? (b192_v > b192_px) : (b192_v < b192_px);
+          if(b192_ahead0 && b192_aheadPx && InpMode == MODE_EXECUTE && MQLInfoInteger(MQL_TESTER) != 0)
+            {
+             ulong b192_t = MtPidToTicket(g_mtrade.entryPid);
+             if(b192_t != 0 && PositionSelectByTicket(b192_t))
+               {
+                double b192_sl = PositionGetDouble(POSITION_SL);
+                double b192_old = PositionGetDouble(POSITION_TP);
+                double b192_new = NormalizeDouble(b192_v, _Digits);
+                if(NormalizeDouble(b192_old, _Digits) != b192_new)
+                  {
+                   bool b192_ok = g_trade.PositionModify(b192_t, b192_sl, b192_new);
+                   uint b192_rc = g_trade.ResultRetcode();
+                   if(b192_ok && b192_rc == TRADE_RETCODE_DONE)
+                      PrintFormat("[SRJ-EA] B192TF bar=%s t=%s dir=%s line=%s old=%s new=%s px=%s", TimeToString(iTime(_Symbol, PERIOD_CURRENT, 0), TIME_DATE|TIME_MINUTES), TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS), (g_mtrade.dir == DIR_SHORT ? "S" : "L"), g_lineCode[g_mtrade.tpPoi], DoubleToString(b192_old, _Digits), DoubleToString(b192_new, _Digits), DoubleToString(b192_px, _Digits));
+                   else
+                      PrintFormat("[SRJ-EA] B192TF bar=%s t=%s dir=%s line=%s old=%s new=%s px=%s action=MODIFY_FAIL rc=%u", TimeToString(iTime(_Symbol, PERIOD_CURRENT, 0), TIME_DATE|TIME_MINUTES), TimeToString(TimeCurrent(), TIME_DATE|TIME_SECONDS), (g_mtrade.dir == DIR_SHORT ? "S" : "L"), g_lineCode[g_mtrade.tpPoi], DoubleToString(b192_old, _Digits), DoubleToString(b192_new, _Digits), DoubleToString(b192_px, _Digits), b192_rc);
+                  }
+               }
+            }
+         }
+      }
     bool tpBookedTouch = false;
+    //--- [B191LX] live-line touch for booked POC/VWAP targets (spec 2/5.1-5.2 + Q3; session targets keep the booked test)
     if(g_mtrade.tpRef != EMPTY_VALUE && g_mtrade.tpRef > 0.0)
       {
-       if(g_mtrade.dir == DIR_LONG  && h >= g_mtrade.tpRef) tpBookedTouch = true;
-       if(g_mtrade.dir == DIR_SHORT && l <= g_mtrade.tpRef) tpBookedTouch = true;
+       double b191_live = EMPTY_VALUE;
+       if(g_mtrade.tpPoi >= 0 && g_mtrade.tpPoi < POI_NLINES
+          && ReadBuf1(g_hPoi, g_mtrade.tpPoi, b191_live, barShift)
+          && b191_live != EMPTY_VALUE && b191_live > 0.0)
+         {
+          bool b191_ahead = (g_mtrade.dir == DIR_LONG) ? (b191_live > o) : (b191_live < o);
+          if(b191_ahead)
+            {
+             if(g_mtrade.dir == DIR_LONG  && h >= b191_live) tpBookedTouch = true;
+             if(g_mtrade.dir == DIR_SHORT && l <= b191_live) tpBookedTouch = true;
+            }
+         }
+       else
+         {
+          if(g_mtrade.dir == DIR_LONG  && h >= g_mtrade.tpRef) tpBookedTouch = true;
+          if(g_mtrade.dir == DIR_SHORT && l <= g_mtrade.tpRef) tpBookedTouch = true;
+         }
       }
     bool tpRecomputeTouch = false;
     if(haveTp)
@@ -11958,29 +13344,61 @@ bool   vSL = false, vTP = false, vBREAK = false, vHTF = false, vDAY = false;
          else                          through = (bodyHi > L + EPS);
         }
        bool isTrigger = MtIsBreakTrigger(k);
+        //--- [B-136 BRK-OWNBODY] own-body break, OR'd onto the kept test: side by
+        //--- the closed candle's own open, through by its own close; same strict
+        //--- EPS form as the kept through-test, same trigger and rank gates.
+        bool ownBehind = (g_mtrade.dir == DIR_LONG)  ? (L < o)
+                                                      : (L > o);
+        bool ownThrough = false;
+        if(ownBehind)
+          {
+           if(g_mtrade.dir == DIR_LONG)  ownThrough = (c < L - EPS);
+           else                          ownThrough = (c > L + EPS);
+          }
+        bool ownRankPass = (g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES && g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine]);
+        bool ownBrk = (isTrigger && ownBehind && ownThrough && ownRankPass);
        //--- [P-SLDEF-1b E19] exit-site pairing: the line verdict is known here.
        //--- Strictness says equality never sets `through`, so every paired
        //--- instance is expected ok (survived); a BREAK coincidence reports inv.
        if(bodyLo == L || bodyHi == L)
          { if(isTrigger && behind && through) g_n1_exitBodyInv++; else g_n1_exitBodySurv++; }
-       if(InpDebugLog)
-         PrintFormat("[SRJ-EA] EXITCENSUS bar=%s dir=%s line=%s val=%s side=%s "
-                     "trigger=%d bodyLo=%s bodyHi=%s verdict=%s",
-                     TimeToString(barTime, TIME_DATE|TIME_MINUTES),
-                     DirName(g_mtrade.dir),
-                     g_lineCode[k], DoubleToString(L, _Digits),
-                     (behind ? "behind" : "ahead"),
-                     (int)isTrigger,
-                     DoubleToString(bodyLo, _Digits),
-                     DoubleToString(bodyHi, _Digits),
-                     (isTrigger && behind && through) ? "BREAK" : "ok");
-      //--- [P-EXITRANK-6] anchor-rank gate (his 2026-09-23 rule: same-line cross never exits; only HIGHER-authority breaks exit; lower number = higher authority; amends charter 9.1(2) same-line case, supersedes E3).
-      if(isTrigger && behind && through && !vBREAK && g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES && g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine])
-        {
-         vBREAK = true;
-         breakLineVal  = L;
-         breakLineName = g_lineCode[k];
-        }
+        if(InpDebugLog)
+           PrintFormat("[SRJ-EA] EXITCENSUS bar=%s dir=%s line=%s val=%s side=%s "
+                       "trigger=%d bodyLo=%s bodyHi=%s verdict=%s ownO=%s ownC=%s ownBrk=%d exempt=%d",
+                       TimeToString(barTime, TIME_DATE|TIME_MINUTES),
+                       DirName(g_mtrade.dir),
+                       g_lineCode[k], DoubleToString(L, _Digits),
+                       (behind ? "behind" : "ahead"),
+                       (int)isTrigger,
+                       DoubleToString(bodyLo, _Digits),
+                       DoubleToString(bodyHi, _Digits),
+                       ((isTrigger && behind && through) || ownBrk) ? "BREAK" : "ok",
+                       DoubleToString(o, _Digits),
+                       DoubleToString(c, _Digits),
+                       (int)ownBrk,
+                       (int)WinlineFrozenExempt(k));
+       //--- [P-EXITRANK-6] anchor-rank gate (his 2026-09-23 rule: same-line cross never exits; only HIGHER-authority breaks exit; lower number = higher authority; amends charter 9.1(2) same-line case, supersedes E3).
+       //--- [B-170 WINLINE] a frozen entry line is treated as the entry-anchor line (no vBREAK); every other line keeps its kept behaviour.
+       bool wlExempt = WinlineFrozenExempt(k);
+       if(isTrigger && behind && through && !vBREAK && !wlExempt && g_mtrade.anchorLine >= 0 && g_mtrade.anchorLine < POI_NLINES && g_authorityRank[k] < g_authorityRank[g_mtrade.anchorLine])
+         {
+          vBREAK = true;
+          breakLineVal  = L;
+          breakLineName = g_lineCode[k];
+          brkKeptSrc = true;
+         }
+        //--- [B-136 BRK-OWNBODY] own-body gate: same trigger and rank gates; first
+        //--- BREAK (kept or own) names the line, both sources are recorded for src=.
+        if(ownBrk && !wlExempt)
+          {
+          brkOwnSrc = true;
+          if(!vBREAK)
+            {
+             vBREAK = true;
+             breakLineVal  = L;
+             breakLineName = g_lineCode[k];
+            }
+         }
      }
 
    //--- (e) section 5.6: the HTF aggregate flip exits TREND-following trades
@@ -12012,6 +13430,11 @@ if(!vSL && !vTP && !vBREAK && !vHTF && g_news_init)
    for(int dc = 0; dc < g_news_dayN; dc++)
      {
       if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] && g_news_dayMarks[dc] <= barTime) { vDAY = true; break; }
+      //--- [B-33 Hunk D] re-applied verbatim from d0589ef (P-DAY2355-1 E1); dropped by the 2026-09-26 revert to D74FE972.
+      //--- [P-DAY2355-1] his 23:55-open rule 2026-09-25: the mark bar (23:55) only
+      //--- closes after the boundary (weekend: Monday), so qualify one bar early -
+      //--- at this evaluation (Friday 23:55:00) the mark sits inside the next bar.
+      if(g_mtrade.fillBarTime <= g_news_dayMarks[dc] && g_news_dayMarks[dc] <= barTime + PeriodSeconds()) { vDAY = true; break; }
      }
   }
 
@@ -12034,18 +13457,28 @@ if(!(vSL || vTP || vBREAK || vHTF || vDAY)) return;
    g_mtrade.state       = MT_CLOSED;
    g_mtrade.exitBarTime = barTime;
    if(vSL)         { g_mtrade.exitReason = MT_EXIT_SL;             g_mtrade.exitPrice = g_mtrade.slRef; }
-    else if(vTP)    { g_mtrade.exitReason = MT_EXIT_TP_TOUCH;       g_mtrade.exitPrice = g_mtrade.tpRef; }
+    else if(vTP)
+      {
+       double b191_xp = g_mtrade.tpRef;
+       double b191_lv = EMPTY_VALUE;
+       if(g_mtrade.tpPoi >= 0 && g_mtrade.tpPoi < POI_NLINES
+          && ReadBuf1(g_hPoi, g_mtrade.tpPoi, b191_lv, barShift)
+          && b191_lv != EMPTY_VALUE && b191_lv > 0.0)
+          b191_xp = b191_lv;
+       g_mtrade.exitReason = MT_EXIT_TP_TOUCH; g_mtrade.exitPrice = b191_xp;
+      }
    else if(vBREAK) { g_mtrade.exitReason = MT_EXIT_POI_BODY_BREAK; g_mtrade.exitPrice = nextOpenPx; }
    else if(vHTF)   { g_mtrade.exitReason = MT_EXIT_HTF_FLIP;       g_mtrade.exitPrice = nextOpenPx; }
    else if(vDAY)   { g_mtrade.exitReason = MT_EXIT_DAY_CLOSE;  g_mtrade.exitPrice = nextOpenPx; }
 
-    PrintFormat("[SRJ-EA] MTEXIT bar=%s reason=%s line=%s lineVal=%s entry=%s exit=%s",
+    PrintFormat("[SRJ-EA] MTEXIT bar=%s reason=%s line=%s lineVal=%s entry=%s exit=%s src=%s",
                 TimeToString(barTime, TIME_DATE|TIME_MINUTES),
                 MtExitName(g_mtrade.exitReason),
                 (vBREAK ? breakLineName : "-"),
                 (vBREAK ? DoubleToString(breakLineVal, _Digits) : "-"),
                 DoubleToString(g_mtrade.entryPrice, _Digits),
-                DoubleToString(g_mtrade.exitPrice, _Digits));
+                DoubleToString(g_mtrade.exitPrice, _Digits),
+                (g_mtrade.exitReason == MT_EXIT_POI_BODY_BREAK ? ((brkKeptSrc && brkOwnSrc) ? "BOTH" : (brkOwnSrc ? "OWNBODY" : "NEXTOPEN")) : "-"));
     //--- [P-EXITEXEC-1 E7] execution legs: SL/TP broker-owned, HTF stays off,
     //--- CANCEL_BIAS returned above - only the WINNING BREAK/DAY_CLOSE verdict closes.
     //--- Price reference = g_mtrade.exitPrice (= nextOpenPx on the gated legs per EA 11290/11292); paper MTEXIT/MTLIFE/EXIT rows print regardless.
