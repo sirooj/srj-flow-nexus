@@ -128,4 +128,5 @@ B-235-RETRUTH-REGRADE: when his ruling changes a register row, re-grade committe
 B-237-CUT-LINES: day-log lines carry no per-line numbers (2-letter code first); number cut rows by PRE_JOURNAL_LINES plus cut-relative offset.
 B-245: a missing input or code defect is built through in the same relay; never a STOP or a question to him.
 B-246-LEG-NOT-RENEWAL: a fresh gap or block never restarts his leg (8 Sep 9:20 XOB in play at 17:00); only a 5m flip can.
+B-252-BINARY-IS-THE-BUILD (B-252, 2026-10-17/18): saved .ex5 copies replayed with a pinned input set byte-reproduce every reference run - binaries + input set fully decide deals; the y-night vs tonight difference was the terminal-held CQD name (SRJ_CQD_TickBased_MT5_B250H), never the compile. Every run ini must pin every terminal-held input; future keeps store the full include set with the run (31 rows, 06_HANDOFFS/REPORT/INCLUDES_B252.csv).
 B248B-CONFIRM-NEXT-CLOSE (B-248B): a swing counts only after the candle after its middle closes.
