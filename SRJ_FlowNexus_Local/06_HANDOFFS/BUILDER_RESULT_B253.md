@@ -14,3 +14,5 @@ Parts:
 - Restore (T6): EA src/ex5 18a1d49b/d85cf7d2 520,964; terminal.ini 2862b31f; Flow/CQD/POI ex5 61177aa5/90d3ef87/04fcd8a5; charts mirror-exact 37/1,679,192 (3 run-era saves quarantined Temp srj-quar-charts-b253); no terminal64.
 
 Carried note for you (trader words): the three machine-only takes above are NEW and need your grade verdicts (M20 10 Aug 09:50 long 1.15542 / M22 11 Aug 14:40 long 1.15386 / M24 24 Aug 18:40 long 1.16689 — 10 Aug + 24 Aug carry hidden-vs-candle CQD pairs; the M12 19 June pair repeat stays exactly as before, never re-asked).
+
+Housekeeping manifest (executed after the push verified, per the standing order): deleted Tester\logs\20261017.log (8,720,848,370 B) and Tester\logs\20261018.log (1,427,648,862 B) — segments survive in CUT_RECON62-B253.log (153,004,629 B) + CUT_EU0525TD-B253.log (556,556,855 B, both kept in 00_CURRENT_WORKING). Disk after: C 14.6 GB, D 66.2 GB free. Chart saves in Temp awaiting YOUR deletion word: srj-quar-charts-b253\Default (3 files from this run) and srj-quar-charts-b252\Default (6 files from B-252). Kept for the next retry: .B253K (4d5fd60f/3f9045cc) + .preB253 (18a1d49b/d85cf7d2).
