@@ -1,0 +1,5 @@
+date,side,old_entry,new_entry,verdict,x2_candle,latched_at,result_note
+2026-08-10,buy,none (no take in baseline),09:50 open 1.15542,hidden bullish +2,09:40,09:50:00 pass (B253DR promo),NEW MACHINE-ONLY TAKE M20 (exit 10:37 1.15590); his replay-vs-candle trade terms unresolved; review
+2026-08-11,buy,none (no take in baseline),14:40 open 1.15386,regular bullish +1,14:30,14:40:01 pass (B253DR promo),NEW MACHINE-ONLY TAKE M22 (exit 15:23 1.15343); review
+2026-08-24,buy,none (no take in baseline),18:40 open 1.16689,hidden bullish +2,18:30,18:40:00 pass (B253DR promo),NEW MACHINE-ONLY TAKE M24 (exit 18:52 1.16663); review
+2026-06-19,buy,15:50 open 1.14654 (unchanged),15:50 open 1.14654,hidden bullish +2,15:35,15:45:01 pass FAILED TO TRIGGER (cfTerm=A_OPP, helper gate refused B_BODY-only),THE TARGET CASE DID NOT MOVE - K19JUN stays MISSING, verdict RESTORED
